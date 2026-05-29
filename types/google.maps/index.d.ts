@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.64
+// Google Maps JS API Version: 3.65
 // tslint:disable:enforce-name-casing
 // tslint:disable:no-any
 // tslint:disable:interface-over-type-literal
@@ -5933,6 +5933,8 @@ declare namespace google.maps {
 
     Attribution: typeof google.maps.places.Attribution;
 
+    AttributionColor: typeof google.maps.places.AttributionColor;
+
     AuthorAttribution: typeof google.maps.places.AuthorAttribution;
 
     Autocomplete: typeof google.maps.places.Autocomplete;
@@ -5942,6 +5944,8 @@ declare namespace google.maps {
     AutocompleteSessionToken: typeof google.maps.places.AutocompleteSessionToken;
 
     AutocompleteSuggestion: typeof google.maps.places.AutocompleteSuggestion;
+
+    BasicPlaceAutocompleteElement: typeof google.maps.places.BasicPlaceAutocompleteElement;
 
     BusinessStatus: typeof google.maps.places.BusinessStatus;
 
@@ -5975,6 +5979,8 @@ declare namespace google.maps {
 
     Landmark: typeof google.maps.places.Landmark;
 
+    MediaSize: typeof google.maps.places.MediaSize;
+
     Money: typeof google.maps.places.Money;
 
     NeighborhoodSummary: typeof google.maps.places.NeighborhoodSummary;
@@ -5993,17 +5999,83 @@ declare namespace google.maps {
 
     Place: typeof google.maps.places.Place;
 
+    PlaceAccessibleEntranceIconElement: typeof google.maps.places.PlaceAccessibleEntranceIconElement;
+
+    PlaceAddressElement: typeof google.maps.places.PlaceAddressElement;
+
+    PlaceAllContentElement: typeof google.maps.places.PlaceAllContentElement;
+
+    PlaceAttributionElement: typeof google.maps.places.PlaceAttributionElement;
+
+    PlaceAutocompleteElement: typeof google.maps.places.PlaceAutocompleteElement;
+
+    PlaceContentConfigElement: typeof google.maps.places.PlaceContentConfigElement;
+
     PlaceContextualElement: typeof google.maps.places.PlaceContextualElement;
 
     PlaceContextualListConfigElement: typeof google.maps.places.PlaceContextualListConfigElement;
 
     PlaceContextualListLayout: typeof google.maps.places.PlaceContextualListLayout;
 
+    PlaceDetailsCompactElement: typeof google.maps.places.PlaceDetailsCompactElement;
+
+    PlaceDetailsElement: typeof google.maps.places.PlaceDetailsElement;
+
+    PlaceDetailsLocationRequestElement: typeof google.maps.places.PlaceDetailsLocationRequestElement;
+
+    PlaceDetailsOrientation: typeof google.maps.places.PlaceDetailsOrientation;
+
+    PlaceDetailsPlaceRequestElement: typeof google.maps.places.PlaceDetailsPlaceRequestElement;
+
+    PlaceFeatureListElement: typeof google.maps.places.PlaceFeatureListElement;
+
+    PlaceMediaElement: typeof google.maps.places.PlaceMediaElement;
+
+    PlaceNearbySearchRequestElement: typeof google.maps.places.PlaceNearbySearchRequestElement;
+
+    PlaceOpeningHoursElement: typeof google.maps.places.PlaceOpeningHoursElement;
+
+    PlaceOpenNowStatusElement: typeof google.maps.places.PlaceOpenNowStatusElement;
+
+    PlacePhoneNumberElement: typeof google.maps.places.PlacePhoneNumberElement;
+
+    PlacePlusCodeElement: typeof google.maps.places.PlacePlusCodeElement;
+
     PlacePrediction: typeof google.maps.places.PlacePrediction;
+
+    PlacePredictionSelectEvent: typeof google.maps.places.PlacePredictionSelectEvent;
+
+    PlacePriceElement: typeof google.maps.places.PlacePriceElement;
+
+    PlaceRatingElement: typeof google.maps.places.PlaceRatingElement;
+
+    PlaceReviewsElement: typeof google.maps.places.PlaceReviewsElement;
+
+    PlaceReviewSummaryElement: typeof google.maps.places.PlaceReviewSummaryElement;
+
+    PlaceSearchAttributionPosition: typeof google.maps.places.PlaceSearchAttributionPosition;
+
+    PlaceSearchElement: typeof google.maps.places.PlaceSearchElement;
+
+    PlaceSearchOrientation: typeof google.maps.places.PlaceSearchOrientation;
+
+    PlaceSelectEvent: typeof google.maps.places.PlaceSelectEvent;
 
     PlacesService: typeof google.maps.places.PlacesService;
 
     PlacesServiceStatus: typeof google.maps.places.PlacesServiceStatus;
+
+    PlaceStandardContentElement: typeof google.maps.places.PlaceStandardContentElement;
+
+    PlaceSummaryElement: typeof google.maps.places.PlaceSummaryElement;
+
+    PlaceTextSearchRequestElement: typeof google.maps.places.PlaceTextSearchRequestElement;
+
+    PlaceTypeElement: typeof google.maps.places.PlaceTypeElement;
+
+    PlaceTypeSpecificHighlightsElement: typeof google.maps.places.PlaceTypeSpecificHighlightsElement;
+
+    PlaceWebsiteElement: typeof google.maps.places.PlaceWebsiteElement;
 
     PlusCode: typeof google.maps.places.PlusCode;
 
@@ -6032,6 +6104,18 @@ declare namespace google.maps {
     StringRange: typeof google.maps.places.StringRange;
 
     TimeZone: typeof google.maps.places.TimeZone;
+
+    TransitAgency: typeof google.maps.places.TransitAgency;
+
+    TransitIcon: typeof google.maps.places.TransitIcon;
+
+    TransitLine: typeof google.maps.places.TransitLine;
+
+    TransitStation: typeof google.maps.places.TransitStation;
+
+    TransitStop: typeof google.maps.places.TransitStop;
+
+    TransitVehicleType: typeof google.maps.places.TransitVehicleType;
   }
 
   export interface RoutesLibrary {
@@ -9365,113 +9449,73 @@ declare namespace google.maps.places {
     get title(): string | null;
   }
   /**
-   * ContentBlock describes the content of a summary and where it came from.
-   * Access by calling `const {ContentBlock} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   * Defines the spatial relationship between the target location and the area.
+   *
+   * Access by calling `const {Containment} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class ContentBlock {
+  export enum Containment {
     /**
-     * Content related to the topic.
+     * The target location is outside the area region, but close by.
      */
-    get content(): string | null;
+    NEAR = 'NEAR',
     /**
-     * Language code of the content.
+     * The target location is within the area region, close to the edge.
      */
-    get contentLanguageCode(): string | null;
+    OUTSKIRTS = 'OUTSKIRTS',
     /**
-     * A list of {@link google.maps.places.Place}s referenced. When first retrieved, each Place only contains a place ID in the <code>id</code> field.
+     * The target location is within the area region, close to the center.
      */
-    get referencedPlaces(): google.maps.places.Place[];
-    /**
-     * Converts to a plain object.
-     */
-    toJSON(key?: string): unknown;
+    WITHIN = 'WITHIN',
   }
+  export type ContainmentString = `${google.maps.places.Containment}`;
   /**
-   * AI-generated summary of amenities near the EV charging station. This only applies to places with type <code>electric_vehicle_charging_station</code>.
-   * Access by calling `const {EVChargeAmenitySummary} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   * EV charging connector types.
+   *
+   * Access by calling `const {EVConnectorType} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class EVChargeAmenitySummary {
+  export enum EVConnectorType {
     /**
-     * A summary of the nearby coffee options.
+     * Combined Charging System (AC and DC). Based on SAE Type-1 J-1772 connector.
      */
-    get coffee(): google.maps.places.ContentBlock | null;
+    CCS_COMBO_1 = 'CCS_COMBO_1',
     /**
-     * The text for the disclosure relating to this summary.
+     * Combined Charging System (AC and DC). Based on Type-2 Mennekes connector.
      */
-    get disclosureText(): string | null;
+    CCS_COMBO_2 = 'CCS_COMBO_2',
     /**
-     * The language code of the disclosure text.
+     * CHAdeMO type connector.
      */
-    get disclosureTextLanguageCode(): string | null;
+    CHADEMO = 'CHADEMO',
     /**
-     * A URI to report a problem with the summary.
+     * J1772 type 1 connector.
      */
-    get flagContentURI(): string | null;
+    J1772 = 'J1772',
     /**
-     * An overview of the available amenities.
+     * The North American Charging System (NACS), standardized as SAE J3400.
      */
-    get overview(): google.maps.places.ContentBlock | null;
+    NACS = 'NACS',
     /**
-     * A summary of the nearby restaurants.
+     * Other connector types.
      */
-    get restaurant(): google.maps.places.ContentBlock | null;
+    OTHER = 'OTHER',
     /**
-     * A summary of nearby stores.
+     * The generic TESLA connector. This is NACS in the North America but can be non-NACS in other parts of the world (e.g. CCS Combo 2 (CCS2) or GB/T). This value is less representative of an actual connector type, and more represents the ability to charge a Tesla brand vehicle at a Tesla owned charging station.
      */
-    get store(): google.maps.places.ContentBlock | null;
+    TESLA = 'TESLA',
     /**
-     * Converts to a plain object.
+     * IEC 62196 type 2 connector. Often referred to as MENNEKES.
      */
-    toJSON(key?: string): unknown;
+    TYPE_2 = 'TYPE_2',
+    /**
+     * GB/T type corresponds to the GB/T standard in China. This type covers all GB_T types.
+     */
+    UNSPECIFIED_GB_T = 'UNSPECIFIED_GB_T',
+    /**
+     * Unspecified wall outlet.
+     */
+    UNSPECIFIED_WALL_OUTLET = 'UNSPECIFIED_WALL_OUTLET',
   }
-  /**
-   * Information about the EV charging station hosted in the place.
-   * Access by calling `const {EVChargeOptions} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export class EVChargeOptions {
-    /**
-     * A list of EV charging connector aggregations that contain connectors of the same type and same charge rate.
-     */
-    get connectorAggregations(): google.maps.places.ConnectorAggregation[];
-    /**
-     * Number of connectors at this station. Because some ports can have multiple connectors but only be able to charge one car at a time, the number of connectors may be greater than the total number of cars which can charge simultaneously.
-     */
-    get connectorCount(): number;
-    /**
-     * Converts to a plain object.
-     */
-    toJSON(key?: string): unknown;
-  }
-  /**
-   * EV charging information, aggregated for connectors of the same type and the same charge rate.
-   * Access by calling `const {ConnectorAggregation} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export class ConnectorAggregation {
-    /**
-     * The time when the connector availability information in this aggregation was last updated.
-     */
-    get availabilityLastUpdateTime(): Date | null;
-    /**
-     * Number of connectors in this aggregation that are currently available.
-     */
-    get availableCount(): number | null;
-    /**
-     * Number of connectors in this aggregation.
-     */
-    get count(): number;
-    /**
-     * The static max charging rate in kw of each connector of the aggregation.
-     */
-    get maxChargeRateKw(): number;
-    /**
-     * Number of connectors in this aggregation that are currently out of service.
-     */
-    get outOfServiceCount(): number | null;
-    /**
-     * The connector type of this aggregation.
-     */
-    get type(): google.maps.places.EVConnectorTypeString | null;
-  }
+  export type EVConnectorTypeString = `${google.maps.places.EVConnectorType}`;
   /**
    * A representation of an amount of money with its currency type.
    * Access by calling `const {Money} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
@@ -9618,6 +9662,420 @@ declare namespace google.maps.places {
     TRUCK_DIESEL = 'TRUCK_DIESEL',
   }
   export type FuelTypeString = `${google.maps.places.FuelType}`;
+  /**
+   * Price level for a Place.
+   *
+   * Access by calling `const {PriceLevel} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum PriceLevel {
+
+    EXPENSIVE = 'EXPENSIVE',
+
+    FREE = 'FREE',
+
+    INEXPENSIVE = 'INEXPENSIVE',
+
+    MODERATE = 'MODERATE',
+
+    VERY_EXPENSIVE = 'VERY_EXPENSIVE',
+  }
+  export type PriceLevelString = `${google.maps.places.PriceLevel}`;
+  /**
+   * Defines the spatial relationship between the target location and the landmark
+   *
+   * Access by calling `const {SpatialRelationship} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SpatialRelationship {
+    /**
+     * The target is directly opposite the landmark on the other side of the road.
+     */
+    ACROSS_THE_ROAD = 'ACROSS_THE_ROAD',
+    /**
+     * Not on the same route as the landmark but a single turn away.
+     */
+    AROUND_THE_CORNER = 'AROUND_THE_CORNER',
+    /**
+     * Close to the landmark&#39;s structure but further away from its street entrances.
+     */
+    BEHIND = 'BEHIND',
+    /**
+     * The target is directly adjacent to the landmark.
+     */
+    BESIDE = 'BESIDE',
+    /**
+     * On the same route as the landmark but not besides or across.
+     */
+    DOWN_THE_ROAD = 'DOWN_THE_ROAD',
+    /**
+     * The default relationship when nothing more specific below applies.
+     */
+    NEAR = 'NEAR',
+    /**
+     * The landmark has a spatial geometry and the target is within its bounds.
+     */
+    WITHIN = 'WITHIN',
+  }
+  export type SpatialRelationshipString = `${google.maps.places.SpatialRelationship}`;
+  /**
+   * Represents a transit agency.
+   * Access by calling `const {TransitAgency} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class TransitAgency {
+    /**
+     * The name of the agency in the requested language.
+     */
+    displayName: string | null;
+    /**
+     * The agency name text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    displayNameLanguageCode: string | null;
+    /**
+     * The URL of the agency&#39;s fare details page.
+     */
+    fareURL: URL | null;
+    /**
+     * A localized branded icon of a transit system.
+     */
+    icon: google.maps.places.TransitIcon | null;
+    /**
+     * The transit lines that are served by this agency.
+     */
+    lines: google.maps.places.TransitLine[];
+    /**
+     * The URL of the agency&#39;s homepage.
+     */
+    url: URL | null;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * Represents a transit icon.
+   * Access by calling `const {TransitIcon} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class TransitIcon {
+    /**
+     * Whether the name is contained in the icon and there is no need to display it next to the icon.
+     */
+    nameIncluded: boolean | null;
+    /**
+     * The URL of the icon.
+     */
+    url: URL | null;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * Represents a transit line.
+   * Access by calling `const {TransitLine} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class TransitLine {
+    /**
+     * The background color of the labels for this transit line in hexadecimal format (e.g., &quot;#909CE1&quot;). This color can also be used for drawing shapes for this transit line.
+     */
+    backgroundColor: string | null;
+    /**
+     * The full name of this transit line (e.g., &quot;Sunnydale local&quot;).
+     */
+    displayName: string | null;
+    /**
+     * The transit line full name text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    displayNameLanguageCode: string | null;
+    /**
+     * Icon for this particular line.
+     */
+    icon: google.maps.places.TransitIcon | null;
+    /**
+     * The id of the transit line that can be used to uniquely identify the line among other transit lines in the same transit station. This identifier is not guaranteed to be stable across different responses.
+     */
+    id: string | null;
+    /**
+     * The short name of this transit line (e.g., &quot;S2&quot;).
+     */
+    shortDisplayName: string | null;
+    /**
+     * The transit line short name text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    shortDisplayNameLanguageCode: string | null;
+    /**
+     * The text color of labels for this transit line in hexadecimal format (e.g., &quot;#909CE1&quot;).
+     */
+    textColor: string | null;
+    /**
+     * The URL of a webpage with details about this line.
+     */
+    url: URL | null;
+    /**
+     * Icon for this particular vehicle type.
+     */
+    vehicleIcon: google.maps.places.TransitIcon | null;
+    /**
+     * The type of vehicle used.
+     */
+    vehicleType: google.maps.places.TransitVehicleTypeString | null;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * Represents a transit stop.
+   * Access by calling `const {TransitStop} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class TransitStop {
+    /**
+     * The name of the stop in the requested language.
+     */
+    displayName: string | null;
+    /**
+     * The name of the stop in the requested language&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    displayNameLanguageCode: string | null;
+    /**
+     * This field indicates whether there is an accessible path from outside the station to the stop. It does not indicate whether it is possible to board a vehicle from the stop.
+     */
+    hasWheelchairAccessibleEntrance: boolean | null;
+    /**
+     * The id of the transit stop that can be used to uniquely identify the stop among other transit stops in the same transit station. This identifier is not guaranteed to be stable across different responses.
+     */
+    id: string | null;
+    /**
+     * The stop&#39;s location.
+     */
+    location: google.maps.LatLngAltitude | null;
+    /**
+     * The platform code represented by this stop. It can be formatted in any way (e.g., &quot;2&quot;, &quot;Platform 2&quot;, &quot;2-4&quot;, or &quot;1x&quot;).
+     */
+    platformCode: string | null;
+    /**
+     * The platform code text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    platformCodeLanguageCode: string | null;
+    /**
+     * The verbatim text written on the signboard for this platform (e.g., &quot;Towards Central&quot; or &quot;East side &amp; Brooklyn&quot;). When <code>platformCode</code> is absent, this field is potentially the only identifier for the platform. However, both <code>platformCode</code> and <code>signageText</code> may be set simultaneously.
+     */
+    signageText: string | null;
+    /**
+     * The signage text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    signageTextLanguageCode: string | null;
+    /**
+     * Human readable identifier of the stop, used by transit agencies to distinguish stops with the same name.
+     */
+    stopCode: string | null;
+    /**
+     * The stop code text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    stopCodeLanguageCode: string | null;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * The type of a transit vehicle.
+   *
+   * Access by calling `const {TransitVehicleType} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum TransitVehicleType {
+    /**
+     * Airplane.
+     */
+    AIRPLANE = 'AIRPLANE',
+    /**
+     * Bus.
+     */
+    BUS = 'BUS',
+    /**
+     * Cable car.
+     */
+    CABLE_CAR = 'CABLE_CAR',
+    /**
+     * Coach.
+     */
+    COACH = 'COACH',
+    /**
+     * Commuter train.
+     */
+    COMMUTER_TRAIN = 'COMMUTER_TRAIN',
+    /**
+     * Ferry.
+     */
+    FERRY = 'FERRY',
+    /**
+     * Funicular.
+     */
+    FUNICULAR = 'FUNICULAR',
+    /**
+     * Gondola lift.
+     */
+    GONDOLA_LIFT = 'GONDOLA_LIFT',
+    /**
+     * Heavy rail.
+     */
+    HEAVY_RAIL = 'HEAVY_RAIL',
+    /**
+     * High speed train.
+     */
+    HIGH_SPEED_TRAIN = 'HIGH_SPEED_TRAIN',
+    /**
+     * Horse carriage.
+     */
+    HORSE_CARRIAGE = 'HORSE_CARRIAGE',
+    /**
+     * Intercity bus.
+     */
+    INTERCITY_BUS = 'INTERCITY_BUS',
+    /**
+     * Long distance train.
+     */
+    LONG_DISTANCE_TRAIN = 'LONG_DISTANCE_TRAIN',
+    /**
+     * Metro rail.
+     */
+    METRO_RAIL = 'METRO_RAIL',
+    /**
+     * Monorail.
+     */
+    MONORAIL = 'MONORAIL',
+    /**
+     * Rail.
+     */
+    RAIL = 'RAIL',
+    /**
+     * Share taxi.
+     */
+    SHARE_TAXI = 'SHARE_TAXI',
+    /**
+     * Special.
+     */
+    SPECIAL = 'SPECIAL',
+    /**
+     * Subway.
+     */
+    SUBWAY = 'SUBWAY',
+    /**
+     * Tram.
+     */
+    TRAM = 'TRAM',
+    /**
+     * Trolleybus.
+     */
+    TROLLEYBUS = 'TROLLEYBUS',
+  }
+  export type TransitVehicleTypeString = `${google.maps.places.TransitVehicleType}`;
+  /**
+   * ContentBlock describes the content of a summary and where it came from.
+   * Access by calling `const {ContentBlock} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ContentBlock {
+    /**
+     * Content related to the topic.
+     */
+    get content(): string | null;
+    /**
+     * Language code of the content.
+     */
+    get contentLanguageCode(): string | null;
+    /**
+     * A list of {@link google.maps.places.Place}s referenced. When first retrieved, each Place only contains a place ID in the <code>id</code> field.
+     */
+    get referencedPlaces(): google.maps.places.Place[];
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * AI-generated summary of amenities near the EV charging station. This only applies to places with type <code>electric_vehicle_charging_station</code>.
+   * Access by calling `const {EVChargeAmenitySummary} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class EVChargeAmenitySummary {
+    /**
+     * A summary of the nearby coffee options.
+     */
+    get coffee(): google.maps.places.ContentBlock | null;
+    /**
+     * The text for the disclosure relating to this summary.
+     */
+    get disclosureText(): string | null;
+    /**
+     * The language code of the disclosure text.
+     */
+    get disclosureTextLanguageCode(): string | null;
+    /**
+     * A URI to report a problem with the summary.
+     */
+    get flagContentURI(): string | null;
+    /**
+     * An overview of the available amenities.
+     */
+    get overview(): google.maps.places.ContentBlock | null;
+    /**
+     * A summary of the nearby restaurants.
+     */
+    get restaurant(): google.maps.places.ContentBlock | null;
+    /**
+     * A summary of nearby stores.
+     */
+    get store(): google.maps.places.ContentBlock | null;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * Information about the EV charging station hosted in the place.
+   * Access by calling `const {EVChargeOptions} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class EVChargeOptions {
+    /**
+     * A list of EV charging connector aggregations that contain connectors of the same type and same charge rate.
+     */
+    get connectorAggregations(): google.maps.places.ConnectorAggregation[];
+    /**
+     * Number of connectors at this station. Because some ports can have multiple connectors but only be able to charge one car at a time, the number of connectors may be greater than the total number of cars which can charge simultaneously.
+     */
+    get connectorCount(): number;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * EV charging information, aggregated for connectors of the same type and the same charge rate.
+   * Access by calling `const {ConnectorAggregation} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class ConnectorAggregation {
+    /**
+     * The time when the connector availability information in this aggregation was last updated.
+     */
+    get availabilityLastUpdateTime(): Date | null;
+    /**
+     * Number of connectors in this aggregation that are currently available.
+     */
+    get availableCount(): number | null;
+    /**
+     * Number of connectors in this aggregation.
+     */
+    get count(): number;
+    /**
+     * The static max charging rate in kw of each connector of the aggregation.
+     */
+    get maxChargeRateKw(): number;
+    /**
+     * Number of connectors in this aggregation that are currently out of service.
+     */
+    get outOfServiceCount(): number | null;
+    /**
+     * The connector type of this aggregation.
+     */
+    get type(): google.maps.places.EVConnectorTypeString | null;
+  }
   /**
    * AI-generated summary of the place.
    * Access by calling `const {GenerativeSummary} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
@@ -10021,6 +10479,32 @@ declare namespace google.maps.places {
     toJSON(key?: string): unknown;
   }
   /**
+   * Represents transit-specific information for a place.
+   * Access by calling `const {TransitStation} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class TransitStation {
+    /**
+     * The transit agencies that serve this station.
+     */
+    agencies: google.maps.places.TransitAgency[];
+    /**
+     * The name of the station in the local language.
+     */
+    displayName: string | null;
+    /**
+     * The local display name text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
+     */
+    displayNameLanguageCode: string | null;
+    /**
+     * The transit stops at this station.
+     */
+    stops: google.maps.places.TransitStop[];
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
    * Options for <code>PlaceMediaElement</code>.
    */
   export interface PlaceMediaElementOptions {
@@ -10133,24 +10617,6 @@ declare namespace google.maps.places {
   }
   export interface PlacePlusCodeElementEventMap extends HTMLElementEventMap {
   }
-  /**
-   * Price level for a Place.
-   *
-   * Access by calling `const {PriceLevel} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export enum PriceLevel {
-
-    EXPENSIVE = 'EXPENSIVE',
-
-    FREE = 'FREE',
-
-    INEXPENSIVE = 'INEXPENSIVE',
-
-    MODERATE = 'MODERATE',
-
-    VERY_EXPENSIVE = 'VERY_EXPENSIVE',
-  }
-  export type PriceLevelString = `${google.maps.places.PriceLevel}`;
   /**
    * Options for <code>PlacePriceElement</code>.
    */
@@ -10408,110 +10874,6 @@ declare namespace google.maps.places {
   }
   export interface PlaceDetailsLocationRequestElementEventMap extends HTMLElementEventMap {
   }
-  /**
-   * Defines the spatial relationship between the target location and the area.
-   *
-   * Access by calling `const {Containment} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export enum Containment {
-    /**
-     * The target location is outside the area region, but close by.
-     */
-    NEAR = 'NEAR',
-    /**
-     * The target location is within the area region, close to the edge.
-     */
-    OUTSKIRTS = 'OUTSKIRTS',
-    /**
-     * The target location is within the area region, close to the center.
-     */
-    WITHIN = 'WITHIN',
-  }
-  export type ContainmentString = `${google.maps.places.Containment}`;
-  /**
-   * EV charging connector types.
-   *
-   * Access by calling `const {EVConnectorType} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export enum EVConnectorType {
-    /**
-     * Combined Charging System (AC and DC). Based on SAE Type-1 J-1772 connector.
-     */
-    CCS_COMBO_1 = 'CCS_COMBO_1',
-    /**
-     * Combined Charging System (AC and DC). Based on Type-2 Mennekes connector.
-     */
-    CCS_COMBO_2 = 'CCS_COMBO_2',
-    /**
-     * CHAdeMO type connector.
-     */
-    CHADEMO = 'CHADEMO',
-    /**
-     * J1772 type 1 connector.
-     */
-    J1772 = 'J1772',
-    /**
-     * The North American Charging System (NACS), standardized as SAE J3400.
-     */
-    NACS = 'NACS',
-    /**
-     * Other connector types.
-     */
-    OTHER = 'OTHER',
-    /**
-     * The generic TESLA connector. This is NACS in the North America but can be non-NACS in other parts of the world (e.g. CCS Combo 2 (CCS2) or GB/T). This value is less representative of an actual connector type, and more represents the ability to charge a Tesla brand vehicle at a Tesla owned charging station.
-     */
-    TESLA = 'TESLA',
-    /**
-     * IEC 62196 type 2 connector. Often referred to as MENNEKES.
-     */
-    TYPE_2 = 'TYPE_2',
-    /**
-     * GB/T type corresponds to the GB/T standard in China. This type covers all GB_T types.
-     */
-    UNSPECIFIED_GB_T = 'UNSPECIFIED_GB_T',
-    /**
-     * Unspecified wall outlet.
-     */
-    UNSPECIFIED_WALL_OUTLET = 'UNSPECIFIED_WALL_OUTLET',
-  }
-  export type EVConnectorTypeString = `${google.maps.places.EVConnectorType}`;
-  /**
-   * Defines the spatial relationship between the target location and the landmark
-   *
-   * Access by calling `const {SpatialRelationship} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export enum SpatialRelationship {
-    /**
-     * The target is directly opposite the landmark on the other side of the road.
-     */
-    ACROSS_THE_ROAD = 'ACROSS_THE_ROAD',
-    /**
-     * Not on the same route as the landmark but a single turn away.
-     */
-    AROUND_THE_CORNER = 'AROUND_THE_CORNER',
-    /**
-     * Close to the landmark&#39;s structure but further away from its street entrances.
-     */
-    BEHIND = 'BEHIND',
-    /**
-     * The target is directly adjacent to the landmark.
-     */
-    BESIDE = 'BESIDE',
-    /**
-     * On the same route as the landmark but not besides or across.
-     */
-    DOWN_THE_ROAD = 'DOWN_THE_ROAD',
-    /**
-     * The default relationship when nothing more specific below applies.
-     */
-    NEAR = 'NEAR',
-    /**
-     * The landmark has a spatial geometry and the target is within its bounds.
-     */
-    WITHIN = 'WITHIN',
-  }
-  export type SpatialRelationshipString = `${google.maps.places.SpatialRelationship}`;
   /**
    * Options for fetching Place fields.
    */
@@ -10997,6 +11359,10 @@ declare namespace google.maps.places {
      * The TimeZone for this place.
      */
     get timeZone(): google.maps.places.TimeZone | null | undefined;
+    /**
+     * Information about the transit station. <code>undefined</code> if the transit data has not been loaded from the server.
+     */
+    get transitStation(): google.maps.places.TransitStation | null | undefined;
     /**
      * An array of <a href="https://developers.google.com/maps/documentation/places/web-service/supported_types">types for this Place</a> (for example, <code>[&quot;political&quot;, &quot;locality&quot;]</code> or <code>[&quot;restaurant&quot;, &quot;establishment&quot;]</code>).
      */
@@ -11747,6 +12113,10 @@ declare namespace google.maps.places {
      * Text that may be used as is or formatted with {@link google.maps.places.FormattableText.matches}.
      */
     get text(): string;
+    /**
+     * Returns {@link google.maps.places.FormattableText.text}.
+     */
+    toString(): string;
   }
   /**
    * BasicPlaceAutocompleteElement is an <code>HTMLElement</code> subclass which provides a UI component for the Places Autocomplete API.
@@ -11769,7 +12139,7 @@ declare namespace google.maps.places {
     /**
      * Whether the input element is disabled. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled</a> for details.
      */
-    set disabled(value: boolean | null);
+    set disabled(value: boolean | null | undefined);
     /**
      * Whether to include places that are not yet open but are expected to open in the future.
      */
@@ -11799,9 +12169,21 @@ declare namespace google.maps.places {
      */
     name: string | null;
     /**
+     * Whether to hide the clear button.
+     */
+    get noClearButton(): boolean;
+    /**
+     * Whether to hide the clear button.
+     */
+    set noClearButton(value: boolean | null | undefined);
+    /**
      * Whether to hide the input icon.
      */
-    noInputIcon: boolean | null;
+    get noInputIcon(): boolean;
+    /**
+     * Whether to hide the input icon.
+     */
+    set noInputIcon(value: boolean | null | undefined);
     /**
      * The origin from which to calculate distance. If not specified, distance is not calculated. The altitude, if given, is not used in the calculation.
      */
@@ -11825,7 +12207,7 @@ declare namespace google.maps.places {
     /**
      * Whether the input element is read-only. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly</a> for details.
      */
-    set readonly(value: boolean | null);
+    set readonly(value: boolean | null | undefined);
     /**
      * A language identifier for the language in which the results should be returned, if possible. Results in the selected language may be given a higher ranking, but suggestions are not restricted to this language. See the <a href="https://developers.google.com/maps/faq#languagesupport">list of supported languages</a>.
      */
@@ -11873,6 +12255,8 @@ declare namespace google.maps.places {
     maxlength?: number | null;
 
     name?: string | null;
+
+    noClearButton?: boolean | null;
 
     noInputIcon?: boolean | null;
 
@@ -12020,7 +12404,7 @@ declare namespace google.maps.places {
     /**
      * Whether the input element is disabled. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled</a> for details.
      */
-    set disabled(value: boolean | null);
+    set disabled(value: boolean | null | undefined);
     /**
      * Whether to include places that are not yet open but are expected to open in the future.
      */
@@ -12050,9 +12434,21 @@ declare namespace google.maps.places {
      */
     name: string | null;
     /**
+     * Whether to hide the clear button.
+     */
+    get noClearButton(): boolean;
+    /**
+     * Whether to hide the clear button.
+     */
+    set noClearButton(value: boolean | null | undefined);
+    /**
      * Whether to hide the input icon.
      */
-    noInputIcon: boolean | null;
+    get noInputIcon(): boolean;
+    /**
+     * Whether to hide the input icon.
+     */
+    set noInputIcon(value: boolean | null | undefined);
     /**
      * The origin from which to calculate distance. If not specified, distance is not calculated. The altitude, if given, is not used in the calculation.
      */
@@ -12076,7 +12472,7 @@ declare namespace google.maps.places {
     /**
      * Whether the input element is read-only. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly</a> for details.
      */
-    set readonly(value: boolean | null);
+    set readonly(value: boolean | null | undefined);
     /**
      * A language identifier for the language in which the results should be returned, if possible. Results in the selected language may be given a higher ranking, but suggestions are not restricted to this language. See the <a href="https://developers.google.com/maps/faq#languagesupport">list of supported languages</a>.
      */
@@ -12132,6 +12528,8 @@ declare namespace google.maps.places {
     maxlength?: number | null;
 
     name?: string | null;
+
+    noClearButton?: boolean | null;
 
     noInputIcon?: boolean | null;
 
@@ -13308,7 +13706,7 @@ declare namespace google.maps.maps3d {
     title?: string;
   }
   /**
-   * Shows a position on a 3D map. Note that the <code>position</code> must be set for the <code>MarkerElement</code> to display.
+   * Shows a position on a 3D map. Note that the <code>position</code> must be set for the <code>MarkerElement</code> to display.<br><br> <code>MarkerElement</code> supports high customization via custom HTML elements, but has lower interaction performance than <code>Marker3DElement</code>, especially when handling more than 1000 markers on a map.
    * Access by calling `const {MarkerElement} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export class MarkerElement extends HTMLElement implements google.maps.maps3d.MarkerElementOptions {
@@ -14708,6 +15106,10 @@ declare namespace google.maps.routes {
      */
     fields: Iterable<string>;
     /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+    /**
      * The BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">Unicode Locale Identifier</a>. See <a href="https://developers.google.com/maps/faq#languagesupport">Language Support</a> for the list of supported languages. When you don&#39;t provide this value, the language is inferred from your Google Maps JavaScript API <a href="https://developers.google.com/maps/documentation/javascript/localization#Language">localization settings</a>. Otherwise, the language is inferred from the location of the first origin.
      */
     language?: string;
@@ -14836,6 +15238,10 @@ declare namespace google.maps.routes {
      * A set of waypoints along the route (excluding terminal points), for either stopping at or passing by. Up to 25 intermediate waypoints are supported.
      */
     intermediates?: Iterable<google.maps.routes.Waypoint>;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
     /**
      * The BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">Unicode Locale Identifier</a>. See <a href="https://developers.google.com/maps/faq#languagesupport">Language Support</a> for the list of supported languages. When you don&#39;t provide this value, the language is inferred from your Google Maps JavaScript API <a href="https://developers.google.com/maps/documentation/javascript/localization#Language">localization settings</a>. Otherwise, the language is inferred from the location of the origin.
      */
@@ -15729,6 +16135,10 @@ declare namespace google.maps.routes {
      */
     destination: string | google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.places.Place | null;
     /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+    /**
      * See {@link google.maps.routes.Route3DElement.origin}.
      */
     origin: string | google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.places.Place | null;
@@ -15766,6 +16176,14 @@ declare namespace google.maps.routes {
      */
     destination: string | google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.places.Place | null;
     /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    get internalUsageAttributionIds(): string[] | null;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    set internalUsageAttributionIds(value: Iterable<string> | null | undefined);
+    /**
      * The origin of the route.
      */
     origin: string | google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.places.Place | null;
@@ -15781,6 +16199,8 @@ declare namespace google.maps.routes {
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
   }
   export interface Route3DElementEventMap extends HTMLElementEventMap {
+    "gmp-error": Event;
+    "gmp-load": Event;
   }
   /**
    * The condition of the route being returned. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routematrixelementcondition">web service documentation</a> for more information.
@@ -15914,79 +16334,15 @@ declare namespace google.maps.routes {
 
 declare namespace google.maps.visualization {
   /**
-   * This object defines the properties that can be set on a <code>HeatmapLayer</code> object.
-   */
-  export interface HeatmapLayerOptions {
-    /**
-     * The data points to display. Required.
-     */
-    data?: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | (google.maps.LatLng | google.maps.visualization.WeightedLocation)[] | null;
-    /**
-     * Specifies whether heatmaps dissipate on zoom. By default, the radius of influence of a data point is specified by the radius option only. When dissipating is disabled, the radius option is interpreted as a radius at zoom level 0.
-     */
-    dissipating?: boolean | null;
-    /**
-     * The color gradient of the heatmap, specified as an array of CSS color strings. All CSS3 colors are supported except for extended named colors.
-     */
-    gradient?: string[] | null;
-    /**
-     * The map on which to display the layer.
-     */
-    map?: google.maps.Map | null;
-    /**
-     * The maximum intensity of the heatmap. By default, heatmap colors are dynamically scaled according to the greatest concentration of points at any particular pixel on the map. This property allows you to specify a fixed maximum.
-     */
-    maxIntensity?: number | null;
-    /**
-     * The opacity of the heatmap, expressed as a number between 0 and 1.
-     * @defaultValue <code>0.6</code>
-     */
-    opacity?: number | null;
-    /**
-     * The radius of influence for each data point, in pixels.
-     */
-    radius?: number | null;
-  }
-  /**
-   * A data point entry for a heatmap. This is a geographical data point with a weight attribute.
-   */
-  export interface WeightedLocation {
-    /**
-     * The location of the data point.
-     */
-    location: google.maps.LatLng;
-    /**
-     * The weighting value of the data point.
-     */
-    weight: number;
-  }
-  /**
    * A layer that provides a client-side rendered heatmap, depicting the intensity of data at geographical points.
    * Access by calling `const {HeatmapLayer} = await google.maps.importLibrary("visualization");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   * @deprecated The Heatmap Layer functionality in the Maps JavaScript API is no longer supported. This API was deprecated in May 2025 and will be made unavailable in a later version of the Maps JavaScript API, releasing in May 2026. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>).
+   * @deprecated The Heatmap Layer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.65. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
-  export class HeatmapLayer extends google.maps.MVCObject {
+  export class HeatmapLayer {
     /**
-     * Creates a new instance of <code>HeatmapLayer</code>.
-     * @param opts
+     * Creates a new instance of <code>HeatmapLayer</code>. the layer.
      */
-    constructor(opts?: google.maps.visualization.HeatmapLayerOptions | null);
-    /**
-     * Returns the data points currently displayed by this heatmap.
-     */
-    getData(): google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation>;
-
-    getMap(): google.maps.Map | undefined;
-    /**
-     * Sets the data points to be displayed by this heatmap.
-     */
-    setData(data: google.maps.MVCArray<google.maps.LatLng | google.maps.visualization.WeightedLocation> | (google.maps.LatLng | google.maps.visualization.WeightedLocation)[]): void;
-    /**
-     * Renders the heatmap on the specified map. If map is set to <code>null</code>, the heatmap will be removed.
-     */
-    setMap(map: google.maps.Map | null): void;
-
-    setOptions(options: google.maps.visualization.HeatmapLayerOptions | null): void;
+    constructor();
   }
 }
 
