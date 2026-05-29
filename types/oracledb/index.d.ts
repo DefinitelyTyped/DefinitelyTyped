@@ -1065,29 +1065,12 @@ declare namespace OracleDB {
      *
      * @since 7.0
      */
-    interface EndUserSecurityContextOptions {
+    interface BaseEndUserSecurityContextOptions {
         /**
          * A security token issued by an external Identity and Access Management (IAM)
          * system that authorizes access to Oracle Database.
          */
         databaseAccessToken: string;
-        /**
-         * The unique identification of an end user managed by an external IAM system.
-         *
-         * This attribute should not be set when `endUserName` is specified.
-         */
-        endUserToken?: string | undefined;
-        /**
-         * The unique identification of an end user managed by Oracle Database.
-         *
-         * This attribute should not be set when `endUserToken` is specified.
-         */
-        endUserName?: string | undefined;
-        /**
-         * The lookup identifier that the database maps to stored context attributes.
-         * This is required when `endUserName` is set.
-         */
-        key?: string | undefined;
         /**
          * The names of data roles granted to the application or local database user.
          */
@@ -1097,6 +1080,43 @@ declare namespace OracleDB {
          */
         attributes?: Record<string, any> | undefined;
     }
+
+    type EndUserSecurityContextOptions =
+        | (BaseEndUserSecurityContextOptions & {
+            /**
+             * The unique identification of an end user managed by an external IAM system.
+             */
+            endUserToken: string;
+            /**
+             * The unique identification of an end user managed by Oracle Database.
+             *
+             * This attribute should not be set when `endUserToken` is specified.
+             */
+            endUserName?: never;
+            /**
+             * The lookup identifier that the database maps to stored context attributes.
+             *
+             * This attribute should not be set when `endUserToken` is specified.
+             */
+            key?: never;
+        })
+        | (BaseEndUserSecurityContextOptions & {
+            /**
+             * The unique identification of an end user managed by an external IAM system.
+             *
+             * This attribute should not be set when `endUserName` is specified.
+             */
+            endUserToken?: never;
+            /**
+             * The unique identification of an end user managed by Oracle Database.
+             */
+            endUserName: string;
+            /**
+             * The lookup identifier that the database maps to stored context attributes.
+             * This is required when `endUserName` is set.
+             */
+            key: string;
+        });
 
     /**
      * Defines end user security context information for an end user.

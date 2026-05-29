@@ -968,6 +968,7 @@ export const version7Tests = async (): Promise<void> => {
     // @ts-expect-error
     connection.appContext("CLIENTCONTEXT", [{ traceCtx: 12 }]);
 
+    // valid: IAM end-user token mode
     const endUserSecurityContext = new oracledb.EndUserSecurityContext({
         databaseAccessToken: "db-access-token",
         endUserToken: "end-user-token",
@@ -979,6 +980,7 @@ export const version7Tests = async (): Promise<void> => {
     connection.setEndUserSecurityContext(endUserSecurityContext);
     connection.clearEndUserSecurityContext();
 
+    // valid: database local user mode
     const endUserSecurityContextByName = new oracledb.EndUserSecurityContext({
         databaseAccessToken: "db-access-token",
         endUserName: "APP_USER",
@@ -989,6 +991,30 @@ export const version7Tests = async (): Promise<void> => {
     // @ts-expect-error databaseAccessToken is required
     new oracledb.EndUserSecurityContext({
         endUserToken: "end-user-token",
+    });
+    // @ts-expect-error must specify either endUserToken or endUserName + key
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+    });
+
+    // @ts-expect-error key is required when endUserName is set
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserName: "APP_USER",
+    });
+
+    // @ts-expect-error endUserToken and endUserName are mutually exclusive
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserToken: "end-user-token",
+        endUserName: "APP_USER",
+        key: "ctx-key",
+    });
+    // @ts-expect-error key should not be set with endUserToken
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserToken: "end-user-token",
+        key: "ctx-key",
     });
 
     const columns: oracledb.DirectPathLoadColumns = ["ID", "NAME"];
