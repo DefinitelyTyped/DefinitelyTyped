@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference lib="esnext.disposable" />
 
 import { Duplex, Readable } from "stream";
 
