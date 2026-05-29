@@ -33,6 +33,9 @@ declare namespace OneLine {
         setBettingCookie(betting: boolean): void;
         getBaseAdvertisingConfig(): jwplayer.AdvertisingConfig | undefined;
         hasVisibleVideoAdUi(container: HTMLElement): boolean;
+        isJwPlayerAdBreakActive(container: HTMLElement): boolean;
+        suspendJwPlayerContent(container: HTMLElement): void;
+        resumeJwPlayerContent(container: HTMLElement): void;
     }
     interface VideoCustomParameters {
         [key: string]: number | string | undefined;

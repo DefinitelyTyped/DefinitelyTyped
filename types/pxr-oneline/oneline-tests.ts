@@ -150,6 +150,11 @@ const ndOne: OneLine.OneLine = {
     hasVisibleVideoAdUi: (container: HTMLElement) => {
         return container.childElementCount > 0;
     },
+    isJwPlayerAdBreakActive: (container: HTMLElement) => {
+        return container.classList.contains("jw-flag-ads");
+    },
+    suspendJwPlayerContent: (_container: HTMLElement) => {},
+    resumeJwPlayerContent: (_container: HTMLElement) => {},
 };
 
 // Test cases
@@ -165,4 +170,8 @@ const advertisingConfig = ndOne.getBaseAdvertisingConfig();
 if (advertisingConfig) {
     advertisingConfig.client;
 }
-ndOne.hasVisibleVideoAdUi(document.createElement("div"));
+const playerContainer = document.createElement("div");
+ndOne.hasVisibleVideoAdUi(playerContainer);
+ndOne.isJwPlayerAdBreakActive(playerContainer);
+ndOne.suspendJwPlayerContent(playerContainer);
+ndOne.resumeJwPlayerContent(playerContainer);
