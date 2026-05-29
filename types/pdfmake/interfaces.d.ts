@@ -528,6 +528,13 @@ export interface TableCellProperties {
      * Defaults to `1`.
      */
     overlayOpacity?: number | null | undefined;
+
+    /**
+     * Vertical alignment of the cell's content.
+     *
+     * Defaults to `top`.
+     */
+    verticalAlignment?: "top" | "middle" | "bottom" | undefined;
 }
 
 /**
@@ -1016,6 +1023,24 @@ export interface ContentText extends ContentLink, ContentBase, ForbidOtherElemen
      * below one another, but as inline text in a single paragraph.
      */
     text: Content;
+    /**
+     * Adds this node to the PDF outline/bookmark tree.
+     *
+     * Outlines are hierarchical navigation entries shown in the PDF viewer.
+     */
+    outline?: boolean | undefined;
+    /**
+     * Overrides the displayed bookmark label.
+     */
+    outlineText?: string | undefined;
+    /**
+     * Marks the bookmark as expanded/opened by default.
+     */
+    outlineExpanded?: boolean | undefined;
+    /**
+     * Assigns this bookmark to the parent entry with the given `id`.
+     */
+    outlineParentId?: string | undefined;
 }
 
 /**
@@ -1024,6 +1049,14 @@ export interface ContentText extends ContentLink, ContentBase, ForbidOtherElemen
 export interface ContentColumns extends ContentBase, ForbidOtherElementProperties<"columns"> {
     /** Divides the given elements into multiple columns. */
     columns: Column[];
+    /**
+     * Enables snaking columns (newspaper-style columns), where content flows vertically through the first column
+     * and continues at the top of the next columns as needed. Only the first column should contain content;
+     * the remaining columns act as empty overflow targets.
+     *
+     * Note: Recursive snaking columns are not supported.
+     */
+    snakingColumns?: boolean | undefined;
 }
 
 /**
@@ -1669,6 +1702,11 @@ export interface TableOfContent {
      * Defaults to the system locale.
      */
     sortLocale?: string | undefined;
+
+    /**
+     * If set to `true`, adds all items to outlines / bookmarks (any existing outline settings on texts are respected)
+     */
+    outlines?: boolean | undefined;
 }
 
 /**

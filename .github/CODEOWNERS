@@ -264,7 +264,7 @@
 /types/any-db-transaction/                              @rogierschouten
 /types/anylogic-cloud-client/                           @Erikvv
 /types/anyproxy/                                        @SomaticIT @roland-reed
-/types/aos/                                             @shermendev @matheusgrieger
+/types/aos/                                             @matheusgrieger
 /types/apca-w3/                                         @daneden
 /types/apex.js/                                         @y13i
 /types/api-error-handler/                               @tkrotoff
@@ -615,7 +615,7 @@
 /types/bootstrap/v4/                                    @denisname @peterblazejewicz
 /types/bootstrap-3-typeahead/                           @AndersonFriaca
 /types/bootstrap-colorpicker/                           @aleksandar-manukov
-/types/bootstrap-datepicker/                            @borisyankov @jannikkeye
+/types/bootstrap-datepicker/                            @borisyankov
 /types/bootstrap-fileinput/                             @CheCoxshall @peterblazejewicz @zshall
 /types/bootstrap-filestyle/                             @mustafasalahuldin
 /types/bootstrap-growl-ifightcrime/                     @AndersonFriaca
@@ -1068,7 +1068,6 @@
 /types/consumer-data-standards/                         @tom-schier
 /types/contains-path/                                   @BendingBender
 /types/content-disposition/                             @bomret @peterblazejewicz @bjohansebas
-/types/content-type/                                    @horiuchi @BendingBender @bjohansebas
 /types/contentful-resolve-response/                     @antonkarsten
 /types/contextjs/                                       @kernhanda
 /types/continuation-local-storage/                      @rath @heycalmdown @skwee357
@@ -1217,7 +1216,7 @@
 /types/current-git-branch/                              @maxbogus
 /types/curtainsjs/                                      @Blakeinstein
 /types/custom-error-generator/                          @thmiceli
-/types/custom-functions-runtime/                        @OfficeDev @akrantz @davidchesnut @alison-mk
+/types/custom-functions-runtime/                        @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
 /types/customize-cra/                                   @k-yle
 /types/cvss/                                            @himynameisdave
 /types/cwd/                                             @BendingBender
@@ -1854,6 +1853,7 @@
 /types/eslint-plugin-markdown/                          @JounQin
 /types/eslint-plugin-mobx/                              @MysteryBlokHed
 /types/eslint-plugin-prettier/                          @ikatyang @JounQin
+/types/eslint-plugin-promise/                           @JoshuaKGoldberg
 /types/eslint-plugin-security/                          @rhysd @porada
 /types/eslint-plugin-tailwindcss/                       @eagerestwolf
 /types/eslint-utils/                                    @JoshuaKGoldberg
@@ -4030,6 +4030,7 @@
 /types/knuth-shuffle-seeded/                            @EthanRBrown
 /types/ko.plus/                                         @conficient
 /types/koa/                                             @jkeylu @brikou @harryparkdotio @chatoo2412 @tellnes @pkuczynski @vnoder
+/types/koa/v2/                                          @jkeylu @brikou @harryparkdotio @chatoo2412 @tellnes @pkuczynski @vnoder
 /types/koa-basic-auth/                                  @Tobias4872
 /types/koa-better-body/                                 @DavidTanner
 /types/koa-bodyparser/                                  @hellopao @hirochachacha @amaschas @1pete
@@ -4138,7 +4139,6 @@
 /types/layui/                                           @javabitar @Sight-wcg
 /types/layui-layer/                                     @943297456
 /types/layui-src/                                       @javabitar
-/types/layzr.js/                                        @shermendev
 /types/lazy-property/                                   @jank1310
 /types/lazy.js/                                         @Bartvds @gablorquet @fan-tom
 /types/lazypipe/                                        @tomc974
@@ -4963,7 +4963,7 @@
 /types/mouse-event-offset/                              @saiichihashimoto
 /types/mousetrap/                                       @qcz @alanhchoi @nicbarker @peterblazejewicz
 /types/move-concurrently/                               @mgroenhoff
-/types/moveto/                                          @shermendev @pea3nut
+/types/moveto/                                          @pea3nut
 /types/moviedb/                                         @basarat @0x6368656174
 /types/moxios/                                          @itoasuka
 /types/moxy__next-router-scroll/                        @heozeop
@@ -5198,7 +5198,6 @@
 /types/node-observer/                                   @CwjXFH
 /types/node-openload/                                   @saschazar21
 /types/node-os-utils/                                   @bacali95 @sasial-dev
-/types/node-osc/                                        @panz3r
 /types/node-pdftk/                                      @ascariandrea
 /types/node-persist/                                    @spencerwi @samuelthomas2774 @jackHedaya
 /types/node-phpass/                                     @glennreyes
@@ -5384,9 +5383,9 @@
 /types/obsolete-web/                                    @peterblazejewicz
 /types/oclazyload/                                      @rolandzwaga
 /types/ofe/                                             @Morfent
-/types/office-js/                                       @OfficeDev @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT @alison-mk @samantharamon
-/types/office-js-preview/                               @OfficeDev @Rick-Kirkham @AlexJerabek @ElizabethSamuel-MSFT @alison-mk @samantharamon
-/types/office-runtime/                                  @OfficeDev @davidchesnut @AlexJerabek @rick-kirkham @alison-mk
+/types/office-js/                                       @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
+/types/office-js-preview/                               @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
+/types/office-runtime/                                  @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
 /types/offline-js/                                      @cgwrench
 /types/offscreen-canvas/                                @peterblazejewicz
 /types/offscreencanvas/                                 @kayahr @ova2 @capnmidnight
@@ -5437,7 +5436,6 @@
 /types/openlayers/v3/                                   @osechet
 /types/openpay/                                         @bjardon
 /types/openrct2/                                        @OpenRCT2 @IntelOrca @tubbo
-/types/openseadragon/                                   @alvaromartmart @jstaab @kristinruben @geoff-harper @justincy @peterblazejewicz @rssaini01
 /types/openssi-websdk/                                  @arner
 /types/openstack-wrapper/                               @sanjaymadane
 /types/opentimestamps/                                  @despotes
@@ -5654,7 +5652,6 @@
 /types/penner/                                          @BendingBender
 /types/percentage-regex/                                @hu0529
 /types/perfy/                                           @peterblazejewicz
-/types/permit/                                          @jannikkeye
 /types/persistent-cache/                                @DanielBGomez
 /types/pet-finder-api/                                  @ncipollina
 /types/petit-dom/                                       @JamesMessinger
@@ -6540,7 +6537,6 @@
 /types/react-relay/                                     @captbaritone @alloy @maraisr @edvinerikson @levibuzolic
 /types/react-relay/v7/                                  @alloy @maraisr @edvinerikson
 /types/react-request/                                   @dannycochran @angusfretwell @jonathanly @albertojuanl
-/types/react-resizable/                                 @airhorns
 /types/react-resolver/                                  @forabi
 /types/react-responsive-embed/                          @Methuselah96
 /types/react-responsive-masonry/                        @themashcodee
@@ -6805,7 +6801,7 @@
 /types/relay-compiler/                                  @captbaritone @n1ru4l @alloy @maraisr @levibuzolic
 /types/relay-runtime/                                   @captbaritone @alloy @maraisr @morrys @levibuzolic
 /types/relay-test-utils/                                @renanmav @maraisr @levibuzolic
-/types/rellax/                                          @shermendev @minvs1
+/types/rellax/                                          @minvs1
 /types/reload/                                          @Gipphe
 /types/remark-abbr/                                     @LukeCarrier
 /types/remark-heading-id/                               @imcuttle @drpsyko101
@@ -6962,6 +6958,7 @@
 /types/rtl-detect/                                      @imprevo
 /types/rtlcss/                                          @peterblazejewicz
 /types/rtp-parser/                                      @matthew-smith
+/types/rtpengine-client/                                @danvirsen
 /types/rtree/                                           @oefirouz
 /types/run-parallel/                                    @mrmlnc
 /types/run-parallel-limit/                              @mrmlnc
@@ -7701,7 +7698,6 @@
 /types/symlink-or-copy/                                 @BendingBender
 /types/symphony-api-client-node/                        @mmartinsky
 /types/synaptic/                                        @ToastHawaii @austincummings
-/types/sync-fetch/                                      @alex-laz
 /types/sync-storage/                                    @Dannomac
 /types/synchronous-autocomplete/                        @BendingBender
 /types/syntax-error/                                    @TeamworkGuy2

@@ -29,14 +29,16 @@ export interface Options {
     preferCSSPageSize?: boolean | undefined;
 }
 
+export type PdfOutput<T extends File = File> = Omit<T, "content"> & { buffer: Buffer };
+
 export function generatePdf(
     file: File,
     options?: Options,
     callback?: (err: Error, buffer: Buffer) => void,
-): void;
+): Promise<Buffer>;
 
-export function generatePdfs(
-    files: File[],
+export function generatePdfs<T extends File>(
+    files: T[],
     options?: Options,
-    callback?: (err: Error, buffer: Buffer) => void,
-): void;
+    callback?: (err: Error, output: Array<PdfOutput<T>>) => void,
+): Promise<Array<PdfOutput<T>>>;

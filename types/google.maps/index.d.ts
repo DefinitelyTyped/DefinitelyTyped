@@ -423,9 +423,9 @@ declare namespace google.maps {
      */
     constructor(latOrLatLngOrLatLngLiteral: number | google.maps.LatLngLiteral | google.maps.LatLng, lngOrNoClampNoWrap?: number | boolean | null, noClampNoWrap?: boolean);
     /**
-     * Comparison function.
+     * Comparison function for two LatLngs. Returns true if the coordinates are within 1e-9 of each other and false otherwise.
      */
-    equals(other: google.maps.LatLng | null): boolean;
+    equals(other: google.maps.LatLng | google.maps.LatLngLiteral | null | undefined): boolean;
     /**
      * Returns the latitude in degrees.
      */
@@ -1842,9 +1842,9 @@ declare namespace google.maps {
      */
     get lng(): number;
     /**
-     * Comparison function.
+     * Comparison function for two LatLngAltitudes. Returns true if the coordinates are within 1e-9 of each other and false otherwise.
      */
-    equals(other: google.maps.LatLngAltitude | null): boolean;
+    equals(other: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null): boolean;
     /**
      * Converts to a plain object.
      */
@@ -2278,8 +2278,8 @@ declare namespace google.maps {
     setOpacity(opacity: number): void;
   }
   /**
-   * A <code>KmlLayer</code> adds geographic markup to the map from a KML, KMZ or GeoRSS file that is hosted on a publicly accessible web server. A <code>KmlFeatureData</code> object is provided for each feature when clicked.
    * Access by calling `const {KmlLayer} = await google.maps.importLibrary("maps");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   * @deprecated As of version 3.65, google.maps.KmlLayer is deprecated. For alternative methods of displaying KML data on the map, see <a href="https://developers.devsite.corp.google.com/maps/deprecations#kml_layer_deprecated_as_of_april_30_2026">https://developers.devsite.corp.google.com/maps/deprecations#kml_layer_deprecated_as_of_april_30_2026</a>
    */
   export class KmlLayer extends google.maps.MVCObject {
     /**
@@ -2848,11 +2848,11 @@ declare namespace google.maps {
     /**
      * Set the custom panorama provider called on pano change to load custom panoramas.
      */
-    registerPanoProvider(provider: (arg0: string) => google.maps.StreetViewPanoramaData | null, opt_options?: google.maps.PanoProviderOptions): void;
+    registerPanoProvider(provider: (arg0: string) => (google.maps.StreetViewPanoramaData | null), opt_options?: google.maps.PanoProviderOptions): void;
     /**
      * Sets the set of navigation links for the Street View panorama.
      */
-    setLinks(links: (google.maps.StreetViewLink | null)[] | null): void;
+    setLinks(links: google.maps.StreetViewLink[]): void;
     /**
      * Sets the state of motion tracker. If <code>true</code> when the user physically moves the device and the browser supports it, the Street View Panorama tracks the physical movements.
      */
@@ -5722,9 +5722,8 @@ declare namespace google.maps {
   export interface LatLngAltitudeLiteral extends google.maps.LatLngLiteral {
     /**
      * Distance (in meters) above the ground surface. Negative value means underneath the ground surface.
-     * @defaultValue <code>0</code>
      */
-    altitude?: number | null;
+    altitude: number;
     /**
      * Latitude in degrees. Values will be clamped to the range [-90, 90]. This means that if the value specified is less than -90, it will be set to -90. And if the value is greater than 90, it will be set to 90.
      */
@@ -5928,6 +5927,10 @@ declare namespace google.maps {
 
     AddressComponent: typeof google.maps.places.AddressComponent;
 
+    AddressDescriptor: typeof google.maps.places.AddressDescriptor;
+
+    Area: typeof google.maps.places.Area;
+
     Attribution: typeof google.maps.places.Attribution;
 
     AuthorAttribution: typeof google.maps.places.AuthorAttribution;
@@ -5948,6 +5951,8 @@ declare namespace google.maps {
 
     ConsumerAlertDetails: typeof google.maps.places.ConsumerAlertDetails;
 
+    Containment: typeof google.maps.places.Containment;
+
     ContentBlock: typeof google.maps.places.ContentBlock;
 
     EVChargeAmenitySummary: typeof google.maps.places.EVChargeAmenitySummary;
@@ -5967,6 +5972,8 @@ declare namespace google.maps {
     GenerativeSummary: typeof google.maps.places.GenerativeSummary;
 
     GoogleMapsLinks: typeof google.maps.places.GoogleMapsLinks;
+
+    Landmark: typeof google.maps.places.Landmark;
 
     Money: typeof google.maps.places.Money;
 
@@ -6020,7 +6027,11 @@ declare namespace google.maps {
 
     SecondaryOpeningHours: typeof google.maps.places.SecondaryOpeningHours;
 
+    SpatialRelationship: typeof google.maps.places.SpatialRelationship;
+
     StringRange: typeof google.maps.places.StringRange;
+
+    TimeZone: typeof google.maps.places.TimeZone;
   }
 
   export interface RoutesLibrary {
@@ -8217,6 +8228,10 @@ declare namespace google.maps.places {
      */
     CLOSED_TEMPORARILY = 'CLOSED_TEMPORARILY',
     /**
+     * The business will open in the future.
+     */
+    FUTURE_OPENING = 'FUTURE_OPENING',
+    /**
      * The business is operating normally.
      */
     OPERATIONAL = 'OPERATIONAL',
@@ -8790,6 +8805,9 @@ declare namespace google.maps.places {
      * Sublocality of the address such as neighborhoods, boroughs, or districts.
      */
     get sublocality(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -8860,6 +8878,9 @@ declare namespace google.maps.places {
      * A plus code with a 1/8000th of a degree by 1/8000th of a degree area. For example, &quot;8FVC9G8F+5W&quot;.
      */
     get globalCode(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9106,6 +9127,22 @@ declare namespace google.maps.places {
   }
   export type AttributionColorString = `${google.maps.places.AttributionColor}`;
   /**
+   * Orientation variants for {@link google.maps.places.PlaceDetailsCompactElement}.
+   *
+   * Access by calling `const {PlaceDetailsOrientation} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum PlaceDetailsOrientation {
+    /**
+     * Horizontal orientation.
+     */
+    HORIZONTAL = 'HORIZONTAL',
+    /**
+     * Vertical orientation.
+     */
+    VERTICAL = 'VERTICAL',
+  }
+  export type PlaceDetailsOrientationString = `${google.maps.places.PlaceDetailsOrientation}`;
+  /**
    * Options for <code>PlaceAccessibleEntranceIconElement</code>.
    */
   export interface PlaceAccessibleEntranceIconElementOptions {
@@ -9198,6 +9235,71 @@ declare namespace google.maps.places {
      * An array of strings denoting the type of this address component. A list of valid types can be found <a href="https://developers.google.com/maps/documentation/javascript/geocoding#GeocodingAddressTypes">here</a>.
      */
     get types(): string[];
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * Area information and the area&#39;s relationship with the target location.
+   * Access by calling `const {Area} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Area {
+    /**
+     * Defines the spatial relationship between the target location and the area.
+     */
+    get containment(): google.maps.places.ContainmentString | null;
+    /**
+     * The area&#39;s place.
+     */
+    get place(): google.maps.places.Place;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * Basic landmark information and the landmark&#39;s relationship with the target location. Landmarks are prominent places that can be used to describe a location.
+   * Access by calling `const {Landmark} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Landmark {
+    /**
+     * The landmark&#39;s place.
+     */
+    get place(): google.maps.places.Place;
+    /**
+     * The spatial relationship between the target location and the landmark.
+     */
+    get spatialRelationship(): google.maps.places.SpatialRelationshipString;
+    /**
+     * The straight line distance, in meters, between the center point of the target and the center point of the landmark. In some situations, this value can be longer than <code>travelDistanceMeters</code>.
+     */
+    get straightLineDistanceMeters(): number;
+    /**
+     * The travel distance, in meters, along the road network from the target to the landmark, if known. This value does not take into account the mode of transportation, such as walking, driving, biking.
+     */
+    get travelDistanceMeters(): number | null;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * A relational description of a location. Includes a ranked set of nearby landmarks and precise containing areas and their relationship to the target location.
+   * Access by calling `const {AddressDescriptor} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AddressDescriptor {
+    /**
+     * A ranked list of containing or adjacent areas. The most recognizable and precise areas are ranked first.
+     */
+    get areas(): google.maps.places.Area[];
+    /**
+     * A ranked list of nearby landmarks. The most recognizable and nearby landmarks are ranked first.
+     */
+    get landmarks(): google.maps.places.Landmark[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9213,6 +9315,9 @@ declare namespace google.maps.places {
      * URI to the Place&#39;s data provider.
      */
     get providerURI(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9232,6 +9337,9 @@ declare namespace google.maps.places {
      * The overview of the consumer alert message.
      */
     get overview(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9273,6 +9381,9 @@ declare namespace google.maps.places {
      * A list of {@link google.maps.places.Place}s referenced. When first retrieved, each Place only contains a place ID in the <code>id</code> field.
      */
     get referencedPlaces(): google.maps.places.Place[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9308,6 +9419,9 @@ declare namespace google.maps.places {
      * A summary of nearby stores.
      */
     get store(): google.maps.places.ContentBlock | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9323,6 +9437,9 @@ declare namespace google.maps.places {
      * Number of connectors at this station. Because some ports can have multiple connectors but only be able to charge one car at a time, the number of connectors may be greater than the total number of cars which can charge simultaneously.
      */
     get connectorCount(): number;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9376,6 +9493,9 @@ declare namespace google.maps.places {
      * Returns a human-readable representation of the amount of money with its currency symbol.
      */
     toString(): string;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9387,6 +9507,9 @@ declare namespace google.maps.places {
      * A list of fuel prices for each type of fuel this station has, one entry per fuel type.
      */
     get fuelPrices(): google.maps.places.FuelPrice[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9520,6 +9643,9 @@ declare namespace google.maps.places {
      * The language code of the overview.
      */
     get overviewLanguageCode(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9547,6 +9673,9 @@ declare namespace google.maps.places {
      * A link to write a review for the place on Google Maps.
      */
     get writeAReviewURI(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9574,6 +9703,9 @@ declare namespace google.maps.places {
      * An overview of the neighborhood.
      */
     get overview(): google.maps.places.ContentBlock | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9593,6 +9725,9 @@ declare namespace google.maps.places {
      * The minute of the OpeningHoursPoint.time as a number, in the range [0, 59]. This will be reported in the Place’s time zone.
      */
     get minute(): number;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9608,6 +9743,9 @@ declare namespace google.maps.places {
      * The opening time for the Place.
      */
     get open(): google.maps.places.OpeningHoursPoint;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9627,6 +9765,9 @@ declare namespace google.maps.places {
      * An array of seven strings representing the formatted opening hours for each day of the week. The Places Service will format and localize the opening hours appropriately for the current language. The ordering of the elements in this array depends on the language. Some languages start the week on Monday, while others start on Sunday.
      */
     get weekdayDescriptions(): string[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9700,6 +9841,9 @@ declare namespace google.maps.places {
      * Author&#39;s profile URI for this result.
      */
     get uri(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9731,6 +9875,9 @@ declare namespace google.maps.places {
      * Returns the image URL corresponding to the specified options.
      */
     getURI(options?: google.maps.places.PhotoOptions): string;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9746,6 +9893,9 @@ declare namespace google.maps.places {
      * The low end of the price range (inclusive). Price should be at or above this amount.
      */
     get startPrice(): google.maps.places.Money;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9799,6 +9949,9 @@ declare namespace google.maps.places {
      * The year of the date when the review author visited the place.
      */
     get visitDateYear(): number | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9830,6 +9983,9 @@ declare namespace google.maps.places {
      * The language code of the summary of user reviews.
      */
     get textLanguageCode(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -9841,6 +9997,27 @@ declare namespace google.maps.places {
      * The type of secondary opening hours. This refers to what the secondary hours apply to like takeout, delivery, or pickup. See <a href="https://developers.google.com/maps/documentation/places/web-service/reference/rest/v1/places#secondaryhourstype">SecondaryHoursType</a> for a list of valid values.
      */
     get type(): string | null;
+    /**
+     * Converts to a plain object.
+     */
+    toJSON(key?: string): unknown;
+  }
+  /**
+   * Represents a time zone from the IANA Time Zone Database <a href="https://www.iana.org/time-zones">https://www.iana.org/time-zones</a>.
+   * Access by calling `const {TimeZone} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class TimeZone {
+    /**
+     * IANA Time Zone Database time zone. For example &quot;America/New_York&quot;.
+     */
+    get id(): string | null;
+    /**
+     * IANA Time Zone Database version number. For example &quot;2019a&quot;.
+     */
+    get version(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -10198,22 +10375,6 @@ declare namespace google.maps.places {
   export interface PlaceStandardContentElementEventMap extends HTMLElementEventMap {
   }
   /**
-   * Orientation variants for {@link google.maps.places.PlaceDetailsCompactElement}.
-   *
-   * Access by calling `const {PlaceDetailsOrientation} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   */
-  export enum PlaceDetailsOrientation {
-    /**
-     * Horizontal orientation.
-     */
-    HORIZONTAL = 'HORIZONTAL',
-    /**
-     * Vertical orientation.
-     */
-    VERTICAL = 'VERTICAL',
-  }
-  export type PlaceDetailsOrientationString = `${google.maps.places.PlaceDetailsOrientation}`;
-  /**
    * Options for <code>PlaceDetailsLocationRequestElement</code>.
    */
   export interface PlaceDetailsLocationRequestElementOptions {
@@ -10247,6 +10408,26 @@ declare namespace google.maps.places {
   }
   export interface PlaceDetailsLocationRequestElementEventMap extends HTMLElementEventMap {
   }
+  /**
+   * Defines the spatial relationship between the target location and the area.
+   *
+   * Access by calling `const {Containment} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum Containment {
+    /**
+     * The target location is outside the area region, but close by.
+     */
+    NEAR = 'NEAR',
+    /**
+     * The target location is within the area region, close to the edge.
+     */
+    OUTSKIRTS = 'OUTSKIRTS',
+    /**
+     * The target location is within the area region, close to the center.
+     */
+    WITHIN = 'WITHIN',
+  }
+  export type ContainmentString = `${google.maps.places.Containment}`;
   /**
    * EV charging connector types.
    *
@@ -10295,6 +10476,42 @@ declare namespace google.maps.places {
     UNSPECIFIED_WALL_OUTLET = 'UNSPECIFIED_WALL_OUTLET',
   }
   export type EVConnectorTypeString = `${google.maps.places.EVConnectorType}`;
+  /**
+   * Defines the spatial relationship between the target location and the landmark
+   *
+   * Access by calling `const {SpatialRelationship} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum SpatialRelationship {
+    /**
+     * The target is directly opposite the landmark on the other side of the road.
+     */
+    ACROSS_THE_ROAD = 'ACROSS_THE_ROAD',
+    /**
+     * Not on the same route as the landmark but a single turn away.
+     */
+    AROUND_THE_CORNER = 'AROUND_THE_CORNER',
+    /**
+     * Close to the landmark&#39;s structure but further away from its street entrances.
+     */
+    BEHIND = 'BEHIND',
+    /**
+     * The target is directly adjacent to the landmark.
+     */
+    BESIDE = 'BESIDE',
+    /**
+     * On the same route as the landmark but not besides or across.
+     */
+    DOWN_THE_ROAD = 'DOWN_THE_ROAD',
+    /**
+     * The default relationship when nothing more specific below applies.
+     */
+    NEAR = 'NEAR',
+    /**
+     * The landmark has a spatial geometry and the target is within its bounds.
+     */
+    WITHIN = 'WITHIN',
+  }
+  export type SpatialRelationshipString = `${google.maps.places.SpatialRelationship}`;
   /**
    * Options for fetching Place fields.
    */
@@ -10354,6 +10571,10 @@ declare namespace google.maps.places {
      */
     fields: string[];
     /**
+     * Include places that are not yet open but are expected to open in the future.
+     */
+    futureOpeningBusinessesIncluded?: boolean;
+    /**
      * The requested place type. Full list of types supported: <a href="https://developers.google.com/maps/documentation/places/web-service/place-types">https://developers.google.com/maps/documentation/places/web-service/place-types</a>. Only one included type is supported. See {@link google.maps.places.SearchByTextRequest.useStrictTypeFiltering}
      */
     includedType?: string;
@@ -10386,6 +10607,10 @@ declare namespace google.maps.places {
      * Used to restrict the search to places that are marked as certain price levels. Any combinations of price levels can be chosen. Defaults to all price levels.
      */
     priceLevels?: google.maps.places.PriceLevelString[];
+    /**
+     * Include pure service area businesses if the field is set to true. A pure service area business is a business that visits or delivers to customers directly but does not serve customers at their business address. For example, businesses like cleaning services or plumbers may not have a physical address or location on Google Maps. Places will not return fields including <code>location</code>, <code>plusCode</code>, and other location related fields for these businesses.
+     */
+    pureServiceAreaBusinessesIncluded?: boolean;
     /**
      * How results will be ranked in the response.
      * @defaultValue <code>SearchByTextRankPreference.RELEVANCE</code>
@@ -10460,6 +10685,10 @@ declare namespace google.maps.places {
      */
     fields: string[];
     /**
+     * Include places that are not yet open but are expected to open in the future.
+     */
+    futureOpeningBusinessesIncluded?: boolean;
+    /**
      * Included primary place types. See the <a href="https://developers.google.com/maps/documentation/places/web-service/place-types">full list of types supported</a>. A place can only have a single primary type. Up to 50 types may be specified. If you specify the same type in both <code>included</code> and <code>excluded</code> lists, an INVALID_ARGUMENT error is returned.
      */
     includedPrimaryTypes?: string[];
@@ -10507,6 +10736,10 @@ declare namespace google.maps.places {
      */
     get addressComponents(): google.maps.places.AddressComponent[] | undefined;
     /**
+     * The address descriptor for this place. Address descriptors include additional information that help describe a location using landmarks and areas. See address descriptor regional coverage in <a href="https://developers.google.com/maps/documentation/geocoding/address-descriptors/coverage">https://developers.google.com/maps/documentation/geocoding/address-descriptors/coverage</a>.
+     */
+    get addressDescriptor(): google.maps.places.AddressDescriptor | null | undefined;
+    /**
      * The representation of the Place’s address in the <a href="http://microformats.org/wiki/adr">adr microformat</a>.
      */
     get adrFormatAddress(): string | null | undefined;
@@ -10524,6 +10757,10 @@ declare namespace google.maps.places {
      * The consumer alert for this place.
      */
     get consumerAlert(): google.maps.places.ConsumerAlert | null | undefined;
+    /**
+     * The list of containing places for this place. Containing places are places that contain the place.
+     */
+    get containingPlaces(): google.maps.places.Place[] | undefined;
     /**
      * The hours of operation for the next seven days (including today). This includes exceptional hours like holidays and irregular closures.
      */
@@ -10564,6 +10801,10 @@ declare namespace google.maps.places {
      * Fuel options provided by the place. <code>undefined</code> if the fuel options have not been called for from the server.
      */
     get fuelOptions(): google.maps.places.FuelOptions | null | undefined;
+    /**
+     * The date this place will open, if its <code>businessStatus</code> is <code>FUTURE_OPENING</code>. When the field is not requested, this field will be undefined. Otherwise, this field will be populated with the opening date if it is available, and null if it is not.
+     */
+    get futureOpeningDate(): Date | null | undefined;
     /**
      * The GenerativeSummary for this place.
      */
@@ -10618,6 +10859,10 @@ declare namespace google.maps.places {
     get isGoodForGroups(): boolean | null | undefined;
 
     get isGoodForWatchingSports(): boolean | null | undefined;
+    /**
+     * Indicates whether the place is a pure service area business. A pure service area business is a business that visits or delivers to customers directly but does not serve customers at their business address. For example, businesses like cleaning services or plumbers may not have a physical address or location on Google Maps.
+     */
+    get isPureServiceAreaBusiness(): boolean | null | undefined;
     /**
      * Whether a place is reservable. Returns &#39;true&#39; or &#39;false&#39; if the value is known. Returns &#39;null&#39; if the value is unknown. Returns &#39;undefined&#39; if this field has not yet been requested.
      */
@@ -10749,6 +10994,10 @@ declare namespace google.maps.places {
      */
     get svgIconMaskURI(): string | null | undefined;
     /**
+     * The TimeZone for this place.
+     */
+    get timeZone(): google.maps.places.TimeZone | null | undefined;
+    /**
      * An array of <a href="https://developers.google.com/maps/documentation/places/web-service/supported_types">types for this Place</a> (for example, <code>[&quot;political&quot;, &quot;locality&quot;]</code> or <code>[&quot;restaurant&quot;, &quot;establishment&quot;]</code>).
      */
     get types(): string[] | undefined;
@@ -10796,6 +11045,9 @@ declare namespace google.maps.places {
      * Check if the place is open at the given <code>Date</code>. Resolves with <code>undefined</code> if the known data for the location is insufficient to calculate this, e.g. if the opening hours are unregistered.
      */
     isOpen(date?: Date): Promise<boolean | undefined>;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -10973,6 +11225,10 @@ declare namespace google.maps.places {
      */
     excludedTypes?: string[] | null;
     /**
+     * Include place predictions for businesses that are not yet open but are expected to open in the future.
+     */
+    futureOpeningBusinessesIncluded?: boolean | null;
+    /**
      * Included primary place types. See {@link google.maps.places.PlaceNearbySearchRequestElement.includedPrimaryTypes} and {@link google.maps.places.SearchNearbyRequest.includedPrimaryTypes} for more details.
      */
     includedPrimaryTypes?: string[] | null;
@@ -11023,6 +11279,14 @@ declare namespace google.maps.places {
      * @defaultValue <code>null</code>
      */
     set excludedTypes(value: string[] | null | undefined);
+    /**
+     * Include place predictions for businesses that are not yet open but are expected to open in the future.
+     */
+    get futureOpeningBusinessesIncluded(): boolean | null;
+    /**
+     * Include place predictions for businesses that are not yet open but are expected to open in the future.
+     */
+    set futureOpeningBusinessesIncluded(value: boolean | null | undefined);
     /**
      * Included primary place type.
      * @defaultValue <code>null</code>
@@ -11090,6 +11354,10 @@ declare namespace google.maps.places {
      * Minimum required charging rate in kilowatts. See {@link google.maps.places.SearchByTextRequest.evSearchOptions} and {@link google.maps.places.PlaceTextSearchRequestElement.evMinimumChargingRateKw} for more details.
      */
     evMinimumChargingRateKw?: number | null;
+    /**
+     * Include place predictions for businesses that are not yet open but are expected to open in the future.
+     */
+    futureOpeningBusinessesIncluded?: boolean | null;
     /**
      * The requested place type. See {@link google.maps.places.SearchByTextRequest.includedType} and {@link google.maps.places.PlaceTextSearchRequestElement.includedType} for more details.
      */
@@ -11161,6 +11429,14 @@ declare namespace google.maps.places {
      * @defaultValue <code>null</code>
      */
     set evMinimumChargingRateKw(value: number | null | undefined);
+    /**
+     * Include place predictions for businesses that are not yet open but are expected to open in the future.
+     */
+    get futureOpeningBusinessesIncluded(): boolean | null;
+    /**
+     * Include place predictions for businesses that are not yet open but are expected to open in the future.
+     */
+    set futureOpeningBusinessesIncluded(value: boolean | null | undefined);
     /**
      * The requested place type.
      * @defaultValue <code>null</code>
@@ -11343,6 +11619,10 @@ declare namespace google.maps.places {
    */
   export interface AutocompleteRequest {
     /**
+     * Include place predictions for businesses that are not yet open but are expected to open in the future.
+     */
+    futureOpeningBusinessesIncluded?: boolean;
+    /**
      * Included primary <a href="https://developers.google.com/maps/documentation/javascript/place-types">Place type</a> (for example, &quot;restaurant&quot; or &quot;gas_station&quot;). <br/><br/> A Place is only returned if its primary type is included in this list. Up to 5 values can be specified. If no types are specified, all Place types are returned.
      */
     includedPrimaryTypes?: string[];
@@ -11374,6 +11654,10 @@ declare namespace google.maps.places {
      * The origin point from which to calculate geodesic distance to the destination (returned as {@link google.maps.places.PlacePrediction.distanceMeters}). If this value is omitted, geodesic distance will not be returned.
      */
     origin?: google.maps.LatLng | google.maps.LatLngLiteral;
+    /**
+     * Include pure service area businesses if the field is set to true. A pure service area business is a business that visits or delivers to customers directly but does not serve customers at their business address. For example, businesses like cleaning services or plumbers may not have a physical address or location on Google Maps.
+     */
+    pureServiceAreaBusinessesIncluded?: boolean;
     /**
      * The region code, specified as a CLDR two-character region code. This affects address formatting, result ranking, and may influence what results are returned. This does not restrict results to the specified region.
      */
@@ -11475,6 +11759,22 @@ declare namespace google.maps.places {
      */
     constructor(options: google.maps.places.BasicPlaceAutocompleteElementOptions);
     /**
+     * The description to be used for the input element. This will be detected by screen readers when the input element is focused. See <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby">https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby</a> for details.
+     */
+    description: string | null;
+    /**
+     * Whether the input element is disabled. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled</a> for details.
+     */
+    get disabled(): boolean;
+    /**
+     * Whether the input element is disabled. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled</a> for details.
+     */
+    set disabled(value: boolean | null);
+    /**
+     * Whether to include places that are not yet open but are expected to open in the future.
+     */
+    futureOpeningBusinessesIncluded: boolean | null;
+    /**
      * Included primary <a href="https://developers.google.com/maps/documentation/places/javascript/place-types">Place type</a> (for example, &quot;restaurant&quot; or &quot;gas_station&quot;). <br/><br/> A Place is only returned if its primary type is included in this list. Up to 5 values can be specified. If no types are specified, all Place types are returned.
      */
     includedPrimaryTypes: string[] | null;
@@ -11491,9 +11791,17 @@ declare namespace google.maps.places {
      */
     locationRestriction: google.maps.places.LocationRestriction | null;
     /**
+     * The maximum number of characters that the user can enter. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength</a> for details.
+     */
+    maxlength: number | null;
+    /**
      * The name to be used for the input element. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name</a> for details. Follows the same behavior as the name attribute for inputs. Note that this is the name that will be used when a form is submitted. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form</a> for details.
      */
     name: string | null;
+    /**
+     * Whether to hide the input icon.
+     */
+    noInputIcon: boolean | null;
     /**
      * The origin from which to calculate distance. If not specified, distance is not calculated. The altitude, if given, is not used in the calculation.
      */
@@ -11502,6 +11810,22 @@ declare namespace google.maps.places {
      * The origin from which to calculate distance. If not specified, distance is not calculated. The altitude, if given, is not used in the calculation.
      */
     set origin(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
+    /**
+     * The placeholder text to be used for the input element. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder</a> for details.
+     */
+    placeholder: string | null;
+    /**
+     * Whether to include places that are pure service area businesses.
+     */
+    pureServiceAreaBusinessesIncluded: boolean | null;
+    /**
+     * Whether the input element is read-only. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly</a> for details.
+     */
+    get readonly(): boolean;
+    /**
+     * Whether the input element is read-only. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly</a> for details.
+     */
+    set readonly(value: boolean | null);
     /**
      * A language identifier for the language in which the results should be returned, if possible. Results in the selected language may be given a higher ranking, but suggestions are not restricted to this language. See the <a href="https://developers.google.com/maps/faq#languagesupport">list of supported languages</a>.
      */
@@ -11529,6 +11853,14 @@ declare namespace google.maps.places {
    * Options for constructing a BasicPlaceAutocompleteElement.
    */
   export interface BasicPlaceAutocompleteElementOptions {
+    /**
+     * The description to be used for the input element. This will be detected by screen readers when the input element is focused.
+     */
+    description?: string | null;
+
+    disabled?: boolean | null;
+
+    futureOpeningBusinessesIncluded?: boolean | null;
 
     includedPrimaryTypes?: string[] | null;
 
@@ -11538,9 +11870,19 @@ declare namespace google.maps.places {
 
     locationRestriction?: google.maps.places.LocationRestriction | null;
 
+    maxlength?: number | null;
+
     name?: string | null;
 
+    noInputIcon?: boolean | null;
+
     origin?: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
+
+    placeholder?: string | null;
+
+    pureServiceAreaBusinessesIncluded?: boolean | null;
+
+    readonly?: boolean | null;
 
     requestedLanguage?: string | null;
 
@@ -11668,6 +12010,22 @@ declare namespace google.maps.places {
      */
     constructor(options: google.maps.places.PlaceAutocompleteElementOptions);
     /**
+     * The description to be used for the input element. This will be detected by screen readers when the input element is focused. See <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby">https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby</a> for details.
+     */
+    description: string | null;
+    /**
+     * Whether the input element is disabled. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled</a> for details.
+     */
+    get disabled(): boolean;
+    /**
+     * Whether the input element is disabled. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled</a> for details.
+     */
+    set disabled(value: boolean | null);
+    /**
+     * Whether to include places that are not yet open but are expected to open in the future.
+     */
+    futureOpeningBusinessesIncluded: boolean | null;
+    /**
      * Included primary <a href="https://developers.google.com/maps/documentation/places/javascript/place-types">Place type</a> (for example, &quot;restaurant&quot; or &quot;gas_station&quot;). <br/><br/> A Place is only returned if its primary type is included in this list. Up to 5 values can be specified. If no types are specified, all Place types are returned.
      */
     includedPrimaryTypes: string[] | null;
@@ -11684,9 +12042,17 @@ declare namespace google.maps.places {
      */
     locationRestriction: google.maps.places.LocationRestriction | null;
     /**
+     * The maximum number of characters that the user can enter. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength</a> for details.
+     */
+    maxlength: number | null;
+    /**
      * The name to be used for the input element. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name</a> for details. Follows the same behavior as the name attribute for inputs. Note that this is the name that will be used when a form is submitted. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form</a> for details.
      */
     name: string | null;
+    /**
+     * Whether to hide the input icon.
+     */
+    noInputIcon: boolean | null;
     /**
      * The origin from which to calculate distance. If not specified, distance is not calculated. The altitude, if given, is not used in the calculation.
      */
@@ -11696,13 +12062,21 @@ declare namespace google.maps.places {
      */
     set origin(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
     /**
-     * The placeholder text to display in the input element.
+     * The placeholder text to be used for the input element. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder</a> for details.
      */
-    get placeholder(): string;
+    placeholder: string | null;
     /**
-     * The placeholder text to display in the input element.
+     * Whether to include places that are pure service area businesses.
      */
-    set placeholder(value: string | null);
+    pureServiceAreaBusinessesIncluded: boolean | null;
+    /**
+     * Whether the input element is read-only. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly</a> for details.
+     */
+    get readonly(): boolean;
+    /**
+     * Whether the input element is read-only. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly</a> for details.
+     */
+    set readonly(value: boolean | null);
     /**
      * A language identifier for the language in which the results should be returned, if possible. Results in the selected language may be given a higher ranking, but suggestions are not restricted to this language. See the <a href="https://developers.google.com/maps/faq#languagesupport">list of supported languages</a>.
      */
@@ -11738,6 +12112,14 @@ declare namespace google.maps.places {
    * Options for constructing a PlaceAutocompleteElement. For the description of each property, refer to the property of the same name in the PlaceAutocompleteElement class.
    */
   export interface PlaceAutocompleteElementOptions {
+    /**
+     * The description to be used for the input element. This will be detected by screen readers when the input element is focused.
+     */
+    description?: string | null;
+
+    disabled?: boolean | null;
+
+    futureOpeningBusinessesIncluded?: boolean | null;
 
     includedPrimaryTypes?: string[] | null;
 
@@ -11747,9 +12129,19 @@ declare namespace google.maps.places {
 
     locationRestriction?: google.maps.places.LocationRestriction | null;
 
+    maxlength?: number | null;
+
     name?: string | null;
 
+    noInputIcon?: boolean | null;
+
     origin?: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
+
+    placeholder?: string | null;
+
+    pureServiceAreaBusinessesIncluded?: boolean | null;
+
+    readonly?: boolean | null;
 
     requestedLanguage?: string | null;
 
@@ -11845,6 +12237,9 @@ declare namespace google.maps.addressValidation {
      * Any tokens in the input that could not be resolved. This might be an input that was not recognized as a valid part of an address (for example in an input like &quot;123235253253 Main St, San Francisco, CA, 94105&quot;, the unresolved tokens may look like <code>[&quot;123235253253&quot;]</code> since that does not look like a valid street number.
      */
     get unresolvedTokens(): string[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -11858,6 +12253,9 @@ declare namespace google.maps.addressValidation {
     get poBox(): boolean;
 
     get residential(): boolean;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -11918,6 +12316,9 @@ declare namespace google.maps.addressValidation {
      * Returns a Place representation of this Geocode. To get full place details, a call to place.fetchFields() should be made.
      */
     fetchPlace(): void;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -11961,6 +12362,9 @@ declare namespace google.maps.addressValidation {
      * The 4-digit postal code extension, e.g. &quot;5023&quot;.
      */
     get zipCodeExtension(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -12116,6 +12520,9 @@ declare namespace google.maps.addressValidation {
      * Footnotes from matching a street or highrise record to suite information. If business name match is found, the secondary number is returned.
      */
     get suiteLinkFootnote(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -12247,6 +12654,9 @@ declare namespace google.maps.addressValidation {
      * Validates an address. See <a href="https://developers.google.com/maps/documentation/javascript/address-validation/validate-address">https://developers.google.com/maps/documentation/javascript/address-validation/validate-address</a>.
      */
     static fetchAddressValidation(request: google.maps.addressValidation.AddressValidationRequest): Promise<google.maps.addressValidation.AddressValidation>;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
 }
@@ -12606,7 +13016,7 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.FlattenerElement.innerPaths}.
      */
-    innerPaths?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral> | Iterable<google.maps.LatLngLiteral>> | null;
+    innerPaths?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral>> | null;
     /**
      * See {@link google.maps.maps3d.FlattenerElement.path}.
      */
@@ -12876,6 +13286,11 @@ declare namespace google.maps.maps3d {
      */
     anchorTop?: string | null;
     /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * See {@link google.maps.maps3d.MarkerElement.autofitsCamera}.
+     */
+    autofitsCamera?: boolean | null;
+    /**
      * See {@link google.maps.maps3d.MarkerElement.collisionBehavior}.
      */
     collisionBehavior?: google.maps.CollisionBehaviorString | null;
@@ -12932,6 +13347,12 @@ declare namespace google.maps.maps3d {
      * @defaultValue -100%
      */
     set anchorTop(value: string | null | undefined);
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * If provided, the specified marker will be made visible within the map viewport, alongside any other elements that have opted in.
+     * @defaultValue <code>false</code>
+     */
+    autofitsCamera?: boolean | null;
     /**
      * An enumeration specifying how a MarkerElement should behave when it collides with another <code>MarkerElement</code>, <code>Marker3DElement</code>, or with the basemap labels.
      * @defaultValue {@link google.maps.CollisionBehavior.REQUIRED}
@@ -13114,6 +13535,11 @@ declare namespace google.maps.maps3d {
      */
     altitudeMode?: google.maps.maps3d.AltitudeModeString | null;
     /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * See {@link google.maps.maps3d.Polygon3DElement.autofitsCamera}.
+     */
+    autofitsCamera?: boolean | null;
+    /**
      * See {@link google.maps.maps3d.Polygon3DElement.drawsOccludedSegments}.
      */
     drawsOccludedSegments?: boolean | null;
@@ -13178,6 +13604,18 @@ declare namespace google.maps.maps3d {
      * @defaultValue {@link google.maps.maps3d.AltitudeMode.CLAMP_TO_GROUND}
      */
     set altitudeMode(value: google.maps.maps3d.AltitudeModeString | null | undefined);
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * If provided, the specified polygon will be made visible within the map viewport, alongside any other elements that have opted in.
+     * @defaultValue <code>false</code>
+     */
+    get autofitsCamera(): boolean;
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * If provided, the specified polygon will be made visible within the map viewport, alongside any other elements that have opted in.
+     * @defaultValue <code>false</code>
+     */
+    set autofitsCamera(value: boolean | null | undefined);
     /**
      * Specifies whether parts of the polygon which could be occluded are drawn or not. Polygons can be occluded by map geometry (e.g. buildings).
      * @defaultValue <code>false</code>
@@ -13551,11 +13989,11 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.Map3DElement.cameraPosition}.
      */
-    cameraPosition?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
+    cameraPosition?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.center}.
      */
-    center?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
+    center?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.fov}.
      */
@@ -14043,21 +14481,21 @@ declare namespace google.maps.maps3d {
 
 declare namespace google.maps.routes {
   /**
-   * The classification of polyline speed based on traffic data.
+   * The classification of polyline speed based on traffic data. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#speed">web service documentation</a> for more information.
    *
    * Access by calling `const {Speed} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum Speed {
     /**
-     * Normal speed, no traffic delays.
+     * Normal speed, no traffic delays. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#speed">web service documentation</a> for more information.
      */
     NORMAL = 'NORMAL',
     /**
-     * Slowdown detected, medium amount of traffic.
+     * Slowdown detected, medium amount of traffic. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#speed">web service documentation</a> for more information.
      */
     SLOW = 'SLOW',
     /**
-     * Traffic delays.
+     * Traffic delays. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#speed">web service documentation</a> for more information.
      */
     TRAFFIC_JAM = 'TRAFFIC_JAM',
   }
@@ -14089,40 +14527,43 @@ declare namespace google.maps.routes {
      * The monetary amount of tolls for the corresponding {@link google.maps.routes.Route} or {@link google.maps.routes.RouteLeg}. This list contains an amount for each currency that is expected to be charged by toll stations. Typically this list will contain only one item for routes with tolls in one currency. For international trips, this list may contain multiple items to reflect tolls in different currencies. This field may be an empty array if tolls are expected but the estimated price is unknown.
      */
     get estimatedPrices(): google.maps.places.Money[] | null | undefined;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
-   * Extra computations to perform for a {@link google.maps.routes.RouteMatrix.computeRouteMatrix} request.
+   * Extra computations to perform while completing the request. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
    *
    * Access by calling `const {ComputeRouteMatrixExtraComputation} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum ComputeRouteMatrixExtraComputation {
     /**
-     * Toll information for the matrix item(s).
+     * Toll information for the matrix element(s). See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
      */
     TOLLS = 'TOLLS',
   }
   export type ComputeRouteMatrixExtraComputationString = `${google.maps.routes.ComputeRouteMatrixExtraComputation}`;
   /**
-   * A set of values describing the vehicle&#39;s emission type. Applies only to the <code>DRIVING</code> travel mode.
+   * A set of values describing the vehicle&#39;s emission type. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#vehicleemissiontype">web service documentation</a> for more information.
    *
    * Access by calling `const {VehicleEmissionType} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum VehicleEmissionType {
     /**
-     * Diesel fueled vehicle.
+     * Diesel fueled vehicle. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#vehicleemissiontype">web service documentation</a> for more information.
      */
     DIESEL = 'DIESEL',
     /**
-     * Electricity powered vehicle.
+     * Electricity powered vehicle. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#vehicleemissiontype">web service documentation</a> for more information.
      */
     ELECTRIC = 'ELECTRIC',
     /**
-     * Gasoline/petrol fueled vehicle.
+     * Gasoline/petrol fueled vehicle. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#vehicleemissiontype">web service documentation</a> for more information.
      */
     GASOLINE = 'GASOLINE',
     /**
-     * Hybrid fuel (such as gasoline + electric) vehicle.
+     * Hybrid fuel (such as gasoline + electric) vehicle. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#vehicleemissiontype">web service documentation</a> for more information.
      */
     HYBRID = 'HYBRID',
   }
@@ -14166,21 +14607,21 @@ declare namespace google.maps.routes {
     vehicleInfo?: google.maps.routes.VehicleInfo | null;
   }
   /**
-   * Factors to take into consideration when calculating a route.
+   * A set of values that specify factors to take into consideration when calculating the route. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routingpreference">web service documentation</a> for more information.
    *
    * Access by calling `const {RoutingPreference} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum RoutingPreference {
     /**
-     * Calculates routes taking live traffic conditions into consideration. In contrast to <code>TRAFFIC_AWARE_OPTIMAL</code>, some optimizations are applied to significantly reduce latency.
+     * Calculates routes taking live traffic conditions into consideration. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routingpreference">web service documentation</a> for more information.
      */
     TRAFFIC_AWARE = 'TRAFFIC_AWARE',
     /**
-     * Calculates the routes taking live traffic conditions into consideration, without applying most performance optimizations. Using this value produces the highest latency.
+     * Calculates the routes taking live traffic conditions into consideration, without applying most performance optimizations. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routingpreference">web service documentation</a> for more information.
      */
     TRAFFIC_AWARE_OPTIMAL = 'TRAFFIC_AWARE_OPTIMAL',
     /**
-     * Computes routes without taking live traffic conditions into consideration. Suitable when traffic conditions don&#39;t matter or are not applicable. Using this value produces the lowest latency.
+     * Computes routes without taking live traffic conditions into consideration. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routingpreference">web service documentation</a> for more information.
      */
     TRAFFIC_UNAWARE = 'TRAFFIC_UNAWARE',
   }
@@ -14219,8 +14660,7 @@ declare namespace google.maps.routes {
     /**
      * Converts to a plain object.
      */
-    toJSON(key?: string): google.maps.LatLngAltitudeLiteral;
-    toJSON(key?: string): unknown;
+    toJSON(key?: string): google.maps.routes.DirectionalLocationLiteral;
   }
   /**
    * Represents a waypoint in a route.
@@ -14301,65 +14741,65 @@ declare namespace google.maps.routes {
     units?: google.maps.UnitSystem;
   }
   /**
-   * Extra computations to perform for a {@link google.maps.routes.Route.computeRoutes} request.
+   * Extra computations to perform while completing the request. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
    *
    * Access by calling `const {ComputeRoutesExtraComputation} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum ComputeRoutesExtraComputation {
     /**
-     * Flyover information for the route(s). The <code>&quot;polylineDetails&quot;</code> field must be specified in {@link google.maps.routes.ComputeRoutesRequest.fields} to return this information. This data will only currently be populated for certain metros in India. This feature is experimental, and the SKU/charge is subject to change.
+     * Flyover information for the route(s). See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
      */
     FLYOVER_INFO_ON_POLYLINE = 'FLYOVER_INFO_ON_POLYLINE',
     /**
-     * Estimated fuel consumption for the route(s).
+     * Estimated fuel consumption for the route(s). See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
      */
     FUEL_CONSUMPTION = 'FUEL_CONSUMPTION',
     /**
-     * Navigation instructions presented as a formatted HTML text string. This content is meant to be read as-is and is for display only. Do not programmatically parse it.
+     * See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
      */
     HTML_FORMATTED_NAVIGATION_INSTRUCTIONS = 'HTML_FORMATTED_NAVIGATION_INSTRUCTIONS',
     /**
-     * Narrow road information for the route(s). The <code>&quot;polylineDetails&quot;</code> field must be specified in {@link google.maps.routes.ComputeRoutesRequest.fields} to return this information. This data will only currently be populated for certain metros in India. This feature is experimental, and the SKU/charge is subject to change.
+     * Narrow road information for the route(s). See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
      */
     NARROW_ROAD_INFO_ON_POLYLINE = 'NARROW_ROAD_INFO_ON_POLYLINE',
     /**
-     * Toll information for the route(s).
+     * Toll information for the route(s). See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
      */
     TOLLS = 'TOLLS',
     /**
-     * Traffic aware polylines for the route(s).
+     * Traffic aware polylines for the route(s). See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#extracomputation">web service documentation</a> for more information.
      */
     TRAFFIC_ON_POLYLINE = 'TRAFFIC_ON_POLYLINE',
   }
   export type ComputeRoutesExtraComputationString = `${google.maps.routes.ComputeRoutesExtraComputation}`;
   /**
-   * Specifies the quality of the polyline.
+   * A set of values that specify the quality of the polyline. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#polylinequality">web service documentation</a> for more information.
    *
    * Access by calling `const {PolylineQuality} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum PolylineQuality {
     /**
-     * Specifies a high-quality polyline that is composed using more points than <code>OVERVIEW</code> at the cost of increased response size. Use this value when you need more precision.
+     * Specifies a high-quality polyline - which is composed using more points than <code>OVERVIEW</code>, at the cost of increased response size. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#polylinequality">web service documentation</a> for more information.
      */
     HIGH_QUALITY = 'HIGH_QUALITY',
     /**
-     * Specifies an overview polyline that is composed using a small number of points. Using this option has a lower request latency compared to <code>HIGH_QUALITY</code>. Use this value when displaying an overview of the route.
+     * Specifies an overview polyline - which is composed using a small number of points. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#polylinequality">web service documentation</a> for more information.
      */
     OVERVIEW = 'OVERVIEW',
   }
   export type PolylineQualityString = `${google.maps.routes.PolylineQuality}`;
   /**
-   * A supported reference route on a {@link google.maps.routes.ComputeRoutesRequest}.
+   * A supported reference route on the ComputeRoutesRequest. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#referenceroute">web service documentation</a> for more information.
    *
    * Access by calling `const {ReferenceRoute} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum ReferenceRoute {
     /**
-     * Fuel efficient route.
+     * Fuel efficient route. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#referenceroute">web service documentation</a> for more information.
      */
     FUEL_EFFICIENT = 'FUEL_EFFICIENT',
     /**
-     * Route with shorter travel distance.
+     * Route with shorter travel distance. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#referenceroute">web service documentation</a> for more information.
      */
     SHORTER_DISTANCE = 'SHORTER_DISTANCE',
   }
@@ -14450,36 +14890,39 @@ declare namespace google.maps.routes {
    * Access by calling `const {RouteMatrixItemError} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export class RouteMatrixItemError extends Error {
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
-   * The reason that a fallback response was returned in a {@link google.maps.routes.Route.computeRoutes} response.
+   * Reasons for using fallback response. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#fallbackreason">web service documentation</a> for more information.
    *
    * Access by calling `const {FallbackReason} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum FallbackReason {
     /**
-     * We were not able to finish the calculation with your preferred routing mode on time, but we were able to return a result calculated by an alternative mode.
+     * We were not able to finish the calculation with your preferred routing mode on time, but we were able to return a result calculated by an alternative mode. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#fallbackreason">web service documentation</a> for more information.
      */
     LATENCY_EXCEEDED = 'LATENCY_EXCEEDED',
     /**
-     * A server error happened while calculating routes with your preferred routing mode, but we were able to return a result calculated by an alternative mode.
+     * A server error happened while calculating routes with your preferred routing mode, but we were able to return a result calculated by an alternative mode. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#fallbackreason">web service documentation</a> for more information.
      */
     SERVER_ERROR = 'SERVER_ERROR',
   }
   export type FallbackReasonString = `${google.maps.routes.FallbackReason}`;
   /**
-   * The actual routing mode used when a fallback response is returned in a {@link google.maps.routes.Route.computeRoutes} response.
+   * Actual routing mode used for returned fallback response. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#fallbackroutingmode">web service documentation</a> for more information.
    *
    * Access by calling `const {FallbackRoutingMode} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum FallbackRoutingMode {
     /**
-     * Indicates the <code>TRAFFIC_AWARE</code> {@link google.maps.routes.RoutingPreference} was used to compute the response.
+     * See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#fallbackroutingmode">web service documentation</a> for more information.
      */
     TRAFFIC_AWARE = 'TRAFFIC_AWARE',
     /**
-     * Indicates the <code>TRAFFIC_UNAWARE</code> {@link google.maps.routes.RoutingPreference} was used to compute the response.
+     * See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#fallbackroutingmode">web service documentation</a> for more information.
      */
     TRAFFIC_UNAWARE = 'TRAFFIC_UNAWARE',
   }
@@ -14497,6 +14940,9 @@ declare namespace google.maps.routes {
      * Routing mode used for the response. If fallback was triggered, the mode may be different from routing preference set in the original client request.
      */
     get routingMode(): google.maps.routes.FallbackRoutingModeString | null | undefined;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14524,6 +14970,9 @@ declare namespace google.maps.routes {
      * The type(s) of the result, in the form of zero or more type tags. See <a href="https://developers.google.com/maps/documentation/geocoding/requests-geocoding#Types">https://developers.google.com/maps/documentation/geocoding/requests-geocoding#Types</a> for supported types.
      */
     get types(): string[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14543,6 +14992,9 @@ declare namespace google.maps.routes {
      * The geocoded waypoint for the origin.
      */
     get origin(): google.maps.routes.GeocodedWaypoint | null | undefined;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14570,20 +15022,23 @@ declare namespace google.maps.routes {
      * The travel mode used for this multi-modal segment.
      */
     get travelMode(): google.maps.TravelModeString | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
-   * Encapsulates the states of road features along a stretch of polyline.
+   * Encapsulates the states of road features along a stretch of polyline. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#roadfeaturestate">web service documentation</a> for more information.
    *
    * Access by calling `const {RoadFeatureState} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum RoadFeatureState {
     /**
-     * The road feature does not exist.
+     * The road feature does not exist. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#roadfeaturestate">web service documentation</a> for more information.
      */
     DOES_NOT_EXIST = 'DOES_NOT_EXIST',
     /**
-     * The road feature exists.
+     * The road feature exists. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#roadfeaturestate">web service documentation</a> for more information.
      */
     EXISTS = 'EXISTS',
   }
@@ -14605,6 +15060,9 @@ declare namespace google.maps.routes {
      * The start index of this road feature in the polyline.
      */
     get startIndex(): number | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14620,28 +15078,31 @@ declare namespace google.maps.routes {
      * Narrow road details along the polyline.
      */
     get narrowRoadInfo(): google.maps.routes.PolylineDetailInfo[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
-   * Labels for the route that are useful to identify specific properties to compare against others.
+   * See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routelabel">web service documentation</a> for more information.
    *
    * Access by calling `const {RouteLabel} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum RouteLabel {
     /**
-     * The default &quot;best&quot; route returned for the route computation.
+     * The default &quot;best&quot; route returned for the route computation. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routelabel">web service documentation</a> for more information.
      */
     DEFAULT_ROUTE = 'DEFAULT_ROUTE',
     /**
-     * An alternative to the default &quot;best&quot; route. Routes like this will be returned when {@link google.maps.routes.ComputeRoutesRequest.computeAlternativeRoutes} is specified.
+     * An alternative to the default &quot;best&quot; route. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routelabel">web service documentation</a> for more information.
      */
     DEFAULT_ROUTE_ALTERNATE = 'DEFAULT_ROUTE_ALTERNATE',
     /**
-     * Fuel efficient route. Routes labeled with this value are determined to be optimized for eco parameters such as fuel consumption.
+     * Fuel efficient route. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routelabel">web service documentation</a> for more information.
      */
     FUEL_EFFICIENT = 'FUEL_EFFICIENT',
     /**
-     * Shorter travel distance route. This is an experimental feature.
+     * Shorter travel distance route. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routelabel">web service documentation</a> for more information.
      */
     SHORTER_DISTANCE = 'SHORTER_DISTANCE',
   }
@@ -14675,6 +15136,9 @@ declare namespace google.maps.routes {
      * The static duration text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;.
      */
     get staticDurationLanguage(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14698,6 +15162,9 @@ declare namespace google.maps.routes {
      * The static duration text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. <br><br> For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
      */
     get staticDurationLanguage(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14717,6 +15184,9 @@ declare namespace google.maps.routes {
      * The transit agency&#39;s URL.
      */
     get url(): URL | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14744,6 +15214,9 @@ declare namespace google.maps.routes {
      * The type of vehicle used. <br><br> See <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#transitvehicletype">https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#transitvehicletype</a> for a list of possible values.
      */
     get vehicleType(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14783,6 +15256,9 @@ declare namespace google.maps.routes {
      * The type of vehicle that operates on this transit line.
      */
     get vehicle(): google.maps.routes.TransitVehicle | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14798,6 +15274,9 @@ declare namespace google.maps.routes {
      * The name of the transit stop.
      */
     get name(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14841,6 +15320,9 @@ declare namespace google.maps.routes {
      * The text that appears in schedules and sign boards to identify a transit trip to passengers. The text uniquely identifies a trip within a service day. For example, &quot;538&quot; is the <code>tripShortText</code> of the Amtrak train that leaves San Jose, CA at 15:10 on weekdays to Sacramento, CA.
      */
     get tripShortText(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14888,6 +15370,9 @@ declare namespace google.maps.routes {
      * The travel mode used for this step.
      */
     get travelMode(): google.maps.TravelModeString | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14903,6 +15388,9 @@ declare namespace google.maps.routes {
      * Contains information about tolls on the specific {@link google.maps.routes.RouteLeg}. This field is only populated if tolls are expected on the {@link google.maps.routes.RouteLeg}. If this field is set but {@link google.maps.routes.TollInfo.estimatedPrices} is not populated, then the route leg contains tolls but the estimated price is unknown. If this field is empty, then there are no tolls on the {@link google.maps.routes.RouteLeg}.
      */
     get tollInfo(): google.maps.routes.TollInfo | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14914,6 +15402,9 @@ declare namespace google.maps.routes {
      * Summarized information about different multi-modal segments of the {@link google.maps.routes.RouteLeg.steps}.
      */
     get multiModalSegments(): google.maps.routes.MultiModalSegment[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -14965,6 +15456,9 @@ declare namespace google.maps.routes {
      * Contains the additional information that the user should be informed about, such as possible traffic zone restrictions, on a route leg.
      */
     get travelAdvisory(): google.maps.routes.RouteLegTravelAdvisory | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -15004,6 +15498,9 @@ declare namespace google.maps.routes {
      * The transit fare text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;.
      */
     get transitFareLanguage(): string | null;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -15031,6 +15528,9 @@ declare namespace google.maps.routes {
      * If present, contains the total fare or ticket costs of this {@link google.maps.routes.Route}. This property is only returned for <code>TRANSIT</code> {@link google.maps.routes.ComputeRoutesRequest.travelMode} and only for routes where fare information is available for all transit steps.
      */
     get transitFare(): google.maps.places.Money | null | undefined;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -15146,6 +15646,9 @@ declare namespace google.maps.routes {
      * Creates markers for the route labeled &#39;A&#39;, &#39;B&#39;, &#39;C&#39;, etc. for each waypoint. Markers have default styling applied. Options can be passed in to alter the marker style based on the marker index or properties of the corresponding {@link google.maps.routes.RouteLeg}. The {@link google.maps.routes.WaypointMarkerDetails.leg} parameter will be undefined if the route has no legs. <br><br> The <code>&quot;legs&quot;</code> field must be requested in {@link google.maps.routes.ComputeRoutesRequest.fields} in order for intermediate waypoints to be included.
      */
     createWaypointAdvancedMarkers(options?: google.maps.marker.AdvancedMarkerElementOptions | ((arg0: google.maps.marker.AdvancedMarkerElementOptions, arg1: google.maps.routes.WaypointMarkerDetails) => google.maps.marker.AdvancedMarkerElementOptions)): Promise<google.maps.marker.AdvancedMarkerElement[]>;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -15280,17 +15783,17 @@ declare namespace google.maps.routes {
   export interface Route3DElementEventMap extends HTMLElementEventMap {
   }
   /**
-   * The condition of a route for a given origin/destination pair.
+   * The condition of the route being returned. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routematrixelementcondition">web service documentation</a> for more information.
    *
    * Access by calling `const {RouteMatrixItemCondition} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export enum RouteMatrixItemCondition {
     /**
-     * A route was found.
+     * A route was found, and the corresponding information was filled out for the element. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routematrixelementcondition">web service documentation</a> for more information.
      */
     ROUTE_EXISTS = 'ROUTE_EXISTS',
     /**
-     * No route could be found.
+     * No route could be found. See the <a href="https://developers.google.com/maps/documentation/routes/reference/rpc/google.maps.routing.v2#routematrixelementcondition">web service documentation</a> for more information.
      */
     ROUTE_NOT_FOUND = 'ROUTE_NOT_FOUND',
   }
@@ -15332,6 +15835,9 @@ declare namespace google.maps.routes {
      * The transit fare text&#39;s BCP-47 language code, such as &quot;en-US&quot; or &quot;sr-Latn&quot;. <br><br> For more information, see <a href="http://www.unicode.org/reports/tr35/#Unicode_locale_identifier">http://www.unicode.org/reports/tr35/#Unicode_locale_identifier</a>.
      */
     get transitFareLanguage(): string | null | undefined;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -15347,6 +15853,9 @@ declare namespace google.maps.routes {
      * Takes in a list of origins and destinations and returns a matrix containing route information for each combination of origin and destination. <br><br> Note: This method requires that you specify a response field mask in the request by setting the {@link google.maps.routes.ComputeRouteMatrixRequest.fields} property. The value is a list of field paths. <br><br> For example: <ul> <li> Field mask of all available fields: <code>fields: [&#39;*&#39;]</code></li> <li> Field mask of Route-level duration and distance: <code>fields: [&#39;durationMillis&#39;, &#39;distanceMeters&#39;]</code></li> </ul> <br> Use of the wildcard response field mask <code>fields: [&#39;*&#39;]</code> is discouraged because: <ul> <li>Selecting only the fields that you need helps our server save computation cycles, allowing us to return the result to you with a lower latency.</li> <li>Selecting only the fields that you need in your production job ensures stable latency performance. We might add more response fields in the future, and those new fields might require extra computation time. If you select all fields, or if you select all fields at the top level, then you might experience performance degradation because any new field we add will be automatically included in the response.</li> <li>Selecting only the fields that you need results in a smaller response size, and thus a faster load over the network.</li> </ul>
      */
     static computeRouteMatrix(request: google.maps.routes.ComputeRouteMatrixRequest): Promise<{matrix: google.maps.routes.RouteMatrix}>;
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**
@@ -15358,6 +15867,9 @@ declare namespace google.maps.routes {
      * The route information for each destination.
      */
     get items(): google.maps.routes.RouteMatrixItem[];
+    /**
+     * Converts to a plain object.
+     */
     toJSON(key?: string): unknown;
   }
   /**

@@ -86,6 +86,10 @@ Memory.alloc(1, { near: ptr(1234), maxDistance: 42 });
 Memory.alloc(1, { near: ptr(1234) });
 // @ts-expect-error
 Memory.alloc(1, { maxDistance: 42 });
+// $ExpectType NativePointer
+Memory.alloc(Process.pageSize, { protection: "rwx" });
+// $ExpectType NativePointer
+Memory.alloc(Process.pageSize, { protection: "rx", near: ptr(1234), maxDistance: 42 });
 
 // $ExpectType string
 Memory.queryProtection(Process.mainModule.base);

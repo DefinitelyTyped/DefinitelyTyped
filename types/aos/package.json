@@ -11,10 +11,6 @@
     },
     "owners": [
         {
-            "name": "Rostislav Shermenyov",
-            "githubUsername": "shermendev"
-        },
-        {
             "name": "Matheus Grieger",
             "githubUsername": "matheusgrieger"
         }

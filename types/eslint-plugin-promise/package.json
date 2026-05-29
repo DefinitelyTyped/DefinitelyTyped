@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eslint-plugin-promise",
+    "version": "7.3.9999",
+    "projects": [
+        "https://github.com/eslint-community/eslint-plugin-promise"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Goldberg",
+            "githubUsername": "JoshuaKGoldberg"
+        }
+    ]
+}

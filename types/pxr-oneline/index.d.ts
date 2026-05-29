@@ -31,6 +31,11 @@ declare namespace OneLine {
          */
         requestSpecificAdUnits(adUnitIds: string[]): void;
         setBettingCookie(betting: boolean): void;
+        getBaseAdvertisingConfig(): jwplayer.AdvertisingConfig | undefined;
+        hasVisibleVideoAdUi(container: HTMLElement): boolean;
+        isJwPlayerAdBreakActive(container: HTMLElement): boolean;
+        suspendJwPlayerContent(container: HTMLElement): void;
+        resumeJwPlayerContent(container: HTMLElement): void;
     }
     interface VideoCustomParameters {
         [key: string]: number | string | undefined;
@@ -101,6 +106,21 @@ declare namespace OneLine {
 
     type NoParamFunction = () => void;
     type ParamFunction = (arg: any) => void;
+}
+declare namespace jwplayer {
+    interface AdvertisingConfig {
+        client: "vast" | "googima";
+        endstate?: string;
+        outstream?: boolean;
+        rules?: {
+            deferAds?: Record<string, unknown>;
+            frequency?: number;
+            startOn?: number;
+            startOnSeek?: string;
+            timeBetweenAds?: number;
+        };
+        vpaidcontrols?: boolean;
+    }
 }
 declare const OneLine: OneLine.OneLine;
 export = OneLine;

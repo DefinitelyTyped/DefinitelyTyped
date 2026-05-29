@@ -5,6 +5,7 @@ import { AbstractCrudObject } from "./../abstract-crud-object";
  */
 export default class LeadGenFormPreviewDetails extends AbstractCrudObject {
     static get Fields(): Readonly<{
+        book_on_website_text: "book_on_website_text";
         call_business_text: "call_business_text";
         call_to_action_title: "call_to_action_title";
         chat_on_messenger_text: "chat_on_messenger_text";
