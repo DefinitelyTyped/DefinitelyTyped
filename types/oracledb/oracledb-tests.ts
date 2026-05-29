@@ -932,6 +932,13 @@ export const version7Tests = async (): Promise<void> => {
     const connection = await oracledb.getConnection({
         user: "test",
     });
+    expectType<() => Promise<void>>(connection[Symbol.asyncDispose]);
+
+    const pool = await oracledb.createPool({});
+    expectType<() => Promise<void>>(pool[Symbol.asyncDispose]);
+
+    const resultSetResult = await connection.execute("SELECT 1 FROM dual", [], { resultSet: true });
+    expectType<() => Promise<void>>(resultSetResult.resultSet![Symbol.asyncDispose]);
 
     class PoolTraceHandler extends oracledb.traceHandler.TraceHandlerBase {
         // some representative methods for testing,
