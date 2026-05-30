@@ -189,7 +189,6 @@ declare module "diagnostics_channel" {
          * });
          * ```
          * @since v15.1.0, v14.17.0
-         * @deprecated Since v18.7.0,v16.17.0 - Use {@link subscribe(name, onMessage)}
          * @param onMessage The handler to receive channel messages
          */
         subscribe(onMessage: ChannelListener): void;
@@ -210,7 +209,6 @@ declare module "diagnostics_channel" {
          * channel.unsubscribe(onMessage);
          * ```
          * @since v15.1.0, v14.17.0
-         * @deprecated Since v18.7.0,v16.17.0 - Use {@link unsubscribe(name, onMessage)}
          * @param onMessage The previous subscribed handler to remove
          * @return `true` if the handler was found, `false` otherwise.
          */
