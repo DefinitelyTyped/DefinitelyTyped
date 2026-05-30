@@ -1,5 +1,25 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        modal: Modal.jQueryInterface;
+    }
+
+    interface Element {
+        addEventListener(
+            type:
+                | Modal.Events
+                | "show.bs.modal"
+                | "shown.bs.modal"
+                | "hide.bs.modal"
+                | "hidden.bs.modal"
+                | "hidePrevented.bs.modal",
+            listener: (this: Element, ev: Modal.Event) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+    }
+}
+
 declare class Modal extends BaseComponent {
     /**
      * Static method which allows you to get the modal instance associated with

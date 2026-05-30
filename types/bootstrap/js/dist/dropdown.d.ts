@@ -2,6 +2,12 @@ import * as Popper from "@popperjs/core";
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 import Tooltip from "./tooltip";
 
+declare global {
+    interface JQuery {
+        dropdown: Dropdown.jQueryInterface;
+    }
+}
+
 declare class Dropdown extends BaseComponent {
     /**
      * Static method which allows you to get the dropdown instance associated

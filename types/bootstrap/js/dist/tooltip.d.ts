@@ -1,6 +1,12 @@
 import * as Popper from "@popperjs/core";
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        [Tooltip.NAME]: Tooltip.jQueryInterface;
+    }
+}
+
 declare class Tooltip extends BaseComponent {
     static getInstance: GetInstanceFactory<Tooltip>;
 
