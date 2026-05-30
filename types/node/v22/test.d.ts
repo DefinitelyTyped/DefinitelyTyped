@@ -242,8 +242,8 @@ declare module "node:test" {
              */
             concurrency?: number | boolean | undefined;
             /**
-             * An array containing the list of files to run. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+             * An array containing the list of files to run.
+             * **Default:** Same as [running tests from the command line](https://nodejs.org/docs/latest-v22.x/api/test.html#running-tests-from-the-command-line).
              */
             files?: readonly string[] | undefined;
             /**
@@ -255,8 +255,8 @@ declare module "node:test" {
             forceExit?: boolean | undefined;
             /**
              * An array containing the list of glob patterns to match test files.
-             * This option cannot be used together with `files`. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v22.x/api/test.html#test-runner-execution-model).
+             * This option cannot be used together with `files`.
+             * **Default:** Same as [running tests from the command line](https://nodejs.org/docs/latest-v22.x/api/test.html#running-tests-from-the-command-line).
              * @since v22.6.0
              */
             globPatterns?: readonly string[] | undefined;
