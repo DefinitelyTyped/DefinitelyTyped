@@ -269,13 +269,37 @@ Interceptor.attach(puts, {
     },
 });
 
+Interceptor.attach({
+    target: puts,
+    scratchRegister: "x15",
+    scenario: "online",
+    relocation: "checked",
+}, {
+    onEnter(args) {
+        // $ExpectType InvocationArguments
+        args;
+    },
+});
+
 Interceptor.flush();
 
 // $ExpectType void
 Interceptor.replace(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
 
+// $ExpectType void
+Interceptor.replace(
+    { target: ptr("0x1234"), scratchRegister: "x15", relocation: "unchecked" },
+    new NativeCallback(() => {}, "void", []),
+);
+
 // $ExpectType NativePointer
 Interceptor.replaceFast(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
+// $ExpectType NativePointer
+Interceptor.replaceFast(
+    { target: ptr("0x1234"), scenario: "offline", relocation: "forced" },
+    new NativeCallback(() => {}, "void", []),
+);
 
 const ccode = `
 #include <gum/gumstalker.h>

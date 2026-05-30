@@ -3215,13 +3215,18 @@ declare namespace Interceptor {
      * to specify a `InstructionProbeCallback` if `target` is not the first
      * instruction of a function.
      *
-     * @param target Address of function/instruction to intercept.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function/instruction to intercept, optionally
+     *               wrapped together with instrumentation options.
      * @param callbacksOrProbe Callbacks or instruction-level probe callback.
      * @param data User data exposed to `NativeInvocationListenerCallbacks`
      *             through the `GumInvocationContext *`.
      */
     function attach(
-        target: NativePointerValue,
+        target: NativePointerValue | InstrumentationTarget,
         callbacksOrProbe: InvocationListenerCallbacks | InstructionProbeCallback,
         data?: NativePointerValue,
     ): InvocationListener;
@@ -3240,13 +3245,22 @@ declare namespace Interceptor {
      * your implementation. Interceptor uses thread-local state to determine
      * that it should call the original in that case.
      *
-     * @param target Address of function to replace.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function to replace, optionally wrapped together
+     *               with instrumentation options.
      * @param replacement Replacement implementation.
      * @param data User data exposed to native replacement through the
      *             `GumInvocationContext *`, obtained using
      *             `gum_interceptor_get_current_invocation()`.
      */
-    function replace(target: NativePointerValue, replacement: NativePointerValue, data?: NativePointerValue): void;
+    function replace(
+        target: NativePointerValue | InstrumentationTarget,
+        replacement: NativePointerValue,
+        data?: NativePointerValue,
+    ): void;
 
     /**
      * Replaces function at `target` with implementation at `replacement`.
@@ -3258,11 +3272,19 @@ declare namespace Interceptor {
      * means that you need to use the returned pointer if you want to call the
      * original implementation.
      *
-     * @param target Address of function to replace.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function to replace, optionally wrapped together
+     *               with instrumentation options.
      * @param replacement Replacement implementation.
      * @returns Address of trampoline that lets you call the original function.
      */
-    function replaceFast(target: NativePointerValue, replacement: NativePointerValue): NativePointer;
+    function replaceFast(
+        target: NativePointerValue | InstrumentationTarget,
+        replacement: NativePointerValue,
+    ): NativePointer;
 
     /**
      * Reverts the previously replaced function at `target`.
@@ -3281,6 +3303,63 @@ declare namespace Interceptor {
      */
     let breakpointKind: "soft" | "hard";
 }
+
+/**
+ * Target to instrument, carrying the address alongside optional knobs that
+ * control how the inline hook is set up.
+ */
+interface InstrumentationTarget {
+    /**
+     * Address of function/instruction to instrument.
+     */
+    target: NativePointerValue;
+
+    /**
+     * Register that Interceptor may clobber when building the trampoline.
+     *
+     * Only supported on architectures that expose scratch registers, i.e.
+     * arm64 and mips.
+     */
+    scratchRegister?: Arm64Register | MipsRegister | undefined;
+
+    /**
+     * Whether another thread might be executing the target while it is being
+     * instrumented.
+     *
+     * Use `online` when calls may be in flight, i.e. a thread could have
+     * executed an instruction with call semantics (CALL/BL/etc.) but not yet
+     * returned. Use `offline` when that cannot happen — e.g. after `spawn()`
+     * but before `resume()`, or when no calls will occur until some external
+     * input you control. The `offline` scenario allows writing past the end of
+     * such an instruction, which would be unsafe online.
+     *
+     * Defaults to `online`.
+     */
+    scenario?: InstrumentationScenario | undefined;
+
+    /**
+     * How to deal with relocation of the instructions overwritten by the hook.
+     *
+     * Defaults to `checked`.
+     */
+    relocation?: RelocationPolicy | undefined;
+}
+
+type InstrumentationScenario = "online" | "offline";
+
+/**
+ * How aggressively Interceptor may rewrite the function being instrumented.
+ *
+ * - `checked`: verify that the chosen scratch register (default or
+ *   user-specified) is not used in the function's early prologue, that there
+ *   are no branches back into the overwritten instruction(s), and similar
+ *   constraints.
+ * - `unchecked`: skip those checks.
+ * - `forced`: like `unchecked`, but also allow overwriting past the end of the
+ *   function — for cases where you know it is safe, e.g. because of alignment
+ *   padding between this function and the next.
+ */
+type RelocationPolicy = "checked" | "unchecked" | "forced";
 
 declare class InvocationListener {
     /**
