@@ -23451,6 +23451,12 @@ export interface MedicationBatch extends BackboneElement {
 }
 
 /**
+ * A fixed quantity (no comparator)
+ */
+export interface SimpleQuantity extends Quantity {
+}
+
+/**
  * The findings and interpretation of diagnostic tests performed on patients, groups of patients, products, substances, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports. The report also includes non-clinical context such as batch analysis and stability reporting of products and substances.
  */
 export interface DiagnosticReport extends DomainResource {
@@ -34968,6 +34974,8 @@ export interface ImmunizationRecommendationRecommendation extends BackboneElemen
  * This is the base resource type for everything.
  */
 export interface Resource extends Base {
+  /** Resource Type Name (for serialization) */
+  readonly resourceType: string;
   /**
    * Logical id of this artifact
    * The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.
@@ -42998,6 +43006,12 @@ export interface Quantity extends DataType {
    */
   code?: string | undefined;
   _code?: Element | undefined;
+}
+
+/**
+ * An amount of money. With regard to precision, see [Decimal Precision](datatypes.html#precision)
+ */
+export interface MoneyQuantity extends Quantity {
 }
 
 /**

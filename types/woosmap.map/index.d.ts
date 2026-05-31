@@ -1594,6 +1594,13 @@ declare namespace woosmap.map {
          */
         tilt?: number;
         /**
+         * Opt into the upcoming visual refresh styles. When true, the resolved style
+         * is upgraded to its refreshed counterpart (e.g. `streets` -> `streets_next`).
+         * If unset, falls back to `woosmap.map.config.getVisualRefresh()` (default false).
+         * Experimental — will be removed once the refreshed styles become the default.
+         */
+        visualRefresh?: boolean;
+        /**
          * The initial map zoom level to start from.
          */
         zoom?: number;

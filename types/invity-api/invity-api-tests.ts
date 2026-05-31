@@ -1,4 +1,5 @@
 import {
+    BuyCryptoPaymentMethod,
     BuyListResponse,
     BuyProviderInfo,
     BuyTrade,
@@ -11,6 +12,7 @@ import {
     ExchangeTradeQuoteRequest,
     ExchangeTradeSigned,
     InfoResponse,
+    SellCryptoPaymentMethod,
     SellFiatTrade,
     SellFiatTradeSigned,
     SellListResponse,
@@ -94,6 +96,14 @@ const infoResponse: InfoResponse = {
                 sell: true,
                 exchange: true,
             },
+        },
+    },
+    config: {
+        btcSwapDummyData: {
+            opreturn: {
+                dataHex: "abcd1234",
+            },
+            feePercentage: 2,
         },
     },
 };
@@ -261,3 +271,7 @@ const sellListResponse: SellListResponse = {
     subdivision: "WA",
     providers: [sellProviderInfo],
 };
+
+const buyPaymentMethod: BuyCryptoPaymentMethod = "blik";
+
+const sellPaymentMethod: SellCryptoPaymentMethod = "pix";
