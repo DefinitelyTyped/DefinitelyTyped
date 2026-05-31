@@ -281,6 +281,42 @@ Interceptor.attach({
     },
 });
 
+Interceptor.attach({
+    target: puts,
+    writeRedirect(details) {
+        // $ExpectType DefaultInstructionWriter
+        details.writer;
+        // $ExpectType NativePointer
+        details.target;
+        // $ExpectType number
+        details.capacity;
+
+        // Same register type as carried by InstrumentationTarget.
+        const scratch: InstrumentationTarget["scratchRegister"] = details.scratchRegister;
+        void scratch;
+
+        const writer = details.writer as Arm64Writer;
+        writer.putBImm(details.target);
+    },
+    redirectSpaceHint: 16,
+}, {
+    onEnter(args) {
+        // $ExpectType InvocationArguments
+        args;
+    },
+});
+
+// $ExpectType InstrumentationOptions
+Interceptor.defaults;
+
+Interceptor.defaults = {
+    scratchRegister: "x15",
+    writeRedirect(details) {
+        details.writer.flush();
+    },
+    redirectSpaceHint: 256,
+};
+
 Interceptor.flush();
 
 // $ExpectType void
