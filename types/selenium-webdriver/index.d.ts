@@ -1169,7 +1169,7 @@ export interface IWebElement {
      * @return {!Promise} A promise that will be resolved with the
      *     attribute's value.
      */
-    getAttribute(attributeName: string): Promise<string>;
+    getAttribute(attributeName: string): Promise<string | null>;
 
     /**
      * Get the visible (i.e. not hidden by CSS) innerText of this element,
@@ -1564,7 +1564,7 @@ export class WebElement implements Serializable<IWebElementId> {
      *     resolved with the attribute's value. The returned value will always be
      *     either a string or null.
      */
-    getAttribute(attributeName: string): Promise<string>;
+    getAttribute(attributeName: string): Promise<string | null>;
 
     /**
      * Get the visible (i.e. not hidden by CSS) innerText of this element,
