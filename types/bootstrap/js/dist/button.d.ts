@@ -1,5 +1,11 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        button: Button.jQueryInterface;
+    }
+}
+
 declare class Button extends BaseComponent {
     /**
      * Toggles push state. Gives the button the appearance that it has been activated.
