@@ -58,18 +58,16 @@ export interface PublishOptions extends fetch.Options {
  * await libpub.publish(manifest, tarData, { npmVersion: 'my-pub-script@1.0.2', token: 'my-auth-token-here' }, opts)
  * // Package has been published to the npm registry.
  */
-declare function publish(
+export function publish(
     manifest: PackageJson,
     tarballData: Buffer,
     options: Omit<PublishOptions, "stage"> & { stage: true },
 ): Promise<Response & { stageId: string }>;
-declare function publish(
+export function publish(
     manifest: PackageJson,
     tarballData: Buffer,
     options?: PublishOptions,
 ): Promise<Response & { stageId?: string }>;
-
-export { publish };
 
 /**
  * Unpublishes spec from the appropriate registry. The registry in question may have its own limitations on unpublishing.
