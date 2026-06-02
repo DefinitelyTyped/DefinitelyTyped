@@ -1786,6 +1786,12 @@ declare namespace OracleDB {
          */
         unsubscribe(name: string): Promise<void>;
         unsubscribe(name: string, callback: (error: DBError | null) => void): void;
+
+        /**
+         * Calls `close()` and returns a promise that fulfills when the connection has closed.
+         * @since v7.0.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;        
     }
 
     /**
@@ -2980,6 +2986,12 @@ declare namespace OracleDB {
          */
         reconfigure(poolAttrs: PoolAttributes): Promise<void>;
         reconfigure(poolAttrs: PoolAttributes, callback: (error: DBError | null) => void): void;
+
+        /**
+         * Calls `close()` and returns a promise that fulfills when the pool has closed.
+         * @since v7.0.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;        
     }
 
     /**
@@ -3974,6 +3986,12 @@ declare namespace OracleDB {
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#streamingresults
          */
         toQueryStream(): Readable;
+
+        /**
+         * Calls `close()` and returns a promise that fulfills when the ResultSet has closed.
+         * @since v7.0.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;        
     }
 
     /**
@@ -5362,6 +5380,39 @@ declare namespace OracleDB {
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.getNetworkServiceNames
      */
     function getNetworkServiceNames(configDir?: string): Promise<string[]>;
+
+    /**
+     * Returns the input value as a string that can safely be included in a SQL statement as a string literal.
+     * 
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#quoting-literals    
+     * @since 7.0.0
+     */
+    function enquoteLiteral(value: string): string;
+
+    /**
+     * Returns the input string enclosed in double quotes so it can be included in a SQL statement as an identifier.
+     * 
+     * @param capitalize Indicates whether the input string should be converted to uppercase using locale-independent Unicode rules before quoting. The default value is true.
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#quoting-sql-identifiers
+     * @since 7.0.0
+     */
+    function enquoteName(name: string, capitalize?: boolean): string;
+
+    /**
+     * Returns whether the input string is a qualified SQL name.
+     * 
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#validating-qualified-sql-names
+     * @since 7.0.0
+     */
+    function isQualifiedSqlName(name: string): boolean;
+
+    /**
+     * Returns whether the input string is a simple SQL name.
+     * 
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#validating-simple-sql-names
+     * @since 7.0.0
+     */
+    function isSimpleSqlName(name: string): boolean;
 }
 
 export = OracleDB;

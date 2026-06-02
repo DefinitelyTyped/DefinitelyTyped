@@ -911,3 +911,20 @@ export const version6_10Tests = async (): Promise<void> => {
 
     const messages = await queue.deqMany(5);
 };
+
+export const version7Tests = async (): Promise<void> => {
+    await using pool = await oracledb.getPool();
+    await using conn1 = await pool.getConnection();
+    const { rows: [row] } = await conn1.execute<[oracledb.Lob]>('SELECT BLOB_COLUMN FROM BLOB_TABLE');
+    await using lob = row[0];
+    lob.length;
+    await using conn2 = await oracledb.getConnection();
+    const result = await conn2.execute('SELECT * FROM DUAL', {}, { resultSet: true });
+    await using resultSet = result.resultSet;
+    await using readable = resultSet.toQueryStream();
+    readable.readable;
+    const a: boolean = oracledb.isSimpleSqlName('A');
+    const b: boolean = oracledb.isQualifiedSqlName('B');
+    const c: string = oracledb.enquoteLiteral('C');
+    const d: string = oracledb.enquoteName('D');
+};
