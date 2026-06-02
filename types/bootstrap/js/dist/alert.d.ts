@@ -1,5 +1,11 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        alert: Alert.jQueryInterface;
+    }
+}
+
 declare class Alert extends BaseComponent {
     static NAME: "alert";
     static jQueryInterface: Alert.jQueryInterface;

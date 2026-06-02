@@ -758,6 +758,22 @@ declare namespace Memory {
     ): MemoryScanMatch[];
 
     /**
+     * Scans one or more memory ranges for pointer-aligned words matching any of `values`.
+     *
+     * This is a focused, SIMD-accelerated alternative to `scan()` for the common task of finding pointers, e.g.
+     * references to a given address. All matches are collected and returned sorted by address.
+     *
+     * @param ranges Memory range, or array of ranges, to scan.
+     * @param values Pointer-width values to look for.
+     * @param options Options to customize the scan.
+     */
+    function findPointers(
+        ranges: MemoryRange | MemoryRange[],
+        values: NativePointerValue[],
+        options?: MemoryFindPointersOptions,
+    ): MemoryPointerMatch[];
+
+    /**
      * Allocates `size` bytes of memory on Frida's private heap, or, if `size` is a multiple of Process#pageSize,
      * one or more raw memory pages managed by the OS. The allocated memory will be released when the returned
      * NativePointer value gets garbage collected. This means you need to keep a reference to it while the pointer
@@ -1459,6 +1475,26 @@ interface MemoryScanMatch {
      * Size of this match.
      */
     size: number;
+}
+
+interface MemoryFindPointersOptions {
+    /**
+     * Bitmask applied to each scanned word and each value before comparing. Defaults to an exact match.
+     * Pass e.g. `ptr("0x00007ffffffffff8")` to strip arm64e PAC and non-pointer-isa bits.
+     */
+    mask?: NativePointerValue;
+}
+
+interface MemoryPointerMatch {
+    /**
+     * Memory address where a matching word was found.
+     */
+    address: NativePointer;
+
+    /**
+     * The matching word, i.e. the value stored at `address`, before masking.
+     */
+    value: NativePointer;
 }
 
 interface KernelMemoryScanCallbacks {
@@ -3215,13 +3251,18 @@ declare namespace Interceptor {
      * to specify a `InstructionProbeCallback` if `target` is not the first
      * instruction of a function.
      *
-     * @param target Address of function/instruction to intercept.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function/instruction to intercept, optionally
+     *               wrapped together with instrumentation options.
      * @param callbacksOrProbe Callbacks or instruction-level probe callback.
      * @param data User data exposed to `NativeInvocationListenerCallbacks`
      *             through the `GumInvocationContext *`.
      */
     function attach(
-        target: NativePointerValue,
+        target: NativePointerValue | InstrumentationTarget,
         callbacksOrProbe: InvocationListenerCallbacks | InstructionProbeCallback,
         data?: NativePointerValue,
     ): InvocationListener;
@@ -3240,13 +3281,22 @@ declare namespace Interceptor {
      * your implementation. Interceptor uses thread-local state to determine
      * that it should call the original in that case.
      *
-     * @param target Address of function to replace.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function to replace, optionally wrapped together
+     *               with instrumentation options.
      * @param replacement Replacement implementation.
      * @param data User data exposed to native replacement through the
      *             `GumInvocationContext *`, obtained using
      *             `gum_interceptor_get_current_invocation()`.
      */
-    function replace(target: NativePointerValue, replacement: NativePointerValue, data?: NativePointerValue): void;
+    function replace(
+        target: NativePointerValue | InstrumentationTarget,
+        replacement: NativePointerValue,
+        data?: NativePointerValue,
+    ): void;
 
     /**
      * Replaces function at `target` with implementation at `replacement`.
@@ -3258,11 +3308,19 @@ declare namespace Interceptor {
      * means that you need to use the returned pointer if you want to call the
      * original implementation.
      *
-     * @param target Address of function to replace.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function to replace, optionally wrapped together
+     *               with instrumentation options.
      * @param replacement Replacement implementation.
      * @returns Address of trampoline that lets you call the original function.
      */
-    function replaceFast(target: NativePointerValue, replacement: NativePointerValue): NativePointer;
+    function replaceFast(
+        target: NativePointerValue | InstrumentationTarget,
+        replacement: NativePointerValue,
+    ): NativePointer;
 
     /**
      * Reverts the previously replaced function at `target`.
@@ -3275,12 +3333,163 @@ declare namespace Interceptor {
     function flush(): void;
 
     /**
+     * Default instrumentation options applied to every subsequent
+     * `attach()` / `replace()` / `replaceFast()` call.
+     *
+     * Options specified per call through `InstrumentationTarget` take
+     * precedence over these.
+     */
+    let defaults: InstrumentationOptions;
+
+    /**
      * The kind of breakpoints to use for non-inline hooks.
      *
      * Only available in the Barebone backend.
      */
     let breakpointKind: "soft" | "hard";
 }
+
+/**
+ * Target to instrument, carrying the address alongside optional knobs that
+ * control how the inline hook is set up.
+ */
+interface InstrumentationTarget extends InstrumentationOptions {
+    /**
+     * Address of function/instruction to instrument.
+     */
+    target: NativePointerValue;
+}
+
+/**
+ * Knobs that control how an inline hook is set up.
+ *
+ * May be specified per call through `InstrumentationTarget`, or globally
+ * through `Interceptor.defaults`.
+ */
+interface InstrumentationOptions {
+    /**
+     * Register that Interceptor may clobber when building the trampoline.
+     *
+     * Only supported on architectures that expose scratch registers, i.e.
+     * arm64 and mips.
+     */
+    scratchRegister?: Arm64Register | MipsRegister | undefined;
+
+    /**
+     * Whether another thread might be executing the target while it is being
+     * instrumented.
+     *
+     * Use `online` when calls may be in flight, i.e. a thread could have
+     * executed an instruction with call semantics (CALL/BL/etc.) but not yet
+     * returned. Use `offline` when that cannot happen — e.g. after `spawn()`
+     * but before `resume()`, or when no calls will occur until some external
+     * input you control. The `offline` scenario allows writing past the end of
+     * such an instruction, which would be unsafe online.
+     *
+     * Defaults to `online`.
+     */
+    scenario?: InstrumentationScenario | undefined;
+
+    /**
+     * How to deal with relocation of the instructions overwritten by the hook.
+     *
+     * Defaults to `checked`.
+     */
+    relocation?: RelocationPolicy | undefined;
+
+    /**
+     * Callback that emits a custom redirect from the instrumented function or
+     * instruction to Interceptor's trampoline.
+     *
+     * The primary use-case is defeating fingerprinting: emitting a redirect
+     * that a RASP implementation won't recognize as an inline hook. It is also
+     * useful when space is tight and you want to locate a nearby code cave
+     * reachable through a short immediate branch, and then branch from there to
+     * the trampoline farther away.
+     *
+     * Throwing from the callback declines the redirect. There is no fallback to
+     * the default strategy in that case: the `attach()` / `replace()` /
+     * `replaceFast()` call fails as if the target had a signature that could
+     * not be instrumented.
+     */
+    writeRedirect?: WriteRedirectCallback | undefined;
+
+    /**
+     * Upper bound on the number of bytes that `writeRedirect` will need.
+     *
+     * Your callback may end up using less. Specifying a larger value means
+     * Interceptor has to explore further to determine that it is safe to use
+     * that much space — looking for back-branches, call return sites, etc. —
+     * which is more expensive.
+     *
+     * Defaults to the size needed for a full redirect, e.g. 16 bytes on arm64.
+     */
+    redirectSpaceHint?: number | undefined;
+}
+
+/**
+ * Callback that emits a custom redirect from the target to Interceptor's
+ * trampoline.
+ */
+type WriteRedirectCallback = (details: WriteRedirectDetails) => void;
+
+/**
+ * Details passed to a `WriteRedirectCallback`.
+ */
+interface WriteRedirectDetails {
+    /**
+     * Code writer to emit the redirect with.
+     *
+     * The concrete type depends on the architecture, e.g. an `X86Writer` on
+     * x86 and an `Arm64Writer` on arm64. On 32-bit ARM it may be either an
+     * `ArmWriter` or a `ThumbWriter`, depending on the instruction set at the
+     * instrumented site.
+     */
+    writer: DefaultInstructionWriter;
+
+    /**
+     * Address of Interceptor's trampoline, i.e. where your redirect should
+     * branch to.
+     */
+    target: NativePointer;
+
+    /**
+     * Scratch register that the redirect may clobber.
+     *
+     * Only present on architectures that expose scratch registers, i.e.
+     * arm64 and mips.
+     */
+    scratchRegister?: Arm64Register | MipsRegister | undefined;
+
+    /**
+     * Number of bytes available for the redirect.
+     */
+    capacity: number;
+}
+
+/**
+ * Default code writer for the current architecture.
+ *
+ * On 32-bit ARM this is either an `ArmWriter` or a `ThumbWriter`, depending on
+ * the instruction set at the instrumented site.
+ */
+type DefaultInstructionWriter = X86Writer | ArmWriter | ThumbWriter | Arm64Writer | MipsWriter;
+
+type InstrumentationScenario = "online" | "offline";
+
+/**
+ * How aggressively Interceptor may rewrite the function being instrumented.
+ *
+ * - `checked`: verify that the chosen scratch register (default or
+ *   user-specified) is not used in the function's early prologue, that there
+ *   are no branches back into the overwritten instruction(s), and similar
+ *   constraints.
+ * - `unchecked`: skip those checks.
+ * - `forced`: like `unchecked`, but also allow overwriting past the end of the
+ *   function — for cases where you know it is safe, e.g. because of alignment
+ *   padding between this function and the next.
+ */
+type RelocationPolicy = "checked" | "unchecked" | "forced";
 
 declare class InvocationListener {
     /**

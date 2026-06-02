@@ -1,5 +1,11 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        offcanvas: Offcanvas.jQueryInterface;
+    }
+}
+
 declare class Offcanvas extends BaseComponent {
     /**
      * Static method which allows you to get the offcanvas instance associated with a DOM element

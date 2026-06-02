@@ -4128,7 +4128,6 @@ declare namespace React {
         componentStack?: string | null;
     }
 
-    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         interface Element extends React.ReactElement<any, any> {}
         interface ElementClass extends React.Component<any> {
