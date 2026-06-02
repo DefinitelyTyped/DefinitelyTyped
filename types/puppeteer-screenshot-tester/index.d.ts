@@ -1,5 +1,7 @@
-import { Page, ScreenshotOptions as PuppeteerScreenshotOptions } from "puppeteer";
-import { JpegOptions, PngOptions, WebpOptions } from "sharp";
+import type { Page, ScreenshotOptions as PuppeteerScreenshotOptions } from "puppeteer" with {
+    "resolution-mode": "import",
+};
+import type { JpegOptions, PngOptions, WebpOptions } from "sharp" with { "resolution-mode": "import" };
 
 interface PngOutputSettings {
     /**

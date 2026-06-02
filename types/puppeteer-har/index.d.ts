@@ -1,4 +1,4 @@
-import type { Frame, Page } from "puppeteer";
+import type { Frame, Page } from "puppeteer" with { "resolution-mode": "import" };
 
 declare namespace PuppeteerHar {
     interface PuppeteerHarOptions {
