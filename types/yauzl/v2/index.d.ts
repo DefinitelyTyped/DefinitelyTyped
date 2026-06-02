@@ -3,14 +3,9 @@
 import { EventEmitter } from "events";
 import { Readable } from "stream";
 
-export interface ExtraField {
-    id: number;
-    data: Buffer;
-}
-
 export abstract class RandomAccessReader extends EventEmitter {
-    _readStreamForRange(start: number, end: number): Readable;
-    createReadStream(options: { start: number; end: number }): Readable;
+    _readStreamForRange(start: number, end: number): void;
+    createReadStream(options: { start: number; end: number }): void;
     read(buffer: Buffer, offset: number, length: number, position: number, callback: (err: Error | null) => void): void;
     close(callback: (err: Error | null) => void): void;
 }
@@ -22,14 +17,10 @@ export class Entry {
     crc32: number;
     externalFileAttributes: number;
     extraFieldLength: number;
-    extraFieldRaw: Buffer;
-    extraFields: ExtraField[];
-    fileComment: string;
+    extraFields: Array<{ id: number; data: Buffer }>;
     fileCommentLength: number;
-    fileCommentRaw: Buffer;
     fileName: string;
     fileNameLength: number;
-    fileNameRaw: Buffer;
     generalPurposeBitFlag: number;
     internalFileAttributes: number;
     lastModFileDate: number;
@@ -39,42 +30,16 @@ export class Entry {
     versionMadeBy: number;
     versionNeededToExtract: number;
 
-    getLastModDate(options?: GetLastModDateOptions): Date;
-    canDecodeFileData(): boolean;
+    getLastModDate(): Date;
     isEncrypted(): boolean;
-    /** @deprecated Use `canDecodeFileData()` and/or check `compressionMethod`. */
     isCompressed(): boolean;
 }
 
-export interface GetLastModDateOptions {
-    timezone?: "local" | "UTC" | null | undefined;
-    forceDosFormat?: boolean | undefined;
-}
-
-export class LocalFileHeader {
-    fileDataStart: number;
-    versionNeededToExtract: number;
-    generalPurposeBitFlag: number;
-    compressionMethod: number;
-    lastModFileTime: number;
-    lastModFileDate: number;
-    crc32: number;
-    compressedSize: number;
-    uncompressedSize: number;
-    fileNameLength: number;
-    extraFieldLength: number;
-    fileName: Buffer;
-    extraField: Buffer;
-}
-
 export interface ZipFileOptions {
-    decodeFileData?: boolean | null | undefined;
-    start?: number | null | undefined;
-    end?: number | null | undefined;
-    /** @deprecated */
-    decompress?: boolean | null | undefined;
-    /** @deprecated */
-    decrypt?: boolean | null | undefined;
+    decompress: boolean | null;
+    decrypt: boolean | null;
+    start: number | null;
+    end: number | null;
 }
 
 export class ZipFile extends EventEmitter {
@@ -108,26 +73,6 @@ export class ZipFile extends EventEmitter {
         callback: (err: Error | null, stream: Readable) => void,
     ): void;
     openReadStream(entry: Entry, callback: (err: Error | null, stream: Readable) => void): void;
-    readLocalFileHeader(
-        entry: Entry,
-        options: { minimal: true },
-        callback: (err: Error | null, header: { fileDataStart: number }) => void,
-    ): void;
-    readLocalFileHeader(
-        entry: Entry,
-        options: { minimal?: boolean },
-        callback: (err: Error | null, header: LocalFileHeader) => void,
-    ): void;
-    readLocalFileHeader(entry: Entry, callback: (err: Error | null, header: LocalFileHeader) => void): void;
-    openReadStreamLowLevel(
-        fileDataStart: number,
-        compressedSize: number,
-        relativeStart: number,
-        relativeEnd: number,
-        decompress: boolean,
-        uncompressedSize: number | null,
-        callback: (err: Error | null, stream: Readable) => void,
-    ): void;
     close(): void;
     readEntry(): void;
 }
@@ -161,13 +106,5 @@ export function fromRandomAccessReader(
     totalSize: number,
     callback: (err: Error | null, zipfile: ZipFile) => void,
 ): void;
-/** @deprecated Use `entry.getLastModDate()` instead. */
 export function dosDateTimeToDate(date: number, time: number): Date;
 export function validateFileName(fileName: string): string | null;
-export function getFileNameLowLevel(
-    generalPurposeBitFlag: number,
-    fileNameBuffer: Buffer,
-    extraFields: ExtraField[],
-    strictFileNames: boolean,
-): string;
-export function parseExtraFields(extraFieldBuffer: Buffer): ExtraField[];
