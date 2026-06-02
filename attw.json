@@ -3,7 +3,8 @@
         "no-resolution",
         "cjs-only-exports-default",
         "unexpected-module-syntax",
-        "cjs-resolves-to-esm"
+        "cjs-resolves-to-esm",
+        "named-exports"
     ],
     "failingPackages": [
         "af-utils__react-table",
