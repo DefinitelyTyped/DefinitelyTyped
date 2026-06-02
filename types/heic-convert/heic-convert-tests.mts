@@ -1,14 +1,14 @@
 import convert from "heic-convert";
 import convertBrowser from "heic-convert/browser";
 
-// $ExpectType Promise<Uint8Array>
+// $ExpectType Promise<NonSharedUint8Array>
 convert({ buffer: new Uint8Array(10), format: "PNG" });
-// $ExpectType Promise<Uint8Array>
+// $ExpectType Promise<NonSharedUint8Array>
 convertBrowser({ buffer: new Uint8Array(10), format: "PNG" });
 
-// $ExpectType Promise<Uint8Array>
+// $ExpectType Promise<NonSharedUint8Array>
 convert({ buffer: new Uint8Array(10), format: "JPEG", quality: 0.4 });
-// $ExpectType Promise<Uint8Array>
+// $ExpectType Promise<NonSharedUint8Array>
 convertBrowser({ buffer: new Uint8Array(10), format: "JPEG", quality: 0.4 });
 
 // $ExpectType Promise<Convertible[]>
