@@ -2,7 +2,7 @@ interface ConversionOptions {
     /**
      * the HEIC file buffer
      */
-    buffer: Uint8Array;
+    buffer: Uint8Array<ArrayBufferLike>;
     /**
      * output format
      */
@@ -15,11 +15,11 @@ interface ConversionOptions {
 }
 
 interface Convertible {
-    convert(): Promise<Uint8Array>;
+    convert(): Promise<Uint8Array<ArrayBufferLike>>;
 }
 
 /** @async */
-declare function convert(image: ConversionOptions): Promise<Uint8Array>;
+declare function convert(image: ConversionOptions): Promise<Uint8Array<ArrayBufferLike>>;
 declare namespace convert {
     /** @async */
     function all(image: ConversionOptions): Promise<Convertible[]>;
