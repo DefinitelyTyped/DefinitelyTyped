@@ -940,6 +940,12 @@ export const version7Tests = async (): Promise<void> => {
     const resultSetResult = await connection.execute("SELECT 1 FROM dual", [], { resultSet: true });
     expectType<() => Promise<void>>(resultSetResult.resultSet![Symbol.asyncDispose]);
 
+    await using disposablePool = await oracledb.createPool({});
+    await using disposableConnection = await disposablePool.getConnection();
+
+    const disposableResult = await disposableConnection.execute("SELECT 1 FROM dual", [], { resultSet: true });
+    await using disposableResultSet = disposableResult.resultSet!;
+
     class PoolTraceHandler extends oracledb.traceHandler.TraceHandlerBase {
         // some representative methods for testing,
         // others can be similarly tested.
@@ -1038,6 +1044,9 @@ export const version7Tests = async (): Promise<void> => {
     await lob.trim();
     await lob.trim(10);
     lob.trim(error => {
+        expectType<oracledb.DBError | null>(error);
+    });
+    lob.trim(10, error => {
         expectType<oracledb.DBError | null>(error);
     });
 
