@@ -2,7 +2,7 @@ interface ConversionOptions {
     /**
      * the HEIC file buffer
      */
-    buffer: NodeJS.NonSharedUint8Array;
+    buffer: NonSharedUint8Array;
     /**
      * output format
      */
@@ -15,11 +15,11 @@ interface ConversionOptions {
 }
 
 interface Convertible {
-    convert(): Promise<NodeJS.NonSharedUint8Array>;
+    convert(): Promise<NonSharedUint8Array>;
 }
 
 /** @async */
-declare function convert(image: ConversionOptions): Promise<NodeJS.NonSharedUint8Array>;
+declare function convert(image: ConversionOptions): Promise<NonSharedUint8Array>;
 declare namespace convert {
     /** @async */
     function all(image: ConversionOptions): Promise<Convertible[]>;
