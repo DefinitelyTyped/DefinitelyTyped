@@ -56,11 +56,11 @@ wifi.startAP("Test", {
     if (err) throw err;
     console.log("AP up");
 });
-wifi.stopAP(()=>{})
+wifi.stopAP(() => {});
 
-//minimum
+// minimum
 wifi.startAP("MyAP", {}, () => {});
-wifi.stopAP(()=>{})
+wifi.stopAP(() => {});
 
 // @ts-expect-error -- callback is required
 wifi.startAP("MyAP", { password: "pw" });
