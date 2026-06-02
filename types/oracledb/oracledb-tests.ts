@@ -1065,12 +1065,10 @@ export const version7Tests = async (): Promise<void> => {
 
     const pipelineResults = await connection.runPipeline(pipeline, true);
     expectType<oracledb.PipelineOperationResult[]>(pipelineResults);
-    connection.runPipeline(pipeline, (error, results) => {
-        expectType<oracledb.DBError | null>(error);
-        expectType<oracledb.PipelineOperationResult[]>(results);
+    connection.runPipeline(pipeline, (...args) => {
+        expectType<[oracledb.DBError] | [null, oracledb.PipelineOperationResult[]]>(args);
     });
-    connection.runPipeline(pipeline, true, (error, results) => {
-        expectType<oracledb.DBError | null>(error);
-        expectType<oracledb.PipelineOperationResult[]>(results);
+    connection.runPipeline(pipeline, true, (...args) => {
+        expectType<[oracledb.DBError] | [null, oracledb.PipelineOperationResult[]]>(args);
     });
 };

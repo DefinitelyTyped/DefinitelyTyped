@@ -921,8 +921,7 @@ declare namespace OracleDB {
      * node-oracledb Thick mode are passed unchanged to Oracle Client libraries
      * or parsed by node-oracledb.
      *
-     * This property must be set before creating the first standalone
-     * connection or pool.
+     * If we are using this property, it must be be set before creating the first standalone connection or pool.
      *
      * @default true
      * @since 7.0
@@ -1474,7 +1473,7 @@ declare namespace OracleDB {
          * This reverts the connection to its original state in which subsequent
          * database operations are executed without any end user security context.
          *
-         * Currently, this method is only relevant to node-oracledb Thin mode.
+         * Currently, this method is only relevant in node-oracledb Thin mode.
          *
          * @since 7.0
          */
@@ -1505,6 +1504,8 @@ declare namespace OracleDB {
         /**
          * Implements Explicit Resource Management. Equivalent to calling
          * connection.close().
+         *
+         * Requires Node.js 24.
          *
          * @since 7.0
          */
@@ -1930,10 +1931,7 @@ declare namespace OracleDB {
         runPipeline(
             pipeline: Pipeline,
             continueOnError: boolean,
-            callback: (
-                error: DBError | null,
-                results: PipelineOperationResult[],
-            ) => void,
+            callback: ResultCallback<PipelineOperationResult[]>,
         ): void;
         /**
          * Runs all of the operations in a pipeline and invokes the callback with
@@ -1952,10 +1950,7 @@ declare namespace OracleDB {
          */
         runPipeline(
             pipeline: Pipeline,
-            callback: (
-                error: DBError | null,
-                results: PipelineOperationResult[],
-            ) => void,
+            callback: ResultCallback<PipelineOperationResult[]>,
         ): void;
 
         /**
@@ -2225,6 +2220,10 @@ declare namespace OracleDB {
      * Each entry should represent one context attribute assignment.
      */
     type AppContextKeyValue = Record<string, string>;
+    /**
+     * An application context entry used when creating a connection or pool.
+     * Each tuple contains the namespace, name, and value strings.
+     */
     type AppContextOpts = [string, string, string];
     /**
      * Provides connection credentials and connection-specific configuration properties.
@@ -3417,6 +3416,8 @@ declare namespace OracleDB {
          * Implements Explicit Resource Management. Equivalent to calling
          * pool.close().
          *
+         * Requires Node.js 24.
+         *
          * @since 7.0
          */
         [Symbol.asyncDispose](): Promise<void>;
@@ -4469,6 +4470,8 @@ declare namespace OracleDB {
         /**
          * Implements Explicit Resource Management. Equivalent to calling
          * resultSet.close().
+         *
+         * Requires Node.js 24.
          *
          * @since 7.0
          */
