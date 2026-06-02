@@ -3193,6 +3193,7 @@ declare namespace OracleDB {
          */
         trim(newSize?: number): Promise<void>;
         trim(callback: (error: DBError | null) => void): void;
+        trim(newSize: number, callback: (error: DBError | null) => void): void;
     }
 
     /**
