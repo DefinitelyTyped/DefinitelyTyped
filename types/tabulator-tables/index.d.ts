@@ -976,6 +976,13 @@ export interface SpreadsheetComponent {
 
 export type RenderMode = "virtual" | "basic" | Renderer;
 
+/**
+ * You can define a function that is called when the popup is rendered that should return either an HTML string or the contents of the element.
+ * This function is passed the mouse/touch event as its first argument and the component of the element that triggered the popup as the second argument.
+ * The `onRendered` callback function passed into the third argument allows you to register a callback that will be triggered when the popup has been added to the dom but before its position is confirmed. This can be useful when you are trying to use a 3rd party library that needs the element to be visible before it can be instantiated. To use this function you need to pass a callback that runs any of your required code as the only argument.
+ */
+export type PopupFunction<T> = (e: MouseEvent, component: T, onRendered: () => EmptyCallback) => string | HTMLElement;
+
 export interface OptionsMenu {
     rowContextMenu?: RowContextMenuSignature | undefined;
     rowClickMenu?: RowContextMenuSignature | undefined;
@@ -983,14 +990,20 @@ export interface OptionsMenu {
     groupClickMenu?: GroupContextMenuSignature | undefined;
     groupDblClickMenu?: GroupContextMenuSignature | undefined;
     groupContextMenu?: Array<MenuObject<GroupComponent>> | undefined;
+    /** By default Tabulator will append the menu element to the body element of the DOM as this allows the menu to appear correctly in the vast majority of situations. There are some circumstances where you may want the menu to be appended to a different element, such as the body of a modal, so that the menu is contained with that element. In these circumstances you can use the popupContainer option to specify the element that the menu should be appended to. */
     popupContainer?: boolean | string | HTMLElement;
-    groupClickPopup?: string;
-    groupContextPopup?: string;
-    groupDblPopup?: string;
-    groupDblClickPopup?: string;
-    rowClickPopup?: string;
-    rowContextPopup?: string;
-    rowDblClickPopup?: string;
+    /** You can add a click popup to any group header by passing the popup contents to the `groupClickPopup` option in the table constructor object. */
+    groupClickPopup?: string | HTMLElement | PopupFunction<GroupComponent>;
+    /** You can add a right click popup to any group header by passing the popup contents to the `groupContextPopup` option in the table constructor object. */
+    groupContextPopup?: string | HTMLElement | PopupFunction<GroupComponent>;
+    /** You can add a double click popup to any group header by passing the popup contents to the groupDblClickPopup option in the table constructor object. */
+    groupDblClickPopup?: string | HTMLElement | PopupFunction<GroupComponent>;
+    /** You can add a click popup to any row by passing the popup contents to the `rowClickPopup` option in the table constructor object. */
+    rowClickPopup?: string | HTMLElement | PopupFunction<RowComponent>;
+    /** You can add a right click popup to any row by passing the popup contents to the `rowContextPopup` option in the table constructor object. */
+    rowContextPopup?: string | HTMLElement | PopupFunction<RowComponent>;
+    /** You can add a double click popup to any row by passing the popup contents to the `rowDblClickPopup` option in the table constructor object. */
+    rowDblClickPopup?: string | HTMLElement | PopupFunction<RowComponent>;
 }
 
 export type RowContextMenuSignature =
@@ -1471,8 +1484,6 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
 
     /** You can add a right click context menu to any column by passing an array of menu items to the headerContextMenu option in that columns definition. */
     headerContextMenu?: Array<MenuObject<ColumnComponent> | MenuSeparator> | undefined;
-    headerDblClickPopup?: string;
-    dblClickPopup?: string;
 
     /** You can add a right click context menu to any columns cells by passing an array of menu items to the contextMenu option in that columns definition. */
     contextMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
@@ -1481,9 +1492,22 @@ export interface ColumnDefinition extends ColumnLayout, CellCallbacks {
     dblClickMenu?: Array<MenuObject<CellComponent> | MenuSeparator> | undefined;
 
     /** Popups work in a similar way to menus, but instead of only displaying lists of menu items they allow you to fill them with any custom content you like, text, input elements, forms, anything you fancy. */
-    cellPopup?:
-        | string
-        | ((e: MouseEvent, component: RowComponent | CellComponent | ColumnComponent, onRendered: () => any) => any);
+    clickPopup?: string | HTMLElement | PopupFunction<CellComponent>;
+    /** You can add a double click popup to any cell by passing the popup contents to the `dblClickPopup` option in that columns definition. */
+    dblClickPopup?: string | HTMLElement | PopupFunction<CellComponent>;
+    /** You can add a right click popup to any cell by passing the popup contents to the `contextPopup` option in that columns definition. */
+    contextPopup?: string | HTMLElement | PopupFunction<CellComponent>;
+
+    /** You can add a popup to any column by passing the popup contents to the headerPopup option in that columns definition. Adding a header popup will cause a ⋮ button to appear to the left of the column header title. clicking on this button will open the popup. */
+    headerPopup?: string | HTMLElement | PopupFunction<ColumnComponent>;
+    /** When you insert a header popup, Tabulator will add a button to the header element with an ⋮ icon. You can change the contents of this button using `headerPopupIcon` column definition option. */
+    headerPopupIcon?: string | HTMLElement | ((column: ColumnComponent) => string | HTMLElement);
+    /** You can add a left click popup to any column by passing the popup contents to the `headerClickPopup` option in that columns definition. */
+    headerClickPopup?: string | HTMLElement | PopupFunction<ColumnComponent>;
+    /** You can add a double left click popup to any column by passing the popup contents to the `headerDblClickPopup` option in that columns definition. */
+    headerDblClickPopup?: string | HTMLElement | PopupFunction<ColumnComponent>;
+    /** You can add a right click popup to any column by passing the popup contents to the `headerContextPopup` option in that columns definition. */
+    headerContextPopup?: string | HTMLElement | PopupFunction<ColumnComponent>;
 
     /** When copying to the clipboard you may want to apply a different formatter from the one usually used to format the cell, you can do this using the formatterClipboard column definition option. You can use the formatterClipboardParams to pass in any additional params to the formatter. */
     formatterClipboard?: Formatter | false | undefined;
