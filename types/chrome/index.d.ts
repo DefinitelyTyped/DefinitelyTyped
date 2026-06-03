@@ -1725,7 +1725,7 @@ declare namespace chrome {
          *
          * `allow`: Allow sites to use advanced clipboard capabilities,
          *
-         * `block`: Don't allow sites to use advanced clipboard capabilties,
+         * `block`: Don't allow sites to use advanced clipboard capabilities,
          *
          * `ask`: Ask when a site wants to use advanced clipboard capabilities.
          *
@@ -1876,6 +1876,8 @@ declare namespace chrome {
             BROWSER_ACTION = "browser_action",
             PAGE_ACTION = "page_action",
             ACTION = "action",
+            /** @since Chrome 149 */
+            TAB = "tab",
         }
 
         /**
@@ -2585,7 +2587,7 @@ declare namespace chrome {
         interface EditResponseCookie {
             /** Filter for cookies that will be modified. All empty entries are ignored. */
             filter: ResponseCookie;
-            /** Attributes that shall be overridden in cookies that machted the filter. Attributes that are set to an empty string are removed. */
+            /** Attributes that shall be overridden in cookies that matched the filter. Attributes that are set to an empty string are removed. */
             modification: ResponseCookie;
         }
 
@@ -2603,7 +2605,7 @@ declare namespace chrome {
         interface EditRequestCookie {
             /** Filter for cookies that will be modified. All empty entries are ignored. */
             filter: RequestCookie;
-            /** Attributes that shall be overridden in cookies that machted the filter. Attributes that are set to an empty string are removed. */
+            /** Attributes that shall be overridden in cookies that matched the filter. Attributes that are set to an empty string are removed. */
             modification: RequestCookie;
         }
 
@@ -4545,7 +4547,7 @@ declare namespace chrome {
         const inIncognitoContext: boolean;
 
         /**
-         * Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occurred lastError will be `undefined`.
+         * Set for the lifetime of a callback if an asynchronous extension api has resulted in an error. If no error has occurred lastError will be `undefined`.
          * @deprecated since Chrome 58. Please use {@link runtime.lastError}
          */
         const lastError: runtime.LastError | undefined;
@@ -8912,6 +8914,7 @@ declare namespace chrome {
         /**
          * The native client architecture. This may be different from arch on some platforms.
          * @since Chrome 44
+         * @deprecated since Chrome 149. This enum is deprecated following complete removal of Native Client.
          */
         enum PlatformNaclArch {
             /** Specifies the native client architecture as arm. */
@@ -9072,7 +9075,10 @@ declare namespace chrome {
             os: `${PlatformOs}`;
             /** The machine's processor architecture. */
             arch: `${PlatformArch}`;
-            /** The native client architecture. This may be different from arch on some platforms. */
+            /**
+             * The native client architecture. This may be different from arch on some platforms.
+             * @deprecated since Chrome 149. This attribute is deprecated following complete removal of Native Client.
+             */
             nacl_arch?: `${PlatformNaclArch}`;
         }
 
