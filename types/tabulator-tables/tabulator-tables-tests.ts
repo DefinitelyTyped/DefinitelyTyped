@@ -1169,12 +1169,24 @@ table.import("json", ".json");
 // 5.2
 table = new Tabulator("#test", {
     popupContainer: true,
+    rowClickPopup: "I'm a row Popup",
+    rowContextPopup: "I'm a row right-click Popup",
+    groupClickPopup: "Im a group Popup",
+    groupContextPopup: "Im a group right-click Popup",
     // test editor of type 'list' supported.
     columns: [
         {
             field: "test_editor",
             title: "Test Editor",
             editor: "list",
+            clickPopup: "Hey, Im a Popup!",
+        },
+        {
+            field: "test_popup",
+            title: "Test Popup",
+            contextPopup: (event, cell, onRendered) => {
+                return String(cell.getValue());
+            },
         },
     ],
 });
