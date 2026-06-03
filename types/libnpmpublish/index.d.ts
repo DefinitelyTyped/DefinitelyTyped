@@ -61,7 +61,7 @@ export interface PublishOptions extends fetch.Options {
 export function publish(
     manifest: PackageJson,
     tarballData: Buffer,
-    options: Omit<PublishOptions, "stage"> & { stage: true },
+    options: PublishOptions & { stage: true },
 ): Promise<Response & { stageId: string }>;
 export function publish(
     manifest: PackageJson,
