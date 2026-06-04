@@ -32,9 +32,9 @@ const bqt: BuyTradeQuoteRequest = {
     fiatStringAmount: "1000",
     cryptoAmount: 0.3,
     cryptoStringAmount: "0.3",
-    receiveAddress: 'receiveAddress',
-    receiveCurrency: 'bitcoin' as CryptoId,
-    fiatCurrency: 'USD',
+    receiveAddress: "receiveAddress",
+    receiveCurrency: "bitcoin" as CryptoId,
+    fiatCurrency: "USD",
 };
 
 const et: ExchangeTrade = {
