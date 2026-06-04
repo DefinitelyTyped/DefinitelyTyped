@@ -304,7 +304,6 @@ declare module "v8" {
      * ```
      * @param ctor The constructor that can be used to search on the prototype chain in order to filter target objects in the heap.
      * @since v20.13.0
-     * @experimental
      */
     function queryObjects(ctor: Function): number | string[];
     function queryObjects(ctor: Function, options: { format: "count" }): number;
@@ -732,6 +731,11 @@ declare module "v8" {
          * @since v19.6.0, v18.15.0
          */
         stop(): GCProfilerResult;
+        /**
+         * Stop collecting GC data, and discard the profile.
+         * @since v24.13.0
+         */
+        [Symbol.dispose](): void;
     }
     interface GCProfilerResult {
         version: number;
