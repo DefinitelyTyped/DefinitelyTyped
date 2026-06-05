@@ -258,6 +258,8 @@ import { URL } from "node:url";
 {
     let settings: Settings = {};
     const serverOptions: ServerOptions = {
+        maxSessionRejectedStreams: 1,
+        maxSessionInvalidFrames: 1,
         maxDeflateDynamicTableSize: 0,
         maxSettings: 32,
         maxSessionMemory: 10,

@@ -1348,6 +1348,8 @@ declare module "http2" {
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
         Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends SessionOptions {
+        maxSessionRejectedStreams?: number | undefined;
+        maxSessionInvalidFrames?: number | undefined;
         streamResetBurst?: number | undefined;
         streamResetRate?: number | undefined;
         Http1IncomingMessage?: Http1Request | undefined;
