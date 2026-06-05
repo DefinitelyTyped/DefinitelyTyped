@@ -487,3 +487,8 @@ const sampler = new BusyCycleSampler();
 for (const e of Process.getModuleByName("libc.so").enumerateExports().filter(e => e.type === "function")) {
     profiler.instrument(e.address, sampler);
 }
+
+for (const e of Process.getModuleByName("libc.so").enumerateExports()) {
+    // $ExpectType number | undefined
+    e.size;
+}
