@@ -7,7 +7,7 @@ export type GlobOptions = ReaddirGlob.Options & { cwd?: string };
 
 export interface EntryData {
     name: string;
-    type?: 'directory' | 'file' | 'symlink';
+    type?: "directory" | "file" | "symlink";
     date?: Date | string;
     mode?: number;
     prefix?: string;
