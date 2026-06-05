@@ -27,6 +27,7 @@ const options: ArchiverOptions = {
     forceZip64: true,
     namePrependSlash: true,
     store: true,
+    level: 9,
     zlib: {},
     gzip: true,
     gzipOptions: {},

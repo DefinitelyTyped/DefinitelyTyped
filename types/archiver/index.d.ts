@@ -36,7 +36,7 @@ export type EntryDataFunction = (entry: EntryData) => false | EntryData;
 
 export interface ArchiverError extends Error {
     code: string;
-    data: any;
+    data?: any;
 }
 
 export class Archiver extends stream.Transform {
@@ -83,6 +83,7 @@ export interface ZipOptions {
     forceZip64?: boolean | undefined;
     namePrependSlash?: boolean | undefined;
     store?: boolean | undefined;
+    level?: number | undefined;
     zlib?: ZlibOptions | undefined;
 }
 
