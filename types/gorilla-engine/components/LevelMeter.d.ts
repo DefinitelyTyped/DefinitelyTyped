@@ -78,6 +78,10 @@ declare namespace GorillaEngine.UI {
          * The current value of the level meter.
          */
         value: any;
+        /**
+         * Select which channel to show.
+         */
+        channelOffset: number;
     }
 
     // tslint:disable-next-line:no-empty-interface

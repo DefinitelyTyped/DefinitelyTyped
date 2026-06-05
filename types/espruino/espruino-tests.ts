@@ -1,14 +1,85 @@
 import * as wifi from "Wifi";
 
-wifi.connect("ssid", { password: "pass", authMode: "wpa_wpa2" }, err => {
-    if (err) throw err;
-    console.log("connected");
+// minimum
+wifi.connect("Test", {});
+
+wifi.connect("Test", {
+    password: "Test1234",
+    authMode: "wpa_wpa2",
+    channel: 6,
+    bssid: "aa:bb:cc:dd:ee:ff",
+    dnsServers: ["8.8.8.8", "1.1.1.1"],
 });
 
-wifi.startAP("ssid", { password: "pass", authMode: "wpa_wpa2" }, err => {
-    if (err) throw err;
-    console.log("created");
+wifi.connect("Test", { password: "pw" }, err => {
+    if (err === null) {
+        console.log("connected");
+    } else {
+        const reason: string = err;
+        console.log("failed:", reason);
+    }
 });
+
+// test all types of auth
+(["open", "wpa", "wpa2", "wpa_wpa2"] as const).forEach(authMode => {
+    wifi.connect("Test", { authMode });
+});
+
+// @ts-expect-error -- "wep" is not a valid WifiAuth
+wifi.connect("Test", { authMode: "wep" });
+
+// @ts-expect-error -- ssid must be a string
+wifi.connect(12345, {});
+
+// @ts-expect-error -- options is required (not optional in current d.ts)
+wifi.connect("Test");
+
+// ALLOWED
+wifi.connect("Test", { dnsServers: ["8.8.8.8", "1.1.1.1"] });
+
+// @ts-expect-error -- dnsServers is a 2-tuple, not a 3-tuple
+wifi.connect("Test", { dnsServers: ["8.8.8.8", "1.1.1.1", "9.9.9.9"] });
+
+// @ts-expect-error -- unknown option
+wifi.connect("Test", { encryption: "wpa2" });
+
+// @ts-expect-error -- callback err parameter is string|null, not Error
+wifi.connect("Test", {}, (err: Error | null) => {});
+
+// AP STUFF
+wifi.startAP("Test", {
+    password: "Test1234",
+    authMode: "wpa_wpa2",
+    channel: 11,
+    hidden: true,
+}, err => {
+    if (err) throw err;
+    console.log("AP up");
+});
+wifi.stopAP(() => {});
+
+// minimum
+wifi.startAP("MyAP", {}, () => {});
+wifi.stopAP(() => {});
+
+// @ts-expect-error -- callback is required
+wifi.startAP("MyAP", { password: "pw" });
+
+// @ts-expect-error -- hidden must be boolean
+wifi.startAP("MyAP", { hidden: "yes" }, () => {});
+
+// @ts-expect-error -- channel must be number
+wifi.startAP("MyAP", { channel: "6" }, () => {});
+
+wifi.disconnect(() => {
+    console.log("disconnected");
+});
+
+// @ts-expect-error -- callback is required
+wifi.disconnect();
+
+// @ts-expect-error -- callback takes no arguments
+wifi.disconnect((err: string) => {});
 
 digitalWrite(D2, false);
 digitalWrite(D2, true);

@@ -288,15 +288,3 @@ declare module "react" {
         interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
     }
 }
-
-// augment react/jsx-runtime JSX when new JSX transform is used
-declare module "react/jsx-runtime" {
-    namespace JSX {
-        interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
-    }
-}
-declare module "react/jsx-dev-runtime" {
-    namespace JSX {
-        interface IntrinsicElements extends BlessedIntrinsicElementsPrefixed, BlessedIntrinsicElements {}
-    }
-}

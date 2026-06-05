@@ -1,6 +1,12 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 import Tooltip from "./tooltip";
 
+declare global {
+    interface JQuery {
+        [Popover.NAME]: Popover.jQueryInterface;
+    }
+}
+
 declare class Popover extends BaseComponent {
     static getInstance: GetInstanceFactory<Popover>;
 

@@ -173,6 +173,19 @@ Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
     },
 });
 
+// $ExpectType MemoryPointerMatch[]
+Memory.findPointers({ base: ptr("0x1234"), size: Process.pageSize }, [ptr("0xdeadbeef")]);
+// $ExpectType MemoryPointerMatch[]
+const pointerMatches = Memory.findPointers(
+    [{ base: ptr("0x1234"), size: Process.pageSize }],
+    [ptr("0xdeadbeef")],
+    { mask: ptr("0x00007ffffffffff8") },
+);
+// $ExpectType NativePointer
+pointerMatches[0].address;
+// $ExpectType NativePointer
+pointerMatches[0].value;
+
 // $ExpectType Module
 Process.mainModule;
 
@@ -473,4 +486,9 @@ const profiler = new Profiler();
 const sampler = new BusyCycleSampler();
 for (const e of Process.getModuleByName("libc.so").enumerateExports().filter(e => e.type === "function")) {
     profiler.instrument(e.address, sampler);
+}
+
+for (const e of Process.getModuleByName("libc.so").enumerateExports()) {
+    // $ExpectType number | undefined
+    e.size;
 }
