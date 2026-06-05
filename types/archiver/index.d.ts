@@ -7,16 +7,17 @@ export type GlobOptions = ReaddirGlob.Options & { cwd?: string };
 
 export interface EntryData {
     name: string;
-    date?: Date | string | undefined;
-    mode?: number | undefined;
-    prefix?: string | undefined;
-    stats?: fs.Stats | undefined;
+    type?: 'directory' | 'file' | 'symlink';
+    date?: Date | string;
+    mode?: number;
+    prefix?: string;
+    stats?: fs.Stats;
 }
 
 export interface ZipEntryData extends EntryData {
-    store?: boolean | undefined;
-    comment?: string | undefined;
-    namePrependSlash?: boolean | undefined;
+    store?: boolean;
+    comment?: string;
+    namePrependSlash?: boolean;
 }
 
 export type TarEntryData = EntryData;
@@ -64,32 +65,32 @@ export class Archiver extends stream.Transform {
 }
 
 export interface CoreOptions {
-    statConcurrency?: number | undefined;
+    statConcurrency?: number;
 }
 
 export interface TransformOptions {
-    allowHalfOpen?: boolean | undefined;
-    readableObjectMode?: boolean | undefined;
-    writableObjectMode?: boolean | undefined;
-    decodeStrings?: boolean | undefined;
-    encoding?: BufferEncoding | undefined;
-    highWaterMark?: number | undefined;
-    objectMode?: boolean | undefined;
+    allowHalfOpen?: boolean;
+    readableObjectMode?: boolean;
+    writableObjectMode?: boolean;
+    decodeStrings?: boolean;
+    encoding?: BufferEncoding;
+    highWaterMark?: number;
+    objectMode?: boolean;
 }
 
 export interface ZipOptions {
-    comment?: string | undefined;
-    forceLocalTime?: boolean | undefined;
-    forceZip64?: boolean | undefined;
-    namePrependSlash?: boolean | undefined;
-    store?: boolean | undefined;
-    level?: number | undefined;
-    zlib?: ZlibOptions | undefined;
+    comment?: string;
+    forceLocalTime?: boolean;
+    forceZip64?: boolean;
+    namePrependSlash?: boolean;
+    store?: boolean;
+    level?: number;
+    zlib?: ZlibOptions;
 }
 
 export interface TarOptions {
-    gzip?: boolean | undefined;
-    gzipOptions?: ZlibOptions | undefined;
+    gzip?: boolean;
+    gzipOptions?: ZlibOptions;
 }
 
 export type ArchiverOptions = CoreOptions & TransformOptions & ZipOptions & TarOptions;
