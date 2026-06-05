@@ -34,10 +34,9 @@ export interface ProgressData {
 
 export type EntryDataFunction = (entry: EntryData) => false | EntryData;
 
-export class ArchiverError extends Error {
+export interface ArchiverError extends Error {
     code: string;
     data: any;
-    constructor(code: string, data: any);
 }
 
 export class Archiver extends stream.Transform {

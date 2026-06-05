@@ -1,6 +1,6 @@
 import {
     Archiver,
-    ArchiverError,
+    type ArchiverError,
     ArchiverOptions,
     EntryData,
     EntryDataFunction,
@@ -89,8 +89,6 @@ function fakeHandler(err: ArchiverError) {
     console.log(err.stack);
     console.log(err.data);
 }
-
-const fakeError = new ArchiverError("code", "foo");
 
 archiver.on("error", fakeHandler);
 archiver.on("warning", fakeHandler);
