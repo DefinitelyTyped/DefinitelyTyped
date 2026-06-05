@@ -305,10 +305,18 @@ declare namespace GoogleAppsScript {
                 rowProperties?: Sheets.Schema.BandingProperties | undefined;
             }
             interface BandingProperties {
+                /** @deprecated Use `firstBandColorStyle` instead */
                 firstBandColor?: Sheets.Schema.Color | undefined;
+                firstBandColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                /** @deprecated Use `footerColorStyle` instead */
                 footerColor?: Sheets.Schema.Color | undefined;
+                footerColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                /** @deprecated Use `headerColorStyle` instead */
                 headerColor?: Sheets.Schema.Color | undefined;
+                headerColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                /** @deprecated Use `secondBandColorStyle` instead */
                 secondBandColor?: Sheets.Schema.Color | undefined;
+                secondBandColorStyle?: Sheets.Schema.ColorStyle | undefined;
             }
             interface BasicChartAxis {
                 format?: Sheets.Schema.TextFormat | undefined;
@@ -423,8 +431,11 @@ declare namespace GoogleAppsScript {
                 format?: Sheets.Schema.CellFormat | undefined;
             }
             interface Border {
+                /** @deprecated Use `colorStyle` instead */
                 color?: Sheets.Schema.Color | undefined;
+                colorStyle?: Sheets.Schema.ColorStyle | undefined;
                 style?: string | undefined;
+                /** @deprecated Use `style` instead */
                 width?: number | undefined;
             }
             interface Borders {
@@ -476,7 +487,9 @@ declare namespace GoogleAppsScript {
                 userEnteredValue?: Sheets.Schema.ExtendedValue | undefined;
             }
             interface CellFormat {
+                /** @deprecated Use `backgroundColorStyle` instead */
                 backgroundColor?: Sheets.Schema.Color | undefined;
+                backgroundColorStyle?: Sheets.Schema.ColorStyle | undefined;
                 borders?: Sheets.Schema.Borders | undefined;
                 horizontalAlignment?: string | undefined;
                 hyperlinkDisplayType?: string | undefined;
@@ -527,6 +540,10 @@ declare namespace GoogleAppsScript {
                 blue?: number | undefined;
                 green?: number | undefined;
                 red?: number | undefined;
+            }
+            interface ColorStyle {
+                rgbColor?: Sheets.Schema.Color | undefined;
+                themeColor?: string | undefined;
             }
             interface ConditionValue {
                 relativeDate?: string | undefined;
@@ -703,6 +720,8 @@ declare namespace GoogleAppsScript {
             interface FilterCriteria {
                 condition?: Sheets.Schema.BooleanCondition | undefined;
                 hiddenValues?: string[] | undefined;
+                visibleBackgroundColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                visibleForegroundColorStyle?: Sheets.Schema.ColorStyle | undefined;
             }
             interface FilterView {
                 criteria?: object | undefined;
@@ -792,7 +811,9 @@ declare namespace GoogleAppsScript {
                 shiftDimension?: string | undefined;
             }
             interface InterpolationPoint {
+                /** @deprecated Use `colorStyle` instead */
                 color?: Sheets.Schema.Color | undefined;
+                colorStyle?: Sheets.Schema.ColorStyle | undefined;
                 type?: string | undefined;
                 value?: string | undefined;
             }
@@ -1044,7 +1065,9 @@ declare namespace GoogleAppsScript {
                 rightToLeft?: boolean | undefined;
                 sheetId?: number | undefined;
                 sheetType?: string | undefined;
+                /** @deprecated Use `tabColorStyle` instead */
                 tabColor?: Sheets.Schema.Color | undefined;
+                tabColorStyle?: Sheets.Schema.ColorStyle | undefined;
                 title?: string | undefined;
             }
             interface SortRangeRequest {
@@ -1054,6 +1077,8 @@ declare namespace GoogleAppsScript {
             interface SortSpec {
                 dimensionIndex?: number | undefined;
                 sortOrder?: string | undefined;
+                foregroundColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                backgroundColorStyle?: Sheets.Schema.ColorStyle | undefined;
             }
             interface SourceAndDestination {
                 dimension?: string | undefined;
@@ -1080,7 +1105,9 @@ declare namespace GoogleAppsScript {
                 bold?: boolean | undefined;
                 fontFamily?: string | undefined;
                 fontSize?: number | undefined;
+                /** @deprecated Use `foregroundColorStyle` instead */
                 foregroundColor?: Sheets.Schema.Color | undefined;
+                foregroundColorStyle?: Sheets.Schema.ColorStyle | undefined;
                 italic?: boolean | undefined;
                 strikethrough?: boolean | undefined;
                 underline?: boolean | undefined;
@@ -1346,6 +1373,8 @@ declare namespace GoogleAppsScript {
         newClearValuesRequest(): any; // Schema.ClearValuesRequest;
         // Create a new instance of Color
         newColor(): Sheets.Schema.Color;
+        // Create a new instance of ColorStyle
+        newColorStyle(): Sheets.Schema.ColorStyle;
         // Create a new instance of ConditionValue
         newConditionValue(): Sheets.Schema.ConditionValue;
         // Create a new instance of ConditionalFormatRule
