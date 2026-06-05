@@ -132,8 +132,6 @@ declare namespace Fancytree {
         findRelatedNode(node: FancytreeNode, where: string | number, includeHidden?: boolean): FancytreeNode | null;
 
         /** Generate INPUT elements that can be submitted with html forms. In selectMode 3 only the topmost selected nodes are considered. */
-        generateFormElements(selected?: boolean, active?: boolean): void;
-        /** Generate INPUT elements that can be submitted with html forms. */
         generateFormElements(selected?: boolean | string, active?: boolean | string, opts?: unknown): void;
 
         /** Return the currently active node or null.  */
@@ -1011,7 +1009,7 @@ declare namespace Fancytree {
         /** default: multi_hier */
         selectMode?: FancytreeSelectMode | undefined;
         /** Used to Initialize the tree. */
-        source?: NodeData[] | NodeData | undefined;
+        source?: SourceData | (() => SourceData) | undefined;
         /** Translation table */
         strings?: TranslationTable | undefined;
         /** Add tabindex to container (default: "0"). */
@@ -1282,6 +1280,16 @@ declare namespace Fancytree {
         /** Use this as constant selected value(overriding selectMode 3 propagation). */
         unselectableStatus?: boolean | undefined;
     }
+
+    /** Node data, or a descriptor of how to load it: inline data, a URL string,
+     * `$.ajax` options (with a required `url`), or a promise resolving to node data. */
+    type SourceData =
+        | NodeData[]
+        | NodeData
+        | string
+        | (JQueryAjaxSettings & { url: string })
+        | JQueryXHR
+        | JQueryPromise<NodeData[] | NodeData>;
 
     /** Data object similar to NodeData, but with additional options.
      * May be passed to FancytreeNode#applyPatch (Every property that is omitted (or set to undefined) will be ignored)  */

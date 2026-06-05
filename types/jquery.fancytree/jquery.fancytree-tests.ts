@@ -250,3 +250,41 @@ tree.findFirst("Node");
 tree.findRelatedNode(activeNode, "down");
 tree.error("x");
 tree.toString();
+
+// `source` accepts every format documented in the implementation source:
+// object[] | object | string | $.Promise | function (see PR #74972).
+
+// Inline node data: array of nodes ...
+const sourceFromArray: Fancytree.FancytreeOptions = {
+    source: [{ title: "Node 1", key: "1" }],
+};
+
+// ... or a single object carrying a `children` array.
+const sourceFromObject: Fancytree.FancytreeOptions = {
+    source: { title: "Root", key: "1", children: [{ title: "Child", key: "2" }] },
+};
+
+// A URL string is loaded via Ajax.
+const sourceFromUrl: Fancytree.FancytreeOptions = {
+    source: "/api/tree",
+};
+
+// Ajax options object (the `source.url` branch).
+const sourceFromAjax: Fancytree.FancytreeOptions = {
+    source: { url: "/api/tree", cache: false },
+};
+
+// A promise resolving to node data.
+const sourceFromPromise: Fancytree.FancytreeOptions = {
+    source: $.getJSON("/api/tree"),
+};
+
+// A function returning node data ...
+const sourceFromFunction: Fancytree.FancytreeOptions = {
+    source: () => [{ title: "Node 1", key: "1" }],
+};
+
+// ... or returning a promise (e.g. for deferred loading).
+const sourceFromFunctionPromise: Fancytree.FancytreeOptions = {
+    source: () => $.getJSON("/api/tree"),
+};
