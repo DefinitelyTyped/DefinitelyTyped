@@ -304,7 +304,7 @@ export interface SharedAttributes {
 }
 
 export interface ParamMap {
-    [paramName: string]: number | string;
+    [paramName: string]: number | string | undefined;
 }
 
 export function write(description: SessionDescription): string;
