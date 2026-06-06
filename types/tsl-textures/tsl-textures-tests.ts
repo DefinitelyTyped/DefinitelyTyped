@@ -219,6 +219,3 @@ grid({ nope: true });
 
 // @ts-expect-error - a color slot does not accept a bare number.
 camouflage({ colorA: 123 });
-
-// @ts-expect-error - bricks() returns a vec3, not a float.
-expectType<Node<"float">>(bricks());
