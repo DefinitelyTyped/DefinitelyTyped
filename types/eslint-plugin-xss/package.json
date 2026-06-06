@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/Rantanen/eslint-plugin-xss#readme"
     ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
     "devDependencies": {
         "@types/eslint-plugin-xss": "workspace:."
     },

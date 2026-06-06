@@ -5,6 +5,9 @@
     "projects": [
         "https://makenowjust-labs.github.io/recheck/"
     ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
     "devDependencies": {
         "@types/eslint-plugin-redos": "workspace:."
     },

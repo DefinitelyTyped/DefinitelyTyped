@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/markalfred/eslint-plugin-no-constructor-bind#readme"
     ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
     "devDependencies": {
         "@types/eslint-plugin-no-constructor-bind": "workspace:."
     },

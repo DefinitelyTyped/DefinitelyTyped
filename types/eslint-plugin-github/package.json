@@ -6,6 +6,9 @@
     "projects": [
         "https://github.com/github/eslint-plugin-github#readme"
     ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
     "devDependencies": {
         "@types/eslint-plugin-github": "workspace:."
     },

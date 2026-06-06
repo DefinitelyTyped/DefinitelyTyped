@@ -5,6 +5,9 @@
     "projects": [
         "https://github.com/mozilla/eslint-plugin-no-unsanitized/"
     ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
     "devDependencies": {
         "@types/eslint-plugin-no-unsanitized": "workspace:."
     },
