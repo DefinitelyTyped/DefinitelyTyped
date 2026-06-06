@@ -4,7 +4,7 @@ import plugin from 'eslint-plugin-xss';
 const noMixed = plugin.rules['no-mixed-html'];
 const noHref = plugin.rules['no-location-href-assign'];
 noHref.create;
-noHref.meta.docs.description;
+noHref.meta.docs?.description;
 
 // Config
 const rec = plugin.configs.recommended;
