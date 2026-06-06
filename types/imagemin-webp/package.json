@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/imagemin-webp",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/imagemin/imagemin-webp#readme"
+    ],
+    "dependencies": {
+        "@types/imagemin": "*"
+    },
+    "devDependencies": {
+        "@types/imagemin-webp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brett M",
+            "githubUsername": "brettm12345"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

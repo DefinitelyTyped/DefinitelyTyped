@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stream-to-blob",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/feross/stream-to-blob#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stream-to-blob": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Netanel David",
+            "githubUsername": "NetanelDavid"
+        }
+    ]
+}

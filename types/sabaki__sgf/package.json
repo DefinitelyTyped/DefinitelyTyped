@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sabaki__sgf",
+    "version": "3.4.9999",
+    "projects": [
+        "https://github.com/SabakiHQ/sgf"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/sabaki__sgf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hiroki Takizawa",
+            "githubUsername": "tkzwhr"
+        }
+    ]
+}

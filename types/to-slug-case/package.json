@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/to-slug-case",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ianstormtaylor/to-slug-case"
+    ],
+    "devDependencies": {
+        "@types/to-slug-case": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

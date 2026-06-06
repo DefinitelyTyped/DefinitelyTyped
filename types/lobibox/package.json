@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/lobibox",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/arboshiki/lobibox"
+    ],
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/lobibox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sabeeh Ul Hussnain",
+            "githubUsername": "itboy87"
+        }
+    ]
+}

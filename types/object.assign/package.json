@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object.assign",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/es-shims/object.assign#readme"
+    ],
+    "devDependencies": {
+        "@types/object.assign": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

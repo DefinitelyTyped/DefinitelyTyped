@@ -1,0 +1,14 @@
+export function hexToBytes(hex: string): number[];
+export function bytesToHex(bytes: number[]): string;
+export function charsToHex(bytes: string): string;
+export function charToByte(char: string): number;
+export function charsToBytes(chars: string): number[];
+export function bytesToChars(buffer: number[]): string;
+export function toBytes(str: string): number[];
+export function arrayToBytes(buffer: number[]): number[];
+export function arrCompare(left: number[], right: number[]): number;
+export function arrEq(arr1: number[], arr2: number[]): boolean;
+export function randBytes(n: number): Buffer;
+export function randString(n: number): string;
+export function softFail<T>(promise: Promise<T>): Promise<T | Error>;
+export function readFilePromise(filename: string, mode: string): Promise<Buffer>;

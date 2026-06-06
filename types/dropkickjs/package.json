@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/dropkickjs",
+    "version": "2.1.9999",
+    "projects": [
+        "http://dropkickjs.com/",
+        "https://github.com/robdel12/dropkick"
+    ],
+    "devDependencies": {
+        "@types/dropkickjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitry Pesterev",
+            "githubUsername": "VorobeY1326"
+        }
+    ]
+}

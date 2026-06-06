@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/react-native__assets-registry",
+    "version": "0.84.9999",
+    "projects": [
+        "https://github.com/facebook/react-native/tree/main/packages/assets"
+    ],
+    "exports": {
+        ".": {
+            "types": {
+                "default": "./index.d.ts"
+            }
+        },
+        "./registry": {
+            "types": {
+                "default": "./registry.d.ts"
+            }
+        },
+        "./path-support": {
+            "types": {
+                "default": "./path-support.d.ts"
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/react-native__assets-registry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yevhenii Kotyrlo",
+            "githubUsername": "YevheniiKotyrlo"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/synaptic",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/cazala/synaptic"
+    ],
+    "devDependencies": {
+        "@types/synaptic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Markus Peloso",
+            "githubUsername": "ToastHawaii"
+        },
+        {
+            "name": "Austin Cummings",
+            "githubUsername": "austincummings"
+        }
+    ]
+}

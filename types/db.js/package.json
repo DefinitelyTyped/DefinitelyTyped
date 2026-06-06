@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/db.js",
+    "version": "0.14.9999",
+    "projects": [
+        "https://github.com/aaronpowell/db.js/"
+    ],
+    "devDependencies": {
+        "@types/db.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Wrench",
+            "githubUsername": "cgwrench"
+        }
+    ]
+}

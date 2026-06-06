@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gatsby-transformer-remark",
+    "version": "2.9.9999",
+    "projects": [
+        "https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-transformer-remark#readme"
+    ],
+    "devDependencies": {
+        "@types/gatsby-transformer-remark": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily M Klassen",
+            "githubUsername": "forivall"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/trouter",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/lukeed/trouter"
+    ],
+    "devDependencies": {
+        "@types/trouter": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-color",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/morishitter/is-color"
+    ],
+    "devDependencies": {
+        "@types/is-color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vitor Luiz Cavalcanti",
+            "githubUsername": "VitorLuizC"
+        }
+    ]
+}

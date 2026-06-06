@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/ui-router-extras",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/christopherthielen/ui-router-extras",
+        "http://christopherthielen.github.io/ui-router-extras"
+    ],
+    "dependencies": {
+        "@types/angular": "*",
+        "@types/angular-ui-router": "*"
+    },
+    "devDependencies": {
+        "@types/ui-router-extras": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcel van de Kamp",
+            "githubUsername": "marcel-k"
+        },
+        {
+            "name": "Viktor Smirnov",
+            "githubUsername": "LaserUnicorns"
+        }
+    ]
+}

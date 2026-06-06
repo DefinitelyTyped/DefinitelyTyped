@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/d3-brush",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/d3/d3-brush/",
+        "https://d3js.org/d3-brush"
+    ],
+    "dependencies": {
+        "@types/d3-selection": "^2"
+    },
+    "devDependencies": {
+        "@types/d3-brush": "workspace:.",
+        "@types/d3-transition": "^2"
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

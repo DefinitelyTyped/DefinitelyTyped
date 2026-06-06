@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/systemjs",
+    "version": "0.20.9999",
+    "projects": [
+        "https://github.com/systemjs/systemjs"
+    ],
+    "devDependencies": {
+        "@types/systemjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ludovic HENIN",
+            "githubUsername": "ludohenin"
+        },
+        {
+            "name": "Nathan Walker",
+            "githubUsername": "NathanWalker"
+        },
+        {
+            "name": "Giedrius Grabauskas",
+            "githubUsername": "GiedriusGrabauskas"
+        },
+        {
+            "name": "Aluan Haddad",
+            "githubUsername": "aluanhaddad"
+        }
+    ]
+}

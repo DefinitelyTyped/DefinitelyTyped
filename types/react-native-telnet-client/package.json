@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-native-telnet-client",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/itgou/react-native-telnet-client"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-telnet-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robin Vanden Berghe",
+            "githubUsername": "robinvandenb"
+        }
+    ]
+}

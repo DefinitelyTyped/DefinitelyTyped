@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sc-auth",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/sc-auth"
+    ],
+    "dependencies": {
+        "@types/jsonwebtoken": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/sc-auth": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
+}

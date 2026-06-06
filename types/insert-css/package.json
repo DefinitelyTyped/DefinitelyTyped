@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/insert-css",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/substack/insert-css"
+    ],
+    "devDependencies": {
+        "@types/insert-css": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Heye Vöcking",
+            "githubUsername": "hvoecking"
+        }
+    ]
+}

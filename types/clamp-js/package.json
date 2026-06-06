@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clamp-js",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/xavi160/Clamp.js"
+    ],
+    "devDependencies": {
+        "@types/clamp-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastiaan de Rooij",
+            "githubUsername": "Hikariii"
+        }
+    ]
+}

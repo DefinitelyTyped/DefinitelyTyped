@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "types": [],
+        "typeRoots": [
+            "../.."
+        ],
+        "module": "node16"
+    }
+}

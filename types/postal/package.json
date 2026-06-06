@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/postal",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/postaljs/postal.js"
+    ],
+    "devDependencies": {
+        "@types/postal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lokesh Peta",
+            "githubUsername": "lokeshpeta"
+        },
+        {
+            "name": "Paul Jolly",
+            "githubUsername": "myitcv"
+        }
+    ]
+}

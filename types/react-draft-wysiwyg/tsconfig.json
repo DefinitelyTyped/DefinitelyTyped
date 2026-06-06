@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "preserve"
+    },
+    "files": [
+        "index.d.ts",
+        "test/basic-content-state-tests.tsx",
+        "test/basic-controlled-tests.tsx",
+        "test/basic-tests.tsx",
+        "test/custom-toolbar-tests.tsx",
+        "test/focus-blur-callbacks-tests.tsx",
+        "test/uncontrolled-raw-draft-content-state.tsx",
+        "test/custom-style-map-tests.tsx",
+        "test/render-with-test-id.tsx",
+        "test/render-with-handle-key-command.tsx"
+    ]
+}

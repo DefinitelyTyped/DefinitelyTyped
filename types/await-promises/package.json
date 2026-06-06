@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/await-promises",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/visualjerk/await-promises"
+    ],
+    "devDependencies": {
+        "@types/await-promises": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

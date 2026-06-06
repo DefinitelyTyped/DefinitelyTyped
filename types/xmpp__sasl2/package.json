@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/xmpp__sasl2",
+    "version": "0.14.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/sasl2"
+    ],
+    "dependencies": {
+        "@types/saslmechanisms": "*",
+        "@types/xmpp__client-core": "*",
+        "@types/xmpp__middleware": "*",
+        "@types/xmpp__stream-features": "*",
+        "@types/xmpp__xml": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__connection": "*",
+        "@types/xmpp__sasl2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin Reeder",
+            "githubUsername": "vpzomtrrfrt"
+        }
+    ]
+}

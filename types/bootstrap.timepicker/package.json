@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/bootstrap.timepicker",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "bootstrap.timepicker",
+    "projects": [
+        "https://github.com/jdewit/bootstrap-timepicker"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap.timepicker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "derikwhittaker",
+            "githubUsername": "derikwhittaker"
+        },
+        {
+            "name": "Heather Booker",
+            "githubUsername": "heatherbooker"
+        }
+    ]
+}

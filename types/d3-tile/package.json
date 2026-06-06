@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/d3-tile",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-tile"
+    ],
+    "dependencies": {
+        "@types/d3-zoom": "*"
+    },
+    "devDependencies": {
+        "@types/d3-tile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mouad Naciri",
+            "githubUsername": "NaciriMouad"
+        }
+    ]
+}

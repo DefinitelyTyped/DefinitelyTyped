@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gregorian-calendar",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/yiminghe/gregorian-calendar"
+    ],
+    "devDependencies": {
+        "@types/gregorian-calendar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Charlie Arnold",
+            "githubUsername": "cwalv"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-form",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/julianocomg/react-native-form#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-form": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mark Nelissen",
+            "githubUsername": "marknelissen"
+        }
+    ]
+}

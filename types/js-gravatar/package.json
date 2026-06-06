@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-gravatar",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/chukwumaijem/js-gravatar#readme"
+    ],
+    "devDependencies": {
+        "@types/js-gravatar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/sencha_touch",
+    "version": "2.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "sencha_touch",
+    "projects": [
+        "http://www.sencha.com/products/touch/"
+    ],
+    "devDependencies": {
+        "@types/sencha_touch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Kotek",
+            "githubUsername": "brian428"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/activex-libreoffice",
+    "version": "5.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "LibreOffice",
+    "projects": [
+        "https://api.libreoffice.org/"
+    ],
+    "dependencies": {
+        "@types/activex-interop": "*"
+    },
+    "devDependencies": {
+        "@types/activex-libreoffice": "workspace:.",
+        "@types/windows-script-host": "*"
+    },
+    "owners": [
+        {
+            "name": "Zev Spitz",
+            "githubUsername": "zspitz"
+        }
+    ]
+}

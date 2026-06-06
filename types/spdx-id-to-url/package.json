@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-id-to-url",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-id-to-url.js"
+    ],
+    "devDependencies": {
+        "@types/spdx-id-to-url": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

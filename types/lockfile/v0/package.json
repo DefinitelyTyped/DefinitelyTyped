@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lockfile",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/isaacs/lockfile"
+    ],
+    "devDependencies": {
+        "@types/lockfile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        }
+    ]
+}

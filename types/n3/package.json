@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/n3",
+    "version": "1.26.9999",
+    "projects": [
+        "https://github.com/rdfjs/n3.js"
+    ],
+    "dependencies": {
+        "@rdfjs/types": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/n3": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Fred Eisele",
+            "githubUsername": "phreed"
+        },
+        {
+            "name": "Ruben Taelman",
+            "githubUsername": "rubensworks"
+        },
+        {
+            "name": "Laurens Rietveld",
+            "githubUsername": "LaurensRietveld"
+        },
+        {
+            "name": "Joachim Van Herwegen",
+            "githubUsername": "joachimvh"
+        },
+        {
+            "name": "Alexey Morozov",
+            "githubUsername": "AlexeyMz"
+        },
+        {
+            "name": "Jesse Wright",
+            "githubUsername": "jeswr"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "strict": true,
+        "noEmit": true,
+        "types": [],
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts"
+    ]
+}

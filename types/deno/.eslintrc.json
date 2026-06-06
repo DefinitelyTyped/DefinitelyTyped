@@ -1,0 +1,17 @@
+{
+    // the types for Deno are code generated so we ignore some rules
+    // at the top level instead of adding ignore comments
+    "rules": {
+        // handled by deno lint
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        // handled by deno lint
+        "@typescript-eslint/no-empty-interface": "off",
+        // deno uses custom tag names for documentation
+        "jsdoc/check-tag-names": "off",
+        // this is used in FFI's native return type conditional type
+        "@typescript-eslint/no-invalid-void-type": "off",
+        // investigate upstreaming to deno lint
+        "@typescript-eslint/array-type": "off",
+        "@definitelytyped/no-single-element-tuple-type": "off"
+    }
+}

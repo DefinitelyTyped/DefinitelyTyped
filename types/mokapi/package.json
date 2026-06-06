@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/mokapi",
+    "version": "0.35.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Mokapi",
+    "projects": [
+        "https://mokapi.io/docs/welcome"
+    ],
+    "devDependencies": {
+        "@types/mokapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marcel Lehmann",
+            "githubUsername": "marle3003"
+        }
+    ]
+}

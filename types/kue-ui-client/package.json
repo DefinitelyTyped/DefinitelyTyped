@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/kue-ui-client",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/stonecircle/kue-ui#readme"
+    ],
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/kue-ui-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

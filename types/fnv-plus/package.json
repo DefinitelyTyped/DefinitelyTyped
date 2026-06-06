@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fnv-plus",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/tjwebb/fnv-plus"
+    ],
+    "devDependencies": {
+        "@types/fnv-plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mihnea Stoian",
+            "githubUsername": "mihnea-s"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/leveldown",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/Level/leveldown"
+    ],
+    "dependencies": {
+        "@types/abstract-leveldown": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/leveldown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Meirion Hughes",
+            "githubUsername": "MeirionHughes"
+        },
+        {
+            "name": "Daniel Byrne",
+            "githubUsername": "danwbyrne"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/cesium-china__cesium-map",
+    "version": "1.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/CesiumChina/cesium-map"
+    ],
+    "dependencies": {
+        "cesium": ">=1.122.0"
+    },
+    "devDependencies": {
+        "@types/cesium-china__cesium-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "YOAKE",
+            "githubUsername": "YOYOYOAKE"
+        }
+    ]
+}

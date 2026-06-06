@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquerymobile",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquerymobile",
+    "projects": [
+        "http://jquerymobile.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquerymobile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

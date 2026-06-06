@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.leanmodal",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.leanmodal",
+    "projects": [
+        "http://leanmodal.finelysliced.com.au/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.leanmodal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "FinelySliced",
+            "githubUsername": "FinelySliced"
+        }
+    ]
+}

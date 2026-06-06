@@ -1,0 +1,61 @@
+*.dll
+*.exe
+*.cmd
+*.pdb
+*.suo
+*.user
+*.cache
+*.cs
+*.sln
+*.csproj
+*.map
+*.swp
+*.code-workspace
+*.log
+.DS_Store
+
+_Resharper.DefinitelyTyped
+bin
+obj
+Properties
+
+# VIM backup files
+*~
+
+# test folder
+_infrastructure/tests/build
+
+# IntelliJ based IDEs
+.idea
+*.iml
+
+# npm
+node_modules
+package-lock.json
+npm-debug.log
+
+# Sublime
+.sublimets
+
+# Visual Studio Code
+.settings/launch.json
+.vs
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.template.json
+.history
+
+# yarn
+yarn.lock
+
+# pnpm
+shrinkwrap.yaml
+pnpm-lock.yaml
+pnpm-debug.log
+
+# Output of 'npm pack'
+*.tgz
+
+# Package names containing dots may match any of the above.
+# Just allow any directory within the types directory directly.
+!/types/*/

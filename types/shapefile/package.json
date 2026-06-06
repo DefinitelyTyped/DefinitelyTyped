@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/shapefile",
+    "version": "0.6.9999",
+    "projects": [
+        "https://github.com/mbostock/shapefile"
+    ],
+    "dependencies": {
+        "@types/geojson": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/shapefile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Denis Carriere",
+            "githubUsername": "DenisCarriere"
+        },
+        {
+            "name": "James Bromwell",
+            "githubUsername": "Thw0rted"
+        }
+    ]
+}

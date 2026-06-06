@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clmtrackr",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/auduno/clmtrackr"
+    ],
+    "devDependencies": {
+        "@types/clmtrackr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hellochar",
+            "githubUsername": "hellochar"
+        }
+    ]
+}

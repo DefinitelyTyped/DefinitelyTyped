@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jcof",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mortie/jcof"
+    ],
+    "devDependencies": {
+        "@types/jcof": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "MatyiFKBT",
+            "githubUsername": "MatyiFKBT"
+        }
+    ]
+}

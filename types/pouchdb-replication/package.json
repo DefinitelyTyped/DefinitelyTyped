@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/pouchdb-replication",
+    "version": "6.4.9999",
+    "projects": [
+        "https://pouchdb.com/",
+        "https://github.com/pouchdb/pouchdb"
+    ],
+    "dependencies": {
+        "@types/pouchdb-core": "*",
+        "@types/pouchdb-find": "*"
+    },
+    "devDependencies": {
+        "@types/pouchdb-replication": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Navratil",
+            "githubUsername": "trubit"
+        },
+        {
+            "name": "Sebastián Ramírez",
+            "githubUsername": "tiangolo"
+        }
+    ]
+}

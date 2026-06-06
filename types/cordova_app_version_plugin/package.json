@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/cordova_app_version_plugin",
+    "version": "0.2.9999",
+    "projects": [
+        "https://www.npmjs.com/package/cordova_app_version_plugin"
+    ],
+    "devDependencies": {
+        "@types/cordova": "*",
+        "@types/cordova_app_version_plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Larry Bahr",
+            "githubUsername": "larrybahr"
+        }
+    ]
+}

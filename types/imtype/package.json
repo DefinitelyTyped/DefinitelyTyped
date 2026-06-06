@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/imtype",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/fatelei/imagetype"
+    ],
+    "devDependencies": {
+        "@types/imtype": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hu0529",
+            "githubUsername": "hu0529"
+        }
+    ]
+}

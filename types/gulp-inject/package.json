@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-inject",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/klei/gulp-inject"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-inject": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

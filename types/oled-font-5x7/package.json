@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/oled-font-5x7",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/noopkat/oled-font-5x7"
+    ],
+    "devDependencies": {
+        "@types/oled-font-5x7": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/asana",
+    "version": "0.18.9999",
+    "projects": [
+        "https://github.com/Asana/node-asana"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*"
+    },
+    "devDependencies": {
+        "@types/asana": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        },
+        {
+            "name": "Tasyp",
+            "githubUsername": "tasyp"
+        },
+        {
+            "name": "Filippo Sarzana",
+            "githubUsername": "filipposarzana"
+        },
+        {
+            "name": "Lorant Szakacs",
+            "githubUsername": "szlori"
+        },
+        {
+            "name": "Vince Broz",
+            "githubUsername": "apiology"
+        }
+    ]
+}

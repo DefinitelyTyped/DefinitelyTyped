@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/angular-desktop-notification",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/jmsanpascual/angular-desktop-notification#readme"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-desktop-notification": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Davide Donadello",
+            "githubUsername": "Dona278"
+        }
+    ]
+}

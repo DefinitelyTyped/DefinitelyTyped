@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-bootstrap-table-next",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/react-bootstrap-table/react-bootstrap-table2#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-bootstrap-table-next": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wlad Meixner",
+            "githubUsername": "gosticks"
+        },
+        {
+            "name": "Valentin Slobozanin",
+            "githubUsername": "ignefolio"
+        },
+        {
+            "name": "Jakub Różbicki",
+            "githubUsername": "jrozbicki"
+        }
+    ]
+}

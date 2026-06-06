@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/compose-function",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/stoeffel/compose-function"
+    ],
+    "devDependencies": {
+        "@types/compose-function": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Denis Sokolov",
+            "githubUsername": "denis-sokolov"
+        }
+    ]
+}

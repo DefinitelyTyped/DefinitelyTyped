@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/style-search",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/davidtheclark/style-search#readme"
+    ],
+    "devDependencies": {
+        "@types/style-search": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

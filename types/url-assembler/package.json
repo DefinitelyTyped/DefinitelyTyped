@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/url-assembler",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/Floby/node-url-assembler"
+    ],
+    "dependencies": {
+        "@types/qs": "*"
+    },
+    "devDependencies": {
+        "@types/url-assembler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wolfgang Faust",
+            "githubUsername": "wolfgang42"
+        },
+        {
+            "name": "Alice Pote",
+            "githubUsername": "alicewriteswrongs"
+        }
+    ]
+}

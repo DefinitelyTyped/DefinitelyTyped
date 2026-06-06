@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/http-proxy",
+    "version": "1.17.9999",
+    "projects": [
+        "https://github.com/nodejitsu/node-http-proxy"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/http-proxy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime LUCE",
+            "githubUsername": "SomaticIT"
+        },
+        {
+            "name": "Florian Oellerich",
+            "githubUsername": "Raigen"
+        },
+        {
+            "name": "Daniel Schmidt",
+            "githubUsername": "DanielMSchmidt"
+        },
+        {
+            "name": "Jordan Abreu",
+            "githubUsername": "jabreu610"
+        },
+        {
+            "name": "Samuel Bodin",
+            "githubUsername": "bodinsamuel"
+        }
+    ]
+}

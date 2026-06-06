@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-observer",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/hormander/node-observer"
+    ],
+    "devDependencies": {
+        "@types/node-observer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "wjchi",
+            "githubUsername": "CwjXFH"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webvtt-parser",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/w3c/webvtt.js"
+    ],
+    "devDependencies": {
+        "@types/webvtt-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Edoardo Morandi",
+            "githubUsername": "dodomorandi"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/ember__destroyable",
+    "version": "3.22.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/destroyable",
+    "projects": [
+        "https://api.emberjs.com/ember/3.22/modules/@ember%2Fdestroyable"
+    ],
+    "devDependencies": {
+        "@types/ember__destroyable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

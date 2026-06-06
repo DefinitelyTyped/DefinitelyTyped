@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/node-crate",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/megastef/node-crate",
+        "http://megastef.github.io/node-crate"
+    ],
+    "devDependencies": {
+        "@types/node-crate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Greg Jednaszewski",
+            "githubUsername": "gjednaszewski"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jquery.appear",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/bas2k/jquery.appear"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.appear": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anderson Friaça",
+            "githubUsername": "AndersonFriaca"
+        }
+    ]
+}

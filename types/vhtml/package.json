@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/vhtml",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/developit/vhtml"
+    ],
+    "devDependencies": {
+        "@types/vhtml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "pastelmind",
+            "githubUsername": "pastelmind"
+        }
+    ]
+}

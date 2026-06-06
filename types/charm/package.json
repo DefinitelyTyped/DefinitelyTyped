@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/charm",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/substack/node-charm/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/charm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jad Sarout",
+            "githubUsername": "Xananax"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bagpipes",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/apigee-127/bagpipes"
+    ],
+    "devDependencies": {
+        "@types/bagpipes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Mrowetz",
+            "githubUsername": "micmro"
+        }
+    ]
+}

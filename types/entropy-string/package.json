@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/entropy-string",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/EntropyString/JavaScript"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/entropy-string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "aaronleopold",
+            "githubUsername": "aaronleopold"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/css-modules",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/css-modules/css-modules"
+    ],
+    "devDependencies": {
+        "@types/css-modules": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "NeekSandhu",
+            "githubUsername": "NeekSandhu"
+        },
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

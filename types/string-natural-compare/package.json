@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/string-natural-compare",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/nwoltman/string-natural-compare"
+    ],
+    "devDependencies": {
+        "@types/string-natural-compare": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anton Rieder",
+            "githubUsername": "aried3r"
+        }
+    ]
+}

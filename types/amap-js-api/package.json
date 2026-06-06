@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/amap-js-api",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-api",
+    "projects": [
+        "https://lbs.amap.com/api/javascript-api/summary"
+    ],
+    "devDependencies": {
+        "@types/amap-js-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "breeze9527",
+            "githubUsername": "breeze9527"
+        }
+    ]
+}

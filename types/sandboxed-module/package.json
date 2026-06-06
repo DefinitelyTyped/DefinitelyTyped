@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/sandboxed-module",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/felixge/node-sandboxed-module"
+    ],
+    "devDependencies": {
+        "@types/sandboxed-module": "workspace:."
+    },
+    "owners": []
+}

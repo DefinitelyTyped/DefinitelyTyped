@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gdal",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/naturalatlas/node-gdal#readme"
+    ],
+    "devDependencies": {
+        "@types/gdal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrei Digori",
+            "githubUsername": "andreidigori"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ga-gtag",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/idmadj/ga-gtag#readme"
+    ],
+    "dependencies": {
+        "@types/gtag.js": "^0.0"
+    },
+    "devDependencies": {
+        "@types/ga-gtag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anders Kaseorg",
+            "githubUsername": "andersk"
+        }
+    ]
+}

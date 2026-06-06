@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/luminous-lightbox",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/strawdynamics/luminous"
+    ],
+    "devDependencies": {
+        "@types/luminous-lightbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yuNuki",
+            "githubUsername": "yuNuki2"
+        }
+    ]
+}

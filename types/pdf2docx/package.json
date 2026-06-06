@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pdf2docx",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/pdf2docx"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pdf2docx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "manuz cheruz",
+            "githubUsername": "manuzcheruz"
+        }
+    ]
+}

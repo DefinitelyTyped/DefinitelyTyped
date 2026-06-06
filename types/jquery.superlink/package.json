@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.superlink",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.superlink",
+    "projects": [
+        "http://james.padolsey.com/demos/plugins/jQuery/superLink/superlink.jquery.js"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.superlink": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Blake Niemyjski",
+            "githubUsername": "niemyjski"
+        }
+    ]
+}

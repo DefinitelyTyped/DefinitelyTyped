@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bidi-css-js",
+    "version": "3.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/bidi-css-js"
+    ],
+    "devDependencies": {
+        "@types/bidi-css-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gabor Juhasz",
+            "githubUsername": "juhg"
+        }
+    ]
+}

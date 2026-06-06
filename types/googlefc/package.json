@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/googlefc",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Funding Choices JavaScript API",
+    "projects": [
+        "https://developers.google.com/funding-choices/fc-api-docs"
+    ],
+    "devDependencies": {
+        "@types/googlefc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Wright",
+            "githubUsername": "johngeorgewright"
+        }
+    ]
+}

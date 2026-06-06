@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/wicg-task-scheduling",
+    "version": "2024.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Prioritized Task Scheduling",
+    "projects": [
+        "https://wicg.github.io/scheduling-apis/"
+    ],
+    "devDependencies": {
+        "@types/wicg-task-scheduling": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rob Paveza",
+            "githubUsername": "robpaveza"
+        }
+    ]
+}

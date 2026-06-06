@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/electron-to-chromium",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/kilian/electron-to-chromium#readme"
+    ],
+    "devDependencies": {
+        "@types/electron-to-chromium": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

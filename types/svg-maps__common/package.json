@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/svg-maps__common",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "svg-maps__common",
+    "projects": [
+        "https://github.com/VictorCazanave/svg-maps"
+    ],
+    "devDependencies": {
+        "@types/svg-maps__common": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Glazer",
+            "githubUsername": "nickglazer"
+        },
+        {
+            "name": "Piotr Blażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

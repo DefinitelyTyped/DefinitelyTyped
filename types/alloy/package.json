@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/alloy",
+    "version": "1.14.9999",
+    "projects": [
+        "https://github.com/appcelerator/alloy"
+    ],
+    "dependencies": {
+        "@types/backbone": "*",
+        "@types/titanium": "*"
+    },
+    "devDependencies": {
+        "@types/alloy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Axway Appcelerator",
+            "githubUsername": "appcelerator"
+        },
+        {
+            "name": "Mathias Lorenzen",
+            "githubUsername": "ffMathy"
+        },
+        {
+            "name": "Jan Vennemann",
+            "githubUsername": "janvennemann"
+        }
+    ]
+}

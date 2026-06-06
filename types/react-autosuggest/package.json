@@ -1,0 +1,49 @@
+{
+    "private": true,
+    "name": "@types/react-autosuggest",
+    "version": "10.1.9999",
+    "projects": [
+        "http://react-autosuggest.js.org/",
+        "https://github.com/moroshko/react-autosuggest"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-autosuggest": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicolas Schmitt",
+            "githubUsername": "nicolas-schmitt"
+        },
+        {
+            "name": "Philip Ottesen",
+            "githubUsername": "pjo256"
+        },
+        {
+            "name": "Robert Essig",
+            "githubUsername": "robessog"
+        },
+        {
+            "name": "Terry Bayne",
+            "githubUsername": "tbayne"
+        },
+        {
+            "name": "Christopher Deutsch",
+            "githubUsername": "cdeutsch"
+        },
+        {
+            "name": "Thomas den Hollander",
+            "githubUsername": "ThomasdenH"
+        },
+        {
+            "name": "ulrichb",
+            "githubUsername": "ulrichb"
+        },
+        {
+            "name": "Arthur Fücher",
+            "githubUsername": "afucher"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/srtparsejs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Qiming-Liu/srtparse.js"
+    ],
+    "devDependencies": {
+        "@types/srtparsejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qiming-Liu",
+            "githubUsername": "Qiming-Liu"
+        }
+    ]
+}

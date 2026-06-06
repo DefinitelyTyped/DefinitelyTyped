@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-devtools",
+    "version": "3.6.9999",
+    "projects": [
+        "https://github.com/facebook/react-devtools"
+    ],
+    "devDependencies": {
+        "@types/react-devtools": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paulo Andrade",
+            "githubUsername": "prma85"
+        }
+    ]
+}

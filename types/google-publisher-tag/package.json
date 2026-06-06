@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "name": "@types/google-publisher-tag",
+    "version": "1.20260525.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Google Publisher Tag",
+    "projects": [
+        "https://developers.google.com/publisher-tag/"
+    ],
+    "devDependencies": {
+        "@types/google-publisher-tag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonathon Imperiosi",
+            "githubUsername": "jimper"
+        },
+        {
+            "name": "Zheng Wei",
+            "githubUsername": "zhengweiwithoutthei"
+        },
+        {
+            "name": "Jacob Goldman",
+            "githubUsername": "JacobGo"
+        },
+        {
+            "name": "Anthony LaConte",
+            "githubUsername": "alaconte"
+        },
+        {
+            "name": "Gene Levitzky",
+            "githubUsername": "glevitzky"
+        }
+    ]
+}

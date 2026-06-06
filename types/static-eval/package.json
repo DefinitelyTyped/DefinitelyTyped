@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/static-eval",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/substack/static-eval"
+    ],
+    "dependencies": {
+        "@types/esprima": "*",
+        "@types/estree": "*"
+    },
+    "devDependencies": {
+        "@types/static-eval": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Liddicott",
+            "githubUsername": "benliddicott"
+        }
+    ]
+}

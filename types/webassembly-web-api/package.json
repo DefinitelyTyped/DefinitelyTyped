@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/webassembly-web-api",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "webassembly-web-api",
+    "projects": [
+        "https://webassembly.org/"
+    ],
+    "devDependencies": {
+        "@types/webassembly-web-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Johannes Henninger",
+            "githubUsername": "jhenninger"
+        }
+    ]
+}

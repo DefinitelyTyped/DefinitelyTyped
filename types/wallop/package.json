@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/wallop",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/peduarte/wallop",
+        "http://pedroduarte.me/wallop"
+    ],
+    "devDependencies": {
+        "@types/wallop": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathanael McDaniel",
+            "githubUsername": "leemcd56"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/nodemailer-mailgun-transport",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/orliesaurus/nodemailer-mailgun-transport",
+        "http://mailgun.com"
+    ],
+    "dependencies": {
+        "@types/nodemailer": "*"
+    },
+    "devDependencies": {
+        "@types/nodemailer-mailgun-transport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oto Ciulis",
+            "githubUsername": "otociulis"
+        },
+        {
+            "name": "Joachim Wallsin",
+            "githubUsername": "calvinmcgee"
+        }
+    ]
+}

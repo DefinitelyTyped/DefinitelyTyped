@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/appdynamics",
+    "version": "24.10.9999",
+    "projects": [
+        "https://www.appdynamics.com/supported-technologies/nodejs"
+    ],
+    "devDependencies": {
+        "@types/appdynamics": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Justin Vos",
+            "githubUsername": "justinvos"
+        }
+    ]
+}

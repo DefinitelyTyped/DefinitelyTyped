@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/payu-emea-sdk",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "payu-emea-sdk",
+    "projects": [
+        "https://developers.payu.com/europe/docs/payment-solutions/cards/tokenization/#secureform"
+    ],
+    "devDependencies": {
+        "@types/payu-emea-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Regdos",
+            "githubUsername": "regdos"
+        }
+    ]
+}

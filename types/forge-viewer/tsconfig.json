@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom",
+            "ES2020.String"
+        ],
+        "strict": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "forge-viewer-tests.ts"
+    ]
+}

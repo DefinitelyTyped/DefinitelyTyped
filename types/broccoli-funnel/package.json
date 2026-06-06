@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/broccoli-funnel",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/broccolijs/broccoli-funnel#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "broccoli-node-api": "^1.7.0",
+        "broccoli-plugin": "^4.0.7"
+    },
+    "devDependencies": {
+        "@types/broccoli-funnel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konrad Perlicki",
+            "githubUsername": "KonradPerlicki"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/exif-js",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/exif-js/exif-js#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/exif-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitry Zhukov",
+            "githubUsername": "darkoutx"
+        },
+        {
+            "name": "Artem Shcherbakov",
+            "githubUsername": "security2431"
+        }
+    ]
+}

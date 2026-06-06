@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/co-views",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/tj/co-views/"
+    ],
+    "devDependencies": {
+        "@types/co-views": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "devlee",
+            "githubUsername": "devlee"
+        },
+        {
+            "name": "Joshua DeVinney",
+            "githubUsername": "geoffreak"
+        }
+    ]
+}

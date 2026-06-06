@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/pngjs2",
+    "version": "2.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/pngjs2"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pngjs2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elisée Maurer",
+            "url": "https://sparklinlabs.com/"
+        }
+    ]
+}

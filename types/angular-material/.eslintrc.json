@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-empty-interface": "off"
+    }
+}

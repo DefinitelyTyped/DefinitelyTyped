@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/web-install-api",
+    "nonNpm": true,
+    "nonNpmDescription": "Web Install API",
+    "version": "2025.1.9999",
+    "projects": [
+        "https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/WebInstall/explainer.md"
+    ],
+    "devDependencies": {
+        "@types/web-install-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lia Hiscock",
+            "githubUsername": "LiaHiscock"
+        },
+        {
+            "name": "Kristin Lee",
+            "githubUsername": "Kbhlee2121"
+        }
+    ]
+}

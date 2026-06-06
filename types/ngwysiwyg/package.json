@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/ngwysiwyg",
+    "version": "0.6.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ngWYSIWYG",
+    "projects": [
+        "https://github.com/psergus/ngWYSIWYG"
+    ],
+    "devDependencies": {
+        "@types/ngwysiwyg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Patrick Mac Kay",
+            "githubUsername": "patrick-mackay"
+        }
+    ]
+}

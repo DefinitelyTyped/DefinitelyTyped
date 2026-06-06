@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/recaptcha2",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/fereidani/recaptcha2#readme"
+    ],
+    "devDependencies": {
+        "@types/recaptcha2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas Lochmann",
+            "githubUsername": "l-jonas"
+        }
+    ]
+}

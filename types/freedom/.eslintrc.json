@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "@definitelytyped/no-type-only-packages": "off",
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off"
+    }
+}

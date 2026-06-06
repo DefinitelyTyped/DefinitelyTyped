@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/hjson",
+    "version": "2.4.9999",
+    "projects": [
+        "https://github.com/hjson/hjson-js",
+        "http://hjson.org"
+    ],
+    "devDependencies": {
+        "@types/hjson": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mark van Straten",
+            "githubUsername": "crunchie84"
+        },
+        {
+            "name": "Ashik Meerankutty",
+            "githubUsername": "ashikmeerankutty"
+        }
+    ]
+}

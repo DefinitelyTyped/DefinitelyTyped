@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/atom-mocha-test-runner",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/BinaryMuse/atom-mocha-test-runner"
+    ],
+    "dependencies": {
+        "@types/atom": "*",
+        "@types/mocha": "*"
+    },
+    "devDependencies": {
+        "@types/atom-mocha-test-runner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "GlenCFL",
+            "githubUsername": "GlenCFL"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ink-gradient",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/ink-gradient"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/ink-box": "*",
+        "@types/ink-gradient": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "aaronleopold",
+            "githubUsername": "aaronleopold"
+        }
+    ]
+}

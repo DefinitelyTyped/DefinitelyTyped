@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-keyboard-spacer",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/Andr3wHur5t/react-native-keyboard-spacer#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-keyboard-spacer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincent Langlet",
+            "githubUsername": "VincentLanglet"
+        }
+    ]
+}

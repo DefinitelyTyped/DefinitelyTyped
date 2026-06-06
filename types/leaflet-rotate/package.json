@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "type": "module",
+    "name": "@types/leaflet-rotate",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/Raruto/leaflet-rotate"
+    ],
+    "dependencies": {
+        "@types/leaflet": "^1.9"
+    },
+    "devDependencies": {
+        "@types/leaflet-rotate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brian Jubelirer",
+            "githubUsername": "bjubes"
+        }
+    ]
+}

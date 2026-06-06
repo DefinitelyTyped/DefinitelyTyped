@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lucene-query-string-builder",
+    "version": "1.0.9999",
+    "owners": [
+        {
+            "name": "Jinki Jung",
+            "githubUsername": "jinkijung"
+        }
+    ],
+    "projects": [
+        "https://github.com/bas080/lucene-query-string-builder"
+    ],
+    "devDependencies": {
+        "@types/lucene-query-string-builder": "workspace:."
+    }
+}

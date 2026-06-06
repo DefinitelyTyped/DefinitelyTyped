@@ -1,0 +1,14 @@
+{
+    "private": true,
+    "name": "@types/react-native-share-extension",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/alinz/react-native-share-extension"
+    ],
+    "devDependencies": {
+        "@types/react": "*",
+        "react-native": "*",
+        "@types/react-native-share-extension": "workspace:."
+    },
+    "owners": []
+}

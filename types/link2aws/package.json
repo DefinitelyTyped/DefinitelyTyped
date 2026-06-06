@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/link2aws",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/link2aws/link2aws"
+    ],
+    "devDependencies": {
+        "@types/link2aws": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kit Peters",
+            "githubUsername": "popefelix"
+        }
+    ]
+}

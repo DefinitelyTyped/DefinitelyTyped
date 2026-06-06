@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/compress-commons",
+    "version": "7.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/archiverjs/node-compress-commons"
+    ],
+    "dependencies": {
+        "@types/crc32-stream": "*",
+        "@types/node": "*",
+        "@types/readable-stream": "*"
+    },
+    "devDependencies": {
+        "@types/compress-commons": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

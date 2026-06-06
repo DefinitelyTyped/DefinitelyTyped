@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/react-dates",
+    "version": "21.8.9999",
+    "projects": [
+        "https://github.com/airbnb/react-dates"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-outside-click-handler": "*"
+    },
+    "peerDependencies": {
+        "moment": ">=2"
+    },
+    "devDependencies": {
+        "@types/react-dates": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Artur Ampilogov",
+            "githubUsername": "ArturAmpilogov"
+        },
+        {
+            "name": "Nathan Holland",
+            "githubUsername": "NathanNZ"
+        },
+        {
+            "name": "Chris Griebel",
+            "githubUsername": "cgriebel"
+        },
+        {
+            "name": "Jason Unger",
+            "githubUsername": "jsonunger"
+        }
+    ]
+}

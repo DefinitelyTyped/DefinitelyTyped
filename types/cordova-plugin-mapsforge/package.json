@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-mapsforge",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "cordova-plugin-mapsforge",
+    "projects": [
+        "https://github.com/afsuarez/mapsforge-cordova-plugin"
+    ],
+    "devDependencies": {
+        "@types/cordova-plugin-mapsforge": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rafw87",
+            "githubUsername": "rafw87"
+        }
+    ]
+}

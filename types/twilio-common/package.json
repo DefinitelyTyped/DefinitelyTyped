@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@types/twilio-common",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/twilio/twilio-common.js",
+        "https://twilio.com"
+    ],
+    "dependencies": {
+        "@types/events": "*"
+    },
+    "devDependencies": {
+        "@types/twilio-common": "workspace:."
+    },
+    "owners": []
+}

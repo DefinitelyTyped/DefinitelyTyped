@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lz4js",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/Benzinga/lz4js"
+    ],
+    "devDependencies": {
+        "@types/lz4js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hu0529",
+            "githubUsername": "hu0529"
+        }
+    ]
+}

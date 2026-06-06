@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/angular-idle",
+    "version": "1.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "angular-idle",
+    "projects": [
+        "http://hackedbychinese.github.io/ng-idle/"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-idle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mthamil",
+            "githubUsername": "mthamil"
+        }
+    ]
+}

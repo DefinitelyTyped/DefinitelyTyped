@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-unnecessary-generics": "off",
+        "@typescript-eslint/no-empty-interface": "off"
+    }
+}

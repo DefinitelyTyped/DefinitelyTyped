@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/pigpio-dht",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/depuits/pigpio-dht"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pigpio-dht": "workspace:."
+    },
+    "owners": []
+}

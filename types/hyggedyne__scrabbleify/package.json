@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hyggedyne__scrabbleify",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/relativityboy/scrabbleify#readme"
+    ],
+    "devDependencies": {
+        "@types/hyggedyne__scrabbleify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/winchan",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/auth0/winchan#readme"
+    ],
+    "devDependencies": {
+        "@types/winchan": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anders Kaseorg",
+            "githubUsername": "andersk"
+        }
+    ]
+}

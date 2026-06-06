@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/swagger-schema-official",
+    "version": "2.0.9999",
+    "projects": [
+        "https://swagger.io/specification/"
+    ],
+    "devDependencies": {
+        "@types/swagger-schema-official": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohsen Azimi",
+            "githubUsername": "mohsen1"
+        },
+        {
+            "name": "Ben Southgate",
+            "githubUsername": "bsouthga"
+        },
+        {
+            "name": "Nicholas Merritt",
+            "githubUsername": "nimerritt"
+        },
+        {
+            "name": "Mauri Edo",
+            "githubUsername": "mauriedo"
+        },
+        {
+            "name": "Vincenzo Chianese",
+            "githubUsername": "XVincentX"
+        }
+    ]
+}

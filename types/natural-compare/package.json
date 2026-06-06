@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/natural-compare",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/litejs/natural-compare-lite"
+    ],
+    "devDependencies": {
+        "@types/natural-compare": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Doniyor Aliyev",
+            "githubUsername": "doniyor2109"
+        }
+    ]
+}

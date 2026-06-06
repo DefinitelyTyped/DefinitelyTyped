@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/github-username-regex",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/shinnn/github-username-regex"
+    ],
+    "devDependencies": {
+        "@types/github-username-regex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BehindTheMath",
+            "githubUsername": "BehindTheMath"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lozad",
+    "version": "1.16.9999",
+    "projects": [
+        "https://github.com/ApoorvSaxena/lozad.js"
+    ],
+    "devDependencies": {
+        "@types/lozad": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "York Yao",
+            "githubUsername": "plantain-00"
+        }
+    ]
+}

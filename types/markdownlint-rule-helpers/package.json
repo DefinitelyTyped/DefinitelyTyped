@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/markdownlint-rule-helpers",
+    "version": "0.21.9999",
+    "projects": [
+        "https://github.com/DavidAnson/markdownlint"
+    ],
+    "dependencies": {
+        "@types/markdown-it": "*",
+        "@types/node": "*",
+        "markdownlint": "^0.30.0"
+    },
+    "devDependencies": {
+        "@types/markdownlint-rule-helpers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Goldberg",
+            "githubUsername": "JoshuaKGoldberg"
+        }
+    ]
+}

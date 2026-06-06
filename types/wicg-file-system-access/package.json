@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/wicg-file-system-access",
+    "version": "2023.10.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "File System Access API",
+    "projects": [
+        "https://github.com/WICG/file-system-access"
+    ],
+    "devDependencies": {
+        "@types/wicg-file-system-access": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ingvar Stepanyan",
+            "githubUsername": "RReverser"
+        }
+    ]
+}

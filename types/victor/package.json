@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/victor",
+    "version": "1.1.9999",
+    "projects": [
+        "http://victorjs.org/"
+    ],
+    "devDependencies": {
+        "@types/victor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivane Gegia",
+            "url": "https://twitter.com/ivanegegia"
+        }
+    ]
+}

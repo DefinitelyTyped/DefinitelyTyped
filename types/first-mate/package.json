@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/first-mate",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/atom/first-mate/",
+        "http://atom.github.io/first-mate"
+    ],
+    "dependencies": {
+        "@types/event-kit": "*"
+    },
+    "devDependencies": {
+        "@types/first-mate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "GlenCFL",
+            "githubUsername": "GlenCFL"
+        }
+    ]
+}

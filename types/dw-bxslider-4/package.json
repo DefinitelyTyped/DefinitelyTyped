@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dw-bxslider-4",
+    "version": "4.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dw-bxslider-4",
+    "projects": [
+        "https://github.com/stevenwanderski/bxslider-4"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/dw-bxslider-4": "workspace:."
+    },
+    "owners": []
+}

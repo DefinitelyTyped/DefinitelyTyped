@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-sort",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/pgilad/gulp-sort"
+    ],
+    "dependencies": {
+        "@types/gulp-util": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-sort": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-ranger",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/tannerlinsley/react-ranger#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-ranger": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Polichette",
+            "githubUsername": "mpolichette"
+        },
+        {
+            "name": "Guy Gascoigne-Piggford",
+            "githubUsername": "ggascoigne"
+        }
+    ]
+}

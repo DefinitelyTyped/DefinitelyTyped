@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/makeup-keyboard-trap",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/makeup-js/makeup-keyboard-trap#readme"
+    ],
+    "devDependencies": {
+        "@types/makeup-keyboard-trap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Timur Manyanov",
+            "githubUsername": "darkwebdev"
+        }
+    ]
+}

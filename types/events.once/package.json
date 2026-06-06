@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/events.once",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/davidmarkclements/events.once"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/events.once": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Meyer",
+            "githubUsername": "0x326"
+        }
+    ]
+}

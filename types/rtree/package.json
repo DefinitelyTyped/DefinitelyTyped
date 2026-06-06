@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rtree",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/leaflet-extras/RTree"
+    ],
+    "devDependencies": {
+        "@types/rtree": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Omede Firouz",
+            "githubUsername": "oefirouz"
+        }
+    ]
+}

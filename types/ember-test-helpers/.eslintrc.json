@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@definitelytyped/no-declare-current-package": "off",
+        "no-duplicate-imports": "off"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/pubsub-js",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/mroderick/PubSubJS"
+    ],
+    "devDependencies": {
+        "@types/pubsub-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "Matthias Lindinger",
+            "githubUsername": "morpheus-87"
+        },
+        {
+            "name": "Profesor08",
+            "githubUsername": "Profesor08"
+        }
+    ]
+}

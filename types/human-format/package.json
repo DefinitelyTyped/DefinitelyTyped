@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/human-format",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/JsCommunity/human-format"
+    ],
+    "devDependencies": {
+        "@types/human-format": "workspace:."
+    },
+    "owners": []
+}

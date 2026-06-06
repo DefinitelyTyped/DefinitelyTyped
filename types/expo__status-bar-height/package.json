@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/expo__status-bar-height",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/expo/status-bar-height"
+    ],
+    "devDependencies": {
+        "@types/expo__status-bar-height": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Janeene Beeforth",
+            "githubUsername": "dawnmist"
+        }
+    ]
+}

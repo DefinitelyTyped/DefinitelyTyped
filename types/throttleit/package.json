@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/throttleit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/component/throttle"
+    ],
+    "devDependencies": {
+        "@types/throttleit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        }
+    ]
+}

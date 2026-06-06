@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vault-auth-aws",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/abdullahshahin/vault-auth-aws"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/vault-auth-aws": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan McGinn",
+            "githubUsername": "nmcginn"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/redact-secrets",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/watson/redact-secrets#readme"
+    ],
+    "devDependencies": {
+        "@types/redact-secrets": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "wrumsby",
+            "githubUsername": "wrumsby"
+        }
+    ]
+}

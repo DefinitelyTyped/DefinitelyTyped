@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-changelog-lib",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/Clement134/get-changelog/tree/master/packages/get-changelog-lib"
+    ],
+    "devDependencies": {
+        "@types/get-changelog-lib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Clement134",
+            "githubUsername": "Clement134"
+        }
+    ]
+}

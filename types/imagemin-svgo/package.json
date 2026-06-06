@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/imagemin-svgo",
+    "version": "11.0.9999",
+    "projects": [
+        "https://github.com/imagemin/imagemin-svgo#readme"
+    ],
+    "dependencies": {
+        "@types/imagemin": "*",
+        "svgo": "3"
+    },
+    "devDependencies": {
+        "@types/imagemin-svgo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Romain Faust",
+            "githubUsername": "romain-faust"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

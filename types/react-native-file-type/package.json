@@ -1,0 +1,17 @@
+{
+    "name": "@types/react-native-file-type",
+    "private": true,
+    "version": "1.0.9999",
+    "devDependencies": {
+        "@types/react-native-file-type": "workspace:."
+    },
+    "projects": [
+        "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/main/types/react-native-file-type"
+    ],
+    "owners": [
+        {
+            "name": "Niclas Collmer",
+            "githubUsername": "InkAndSteel"
+        }
+    ]
+}

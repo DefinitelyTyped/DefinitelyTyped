@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/ydn-db",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ydn-db",
+    "projects": [
+        "http://dev.yathit.com/ydn-db/index.html"
+    ],
+    "devDependencies": {
+        "@types/ydn-db": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kyaw Tun",
+            "githubUsername": "yathit"
+        },
+        {
+            "name": "Gabriel Monteagudo",
+            "githubUsername": "gabrielmaldi"
+        }
+    ]
+}

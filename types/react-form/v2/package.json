@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-form",
+    "version": "2.16.9999",
+    "projects": [
+        "https://github.com/react-tools/react-form"
+    ],
+    "dependencies": {
+        "@types/react": "^16"
+    },
+    "devDependencies": {
+        "@types/react-form": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cameron McAteer",
+            "githubUsername": "cameron-mcateer"
+        },
+        {
+            "name": "Mathieu Masy",
+            "githubUsername": "TiuSh"
+        }
+    ]
+}

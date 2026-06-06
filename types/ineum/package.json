@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/ineum",
+    "version": "216.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ineum-browser",
+    "projects": [
+        "https://docs.instana.io/products/website_monitoring/api/"
+    ],
+    "devDependencies": {
+        "@types/ineum": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Enzo Volkmann",
+            "githubUsername": "evolkmann"
+        },
+        {
+            "name": "Benjamin Blackmore",
+            "githubUsername": "bripkens"
+        },
+        {
+            "name": "David Taylor",
+            "githubUsername": "dtaylor84"
+        }
+    ]
+}

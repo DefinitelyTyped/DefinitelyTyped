@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/remark-heading-id",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/imcuttle/remark-heading-id"
+    ],
+    "dependencies": {
+        "unified": "^11.0.0"
+    },
+    "devDependencies": {
+        "@types/remark-heading-id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cong Yu",
+            "githubUsername": "imcuttle"
+        },
+        {
+            "name": "drpsyko101",
+            "githubUsername": "drpsyko101"
+        }
+    ]
+}

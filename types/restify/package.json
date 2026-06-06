@@ -1,0 +1,40 @@
+{
+    "private": true,
+    "name": "@types/restify",
+    "version": "8.5.9999",
+    "projects": [
+        "https://github.com/restify/node-restify",
+        "http://restify.com"
+    ],
+    "dependencies": {
+        "@types/bunyan": "*",
+        "@types/formidable": "^1",
+        "@types/node": "*",
+        "@types/spdy": "*"
+    },
+    "devDependencies": {
+        "@types/restify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bret Little",
+            "githubUsername": "blittle"
+        },
+        {
+            "name": "Leandro Almeida",
+            "githubUsername": "leanazulyoro"
+        },
+        {
+            "name": "Mitchell Bundy",
+            "githubUsername": "mgebundy"
+        },
+        {
+            "name": "Quinn Langille",
+            "githubUsername": "quinnlangille"
+        },
+        {
+            "name": "Gaikwad Pratik",
+            "githubUsername": "GaikwadPratik"
+        }
+    ]
+}

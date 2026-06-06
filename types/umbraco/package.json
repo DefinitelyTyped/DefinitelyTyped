@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/umbraco",
+    "version": "7.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "umbraco",
+    "projects": [
+        "https://github.com/umbraco"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/jquery": "*",
+        "@types/umbraco": "workspace:."
+    },
+    "owners": []
+}

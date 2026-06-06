@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/get-intrinsic",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ljharb/get-intrinsic#readme"
+    ],
+    "devDependencies": {
+        "@types/get-intrinsic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

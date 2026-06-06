@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/amqp",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/postwait/node-amqp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/amqp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carl Winkler",
+            "githubUsername": "seikho"
+        },
+        {
+            "name": "Mark Line",
+            "githubUsername": "jonnysparkplugs"
+        }
+    ]
+}

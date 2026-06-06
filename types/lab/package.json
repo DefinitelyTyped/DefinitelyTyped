@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lab",
+    "version": "11.1.9999",
+    "projects": [
+        "https://github.com/hapijs/lab"
+    ],
+    "devDependencies": {
+        "@types/lab": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Prashant Tiwari",
+            "githubUsername": "prashaantt"
+        }
+    ]
+}

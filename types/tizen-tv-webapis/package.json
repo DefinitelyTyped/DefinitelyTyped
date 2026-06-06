@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/tizen-tv-webapis",
+    "version": "2.0.9999",
+    "projects": [
+        "https://docs.tizen.org/application/web/api/5.5/device_api/tv/index.html"
+    ],
+    "devDependencies": {
+        "@types/tizen-tv-webapis": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "SejoongDeJang",
+            "githubUsername": "SejoongDeJang"
+        },
+        {
+            "name": "Dongkeun Nam",
+            "githubUsername": "capscrom"
+        },
+        {
+            "name": "Woosik Park",
+            "githubUsername": "pwsses"
+        },
+        {
+            "name": "Dayoung Kim",
+            "githubUsername": "darangkim"
+        },
+        {
+            "name": "Hyojin Kim",
+            "githubUsername": "prozanne"
+        }
+    ]
+}

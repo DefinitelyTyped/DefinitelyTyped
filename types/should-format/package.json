@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/should-format",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/shouldjs/format"
+    ],
+    "devDependencies": {
+        "@types/should-format": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

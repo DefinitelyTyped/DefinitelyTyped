@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/jsfl",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jsfl",
+    "projects": [
+        "https://adobe.com"
+    ],
+    "devDependencies": {
+        "@types/jsfl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "soywiz",
+            "githubUsername": "soywiz"
+        }
+    ]
+}

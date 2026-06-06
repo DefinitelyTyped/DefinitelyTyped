@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/follow-redirects",
+    "version": "1.14.9999",
+    "projects": [
+        "https://github.com/follow-redirects/follow-redirects"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/follow-redirects": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Emily Klassen",
+            "githubUsername": "forivall"
+        },
+        {
+            "name": "Claas Ahlrichs",
+            "githubUsername": "claasahl"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

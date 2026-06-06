@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/tunajs",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Theodeus/tuna#readme"
+    ],
+    "minimumTypeScriptVersion": "5.1",
+    "devDependencies": {
+        "@types/tunajs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yehyoung Kang",
+            "githubUsername": "pastelmind"
+        }
+    ]
+}

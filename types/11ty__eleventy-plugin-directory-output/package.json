@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/11ty__eleventy-plugin-directory-output",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.11ty.dev/docs/plugins/directory-output/"
+    ],
+    "dependencies": {
+        "11ty.ts": "*"
+    },
+    "devDependencies": {
+        "@types/11ty__eleventy-plugin-directory-output": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/istanbul",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/gotwarlost/istanbul"
+    ],
+    "devDependencies": {
+        "@types/istanbul": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

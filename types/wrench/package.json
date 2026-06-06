@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wrench",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/ryanmcgrath/wrench-js"
+    ],
+    "devDependencies": {
+        "@types/wrench": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carlos Ballesteros Velasco",
+            "githubUsername": "soywiz"
+        }
+    ]
+}

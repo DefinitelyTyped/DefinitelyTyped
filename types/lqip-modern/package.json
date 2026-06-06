@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/lqip-modern",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/transitive-bullshit/lqip-modern/"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/sharp": "^0.31.0"
+    },
+    "devDependencies": {
+        "@types/lqip-modern": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yaroslav Kiliba",
+            "githubUsername": "Dattaya"
+        }
+    ]
+}

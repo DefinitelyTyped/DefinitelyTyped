@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pad-left",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/pad-left"
+    ],
+    "devDependencies": {
+        "@types/pad-left": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

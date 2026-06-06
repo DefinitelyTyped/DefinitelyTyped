@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ltijs",
+    "version": "5.9.9999",
+    "projects": [
+        "https://cvmcosta.github.io/ltijs"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/ltijs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Schwörer",
+            "githubUsername": "paulschwoerer"
+        }
+    ]
+}

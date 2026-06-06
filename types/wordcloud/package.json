@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/wordcloud",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/timdream/wordcloud2.js",
+        "http://timdream.org/wordcloud2.js"
+    ],
+    "devDependencies": {
+        "@types/wordcloud": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        }
+    ]
+}

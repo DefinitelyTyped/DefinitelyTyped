@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/react-swf",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/syranide/react-swf"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-swf": "workspace:."
+    },
+    "owners": []
+}

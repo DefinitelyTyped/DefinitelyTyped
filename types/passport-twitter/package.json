@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-twitter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-twitter"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-twitter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Roland Cabresos",
+            "githubUsername": "staticfunction"
+        }
+    ]
+}

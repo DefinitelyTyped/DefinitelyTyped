@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/oniguruma",
+    "version": "7.0.9999",
+    "projects": [
+        "http://atom.github.io/node-oniguruma"
+    ],
+    "devDependencies": {
+        "@types/oniguruma": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "smhxx",
+            "githubUsername": "smhxx"
+        }
+    ]
+}

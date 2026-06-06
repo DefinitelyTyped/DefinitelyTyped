@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-svg-pan-zoom",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/chrvadala/react-svg-pan-zoom#readme",
+        "https://chrvadala.github.io/react-svg-pan-zoom"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-svg-pan-zoom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Huy Nguyen",
+            "githubUsername": "huy-nguyen"
+        },
+        {
+            "name": "Trey Wenger",
+            "githubUsername": "tvwenger"
+        }
+    ]
+}

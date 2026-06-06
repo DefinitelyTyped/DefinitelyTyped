@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rgbcolor",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/yetzt/node-rgbcolor"
+    ],
+    "devDependencies": {
+        "@types/rgbcolor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

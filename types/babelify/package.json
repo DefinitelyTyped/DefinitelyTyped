@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/babelify",
+    "version": "7.3.9999",
+    "projects": [
+        "https://github.com/babel/babelify"
+    ],
+    "dependencies": {
+        "@types/babel-core": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/babelify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TeamworkGuy2",
+            "githubUsername": "TeamworkGuy2"
+        },
+        {
+            "name": "Marvin Hagemeister",
+            "githubUsername": "marvinhagemeister"
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/factory-girl",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/aexmachina/factory-girl#readme"
+    ],
+    "devDependencies": {
+        "@types/factory-girl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stack Builders",
+            "githubUsername": "stackbuilders"
+        },
+        {
+            "name": "Sebastián Estrella",
+            "githubUsername": "sestrella"
+        },
+        {
+            "name": "Luis Fernando Alvarez",
+            "githubUsername": "elcuy"
+        },
+        {
+            "name": "Olivier Kamers",
+            "githubUsername": "OlivierKamers"
+        },
+        {
+            "name": "Dan McNamara",
+            "githubUsername": "DMcNamara"
+        }
+    ]
+}

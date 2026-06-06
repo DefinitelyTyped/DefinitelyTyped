@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/resolve-dir",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/resolve-dir"
+    ],
+    "devDependencies": {
+        "@types/resolve-dir": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Mroz",
+            "githubUsername": "mrozio13pl"
+        }
+    ]
+}

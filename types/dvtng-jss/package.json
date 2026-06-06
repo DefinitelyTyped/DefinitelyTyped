@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/dvtng-jss",
+    "version": "0.6.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dvtng-jss",
+    "projects": [
+        "https://github.com/Box9/jss"
+    ],
+    "devDependencies": {
+        "@types/dvtng-jss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Valentin Robert",
+            "githubUsername": "Ptival"
+        }
+    ]
+}

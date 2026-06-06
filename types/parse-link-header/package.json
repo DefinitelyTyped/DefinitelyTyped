@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-link-header",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/thlorenz/parse-link-header"
+    ],
+    "devDependencies": {
+        "@types/parse-link-header": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Zelei",
+            "githubUsername": "nickzelei"
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+    "private": true,
+    "name": "@types/node-cron",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/node-cron/node-cron",
+        "https://github.com/merencia/node-cron"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/node-cron": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "morsic",
+            "githubUsername": "maximelkin"
+        },
+        {
+            "name": "burtek",
+            "githubUsername": "burtek"
+        },
+        {
+            "name": "Richard Honor",
+            "githubUsername": "RMHonor"
+        },
+        {
+            "name": "Ata Berk YILMAZ",
+            "githubUsername": "ataberkylmz"
+        },
+        {
+            "name": "Alex Seidmann",
+            "githubUsername": "aseidma"
+        },
+        {
+            "name": "Pedro Américo",
+            "githubUsername": "ghostebony"
+        }
+    ]
+}

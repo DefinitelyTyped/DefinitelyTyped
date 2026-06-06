@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/negative-index",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dy/negative-index#readme"
+    ],
+    "devDependencies": {
+        "@types/negative-index": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

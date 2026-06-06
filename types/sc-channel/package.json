@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sc-channel",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/sc-channel"
+    ],
+    "dependencies": {
+        "@types/async-iterable-stream": "*",
+        "@types/stream-demux": "*"
+    },
+    "devDependencies": {
+        "@types/sc-channel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/react-native-datawedge-intents",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/darryncampbell/react-native-datawedge-intents#readme"
+    ],
+    "devDependencies": {
+        "@types/react-native-datawedge-intents": "workspace:."
+    },
+    "owners": []
+}

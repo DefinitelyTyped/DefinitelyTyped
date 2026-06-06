@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sanitize-s3-objectkey",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/Advanon/sanitize-s3-objectkey#readme"
+    ],
+    "devDependencies": {
+        "@types/sanitize-s3-objectkey": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Royce Dy",
+            "githubUsername": "rad182"
+        }
+    ]
+}

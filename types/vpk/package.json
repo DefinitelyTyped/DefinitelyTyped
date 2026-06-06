@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/vpk",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/fwdcp/node-vpk"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/vpk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Veak",
+            "githubUsername": "v0eak"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/a2hs.js",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/koddr/a2hs.js/"
+    ],
+    "devDependencies": {
+        "@types/a2hs.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

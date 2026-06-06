@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/ember__debug",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/debug",
+    "projects": [
+        "https://emberjs.com/api/ember/4.0/modules/@ember%2Fdebug"
+    ],
+    "dependencies": {
+        "@types/ember__object": "*",
+        "@types/ember__owner": "*"
+    },
+    "devDependencies": {
+        "@types/ember__debug": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

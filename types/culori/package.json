@@ -1,0 +1,32 @@
+{
+    "private": true,
+    "name": "@types/culori",
+    "version": "4.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/Evercoder/culori"
+    ],
+    "devDependencies": {
+        "@types/culori": "workspace:."
+    },
+    "exports": {
+        ".": {
+            "require": "./bundled/culori.cjs",
+            "import": "./src/index.js"
+        },
+        "./require": "./bundled/culori.cjs",
+        "./css": "./src/bootstrap/css.js",
+        "./all": "./src/bootstrap/all.js",
+        "./fn": "./src/index-fn.js"
+    },
+    "owners": [
+        {
+            "name": "Bijela Gora",
+            "githubUsername": "bijela-gora"
+        },
+        {
+            "name": "Drew Powrs",
+            "githubUsername": "drwpow"
+        }
+    ]
+}

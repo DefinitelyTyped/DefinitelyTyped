@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/textdiff-create",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/icflorescu/textdiff-create#readme"
+    ],
+    "devDependencies": {
+        "@types/textdiff-create": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe Barnett",
+            "githubUsername": "ensconced"
+        }
+    ]
+}

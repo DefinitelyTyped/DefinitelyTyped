@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gif-encoder",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/twolfson/gif-encoder"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gif-encoder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "aetheryx",
+            "githubUsername": "aetheryx"
+        }
+    ]
+}

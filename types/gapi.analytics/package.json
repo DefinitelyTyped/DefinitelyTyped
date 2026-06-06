@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gapi.analytics",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.analytics",
+    "projects": [
+        "https://developers.google.com/analytics/devguides/reporting/core/v4/"
+    ],
+    "dependencies": {
+        "@types/gapi": "*"
+    },
+    "devDependencies": {
+        "@types/gapi.analytics": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "César Costas",
+            "githubUsername": "gatsbimantico"
+        }
+    ]
+}

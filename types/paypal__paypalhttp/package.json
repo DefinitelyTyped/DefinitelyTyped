@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/paypal__paypalhttp",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/paypal/paypalhttp_node"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/paypal__paypalhttp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        }
+    ]
+}

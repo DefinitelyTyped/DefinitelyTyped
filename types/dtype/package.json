@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dtype",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/shama/dtype"
+    ],
+    "devDependencies": {
+        "@types/dtype": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/livereload",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/napcs/node-livereload"
+    ],
+    "dependencies": {
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/livereload": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hector Osuna",
+            "githubUsername": "FanGoH"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-pipewire",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kakxem/node-pipewire#readme"
+    ],
+    "devDependencies": {
+        "@types/node-pipewire": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paul Antonio Almasi",
+            "githubUsername": "kakxem"
+        }
+    ]
+}

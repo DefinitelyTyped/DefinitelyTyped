@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/meteor-persistent-session",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "meteor-persistent-session",
+    "projects": [
+        "https://github.com/okgrow/meteor-persistent-session"
+    ],
+    "dependencies": {
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/meteor-persistent-session": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robbie Van Gorkom",
+            "githubUsername": "vangorra"
+        }
+    ]
+}

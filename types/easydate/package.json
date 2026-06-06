@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/easydate",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/roryrjb/easydate"
+    ],
+    "devDependencies": {
+        "@types/easydate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Satya Rohith",
+            "githubUsername": "satyarohith"
+        }
+    ]
+}

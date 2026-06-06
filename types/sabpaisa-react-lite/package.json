@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sabpaisa-react-lite",
+    "version": "2.4.9999",
+    "projects": [
+        "https://www.npmjs.com/package/sabpaisa-react-lite"
+    ],
+    "devDependencies": {
+        "@types/sabpaisa-react-lite": "workspace:.",
+        "react-native": "*"
+    },
+    "owners": [
+        {
+            "name": "Lokesh D",
+            "githubUsername": "lokesheywa"
+        }
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    }
+}

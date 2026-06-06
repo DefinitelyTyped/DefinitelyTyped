@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/amzn__synthetics-playwright",
+    "version": "10.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Library functions available for Node.js canary scripts using Playwright",
+    "projects": [
+        "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Synthetics_Canaries.html"
+    ],
+    "devDependencies": {
+        "@types/amzn__synthetics-playwright": "workspace:."
+    },
+    "peerDependencies": {
+        "@playwright/test": "^1.53.0"
+    },
+    "owners": [
+        {
+            "name": "Andor Kovács",
+            "githubUsername": "kovacsandor"
+        }
+    ]
+}

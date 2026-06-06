@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/durandal",
+    "version": "2.1.9999",
+    "projects": [
+        "http://durandaljs.com"
+    ],
+    "dependencies": {
+        "@types/jquery": "*",
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/durandal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Blue Spire",
+            "githubUsername": "BlueSpire"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pinyin",
+    "version": "2.10.9999",
+    "projects": [
+        "https://github.com/hotoo/pinyin"
+    ],
+    "devDependencies": {
+        "@types/pinyin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AnJun Wang",
+            "githubUsername": "wanganjun"
+        }
+    ]
+}

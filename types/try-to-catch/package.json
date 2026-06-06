@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/try-to-catch",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/coderaiser/try-to-catch"
+    ],
+    "devDependencies": {
+        "@types/try-to-catch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Coderaiser",
+            "githubUsername": "coderaiser"
+        }
+    ]
+}

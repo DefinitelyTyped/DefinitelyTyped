@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/knockout.rx",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "knockout.rx",
+    "projects": [
+        "https://github.com/Igorbek/knockout.rx"
+    ],
+    "dependencies": {
+        "@types/knockout": "*",
+        "@types/rx": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.rx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Igor Oleinikov",
+            "githubUsername": "Igorbek"
+        }
+    ]
+}

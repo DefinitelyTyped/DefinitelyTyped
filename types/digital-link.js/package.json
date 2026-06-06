@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/digital-link.js",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/evrythng/digital-link.js#readme"
+    ],
+    "devDependencies": {
+        "@types/digital-link.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eoin O'Brien",
+            "githubUsername": "eoin-obrien"
+        }
+    ]
+}

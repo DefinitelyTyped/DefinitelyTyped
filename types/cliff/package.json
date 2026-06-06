@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cliff",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/flatiron/cliff"
+    ],
+    "devDependencies": {
+        "@types/cliff": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bryn austin bellomy",
+            "githubUsername": "brynbellomy"
+        }
+    ]
+}

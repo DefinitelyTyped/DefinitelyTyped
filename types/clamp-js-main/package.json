@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clamp-js-main",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/jmenglis/clamp-js-main#readme"
+    ],
+    "devDependencies": {
+        "@types/clamp-js-main": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sinziana Nicolae",
+            "githubUsername": "sinziananicolae"
+        }
+    ]
+}

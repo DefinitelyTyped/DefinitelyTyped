@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/micromatch",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/micromatch/micromatch"
+    ],
+    "dependencies": {
+        "@types/braces": "*"
+    },
+    "devDependencies": {
+        "@types/micromatch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vemoo",
+            "githubUsername": "vemoo"
+        }
+    ]
+}

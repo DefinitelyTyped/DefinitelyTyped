@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/vinyl-paths",
+    "version": "5.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/sindresorhus/vinyl-paths"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/vinyl-paths": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

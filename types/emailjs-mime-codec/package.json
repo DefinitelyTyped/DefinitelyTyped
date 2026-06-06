@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/emailjs-mime-codec",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/emailjs/emailjs-mime-codec"
+    ],
+    "devDependencies": {
+        "@types/emailjs-mime-codec": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicu Chiciuc",
+            "githubUsername": "nicu-chiciuc"
+        }
+    ]
+}

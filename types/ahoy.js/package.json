@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ahoy.js",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/ankane/ahoy.js"
+    ],
+    "devDependencies": {
+        "@types/ahoy.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Timothy Gu",
+            "githubUsername": "TimothyGu"
+        }
+    ]
+}

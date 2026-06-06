@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/d3-format",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/d3/d3-format/",
+        "https://d3js.org/d3-format"
+    ],
+    "devDependencies": {
+        "@types/d3-format": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tom Wanzek",
+            "githubUsername": "tomwanzek"
+        },
+        {
+            "name": "Alex Ford",
+            "githubUsername": "gustavderdrache"
+        },
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        },
+        {
+            "name": "denisname",
+            "githubUsername": "denisname"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

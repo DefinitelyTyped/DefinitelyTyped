@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/locomotive-scroll",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/locomotivemtl/locomotive-scroll"
+    ],
+    "devDependencies": {
+        "@types/locomotive-scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin Lienard",
+            "githubUsername": "ColinLienard"
+        }
+    ]
+}

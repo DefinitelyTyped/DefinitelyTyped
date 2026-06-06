@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/isurl",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/stevenvachon/isurl"
+    ],
+    "devDependencies": {
+        "@types/isurl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Steven Vachon",
+            "githubUsername": "stevenvachon"
+        }
+    ]
+}

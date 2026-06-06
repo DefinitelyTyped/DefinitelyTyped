@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-author",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/parse-author"
+    ],
+    "devDependencies": {
+        "@types/parse-author": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

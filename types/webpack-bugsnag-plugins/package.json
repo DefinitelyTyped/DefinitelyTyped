@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/webpack-bugsnag-plugins",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/bugsnag/webpack-bugsnag-plugins#readme"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/webpack-bugsnag-plugins": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Spencer Miskoviak",
+            "githubUsername": "skovy"
+        }
+    ]
+}

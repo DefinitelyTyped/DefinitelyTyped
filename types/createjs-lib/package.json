@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/createjs-lib",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "createjs-lib",
+    "projects": [
+        "http://www.createjs.com/"
+    ],
+    "devDependencies": {
+        "@types/createjs-lib": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pedro Ferreira",
+            "url": "https://bitbucket.org/drk4"
+        },
+        {
+            "name": "Chris Smith",
+            "githubUsername": "evilangelist"
+        },
+        {
+            "name": "Satoru Kimura",
+            "githubUsername": "gyohk"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+import { SpotLight } from "../../lights/SpotLight.js";
+import Node from "../core/Node.js";
+import NodeBuilder from "../core/NodeBuilder.js";
+import AnalyticLightNode from "./AnalyticLightNode.js";
+
+declare class SpotLightNode extends AnalyticLightNode<SpotLight> {
+    directionNode: Node;
+
+    coneCosNode: Node;
+    penumbraCosNode: Node;
+
+    cutoffDistanceNode: Node;
+    decayExponentNode: Node;
+
+    colorNode: Node;
+
+    constructor(light?: SpotLight | null);
+
+    getLightCoord(builder: NodeBuilder): Node;
+}
+
+export default SpotLightNode;

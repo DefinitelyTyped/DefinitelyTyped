@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/command-line-args",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/75lb/command-line-args"
+    ],
+    "devDependencies": {
+        "@types/command-line-args": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lloyd Brookes",
+            "githubUsername": "75lb"
+        }
+    ]
+}

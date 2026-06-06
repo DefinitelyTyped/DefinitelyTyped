@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object-fit-images",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/bfred-it/object-fit-images#readme"
+    ],
+    "devDependencies": {
+        "@types/object-fit-images": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ranjit Singh",
+            "githubUsername": "rann91"
+        }
+    ]
+}

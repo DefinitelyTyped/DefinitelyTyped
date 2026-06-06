@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/db-hafas-stations",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/derhuerst/db-hafas-stations"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/db-hafas-stations": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

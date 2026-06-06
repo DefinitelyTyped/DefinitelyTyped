@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/paypal-checkout-components",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/paypal/paypal-checkout-components/"
+    ],
+    "devDependencies": {
+        "@types/paypal-checkout-components": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Buckner",
+            "githubUsername": "jbuckner"
+        }
+    ]
+}

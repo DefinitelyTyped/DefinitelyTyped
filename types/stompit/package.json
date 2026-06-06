@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/stompit",
+    "version": "0.26.9999",
+    "projects": [
+        "https://github.com/gdaws/node-stomp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/stompit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        }
+    ]
+}

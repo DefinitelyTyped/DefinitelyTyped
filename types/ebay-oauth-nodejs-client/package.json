@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ebay-oauth-nodejs-client",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/eBay/ebay-oauth-nodejs-client"
+    ],
+    "devDependencies": {
+        "@types/ebay-oauth-nodejs-client": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeremy Möglich",
+            "githubUsername": "JeremyMoeglich"
+        }
+    ]
+}

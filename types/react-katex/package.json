@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-katex",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/talyssonoc/react-katex"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/katex": "*",
+        "@types/react-katex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Geoffrey Tang",
+            "githubUsername": "jeffswt"
+        }
+    ]
+}

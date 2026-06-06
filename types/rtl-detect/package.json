@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rtl-detect",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/shadiabuhilal/rtl-detect"
+    ],
+    "devDependencies": {
+        "@types/rtl-detect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "imprevo",
+            "githubUsername": "imprevo"
+        }
+    ]
+}

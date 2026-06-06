@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/mpv-script",
+    "version": "0.32.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "mpv-script",
+    "projects": [
+        "https://github.com/mpv-player/mpv"
+    ],
+    "devDependencies": {
+        "@types/mpv-script": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David T",
+            "githubUsername": "mrxdst"
+        }
+    ]
+}

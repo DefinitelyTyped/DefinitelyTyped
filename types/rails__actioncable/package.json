@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/rails__actioncable",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/rails/rails/blob/main/actioncable/app/javascript/action_cable"
+    ],
+    "devDependencies": {
+        "@types/rails__actioncable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Badin",
+            "githubUsername": "martin-badin"
+        },
+        {
+            "name": "Shunichi Ikegami",
+            "githubUsername": "shunichi"
+        }
+    ]
+}

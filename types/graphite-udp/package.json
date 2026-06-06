@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/graphite-udp",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/fermads/graphite-udp"
+    ],
+    "devDependencies": {
+        "@types/graphite-udp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Byers",
+            "githubUsername": "EricByers"
+        }
+    ]
+}

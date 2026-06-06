@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cordova-sqlite-storage",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/xpbrew/cordova-sqlite-storage"
+    ],
+    "devDependencies": {
+        "@types/cordova-sqlite-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rafw87",
+            "githubUsername": "rafw87"
+        }
+    ]
+}

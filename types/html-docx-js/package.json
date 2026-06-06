@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/html-docx-js",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/evidenceprime/html-docx-js#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/html-docx-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Fischer",
+            "githubUsername": "JacobFischer"
+        }
+    ]
+}

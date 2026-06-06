@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cradle",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/flatiron/cradle"
+    ],
+    "devDependencies": {
+        "@types/cradle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Panu Horsmalahti",
+            "githubUsername": "panuhorsmalahti"
+        }
+    ]
+}

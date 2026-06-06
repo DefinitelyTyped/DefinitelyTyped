@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "es5"
+        ],
+        "module": "node16",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "servicenow-london-tests.ts"
+    ]
+}

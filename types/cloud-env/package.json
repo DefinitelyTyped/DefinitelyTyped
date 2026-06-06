@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cloud-env",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/ryanj/cloud-env"
+    ],
+    "devDependencies": {
+        "@types/cloud-env": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Davies",
+            "githubUsername": "Morfent"
+        }
+    ]
+}

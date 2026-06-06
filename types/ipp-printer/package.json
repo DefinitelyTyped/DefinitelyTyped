@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/ipp-printer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/watson/ipp-printer"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ipp-printer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Smith",
+            "githubUsername": "mattsmithcode"
+        }
+    ]
+}

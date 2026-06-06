@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/pem",
+    "version": "1.14.9999",
+    "projects": [
+        "https://github.com/Dexus/pem"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/pem": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aurelia Fenderson-Peters",
+            "githubUsername": "PopeFelix"
+        },
+        {
+            "name": "Anthony Trinh",
+            "githubUsername": "tony19"
+        },
+        {
+            "name": "Ruslan Arkhipau",
+            "githubUsername": "DethAriel"
+        }
+    ]
+}

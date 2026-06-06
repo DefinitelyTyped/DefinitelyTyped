@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/aos",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/michalsnik/aos",
+        "https://michalsnik.github.io/aos"
+    ],
+    "devDependencies": {
+        "@types/aos": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matheus Grieger",
+            "githubUsername": "matheusgrieger"
+        }
+    ]
+}

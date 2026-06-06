@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-typewriter",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/TaylorBriggs/react-native-typewriter"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-typewriter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andréas \"ScreamZ\" HANSS",
+            "githubUsername": "ScreamZ"
+        }
+    ]
+}

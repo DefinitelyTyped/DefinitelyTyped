@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sql-template",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/131/sql-template"
+    ],
+    "devDependencies": {
+        "@types/sql-template": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jaap Taal",
+            "githubUsername": "q42jaap"
+        }
+    ]
+}

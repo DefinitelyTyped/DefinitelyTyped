@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/knockout.deferred.updates",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "knockout.deferred.updates",
+    "projects": [
+        "https://github.com/mbest/knockout-deferred-updates"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.deferred.updates": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastián Galiano",
+            "githubUsername": "sgaliano"
+        }
+    ]
+}

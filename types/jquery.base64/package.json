@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.base64",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.base64",
+    "projects": [
+        "https://github.com/yatt/jquery.base64/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.base64": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shinya Mochizuki",
+            "githubUsername": "enrapt-mochizuki"
+        }
+    ]
+}

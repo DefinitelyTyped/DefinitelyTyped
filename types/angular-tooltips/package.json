@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/angular-tooltips",
+    "version": "1.2.9999",
+    "projects": [
+        "http://720kb.github.io/angular-tooltips"
+    ],
+    "devDependencies": {
+        "@types/angular": "*",
+        "@types/angular-tooltips": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        }
+    ]
+}

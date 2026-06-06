@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/mithril",
+    "version": "2.2.9999",
+    "projects": [
+        "https://mithril.js.org/",
+        "https://github.com/mithriljs/mithril.js"
+    ],
+    "devDependencies": {
+        "@types/mithril": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Linkovich",
+            "githubUsername": "spacejack"
+        },
+        {
+            "name": "Claudia Meadows",
+            "githubUsername": "dead-claudia"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/svg2png",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/domenic/svg2png"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/svg2png": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hans windhoff",
+            "githubUsername": "hansrwindhoff"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/slackdown",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/blockmar/slackdown"
+    ],
+    "devDependencies": {
+        "@types/slackdown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "nju33",
+            "githubUsername": "nju33"
+        }
+    ]
+}
