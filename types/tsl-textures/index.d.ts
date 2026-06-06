@@ -1,3 +1,5 @@
+// This file is never executed; it is only type-checked
+
 // This package is typed as an ES module ("type": "module" in package.json) even
 // though the implementation package's package.json does not set it. tsl-textures
 // re-exports runtime *values* from the ESM-only entry points 'three/webgpu' and
