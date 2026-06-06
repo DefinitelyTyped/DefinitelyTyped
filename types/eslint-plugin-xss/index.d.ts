@@ -1,9 +1,7 @@
 import type { Linter, Rule } from 'eslint';
 
 type XssRuleModule = Rule.RuleModule & {
-    meta: Rule.RuleMetaData & {
-        docs: Rule.RuleMetaDataDocs;
-    };
+    meta: Rule.RuleMetaData;
 };
 
 export = eslint_plugin_xss;
