@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/paystack__inline-js": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Legacy",
-            "githubUsername": "3m1n3nc3"
-        }
-    ]
+    "owners": []
 }

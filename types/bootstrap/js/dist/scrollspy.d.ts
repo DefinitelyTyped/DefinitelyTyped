@@ -1,5 +1,11 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        scrollspy: ScrollSpy.jQueryInterface;
+    }
+}
+
 declare class ScrollSpy extends BaseComponent {
     /**
      * Static method which allows you to get the scrollspy instance associated

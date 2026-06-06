@@ -3,6 +3,7 @@ import {
     BuyListResponse,
     BuyProviderInfo,
     BuyTrade,
+    BuyTradeQuoteRequest,
     ConfirmExchangeTradeRequest,
     CreateTradeSignatureRequestExchange,
     CreateTradeSignatureRequestSell,
@@ -23,6 +24,17 @@ import {
 const bt: BuyTrade = {
     paymentMethodName: "TestPay",
     tags: ["noExternalAddress"],
+};
+
+const bqt: BuyTradeQuoteRequest = {
+    wantCrypto: true,
+    fiatAmount: 1000,
+    fiatStringAmount: "1000",
+    cryptoAmount: 0.3,
+    cryptoStringAmount: "0.3",
+    receiveAddress: "receiveAddress",
+    receiveCurrency: "bitcoin" as CryptoId,
+    fiatCurrency: "USD",
 };
 
 const et: ExchangeTrade = {

@@ -758,6 +758,22 @@ declare namespace Memory {
     ): MemoryScanMatch[];
 
     /**
+     * Scans one or more memory ranges for pointer-aligned words matching any of `values`.
+     *
+     * This is a focused, SIMD-accelerated alternative to `scan()` for the common task of finding pointers, e.g.
+     * references to a given address. All matches are collected and returned sorted by address.
+     *
+     * @param ranges Memory range, or array of ranges, to scan.
+     * @param values Pointer-width values to look for.
+     * @param options Options to customize the scan.
+     */
+    function findPointers(
+        ranges: MemoryRange | MemoryRange[],
+        values: NativePointerValue[],
+        options?: MemoryFindPointersOptions,
+    ): MemoryPointerMatch[];
+
+    /**
      * Allocates `size` bytes of memory on Frida's private heap, or, if `size` is a multiple of Process#pageSize,
      * one or more raw memory pages managed by the OS. The allocated memory will be released when the returned
      * NativePointer value gets garbage collected. This means you need to keep a reference to it while the pointer
@@ -1161,6 +1177,11 @@ interface ModuleExportDetails {
      * Absolute address.
      */
     address: NativePointer;
+
+    /**
+     * Size in bytes, if available.
+     */
+    size?: number | undefined;
 }
 
 interface ModuleSymbolDetails {
@@ -1459,6 +1480,26 @@ interface MemoryScanMatch {
      * Size of this match.
      */
     size: number;
+}
+
+interface MemoryFindPointersOptions {
+    /**
+     * Bitmask applied to each scanned word and each value before comparing. Defaults to an exact match.
+     * Pass e.g. `ptr("0x00007ffffffffff8")` to strip arm64e PAC and non-pointer-isa bits.
+     */
+    mask?: NativePointerValue;
+}
+
+interface MemoryPointerMatch {
+    /**
+     * Memory address where a matching word was found.
+     */
+    address: NativePointer;
+
+    /**
+     * The matching word, i.e. the value stored at `address`, before masking.
+     */
+    value: NativePointer;
 }
 
 interface KernelMemoryScanCallbacks {

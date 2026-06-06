@@ -8,6 +8,11 @@
         "https://github.com/mdx-js/mdx"
     ],
     "tsconfigs": ["tsconfig.preact.json", "tsconfig.react.json"],
+    "exports": {
+        ".": "./index.d.ts",
+        "./types": "./types.d.ts",
+        "./types.js": "./types.d.ts"
+    },
     "devDependencies": {
         "@types/mdx": "workspace:.",
         "@types/react": "^18",

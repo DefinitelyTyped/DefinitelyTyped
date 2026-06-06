@@ -2,12 +2,11 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es6",
-            "esnext.disposable"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
@@ -15,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "oracledb-tests.ts"
+        "yauzl-tests.ts"
     ]
 }

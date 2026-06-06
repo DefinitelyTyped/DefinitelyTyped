@@ -56,6 +56,8 @@ import { URL } from "node:url";
         maxFrameSize: 0,
         maxConcurrentStreams: 0,
         maxHeaderListSize: 0,
+        enableConnectProtocol: false,
+        customSettings: { 10: 10 },
     };
 }
 
@@ -260,6 +262,8 @@ import { URL } from "node:url";
 {
     let settings: Settings = {};
     const serverOptions: ServerOptions = {
+        maxSessionRejectedStreams: 1,
+        maxSessionInvalidFrames: 1,
         maxDeflateDynamicTableSize: 0,
         maxSettings: 32,
         maxSessionMemory: 10,

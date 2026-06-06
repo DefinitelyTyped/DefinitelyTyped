@@ -1,7 +1,7 @@
 /// <reference lib="dom" />
 
 // Import only for type-checking purposes
-import { Frame, Page } from "puppeteer";
+import type { Frame, Page } from "puppeteer" with { "resolution-mode": "import" };
 import PuppeteerHar from "puppeteer-har";
 
 // Define a mock Page interface just for type-checking

@@ -458,7 +458,7 @@ declare namespace React {
      *
      * Where {@link ReactElement} only represents JSX, `ReactNode` represents everything that can be rendered.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/reactnode/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/reactnode/ React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1646,7 +1646,7 @@ declare namespace React {
      * instead of this type, as they let you be explicit about whether or not to include
      * the `ref` prop.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/ComponentProps React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1674,7 +1674,7 @@ declare namespace React {
      * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
      * type of a React component.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/ComponentProps React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1721,7 +1721,7 @@ declare namespace React {
      * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
      * type of a React component.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/ComponentProps React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -4284,7 +4284,6 @@ declare namespace React {
         digest?: string | null;
     }
 
-    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         type ElementType = GlobalJSXElementType;
         interface Element extends GlobalJSXElement {}
