@@ -10,10 +10,10 @@ const flatConfig: Linter.Config = github.getFlatConfigs().recommended;
 const legacyConfig: Linter.LegacyConfig = github.configs.recommended;
 
 const ownFlatConfig: Linter.Config = {
-  plugins: { github },
-  rules: {
-    "github/array-foreach": "error",
-    "github/no-then": "error",
-    "github/no-inner-html": "warn",
-  },
+    plugins: { github },
+    rules: {
+        "github/array-foreach": "error",
+        "github/no-then": "error",
+        "github/no-inner-html": "warn",
+    },
 };

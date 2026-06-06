@@ -9,9 +9,9 @@ const legacyConfig: Linter.LegacyConfig = noUnsanitized.configs["recommended-leg
 const domConfig: Linter.LegacyConfig = noUnsanitized.configs.DOM;
 
 const ownFlatConfig: Linter.Config = {
-  plugins: { "no-unsanitized": noUnsanitized },
-  rules: {
-    "no-unsanitized/method": "error",
-    "no-unsanitized/property": "error",
-  },
+    plugins: { "no-unsanitized": noUnsanitized },
+    rules: {
+        "no-unsanitized/method": "error",
+        "no-unsanitized/property": "error",
+    },
 };

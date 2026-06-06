@@ -1,4 +1,4 @@
-import type { Linter, Rule } from 'eslint';
+import type { Linter, Rule } from "eslint";
 
 type XssRuleModule = Rule.RuleModule & {
     meta: Rule.RuleMetaData;
@@ -13,7 +13,7 @@ declare const eslint_plugin_xss: {
         };
     };
     rules: {
-        'no-location-href-assign': XssRuleModule;
-        'no-mixed-html': XssRuleModule;
+        "no-location-href-assign": XssRuleModule;
+        "no-mixed-html": XssRuleModule;
     };
 };

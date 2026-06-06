@@ -5,9 +5,9 @@ const rules: Record<string, Rule.RuleModule> = noConstructorBind.rules;
 const rule: Rule.RuleModule = noConstructorBind.rules["no-constructor-bind"];
 
 const ownFlatConfig = {
-  plugins: { "no-constructor-bind": noConstructorBind },
-  rules: {
-    "no-constructor-bind/no-constructor-bind": "error",
-    "no-constructor-bind/no-constructor-state": "error",
-  },
+    plugins: { "no-constructor-bind": noConstructorBind },
+    rules: {
+        "no-constructor-bind/no-constructor-bind": "error",
+        "no-constructor-bind/no-constructor-state": "error",
+    },
 };

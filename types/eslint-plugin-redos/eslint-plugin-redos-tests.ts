@@ -7,8 +7,8 @@ const rule: Rule.RuleModule = redos.rules["no-vulnerable"];
 const legacyConfig: Linter.LegacyConfig = redos.configs.recommended;
 
 const ownFlatConfig: Linter.Config = {
-  plugins: { redos },
-  rules: {
-    "redos/no-vulnerable": "error",
-  },
+    plugins: { redos },
+    rules: {
+        "redos/no-vulnerable": "error",
+    },
 };
