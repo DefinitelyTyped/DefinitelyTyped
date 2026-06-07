@@ -288,3 +288,70 @@ const sourceFromFunction: Fancytree.FancytreeOptions = {
 const sourceFromFunctionPromise: Fancytree.FancytreeOptions = {
     source: () => $.getJSON("/api/tree"),
 };
+
+// `icon` option/NodeData also accepts a callback.
+const iconCallback: Fancytree.FancytreeOptions = {
+    icon: (event, data) => (data.node.isFolder() ? false : "my-icon"),
+};
+activeNode.addChildren({ title: "Static icon", icon: "my-icon" });
+
+// Node-level documented properties.
+const nodeSelected: boolean = activeNode.selected;
+const nodeType: string = activeNode.type;
+const nodeIconTooltip: string = activeNode.iconTooltip;
+const nodeIcon: boolean | string = activeNode.icon;
+console.log(nodeSelected, nodeType, nodeIconTooltip, nodeIcon);
+
+// replaceWith accepts any documented source format (e.g. an ajax descriptor).
+if (node) {
+    node.replaceWith({ url: "/api/page", cache: false });
+}
+
+// [ext-dnd5] cancel an active drag.
+tree.cancelDrag();
+
+// FancytreeStatic.setSpanIcon
+$.ui.fancytree.setSpanIcon(activeNode.span, "fancytree-icon", "my-glyph");
+
+// Legacy (jQuery UI based) `dnd` extension.
+const dndOptions: Fancytree.FancytreeOptions = {
+    extensions: ["dnd"],
+    dnd: {
+        autoExpandMS: 400,
+        preventVoidMoves: true,
+        preventRecursiveMoves: true,
+        focusOnClick: false,
+        dragStart: (sourceNode, data) => {
+            console.log(sourceNode.title, data.otherNode, data.hitMode, data.ui, data.draggable);
+            return true;
+        },
+        dragEnter: (targetNode, data) => {
+            console.log(targetNode.key, data.otherNode.key);
+            return ["over", "before"];
+        },
+        dragDrop: (targetNode, data) => {
+            if (data.hitMode === "over") {
+                data.otherNode.moveTo(targetNode); // mode is optional; defaults to "child"
+            }
+        },
+        dragStop: (sourceNode, data) => {
+            console.log(sourceNode, data.tree);
+        },
+    },
+};
+console.log(iconCallback, dndOptions);
+
+// `glyph` extension options.
+const glyphOptions: Fancytree.FancytreeOptions = {
+    extensions: ["glyph"],
+    glyph: {
+        preset: "awesome4",
+        map: {
+            expanderClosed: "fa fa-caret-right",
+            expanderOpen: "fa fa-caret-down",
+            loading: "fa fa-spinner fa-pulse",
+        },
+    },
+};
+const loadingClass: string = glyphOptions.glyph!.map!.loading;
+console.log(glyphOptions, loadingClass);
