@@ -110,7 +110,7 @@ export interface MediaAttributes extends SharedAttributes {
     // a=mid:foo
     mid?: string;
     // a=msid:0c8b064d-d807-43b4-b434-f92a889d8587 98178685-d409-46e0-8e16-7ef0db0db64a
-    msid?: string;
+    msid?: { id: string; appdata?: string }[];
     // a=ptime:20
     ptime?: number;
     // a=maxptime:60
