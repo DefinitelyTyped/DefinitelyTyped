@@ -1177,6 +1177,11 @@ interface ModuleExportDetails {
      * Absolute address.
      */
     address: NativePointer;
+
+    /**
+     * Size in bytes, if available.
+     */
+    size?: number | undefined;
 }
 
 interface ModuleSymbolDetails {

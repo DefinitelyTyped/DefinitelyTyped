@@ -243,6 +243,7 @@ export interface BuyTradeQuoteRequest {
     country?: string | undefined;
     subdivision?: string | undefined;
     paymentMethod?: BuyCryptoPaymentMethod | undefined;
+    receiveAddress?: string;
 }
 
 export type BuyTradeQuoteResponse = BuyTrade[];

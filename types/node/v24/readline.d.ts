@@ -257,6 +257,7 @@ declare module "readline" {
          */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
+        addListener(event: "error", listener: (error: Error) => void): this;
         addListener(event: "line", listener: (input: string) => void): this;
         addListener(event: "pause", listener: () => void): this;
         addListener(event: "resume", listener: () => void): this;
@@ -266,6 +267,7 @@ declare module "readline" {
         addListener(event: "history", listener: (history: string[]) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
+        emit(event: "error", error: Error): boolean;
         emit(event: "line", input: string): boolean;
         emit(event: "pause"): boolean;
         emit(event: "resume"): boolean;
@@ -275,6 +277,7 @@ declare module "readline" {
         emit(event: "history", history: string[]): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
+        on(event: "error", listener: (error: Error) => void): this;
         on(event: "line", listener: (input: string) => void): this;
         on(event: "pause", listener: () => void): this;
         on(event: "resume", listener: () => void): this;
@@ -284,6 +287,7 @@ declare module "readline" {
         on(event: "history", listener: (history: string[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
+        once(event: "error", listener: (error: Error) => void): this;
         once(event: "line", listener: (input: string) => void): this;
         once(event: "pause", listener: () => void): this;
         once(event: "resume", listener: () => void): this;
@@ -293,6 +297,7 @@ declare module "readline" {
         once(event: "history", listener: (history: string[]) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
+        prependListener(event: "error", listener: (error: Error) => void): this;
         prependListener(event: "line", listener: (input: string) => void): this;
         prependListener(event: "pause", listener: () => void): this;
         prependListener(event: "resume", listener: () => void): this;
@@ -302,6 +307,7 @@ declare module "readline" {
         prependListener(event: "history", listener: (history: string[]) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
+        prependOnceListener(event: "error", listener: (error: Error) => void): this;
         prependOnceListener(event: "line", listener: (input: string) => void): this;
         prependOnceListener(event: "pause", listener: () => void): this;
         prependOnceListener(event: "resume", listener: () => void): this;

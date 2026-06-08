@@ -4358,6 +4358,7 @@ function testContextMenus() {
     chrome.contextMenus.ContextType.PAGE === "page";
     chrome.contextMenus.ContextType.PAGE_ACTION === "page_action";
     chrome.contextMenus.ContextType.SELECTION === "selection";
+    chrome.contextMenus.ContextType.TAB === "tab";
     chrome.contextMenus.ContextType.VIDEO === "video";
 
     chrome.contextMenus.ItemType.CHECKBOX === "checkbox";

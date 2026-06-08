@@ -1,11 +1,13 @@
 {
     "private": true,
     "name": "@types/archiver",
-    "version": "7.0.9999",
+    "version": "8.0.9999",
     "projects": [
         "https://github.com/archiverjs/node-archiver"
     ],
+    "type": "module",
     "dependencies": {
+        "@types/node": "*",
         "@types/readdir-glob": "*"
     },
     "devDependencies": {
@@ -23,6 +25,10 @@
         {
             "name": "Piotr Błażejewicz",
             "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Valentin Zolotov",
+            "githubUsername": "vdistortion"
         }
     ]
 }
