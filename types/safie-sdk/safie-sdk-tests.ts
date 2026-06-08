@@ -25,7 +25,9 @@ async function testDevices(): Promise<void> {
     });
 
     const thumbnail: Blob = await Safie.Devices.queryThumbnail({ deviceId: "device" });
-    console.log(thumbnail);
+    // v1.0以前の文字列直接渡し（@deprecated だが互換のため受け入れる）
+    const thumbnailLegacy: Blob = await Safie.Devices.queryThumbnail("device");
+    console.log(thumbnail, thumbnailLegacy);
 
     const image: Blob = await Safie.Devices.queryImage({ deviceId: "device" });
     await Safie.Devices.queryImage({ deviceId: "device", timestamp: 1595981532000 });
@@ -111,7 +113,8 @@ function testPlayer(): void {
 
     const instanceId: string = player.instanceId;
     player.deviceId = "newDevice";
-    const deviceId: string = player.deviceId;
+    // deviceId はデバイス未設定時 null を返す
+    const deviceId: string | null = player.deviceId;
     player.volume = 75;
     const volume: number = player.volume;
     player.muted = true;
@@ -120,7 +123,8 @@ function testPlayer(): void {
     const userInteractions: boolean = player.userInteractions;
     const liveMode: "hls" | "webrtc" = player.liveBroadcastMode;
     const status: Safie.Player.PlayerStatus = player.status;
-    const playTime: number = player.playTime;
+    // playTime は再生中でない場合 null を返す
+    const playTime: number | null = player.playTime;
     const streamingMode: Safie.Player.StreamingMode = player.streamingMode;
     console.log(instanceId, deviceId, volume, muted, userInteractions, liveMode, status, playTime, streamingMode);
 
@@ -155,9 +159,14 @@ function testPlayer(): void {
     };
     player.on(Safie.Player.PlayerEvent.PLAY_TIME_CHANGE, onPlayTimeChange);
     player.on(Safie.Player.PlayerEvent.STATUS_CHANGE, onStatusChange);
+    // 文字列リテラルでのイベント名指定もサポート
+    player.on("playTimeChange", onPlayTimeChange);
+    player.on("statusChange", onStatusChange);
     player.off(Safie.Player.PlayerEvent.PLAY_TIME_CHANGE, onPlayTimeChange);
     player.off(Safie.Player.PlayerEvent.PLAY_TIME_CHANGE);
     player.off(Safie.Player.PlayerEvent.STATUS_CHANGE);
+    player.off("playTimeChange");
+    player.off("statusChange");
 
     player.startPTZ();
     player.startPTZ({ centeringOnly: true });
@@ -195,7 +204,8 @@ function testTimeline(): void {
     new Safie.UIControl.Timeline(timelineElement, { players: [player1], filterEventTypes: null });
 
     const status: Safie.UIControl.TimelineStatus = timeline.status;
-    const playTime: number = timeline.playTime;
+    // playTime は再生中でない場合 null を返す
+    const playTime: number | null = timeline.playTime;
     timeline.filterEventTypes = ["motion"];
     timeline.filterEventTypes = null;
     const filterEventTypes: string[] | null = timeline.filterEventTypes;
@@ -225,9 +235,14 @@ function testTimeline(): void {
     };
     timeline.on(Safie.UIControl.TimelineEvent.PLAY_TIME_CHANGE, onPlayTimeChange);
     timeline.on(Safie.UIControl.TimelineEvent.STATUS_CHANGE, onStatusChange);
+    // 文字列リテラルでのイベント名指定もサポート
+    timeline.on("playTimeChange", onPlayTimeChange);
+    timeline.on("statusChange", onStatusChange);
     timeline.off(Safie.UIControl.TimelineEvent.PLAY_TIME_CHANGE, onPlayTimeChange);
     timeline.off(Safie.UIControl.TimelineEvent.PLAY_TIME_CHANGE);
     timeline.off(Safie.UIControl.TimelineEvent.STATUS_CHANGE);
+    timeline.off("playTimeChange");
+    timeline.off("statusChange");
 
     timeline.dispose();
 

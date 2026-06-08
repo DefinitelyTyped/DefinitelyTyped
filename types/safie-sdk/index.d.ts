@@ -350,6 +350,10 @@ declare namespace Safie {
             deviceId: string;
         }): Promise<Blob>;
         /**
+         * @deprecated v1.0以前の記法。将来的に廃止されるため`{ deviceId }` オブジェクト形式に移行してください。
+         */
+        function queryThumbnail(deviceId: string): Promise<Blob>;
+        /**
          * 画像取得
          * #### 概要
          * - デバイスから画像を取得できます
@@ -741,9 +745,9 @@ declare namespace Safie {
              */
             set deviceId(value: string);
             /**
-             * 設定されているデバイスのデバイスIDを返します。
+             * 設定されているデバイスのデバイスIDを返します。デバイス未設定時は null を返します。
              */
-            get deviceId(): string;
+            get deviceId(): string | null;
             /**
              * 音量を設定します。
              * @param value 音量値 (0 - 100)
@@ -780,9 +784,9 @@ declare namespace Safie {
              */
             get status(): PlayerStatus;
             /**
-             * 現在の再生時刻を返します。
+             * 現在の再生時刻を返します。再生中でない場合は null を返します。
              */
-            get playTime(): number;
+            get playTime(): number | null;
             /**
              * 現在の再生モードを返します。
              */
@@ -843,7 +847,7 @@ declare namespace Safie {
              * player.on('playTimeChange', onTimeChange);
              * ```
              */
-            on<E extends PlayerEvent>(event: E, listener: EventListeners[E]): void;
+            on<E extends PlayerEvent>(event: E | `${E}`, listener: EventListeners[E]): void;
             /**
              * プレイヤーイベントのイベントハンドラーを解除します。
              * @param event
@@ -856,7 +860,7 @@ declare namespace Safie {
              * player.off('playTimeChange');
              * ```
              */
-            off<E extends PlayerEvent>(event: E, listener?: EventListeners[E]): void;
+            off<E extends PlayerEvent>(event: E | `${E}`, listener?: EventListeners[E]): void;
             /**
              * プレイヤーのインスタンスを破棄します。
              * @description プレイヤーを削除する時に呼び出す必要があります。実行後にインスタンスを再利用することはできません。
@@ -1040,9 +1044,9 @@ declare namespace Safie {
              */
             get status(): TimelineStatus;
             /**
-             * 現在の再生時刻を返します。
+             * 現在の再生時刻を返します。再生中でない場合は null を返します。
              */
-            get playTime(): number;
+            get playTime(): number | null;
             /**
              * イベント凡例に表示するイベント種別を指定します。
              * @param value 詳細は{@link TimelineConfig.filterEventTypes}を参照。
@@ -1098,7 +1102,7 @@ declare namespace Safie {
              * timeline.on('playTimeChange', onTimeChange);
              * ```
              */
-            on<E extends TimelineEvent>(event: E, listener: EventListeners[E]): void;
+            on<E extends TimelineEvent>(event: E | `${E}`, listener: EventListeners[E]): void;
             /**
              * タイムラインイベントのイベントハンドラーを解除します。
              * @param event イベントタイプ
@@ -1112,7 +1116,7 @@ declare namespace Safie {
              * timeline.off('playTimeChange');
              * ```
              */
-            off<E extends TimelineEvent>(event: E, listener?: EventListeners[E]): void;
+            off<E extends TimelineEvent>(event: E | `${E}`, listener?: EventListeners[E]): void;
             /**
              * タイムラインのインスタンスを破棄します。
              * @description タイムラインを削除する時に呼び出す必要があります。実行後にインスタンスを再利用することはできません。
