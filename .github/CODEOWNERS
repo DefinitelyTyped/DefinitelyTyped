@@ -298,7 +298,7 @@
 /types/architect/                                       @greuze
 /types/architect__sandbox/                              @reconbot @activescott @ryanblock
 /types/architect__utils/                                @lpsinger @dakota002
-/types/archiver/                                        @dolanmiu @crevil @peterblazejewicz
+/types/archiver/                                        @dolanmiu @crevil @peterblazejewicz @vdistortion
 /types/archy/                                           @vvakame
 /types/arconnect/                                       @martonlederer
 /types/are-we-there-yet/                                @brianloveswords
@@ -5623,7 +5623,6 @@
 /types/paypal__checkout-server-sdk/                     @martin-badin
 /types/paypal__payouts-sdk/                             @msrumon
 /types/paypal__paypalhttp/                              @martin-badin
-/types/paystack__inline-js/                             @3m1n3nc3
 /types/paytmchecksum/                                   @adarshsingh87
 /types/payu-emea-sdk/                                   @regdos
 /types/pbf/                                             @cschwarz
@@ -7880,7 +7879,7 @@
 /types/token-introspection/                             @DanielRose
 /types/token-stream/                                    @MaikoTan
 /types/tokgen/                                          @l-jonas
-/types/tonic-ui__react/                                 @derekhawker @ZachLegros @georgids9
+/types/tonic-ui__react/                                 @derekhawker @ZachLegros
 /types/tonic-ui__react-icons/                           @ZachLegros @derekhawker
 /types/toobusy-js/                                      @atd-schubert @BendingBender
 /types/tooltipster/                                     @stephenlautier @pjmagee @VorobeY1326 @leonard-thieu @janhi @joeskeen
@@ -8588,6 +8587,7 @@
 /types/yargs-unparser/                                  @antongolub
 /types/yarnpkg__lockfile/                               @fa93hws
 /types/yauzl/                                           @ffflorian
+/types/yauzl/v2/                                        @ffflorian
 /types/yayson/                                          @Codesleuth
 /types/yazl/                                            @taoqf @seangenabe
 /types/ydn-db/                                          @yathit @gabrielmaldi
