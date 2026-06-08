@@ -121,3 +121,19 @@ function test_datachannel_media_description() {
     const port = parsed.media[0].port;
     port; // $ExpectType number
 }
+
+function test_msid_attribute() {
+    const session: SessionDescription = parse("");
+    session.media[0].msid = [
+        { id: "0c8b064d-d807-43b4-b434-f92a889d8587" },
+        { id: "98178685-d409-46e0-8e16-7ef0db0db64a", appdata: "my-track-id" },
+    ];
+
+    const sdp: string = write(session);
+    const parsed = parse(sdp);
+    const msid = parsed.media[0].msid!;
+    msid[0].id; // $ExpectType string
+    msid[0].appdata; // $ExpectType string | undefined
+    msid[1].id; // $ExpectType string
+    msid[1].appdata; // $ExpectType string | undefined
+}
