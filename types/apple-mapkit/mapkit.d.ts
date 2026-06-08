@@ -110,7 +110,7 @@ declare abstract class AbstractLookAround extends EventTarget {
      * @since 5.79.0
      */
     get padding(): Padding;
-    set padding(value: Padding);
+    set padding(value: PaddingData);
     /**
      * Releases the Look Around view and its resources from memory.
      *
@@ -258,7 +258,7 @@ export class AddressFilter {
  *
  * @since 5.0.0
  */
-export class Annotation extends MapKitEventTarget {
+export class Annotation extends EventTarget {
     /**
      * Creates a new annotation given its location and initialization options.
      *
@@ -271,7 +271,7 @@ export class Annotation extends MapKitEventTarget {
      * @since 5.0.0
      */
     constructor(
-        location: Coordinate | Place | SearchAutocompleteResult,
+        location: CoordinateData | Place | SearchAutocompleteResult,
         factory: (
             location?: Coordinate,
             options?: AnnotationConstructorOptions,
@@ -285,16 +285,18 @@ export class Annotation extends MapKitEventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/annotation/displaypriority-data.var)
      *
      * @since 5.0.0
+     * @deprecated Please use mapkit.AnnotationDisplayPriority instead.
      */
-    static DisplayPriority: typeof DisplayPriority;
+    static get DisplayPriority(): typeof AnnotationDisplayPriority;
     /**
      * A static property that allows you to access the annotation's collision mode enumeration values.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/annotation/collisionmode-data.var)
      *
      * @since 5.0.0
+     * @deprecated Please use mapkit.AnnotationCollisionMode instead.
      */
-    static CollisionMode: typeof CollisionMode;
+    static get CollisionMode(): typeof AnnotationCollisionMode;
     /**
      * The map that the framework adds the annotation to.
      *
@@ -321,7 +323,7 @@ export class Annotation extends MapKitEventTarget {
      * @since 5.0.0
      */
     get coordinate(): Coordinate;
-    set coordinate(value: Coordinate);
+    set coordinate(value: CoordinateData);
     /**
      * The place ID that references a place or a map feature.
      *
@@ -329,7 +331,7 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get id(): string | undefined;
+    get id(): string | null;
     /**
      * A Boolean value that determines whether the annotation is visible or hidden.
      *
@@ -355,8 +357,8 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get title(): string | undefined;
-    set title(value: string | undefined);
+    get title(): string | null;
+    set title(value: string | null | undefined);
     /**
      * The text to display as a subtitle on the second line of an annotation's callout.
      *
@@ -364,8 +366,8 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get subtitle(): string | undefined;
-    set subtitle(value: string | undefined);
+    get subtitle(): string | null;
+    set subtitle(value: string | null | undefined);
     /**
      * Accessibility text for the annotation.
      *
@@ -373,8 +375,8 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get accessibilityLabel(): string | null | undefined;
-    set accessibilityLabel(value: string | null | undefined);
+    get accessibilityLabel(): string | null;
+    set accessibilityLabel(value: string | null);
     /**
      * Data that you define that's specific to an annotation.
      *
@@ -382,8 +384,8 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get data(): {};
-    set data(data: {});
+    get data(): object;
+    set data(data: object);
     /**
      * A Boolean value that determines whether the annotation responds to user interaction.
      *
@@ -418,8 +420,8 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.78.1
      */
-    get selectionAccessoryOffset(): DOMPoint | undefined;
-    set selectionAccessoryOffset(value: DOMPoint | undefined);
+    get selectionAccessoryOffset(): DOMPoint | null;
+    set selectionAccessoryOffset(value: DOMPoint | null);
     /**
      * A Boolean value that indicates whether the map shows the annotation in a selected state.
      *
@@ -454,8 +456,8 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get calloutOffset(): DOMPoint | undefined;
-    set calloutOffset(value: DOMPoint | undefined);
+    get calloutOffset(): DOMPoint;
+    set calloutOffset(value: DOMPoint);
     /**
      * A delegate that enables you to customize the annotation's callout.
      *
@@ -481,7 +483,7 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get size(): Size | undefined;
+    get size(): Size | null;
     set size(value: Size);
     /**
      * A numeric hint that the map uses to prioritize how it displays annotations.
@@ -499,8 +501,8 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get collisionMode(): CollisionMode;
-    set collisionMode(value: CollisionMode);
+    get collisionMode(): AnnotationCollisionMode;
+    set collisionMode(value: AnnotationCollisionMode);
     /**
      * An identifier for grouping annotations into the same cluster.
      *
@@ -518,7 +520,7 @@ export class Annotation extends MapKitEventTarget {
      * @since 5.16.0
      */
     get padding(): Padding;
-    set padding(value: Padding);
+    set padding(value: PaddingData);
     /**
      * An array of annotations that the framework groups together in a cluster.
      *
@@ -526,7 +528,7 @@ export class Annotation extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get memberAnnotations(): Annotation[] | undefined;
+    get memberAnnotations(): Annotation[] | null;
 }
 
 /**
@@ -632,6 +634,42 @@ export interface AnnotationCalloutDelegate {
 }
 
 /**
+ * Constants that indicate whether an annotation collides and how to interpret the collision-frame rectangle of an annotation view.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode)
+ *
+ * @since 5.0.0
+ */
+declare const AnnotationCollisionMode: Readonly<{
+    /**
+     * A constant indicating that the map should use a full collision rectangle for detecting collisions.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode/rectangle)
+     *
+     * @since 5.0.0
+     */
+    readonly Rectangle: "rectangle";
+    /**
+     * A constant indicating that the map should use a circle inscribed in the collision frame rectangle to determine collisions.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode/circle)
+     *
+     * @since 5.0.0
+     */
+    readonly Circle: "circle";
+    /**
+     * A constant that indicates the annotation doesn't collide with other annotations.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode/none)
+     *
+     * @since 5.50.0
+     */
+    readonly None: "none";
+}>;
+
+type AnnotationCollisionMode = (typeof AnnotationCollisionMode)[keyof typeof AnnotationCollisionMode];
+
+/**
  * An object that contains options for creating annotation features.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/annotationconstructoroptions)
@@ -662,7 +700,7 @@ export interface AnnotationConstructorOptions {
      *
      * @since 5.0.0
      */
-    coordinate?: Coordinate;
+    coordinate?: CoordinateData;
     /**
      * A Place ID that uniquely identifies a feature.
      *
@@ -814,7 +852,7 @@ export interface AnnotationConstructorOptions {
      *
      * @since 5.0.0
      */
-    collisionMode?: CollisionMode;
+    collisionMode?: AnnotationCollisionMode;
     /**
      * Spacing to add around the annotation when showing items.
      *
@@ -822,7 +860,7 @@ export interface AnnotationConstructorOptions {
      *
      * @since 5.16.0
      */
-    padding?: Padding;
+    padding?: PaddingData;
     /**
      * A Boolean value that determines whether the user can drag the annotation.
      *
@@ -838,7 +876,7 @@ export interface AnnotationConstructorOptions {
      *
      * @since 5.0.0
      */
-    displayPriority?: number;
+    displayPriority?: AnnotationDisplayPriority;
     /**
      * An identifier for grouping annotations into the same cluster.
      *
@@ -850,13 +888,49 @@ export interface AnnotationConstructorOptions {
 }
 
 /**
+ * Constant values that provide a hint the map uses to prioritize displaying annotations.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority)
+ *
+ * @since 5.0.0
+ */
+declare const AnnotationDisplayPriority: Readonly<{
+    /**
+     * A low display priority, with a preset value of 250 out of 1000.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority/low)
+     *
+     * @since 5.0.0
+     */
+    readonly Low: 250;
+    /**
+     * A high display priority, with a preset value of 750 out of 1000.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority/high)
+     *
+     * @since 5.0.0
+     */
+    readonly High: 750;
+    /**
+     * The highest display priority, with a preset value of 1000 out of 1000.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority/required)
+     *
+     * @since 5.0.0
+     */
+    readonly Required: 1000;
+}>;
+
+type AnnotationDisplayPriority = (typeof AnnotationDisplayPriority)[keyof typeof AnnotationDisplayPriority];
+
+/**
  * An event that occurs when someone drags an annotation.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/annotationdragevent)
  *
  * @since 5.0.0
  */
-export class AnnotationDragEvent extends MapKitEvent {
+export class AnnotationDragEvent extends Event {
     /**
      * The coordinate of the annotation while someone drags it.
      *
@@ -990,7 +1064,7 @@ interface CameraBoundaryDescription {
  *
  * @since 5.23.0
  */
-export class CameraZoomRange {
+export class CameraZoomRange implements CameraZoomRangeData {
     /**
      * Constructs an instance of a camera zoom range object with no minimum or maximum camera distance.
      *
@@ -1008,7 +1082,7 @@ export class CameraZoomRange {
      *
      * @since 5.23.0
      */
-    constructor(rangeParams: CameraZoomRangeConstructorOptions);
+    constructor(rangeParams: Partial<CameraZoomRangeData>);
     /**
      * Creates an instance of a camera zoom range object with the specified numeric arguments that specify minimum and maximum camera distances.
      *
@@ -1049,29 +1123,29 @@ export class CameraZoomRange {
 }
 
 /**
- * Initialization options for the camera zoom range.
+ * Plain object representation of camera zoom range. An alternative to CameraZoomRange instances in API arguments.
  *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/camerazoomrangeconstructoroptions)
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/camerazoomrangedata)
  *
- * @since 5.23.0
+ * @since 6.0.0
  */
-export interface CameraZoomRangeConstructorOptions {
+export interface CameraZoomRangeData {
     /**
      * The minimum allowed distance of the camera from the center of the map in meters.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/camerazoomrangeconstructoroptions/mincameradistance)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/camerazoomrangedata/mincameradistance)
      *
-     * @since 5.23.0
+     * @since 6.0.0
      */
-    minCameraDistance?: number;
+    minCameraDistance: number;
     /**
      * The maximum allowed distance of the camera from the center of the map in meters.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/camerazoomrangeconstructoroptions/maxcameradistance)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/camerazoomrangedata/maxcameradistance)
      *
-     * @since 5.23.0
+     * @since 6.0.0
      */
-    maxCameraDistance?: number;
+    maxCameraDistance: number;
 }
 
 /**
@@ -1094,7 +1168,7 @@ export class CircleOverlay extends Overlay {
      * @since 5.0.0
      */
     constructor(
-        coordinate: Coordinate,
+        coordinate: CoordinateData,
         radius: number,
         options?: OverlayOptions,
     );
@@ -1105,8 +1179,8 @@ export class CircleOverlay extends Overlay {
      *
      * @since 5.0.0
      */
-    get coordinate(): Coordinate;
-    set coordinate(coordinate: Coordinate);
+    get coordinate(): CoordinateData;
+    set coordinate(coordinate: CoordinateData);
     /**
      * The circle overlay's radius, in meters.
      *
@@ -1135,42 +1209,6 @@ declare class ClusterAnnotation extends MarkerAnnotation {
      */
     get memberAnnotations(): Annotation[];
 }
-
-/**
- * Constants that indicate whether an annotation collides and how to interpret the collision-frame rectangle of an annotation view.
- *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode)
- *
- * @since 5.0.0
- */
-declare const CollisionMode: Readonly<{
-    /**
-     * A constant indicating that the map should use a full collision rectangle for detecting collisions.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode/rectangle)
-     *
-     * @since 5.0.0
-     */
-    readonly Rectangle: "rectangle";
-    /**
-     * A constant indicating that the map should use a circle inscribed in the collision frame rectangle to determine collisions.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode/circle)
-     *
-     * @since 5.0.0
-     */
-    readonly Circle: "circle";
-    /**
-     * A constant that indicates the annotation doesn't collide with other annotations.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/collisionmode/none)
-     *
-     * @since 5.50.0
-     */
-    readonly None: "none";
-}>;
-
-type CollisionMode = (typeof CollisionMode)[keyof typeof CollisionMode];
 
 /**
  * Constants that indicate the color scheme of the map or a place detail.
@@ -1223,7 +1261,7 @@ export interface CommonLookAroundOptions {
      *
      * @since 5.79.0
      */
-    padding?: Padding;
+    padding?: PaddingData;
     /**
      * A Boolean value that indicates whether someone can navigate inside the Look Around view.
      *
@@ -1304,7 +1342,7 @@ declare const ConfigurationChangeStatus: Readonly<{
 type ConfigurationChangeStatus = (typeof ConfigurationChangeStatus)[keyof typeof ConfigurationChangeStatus];
 
 /**
- * A value that represents the status of a configuration error.
+ * A value that represents the status of a configuration or request error.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/configurationerrorstatus)
  *
@@ -1378,7 +1416,7 @@ type ConfigurationErrorStatus = (typeof ConfigurationErrorStatus)[keyof typeof C
  *
  * @since 5.0.0
  */
-export class Coordinate {
+export class Coordinate implements CoordinateData {
     /**
      * The latitude, in degrees.
      *
@@ -1426,7 +1464,7 @@ export class Coordinate {
      *
      * @since 5.0.0
      */
-    equals(anotherCoordinate: Coordinate): boolean;
+    equals(anotherCoordinate: CoordinateData): boolean;
     /**
      * Returns the map point that corresponds to the coordinate.
      *
@@ -1460,13 +1498,51 @@ export class Coordinate {
 }
 
 /**
+ * Plain object representation of a coordinate. Alternative to {@link Coordinate} instances in api methods.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinatedata)
+ *
+ * @since 6.0.0
+ */
+export interface CoordinateData {
+    /**
+     * The coordinate latitude in degrees
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinatedata/latitude)
+     *
+     * @since 6.0.0
+     */
+    latitude: number;
+    /**
+     * The coordinate longitude in degrees
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinatedata/longitude)
+     *
+     * @since 6.0.0
+     */
+    longitude: number;
+}
+
+/**
  * A rectangular area on a map that a center coordinate and a span define, in degrees of latitude and longitude.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregion)
  *
  * @since 5.0.0
  */
-export class CoordinateRegion {
+export class CoordinateRegion implements CoordinateRegionData {
+    #private;
+    /**
+     * A rectangular geographic region that centers around a latitude and longitude coordinate.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregion/coordinateregionconstructor)
+     *
+     * @param center An object satisfying {@link CoordinateData} that's the center point of the region.
+     * @param span A {@link CoordinateSpan} that represents the amount of map to display. The span also defines the current zoom level that the map object uses.
+     *
+     * @since 5.0.0
+     */
+    constructor(center?: CoordinateData, span?: CoordinateSpanData);
     /**
      * The center point of the region.
      *
@@ -1474,7 +1550,8 @@ export class CoordinateRegion {
      *
      * @since 5.0.0
      */
-    center: Coordinate;
+    get center(): Coordinate;
+    set center(coordinate: CoordinateData);
     /**
      * The horizontal and vertical span representing the amount of map to display.
      *
@@ -1482,18 +1559,8 @@ export class CoordinateRegion {
      *
      * @since 5.0.0
      */
-    span: CoordinateSpan;
-    /**
-     * A rectangular geographic region that centers around a latitude and longitude coordinate.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregion/coordinateregionconstructor)
-     *
-     * @param center A {@link Coordinate} that's the center point of the region.
-     * @param span A {@link CoordinateSpan} that represents the amount of map to display. The span also defines the current zoom level that the map object uses.
-     *
-     * @since 5.0.0
-     */
-    constructor(center?: Coordinate, span?: CoordinateSpan);
+    get span(): CoordinateSpan;
+    set span(span: CoordinateSpanData);
     /**
      * Returns a copy of the calling coordinate region.
      *
@@ -1540,6 +1607,8 @@ export class CoordinateRegion {
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregion/tomaprect)
      *
+     * @deprecated This conversion is mathematically imprecise. Use MapRect directly to avoid inaccuracies.
+     *
      * @returns A {@link MapRect} that corresponds to the calling {@link CoordinateRegion}.
      *
      * @since 5.0.0
@@ -1556,13 +1625,39 @@ export class CoordinateRegion {
 }
 
 /**
+ * Plain object representation of a coordinate region. Alternative to {@link CoordinateRegion} instances in api methods.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregiondata)
+ *
+ * @since 6.0.0
+ */
+export interface CoordinateRegionData {
+    /**
+     * The latitude span in degrees
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregiondata/center)
+     *
+     * @since 6.0.0
+     */
+    center: CoordinateData;
+    /**
+     * The longitude span in degrees
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregiondata/span)
+     *
+     * @since 6.0.0
+     */
+    span: CoordinateSpanData;
+}
+
+/**
  * The width and height of a map region.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinatespan)
  *
  * @since 5.0.0
  */
-export class CoordinateSpan {
+export class CoordinateSpan implements CoordinateSpanData {
     /**
      * The amount of north-to-south distance (in degrees) to display for the map region.
      *
@@ -1624,6 +1719,31 @@ export class CoordinateSpan {
 }
 
 /**
+ * Plain object representation of a coordinate-span. Alternative to {@link CoordinateSpan} instances in api methods.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinatespandata)
+ *
+ * @since 6.0.0
+ */ export interface CoordinateSpanData {
+    /**
+     * The latitude span in degrees
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinatespandata/latitudedelta)
+     *
+     * @since 6.0.0
+     */
+    latitudeDelta: number;
+    /**
+     * The longitude span in degrees
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinatespandata/longitudedelta)
+     *
+     * @since 6.0.0
+     */
+    longitudeDelta: number;
+}
+
+/**
  * An object that provides directions and estimated travel time based on the options you provide.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directions)
@@ -1647,38 +1767,68 @@ export class Directions extends Service {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directions/eta)
      *
      * @param request An {@link EtaRequestOptions} object that specifies details for the server to provide estimated arrival times at one or more destinations.
+     * @returns A promise that resolves with the ETA response.
+     *
+     * @since 6.0.0
+     */
+    eta(request: EtaRequestOptions): Promise<EtaResponse>;
+    /**
+     * Retrieves estimated arrival times to up to 10 destinations from a single starting point.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directions/eta1)
+     *
+     * @param request An {@link EtaRequestOptions} object that specifies details for the server to provide estimated arrival times at one or more destinations.
      * @param callback A callback function that receives the estimated time response object, returned asynchronously.
      * @returns A promise that resolves with the ETA response.
+     *
+     * @deprecated Handle the returned Promise instead.
      *
      * @since 5.46.0
      */
     eta(
         request: EtaRequestOptions,
-        callback: (error: Error | null, result?: EtaResponse) => void,
-    ): number;
+        callback: (error: Error | null, result: EtaResponse | null) => void,
+    ): Promise<EtaResponse>;
     /**
      * Retrieves directions and estimated travel time based on the specified start and end points.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directions/route)
      *
      * @param request A {@link DirectionsRequest} object that specifies details for the directions you want to retrieve.
+     * @returns A promise that resolves with the directions response.
+     *
+     * @since 6.0.0
+     */
+    route(request: DirectionsRequest): Promise<DirectionsResponse>;
+    /**
+     * Retrieves directions and estimated travel time based on the specified start and end points.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directions/route1)
+     *
+     * @param request A {@link DirectionsRequest} object that specifies details for the directions you want to retrieve.
      * @param callback A callback function that receives the directions, returned asynchronously.
      * @returns A promise that resolves with the directions response.
+     *
+     * @deprecated Handle the returned Promise instead.
      *
      * @since 5.0.0
      */
     route(
         request: DirectionsRequest,
-        callback: (error: Error | null, result?: DirectionsResponse) => void,
-    ): number;
+        callback: (
+            error: Error | null,
+            result: DirectionsResponse | null,
+        ) => void,
+    ): Promise<DirectionsResponse>;
     /**
      * A static property that refers to an object that describes the available transport type values.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directions/transport)
      *
      * @since 5.0.0
+     * @deprecated Please use mapkit.TransportType instead.
      */
-    static Transport: typeof TransportType;
+    static get Transport(): typeof TransportType;
 }
 
 /**
@@ -1714,7 +1864,7 @@ export interface DirectionsRequest {
      *
      * @since 5.0.0
      */
-    origin: string | Coordinate | Place;
+    origin: string | CoordinateData | Place;
     /**
      * The end point for routing directions.
      *
@@ -1722,7 +1872,7 @@ export interface DirectionsRequest {
      *
      * @since 5.0.0
      */
-    destination: string | Coordinate | Place;
+    destination: string | CoordinateData | Place;
     /**
      * The mode of transportation the directions apply to.
      *
@@ -1763,6 +1913,14 @@ export interface DirectionsRequest {
      * @since 5.0.0
      */
     requestsAlternateRoutes?: boolean;
+    /**
+     * An optional AbortSignal to cancel the request.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directionsrequest/signal)
+     *
+     * @since 6.0.0
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -1773,14 +1931,6 @@ export interface DirectionsRequest {
  * @since 5.0.0
  */
 export interface DirectionsResponse {
-    /**
-     * The request object associated with the direction's response.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directionsresponse/request)
-     *
-     * @since 5.0.0
-     */
-    request: object;
     /**
      * An optional starting point for routing directions.
      *
@@ -1808,53 +1958,17 @@ export interface DirectionsResponse {
 }
 
 /**
- * Constant values that provide a hint the map uses to prioritize displaying annotations.
- *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority)
- *
- * @since 5.0.0
- */
-declare const DisplayPriority: Readonly<{
-    /**
-     * A low display priority, with a preset value of 250 out of 1000.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority/low)
-     *
-     * @since 5.0.0
-     */
-    readonly Low: 250;
-    /**
-     * A high display priority, with a preset value of 750 out of 1000.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority/high)
-     *
-     * @since 5.0.0
-     */
-    readonly High: 750;
-    /**
-     * The highest display priority, with a preset value of 1000 out of 1000.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/displaypriority/required)
-     *
-     * @since 5.0.0
-     */
-    readonly Required: 1000;
-}>;
-
-type DisplayPriority = (typeof DisplayPriority)[keyof typeof DisplayPriority];
-
-/**
  * Constants indicating the system of measurement that displays on the map.
  *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distance)
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distanceunitsystem)
  *
  * @since 5.13.0
  */
-declare const Distance: Readonly<{
+declare const DistanceUnitSystem: Readonly<{
     /**
      * A constant indicating the measurement system is adaptive, and determined based on the map's language.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distance/adaptive)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distanceunitsystem/adaptive)
      *
      * @since 5.13.0
      */
@@ -1862,7 +1976,7 @@ declare const Distance: Readonly<{
     /**
      * A constant indicating the measurement system is metric.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distance/metric)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distanceunitsystem/metric)
      *
      * @since 5.13.0
      */
@@ -1870,14 +1984,17 @@ declare const Distance: Readonly<{
     /**
      * A constant indicating the measurement system is imperial.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distance/imperial)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/distanceunitsystem/imperial)
      *
      * @since 5.13.0
      */
     readonly Imperial: "imperial";
 }>;
 
-type Distance = (typeof Distance)[keyof typeof Distance];
+/**
+ * @since 5.13.0
+ */
+type DistanceUnitSystem = (typeof DistanceUnitSystem)[keyof typeof DistanceUnitSystem];
 
 /**
  * The options you may provide for requesting estimated arrival times.
@@ -1894,7 +2011,7 @@ export interface EtaRequestOptions {
      *
      * @since 5.46.0
      */
-    origin: Coordinate;
+    origin: CoordinateData;
     /**
      * An array of coordinates that represent end points for estimated arrival time requests.
      *
@@ -1902,7 +2019,7 @@ export interface EtaRequestOptions {
      *
      * @since 5.46.0
      */
-    destinations: Coordinate[];
+    destinations: CoordinateData[];
     /**
      * The mode of transportation the server uses when estimating arrival times.
      *
@@ -1927,6 +2044,14 @@ export interface EtaRequestOptions {
      * @since 5.46.0
      */
     arrivalDate?: Date;
+    /**
+     * An optional AbortSignal to cancel the request.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/etarequestoptions/signal)
+     *
+     * @since 6.0.0
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -1937,14 +2062,6 @@ export interface EtaRequestOptions {
  * @since 5.46.0
  */
 export interface EtaResponse {
-    /**
-     * The request object associated with the estimated time of arrival response.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/etaresponse/request)
-     *
-     * @since 5.46.0
-     */
-    request: object;
     /**
      * The coordinates that represent the starting point for estimated arrival time requests.
      *
@@ -2010,7 +2127,7 @@ export interface EtaResult {
      *
      * @since 5.46.0
      */
-    staticTravelTime: number;
+    staticTravelTime: number | null;
 }
 
 /**
@@ -2073,34 +2190,74 @@ export class Geocoder extends Service {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/geocoder/lookup)
      *
      * @param place A case-insensitive string MapKit JS converts to geographic coordinates, such as: "`450 Serra Mall`", "`450 Serra Mall, Stanford`", "`450 Serra Mall, Stanford, CA USA`". Delimiter characters are optional.
+     * @param options Options that constrain geocoder lookup results to a specific area or a specific language.
+     * @returns A promise that resolves with the geocoder response.
+     *
+     * @since 6.0.0
+     */
+    lookup(
+        place: string,
+        options?: GeocoderLookupOptions,
+    ): Promise<GeocoderResponse>;
+    /**
+     * Converts an address to geographic coordinates.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/geocoder/lookup1)
+     *
+     * @param place A case-insensitive string MapKit JS converts to geographic coordinates, such as: "`450 Serra Mall`", "`450 Serra Mall, Stanford`", "`450 Serra Mall, Stanford, CA USA`". Delimiter characters are optional.
      * @param callback MapKit JS returns geocoding results asynchronously through a callback function. MapKit JS invokes the callback function with two arguments, `error` on failure and `data` on success.
      * @param options Options that constrain geocoder lookup results to a specific area or a specific language.
      * @returns A promise that resolves with the geocoder response.
+     *
+     * @deprecated Handle the returned Promise instead.
      *
      * @since 5.0.0
      */
     lookup(
         place: string,
-        callback: (error: Error | null, result?: GeocoderResponse) => void,
+        callback: (
+            error: Error | null,
+            result: GeocoderResponse | null,
+        ) => void,
         options?: GeocoderLookupOptions,
-    ): number;
+    ): Promise<GeocoderResponse>;
     /**
      * Converts a geographic coordinate to an address.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/geocoder/reverselookup)
+     *
+     * @param coordinate The coordinate to convert to a human-readable address. For example, `new` {@link Coordinate}`(37.37, -122.04)` or `{latitude: 37.37, longitude: -122.04}`.
+     * @param options An option that constrains reverse lookup results to a specific language.
+     * @returns A promise that resolves with the geocoder response.
+     *
+     * @since 6.0.0
+     */
+    reverseLookup(
+        coordinate: Coordinate,
+        options?: GeocoderReverseLookupOptions,
+    ): Promise<GeocoderResponse>;
+    /**
+     * Converts a geographic coordinate to an address.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/geocoder/reverselookup1)
      *
      * @param coordinate The coordinate to convert to a human-readable address. For example, `new` {@link Coordinate}`(37.37, -122.04)`.
      * @param callback MapKit JS invokes this callback function with two arguments, `error` on failure and `data` on success. If you cancel the request before you receive a response, the framework doesn't call this function.
      * @param options An option that constrains reverse lookup results to a specific language.
      * @returns A promise that resolves with the geocoder response.
      *
+     * @deprecated Handle the returned Promise instead.
+     *
      * @since 5.0.0
      */
     reverseLookup(
-        coordinate: Coordinate,
-        callback: (error: Error | null, result?: GeocoderResponse) => void,
+        coordinate: CoordinateData,
+        callback: (
+            error: Error | null,
+            result: GeocoderResponse | null,
+        ) => void,
         options?: GeocoderReverseLookupOptions,
-    ): number;
+    ): Promise<GeocoderResponse>;
 }
 
 /**
@@ -2126,7 +2283,7 @@ export interface GeocoderLookupOptions {
      *
      * @since 5.0.0
      */
-    region?: CoordinateRegion;
+    region?: CoordinateRegionData;
     /**
      * Coordinates for constraining the lookup results.
      *
@@ -2134,7 +2291,7 @@ export interface GeocoderLookupOptions {
      *
      * @since 5.0.0
      */
-    coordinate?: Coordinate;
+    coordinate?: CoordinateData;
     /**
      * A list of countries for constraining the lookup results.
      *
@@ -2143,6 +2300,14 @@ export interface GeocoderLookupOptions {
      * @since 5.0.0
      */
     limitToCountries?: string;
+    /**
+     * An optional AbortSignal to cancel the request.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/geocoderlookupoptions/signal)
+     *
+     * @since 6.0.0
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -2179,6 +2344,14 @@ export interface GeocoderReverseLookupOptions {
      * @since 5.0.0
      */
     language?: string;
+    /**
+     * An optional AbortSignal to cancel the request.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/geocoderreverselookupoptions/signal)
+     *
+     * @since 6.0.0
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -2405,23 +2578,54 @@ export class ImageAnnotation extends Annotation {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotation/imageannotationconstructor)
      *
      * @param location The coordinate where this annotation appears.
-     * @param options A hash of properties that initialize the annotation. The `options` hash needs to include {@link ImageAnnotationConstructorOptions.url}. MapKit JS displays an optional `title` and `subtitle` in a callout if they're present.
+     * @param options A hash of properties that initialize the annotation. The `options` hash needs to include {@link ImageAnnotationConstructorOptions.image} or {@link ImageAnnotationConstructorOptions.url}. MapKit JS displays an optional `title` and `subtitle` in a callout if they're present.
      *
      * @since 5.0.0
      */
     constructor(
-        location: Coordinate | Place | SearchAutocompleteResult,
+        location: CoordinateData | Place | SearchAutocompleteResult,
         options: ImageAnnotationConstructorOptions,
+    );
+    /**
+     * The image for the annotation.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotation/image)
+     *
+     * @since 6.0.0
+     */
+    get image():
+        | ImageDelegate
+        | ImageHashObject
+        | ImageSource
+        | Promise<ImageSource>;
+    set image(
+        value:
+            | ImageDelegate
+            | ImageHashObject
+            | ImageSource
+            | Promise<ImageSource>,
     );
     /**
      * An object containing URLs for the image assets in multiple resolutions.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotation/url)
      *
+     * @deprecated Use `image` instead.
+     *
      * @since 5.0.0
      */
-    get url(): ImageDelegate | ImageHashObject;
-    set url(value: ImageDelegate | ImageHashObject);
+    get url():
+        | ImageDelegate
+        | ImageHashObject
+        | ImageSource
+        | Promise<ImageSource>;
+    set url(
+        value:
+            | ImageDelegate
+            | ImageHashObject
+            | ImageSource
+            | Promise<ImageSource>,
+    );
 }
 
 /**
@@ -2433,13 +2637,27 @@ export class ImageAnnotation extends Annotation {
  */
 export interface ImageAnnotationConstructorOptions extends AnnotationConstructorOptions {
     /**
+     * The image for the annotation.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotationconstructoroptions/image)
+     *
+     * @since 6.0.0
+     */
+    image?:
+        | ImageDelegate
+        | ImageHashObject
+        | ImageSource
+        | Promise<ImageSource>;
+    /**
      * An object containing URLs for the image assets in multiple resolutions.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotationconstructoroptions/url)
      *
+     * @deprecated Use `image` instead.
+     *
      * @since 5.0.0
      */
-    url: ImageDelegate | ImageHashObject;
+    url?: ImageDelegate | ImageHashObject | ImageSource | Promise<ImageSource>;
 }
 
 /**
@@ -2451,6 +2669,17 @@ export interface ImageAnnotationConstructorOptions extends AnnotationConstructor
  */
 export interface ImageDelegate {
     /**
+     * Returns an image for the specified scale.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imagedelegate/getimage)
+     *
+     * @param ratio The desired pixel ratio for the image.
+     * @returns A Promise that resolves to a URL string or ImageSource object, or undefined if no image is available.
+     *
+     * @since 6.0.0
+     */
+    getImage?(ratio: number): Promise<string | ImageSource | undefined>;
+    /**
      * Returns the URL to an image of the specified scale.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imagedelegate/getimageurl)
@@ -2459,9 +2688,11 @@ export interface ImageDelegate {
      * @param callback A callback function to receive the image URL.
      * @returns void
      *
+     * @deprecated Use getImage() instead, which supports both URLs and ImageSource objects.
+     *
      * @since 5.74.0
      */
-    getImageUrl(ratio: number, callback: (url?: string) => void): void;
+    getImageUrl?(ratio: number, callback: (url: string | null) => void): void;
 }
 
 /**
@@ -2471,9 +2702,20 @@ export interface ImageDelegate {
  *
  * @since 5.0.0
  */
-type ImageHashObject = {
-    [ratio: string]: string | undefined;
-} & {};
+type ImageHashObject = Record<string, string | undefined> & {};
+
+/**
+ * A union type representing image sources that can be used for annotations and tile overlays.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imagesource)
+ *
+ * @since 6.0.0
+ */
+type ImageSource =
+    | HTMLImageElement
+    | HTMLCanvasElement
+    | ImageBitmap
+    | OffscreenCanvas;
 
 /**
  * A type alias that represents all objects that the framework sets in an item collection.
@@ -2499,8 +2741,8 @@ export class ItemCollection<D = any> {
      *
      * @since 5.0.0
      */
-    get data(): D | undefined;
-    set data(data: D | undefined);
+    get data(): D | null;
+    set data(data: D | null);
     /**
      * A nested list of annotations, overlays, and other item collections.
      *
@@ -2539,7 +2781,7 @@ export class LineGradient {
      *
      * @since 5.45.0
      */
-    constructor(colorStops?: { [key: number]: string });
+    constructor(colorStops?: Record<number, string>);
     /**
      * Adds a color transition point to the gradient.
      *
@@ -2575,42 +2817,6 @@ export class LineGradient {
 }
 
 /**
- * Values for prioritizing the visibility of specific map features while the map is loading.
- *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/loadpriority)
- *
- * @since 5.0.0
- */
-declare const LoadPriority: Readonly<{
-    /**
-     * Prioritizes loading of the map land cover and borders, without POIs or labels.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/loadpriority/landcover)
-     *
-     * @since 5.73.0
-     */
-    readonly LandCover: "LandCover";
-    /**
-     * Prioritizes loading of the full standard map, with rendered POIs.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/loadpriority/pointsofinterest)
-     *
-     * @since 5.73.0
-     */
-    readonly PointsOfInterest: "PointsOfInterest";
-    /**
-     * Signifies no preferences over what to prioritize when loading the map.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/loadpriority/none)
-     *
-     * @since 5.73.0
-     */
-    readonly None: null;
-}>;
-
-type LoadPriority = (typeof LoadPriority)[keyof typeof LoadPriority];
-
-/**
  * A view that allows someone to see a street level view of a place.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/lookaround)
@@ -2632,7 +2838,7 @@ export class LookAround extends AbstractLookAround {
      */
     constructor(
         parent?: HTMLElement,
-        location?: Coordinate | Place | LookAroundScene,
+        location?: CoordinateData | Place | LookAroundScene,
         options?: LookAroundOptions,
     );
 
@@ -2807,7 +3013,7 @@ export class LookAroundPreview extends AbstractLookAround {
      */
     constructor(
         parent?: HTMLElement,
-        location?: Coordinate | Place | LookAroundScene,
+        location?: CoordinateData | Place | LookAroundScene,
         options?: LookAroundPreviewOptions,
     );
 
@@ -2942,7 +3148,7 @@ export class LookAroundScene {
  *
  * @since 5.0.0
  */
-declare class Map extends MapKitEventTarget {
+declare class Map extends EventTarget {
     /**
      * Creates a map you embed on a webpage and initializes it with the constructor options you choose.
      *
@@ -2957,38 +3163,43 @@ declare class Map extends MapKitEventTarget {
         parent?: string | HTMLElement | null,
         options?: MapConstructorOptions,
     );
+
     /**
      * A static property that allows you to access the map type enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/maptypes)
      *
      * @since 5.0.0
+     * @deprecated  Please use mapkit.MapType instead.
      */
-    static MapTypes: typeof MapType;
+    static get MapTypes(): typeof MapType;
     /**
      * A static property that allows you to access to access the look color scheme enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/colorschemes)
      *
      * @since 5.13.0
+     * @deprecated Please use mapkit.ColorScheme instead.
      */
-    static ColorSchemes: typeof ColorScheme;
+    static get ColorSchemes(): typeof ColorScheme;
     /**
      * A static property that allows you to access the distance enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/distances-data.var)
      *
      * @since 5.13.0
+     * @deprecated Please use mapkit.DistanceUnitSystem instead.
      */
-    static Distances: typeof Distance;
+    static get Distances(): typeof DistanceUnitSystem;
     /**
      * A static property that allows you to access the load priority enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/loadpriorities)
      *
      * @since 5.73.0
+     * @deprecated Please use mapkit.MapLoadPriority instead.
      */
-    static LoadPriorities: typeof LoadPriority;
+    static get LoadPriorities(): typeof MapLoadPriority;
     /**
      * The map's inset margins.
      *
@@ -2997,7 +3208,7 @@ declare class Map extends MapKitEventTarget {
      * @since 5.0.0
      */
     get padding(): Padding;
-    set padding(padding: Padding);
+    set padding(padding: PaddingData);
     /**
      * A Boolean value that determines whether the user can cause the map to scroll with a pointing device or with gestures on a touchscreen.
      *
@@ -3059,8 +3270,8 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.13.0
      */
-    get distances(): Distance;
-    set distances(distances: Distance);
+    get distances(): DistanceUnitSystem;
+    set distances(distances: DistanceUnitSystem);
 
     /**
      * A value MapKit JS uses for prioritizing the visibility of specific map features before the underlaying map tiles.
@@ -3069,8 +3280,8 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.73.0
      */
-    get loadPriority(): LoadPriority;
-    set loadPriority(value: LoadPriority);
+    get loadPriority(): MapLoadPriority;
+    set loadPriority(value: MapLoadPriority);
     /**
      * An array of all of the map's tile overlays.
      *
@@ -3177,7 +3388,7 @@ declare class Map extends MapKitEventTarget {
      * @since 5.0.0
      */
     get visibleMapRect(): MapRect;
-    set visibleMapRect(visibleMapRect: MapRect);
+    set visibleMapRect(visibleMapRect: MapRectData);
     /**
      * Changes the map's visible map rectangle to the specified map rectangle.
      *
@@ -3189,7 +3400,7 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    setVisibleMapRectAnimated(mapRect: MapRect, animated?: boolean): Map;
+    setVisibleMapRectAnimated(mapRect: MapRectData, animated?: boolean): Map;
     /**
      * The area the map is displaying.
      *
@@ -3198,7 +3409,7 @@ declare class Map extends MapKitEventTarget {
      * @since 5.0.0
      */
     get region(): CoordinateRegion;
-    set region(region: CoordinateRegion);
+    set region(region: CoordinateRegionData);
     /**
      * Changes the map's region to the provided region, with optional animation.
      *
@@ -3210,7 +3421,7 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    setRegionAnimated(region: CoordinateRegion, animated?: boolean): Map;
+    setRegionAnimated(region: CoordinateRegionData, animated?: boolean): Map;
     /**
      * A Boolean value that indicates whether map rotation is available.
      *
@@ -3218,8 +3429,8 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get isRotationAvailable(): boolean | undefined;
-    set isRotationAvailable(_: boolean | undefined);
+    get isRotationAvailable(): boolean;
+    set isRotationAvailable(_: boolean);
     /**
      * A Boolean value that determines whether the user may rotate the map using the compass control or a rotate gesture.
      *
@@ -3258,7 +3469,7 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    setRotationAnimated(degrees: number, animated?: boolean): Map | undefined;
+    setRotationAnimated(degrees: number, animated?: boolean): Map | null;
     /**
      * The map coordinate at the center of the map view.
      *
@@ -3267,7 +3478,7 @@ declare class Map extends MapKitEventTarget {
      * @since 5.0.0
      */
     get center(): Coordinate;
-    set center(center: Coordinate);
+    set center(center: CoordinateData);
     /**
      * Centers the map to the provided coordinate, with optional animation.
      *
@@ -3279,7 +3490,7 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    setCenterAnimated(coordinate: Coordinate, animated?: boolean): Map;
+    setCenterAnimated(coordinate: CoordinateData, animated?: boolean): Map;
     /**
      * The minimum and maximum distances of the camera from the map center.
      *
@@ -3287,8 +3498,8 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.23.0
      */
-    get cameraZoomRange(): CameraZoomRange;
-    set cameraZoomRange(value: CameraZoomRange);
+    get cameraZoomRange(): CameraZoomRange | undefined;
+    set cameraZoomRange(value: CameraZoomRangeData | undefined | null);
     /**
      * Changes the map's camera zoom range with an animated transition.
      *
@@ -3301,7 +3512,7 @@ declare class Map extends MapKitEventTarget {
      * @since 5.23.0
      */
     setCameraZoomRangeAnimated(
-        cameraZoomRange: CameraZoomRange,
+        cameraZoomRange: CameraZoomRangeData | null,
         animated?: boolean,
     ): Map;
     /**
@@ -3335,20 +3546,22 @@ declare class Map extends MapKitEventTarget {
      * @since 5.23.0
      */
     get cameraBoundary(): CameraBoundaryDescription | null;
-    set cameraBoundary(cameraBoundary: null | CoordinateRegion | MapRect);
+    set cameraBoundary(
+        cameraBoundary: null | CoordinateRegionData | MapRectData,
+    );
     /**
      * Changes the map's camera boundary with an animated transition.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/setcameraboundaryanimated)
      *
-     * @param cameraBoundary This can be an instance of {@link CoordinateRegion} or {@link MapRect}.
+     * @param cameraBoundary This can be an {@link CoordinateRegionData} object or an instance of {@link MapRect}.
      * @param animated A Boolean value that determines whether MapKit JS animates the visible area change. The default value is `true`.
      * @returns The map instance for method chaining.
      *
      * @since 5.23.0
      */
     setCameraBoundaryAnimated(
-        cameraBoundary: null | CoordinateRegion | MapRect,
+        cameraBoundary: null | CoordinateRegionData | MapRectData,
         animated?: boolean,
     ): Map;
     /**
@@ -3375,11 +3588,11 @@ declare class Map extends MapKitEventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/addoverlay)
      *
      * @param overlay The overlay to add.
-     * @returns The added overlay, or `undefined` if the overlay could not be added.
+     * @returns The added overlay, or `null` if the overlay could not be added.
      *
      * @since 5.0.0
      */
-    addOverlay(overlay: Overlay): Overlay | undefined;
+    addOverlay(overlay: Overlay): Overlay | null;
     /**
      * Adds multiple overlays to the map.
      *
@@ -3423,7 +3636,7 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    topOverlayAtPoint(point: DOMPoint): Overlay | undefined;
+    topOverlayAtPoint(point: DOMPoint): Overlay | null;
     /**
      * Returns an array of overlays at a given point on the webpage.
      *
@@ -3459,11 +3672,11 @@ declare class Map extends MapKitEventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/addannotation)
      *
      * @param annotation The annotation to add.
-     * @returns The added annotation, or `undefined` if the annotation could not be added.
+     * @returns The added annotation, or `null` if the annotation could not be added.
      *
      * @since 5.0.0
      */
-    addAnnotation(annotation: Annotation): Annotation | undefined;
+    addAnnotation(annotation: Annotation): Annotation | null;
     /**
      * Adds an array of annotations to the map.
      *
@@ -3544,8 +3757,7 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    annotationsInMapRect(mapRect: MapRect): Annotation[];
-
+    annotationsInMapRect(mapRect: MapRectData): Annotation[];
     /**
      * Converts a coordinate on the map to a point in the page's coordinate system.
      *
@@ -3556,7 +3768,7 @@ declare class Map extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    convertCoordinateToPointOnPage(coordinate: Coordinate): DOMPoint;
+    convertCoordinateToPointOnPage(coordinate: CoordinateData): DOMPoint;
     /**
      * Converts a point in page coordinates to the corresponding map coordinate.
      *
@@ -3675,7 +3887,7 @@ export { Map as Map };
  *
  * @since 5.0.0
  */
-export class MapAnnotationDragEvent extends MapKitEvent {
+export class MapAnnotationDragEvent extends Event {
     /**
      * The annotation that a person dragged.
      *
@@ -3691,7 +3903,7 @@ export class MapAnnotationDragEvent extends MapKitEvent {
      *
      * @since 5.0.0
      */
-    readonly coordinate?: Coordinate | undefined;
+    readonly coordinate: Coordinate | null;
 }
 
 /**
@@ -3701,7 +3913,7 @@ export class MapAnnotationDragEvent extends MapKitEvent {
  *
  * @since 5.0.0
  */
-export class MapAnnotationSelectionEvent extends MapKitEvent {
+export class MapAnnotationSelectionEvent extends Event {
     /**
      * The annotation that someone selected or deselected.
      *
@@ -3727,7 +3939,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.73.0
      */
-    loadPriority?: LoadPriority;
+    loadPriority?: MapLoadPriority;
 
     /**
      * The type of data that the map view displays.
@@ -3746,6 +3958,14 @@ export interface MapConstructorOptions {
      */
     colorScheme?: ColorScheme;
 
+    /**
+     * An accessory for displaying place information when a person selects a map feature.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapconstructoroptions/selectablemapfeatureselectionaccessory)
+     *
+     * @since 5.78.1
+     */
+    selectableMapFeatureSelectionAccessory?: PlaceSelectionAccessory;
     /**
      * A Boolean value that determines whether the user may scroll the map with a pointing device or gestures on a touchscreen.
      *
@@ -3843,7 +4063,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.0.0
      */
-    padding?: Padding;
+    padding?: PaddingData;
     /**
      * Values that set the minimum and maximum distances of the camera from the map center.
      *
@@ -3851,7 +4071,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.23.0
      */
-    cameraZoomRange?: CameraZoomRange;
+    cameraZoomRange?: CameraZoomRangeData;
     /**
      * The boundary of the area within which the map view's center needs to remain.
      *
@@ -3859,7 +4079,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.23.0
      */
-    cameraBoundary?: CoordinateRegion | MapRect | null;
+    cameraBoundary?: CoordinateRegionData | MapRectData | null;
     /**
      * The visible area of the map, in map units.
      *
@@ -3867,7 +4087,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.0.0
      */
-    visibleMapRect?: MapRect;
+    visibleMapRect?: MapRectData;
     /**
      * The area the map is displaying.
      *
@@ -3875,7 +4095,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.0.0
      */
-    region?: CoordinateRegion;
+    region?: CoordinateRegionData;
     /**
      * The map coordinate at the center of the map view.
      *
@@ -3883,7 +4103,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.0.0
      */
-    center?: Coordinate;
+    center?: CoordinateData;
     /**
      * The altitude of the camera relative to the elevation of the center of the map.
      *
@@ -3939,7 +4159,7 @@ export interface MapConstructorOptions {
      *
      * @since 5.13.0
      */
-    distances?: Distance;
+    distances?: DistanceUnitSystem;
     /**
      * The CSS color that MapKit JS uses for the user interface controls on the map.
      *
@@ -4001,7 +4221,7 @@ export interface MapConstructorOptions {
  *
  * @since 5.18.0
  */
-export class MapEvent extends MapKitEvent {
+export class MapEvent extends Event {
     /**
      * A DOM point with the coordinate of the event on the page.
      *
@@ -4009,7 +4229,7 @@ export class MapEvent extends MapKitEvent {
      *
      * @since 5.18.0
      */
-    readonly pointOnPage?: DOMPoint;
+    readonly pointOnPage: DOMPoint;
     /**
      * An array of DOM event objects that list the low-level events that led to the recognized gesture.
      *
@@ -4017,7 +4237,7 @@ export class MapEvent extends MapKitEvent {
      *
      * @since 5.18.0
      */
-    readonly domEvents?: Event[];
+    readonly domEvents: Event[];
 }
 
 /**
@@ -4044,9 +4264,13 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
      * @param callback Required. The framework invokes appropriate methods on {@link FetchDelegate}, or the callback function with two arguments, `error` and `data,` on success or failure:
      * @returns The request ID that can be used to cancel the request.
      *
+     * @deprecated Use {@link PlaceLookup.getPlace | PlaceLookup.getPlace(annotation)} instead.
+     *
      * @since 5.74.1
      */
-    fetchPlace(callback: (error: Error | null, result?: Place) => void): number;
+    fetchPlace(
+        callback: (error: Error | null, result: Place | null) => void,
+    ): Promise<Place | null>;
     /**
      * The point-of-interest category of the feature.
      *
@@ -4070,7 +4294,7 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
      *
      * @since 5.74.1
      */
-    get collisionMode(): CollisionMode;
+    get collisionMode(): AnnotationCollisionMode;
     /**
      * The title of the feature.
      *
@@ -4078,7 +4302,7 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
      *
      * @since 5.74.1
      */
-    get title(): string | undefined;
+    get title(): string | null;
     /**
      * The subtitle of the feature.
      *
@@ -4086,7 +4310,7 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
      *
      * @since 5.74.1
      */
-    get subtitle(): string | undefined;
+    get subtitle(): string | null;
     /**
      * A value that determines the behavior of the title's visibility.
      *
@@ -4110,7 +4334,7 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
      *
      * @since 5.74.1
      */
-    get accessibilityLabel(): string | null | undefined;
+    get accessibilityLabel(): string | null;
 }
 
 /**
@@ -4133,7 +4357,7 @@ declare class MapFeatureAnnotationGlyphImage implements ImageDelegate {
      */
     getImageUrl(
         scale: number | undefined,
-        callback: (url?: string) => void,
+        callback: (url: string | null) => void,
     ): void;
 }
 
@@ -4180,7 +4404,7 @@ export type MapFeatureType = (typeof MapFeatureType)[keyof typeof MapFeatureType
  *
  * @since 5.0.0
  */
-export class MapKit extends MapKitEventTarget {
+export class MapKit extends EventTarget {
     /**
      * Initializes MapKit JS by providing an authorization callback function and optional language.
      *
@@ -4239,10 +4463,11 @@ export class MapKit extends MapKitEventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/load)
      *
      * @param libraryNames The libraries to load
+     * @returns A promise that resolves when the libraries have finished loading.
      *
      * @since 5.75.0
      */
-    load?(libraryNames: string[]): void;
+    load?(libraryNames: string | string[]): Promise<MapKit>;
     /**
      * Converts imported GeoJSON data to MapKit JS compatible items.
      *
@@ -4465,7 +4690,6 @@ export class MapKit extends MapKitEventTarget {
      * @since 5.78.1
      */
     get PlaceAnnotation(): typeof PlaceAnnotation;
-
     /**
      * The getter to use to access the image annotation class.
      *
@@ -4490,6 +4714,22 @@ export class MapKit extends MapKitEventTarget {
      * @since 5.74.1
      */
     get MapFeatureAnnotation(): typeof MapFeatureAnnotation;
+    /**
+     * Getter to access the AnnotationCollisionMode enumeration.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/annotationcollisionmode)
+     *
+     * @since 6.0.0
+     */
+    get AnnotationCollisionMode(): typeof AnnotationCollisionMode;
+    /**
+     * Getter to access the AnnotationDisplayPriority enumeration
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/annotationdisplaypriority)
+     *
+     * @since 6.0.0
+     */
+    get AnnotationDisplayPriority(): typeof AnnotationDisplayPriority;
     /**
      * The getter to use to access the tile overlay class.
      *
@@ -4563,6 +4803,14 @@ export class MapKit extends MapKitEventTarget {
      */
     get AddressFilter(): typeof AddressFilter;
     /**
+     * Getter to access the RegionPriorty enumenration.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/regionpriority)
+     *
+     * @since 6.0.0
+     */
+    get RegionPriority(): typeof RegionPriority;
+    /**
      * The getter to use to access the place detail class.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/placedetail)
@@ -4618,6 +4866,46 @@ export class MapKit extends MapKitEventTarget {
      * @since 5.0.0
      */
     get lookAroundViews(): AbstractLookAround[];
+    /**
+     * Getter to access the map type enumeration
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/maptype)
+     *
+     * @since 6.0.0
+     */
+    get MapType(): typeof MapType;
+    /**
+     * Getter to access the ColorScheme enumeration
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/colorscheme)
+     *
+     * @since 6.0.0
+     */
+    get ColorScheme(): typeof ColorScheme;
+    /**
+     * Getter to access the DistanceUnitSystem enumeration
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/distanceunitsystem)
+     *
+     * @since 6.0.0
+     */
+    get DistanceUnitSystem(): typeof DistanceUnitSystem;
+    /**
+     * Getter to access the MapLoadPriority enumeration
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/maploadpriority)
+     *
+     * @since 6.0.0
+     */
+    get MapLoadPriority(): typeof MapLoadPriority;
+    /**
+     * Getter to access the TransportType enumeration
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/transporttype)
+     *
+     * @since 6.0.0
+     */
+    get TransportType(): typeof TransportType;
 }
 
 /**
@@ -4627,7 +4915,7 @@ export class MapKit extends MapKitEventTarget {
  *
  * @since 5.0.0
  */
-export class MapKitConfigurationChangeEvent extends MapKitEvent {
+export class MapKitConfigurationChangeEvent extends Event {
     /**
      * The status of the configuration change.
      *
@@ -4645,7 +4933,7 @@ export class MapKitConfigurationChangeEvent extends MapKitEvent {
  *
  * @since 5.0.0
  */
-export class MapKitConfigurationErrorEvent extends MapKitEvent {
+export class MapKitConfigurationErrorEvent extends Event {
     /**
      * The status of the configuration error.
      *
@@ -4661,126 +4949,7 @@ export class MapKitConfigurationErrorEvent extends MapKitEvent {
      *
      * @since 5.0.0
      */
-    readonly message?: string;
-}
-
-/**
- * A generic MapKit JS event object.
- *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitevent)
- *
- * @since 5.0.0
- */
-export class MapKitEvent {
-    /**
-     * The object that dispatched the event.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitevent/target)
-     *
-     * @since 5.0.0
-     */
-    target: MapKitEventTarget | null;
-    /**
-     * A string that represents the type of the event.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitevent/type)
-     *
-     * @since 5.0.0
-     */
-    type: string;
-    /**
-     * A Boolean value that indicates whether the app canceled the event.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitevent/defaultprevented)
-     *
-     * @since 5.0.0
-     */
-    defaultPrevented: boolean;
-
-    /**
-     * Stops further propagation of the event.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitevent/stoppropagation)
-     *
-     * @since 5.0.0
-     */
-    stopPropagation(): void;
-    /**
-     * Cancels the event if it's cancelable, without stopping further propagation of the event.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitevent/preventdefault)
-     *
-     * @since 5.0.0
-     */
-    preventDefault(): void;
-}
-
-/**
- * A type alias that represents a function or an object that receives a MapKit event.
- *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkiteventlistener)
- *
- * @since 5.0.0
- */
-export type MapKitEventListener<T extends MapKitEvent = MapKitEvent> =
-    | ((event: T) => void)
-    | {
-        handleEvent(event: T): void;
-    };
-
-/**
- * An abstract class that defines the interface for objects that can dispatch events.
- *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkiteventtarget)
- *
- * @since 5.0.0
- */
-declare class MapKitEventTarget {
-    /**
-     * Subscribes a listener function to an event type.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkiteventtarget/addeventlistener)
-     *
-     * @param eventType the type of the event to listen for
-     * @param listener add this
-     * @param thisObject the `this` object to call `listener` with
-     * @returns `true` if the listener was added, `false` otherwise
-     *
-     * @since 5.0.0
-     */
-    addEventListener(
-        eventType: string,
-        listener: MapKitEventListener,
-        thisObject?: object | null,
-    ): boolean;
-    /**
-     * Unsubscribes a listener function from an event type.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkiteventtarget/removeeventlistener)
-     *
-     * @param eventType the event type to remove the listener from
-     * @param listener remove this
-     * @param thisObject the `this` object `listener` is called with
-     * @returns `true` if it was removed, `false` if it was not
-     *
-     * @since 5.0.0
-     */
-    removeEventListener(
-        eventType?: string,
-        listener?: MapKitEventListener,
-        thisObject?: object | null,
-    ): boolean;
-    /**
-     * Dispatches an event to registered listeners.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkiteventtarget/dispatchevent)
-     *
-     * @param event the event object to dispatch
-     * @returns `true` if dispatch completed, `false` if it was prevented
-     *
-     * @since 5.0.0
-     */
-    dispatchEvent(event: MapKitEvent): boolean;
+    readonly message: string;
 }
 
 /**
@@ -4827,7 +4996,7 @@ export interface MapKitInitializationOptions {
  *
  * @since 5.75.0
  */
-export class MapKitLibraryLoadEvent extends MapKitEvent {
+export class MapKitLibraryLoadEvent extends Event {
     /**
      * The libraries that the framework loaded or failed to load.
      *
@@ -4839,13 +5008,52 @@ export class MapKitLibraryLoadEvent extends MapKitEvent {
 }
 
 /**
+ * Values for prioritizing the visibility of specific map features while the map is loading.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maploadpriority)
+ *
+ * @since 5.0.0
+ */
+declare const MapLoadPriority: Readonly<{
+    /**
+     * Prioritizes loading of the map land cover and borders, without POIs or labels.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maploadpriority/landcover)
+     *
+     * @since 5.73.0
+     */
+    readonly LandCover: "LandCover";
+    /**
+     * Prioritizes loading of the full standard map, with rendered POIs.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maploadpriority/pointsofinterest)
+     *
+     * @since 5.73.0
+     */
+    readonly PointsOfInterest: "PointsOfInterest";
+    /**
+     * Signifies no preferences over what to prioritize when loading the map.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maploadpriority/none)
+     *
+     * @since 5.73.0
+     */
+    readonly None: null;
+}>;
+
+/**
+ * @since 5.0.0
+ */
+type MapLoadPriority = (typeof MapLoadPriority)[keyof typeof MapLoadPriority];
+
+/**
  * An event object that the map view dispatches when someone selects or deselects an overlay.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapoverlayselectionevent)
  *
  * @since 5.0.0
  */
-export class MapOverlaySelectionEvent extends MapKitEvent {
+export class MapOverlaySelectionEvent extends Event {
     /**
      * The overlay that the framework selected or deselected.
      *
@@ -4863,7 +5071,7 @@ export class MapOverlaySelectionEvent extends MapKitEvent {
  *
  * @since 5.0.0
  */
-export class MapPoint {
+export class MapPoint implements MapPointData {
     /**
      * The location of the map point along the map's x-axis.
      *
@@ -4951,29 +5159,40 @@ export class MapPoint {
 }
 
 /**
+ * Plain object representation of a map point in map units. An alternative to {@link MapPoint} in API methods
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mappointdata)
+ *
+ * @since 6.0.0
+ */
+export interface MapPointData {
+    /**
+     * The location of the map point along the map's x-axis.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mappointdata/x)
+     *
+     * @since 6.0.0
+     */
+    x: number;
+    /**
+     * The location of the map point along the map's y-axis.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mappointdata/y)
+     *
+     * @since 6.0.0
+     */
+    y: number;
+}
+
+/**
  * A rectangular region, in map units, of a two-dimensional map projection.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprect)
  *
  * @since 5.0.0
  */
-export class MapRect {
-    /**
-     * The origin point of a rectangle.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprect/origin)
-     *
-     * @since 5.0.0
-     */
-    origin: MapPoint;
-    /**
-     * The width and height of a rectangle, starting from the origin point.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprect/size)
-     *
-     * @since 5.0.0
-     */
-    size: MapSize;
+export class MapRect implements MapRectData {
+    #private;
     /**
      * Creates an object that represents a rectangular region of the map projection.
      *
@@ -4987,6 +5206,24 @@ export class MapRect {
      * @since 5.0.0
      */
     constructor(x?: number, y?: number, width?: number, height?: number);
+    /**
+     * The origin point of a rectangle.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprect/origin)
+     *
+     * @since 5.0.0
+     */
+    get origin(): MapPoint;
+    set origin(value: MapPointData);
+    /**
+     * The width and height of a rectangle, starting from the origin point.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprect/size)
+     *
+     * @since 5.0.0
+     */
+    get size(): MapSize;
+    set size(value: MapSizeData);
     /**
      * Returns a string representation of the map rectangle object.
      *
@@ -5089,7 +5326,7 @@ export class MapRect {
      *
      * @since 5.0.0
      */
-    scale(scaleFactor: number, scaleCenter?: MapPoint): MapRect;
+    scale(scaleFactor: number, scaleCenter?: MapPointData): MapRect;
     /**
      * Returns the region that corresponds to a map rectangle.
      *
@@ -5100,6 +5337,32 @@ export class MapRect {
      * @since 5.0.0
      */
     toCoordinateRegion(): CoordinateRegion;
+}
+
+/**
+ * A rectangular region, in map units, of a two-dimensional map projection.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprectdata)
+ *
+ * @since 6.0.0
+ */
+export interface MapRectData {
+    /**
+     * The origin point of a rectangle.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprectdata/origin)
+     *
+     * @since 6.0.0
+     */
+    origin: MapPointData;
+    /**
+     * The width and height of a rectangle, starting from the origin point.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maprectdata/size)
+     *
+     * @since 6.0.0
+     */
+    size: MapSizeData;
 }
 
 /**
@@ -5125,7 +5388,7 @@ export interface MapShowItemsOptions {
      *
      * @since 5.0.0
      */
-    padding?: Padding;
+    padding?: PaddingData;
     /**
      * The minimum longitudinal and latitudinal span the map displays.
      *
@@ -5133,7 +5396,7 @@ export interface MapShowItemsOptions {
      *
      * @since 5.0.0
      */
-    minimumSpan?: CoordinateSpan;
+    minimumSpan?: CoordinateSpanData;
     /**
      * The distance from the center of the map to the camera, when showing the items.
      *
@@ -5151,7 +5414,7 @@ export interface MapShowItemsOptions {
  *
  * @since 5.0.0
  */
-export class MapSize {
+export class MapSize implements MapSizeData {
     /**
      * The width of the map size in map units.
      *
@@ -5213,6 +5476,32 @@ export class MapSize {
 }
 
 /**
+ * An object representation of dimensions in map units. An alternative to {@link MapSize} in API methods
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapsizedata)
+ *
+ * @since 6.0.0
+ */
+export interface MapSizeData {
+    /**
+     * The width of the map size in map units.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapsizedata/width)
+     *
+     * @since 6.0.0
+     */
+    width: number;
+    /**
+     * The height of the map size in map units.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapsizedata/height)
+     *
+     * @since 6.0.0
+     */
+    height: number;
+}
+
+/**
  * Constants representing the type of map to display.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/maptype)
@@ -5263,7 +5552,7 @@ type MapType = (typeof MapType)[keyof typeof MapType];
  *
  * @since 5.0.0
  */
-export class MapUserLocationChangeEvent extends MapKitEvent {
+export class MapUserLocationChangeEvent extends Event {
     /**
      * The coordinate of a person's location.
      *
@@ -5287,7 +5576,7 @@ export class MapUserLocationChangeEvent extends MapKitEvent {
      *
      * @since 5.0.0
      */
-    readonly floorLevel?: number;
+    readonly floorLevel: number | null;
 }
 
 /**
@@ -5297,7 +5586,7 @@ export class MapUserLocationChangeEvent extends MapKitEvent {
  *
  * @since 5.0.0
  */
-export class MapUserLocationErrorEvent extends MapKitEvent {
+export class MapUserLocationErrorEvent extends Event {
     /**
      * The code indicating why location acquisition failed.
      *
@@ -5335,7 +5624,7 @@ export class MarkerAnnotation extends Annotation {
      * @since 5.0.0
      */
     constructor(
-        location: Coordinate | Place | SearchAutocompleteResult,
+        location: CoordinateData | Place | SearchAutocompleteResult,
         options?: MarkerAnnotationConstructorOptions,
     );
     /**
@@ -5372,8 +5661,20 @@ export class MarkerAnnotation extends Annotation {
      *
      * @since 5.0.0
      */
-    get glyphImage(): ImageDelegate | ImageHashObject | null;
-    set glyphImage(value: ImageDelegate | ImageHashObject | null);
+    get glyphImage():
+        | ImageSource
+        | ImageHashObject
+        | ImageDelegate
+        | Promise<ImageSource>
+        | null;
+    set glyphImage(
+        value:
+            | ImageSource
+            | ImageHashObject
+            | ImageDelegate
+            | Promise<ImageSource>
+            | null,
+    );
     /**
      * The image to display in the marker balloon when the user selects the marker.
      *
@@ -5381,8 +5682,20 @@ export class MarkerAnnotation extends Annotation {
      *
      * @since 5.0.0
      */
-    get selectedGlyphImage(): ImageDelegate | ImageHashObject | null;
-    set selectedGlyphImage(value: ImageDelegate | ImageHashObject | null);
+    get selectedGlyphImage():
+        | ImageSource
+        | ImageHashObject
+        | ImageDelegate
+        | Promise<ImageSource>
+        | null;
+    set selectedGlyphImage(
+        value:
+            | ImageSource
+            | ImageHashObject
+            | ImageDelegate
+            | Promise<ImageSource>
+            | null,
+    );
     /**
      * The text to display in the marker balloon.
      *
@@ -5390,8 +5703,8 @@ export class MarkerAnnotation extends Annotation {
      *
      * @since 5.0.0
      */
-    get glyphText(): string;
-    set glyphText(value: string);
+    get glyphText(): string | null;
+    set glyphText(value: string | null);
     /**
      * A value that determines the behavior of the title's visibility.
      *
@@ -5443,7 +5756,12 @@ export interface MarkerAnnotationConstructorOptions extends AnnotationConstructo
      *
      * @since 5.0.0
      */
-    glyphImage?: ImageDelegate | ImageHashObject | null;
+    glyphImage?:
+        | ImageDelegate
+        | ImageHashObject
+        | ImageSource
+        | Promise<ImageSource>
+        | null;
     /**
      * The image to display in the balloon when the user selects the marker.
      *
@@ -5451,7 +5769,12 @@ export interface MarkerAnnotationConstructorOptions extends AnnotationConstructo
      *
      * @since 5.0.0
      */
-    selectedGlyphImage?: ImageDelegate | ImageHashObject | null;
+    selectedGlyphImage?:
+        | ImageDelegate
+        | ImageHashObject
+        | ImageSource
+        | Promise<ImageSource>
+        | null;
     /**
      * The text to display in the marker balloon.
      *
@@ -5485,7 +5808,7 @@ export interface MarkerAnnotationConstructorOptions extends AnnotationConstructo
  *
  * @since 5.0.0
  */
-export abstract class Overlay extends MapKitEventTarget {
+export abstract class Overlay extends EventTarget {
     /**
      * Style properties to apply to the overlay.
      *
@@ -5600,7 +5923,7 @@ export interface OverlayOptions {
  *
  * @since 5.0.0
  */
-export class Padding {
+export class Padding implements PaddingData {
     /**
      * The amount of padding, in CSS pixels, to inset the map from the top edge.
      *
@@ -5646,11 +5969,11 @@ export class Padding {
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/padding/paddingconstructor1)
      *
-     * @param paddings An object literal with the keys defined in {@link PaddingConstructorOptions}, or a list of four numbers that represent inset margin values. The numbers represent the top, right, bottom, and left insets, respectively.
+     * @param paddings An object literal with the keys defined in {@link PaddingData}, or a list of four numbers that represent inset margin values. The numbers represent the top, right, bottom, and left insets, respectively.
      *
      * @since 5.0.0
      */
-    constructor(paddings: PaddingConstructorOptions);
+    constructor(paddings: PaddingData);
     /**
      * Creates a padding object and initializes its top inset margin with the provided value.
      *
@@ -5742,43 +6065,43 @@ export class Padding {
 }
 
 /**
- * Initial values of the edge insets for padding.
+ * A plain object representation of a set of paddings.
  *
- * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingconstructoroptions)
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingdata)
  *
- * @since 5.0.0
+ * @since 6.0.0
  */
-export interface PaddingConstructorOptions {
+export interface PaddingData {
     /**
      * The amount of padding, in CSS pixels, to inset the map from the top edge.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingconstructoroptions/top)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingdata/top)
      *
-     * @since 5.0.0
+     * @since 6.0.0
      */
     top: number;
     /**
      * The amount of padding, in CSS pixels, to inset the map from the right edge.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingconstructoroptions/right)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingdata/right)
      *
-     * @since 5.0.0
+     * @since 6.0.0
      */
     right: number;
     /**
      * The amount of padding, in CSS pixels, to inset the map from the bottom edge.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingconstructoroptions/bottom)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingdata/bottom)
      *
-     * @since 5.0.0
+     * @since 6.0.0
      */
     bottom: number;
     /**
      * The amount of padding, in CSS pixels, to inset the map from the left edge.
      *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingconstructoroptions/left)
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/paddingdata/left)
      *
-     * @since 5.0.0
+     * @since 6.0.0
      */
     left: number;
 }
@@ -5799,7 +6122,7 @@ export class Place {
      *
      * @since 5.0.0
      */
-    id?: string;
+    id: string | null;
     /**
      * A list of alternate Place IDs referencing a feature.
      *
@@ -5807,7 +6130,7 @@ export class Place {
      *
      * @since 5.78.1
      */
-    alternateIds?: string[];
+    alternateIds: string[] | null;
 
     /**
      * The category of the place.
@@ -5816,7 +6139,7 @@ export class Place {
      *
      * @since 5.33.1
      */
-    pointOfInterestCategory?: string;
+    pointOfInterestCategory: PointOfInterestCategory | null;
     /**
      * The name of the place.
      *
@@ -5824,7 +6147,7 @@ export class Place {
      *
      * @since 5.0.0
      */
-    name?: string;
+    name: string | null;
 
     /**
      * The geographic region associated with the place.
@@ -5833,7 +6156,7 @@ export class Place {
      *
      * @since 5.23.0
      */
-    region?: CoordinateRegion;
+    region: CoordinateRegion | null;
     /**
      * The latitude and longitude for the place.
      *
@@ -5841,7 +6164,7 @@ export class Place {
      *
      * @since 5.0.0
      */
-    coordinate?: Coordinate;
+    coordinate: Coordinate | null;
     /**
      * The address of the place, formatted using its conventions of its country or region.
      *
@@ -5849,7 +6172,7 @@ export class Place {
      *
      * @since 5.0.0
      */
-    formattedAddress?: string;
+    formattedAddress: string | null;
     /**
      * The country or region associated with the place.
      *
@@ -5857,7 +6180,7 @@ export class Place {
      *
      * @since 5.0.0
      */
-    countryCode?: string;
+    countryCode: string | null;
 
     /**
      * The country or region of the place.
@@ -5866,7 +6189,7 @@ export class Place {
      *
      * @since 5.78.1
      */
-    country?: string;
+    country: string | null;
     /**
      * The state or province of the place.
      *
@@ -5874,7 +6197,7 @@ export class Place {
      *
      * @since 5.78.1
      */
-    administrativeArea?: string;
+    administrativeArea: string | null;
     /**
      * The short code for the state or area.
      *
@@ -5882,7 +6205,7 @@ export class Place {
      *
      * @since 5.41.1
      */
-    administrativeAreaCode?: string;
+    administrativeAreaCode: string | null;
     /**
      * The city of the place.
      *
@@ -5890,7 +6213,7 @@ export class Place {
      *
      * @since 5.78.1
      */
-    locality?: string;
+    locality: string | null;
     /**
      * The postal code of the place.
      *
@@ -5898,7 +6221,7 @@ export class Place {
      *
      * @since 5.41.1
      */
-    postCode?: string;
+    postCode: string | null;
     /**
      * The name of the area within the locality.
      *
@@ -5906,7 +6229,7 @@ export class Place {
      *
      * @since 5.78.1
      */
-    subLocality?: string;
+    subLocality: string | null;
     /**
      * The street name at the place.
      *
@@ -5914,7 +6237,7 @@ export class Place {
      *
      * @since 5.41.1
      */
-    thoroughfare?: string;
+    thoroughfare: string | null;
     /**
      * The number on the street at the place.
      *
@@ -5922,7 +6245,7 @@ export class Place {
      *
      * @since 5.41.1
      */
-    subThoroughfare?: string;
+    subThoroughfare: string | null;
     /**
      * A combination of thoroughfare and subthoroughfare.
      *
@@ -5930,7 +6253,7 @@ export class Place {
      *
      * @since 5.41.1
      */
-    fullThoroughfare?: string;
+    fullThoroughfare: string | null;
     /**
      * Common names of the area in which the place resides.
      *
@@ -5938,7 +6261,7 @@ export class Place {
      *
      * @since 5.41.1
      */
-    areasOfInterest?: string[];
+    areasOfInterest: string[] | null;
     /**
      * Common names for the local area or neighborhood of the place.
      *
@@ -5946,7 +6269,7 @@ export class Place {
      *
      * @since 5.41.1
      */
-    dependentLocalities?: string[];
+    dependentLocalities: string[] | null;
 }
 
 /**
@@ -5968,7 +6291,7 @@ export class PlaceAnnotation extends MarkerAnnotation {
      * @since 5.78.1
      */
     constructor(
-        coordinate: Coordinate | Place | SearchAutocompleteResult,
+        coordinate: CoordinateData | Place | SearchAutocompleteResult,
         options?: MarkerAnnotationConstructorOptions,
     );
     /**
@@ -6034,7 +6357,7 @@ export class PlaceAnnotation extends MarkerAnnotation {
      *
      * @since 5.78.1
      */
-    get glyphText(): string;
+    get glyphText(): string | null;
     /**
      * The color of the place.
      *
@@ -6143,8 +6466,9 @@ export class PlaceDetail {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placedetail/colorschemes)
      *
      * @since 5.78.1
+     * @deprecated Please use mapkit.ColorScheme instead.
      */
-    static ColorSchemes: typeof ColorScheme;
+    static get ColorSchemes(): typeof ColorScheme;
 }
 
 /**
@@ -6197,17 +6521,72 @@ export class PlaceLookup extends Service {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placelookup/getplace)
      *
      * @param id The Place ID referring to the Place object to fetch.
+     * @param options Options that can overwrite the same options set on the property or supplied to the PlaceLookup constructor.
+     * @returns A promise that resolves with the place result.
+     *
+     * @since 6.0.0
+     */
+    getPlace(id: string, options?: PlaceLookupOptions): Promise<Place>;
+    /**
+     * Obtains the place associated with a map feature annotation.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placelookup/getplace1)
+     *
+     * @param annotation The map feature annotation to look up.
+     * @param options Options that can overwrite the same options set on the property or supplied to the PlaceLookup constructor.
+     * @returns A promise that resolves with the place result.
+     *
+     * @since 6.0.0
+     */
+    getPlace(
+        annotation: MapFeatureAnnotation,
+        options?: PlaceLookupOptions,
+    ): Promise<Place>;
+    /**
+     * Obtains a place using its identifier.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placelookup/getplace2)
+     *
+     * @param id The Place ID referring to the Place object to fetch.
      * @param callback A callback function that is invoked with error and data parameters.
      * @param options Options that can overwrite the same options set on the property or supplied to the PlaceLookup constructor.
-     * @returns The identifier of the request that was made.
+     * @returns A promise that resolves with the place result.
+     *
+     * @deprecated Handle the returned Promise instead.
      *
      * @since 5.78.1
      */
     getPlace(
         id: string,
-        callback: (error: Error | null, result?: Place) => void,
-        options?: ServiceConstructorOptions,
-    ): number;
+        callback: (error: Error | null, result: Place | null) => void,
+        options?: PlaceLookupOptions,
+    ): Promise<Place>;
+}
+
+/**
+ * Options for place lookup requests.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placelookupoptions)
+ *
+ * @since 5.78.1
+ */
+export interface PlaceLookupOptions {
+    /**
+     * The language to use for the lookup.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placelookupoptions/language)
+     *
+     * @since 5.78.1
+     */
+    language?: string;
+    /**
+     * An optional AbortSignal to cancel the request.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placelookupoptions/signal)
+     *
+     * @since 6.0.0
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -6237,7 +6616,7 @@ export class PlaceSelectionAccessory {
      *
      * @since 5.78.1
      */
-    constructor({ style }?: PlaceSelectionAccessoryOptions);
+    constructor(options?: PlaceSelectionAccessoryOptions);
     /**
      * The visual appearance of the place selection accessory.
      *
@@ -7015,7 +7394,7 @@ export class PointsOfInterestSearch extends Service {
      * @since 5.45.0
      */
     get center(): Coordinate | null;
-    set center(value: Coordinate | null);
+    set center(value: CoordinateData | null);
     /**
      * The distance provided in meters, or the longest distance derived from the center point to the region's bounding box.
      *
@@ -7033,7 +7412,7 @@ export class PointsOfInterestSearch extends Service {
      * @since 5.45.0
      */
     get region(): CoordinateRegion | null;
-    set region(value: CoordinateRegion | null);
+    set region(value: CoordinateRegionData | null);
     /**
      * A filter that lists points of interest categories to include or exclude.
      *
@@ -7048,16 +7427,31 @@ export class PointsOfInterestSearch extends Service {
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearch/search)
      *
-     * @param callback A callback function or delegate object with the following parameters:
      * @param options Options that can overwrite the same options set on the property or supplied to the PointsOfInterestSearch constructor.
-     * @returns The identifier of the search request, or `undefined` if the request could not be made.
+     * @returns A promise that resolves with the search response.
+     *
+     * @since 6.0.0
+     */
+    search(
+        options?: PointsOfInterestSearchOptions,
+    ): Promise<PointsOfInterestSearchResponse>;
+    /**
+     * Fetches points of interest.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearch/search1)
+     *
+     * @param callback A callback function or delegate object.
+     * @param options Options that can overwrite the same options set on the property or supplied to the PointsOfInterestSearch constructor.
+     * @returns A promise that resolves with the search response.
+     *
+     * @deprecated Handle the returned Promise instead.
      *
      * @since 5.45.0
      */
     search(
         callback: PointsOfInterestSearchDelegate,
         options?: PointsOfInterestSearchOptions,
-    ): number | undefined;
+    ): Promise<PointsOfInterestSearchResponse>;
     /**
      * The maximum distance to use from the center of the region for fetching points of interest.
      *
@@ -7083,7 +7477,7 @@ export interface PointsOfInterestSearchConstructorOptions extends ServiceConstru
      *
      * @since 5.45.0
      */
-    center?: Coordinate;
+    center?: CoordinateData;
     /**
      * Sets the distance provided in meters, or the longest distance derived from the center point to the region's bounding box.
      *
@@ -7099,7 +7493,7 @@ export interface PointsOfInterestSearchConstructorOptions extends ServiceConstru
      *
      * @since 5.45.0
      */
-    region?: CoordinateRegion;
+    region?: CoordinateRegionData;
     /**
      * Sets a filter that lists points of interest categories to include or exclude.
      *
@@ -7136,7 +7530,10 @@ type PointsOfInterestSearchDelegate =
          */
         searchDidComplete: (result: PointsOfInterestSearchResponse) => void;
     }
-    | ((error: Error | null, result?: PointsOfInterestSearchResponse) => void);
+    | ((
+        error: Error | null,
+        result: PointsOfInterestSearchResponse | null,
+    ) => void);
 
 /**
  * Options that you may provide when you create a points of interest search.
@@ -7153,7 +7550,7 @@ export interface PointsOfInterestSearchOptions {
      *
      * @since 5.45.0
      */
-    center?: Coordinate;
+    center?: CoordinateData;
     /**
      * The distance provided in meters, or the longest distance derived from the center point to the region's bounding box.
      *
@@ -7169,7 +7566,7 @@ export interface PointsOfInterestSearchOptions {
      *
      * @since 5.45.0
      */
-    region?: CoordinateRegion;
+    region?: CoordinateRegionData;
     /**
      * A filter that lists points of interest categories to include or exclude.
      *
@@ -7186,6 +7583,15 @@ export interface PointsOfInterestSearchOptions {
      * @since 5.45.0
      */
     language?: string;
+
+    /**
+     * An optional AbortSignal to cancel the request.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchoptions/signal)
+     *
+     * @since 6.0.0
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -7225,7 +7631,7 @@ export class PolygonOverlay extends Overlay {
      * @since 5.0.0
      */
     constructor(
-        points: Coordinate[][] | Coordinate[],
+        points: CoordinateData[][] | CoordinateData[],
         options?: OverlayOptions,
     );
     /**
@@ -7257,7 +7663,7 @@ export class PolylineOverlay extends Overlay {
      *
      * @since 5.0.0
      */
-    constructor(points: Coordinate[], options?: OverlayOptions);
+    constructor(points: CoordinateData[], options?: OverlayOptions);
     /**
      * An array of coordinate points that define the polyline overlay's shape.
      *
@@ -7298,6 +7704,24 @@ declare const RegionPriority: Readonly<{
 type RegionPriority = (typeof RegionPriority)[keyof typeof RegionPriority];
 
 /**
+ * Error thrown when a request fails.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/requesterror)
+ *
+ * @since 6.0.0
+ */
+export class RequestError extends Error {
+    /**
+     * Message of the request error.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/requesterror/message)
+     *
+     * @since 6.0.0
+     */
+    message: ConfigurationErrorStatus;
+}
+
+/**
  * Information about a route, including step-by-step instructions, distance, and estimated travel time.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/route)
@@ -7336,7 +7760,7 @@ declare class Route {
      *
      * @since 5.0.0
      */
-    transportType?: string;
+    transportType: TransportType | null;
     /**
      * A Boolean value that indicates whether a route has tolls.
      *
@@ -7344,8 +7768,7 @@ declare class Route {
      *
      * @since 5.72.0
      */
-    hasTolls?: boolean;
-
+    hasTolls: boolean | null;
     /**
      * An array of steps that compose the overall route.
      *
@@ -7354,17 +7777,6 @@ declare class Route {
      * @since 5.0.0
      */
     steps: RouteStep[];
-
-    /**
-     * An array of coordinate objects representing the path of the route.
-     *
-     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/route/path)
-     *
-     * @deprecated Use the polyline or step properties instead.
-     *
-     * @since 5.0.0
-     */
-    get path(): Coordinate[][];
 
     /**
      * An instance of a polyline overlay that represents the path of a route.
@@ -7408,7 +7820,7 @@ declare class RouteStep {
      *
      * @since 5.0.0
      */
-    transportType?: string;
+    transportType: TransportType | null;
     /**
      * An array of coordinate objects representing the path of the route segment.
      *
@@ -7416,7 +7828,7 @@ declare class RouteStep {
      *
      * @since 5.0.0
      */
-    path?: Coordinate[];
+    path: Coordinate[];
 }
 
 /**
@@ -7445,7 +7857,7 @@ export class Search extends Service {
      * @since 5.0.0
      */
     get coordinate(): Coordinate | null;
-    set coordinate(value: Coordinate | null);
+    set coordinate(value: CoordinateData | null);
     /**
      * A map region that provides a hint about the geographic area to search.
      *
@@ -7454,7 +7866,7 @@ export class Search extends Service {
      * @since 5.0.0
      */
     get region(): CoordinateRegion | null;
-    set region(value: CoordinateRegion | null);
+    set region(value: CoordinateRegionData | null);
     /**
      * A region priority value that controls whether results occur outside, or strictly within, the region.
      *
@@ -7532,10 +7944,27 @@ export class Search extends Service {
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/search/search)
      *
-     * @param query  A `String` or a {@link SearchAutocompleteResult}.
-     * @param callback A callback function or delegate object.
-     * @param options With the `options` hash, you can constrain the search to a desired area using the `coordinate` or `region` properties. A coordinate or region you supply here overrides the same property you supply to the {@link Search} constructor. Another option is {@link mapkit.language}. For example, `{ language: 'fr-CA' }` tells the server to send results localized to Canadian French. If you set it, this option overrides the language the system provides to the search constructor.
+     * @param query A `String` or a {@link SearchAutocompleteResult}.
+     * @param options Options for this specific query, supersedes values set on the object.
      * @returns A promise that resolves when the search completes.
+     *
+     * @since 6.0.0
+     */
+    search(
+        query: string | SearchAutocompleteResult,
+        options?: SearchOptions,
+    ): Promise<SearchResponse>;
+    /**
+     * Retrieves the results of a search query.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/search/search1)
+     *
+     * @param query A `String` or a {@link SearchAutocompleteResult}.
+     * @param callback A callback function or delegate object.
+     * @param options Options for this specific query, supersedes values set on the object.
+     * @returns A promise that resolves when the search completes.
+     *
+     * @deprecated Handle the returned Promise instead.
      *
      * @since 5.0.0
      */
@@ -7543,16 +7972,33 @@ export class Search extends Service {
         query: string | SearchAutocompleteResult,
         callback: SearchDelegate<SearchResponse>,
         options?: SearchOptions,
-    ): number;
+    ): Promise<SearchResponse>;
     /**
      * Retrieves a list of autocomplete results for the specified search query.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/search/autocomplete)
      *
      * @param query A string that represents the user's search in progress.
-     * @param callback A callback function or delegate object.
-     * @param options With the {@link SearchAutocompleteOptions} hash, you have the option to constrain the search to a desired area using the {@link SearchConstructorOptions.coordinate} or {@link SearchConstructorOptions.region} properties. A coordinate or region you supply here overrides the same property you supply to the {@link Search} constructor. You also have the option to override the {@link mapkit.language} for the search constructor. For example, `{ language: 'fr-CA' }` tells the server to send results localized to Canadian French. For a complete list of options you can use to constrain your search, see {@link SearchAutocompleteOptions}.
+     * @param options Options for this specific query, supersedes values set on the object.
      * @returns A promise that resolves when the autocomplete request completes.
+     *
+     * @since 6.0.0
+     */
+    autocomplete(
+        query: string,
+        options?: SearchAutocompleteOptions,
+    ): Promise<SearchAutocompleteResponse>;
+    /**
+     * Retrieves a list of autocomplete results for the specified search query.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/search/autocomplete1)
+     *
+     * @param query A string that represents the user's search in progress.
+     * @param callback A callback function or delegate object.
+     * @param options Options for this specific query, supersedes values set on the object.
+     * @returns A promise that resolves when the autocomplete request completes.
+     *
+     * @deprecated Handle the returned Promise instead.
      *
      * @since 5.0.0
      */
@@ -7560,15 +8006,16 @@ export class Search extends Service {
         query: string,
         callback: SearchDelegate<SearchAutocompleteResponse>,
         options?: SearchAutocompleteOptions,
-    ): number;
+    ): Promise<SearchAutocompleteResponse>;
     /**
      * A static property that allows you to access region priority enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/search/regionpriority-data.var)
      *
      * @since 5.78.1
+     * @deprecated Please use mapkit.RegionPriority instead.
      */
-    static RegionPriority: typeof RegionPriority;
+    static get RegionPriority(): typeof RegionPriority;
 }
 
 /**
@@ -7638,7 +8085,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    id?: string;
+    id: string | null;
     /**
      * A list of alternate Place IDs that identify a feature.
      *
@@ -7646,7 +8093,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    alternateIds?: string[];
+    alternateIds: string[] | null;
 
     /**
      * The coordinate of the result when it corresponds to a single place.
@@ -7655,7 +8102,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    coordinate?: Coordinate;
+    coordinate: Coordinate | null;
 
     /**
      * The name of the place.
@@ -7664,7 +8111,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    name?: string | undefined;
+    name: string | null;
 
     /**
      * The name of state or province of the place.
@@ -7673,7 +8120,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    administrativeArea?: string;
+    administrativeArea: string | null;
     /**
      * The official abbreviation for the state or area.
      *
@@ -7681,7 +8128,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    administrativeAreaCode?: string;
+    administrativeAreaCode: string | null;
     /**
      * The city of the place.
      *
@@ -7689,7 +8136,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    locality?: string;
+    locality: string | null;
     /**
      * The postal code of the place.
      *
@@ -7697,7 +8144,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    postCode?: string;
+    postCode: string | null;
     /**
      * The name of the area within the locality.
      *
@@ -7705,7 +8152,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    subLocality?: string;
+    subLocality: string | null;
     /**
      * The street name at the place.
      *
@@ -7713,7 +8160,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    thoroughfare?: string;
+    thoroughfare: string | null;
     /**
      * The street number at the place.
      *
@@ -7721,7 +8168,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    subThoroughfare?: string;
+    subThoroughfare: string | null;
     /**
      * A combination of the thoroughfare and subthoroughfare.
      *
@@ -7729,7 +8176,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    fullThoroughfare?: string;
+    fullThoroughfare: string | null;
     /**
      * An array of common names of the area in which the place resides.
      *
@@ -7737,7 +8184,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    areasOfInterest?: string[];
+    areasOfInterest: string[] | null;
     /**
      * An array of common names for the local area or neighborhood of the place.
      *
@@ -7745,7 +8192,7 @@ export class SearchAutocompleteResult {
      *
      * @since 5.0.0
      */
-    dependentLocalities?: string[];
+    dependentLocalities: string[] | null;
 }
 
 /**
@@ -7771,7 +8218,7 @@ export interface SearchConstructorOptions extends ServiceConstructorOptions {
      *
      * @since 5.0.0
      */
-    coordinate?: Coordinate;
+    coordinate?: CoordinateData;
     /**
      * A map region that provides a hint for the geographic area to search.
      *
@@ -7779,7 +8226,7 @@ export interface SearchConstructorOptions extends ServiceConstructorOptions {
      *
      * @since 5.0.0
      */
-    region?: CoordinateRegion;
+    region?: CoordinateRegionData;
     /**
      * A Boolean value that indicates whether the search results include addresses.
      *
@@ -7892,7 +8339,7 @@ type SearchDelegate<
          */
         autocompleteDidComplete: (result: SearchAutocompleteResponse) => void;
     }
-    | ((error: Error | null, result?: T) => void);
+    | ((error: Error | null, result: T | null) => void);
 
 /**
  * An object that contains options to adjust a search.
@@ -7917,7 +8364,7 @@ export interface SearchOptions {
      *
      * @since 5.0.0
      */
-    coordinate?: Coordinate;
+    coordinate?: CoordinateData;
     /**
      * A map region that provides a hint for the geographic area to search.
      *
@@ -7925,7 +8372,7 @@ export interface SearchOptions {
      *
      * @since 5.0.0
      */
-    region?: CoordinateRegion;
+    region?: CoordinateRegionData;
     /**
      * A Boolean value that indicates whether the search results should include addresses.
      *
@@ -7982,6 +8429,14 @@ export interface SearchOptions {
      * @since 5.78.1
      */
     regionPriority?: RegionPriority;
+    /**
+     * An optional AbortSignal to cancel the request.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchoptions/signal)
+     *
+     * @since 6.0.0
+     */
+    signal?: AbortSignal;
 }
 
 /**
@@ -7999,7 +8454,7 @@ export interface SearchResponse {
      *
      * @since 5.0.0
      */
-    query?: string | SearchAutocompleteResult;
+    query: string | SearchAutocompleteResult | null;
     /**
      * The region that encloses the places from the search results.
      *
@@ -8007,7 +8462,7 @@ export interface SearchResponse {
      *
      * @since 5.0.0
      */
-    boundingRegion?: CoordinateRegion;
+    boundingRegion: CoordinateRegion | null;
     /**
      * A list of places that match the search query.
      *
@@ -8045,16 +8500,18 @@ export abstract class Service {
     get language(): string | null;
     set language(value: string | null);
     /**
-     * Cancels a request using the provided request ID.
+     * Cancels a request using the provided request promise.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/service/cancel)
      *
-     * @param id Pass the integer ID. Passing an invalid ID or the ID of a completed request has no effect.
+     * @param promise Pass the promise returned from the service method. Passing an invalid promise or the promise of a completed request has no effect.
      * @returns `true` if the server cancels the pending search request.
+     *
+     * @deprecated Use AbortSignal instead.
      *
      * @since 5.0.0
      */
-    cancel(id: number): boolean;
+    cancel(promise: Promise<unknown>): boolean;
 }
 
 /**
@@ -8377,30 +8834,45 @@ export interface StyleConstructorOptions {
  *
  * @since 5.0.0
  */
-export class TileOverlay extends MapKitEventTarget {
+export class TileOverlay extends EventTarget {
     /**
-     * Creates a tile overlay with a URL template and style options.
+     * Creates a tile overlay with a URL template or image callback and style options.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/tileoverlay/tileoverlayconstructor)
      *
-     * @param urlTemplate The URL template for generating tile URLs.
+     * @param imageForTile A URL template string, URL callback, or image callback for generating tiles.
      * @param options A hash of properties with which to initialize the tile overlay.
      *
      * @since 5.0.0
      */
     constructor(
-        urlTemplate: TileOverlayUrlTemplate,
+        imageForTile: TileOverlayUrlTemplate | TileOverlayImageCallback,
         options?: TileOverlayConstructorOptions,
     );
     /**
-     * A string, or callback function that returns a string, with a URL that provides the requested tile.
+     * A string, or callback function, that provides the requested tile.
+     *
+     * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/tileoverlay/imagefortile)
+     *
+     * @since 6.0.0
+     */
+    get imageForTile(): TileOverlayUrlTemplate | TileOverlayImageCallback;
+    set imageForTile(
+        imageForTile: TileOverlayUrlTemplate | TileOverlayImageCallback,
+    );
+    /**
+     * A string, or callback function, that provides the requested tile.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/tileoverlay/urltemplate)
      *
+     * @deprecated Use {@link imageForTile} instead.
+     *
      * @since 5.0.0
      */
-    get urlTemplate(): TileOverlayUrlTemplate;
-    set urlTemplate(urlTemplate: TileOverlayUrlTemplate);
+    get urlTemplate(): TileOverlayUrlTemplate | TileOverlayImageCallback;
+    set urlTemplate(
+        urlTemplate: TileOverlayUrlTemplate | TileOverlayImageCallback,
+    );
     /**
      * The minimum zoom level for a tile overlay.
      *
@@ -8435,10 +8907,8 @@ export class TileOverlay extends MapKitEventTarget {
      *
      * @since 5.0.0
      */
-    get data(): {
-        [key: string]: any;
-    };
-    set data(data: { [key: string]: any });
+    get data(): Record<string, any>;
+    set data(data: Record<string, any>);
     /**
      * Reloads the tile overlay for the displayed map region with the latest data values.
      *
@@ -8488,9 +8958,7 @@ export interface TileOverlayConstructorOptions {
      *
      * @since 5.0.0
      */
-    data: {
-        [key: string]: any;
-    };
+    data: Record<string, any>;
 }
 
 /**
@@ -8500,7 +8968,7 @@ export interface TileOverlayConstructorOptions {
  *
  * @since 5.0.0
  */
-export class TileOverlayErrorEvent extends MapKitEvent {
+export class TileOverlayErrorEvent extends Event {
     /**
      * The tile overlay object that dispatched the tile error event.
      *
@@ -8520,6 +8988,21 @@ export class TileOverlayErrorEvent extends MapKitEvent {
 }
 
 /**
+ * A callback function that provides tile images for a tile overlay.
+ *
+ * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/tileoverlayimagecallback)
+ *
+ * @since 6.0.0
+ */
+type TileOverlayImageCallback = (
+    x: number,
+    y: number,
+    z: number,
+    scale: number,
+    data: any,
+) => ImageSource | Promise<ImageSource> | null;
+
+/**
  * A type that specifies the URL template for a tile overlay.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/tileoverlayurltemplate)
@@ -8528,7 +9011,13 @@ export class TileOverlayErrorEvent extends MapKitEvent {
  */
 type TileOverlayUrlTemplate =
     | string
-    | ((x: number, y: number, z: number, scale: number, data: any) => string);
+    | ((
+        x: number,
+        y: number,
+        z: number,
+        scale: number,
+        data: any,
+    ) => string | null);
 
 /**
  * The modes of transportation.

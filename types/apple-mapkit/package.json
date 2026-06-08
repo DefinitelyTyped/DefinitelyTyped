@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/apple-mapkit",
-    "version": "5.81.9999",
+    "version": "6.0.9999",
     "nonNpm": true,
     "nonNpmDescription": "MapKit JS",
     "projects": [
@@ -19,8 +19,8 @@
             "githubUsername": "timdream"
         },
         {
-            "name": "Nikita Domin (Apple)",
-            "githubUsername": "n1kk"
+            "name": "Greg Esch (Apple)",
+            "githubUsername": "eschgr"
         },
         {
             "name": "Apple Inc",
