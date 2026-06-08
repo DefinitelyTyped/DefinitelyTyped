@@ -20,6 +20,7 @@ declare module "node:http2" {
         ":method"?: string | undefined;
         ":authority"?: string | undefined;
         ":scheme"?: string | undefined;
+        ":protocol"?: string | undefined;
     }
     // Http2Stream
     interface StreamState {
