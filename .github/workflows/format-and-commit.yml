@@ -12,12 +12,11 @@ on:
 jobs:
   dprint-fmt:
     runs-on: ubuntu-slim
+    permissions:
+      contents: write
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          # Use a deploy key so that CI triggers on pushes; we want to know if formatting broke something.
-          ssh-key: ${{ secrets.DEPLOY_KEY }}
       - uses: ./.github/actions/setup-for-scripts
 
       - name: Get date
