@@ -30,7 +30,7 @@ jobs:
       matrix: ${{ steps.matrix.outputs.matrix }}
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           # Need this to be able to inquire about origin/master
           filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
@@ -62,7 +62,7 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           # Need this to be able to inquire about origin/master
           filter: blob:none # https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
@@ -132,7 +132,7 @@ jobs:
       - test
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: ./.github/actions/setup-for-scripts
 
       - name: Get suggestions dir
@@ -162,7 +162,7 @@ jobs:
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped'
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - uses: ./.github/actions/setup-for-scripts
 
       - run: pnpm tsc -p ./scripts
