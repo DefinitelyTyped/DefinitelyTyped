@@ -27,14 +27,14 @@ jobs:
 
       - uses: ./.github/actions/setup-for-scripts
 
-      - run: git config --global user.email "typescriptbot@microsoft.com"
-      - run: git config --global user.name "TypeScript Bot"
+      - run: git config --global user.email "290192711+typescript-automation[bot]@users.noreply.github.com"
+      - run: git config --global user.name "typescript-automation[bot]"
 
       - run: pnpm run update-codeowners
 
       - uses: stefanzweifel/git-auto-commit-action@04702edda442b2e678b25b537cec683a1493fcb9 # v7.1.0
         with:
-          commit_author: 'TypeScript Bot <typescriptbot@microsoft.com>'
+          commit_author: 'typescript-automation[bot] <290192711+typescript-automation[bot]@users.noreply.github.com>'
           commit_message: '🤖 Update CODEOWNERS'
-          commit_user_email: 'typescriptbot@microsoft.com'
-          commit_user_name: 'TypeScript Bot'
+          commit_user_email: '290192711+typescript-automation[bot]@users.noreply.github.com'
+          commit_user_name: 'typescript-automation[bot]'
