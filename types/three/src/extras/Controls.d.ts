@@ -6,9 +6,10 @@ export interface ControlsEventMap {}
 /**
  * Abstract base class for controls.
  */
-declare abstract class Controls<TEventMap extends ControlsEventMap = ControlsEventMap, TObject extends Object3D = Object3D>
-    extends EventDispatcher<TEventMap>
-{
+declare abstract class Controls<
+    TEventMap extends ControlsEventMap = ControlsEventMap,
+    TObject extends Object3D = Object3D,
+> extends EventDispatcher<TEventMap> {
     /**
      * The 3D object that is managed by the controls.
      */
