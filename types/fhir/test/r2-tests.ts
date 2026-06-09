@@ -316,3 +316,17 @@ const r2Bundle: fhir2.Bundle = {
 const r2HasPatient = r2Bundle.entry?.some(
   (e) => e.resource?.resourceType === "Patient",
 );
+
+// 6. Bundle<T> and BundleEntry<T> generic typing
+//    Regression for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/75098
+const r2PatientBundle: fhir2.Bundle<fhir2.Patient> = {
+  resourceType: "Bundle",
+  type: "collection",
+  entry: [{ resource: r2InlinePatient }],
+};
+const r2PatientEntry = r2PatientBundle.entry?.[0];
+// patientEntry resource should be typed as Patient | undefined
+if (r2PatientEntry?.resource?.resourceType === "Patient") {
+  // Access a Patient-specific field (e.g. id) to prove narrow typing
+  const r2PtId: string | undefined = r2PatientEntry.resource.id;
+}

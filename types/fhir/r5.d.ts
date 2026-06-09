@@ -32200,7 +32200,7 @@ export interface CodeableReference extends DataType {
 /**
  * A container for a collection of resources.
  */
-export interface Bundle extends Resource {
+export interface Bundle<T extends Resource = Resource> extends Resource {
   /** Resource Type Name (for serialization) */
   readonly resourceType: 'Bundle';
   /**
@@ -32249,7 +32249,7 @@ export interface Bundle extends Resource {
    * Entry in the bundle - will have a resource or information
    * An entry in a bundle resource - will either contain a resource or information about a resource (transactions and history only).
    */
-  entry?: BundleEntry[] | undefined;
+  entry?: BundleEntry<T>[] | undefined;
   /**
    * Digital Signature
    * Digital Signature - base64 encoded. XML-DSig or a JWS.
@@ -32396,7 +32396,7 @@ export interface BundleEntryResponse extends BackboneElement {
  * Entry in the bundle - will have a resource or information
  * An entry in a bundle resource - will either contain a resource or information about a resource (transactions and history only).
  */
-export interface BundleEntry extends BackboneElement {
+export interface BundleEntry<T extends Resource = Resource> extends BackboneElement {
   /**
    * Links related to this entry
    * A series of links that provide context to this entry.
@@ -32417,7 +32417,7 @@ export interface BundleEntry extends BackboneElement {
    * A resource in the bundle
    * The Resource for the entry. The purpose/meaning of the resource is determined by the Bundle.type. This is allowed to be a Parameters resource if and only if it is referenced by something else within the Bundle that provides context/meaning.
    */
-  resource?: Resource | undefined;
+  resource?: T | undefined;
   /**
    * Search related information
    * Information about the search process that lead to the creation of this entry.
