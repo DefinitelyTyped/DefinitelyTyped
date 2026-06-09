@@ -192,6 +192,39 @@ Process.mainModule;
 // $ExpectType string | null
 Process.mainModule.version;
 
+// $ExpectType MemoryRange | null
+Process.findFunctionRange(Process.mainModule.base);
+
+const cfg = new ControlFlowGraph(Process.mainModule.base);
+// $ExpectType NativePointer
+cfg.entrypoint;
+// $ExpectType BasicBlock
+const entryBlock = cfg.entryBlock;
+// $ExpectType BasicBlock[]
+cfg.blocks;
+// $ExpectType BasicBlock | null
+cfg.findBlockContaining(Process.mainModule.base);
+// $ExpectType boolean
+cfg.dominates(Process.mainModule.base, Process.mainModule.base);
+// $ExpectType DominatingSite[]
+const sites = cfg.enumerateDominatingSites(Process.mainModule.base);
+// $ExpectType NativePointer
+sites[0].address;
+// $ExpectType number
+sites[0].capacity;
+// $ExpectType NativePointer
+entryBlock.start;
+// $ExpectType NativePointer
+entryBlock.end;
+// $ExpectType BasicBlock[]
+entryBlock.successors;
+// $ExpectType BasicBlock[]
+entryBlock.predecessors;
+// $ExpectType BasicBlock | null
+entryBlock.immediateDominator;
+// $ExpectType Instruction[]
+entryBlock.instructions;
+
 const art = Process.getModuleByName("libart.so");
 // $ExpectType NativePointer
 art.getSymbolByName("ExecuteNterpImpl");
