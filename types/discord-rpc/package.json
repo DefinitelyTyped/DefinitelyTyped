@@ -13,6 +13,10 @@
     },
     "owners": [
         {
+            "name": "Brandon Bothell",
+            "githubUsername": "brandonbothell"
+        },
+        {
             "name": "Dylan Hackworth",
             "githubUsername": "dylhack"
         },
