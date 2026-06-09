@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/tape": "*"
+        "@types/tape": ">=2.0.0 <5.0.0"
     },
     "devDependencies": {
         "@types/blue-tape": "workspace:.",

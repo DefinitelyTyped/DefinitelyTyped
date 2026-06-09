@@ -6,7 +6,7 @@
         "https://github.com/jprichardson/tape-promise#readme"
     ],
     "dependencies": {
-        "@types/tape": "*"
+        "@types/tape": "^4.2.2"
     },
     "devDependencies": {
         "@types/tape-promise": "workspace:."
