@@ -439,6 +439,17 @@ declare namespace Process {
     function getRangeByAddress(address: NativePointerValue): RangeDetails;
 
     /**
+     * Determines the code range of the function that `address` belongs to,
+     * derived from the platform's unwind tables. A function whose body is split
+     * across several ranges (e.g. a cold fragment) is represented by one range
+     * per fragment; this returns the one covering `address`. Where no unwind
+     * information is available — e.g. a leaf function, or a target lacking
+     * unwind tables altogether — the containing symbol's bounds are used as a
+     * best-effort fallback. Returns null if neither yields a range.
+     */
+    function findFunctionRange(address: NativePointerValue): MemoryRange | null;
+
+    /**
      * Enumerates memory ranges satisfying `specifier`.
      *
      * @param specifier The kind of ranges to include.
@@ -4319,6 +4330,121 @@ declare class Instruction {
      * Converts to a human-readable string.
      */
     toString(): string;
+}
+
+/**
+ * Control-flow graph of a single function, with its basic blocks, edges, and
+ * dominator relationships.
+ */
+declare class ControlFlowGraph {
+    /**
+     * Builds the control-flow graph of the function containing `entrypoint`.
+     *
+     * The function's bounds are resolved the same way as
+     * `Process.findFunctionRange()` — from the platform's unwind tables, with
+     * the containing symbol's bounds as a best-effort fallback — and its
+     * architecture and mode are determined automatically. On 32-bit ARM, a
+     * least significant bit set to 1 indicates Thumb.
+     *
+     * Throws an exception if the bounds of the function cannot be determined.
+     *
+     * @param entrypoint Address of the function to analyze.
+     */
+    constructor(entrypoint: NativePointerValue);
+
+    /**
+     * Address that the graph was built from.
+     */
+    entrypoint: NativePointer;
+
+    /**
+     * Basic block that the function begins with.
+     */
+    entryBlock: BasicBlock;
+
+    /**
+     * All basic blocks making up the graph.
+     */
+    blocks: BasicBlock[];
+
+    /**
+     * Looks up the basic block containing `address`. Returns null if no block
+     * covers it.
+     *
+     * @param address Address to look up.
+     */
+    findBlockContaining(address: NativePointerValue): BasicBlock | null;
+
+    /**
+     * Determines whether the block containing `a` dominates the block
+     * containing `b`, i.e. whether every path from the entry block to `b`
+     * passes through `a`.
+     *
+     * @param a Address whose block is the potential dominator.
+     * @param b Address whose block is potentially dominated.
+     */
+    dominates(a: NativePointerValue, b: NativePointerValue): boolean;
+
+    /**
+     * Enumerates the sites that dominate `target`, nearest first.
+     *
+     * @param target Address to find the dominating sites of.
+     */
+    enumerateDominatingSites(target: NativePointerValue): DominatingSite[];
+}
+
+/**
+ * A basic block within a `ControlFlowGraph`. Not constructable; obtain
+ * instances through the graph.
+ */
+declare class BasicBlock {
+    /**
+     * Address of the first instruction in the block.
+     */
+    start: NativePointer;
+
+    /**
+     * Address just past the last instruction in the block.
+     */
+    end: NativePointer;
+
+    /**
+     * Blocks that control may flow to from this block.
+     */
+    successors: BasicBlock[];
+
+    /**
+     * Blocks that control may flow to this block from.
+     */
+    predecessors: BasicBlock[];
+
+    /**
+     * Block that immediately dominates this one, or null for the entry block.
+     */
+    immediateDominator: BasicBlock | null;
+
+    /**
+     * Instructions making up this block.
+     */
+    instructions: Instruction[];
+}
+
+/**
+ * A site that dominates a given target, as returned by
+ * `ControlFlowGraph#enumerateDominatingSites()`.
+ */
+interface DominatingSite {
+    /**
+     * Instruction-aligned address that dominates the target.
+     */
+    address: NativePointer;
+
+    /**
+     * Number of contiguous bytes at `address`, within a single range and with
+     * no incoming branch, that a redirect may overwrite without another
+     * control-flow edge landing inside the patched region.
+     */
+    capacity: number;
 }
 
 declare class X86Instruction extends Instruction {
