@@ -31,6 +31,7 @@ declare module "http2" {
         ":method"?: string | undefined;
         ":authority"?: string | undefined;
         ":scheme"?: string | undefined;
+        ":protocol"?: string | undefined;
     }
     // Http2Stream
     export interface StreamPriorityOptions {
