@@ -1011,7 +1011,10 @@ declare namespace OracleDB {
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/connection.html#executebindparams
      */
     type BindParameters =
-        | Record<string, BindParameter | string | number | bigint | boolean | Date | DBObject_IN<any> | Buffer | null | undefined>
+        | Record<
+            string,
+            BindParameter | string | number | bigint | boolean | Date | DBObject_IN<any> | Buffer | null | undefined
+        >
         | BindParameter[]
         | any[];
 
