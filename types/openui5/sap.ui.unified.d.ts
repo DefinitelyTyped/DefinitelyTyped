@@ -1,4 +1,4 @@
-// For Library Version: 1.148.0
+// For Library Version: 1.149.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -319,6 +319,15 @@ declare module "sap/ui/unified/library" {
   }
 
   /**
+   * Types of recurrence rule pattern.
+   *
+   * This enum is part of the 'sap/ui/unified/library' module export and must be accessed by the property
+   * 'RecurrenceRuleType'.
+   *
+   * @since 1.149.0
+   */
+  export enum RecurrenceRuleType {}
+  /**
    * Interval types in a `RecurrenceType`.
    *
    * This enum is part of the 'sap/ui/unified/library' module export and must be accessed by the property
@@ -354,6 +363,15 @@ declare module "sap/ui/unified/library" {
      */
     WorkingDay = "WorkingDay",
   }
+  /**
+   * Week order within a month for recurrence rules.
+   *
+   * This enum is part of the 'sap/ui/unified/library' module export and must be accessed by the property
+   * 'WeekOfMonth'.
+   *
+   * @since 1.149.0
+   */
+  export enum WeekOfMonth {}
 }
 
 declare module "sap/ui/unified/Calendar" {
@@ -20386,13 +20404,614 @@ declare module "sap/ui/unified/NonWorkingPeriod" {
   }
 }
 
+declare module "sap/ui/unified/RecurrenceRule" {
+  import { default as UI5Element, $ElementSettings } from "sap/ui/core/Element";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import {
+    RecurrenceType,
+    RecurrenceRuleType,
+    WeekOfMonth,
+  } from "sap/ui/unified/library";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Binding DTO for recurrence rule configuration. Carries all possible recurrence properties along with
+   * the `recurrenceType` that determines which properties are relevant.
+   *
+   * When set on a parent aggregation, the parent internally creates the correct concrete subclass ({@link sap.ui.unified.WeeklyRecurrenceRule},
+   * {@link sap.ui.unified.MonthlyRecurrenceRule}, or {@link sap.ui.unified.YearlyRecurrenceRule}) via {@link sap.ui.unified.RecurrenceRule._factory}.
+   *
+   * Usage in XML binding:
+   * ```javascript
+   *
+   * <unified:recurrenceRule>
+   *   <unified:RecurrenceRule
+   *     recurrenceType="{/RecurrenceType}"
+   *     days="{/Days}"
+   *     weekOfMonth="{/WeekOfMonth}"
+   *     dayOfMonth="{/DayOfMonth}"
+   *     month="{/Month}" />
+   * </unified:recurrenceRule>
+   * ```
+   *
+   *
+   * @experimental As of version 1.149.
+   */
+  export default class RecurrenceRule extends UI5Element {
+    /**
+     * Constructor for a new `RecurrenceRule`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $RecurrenceRuleSettings
+    );
+    /**
+     * Constructor for a new `RecurrenceRule`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new element, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new element
+       */
+      mSettings?: $RecurrenceRuleSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.RecurrenceRule with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RecurrenceRule>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.RecurrenceRule.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Gets current value of property {@link #getDayOfMonth dayOfMonth}.
+     *
+     * Day of month (1–31). A value of `0` means "inherit from parent start date". Relevant when `type` is `DayOfMonth`.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `dayOfMonth`
+     */
+    getDayOfMonth(): int;
+    /**
+     * Gets current value of property {@link #getDayOfWeek dayOfWeek}.
+     *
+     * Day of week (0–6, 0 = Sunday). Relevant when `type` is `DayOfWeek`.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `dayOfWeek`
+     */
+    getDayOfWeek(): int;
+    /**
+     * Gets current value of property {@link #getDays days}.
+     *
+     * Days of week for weekly recurrence (0–6, 0 = Sunday). Relevant when `recurrenceType` is `Weekly`.
+     *
+     * Default value is `[]`.
+     *
+     *
+     * @returns Value of property `days`
+     */
+    getDays(): int[];
+    /**
+     * Gets current value of property {@link #getMonth month}.
+     *
+     * Month of year (0–11, 0 = January). Relevant when `recurrenceType` is `Yearly`.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Value of property `month`
+     */
+    getMonth(): int;
+    /**
+     * Gets current value of property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrence type. Determines which properties are relevant and which concrete subclass is created
+     * internally by the parent.
+     *
+     *
+     * @returns Value of property `recurrenceType`
+     */
+    getRecurrenceType(): RecurrenceType;
+    /**
+     * Gets current value of property {@link #getType type}.
+     *
+     * Type of the advanced recurrence pattern. Relevant when `recurrenceType` is `Monthly` or `Yearly`.
+     *
+     * Default value is `DayOfMonth`.
+     *
+     *
+     * @returns Value of property `type`
+     */
+    getType(): RecurrenceRuleType;
+    /**
+     * Gets current value of property {@link #getWeekOfMonth weekOfMonth}.
+     *
+     * Week of month (First, Second, Third, Fourth, Last). Relevant when `type` is `DayOfWeek`.
+     *
+     * Default value is `First`.
+     *
+     *
+     * @returns Value of property `weekOfMonth`
+     */
+    getWeekOfMonth(): WeekOfMonth;
+    /**
+     * Sets a new value for property {@link #getDayOfMonth dayOfMonth}.
+     *
+     * Day of month (1–31). A value of `0` means "inherit from parent start date". Relevant when `type` is `DayOfMonth`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDayOfMonth(
+      /**
+       * New value for property `dayOfMonth`
+       */
+      iDayOfMonth?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDayOfWeek dayOfWeek}.
+     *
+     * Day of week (0–6, 0 = Sunday). Relevant when `type` is `DayOfWeek`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDayOfWeek(
+      /**
+       * New value for property `dayOfWeek`
+       */
+      iDayOfWeek?: int
+    ): this;
+    /**
+     * Sets the days of week (0–6, 0 = Sunday).
+     */
+    setDays(vDays: number | number[]): this;
+    /**
+     * Sets a new value for property {@link #getMonth month}.
+     *
+     * Month of year (0–11, 0 = January). Relevant when `recurrenceType` is `Yearly`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `-1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMonth(
+      /**
+       * New value for property `month`
+       */
+      iMonth?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrence type. Determines which properties are relevant and which concrete subclass is created
+     * internally by the parent.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceType(
+      /**
+       * New value for property `recurrenceType`
+       */
+      sRecurrenceType: RecurrenceType | keyof typeof RecurrenceType
+    ): this;
+    /**
+     * Sets a new value for property {@link #getType type}.
+     *
+     * Type of the advanced recurrence pattern. Relevant when `recurrenceType` is `Monthly` or `Yearly`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `DayOfMonth`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setType(
+      /**
+       * New value for property `type`
+       */
+      sType?: RecurrenceRuleType | keyof typeof RecurrenceRuleType
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWeekOfMonth weekOfMonth}.
+     *
+     * Week of month (First, Second, Third, Fourth, Last). Relevant when `type` is `DayOfWeek`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `First`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWeekOfMonth(
+      /**
+       * New value for property `weekOfMonth`
+       */
+      sWeekOfMonth?: WeekOfMonth | keyof typeof WeekOfMonth
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the RecurrenceRule constructor.
+   *
+   * @experimental As of version 1.149.
+   */
+  export interface $RecurrenceRuleSettings extends $ElementSettings {
+    /**
+     * The recurrence type. Determines which properties are relevant and which concrete subclass is created
+     * internally by the parent.
+     */
+    recurrenceType?:
+      | (RecurrenceType | keyof typeof RecurrenceType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Days of week for weekly recurrence (0–6, 0 = Sunday). Relevant when `recurrenceType` is `Weekly`.
+     */
+    days?: int[] | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Type of the advanced recurrence pattern. Relevant when `recurrenceType` is `Monthly` or `Yearly`.
+     */
+    type?:
+      | (RecurrenceRuleType | keyof typeof RecurrenceRuleType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Day of month (1–31). A value of `0` means "inherit from parent start date". Relevant when `type` is `DayOfMonth`.
+     */
+    dayOfMonth?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Week of month (First, Second, Third, Fourth, Last). Relevant when `type` is `DayOfWeek`.
+     */
+    weekOfMonth?:
+      | (WeekOfMonth | keyof typeof WeekOfMonth)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Day of week (0–6, 0 = Sunday). Relevant when `type` is `DayOfWeek`.
+     */
+    dayOfWeek?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Month of year (0–11, 0 = January). Relevant when `recurrenceType` is `Yearly`.
+     */
+    month?: int | PropertyBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/ui/unified/RecurringCalendarAppointment" {
+  import {
+    default as CalendarAppointment,
+    $CalendarAppointmentSettings,
+  } from "sap/ui/unified/CalendarAppointment";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import RecurrenceRule from "sap/ui/unified/RecurrenceRule";
+
+  import { RecurrenceType } from "sap/ui/unified/library";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  /**
+   * An appointment for use in a `PlanningCalendar` or similar. The rendering must be done in the Row collecting
+   * the appointments. (Because there are different visualizations possible.)
+   *
+   * Applications could inherit from this element to add own fields.
+   *
+   * @experimental As of version 1.149.
+   */
+  export default class RecurringCalendarAppointment extends CalendarAppointment {
+    /**
+     * Constructor for a new `RecurringCalendarAppointment`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $RecurringCalendarAppointmentSettings
+    );
+    /**
+     * Constructor for a new `RecurringCalendarAppointment`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $RecurringCalendarAppointmentSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.unified.RecurringCalendarAppointment with name `sClassName` and
+     * enriches it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.unified.CalendarAppointment.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, RecurringCalendarAppointment>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.unified.RecurringCalendarAppointment.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Creates `CalendarAppointment` clones for each occurrence of this recurring appointment within the given
+     * date range.
+     *
+     *
+     * @returns Array of cloned appointments, one per occurrence
+     */
+    createOccurrenceClones(
+      /**
+       * Start of the visible range (inclusive)
+       */
+      oRangeStart: Date | UI5Date,
+      /**
+       * End of the visible range (inclusive)
+       */
+      oRangeEnd: Date | UI5Date
+    ): CalendarAppointment[];
+    /**
+     * Destroys the recurrenceRule in the aggregation {@link #getRecurrenceRule recurrenceRule}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyRecurrenceRule(): this;
+    /**
+     * Returns all occurrence dates within the given date range.
+     *
+     *
+     * @returns Array of occurrence dates (UI5Date instances)
+     */
+    getOccurrencesInRange(
+      /**
+       * Start date of range (inclusive)
+       */
+      oStartDate: Date | UI5Date,
+      /**
+       * End date of range (inclusive)
+       */
+      oEndDate: Date | UI5Date
+    ): Date[];
+    /**
+     * Gets current value of property {@link #getRecurrenceEndDate recurrenceEndDate}.
+     *
+     * End date of the recurrence. Must be a UI5Date or JavaScript Date object.
+     *
+     *
+     * @returns Value of property `recurrenceEndDate`
+     */
+    getRecurrenceEndDate(): object;
+    /**
+     * Gets current value of property {@link #getRecurrencePattern recurrencePattern}.
+     *
+     * Recurrence interval. E.g. 1 = every day/week/month/year, 2 = every second, etc.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Value of property `recurrencePattern`
+     */
+    getRecurrencePattern(): int;
+    /**
+     * Gets content of aggregation {@link #getRecurrenceRule recurrenceRule}.
+     *
+     * Advanced recurrence rule configuration.
+     */
+    getRecurrenceRule(): RecurrenceRule;
+    /**
+     * Gets current value of property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrence type (Daily, Weekly, Monthly, Yearly).
+     *
+     *
+     * @returns Value of property `recurrenceType`
+     */
+    getRecurrenceType(): RecurrenceType;
+    /**
+     * Sets a new value for property {@link #getRecurrenceEndDate recurrenceEndDate}.
+     *
+     * End date of the recurrence. Must be a UI5Date or JavaScript Date object.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceEndDate(
+      /**
+       * New value for property `recurrenceEndDate`
+       */
+      oRecurrenceEndDate: object
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRecurrencePattern recurrencePattern}.
+     *
+     * Recurrence interval. E.g. 1 = every day/week/month/year, 2 = every second, etc.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrencePattern(
+      /**
+       * New value for property `recurrencePattern`
+       */
+      iRecurrencePattern?: int
+    ): this;
+    /**
+     * Sets the aggregated {@link #getRecurrenceRule recurrenceRule}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceRule(
+      /**
+       * The recurrenceRule to set
+       */
+      oRecurrenceRule: RecurrenceRule
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRecurrenceType recurrenceType}.
+     *
+     * The recurrence type (Daily, Weekly, Monthly, Yearly).
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceType(
+      /**
+       * New value for property `recurrenceType`
+       */
+      sRecurrenceType: RecurrenceType | keyof typeof RecurrenceType
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the RecurringCalendarAppointment constructor.
+   *
+   * @experimental As of version 1.149.
+   */
+  export interface $RecurringCalendarAppointmentSettings
+    extends $CalendarAppointmentSettings {
+    /**
+     * The recurrence type (Daily, Weekly, Monthly, Yearly).
+     */
+    recurrenceType?:
+      | (RecurrenceType | keyof typeof RecurrenceType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * End date of the recurrence. Must be a UI5Date or JavaScript Date object.
+     */
+    recurrenceEndDate?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Recurrence interval. E.g. 1 = every day/week/month/year, 2 = every second, etc.
+     */
+    recurrencePattern?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Advanced recurrence rule configuration.
+     */
+    recurrenceRule?: RecurrenceRule;
+  }
+}
+
 declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
   import {
     default as NonWorkingPeriod,
     $NonWorkingPeriodSettings,
   } from "sap/ui/unified/NonWorkingPeriod";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import RecurrenceRule from "sap/ui/unified/RecurrenceRule";
 
   import { RecurrenceType } from "sap/ui/unified/library";
 
@@ -20469,6 +21088,30 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Destroys the recurrenceRule in the aggregation {@link #getRecurrenceRule recurrenceRule}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyRecurrenceRule(): this;
+    /**
+     * Gets cached non-working periods for a date range. Returns cached result if available, or null if not
+     * cached.
+     *
+     *
+     * @returns Cached non-working periods or null
+     */
+    getCachedOccurrences(
+      /**
+       * Start date of range
+       */
+      oStartDate: Date | UI5Date,
+      /**
+       * End date of range
+       */
+      oEndDate: Date | UI5Date
+    ): NonWorkingPeriod[] | null;
+    /**
      * Gets current value of property {@link #getRecurrenceEndDate recurrenceEndDate}.
      *
      * Determines the end date of the calendar item, as a UI5Date or JavaScript Date object. It is considered
@@ -20493,6 +21136,12 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
      */
     getRecurrencePattern(): int;
     /**
+     * Gets content of aggregation {@link #getRecurrenceRule recurrenceRule}.
+     *
+     * Advanced recurrence rule configuration.
+     */
+    getRecurrenceRule(): RecurrenceRule;
+    /**
      * Gets current value of property {@link #getRecurrenceType recurrenceType}.
      *
      * The recurrenceType determines the pattern of recurrence for a given calendar item.
@@ -20501,6 +21150,35 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
      * @returns Value of property `recurrenceType`
      */
     getRecurrenceType(): RecurrenceType;
+    /**
+     * Checks if a given date (without time) is a non-working day.
+     *
+     *
+     * @returns True if the date is non-working
+     */
+    hasNonWorkingAtDate(
+      /**
+       * Date to check
+       */
+      oDate: Date | UI5Date
+    ): boolean;
+    /**
+     * Sets cached non-working periods for a date range.
+     */
+    setCachedOccurrences(
+      /**
+       * Start date of range
+       */
+      oStartDate: Date | UI5Date,
+      /**
+       * End date of range
+       */
+      oEndDate: Date | UI5Date,
+      /**
+       * Array of non-working periods to cache
+       */
+      aPeriods: NonWorkingPeriod[]
+    ): void;
     /**
      * Sets a new value for property {@link #getRecurrenceEndDate recurrenceEndDate}.
      *
@@ -20538,6 +21216,18 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
        * New value for property `recurrencePattern`
        */
       iRecurrencePattern?: int
+    ): this;
+    /**
+     * Sets the aggregated {@link #getRecurrenceRule recurrenceRule}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRecurrenceRule(
+      /**
+       * The recurrenceRule to set
+       */
+      oRecurrenceRule: RecurrenceRule
     ): this;
     /**
      * Sets a new value for property {@link #getRecurrenceType recurrenceType}.
@@ -20584,6 +21274,11 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
      * this would imply the calendar item is recurring once for every three days.
      */
     recurrencePattern?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Advanced recurrence rule configuration.
+     */
+    recurrenceRule?: RecurrenceRule;
   }
 }
 
@@ -23521,6 +24216,10 @@ declare namespace sap {
     "sap/ui/unified/MenuTextFieldItem": undefined;
 
     "sap/ui/unified/NonWorkingPeriod": undefined;
+
+    "sap/ui/unified/RecurrenceRule": undefined;
+
+    "sap/ui/unified/RecurringCalendarAppointment": undefined;
 
     "sap/ui/unified/RecurringNonWorkingPeriod": undefined;
 

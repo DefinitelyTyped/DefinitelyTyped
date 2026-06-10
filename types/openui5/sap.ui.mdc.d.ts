@@ -1,4 +1,4 @@
-// For Library Version: 1.148.0
+// For Library Version: 1.149.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1505,6 +1505,10 @@ declare module "sap/ui/mdc/FilterBarDelegate" {
 
   import FilterBarValidationStatus from "sap/ui/mdc/enums/FilterBarValidationStatus";
 
+  import FilterBarBase from "sap/ui/mdc/filterbar/FilterBarBase";
+
+  import { ConditionObject } from "sap/ui/mdc/condition/Condition";
+
   /**
    * Base Delegate for {@link sap.ui.mdc.FilterBar FilterBar}. Extend this object in your project to use all
    * functionalities of the {@link sap.ui.mdc.FilterBar FilterBar}. This class provides method calls, which
@@ -1615,6 +1619,29 @@ declare module "sap/ui/mdc/FilterBarDelegate" {
        */
       oFilterBar: FilterBar
     ): Promise<PropertyInfo[]>;
+    /**
+     * Returns default values for a property.
+     *
+     * This function is called when a user adds a condition representing default values or a variant using such
+     * a condition is applied.
+     *
+     * As this function might be called multiple times, the default values should be cached and not be determined
+     * again for each call.
+     *
+     * @since 1.149
+     *
+     * @returns Array of default value conditions in external format
+     */
+    getDefaultValues(
+      /**
+       * Instance of the {@link sap.ui.mdc.filterbar.FilterBarBase FilterBar} control
+       */
+      oFilterBar: FilterBarBase,
+      /**
+       * Property key of the filter field
+       */
+      sPropertyKey: string
+    ): ConditionObject[];
     /**
      * propertyInfo This method is called during the appliance of the remove condition change. The intention
      * is to update the {@link sap.ui.mdc.FilterBarBase#setPropertyInfo propertyInfo} property.
@@ -3346,7 +3373,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
     ): Promise<util.FilterConditionMap> | util.FilterConditionMap;
     /**
      * Returns filters that are used when updating the binding of the `ValueHelp`.
-     * By default, this method returns a set of {@link sap.ui.model.Filter Filters} originating from an available
+     *  By default, this method returns a set of {@link sap.ui.model.Filter Filters} originating from an available
      * {@link sap.ui.mdc.FilterBar FilterBar} or the delegate's own {@link module:sap/ui/mdc/ValueHelpDelegate.getFilterConditions getFilterConditions }
      * implementation.
      *
@@ -7442,6 +7469,11 @@ declare module "sap/ui/mdc/condition/Operator" {
          * Function to determine the text copied into clipboard
          */
         getTextForCopy?: Function;
+        /**
+         * If set, the operator handles default values. The values are used for display and to create filters, but
+         * cannot be set manually.
+         */
+        useDefaultValues?: boolean;
       }
     );
 
@@ -8490,6 +8522,15 @@ declare module "sap/ui/mdc/enums/OperatorName" {
      * @since 1.99.0
      */
     DATETOYEAR = "DATETOYEAR",
+    /**
+     * "Default values" operator is using user-specific default values. The values themselves are not stored
+     * in variants.
+     *
+     * The operator is available for all types.
+     *
+     * @since 1.149.0
+     */
+    DefaultValues = "DefaultValues",
     /**
      * "empty" operator
      *
