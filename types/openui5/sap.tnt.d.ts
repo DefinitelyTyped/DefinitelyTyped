@@ -1,4 +1,4 @@
-// For Library Version: 1.148.0
+// For Library Version: 1.149.0
 
 declare module "sap/tnt/library" {
   /**
@@ -1466,6 +1466,8 @@ declare module "sap/tnt/NavigationListItem" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import ObjectStatus from "sap/m/ObjectStatus";
+
   import {
     PropertyBindingInfo,
     AggregationBindingInfo,
@@ -1611,6 +1613,14 @@ declare module "sap/tnt/NavigationListItem" {
      */
     destroyItems(): this;
     /**
+     * Destroys the tag in the aggregation {@link #getTag tag}.
+     *
+     * @since 1.149
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyTag(): this;
+    /**
      * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.tnt.NavigationListItem`.
      *
      * The passed function and listener object must match the ones used for event registration.
@@ -1717,6 +1727,37 @@ declare module "sap/tnt/NavigationListItem" {
      * @returns Value of property `selectable`
      */
     getSelectable(): boolean;
+    /**
+     * Gets content of aggregation {@link #getTag tag}.
+     *
+     * A tag that uses Indication states to visually mark a navigation item.
+     *
+     * Use tags to display status information, counters, or metadata that helps users quickly identify the state
+     * or importance of a navigation item.
+     *
+     * Tags can be added to:
+     * 	 - Single-click items without children
+     * 	 - Two-click items with children and expander arrow
+     * 	 - Child items nested under a parent item
+     *
+     * **Note:** Tags are visible when the `NavigationList` is in expanded mode, and hidden when collapsed,
+     * but they are visible in the overflow of the collapsed mode.
+     *
+     * Usage: Common use cases include:
+     * 	 - Status indicators: "Beta", "New", "Deprecated"
+     * 	 - Counters: "5 Pending", "12 Items"
+     * 	 - Versions: "v2.0"
+     * 	 - Alerts: "Low Stock", "Critical"
+     *
+     * **Important:** Always set the `inverted` property to `true` for consistent styling. Use Indication states
+     * (`Indication15` – `Indication20`) for consistent theming.
+     *
+     * **Important:** The `ObjectStatus` must never be interactive (i.e., `active` must not be set to `true`),
+     * as this would lead to nesting of interactive elements, which is not allowed.
+     *
+     * @since 1.149
+     */
+    getTag(): ObjectStatus;
     /**
      * Gets current value of property {@link #getTarget target}.
      *
@@ -1904,6 +1945,19 @@ declare module "sap/tnt/NavigationListItem" {
       bSelectable?: boolean
     ): this;
     /**
+     * Sets the aggregated {@link #getTag tag}.
+     *
+     * @since 1.149
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTag(
+      /**
+       * The tag to set
+       */
+      oTag: ObjectStatus
+    ): this;
+    /**
      * Sets a new value for property {@link #getTarget target}.
      *
      * Specifies the browsing context where the linked content will open.
@@ -2031,6 +2085,36 @@ declare module "sap/tnt/NavigationListItem" {
       | NavigationListItem
       | AggregationBindingInfo
       | `{${string}}`;
+
+    /**
+     * A tag that uses Indication states to visually mark a navigation item.
+     *
+     * Use tags to display status information, counters, or metadata that helps users quickly identify the state
+     * or importance of a navigation item.
+     *
+     * Tags can be added to:
+     * 	 - Single-click items without children
+     * 	 - Two-click items with children and expander arrow
+     * 	 - Child items nested under a parent item
+     *
+     * **Note:** Tags are visible when the `NavigationList` is in expanded mode, and hidden when collapsed,
+     * but they are visible in the overflow of the collapsed mode.
+     *
+     * Usage: Common use cases include:
+     * 	 - Status indicators: "Beta", "New", "Deprecated"
+     * 	 - Counters: "5 Pending", "12 Items"
+     * 	 - Versions: "v2.0"
+     * 	 - Alerts: "Low Stock", "Critical"
+     *
+     * **Important:** Always set the `inverted` property to `true` for consistent styling. Use Indication states
+     * (`Indication15` – `Indication20`) for consistent theming.
+     *
+     * **Important:** The `ObjectStatus` must never be interactive (i.e., `active` must not be set to `true`),
+     * as this would lead to nesting of interactive elements, which is not allowed.
+     *
+     * @since 1.149
+     */
+    tag?: ObjectStatus;
 
     /**
      * Fired when this item is selected.
