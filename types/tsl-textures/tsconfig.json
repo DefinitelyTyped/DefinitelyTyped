@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es2017",
+            "es6",
             "dom"
         ],
         "noImplicitAny": true,
@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "index.d.cts",
         "tsl-textures-tests.ts"
     ]
 }

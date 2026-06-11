@@ -7,8 +7,14 @@
         "https://boytchev.github.io/tsl-textures/"
     ],
     "exports": {
-        ".": "./index.d.ts",
-        "./tsl-textures.js": "./index.d.ts"
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        },
+        "./tsl-textures.js": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        }
     },
     "dependencies": {
         "@types/three": "*"

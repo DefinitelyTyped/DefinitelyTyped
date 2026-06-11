@@ -2,15 +2,13 @@ import { float, uniform, vec2, vec3 } from "three/tsl";
 import { Color, Node, Vector2, Vector3 } from "three/webgpu";
 
 import {
-    // utility functions
     approximateNormal,
-    // multi-channel textures
     brain,
-    // simple textures (callable + .defaults)
     bricks,
     camouflage,
     clouds,
-    // re-exported noise / fractal / voronoi
+    ColorInput,
+    FloatInput,
     fractal,
     fractal3,
     grid,
@@ -25,16 +23,21 @@ import {
     rotatePivot,
     rotator,
     runnyEggs,
-    // param interfaces
     RunnyEggsParams,
+    RunnyEggsTexture,
     rust,
     scaler,
     selectPlanar,
     showFallbackWarning,
+    SimpleTexture,
     spherical,
     supersphere,
+    TextureWithNormal,
+    TextureWithOpacity,
     toHsl,
     translator,
+    Vec2Input,
+    Vec3Input,
     vnoise,
     voronoi,
     voronoi2,
@@ -191,6 +194,35 @@ runnyEggs.roughness(eggConfig);
 // Params are commonly driven by uniform nodes so they can be animated at runtime.
 // $ExpectType Node<"vec3">
 clouds({ density: uniform(0.25), opacity: 0.2, color: uniform(col), seed: uniform(0) });
+
+// === Public helper types ===
+// The input aliases and texture-shape interfaces are exported so consumers can
+// build their own params/helpers on top of them.
+
+// Input aliases accept either a plain JS value or a matching TSL node.
+const floatIn: FloatInput = f;
+const floatInNum: FloatInput = 0.5;
+const colorIn: ColorInput = col;
+const vec2In: Vec2Input = p2;
+const vec3In: Vec3Input = v3node;
+// $ExpectType Node<"vec3">
+bricks({ scale: floatIn, color: colorIn, brickSize: vec3In });
+// $ExpectType Node<"vec3">
+halftone({ position: vec2In, radius: floatInNum });
+
+// Texture-shape interfaces describe the callable + channel structure.
+const simple: SimpleTexture<typeof bricks.defaults> = bricks;
+// $ExpectType Node<"vec3">
+simple();
+const withNormal: TextureWithNormal<typeof rotator.defaults> = rotator;
+// $ExpectType Node<"vec3">
+withNormal.normal();
+const withOpacity: TextureWithOpacity<typeof clouds.defaults> = clouds;
+// $ExpectType Node<"float">
+withOpacity.opacity();
+const eggs: RunnyEggsTexture = runnyEggs;
+// $ExpectType Node<"float">
+eggs.roughness();
 
 // === Negative tests ===
 
