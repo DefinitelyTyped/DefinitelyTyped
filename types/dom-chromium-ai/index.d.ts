@@ -131,12 +131,12 @@ type LanguageModelSamplingMode =
 type LanguageModelSamplingOptions =
     | { samplingMode?: LanguageModelSamplingMode; topK?: never; temperature?: never }
     | {
-          samplingMode?: never;
-          /** @deprecated Restricted to web extension contexts only. */
-          topK?: number;
-          /** @deprecated Restricted to web extension contexts only. */
-          temperature?: number;
-      };
+        samplingMode?: never;
+        /** @deprecated Restricted to web extension contexts only. */
+        topK?: number;
+        /** @deprecated Restricted to web extension contexts only. */
+        temperature?: number;
+    };
 
 type LanguageModelCreateCoreOptions = {
     expectedInputs?: LanguageModelExpected[];
