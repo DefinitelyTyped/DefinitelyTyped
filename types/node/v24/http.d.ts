@@ -1716,7 +1716,7 @@ declare module "http" {
          * The `socket` argument can be an instance of `net.Socket`, a subclass of `stream.Duplex`.
          * @since v8.1.0
          */
-        keepSocketAlive(socket: stream.Duplex): void;
+        keepSocketAlive(socket: stream.Duplex): boolean;
         /**
          * Called when `socket` is attached to `request` after being persisted because of
          * the keep-alive options. Default behavior is to:

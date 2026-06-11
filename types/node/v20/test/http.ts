@@ -368,7 +368,7 @@ import * as url from "node:url";
     agent.emit("free");
 
     agent.createConnection({ port: 1234 });
-    agent.keepSocketAlive(new stream.Duplex());
+    agent.keepSocketAlive(new stream.Duplex()) satisfies boolean;
     agent.reuseSocket(new stream.Duplex(), new http.ClientRequest(""));
 
     // test custom overrides
