@@ -116,25 +116,42 @@ interface LanguageModelParams {
     readonly maxTemperature: number;
 }
 
-interface LanguageModelCreateCoreOptions {
-    /** @deprecated Restricted to web extension contexts only. Use the topK option within LanguageModel.create() is now restricted to web extensions. */
-    topK?: number;
-    /** @deprecated Restricted to web extension contexts only. Use the temperature option within LanguageModel.create() is now restricted to web extensions. */
-    temperature?: number;
+type LanguageModelSamplingMode =
+    | "most-predictable"
+    | "predictable"
+    | "balanced"
+    | "creative"
+    | "most-creative";
 
+/**
+ * samplingMode and the raw sampling params (topK, temperature) are mutually exclusive.
+ * Providing both results in a TypeError at runtime.
+ * Note: topK and temperature are only available in Chrome extension contexts (Chrome 151+).
+ */
+type LanguageModelSamplingOptions =
+    | { samplingMode?: LanguageModelSamplingMode; topK?: never; temperature?: never }
+    | {
+          samplingMode?: never;
+          /** @deprecated Restricted to web extension contexts only. */
+          topK?: number;
+          /** @deprecated Restricted to web extension contexts only. */
+          temperature?: number;
+      };
+
+type LanguageModelCreateCoreOptions = {
     expectedInputs?: LanguageModelExpected[];
     expectedOutputs?: LanguageModelExpected[];
     tools?: LanguageModelTool[];
-}
+} & LanguageModelSamplingOptions;
 
-interface LanguageModelCreateOptions extends LanguageModelCreateCoreOptions {
+type LanguageModelCreateOptions = LanguageModelCreateCoreOptions & {
     signal?: AbortSignal;
     monitor?: CreateMonitorCallback;
 
     initialPrompts?:
         | [LanguageModelSystemMessage, ...LanguageModelMessage[]]
         | LanguageModelMessage[];
-}
+};
 
 interface LanguageModelPromptOptions {
     responseConstraint?: Record<string, unknown>;
