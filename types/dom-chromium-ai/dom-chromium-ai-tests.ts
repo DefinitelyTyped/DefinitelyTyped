@@ -16,14 +16,14 @@ async function topLevel() {
     await LanguageModel.create({ samplingMode: "balanced" });
 
     await LanguageModel.create({
-        // @ts-expect-error - samplingMode and topK/temperature are mutually exclusive.
         samplingMode: "balanced",
+        // @ts-expect-error - samplingMode and topK/temperature are mutually exclusive.
         topK: 1,
     });
 
     await LanguageModel.create({
-        // @ts-expect-error - samplingMode and topK/temperature are mutually exclusive.
         samplingMode: "balanced",
+        // @ts-expect-error - samplingMode and topK/temperature are mutually exclusive.
         temperature: 0.5,
     });
 
