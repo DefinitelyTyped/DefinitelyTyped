@@ -51,8 +51,5 @@
             "fflate": "0.8.2"
         }
     },
-    "type": "module",
-    "dependencies": {
-        "eslint": "^10.4.1"
-    }
+    "type": "module"
 }
