@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eslint-plugin-xss",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/Rantanen/eslint-plugin-xss#readme"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-xss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitrii Kustov",
+            "githubUsername": "Simbiat"
+        }
+    ]
+}

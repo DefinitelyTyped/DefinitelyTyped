@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/eslint-plugin-github",
+    "version": "6.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/github/eslint-plugin-github#readme"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-github": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitrii Kustov",
+            "githubUsername": "Simbiat"
+        }
+    ]
+}
