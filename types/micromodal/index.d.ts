@@ -1,12 +1,19 @@
 /**
  * MicroModal configuration options
  */
-export interface MicroModalConfig {
+interface Config {
+    /**
+     * Custom data attribute used to identify a modal element, and to store
+     * an auto-generated id when a modal is opened by element. Default is
+     * data-micromodal-id.
+     */
+    identifier?: string | undefined;
+
     /** This is fired when the modal is opening. */
-    onShow?: ((modal?: HTMLElement) => void) | undefined;
+    onShow?: ((modal: HTMLElement, activeElement: Element | null, event: Event | null) => void) | undefined;
 
     /** This is fired when the modal is closing. */
-    onClose?: ((modal?: HTMLElement) => void) | undefined;
+    onClose?: ((modal: HTMLElement, activeElement: Element | null, event: Event | null) => void) | undefined;
 
     /** Custom data attribute to open modal. Default is data-micromodal-trigger. */
     openTrigger?: string | undefined;
@@ -43,6 +50,8 @@ export interface MicroModalConfig {
  * MicroModal controller
  */
 declare namespace MicroModal {
+    type MicroModalConfig = Config;
+
     /**
      * Binds click handlers to all modal triggers
      * @param config configuration options
@@ -50,16 +59,49 @@ declare namespace MicroModal {
     function init(config?: MicroModalConfig): void;
 
     /**
-     * Shows a particular modal
-     * @param targetModal The id of the modal to display
+     * Initializes a single modal and caches it without binding it to a
+     * trigger, so it can later be shown with `show`.
+     * @param targetModal The id or element of the modal to initialize
      * @param config configuration options
      */
-    function show(targetModal: string, config?: MicroModalConfig): void;
+    function initModal(targetModal: string | HTMLElement, config?: MicroModalConfig): void;
 
     /**
-     * Closes the active modal
+     * Updates the configuration of an already-initialized modal.
+     * @param targetModal The id or element of the modal to reconfigure
+     * @param config configuration options
      */
-    function close(targetModal?: string): void;
+    function config(targetModal: string | HTMLElement, config: MicroModalConfig): void;
+
+    /**
+     * Shows a particular modal
+     * @param targetModal The id or element of the modal to display
+     * @param config configuration options
+     */
+    function show(targetModal: string | HTMLElement, config?: MicroModalConfig): void;
+
+    /**
+     * Closes a particular modal, or the most recently opened modal when
+     * no modal is given.
+     * @param targetModal The id or element of the modal to close
+     */
+    function close(targetModal?: string | HTMLElement): void;
+
+    /**
+     * Closes every open modal.
+     */
+    function closeAll(): void;
+
+    /**
+     * Closes the modal if it is open and discards its cached instance, so
+     * the next `show` re-resolves the modal element. Useful when the
+     * modal's DOM element is recreated between opens.
+     * @param targetModal The id or element of the modal to remove
+     */
+    function removeModal(targetModal: string | HTMLElement): void;
 }
 
-export default MicroModal;
+// Upstream ships a UMD module {init, ...} and an ES module {default: {init, ...}}.
+// eslint-disable-next-line @definitelytyped/export-just-namespace
+export = MicroModal;
+export as namespace MicroModal;
