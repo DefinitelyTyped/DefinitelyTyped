@@ -1011,7 +1011,10 @@ declare namespace OracleDB {
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/connection.html#executebindparams
      */
     type BindParameters =
-        | Record<string, BindParameter | string | number | bigint | Date | DBObject_IN<any> | Buffer | null | undefined>
+        | Record<
+            string,
+            BindParameter | string | number | bigint | boolean | Date | DBObject_IN<any> | Buffer | null | undefined
+        >
         | BindParameter[]
         | any[];
 
@@ -4378,9 +4381,8 @@ declare namespace OracleDB {
          */
         rows?: T[] | undefined;
         /**
-         * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
-         * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
-         * rowsAffected is undefined.
+         * For DML statements this contains the number of rows affected, for example the number of rows inserted.
+         * For non-DML statements such as queries and PL/SQL statements, rowsAffected is undefined.
          */
         rowsAffected?: number | undefined;
         /**
