@@ -1,7 +1,7 @@
 import type { Page, ScreenshotOptions as PuppeteerScreenshotOptions } from "puppeteer" with {
     "resolution-mode": "import",
 };
-import type { JpegOptions, PngOptions, WebpOptions } from "sharp" with { "resolution-mode": "import" };
+import sharp = require("sharp");
 
 interface PngOutputSettings {
     /**
@@ -29,7 +29,7 @@ interface PngOutputSettings {
      *
      * @defaultValue `{}`
      */
-    overrides?: PngOptions;
+    overrides?: sharp.PngOptions;
 }
 
 interface JpegOutputSettings {
@@ -56,7 +56,7 @@ interface JpegOutputSettings {
      *
      * @defaultValue `{}`
      */
-    overrides?: JpegOptions;
+    overrides?: sharp.JpegOptions;
 }
 
 interface WebpOutputSettings {
@@ -83,7 +83,7 @@ interface WebpOutputSettings {
      *
      * @defaultValue `{}`
      */
-    overrides?: WebpOptions;
+    overrides?: sharp.WebpOptions;
 }
 
 declare namespace ScreenshotTester {
