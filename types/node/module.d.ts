@@ -138,6 +138,36 @@ declare module "node:module" {
          */
         function getCompileCacheDir(): string | undefined;
         /**
+         * The contents of a package map configuration file used by
+         * `--experimental-package-map`.
+         *
+         * Package maps define package locations and the dependency names that
+         * each package can resolve.
+         * @experimental
+         */
+        interface PackageMap {
+            packages: Record<string, PackageMap.Package>;
+        }
+        namespace PackageMap {
+            /**
+             * A package entry in a package map configuration file.
+             * @experimental
+             */
+            interface Package {
+                /**
+                 * An absolute or relative URL for the package location. Only
+                 * `file:` URLs and relative URLs are currently supported by Node.js.
+                 */
+                url: string;
+                /**
+                 * Maps bare specifiers used by this package to package IDs in
+                 * the package map's `packages` object.
+                 * @default {}
+                 */
+                dependencies?: Record<string, string> | undefined;
+            }
+        }
+        /**
          * ```text
          * /path/to/project
          *   ├ packages/

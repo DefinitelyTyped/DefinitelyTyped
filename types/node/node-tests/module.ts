@@ -1,4 +1,5 @@
 import Module = require("node:module");
+import type { PackageMap } from "node:module";
 import { URL } from "node:url";
 
 Module.Module === Module;
@@ -57,6 +58,59 @@ Module.Module === Module;
 
     // $ExpectType void
     Module.syncBuiltinESMExports();
+}
+
+// Package maps
+{
+    const packageMap: Module.PackageMap = {
+        packages: {
+            app: {
+                url: "./packages/app",
+                dependencies: {
+                    lodash: "lodash",
+                    react: "react",
+                },
+            },
+            lodash: {
+                url: "file:///path/to/project/node_modules/lodash",
+            },
+            react: {
+                url: "./node_modules/react",
+            },
+        },
+    };
+
+    const namedPackageMap: PackageMap = packageMap;
+
+    // $ExpectType Record<string, Package>
+    namedPackageMap.packages;
+    // $ExpectType string
+    namedPackageMap.packages.app.url;
+    // $ExpectType Record<string, string> | undefined
+    namedPackageMap.packages.app.dependencies;
+
+    const packageEntry: PackageMap.Package = {
+        url: "./packages/utils",
+        dependencies: {
+            "@myorg/core": "core",
+        },
+    };
+
+    packageEntry.dependencies?.["@myorg/core"]; // $ExpectType string | undefined
+
+    // @ts-expect-error Package map entries require a URL.
+    const missingUrl: PackageMap.Package = {};
+
+    const invalidDependency: PackageMap.Package = {
+        url: "./packages/utils",
+        dependencies: {
+            // @ts-expect-error Package map dependencies map to package ID strings.
+            "@myorg/core": 1,
+        },
+    };
+
+    void missingUrl;
+    void invalidDependency;
 }
 
 // Undocumented monkeypatching definitions
