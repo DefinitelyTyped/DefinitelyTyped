@@ -6,7 +6,7 @@
         "https://github.com/css/csso"
     ],
     "dependencies": {
-        "@types/css-tree": "*"
+        "@types/css-tree": "^2"
     },
     "devDependencies": {
         "@types/csso": "workspace:."
