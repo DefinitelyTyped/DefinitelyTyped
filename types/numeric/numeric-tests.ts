@@ -606,9 +606,12 @@ const spline = numeric.spline(vector, matrix, "periodic", 3);
 spline.diff().roots(); // $ExpectType number[] || Vector
 spline.at(vector); // $ExpectType number | number[] || number | Vector
 
+const vector2: [number, number] = [2,5];
 numeric.uncmin((x: number[]) => 23, vector, 2, null, 3, () => undefined, {
     Hinv: matrix,
 });
+numeric.uncmin(([x, y]: [number, number]) => (x**2 + y**2), [1, 1]);
+numeric.uncmin(([x, y]: [number, number]) => (x**2 + y**2), vector2);
 numeric.gradient((x: number[]) => 44, vector); // $ExpectType number[] || Vector
 
 const dopri = numeric.dopri(
