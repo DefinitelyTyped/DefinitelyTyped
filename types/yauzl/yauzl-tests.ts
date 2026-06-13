@@ -119,3 +119,39 @@ if (fromDos.getTime() < 0) throw new Error("unreachable");
 const decodedName: string = yauzl.getFileNameLowLevel(0x800, Buffer.from("a.txt"), [], true);
 const parsed: yauzl.ExtraField[] = yauzl.parseExtraFields(Buffer.alloc(0));
 if (decodedName.length < 0 || parsed.length < 0) throw new Error("unreachable");
+
+// Promises API.
+async function withPromises() {
+    const zipfile: yauzl.ZipFile = await yauzl.openPromise("path/to/file.zip");
+    await yauzl.openPromise("path/to/file.zip", { strictFileNames: true });
+    await yauzl.fromFdPromise(0);
+    await yauzl.fromBufferPromise(Buffer.alloc(0), { decodeStrings: false });
+    await yauzl.fromRandomAccessReaderPromise(new MemoryReader(), 1024);
+
+    for await (const entry of zipfile.eachEntry()) {
+        const name: string = entry.fileName;
+        if (name.length < 0) throw new Error("unreachable");
+
+        const readStream: Readable = await zipfile.openReadStreamPromise(entry);
+        readStream.pipe(new Writable());
+        await zipfile.openReadStreamPromise(entry, { decodeFileData: false });
+
+        const minimal = await zipfile.readLocalFileHeaderPromise(entry, { minimal: true });
+        const start: number = minimal.fileDataStart;
+
+        const header: yauzl.LocalFileHeader = await zipfile.readLocalFileHeaderPromise(entry);
+        const rawName: Buffer = header.fileName;
+        if (rawName.length < 0) throw new Error("unreachable");
+
+        const lowStream: Readable = await zipfile.openReadStreamLowLevelPromise(
+            start,
+            entry.compressedSize,
+            0,
+            entry.compressedSize,
+            true,
+            entry.uncompressedSize,
+        );
+        lowStream.pipe(new Writable());
+    }
+}
+withPromises();
