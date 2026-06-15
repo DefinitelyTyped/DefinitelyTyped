@@ -14,7 +14,7 @@ declare class TestSourceScanner {
 declare namespace TestSourceScanner {
     export { TestCasePosition };
 }
-import JSScanner = require('@nginstack/engine/lib/compiler/ijs/JSScanner.js');
+import JSScanner = require("@nginstack/engine/lib/compiler/ijs/JSScanner.js");
 interface TestCasePosition {
     line: number;
     column: number;

@@ -31,9 +31,9 @@ declare class TestRunner {
     runAllTests(options: { reverseOrder?: boolean }): AggregatedTestResult;
 }
 declare namespace TestRunner {
-    export { TestResult, TestCase };
+    export { TestCase, TestResult };
 }
-import TestSuite = require('./TestSuite.js');
-import AggregatedTestResult = require('./AggregatedTestResult.js');
-type TestResult = import('./TestResult');
-type TestCase = import('./TestSuite').TestCase;
+import TestSuite = require("./TestSuite.js");
+import AggregatedTestResult = require("./AggregatedTestResult.js");
+type TestResult = import("./TestResult");
+type TestCase = import("./TestSuite").TestCase;
