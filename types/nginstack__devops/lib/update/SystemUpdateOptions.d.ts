@@ -2,7 +2,7 @@ export = SystemUpdateOptions;
 declare function SystemUpdateOptions(): void;
 declare class SystemUpdateOptions {
     updateType: number;
-    products: Array<number | import("@nginstack/engine/lib/dbkey/DBKey")>;
+    products: Array<number | import('@nginstack/engine/lib/dbkey/DBKey')>;
     allowExclusiveProducts: boolean;
     disableEngineUpdate: boolean;
     preserveUnlicensedProducts: boolean;
@@ -13,5 +13,5 @@ declare class SystemUpdateOptions {
 declare namespace SystemUpdateOptions {
     export { DBKey };
 }
-import ProductDataSetFilter = require("../product/ProductDataSetFilter.js");
-type DBKey = import("@nginstack/engine/lib/dbkey/DBKey");
+import ProductDataSetFilter = require('../product/ProductDataSetFilter.js');
+type DBKey = import('@nginstack/engine/lib/dbkey/DBKey');
