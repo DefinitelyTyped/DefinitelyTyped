@@ -21,8 +21,8 @@ declare class PendingTaskManager {
 declare namespace PendingTaskManager {
     export { PendingTaskScript };
 }
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
 interface PendingTaskScript {
     key: number;
     func: any;

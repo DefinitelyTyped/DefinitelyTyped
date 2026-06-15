@@ -10,7 +10,6 @@ export let COLORS: number;
 export let COMBO_FINDER: number;
 export let CUSTOM: number;
 export let DANTE_AI: number;
-export let DATA_EXPORT: number;
 export let DATA: number;
 export let DATABASES: number;
 export let DATE_FORMATS: number;
