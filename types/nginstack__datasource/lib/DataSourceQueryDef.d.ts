@@ -13,4 +13,4 @@ declare class DataSourceQueryDef {
 declare namespace DataSourceQueryDef {
     export { DataSourceQuery };
 }
-type DataSourceQuery = import('./DataSourceQuery');
+type DataSourceQuery = import("./DataSourceQuery");

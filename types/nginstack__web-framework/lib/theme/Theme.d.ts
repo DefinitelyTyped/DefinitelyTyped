@@ -22,15 +22,15 @@ declare class Theme {
         options: {
             contrastLevel?: number;
             colorScheme?: number;
-        }
+        },
     ): ColorTokens;
     private getSpecializedProperty_;
     private getThemeConfig_;
 }
 declare namespace Theme {
-    export { ColorTokens, ColorTones, ThemeSchemes, ThemeTones, ThemeConfig };
+    export { ColorTokens, ColorTones, ThemeConfig, ThemeSchemes, ThemeTones };
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
 interface ColorTokens {
     primary: string;
     onPrimary: string;

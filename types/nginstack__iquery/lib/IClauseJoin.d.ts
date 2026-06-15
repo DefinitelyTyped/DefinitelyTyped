@@ -3,7 +3,7 @@ declare function IClauseJoin(
     iQuery: IQuery,
     iQueryJoin: IQuery,
     type: string,
-    isRightTableAsSubquery: any
+    isRightTableAsSubquery: any,
 ): void;
 declare class IClauseJoin {
     constructor(iQuery: IQuery, iQueryJoin: IQuery, type: string, isRightTableAsSubquery: any);
@@ -24,13 +24,13 @@ declare class IClauseJoin {
     getColumnsNames(): object;
 }
 declare namespace IClauseJoin {
-    export { IQuery, IClauseWhere, RightTableAsSubQueryConfig };
+    export { IClauseWhere, IQuery, RightTableAsSubQueryConfig };
 }
-type IQuery = import('./IQuery');
-type IClauseWhere = import('./IClauseWhere');
+type IQuery = import("./IQuery");
+type IClauseWhere = import("./IClauseWhere");
 interface RightTableAsSubQueryConfig {
     isEnabled: boolean;
     clauseSelect: IClauseSelect;
     subQueryAlias: string;
 }
-import IClauseSelect = require('./IClauseSelect.js');
+import IClauseSelect = require("./IClauseSelect.js");

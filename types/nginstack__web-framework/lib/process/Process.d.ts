@@ -3,7 +3,7 @@ declare function Process(
     key: number,
     id: string,
     responseObject: any,
-    sourceClass: number | DBKey
+    sourceClass: number | DBKey,
 ): void;
 declare class Process {
     constructor(key: number, id: string, responseObject: any, sourceClass: number | DBKey);
@@ -96,7 +96,7 @@ declare class Process {
         name: string,
         nextInteractionNameOrFunction?: string | ((arg0: any) => any),
         processKey?: number,
-        newTab?: boolean
+        newTab?: boolean,
     ): Link;
     dsvLink(name: string, dsvKey: number, opt_newTab?: boolean): any;
     button(
@@ -104,13 +104,13 @@ declare class Process {
         target: string | ((arg0: any) => any),
         order?: number,
         processKey?: number,
-        newTab?: boolean
+        newTab?: boolean,
     ): Button;
     hasButton(name: string): boolean;
     action(name: any, target: any, order: any, processKey: any, newTab: any): Button;
     clearButtons(): void;
     clearActions(): void;
-    label(name: string, text?: string): import('../label/Label');
+    label(name: string, text?: string): import("../label/Label");
     interaction(
         name: string,
         func: (this: Process) => any,
@@ -131,7 +131,7 @@ declare class Process {
         opt_params?: any[],
         opt_processKey?: number,
         opt_processId?: number,
-        opt_newTab?: boolean
+        opt_newTab?: boolean,
     ): void;
     private clearNextInteractionInfo;
     private handleGridStateSynchronize_;
@@ -174,7 +174,7 @@ declare class Process {
         text: string,
         options?: {
             successMessage?: string;
-        }
+        },
     ): void;
     title: string;
     getFileId(filePathOrVfsKey: any, displayFileName: any): string;
@@ -185,10 +185,10 @@ declare class Process {
     prompt(label: string, answers: any[][], options: PromptOptions, ...args: any[]): any;
     authenticateUser(label: string): number | null;
     confirm(msg: string, opt_noAsDefault?: boolean): boolean;
-    upload(options?: import('../file-loader/UploadOptions')): Promise;
+    upload(options?: import("../file-loader/UploadOptions")): Promise;
     download(
         files: string | number | DBKey | Array<string | number | DBKey>,
-        options?: DownloadOptions | Record<any, any>
+        options?: DownloadOptions | Record<any, any>,
     ): void;
     status: string;
     clearHistory(): void;
@@ -222,47 +222,47 @@ declare class Process {
 }
 declare namespace Process {
     export {
-        getProcessDisplayName as getProcessTitle,
-        getSourceAndInclude,
-        create,
-        manager,
         Button,
-        Grid,
-        Link,
-        GridField,
-        UploadedFile,
-        Label,
-        SyncCommand,
-        PromptOptions,
-        TypedCommand,
-        SyncProcessRequest,
         ClickButtonRequest,
         ClickLinkRequest,
+        create,
+        getProcessDisplayName as getProcessTitle,
+        getSourceAndInclude,
+        Grid,
+        GridButtonsSyncCommand,
+        GridClientState,
+        GridField,
+        Label,
+        Link,
+        manager,
+        NamedSyncCommand,
         NavigateRequest,
         NavigateResponse,
-        GridClientState,
-        NamedSyncCommand,
-        GridButtonsSyncCommand,
+        PromptOptions,
+        SyncCommand,
+        SyncProcessRequest,
+        TypedCommand,
+        UploadedFile,
     };
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
-import Environment = require('../environment/Environment.js');
-import Interaction = require('./Interaction.js');
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
-import SimpleLayout = require('../simple-layout/SimpleLayout.js');
-import Promise = require('../promise/Promise.js');
-import DownloadOptions = require('../file-loader/DownloadOptions.js');
-import getProcessDisplayName = require('./getProcessDisplayName.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
+import Environment = require("../environment/Environment.js");
+import Interaction = require("./Interaction.js");
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
+import SimpleLayout = require("../simple-layout/SimpleLayout.js");
+import Promise = require("../promise/Promise.js");
+import DownloadOptions = require("../file-loader/DownloadOptions.js");
+import getProcessDisplayName = require("./getProcessDisplayName.js");
 declare function getSourceAndInclude(key: number): any[];
 declare function create(keyOrUrl: any, sourceClassKey: any): Process;
-declare let manager: import('./ProcessManager');
-type Button = import('../button/Button');
-type Grid = import('../grid/Grid');
-type Link = import('../anchor/Link');
-type GridField = import('../grid/GridField');
-type UploadedFile = import('../file-loader/UploadedFile');
-type Label = import('../label/Label.js');
-type SyncCommand = import('./ProcessManager.js').SyncCommand;
+declare let manager: import("./ProcessManager");
+type Button = import("../button/Button");
+type Grid = import("../grid/Grid");
+type Link = import("../anchor/Link");
+type GridField = import("../grid/GridField");
+type UploadedFile = import("../file-loader/UploadedFile");
+type Label = import("../label/Label.js");
+type SyncCommand = import("./ProcessManager.js").SyncCommand;
 interface PromptOptions {
     defaultIndex?: number;
     cancelReturnValue?: any;

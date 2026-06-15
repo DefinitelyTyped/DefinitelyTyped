@@ -12,4 +12,4 @@ declare class GridLocateEvent {
 declare namespace GridLocateEvent {
     export { GridField };
 }
-type GridField = import('../grid/GridField');
+type GridField = import("../grid/GridField");

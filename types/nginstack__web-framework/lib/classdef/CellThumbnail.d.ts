@@ -18,4 +18,4 @@ declare class CellThumbnail {
     clone(): CellThumbnail;
     getImages(key: number | null): string[];
 }
-import Adapter = require('@nginstack/engine/lib/event/Adapter.js');
+import Adapter = require("@nginstack/engine/lib/event/Adapter.js");

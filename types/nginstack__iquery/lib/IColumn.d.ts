@@ -38,7 +38,7 @@ declare class IColumn {
 declare namespace IColumn {
     export { ColumnConfig };
 }
-import IClauseSelect = require('./IClauseSelect.js');
+import IClauseSelect = require("./IClauseSelect.js");
 interface ColumnConfig {
     alias: string;
     cast: string;

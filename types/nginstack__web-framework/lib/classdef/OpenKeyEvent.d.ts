@@ -10,4 +10,4 @@ declare class OpenKeyEvent {
 declare namespace OpenKeyEvent {
     export { Process };
 }
-type Process = import('../process/Process');
+type Process = import("../process/Process");

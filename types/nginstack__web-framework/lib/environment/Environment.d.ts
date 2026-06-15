@@ -7,7 +7,7 @@ declare class Environment {
     prompt(
         label: string,
         answers: any[][],
-        options: import('../process/Process.js').PromptOptions
+        options: import("../process/Process.js").PromptOptions,
     ): any;
     confirm(message: string, noAsDefault?: boolean): boolean;
     alert(message: string): void;
