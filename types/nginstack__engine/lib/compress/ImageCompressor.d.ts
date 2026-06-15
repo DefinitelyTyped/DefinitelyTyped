@@ -5,6 +5,9 @@ declare function ImageCompressor(
 ): void;
 declare class ImageCompressor {
     constructor(encoder: string, options?: PngOptions | JpegOptions | WebpOptions | AvifOptions);
+    encoder: 'png' | 'jpeg' | 'mozjpeg' | 'webp' | 'avif';
+    fileExtension: '.png' | '.jpeg' | '.webp' | '.avif';
+    mimeType: 'image/png' | 'image/jpeg' | 'image/webp' | 'image/avif';
     compressBytes(content: Uint8Array | ArrayBuffer): Uint8Array;
     compressFile(inputPath: string, outputPath: string): void;
 }

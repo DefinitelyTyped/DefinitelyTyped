@@ -7,7 +7,7 @@ declare class DataSet {
     create(tableName?: string): void;
     reload(): void;
     append(
-        dataSet?: DataSet | any[],
+        values?: any[] | DataSet,
         updatePreexistingKey?: boolean,
         insertEvenPreexistingKey?: boolean
     ): void;

@@ -7,3 +7,4 @@ export let MAX_VFS_PATH_LENGTH: number;
 export let MAX_COLUMNS_PER_TABLE: number;
 export let MAX_COLUMNS_PER_INDEX: number;
 export let MAX_CLOB_SIZE: number;
+export let MAX_SQL_STATEMENT_SIZE: number;

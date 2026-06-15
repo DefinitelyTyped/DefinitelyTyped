@@ -30,7 +30,6 @@ declare class ModelDef {
     memoDbType: string;
     metaClass: number;
     occurrenceLimit: number;
-    transactionLogMaxDays: number;
     versionFieldName: string;
     displayName: string;
     displayOrder: number;

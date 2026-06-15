@@ -6,6 +6,7 @@ declare class ImageCompressorProfile {
     private mimeTypes_;
     private profileKey_;
     profileKey: number;
+    supportedMimeTypes: number[];
     private findRuleForMimeType_;
     getCompressor(mimeType: number | string): ImageCompressor | null;
     getCompressorFromFile(filePath: string): ImageCompressor | null;
