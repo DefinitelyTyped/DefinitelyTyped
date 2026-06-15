@@ -3,24 +3,24 @@ declare function Link(
     name: string,
     target: string | ((arg0: any) => any),
     processKey?: number,
-    newTab?: boolean,
+    newTab?: boolean
 ): void;
 declare class Link {
     constructor(
         name: string,
         target: string | ((arg0: any) => any),
         processKey?: number,
-        newTab?: boolean,
+        newTab?: boolean
     );
     private syncCommands_;
-    name_: string;
-    escapedName_: string;
+    private name_;
+    private escapedName_;
     layout: LayoutConfig;
     onClick: Adapter;
-    private parameters;
+    parameters: any[];
     params: Record<string, string | number | boolean | Date>;
     enabled: boolean;
-    parametersStorage_: ParametersStorage;
+    private parametersStorage_;
     private paramsFieldNames_;
     private logger_;
     private changed_;
@@ -71,12 +71,11 @@ declare class Link {
     private toString;
 }
 declare namespace Link {
-    export { Column, createProcess, Process };
+    export { createProcess, Column, Process };
 }
-import LayoutConfig = require("../process/LayoutConfig.js");
-import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
-import ParametersStorage = require("./ParametersStorage.js");
-import Field = require("@nginstack/engine/lib/classdef/Field.js");
+import LayoutConfig = require('../process/LayoutConfig.js');
+import Adapter = require('@nginstack/engine/lib/event/Adapter.js');
+import Field = require('@nginstack/engine/lib/classdef/Field.js');
 declare let createProcess: any;
-type Column = import("../simple-layout/Column.js");
-type Process = import("../process/Process.js");
+type Column = import('../simple-layout/Column.js');
+type Process = import('../process/Process.js');

@@ -38,7 +38,7 @@ declare class GridField {
     dsTreeStructure: DataSet;
     private _checkInformedFields;
     private validateClassFieldChange_;
-    validateInput: any;
+    validateInput: (value: string | number | boolean | Date) => any;
     protected _checkSaveInputAsDefault(context: {
         processKey: number;
         interactionName: string;
@@ -76,11 +76,17 @@ declare class GridField {
     private width_;
 }
 declare namespace GridField {
-    export { DetailGrid, FieldClientStructure, FieldIndexData, FieldInitialState, LookupMultipleInsertEvent };
+    export {
+        LookupMultipleInsertEvent,
+        DetailGrid,
+        FieldInitialState,
+        FieldClientStructure,
+        FieldIndexData,
+    };
 }
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-type LookupMultipleInsertEvent = import("../classdef/LookupMultipleInsertEvent");
-type DetailGrid = import("./DetailGrid");
+import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+type LookupMultipleInsertEvent = import('../classdef/LookupMultipleInsertEvent');
+type DetailGrid = import('./DetailGrid');
 interface FieldInitialState {
     column: number;
     group: any;
@@ -131,6 +137,8 @@ interface FieldInitialState {
     caseType?: string;
     width: number | string;
     tableViewWidth: number | string;
+    lookupDisplayWidth: number | string;
+    showLookupClass: boolean;
     height?: string;
     rows?: number;
     negativeInRed?: boolean;

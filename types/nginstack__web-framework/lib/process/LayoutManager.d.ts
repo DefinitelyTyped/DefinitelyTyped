@@ -6,7 +6,7 @@ declare class LayoutManager {
     private started_;
     private colStarted_;
     private rowStarted_;
-    currentRow_: number;
+    private currentRow_;
     private lastColumn_;
     enabled: boolean;
     begin(): void;
@@ -19,4 +19,4 @@ declare namespace LayoutManager {
 interface LayoutComponent {
     layout?: LayoutConfig;
 }
-import LayoutConfig = require("./LayoutConfig.js");
+import LayoutConfig = require('./LayoutConfig.js');
