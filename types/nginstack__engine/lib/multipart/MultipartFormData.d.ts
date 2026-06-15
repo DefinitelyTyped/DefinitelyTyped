@@ -10,8 +10,8 @@ declare class MultipartFormData {
     );
     private reader_;
     private options_;
-    values: any;
-    files: any;
+    values: Record<string, string>;
+    files: Record<string, MultipartFormFile>;
     private filesDirName_;
     private totalSize_;
     private logger_;
@@ -24,4 +24,5 @@ declare namespace MultipartFormData {
     export { MultipartFormDataReader };
 }
 import MultipartFormDataOptions = require('./MultipartFormDataOptions.js');
+import MultipartFormFile = require('./MultipartFormFile.js');
 type MultipartFormDataReader = import('./MultipartFormDataReader');

@@ -31,4 +31,6 @@ interface XHRConfig {
     passphrase?: string;
     ignoreSslErrors?: boolean;
     proxy?: string;
+    forceHttp1?: boolean;
+    useNativeTls?: boolean;
 }

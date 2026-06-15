@@ -16,7 +16,6 @@ declare class FileStorage {
     private hasMain_;
     private imageAutoCompress_;
     private imageCompressionProfile_;
-    private mimeTypes_;
     private dataRel_;
     private fileInfos_;
     private fileFieldName_;
@@ -35,7 +34,6 @@ declare class FileStorage {
     imageCompressionProfile: number;
     private getImageCompressorProfile_;
     private compressIfImage_;
-    private findFileExtension_;
     private fixUniqueFileNameCollision_;
     private changeUniqueFileNameExtension_;
     private tryGetFileInfo_;
@@ -84,6 +82,6 @@ type DBKey = import('../dbkey/DBKey');
 type DataSet = import('../dataset/DataSet');
 interface ImageCompressionResult {
     content: string | File | MemoryStream;
-    contentType: string;
+    fileExtension: string;
     compressionProfile: number | null;
 }

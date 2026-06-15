@@ -4,11 +4,8 @@ declare class DatabaseSchema {
     constructor(database?: Database);
     private database_;
     private dbType_;
-    private timestampRegExp_;
-    private timestampZoneRegExp_;
     private logger_;
     database: Database;
-    private nativeTypeToDataType_;
     private formatColumnDataTypeDef_;
     private formatColumnDef_;
     private formatTableNamesFilter_;
