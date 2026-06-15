@@ -546,7 +546,7 @@ declare module "node:url" {
         prototype: URLSearchParams;
         new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
     };
-    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, BuiltinIteratorReturn, unknown> {
         [Symbol.iterator](): URLSearchParamsIterator<T>;
     }
     // #endregion

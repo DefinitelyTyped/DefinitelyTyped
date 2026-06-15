@@ -184,7 +184,7 @@ declare module "node:stream/web" {
         new<R = any>(underlyingSource?: UnderlyingSource<R>, strategy?: QueuingStrategy<R>): ReadableStream<R>;
         from<R = any>(iterable: Iterable<R> | AsyncIterable<R>): ReadableStream<R>;
     };
-    interface ReadableStreamAsyncIterator<T> extends NodeJS.AsyncIterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+    interface ReadableStreamAsyncIterator<T> extends NodeJS.AsyncIterator<T, BuiltinIteratorReturn, unknown> {
         [Symbol.asyncIterator](): ReadableStreamAsyncIterator<T>;
     }
     interface ReadableStreamBYOBReader extends ReadableStreamGenericReader {
