@@ -71,7 +71,6 @@ database.uniqueId; // $ExpectType string
 database.date; // $ExpectType Date
 database.userKey; // $ExpectType number
 database.userName; // $ExpectType string
-database.userLanguage; // $ExpectType number
 database.workloadType; // $ExpectType string
 database.trackingId; // $ExpectType string
 database.referrer; // $ExpectType string
@@ -89,6 +88,6 @@ database.userHasScope(456, 'scope'); // $ExpectType boolean
 database.logout(); // $ExpectType void
 
 function getVersion(): string {
-    return '81.0.1';
+    return '86.0.1';
 }
 getVersion(); // $ExpectType string

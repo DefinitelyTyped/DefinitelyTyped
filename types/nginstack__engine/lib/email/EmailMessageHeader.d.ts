@@ -2,11 +2,11 @@ export = EmailMessageHeader;
 declare function EmailMessageHeader(): void;
 declare class EmailMessageHeader {
     from: string;
-    to: any[];
-    cc: any[];
+    to: string[];
+    cc: string[];
     subject: string;
     organization: string;
-    customHeaders: any;
+    customHeaders: Record<string, string>;
     date: Date;
     xMailer: string;
     replyTo: string;

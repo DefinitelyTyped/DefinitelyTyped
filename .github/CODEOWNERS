@@ -281,7 +281,7 @@
 /types/append-query/                                    @ffflorian
 /types/appframework/                                    @kyo-ago
 /types/appgeist__ensure-dir/                            @ChocolateLoverRaj
-/types/apple-mapkit/                                    @timdream @n1kk
+/types/apple-mapkit/                                    @timdream @eschgr
 /types/apple-mapkit-js-browser/                         @kilghaz @wsmd @chrisdrackett @moritzsternemann @vinayakkulkarni
 /types/apple-music-api/                                 @nchase @useffc
 /types/apple-signin-api/                                @voidpumpkin @koenpunt
@@ -1510,7 +1510,7 @@
 /types/dirty-chai/                                      @dex4er
 /types/discontinuous-range/                             @OiCMudkips
 /types/discord-rich-presence/                           @Sv443
-/types/discord-rpc/                                     @dylhack @k3rn31p4nic @HanchaiN
+/types/discord-rpc/                                     @brandonbothell @dylhack @k3rn31p4nic @HanchaiN
 /types/discourse-sso/                                   @championswimmer
 /types/diskspace/                                       @swedesjs
 /types/disposable-email/                                @ziishaned
@@ -1849,13 +1849,18 @@
 /types/eseb__request-state/                             @inglec-arista
 /types/eslint-ast-utils/                                @marksmccann
 /types/eslint-config-prettier/                          @JoshuaKGoldberg
+/types/eslint-plugin-github/                            @Simbiat
 /types/eslint-plugin-jsx-a11y/                          @eagerestwolf @ljharb
 /types/eslint-plugin-markdown/                          @JounQin
 /types/eslint-plugin-mobx/                              @MysteryBlokHed
+/types/eslint-plugin-no-constructor-bind/               @Simbiat
+/types/eslint-plugin-no-unsanitized/                    @Simbiat
+/types/eslint-plugin-pii/                               @Simbiat
 /types/eslint-plugin-prettier/                          @ikatyang @JounQin
 /types/eslint-plugin-promise/                           @JoshuaKGoldberg
 /types/eslint-plugin-security/                          @rhysd @porada
 /types/eslint-plugin-tailwindcss/                       @eagerestwolf
+/types/eslint-plugin-xss/                               @Simbiat
 /types/eslint-utils/                                    @JoshuaKGoldberg
 /types/esm/                                             @Richienb
 /types/esprima/                                         @teppeis @RReverser @peter-scott
@@ -3381,8 +3386,8 @@
 /types/inline-style-prefixer/                           @ahz @dpetrezselyova @franklixuefei
 /types/input-moment/                                    @timia2109
 /types/inputmask/                                       @dmester
-/types/inquirer/                                        @tkQubo @ppathan @jouderianjr @bang88 @bitjson @synarque @jrockwood @kwkelly @chigix
-/types/inquirer/v8/                                     @tkQubo @ppathan @jouderianjr @bang88 @bitjson @synarque @jrockwood @kwkelly @chigix
+/types/inquirer/                                        @tkQubo @ppathan @jouderianjr @bang88 @bitjson @jrockwood @kwkelly @chigix
+/types/inquirer/v8/                                     @tkQubo @ppathan @jouderianjr @bang88 @bitjson @jrockwood @kwkelly @chigix
 /types/inquirer-autocomplete-prompt/                    @jayeeson
 /types/inquirer-autocomplete-prompt/v2/                 @jayeeson
 /types/inquirer-fuzzy-path/                             @MaikoTan
@@ -4842,7 +4847,7 @@
 /types/micro-events/                                    @AlexanderSychev
 /types/micromatch/                                      @vemoo
 /types/micromatch/v2/                                   @glen-84
-/types/micromodal/                                      @wcarson
+/types/micromodal/                                      @wcarson @andersk
 /types/microrouter/                                     @mathieudutour
 /types/microseconds/                                    @iRoachie
 /types/microservice-utilities/                          @runebaas
@@ -5234,7 +5239,7 @@
 /types/node-steam-openid/                               @joshuajeschek
 /types/node-summary/                                    @manuzcheruz
 /types/node-targz/                                      @junlarsen
-/types/node-telegram-bot-api/                           @ammuench @agadar @Dabolus @XC-Zhang @adityathebe @XieJiSS @toniop99 @konstantin24121
+/types/node-telegram-bot-api/                           @ammuench @agadar @Dabolus @XC-Zhang @adityathebe @XieJiSS @konstantin24121
 /types/node-tlv/                                        @David-Tennant
 /types/node-turn/                                       @garzj
 /types/node-unifi/                                      @hkleungai
@@ -7001,6 +7006,7 @@
 /types/safe-regex/                                      @ImRodry
 /types/safe-timers/                                     @ksocha
 /types/safer-buffer/                                    @ffflorian
+/types/safie-sdk/                                       @SafieDev
 /types/sails.io.js/                                     @arvitaly
 /types/sailthru-client/                                 @smolnikov
 /types/salesforce__canvas-js-sdk/                       @zms-dev
@@ -7722,7 +7728,6 @@
 /types/tapable/                                         @e-cloud @johnnyreilly
 /types/tapable/v0/                                      @e-cloud
 /types/tapable/v1/                                      @e-cloud @johnnyreilly
-/types/tape/                                            @Bartvds @sodatea @DennisSchwartz @mikehenrty @rostrowski @ljharb
 /types/tape-async/                                      @ExE-Boss
 /types/tape-catch/                                      @ExE-Boss
 /types/tape-promise/                                    @ExE-Boss @ljharb
@@ -7938,6 +7943,7 @@
 /types/tryghost__admin-api/                             @josejj10
 /types/tryghost__content-api/                           @knguyen0125 @antonve @maveric1977
 /types/ts-nameof/                                       @dsherret
+/types/tsl-textures/                                    @HannahLilyW @boytchev
 /types/tspromise/                                       @soywiz
 /types/tsqlstring/                                      @srencat
 /types/tsscmp/                                          @g-rath

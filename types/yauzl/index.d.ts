@@ -128,6 +128,18 @@ export class ZipFile extends EventEmitter {
         uncompressedSize: number | null,
         callback: (err: Error | null, stream: Readable) => void,
     ): void;
+    openReadStreamPromise(entry: Entry, options?: ZipFileOptions): Promise<Readable>;
+    readLocalFileHeaderPromise(entry: Entry, options: { minimal: true }): Promise<{ fileDataStart: number }>;
+    readLocalFileHeaderPromise(entry: Entry, options?: { minimal?: boolean }): Promise<LocalFileHeader>;
+    openReadStreamLowLevelPromise(
+        fileDataStart: number,
+        compressedSize: number,
+        relativeStart: number,
+        relativeEnd: number,
+        decompress: boolean,
+        uncompressedSize: number | null,
+    ): Promise<Readable>;
+    eachEntry(): AsyncIterableIterator<Entry>;
     close(): void;
     readEntry(): void;
 }
@@ -161,6 +173,14 @@ export function fromRandomAccessReader(
     totalSize: number,
     callback: (err: Error | null, zipfile: ZipFile) => void,
 ): void;
+export function openPromise(path: string, options?: Options): Promise<ZipFile>;
+export function fromFdPromise(fd: number, options?: Options): Promise<ZipFile>;
+export function fromBufferPromise(buffer: Buffer, options?: Options): Promise<ZipFile>;
+export function fromRandomAccessReaderPromise(
+    reader: RandomAccessReader,
+    totalSize: number,
+    options?: Options,
+): Promise<ZipFile>;
 /** @deprecated Use `entry.getLastModDate()` instead. */
 export function dosDateTimeToDate(date: number, time: number): Date;
 export function validateFileName(fileName: string): string | null;

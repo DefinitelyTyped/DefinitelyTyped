@@ -4,7 +4,6 @@ declare class FileLoader {
     private lobStorage_;
     private virtualFS_;
     private unionFS_;
-    private mimeTypes_;
     private logger_;
     private basePath_;
     private fileLifetime_;
@@ -19,7 +18,6 @@ declare class FileLoader {
     private openManifest_;
     private saveManifest_;
     private createUID_;
-    private changeFileExtension_;
     authorizeUpload(options: UploadOptions | Record<any, any>): string;
     handleUploadRequest(uploadId: string, request: Request): FileInfoUpload[];
     deleteUploadedFile(uploadId: string, fileId: string): boolean;
