@@ -629,3 +629,17 @@ DateTime.fromISO("2021-09-13T07:52:27.697Z").toLocaleString({
     hour: "2-digit",
     day: "2-digit",
 });
+
+// Type Guard check
+function isValidDateTime(dt: DateTime): dt is DateTime<true> {
+    return dt.isValid;
+}
+
+function typeGuardCheck(dt: DateTime): void {
+    if (isValidDateTime(dt)) {
+        dt // $ExpectType DateTime<true>
+        return;
+    }
+
+    dt // $ExpectType DateTime<boolean>
+}
