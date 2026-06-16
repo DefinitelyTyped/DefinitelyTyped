@@ -1101,9 +1101,7 @@ declare namespace google.payments.api {
          * transaction.
          *
          * You are required to show this message to the buyer as confirmation of
-         * their funding source. Please refer to the
-         * [documentation](https://developers.google.com/pay/api/|documentation)
-         * for more information.
+         * their funding source.
          *
          * **IMPORTANT:** Do not attempt to parse the contents of this string as
          * the format, contents, and length may change at any time. If you need
