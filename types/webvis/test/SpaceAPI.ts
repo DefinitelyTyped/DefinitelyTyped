@@ -4,9 +4,9 @@ function test(testContext: webvis.ContextAPI): void {
 
     const cloneSpacePromise: Promise<void> = testContext.cloneIntoNewSpace();
 
-    const spaceHandle: Promise<string> = testContext.requestSpaceHandle(webvis.MemberRole.OWNER);
+    const spaceHandle: Promise<webvis.SpaceHandle> = testContext.requestSpaceHandle(webvis.MemberRole.OWNER);
 
-    testContext.registerListener([webvis.EventType.SPACE_OPENED], (event: webvis.SpaceOpenedEvent) => {
-        console.log("Space opened");
+    testContext.registerListener([webvis.EventType.SPACE_CHANGED], (event: webvis.SpaceChangedEvent) => {
+        console.log("Space changed", event.spaceId);
     });
 }
