@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.120 Extension API
+ * Type Definition for Visual Studio Code 1.125 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -4900,13 +4900,13 @@ declare module 'vscode' {
 		 */
 		Color = 15,
 		/**
-		 * The `Reference` completion item kind.
-		 */
-		Reference = 17,
-		/**
 		 * The `File` completion item kind.
 		 */
 		File = 16,
+		/**
+		 * The `Reference` completion item kind.
+		 */
+		Reference = 17,
 		/**
 		 * The `Folder` completion item kind.
 		 */
