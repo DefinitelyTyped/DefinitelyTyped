@@ -72,6 +72,7 @@ const secureFormsLangOptionsError = {
 };
 
 // Init SDK
+// $ExpectType PayU
 const payu = PayU("POS_ID");
 PayU("POS_ID", { dev: true });
 // @ts-expect-error
@@ -82,20 +83,25 @@ PayU(123);
 PayU("POS_ID", { dev: "on" });
 
 // SDK functions
+// $ExpectType string
 payu.extractRefReqId("URL_WITH_REF_REQ_ID");
 // @ts-expect-error
 payu.extractRefReqId();
 
+// $ExpectType Promise<SendCvvResultSuccess | SendCvvResultError>
 payu.sendCvv("REF_REQ_ID");
 // @ts-expect-error
 payu.sendCvv();
 
+// $ExpectType Promise<TokenizeResultSuccess | TokenizeResultError>
 payu.tokenize();
+// $ExpectType Promise<TokenizeResultSuccess | TokenizeResultError>
 payu.tokenize("SINGLE");
 // @ts-expect-error
 payu.tokenize("UNKNOWN");
 
 // Init Secure Forms
+// $ExpectType SecureForms
 const secureForms = payu.secureForms();
 payu.secureForms(secureFormsOptions);
 // @ts-expect-error
@@ -106,7 +112,9 @@ payu.secureForms(secureFormsFontOptionsError);
 payu.secureForms(secureFormsLangOptionsError);
 
 // Add Secure Forms
+// $ExpectType SecureForm
 const secureForm = secureForms.add();
+// $ExpectType SecureForm
 secureForms.add("number");
 // @ts-expect-error
 secureForms.add("UNKNOWN");
@@ -174,6 +182,7 @@ const secureElementsInitOptions: payu.SecureElementsInitializationOptions = {
 };
 
 // Init SecureElements
+// $ExpectType SecureElements
 const secureElements = SecureElements({ dev: false });
 SecureElements({ dev: true });
 // @ts-expect-error
@@ -182,8 +191,11 @@ SecureElements();
 SecureElements({ dev: "yes" });
 
 // SecureElements instance methods
+// $ExpectType SecureElements
 secureElements.render("#container", secureElementsInitOptions);
+// $ExpectType SecureElements
 secureElements.update(secureElementsCustomization);
+// $ExpectType SecureElements
 secureElements.on("change", (msg: string) => {});
 secureElements.render("#container", secureElementsInitOptions).update(secureElementsCustomization).on("change", (msg: string) => {});
 
