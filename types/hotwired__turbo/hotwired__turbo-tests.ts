@@ -151,6 +151,13 @@ document.addEventListener("turbo:submit-end", function(event) {
     }
 });
 
+document.addEventListener("turbo:before-morph-attribute", function(event) {
+    // $ExpectType string
+    event.detail.attributeName;
+    // $ExpectType "update" | "remove"
+    event.detail.mutationType;
+});
+
 // Test start() function
 start();
 

@@ -520,7 +520,7 @@ export type TurboMorphElementEvent = CustomEvent<{
 
 export type TurboBeforeMorphAttributeEvent = CustomEvent<{
     attributeName: string;
-    mutationType: "updated" | "removed";
+    mutationType: "update" | "remove";
 }>;
 
 export type TurboBeforeFrameMorphEvent = CustomEvent<{
