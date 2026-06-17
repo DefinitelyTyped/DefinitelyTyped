@@ -8399,6 +8399,10 @@
             "libraryName": "@wordpress/rich-text",
             "asOfVersion": "6.10.0"
         },
+        "wordpress__server-side-render": {
+            "libraryName": "@wordpress/server-side-render",
+            "asOfVersion": "6.24.1"
+        },
         "wordpress__shortcode": {
             "libraryName": "@wordpress/shortcode",
             "asOfVersion": "4.14.0"
