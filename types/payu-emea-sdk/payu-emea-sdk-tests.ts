@@ -197,7 +197,10 @@ secureElements.render("#container", secureElementsInitOptions);
 secureElements.update(secureElementsCustomization);
 // $ExpectType SecureElements
 secureElements.on("change", (msg: string) => {});
-secureElements.render("#container", secureElementsInitOptions).update(secureElementsCustomization).on("change", (msg: string) => {});
+secureElements.render("#container", secureElementsInitOptions).update(secureElementsCustomization).on(
+    "change",
+    (msg: string) => {},
+);
 
 // @ts-expect-error
 secureElements.render();

@@ -109,8 +109,12 @@ declare namespace payu {
         outlineOffset?: string | undefined;
     }
 
-    interface BaseButtonStyle extends PaddingAware, MarginAware, BorderAware, FontsAware, BackgroundAware, ShadowAware, OutlineAware {}
-    interface BaseInputStyle extends PaddingAware, MarginAware, BorderAware, FontsAware, BackgroundAware, OutlineAware {}
+    interface BaseButtonStyle
+        extends PaddingAware, MarginAware, BorderAware, FontsAware, BackgroundAware, ShadowAware, OutlineAware
+    {}
+    interface BaseInputStyle
+        extends PaddingAware, MarginAware, BorderAware, FontsAware, BackgroundAware, OutlineAware
+    {}
     interface BaseRadioStyle extends PaddingAware, MarginAware, FontsAware, OutlineAware {
         iconColor?: string | undefined;
     }
@@ -118,7 +122,9 @@ declare namespace payu {
         iconColor?: string | undefined;
     }
     interface BaseTypographyStyle extends PaddingAware, MarginAware, FontsAware, BorderAware, OutlineAware {}
-    interface BaseSelectStyle extends PaddingAware, MarginAware, BorderAware, FontsAware, BackgroundAware, OutlineAware {
+    interface BaseSelectStyle
+        extends PaddingAware, MarginAware, BorderAware, FontsAware, BackgroundAware, OutlineAware
+    {
         iconColor?: string | undefined;
     }
 
