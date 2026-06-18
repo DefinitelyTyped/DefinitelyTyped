@@ -8,6 +8,7 @@ import {
     CreateTradeSignatureRequestExchange,
     CreateTradeSignatureRequestSell,
     CryptoId,
+    DomainEntity,
     ExchangeProviderInfo,
     ExchangeTrade,
     ExchangeTradeQuoteRequest,
@@ -18,6 +19,7 @@ import {
     SellFiatTradeSigned,
     SellListResponse,
     SellProviderInfo,
+    WatchExchangeTradeResponse,
     WatchSellTradeResponse,
 } from "invity-api";
 
@@ -47,6 +49,17 @@ const et: ExchangeTrade = {
         data: {},
     },
     status: "SIGN_DATA",
+    error: "Invalid currency: unknowncoin not found",
+    errorDetails: {
+        origin: "partner",
+        externalCode: "-32602",
+        message: "Invalid currency: unknowncoin not found",
+        code: "invalid_pair",
+        pair: {
+            send: "unknowncoin",
+            receive: "ethereum",
+        },
+    },
 };
 
 const ets: ExchangeTradeSigned = {
@@ -71,6 +84,16 @@ const sfts: SellFiatTradeSigned = {
 
 const wstr: WatchSellTradeResponse = {
     cryptoStringAmount: "",
+};
+
+const wetrErr: WatchExchangeTradeResponse = {
+    error: "Invalid method",
+    errorDetails: {
+        origin: "partner",
+        externalCode: "-32601",
+        message: "Invalid method",
+        code: "unknown",
+    },
 };
 
 const providerInfo: BuyProviderInfo = {
@@ -287,3 +310,5 @@ const sellListResponse: SellListResponse = {
 const buyPaymentMethod: BuyCryptoPaymentMethod = "blik";
 
 const sellPaymentMethod: SellCryptoPaymentMethod = "pix";
+
+const entity: DomainEntity = "partner";
