@@ -192,6 +192,9 @@ Process.mainModule;
 // $ExpectType string | null
 Process.mainModule.version;
 
+// $ExpectType MemoryRange
+Process.getFunctionRange(Process.mainModule.base);
+
 // $ExpectType MemoryRange | null
 Process.findFunctionRange(Process.mainModule.base);
 
@@ -450,6 +453,12 @@ Stalker.invalidate(Process.getCurrentThreadId(), basicBlockStartAddress);
 
 // $ExpectType boolean
 Cloak.hasCurrentThread();
+
+// $ExpectType ThreadDetails
+Process.getThreadById(Process.getCurrentThreadId());
+
+// $ExpectType ThreadDetails | null
+Process.findThreadById(Process.getCurrentThreadId());
 
 Process.enumerateThreads().forEach(t => {
     t.setHardwareBreakpoint(0, puts);
