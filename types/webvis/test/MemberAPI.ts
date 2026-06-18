@@ -27,10 +27,6 @@ function test(testContext: webvis.ContextAPI): void {
         console.log("MemberAction removed", event.memberId, event.memberAction);
     });
 
-    testContext.registerListener([webvis.EventType.MEMBER_ACTION_USED], (event: webvis.MemberActionUsedEvent) => {
-        console.log("MemberAction used", event.sourceMemberId, event.targetMemberId, event.memberAction, event.details);
-    });
-
     testContext.registerListener([webvis.EventType.MEMBER_CREATED], (event: webvis.MemberCreatedEvent) => {
         console.log("Member created", event.memberId, event.memberProperties);
     });
