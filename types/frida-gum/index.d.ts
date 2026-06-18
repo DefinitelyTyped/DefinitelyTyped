@@ -367,6 +367,23 @@ declare namespace Process {
     function getCurrentThreadId(): ThreadId;
 
     /**
+     * Looks up a single thread by its ID, throwing an exception if it cannot be
+     * found. Unlike `enumerateThreads()`, cloaked threads are not hidden: an
+     * explicit lookup by ID always returns the thread if it exists.
+     *
+     * @param id ID of the thread to find.
+     */
+    function getThreadById(id: ThreadId): ThreadDetails;
+
+    /**
+     * Like `getThreadById()`, but returns null instead of throwing if the
+     * thread cannot be found.
+     *
+     * @param id ID of the thread to find.
+     */
+    function findThreadById(id: ThreadId): ThreadDetails | null;
+
+    /**
      * Enumerates all threads.
      */
     function enumerateThreads(): ThreadDetails[];
@@ -395,24 +412,24 @@ declare namespace Process {
     function runOnThread<T>(id: ThreadId, callback: () => T): Promise<T>;
 
     /**
-     * Looks up a module by address. Returns null if not found.
-     */
-    function findModuleByAddress(address: NativePointerValue): Module | null;
-
-    /**
      * Looks up a module by address. Throws an exception if not found.
      */
     function getModuleByAddress(address: NativePointerValue): Module;
 
     /**
-     * Looks up a module by name. Returns null if not found.
+     * Looks up a module by address. Returns null if not found.
      */
-    function findModuleByName(name: string): Module | null;
+    function findModuleByAddress(address: NativePointerValue): Module | null;
 
     /**
      * Looks up a module by name. Throws an exception if not found.
      */
     function getModuleByName(name: string): Module;
+
+    /**
+     * Looks up a module by name. Returns null if not found.
+     */
+    function findModuleByName(name: string): Module | null;
 
     /**
      * Enumerates modules loaded right now.
@@ -429,14 +446,14 @@ declare namespace Process {
     function attachModuleObserver(callbacks: ModuleObserverCallbacks): ModuleObserver;
 
     /**
-     * Looks up a memory range by address. Returns null if not found.
-     */
-    function findRangeByAddress(address: NativePointerValue): RangeDetails | null;
-
-    /**
      * Looks up a memory range by address. Throws an exception if not found.
      */
     function getRangeByAddress(address: NativePointerValue): RangeDetails;
+
+    /**
+     * Looks up a memory range by address. Returns null if not found.
+     */
+    function findRangeByAddress(address: NativePointerValue): RangeDetails | null;
 
     /**
      * Determines the code range of the function that `address` belongs to,
@@ -445,7 +462,13 @@ declare namespace Process {
      * per fragment; this returns the one covering `address`. Where no unwind
      * information is available — e.g. a leaf function, or a target lacking
      * unwind tables altogether — the containing symbol's bounds are used as a
-     * best-effort fallback. Returns null if neither yields a range.
+     * best-effort fallback. Throws an exception if neither yields a range.
+     */
+    function getFunctionRange(address: NativePointerValue): MemoryRange;
+
+    /**
+     * Like `getFunctionRange()`, but returns null instead of throwing if no
+     * range can be determined.
      */
     function findFunctionRange(address: NativePointerValue): MemoryRange | null;
 
