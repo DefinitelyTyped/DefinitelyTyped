@@ -545,6 +545,85 @@ export interface StripeCustomer {
 }
 
 /**
+ * Attributes shared by file resources
+ */
+export interface FileResourceAttributes {
+    filename?: string;
+    mimeType?: string;
+    size?: number;
+    contentType?: string;
+}
+
+/**
+ * A file owned by the current user
+ */
+export interface OwnFile {
+    id: UUID;
+    type: "ownFile";
+    attributes: FileResourceAttributes;
+}
+
+/**
+ * A file accessible to the current user (e.g. attached to a transaction)
+ */
+export interface File {
+    id: UUID;
+    type: "file";
+    attributes: FileResourceAttributes;
+}
+
+/**
+ * A presigned upload target returned by `sdk.fileUploads.create()`
+ */
+export interface FileUpload {
+    id: UUID;
+    type: "fileUpload";
+    attributes: {
+        url: string;
+        method: string;
+        headers: Record<string, string>;
+        contentType?: string;
+    };
+}
+
+/**
+ * A short-lived download URL for a file owned by the current user
+ */
+export interface OwnFileDownload {
+    id: UUID;
+    type: "ownFileDownload";
+    attributes: {
+        url: string;
+        method?: string;
+        headers?: Record<string, string>;
+        contentType?: string;
+    };
+}
+
+/**
+ * A short-lived download URL for a file accessible to the current user
+ */
+export interface FileDownload {
+    id: UUID;
+    type: "fileDownload";
+    attributes: {
+        url: string;
+        method?: string;
+        headers?: Record<string, string>;
+        contentType?: string;
+    };
+}
+
+/**
+ * File metadata extracted by `file.metadata()`, suitable for `sdk.ownFiles.create()`
+ */
+export interface FileMetadata {
+    name: string;
+    mimeType: string;
+    size: number;
+}
+
+/**
  * Common query parameters for GET requests
  */
 export interface BaseQueryParams {
@@ -1182,6 +1261,61 @@ export interface MarketplaceSdk {
         queryAssets: (params?: PaginationParams) => Promise<QueryResponse>;
     };
 
+    ownFiles: {
+        /**
+         * Register a file with the Marketplace API (first step of the upload flow)
+         */
+        create: (
+            params: { name: string; mimeType: string; size: number },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<OwnFile>>;
+        /**
+         * Show a file owned by the current user
+         */
+        show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<OwnFile>>;
+    };
+
+    files: {
+        /**
+         * Show a file accessible to the current user
+         */
+        show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<File>>;
+    };
+
+    fileUploads: {
+        /**
+         * Request a presigned upload URL for a registered file
+         */
+        create: (
+            params: { fileId: UUID | string },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileUpload>>;
+    };
+
+    ownFileDownloads: {
+        /**
+         * Request a short-lived download URL for a file owned by the current user
+         */
+        create: (
+            params: { fileId: UUID | string },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<OwnFileDownload>>;
+    };
+
+    fileDownloads: {
+        /**
+         * Request a short-lived download URL for a file accessible to the current user
+         */
+        create: (
+            params: { fileId: UUID | string },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileDownload>>;
+    };
+
     /**
      * Authentication methods
      */
@@ -1222,3 +1356,41 @@ export interface SdkConfig {
  * @returns Configured SDK instance
  */
 export function createInstance(config: SdkConfig): MarketplaceSdk;
+
+/**
+ * Query string utilities
+ */
+export namespace util {
+    /**
+     * Serialize an object into a Sharetribe query string fragment, e.g. `{ a: "foo", b: 150 }` => `"a:foo;b:150"`.
+     * Used for parameters such as `meta_*` query filters.
+     */
+    function objectQueryString(obj: Record<string, unknown>): string;
+    /**
+     * Serialize query parameters into a URL query string, handling Sharetribe types such as `UUID` and `LatLng`.
+     */
+    function queryString(params: Record<string, unknown>): string;
+}
+
+/**
+ * Helpers for the file upload flow
+ */
+export namespace file {
+    /**
+     * Extract the metadata needed for `sdk.ownFiles.create()` from a browser `File` object.
+     * @param file - A browser `File` object, e.g. from an `<input type="file">` element
+     */
+    function metadata(file: unknown): FileMetadata;
+    /**
+     * Upload a file directly to cloud storage using a presigned URL obtained from
+     * `sdk.fileUploads.create()`. This bypasses the SDK interceptor pipeline.
+     * @returns A promise that resolves when the upload is complete
+     */
+    function upload(params: {
+        url: string;
+        file: unknown;
+        method?: string;
+        headers?: Record<string, string>;
+        onUploadProgress?: (progressEvent: unknown) => void;
+    }): Promise<unknown>;
+}
