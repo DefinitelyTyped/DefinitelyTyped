@@ -286,7 +286,7 @@ export interface File {
     id: UUID;
     type: "file";
     attributes: FileAttributes;
-    relationships?: FileRelationships;
+    relationships: FileRelationships;
 }
 
 /**
@@ -825,10 +825,16 @@ export interface IntegrationSdk {
 
     messages: {
         /**
-         * Query transaction messages
+         * Query messages. Either `transactionId` or `ids` must be provided.
          */
         query: (
-            params?: { transactionId?: UUID | string } & PaginationParams & BaseQueryParams,
+            params:
+                & (
+                    | { transactionId: UUID | string; ids?: Array<UUID | string> }
+                    | { transactionId?: UUID | string; ids: Array<UUID | string> }
+                )
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Message>>;
     };
 
@@ -837,7 +843,16 @@ export interface IntegrationSdk {
          * Query files
          */
         query: (
-            params?: { transactionId?: UUID | string } & PaginationParams & BaseQueryParams,
+            params?:
+                & {
+                    ids?: Array<UUID | string>;
+                    messageId?: UUID | string;
+                    ownerId?: UUID | string;
+                    createdAtStart?: Date | string;
+                    createdAtEnd?: Date | string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<File>>;
     };
 
@@ -846,7 +861,14 @@ export interface IntegrationSdk {
          * Query file attachments
          */
         query: (
-            params?: { transactionId?: UUID | string } & PaginationParams & BaseQueryParams,
+            params?:
+                & {
+                    ids?: Array<UUID | string>;
+                    fileIds?: Array<UUID | string>;
+                    messageId?: UUID | string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<FileAttachment>>;
     };
 
