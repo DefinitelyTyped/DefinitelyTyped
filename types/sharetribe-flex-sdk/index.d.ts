@@ -545,12 +545,17 @@ export interface StripeCustomer {
 }
 
 /**
+ * Lifecycle state of a file resource
+ */
+export type FileState = "pendingUpload" | "pendingVerification" | "available" | "verificationFailed";
+
+/**
  * Attributes of a file owned by the current user
  */
 export interface OwnFileAttributes {
     name: string;
     size: number;
-    state: string;
+    state: FileState;
     createdAt: string;
     stateUpdatedAt: string;
 }
@@ -570,7 +575,7 @@ export interface OwnFile {
 export interface FileAttributes {
     name: string;
     size: number;
-    state: string;
+    state: FileState;
     deleted: boolean;
 }
 
