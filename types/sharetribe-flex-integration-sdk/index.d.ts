@@ -241,17 +241,42 @@ export interface Message {
 }
 
 /**
+ * Lifecycle state of a file resource
+ */
+export type FileState = "pendingUpload" | "pendingVerification" | "available" | "verificationFailed";
+
+/**
+ * A single automatic verification check performed on a file (e.g. `{ type: "malwareScan", result: "success" }`)
+ */
+export interface FileVerificationCheck {
+    type: string;
+    result: string;
+}
+
+/**
  * File attributes
  */
 export interface FileAttributes {
     name: string;
     size: number;
-    state: string;
-    verificationChecks: unknown[];
-    requiredVerificationChecks: unknown[];
+    state: FileState;
+    verificationChecks: FileVerificationCheck[];
+    requiredVerificationChecks: string[];
     createdAt: string;
     stateUpdatedAt: string;
     deleted: boolean;
+}
+
+/**
+ * File relationships
+ */
+export interface FileRelationships {
+    owner: {
+        data: ResourceReference;
+    };
+    marketplace: {
+        data: ResourceReference;
+    };
 }
 
 /**
@@ -261,16 +286,17 @@ export interface File {
     id: UUID;
     type: "file";
     attributes: FileAttributes;
+    relationships?: FileRelationships;
 }
 
 /**
- * File attachment relationships
+ * File attachment relationships. The `message` relationship is only present when the file is attached to a message.
  */
 export interface FileAttachmentRelationships {
     file: {
         data: ResourceReference;
     };
-    message: {
+    message?: {
         data: ResourceReference;
     };
 }
@@ -282,7 +308,7 @@ export interface FileAttachment {
     id: UUID;
     type: "fileAttachment";
     attributes: {
-        scope: string;
+        scope: "public";
         deleted: boolean;
     };
     relationships: FileAttachmentRelationships;
