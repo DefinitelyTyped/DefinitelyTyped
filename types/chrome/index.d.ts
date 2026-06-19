@@ -10155,7 +10155,7 @@ declare namespace chrome {
              * Can return its result via Promise in Manifest V3 or later since Chrome 95.
              */
             get<T = { [key: string]: unknown }>(
-                keys?: NoInfer<keyof T> | Array<NoInfer<keyof T>> | Partial<NoInfer<T>> | null,
+                keys?: NoInfer<keyof T> | Array<NoInfer<keyof T>> | Partial<NoInfer<T>> | null | undefined,
             ): Promise<T>;
             get<T = { [key: string]: unknown }>(callback: (items: T) => void): void;
             get<T = { [key: string]: unknown }>(
