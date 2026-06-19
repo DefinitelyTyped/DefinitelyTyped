@@ -110,5 +110,30 @@ sdk.stockAdjustments.create({
     const adjustmentId: string = response.data.data.id.uuid;
 });
 
+// Mark a user's email as verified (added in integration-sdk 1.12)
+sdk.users.verifyEmail({
+    id: "user-id",
+    email: "test@example.com",
+}).then((response) => {
+    const userId: string = response.data.data.id.uuid;
+});
+
+// Query transaction messages (added in integration-sdk 1.13)
+sdk.messages.query({ transactionId: "transaction-id" }).then((response) => {
+    const firstMessage = response.data.data[0];
+    if (firstMessage) {
+        const content: string = firstMessage.attributes.content;
+    }
+});
+
+// Query files and file attachments (added in integration-sdk 1.13)
+sdk.files.query({ transactionId: "transaction-id" }).then((response) => {
+    const totalPages: number = response.data.meta.totalPages;
+});
+
+sdk.fileAttachments.query({ transactionId: "transaction-id" }).then((response) => {
+    const attachments = response.data.data;
+});
+
 const rateLimiterConfig = util.prodQueryLimiterConfig;
 const rateLimiter = util.createRateLimiter(rateLimiterConfig);

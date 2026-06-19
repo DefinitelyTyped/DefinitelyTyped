@@ -241,6 +241,36 @@ export interface Message {
 }
 
 /**
+ * File attributes
+ */
+export interface FileAttributes {
+    filename?: string;
+    mimeType?: string;
+    size?: number;
+    contentType?: string;
+}
+
+/**
+ * File resource
+ */
+export interface File {
+    id: UUID;
+    type: "file";
+    attributes: FileAttributes;
+}
+
+/**
+ * File attachment resource (links a file to a transaction message)
+ */
+export interface FileAttachment {
+    id: UUID;
+    type: "fileAttachment";
+    attributes: {
+        createdAt?: string;
+    };
+}
+
+/**
  * Event attributes
  */
 export interface EventAttributes {
@@ -527,6 +557,13 @@ export interface IntegrationSdk {
             },
             options?: PerRequestOptions,
         ) => Promise<MutationResponse<User>>;
+        /**
+         * Mark a user's email as verified. The email must match the user's primary email or pending email.
+         */
+        verifyEmail: (
+            params: { id: UUID | string; email: string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
     };
 
     listings: {
@@ -740,6 +777,33 @@ export interface IntegrationSdk {
          * Show a specific stock reservation
          */
         show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<StockReservation>>;
+    };
+
+    messages: {
+        /**
+         * Query transaction messages
+         */
+        query: (
+            params?: { transactionId?: UUID | string } & PaginationParams & BaseQueryParams,
+        ) => Promise<QueryResponse<Message>>;
+    };
+
+    files: {
+        /**
+         * Query files
+         */
+        query: (
+            params?: { transactionId?: UUID | string } & PaginationParams & BaseQueryParams,
+        ) => Promise<QueryResponse<File>>;
+    };
+
+    fileAttachments: {
+        /**
+         * Query file attachments
+         */
+        query: (
+            params?: { transactionId?: UUID | string } & PaginationParams & BaseQueryParams,
+        ) => Promise<QueryResponse<FileAttachment>>;
     };
 
     /**
