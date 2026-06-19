@@ -427,11 +427,19 @@ declare module "node:diagnostics_channel" {
             ...args: Args
         ): Result;
         /**
-         * Trace a promise-returning function call. This will always produce a `start event` and `end event` around the synchronous portion of the
-         * function execution, and will produce an `asyncStart event` and `asyncEnd event` when a promise continuation is reached. It may also
-         * produce an `error event` if the given function throws an error or the
-         * returned promise rejects. This will run the given function using `channel.runStores(context, ...)` on the `start` channel which ensures all
+         * Trace an asynchronous function call which returns a `Promise` or
+         * [thenable object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#thenables). This will always produce a [`start` event](https://nodejs.org/docs/latest-v26.x/api/diagnostics_channel.html#startevent) and
+         * [`end` event](https://nodejs.org/docs/latest-v26.x/api/diagnostics_channel.html#endevent) around the synchronous portion of the function execution, and
+         * will produce an [`asyncStart` event](https://nodejs.org/docs/latest-v26.x/api/diagnostics_channel.html#asyncstartevent) and [`asyncEnd` event](https://nodejs.org/docs/latest-v26.x/api/diagnostics_channel.html#asyncendevent) when the
+         * returned promise is resolved or rejected. It may also produce an
+         * [`error` event](https://nodejs.org/docs/latest-v26.x/api/diagnostics_channel.html#errorevent) if the given function throws an error or the returned promise
+         * is rejected. This will run the given function using
+         * [`channel.runStores(context, ...)`](https://nodejs.org/docs/latest-v26.x/api/diagnostics_channel.html##channelrunstorescontext-fn-thisarg-args) on the `start` channel which ensures all
          * events should have any bound stores set to match this trace context.
+         *
+         * If the value returned by `fn` is not a Promise or thenable, then it will be
+         * returned with a warning, and no `asyncStart` or `asyncEnd` events will be
+         * produced.
          *
          * To ensure only correct trace graphs are formed, events will only be published if subscribers are present prior to starting the trace. Subscriptions
          * which are added after the trace begins will not receive future events from that trace, only future traces will be seen.
@@ -449,18 +457,21 @@ declare module "node:diagnostics_channel" {
          * ```
          * @since v19.9.0
          * @experimental
-         * @param fn Promise-returning function to wrap a trace around
+         * @param fn Function to wrap a trace around
          * @param context Shared object to correlate trace events through
          * @param thisArg The receiver to be used for the function call
          * @param args Optional arguments to pass to the function
-         * @return Chained from promise returned by the given function
+         * @returns The return value of the given function, or the result of
+         * calling `.then(...)` on the return value if the tracing channel has active
+         * subscribers. If the return value is not a Promise or thenable, then
+         * it is returned as-is and a warning is emitted.
          */
-        tracePromise<ThisArg = any, Args extends any[] = any[], Result = any>(
-            fn: (this: ThisArg, ...args: Args) => Promise<Result>,
+        tracePromise<ThisArg = any, Args extends any[] = any[], Result extends PromiseLike<unknown> = any>(
+            fn: (this: ThisArg, ...args: Args) => Result,
             context?: ContextType,
             thisArg?: ThisArg,
             ...args: Args
-        ): Promise<Result>;
+        ): Result;
         /**
          * Trace a callback-receiving function call. This will always produce a `start event` and `end event` around the synchronous portion of the
          * function execution, and will produce a `asyncStart event` and `asyncEnd event` around the callback execution. It may also produce an `error event` if the given function throws an error or

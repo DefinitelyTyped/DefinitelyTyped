@@ -75,11 +75,6 @@ declare module "node:buffer" {
      */
     export function resolveObjectURL(id: string): Blob | undefined;
     export { type AllowSharedBuffer, Buffer, type NonSharedBuffer };
-    /** @deprecated This alias will be removed in a future version. Use the canonical `BlobPropertyBag` instead. */
-    // TODO: remove in future major
-    export interface BlobOptions extends BlobPropertyBag {}
-    /** @deprecated This alias will be removed in a future version. Use the canonical `FilePropertyBag` instead. */
-    export interface FileOptions extends FilePropertyBag {}
     export type WithImplicitCoercion<T> =
         | T
         | { valueOf(): T }

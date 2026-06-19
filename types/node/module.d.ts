@@ -27,7 +27,7 @@ declare module "node:module" {
             /**
              * The following constants are returned as the `status` field in the object returned by
              * {@link enableCompileCache} to indicate the result of the attempt to enable the
-             * [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache).
+             * [module compile cache](https://nodejs.org/docs/latest-v26.x/api/module.html#module-compile-cache).
              * @since v22.8.0
              */
             namespace compileCacheStatus {
@@ -96,7 +96,7 @@ declare module "node:module" {
             directory?: string;
         }
         /**
-         * Enable [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
+         * Enable [module compile cache](https://nodejs.org/docs/latest-v26.x/api/module.html#module-compile-cache)
          * in the current Node.js instance.
          *
          * For general use cases, it's recommended to call `module.enableCompileCache()` without
@@ -110,7 +110,7 @@ declare module "node:module" {
          * returned object contains the path to the directory where the compile cache is stored. The
          * `status` field in the returned object would be one of the `module.constants.compileCacheStatus`
          * values to indicate the result of the attempt to enable the
-         * [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache).
+         * [module compile cache](https://nodejs.org/docs/latest-v26.x/api/module.html#module-compile-cache).
          *
          * This method only affects the current Node.js instance. To enable it in child worker threads,
          * either call this method in child worker threads too, or set the
@@ -122,7 +122,7 @@ declare module "node:module" {
          */
         function enableCompileCache(options?: string | EnableCompileCacheOptions): EnableCompileCacheResult;
         /**
-         * Flush the [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
+         * Flush the [module compile cache](https://nodejs.org/docs/latest-v26.x/api/module.html#module-compile-cache)
          * accumulated from modules already loaded
          * in the current Node.js instance to disk. This returns after all the flushing
          * file system operations come to an end, no matter they succeed or not. If there
@@ -133,7 +133,7 @@ declare module "node:module" {
         function flushCompileCache(): void;
         /**
          * @since v22.8.0
-         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v25.x/api/module.html#module-compile-cache)
+         * @return Path to the [module compile cache](https://nodejs.org/docs/latest-v26.x/api/module.html#module-compile-cache)
          * directory if it is enabled, or `undefined` otherwise.
          */
         function getCompileCacheDir(): string | undefined;
@@ -204,7 +204,7 @@ declare module "node:module" {
              */
             data?: Data | undefined;
             /**
-             * [Transferable objects](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#portpostmessagevalue-transferlist)
+             * [Transferable objects](https://nodejs.org/docs/latest-v26.x/api/worker_threads.html#portpostmessagevalue-transferlist)
              * to be passed into the `initialize` hook.
              */
             transferList?: any[] | undefined;
@@ -213,10 +213,10 @@ declare module "node:module" {
         /**
          * Register a module that exports hooks that customize Node.js module
          * resolution and loading behavior. See
-         * [Customization hooks](https://nodejs.org/docs/latest-v25.x/api/module.html#customization-hooks).
+         * [Customization hooks](https://nodejs.org/docs/latest-v26.x/api/module.html#customization-hooks).
          *
          * This feature requires `--allow-worker` if used with the
-         * [Permission Model](https://nodejs.org/docs/latest-v25.x/api/permissions.html#permission-model).
+         * [Permission Model](https://nodejs.org/docs/latest-v26.x/api/permissions.html#permission-model).
          * @since v20.6.0, v18.19.0
          * @deprecated Use `module.registerHooks()` instead.
          * @param specifier Customization hooks to be registered; this should be
@@ -233,12 +233,12 @@ declare module "node:module" {
         function register<Data = any>(specifier: string | URL, options?: RegisterOptions<Data>): void;
         interface RegisterHooksOptions {
             /**
-             * See [load hook](https://nodejs.org/docs/latest-v25.x/api/module.html#loadurl-context-nextload).
+             * See [load hook](https://nodejs.org/docs/latest-v26.x/api/module.html#loadurl-context-nextload).
              * @default undefined
              */
             load?: LoadHookSync | undefined;
             /**
-             * See [resolve hook](https://nodejs.org/docs/latest-v25.x/api/module.html#resolvespecifier-context-nextresolve).
+             * See [resolve hook](https://nodejs.org/docs/latest-v26.x/api/module.html#resolvespecifier-context-nextresolve).
              * @default undefined
              */
             resolve?: ResolveHookSync | undefined;
@@ -250,7 +250,7 @@ declare module "node:module" {
             deregister(): void;
         }
         /**
-         * Register [hooks](https://nodejs.org/docs/latest-v25.x/api/module.html#customization-hooks)
+         * Register [hooks](https://nodejs.org/docs/latest-v26.x/api/module.html#customization-hooks)
          * that customize Node.js module resolution and loading behavior.
          * @since v22.15.0
          * @experimental
@@ -260,16 +260,9 @@ declare module "node:module" {
             /**
              * Possible values are:
              * * `'strip'` Only strip type annotations without performing the transformation of TypeScript features.
-             * * `'transform'` Strip type annotations and transform TypeScript features to JavaScript.
              * @default 'strip'
              */
-            mode?: "strip" | "transform" | undefined;
-            /**
-             * Only when `mode` is `'transform'`, if `true`, a source map
-             * will be generated for the transformed code.
-             * @default false
-             */
-            sourceMap?: boolean | undefined;
+            mode?: "strip" | undefined;
             /**
              * Specifies the source url used in the source map.
              */
@@ -279,13 +272,9 @@ declare module "node:module" {
          * `module.stripTypeScriptTypes()` removes type annotations from TypeScript code. It
          * can be used to strip type annotations from TypeScript code before running it
          * with `vm.runInContext()` or `vm.compileFunction()`.
+         *
          * By default, it will throw an error if the code contains TypeScript features
-         * that require transformation such as `Enums`,
-         * see [type-stripping](https://nodejs.org/docs/latest-v25.x/api/typescript.md#type-stripping) for more information.
-         * When mode is `'transform'`, it also transforms TypeScript features to JavaScript,
-         * see [transform TypeScript features](https://nodejs.org/docs/latest-v25.x/api/typescript.md#typescript-features) for more information.
-         * When mode is `'strip'`, source maps are not generated, because locations are preserved.
-         * If `sourceMap` is provided, when mode is `'strip'`, an error will be thrown.
+         * that require transformation, such as `enum`s. See [type-stripping](https://nodejs.org/docs/latest-v26.x/api/typescript.md#type-stripping) for more information.
          *
          * _WARNING_: The output of this function should not be considered stable across Node.js versions,
          * due to changes in the TypeScript parser.
@@ -306,24 +295,6 @@ declare module "node:module" {
          * const strippedCode = stripTypeScriptTypes(code, { mode: 'strip', sourceUrl: 'source.ts' });
          * console.log(strippedCode);
          * // Prints: const a         = 1\n\n//# sourceURL=source.ts;
-         * ```
-         *
-         * When `mode` is `'transform'`, the code is transformed to JavaScript:
-         *
-         * ```js
-         * import { stripTypeScriptTypes } from 'node:module';
-         * const code = `
-         *   namespace MathUtil {
-         *     export const add = (a: number, b: number) => a + b;
-         *   }`;
-         * const strippedCode = stripTypeScriptTypes(code, { mode: 'transform', sourceMap: true });
-         * console.log(strippedCode);
-         * // Prints:
-         * // var MathUtil;
-         * // (function(MathUtil) {
-         * //     MathUtil.add = (a, b)=>a + b;
-         * // })(MathUtil || (MathUtil = {}));
-         * // # sourceMappingURL=data:application/json;base64, ...
          * ```
          * @since v22.13.0
          * @param code The code to strip type annotations from.
@@ -645,7 +616,7 @@ declare module "node:module" {
                  * Modules are cached in this object when they are required. By deleting a key
                  * value from this object, the next `require` will reload the module.
                  * This does not apply to
-                 * [native addons](https://nodejs.org/docs/latest-v25.x/api/addons.html),
+                 * [native addons](https://nodejs.org/docs/latest-v26.x/api/addons.html),
                  * for which reloading will result in an error.
                  * @since v0.3.0
                  */
@@ -679,7 +650,7 @@ declare module "node:module" {
                  * Paths to resolve module location from. If present, these
                  * paths are used instead of the default resolution paths, with the exception
                  * of
-                 * [GLOBAL\_FOLDERS](https://nodejs.org/docs/latest-v25.x/api/modules.html#loading-from-the-global-folders)
+                 * [GLOBAL\_FOLDERS](https://nodejs.org/docs/latest-v26.x/api/modules.html#loading-from-the-global-folders)
                  * like `$HOME/.node_modules`, which are
                  * always included. Each of these paths is used as a starting point for
                  * the module resolution algorithm, meaning that the `node_modules` hierarchy

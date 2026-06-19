@@ -108,6 +108,49 @@ assert.throws(
 
 assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
 
+// Printf-style messages (v26.0.0+)
+{
+    const apples = 1;
+    const oranges = 2;
+
+    // Printf-style format string with substitution arguments
+    assert.strictEqual(apples, oranges, "apples %d !== oranges %d", apples, oranges);
+    assert.ok(true, "value is %s", "truthy");
+    assert.equal(1, 1, "values %d and %d are equal", 1, 1);
+    assert.notEqual(1, 2, "values %d and %d differ", 1, 2);
+    assert.deepEqual({ a: 1 }, { a: 1 }, "objects are %s equal", "deeply");
+    assert.notDeepEqual({ a: 1 }, { a: 2 }, "objects %s", "differ");
+    assert.deepStrictEqual({ a: 1 }, { a: 1 }, "strict deep %s", "equal");
+    assert.notDeepStrictEqual({ a: 1 }, { a: 2 }, "not %s equal", "strictly");
+    assert.notStrictEqual(1, 2, "values %d and %d are not strictly equal", 1, 2);
+    assert.match("test", /test/, "string %s matches", "test");
+    assert.doesNotMatch("test", /xyz/, "string %s does not match %s", "test", "xyz");
+    assert.partialDeepStrictEqual({ a: 1, b: 2 }, { a: 1 }, "partial match %s", "ok");
+
+    // Function-based messages (called only on failure)
+    assert.strictEqual(apples, oranges, (actual, expected) => `expected ${expected} but got ${actual}`);
+    assert.ok(true, (actual, expected) => `failed: ${actual}`);
+    assert.equal(1, 1, (actual, expected) => `${actual} != ${expected}`);
+    assert.deepStrictEqual({ a: 1 }, { a: 1 }, (actual, expected) => `mismatch`);
+
+    // Top-level assert with printf-style
+    assert(true, "value is %s", "truthy");
+    assert(true, (actual, expected) => `failed`);
+}
+
+// Printf-style extras only permitted with string message (v26.0.0+)
+{
+    // OK: printf-style with string message
+    assert.strictEqual(1, 2, "got %s expected %s", "ONE", "TWO");
+    // OK: plain string message, no extras
+    assert.strictEqual(1, 2, "plain");
+
+    // @ts-expect-error extras not allowed with Error message
+    assert.strictEqual(1, 2, new Error("boom"), "extra");
+    // @ts-expect-error extras not allowed with function message
+    assert.strictEqual(1, 2, (a, b) => `${String(a)}/${String(b)}`, "extra");
+}
+
 // Test assert predicates
 {
     let a!: Error | null;

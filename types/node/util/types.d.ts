@@ -187,7 +187,7 @@ declare module "node:util/types" {
      * ```
      *
      * For further information on `napi_create_external`, refer to
-     * [`napi_create_external()`](https://nodejs.org/docs/latest-v25.x/api/n-api.html#napi_create_external).
+     * [`napi_create_external()`](https://nodejs.org/docs/latest-v26.x/api/n-api.html#napi_create_external).
      * @since v10.0.0
      */
     function isExternal(object: unknown): boolean;

@@ -52,9 +52,6 @@ declare module "node:perf_hooks" {
         entryTypes?: EntryType[];
         type?: EntryType;
     }
-    // TODO: remove in next major
-    /** @deprecated Use `TimerifyOptions` instead. */
-    interface PerformanceTimerifyOptions extends TimerifyOptions {}
     interface PerformanceEventMap {
         "resourcetimingbufferfull": Event;
     }
@@ -459,7 +456,7 @@ declare module "node:perf_hooks" {
      * Event Loop Utilization (ELU).
      *
      * If bootstrapping has not yet finished on the main thread the properties have
-     * the value of `0`. The ELU is immediately available on [Worker threads](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#worker-threads) since
+     * the value of `0`. The ELU is immediately available on [Worker threads](https://nodejs.org/docs/latest-v26.x/api/worker_threads.html#worker-threads) since
      * bootstrap happens within the event loop.
      *
      * Both `utilization1` and `utilization2` are optional parameters.
@@ -601,11 +598,6 @@ declare module "node:perf_hooks" {
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
-    // TODO: remove these in a future major
-    /** @deprecated Use the canonical `PerformanceMarkOptions` instead. */
-    interface MarkOptions extends PerformanceMarkOptions {}
-    /** @deprecated Use the canonical `PerformanceMeasureOptions` instead. */
-    interface MeasureOptions extends PerformanceMeasureOptions {}
 }
 declare module "perf_hooks" {
     export * from "node:perf_hooks";

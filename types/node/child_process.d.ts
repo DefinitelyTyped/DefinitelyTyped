@@ -404,7 +404,7 @@ declare module "node:child_process" {
          * as the connection may have been closed during the time it takes to send the
          * connection to the child.
          * @since v0.5.9
-         * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v25.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v25.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v25.x/api/dgram.html#class-dgramsocket) object.
+         * @param sendHandle `undefined`, or a [`net.Socket`](https://nodejs.org/docs/latest-v26.x/api/net.html#class-netsocket), [`net.Server`](https://nodejs.org/docs/latest-v26.x/api/net.html#class-netserver), or [`dgram.Socket`](https://nodejs.org/docs/latest-v26.x/api/dgram.html#class-dgramsocket) object.
          * @param options The `options` argument, if present, is an object used to parameterize the sending of certain types of handles. `options` supports the following properties:
          */
         send(message: Serializable, callback?: (error: Error | null) => void): boolean;
@@ -787,16 +787,15 @@ declare module "node:child_process" {
         encoding?: BufferEncoding | undefined;
     }
     interface ExecOptionsWithBufferEncoding extends ExecOptions {
-        encoding: "buffer" | null; // specify `null`.
+        encoding: "buffer" | null;
     }
-    // TODO: Just Plain Wrong™ (see also nodejs/node#57392)
-    interface ExecException extends Error {
-        cmd?: string;
+    interface ExecException extends Omit<NodeJS.ErrnoException, "code"> {
+        cmd: string;
+        code?: number | string;
         killed?: boolean;
-        code?: number;
         signal?: NodeJS.Signals;
-        stdout?: string;
-        stderr?: string;
+        stdout?: string | NonSharedBuffer;
+        stderr?: string | NonSharedBuffer;
     }
     /**
      * Spawns a shell then executes the `command` within that shell, buffering any
@@ -956,11 +955,6 @@ declare module "node:child_process" {
     }
     /** @deprecated Use `ExecFileOptions` instead. */
     interface ExecFileOptionsWithOtherEncoding extends ExecFileOptions {}
-    // TODO: execFile exceptions can take many forms... this accurately describes none of them
-    type ExecFileException =
-        & Omit<ExecException, "code">
-        & Omit<NodeJS.ErrnoException, "code">
-        & { code?: string | number | null };
     /**
      * The `child_process.execFile()` function is similar to {@link exec} except that it does not spawn a shell by default. Rather, the specified
      * executable `file` is spawned directly as a new process making it slightly more
@@ -1028,36 +1022,36 @@ declare module "node:child_process" {
     // no `options` definitely means stdout/stderr are `string`.
     function execFile(
         file: string,
-        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
-        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
     function execFile(
         file: string,
         options: ExecFileOptionsWithBufferEncoding,
-        callback?: (error: ExecFileException | null, stdout: NonSharedBuffer, stderr: NonSharedBuffer) => void,
+        callback?: (error: ExecException | null, stdout: NonSharedBuffer, stderr: NonSharedBuffer) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithBufferEncoding,
-        callback?: (error: ExecFileException | null, stdout: NonSharedBuffer, stderr: NonSharedBuffer) => void,
+        callback?: (error: ExecException | null, stdout: NonSharedBuffer, stderr: NonSharedBuffer) => void,
     ): ChildProcess;
     // `options` with well-known or absent `encoding` means stdout/stderr are definitely `string`.
     function execFile(
         file: string,
         options: ExecFileOptionsWithStringEncoding,
-        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     function execFile(
         file: string,
         args: readonly string[] | undefined | null,
         options: ExecFileOptionsWithStringEncoding,
-        callback?: (error: ExecFileException | null, stdout: string, stderr: string) => void,
+        callback?: (error: ExecException | null, stdout: string, stderr: string) => void,
     ): ChildProcess;
     // fallback if nothing else matches. Worst case is always `string | Buffer`.
     function execFile(
@@ -1065,7 +1059,7 @@ declare module "node:child_process" {
         options: ExecFileOptions | undefined | null,
         callback:
             | ((
-                error: ExecFileException | null,
+                error: ExecException | null,
                 stdout: string | NonSharedBuffer,
                 stderr: string | NonSharedBuffer,
             ) => void)
@@ -1078,7 +1072,7 @@ declare module "node:child_process" {
         options: ExecFileOptions | undefined | null,
         callback:
             | ((
-                error: ExecFileException | null,
+                error: ExecException | null,
                 stdout: string | NonSharedBuffer,
                 stderr: string | NonSharedBuffer,
             ) => void)
@@ -1360,6 +1354,8 @@ declare module "node:child_process" {
         args?: readonly string[],
         options?: ExecFileSyncOptions,
     ): string | NonSharedBuffer;
+    /** @deprecated This deprecated alias will be removed in a future version. Use `ExecException` instead. */
+    interface ExecFileException extends ExecException {}
 }
 declare module "child_process" {
     export * from "node:child_process";

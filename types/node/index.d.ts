@@ -29,9 +29,6 @@
 /// <reference lib="esnext.disposable" />
 /// <reference lib="esnext.float16" />
 
-// Iterator definitions required for compatibility with TypeScript <5.6:
-/// <reference path="compatibility/iterators.d.ts" />
-
 // Definitions for Node.js modules specific to TypeScript 5.7+:
 /// <reference path="globals.typedarray.d.ts" />
 /// <reference path="buffer.buffer.d.ts" />

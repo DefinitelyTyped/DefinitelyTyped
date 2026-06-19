@@ -65,7 +65,7 @@ declare module "node:url" {
      * strings. It is prone to security issues such as [host name spoofing](https://hackerone.com/reports/678487)
      * and incorrect handling of usernames and passwords. Do not use with untrusted
      * input. CVEs are not issued for `url.parse()` vulnerabilities. Use the
-     * [WHATWG URL](https://nodejs.org/docs/latest-v25.x/api/url.html#the-whatwg-url-api) API instead, for example:
+     * [WHATWG URL](https://nodejs.org/docs/latest-v26.x/api/url.html#the-whatwg-url-api) API instead, for example:
      *
      * ```js
      * function getURL(req) {
@@ -88,7 +88,7 @@ declare module "node:url" {
      * @deprecated Use the WHATWG URL API instead.
      * @param urlString The URL string to parse.
      * @param parseQueryString If `true`, the `query` property will always
-     * be set to an object returned by the [`querystring`](https://nodejs.org/docs/latest-v25.x/api/querystring.html) module's `parse()`
+     * be set to an object returned by the [`querystring`](https://nodejs.org/docs/latest-v26.x/api/querystring.html) module's `parse()`
      * method. If `false`, the `query` property on the returned URL object will be an
      * unparsed, undecoded string. **Default:** `false`.
      * @param slashesDenoteHost If `true`, the first token after the literal
@@ -546,7 +546,7 @@ declare module "node:url" {
         prototype: URLSearchParams;
         new(init?: string[][] | Record<string, string> | string | URLSearchParams): URLSearchParams;
     };
-    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, NodeJS.BuiltinIteratorReturn, unknown> {
+    interface URLSearchParamsIterator<T> extends NodeJS.Iterator<T, BuiltinIteratorReturn, unknown> {
         [Symbol.iterator](): URLSearchParamsIterator<T>;
     }
     // #endregion

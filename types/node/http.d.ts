@@ -341,7 +341,7 @@ declare module "node:http" {
         "connection": [socket: net.Socket];
         "dropRequest": [request: InstanceType<Request>, socket: stream.Duplex];
         "request": Parameters<RequestListener<Request, Response>>;
-        "upgrade": [req: InstanceType<Request>, socket: stream.Duplex, head: NonSharedBuffer];
+        "upgrade": [req: InstanceType<Request>, stream: stream.Duplex, head: NonSharedBuffer];
     }
     /**
      * @since v0.1.17
@@ -947,7 +947,7 @@ declare module "node:http" {
         "response": [response: IncomingMessage];
         "socket": [socket: net.Socket];
         "timeout": [];
-        "upgrade": [response: IncomingMessage, socket: net.Socket, head: NonSharedBuffer];
+        "upgrade": [response: IncomingMessage, stream: net.Socket, head: NonSharedBuffer];
     }
     /**
      * This object is created internally and returned from {@link request}. It
@@ -1502,7 +1502,7 @@ declare module "node:http" {
         scheduling?: "fifo" | "lifo" | undefined;
         /**
          * Environment variables for proxy configuration. See
-         * [Built-in Proxy Support](https://nodejs.org/docs/latest-v25.x/api/http.html#built-in-proxy-support) for details.
+         * [Built-in Proxy Support](https://nodejs.org/docs/latest-v26.x/api/http.html#built-in-proxy-support) for details.
          * @since v24.5.0
          */
         proxyEnv?: ProxyEnv | undefined;
@@ -1571,7 +1571,7 @@ declare module "node:http" {
      * });
      * ```
      *
-     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v25.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
+     * `options` in [`socket.connect()`](https://nodejs.org/docs/latest-v26.x/api/net.html#socketconnectoptions-connectlistener) are also supported.
      *
      * To configure any of them, a custom {@link Agent} instance must be created.
      *
@@ -2106,7 +2106,7 @@ declare module "node:http" {
      * overridden after this function is invoked. It's recommended to invoke it before any
      * requests are made and avoid invoking it in the middle of any requests.
      *
-     * See [Built-in Proxy Support](https://nodejs.org/docs/latest-v25.x/api/http.html#built-in-proxy-support) for details on proxy URL formats and `NO_PROXY`
+     * See [Built-in Proxy Support](https://nodejs.org/docs/latest-v26.x/api/http.html#built-in-proxy-support) for details on proxy URL formats and `NO_PROXY`
      * syntax.
      * @since v25.4.0
      * @param proxyEnv An object containing proxy configuration. This accepts the
