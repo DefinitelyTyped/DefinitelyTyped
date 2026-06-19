@@ -545,13 +545,14 @@ export interface StripeCustomer {
 }
 
 /**
- * Attributes shared by file resources
+ * Attributes of a file owned by the current user
  */
-export interface FileResourceAttributes {
-    filename?: string;
-    mimeType?: string;
-    size?: number;
-    contentType?: string;
+export interface OwnFileAttributes {
+    name: string;
+    size: number;
+    state: string;
+    createdAt: string;
+    stateUpdatedAt: string;
 }
 
 /**
@@ -560,7 +561,17 @@ export interface FileResourceAttributes {
 export interface OwnFile {
     id: UUID;
     type: "ownFile";
-    attributes: FileResourceAttributes;
+    attributes: OwnFileAttributes;
+}
+
+/**
+ * Attributes of a file accessible to the current user (e.g. attached to a transaction)
+ */
+export interface FileAttributes {
+    name: string;
+    size: number;
+    state: string;
+    deleted: boolean;
 }
 
 /**
@@ -569,7 +580,7 @@ export interface OwnFile {
 export interface File {
     id: UUID;
     type: "file";
-    attributes: FileResourceAttributes;
+    attributes: FileAttributes;
 }
 
 /**
@@ -579,10 +590,11 @@ export interface FileUpload {
     id: UUID;
     type: "fileUpload";
     attributes: {
+        fileId: UUID;
         url: string;
         method: string;
         headers: Record<string, string>;
-        contentType?: string;
+        expiresAt: string;
     };
 }
 
@@ -593,10 +605,9 @@ export interface OwnFileDownload {
     id: UUID;
     type: "ownFileDownload";
     attributes: {
+        fileId: UUID;
         url: string;
-        method?: string;
-        headers?: Record<string, string>;
-        contentType?: string;
+        expiresAt: string;
     };
 }
 
@@ -607,10 +618,9 @@ export interface FileDownload {
     id: UUID;
     type: "fileDownload";
     attributes: {
+        fileId: UUID;
         url: string;
-        method?: string;
-        headers?: Record<string, string>;
-        contentType?: string;
+        expiresAt: string;
     };
 }
 
@@ -1368,8 +1378,11 @@ export namespace util {
     function objectQueryString(obj: Record<string, unknown>): string;
     /**
      * Serialize query parameters into a URL query string, handling Sharetribe types such as `UUID` and `LatLng`.
+     * Parameters may be passed as a string, an object, or an array combining the two.
      */
-    function queryString(params: Record<string, unknown>): string;
+    function queryString(
+        params: string | Record<string, unknown> | Array<string | Record<string, unknown>>,
+    ): string;
 }
 
 /**
