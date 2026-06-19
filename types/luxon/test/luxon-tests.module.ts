@@ -637,10 +637,10 @@ function isValidDateTime(dt: DateTime): dt is DateTime<true> {
 
 function typeGuardCheck(dt: DateTime): void {
     if (isValidDateTime(dt)) {
-        dt // $ExpectType DateTime<true>
+        dt; // $ExpectType DateTime<true>
         dt.toISO(); // $ExpectType string
         return;
     }
 
-    dt // $ExpectType DateTime<boolean>
+    dt; // $ExpectType DateTime<boolean>
 }
