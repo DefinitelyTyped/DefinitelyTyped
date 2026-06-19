@@ -10,6 +10,7 @@ new kakao.Postcode({}).open({
     q: "강남역",
 });
 new window.kakao.Postcode({}).embed(div);
+// @ts-expect-error
 new window.kakao.Postcode({}).embed();
 new window.kakao.Postcode({}).open();
 
@@ -28,6 +29,7 @@ const theme = {
 new kakao.Postcode({
     alwaysShowEngAddr: false,
     animation: false,
+    autoMapping: true,
     autoMappingJibun: true,
     autoMappingRoad: true,
     focusInput: true,

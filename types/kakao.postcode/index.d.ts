@@ -23,7 +23,7 @@ declare namespace kakao {
          * 우편번호 찾기 화면을 iframe으로 삽입합니다.
          * @see [함수](https://postcode.map.kakao.com/guide#methods)
          */
-        embed(element?: HTMLElement, options?: PostcodeEmbedOptions): void;
+        embed(element: HTMLElement, options?: PostcodeEmbedOptions): void;
 
         /**
          * 우편번호 찾기 화면을 팝업으로 띄웁니다.
@@ -85,6 +85,11 @@ declare namespace kakao {
          * @default false
          */
         animation?: boolean;
+
+        /**
+         * autoMappingRoad와 autoMappingJibun 두 옵션을 같은 값으로 한 번에 설정하는 단축 옵션입니다.
+         */
+        autoMapping?: boolean;
 
         /**
          * 도로명주소에 매핑된 지번주소가 여러 개인 경우, 사용자가 선택안함을 클릭할 수 있도록 하며 연관주소 중 첫 번째 항목이 autoJibunAddress에 자동으로 들어가게 됩니다.\
