@@ -244,10 +244,14 @@ export interface Message {
  * File attributes
  */
 export interface FileAttributes {
-    filename?: string;
-    mimeType?: string;
-    size?: number;
-    contentType?: string;
+    name: string;
+    size: number;
+    state: string;
+    verificationChecks: unknown[];
+    requiredVerificationChecks: unknown[];
+    createdAt: string;
+    stateUpdatedAt: string;
+    deleted: boolean;
 }
 
 /**
@@ -260,14 +264,28 @@ export interface File {
 }
 
 /**
+ * File attachment relationships
+ */
+export interface FileAttachmentRelationships {
+    file: {
+        data: ResourceReference;
+    };
+    message: {
+        data: ResourceReference;
+    };
+}
+
+/**
  * File attachment resource (links a file to a transaction message)
  */
 export interface FileAttachment {
     id: UUID;
     type: "fileAttachment";
     attributes: {
-        createdAt?: string;
+        scope: string;
+        deleted: boolean;
     };
+    relationships: FileAttachmentRelationships;
 }
 
 /**
