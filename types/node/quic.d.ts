@@ -524,6 +524,11 @@ declare module "node:quic" {
          */
         readonly destroyed: boolean;
         /**
+         * True if the endpoint is actively listening for incoming connections. Read only.
+         * @since v26.1.0
+         */
+        readonly listening: boolean;
+        /**
          * Replaces or updates the SNI TLS contexts for this endpoint. This allows
          * changing the TLS identity (key/certificate) used for specific host names
          * without restarting the endpoint. Existing sessions are unaffected — only
