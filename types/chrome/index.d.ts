@@ -2248,7 +2248,7 @@ declare namespace chrome {
      *
      * Permissions: "debugger"
      */
-    export namespace _debugger {
+    namespace _debugger {
         /** Debuggee identifier. Either tabId, extensionId or targetId must be specified */
         interface Debuggee {
             /** The id of the tab which you intend to debug. */
@@ -9223,11 +9223,6 @@ declare namespace chrome {
             | "webRequestBlocking"
             | "webRequestAuthProvider";
 
-        /**
-         * @deprecated Use `ManifestPermission` instead.
-         */
-        type ManifestPermissions = ManifestPermission;
-
         /** Source : https://developer.chrome.com/docs/extensions/reference/api/permissions */
         type ManifestOptionalPermission = Exclude<
             ManifestPermission,
@@ -9244,11 +9239,6 @@ declare namespace chrome {
             | "wallpaper"
             | "webAuthenticationProxy"
         >;
-
-        /**
-         * @deprecated Use `ManifestOptionalPermission` instead.
-         */
-        type ManifestOptionalPermissions = ManifestOptionalPermission;
 
         interface SearchProvider {
             name?: string | undefined;
@@ -10118,12 +10108,7 @@ declare namespace chrome {
      * Permissions: "storage"
      */
     export namespace storage {
-        /** NoInfer for old TypeScript versions (Required TS 5.4+) */
-        type NoInferX<T> = T[][T extends any ? 0 : never];
-        // The next line prevents things without the export keyword from being automatically exported (like NoInferX)
-        export {};
-
-        export interface StorageArea {
+        interface StorageArea {
             /**
              * Gets the amount of space (in bytes) being used by one or more items.
              * @param keys A single key or list of keys to get the total usage for. An empty list will return 0. Pass in `null` to get the total usage of all of storage.
@@ -10170,11 +10155,11 @@ declare namespace chrome {
              * Can return its result via Promise in Manifest V3 or later since Chrome 95.
              */
             get<T = { [key: string]: unknown }>(
-                keys?: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null,
+                keys?: NoInfer<keyof T> | Array<NoInfer<keyof T>> | Partial<NoInfer<T>> | null | undefined,
             ): Promise<T>;
             get<T = { [key: string]: unknown }>(callback: (items: T) => void): void;
             get<T = { [key: string]: unknown }>(
-                keys: NoInferX<keyof T> | Array<NoInferX<keyof T>> | Partial<NoInferX<T>> | null | undefined,
+                keys: NoInfer<keyof T> | Array<NoInfer<keyof T>> | Partial<NoInfer<T>> | null | undefined,
                 callback: (items: T) => void,
             ): void;
 
@@ -10201,19 +10186,19 @@ declare namespace chrome {
             getKeys(callback: (keys: string[]) => void): void;
         }
 
-        export interface StorageChange {
+        interface StorageChange {
             /** The new value of the item, if there is a new value. */
             newValue?: unknown;
             /** The old value of the item, if there was an old value. */
             oldValue?: unknown;
         }
 
-        export interface LocalStorageArea extends StorageArea {
+        interface LocalStorageArea extends StorageArea {
             /** The maximum amount (in bytes) of data that can be stored in local storage, as measured by the JSON stringification of every value plus every key's length. This value will be ignored if the extension has the unlimitedStorage permission. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError when using a callback, or a rejected Promise if using async/await. */
             QUOTA_BYTES: 10485760;
         }
 
-        export interface SyncStorageArea extends StorageArea {
+        interface SyncStorageArea extends StorageArea {
             /** @deprecated The storage.sync API no longer has a sustained write operation quota. */
             MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: 1000000;
             /** The maximum total amount (in bytes) of data that can be stored in sync storage, as measured by the JSON stringification of every value plus every key's length. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError when using a callback, or when a Promise is rejected. */
@@ -10236,18 +10221,18 @@ declare namespace chrome {
             MAX_WRITE_OPERATIONS_PER_MINUTE: 120;
         }
 
-        export interface SessionStorageArea extends StorageArea {
+        interface SessionStorageArea extends StorageArea {
             /** The maximum amount (in bytes) of data that can be stored in memory, as measured by estimating the dynamically allocated memory usage of every value and key. Updates that would cause this limit to be exceeded fail immediately and set runtime.lastError when using a callback, or when a Promise is rejected. */
             QUOTA_BYTES: 10485760;
         }
 
-        export type AreaName = "sync" | "local" | "managed" | "session";
+        type AreaName = "sync" | "local" | "managed" | "session";
 
         /**
          * The storage area's access level.
          * @since Chrome 102
          */
-        export enum AccessLevel {
+        enum AccessLevel {
             /** Specifies contexts originating from the extension itself. */
             TRUSTED_CONTEXTS = "TRUSTED_CONTEXTS",
             /** Specifies contexts originating from outside the extension. */
@@ -10255,13 +10240,13 @@ declare namespace chrome {
         }
 
         /** Items in the `local` storage area are local to each machine. */
-        export const local: LocalStorageArea;
+        const local: LocalStorageArea;
 
         /** Items in the `sync` storage area are synced using Chrome Sync. */
-        export const sync: SyncStorageArea;
+        const sync: SyncStorageArea;
 
         /** Items in the `managed` storage area are set by an enterprise policy configured by the domain administrator, and are read-only for the extension; trying to modify this namespace results in an error. For information on configuring a policy, see Manifest for storage areas. */
-        export const managed: StorageArea;
+        const managed: StorageArea;
 
         /**
          * Items in the `session` storage area are stored in-memory and will not be persisted to disk.
@@ -10269,10 +10254,10 @@ declare namespace chrome {
          * MV3 only
          * @since Chrome 102
          */
-        export const session: SessionStorageArea;
+        const session: SessionStorageArea;
 
         /** Fired when one or more items change. */
-        export const onChanged: events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void>;
+        const onChanged: events.Event<(changes: { [key: string]: StorageChange }, areaName: AreaName) => void>;
     }
 
     ////////////////////
@@ -10294,10 +10279,6 @@ declare namespace chrome {
             /** The total cumulative time for this processor. This value is equal to user + kernel + idle. */
             total: number;
         }
-
-        /** @deprecated Use {@link CpuTime} instead. */
-        // eslint-disable-next-line @typescript-eslint/no-empty-interface
-        interface ProcessorUsage extends CpuTime {}
 
         interface ProcessorInfo {
             /** Cumulative usage info for this logical processor. */
@@ -12531,10 +12512,6 @@ declare namespace chrome {
             reconnect?: string | undefined;
         }
 
-        /** @deprecated Use {@link Parameters} instead */
-        // eslint-disable-next-line @typescript-eslint/no-empty-interface
-        interface VpnSessionParameters extends Parameters {}
-
         /** The enum is used by the platform to notify the client of the VPN session status. */
         enum PlatformMessage {
             /** Indicates that the VPN configuration connected. */
@@ -13439,7 +13416,6 @@ declare namespace chrome {
 
         /** Fired before sending an HTTP request, once the request headers are available. This may occur after a TCP connection is made to the server, but before any HTTP data is sent. */
         const onBeforeSendHeaders: WebRequestEvent<
-            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
             (details: OnBeforeSendHeadersDetails) => BlockingResponse | undefined,
             `${OnBeforeSendHeadersOptions}`[]
         >;
