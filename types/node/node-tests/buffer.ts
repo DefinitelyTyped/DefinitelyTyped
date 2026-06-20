@@ -249,6 +249,8 @@ result = b.write("asd", 123, 123, "hex");
     index = buffer.indexOf("23", "hex");
     index = buffer.indexOf("23", 1);
     index = buffer.indexOf("23", 1, "utf8");
+    index = buffer.indexOf("23", 1, 3);
+    index = buffer.indexOf("23", 1, 3, "utf8");
     index = buffer.indexOf(23);
     index = buffer.indexOf(buffer);
 }
@@ -260,6 +262,8 @@ result = b.write("asd", 123, 123, "hex");
     index = buffer.lastIndexOf("23", "hex");
     index = buffer.lastIndexOf("23", 1);
     index = buffer.lastIndexOf("23", 1, "utf8");
+    index = buffer.lastIndexOf("23", 1, 3);
+    index = buffer.lastIndexOf("23", 1, 3, "utf8");
     index = buffer.lastIndexOf(23);
     index = buffer.lastIndexOf(buffer);
 }
@@ -282,6 +286,8 @@ result = b.write("asd", 123, 123, "hex");
     includes = buffer.includes("23", "hex");
     includes = buffer.includes("23", 1);
     includes = buffer.includes("23", 1, "utf8");
+    includes = buffer.includes("23", 1, 3);
+    includes = buffer.includes("23", 1, 3, "utf8");
     includes = buffer.includes(23);
     includes = buffer.includes(23, 1);
     includes = buffer.includes(23, 1, "utf8");
