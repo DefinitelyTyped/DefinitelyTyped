@@ -669,6 +669,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The ordinal number of the test.
                  */
                 testNumber: number;
@@ -691,6 +697,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The test type. Either `'suite'` or `'test'`.
                  * @since v22.15.0
                  */
@@ -705,6 +717,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
                 /**
                  * The test type. Either `'suite'` or `'test'`.
                  * @since v22.15.0
@@ -744,6 +762,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
                 /**
                  * The ordinal number of the test.
                  */
@@ -800,6 +824,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The ordinal number of the test.
                  */
                 testNumber: number;
@@ -831,6 +861,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
             }
             interface TestStderr {
                 /**
