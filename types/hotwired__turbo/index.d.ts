@@ -51,6 +51,13 @@ export class StreamElement extends HTMLElement {
      * Gets a cloned copy of the template's content.
      */
     readonly templateContent: DocumentFragment;
+
+    /**
+     * Gets the list of elements the stream action will be applied to,
+     * resolved from the `target` (an element ID) or `targets` (a CSS
+     * selector) attribute.
+     */
+    readonly targetElements: Element[];
 }
 
 export class StreamSourceElement extends HTMLElement {
@@ -299,9 +306,19 @@ export interface TurboSession {
     readonly restorationIdentifier: string;
 }
 
-export const StreamActions: {
-    [action: string]: (this: StreamElement) => void;
-};
+/**
+ * A stream action callback. Invoked with the matched `StreamElement` as
+ * `this`, allowing access to its attributes and target elements.
+ */
+export type TurboStreamAction = (this: StreamElement) => void;
+
+/**
+ * A map of action names to their {@link TurboStreamAction} callbacks, as
+ * used by {@link StreamActions}.
+ */
+export type TurboStreamActions = Record<string, TurboStreamAction>;
+
+export const StreamActions: TurboStreamActions;
 
 export type Action = "advance" | "replace" | "restore";
 export interface VisitOptions {
@@ -457,9 +474,7 @@ export interface TurboGlobal {
     navigator: Navigator;
     cache: Cache;
     config: TurboConfig;
-    StreamActions: {
-        [action: string]: (this: StreamElement) => void;
-    };
+    StreamActions: TurboStreamActions;
 }
 
 declare global {

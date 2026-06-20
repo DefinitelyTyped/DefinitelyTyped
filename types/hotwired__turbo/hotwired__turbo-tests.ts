@@ -16,6 +16,8 @@ import {
     StreamMessage,
     StreamSource,
     TurboHistory,
+    TurboStreamAction,
+    TurboStreamActions,
     Visit,
     visit,
     VisitOptions,
@@ -101,6 +103,19 @@ StreamActions.log = function() {
     this;
     console.log(this.getAttribute("message"));
 };
+
+// Test TurboStreamActions / TurboStreamAction exports
+// $ExpectType TurboStreamActions
+StreamActions;
+
+const customStreamAction: TurboStreamAction = function() {
+    // $ExpectType StreamElement
+    this;
+};
+StreamActions.custom = customStreamAction;
+
+const allStreamActions: TurboStreamActions = StreamActions;
+allStreamActions.log;
 
 document.addEventListener("turbo:before-fetch-request", function(event) {
     // $ExpectType FetchRequestHeaders
@@ -271,6 +286,12 @@ turboStream.templateContent;
 turboStream.templateElement = document.createElement("template");
 // @ts-expect-error - templateContent is readonly
 turboStream.templateContent = document.createDocumentFragment();
+
+// Test StreamElement.targetElements
+// $ExpectType Element[]
+turboStream.targetElements;
+// @ts-expect-error - targetElements is readonly
+turboStream.targetElements = [];
 
 const eventSource = new EventSource("https://example.com/stream");
 const webSocket = new WebSocket("wss://example.com/stream");
