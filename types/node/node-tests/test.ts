@@ -7,6 +7,7 @@ import {
     beforeEach,
     describe,
     expectFailure,
+    getTestContext,
     it,
     Mock,
     mock,
@@ -1127,6 +1128,8 @@ test("planning with streams", (t: TestContext, done) => {
         done();
     });
 });
+
+getTestContext(); // $ExpectType TestContext | SuiteContext | undefined
 
 // Test custom assertion functions.
 {

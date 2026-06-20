@@ -891,6 +891,39 @@ declare module "node:test" {
             }
         }
         /**
+         * Returns the {@link TestContext} or {@link SuiteContext} object associated with the
+         * currently executing test or suite, or `undefined` if called outside of a test or
+         * suite. This function can be used to access context information from within the
+         * test or suite function or any async operations within them.
+
+         * ```js
+         * import { getTestContext } from 'node:test';
+         *
+         * test('example test', async () => {
+         *   const ctx = getTestContext();
+         *   console.log(`Running test: ${ctx.name}`);
+         * });
+         *
+         * describe('example suite', () => {
+         *   const ctx = getTestContext();
+         *   console.log(`Running suite: ${ctx.name}`);
+         * });
+         * ```
+         *
+         * When called from a test, returns a `TestContext`.
+         * When called from a suite, returns a `SuiteContext`.
+         *
+         * If called from outside a test or suite (e.g., at the top level of a module or in
+         * a setTimeout callback after execution has completed), this function returns
+         * `undefined`.
+         *
+         * When called from within a hook (before, beforeEach, after, afterEach), this
+         * function returns the context of the test or suite that the hook is associated
+         * with.
+         * @since v26.1.0
+         */
+        function getTestContext(): TestContext | SuiteContext | undefined;
+        /**
          * An instance of `TestContext` is passed to each test function in order to
          * interact with the test runner. However, the `TestContext` constructor is not
          * exposed as part of the API.
