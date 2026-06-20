@@ -70,6 +70,7 @@ declare module "worker_threads" {
     const resourceLimits: ResourceLimits;
     const SHARE_ENV: unique symbol;
     const threadId: number;
+    const threadName: string | null;
     const workerData: any;
     /**
      * Instances of the `worker.MessageChannel` class represent an asynchronous,
@@ -300,6 +301,10 @@ declare module "worker_threads" {
          */
         stackSizeMb?: number | undefined;
     }
+    interface CPUProfileHandle {
+        stop(): Promise<string>;
+        [Symbol.asyncDispose](): Promise<void>;
+    }
     /**
      * The `Worker` class represents an independent JavaScript execution thread.
      * Most Node.js APIs are available inside of it.
@@ -392,6 +397,12 @@ declare module "worker_threads" {
          */
         readonly threadId: number;
         /**
+         * A string identifier for the referenced thread or null if the thread is not running.
+         * Inside the worker thread, it is available as {@link threadName | `require('node:worker_threads').threadName`}.
+         * @since v22.20.0
+         */
+        readonly threadName: string | null;
+        /**
          * Provides the set of JS engine resource constraints for this Worker thread.
          * If the `resourceLimits` option was passed to the `Worker` constructor,
          * this matches its values.
@@ -461,6 +472,30 @@ declare module "worker_threads" {
          * @since v22.16.0
          */
         getHeapStatistics(): Promise<HeapInfo>;
+        /**
+         * Starting a CPU profile with the given `name`, then return a Promise that fulfills
+         * with an error or an object which has a `stop` method. Calling the `stop` method will
+         * stop collecting the profile, then return a Promise that fulfills with an error or the
+         * profile data.
+         *
+         * ```js
+         * const { Worker } = require('node:worker_threads');
+         *
+         * const worker = new Worker(`
+         *   const { parentPort } = require('worker_threads');
+         *   parentPort.on('message', () => {});
+         *   `, { eval: true });
+         *
+         * worker.on('online', async () => {
+         *   const handle = await worker.startCpuProfile('demo');
+         *   const profile = await handle.stop();
+         *   console.log(profile);
+         *   worker.terminate();
+         * });
+         * ```
+         * @since v22.20.0
+         */
+        startCpuProfile(name: string): Promise<CPUProfileHandle>;
         /**
          * Calls `worker.terminate()` when the dispose scope is exited.
          *

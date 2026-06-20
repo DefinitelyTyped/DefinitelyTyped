@@ -130,7 +130,7 @@ import { TextEncoder } from "node:util";
 {
     const db = new DatabaseSync(":memory:");
 
-    // $ExpectType Promise<void>
+    // $ExpectType Promise<number>
     backup(
         db,
         "/var/lib/sqlite/backup",
