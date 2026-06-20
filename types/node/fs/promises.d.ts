@@ -1439,6 +1439,9 @@ declare module "node:fs/promises" {
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
     /**
+     * When `followSymlinks` is enabled, detected symbolic link cycles are not
+     * traversed recursively.
+     *
      * ```js
      * import { glob } from 'node:fs/promises';
      *
