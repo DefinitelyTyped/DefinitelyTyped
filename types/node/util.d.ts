@@ -974,6 +974,8 @@ declare module "node:util" {
      * `reason`.
      *
      * ```js
+     * import util from 'node:util';
+     *
      * function fn() {
      *   return Promise.reject(null);
      * }
