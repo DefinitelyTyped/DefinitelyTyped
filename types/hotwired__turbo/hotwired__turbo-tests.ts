@@ -16,6 +16,8 @@ import {
     StreamMessage,
     StreamSource,
     TurboHistory,
+    TurboStreamAction,
+    TurboStreamActions,
     Visit,
     visit,
     VisitOptions,
@@ -101,6 +103,19 @@ StreamActions.log = function() {
     this;
     console.log(this.getAttribute("message"));
 };
+
+// Test TurboStreamActions / TurboStreamAction exports
+// $ExpectType TurboStreamActions
+StreamActions;
+
+const customStreamAction: TurboStreamAction = function() {
+    // $ExpectType StreamElement
+    this;
+};
+StreamActions.custom = customStreamAction;
+
+const allStreamActions: TurboStreamActions = StreamActions;
+allStreamActions.log;
 
 document.addEventListener("turbo:before-fetch-request", function(event) {
     // $ExpectType FetchRequestHeaders
