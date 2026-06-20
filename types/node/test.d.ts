@@ -1026,7 +1026,9 @@ declare module "node:test" {
              */
             readonly error: EventData.Error | null;
             /**
-             * Number of times the test has been attempted.
+             * The attempt number of the test. This value is zero-based, so the first attempt is `0`,
+             * the second attempt is `1`, and so on. This property is useful in conjunction with the
+             * `--test-rerun-failures` option to determine which attempt the test is currently running.
              * @since v21.7.0, v20.12.0
              */
             readonly attempt: number;
@@ -1333,9 +1335,9 @@ declare module "node:test" {
              */
             readonly passed: boolean;
             /**
-             * The current attempt number of the suite. Used in conjunction with the
-             * `--test-rerun-failures` option to determine the attempt number of the current
-             * run.
+             * The attempt number of the suite. This value is zero-based, so the first attempt is `0`,
+             * the second attempt is `1`, and so on. This property is useful in conjunction with the
+             * `--test-rerun-failures` option to determine the attempt number of the current run.
              * @since v26.1.0
              */
             readonly attempt: number;
