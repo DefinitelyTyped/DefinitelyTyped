@@ -4578,6 +4578,7 @@ declare module "node:fs" {
         bigint: true;
     }
     interface StatOptions {
+        // TODO: add signal option once we sort its behavior out upstream
         bigint?: boolean | undefined;
         throwIfNoEntry?: boolean | undefined;
     }
