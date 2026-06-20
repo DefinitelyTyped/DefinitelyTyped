@@ -140,10 +140,22 @@ declare module "node:quic" {
          */
         endpoint?: EndpointOptions | QuicEndpoint | undefined;
         /**
-         * The ALPN protocol identifier.
-         * @since v23.8.0
+         * The ALPN (Application-Layer Protocol Negotiation) identifier(s).
+         *
+         * For **client** sessions, this is a single string specifying the protocol
+         * the client wants to use (e.g. `'h3'`).
+         *
+         * For **server** sessions, this is an array of protocol names in preference
+         * order that the server supports (e.g. `['h3', 'h3-29']`). During the TLS
+         * handshake, the server selects the first protocol from its list that the
+         * client also supports.
+         *
+         * The negotiated ALPN determines which Application implementation is used
+         * for the session. `'h3'` and `'h3-*'` variants select the HTTP/3
+         * application; all other values select the default application.
+         * @since v26.1.0
          */
-        alpn?: string | undefined;
+        alpn?: string | readonly string[] | undefined;
         /**
          * The CA certificates to use for client sessions. For server sessions, CA
          * certificates are specified per-identity in the `sessionOptions.sni` map.
