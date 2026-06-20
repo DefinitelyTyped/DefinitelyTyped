@@ -1327,6 +1327,31 @@ declare module "node:test" {
              * @since v18.7.0, v16.17.0
              */
             readonly signal: AbortSignal;
+            /**
+             * Indicates whether the suite and all of its subtests have passed.
+             * @since v26.1.0
+             */
+            readonly passed: boolean;
+            /**
+             * The current attempt number of the suite. Used in conjunction with the
+             * `--test-rerun-failures` option to determine the attempt number of the current
+             * run.
+             * @since v26.1.0
+             */
+            readonly attempt: number;
+            /**
+             * Output a diagnostic message. This is typically used for logging information
+             * about the current suite or its tests.
+             *
+             * ```js
+             * test.describe('my suite', (suite) => {
+             *   suite.diagnostic('Suite diagnostic message');
+             * });
+             * ```
+             * @since v26.1.0
+             * @param message A diagnostic message to output.
+             */
+            diagnostic(message: string): void;
         }
         interface TestOptions {
             /**

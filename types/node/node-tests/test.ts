@@ -519,6 +519,12 @@ suite("foo", (context) => {
     context.name;
     // $ExpectType AbortSignal
     context.signal;
+    // $ExpectType boolean
+    context.passed;
+    // $ExpectType number
+    context.attempt;
+
+    context.diagnostic("diagnostic");
 });
 
 // Hooks
