@@ -69,6 +69,8 @@ run({
     lineCoverage: 70,
     branchCoverage: 50,
     functionCoverage: 80,
+    randomize: true,
+    randomSeed: 1029384756,
     rerunFailuresFilePath: "/path/to/file.json",
     env: {
         MY_TEST_PATH: "/path/to/tests",

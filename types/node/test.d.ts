@@ -281,6 +281,20 @@ declare module "node:test" {
              */
             shard?: TestShard | undefined;
             /**
+             * Randomize execution order for test files and queued tests.
+             * This option is not supported with `watch: true`.
+             * @since v26.1.0
+             * @default false
+             */
+            randomize?: boolean | undefined;
+            /**
+             * Seed used when randomizing execution order. If this
+             * option is set, runs can replay the same randomized order deterministically,
+             * and setting this option also enables randomization. The value must be an
+             * integer between `0` and `4294967295`.
+             */
+            randomSeed?: number | undefined;
+            /**
              * A file path where the test runner will
              * store the state of the tests to allow rerunning only the failed tests on a next run.
              * @since v24.7.0
