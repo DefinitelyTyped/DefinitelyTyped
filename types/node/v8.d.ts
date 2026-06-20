@@ -459,18 +459,29 @@ declare module "node:v8" {
          */
         [Symbol.asyncDispose](): Promise<void>;
     }
+    interface CPUProfileOptions {
+        /**
+         * Requested sampling interval in milliseconds. **Default:** `0`.
+         */
+        sampleInterval?: number | undefined;
+        /**
+         * Maximum number of samples to keep before older
+         * entries are discarded. **Default:** `4294967295`.
+         */
+        maxBufferSize?: number | undefined;
+    }
     /**
      * Starting a CPU profile then return a `SyncCPUProfileHandle` object.
      * This API supports `using` syntax.
      *
      * ```js
-     * const handle = v8.startCpuProfile();
+     * const handle = v8.startCpuProfile({ sampleInterval: 1, maxBufferSize: 10_000 });
      * const profile = handle.stop();
      * console.log(profile);
      * ```
      * @since v25.0.0
      */
-    function startCpuProfile(): SyncCPUProfileHandle;
+    function startCpuProfile(options?: CPUProfileOptions): SyncCPUProfileHandle;
     interface HeapProfileOptions {
         /**
          * The average sampling interval in bytes.
@@ -501,20 +512,20 @@ declare module "node:v8" {
     /**
      * Starting a heap profile then return a `SyncHeapProfileHandle` object.
      * This API supports `using` syntax.
-     * 
+     *
      * ```js
      * import v8 from 'node:v8';
-     * 
+     *
      * const handle = v8.startHeapProfile();
      * const profile = handle.stop();
      * console.log(profile);
      * ```
-     * 
+     *
      * With custom parameters:
-     * 
+     *
      * ```js
      * import v8 from 'node:v8';
-     * 
+     *
      * const handle = v8.startHeapProfile({
      *   sampleInterval: 1024,
      *   stackDepth: 8,

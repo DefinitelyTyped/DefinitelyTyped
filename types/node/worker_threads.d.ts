@@ -10,7 +10,7 @@ declare module "node:worker_threads" {
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
-    import { CPUProfileHandle, HeapInfo, HeapProfileHandle, HeapProfileOptions } from "node:v8";
+    import { CPUProfileHandle, CPUProfileOptions, HeapInfo, HeapProfileHandle, HeapProfileOptions } from "node:v8";
     import { Context } from "node:vm";
     import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
@@ -259,7 +259,7 @@ declare module "node:worker_threads" {
          *   `, { eval: true });
          *
          * worker.on('online', async () => {
-         *   const handle = await worker.startCpuProfile();
+         *   const handle = await worker.startCpuProfile({ sampleInterval: 1 });
          *   const profile = await handle.stop();
          *   console.log(profile);
          *   worker.terminate();
@@ -283,7 +283,7 @@ declare module "node:worker_threads" {
          * ```
          * @since v24.8.0
          */
-        startCpuProfile(): Promise<CPUProfileHandle>;
+        startCpuProfile(options?: CPUProfileOptions): Promise<CPUProfileHandle>;
         /**
          * Starting a Heap profile then return a Promise that fulfills with an error
          * or an `HeapProfileHandle` object. This API supports `await using` syntax.
