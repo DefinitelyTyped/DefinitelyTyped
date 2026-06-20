@@ -51,6 +51,13 @@ export class StreamElement extends HTMLElement {
      * Gets a cloned copy of the template's content.
      */
     readonly templateContent: DocumentFragment;
+
+    /**
+     * Gets the list of elements the stream action will be applied to,
+     * resolved from the `target` (an element ID) or `targets` (a CSS
+     * selector) attribute.
+     */
+    readonly targetElements: Element[];
 }
 
 export class StreamSourceElement extends HTMLElement {

@@ -272,6 +272,12 @@ turboStream.templateElement = document.createElement("template");
 // @ts-expect-error - templateContent is readonly
 turboStream.templateContent = document.createDocumentFragment();
 
+// Test StreamElement.targetElements
+// $ExpectType Element[]
+turboStream.targetElements;
+// @ts-expect-error - targetElements is readonly
+turboStream.targetElements = [];
+
 const eventSource = new EventSource("https://example.com/stream");
 const webSocket = new WebSocket("wss://example.com/stream");
 
