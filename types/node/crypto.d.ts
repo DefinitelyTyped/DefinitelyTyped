@@ -1470,8 +1470,10 @@ declare module "node:crypto" {
          * If `encoding` is provided a string is returned; otherwise a `Buffer` is returned.
          *
          * This function is a thin wrapper around [`DH_generate_key()`](https://www.openssl.org/docs/man3.0/man3/DH_generate_key.html). In particular,
-         * once a private key has been generated or set, calling this function only updates
-         * the public key but does not generate a new private key.
+         * once a private key has been generated or set, calling this function only
+         * recomputes the public key from the existing private key. Since the public key is
+         * determined by the private key, the result will be the same unless the private key
+         * has been changed via `diffieHellman.setPrivateKey()`.
          * @since v0.5.0
          * @param encoding The `encoding` of the return value.
          */
