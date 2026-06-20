@@ -126,6 +126,8 @@ declare module "node:fs" {
         bavail: T;
         /** Total file nodes in file system. */
         files: T;
+        /** Fundamental file system block size. */
+        frsize: T;
         /** Free file nodes in file system. */
         ffree: T;
     }
