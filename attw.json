@@ -202,7 +202,7 @@
         "passport-discord",
         "phoenix",
         "playmusic",
-        "polylabel",
+        "polylabel/v1",
         "postcss-functions",
         "postcss-js",
         "posterus",
