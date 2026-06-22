@@ -1,3 +1,7 @@
+import toastr = require("toastr");
+
+type ToastrOptions = typeof toastr.options;
+
 declare let displayMethodStr: "success" | "info" | "warning" | "error";
 declare let undefinedVal: undefined;
 declare let booleanVal: boolean;
