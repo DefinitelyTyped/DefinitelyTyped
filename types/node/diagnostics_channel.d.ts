@@ -33,7 +33,10 @@ declare module "node:diagnostics_channel" {
      * @param name The channel name
      * @return The named channel object
      */
-    function channel(name: string | symbol): Channel;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    function channel<ContextType = any, StoreType = ContextType>(
+        name: string | symbol,
+    ): Channel<ContextType, StoreType>;
     type ChannelListener = (message: unknown, name: string | symbol) => void;
     /**
      * Register a message handler to subscribe to this channel. This message handler
@@ -96,12 +99,9 @@ declare module "node:diagnostics_channel" {
      * @param nameOrChannels Channel name or object containing all the `TracingChannel Channels`
      * @return Collection of channels to trace with
      */
-    function tracingChannel<
-        StoreType = unknown,
-        ContextType extends object = StoreType extends object ? StoreType : object,
-    >(
-        nameOrChannels: string | TracingChannelCollection<StoreType, ContextType>,
-    ): TracingChannel<StoreType, ContextType>;
+    function tracingChannel<ContextType extends object = object, StoreType = ContextType>(
+        nameOrChannels: string | TracingChannelCollection<ContextType, StoreType>,
+    ): TracingChannel<ContextType, StoreType>;
     /**
      * The class `Channel` represents an individual named channel within the data
      * pipeline. It is used to track subscribers and to publish messages when there
@@ -111,7 +111,7 @@ declare module "node:diagnostics_channel" {
      * with `new Channel(name)` is not supported.
      * @since v15.1.0, v14.17.0
      */
-    class Channel<StoreType = unknown, ContextType = StoreType> {
+    class Channel<ContextType = any, StoreType = ContextType> {
         readonly name: string | symbol;
         /**
          * Check if there are active subscribers to this channel. This is helpful if
@@ -304,12 +304,12 @@ declare module "node:diagnostics_channel" {
             },
         ) => void;
     }
-    interface TracingChannelCollection<StoreType = unknown, ContextType = StoreType> {
-        start: Channel<StoreType, ContextType>;
-        end: Channel<StoreType, ContextType>;
-        asyncStart: Channel<StoreType, ContextType>;
-        asyncEnd: Channel<StoreType, ContextType>;
-        error: Channel<StoreType, ContextType>;
+    interface TracingChannelCollection<ContextType extends object = object, StoreType = ContextType> {
+        start: Channel<ContextType, StoreType>;
+        end: Channel<ContextType, StoreType>;
+        asyncStart: Channel<ContextType, StoreType>;
+        asyncEnd: Channel<ContextType, StoreType>;
+        error: Channel<ContextType, StoreType>;
     }
     /**
      * The class `TracingChannel` is a collection of `TracingChannel Channels` which
@@ -320,12 +320,9 @@ declare module "node:diagnostics_channel" {
      * @since v19.9.0
      * @experimental
      */
-    class TracingChannel<StoreType = unknown, ContextType extends object = {}> implements TracingChannelCollection {
-        start: Channel<StoreType, ContextType>;
-        end: Channel<StoreType, ContextType>;
-        asyncStart: Channel<StoreType, ContextType>;
-        asyncEnd: Channel<StoreType, ContextType>;
-        error: Channel<StoreType, ContextType>;
+    interface TracingChannel<ContextType extends object = object, StoreType = ContextType>
+        extends TracingChannelCollection<ContextType, StoreType>
+    {
         /**
          * Helper to subscribe a collection of functions to the corresponding channels.
          * This is the same as calling `channel.subscribe(onMessage)` on each channel
