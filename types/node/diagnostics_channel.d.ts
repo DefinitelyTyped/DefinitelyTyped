@@ -304,7 +304,7 @@ declare module "node:diagnostics_channel" {
             },
         ) => void;
     }
-    interface TracingChannelCollection<ContextType extends object, StoreType = ContextType> {
+    interface TracingChannelCollection<ContextType extends object = object, StoreType = ContextType> {
         start: Channel<ContextType, StoreType>;
         end: Channel<ContextType, StoreType>;
         asyncStart: Channel<ContextType, StoreType>;
