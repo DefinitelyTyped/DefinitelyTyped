@@ -6,10 +6,9 @@ import {
     TextureDataType,
     Wrapping,
 } from "../constants.js";
-import { DepthTextureImageData } from "./DepthTexture.js";
-import { Texture } from "./Texture.js";
+import { DepthTexture, DepthTextureImageData } from "./DepthTexture.js";
 
-declare class CubeDepthTexture extends Texture<CubeDepthTextureImageData> {
+declare class CubeDepthTexture extends DepthTexture<CubeDepthTextureImageData> {
     readonly isCubeDepthTexture: true;
     readonly isCubeTexture: true;
 

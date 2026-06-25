@@ -72,5 +72,5 @@ export class MarchingCubes extends Mesh {
     generateBufferGeometry(): BufferGeometry;
 }
 
-export const edgeTable: Int32Array[];
-export const triTable: Int32Array[];
+export const edgeTable: Int32Array;
+export const triTable: Int32Array;

@@ -1,4 +1,4 @@
-import { Vector2 } from "./Vector2.js";
+import { Vector2, Vector2Like } from "./Vector2.js";
 
 // Math //////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +16,7 @@ export class Box2 {
     max: Vector2;
 
     set(min: Vector2, max: Vector2): Box2;
-    setFromPoints(points: Vector2[]): Box2;
+    setFromPoints(points: Vector2Like[]): Box2;
     setFromCenterAndSize(center: Vector2, size: Vector2): Box2;
     clone(): this;
     copy(box: Box2): this;
@@ -24,7 +24,7 @@ export class Box2 {
     isEmpty(): boolean;
     getCenter(target: Vector2): Vector2;
     getSize(target: Vector2): Vector2;
-    expandByPoint(point: Vector2): Box2;
+    expandByPoint(point: Vector2Like): Box2;
     expandByVector(vector: Vector2): Box2;
     expandByScalar(scalar: number): Box2;
     containsPoint(point: Vector2): boolean;

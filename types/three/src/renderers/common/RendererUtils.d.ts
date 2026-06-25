@@ -11,7 +11,6 @@ import LightsNode from "../../nodes/lighting/LightsNode.js";
 import { Scene } from "../../scenes/Scene.js";
 import { CubeTexture } from "../../textures/CubeTexture.js";
 import { Texture } from "../../textures/Texture.js";
-import Color4 from "./Color4.js";
 import Renderer from "./Renderer.js";
 
 // renderer state
@@ -36,7 +35,7 @@ export interface RendererState {
         | null;
     pixelRatio: number;
     mrt: MRTNode | null;
-    clearColor: Color4;
+    clearColor: Color;
     clearAlpha: number;
     autoClear: boolean;
     scissorTest: boolean;

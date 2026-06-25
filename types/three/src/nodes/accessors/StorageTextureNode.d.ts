@@ -1,4 +1,4 @@
-import { Texture } from "../../textures/Texture.js";
+import StorageTexture from "../../renderers/common/StorageTexture.js";
 import { NodeAccess } from "../core/constants.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
@@ -14,7 +14,7 @@ export default class StorageTextureNode extends TextureNode {
     access: NodeAccess;
 
     constructor(
-        value: Texture,
+        value: StorageTexture,
         uvNode?: Node | null,
         storeNode?: Node | null,
     );
@@ -29,17 +29,19 @@ export default class StorageTextureNode extends TextureNode {
 
     toWriteOnly(): this;
 
+    store(uvNode: Node, storeNode?: Node | null): StorageTextureNode;
+
     generateStore(builder: NodeBuilder): void;
 }
 
 export const storageTexture: (
-    value: Texture,
+    value: StorageTexture,
     uvNode?: Node | null,
     storeNode?: Node,
 ) => StorageTextureNode;
 
 export const textureStore: (
-    value: Texture | StorageTextureNode,
+    value: StorageTexture | StorageTextureNode,
     uvNode?: Node | null,
     storeNode?: Node,
 ) => StorageTextureNode;
