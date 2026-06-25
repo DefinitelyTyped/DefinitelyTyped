@@ -31,7 +31,7 @@ export class UniformsGroup<TEventMap extends UniformsGroupEventMap = UniformsGro
 
     setUsage(value: Usage): this;
 
-    dispose(): this;
+    dispose(): void;
 
     copy(source: UniformsGroup): this;
 

@@ -50,7 +50,7 @@ export class Vector3 {
     /**
      * Sets value of this vector.
      */
-    set(x: number, y: number, z: number): this;
+    set(x: number, y: number, z?: number): this;
 
     /**
      * Sets all values of this vector.
@@ -216,7 +216,7 @@ export class Vector3 {
     crossVectors(a: Vector3Like, b: Vector3Like): this;
     projectOnVector(v: Vector3): this;
     projectOnPlane(planeNormal: Vector3): this;
-    reflect(vector: Vector3Like): this;
+    reflect(normal: Vector3Like): this;
     angleTo(v: Vector3): number;
 
     /**

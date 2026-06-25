@@ -94,8 +94,6 @@ declare class PassNode extends TempNode<"vec4"> {
     setViewport(x: number, y: number, width: number, height: number): void;
     setViewport(x: Vector4): void;
 
-    setPixelRatio(pixelRatio: number): void;
-
     dispose(): void;
 
     static COLOR: "color";

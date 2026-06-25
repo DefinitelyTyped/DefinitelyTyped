@@ -3,6 +3,7 @@ import Node from "./Node.js";
 interface PropertyNodeInterface {
     name: string | null;
     varying: boolean;
+    placeholderNode: Node;
 
     readonly isPropertyNode: true;
 }
@@ -12,6 +13,7 @@ declare const PropertyNode: {
         nodeType: TNodeType,
         name?: string | null,
         varying?: boolean,
+        placeholderNode?: Node | null,
     ): PropertyNode<TNodeType>;
 };
 
@@ -19,8 +21,16 @@ type PropertyNode<TNodeType> = Node<TNodeType> & PropertyNodeInterface;
 
 export default PropertyNode;
 
-export const property: <const TNodeType>(type: TNodeType, name?: string | null) => PropertyNode<TNodeType>;
-export const varyingProperty: <const TNodeType>(type: TNodeType, name?: string | null) => PropertyNode<TNodeType>;
+export const property: <const TNodeType>(
+    type: TNodeType,
+    name?: string | null,
+    placeholderNode?: Node | null,
+) => PropertyNode<TNodeType>;
+export const varyingProperty: <const TNodeType>(
+    type: TNodeType,
+    name?: string | null,
+    placeholderNode?: Node | null,
+) => PropertyNode<TNodeType>;
 
 export const diffuseColor: PropertyNode<"vec4">;
 export const diffuseContribution: PropertyNode<"vec3">;
@@ -52,3 +62,4 @@ export const thickness: PropertyNode<"float">;
 export const attenuationDistance: PropertyNode<"float">;
 export const attenuationColor: PropertyNode<"color">;
 export const dispersion: PropertyNode<"float">;
+export const ambientOcclusion: PropertyNode<"float">;

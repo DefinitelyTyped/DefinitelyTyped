@@ -54,5 +54,5 @@ export class KTX2Loader extends Loader<CompressedTexture> {
     /**
      * Disposes the loader object, de-allocating any Web Workers created.
      */
-    dispose(): this;
+    dispose(): void;
 }

@@ -18,6 +18,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * bitangent space, to be rotated by `anisotropyRotation`. The blue channel
      * contains strength as `[0, 1]` to be multiplied by `anisotropy`.
      *
+     * `anisotropyMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     anisotropyMap: Texture | null;
@@ -25,6 +29,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The red channel of this texture is multiplied against `clearcoat`,
      * for per-pixel control over a coating's intensity.
      *
+     * `clearcoatMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     clearcoatMap: Texture | null;
@@ -38,6 +46,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The green channel of this texture is multiplied against
      * `clearcoatRoughness`, for per-pixel control over a coating's roughness.
      *
+     * `clearcoatRoughnessMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     clearcoatRoughnessMap: Texture | null;
@@ -51,6 +63,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
     /**
      * Can be used to enable independent normals for the clear coat layer.
      *
+     * `clearcoatNormalMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     clearcoatNormalMap: Texture | null;
@@ -76,6 +92,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The red channel of this texture is multiplied against `iridescence`, for per-pixel
      * control over iridescence.
      *
+     * `iridescenceMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     iridescenceMap: Texture | null;
@@ -100,6 +120,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * - `1.0` in the green channel will result in thickness equal to second element of the array.
      * - Values in-between will linearly interpolate between the elements of the array.
      *
+     * `iridescenceThicknessMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     iridescenceThicknessMap: Texture | null;
@@ -113,6 +137,11 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The RGB channels of this texture are multiplied against  `sheenColor`, for per-pixel control
      * over sheen tint.
      *
+     * `sheenColorMap` represents color data, and the texture must be assigned a
+     * {@link Texture#colorSpace}. Most `sheenColorMap` textures set
+     * `texture.colorSpace = SRGBColorSpace`.
+     *
+     * @type {?Texture}
      * @default null
      */
     sheenColorMap: Texture | null;
@@ -126,6 +155,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The alpha channel of this texture is multiplied against `sheenRoughness`, for per-pixel control
      * over sheen roughness.
      *
+     * `sheenRoughnessMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     sheenRoughnessMap: Texture | null;
@@ -133,6 +166,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The red channel of this texture is multiplied against `transmission`, for per-pixel control over
      * optical transparency.
      *
+     * `transmissionMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     transmissionMap: Texture | null;
@@ -148,6 +185,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * A texture that defines the thickness, stored in the green channel. This will
      * be multiplied by `thickness`.
      *
+     * `thicknessMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     thicknessMap: Texture | null;
@@ -177,6 +218,10 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The alpha channel of this texture is multiplied against `specularIntensity`,
      * for per-pixel control over specular intensity.
      *
+     * `specularIntensityMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     specularIntensityMap: Texture | null;
@@ -190,6 +235,11 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * The RGB channels of this texture are multiplied against `specularColor`,
      * for per-pixel control over specular color.
      *
+     * `specularColorMap` represents color data, and the texture must be assigned a
+     * {@link Texture#colorSpace}. Most `specularColorMap` textures set
+     * `texture.colorSpace = SRGBColorSpace`.
+     *
+     * @type {?Texture}
      * @default null
      */
     specularColorMap: Texture | null;

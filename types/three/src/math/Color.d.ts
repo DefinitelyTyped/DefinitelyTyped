@@ -230,8 +230,8 @@ export class Color {
      */
     setFromVector3(vector: Vector3): this;
 
-    setScalar(scalar: number): Color;
-    setHex(hex: number, colorSpace?: string): Color;
+    setScalar(scalar: number): this;
+    setHex(hex: number, colorSpace?: string): this;
 
     /**
      * Sets this color from RGB values.
@@ -239,7 +239,7 @@ export class Color {
      * @param g Green channel value between 0 and 1.
      * @param b Blue channel value between 0 and 1.
      */
-    setRGB(r: number, g: number, b: number, colorSpace?: string): Color;
+    setRGB(r: number, g: number, b: number, colorSpace?: string): this;
 
     /**
      * Sets this color from HSL values.
@@ -249,20 +249,20 @@ export class Color {
      * @param s Saturation value channel between 0 and 1.
      * @param l Value channel value between 0 and 1.
      */
-    setHSL(h: number, s: number, l: number, colorSpace?: string): Color;
+    setHSL(h: number, s: number, l: number, colorSpace?: string): this;
 
     /**
      * Sets this color from a CSS context style string.
      * @param contextStyle Color in CSS context style format.
      */
-    setStyle(style: string, colorSpace?: string): Color;
+    setStyle(style: string, colorSpace?: string): this;
 
     /**
      * Sets this color from a color name.
      * Faster than {@link Color#setStyle .setStyle()} method if you don't need the other CSS-style formats.
      * @param style Color name in X11 format.
      */
-    setColorName(style: string, colorSpace?: string): Color;
+    setColorName(style: string, colorSpace?: string): this;
 
     /**
      * Clones this color.
@@ -279,23 +279,23 @@ export class Color {
      * Copies given color making conversion from `SRGBColorSpace` to `LinearSRGBColorSpace`.
      * @param color Color to copy.
      */
-    copySRGBToLinear(color: Color): Color;
+    copySRGBToLinear(color: Color): this;
 
     /**
      * Copies given color making conversion from `LinearSRGBColorSpace` to `SRGBColorSpace`.
      * @param color Color to copy.
      */
-    copyLinearToSRGB(color: Color): Color;
+    copyLinearToSRGB(color: Color): this;
 
     /**
      * Converts this color from `SRGBColorSpace` to `LinearSRGBColorSpace`.
      */
-    convertSRGBToLinear(): Color;
+    convertSRGBToLinear(): this;
 
     /**
      * Converts this color from `LinearSRGBColorSpace` to `SRGBColorSpace`.
      */
-    convertLinearToSRGB(): Color;
+    convertLinearToSRGB(): this;
 
     /**
      * Returns the hexadecimal value of this color.

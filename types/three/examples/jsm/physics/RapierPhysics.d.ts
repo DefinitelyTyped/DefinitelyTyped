@@ -18,6 +18,7 @@ export interface RapierPhysicsObject {
         heights: Float32Array,
         scale: Vector,
     ) => RAPIER.RigidBody;
+    applyImpulse: (mesh: Mesh, impulse: Vector, index?: number) => void;
 }
 
 export function RapierPhysics(): Promise<RapierPhysicsObject>;
