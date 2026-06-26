@@ -1,10 +1,4 @@
-import { HDR, HDRLoader } from "./HDRLoader.js";
-
-/**
- * @deprecated RGBELoader has been deprecated. Please use HDRLoader instead.
- */
-export interface RGBE extends HDR {
-}
+import { HDRLoader } from "./HDRLoader.js";
 
 /**
  * @deprecated RGBELoader has been deprecated. Please use HDRLoader instead.

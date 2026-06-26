@@ -55,14 +55,6 @@ export class InstancedMesh<
     instanceMatrix: InstancedBufferAttribute;
 
     /**
-     * Represents the local transformation of all instances of the previous frame.
-     * Required for computing velocity. Maintained in {@link InstanceNode}.
-     *
-     * @default null
-     */
-    previousInstancedMatrix: InstancedBufferAttribute | null;
-
-    /**
      * Represents the colors of all instances.
      * You have to set {@link InstancedBufferAttribute.needsUpdate | .instanceColor.needsUpdate()} flag to `true` if you modify instanced data via {@link setColorAt | .setColorAt()}.
      * @defaultValue `null`

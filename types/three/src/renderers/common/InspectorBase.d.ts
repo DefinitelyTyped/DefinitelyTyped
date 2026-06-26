@@ -20,13 +20,6 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
     extends EventDispatcher<TEventMap>
 {
     /**
-     * The renderer associated with this inspector.
-     *
-     * @type {WebGLRenderer}
-     * @private
-     */
-    private _renderer;
-    /**
      * The current frame being processed.
      *
      * @type {Object}

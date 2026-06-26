@@ -1,16 +1,15 @@
 import { Light } from "../../lights/Light.js";
 import Node from "./Node.js";
-import { NodeBuilderContext } from "./NodeBuilder.js";
 
 declare class ContextNodeInterface<TNodeType> extends Node {
     readonly isContextNode: true;
 
     node: Node<TNodeType> | null;
-    value: NodeBuilderContext;
+    value: unknown;
 }
 
 declare const ContextNode: {
-    new<TNodeType>(node?: Node<TNodeType> | null, value?: NodeBuilderContext): ContextNode<TNodeType>;
+    new<TNodeType>(node?: Node<TNodeType> | null, value?: unknown): ContextNode<TNodeType>;
 };
 
 type ContextNode<TNodeType> = ContextNodeInterface<TNodeType> & Node<TNodeType>;
@@ -18,8 +17,8 @@ type ContextNode<TNodeType> = ContextNodeInterface<TNodeType> & Node<TNodeType>;
 export default ContextNode;
 
 interface ContextFunction {
-    (value?: NodeBuilderContext): ContextNode<unknown>;
-    <TNodeType>(node: Node<TNodeType>, value?: NodeBuilderContext): ContextNode<TNodeType>;
+    (value?: unknown): ContextNode<unknown>;
+    <TNodeType>(node: Node<TNodeType>, value?: unknown): ContextNode<TNodeType>;
 }
 
 export const context: ContextFunction;
@@ -39,7 +38,7 @@ export function label<TNodeType>(node: Node<TNodeType>, label: string): Node<TNo
 
 declare module "./Node.js" {
     interface NodeExtensions<TNodeType> {
-        context: (context?: NodeBuilderContext) => ContextNode<TNodeType>;
+        context: (context?: unknown) => ContextNode<TNodeType>;
 
         /**
          * @deprecated "label()" has been deprecated. Use "setName()" instead.

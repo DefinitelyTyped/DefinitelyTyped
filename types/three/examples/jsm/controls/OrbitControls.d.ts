@@ -20,7 +20,7 @@ export interface OrbitControlsEventMap {
 /**
  * Orbit controls allow the camera to orbit around a target.
  */
-declare class OrbitControls extends Controls<OrbitControlsEventMap> {
+declare class OrbitControls<TCamera extends Camera = Camera> extends Controls<OrbitControlsEventMap, TCamera> {
     /**
      * The focus point of the controls, the {@link .object} orbits around this. It can be updated manually at any point
      * to change the focus of the controls.
@@ -206,7 +206,7 @@ declare class OrbitControls extends Controls<OrbitControlsEventMap> {
      * is the scene itself.
      * @param domElement The HTML element used for event listeners. (optional)
      */
-    constructor(object: Camera, domElement?: HTMLElement | SVGElement | null);
+    constructor(object: TCamera, domElement?: HTMLElement | SVGElement | null);
 
     set cursorStyle(type: "auto" | "grab");
     get cursorStyle(): "auto" | "grab";

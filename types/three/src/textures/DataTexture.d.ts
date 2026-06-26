@@ -1,4 +1,5 @@
 import {
+    ColorSpace,
     MagnificationTextureFilter,
     Mapping,
     MinificationTextureFilter,
@@ -63,7 +64,7 @@ export class DataTexture extends Texture<DataTextureImageData> {
         magFilter?: MagnificationTextureFilter,
         minFilter?: MinificationTextureFilter,
         anisotropy?: number,
-        colorSpace?: string,
+        colorSpace?: ColorSpace,
     );
 
     /**
