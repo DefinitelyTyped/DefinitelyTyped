@@ -8,14 +8,22 @@ declare class StringDecoder {
     end(buffer?: Buffer): string;
 }
 
-type Is<T extends U, U> = T;
-declare var NoAsyncDispose: {
-    new(
-        ...arguments: any[]
-    ): typeof globalThis.Symbol extends { readonly asyncDispose: Is<infer S, symbol> }
-        ? symbol extends S ? {} : { [P in S]: never }
-        : {};
-};
+// These fairly ugly hacks are to ensure that readable-stream's Readable is
+// assignable to @types/node's Readable for convenience. readable-stream 4.x is
+// derived from Node.js 18.x, so these interfaces diverge if using more recent
+// versions of @types/node.
+type WellKnownSymbols = {
+    [K in keyof SymbolConstructor]: SymbolConstructor[K] extends symbol
+        ? symbol extends SymbolConstructor[K] ? never : SymbolConstructor[K]
+        : never;
+}[keyof SymbolConstructor];
+declare var SymbolAsyncDispose: SymbolConstructor extends { readonly asyncDispose: infer S extends symbol } ? S : never;
+type NoAsyncDispose = typeof SymbolAsyncDispose extends never ? {} : { [SymbolAsyncDispose]: never };
+declare var StreamToAsyncStreamable: Exclude<
+    keyof NodeStream.Readable & symbol,
+    keyof NodeJS.EventEmitter | WellKnownSymbols
+>;
+type NoToAsyncStreamable = typeof StreamToAsyncStreamable extends never ? {} : { [StreamToAsyncStreamable]: never };
 
 // forward-compatible iterator type for TS <5.6
 declare global {
@@ -102,7 +110,7 @@ interface _IReadable extends _IEventEmitter {
     destroy(error?: Error): this;
 }
 
-declare class _Readable extends NoAsyncDispose implements _IReadable {
+declare class _Readable implements _IReadable {
     readable: boolean;
     readonly readableFlowing: boolean | null;
     readonly readableHighWaterMark: number;
@@ -242,6 +250,7 @@ declare class _Readable extends NoAsyncDispose implements _IReadable {
 
     _undestroy(): void;
 }
+interface _Readable extends NoAsyncDispose, NoToAsyncStreamable {}
 
 declare namespace _Readable {
     // ==== BufferList ====
