@@ -60,6 +60,128 @@ function testSheets() {
     const spreadsheets = sheets.Spreadsheets;
     // $ExpectType Spreadsheet
     const create = spreadsheets.create({});
+    // $ExpectType Spreadsheet
+    const get1 = Sheets.Spreadsheets.get("spreeadsheet_id");
+    // $ExpectType Spreadsheet
+    const get2 = Sheets.Spreadsheets.get("spreeadsheet_id", {});
+    // $ExpectType Spreadsheet
+    const getByDataFilter1 = Sheets.Spreadsheets.getByDataFilter(
+        Sheets.newGetSpreadsheetByDataFilterRequest(),
+        "spreeadsheet_id",
+    );
+    // $ExpectType Spreadsheet
+    const getByDataFilter2 = Sheets.Spreadsheets.getByDataFilter(
+        Sheets.newGetSpreadsheetByDataFilterRequest(),
+        "spreeadsheet_id",
+        {},
+    );
+}
+
+function testSheetShallow() {
+    if (!Sheets) return;
+    // $ExpectType Spreadsheet
+    const spreadsheet = Sheets.Spreadsheets.get("spreeadsheet_id");
+    // $ExpectType Sheet
+    const sheet = spreadsheet.sheets![0]!;
+    // $ExpectType BandedRange[];
+    const bandedRanges = sheet.bandedRanges!;
+    // $ExpectType BasicFilter;
+    const basicFilter = sheet.basicFilter!;
+    // $ExpectType EmbeddedChart[]
+    const charts = sheet.charts!;
+    // $ExpectType DimensionGroup[]
+    const columnGroups = sheet.columnGroups!;
+    // $ExpectType ConditionalFormatRule[]
+    const conditionalFormats = sheet.conditionalFormats!;
+    // $ExpectType GridData[]
+    const data = sheet.data!;
+    // $ExpectType DeveloperMetadata[]
+    const developerMetadata = sheet.developerMetadata!;
+    // $ExpectType FilterView[]
+    const filterViews = sheet.filterViews!;
+    // $ExpectType GridRange[]
+    const merges = sheet.merges!;
+    // $ExpectType SheetProperties
+    const properties = sheet.properties!;
+    // $ExpectType ProtectedRange[]
+    const protectedRanges = sheet.protectedRanges!;
+    // $ExpectType DimensionGroup[]
+    const rowGroups = sheet.rowGroups!;
+    // TODO: ExpectType Slicer[] const slicers = sheet.slicers!;
+    // $ExpectType Table[]
+    const tables = sheet.tables!;
+}
+
+function testSheetsTables() {
+    if (!Sheets) return;
+    // $ExpectType AddTableRequest
+    const addTableReq = Sheets.newAddTableRequest();
+    // $ExpectType DeleteTableRequest
+    const deleteTableReq = Sheets.newDeleteTableRequest();
+    // $ExpectType Table
+    const table = Sheets.newTable();
+    // $ExpectType TableColumnDataValidationRule
+    const tableColumnDataValidationRule = Sheets.newTableColumnDataValidationRule();
+    // $ExpectType TableColumnProperties
+    const tableColumnProperties = Sheets.newTableColumnProperties();
+    // $ExpectType TableRowsProperties
+    const tableRowsProperties = Sheets.newTableRowsProperties();
+    // $ExpectType UpdateTableRequest
+    const updateTableReq = Sheets.newUpdateTableRequest();
+
+    // Test Table interface
+    tableColumnDataValidationRule.condition = { "values": [{ "userEnteredValue": "option1" }] };
+    tableColumnProperties.columnIndex = 1;
+    tableColumnProperties.columnName = "Col1";
+    tableColumnProperties.columnType = "ONE_OF_LIST";
+    tableColumnProperties.dataValidationRule = tableColumnDataValidationRule;
+    tableRowsProperties.firstBandColorStyle = { themeColor: "blue" };
+    tableRowsProperties.footerColorStyle = { themeColor: "cyan" };
+    tableRowsProperties.headerColorStyle = { themeColor: "magenta" };
+    tableRowsProperties.secondBandColorStyle = { themeColor: "mauve" };
+    table.columnProperties = [tableColumnProperties];
+    table.name = "Table1";
+    table.range = {
+        endColumnIndex: 3,
+        endRowIndex: 5,
+        sheetId: 1234,
+        startColumnIndex: 1,
+        startRowIndex: 1,
+    };
+    table.rowsProperties = tableRowsProperties;
+    table.tableId = "1729";
+
+    // Test table batch requests and response
+    const batchResp = Sheets.Spreadsheets.batchUpdate(
+        {
+            requests: [
+                {
+                    addTable: addTableReq,
+                },
+                {
+                    deleteTable: deleteTableReq,
+                },
+                {
+                    updateTable: updateTableReq,
+                },
+            ],
+        },
+        "spreadsheet_id",
+    );
+    // $ExpectType AddTableResponse
+    const addTableResp = batchResp.replies![0].addTable!;
+
+    // Test tableId in various types
+    // $ExpectType string
+    const tableId1 = Sheets.newAppendCellsRequest().tableId!;
+    // $ExpectType string
+    const tableId2 = Sheets.newBasicFilter().tableId!;
+    // $ExpectType string
+    const tableId3 = Sheets.newFilterView().tableId!;
+    // $ExpectType string
+    const tableId4 = Sheets.newProtectedRange().tableId!;
+    // $ExpectType string
+    const tableId5 = Sheets.newFilterView().tableId!;
 }
 
 function testSlides() {
