@@ -768,6 +768,7 @@ declare namespace GoogleAppsScript {
             }
             interface GetSpreadsheetByDataFilterRequest {
                 dataFilters?: Sheets.Schema.DataFilter[] | undefined;
+                excludeTablesInBandedRanges?: boolean | undefined;
                 includeGridData?: boolean | undefined;
             }
             interface GradientRule {

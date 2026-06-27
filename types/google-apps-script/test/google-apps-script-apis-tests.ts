@@ -182,6 +182,10 @@ function testSheetsTables() {
     const tableId4 = Sheets.newProtectedRange().tableId!;
     // $ExpectType string
     const tableId5 = Sheets.newFilterView().tableId!;
+
+    // Test excludeTablesInBandedRanges field in one type
+    // $ExpectType boolean
+    const excludeTablesInBandedRanges = Sheets.newGetSpreadsheetByDataFilterRequest().excludeTablesInBandedRanges!;
 }
 
 function testSlides() {
