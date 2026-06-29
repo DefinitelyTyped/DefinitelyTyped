@@ -49,7 +49,7 @@ declare namespace emitter {
          * emitter.off('example')
          * emitter.off('demo', function () {})
          */
-        off(event: string, listener: Listener): void;
+        off(event: string, listener?: Listener): void;
     }
 }
 

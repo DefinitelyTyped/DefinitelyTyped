@@ -63,3 +63,4 @@ emitter.off("e", (arg1, arg2, arg3, arg4, arg5) => {});
 emitter.off("f", (arg1, arg2, arg3, arg4, arg5, arg6) => {});
 // @ts-expect-error https://github.com/sethvincent/namespace-emitter/blob/master/index.js#L29
 emitter.off("g", (arg1, arg2, arg3, arg4, arg5, arg6, arg7) => {});
+emitter.off("h");
