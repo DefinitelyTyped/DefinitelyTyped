@@ -5373,6 +5373,7 @@
 /types/object-merge/                                    @OpenByteDev
 /types/object-path/                                     @pocesar @BendingBender
 /types/object-refs/                                     @3fd
+/types/object-treeify/                                  @patrik-csak
 /types/object.assign/                                   @ljharb
 /types/object.entries/                                  @ljharb
 /types/object.fromentries/                              @ariofrio
