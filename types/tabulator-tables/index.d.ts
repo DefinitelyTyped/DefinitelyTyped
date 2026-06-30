@@ -1150,6 +1150,36 @@ export interface AdditionalExportOptions {
     formatCells?: boolean | undefined;
 }
 
+export interface ExportRow {
+    /** The type of row. */
+    type: "header" | "group" | "calc" | "row";
+    /**
+     * An array of `ExportColumn` objects representing the columns on the row.
+     *
+     * In the case of tables with column groups this array can also include `null` values representing spaces where columns would have been if not for a neighbouring column taking up multiple columns or rows, such as a column group header. These `null` values are included to help deal with rowspan and colspan alignment and in most cases can be ignored. An example of where they can come in useful can be found in the built-in xlsx downloader.
+     */
+    columns: (ExportColumn | null)[];
+    /** The Component Object for the row or group that the `ExportRow` represents. */
+    component: RowComponent;
+    /** If the row is either a group or a data tree child, this value contains an integer representing which level the row is on, the greater the number the more indented the row should be. */
+    indent: number;
+}
+
+export interface ExportColumn {
+    /** The Component Object for the column that the `ExportColumn` represent. */
+    component: ColumnComponent;
+    /** This usually has a value of 1, in the case of grouped column headers, this shows how many levels of child columns the group has. */
+    depth: number;
+    /** The height of the cell in rows, generally this has a value of 1, but when dealing with grouped column headers this describes how rows hight the cell should be to allow for neighboring grouped column headers. */
+    height: number;
+    /** The value of the cell or title of the column header. */
+    value: any;
+    /** The width in columns, generally this has a value of 1, but when dealing with grouped column headers this describes how many columns wide the column group should be, in the case of group headers this shows as the number of columns in the table to ensure the group header is full width. */
+    width: number;
+    /** The column identifier. */
+    field: string;
+}
+
 export interface OptionsLocale {
     /** You can set the current local in one of two ways. If you want to set it when the table is created, simply include the locale option in your Tabulator constructor. You can either pass in a string matching one of the language options you have defined, or pass in the boolean true which will cause Tabulator to auto-detect the browsers language settings from the navigator.language object. */
     locale?: boolean | string | undefined;
@@ -2833,7 +2863,11 @@ declare class Tabulator {
     download: (
         downloadType:
             | DownloadType
-            | ((columns: ColumnDefinition[], data: any, options: any, setFileContents: any) => any),
+            | ((
+                rows: ExportRow[],
+                options: any,
+                setFileContents: (fileContents: any, mimeType: string) => void,
+            ) => any),
         fileName: string,
         params?: DownloadOptions,
         filter?: RowRangeLookup,
