@@ -119,6 +119,14 @@ export abstract class Selection {
     find(selector: string): Selection;
 
     /**
+     * Select a single descendant element, the first that matches the selector.
+     * https://grafana.com/docs/k6/latest/javascript-api/k6-html/selection/selection-single/
+     * @param selector - Selector expression.
+     * @returns Unary set of the first matching element.
+     */
+    single(selector: string): Selection;
+
+    /**
      * Reduce the set of matched elements to the first.
      * https://grafana.com/docs/k6/latest/javascript-api/k6-html/selection/selection-first/
      * @returns Unary set of first element.

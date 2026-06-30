@@ -51,6 +51,12 @@ async function test() {
     // $ExpectType Promise<BrowserContext>
     browser.newContext({ permissions: ["geolocation", "notifications"] });
     // $ExpectType Promise<BrowserContext>
+    browser.newContext({ proxy: { server: "http://proxy.test:8080" } });
+    // $ExpectType Promise<BrowserContext>
+    browser.newContext({ proxy: { server: "http://proxy.test:8080", bypass: "localhost,127.0.0.1" } });
+    // @ts-expect-error
+    browser.newContext({ proxy: { bypass: "localhost" } });
+    // $ExpectType Promise<BrowserContext>
     browser.newContext({ reducedMotion: "reduce" });
     // $ExpectType Promise<BrowserContext>
     browser.newContext({ reducedMotion: "no-preference" });
@@ -1416,6 +1422,17 @@ async function test() {
 
     // $ExpectType Promise<boolean>
     locator.isHidden();
+
+    // $ExpectType Promise<boolean>
+    locator.isInViewport();
+    // $ExpectType Promise<boolean>
+    locator.isInViewport({ ratio: 0.5 });
+    // $ExpectType Promise<boolean>
+    locator.isInViewport({ timeout: 10000 });
+    // $ExpectType Promise<boolean>
+    locator.isInViewport({ ratio: 1, timeout: 5000 });
+    // @ts-expect-error
+    locator.isInViewport({ ratio: "half" });
 
     // @ts-expect-error
     locator.fill();

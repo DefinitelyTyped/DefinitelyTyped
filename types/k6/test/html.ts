@@ -78,6 +78,11 @@ derived = selection.filter(".item");
 derived = selection.filter(tester);
 derived = selection.filter(selection);
 derived = selection.find(".item");
+derived = selection.single("option");
+// @ts-expect-error
+selection.single();
+// @ts-expect-error
+selection.single(5);
 derived = selection.first();
 element = selection.get(7);
 derived = selection.has(".item");

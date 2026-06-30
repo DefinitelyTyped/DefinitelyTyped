@@ -669,6 +669,24 @@ export interface NewBrowserContextOptions {
     permissions?: BrowserPermissions[];
 
     /**
+     * Network proxy settings to use for all pages in the context.
+     * Defaults to null.
+     */
+    proxy?: {
+        /**
+         * Proxy server URL, including scheme and port,
+         * e.g. `http://proxy.test:8080`.
+         */
+        server: string;
+
+        /**
+         * Comma-separated list of hosts to connect to directly, bypassing
+         * the proxy, e.g. `localhost,127.0.0.1`.
+         */
+        bypass?: string;
+    };
+
+    /**
      * Minimizes the amount of motion by emulating the
      * 'prefers-reduced-motion' media feature. Defaults to
      * `'no-preference'`.
@@ -3080,6 +3098,14 @@ export interface Locator {
      * @returns `true` if the element is hidden, `false` otherwise.
      */
     isHidden(): Promise<boolean>;
+
+    /**
+     * Checks if the element intersects the viewport.
+     * @param options Options to use. `ratio` (0–1, default 0) is the minimum
+     *   fraction of the element that must be within the viewport.
+     * @returns `true` if the element is in the viewport, `false` otherwise.
+     */
+    isInViewport(options?: TimeoutOptions & { ratio?: number }): Promise<boolean>;
 
     /**
      * Fill an `input`, `textarea` or `contenteditable` element with the provided value.
