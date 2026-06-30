@@ -12,6 +12,10 @@
         {
             "name": "Safie Inc.",
             "githubUsername": "SafieDev"
+        },
+        {
+            "name": "Yusuke Oba",
+            "githubUsername": "yusuke-oba1"
         }
     ],
     "nonNpm": true,
