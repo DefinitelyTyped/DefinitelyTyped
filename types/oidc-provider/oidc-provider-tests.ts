@@ -621,10 +621,8 @@ const provider = new oidc.Provider("https://op.example.com", {
 
 provider.on("access_token.saved", (accessToken: oidc.AccessToken) => {
     accessToken.jti.substring(0);
+    accessToken.generateTokenId().substring(0);
 });
-
-// generateTokenId() mints an opaque token id without persisting; used here for InitialAccessToken.
-new provider.InitialAccessToken({}).generateTokenId().substring(0);
 
 provider.registerGrantType(
     "urn:example",
