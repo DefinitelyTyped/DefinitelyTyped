@@ -32,6 +32,8 @@ import {
 
     // $ExpectType number
     phoneUtil.getLengthOfNationalDestinationCode(phoneNumber);
+
+    phoneNumber.clone(); // $ExpectType PhoneNumber
 });
 
 (() => {

@@ -31,6 +31,7 @@ declare namespace libphonenumber {
     }
 
     export class PhoneNumber {
+        clone(): PhoneNumber;
         getCountryCode(): number | undefined;
         getCountryCodeOrDefault(): number;
         setCountryCode(value: number): void;
