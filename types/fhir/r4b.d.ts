@@ -19431,6 +19431,12 @@ export interface MedicationBatch extends BackboneElement {
 }
 
 /**
+ * A fixed quantity (no comparator)
+ */
+export interface SimpleQuantity extends Quantity {
+}
+
+/**
  * The findings and interpretation of diagnostic  tests performed on patients, groups of patients, devices, and locations, and/or specimens derived from these. The report includes clinical context such as requesting and provider information, and some mix of atomic results, images, textual and coded interpretations, and formatted representation of diagnostic reports.
  */
 export interface DiagnosticReport extends DomainResource {
@@ -26029,7 +26035,7 @@ export interface CodeableReference extends Element {
 /**
  * A container for a collection of resources.
  */
-export interface Bundle extends Resource {
+export interface Bundle<T extends Resource = Resource> extends Resource {
   /** Resource Type Name (for serialization) */
   readonly resourceType: 'Bundle';
   /**
@@ -26078,7 +26084,7 @@ export interface Bundle extends Resource {
    * Entry in the bundle - will have a resource or information
    * An entry in a bundle resource - will either contain a resource or information about a resource (transactions and history only).
    */
-  entry?: BundleEntry[] | undefined;
+  entry?: BundleEntry<T>[] | undefined;
   /**
    * Digital Signature
    * Digital Signature - base64 encoded. XML-DSig or a JWT.
@@ -26219,7 +26225,7 @@ export interface BundleEntryResponse extends BackboneElement {
  * Entry in the bundle - will have a resource or information
  * An entry in a bundle resource - will either contain a resource or information about a resource (transactions and history only).
  */
-export interface BundleEntry extends BackboneElement {
+export interface BundleEntry<T extends Resource = Resource> extends BackboneElement {
   /**
    * Links related to this entry
    * A series of links that provide context to this entry.
@@ -26239,7 +26245,7 @@ export interface BundleEntry extends BackboneElement {
    * A resource in the bundle
    * The Resource for the entry. The purpose/meaning of the resource is determined by the Bundle.type.
    */
-  resource?: Resource | undefined;
+  resource?: T | undefined;
   /**
    * Search related information
    * Information about the search process that lead to the creation of this entry.
@@ -28408,6 +28414,8 @@ export interface ImmunizationRecommendationRecommendation extends BackboneElemen
  * This is the base resource type for everything.
  */
 export interface Resource {
+  /** Resource Type Name (for serialization) */
+  readonly resourceType: string;
   /**
    * Logical id of this artifact
    * The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.
@@ -34411,6 +34419,12 @@ export interface Quantity extends Element {
    */
   code?: string | undefined;
   _code?: Element | undefined;
+}
+
+/**
+ * An amount of money. With regard to precision, see [Decimal Precision](datatypes.html#precision)
+ */
+export interface MoneyQuantity extends Quantity {
 }
 
 /**

@@ -11,6 +11,22 @@ async function topLevel() {
         initialPrompts: [{ role: "assistant", content: "foo", prefix: true }],
     });
 
+    // samplingMode is valid on its own
+    await LanguageModel.create({ samplingMode: "most-creative" });
+    await LanguageModel.create({ samplingMode: "balanced" });
+
+    await LanguageModel.create({
+        samplingMode: "balanced",
+        // @ts-expect-error - samplingMode and topK/temperature are mutually exclusive.
+        topK: 1,
+    });
+
+    await LanguageModel.create({
+        samplingMode: "balanced",
+        // @ts-expect-error - samplingMode and topK/temperature are mutually exclusive.
+        temperature: 0.5,
+    });
+
     const languageModel = await LanguageModel.create({
         topK: 1,
         temperature: 0,

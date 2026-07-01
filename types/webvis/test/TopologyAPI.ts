@@ -93,4 +93,10 @@ function test(testContext: webvis.ContextAPI): void {
 
     const neighboringEdgesPromise: Promise<webvis.TopologyHandle[]> = testContext.requestNeighboringEdges(topoHandle0);
     const neighboringFacesPromise: Promise<webvis.TopologyHandle[]> = testContext.requestNeighboringFaces(topoHandle0);
+
+    const topoHandles: Promise<webvis.TopologyHandle[]> = testContext.requestTopologyHandles(1);
+    const edgeHandles: Promise<webvis.TopologyHandle[]> = testContext.requestTopologyHandles(
+        1,
+        [webvis.TopologyType.EDGE],
+    );
 }

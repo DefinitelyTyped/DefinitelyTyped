@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/safie-sdk",
+    "version": "1.8.9999",
+    "projects": [
+        "https://developers.safie.link/"
+    ],
+    "devDependencies": {
+        "@types/safie-sdk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Safie Inc.",
+            "githubUsername": "SafieDev"
+        }
+    ],
+    "nonNpm": true,
+    "nonNpmDescription": "Safie Developers JavaScript SDK"
+}

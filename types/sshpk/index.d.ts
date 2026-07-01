@@ -203,12 +203,12 @@ declare namespace SshPK {
         private constructor();
 
         update(data: crypto.BinaryLike): this;
-        update(data: string, input_encoding: crypto.Encoding): this;
+        update(data: string, input_encoding: BufferEncoding): this;
 
         sign(private_key: crypto.KeyLike | crypto.SignKeyObjectInput | crypto.SignPrivateKeyInput): Buffer;
         sign(
             private_key: crypto.KeyLike | crypto.SignKeyObjectInput | crypto.SignPrivateKeyInput,
-            output_format: crypto.BinaryToTextEncoding,
+            output_format: BufferEncoding,
         ): string;
         sign(): Signature;
     }
@@ -633,7 +633,7 @@ declare namespace SshPK {
     /** extends crypto.Verify but override 'verify' function */
     interface Verify {
         update(data: crypto.BinaryLike): Verify;
-        update(data: string, input_encoding: crypto.Encoding): Verify;
+        update(data: string, input_encoding: BufferEncoding): Verify;
 
         verify(signature: Signature): boolean;
         verify(signature: string | Buffer, fmt?: crypto.BinaryToTextEncoding): boolean;

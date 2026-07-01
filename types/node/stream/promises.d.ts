@@ -30,7 +30,7 @@ declare module "node:stream/promises" {
      * rs.resume(); // Drain the stream.
      * ```
      *
-     * The `finished` API also provides a [callback version](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamfinishedstream-options-callback).
+     * The `finished` API also provides a [callback version](https://nodejs.org/docs/latest-v26.x/api/stream.html#streamfinishedstream-options-callback).
      *
      * `stream.finished()` leaves dangling event listeners (in particular
      * `'error'`, `'end'`, `'finish'` and `'close'`) after the returned promise is
@@ -129,7 +129,7 @@ declare module "node:stream/promises" {
      * console.log('Pipeline succeeded.');
      * ```
      *
-     * The `pipeline` API provides [callback version](https://nodejs.org/docs/latest-v25.x/api/stream.html#streampipelinesource-transforms-destination-callback):
+     * The `pipeline` API provides [callback version](https://nodejs.org/docs/latest-v26.x/api/stream.html#streampipelinesource-transforms-destination-callback):
      * @since v15.0.0
      * @returns Fulfills when the pipeline is complete.
      */

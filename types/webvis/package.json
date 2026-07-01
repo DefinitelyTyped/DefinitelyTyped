@@ -1,9 +1,9 @@
 {
     "private": true,
     "nonNpm": true,
-    "nonNpmDescription": "Type definitions for non-npm package webvis 3.12",
+    "nonNpmDescription": "Type definitions for non-npm package webvis 3.13",
     "name": "@types/webvis",
-    "version": "3.12.9999",
+    "version": "3.13.9999",
     "projects": [
         "https://threedy.io"
     ],
@@ -34,6 +34,10 @@
         {
             "name": "Tim Lam",
             "githubUsername": "TimLamThreedy"
+        },
+        {
+            "name": "Niklas Fix",
+            "githubUsername": "n-fix"
         }
     ]
 }

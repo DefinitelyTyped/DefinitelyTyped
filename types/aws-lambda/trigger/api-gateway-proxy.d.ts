@@ -239,6 +239,8 @@ export interface APIGatewayProxyWebsocketEventV2WithRequestContext<TRequestConte
     body?: string;
     isBase64Encoded: boolean;
     stageVariables?: APIGatewayProxyEventStageVariables;
+    queryStringParameters?: APIGatewayProxyEventQueryStringParameters;
+    multiValueQueryStringParameters?: APIGatewayProxyEventMultiValueQueryStringParameters;
 }
 
 /**

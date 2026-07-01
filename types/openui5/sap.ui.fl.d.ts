@@ -1,9 +1,11 @@
-// For Library Version: 1.147.0
+// For Library Version: 1.149.0
 
 declare module "sap/ui/fl/library" {}
 
 declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
   import ManagedObject from "sap/ui/base/ManagedObject";
+
+  import Control from "sap/ui/core/Control";
 
   /**
    * Provides an API for applications to work with control variants. See also {@link sap.ui.fl.variants.VariantManagement}.
@@ -106,6 +108,28 @@ declare module "sap/ui/fl/apply/api/ControlVariantApplyAPI" {
         vmControlId: string;
       }
     ): void;
+    /**
+     * Returns the current variant reference for a given variant management reference and control.
+     *
+     * @since 1.148
+     *
+     * @returns Current variant reference
+     */
+    getCurrentVariantReference(
+      /**
+       * Object with parameters as properties
+       */
+      mPropertyBag: {
+        /**
+         * Variant management reference
+         */
+        vmReference: string;
+        /**
+         * Control for the reference determination
+         */
+        control: Control;
+      }
+    ): string;
   }
   const ControlVariantApplyAPI: ControlVariantApplyAPI;
   export default ControlVariantApplyAPI;

@@ -6,7 +6,7 @@ declare class VisualizationDef {
     extraExportFormats: Array<{
         name: string;
         processKey: number;
-        useRawData: boolean;
+        useRawData: boolean | undefined;
     }>;
     header: VisualizationHeaderDef;
     footer: VisualizationFooterDef;

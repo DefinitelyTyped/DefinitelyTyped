@@ -5574,6 +5574,26 @@ declare namespace Xrm {
             dashboardId?: string | undefined;
         }
 
+        interface GenerativePage {
+            pageType: "generative";
+            /**
+             * The ID of the generative page to open.
+             */
+            pageId: string;
+            /**
+             * The GUID of a record to pass to the page.
+             */
+            recordId?: string | undefined;
+            /**
+             * The logical name of the Dataverse table corresponding to the recordId.
+             */
+            entityName?: string | undefined;
+            /**
+             * A JSON object containing additional custom parameters to pass to the page.
+             */
+            data?: { [index: string]: any } | undefined;
+        }
+
         /**
          * Options for navigating to a page: whether to open inline or in a dialog. If you don't specify this parameter, page is opened inline by default.
          */
@@ -5630,7 +5650,8 @@ declare namespace Xrm {
                 | Navigation.PageInputEntityList
                 | Navigation.CustomPage
                 | Navigation.PageInputHtmlWebResource
-                | Navigation.Dashboard,
+                | Navigation.Dashboard
+                | Navigation.GenerativePage,
             navigationOptions?: Navigation.NavigationOptions,
         ): Async.PromiseLike<any>;
 

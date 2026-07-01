@@ -20,6 +20,7 @@ declare module "node:http2" {
         ":method"?: string | undefined;
         ":authority"?: string | undefined;
         ":scheme"?: string | undefined;
+        ":protocol"?: string | undefined;
     }
     // Http2Stream
     interface StreamState {
@@ -582,6 +583,7 @@ declare module "node:http2" {
         maxConcurrentStreams?: number | undefined;
         maxHeaderListSize?: number | undefined;
         enableConnectProtocol?: boolean | undefined;
+        customSettings?: { [key: number]: number };
     }
     interface ClientSessionRequestOptions {
         endStream?: boolean | undefined;
@@ -1240,6 +1242,8 @@ declare module "node:http2" {
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
         Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends SessionOptions {
+        maxSessionRejectedStreams?: number | undefined;
+        maxSessionInvalidFrames?: number | undefined;
         streamResetBurst?: number | undefined;
         streamResetRate?: number | undefined;
         /** @deprecated Use `http1Options.IncomingMessage` instead. */
@@ -1756,7 +1760,7 @@ declare module "node:http2" {
          * If there were no previous values for the header, this is equivalent to calling {@link setHeader}.
          *
          * Attempting to set a header field name or value that contains invalid characters will result in a
-         * [TypeError](https://nodejs.org/docs/latest-v25.x/api/errors.html#class-typeerror) being thrown.
+         * [TypeError](https://nodejs.org/docs/latest-v26.x/api/errors.html#class-typeerror) being thrown.
          *
          * ```js
          * // Returns headers including "set-cookie: a" and "set-cookie: b"

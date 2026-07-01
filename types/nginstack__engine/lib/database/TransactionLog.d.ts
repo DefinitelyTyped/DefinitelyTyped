@@ -1,12 +1,15 @@
 export = TransactionLog;
 declare function TransactionLog(): void;
 declare class TransactionLog {
-    private classDefManager_;
-    private dbCache_;
-    private classes_;
     private logger_;
     private deletePerDay_;
-    getClearRules(): ClearRule[];
+    private getTableCleanupConfig_;
+    private getLogTypeCleanupConfig_;
+    queryDeletedKeysInLog_(
+        fieldName: string,
+        existingKeys: number[],
+        maxRetention: number
+    ): number[];
     clear(): void;
     query(options: LogQueryOptions): DataSet;
     private prepareChanges_;
@@ -16,27 +19,39 @@ declare class TransactionLog {
 }
 declare namespace TransactionLog {
     export {
-        jazFilesTransactionLogMaxDays,
-        errorEventsTransactionLogMaxDays,
-        emailEventsTransactionLogMaxDays,
         Database,
         DataSet,
-        ClearRule,
+        TableCleanupConfig,
+        LogTypeCleanupConfig,
+        TableCleanupRule,
+        SpecificClassesRetentionRule,
+        LogTypeCleanupRule,
+        LogKeyList,
         LogQueryOptions,
         LogApplyOptions,
     };
 }
-declare let jazFilesTransactionLogMaxDays: number;
-declare let errorEventsTransactionLogMaxDays: number;
-declare let emailEventsTransactionLogMaxDays: number;
 type Database = import('../database/Database');
 type DataSet = import('../dataset/DataSet');
-interface ClearRule {
-    kind: 'class' | 'table';
-    maxDays: number;
+type TableCleanupConfig = TableCleanupRule[];
+type LogTypeCleanupConfig = LogTypeCleanupRule[];
+interface TableCleanupRule {
     tableName: string;
     tableClass: number;
-    classKeys?: number[];
+    retentionInDays: number;
+    specificClassRules: SpecificClassesRetentionRule[];
+}
+interface SpecificClassesRetentionRule {
+    retentionInDays: number;
+    class: number;
+}
+interface LogTypeCleanupRule {
+    retentionInDays: number;
+    logType: number;
+}
+interface LogKeyList {
+    existing: number[];
+    deleted: number[];
 }
 interface LogQueryOptions {
     startDate?: Date;

@@ -25,22 +25,21 @@ unsubscribe(Symbol.for("test-symbol"), listener);
 const hasSubs = hasSubscribers("test");
 
 {
-    const channelsByName = tracingChannel<number, { requestId: number }>("my-channel");
-    channelsByName.start; // $ExpectType Channel<number, { requestId: number; }>
+    const channelsByName = tracingChannel<{ requestId: number }, number>("my-channel");
+    channelsByName.start; // $ExpectType Channel<{ requestId: number }, number>
 
-    type MyChannel = Channel<number, { requestId: number }>;
     const channelsByCollection = tracingChannel({
-        start: channel("tracing:my-channel:start") as MyChannel,
-        end: channel("tracing:my-channel:end") as MyChannel,
-        asyncStart: channel("tracing:my-channel:asyncStart") as MyChannel,
-        asyncEnd: channel("tracing:my-channel:asyncEnd") as MyChannel,
-        error: channel("tracing:my-channel:error") as MyChannel,
+        start: channel<{ requestId: number }, number>("tracing:my-channel:start"),
+        end: channel<{ requestId: number }, number>("tracing:my-channel:end"),
+        asyncStart: channel<{ requestId: number }, number>("tracing:my-channel:asyncStart"),
+        asyncEnd: channel<{ requestId: number }, number>("tracing:my-channel:asyncEnd"),
+        error: channel<{ requestId: number }, number>("tracing:my-channel:error"),
     });
-    channelsByCollection.start; // $ExpectType Channel<number, { requestId: number; }>
+    channelsByCollection.start; // $ExpectType Channel<{ requestId: number }, number>
 }
 
 {
-    const channels = tracingChannel<number, { requestId: number }>("my-channel");
+    const channels = tracingChannel<{ requestId: number }, number>("my-channel");
     const store = new AsyncLocalStorage<number>();
 
     channels.start.bindStore(store);

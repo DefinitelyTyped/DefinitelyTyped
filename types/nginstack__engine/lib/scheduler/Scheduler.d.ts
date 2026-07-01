@@ -12,9 +12,17 @@ declare class Scheduler {
     startTasks(taskIds: string | string[]): void;
     stopTasks(taskIds: string | string[]): void;
     getCurrentTaskId(): string | null;
+    checkIntegrity(): void;
+    repairDatabase(): RepairDatabaseResult;
 }
 declare namespace Scheduler {
-    export { getInstance, DataSet };
+    export { getInstance, DataSet, RepairDatabaseResult };
 }
 declare function getInstance(): Scheduler;
 type DataSet = import('../dataset/DataSet');
+interface RepairDatabaseResult {
+    completed: boolean;
+    recoveredCount: number;
+    failedCount: number;
+    errors: string[];
+}

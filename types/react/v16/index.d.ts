@@ -2299,7 +2299,7 @@ declare namespace React {
         as?: string | undefined;
         blocking?: "render" | (string & {}) | undefined;
         crossOrigin?: CrossOrigin;
-        fetchPriority?: "high" | "low" | "auto";
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;

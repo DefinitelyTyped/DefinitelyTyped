@@ -7,7 +7,7 @@
     ],
     "devDependencies": {
         "@types/cwise-parser": "workspace:.",
-        "@types/tape": "*"
+        "@types/tape": "^4.0.0"
     },
     "owners": [
         {

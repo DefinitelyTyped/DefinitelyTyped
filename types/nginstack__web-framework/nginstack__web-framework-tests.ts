@@ -113,6 +113,6 @@ grid.toggleKeyVisibility(); // $ExpectType void
 grid.toggleFieldVisibility("field"); // $ExpectType void
 
 function getVersion(): string {
-    return "81.0.1";
+    return "86.0.1";
 }
 getVersion(); // $ExpectType string

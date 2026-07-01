@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lzwcompress",
+    "version": "1.1.9999",
+    "projects": [
+        "https://floydpink.github.io/lzwCompress.js/"
+    ],
+    "devDependencies": {
+        "@types/lzwcompress": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "floydpink",
+            "githubUsername": "floydpink"
+        }
+    ]
+}

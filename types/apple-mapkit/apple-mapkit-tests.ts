@@ -5,7 +5,7 @@ import {
     AnnotationConstructorOptions,
     BoundingRegion,
     CameraZoomRange,
-    CameraZoomRangeConstructorOptions,
+    CameraZoomRangeData,
     CircleOverlay,
     Coordinate,
     CoordinateRegion,
@@ -23,6 +23,7 @@ import {
     GeoJSONDelegate,
     ImageAnnotation,
     ImageAnnotationConstructorOptions,
+    ItemCollection,
     LineGradient,
     LookAround,
     LookAroundOptions,
@@ -30,8 +31,6 @@ import {
     LookAroundPreviewOptions,
     Map,
     MapConstructorOptions,
-    MapKitEvent,
-    MapKitEventListener,
     MapKitInitializationOptions,
     MapPoint,
     MapRect,
@@ -42,7 +41,8 @@ import {
     Overlay,
     OverlayOptions,
     Padding,
-    PaddingConstructorOptions,
+    PaddingData,
+    Place,
     PlaceAnnotation,
     PlaceDetail,
     PlaceDetailOptions,
@@ -68,6 +68,7 @@ import {
     TileOverlayConstructorOptions,
     UserLocationAnnotation,
 } from "apple-mapkit";
+import type { GeoJSON, GeoJsonProperties, Geometry } from "geojson";
 
 // ===== MapKit Initialization =====
 const initOptions: MapKitInitializationOptions = {
@@ -152,7 +153,7 @@ const paddingFromOptions: Padding = new mapkit.Padding(
         right: 20,
         bottom: 30,
         left: 40,
-    } satisfies PaddingConstructorOptions,
+    } satisfies PaddingData,
 );
 const paddingCopy: Padding = padding.copy();
 const paddingsEqual: boolean = padding.equals(paddingCopy);
@@ -164,7 +165,7 @@ const zoomRangeFromOptions: CameraZoomRange = new mapkit.CameraZoomRange(
     {
         minCameraDistance: 100,
         maxCameraDistance: 10000,
-    } satisfies CameraZoomRangeConstructorOptions,
+    } satisfies CameraZoomRangeData,
 );
 const zoomRangeCopy: CameraZoomRange = zoomRange.copy();
 const minDistance: number = zoomRange.minCameraDistance;
@@ -346,7 +347,7 @@ map.addOverlay(circle);
 map.addOverlays([polygon, polyline]);
 
 map.selectedOverlay = circle;
-const topOverlay: Overlay | undefined = map.topOverlayAtPoint(pagePoint);
+const topOverlay: Overlay | null = map.topOverlayAtPoint(pagePoint);
 const overlaysAtPoint: Overlay[] = map.overlaysAtPoint(pagePoint);
 map.removeOverlay(circle);
 map.removeOverlays([polygon, polyline]);
@@ -383,32 +384,26 @@ const geocodeLookupOptions: GeocoderLookupOptions = {
     limitToCountries: "US,CA",
 };
 
-geocoder.lookup(
-    "Apple Park",
-    (error, response) => {
-        if (error) {
-            console.error("Geocoder error:", error);
-            return;
-        }
-        console.log("Geocoder results:", response?.results);
+geocoder.lookup("Apple Park", geocodeLookupOptions).then(
+    (response: GeocoderResponse) => {
+        console.log("Geocoder results:", response.results);
     },
-    geocodeLookupOptions,
+    (error: Error) => {
+        console.error("Geocoder error:", error);
+    },
 );
 
 const geocoderReverseLookupOptions: GeocoderReverseLookupOptions = {
     language: "en-US",
 };
 
-geocoder.reverseLookup(
-    coordinate,
-    (error, response: GeocoderResponse | undefined) => {
-        if (error) {
-            console.error("Reverse geocoder error:", error);
-            return;
-        }
-        console.log("Reverse geocoder results:", response?.results);
+geocoder.reverseLookup(coordinate, geocoderReverseLookupOptions).then(
+    (response: GeocoderResponse) => {
+        console.log("Reverse geocoder results:", response.results);
     },
-    geocoderReverseLookupOptions,
+    (error: Error) => {
+        console.error("Reverse geocoder error:", error);
+    },
 );
 
 const searchConstructorOptions: SearchConstructorOptions = {
@@ -432,14 +427,14 @@ const searchOptions: SearchOptions = {
 
 search.search(
     "coffee shops",
-    (error, response: SearchResponse | undefined) => {
-        if (error) {
-            console.error("Search error:", error);
-            return;
-        }
-        console.log("Search results:", response?.places);
-    },
     searchOptions,
+).then(
+    (response: SearchResponse) => {
+        console.log("Search results:", response.places);
+    },
+    (error: Error) => {
+        console.error("Search error:", error);
+    },
 );
 
 const searchAutocompleteOptions: SearchAutocompleteOptions = {
@@ -448,16 +443,13 @@ const searchAutocompleteOptions: SearchAutocompleteOptions = {
     includeAddresses: true,
 };
 
-search.autocomplete(
-    "coff",
-    (error, response: SearchAutocompleteResponse | undefined) => {
-        if (error) {
-            console.error("Autocomplete error:", error);
-            return;
-        }
-        console.log("Autocomplete results:", response?.results);
+search.autocomplete("coff", searchAutocompleteOptions).then(
+    (response: SearchAutocompleteResponse) => {
+        console.log("Autocomplete results:", response.results);
     },
-    searchAutocompleteOptions,
+    (error: Error) => {
+        console.error("Autocomplete error:", error);
+    },
 );
 
 const directionsConstructorOptions: DirectionsConstructorOptions = {
@@ -475,14 +467,12 @@ const directionsRequest: DirectionsRequest = {
     avoidTolls: false,
 };
 
-directions.route(
-    directionsRequest,
-    (error, response: DirectionsResponse | undefined) => {
-        if (error) {
-            console.error("Directions error:", error);
-            return;
-        }
-        console.log("Route results:", response?.routes);
+directions.route(directionsRequest).then(
+    (response: DirectionsResponse) => {
+        console.log("Route results:", response.routes);
+    },
+    (error: Error) => {
+        console.error("Directions error:", error);
     },
 );
 
@@ -492,23 +482,22 @@ const etaRequest: EtaRequestOptions = {
     transportType: mapkit.Directions.Transport.Walking,
 };
 
-directions.eta(etaRequest, (error, response: EtaResponse | undefined) => {
-    if (error) {
+directions.eta(etaRequest).then(
+    (response: EtaResponse) => {
+        console.log("ETA results:", response.etas);
+    },
+    (error: Error) => {
         console.error("ETA error:", error);
-        return;
-    }
-    console.log("ETA results:", response?.etas);
-});
+    },
+);
 
 const placeLookup: PlaceLookup = new mapkit.PlaceLookup({ language: "en-US" });
-placeLookup.getPlace(
-    "place-id-here",
-    (error, place) => {
-        if (error) {
-            console.error("Place lookup error:", error);
-            return;
-        }
+placeLookup.getPlace("place-id-here").then(
+    (place: Place) => {
         console.log("Place details:", place);
+    },
+    (error: Error) => {
+        console.error("Place lookup error:", error);
     },
 );
 
@@ -525,13 +514,12 @@ const poiSearch: PointsOfInterestSearch = new mapkit.PointsOfInterestSearch(
     poiSearchOptions,
 );
 
-poiSearch.search(
-    (error: Error | null, response?: PointsOfInterestSearchResponse) => {
-        if (error) {
-            console.error("POI search error:", error);
-            return;
-        }
-        console.log("POI results:", response?.places);
+poiSearch.search().then(
+    (response: PointsOfInterestSearchResponse) => {
+        console.log("POI results:", response.places);
+    },
+    (error: Error) => {
+        console.error("POI search error:", error);
     },
 );
 
@@ -638,7 +626,7 @@ map.removeItems(allItems);
 
 // ===== Event Handling =====
 
-const mapSelectListener: MapKitEventListener = (event: MapKitEvent) => {
+const mapSelectListener: EventListener = (event: Event) => {
     console.log("Map selected:", event);
 };
 
@@ -732,7 +720,14 @@ const geoJSONData = {
     ],
 };
 
-const importedItems = mapkit.importGeoJSON(geoJSONData, geoJSONDelegate);
+const importedItems:
+    | ItemCollection<
+        GeoJSON<
+            Geometry,
+            GeoJsonProperties
+        >
+    >
+    | undefined = mapkit.importGeoJSON(geoJSONData, geoJSONDelegate);
 
 // ===== Map Feature Annotations =====
 
@@ -743,8 +738,8 @@ map.selectableMapFeatures = [
 
 map.annotationForMapFeature = mapFeatureAnnotation => {
     return new mapkit.MarkerAnnotation(mapFeatureAnnotation.coordinate, {
-        title: mapFeatureAnnotation.title,
-        subtitle: mapFeatureAnnotation.subtitle,
+        title: mapFeatureAnnotation.title ?? undefined,
+        subtitle: mapFeatureAnnotation.subtitle ?? undefined,
         color: "#FF3B30",
     });
 };
@@ -766,10 +761,8 @@ const annotationSize: Size = { width: 32, height: 32 };
 
 // ===== Utility Methods =====
 
-const requestId: number = search.search("query", () => {});
-if (requestId) {
-    search.cancel(requestId);
-}
+const abortController = new AbortController();
+const result: Promise<SearchResponse> = search.search("query", { signal: abortController.signal });
 
 map.destroy();
 

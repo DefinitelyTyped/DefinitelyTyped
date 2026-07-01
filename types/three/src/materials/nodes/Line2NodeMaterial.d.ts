@@ -7,44 +7,52 @@ export interface Line2NodeMaterialNodeProperties extends NodeMaterialNodePropert
     /**
      * The dash offset.
      *
+     * @type {number}
      * @default 0
      */
     dashOffset: number;
     /**
-     * Defines the lines color.
-     *
-     * @default null
-     */
-    lineColorNode: Node | null;
-    /**
      * Defines the offset.
      *
+     * @type {?Node<float>}
      * @default null
      */
     offsetNode: Node | null;
     /**
      * Defines the dash scale.
      *
+     * @type {?Node<float>}
      * @default null
      */
     dashScaleNode: Node | null;
     /**
      * Defines the dash size.
      *
+     * @type {?Node<float>}
      * @default null
      */
     dashSizeNode: Node | null;
     /**
      * Defines the gap size.
      *
+     * @type {?Node<float>}
      * @default null
      */
     gapSizeNode: Node | null;
+    set lineColorNode(value: Node | null);
+    /**
+     * Defines the lines color.
+     *
+     * @deprecated since r185. Use {@link NodeMaterial#colorNode} instead.
+     * @type {?Node<vec3>}
+     */
+    get lineColorNode(): Node | null;
     set worldUnits(value: boolean);
     /**
      * Whether the lines should sized in world units or not.
      * When set to `false` the unit is pixel.
      *
+     * @type {boolean}
      * @default false
      */
     get worldUnits(): boolean;
@@ -67,6 +75,8 @@ export interface Line2NodeMaterialParameters
 /**
  * This node material can be used to render lines with a size larger than one
  * by representing them as instanced meshes.
+ *
+ * @augments NodeMaterial
  */
 declare class Line2NodeMaterial extends NodeMaterial {
     /**
@@ -78,17 +88,12 @@ declare class Line2NodeMaterial extends NodeMaterial {
     /**
      * This flag can be used for type testing.
      *
+     * @type {boolean}
+     * @readonly
      * @default true
      */
     readonly isLine2NodeMaterial: boolean;
     setValues(values?: Line2NodeMaterialParameters): void;
-    /**
-     * Copies the properties of the given material to this instance.
-     *
-     * @param {Line2NodeMaterial} source - The material to copy.
-     * @return {Line2NodeMaterial} A reference to this material.
-     */
-    copy(source: Line2NodeMaterial): this;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

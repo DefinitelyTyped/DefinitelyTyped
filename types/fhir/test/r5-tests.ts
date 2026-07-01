@@ -448,3 +448,68 @@ const r5Test2820: fhir5.VerificationResult = {"resourceType":"VerificationResult
 // VisionPrescription-33123.json
 const r5Test2821: fhir5.VisionPrescription = {"resourceType":"VisionPrescription","id":"33123","text":{"status":"generated","div":"<div xmlns=\"http://www.w3.org/1999/xhtml\">\n\t\t\t<p>OD -2.00 SPH         +2.00 add    0.5 p.d. BD</p>\n\t\t\t<p>OS -1.00 -0.50 x 180 +2.00 add    0.5 p.d. BU</p>\n\t\t</div>"},"identifier":[{"system":"http://www.happysight.com/prescription","value":"15013"}],"status":"active","created":"2014-06-15","patient":{"reference":"Patient/example"},"dateWritten":"2014-06-15","prescriber":{"reference":"Practitioner/example"},"lensSpecification":[{"product":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct","code":"lens"}]},"eye":"right","sphere":-2,"prism":[{"amount":0.5,"base":"down"}],"add":2},{"product":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/ex-visionprescriptionproduct","code":"lens"}]},"eye":"left","sphere":-1,"cylinder":-0.5,"axis":180,"prism":[{"amount":0.5,"base":"up"}],"add":2}],"meta":{"tag":[{"system":"http://terminology.hl7.org/CodeSystem/v3-ActReason","code":"HTEST","display":"test health data"}]}};
 
+
+// Regression tests for https://github.com/DefinitelyTyped/DefinitelyTyped/issues/71984
+// FhirResource must not circularly reference itself (TS2456).
+// The root cause was that DomainResource.contained (and similar fields) were typed as
+// FhirResource[] instead of Resource[], creating a cycle through every resource type.
+
+// 1. FhirResource is assignable from any concrete resource type
+const r5FhirResourcePatient: fhir5.FhirResource = { resourceType: "Patient", id: "pt-1" };
+const r5FhirResourceObservation: fhir5.FhirResource = { resourceType: "Observation", id: "obs-1", status: "final", code: { text: "test" } };
+
+// 2. FhirResource discriminated union narrows correctly via resourceType
+function processR5FhirResource(resource: fhir5.FhirResource): string {
+  if (resource.resourceType === "Patient") {
+    const patient: fhir5.Patient = resource;
+    return patient.resourceType;
+  }
+  if (resource.resourceType === "Observation") {
+    const obs: fhir5.Observation = resource;
+    return obs.resourceType;
+  }
+  return resource.resourceType;
+}
+processR5FhirResource(r5FhirResourcePatient);
+processR5FhirResource(r5FhirResourceObservation);
+
+// 3. DomainResource.contained uses Resource[] (not FhirResource[]) — no circularity
+const r5InlineObs: fhir5.Observation = { resourceType: "Observation", id: "inline-obs", status: "final", code: { text: "test" } };
+const r5PatientWithContained: fhir5.Patient = {
+  resourceType: "Patient",
+  id: "pt-contained",
+  contained: [r5InlineObs],
+};
+
+// 4. ParametersParameter.resource uses Resource (not FhirResource) — no circularity
+const r5InlinePatient: fhir5.Patient = { resourceType: "Patient", id: "pt-1" };
+const r5Params: fhir5.Parameters = {
+  resourceType: "Parameters",
+  parameter: [{ name: "subject", resource: r5InlinePatient }],
+};
+
+// 5. Resource.resourceType is accessible on base-typed fields
+//    Regression for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/75015
+//    BundleEntry.resource is typed as Resource — resourceType must be reachable.
+const r5Bundle: fhir5.Bundle = {
+  resourceType: "Bundle",
+  type: "collection",
+  entry: [{ resource: r5InlinePatient }],
+};
+const r5HasPatient = r5Bundle.entry?.some(
+  (e) => e.resource?.resourceType === "Patient",
+);
+
+// 6. Bundle<T> and BundleEntry<T> generic typing
+//    Regression for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/75098
+const r5PatientBundle: fhir5.Bundle<fhir5.Patient> = {
+  resourceType: "Bundle",
+  type: "collection",
+  entry: [{ resource: r5InlinePatient }],
+};
+const r5PatientEntry = r5PatientBundle.entry?.[0];
+// patientEntry resource should be typed as Patient | undefined
+if (r5PatientEntry?.resource?.resourceType === "Patient") {
+  // Access a Patient-specific field (e.g. id) to prove narrow typing
+  const r5PtId: string | undefined = r5PatientEntry.resource.id;
+}

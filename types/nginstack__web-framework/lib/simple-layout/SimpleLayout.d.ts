@@ -51,6 +51,7 @@ declare class SimpleLayout {
     private lineBlack;
     private showTopLine;
     private showBottomLine;
+    showRowDividers: boolean;
     showTreeRoot: boolean;
     resultSet: DataSet;
     dataExporter: any;

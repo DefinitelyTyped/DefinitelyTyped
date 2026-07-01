@@ -35,6 +35,11 @@ export interface PublishOptions extends fetch.Options {
      * @default ["sha512"]
      */
     algorithms?: string[];
+    /**
+     * If true, the package will be published to the registry in a staged state, meaning it will not be publicly visible
+     * until someone manually approves it.
+     */
+    stage?: boolean;
 }
 
 /**
@@ -53,7 +58,16 @@ export interface PublishOptions extends fetch.Options {
  * await libpub.publish(manifest, tarData, { npmVersion: 'my-pub-script@1.0.2', token: 'my-auth-token-here' }, opts)
  * // Package has been published to the npm registry.
  */
-export function publish(manifest: PackageJson, tarballData: Buffer, options?: PublishOptions): Promise<Response>;
+export function publish(
+    manifest: PackageJson,
+    tarballData: Buffer,
+    options: PublishOptions & { stage: true },
+): Promise<Response & { stageId: string }>;
+export function publish(
+    manifest: PackageJson,
+    tarballData: Buffer,
+    options?: PublishOptions,
+): Promise<Response & { stageId?: string }>;
 
 /**
  * Unpublishes spec from the appropriate registry. The registry in question may have its own limitations on unpublishing.

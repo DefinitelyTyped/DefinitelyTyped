@@ -720,7 +720,7 @@ export const fetchAsBufferTests = (): void => {
 };
 
 export const fetchAsStringTests = (): void => {
-    defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB];
+    defaultOracledb.fetchAsString = [oracledb.DATE, oracledb.NUMBER, oracledb.BUFFER, oracledb.CLOB, oracledb.NCLOB];
     // @ts-expect-error
     defaultOracledb.fetchAsString = [{}];
     // @ts-expect-error
@@ -910,4 +910,165 @@ export const version6_10Tests = async (): Promise<void> => {
     } = deqOptions;
 
     const messages = await queue.deqMany(5);
+};
+
+export const version7Tests = async (): Promise<void> => {
+    defaultOracledb.thickModeDSNPassthrough = false;
+    expectType<boolean>(defaultOracledb.thickModeDSNPassthrough);
+    expectType<string>(defaultOracledb.enquoteLiteral("O'Reilly"));
+    expectType<string>(defaultOracledb.enquoteName("Department_Name"));
+    expectType<string>(defaultOracledb.enquoteName("Department_Name", false));
+    expectType<boolean>(defaultOracledb.isSimpleSqlName("employee_id"));
+    expectType<boolean>(defaultOracledb.isQualifiedSqlName("HR.employees@db1"));
+    // @ts-expect-error
+    defaultOracledb.enquoteLiteral(123);
+    // @ts-expect-error
+    defaultOracledb.enquoteName("abc", "no");
+    // @ts-expect-error
+    defaultOracledb.isSimpleSqlName(true);
+    // @ts-expect-error
+    defaultOracledb.isQualifiedSqlName();
+
+    const connection = await oracledb.getConnection({
+        user: "test",
+    });
+    expectType<() => Promise<void>>(connection[Symbol.asyncDispose]);
+
+    const pool = await oracledb.createPool({});
+    expectType<() => Promise<void>>(pool[Symbol.asyncDispose]);
+
+    const resultSetResult = await connection.execute("SELECT 1 FROM dual", [], { resultSet: true });
+    expectType<() => Promise<void>>(resultSetResult.resultSet![Symbol.asyncDispose]);
+
+    await using disposablePool = await oracledb.createPool({});
+    await using disposableConnection = await disposablePool.getConnection();
+
+    const disposableResult = await disposableConnection.execute("SELECT 1 FROM dual", [], { resultSet: true });
+    await using disposableResultSet = disposableResult.resultSet!;
+
+    class PoolTraceHandler extends oracledb.traceHandler.TraceHandlerBase {
+        // some representative methods for testing,
+        // others can be similarly tested.
+        override onPoolAcquire(pool: oracledb.Pool): void {
+            expectType<oracledb.Pool>(pool);
+        }
+        override onPoolWait(pool: oracledb.Pool): void {
+            expectType<oracledb.Pool>(pool);
+        }
+        override onPoolConnectionMiss(pool: oracledb.Pool): void {
+            expectType<oracledb.Pool>(pool);
+        }
+    }
+
+    defaultOracledb.traceHandler.setTraceInstance(new PoolTraceHandler());
+    expectType<oracledb.TraceHandlerBase | undefined>(defaultOracledb.traceHandler.getTraceInstance());
+
+    // negative test
+    class InvalidPoolTraceHandler extends oracledb.traceHandler.TraceHandlerBase {
+        // @ts-expect-error
+        override onPoolClose(pool: string): void {}
+    }
+
+    expectType<string | undefined>(connection.pdbName);
+    expectType<string | undefined>(connection.dbUniqueName);
+
+    const appCtx: oracledb.AppContextKeyValue[] = [
+        { traceCtx: "12" },
+        { version: "1" },
+    ];
+    connection.appContext("CLIENTCONTEXT", appCtx);
+    connection.clearAppContext("CLIENTCONTEXT");
+    // @ts-expect-error
+    connection.appContext("CLIENTCONTEXT", [{ traceCtx: 12 }]);
+
+    // valid: IAM end-user token mode
+    const endUserSecurityContext = new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserToken: "end-user-token",
+        dataRoles: ["ANALYST_ROLE"],
+        attributes: {
+            department: "sales",
+        },
+    });
+    connection.setEndUserSecurityContext(endUserSecurityContext);
+    connection.clearEndUserSecurityContext();
+
+    // valid: database local user mode
+    const endUserSecurityContextByName = new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserName: "APP_USER",
+        key: "ctx-key",
+    });
+    connection.setEndUserSecurityContext(endUserSecurityContextByName);
+
+    // @ts-expect-error databaseAccessToken is required
+    new oracledb.EndUserSecurityContext({
+        endUserToken: "end-user-token",
+    });
+    // @ts-expect-error must specify either endUserToken or endUserName + key
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+    });
+
+    // @ts-expect-error key is required when endUserName is set
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserName: "APP_USER",
+    });
+
+    // @ts-expect-error endUserToken and endUserName are mutually exclusive
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserToken: "end-user-token",
+        endUserName: "APP_USER",
+        key: "ctx-key",
+    });
+    // @ts-expect-error key should not be set with endUserToken
+    new oracledb.EndUserSecurityContext({
+        databaseAccessToken: "db-access-token",
+        endUserToken: "end-user-token",
+        key: "ctx-key",
+    });
+
+    const columns: oracledb.DirectPathLoadColumns = ["ID", "NAME"];
+    const data: oracledb.DirectPathLoadData = [
+        [1, "first"],
+        [2, "second"],
+    ];
+    await connection.directPathLoad("TEST_SCHEMA", "TEST_TABLE", columns, data);
+    connection.directPathLoad("TEST_SCHEMA", "TEST_TABLE", columns, data, error => {
+        expectType<oracledb.DBError | null>(error);
+    });
+
+    const lob = await connection.createLob(oracledb.CLOB);
+    await lob.trim();
+    await lob.trim(10);
+    lob.trim(error => {
+        expectType<oracledb.DBError | null>(error);
+    });
+    lob.trim(10, error => {
+        expectType<oracledb.DBError | null>(error);
+    });
+
+    const pipeline = new oracledb.Pipeline();
+    pipeline.addExecute("insert into test_table values (:1)", [1]);
+    pipeline.addExecuteMany("insert into test_table values (:1)", [[1], [2]]);
+    pipeline.addFetchAll("select * from test_table", [], { outFormat: oracledb.OUT_FORMAT_OBJECT }, 50, true);
+    pipeline.addFetchMany("select * from test_table", [], { outFormat: oracledb.OUT_FORMAT_OBJECT }, 10, false);
+    pipeline.addFetchOne(
+        "select * from test_table where id = :1",
+        [1],
+        { outFormat: oracledb.OUT_FORMAT_OBJECT },
+        false,
+    );
+    pipeline.addCommit();
+
+    const pipelineResults = await connection.runPipeline(pipeline, true);
+    expectType<oracledb.PipelineOperationResult[]>(pipelineResults);
+    connection.runPipeline(pipeline, (...args) => {
+        expectType<[oracledb.DBError] | [null, oracledb.PipelineOperationResult[]]>(args);
+    });
+    connection.runPipeline(pipeline, true, (...args) => {
+        expectType<[oracledb.DBError] | [null, oracledb.PipelineOperationResult[]]>(args);
+    });
 };

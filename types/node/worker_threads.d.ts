@@ -22,9 +22,6 @@ declare module "node:worker_threads" {
     const threadName: string | null;
     const workerData: any;
     interface WorkerPerformance extends Pick<Performance, "eventLoopUtilization"> {}
-    /** @deprecated Use `import { Transferable } from "node:worker_threads"` instead. */
-    // TODO: remove in a future major @types/node version.
-    type TransferListItem = Transferable;
     interface WorkerOptions {
         /**
          * List of arguments which would be stringified and appended to
@@ -340,13 +337,13 @@ declare module "node:worker_threads" {
     interface Worker extends InternalEventEmitter<WorkerEventMap> {}
     /**
      * Mark an object as not transferable. If `object` occurs in the transfer list of
-     * a [`port.postMessage()`](https://nodejs.org/docs/latest-v25.x/api/worker_threads.html#portpostmessagevalue-transferlist) call, an error is thrown. This is a no-op if
+     * a [`port.postMessage()`](https://nodejs.org/docs/latest-v26.x/api/worker_threads.html#portpostmessagevalue-transferlist) call, an error is thrown. This is a no-op if
      * `object` is a primitive value.
      *
      * In particular, this makes sense for objects that can be cloned, rather than
      * transferred, and which are used by other objects on the sending side.
      * For example, Node.js marks the `ArrayBuffer`s it uses for its
-     * [`Buffer` pool](https://nodejs.org/docs/latest-v25.x/api/buffer.html#static-method-bufferallocunsafesize) with this.
+     * [`Buffer` pool](https://nodejs.org/docs/latest-v26.x/api/buffer.html#static-method-bufferallocunsafesize) with this.
      * `ArrayBuffer.prototype.transfer()` is disallowed on such array buffer
      * instances.
      *

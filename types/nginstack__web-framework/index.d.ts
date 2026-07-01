@@ -33,6 +33,7 @@
 /// <reference path="lib/classdef/TreeNodeEvent.d.ts" />
 /// <reference path="lib/classdef/ViewDef.d.ts" />
 /// <reference path="lib/classdef/ViewDefField.d.ts" />
+/// <reference path="lib/connection/newConnection.d.ts" />
 /// <reference path="lib/css/formatInlineStyle.d.ts" />
 /// <reference path="lib/css/formatLinkTag.d.ts" />
 /// <reference path="lib/css/formatStyleAttr.d.ts" />

@@ -887,6 +887,18 @@ function testSetFormatter() {
     sinon.setFormatter((...args) => JSON.stringify(args));
 }
 
+function testRestoreObject() {
+    const obj = {
+        foo: () => {},
+    };
+    sinon.spy(obj, "foo");
+    const restored = sinon.restoreObject(obj); // $ExpectType { foo: () => void; }
+    restored.foo();
+
+    // @ts-expect-error
+    sinon.restoreObject(undefined);
+}
+
 async function testPromises() {
     const promise = sinon.promise();
     await promise.resolve(123);

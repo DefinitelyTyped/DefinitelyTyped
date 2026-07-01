@@ -212,7 +212,7 @@ import { promisify } from "node:util";
     childProcess.execFile(
         cmd,
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -230,7 +230,7 @@ import { promisify } from "node:util";
         cmd,
         args,
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -247,7 +247,7 @@ import { promisify } from "node:util";
         cmd,
         {},
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -263,7 +263,7 @@ import { promisify } from "node:util";
         args,
         {},
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -286,7 +286,7 @@ import { promisify } from "node:util";
             signal: new AbortSignal(),
         },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -317,7 +317,7 @@ import { promisify } from "node:util";
             signal: new AbortSignal(),
         },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -344,7 +344,7 @@ import { promisify } from "node:util";
         cmd,
         { encoding: boolFlag ? "buffer" : null },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType NonSharedBuffer
             stdout;
@@ -360,7 +360,7 @@ import { promisify } from "node:util";
         args,
         { encoding: boolFlag ? "buffer" : null },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType NonSharedBuffer
             stdout;
@@ -378,7 +378,7 @@ import { promisify } from "node:util";
         args,
         { encoding: "utf16le" },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -394,7 +394,7 @@ import { promisify } from "node:util";
         args,
         { encoding: "utf16le" },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string
             stdout;
@@ -411,7 +411,7 @@ import { promisify } from "node:util";
         cmd,
         { encoding: "unknown" },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string | NonSharedBuffer
             stdout;
@@ -427,7 +427,7 @@ import { promisify } from "node:util";
         args,
         { encoding: "unknown" },
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string | NonSharedBuffer
             stdout;
@@ -444,7 +444,7 @@ import { promisify } from "node:util";
         cmd,
         boolFlag ? { encoding: "unknown" } : null,
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string | NonSharedBuffer
             stdout;
@@ -460,7 +460,7 @@ import { promisify } from "node:util";
         args,
         boolFlag ? { encoding: "unknown" } : null,
         (error, stdout, stderr) => {
-            // $ExpectType ExecFileException | null
+            // $ExpectType ExecException | null
             error;
             // $ExpectType string | NonSharedBuffer
             stdout;

@@ -15,7 +15,7 @@ load("fonts/Roboto-Black.ttf", (err, font) => {
     }
 });
 
-let font = parse(new ArrayBuffer(0));
+let font = parse(new ArrayBuffer(0), { lowMemory: true });
 font = loadSync("fonts/Roboto-Black.ttf", { lowMemory: true });
 
 const notdefGlyph = new Glyph({

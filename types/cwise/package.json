@@ -13,7 +13,7 @@
         "@types/browserify": "*",
         "@types/cwise": "workspace:.",
         "@types/node": "*",
-        "@types/tape": "*"
+        "@types/tape": "^4.0.0"
     },
     "owners": [
         {

@@ -1,5 +1,4 @@
 /// <reference types="node" />
-import { BinaryToTextEncoding } from "crypto";
 import { Transform, TransformOptions } from "stream";
 
 export interface Blake2Options extends TransformOptions {
@@ -13,7 +12,7 @@ export class Hash extends Transform {
 
     update(buf: Buffer): this;
 
-    digest(encoding: BinaryToTextEncoding): string;
+    digest(encoding: BufferEncoding): string;
     digest(): Buffer;
 
     copy(): this;
@@ -26,7 +25,7 @@ export class KeyedHash extends Transform {
 
     update(buf: Buffer): this;
 
-    digest(encoding: BinaryToTextEncoding): string;
+    digest(encoding: BufferEncoding): string;
     digest(): Buffer;
 
     copy(): this;

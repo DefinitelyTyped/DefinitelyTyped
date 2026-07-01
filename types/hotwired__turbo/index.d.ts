@@ -51,6 +51,13 @@ export class StreamElement extends HTMLElement {
      * Gets a cloned copy of the template's content.
      */
     readonly templateContent: DocumentFragment;
+
+    /**
+     * Gets the list of elements the stream action will be applied to,
+     * resolved from the `target` (an element ID) or `targets` (a CSS
+     * selector) attribute.
+     */
+    readonly targetElements: Element[];
 }
 
 export class StreamSourceElement extends HTMLElement {
@@ -277,17 +284,41 @@ export function disconnectStreamSource(source: StreamSource): void;
  */
 export function renderStreamMessage(message: StreamMessage | string): void;
 
+export interface TurboHistory {
+    readonly location: URL;
+    readonly restorationIdentifier: string;
+    push(location: URL, restorationIdentifier?: string): void;
+    replace(location: URL, restorationIdentifier?: string): void;
+}
+
 export interface TurboSession {
+    readonly history: TurboHistory;
+    adapter: Adapter;
+    readonly enabled: boolean;
+    readonly started: boolean;
+
     connectStreamSource(source: StreamSource): void;
     disconnectStreamSource(source: StreamSource): void;
     renderStreamMessage(message: StreamMessage | string): void;
+
     drive: boolean;
-    adapter: Adapter;
+    readonly location: URL;
+    readonly restorationIdentifier: string;
 }
 
-export const StreamActions: {
-    [action: string]: (this: StreamElement) => void;
-};
+/**
+ * A stream action callback. Invoked with the matched `StreamElement` as
+ * `this`, allowing access to its attributes and target elements.
+ */
+export type TurboStreamAction = (this: StreamElement) => void;
+
+/**
+ * A map of action names to their {@link TurboStreamAction} callbacks, as
+ * used by {@link StreamActions}.
+ */
+export type TurboStreamActions = Record<string, TurboStreamAction>;
+
+export const StreamActions: TurboStreamActions;
 
 export type Action = "advance" | "replace" | "restore";
 export interface VisitOptions {
@@ -443,9 +474,7 @@ export interface TurboGlobal {
     navigator: Navigator;
     cache: Cache;
     config: TurboConfig;
-    StreamActions: {
-        [action: string]: (this: StreamElement) => void;
-    };
+    StreamActions: TurboStreamActions;
 }
 
 declare global {
@@ -506,7 +535,7 @@ export type TurboMorphElementEvent = CustomEvent<{
 
 export type TurboBeforeMorphAttributeEvent = CustomEvent<{
     attributeName: string;
-    mutationType: "updated" | "removed";
+    mutationType: "update" | "remove";
 }>;
 
 export type TurboBeforeFrameMorphEvent = CustomEvent<{

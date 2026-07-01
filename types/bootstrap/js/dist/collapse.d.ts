@@ -1,5 +1,11 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        collapse: Collapse.jQueryInterface;
+    }
+}
+
 declare class Collapse extends BaseComponent {
     /**
      * Static method which allows you to get the collapse instance associated

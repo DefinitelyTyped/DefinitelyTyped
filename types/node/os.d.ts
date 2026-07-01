@@ -242,7 +242,7 @@ declare module "node:os" {
      * environment variables for the home directory before falling back to the
      * operating system response.
      *
-     * Throws a [`SystemError`](https://nodejs.org/docs/latest-v25.x/api/errors.html#class-systemerror) if a user has no `username` or `homedir`.
+     * Throws a [`SystemError`](https://nodejs.org/docs/latest-v26.x/api/errors.html#class-systemerror) if a user has no `username` or `homedir`.
      * @since v6.0.0
      */
     function userInfo(options?: UserInfoOptionsWithStringEncoding): UserInfo<string>;
@@ -422,7 +422,7 @@ declare module "node:os" {
      * compiled. Possible values are `'arm'`, `'arm64'`, `'ia32'`, `'loong64'`,
      * `'mips'`, `'mipsel'`, `'ppc64'`, `'riscv64'`, `'s390x'`, and `'x64'`.
      *
-     * The return value is equivalent to [process.arch](https://nodejs.org/docs/latest-v25.x/api/process.html#processarch).
+     * The return value is equivalent to [process.arch](https://nodejs.org/docs/latest-v26.x/api/process.html#processarch).
      * @since v0.5.0
      */
     function arch(): NodeJS.Architecture;

@@ -763,14 +763,6 @@ declare module "vm" {
      */
     class Module {
         /**
-         * The specifiers of all dependencies of this module. The returned array is frozen
-         * to disallow any changes to it.
-         *
-         * Corresponds to the `[[RequestedModules]]` field of [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records) s in
-         * the ECMAScript specification.
-         */
-        dependencySpecifiers: readonly string[];
-        /**
          * If the `module.status` is `'errored'`, this property contains the exception
          * thrown by the module during evaluation. If the status is anything else,
          * accessing this property will result in a thrown exception.
@@ -864,6 +856,21 @@ declare module "vm" {
          */
         link(linker: ModuleLinker): Promise<void>;
     }
+    /**
+     * A `ModuleRequest` represents the request to import a module with given import attributes and phase.
+     * @since v22.20.0
+     */
+    interface ModuleRequest {
+        /**
+         * The specifier of the requested module.
+         */
+        specifier: string;
+        /**
+         * The `"with"` value passed to the `WithClause` in a `ImportDeclaration`, or an empty object if no value was
+         * provided.
+         */
+        attributes: ImportAttributes;
+    }
     interface SourceTextModuleOptions extends Pick<ScriptOptions, "cachedData" | "columnOffset" | "lineOffset"> {
         /**
          * String used in stack traces.
@@ -897,6 +904,52 @@ declare module "vm" {
          * @param code JavaScript Module code to parse
          */
         constructor(code: string, options?: SourceTextModuleOptions);
+        /**
+         * The specifiers of all dependencies of this module. The returned array is frozen to disallow any changes to it.
+         *
+         * Corresponds to the [[RequestedModules]] field of [Cyclic Module Records](https://tc39.es/ecma262/#sec-cyclic-module-records)
+         * in the ECMAScript specification.
+         * @deprecated Use {@link moduleRequests} instead.
+         */
+        readonly dependencySpecifiers: readonly string[];
+        /**
+         * The requested import dependencies of this module. The returned array is frozen
+         * to disallow any changes to it.
+         *
+         * For example, given a source text:
+         *
+         * ```js
+         * import foo from 'foo';
+         * import fooAlias from 'foo';
+         * import bar from './bar.js';
+         * import withAttrs from '../with-attrs.ts' with { arbitraryAttr: 'attr-val' };
+         * ```
+         *
+         * The value of the `sourceTextModule.moduleRequests` will be:
+         *
+         * ```js
+         * [
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *   },
+         *   {
+         *     specifier: 'foo',
+         *     attributes: {},
+         *   },
+         *   {
+         *     specifier: './bar.js',
+         *     attributes: {},
+         *   },
+         *   {
+         *     specifier: '../with-attrs.ts',
+         *     attributes: { arbitraryAttr: 'attr-val' },
+         *   },
+         * ];
+         * ```
+         * @since v22.20.0
+         */
+        readonly moduleRequests: readonly ModuleRequest[];
     }
     interface SyntheticModuleOptions {
         /**

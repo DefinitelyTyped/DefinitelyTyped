@@ -93,7 +93,7 @@ declare class Grid {
     private _reprepareFieldPermissions;
     private _reprepareGrid;
     private _preparedFieldsLength;
-    private _syncOfGrLookupFromReadOnlyField;
+    private lookupSelectionDisabled_;
     private stateProtectionId_;
     private stateProtectionLevel_;
     private doRefresh;
@@ -394,7 +394,6 @@ declare class Grid {
     private _close;
     private toString;
     private _ivfs;
-    private exportersClass;
     private getExportFormatsOptions;
     private resetClientButtons_;
     private hasSelectEvents_;
@@ -488,6 +487,7 @@ interface RecordServerState {
     enabled?: boolean;
 }
 interface FocusOptions {
+    timestamp?: number;
     fieldName?: string;
     firstEditable?: boolean;
 }

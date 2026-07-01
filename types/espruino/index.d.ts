@@ -3,8 +3,98 @@ declare interface Object {
 }
 
 declare module "Wifi" {
-    function connect(ssid: string, options: any, callback: (err: any) => any): any;
-    function startAP(ssid: string, options: any, callback: (err: any) => any): any;
+    type status = "off" | "connecting" | "wrong_password" | "no_ap_found" | "connect_fail" | "connected";
+    type WifiAuth = "open" | "wpa2" | "wpa" | "wpa_wpa2";
+    interface APOptions {
+        authMode?: WifiAuth;
+        password?: string;
+        channel?: number;
+        hidden?: boolean;
+    }
+
+    interface connectionOptions {
+        password?: string;
+        dnsServers?: [string, string]; // Max 2 DNS servers
+        channel?: number;
+        bssid?: string;
+        authMode?: WifiAuth;
+    }
+
+    function connect(ssid: string, options: connectionOptions, callback?: (err: string | null) => void): void;
+    function startAP(ssid: string, options: APOptions, callback: (err: string | null) => void): void;
+    function disconnect(callback: () => void): void;
+
+    function getAPDetails(callback?: (details: any) => void): {
+        status: "enabled" | "disabled";
+        stations: { ip: any }[];
+        ssid: string;
+        password: string;
+        authMode: WifiAuth;
+        hidden: boolean;
+        maxConn: number;
+        savedSsid: string | null;
+    };
+
+    interface IPInfo {
+        ip: string;
+        netmask: string;
+        gw: string;
+        mac: string;
+    }
+    function getAPIP(callback?: (err: any, ipinfo: IPInfo) => void): IPInfo;
+
+    interface details {
+        status: status;
+        rssi: any;
+        ssid: string;
+        password: string;
+        authMode: WifiAuth;
+        savedSsid: string;
+    }
+    function getDetails(callback?: (details: any) => void): details;
+
+    function getHostByName(hostname: string, callback: (ip: string) => void): string;
+    function getHostname(callback?: (hostname: string) => void): string;
+    function getIP(callback?: (err: any, ipinfo: IPInfo) => void): IPInfo;
+
+    interface StatusCallback {
+        status: status;
+        ap: "enabled" | "disabled";
+        mode: "off" | "sta" | "ap" | "sta+ap";
+        phy: "11b" | "11g" | "11n";
+        powersave: "none" | "ps-poll";
+        savedMode: "off" | "sta" | "ap" | "sta+ap";
+    }
+    function getStatus(callback?: (status: StatusCallback) => void): StatusCallback;
+
+    function ping(hostname: string, callback: (time: string | number) => void): void;
+    function restore(): void;
+    function save(what: "clear" | "sta+ap"): void;
+    function scan(
+        callback: (
+            err: string | null,
+            ap_list: { ssid: string; mac: string; authMode: WifiAuth; channel: number; rssi: number | string }[],
+        ) => void,
+    ): void;
+    function setAPIP(settings: { ip: string; gw: string; netmask: string }, callback: (err: string) => void): void;
+    function setConfig(settings: { phy: "11b" | "11g" | "11n"; powersave: "none" | "ps-poll" }): void;
+    function setHostname(hostname: string, callback?: () => void): void;
+    function setIP(settings: { ip: string; gw: string; netmask: string }, callback: (err: string) => void): void;
+    function setSNTP(server: string, tz_offset: number): void;
+    function stopAP(callback: () => void): void;
+    function turbo(enable: boolean | number, callback: () => void): void;
+
+    // EVENTS
+    type events =
+        | "connected"
+        | "dhcp_timeout"
+        | "disconnected"
+        | "probe_recv"
+        | "sta_joined"
+        | "sta_left"
+        | "associated"
+        | "auth_change";
+    function on(event: events, callback: (details: any) => void): void;
 }
 
 declare module "InfluxDB" {
@@ -2105,8 +2195,10 @@ declare namespace ESP8266 {
  */
 declare function http(): void;
 
+type HTTPRequestMethod = "GET" | "POST" | "PUT" | "DELETE";
+
 /** */
-declare namespace http {
+declare module "http" {
     /**
      * <p>Create an HTTP Server</p>
      * <p>When a request to the server is made, the callback is called. In the callback you can use the methods on the response (httpSRs) to send data. You can also add <code>request.on(&#39;data&#39;,function() { ... })</code> to listen for POSTed data</p>
@@ -2116,6 +2208,36 @@ declare namespace http {
      * @url http://www.espruino.com/Reference#l_http_createServer
      */
     function createServer(callback: any): httpSrv;
+
+    /**
+     * <p>Retrieve Data from a Remote Server</p>
+     *
+     * @param options
+     * @param callback
+     * @return
+     * @url https://www.espruino.com/Reference#t_l_http_get
+     */
+    function get(options: string, callback: (data: httpCRs) => void): httpCRq;
+
+    /**
+     * <p>Retrieve/Put Data to a Server</p>
+     *
+     * @param options
+     * @param callback
+     * @return
+     * @url https://www.espruino.com/Reference#t_l_http_request
+     */
+    function request(
+        options: {
+            host: string;
+            port: number;
+            path: string;
+            method: HTTPRequestMethod;
+            protocol: "https:" | "http:";
+            headers: Record<string, any>;
+        },
+        callback: (data: httpCRs) => void,
+    ): httpCRq;
 }
 
 /**
@@ -2150,11 +2272,16 @@ declare interface httpSrv {
  *
  * @url http://www.espruino.com/Reference#httpSRq
  */
+type httpSRqEvent = "close" | "drain";
 declare interface httpSRq {
     /**
      * @return
      */
     new(): httpSRq;
+
+    url: string;
+    headers: Record<string, any>;
+    method: HTTPRequestMethod;
 
     /**
      * <p>Return how many bytes are available to read. If there is already a listener for data, this will always return 0.</p>
@@ -2181,6 +2308,13 @@ declare interface httpSRq {
      * @url http://www.espruino.com/Reference#l_httpSRq_pipe
      */
     pipe(destination: any, options: any): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event
+     * @param callback
+     */
+    on(event: httpSRqEvent, callback: (data: any) => void): void;
 }
 
 /**
@@ -2188,11 +2322,15 @@ declare interface httpSRq {
  *
  * @url http://www.espruino.com/Reference#httpSRs
  */
+type httpSRsEvent = "close" | "data";
 declare interface httpSRs {
     /**
      * @return
      */
     new(): httpSRs;
+
+    headers: Record<string, any>;
+    setHeader(key: string, value: string): void;
 
     /**
      * <p>This function writes the <code>data</code> argument as a string. Data that is passed in
@@ -2218,7 +2356,14 @@ declare interface httpSRs {
      * @param headers
      * @url http://www.espruino.com/Reference#l_httpSRs_writeHead
      */
-    writeHead(statusCode: number, headers: any): void;
+    writeHead(statusCode: number | string, headers: Record<string, any>): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event
+     * @param callback
+     */
+    on(event: httpSRsEvent, callback: (data: any) => void): void;
 }
 
 /**
@@ -2226,6 +2371,7 @@ declare interface httpSRs {
  *
  * @url http://www.espruino.com/Reference#httpCRq
  */
+type httpCRqEvent = "drain" | "error";
 declare interface httpCRq {
     /**
      * @return
@@ -2251,6 +2397,13 @@ declare interface httpCRq {
      * @url http://www.espruino.com/Reference#l_httpCRq_end
      */
     end(data: any): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event
+     * @param callback
+     */
+    on(event: httpCRqEvent, callback: (data: any) => void): void;
 }
 
 /**
@@ -2258,11 +2411,17 @@ declare interface httpCRq {
  *
  * @url http://www.espruino.com/Reference#httpCRs
  */
+type httpCRsEvent = "close" | "data" | "error";
 declare interface httpCRs {
     /**
      * @return
      */
     new(): httpCRs;
+
+    headers: Record<string, any>;
+    httpVersion: string;
+    statusCode: string;
+    statusMessage: string;
 
     /**
      * <p>Return how many bytes are available to read. If there is a &#39;data&#39; event handler, this will always return 0.</p>
@@ -2289,6 +2448,13 @@ declare interface httpCRs {
      * @url http://www.espruino.com/Reference#l_httpCRs_pipe
      */
     pipe(destination: any, options: any): void;
+
+    /**
+     * <p>Event Listener</p>
+     * @param event
+     * @param callback
+     */
+    on(event: httpCRsEvent, callback: (data: any) => void): void;
 }
 
 /**

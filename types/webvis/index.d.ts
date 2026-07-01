@@ -270,6 +270,26 @@ declare namespace webvis {
     interface RemoveMaterialResponseContent {
         transactionId: number;
     }
+    interface CreateAppearancePatternRequestContent {
+        properties: AppearancePatternProperties;
+    }
+    interface CreateAppearancePatternResponseContent {
+        patternId: number;
+        transactionId: number;
+    }
+    interface ChangeAppearancePatternRequestContent {
+        patternId: number;
+        properties: AppearancePatternProperties;
+    }
+    interface ChangeAppearancePatternResponseContent {
+        transactionId: number;
+    }
+    interface RemoveAppearancePatternRequestContent {
+        patternId: number;
+    }
+    interface RemoveAppearancePatternResponseContent {
+        transactionId: number;
+    }
     interface CreateSnapshotRequestContent {
         name: string;
         attachmentID: number;
@@ -4178,6 +4198,24 @@ declare namespace webvis {
          */
         ORTHOGRAPHIC = 1,
     }
+    /**
+     * Lists the available budgeting modes for maintaining rendering performance/quality.
+     *
+     * @see {@link ViewerSettingStrings.BUDGETING_MODE}
+     */
+    enum BudgetingMode {
+        /**
+         * Uses the standard budgeting approach.
+         */
+        STANDARD = "standard",
+        /**
+         * Uses a framerate based budgeting approach. Budget is set dynamically
+         * in order to maintain a target framerate.
+         *
+         * @see {@link ViewerSettingStrings.BUDGETING_TARGET_FRAMERATE}
+         */
+        FRAMERATE_BASED = "framerateBased",
+    }
     interface VariantProperties {
         id: number;
         name: string;
@@ -4892,6 +4930,14 @@ declare namespace webvis {
          */
         requestShapeHandles(nodeId: number): Promise<TopologyHandle[]>;
         /**
+         * Returns a list of topology handles for the specified node or subtree.
+         *
+         * @param nodeId The node ID that is used to collect the topology handles.
+         * @param types The types of the topology handles that should be collected.
+         * @returns The list of topology handles for the specified node or subtree
+         */
+        requestTopologyHandles(nodeId: number, types?: TopologyType[]): Promise<TopologyHandle[]>;
+        /**
          * Returns a detailed descriptor for the specified topological entity.
          * The descriptor contains the {@link TopologySubType subtype} and an
          * object with a series of known attributes of the topological entity.
@@ -5101,7 +5147,34 @@ declare namespace webvis {
         SHAPE = 4,
     }
     /**
+     * Shareable reference to a {@link SpaceAPI | 3D space}.
+     *
+     * @see {@link SpaceAPI.requestSpaceHandle} to obtain a space handle for the current space.
+     * @see {@link SpaceAPI.openSpace} to open a space via a space handle.
+     */
+    interface SpaceHandle {
+        /**
+         * The ID of the space in which the handle was requested.
+         * This is the space that will be opened when using the handle with {@link SpaceAPI.openSpace}.
+         */
+        spaceId: string;
+        /**
+         * An optional key of a member role to assign when the space is {@link SpaceAPI.openSpace | opened} via the handle.
+         * Undefined, if the handle was {@link SpaceAPI.requestSpaceHandle | requested} without specifying a role.
+         * If undefined, the {@link MemberRole.VIEWER} role will be assigned when opening the space via the handle.
+         */
+        roleKey?: string;
+        /**
+         * URL that can be used to open the space via the handle. Satisfies the format
+         * `<HUB_URL>/space/<SPACE_ID>[?roleKey=<ROLE_KEY>]`, where `<HUB_URL>` is the URL of the hub, `<SPACE_ID>` is the
+         * ID of the space, and `<ROLE_KEY>` is an optional key of a member role to assign when opening the space via
+         * the handle.
+         */
+        spaceUrl?: string;
+    }
+    /**
      * Defines the configuration options for creating or managing a {@link SpaceAPI | 3D space}.
+     * @ignore
      */
     interface SpaceConfiguration {
         /**
@@ -5121,9 +5194,9 @@ declare namespace webvis {
          */
         name?: string;
         /**
-         * Optional mapping of member roles to their corresponding access tokens for the space. Set when creating a space.
+         * Optional mapping of member roles to their corresponding keys for the space. Set when creating a space.
          */
-        tokens?: MemberRoleToSpaceAccessToken;
+        roleKeys?: MemberRoleToKey;
     }
     /**
      * Maps each {@link MemberRole} to its corresponding {@link SpaceAPI | space} access token.
@@ -5132,95 +5205,164 @@ declare namespace webvis {
         [K in MemberRole]: string;
     };
     /**
-     * ## Space API
-     *
-     * The Space API provides methods to interact with a 3D space.
-     *
-     * ### Overview
-     *
-     * To work with 3D spaces, you can use the Space API to open existing spaces, create new ones,
-     * and obtain shareable space handles.
-     *
-     * ### Quick Start
-     *
-     * ```javascript
-     * // User A: Gets a shareable handle for the current space
-     * const spaceHandle = await webvis.getContext().requestSpaceHandle();
-     *
-     * // User B: Opens an existing space using the handle of user A
-     * await webvis.getContext().openSpace(spaceHandle); // You're now in the existing space
-     *
-     * // You can also create a new, empty space
-     * await webvis.getContext().openSpace(); // You're now in a new, empty space
-     * ```
-     *
-     * ### Space Handles
-     *
-     * A space handle is a URL that can be used to open a specific 3D space. It contains the space ID and an optional access
-     * token for a specific member role. You can obtain a space handle for the current space using the `requestSpaceHandle`
-     * method.
-     *
-     * ```javascript
-     * // Get the webvis context
-     * const context = await webvis.getContext();
-     *
-     * // Get a space handle for the current space with the default role (Viewer)
-     * const viewerHandle = await context.requestSpaceHandle();
-     *
-     * // Get a space handle for the current space with a certain role
-     * const editorHandle = await context.requestSpaceHandle(MemberRole.EDITOR);
-     * ```
-     *
-     * ### Cloning Spaces
-     *
-     * You can create a new 3D space by cloning the current space using the `cloneIntoNewSpace` method.
-     * This creates a new space with the same content as the current one, allowing you to make changes
-     * without affecting the original space.
-     *
-     * ```javascript
-     * // Clone the current space into a new space
-     * await context.cloneIntoNewSpace(); // You're now in the cloned space
-     * ```
-     *
-     * ### Events
-     *
-     * The Space API emits the following events:
-     * - {@link SpaceOpenedEvent}
+     * Maps each {@link MemberRole} to its corresponding {@link SpaceAPI | space} key.
+     * @ignore
      */
+    type MemberRoleToKey = {
+        [K in Exclude<MemberRole, MemberRole.UNKNOWN>]: string;
+    };
+    /**
+ *
+ *
+ * ## Space API
+ *
+ * The Space API provides methods to interact with a 3D space.
+ *
+ * ### Overview
+ *
+ * The Space API allows you to open existing 3D spaces, create new ones, and obtain shareable handles for spaces.
+ *
+ * ### Quick Start
+ *
+ * ```javascript
+ * // User A: Gets a shareable handle for the current space
+ * const spaceHandle = await webvis.getContext().requestSpaceHandle();
+ *
+ * // User B: Opens an existing space using the handle of user A
+ * await webvis.getContext().openSpace(spaceHandle); // You're now in the existing space
+ *
+ * // You can also create a new, empty space
+ * await webvis.getContext().openSpace(); // You're now in a new, empty space
+ * ```
+ *
+ * ### General Concepts
+ *
+ * A 3D space is a spatial workspace that contains 3D data resources and {@link ContextAPI | context} layered entities.
+ * Every {@link MemberAPI | member} always exists within a space and can connect to other spaces. When two or more members connect to the same space, they share the same data and can collaborate in real time.
+To enable this, members can exchange space handles, which are shareable references that allow others to join a specific space.
+ *
+ * ### Space Handles
+ *
+ * A {@link SpaceHandle | space handle} is a shareable reference to a 3D space that enables collaboration between users.
+ * One user requests a handle for their current space and shares it with others, who can then use it to join the same
+ * space.
+ *
+ * Every space handle contains the space ID associated with the space it was requested in. Additionally, a role key can be
+ * included by specifying a member role when requesting the handle. Users who open a space via a handle with a role key
+ * are automatically assigned the corresponding member role upon joining. If no role is specified when requesting a
+ * handle, users who open the space via the handle are assigned the {@link MemberRole.VIEWER | VIEWER} role by default.
+ *
+ * Use the {@link requestSpaceHandle} method to obtain a handle for the current space.
+ *
+ * ```javascript
+ * // Get the webvis context
+ * const context = await webvis.getContext();
+ *
+ * // Get a space handle for the current space with the default role (VIEWER)
+ * const viewerHandle = await context.requestSpaceHandle();
+ *
+ * // Get a space handle for the current space with a certain role
+ * const editorHandle = await context.requestSpaceHandle(MemberRole.EDITOR);
+ * ```
+ *
+ * ### Opening Spaces
+ *
+ * Use the {@link openSpace} method to open a space by its handle or to create a new, empty space.
+ *
+ * ```javascript
+ * // Get the webvis context
+ * const context = await webvis.getContext();
+ *
+ * // Open an existing space using a handle
+ * await context.openSpace(viewerHandle); // You're now in the existing space as a viewer
+ *
+ * // Open a new, empty space
+ * await context.openSpace(); // You're now in a new, empty space
+ *
+ * // Open a space with a specified space ID
+ * await context.openSpace("my-namespace/my-name"); // You're now in the space with the ID "my-namespace/my-name"
+ * ```
+ *
+ * ### Cloning Spaces
+ *
+ * You can create a new 3D space by cloning the current space using the {@link cloneIntoNewSpace} method.
+ * This creates a new space with the same content as the current one, allowing you to make changes
+ * without affecting the original space.
+ *
+ * ```javascript
+ * // Clone the current space into a new space
+ * await context.cloneIntoNewSpace(); // You're now in the cloned space
+ *
+ * // Clone the current space into a new space with the specified space ID
+ * await context.cloneIntoNewSpace("my-namespace/my-clone"); // You're now in the cloned space with the ID "my-namespace/my-clone"
+ * ```
+ *
+ * ### Space ID Format
+ *
+ * Every space has a unique ID. This ID contains two parts: a namespace and a name, which are separated by a slash
+ * ('/'). Both namespace and name adhere to the following rules:
+ * - *Allowed characters*: lowercase letters (a-z), digits (0-9), hyphens (-), and underscores (_)
+ * - *Length*: 2-64 characters
+ * - *Start/end characters*: must be alphanumeric (i.e., no leading/trailing hyphens or underscores)
+ *
+ * When opening or cloning a space with a predefined ID, the provided ID must adhere to these format rules. Furthermore,
+ * the following side-effects can occur:
+ * - *Default namespace*: If the provided parameter doesn't contain a slash, it is treated as the name part of the ID.
+ * In this case, the namespace defaults to "default", resulting in a space ID of `default/<NAME>`.
+ * - *Normalization*: Uppercase letters are silently converted to lowercase.
+ * - *Validation*: Whitespaces and all other illegal characters cause an error.
+ *
+ * ### Events
+ *
+ * The Space API emits the following events:
+ * - {@link SpaceChangedEvent}
+ */
     interface SpaceAPI {
         /**
-         * Opens a 3D space.
+         * Opens a 3D space, depending on the provided parameter:
+         * - If a parameter is specified and a space with the referenced ID exists, switches to to that space.
+         * - If a parameter is specified and no space with the referenced ID exists,
+         * creates a new, empty space with that ID and switches to it.
+         * - If no parameter is specified, creates a new, empty space and switches to it.
+         * This space doesn't have an ID assigned (yet). Call {@link requestSpaceHandle} to get a handle for this space,
+         * which contains a generated space ID.
          *
-         * If a space handle is specified and it exists, switches to the 3D space referenced by the handle.
-         * If a space handle is specified and it does not exist, throws an error.
-         * If no space handle is specified, creates a new 3D space and clears the content.
+         * In any of the above cases, the current space will be left and the current content will be overwritten by the
+         * content of the opened space.
          *
-         * @param spaceHandle The handle of the space to open. If undefined, a new space is created.
-         * @returns A promise that resolves when the space has been opened.
+         * @param spaceHandle The handle of the space to open. Following formats are supported:
+         * - A string representing a {@link SpaceHandle.spaceUrl | space URL}.
+         * - A string representing a {@link SpaceHandle.spaceId | space ID} of the space to open.
+         * Must satisfy the format rules for space IDs and might cause side-effects as described in the
+         * [Space ID Format section](#space-id-format).
+         * - A {@link SpaceHandle | space handle object} obtained from a previous call to {@link requestSpaceHandle}.
+         * @returns A promise that resolves when the space has been opened. If a space ID was provided that violates the
+         * format rules for space IDs, the promise will be rejected with an error.
          *
          * @see {@link requestSpaceHandle} to get a space handle.
          */
-        openSpace(spaceHandle?: string): Promise<void>;
+        openSpace(spaceHandle?: SpaceHandle | string): Promise<void>;
         /**
-         * Opens a new 3D space by cloning the current space.
+         * Opens a new space by cloning the current space.
          *
-         * @returns A promise that resolves when the new space has been opened.
+         * @param spaceId An optional predefined ID for the new space. Must satisfy the format rules for space IDs and might
+         * cause side-effects as described in the [Space ID Format section](#space-id-format). If a space with this ID already exists,
+         * an error will be thrown. If not provided, the new space will be cloned without an ID assigned.
+         * Call {@link requestSpaceHandle} to get a handle for the new space, which contains a generated space ID.
+         * @returns A promise that resolves when the new space has been opened. If a space ID was provided and a space with
+         * that ID already exists, the promise will be rejected with an error.
          */
-        cloneIntoNewSpace(): Promise<void>;
+        cloneIntoNewSpace(spaceId?: string): Promise<void>;
         /**
-         * Requests a shareable space handle for the current 3D space.
+         * Requests a shareable space handle for the current space.
          *
-         * A space handle is a URL that can be used to open the current 3D space. It has the following format:
-         * - `<HUB_URL>/api/space/v2/<SPACE_ID>` if no role is specified.
-         * - `<HUB_URL>/api/space/v2/<SPACE_ID>?token=<TOKEN>` if a role is specified.
-         * where `<HUB_URL>` is the URL of the hub, `<SPACE_ID>` is the ID of the current space, and `<TOKEN>` is the
-         * access token for the specified role.
+         * Note that after calling this method, the current space will definitely have an ID assigned to it.
          *
-         * @param role The role to assign when the space is opened via the handle. If undefined, the {@link MemberRole.VIEWER}
-         * role will be assigned when opening the space via the handle.
+         * @param role The role to assign when the space is {@link openSpace | opened} via the handle. If undefined, the
+         * {@link MemberRole.VIEWER} role will be assigned when opening the space via the handle.
          * @returns A promise that resolves to the space handle.
          */
-        requestSpaceHandle(role?: MemberRole): Promise<string>;
+        requestSpaceHandle(role?: Exclude<MemberRole, MemberRole.UNKNOWN>): Promise<SpaceHandle>;
     }
     /**
      * Event that is fired when a {@link SpaceAPI | 3D space} is opened.
@@ -5234,26 +5376,50 @@ declare namespace webvis {
         constructor();
     }
     /**
+     * Event that is fired when the user switched to a new {@link SpaceAPI | 3D space} or when the current
+     * space got an ID assigned to it.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @param spaceId - The ID of the space the user is currently in. If undefined, the current space does not have an ID
+     * assigned to it (yet). If a space handle for the current space gets {@link SpaceAPI.requestSpaceHandle | requested}, this
+     * event will be fired again with the assigned space ID.
+     * This parameter is definitively set when:
+     * 1. {@link SpaceAPI.openSpace} was called with a parameter containing a valid space ID.
+     * 2. {@link SpaceAPI.cloneIntoNewSpace} was called with a valid space ID that does not exist yet.
+     * 3. {@link SpaceAPI.requestSpaceHandle} was called for a space that does not have an ID assigned yet.
+     *
+     * @see {@link EventType.SPACE_CHANGED}
+     */
+    class SpaceChangedEvent extends WebVisEvent {
+        spaceId?: string;
+        constructor(spaceId?: string);
+    }
+    /**
      * Lists all available space retain policies.
      *
-     * A space retain policy defines the conditions under which a {@link SpaceAPI | 3D space} is preserved or discarded.
+     * A space retain policy defines the conditions under which a {@link SpaceAPI | 3D space} is persisted or discarded.
+     * @ignore
      */
     enum SpaceRetainPolicy {
         /**
+         * No retainment policy is set.
+         */
+        UNSET = 0,
+        /**
          * Preserve the space even when the owner leaves.
          */
-        PRESERVE = 1,
-        /**
-         * Discard the space when the owner leaves.
-         */
-        DISCARD_WHEN_OWNER_LEAVES = 2,
+        PERSIST = 1,
         /**
          * Discard the space when the last member leaves.
          */
-        DISCARD_WHEN_LAST_MEMBER_LEAVES = 3,
+        DISCARD_WHEN_LAST_MEMBER_LEAVES = 2,
     }
     type ViewerSettingType<T> = T extends "aaSetting" ? boolean
         : T extends "backgroundColor" ? string | undefined | null
+        : T extends "budgetingMode" ? BudgetingMode
+        : T extends "budgetingTargetFramerate" ? number
         : T extends "defaultFieldOfView" ? number
         : T extends "cappingEffectEdgeColor" ? string | undefined | null
         : T extends "cappingEffectInnerColor" ? string | undefined | null
@@ -5485,6 +5651,22 @@ declare namespace webvis {
          * @see {@link Property.APPEARANCE_URI} for a definition of valid color strings.
          */
         BACKGROUND_COLOR = "backgroundColor",
+        /**
+         * Defines the budgeting mode used for rendering objects.
+         *
+         * @see {@link BudgetingMode} for available modes.
+         * @see {@link BudgetingMode.FRAMERATE_BASED} uses {@link BUDGETING_TARGET_FRAMERATE} to set the target framerate.
+         *
+         * @default BudgetingMode.STANDARD
+         */
+        BUDGETING_MODE = "budgetingMode",
+        /**
+         * Defines the budgeting target framerate used for rendering objects.
+         * The viewer adjusts the rendering load to hit the specified target framerate.
+         *
+         * @default 20
+         */
+        BUDGETING_TARGET_FRAMERATE = "budgetingTargetFramerate",
         /**
          * Defines the camera field of view in degrees.
          *
@@ -5753,6 +5935,13 @@ declare namespace webvis {
          * @default true
          */
         GIZMOS_ENABLED = "gizmosEnabled",
+        /**
+         * Defines whether the axis labels of the gizmos are enabled or not.
+         * Axis labels are only available for translation and scaling gizmos yet.
+         *
+         * @default true
+         */
+        GIZMO_AXIS_LABELS_ENABLED = "gizmoAxisLabelsEnabled",
         /**
          * Defines the scaling factor for the size of gizmo geometries.
          *
@@ -6669,26 +6858,6 @@ declare namespace webvis {
          */
         PREFER_XHR_WITH_CREDENTIALS = "preferXHRWithCredentials",
         /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         * @ignore
-         */
-        SESSION_DEVICE_TAGS = "sessionDeviceTags",
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         * @ignore
-         */
-        SESSION_FORWARD_URL = "sessionForwardUrl",
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         * @ignore
-         */
-        SESSION_INTERACTIONS = "sessionInteractions",
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         * @ignore
-         */
-        SESSION_MEMBER_NAME = "sessionMemberName",
-        /**
          * @deprecated
          * @ignore
          *
@@ -7454,7 +7623,7 @@ declare namespace webvis {
         instanceStores?: {
             [key: number]: any;
         };
-        sessionSyncData?: SessionSyncDataMap;
+        sessionSyncData?: any;
         /**
          * @param snapshotID The ID of the created snapshot.
          * @param name The name of the snapshot.
@@ -7496,7 +7665,7 @@ declare namespace webvis {
             instanceStores?: {
                 [key: number]: any;
             },
-            sessionSyncData?: SessionSyncDataMap,
+            sessionSyncData?: any,
         );
     }
     /**
@@ -7570,9 +7739,13 @@ declare namespace webvis {
         materialIDs: {
             [key: number]: number;
         };
+        patternIDs: {
+            [key: number]: number;
+        };
     }
     interface SessionSyncData {
         annotationIDs: number[];
+        patternIDs: number[];
         attachmentsIDs: number[];
         clipPlaneIDs: number[];
         drawingIDs: number[];
@@ -8639,31 +8812,6 @@ declare namespace webvis {
          */
         enterXRInitMode(xrInitOptions?: XRInitOptions): Promise<void>;
         /**
-         * Returns an array of member IDs of those session members which are currently using an XR device and are
-         * currently publishing an XRImage stream.
-         *
-         * The array will **not** contain the session member ID of the own session member.
-         * Will return an empty array, if
-         * - the session is not connected.
-         * - the session is connected, but no session member currently publishes an XRImage stream.
-         *
-         * @returns {Array<number>} The array of member IDs of those session members that are currently publishing
-         * an XRImage stream.
-         */
-        getXRMembers(): Array<number>;
-        /**
-         * Starts spectating the XRImage stream published by the session member with the specified ID within a shared session.
-         * This will also hide any other background feed that is currently shown.
-         *
-         * @param {number} sessionMemberId The session member id of the member to spectate
-         * @returns {Promise<void>} Returns a promise which resolves when the operation was successful or rejects in an error case
-         */
-        startXRSpectate(sessionMemberId: number): Promise<void>;
-        /**
-         * Stops spectating the currently spectated XRImage stream of a session member.
-         */
-        stopXRSpectate(): void;
-        /**
          * Starts putting the image feed into the viewer's background. Also see {@link hideXRBackgroundFeed}.
          *
          * This will trigger a {@link XRStateChangedEvent} with {@link XRState.backgroundFeedVisible} set to `true`.
@@ -9086,33 +9234,57 @@ declare namespace webvis {
          */
         SUPPORTS_RAY_CASTING = "supportsRayCasting",
     }
+    /**
+     * The `QuerySelect` type defines the possible selectors of a {@link Query}. It is a union of several
+     * string literals, but also allows any string for backwards compatibility. For an explanation of the
+     * available selectors, see the {@link QueryAPI}.
+     *
+     * The last entry in the type union is a TypeScript workaround which ensures that the type does not
+     * collapse to `string`. It enables better auto-completion for the defined string literals, while
+     * still allowing any string as a selector.
+     *
+     * @see {@link QueryAPI}
+     */
     type QuerySelect =
         | "nodeId"
-        | "ancestor.nodeId"
-        | "ancestor.metadata"
-        | "ancestor.metadata.*"
-        | "structId"
-        | "auxId"
-        | "shapeId"
-        | "faceInstanceId"
-        | "edgeInstanceId"
-        | "pointInstanceId"
-        | "property"
-        | "metadata"
-        | "nodeType"
-        | "subtreeRootId"
+        | "label"
+        | "metadata.*"
+        | `metadata.${string}`
+        | `metadata.structMetaData.${string}`
+        | `structMetaData.${string}`
+        | "metadata.auxAttributes.*"
+        | `metadata.auxAttributes.${string}`
+        | `auxAttributes.${string}`
+        | "metadata.auxProperties.*"
+        | `metadata.auxProperties.${string}`
+        | `auxProperties.${string}`
+        | "faceHandles"
         | "faceHandle"
         | "extFaceLinks"
-        | string;
+        | `property.${Property}`
+        | `ancestors.${string}`
+        | (string & {
+            _?: never;
+        });
     /**
-     * The result of a Query.
+     * The result of a {@link Query} that has been executed via the {@link QueryAPI}. The `data` property
+     * is an array with one entry for each node that matches the query conditions. Each entry is an array
+     * containing the values specified by the selectors of the query.
+     *
+     * The `errors` property contains error codes of any errors that occurred during query execution. If
+     * one or more errors have occurred, the result data must be considered incomplete.
+     *
+     * @see {@link Query}
+     * @see {@link QueryAPI}
      */
     interface QueryResult {
         data: Array<any>;
         errors: Array<any>;
     }
     /**
-     * The available conditions of a query.
+     * A condition of a {@link Query}. For an explanation of the available conditions, see the {@link QueryAPI}.
+     *
+     * @see {@link QueryAPI}
      */
     interface QueryCondition {
         nodeId?: number;
@@ -9121,8 +9293,9 @@ declare namespace webvis {
         extFaceLink?: string;
         nodeType?: "structure" | "aux";
         metadata?: string;
+        property?: string;
         equals?: Query | string | number;
-        equalsAny?: Array<string>;
+        equalsAny?: Array<string | number>;
         contains?: string;
         lessThan?: number;
         lessOrEqualThan?: number;
@@ -9136,534 +9309,374 @@ declare namespace webvis {
         and?: Array<QueryCondition>;
         or?: Array<QueryCondition>;
     }
+    /**
+     * A query for metadata of structure or aux nodes that can be used in the {@link QueryAPI}.
+     * For each node that matches the specified conditions, the values defined by the selectors
+     * are returned.
+     *
+     * The `linkDepth` property defines how many levels of linked 3D models are included in the
+     * query. The default value is `1`. For more information, see {@link QueryAPI}.
+     *
+     * @see {@link QueryAPI}
+     */
     interface Query {
         select: Array<QuerySelect>;
         conditions: Array<QueryCondition>;
         linkDepth?: number;
     }
     /**
-     * With the Query API you can access additional information about nodes.
-     * <ol>
-     * <li>
-     * Query Object Structure<br><br>
+     * ## Search Nodes & Query Metadata: The QueryAPI
      *
-     * The query object is a JSON object which contains a select and a conditions block. The select block is an
-     * array which defines the content and layout of the result. The conditions describe a set of tests on nodes
-     * and their properties. The result will contain information for all elements on which all conditions passed
-     * (implicit AND relation between condition array elements)
-     * <br><br>
-     * {<br>
-     *  select:     [ <selectkey>,         <selectkey.value>      ]<br>
-     *  conditions: [{<selectkey>:<value>, <conditionkey>:<value>}]<br>
-     * }<br>
-     * </li><br>
-     * <li>
-     * Select Keys<br><br>
+     * ### Overview
      *
-     * <table style="width:100%">
-     * <tr>
-     *     <th>Key</th>
-     *     <th>Value</th>
-     *     <th>Example</th>
-     *     <th>Description</th>
-     * </tr>
-     * <tr>
-     *     <td>nodeId</td>
-     *     <td>number</td>
-     *     <td>42</td>
-     *     <td>The id of an aux or structure node.</td>
-     * </tr>
-     * <tr>
-     *     <td>property</td>
-     *     <td>any</td>
-     *     <td>"label"</td>
-     *     <td>The name of the property to check. If the property is a structure the sub-elements can be accessed with ".". If no condition is set, the node is selected if the property has a non-empty value.</td>
-     * </tr>
-     * <tr>
-     *     <td>metadata</td>
-     *     <td>any</td>
-     *     <td>"auxAttributes.productionClass", "auxProperties.lowerTolerance"</td>
-     *     <td>The name of the property to check. If the property is a structure the sub-elements can be accessed with ".". If no condition is set, the node is selected if the property has a non-empty value.</td>
-     * </tr>
-     * <tr>
-     *     <td>nodeType</td>
-     *     <td>string</td>
-     *     <td>"structure", "aux"</td>
-     *     <td>Check if the node belongs to a specific class.</td>
-     * </tr>
-     * <tr>
-     * <td>topoHandle</td>
-     * <td>json object</td>
-     * <td>
-     * {
-     *   "entityID": 1583,
-     *   "entityType": 1,
-     *   "shapeInstanceID": 1
+     * The QueryAPI allows you to filter nodes and query their metadata. Each query is scoped to either
+     * structure or aux nodes and consists of a set of conditions and a set of selectors. For each node that matches
+     * the conditions, the values specified by the selectors are returned. The result contains a data array with one
+     * entry for each matching node. Each entry is an array containing the selected values for the corresponding node
+     * in the same order as the selectors in the query. For example, if the selectors are `['nodeId', 'label']`, then
+     * each entry in the result will be an array with the node ID as the first element and the label as the
+     * second element.
+     *
+     * The QueryAPI currently has several known issues. For details, see section "Known Issues" below.
+     *
+     * ### Quick Start
+     *
+     * ```js
+     * const context = webvis.getContext();
+     * const queryResult = await context.query({
+     *     select: ['nodeId', 'label'],
+     *     conditions: [
+     *         {nodeType: 'aux'},
+     *         {metadata: 'auxProperties.pmiType', equals: 'ModelView'},
+     *         {metadata: 'label', equals: 'Part_*'}
+     *     ],
+     *     linkDepth: 2
+     * });
+     *
+     * // The query result will have the form:
+     * // {
+     * //     data: [
+     * //         [123, 'Part_A_View'], // node ID, label of first matching node
+     * //         [456, 'Part_B_View'], // node ID, label of second matching node
+     * //         ...
+     * //     ],
+     * //     errors: [] // Error codes of any errors that occurred during query execution
+     * // }
+     *
+     * if (queryResult.errors.length > 0) {
+     *     console.error('Query errors:', queryResult.errors);
+     * } else {
+     *     console.log('Query results:', queryResult.data);
      * }
-     * </td>
-     * <td>An object that identifies one topological element. Topological elements can be faces edges or points.
-     * The elementtype is identified by entityType which can be one of the following values:
-     * </br> 1->face </br> 2->edge </br> 3->point </br> Note: This key is only used for the select part of the query as it is resolved to its specialization when returned. </br>  </td>
-     * </tr>
-     * <tr>
-     * <td>faceHandle</td>
-     * <td>json object</td>
-     * <td>
-     * {
-     *   "entityID": 1583,
-     *   "entityType": 1,
-     *   "shapeInstanceID": 1
-     * }
-     * </td>
-     * <td>An object that identifies a topological element of type face.  </br>  </td>
-     * </tr>
-     * <tr>
-     * <td> edgeHandle </td>
-     * <td>json object</td>
-     * <td>
-     * {
-     *   "entityID": 1583,
-     *   "entityType": 2,
-     *   "shapeInstanceID": 1
-     * }
-     * </td>
-     * <td>An object that identifies a topological element of type edge.  </br>  </td>
-     * </tr>
-     * <tr>
-     * <td> pointHandle </td>
-     * <td>json object</td>
-     * <td>
-     * {
-     *   "entityID": 1583,
-     *   "entityType": 3,
-     *   "shapeInstanceID": 1
-     * }
-     * </td>
-     * <td>An object that identifies a topological element of type point. </br>  </td>
-     * </tr>
-     * </table>
-     * </li><br>
-     * <li>
-     * Conditions<br><br>
+     * ```
      *
-     * <table style="width:100%">
-     * <tr>
-     *     <th>Key</th>
-     *     <th>Value</th>
-     *     <th>Example</th>
-     *     <th>Description</th>
-     * </tr>
-     * <tr>
-     *     <td>equals</td>
-     *     <td>any</td>
-     *     <td>"myLabel", "Label_*"</td>
-     *     <td>Check whether the selected property equals the set value. Can contain * for arbitrary characters and whitespaces for basic wildcard matching.</td>
-     * </tr>
-     * <tr>
-     *     <td>lessThan</td>
-     *     <td>number</td>
-     *     <td>5</td>
-     *     <td>Test if the property value is larger than the specified value.</td>
-     * </tr>
-     * <tr>
-     *     <td>lessOrEqualThan</td>
-     *     <td>number</td>
-     *     <td>4</td>
-     *     <td>Test if the property value is larger or equal than the specified value.</td>
-     * </tr>
-     * <tr>
-     *     <td>greaterThan</td>
-     *     <td>number</td>
-     *     <td>10</td>
-     *     <td>Test if the property value is smaller than the specified value.</td>
-     * </tr>
-     * <tr>
-     *     <td>greaterOrEqualThan</td>
-     *     <td>number</td>
-     *     <td>11</td>
-     *     <td>Test if the property value is smaller than the specified value.</td>
-     * </tr>
-     * <tr>
-     *     <td>caseSensitive</td>
-     *     <td>boolean</td>
-     *     <td>true</td>
-     *     <td>Default is false.</td>
-     * </tr>
-     * <tr>
-     *     <td>pointsTo</td>
-     *     <td>number</td>
-     *     <td>123 </td>
-     *     <td>Is used to query aux to aux relations (see example).</td>
-     * </tr>
-     * </table>
-     * </li><br>
-     * <li>
-     * Logical Keys<br><br>
+     * ### Conditions
      *
-     * Logical keys can be put inside conditions instead of a select or condition key in order to express the corresponding logical operation.<br><br>
+     * By convention, each query must contain one top-level `nodeType` condition with the value `aux` or `structure`.
+     * The conditions have an implicit AND relation and can contain nested logical groups. For type information, see
+     * {@link QueryCondition}.
      *
-     * <table style="width:100%">
-     * <tr>
-     *     <th>Key</th>
-     *     <th>Value</th>
-     *     <th>Example</th>
-     *     <th>Description</th>
-     * </tr>
-     * <tr>
-     *     <td>or</td>
-     *     <td>array</td>
-     *     <td>{"or": [{"nodeId": 15}, {"nodeId": 16}]}</td>
-     *     <td>an OR relation</td>
-     * </tr>
-     * <tr>
-     *     <td>and</td>
-     *     <td>array</td>
-     *     <td>{"and": [{"metadata": "auxProperties.sizeA", "equals": 15}, {"metadata": "auxProperties.sizeB", "equals": 20}]}</td>
-     *     <td>an AND relation</td>
-     * </tr>
-     * <tr>
-     *     <td>not</td>
-     *     <td>condition</td>
-     *     <td>{"not": {"metadata": "sizeA", "equals": 15}}</td>
-     *     <td>invert a condition</td>
-     * </tr>
-     * </table>
-     * </li><br>
-     * <li>
-     * Results<br><br>
+     * Several of the supported conditions have the form `{metadata: <key>, <operator>: <value>}`. For these, the
+     * following rules apply:
+     * - Depending on the node type, only specific key formats are supported (see below).
+     * - The available operators are `equals`, `equalsAny`, `contains`, and numeric comparison operators. While `equals`
+     *   supports strings, numbers, and subqueries, `equalsAny` and `contains` only support strings. For details, see
+     *   {@link QueryCondition}.
+     * - In string values, `*` can be used as a wildcard for any sequence of characters.
+     * - For string values, the boolean `caseSensitive` option can be added to the condition. By default, string
+     *   comparisons are case-insensitive.
      *
-     * An array of arrays. For each successful condition match an array with the selected element values is returned. The order of values matches the select Specification.<br><br>
+     * #### General Conditions
      *
-     * <table style="width:100%">
-     * <tr>
-     *     <th>Select</th>
-     *     <th>Result</th>
-     * </tr>
-     * <tr>
-     *     <td>select: ["nodeId", "metadata.auxAttributes"]</td>
-     *     <td>[[15, {...}], [42, {...}], ...]</td>
-     * </tr>
-     * </table>
-     * </li><br>
-     * <li>
-     * Examples<br><br>
+     * - `{nodeType: "aux" | "structure"}`: Sets the node type.
      *
-     * <table style="width:100%">
-     * <tr>
-     * <th>Description</th>
-     * <th>Query</th>
-     * <th>Response</th>
-     * </tr>
-     * <tr>
-     * <td>
-     * Aux nodes for a faceHandle excluding nodes of type Revision index
-     * </td>
-     * <td>
-     * {
-     * "select": [
-     *   "nodeId"
-     * ],
-     * "conditions": [
-     *   {
-     *     "nodeType": "aux"
-     *   },
-     *   {
-     *     "faceHandle": {
-     *       "entityType": 1,
-     *       "shapeInstanceID": 2,
-     *       "entityID": 814
-     *     }
-     *   },
-     *   {
-     *     "not": [
-     *       {
-     *         "metadata": "auxProperties.pmiType",
-     *         "equals": "Revision Index"
-     *       }
+     * - `{nodeId: number}`: The node with the specified ID.
+     *
+     * - `{metadata: "label", <operator>: string}`: Nodes with a matching label. This condition operates on the
+     *   node labels defined in the original CAD files. Any client-side changes to the node labels are ignored.
+     *
+     * - **Experimental** `{property: <property name>, <operator>: <value>}`: Nodes with a matching property value.
+     *   The available property names are the string values of the {@link Property} enum. This condition does not
+     *   support properties which are matrices or objects. This condition only operates on nodes which are loaded
+     *   in the client.
+     *   Note: this condition is experimental and may be changed in future releases. Mixing of `property` and
+     *   `metadata` conditions in logical condition groups is not yet supported.
+     *
+     * #### Aux Node Conditions
+     *
+     * In addition to the general conditions, aux nodes support the following conditions. For an explanation of the
+     * aux node metadata namespacing, see the section "Aux Node Metadata Namespacing" below.
+     *
+     * - `{metadata: "auxProperties.pmiType", <operator>: string}`: Aux nodes with a matching PMI type.
+     *
+     * - `{metadata: "auxProperties.<key>", <operator>: <value>}`: Aux nodes with a matching aux properties entry.
+     *
+     * - `{metadata: "auxAttributes.<key>", <operator>: <value>}`: Aux nodes with a matching aux attributes entry.
+     *
+     * - `{pointsTo: number}`: Aux nodes that point to the aux node with the specified ID.
+     *
+     * - `{faceHandle: TopologyHandle}`: Aux nodes connected to the specified face. See {@link TopologyAPI}.
+     *
+     * - `{extFaceLink: string}`: Aux nodes with the specified external face link.
+     *
+     * #### Structure Node Conditions
+     *
+     * In addition to the general conditions, structure nodes support the following conditions:
+     *
+     * - `{metadata: <key>, <operator>: <value>}`: Structure nodes with a matching metadata entry.
+     *
+     * - `{ancestors: <condition array>}`: Structure nodes that have an ancestor which matches all of the specified
+     *   conditions.
+     *
+     * #### Logical Groups
+     *
+     * - `{and: <condition array>}`: Nodes that match all of the specified conditions.
+     *
+     * - `{or: <condition array>}`: Nodes that match one or more of the specified conditions.
+     *
+     * - `{not: <condition array>}`: Nodes that do not match any of the specified conditions.
+     *
+     * ### Selectors
+     *
+     * The selectors specify which values are returned for each matching node. The available selectors depend on the
+     * node type and include the node ID, metadata entries, and topology handles.
+     *
+     * #### General Selectors
+     *
+     * - `nodeId`: The ID of the node.
+     *
+     * - `label`: The label of the node, as defined in the original CAD file. Any client-side changes to the
+     *   node label are not reflected in this selector.
+     *
+     * - **Experimental** `property.<property name>`: The value of the specified property. The available property
+     *   names are the string values of the {@link Property} enum. Note: this selector is experimental and may be
+     *   changed in future releases.
+     *
+     * #### Aux Node Selectors
+     *
+     * - `metadata.auxProperties.pmiType`: The PMI type of the aux node.
+     *
+     * - `metadata.auxProperties.<key>`: The value of the specified aux property, or `null` if non-existent.
+     *
+     * - `metadata.auxProperties.*`: All aux properties of the node aggregated into an object. Each metadata key
+     *   will be prefixed with `metadata.auxProperties.`.
+     *
+     * - `metadata.auxAttributes.<key>`: The value of the specified aux attribute, or `null` if non-existent.
+     *
+     * - `metadata.auxAttributes.*`: All aux attributes of the node aggregated into an object. Each metadata key
+     *   will be prefixed with `metadata.auxAttributes.`.
+     *
+     * - `faceHandles`: An array of {@link TopologyHandle}s for the faces connected to the aux node, or an empty
+     *   array if the aux node is not connected to any face.
+     *
+     * - `faceHandle`: This is a legacy selector. New code should use the `faceHandles` selector instead. This
+     *   selector returns {@link TopologyHandle}s for the faces connected to the aux node and changes the
+     *   result structure in the same way as the `extFaceLink` selector described below.
+     *
+     * - `extFaceLinks`: The external face links of the aux node, as strings. This selector changes the result
+     *   structure in the following way: If an aux node has multiple external face links, there will be multiple
+     *   result entries for that node, each with a different external face link and the same values for all other
+     *   selectors. If an aux node has no external face links and there are no other selectors, then the result will
+     *   not contain an entry for that node. If an aux node has no external face links but there are other selectors,
+     *   then this selector will return the string `"undefined"` for that node.
+     *
+     * #### Structure Node Selectors
+     *
+     * - `metadata.<key>`: The value of the specified metadata entry, or `null` if non-existent.
+     *
+     * - `metadata.*`: All metadata entries of the node aggregated into an object. For backward compatibility, each
+     *   metadata key will be prefixed with `metadata.structMetaData.`.
+     *
+     * - `ancestors.<selector>`: An array with the value of the nested selector for each ancestor of the node. The
+     *   ancestors are ordered from highest to lowest in the hierarchy. This selector can not contain another
+     *   `ancestors` selector.
+     *
+     * ### Link Depth
+     *
+     * The `linkDepth` property of the query defines how many levels of linked 3D models are included in the query.
+     * The default value is `1`, which means that the scope root model and its directly linked models are included.
+     * The scope root model is defined by the optional `nodeID` parameter of the function {@link QueryAPI.query}. If
+     * the root model is not specified and the link depth is `1`, then all top-level models of the space are considered.
+     *
+     * ### Error Handling
+     *
+     * Error codes for any errors that occur during query execution are returned in the `errors` property of the query
+     * result. If one or more errors have occurred, the result data must be considered incomplete.
+     *
+     * ### Known Issues
+     *
+     * - Mixing of `metadata` and `property` conditions in logical condition groups is not yet supported.
+     *
+     * - Inconsistent "all nodes" semantics: If a query does not contain any conditions except for `nodeType`,
+     *   it matches all nodes of the specified type. Similarly, a `not` condition matches all nodes except for
+     *   some specific ones. Before the introduction of `property` conditions and selectors, the QueryAPI only
+     *   operated on added 3D models and ignored any additional nodes created via the webvis API. With the
+     *   introduction of `property` conditions and selectors, we aim to extend the query scope to all nodes in the
+     *   3D space. However, not all condition and selector types have been updated to this extended scope yet. In
+     *   particular, if a query does not contain any `property` conditions or selectors, then the behavior will
+     *   currently be the same as before.
+     *
+     * - Inconsistent ancestor paths: Before the introduction of `property` conditions and selectors, `ancestors`
+     *   conditions and selectors only operated on the ancestor path of a node within its 3D resource. Now, when
+     *   `ancestors` conditions or selectors are used together with `property` conditions or selectors, the complete
+     *   ancestor path in the webvis node tree is considered. However, using `ancestors` conditions or selectors
+     *   together with `metadata` conditions or selectors will still only consider the ancestor path within the
+     *   node's 3D resource.
+     *
+     * - Multiple result entries for certain nodes: When a node in a 3D model links to another 3D model, then the
+     *   linking node and the root node of the linked model are merged in the webvis node tree. Currently, the query
+     *   evaluation logic does not take this merging into account for most conditions and selectors. As a result,
+     *   the corresponding nodes may not be filtered as expected and may have multiple entries in the query result.
+     *
+     * ### Aux Node Metadata Namespacing
+     *
+     * Aux node metadata entries are grouped into the two namespaces `auxAttributes` and `auxProperties`. The first,
+     * `auxAttributes`, contains all key-value pairs that are associated with a given aux node. Here, all values are
+     * stored as strings. The second namespace, `auxProperties`, contains only a subset of the key-value pairs, but
+     * supports both strings and numbers as values. For aux node metadata conditions, numerical comparison operators
+     * can only be used with numerical values from the `auxProperties` namespace.
+     *
+     * To discover the available `auxAttributes` or `auxProperties` keys for a given node, you can use the selectors
+     * `metadata.auxAttributes.*` and `metadata.auxProperties.*`, which return all entries of the respective namespace
+     * aggregated into an object:
+     *
+     * ```js
+     * const queryResult = await context.query({
+     *     select: ['nodeId', 'metadata.auxProperties.*'],
+     *     conditions: [
+     *         {nodeType: 'aux'},
+     *         {metadata: 'auxProperties.pmiType', equals: 'ModelView'},
+     *         {metadata: 'label', equals: 'Part_*'}
      *     ]
-     *   }
-     * ]
-     * }
-     * </td>
-     * <td>
-     * [
-     *  [
-     *    {
-     *      "entityID": 1583,
-     *      "entityType": 1,
-     *      "shapeInstanceID": 1
-     *    }
-     *  ]
-     * ]
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Select topological elements connected to one auxNode
-     * </td>
-     * <td>
-     * {
-     *  "select": [
-     *    "topoHandle"
-     *  ],
-     *  "conditions": [
-     *    {
-     *      "nodeType": "aux"
-     *    },
-     *    {
-     *      "nodeId": 2502
-     *    }
-     *  ]
-     * }
-     * </td>
-     * <td>
-     * [
-     *  [
-     *    {
-     *      "entityID": 1583,
-     *      "entityType": 2,
-     *      "shapeInstanceID": 1
-     *    }
-     *  ],
-     *  [
-     *    {
-     *      "entityID": 1584,
-     *      "entityType": 1,
-     *      "shapeInstanceID": 1
-     *    }
-     *  ]
-     * ]
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Search metadata for minimum diameter
-     * </td>
-     * <td>
-     * {
-     *  "select":["nodeId", "metadata.auxProperties.label"],
-     *  "conditions":[
-     *   {"nodeType": "aux"},
-     *   {"metadata":
-     *     "auxProperties.pmiType",
-     *     "equals": "Dimension"},
-     *   {"metadata":
-     *     "auxProperties.type",
-     *     "equals": "Diameter"},
-     *   {"metadata":
-     *    "auxProperties.value",
-     *    "greaterThan": 5.5}
-     *  ]
-     * }
-     * </td>
-     * <td>
-     * [[15, "labelA"], [42, "labelB"], ...]
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Textual search for modelView names
-     * </td>
-     * <td>
-     * {
-     *  "select": [
-     *    "nodeId",
-     *    "metadata.auxProperties.label"
-     *  ],
-     *  "conditions": [
-     *    {
-     *      "nodeType": "aux"
-     *    },
-     *    {
-     *      "metadata": "auxProperties.pmiType",
-     *      "equals": "ModelView"
-     *    },
-     *    {
-     *      "metadata": "auxProperties.label",
-     *      "equals": "2_51_*"
-     *    }
-     *  ]
-     * }
-     * </td>
-     * <td>
-     * [
-     *  [
-     *    8672,
-     *    "2_51_Test_2_3"
-     *  ]
-     * ]
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Search for PMI Type
-     * </td>
-     * <td>
-     *    {
-     * "select": [
-     *   "nodeId",
-     *   "metadata.auxProperties.*"
-     * ],
-     * "conditions": [
-     *   {
-     *     "nodeType": "aux"
-     *   },
-     *   {
-     *     "metadata": "auxProperties.pmiType",
-     *     "equals": "Dimension"
-     *   },
-     *   {
-     *     "metadata": "auxProperties.fit",
-     *     "equals": "h8",
-     *     "caseSensitive": true
-     *   }
-     * ]
-     * }
-     * </td>
-     * <td>
-     * [
-     * [
-     *   5411,
-     *   {
-     *     "metadata.auxProperties.bottomRight": "0.0640887 0 -0.0686957",
-     *     "metadata.auxProperties.type": "Linear",
-     *    ...
-     *   }
-     * ]
-     * ]
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Search for attributes
-     * </td>
-     * <td>
-     * {
-     *  "select":["nodeId"],
-     *  "conditions":[
-     *   {"nodeType": "aux"},
-     *   {"metadata":
-     *    "auxAttributes.precision",
-     *    "greaterThan": 2},
-     *   {"metadata":
-     *    "auxAttributes.originAnchor",
-     *    "equals": 4},
-     *  ]
-     * }
-     * </td>
-     * <td>
-     * [[15], [42], ...]
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Nested query example
-     * </td>
-     * <td>
-     * {
-     *  "select": [
-     *    "nodeId",
-     *    "metadata.auxAttributes.label"
-     *  ],
-     *  "conditions": [
-     *    {
-     *      "nodeType": "aux"
-     *    },
-     *    {
-     *      "metadata": "auxProperties.pmiType",
-     *      "equals": "DatumFeatureSymbol"
-     *    },
-     *    {
-     *      "metadata": "auxAttributes.label",
-     *      "equals": {
-     *        "select": [
-     *          "metadata.auxProperties.propertyName"
-     *        ],
-     *        "conditions": [
-     *          {
-     *            "nodeType": "aux"
-     *          },
-     *          {
-     *            "metadata": "auxProperties.pmiType",
-     *            "equals": "frame"
-     *          },
-     *          {
-     *            "nodeId": 7522
-     *          }
-     *        ]
-     *      }
-     *    }
-     *  ]
-     * }
-     * </td>
-     * <td>
-     * [
-     *  [
-     *    1234,
-     *    "abc"
-     *  ],
-     * .....
-     * ]
-     * </td>
-     * </tr>
-     * <tr>
-     * <td>
-     * Query auxNodes of type ModelView connected to specific auxNode
-     * </td>
-     * <td>
-     * {
-     * "select": [
-     *    "nodeId"
-     *  ],
-     *  "conditions": [
-     *    {
-     *      "nodeType": "aux"
-     *    },
-     *    {
-     *      "metadata": "auxProperties.pmiType",
-     *      "equals": "ModelView"
-     *    },
-     *    {
-     *      "pointsTo": 323
-     *    }
-     *  ]
-     * </td>
-     * <td>
-     * [
-     *  [
-     *    1234
-     *  ],
-     *  [
-     *    3456
-     *  ],
-     * .....
-     * ]
-     * </td>
-     * </tr>
-     * </table>
-     * <br><br>
-     * <li>
-     * Full Example<br><br>
+     * });
      *
-     * <br><br>
-     * const queryLabels = await context.query({
-     *                             select: ['nodeId', 'label'],
-     *                             conditions: [{ nodeType: 'aux' }, { metadata: 'auxProperties.pmiType', equals: 'ModelView' }]
-     *                         });
-     *    const queryPMIType = await context.query({
-     *    select: ['nodeId', 'auxProperties.pmiType'],
-     *    conditions: [{ nodeType: 'aux' }, { metadata: 'auxProperties.pmiType', equals: 'ModelView' }]
-     *    });
-     * </li>
-     * </li>
-     * </ol>
+     * // The query result will have the form:
+     * // {
+     * //     data: [
+     * //         [ // node ID, auxProperties of first matching node
+     * //             220,
+     * //             {
+     * //                 'metadata.auxProperties.pmiType': 'ModelView',
+     * //                 'metadata.auxProperties.someNumber': 42,
+     * //                 ...
+     * //             }
+     * //         ],
+     * //         [ // node ID, auxProperties of second matching node
+     * //             234,
+     * //             {
+     * //                 'metadata.auxProperties.pmiType': 'ModelView',
+     * //                 'metadata.auxProperties.someNumber': 7,
+     * //                 ...
+     * //             }
+     * //         ],
+     * //         ...
+     * //     ],
+     * //     errors: []
+     * // }
+     * ```
+     *
+     * ### Examples
+     *
+     * Querying a specific metadata value of a structure node:
+     *
+     * ```js
+     * const queryResult = await context.query({
+     *     select: ['metadata.someKey'],
+     *     conditions: [
+     *        {nodeType: 'structure'},
+     *        {nodeId: 123}
+     *     ]
+     * });
+     *
+     * // The query result will have the form:
+     * // {
+     * //     data: [
+     * //         ['someValue'] // value of metadata entry 'someKey' for node with ID 123
+     * //     ],
+     * //     errors: []
+     * // }
+     * ```
+     *
+     * Querying the labels of all ancestors for each node that has a specific metadata entry:
+     *
+     * ```js
+     * const queryResult = await context.query({
+     *     select: ['nodeId', 'ancestors.label'],
+     *     conditions: [
+     *         {nodeType: 'structure'},
+     *         {metadata: 'someKey', contains: 'someValue'}
+     *     ]
+     * });
+     *
+     * // The query result will have the form:
+     * // {
+     * //     data: [
+     * //         [123, ['Root', 'Subassembly_A']], // node ID, array of ancestor labels for first matching node
+     * //         [456, ['Root', 'Subassembly_B']], // node ID, array of ancestor labels for second matching node
+     * //         ...
+     * //     ],
+     * //     errors: []
+     * // }
+     * ```
+     *
+     * Query with complex nested conditions:
+     *
+     * ```js
+     * const queryResult = await context.query({
+     *     select: ['nodeId', 'label'],
+     *     conditions: [
+     *         {nodeType: 'aux'},
+     *         {or: [
+     *             {and: [
+     *                 {metadata: 'auxProperties.pmiType', equals: 'ModelView'},
+     *                 {metadata: 'label', contains: 'View'}
+     *             ]},
+     *             {and: [
+     *                 {metadata: 'auxProperties.pmiType', equals: 'Part'},
+     *                 {metadata: 'label', contains: 'Part'}
+     *             ]}
+     *         ]},
+     *         {not: [
+     *             {metadata: 'auxProperties.someFlag', equals: 'someValue'}
+     *         ]}
+     *     ],
+     *     linkDepth: 2
+     * });
+     * ```
+     *
+     * Query with subquery as condition value. The subquery must return exactly one value:
+     *
+     * ```js
+     * const queryResult = await context.query({
+     *     select: ['nodeId', 'label'],
+     *     conditions: [
+     *         {nodeType: 'aux'},
+     *         {metadata: 'auxProperties.pmiType', equals: 'ModelView'},
+     *         {metadata: 'label', equals: {
+     *             select: ['metadata.auxProperties.someKey'],
+     *             conditions: [
+     *                 {nodeType: 'aux'},
+     *                 {nodeId: 123}
+     *             ]
+     *         }}
+     *     ]
+     * });
+     * ```
+     *
+     * @see {@link Query}
+     * @see {@link QueryCondition}
+     * @see {@link QueryResult}
      */
     interface QueryAPI {
         /**
-         * Executes the query on the specified subtree
-         * @param {IWebVisQuery | IWebVisQueryObject | string} query
-         * @param {number} nodeID
-         * @returns {IWebVisQuery}
+         * Executes a query for metadata of structure or aux nodes. For an explanation of the query format, see the
+         * {@link QueryAPI}.
+         *
+         * @param query The query to execute. Can be either a query object or a JSON string.
+         * @param nodeID Optional node ID specifying a subtree to which the query should be scoped. If not provided,
+         * the query is scoped to the whole space.
+         * @returns A promise that resolves to an object containing the result data and any errors that have occurred
+         * during query execution. If one or more errors have occurred, the result data must be considered incomplete.
          */
         query(query: Query | string, nodeID?: number): Promise<QueryResult>;
     }
@@ -9780,7 +9793,7 @@ declare namespace webvis {
          *
          * @see {@link MemberAction.PROMOTE} and {@link MemberAction.DEMOTE} for changing the role of a member.
          */
-        role: MemberRole;
+        role?: MemberRole;
         /**
          * Custom data associated with the member.
          *
@@ -9788,6 +9801,10 @@ declare namespace webvis {
          * for modifying profile entries.
          */
         profile?: MemberProfile;
+        /**
+         * The state of the member.
+         */
+        state?: MemberState;
     }
     /**
      * App specific profile data associated with a {@link MemberAPI | member}.
@@ -9832,13 +9849,54 @@ declare namespace webvis {
          * @see {@link MemberAction.PROMOTE}
          */
         [MemberAction.PROMOTE]: {
+            role: Exclude<MemberRole, MemberRole.UNKNOWN>;
+        } | undefined;
+        /**
+         * @see {@link MemberAction.DEMOTE}
+         */
+        [MemberAction.DEMOTE]: {
+            role: Exclude<MemberRole, MemberRole.UNKNOWN>;
+        } | undefined;
+    }
+    /**
+     * Maps {@link MemberAction}s to their corresponding details types.
+     *
+     * If the action does not have any details, the type is `undefined`.
+     */
+    interface MemberActionsToDetailsMap {
+        /**
+         * @see {@link MemberAction.FOLLOW_VIEW}
+         */
+        [MemberAction.FOLLOW_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.UNFOLLOW_VIEW}
+         */
+        [MemberAction.UNFOLLOW_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.FOLLOW_XR_VIEW}
+         */
+        [MemberAction.FOLLOW_XR_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.UNFOLLOW_XR_VIEW}
+         */
+        [MemberAction.UNFOLLOW_XR_VIEW]: undefined;
+        /**
+         * @see {@link MemberAction.KICK}
+         */
+        [MemberAction.KICK]: undefined;
+        /**
+         * @see {@link MemberAction.PROMOTE}
+         */
+        [MemberAction.PROMOTE]: {
             role: MemberRole;
+            roleKey?: string;
         } | undefined;
         /**
          * @see {@link MemberAction.DEMOTE}
          */
         [MemberAction.DEMOTE]: {
             role: MemberRole;
+            roleKey?: string;
         } | undefined;
     }
     /**
@@ -9846,12 +9904,9 @@ declare namespace webvis {
      *
      * ### Overview
      *
-     * The Member API provides methods to interact with members in the current {@link SpaceAPI | space}.
-     * Members represent users connected to the {@link SpaceAPI | space}. You can retrieve information about members,
-     * manage custom data associated with them, and perform actions on them.
-     *
-     * Every member has an ID, which is a continuous number starting from 0. The local member (the user of the current client)
-     * always has the ID 0. Other members are assigned IDs in the order they join the {@link SpaceAPI | space}.
+     * The Member API provides methods to interact with members in the current {@link SpaceAPI | space} for
+     * live collaboration. Members represent clients connected to the {@link SpaceAPI | space}. You can retrieve
+     * information about members, manage custom data associated with them, and perform actions on them.
      *
      * ### Quick Start
      *
@@ -9862,50 +9917,89 @@ declare namespace webvis {
      * // Get the IDs of all members in the current space
      * const memberIds = context.getMembers();
      *
-     * // Request properties for the local member, which always has ID 0
-     * const localMemberProps = await context.requestMemberProperties(0);
+     * console.log(`The current space has ${memberIds.length} members.`);
+     *
+     * // Request properties for the local member, which is always the first in the members list
+     * const localMemberId = memberIds[0];
+     * const localMemberProps = await context.requestMemberProperties(localMemberId);
      *
      * // Request properties for another member
-     * const otherMemberProps = await context.requestMemberProperties(1);
+     * const otherMemberId = memberIds[1];
+     * const otherMemberProps = context.requestMemberProperties(otherMemberId);
      *
      * // Set/get the name of the local member
      * context.setMemberName("John Doe");
      * const memberName = context.getMemberName();
+     *
+     * // Get notified about changes to the properties of another member via the MemberChangedEvent
+     * context.registerListener([webvis.EventType.MEMBER_CHANGED], (event) => {
+     *   if (event.memberId === otherMemberId) {
+     *     console.log(`${otherMemberProps.name} changed the properties to ${JSON.stringify(event.memberProperties)}`);
+     *   }
+     * });
      * ```
+     *
+     * ### Member IDs
+     *
+     * Every member has an ID, which is a randomly generated unique number. The member IDs can be obtained by calling
+     * {@link getMembers}. The first entry of the members list is always the local member (i.e. the client itself).
      *
      * ### Custom member data
      *
      * You can manage custom data at the profile entries of a member using the
-     * `setMemberProfileEntry` and `deleteMemberProfileEntry` methods. This data
+     * {@link setMemberProfileEntry} and {@link deleteMemberProfileEntry} methods. This data
      * is stored in the `profile` field of the {@link MemberProperties} object and will be
-     * available to other members in the same {@link SpaceAPI | space}.
+     * synced with other members in the same {@link SpaceAPI | space}. Other members can subscribe to changes of the
+     * profile entries of a member via the {@link MemberProfileEntryChangedEvent}.
      *
      * ```javascript
-     * // Set/get custom data at the profile entries of the local member
+     * // Client A: Set/get custom data at the profile entries of the local member
      * await context.setMemberProfileEntry("status", "online");
      * await context.setMemberProfileEntry("age", 30);
-     * const status = localMemberProps.profile["status"]; // "online"
-     * const age = localMemberProps.profile["age"]; // 30
+     * const status = localMemberProps.profile?.userData["status"]
+     * const age = localMemberProps.profile?.userData["age"]; // 30
      *
-     * // Delete a profile entry of the local member
+     * // Client B: Get notified about the changes to the profile entries of client A
+     * // via the MemberProfileEntryChangedEvent
+     * context.registerListener([webvis.EventType.MEMBER_PROFILE_ENTRY_CHANGED], (event) => {
+     *   if (event.memberId === otherMemberId) {
+     *     console.log(`Client A changed the profile entry with key ${event.key} to value ${event.value}`);
+     *   }
+     * });
+     *
+     * // Client A: Delete a profile entry of the local member
      * await context.deleteMemberProfileEntry("age");
+     *
+     * // Client B: Gets notified again about the deletion of the profile entry of client A
+     * // via the MemberProfileEntryChangedEvent
+     *
+     * // Client B: Can also read client A's profile explicitly at any time
+     * const otherMemberProps = await context.requestMemberProperties(otherMemberId);
+     * const status = otherMemberProps.profile?.userData["status"];
      * ```
      *
      * ### Member actions
      *
      * You can request and use actions available on a member using the
-     * `requestMemberActions` and `useMemberAction` methods. Member actions
+     * {@link requestMemberActions} and {@link useMemberAction} methods. Member actions
      * allow you to perform predefined operations on members, see {@link MemberAction}
-     * for a list of available actions.
+     * for a list of available actions. Members can subscribe to changes of available actions on a member
+     * via the {@link MemberActionAddedEvent} and {@link MemberActionRemovedEvent}.
      *
      * ```javascript
      * // Request available actions on another member
-     * const actions = await context.requestMemberActions(1);
+     * const actions = await context.requestMemberActions(otherMemberId);
      *
      * // Use an action on another member
      * if (actions.includes(webvis.MemberAction.PROMOTE)) {
-     *   await context.useMemberAction(1, webvis.MemberAction.PROMOTE);
+     *   await context.useMemberAction(otherMemberId, webvis.MemberAction.PROMOTE);
      * }
+     *
+     * // Get notified about changes to available actions on a member
+     * // via the MemberActionAddedEvent and MemberActionRemovedEvent
+     * context.registerListener([webvis.EventType.MEMBER_ACTION_ADDED, webvis.EventType.MEMBER_ACTION_REMOVED], (event) => {
+     *   console.log(`Member action ${event.memberAction} was ${event instanceof webvis.MemberActionAddedEvent ? "added to" : "removed from"} member with ID ${event.memberId}`);
+     * });
      * ```
      *
      * ### Events
@@ -9915,11 +10009,15 @@ declare namespace webvis {
      * - {@link MemberActionRemovedEvent}
      * - {@link MemberChangedEvent}
      * - {@link MemberCreatedEvent}
+     * - {@link MemberProfileEntryChangedEvent}
      * - {@link MemberRemovedEvent}
      */
     interface MemberAPI {
         /**
          * Deletes a profile entry of the local member.
+         *
+         * Triggers a {@link MemberProfileEntryChangedEvent} if successful.
+         *
          * @param key The key of the profile entry to delete.
          * @returns A promise that resolves when the profile entry has been deleted.
          */
@@ -9931,28 +10029,40 @@ declare namespace webvis {
         getMemberName(): string | undefined;
         /**
          * Gets a list of all member IDs in the current {@link SpaceAPI | space}.
+         * The first entry of the list is always the local member (i.e. the client itself).
+         *
          * @returns An array of member IDs.
          */
         getMembers(): number[];
         /**
          * Requests the actions available on a member.
+         *
+         * Get notified about changes to available actions on a member via the
+         * {@link MemberActionAddedEvent} and {@link MemberActionRemovedEvent}.
+         *
          * @param memberId The ID of the member to request actions for.
          * @returns A promise that resolves to an array of member actions.
          */
         requestMemberActions(memberId: number): Promise<MemberAction[]>;
         /**
          * Requests the properties of a member.
-         * @param id The ID of the member to request the properties for.
+         * @param memberId The ID of the member to request the properties for.
          * @returns A promise that resolves to the member properties, or undefined if the member does not exist.
          */
-        requestMemberProperties(id: number): Promise<MemberProperties | undefined>;
+        requestMemberProperties(memberId: number): Promise<MemberProperties | undefined>;
         /**
          * Sets the name of the local member.
+         *
+         * Triggers a {@link MemberChangedEvent} if the name changes.
+         *
          * @param name The new name for the local member.
          */
         setMemberName(name: string): void;
         /**
          * Sets a profile entry of the local member.
+         *
+         * Triggers a {@link MemberProfileEntryChangedEvent} if the profile entry changes or is created.
+         *
          * @param key The key of the profile entry to set.
          * @param value The value to set for the profile entry.
          * @returns A promise that resolves when the profile entry has been set.
@@ -9960,6 +10070,9 @@ declare namespace webvis {
         setMemberProfileEntry(key: string, value: Serializable): Promise<void>;
         /**
          * Uses an action on a member.
+         *
+         * Get notified about changes to available actions on a member via the
+         * {@link MemberActionAddedEvent} and {@link MemberActionRemovedEvent}.
          *
          * @param memberId The ID of the member to use the action on.
          * @param action The action to use.
@@ -9986,6 +10099,25 @@ declare namespace webvis {
          * @param memberId The ID of the removed member.
          */
         constructor(memberId: number);
+    }
+    /**
+     * Event that is fired when a member profile entry has been set or removed.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.MEMBER_PROFILE_ENTRY_CHANGED}
+     */
+    class MemberProfileEntryChangedEvent extends WebVisEvent {
+        memberId: number;
+        key: string;
+        value: Serializable | undefined;
+        /**
+         * @param memberId The ID of the member whose profile entry changed.
+         * @param key The key of the profile entry that changed.
+         * @param value The new value of the profile entry, or undefined if the entry was removed.
+         */
+        constructor(memberId: number, key: string, value: Serializable | undefined);
     }
     /**
      * Event that is fired when a new member has been created.
@@ -10078,12 +10210,37 @@ declare namespace webvis {
          */
         constructor(memberId: number, memberAction: MemberAction);
     }
+    enum MemberState {
+        DISCONNECTED = 0,
+        CONNECTING = 1,
+        CONNECTED = 2,
+        LEAVING = 3,
+        CONNECTION_LOST = 4,
+    }
     /**
      * Lists all available {@link MemberAPI | member} roles.
      */
     enum MemberRole {
+        /**
+         * @ignore
+         *
+         * Represents an unknown member role.
+         */
+        UNKNOWN = 0,
+        /**
+         * Represents an owner member role. Creators of spaces are assigned the owner role by default.
+         * Highest possible role.
+         */
         OWNER = 1,
+        /**
+         * Represents an editor member role.
+         * Higher role than viewer, lower role than owner.
+         */
         EDITOR = 2,
+        /**
+         * Represents a viewer member role. Default role for members who join a space without a specified role.
+         * Lowest possible role.
+         */
         VIEWER = 3,
     }
     /**
@@ -13274,6 +13431,7 @@ declare namespace webvis {
      * @see {@link ServiceState}
      */
     enum ServiceType {
+        COLLABORATION = "CollaborationService",
         /**
          * The service for retrieving geometric-, structural- as well as meta-data.
          */
@@ -13418,6 +13576,14 @@ declare namespace webvis {
          * Indicates that there was a problem to acquire a license for the Service.
          */
         ERROR_NO_LICENSE = 5004,
+        /**
+         * Indicates that there was a Timeout while waiting for a response from the Service.
+         */
+        ERROR_REQUEST_EXPIRED = 5005,
+        /**
+         * Indicates that the service could not be scheduled or queued.
+         */
+        ERROR_UNQUEUEABLE = 5006,
         /**
          * Indicates that the Service is shutting down
          */
@@ -13793,10 +13959,6 @@ declare namespace webvis {
          */
         MEASUREMENT_CHANGED = 12,
         /**
-         * @ignore
-         */
-        MEASUREMENT_UI_CHANGED = 13,
-        /**
          * Event type corresponding to a {@link MeasurementRemovedEvent}.
          * @see {@link MeasurementAPI}
          */
@@ -13934,38 +14096,6 @@ declare namespace webvis {
          */
         VIEWER_NAVIGATION_ENDED = 46,
         /**
-         * @ignore
-         */
-        SESSION_STATE_CHANGED = 48,
-        /**
-         * @ignore
-         */
-        STREAM_STATE_CHANGED = 49,
-        /**
-         * @ignore
-         */
-        MEMBER_JOINED = 50,
-        /**
-         * @ignore
-         */
-        MEMBER_UPDATED = 51,
-        /**
-         * @ignore
-         */
-        MEMBER_LEFT = 52,
-        /**
-         * @ignore
-         */
-        STATE_SYNC = 53,
-        /**
-         * @ignore
-         */
-        SESSION_PARAMETER_CHANGED = 54,
-        /**
-         * @ignore
-         */
-        SESSION_TRANSFER = 57,
-        /**
          * Event type corresponding to a {@link BackgroundClickedEvent}.
          * @see {@link ViewerAPI}
          */
@@ -13984,18 +14114,10 @@ declare namespace webvis {
          */
         REQUEST_CONTEXT_MENU = 62,
         /**
-         * @ignore
-         */
-        CREDENTIALS_AQUISITION_UPDATE = 65,
-        /**
          * Event type corresponding to a {@link ViewportChangedEvent}.
          * @see {@link ViewerAPI}
          */
         VIEWPORT_CHANGED = 66,
-        /**
-         * @ignore
-         */
-        CUSTOM_NODE_ADDED = 67,
         /**
          * Event type corresponding to a {@link ClippingRoomRemovedEvent}.
          * @see {@link ClipPlaneAPI}
@@ -14062,28 +14184,6 @@ declare namespace webvis {
          */
         SNAPSHOT_CREATION_STARTED = 80,
         /**
-         * @ignore
-         */
-        INTERNAL_NODES_REMOVED = 81,
-        /**
-         * @ignore
-         */
-        INTERNAL_NODES_CHANGED = 82,
-        /**
-         * @ignore
-         */
-        INTERNAL_SNAPSHOT_CREATED = 83,
-        /**
-         * Event type corresponding to an {@link XRMemberAddedEvent}.
-         * @see {@link RealityAPI}
-         */
-        XR_MEMBER_ADDED = 84,
-        /**
-         * Event type corresponding to an {@link XRMemberRemovedEvent}.
-         * @see {@link RealityAPI}
-         */
-        XR_MEMBER_REMOVED = 85,
-        /**
          * Event type corresponding to an {@link XRModelTrackerInfoReceivedEvent}.
          * @see {@link RealityAPI}
          */
@@ -14129,10 +14229,6 @@ declare namespace webvis {
          */
         DRAWING_REMOVED = 96,
         /**
-         * @ignore
-         */
-        INTERNAL_DRAWING_CREATED = 97,
-        /**
          * Event type corresponding to a {@link ServiceConnectionLostEvent}.
          */
         SERVICE_CONNECTION_LOST = 98,
@@ -14141,10 +14237,6 @@ declare namespace webvis {
          * @see {@link VariantsAPI}
          */
         VARIANT_CHANGED = 99,
-        /**
-         * @ignore
-         */
-        REQUEST_ERROR = 100,
         /**
          * Event type corresponding to a {@link ViewerGizmoModeChangedEvent}.
          * @see {@link ViewerGizmoAPI}
@@ -14189,14 +14281,6 @@ declare namespace webvis {
          */
         VIEWER_ERROR = 110,
         /**
-         * @ignore
-         */
-        INTERNAL_CONTEXT_CLEARED = 111,
-        /**
-         * @ignore
-         */
-        INTERNAL_VARIANT_CHANGED = 112,
-        /**
          * Event type corresponding to a {@link ViewerMagnifierChangedEvent}.
          * @see {@link ViewerMagnifierAPI}
          */
@@ -14212,24 +14296,10 @@ declare namespace webvis {
          */
         TOPOLOGY_POINTER_OUT = 115,
         /**
-         * @ignore
-         */
-        XR_SETTINGS_CHANGED = 116,
-        /**
          * Event type corresponding to an {@link XRPlaybackStateChangedEvent}.
          * @see {@link RealityAPI}
          */
         XR_PLAYBACK_STATE_CHANGED = 117,
-        /**
-         * Event type corresponding to an {@link XRSpectateStartedEvent}.
-         * @see {@link RealityAPI}
-         */
-        XR_SPECTATE_STARTED = 118,
-        /**
-         * Event type corresponding to an {@link XRSpectateStoppedEvent}.
-         * @see {@link RealityAPI}
-         */
-        XR_SPECTATE_STOPPED = 119,
         /**
          * Event type corresponding to an {@link ViewerXREdgeCompareChangedEvent}.
          * @see {@link ViewerXREdgeCompareAPI}
@@ -14255,10 +14325,6 @@ declare namespace webvis {
          * @see {@link ViewerHeatmapAPI}
          */
         VIEWER_HEATMAP_CONFIG_CHANGED = 124,
-        /**
-         * @ignore
-         */
-        INTERNAL_PARENT_CHANGED = 125,
         /**
          * Event type corresponding to a {@link MaterialCreatedEvent}.
          * @see {@link MaterialAPI}
@@ -14364,10 +14430,6 @@ declare namespace webvis {
          * @see {@link MemberAPI}
          */
         MEMBER_REMOVED = 146,
-        /**
-         * @ignore
-         */
-        MEMBER_ACTION_USED = 147,
         /** Event type corresponding to a {@link MemberActionAddedEvent}.
          * @see {@link MemberAPI}
          */
@@ -14376,11 +14438,27 @@ declare namespace webvis {
          * @see {@link MemberAPI}
          */
         MEMBER_ACTION_REMOVED = 149,
-        /** Event type corresponding to a {@link SpaceOpenedEvent}.
+        /** Event type corresponding to a {@link SpaceChangedEvent}.
          * @see {@link SpaceAPI}
          */
-        SPACE_OPENED = 150,
-        EVENT_TYPE_COUNT = 151,
+        SPACE_CHANGED = 150,
+        /**
+         * Event type corresponding to a {@link MemberProfileEntryChangedEvent}.
+         * @see {@link MemberAPI}
+         */
+        MEMBER_PROFILE_ENTRY_CHANGED = 151,
+        APPEARANCE_PATTERN_CREATED = 152,
+        /**
+         * Event type corresponding to an {@link AppearancePatternChangedEvent}
+         * @see {@link AppearancePatternAPI}
+         */
+        APPEARANCE_PATTERN_CHANGED = 153,
+        /**
+         * Event type corresponding to an {@link AppearancePatternRemovedEvent}
+         * @see {@link AppearancePatternAPI}
+         */
+        APPEARANCE_PATTERN_REMOVED = 154,
+        EVENT_TYPE_COUNT = 155,
     }
     interface DrawingPlaneProperties {
         /**
@@ -14915,7 +14993,6 @@ declare namespace webvis {
             DrawingPlaneAPI,
             QueryAPI,
             SelectionAPI,
-            SessionAPI,
             SettingsAPI,
             SessionStorageAPI,
             UtilityAPI,
@@ -14928,7 +15005,8 @@ declare namespace webvis {
             CoordinateSystemAPI,
             MaterialAPI,
             MemberAPI,
-            SpaceAPI
+            SpaceAPI,
+            AppearancePatternAPI
     {
         /**
          * Clears the whole Context by removing all Nodes, Snapshots, ClipPlanes, Drawings, Measurements, etc.
@@ -16660,6 +16738,235 @@ declare namespace webvis {
          * Defines an attachment type for HTML document or XML document data.
          */
         DOCUMENT = "document",
+    }
+    /**
+     * The properties of an appearance pattern entity in the webvis context.
+     *
+     * @see {@link AppearancePatternAPI}
+     */
+    interface AppearancePatternProperties {
+        /**
+         * Specifies the type of the pattern to be used.
+         * @default AppearancePatternType.STRIPES
+         */
+        type?: AppearancePatternType;
+        /**
+         * Specifies the foreground color of the pattern as [R, G, B, A], each value in the range 0-1.
+         * @default [1, 0, 0, 1]
+         */
+        foregroundColor?: [number, number, number, number];
+        /**
+         * Specifies the background color of the pattern as [R, G, B, A], each value in the range 0-1.
+         * @default [0, 0, 0, 0]
+         */
+        backgroundColor?: [number, number, number, number];
+        /**
+         * Specifies the scale of the pattern. A value of 0.25 results in 4 checkerboard tiles horizontally.
+         * @default 0.005
+         */
+        scale?: number;
+        /**
+         * Specifies an optional rotation of the pattern in radians.
+         * @default 0
+         */
+        rotation?: number;
+        /**
+         * Specifies an optional x/y offset for the pattern as [x, y].
+         * @default [0, 0]
+         */
+        offset?: [number, number];
+        /**
+         * Specifies an optional weight for the pattern in the range 0-1.
+         * @default 0.5
+         */
+        weight?: number;
+        /**
+         * Specifies an optional name for the pattern.
+         * @default undefined
+         */
+        name?: string;
+        /**
+         * Specifies an optional distortion ratio for the pattern in the range 0-∞.
+         * @default 0.5
+         */
+        distortRatio?: number;
+        /**
+         * Specifies an optional distortion strength for the pattern in the range 0-∞.
+         * @default 0.0
+         */
+        distortStrength?: number;
+    }
+    /**
+     * ## AppearancePatternAPI
+     *
+     * ### Overview
+     *
+     * The **AppearancePatternAPI** provides a set of methods for creating and managing appearance pattern in a webvis context. It allows you to:
+     *
+     * - Create appearance patterns and assign them to specific nodes in a scene.
+     * - Edit and update existing appearance patterns.
+     * - Retrieve all appearance patterns at once.
+     * - Request detailed appearance patterns data for a specific appearance pattern.
+     * - Remove appearance patterns when they are no longer needed.
+     *
+     * ### Quick Start
+     * The fastest way to get familiar with the AppearancePatternAPI is by creating an appearance pattern and assigning it to a node. The appearance pattern can then be updated later and removed when it is no longer necessary:
+     *
+     * ```javascript
+     * // Get the webvis context
+     * const context = webvis.getContext();
+     *
+     * // Create a node to assign the appearance pattern to and enable the resource to make it visible
+     * const nodeId = context.add({dataURI: "urn:x-i3d:shape:box", initialProperties: {enabled: true}});
+     *
+     * // Create an appearance pattern
+     * const patternId = context.createAppearancePattern({
+     *      type: webvis.AppearancePatternType.STRIPES,
+     *      foregroundColor: [1, 0, 0, 1],
+     *      scale : 0.005,
+     *      rotation: 0.785,
+     *      name: "Red Stripes",
+     * });
+     *
+     * // Assign the appearance pattern to the previously added node via the APPEARANCE_PATTERN property
+     * await context.setProperty(nodeId, webvis.Property.APPEARANCE_PATTERN, patternId);
+     *
+     *  // Change the base color and the name of the material
+     * context.changeAppearancePattern(patternId, {
+     *      foregroundColor: [0, 1, 0, 1],
+     *      name: "Green Stripes",
+     *  });
+     *
+     * // Unassign the material from the node
+     * await context.setProperty(nodeId, webvis.Property.APPEARANCE_PATTERN, null);
+     *
+     * // Remove the material if no longer required
+     * context.removeAppearancePattern(patternId);
+     * ```
+     *
+     * ### Events
+     *
+     * The following events are associated with the MaterialAPI:
+     * - {@link AppearancePatternCreatedEvent}
+     * - {@link AppearancePatternChangedEvent}
+     * - {@link AppearancePatternRemovedEvent}
+     */
+    interface AppearancePatternAPI {
+        /**
+         * Creates a new appearance pattern and triggers a {@link AppearancePatternCreatedEvent}.
+         * The current limit for concurrently defined appearance patterns is 31.
+         *
+         * @param properties Initial properties of the created appearance pattern.
+         * @returns The ID of the newly created appearance pattern or undefined if the maximum number of appearance patterns has been reached.
+         */
+        createAppearancePattern(properties?: AppearancePatternProperties): number | undefined;
+        /**
+         * Changes one or more properties of an appearance pattern with the specified ID and triggers a {@link AppearancePatternChangedEvent}.
+         *
+         * @param patternId The ID of the appearance pattern you want to change.
+         * @param properties The properties of the appearance pattern you want change.
+         * @returns An object with the changed properties.
+         */
+        changeAppearancePattern(
+            patternId: number,
+            properties: AppearancePatternProperties,
+        ): AppearancePatternProperties;
+        /**
+         * Removes the appearance pattern from the scene and all related snapshots and triggers a {@link AppearancePatternRemovedEvent}.
+         *
+         * @param patternId The ID of the appearance pattern.
+         * @param safe       Performs a safe remove which interrupts the removal process if the appearance pattern is part of
+         *                   one or more snapshots. Default: false
+         * @returns The resulting state of the removal process.
+         */
+        removeAppearancePattern(patternId: number, safe?: boolean): RemoveState;
+        /**
+         * Returns the IDs of all appearance pattern entities in the webvis context.
+         *
+         * @returns The IDs of all available appearance patterns
+         */
+        getAppearancePatterns(): number[];
+        /**
+         * Returns the properties of the appearance pattern entity with the specified ID.
+         *
+         * @param patternId The ID of the appearance pattern entity.
+         * @returns The properties of the appearance pattern entity.
+         */
+        getAppearancePatternData(patternId: number): AppearancePatternProperties;
+    }
+    /**
+     * Event that is fired when an appearance pattern entity has been removed from the webvis context
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.APPEARANCE_PATTERN_REMOVED}
+     * @see {@link AppearancePatternAPI}
+     * @see {@link AppearancePatternAPI.removeAppearancePattern}
+     */
+    class AppearancePatternRemovedEvent extends WebVisEvent {
+        patternId: number;
+        /**
+         * @param patternId The ID of the appearance pattern.
+         */
+        constructor(patternId: number);
+    }
+    /**
+     * Event that is fired when an appearance pattern entity has been created in the webvis context.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.APPEARANCE_PATTERN_CREATED}
+     * @see {@link AppearancePatternAPI}
+     * @see {@link AppearancePatternAPI.createAppearancePattern}
+     */
+    class AppearancePatternCreatedEvent extends WebVisEvent {
+        patternId: number;
+        properties: AppearancePatternProperties;
+        /**
+         * @param patternId The ID of the appearance pattern.
+         * @param properties The properties of the appearance pattern.
+         */
+        constructor(patternId: number, properties: AppearancePatternProperties);
+    }
+    /**
+     * Event that is fired when an appearance pattern entity has been changed in the webvis context.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link EventType.APPEARANCE_PATTERN_CHANGED}
+     * @see {@link AppearancePatternAPI}
+     * @see {@link AppearancePatternAPI.changeAppearancePattern}
+     */
+    class AppearancePatternChangedEvent extends WebVisEvent {
+        patternId: number;
+        properties: AppearancePatternProperties;
+        /**
+         * @param patternId The ID of the appearance pattern.
+         * @param properties The properties of the appearance pattern that have been changed.
+         */
+        constructor(patternId: number, properties: AppearancePatternProperties);
+    }
+    /**
+     * Defines all possible types of appearance patterns.
+     *
+     * @see {@link AppearancePatternAPI}
+     */
+    enum AppearancePatternType {
+        /**
+         * Specifies a strip pattern
+         */
+        STRIPES = 1,
+        /**
+         * Specifies a checkerboard pattern
+         */
+        CHECKERBOARD = 2,
+        /**
+         * Specifies a dot pattern
+         */
+        DOTS = 3,
     }
     /**
      * The **AnnotationProperties** type defines the properties of an annotation.

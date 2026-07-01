@@ -65,4 +65,19 @@ declare global {
             readonly INVALID_NODE_TYPE_ERR: 24;
             readonly DATA_CLONE_ERR: 25;
         };
+
+    // Not conditional, as this is not yet exposed by the DOM lib generator.
+    interface QuotaExceededError extends DOMException {
+        readonly quota: number | null;
+        readonly requested: number | null;
+    }
+    var QuotaExceededError: {
+        prototype: QuotaExceededError;
+        new(message?: string, options?: QuotaExceededErrorOptions): QuotaExceededError;
+    };
+
+    interface QuotaExceededErrorOptions {
+        quota?: number;
+        requested?: number;
+    }
 }

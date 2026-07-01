@@ -76,6 +76,10 @@ declare class ViewDefField {
     detailIndexFieldNames: string;
     detailDescendingIndexFieldNames: string;
     masterDetailMaxRecordCount: number;
+    lookupDisplayWidth: number | string;
+    private lookupDisplayWidth_;
+    showLookupClass: boolean;
+    private showLookupClass_;
     private _createEvent;
     onOpenKey: Event;
     onCalculate: Event;

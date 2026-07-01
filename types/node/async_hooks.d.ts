@@ -28,7 +28,7 @@ declare module "node:async_hooks" {
      * ```
      *
      * Promise contexts may not get precise `executionAsyncIds` by default.
-     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promise-execution-tracking).
+     * See the section on [promise execution tracking](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#promise-execution-tracking).
      * @since v8.1.0
      * @return The `asyncId` of the current execution context. Useful to track when something calls.
      */
@@ -101,29 +101,29 @@ declare module "node:async_hooks" {
      * ```
      *
      * Promise contexts may not get valid `triggerAsyncId`s by default. See
-     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promise-execution-tracking).
+     * the section on [promise execution tracking](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#promise-execution-tracking).
      * @return The ID of the resource responsible for calling the callback that is currently being executed.
      */
     function triggerAsyncId(): number;
     interface HookCallbacks {
         /**
-         * The [`init` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#initasyncid-type-triggerasyncid-resource).
+         * The [`init` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#initasyncid-type-triggerasyncid-resource).
          */
         init?(asyncId: number, type: string, triggerAsyncId: number, resource: object): void;
         /**
-         * The [`before` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#beforeasyncid).
+         * The [`before` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#beforeasyncid).
          */
         before?(asyncId: number): void;
         /**
-         * The [`after` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#afterasyncid).
+         * The [`after` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#afterasyncid).
          */
         after?(asyncId: number): void;
         /**
-         * The [`promiseResolve` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#promiseresolveasyncid).
+         * The [`promiseResolve` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#promiseresolveasyncid).
          */
         promiseResolve?(asyncId: number): void;
         /**
-         * The [`destroy` callback](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#destroyasyncid).
+         * The [`destroy` callback](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#destroyasyncid).
          */
         destroy?(asyncId: number): void;
         /**
@@ -153,7 +153,7 @@ declare module "node:async_hooks" {
      * All callbacks are optional. For example, if only resource cleanup needs to
      * be tracked, then only the `destroy` callback needs to be passed. The
      * specifics of all functions that can be passed to `callbacks` is in the
-     * [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) section.
+     * [Hook Callbacks](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#hook-callbacks) section.
      *
      * ```js
      * import { createHook } from 'node:async_hooks';
@@ -184,7 +184,7 @@ declare module "node:async_hooks" {
      * via the async hooks mechanism, the `init()`, `before()`, `after()`, and
      * `destroy()` callbacks _must not_ be async functions that return promises.
      * @since v8.1.0
-     * @param options The [Hook Callbacks](https://nodejs.org/docs/latest-v25.x/api/async_hooks.html#hook-callbacks) to register
+     * @param options The [Hook Callbacks](https://nodejs.org/docs/latest-v26.x/api/async_hooks.html#hook-callbacks) to register
      * @returns Instance used for disabling and enabling hooks
      */
     function createHook(options: HookCallbacks): AsyncHook;
@@ -492,6 +492,75 @@ declare module "node:async_hooks" {
          */
         exit<R, TArgs extends any[]>(callback: (...args: TArgs) => R, ...args: TArgs): R;
         /**
+         * Creates a disposable scope that enters the given store and automatically
+         * restores the previous store value when the scope is disposed. This method is
+         * designed to work with JavaScript's explicit resource management (`using` syntax).
+         *
+         * Example:
+         *
+         * ```js
+         * import { AsyncLocalStorage } from 'node:async_hooks';
+         *
+         * const asyncLocalStorage = new AsyncLocalStorage();
+         *
+         * {
+         *   using _ = asyncLocalStorage.withScope('my-store');
+         *   console.log(asyncLocalStorage.getStore()); // Prints: my-store
+         * }
+         *
+         * console.log(asyncLocalStorage.getStore()); // Prints: undefined
+         * ```
+         *
+         * The `withScope()` method is particularly useful for managing context in
+         * synchronous code where you want to ensure the previous store value is restored
+         * when exiting a block, even if an error is thrown.
+         *
+         * ```js
+         * import { AsyncLocalStorage } from 'node:async_hooks';
+         *
+         * const asyncLocalStorage = new AsyncLocalStorage();
+         *
+         * try {
+         *   using _ = asyncLocalStorage.withScope('my-store');
+         *   console.log(asyncLocalStorage.getStore()); // Prints: my-store
+         *   throw new Error('test');
+         * } catch (e) {
+         *   // Store is automatically restored even after error
+         *   console.log(asyncLocalStorage.getStore()); // Prints: undefined
+         * }
+         * ```
+         *
+         * **Important:** When using `withScope()` in async functions before the first
+         * `await`, be aware that the scope change will affect the caller's context. The
+         * synchronous portion of an async function (before the first `await`) runs
+         * immediately when called, and when it reaches the first `await`, it returns the
+         * promise to the caller. At that point, the scope change becomes visible in the
+         * caller's context and will persist in subsequent synchronous code until something
+         * else changes the scope value. For async operations, prefer using `run()` which
+         * properly isolates context across async boundaries.
+         *
+         * ```js
+         * import { AsyncLocalStorage } from 'node:async_hooks';
+         *
+         * const asyncLocalStorage = new AsyncLocalStorage();
+         *
+         * async function example() {
+         *   using _ = asyncLocalStorage.withScope('my-store');
+         *   console.log(asyncLocalStorage.getStore()); // Prints: my-store
+         *   await someAsyncOperation(); // Function pauses here and returns promise
+         *   console.log(asyncLocalStorage.getStore()); // Prints: my-store
+         * }
+         *
+         * // Calling without await
+         * example(); // Synchronous portion runs, then pauses at first await
+         * // After the promise is returned, the scope 'my-store' is now active in caller!
+         * console.log(asyncLocalStorage.getStore()); // Prints: my-store (unexpected!)
+         * ```
+         * @since v25.9.0
+         * @experimental
+         */
+        withScope(store: T): RunScope;
+        /**
          * Transitions into the context for the remainder of the current
          * synchronous execution and then persists the store through any following
          * asynchronous calls.
@@ -532,6 +601,45 @@ declare module "node:async_hooks" {
          * @experimental
          */
         enterWith(store: T): void;
+    }
+    /**
+     * A disposable scope returned by `asyncLocalStorage.withScope()` that
+     * automatically restores the previous store value when disposed. This class
+     * implements the [Explicit Resource Management](https://github.com/tc39/proposal-explicit-resource-management) protocol and is designed to work
+     * with JavaScript's `using` syntax.
+     *
+     * The scope automatically restores the previous store value when the `using` block
+     * exits, whether through normal completion or by throwing an error.
+     * @since v25.9.0
+     * @experimental
+     */
+    interface RunScope extends Disposable {
+        /**
+         * Explicitly ends the scope and restores the previous store value. This method
+         * is idempotent: calling it multiple times has the same effect as calling it once.
+         *
+         * The `[Symbol.dispose]()` method defers to `dispose()`.
+         *
+         * If `withScope()` is called without the `using` keyword, `dispose()` must be
+         * called manually to restore the previous store value. Forgetting to call
+         * `dispose()` will cause the store value to persist for the remainder of the
+         * current execution context:
+         *
+         * ```js
+         * import { AsyncLocalStorage } from 'node:async_hooks';
+         *
+         * const storage = new AsyncLocalStorage();
+         *
+         * // Without using, the scope must be disposed manually
+         * const scope = storage.withScope('my-store');
+         * // storage.getStore() === 'my-store' here
+         *
+         * scope.dispose(); // Restore previous value
+         * // storage.getStore() === undefined here
+         * ```
+         * @since v25.9.0
+         */
+        dispose(): void;
     }
     /**
      * @since v17.2.0, v16.14.0

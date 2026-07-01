@@ -81,6 +81,8 @@ declare module "node:process" {
         "node:stream": typeof import("node:stream");
         "stream/consumers": typeof import("stream/consumers");
         "node:stream/consumers": typeof import("node:stream/consumers");
+        "stream/iter": typeof import("stream/iter");
+        "node:stream/iter": typeof import("node:stream/iter");
         "stream/promises": typeof import("stream/promises");
         "node:stream/promises": typeof import("node:stream/promises");
         "stream/web": typeof import("stream/web");
@@ -214,7 +216,7 @@ declare module "node:process" {
                 readonly ipv6: boolean;
                 /**
                  * A boolean value that is `true` if the current Node.js build supports
-                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v25.x/api/modules.md#loading-ecmascript-modules-using-require).
+                 * [loading ECMAScript modules using `require()`](https://nodejs.org/docs/latest-v26.x/api/modules.md#loading-ecmascript-modules-using-require).
                  * @since v22.10.0
                  */
                 readonly require_module: boolean;
@@ -251,12 +253,11 @@ declare module "node:process" {
                  */
                 readonly tls_sni: boolean;
                 /**
-                 * A value that is `"strip"` by default,
-                 * `"transform"` if Node.js is run with `--experimental-transform-types`, and `false` if
+                 * A value that is `"strip"` by default, and `false` if
                  * Node.js is run with `--no-strip-types`.
                  * @since v22.10.0
                  */
-                readonly typescript: "strip" | "transform" | false;
+                readonly typescript: "strip" | false;
                 /**
                  * A boolean value that is `true` if the current Node.js build includes support for libuv.
                  *
@@ -729,7 +730,7 @@ declare module "node:process" {
                  * arguments passed when the Node.js process was launched. The first element will
                  * be {@link execPath}. See `process.argv0` if access to the original value
                  * of `argv[0]` is needed. The second element will be the path to the JavaScript
-                 * file being executed. If a [program entry point](https://nodejs.org/docs/latest-v25.x/api/cli.html#program-entry-point) was provided, the second element
+                 * file being executed. If a [program entry point](https://nodejs.org/docs/latest-v26.x/api/cli.html#program-entry-point) was provided, the second element
                  * will be the absolute path to it. The remaining elements are additional command-line
                  * arguments.
                  *
@@ -823,6 +824,28 @@ declare module "node:process" {
                  */
                 abort(): never;
                 /**
+                 * The `process.addUncaughtExceptionCaptureCallback()` function adds a callback
+                 * that will be invoked when an uncaught exception occurs, receiving the exception
+                 * value as its first argument.
+                 *
+                 * Unlike `process.setUncaughtExceptionCaptureCallback()`, this function allows
+                 * multiple callbacks to be registered and does not conflict with the
+                 * [`domain`](https://nodejs.org/docs/latest-v26.x/api/domain.html) module. Callbacks are called in reverse order of registration
+                 * (most recent first). If a callback returns `true`, subsequent callbacks
+                 * and the default uncaught exception handling are skipped.
+                 *
+                 * ```js
+                 * import process from 'node:process';
+                 *
+                 * process.addUncaughtExceptionCaptureCallback((err) => {
+                 *   console.error('Caught exception:', err.message);
+                 *   return true; // Indicates exception was handled
+                 * });
+                 * ```
+                 * @since v25.9.0
+                 */
+                addUncaughtExceptionCaptureCallback(fn: (err: unknown) => boolean): void;
+                /**
                  * The `process.chdir()` method changes the current working directory of the
                  * Node.js process or throws an exception if doing so fails (for instance, if
                  * the specified `directory` does not exist).
@@ -871,7 +894,7 @@ declare module "node:process" {
                  * should not be used directly, except in special cases. In other words, `require()` should be preferred over `process.dlopen()`
                  * unless there are specific reasons such as custom dlopen flags or loading from ES modules.
                  *
-                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v25.x/api/os.html#dlopen-constants)`
+                 * The `flags` argument is an integer that allows to specify dlopen behavior. See the `[os.constants.dlopen](https://nodejs.org/docs/latest-v26.x/api/os.html#dlopen-constants)`
                  * documentation for details.
                  *
                  * An important requirement when calling `process.dlopen()` is that the `module` instance must be passed. Functions exported by the C++ Addon
@@ -1418,10 +1441,11 @@ declare module "node:process" {
                  * method with a non-`null` argument while another capture function is set will
                  * throw an error.
                  *
-                 * Using this function is mutually exclusive with using the deprecated `domain` built-in module.
+                 * To register multiple callbacks that can coexist, use
+                 * `process.addUncaughtExceptionCaptureCallback()` instead.
                  * @since v9.3.0
                  */
-                setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
+                setUncaughtExceptionCaptureCallback(cb: ((err: unknown) => void) | null): void;
                 /**
                  * Indicates whether a callback has been set using {@link setUncaughtExceptionCaptureCallback}.
                  * @since v9.3.0
@@ -1711,7 +1735,7 @@ declare module "node:process" {
                 constrainedMemory(): number;
                 /**
                  * Gets the amount of free memory that is still available to the process (in bytes).
-                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v25.x/api/process.html#processavailablememory) for more information.
+                 * See [`uv_get_available_memory`](https://nodejs.org/docs/latest-v26.x/api/process.html#processavailablememory) for more information.
                  * @since v20.13.0
                  */
                 availableMemory(): number;
@@ -2003,7 +2027,7 @@ declare module "node:process" {
                 allowedNodeEnvironmentFlags: ReadonlySet<string>;
                 /**
                  * `process.report` is an object whose methods are used to generate diagnostic reports for the current process.
-                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v25.x/api/report.html).
+                 * Additional documentation is available in the [report documentation](https://nodejs.org/docs/latest-v26.x/api/report.html).
                  * @since v11.8.0
                  */
                 report: ProcessReport;

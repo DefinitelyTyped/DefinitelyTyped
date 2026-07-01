@@ -109,6 +109,20 @@ function message_common_fields_test() {
     };
 }
 
+function message_common_fields_optional_address_object_test() {
+    const message: Mail.Options = {
+        from: { address: "sender@server.com" },
+        to: [{ name: "Receiver", address: "receiver@sender.com" }, { address: "receiver2@sender.com" }],
+        cc: { name: "Carbon Copy", address: "cc@sender.com" },
+        bcc: { address: "bcc@sender.com" },
+    };
+
+    const missingAddress: Mail.Options = {
+        // @ts-expect-error - Nodemailer ignores address-less objects, so the type requires address.
+        to: { name: "Receiver" },
+    };
+}
+
 // More advanced fields
 
 function message_more_advanced_fields_test() {
