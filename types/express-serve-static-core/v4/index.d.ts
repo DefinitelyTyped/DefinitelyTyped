@@ -262,7 +262,7 @@ export interface IRouter extends RequestHandler {
     options: IRouterMatcher<this, "options">;
     head: IRouterMatcher<this, "head">;
     /**
-     * @requires Node.js >=20.19.3 <21 || >=22.2.0
+     * Requires Node.js >=20.19.3 <21 || >=22.2.0
      * @see https://expressjs.com/en/5x/api/application/#appquery
      */
     query?: IRouterMatcher<this, "query">;
