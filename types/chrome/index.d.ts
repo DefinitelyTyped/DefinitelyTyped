@@ -9182,6 +9182,7 @@ declare namespace chrome {
             | "identity"
             | "identity.email"
             | "idle"
+            | "input"
             | "loginState"
             | "management"
             | "nativeMessaging"
