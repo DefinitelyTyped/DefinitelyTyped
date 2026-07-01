@@ -2,7 +2,7 @@
     "private": true,
     "name": "@types/cyclonedx",
     "version": "1.4.9999",
-    "nonNpm": true,
+    "nonNpm": "conflict",
     "nonNpmDescription": "cyclonedx",
     "projects": [
         "https://github.com/CycloneDX/specification"
