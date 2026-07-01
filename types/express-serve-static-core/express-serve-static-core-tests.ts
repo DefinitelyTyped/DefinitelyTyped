@@ -351,3 +351,6 @@ app.router.stack;
 app.on("mount", (app) => {
     app; // $ExpectType Application<Record<string,any>
 });
+
+// QUERY method presence depends on environment
+app.query?.("/foo/bar", (req) => req.method);
