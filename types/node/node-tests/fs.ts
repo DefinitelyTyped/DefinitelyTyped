@@ -1056,7 +1056,7 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     glob("**/*.js", (err, matches) => {
         matches; // $ExpectType string[]
     });
-    glob("**/*.js", { cwd: new URL("") }, (err, matches) => {
+    glob("**/*.js", { cwd: new URL(""), followSymlinks: true }, (err, matches) => {
         matches; // $ExpectType string[]
     });
     glob("**/*.js", { withFileTypes: true }, (err, matches) => {
@@ -1109,7 +1109,7 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     });
 
     globSync("**/*.js"); // $ExpectType string[]
-    globSync("**/*.js", { cwd: "/" }); // $ExpectType string[]
+    globSync("**/*.js", { cwd: "/", followSymlinks: true }); // $ExpectType string[]
     globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent<string>[]
     globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent<string>[]
 

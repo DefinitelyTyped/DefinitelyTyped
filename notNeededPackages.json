@@ -7743,6 +7743,10 @@
             "libraryName": "theming",
             "asOfVersion": "2.0.0"
         },
+        "through2": {
+            "libraryName": "through2",
+            "asOfVersion": "5.0.0"
+        },
         "tildify": {
             "libraryName": "tildify",
             "asOfVersion": "2.0.0"

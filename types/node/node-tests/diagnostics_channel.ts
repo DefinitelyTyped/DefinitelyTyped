@@ -1,5 +1,13 @@
 import { AsyncLocalStorage } from "node:async_hooks";
-import { Channel, channel, hasSubscribers, subscribe, tracingChannel, unsubscribe } from "node:diagnostics_channel";
+import {
+    boundedChannel,
+    Channel,
+    channel,
+    hasSubscribers,
+    subscribe,
+    tracingChannel,
+    unsubscribe,
+} from "node:diagnostics_channel";
 
 const ch1: Channel = channel(Symbol.for("test"));
 function listener(data: unknown) {}
@@ -144,4 +152,20 @@ const hasSubs = hasSubscribers("test");
     channels.hasSubscribers;
     // @ts-expect-error - Only getter is implemented for `hasSubscribers`
     channels.hasSubscribers = false;
+}
+
+{
+    const bc = boundedChannel<{ requestId: number }, number>("my-operation");
+    bc.hasSubscribers; // $ExpectType boolean
+
+    bc.subscribe({
+        start(message) {
+            message.requestId; // $ExpectType number
+        },
+        end(message) {
+            message.requestId; // $ExpectType number
+        },
+    });
+
+    using scope = bc.withScope({ requestId: 123 });
 }

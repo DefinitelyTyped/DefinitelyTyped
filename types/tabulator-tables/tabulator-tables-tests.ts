@@ -639,6 +639,30 @@ table.download("pdf", "data.pdf", {
 table.download("xlsx", "AllData.xlsx");
 table.download("csv", "data.csv", { bom: true });
 table.download("csv", "data.csv", { delimiter: "." });
+table.download(
+    (rows, options, setFileContents) => {
+        const fileContents: string[] = [];
+        rows.forEach((row) => {
+            const item: any[] = [];
+            switch (row.type) {
+                case "header":
+                case "group":
+                case "calc":
+                case "row":
+                    row.columns.forEach((col) => {
+                        if (col) {
+                            item.push(col.value);
+                        }
+                        fileContents.push(item.join(options.delimiter));
+                    });
+                    break;
+            }
+        });
+        setFileContents(fileContents.join("\r\n"), "text/plain");
+    },
+    "data.txt",
+    { delimiter: "." },
+);
 
 // 4.4 updates
 table.moveColumn("name", "age", true);

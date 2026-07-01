@@ -7,6 +7,7 @@ import {
     beforeEach,
     describe,
     expectFailure,
+    getTestContext,
     it,
     Mock,
     mock,
@@ -68,6 +69,8 @@ run({
     lineCoverage: 70,
     branchCoverage: 50,
     functionCoverage: 80,
+    randomize: true,
+    randomSeed: 1029384756,
     rerunFailuresFilePath: "/path/to/file.json",
     env: {
         MY_TEST_PATH: "/path/to/tests",
@@ -518,6 +521,12 @@ suite("foo", (context) => {
     context.name;
     // $ExpectType AbortSignal
     context.signal;
+    // $ExpectType boolean
+    context.passed;
+    // $ExpectType number
+    context.attempt;
+
+    context.diagnostic("diagnostic");
 });
 
 // Hooks
@@ -1127,6 +1136,8 @@ test("planning with streams", (t: TestContext, done) => {
         done();
     });
 });
+
+getTestContext(); // $ExpectType TestContext | SuiteContext | undefined
 
 // Test custom assertion functions.
 {
