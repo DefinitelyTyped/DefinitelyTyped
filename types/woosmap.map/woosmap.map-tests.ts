@@ -578,6 +578,20 @@ promiseLocalitiesGeocode.then((result) => {
     // $ExpectType LocalitiesGeocodeResponse
     result;
 });
+
+// admin_level_x types
+const adminLevelXTypes: woosmap.map.localities.LocalitiesTypes[] = ["admin_level_1", "admin_level_2", "admin_level_3"];
+const localitiesGeocodeAdminLevelRequest = expectType({
+    address: "Haute-Garonne",
+    components: { country: ["FR"] },
+    types: adminLevelXTypes,
+}) as woosmap.map.localities.LocalitiesGeocodeRequest;
+const promiseLocalitiesGeocodeAdminLevel = localitiesService.geocode(localitiesGeocodeAdminLevelRequest);
+promiseLocalitiesGeocodeAdminLevel.then((result) => {
+    // $ExpectType LocalitiesGeocodeResponse
+    result;
+});
+
 const localitiesNearbyRequest = expectType({
     input: "royal al",
     types: ["point_of_interest", "tourism", "hospitality"],
