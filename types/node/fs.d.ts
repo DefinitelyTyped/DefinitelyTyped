@@ -380,7 +380,8 @@ declare module "node:fs" {
         "ready": [];
     }
     /**
-     * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
+     * Instances of `fs.ReadStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createReadStream()` function.
      * @since v0.1.93
      */
     class ReadStream extends stream.Readable {
@@ -643,7 +644,8 @@ declare module "node:fs" {
         "ready": [];
     }
     /**
-     * Instances of `fs.WriteStream` are created and returned using the {@link createWriteStream} function.
+     * Instances of `fs.WriteStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createWriteStream()` function.
      * @since v0.1.93
      */
     class WriteStream extends stream.Writable {
@@ -2914,12 +2916,6 @@ declare module "node:fs" {
     interface ReadOptionsWithBuffer<T extends NodeJS.ArrayBufferView> extends ReadOptions {
         buffer?: T | undefined;
     }
-    /** @deprecated Use `ReadOptions` instead. */
-    // TODO: remove in future major
-    interface ReadSyncOptions extends ReadOptions {}
-    /** @deprecated Use `ReadOptionsWithBuffer` instead. */
-    // TODO: remove in future major
-    interface ReadAsyncOptions<T extends NodeJS.ArrayBufferView> extends ReadOptionsWithBuffer<T> {}
     /**
      * Read data from the file specified by `fd`.
      *
@@ -4673,9 +4669,7 @@ declare module "node:fs" {
      * @param dest destination path to copy to.
      */
     function cpSync(source: string | URL, destination: string | URL, opts?: CopySyncOptions): void;
-
-    // TODO: collapse
-    interface _GlobOptions<T extends Dirent | string> {
+    interface GlobOptions<T extends Dirent | string = Dirent | string> {
         /**
          * Current working directory.
          * @default process.cwd()
@@ -4698,11 +4692,10 @@ declare module "node:fs" {
          */
         exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
     }
-    interface GlobOptions extends _GlobOptions<Dirent | string> {}
-    interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {
+    interface GlobOptionsWithFileTypes extends GlobOptions<Dirent> {
         withFileTypes: true;
     }
-    interface GlobOptionsWithoutFileTypes extends _GlobOptions<string> {
+    interface GlobOptionsWithoutFileTypes extends GlobOptions<string> {
         withFileTypes?: false | undefined;
     }
 

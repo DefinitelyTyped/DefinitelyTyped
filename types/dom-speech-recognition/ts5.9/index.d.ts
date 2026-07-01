@@ -1,4 +1,4 @@
-// https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#events
+// https://webaudio.github.io/web-speech-api/#speechreco-section
 interface SpeechRecognitionEventMap {
     audioend: Event;
     audiostart: Event;
@@ -13,7 +13,7 @@ interface SpeechRecognitionEventMap {
     start: Event;
 }
 
-// https://wicg.github.io/speech-api/#speechreco-section
+// https://webaudio.github.io/web-speech-api/#speechreco-section
 interface SpeechRecognition extends EventTarget {
     continuous: boolean;
     grammars: SpeechGrammarList;
@@ -57,7 +57,7 @@ interface SpeechRecognition extends EventTarget {
     ): void;
 }
 
-// https://wicg.github.io/speech-api/#dictdef-speechrecognitionoptions
+// https://webaudio.github.io/web-speech-api/#dictdef-speechrecognitionoptions
 interface SpeechRecognitionOptions {
     langs: string[];
     processLocally: boolean;
@@ -77,13 +77,13 @@ declare var SpeechRecognition: {
     install(options: SpeechRecognitionOptions): Promise<boolean>;
 };
 
-// https://wicg.github.io/speech-api/#speechrecognitionevent
+// https://webaudio.github.io/web-speech-api/#speechrecognitionevent
 interface SpeechRecognitionEventInit extends EventInit {
     resultIndex?: number;
     results: SpeechRecognitionResultList;
 }
 
-// https://wicg.github.io/speech-api/#dictdef-speechrecognitioneventinit
+// https://webaudio.github.io/web-speech-api/#dictdef-speechrecognitioneventinit
 interface SpeechRecognitionEvent extends Event {
     readonly resultIndex: number;
     readonly results: SpeechRecognitionResultList;
@@ -94,7 +94,7 @@ declare var SpeechRecognitionEvent: {
     new(type: string, eventInitDict: SpeechRecognitionEventInit): SpeechRecognitionEvent;
 };
 
-// https://wicg.github.io/speech-api/#enumdef-speechrecognitionerrorcode
+// https://webaudio.github.io/web-speech-api/#enumdef-speechrecognitionerrorcode
 type SpeechRecognitionErrorCode =
     | "aborted"
     | "audio-capture"
@@ -105,13 +105,13 @@ type SpeechRecognitionErrorCode =
     | "not-allowed"
     | "service-not-allowed";
 
-// https://wicg.github.io/speech-api/#dictdef-speechrecognitionerroreventinit
+// https://webaudio.github.io/web-speech-api/#dictdef-speechrecognitionerroreventinit
 interface SpeechRecognitionErrorEventInit extends EventInit {
     error: SpeechRecognitionErrorCode;
     message?: string;
 }
 
-// https://wicg.github.io/speech-api/#speechrecognitionerrorevent
+// https://webaudio.github.io/web-speech-api/#speechrecognitionerrorevent
 interface SpeechRecognitionErrorEvent extends Event {
     readonly error: SpeechRecognitionErrorCode;
     readonly message: string;
@@ -122,7 +122,7 @@ declare var SpeechRecognitionErrorEvent: {
     new(type: string, eventInitDict: SpeechRecognitionErrorEventInit): SpeechRecognitionErrorEvent;
 };
 
-// https://wicg.github.io/speech-api/#speechgrammar
+// https://webaudio.github.io/web-speech-api/#speechgrammar
 interface SpeechGrammar {
     src: string;
     weight: number;
@@ -133,7 +133,7 @@ declare var SpeechGrammar: {
     new(): SpeechGrammar;
 };
 
-// https://wicg.github.io/speech-api/#speechgrammarlist
+// https://webaudio.github.io/web-speech-api/#speechgrammarlist
 interface SpeechGrammarList {
     readonly length: number;
     addFromString(string: string, weight?: number): void;

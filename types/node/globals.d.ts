@@ -98,10 +98,10 @@ declare namespace NodeJS {
     }
 
     interface ErrnoException extends Error {
-        errno?: number | undefined;
-        code?: string | undefined;
-        path?: string | undefined;
-        syscall?: string | undefined;
+        errno?: number;
+        code?: string;
+        path?: string;
+        syscall?: string;
     }
 
     interface RefCounted {

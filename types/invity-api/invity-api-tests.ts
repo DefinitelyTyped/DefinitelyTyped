@@ -1,26 +1,42 @@
 import {
+    BuyCryptoPaymentMethod,
     BuyListResponse,
     BuyProviderInfo,
     BuyTrade,
+    BuyTradeQuoteRequest,
     ConfirmExchangeTradeRequest,
     CreateTradeSignatureRequestExchange,
     CreateTradeSignatureRequestSell,
     CryptoId,
+    DomainEntity,
     ExchangeProviderInfo,
     ExchangeTrade,
     ExchangeTradeQuoteRequest,
     ExchangeTradeSigned,
     InfoResponse,
+    SellCryptoPaymentMethod,
     SellFiatTrade,
     SellFiatTradeSigned,
     SellListResponse,
     SellProviderInfo,
+    WatchExchangeTradeResponse,
     WatchSellTradeResponse,
 } from "invity-api";
 
 const bt: BuyTrade = {
     paymentMethodName: "TestPay",
     tags: ["noExternalAddress"],
+};
+
+const bqt: BuyTradeQuoteRequest = {
+    wantCrypto: true,
+    fiatAmount: 1000,
+    fiatStringAmount: "1000",
+    cryptoAmount: 0.3,
+    cryptoStringAmount: "0.3",
+    receiveAddress: "receiveAddress",
+    receiveCurrency: "bitcoin" as CryptoId,
+    fiatCurrency: "USD",
 };
 
 const et: ExchangeTrade = {
@@ -33,6 +49,17 @@ const et: ExchangeTrade = {
         data: {},
     },
     status: "SIGN_DATA",
+    error: "Invalid currency: unknowncoin not found",
+    errorDetails: {
+        origin: "partner",
+        externalCode: "-32602",
+        message: "Invalid currency: unknowncoin not found",
+        code: "invalid_pair",
+        pair: {
+            send: "unknowncoin",
+            receive: "ethereum",
+        },
+    },
 };
 
 const ets: ExchangeTradeSigned = {
@@ -57,6 +84,16 @@ const sfts: SellFiatTradeSigned = {
 
 const wstr: WatchSellTradeResponse = {
     cryptoStringAmount: "",
+};
+
+const wetrErr: WatchExchangeTradeResponse = {
+    error: "Invalid method",
+    errorDetails: {
+        origin: "partner",
+        externalCode: "-32601",
+        message: "Invalid method",
+        code: "unknown",
+    },
 };
 
 const providerInfo: BuyProviderInfo = {
@@ -94,6 +131,14 @@ const infoResponse: InfoResponse = {
                 sell: true,
                 exchange: true,
             },
+        },
+    },
+    config: {
+        btcSwapDummyData: {
+            opreturn: {
+                dataHex: "abcd1234",
+            },
+            feePercentage: 2,
         },
     },
 };
@@ -261,3 +306,9 @@ const sellListResponse: SellListResponse = {
     subdivision: "WA",
     providers: [sellProviderInfo],
 };
+
+const buyPaymentMethod: BuyCryptoPaymentMethod = "blik";
+
+const sellPaymentMethod: SellCryptoPaymentMethod = "pix";
+
+const entity: DomainEntity = "partner";

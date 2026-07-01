@@ -954,7 +954,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * * The DateTime was created from invalid calendar information, such as the 13th month or February 30
      * * The DateTime was created by an operation on another invalid date
      */
-    get isValid(): IfValid<true, false, IsValid>;
+    get isValid(): IsValid;
 
     /**
      * Returns an error code if this DateTime is invalid, or null if the DateTime is valid

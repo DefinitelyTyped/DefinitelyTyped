@@ -23,12 +23,6 @@ function test(testContext: webvis.ContextAPI): void {
         resetInitTemplate: false,
     });
 
-    const xrMembers: number[] = testContext.getXRMembers();
-
-    const startXRSpectatePromise: Promise<void> = testContext.startXRSpectate(0);
-
-    testContext.stopXRSpectate();
-
     const showBackgroundFeedPromise: Promise<void> = testContext.showXRBackgroundFeed();
 
     const hideBackgroundFeedPromise: Promise<void> = testContext.hideXRBackgroundFeed();
@@ -67,14 +61,6 @@ function test(testContext: webvis.ContextAPI): void {
 
     const setPlaybackBoomerangPromise: Promise<void> = testContext.setXRPlaybackBoomerang(true);
 
-    testContext.registerListener([webvis.EventType.XR_MEMBER_ADDED], (event: webvis.XRMemberAddedEvent) => {
-        console.log("XR member added", event.xrMemberId);
-    });
-
-    testContext.registerListener([webvis.EventType.XR_MEMBER_REMOVED], (event: webvis.XRMemberRemovedEvent) => {
-        console.log("XR member removed", event.xrMemberId);
-    });
-
     testContext.registerListener(
         [webvis.EventType.XR_MODELTRACKER_EDGEIMG_RECEIVED],
         (event: webvis.XRModelTrackerEdgeImgReceivedEvent) => {
@@ -95,14 +81,6 @@ function test(testContext: webvis.ContextAPI): void {
             console.log("XR playback state changed", event.xrPlaybackState);
         },
     );
-
-    testContext.registerListener([webvis.EventType.XR_SPECTATE_STARTED], (event: webvis.XRSpectateStartedEvent) => {
-        console.log("XR spectate started", event.xrMemberId);
-    });
-
-    testContext.registerListener([webvis.EventType.XR_SPECTATE_STOPPED], (event: webvis.XRSpectateStoppedEvent) => {
-        console.log("XR spectate stopped");
-    });
 
     testContext.registerListener([webvis.EventType.XR_STATE_CHANGED], (event: webvis.XRStateChangedEvent) => {
         console.log("XR state changed", event.xrState);

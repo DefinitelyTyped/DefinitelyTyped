@@ -236,7 +236,7 @@ declare module "node:test" {
         }
         interface RunOptions {
             /**
-             * If a number is provided, then that many test processes would run in parallel, where each process corresponds to one test file.
+             * If a number is provided, then that many tests would run asynchronously (they are still managed by the single-threaded event loop).
              * If `true`, it would run `os.availableParallelism() - 1` test files in parallel. If `false`, it would only run one test file at a time.
              * @default false
              */
@@ -1306,6 +1306,11 @@ declare module "node:test" {
              */
             readonly filePath: string | undefined;
             /**
+             * The name of the suite and each of its ancestors, separated by `>`.
+             * @since v22.3.0, v20.16.0
+             */
+            readonly fullName: string;
+            /**
              * The name of the suite.
              * @since v18.8.0, v16.18.0
              */
@@ -2053,24 +2058,28 @@ declare module "node:test" {
              */
             enable(options?: MockTimersOptions): void;
             /**
-             * You can use the `.setTime()` method to manually move the mocked date to another time. This method only accepts a positive integer.
-             * Note: This method will execute any mocked timers that are in the past from the new time.
-             * In the below example we are setting a new time for the mocked date.
+             * Sets the current Unix timestamp that will be used as reference for any mocked
+             * `Date` objects.
+             *
              * ```js
              * import assert from 'node:assert';
              * import { test } from 'node:test';
-             * test('sets the time of a date object', (context) => {
-             *   // Optionally choose what to mock
-             *   context.mock.timers.enable({ apis: ['Date'], now: 100 });
-             *   assert.strictEqual(Date.now(), 100);
-             *   // Advance in time will also advance the date
-             *   context.mock.timers.setTime(1000);
-             *   context.mock.timers.tick(200);
-             *   assert.strictEqual(Date.now(), 1200);
+             *
+             * test('runAll functions following the given order', (context) => {
+             *   const now = Date.now();
+             *   const setTime = 1000;
+             *   // Date.now is not mocked
+             *   assert.deepStrictEqual(Date.now(), now);
+             *
+             *   context.mock.timers.enable({ apis: ['Date'] });
+             *   context.mock.timers.setTime(setTime);
+             *   // Date.now is now 1000
+             *   assert.strictEqual(Date.now(), setTime);
              * });
              * ```
+             * @since v21.2.0, v20.11.0
              */
-            setTime(time: number): void;
+            setTime(milliseconds: number): void;
             /**
              * This function restores the default behavior of all mocks that were previously
              * created by this `MockTimers` instance and disassociates the mocks

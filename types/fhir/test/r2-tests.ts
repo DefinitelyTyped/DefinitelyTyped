@@ -265,3 +265,68 @@ const r2Test5710: fhir2.ValueSet = {"resourceType":"ValueSet","id":"account-stat
 // VisionPrescription-33123.json
 const r2Test6726: fhir2.VisionPrescription = {"dateWritten":"2014-06-15","dispense":[{"add":2,"base":"down","eye":"right","prism":0.5,"product":{"code":"lens","system":"http://hl7.org/fhir/ex-visionprescriptionproduct"},"sphere":-2},{"add":2,"axis":180,"base":"up","cylinder":-0.5,"eye":"left","prism":0.5,"product":{"code":"lens","system":"http://hl7.org/fhir/ex-visionprescriptionproduct"},"sphere":-1}],"id":"33123","identifier":[{"system":"http://www.happysight.com/prescription","value":"15013"}],"patient":{"reference":"Patient/example"},"prescriber":{"reference":"Practitioner/example"},"resourceType":"VisionPrescription","text":{"div":"<div>\n\t  <p>OD -2.00 SPH         +2.00 add    0.5 p.d. BD</p>\n      <p>OS -1.00 -0.50 x 180 +2.00 add    0.5 p.d. BU</p>\n    </div>","status":"generated"}};
 
+
+// Regression tests for https://github.com/DefinitelyTyped/DefinitelyTyped/issues/71984
+// FhirResource must not circularly reference itself (TS2456).
+// The root cause was that DomainResource.contained (and similar fields) were typed as
+// FhirResource[] instead of Resource[], creating a cycle through every resource type.
+
+// 1. FhirResource is assignable from any concrete resource type
+const r2FhirResourcePatient: fhir2.FhirResource = { resourceType: "Patient", id: "pt-1" };
+const r2FhirResourceObservation: fhir2.FhirResource = { resourceType: "Observation", id: "obs-1", status: "final", code: { text: "test" } };
+
+// 2. FhirResource discriminated union narrows correctly via resourceType
+function processR2FhirResource(resource: fhir2.FhirResource): string {
+  if (resource.resourceType === "Patient") {
+    const patient: fhir2.Patient = resource;
+    return patient.resourceType;
+  }
+  if (resource.resourceType === "Observation") {
+    const obs: fhir2.Observation = resource;
+    return obs.resourceType;
+  }
+  return resource.resourceType;
+}
+processR2FhirResource(r2FhirResourcePatient);
+processR2FhirResource(r2FhirResourceObservation);
+
+// 3. DomainResource.contained uses Resource[] (not FhirResource[]) — no circularity
+const r2InlineObs: fhir2.Observation = { resourceType: "Observation", id: "inline-obs", status: "final", code: { text: "test" } };
+const r2PatientWithContained: fhir2.Patient = {
+  resourceType: "Patient",
+  id: "pt-contained",
+  contained: [r2InlineObs],
+};
+
+// 4. ParametersParameter.resource uses Resource (not FhirResource) — no circularity
+const r2InlinePatient: fhir2.Patient = { resourceType: "Patient", id: "pt-1" };
+const r2Params: fhir2.Parameters = {
+  resourceType: "Parameters",
+  parameter: [{ name: "subject", resource: r2InlinePatient }],
+};
+
+// 5. Resource.resourceType is accessible on base-typed fields
+//    Regression for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/75015
+//    BundleEntry.resource is typed as Resource — resourceType must be reachable.
+const r2Bundle: fhir2.Bundle = {
+  resourceType: "Bundle",
+  type: "collection",
+  entry: [{ resource: r2InlinePatient }],
+};
+const r2HasPatient = r2Bundle.entry?.some(
+  (e) => e.resource?.resourceType === "Patient",
+);
+
+// 6. Bundle<T> and BundleEntry<T> generic typing
+//    Regression for https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/75098
+const r2PatientBundle: fhir2.Bundle<fhir2.Patient> = {
+  resourceType: "Bundle",
+  type: "collection",
+  entry: [{ resource: r2InlinePatient }],
+};
+const r2PatientEntry = r2PatientBundle.entry?.[0];
+// patientEntry resource should be typed as Patient | undefined
+if (r2PatientEntry?.resource?.resourceType === "Patient") {
+  // Access a Patient-specific field (e.g. id) to prove narrow typing
+  const r2PtId: string | undefined = r2PatientEntry.resource.id;
+}

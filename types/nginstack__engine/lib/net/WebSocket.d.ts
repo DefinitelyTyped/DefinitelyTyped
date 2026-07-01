@@ -7,6 +7,6 @@ declare class WebSocket {
     ping(payload: string | ArrayBuffer, timeout?: number): ArrayBuffer;
     sendTextMessage(msg: string): boolean;
     sendBinaryMessage(msg: string | ArrayBuffer): boolean;
-    receiveMessage(timeout: number): string | ArrayBuffer;
-    lastError: string;
+    receiveMessage(timeout?: number): string | ArrayBuffer;
+    readonly lastError: string;
 }

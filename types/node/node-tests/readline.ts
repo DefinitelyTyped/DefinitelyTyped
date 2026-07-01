@@ -2,7 +2,7 @@ import * as readline from "node:readline";
 import * as readlinePromises from "node:readline/promises";
 import * as stream from "node:stream";
 
-const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
+const rl: readline.Interface = readline.createInterface(new stream.Readable());
 
 {
     const input: NodeJS.ReadableStream = new stream.Readable();
@@ -20,7 +20,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
     };
     const terminal = false;
 
-    let result: readline.ReadLine;
+    let result: readline.Interface;
 
     result = readline.createInterface(input);
     result = readline.createInterface(input, output);
@@ -46,35 +46,22 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
     rl.setPrompt("prompt");
-}
 
-{
     rl.prompt();
     rl.prompt(true);
-}
 
-{
     rl.getPrompt(); // $ExpectType string
-}
 
-{
     rl.question("query", (answer: string) => {});
     rl.question("query", { signal: new AbortSignal() }, (answer: string) => {});
 }
 
 {
-    let result: readline.ReadLine;
+    let result: readline.Interface;
 
     result = rl.pause();
-}
-
-{
-    let result: readline.ReadLine;
-
     result = rl.resume();
-}
 
-{
     rl.close();
 }
 
@@ -122,7 +109,7 @@ const rl: readline.ReadLine = readline.createInterface(new stream.Readable());
 
 {
     const strm: NodeJS.ReadableStream = new stream.Readable();
-    const readLineInterface: readline.ReadLine = readline.createInterface(new stream.Readable());
+    const readLineInterface: readline.Interface = readline.createInterface(new stream.Readable());
 
     readline.emitKeypressEvents(strm);
     readline.emitKeypressEvents(strm, readLineInterface);
@@ -281,17 +268,11 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
     readlineInstance.clearLine(1); // $ExpectType Readline
     readlineInstance.clearLine(0); // $ExpectType Readline
     readlineInstance.clearLine(-1); // $ExpectType Readline
-}
 
-{
     readlineInstance.clearScreenDown(); // $ExpectType Readline
-}
 
-{
     readlineInstance.commit(); // $ExpectType Promise<void>
-}
 
-{
     // @ts-expect-error
     readlineInstance.cursorTo();
     // @ts-expect-error
@@ -299,9 +280,7 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
 
     readlineInstance.cursorTo(1); // $ExpectType Readline
     readlineInstance.cursorTo(1, 2); // $ExpectType Readline
-}
 
-{
     // @ts-expect-error
     readlineInstance.moveCursor();
     // @ts-expect-error
@@ -310,9 +289,7 @@ const readlineInstance = new readlinePromises.Readline(new stream.Writable());
     readlineInstance.moveCursor("bad");
 
     readlineInstance.moveCursor(0, 1); // $ExpectType Readline
-}
 
-{
     readlineInstance.rollback(); // $ExpectType Readline
 }
 

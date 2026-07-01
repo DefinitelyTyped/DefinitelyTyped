@@ -13,14 +13,14 @@ declare class Link {
         newTab?: boolean,
     );
     private syncCommands_;
-    name_: string;
-    escapedName_: string;
+    private name_;
+    private escapedName_;
     layout: LayoutConfig;
     onClick: Adapter;
-    private parameters;
+    parameters: any[];
     params: Record<string, string | number | boolean | Date>;
     enabled: boolean;
-    parametersStorage_: ParametersStorage;
+    private parametersStorage_;
     private paramsFieldNames_;
     private logger_;
     private changed_;
@@ -75,7 +75,6 @@ declare namespace Link {
 }
 import LayoutConfig = require("../process/LayoutConfig.js");
 import Adapter = require("@nginstack/engine/lib/event/Adapter.js");
-import ParametersStorage = require("./ParametersStorage.js");
 import Field = require("@nginstack/engine/lib/classdef/Field.js");
 declare let createProcess: any;
 type Column = import("../simple-layout/Column.js");

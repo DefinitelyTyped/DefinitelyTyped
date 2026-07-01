@@ -1676,8 +1676,15 @@ declare module "stream" {
         /**
          * Returns whether the stream is readable.
          * @since v17.4.0, v16.14.0
+         * @returns Only returns `null` if `stream` is not a valid `Readable`, `Duplex` or `ReadableStream`.
          */
-        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean;
+        function isReadable(stream: Readable | NodeJS.ReadableStream): boolean | null;
+        /**
+         * Returns whether the stream is writable.
+         * @since v20.0.0
+         * @returns Only returns `null` if `stream` is not a valid `Writable`, `Duplex` or `WritableStream`.
+         */
+        function isWritable(stream: Writable | NodeJS.WritableStream): boolean | null;
     }
     export = Stream;
 }

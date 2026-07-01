@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eslint-plugin-no-constructor-bind",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/markalfred/eslint-plugin-no-constructor-bind#readme"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-no-constructor-bind": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitrii Kustov",
+            "githubUsername": "Simbiat"
+        }
+    ]
+}

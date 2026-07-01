@@ -55,7 +55,7 @@ declare module "node:zlib" {
             }
             | undefined;
         /**
-         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v25.x/api/zlib.html#convenience-methods).
+         * Limits output size when using [convenience methods](https://nodejs.org/docs/latest-v26.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
@@ -79,12 +79,12 @@ declare module "node:zlib" {
         chunkSize?: number | undefined;
         /**
          * Key-value object containing indexed
-         * [Zstd parameters](https://nodejs.org/docs/latest-v25.x/api/zlib.html#zstd-constants).
+         * [Zstd parameters](https://nodejs.org/docs/latest-v26.x/api/zlib.html#zstd-constants).
          */
         params?: { [key: number]: number | boolean } | undefined;
         /**
          * Limits output size when using
-         * [convenience methods](https://nodejs.org/docs/latest-v25.x/api/zlib.html#convenience-methods).
+         * [convenience methods](https://nodejs.org/docs/latest-v26.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;

@@ -1,6 +1,6 @@
 declare module "node:crypto" {
     import { NonSharedBuffer } from "node:buffer";
-    import * as stream from "node:stream";
+    import { Transform, TransformOptions, Writable, WritableOptions } from "node:stream";
     import { PeerCertificate } from "node:tls";
     /**
      * SPKAC is a Certificate Signing Request mechanism originally implemented by
@@ -27,7 +27,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the `spkac` string.
          * @return The challenge component of the `spkac` data structure, which includes a public key and a challenge.
          */
-        static exportChallenge(spkac: BinaryLike): NonSharedBuffer;
+        static exportChallenge(spkac: BinaryLike, encoding?: BufferEncoding): NonSharedBuffer;
         /**
          * ```js
          * const { Certificate } = await import('node:crypto');
@@ -40,7 +40,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the `spkac` string.
          * @return The public key component of the `spkac` data structure, which includes a public key and a challenge.
          */
-        static exportPublicKey(spkac: BinaryLike, encoding?: string): NonSharedBuffer;
+        static exportPublicKey(spkac: BinaryLike, encoding?: BufferEncoding): NonSharedBuffer;
         /**
          * ```js
          * import { Buffer } from 'node:buffer';
@@ -54,122 +54,34 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the `spkac` string.
          * @return `true` if the given `spkac` data structure is valid, `false` otherwise.
          */
-        static verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
+        static verifySpkac(spkac: BinaryLike, encoding?: BufferEncoding): boolean;
         /**
          * @deprecated
-         * @param spkac
+         * @param encoding The `encoding` of the `spkac` string.
          * @returns The challenge component of the `spkac` data structure,
          * which includes a public key and a challenge.
          */
-        exportChallenge(spkac: BinaryLike): NonSharedBuffer;
+        exportChallenge(spkac: BinaryLike, encoding?: BufferEncoding): NonSharedBuffer;
         /**
          * @deprecated
-         * @param spkac
          * @param encoding The encoding of the spkac string.
          * @returns The public key component of the `spkac` data structure,
          * which includes a public key and a challenge.
          */
-        exportPublicKey(spkac: BinaryLike, encoding?: string): NonSharedBuffer;
+        exportPublicKey(spkac: BinaryLike, encoding?: BufferEncoding): NonSharedBuffer;
         /**
          * @deprecated
-         * @param spkac
+         * @param encoding The `encoding` of the `spkac` string.
          * @returns `true` if the given `spkac` data structure is valid,
          * `false` otherwise.
          */
-        verifySpkac(spkac: NodeJS.ArrayBufferView): boolean;
+        verifySpkac(spkac: BinaryLike, encoding?: BufferEncoding): boolean;
     }
-    namespace constants {
-        // https://nodejs.org/dist/latest-v25.x/docs/api/crypto.html#crypto-constants
-        const OPENSSL_VERSION_NUMBER: number;
-        /** Applies multiple bug workarounds within OpenSSL. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html for detail. */
-        const SSL_OP_ALL: number;
-        /** Instructs OpenSSL to allow a non-[EC]DHE-based key exchange mode for TLS v1.3 */
-        const SSL_OP_ALLOW_NO_DHE_KEX: number;
-        /** Allows legacy insecure renegotiation between OpenSSL and unpatched clients or servers. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
-        const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
-        /** Attempts to use the server's preferences instead of the client's when selecting a cipher. See https://www.openssl.org/docs/man1.0.2/ssl/SSL_CTX_set_options.html. */
-        const SSL_OP_CIPHER_SERVER_PREFERENCE: number;
-        /** Instructs OpenSSL to use Cisco's version identifier of DTLS_BAD_VER. */
-        const SSL_OP_CISCO_ANYCONNECT: number;
-        /** Instructs OpenSSL to turn on cookie exchange. */
-        const SSL_OP_COOKIE_EXCHANGE: number;
-        /** Instructs OpenSSL to add server-hello extension from an early version of the cryptopro draft. */
-        const SSL_OP_CRYPTOPRO_TLSEXT_BUG: number;
-        /** Instructs OpenSSL to disable a SSL 3.0/TLS 1.0 vulnerability workaround added in OpenSSL 0.9.6d. */
-        const SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS: number;
-        /** Allows initial connection to servers that do not support RI. */
-        const SSL_OP_LEGACY_SERVER_CONNECT: number;
-        /** Instructs OpenSSL to disable support for SSL/TLS compression. */
-        const SSL_OP_NO_COMPRESSION: number;
-        /** Instructs OpenSSL to disable encrypt-then-MAC. */
-        const SSL_OP_NO_ENCRYPT_THEN_MAC: number;
-        const SSL_OP_NO_QUERY_MTU: number;
-        /** Instructs OpenSSL to disable renegotiation. */
-        const SSL_OP_NO_RENEGOTIATION: number;
-        /** Instructs OpenSSL to always start a new session when performing renegotiation. */
-        const SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION: number;
-        /** Instructs OpenSSL to turn off SSL v2 */
-        const SSL_OP_NO_SSLv2: number;
-        /** Instructs OpenSSL to turn off SSL v3 */
-        const SSL_OP_NO_SSLv3: number;
-        /** Instructs OpenSSL to disable use of RFC4507bis tickets. */
-        const SSL_OP_NO_TICKET: number;
-        /** Instructs OpenSSL to turn off TLS v1 */
-        const SSL_OP_NO_TLSv1: number;
-        /** Instructs OpenSSL to turn off TLS v1.1 */
-        const SSL_OP_NO_TLSv1_1: number;
-        /** Instructs OpenSSL to turn off TLS v1.2 */
-        const SSL_OP_NO_TLSv1_2: number;
-        /** Instructs OpenSSL to turn off TLS v1.3 */
-        const SSL_OP_NO_TLSv1_3: number;
-        /** Instructs OpenSSL server to prioritize ChaCha20-Poly1305 when the client does. This option has no effect if `SSL_OP_CIPHER_SERVER_PREFERENCE` is not enabled. */
-        const SSL_OP_PRIORITIZE_CHACHA: number;
-        /** Instructs OpenSSL to disable version rollback attack detection. */
-        const SSL_OP_TLS_ROLLBACK_BUG: number;
-        const ENGINE_METHOD_RSA: number;
-        const ENGINE_METHOD_DSA: number;
-        const ENGINE_METHOD_DH: number;
-        const ENGINE_METHOD_RAND: number;
-        const ENGINE_METHOD_EC: number;
-        const ENGINE_METHOD_CIPHERS: number;
-        const ENGINE_METHOD_DIGESTS: number;
-        const ENGINE_METHOD_PKEY_METHS: number;
-        const ENGINE_METHOD_PKEY_ASN1_METHS: number;
-        const ENGINE_METHOD_ALL: number;
-        const ENGINE_METHOD_NONE: number;
-        const DH_CHECK_P_NOT_SAFE_PRIME: number;
-        const DH_CHECK_P_NOT_PRIME: number;
-        const DH_UNABLE_TO_CHECK_GENERATOR: number;
-        const DH_NOT_SUITABLE_GENERATOR: number;
-        const RSA_PKCS1_PADDING: number;
-        const RSA_SSLV23_PADDING: number;
-        const RSA_NO_PADDING: number;
-        const RSA_PKCS1_OAEP_PADDING: number;
-        const RSA_X931_PADDING: number;
-        const RSA_PKCS1_PSS_PADDING: number;
-        /** Sets the salt length for RSA_PKCS1_PSS_PADDING to the digest size when signing or verifying. */
-        const RSA_PSS_SALTLEN_DIGEST: number;
-        /** Sets the salt length for RSA_PKCS1_PSS_PADDING to the maximum permissible value when signing data. */
-        const RSA_PSS_SALTLEN_MAX_SIGN: number;
-        /** Causes the salt length for RSA_PKCS1_PSS_PADDING to be determined automatically when verifying a signature. */
-        const RSA_PSS_SALTLEN_AUTO: number;
-        const POINT_CONVERSION_COMPRESSED: number;
-        const POINT_CONVERSION_UNCOMPRESSED: number;
-        const POINT_CONVERSION_HYBRID: number;
-        /** Specifies the built-in default cipher list used by Node.js (colon-separated values). */
-        const defaultCoreCipherList: string;
-        /** Specifies the active default cipher list used by the current Node.js process  (colon-separated values). */
-        const defaultCipherList: string;
-    }
-    interface HashOptions extends stream.TransformOptions {
-        /**
-         * For XOF hash functions such as `shake256`, the
-         * outputLength option can be used to specify the desired output length in bytes.
-         */
+    /** @deprecated This property is deprecated. Please use `crypto.setFips()` and `crypto.getFips()` instead. */
+    var fips: boolean;
+    interface HashOptions extends TransformOptions {
         outputLength?: number | undefined;
     }
-    /** @deprecated since v10.0.0 */
-    const fips: boolean;
     /**
      * Creates and returns a `Hash` object that can be used to generate hash digests
      * using the given `algorithm`. Optional `options` argument controls stream
@@ -212,6 +124,9 @@ declare module "node:crypto" {
      * @param options `stream.transform` options
      */
     function createHash(algorithm: string, options?: HashOptions): Hash;
+    interface HmacOptions extends TransformOptions {
+        encoding?: BufferEncoding | undefined;
+    }
     /**
      * Creates and returns an `Hmac` object that uses the given `algorithm` and `key`.
      * Optional `options` argument controls stream behavior.
@@ -256,13 +171,7 @@ declare module "node:crypto" {
      * @since v0.1.94
      * @param options `stream.transform` options
      */
-    function createHmac(algorithm: string, key: BinaryLike | KeyObject, options?: stream.TransformOptions): Hmac;
-    // https://nodejs.org/api/buffer.html#buffer_buffers_and_character_encodings
-    type BinaryToTextEncoding = "base64" | "base64url" | "hex" | "binary";
-    type CharacterEncoding = "utf8" | "utf-8" | "utf16le" | "utf-16le" | "latin1";
-    type LegacyCharacterEncoding = "ascii" | "binary" | "ucs2" | "ucs-2";
-    type Encoding = BinaryToTextEncoding | CharacterEncoding | LegacyCharacterEncoding;
-    type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
+    function createHmac(algorithm: string, key: KeyLike, options?: HmacOptions): Hmac;
     /**
      * The `Hash` class is a utility for creating hash digests of data. It can be
      * used in one of two ways:
@@ -327,7 +236,7 @@ declare module "node:crypto" {
      * ```
      * @since v0.1.92
      */
-    class Hash extends stream.Transform {
+    class Hash extends Transform {
         private constructor();
         /**
          * Creates a new `Hash` object that contains a deep copy of the internal state
@@ -373,8 +282,7 @@ declare module "node:crypto" {
          * @since v0.1.92
          * @param inputEncoding The `encoding` of the `data` string.
          */
-        update(data: BinaryLike): Hash;
-        update(data: string, inputEncoding: Encoding): Hash;
+        update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): Hash;
         /**
          * Calculates the digest of all of the data passed to be hashed (using the `hash.update()` method).
          * If `encoding` is provided a string will be returned; otherwise
@@ -386,7 +294,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          */
         digest(): NonSharedBuffer;
-        digest(encoding: BinaryToTextEncoding): string;
+        digest(encoding: BufferEncoding): string;
     }
     /**
      * The `Hmac` class is a utility for creating cryptographic HMAC digests. It can
@@ -454,7 +362,7 @@ declare module "node:crypto" {
      * ```
      * @since v0.1.94
      */
-    class Hmac extends stream.Transform {
+    class Hmac extends Transform {
         private constructor();
         /**
          * Updates the `Hmac` content with the given `data`, the encoding of which
@@ -466,8 +374,7 @@ declare module "node:crypto" {
          * @since v0.1.94
          * @param inputEncoding The `encoding` of the `data` string.
          */
-        update(data: BinaryLike): Hmac;
-        update(data: string, inputEncoding: Encoding): Hmac;
+        update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): Hmac;
         /**
          * Calculates the HMAC digest of all of the data passed using `hmac.update()`.
          * If `encoding` is
@@ -479,9 +386,9 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          */
         digest(): NonSharedBuffer;
-        digest(encoding: BinaryToTextEncoding): string;
+        digest(encoding: BufferEncoding): string;
     }
-    type KeyFormat = "pem" | "der" | "jwk";
+    type KeyFormat = "pem" | "der" | "jwk" | "raw-public" | "raw-private" | "raw-seed";
     type KeyObjectType = "secret" | "public" | "private";
     type PublicKeyExportType = "pkcs1" | "spki";
     type PrivateKeyExportType = "pkcs1" | "pkcs8" | "sec1";
@@ -489,38 +396,60 @@ declare module "node:crypto" {
         | SymmetricKeyExportOptions
         | PublicKeyExportOptions
         | PrivateKeyExportOptions
-        | JwkKeyExportOptions;
+        | JwkKeyExportOptions
+        | RawPublicKeyExportOptions
+        | RawPrivateKeyExportOptions;
     interface SymmetricKeyExportOptions {
         format?: "buffer" | undefined;
     }
     interface PublicKeyExportOptions<T extends PublicKeyExportType = PublicKeyExportType> {
         type: T;
-        format: Exclude<KeyFormat, "jwk">;
+        format: "pem" | "der";
     }
     interface PrivateKeyExportOptions<T extends PrivateKeyExportType = PrivateKeyExportType> {
         type: T;
-        format: Exclude<KeyFormat, "jwk">;
+        format: "pem" | "der";
         cipher?: string | undefined;
-        passphrase?: string | Buffer | undefined;
+        passphrase?: BinaryLike | undefined;
     }
     interface JwkKeyExportOptions {
         format: "jwk";
+    }
+    interface RawPublicKeyExportOptions {
+        format: "raw-public";
+    }
+    interface RawPrivateKeyExportOptions {
+        format: "raw-private" | "raw-seed";
     }
     interface KeyPairExportOptions<
         TPublic extends PublicKeyExportType = PublicKeyExportType,
         TPrivate extends PrivateKeyExportType = PrivateKeyExportType,
     > {
-        publicKeyEncoding?: PublicKeyExportOptions<TPublic> | JwkKeyExportOptions | undefined;
-        privateKeyEncoding?: PrivateKeyExportOptions<TPrivate> | JwkKeyExportOptions | undefined;
+        publicKeyEncoding?:
+            | PublicKeyExportOptions<TPublic>
+            | RawPublicKeyExportOptions
+            | JwkKeyExportOptions
+            | undefined;
+        privateKeyEncoding?:
+            | PrivateKeyExportOptions<TPrivate>
+            | RawPrivateKeyExportOptions
+            | JwkKeyExportOptions
+            | undefined;
     }
-    type KeyExportResult<T, Default> = T extends { format: infer F extends KeyFormat }
-        ? { der: NonSharedBuffer; jwk: webcrypto.JsonWebKey; pem: string }[F]
+    type KeyExportResult<T, Default> = T extends { format: infer F extends KeyFormat } ? {
+            "der": NonSharedBuffer;
+            "jwk": webcrypto.JsonWebKey;
+            "pem": string;
+            "raw-public": NonSharedBuffer;
+            "raw-private": NonSharedBuffer;
+            "raw-seed": NonSharedBuffer;
+        }[F]
         : Default;
     interface KeyPairExportResult<T extends KeyPairExportOptions> {
         publicKey: KeyExportResult<T["publicKeyEncoding"], KeyObject>;
         privateKey: KeyExportResult<T["privateKeyEncoding"], KeyObject>;
     }
-    type KeyPairExportCallback<T extends KeyPairExportOptions> = (
+    type KeyPairExportCallback<T extends KeyPairExportOptions = {}> = (
         err: Error | null,
         publicKey: KeyExportResult<T["publicKeyEncoding"], KeyObject>,
         privateKey: KeyExportResult<T["privateKeyEncoding"], KeyObject>,
@@ -542,33 +471,12 @@ declare module "node:crypto" {
         | "x25519"
         | "x448";
     interface AsymmetricKeyDetails {
-        /**
-         * Key size in bits (RSA, DSA).
-         */
         modulusLength?: number;
-        /**
-         * Public exponent (RSA).
-         */
         publicExponent?: bigint;
-        /**
-         * Name of the message digest (RSA-PSS).
-         */
         hashAlgorithm?: string;
-        /**
-         * Name of the message digest used by MGF1 (RSA-PSS).
-         */
         mgf1HashAlgorithm?: string;
-        /**
-         * Minimal salt length in bytes (RSA-PSS).
-         */
         saltLength?: number;
-        /**
-         * Size of q in bits (DSA).
-         */
         divisorLength?: number;
-        /**
-         * Name of the curve (EC).
-         */
         namedCurve?: string;
     }
     /**
@@ -587,7 +495,11 @@ declare module "node:crypto" {
     class KeyObject {
         private constructor();
         /**
-         * Example: Converting a `CryptoKey` instance to a `KeyObject`:
+         * Returns the underlying `KeyObject` of a `CryptoKey`. The returned `KeyObject`
+         * does not retain any of the restrictions imposed by the Web Crypto API on the
+         * original `CryptoKey`, such as the allowed key usages, the algorithm or hash
+         * algorithm bindings, and the extractability flag. In particular, the underlying
+         * key material of the returned `KeyObject` can always be exported.
          *
          * ```js
          * const { KeyObject } = await import('node:crypto');
@@ -608,7 +520,7 @@ declare module "node:crypto" {
         static from(key: webcrypto.CryptoKey): KeyObject;
         /**
          * For asymmetric keys, this property represents the type of the key. See the
-         * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+         * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
          *
          * This property is `undefined` for unrecognized `KeyObject` types and symmetric
          * keys.
@@ -630,26 +542,18 @@ declare module "node:crypto" {
          */
         asymmetricKeyDetails?: AsymmetricKeyDetails;
         /**
-         * For symmetric keys, the following encoding options can be used:
-         *
-         * For public keys, the following encoding options can be used:
-         *
-         * For private keys, the following encoding options can be used:
-         *
          * The result type depends on the selected encoding format, when PEM the
          * result is a string, when DER it will be a buffer containing the data
-         * encoded as DER, when [JWK](https://tools.ietf.org/html/rfc7517) it will be an object.
+         * encoded as DER, when [JWK](https://tools.ietf.org/html/rfc7517) it will be an object. Raw formats return a
+         * `Buffer` containing the raw key material.
          *
-         * When [JWK](https://tools.ietf.org/html/rfc7517) encoding format was selected, all other encoding options are
-         * ignored.
-         *
-         * PKCS#1, SEC1, and PKCS#8 type keys can be encrypted by using a combination of
-         * the `cipher` and `format` options. The PKCS#8 `type` can be used with any`format` to encrypt any key algorithm (RSA, EC, or DH) by specifying a`cipher`. PKCS#1 and SEC1 can only be
-         * encrypted by specifying a `cipher`when the PEM `format` is used. For maximum compatibility, use PKCS#8 for
-         * encrypted private keys. Since PKCS#8 defines its own
-         * encryption mechanism, PEM-level encryption is not supported when encrypting
-         * a PKCS#8 key. See [RFC 5208](https://www.rfc-editor.org/rfc/rfc5208.txt) for PKCS#8 encryption and [RFC 1421](https://www.rfc-editor.org/rfc/rfc1421.txt) for
-         * PKCS#1 and SEC1 encryption.
+         * Private keys can be encrypted by specifying a `cipher` and `passphrase`.
+         * The PKCS#8 `type` supports encryption with both PEM and DER `format` for any
+         * key algorithm. PKCS#1 and SEC1 can only be encrypted when the PEM `format` is
+         * used. For maximum compatibility, use PKCS#8 for encrypted private keys. Since
+         * PKCS#8 defines its own encryption mechanism, PEM-level encryption is not
+         * supported when encrypting a PKCS#8 key. See [RFC 5208](https://www.rfc-editor.org/rfc/rfc5208.txt) for PKCS#8 encryption
+         * and [RFC 1421](https://www.rfc-editor.org/rfc/rfc1421.txt) for PKCS#1 and SEC1 encryption.
          * @since v11.6.0
          */
         export<T extends KeyExportOptions = {}>(options?: T): KeyExportResult<T, NonSharedBuffer>;
@@ -690,19 +594,18 @@ declare module "node:crypto" {
     type CipherGCMTypes = "aes-128-gcm" | "aes-192-gcm" | "aes-256-gcm";
     type CipherOCBTypes = "aes-128-ocb" | "aes-192-ocb" | "aes-256-ocb";
     type CipherChaCha20Poly1305Types = "chacha20-poly1305";
-    type BinaryLike = string | NodeJS.ArrayBufferView;
-    type CipherKey = BinaryLike | KeyObject;
-    interface CipherCCMOptions extends stream.TransformOptions {
+    type BinaryLike = string | ArrayBufferLike | NodeJS.ArrayBufferView;
+    type KeyLike = BinaryLike | KeyObject;
+    interface CipherCCMOptions extends TransformOptions {
         authTagLength: number;
     }
-    interface CipherGCMOptions extends stream.TransformOptions {
+    interface CipherGCMOptions extends TransformOptions {
         authTagLength?: number | undefined;
     }
-    interface CipherOCBOptions extends stream.TransformOptions {
+    interface CipherOCBOptions extends TransformOptions {
         authTagLength: number;
     }
-    interface CipherChaCha20Poly1305Options extends stream.TransformOptions {
-        /** @default 16 */
+    interface CipherChaCha20Poly1305Options extends TransformOptions {
         authTagLength?: number | undefined;
     }
     /**
@@ -737,33 +640,33 @@ declare module "node:crypto" {
      */
     function createCipheriv(
         algorithm: CipherCCMTypes,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options: CipherCCMOptions,
     ): CipherCCM;
     function createCipheriv(
         algorithm: CipherOCBTypes,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options: CipherOCBOptions,
     ): CipherOCB;
     function createCipheriv(
         algorithm: CipherGCMTypes,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options?: CipherGCMOptions,
     ): CipherGCM;
     function createCipheriv(
         algorithm: CipherChaCha20Poly1305Types,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options?: CipherChaCha20Poly1305Options,
     ): CipherChaCha20Poly1305;
     function createCipheriv(
         algorithm: string,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike | null,
-        options?: stream.TransformOptions,
+        options?: TransformOptions,
     ): Cipheriv;
     /**
      * Instances of the `Cipheriv` class are used to encrypt data. The class can be
@@ -884,7 +787,7 @@ declare module "node:crypto" {
      * ```
      * @since v0.1.94
      */
-    class Cipheriv extends stream.Transform {
+    class Cipheriv extends Transform {
         private constructor();
         /**
          * Updates the cipher with `data`. If the `inputEncoding` argument is given,
@@ -900,10 +803,12 @@ declare module "node:crypto" {
          * @param inputEncoding The `encoding` of the data.
          * @param outputEncoding The `encoding` of the return value.
          */
-        update(data: BinaryLike): NonSharedBuffer;
-        update(data: string, inputEncoding: Encoding): NonSharedBuffer;
-        update(data: NodeJS.ArrayBufferView, inputEncoding: undefined, outputEncoding: Encoding): string;
-        update(data: string, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
+        update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): NonSharedBuffer;
+        update(
+            data: string | NodeJS.ArrayBufferView,
+            inputEncoding: BufferEncoding | null | undefined,
+            outputEncoding: BufferEncoding,
+        ): string;
         /**
          * Once the `cipher.final()` method has been called, the `Cipheriv` object can no
          * longer be used to encrypt data. Attempts to call `cipher.final()` more than
@@ -931,50 +836,31 @@ declare module "node:crypto" {
          */
         setAutoPadding(autoPadding?: boolean): this;
     }
-    interface CipherCCM extends Cipheriv {
-        setAAD(
-            buffer: NodeJS.ArrayBufferView,
-            options: {
-                plaintextLength: number;
-            },
-        ): this;
+    interface CipherAEADMethods {
         getAuthTag(): NonSharedBuffer;
+        setAAD(buffer: BinaryLike, options?: {
+            plaintextLength?: number | undefined;
+            encoding?: BufferEncoding | undefined;
+        }): this;
     }
-    interface CipherGCM extends Cipheriv {
-        setAAD(
-            buffer: NodeJS.ArrayBufferView,
-            options?: {
-                plaintextLength: number;
-            },
-        ): this;
-        getAuthTag(): NonSharedBuffer;
+    interface CipherCCM extends Cipheriv, CipherAEADMethods {
+        setAAD(buffer: BinaryLike, options: {
+            plaintextLength: number;
+            encoding?: BufferEncoding | undefined;
+        }): this;
     }
-    interface CipherOCB extends Cipheriv {
-        setAAD(
-            buffer: NodeJS.ArrayBufferView,
-            options?: {
-                plaintextLength: number;
-            },
-        ): this;
-        getAuthTag(): NonSharedBuffer;
-    }
-    interface CipherChaCha20Poly1305 extends Cipheriv {
-        setAAD(
-            buffer: NodeJS.ArrayBufferView,
-            options: {
-                plaintextLength: number;
-            },
-        ): this;
-        getAuthTag(): NonSharedBuffer;
-    }
+    interface CipherGCM extends Cipheriv, CipherAEADMethods {}
+    interface CipherOCB extends Cipheriv, CipherAEADMethods {}
+    interface CipherChaCha20Poly1305 extends Cipheriv, CipherAEADMethods {}
     /**
      * Creates and returns a `Decipheriv` object that uses the given `algorithm`, `key` and initialization vector (`iv`).
      *
      * The `options` argument controls stream behavior and is optional except when a
-     * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the `authTagLength` option is required and specifies the length of the
-     * authentication tag in bytes, see `CCM mode`. In GCM mode, the `authTagLength` option is not required but can be used to restrict accepted authentication tags
-     * to those with the specified length.
-     * For `chacha20-poly1305`, the `authTagLength` option defaults to 16 bytes.
+     * cipher in CCM or OCB mode (e.g. `'aes-128-ccm'`) is used. In that case, the
+     * `authTagLength` option is required and specifies the length of the
+     * authentication tag in bytes, see [CCM mode](https://nodejs.org/docs/latest-v26.x/api/crypto.html#ccm-mode).
+     * For AES-GCM and `chacha20-poly1305`, the `authTagLength` option defaults to 16
+     * bytes and must be set to a different value if a different length is used.
      *
      * The `algorithm` is dependent on OpenSSL, examples are `'aes192'`, etc. On
      * recent OpenSSL releases, `openssl list -cipher-algorithms` will
@@ -998,33 +884,33 @@ declare module "node:crypto" {
      */
     function createDecipheriv(
         algorithm: CipherCCMTypes,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options: CipherCCMOptions,
     ): DecipherCCM;
     function createDecipheriv(
         algorithm: CipherOCBTypes,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options: CipherOCBOptions,
     ): DecipherOCB;
     function createDecipheriv(
         algorithm: CipherGCMTypes,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options?: CipherGCMOptions,
     ): DecipherGCM;
     function createDecipheriv(
         algorithm: CipherChaCha20Poly1305Types,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike,
         options?: CipherChaCha20Poly1305Options,
     ): DecipherChaCha20Poly1305;
     function createDecipheriv(
         algorithm: string,
-        key: CipherKey,
+        key: KeyLike,
         iv: BinaryLike | null,
-        options?: stream.TransformOptions,
+        options?: TransformOptions,
     ): Decipheriv;
     /**
      * Instances of the `Decipheriv` class are used to decrypt data. The class can be
@@ -1134,7 +1020,7 @@ declare module "node:crypto" {
      * ```
      * @since v0.1.94
      */
-    class Decipheriv extends stream.Transform {
+    class Decipheriv extends Transform {
         private constructor();
         /**
          * Updates the decipher with `data`. If the `inputEncoding` argument is given,
@@ -1150,10 +1036,12 @@ declare module "node:crypto" {
          * @param inputEncoding The `encoding` of the `data` string.
          * @param outputEncoding The `encoding` of the return value.
          */
-        update(data: NodeJS.ArrayBufferView): NonSharedBuffer;
-        update(data: string, inputEncoding: Encoding): NonSharedBuffer;
-        update(data: NodeJS.ArrayBufferView, inputEncoding: undefined, outputEncoding: Encoding): string;
-        update(data: string, inputEncoding: Encoding | undefined, outputEncoding: Encoding): string;
+        update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): NonSharedBuffer;
+        update(
+            data: string | NodeJS.ArrayBufferView,
+            inputEncoding: BufferEncoding | null | undefined,
+            outputEncoding: BufferEncoding,
+        ): string;
         /**
          * Once the `decipher.final()` method has been called, the `Decipheriv` object can
          * no longer be used to decrypt data. Attempts to call `decipher.final()` more
@@ -1178,54 +1066,59 @@ declare module "node:crypto" {
          */
         setAutoPadding(auto_padding?: boolean): this;
     }
-    interface DecipherCCM extends Decipheriv {
-        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
+    interface DecipherAEADMethods {
         setAAD(
-            buffer: NodeJS.ArrayBufferView,
+            buffer: BinaryLike,
+            options?: {
+                plaintextLength?: number | undefined;
+                encoding?: BufferEncoding | undefined;
+            },
+        ): this;
+        setAuthTag(buffer: BinaryLike, encoding?: BufferEncoding): this;
+    }
+    interface DecipherCCM extends Decipheriv, DecipherAEADMethods {
+        setAAD(
+            buffer: BinaryLike,
             options: {
                 plaintextLength: number;
+                encoding?: BufferEncoding | undefined;
             },
         ): this;
     }
-    interface DecipherGCM extends Decipheriv {
-        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
-        setAAD(
-            buffer: NodeJS.ArrayBufferView,
-            options?: {
-                plaintextLength: number;
-            },
-        ): this;
-    }
-    interface DecipherOCB extends Decipheriv {
-        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
-        setAAD(
-            buffer: NodeJS.ArrayBufferView,
-            options?: {
-                plaintextLength: number;
-            },
-        ): this;
-    }
-    interface DecipherChaCha20Poly1305 extends Decipheriv {
-        setAuthTag(buffer: NodeJS.ArrayBufferView): this;
-        setAAD(
-            buffer: NodeJS.ArrayBufferView,
-            options: {
-                plaintextLength: number;
-            },
-        ): this;
-    }
+    interface DecipherGCM extends Decipheriv, DecipherAEADMethods {}
+    interface DecipherOCB extends Decipheriv, DecipherAEADMethods {}
+    interface DecipherChaCha20Poly1305 extends Decipheriv, DecipherAEADMethods {}
     interface PrivateKeyInput {
-        key: string | Buffer;
-        format?: KeyFormat | undefined;
+        key: BinaryLike;
+        format?: "pem" | "der" | undefined;
         type?: PrivateKeyExportType | undefined;
-        passphrase?: string | Buffer | undefined;
-        encoding?: string | undefined;
+        passphrase?: BinaryLike | undefined;
+        encoding?: BufferEncoding | undefined;
     }
     interface PublicKeyInput {
-        key: string | Buffer;
-        format?: KeyFormat | undefined;
+        key: BinaryLike;
+        format?: "pem" | "der" | undefined;
         type?: PublicKeyExportType | undefined;
-        encoding?: string | undefined;
+        encoding?: BufferEncoding | undefined;
+    }
+    interface RawPrivateKeyInput {
+        key: ArrayBufferLike | NodeJS.ArrayBufferView;
+        format: "raw-private" | "raw-seed";
+        asymmetricKeyType: AsymmetricKeyType;
+        namedCurve?: string | undefined;
+    }
+    interface RawPublicKeyInput {
+        key: ArrayBufferLike | NodeJS.ArrayBufferView;
+        format: "raw-public";
+        asymmetricKeyType: AsymmetricKeyType;
+        namedCurve?: string | undefined;
+    }
+    interface JsonWebKeyInput {
+        key: webcrypto.JsonWebKey;
+        format: "jwk";
+    }
+    interface SecretKeyOptions {
+        length: number;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The `type` will determine which validations will be performed on the `length`.
@@ -1248,9 +1141,7 @@ declare module "node:crypto" {
      */
     function generateKey(
         type: "hmac" | "aes",
-        options: {
-            length: number;
-        },
+        options: SecretKeyOptions,
         callback: (err: Error | null, key: KeyObject) => void,
     ): void;
     /**
@@ -1270,16 +1161,7 @@ declare module "node:crypto" {
      * @since v15.0.0
      * @param type The intended use of the generated secret key. Currently accepted values are `'hmac'` and `'aes'`.
      */
-    function generateKeySync(
-        type: "hmac" | "aes",
-        options: {
-            length: number;
-        },
-    ): KeyObject;
-    interface JsonWebKeyInput {
-        key: webcrypto.JsonWebKey;
-        format: "jwk";
-    }
+    function generateKeySync(type: "hmac" | "aes", options: SecretKeyOptions): KeyObject;
     /**
      * Creates and returns a new key object containing a private key. If `key` is a
      * string or `Buffer`, `format` is assumed to be `'pem'`; otherwise, `key` must be an object with the properties described above.
@@ -1288,7 +1170,7 @@ declare module "node:crypto" {
      * of the passphrase is limited to 1024 bytes.
      * @since v11.6.0
      */
-    function createPrivateKey(key: PrivateKeyInput | string | Buffer | JsonWebKeyInput): KeyObject;
+    function createPrivateKey(key: PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput | BinaryLike): KeyObject;
     /**
      * Creates and returns a new key object containing a public key. If `key` is a
      * string or `Buffer`, `format` is assumed to be `'pem'`; if `key` is a `KeyObject` with type `'private'`, the public key is derived from the given private key;
@@ -1303,15 +1185,14 @@ declare module "node:crypto" {
      * and it will be impossible to extract the private key from the returned object.
      * @since v11.6.0
      */
-    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
+    function createPublicKey(key: PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput | BinaryLike): KeyObject;
     /**
      * Creates and returns a new key object containing a secret key for symmetric
      * encryption or `Hmac`.
      * @since v11.6.0
      * @param encoding The string encoding when `key` is a string.
      */
-    function createSecretKey(key: NodeJS.ArrayBufferView): KeyObject;
-    function createSecretKey(key: string, encoding: BufferEncoding): KeyObject;
+    function createSecretKey(key: BinaryLike, encoding?: BufferEncoding): KeyObject;
     /**
      * Creates and returns a `Sign` object that uses the given `algorithm`. Use {@link getHashes} to obtain the names of the available digest algorithms.
      * Optional `options` argument controls the `stream.Writable` behavior.
@@ -1324,29 +1205,26 @@ declare module "node:crypto" {
      * @since v0.1.92
      * @param options `stream.Writable` options
      */
-    // TODO: signing algorithm type
-    function createSign(algorithm: string, options?: stream.WritableOptions): Sign;
+    function createSign(algorithm: string, options?: WritableOptions): Sign;
     type DSAEncoding = "der" | "ieee-p1363";
     interface SigningOptions {
-        /**
-         * @see crypto.constants.RSA_PKCS1_PADDING
-         */
         padding?: number | undefined;
         saltLength?: number | undefined;
         dsaEncoding?: DSAEncoding | undefined;
-        context?: ArrayBuffer | NodeJS.ArrayBufferView | undefined;
+        context?: NodeJS.ArrayBufferView | undefined;
     }
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {}
+    interface SignRawPrivateKeyInput extends RawPrivateKeyInput, SigningOptions {}
+    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
+    interface VerifyRawPublicKeyInput extends RawPublicKeyInput, SigningOptions {}
+    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
-    type KeyLike = string | Buffer | KeyObject;
     /**
      * The `Sign` class is a utility for generating signatures. It can be used in one
      * of two ways:
@@ -1410,7 +1288,7 @@ declare module "node:crypto" {
      * ```
      * @since v0.1.92
      */
-    class Sign extends stream.Writable {
+    class Sign extends Writable {
         private constructor();
         /**
          * Updates the `Sign` content with the given `data`, the encoding of which
@@ -1422,8 +1300,7 @@ declare module "node:crypto" {
          * @since v0.1.92
          * @param inputEncoding The `encoding` of the `data` string.
          */
-        update(data: BinaryLike): this;
-        update(data: string, inputEncoding: Encoding): this;
+        update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): this;
         /**
          * Calculates the signature on all the data passed through using either `sign.update()` or `sign.write()`.
          *
@@ -1436,10 +1313,22 @@ declare module "node:crypto" {
          * called. Multiple calls to `sign.sign()` will result in an error being thrown.
          * @since v0.1.92
          */
-        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput): NonSharedBuffer;
         sign(
-            privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
-            outputFormat: BinaryToTextEncoding,
+            privateKey:
+                | KeyLike
+                | SignKeyObjectInput
+                | SignPrivateKeyInput
+                | SignRawPrivateKeyInput
+                | SignJsonWebKeyInput,
+        ): NonSharedBuffer;
+        sign(
+            privateKey:
+                | KeyLike
+                | SignKeyObjectInput
+                | SignPrivateKeyInput
+                | SignRawPrivateKeyInput
+                | SignJsonWebKeyInput,
+            outputFormat: BufferEncoding,
         ): string;
     }
     /**
@@ -1455,7 +1344,7 @@ declare module "node:crypto" {
      * @since v0.1.92
      * @param options `stream.Writable` options
      */
-    function createVerify(algorithm: string, options?: stream.WritableOptions): Verify;
+    function createVerify(algorithm: string, options?: WritableOptions): Verify;
     /**
      * The `Verify` class is a utility for verifying signatures. It can be used in one
      * of two ways:
@@ -1470,7 +1359,7 @@ declare module "node:crypto" {
      * See `Sign` for examples.
      * @since v0.1.92
      */
-    class Verify extends stream.Writable {
+    class Verify extends Writable {
         private constructor();
         /**
          * Updates the `Verify` content with the given `data`, the encoding of which
@@ -1482,8 +1371,7 @@ declare module "node:crypto" {
          * @since v0.1.92
          * @param inputEncoding The `encoding` of the `data` string.
          */
-        update(data: BinaryLike): Verify;
-        update(data: string, inputEncoding: Encoding): Verify;
+        update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): Verify;
         /**
          * Verifies the provided data using the given `object` and `signature`.
          *
@@ -1504,13 +1392,14 @@ declare module "node:crypto" {
          * @since v0.1.92
          */
         verify(
-            object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-            signature: NodeJS.ArrayBufferView,
-        ): boolean;
-        verify(
-            object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-            signature: string,
-            signature_format?: BinaryToTextEncoding,
+            object:
+                | KeyLike
+                | VerifyKeyObjectInput
+                | VerifyPublicKeyInput
+                | VerifyRawPublicKeyInput
+                | VerifyJsonWebKeyInput,
+            signature: BinaryLike,
+            signatureEncoding?: BufferEncoding,
         ): boolean;
     }
     /**
@@ -1531,24 +1420,15 @@ declare module "node:crypto" {
      */
     function createDiffieHellman(primeLength: number, generator?: number): DiffieHellman;
     function createDiffieHellman(
-        prime: ArrayBuffer | NodeJS.ArrayBufferView,
-        generator?: number | ArrayBuffer | NodeJS.ArrayBufferView,
+        prime: BinaryLike,
+        primeEncoding?: BufferEncoding,
+        generator?: number | BinaryLike,
+        generatorEncoding?: BufferEncoding,
     ): DiffieHellman;
     function createDiffieHellman(
-        prime: ArrayBuffer | NodeJS.ArrayBufferView,
-        generator: string,
-        generatorEncoding: BinaryToTextEncoding,
-    ): DiffieHellman;
-    function createDiffieHellman(
-        prime: string,
-        primeEncoding: BinaryToTextEncoding,
-        generator?: number | ArrayBuffer | NodeJS.ArrayBufferView,
-    ): DiffieHellman;
-    function createDiffieHellman(
-        prime: string,
-        primeEncoding: BinaryToTextEncoding,
-        generator: string,
-        generatorEncoding: BinaryToTextEncoding,
+        prime: BinaryLike,
+        generator: number | BinaryLike,
+        generatorEncoding?: BufferEncoding,
     ): DiffieHellman;
     /**
      * The `DiffieHellman` class is a utility for creating Diffie-Hellman key
@@ -1596,7 +1476,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          */
         generateKeys(): NonSharedBuffer;
-        generateKeys(encoding: BinaryToTextEncoding): string;
+        generateKeys(encoding: BufferEncoding): string;
         /**
          * Computes the shared secret using `otherPublicKey` as the other
          * party's public key and returns the computed shared secret. The supplied
@@ -1611,24 +1491,13 @@ declare module "node:crypto" {
          * @param outputEncoding The `encoding` of the return value.
          */
         computeSecret(
-            otherPublicKey: NodeJS.ArrayBufferView,
-            inputEncoding?: null,
-            outputEncoding?: null,
+            otherPublicKey: BinaryLike,
+            inputEncoding?: BufferEncoding,
         ): NonSharedBuffer;
         computeSecret(
-            otherPublicKey: string,
-            inputEncoding: BinaryToTextEncoding,
-            outputEncoding?: null,
-        ): NonSharedBuffer;
-        computeSecret(
-            otherPublicKey: NodeJS.ArrayBufferView,
-            inputEncoding: null,
-            outputEncoding: BinaryToTextEncoding,
-        ): string;
-        computeSecret(
-            otherPublicKey: string,
-            inputEncoding: BinaryToTextEncoding,
-            outputEncoding: BinaryToTextEncoding,
+            otherPublicKey: BinaryLike,
+            inputEncoding: BufferEncoding | null | undefined,
+            outputEncoding: BufferEncoding,
         ): string;
         /**
          * Returns the Diffie-Hellman prime in the specified `encoding`.
@@ -1638,7 +1507,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          */
         getPrime(): NonSharedBuffer;
-        getPrime(encoding: BinaryToTextEncoding): string;
+        getPrime(encoding: BufferEncoding): string;
         /**
          * Returns the Diffie-Hellman generator in the specified `encoding`.
          * If `encoding` is provided a string is
@@ -1647,7 +1516,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          */
         getGenerator(): NonSharedBuffer;
-        getGenerator(encoding: BinaryToTextEncoding): string;
+        getGenerator(encoding: BufferEncoding): string;
         /**
          * Returns the Diffie-Hellman public key in the specified `encoding`.
          * If `encoding` is provided a
@@ -1656,7 +1525,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          */
         getPublicKey(): NonSharedBuffer;
-        getPublicKey(encoding: BinaryToTextEncoding): string;
+        getPublicKey(encoding: BufferEncoding): string;
         /**
          * Returns the Diffie-Hellman private key in the specified `encoding`.
          * If `encoding` is provided a
@@ -1665,7 +1534,7 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          */
         getPrivateKey(): NonSharedBuffer;
-        getPrivateKey(encoding: BinaryToTextEncoding): string;
+        getPrivateKey(encoding: BufferEncoding): string;
         /**
          * Sets the Diffie-Hellman public key. If the `encoding` argument is provided, `publicKey` is expected
          * to be a string. If no `encoding` is provided, `publicKey` is expected
@@ -1673,8 +1542,7 @@ declare module "node:crypto" {
          * @since v0.5.0
          * @param encoding The `encoding` of the `publicKey` string.
          */
-        setPublicKey(publicKey: NodeJS.ArrayBufferView): void;
-        setPublicKey(publicKey: string, encoding: BufferEncoding): void;
+        setPublicKey(publicKey: BinaryLike, encoding?: BufferEncoding): void;
         /**
          * Sets the Diffie-Hellman private key. If the `encoding` argument is provided,`privateKey` is expected
          * to be a string. If no `encoding` is provided, `privateKey` is expected
@@ -1685,8 +1553,7 @@ declare module "node:crypto" {
          * @since v0.5.0
          * @param encoding The `encoding` of the `privateKey` string.
          */
-        setPrivateKey(privateKey: NodeJS.ArrayBufferView): void;
-        setPrivateKey(privateKey: string, encoding: BufferEncoding): void;
+        setPrivateKey(privateKey: BinaryLike, encoding?: BufferEncoding): void;
         /**
          * A bit field containing any warnings and/or errors resulting from a check
          * performed during initialization of the `DiffieHellman` object.
@@ -1724,13 +1591,10 @@ declare module "node:crypto" {
      * ```
      * @since v0.7.5
      */
-    const DiffieHellmanGroup: DiffieHellmanGroupConstructor;
-    interface DiffieHellmanGroupConstructor {
-        new(name: string): DiffieHellmanGroup;
-        (name: string): DiffieHellmanGroup;
-        readonly prototype: DiffieHellmanGroup;
+    class DiffieHellmanGroup {
+        private constructor();
     }
-    type DiffieHellmanGroup = Omit<DiffieHellman, "setPublicKey" | "setPrivateKey">;
+    interface DiffieHellmanGroup extends Omit<DiffieHellman, "setPublicKey" | "setPrivateKey"> {}
     /**
      * Creates a predefined `DiffieHellmanGroup` key exchange object. The
      * supported groups are listed in the documentation for `DiffieHellmanGroup`.
@@ -1944,9 +1808,8 @@ declare module "node:crypto" {
      * console.log(`The dice rolled: ${n}`);
      * ```
      * @since v14.10.0, v12.19.0
-     * @param [min=0] Start of random range (inclusive).
+     * @param min Start of random range (inclusive).
      * @param max End of random range (exclusive).
-     * @param callback `function(err, n) {}`.
      */
     function randomInt(max: number): number;
     function randomInt(min: number, max: number): number;
@@ -1993,7 +1856,11 @@ declare module "node:crypto" {
      * @param [size=buffer.length - offset]
      * @return The object passed as `buffer` argument.
      */
-    function randomFillSync<T extends NodeJS.ArrayBufferView>(buffer: T, offset?: number, size?: number): T;
+    function randomFillSync<T extends ArrayBufferLike | NodeJS.ArrayBufferView>(
+        buffer: T,
+        offset?: number,
+        size?: number,
+    ): T;
     /**
      * This function is similar to {@link randomBytes} but requires the first
      * argument to be a `Buffer` that will be filled. It also
@@ -2069,16 +1936,16 @@ declare module "node:crypto" {
      * @param [size=buffer.length - offset]
      * @param callback `function(err, buf) {}`.
      */
-    function randomFill<T extends NodeJS.ArrayBufferView>(
+    function randomFill<T extends ArrayBufferLike | NodeJS.ArrayBufferView>(
         buffer: T,
         callback: (err: Error | null, buf: T) => void,
     ): void;
-    function randomFill<T extends NodeJS.ArrayBufferView>(
+    function randomFill<T extends ArrayBufferLike | NodeJS.ArrayBufferView>(
         buffer: T,
         offset: number,
         callback: (err: Error | null, buf: T) => void,
     ): void;
-    function randomFill<T extends NodeJS.ArrayBufferView>(
+    function randomFill<T extends ArrayBufferLike | NodeJS.ArrayBufferView>(
         buffer: T,
         offset: number,
         size: number,
@@ -2176,19 +2043,25 @@ declare module "node:crypto" {
         keylen: number,
         options?: ScryptOptions,
     ): NonSharedBuffer;
-    interface RsaPublicKey {
-        key: KeyLike;
+    interface PublicDecryptOptions {
         padding?: number | undefined;
+        encoding?: BufferEncoding | undefined;
     }
-    interface RsaPrivateKey {
-        key: KeyLike;
-        passphrase?: string | undefined;
-        /**
-         * @default 'sha1'
-         */
+    interface PublicDecryptPrivateKeyInput extends PrivateKeyInput, PublicDecryptOptions {}
+    interface PublicDecryptPublicKeyInput extends PublicKeyInput, PublicDecryptOptions {}
+    interface PublicDecryptJsonWebKeyInput extends JsonWebKeyInput, PublicDecryptOptions {}
+    interface PublicDecryptKeyObjectInput extends PublicDecryptOptions {
+        key: KeyObject;
+    }
+    interface PublicEncryptOptions extends PublicDecryptOptions {
         oaepHash?: string | undefined;
-        oaepLabel?: NodeJS.TypedArray | undefined;
-        padding?: number | undefined;
+        oaepLabel?: BinaryLike | undefined;
+    }
+    interface PublicEncryptPrivateKeyInput extends PrivateKeyInput, PublicEncryptOptions {}
+    interface PublicEncryptPublicKeyInput extends PublicKeyInput, PublicEncryptOptions {}
+    interface PublicEncryptJsonWebKeyInput extends JsonWebKeyInput, PublicEncryptOptions {}
+    interface PublicEncryptKeyObjectInput extends PublicEncryptOptions {
+        key: KeyObject;
     }
     /**
      * Encrypts the content of `buffer` with `key` and returns a new `Buffer` with encrypted content. The returned data can be decrypted using
@@ -2202,8 +2075,13 @@ declare module "node:crypto" {
      * @since v0.11.14
      */
     function publicEncrypt(
-        key: RsaPublicKey | RsaPrivateKey | KeyLike,
-        buffer: NodeJS.ArrayBufferView | string,
+        key:
+            | KeyLike
+            | PublicEncryptKeyObjectInput
+            | PublicEncryptPrivateKeyInput
+            | PublicEncryptPublicKeyInput
+            | PublicEncryptJsonWebKeyInput,
+        buffer: BinaryLike,
     ): NonSharedBuffer;
     /**
      * Decrypts `buffer` with `key`.`buffer` was previously encrypted using
@@ -2217,8 +2095,13 @@ declare module "node:crypto" {
      * @since v1.1.0
      */
     function publicDecrypt(
-        key: RsaPublicKey | RsaPrivateKey | KeyLike,
-        buffer: NodeJS.ArrayBufferView | string,
+        key:
+            | KeyLike
+            | PublicDecryptKeyObjectInput
+            | PublicDecryptPrivateKeyInput
+            | PublicDecryptPublicKeyInput
+            | PublicDecryptJsonWebKeyInput,
+        buffer: BinaryLike,
     ): NonSharedBuffer;
     /**
      * Decrypts `buffer` with `privateKey`. `buffer` was previously encrypted using
@@ -2229,8 +2112,12 @@ declare module "node:crypto" {
      * @since v0.11.14
      */
     function privateDecrypt(
-        privateKey: RsaPrivateKey | KeyLike,
-        buffer: NodeJS.ArrayBufferView | string,
+        privateKey:
+            | KeyLike
+            | PublicEncryptKeyObjectInput
+            | PublicEncryptPrivateKeyInput
+            | PublicEncryptJsonWebKeyInput,
+        buffer: BinaryLike,
     ): NonSharedBuffer;
     /**
      * Encrypts `buffer` with `privateKey`. The returned data can be decrypted using
@@ -2241,8 +2128,12 @@ declare module "node:crypto" {
      * @since v1.1.0
      */
     function privateEncrypt(
-        privateKey: RsaPrivateKey | KeyLike,
-        buffer: NodeJS.ArrayBufferView | string,
+        privateKey:
+            | KeyLike
+            | PublicDecryptKeyObjectInput
+            | PublicDecryptPrivateKeyInput
+            | PublicDecryptJsonWebKeyInput,
+        buffer: BinaryLike,
     ): NonSharedBuffer;
     /**
      * ```js
@@ -2292,6 +2183,7 @@ declare module "node:crypto" {
      * @return An array of the names of the supported hash algorithms, such as `'RSA-SHA256'`. Hash algorithms are also called "digest" algorithms.
      */
     function getHashes(): string[];
+    type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
     /**
      * The `ECDH` class is a utility for creating Elliptic Curve Diffie-Hellman (ECDH)
      * key exchanges.
@@ -2364,15 +2256,21 @@ declare module "node:crypto" {
          * @since v10.0.0
          * @param inputEncoding The `encoding` of the `key` string.
          * @param outputEncoding The `encoding` of the return value.
-         * @param [format='uncompressed']
          */
         static convertKey(
             key: BinaryLike,
             curve: string,
-            inputEncoding?: BinaryToTextEncoding,
-            outputEncoding?: "latin1" | "hex" | "base64" | "base64url",
+            inputEncoding?: BufferEncoding,
+            outputEncoding?: null,
             format?: "uncompressed" | "compressed" | "hybrid",
-        ): NonSharedBuffer | string;
+        ): NonSharedBuffer;
+        static convertKey(
+            key: BinaryLike,
+            curve: string,
+            inputEncoding: BufferEncoding | null | undefined,
+            outputEncoding: BufferEncoding,
+            format?: "uncompressed" | "compressed" | "hybrid",
+        ): string;
         /**
          * Generates private and public EC Diffie-Hellman key values, and returns
          * the public key in the specified `format` and `encoding`. This key should be
@@ -2385,8 +2283,8 @@ declare module "node:crypto" {
          * @param encoding The `encoding` of the return value.
          * @param [format='uncompressed']
          */
-        generateKeys(): NonSharedBuffer;
-        generateKeys(encoding: BinaryToTextEncoding, format?: ECDHKeyFormat): string;
+        generateKeys(encoding?: null, format?: ECDHKeyFormat): NonSharedBuffer;
+        generateKeys(encoding: BufferEncoding, format?: ECDHKeyFormat): string;
         /**
          * Computes the shared secret using `otherPublicKey` as the other
          * party's public key and returns the computed shared secret. The supplied
@@ -2404,13 +2302,11 @@ declare module "node:crypto" {
          * @param inputEncoding The `encoding` of the `otherPublicKey` string.
          * @param outputEncoding The `encoding` of the return value.
          */
-        computeSecret(otherPublicKey: NodeJS.ArrayBufferView): NonSharedBuffer;
-        computeSecret(otherPublicKey: string, inputEncoding: BinaryToTextEncoding): NonSharedBuffer;
-        computeSecret(otherPublicKey: NodeJS.ArrayBufferView, outputEncoding: BinaryToTextEncoding): string;
+        computeSecret(otherPublicKey: BinaryLike, inputEncoding?: BufferEncoding): NonSharedBuffer;
         computeSecret(
-            otherPublicKey: string,
-            inputEncoding: BinaryToTextEncoding,
-            outputEncoding: BinaryToTextEncoding,
+            otherPublicKey: BinaryLike,
+            inputEncoding: BufferEncoding | null | undefined,
+            outputEncoding: BufferEncoding,
         ): string;
         /**
          * If `encoding` is specified, a string is returned; otherwise a `Buffer` is
@@ -2420,7 +2316,7 @@ declare module "node:crypto" {
          * @return The EC Diffie-Hellman in the specified `encoding`.
          */
         getPrivateKey(): NonSharedBuffer;
-        getPrivateKey(encoding: BinaryToTextEncoding): string;
+        getPrivateKey(encoding: BufferEncoding): string;
         /**
          * The `format` argument specifies point encoding and can be `'compressed'` or `'uncompressed'`. If `format` is not specified the point will be returned in`'uncompressed'` format.
          *
@@ -2432,7 +2328,7 @@ declare module "node:crypto" {
          * @return The EC Diffie-Hellman public key in the specified `encoding` and `format`.
          */
         getPublicKey(encoding?: null, format?: ECDHKeyFormat): NonSharedBuffer;
-        getPublicKey(encoding: BinaryToTextEncoding, format?: ECDHKeyFormat): string;
+        getPublicKey(encoding: BufferEncoding, format?: ECDHKeyFormat): string;
         /**
          * Sets the EC Diffie-Hellman private key.
          * If `encoding` is provided, `privateKey` is expected
@@ -2444,8 +2340,7 @@ declare module "node:crypto" {
          * @since v0.11.14
          * @param encoding The `encoding` of the `privateKey` string.
          */
-        setPrivateKey(privateKey: NodeJS.ArrayBufferView): void;
-        setPrivateKey(privateKey: string, encoding: BinaryToTextEncoding): void;
+        setPrivateKey(privateKey: BinaryLike, encoding?: BufferEncoding): void;
     }
     /**
      * Creates an Elliptic Curve Diffie-Hellman (`ECDH`) key exchange object using a
@@ -2480,46 +2375,22 @@ declare module "node:crypto" {
      * not introduce timing vulnerabilities.
      * @since v6.6.0
      */
-    function timingSafeEqual(a: NodeJS.ArrayBufferView, b: NodeJS.ArrayBufferView): boolean;
+    function timingSafeEqual(
+        a: ArrayBufferLike | NodeJS.ArrayBufferView,
+        b: ArrayBufferLike | NodeJS.ArrayBufferView,
+    ): boolean;
     interface DHKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {
-        /**
-         * The prime parameter
-         */
-        prime?: Buffer | undefined;
-        /**
-         * Prime length in bits
-         */
+        prime?: NodeJS.ArrayBufferView | undefined;
         primeLength?: number | undefined;
-        /**
-         * Custom generator
-         * @default 2
-         */
         generator?: number | undefined;
-        /**
-         * Diffie-Hellman group name
-         * @see {@link getDiffieHellman}
-         */
         groupName?: string | undefined;
     }
     interface DSAKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {
-        /**
-         * Key size in bits
-         */
         modulusLength: number;
-        /**
-         * Size of q in bits
-         */
-        divisorLength: number;
+        divisorLength?: number | undefined;
     }
     interface ECKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8" | "sec1"> {
-        /**
-         * Name of the curve to use
-         */
         namedCurve: string;
-        /**
-         * Must be `'named'` or `'explicit'`
-         * @default 'named'
-         */
         paramEncoding?: "explicit" | "named" | undefined;
     }
     interface ED25519KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
@@ -2527,37 +2398,14 @@ declare module "node:crypto" {
     interface MLDSAKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     interface MLKEMKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     interface RSAPSSKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {
-        /**
-         * Key size in bits
-         */
         modulusLength: number;
-        /**
-         * Public exponent
-         * @default 0x10001
-         */
         publicExponent?: number | undefined;
-        /**
-         * Name of the message digest
-         */
         hashAlgorithm?: string | undefined;
-        /**
-         * Name of the message digest used by MGF1
-         */
         mgf1HashAlgorithm?: string | undefined;
-        /**
-         * Minimal salt length in bytes
-         */
         saltLength?: string | undefined;
     }
     interface RSAKeyPairOptions extends KeyPairExportOptions<"pkcs1" | "spki", "pkcs1" | "pkcs8"> {
-        /**
-         * Key size in bits
-         */
         modulusLength: number;
-        /**
-         * Public exponent
-         * @default 0x10001
-         */
         publicExponent?: number | undefined;
     }
     interface SLHDSAKeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
@@ -2565,7 +2413,7 @@ declare module "node:crypto" {
     interface X448KeyPairOptions extends KeyPairExportOptions<"spki", "pkcs8"> {}
     /**
      * Generates a new asymmetric key pair of the given `type`. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2603,7 +2451,7 @@ declare module "node:crypto" {
      * it will be a buffer containing the data encoded as DER.
      * @since v10.12.0
      * @param type The asymmetric key type to generate. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPairSync<T extends DHKeyPairOptions>(
         type: "dh",
@@ -2655,7 +2503,7 @@ declare module "node:crypto" {
     ): KeyPairExportResult<T>;
     /**
      * Generates a new asymmetric key pair of the given `type`. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      *
      * If a `publicKeyEncoding` or `privateKeyEncoding` was specified, this function
      * behaves as if `keyObject.export()` had been called on its result. Otherwise,
@@ -2691,7 +2539,7 @@ declare module "node:crypto" {
      * a `Promise` for an `Object` with `publicKey` and `privateKey` properties.
      * @since v10.12.0
      * @param type The asymmetric key type to generate. See the
-     * supported [asymmetric key types](https://nodejs.org/docs/latest-v25.x/api/crypto.html#asymmetric-key-types).
+     * supported [asymmetric key types](https://nodejs.org/docs/latest-v26.x/api/crypto.html#asymmetric-key-types).
      */
     function generateKeyPair<T extends DHKeyPairOptions>(
         type: "dh",
@@ -2708,20 +2556,36 @@ declare module "node:crypto" {
         options: T,
         callback: KeyPairExportCallback<T>,
     ): void;
+    function generateKeyPair(
+        type: "ed25519",
+        callback: KeyPairExportCallback,
+    ): void;
     function generateKeyPair<T extends ED25519KeyPairOptions = {}>(
         type: "ed25519",
         options: T | undefined,
         callback: KeyPairExportCallback<T>,
+    ): void;
+    function generateKeyPair(
+        type: "ed448",
+        callback: KeyPairExportCallback,
     ): void;
     function generateKeyPair<T extends ED448KeyPairOptions = {}>(
         type: "ed448",
         options: T | undefined,
         callback: KeyPairExportCallback<T>,
     ): void;
+    function generateKeyPair(
+        type: MLDSAKeyType,
+        callback: KeyPairExportCallback,
+    ): void;
     function generateKeyPair<T extends MLDSAKeyPairOptions = {}>(
         type: MLDSAKeyType,
         options: T | undefined,
         callback: KeyPairExportCallback<T>,
+    ): void;
+    function generateKeyPair(
+        type: MLKEMKeyType,
+        callback: KeyPairExportCallback,
     ): void;
     function generateKeyPair<T extends MLKEMKeyPairOptions = {}>(
         type: MLKEMKeyType,
@@ -2738,15 +2602,27 @@ declare module "node:crypto" {
         options: T,
         callback: KeyPairExportCallback<T>,
     ): void;
+    function generateKeyPair(
+        type: SLHDSAKeyType,
+        callback: KeyPairExportCallback,
+    ): void;
     function generateKeyPair<T extends SLHDSAKeyPairOptions = {}>(
         type: SLHDSAKeyType,
         options: T | undefined,
         callback: KeyPairExportCallback<T>,
     ): void;
+    function generateKeyPair(
+        type: "x25519",
+        callback: KeyPairExportCallback,
+    ): void;
     function generateKeyPair<T extends X25519KeyPairOptions = {}>(
         type: "x25519",
         options: T | undefined,
         callback: KeyPairExportCallback<T>,
+    ): void;
+    function generateKeyPair(
+        type: "x448",
+        callback: KeyPairExportCallback,
     ): void;
     function generateKeyPair<T extends X448KeyPairOptions = {}>(
         type: "x448",
@@ -2820,12 +2696,12 @@ declare module "node:crypto" {
      */
     function sign(
         algorithm: string | null | undefined,
-        data: NodeJS.ArrayBufferView,
+        data: ArrayBufferLike | NodeJS.ArrayBufferView,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
     ): NonSharedBuffer;
     function sign(
         algorithm: string | null | undefined,
-        data: NodeJS.ArrayBufferView,
+        data: ArrayBufferLike | NodeJS.ArrayBufferView,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
         callback: (error: Error | null, data: NonSharedBuffer) => void,
     ): void;
@@ -2851,15 +2727,15 @@ declare module "node:crypto" {
      */
     function verify(
         algorithm: string | null | undefined,
-        data: NodeJS.ArrayBufferView,
+        data: ArrayBufferLike | NodeJS.ArrayBufferView,
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-        signature: NodeJS.ArrayBufferView,
+        signature: ArrayBufferLike | NodeJS.ArrayBufferView,
     ): boolean;
     function verify(
         algorithm: string | null | undefined,
-        data: NodeJS.ArrayBufferView,
+        data: ArrayBufferLike | NodeJS.ArrayBufferView,
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-        signature: NodeJS.ArrayBufferView,
+        signature: ArrayBufferLike | NodeJS.ArrayBufferView,
         callback: (error: Error | null, result: boolean) => void,
     ): void;
     /**
@@ -2882,14 +2758,18 @@ declare module "node:crypto" {
      * @since v24.7.0
      */
     function decapsulate(
-        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
-        ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
+        key: KeyLike | PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput,
+        ciphertext: ArrayBufferLike | NodeJS.ArrayBufferView,
     ): NonSharedBuffer;
     function decapsulate(
-        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
-        ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
+        key: KeyLike | PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput,
+        ciphertext: ArrayBufferLike | NodeJS.ArrayBufferView,
         callback: (err: Error, sharedKey: NonSharedBuffer) => void,
     ): void;
+    interface DiffieHellmanOptions {
+        privateKey: KeyLike | PrivateKeyInput;
+        publicKey: KeyLike | PublicKeyInput;
+    }
     /**
      * Computes the Diffie-Hellman shared secret based on a `privateKey` and a `publicKey`.
      * Both keys must have the same `asymmetricKeyType` and must support either the DH or
@@ -2898,9 +2778,9 @@ declare module "node:crypto" {
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v13.9.0, v12.17.0
      */
-    function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): NonSharedBuffer;
+    function diffieHellman(options: DiffieHellmanOptions): NonSharedBuffer;
     function diffieHellman(
-        options: { privateKey: KeyObject; publicKey: KeyObject },
+        options: DiffieHellmanOptions,
         callback: (err: Error | null, secret: NonSharedBuffer) => void,
     ): void;
     /**
@@ -2923,10 +2803,10 @@ declare module "node:crypto" {
      * @since v24.7.0
      */
     function encapsulate(
-        key: KeyLike | PublicKeyInput | JsonWebKeyInput,
+        key: KeyLike | PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput,
     ): { sharedKey: NonSharedBuffer; ciphertext: NonSharedBuffer };
     function encapsulate(
-        key: KeyLike | PublicKeyInput | JsonWebKeyInput,
+        key: KeyLike | PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput,
         callback: (err: Error, result: { sharedKey: NonSharedBuffer; ciphertext: NonSharedBuffer }) => void,
     ): void;
     interface OneShotDigestOptions {
@@ -2934,7 +2814,7 @@ declare module "node:crypto" {
          * Encoding used to encode the returned digest.
          * @default 'hex'
          */
-        outputEncoding?: BinaryToTextEncoding | "buffer" | undefined;
+        outputEncoding?: BufferEncoding | "buffer" | undefined;
         /**
          * For XOF hash functions such as 'shake256', the outputLength option
          * can be used to specify the desired output length in bytes.
@@ -2942,7 +2822,7 @@ declare module "node:crypto" {
         outputLength?: number | undefined;
     }
     interface OneShotDigestOptionsWithStringEncoding extends OneShotDigestOptions {
-        outputEncoding?: BinaryToTextEncoding | undefined;
+        outputEncoding?: BufferEncoding | undefined;
     }
     interface OneShotDigestOptionsWithBufferEncoding extends OneShotDigestOptions {
         outputEncoding: "buffer";
@@ -2986,7 +2866,7 @@ declare module "node:crypto" {
     function hash(
         algorithm: string,
         data: BinaryLike,
-        options?: OneShotDigestOptionsWithStringEncoding | BinaryToTextEncoding,
+        options?: OneShotDigestOptionsWithStringEncoding | BufferEncoding,
     ): string;
     function hash(
         algorithm: string,
@@ -2996,7 +2876,7 @@ declare module "node:crypto" {
     function hash(
         algorithm: string,
         data: BinaryLike,
-        options: OneShotDigestOptions | BinaryToTextEncoding | "buffer",
+        options: OneShotDigestOptions | BufferEncoding | "buffer",
     ): string | NonSharedBuffer;
     type CipherMode = "cbc" | "ccm" | "cfb" | "ctr" | "ecb" | "gcm" | "ocb" | "ofb" | "stream" | "wrap" | "xts";
     interface CipherInfoOptions {
@@ -3010,31 +2890,11 @@ declare module "node:crypto" {
         ivLength?: number | undefined;
     }
     interface CipherInfo {
-        /**
-         * The name of the cipher.
-         */
         name: string;
-        /**
-         * The nid of the cipher.
-         */
         nid: number;
-        /**
-         * The block size of the cipher in bytes.
-         * This property is omitted when mode is 'stream'.
-         */
-        blockSize?: number | undefined;
-        /**
-         * The expected or default initialization vector length in bytes.
-         * This property is omitted if the cipher does not use an initialization vector.
-         */
-        ivLength?: number | undefined;
-        /**
-         * The expected or default key length in bytes.
-         */
+        blockSize?: number;
+        ivLength?: number;
         keyLength: number;
-        /**
-         * The cipher mode.
-         */
         mode: CipherMode;
     }
     /**
@@ -3078,7 +2938,7 @@ declare module "node:crypto" {
      */
     function hkdf(
         digest: string,
-        irm: BinaryLike | KeyObject,
+        ikm: KeyLike,
         salt: BinaryLike,
         info: BinaryLike,
         keylen: number,
@@ -3112,27 +2972,15 @@ declare module "node:crypto" {
      */
     function hkdfSync(
         digest: string,
-        ikm: BinaryLike | KeyObject,
+        ikm: KeyLike,
         salt: BinaryLike,
         info: BinaryLike,
         keylen: number,
     ): ArrayBuffer;
     interface SecureHeapUsage {
-        /**
-         * The total allocated secure heap size as specified using the `--secure-heap=n` command-line flag.
-         */
         total: number;
-        /**
-         * The minimum allocation from the secure heap as specified using the `--secure-heap-min` command-line flag.
-         */
         min: number;
-        /**
-         * The total number of bytes currently allocated from the secure heap.
-         */
         used: number;
-        /**
-         * The calculated ratio of `used` to `total` allocated bytes.
-         */
         utilization: number;
     }
     /**
@@ -3145,7 +2993,6 @@ declare module "node:crypto" {
          * Node.js will pre-emptively generate and persistently cache enough
          * random data to generate up to 128 random UUIDs. To generate a UUID
          * without using the cache, set `disableEntropyCache` to `true`.
-         *
          * @default `false`
          */
         disableEntropyCache?: boolean | undefined;
@@ -3158,25 +3005,10 @@ declare module "node:crypto" {
      */
     function randomUUID(options?: RandomUUIDOptions): UUID;
     interface X509CheckOptions {
-        /**
-         * @default 'always'
-         */
         subject?: "always" | "default" | "never" | undefined;
-        /**
-         * @default true
-         */
         wildcards?: boolean | undefined;
-        /**
-         * @default true
-         */
         partialWildcards?: boolean | undefined;
-        /**
-         * @default false
-         */
         multiLabelWildcards?: boolean | undefined;
-        /**
-         * @default false
-         */
         singleLabelSubdomains?: boolean | undefined;
     }
     /**
@@ -3329,7 +3161,7 @@ declare module "node:crypto" {
          * @since v22.10.0
          */
         readonly validToDate: Date;
-        constructor(buffer: BinaryLike);
+        constructor(buffer: string | NodeJS.ArrayBufferView);
         /**
          * Checks whether the certificate matches the given email address.
          *
@@ -3432,13 +3264,10 @@ declare module "node:crypto" {
          */
         verify(publicKey: KeyObject): boolean;
     }
-    type LargeNumberLike = NodeJS.ArrayBufferView | SharedArrayBuffer | ArrayBuffer | bigint;
+    type LargeNumberLike = ArrayBufferLike | NodeJS.ArrayBufferView | bigint;
     interface GeneratePrimeOptions {
         add?: LargeNumberLike | undefined;
         rem?: LargeNumberLike | undefined;
-        /**
-         * @default false
-         */
         safe?: boolean | undefined;
         bigint?: boolean | undefined;
     }
@@ -3478,13 +3307,13 @@ declare module "node:crypto" {
     function generatePrime(size: number, callback: (err: Error | null, prime: ArrayBuffer) => void): void;
     function generatePrime(
         size: number,
-        options: GeneratePrimeOptionsBigInt,
-        callback: (err: Error | null, prime: bigint) => void,
+        options: GeneratePrimeOptionsArrayBuffer,
+        callback: (err: Error | null, prime: ArrayBuffer) => void,
     ): void;
     function generatePrime(
         size: number,
-        options: GeneratePrimeOptionsArrayBuffer,
-        callback: (err: Error | null, prime: ArrayBuffer) => void,
+        options: GeneratePrimeOptionsBigInt,
+        callback: (err: Error | null, prime: bigint) => void,
     ): void;
     function generatePrime(
         size: number,
@@ -3519,8 +3348,8 @@ declare module "node:crypto" {
      * @param size The size (in bits) of the prime to generate.
      */
     function generatePrimeSync(size: number): ArrayBuffer;
-    function generatePrimeSync(size: number, options: GeneratePrimeOptionsBigInt): bigint;
     function generatePrimeSync(size: number, options: GeneratePrimeOptionsArrayBuffer): ArrayBuffer;
+    function generatePrimeSync(size: number, options: GeneratePrimeOptionsBigInt): bigint;
     function generatePrimeSync(size: number, options: GeneratePrimeOptions): ArrayBuffer | bigint;
     interface CheckPrimeOptions {
         /**
@@ -3528,7 +3357,6 @@ declare module "node:crypto" {
          * When the value is 0 (zero), a number of checks is used that yields a false positive rate of at most `2**-64` for random input.
          * Care must be used when selecting a number of checks.
          * Refer to the OpenSSL documentation for the BN_is_prime_ex function nchecks options for more details.
-         *
          * @default 0
          */
         checks?: number | undefined;
@@ -3588,47 +3416,14 @@ declare module "node:crypto" {
     >(typedArray: T): T;
     type Argon2Algorithm = "argon2d" | "argon2i" | "argon2id";
     interface Argon2Parameters {
-        /**
-         * REQUIRED, this is the password for password hashing applications of Argon2.
-         */
-        message: string | ArrayBuffer | NodeJS.ArrayBufferView;
-        /**
-         * REQUIRED, must be at least 8 bytes long. This is the salt for password hashing applications of Argon2.
-         */
-        nonce: string | ArrayBuffer | NodeJS.ArrayBufferView;
-        /**
-         * REQUIRED, degree of parallelism determines how many computational chains (lanes)
-         * can be run. Must be greater than 1 and less than `2**24-1`.
-         */
+        message: BinaryLike;
+        nonce: BinaryLike;
         parallelism: number;
-        /**
-         * REQUIRED, the length of the key to generate. Must be greater than 4 and
-         * less than `2**32-1`.
-         */
         tagLength: number;
-        /**
-         * REQUIRED, memory cost in 1KiB blocks. Must be greater than
-         * `8 * parallelism` and less than `2**32-1`. The actual number of blocks is rounded
-         * down to the nearest multiple of `4 * parallelism`.
-         */
         memory: number;
-        /**
-         * REQUIRED, number of passes (iterations). Must be greater than 1 and less
-         * than `2**32-1`.
-         */
         passes: number;
-        /**
-         * OPTIONAL, Random additional input,
-         * similar to the salt, that should **NOT** be stored with the derived key. This is known as pepper in
-         * password hashing applications. If used, must have a length not greater than `2**32-1` bytes.
-         */
-        secret?: string | ArrayBuffer | NodeJS.ArrayBufferView | undefined;
-        /**
-         * OPTIONAL, Additional data to
-         * be added to the hash, functionally equivalent to salt or secret, but meant for
-         * non-random data. If used, must have a length not greater than `2**32-1` bytes.
-         */
-        associatedData?: string | ArrayBuffer | NodeJS.ArrayBufferView | undefined;
+        secret?: BinaryLike | undefined;
+        associatedData?: BinaryLike | undefined;
     }
     /**
      * Provides an asynchronous [Argon2](https://www.rfc-editor.org/rfc/rfc9106.html) implementation. Argon2 is a password-based
@@ -3639,7 +3434,7 @@ declare module "node:crypto" {
      * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
      *
      * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
-     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v25.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v26.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
      *
      * The `callback` function is called with two arguments: `err` and `derivedKey`.
      * `err` is an exception object when key derivation fails, otherwise `err` is
@@ -3683,7 +3478,7 @@ declare module "node:crypto" {
      * random and at least 16 bytes long. See [NIST SP 800-132](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-132.pdf) for details.
      *
      * When passing strings for `message`, `nonce`, `secret` or `associatedData`, please
-     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v25.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
+     * consider [caveats when using strings as inputs to cryptographic APIs](https://nodejs.org/docs/latest-v26.x/api/crypto.html#using-strings-as-inputs-to-cryptographic-apis).
      *
      * An exception is thrown when key derivation fails, otherwise the derived key is
      * returned as a `Buffer`.
@@ -3778,7 +3573,7 @@ declare module "node:crypto" {
         interface CShakeParams extends Algorithm {
             customization?: NodeJS.BufferSource;
             functionName?: NodeJS.BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface ContextParams extends Algorithm {
             context?: NodeJS.BufferSource;
@@ -3815,6 +3610,10 @@ declare module "node:crypto" {
             hash: HashAlgorithmIdentifier;
             length?: number;
         }
+        interface KangarooTwelveParams {
+            customization?: NodeJS.BufferSource;
+            outputLength: number;
+        }
         interface JsonWebKey {
             alg?: string;
             crv?: string;
@@ -3849,7 +3648,7 @@ declare module "node:crypto" {
         }
         interface KmacParams extends Algorithm {
             customization?: NodeJS.BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface Pbkdf2Params extends Algorithm {
             hash: HashAlgorithmIdentifier;
@@ -3883,6 +3682,10 @@ declare module "node:crypto" {
         }
         interface RsaPssParams extends Algorithm {
             saltLength: number;
+        }
+        interface TurboShakeParams {
+            domainSeparation?: number;
+            outputLength: number;
         }
         interface Crypto {
             readonly subtle: SubtleCrypto;
@@ -3945,7 +3748,10 @@ declare module "node:crypto" {
                 extractable: boolean,
                 keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: NodeJS.BufferSource): Promise<ArrayBuffer>;
+            digest(
+                algorithm: AlgorithmIdentifier | CShakeParams | TurboShakeParams | KangarooTwelveParams,
+                data: NodeJS.BufferSource,
+            ): Promise<ArrayBuffer>;
             encapsulateBits(
                 encapsulationAlgorithm: AlgorithmIdentifier,
                 encapsulationKey: CryptoKey,
@@ -4040,6 +3846,94 @@ declare module "node:crypto" {
                 wrapAlgorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
             ): Promise<ArrayBuffer>;
         }
+    }
+    /**
+     * An object containing commonly used constants for crypto and security related
+     * operations. The specific constants currently defined are described in
+     * [Crypto constants](https://nodejs.org/docs/latest-v26.x/api/crypto.html#crypto-constants).
+     * @since v6.3.0
+     */
+    namespace constants {
+        const OPENSSL_VERSION_NUMBER: number;
+        const SSL_OP_ALL: number;
+        const SSL_OP_ALLOW_NO_DHE_KEX: number;
+        const SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION: number;
+        const SSL_OP_CIPHER_SERVER_PREFERENCE: number;
+        const SSL_OP_CISCO_ANYCONNECT: number;
+        const SSL_OP_COOKIE_EXCHANGE: number;
+        const SSL_OP_CRYPTOPRO_TLSEXT_BUG: number;
+        const SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS: number;
+        const SSL_OP_LEGACY_SERVER_CONNECT: number;
+        const SSL_OP_NO_COMPRESSION: number;
+        const SSL_OP_NO_ENCRYPT_THEN_MAC: number;
+        const SSL_OP_NO_QUERY_MTU: number;
+        const SSL_OP_NO_RENEGOTIATION: number;
+        const SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION: number;
+        const SSL_OP_NO_SSLv2: number;
+        const SSL_OP_NO_SSLv3: number;
+        const SSL_OP_NO_TICKET: number;
+        const SSL_OP_NO_TLSv1: number;
+        const SSL_OP_NO_TLSv1_1: number;
+        const SSL_OP_NO_TLSv1_2: number;
+        const SSL_OP_NO_TLSv1_3: number;
+        const SSL_OP_PRIORITIZE_CHACHA: number;
+        const SSL_OP_TLS_ROLLBACK_BUG: number;
+        const ENGINE_METHOD_RSA: number;
+        const ENGINE_METHOD_DSA: number;
+        const ENGINE_METHOD_DH: number;
+        const ENGINE_METHOD_RAND: number;
+        const ENGINE_METHOD_EC: number;
+        const ENGINE_METHOD_CIPHERS: number;
+        const ENGINE_METHOD_DIGESTS: number;
+        const ENGINE_METHOD_PKEY_METHS: number;
+        const ENGINE_METHOD_PKEY_ASN1_METHS: number;
+        const ENGINE_METHOD_ALL: number;
+        const ENGINE_METHOD_NONE: number;
+        const DH_CHECK_P_NOT_SAFE_PRIME: number;
+        const DH_CHECK_P_NOT_PRIME: number;
+        const DH_UNABLE_TO_CHECK_GENERATOR: number;
+        const DH_NOT_SUITABLE_GENERATOR: number;
+        const RSA_PKCS1_PADDING: number;
+        const RSA_NO_PADDING: number;
+        const RSA_PKCS1_OAEP_PADDING: number;
+        const RSA_X931_PADDING: number;
+        const RSA_PKCS1_PSS_PADDING: number;
+        const RSA_PSS_SALTLEN_DIGEST: number;
+        const RSA_PSS_SALTLEN_MAX_SIGN: number;
+        const RSA_PSS_SALTLEN_AUTO: number;
+        const TLS1_VERSION: number;
+        const TLS1_1_VERSION: number;
+        const TLS1_2_VERSION: number;
+        const TLS1_3_VERSION: number;
+        const POINT_CONVERSION_COMPRESSED: number;
+        const POINT_CONVERSION_UNCOMPRESSED: number;
+        const POINT_CONVERSION_HYBRID: number;
+        const defaultCipherList: string;
+        const defaultCoreCipherList: string;
+    }
+    // TODO: remove in future major version
+    /** @deprecated This type will be removed in a future version. Use `BufferEncoding` instead. */
+    type BinaryToTextEncoding = "base64" | "base64url" | "hex" | "binary";
+    /** @deprecated This type will be removed in a future version. Use `BufferEncoding` instead. */
+    type CharacterEncoding = "utf8" | "utf-8" | "utf16le" | "utf-16le" | "latin1";
+    /** @deprecated This type will be removed in a future version. Use `BufferEncoding` instead. */
+    type LegacyCharacterEncoding = "ascii" | "binary" | "ucs2" | "ucs-2";
+    /** @deprecated This type will be removed in a future version. Use `BufferEncoding` instead. */
+    type Encoding = BufferEncoding;
+    /** @deprecated This type will be removed in a future version. Use `KeyLike` instead. */
+    type CipherKey = KeyLike;
+    /** @deprecated This type will be removed in a future version. */
+    interface RsaPrivateKey {
+        key: KeyLike;
+        passphrase?: string | undefined;
+        oaepHash?: string | undefined;
+        oaepLabel?: NodeJS.TypedArray | undefined;
+        padding?: number | undefined;
+    }
+    /** @deprecated This type will be removed in a future version. */
+    interface RsaPublicKey {
+        key: KeyLike;
+        padding?: number | undefined;
     }
 }
 declare module "crypto" {

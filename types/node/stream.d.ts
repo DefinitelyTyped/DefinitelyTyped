@@ -128,13 +128,13 @@ declare module "node:stream" {
              */
             readonly readableEncoding: BufferEncoding | null;
             /**
-             * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v25.x/api/stream.html#event-end) event is emitted.
+             * Becomes `true` when [`'end'`](https://nodejs.org/docs/latest-v26.x/api/stream.html#event-end) event is emitted.
              * @since v12.9.0
              */
             readonly readableEnded: boolean;
             /**
              * This property reflects the current state of a `Readable` stream as described
-             * in the [Three states](https://nodejs.org/docs/latest-v25.x/api/stream.html#three-states) section.
+             * in the [Three states](https://nodejs.org/docs/latest-v26.x/api/stream.html#three-states) section.
              * @since v9.4.0
              */
             readableFlowing: boolean | null;
@@ -478,7 +478,7 @@ declare module "node:stream" {
              * This method also allows for an `AbortSignal` to be provided, which will destroy
              * the composed stream when aborted.
              *
-             * See [`stream.compose(...streams)`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamcomposestreams) for more information.
+             * See [`stream.compose(...streams)`](https://nodejs.org/docs/latest-v26.x/api/stream.html#streamcomposestreams) for more information.
              * @since v19.1.0, v18.13.0
              * @returns a stream composed with the stream `stream`.
              */
@@ -1360,7 +1360,7 @@ declare module "node:stream" {
          * Especially useful in error handling scenarios where a stream is destroyed
          * prematurely (like an aborted HTTP request), and will not emit `'end'` or `'finish'`.
          *
-         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamfinishedstream-options).
+         * The `finished` API provides [`promise version`](https://nodejs.org/docs/latest-v26.x/api/stream.html#streamfinishedstream-options).
          *
          * `stream.finished()` leaves dangling event listeners (in particular `'error'`, `'end'`, `'finish'` and `'close'`) after `callback` has been
          * invoked. The reason for this is so that unexpected `'error'` events (due to
@@ -1459,7 +1459,7 @@ declare module "node:stream" {
          * );
          * ```
          *
-         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v25.x/api/stream.html#streampipelinesource-transforms-destination-options).
+         * The `pipeline` API provides a [`promise version`](https://nodejs.org/docs/latest-v26.x/api/stream.html#streampipelinesource-transforms-destination-options).
          *
          * `stream.pipeline()` will call `stream.destroy(err)` on all streams except:
          *

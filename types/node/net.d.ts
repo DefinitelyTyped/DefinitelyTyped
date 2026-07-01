@@ -488,7 +488,7 @@ declare module "node:net" {
         keepAliveInitialDelay?: number | undefined;
         /**
          * Optionally overrides all `net.Socket`s' `readableHighWaterMark` and `writableHighWaterMark`.
-         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v25.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
+         * @default See [stream.getDefaultHighWaterMark()](https://nodejs.org/docs/latest-v26.x/api/stream.html#streamgetdefaulthighwatermarkobjectmode).
          * @since v18.17.0, v20.1.0
          */
         highWaterMark?: number | undefined;

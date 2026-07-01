@@ -200,12 +200,6 @@ declare module "tls" {
          * An optional Buffer instance containing a TLS session.
          */
         session?: Buffer | undefined;
-        /**
-         * If true, specifies that the OCSP status request extension will be
-         * added to the client hello and an 'OCSPResponse' event will be
-         * emitted on the socket before establishing a secure communication
-         */
-        requestOCSP?: boolean | undefined;
     }
     /**
      * Performs transparent encryption of written data and all required TLS
@@ -486,31 +480,37 @@ declare module "tls" {
         exportKeyingMaterial(length: number, label: string, context: Buffer): NonSharedBuffer;
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
+        addListener(event: "secure", listener: () => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
         addListener(event: "session", listener: (session: NonSharedBuffer) => void): this;
         addListener(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "OCSPResponse", response: NonSharedBuffer): boolean;
+        emit(event: "secure"): boolean;
         emit(event: "secureConnect"): boolean;
         emit(event: "session", session: NonSharedBuffer): boolean;
         emit(event: "keylog", line: NonSharedBuffer): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
+        on(event: "secure", listener: () => void): this;
         on(event: "secureConnect", listener: () => void): this;
         on(event: "session", listener: (session: NonSharedBuffer) => void): this;
         on(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
+        once(event: "secure", listener: () => void): this;
         once(event: "secureConnect", listener: () => void): this;
         once(event: "session", listener: (session: NonSharedBuffer) => void): this;
         once(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
+        prependListener(event: "secure", listener: () => void): this;
         prependListener(event: "secureConnect", listener: () => void): this;
         prependListener(event: "session", listener: (session: NonSharedBuffer) => void): this;
         prependListener(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "OCSPResponse", listener: (response: NonSharedBuffer) => void): this;
+        prependOnceListener(event: "secure", listener: () => void): this;
         prependOnceListener(event: "secureConnect", listener: () => void): this;
         prependOnceListener(event: "session", listener: (session: NonSharedBuffer) => void): this;
         prependOnceListener(event: "keylog", listener: (line: NonSharedBuffer) => void): this;
@@ -554,6 +554,12 @@ declare module "tls" {
          * @default true
          */
         rejectUnauthorized?: boolean | undefined;
+        /**
+         * If true, specifies that the OCSP status request extension will be
+         * added to the client hello and an 'OCSPResponse' event will be
+         * emitted on the socket before establishing a secure communication.
+         */
+        requestOCSP?: boolean | undefined;
     }
     interface TlsOptions extends SecureContextOptions, CommonConnectionOptions, net.ServerOpts {
         /**

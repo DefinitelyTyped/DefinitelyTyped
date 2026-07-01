@@ -779,8 +779,10 @@ declare namespace GoogleAppsScript {
                 etag?: string | undefined;
                 expirationDate?: string | undefined;
                 id?: string | undefined;
+                inheritedPermissionsDisabled?: boolean | undefined;
                 kind?: string | undefined;
                 name?: string | undefined;
+                pendingOwner?: boolean | undefined;
                 permissionDetails?: Drive.Schema.PermissionPermissionDetails[] | undefined;
                 photoLink?: string | undefined;
                 role?: "owner" | "organizer" | "fileOrganizer" | "writer" | "reader" | undefined;
@@ -788,6 +790,7 @@ declare namespace GoogleAppsScript {
                 teamDrivePermissionDetails?: Drive.Schema.PermissionTeamDrivePermissionDetails[] | undefined;
                 type?: string | undefined;
                 value?: string | undefined;
+                view?: string | undefined;
                 withLink?: boolean | undefined;
             }
             interface PermissionId {

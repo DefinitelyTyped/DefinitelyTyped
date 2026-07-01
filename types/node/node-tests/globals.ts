@@ -83,6 +83,14 @@ declare var RANDOM_GLOBAL_VARIABLE: true;
 }
 
 {
+    const e = new QuotaExceededError();
+    e.message; // $ExpectType string
+    e.name; // $ExpectType string
+    e.quota; // $ExpectType number | null
+    e.requested; // $ExpectType number | null
+}
+
+{
     navigator.hardwareConcurrency; // $ExpectType number
     navigator.language; // $ExpectType string
     navigator.languages; // $ExpectType readonly string[]

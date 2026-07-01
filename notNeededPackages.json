@@ -1208,6 +1208,10 @@
             "libraryName": "content-range",
             "asOfVersion": "2.0.2"
         },
+        "content-type": {
+            "libraryName": "content-type",
+            "asOfVersion": "2.0.0"
+        },
         "contentstack": {
             "libraryName": "contentstack",
             "asOfVersion": "3.11.0"
@@ -4825,6 +4829,10 @@
             "libraryName": "node-mailjet",
             "asOfVersion": "4.0.0"
         },
+        "node-osc": {
+            "libraryName": "node-osc",
+            "asOfVersion": "11.2.0"
+        },
         "node-pg-migrate": {
             "libraryName": "node-pg-migrate",
             "asOfVersion": "2.15.0"
@@ -5000,6 +5008,10 @@
         "openpgp": {
             "libraryName": "openpgp",
             "asOfVersion": "5.0.0"
+        },
+        "openseadragon": {
+            "libraryName": "openseadragon",
+            "asOfVersion": "6.0.0"
         },
         "opn": {
             "libraryName": "opn",
@@ -6474,6 +6486,10 @@
         "react-query": {
             "libraryName": "react-query",
             "asOfVersion": "1.2.8"
+        },
+        "react-resizable": {
+            "libraryName": "react-resizable",
+            "asOfVersion": "4.0.0"
         },
         "react-resize-detector": {
             "libraryName": "react-resize-detector",
@@ -8382,6 +8398,10 @@
         "wordpress__rich-text": {
             "libraryName": "@wordpress/rich-text",
             "asOfVersion": "6.10.0"
+        },
+        "wordpress__server-side-render": {
+            "libraryName": "@wordpress/server-side-render",
+            "asOfVersion": "6.24.1"
         },
         "wordpress__shortcode": {
             "libraryName": "@wordpress/shortcode",

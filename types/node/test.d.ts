@@ -1,5 +1,5 @@
 declare module "node:test" {
-    import { AssertMethodNames } from "node:assert";
+    import { AssertMethodNames, AssertPredicate } from "node:assert";
     import { Readable, ReadableEventMap } from "node:stream";
     import { TestEvent } from "node:test/reporters";
     import { URL } from "node:url";
@@ -111,7 +111,12 @@ declare module "node:test" {
             function only(name?: string, fn?: SuiteFn): Promise<void>;
             function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
             function only(fn?: SuiteFn): Promise<void>;
-            // added in v25.5.0, undocumented
+            /**
+             * This flips the pass/fail reporting for a specific test or suite: a flagged test
+             * case must throw in order to pass, and a flagged test case that does not throw
+             * fails.
+             * @since v25.5.0
+             */
             function expectFailure(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
             function expectFailure(name?: string, fn?: SuiteFn): Promise<void>;
             function expectFailure(options?: TestOptions, fn?: SuiteFn): Promise<void>;
@@ -175,14 +180,14 @@ declare module "node:test" {
             /**
              * Specifies the current working directory to be used by the test runner.
              * Serves as the base path for resolving files according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v26.x/api/test.html#test-runner-execution-model).
              * @since v23.0.0
              * @default process.cwd()
              */
             cwd?: string | undefined;
             /**
              * An array containing the list of files to run. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v26.x/api/test.html#test-runner-execution-model).
              */
             files?: readonly string[] | undefined;
             /**
@@ -195,7 +200,7 @@ declare module "node:test" {
             /**
              * An array containing the list of glob patterns to match test files.
              * This option cannot be used together with `files`. If omitted, files are run according to the
-             * [test runner execution model](https://nodejs.org/docs/latest-v25.x/api/test.html#test-runner-execution-model).
+             * [test runner execution model](https://nodejs.org/docs/latest-v26.x/api/test.html#test-runner-execution-model).
              * @since v22.6.0
              */
             globPatterns?: readonly string[] | undefined;
@@ -283,7 +288,7 @@ declare module "node:test" {
              */
             rerunFailuresFilePath?: string | undefined;
             /**
-             * enable [code coverage](https://nodejs.org/docs/latest-v25.x/api/test.html#collecting-code-coverage) collection.
+             * enable [code coverage](https://nodejs.org/docs/latest-v26.x/api/test.html#collecting-code-coverage) collection.
              * @since v22.10.0
              * @default false
              */
@@ -993,6 +998,34 @@ declare module "node:test" {
              */
             readonly attempt: number;
             /**
+             * The unique identifier of the worker running the current test file. This value is
+             * derived from the `NODE_TEST_WORKER_ID` environment variable. When running tests
+             * with `--test-isolation=process` (the default), each test file runs in a separate
+             * child process and is assigned a worker ID from 1 to N, where N is the number of
+             * concurrent workers. When running with `--test-isolation=none`, all tests run in
+             * the same process and the worker ID is always 1. This value is `undefined` when
+             * not running in a test context.
+             *
+             * This property is useful for splitting resources (like database connections or
+             * server ports) across concurrent test files:
+             *
+             * ```js
+             * import { test } from 'node:test';
+             * import { process } from 'node:process';
+             *
+             * test('database operations', async (t) => {
+             *   // Worker ID is available via context
+             *   console.log(`Running in worker ${t.workerId}`);
+             *
+             *   // Or via environment variable (available at import time)
+             *   const workerId = process.env.NODE_TEST_WORKER_ID;
+             *   // Use workerId to allocate separate resources per worker
+             * });
+             * ```
+             * @since v25.8.0
+             */
+            readonly workerId: number | undefined;
+            /**
              * This function is used to set the number of assertions and subtests that are expected to run
              * within the test. If the number of assertions and subtests that run does not match the
              * expected count, the test will fail.
@@ -1160,7 +1193,7 @@ declare module "node:test" {
              * highlighting.
              * @since v22.14.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v26.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * `path`. Otherwise, the serialized value is compared to the contents of the
              * existing snapshot file.
@@ -1183,7 +1216,7 @@ declare module "node:test" {
              * ```
              * @since v22.3.0
              * @param value A value to serialize to a string. If Node.js was started with
-             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--test-update-snapshots)
+             * the [`--test-update-snapshots`](https://nodejs.org/docs/latest-v26.x/api/cli.html#--test-update-snapshots)
              * flag, the serialized value is written to
              * the snapshot file. Otherwise, the serialized value is compared to the
              * corresponding value in the existing snapshot file.
@@ -1273,6 +1306,17 @@ declare module "node:test" {
              */
             concurrency?: number | boolean | undefined;
             /**
+             * If truthy, the test is expected to fail. If a non-empty string is provided, that string is displayed
+             * in the test results as the reason why the test is expected to fail. If a
+             * `RegExp`, `Function`, `Object`, or `Error` is provided directly (without wrapping in `{ match: … }`), the test passes
+             * only if the thrown error matches, following the behavior of
+             * `assert.throws`. To provide both a reason and validation, pass an object
+             * with `label` (string) and `match` (RegExp, Function, Object, or Error).
+             * @since v25.5.0
+             * @default false
+             */
+            expectFailure?: boolean | string | AssertPredicate | undefined;
+            /**
              * If truthy, and the test context is configured to run `only` tests, then this test will be
              * run. Otherwise, the test is skipped.
              * @default false
@@ -1310,8 +1354,6 @@ declare module "node:test" {
              * @since v22.2.0
              */
             plan?: number | undefined;
-            // added in v25.5.0, undocumented
-            expectFailure?: boolean | undefined;
         }
         /**
          * This function creates a hook that runs before executing a suite.
@@ -1437,19 +1479,40 @@ declare module "node:test" {
              */
             cache?: boolean | undefined;
             /**
-             * The value to use as the mocked module's default export.
-             *
-             * If this value is not provided, ESM mocks do not include a default export.
-             * If the mock is a CommonJS or builtin module, this setting is used as the value of `module.exports`.
-             * If this value is not provided, CJS and builtin mocks use an empty object as the value of `module.exports`.
+             * Optional mocked exports. The `default` property, if
+             * provided, is used as the mocked module's default export. All other own
+             * enumerable properties are used as named exports.
+             * **This option cannot be used with `defaultExport` or `namedExports`.**
+             * * If the mock is a CommonJS or builtin module, `exports.default` is used as
+             *   the value of `module.exports`.
+             * * If `exports.default` is not provided for a CommonJS or builtin mock,
+             *   `module.exports` defaults to an empty object.
+             * * If named exports are provided with a non-object default export, the mock
+             *   throws an exception when used as a CommonJS or builtin module.
+             */
+            exports?: object | undefined;
+            /**
+             * An optional value used as the mocked module's default
+             * export. If this value is not provided, ESM mocks do not include a default
+             * export. If the mock is a CommonJS or builtin module, this setting is used as
+             * the value of `module.exports`. If this value is not provided, CJS and builtin
+             * mocks use an empty object as the value of `module.exports`.
+             * **This option cannot be used with `options.exports`.**
+             * This option is deprecated and will be removed in a later version.
+             * Prefer `options.exports.default`.
+             * @deprecated
              */
             defaultExport?: any;
             /**
-             * An object whose keys and values are used to create the named exports of the mock module.
-             *
-             * If the mock is a CommonJS or builtin module, these values are copied onto `module.exports`.
-             * Therefore, if a mock is created with both named exports and a non-object default export,
-             * the mock will throw an exception when used as a CJS or builtin module.
+             * An optional object whose keys and values are used to
+             * create the named exports of the mock module. If the mock is a CommonJS or
+             * builtin module, these values are copied onto `module.exports`. Therefore, if a
+             * mock is created with both named exports and a non-object default export, the
+             * mock will throw an exception when used as a CJS or builtin module.
+             * **This option cannot be used with `options.exports`.**
+             * This option is deprecated and will be removed in a later version.
+             * Prefer `options.exports`.
+             * @deprecated
              */
             namedExports?: object | undefined;
         }
@@ -1621,17 +1684,22 @@ declare module "node:test" {
              * This function is used to mock the exports of ECMAScript modules, CommonJS modules, JSON modules, and
              * Node.js builtin modules. Any references to the original module prior to mocking are not impacted. In
              * order to enable module mocking, Node.js must be started with the
-             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v25.x/api/cli.html#--experimental-test-module-mocks)
+             * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v26.x/api/cli.html#--experimental-test-module-mocks)
              * command-line flag.
+             *
+             * **Note**: [module customization hooks](https://nodejs.org/docs/latest-v26.x/api/module.html#customization-hooks) registered via the **synchronous** API effect resolution of
+             * the `specifier` provided to `mock.module`. Customization hooks registered via the **asynchronous**
+             * API are currently ignored (because the test runner's loader is synchronous, and node does not
+             * support multi-chain / cross-chain loading).
              *
              * The following example demonstrates how a mock is created for a module.
              *
              * ```js
              * test('mocks a builtin module in both module systems', async (t) => {
-             *   // Create a mock of 'node:readline' with a named export named 'fn', which
+             *   // Create a mock of 'node:readline' with a named export named 'foo', which
              *   // does not exist in the original 'node:readline' module.
              *   const mock = t.mock.module('node:readline', {
-             *     namedExports: { fn() { return 42; } },
+             *     exports: { foo: () => 42 },
              *   });
              *
              *   let esmImpl = await import('node:readline');

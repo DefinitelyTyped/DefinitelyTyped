@@ -186,7 +186,7 @@ export interface ResourcesOptions {
     interceptors?: Dispatcher.DispatcherComposeInterceptor[] | undefined;
 }
 
-export interface DOMWindow extends Omit<Window, "top" | "self" | "window"> {
+export interface DOMWindow extends Omit<Window, "top" | "self" | "window" | number> {
     [key: string]: any;
     [index: number]: any;
 

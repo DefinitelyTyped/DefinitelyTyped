@@ -24,6 +24,8 @@ declare class Engine {
     localAddress: string;
     localHost: string;
     localPort: number;
+    safeMode: boolean;
+    autoUpgradeEnabled: boolean;
     getPorts(): any[];
     osRun(command: string, opt_wait: boolean, opt_commandShow: string): number;
     setKioskMode(kioskMode: boolean): void;

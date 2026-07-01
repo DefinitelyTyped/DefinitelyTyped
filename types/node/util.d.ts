@@ -139,19 +139,6 @@ declare module "node:util" {
     export interface Inspectable {
         [inspect.custom](depth: number, options: InspectContext, inspect: typeof _inspect): any;
     }
-    // TODO: Remove these in a future major
-    /** @deprecated Use `InspectStyle` instead. */
-    export type Style = Exclude<InspectStyle, "name">;
-    /** @deprecated Use the `Inspectable` interface instead. */
-    export type CustomInspectFunction = (depth: number, options: InspectContext) => any;
-    /** @deprecated Use `InspectContext` instead. */
-    export interface InspectOptionsStylized extends InspectContext {}
-    /** @deprecated Use `InspectColorModifier` instead. */
-    export type Modifiers = InspectColorModifier;
-    /** @deprecated Use `InspectColorForeground` instead. */
-    export type ForegroundColors = InspectColorForeground;
-    /** @deprecated Use `InspectColorBackground` instead. */
-    export type BackgroundColors = InspectColorBackground;
     export interface CallSiteObject {
         /**
          * Returns the name of the function associated with this call site.
@@ -340,8 +327,7 @@ declare module "node:util" {
      *
      * It is possible to reconstruct the original locations by setting the option `sourceMap` to `true`.
      * If the source map is not available, the original location will be the same as the current location.
-     * When the `--enable-source-maps` flag is enabled, for example when using `--experimental-transform-types`,
-     * `sourceMap` will be true by default.
+     * When the `--enable-source-maps` flag is enabled, `sourceMap` will be true by default.
      *
      * ```ts
      * import { getCallSites } from 'node:util';
@@ -1115,7 +1101,7 @@ declare module "node:util" {
      * ```
      *
      * If there is an `original[util.promisify.custom]` property present, `promisify`
-     * will return its value, see [Custom promisified functions](https://nodejs.org/docs/latest-v25.x/api/util.html#custom-promisified-functions).
+     * will return its value, see [Custom promisified functions](https://nodejs.org/docs/latest-v26.x/api/util.html#custom-promisified-functions).
      *
      * `promisify()` assumes that `original` is a function taking a callback as its
      * final argument in all cases. If `original` is not a function, `promisify()`
@@ -1260,7 +1246,7 @@ declare module "node:util" {
      *
      * The special format value `none` applies no additional styling to the text.
      *
-     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v25.x/api/util.html#modifiers).
+     * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v26.x/api/util.html#modifiers).
      * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
      * @param text The text to to be formatted.
      * @since v20.12.0
@@ -1270,9 +1256,6 @@ declare module "node:util" {
         text: string,
         options?: StyleTextOptions,
     ): string;
-    /** @deprecated This alias will be removed in a future version. Use the canonical `TextEncoderEncodeIntoResult` instead. */
-    // TODO: remove in future major
-    export interface EncodeIntoResult extends TextEncoderEncodeIntoResult {}
     //// parseArgs
     /**
      * Provides a higher level API for command-line argument parsing than interacting

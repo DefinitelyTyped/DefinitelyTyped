@@ -173,11 +173,60 @@ Memory.scan(ptr("0x1234"), Process.pageSize, new MatchPattern("13 37"), {
     },
 });
 
+// $ExpectType MemoryPointerMatch[]
+Memory.findPointers({ base: ptr("0x1234"), size: Process.pageSize }, [ptr("0xdeadbeef")]);
+// $ExpectType MemoryPointerMatch[]
+const pointerMatches = Memory.findPointers(
+    [{ base: ptr("0x1234"), size: Process.pageSize }],
+    [ptr("0xdeadbeef")],
+    { mask: ptr("0x00007ffffffffff8") },
+);
+// $ExpectType NativePointer
+pointerMatches[0].address;
+// $ExpectType NativePointer
+pointerMatches[0].value;
+
 // $ExpectType Module
 Process.mainModule;
 
 // $ExpectType string | null
 Process.mainModule.version;
+
+// $ExpectType MemoryRange
+Process.getFunctionRange(Process.mainModule.base);
+
+// $ExpectType MemoryRange | null
+Process.findFunctionRange(Process.mainModule.base);
+
+const cfg = new ControlFlowGraph(Process.mainModule.base);
+// $ExpectType NativePointer
+cfg.entrypoint;
+// $ExpectType BasicBlock
+const entryBlock = cfg.entryBlock;
+// $ExpectType BasicBlock[]
+cfg.blocks;
+// $ExpectType BasicBlock | null
+cfg.findBlockContaining(Process.mainModule.base);
+// $ExpectType boolean
+cfg.dominates(Process.mainModule.base, Process.mainModule.base);
+// $ExpectType DominatingSite[]
+const sites = cfg.enumerateDominatingSites(Process.mainModule.base);
+// $ExpectType NativePointer
+sites[0].address;
+// $ExpectType number
+sites[0].capacity;
+// $ExpectType NativePointer
+entryBlock.start;
+// $ExpectType NativePointer
+entryBlock.end;
+// $ExpectType BasicBlock[]
+entryBlock.successors;
+// $ExpectType BasicBlock[]
+entryBlock.predecessors;
+// $ExpectType BasicBlock | null
+entryBlock.immediateDominator;
+// $ExpectType Instruction[]
+entryBlock.instructions;
 
 const art = Process.getModuleByName("libart.so");
 // $ExpectType NativePointer
@@ -269,13 +318,73 @@ Interceptor.attach(puts, {
     },
 });
 
+Interceptor.attach({
+    target: puts,
+    scratchRegister: "x15",
+    scenario: "online",
+    relocation: "checked",
+}, {
+    onEnter(args) {
+        // $ExpectType InvocationArguments
+        args;
+    },
+});
+
+Interceptor.attach({
+    target: puts,
+    writeRedirect(details) {
+        // $ExpectType DefaultInstructionWriter
+        details.writer;
+        // $ExpectType NativePointer
+        details.target;
+        // $ExpectType number
+        details.capacity;
+
+        // Same register type as carried by InstrumentationTarget.
+        const scratch: InstrumentationTarget["scratchRegister"] = details.scratchRegister;
+        void scratch;
+
+        const writer = details.writer as Arm64Writer;
+        writer.putBImm(details.target);
+    },
+    redirectSpaceHint: 16,
+}, {
+    onEnter(args) {
+        // $ExpectType InvocationArguments
+        args;
+    },
+});
+
+// $ExpectType InstrumentationOptions
+Interceptor.defaults;
+
+Interceptor.defaults = {
+    scratchRegister: "x15",
+    writeRedirect(details) {
+        details.writer.flush();
+    },
+    redirectSpaceHint: 256,
+};
+
 Interceptor.flush();
 
 // $ExpectType void
 Interceptor.replace(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
 
+// $ExpectType void
+Interceptor.replace(
+    { target: ptr("0x1234"), scratchRegister: "x15", relocation: "unchecked" },
+    new NativeCallback(() => {}, "void", []),
+);
+
 // $ExpectType NativePointer
 Interceptor.replaceFast(ptr("0x1234"), new NativeCallback(() => {}, "void", []));
+
+// $ExpectType NativePointer
+Interceptor.replaceFast(
+    { target: ptr("0x1234"), scenario: "offline", relocation: "forced" },
+    new NativeCallback(() => {}, "void", []),
+);
 
 const ccode = `
 #include <gum/gumstalker.h>
@@ -345,6 +454,12 @@ Stalker.invalidate(Process.getCurrentThreadId(), basicBlockStartAddress);
 // $ExpectType boolean
 Cloak.hasCurrentThread();
 
+// $ExpectType ThreadDetails
+Process.getThreadById(Process.getCurrentThreadId());
+
+// $ExpectType ThreadDetails | null
+Process.findThreadById(Process.getCurrentThreadId());
+
 Process.enumerateThreads().forEach(t => {
     t.setHardwareBreakpoint(0, puts);
 });
@@ -413,4 +528,9 @@ const profiler = new Profiler();
 const sampler = new BusyCycleSampler();
 for (const e of Process.getModuleByName("libc.so").enumerateExports().filter(e => e.type === "function")) {
     profiler.instrument(e.address, sampler);
+}
+
+for (const e of Process.getModuleByName("libc.so").enumerateExports()) {
+    // $ExpectType number | undefined
+    e.size;
 }

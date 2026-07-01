@@ -1,7 +1,7 @@
-import { DataTexture, DataTextureLoader, LoadingManager } from "three";
+import { DataTextureLoader, DataTextureLoaderTexData, LoadingManager } from "three";
 
 export class TGALoader extends DataTextureLoader {
     constructor(manager?: LoadingManager);
 
-    parse(data: ArrayBuffer): DataTexture;
+    parse(data: ArrayBuffer): DataTextureLoaderTexData;
 }

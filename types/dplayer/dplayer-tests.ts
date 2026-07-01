@@ -16,3 +16,9 @@ const dp = new DPlayer({
         api: "https://api.prprpr.me/dplayer3/",
     },
 });
+
+// $ExpectType void
+dp.on("play", () => {});
+
+// @ts-expect-error
+dp.on("unknown", () => {});

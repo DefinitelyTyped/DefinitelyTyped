@@ -12038,7 +12038,7 @@ export interface HumanName extends Element {
 /**
  * Base StructureDefinition for Bundle Resource
  */
-export interface Bundle extends Resource {
+export interface Bundle<T extends Resource = Resource> extends Resource {
   /** Resource Type Name (for serialization) */
   readonly resourceType: 'Bundle';
   /**
@@ -12062,7 +12062,7 @@ export interface Bundle extends Resource {
    * Entry in the bundle - will have a resource, or information
    * An entry in a bundle resource - will either contain a resource, or information about a resource (transactions and history only).
    */
-  entry?: BundleEntry[] | undefined;
+  entry?: BundleEntry<T>[] | undefined;
   /**
    * Digital Signature
    * Digital Signature - base64 encoded. XML DigSIg or a JWT.
@@ -12186,7 +12186,7 @@ export interface BundleEntryResponse extends BackboneElement {
  * Entry in the bundle - will have a resource, or information
  * An entry in a bundle resource - will either contain a resource, or information about a resource (transactions and history only).
  */
-export interface BundleEntry extends BackboneElement {
+export interface BundleEntry<T extends Resource = Resource> extends BackboneElement {
   /**
    * Absolute URL for resource (server address, or UUID/OID)
    * The Absolute URL for the resource. This must be provided for all resources. The fullUrl SHALL not disagree with the id in the resource. The fullUrl is a version independent reference to the resource.
@@ -12197,7 +12197,7 @@ export interface BundleEntry extends BackboneElement {
    * A resource in the bundle
    * The Resources for the entry.
    */
-  resource?: Resource | undefined;
+  resource?: T | undefined;
   /**
    * Search related information
    * Information about the search process that lead to the creation of this entry.
@@ -13190,6 +13190,8 @@ export interface ImmunizationRecommendationRecommendation extends BackboneElemen
  * Base StructureDefinition for Resource Resource
  */
 export interface Resource {
+  /** Resource Type Name (for serialization) */
+  readonly resourceType: string;
   /**
    * Logical id of this artifact
    * The logical id of the resource, as used in the URL for the resource. Once assigned, this value never changes.

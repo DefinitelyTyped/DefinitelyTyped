@@ -6,7 +6,7 @@
         "https://github.com/mikolalysenko/typedarray-pool"
     ],
     "devDependencies": {
-        "@types/tape": "*",
+        "@types/tape": "^4.0.0",
         "@types/typedarray-pool": "workspace:."
     },
     "owners": [

@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/error-subclass": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Fitbit",
-            "githubUsername": "fitbit"
-        }
-    ]
+    "owners": []
 }

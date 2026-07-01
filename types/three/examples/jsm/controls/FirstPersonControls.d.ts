@@ -15,6 +15,15 @@ declare class FirstPersonControls extends Controls<{}> {
     lookSpeed: number;
 
     /**
+     * How quickly the movement and look velocity catches up to the input. Lower
+     * values feel heavier (more inertia), `1` disables damping.
+     *
+     * @type {number}
+     * @default 0.1
+     */
+    dampingFactor: number;
+
+    /**
      * Whether or not it's possible to vertically look around. Default is `true`.
      */
     lookVertical: boolean;

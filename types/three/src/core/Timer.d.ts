@@ -63,7 +63,7 @@ declare class Timer {
     /**
      * Can be used to free all internal resources. Usually called when the timer instance isn't required anymore.
      */
-    dispose(): this;
+    dispose(): void;
 
     /**
      * Updates the internal state of the timer. This method should be called once per simulation step and before you

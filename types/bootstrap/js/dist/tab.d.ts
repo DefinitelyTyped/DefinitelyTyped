@@ -1,6 +1,12 @@
 import BaseComponent, { GetOrCreateInstanceFactory } from "./base-component";
 import { GetInstanceFactory } from "./base-component.d";
 
+declare global {
+    interface JQuery {
+        tab: Tab.jQueryInterface;
+    }
+}
+
 declare class Tab extends BaseComponent {
     /**
      * Static method which allows you to get the tab instance associated with a

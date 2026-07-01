@@ -40,6 +40,7 @@ import {
                 psk: Buffer.from("asd"),
             };
         },
+        requestOCSP: true,
     };
     const tlsSocket = connect(connOpts);
 

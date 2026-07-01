@@ -1118,22 +1118,22 @@ interface Numeric {
     ): Spline;
 
     // Unconstrained optimisations
-    uncmin(
-        f: (x: Vector) => Scalar,
-        x0: Vector,
+    uncmin<T extends Vector>(
+        f: (x: T) => Scalar,
+        x0: T,
         tol?: number,
         gradient?: any,
         maxit?: number,
         callback?: (
             it: number,
-            x0: Vector,
+            x0: T,
             f0: Scalar,
-            g0: Vector,
+            g0: T,
             h1: Matrix,
         ) => any,
         options?: { Hinv: Matrix },
     ): {
-        solution: Vector;
+        solution: T;
         f: Scalar;
         gradient: Vector;
         invHessian: Matrix;

@@ -31,9 +31,6 @@
 // TypeScript library polyfills required for TypeScript 5.7:
 /// <reference path="./compatibility/float16array.d.ts" />
 
-// Iterator definitions required for compatibility with TypeScript <5.6:
-/// <reference path="../compatibility/iterators.d.ts" />
-
 // Definitions for Node.js modules specific to TypeScript 5.7+:
 /// <reference path="../globals.typedarray.d.ts" />
 /// <reference path="../buffer.buffer.d.ts" />
@@ -97,6 +94,7 @@
 /// <reference path="../sqlite.d.ts" />
 /// <reference path="../stream.d.ts" />
 /// <reference path="../stream/consumers.d.ts" />
+/// <reference path="../stream/iter.d.ts" />
 /// <reference path="../stream/promises.d.ts" />
 /// <reference path="../stream/web.d.ts" />
 /// <reference path="../string_decoder.d.ts" />
@@ -115,3 +113,4 @@
 /// <reference path="../wasi.d.ts" />
 /// <reference path="../worker_threads.d.ts" />
 /// <reference path="../zlib.d.ts" />
+/// <reference path="../zlib/iter.d.ts" />

@@ -10,7 +10,6 @@ declare class Database {
     date: Date;
     userKey: number;
     userName: string;
-    userLanguage: number;
     workloadType: string;
     trackingId: string;
     scope: string;
@@ -82,6 +81,10 @@ declare class Database {
             freshTrack: boolean;
         }
     ): void;
+    archiveLog(
+        options: ArchiveLogOptionsByTableClass | ArchiveLogOptionsByType
+    ): ArchiveLogFileInfo[];
+    restoreLog(filePath: string, options?: RestoreLogOptions): ArchiveLogFileInfo;
     sendPendingLogs(wait?: boolean, timeout?: number): boolean;
     discardEndpointInfoCache(): void;
     discardCaches(): void;
@@ -90,7 +93,17 @@ declare class Database {
     isEdgeServer(): boolean;
 }
 declare namespace Database {
-    export { fromConfig, Email, Session, VersionInfo, DatabaseVersionInfo };
+    export {
+        fromConfig,
+        Email,
+        Session,
+        VersionInfo,
+        DatabaseVersionInfo,
+        ArchiveLogOptionsByTableClass,
+        ArchiveLogOptionsByType,
+        RestoreLogOptions,
+        ArchiveLogFileInfo,
+    };
 }
 import Connection = require('../connection/Connection.js');
 import DataSet = require('../dataset/DataSet.js');
@@ -106,4 +119,33 @@ interface VersionInfo {
 interface DatabaseVersionInfo {
     server: VersionInfo;
     client: VersionInfo;
+}
+interface ArchiveLogOptionsByTableClass {
+    tableClass: number;
+    includedClasses?: number[];
+    excludedClasses?: number[];
+    retentionInDays: number;
+    storageProvider?: number;
+    tag?: string;
+}
+interface ArchiveLogOptionsByType {
+    logType: number;
+    retentionInDays: number;
+    storageProvider?: number;
+    tag?: string;
+}
+interface RestoreLogOptions {
+    retentionInDays?: number;
+    storageProvider?: number;
+    dryRun?: boolean;
+}
+interface ArchiveLogFileInfo {
+    eventKey: number | null;
+    path: string;
+    storageProvider: number | null;
+    logDate: Date;
+    archiveDate: Date;
+    recordCount: number;
+    recordCountPerClassKey: Record<string, number>;
+    recordCountPerTableName: Record<string, number>;
 }

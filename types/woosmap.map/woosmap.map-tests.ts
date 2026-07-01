@@ -22,6 +22,7 @@ const mapOptions = expectType({
     ],
     enableMarkerAccessibleNavigation: true,
     mapTypeId: woosmap.map.MapTypeId.ROADMAP,
+    visualRefresh: true,
 }) as woosmap.map.MapOptions;
 const map = new woosmap.map.Map(document.getElementById("mapContainer") as HTMLElement, mapOptions);
 

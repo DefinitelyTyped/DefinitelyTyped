@@ -367,6 +367,23 @@ declare namespace Process {
     function getCurrentThreadId(): ThreadId;
 
     /**
+     * Looks up a single thread by its ID, throwing an exception if it cannot be
+     * found. Unlike `enumerateThreads()`, cloaked threads are not hidden: an
+     * explicit lookup by ID always returns the thread if it exists.
+     *
+     * @param id ID of the thread to find.
+     */
+    function getThreadById(id: ThreadId): ThreadDetails;
+
+    /**
+     * Like `getThreadById()`, but returns null instead of throwing if the
+     * thread cannot be found.
+     *
+     * @param id ID of the thread to find.
+     */
+    function findThreadById(id: ThreadId): ThreadDetails | null;
+
+    /**
      * Enumerates all threads.
      */
     function enumerateThreads(): ThreadDetails[];
@@ -395,24 +412,24 @@ declare namespace Process {
     function runOnThread<T>(id: ThreadId, callback: () => T): Promise<T>;
 
     /**
-     * Looks up a module by address. Returns null if not found.
-     */
-    function findModuleByAddress(address: NativePointerValue): Module | null;
-
-    /**
      * Looks up a module by address. Throws an exception if not found.
      */
     function getModuleByAddress(address: NativePointerValue): Module;
 
     /**
-     * Looks up a module by name. Returns null if not found.
+     * Looks up a module by address. Returns null if not found.
      */
-    function findModuleByName(name: string): Module | null;
+    function findModuleByAddress(address: NativePointerValue): Module | null;
 
     /**
      * Looks up a module by name. Throws an exception if not found.
      */
     function getModuleByName(name: string): Module;
+
+    /**
+     * Looks up a module by name. Returns null if not found.
+     */
+    function findModuleByName(name: string): Module | null;
 
     /**
      * Enumerates modules loaded right now.
@@ -429,14 +446,31 @@ declare namespace Process {
     function attachModuleObserver(callbacks: ModuleObserverCallbacks): ModuleObserver;
 
     /**
+     * Looks up a memory range by address. Throws an exception if not found.
+     */
+    function getRangeByAddress(address: NativePointerValue): RangeDetails;
+
+    /**
      * Looks up a memory range by address. Returns null if not found.
      */
     function findRangeByAddress(address: NativePointerValue): RangeDetails | null;
 
     /**
-     * Looks up a memory range by address. Throws an exception if not found.
+     * Determines the code range of the function that `address` belongs to,
+     * derived from the platform's unwind tables. A function whose body is split
+     * across several ranges (e.g. a cold fragment) is represented by one range
+     * per fragment; this returns the one covering `address`. Where no unwind
+     * information is available — e.g. a leaf function, or a target lacking
+     * unwind tables altogether — the containing symbol's bounds are used as a
+     * best-effort fallback. Throws an exception if neither yields a range.
      */
-    function getRangeByAddress(address: NativePointerValue): RangeDetails;
+    function getFunctionRange(address: NativePointerValue): MemoryRange;
+
+    /**
+     * Like `getFunctionRange()`, but returns null instead of throwing if no
+     * range can be determined.
+     */
+    function findFunctionRange(address: NativePointerValue): MemoryRange | null;
 
     /**
      * Enumerates memory ranges satisfying `specifier`.
@@ -756,6 +790,22 @@ declare namespace Memory {
         size: number | UInt64,
         pattern: string | MatchPattern,
     ): MemoryScanMatch[];
+
+    /**
+     * Scans one or more memory ranges for pointer-aligned words matching any of `values`.
+     *
+     * This is a focused, SIMD-accelerated alternative to `scan()` for the common task of finding pointers, e.g.
+     * references to a given address. All matches are collected and returned sorted by address.
+     *
+     * @param ranges Memory range, or array of ranges, to scan.
+     * @param values Pointer-width values to look for.
+     * @param options Options to customize the scan.
+     */
+    function findPointers(
+        ranges: MemoryRange | MemoryRange[],
+        values: NativePointerValue[],
+        options?: MemoryFindPointersOptions,
+    ): MemoryPointerMatch[];
 
     /**
      * Allocates `size` bytes of memory on Frida's private heap, or, if `size` is a multiple of Process#pageSize,
@@ -1161,6 +1211,11 @@ interface ModuleExportDetails {
      * Absolute address.
      */
     address: NativePointer;
+
+    /**
+     * Size in bytes, if available.
+     */
+    size?: number | undefined;
 }
 
 interface ModuleSymbolDetails {
@@ -1459,6 +1514,26 @@ interface MemoryScanMatch {
      * Size of this match.
      */
     size: number;
+}
+
+interface MemoryFindPointersOptions {
+    /**
+     * Bitmask applied to each scanned word and each value before comparing. Defaults to an exact match.
+     * Pass e.g. `ptr("0x00007ffffffffff8")` to strip arm64e PAC and non-pointer-isa bits.
+     */
+    mask?: NativePointerValue;
+}
+
+interface MemoryPointerMatch {
+    /**
+     * Memory address where a matching word was found.
+     */
+    address: NativePointer;
+
+    /**
+     * The matching word, i.e. the value stored at `address`, before masking.
+     */
+    value: NativePointer;
 }
 
 interface KernelMemoryScanCallbacks {
@@ -3215,13 +3290,18 @@ declare namespace Interceptor {
      * to specify a `InstructionProbeCallback` if `target` is not the first
      * instruction of a function.
      *
-     * @param target Address of function/instruction to intercept.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function/instruction to intercept, optionally
+     *               wrapped together with instrumentation options.
      * @param callbacksOrProbe Callbacks or instruction-level probe callback.
      * @param data User data exposed to `NativeInvocationListenerCallbacks`
      *             through the `GumInvocationContext *`.
      */
     function attach(
-        target: NativePointerValue,
+        target: NativePointerValue | InstrumentationTarget,
         callbacksOrProbe: InvocationListenerCallbacks | InstructionProbeCallback,
         data?: NativePointerValue,
     ): InvocationListener;
@@ -3240,13 +3320,22 @@ declare namespace Interceptor {
      * your implementation. Interceptor uses thread-local state to determine
      * that it should call the original in that case.
      *
-     * @param target Address of function to replace.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function to replace, optionally wrapped together
+     *               with instrumentation options.
      * @param replacement Replacement implementation.
      * @param data User data exposed to native replacement through the
      *             `GumInvocationContext *`, obtained using
      *             `gum_interceptor_get_current_invocation()`.
      */
-    function replace(target: NativePointerValue, replacement: NativePointerValue, data?: NativePointerValue): void;
+    function replace(
+        target: NativePointerValue | InstrumentationTarget,
+        replacement: NativePointerValue,
+        data?: NativePointerValue,
+    ): void;
 
     /**
      * Replaces function at `target` with implementation at `replacement`.
@@ -3258,11 +3347,19 @@ declare namespace Interceptor {
      * means that you need to use the returned pointer if you want to call the
      * original implementation.
      *
-     * @param target Address of function to replace.
+     * The `target` may be specified either as a bare address, or as an object
+     * carrying the address alongside instrumentation options such as which
+     * scratch register to use.
+     *
+     * @param target Address of function to replace, optionally wrapped together
+     *               with instrumentation options.
      * @param replacement Replacement implementation.
      * @returns Address of trampoline that lets you call the original function.
      */
-    function replaceFast(target: NativePointerValue, replacement: NativePointerValue): NativePointer;
+    function replaceFast(
+        target: NativePointerValue | InstrumentationTarget,
+        replacement: NativePointerValue,
+    ): NativePointer;
 
     /**
      * Reverts the previously replaced function at `target`.
@@ -3275,12 +3372,163 @@ declare namespace Interceptor {
     function flush(): void;
 
     /**
+     * Default instrumentation options applied to every subsequent
+     * `attach()` / `replace()` / `replaceFast()` call.
+     *
+     * Options specified per call through `InstrumentationTarget` take
+     * precedence over these.
+     */
+    let defaults: InstrumentationOptions;
+
+    /**
      * The kind of breakpoints to use for non-inline hooks.
      *
      * Only available in the Barebone backend.
      */
     let breakpointKind: "soft" | "hard";
 }
+
+/**
+ * Target to instrument, carrying the address alongside optional knobs that
+ * control how the inline hook is set up.
+ */
+interface InstrumentationTarget extends InstrumentationOptions {
+    /**
+     * Address of function/instruction to instrument.
+     */
+    target: NativePointerValue;
+}
+
+/**
+ * Knobs that control how an inline hook is set up.
+ *
+ * May be specified per call through `InstrumentationTarget`, or globally
+ * through `Interceptor.defaults`.
+ */
+interface InstrumentationOptions {
+    /**
+     * Register that Interceptor may clobber when building the trampoline.
+     *
+     * Only supported on architectures that expose scratch registers, i.e.
+     * arm64 and mips.
+     */
+    scratchRegister?: Arm64Register | MipsRegister | undefined;
+
+    /**
+     * Whether another thread might be executing the target while it is being
+     * instrumented.
+     *
+     * Use `online` when calls may be in flight, i.e. a thread could have
+     * executed an instruction with call semantics (CALL/BL/etc.) but not yet
+     * returned. Use `offline` when that cannot happen — e.g. after `spawn()`
+     * but before `resume()`, or when no calls will occur until some external
+     * input you control. The `offline` scenario allows writing past the end of
+     * such an instruction, which would be unsafe online.
+     *
+     * Defaults to `online`.
+     */
+    scenario?: InstrumentationScenario | undefined;
+
+    /**
+     * How to deal with relocation of the instructions overwritten by the hook.
+     *
+     * Defaults to `checked`.
+     */
+    relocation?: RelocationPolicy | undefined;
+
+    /**
+     * Callback that emits a custom redirect from the instrumented function or
+     * instruction to Interceptor's trampoline.
+     *
+     * The primary use-case is defeating fingerprinting: emitting a redirect
+     * that a RASP implementation won't recognize as an inline hook. It is also
+     * useful when space is tight and you want to locate a nearby code cave
+     * reachable through a short immediate branch, and then branch from there to
+     * the trampoline farther away.
+     *
+     * Throwing from the callback declines the redirect. There is no fallback to
+     * the default strategy in that case: the `attach()` / `replace()` /
+     * `replaceFast()` call fails as if the target had a signature that could
+     * not be instrumented.
+     */
+    writeRedirect?: WriteRedirectCallback | undefined;
+
+    /**
+     * Upper bound on the number of bytes that `writeRedirect` will need.
+     *
+     * Your callback may end up using less. Specifying a larger value means
+     * Interceptor has to explore further to determine that it is safe to use
+     * that much space — looking for back-branches, call return sites, etc. —
+     * which is more expensive.
+     *
+     * Defaults to the size needed for a full redirect, e.g. 16 bytes on arm64.
+     */
+    redirectSpaceHint?: number | undefined;
+}
+
+/**
+ * Callback that emits a custom redirect from the target to Interceptor's
+ * trampoline.
+ */
+type WriteRedirectCallback = (details: WriteRedirectDetails) => void;
+
+/**
+ * Details passed to a `WriteRedirectCallback`.
+ */
+interface WriteRedirectDetails {
+    /**
+     * Code writer to emit the redirect with.
+     *
+     * The concrete type depends on the architecture, e.g. an `X86Writer` on
+     * x86 and an `Arm64Writer` on arm64. On 32-bit ARM it may be either an
+     * `ArmWriter` or a `ThumbWriter`, depending on the instruction set at the
+     * instrumented site.
+     */
+    writer: DefaultInstructionWriter;
+
+    /**
+     * Address of Interceptor's trampoline, i.e. where your redirect should
+     * branch to.
+     */
+    target: NativePointer;
+
+    /**
+     * Scratch register that the redirect may clobber.
+     *
+     * Only present on architectures that expose scratch registers, i.e.
+     * arm64 and mips.
+     */
+    scratchRegister?: Arm64Register | MipsRegister | undefined;
+
+    /**
+     * Number of bytes available for the redirect.
+     */
+    capacity: number;
+}
+
+/**
+ * Default code writer for the current architecture.
+ *
+ * On 32-bit ARM this is either an `ArmWriter` or a `ThumbWriter`, depending on
+ * the instruction set at the instrumented site.
+ */
+type DefaultInstructionWriter = X86Writer | ArmWriter | ThumbWriter | Arm64Writer | MipsWriter;
+
+type InstrumentationScenario = "online" | "offline";
+
+/**
+ * How aggressively Interceptor may rewrite the function being instrumented.
+ *
+ * - `checked`: verify that the chosen scratch register (default or
+ *   user-specified) is not used in the function's early prologue, that there
+ *   are no branches back into the overwritten instruction(s), and similar
+ *   constraints.
+ * - `unchecked`: skip those checks.
+ * - `forced`: like `unchecked`, but also allow overwriting past the end of the
+ *   function — for cases where you know it is safe, e.g. because of alignment
+ *   padding between this function and the next.
+ */
+type RelocationPolicy = "checked" | "unchecked" | "forced";
 
 declare class InvocationListener {
     /**
@@ -4105,6 +4353,121 @@ declare class Instruction {
      * Converts to a human-readable string.
      */
     toString(): string;
+}
+
+/**
+ * Control-flow graph of a single function, with its basic blocks, edges, and
+ * dominator relationships.
+ */
+declare class ControlFlowGraph {
+    /**
+     * Builds the control-flow graph of the function containing `entrypoint`.
+     *
+     * The function's bounds are resolved the same way as
+     * `Process.findFunctionRange()` — from the platform's unwind tables, with
+     * the containing symbol's bounds as a best-effort fallback — and its
+     * architecture and mode are determined automatically. On 32-bit ARM, a
+     * least significant bit set to 1 indicates Thumb.
+     *
+     * Throws an exception if the bounds of the function cannot be determined.
+     *
+     * @param entrypoint Address of the function to analyze.
+     */
+    constructor(entrypoint: NativePointerValue);
+
+    /**
+     * Address that the graph was built from.
+     */
+    entrypoint: NativePointer;
+
+    /**
+     * Basic block that the function begins with.
+     */
+    entryBlock: BasicBlock;
+
+    /**
+     * All basic blocks making up the graph.
+     */
+    blocks: BasicBlock[];
+
+    /**
+     * Looks up the basic block containing `address`. Returns null if no block
+     * covers it.
+     *
+     * @param address Address to look up.
+     */
+    findBlockContaining(address: NativePointerValue): BasicBlock | null;
+
+    /**
+     * Determines whether the block containing `a` dominates the block
+     * containing `b`, i.e. whether every path from the entry block to `b`
+     * passes through `a`.
+     *
+     * @param a Address whose block is the potential dominator.
+     * @param b Address whose block is potentially dominated.
+     */
+    dominates(a: NativePointerValue, b: NativePointerValue): boolean;
+
+    /**
+     * Enumerates the sites that dominate `target`, nearest first.
+     *
+     * @param target Address to find the dominating sites of.
+     */
+    enumerateDominatingSites(target: NativePointerValue): DominatingSite[];
+}
+
+/**
+ * A basic block within a `ControlFlowGraph`. Not constructable; obtain
+ * instances through the graph.
+ */
+declare class BasicBlock {
+    /**
+     * Address of the first instruction in the block.
+     */
+    start: NativePointer;
+
+    /**
+     * Address just past the last instruction in the block.
+     */
+    end: NativePointer;
+
+    /**
+     * Blocks that control may flow to from this block.
+     */
+    successors: BasicBlock[];
+
+    /**
+     * Blocks that control may flow to this block from.
+     */
+    predecessors: BasicBlock[];
+
+    /**
+     * Block that immediately dominates this one, or null for the entry block.
+     */
+    immediateDominator: BasicBlock | null;
+
+    /**
+     * Instructions making up this block.
+     */
+    instructions: Instruction[];
+}
+
+/**
+ * A site that dominates a given target, as returned by
+ * `ControlFlowGraph#enumerateDominatingSites()`.
+ */
+interface DominatingSite {
+    /**
+     * Instruction-aligned address that dominates the target.
+     */
+    address: NativePointer;
+
+    /**
+     * Number of contiguous bytes at `address`, within a single range and with
+     * no incoming branch, that a redirect may overwrite without another
+     * control-flow edge landing inside the patched region.
+     */
+    capacity: number;
 }
 
 declare class X86Instruction extends Instruction {

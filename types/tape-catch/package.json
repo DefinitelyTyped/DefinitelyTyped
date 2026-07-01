@@ -6,7 +6,7 @@
         "https://github.com/michaelrhodes/tape-catch"
     ],
     "dependencies": {
-        "@types/tape": "*"
+        "@types/tape": "~4.13.0"
     },
     "devDependencies": {
         "@types/node": "*",

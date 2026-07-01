@@ -21,8 +21,6 @@ QUnit.test.todo("todo test example", function(assert) {
     assert.ok(true, "this is a todo");
 });
 
-QUnit.test.todo("todo test example w/o callback");
-
 QUnit.test.only("only test example", function(assert) {
     assert.ok(true, "only this is called");
 });

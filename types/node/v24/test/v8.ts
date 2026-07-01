@@ -19,11 +19,9 @@ v8.takeCoverage();
 v8.stopCoverage();
 
 {
-    const profiler = new v8.GCProfiler();
+    using profiler = new v8.GCProfiler();
     profiler.start();
-    setTimeout(() => {
-        console.log(profiler.stop());
-    }, 1000);
+    profiler.stop();
 }
 
 const disable = v8.promiseHooks.createHook({

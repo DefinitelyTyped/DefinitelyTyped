@@ -1,4 +1,5 @@
 export let APP_BAR: number;
+export let DATA_EXPORT: number;
 export let DEFAULT_PROCESSES: number;
 export let DOCUMENTATION: number;
 export let ENVIRONMENT: number;

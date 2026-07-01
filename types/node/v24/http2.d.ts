@@ -31,6 +31,7 @@ declare module "http2" {
         ":method"?: string | undefined;
         ":authority"?: string | undefined;
         ":scheme"?: string | undefined;
+        ":protocol"?: string | undefined;
     }
     // Http2Stream
     export interface StreamState {
@@ -680,6 +681,7 @@ declare module "http2" {
         maxConcurrentStreams?: number | undefined;
         maxHeaderListSize?: number | undefined;
         enableConnectProtocol?: boolean | undefined;
+        customSettings?: { [key: number]: number };
     }
     export interface ClientSessionRequestOptions {
         endStream?: boolean | undefined;
@@ -1429,6 +1431,8 @@ declare module "http2" {
         Http2Request extends typeof Http2ServerRequest = typeof Http2ServerRequest,
         Http2Response extends typeof Http2ServerResponse<InstanceType<Http2Request>> = typeof Http2ServerResponse,
     > extends SessionOptions {
+        maxSessionRejectedStreams?: number | undefined;
+        maxSessionInvalidFrames?: number | undefined;
         streamResetBurst?: number | undefined;
         streamResetRate?: number | undefined;
         Http1IncomingMessage?: Http1Request | undefined;

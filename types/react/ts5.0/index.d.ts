@@ -409,7 +409,7 @@ declare namespace React {
      *
      * Where {@link ReactElement} only represents JSX, `ReactNode` represents everything that can be rendered.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/reactnode/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/reactnode/ React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1430,7 +1430,7 @@ declare namespace React {
      * instead of this type, as they let you be explicit about whether or not to include
      * the `ref` prop.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/ComponentProps React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1458,7 +1458,7 @@ declare namespace React {
      * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
      * type of a React component.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/ComponentProps React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -1508,7 +1508,7 @@ declare namespace React {
      * passed a string, indicating a DOM element (e.g. 'div', 'span', etc.) or the
      * type of a React component.
      *
-     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/react-types/componentprops/ React TypeScript Cheatsheet}
+     * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/reference/ComponentProps React TypeScript Cheatsheet}
      *
      * @example
      *
@@ -3165,7 +3165,7 @@ declare namespace React {
         alt?: string | undefined;
         crossOrigin?: CrossOrigin;
         decoding?: "async" | "auto" | "sync" | undefined;
-        fetchPriority?: "high" | "low" | "auto";
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         height?: number | string | undefined;
         loading?: "eager" | "lazy" | undefined;
         referrerPolicy?: HTMLAttributeReferrerPolicy | undefined;
@@ -3338,7 +3338,7 @@ declare namespace React {
         as?: string | undefined;
         blocking?: "render" | (string & {}) | undefined;
         crossOrigin?: CrossOrigin;
-        fetchPriority?: "high" | "low" | "auto";
+        fetchPriority?: "high" | "low" | "auto" | undefined;
         href?: string | undefined;
         hrefLang?: string | undefined;
         integrity?: string | undefined;
@@ -4128,7 +4128,6 @@ declare namespace React {
         componentStack?: string | null;
     }
 
-    // Keep in sync with JSX namespace in ./jsx-runtime.d.ts and ./jsx-dev-runtime.d.ts
     namespace JSX {
         interface Element extends React.ReactElement<any, any> {}
         interface ElementClass extends React.Component<any> {

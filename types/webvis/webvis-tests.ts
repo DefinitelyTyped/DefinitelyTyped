@@ -1,5 +1,6 @@
 import "./test/AnimationAPI";
 import "./test/AnnotationAPI";
+import "./test/AppearancePatternAPI";
 import "./test/AttachmentAPI";
 import "./test/ClipPlaneAPI";
 import "./test/CollectionAPI";

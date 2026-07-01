@@ -1,4 +1,4 @@
-import { Camera, ColorRepresentation, Controls, Mesh, Object3D, Quaternion, Raycaster, Vector3 } from "three";
+import { Camera, ColorRepresentation, Controls, Mesh, Object3D, Quaternion, Raycaster, Vector3, Vector4 } from "three";
 
 export type TransformControlsMode = "translate" | "rotate" | "scale";
 
@@ -41,6 +41,8 @@ export interface TransformControlsEventMap {
     "showXY-changed": { value: unknown };
     "showYZ-changed": { value: unknown };
     "showXZ-changed": { value: unknown };
+    "showXYZE-changed": { value: unknown };
+    "showE-changed": { value: unknown };
     "minX-changed": { value: unknown };
     "maxX-changed": { value: unknown };
     "minY-changed": { value: unknown };
@@ -112,6 +114,17 @@ declare class TransformControls extends Controls<TransformControlsEventMap> {
     size: number;
 
     /**
+     * The viewport rectangle, in logical (CSS) pixels with the origin at the lower-left
+     * of the canvas. Set this when the renderer uses a sub-canvas viewport so pointer
+     * coordinates map to the correct region. If `null`, the full canvas is used.
+     *
+     * @name TransformControls#viewport
+     * @type {?Vector4}
+     * @default null
+     */
+    viewport: Vector4 | null;
+
+    /**
      * Whether or not dragging is currently performed. Read-only property.
      */
     dragging: boolean;
@@ -151,6 +164,24 @@ declare class TransformControls extends Controls<TransformControlsEventMap> {
      * @default true
      */
     showXZ: boolean;
+
+    /**
+     * Whether the xyze rotation helper should be visible or not.
+     *
+     * @name TransformControls#showXYZE
+     * @type {boolean}
+     * @default true
+     */
+    showXYZE: boolean;
+
+    /**
+     * Whether the e rotation helper should be visible or not.
+     *
+     * @name TransformControls#showE
+     * @type {boolean}
+     * @default true
+     */
+    showE: boolean;
 
     /**
      * The minimum allowed X position during translation. Default is `-Infinity`.

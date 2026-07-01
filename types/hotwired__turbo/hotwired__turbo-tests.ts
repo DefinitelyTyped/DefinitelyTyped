@@ -15,6 +15,9 @@ import {
     StreamActions,
     StreamMessage,
     StreamSource,
+    TurboHistory,
+    TurboStreamAction,
+    TurboStreamActions,
     Visit,
     visit,
     VisitOptions,
@@ -101,6 +104,19 @@ StreamActions.log = function() {
     console.log(this.getAttribute("message"));
 };
 
+// Test TurboStreamActions / TurboStreamAction exports
+// $ExpectType TurboStreamActions
+StreamActions;
+
+const customStreamAction: TurboStreamAction = function() {
+    // $ExpectType StreamElement
+    this;
+};
+StreamActions.custom = customStreamAction;
+
+const allStreamActions: TurboStreamActions = StreamActions;
+allStreamActions.log;
+
 document.addEventListener("turbo:before-fetch-request", function(event) {
     // $ExpectType FetchRequestHeaders
     const headers = event.detail.fetchOptions.headers;
@@ -148,6 +164,13 @@ document.addEventListener("turbo:submit-end", function(event) {
         // $ExpectType FetchResponse|undefined
         event.detail.fetchResponse;
     }
+});
+
+document.addEventListener("turbo:before-morph-attribute", function(event) {
+    // $ExpectType string
+    event.detail.attributeName;
+    // $ExpectType "update" | "remove"
+    event.detail.mutationType;
 });
 
 // Test start() function
@@ -264,6 +287,12 @@ turboStream.templateElement = document.createElement("template");
 // @ts-expect-error - templateContent is readonly
 turboStream.templateContent = document.createDocumentFragment();
 
+// Test StreamElement.targetElements
+// $ExpectType Element[]
+turboStream.targetElements;
+// @ts-expect-error - targetElements is readonly
+turboStream.targetElements = [];
+
 const eventSource = new EventSource("https://example.com/stream");
 const webSocket = new WebSocket("wss://example.com/stream");
 
@@ -289,3 +318,29 @@ StreamMessage.contentType;
 
 // $ExpectType StreamMessage
 StreamMessage.wrap("<turbo-stream></turbo-stream>");
+
+// Test TurboHistory via session.history
+// $ExpectType TurboHistory
+session.history;
+// $ExpectType TurboHistory
+Turbo.session.history;
+
+session.history.push(new URL("https://example.com"));
+session.history.push(new URL("https://example.com"), "abc-123");
+session.history.replace(new URL("https://example.com"));
+session.history.replace(new URL("https://example.com"), "abc-123");
+
+// $ExpectType URL
+session.history.location;
+// $ExpectType string
+session.history.restorationIdentifier;
+
+// Test session getters
+// $ExpectType URL
+session.location;
+// $ExpectType string
+session.restorationIdentifier;
+// $ExpectType boolean
+session.started;
+// $ExpectType boolean
+session.enabled;

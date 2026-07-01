@@ -609,6 +609,8 @@ spline.at(vector); // $ExpectType number | number[] || number | Vector
 numeric.uncmin((x: number[]) => 23, vector, 2, null, 3, () => undefined, {
     Hinv: matrix,
 });
+numeric.uncmin(([x, y]) => (x ** 2 + y ** 2), [1, 1]);
+numeric.uncmin(([x, y]) => (x ** 2 + y ** 2), vector);
 numeric.gradient((x: number[]) => 44, vector); // $ExpectType number[] || Vector
 
 const dopri = numeric.dopri(

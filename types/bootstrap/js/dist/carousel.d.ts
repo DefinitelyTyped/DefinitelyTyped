@@ -1,5 +1,19 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        carousel: Carousel.jQueryInterface;
+    }
+
+    interface Element {
+        addEventListener(
+            type: Carousel.Events | "slide.bs.carousel" | "slid.bs.carousel",
+            listener: (this: Element, ev: Carousel.Event) => any,
+            options?: boolean | AddEventListenerOptions,
+        ): void;
+    }
+}
+
 declare class Carousel extends BaseComponent {
     /**
      * Default settings of this plugin

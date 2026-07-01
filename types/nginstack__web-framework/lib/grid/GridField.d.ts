@@ -38,7 +38,7 @@ declare class GridField {
     dsTreeStructure: DataSet;
     private _checkInformedFields;
     private validateClassFieldChange_;
-    validateInput: any;
+    validateInput: (value: string | number | boolean | Date) => any;
     protected _checkSaveInputAsDefault(context: {
         processKey: number;
         interactionName: string;
@@ -131,6 +131,8 @@ interface FieldInitialState {
     caseType?: string;
     width: number | string;
     tableViewWidth: number | string;
+    lookupDisplayWidth: number | string;
+    showLookupClass: boolean;
     height?: string;
     rows?: number;
     negativeInRed?: boolean;

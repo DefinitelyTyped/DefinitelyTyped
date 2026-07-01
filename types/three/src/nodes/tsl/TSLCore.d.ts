@@ -5,11 +5,13 @@ import { Matrix4 } from "../../math/Matrix4.js";
 import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Vector4 } from "../../math/Vector4.js";
+import ArrayNode from "../core/ArrayNode.js";
 import ConstNode from "../core/ConstNode.js";
-import Node, { MatType, NumOrBoolType } from "../core/Node.js";
+import Node, { NumOrBoolType } from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
 import StackNode from "../core/StackNode.js";
 import VarNode from "../core/VarNode.js";
+import ArrayElementNode from "../utils/ArrayElementNode.js";
 import ConvertNode from "../utils/ConvertNode.js";
 import JoinNode from "../utils/JoinNode.js";
 
@@ -1743,6 +1745,8 @@ export function nodeProxyIntent<T, S extends GetPossibleScopes<T>>(
     factor: unknown,
 ): (...params: ProxiedTuple<RemoveHeadAndTail<GetConstructorsByScope<T, S>>>) => ConstructedNode<T>;
 
+export const nodeProxyConstructor: unknown;
+
 interface FullLayout {
     name: string;
     type: string;
@@ -1977,7 +1981,9 @@ interface Vec3Function {
     (value: Vector3): VarNode<"vec3", ConstNode<"vec3", Vector3>>;
     // ConvertNode
     (node: ScalarNode): VarNode<"vec3", ConvertNode<"vec3">>;
-    (node: Node<"vec3"> | Node<"ivec3"> | Node<"uvec3"> | Node<"bvec3">): VarNode<"vec3", ConvertNode<"vec3">>;
+    (
+        node: Node<"vec3"> | Node<"ivec3"> | Node<"uvec3"> | Node<"bvec3"> | Node<"vec4">,
+    ): VarNode<"vec3", ConvertNode<"vec3">>;
 
     // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
     //   object
@@ -2082,7 +2088,7 @@ interface Vec4Function {
     (x: Scalar, y: Scalar, zw: Node<"vec2"> | Vector2): VarNode<"vec4", JoinNode<"vec4">>;
     (xy: Node<"vec2"> | Vector2, zw: Node<"vec2"> | Vector2): VarNode<"vec4", JoinNode<"vec4">>;
     (xy: Node<"vec2"> | Vector2, z: Scalar, w: Scalar): VarNode<"vec4", JoinNode<"vec4">>;
-    (xyz: Node<"vec3"> | Node<"color"> | Vector3 | Color, w: Scalar): VarNode<"vec4", JoinNode<"vec4">>;
+    (xyz: Node<"vec3"> | Node<"color"> | Vector3 | Color | Node<"vec4">, w: Scalar): VarNode<"vec4", JoinNode<"vec4">>;
     (x: Scalar, yzw: Node<"vec3"> | Node<"color"> | Vector3 | Color): VarNode<"vec4", JoinNode<"vec4">>;
 }
 
@@ -2354,9 +2360,6 @@ interface Mat4Function {
 
 export const mat4: Mat4Function;
 
-export const string: unknown;
-export const arrayBuffer: unknown;
-
 declare module "../core/Node.js" {
     interface ColorExtensions {
         toColor: () => VarNode<"color", ConvertNode<"color">>;
@@ -2398,14 +2401,18 @@ declare module "../core/Node.js" {
     }
 }
 
-export const element: (node: Node, indexNode: Node) => Node;
+export const element: <TNodeType>(node: ArrayNode<TNodeType>, indexNode: Node | number) => ArrayElementNode<TNodeType>;
 export const convert: (node: Node, types: string) => Node;
 export const split: (node: Node, channels?: string) => Node;
 
+declare module "../core/ArrayNode.js" {
+    interface ArrayNodeInterface<TNodeType> {
+        element: (indexNode: Node | number) => ArrayElementNode<TNodeType>;
+    }
+}
+
 declare module "../core/Node.js" {
     interface NodeElements {
-        element: (indexNode: Node) => Node;
-
         convert: (types: string) => Node;
     }
 }

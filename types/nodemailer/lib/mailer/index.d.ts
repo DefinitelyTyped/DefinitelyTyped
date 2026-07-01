@@ -27,8 +27,11 @@ declare namespace Mail {
 
     type TextEncoding = "quoted-printable" | "base64";
 
+    /** Most reliable way to represent an email address with optional name. Nodemailer handles all the escaping and formatting automatically, forming `Name <email>` strings. */
     interface Address {
-        name: string;
+        /** Name part of `Name <email>` address; if falsey, only the email address will be used */
+        name?: string | undefined;
+        /** Email part of `Name <email>` address; technically optional, but Nodemailer ignores address-less objects, so we require it to help prevent bugs. */
         address: string;
     }
 

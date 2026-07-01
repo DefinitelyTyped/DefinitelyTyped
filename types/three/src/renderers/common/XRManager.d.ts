@@ -9,9 +9,7 @@ import { Quaternion } from "../../math/Quaternion.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Mesh } from "../../objects/Mesh.js";
 import { XRGripSpace, XRHandSpace, XRTargetRaySpace } from "../webxr/WebXRController.js";
-import QuadMesh from "./QuadMesh.js";
 import Renderer from "./Renderer.js";
-import { XRRenderTarget } from "./XRRenderTarget.js";
 
 export interface XRManagerEventMap {
     sessionstart: {};
@@ -25,11 +23,11 @@ export interface LayerAttributes {
     stencil?: boolean | undefined;
 }
 
+interface XRGPUBinding {}
+
 /**
  * The XR manager is built on top of the WebXR Device API to
- * manage XR sessions with `WebGPURenderer`.
- *
- * XR is currently only supported with a WebGL 2 backend.
+ * manage XR sessions with renderer backends.
  *
  * @augments EventDispatcher
  */
@@ -64,291 +62,6 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
      */
     cameraAutoUpdate: boolean;
     /**
-     * The renderer.
-     *
-     * @private
-     * @type {Renderer}
-     */
-    private _renderer;
-    /**
-     * Represents the camera for the left eye.
-     *
-     * @private
-     * @type {PerspectiveCamera}
-     */
-    private _cameraL;
-    /**
-     * Represents the camera for the right eye.
-     *
-     * @private
-     * @type {PerspectiveCamera}
-     */
-    private _cameraR;
-    /**
-     * A list of cameras used for rendering the XR views.
-     *
-     * @private
-     * @type {Array<Camera>}
-     */
-    private _cameras;
-    /**
-     * The main XR camera.
-     *
-     * @private
-     * @type {ArrayCamera}
-     */
-    private _cameraXR;
-    /**
-     * The current near value of the XR camera.
-     *
-     * @private
-     * @type {?number}
-     * @default null
-     */
-    private _currentDepthNear;
-    /**
-     * The current far value of the XR camera.
-     *
-     * @private
-     * @type {?number}
-     * @default null
-     */
-    private _currentDepthFar;
-    /**
-     * A list of WebXR controllers requested by the application.
-     *
-     * @private
-     * @type {Array<WebXRController>}
-     */
-    private _controllers;
-    /**
-     * A list of XR input source. Each input source belongs to
-     * an instance of WebXRController.
-     *
-     * @private
-     * @type {Array<XRInputSource?>}
-     */
-    private _controllerInputSources;
-    /**
-     * The XR render target that represents the rendering destination
-     * during an active XR session.
-     *
-     * @private
-     * @type {?RenderTarget}
-     * @default null
-     */
-    private _xrRenderTarget;
-    /**
-     * An array holding all the non-projection layers
-     *
-     * @private
-     * @type {Array<Object>}
-     * @default []
-     */
-    private _layers;
-    /**
-     * Whether the XR session uses layers.
-     *
-     * @private
-     * @type {boolean}
-     * @default false
-     */
-    private _sessionUsesLayers;
-    /**
-     * Whether the device supports binding gl objects.
-     *
-     * @private
-     * @type {boolean}
-     * @readonly
-     */
-    private readonly _supportsGlBinding;
-    /**
-     * Helper function to create native WebXR Layer.
-     *
-     * @private
-     * @type {Function}
-     */
-    private _createXRLayer;
-    /**
-     * The current WebGL context.
-     *
-     * @private
-     * @type {?WebGL2RenderingContext}
-     * @default null
-     */
-    private _gl;
-    /**
-     * The current animation context.
-     *
-     * @private
-     * @type {?Window}
-     * @default null
-     */
-    private _currentAnimationContext;
-    /**
-     * The current animation loop.
-     *
-     * @private
-     * @type {?Function}
-     * @default null
-     */
-    private _currentAnimationLoop;
-    /**
-     * The current pixel ratio.
-     *
-     * @private
-     * @type {?number}
-     * @default null
-     */
-    private _currentPixelRatio;
-    /**
-     * The current size of the renderer's canvas
-     * in logical pixel unit.
-     *
-     * @private
-     * @type {Vector2}
-     */
-    private _currentSize;
-    /**
-     * The default event listener for handling events inside a XR session.
-     *
-     * @private
-     * @type {Function}
-     */
-    private _onSessionEvent;
-    /**
-     * The event listener for handling the end of a XR session.
-     *
-     * @private
-     * @type {Function}
-     */
-    private _onSessionEnd;
-    /**
-     * The event listener for handling the `inputsourceschange` event.
-     *
-     * @private
-     * @type {Function}
-     */
-    private _onInputSourcesChange;
-    /**
-     * The animation loop which is used as a replacement for the default
-     * animation loop of the application. It is only used when a XR session
-     * is active.
-     *
-     * @private
-     * @type {Function}
-     */
-    private _onAnimationFrame;
-    /**
-     * The current XR reference space.
-     *
-     * @private
-     * @type {?XRReferenceSpace}
-     * @default null
-     */
-    private _referenceSpace;
-    /**
-     * The current XR reference space type.
-     *
-     * @private
-     * @type {XRReferenceSpaceType}
-     * @default 'local-floor'
-     */
-    private _referenceSpaceType;
-    /**
-     * A custom reference space defined by the application.
-     *
-     * @private
-     * @type {?XRReferenceSpace}
-     * @default null
-     */
-    private _customReferenceSpace;
-    /**
-     * The framebuffer scale factor.
-     *
-     * @private
-     * @type {number}
-     * @default 1
-     */
-    private _framebufferScaleFactor;
-    /**
-     * The foveation factor.
-     *
-     * @private
-     * @type {number}
-     * @default 1
-     */
-    private _foveation;
-    /**
-     * A reference to the current XR session.
-     *
-     * @private
-     * @type {?XRSession}
-     * @default null
-     */
-    private _session;
-    /**
-     * A reference to the current XR base layer.
-     *
-     * @private
-     * @type {?XRWebGLLayer}
-     * @default null
-     */
-    private _glBaseLayer;
-    /**
-     * A reference to the current XR binding.
-     *
-     * @private
-     * @type {?XRWebGLBinding}
-     * @default null
-     */
-    private _glBinding;
-    /**
-     * A reference to the current XR projection layer.
-     *
-     * @private
-     * @type {?XRProjectionLayer}
-     * @default null
-     */
-    private _glProjLayer;
-    /**
-     * A reference to the current XR frame.
-     *
-     * @private
-     * @type {?XRFrame}
-     * @default null
-     */
-    private _xrFrame;
-    /**
-     * Whether the browser supports the APIs necessary to use XRProjectionLayers.
-     *
-     * Note: this does not represent XRSession explicitly requesting
-     * `'layers'` as a feature - see `_sessionUsesLayers` and #30112
-     *
-     * @private
-     * @type {boolean}
-     * @readonly
-     */
-    private readonly _supportsLayers;
-    /**
-     * Whether the usage of multiview has been requested by the application or not.
-     *
-     * @private
-     * @type {boolean}
-     * @default false
-     * @readonly
-     */
-    private readonly _useMultiviewIfPossible;
-    /**
-     * Whether the usage of multiview is actually enabled. This flag only evaluates to `true`
-     * if multiview has been requested by the application and the `OVR_multiview2` is available.
-     *
-     * @private
-     * @type {boolean}
-     * @readonly
-     */
-    private readonly _useMultiview;
-    /**
      * Returns an instance of `THREE.Group` that represents the transformation
      * of a XR controller in target ray space. The requested controller is defined
      * by the given index.
@@ -378,7 +91,7 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
     /**
      * Returns the foveation value.
      *
-     * @return {number|undefined} The foveation value. Returns `undefined` if no base or projection layer is defined.
+     * @return {number|undefined} The foveation value.
      */
     getFoveation(): number | undefined;
     /**
@@ -441,6 +154,15 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
      */
     getEnvironmentBlendMode(): XREnvironmentBlendMode | undefined;
     /**
+     * Returns the current base layer.
+     *
+     * This is an `XRProjectionLayer` when the targeted XR device supports the
+     * WebXR Layers API, or an `XRWebGLLayer` otherwise.
+     *
+     * @return {?(XRWebGLLayer|XRProjectionLayer)} The XR base layer.
+     */
+    getBaseLayer(): (XRWebGLLayer | XRProjectionLayer) | null;
+    /**
      * Returns the current XR binding.
      *
      * Creates a new binding if needed and the browser is
@@ -449,6 +171,25 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
      * @return {?XRWebGLBinding} The XR binding. Returns `null` if one cannot be created.
      */
     getBinding(): XRWebGLBinding | null;
+    /**
+     * Applies WebXR fixed foveation to the internal post-processing render target
+     * used by the first XR render pass before compositing into a projection layer.
+     *
+     * Browser-side `XRWebGLBinding.foveateBoundTexture()` failures are treated as
+     * non-fatal so they do not interrupt rendering.
+     *
+     * @param {RenderTarget} renderTarget - The internal render target.
+     */
+    foveateBoundTexture(renderTarget: RenderTarget): void;
+    /**
+     * Returns the current XR WebGPU binding.
+     *
+     * Creates a new binding if needed and the browser is
+     * capable of doing so.
+     *
+     * @return {?XRGPUBinding} The XR WebGPU binding. Returns `null` if one cannot be created.
+     */
+    getWebGPUBinding(): XRGPUBinding | null;
     /**
      * Returns the current XR frame.
      *
@@ -544,14 +285,6 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
      * @param {PerspectiveCamera} camera - The camera.
      */
     updateCamera(camera: PerspectiveCamera): void;
-    /**
-     * Returns a WebXR controller for the given controller index.
-     *
-     * @private
-     * @param {number} index - The controller index.
-     * @return {WebXRController} The XR controller.
-     */
-    private _getController;
 }
 
 export default XRManager;

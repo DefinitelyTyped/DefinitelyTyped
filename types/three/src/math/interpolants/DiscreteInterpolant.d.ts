@@ -1,7 +1,12 @@
+import { TypedArray } from "../../core/BufferAttribute.js";
 import { Interpolant } from "../Interpolant.js";
 
+/**
+ * Interpolant that evaluates to the sample value at the position preceding
+ * the parameter.
+ *
+ * @augments Interpolant
+ */
 export class DiscreteInterpolant extends Interpolant {
-    constructor(parameterPositions: any, samplesValues: any, sampleSize: number, resultBuffer?: any);
-
-    interpolate_(i1: number, t0: number, t: number, t1: number): any;
+    interpolate_(i1: number): TypedArray;
 }

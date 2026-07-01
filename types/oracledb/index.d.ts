@@ -1,4 +1,5 @@
 /// <reference types="node" />
+/// <reference lib="esnext.disposable" />
 
 import { Duplex, Readable } from "stream";
 
@@ -658,7 +659,7 @@ declare namespace OracleDB {
      *
      * For non-CLOB types, the conversion to string is handled by Oracle client libraries and is often referred to as defining the fetch type.
      */
-    let fetchAsString: Array<typeof DATE | typeof NUMBER | typeof BUFFER | typeof CLOB>;
+    let fetchAsString: Array<typeof DATE | typeof NUMBER | typeof BUFFER | typeof CLOB | typeof NCLOB>;
     /**
      * Converter can be used with fetch type handlers to change the returned data.
      * If the value returned by the fetch type handler function is undefined then no conversion takes place.
@@ -916,6 +917,17 @@ declare namespace OracleDB {
      */
     let thin: boolean;
     /**
+     * This property is a boolean that determines whether connect strings in
+     * node-oracledb Thick mode are passed unchanged to Oracle Client libraries
+     * or parsed by node-oracledb.
+     *
+     * If we are using this property, it must be be set before creating the first standalone connection or pool.
+     *
+     * @default true
+     * @since 7.0
+     */
+    let thickModeDSNPassthrough: boolean;
+    /**
      * This readonly property gives a numeric representation of the node-oracledb version.
      * For version x.y.z, this property gives the number: (10000 * x) + (100 * y) + z
      */
@@ -999,7 +1011,10 @@ declare namespace OracleDB {
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/connection.html#executebindparams
      */
     type BindParameters =
-        | Record<string, BindParameter | string | number | bigint | Date | DBObject_IN<any> | Buffer | null | undefined>
+        | Record<
+            string,
+            BindParameter | string | number | bigint | boolean | Date | DBObject_IN<any> | Buffer | null | undefined
+        >
         | BindParameter[]
         | any[];
 
@@ -1044,6 +1059,77 @@ declare namespace OracleDB {
          * @default false
          */
         deferRoundTrip?: boolean;
+    }
+
+    /**
+     * Configuration options used to create an EndUserSecurityContext object.
+     *
+     * Use either endUserToken, or the endUserName/key combination.
+     *
+     * @since 7.0
+     */
+    interface BaseEndUserSecurityContextOptions {
+        /**
+         * A security token issued by an external Identity and Access Management (IAM)
+         * system that authorizes access to Oracle Database.
+         */
+        databaseAccessToken: string;
+        /**
+         * The names of data roles granted to the application or local database user.
+         */
+        dataRoles?: string[] | undefined;
+        /**
+         * The attribute-value pairs provided by the application.
+         */
+        attributes?: Record<string, any> | undefined;
+    }
+
+    type EndUserSecurityContextOptions =
+        | (BaseEndUserSecurityContextOptions & {
+            /**
+             * The unique identification of an end user managed by an external IAM system.
+             */
+            endUserToken: string;
+            /**
+             * The unique identification of an end user managed by Oracle Database.
+             *
+             * This attribute should not be set when `endUserToken` is specified.
+             */
+            endUserName?: never;
+            /**
+             * The lookup identifier that the database maps to stored context attributes.
+             *
+             * This attribute should not be set when `endUserToken` is specified.
+             */
+            key?: never;
+        })
+        | (BaseEndUserSecurityContextOptions & {
+            /**
+             * The unique identification of an end user managed by an external IAM system.
+             *
+             * This attribute should not be set when `endUserName` is specified.
+             */
+            endUserToken?: never;
+            /**
+             * The unique identification of an end user managed by Oracle Database.
+             */
+            endUserName: string;
+            /**
+             * The lookup identifier that the database maps to stored context attributes.
+             * This is required when `endUserName` is set.
+             */
+            key: string;
+        });
+
+    /**
+     * Defines end user security context information for an end user.
+     *
+     * In this release, Deep Data Security is only supported in node-oracledb Thin mode.
+     *
+     * @since 7.0
+     */
+    class EndUserSecurityContext {
+        constructor(options: EndUserSecurityContextOptions);
     }
 
     interface Connection {
@@ -1151,6 +1237,16 @@ declare namespace OracleDB {
          */
         dbOp?: string | undefined;
         /**
+         * This read-only property is a string that identifies a globally
+         * unique name for the database. This property returns the same value
+         * as the SQL expression:
+         * SELECT UPPER(SYS_CONTEXT('USERENV', 'DB_UNIQUE_NAME')) FROM DUAL;
+         * Available only in node-oracledb Thin mode.
+         *
+         * @since 7.0
+         */
+        readonly dbUniqueName?: string | undefined;
+        /**
          * This write-only property is a string that sets the execution context identifier.
          * The value is available in the ECID column of the V$SESSION view. It is also shown in audit logs.
          * Note: This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
@@ -1217,6 +1313,15 @@ declare namespace OracleDB {
          * @since 2.2
          */
         readonly oracleServerVersionString: string;
+        /**
+         * This read-only property is a string that identifies the name of the
+         * pluggable database associated with the connection. This property
+         * returns the same value as the SQL expression:
+         * SELECT UPPER(SYS_CONTEXT('USERENV', 'CON_NAME')) FROM DUAL;
+         *
+         * @since 7.0
+         */
+        readonly pdbName?: string | undefined;
         /**
          * This read-only property identifies the port to which the client is connected.
          * Available only in node-oracledb Thin mode.
@@ -1297,6 +1402,19 @@ declare namespace OracleDB {
          */
         readonly warning?: DBError | undefined;
         /**
+         * This synchronous method sets application context key-value pairs for
+         * the given namespace.
+         *
+         * The namespace "CLIENTCONTEXT" is reserved for client
+         * session-based application contexts.
+         *
+         * @param namespaceName The application context namespace.
+         * @param keyValues The key-value entries to set.
+         *
+         * @since 7.0
+         */
+        appContext(namespaceName: string, keyValues: AppContextKeyValue[]): void;
+        /**
          * Begins a new sessionless transaction using the specified transaction identifier.
          * This method returns the transaction identifier specified by the user or generated by node-oracledb as a Buffer value.
          *
@@ -1341,6 +1459,28 @@ declare namespace OracleDB {
             newPassword: string,
             callback: (error: DBError | null) => void,
         ): void;
+        /**
+         * This synchronous method clears all application context key-value
+         * pairs for the given namespace.
+         *
+         * @param namespaceName The application context namespace.
+         *
+         * @since 7.0
+         */
+        clearAppContext(namespaceName: string): void;
+
+        /**
+         * This synchronous method clears the end user security context specified
+         * on a connection.
+         *
+         * This reverts the connection to its original state in which subsequent
+         * database operations are executed without any end user security context.
+         *
+         * Currently, this method is only relevant in node-oracledb Thin mode.
+         *
+         * @since 7.0
+         */
+        clearEndUserSecurityContext(): void;
 
         /**
          * Releases a connection.
@@ -1363,6 +1503,16 @@ declare namespace OracleDB {
         close(): Promise<void>;
         close(options: CloseConnectionOptions, callback: (error: DBError | null) => void): void;
         close(callback: (error: DBError | null) => void): void;
+
+        /**
+         * Implements Explicit Resource Management. Equivalent to calling
+         * connection.close().
+         *
+         * Requires Node.js 24.
+         *
+         * @since 7.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
 
         /**
          * This call commits the current transaction in progress on the connection.
@@ -1399,6 +1549,49 @@ declare namespace OracleDB {
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/json_data_type.html#osontype
          */
         decodeOSON(buf: Buffer): any;
+
+        /**
+         * Performs a direct path load into the specified table.
+         *
+         * This method can only be used in node-oracledb Thin mode.
+         * It is not supported for BFILE data.
+         *
+         * @param schema The name of the database schema.
+         * @param table The name of the table into which data is to be loaded.
+         * @param columns The names of the columns to be populated.
+         * @param data The data to be loaded.
+         *
+         * @since 7.0
+         */
+        directPathLoad(
+            schema: string,
+            table: string,
+            columns: DirectPathLoadColumns,
+            data: DirectPathLoadData,
+        ): Promise<void>;
+        /**
+         * Performs a direct path load into the specified table.
+         *
+         * This method can only be used in node-oracledb Thin mode.
+         * It is not supported for BFILE data.
+         *
+         * @param schema The name of the database schema.
+         * @param table The name of the table into which data is to be loaded.
+         * @param columns The names of the columns to be populated.
+         * @param data The data to be loaded.
+         * @param callback If directPathLoad() succeeds, error is NULL.
+         * If an error occurs, error contains the error message.
+         *
+         * @since 7.0
+         */
+        directPathLoad(
+            schema: string,
+            table: string,
+            columns: DirectPathLoadColumns,
+            data: DirectPathLoadData,
+            callback: (error: DBError | null) => void,
+        ): void;
+
         /**
          * This synchronous method encodes a JavaScript value to OSON bytes and returns a Buffer. This method is useful for inserting OSON bytes directly into BLOB columns that have the check constraint IS JSON FORMAT OSON enabled.
          *
@@ -1699,6 +1892,84 @@ declare namespace OracleDB {
         rollback(callback: (error: DBError | null) => void): void;
 
         /**
+         * Runs all of the operations in a pipeline and returns an array of
+         * results, each entry corresponding to an operation executed in the
+         * pipeline.
+         *
+         * True pipelining requires Oracle AI Database 26ai (or later) in Thin
+         * mode. In Thick mode or older database versions, operations are
+         * executed sequentially.
+         *
+         * @param pipeline The pipeline to be run.
+         * @param continueOnError Determines whether operations should continue
+         * to run after an error has occurred.
+         * If true, errors are stored as a corresponding pipeline operation result.
+         * If false, an error is raised as soon as it occurs and subsequent
+         * operations are terminated.
+         * Default is false.
+         *
+         * @since 7.0
+         */
+        runPipeline(
+            pipeline: Pipeline,
+            continueOnError?: boolean,
+        ): Promise<PipelineOperationResult[]>;
+        /**
+         * Runs all of the operations in a pipeline and invokes the callback with
+         * the results.
+         *
+         * True pipelining requires Oracle AI Database 26ai (or later) in Thin
+         * mode. In Thick mode or older database versions, operations are
+         * executed sequentially.
+         *
+         * @param pipeline The pipeline to be run.
+         * @param continueOnError Determines whether operations should continue
+         * to run after an error has occurred.
+         * @param callback Callback where error is NULL on success, otherwise
+         * contains the error message; results is the array that contains the
+         * results of the executed pipeline operations.
+         *
+         * @since 7.0
+         */
+        runPipeline(
+            pipeline: Pipeline,
+            continueOnError: boolean,
+            callback: ResultCallback<PipelineOperationResult[]>,
+        ): void;
+        /**
+         * Runs all of the operations in a pipeline and invokes the callback with
+         * the results.
+         *
+         * True pipelining requires Oracle AI Database 26ai (or later) in Thin
+         * mode. In Thick mode or older database versions, operations are
+         * executed sequentially.
+         *
+         * @param pipeline The pipeline to be run.
+         * @param callback Callback where error is NULL on success, otherwise
+         * contains the error message; results is the array that contains the
+         * results of the executed pipeline operations.
+         *
+         * @since 7.0
+         */
+        runPipeline(
+            pipeline: Pipeline,
+            callback: ResultCallback<PipelineOperationResult[]>,
+        ): void;
+
+        /**
+         * This synchronous method sets the end user security context on a connection
+         * using the specified context.
+         *
+         * Once this method is called, the specified end user security context is
+         * applicable to all database operations performed in the connection.
+         *
+         * Currently, this method is only relevant to node-oracledb Thin mode.
+         *
+         * @since 7.0
+         */
+        setEndUserSecurityContext(context: EndUserSecurityContext): void;
+
+        /**
          * Used to shut down a database instance. This is the flexible version of oracledb.shutdown(), allowing more control over behavior.
          *
          * This method must be called twice. The first call blocks new connections. SQL statements such as await ALTER DATABASE CLOSE NORMAL
@@ -1947,6 +2218,15 @@ declare namespace OracleDB {
         profile: string;
         configFileLocation: string;
     }
+    /**
+     * A key-value entry used by connection.appContext().
+     * Each entry should represent one context attribute assignment.
+     */
+    type AppContextKeyValue = Record<string, string>;
+    /**
+     * An application context entry used when creating a connection or pool.
+     * Each tuple contains the namespace, name, and value strings.
+     */
     type AppContextOpts = [string, string, string];
     /**
      * Provides connection credentials and connection-specific configuration properties.
@@ -2347,6 +2627,240 @@ declare namespace OracleDB {
         stack?: string;
     }
 
+    /**
+     * The names of table columns populated by directPathLoad().
+     * Each entry corresponds to a target column in the destination table.
+     *
+     * @since 7.0
+     */
+    type DirectPathLoadColumns = Array<string>;
+
+    /**
+     * Data supplied to directPathLoad().
+     * This is an array of rows, where each row is an array of column values.
+     *
+     * @since 7.0
+     */
+    type DirectPathLoadData = Array<Array<any>>;
+
+    /**
+     * Bind values supplied to pipeline operations.
+     * This can be an object for bind-by-name or an array for bind-by-position.
+     *
+     * @since 7.0
+     */
+    type PipelineBindParameters = BindParameters;
+    /**
+     * Bind values supplied to pipeline addExecuteMany().
+     * This should be an array of bind-by-name objects or bind-by-position
+     * arrays.
+     *
+     * @since 7.0
+     */
+    type PipelineExecuteManyBindParameters = BindParameters[];
+
+    /**
+     * Options supported in pipeline addExecute(), addFetchAll(),
+     * addFetchMany(), and addFetchOne().
+     *
+     * @since 7.0
+     */
+    interface PipelineExecuteOptions {
+        /**
+         * Determines whether a commit occurs at the end of statement execution.
+         */
+        autoCommit?: boolean | undefined;
+        /**
+         * The size of the internal buffer used for fetching query rows.
+         */
+        fetchArraySize?: number | undefined;
+        /**
+         * The maximum number of rows that are fetched from a query.
+         */
+        maxRows?: number | undefined;
+        /**
+         * The format of query rows, such as OUT_FORMAT_ARRAY or
+         * OUT_FORMAT_OBJECT.
+         */
+        outFormat?: number | undefined;
+        /**
+         * The number of rows prefetched from Oracle Database.
+         */
+        prefetchRows?: number | undefined;
+    }
+
+    /**
+     * Options supported in pipeline addExecuteMany().
+     *
+     * @since 7.0
+     */
+    interface PipelineExecuteManyOptions extends PipelineExecuteOptions {
+        /**
+         * Bind variable definitions for array DML operations.
+         */
+        bindDefs?: Record<string, BindDefinition> | BindDefinition[] | undefined;
+    }
+
+    /**
+     * Result object for each pipeline operation.
+     *
+     * @since 7.0
+     */
+    interface PipelineOperationResult {
+        /**
+         * Defined if the statement executed in the operation returned implicit
+         * results.
+         */
+        implicitResults?: any[] | undefined;
+        /**
+         * Error encountered when running the operation.
+         * Only available if continueOnError is true.
+         */
+        error?: DBError | undefined;
+        /**
+         * ROWID of a row affected by DML.
+         * If multiple rows were affected, this is the last ROWID.
+         */
+        lastRowid?: string | undefined;
+        /**
+         * Array describing each column in a query executed by the operation.
+         */
+        metaData?: Array<Metadata<any>> | undefined;
+        /**
+         * Array or object containing output values of OUT and IN OUT binds used
+         * in an operation.
+         */
+        outBinds?: Record<string, any> | any[] | undefined;
+        /**
+         * Array containing the rows fetched by the operation, if a query was
+         * executed.
+         */
+        rows?: any[] | undefined;
+        /**
+         * Number of rows affected by the operation.
+         */
+        rowsAffected?: number | undefined;
+        /**
+         * Warning encountered when running the operation.
+         */
+        warning?: DBError | undefined;
+    }
+
+    /**
+     * Pipeline objects represent a list of operations to be executed by
+     * connection.runPipeline().
+     *
+     * @since 7.0
+     */
+    class Pipeline {
+        constructor();
+        /**
+         * Adds a commit operation to the pipeline.
+         */
+        addCommit(): void;
+        /**
+         * Adds an execute operation to the pipeline.
+         *
+         * @param statement The SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         */
+        addExecute(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+        ): void;
+        /**
+         * Adds an executeMany operation to the pipeline.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement. It must be an array of arrays (for bind by position) or an
+         * array of objects whose keys match the bind variable names in the SQL
+         * statement (for bind by name).
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         */
+        addExecuteMany(
+            statement: string,
+            parameters: PipelineExecuteManyBindParameters,
+            options?: PipelineExecuteManyOptions,
+        ): void;
+        /**
+         * Adds an executeMany operation to the pipeline with a specified number
+         * of iterations when using previously-bound values.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param numIterations The number of iterations.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         */
+        addExecuteMany(
+            statement: string,
+            numIterations: number,
+            options?: PipelineExecuteManyOptions,
+        ): void;
+        /**
+         * Adds a fetch operation to the pipeline that returns all rows.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         * @param fetchArraySize The size of an internal buffer used for fetching
+         * query rows from Oracle Database.
+         * @param fetchLobs Determines whether to return LOB objects, or string or
+         * buffer values when fetching LOB columns. Default is true.
+         */
+        addFetchAll(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+            fetchArraySize?: number,
+            fetchLobs?: boolean,
+        ): void;
+        /**
+         * Adds a fetch operation to the pipeline that returns up to numRows rows.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         * @param numRows The number of rows to be fetched.
+         * Default is the value of oracledb.fetchArraySize.
+         * @param fetchLobs Determines whether to return LOB objects, or string or
+         * buffer values when fetching LOB columns. Default is true.
+         */
+        addFetchMany(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+            numRows?: number,
+            fetchLobs?: boolean,
+        ): void;
+        /**
+         * Adds a fetch operation to the pipeline that returns at most one row.
+         *
+         * @param statement The SQL or PL/SQL statement to be executed.
+         * @param parameters The values or variables to be bound to the executed
+         * statement.
+         * @param options Optional parameter that may be used to control statement
+         * execution.
+         * @param fetchLobs Determines whether to return LOB objects, or string or
+         * buffer values when fetching LOB columns. Default is true.
+         */
+        addFetchOne(
+            statement: string,
+            parameters?: PipelineBindParameters,
+            options?: PipelineExecuteOptions,
+            fetchLobs?: boolean,
+        ): void;
+    }
+
     // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
     type ResultCallback<T> = (...args: [DBError] | [null, T]) => void;
 
@@ -2669,6 +3183,19 @@ declare namespace OracleDB {
             amount: number,
             callback: ResultCallback<string | Buffer>,
         ): void;
+        /**
+         * Trims the non-BFILE LOB to the specified size.
+         *
+         * If newSize is omitted, the LOB is trimmed to size 0.
+         * Values greater than or equal to 2^32 are not supported.
+         *
+         * @param newSize The size to which the LOB is to be trimmed.
+         *
+         * @since 7.0
+         */
+        trim(newSize?: number): Promise<void>;
+        trim(callback: (error: DBError | null) => void): void;
+        trim(newSize: number, callback: (error: DBError | null) => void): void;
     }
 
     /**
@@ -2887,6 +3414,16 @@ declare namespace OracleDB {
         close(drainTime?: number): Promise<void>;
         close(drainTime: number, callback: (error: DBError | null) => void): void;
         close(callback: (error: DBError | null) => void): void;
+
+        /**
+         * Implements Explicit Resource Management. Equivalent to calling
+         * pool.close().
+         *
+         * Requires Node.js 24.
+         *
+         * @since 7.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
 
         /**
          * This method obtains a connection from the connection pool.
@@ -3844,9 +4381,8 @@ declare namespace OracleDB {
          */
         rows?: T[] | undefined;
         /**
-         * For DML statements (including SELECT FOR UPDATE) this contains the number of rows affected,
-         * for example the number of rows inserted. For non-DML statements such as queries and PL/SQL statements,
-         * rowsAffected is undefined.
+         * For DML statements this contains the number of rows affected, for example the number of rows inserted.
+         * For non-DML statements such as queries and PL/SQL statements, rowsAffected is undefined.
          */
         rowsAffected?: number | undefined;
         /**
@@ -3932,6 +4468,16 @@ declare namespace OracleDB {
          */
         close(): Promise<void>;
         close(callback: (error: DBError | null) => void): void;
+
+        /**
+         * Implements Explicit Resource Management. Equivalent to calling
+         * resultSet.close().
+         *
+         * Requires Node.js 24.
+         *
+         * @since 7.0
+         */
+        [Symbol.asyncDispose](): Promise<void>;
 
         /**
          * This call fetches one row of the ResultSet as an object or an array of column values,
@@ -4995,6 +5541,61 @@ declare namespace OracleDB {
     }
 
     /**
+     * This synchronous method returns the input value as a string that can safely
+     * be included in a SQL statement as a string literal.
+     *
+     * Embedded single quote characters are doubled.
+     * Non-string values fail standard parameter validation.
+     *
+     * @param value The value to be converted to a SQL string literal.
+     * @since 7.0
+     */
+    function enquoteLiteral(value: string): string;
+
+    /**
+     * This synchronous method returns the input string enclosed in double quotes
+     * so it can be included in a SQL statement as an identifier.
+     *
+     * The default value of capitalize is `true`, so the input is converted to
+     * uppercase using locale-independent Unicode rules before quoting.
+     * Set capitalize to `false` to preserve case.
+     * Any input containing a double quote character is rejected.
+     *
+     * Uppercasing is done in the Node.js client and can differ from Oracle
+     * Database `DBMS_ASSERT.ENQUOTE_NAME()` behavior for some characters.
+     *
+     * @param name The string to be quoted for identifier use.
+     * @param capitalize Indicates whether the input string is converted to uppercase before quoting. The default is `true`.
+     * @since 7.0
+     */
+    function enquoteName(name: string, capitalize?: boolean): string;
+
+    /**
+     * This synchronous method returns whether the input string is a qualified SQL name.
+     *
+     * Leading and trailing whitespace is ignored. Components may be separated
+     * by dots, and one optional trailing '@' database link name is allowed.
+     * The database link name can itself be dotted.
+     * Invalid SQL name strings return `false`.
+     *
+     * @param name The string to be validated.
+     * @since 7.0
+     */
+    function isQualifiedSqlName(name: string): boolean;
+
+    /**
+     * This synchronous method returns whether the input string is a simple SQL name.
+     *
+     * Leading and trailing whitespace is ignored.
+     * Valid names are either unquoted identifiers that begin with a Unicode letter and then use Unicode letters, Unicode combining marks, Unicode digits, '_', '$', or '#', or quoted identifiers enclosed in double quotes with no embedded double quotes or the NUL character ('\u0000').
+     * Invalid SQL name strings return `false`.
+     *
+     * @param name The string to be validated.
+     * @since 7.0
+     */
+    function isSimpleSqlName(name: string): boolean;
+
+    /**
      * This method creates a pool of connections with the specified user name, password and connection string.
      * A pool is typically created once during application initialization.
      *
@@ -5263,6 +5864,60 @@ declare namespace OracleDB {
          * @param traceContext input/output trace context object.
          */
         onEndRoundTrip(traceContext: TraceContext): void;
+
+        /**
+         * Called when the pool expands by creating new connections.
+         * @param pool the pool instance.
+         */
+        onPoolExpand(pool: Pool): void;
+
+        /**
+         * Called when the pool shrinks by removing connections.
+         * @param pool the pool instance.
+         */
+        onPoolShrink(pool: Pool): void;
+
+        /**
+         * Called when a connection is acquired from the pool.
+         * @param pool the pool instance.
+         */
+        onPoolAcquire(pool: Pool): void;
+
+        /**
+         * Called when a connection is released back to the pool.
+         * @param pool the pool instance.
+         */
+        onPoolRelease(pool: Pool): void;
+
+        /**
+         * Called when a connection request is queued.
+         * @param pool the pool instance.
+         */
+        onPoolWait(pool: Pool): void;
+
+        /**
+         * Called when a queued connection request times out.
+         * @param pool the pool instance.
+         */
+        onPoolRequestTimeout(pool: Pool): void;
+
+        /**
+         * Called when a pool free connection is reused.
+         * @param pool the pool instance.
+         */
+        onPoolConnectionHit(pool: Pool): void;
+
+        /**
+         * Called when a new request is created for a connection.
+         * @param pool the pool instance.
+         */
+        onPoolConnectionMiss(pool: Pool): void;
+
+        /**
+         * Called when the pool is closed.
+         * @param pool the pool instance.
+         */
+        onPoolClose(pool: Pool): void;
     }
 
     /*

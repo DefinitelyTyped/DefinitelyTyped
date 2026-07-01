@@ -1301,7 +1301,7 @@ declare module "tls" {
      * It can be assigned any of the supported OpenSSL ciphers.
      * Defaults to the content of `crypto.constants.defaultCoreCipherList`, unless
      * changed using CLI options using `--tls-default-ciphers`.
-     * @since v19.8.0
+     * @since v0.11.3
      */
     let DEFAULT_CIPHERS: string;
     /**

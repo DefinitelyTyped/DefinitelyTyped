@@ -362,14 +362,21 @@ declare namespace OfficeRuntime {
   }
   /**
    * Provides information about what Requirement Sets are supported in current environment.
+   * 
+   * @deprecated This API returns inaccurate values when used on desktop applications. Use `Office.context.requirements.isSetSupported` instead.
    */
   const apiInformation: ApiInformation;
   /**
    * Interface that contains methods for checking API requirement-set support.
+   * 
+   * @deprecated This API returns inaccurate values when used on desktop applications. Use `Office.context.requirements.isSetSupported` instead.
    */
   interface ApiInformation {
     /**
      * Check if the specified requirement set is supported by the Office application.
+     * 
+     * @deprecated This API returns inaccurate values when used on desktop applications. Use `Office.context.requirements.isSetSupported` instead.
+     * 
      * @param name - Set name; e.g., "MatrixBindings".
      * @param minVersion - The minimum required version; e.g., "1.4".
      */

@@ -1,5 +1,11 @@
 import BaseComponent, { GetInstanceFactory, GetOrCreateInstanceFactory } from "./base-component";
 
+declare global {
+    interface JQuery {
+        toast: Toast.jQueryInterface;
+    }
+}
+
 declare class Toast extends BaseComponent {
     /**
      * Static method which allows you to get the toast instance associated

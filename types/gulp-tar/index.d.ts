@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
-import archiver = require("archiver");
+import type { ArchiverOptions } from "archiver";
 
 declare function gulpTar(
     filename: string,
-    options?: archiver.ArchiverOptions,
+    options?: ArchiverOptions,
 ): NodeJS.ReadableStream & NodeJS.WritableStream;
 
 export default gulpTar;
