@@ -1,10 +1,10 @@
-import ee = require("namespace-emitter");
+import createNamespaceEmitter = require("namespace-emitter");
 
 declare namespace console {
     function log(...args: unknown[]): void;
 }
 
-const emitter = ee();
+const emitter = createNamespaceEmitter();
 
 // readme
 

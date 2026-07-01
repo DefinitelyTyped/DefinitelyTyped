@@ -1,4 +1,4 @@
-declare namespace emitter {
+declare namespace createNamespaceEmitter {
     type Listener = (
         this: Listener & { event: string },
         arg1?: any,
@@ -67,6 +67,6 @@ declare namespace emitter {
  *   console.log('example event emitted')
  * })
  */
-declare function emitter(): emitter.Emitter;
+declare function createNamespaceEmitter(): createNamespaceEmitter.Emitter;
 
-export = emitter;
+export = createNamespaceEmitter;
