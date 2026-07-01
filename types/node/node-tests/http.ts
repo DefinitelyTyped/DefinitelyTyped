@@ -225,6 +225,8 @@ import * as url from "node:url";
     incoming.pause();
     incoming.resume();
 
+    incoming.signal; // $ExpectType AbortSignal
+
     // response
     const res: http.ServerResponse = new http.ServerResponse(incoming);
 

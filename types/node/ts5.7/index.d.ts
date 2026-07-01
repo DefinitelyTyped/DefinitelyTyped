@@ -68,6 +68,7 @@
 /// <reference path="../dns/promises.d.ts" />
 /// <reference path="../domain.d.ts" />
 /// <reference path="../events.d.ts" />
+/// <reference path="../ffi.d.ts" />
 /// <reference path="../fs.d.ts" />
 /// <reference path="../fs/promises.d.ts" />
 /// <reference path="../http.d.ts" />

@@ -1552,6 +1552,13 @@ import { promisify } from "node:util";
 }
 
 {
+    crypto.randomUUIDv7({});
+    crypto.randomUUIDv7({ disableEntropyCache: true });
+    crypto.randomUUIDv7({ disableEntropyCache: false });
+    crypto.randomUUIDv7();
+}
+
+{
     const cert = new crypto.X509Certificate("dummy");
     cert.ca; // $ExpectType boolean
     cert.fingerprint; // $ExpectType string
