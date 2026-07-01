@@ -23,6 +23,7 @@ declare namespace libphonenumber {
 
     export namespace PhoneNumber {
         export enum CountryCodeSource {
+            UNSPECIFIED = 0,
             FROM_NUMBER_WITH_PLUS_SIGN = 1,
             FROM_NUMBER_WITH_IDD = 5,
             FROM_NUMBER_WITHOUT_PLUS_SIGN = 10,
