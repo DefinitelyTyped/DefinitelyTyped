@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/node": "*",
-        "@types/through2": "*"
+        "@types/through2": "<5"
     },
     "devDependencies": {
         "@types/through2-concurrent": "workspace:."
