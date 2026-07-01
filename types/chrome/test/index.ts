@@ -2587,12 +2587,17 @@ async function testAlarms() {
         delayInMinutes: 1,
         periodInMinutes: 1,
         when: 1,
+        persistAcrossSessions: true,
     };
 
     chrome.alarms.create(alarmCreateInfo); // $ExpectType Promise<void>
     chrome.alarms.create("name", alarmCreateInfo); // $ExpectType Promise<void>
     chrome.alarms.create(alarmCreateInfo, () => {}); // $ExpectType void
     chrome.alarms.create("name", alarmCreateInfo, () => {}); // $ExpectType void
+    // @ts-expect-error Must set at least one of when, delayInMinutes, or periodInMinutes.
+    chrome.alarms.create("name", { persistAcrossSessions: true }, () => {});
+    // @ts-expect-error Cannot set both when and delayInMinutes.
+    chrome.alarms.create("name", { when: 1, delayInMinutes: 1 }, () => {});
     // @ts-expect-error
     chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
 
@@ -2601,6 +2606,7 @@ async function testAlarms() {
         alarm.name; // $ExpectType string
         alarm.periodInMinutes; // $ExpectType number | undefined
         alarm.scheduledTime; // $ExpectType number
+        alarm.persistAcrossSessions; // $ExpectType boolean
     });
     // @ts-expect-error
     chrome.alarms.getAll(() => {}).then(() => {});
@@ -2631,6 +2637,7 @@ async function testAlarms() {
         alarm.name; // $ExpectType string
         alarm.periodInMinutes; // $ExpectType number | undefined
         alarm.scheduledTime; // $ExpectType number
+        alarm.persistAcrossSessions; // $ExpectType boolean
     });
     chrome.alarms.get("name", (alarm) => { // $ExpectType void
         alarm; // $ExpectType Alarm | undefined
@@ -2638,6 +2645,7 @@ async function testAlarms() {
         alarm.name; // $ExpectType string
         alarm.periodInMinutes; // $ExpectType number | undefined
         alarm.scheduledTime; // $ExpectType number
+        alarm.persistAcrossSessions; // $ExpectType boolean
     });
     // @ts-expect-error
     chrome.alarms.get("name", () => {}).then(() => {});
@@ -2646,6 +2654,7 @@ async function testAlarms() {
         alarm.name; // $ExpectType string
         alarm.periodInMinutes; // $ExpectType number | undefined
         alarm.scheduledTime; // $ExpectType number
+        alarm.persistAcrossSessions; // $ExpectType boolean
     });
 }
 
