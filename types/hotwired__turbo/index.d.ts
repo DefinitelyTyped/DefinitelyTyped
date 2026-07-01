@@ -1,5 +1,5 @@
 export class FrameElement extends HTMLElement {
-    src: string;
+    src: string | null;
     disabled: boolean;
     loading: "eager" | "lazy";
     loaded: Promise<void>;
