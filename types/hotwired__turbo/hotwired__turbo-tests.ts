@@ -42,6 +42,11 @@ turboFrame.loading = "slow";
 
 turboFrame.reload().catch(console.error);
 
+// $ExpectType string | null
+turboFrame.src;
+turboFrame.src = "/messages";
+turboFrame.src = null;
+
 const turboStream = document.querySelector("turbo-stream")!;
 
 // $ExpectType StreamElement
