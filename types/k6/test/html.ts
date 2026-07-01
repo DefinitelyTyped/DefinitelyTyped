@@ -37,7 +37,7 @@ import {
 } from "k6/html";
 
 const handler = (index: number, element: Element) => {};
-const tester = (index: number, element: Element) => true;
+const tester = (index: number, element: Selection) => true;
 const mapper = (index: number, selection: Selection) => null;
 
 let selection: Selection;
