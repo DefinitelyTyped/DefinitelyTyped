@@ -1,5 +1,6 @@
 export class FrameElement extends HTMLElement {
     src: string | null;
+    refresh: "morph" | null;
     disabled: boolean;
     loading: "eager" | "lazy";
     loaded: Promise<void>;
