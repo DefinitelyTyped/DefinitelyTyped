@@ -1,6 +1,12 @@
-// eslint-disable-next-line @definitelytyped/no-relative-import-in-test
+/* eslint-disable @definitelytyped/no-relative-import-in-test */
 import fp = require("./fp");
 import _ = require("lodash");
+import conformsMod = require("./conforms");
+import stubArrayMod = require("./stubArray");
+import stubObjectMod = require("./stubObject");
+import stubStringMod = require("./stubString");
+import templateSettingsMod = require("./templateSettings");
+/* eslint-enable @definitelytyped/no-relative-import-in-test */
 
 import type {
     GetFieldType,
@@ -7834,4 +7840,13 @@ _.templateSettings; // $ExpectType TemplateSettings
     type B = GetFieldType<Exclude<Type, string>, 0>; // $ExpectType 'ArrVal' | 'ObjVal0' | undefined
     type C = GetFieldType<Type, 'A'>; // $ExpectType 'ObjValA' | undefined
     type D = GetFieldType<Type, 'length'>; // $ExpectType number | undefined
+}
+
+// Modular imports (lodash/<module>)
+{
+    conformsMod({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
+    stubArrayMod(); // $ExpectType any[]
+    stubObjectMod(); // $ExpectType any
+    stubStringMod(); // $ExpectType string
+    templateSettingsMod; // $ExpectType TemplateSettings
 }
