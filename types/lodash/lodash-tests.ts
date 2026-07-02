@@ -5,7 +5,6 @@ import conformsMod = require("./conforms");
 import stubArrayMod = require("./stubArray");
 import stubObjectMod = require("./stubObject");
 import stubStringMod = require("./stubString");
-import templateSettingsMod = require("./templateSettings");
 /* eslint-enable @definitelytyped/no-relative-import-in-test */
 
 import type {
@@ -7579,7 +7578,6 @@ fp.now(); // $ExpectType number
 }
 
 _.VERSION; // $ExpectType string
-_.templateSettings; // $ExpectType TemplateSettings
 
 // _.partial & _.partialRight
 {
@@ -7848,5 +7846,4 @@ _.templateSettings; // $ExpectType TemplateSettings
     stubArrayMod(); // $ExpectType any[]
     stubObjectMod(); // $ExpectType any
     stubStringMod(); // $ExpectType string
-    templateSettingsMod; // $ExpectType TemplateSettings
 }
