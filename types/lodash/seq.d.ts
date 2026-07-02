@@ -1,0 +1,32 @@
+import at = require("./wrapperAt");
+import chain = require("./chain");
+import commit = require("./commit");
+import lodash = require("./wrapperLodash");
+import next = require("./next");
+import plant = require("./plant");
+import reverse = require("./wrapperReverse");
+import tap = require("./tap");
+import thru = require("./thru");
+import toIterator = require("./toIterator");
+import toJSON = require("./toJSON");
+import value = require("./value");
+import valueOf = require("./valueOf");
+import wrapperChain = require("./wrapperChain");
+
+declare const seq: {
+    at: typeof at;
+    chain: typeof chain;
+    commit: typeof commit;
+    lodash: typeof lodash;
+    next: typeof next;
+    plant: typeof plant;
+    reverse: typeof reverse;
+    tap: typeof tap;
+    thru: typeof thru;
+    toIterator: typeof toIterator;
+    toJSON: typeof toJSON;
+    value: typeof value;
+    valueOf: typeof valueOf;
+    wrapperChain: typeof wrapperChain;
+};
+export = seq;

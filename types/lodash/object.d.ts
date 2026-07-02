@@ -1,0 +1,3 @@
+import _ = require("./index");
+declare const object: Pick<typeof _, "assign" | "assignIn" | "assignInWith" | "assignWith" | "at" | "create" | "defaults" | "defaultsDeep" | "entries" | "entriesIn" | "extend" | "extendWith" | "findKey" | "findLastKey" | "forIn" | "forInRight" | "forOwn" | "forOwnRight" | "functions" | "functionsIn" | "get" | "has" | "hasIn" | "invert" | "invertBy" | "invoke" | "keys" | "keysIn" | "mapKeys" | "mapValues" | "merge" | "mergeWith" | "omit" | "omitBy" | "pick" | "pickBy" | "result" | "set" | "setWith" | "toPairs" | "toPairsIn" | "transform" | "unset" | "update" | "updateWith" | "values" | "valuesIn">;
+export = object;
