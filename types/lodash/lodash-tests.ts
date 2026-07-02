@@ -7578,6 +7578,7 @@ fp.now(); // $ExpectType number
 }
 
 _.VERSION; // $ExpectType string
+_.templateSettings; // $ExpectType TemplateSettings
 
 // _.partial & _.partialRight
 {
