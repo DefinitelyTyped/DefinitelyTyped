@@ -47,6 +47,11 @@ turboFrame.src;
 turboFrame.src = "/messages";
 turboFrame.src = null;
 
+// $ExpectType "morph" | null
+turboFrame.refresh;
+turboFrame.refresh = "morph";
+turboFrame.refresh = null;
+
 const turboStream = document.querySelector("turbo-stream")!;
 
 // $ExpectType StreamElement
