@@ -50,9 +50,6 @@ declare namespace Fancytree {
          */
         applyPatch(patchList: NodePatch[]): JQueryPromise<unknown>;
 
-        /** [ext-dnd5] Cancel a currently active drag operation. */
-        cancelDrag(): void;
-
         /** [ext-clones] Replace a refKey with a new one. */
         changeRefKey(oldRefKey: string, newRefKey: string): void;
 
@@ -647,8 +644,8 @@ declare namespace Fancytree {
          */
         removeClass(className: string): void;
 
-        /** Replace this paging node with source result (inline data, a URL string, `$.ajax` options, or a promise). */
-        replaceWith(source: SourceData): JQueryPromise<unknown>;
+        /** (experimental) Replace this node with `source`. (Currently only available for paging nodes.) */
+        replaceWith(source: Exclude<SourceData, string>): JQueryPromise<unknown>;
 
         /** This method renders and updates all HTML markup that is required to display this node in its current state.
          *
@@ -1183,19 +1180,23 @@ declare namespace Fancytree {
         }
         /** Drop position relative to the target node, used by the `dnd` and `dnd5` extensions. */
         type HitMode = "over" | "before" | "after";
-        /**
-         * Event context passed as the second argument to the legacy `dnd`
-         * extension callbacks (`dragStart`, `dragEnter`, `dragOver`, `dragDrop`, ...).
-         */
+        /** Event data passed to the legacy `dnd` extension callbacks. */
         interface DragAndDropEventData extends BaseEventData {
-            /** The other node involved in the operation (the dragged source node in drop callbacks). */
-            otherNode: FancytreeNode;
+            /** The other node, e.g. the drag source if this is a drop event. `null` in `dragStart`/`dragStop`. */
+            otherNode: FancytreeNode | null;
             /** Drop position relative to the target node. */
             hitMode?: HitMode | undefined;
-            /** The jQuery UI `ui` object of the underlying draggable/droppable event. */
-            ui: JQueryUI.DroppableEventUIParam;
+            /** The `ui` object of the underlying jQuery UI draggable event. */
+            ui: JQueryUI.DraggableEventUIParams;
             /** The jQuery UI draggable widget instance. */
             draggable: JQueryUI.Draggable;
+        }
+        /** Data passed to the legacy `dnd` extension `initHelper` callback. */
+        interface InitHelperData {
+            node: FancytreeNode;
+            tree: Fancytree;
+            originalEvent: JQueryEventObject;
+            ui: { helper: JQuery };
         }
         /**
          * Define dnd-extension (legacy, jQuery UI based) options.
@@ -1225,7 +1226,7 @@ declare namespace Fancytree {
             /** Callback(sourceNode, data). */
             dragStop?: ((sourceNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
             /** Callback(sourceNode, data). */
-            initHelper?: ((sourceNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
+            initHelper?: ((sourceNode: FancytreeNode, data: InitHelperData) => void) | undefined;
             /** Callback(sourceNode, data). */
             updateHelper?: ((sourceNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
             /**
@@ -1235,10 +1236,12 @@ declare namespace Fancytree {
             dragEnter?:
                 | ((targetNode: FancytreeNode, data: DragAndDropEventData) => boolean | HitMode | HitMode[])
                 | undefined;
-            /** Callback(targetNode, data). */
-            dragOver?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
-            /** Callback(targetNode, data); return `false` to prevent autoExpand. */
-            dragExpand?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => boolean) | undefined;
+            /** Callback(targetNode, data), return false to reject the drop. */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            dragOver?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => boolean | void) | undefined;
+            /** Callback(targetNode, data), return false to prevent autoExpand. */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            dragExpand?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => boolean | void) | undefined;
             /** Callback(targetNode, data). */
             dragDrop?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
             /** Callback(targetNode, data). */
@@ -1255,12 +1258,8 @@ declare namespace Fancytree {
         interface Glyph {
             /** Icon set preset, e.g. "awesome3", "awesome4", "bootstrap3", or "material". */
             preset?: string | null | undefined;
-            /**
-             * Map of logical icon names (e.g. `expanderClosed`, `expanderOpen`, `expanderLazy`,
-             * `loading`, `checkbox`, `nodata`, `error`) to CSS class strings. The reserved key
-             * `_addClass` is appended to every generated icon.
-             */
-            map?: Record<string, string> | undefined;
+            /** Maps icon names (e.g. `expanderClosed`, `loading`, `checkbox`) to glyph definitions. */
+            map?: Record<string, GlyphMapEntry> | undefined;
             /**
              * Support misc options
              */
@@ -1381,6 +1380,14 @@ declare namespace Fancytree {
         unselectableStatus?: boolean | undefined;
     }
 
+    /** A glyph definition: a CSS class string or a `{ text | html, addClass }` object. */
+    type GlyphIcon =
+        | string
+        | { text?: string | undefined; html?: string | undefined; addClass?: string | undefined };
+
+    /** A `glyph.map` entry: a glyph definition or a callback returning one. */
+    type GlyphMapEntry = GlyphIcon | ((node: FancytreeNode, span: HTMLElement, type: string) => GlyphIcon);
+
     /** Node data, or a descriptor of how to load it: inline data, a URL string,
      * `$.ajax` options (with a required `url`), or a promise resolving to node data. */
     type SourceData =
@@ -1476,11 +1483,7 @@ declare namespace Fancytree {
          * Set the expander, checkbox, or node icon HTML (used by extensions to render glyph icons).
          * `icon` is either a CSS class string or an object describing the glyph.
          */
-        setSpanIcon(
-            span: HTMLElement,
-            baseClass: string,
-            icon: string | { text?: string; html?: string; addClass?: string },
-        ): void;
+        setSpanIcon(span: Element | JQuery, baseClass: string, icon: GlyphIcon): void;
 
         unescapeHtml(s: string): string;
 

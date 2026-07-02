@@ -302,16 +302,17 @@ const nodeIconTooltip: string = activeNode.iconTooltip;
 const nodeIcon: boolean | string = activeNode.icon;
 console.log(nodeSelected, nodeType, nodeIconTooltip, nodeIcon);
 
-// replaceWith accepts any documented source format (e.g. an ajax descriptor).
+// replaceWith accepts inline data, `$.ajax` options, or a promise — but not a URL string.
 if (node) {
     node.replaceWith({ url: "/api/page", cache: false });
+    node.replaceWith([{ title: "More" }]);
+    // @ts-expect-error -- plain URL strings are not supported
+    node.replaceWith("/api/page");
 }
-
-// [ext-dnd5] cancel an active drag.
-tree.cancelDrag();
 
 // FancytreeStatic.setSpanIcon
 $.ui.fancytree.setSpanIcon(activeNode.span, "fancytree-icon", "my-glyph");
+$.ui.fancytree.setSpanIcon($(activeNode.span), "fancytree-icon", { text: "folder", addClass: "material-icons" });
 
 // Legacy (jQuery UI based) `dnd` extension.
 const dndOptions: Fancytree.FancytreeOptions = {
@@ -322,16 +323,22 @@ const dndOptions: Fancytree.FancytreeOptions = {
         preventRecursiveMoves: true,
         focusOnClick: false,
         dragStart: (sourceNode, data) => {
-            console.log(sourceNode.title, data.otherNode, data.hitMode, data.ui, data.draggable);
+            console.log(sourceNode.title, data.otherNode, data.hitMode, data.ui.helper, data.draggable);
             return true;
         },
+        initHelper: (sourceNode, data) => {
+            data.ui.helper.addClass("my-drag-helper");
+        },
         dragEnter: (targetNode, data) => {
-            console.log(targetNode.key, data.otherNode.key);
+            console.log(targetNode.key, data.otherNode?.key);
             return ["over", "before"];
+        },
+        dragOver: (targetNode, data) => {
+            return data.otherNode !== null;
         },
         dragDrop: (targetNode, data) => {
             if (data.hitMode === "over") {
-                data.otherNode.moveTo(targetNode); // mode is optional; defaults to "child"
+                data.otherNode?.moveTo(targetNode); // mode is optional; defaults to "child"
             }
         },
         dragStop: (sourceNode, data) => {
@@ -347,11 +354,13 @@ const glyphOptions: Fancytree.FancytreeOptions = {
     glyph: {
         preset: "awesome4",
         map: {
+            _addClass: "fa",
             expanderClosed: "fa fa-caret-right",
             expanderOpen: "fa fa-caret-down",
-            loading: "fa fa-spinner fa-pulse",
+            loading: { html: "<span class='fa fa-spinner fa-pulse' />" },
+            checkbox: (glyphNode, span, type) => (glyphNode.isSelected() ? { text: "check_box" } : "fa-square-o"),
         },
     },
 };
-const loadingClass: string = glyphOptions.glyph!.map!.loading;
-console.log(glyphOptions, loadingClass);
+const loadingGlyph: Fancytree.GlyphMapEntry = glyphOptions.glyph!.map!.loading;
+console.log(glyphOptions, loadingGlyph);
