@@ -13,8 +13,8 @@ declare global {
      * Represents the options for requesting a file handle.
      */
     interface CrossOriginStorageRequestFileHandleOptions {
-        create?: boolean;
-        origins?: string[] | string;
+        create?: boolean | undefined;
+        origins?: string[] | string | undefined;
     }
 
     /**
