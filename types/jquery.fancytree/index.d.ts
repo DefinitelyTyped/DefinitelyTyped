@@ -300,7 +300,7 @@ declare namespace Fancytree {
         /** Folder nodes have different default icons and click behavior. Note: Also non-folders may have children. */
         folder: boolean;
         /** Icon of the tree node. */
-        icon: boolean | string;
+        icon: boolean | GlyphIcon;
         /** Description used as hover popup for the node's icon. @since 2.27 */
         iconTooltip: string;
         /** null or type of temporarily generated system node like 'loading', or 'error'. */
@@ -991,7 +991,7 @@ declare namespace Fancytree {
         /** Add `id="..."` to node markup (default: true). */
         generateIds?: boolean | undefined;
         /** Node icon url, if only filename, please use imagePath to set the path. May also be a callback returning the icon. */
-        icon?: boolean | string | ((event: JQueryEventObject, data: EventData) => boolean | string) | undefined;
+        icon?: boolean | GlyphIcon | ((event: JQueryEventObject, data: EventData) => boolean | GlyphIcon) | undefined;
         /** Prefix (default: "ft_") */
         idPrefix?: string | undefined;
         /** Path to a folder containing icons (default: null, using 'skin/' subdirectory). */
@@ -1186,6 +1186,8 @@ declare namespace Fancytree {
             otherNode: FancytreeNode | null;
             /** Drop position relative to the target node. */
             hitMode?: HitMode | undefined;
+            /** The shared drop marker element used by the legacy dnd extension. */
+            dropMarker?: JQuery | undefined;
             /** The `ui` object of the underlying jQuery UI draggable event. */
             ui: JQueryUI.DraggableEventUIParams;
             /** The jQuery UI draggable widget instance. */
@@ -1341,7 +1343,7 @@ declare namespace Fancytree {
     interface NodeData {
         /** node text (may contain HTML tags) */
         title: string;
-        icon?: boolean | string | undefined;
+        icon?: boolean | GlyphIcon | undefined;
         /** unique key for this node (auto-generated if omitted) */
         key?: string | undefined;
         /** (reserved) */

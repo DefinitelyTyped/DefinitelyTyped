@@ -291,15 +291,16 @@ const sourceFromFunctionPromise: Fancytree.FancytreeOptions = {
 
 // `icon` option/NodeData also accepts a callback.
 const iconCallback: Fancytree.FancytreeOptions = {
-    icon: (event, data) => (data.node.isFolder() ? false : "my-icon"),
+    icon: (event, data) => (data.node.isFolder() ? false : { text: "folder", addClass: "material-icons" }),
 };
 activeNode.addChildren({ title: "Static icon", icon: "my-icon" });
+activeNode.addChildren({ title: "Object icon", icon: { text: "description", addClass: "material-icons" } });
 
 // Node-level documented properties.
 const nodeSelected: boolean = activeNode.selected;
 const nodeType: string = activeNode.type;
 const nodeIconTooltip: string = activeNode.iconTooltip;
-const nodeIcon: boolean | string = activeNode.icon;
+const nodeIcon: boolean | Fancytree.GlyphIcon = activeNode.icon;
 console.log(nodeSelected, nodeType, nodeIconTooltip, nodeIcon);
 
 // replaceWith accepts inline data, `$.ajax` options, or a promise — but not a URL string.
@@ -334,6 +335,7 @@ const dndOptions: Fancytree.FancytreeOptions = {
             return ["over", "before"];
         },
         dragOver: (targetNode, data) => {
+            data.dropMarker?.toggleClass("is-active", true);
             return data.otherNode !== null;
         },
         dragDrop: (targetNode, data) => {
