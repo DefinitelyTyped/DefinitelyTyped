@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "node16",
         "lib": [
-            "es2022",
+            "es6",
             "dom"
         ],
         "noImplicitAny": true,
