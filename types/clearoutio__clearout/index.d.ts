@@ -236,13 +236,19 @@ declare namespace Clearout {
         list_id: string;
     }
 
-    /** Progress status of a running bulk list. */
-    interface ProgressStatusResult {
+    /** Progress status of a running bulk verify list. */
+    interface BulkVerifyProgressStatus {
         /** Progress stage, e.g. `"running"` or `"completed"`. */
         progress_status: string;
-        /** Completion percentage for a bulk verify list. */
+        /** Completion percentage. */
         percentile?: number | undefined;
-        /** Completion percentage for a bulk finder list. */
+    }
+
+    /** Progress status of a running bulk finder list. */
+    interface BulkFinderProgressStatus {
+        /** Progress stage, e.g. `"running"` or `"completed"`. */
+        progress_status: string;
+        /** Completion percentage. */
         percentage?: number | undefined;
     }
 
@@ -280,7 +286,7 @@ declare namespace Clearout {
         name: string;
     }
 
-    /** Result of an instant email finder or its queue status. */
+    /** Result of a completed instant email finder request. */
     interface EmailFinderResult {
         /** Discovered email addresses, ordered by confidence. */
         emails: FoundEmail[];
@@ -303,6 +309,21 @@ declare namespace Clearout {
         /** Queue status, when the result is fetched via `getStatus`. */
         query_status?: string | undefined;
     }
+
+    /**
+     * Progress-only payload returned by {@link EmailFinder.getStatus} while
+     * the queued finder request has not completed yet.
+     */
+    interface EmailFinderQueueStatus {
+        /** Current status of the queued finder request. */
+        query_status: string;
+    }
+
+    /**
+     * Result of a queue-status lookup: the discovered emails once the request
+     * completes, or a progress-only payload while it is still queued.
+     */
+    type EmailFinderStatusResult = EmailFinderResult | EmailFinderQueueStatus;
 
     /** Available credits and quota details for the account. */
     interface CreditsResult {
@@ -332,7 +353,7 @@ declare namespace Clearout {
         /** Verify email addresses in bulk by uploading a file. */
         bulkVerify(params: BulkVerifyParams): Promise<BulkListResult>;
         /** Get the progress status of a bulk verify request. */
-        getBulkVerifyProgressStatus(params: ListIdParams): Promise<ProgressStatusResult>;
+        getBulkVerifyProgressStatus(params: ListIdParams): Promise<BulkVerifyProgressStatus>;
         /** Get the signed download URL for a completed bulk verify result. */
         downloadBulkVerifyResult(params: ListIdParams): Promise<DownloadResult>;
         /** Remove a bulk verify list. */
@@ -358,11 +379,11 @@ declare namespace Clearout {
         /** Instantly discover a person's email address. */
         find(params: FindEmailParams): Promise<EmailFinderResult>;
         /** Get the status of a queued instant email finder request. */
-        getStatus(params: QueueStatusParams): Promise<EmailFinderResult>;
+        getStatus(params: QueueStatusParams): Promise<EmailFinderStatusResult>;
         /** Discover email addresses in bulk by uploading a file. */
         bulkFind(params: BulkFindParams): Promise<BulkListResult>;
         /** Get the progress status of a bulk find request. */
-        getBulkFindProgressStatus(params: ListIdParams): Promise<ProgressStatusResult>;
+        getBulkFindProgressStatus(params: ListIdParams): Promise<BulkFinderProgressStatus>;
         /** Get the signed download URL for a completed bulk find result. */
         downloadBulkFindResult(params: ListIdParams): Promise<DownloadResult>;
         /** Remove a bulk find list. */

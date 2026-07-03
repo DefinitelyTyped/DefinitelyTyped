@@ -1,9 +1,8 @@
 {
     "compilerOptions": {
         "lib": [
-            "es2018"
+            "es6"
         ],
-        "target": "es2018",
         "module": "node16",
         "noImplicitAny": true,
         "noImplicitThis": true,

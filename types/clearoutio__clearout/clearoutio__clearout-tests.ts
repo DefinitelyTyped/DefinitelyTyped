@@ -57,10 +57,12 @@ async function verifierExamples() {
     // $ExpectType string
     bulk.list_id;
 
-    // $ExpectType ProgressStatusResult
+    // $ExpectType BulkVerifyProgressStatus
     const progress = await client.emailVerifier.getBulkVerifyProgressStatus({ list_id: bulk.list_id });
     // $ExpectType number | undefined
     progress.percentile;
+    // @ts-expect-error - percentage is a bulk-finder field, not a bulk-verify one.
+    progress.percentage;
 
     // $ExpectType DownloadResult
     const download = await client.emailVerifier.downloadBulkVerifyResult({ list_id: bulk.list_id });
@@ -125,18 +127,31 @@ async function finderExamples() {
     // @ts-expect-error
     await client.emailFinder.find({ name: "Elon Musk" });
 
-    // $ExpectType EmailFinderResult
+    // $ExpectType EmailFinderStatusResult
     const status = await client.emailFinder.getStatus({ qid: "61008c4597947d45700f4bb2" });
-    // $ExpectType string | undefined
-    status.query_status;
+    if ("emails" in status) {
+        // Completed: the full found-email payload is available.
+        // $ExpectType FoundEmail[]
+        status.emails;
+        // $ExpectType number
+        status.confidence_score;
+    } else {
+        // Still queued: only the progress status is available.
+        // $ExpectType string
+        status.query_status;
+        // @ts-expect-error - found-email fields are not present while queued.
+        status.emails;
+    }
 
     // $ExpectType BulkListResult
     const bulk = await client.emailFinder.bulkFind({ file: "/tmp/people.csv", ignore_duplicate_file: "true" });
 
-    // $ExpectType ProgressStatusResult
+    // $ExpectType BulkFinderProgressStatus
     const progress = await client.emailFinder.getBulkFindProgressStatus({ list_id: bulk.list_id });
     // $ExpectType number | undefined
     progress.percentage;
+    // @ts-expect-error - percentile is a bulk-verify field, not a bulk-finder one.
+    progress.percentile;
 
     // $ExpectType DownloadResult
     await client.emailFinder.downloadBulkFindResult({ list_id: bulk.list_id });
