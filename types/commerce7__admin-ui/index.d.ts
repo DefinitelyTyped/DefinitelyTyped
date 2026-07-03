@@ -300,16 +300,16 @@ export interface BreadcrumbProps {
     dataTestId?: string | undefined;
 }
 
-export class Breadcrumb extends React.Component<BreadcrumbProps> {}
-
 export interface BreadcrumbsProps {
     className?: string | undefined;
     children: React.ReactNode;
     dataTestId?: string | undefined;
 }
 
-export class Breadcrumbs extends React.Component<BreadcrumbsProps> {
-    static Breadcrumb: typeof Breadcrumb;
+export class Breadcrumbs extends React.Component<BreadcrumbsProps> {}
+
+export namespace Breadcrumbs {
+    class Breadcrumb extends React.Component<BreadcrumbProps> {}
 }
 
 export interface CardProps {
@@ -326,8 +326,6 @@ export interface ColumnProps {
     span?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | "none" | "auto" | undefined;
 }
 
-export class Column extends React.Component<ColumnProps> {}
-
 export interface ColumnsProps {
     children: React.ReactNode;
     justify?: string | undefined;
@@ -337,8 +335,10 @@ export interface ColumnsProps {
     dataTestId?: string | undefined;
 }
 
-export class Columns extends React.Component<ColumnsProps> {
-    static Column: typeof Column;
+export class Columns extends React.Component<ColumnsProps> {}
+
+export namespace Columns {
+    class Column extends React.Component<ColumnProps> {}
 }
 
 export interface InfoCardGridProps {
@@ -346,8 +346,6 @@ export interface InfoCardGridProps {
     className?: string | undefined;
     dataTestId?: string | undefined;
 }
-
-export class InfoCardGrid extends React.Component<InfoCardGridProps> {}
 
 export interface InfoCardProps {
     children?: React.ReactNode | undefined;
@@ -362,8 +360,10 @@ export interface InfoCardProps {
     img?: string | undefined;
 }
 
-export class InfoCard extends React.Component<InfoCardProps> {
-    static InfoCardGrid: typeof InfoCardGrid;
+export class InfoCard extends React.Component<InfoCardProps> { }
+
+export namespace InfoCard {
+    class InfoCardGrid extends React.Component<InfoCardGridProps> {}
 }
 
 export interface LineBreakProps {
@@ -378,14 +378,10 @@ export interface ModalBodyProps {
     className?: string | undefined;
 }
 
-export class ModalBody extends React.Component<ModalBodyProps> {}
-
 export interface ModalFooterProps {
     children: React.ReactNode;
     className?: string | undefined;
 }
-
-export class ModalFooter extends React.Component<ModalFooterProps> {}
 
 export interface ModalProps {
     children?: React.ReactNode | undefined;
@@ -398,9 +394,11 @@ export interface ModalProps {
     disableFocusLock?: boolean | undefined;
 }
 
-export class Modal extends React.Component<ModalProps> {
-    static ModalBody: typeof ModalBody;
-    static ModalFooter: typeof ModalFooter;
+export class Modal extends React.Component<ModalProps> { }
+
+export namespace Modal {
+    class ModalBody extends React.Component<ModalBodyProps> {}
+    class ModalFooter extends React.Component<ModalFooterProps> {}
 }
 
 export interface NoRecordsProps {
@@ -504,8 +502,6 @@ export interface ContextMenuItemProps {
     dataTestId?: string | undefined;
 }
 
-export class ButtonMenuItem extends React.Component<ContextMenuItemProps> {}
-
 export interface ButtonMenuProps {
     children: React.ReactNode;
     className?: string | undefined;
@@ -517,11 +513,11 @@ export interface ButtonMenuProps {
     onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
 }
 
-export class ButtonMenu extends React.Component<ButtonMenuProps> {
-    static ButtonMenuItem: typeof ButtonMenuItem;
-}
+export class ButtonMenu extends React.Component<ButtonMenuProps> {}
 
-export class ContextMenuItem extends React.Component<ContextMenuItemProps> {}
+export namespace ButtonMenu {
+    class ButtonMenuItem extends React.Component<ContextMenuItemProps> {}
+}
 
 export interface ContextMenuMoreActionsProps {
     children: React.ReactNode;
@@ -531,17 +527,17 @@ export interface ContextMenuMoreActionsProps {
     dataTestId?: string | undefined;
 }
 
-export class ContextMenuMoreActions extends React.Component<ContextMenuMoreActionsProps> {}
-
 export interface ContextMenuProps {
     children: React.ReactNode;
     className?: string | undefined;
     dataTestId?: string | undefined;
 }
 
-export class ContextMenu extends React.Component<ContextMenuProps> {
-    static ContextMenuItem: typeof ContextMenuItem;
-    static ContextMenuMoreActions: typeof ContextMenuMoreActions;
+export class ContextMenu extends React.Component<ContextMenuProps> {}
+
+export namespace ContextMenu {
+    class ContextMenuItem extends React.Component<ContextMenuItemProps> {}
+    class ContextMenuMoreActions extends React.Component<ContextMenuMoreActionsProps> {}
 }
 
 export interface LinkButtonProps {
@@ -602,8 +598,6 @@ export interface SubNavProps {
     dataTestId?: string | undefined;
 }
 
-export class SubNav extends React.Component<SubNavProps> {}
-
 export interface NavLinkProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
@@ -616,8 +610,6 @@ export interface NavLinkProps {
     [key: string]: any;
 }
 
-export class NavLink extends React.Component<NavLinkProps> {}
-
 export interface SubNavLinkProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
@@ -629,8 +621,6 @@ export interface SubNavLinkProps {
     [key: string]: any;
 }
 
-export class SubNavLink extends React.Component<SubNavLinkProps> {}
-
 export interface NavProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
@@ -638,10 +628,12 @@ export interface NavProps {
     dataTestId?: string | undefined;
 }
 
-export class Nav extends React.Component<NavProps> {
-    static SubNav: typeof SubNav;
-    static NavLink: typeof NavLink;
-    static SubNavLink: typeof SubNavLink;
+export class Nav extends React.Component<NavProps> {}
+
+export namespace Nav {
+    class SubNav extends React.Component<SubNavProps> {}
+    class NavLink extends React.Component<NavLinkProps> {}
+    class SubNavLink extends React.Component<SubNavLinkProps> {}
 }
 
 export interface StepProps {
@@ -656,16 +648,16 @@ export interface StepProps {
     icon?: IconName | undefined;
 }
 
-export class Step extends React.Component<StepProps> {}
-
 export interface StepperProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
     dataTestId?: string | undefined;
 }
 
-export class Stepper extends React.Component<StepperProps> {
-    static Step: typeof Step;
+export class Stepper extends React.Component<StepperProps> {}
+
+export namespace Stepper {
+    class Step extends React.Component<StepProps> {}
 }
 
 export interface SubMenuItemProps {
@@ -679,8 +671,6 @@ export interface SubMenuItemProps {
     [key: string]: any;
 }
 
-export class SubMenuItem extends React.Component<SubMenuItemProps> {}
-
 export interface SubMenuProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
@@ -689,8 +679,10 @@ export interface SubMenuProps {
     activeClassName?: string | undefined;
 }
 
-export class SubMenu extends React.Component<SubMenuProps> {
-    static SubMenuItem: typeof SubMenuItem;
+export class SubMenu extends React.Component<SubMenuProps> {}
+
+export namespace SubMenu {
+    class SubMenuItem extends React.Component<SubMenuItemProps> {}
 }
 
 export interface TabProps {
@@ -704,15 +696,11 @@ export interface TabProps {
     [key: string]: any;
 }
 
-export class Tab extends React.Component<TabProps> {}
-
 export interface TabBodyProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
     dataTestId?: string | undefined;
 }
-
-export class TabBody extends React.Component<TabBodyProps> {}
 
 export interface TabsProps {
     children?: React.ReactNode | undefined;
@@ -720,9 +708,11 @@ export interface TabsProps {
     dataTestId?: string | undefined;
 }
 
-export class Tabs extends React.Component<TabsProps> {
-    static Tab: typeof Tab;
-    static TabBody: typeof TabBody;
+export class Tabs extends React.Component<TabsProps> {}
+
+export namespace Tabs {
+    class Tab extends React.Component<TabProps> {}
+    class TabBody extends React.Component<TabBodyProps> {}
 }
 
 export interface CheckboxProps {
@@ -1025,15 +1015,11 @@ export interface TheadProps {
     dataTestId?: string | undefined;
 }
 
-export class Thead extends React.Component<TheadProps> {}
-
 export interface TbodyProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
     dataTestId?: string | undefined;
 }
-
-export class Tbody extends React.Component<TbodyProps> {}
 
 export interface ThProps {
     align?: "left" | "center" | "right" | undefined;
@@ -1042,8 +1028,6 @@ export interface ThProps {
     colSpan?: number | undefined;
     dataTestId?: string | undefined;
 }
-
-export class Th extends React.Component<ThProps> {}
 
 export interface TdProps {
     children?: React.ReactNode | undefined;
@@ -1054,8 +1038,6 @@ export interface TdProps {
     dataTestId?: string | undefined;
 }
 
-export class Td extends React.Component<TdProps> {}
-
 export interface TrProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
@@ -1063,15 +1045,11 @@ export interface TrProps {
     dataTestId?: string | undefined;
 }
 
-export class Tr extends React.Component<TrProps> {}
-
 export interface TfootProps {
     children: React.ReactNode;
     className?: string | undefined;
     dataTestId?: string | undefined;
 }
-
-export class Tfoot extends React.Component<TfootProps> {}
 
 export interface TableProps {
     children?: React.ReactNode | undefined;
@@ -1079,11 +1057,13 @@ export interface TableProps {
     dataTestId?: string | undefined;
 }
 
-export class Table extends React.Component<TableProps> {
-    static Thead: typeof Thead;
-    static Tbody: typeof Tbody;
-    static Th: typeof Th;
-    static Td: typeof Td;
-    static Tr: typeof Tr;
-    static Tfoot: typeof Tfoot;
+export class Table extends React.Component<TableProps> {}
+
+export namespace Table {
+    class Thead extends React.Component<TheadProps> {}
+    class Tbody extends React.Component<TbodyProps> {}
+    class Th extends React.Component<ThProps> {}
+    class Td extends React.Component<TdProps> {}
+    class Tr extends React.Component<TrProps> {}
+    class Tfoot extends React.Component<TfootProps> {}
 }
