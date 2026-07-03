@@ -360,7 +360,7 @@ export interface InfoCardProps {
     img?: string | undefined;
 }
 
-export class InfoCard extends React.Component<InfoCardProps> { }
+export class InfoCard extends React.Component<InfoCardProps> {}
 
 export namespace InfoCard {
     class InfoCardGrid extends React.Component<InfoCardGridProps> {}
@@ -394,7 +394,7 @@ export interface ModalProps {
     disableFocusLock?: boolean | undefined;
 }
 
-export class Modal extends React.Component<ModalProps> { }
+export class Modal extends React.Component<ModalProps> {}
 
 export namespace Modal {
     class ModalBody extends React.Component<ModalBodyProps> {}
