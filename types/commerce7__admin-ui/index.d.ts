@@ -10,7 +10,7 @@ export type FormButtonSize = "small" | "medium" | "large";
 export type FormButtonVariant = "button" | "default";
 export type InputMode = "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url";
 export type InputType = "text" | "number" | "password" | "email" | "color";
-export type IconVariant = "default" | "success" | "error" | "text" | "info" | "warning";
+export type IconVariant = "default" | "success" | "error" | "text" | "info" | "warning" | "tip" | "white";
 export type DisplayIconVariant = "default" | "success" | "warning" | "error" | "tip" | "info";
 export type StatusVariant = "default" | "info" | "error" | "warning" | "success" | "tip";
 
@@ -272,7 +272,7 @@ export interface AlertProps {
     component?: ComponentOverride | undefined;
     variant?: StatusVariant | undefined;
     size?: ButtonSize | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     dataTestId?: string | undefined;
     href?: string | undefined;
     [key: string]: any;
@@ -294,7 +294,7 @@ export class Avatar extends React.Component<AvatarProps> {}
 export interface BreadcrumbProps {
     children: React.ReactNode;
     className?: string | undefined;
-    onClick?: (() => void) | null | undefined;
+    onClick?: React.MouseEventHandler<HTMLElement> | null | undefined;
     component?: React.ElementType | undefined;
     href?: string | undefined;
     dataTestId?: string | undefined;
@@ -353,7 +353,7 @@ export interface InfoCardProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
     dataTestId?: string | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     label?: React.ReactNode | undefined;
     title?: React.ReactNode | undefined;
     subtitle?: React.ReactNode | undefined;
@@ -406,10 +406,10 @@ export class Modal extends React.Component<ModalProps> {
 export interface NoRecordsProps {
     title?: string | undefined;
     description?: string | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     className?: string | undefined;
     dataTestId?: string | undefined;
-    iconVariant?: Exclude<DisplayIconVariant, "tip"> | undefined;
+    iconVariant?: DisplayIconVariant | undefined;
 }
 
 export class NoRecords extends React.Component<NoRecordsProps> {}
@@ -469,8 +469,8 @@ export interface TagProps {
     onClick?: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
     onDelete?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
     variant?: StatusVariant | undefined;
-    startIcon?: IconName | string | undefined;
-    endIcon?: IconName | string | undefined;
+    startIcon?: IconName | undefined;
+    endIcon?: IconName | undefined;
     dataTestId?: string | undefined;
 }
 
@@ -483,8 +483,8 @@ export interface ButtonProps {
     loading?: boolean | undefined;
     onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
     size?: ButtonSize | undefined;
-    startIcon?: IconName | string | undefined;
-    endIcon?: IconName | string | undefined;
+    startIcon?: IconName | undefined;
+    endIcon?: IconName | undefined;
     type?: ButtonType | undefined;
     variant?: ButtonVariant | undefined;
     dataTestId?: string | undefined;
@@ -498,9 +498,9 @@ export interface ContextMenuItemProps {
     children: React.ReactNode;
     className?: string | undefined;
     disabled?: boolean | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     img?: string | undefined;
-    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
     dataTestId?: string | undefined;
 }
 
@@ -554,8 +554,8 @@ export interface LinkButtonProps {
     href?: string | undefined;
     rel?: string | undefined;
     size?: ButtonSize | undefined;
-    startIcon?: IconName | string | undefined;
-    endIcon?: IconName | string | undefined;
+    startIcon?: IconName | undefined;
+    endIcon?: IconName | undefined;
     target?: string | undefined;
     variant?: ButtonVariant | undefined;
     dataTestId?: string | undefined;
@@ -575,7 +575,7 @@ export interface SelectButtonProps {
     type?: ButtonType | undefined;
     dataTestId?: string | undefined;
     size?: FormButtonSize | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     as?: any;
 }
 
@@ -586,7 +586,7 @@ export interface CardLinkProps {
     children: React.ReactNode;
     component?: ComponentOverride | undefined;
     href?: string | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     description?: string | undefined;
     label?: string | undefined;
     dataTestId?: string | undefined;
@@ -608,7 +608,7 @@ export interface NavLinkProps {
     children?: React.ReactNode | undefined;
     className?: string | undefined;
     dataTestId?: string | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     component?: ComponentOverride | undefined;
     onClick?: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
     href?: string | undefined;
@@ -653,7 +653,7 @@ export interface StepProps {
     onClick?: ((event: React.MouseEvent<HTMLElement>) => void) | undefined;
     href?: string | undefined;
     activeClassName?: string | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
 }
 
 export class Step extends React.Component<StepProps> {}
@@ -739,7 +739,7 @@ export interface CheckboxProps {
     dataTestId?: string | undefined;
     variant?: FormButtonVariant | undefined;
     size?: FormButtonSize | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     children?: React.ReactNode | undefined;
 }
 
@@ -776,14 +776,14 @@ export interface DatePickerProps {
     errorMessage?: string | null | undefined;
     id?: string | undefined;
     inline?: boolean | undefined;
-    isValidDate?: ((currentDate: Moment) => boolean) | undefined;
+    isValidDate?: ((currentDate: Moment, selectedDate?: Moment) => boolean) | undefined;
     label?: string | null | undefined;
     onChange: (date: Moment | string) => void;
     onBlur?: ((event: React.FocusEvent<HTMLInputElement>) => void) | undefined;
     onFocus?: ((event: React.FocusEvent<HTMLInputElement>) => void) | undefined;
     placeholder?: string | undefined;
     required?: boolean | undefined;
-    value: string;
+    value?: Date | string | Moment | undefined;
     dataTestId?: string | null | undefined;
     variant?: "default" | "dayFormat" | undefined;
 }
@@ -796,8 +796,8 @@ export interface InputProps {
     className?: string | undefined;
     description?: string | undefined;
     disabled?: boolean | undefined;
-    startIcon?: IconName | string | undefined;
-    endIcon?: IconName | string | undefined;
+    startIcon?: IconName | undefined;
+    endIcon?: IconName | undefined;
     suffix?: string | undefined;
     errorMessage?: string | undefined;
     id?: string | undefined;
@@ -830,7 +830,7 @@ export interface RadioProps {
     dataTestId?: string | undefined;
     variant?: FormButtonVariant | undefined;
     size?: FormButtonSize | undefined;
-    icon?: IconName | string | undefined;
+    icon?: IconName | undefined;
     children?: React.ReactNode | undefined;
 }
 
@@ -867,7 +867,7 @@ export interface SelectProps {
     options?: OptionItem[] | undefined;
     placeholder?: string | undefined;
     required?: boolean | undefined;
-    value: string | number;
+    value?: string | number | undefined;
     dataTestId?: string | undefined;
 }
 
@@ -911,7 +911,7 @@ export class Textarea extends React.Component<TextareaProps> {}
 
 export interface DisplayIconProps {
     className?: string | undefined;
-    icon: IconName | string;
+    icon: IconName;
     label?: string | undefined;
     onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
     variant?: DisplayIconVariant | undefined;
@@ -922,11 +922,11 @@ export class DisplayIcon extends React.Component<DisplayIconProps> {}
 
 export interface IconProps {
     className?: string | undefined;
-    icon: IconName | string;
+    icon: IconName;
     label?: string | undefined;
     onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
     size?: number | undefined;
-    variant?: IconVariant | string | undefined;
+    variant?: IconVariant | undefined;
     dataTestId?: string | undefined;
 }
 
@@ -934,7 +934,7 @@ export class Icon extends React.Component<IconProps> {}
 
 export interface VividIconProps {
     className?: string | undefined;
-    icon: IconName | string;
+    icon: IconName;
     label?: string | undefined;
     onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
     color?: "pink" | "blue" | "green" | "teal" | "orange" | "purple" | "gray" | undefined;
@@ -972,7 +972,7 @@ export class Text extends React.Component<TextProps> {}
 
 export interface LegendItem {
     title?: string | undefined;
-    value: string | number;
+    value?: string | number | undefined;
     color: string;
 }
 
