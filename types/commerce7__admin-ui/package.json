@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/commerce7__admin-ui",
-    "version": "1.11.9999",
+    "version": "2.0.9999",
     "projects": [
         "https://www.npmjs.com/package/@commerce7/admin-ui",
         "https://admin-ui-docs.commerce7.com/?path=/docs/c7-admin-ui--docs"
@@ -10,7 +10,8 @@
         "@types/commerce7__admin-ui": "workspace:."
     },
     "dependencies": {
-        "@types/react": "*"
+        "@types/react": "*",
+        "moment": "^2.30.1"
     },
     "owners": [
         {

@@ -4,9 +4,11 @@ import {
     Breadcrumbs,
     Button,
     ButtonMenu,
+    c7Colors,
     Card,
     CardLink,
     Checkbox,
+    CheckboxGroup,
     Columns,
     Commerce7AdminUI,
     ContextMenu,
@@ -42,6 +44,7 @@ import {
     Textarea,
     VividIcon,
 } from "@commerce7/admin-ui";
+import type { Moment } from "moment";
 import * as React from "react";
 
 const { Breadcrumb } = Breadcrumbs;
@@ -73,7 +76,7 @@ export function TestComponent() {
 
     const [checked, setChecked] = React.useState(false);
 
-    const [date, setDate] = React.useState<any>();
+    const [date, setDate] = React.useState("");
 
     const [radioChecked, setRadioChecked] = React.useState("");
 
@@ -83,9 +86,20 @@ export function TestComponent() {
 
     const [textAreaValue, setTextAreaValue] = React.useState("");
 
+    const handleMenuClick = (_event: React.MouseEvent<HTMLButtonElement>) => {};
+
+    const handleDateChange = (e: Moment | string) => {
+        setDate(typeof e === "string" ? e : e.format("MMM D, YYYY"));
+    };
+
+    const isFutureDate = (currentDate: Moment) => !currentDate.isBefore(new Date(), "day");
+
     return (
         <Commerce7AdminUI>
-            <Alert>This is an alert</Alert>
+            <Alert dataTestId="alert">This is an alert</Alert>
+            <Alert variant="tip" href="https://commerce7.com" icon="lightBulb">
+                This is a tip alert
+            </Alert>
 
             <Avatar label="JH" />
 
@@ -140,7 +154,21 @@ export function TestComponent() {
             <Picture src="https://images.pexels.com/photos/391213/pexels-photo-391213.jpeg" alt="Wine" height={300} />
             <Picture src="https://images.pexels.com/photos/391213/pexels-photo-391213.jpeg" alt="Wine" height={200} />
 
-            <ProgressBar progress={50} />
+            <ProgressBar progress={50} color={c7Colors.blue400} />
+            <div
+                style={{
+                    height: 50,
+                }}
+            >
+                <ProgressBar
+                    progress={50}
+                    content={{
+                        text: "Open Rate",
+                        progress: 50,
+                        circleColor: "#42ACF0",
+                    }}
+                />
+            </div>
 
             <Region borderBottom>
                 <Heading>Region with border below</Heading>
@@ -156,36 +184,43 @@ export function TestComponent() {
             <Tag variant="warning">Warning</Tag>
             <Tag variant="error">Error</Tag>
             <Tag variant="success">Success</Tag>
+            <Tag variant="tip" endIcon="network" onDelete={() => {}}>
+                Tip
+            </Tag>
 
             <Button>Button</Button>
+            <Button endIcon="arrowRight">Continue</Button>
 
-            <ButtonMenu>
-                <ButtonMenuItem icon="export">
+            <ButtonMenu label="Actions" size="small" onClick={handleMenuClick}>
+                <ButtonMenuItem icon="export" onClick={handleMenuClick}>
                     Export
                 </ButtonMenuItem>
-                <ButtonMenuItem icon="trash">
+                <ButtonMenuItem icon="trash" onClick={handleMenuClick}>
                     Delete
                 </ButtonMenuItem>
             </ButtonMenu>
 
             <ContextMenu>
-                <ContextMenuItem icon="export">
+                <ContextMenuItem icon="export" onClick={handleMenuClick}>
                     Export
                 </ContextMenuItem>
             </ContextMenu>
 
             <ContextMenu>
-                <ContextMenuItem icon="export">
+                <ContextMenuItem icon="export" onClick={handleMenuClick}>
                     Export
                 </ContextMenuItem>
                 <ContextMenuMoreActions>
-                    <ContextMenuItem icon="trash">
+                    <ContextMenuItem icon="trash" onClick={handleMenuClick}>
                         Delete
                     </ContextMenuItem>
                 </ContextMenuMoreActions>
             </ContextMenu>
 
             <LinkButton href="https://commerce7.com">Button</LinkButton>
+            <LinkButton href="https://commerce7.com" endIcon="newTab" loading>
+                Loading Link Button
+            </LinkButton>
 
             <SelectButton>Basic</SelectButton>
             <SelectButton loading>Loading</SelectButton>
@@ -369,10 +404,37 @@ export function TestComponent() {
             </TabBody>
 
             <Checkbox label="Subscribe" id="subscribe" checked={checked} onChange={() => setChecked(!checked)} />;
+            <CheckboxGroup label="Subscriptions" variant="button" size="large">
+                <Checkbox
+                    icon="email"
+                    label="Email"
+                    id="email"
+                    checked={checked}
+                    onChange={() => setChecked(!checked)}
+                    variant="button"
+                    size="large"
+                >
+                    Email
+                </Checkbox>
+            </CheckboxGroup>
 
             <DataDisplay label="First Name">Jim Smith</DataDisplay>
 
-            <DatePicker label="Date" id="date" value={date} onChange={(e) => setDate(e)} />
+            <DatePicker
+                label="Date"
+                id="date"
+                value={date}
+                onChange={handleDateChange}
+                allowClear
+                isValidDate={isFutureDate}
+            />
+            <DatePicker
+                label="Day Format Date Picker"
+                id="day-date"
+                value={date}
+                onChange={handleDateChange}
+                variant="dayFormat"
+            />
 
             <RadioGroup label="Account Type">
                 <Radio
@@ -402,6 +464,12 @@ export function TestComponent() {
                 }, {
                     label: "White",
                     value: "white",
+                }, {
+                    label: "Grouped",
+                    options: [{
+                        label: "Sparkling",
+                        value: "sparkling",
+                    }],
                 }]}
             />
 
@@ -419,11 +487,15 @@ export function TestComponent() {
                 onChange={(e) => setTextAreaValue(e.target.value)}
             />
 
-            <DisplayIcon icon="cart" />
+            <DisplayIcon icon="cart" variant="tip" />
 
-            <Icon icon="cart" />
+            <Icon icon="alignRight" />
+            <Icon icon="calenderCross" />
+            <Icon icon="network" variant="info" />
+            <Icon icon="users" variant="text" />
 
             <VividIcon icon="cart" color="blue" />
+            <VividIcon icon="sparkle" color="gray" />
 
             <Heading level={1}>
                 Heading 1
@@ -459,18 +531,22 @@ export function TestComponent() {
                     {
                         color: "#42ACF0",
                         title: "Guest",
+                        value: "",
                     },
                     {
                         color: "#DF5F5F",
                         title: "First-time",
+                        value: "",
                     },
                     {
                         color: "#BF9D36",
                         title: "Repeat",
+                        value: "",
                     },
                     {
                         color: "#239C82",
                         title: "Club Member",
+                        value: "",
                     },
                 ]}
             />
@@ -506,7 +582,7 @@ export function TestComponent() {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr>
+                    <Tr onClick={() => {}}>
                         <Td>Jim Smith</Td>
                         <Td>22</Td>
                         <Td>Male</Td>
