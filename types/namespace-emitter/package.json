@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/namespace-emitter",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/sethvincent/namespace-emitter#readme"
+    ],
+    "devDependencies": {
+        "@types/namespace-emitter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

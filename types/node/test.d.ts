@@ -281,6 +281,20 @@ declare module "node:test" {
              */
             shard?: TestShard | undefined;
             /**
+             * Randomize execution order for test files and queued tests.
+             * This option is not supported with `watch: true`.
+             * @since v26.1.0
+             * @default false
+             */
+            randomize?: boolean | undefined;
+            /**
+             * Seed used when randomizing execution order. If this
+             * option is set, runs can replay the same randomized order deterministically,
+             * and setting this option also enables randomization. The value must be an
+             * integer between `0` and `4294967295`.
+             */
+            randomSeed?: number | undefined;
+            /**
              * A file path where the test runner will
              * store the state of the tests to allow rerunning only the failed tests on a next run.
              * @since v24.7.0
@@ -336,7 +350,7 @@ declare module "node:test" {
             functionCoverage?: number | undefined;
             /**
              * Specify environment variables to be passed along to the test process.
-             * This options is not compatible with `isolation='none'`. These variables will override
+             * This option is not compatible with `isolation='none'`. These variables will override
              * those from the main process, and are not merged with `process.env`.
              * @since v25.6.0
              * @default process.env
@@ -655,6 +669,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The ordinal number of the test.
                  */
                 testNumber: number;
@@ -677,6 +697,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The test type. Either `'suite'` or `'test'`.
                  * @since v22.15.0
                  */
@@ -691,6 +717,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
                 /**
                  * The test type. Either `'suite'` or `'test'`.
                  * @since v22.15.0
@@ -730,6 +762,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
                 /**
                  * The ordinal number of the test.
                  */
@@ -786,6 +824,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The ordinal number of the test.
                  */
                 testNumber: number;
@@ -817,6 +861,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
             }
             interface TestStderr {
                 /**
@@ -890,6 +940,39 @@ declare module "node:test" {
                 success: boolean;
             }
         }
+        /**
+         * Returns the {@link TestContext} or {@link SuiteContext} object associated with the
+         * currently executing test or suite, or `undefined` if called outside of a test or
+         * suite. This function can be used to access context information from within the
+         * test or suite function or any async operations within them.
+
+         * ```js
+         * import { getTestContext } from 'node:test';
+         *
+         * test('example test', async () => {
+         *   const ctx = getTestContext();
+         *   console.log(`Running test: ${ctx.name}`);
+         * });
+         *
+         * describe('example suite', () => {
+         *   const ctx = getTestContext();
+         *   console.log(`Running suite: ${ctx.name}`);
+         * });
+         * ```
+         *
+         * When called from a test, returns a `TestContext`.
+         * When called from a suite, returns a `SuiteContext`.
+         *
+         * If called from outside a test or suite (e.g., at the top level of a module or in
+         * a setTimeout callback after execution has completed), this function returns
+         * `undefined`.
+         *
+         * When called from within a hook (before, beforeEach, after, afterEach), this
+         * function returns the context of the test or suite that the hook is associated
+         * with.
+         * @since v26.1.0
+         */
+        function getTestContext(): TestContext | SuiteContext | undefined;
         /**
          * An instance of `TestContext` is passed to each test function in order to
          * interact with the test runner. However, the `TestContext` constructor is not
@@ -993,7 +1076,9 @@ declare module "node:test" {
              */
             readonly error: EventData.Error | null;
             /**
-             * Number of times the test has been attempted.
+             * The attempt number of the test. This value is zero-based, so the first attempt is `0`,
+             * the second attempt is `1`, and so on. This property is useful in conjunction with the
+             * `--test-rerun-failures` option to determine which attempt the test is currently running.
              * @since v21.7.0, v20.12.0
              */
             readonly attempt: number;
@@ -1294,6 +1379,31 @@ declare module "node:test" {
              * @since v18.7.0, v16.17.0
              */
             readonly signal: AbortSignal;
+            /**
+             * Indicates whether the suite and all of its subtests have passed.
+             * @since v26.1.0
+             */
+            readonly passed: boolean;
+            /**
+             * The attempt number of the suite. This value is zero-based, so the first attempt is `0`,
+             * the second attempt is `1`, and so on. This property is useful in conjunction with the
+             * `--test-rerun-failures` option to determine the attempt number of the current run.
+             * @since v26.1.0
+             */
+            readonly attempt: number;
+            /**
+             * Output a diagnostic message. This is typically used for logging information
+             * about the current suite or its tests.
+             *
+             * ```js
+             * test.describe('my suite', (suite) => {
+             *   suite.diagnostic('Suite diagnostic message');
+             * });
+             * ```
+             * @since v26.1.0
+             * @param message A diagnostic message to output.
+             */
+            diagnostic(message: string): void;
         }
         interface TestOptions {
             /**
