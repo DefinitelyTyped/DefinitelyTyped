@@ -111,7 +111,12 @@ declare module "fs/promises" {
          * @return Fulfills with `undefined` upon success.
          */
         appendFile(
-            data: string | Uint8Array,
+            data:
+                | string
+                | NodeJS.ArrayBufferView
+                | Iterable<string | NodeJS.ArrayBufferView>
+                | AsyncIterable<string | NodeJS.ArrayBufferView>
+                | Stream,
             options?:
                 | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
@@ -393,7 +398,12 @@ declare module "fs/promises" {
          * @since v10.0.0
          */
         writeFile(
-            data: string | Uint8Array,
+            data:
+                | string
+                | NodeJS.ArrayBufferView
+                | Iterable<string | NodeJS.ArrayBufferView>
+                | AsyncIterable<string | NodeJS.ArrayBufferView>
+                | Stream,
             options?:
                 | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
@@ -1059,7 +1069,12 @@ declare module "fs/promises" {
      */
     function appendFile(
         path: PathLike | FileHandle,
-        data: string | Uint8Array,
+        data:
+            | string
+            | NodeJS.ArrayBufferView
+            | Iterable<string | NodeJS.ArrayBufferView>
+            | AsyncIterable<string | NodeJS.ArrayBufferView>
+            | Stream,
         options?: (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined }) | BufferEncoding | null,
     ): Promise<void>;
     /**
