@@ -1,3 +1,7 @@
+export {};
+
+type RequestMethod = "get" | "post" | "put" | "patch" | "delete";
+
 export const FrameLoadingStyle: {
     readonly eager: "eager";
     readonly lazy: "lazy";
@@ -120,7 +124,7 @@ export const FetchEnctype: {
  * @param method Method string to parse (case-insensitive)
  * @returns The matching method, or `undefined` for unknown methods
  */
-export function fetchMethodFromString(method: string): "get" | "post" | "put" | "patch" | "delete" | undefined;
+export function fetchMethodFromString(method: string): RequestMethod | undefined;
 
 /**
  * Parses a string into a form enctype, falling back to
@@ -168,7 +172,7 @@ export interface FetchRequestDelegate {
 export class FetchRequest {
     constructor(
         delegate: FetchRequestDelegate,
-        method: "get" | "post" | "put" | "patch" | "delete",
+        method: RequestMethod,
         location: URL | string,
         requestBody?: FormData | URLSearchParams,
         target?: HTMLFormElement | HTMLAnchorElement | FrameElement | null,
@@ -181,7 +185,7 @@ export class FetchRequest {
     delegate: FetchRequestDelegate;
     enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
     readonly entries: Array<[string, FormDataEntryValue]>;
-    fetchOptions: RequestInit;
+    fetchOptions: RequestInit & { method: Uppercase<RequestMethod> };
     headers: FetchRequestHeaders;
     readonly isSafe: boolean;
     readonly location: URL;
@@ -190,8 +194,8 @@ export class FetchRequest {
      * on the underlying fetch options; assignments accept Turbo's lowercase
      * method names.
      */
-    get method(): string;
-    set method(value: "get" | "post" | "put" | "patch" | "delete");
+    get method(): Uppercase<RequestMethod>;
+    set method(value: RequestMethod);
     readonly params: URLSearchParams;
     target: HTMLFormElement | HTMLAnchorElement | FrameElement | null;
     url: URL;
@@ -722,10 +726,11 @@ export interface FormSubmission {
     isSafe: boolean;
     location: URL;
     /**
-     * The HTTP method verb in UPPERCASE (e.g. "GET"), as read back from the
-     * underlying fetch request.
+     * Reads back the HTTP method verb in UPPERCASE (e.g. "GET"); assignments
+     * accept Turbo's lowercase method names.
      */
-    method: string;
+    get method(): Uppercase<RequestMethod>;
+    set method(value: RequestMethod);
     stop(): void;
     submitter?: HTMLButtonElement | HTMLInputElement;
 }

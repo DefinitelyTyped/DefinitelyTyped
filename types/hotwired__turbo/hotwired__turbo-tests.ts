@@ -38,6 +38,9 @@ import {
     VisitOptions,
 } from "@hotwired/turbo";
 
+// @ts-expect-error - RequestMethod is an internal helper type, not a Turbo export
+type RequestMethodIsNotExported = import("@hotwired/turbo").RequestMethod;
+
 const turboFrame = document.querySelector("turbo-frame")!;
 
 // $ExpectType FrameElement
@@ -218,8 +221,11 @@ document.addEventListener("turbo:frame-missing", function(event) {
 
 document.addEventListener("turbo:submit-start", function(event) {
     event.detail.formSubmission.stop();
-    // $ExpectType string
+    // $ExpectType "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
     event.detail.formSubmission.method;
+    event.detail.formSubmission.method = "post";
+    // @ts-expect-error - method assignments accept Turbo's lowercase verbs only
+    event.detail.formSubmission.method = "POST";
 });
 
 document.addEventListener("turbo:submit-end", function(event) {
@@ -432,7 +438,7 @@ FetchMethod.get;
 FetchMethod.delete;
 // $ExpectType "application/x-www-form-urlencoded"
 FetchEnctype.urlEncoded;
-// $ExpectType "get" | "post" | "put" | "patch" | "delete" | undefined
+// $ExpectType RequestMethod | undefined
 fetchMethodFromString("GET");
 // $ExpectType "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain"
 fetchEnctypeFromString("multipart/form-data");
@@ -457,11 +463,16 @@ const fetchRequestDelegate: FetchRequestDelegate = {
 const fetchRequest = new FetchRequest(fetchRequestDelegate, "post", new URL("https://example.com"), new FormData());
 // @ts-expect-error - a FetchRequest cannot be constructed without arguments
 new FetchRequest();
-// $ExpectType string
+// $ExpectType "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
 fetchRequest.method;
 fetchRequest.method = "put";
 // @ts-expect-error - method assignments accept Turbo's lowercase verbs only
 fetchRequest.method = "PUT";
+// $ExpectType "GET" | "POST" | "PUT" | "PATCH" | "DELETE"
+fetchRequest.fetchOptions.method;
+fetchRequest.fetchOptions.method = "PUT";
+// @ts-expect-error - fetchOptions.method stores Turbo's uppercase verbs only
+fetchRequest.fetchOptions.method = "HEAD";
 // $ExpectType URLSearchParams
 fetchRequest.params;
 // $ExpectType URL
