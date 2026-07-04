@@ -1,3 +1,8 @@
+export const FrameLoadingStyle: {
+    readonly eager: "eager";
+    readonly lazy: "lazy";
+};
+
 export class FrameElement extends HTMLElement {
     src: string | null;
     refresh: "morph" | null;
@@ -23,25 +28,26 @@ export class StreamElement extends HTMLElement {
     removeDuplicateTargetSiblings(): void;
 
     /**
-     * The current action.
+     * The current action, or `null` if the `action` attribute is absent.
      */
-    readonly action: string;
+    readonly action: string | null;
 
     /**
      * The current target (an element ID) to which the result will
-     * be rendered.
+     * be rendered, or `null` if the `target` attribute is absent.
      */
-    readonly target: string;
+    readonly target: string | null;
 
     /**
-     * The current "targets" selector (a CSS selector)
+     * The current "targets" selector (a CSS selector), or `null` if the
+     * `targets` attribute is absent.
      */
-    readonly targets: string;
+    readonly targets: string | null;
 
     /**
      * Reads the request-id attribute
      */
-    readonly requestId: string;
+    readonly requestId: string | null;
 
     /**
      * Gets the main `<template>` element used for rendering.
@@ -90,31 +96,158 @@ export interface FetchRequestHeaders {
     [header: string]: string | undefined;
 }
 
+export const FetchMethod: {
+    readonly get: "get";
+    readonly post: "post";
+    readonly put: "put";
+    readonly patch: "patch";
+    readonly delete: "delete";
+};
+
+export const FetchEnctype: {
+    readonly urlEncoded: "application/x-www-form-urlencoded";
+    readonly multipart: "multipart/form-data";
+    readonly plain: "text/plain";
+};
+
+/**
+ * Parses a string into a lowercase HTTP method verb known to Turbo.
+ *
+ * @param method Method string to parse (case-insensitive)
+ * @returns The matching method, or `undefined` for unknown methods
+ */
+export function fetchMethodFromString(method: string): "get" | "post" | "put" | "patch" | "delete" | undefined;
+
+/**
+ * Parses a string into a form enctype, falling back to
+ * "application/x-www-form-urlencoded" for unknown values.
+ *
+ * @param encoding Enctype string to parse (case-insensitive)
+ */
+export function fetchEnctypeFromString(
+    encoding: string,
+): "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
+
+/**
+ * Determines whether the given HTTP method is "safe" (has no side effects
+ * on the server). Only "get" is considered safe.
+ *
+ * @param fetchMethod Method string to test (case-insensitive)
+ */
+export function isSafe(fetchMethod: string): boolean;
+
+/**
+ * Performs a `window.fetch` with an `X-Turbo-Request-Id` header appended,
+ * allowing the response to be correlated with Turbo's request tracking
+ * (e.g. to avoid a full page refresh for a request this client initiated).
+ *
+ * @param url Resource to fetch
+ * @param options Standard fetch options
+ */
+export function fetch(url: string | URL, options?: RequestInit): Promise<Response>;
+
+/**
+ * The object responsible for a {@link FetchRequest}'s lifecycle, receiving
+ * callbacks as the request progresses.
+ */
+export interface FetchRequestDelegate {
+    referrer?: URL;
+    prepareRequest(request: FetchRequest): void;
+    requestStarted(request: FetchRequest): void;
+    requestPreventedHandlingResponse(request: FetchRequest, response: FetchResponse): void;
+    requestSucceededWithResponse(request: FetchRequest, response: FetchResponse): void;
+    requestFailedWithResponse(request: FetchRequest, response: FetchResponse): void;
+    requestErrored(request: FetchRequest, error: Error): void;
+    requestFinished(request: FetchRequest): void;
+}
+
 export class FetchRequest {
+    constructor(
+        delegate: FetchRequestDelegate,
+        method: "get" | "post" | "put" | "patch" | "delete",
+        location: URL | string,
+        requestBody?: FormData | URLSearchParams,
+        target?: HTMLFormElement | HTMLAnchorElement | FrameElement | null,
+        enctype?: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain",
+    );
+    abortController: AbortController;
+    readonly abortSignal: AbortSignal;
     body: FormData | URLSearchParams;
+    readonly defaultHeaders: FetchRequestHeaders;
+    delegate: FetchRequestDelegate;
     enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
+    readonly entries: Array<[string, FormDataEntryValue]>;
     fetchOptions: RequestInit;
     headers: FetchRequestHeaders;
-    method: "get" | "post" | "put" | "patch" | "delete";
-    params: URLSearchParams;
+    readonly isSafe: boolean;
+    readonly location: URL;
+    /**
+     * Reads back the HTTP method verb in UPPERCASE (e.g. "GET"), as stored
+     * on the underlying fetch options; assignments accept Turbo's lowercase
+     * method names.
+     */
+    get method(): string;
+    set method(value: "get" | "post" | "put" | "patch" | "delete");
+    readonly params: URLSearchParams;
     target: HTMLFormElement | HTMLAnchorElement | FrameElement | null;
     url: URL;
+    acceptResponseType(mimeType: string): void;
+    cancel(): void;
+    /**
+     * Performs the request. Resolves with the response, or `undefined` when
+     * the request was aborted via {@link cancel}.
+     */
+    perform(): Promise<FetchResponse | undefined>;
 }
 
 export class FetchResponse {
-    clientError: boolean;
-    contentType: string;
-    failed: boolean;
-    header(key: string): string | undefined;
-    isHTML: boolean;
-    location: URL;
-    redirected: boolean;
-    responseHTML: Promise<string>;
-    responseText: Promise<string>;
+    constructor(response: Response);
+    readonly clientError: boolean;
+    readonly contentType: string | null;
+    readonly failed: boolean;
+    header(key: string): string | null;
+    readonly isHTML: boolean;
+    readonly location: URL;
+    readonly redirected: boolean;
+    /** Resolves with the response body, or `undefined` for non-HTML responses. */
+    readonly responseHTML: Promise<string | undefined>;
+    readonly responseText: Promise<string>;
     response: Response;
-    serverError: boolean;
-    statusCode: number;
-    succeeded: boolean;
+    readonly serverError: boolean;
+    readonly statusCode: number;
+    readonly succeeded: boolean;
+}
+
+export class PageRenderer {
+    /**
+     * The default render method for page visits: replaces the current `<body>`
+     * with the new one. Can be reassigned via the `turbo:before-render`
+     * event's `detail.render`.
+     */
+    static renderElement(currentElement: HTMLBodyElement, newElement: HTMLBodyElement): void;
+}
+
+export class FrameRenderer {
+    /**
+     * The default render method for frame navigations: replaces the current
+     * frame's contents with the new frame's. Can be reassigned via the
+     * `turbo:before-frame-render` event's `detail.render`.
+     */
+    static renderElement(currentElement: FrameElement, newElement: FrameElement): void;
+}
+
+export class PageSnapshot {
+    static fromHTMLString(html?: string): PageSnapshot;
+    static fromElement(element: Element): PageSnapshot;
+    static fromDocument(document: Pick<Document, "documentElement" | "body" | "head">): PageSnapshot;
+
+    readonly headElement: HTMLHeadElement;
+    readonly isCacheable: boolean;
+    readonly isPreviewable: boolean;
+    readonly isVisitable: boolean;
+    readonly lang: string | null;
+    readonly rootLocation: URL;
+    clone(): PageSnapshot;
 }
 
 export interface Visit {
@@ -247,7 +380,7 @@ export interface FormsConfig {
     /** Form handling mode: "on" (default), "off", or "optin". */
     mode: "on" | "off" | "optin";
     /** Custom confirmation method. Falls back to window.confirm if not defined. */
-    confirm?: (message: string, element: HTMLFormElement, submitter: HTMLElement | null) => Promise<boolean>;
+    confirm?: (message: string, element: HTMLFormElement, submitter: HTMLElement | null) => boolean | Promise<boolean>;
     /**
      * Controls how submitters are disabled during form submission.
      * Can be "disabled" (default), "aria-disabled", or a custom SubmitterConfig.
@@ -326,7 +459,7 @@ export interface VisitOptions {
     action?: Action;
     frame?: string;
 }
-export function visit(location: string, options?: VisitOptions): void;
+export function visit(location: string | URL, options?: VisitOptions): void;
 
 /**
  * Starts the main Turbo session.
@@ -348,6 +481,33 @@ export function registerAdapter(adapter: Adapter): void;
  * @deprecated Use `Turbo.config.forms.mode = mode` instead.
  */
 export function setFormMode(mode: "on" | "off" | "optin"): void;
+
+/**
+ * Sets the delay after which the progress bar will appear during navigation,
+ * in milliseconds. The progress bar appears after 500ms by default.
+ *
+ * @param delayInMilliseconds
+ * @deprecated Use `Turbo.config.drive.progressBarDelay = delayInMilliseconds` instead.
+ */
+export function setProgressBarDelay(delayInMilliseconds: number): void;
+
+/**
+ * Sets the method that is called by links decorated with `data-turbo-confirm`
+ * and forms decorated with `data-turbo-confirm`.
+ *
+ * The default is the browser's built in confirm. The method should return
+ * (or resolve with) `true` if the visit or submission can proceed.
+ *
+ * @param confirmMethod
+ * @deprecated Use `Turbo.config.forms.confirm = confirmMethod` instead.
+ */
+export function setConfirmMethod(
+    confirmMethod: (
+        message: string,
+        element: HTMLFormElement,
+        submitter: HTMLElement | null,
+    ) => boolean | Promise<boolean>,
+): void;
 
 /**
  * Options for morphing elements.
@@ -432,12 +592,18 @@ export interface TurboGlobal {
      **
      * The default is the browser's built in confirm.
      *
-     * The method should return true if the visit can proceed.
+     * The method should return (or resolve with) true if the visit can proceed.
      *
      * @param confirmMethod
      * @deprecated Use `Turbo.config.forms.confirm = confirmMethod` instead.
      */
-    setConfirmMethod(confirmMethod: () => boolean): void;
+    setConfirmMethod(
+        confirmMethod: (
+            message: string,
+            element: HTMLFormElement,
+            submitter: HTMLElement | null,
+        ) => boolean | Promise<boolean>,
+    ): void;
 
     /**
      * Sets the form mode for Turbo Drive.
@@ -452,9 +618,9 @@ export interface TurboGlobal {
      *
      * @param adapter Adapter to register
      */
-    registerAdapter(adapter: unknown): void;
+    registerAdapter(adapter: Adapter): void;
 
-    visit(location: string, options?: { action?: Action; frame?: string }): void;
+    visit(location: string | URL, options?: VisitOptions): void;
 
     /**
      * Starts the main Turbo session.
@@ -484,14 +650,13 @@ declare global {
 
 export type Render = (currentElement: StreamElement) => Promise<void>;
 export type TimingData = unknown;
-export type VisitFallback = (location: string | Response, options: VisitOptions) => Promise<void>;
+export type VisitFallback = (location: string | Response, options?: VisitOptions) => Promise<void>;
 
 export type TurboBeforeCacheEvent = CustomEvent;
 export type TurboBeforePrefetchEvent = CustomEvent;
 export type TurboBeforeRenderEvent = CustomEvent<{
     newBody: HTMLBodyElement;
     renderMethod: "replace" | "morph";
-    isPreview: boolean;
     resume: (value?: unknown) => void;
     render: (currentBody: HTMLBodyElement, newBody: HTMLBodyElement) => void;
 }>;
@@ -503,6 +668,7 @@ export type TurboClickEvent = CustomEvent<{
 export type TurboFrameLoadEvent = CustomEvent;
 export type TurboBeforeFrameRenderEvent = CustomEvent<{
     newFrame: FrameElement;
+    renderMethod: "replace" | "morph";
     resume: (value?: unknown) => void;
     render: (currentFrame: FrameElement, newFrame: FrameElement) => void;
 }>;
@@ -510,8 +676,11 @@ export type TurboFrameRenderEvent = CustomEvent<{
     fetchResponse: FetchResponse;
 }>;
 export type TurboLoadEvent = CustomEvent<{ url: string; timing: TimingData }>;
-export type TurboRenderEvent = CustomEvent;
-export type TurboReloadEvent = CustomEvent;
+export type TurboRenderEvent = CustomEvent<{ renderMethod: "replace" | "morph" }>;
+export type TurboReloadEvent = CustomEvent<{
+    reason: string;
+    context?: { statusCode: number };
+}>;
 export type TurboVisitEvent = CustomEvent<{ url: string; action: Action }>;
 
 export type TurboBeforeStreamRenderEvent = CustomEvent<{
@@ -552,7 +721,11 @@ export interface FormSubmission {
     formElement: HTMLFormElement;
     isSafe: boolean;
     location: URL;
-    method: "get" | "post" | "put" | "patch" | "delete";
+    /**
+     * The HTTP method verb in UPPERCASE (e.g. "GET"), as read back from the
+     * underlying fetch request.
+     */
+    method: string;
     stop(): void;
     submitter?: HTMLButtonElement | HTMLInputElement;
 }

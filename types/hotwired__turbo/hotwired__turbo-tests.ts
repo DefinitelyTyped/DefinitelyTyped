@@ -5,12 +5,27 @@ import {
     config,
     connectStreamSource,
     disconnectStreamSource,
+    fetch,
+    FetchEnctype,
+    fetchEnctypeFromString,
+    FetchMethod,
+    fetchMethodFromString,
+    FetchRequest,
+    FetchRequestDelegate,
+    FetchResponse,
+    FrameLoadingStyle,
+    FrameRenderer,
+    isSafe,
     navigator,
     NavigatorDelegate,
+    PageRenderer,
+    PageSnapshot,
     ProgressBar,
     registerAdapter,
     renderStreamMessage,
     session,
+    setConfirmMethod,
+    setProgressBarDelay,
     start,
     StreamActions,
     StreamMessage,
@@ -57,6 +72,16 @@ const turboStream = document.querySelector("turbo-stream")!;
 // $ExpectType StreamElement
 turboStream;
 
+// Attribute-backed getters are null when the attribute is absent
+// $ExpectType string | null
+turboStream.action;
+// $ExpectType string | null
+turboStream.target;
+// $ExpectType string | null
+turboStream.targets;
+// $ExpectType string | null
+turboStream.requestId;
+
 // @ts-expect-error
 turboStream.action = "123";
 // @ts-expect-error
@@ -80,6 +105,8 @@ visit("my-location", {
 });
 
 visit("my-location", { frame: "mine" });
+visit(new URL("https://example.com/messages"));
+visit(new URL("https://example.com/messages"), { action: "replace" });
 
 // $ExpectType TurboGlobal
 Turbo;
@@ -103,6 +130,7 @@ Turbo.visit("my-location", {
 });
 
 Turbo.visit("my-location", { frame: "mine" });
+Turbo.visit(new URL("https://example.com/messages"));
 
 // $ExpectType TurboSession
 Turbo.session;
@@ -137,7 +165,14 @@ document.addEventListener("turbo:before-fetch-request", function(event) {
 
 document.addEventListener("turbo:before-fetch-response", function(e) {
     let { fetchResponse } = e.detail;
+    // $ExpectType string | null
     fetchResponse.header("foo");
+    // $ExpectType string | null
+    fetchResponse.contentType;
+    // $ExpectType Promise<string | undefined>
+    fetchResponse.responseHTML;
+    // @ts-expect-error - statusCode is readonly
+    fetchResponse.statusCode = 200;
 });
 
 document.addEventListener("turbo:before-render", function(e) {
@@ -147,21 +182,44 @@ document.addEventListener("turbo:before-render", function(e) {
         // $ExpectType HTMLBodyElement
         newElement;
     };
+    e.detail.render = PageRenderer.renderElement;
     // $ExpectType (value?: unknown) => void
     e.detail.resume;
+    // $ExpectType "replace" | "morph"
+    e.detail.renderMethod;
+    // @ts-expect-error - isPreview is not part of the turbo:before-render detail
+    e.detail.isPreview;
+});
+
+document.addEventListener("turbo:render", function(e) {
+    // $ExpectType "replace" | "morph"
+    e.detail.renderMethod;
 });
 
 document.addEventListener("turbo:before-frame-render", function(e) {
     // $ExpectType (value?: unknown) => void
     e.detail.resume;
+    // $ExpectType "replace" | "morph"
+    e.detail.renderMethod;
+    e.detail.render = FrameRenderer.renderElement;
+});
+
+document.addEventListener("turbo:reload", function(e) {
+    // $ExpectType string
+    e.detail.reason;
+    // $ExpectType number | undefined
+    e.detail.context?.statusCode;
 });
 
 document.addEventListener("turbo:frame-missing", function(event) {
     event.detail.visit(event.detail.response, {});
+    event.detail.visit("/fallback");
 });
 
 document.addEventListener("turbo:submit-start", function(event) {
     event.detail.formSubmission.stop();
+    // $ExpectType string
+    event.detail.formSubmission.method;
 });
 
 document.addEventListener("turbo:submit-end", function(event) {
@@ -277,7 +335,7 @@ Turbo.config.drive.progressBarDelay = 300;
 Turbo.config.forms.mode = "optin";
 
 // Test config.forms.confirm is optional (undefined by default, can be set to undefined)
-// $ExpectType ((message: string, element: HTMLFormElement, submitter: HTMLElement | null) => Promise<boolean>) | undefined
+// $ExpectType ((message: string, element: HTMLFormElement, submitter: HTMLElement | null) => boolean | Promise<boolean>) | undefined
 config.forms.confirm;
 config.forms.confirm = undefined;
 
@@ -285,6 +343,7 @@ config.forms.confirm = undefined;
 config.forms.confirm = async (message, element, submitter) => {
     return window.confirm(message);
 };
+config.forms.confirm = window.confirm;
 
 // Test StreamElement.templateElement and templateContent
 // $ExpectType HTMLTemplateElement
@@ -354,3 +413,91 @@ session.restorationIdentifier;
 session.started;
 // $ExpectType boolean
 session.enabled;
+
+// Test FrameLoadingStyle
+// $ExpectType "eager"
+FrameLoadingStyle.eager;
+// $ExpectType "lazy"
+FrameLoadingStyle.lazy;
+
+// Test FetchMethod / FetchEnctype constants and helpers
+// $ExpectType "get"
+FetchMethod.get;
+// $ExpectType "delete"
+FetchMethod.delete;
+// $ExpectType "application/x-www-form-urlencoded"
+FetchEnctype.urlEncoded;
+// $ExpectType "get" | "post" | "put" | "patch" | "delete" | undefined
+fetchMethodFromString("GET");
+// $ExpectType "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain"
+fetchEnctypeFromString("multipart/form-data");
+// $ExpectType boolean
+isSafe("get");
+
+// Test Turbo's fetch wrapper
+// $ExpectType Promise<Response>
+fetch("/articles", { headers: { Accept: "text/html" } });
+fetch(new URL("https://example.com/articles"));
+
+// Test FetchRequest construction and members
+const fetchRequestDelegate: FetchRequestDelegate = {
+    prepareRequest(_request) {},
+    requestStarted(_request) {},
+    requestPreventedHandlingResponse(_request, _response) {},
+    requestSucceededWithResponse(_request, _response) {},
+    requestFailedWithResponse(_request, _response) {},
+    requestErrored(_request, _error) {},
+    requestFinished(_request) {},
+};
+const fetchRequest = new FetchRequest(fetchRequestDelegate, "post", new URL("https://example.com"), new FormData());
+// @ts-expect-error - a FetchRequest cannot be constructed without arguments
+new FetchRequest();
+// $ExpectType string
+fetchRequest.method;
+fetchRequest.method = "put";
+// @ts-expect-error - method assignments accept Turbo's lowercase verbs only
+fetchRequest.method = "PUT";
+// $ExpectType URLSearchParams
+fetchRequest.params;
+// $ExpectType URL
+fetchRequest.location;
+// $ExpectType boolean
+fetchRequest.isSafe;
+// $ExpectType Promise<FetchResponse | undefined>
+fetchRequest.perform();
+fetchRequest.acceptResponseType(StreamMessage.contentType);
+fetchRequest.cancel();
+
+// Test FetchResponse construction
+const fetchResponse = new FetchResponse(new Response());
+// @ts-expect-error - a FetchResponse cannot be constructed without a Response
+new FetchResponse();
+// $ExpectType Response
+fetchResponse.response;
+// $ExpectType string | null
+fetchResponse.header("Content-Type");
+
+// Test PageSnapshot
+const pageSnapshot = PageSnapshot.fromHTMLString("<html><body></body></html>");
+PageSnapshot.fromHTMLString();
+PageSnapshot.fromElement(document.body);
+PageSnapshot.fromDocument(document);
+// $ExpectType boolean
+pageSnapshot.isCacheable;
+// $ExpectType boolean
+pageSnapshot.isPreviewable;
+// $ExpectType boolean
+pageSnapshot.isVisitable;
+// $ExpectType URL
+pageSnapshot.rootLocation;
+// $ExpectType HTMLHeadElement
+pageSnapshot.headElement;
+// $ExpectType string | null
+pageSnapshot.lang;
+// $ExpectType PageSnapshot
+pageSnapshot.clone();
+
+// Test deprecated module-level functions
+setProgressBarDelay(300);
+setConfirmMethod(window.confirm);
+setConfirmMethod(async (message, _element, _submitter) => window.confirm(message));
