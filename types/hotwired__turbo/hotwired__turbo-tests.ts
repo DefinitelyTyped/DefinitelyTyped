@@ -223,7 +223,12 @@ navigator.delegate;
 navigator.delegate.adapter;
 
 // Test ProgressBar via BrowserAdapter cast
+// BrowserAdapter is not a runtime export of @hotwired/turbo, only a type
+// @ts-expect-error
+new BrowserAdapter();
 const browserAdapter = navigator.delegate.adapter as BrowserAdapter;
+const browserAdapterAsAdapter: Adapter = browserAdapter;
+browserAdapterAsAdapter.visitStarted;
 // $ExpectType ProgressBar
 browserAdapter.progressBar;
 browserAdapter.progressBar.setValue(0);
@@ -317,16 +322,16 @@ disconnectStreamSource(webSocket);
 // @ts-expect-error
 connectStreamSource({});
 
-const streamMessage = new StreamMessage(document.createDocumentFragment());
+const streamMessage: StreamMessage = { fragment: document.createDocumentFragment() };
 renderStreamMessage("<turbo-stream></turbo-stream>");
 renderStreamMessage(streamMessage);
 Turbo.renderStreamMessage("<turbo-stream></turbo-stream>");
 Turbo.renderStreamMessage(streamMessage);
 
-// $ExpectType "text/vnd.turbo-stream.html"
-StreamMessage.contentType;
-
-// $ExpectType StreamMessage
+// StreamMessage is not a runtime export of @hotwired/turbo, only a type
+// @ts-expect-error
+new StreamMessage(document.createDocumentFragment());
+// @ts-expect-error
 StreamMessage.wrap("<turbo-stream></turbo-stream>");
 
 // Test TurboHistory via session.history
