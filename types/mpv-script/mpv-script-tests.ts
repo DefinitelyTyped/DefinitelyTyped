@@ -184,3 +184,37 @@ if (osd_size) {
     // $ExpectType number | undefined
     osd_size.aspect;
 }
+
+// $ExpectType __IntervalId
+const interval_id = setInterval(
+    function(foo, bar) {
+        // $ExpectType string
+        const a = foo;
+        // $ExpectType number
+        const b = bar;
+    },
+    1000,
+    "foo",
+    1,
+);
+
+// @ts-expect-error
+clearInterval(100);
+
+// $ExpectType __TimeoutId
+const timeout_id = setTimeout(
+    function(foo, bar) {
+        // $ExpectType string
+        const a = foo;
+        // $ExpectType number
+        const b = bar;
+    },
+    1000,
+    "foo",
+    1,
+);
+
+// @ts-expect-error
+clearTimeout(interval_id);
+
+clearTimeout(timeout_id);

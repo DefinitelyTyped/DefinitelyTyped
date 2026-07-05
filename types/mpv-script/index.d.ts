@@ -312,8 +312,75 @@ declare namespace mp {
     }
 }
 
+/**
+ * A convenient alias to `mp.msg.info`.
+ */
 declare function print(...msg: unknown[]): void;
 
+/**
+ * Like `print` but also expands objects and arrays recursively.
+ */
 declare function dump(...msg: unknown[]): void;
 
+/**
+ * Make the script exit at the end of the current event loop iteration. This does not terminate mpv itself or other scripts.
+ * This can be polyfilled to support mpv versions older than 0.40 with:
+ */
 declare function exit(): void;
+
+// nominal brand for setTimeout returns, in case a random number is passed to clearTimeout
+type __TimeoutId = number & { __brand: "setTimeout" };
+type __IntervalId = number & { __brand: "setInterval" };
+
+/**
+ * @param fn callback for each interval
+ * @param delay delay in millisecond
+ * @param args args for `fn`
+ * @returns id
+ */
+declare function setTimeout<TArgs extends any[]>(
+    fn: (...args: TArgs) => void,
+    delay?: number,
+    ...args: TArgs
+): __TimeoutId;
+
+/**
+ * @param codeString javascript code
+ * @param delay delay in millisecond
+ * @returns id
+ */
+declare function setTimeout(codeString: string, delay?: number): __TimeoutId;
+
+/**
+ * Cancels a scheduled timeout
+ */
+declare function clearTimeout(id: __TimeoutId): void;
+
+/**
+ * @param fn callback for each interval
+ * @param delay delay to first start and interval(millisecond)
+ * @param args args for `fn`
+ * @returns id
+ */
+declare function setInterval<TArgs extends any[]>(
+    fn: (...args: TArgs) => void,
+    delay?: number,
+    ...args: TArgs
+): __IntervalId;
+
+/**
+ * @param codeString javascript code
+ * @param delay delay in millisecond
+ * @returns id
+ */
+declare function setInterval(codeString: string, delay?: number): __IntervalId;
+
+/**
+ * Stop a recurring timer
+ */
+declare function clearInterval(id: __IntervalId): void;
+
+/**
+ * note: compilerOptions.module in tsconfig/jsconfig should be set properly otherwise it might not resolve shape of the exports
+ */
+declare function require(mod: string): any;
