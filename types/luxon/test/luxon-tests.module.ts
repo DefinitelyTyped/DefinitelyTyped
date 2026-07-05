@@ -660,4 +660,3 @@ function typeGuardCheck(dt: DateTime): void {
 
     dt; // $ExpectType DateTime<boolean>
 }
-
