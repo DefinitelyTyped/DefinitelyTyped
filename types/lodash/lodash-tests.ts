@@ -2,9 +2,9 @@
 import fp = require("./fp");
 import _ = require("lodash");
 import conforms = require("lodash/conforms");
-import stubArrayMod = require("lodash/stubArray");
-import stubObjectMod = require("lodash/stubObject");
-import stubStringMod = require("lodash/stubString");
+import stubArray = require("lodash/stubArray");
+import stubObject = require("lodash/stubObject");
+import stubString = require("lodash/stubString");
 /* eslint-enable @definitelytyped/no-relative-import-in-test */
 
 import type {
@@ -7844,7 +7844,7 @@ _.templateSettings; // $ExpectType TemplateSettings
 
 // Stub modules
 {
-    stubArrayMod(); // $ExpectType any[]
-    stubObjectMod(); // $ExpectType any
-    stubStringMod(); // $ExpectType string
+    stubArray(); // $ExpectType any[]
+    stubObject(); // $ExpectType any
+    stubString(); // $ExpectType string
 }
