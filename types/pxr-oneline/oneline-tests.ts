@@ -82,28 +82,20 @@ const ndOne: OneLine.OneLine = {
         // Mock implementation for adUnitRequest
         console.log(`Ad unit request with ids: ${arrFoAdIds}, allowReload: ${allowReload}`);
     },
-    preBidAdUnit: (prebidAdUnit: OneLine.VideoPrebidAdUnitConfig, isDebug: boolean) => {
-        console.log(`Pre-bid ad unit: ${JSON.stringify(prebidAdUnit)}, isDebug: ${isDebug}`);
-        return {
-            code: prebidAdUnit.playerId ?? prebidAdUnit.player_id ?? "video1",
-            mediaTypes: { video: {} },
-            bids: [],
-        };
+    preBidAdUnit: (prebidBids: OneLine.PrebidBids, gtag: string, isDebug: boolean) => {
+        // Mock implementation for preBidAdUnit
+        console.log(`Pre-bid ad unit with bids: ${JSON.stringify(prebidBids)}, gtag: ${gtag}, isDebug: ${isDebug}`);
+        return {}; // Replace with actual implementation or mocked response
     },
     requestVideoPlayerAds: (onBiddingComplete: () => void) => {
         // Mock implementation for requestVideoPlayerAds
         console.log("Requesting video player ads...");
         onBiddingComplete();
     },
-    buildVideoUrl: (
-        adUnit: OneLine.VideoAdUnit | BidderConfig[],
-        placementID: string,
-        customParams: VideoCustomParameters,
-    ): string => {
-        const bidderLabel = Array.isArray(adUnit)
-            ? adUnit.map(b => b.bidder).join(",")
-            : adUnit.code;
-        return `https://example.com/video?placement=${placementID}&bidder=${bidderLabel}`;
+    buildVideoUrl: (bidder: BidderConfig[], placementID: string, customParams: VideoCustomParameters): string => {
+        // Example implementation that concatenates placementID with bidder info to form a URL
+        // This is a mock implementation and should be replaced with your actual logic
+        return `https://example.com/video?placement=${placementID}&bidder=${bidder.map(b => b.bidder).join(",")}`;
     },
     showCmp: () => {
         // Mock implementation for showCmp
@@ -169,10 +161,10 @@ const ndOne: OneLine.OneLine = {
 ndOne.adUnitRequest();
 ndOne.adUnitRequest(["ndm-1", "ndm-2"]);
 ndOne.adUnitRequest(["push-up-all"], true);
-ndOne.preBidAdUnit({ xandr: { bidder: "xandr", params: { placementId: "123" } } }, false);
-ndOne.preBidAdUnit({ playerId: "video2", xandr: { bidder: "xandr", params: { placementId: "456" } } }, false);
-ndOne.buildVideoUrl([], "testPlacementId", { playerId: "video2" });
+ndOne.preBidAdUnit({ xandr: { bidder: "xandr", params: { placementId: "123" } } }, "", false);
+ndOne.preBidAdUnit({ playerId: "video2", xandr: { bidder: "xandr", params: { placementId: "456" } } }, "", false);
 ndOne.buildVideoUrl([{ bidder: "testBidder", params: { placementId: "testPlacementId" } }], "testPlacementId", {});
+ndOne.buildVideoUrl([], "testPlacementId", { playerId: "video2" });
 ndOne.requestVideoPlayerAds(() => {
     console.log("Video player ads bidding complete");
 });
