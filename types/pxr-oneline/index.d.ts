@@ -2,12 +2,12 @@ declare namespace OneLine {
     interface OneLine {
         event: EventObject;
         adUnitRequest(arrFoAdIds?: string[], allowReload?: boolean): void;
-        preBidAdUnit(prebidBids: PrebidBids, gtag: string, isDebug: boolean): any;
+        preBidAdUnit(prebidAdUnit: VideoPrebidAdUnitConfig, isDebug: boolean): VideoAdUnit;
         requestVideoPlayerAds(onBiddingComplete: () => void): void;
         showCmp(): void;
         loadScript(src: string, priority: "async" | "defer" | "instant" | "async"): void;
         buildVideoUrl(
-            bidder: BidderConfig[],
+            adUnit: BidderConfig[] | VideoAdUnit,
             placementID: string,
             customParams: VideoCustomParameters,
             videoTitle?: string,
@@ -37,7 +37,50 @@ declare namespace OneLine {
         suspendJwPlayerContent(container: HTMLElement): void;
         resumeJwPlayerContent(container: HTMLElement): void;
     }
+
+    /**
+     * Optional per-player Prebid ad unit code (e.g. "video1", "video2").
+     * When omitted, OneLine auto-assigns the next available slot.
+     */
+    interface VideoPrebidAdUnitConfig {
+        playerId?: string;
+        player_id?: string;
+        xandr?: VideoBidderEntry;
+        GroupM_gps?: VideoBidderEntry;
+        [bidderKey: string]: VideoBidderEntry | string | undefined;
+    }
+
+    interface VideoBidderEntry {
+        bidder: string;
+        params: BidderParams;
+    }
+
+    interface VideoAdUnit {
+        code: string;
+        mediaTypes: {
+            video: {
+                context?: string;
+                playerSize?: number[];
+                mimes?: string[];
+                protocols?: number[];
+                playbackmethod?: number[];
+                skip?: number;
+                maxduration?: number;
+                linearity?: number;
+                placement?: number;
+                plcmt?: number;
+            };
+        };
+        bids?: BidderConfig[];
+    }
+
     interface VideoCustomParameters {
+        /**
+         * Optional per-player Prebid ad unit code. Use the same value as preBidAdUnit when
+         * buildVideoUrl is called with an empty ad unit array.
+         */
+        playerId?: string;
+        player_id?: string;
         [key: string]: number | string | undefined;
     }
 
@@ -49,6 +92,7 @@ declare namespace OneLine {
 
     interface BidderParams {
         placementId: string;
+        [key: string]: string | number | Record<string, string> | undefined;
     }
 
     interface BidderConfig {
@@ -56,6 +100,9 @@ declare namespace OneLine {
         params: BidderParams;
     }
 
+    /**
+     * @deprecated Use VideoPrebidAdUnitConfig instead.
+     */
     interface PrebidBids {
         [key: string]: {
             bidder: string;
