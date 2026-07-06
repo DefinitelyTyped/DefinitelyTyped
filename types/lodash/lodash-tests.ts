@@ -1,10 +1,10 @@
 /* eslint-disable @definitelytyped/no-relative-import-in-test */
 import fp = require("./fp");
 import _ = require("lodash");
-import conforms = require("./conforms");
-import stubArrayMod = require("./stubArray");
-import stubObjectMod = require("./stubObject");
-import stubStringMod = require("./stubString");
+import conforms = require("lodash/conforms");
+import stubArrayMod = require("lodash/stubArray");
+import stubObjectMod = require("lodash/stubObject");
+import stubStringMod = require("lodash/stubString");
 /* eslint-enable @definitelytyped/no-relative-import-in-test */
 
 import type {
