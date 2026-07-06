@@ -292,8 +292,57 @@ export interface TurboHistory {
     replace(location: URL, restorationIdentifier?: string): void;
 }
 
+export class PageSnapshot {
+    static fromHTMLString(html?: string): PageSnapshot;
+    static fromElement(element: Element): PageSnapshot;
+    static fromDocument(document: Pick<Document, "documentElement" | "body" | "head">): PageSnapshot;
+
+    readonly headElement: HTMLHeadElement;
+    readonly isCacheable: boolean;
+    readonly isPreviewable: boolean;
+    readonly isVisitable: boolean;
+    readonly lang: string | null;
+    readonly rootLocation: URL;
+    clone(): PageSnapshot;
+}
+
+/**
+ * An LRU cache of page snapshots, keyed by location.
+ *
+ * Note that Turbo does not export the `SnapshotCache` class at runtime —
+ * obtain the instance via `session.view.snapshotCache`.
+ */
+export interface SnapshotCache {
+    has(location: URL): boolean;
+    get(location: URL): PageSnapshot | undefined;
+    put(location: URL, snapshot: PageSnapshot): PageSnapshot;
+    clear(): void;
+}
+
+/**
+ * The session's view of the current page.
+ *
+ * Note that Turbo does not export the `PageView` class at runtime —
+ * obtain the instance via `session.view`.
+ */
+export interface PageView {
+    element: HTMLElement;
+    snapshotCache: SnapshotCache;
+    /**
+     * The location of the last rendered page. Keys the snapshot cache and
+     * page-refresh detection.
+     */
+    lastRenderedLocation: URL;
+    forceReloaded: boolean;
+    readonly snapshot: PageSnapshot;
+    cacheSnapshot(snapshot?: PageSnapshot): Promise<PageSnapshot | undefined>;
+    getCachedSnapshotForLocation(location: URL): PageSnapshot | undefined;
+    clearSnapshotCache(): void;
+}
+
 export interface TurboSession {
     readonly history: TurboHistory;
+    readonly view: PageView;
     adapter: Adapter;
     readonly enabled: boolean;
     readonly started: boolean;
