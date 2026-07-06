@@ -1,7 +1,7 @@
 /* eslint-disable @definitelytyped/no-relative-import-in-test */
 import fp = require("./fp");
 import _ = require("lodash");
-import conformsMod = require("./conforms");
+import conforms = require("./conforms");
 import stubArrayMod = require("./stubArray");
 import stubObjectMod = require("./stubObject");
 import stubStringMod = require("./stubString");
@@ -3969,6 +3969,7 @@ fp.now(); // $ExpectType number
     _({ foo: (v: string) => false }).conforms().value()({ foo: "foo" }); // $ExpectType boolean
     _.chain({ foo: (v: string) => false }).conforms().value()({ foo: "foo" }); // $ExpectType boolean
     fp.conforms({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
+    conforms({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
 }
 
 // _.conformsTo
@@ -7841,9 +7842,8 @@ _.templateSettings; // $ExpectType TemplateSettings
     type D = GetFieldType<Type, 'length'>; // $ExpectType number | undefined
 }
 
-// Modular imports (lodash/<module>)
+// Stub modules
 {
-    conformsMod({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
     stubArrayMod(); // $ExpectType any[]
     stubObjectMod(); // $ExpectType any
     stubStringMod(); // $ExpectType string
