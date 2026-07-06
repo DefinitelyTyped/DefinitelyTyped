@@ -5229,6 +5229,10 @@
             "libraryName": "pad",
             "asOfVersion": "2.1.0"
         },
+        "pako": {
+            "libraryName": "pako",
+            "asOfVersion": "3.0.0"
+        },
         "paper": {
             "libraryName": "paper",
             "asOfVersion": "0.12.3"
