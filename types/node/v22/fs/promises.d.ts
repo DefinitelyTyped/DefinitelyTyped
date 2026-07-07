@@ -1043,8 +1043,7 @@ declare module "fs/promises" {
             | string
             | NodeJS.ArrayBufferView
             | Iterable<string | NodeJS.ArrayBufferView>
-            | AsyncIterable<string | NodeJS.ArrayBufferView>
-            | Stream,
+            | AsyncIterable<string | NodeJS.ArrayBufferView>,
         options?:
             | (ObjectEncodingOptions & {
                 mode?: Mode | undefined;
@@ -1079,8 +1078,7 @@ declare module "fs/promises" {
             | string
             | NodeJS.ArrayBufferView
             | Iterable<string | NodeJS.ArrayBufferView>
-            | AsyncIterable<string | NodeJS.ArrayBufferView>
-            | Stream,
+            | AsyncIterable<string | NodeJS.ArrayBufferView>,
         options?: (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined }) | BufferEncoding | null,
     ): Promise<void>;
     /**
