@@ -1,64 +1,103 @@
-// command_native 1: Array parameter without `def`, expecting null when not occurring error or undefine on error
+// @ts-expect-error
+mp.commandv("subprocess", "foo", "bar"); // subprocess can only be invoked by named arguments
+
 // $ExpectType null | undefined
 mp.command_native(["print-text", "test"]);
 
-// command_native 2: Array parameter with `def`, expecting null when not occurring error or `typeof def` on error
 // $ExpectType null | "def"
 mp.command_native(["print-text", "test"], "def");
 
-// command_native 3: UnnamedCommandOpts without `def`, expecting undefined
-// $ExpectType undefined
-mp.command_native({ args: ["echo", "test"] });
+// $ExpectType SubprocessResultBase
+mp.command_native({
+    name: "subprocess",
+    args: ["echo", "test"],
+});
 
-// command_native 4: UnnamedCommandOpts with `def`, expecting `def` type
-// $ExpectType "def"
-mp.command_native({ args: ["echo", "test"] }, "def");
+// $ExpectType "def" | null
+mp.command_native({
+    name: "non-exist command",
+    text: "foo",
+}, "def");
 
-// command_native 5: UncapturedNamedCommandOpts without `def`, expecting UncapturedProcess return type
-// $ExpectType UncapturedProcess
-mp.command_native({ name: "echo", args: ["echo", "test"] });
+// $ExpectType SubprocessResultWithStderr
+mp.command_native({
+    name: "subprocess",
+    args: ["echo", "test"],
+    capture_stderr: true,
+});
 
-// command_native 6: UncapturedNamedCommandOpts with `def`, expecting UncapturedProcess return type
-// $ExpectType UncapturedProcess
-mp.command_native({ name: "echo", args: ["echo", "test"] }, "def");
+// $ExpectType SubprocessResultWithStdout
+mp.command_native({
+    name: "subprocess",
+    args: ["echo", "test"],
+    capture_stdout: true,
+});
 
-// command_native 7: NamedCommandOptsWithStdout without `def`, expecting ProcessWithStdout return type
-// $ExpectType ProcessWithStdout
-mp.command_native({ name: "echo", args: ["echo", "test"], capture_stdout: true });
+// $ExpectType SubprocessResultWithStd
+mp.command_native({
+    name: "subprocess",
+    args: ["echo", "test"],
+    capture_stdout: true,
+    capture_stderr: true,
+});
 
-// command_native 8: NamedCommandOptsWithStdout with `def`, expecting ProcessWithStdout return type
-// $ExpectType ProcessWithStdout
-mp.command_native({ name: "echo", args: ["echo", "test"], capture_stdout: true }, "def");
-
-// command_native 9: NamedCommandOptsWithStderr without `def`, expecting ProcessWithStderr return type
-// $ExpectType ProcessWithStderr
-mp.command_native({ name: "echo", args: ["echo", "test"], capture_stderr: true });
-
-// command_native 10: NamedCommandOptsWithStderr with `def`, expecting ProcessWithStderr return type
-// $ExpectType ProcessWithStderr
-mp.command_native({ name: "echo", args: ["echo", "test"], capture_stderr: true }, "def");
-
-// command_native 11: CapturedNamedCommandOpts without `def`, expecting CapturedProcess return type
-// $ExpectType CapturedProcess
-mp.command_native({ name: "echo", args: ["echo", "test"], capture_stdout: true, capture_stderr: true });
-
-// command_native 12: CapturedNamedCommandOpts with `def`, expecting CapturedProcess return type
-// $ExpectType CapturedProcess
-mp.command_native({ name: "echo", args: ["echo", "test"], capture_stdout: true, capture_stderr: true }, "def");
-
-// command_native 13: wrong options without `def`
 // @ts-expect-error
 mp.command_native({});
 
-// command_native 14: wrong options with `def`
+// might return undefined on fail
+const res = mp.command_native_async({
+    name: "subprocess",
+    args: ["echo", "test"],
+});
 // @ts-expect-error
-mp.command_native({}, "def");
-
-// result from command_native_async can be passed to abort_async_command
-const res = mp.command_native_async([], () => {});
 mp.abort_async_command(res);
+if (res) mp.abort_async_command(res);
 // @ts-expect-error
 mp.abort_async_command({});
+
+mp.command_native_async({
+    name: "subprocess",
+    args: ["echo", "test"],
+}, function(ok, res, err) {
+    // $ExpectType SubprocessResultBase
+    var r = res;
+});
+
+mp.command_native_async({
+    name: "subprocess",
+    args: ["echo", "test"],
+}, function(ok, res, err) {
+    // $ExpectType SubprocessResultBase
+    var r = res;
+});
+
+mp.command_native_async({
+    name: "subprocess",
+    args: ["echo", "test"],
+    capture_stdout: true,
+}, function(ok, res, err) {
+    // $ExpectType SubprocessResultWithStdout
+    var r = res;
+});
+
+mp.command_native_async({
+    name: "subprocess",
+    args: ["echo", "test"],
+    capture_stderr: true,
+}, function(ok, res, err) {
+    // $ExpectType SubprocessResultWithStderr
+    var r = res;
+});
+
+mp.command_native_async({
+    name: "subprocess",
+    args: ["echo", "test"],
+    capture_stdout: true,
+    capture_stderr: true,
+}, function(ok, res, err) {
+    // $ExpectType SubprocessResultWithStd
+    var r = res;
+});
 
 // Function passed to register_event can be passed to unregister_event
 function onEvent() {}
