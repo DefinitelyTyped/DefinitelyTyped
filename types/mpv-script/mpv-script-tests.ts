@@ -57,10 +57,21 @@ mp.command_native({}, "def");
 // result from command_native_async can be passed to abort_async_command
 const res = mp.command_native_async([], () => {});
 mp.abort_async_command(res);
+// @ts-expect-error
+mp.abort_async_command({});
 
 // Function passed to register_event can be passed to unregister_event
 function onEvent() {}
+// @ts-expect-error
 mp.register_event("test", onEvent);
+mp.register_event("file-loaded", function(e) {
+    // $ExpectType "file-loaded"
+    var event = e.event;
+});
+mp.register_event("end-file", function(e) {
+    // $ExpectType number
+    var id = e.playlist_entry_id;
+});
 mp.unregister_event(onEvent);
 
 // Function passed to observe_property can be passed to unobserve_property
@@ -87,6 +98,11 @@ mp.get_property_bool("test", false);
 mp.get_property_number("test");
 // $ExpectType number
 mp.get_property_number("test", 0);
+
+// $ExpectType unknown
+mp.get_property_native("filename");
+// $ExpectType unknown
+mp.get_property_native("filename", "foo.mp4");
 
 mp.observe_property("test", "native", (name, value) => {
     // $ExpectType unknown
@@ -184,3 +200,44 @@ if (osd_size) {
     // $ExpectType number | undefined
     osd_size.aspect;
 }
+
+// $ExpectType __IntervalId
+const interval_id = setInterval(
+    function(foo, bar) {
+        // $ExpectType string
+        const a = foo;
+        // $ExpectType number
+        const b = bar;
+    },
+    1000,
+    "foo",
+    1,
+);
+
+// @ts-expect-error
+clearInterval(100);
+
+// $ExpectType __TimeoutId
+const timeout_id = setTimeout(
+    function(foo, bar) {
+        // $ExpectType string
+        const a = foo;
+        // $ExpectType number
+        const b = bar;
+    },
+    1000,
+    "foo",
+    1,
+);
+
+// @ts-expect-error
+clearTimeout(interval_id);
+
+clearTimeout(timeout_id);
+
+mp.options.read_options({ foo: "bar", bar: "foo" }, "foobar", function(list) {
+    // $ExpectType true | undefined
+    var foo_updated = list.foo;
+    // $ExpectType true | undefined
+    var bar_updated = list.bar;
+});

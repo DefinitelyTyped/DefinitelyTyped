@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/tnt/library" {
   /**
@@ -1439,8 +1439,7 @@ declare module "sap/tnt/NavigationListGroup" {
   /**
    * Describes the settings that can be provided to the NavigationListGroup constructor.
    */
-  export interface $NavigationListGroupSettings
-    extends $NavigationListItemBaseSettings {
+  export interface $NavigationListGroupSettings extends $NavigationListItemBaseSettings {
     /**
      * The sub items.
      *
@@ -2004,8 +2003,7 @@ declare module "sap/tnt/NavigationListItem" {
   /**
    * Describes the settings that can be provided to the NavigationListItem constructor.
    */
-  export interface $NavigationListItemSettings
-    extends $NavigationListItemBaseSettings {
+  export interface $NavigationListItemSettings extends $NavigationListItemBaseSettings {
     /**
      * Specifies the icon for the item.
      *
@@ -3342,8 +3340,7 @@ declare module "sap/tnt/ToolHeaderUtilitySeparator" {
   /**
    * Describes the settings that can be provided to the ToolHeaderUtilitySeparator constructor.
    */
-  export interface $ToolHeaderUtilitySeparatorSettings
-    extends $ControlSettings {}
+  export interface $ToolHeaderUtilitySeparatorSettings extends $ControlSettings {}
 }
 
 declare module "sap/tnt/ToolPage" {

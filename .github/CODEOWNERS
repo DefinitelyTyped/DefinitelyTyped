@@ -1216,7 +1216,7 @@
 /types/current-git-branch/                              @maxbogus
 /types/curtainsjs/                                      @Blakeinstein
 /types/custom-error-generator/                          @thmiceli
-/types/custom-functions-runtime/                        @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
+/types/custom-functions-runtime/                        @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
 /types/customize-cra/                                   @k-yle
 /types/cvss/                                            @himynameisdave
 /types/cwd/                                             @BendingBender
@@ -5033,6 +5033,7 @@
 /types/name-all-modules-plugin/                         @peterblazejewicz
 /types/name-initials/                                   @atlowChemi
 /types/named-routes/                                    @qqilihq
+/types/namespace-emitter/                               @remcohaszing
 /types/namespace-js/                                    @kuromoka
 /types/nano-cache/                                      @rcoundon
 /types/nano-equal/                                      @1cheese
@@ -5391,9 +5392,9 @@
 /types/obsolete-web/                                    @peterblazejewicz
 /types/oclazyload/                                      @rolandzwaga
 /types/ofe/                                             @Morfent
-/types/office-js/                                       @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
-/types/office-js-preview/                               @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
-/types/office-runtime/                                  @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
+/types/office-js/                                       @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
+/types/office-js-preview/                               @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
+/types/office-runtime/                                  @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
 /types/offline-js/                                      @cgwrench
 /types/offscreen-canvas/                                @peterblazejewicz
 /types/offscreencanvas/                                 @kayahr @ova2 @capnmidnight
@@ -7221,7 +7222,7 @@
 /types/shallowequal/v0/                                 @seansfkelley
 /types/shapefile/                                       @DenisCarriere @Thw0rted
 /types/share-api-polyfill/                              @jnv
-/types/sharedb/                                         @soney @ericyhwang @pxpeterxu @alecgibson @pypmannetjies @craigbeck
+/types/sharedb/                                         @soney @ericyhwang @pxpeterxu @alecgibson @pypmannetjies @craigbeck @dawidreedsy
 /types/sharepoint/                                      @gandjustas @andrei-markeev @teroarvola @dennispg @SPWizard01 @betlgtu
 /types/sharetribe-flex-integration-sdk/                 @jayenashar @venmartin
 /types/sharetribe-flex-sdk/                             @jayenashar @venmartin
@@ -7812,8 +7813,6 @@
 /types/throttle-debounce/                               @czbuchi @franklixuefei @oddsund @seiyab
 /types/throttleit/                                      @ifiokjr
 /types/through/                                         @AndrewGaspar
-/types/through2/                                        @Bartvds @valotas @TeamworkGuy2 @Alorel
-/types/through2/v0/                                     @Bartvds
 /types/through2-concurrent/                             @Alorel
 /types/through2-map/                                    @LucasHill
 /types/throw-empty/                                     @ChocolateLoverRaj
@@ -8419,6 +8418,7 @@
 /types/whois-json/                                      @hwaien
 /types/whois-parsed/                                    @uchilaka
 /types/whoops/                                          @ffflorian
+/types/wicg-cross-origin-storage/                       @tomayac @christianliebel
 /types/wicg-entries-api/                                @HenningCash @RReverser
 /types/wicg-file-system-access/                         @RReverser
 /types/wicg-js-self-profiling/                          @NotWoods

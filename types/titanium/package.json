@@ -1,31 +1,23 @@
 {
     "private": true,
     "name": "@types/titanium",
-    "version": "12.0.9999",
+    "version": "13.3.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Titanium",
     "projects": [
-        "https://github.com/appcelerator/titanium_mobile"
+        "https://github.com/tidev/titanium-sdk"
     ],
     "devDependencies": {
         "@types/titanium": "workspace:."
     },
     "owners": [
         {
-            "name": "Axway Appcelerator",
-            "githubUsername": "appcelerator"
+            "name": "TiDev, Inc.",
+            "githubUsername": "tidev"
         },
         {
             "name": "Jan Vennemann",
             "githubUsername": "janvennemann"
-        },
-        {
-            "name": "Sergey Volkov",
-            "githubUsername": "drauggres"
-        },
-        {
-            "name": "Mathias Lorenzen",
-            "githubUsername": "ffMathy"
         }
     ]
 }

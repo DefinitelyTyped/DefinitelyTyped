@@ -291,10 +291,16 @@ const checksum = new Checksum("sha512");
 // $ExpectType Checksum
 checksum.update("abc");
 checksum.update(new Uint8Array([1, 2, 3]).buffer).update([4, 5, 6]);
+// $ExpectType Checksum
+checksum.copy();
 // $ExpectType string
 checksum.getString();
+// $ExpectType string
+checksum.peekString();
 // $ExpectType ArrayBuffer
 checksum.getDigest();
+// $ExpectType ArrayBuffer
+checksum.peekDigest();
 // @ts-expect-error
 new Checksum("unknown-type");
 

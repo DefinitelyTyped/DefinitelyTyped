@@ -3100,6 +3100,12 @@ declare class Checksum {
     update(data: string | ArrayBuffer | number[]): Checksum;
 
     /**
+     * Creates a copy of the checksum instance. The copy is in the same state as
+     * the original, so a "closed" checksum is copied as "closed".
+     */
+    copy(): Checksum;
+
+    /**
      * Gets the digest as an all-lowercase hexadecimal string. The length of the
      * digest depends on the type of checksum.
      *
@@ -3109,6 +3115,13 @@ declare class Checksum {
     getString(): string;
 
     /**
+     * Gets the digest as an all-lowercase hexadecimal string, without closing
+     * the checksum. Unlike `getString()`, the instance may still be updated
+     * with `update()` afterwards.
+     */
+    peekString(): string;
+
+    /**
      * Gets the digest as a raw binary vector. The size of the digest depends
      * on the type of checksum.
      *
@@ -3116,6 +3129,13 @@ declare class Checksum {
      * with `update()`.
      */
     getDigest(): ArrayBuffer;
+
+    /**
+     * Gets the digest as a raw binary vector, without closing the checksum.
+     * Unlike `getDigest()`, the instance may still be updated with `update()`
+     * afterwards.
+     */
+    peekDigest(): ArrayBuffer;
 }
 
 type ChecksumType =
