@@ -157,8 +157,7 @@ declare module "node:fs/promises" {
                 | string
                 | NodeJS.ArrayBufferView
                 | Iterable<string | NodeJS.ArrayBufferView>
-                | AsyncIterable<string | NodeJS.ArrayBufferView>
-                | Stream,
+                | AsyncIterable<string | NodeJS.ArrayBufferView>,
             options?:
                 | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
@@ -479,8 +478,7 @@ declare module "node:fs/promises" {
                 | string
                 | NodeJS.ArrayBufferView
                 | Iterable<string | NodeJS.ArrayBufferView>
-                | AsyncIterable<string | NodeJS.ArrayBufferView>
-                | Stream,
+                | AsyncIterable<string | NodeJS.ArrayBufferView>,
             options?:
                 | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
