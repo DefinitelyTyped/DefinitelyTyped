@@ -61,14 +61,17 @@ namespace express_tests {
     router.put(path);
     router.post(path);
     router.delete(path);
+    router.query?.(path);
     router.get(pathStr);
     router.put(pathStr);
     router.post(pathStr);
     router.delete(pathStr);
+    router.query?.(pathStr);
     router.get(pathRE);
     router.put(pathRE);
     router.post(pathRE);
     router.delete(pathRE);
+    router.query?.(pathRE);
 
     router.use((req, res, next) => {
         next();
