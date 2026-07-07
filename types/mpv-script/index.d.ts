@@ -408,6 +408,23 @@ declare namespace mp {
         | `prim-${"red" | "green" | "blue" | "white"}-${"x" | "y"}`;
 
     /**
+     * @see https://mpv.io/manual/stable/#input-command-prefixes
+     */
+    type CommandPrefix =
+        | "osd-auto"
+        | "no-osd"
+        | "osd-bar"
+        | "osd-msg"
+        | "osd-msg-bar"
+        | "raw"
+        | "expand-properties"
+        | "repeatable"
+        | "nonrepeatable"
+        | "nonscalable"
+        | "async"
+        | "sync";
+
+    /**
      * Options can be set like properties as well
      * this is a not completed list of writeable options that can be set/get by `mp.set_property` etc
      *
@@ -466,63 +483,532 @@ declare namespace mp {
         is_dir: boolean;
     }
 
-    interface BaseCommandOpts {
-        args: string[];
-        playback_only?: boolean;
-        capture_size?: number;
-        detach?: boolean;
-        env?: string[];
-        stdin_data?: string;
-        passthrough_stdin?: boolean;
+    interface CommandNativeOptsBase {
+        /**
+         * name of the mpv input command
+         *
+         * this should be removed in favor of `_name` if `_name` is officially released
+         */
+        name: CommandName | (string & {}); // allow any string just in case this CommandName union is out-dated
+        /**
+         * `name` field is replaced by `_name` in development build
+         */
+        _name?: CommandName | (string & {});
+        /**
+         * The special entry `_flags` is optional, and if present, must be an array of Input Command Prefixes to apply.
+         */
+        _flags?: CommandPrefix[];
     }
 
-    interface UnnamedCommandOpts extends BaseCommandOpts {
-        capture_stdout?: boolean;
-        capture_stderr?: boolean;
+    /**
+     * NOTE:
+     * Commands have their own dedicated arguments as object properties(namely Named Arguments in the doc)
+     */
+    interface CommandNativeExtraOptsMap {
+        seek: {
+            /**
+             * certain unit(depending on `flags` property) of number to seek
+             */
+            target: number;
+            /**
+             * Multiple flags can be combined, e.g.: `absolute+keyframes`.
+             *
+             * By default, `keyframes` is used for `relative`, `relative-percent`, and `absolute-percent` seeks, while `exact` is used for `absolute` seeks.
+             *
+             * Before mpv 0.9, the `keyframes` and `exact` flags had to be passed as 3rd parameter (essentially using a space instead of `+`).
+             * The 3rd parameter is still parsed, but is considered deprecated.
+             */
+            flags?:
+                | "relative"
+                | "absolute"
+                | "absolute-percent"
+                | "relative-percent"
+                | "keyframes"
+                | "exact"
+                | (string & {});
+        };
+        "revert-seek": {
+            flags?: "mark" | "mark-permanent";
+        };
+        "sub-seek": {
+            /**
+             * For example `1` skips to the next subtitle, `-1` skips to the previous subtitles, and `0` seeks to the beginning of the current subtitle.
+             */
+            skip: number;
+            flags?: "primary" | "secondary";
+        };
+        "frame-step": {
+            /**
+             *  If `frames` is omitted, the value is assumed to be 1.
+             */
+            frames?: number;
+            flags?: "play" | "seek" | "mute";
+        };
+        stop: {
+            flags?: "keep-playlist";
+        };
+        set: {
+            // <name> conflicts with default base opt `name`, `_name` will be added it future version of mpv to replace `name`
+            // TODO: uncomment when `_name` is released
+            // name: SetPropertyName
+            value: unknown;
+        };
+        del: {
+            // TODO: uncomment when `_name` is released
+            // name: string
+        };
+        add: {
+            // TODO: uncomment when `_name` is released
+            // name: SetPropertyName
+            value?: number;
+        };
+        multiply: {
+            // TODO: uncomment when `_name` is released
+            // name: SetPropertyName
+            value: number;
+        };
+        cycle: {
+            // TODO: uncomment when `_name` is released
+            // name: SetPropertyName
+            value?: "up" | "down";
+        };
+        // 'cycle-values': { } // this has not named argument form
+        "change-list": {
+            // TODO: uncomment when `_name` is released
+            // name: string // TODO: not sure about the names of list options
+            /**
+             * different type of list option may support different set of operations
+             *
+             * this ts target type is only for the convenience of getting code completions
+             *
+             * see https://mpv.io/manual/stable/#list-options before appling
+             */
+            operation:
+                | "set"
+                | "append"
+                | "add"
+                | "pre"
+                | "clr"
+                | "del"
+                | "remove"
+                | "toggle"
+                | "help"
+                | (string & {});
+            value: string;
+        };
+        "playlist-next": {
+            flags?: "weak" | "force";
+        };
+        "playlist-prev": {
+            flags?: "weak" | "force";
+        };
+        // 'playlist-play-index': { } // no idea how
+        loadfile: {
+            /**
+             * file url to load
+             */
+            url: string;
+            flags?:
+                | "replace"
+                | "append"
+                | "append-play"
+                | "insert-next"
+                | "insert-next-play"
+                | "insert-at"
+                | "insert-at-play";
+            /**
+             * insertion index, used only by the `insert-at` and `insert-at-play` actions.
+             */
+            index?: number;
+            /**
+             * A list of options and values which should be set while the file is playing.
+             *
+             * It is of the form `opt1=value1,opt2=value2,...`
+             *
+             * When using the client API, this can be a `MPV_FORMAT_NODE_MAP` (or a Lua table), however the values themselves must be strings currently.
+             */
+            options?: string;
+        };
+        loadlist: {
+            /**
+             * playlist url to load
+             */
+            url: string;
+            flags?:
+                | "replace"
+                | "append"
+                | "append-play"
+                | "insert-next"
+                | "insert-next-play"
+                | "insert-at"
+                | "insert-at-play";
+
+            /**
+             *  An insertion index, used only by the `insert-at` and `insert-at-play` actions.
+             *
+             *  When used with those actions, the new playlist will be inserted at the index position in the internal playlist,
+             *  or appended to the end if index is less than 0 or greater than the size of the internal playlist.
+             */
+            index?: number;
+        };
+        "playlist-remove": {
+            index: number;
+        };
+        "playlist-move": {
+            /**
+             * index move playlist from
+             */
+            index1: number;
+            /**
+             * index move playlist to
+             */
+            index2: number;
+        };
+        "sub-add": {
+            // url of subtitle
+            url: string;
+            /**
+             * @see https://mpv.io/manual/stable/#command-interface-sub-add[<lang>]]%5d
+             */
+            flags?: "select" | "auto" | "cached" | (string & {});
+            /**
+             * track language
+             */
+            lang?: string;
+        };
+        "sub-remove": {
+            id?: number;
+        };
+        "sub-reload": {
+            id?: number;
+        };
+        "sub-step": {
+            skip: number;
+            flags?: "primary" | "secondary";
+        };
+        "audio-add": {
+            /**
+             * url of audio
+             */
+            url: string;
+            /**
+             * see flags for `sub-add`
+             */
+            flags?: "select" | "auto" | "cached" | (string & {});
+            title?: string;
+            lang?: string;
+        };
+        "audio-remove": {
+            id?: number;
+        };
+        "audio-reload": {
+            id?: number;
+        };
+        "video-add": {
+            /**
+             * url of video
+             */
+            url: string;
+            /**
+             * see flags for `sub-add`
+             */
+            flags?: "select" | "auto" | "cached" | (string & {});
+            title?: string;
+            lang?: string;
+            /**
+             * If enabled, mpv will load the given video as album art.
+             */
+            albumart?: boolean;
+        };
+        "video-remove": {
+            id?: number;
+        };
+        "video-reload": {
+            id?: number;
+        };
+        "rescan-external-files": {
+            mode?: "reselect" | "keep-selection";
+        };
+        "print-text": {
+            text: string;
+        };
+        "expand-text": {
+            text: string;
+        };
+        "expand-path": {
+            text: string;
+        };
+        "normalize-path": {
+            filename: string;
+        };
+        "escape-ass": {
+            text: string;
+        };
+        "apply-profile": {
+            // TODO: uncomment when `_name` is released
+            // name: string
+            mode?: "apply" | "restore";
+        };
+        "load-config-file": {
+            filename: string;
+        };
+        "delete-watch-later-config": {
+            filename?: string;
+        };
+        // 'show-text' // not sure how
+        "overlay-add": {
+            /**
+             * an integer between 0 and 63 identifying the overlay element
+             * The ID can be used to add multiple overlay parts, update a part by using this command with an already existing ID,
+             * or to remove a part with overlay-remove. Using a previously unused ID will add a new overlay, while reusing an ID will update it.
+             */
+            id: number;
+            x: number;
+            y: number;
+            /**
+             * specifies the file the raw image data is read from.
+             *
+             * It can be either a numeric UNIX file descriptor prefixed with @ (e.g. @4), or a filename.
+             * The file will be mapped into memory with mmap(), copied, and unmapped before the command returns (changed in mpv 0.18.1).
+             */
+            file: string;
+            /**
+             * the byte offset of the first pixel in the source file.
+             *
+             * (The current implementation always mmap's the whole file from position 0 to the end of the image, so large offsets should be avoided. Before mpv 0.8.0, the offset was actually passed directly to mmap, but it was changed to make using it easier.)
+             */
+            offset: number;
+            /**
+             * a string identifying the image format. Currently, only bgra is defined.
+             */
+            fmt: "bgra" | (string & {});
+            /**
+             * visible width of overlay
+             */
+            w: number;
+            /**
+             * visible height of overlay
+             */
+            h: number;
+            /**
+             * the width in bytes in memory
+             */
+            stride: number;
+            dw?: number;
+            dh?: number;
+        };
+        "overlay-remove": {
+            id: number;
+        };
+        "osd-overlay": {
+            /**
+             * Arbitrary integer that identifies the overlay.
+             * Multiple overlays can be added by calling this command with different `id` parameters.
+             * Calling this command with the same id replaces the previously set overlay.
+             *
+             * There is a separate namespace for each libmpv client (i.e. IPC connection, script),
+             * so IDs can be made up and assigned by the API user without conflicting with other API users.
+             *
+             * If the libmpv client is destroyed, all overlays associated with it are also deleted.
+             * In particular, connecting via `--input-ipc-server`, adding an overlay, and disconnecting will remove the overlay immediately again.
+             */
+            id: number;
+
+            /**
+             * String that gives the type of the overlay.
+             * @see https://mpv.io/manual/stable/#command-interface-format
+             */
+            format: "ass-events" | "none";
+            /**
+             * String defining the overlay contents according to the `format` parameter.
+             */
+            data: string;
+            /**
+             * Used if `format` is set to `ass-events` (see description there). Optional, defaults to 0
+             */
+            res_x?: number;
+            /**
+             * Used if `format` is set to `ass-events` (see description there). Optional, defaults to 720
+             */
+            res_y?: number;
+            /**
+             * The Z order of the overlay. Optional, defaults to 0.
+             */
+            z?: number;
+            /**
+             * If set to true, do not display this (default: false).
+             */
+            hidden?: boolean;
+            /**
+             * If set to true, attempt to determine bounds and write them to the command's result value as x0, x1, y0, y1 rectangle
+             */
+            compute_bounds?: boolean;
+        };
+        mouse: {
+            x: number;
+            y: number;
+            /**
+             * The button number of clicked mouse button. This should be one of 0-19. If `button` is omitted, only the position will be updated.
+             */
+            button?: number;
+            /**
+             * default: single
+             */
+            mode?: "single" | "double";
+        };
+
+        keypress: {
+            // TODO: uncomment when `_name` is released
+            // name: string
+            scale?: number;
+        };
+        keydown: {
+            // TODO: uncomment when `_name` is released
+            // name: string
+        };
+        keyup: {
+            // TODO: uncomment when `_name` is released
+            // name?: string
+        };
+        keybind: {
+            // TODO: uncomment when `_name` is released
+            // name: string
+            cmd: string;
+            comment?: string;
+        };
+        // *-section commands are deprecated, so not types for them
+        "load-input-conf": {
+            filename: string;
+        };
+        quit: {
+            /**
+             * Exit the player. If an argument is given, it's used as process exit code.
+             */
+            code?: number;
+        };
+        "quit-watch-later": {
+            /**
+             * Exit player, and store current playback position.
+             *
+             * Playing that file later will seek to the previous position on start.
+             *
+             * The (optional) argument is exactly as in the `quit` command.
+             */
+            code?: number;
+        };
+        "script-binding": {
+            // TODO: uncomment when `_name` is released
+            // name: string
+            arg: string;
+        };
+        "load-script": {
+            filename: string;
+        };
+        screenshot: {
+            /**
+             * can be combined with `+`, such as `video+each-frame`
+             * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
+             */
+            flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+        };
+        "screenshot-to-file": {
+            /**
+             * Take a screenshot and save it to a given file.
+             * The format of the file will be guessed by the extension (and `--screenshot-format` is ignored - the behavior when the extension is missing or unknown is arbitrary).
+             * If the file already exists, it's overwritten.
+             */
+            filename: string;
+            /**
+             * can be combined with `+`, such as `video+each-frame`
+             * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
+             */
+            flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+        };
+        "screenshot-raw": {
+            /**
+             * can be combined with `+`, such as `video+each-frame`
+             * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
+             */
+            flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+            format?: "bgr0" | "bgra" | "rgba" | "rgba64";
+        };
+        vf: {
+            /**
+             * @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e
+             * @see https://mpv.io/manual/stable/#video-filters
+             */
+            operation: "set" | "add" | "toggle" | "remove" | "clr" | (string & {});
+            value: unknown;
+        };
+        af: {
+            /** @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e */
+            operation: "set" | "add" | "toggle";
+            value: unknown;
+        };
+        "vf-command": {
+            lable: string;
+            command: string;
+            argument: string;
+            target?: string;
+        };
+        "af-command": {
+            lable: string;
+            command: string;
+            argument: string;
+            target?: string;
+        };
+        "dump-cache": {
+            start: number;
+            end: number;
+            filename: string;
+        };
+        "ab-loop-dump-cache": {
+            filename: string;
+        };
+        // run: { } // `run` command requires variable number of arguments, doesn't support named arguments
+        // `subprocess` is a special command that could return variants of result shape so it was handled in overloads instead
     }
 
-    interface UncapturedNamedCommandOpts extends BaseCommandOpts {
-        name: string;
-        capture_stdout?: false;
-        capture_stderr?: false;
-    }
-
-    interface NamedCommandOptsWithStdout extends BaseCommandOpts {
-        name: string;
-        capture_stdout: true;
-        capture_stderr?: false;
-    }
-
-    interface NamedCommandOptsWithStderr extends BaseCommandOpts {
-        name: string;
-        capture_stderr: true;
-        capture_stdout?: false;
-    }
-
-    interface CapturedNamedOptsCommand extends BaseCommandOpts {
-        name: string;
-        capture_stdout: true;
-        capture_stderr: true;
-    }
-
-    interface UncapturedProcess {
+    /**
+     * Base result when only `opts.name = 'subprocess'` and `opts.args` is specified
+     */
+    interface SubprocessResultBase {
+        /**
+         * Typically this is the process exit code (0 or positive) if the process terminates normally, or negative for other errors (failed to start, terminated by mpv, and others).
+         *
+         * The meaning of negative values is undefined, other than meaning error (and does not correspond to OS low level exit status values).
+         */
         status: number;
+        /**
+         *  - Empty string if the process terminated normally.
+         *  - The string `killed` if the process was terminated in an unusual way.
+         *  - The string `init` if the process could not be started.
+         *
+         * On Windows, `killed` is only returned when the process has been killed by mpv as a result of `playback_only` being set to true.
+         */
         error_string: "" | "killed" | "init";
+        /**
+         * Whether the process has been killed by mpv, for example as a result of `playback_only` being set to true, aborting the command
+         * (e.g. by mp.abort_async_command()), or if the player is about to exit.
+         */
         killed_by_us: boolean;
     }
 
-    interface ProcessWithStdout extends UncapturedProcess {
+    interface SubprocessResultWithStdout extends SubprocessResultBase {
+        /**
+         * Captured stdout stream, limited to `capture_size`.
+         */
         stdout: string;
     }
 
-    interface ProcessWithStderr extends UncapturedProcess {
+    interface SubprocessResultWithStderr extends SubprocessResultBase {
+        /**
+         * Captured stderr stream, limited to `capture_size`.
+         */
         stderr: string;
     }
 
-    interface CapturedProcess extends UncapturedProcess {
-        stdout: string;
-        stderr: string;
-    }
+    type SubprocessResultWithStd = SubprocessResultWithStdout & SubprocessResultWithStderr;
 
     interface UncomplexKeyBindingFlags {
         repeatable?: boolean;
@@ -543,6 +1029,15 @@ declare namespace mp {
         key_text?: string | undefined;
     }
 
+    /**
+     * Commands that can only be invoked by Named Arguments
+     */
+    type NamedArgumentsOnlyCommand = "subprocess";
+    /**
+     * Commands that can only be invoked by mpv command syntax
+     */
+    type SyntaxOnlyCommand = "run" | "script-message" | "script-message-to";
+
     function command(command: string): true | undefined;
 
     /**
@@ -554,23 +1049,135 @@ declare namespace mp {
      * mp.commandv("loadfile", filename, "append")
      * ```
      */
-    function commandv(...args: readonly [CommandName, ...unknown[]]): true | undefined;
+    function commandv(
+        ...args: readonly [Exclude<CommandName, NamedArgumentsOnlyCommand>, ...unknown[]]
+    ): true | undefined;
 
-    function command_native(table: [CommandName | (string & {}), ...unknown[]]): null | undefined; // `undefined` on error
+    /**
+     * Notes from observation:
+     *   1. command_native returns `null | undefined` for most commands, including `run`
+     *   1. some commands can only be invoked by array-like overload `command_native(array)` such as `run`
+     *   1. some commands can only be invoked by `command_native(opts)` overload(namely named arguments) such as `subprocess`
+     */
 
-    function command_native<T>(table: [CommandName | (string & {}), ...unknown[]], def: T): null | T; // `T` on error
+    interface SubprocessCommandOpts {
+        /**
+         * Array of strings with the command as first argument, and subsequent command line arguments following.
+         *
+         * This is just like the `run` command argument list.
+         *
+         * The first array entry is either an absolute path to the executable, or a filename with no path components, in which case the executable is searched in the directories in the PATH environment variable.
+         *
+         * On Unix, this is equivalent to posix_spawnp and execvp behavior.
+         */
+        args: string[];
 
-    function command_native(table: UnnamedCommandOpts): undefined;
+        /**
+         * Boolean indicating whether the process should be killed when playback of the current playlist entry terminates (optional, default: true).
+         *
+         * If enabled, stopping playback will automatically kill the process, and you can't start it outside of playback.
+         */
+        playback_only?: boolean;
 
-    function command_native<T>(table: UnnamedCommandOpts, def: T): T;
+        /**
+         * Integer setting the **maximum number of stdout plus stderr bytes** that can be captured (optional, default: 64MB).
+         * If the **number of bytes** exceeds this, capturing is stopped. The limit is per captured stream.
+         */
+        capture_size?: number;
 
-    function command_native(table: UncapturedNamedCommandOpts, def?: unknown): UncapturedProcess;
+        /**
+         * Capture all data the process outputs to stdout and return it once the process ends (optional, default: no).
+         */
+        capture_stdout?: boolean;
+        /**
+         * Capture all data the process outputs to stderr and return it once the process ends (optional, default: no).
+         */
+        capture_stderr?: boolean;
+        /**
+         * Whether to run the process in detached mode (optional, default: no).
+         *
+         * In this mode, the process is run in a new process session, and the command does not wait for the process to terminate.
+         *
+         * If neither `capture_stdout` nor `capture_stderr` have been set to true, the command returns immediately after the new process has been started, otherwise the command will read as long as the pipes are open.
+         */
+        detach?: boolean;
+        /**
+         * Set a list of environment variables for the new process (default: empty).
+         *
+         * If an empty list is passed, the environment of the mpv process is used instead. (Unlike the underlying OS mechanisms, the mpv command cannot start a process with empty environment. Fortunately, that is completely useless.)
+         * The format of the list is as in the `execle()` syscall. Each string item defines an environment variable as in `NAME=VALUE`.
+         */
+        env?: `${string}=${string}`[];
+        /**
+         * Feed the given string to the new process' stdin. Since this is a string, you cannot pass arbitrary binary data.
+         *
+         * If the process terminates or closes the pipe before all data is written, the remaining data is silently discarded.
+         *
+         * Probably does not work on win32.
+         */
+        stdin_data?: string;
+        /**
+         * If enabled, wire the new process' stdin to mpv's stdin (default: no).
+         */
+        passthrough_stdin?: boolean;
+    }
 
-    function command_native(table: NamedCommandOptsWithStdout, def?: unknown): ProcessWithStdout;
+    /**
+     * Gets the shape of `subprocess` command result based on whether `capture_stderr` and `capture_stdout` are specified
+     */
+    type GetSubprocessResult<TOpts extends SubprocessCommandOpts> = TOpts extends {
+        capture_stderr: true;
+        capture_stdout: true;
+    } ? SubprocessResultWithStd
+        : TOpts extends { capture_stderr: true } ? SubprocessResultWithStderr
+        : TOpts extends { capture_stdout: true } ? SubprocessResultWithStdout
+        : SubprocessResultBase;
 
-    function command_native(table: NamedCommandOptsWithStderr, def?: unknown): ProcessWithStderr;
+    // gets the corresponding shape of opts by command name
+    // TODO: change `name` to `_name` if `_name` is released officially
+    type GetCommandNativeOpts<TOpts extends { name: string }> = TOpts["name"] extends keyof CommandNativeExtraOptsMap
+        ? CommandNativeOptsBase & CommandNativeExtraOptsMap[TOpts["name"]]
+        : CommandNativeOptsBase;
 
-    function command_native(table: CapturedNamedOptsCommand, def?: unknown): CapturedProcess;
+    // TODO: change `name` to `_name` if `_name` is released officially
+    // TODO: when only `name = 'subprocess'` is specified, this overload is not recognized, it was inferred to the overload below
+    // NOTE: subprocess overload has not def parameter because def is only returned when the command name(subprocess) is not correct, which should be avoided in the first place
+    // dedicated overload for `subprocess` command
+    function command_native<TOpts extends { name: "subprocess" } & SubprocessCommandOpts>(
+        opts: TOpts,
+    ): GetSubprocessResult<TOpts>;
+
+    // NOTE: DO NOT use `CommandNativeOptsBase` as typeparam constraint here as `name` is the only key to retrieve opt type
+    // TODO: change `name` to `_name` if `_name` is released officially
+    // NOTE: some commands doesn't support named argument such as `run`, but using `Exclude<T, U>` to filter `CommandName` fails the inference of `TOpts`
+    // TODO: `TOpts` is unconditionally inferred on left hand side, so it allows arbitrary properties which is not perfect
+    // This is overload for other commands
+    /**
+     * Returns `null` on success, `undefined` on error
+     */
+    function command_native<TOpts extends { name: CommandName | (string & {}) }>(
+        opts: TOpts & GetCommandNativeOpts<TOpts>, // & evaluates the left hand side TOpts then the right hand side, effectively incremental inference
+    ): null | undefined;
+
+    function command_native<TOpts extends { name: CommandName | (string & {}) }, TDefault>(
+        opts: TOpts & GetCommandNativeOpts<TOpts>, // & evaluates the left hand side TOpts then the right hand side, effectively incremental inference
+        def: TDefault,
+    ): null | TDefault; // null if success, TDefault on error
+
+    /**
+     * Returns `null` on success, `undefined` on error
+     */
+    function command_native(
+        list: [Exclude<CommandName, NamedArgumentsOnlyCommand> | (string & {}), ...unknown[]],
+    ): null | undefined;
+
+    /**
+     * Returns `null` on success, `T` on error
+     */
+    function command_native<T>(
+        list: [Exclude<CommandName, NamedArgumentsOnlyCommand> | (string & {}), ...unknown[]],
+        def: T,
+    ): null | T;
 
     /**
      * Nominal brand for return type of `mp.command_native_async`.
@@ -596,10 +1203,17 @@ declare namespace mp {
    * If starting the command failed for some reason, `undefined` returned, and `fn` is called indicating failure, using the same error value.
    * `fn` is always called asynchronously, even if the command failed to start.
    */
-    function command_native_async(
-        table: unknown,
-        fn?: (success: boolean, result: unknown, error: string | undefined) => void,
-    ): __AsyncCommandReturn;
+    // TODO: change `name` to `_name` if `_name` is released officially
+    function command_native_async<TOpts extends { name: "subprocess" } & SubprocessCommandOpts>(
+        opts: TOpts,
+        fn?: (success: boolean, result: GetSubprocessResult<TOpts>, error: string) => void,
+    ): __AsyncCommandReturn | undefined;
+
+    // TODO: change `name` to `_name` if `_name` is released officially
+    function command_native_async<TOpts extends { name: CommandName | (string & {}) }>(
+        opts: TOpts & GetCommandNativeOpts<TOpts>,
+        fn?: (success: boolean, result: null | undefined, error: string) => void, // result is null on success, undefined on error
+    ): __AsyncCommandReturn | undefined;
 
     /**
      * Abort a `mp.command_native_async` call.
