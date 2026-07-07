@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -1509,7 +1509,7 @@ declare module "sap/f/CardBase" {
 
   import Event from "sap/ui/base/Event";
 
-  import { CSSSize } from "sap/ui/core/library";
+  import { TitleLevel, CSSSize } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -1687,6 +1687,21 @@ declare module "sap/f/CardBase" {
      */
     getGridItemRole(): string;
     /**
+     * Gets current value of property {@link #getHeadingLevel headingLevel}.
+     *
+     * Defines the semantic level of the card header title (mapped to `aria-level`).
+     *
+     * Values `H1`–`H6` correspond to `aria-level` 1–6 and allow the application to align the card heading with
+     * the heading hierarchy of the surrounding page.
+     *
+     * Default value is `H3`.
+     *
+     * @since 1.150
+     *
+     * @returns Value of property `headingLevel`
+     */
+    getHeadingLevel(): TitleLevel;
+    /**
      * Gets current value of property {@link #getHeight height}.
      *
      * Defines the height of the card.
@@ -1721,6 +1736,28 @@ declare module "sap/f/CardBase" {
      * @returns Value of property `width`
      */
     getWidth(): CSSSize;
+    /**
+     * Sets a new value for property {@link #getHeadingLevel headingLevel}.
+     *
+     * Defines the semantic level of the card header title (mapped to `aria-level`).
+     *
+     * Values `H1`–`H6` correspond to `aria-level` 1–6 and allow the application to align the card heading with
+     * the heading hierarchy of the surrounding page.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `H3`.
+     *
+     * @since 1.150
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeadingLevel(
+      /**
+       * New value for property `headingLevel`
+       */
+      sHeadingLevel?: TitleLevel | keyof typeof TitleLevel
+    ): this;
     /**
      * Sets a new value for property {@link #getHeight height}.
      *
@@ -1802,6 +1839,19 @@ declare module "sap/f/CardBase" {
      */
     semanticRole?:
       | (cards.SemanticRole | keyof typeof cards.SemanticRole)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the semantic level of the card header title (mapped to `aria-level`).
+     *
+     * Values `H1`–`H6` correspond to `aria-level` 1–6 and allow the application to align the card heading with
+     * the heading hierarchy of the surrounding page.
+     *
+     * @since 1.150
+     */
+    headingLevel?:
+      | (TitleLevel | keyof typeof TitleLevel)
       | PropertyBindingInfo
       | `{${string}}`;
 
@@ -5877,8 +5927,7 @@ declare module "sap/f/DynamicPageAccessibleLandmarkInfo" {
   /**
    * Describes the settings that can be provided to the DynamicPageAccessibleLandmarkInfo constructor.
    */
-  export interface $DynamicPageAccessibleLandmarkInfoSettings
-    extends $ElementSettings {
+  export interface $DynamicPageAccessibleLandmarkInfoSettings extends $ElementSettings {
     /**
      * Landmark role of the root container of the corresponding `sap.f.DynamicPage` control.
      *
@@ -10443,8 +10492,7 @@ declare module "sap/f/FlexibleColumnLayoutAccessibleLandmarkInfo" {
   /**
    * Describes the settings that can be provided to the FlexibleColumnLayoutAccessibleLandmarkInfo constructor.
    */
-  export interface $FlexibleColumnLayoutAccessibleLandmarkInfoSettings
-    extends $ElementSettings {
+  export interface $FlexibleColumnLayoutAccessibleLandmarkInfoSettings extends $ElementSettings {
     /**
      * Text that describes the landmark of the first column of the corresponding `sap.f.FlexibleColumnLayout`
      * control.
@@ -10638,8 +10686,7 @@ declare module "sap/f/FlexibleColumnLayoutData" {
   /**
    * Describes the settings that can be provided to the FlexibleColumnLayoutData constructor.
    */
-  export interface $FlexibleColumnLayoutDataSettings
-    extends $LayoutDataSettings {
+  export interface $FlexibleColumnLayoutDataSettings extends $LayoutDataSettings {
     /**
      * Allows LayoutData of type `sap.f.FlexibleColumnLayoutDataForDesktop`
      */
@@ -10920,8 +10967,7 @@ declare module "sap/f/FlexibleColumnLayoutDataForDesktop" {
   /**
    * Describes the settings that can be provided to the FlexibleColumnLayoutDataForDesktop constructor.
    */
-  export interface $FlexibleColumnLayoutDataForDesktopSettings
-    extends $LayoutDataSettings {
+  export interface $FlexibleColumnLayoutDataForDesktopSettings extends $LayoutDataSettings {
     /**
      * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
      * set in percentages.
@@ -11228,8 +11274,7 @@ declare module "sap/f/FlexibleColumnLayoutDataForTablet" {
   /**
    * Describes the settings that can be provided to the FlexibleColumnLayoutDataForTablet constructor.
    */
-  export interface $FlexibleColumnLayoutDataForTabletSettings
-    extends $LayoutDataSettings {
+  export interface $FlexibleColumnLayoutDataForTabletSettings extends $LayoutDataSettings {
     /**
      * Columns distribution of TwoColumnsBeginExpanded layout in the format "begin/mid/end", where values are
      * set in percentages.
@@ -12942,8 +12987,7 @@ declare module "sap/f/GridContainerItemLayoutData" {
   /**
    * Describes the settings that can be provided to the GridContainerItemLayoutData constructor.
    */
-  export interface $GridContainerItemLayoutDataSettings
-    extends $LayoutDataSettings {
+  export interface $GridContainerItemLayoutDataSettings extends $LayoutDataSettings {
     /**
      * Specifies the number of columns, which the item should take
      *
@@ -13243,8 +13287,7 @@ declare module "sap/f/GridContainerSettings" {
   /**
    * Describes the settings that can be provided to the GridContainerSettings constructor.
    */
-  export interface $GridContainerSettingsSettings
-    extends $ManagedObjectSettings {
+  export interface $GridContainerSettingsSettings extends $ManagedObjectSettings {
     /**
      * How many columns to have on a row.
      *
@@ -13939,8 +13982,7 @@ declare module "sap/f/IllustratedMessage" {
    *
    * @deprecated As of version 1.98. Use the {@link sap.m.IllustratedMessage} instead.
    */
-  export interface $IllustratedMessageSettings
-    extends $IllustratedMessageSettings1 {}
+  export interface $IllustratedMessageSettings extends $IllustratedMessageSettings1 {}
 }
 
 declare module "sap/f/Illustration" {
@@ -16437,8 +16479,7 @@ declare module "sap/f/semantic/DiscussInJamAction" {
   /**
    * Describes the settings that can be provided to the DiscussInJamAction constructor.
    */
-  export interface $DiscussInJamActionSettings
-    extends $SemanticButtonSettings {}
+  export interface $DiscussInJamActionSettings extends $SemanticButtonSettings {}
 }
 
 declare module "sap/f/semantic/EditAction" {
@@ -16622,8 +16663,7 @@ declare module "sap/f/semantic/ExitFullScreenAction" {
   /**
    * Describes the settings that can be provided to the ExitFullScreenAction constructor.
    */
-  export interface $ExitFullScreenActionSettings
-    extends $SemanticButtonSettings {}
+  export interface $ExitFullScreenActionSettings extends $SemanticButtonSettings {}
 }
 
 declare module "sap/f/semantic/FavoriteAction" {
@@ -16715,8 +16755,7 @@ declare module "sap/f/semantic/FavoriteAction" {
   /**
    * Describes the settings that can be provided to the FavoriteAction constructor.
    */
-  export interface $FavoriteActionSettings
-    extends $SemanticToggleButtonSettings {}
+  export interface $FavoriteActionSettings extends $SemanticToggleButtonSettings {}
 }
 
 declare module "sap/f/semantic/FlagAction" {
@@ -20326,8 +20365,7 @@ declare module "sap/f/semantic/SemanticToggleButton" {
   /**
    * Describes the settings that can be provided to the SemanticToggleButton constructor.
    */
-  export interface $SemanticToggleButtonSettings
-    extends $SemanticToggleButtonSettings1 {}
+  export interface $SemanticToggleButtonSettings extends $SemanticToggleButtonSettings1 {}
 }
 
 declare module "sap/f/semantic/SendEmailAction" {
