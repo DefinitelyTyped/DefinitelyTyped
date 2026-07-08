@@ -734,7 +734,7 @@ declare namespace Pannellum {
          * @param sceneId - The ID of the new scene.
          * @param config - The configuration of the new scene.
          */
-        addScene(sceneId: string, config: string): this;
+        addScene(sceneId: string, config: ConfigOptions): this;
 
         /**
          * Remove a scene.
