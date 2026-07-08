@@ -5,6 +5,6 @@ declare function truncate(
     version: string | SemVer,
     truncation: semver.ReleaseType,
     optionsOrLoose?: boolean | semver.Options,
-): string;
+): string | null;
 
 export = truncate;
