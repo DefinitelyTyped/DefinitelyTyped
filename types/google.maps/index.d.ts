@@ -6382,6 +6382,10 @@ declare namespace google.maps.addressValidation {
      */
     address: google.maps.places.PostalAddressLiteral;
     /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+    /**
      * If using a PlaceAutocompleteElement, include it here to link the AddressValidation API calls with the autocomplete session token.
      */
     placeAutocompleteElement?: google.maps.places.PlaceAutocompleteElement;
@@ -15892,7 +15896,7 @@ declare namespace google.maps.routes {
     createPolylines(options?: google.maps.routes.RoutePolylineOptions): google.maps.Polyline[];
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
-     * Creates a popover for the route based on the data available for the route, configured in a way suitable for annotating a route on a map. Currently uses {@link google.maps.routes.Route.localizedValues} and {@link google.maps.routes.Route.path}, if available.
+     * Creates a popover for the route based on the data available for the route, configured in a way suitable for annotating a route on a map. Currently uses {@link google.maps.routes.Route.localizedValues}, {@link google.maps.routes.Route.path}, and {@link google.maps.routes.Route.legs}, if available.
      */
     createPopover(): Promise<google.maps.maps3d.PopoverElement>;
     /**
