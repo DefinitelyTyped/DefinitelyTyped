@@ -51,6 +51,7 @@ import semverCompareLoose = require("semver/functions/compare-loose");
 import semverCompareBuild = require("semver/functions/compare-build");
 import semverSort = require("semver/functions/sort");
 import semverRsort = require("semver/functions/rsort");
+import semverTruncate = require("semver/functions/truncate");
 
 // low-level comparators between versions
 import semverGt = require("semver/functions/gt");
@@ -87,6 +88,7 @@ semverMinVersion(">=1.0.0", { loose: false }); // $ExpectType SemVer | null
 semverMinVersion(">=1.0.0", { includePrerelease: false }); // $ExpectType SemVer | null
 semverValid(semverCoerce("v2")); // $ExpectType string | null
 semverValid(semverCoerce("42.6.7.9.3-alpha")); // $ExpectType string | null
+semverTruncate("1.2.3", "patch"); // $ExpectType string
 
 // v6 tests
 
