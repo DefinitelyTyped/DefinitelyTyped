@@ -7,10 +7,13 @@ import {
     disconnectStreamSource,
     navigator,
     NavigatorDelegate,
+    PageSnapshot,
+    PageView,
     ProgressBar,
     registerAdapter,
     renderStreamMessage,
     session,
+    SnapshotCache,
     start,
     StreamActions,
     StreamMessage,
@@ -41,6 +44,16 @@ turboFrame.loading = "lazy";
 turboFrame.loading = "slow";
 
 turboFrame.reload().catch(console.error);
+
+// $ExpectType string | null
+turboFrame.src;
+turboFrame.src = "/messages";
+turboFrame.src = null;
+
+// $ExpectType "morph" | null
+turboFrame.refresh;
+turboFrame.refresh = "morph";
+turboFrame.refresh = null;
 
 const turboStream = document.querySelector("turbo-stream")!;
 
@@ -344,3 +357,45 @@ session.restorationIdentifier;
 session.started;
 // $ExpectType boolean
 session.enabled;
+
+// Test PageView via session.view
+// PageView and SnapshotCache are not runtime exports of @hotwired/turbo, only types
+// @ts-expect-error
+new PageView(session, document.documentElement);
+// @ts-expect-error
+new SnapshotCache(10);
+// $ExpectType PageView
+session.view;
+// $ExpectType PageView
+Turbo.session.view;
+// @ts-expect-error - view cannot be reassigned
+session.view = session.view;
+// $ExpectType URL
+session.view.lastRenderedLocation;
+session.view.lastRenderedLocation = new URL("https://example.com");
+// $ExpectType HTMLElement
+session.view.element;
+// $ExpectType boolean
+session.view.forceReloaded;
+// $ExpectType PageSnapshot
+session.view.snapshot;
+// $ExpectType Promise<PageSnapshot | undefined>
+session.view.cacheSnapshot();
+session.view.cacheSnapshot(PageSnapshot.fromHTMLString("<html><body></body></html>"));
+// $ExpectType PageSnapshot | undefined
+session.view.getCachedSnapshotForLocation(new URL("https://example.com"));
+session.view.clearSnapshotCache();
+
+// Test SnapshotCache via session.view.snapshotCache
+// $ExpectType SnapshotCache
+session.view.snapshotCache;
+// $ExpectType boolean
+session.view.snapshotCache.has(new URL("https://example.com"));
+// $ExpectType PageSnapshot | undefined
+session.view.snapshotCache.get(new URL("https://example.com"));
+// $ExpectType PageSnapshot
+session.view.snapshotCache.put(
+    new URL("https://example.com"),
+    PageSnapshot.fromHTMLString("<html><body></body></html>"),
+);
+session.view.snapshotCache.clear();

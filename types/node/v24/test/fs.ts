@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import {
     access,
+    appendFile as appendFileAsync,
     constants,
     copyFile,
     cp as cpAsync,
@@ -10,6 +11,7 @@ import {
     watch as watchAsync,
     writeFile as writeFileAsync,
 } from "node:fs/promises";
+import { Readable } from "node:stream";
 import { URL } from "node:url";
 import * as util from "node:util";
 import assert = require("node:assert");
@@ -674,17 +676,110 @@ async function testPromisify() {
 }
 
 (async () => {
-    await writeFileAsync("test", "test");
-    await writeFileAsync("test", Buffer.from("test"));
-    await writeFileAsync("test", ["test", "test2"]);
-    await writeFileAsync(
-        "test",
-        async function*() {
-            yield "yeet";
-        }(),
-    );
-    await writeFileAsync("test", process.stdin);
-    await writeFileAsync("test", "test", { flush: true });
+    const buffer = Buffer.from("");
+    const readable = Readable.from(["a", "b", "c"]);
+
+    await appendFileAsync("test", buffer);
+    await appendFileAsync("test", "x~yz".repeat(100));
+    await appendFileAsync("test", readable);
+    await appendFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid iterables
+    await appendFileAsync("test", [42, 42n, {}, Symbol("42"), true, undefined, null, NaN]);
+    await appendFileAsync("test", Readable.from(["ümlaut", " ", "sechzig"]), "latin1");
+    await appendFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield Buffer.from("a");
+            yield Buffer.from("b");
+            yield Buffer.from("c");
+        },
+    });
+    await appendFileAsync("test", {
+        async *[Symbol.asyncIterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", 42);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", 42n);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", {});
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", Symbol("42"));
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", true);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", undefined);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", null);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", NaN);
+
+    appendFileAsync("test", new Uint8Array(buffer.buffer));
+    appendFileAsync("test", new Uint16Array(buffer.buffer));
+    appendFileAsync("test", new Uint32Array(buffer.buffer));
+});
+
+(async () => {
+    const buffer = Buffer.from("");
+    const readable = Readable.from(["a", "b", "c"]);
+
+    await writeFileAsync("test", buffer);
+    await writeFileAsync("test", "x~yz".repeat(100));
+    await writeFileAsync("test", readable);
+    await writeFileAsync("test", readable, { signal: new AbortController().signal });
+    await writeFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid iterables
+    await writeFileAsync("test", [42, 42n, {}, Symbol("42"), true, undefined, null, NaN]);
+    await writeFileAsync("test", Readable.from(["ümlaut", " ", "sechzig"]), "latin1");
+    await writeFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield Buffer.from("a");
+            yield Buffer.from("b");
+            yield Buffer.from("c");
+        },
+    });
+    await writeFileAsync("test", {
+        async *[Symbol.asyncIterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", 42);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", 42n);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", {});
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", Symbol("42"));
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", true);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", undefined);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", null);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", NaN);
+
+    writeFileAsync("test", new Uint8Array(buffer.buffer));
+    writeFileAsync("test", new Uint16Array(buffer.buffer));
+    writeFileAsync("test", new Uint32Array(buffer.buffer));
 });
 
 {
