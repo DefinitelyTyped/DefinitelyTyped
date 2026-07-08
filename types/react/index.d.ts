@@ -1377,6 +1377,7 @@ declare namespace React {
      * Lets your component expose a DOM node to a parent component
      * using a ref.
      *
+     * @deprecated In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
      * @see {@link https://react.dev/reference/react/forwardRef React Docs}
      * @see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/forward_and_create_ref/ React TypeScript Cheatsheet}
      *
