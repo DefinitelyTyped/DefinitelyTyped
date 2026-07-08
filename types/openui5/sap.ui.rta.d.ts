@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";

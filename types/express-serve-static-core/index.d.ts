@@ -124,7 +124,7 @@ type ParseRouteParameters<Route extends string> = string extends Route ? ParamsD
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 export interface IRouterMatcher<
     T,
-    Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" = any,
+    Method extends "all" | "get" | "post" | "put" | "delete" | "patch" | "options" | "head" | "query" = any,
 > {
     <
         Route extends string | RegExp,
@@ -268,6 +268,11 @@ export interface IRouter extends RequestHandler {
     patch: IRouterMatcher<this, "patch">;
     options: IRouterMatcher<this, "options">;
     head: IRouterMatcher<this, "head">;
+    /**
+     * Requires Node.js >=20.19.3 <21 || >=22.2.0
+     * @see https://expressjs.com/en/5x/api/application/#appquery
+     */
+    query?: IRouterMatcher<this, "query">;
 
     checkout: IRouterMatcher<this>;
     connect: IRouterMatcher<this>;
