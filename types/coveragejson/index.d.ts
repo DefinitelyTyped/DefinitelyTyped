@@ -341,7 +341,7 @@ export interface TileSet {
  * https://docs.ogc.org/cs/21-069r2/21-069r2.html#_d5c16418-1a20-4dbf-bf7a-8e685062df97:~:text=9%2E6%2E4%2E%C2%A0%20Coverage%20Objects,-A
  */
 export interface Coverage<D extends Domain | string = Domain | string> {
-    [key: string]: Value
+    [key: string]: Value;
     type: "Coverage";
     /**
      * Common ID for the Coverage
@@ -468,21 +468,21 @@ export interface MultiPoint extends DomainObject {
     domainType?: "MultiPoint";
     axes: {
         composite:
-        & { dataType: "tuple" }
-        & (
-            | (
-                & { coordinates: ["x", "y"]; values: Position2D[] }
-                & WithBounds<
-                    Position2D[]
-                >
-            )
-            | (
-                & { coordinates: ["x", "y", "z"]; values: Position3D[] }
-                & WithBounds<
-                    Position3D[]
-                >
-            )
-        );
+            & { dataType: "tuple" }
+            & (
+                | (
+                    & { coordinates: ["x", "y"]; values: Position2D[] }
+                    & WithBounds<
+                        Position2D[]
+                    >
+                )
+                | (
+                    & { coordinates: ["x", "y", "z"]; values: Position3D[] }
+                    & WithBounds<
+                        Position3D[]
+                    >
+                )
+            );
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         t?: { values: [string] } & WithBounds<[string, string]>;
     };
@@ -494,22 +494,22 @@ export interface Trajectory extends DomainObject {
     domainType?: "Trajectory";
     axes: {
         composite:
-        & {
-            dataType: "tuple";
-        }
-        & (
-            | ({
-                coordinates: ["t", "x", "y"];
-                values: [string, ...Position2D][];
-            } & WithBounds<[string, ...Position2D][]>)
-            | ({
-                coordinates: ["t", "x", "y", "z"];
-                values: [string, ...Position3D][];
-            } & WithBounds<[string, ...Position3D][]>)
-        );
+            & {
+                dataType: "tuple";
+            }
+            & (
+                | ({
+                    coordinates: ["t", "x", "y"];
+                    values: [string, ...Position2D][];
+                } & WithBounds<[string, ...Position2D][]>)
+                | ({
+                    coordinates: ["t", "x", "y", "z"];
+                    values: [string, ...Position3D][];
+                } & WithBounds<[string, ...Position3D][]>)
+            );
         z?:
-        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-        | ({ values: [number] } & WithBounds<[number, number]>)
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+            { values: [number] } & WithBounds<[number, number]>;
     };
 }
 /**
