@@ -507,10 +507,9 @@ export interface Trajectory extends DomainObject {
                 values: [string, ...Position3D][];
             } & WithBounds<[string, ...Position3D][]>)
         );
-        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         z?:
+        // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         | ({ values: [number] } & WithBounds<[number, number]>)
-        | RegularlySpacedAxis;
     };
 }
 /**
@@ -545,6 +544,7 @@ export interface Polygon extends DomainObject {
         composite: {
             dataType: "polygon";
             coordinates: ["x", "y"];
+            // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
             values: [LinearRing];
         } & WithBounds<[LinearRing, LinearRing]>;
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
