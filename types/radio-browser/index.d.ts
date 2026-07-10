@@ -99,7 +99,7 @@ interface Click {
 }
 
 interface ClickStationResult {
-    ok: string;
+    ok: boolean;
     message: string;
     stationuuid: string;
     name: string;
@@ -119,14 +119,81 @@ interface VoteResult {
 
 interface CategoryItem {
     name: string;
-    stationcount: string;
+    stationcount: number;
     iso_3166_1?: string;
     iso_639?: string | null;
     country?: string;
 }
 
+interface ServerConfig {
+    check_enabled: boolean;
+    prometheus_exporter_enabled: boolean;
+    pull_servers: unknown[];
+    tcp_timeout_seconds: number;
+    broken_stations_never_working_timeout_seconds: number;
+    broken_stations_timeout_seconds: number;
+    checks_timeout_seconds: number;
+    click_valid_timeout_seconds: number;
+    clicks_timeout_seconds: number;
+    mirror_pull_interval_seconds: number;
+    update_caches_interval_seconds: number;
+    server_name: string;
+    server_location: string;
+    server_country_code: string;
+    check_retries: number;
+    check_batchsize: number;
+    check_pause_seconds: number;
+    api_threads: number;
+    cache_type: string;
+    cache_ttl: number;
+    language_replace_filepath: string;
+    language_to_code_filepath: string;
+}
+
+interface AddStationParams {
+    url: string;
+    name?: string;
+    homepage?: string;
+    favicon?: string;
+    tags?: string;
+    country?: string;
+    countrycode?: string;
+    state?: string;
+    language?: string;
+    codec?: string;
+    bitrate?: number;
+    hls?: number;
+    geo_lat?: number;
+    geo_long?: number;
+}
+
+type CategoryType = "countries" | "countrycodes" | "codecs" | "states" | "languages" | "tags";
+
+type FilterByType =
+    | "uuid"
+    | "name"
+    | "nameexact"
+    | "codec"
+    | "codecexact"
+    | "country"
+    | "countryexact"
+    | "countrycodeexact"
+    | "state"
+    | "stateexact"
+    | "language"
+    | "languageexact"
+    | "tag"
+    | "tagexact"
+    | "url"
+    | "topclick"
+    | "topvote"
+    | "lastclick"
+    | "lastchange"
+    | "improvable"
+    | "broken";
+
 interface StationFilter {
-    by?: string;
+    by?: FilterByType;
     searchterm?: string;
     name?: string;
     nameExact?: boolean;
@@ -169,10 +236,10 @@ declare const RadioBrowser: {
     service_url: string | null;
 
     readonly filter_by_types: string[];
-    readonly category_types: string[];
+    readonly category_types: readonly CategoryType[];
 
     getRandomHost(): Promise<string>;
-    getCategory(category: string, filter?: CategoryFilter): Promise<CategoryItem[]>;
+    getCategory(category: CategoryType, filter?: CategoryFilter): Promise<CategoryItem[]>;
     /** @deprecated Use getCategory('countries', filter) */
     getCountries(filter?: CategoryFilter): Promise<CategoryItem[]>;
     /** @deprecated Use getCategory('codecs', filter) */
@@ -195,13 +262,13 @@ declare const RadioBrowser: {
     deleteStation(stationuuid: string): Promise<{ ok: boolean; message: string }>;
     /** @deprecated Not supported by radio-browser.info */
     undeleteStation(stationuuid: string): Promise<unknown>;
-    addStation(params: Record<string, unknown>): Promise<AddStationResult>;
+    addStation(params: AddStationParams): Promise<AddStationResult>;
     /** @deprecated Not supported by radio-browser.info */
-    editStation(stationuuid: string, params: Record<string, unknown>): Promise<unknown>;
+    editStation(stationuuid: string, params: Partial<AddStationParams>): Promise<unknown>;
 
     getServerStats(): Promise<ServerStats>;
     getServerMirrors(): Promise<Array<{ ip: string; name: string }>>;
-    getServerConfig(): Promise<Record<string, unknown>>;
+    getServerConfig(): Promise<ServerConfig>;
 };
 
 export = RadioBrowser;
