@@ -3,11 +3,10 @@
     "name": "@types/radio-browser",
     "version": "2.2.9999",
     "projects": [
-        "https://github.com/nepodev/radio-browser#readme"
+        "https://github.com/nepodev/radio-browser"
     ],
     "devDependencies": {
-        "@types/radio-browser": "workspace:.",
-        "radio-browser": "^2.2.3"
+        "@types/radio-browser": "workspace:."
     },
     "owners": [
         {
