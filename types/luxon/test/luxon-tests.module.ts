@@ -23,10 +23,10 @@ DateTime.DATE_MED; // $ExpectType DateTimeFormatOptions
 DateTime.DATE_MED_WITH_WEEKDAY; // $ExpectType DateTimeFormatOptions
 
 DateTime.local({ zone: "Atlantic/Azores" }); // $ExpectType DateTime<true>
-DateTime.local(2021, 8, 28, { zone: "Atlantic/Azores" }); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.local(2021, 8, 28, { zone: "Atlantic/Azores" }); // $ExpectType DateTime<boolean>
 DateTime.utc(); // $ExpectType DateTime<true>
 DateTime.utc({ locale: "en-US" }); // $ExpectType DateTime<true>
-DateTime.utc(2018, 5, 31, 23, { numberingSystem: "arabext" }); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.utc(2018, 5, 31, 23, { numberingSystem: "arabext" }); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.utc(2019, { locale: "en-GB" }, 5);
 DateTime.isDateTime(0 as unknown); // $ExpectType boolean
@@ -37,7 +37,7 @@ DateTime.fromFormatParser("22/11/1948", parser);
 // @ts-expect-error
 new DateTime();
 
-const dt = DateTime.local(2017, 5, 15, 8, 30); // $ExpectType DateTime<true> | DateTime<false>
+const dt = DateTime.local(2017, 5, 15, 8, 30); // $ExpectType DateTime<boolean>
 
 const now = DateTime.now(); // $ExpectType DateTime<true>
 
@@ -267,7 +267,7 @@ dt.setLocale("en-US").toLocaleString(f);
 
 DateTime.local().setZone("America/Los_Angeles");
 
-DateTime.utc(2017, 5, 15); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.utc(2017, 5, 15); // $ExpectType DateTime<boolean>
 DateTime.utc(); // $ExpectType DateTime<true>
 DateTime.local().toUTC(); // $ExpectType DateTime<true>
 DateTime.utc().toLocal(); // $ExpectType DateTime<true>
@@ -283,7 +283,7 @@ DateTime.min(); // $ExpectType undefined
 
 const anything: unknown = 0;
 if (DateTime.isDateTime(anything)) {
-    anything; // $ExpectType DateTime<true> | DateTime<false>
+    anything; // $ExpectType DateTime<boolean>
 }
 
 const { input, result, zone } = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
@@ -307,8 +307,8 @@ Duration.fromDurationLike(dur); // $ExpectType Duration<true>
 Duration.fromDurationLike("");
 // @ts-expect-error
 new Duration({ hour: 2, minute: 7 });
-dt.plus(dur); // $ExpectType DateTime<true> | DateTime<false>
-dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime<true> | DateTime<false>
+dt.plus(dur); // $ExpectType DateTime<boolean>
+dt.plus({ quarters: 2, months: 1 }); // $ExpectType DateTime<boolean>
 dur.hours; // $ExpectType number
 dur.minutes; // $ExpectType number
 dur.seconds; // $ExpectType number
@@ -492,15 +492,15 @@ bogus.invalidExplanation; // $ExpectType string | null
 const local = DateTime.local(2017, 5, 15, 9, 10, 23);
 local.zoneName; // $ExpectType string | null
 local.toString(); // $ExpectType string
-local.setZone("America/Los_Angeles"); // $ExpectType DateTime<true> | DateTime<false>
-local.setZone("America/Los_Angeles", { keepLocalTime: true }); // $ExpectType DateTime<true> | DateTime<false>
+local.setZone("America/Los_Angeles"); // $ExpectType DateTime<boolean>
+local.setZone("America/Los_Angeles", { keepLocalTime: true }); // $ExpectType DateTime<boolean>
 
 const iso = DateTime.fromISO("2017-05-15T09:10:23");
 iso.zoneName; // $ExpectType string | null
 iso.toString(); // $ExpectType string
 
-DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime<true> | DateTime<false>
-DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime<boolean>
+DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime<boolean>
 
 /* Calendars */
 // prettier-ignore
@@ -520,33 +520,33 @@ DateTime.fromISO("2014-08-06T13:07:04.054").toFormat("yyyy LLL dd"); // $ExpectT
 /* Parsing */
 // @ts-expect-error
 DateTime.fromObject();
-DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<true> | DateTime<false>
-DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: "en-US" }); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<boolean>
+DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: "en-US" }); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromISO();
-DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromJSDate();
-DateTime.fromJSDate(new Date()); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromJSDate(new Date()); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromRFC2822();
-DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromHTTP();
-DateTime.fromHTTP("Sunday, 06-Nov-94 08:49:37 GMT"); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromHTTP("Sunday, 06-Nov-94 08:49:37 GMT"); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromSQL();
-DateTime.fromSQL("2017-05-15 09:24:15"); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromSQL("2017-05-15 09:24:15"); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromMillis();
-DateTime.fromMillis(1542674993410); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromMillis(1542674993410); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromSeconds();
-DateTime.fromSeconds(1542674993); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromSeconds(1542674993); // $ExpectType DateTime<boolean>
 // @ts-expect-error
 DateTime.fromFormat();
-DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<true> | DateTime<false>
-DateTime.fromFormat("mai 25 1982", "LLLL dd yyyy", { locale: "fr" }); // $ExpectType DateTime<true> | DateTime<false>
+DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<boolean>
+DateTime.fromFormat("mai 25 1982", "LLLL dd yyyy", { locale: "fr" }); // $ExpectType DateTime<boolean>
 
 DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy").regex;
 DateTime.invalid("Timestamp out of range");
@@ -592,7 +592,7 @@ Duration.fromISO("PY23", { conversionAccuracy: "longterm" }); // $ExpectType Dur
 Duration.fromISOTime("21:37.000"); // $ExpectType Duration<true> | Duration<false>
 Duration.fromISOTime("21:37.000", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
 
-end.diff(start, "hours", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
+end.diff(start, "hours", { conversionAccuracy: "longterm" }); // $ExpectType Duration<boolean>
 end.diff(start, ["months", "days", "hours"]); // $ExpectType Duration<true> | Duration<false>
 dur.reconfigure({ conversionAccuracy: "longterm" }); // $ExpectType Duration<true>
 
