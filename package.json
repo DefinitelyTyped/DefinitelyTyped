@@ -44,7 +44,7 @@
         "remark-gfm": "^4.0.0",
         "remark-validate-links": "^13.0.0",
         "risk": "^0.0.4",
-        "typescript": "next"
+        "typescript": "<7"
     },
     "pnpm": {
         "overrides": {

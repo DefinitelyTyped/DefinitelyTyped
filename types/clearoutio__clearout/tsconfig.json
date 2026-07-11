@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "module": "node16",
         "lib": [
             "es6"
         ],
+        "module": "node16",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
@@ -14,6 +14,6 @@
     },
     "files": [
         "index.d.ts",
-        "webpack-assets-manifest-tests.ts"
+        "clearoutio__clearout-tests.ts"
     ]
 }
