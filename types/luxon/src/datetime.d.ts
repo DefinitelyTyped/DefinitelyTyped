@@ -430,8 +430,6 @@ export interface ExplainedFormat {
     invalidReason?: string | undefined;
 }
 
-export type DateTimeMaybeValid = CanBeInvalid extends true ? (DateTime<Valid> | DateTime<Invalid>) : DateTime;
-
 declare const tokenParserBrand: unique symbol;
 export interface TokenParser {
     [tokenParserBrand]: true;
@@ -596,7 +594,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
         second: number,
         millisecond: number,
         opts?: DateTimeJSOptions,
-    ): DateTimeMaybeValid;
+    ): DateTime;
     static local(
         year: number,
         month: number,
@@ -605,7 +603,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
         minute: number,
         second: number,
         opts?: DateTimeJSOptions,
-    ): DateTimeMaybeValid;
+    ): DateTime;
     static local(
         year: number,
         month: number,
@@ -613,11 +611,11 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
         hour: number,
         minute: number,
         opts?: DateTimeJSOptions,
-    ): DateTimeMaybeValid;
-    static local(year: number, month: number, day: number, hour: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
-    static local(year: number, month: number, day: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
-    static local(year: number, month: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
-    static local(year: number, opts?: DateTimeJSOptions): DateTimeMaybeValid;
+    ): DateTime;
+    static local(year: number, month: number, day: number, hour: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, month: number, day: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, month: number, opts?: DateTimeJSOptions): DateTime;
+    static local(year: number, opts?: DateTimeJSOptions): DateTime;
     static local(opts?: DateTimeJSOptions): DateTime<Valid>;
 
     /**
@@ -663,7 +661,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
         second: number,
         millisecond: number,
         options?: LocaleOptions,
-    ): DateTimeMaybeValid;
+    ): DateTime;
     static utc(
         year: number,
         month: number,
@@ -672,7 +670,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
         minute: number,
         second: number,
         options?: LocaleOptions,
-    ): DateTimeMaybeValid;
+    ): DateTime;
     static utc(
         year: number,
         month: number,
@@ -680,11 +678,11 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
         hour: number,
         minute: number,
         options?: LocaleOptions,
-    ): DateTimeMaybeValid;
-    static utc(year: number, month: number, day: number, hour: number, options?: LocaleOptions): DateTimeMaybeValid;
-    static utc(year: number, month: number, day: number, options?: LocaleOptions): DateTimeMaybeValid;
-    static utc(year: number, month: number, options?: LocaleOptions): DateTimeMaybeValid;
-    static utc(year: number, options?: LocaleOptions): DateTimeMaybeValid;
+    ): DateTime;
+    static utc(year: number, month: number, day: number, hour: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, month: number, day: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, month: number, options?: LocaleOptions): DateTime;
+    static utc(year: number, options?: LocaleOptions): DateTime;
     static utc(options?: LocaleOptions): DateTime<Valid>;
 
     /**
@@ -694,7 +692,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param options - configuration options for the DateTime
      * @param options.zone - the zone to place the DateTime into
      */
-    static fromJSDate(date: Date, options?: { zone?: string | Zone }): DateTimeMaybeValid;
+    static fromJSDate(date: Date, options?: { zone?: string | Zone }): DateTime;
 
     /**
      * Create a DateTime from a number of milliseconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
@@ -706,7 +704,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
      * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
      */
-    static fromMillis(milliseconds: number, options?: DateTimeJSOptions): DateTimeMaybeValid;
+    static fromMillis(milliseconds: number, options?: DateTimeJSOptions): DateTime;
 
     /**
      * Create a DateTime from a number of seconds since the epoch (meaning since 1 January 1970 00:00:00 UTC). Uses the default zone.
@@ -718,7 +716,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param options.outputCalendar - the output calendar to set on the resulting DateTime instance
      * @param options.numberingSystem - the numbering system to set on the resulting DateTime instance
      */
-    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTimeMaybeValid;
+    static fromSeconds(seconds: number, options?: DateTimeJSOptions): DateTime;
 
     /**
      * Create a DateTime from a JavaScript object with keys like 'year' and 'hour' with reasonable defaults.
@@ -758,7 +756,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: 'en-US' }).toISODate() //=> '2021-12-26'
      */
-    static fromObject(obj: DateObjectUnits, opts?: DateTimeJSOptions): DateTimeMaybeValid;
+    static fromObject(obj: DateObjectUnits, opts?: DateTimeJSOptions): DateTime;
 
     /**
      * Create a DateTime from an ISO 8601 string
@@ -782,7 +780,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.fromISO('2016-W05-4')
      */
-    static fromISO(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromISO(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an RFC 2822 string
@@ -803,7 +801,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.fromRFC2822('25 Nov 2016 13:23 Z')
      */
-    static fromRFC2822(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromRFC2822(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an HTTP header date
@@ -827,7 +825,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.fromHTTP('Sun Nov  6 08:49:37 1994')
      */
-    static fromHTTP(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromHTTP(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from an input string and format string.
@@ -852,12 +850,12 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * Will also set the resulting DateTime to this numbering system
      * @param opts.outputCalendar - the output calendar to set on the resulting DateTime instance
      */
-    static fromFormat(text: string, format: Tokens, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromFormat(text: string, format: Tokens, opts?: DateTimeOptions): DateTime;
 
     /**
      * @deprecated use fromFormat instead
      */
-    static fromString(text: string, format: Tokens, options?: DateTimeOptions): DateTimeMaybeValid;
+    static fromString(text: string, format: Tokens, options?: DateTimeOptions): DateTime;
 
     /**
      * Create a DateTime from a SQL date, time, or datetime
@@ -888,7 +886,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @example
      * DateTime.fromSQL('09:12:34.342')
      */
-    static fromSQL(text: string, opts?: DateTimeOptions): DateTimeMaybeValid;
+    static fromSQL(text: string, opts?: DateTimeOptions): DateTime;
 
     /**
      * Create an invalid DateTime.
@@ -903,7 +901,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      *
      * @param o
      */
-    static isDateTime(o: unknown): o is DateTimeMaybeValid;
+    static isDateTime(o: unknown): o is DateTime;
 
     /**
      * Produce the format string for a set of options
@@ -1269,7 +1267,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param opts - options
      * @param opts.keepLocalTime - If true, adjust the underlying time so that the local time stays the same, but in the target zone. You should rarely need this. Defaults to false.
      */
-    setZone(zone?: string | Zone, opts?: ZoneOptions): DateTimeMaybeValid;
+    setZone(zone?: string | Zone, opts?: ZoneOptions): DateTime;
 
     /**
      * "Set" the locale, numberingSystem, or outputCalendar. Returns a newly-constructed DateTime.
@@ -1761,7 +1759,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      * @param parser - parser from {@link buildFormatParser}
      * @param options options taken by {@link fromFormat}
      */
-    static fromFormatParser(text: string, parser: TokenParser, options?: DateTimeOptions): DateTimeMaybeValid;
+    static fromFormatParser(text: string, parser: TokenParser, options?: DateTimeOptions): DateTime;
 
     // FORMAT PRESETS
 
