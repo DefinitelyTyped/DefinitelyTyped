@@ -27,4 +27,4 @@ declare class ECharts {
     private options_;
     html(): string;
 }
-import LayoutConfig = require("../process/LayoutConfig.js");
+import LayoutConfig = require('../process/LayoutConfig.js');

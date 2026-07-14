@@ -2,9 +2,9 @@ export = LinkSet;
 declare function LinkSet(attachedTo: ViewDefField | Column, process: Process): void;
 declare class LinkSet {
     constructor(attachedTo: ViewDefField | Column, process: Process);
-    process: import("../process/Process.js");
+    process: import('../process/Process.js');
     private attachedTo_;
-    links: Array<import("./Link.js")>;
+    links: Array<import('./Link.js')>;
     private propertiesToAssign_;
     private pairName_;
     size: number;
@@ -28,18 +28,18 @@ declare class LinkSet {
             cssStyle?: Record<string, string>;
             key?: number;
             storedParametersIds?: Record<string, string>;
-        },
+        }
     ): string;
     private getHtml;
     private getImgHtml;
 }
 declare namespace LinkSet {
-    export { Column, FieldLinkSetData, Link, LinkSetConfig, LinkSetItem, Process, ViewDefField };
+    export { Column, Process, Link, ViewDefField, LinkSetItem, LinkSetConfig, FieldLinkSetData };
 }
-type Column = import("../simple-layout/Column.js");
-type Process = import("../process/Process.js");
-type Link = import("./Link.js");
-type ViewDefField = import("../classdef/ViewDefField.js");
+type Column = import('../simple-layout/Column.js');
+type Process = import('../process/Process.js');
+type Link = import('./Link.js');
+type ViewDefField = import('../classdef/ViewDefField.js');
 interface LinkSetItem {
     name: string;
     caption: string;
