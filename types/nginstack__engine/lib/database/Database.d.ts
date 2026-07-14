@@ -144,7 +144,7 @@ interface ArchiveLogFileInfo {
     path: string;
     storageProvider: number | null;
     logDate: Date;
-    archiveDate: Date;
+    archiveDate: Date | null;
     recordCount: number;
     recordCountPerClassKey: Record<string, number>;
     recordCountPerTableName: Record<string, number>;
