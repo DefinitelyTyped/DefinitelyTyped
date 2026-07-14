@@ -1,7 +1,7 @@
 export = DataSourceColumns;
 declare function DataSourceColumns(
     opt_dataSource?: DataSource,
-    opt_colsDefs?: DataSourceColumnDef[]
+    opt_colsDefs?: DataSourceColumnDef[],
 ): void;
 declare class DataSourceColumns {
     constructor(opt_dataSource?: DataSource, opt_colsDefs?: DataSourceColumnDef[]);
@@ -19,19 +19,19 @@ declare class DataSourceColumns {
         prefix: string,
         opt_options?:
             | {
-                  includeFieldNames: string;
-                  excludeFieldNames: string;
-                  children: boolean;
-                  onlyVisible: boolean;
-                  onlyIncludedFieldNames: boolean;
-              }
-            | Record<any, any>
+                includeFieldNames: string;
+                excludeFieldNames: string;
+                children: boolean;
+                onlyVisible: boolean;
+                onlyIncludedFieldNames: boolean;
+            }
+            | Record<any, any>,
     ): void;
     importVisibleFields(
         classKey: number,
         fieldNamesPrefix?: string,
         includeFieldNames?: string,
-        excludeFieldNames?: string
+        excludeFieldNames?: string,
     ): void;
     parseDynColumnExpr(columnName: any): {
         derivedFrom: any;
@@ -51,9 +51,9 @@ declare class DataSourceColumns {
     getPostProcessingInfo(): any;
 }
 declare namespace DataSourceColumns {
-    export { DataSourceColumnDef, DataSource, IQuery };
+    export { DataSource, DataSourceColumnDef, IQuery };
 }
-import DataSourceColumn = require('./DataSourceColumn.js');
-type DataSourceColumnDef = import('./DataSourceColumnDef');
-type DataSource = import('./DataSource');
-type IQuery = import('@nginstack/iquery/lib/IQuery');
+import DataSourceColumn = require("./DataSourceColumn.js");
+type DataSourceColumnDef = import("./DataSourceColumnDef");
+type DataSource = import("./DataSource");
+type IQuery = import("@nginstack/iquery/lib/IQuery");

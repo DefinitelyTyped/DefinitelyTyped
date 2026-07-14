@@ -28,4 +28,4 @@ declare class DataSourceField {
 declare namespace DataSourceField {
     let PREFIX_SEPARATOR: string;
 }
-import DataSourceDataType = require('./DataSourceDataType.js');
+import DataSourceDataType = require("./DataSourceDataType.js");

@@ -34,8 +34,8 @@ declare class IClauseSelect {
     private fetchGroupByArr_;
 }
 declare namespace IClauseSelect {
-    export { IQuery, DataSet };
+    export { DataSet, IQuery };
 }
-import IColumn = require('./IColumn.js');
-type IQuery = import('./IQuery');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
+import IColumn = require("./IColumn.js");
+type IQuery = import("./IQuery");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
