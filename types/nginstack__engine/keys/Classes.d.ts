@@ -54,6 +54,7 @@ export let KEY_RANGES: number;
 export let LARGE_OBJECTS_STORAGE_RULES: number;
 export let LARGE_OBJECTS: number;
 export let LICENSES: number;
+export let LOG_ARCHIVING_DETAILS: number;
 export let LOG_RETENTION_FOR_LOG_TYPES: number;
 export let LOG_RETENTION_FOR_RECORDS: number;
 export let LOG_RETENTION: number;
