@@ -66,7 +66,6 @@
 /// <reference path="lib/dsv/VisualizationFilters.d.ts" />
 /// <reference path="lib/dsv/VisualizationFooterDef.d.ts" />
 /// <reference path="lib/dsv/VisualizationHeaderDef.d.ts" />
-/// <reference path="lib/dsv/VisualizationSchedulerJob.d.ts" />
 /// <reference path="lib/environment/Configuration.d.ts" />
 /// <reference path="lib/environment/Environment.d.ts" />
 /// <reference path="lib/environment/PendingTaskManager.d.ts" />

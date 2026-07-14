@@ -76,11 +76,17 @@ declare class GridField {
     private width_;
 }
 declare namespace GridField {
-    export { DetailGrid, FieldClientStructure, FieldIndexData, FieldInitialState, LookupMultipleInsertEvent };
+    export {
+        LookupMultipleInsertEvent,
+        DetailGrid,
+        FieldInitialState,
+        FieldClientStructure,
+        FieldIndexData,
+    };
 }
-import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");
-type LookupMultipleInsertEvent = import("../classdef/LookupMultipleInsertEvent");
-type DetailGrid = import("./DetailGrid");
+import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+type LookupMultipleInsertEvent = import('../classdef/LookupMultipleInsertEvent');
+type DetailGrid = import('./DetailGrid');
 interface FieldInitialState {
     column: number;
     group: any;

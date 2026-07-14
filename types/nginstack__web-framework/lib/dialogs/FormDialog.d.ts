@@ -12,6 +12,7 @@ declare class FormDialog {
     private checkWordAvailability_;
     addField(name: string, type: string, size?: number): FormDialogField;
     field(name: any): FormDialogField;
+    resetButtonVisible: boolean;
     show(): boolean;
     private getDefinition_;
     private nameToId_;
@@ -21,5 +22,5 @@ declare class FormDialog {
 declare namespace FormDialog {
     export { Process };
 }
-import FormDialogField = require("./FormDialogField.js");
-type Process = import("../process/Process");
+import FormDialogField = require('./FormDialogField.js');
+type Process = import('../process/Process');
