@@ -2,7 +2,7 @@ export = Entity;
 declare function Entity(
     classKey: number,
     dataSet: DataSet,
-    opt_options?: EntityOptions | Record<any, any>
+    opt_options?: EntityOptions | Record<any, any>,
 ): void;
 declare class Entity {
     constructor(classKey: number, dataSet: DataSet, opt_options?: EntityOptions | Record<any, any>);
@@ -81,48 +81,48 @@ declare class Entity {
 }
 declare namespace Entity {
     export {
-        fromKey,
-        fromDataSet,
-        requiresStrictMode,
-        ModelDef,
         ConfigDef,
-        Field,
-        Event,
-        Emitter,
-        FieldPermissions,
         DataSet,
+        Emitter,
         EntityOptions,
         EntityState,
+        Event,
+        Field,
+        FieldPermissions,
+        fromDataSet,
+        fromKey,
+        ModelDef,
+        requiresStrictMode,
     };
 }
-import DBKey = require('@nginstack/engine/lib/dbkey/DBKey.js');
+import DBKey = require("@nginstack/engine/lib/dbkey/DBKey.js");
 declare function fromKey(
     key: number,
     opt_options?:
         | {
-              userKey: number;
-              fields: string[] | ((arg0: Field) => boolean);
-          }
-        | Record<any, any>
+            userKey: number;
+            fields: string[] | ((arg0: Field) => boolean);
+        }
+        | Record<any, any>,
 ): Entity;
 declare function fromDataSet(
     classKey: number,
     dataSet: DataSet,
     opt_options?:
         | {
-              userKey: number;
-              fields: string[] | ((arg0: Field) => boolean);
-          }
-        | Record<any, any>
+            userKey: number;
+            fields: string[] | ((arg0: Field) => boolean);
+        }
+        | Record<any, any>,
 ): Entity;
 declare let requiresStrictMode: boolean;
-type ModelDef = import('@nginstack/engine/lib/classdef/ModelDef');
-type ConfigDef = import('@nginstack/engine/lib/classdef/ConfigDef');
-type Field = import('@nginstack/engine/lib/classdef/Field');
-type Event = import('@nginstack/engine/lib/event/Event');
-type Emitter = import('@nginstack/engine/lib/event/Emitter');
-type FieldPermissions = import('@nginstack/engine/lib/security/FieldPermissions');
-type DataSet = import('@nginstack/engine/lib/dataset/DataSet');
-type EntityOptions = import('./EntityOptions');
+type ModelDef = import("@nginstack/engine/lib/classdef/ModelDef");
+type ConfigDef = import("@nginstack/engine/lib/classdef/ConfigDef");
+type Field = import("@nginstack/engine/lib/classdef/Field");
+type Event = import("@nginstack/engine/lib/event/Event");
+type Emitter = import("@nginstack/engine/lib/event/Emitter");
+type FieldPermissions = import("@nginstack/engine/lib/security/FieldPermissions");
+type DataSet = import("@nginstack/engine/lib/dataset/DataSet");
+type EntityOptions = import("./EntityOptions");
 type EntityState = typeof EntityState;
-import EntityState = require('./EntityState.js');
+import EntityState = require("./EntityState.js");
