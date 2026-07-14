@@ -18,6 +18,8 @@ declare class Task {
     nextExecution: Date;
     preRequisiteTask: string;
     enabled: boolean;
+    userValidationMode: string;
+    failCount: number;
     userKey: number;
     saveLocally(userId?: string, password?: string): void;
     del(): void;
