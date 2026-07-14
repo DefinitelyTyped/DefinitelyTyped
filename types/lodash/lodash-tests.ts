@@ -1,11 +1,10 @@
-/* eslint-disable @definitelytyped/no-relative-import-in-test */
+// eslint-disable-next-line @definitelytyped/no-relative-import-in-test
 import fp = require("./fp");
 import _ = require("lodash");
 import conforms = require("lodash/conforms");
 import stubArray = require("lodash/stubArray");
 import stubObject = require("lodash/stubObject");
 import stubString = require("lodash/stubString");
-/* eslint-enable @definitelytyped/no-relative-import-in-test */
 
 import type {
     GetFieldType,
