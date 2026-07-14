@@ -27,4 +27,4 @@ declare class FieldAggregator {
     assign(obj: FieldAggregator): void;
     toString(): string;
 }
-import DataSet = require('@nginstack/engine/lib/dataset/DataSet.js');
+import DataSet = require("@nginstack/engine/lib/dataset/DataSet.js");

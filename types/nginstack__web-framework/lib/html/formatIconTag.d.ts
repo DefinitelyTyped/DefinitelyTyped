@@ -7,5 +7,5 @@ declare function formatIconTag(
         iconColor?: string;
         id?: string;
         cssClass?: string;
-    }
+    },
 ): string;
