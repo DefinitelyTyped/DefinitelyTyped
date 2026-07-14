@@ -324,6 +324,22 @@ Interceptor.attach(puts, {
     },
 });
 
+Interceptor.attach(puts, {
+    onEnter() {
+        const ia32 = this.context as Ia32CpuContext;
+        // $ExpectType ArrayBuffer
+        ia32.xmm0;
+        const ia32Xmm7: ArrayBuffer = ia32.xmm7;
+        void ia32Xmm7;
+
+        const x64 = this.context as X64CpuContext;
+        // $ExpectType ArrayBuffer
+        x64.xmm0;
+        const x64Xmm15: ArrayBuffer = x64.xmm15;
+        void x64Xmm15;
+    },
+});
+
 Interceptor.attach({
     target: puts,
     scratchRegister: "x15",

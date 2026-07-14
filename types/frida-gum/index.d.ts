@@ -2218,6 +2218,15 @@ interface Ia32CpuContext extends PortableCpuContext {
     edi: NativePointer;
 
     eip: NativePointer;
+
+    xmm0: ArrayBuffer;
+    xmm1: ArrayBuffer;
+    xmm2: ArrayBuffer;
+    xmm3: ArrayBuffer;
+    xmm4: ArrayBuffer;
+    xmm5: ArrayBuffer;
+    xmm6: ArrayBuffer;
+    xmm7: ArrayBuffer;
 }
 
 interface X64CpuContext extends PortableCpuContext {
@@ -2240,6 +2249,23 @@ interface X64CpuContext extends PortableCpuContext {
     r15: NativePointer;
 
     rip: NativePointer;
+
+    xmm0: ArrayBuffer;
+    xmm1: ArrayBuffer;
+    xmm2: ArrayBuffer;
+    xmm3: ArrayBuffer;
+    xmm4: ArrayBuffer;
+    xmm5: ArrayBuffer;
+    xmm6: ArrayBuffer;
+    xmm7: ArrayBuffer;
+    xmm8: ArrayBuffer;
+    xmm9: ArrayBuffer;
+    xmm10: ArrayBuffer;
+    xmm11: ArrayBuffer;
+    xmm12: ArrayBuffer;
+    xmm13: ArrayBuffer;
+    xmm14: ArrayBuffer;
+    xmm15: ArrayBuffer;
 }
 
 interface ArmCpuContext extends PortableCpuContext {
