@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/ui/commons/library" {
   import { ColorPickerMode as ColorPickerMode1 } from "sap/ui/unified/library";
@@ -6242,8 +6242,7 @@ declare module "sap/ui/commons/ComboBox" {
   /**
    * Parameters of the ComboBox#change event.
    */
-  export interface ComboBox$ChangeEventParameters
-    extends TextField$ChangeEventParameters {
+  export interface ComboBox$ChangeEventParameters extends TextField$ChangeEventParameters {
     /**
      * The new / changed item of the ComboBox.
      */
@@ -12985,8 +12984,7 @@ declare module "sap/ui/commons/form/GridContainerData" {
    *
    * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
-  export interface $GridContainerDataSettings
-    extends $GridContainerDataSettings1 {}
+  export interface $GridContainerDataSettings extends $GridContainerDataSettings1 {}
 }
 
 declare module "sap/ui/commons/form/GridElementData" {
@@ -13265,8 +13263,7 @@ declare module "sap/ui/commons/form/ResponsiveLayout" {
    *
    * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
-  export interface $ResponsiveLayoutSettings
-    extends $ResponsiveLayoutSettings1 {}
+  export interface $ResponsiveLayoutSettings extends $ResponsiveLayoutSettings1 {}
 }
 
 declare module "sap/ui/commons/form/SimpleForm" {
@@ -16428,8 +16425,7 @@ declare module "sap/ui/commons/layout/HorizontalLayout" {
    *
    * @deprecated As of version 1.38. Instead, use the `sap.ui.layout.HorizontalLayout` control.
    */
-  export interface $HorizontalLayoutSettings
-    extends $HorizontalLayoutSettings1 {}
+  export interface $HorizontalLayoutSettings extends $HorizontalLayoutSettings1 {}
 }
 
 declare module "sap/ui/commons/layout/MatrixLayout" {
@@ -17982,8 +17978,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayout" {
    *
    * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
-  export interface $ResponsiveFlowLayoutSettings
-    extends $ResponsiveFlowLayoutSettings1 {}
+  export interface $ResponsiveFlowLayoutSettings extends $ResponsiveFlowLayoutSettings1 {}
 }
 
 declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
@@ -18100,8 +18095,7 @@ declare module "sap/ui/commons/layout/ResponsiveFlowLayoutData" {
    *
    * @deprecated As of version 1.16.0. moved to sap.ui.layout library. Please use this one.
    */
-  export interface $ResponsiveFlowLayoutDataSettings
-    extends $ResponsiveFlowLayoutDataSettings1 {}
+  export interface $ResponsiveFlowLayoutDataSettings extends $ResponsiveFlowLayoutDataSettings1 {}
 }
 
 declare module "sap/ui/commons/layout/VerticalLayout" {
@@ -20446,8 +20440,7 @@ declare module "sap/ui/commons/MenuButton" {
   /**
    * Parameters of the MenuButton#press event.
    */
-  export interface MenuButton$PressEventParameters
-    extends Button$PressEventParameters {
+  export interface MenuButton$PressEventParameters extends Button$PressEventParameters {
     /**
      * The id of the selected item
      */
@@ -20697,8 +20690,7 @@ declare module "sap/ui/commons/MenuTextFieldItem" {
    * @deprecated As of version 1.21.0. Please use the control `sap.ui.unified.MenuTextFieldItem` of the library
    * `sap.ui.unified` instead.
    */
-  export interface $MenuTextFieldItemSettings
-    extends $MenuTextFieldItemSettings1 {}
+  export interface $MenuTextFieldItemSettings extends $MenuTextFieldItemSettings1 {}
 }
 
 declare module "sap/ui/commons/Message" {
@@ -29419,8 +29411,7 @@ declare module "sap/ui/commons/SearchProvider" {
    *
    * @deprecated As of version 1.6.0. Replaced by sap.ui.core.search.OpenSearchProvider
    */
-  export interface $SearchProviderSettings
-    extends $OpenSearchProviderSettings {}
+  export interface $SearchProviderSettings extends $OpenSearchProviderSettings {}
 }
 
 declare module "sap/ui/commons/SegmentedButton" {

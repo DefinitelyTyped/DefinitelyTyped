@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/wicg-cross-origin-storage",
+    "version": "2026.7.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Cross-Origin Storage",
+    "projects": [
+        "https://github.com/WICG/cross-origin-storage"
+    ],
+    "devDependencies": {
+        "@types/wicg-cross-origin-storage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Steiner",
+            "githubUsername": "tomayac"
+        },
+        {
+            "name": "Christian Liebel",
+            "githubUsername": "christianliebel"
+        }
+    ]
+}

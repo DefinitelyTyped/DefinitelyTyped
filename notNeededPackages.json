@@ -7743,6 +7743,10 @@
             "libraryName": "theming",
             "asOfVersion": "2.0.0"
         },
+        "through2": {
+            "libraryName": "through2",
+            "asOfVersion": "5.0.0"
+        },
         "tildify": {
             "libraryName": "tildify",
             "asOfVersion": "2.0.0"
@@ -8166,6 +8170,10 @@
         "webmidi": {
             "libraryName": "webmidi",
             "asOfVersion": "3.0.1"
+        },
+        "webpack-assets-manifest": {
+            "libraryName": "webpack-assets-manifest",
+            "asOfVersion": "6.0.0"
         },
         "webpack-chain": {
             "libraryName": "webpack-chain",

@@ -974,6 +974,8 @@ declare module "node:util" {
      * `reason`.
      *
      * ```js
+     * import util from 'node:util';
+     *
      * function fn() {
      *   return Promise.reject(null);
      * }
@@ -1246,13 +1248,28 @@ declare module "node:util" {
      *
      * The special format value `none` applies no additional styling to the text.
      *
+     * In addition to predefined color names, `util.styleText()` supports hex color
+     * strings using ANSI TrueColor (24-bit) escape sequences. Hex colors can be
+     * specified in either 3-digit (`#RGB`) or 6-digit (`#RRGGBB`) format:
+     *
+     * ```js
+     * import { styleText } from 'node:util';
+     *
+     * // 6-digit hex color
+     * console.log(styleText('#ff5733', 'Orange text'));
+     *
+     * // 3-digit hex color (shorthand)
+     * console.log(styleText('#f00', 'Red text'));
+     * ```
+     *
      * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v26.x/api/util.html#modifiers).
-     * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
+     * @param format A text format or an Array of text formats defined in `util.inspect.colors`, or a hex color in `#RGB`
+     * or `#RRGGBB` form.
      * @param text The text to to be formatted.
      * @since v20.12.0
      */
     export function styleText(
-        format: InspectColor | readonly InspectColor[],
+        format: InspectColor | readonly InspectColor[] | `#${string}`,
         text: string,
         options?: StyleTextOptions,
     ): string;

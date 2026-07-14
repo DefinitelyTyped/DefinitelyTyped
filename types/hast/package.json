@@ -29,6 +29,10 @@
         {
             "name": "Remco Haszing",
             "githubUsername": "remcohaszing"
+        },
+        {
+            "name": "Titus Wormer",
+            "githubUsername": "wooorm"
         }
     ]
 }
