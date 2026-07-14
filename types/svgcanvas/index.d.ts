@@ -35,29 +35,20 @@ export interface C2SOptions {
 }
 
 /**
- * CanvasGradient for creating color gradients
- */
-export interface CanvasGradient {
-    /**
-     * Adds a color stop to the gradient
-     * @param offset - A number between 0 and 1
-     * @param color - A CSS color string
-     */
-    addColorStop(offset: number, color: string): void;
-}
-
-/**
  * CanvasPattern for creating pattern fills
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CanvasPattern {}
 
 /**
- * TextMetrics - measurement results from measureText()
+ * @deprecated Use the global DOM CanvasGradient type instead.
  */
-export interface TextMetrics {
-    width: number;
-}
+export type CanvasGradient = globalThis.CanvasGradient;
+
+/**
+ * @deprecated Use the global DOM TextMetrics type instead.
+ */
+export type TextMetrics = globalThis.TextMetrics;
 
 /**
  * Context - implements most of CanvasRenderingContext2D API but generates SVG

@@ -900,6 +900,7 @@
 /types/clear/                                           @connorjayfitzgerald
 /types/clearbladejs-node/                               @ClearBlade
 /types/clearbladejs-server/                             @ClearBlade
+/types/clearoutio__clearout/                            @max-programming
 /types/cleasby-vigfusson-dictionary/                    @stscoundrel
 /types/cleave.js/                                       @clentfort @jasongi-at-sportsbet @sashashakun
 /types/clerk.io/                                        @madsenmm @andershagbard
@@ -1216,7 +1217,7 @@
 /types/current-git-branch/                              @maxbogus
 /types/curtainsjs/                                      @Blakeinstein
 /types/custom-error-generator/                          @thmiceli
-/types/custom-functions-runtime/                        @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
+/types/custom-functions-runtime/                        @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
 /types/customize-cra/                                   @k-yle
 /types/cvss/                                            @himynameisdave
 /types/cwd/                                             @BendingBender
@@ -3147,7 +3148,7 @@
 /types/hashset/                                         @gerich-home
 /types/hashtable/                                       @gerich-home
 /types/hashtag-regex/                                   @diogofcunha
-/types/hast/                                            @lukeggchapman @rokt33r @ChristianMurphy @remcohaszing
+/types/hast/                                            @lukeggchapman @rokt33r @ChristianMurphy @remcohaszing @wooorm
 /types/hast/v2/                                         @lukeggchapman @rokt33r @ChristianMurphy
 /types/hasura/                                          @hgiasac
 /types/hat/                                             @myovchev
@@ -4979,7 +4980,7 @@
 /types/mparticle__web-sdk/                              @asap @rmi22186
 /types/mpesa-node/                                      @petekmunz
 /types/mpromise/                                        @sgkim126
-/types/mpv-script/                                      @mrxdst
+/types/mpv-script/                                      @mrxdst @sharpchen
 /types/mraid/                                           @sumn2u
 /types/ms/                                              @danny8002
 /types/ms.macro/                                        @ckknight
@@ -5033,6 +5034,7 @@
 /types/name-all-modules-plugin/                         @peterblazejewicz
 /types/name-initials/                                   @atlowChemi
 /types/named-routes/                                    @qqilihq
+/types/namespace-emitter/                               @remcohaszing
 /types/namespace-js/                                    @kuromoka
 /types/nano-cache/                                      @rcoundon
 /types/nano-equal/                                      @1cheese
@@ -5145,7 +5147,6 @@
 /types/noble-mac/                                       @swook @shantanubhadoria @lukel99 @bioball @keton @thegecko
 /types/nodal/                                           @charrondev
 /types/node/                                            @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334 @anonrig
-/types/node/v20/                                        @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky
 /types/node/v22/                                        @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334
 /types/node/v24/                                        @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334 @anonrig
 /types/node/v25/                                        @Microsoft @jkomyno @r3nya @btoueg @touffy @mohsen1 @galkin @eps1lon @WilcoBakker @chyzwar @trivikr @yoursunny @qwelias @ExE-Boss @peterblazejewicz @addaleax @victorperin @NodeJS @LinusU @wafuwafu13 @mcollina @Semigradsky @Renegade334 @anonrig
@@ -5391,9 +5392,9 @@
 /types/obsolete-web/                                    @peterblazejewicz
 /types/oclazyload/                                      @rolandzwaga
 /types/ofe/                                             @Morfent
-/types/office-js/                                       @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
-/types/office-js-preview/                               @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
-/types/office-runtime/                                  @OfficeDev @davidchesnut @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
+/types/office-js/                                       @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
+/types/office-js-preview/                               @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @samantharamon
+/types/office-runtime/                                  @OfficeDev @AlexJerabek @ElizabethSamuel-MSFT @alison-mk
 /types/offline-js/                                      @cgwrench
 /types/offscreen-canvas/                                @peterblazejewicz
 /types/offscreencanvas/                                 @kayahr @ova2 @capnmidnight
@@ -5504,7 +5505,7 @@
 /types/pako/v1/                                         @calebegg @hlthi
 /types/palx/                                            @mikefowler
 /types/pangu/                                           @plantain-00 @AH-dark
-/types/pannellum/                                       @zhirzh
+/types/pannellum/                                       @zhirzh @k-yle
 /types/papaparse/                                       @torpedro @rainshen49 @jfloff @johnnyreilly @albertorestifo @jliuhtonen @peterblazejewicz @emmanuelgautier @OpportunityLiu @matsuby
 /types/parallel-transform/                              @djcsdy
 /types/paralleljs/                                      @jbaldwin
@@ -7221,7 +7222,7 @@
 /types/shallowequal/v0/                                 @seansfkelley
 /types/shapefile/                                       @DenisCarriere @Thw0rted
 /types/share-api-polyfill/                              @jnv
-/types/sharedb/                                         @soney @ericyhwang @pxpeterxu @alecgibson @pypmannetjies @craigbeck
+/types/sharedb/                                         @soney @ericyhwang @pxpeterxu @alecgibson @pypmannetjies @craigbeck @dawidreedsy
 /types/sharepoint/                                      @gandjustas @andrei-markeev @teroarvola @dennispg @SPWizard01 @betlgtu
 /types/sharetribe-flex-integration-sdk/                 @jayenashar @venmartin
 /types/sharetribe-flex-sdk/                             @jayenashar @venmartin
@@ -7812,8 +7813,6 @@
 /types/throttle-debounce/                               @czbuchi @franklixuefei @oddsund @seiyab
 /types/throttleit/                                      @ifiokjr
 /types/through/                                         @AndrewGaspar
-/types/through2/                                        @Bartvds @valotas @TeamworkGuy2 @Alorel
-/types/through2/v0/                                     @Bartvds
 /types/through2-concurrent/                             @Alorel
 /types/through2-map/                                    @LucasHill
 /types/throw-empty/                                     @ChocolateLoverRaj
@@ -7853,7 +7852,7 @@
 /types/tinycon/                                         @peterblazejewicz
 /types/tinycopy/                                        @vvatanabe
 /types/tippy.js/                                        @DonaldDuck313
-/types/titanium/                                        @appcelerator @janvennemann @drauggres @ffMathy
+/types/titanium/                                        @tidev @janvennemann
 /types/titlecase/                                       @MasterOdin
 /types/tizen-accessory/                                 @egorshulga
 /types/tizen-common-web/                                @SejoongDeJang @capscrom @pwsses @darangkim @prozanne @egorshulga
@@ -8335,8 +8334,6 @@
 /types/webpack/                                         @tkqubo @bumbleblym @bcherny @tommytroylin @mohsen1 @jcreamer898 @alan-agius4 @dennispg @christophehurpeau @ZSkycat @johnnyreilly @rwaskiewicz @kuehlein @grgur @rubenspgcavalcante @andersk @ofhouse @danielthank @sasurau4 @dionshihk @peterblazejewicz @spamshaker
 /types/webpack/v3/                                      @tkqubo @bumbleblym @bcherny @tommytroylin @mohsen1 @jcreamer898 @alan-agius4 @elliottsj @christophehurpeau @rwaskiewicz @kuehlein
 /types/webpack/v4/                                      @tkqubo @bumbleblym @bcherny @tommytroylin @mohsen1 @jcreamer898 @alan-agius4 @dennispg @christophehurpeau @ZSkycat @johnnyreilly @rwaskiewicz @kuehlein @grgur @rubenspgcavalcante @andersk @ofhouse @danielthank @sasurau4 @dionshihk @peterblazejewicz @spamshaker
-/types/webpack-assets-manifest/                         @FranklinWhale
-/types/webpack-assets-manifest/v4/                      @FranklinWhale
 /types/webpack-blocks/                                  @maxbogus
 /types/webpack-blocks__assets/                          @maxbogus
 /types/webpack-blocks__babel/                           @maxbogus
@@ -8419,6 +8416,7 @@
 /types/whois-json/                                      @hwaien
 /types/whois-parsed/                                    @uchilaka
 /types/whoops/                                          @ffflorian
+/types/wicg-cross-origin-storage/                       @tomayac @christianliebel
 /types/wicg-entries-api/                                @HenningCash @RReverser
 /types/wicg-file-system-access/                         @RReverser
 /types/wicg-js-self-profiling/                          @NotWoods

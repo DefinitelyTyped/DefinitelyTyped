@@ -381,22 +381,53 @@ declare namespace chrome {
      * Permissions: "alarms"
      */
     export namespace alarms {
-        interface AlarmCreateInfo {
-            /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
-            delayInMinutes?: number | undefined;
-            /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
-            periodInMinutes?: number | undefined;
-            /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
-            when?: number | undefined;
-        }
+        type AlarmCreateInfo =
+            & {
+                /**
+                 * Whether the alarm should persist across sessions (browser restarts). In Chrome, this defaults to true to match historical behavior, but you should set this explicitly to maximize compatibility across browsers.
+                 * @since Chrome 150
+                 */
+                persistAcrossSessions?: boolean | undefined;
+            }
+            & (
+                | {
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    delayInMinutes: number;
+                    /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
+                    periodInMinutes?: number | undefined;
+                    /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
+                    when?: never | undefined;
+                }
+                | {
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    delayInMinutes?: number | undefined;
+                    /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
+                    periodInMinutes: number;
+                    /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
+                    when?: number | undefined;
+                }
+                | {
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    delayInMinutes?: never | undefined;
+                    /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
+                    periodInMinutes?: number | undefined;
+                    /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
+                    when: number;
+                }
+            );
 
         interface Alarm {
-            /** If not null, the alarm is a repeating alarm and will fire again in `periodInMinutes` minutes. */
-            periodInMinutes?: number;
-            /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. `Date.now() + n`). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
-            scheduledTime: number;
             /** Name of this alarm. */
             name: string;
+            /** If not null, the alarm is a repeating alarm and will fire again in `periodInMinutes` minutes. */
+            periodInMinutes?: number;
+            /**
+             * Whether the alarm should persist across sessions (browser restarts).
+             * @since Chrome 150
+             */
+            persistAcrossSessions: boolean;
+            /** Time at which this alarm was scheduled to fire, in milliseconds past the epoch (e.g. `Date.now() + n`). For performance reasons, the alarm may have been delayed an arbitrary amount beyond this. */
+            scheduledTime: number;
         }
 
         /**
@@ -7604,7 +7635,7 @@ declare namespace chrome {
          * Creates a new offscreen document for the extension.
          * @param parameters The parameters describing the offscreen document to create.
          *
-         * Can return its result via Promise in Manifest V3.
+         * Can return its result via Promise.
          */
         function createDocument(parameters: CreateParameters): Promise<void>;
         function createDocument(parameters: CreateParameters, callback: () => void): void;
@@ -7612,7 +7643,7 @@ declare namespace chrome {
         /**
          * Closes the currently-open offscreen document for the extension.
          *
-         * Can return its result via Promise in Manifest V3.
+         * Can return its result via Promise.
          */
         function closeDocument(): Promise<void>;
         function closeDocument(callback: () => void): void;
@@ -7620,7 +7651,8 @@ declare namespace chrome {
         /**
          * Determines whether the extension has an active document.
          *
-         * Can return its result via Promise in Manifest V3.
+         * Can return its result via Promise.
+         * @since Chrome 150
          */
         function hasDocument(): Promise<boolean>;
         function hasDocument(callback: (result: boolean) => void): void;

@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -1461,8 +1461,7 @@ declare module "sap/ui/table/AnalyticalTable" {
   /**
    * Parameters of the AnalyticalTable#group event.
    */
-  export interface AnalyticalTable$GroupEventParameters
-    extends Table$GroupEventParameters {}
+  export interface AnalyticalTable$GroupEventParameters extends Table$GroupEventParameters {}
 
   /**
    * Event object of the AnalyticalTable#group event.
@@ -3501,8 +3500,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
   /**
    * Describes the settings that can be provided to the MultiSelectionPlugin constructor.
    */
-  export interface $MultiSelectionPluginSettings
-    extends $SelectionPluginSettings {
+  export interface $MultiSelectionPluginSettings extends $SelectionPluginSettings {
     /**
      * Number of indices which can be selected in a range. Accepts positive integer values. If set to 0, the
      * limit is disabled, and the Select All checkbox appears instead of the Deselect All button.
@@ -3551,8 +3549,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
   /**
    * Parameters of the MultiSelectionPlugin#selectionChange event.
    */
-  export interface MultiSelectionPlugin$SelectionChangeEventParameters
-    extends SelectionPlugin$SelectionChangeEventParameters {
+  export interface MultiSelectionPlugin$SelectionChangeEventParameters extends SelectionPlugin$SelectionChangeEventParameters {
     /**
      * Array of indices whose selection has been changed (either selected or deselected)
      */
@@ -4029,8 +4026,7 @@ declare module "sap/ui/table/plugins/ODataV4MultiSelection" {
   /**
    * Describes the settings that can be provided to the ODataV4MultiSelection constructor.
    */
-  export interface $ODataV4MultiSelectionSettings
-    extends $SelectionPluginSettings {
+  export interface $ODataV4MultiSelectionSettings extends $SelectionPluginSettings {
     /**
      * Enables notifications that are displayed once a selection has been limited.
      */
@@ -4145,8 +4141,7 @@ declare module "sap/ui/table/plugins/ODataV4SingleSelection" {
   /**
    * Describes the settings that can be provided to the ODataV4SingleSelection constructor.
    */
-  export interface $ODataV4SingleSelectionSettings
-    extends $SelectionPluginSettings {}
+  export interface $ODataV4SingleSelectionSettings extends $SelectionPluginSettings {}
 }
 
 declare module "sap/ui/table/plugins/SelectionPlugin" {
@@ -11201,8 +11196,7 @@ declare module "sap/ui/table/TablePersoController" {
    * @deprecated As of version 1.115. Please use the {@link sap.m.p13n.Engine Engine} for personalization
    * instead.
    */
-  export interface $TablePersoControllerSettings
-    extends $ManagedObjectSettings {
+  export interface $TablePersoControllerSettings extends $ManagedObjectSettings {
     /**
      * Auto save state
      */

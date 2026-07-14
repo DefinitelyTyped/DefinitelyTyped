@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -3192,15 +3192,15 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
 
   import { ConditionObject } from "sap/ui/mdc/condition/Condition";
 
-  import FilterableListContent from "sap/ui/mdc/valuehelp/base/FilterableListContent";
+  import ListContent from "sap/ui/mdc/valuehelp/base/ListContent";
 
   import Context from "sap/ui/model/Context";
+
+  import FilterableListContent from "sap/ui/mdc/valuehelp/base/FilterableListContent";
 
   import { util } from "sap/ui/mdc/library";
 
   import Filter from "sap/ui/model/Filter";
-
-  import ListContent from "sap/ui/mdc/valuehelp/base/ListContent";
 
   import Content from "sap/ui/mdc/valuehelp/base/Content";
 
@@ -3268,6 +3268,29 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
        */
       oConditionB: ConditionObject
     ): boolean;
+    /**
+     * Creates a condition that represents the given context for 'Select from list' scenarios.
+     * By default, this method creates a {@link sap.ui.mdc.condition.ConditionObject Condition} representing
+     * an "equal to" filter.
+     *
+     * @since 1.150.0
+     *
+     * @returns Condition representing the given context
+     */
+    createConditionForContext(
+      /**
+       * The `ValueHelp` control instance
+       */
+      oValueHelp: ValueHelp,
+      /**
+       * `ValueHelp` content instance
+       */
+      oContent: ListContent,
+      /**
+       * Entry of a given list
+       */
+      oContext: Context
+    ): ConditionObject;
     /**
      * Provides the possibility to convey custom data in conditions. This enables an application to enhance
      * conditions with data relevant for combined key or out parameter scenarios.
@@ -3404,16 +3427,16 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
      * the same way.
      *
      * For each relevant column all items are searched for an exact match first and again with a startsWith
-     * filter afterwards, if necessary.
+     * filter afterwards, if necessary (and supported by the used data type).
      *
      * If the `caseSensitive` property is disabled, whichever entry comes first, wins, whether the user's input
      * is in lowercase or uppercase letters.
      *
      * {@link sap.ui.mdc.valuehelp.base.ListContent ListContent}
      *
-     * @since 1.120.0
+     * @since 1.120
      *
-     * @returns Promise resolving in the `Context` that's relevant'
+     * @returns The `Context` that matches the user input best
      */
     getFirstMatch(
       /**
@@ -3428,7 +3451,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
        * Configuration
        */
       oConfig: ItemForValueConfiguration
-    ): Context;
+    ): Context | undefined;
     /**
      * Provides type information for list content filtering.
      * By default, this method returns an object of types per binding path, extracted from a binding template
@@ -5953,8 +5976,7 @@ declare module "sap/ui/mdc/chart/ActionLayoutData" {
   /**
    * Describes the settings that can be provided to the ActionLayoutData constructor.
    */
-  export interface $ActionLayoutDataSettings
-    extends $OverflowToolbarLayoutDataSettings {
+  export interface $ActionLayoutDataSettings extends $OverflowToolbarLayoutDataSettings {
     /**
      * Defines the position of the action within the group of chart actions.
      */
@@ -6091,8 +6113,7 @@ declare module "sap/ui/mdc/chart/ChartImplementationContainer" {
   /**
    * Describes the settings that can be provided to the ChartImplementationContainer constructor.
    */
-  export interface $ChartImplementationContainerSettings
-    extends $ControlSettings {
+  export interface $ChartImplementationContainerSettings extends $ControlSettings {
     /**
      * Toggles the visibility of the noDataContent & content
      */
@@ -6277,8 +6298,7 @@ declare module "sap/ui/mdc/chart/ChartSelectionDetails" {
   /**
    * Describes the settings that can be provided to the ChartSelectionDetails constructor.
    */
-  export interface $ChartSelectionDetailsSettings
-    extends $SelectionDetailsSettings {
+  export interface $ChartSelectionDetailsSettings extends $SelectionDetailsSettings {
     /**
      * Callback function that is called for each `SelectionDetailsItem` to determine if the navigation is enabled.
      * The callback is called with the following parameters:
@@ -20161,8 +20181,7 @@ declare module "sap/ui/mdc/table/ActionLayoutData" {
   /**
    * Describes the settings that can be provided to the ActionLayoutData constructor.
    */
-  export interface $ActionLayoutDataSettings
-    extends $OverflowToolbarLayoutDataSettings {
+  export interface $ActionLayoutDataSettings extends $OverflowToolbarLayoutDataSettings {
     /**
      * Defines the position of the action within the group of table actions.
      */
@@ -22194,8 +22213,7 @@ declare module "sap/ui/mdc/table/ResponsiveColumnSettings" {
   /**
    * Describes the settings that can be provided to the ResponsiveColumnSettings constructor.
    */
-  export interface $ResponsiveColumnSettingsSettings
-    extends $ColumnSettingsSettings {
+  export interface $ResponsiveColumnSettingsSettings extends $ColumnSettingsSettings {
     /**
      * Defines the column importance.
      *
@@ -26847,6 +26865,19 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      */
     getGroupable(): boolean;
     /**
+     * Gets current value of property {@link #getHighlightFilterResults highlightFilterResults}.
+     *
+     * If set to `true`, the filter is applied word by word, and matched text in the results is highlighted.
+     * If set to `false`, filtering takes the whole string into account, and nothing is highlighted.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.150
+     *
+     * @returns Value of property `highlightFilterResults`
+     */
+    getHighlightFilterResults(): boolean;
+    /**
      * Gets content of aggregation {@link #getItems items}.
      *
      * Items of the value help.
@@ -26991,6 +27022,26 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
       bGroupable?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getHighlightFilterResults highlightFilterResults}.
+     *
+     * If set to `true`, the filter is applied word by word, and matched text in the results is highlighted.
+     * If set to `false`, filtering takes the whole string into account, and nothing is highlighted.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.150
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHighlightFilterResults(
+      /**
+       * New value for property `highlightFilterResults`
+       */
+      bHighlightFilterResults?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getRestrictedToFixedValues restrictedToFixedValues}.
      *
      * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
@@ -27034,6 +27085,14 @@ declare module "sap/ui/mdc/valuehelp/content/FixedList" {
      * **Note: ** if `restrictedToFixedValues` is set, filtering should be disabled.
      */
     filterList?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * If set to `true`, the filter is applied word by word, and matched text in the results is highlighted.
+     * If set to `false`, filtering takes the whole string into account, and nothing is highlighted.
+     *
+     * @since 1.150
+     */
+    highlightFilterResults?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set, an item to clear the selection is added.

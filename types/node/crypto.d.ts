@@ -1373,9 +1373,9 @@ declare module "node:crypto" {
          */
         update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): Verify;
         /**
-         * Verifies the provided data using the given `object` and `signature`.
+         * Verifies the provided data using the given `key` and `signature`.
          *
-         * If `object` is not a `KeyObject`, this function behaves as if `object` had been passed to {@link createPublicKey}. If it is an
+         * If `key` is not a `KeyObject`, this function behaves as if `key` had been passed to {@link createPublicKey}. If it is an
          * object, the following additional properties can be passed:
          *
          * The `signature` argument is the previously calculated signature for the data, in
@@ -1392,7 +1392,7 @@ declare module "node:crypto" {
          * @since v0.1.92
          */
         verify(
-            object:
+            key:
                 | KeyLike
                 | VerifyKeyObjectInput
                 | VerifyPublicKeyInput
@@ -1470,8 +1470,10 @@ declare module "node:crypto" {
          * If `encoding` is provided a string is returned; otherwise a `Buffer` is returned.
          *
          * This function is a thin wrapper around [`DH_generate_key()`](https://www.openssl.org/docs/man3.0/man3/DH_generate_key.html). In particular,
-         * once a private key has been generated or set, calling this function only updates
-         * the public key but does not generate a new private key.
+         * once a private key has been generated or set, calling this function only
+         * recomputes the public key from the existing private key. Since the public key is
+         * determined by the private key, the result will be the same unless the private key
+         * has been changed via `diffieHellman.setPrivateKey()`.
          * @since v0.5.0
          * @param encoding The `encoding` of the return value.
          */
@@ -2997,6 +2999,7 @@ declare module "node:crypto" {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    interface RandomUUIDV7Options extends RandomUUIDOptions {}
     type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
@@ -3004,6 +3007,16 @@ declare module "node:crypto" {
      * @since v15.6.0, v14.17.0
      */
     function randomUUID(options?: RandomUUIDOptions): UUID;
+    /**
+     * Generates a random [RFC 9562](https://www.rfc-editor.org/rfc/rfc9562.txt) version 7 UUID. The UUID contains a millisecond
+     * precision Unix timestamp in the most significant 48 bits, followed by
+     * cryptographically secure random bits for the remaining fields, making it
+     * suitable for use as a database key with time-based sorting. The embedded
+     * timestamp relies on a non-monotonic clock and is not guaranteed to be strictly
+     * increasing.
+     * @since v26.1.0
+     */
+    function randomUUIDv7(options?: RandomUUIDV7Options): UUID;
     interface X509CheckOptions {
         subject?: "always" | "default" | "never" | undefined;
         wildcards?: boolean | undefined;
