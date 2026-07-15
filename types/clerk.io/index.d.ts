@@ -118,22 +118,32 @@ export interface ResponseTypes<Attributes extends string[] = string[]> {
 }
 
 /**
- * @description The config type for a given endpoint, with its `attributes` field (if any)
- * narrowed to the literal tuple `Attributes` so the response's `product_data` can be typed accordingly.
+ * @description The subset of endpoints whose config accepts an `attributes` field.
  */
-export type ConfigWithAttributes<T extends ClerkEndpoints, Attributes extends string[]> = "attributes" extends
-    keyof ConfigTypes[T] ? Omit<ConfigTypes[T], "attributes"> & { attributes?: Attributes }
-    : ConfigTypes[T];
+export type EndpointsWithAttributes = {
+    [K in ClerkEndpoints]: ConfigTypes[K] extends { attributes?: string[] } ? K : never;
+}[ClerkEndpoints];
 
+/**
+ * @see https://docs.clerk.io/docs/clerkjs-custom-api-calls
+ * @description Calls a Clerk.js endpoint, narrowing `product_data` in the response to the literal tuple `Attributes`
+ */
+export function Clerk<T extends EndpointsWithAttributes, const Attributes extends string[] = string[]>(
+    method: "call",
+    endpoint: T,
+    config: Omit<ConfigTypes[T], "attributes"> & { attributes?: Attributes },
+    callback?: (response: ResponseTypes<Attributes>[T]) => void,
+    error?: (error: ClerkErrorResponse) => void,
+): void;
 /**
  * @see https://docs.clerk.io/docs/clerkjs-custom-api-calls
  * @description Calls a Clerk.js endpoint
  */
-export function Clerk<T extends ClerkEndpoints, const Attributes extends string[] = string[]>(
+export function Clerk<T extends Exclude<ClerkEndpoints, EndpointsWithAttributes>>(
     method: "call",
     endpoint: T,
-    config: ConfigWithAttributes<T, Attributes>,
-    callback?: (response: ResponseTypes<Attributes>[T]) => void,
+    config: ConfigTypes[T],
+    callback?: (response: ResponseTypes[T]) => void,
     error?: (error: ClerkErrorResponse) => void,
 ): void;
 /**
