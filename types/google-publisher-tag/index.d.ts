@@ -2039,6 +2039,44 @@ declare namespace googletag {
         }
 
         /**
+         * Settings to configure the continue button behavior.
+         *
+         * @see {@link googletag.config.PageSettingsConfig.continueButton | PageSettingsConfig.continueButton}
+         */
+        interface ContinueButtonConfig {
+            /**
+             * The font family of the button text.
+             *
+             * Example: `'Arial'`
+             */
+            font?: string | null;
+
+            /**
+             * The text color of the button.
+             *
+             * Example: `'white'`, `'#B73B87'`
+             */
+            fontColor?: string | null;
+
+            /**
+             * The background color of the button.
+             *
+             * Example: `'blue'`, `'#94B1FF'`
+             */
+            backgroundColor?: string | null;
+
+            /**
+             * The ID of the HTML element on which to render/trigger the continue button.
+             */
+            targetId?: string | null;
+
+            /**
+             * The frequency capping interval in minutes.
+             */
+            freqCapIntervalMinutes?: number | null;
+        }
+
+        /**
          * Settings to control the use of lazy loading in GPT.
          *
          * @see {@link googletag.config.PageSettingsConfig.lazyLoad | PageSettingsConfig.lazyLoad}
@@ -2465,6 +2503,34 @@ declare namespace googletag {
              *   googletag.setConfig({autoRefresh: null});
              */
             autoRefresh?: AutoRefreshConfig | null;
+
+            /**
+             * Settings to configure the continue button behavior for content pause ads.
+             *
+             * These settings allow customizing the appearance and behavior of the exit and
+             * continue reading interactions associated with content pause formats.
+             *
+             * Any continue button settings which are not specified when calling
+             * `setConfig()` will use a default value set by Google.
+             *
+             * To disable or clear all continue button settings, pass `null`.
+             *
+             * @example
+             *   // Configure continue button settings.
+             *   googletag.setConfig({
+             *     continueButton: {
+             *       font: 'Arial',
+             *       fontColor: 'white',
+             *       backgroundColor: 'blue',
+             *       targetId: 'target-div-id',
+             *       freqCapIntervalMinutes: 20
+             *     }
+             *   });
+             *
+             *   // Clear continue button settings.
+             *   googletag.setConfig({continueButton: null});
+             */
+            continueButton?: ContinueButtonConfig | null;
         }
 
         /**
@@ -2927,6 +2993,7 @@ declare namespace googletag {
             | "navBar"
             | "inactivity"
             | "endOfArticle"
+            | "continueReading"
             | /** @deprecated */ "backward";
 
         /**
