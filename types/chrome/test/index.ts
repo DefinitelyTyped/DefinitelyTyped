@@ -7767,6 +7767,11 @@ function testAccessibilityFeatures() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/privacy
 function testPrivacy() {
+    chrome.privacy.AutofillBlockedType.CONTACT_INFO === "contact_info";
+    chrome.privacy.AutofillBlockedType.PAYMENTS === "payments";
+    chrome.privacy.AutofillBlockedType.IDENTITY_DOCS === "identity_docs";
+    chrome.privacy.AutofillBlockedType.TRAVEL === "travel";
+
     chrome.privacy.IPHandlingPolicy.DEFAULT === "default";
     chrome.privacy.IPHandlingPolicy.DEFAULT_PUBLIC_AND_PRIVATE_INTERFACES === "default_public_and_private_interfaces";
     chrome.privacy.IPHandlingPolicy.DEFAULT_PUBLIC_INTERFACE_ONLY === "default_public_interface_only";

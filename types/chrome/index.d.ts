@@ -8549,6 +8549,17 @@ declare namespace chrome {
      */
     export namespace privacy {
         /**
+         * Categories of Autofill data.
+         * @since Chrome 151
+         */
+        enum AutofillBlockedType {
+            CONTACT_INFO = "contact_info",
+            PAYMENTS = "payments",
+            IDENTITY_DOCS = "identity_docs",
+            TRAVEL = "travel",
+        }
+
+        /**
          * The IP handling policy of WebRTC.
          * @since Chrome 48
          */
