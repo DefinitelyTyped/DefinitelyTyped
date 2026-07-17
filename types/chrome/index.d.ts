@@ -2970,7 +2970,17 @@ declare namespace chrome {
     export namespace devtools.network {
         /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
         interface Request extends HARFormatEntry {
-            /** Returns content of the response body. */
+            /**
+             * Returns content of the response body.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+             */
+            getContent(): Promise<{
+                /** Content of the response body (potentially encoded). */
+                content: string;
+                /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
+                encoding: string;
+            }>;
             getContent(
                 callback: (
                     /** Content of the response body (potentially encoded). */
@@ -2981,7 +2991,12 @@ declare namespace chrome {
             ): void;
         }
 
-        /** Returns HAR log that contains all known network requests. */
+        /**
+         * Returns HAR log that contains all known network requests.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+         */
+        function getHAR(): Promise<HARFormatLog>;
         function getHAR(
             callback: (
                 /** A HAR log. See HAR specification for details. */

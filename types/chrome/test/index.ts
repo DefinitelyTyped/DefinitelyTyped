@@ -2007,7 +2007,6 @@ function testDevtoolsInspectedWindow() {
         });
         // @ts-expect-error
         resource.setContent(() => {}).then(() => {});
-
     });
     // @ts-expect-error
     chrome.devtools.inspectedWindow.getResources(() => {}).then(() => {});
@@ -2039,9 +2038,12 @@ function testDevtoolsPerformance() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/network
 function testDevtoolsNetwork() {
+    chrome.devtools.network.getHAR(); // $ExpectType Promise<Log>
     chrome.devtools.network.getHAR((harLog) => { // $ExpectType void
         harLog; // $ExpectType Log
     });
+    // @ts-expect-error
+    chrome.devtools.network.getHAR(() => {}).then(() => {});
 
     checkChromeEvent(chrome.devtools.network.onNavigated, (url) => {
         url; // $ExpectType string
@@ -2049,6 +2051,14 @@ function testDevtoolsNetwork() {
 
     checkChromeEvent(chrome.devtools.network.onRequestFinished, (request) => {
         request; // $ExpectType Request
+
+        request.getContent(); // $ExpectType Promise<{ content: string; encoding: string }>
+        request.getContent((content, encoding) => { // $ExpectType void
+            content; // $ExpectType string
+            encoding; // $ExpectType string
+        });
+        // @ts-expect-error
+        request.getContent(() => {}).then(() => {});
     });
 }
 
