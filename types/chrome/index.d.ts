@@ -2831,11 +2831,28 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.inspectedWindow {
+        interface SetContentResult {
+            code: string;
+            description: string;
+            details: string[];
+            isError?: boolean;
+        }
+
         /** A resource within the inspected page, such as a document, a script, or an image. */
         interface Resource {
             /** The URL of the resource. */
             url: string;
-            /** Gets the content of the resource. */
+            /**
+             * Gets the content of the resource.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+             */
+            getContent(): Promise<{
+                /** Content of the resource (potentially encoded). */
+                content: string;
+                /** Empty if the content is not encoded, encoding name otherwise. Currently, only base64 is supported.*/
+                encoding: string;
+            }>;
             getContent(
                 callback: (
                     /** Content of the resource (potentially encoded). */
@@ -2848,14 +2865,17 @@ declare namespace chrome {
              * Sets the content of the resource.
              * @param content New content of the resource. Only resources with the text type are currently supported.
              * @param commit True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
              */
             setContent(
                 content: string,
                 commit: boolean,
-                callback?: (
-                    /** Set to undefined if the resource content was set successfully; describes error otherwise. */
-                    error?: object,
-                ) => void,
+            ): Promise<undefined>;
+            setContent(
+                content: string,
+                commit: boolean,
+                callback: (result: SetContentResult) => void,
             ): void;
         }
 
@@ -2895,7 +2915,13 @@ declare namespace chrome {
          * @param expression An expression to evaluate.
          * @param options The options parameter can contain one or more options.
          * @param callback A function called when evaluation completes.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
          */
+        function eval<T = { [key: string]: unknown }>(
+            expression: string,
+            options?: EvalOptions,
+        ): Promise<{ result: T; exceptionInfo: EvaluationExceptionInfo }>;
         function eval<T = { [key: string]: unknown }>(
             expression: string,
             callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
@@ -2906,7 +2932,12 @@ declare namespace chrome {
             callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
         ): void;
 
-        /** Retrieves the list of resources from the inspected page. */
+        /**
+         * Retrieves the list of resources from the inspected page.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+         */
+        function getResources(): Promise<Resource[]>;
         function getResources(callback: (resources: Resource[]) => void): void;
 
         /** Fired when a new resource is added to the inspected page. */

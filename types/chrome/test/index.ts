@@ -1966,8 +1966,8 @@ function testDevtoolsInspectedWindow() {
         useContentScriptContext: true,
     };
 
-    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType void
-    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
     chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
         result; // $ExpectType { [key: string]: unknown; }
 
@@ -1978,16 +1978,39 @@ function testDevtoolsInspectedWindow() {
         exceptionInfo.isException; // $ExpectType boolean
         exceptionInfo.value; // $ExpectType string
     });
-    chrome.devtools.inspectedWindow.eval(expression, (result) => { // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression, (result, exceptionInfo) => { // $ExpectType void
         result; // $ExpectType { [key: string]: unknown; }
     });
     chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
         result.title; // $ExpectType string
     });
 
-    chrome.devtools.inspectedWindow.getResources((resources) => { // $ExpectType void
-        resources; // $ExpectType Resource[]
+    chrome.devtools.inspectedWindow.getResources(); // $ExpectType Promise<Resource[]>
+    chrome.devtools.inspectedWindow.getResources(([resource]) => { // $ExpectType void
+        resource; // $ExpectType Resource
+        resource.url; // $ExpectType string
+
+        resource.getContent(); // $ExpectType  Promise<{ content: string; encoding: string}>
+        resource.getContent((content, string) => { // $ExpectType void
+            content; // $ExpectType string
+            string; // $ExpectType string
+        });
+        // @ts-expect-error
+        resource.getContent(() => {}).then(() => {});
+
+        resource.setContent("content", false); // Promise<undefined>
+        resource.setContent("content", false, ({ code, description, details, isError }) => { // $ExpectType void
+            code; // $ExpectType string
+            description; // $ExpectType string
+            details; // $ExpectType string[]
+            isError; // $ExpectType boolean | undefined
+        });
+        // @ts-expect-error
+        resource.setContent(() => {}).then(() => {});
+
     });
+    // @ts-expect-error
+    chrome.devtools.inspectedWindow.getResources(() => {}).then(() => {});
 
     const reloadOptions: chrome.devtools.inspectedWindow.ReloadOptions = {
         ignoreCache: true,
