@@ -5759,6 +5759,46 @@ declare class X86Writer {
     putFxrstorRegPtr(reg: X86Register): void;
 
     /**
+     * Puts a VMOVDQU64 ZMM instruction.
+     */
+    putVmovdqu64RegOffsetPtrZmm(dstBase: X86Register, dstOffset: number | Int64 | UInt64, srcZmm: number): void;
+
+    /**
+     * Puts a VMOVDQU64 ZMM instruction.
+     */
+    putVmovdqu64ZmmRegOffsetPtr(dstZmm: number, srcBase: X86Register, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a VEXTRACTI64X4 ZMM instruction.
+     */
+    putVextracti64x4RegOffsetPtrZmm(
+        dstBase: X86Register,
+        dstOffset: number | Int64 | UInt64,
+        srcZmm: number,
+        imm: number,
+    ): void;
+
+    /**
+     * Puts a VINSERTI64X4 ZMM instruction.
+     */
+    putVinserti64x4ZmmRegOffsetPtr(
+        dstZmm: number,
+        srcBase: X86Register,
+        srcOffset: number | Int64 | UInt64,
+        imm: number,
+    ): void;
+
+    /**
+     * Puts a KMOVQ KREG instruction.
+     */
+    putKmovqRegOffsetPtrKreg(dstBase: X86Register, dstOffset: number | Int64 | UInt64, srcKreg: number): void;
+
+    /**
+     * Puts a KMOVQ KREG instruction.
+     */
+    putKmovqKregRegOffsetPtr(dstKreg: number, srcBase: X86Register, srcOffset: number | Int64 | UInt64): void;
+
+    /**
      * Puts a uint8.
      */
     putU8(value: number): void;
@@ -7326,6 +7366,11 @@ declare class Arm64Writer {
     putMovNzcvReg(reg: Arm64Register): void;
 
     /**
+     * Puts a MOVK instruction.
+     */
+    putMovkRegImm(reg: Arm64Register, imm: number, shift: number): void;
+
+    /**
      * Puts an UXTW instruction.
      */
     putUxtwRegReg(dstReg: Arm64Register, srcReg: Arm64Register): void;
@@ -7389,6 +7434,11 @@ declare class Arm64Writer {
      * Puts an XPACI instruction.
      */
     putXpaciReg(reg: Arm64Register): void;
+
+    /**
+     * Puts a PACIA instruction.
+     */
+    putPaciaRegReg(dstReg: Arm64Register, modReg: Arm64Register): void;
 
     /**
      * Puts a NOP instruction.

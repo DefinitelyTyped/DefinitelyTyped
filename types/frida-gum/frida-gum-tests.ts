@@ -556,3 +556,17 @@ for (const e of Process.getModuleByName("libc.so").enumerateExports()) {
     // $ExpectType number | undefined
     e.size;
 }
+
+const x86Writer = new X86Writer(Memory.alloc(Process.pageSize));
+x86Writer.putVmovdqu64RegOffsetPtrZmm("rax", 0, 0);
+x86Writer.putVmovdqu64ZmmRegOffsetPtr(0, "rax", 0);
+x86Writer.putVextracti64x4RegOffsetPtrZmm("rax", 0, 0, 1);
+x86Writer.putVinserti64x4ZmmRegOffsetPtr(0, "rax", 0, 1);
+x86Writer.putKmovqRegOffsetPtrKreg("rax", 0, 0);
+x86Writer.putKmovqKregRegOffsetPtr(0, "rax", 0);
+x86Writer.flush();
+
+const arm64Writer = new Arm64Writer(Memory.alloc(Process.pageSize));
+arm64Writer.putMovkRegImm("x0", 0x1234, 16);
+arm64Writer.putPaciaRegReg("x0", "x1");
+arm64Writer.flush();
