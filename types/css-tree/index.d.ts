@@ -252,6 +252,13 @@ export interface Feature extends CssNodeCommon {
     value: Identifier | NumberNode | Dimension | Ratio | FunctionNode | null;
 }
 
+export interface FeaturePlain extends CssNodeCommon {
+    type: "Feature";
+    kind: string;
+    name: string;
+    value: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain | null;
+}
+
 export interface FeatureRange extends CssNodeCommon {
     type: "FeatureRange";
     kind: string;
@@ -262,11 +269,28 @@ export interface FeatureRange extends CssNodeCommon {
     right: Identifier | NumberNode | Dimension | Ratio | FunctionNode | null;
 }
 
+export interface FeatureRangePlain extends CssNodeCommon {
+    type: "FeatureRange";
+    kind: string;
+    left: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain;
+    leftComparison: string;
+    middle: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain;
+    rightComparison: string | null;
+    right: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain | null;
+}
+
 export interface FeatureFunction extends CssNodeCommon {
     type: "FeatureFunction";
     kind: string;
     feature: string;
     value: Declaration | Selector;
+}
+
+export interface FeatureFunctionPlain extends CssNodeCommon {
+    type: "FeatureFunction";
+    kind: string;
+    feature: string;
+    value: DeclarationPlain | SelectorPlain;
 }
 
 export interface GeneralEnclosed extends CssNodeCommon {
@@ -298,6 +322,11 @@ export interface ConditionPlain extends CssNodeCommon {
 export interface SupportsDeclaration extends CssNodeCommon {
     type: "SupportsDeclaration";
     declaration: Declaration;
+}
+
+export interface SupportsDeclarationPlain extends CssNodeCommon {
+    type: "SupportsDeclaration";
+    declaration: DeclarationPlain;
 }
 
 export interface Scope extends CssNodeCommon {
@@ -405,6 +434,12 @@ export interface Ratio extends CssNodeCommon {
     type: "Ratio";
     left: NumberNode | FunctionNode;
     right: NumberNode | FunctionNode | null;
+}
+
+export interface RatioPlain extends CssNodeCommon {
+    type: "Ratio";
+    left: NumberNode | FunctionNodePlain;
+    right: NumberNode | FunctionNodePlain | null;
 }
 
 export interface Raw extends CssNodeCommon {
@@ -559,12 +594,12 @@ export type CssNodePlain =
     | Hash
     | IdSelector
     | Identifier
-    | Feature
-    | FeatureRange
-    | FeatureFunction
+    | FeaturePlain
+    | FeatureRangePlain
+    | FeatureFunctionPlain
     | GeneralEnclosedPlain
     | ConditionPlain
-    | SupportsDeclaration
+    | SupportsDeclarationPlain
     | MediaQueryPlain
     | MediaQueryListPlain
     | NthPlain
@@ -574,7 +609,7 @@ export type CssNodePlain =
     | Percentage
     | PseudoClassSelectorPlain
     | PseudoElementSelectorPlain
-    | Ratio
+    | RatioPlain
     | Raw
     | RulePlain
     | SelectorPlain
@@ -620,6 +655,7 @@ export interface ParseOptions {
     list?: boolean | undefined;
 }
 
+export function parse(text: string, options: ParseOptions & { list: false }): CssNodePlain;
 export function parse(text: string, options?: ParseOptions): CssNode;
 
 export interface GenerateHandlers {
@@ -1182,6 +1218,7 @@ export interface Syntax {
         source: string,
         onToken?: (type: number, start: number, end: number) => void,
     ): void;
+    parse(text: string, options: ParseOptions & { list: false }): CssNodePlain;
     parse(text: string, options?: ParseOptions): CssNode;
     generate(ast: CssNode, options?: GenerateOptions): string;
     walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;

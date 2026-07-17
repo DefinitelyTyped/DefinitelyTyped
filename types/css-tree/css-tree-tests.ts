@@ -5,6 +5,8 @@ ast; // $ExpectType CssNode
 
 csstree.parse(".a { color: red; }", {}); // $ExpectType CssNode
 csstree.parse(".a { color: red; }", { context: "selector", positions: true }); // $ExpectType CssNode
+csstree.parse(".a { color: red; }", { list: true }); // $ExpectType CssNode
+csstree.parse(".a { color: red; }", { list: false }); // $ExpectType CssNodePlain
 
 csstree.walk(ast, (node, item, list) => {
     node; // $ExpectType CssNode
@@ -600,22 +602,22 @@ switch (toPlain.type) {
     case "Feature":
         toPlain.kind; // $ExpectType string
         toPlain.name; // $ExpectType string
-        toPlain.value; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio | null
+        toPlain.value; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain | null
         break;
 
     case "FeatureRange":
         toPlain.kind; // $ExpectType string
-        toPlain.left; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio
+        toPlain.left; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain
         toPlain.leftComparison; // $ExpectType string
-        toPlain.middle; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio
+        toPlain.middle; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain
         toPlain.rightComparison; // $ExpectType string | null
-        toPlain.right; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio | null
+        toPlain.right; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain | null
         break;
 
     case "FeatureFunction":
         toPlain.kind; // $ExpectType string
         toPlain.feature; // $ExpectType string
-        toPlain.value; // $ExpectType Declaration | Selector
+        toPlain.value; // $ExpectType DeclarationPlain | SelectorPlain
         break;
 
     case "GeneralEnclosed":
@@ -630,7 +632,7 @@ switch (toPlain.type) {
         break;
 
     case "SupportsDeclaration":
-        toPlain.declaration; // $ExpectType Declaration
+        toPlain.declaration; // $ExpectType DeclarationPlain
         break;
 
     case "MediaQuery":
@@ -675,8 +677,8 @@ switch (toPlain.type) {
         break;
 
     case "Ratio":
-        toPlain.left; // $ExpectType FunctionNode | NumberNode
-        toPlain.right; // $ExpectType FunctionNode | NumberNode | null
+        toPlain.left; // $ExpectType FunctionNodePlain | NumberNode
+        toPlain.right; // $ExpectType FunctionNodePlain | NumberNode | null
         break;
 
     case "Raw":
@@ -879,6 +881,7 @@ csstree.createLexer(); // $ExpectType Lexer
 csstree.createLexer({}); // $ExpectType Lexer
 
 forked.parse(".a {}"); // $ExpectType CssNode
+forked.parse(".a {}", { list: false }); // $ExpectType CssNodePlain
 forked.generate(ast); // $ExpectType string
 forked.walk(ast, () => {});
 forked.find(ast, () => true); // $ExpectType CssNode | null
