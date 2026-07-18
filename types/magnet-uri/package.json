@@ -1,13 +1,18 @@
 {
     "private": true,
     "name": "@types/magnet-uri",
-    "version": "5.1.9999",
+    "version": "7.0.9999",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": {
+                "default": "./index.d.ts"
+            }
+        }
+    },
     "projects": [
         "https://github.com/webtorrent/magnet-uri"
     ],
-    "dependencies": {
-        "@types/node": "*"
-    },
     "devDependencies": {
         "@types/magnet-uri": "workspace:."
     },
