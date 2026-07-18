@@ -7462,6 +7462,66 @@ declare namespace chrome {
     }
 
     ////////////////////
+    // MimeHandler
+    ////////////////////
+    /**
+     * Use the `chrome.mimeHandler` API to handle MIME type streams in third-party extensions.
+     * @since Chrome 151, MV3
+     */
+    export namespace mimeHandler {
+        interface MimeHandlerOptions {
+            /** Whether this handler is active for the given MIME type. */
+            enabled: boolean;
+        }
+
+        interface StreamInfo {
+            /** True if loaded in an embedded context (iframe/embed/object). */
+            embedded: boolean;
+            /** The MIME type of the intercepted content. */
+            mimeType: string;
+            /** The original URL the user navigated to. */
+            originalUrl: string;
+            /** HTTP response headers as key-value pairs. */
+            responseHeaders: { [key: string]: unknown };
+            /** The URL to fetch the stream data from. */
+            streamUrl: string;
+            /** The tab ID containing the document. */
+            tabId: number;
+        }
+
+        /**
+         * Aborts current stream handling and hands the content off to the user agent's native handler. After this call the extension frame will be torn down; callers should not expect further execution.
+         *
+         * Can return its result via Promise
+         */
+        function abortAndFallbackToNativeHandler(): Promise<void>;
+        function abortAndFallbackToNativeHandler(callback: () => void): void;
+
+        /**
+         * Reads the persisted options for a MIME type. Returns defaults (enabled=true) if none have been stored.
+         * @param mimeType The MIME type whose options to read.
+         *
+         * Can return its result via Promise
+         */
+        function getMimeHandlerOptions(mimeType: string): Promise<MimeHandlerOptions>;
+        function getMimeHandlerOptions(mimeType: string, callback: (options: MimeHandlerOptions) => void): void;
+
+        /** Retrieves stream information for the current MIME handler context. Must be called from within a MIME handler extension page. */
+        function getStreamInfo(): Promise<StreamInfo>;
+        function getStreamInfo(callback: (info: StreamInfo) => void): void;
+
+        /**
+         * Sets the configuration options for a specified MIME type.
+         * @param mimeType The MIME type to configure.
+         * @param options The new options to use.
+         *
+         * Can return its result via Promise
+         */
+        function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions): Promise<void>;
+        function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions, callback: () => void): void;
+    }
+
+    ////////////////////
     // Notifications
     ////////////////////
     /**
@@ -9666,6 +9726,18 @@ declare namespace chrome {
                 /** Indicates whether the extension's options page will be opened in a new tab. If set to `false`, the extension's options page is embedded in `chrome://extensions` rather than opened in a new tab. */
                 open_in_tab?: boolean | undefined;
             } | undefined;
+            /**
+             * Maps MIME types to the extension pages that render them. As of Chrome 151, `application/pdf` is the only MIME type available to public handlers. Declaring an unsupported MIME type causes an installation warning.
+             * @since Chrome 151
+             */
+            mime_types_handler?: {
+                "application/pdf": {
+                    /** The HTML file to display when a document of the corresponding MIME type is opened. This file must be located within your extension. */
+                    handler_url: string;
+                    /** Specifies whether to handle documents embedded in `<embed>`, `<object>`, or `<iframe>` elements. Defaults to `false`, meaning the handler only receives top-level navigations. */
+                    can_embed?: boolean;
+                };
+            };
             /** Declares optional permissions for your extension. */
             optional_permissions?: ManifestOptionalPermission[] | undefined;
             /** Declares optional host permissions for your extension. */

@@ -3100,6 +3100,42 @@ async function testManagement() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/mimeHandler
+async function testMineHandler() {
+    const mimeType = "image/jpeg";
+
+    chrome.mimeHandler.abortAndFallbackToNativeHandler(); // $ExpectType Promise<void>
+    chrome.mimeHandler.abortAndFallbackToNativeHandler(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.mimeHandler.abortAndFallbackToNativeHandler(() => {}).then(() => {});
+
+    chrome.mimeHandler.getMimeHandlerOptions(mimeType); // $ExpectType Promise<MimeHandlerOptions>
+    chrome.mimeHandler.getMimeHandlerOptions(mimeType, (options) => { // $ExpectType void
+        options; // $ExpectType MimeHandlerOptions
+        options.enabled; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.mimeHandler.getMimeHandlerOptions(mimeType, () => {}).then(() => {});
+
+    chrome.mimeHandler.getStreamInfo(); // $ExpectType Promise<StreamInfo>
+    chrome.mimeHandler.getStreamInfo((info) => { // $ExpectType void
+        info; // $ExpectType StreamInfo
+        info.embedded; // $ExpectType boolean
+        info.mimeType; // $ExpectType string
+        info.originalUrl; // $ExpectType string
+        info.responseHeaders; // $ExpectType { [key: string]: unknown }
+        info.streamUrl; // $ExpectType string
+        info.tabId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.mimeHandler.getStreamInfo(() => {}).then(() => {});
+
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }); // $ExpectType Promise<void>
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }, () => {}).then(() => {});
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/scripting
 async function testScripting() {
     chrome.scripting.ExecutionWorld.ISOLATED === "ISOLATED";
