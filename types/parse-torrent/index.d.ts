@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import type { Instance as MagnetUriInstance } from "magnet-uri";
 
 export interface ParsedFile {

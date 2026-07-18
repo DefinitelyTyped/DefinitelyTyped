@@ -1,10 +1,10 @@
 /// <reference types="node" />
 
 import type { Wire } from "bittorrent-protocol";
-import EventEmitter from "events";
+import EventEmitter = require("events");
 import type { RequestOptions, Server } from "http";
 import type { Instance as ParseTorrentInstance } from "parse-torrent";
-import type SimplePeer from "simple-peer";
+import SimplePeer = require("simple-peer");
 
 export interface Options {
     maxConns?: number | undefined;
@@ -126,9 +126,9 @@ export interface Torrent extends EventEmitter {
     readonly maxWebConns: number;
 
     destroy(opts?: TorrentDestroyOptions, cb?: (err?: Error | string) => void): void;
-    addPeer(peer: string | SimplePeer): boolean;
+    addPeer(peer: string | SimplePeer.Instance): boolean;
     addWebSeed(url: string): void;
-    removePeer(peer: string | SimplePeer): void;
+    removePeer(peer: string | SimplePeer.Instance): void;
     select(start: number, end: number, priority?: number, notify?: () => void): void;
     deselect(start: number, end: number, priority: number): void;
     createServer(opts?: RequestOptions): Server;
