@@ -844,3 +844,25 @@ function testItemCollectionGet(formContext: Xrm.FormContext) {
     // $ExpectType Tab
     formContext.ui.tabs.get<Xrm.Controls.Tab>("tabName");
 }
+// Demonstrate Xrm.WebApi.offline.isAvailableOffline
+
+// Test with a typical entity logical name
+// $ExpectType boolean
+const isAccountAvailableOffline = Xrm.WebApi.offline.isAvailableOffline("account");
+
+// Test with a custom entity logical name
+// $ExpectType boolean
+const isCustomEntityAvailableOffline = Xrm.WebApi.offline.isAvailableOffline("new_customentity");
+
+// Should error with missing parameter
+// @ts-expect-error
+Xrm.WebApi.offline.isAvailableOffline();
+
+// Should error with a non-string parameter
+// @ts-expect-error
+Xrm.WebApi.offline.isAvailableOffline(12345);
+
+// Should error with extra parameters
+// @ts-expect-error
+Xrm.WebApi.offline.isAvailableOffline("account", "extra");
+
