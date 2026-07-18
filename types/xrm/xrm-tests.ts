@@ -865,4 +865,3 @@ Xrm.WebApi.offline.isAvailableOffline(12345);
 // Should error with extra parameters
 // @ts-expect-error
 Xrm.WebApi.offline.isAvailableOffline("account", "extra");
-
