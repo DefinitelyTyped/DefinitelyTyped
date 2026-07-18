@@ -1,5 +1,5 @@
-import WebTorrent = require("webtorrent");
 import * as fs from "fs";
+import WebTorrent, { type NodeServer, type Torrent, type TorrentFile } from "webtorrent";
 
 const client = new WebTorrent({ utp: false });
 const magnetURI = "...";
@@ -7,7 +7,7 @@ const torrentOpts = {
     private: false,
 };
 
-client.add(magnetURI, torrentOpts, torrent => {
+client.add(magnetURI, torrentOpts, (torrent: Torrent) => {
     // Got torrent metadata!
     console.log("Client is downloading:", torrent.infoHash);
 
@@ -37,7 +37,7 @@ client.add(magnetURI, torrentOpts, torrent => {
         ),
     );
 
-    torrent.files.forEach(file => {
+    torrent.files.forEach((file: TorrentFile) => {
         // Display the file by appending it to the DOM. Supports video, audio, images, and
         // more. Specify a container element (CSS selector or reference to DOM node).
         file.appendTo("body");
@@ -66,12 +66,12 @@ client.add(magnetURI, torrentOpts, torrent => {
 
     torrent.on("done", () => {
         console.log("torrent finished downloading");
-        torrent.files.forEach(file => {
+        torrent.files.forEach((file: TorrentFile) => {
             // do something with file
         });
     });
 
-    torrent.on("download", chunkSize => {
+    torrent.on("download", (chunkSize: number) => {
         console.log("chunk size: " + chunkSize);
         console.log("total downloaded: " + torrent.downloaded);
         console.log("download speed: " + torrent.downloadSpeed);
@@ -87,18 +87,18 @@ client.add(magnetURI, torrentOpts, torrent => {
 client.add(
     magnetURI,
     { announceList: [["wss://tracker.btorrent.xyz"], ["wss://tracker.openwebtorrent.com"]] },
-    torrent => {
+    (torrent: Torrent) => {
         torrent["announce-list"].forEach(
             (tracker, trackerIndex) => tracker.forEach(url => console.log(`tracker #${trackerIndex}: ${url}`)),
         );
     },
 );
 
-client.seed("./file.txt", {}, torrent => {
+client.seed("./file.txt", {}, (torrent: Torrent) => {
     console.log("Client is seeding:", torrent.infoHash);
 });
 
-client.add(magnetURI, torrent => {
+client.add(magnetURI, (torrent: Torrent) => {
     // create HTTP server for this torrent
     const server = torrent.createServer();
     server.listen(1234); // start the server listening to a port
@@ -114,20 +114,26 @@ client.add(magnetURI, torrent => {
 });
 
 // torrent destroy opts
-client.add(magnetURI, torrent => {
+client.add(magnetURI, (torrent: Torrent) => {
     torrent.destroy({ destroyStore: true });
 });
 
-client.add(magnetURI, torrent => {
+client.add(magnetURI, (torrent: Torrent) => {
     client.remove(torrent, { destroyStore: true });
 });
 
 // createServer and streamURL
 const server = client.createServer();
-client.add(magnetURI, (torrent) => {
+client.add(magnetURI, (torrent: Torrent) => {
     const file = torrent.files[0];
     console.log("Torrent file streamURL", file.streamURL);
 
     server.close();
     client.destroy();
 });
+
+// $ExpectType boolean
+WebTorrent.WEBRTC_SUPPORT;
+
+// $ExpectType string
+WebTorrent.VERSION;

@@ -14,7 +14,8 @@
         "https://github.com/webtorrent/parse-torrent"
     ],
     "dependencies": {
-        "@types/magnet-uri": "*"
+        "@types/magnet-uri": "*",
+        "@types/node": "*"
     },
     "devDependencies": {
         "@types/parse-torrent": "workspace:."

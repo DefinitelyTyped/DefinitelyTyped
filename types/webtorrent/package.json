@@ -1,10 +1,17 @@
 {
     "private": true,
     "name": "@types/webtorrent",
-    "version": "0.110.9999",
+    "version": "3.0.9999",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": {
+                "default": "./index.d.ts"
+            }
+        }
+    },
     "projects": [
-        "https://github.com/feross/webtorrent",
-        "https://webtorrent.io"
+        "https://github.com/webtorrent/webtorrent"
     ],
     "dependencies": {
         "@types/bittorrent-protocol": "*",

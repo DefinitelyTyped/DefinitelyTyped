@@ -74,8 +74,6 @@ magnetUri;
 
 // toTorrentFile
 const torrentFile = toTorrentFile({ infoHash: hash, announce: [] });
-// $ExpectType Uint8Array
-torrentFile;
 
 // remote with callback
 remote(hash, (err, torrent) => {

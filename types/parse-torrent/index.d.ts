@@ -26,7 +26,7 @@ export interface Instance extends MagnetUriInstance {
     pieces?: string[];
 }
 
-type TorrentId = string | Uint8Array | Instance;
+export type TorrentId = string | Uint8Array | Instance;
 
 /**
  * Parse a torrent identifier (magnet uri, .torrent file, info hash)
