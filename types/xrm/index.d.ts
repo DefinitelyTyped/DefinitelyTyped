@@ -6016,12 +6016,6 @@ declare namespace Xrm {
      * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi External Link: Xrm.WebApi (Client API reference)}
      */
     interface WebApi extends WebApiOffline {
-        /**
-         * Returns a boolean value indicating whether an entity is offline enabled.
-         * @param entityLogicalName    Logical name of the entity. For example: "account".
-         * @returns true if the entity is offline enabled; otherwise false.
-         */
-        isAvailableOffline(entityLogicalName: string): boolean;
 
         /**
          * Provides methods to use Web API to create and manage records and execute Web API actions and functions in Customer Engagement when connected to the Customer Engagement server (online mode).
@@ -6159,6 +6153,14 @@ declare namespace Xrm {
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/updaterecord External Link: updateRecord (Client API reference)}
          */
         updateRecord(entityLogicalName: string, id: string, data: any): Async.PromiseLike<UpdateResponse>;
+        
+        /**
+         * Returns a boolean value indicating whether an entity is offline enabled.
+         * @param entityLogicalName    Logical name of the entity. For example: "account".
+         * @returns true if the entity is offline enabled; otherwise false.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/isavailableoffline External Link: isAvailableOffline (Client API reference)}
+         */
+        isAvailableOffline(entityLogicalName: string): boolean;
     }
 
     /**
