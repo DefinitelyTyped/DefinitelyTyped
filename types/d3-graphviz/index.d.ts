@@ -402,6 +402,12 @@ export interface Graphviz<GElement extends BaseType, Datum, PElement extends Bas
      * @param size the size in bytes of memory allocated to Viz.js
      */
     totalMemory(size: number): this;
+
+    /**
+     * Removes the Graphviz renderer from the element it was created on,
+     * terminates any active dedicated web worker and closes any port connected to a shared web worker.
+     */
+    destroy(): this;
 }
 
 /**
