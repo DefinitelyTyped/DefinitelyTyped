@@ -11151,7 +11151,7 @@ declare namespace chrome {
              * The last time the tab became active in its window as the number of milliseconds since epoch.
              * @since Chrome 121
              */
-            lastAccessed?: number | undefined;
+            lastAccessed: number;
         }
 
         /** The tab's loading status. */
@@ -11721,8 +11721,11 @@ declare namespace chrome {
         function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(details: extensionTypes.InjectDetails, callback: () => void): void;
-        function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
-        function insertCSS(tabId: number, details: extensionTypes.InjectDetails, callback: () => void): void;
+        function insertCSS(
+            tabId: number | undefined,
+            details: extensionTypes.InjectDetails,
+            callback: () => void,
+        ): void;
 
         /**
          * Highlights the given tabs and focuses on the first of group. Will appear to do nothing if the specified tab is currently active.
