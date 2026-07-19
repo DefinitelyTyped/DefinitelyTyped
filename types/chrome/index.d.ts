@@ -2504,7 +2504,7 @@ declare namespace chrome {
      *
      * Permissions: "declarativeWebRequest"
      *
-     * MV2 only
+     * Beta and MV2 only
      * @deprecated Check out the {@link declarativeNetRequest} API instead
      */
     export namespace declarativeWebRequest {
@@ -2559,9 +2559,9 @@ declare namespace chrome {
             /** Matches if the MIME media type of a response (from the HTTP Content-Type header) is not contained in the list. */
             excludeContentType?: string[] | undefined;
             /** Matches if none of the request headers is matched by any of the HeaderFilters. */
-            excludeResponseHeaders?: HeaderFilter[] | undefined;
+            excludeRequestHeaders?: HeaderFilter[] | undefined;
             /** Matches if none of the response headers is matched by any of the HeaderFilters. */
-            excludeResponseHeader?: HeaderFilter[] | undefined;
+            excludeResponseHeaders?: HeaderFilter[] | undefined;
             /**
              * Matches if the conditions of the UrlFilter are fulfilled for the 'first party' URL of the request. The 'first party' URL of a request, when present, can be different from the request's target URL, and describes what is considered 'first party' for the sake of third-party checks for cookies.
              * @deprecated since Chrome 82
@@ -2628,7 +2628,7 @@ declare namespace chrome {
         /** Edits one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         interface EditResponseCookie {
             /** Filter for cookies that will be modified. All empty entries are ignored. */
-            filter: ResponseCookie;
+            filter: FilterResponseCookie;
             /** Attributes that shall be overridden in cookies that matched the filter. Attributes that are set to an empty string are removed. */
             modification: ResponseCookie;
         }
@@ -2672,7 +2672,7 @@ declare namespace chrome {
             /** Existence of the Secure cookie attribute. */
             secure?: string | undefined;
             /** Filters session cookies. Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes. */
-            session?: boolean | undefined;
+            sessionCookie?: boolean | undefined;
             /** Value of a cookie, may be padded in double-quotes. */
             value?: string | undefined;
         }

@@ -4336,6 +4336,11 @@ async function testDeclarativeNetRequest() {
 
 // https://developer.chrome.com/docs/extensions/mv2/reference/declarativeWebRequest
 function testDeclarativeWebRequest() {
+    chrome.declarativeWebRequest.Stage.ON_AUTH_REQUIRED === "onAuthRequired";
+    chrome.declarativeWebRequest.Stage.ON_BEFORE_REQUEST === "onBeforeRequest";
+    chrome.declarativeWebRequest.Stage.ON_BEFORE_SEND_HEADERS === "onBeforeSendHeaders";
+    chrome.declarativeWebRequest.Stage.ON_HEADERS_RECEIVED === "onHeadersReceived";
+
     chrome.declarativeWebRequest.onRequest.addRules([]); // $ExpectType void
     chrome.declarativeWebRequest.onRequest.removeRules([]); // $ExpectType void
     chrome.declarativeWebRequest.onRequest.getRules((rules) => { // $ExpectType void
