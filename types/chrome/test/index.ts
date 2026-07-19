@@ -3760,8 +3760,10 @@ async function testTabs() {
 
     chrome.tabs.insertCSS(details); // $ExpectType Promise<void>
     chrome.tabs.insertCSS(tabId, details); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(undefined, details); // $ExpectType Promise<void>
     chrome.tabs.insertCSS(details, () => {}); // $ExpectType void
     chrome.tabs.insertCSS(tabId, details, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(undefined, details, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.tabs.insertCSS(() => {}).then(() => {});
 
@@ -8211,6 +8213,7 @@ function testDesktopCapture() {
         selected: false,
         discarded: false,
         autoDiscardable: false,
+        lastAccessed: 0,
         groupId: 0,
     };
 
