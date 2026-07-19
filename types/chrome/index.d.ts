@@ -179,14 +179,25 @@ declare namespace chrome {
             popup: string;
         }
 
-        interface TabIconDetails {
-            /** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
-            path?: string | { [index: number]: string } | undefined;
-            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
-            /** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
-            imageData?: ImageData | { [index: number]: ImageData } | undefined;
-        }
+        type TabIconDetails =
+            & {
+                /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+                tabId?: number | null | undefined;
+            }
+            & (
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData: ImageData | { [index: number]: ImageData };
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path?: string | { [index: string]: string } | undefined;
+                }
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData?: ImageData | { [index: number]: ImageData } | undefined;
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path: string | { [index: string]: string };
+                }
+            );
 
         /** @since Chrome 99 */
         interface OpenPopupOptions {

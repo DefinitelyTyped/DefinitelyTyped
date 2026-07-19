@@ -2553,10 +2553,18 @@ async function testAction() {
     // @ts-expect-error
     chrome.action.setBadgeTextColor(() => {}).then(() => {});
 
-    const tabIconDetails: chrome.action.TabIconDetails = { path: { "16": "path/to/icon.png" }, tabId };
+    const iconDetails: chrome.action.TabIconDetails = {
+        imageData: { 16: new ImageData(16, 16) },
+        tabId,
+    };
 
-    chrome.action.setIcon(tabIconDetails); // $ExpectType Promise<void>
-    chrome.action.setIcon(tabIconDetails, () => {}); // $ExpectType void
+    const iconDetails2: chrome.action.TabIconDetails = {
+        path: "path/to/icon.png",
+        tabId,
+    };
+
+    chrome.action.setIcon(iconDetails); // $ExpectType Promise<void>
+    chrome.action.setIcon(iconDetails2, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.action.setIcon(() => {}).then(() => {});
 
