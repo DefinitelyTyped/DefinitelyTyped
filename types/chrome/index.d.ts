@@ -7241,7 +7241,7 @@ declare namespace chrome {
         enum ExtensionType {
             EXTENSION = "extension",
             HOSTED_APP = "hosted_app",
-            PACKAGE_APP = "package_app",
+            PACKAGED_APP = "packaged_app",
             LEGACY_PACKAGED_APP = "legacy_packaged_app",
             THEME = "theme",
             LOGIN_SCREEN_EXTENSION = "login_screen_extension",

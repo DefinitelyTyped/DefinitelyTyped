@@ -2848,7 +2848,7 @@ async function testManagement() {
     chrome.management.ExtensionType.HOSTED_APP === "hosted_app";
     chrome.management.ExtensionType.LEGACY_PACKAGED_APP === "legacy_packaged_app";
     chrome.management.ExtensionType.LOGIN_SCREEN_EXTENSION === "login_screen_extension";
-    chrome.management.ExtensionType.PACKAGE_APP === "package_app";
+    chrome.management.ExtensionType.PACKAGED_APP === "packaged_app";
     chrome.management.ExtensionType.THEME === "theme";
 
     chrome.management.LaunchType.OPEN_AS_PINNED_TAB === "OPEN_AS_PINNED_TAB";
@@ -2888,7 +2888,7 @@ async function testManagement() {
         result.optionsUrl; // $ExpectType string
         result.permissions; // $ExpectType string[]
         result.shortName; // $ExpectType string
-        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "package_app" | "theme"
+        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "packaged_app" | "theme"
         result.updateUrl; // $ExpectType string | undefined
         result.version; // $ExpectType string
         result.versionName; // $ExpectType string | undefined
