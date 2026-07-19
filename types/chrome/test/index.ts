@@ -3232,7 +3232,7 @@ async function testSystemDisplay() {
         layouts; // $ExpectType DisplayLayout[]
     });
     // @ts-expect-error
-    chrome.printing.getPrinterInfo(() => {}).then(() => {});
+    chrome.system.display.getDisplayLayout(() => {}).then(() => {});
 
     const flags = { singleUnified: true };
     chrome.system.display.getInfo(); // $ExpectType Promise<DisplayUnitInfo[]>
@@ -3281,9 +3281,11 @@ async function testSystemDisplay() {
     // @ts-expect-error
     chrome.system.display.setDisplayProperties("id", displayProperties, () => {}).then(() => {});
 
-    const mirrorModeInfo = {
-        mode: "off",
-    } as const;
+    const mirrorModeInfo: chrome.system.display.MirrorModeInfo = {
+        mode: "mixed",
+        mirroringDestinationIds: ["id"],
+        mirroringSourceId: "id",
+    };
     chrome.system.display.setMirrorMode(mirrorModeInfo); // $ExpectType Promise<void>
     chrome.system.display.setMirrorMode(mirrorModeInfo, () => {}); // $ExpectType void
     // @ts-expect-error

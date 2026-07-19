@@ -10785,15 +10785,10 @@ declare namespace chrome {
 
         interface MirrorModeInfo {
             /** The mirror mode that should be set. */
-            mode?: `${MirrorMode}`;
-        }
-
-        interface MirrorModeInfoMixed extends MirrorModeInfo {
-            /** The mirror mode that should be set. */
-            mode: "mixed";
-            /** The id of the mirroring source display. */
+            mode: `${MirrorMode}`;
+            /** The id of the mirroring source display. This is only valid for 'mixed'. */
             mirroringSourceId?: string | undefined;
-            /** The ids of the mirroring destination displays. */
+            /** The ids of the mirroring destination displays. This is only valid for 'mixed'. */
             mirroringDestinationIds?: string[] | undefined;
         }
 
@@ -10934,8 +10929,8 @@ declare namespace chrome {
          * @param info The information of the mirror mode that should be applied to the display mode.
          * @since Chrome 65
          */
-        function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
-        function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed): Promise<void>;
+        function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
+        function setMirrorMode(info: MirrorModeInfo): Promise<void>;
 
         /** Fired when anything changes to the display configuration. */
         const onDisplayChanged: chrome.events.Event<() => void>;
