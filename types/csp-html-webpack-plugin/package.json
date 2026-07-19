@@ -1,13 +1,14 @@
 {
     "private": true,
     "name": "@types/csp-html-webpack-plugin",
-    "version": "3.0.9999",
+    "version": "5.1.9999",
     "projects": [
         "https://github.com/slackhq/csp-html-webpack-plugin"
     ],
     "dependencies": {
-        "@types/html-webpack-plugin": "*",
-        "@types/tapable": "^1",
+        "cheerio": ">=1",
+        "html-webpack-plugin": ">=4",
+        "tapable": "^2.2.1",
         "@types/webpack": "^4"
     },
     "devDependencies": {
