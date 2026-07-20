@@ -1,9 +1,4 @@
-import {
-    ManifestId,
-    SubAppsAddResponse,
-    SubAppsRemoveResponse,
-    SubAppsListResult
-} from "w3c-subapps";
+import { ManifestId, SubAppsAddResponse, SubAppsListResult, SubAppsRemoveResponse } from "w3c-subapps";
 
 async function testSubAppsApi() {
     // --------------------------------------------------------------------------------
@@ -16,7 +11,7 @@ async function testSubAppsApi() {
 
     const addResponse: SubAppsAddResponse = {
         installedApps: { "/path": manifestId },
-        failedApps: { "/path2": new DOMException() }
+        failedApps: { "/path2": new DOMException() },
     };
     // $ExpectType Record<string, string>
     addResponse.installedApps;
@@ -25,7 +20,7 @@ async function testSubAppsApi() {
 
     const removeResponse: SubAppsRemoveResponse = {
         removedApps: [manifestId],
-        failedApps: { "/path2": new DOMException() }
+        failedApps: { "/path2": new DOMException() },
     };
     // $ExpectType string[]
     removeResponse.removedApps;
@@ -33,7 +28,7 @@ async function testSubAppsApi() {
     removeResponse.failedApps;
 
     const listResult: SubAppsListResult = {
-        appName: "App 1"
+        appName: "App 1",
     };
     // $ExpectType string
     listResult.appName;
