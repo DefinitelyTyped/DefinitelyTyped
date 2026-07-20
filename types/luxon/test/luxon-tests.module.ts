@@ -351,7 +351,7 @@ dur.toFormat("", {
 });
 
 if (Duration.isDuration(anything)) {
-    anything; // $ExpectType Duration<true> | Duration<false>
+    anything; // $ExpectType Duration<boolean>
 }
 // @ts-expect-error
 Duration.invalid();
@@ -378,8 +378,8 @@ i.toISODate(); // $ExpectType string
 i.toISOTime(); // $ExpectType string
 i.toString(); // $ExpectType string
 i.toLocaleString(); // $ExpectType string
-i.toDuration("months"); // $ExpectType Duration<true> | Duration<false>
-i.toDuration(); // $ExpectType Duration<true> | Duration<false>
+i.toDuration("months"); // $ExpectType Duration<boolean>
+i.toDuration(); // $ExpectType Duration<boolean>
 // @ts-expect-error
 i.divideEqually();
 i.divideEqually(5);
@@ -588,16 +588,16 @@ dur.shiftTo("days").toObject().days; // $ExpectType number | undefined
 dur.shiftTo("weeks", "hours").toObject().weeks; // $ExpectType number | undefined
 DateTime.local().plus(dur.shiftTo("milliseconds")).year; // $ExpectType number
 
-Duration.fromISO("PY23", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
-Duration.fromISOTime("21:37.000"); // $ExpectType Duration<true> | Duration<false>
-Duration.fromISOTime("21:37.000", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
+Duration.fromISO("PY23", { conversionAccuracy: "longterm" }); // $ExpectType Duration<boolean>
+Duration.fromISOTime("21:37.000"); // $ExpectType Duration<boolean>
+Duration.fromISOTime("21:37.000", { conversionAccuracy: "longterm" }); // $ExpectType Duration<boolean>
 
 end.diff(start, "hours", { conversionAccuracy: "longterm" }); // $ExpectType Duration<boolean>
-end.diff(start, ["months", "days", "hours"]); // $ExpectType Duration<true> | Duration<false>
+end.diff(start, ["months", "days", "hours"]); // $ExpectType Duration<boolean>
 dur.reconfigure({ conversionAccuracy: "longterm" }); // $ExpectType Duration<true>
 
 start.until(end); // $ExpectType Interval<true> | DateTime<false> || DateTime<false> | Interval<true>
-i.toDuration(["years", "months", "days"]); // $ExpectType Duration<true> | Duration<false>
+i.toDuration(["years", "months", "days"]); // $ExpectType Duration<boolean> 
 
 dur.invalidReason; // $ExpectType null
 dur.invalidExplanation; // $ExpectType null
