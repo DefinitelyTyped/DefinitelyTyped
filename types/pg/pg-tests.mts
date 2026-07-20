@@ -76,6 +76,10 @@ const myFunc2 = (c: pg.Client) => {
     c.on("drain", () => {});
 };
 
+const myFunc3 = (c: pg.Client) => {
+    c.on("connect", () => {});
+};
+
 // $ExpectType ClientBase
 new pg.ClientBase();
 // $ExpectType ClientBase
