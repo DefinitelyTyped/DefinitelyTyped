@@ -1028,7 +1028,7 @@ function DateTime_toLocaleStringWithSpreadFullFormat() {
 
 /* 
  * ============================================================
- * Sample Zone implementation
+ * Type guards
  * ============================================================ 
  */
 function isValidDateTime(dt: DateTime): dt is DateTime<true> {
