@@ -8,7 +8,7 @@ import {
     LocaleOptions,
     ToISOTimeOptions,
 } from "./datetime";
-import { Duration, DurationLike, DurationMaybeValid, DurationUnit } from "./duration";
+import { Duration, DurationLike, DurationUnit } from "./duration";
 
 export interface IntervalObject {
     start?: DateTime | undefined;
@@ -349,7 +349,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @example
      * Interval.fromDateTimes(dt1, dt2).toDuration('seconds').toObject() //=> { seconds: 88489.257 }
      */
-    toDuration(unit?: DurationUnit | DurationUnit[], opts?: DiffOptions): DurationMaybeValid;
+    toDuration(unit?: DurationUnit | DurationUnit[], opts?: DiffOptions): Duration;
 
     /**
      * Run mapFn on the interval start and end, returning a new Interval from the resulting DateTimes
