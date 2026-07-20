@@ -366,8 +366,8 @@ const i = Interval.fromDateTimes(now, later);
 i.length(); // $ExpectType number
 i.length("years"); // $ExpectType number
 i.contains(DateTime.local(2019)); // $ExpectType boolean
-i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<true> | Interval<false>
-i.mapEndpoints(d => d); // $ExpectType Interval<true> | Interval<false>
+i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<boolean>
+i.mapEndpoints(d => d); // $ExpectType Interval<boolean>
 i.intersection(i); // $ExpectType Interval<boolean> | null
 
 i.invalidReason; // $ExpectType string | null
@@ -385,7 +385,7 @@ i.divideEqually();
 i.divideEqually(5);
 
 if (Interval.isInterval(anything)) {
-    anything; // $ExpectType Interval<true> | Interval<false>
+    anything; // $ExpectType Interval<boolean>
 }
 // @ts-expect-error
 new Interval(now, later);
