@@ -1658,3 +1658,9 @@ function rand() {
 
     Plotly.newPlot("myDiv", data, layout);
 })();
+
+(() => {
+    const axis = {} as Plotly.LayoutAxis;
+    const dataPixel: number = axis.d2p(2.5);
+    const linearizedPixel: number = axis.l2p(2.5);
+})();
