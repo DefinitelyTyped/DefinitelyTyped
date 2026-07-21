@@ -2,14 +2,14 @@
     "private": true,
     "nonNpm": true,
     "nonNpmDescription": "Implementation of Isolated Web App (IWA) APIs resides in Chromium.",
-    "name": "@types/w3c-subapps",
+    "name": "@types/w3c-sub-apps",
     "version": "0.0.9999",
     "projects": [
         "https://wicg.github.io/sub-apps/"
     ],
     "devDependencies": {
         "@types/web": "*",
-        "@types/w3c-subapps": "workspace:."
+        "@types/w3c-sub-apps": "workspace:."
     },
     "owners": [
         {

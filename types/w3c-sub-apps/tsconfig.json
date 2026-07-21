@@ -13,13 +13,13 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "w3c-subapps": [
+            "w3c-sub-apps": [
                 "./index.d.ts"
             ]
         }
     },
     "files": [
         "index.d.ts",
-        "w3c-subapps-tests.ts"
+        "w3c-sub-apps-tests.ts"
     ]
 }
