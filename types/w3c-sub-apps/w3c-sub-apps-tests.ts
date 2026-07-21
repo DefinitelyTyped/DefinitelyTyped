@@ -1,4 +1,4 @@
-import { ManifestId, SubAppsAddResponse, SubAppsListResult, SubAppsRemoveResponse } from "w3c-subapps";
+import { ManifestId, SubAppsAddResponse, SubAppsListResult, SubAppsRemoveResponse } from "w3c-sub-apps";
 
 async function testSubAppsApi() {
     // --------------------------------------------------------------------------------
