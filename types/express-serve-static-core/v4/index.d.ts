@@ -677,7 +677,11 @@ export interface MediaType {
     subtype: string;
 }
 
-export type Send<ResBody = any, T = Response<ResBody>> = (body?: ResBody) => T;
+export interface Send<ResBody = any, T = Response<ResBody>> {
+    (): T;
+    (body: undefined): T;
+    (body: ResBody): T;
+}
 
 export interface SendFileOptions extends SendOptions {
     /** Object containing HTTP headers to serve with the file. */

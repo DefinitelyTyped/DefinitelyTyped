@@ -169,7 +169,14 @@ app.get<never, { foo: string }>("/", (req, res) => {
     // @ts-expect-error
     req.params.baz;
 
+    res.send(); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
     res.send({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
+    res.send(undefined); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
+    // @ts-expect-error
+    res.send({ bar: "fail" });
+    res.json(); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
+    res.json({ foo: "ok" }); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
+    res.json(undefined); // $ExpectType Response<{ foo: string; }, Record<string, any>, number>
     req.body; // $ExpectType any
 });
 
