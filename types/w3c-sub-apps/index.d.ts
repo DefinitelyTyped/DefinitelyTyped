@@ -16,7 +16,7 @@ export interface SubAppsRemoveResponse {
     /** List of successfully removed Sub Apps' ManifestIds. */
     removedApps: ManifestId[];
     /** Map of ManifestIds to the error that occurred. */
-    failedApps: Record<string, DOMException>;
+    failedApps: Record<ManifestId, DOMException>;
 }
 
 export interface SubAppsListResult {
@@ -31,7 +31,7 @@ declare global {
         /** Removes one or more Sub Apps. */
         remove(manifest_ids: ManifestId[]): Promise<SubAppsRemoveResponse>;
         /** Lists installed Sub Apps. */
-        list(): Promise<Record<string, SubAppsListResult>>;
+        list(): Promise<Record<ManifestId, SubAppsListResult>>;
     }
 
     interface Window {
