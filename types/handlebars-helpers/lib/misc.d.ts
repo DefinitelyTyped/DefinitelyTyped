@@ -17,18 +17,18 @@ export function option(prop: string, locals: any, options: any): any;
  *
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function noop(options: Object): string;
+export function noop(options: object): string;
 export const typeOf: any;
 /**
  * Block helper that builds the context for the block
  * from the options hash.
  *
  * @param {Object} `options` Handlebars provided options object.
- * @contributor Vladimir Kuznetsov <https://github.com/mistakster>
- * @block
+ * contributor Vladimir Kuznetsov <https://github.com/mistakster>
+ * block
  * @api public
  */
-export function withHash(options: Object): any;
+export function withHash(options: object): any;

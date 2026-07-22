@@ -50,10 +50,10 @@ export function before(array: any[], n: number): any[];
  * @param {Array} `array`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function eachIndex(array: any[], options: Object): string;
+export function eachIndex(array: any[], options: object): string;
 /**
  * Block helper that filters the given array and renders the block for values that
  * evaluate to `true`, otherwise the inverse block is returned.
@@ -67,10 +67,10 @@ export function eachIndex(array: any[], options: Object): string;
  * @param {any} `value`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function filter(array: any[], value: any, options: Object): string;
+export function filter(array: any[], value: any, options: object): string;
 /**
  * Returns the first item, or first `n` items of an array.
  *
@@ -114,7 +114,7 @@ export function first(array: any[], n: number): any[];
  * @source <http://stackoverflow.com/questions/13861007>
  * @param {Array} `array`
  * @return {String}
- * @block
+ * block
  * @api public
  */
 export function forEach(array: any[], options: any): string;
@@ -136,10 +136,10 @@ export function forEach(array: any[], options: any): string;
  * @param {any} `value`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function inArray(array: any[], value: any, options: Object): string;
+export function inArray(array: any[], value: any, options: object): string;
 /**
  * Returns true if `value` is an es5 array.
  *
@@ -167,7 +167,7 @@ export function isArray(value: any): boolean;
  * @param {Array} `array`
  * @param {Number} `idx`
  * @return {any} `value`
- * @block
+ * block
  * @api public
  */
 export function itemAt(array: any[], idx: number): any;
@@ -197,10 +197,10 @@ export function join(array: any[], separator: string): string;
  * @param {Number} `length`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function equalsLength(value: any[] | string, length: number, options: Object): string;
+export function equalsLength(value: any[] | string, length: number, options: object): string;
 /**
  * Returns the last item, or last `n` items of an array or string.
  * Opposite of [first](#first).
@@ -242,7 +242,7 @@ export function last(value: any[] | string, n: number): any[];
  * @return {Number} The length of the value.
  * @api public
  */
-export function length(value: any[] | Object | string): number;
+export function length(value: any[] | object | string): number;
 /**
  * Returns true if the the length of the given `value` is equal
  * to the given `length`. Can be used as a block or inline helper.
@@ -251,10 +251,10 @@ export function length(value: any[] | Object | string): number;
  * @param {Number} `length`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function lengthEqual(value: any[] | string, length: number, options: Object): string;
+export function lengthEqual(value: any[] | string, length: number, options: object): string;
 /**
  * Returns a new array, created by calling `function` on each
  * element of the given `array`. For example,
@@ -286,7 +286,7 @@ export function map(array: any[], iter: any): string;
  * @return {String}
  * @api public
  */
-export function pluck(arr: any, prop: Function): string;
+export function pluck(arr: any, prop: (...args: any[]) => any): string;
 /**
  * Reverse the elements in an array, or the characters in a string.
  *
@@ -320,10 +320,10 @@ export function reverse(val: any): any[] | string;
  * @param {Function} `iter` Iteratee
  * @param {Options} Handlebars provided options object
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function some(array: any[], iter: Function, options: any): string;
+export function some(array: any[], iter: (...args: any[]) => any, options: any): string;
 /**
  * Sort the given `array`. If an array of objects is passed,
  * you may optionally pass a `key` to sort on as the second
@@ -373,10 +373,10 @@ export function sortBy(array: any[], prop: any, options: any, ...args: any[]): a
  * @param {Number} `idx`
  * @param {Object} `options`
  * @return {Array}
- * @block
+ * block
  * @api public
  */
-export function withAfter(array: any[], idx: number, options: Object): any[];
+export function withAfter(array: any[], idx: number, options: object): any[];
 /**
  * Use the items in the array _before_ the specified index
  * as context inside a block. Opposite of [withAfter](#withAfter).
@@ -392,10 +392,10 @@ export function withAfter(array: any[], idx: number, options: Object): any[];
  * @param {Number} `idx`
  * @param {Object} `options`
  * @return {Array}
- * @block
+ * block
  * @api public
  */
-export function withBefore(array: any[], idx: number, options: Object): any[];
+export function withBefore(array: any[], idx: number, options: object): any[];
 /**
  * Use the first item in a collection inside a handlebars
  * block expression. Opposite of [withLast](#withLast).
@@ -411,10 +411,10 @@ export function withBefore(array: any[], idx: number, options: Object): any[];
  * @param {Number} `idx`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function withFirst(array: any[], idx: number, options: Object): string;
+export function withFirst(array: any[], idx: number, options: object): string;
 /**
  * Block helper that groups array elements by given group `size`.
  *
@@ -434,10 +434,10 @@ export function withFirst(array: any[], idx: number, options: Object): string;
  * @param {Number} `size` The desired length of each array "group"
  * @param {Object} `options` Handlebars options
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function withGroup(array: any[], size: number, options: Object): string;
+export function withGroup(array: any[], size: number, options: object): string;
 /**
  * Use the last item or `n` items in an array as context inside a block.
  * Opposite of [withFirst](#withFirst).
@@ -453,10 +453,10 @@ export function withGroup(array: any[], size: number, options: Object): string;
  * @param {Number} `idx` The starting index.
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function withLast(array: any[], idx: number, options: Object): string;
+export function withLast(array: any[], idx: number, options: object): string;
 /**
  * Block helper that sorts a collection and exposes the sorted
  * collection as context inside the block.
@@ -470,10 +470,10 @@ export function withLast(array: any[], idx: number, options: Object): string;
  * @param {String} `prop`
  * @param {Object} `options` Specify `reverse="true"` to reverse the array.
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function withSort(array: any[], prop: string, options: Object): string;
+export function withSort(array: any[], prop: string, options: object): string;
 /**
  * Block helper that return an array with all duplicate
  * values removed. Best used along with a [each](#each) helper.
@@ -488,4 +488,4 @@ export function withSort(array: any[], prop: string, options: Object): string;
  * @return {Array}
  * @api public
  */
-export function unique(array: any[], options: Object): any[];
+export function unique(array: any[], options: object): any[];

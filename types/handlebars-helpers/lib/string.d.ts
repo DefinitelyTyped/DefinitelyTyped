@@ -243,10 +243,10 @@ export function prepend(str: string, prefix: string): string;
  *
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function raw(options: Object): string;
+export function raw(options: object): string;
 /**
  * Remove all occurrences of `substring` from the given `str`.
  *
@@ -359,12 +359,12 @@ export function split(str: any, ch: any): string;
  *   Bro, do you even hello world?
  * {{/startsWith}}
  * ```
- * @contributor Dan Fox <http://github.com/iamdanfox>
+ * contributor Dan Fox <http://github.com/iamdanfox>
  * @param {String} `prefix`
  * @param {String} `testString`
  * @param {String} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
 export function startsWith(prefix: string, str: any, options: string, ...args: any[]): string;
@@ -480,7 +480,7 @@ export function upcase(...args: any[]): string;
  * @param {String} `str` The string to uppercase
  * @param {Object} `options` Handlebars options object
  * @return {String}
- * @block
+ * block
  * @api public
  */
 export function uppercase(str: string): string;

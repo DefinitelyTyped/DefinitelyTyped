@@ -13,7 +13,7 @@
  * @param {any} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String}
- * @block
+ * block
  * @api public
  */
 export function and(...args: any[]): string;
@@ -28,10 +28,10 @@ export function and(...args: any[]): string;
  * @param `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or if specified the inverse block is rendered if falsey.
- * @block
+ * block
  * @api public
  */
-export function compare(a: any, operator: any, b: any, options: Object, ...args: any[]): string;
+export function compare(a: any, operator: any, b: any, options: object, ...args: any[]): string;
 /**
  * Block helper that renders the block if `collection` has the
  * given `value`, using strict equality (`===`) for comparison,
@@ -51,10 +51,10 @@ export function compare(a: any, operator: any, b: any, options: Object, ...args:
  * @param {any} `value` The value to check for.
  * @param {Number} `[startIndex=0]` Optionally define the starting index.
  * @param {Object} `options` Handlebars provided options object.
- * @block
+ * block
  * @api public
  */
-export function contains(collection: any[] | Object | string, value: any, startIndex: any, options: Object): any;
+export function contains(collection: any[] | object | string, value: any, startIndex: any, options: object): any;
 /**
  * Returns the first value that is not undefined, otherwise the "default" value is returned.
  *
@@ -77,10 +77,10 @@ export default _default;
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
  * @alias is
- * @block
+ * block
  * @api public
  */
-export function eq(a: string, b: string, options: Object, ...args: any[]): string;
+export function eq(a: string, b: string, options: object, ...args: any[]): string;
 /**
  * Block helper that renders a block if `a` is **greater than** `b`.
  *
@@ -92,10 +92,10 @@ export function eq(a: string, b: string, options: Object, ...args: any[]): strin
  * @param {String} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function gt(a: string, b: string, options: Object, ...args: any[]): string;
+export function gt(a: string, b: string, options: object, ...args: any[]): string;
 /**
  * Block helper that renders a block if `a` is **greater than or
  * equal to** `b`.
@@ -108,10 +108,10 @@ export function gt(a: string, b: string, options: Object, ...args: any[]): strin
  * @param {String} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function gte(a: string, b: string, options: Object, ...args: any[]): string;
+export function gte(a: string, b: string, options: object, ...args: any[]): string;
 /**
  * Block helper that renders a block if `value` has `pattern`.
  * If an inverse block is specified it will be rendered when falsy.
@@ -120,10 +120,10 @@ export function gte(a: string, b: string, options: Object, ...args: any[]): stri
  * @param {any} `pattern` The pattern to check for.
  * @param {Object} `options` Handlebars provided options object
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function has(value: any, pattern: any, options: Object, ...args: any[]): string;
+export function has(value: any, pattern: any, options: object, ...args: any[]): string;
 /**
  * Returns true if the given `value` is falsey. Uses the [falsey][]
  * library for comparisons. Please see that library for more information
@@ -134,7 +134,7 @@ export function has(value: any, pattern: any, options: Object, ...args: any[]): 
  * @return {Boolean}
  * @api public
  */
-export function isFalsey(val: any, options: Options): boolean;
+export function isFalsey(val: any, options: object): boolean;
 /**
  * Returns true if the given `value` is truthy. Uses the [falsey][]
  * library for comparisons. Please see that library for more information
@@ -145,7 +145,7 @@ export function isFalsey(val: any, options: Options): boolean;
  * @return {Boolean}
  * @api public
  */
-export function isTruthy(val: any, options: Options): boolean;
+export function isTruthy(val: any, options: object): boolean;
 /**
  * Return true if the given value is an even number.
  *
@@ -159,10 +159,10 @@ export function isTruthy(val: any, options: Options): boolean;
  * @param {Number} `number`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function ifEven(num: any, options: Object): string;
+export function ifEven(num: any, options: object): string;
 /**
  * Conditionally renders a block if the remainder is zero when
  * `a` operand is divided by `b`. If an inverse block is specified
@@ -172,10 +172,10 @@ export function ifEven(num: any, options: Object): string;
  * @param {Number}
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function ifNth(a: any, b: any, options: Object): string;
+export function ifNth(a: any, b: any, options: object): string;
 /**
  * Block helper that renders a block if `value` is **an odd number**.
  * If an inverse block is specified it will be rendered when falsy.
@@ -190,10 +190,10 @@ export function ifNth(a: any, b: any, options: Object): string;
  * @param {Object} `value`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function ifOdd(val: any, options: Object): string;
+export function ifOdd(val: any, options: object): string;
 /**
  * Block helper that renders a block if `a` is **equal to** `b`.
  * If an inverse block is specified it will be rendered when falsy.
@@ -203,10 +203,10 @@ export function ifOdd(val: any, options: Object): string;
  * @param {any} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function is(a: any, b: any, options: Object, ...args: any[]): string;
+export function is(a: any, b: any, options: object, ...args: any[]): string;
 /**
  * Block helper that renders a block if `a` is **not equal to** `b`.
  * If an inverse block is specified it will be rendered when falsy.
@@ -217,10 +217,10 @@ export function is(a: any, b: any, options: Object, ...args: any[]): string;
  * @param {String} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function isnt(a: string, b: string, options: Object, ...args: any[]): string;
+export function isnt(a: string, b: string, options: object, ...args: any[]): string;
 /**
  * Block helper that renders a block if `a` is **less than** `b`.
  *
@@ -231,10 +231,10 @@ export function isnt(a: string, b: string, options: Object, ...args: any[]): str
  * @param {Object} `context`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function lt(a: any, b: any, options: Object, ...args: any[]): string;
+export function lt(a: any, b: any, options: object, ...args: any[]): string;
 /**
  * Block helper that renders a block if `a` is **less than or
  * equal to** `b`.
@@ -247,10 +247,10 @@ export function lt(a: any, b: any, options: Object, ...args: any[]): string;
  * @param {Sring} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function lte(a: Sring, b: Sring, options: Object, ...args: any[]): string;
+export function lte(a: string, b: string, options: object, ...args: any[]): string;
 /**
  * Block helper that renders a block if **neither of** the given values
  * are truthy. If an inverse block is specified it will be rendered
@@ -260,7 +260,7 @@ export function lte(a: Sring, b: Sring, options: Object, ...args: any[]): string
  * @param {any} `b`
  * @param `options` Handlebars options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
 export function neither(a: any, b: any, options: any): string;
@@ -270,10 +270,10 @@ export function neither(a: any, b: any, options: any): string;
  * @param {String} `val`
  * @param {Object} `options` Handlebars provided options object
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function not(val: string, options: Object): string;
+export function not(val: string, options: object): string;
 /**
  * Block helper that renders a block if **any of** the given values
  * is truthy. If an inverse block is specified it will be rendered
@@ -288,7 +288,7 @@ export function not(val: string, options: Object): string;
  * @param {...any} `arguments` Variable number of arguments
  * @param {Object} `options` Handlebars options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
 export function or(...args: any[]): string;
@@ -300,10 +300,10 @@ export function or(...args: any[]): string;
  * @param {String} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Inverse block by default, or block if falsey.
- * @block
+ * block
  * @api public
  */
-export function unlessEq(a: string, b: string, options: Object): string;
+export function unlessEq(a: string, b: string, options: object): string;
 /**
  * Block helper that always renders the inverse block **unless `a` is
  * is greater than `b`**.
@@ -312,10 +312,10 @@ export function unlessEq(a: string, b: string, options: Object): string;
  * @param {Object} `b` The value to compare
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Inverse block by default, or block if falsey.
- * @block
+ * block
  * @api public
  */
-export function unlessGt(a: Object, b: Object, options: Object): string;
+export function unlessGt(a: object, b: object, options: object): string;
 /**
  * Block helper that always renders the inverse block **unless `a` is
  * is less than `b`**.
@@ -324,10 +324,10 @@ export function unlessGt(a: Object, b: Object, options: Object): string;
  * @param {Object} `b` The value to compare
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function unlessLt(a: Object, b: Object, options: Object): string;
+export function unlessLt(a: object, b: object, options: object): string;
 /**
  * Block helper that always renders the inverse block **unless `a` is
  * is greater than or equal to `b`**.
@@ -336,10 +336,10 @@ export function unlessLt(a: Object, b: Object, options: Object): string;
  * @param {any} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function unlessGteq(a: any, b: any, options: Object): string;
+export function unlessGteq(a: any, b: any, options: object): string;
 /**
  * Block helper that always renders the inverse block **unless `a` is
  * is less than or equal to `b`**.
@@ -348,7 +348,7 @@ export function unlessGteq(a: any, b: any, options: Object): string;
  * @param {any} `b`
  * @param {Object} `options` Handlebars provided options object
  * @return {String} Block, or inverse block if specified and falsey.
- * @block
+ * block
  * @api public
  */
-export function unlessLteq(a: any, b: any, options: Object): string;
+export function unlessLteq(a: any, b: any, options: object): string;

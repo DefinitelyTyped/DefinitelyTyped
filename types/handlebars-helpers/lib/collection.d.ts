@@ -15,10 +15,10 @@
  * @param {Object} `collection`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function isEmpty(collection: Object, options: Object): string;
+export function isEmpty(collection: object, options: object): string;
 /**
  * Block helper that iterates over an array or object. If
  * an array is given, `.forEach` is called, or if an object
@@ -28,7 +28,7 @@ export function isEmpty(collection: Object, options: Object): string;
  * @param {Object|Array} `collection` The collection to iterate over
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function iterate(collection: Object | any[], options: Object, ...args: any[]): string;
+export function iterate(collection: object | any[], options: object, ...args: any[]): string;

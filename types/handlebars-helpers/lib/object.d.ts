@@ -6,7 +6,7 @@
  * @return {Object}
  * @api public
  */
-export function extend(...args: any[]): Object;
+export function extend(...args: any[]): object;
 /**
  * Block helper that iterates over the properties of
  * an object, exposing each key and value on the context.
@@ -14,10 +14,10 @@ export function extend(...args: any[]): Object;
  * @param {Object} `context`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function forIn(obj: any, options: Object): string;
+export function forIn(obj: any, options: object): string;
 /**
  * Block helper that iterates over the **own** properties of
  * an object, exposing each key and value on the context.
@@ -25,10 +25,10 @@ export function forIn(obj: any, options: Object): string;
  * @param {Object} `obj` The object to iterate over.
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function forOwn(obj: Object, options: Object): string;
+export function forOwn(obj: object, options: object): string;
 /**
  * Take arguments and, if they are string or number, convert them to a dot-delineated object property path.
  *
@@ -45,10 +45,10 @@ export function toPath(...args: any[]): string;
  * @param {Object} `context` The context object
  * @param {Object} `options` The handlebars options object, if used as a block helper.
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function get(prop: string, context: Object, options: Object): string;
+export function get(prop: string, context: object, options: object): string;
 /**
  * Use property paths (`a.b.c`) to get an object from
  * the context. Differs from the `get` helper in that this
@@ -61,7 +61,7 @@ export function get(prop: string, context: Object, options: Object): string;
  * @return {String}
  * @api public
  */
-export function getObject(prop: string, context: Object): string;
+export function getObject(prop: string, context: object): string;
 /**
  * Return true if `key` is an own, enumerable property
  * of the given `context` object.
@@ -75,7 +75,7 @@ export function getObject(prop: string, context: Object): string;
  * @return {Boolean}
  * @api public
  */
-export function hasOwn(context: Object, key: string): boolean;
+export function hasOwn(context: object, key: string): boolean;
 /**
  * Return true if `value` is an object.
  *
@@ -97,8 +97,8 @@ export function isObject(value: string): boolean;
  * <!-- results in: { foo: 'bar' } -->
  * ```
  * @param {String} `string` The string to parse
- * @contributor github.com/keeganstreet
- * @block
+ * contributor github.com/keeganstreet
+ * block
  * @api public
  */
 export function JSONparse(str: any, options: any): any;
@@ -114,7 +114,7 @@ export function JSONparse(str: any, options: any): any;
  * @return {String}
  * @api public
  */
-export function JSONstringify(obj: Object, indent: any): string;
+export function JSONstringify(obj: object, indent: any): string;
 /**
  * Deeply merge the properties of the given `objects` with the
  * context object.
@@ -124,7 +124,7 @@ export function JSONstringify(obj: Object, indent: any): string;
  * @return {Object}
  * @api public
  */
-export function merge(context: any, ...args: any[]): Object;
+export function merge(context: any, ...args: any[]): object;
 /**
  * Parses the given string using `JSON.parse`.
  *
@@ -134,8 +134,8 @@ export function merge(context: any, ...args: any[]): Object;
  * <!-- results in: { foo: 'bar' } -->
  * ```
  * @param {String} `string` The string to parse
- * @contributor github.com/keeganstreet
- * @block
+ * contributor github.com/keeganstreet
+ * block
  * @api public
  */
 export function parseJSON(str: any, options: any): any;
@@ -146,10 +146,10 @@ export function parseJSON(str: any, options: any): any;
  * @param {Object} `context`
  * @param {Object} `options` Handlebars options object.
  * @return {Object} Returns an object with the picked values. If used as a block helper, the values are passed as context to the inner block. If no values are found, the context is passed to the inverse block.
- * @block
+ * block
  * @api public
  */
-export function pick(props: any, context: Object, options: Object): Object;
+export function pick(props: any, context: object, options: object): object;
 /**
  * Stringify an object using `JSON.stringify`.
  *
@@ -162,4 +162,4 @@ export function pick(props: any, context: Object, options: Object): Object;
  * @return {String}
  * @api public
  */
-export function stringify(obj: Object, indent: any): string;
+export function stringify(obj: object, indent: any): string;

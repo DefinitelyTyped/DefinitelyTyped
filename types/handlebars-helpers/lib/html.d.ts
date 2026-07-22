@@ -10,7 +10,7 @@
  * @return {String}
  * @api public
  */
-export function attr(options: Object): string;
+export function attr(options: object): string;
 /**
  * Add an array of `<link>` tags. Automatically resolves
  * relative paths to `options.assets` if passed on the context.
@@ -39,7 +39,7 @@ export function css(list: string | any[], options: any, ...args: any[]): string;
  * @return {String}
  * @api public
  */
-export function js(context: Object): string;
+export function js(context: object): string;
 /**
  * Strip HTML tags from a string, so that only the text nodes
  * are preserved.
@@ -60,20 +60,20 @@ export function sanitize(str: string): string;
  * @param {Object} `context`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function ul(context: Object, options: Object): string;
+export function ul(context: object, options: object): string;
 /**
  * Block helper for creating ordered lists  (`<ol></ol>`)
  *
  * @param {Object} `context`
  * @param {Object} `options`
  * @return {String}
- * @block
+ * block
  * @api public
  */
-export function ol(context: Object, options: Object): string;
+export function ol(context: object, options: object): string;
 /**
  * Returns a `<figure>` with a thumbnail linked to a full picture
  *
@@ -83,7 +83,7 @@ export function ol(context: Object, options: Object): string;
  * @param {Number} `context.width`
  * @param {Number} `context.height`
  * @return {String} HTML `<figure>` element with image and optional caption/link.
- * @contributor: Marie Hogebrandt <https://github.com/Melindrea>
+ * contributor: Marie Hogebrandt <https://github.com/Melindrea>
  * @api public
  */
 export function thumbnailImage(context: {

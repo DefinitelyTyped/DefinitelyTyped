@@ -1,4 +1,4 @@
-export const fileSize: (number: number | string, precision: any, options: any) => string;
+export function fileSize(number: number | string, precision: any, options: any): string;
 /**
  * Read a file from the file system. This is useful in composing
  * "include"-style helpers using sub-expressions.
