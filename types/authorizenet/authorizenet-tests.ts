@@ -73,7 +73,7 @@ createRequest.setSubscription(arbSubscription);
 
 const ctrl = new APIControllers.ARBCreateSubscriptionController(createRequest.getJSON());
 ctrl.setEnvironment(Constants.endpoint.production);
-ctrl.getError()
+ctrl.getError();
 
 new Promise((resolve, reject) => {
     ctrl.execute(() => {
