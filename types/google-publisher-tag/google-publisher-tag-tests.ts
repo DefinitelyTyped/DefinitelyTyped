@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260525
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/3a5fc88b30b26709f89e5dc6f8f1bb725322c2b6
+// Tests for Google Publisher Tag 1.20260713
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/4f163e00c83c227874a3515107e556362618c4c5
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -970,6 +970,23 @@ function test_googletag_config_pageSettingsConfig_autoRefresh() {
 
     // Clear the auto refresh configuration.
     googletag.setConfig({ autoRefresh: null });
+}
+
+// Test for googletag.config.PageSettingsConfig.continueButton
+function test_googletag_config_pageSettingsConfig_continueButton() {
+    // Configure continue button settings.
+    googletag.setConfig({
+        continueButton: {
+            font: "Arial",
+            fontColor: "white",
+            backgroundColor: "blue",
+            targetId: "target-div-id",
+            freqCapIntervalMinutes: 20,
+        },
+    });
+
+    // Clear continue button settings.
+    googletag.setConfig({ continueButton: null });
 }
 
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments

@@ -1,3 +1,4 @@
+// Minimum TypeScript Version: 5.0
 import * as Config from "./types/config";
 import * as Helpers from "./types/helpers";
 import * as Response from "./types/response";
@@ -81,44 +82,64 @@ export interface ConfigTypes {
     "recommendations/page/related_categories": Config.recommendationsPageRelatedCategoriesConfig;
 }
 
-export interface ResponseTypes {
-    "search/search": Response.searchSearchResponse;
-    "search/predictive": Response.searchPredictiveResponse;
+export interface ResponseTypes<Attributes extends string[] = string[]> {
+    "search/search": Response.searchSearchResponse<Attributes>;
+    "search/predictive": Response.searchPredictiveResponse<Attributes>;
     "search/suggestions": Response.searchSuggestionsResponse;
     "search/categories": Response.searchCategoriesResponse;
     "search/pages": Response.searchPagesResponse;
     "search/popular": Response.searchPopularResponse;
-    "recommendations/popular": Response.recommendationsPopularResponse;
-    "recommendations/trending": Response.recommendationsTrendingResponse;
-    "recommendations/new": Response.recommendationsNewResponse;
-    "recommendations/currently_watched": Response.recommendationsCurrentlyWatchedResponse;
-    "recommendations/recently_bought": Response.recommendationsRecentlyBoughtResponse;
-    "recommendations/keywords": Response.recommendationsKeywordsResponse;
-    "recommendations/complementary": Response.recommendationsComplementaryResponse;
-    "recommendations/substituting": Response.recommendationsSubstitutingResponse;
-    "recommendations/most_sold_with": Response.recommendationsMostSoldWithResponse;
-    "recommendations/category/popular": Response.recommendationsCategoryPopularResponse;
-    "recommendations/category/trending": Response.recommendationsCategoryTrendingResponse;
-    "recommendations/category/new": Response.recommendationsCategoryNewResponse;
-    "recommendations/category/popular_subcategories": Response.recommendationsCategoryPopularSubcategoriesResponse;
-    "recommendations/visitor/history": Response.recommendationsVisitorHistoryResponse;
-    "recommendations/visitor/complementary": Response.recommendationsVisitorComplementaryResponse;
-    "recommendations/visitor/substituting": Response.recommendationsVisitorSubstitutingResponse;
-    "recommendations/customer/history": Response.recommendationsCustomerHistoryResponse;
-    "recommendations/customer/complementary": Response.recommendationsCustomerComplementaryResponse;
-    "recommendations/customer/substituting": Response.recommendationsCustomerSubstitutingResponse;
+    "recommendations/popular": Response.recommendationsPopularResponse<Attributes>;
+    "recommendations/trending": Response.recommendationsTrendingResponse<Attributes>;
+    "recommendations/new": Response.recommendationsNewResponse<Attributes>;
+    "recommendations/currently_watched": Response.recommendationsCurrentlyWatchedResponse<Attributes>;
+    "recommendations/recently_bought": Response.recommendationsRecentlyBoughtResponse<Attributes>;
+    "recommendations/keywords": Response.recommendationsKeywordsResponse<Attributes>;
+    "recommendations/complementary": Response.recommendationsComplementaryResponse<Attributes>;
+    "recommendations/substituting": Response.recommendationsSubstitutingResponse<Attributes>;
+    "recommendations/most_sold_with": Response.recommendationsMostSoldWithResponse<Attributes>;
+    "recommendations/category/popular": Response.recommendationsCategoryPopularResponse<Attributes>;
+    "recommendations/category/trending": Response.recommendationsCategoryTrendingResponse<Attributes>;
+    "recommendations/category/new": Response.recommendationsCategoryNewResponse<Attributes>;
+    "recommendations/category/popular_subcategories": Response.recommendationsCategoryPopularSubcategoriesResponse<
+        Attributes
+    >;
+    "recommendations/visitor/history": Response.recommendationsVisitorHistoryResponse<Attributes>;
+    "recommendations/visitor/complementary": Response.recommendationsVisitorComplementaryResponse<Attributes>;
+    "recommendations/visitor/substituting": Response.recommendationsVisitorSubstitutingResponse<Attributes>;
+    "recommendations/customer/history": Response.recommendationsCustomerHistoryResponse<Attributes>;
+    "recommendations/customer/complementary": Response.recommendationsCustomerComplementaryResponse<Attributes>;
+    "recommendations/customer/substituting": Response.recommendationsCustomerSubstitutingResponse<Attributes>;
     "recommendations/page/substituting": Response.recommendationsPageSubstitutingResponse;
-    "recommendations/page/product": Response.recommendationsPageProductResponse;
-    "recommendations/page/category": Response.recommendationsPageCategoryResponse;
-    "recommendations/page/related_products": Response.recommendationsPageRelatedProductsResponse;
-    "recommendations/page/related_categories": Response.recommendationsPageRelatedCategoriesResponse;
+    "recommendations/page/product": Response.recommendationsPageProductResponse<Attributes>;
+    "recommendations/page/category": Response.recommendationsPageCategoryResponse<Attributes>;
+    "recommendations/page/related_products": Response.recommendationsPageRelatedProductsResponse<Attributes>;
+    "recommendations/page/related_categories": Response.recommendationsPageRelatedCategoriesResponse<Attributes>;
 }
 
+/**
+ * @description The subset of endpoints whose config accepts an `attributes` field.
+ */
+export type EndpointsWithAttributes = {
+    [K in ClerkEndpoints]: ConfigTypes[K] extends { attributes?: string[] } ? K : never;
+}[ClerkEndpoints];
+
+/**
+ * @see https://docs.clerk.io/docs/clerkjs-custom-api-calls
+ * @description Calls a Clerk.js endpoint, narrowing `product_data` in the response to the literal tuple `Attributes`
+ */
+export function Clerk<T extends EndpointsWithAttributes, const Attributes extends string[] = string[]>(
+    method: "call",
+    endpoint: T,
+    config: Omit<ConfigTypes[T], "attributes"> & { attributes?: Attributes },
+    callback?: (response: ResponseTypes<Attributes>[T]) => void,
+    error?: (error: ClerkErrorResponse) => void,
+): void;
 /**
  * @see https://docs.clerk.io/docs/clerkjs-custom-api-calls
  * @description Calls a Clerk.js endpoint
  */
-export function Clerk<T extends ClerkEndpoints>(
+export function Clerk<T extends Exclude<ClerkEndpoints, EndpointsWithAttributes>>(
     method: "call",
     endpoint: T,
     config: ConfigTypes[T],

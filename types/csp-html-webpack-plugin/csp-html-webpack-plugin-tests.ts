@@ -1,7 +1,7 @@
-import HtmlWebpackPlugin = require("html-webpack-plugin");
-import CspHtmlWebpackPlugin = require("csp-html-webpack-plugin");
+import CspHtmlWebpackPlugin from "csp-html-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
-import { Configuration as WebpackConfiguration } from "webpack";
+import { Compiler, Configuration as WebpackConfiguration } from "webpack";
 
 // Should accept various CSP directive types.
 const policy: CspHtmlWebpackPlugin.Policy = {
@@ -31,6 +31,25 @@ new CspHtmlWebpackPlugin(policy, {
         "script-src": true,
         "style-src": true,
     },
+    processFn(builtPolicy, htmlPluginData, $, compilation) {
+        // $ExpectType string
+        builtPolicy;
+        // $ExpectType string
+        htmlPluginData.html;
+        // $ExpectType string
+        htmlPluginData.outputName;
+        htmlPluginData.plugin satisfies HtmlWebpackPlugin;
+        // $ExpectType CheerioAPI
+        $;
+        // $ExpectType { (this: CheerioAPI, options?: CheerioOptions | undefined): string; (this: CheerioAPI, dom?: BasicAcceptedElems<AnyNode> | undefined, options?: CheerioOptions | undefined): string; }
+        $.html;
+        // $ExpectType (this: CheerioAPI, dom?: BasicAcceptedElems<AnyNode> | undefined) => string
+        $.xml;
+        // $ExpectType Compilation
+        compilation;
+        // $ExpectType any[]
+        compilation.errors;
+    },
 });
 
 const optsWithEnableFunc: CspHtmlWebpackPlugin.AdditionalOptions = {
@@ -40,8 +59,8 @@ const optsWithEnableFunc: CspHtmlWebpackPlugin.AdditionalOptions = {
         // $ExpectType string
         htmlPluginData.html;
 
-        if (htmlPluginData.plugin.apply as any) {
-        }
+        // $ExpectType (compiler: Compiler) => void
+        htmlPluginData.plugin.apply;
 
         return true;
     },
@@ -52,6 +71,25 @@ const optsWithEnableFunc: CspHtmlWebpackPlugin.AdditionalOptions = {
     nonceEnabled: {
         "script-src": true,
         "style-src": true,
+    },
+    processFn(builtPolicy, htmlPluginData, $, compilation) {
+        // $ExpectType string
+        builtPolicy;
+        // $ExpectType string
+        htmlPluginData.html;
+        // $ExpectType string
+        htmlPluginData.outputName;
+        htmlPluginData.plugin satisfies HtmlWebpackPlugin;
+        // $ExpectType CheerioAPI
+        $;
+        // $ExpectType { (this: CheerioAPI, options?: CheerioOptions | undefined): string; (this: CheerioAPI, dom?: BasicAcceptedElems<AnyNode> | undefined, options?: CheerioOptions | undefined): string; }
+        $.html;
+        // $ExpectType (this: CheerioAPI, dom?: BasicAcceptedElems<AnyNode> | undefined) => string
+        $.xml;
+        // $ExpectType Compilation
+        compilation;
+        // $ExpectType any[]
+        compilation.errors;
     },
 };
 
@@ -83,5 +121,25 @@ new HtmlWebpackPlugin({
             "script-src": true,
             "style-src": true,
         },
+        processFn(builtPolicy, htmlPluginData, $, compilation) {
+            // $ExpectType string
+            builtPolicy;
+            // $ExpectType string
+            htmlPluginData.html;
+            // $ExpectType string
+            htmlPluginData.outputName;
+            htmlPluginData.plugin satisfies HtmlWebpackPlugin;
+            // $ExpectType CheerioAPI
+            $;
+            // $ExpectType { (this: CheerioAPI, options?: CheerioOptions | undefined): string; (this: CheerioAPI, dom?: BasicAcceptedElems<AnyNode> | undefined, options?: CheerioOptions | undefined): string; }
+            $.html;
+            // $ExpectType (this: CheerioAPI, dom?: BasicAcceptedElems<AnyNode> | undefined) => string
+            $.xml;
+            // $ExpectType Compilation
+            compilation;
+            // $ExpectType any[]
+            compilation.errors;
+        },
     },
+    xhtml: false,
 });
