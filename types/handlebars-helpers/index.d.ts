@@ -12,12 +12,36 @@ type UnionToIntersection<U> = (
     ? I
     : never;
 
+/** Names of the helper category groups (`"math"`, `"string"`, etc.). */
+type GroupName = HelperGroupKeys<Groups>;
+
 /** All helpers, flattened from every category group into one object. */
-type Helpers = UnionToIntersection<Groups[HelperGroupKeys<Groups>]>;
+type Helpers = UnionToIntersection<Groups[GroupName]>;
+
+/** The helpers belonging to the named category groups, flattened into one object. */
+type HelpersOf<K extends GroupName> = UnionToIntersection<Groups[K]>;
+
+/** Options accepted when loading helpers. */
+interface Options {
+    /** Pass your own instance of handlebars to register the helpers on. */
+    handlebars?: typeof import('handlebars');
+}
+
+interface LoadHelpers {
+    /** Load the helpers from the named category groups. */
+    <K extends GroupName>(groups: readonly K[], options?: Options): HelpersOf<K>;
+    /** Load the helpers from a single category group. */
+    <K extends GroupName>(group: K, options?: Options): Groups[K];
+    /** Load all helpers. */
+    (options?: Options): Helpers;
+}
 
 /**
  * `handlebars-helpers`' default export: call it (optionally scoped to a group
- * name / with options) to get the object of all registered helpers.
+ * name / with options) to get the object of registered helpers, or use one of
+ * the category getters (e.g. `helpers.math()`) to load just that group.
  */
-declare function helpers(groups?: any, options?: any): Helpers;
+declare const helpers: LoadHelpers & {
+    [K in keyof Groups]: (options?: Options) => Groups[K];
+};
 export = helpers;
