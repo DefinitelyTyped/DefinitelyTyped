@@ -478,11 +478,11 @@ export function withSort(array: any[], prop: string, options: object): string;
  * Block helper that return an array with all duplicate
  * values removed. Best used along with a [each](#each) helper.
  *
-  * ```handlebars
-  * <!-- array: ['a', 'a', 'c', 'b', 'e', 'e'] -->
-  * {{#each (unique array)}}{{.}}{{/each}}
-  * <!-- results in: 'acbe' -->
-  * ```
+ * ```handlebars
+ * <!-- array: ['a', 'a', 'c', 'b', 'e', 'e'] -->
+ * {{#each (unique array)}}{{.}}{{/each}}
+ * <!-- results in: 'acbe' -->
+ * ```
  * @param {Array} `array`
  * @param {Object} `options`
  * @return {Array}

@@ -3,7 +3,7 @@
  *
  * ```handlebars
  * {{toRegex "foo"}}
-  * <!-- results in: /foo/ -->
+ * <!-- results in: /foo/ -->
  * ```
  * @param {String} `str`
  * @return {RegExp}
@@ -17,11 +17,11 @@ export function toRegex(str: string, locals: any, options: any): RegExp;
  *
  * ```handlebars
  * {{test "bar" (toRegex "foo")}}
-  * <!-- results in: false -->
+ * <!-- results in: false -->
  * {{test "foobar" (toRegex "foo")}}
-  * <!-- results in: true -->
+ * <!-- results in: true -->
  * {{test "foobar" (toRegex "^foo$")}}
-  * <!-- results in: false -->
+ * <!-- results in: false -->
  * ```
  * @param {String} `str`
  * @return {RegExp}
