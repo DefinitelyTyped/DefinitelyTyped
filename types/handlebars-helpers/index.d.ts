@@ -1,46 +1,25 @@
-import * as Handlebars from "handlebars";
+declare module 'handlebars-helpers' {
+  type Groups = typeof import('./lib/index.js');
 
-declare function helpers(
-    groups?: helpers.Options | string | string[],
-    options?: helpers.Options,
-): { [name: string]: Handlebars.HelperDelegate };
+  // Keys of the category object whose value is a real helper group. Groups typed
+  // `any` (e.g. `logging`) are dropped so they can't collapse the merge to `any`.
+  type HelperGroupKeys<T> = {
+    [K in keyof T]: 0 extends 1 & T[K] ? never : K;
+  }[keyof T];
 
-interface Utils {
-    /**
-     * Returns true if the given value contains the given
-     * `object`, optionally passing a starting index.
-     */
-    contains<T>(val: T[], obj: T, start: number): boolean;
+  type UnionToIntersection<U> = (
+    U extends unknown ? (group: U) => void : never
+  ) extends (group: infer I) => void
+    ? I
+    : never;
 
-    /**
-     * Remove leading and trailing whitespace and non-word
-     * characters from the given string.
-     */
-    chop(str: string): string;
+  /** All helpers, flattened from every category group into one object. */
+  type Helpers = UnionToIntersection<Groups[HelperGroupKeys<Groups>]>;
 
-    /**
-     * Change casing on the given `string`, optionally
-     * passing a delimiter to use between words in the
-     * returned string.
-     *
-     * ```handlebars
-     * utils.changecase('fooBarBaz');
-     * //=> 'foo bar baz'
-     *
-     * utils.changecase('fooBarBaz' '-');
-     * //=> 'foo-bar-baz'
-     * ```
-     */
-    changecase(str: string, fn: (str: string) => string): string;
+  /**
+   * `handlebars-helpers`' default export: call it (optionally scoped to a group
+   * name / with options) to get the object of all registered helpers.
+   */
+  const helpers: (groups?: any, options?: any) => Helpers;
+  export = helpers;
 }
-
-declare namespace helpers {
-    interface Options {
-        handlebars?: typeof Handlebars | undefined;
-        hbs?: typeof Handlebars | undefined;
-    }
-
-    const utils: Utils;
-}
-
-export = helpers;
