@@ -61,6 +61,8 @@ const config: Partial<Config> = {
     modeBarButtonsToAdd: [
         "togglespikelines",
         "togglehover",
+        "drawrect",
+        "zoom",
         {
             name: "customButton",
             title: "Custom Action",
