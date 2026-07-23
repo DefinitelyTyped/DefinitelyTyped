@@ -1136,6 +1136,10 @@
             "libraryName": "comment-json",
             "asOfVersion": "2.4.1"
         },
+        "commerce7__admin-ui": {
+            "libraryName": "commerce7__admin-ui",
+            "asOfVersion": "2.0.47"
+        },
         "commitlint__load": {
             "libraryName": "@commitlint/load",
             "asOfVersion": "9.0.0"
