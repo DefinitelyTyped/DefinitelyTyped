@@ -308,7 +308,7 @@ export class Client extends ClientBase {
     end(callback: (err: Error) => void): void;
 }
 
-export interface PoolClient extends ClientBase {
+export interface PoolClient extends Client {
     release(err?: Error | boolean): void;
 }
 

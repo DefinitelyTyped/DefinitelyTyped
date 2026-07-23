@@ -303,6 +303,15 @@ pool.connect().then(client => {
         );
 });
 
+pool.connect().then(client => {
+    // PoolClient must contain the complete Client API.
+    const pgClient: Client = client;
+    void pgClient;
+
+    // Pool-specific clients must also be releasable.
+    client.release();
+});
+
 pool.on("error", (err, client) => {
     // $ExpectType PoolClient
     client;
