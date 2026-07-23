@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260713
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/4f163e00c83c227874a3515107e556362618c4c5
+// Tests for Google Publisher Tag 1.20260720
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/5e924db820c7183dac8a546278ff53b91ddeb147
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -972,23 +972,6 @@ function test_googletag_config_pageSettingsConfig_autoRefresh() {
     googletag.setConfig({ autoRefresh: null });
 }
 
-// Test for googletag.config.PageSettingsConfig.continueButton
-function test_googletag_config_pageSettingsConfig_continueButton() {
-    // Configure continue button settings.
-    googletag.setConfig({
-        continueButton: {
-            font: "Arial",
-            fontColor: "white",
-            backgroundColor: "blue",
-            targetId: "target-div-id",
-            freqCapIntervalMinutes: 20,
-        },
-    });
-
-    // Clear continue button settings.
-    googletag.setConfig({ continueButton: null });
-}
-
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments
 function test_googletag_config_privacyTreatmentsConfig_treatments() {
     // Disable personalization across the entire page.
@@ -1124,6 +1107,24 @@ function test_googletag_config_slotSettingsConfig_adsenseAttributes() {
 
     // Clear all AdSense attributes.
     slot.setConfig({ adsenseAttributes: null });
+}
+
+// Test for googletag.config.SlotSettingsConfig.continueButton
+function test_googletag_config_slotSettingsConfig_continueButton() {
+    const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!.addService(googletag.pubads());
+    // Configure continue button settings.
+    slot.setConfig({
+        continueButton: {
+            font: "Arial",
+            fontColor: "white",
+            backgroundColor: "blue",
+            targetId: "target-div-id",
+            freqCapIntervalMinutes: 20,
+        },
+    });
+
+    // Clear continue button settings.
+    slot.setConfig({ continueButton: null });
 }
 
 // Test for googletag.config.InterstitialConfig.triggers
