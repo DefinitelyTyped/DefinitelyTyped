@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/uxap/library" {
   /**
@@ -2013,8 +2013,7 @@ declare module "sap/uxap/ObjectPageAccessibleLandmarkInfo" {
   /**
    * Describes the settings that can be provided to the ObjectPageAccessibleLandmarkInfo constructor.
    */
-  export interface $ObjectPageAccessibleLandmarkInfoSettings
-    extends $ElementSettings {
+  export interface $ObjectPageAccessibleLandmarkInfoSettings extends $ElementSettings {
     /**
      * Landmark role of the root container of the corresponding `sap.uxap.ObjectPageLayout` control.
      *
@@ -2225,8 +2224,7 @@ declare module "sap/uxap/ObjectPageDynamicHeaderContent" {
   /**
    * Describes the settings that can be provided to the ObjectPageDynamicHeaderContent constructor.
    */
-  export interface $ObjectPageDynamicHeaderContentSettings
-    extends $DynamicPageHeaderSettings {}
+  export interface $ObjectPageDynamicHeaderContentSettings extends $DynamicPageHeaderSettings {}
 }
 
 declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
@@ -2337,8 +2335,7 @@ declare module "sap/uxap/ObjectPageDynamicHeaderTitle" {
   /**
    * Describes the settings that can be provided to the ObjectPageDynamicHeaderTitle constructor.
    */
-  export interface $ObjectPageDynamicHeaderTitleSettings
-    extends $DynamicPageTitleSettings {}
+  export interface $ObjectPageDynamicHeaderTitleSettings extends $DynamicPageTitleSettings {}
 }
 
 declare module "sap/uxap/ObjectPageHeader" {
@@ -3961,8 +3958,7 @@ declare module "sap/uxap/ObjectPageHeaderActionButton" {
   /**
    * Describes the settings that can be provided to the ObjectPageHeaderActionButton constructor.
    */
-  export interface $ObjectPageHeaderActionButtonSettings
-    extends $ButtonSettings {
+  export interface $ObjectPageHeaderActionButtonSettings extends $ButtonSettings {
     /**
      * Hide the button text when rendered into the headerTitle part of the ObjectPageLayout. This is useful
      * if you want to display icons only in the headerTitle part but still want to display text + icon in the
@@ -4486,8 +4482,7 @@ declare module "sap/uxap/ObjectPageHeaderLayoutData" {
   /**
    * Describes the settings that can be provided to the ObjectPageHeaderLayoutData constructor.
    */
-  export interface $ObjectPageHeaderLayoutDataSettings
-    extends $LayoutDataSettings {
+  export interface $ObjectPageHeaderLayoutDataSettings extends $LayoutDataSettings {
     /**
      * If this property is set the control will be visible (or not) in a small sized layout.
      */
@@ -7476,8 +7471,7 @@ declare module "sap/uxap/ObjectPageSection" {
   /**
    * Describes the settings that can be provided to the ObjectPageSection constructor.
    */
-  export interface $ObjectPageSectionSettings
-    extends $ObjectPageSectionBaseSettings {
+  export interface $ObjectPageSectionSettings extends $ObjectPageSectionBaseSettings {
     /**
      * Determines whether to display the Section title or not.
      */
@@ -8361,8 +8355,7 @@ declare module "sap/uxap/ObjectPageSubSection" {
   /**
    * Describes the settings that can be provided to the ObjectPageSubSection constructor.
    */
-  export interface $ObjectPageSubSectionSettings
-    extends $ObjectPageSectionBaseSettings {
+  export interface $ObjectPageSubSectionSettings extends $ObjectPageSectionBaseSettings {
     /**
      * Determines whether to display the `SubSection` title or not.
      *

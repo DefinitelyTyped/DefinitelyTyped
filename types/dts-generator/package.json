@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/bluebird": "*",
-        "typescript": "*"
+        "typescript": "<7"
     },
     "devDependencies": {
         "@types/dts-generator": "workspace:."

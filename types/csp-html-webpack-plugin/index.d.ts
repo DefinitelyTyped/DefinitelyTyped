@@ -1,5 +1,6 @@
+import { CheerioAPI } from "cheerio";
 import { AsyncSeriesWaterfallHook } from "tapable";
-import { Compiler as WebpackCompiler } from "webpack";
+import { compilation, Compiler as WebpackCompiler } from "webpack";
 import HtmlWebpackPlugin = require("html-webpack-plugin");
 
 export = CspHtmlWebpackPlugin;
@@ -7,8 +8,8 @@ export = CspHtmlWebpackPlugin;
 declare class CspHtmlWebpackPlugin {
     /**
      * Setup for our plugin
-     * @param policy - the policy object
-     * @param additionalOpts - additional config options
+     * @param policy a flat object which defines your CSP policy. Valid keys and values can be found on the [MDN CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy) page. Values can either be a string, or an array of strings.
+     * @param additionalOpts a flat object with the optional configuration options
      */
     constructor(
         policy?: CspHtmlWebpackPlugin.Policy,
@@ -38,10 +39,7 @@ declare namespace CspHtmlWebpackPlugin {
         [directive: string]: string | string[];
     }
 
-    // HtmlWebpackPlugin v3 and v4 use different hook interfaces. Figure out
-    // which we're using and infer the generic type variable inside.
-    type HtmlPluginData = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV3<infer T> ? T
-        : HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV4<infer U> ? U
+    type HtmlPluginData = HtmlWebpackPlugin.Hooks extends HtmlPluginDataHookV4<infer U> ? U
         : any; // Fallback when nothing works.
 
     /**
@@ -88,6 +86,20 @@ declare namespace CspHtmlWebpackPlugin {
          * include nonces.
          */
         nonceEnabled?: { [directive: string]: boolean } | undefined;
+        /**
+         * Allows the developer to overwrite the default method of what happens to the CSP after it has been created.
+         *
+         * @param builtPolicy A string containing the completed policy
+         * @param htmlPluginData The `HtmlWebpackPlugin` object
+         * @param $ The `cheerio` object of the html file currently being processed
+         * @param compilation Internal webpack object to manipulate the build
+         */
+        processFn?(
+            builtPolicy: string,
+            htmlPluginData: HtmlPluginData,
+            $: CheerioAPI,
+            compilation: compilation.Compilation,
+        ): void;
     }
 }
 
@@ -99,12 +111,6 @@ declare module "html-webpack-plugin" {
             }
             | undefined;
     }
-}
-
-// Helpers for extracting the relevant generic types from
-// HtmlWebpackPlugin.Hooks.
-interface HtmlPluginDataHookV3<T> {
-    htmlWebpackPluginAfterHtmlProcessing: AsyncSeriesWaterfallHook<T>;
 }
 
 interface HtmlPluginDataHookV4<T> {

@@ -82,6 +82,48 @@ declare namespace Safie {
     }
 
     /**
+     * SDK全体の設定に関する機能群
+     */
+    namespace Config {
+        /**
+         * テーマの設定に関する機能群
+         */
+        namespace Theme {
+            /** 設定可能なテーマ種別 */
+            type ThemeType = "light" | "dark" | "system";
+            /**
+             * テーマを設定します。
+             * #### 概要
+             * - SDK全体のテーマを設定します
+             * - 現在アクティブな全てのSDKコンポーネント（StreamingPlayer, Timeline等）に即時反映されます
+             * - "system"を指定するとOSのカラースキーム設定がリアルタイムに反映されます
+             * - 設定しない場合、デフォルトとして"light"が適用されます
+             * @param theme テーマ種別
+             * @throws {@link ErrorDetail} `ThemeType`以外の値を指定した場合にスローされます
+             * @example
+             * ```js
+             * //ダークテーマに設定
+             * Safie.Config.Theme.set('dark');
+             * //OSのカラースキームに追従
+             * Safie.Config.Theme.set('system');
+             * ```
+             */
+            function set(theme: ThemeType): void;
+            /**
+             * 現在設定されているテーマ種別を返します。
+             * #### 概要
+             * - 現在設定されているテーマ種別を返します
+             * @returns 設定されているテーマ種別
+             * @example
+             * ```js
+             * const theme = Safie.Config.Theme.get();
+             * ```
+             */
+            function get(): ThemeType;
+        }
+    }
+
+    /**
      * デバイス情報の操作に関する機能群
      */
     namespace Devices {
@@ -122,10 +164,9 @@ declare namespace Safie {
                 serverConnecting: boolean;
             };
             /**
-             * @hidden
-             * デバイスのcapability情報
+             * デバイスの機能情報のリスト
              */
-            capabilities?: string[];
+            capabilities: string[];
         }
         /**
          * デバイス一覧取得の結果
@@ -305,6 +346,7 @@ declare namespace Safie {
          * @param options.limit 返却するリストの最大件数 (規定値: 20, 最大値: 100)
          * @param options.offset 返却するリストのオフセット (規定値: 0)
          * @param options.itemId デバイスに設定されているオプションによる絞り込み
+         * @param options.deviceIds デバイスIDによる絞り込み
          * @returns
          * @throws {@link ErrorDetail}
          * @example
@@ -317,6 +359,7 @@ declare namespace Safie {
             limit?: number;
             offset?: number;
             itemId?: number;
+            deviceIds?: string[];
         }): Promise<QueryDevicesResult>;
         /**
          * サムネイル取得
@@ -725,8 +768,6 @@ declare namespace Safie {
          * ストリーミングプレイヤー
          * #### 概要
          * 映像のストリーミング再生を行うプレイヤーです。
-         * #### 制限:
-         * - ハイブリッド録画プランを利用のデバイスにおいて、通信を開始後にSafie Developersのアプリケーションの変更及びデバイスオプションの削除を行っても、視聴中は反映されません。
          * #### 必要な権限:
          * - ライブ + 録画(VOD配信、タイムライン連携時の場合)
          * #### 必要なOAuth2.0 scope:

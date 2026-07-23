@@ -4,9 +4,10 @@ declare class AuthToken {
     constructor(scope: string | string[] | number | DBKey, data?: string);
     scope: string;
     data: string;
-    expires: Date;
+    expires: Date | null;
     description: string;
-    userKey: number | DBKey;
+    userKey: number;
+    context: string;
 }
 declare namespace AuthToken {
     export { DBKey };

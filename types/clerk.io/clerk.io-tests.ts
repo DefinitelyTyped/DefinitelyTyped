@@ -48,4 +48,19 @@ if (window.Clerk) {
         facets: null,
         status: "ok",
     };
+
+    // Test that `attributes` narrows the keys of `product_data` in the response
+    window.Clerk("call", "search/search", {
+        key: "test-key",
+        query: "test",
+        limit: 5,
+        attributes: ["sku", "title"],
+    }, (response) => {
+        if (response.product_data) {
+            response.product_data[0].sku; // $ExpectType unknown
+            response.product_data[0].title; // $ExpectType unknown
+            // @ts-expect-error
+            response.product_data[0].description;
+        }
+    });
 }

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/safie-sdk",
-    "version": "1.8.9999",
+    "version": "1.9.9999",
     "projects": [
         "https://developers.safie.link/"
     ],
@@ -12,6 +12,10 @@
         {
             "name": "Safie Inc.",
             "githubUsername": "SafieDev"
+        },
+        {
+            "name": "Yusuke Oba",
+            "githubUsername": "yusuke-oba1"
         }
     ],
     "nonNpm": true,

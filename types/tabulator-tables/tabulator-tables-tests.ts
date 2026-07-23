@@ -899,10 +899,22 @@ table = new Tabulator("#example-table", {
                 return value >= params.legalAge;
             },
             accessorHtmlOutputParams: { legalAge: 18 },
+            headerFilter: "input",
+        },
+        {
+            title: "Name2",
+            field: "name2",
+            headerFilter: "list",
+            headerFilterParams: {
+                multiselect: true,
+                values: ["value1", "value2", "value3"],
+            },
         },
     ],
 });
 const filterVal = table.getHeaderFilterValue("name");
+table.setHeaderFilterValue("name", "value");
+table.setHeaderFilterValue("name2", ["value1", "value3"]);
 table.recalc();
 const columns = table.getColumns(true);
 columns.forEach(col => col.getDefinition());

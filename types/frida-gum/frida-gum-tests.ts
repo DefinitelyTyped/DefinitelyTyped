@@ -291,10 +291,16 @@ const checksum = new Checksum("sha512");
 // $ExpectType Checksum
 checksum.update("abc");
 checksum.update(new Uint8Array([1, 2, 3]).buffer).update([4, 5, 6]);
+// $ExpectType Checksum
+checksum.copy();
 // $ExpectType string
 checksum.getString();
+// $ExpectType string
+checksum.peekString();
 // $ExpectType ArrayBuffer
 checksum.getDigest();
+// $ExpectType ArrayBuffer
+checksum.peekDigest();
 // @ts-expect-error
 new Checksum("unknown-type");
 
@@ -315,6 +321,22 @@ Interceptor.attach(puts, {
     onLeave(retval) {
         // $ExpectType InvocationReturnValue
         retval;
+    },
+});
+
+Interceptor.attach(puts, {
+    onEnter() {
+        const ia32 = this.context as Ia32CpuContext;
+        // $ExpectType ArrayBuffer
+        ia32.xmm0;
+        const ia32Xmm7: ArrayBuffer = ia32.xmm7;
+        void ia32Xmm7;
+
+        const x64 = this.context as X64CpuContext;
+        // $ExpectType ArrayBuffer
+        x64.xmm0;
+        const x64Xmm15: ArrayBuffer = x64.xmm15;
+        void x64Xmm15;
     },
 });
 
@@ -534,3 +556,17 @@ for (const e of Process.getModuleByName("libc.so").enumerateExports()) {
     // $ExpectType number | undefined
     e.size;
 }
+
+const x86Writer = new X86Writer(Memory.alloc(Process.pageSize));
+x86Writer.putVmovdqu64RegOffsetPtrZmm("rax", 0, 0);
+x86Writer.putVmovdqu64ZmmRegOffsetPtr(0, "rax", 0);
+x86Writer.putVextracti64x4RegOffsetPtrZmm("rax", 0, 0, 1);
+x86Writer.putVinserti64x4ZmmRegOffsetPtr(0, "rax", 0, 1);
+x86Writer.putKmovqRegOffsetPtrKreg("rax", 0, 0);
+x86Writer.putKmovqKregRegOffsetPtr(0, "rax", 0);
+x86Writer.flush();
+
+const arm64Writer = new Arm64Writer(Memory.alloc(Process.pageSize));
+arm64Writer.putMovkRegImm("x0", 0x1234, 16);
+arm64Writer.putPaciaRegReg("x0", "x1");
+arm64Writer.flush();
