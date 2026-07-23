@@ -1137,7 +1137,7 @@
             "asOfVersion": "2.4.1"
         },
         "commerce7__admin-ui": {
-            "libraryName": "commerce7__admin-ui",
+            "libraryName": "@commerce7/admin-ui",
             "asOfVersion": "2.0.47"
         },
         "commitlint__load": {
