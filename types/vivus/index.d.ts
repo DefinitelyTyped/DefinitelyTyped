@@ -5,7 +5,7 @@ export as namespace Vivus;
  * Take any SVG and make the animation
  * to give give the impression of live drawing
  */
-declare class Vivus {
+declare class Vivus<T extends Element> {
     static LINEAR: Vivus.TimingFunction;
     static EASE: Vivus.TimingFunction;
     static EASE_OUT: Vivus.TimingFunction;
@@ -17,7 +17,7 @@ declare class Vivus {
      * @param options Options about the animation
      * @param callback Callback for the end of the animation
      */
-    constructor(element: string | HTMLElement, options?: Vivus.VivusOptions, callback?: (vivusInstance: Vivus) => void);
+    constructor(element: string | T, options?: Vivus.VivusOptions, callback?: (vivusInstance: Vivus) => void);
 
     /**
      * Plays the animation with the speed given in parameter.
@@ -68,7 +68,7 @@ declare class Vivus {
     /**
      * for types of HTMLElement
      */
-    el: HTMLElement;
+    el: T;
 }
 
 declare namespace Vivus {
