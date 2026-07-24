@@ -64,6 +64,8 @@ declare namespace DNS {
 
     interface DnsQuestion {
         name: string;
+        type: typeof Packet.TYPE[keyof typeof Packet.TYPE];
+        class: DNS.PacketClass;
     }
 
     interface DnsResponse {
