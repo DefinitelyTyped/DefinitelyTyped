@@ -110,5 +110,48 @@ sdk.stockAdjustments.create({
     const adjustmentId: string = response.data.data.id.uuid;
 });
 
+// Mark a user's email as verified (added in integration-sdk 1.12)
+sdk.users.verifyEmail({
+    id: "user-id",
+    email: "test@example.com",
+}).then((response) => {
+    const userId: string = response.data.data.id.uuid;
+});
+
+// Query messages by transaction or by ids (added in integration-sdk 1.13)
+sdk.messages.query({ transactionId: "transaction-id" }).then((response) => {
+    const firstMessage = response.data.data[0];
+    if (firstMessage) {
+        const content: string = firstMessage.attributes.content;
+    }
+});
+sdk.messages.query({ ids: ["message-id"], include: ["sender"] }).then((response) => {
+    const totalPages: number = response.data.meta.totalPages;
+});
+
+// Query files with the supported filters (added in integration-sdk 1.13)
+sdk.files.query({
+    ownerId: "user-id",
+    messageId: "message-id",
+    ids: ["file-id"],
+    createdAtStart: new Date("2024-01-01T00:00:00.000Z"),
+    createdAtEnd: "2024-12-31T23:59:59.000Z",
+    include: ["owner"],
+}).then((response) => {
+    const firstFile = response.data.data[0];
+    if (firstFile) {
+        const state: string = firstFile.attributes.state;
+        const ownerRef: string = firstFile.relationships.owner.data.id.uuid;
+    }
+});
+
+// Query file attachments by message or file ids (added in integration-sdk 1.13)
+sdk.fileAttachments.query({ messageId: "message-id", fileIds: ["file-id"], include: ["file"] }).then((response) => {
+    const firstAttachment = response.data.data[0];
+    if (firstAttachment) {
+        const scope: "public" = firstAttachment.attributes.scope;
+    }
+});
+
 const rateLimiterConfig = util.prodQueryLimiterConfig;
 const rateLimiter = util.createRateLimiter(rateLimiterConfig);

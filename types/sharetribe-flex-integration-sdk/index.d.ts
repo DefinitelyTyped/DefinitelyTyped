@@ -241,6 +241,80 @@ export interface Message {
 }
 
 /**
+ * Lifecycle state of a file resource
+ */
+export type FileState = "pendingUpload" | "pendingVerification" | "available" | "verificationFailed";
+
+/**
+ * A single automatic verification check performed on a file (e.g. `{ type: "malwareScan", result: "success" }`)
+ */
+export interface FileVerificationCheck {
+    type: string;
+    result: string;
+}
+
+/**
+ * File attributes
+ */
+export interface FileAttributes {
+    name: string;
+    size: number;
+    state: FileState;
+    verificationChecks: FileVerificationCheck[];
+    requiredVerificationChecks: string[];
+    createdAt: string;
+    stateUpdatedAt: string;
+    deleted: boolean;
+}
+
+/**
+ * File relationships
+ */
+export interface FileRelationships {
+    owner: {
+        data: ResourceReference;
+    };
+    marketplace: {
+        data: ResourceReference;
+    };
+}
+
+/**
+ * File resource
+ */
+export interface File {
+    id: UUID;
+    type: "file";
+    attributes: FileAttributes;
+    relationships: FileRelationships;
+}
+
+/**
+ * File attachment relationships. The `message` relationship is only present when the file is attached to a message.
+ */
+export interface FileAttachmentRelationships {
+    file: {
+        data: ResourceReference;
+    };
+    message?: {
+        data: ResourceReference;
+    };
+}
+
+/**
+ * File attachment resource (links a file to a transaction message)
+ */
+export interface FileAttachment {
+    id: UUID;
+    type: "fileAttachment";
+    attributes: {
+        scope: "public";
+        deleted: boolean;
+    };
+    relationships: FileAttachmentRelationships;
+}
+
+/**
  * Event attributes
  */
 export interface EventAttributes {
@@ -527,6 +601,13 @@ export interface IntegrationSdk {
             },
             options?: PerRequestOptions,
         ) => Promise<MutationResponse<User>>;
+        /**
+         * Mark a user's email as verified. The email must match the user's primary email or pending email.
+         */
+        verifyEmail: (
+            params: { id: UUID | string; email: string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
     };
 
     listings: {
@@ -740,6 +821,55 @@ export interface IntegrationSdk {
          * Show a specific stock reservation
          */
         show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<StockReservation>>;
+    };
+
+    messages: {
+        /**
+         * Query messages. Either `transactionId` or `ids` must be provided.
+         */
+        query: (
+            params:
+                & (
+                    | { transactionId: UUID | string; ids?: Array<UUID | string> }
+                    | { transactionId?: UUID | string; ids: Array<UUID | string> }
+                )
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<Message>>;
+    };
+
+    files: {
+        /**
+         * Query files
+         */
+        query: (
+            params?:
+                & {
+                    ids?: Array<UUID | string>;
+                    messageId?: UUID | string;
+                    ownerId?: UUID | string;
+                    createdAtStart?: Date | string;
+                    createdAtEnd?: Date | string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<File>>;
+    };
+
+    fileAttachments: {
+        /**
+         * Query file attachments
+         */
+        query: (
+            params?:
+                & {
+                    ids?: Array<UUID | string>;
+                    fileIds?: Array<UUID | string>;
+                    messageId?: UUID | string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<FileAttachment>>;
     };
 
     /**
