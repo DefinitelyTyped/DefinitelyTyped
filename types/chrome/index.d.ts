@@ -9165,9 +9165,11 @@ declare namespace chrome {
         }
 
         interface ManifestAction {
-            default_icon?: ManifestIcons | undefined;
+            default_icon?: ManifestIcons | string | undefined;
             default_title?: string | undefined;
             default_popup?: string | undefined;
+            /** @default 'enabled' */
+            default_state?: "enabled" | "disabled";
         }
 
         /** Source: https://developer.chrome.com/docs/extensions/reference/permissions-list */
@@ -9273,22 +9275,37 @@ declare namespace chrome {
             | "webAuthenticationProxy"
         >;
 
+        /** A search engine. */
         interface SearchProvider {
+            /** Name of the search engine displayed to user. This is required if you don't set `prepopulated_id`. */
             name?: string | undefined;
+            /** An omnibox keyword for the search engine. This is required if you don't set `prepopulated_id`. */
             keyword?: string | undefined;
+            /** An icon URL for the search engine. This is required if you don't set `prepopulated_id`. */
             favicon_url?: string | undefined;
+            /** The search URL the search engine uses. */
             search_url: string;
+            /** The encoding used for search terms. This is required if you don't set `prepopulated_id`. */
             encoding?: string | undefined;
+            /** The URL the search engine uses for suggestions. If this isn't used, the engine doesn't support suggestions. */
             suggest_url?: string | undefined;
             instant_url?: string | undefined;
+            /** The URL the search engine uses for image search. If this isn't used, the engine doesn't support image search. */
             image_url?: string | undefined;
+            /** The post parameters for `search_url`. */
             search_url_post_params?: string | undefined;
+            /** The post parameters for `suggest_url`. */
             suggest_url_post_params?: string | undefined;
+            /** The post parameters for `instant_url`. */
             instant_url_post_params?: string | undefined;
+            /** The post parameters for `image_url`. */
             image_url_post_params?: string | undefined;
+            /** A list of URL patterns that can be used in addition to `search_url`. */
             alternate_urls?: string[] | undefined;
+            /** An ID for Chrome's built-in search engine. */
             prepopulated_id?: number | undefined;
-            is_default?: boolean | undefined;
+            /** Specifies whether the search provider should be default. */
+            is_default: boolean;
         }
 
         interface ManifestBase {
@@ -9313,8 +9330,10 @@ declare namespace chrome {
             author?: { email: string } | undefined;
             /** Defines overrides for selected Chrome settings.  */
             chrome_settings_overrides?: {
+                /** The new value for the homepage. */
                 homepage?: string | undefined;
                 search_provider?: SearchProvider | undefined;
+                /** An array of length one containing a URL to be used as the startup page. */
                 startup_pages?: string[] | undefined;
             } | undefined;
             /** Defines overrides for default Chrome pages. */
@@ -9326,13 +9345,16 @@ declare namespace chrome {
             /** Defines keyboard shortcuts within the extension. */
             commands?: {
                 [name: string]: {
-                    suggested_key?: {
-                        default?: string | undefined;
-                        windows?: string | undefined;
-                        mac?: string | undefined;
-                        chromeos?: string | undefined;
-                        linux?: string | undefined;
-                    } | undefined;
+                    suggested_key?:
+                        | {
+                            default?: string | undefined;
+                            windows?: string | undefined;
+                            mac?: string | undefined;
+                            chromeos?: string | undefined;
+                            linux?: string | undefined;
+                        }
+                        | string
+                        | undefined;
                     description?: string | undefined;
                     global?: boolean | undefined;
                 };
@@ -9348,7 +9370,7 @@ declare namespace chrome {
             cross_origin_opener_policy?: { value: string } | undefined;
             current_locale?: string | undefined;
             /** Defines static rules for the declarativeNetRequest API, which allows blocking and modifying of network requests. */
-            declarative_net_request?: { rule_resources?: declarativeNetRequest.Ruleset[] } | undefined;
+            declarative_net_request?: { rule_resources: declarativeNetRequest.Ruleset[] } | undefined;
             /** Defines pages that use the DevTools APIs. */
             devtools_page?: string | undefined;
             event_rules?:
@@ -9420,20 +9442,13 @@ declare namespace chrome {
             /** Allows the use of an OAuth 2.0 security ID. The value of this key must be an object with "client_id" and "scopes" properties. */
             oauth2?: {
                 client_id: string;
-                scopes?: string[] | undefined;
+                scopes: string[];
             } | undefined;
             offline_enabled?: boolean | undefined;
             /** Allows the extension to register a keyword in Chrome's address bar. */
             omnibox?: { keyword: string } | undefined;
             /** Specifies a path to an options.html file for the extension to use as an options page. */
             options_page?: string | undefined;
-            /** Specifies a path to an HTML file that lets a user change extension options from the Chrome Extensions page. */
-            options_ui?: {
-                /** Path to the options page, relative to the extension's root. */
-                page: string;
-                /** Specify as `false` to declare an embedded options page. If `true`, the extension's options page will be opened in a new tab rather than embedded in `chrome://extensions`. */
-                open_in_tab: boolean;
-            } | undefined;
             /** Lists technologies required to use the extension. */
             requirements?: {
                 "3D"?: { features?: string[] | undefined } | undefined;
@@ -9469,8 +9484,8 @@ declare namespace chrome {
             manifest_version: 2;
 
             // Pick one (or none)
-            browser_action?: ManifestAction | undefined;
-            page_action?: ManifestAction | undefined;
+            browser_action?: Omit<ManifestAction, "default_state"> | undefined;
+            page_action?: Omit<ManifestAction, "default_state"> | undefined;
 
             // Optional
             background?:
@@ -9496,6 +9511,15 @@ declare namespace chrome {
                 | undefined;
             /** Defines restrictions on the scripts, styles, and other resources an extension can use. */
             content_security_policy?: string | undefined;
+            /** Specifies a path to an HTML file that lets a user change extension options from the Chrome Extensions page. */
+            options_ui?: {
+                /** Path to the options page, relative to the extension's root. */
+                page: string;
+                /** If `true`, a Chrome user agent stylesheet will be applied to your options page. Defaults to `false`. */
+                chrome_style?: boolean | undefined;
+                /** Specify as `false` to declare an embedded options page. If `true`, the extension's options page will be opened in a new tab rather than embedded in `chrome://extensions`. */
+                open_in_tab?: boolean | undefined;
+            } | undefined;
             /** Declares optional permissions for your extension. */
             optional_permissions?: (ManifestOptionalPermission | string)[] | undefined;
             /** Enables use of particular extension APIs. */
@@ -9559,6 +9583,13 @@ declare namespace chrome {
                 | undefined;
             /** Lists the web pages your extension is allowed to interact with, defined using URL match patterns. User permission for these sites is requested at install time. */
             host_permissions?: string[] | undefined;
+            /** Specifies a path to an HTML file that lets a user change extension options from the Chrome Extensions page. */
+            options_ui?: {
+                /** Specifies the path to the options page, relative to the extension's root. */
+                page: string;
+                /** Indicates whether the extension's options page will be opened in a new tab. If set to `false`, the extension's options page is embedded in `chrome://extensions` rather than opened in a new tab. */
+                open_in_tab?: boolean | undefined;
+            } | undefined;
             /** Declares optional permissions for your extension. */
             optional_permissions?: ManifestOptionalPermission[] | undefined;
             /** Declares optional host permissions for your extension. */

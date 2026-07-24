@@ -1033,6 +1033,42 @@ function testGetManifest() {
         manifest.author.email; // $ExpectType string
     }
 
+    if (manifest.chrome_settings_overrides) {
+        manifest.chrome_settings_overrides.homepage; // $ExpectType string | undefined
+        manifest.chrome_settings_overrides.startup_pages; // $ExpectType string[] | undefined
+        if (manifest.chrome_settings_overrides.search_provider) {
+            manifest.chrome_settings_overrides.search_provider.name; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.keyword; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.favicon_url; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.search_url; // $ExpectType string
+            manifest.chrome_settings_overrides.search_provider.encoding; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.suggest_url; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.instant_url; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.image_url; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.search_url_post_params; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.suggest_url_post_params; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.instant_url_post_params; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.image_url_post_params; // $ExpectType string | undefined
+            manifest.chrome_settings_overrides.search_provider.alternate_urls; // $ExpectType string[] | undefined
+            manifest.chrome_settings_overrides.search_provider.prepopulated_id; // $ExpectType number | undefined
+            manifest.chrome_settings_overrides.search_provider.is_default; // $ExpectType boolean
+        }
+    }
+
+    if (manifest.commands?.foobar) {
+        if (typeof manifest.commands.foobar.suggested_key === "object") {
+            manifest.commands.foobar.suggested_key.default; // $ExpectType string | undefined
+            manifest.commands.foobar.suggested_key.windows; // $ExpectType string | undefined
+            manifest.commands.foobar.suggested_key.mac; // $ExpectType string | undefined
+            manifest.commands.foobar.suggested_key.chromeos; // $ExpectType string | undefined
+            manifest.commands.foobar.suggested_key.linux; // $ExpectType string | undefined
+        } else {
+            manifest.commands.foobar.suggested_key; // $ExpectType string | undefined
+        }
+        manifest.commands.foobar.global; // $ExpectType boolean | undefined
+        manifest.commands.foobar.description; // $ExpectType string | undefined
+    }
+
     if (manifest.cross_origin_embedder_policy) {
         manifest.cross_origin_embedder_policy.value; // $ExpectType string
     }
@@ -1080,9 +1116,9 @@ function testGetManifest() {
         manifest.input_components[0].options_page; // $ExpectType string | undefined
     }
 
-    if (manifest.options_ui) {
-        manifest.options_ui.page; // $ExpectType string
-        manifest.options_ui.open_in_tab; // $ExpectType boolean
+    if (manifest.oauth2) {
+        manifest.oauth2.client_id; // $ExpectType string
+        manifest.oauth2.scopes; // $ExpectType string[]
     }
 
     if (manifest.sandbox) {
@@ -1091,8 +1127,27 @@ function testGetManifest() {
     }
 
     if (manifest.manifest_version === 2) {
-        manifest.browser_action; // $ExpectType ManifestAction | undefined
-        manifest.page_action; // $ExpectType ManifestAction | undefined
+        if (manifest.page_action) {
+            manifest.page_action.default_icon; // $ExpectType ManifestIcons | string | undefined
+            manifest.page_action.default_title; // $ExpectType string | undefined
+            manifest.page_action.default_popup; // $ExpectType string | undefined
+            // @ts-expect-error The default_state key cannot be set for browser_action or page_action keys.
+            manifest.page_action.default_state;
+        }
+
+        if (manifest.browser_action) {
+            manifest.browser_action.default_icon; // $ExpectType ManifestIcons | string | undefined
+            manifest.browser_action.default_title; // $ExpectType string | undefined
+            manifest.browser_action.default_popup; // $ExpectType string | undefined
+            // @ts-expect-error The default_state key cannot be set for browser_action or page_action keys.
+            manifest.browser_action.default_state;
+        }
+
+        if (manifest.options_ui) {
+            manifest.options_ui.page; // $ExpectType string
+            manifest.options_ui.open_in_tab; // $ExpectType boolean | undefined
+            manifest.options_ui.chrome_style; // $ExpectType boolean | undefined
+        }
 
         manifest.content_security_policy; // $ExpectType string | undefined
 
@@ -1107,7 +1162,19 @@ function testGetManifest() {
 
         manifest.web_accessible_resources; // $ExpectType string[] | undefined
     } else if (manifest.manifest_version === 3) {
-        manifest.action; // $ExpectType ManifestAction | undefined
+        if (manifest.action) {
+            manifest.action.default_icon; // $ExpectType ManifestIcons | string | undefined
+            manifest.action.default_title; // $ExpectType string | undefined
+            manifest.action.default_popup; // $ExpectType string | undefined
+            manifest.action.default_state; // $ExpectType 'enabled' | 'disabled' | undefined
+        }
+
+        if (manifest.options_ui) {
+            manifest.options_ui.page; // $ExpectType string
+            manifest.options_ui.open_in_tab; // $ExpectType boolean | undefined
+            // @ts-expect-error The chrome_style option cannot be used with manifest version 3.
+            manifest.options_ui.chrome_style;
+        }
 
         // @ts-expect-error
         manifest.content_security_policy = "default-src 'self'";
@@ -1202,6 +1269,11 @@ function testGetManifest() {
             },
         ],
         content_security_policy: "default-src 'self'",
+        options_ui: {
+            page: "options.html",
+            open_in_tab: true,
+            chrome_style: true,
+        },
         optional_permissions: ["https://*/*"],
         permissions: ["https://*/*"],
         web_accessible_resources: ["some-page.html"],
@@ -1230,6 +1302,10 @@ function testGetManifest() {
         content_security_policy: {
             extension_pages: "default-src 'self'",
             sandbox: "default-src 'self'",
+        },
+        options_ui: {
+            page: "options.html",
+            open_in_tab: true,
         },
         host_permissions: ["http://*/*"],
         optional_permissions: ["cookies"],
