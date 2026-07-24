@@ -1,0 +1,120 @@
+{
+    "private": true,
+    "name": "@types/react-server-dom-rspack",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/SyMind/react/tree/react-server-dom-rspack/packages/react-server-dom-rspack"
+    ],
+    "exports": {
+        ".": {
+            "types": "./index.d.ts"
+        },
+        "./plugin": {
+            "types": "./plugin.d.ts"
+        },
+        "./client": {
+            "workerd": {
+                "types": "./client.edge.d.ts"
+            },
+            "deno": {
+                "types": "./client.edge.d.ts"
+            },
+            "worker": {
+                "types": "./client.edge.d.ts"
+            },
+            "node": {
+                "types": "./client.node.d.ts"
+            },
+            "edge-light": {
+                "types": "./client.edge.d.ts"
+            },
+            "browser": {
+                "types": "./client.browser.d.ts"
+            },
+            "types": "./client.browser.d.ts"
+        },
+        "./client.browser": {
+            "types": "./client.browser.d.ts"
+        },
+        "./client.edge": {
+            "types": "./client.edge.d.ts"
+        },
+        "./client.node": {
+            "types": "./client.node.d.ts"
+        },
+        "./server": {
+            "react-server": {
+                "workerd": {
+                    "types": "./server.edge.d.ts"
+                },
+                "deno": {
+                    "types": "./server.browser.d.ts"
+                },
+                "node": {
+                    "types": "./server.node.d.ts"
+                },
+                "edge-light": {
+                    "types": "./server.edge.d.ts"
+                },
+                "browser": {
+                    "types": "./server.browser.d.ts"
+                }
+            },
+            "types": "./server.d.ts"
+        },
+        "./server.browser": {
+            "types": "./server.browser.d.ts"
+        },
+        "./server.edge": {
+            "types": "./server.edge.d.ts"
+        },
+        "./server.node": {
+            "types": "./server.node.d.ts"
+        },
+        "./static": {
+            "react-server": {
+                "workerd": {
+                    "types": "./static.edge.d.ts"
+                },
+                "deno": {
+                    "types": "./static.browser.d.ts"
+                },
+                "node": {
+                    "types": "./static.node.d.ts"
+                },
+                "edge-light": {
+                    "types": "./static.edge.d.ts"
+                },
+                "browser": {
+                    "types": "./static.browser.d.ts"
+                }
+            },
+            "types": "./static.d.ts"
+        },
+        "./static.browser": {
+            "types": "./static.browser.d.ts"
+        },
+        "./static.edge": {
+            "types": "./static.edge.d.ts"
+        },
+        "./static.node": {
+            "types": "./static.node.d.ts"
+        },
+        "./package.json": "./package.json"
+    },
+    "dependencies": {
+        "@types/busboy": "*",
+        "@types/node": "*",
+        "@types/react": "^19.1.0",
+        "@types/react-dom": "^19.1.0"
+    },
+    "devDependencies": {
+        "@types/react-server-dom-rspack": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cong-Cong Pan",
+            "githubUsername": "SyMind"
+        }
+    ]
+}
