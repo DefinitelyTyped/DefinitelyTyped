@@ -1135,6 +1135,7 @@ export interface LayoutAxis extends Axis {
     angle: any;
     griddash: Dash;
     l2p: (v: Datum) => number;
+    d2p: (v: Datum) => number;
 
     autotickangles: number[];
     insiderange: any[];
