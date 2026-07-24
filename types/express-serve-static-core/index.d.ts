@@ -391,7 +391,7 @@ export interface ByteRange {
 
 export interface RequestRanges extends RangeParserRanges {}
 
-export type Errback = (err: Error) => void;
+export type Errback = (err?: Error) => void;
 
 /**
  * @param P  For most requests, this should be `ParamsDictionary`, but if you're
