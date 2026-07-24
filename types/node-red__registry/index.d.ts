@@ -145,7 +145,6 @@ declare namespace registry {
         onadd?(): void;
         _?: any;
         settings?: NodeSettings<TPluginDef> | undefined;
-        onadd?: () => void;
     }
     interface PluginDef {
         "*": unknown;
