@@ -903,7 +903,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      *
      * @param o
      */
-    static isDateTime(o: unknown): o is DateTimeMaybeValid;
+    static isDateTime(o: unknown): o is DateTime;
 
     /**
      * Produce the format string for a set of options
