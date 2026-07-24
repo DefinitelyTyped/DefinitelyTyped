@@ -46,10 +46,5 @@
         "risk": "^0.0.4",
         "typescript": "<7"
     },
-    "pnpm": {
-        "overrides": {
-            "fflate": "0.8.2"
-        }
-    },
     "type": "module"
 }
