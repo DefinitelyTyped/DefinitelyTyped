@@ -50,6 +50,22 @@ $("#button-additem").on("click", function() {
 $("#button-setvalue").on("click", function() {
     control.setValue([2, 3]);
 });
+$("#button-additems").on("click", function() {
+    control.addItems(2);
+    control.addItems([2, 3]);
+    control.addItems([2, 3], true);
+});
+$("#button-removeoptiongroup").on("click", function() {
+    control.removeOptionGroup("dodge");
+});
+$("#button-clearoptiongroups").on("click", function() {
+    control.clearOptionGroups();
+});
+
+// The original input element and the resolved settings are exposed on the control.
+var $original: JQuery = control.$input;
+var maxItems: number | undefined = control.settings.maxItems;
+var valueField: string | undefined = control.settings.valueField;
 
 // Cities example
 // --------------------------------------------------------------------------------------------------------------------
