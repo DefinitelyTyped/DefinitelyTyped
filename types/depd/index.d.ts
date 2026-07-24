@@ -31,7 +31,7 @@ declare global {
                 event: "deprecation",
                 listener: (deprecationError: depd.DeprecationError) => void,
             ): this;
-            listeners(event: "deprecation"): depd.DeprecationError[];
+            listeners(event: "deprecation"): Array<(deprecationError: depd.DeprecationError) => void>;
         }
     }
 }
