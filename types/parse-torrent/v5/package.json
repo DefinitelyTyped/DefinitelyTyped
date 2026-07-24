@@ -1,21 +1,14 @@
 {
     "private": true,
     "name": "@types/parse-torrent",
-    "version": "11.0.9999",
-    "type": "module",
-    "exports": {
-        ".": {
-            "types": {
-                "default": "./index.d.ts"
-            }
-        }
-    },
+    "version": "5.8.9999",
     "projects": [
         "https://github.com/webtorrent/parse-torrent"
     ],
     "dependencies": {
-        "@types/magnet-uri": "*",
-        "@types/node": "*"
+        "@types/magnet-uri": "^5",
+        "@types/node": "*",
+        "@types/parse-torrent-file": "*"
     },
     "devDependencies": {
         "@types/parse-torrent": "workspace:."
