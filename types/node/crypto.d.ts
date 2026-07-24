@@ -1185,7 +1185,7 @@ declare module "node:crypto" {
      * and it will be impossible to extract the private key from the returned object.
      * @since v11.6.0
      */
-    function createPublicKey(key: PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput | BinaryLike): KeyObject;
+    function createPublicKey(key: PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput | KeyLike): KeyObject;
     /**
      * Creates and returns a new key object containing a secret key for symmetric
      * encryption or `Hmac`.
