@@ -66,6 +66,12 @@ export interface MJMLParsingOptions {
      */
     filePath?: string | undefined;
     /**
+     * Directory (or directories) outside the template's own folder from which mj-include
+     * partials may be loaded. Added in mjml 5.1 as part of the include path-traversal hardening;
+     * includes resolving outside these allowed roots are denied.
+     */
+    includePath?: string | string[] | undefined;
+    /**
      * The path or directory of the .mjmlconfig file
      * default: process.cwd()
      */
