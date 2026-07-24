@@ -371,21 +371,36 @@ const q2 = async.queue<string>((task: string, callback: () => void) => {
     callback();
 }, 1);
 
-q2.push("task1");
-q2.push("task2", error => {
+// $ExpectType Promise<string>
+q2.push<string>("task1");
+// $ExpectType Promise<string>[] | undefined
+q2.push<string>(["task2", "task3"]);
+q2.push("task4", error => {
     console.log("Finished tasks");
 });
-q2.push(["task3", "task4", "task5"], error => {
+q2.push(["task5", "task6", "task7"], error => {
     console.log("Finished tasks");
 });
 
-q2.unshift("task1");
-q2.unshift("task2", error => {
+// $ExpectType Promise<string>
+q2.unshift<string>("task1");
+// $ExpectType Promise<string>[] | undefined
+q2.unshift<string>(["task2", "task3"]);
+q2.unshift("task4", error => {
     console.log("Finished tasks");
 });
-q2.unshift(["task3", "task4", "task5"], error => {
+q2.unshift(["task5", "task6", "task7"], error => {
     console.log("Finished tasks");
 });
+
+// $ExpectType Promise<string>
+q2.pushAsync<string>("task1");
+// $ExpectType Promise<string>[] | undefined
+q2.pushAsync<string>(["task2", "task3"]);
+// $ExpectType Promise<string>
+q2.unshiftAsync<string>("task1");
+// $ExpectType Promise<string>[] | undefined
+q2.unshiftAsync<string>(["task2", "task3"]);
 
 const q2Length = q2.length();
 q2.push("testRemovalTask");
