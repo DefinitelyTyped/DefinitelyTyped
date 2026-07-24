@@ -2553,10 +2553,18 @@ async function testAction() {
     // @ts-expect-error
     chrome.action.setBadgeTextColor(() => {}).then(() => {});
 
-    const tabIconDetails: chrome.action.TabIconDetails = { path: { "16": "path/to/icon.png" }, tabId };
+    const iconDetails: chrome.action.TabIconDetails = {
+        imageData: { 16: new ImageData(16, 16) },
+        tabId,
+    };
 
-    chrome.action.setIcon(tabIconDetails); // $ExpectType Promise<void>
-    chrome.action.setIcon(tabIconDetails, () => {}); // $ExpectType void
+    const iconDetails2: chrome.action.TabIconDetails = {
+        path: "path/to/icon.png",
+        tabId,
+    };
+
+    chrome.action.setIcon(iconDetails); // $ExpectType Promise<void>
+    chrome.action.setIcon(iconDetails2, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.action.setIcon(() => {}).then(() => {});
 
@@ -2586,7 +2594,6 @@ async function testAlarms() {
     const alarmCreateInfo: chrome.alarms.AlarmCreateInfo = {
         delayInMinutes: 1,
         periodInMinutes: 1,
-        when: 1,
         persistAcrossSessions: true,
     };
 
@@ -2597,7 +2604,7 @@ async function testAlarms() {
     // @ts-expect-error Must set at least one of when, delayInMinutes, or periodInMinutes.
     chrome.alarms.create("name", { persistAcrossSessions: true }, () => {});
     // @ts-expect-error Cannot set both when and delayInMinutes.
-    chrome.alarms.create("name", { when: 1, delayInMinutes: 1 }, () => {});
+    chrome.alarms.create("name", { when: 1, delayInMinutes: 1, periodInMinutes: 1 }, () => {});
     // @ts-expect-error
     chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
 
@@ -2841,7 +2848,7 @@ async function testManagement() {
     chrome.management.ExtensionType.HOSTED_APP === "hosted_app";
     chrome.management.ExtensionType.LEGACY_PACKAGED_APP === "legacy_packaged_app";
     chrome.management.ExtensionType.LOGIN_SCREEN_EXTENSION === "login_screen_extension";
-    chrome.management.ExtensionType.PACKAGE_APP === "package_app";
+    chrome.management.ExtensionType.PACKAGED_APP === "packaged_app";
     chrome.management.ExtensionType.THEME === "theme";
 
     chrome.management.LaunchType.OPEN_AS_PINNED_TAB === "OPEN_AS_PINNED_TAB";
@@ -2881,7 +2888,7 @@ async function testManagement() {
         result.optionsUrl; // $ExpectType string
         result.permissions; // $ExpectType string[]
         result.shortName; // $ExpectType string
-        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "package_app" | "theme"
+        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "packaged_app" | "theme"
         result.updateUrl; // $ExpectType string | undefined
         result.version; // $ExpectType string
         result.versionName; // $ExpectType string | undefined
@@ -3225,7 +3232,7 @@ async function testSystemDisplay() {
         layouts; // $ExpectType DisplayLayout[]
     });
     // @ts-expect-error
-    chrome.printing.getPrinterInfo(() => {}).then(() => {});
+    chrome.system.display.getDisplayLayout(() => {}).then(() => {});
 
     const flags = { singleUnified: true };
     chrome.system.display.getInfo(); // $ExpectType Promise<DisplayUnitInfo[]>
@@ -3274,9 +3281,11 @@ async function testSystemDisplay() {
     // @ts-expect-error
     chrome.system.display.setDisplayProperties("id", displayProperties, () => {}).then(() => {});
 
-    const mirrorModeInfo = {
-        mode: "off",
-    } as const;
+    const mirrorModeInfo: chrome.system.display.MirrorModeInfo = {
+        mode: "mixed",
+        mirroringDestinationIds: ["id"],
+        mirroringSourceId: "id",
+    };
     chrome.system.display.setMirrorMode(mirrorModeInfo); // $ExpectType Promise<void>
     chrome.system.display.setMirrorMode(mirrorModeInfo, () => {}); // $ExpectType void
     // @ts-expect-error
@@ -3760,8 +3769,10 @@ async function testTabs() {
 
     chrome.tabs.insertCSS(details); // $ExpectType Promise<void>
     chrome.tabs.insertCSS(tabId, details); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(undefined, details); // $ExpectType Promise<void>
     chrome.tabs.insertCSS(details, () => {}); // $ExpectType void
     chrome.tabs.insertCSS(tabId, details, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(undefined, details, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.tabs.insertCSS(() => {}).then(() => {});
 
@@ -4329,6 +4340,11 @@ async function testDeclarativeNetRequest() {
 
 // https://developer.chrome.com/docs/extensions/mv2/reference/declarativeWebRequest
 function testDeclarativeWebRequest() {
+    chrome.declarativeWebRequest.Stage.ON_AUTH_REQUIRED === "onAuthRequired";
+    chrome.declarativeWebRequest.Stage.ON_BEFORE_REQUEST === "onBeforeRequest";
+    chrome.declarativeWebRequest.Stage.ON_BEFORE_SEND_HEADERS === "onBeforeSendHeaders";
+    chrome.declarativeWebRequest.Stage.ON_HEADERS_RECEIVED === "onHeadersReceived";
+
     chrome.declarativeWebRequest.onRequest.addRules([]); // $ExpectType void
     chrome.declarativeWebRequest.onRequest.removeRules([]); // $ExpectType void
     chrome.declarativeWebRequest.onRequest.getRules((rules) => { // $ExpectType void
@@ -8211,6 +8227,7 @@ function testDesktopCapture() {
         selected: false,
         discarded: false,
         autoDiscardable: false,
+        lastAccessed: 0,
         groupId: 0,
     };
 

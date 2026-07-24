@@ -179,14 +179,25 @@ declare namespace chrome {
             popup: string;
         }
 
-        interface TabIconDetails {
-            /** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
-            path?: string | { [index: number]: string } | undefined;
-            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
-            /** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
-            imageData?: ImageData | { [index: number]: ImageData } | undefined;
-        }
+        type TabIconDetails =
+            & {
+                /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+                tabId?: number | null | undefined;
+            }
+            & (
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData: ImageData | { [index: number]: ImageData };
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path?: string | { [index: string]: string } | undefined;
+                }
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData?: ImageData | { [index: number]: ImageData } | undefined;
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path: string | { [index: string]: string };
+                }
+            );
 
         /** @since Chrome 99 */
         interface OpenPopupOptions {
@@ -404,7 +415,7 @@ declare namespace chrome {
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes: number;
                     /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
-                    when?: number | undefined;
+                    when?: never | undefined;
                 }
                 | {
                     /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
@@ -2493,7 +2504,7 @@ declare namespace chrome {
      *
      * Permissions: "declarativeWebRequest"
      *
-     * MV2 only
+     * Beta and MV2 only
      * @deprecated Check out the {@link declarativeNetRequest} API instead
      */
     export namespace declarativeWebRequest {
@@ -2548,9 +2559,9 @@ declare namespace chrome {
             /** Matches if the MIME media type of a response (from the HTTP Content-Type header) is not contained in the list. */
             excludeContentType?: string[] | undefined;
             /** Matches if none of the request headers is matched by any of the HeaderFilters. */
-            excludeResponseHeaders?: HeaderFilter[] | undefined;
+            excludeRequestHeaders?: HeaderFilter[] | undefined;
             /** Matches if none of the response headers is matched by any of the HeaderFilters. */
-            excludeResponseHeader?: HeaderFilter[] | undefined;
+            excludeResponseHeaders?: HeaderFilter[] | undefined;
             /**
              * Matches if the conditions of the UrlFilter are fulfilled for the 'first party' URL of the request. The 'first party' URL of a request, when present, can be different from the request's target URL, and describes what is considered 'first party' for the sake of third-party checks for cookies.
              * @deprecated since Chrome 82
@@ -2617,7 +2628,7 @@ declare namespace chrome {
         /** Edits one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         interface EditResponseCookie {
             /** Filter for cookies that will be modified. All empty entries are ignored. */
-            filter: ResponseCookie;
+            filter: FilterResponseCookie;
             /** Attributes that shall be overridden in cookies that matched the filter. Attributes that are set to an empty string are removed. */
             modification: ResponseCookie;
         }
@@ -2661,7 +2672,7 @@ declare namespace chrome {
             /** Existence of the Secure cookie attribute. */
             secure?: string | undefined;
             /** Filters session cookies. Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes. */
-            session?: boolean | undefined;
+            sessionCookie?: boolean | undefined;
             /** Value of a cookie, may be padded in double-quotes. */
             value?: string | undefined;
         }
@@ -7230,7 +7241,7 @@ declare namespace chrome {
         enum ExtensionType {
             EXTENSION = "extension",
             HOSTED_APP = "hosted_app",
-            PACKAGE_APP = "package_app",
+            PACKAGED_APP = "packaged_app",
             LEGACY_PACKAGED_APP = "legacy_packaged_app",
             THEME = "theme",
             LOGIN_SCREEN_EXTENSION = "login_screen_extension",
@@ -10774,15 +10785,10 @@ declare namespace chrome {
 
         interface MirrorModeInfo {
             /** The mirror mode that should be set. */
-            mode?: `${MirrorMode}`;
-        }
-
-        interface MirrorModeInfoMixed extends MirrorModeInfo {
-            /** The mirror mode that should be set. */
-            mode: "mixed";
-            /** The id of the mirroring source display. */
+            mode: `${MirrorMode}`;
+            /** The id of the mirroring source display. This is only valid for 'mixed'. */
             mirroringSourceId?: string | undefined;
-            /** The ids of the mirroring destination displays. */
+            /** The ids of the mirroring destination displays. This is only valid for 'mixed'. */
             mirroringDestinationIds?: string[] | undefined;
         }
 
@@ -10923,8 +10929,8 @@ declare namespace chrome {
          * @param info The information of the mirror mode that should be applied to the display mode.
          * @since Chrome 65
          */
-        function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
-        function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed): Promise<void>;
+        function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
+        function setMirrorMode(info: MirrorModeInfo): Promise<void>;
 
         /** Fired when anything changes to the display configuration. */
         const onDisplayChanged: chrome.events.Event<() => void>;
@@ -11145,7 +11151,7 @@ declare namespace chrome {
              * The last time the tab became active in its window as the number of milliseconds since epoch.
              * @since Chrome 121
              */
-            lastAccessed?: number | undefined;
+            lastAccessed: number;
         }
 
         /** The tab's loading status. */
@@ -11715,8 +11721,11 @@ declare namespace chrome {
         function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(details: extensionTypes.InjectDetails, callback: () => void): void;
-        function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
-        function insertCSS(tabId: number, details: extensionTypes.InjectDetails, callback: () => void): void;
+        function insertCSS(
+            tabId: number | undefined,
+            details: extensionTypes.InjectDetails,
+            callback: () => void,
+        ): void;
 
         /**
          * Highlights the given tabs and focuses on the first of group. Will appear to do nothing if the specified tab is currently active.
