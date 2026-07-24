@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/idiomorph",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/bigskysoftware/idiomorph"
+    ],
+    "exports": {
+        ".": {
+            "require": "./index.d.cts",
+            "import": "./index.d.ts"
+        },
+        "./htmx": "./htmx.d.ts"
+    },
+    "devDependencies": {
+        "@types/idiomorph": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Brandon Coles",
+            "githubUsername": "myabc"
+        },
+        {
+            "name": "Gareth Jones",
+            "githubUsername": "G-Rath"
+        }
+    ]
+}
