@@ -91,10 +91,26 @@ interface FissionTaskModel {
     vf: string;
 }
 
-declare class NodeMediaServer {
+type NodeMediaServerEvents = {
+    preConnect: (id: string, args: Record<string, unknown>) => void;
+    postConnect: (id: string, args: Record<string, unknown>) => void;
+    doneConnect: (id: string, args: Record<string, unknown>) => void;
+    prePublish: (id: string, streamPath: string, args: Record<string, unknown>) => void;
+    postPublish: (id: string, streamPath: string, args: Record<string, unknown>) => void;
+    donePublish: (id: string, streamPath: string, args: Record<string, unknown>) => void;
+    prePlay: (id: string, streamPath: string, args: Record<string, unknown>) => void;
+    postPlay: (id: string, streamPath: string, args: Record<string, unknown>) => void;
+    donePlay: (id: string, streamPath: string, args: Record<string, unknown>) => void;
+    logMessage: (...args: any[]) => void;
+    errorMessage: (...args: any[]) => void;
+    debugMessage: (...args: any[]) => void;
+    ffDebugMessage: (...args: any[]) => void;
+};
+
+declare class NodeMediaServer extends EventEmitter {
     constructor(config: Config);
     run(): void;
-    on(eventName: string, listener: (id: string, StreamPath: string, args: object) => void): void;
+    on<E extends keyof NodeMediaServerEvents>(event: E, listener: NodeMediaServerEvents[E]): this;
     stop(): void;
     getSession(id: string): Map<string, unknown>;
 }
