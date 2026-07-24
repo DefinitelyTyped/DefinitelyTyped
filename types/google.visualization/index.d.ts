@@ -73,7 +73,7 @@ declare namespace google {
             getOptions(): Object;
             getView(): any;
             setDataSourceUrl(url: string): void;
-            setDataTable(table: DataTable): void;
+            setDataTable(table: DataTable | null): void;
             setChartType(type: string): void;
             setChartName(name: string): void;
             setContainerId(id: string): void;
