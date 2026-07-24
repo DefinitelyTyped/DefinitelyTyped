@@ -439,7 +439,7 @@ declare namespace Selectize {
         /**
          * Removes all options from the control.
          */
-        clearOptions(): void;
+        clearOptions(silent?: boolean): void;
 
         /**
          * Retrieves the jQuery element for the option identified by the given value.
@@ -476,6 +476,11 @@ declare namespace Selectize {
         addItem(value: T, silent?: boolean): void;
 
         /**
+         * "Selects" multiple items at once. Adds them to the list at the current caret position.
+         */
+        addItems(values: T, silent?: boolean): void;
+
+        /**
          * Removes the selected item matching the provided value.
          */
         removeItem(value: T, silent?: boolean): void;
@@ -489,7 +494,7 @@ declare namespace Selectize {
         /**
          * Re-renders the selected item lists.
          */
-        refreshItems(): void;
+        refreshItems(silent?: boolean): void;
 
         // Optgroups
         // ------------------------------------------------------------------------------------------------------------
@@ -499,6 +504,16 @@ declare namespace Selectize {
          * The "id" argument refers to a value of the property in option identified by the "optgroupField" setting.
          */
         addOptionGroup(id: string, data: U): void;
+
+        /**
+         * Clears all existing option groups.
+         */
+        clearOptionGroups(): void;
+
+        /**
+         * Removes an existing option group.
+         */
+        removeOptionGroup(id: string): void;
 
         // Events
         // ------------------------------------------------------------------------------------------------------------
