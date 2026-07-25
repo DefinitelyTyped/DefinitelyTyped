@@ -191,11 +191,28 @@ export interface HostedFieldsAccountDetails {
     lastFour: string;
 }
 
+export interface HostedFieldsBinData {
+    commercial: "Yes" | "No" | "Unknown";
+    countryOfIssuance: string;
+    debit: "Yes" | "No" | "Unknown";
+    durbinRegulated: "Yes" | "No" | "Unknown";
+    healthcare: "Yes" | "No" | "Unknown";
+    issuingBank: string;
+    payroll: "Yes" | "No" | "Unknown";
+    prepaid: "Yes" | "No" | "Unknown";
+    productId: string;
+    business: "Yes" | "No" | "Unknown";
+    consumer: "Yes" | "No" | "Unknown";
+    purchase: "Yes" | "No" | "Unknown";
+    corporate: "Yes" | "No" | "Unknown";
+}
+
 export interface HostedFieldsTokenizePayload {
     nonce: string;
     details: HostedFieldsAccountDetails;
     type: string;
     description: string;
+    binData: HostedFieldsBinData;
     /**
      * Provides details about regulatory environment.
      * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
