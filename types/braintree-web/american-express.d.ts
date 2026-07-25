@@ -51,5 +51,5 @@ export function create(
         client?: Client | undefined;
         authorization?: string | undefined;
     },
-    callback: callback<AmericanExpress>
+    callback: callback<AmericanExpress>,
 ): void;

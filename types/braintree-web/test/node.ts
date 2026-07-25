@@ -89,7 +89,7 @@ braintree.client.create(
                         color: "green",
                     },
 
-                    '.invalid': 'braintree-invalid-class',
+                    ".invalid": "braintree-invalid-class",
                 },
                 fields: {
                     number: {
@@ -145,7 +145,7 @@ braintree.client.create(
                     return;
                 }
 
-                hostedFieldsInstance.getChallenges().then((challenges) => console.log(challenges.join(', ')));
+                hostedFieldsInstance.getChallenges().then((challenges) => console.log(challenges.join(", ")));
 
                 const form = new HTMLFormElement();
 
@@ -400,17 +400,20 @@ braintree.client.create(
         });
 
         // Check that apple pay createPaymentRequest fields are optional
-        braintree.applePay.create({ authorization: clientToken, useDeferredClient: true }, (createErr, applePayInstance) => {
-            const request = {
-                total: { label: "Your Label", amount: "10.00" },
-            };
+        braintree.applePay.create(
+            { authorization: clientToken, useDeferredClient: true },
+            (createErr, applePayInstance) => {
+                const request = {
+                    total: { label: "Your Label", amount: "10.00" },
+                };
 
-            (async () => {
-                const paymentRequest = await applePayInstance.createPaymentRequest(request);
-                console.log(paymentRequest);
-                // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
-            })();
-        });
+                (async () => {
+                    const paymentRequest = await applePayInstance.createPaymentRequest(request);
+                    console.log(paymentRequest);
+                    // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
+                })();
+            },
+        );
 
         braintree.paypal.create(
             {
@@ -696,8 +699,8 @@ braintree.client.create(
                     payment: {
                         displayLoading: true,
                         displayExitButton: true,
-                    }
-                }
+                    },
+                },
             },
             (createError, threeDSecure) => {
                 threeDSecure.verifyCard(
@@ -719,7 +722,7 @@ braintree.client.create(
                         },
                         onLookupComplete: (data, next) => {
                             console.log(data);
-                            next()
+                            next();
                         },
                         collectDeviceData: true,
                         addFrame: (err, iframe) => {

@@ -453,7 +453,7 @@ export function create(
         authorization?: string | undefined;
         useDeferredClient?: false | undefined;
     },
-    callback: callback<ApplePay>
+    callback: callback<ApplePay>,
 ): void;
 
 export function create(
@@ -462,5 +462,5 @@ export function create(
         authorization?: string | undefined;
         useDeferredClient: true;
     },
-    callback: callback<ApplePayDeferred>
+    callback: callback<ApplePayDeferred>,
 ): void;
