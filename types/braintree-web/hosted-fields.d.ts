@@ -589,8 +589,8 @@ export interface HostedFields {
      *   '12 - diciembre'
      * ]);
      */
-    setMonthOptions(options: string[]): Promise<void>;
-    setMonthOptions(options: string[], callback: callback<void>): void;
+    setMonthOptions(options: ReadonlyArray<string>): Promise<void>;
+    setMonthOptions(options: ReadonlyArray<string>, callback: callback<void>): void;
 }
 
 /**

@@ -222,7 +222,7 @@ export interface ThreeDSecureCreateOptions {
      */
     version?: 1 | "1" | 2 | "2" | "2-bootstrap3-modal" | "2-inline-iframe" | undefined;
     client?: Client | undefined;
-    cardinalSDKConfig?: ThreeDSecureCardinalSDKConfig | undefined
+    cardinalSDKConfig?: ThreeDSecureCardinalSDKConfig | undefined;
 }
 
 export interface ThreeDSecure {
