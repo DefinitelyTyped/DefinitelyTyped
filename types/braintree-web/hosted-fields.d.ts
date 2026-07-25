@@ -191,20 +191,22 @@ export interface HostedFieldsAccountDetails {
     lastFour: string;
 }
 
+export type HostedFieldsTokenizeValues = "Yes" | "No" | "Unknown";
+
 export interface HostedFieldsBinData {
-    commercial: "Yes" | "No" | "Unknown";
+    commercial: HostedFieldsTokenizeValues;
     countryOfIssuance: string;
-    debit: "Yes" | "No" | "Unknown";
-    durbinRegulated: "Yes" | "No" | "Unknown";
-    healthcare: "Yes" | "No" | "Unknown";
+    debit: HostedFieldsTokenizeValues;
+    durbinRegulated: HostedFieldsTokenizeValues;
+    healthcare: HostedFieldsTokenizeValues;
     issuingBank: string;
-    payroll: "Yes" | "No" | "Unknown";
-    prepaid: "Yes" | "No" | "Unknown";
+    payroll: HostedFieldsTokenizeValues;
+    prepaid: HostedFieldsTokenizeValues;
     productId: string;
-    business: "Yes" | "No" | "Unknown";
-    consumer: "Yes" | "No" | "Unknown";
-    purchase: "Yes" | "No" | "Unknown";
-    corporate: "Yes" | "No" | "Unknown";
+    business: HostedFieldsTokenizeValues;
+    consumer: HostedFieldsTokenizeValues;
+    purchase: HostedFieldsTokenizeValues;
+    corporate: HostedFieldsTokenizeValues;
 }
 
 export interface HostedFieldsTokenizePayload {
