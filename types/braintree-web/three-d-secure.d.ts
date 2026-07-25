@@ -143,7 +143,16 @@ export interface ThreeDSecureVerifyOptions {
     nonce: string;
     amount: string;
     bin: string;
+    accountType?: string;
+    cardAddChallengeRequested?: boolean | undefined;
     challengeRequested?: boolean | undefined;
+    dataOnlyRequested?: boolean | undefined;
+    requestVisaDAF?: boolean | undefined;
+    merchantName?: string | undefined;
+    requestedExemptionType?: string | undefined;
+    applySmartAuthentication?: string | undefined;
+    customFields?: Record<string, any> | undefined;
+    onLookupComplete?: ((data: ThreeDSecureVerificationData, next: () => void) => void) | undefined;
     /**
      * If set to `true`, device data such as browser screen dimensions, language and time zone is submitted with lookup data.
      */
