@@ -546,6 +546,30 @@ export interface HostedFields {
      * });
      */
     setMessage(options: HostedFieldMessageOptions): void;
+
+    /**
+     * Sets the month options for the expiration month field when presented as a select element.
+     *
+     * @param options An array of 12 entries corresponding to the 12 months.
+     *
+     * @example <caption>Update the month options to spanish</caption>
+     * hostedFieldsInstance.setMonthOptions([
+     *   '01 - enero',
+     *   '02 - febrero',
+     *   '03 - marzo',
+     *   '04 - abril',
+     *   '05 - mayo',
+     *   '06 - junio',
+     *   '07 - julio',
+     *   '08 - agosto',
+     *   '09 - septiembre',
+     *   '10 - octubre',
+     *   '11 - noviembre',
+     *   '12 - diciembre'
+     * ]);
+     */
+    setMonthOptions(options: string[]): Promise<void>;
+    setMonthOptions(options: string[], callback: callback<void>): void;
 }
 
 /**
