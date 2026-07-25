@@ -347,7 +347,7 @@ export interface ApplePay {
                     "countryCode" | "currencyCode" | "merchantCapabilities" | "supportedNetworks"
                 >
             >,
-    ): ApplePayPaymentRequest;
+    ): ApplePayPaymentRequest | Promise<ApplePayPaymentRequest>;
 
     /**
      * Validates the merchant website, as required by ApplePaySession before payment can be authorized.     * - The canonical name for your store.
