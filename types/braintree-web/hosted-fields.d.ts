@@ -363,7 +363,8 @@ export interface HostedFields {
      *   }
      * });
      */
-    addClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback?: callback): void;
+    addClass(field: HostedFieldsHostedFieldsFieldName, classname: string): Promise<void>;
+    addClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback: callback<void>): void;
 
     /**
      * Removes a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.     *
@@ -378,7 +379,8 @@ export interface HostedFields {
      *   hostedFieldsInstance.removeClass('number', 'custom-class');
      * });
      */
-    removeClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback?: callback): void;
+    removeClass(field: HostedFieldsHostedFieldsFieldName, classname: string): Promise<void>;
+    removeClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback: callback): void;
 
     /**
      * Sets the placeholder of a {@link module:braintree-web/hosted-fields~field field}.     *
@@ -402,7 +404,8 @@ export interface HostedFields {
      *   }
      * });
      */
-    setPlaceholder(field: HostedFieldsHostedFieldsFieldName, placeholder: string, callback?: callback): void;
+    setPlaceholder(field: HostedFieldsHostedFieldsFieldName, placeholder: string): Promise<void>;
+    setPlaceholder(field: HostedFieldsHostedFieldsFieldName, placeholder: string, callback: callback<void>): void;
 
     /**
      * @example
@@ -417,7 +420,8 @@ export interface HostedFields {
      * hostedFieldsInstance.clear('cvv');
      * hostedFieldsInstance.clear('expirationDate');
      */
-    clear(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
+    clear(field: HostedFieldsHostedFieldsFieldName): Promise<void>;
+    clear(field: HostedFieldsHostedFieldsFieldName, callback: callback<void>): void;
 
     /**
      * Returns an {@link HostedFields~stateObject|object} that includes the state of all fields and possible card types.
@@ -439,7 +443,8 @@ export interface HostedFields {
      *   }
      * });
      */
-    focus(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
+    focus(field: HostedFieldsHostedFieldsFieldName): Promise<void>;
+    focus(field: HostedFieldsHostedFieldsFieldName, callback: callback<void>): void;
 
     /**
      * Sets an attribute of a {@link module:braintree-web/hosted-fields~field field}.
@@ -475,7 +480,8 @@ export interface HostedFields {
      *
      * @returns Returns a promise if no callback is provided.
      */
-    setAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
+    setAttribute(options: HostedFieldAttributeOptions): Promise<void>;
+    setAttribute(options: HostedFieldAttributeOptions, callback: callback<void>): void;
 
     /**
      * Removes a supported attribute from a {@link module:braintree-web/hosted-fields~field field}.
@@ -497,7 +503,8 @@ export interface HostedFields {
      *
      * @returns Returns a promise if no callback is provided.
      */
-    removeAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
+    removeAttribute(options: HostedFieldAttributeOptions): Promise<void>;
+    removeAttribute(options: HostedFieldAttributeOptions, callback: callback<void>): void;
 
     /**
      * Sets a visually hidden message (for screen readers) on a {@link module:braintree-web/hosted-fields~field field}.
