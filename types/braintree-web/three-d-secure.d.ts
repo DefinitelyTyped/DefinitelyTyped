@@ -288,6 +288,7 @@ export interface ThreeDSecure {
      *   verifyPayload.liabilityShiftPossible; // boolean
      * });
      */
+    cancelVerifyCard(): Promise<void>;
     cancelVerifyCard(callback: callback): void;
 
     /**
@@ -312,7 +313,8 @@ export interface ThreeDSecure {
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}
      */
-    teardown(callback?: callback): void;
+    teardown(): Promise<void>;
+    teardown(callback: callback): void;
 
     /**
      * Subscribes a handler function to a named event.
