@@ -570,3 +570,8 @@ export function create(
     },
     callback: callback<HostedFields>,
 ): void;
+
+/**
+ * Returns false if input formatting will be automatically disabled due to browser incompatibility. Otherwise, returns true.
+ */
+export function supportsInputFormatting(): boolean;
