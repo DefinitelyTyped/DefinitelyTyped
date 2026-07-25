@@ -14,17 +14,23 @@ export interface DataCollector {
 }
 
 export function create(options: {
-    client: Client;
+    client?: Client;
+    authorization?: string | undefined;
+    useDeferredClient?: boolean | undefined;
     kount?: boolean | undefined;
     paypal?: boolean | undefined;
     riskCorrelationId?: string | undefined;
+    cb1?: string | undefined;
 }): Promise<DataCollector>;
 export function create(
     options: {
-        client: Client;
+        client?: Client;
+        authorization?: string | undefined;
+        useDeferredClient?: boolean | undefined;
         kount?: boolean | undefined;
         paypal?: boolean | undefined;
         riskCorrelationId?: string | undefined;
+        cb1?: string | undefined;
     },
     callback: callback<DataCollector>,
 ): void;
