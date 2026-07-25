@@ -457,6 +457,16 @@ export interface HostedFields {
     getChallenges(callback: callback<string[]>): void;
 
     /**
+     * Get supported card types configured in the Braintree Control Panel
+     * @example
+     * hostedFieldsInstance.getSupportedCardTypes().then(function (cardTypes) {
+     *  cardTypes // ['Visa', 'American Express', 'Mastercard']
+     * });
+     */
+    getSupportedCardTypes(): Promise<string[]>;
+    getSupportedCardTypes(callback: callback<string[]>): void;
+
+    /**
      * Sets an attribute of a {@link module:braintree-web/hosted-fields~field field}.
      * Supported attributes are `aria-invalid`, `aria-required`, `disabled`, and `placeholder`.
      *
