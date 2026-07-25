@@ -150,7 +150,7 @@ export interface ThreeDSecureVerifyOptions {
     requestVisaDAF?: boolean | undefined;
     merchantName?: string | undefined;
     requestedExemptionType?: string | undefined;
-    applySmartAuthentication?: string | undefined;
+    applySmartAuthentication?: boolean | undefined;
     customFields?: Record<string, any> | undefined;
     onLookupComplete?: ((data: ThreeDSecureVerificationData, next: () => void) => void) | undefined;
     /**
