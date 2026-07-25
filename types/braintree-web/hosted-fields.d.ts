@@ -44,6 +44,8 @@ export interface HostedFieldsField {
     container?: string | HTMLElement | undefined;
     placeholder?: string | undefined;
     type?: string | undefined;
+    iframeTitle?: string | undefined;
+    internalLabel?: string | undefined;
     formatInput?: boolean | undefined;
     maskInput?: boolean | HostedFieldsFieldMaskInput | undefined;
     select?: boolean | { options: string[] } | undefined;
