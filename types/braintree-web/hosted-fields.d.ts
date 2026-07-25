@@ -553,14 +553,14 @@ export function create(options: {
     client?: Client | undefined;
     authorization?: string | undefined;
     fields: HostedFieldFieldOptions;
-    styles?: any;
+    styles?: Record<string, string | Record<string, string>> | undefined;
 }): Promise<HostedFields>;
 export function create(
     options: {
         client?: Client | undefined;
         authorization?: string | undefined;
         fields: HostedFieldFieldOptions;
-        styles?: any;
+        styles?: Record<string, string | Record<string, string>> | undefined;
     },
     callback: callback<HostedFields>,
 ): void;
