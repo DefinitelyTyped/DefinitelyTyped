@@ -598,7 +598,7 @@ braintree.client.create(
         });
 
         // Check that apple pay createPaymentRequest fields are optional
-        braintree.applePay.create({ client: clientInstance, useDeferredClient: true }, (createErr, applePayInstance) => {
+        braintree.applePay.create({ authorization: clientToken, useDeferredClient: true }, (createErr, applePayInstance) => {
             const request = {
                 total: { label: "Your Label", amount: "10.00" },
             };
@@ -1045,6 +1045,17 @@ braintree.client.create(
         });
 
         braintree.dataCollector
+            .create({
+                authorization: clientToken,
+                useDeferredClient: true,
+            })
+            .then(dataCollectorInstance => dataCollectorInstance.getDeviceData())
+            .then(deviceData => {
+                // Implementation
+                console.log(deviceData);
+            });
+
+        braintree.dataCollector
             .create({ client: clientInstance })
             .then(dataCollectorInstance => dataCollectorInstance.getDeviceData())
             .then(deviceData => {
@@ -1084,6 +1095,17 @@ braintree.client.create(
             {
                 client: clientInstance,
                 version: "2-bootstrap3-modal",
+                cardinalSDKConfig: {
+                    logging: {
+                        level: "off",
+                    },
+                    timeout: 5000,
+                    maxRequestRetries: 2,
+                    payment: {
+                        displayLoading: true,
+                        displayExitButton: true,
+                    }
+                }
             },
             (createError, threeDSecure) => {
                 threeDSecure.verifyCard(
@@ -1091,6 +1113,22 @@ braintree.client.create(
                         nonce: existingNonce,
                         amount: "123.45", // $ExpectType string
                         bin: "1234",
+                        accountType: "debit",
+                        cardAddChallengeRequested: false,
+                        challengeRequested: false,
+                        dataOnlyRequested: false,
+                        requestVisaDAF: false,
+                        merchantName: "My merchant",
+                        requestedExemptionType: "low_value",
+                        applySmartAuthentication: false,
+                        customFields: {
+                            foo: 1,
+                            bar: "a string",
+                        },
+                        onLookupComplete: (data, next) => {
+                            console.log(data);
+                            next()
+                        },
                         collectDeviceData: true,
                         addFrame: (err, iframe) => {
                             // Set up your UI and add the iframe.
