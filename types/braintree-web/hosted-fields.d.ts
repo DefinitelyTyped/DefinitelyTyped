@@ -447,6 +447,16 @@ export interface HostedFields {
     focus(field: HostedFieldsHostedFieldsFieldName, callback: callback<void>): void;
 
     /**
+     * Get card verification challenges, such as requirements for cvv and postal code.
+     * @example
+     * hostedFieldsInstance.getChallenges().then(function (challenges) {
+     *   challenges // ['cvv', 'postal_code']
+     * });
+     */
+    getChallenges(): Promise<string[]>;
+    getChallenges(callback: callback<string[]>): void;
+
+    /**
      * Sets an attribute of a {@link module:braintree-web/hosted-fields~field field}.
      * Supported attributes are `aria-invalid`, `aria-required`, `disabled`, and `placeholder`.
      *
