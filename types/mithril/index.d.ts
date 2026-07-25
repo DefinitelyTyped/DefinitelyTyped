@@ -44,17 +44,17 @@ declare namespace Mithril {
 
     interface Hyperscript {
         /** Creates a virtual element (Vnode). */
+        (selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
+        /** Creates a virtual element (Vnode). */
+        (selector: string, ...children: Children[]): Vnode<any, any>;
+        /** Creates a virtual element (Vnode). */
+        <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
+        /** Creates a virtual element (Vnode). */
         <Attrs, State>(
             component: ComponentTypes<Attrs, State>,
             attributes: Attrs & CommonAttributes<Attrs, State>,
             ...args: Children[]
         ): Vnode<Attrs, State>;
-        /** Creates a virtual element (Vnode). */
-        (selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
-        /** Creates a virtual element (Vnode). */
-        <Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
-        /** Creates a virtual element (Vnode). */
-        (selector: string, ...children: Children[]): Vnode<any, any>;
         /** Creates a fragment virtual element (Vnode). */
         fragment(
             attrs: CommonAttributes<any, any> & { [key: string]: any },
