@@ -597,6 +597,19 @@ braintree.client.create(
             };
         });
 
+        // Check that apple pay createPaymentRequest fields are optional
+        braintree.applePay.create({ client: clientInstance, useDeferredClient: true }, (createErr, applePayInstance) => {
+            const request = {
+                total: { label: "Your Label", amount: "10.00" },
+            };
+
+            (async () => {
+                const paymentRequest = await applePayInstance.createPaymentRequest(request);
+                console.log(paymentRequest);
+                // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
+            })();
+        });
+
         braintree.paypal.create(
             {
                 client: clientInstance,
