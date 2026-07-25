@@ -187,6 +187,16 @@ export type ThreeDSecureEvent =
     | "authentication-modal-render"
     | "authentication-modal-close";
 
+export interface ThreeDSecureCardinalSDKConfig {
+    logging?: any;
+    timeout?: number | undefined;
+    maxRequestRetries?: number | undefined;
+    payment?: {
+        displayLoading?: any;
+        displayExitButton?: any;
+    } | undefined;
+}
+
 export interface ThreeDSecureCreateOptions {
     authorization?: string | undefined;
     /**
@@ -203,6 +213,7 @@ export interface ThreeDSecureCreateOptions {
      */
     version?: 1 | "1" | 2 | "2" | "2-bootstrap3-modal" | "2-inline-iframe" | undefined;
     client?: Client | undefined;
+    cardinalSDKConfig?: ThreeDSecureCardinalSDKConfig | undefined
 }
 
 export interface ThreeDSecure {
