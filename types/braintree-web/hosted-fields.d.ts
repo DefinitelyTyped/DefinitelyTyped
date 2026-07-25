@@ -363,7 +363,7 @@ export interface HostedFields {
      *   }
      * });
      */
-    addClass(field: string, classname: string, callback?: callback): void;
+    addClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback?: callback): void;
 
     /**
      * Removes a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.     *
@@ -378,7 +378,7 @@ export interface HostedFields {
      *   hostedFieldsInstance.removeClass('number', 'custom-class');
      * });
      */
-    removeClass(field: string, classname: string, callback?: callback): void;
+    removeClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback?: callback): void;
 
     /**
      * Sets the placeholder of a {@link module:braintree-web/hosted-fields~field field}.     *
@@ -402,7 +402,7 @@ export interface HostedFields {
      *   }
      * });
      */
-    setPlaceholder(field: string, placeholder: string, callback?: callback): void;
+    setPlaceholder(field: HostedFieldsHostedFieldsFieldName, placeholder: string, callback?: callback): void;
 
     /**
      * @example
@@ -417,7 +417,7 @@ export interface HostedFields {
      * hostedFieldsInstance.clear('cvv');
      * hostedFieldsInstance.clear('expirationDate');
      */
-    clear(field: string, callback?: callback): void;
+    clear(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
 
     /**
      * Returns an {@link HostedFields~stateObject|object} that includes the state of all fields and possible card types.
