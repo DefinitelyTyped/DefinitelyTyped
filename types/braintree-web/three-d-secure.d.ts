@@ -143,7 +143,16 @@ export interface ThreeDSecureVerifyOptions {
     nonce: string;
     amount: string;
     bin: string;
+    accountType?: string;
+    cardAddChallengeRequested?: boolean | undefined;
     challengeRequested?: boolean | undefined;
+    dataOnlyRequested?: boolean | undefined;
+    requestVisaDAF?: boolean | undefined;
+    merchantName?: string | undefined;
+    requestedExemptionType?: string | undefined;
+    applySmartAuthentication?: boolean | undefined;
+    customFields?: Record<string, any> | undefined;
+    onLookupComplete?: ((data: ThreeDSecureVerificationData, next: () => void) => void) | undefined;
     /**
      * If set to `true`, device data such as browser screen dimensions, language and time zone is submitted with lookup data.
      */
@@ -187,6 +196,16 @@ export type ThreeDSecureEvent =
     | "authentication-modal-render"
     | "authentication-modal-close";
 
+export interface ThreeDSecureCardinalSDKConfig {
+    logging?: any;
+    timeout?: number | undefined;
+    maxRequestRetries?: number | undefined;
+    payment?: {
+        displayLoading?: any;
+        displayExitButton?: any;
+    } | undefined;
+}
+
 export interface ThreeDSecureCreateOptions {
     authorization?: string | undefined;
     /**
@@ -203,6 +222,7 @@ export interface ThreeDSecureCreateOptions {
      */
     version?: 1 | "1" | 2 | "2" | "2-bootstrap3-modal" | "2-inline-iframe" | undefined;
     client?: Client | undefined;
+    cardinalSDKConfig?: ThreeDSecureCardinalSDKConfig | undefined
 }
 
 export interface ThreeDSecure {
@@ -268,6 +288,7 @@ export interface ThreeDSecure {
      *   verifyPayload.liabilityShiftPossible; // boolean
      * });
      */
+    cancelVerifyCard(): Promise<void>;
     cancelVerifyCard(callback: callback): void;
 
     /**
@@ -292,7 +313,8 @@ export interface ThreeDSecure {
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/three-d-secure.create|create}
      */
-    teardown(callback?: callback): void;
+    teardown(): Promise<void>;
+    teardown(callback: callback): void;
 
     /**
      * Subscribes a handler function to a named event.
