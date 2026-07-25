@@ -339,6 +339,7 @@ export interface HostedFields {
      */
     tokenize(options?: {
         vault?: boolean | undefined;
+        authenticationInsight?: { merchantAccountId: string } | undefined;
         fieldsToTokenize?: Array<TokenizationFields> | undefined;
         cardholderName?: string | undefined;
         billingAddress?: HostedFieldsBillingAddress | undefined;
@@ -346,6 +347,7 @@ export interface HostedFields {
     tokenize(
         options: {
             vault?: boolean | undefined;
+            authenticationInsight?: { merchantAccountId: string } | undefined;
             fieldsToTokenize?: Array<TokenizationFields> | undefined;
             cardholderName?: string | undefined;
             billingAddress?: HostedFieldsBillingAddress | undefined;
