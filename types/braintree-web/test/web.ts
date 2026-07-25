@@ -160,6 +160,7 @@ braintree.client.create(
                     ".valid": {
                         color: "green",
                     },
+                    '.invalid': 'braintree-invalid-class',
                 },
                 fields: {
                     number: {
@@ -172,6 +173,8 @@ braintree.client.create(
                     cvv: {
                         container: "#cvv",
                         type: "password",
+                        iframeTitle: "CVV iframe title",
+                        internalLabel: "CVV internal label",
                     },
                     cardholderName: {
                         container: "#cardholder-name",
@@ -200,6 +203,9 @@ braintree.client.create(
                         select: true,
                     },
                 },
+                preventAutofill: false,
+                binVerificationLength: 6,
+                sessionId: "my-session-id",
             },
             (hostedFieldsErr?: braintree.BraintreeError, hostedFieldsInstance?: braintree.HostedFields) => {
                 if (hostedFieldsErr) {
@@ -209,6 +215,8 @@ braintree.client.create(
                     );
                     return;
                 }
+
+                hostedFieldsInstance.getChallenges().then((challenges) => console.log(challenges.join(', ')));
 
                 const form = new HTMLFormElement();
 
@@ -279,6 +287,7 @@ braintree.client.create(
                         billingAddress: {
                             postalCode: "12345",
                         },
+                        authenticationInsight: { merchantAccountId: "mid" },
                     },
                     (tokenizeErr: braintree.BraintreeError, payload: braintree.HostedFieldsTokenizePayload) => {
                         if (tokenizeErr) {
@@ -304,6 +313,11 @@ braintree.client.create(
                     // some time later...
                     hostedFieldsInstance.removeClass("number", "custom-class");
                 });
+
+                (async () => {
+                    await hostedFieldsInstance.addClass("number", "custom-class");
+                    await hostedFieldsInstance.removeClass("number", "custom-class");
+                })();
 
                 hostedFieldsInstance.setPlaceholder(
                     "number",
