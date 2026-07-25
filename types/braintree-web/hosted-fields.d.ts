@@ -554,6 +554,9 @@ export function create(options: {
     authorization?: string | undefined;
     fields: HostedFieldFieldOptions;
     styles?: Record<string, string | Record<string, string>> | undefined;
+    preventAutofill?: boolean | undefined;
+    binVerificationLength?: number | undefined;
+    sessionId?: string | undefined;
 }): Promise<HostedFields>;
 export function create(
     options: {
@@ -561,6 +564,9 @@ export function create(
         authorization?: string | undefined;
         fields: HostedFieldFieldOptions;
         styles?: Record<string, string | Record<string, string>> | undefined;
+        preventAutofill?: boolean | undefined;
+        binVerificationLength?: number | undefined;
+        sessionId?: string | undefined;
     },
     callback: callback<HostedFields>,
 ): void;
