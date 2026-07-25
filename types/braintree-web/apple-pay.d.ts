@@ -430,5 +430,16 @@ export interface ApplePay {
     teardown(): Promise<void>;
 }
 
-export function create(options: { client: Client }): Promise<ApplePay>;
-export function create(options: { client: Client }, callback?: callback<ApplePay>): void;
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    useDeferredClient?: boolean | undefined;
+}): Promise<ApplePay>;
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        useDeferredClient?: boolean | undefined;
+    },
+    callback: callback<ApplePay>
+): void;
