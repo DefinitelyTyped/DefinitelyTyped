@@ -1060,7 +1060,10 @@ declare namespace chrome {
 
         /** A set of data types. Missing data types are interpreted as `false`. */
         interface DataTypeSet {
-            /** Websites' WebSQL data. */
+            /**
+             * Websites' WebSQL data.
+             * @deprecated since Chrome 139. Support for WebSQL has been removed. This data type will be ignored.
+             */
             webSQL?: boolean | undefined;
             /** Websites' IndexedDB data. */
             indexedDB?: boolean | undefined;
@@ -1082,7 +1085,10 @@ declare namespace chrome {
             cache?: boolean | undefined;
             /** Cache storage. */
             cacheStorage?: boolean | undefined;
-            /** Websites' appcaches. */
+            /**
+             * Websites' appcaches.
+             * @deprecated since Chrome 98. Support for appcache has been removed. This data type will be ignored.
+             */
             appcache?: boolean | undefined;
             /** Websites' file systems. */
             fileSystems?: boolean | undefined;
@@ -1181,6 +1187,7 @@ declare namespace chrome {
          * Clears websites' WebSQL data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @deprecated since Chrome 139. Support for WebSQL has been removed. This function has no effect.
          */
         function removeWebSQL(options: RemovalOptions): Promise<void>;
         function removeWebSQL(options: RemovalOptions, callback: () => void): void;
@@ -1189,6 +1196,7 @@ declare namespace chrome {
          * Clears websites' appcache data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @deprecated since Chrome 98. Support for appcache has been removed. This function has no effect.
          */
         function removeAppcache(options: RemovalOptions): Promise<void>;
         function removeAppcache(options: RemovalOptions, callback: () => void): void;
