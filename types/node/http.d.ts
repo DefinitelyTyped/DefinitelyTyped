@@ -923,6 +923,36 @@ declare module "node:http" {
         ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
         /**
+         * Sends an arbitrary HTTP/1.1 1xx informational response to the client. This
+         * is a generic equivalent of `response.writeContinue()`,
+         * `response.writeProcessing()` and `response.writeEarlyHints()`, and
+         * can be called multiple times before the final response. After the final
+         * response headers have been sent (via `response.writeHead()` or an
+         * implicit header), calling this method throws `ERR_HTTP_HEADERS_SENT`.
+         *
+         * Clients receive these responses via the [`'information'`](https://nodejs.org/docs/latest-v26.x/api/http.html#event-information)
+         * event on `http.ClientRequest`.
+         *
+         * ```js
+         * response.writeInformation(110, { 'X-Progress': '50%' });
+         * ```
+         * @since v26.2.0
+         * @param statusCode An HTTP 1xx informational status code, between `100`
+         * and `199` inclusive, excluding `101` (Switching Protocols) which is only
+         * available through the [`'upgrade'`](https://nodejs.org/docs/latest-v26.x/api/http.html#event-upgrade) event.
+         * @param headers An optional set of headers to send with the
+         * informational response. Accepts the same shapes as
+         * `response.writeHead()`.
+         * @param callback Optional, called once the message has been written
+         * to the socket.
+         */
+        writeInformation(
+            statusCode: number,
+            headers?: OutgoingHttpHeaders | readonly string[],
+            callback?: () => void,
+        ): void;
+        writeInformation(statusCode: number, callback: () => void): void;
+        /**
          * Sends a HTTP/1.1 102 Processing message to the client, indicating that
          * the request body should be sent.
          * @since v10.0.0
