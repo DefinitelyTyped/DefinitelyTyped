@@ -53,17 +53,7 @@ declare module "node:quic" {
     /**
      * @since v23.8.0
      */
-    type OnHandshakeCallback = (
-        this: QuicSession,
-        sni: string,
-        alpn: string,
-        cipher: string,
-        cipherVersion: string,
-        validationErrorReason: string,
-        validationErrorCode: number,
-        earlyDataAttempted: boolean,
-        earlyDataAccepted: boolean,
-    ) => void;
+    type OnHandshakeCallback = (this: QuicSession, info: SessionHandshakeInfo) => void;
     /**
      * @since v26.2.0
      */
@@ -311,7 +301,7 @@ declare module "node:quic" {
          */
         enableEarlyData?: boolean | undefined;
         /**
-         * The list of support TLS 1.3 cipher groups.
+         * The list of supported TLS 1.3 cipher groups.
          * @since v23.8.0
          */
         groups?: string | undefined;
@@ -582,7 +572,7 @@ declare module "node:quic" {
         /**
          * The endpoint maintains an internal cache of validated socket addresses as a
          * performance optimization. This option sets the maximum number of addresses
-         * that are cache. This is an advanced option that users typically won't have
+         * that are cached. This is an advanced option that users typically won't have
          * need to specify.
          * @since v23.8.0
          */
@@ -750,7 +740,7 @@ declare module "node:quic" {
         readonly destroyed: boolean;
         /**
          * True if the endpoint is actively listening for incoming connections. Read only.
-         * @since v26.1.0
+         * @since v26.2.0
          */
         readonly listening: boolean;
         /**
@@ -791,7 +781,7 @@ declare module "node:quic" {
          */
         setSNIContexts(entries: Record<string, SNIEntry>, options?: SetSNIContextsOptions): void;
         /**
-         * The statistics collected for an active session. Read only.
+         * The statistics collected for an active endpoint. Read only.
          * @since v23.8.0
          */
         readonly stats: QuicEndpoint.Stats;
@@ -861,7 +851,7 @@ declare module "node:quic" {
              */
             readonly retryCount: bigint;
             /**
-             * The total number sessions rejected due to QUIC version mismatch. Read only.
+             * The total number of sessions rejected due to QUIC version mismatch. Read only.
              * @since v23.8.0
              */
             readonly versionNegotiationCount: bigint;
@@ -877,7 +867,7 @@ declare module "node:quic" {
             readonly immediateCloseCount: bigint;
         }
     }
-    interface CreateUnidirectionalStreamOptions {
+    interface CreateStreamOptions {
         /**
          * The outbound body source. See `stream.setBody()` for details on
          * supported types. When omitted, the stream starts half-closed (writable
@@ -904,6 +894,13 @@ declare module "node:quic" {
          */
         incremental?: boolean | undefined;
         /**
+         * The maximum number of bytes that the writer
+         * will buffer before `writeSync()` returns `false`. When the buffered
+         * data exceeds this limit, the caller should wait for drain before
+         * writing more. **Default:** `65536` (64 KB).
+         */
+        highWaterMark?: number | undefined;
+        /**
          * Callback for received initial response headers.
          * Called with `(headers)`.
          */
@@ -923,19 +920,10 @@ declare module "node:quic" {
          */
         onwanttrailers?: QuicStream["onwanttrailers"] | undefined;
     }
-    interface CreateBidirectionalStreamOptions extends CreateUnidirectionalStreamOptions {
-        /**
-         * The maximum number of bytes that the writer
-         * will buffer before `writeSync()` returns `false`. When the buffered
-         * data exceeds this limit, the caller should wait for drain before
-         * writing more. **Default:** `65536` (64 KB).
-         */
-        highWaterMark?: number | undefined;
-    }
     interface SessionDestroyOptions {
         /**
          * The error code to include in the `CONNECTION_CLOSE`
-         * frame sent to the peer. Defaults to `0` (no error). **Default:** `0`.
+         * frame sent to the peer. **Default:** `0` (no error).
          */
         code?: bigint | number | undefined;
         /**
@@ -1036,6 +1024,12 @@ declare module "node:quic" {
          */
         readonly closed: Promise<void>;
         /**
+         * True if `session.close()` has been called and the session has not yet
+         * been destroyed. Read only.
+         * @since v26.2.0
+         */
+        readonly closing: boolean;
+        /**
          * Immediately destroy the session. All streams will be destroyed and the
          * session will be closed. If `error` is provided and [`session.onerror`][] is
          * set, the `onerror` callback is invoked before destruction. The
@@ -1051,10 +1045,11 @@ declare module "node:quic" {
          */
         readonly destroyed: boolean;
         /**
-         * The endpoint that created this session. Read only.
+         * The endpoint that created this session. Returns `null` if the session
+         * has been destroyed. Read only.
          * @since v23.8.0
          */
-        readonly endpoint: QuicEndpoint;
+        readonly endpoint: QuicEndpoint | null;
         /**
          * An optional callback invoked when the session is destroyed with an error.
          * This includes errors caused by user callbacks that throw or reject (see
@@ -1065,6 +1060,7 @@ declare module "node:quic" {
          *
          * Can also be set via the `onerror` option in `quic.connect()` or
          * `quic.listen()`.
+         * @since v26.2.0
          */
         onerror: ((this: QuicSession, error: any) => void) | undefined;
         /**
@@ -1184,14 +1180,14 @@ declare module "node:quic" {
          * options are only used when the session supports headers (e.g. HTTP/3).
          * @since v23.8.0
          */
-        createBidirectionalStream(options?: CreateBidirectionalStreamOptions): Promise<QuicStream>;
+        createBidirectionalStream(options?: CreateStreamOptions): Promise<QuicStream>;
         /**
          * Open a new unidirectional stream. If the `body` option is not specified,
          * the outgoing stream will be closed. The `priority` and `incremental`
          * options are only used when the session supports priority (e.g. HTTP/3).
          * @since v23.8.0
          */
-        createUnidirectionalStream(options?: CreateUnidirectionalStreamOptions): Promise<QuicStream>;
+        createUnidirectionalStream(options?: CreateStreamOptions): Promise<QuicStream>;
         /**
          * The local and remote socket addresses associated with the session. Read only.
          * @since v23.8.0
@@ -1592,15 +1588,15 @@ declare module "node:quic" {
          */
         readonly early: boolean;
         /**
-         * The directionality of the stream. Read only.
+         * The directionality of the stream, or `null` if the stream has been destroyed
+         * or is still pending. Read only.
          * @since v23.8.0
          */
-        readonly direction: "bidi" | "uni";
+        readonly direction: "bidi" | "uni" | null;
         /**
          * The maximum number of bytes that the writer will buffer before
          * `writeSync()` returns `false`. When the buffered data exceeds this limit,
-         * the caller should wait for the `drainableProtocol` promise to resolve
-         * before writing more.
+         * the caller should wait for drain before writing more.
          *
          * The value can be changed dynamically at any time. This is particularly
          * useful for streams received via the `onstream` callback, where the
@@ -1610,10 +1606,11 @@ declare module "node:quic" {
          */
         highWaterMark: number;
         /**
-         * The stream ID. Read only.
+         * The stream ID, or `null` if the stream has been destroyed or is still
+         * pending. Read only.
          * @since v23.8.0
          */
-        readonly id: bigint;
+        readonly id: bigint | null;
         /**
          * An optional callback invoked when the stream is destroyed with an error.
          * This includes errors caused by user callbacks that throw or reject (see
@@ -1847,10 +1844,11 @@ declare module "node:quic" {
          */
         setBody(body: StreamBody): void;
         /**
-         * The session that created this stream. Read only.
+         * The session that created this stream, or `null` if the stream has been
+         * destroyed. Read only.
          * @since v23.8.0
          */
-        readonly session: QuicSession;
+        readonly session: QuicSession | null;
         /**
          * The current statistics for the stream. Read only.
          * @since v23.8.0
@@ -1913,13 +1911,33 @@ declare module "node:quic" {
             readonly receivedAt: bigint;
         }
     }
+    /**
+     * An object containing commonly used constants for QUIC configuration.
+     * @since v26.2.0
+     */
     namespace constants {
+        /**
+         * Congestion control algorithm identifiers, for use with the
+         * `sessionOptions.cc` option:
+         *
+         * * `quic.constants.cc.RENO` — Reno congestion control.
+         * * `quic.constants.cc.CUBIC` — CUBIC congestion control.
+         * * `quic.constants.cc.BBR` — BBR congestion control.
+         */
         enum cc {
             RENO = "reno",
             CUBIC = "cubic",
             BBR = "bbr",
         }
+        /**
+         * The default TLS 1.3 cipher suite list used when `sessionOptions.ciphers`
+         * is not specified.
+         */
         const DEFAULT_CIPHERS: string;
+        /**
+         * The default TLS 1.3 key-exchange group list used when
+         * `sessionOptions.groups` is not specified.
+         */
         const DEFAULT_GROUPS: string;
     }
 }
