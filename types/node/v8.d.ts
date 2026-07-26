@@ -89,23 +89,22 @@ declare module "node:v8" {
      * `total_allocated_bytes` The value of total allocated bytes since the Isolate
      * creation.
      *
-     * ```js
+     * ```json
      * {
-     *   total_heap_size: 7326976,
-     *   total_heap_size_executable: 4194304,
-     *   total_physical_size: 7326976,
-     *   total_available_size: 1152656,
-     *   used_heap_size: 3476208,
-     *   heap_size_limit: 1535115264,
-     *   malloced_memory: 16384,
-     *   peak_malloced_memory: 1127496,
-     *   does_zap_garbage: 0,
-     *   number_of_native_contexts: 1,
-     *   number_of_detached_contexts: 0,
-     *   total_global_handles_size: 8192,
-     *   used_global_handles_size: 3296,
-     *   external_memory: 318824,
-     *   total_allocated_bytes: 45224088
+     *   "total_heap_size": 7326976,
+     *   "total_heap_size_executable": 4194304,
+     *   "total_physical_size": 7326976,
+     *   "total_available_size": 1152656,
+     *   "used_heap_size": 3476208,
+     *   "heap_size_limit": 1535115264,
+     *   "malloced_memory": 16384,
+     *   "peak_malloced_memory": 1127496,
+     *   "does_zap_garbage": 0,
+     *   "number_of_native_contexts": 1,
+     *   "number_of_detached_contexts": 0,
+     *   "total_global_handles_size": 8192,
+     *   "used_global_handles_size": 3296,
+     *   "external_memory": 318824
      * }
      * ```
      * @since v1.0.0
@@ -386,12 +385,12 @@ declare module "node:v8" {
      * V8 [`GetHeapCodeAndMetadataStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#a6079122af17612ef54ef3348ce170866) API. Returns an object with the
      * following properties:
      *
-     * ```js
+     * ```json
      * {
-     *   code_and_metadata_size: 212208,
-     *   bytecode_and_metadata_size: 161368,
-     *   external_script_source_size: 1410794,
-     *   cpu_profiler_metadata_size: 0,
+     *   "code_and_metadata_size": 212208,
+     *   "bytecode_and_metadata_size": 161368,
+     *   "external_script_source_size": 1410794,
+     *   "cpu_profiler_metadata_size": 0
      * }
      * ```
      * @since v12.8.0
@@ -963,8 +962,6 @@ declare module "node:v8" {
      * For example, if the `entry.js` contains the following script:
      *
      * ```js
-     * 'use strict';
-     *
      * import fs from 'node:fs';
      * import zlib from 'node:zlib';
      * import path from 'node:path';
