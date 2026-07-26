@@ -2698,12 +2698,12 @@ declare module "node:crypto" {
      */
     function sign(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
     ): NonSharedBuffer;
     function sign(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
         callback: (error: Error | null, data: NonSharedBuffer) => void,
     ): void;
@@ -2729,15 +2729,15 @@ declare module "node:crypto" {
      */
     function verify(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-        signature: ArrayBufferLike | NodeJS.ArrayBufferView,
+        signature: BinaryLike,
     ): boolean;
     function verify(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-        signature: ArrayBufferLike | NodeJS.ArrayBufferView,
+        signature: BinaryLike,
         callback: (error: Error | null, result: boolean) => void,
     ): void;
     /**
