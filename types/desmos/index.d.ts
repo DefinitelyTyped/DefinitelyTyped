@@ -593,14 +593,7 @@ declare namespace Desmos {
          */
         updateSettings(settings: GraphConfiguration & GraphSettings): void;
 
-        HelperExpression(expression: ExpressionState): {
-            listValue: number[];
-            numericValue: number;
-            observe(
-                eventName: "numericValue" | "listValue" | string,
-                callback: () => void,
-            ): void;
-        };
+        HelperExpression(expression: ExpressionState): HelperExpressionState;
 
         // properties
         /**
@@ -944,6 +937,31 @@ declare namespace Desmos {
     }
 
     type ExpressionState = Expression | Table | Note;
+
+    /**
+     * In addition to normal expressions that show up in the calculator's expressions list, you can create "helper expressions" that are evaluated like normal expressions, but don't show up in the expressions list. Helper expressions are useful for monitoring and reacting to what a user is doing with an embedded calculator. Every `calculator` object has a `HelperExpression` constructor for adding helper expressions to that `calculator`.
+     * 
+     * ```ts
+     * var calculator = Desmos.GraphingCalculator(elt);
+     * 
+     * calculator.setExpression({ id: 'a-slider', latex: 'a=1' });
+     * var a = calculator.HelperExpression({ latex: 'a' });
+     * 
+     * calculator.setExpression({ id: 'list', latex: 'L=[1, 2, 3]' });
+     * var L = calculator.HelperExpression({ latex: 'L' });
+     * ```
+     * 
+     * Helper expressions have two observable properties: `numericValue` for expressions that evaluate to a number, and `listValue` for expressions that evaluate to a list. They are updated whenever the expression changes.
+     */
+    interface HelperExpressionState {
+        listValue: number[];
+        numericValue: number;
+
+        observe(
+            eventName: "numericValue" | "listValue" | string,
+            callback: () => void,
+        ): void;
+    }
 
     interface GraphConfiguration {
         /**

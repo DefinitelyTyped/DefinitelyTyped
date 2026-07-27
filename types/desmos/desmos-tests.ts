@@ -129,6 +129,19 @@ calculator.setExpression({
     ],
 });
 
+// Observe helper expressions
+var a = calculator.HelperExpression({ latex: "a" });
+
+a.observe("numericValue", function () {
+    console.log(a.numericValue);
+});
+
+var L = calculator.HelperExpression({ latex: "L" });
+
+L.observe("listValue", function () {
+    console.log(L.listValue);
+});
+
 // Set the x axis to have arrows on both ends
 calculator.updateSettings({ xAxisArrowMode: Desmos.AxisArrowModes.BOTH });
 
