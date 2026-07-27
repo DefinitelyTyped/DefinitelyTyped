@@ -5947,13 +5947,13 @@ function testIdentity() {
 
     chrome.identity.getAuthToken(); // $ExpectType Promise<GetAuthTokenResult>
     chrome.identity.getAuthToken(tokenDetails); // $ExpectType Promise<GetAuthTokenResult>
-    chrome.identity.getAuthToken(result => { // $ExpectType void
-        result.token; // $ExpectType string | undefined
-        result.grantedScopes; // $ExpectType string[] | undefined
+    chrome.identity.getAuthToken((token, grantedScopes) => { // $ExpectType void
+        token; // $ExpectType string | undefined
+        grantedScopes; // $ExpectType string[] | undefined
     });
-    chrome.identity.getAuthToken(tokenDetails, result => { // $ExpectType void
-        result.token; // $ExpectType string | undefined
-        result.grantedScopes; // $ExpectType string[] | undefined
+    chrome.identity.getAuthToken(tokenDetails, (token, grantedScopes) => { // $ExpectType void
+        token; // $ExpectType string | undefined
+        grantedScopes; // $ExpectType string[] | undefined
     });
     // @ts-expect-error
     chrome.identity.getAuthToken(() => {}).then(() => {});
