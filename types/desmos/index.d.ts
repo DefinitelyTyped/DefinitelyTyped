@@ -692,12 +692,12 @@ declare namespace Desmos {
 
             /**
              * The text content of the note.
-             * @default ""
+             * @default ''
              */
             text?: string;
 
             /**
-             * Should be a valid property name for a javascript object (letters, numbers, and _).
+             * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
              */
             id?: string;
         }
@@ -705,19 +705,19 @@ declare namespace Desmos {
             type?: "expression";
             
             /**
-             * Following {@link https://www.desmos.com/api/v1.11/docs/index.html#document-expressions Desmos Expressions}.
+             * Following {@link https://www.desmos.com/api/v1.12/docs/index.html#document-expressions Desmos Expressions}.
              */
             latex?: string;
             
             /**
-             * Hex color. See {@link https://www.desmos.com/api/v1.11/docs/#document-colors Colors}.
+             * Hex color. See {@link https://www.desmos.com/api/v1.12/docs/#document-colors Colors}.
              * Default will cycle through 6 default colors.
              */
             color?: string;
             
             /**
              * Sets the line drawing style of curves or point lists.
-             * See {@link https://www.desmos.com/api/v1.11/docs/#document-styles} Styles.
+             * See {@link https://www.desmos.com/api/v1.12/docs/#document-styles} Styles.
              */
             lineStyle?: keyof typeof Styles;
             
@@ -728,14 +728,14 @@ declare namespace Desmos {
             lineWidth?: number | string;
             
             /**
-             * Determines opacity of lines. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
+             * Determines opacity of lines. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
              * @default 0.9
              */
             lineOpacity?: number | string;
             
             /**
              * Sets the point drawing style of point lists.
-             * See {@link https://www.desmos.com/api/v1.11/docs/#document-styles} Styles.
+             * See {@link https://www.desmos.com/api/v1.12/docs/#document-styles Styles}.
              */
             pointStyle?: keyof typeof Styles;
             
@@ -746,13 +746,14 @@ declare namespace Desmos {
             pointSize?: number | string;
             
             /**
-             * Determines opacity of points. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
+             * Determines opacity of points. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
              * @default 0.9
              */
             pointOpacity?: number | string;
             
             /**
-             * Determines opacity of the interior of a polygon or parametric curve. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1. Defaults to 0.4.
+             * Determines opacity of the interior of a polygon or parametric curve. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
+             * @default 0.4
              */
             fillOpacity?: number | string;
             
@@ -772,7 +773,8 @@ declare namespace Desmos {
             fill?: boolean;
             
             /**
-             * Determines whether the graph is drawn. Defaults to false.
+             * Determines whether the graph is drawn.
+             * @default false
              */
             hidden?: boolean;
             
@@ -783,16 +785,21 @@ declare namespace Desmos {
             secret?: boolean;
             
             /**
-             * Sets bounds of slider expressions. If step is omitted, '', or undefined, the slider will be continuously adjustable. See note below.
+             * Sets bounds of slider expressions. If `step` is omitted, `''`, or `undefined`, the slider will be continuously adjustable.
              */
             sliderBounds?: {
                 min: number | string;
                 max: number | string;
-                step: number | string;
+                step?: number | string;
             };
             
             /**
-             * Sets bounds of parametric curves. See note below.
+             * Determines whether the expression should animate, if it is a slider.
+             * @default false
+             */
+            playing?: boolean;
+            /**
+             * Sets bounds of parametric curves.
              */
             parametricDomain?: {
                 min: number | string;
@@ -800,7 +807,7 @@ declare namespace Desmos {
             };
             
             /**
-             * Sets bounds of polar curves. See note below.
+             * Sets bounds of polar curves.
              */
             polarDomain?: {
                 min: number | string;
@@ -808,12 +815,13 @@ declare namespace Desmos {
             };
             
             /**
-             * Should be a valid property name for a javascript object (letters, numbers, and _).
+             * Should be a valid property name for a javascript object (letters, numbers, and `_`).
              */
             id?: string;
             
             /**
-             * Sets the drag mode of a point. See Drag Modes. Defaults to DragModes.AUTO.
+             * Sets the drag mode of a point. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-drag-modes Drag Modes}.
+             * @default DragModes.AUTO
              */
             dragMode?: keyof typeof DragModes;
             
@@ -828,12 +836,13 @@ declare namespace Desmos {
             showLabel?: boolean;
             
             /**
-             * Sets the size of a point's text label. See LabelSizes.
+             * Specifies the text size of a point's label as a LaTeX string, which, when computed, multiplies the standard label font size of 110% of the system font size.
+             * @default '1'
              */
             labelSize?: keyof typeof LabelSizes;
             
             /**
-             * Sets the desired position of a point's text label. See LabelOrientations.
+             * Sets the desired position of a point's text label. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-label-orientations LabelOrientations}.
              */
             labelOrientation?: keyof typeof LabelOrientations;
         }
@@ -914,6 +923,10 @@ declare namespace Desmos {
                  */
                 dragMode?: keyof typeof DragModes;
             }>;
+
+            /**
+             * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
+             */
             id?: string;
         };
 
