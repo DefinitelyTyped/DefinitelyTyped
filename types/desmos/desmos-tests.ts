@@ -112,7 +112,7 @@ calculator.setExpression({
 // Omit slider step
 calculator.setExpression({
     id: "m",
-    sliderBounds: { min: 1, max: 10, },
+    sliderBounds: { min: 1, max: 10 },
 });
 
 // Table with three columns. Note that the first two columns have explicitly
@@ -135,13 +135,13 @@ calculator.setExpression({
 // Observe helper expressions
 var a = calculator.HelperExpression({ latex: "a" });
 
-a.observe("numericValue", function () {
+a.observe("numericValue", function() {
     console.log(a.numericValue);
 });
 
 var L = calculator.HelperExpression({ latex: "L" });
 
-L.observe("listValue", function () {
+L.observe("listValue", function() {
     console.log(L.listValue);
 });
 
@@ -191,7 +191,7 @@ document.addEventListener("mousemove", (evt) => {
 });
 
 // Observe change
-calculator.observeEvent("change", function (eventName, event) {
+calculator.observeEvent("change", function(eventName, event) {
     console.log("Change occurred");
     if (event.isUserInitiated) {
         // throttledSave();
@@ -290,7 +290,6 @@ Desmos.enabledFeatures.GraphingCalculator
     && !Desmos.enabledFeatures.GeometryCalculator
     && !Desmos.enabledFeatures.ScientificCalculator;
 
-
 // Four-Function Calculator
 // —————————————————————————————————————————————————————————————————————
 
@@ -299,13 +298,11 @@ const elt1 = document.getElementById(
 ) as HTMLDivElement;
 const fourFunctionCalculator = Desmos.FourFunctionCalculator(elt1);
 
-
 // Scientific Calculator
 // —————————————————————————————————————————————————————————————————————
 
 const elt2 = document.getElementById("scientific-calculator") as HTMLDivElement;
 const scientificCalculator = Desmos.ScientificCalculator(elt2);
-
 
 // 3D Graphing Calculator
 // —————————————————————————————————————————————————————————————————————
@@ -318,7 +315,6 @@ calculator3d.setExpression({
     latex: "y=x",
     color: Desmos.Colors.BLUE,
 });
-
 
 // Geometry Calculator
 // —————————————————————————————————————————————————————————————————————
