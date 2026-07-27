@@ -834,7 +834,7 @@ declare namespace Desmos {
         
         /**
          * Specifies the text size of a point's label as a LaTeX string, which, when computed, multiplies the standard label font size of 110% of the system font size.
-         * @default '1'
+         * @default "1"
          */
         labelSize?: keyof typeof LabelSizes;
         
@@ -933,7 +933,7 @@ declare namespace Desmos {
 
         /**
          * The text content of the note.
-         * @default ''
+         * @default ""
          */
         text?: string;
 
@@ -947,12 +947,6 @@ declare namespace Desmos {
 
     interface GraphConfiguration {
         /**
-         * Show the onscreen keypad.
-         * @default true
-         */
-        keypad?: boolean;
-        
-        /**
          * Show the graphpaper
          * @default true
          */
@@ -965,7 +959,7 @@ declare namespace Desmos {
         expressions?: boolean;
         
         /**
-         * Show the settings wrench, for changing graph display
+         * Show the settings wrench, for changing graph display. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-accessibility Accessibility Notes}.
          * @default true
          */
         settingsMenu?: boolean;
@@ -975,9 +969,22 @@ declare namespace Desmos {
          * @default true
          */
         zoomButtons?: boolean;
+
+        /**
+         * Show the onscreen keypad
+         * @default true
+         */
+        keypad?: boolean;
+
+        /**
+         * When `false`, the keypad will start out minimized, and the user needs to manually open it. When true, the onscreen keypad will be opened anytime focus is in a math input. Note: this option is ignored if we detect that the user is on a touch device. In that case, the keypad is always activated.
+         * 
+         * @default false
+         */
+        keypadActivated?: boolean;
         
         /**
-         * If a default state is set, show an onscreen reset button
+         * If a {@link https://www.desmos.com/api/v1.12/docs/index.html#GraphingCalculator.setDefaultState default state} is set, show an onscreen reset button
          * @default false
          */
         showResetButtonOnGraphpaper?: boolean;
@@ -1019,11 +1026,18 @@ declare namespace Desmos {
         expressionsCollapsed?: boolean;
         
         /**
-         * Limit the size of an expression to 100 characters
+         * Limit the size of an expression to 500 LaTeX tokens and a maximum nesting depth of 30
          * @default false
          */
         capExpressionSize?: boolean;
+
+        /**
+         * Enable features intended for content authoring. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-author-features the section on Author Features}.
+         * @default false
+         */
+        authorFeatures?: boolean
         
+        // FIXME not explicitly listed in docs? is this implicit?
         /**
          * Allow creating secret folders
          * @default false
@@ -1037,7 +1051,7 @@ declare namespace Desmos {
         images?: boolean;
         
         /**
-         * Specify custom processing for user-uploaded images. See Image Uploads for more details.
+         * Specify custom processing for user-uploaded images. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-image-uploads Image Uploads} for more details.
          * @param file comment for stuff
          */
         imageUploadCallback?(
@@ -1062,15 +1076,26 @@ declare namespace Desmos {
          * @default true
          */
         sliders?: boolean;
+
+        /**
+         * Allow the use of {@link https://help.desmos.com/hc/en-us/articles/4407725009165-Actions Actions}. May be `true`, `false`, or `'auto'`. When `true` or `false`, actions are completely enabled or disabled. When `'auto'`, actions are enabled, but some associated UI is only displayed after the user enters a valid action. In a future API version, `'auto'` may become a synonym for `true`.
+         */
+        actions?: boolean | 'auto';
+
+        /**
+         * Allow the use of {@link https://help.desmos.com/hc/en-us/articles/12349196836749-Substitution "with" substitutions} and {@link https://help.desmos.com/hc/en-us/articles/4407889068557-Lists list comprehensions}
+         * @default true
+         */
+        substitutions?: boolean;
         
         /**
-         * Allow hyperlinks in notes/folders, and links to help documentation in the expressions list (e.g. regressions with negative R2 values or plots with unresolved detail)
+         * Allow hyperlinks in notes/folders, and links to help documentation in the expressions list (e.g. regressions with negative R² values or plots with unresolved detail)
          * @default true
          */
         links?: boolean;
         
         /**
-         * Display the keypad in QWERTY layout (false shows an alphabetical layout)
+         * Display the keypad in QWERTY layout (`false` shows an alphabetical layout)
          * @default true
          */
         qwertyKeyboard?: boolean;
@@ -1088,16 +1113,28 @@ declare namespace Desmos {
         restrictedFunctions?: boolean;
         
         /**
-         * Force distance and midpoint functions to be enabled, even if restrictedFunctions is set to true. In that case the geometry functions will also be added to the the "Misc" keypad
+         * Force `distance` and `midpoint` functions to be enabled, even if `restrictedFunctions` is set to `true`. In that case the geometry functions will also be added to the the "Misc" keypad
          * @default false
          */
         forceEnableGeometryFunctions?: boolean;
+
+        /**
+         * When false, calculus operations (derivatives and integrals) are disabled.
+         * @default true
+         */
+        calculus?: boolean;
         
         /**
          * Paste a valid desmos graph URL to import that graph
          * @default false
          */
         pasteGraphLink?: boolean;
+
+        /**
+         * If a graph is opened with a playing slider or ticker, and the user has set a browser preference of "prefers reduced motion," this will pause any animations and show a cover allowing the user to opt in to the animations.
+         * @default false
+         */
+        showReducedMotionCover?: boolean;
         
         /**
          * Paste validly formatted table data to create a table up to 50 rows
@@ -1106,18 +1143,19 @@ declare namespace Desmos {
         pasteTableData?: boolean;
         
         /**
-         * When true, clearing the graph through the UI or calling setBlank() will leave the calculator in degreeMode. Note that, if a default state is set, resetting the graph through the UI will result in the calculator's degreeMode matching the mode of that state, regardless of this option.
-         * @default false
+         * When `true`, clearing the graph through the UI or calling `setBlank()` will leave the calculator in `degreeMode`. Note that, if a {@link https://www.desmos.com/api/v1.12/docs/index.html#GraphingCalculator.setDefaultState default state} is set, resetting the graph through the UI will result in the calculator's `degreeMode` matching the mode of that state, regardless of this option.
+         * @default degreeMode
          */
         clearIntoDegreeMode?: boolean;
         
         /**
-         * The color palette that the calculator will cycle through. See the Colors section.
+         * The color palette that the calculator will cycle through. See the {@link https://www.desmos.com/api/v1.12/docs/index.html#document-colors Colors section}.
+         * @default Desmos.Colors
          */
         colors?: { [key: string]: string };
         
         /**
-         * Determine whether the calculator should automatically resize whenever there are changes to element's dimensions. If set to false you will need to explicitly call .resize() in certain situations. See .resize().
+         * Determine whether the calculator should automatically resize whenever there are changes to element's dimensions. If set to `false` you will need to explicitly call `.resize()` in certain situations. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-layout `.resize()`}.
          * @default true
          */
         autosize?: boolean;
@@ -1147,7 +1185,7 @@ declare namespace Desmos {
         projectorMode?: boolean;
         
         /**
-         * When true, users are able to toggle between decimal and fraction output in evaluations if Desmos detects a good rational approximation.
+         * When `true`, users are able to toggle between decimal and fraction output in evaluations if Desmos detects a good rational approximation.
          * @default true
          */
         decimalToFraction?: boolean;
@@ -1159,19 +1197,43 @@ declare namespace Desmos {
         fontSize?: number;
         
         /**
-         * Display the calculator with an inverted color scheme.
+         * Inverts every displayed color (including API colors, below, and plotted colors). This is no longer recommended.
          * @default false
          */
         invertedColors?: boolean;
+
+        /**
+         * When `false`, hides the "Reverse Contrast" checkbox from the settings menu. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-accessibility Accessibility Notes}.
+         * @default true
+         */
+        invertedColorsControl?: boolean;
+
+        /**
+         * ***Beta*** Set the background color of the calculator. Must be a 3- or 6-character hex color (e.g. `#cde` or `#ffaaaa`). This feature is a work in progress.
+         * @default "#fff"
+         */
+        backgroundColor?: string;
+
+        /**
+         * ***Beta*** Set the text color of the calculator. Must be a 3- or 6-character hex color (e.g. `#000` or `#001111`). This feature is a work in progress.
+         * @default "#000"
+         */
+        textColor?: string;
+
+        /**
+         * ***Beta*** Set the accent color used for interactive UI elements such as buttons and focus outlines. Must be a 3- or 6-character hex color (e.g. `#000` or `#001111`). This feature is a work in progress.
+         * @default "#000"
+         */
+        accentColor?: string;
         
         /**
-         * Language. See the https://www.desmos.com/api/v1.11/docs/index.html#document-languages for more information.
+         * Language. See the {@link https://www.desmos.com/api/v1.11/docs/index.html#document-languages Languages section} for more information.
          * @default "en"
          */
         language?: string;
         
         /**
-         * none'   Set the input and output Braille code for persons using refreshable Braille displays. Valid options are 'nemeth', 'ueb', or 'none'.
+         * Set the input and output Braille code for persons using refreshable Braille displays.
          * @default "none"
          */
         brailleMode?: "nemeth" | "ueb" | "none";
@@ -1183,22 +1245,104 @@ declare namespace Desmos {
         sixKeyInput?: boolean;
         
         /**
-         * Show Braille controls in the settings menu and enable shortcut keys for switching between Braille modes.
+         * Show Braille controls in the settings menu and enable shortcut keys for switching between Braille modes. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-accessibility Accessibility Notes}.
          * @default true
          */
         brailleControls?: boolean;
+
+        /**
+         * Permit the calculator to generate sound, including using the {@link https://help.desmos.com/hc/en-us/articles/21373904717197-Tone tone method} and in Audio Trace. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-accessibility Accessibility Notes}.
+         * @default true
+         */
+        audio?: boolean;
+
+        /**
+         * Manually set a description for the graph canvas (which replaces the automatically generated text we create). Set to an empty string to remove the description entirely, or undefined to restore the generated text. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-accessibility Accessibility Notes}.
+         */
+        graphDescription?: boolean;
         
         /**
-         * When true, tables and distributions will display an icon that allows the user to automatically snap the viewport to appropriate bounds for viewing that expression.
+         * When `true`, tables and distributions will display an icon that allows the user to automatically snap the viewport to appropriate bounds for viewing that expression.
          * @default true
          */
         zoomFit?: boolean;
         
         /**
-         * When true, all linearizable regression models will have log mode enabled by default, and the checkbox used to toggle log mode will be hidden from the expression interface.
+         * When `true`, all linearizable regression models will have log mode enabled by default, and the checkbox used to toggle log mode will be hidden from the expression interface. See {@link https://help.desmos.com/hc/en-us/articles/204349605-Log-Mode this support article} for more information.
          * @default false
          */
         forceLogModeRegressions?: boolean;
+        
+        /**
+         * When `true`, all linearizable regression models will have log mode enabled by default, but, unlike `forceLogModeRegressions`, the checkbox used to toggle log mode will be visible from the expression interface. See {@link https://help.desmos.com/hc/en-us/articles/204349605-Log-Mode this support article} for more information.
+         * @default false
+         */
+        defaultLogModeRegressions?: boolean;
+
+        /**
+         * When `true`, users can create arbitrary regression models using expression syntax. See {@link https://help.desmos.com/hc/en-us/articles/4406972958733-Regressions this article on regressions}.
+         * @default true
+         */
+        customRegressions?: boolean;
+
+        /**
+         * When `true`, users can create regressions from a fixed menu of model options from the table column interface. See {@link https://help.desmos.com/hc/en-us/articles/4406972958733-Regressions this article on regressions}.
+         * @default true
+         */
+        regressionTemplates?: boolean;
+
+        /**
+         * When `true`, the option to use {@link https://help.desmos.com/hc/en-us/articles/15276544054413-Set-an-Axis-to-a-Logarithmic-Scale logarithmic axis scales} is enabled.
+         * @default true
+         */
+        logScales?: boolean;
+
+        /**
+         * When `true`, the {@link https://help.desmos.com/hc/en-us/articles/21373904717197-Tone tone command} is enabled.
+         * @default true
+         */
+        tone?: boolean;
+
+        /**
+         * When `true`, the syntax for {@link https://help.desmos.com/hc/en-us/articles/21819040155917-Generalizing-for-Lists-and-Intervals interval comprehensions} is enabled.
+         * @default true
+         */
+        intervalComprehensions?: boolean;
+
+        /**
+         * Globally mute or unmute sound generated by the calculator's built-in `tone()` function. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-tone the section on tones}.
+         * @default true
+         */
+        muted?: boolean;
+
+        /**
+         * Enable the "Complex Mode" toggle in the Settings Menu. See {@link https://help.desmos.com/hc/en-us/articles/31103542590733-Complex-Numbers section on complex numbers}.
+         * @default true
+         */
+        allowComplex?: boolean;
+
+        /**
+         * Specify how the calculator reports object positions to screen readers. Valid options are 'coordinates', 'percents', or 'default'. If set to 'default', objects will be reported in terms of X and Y coordinates if eeither X or Y axis is visible. If both axes are hidden, positions are reported as percentages from the viewport's top and left edges.
+         * @default 'default'
+         */
+        reportPosition?: "coordinates" | "percents" | "default";
+
+        /**
+         * When `true`, show a button next to expression evaluations that copies the evaluation LaTeX to the system clipboard. Optionally, it is possible to define a callback that provides custom copy logic, e.g., for an application that manages its own clipboard. See `onEvaluationCopyClick`.
+         * @default false
+         */
+        showEvaluationCopyButtons?: boolean;
+
+        /**
+         * A function `(string) -> void` that will be invoked when the user clicks an expression evaluation's copy button (see above) with the evaluation LaTeX as its argument. The default implementation copies to the system clipboard.
+         */
+        onEvaluationCopyClick?: boolean;
+
+        /**
+         * When `true`, allow the use of recursive functions. See {@link https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion the article on recursion} for more information.
+         * @default true
+         */
+        recursion?: boolean;
     }
 
     interface GraphSettings {
