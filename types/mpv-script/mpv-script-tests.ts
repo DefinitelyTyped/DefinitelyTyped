@@ -7,6 +7,12 @@ mp.command_native(["print-text", "test"]);
 // $ExpectType null | "def"
 mp.command_native(["print-text", "test"], "def");
 
+// $ExpectType null | undefined
+mp.command_native({
+    name: "expand-path",
+    text: "foo",
+});
+
 // $ExpectType SubprocessResultBase
 mp.command_native({
     name: "subprocess",
@@ -15,7 +21,7 @@ mp.command_native({
 
 // $ExpectType "def" | null
 mp.command_native({
-    name: "non-exist command",
+    name: "print-text",
     text: "foo",
 }, "def");
 
@@ -54,6 +60,14 @@ mp.abort_async_command(res);
 if (res) mp.abort_async_command(res);
 // @ts-expect-error
 mp.abort_async_command({});
+
+mp.command_native_async({
+    name: "expand-path",
+    text: "foo",
+}, function(ok, res, err) {
+    // $ExpectType null | undefined
+    var r = res;
+});
 
 mp.command_native_async({
     name: "subprocess",

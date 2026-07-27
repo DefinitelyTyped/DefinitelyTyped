@@ -53,6 +53,13 @@ Engage.createElement("key", "target", { filters: ["filter1", "filter2"] });
 // $ExpectType Engage
 engage.config(
     {
+        theme: "dark",
+    },
+);
+
+// $ExpectType Engage
+engage.config(
+    {
         debug: false,
     },
     true,

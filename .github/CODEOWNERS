@@ -7011,7 +7011,7 @@
 /types/safe-regex/                                      @ImRodry
 /types/safe-timers/                                     @ksocha
 /types/safer-buffer/                                    @ffflorian
-/types/safie-sdk/                                       @SafieDev
+/types/safie-sdk/                                       @SafieDev @yusuke-oba1
 /types/sails.io.js/                                     @arvitaly
 /types/sailthru-client/                                 @smolnikov
 /types/salesforce__canvas-js-sdk/                       @zms-dev
