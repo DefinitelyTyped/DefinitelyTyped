@@ -25647,7 +25647,7 @@ declare namespace OfficeExtension {
         top?: number;
         /**
          * Only usable on collection types. Specifies the number of items in the collection that are to be skipped and not included in the result.
-         * If top is specified, the result set will start after skipping the specified number of items.
+         * If `top` is specified, the result set will start after skipping the specified number of items.
          */
         skip?: number;
     }
@@ -70108,7 +70108,7 @@ declare namespace Excel {
             */
             $top?: number;
             /**
-            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If `top` is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
         }
@@ -97834,6 +97834,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     class CoauthoringLock extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -97872,6 +97874,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         unlock(): void;
         /**
@@ -97914,6 +97918,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     class CoauthoringLockCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -97926,6 +97932,8 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApiDesktop 1.4]
          *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
+         *
          * @param options Optional. The options to further configure the coauthoring lock.
          */
         add(options?: Word.CoauthoringLockAddOptions): Word.CoauthoringLock;
@@ -97934,6 +97942,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         unlockEphemeralLocks(): void;
         /**
@@ -97973,6 +97983,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     interface CoauthoringLockAddOptions {
         /**
@@ -98004,6 +98016,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         readonly locks: Word.CoauthoringLockCollection;
         /**
@@ -98140,6 +98154,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         readonly locks: Word.CoauthoringLockCollection;
         /**
@@ -118840,6 +118856,24 @@ declare namespace Word {
          */
         contentControlAdded = "ContentControlAdded",
         /**
+         * AnnotationAdded represents the event an annotation has been added to the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationAdded = "AnnotationAdded",
+        /**
+         * AnnotationChanged represents the event an annotation has been updated in the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationChanged = "AnnotationChanged",
+        /**
+         * AnnotationDeleted represents the event an annotation has been deleted from the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationDeleted = "AnnotationDeleted",
+        /**
          * Represents that a content control has been entered.
          * @remarks
          * [Api set: WordApi 1.5]
@@ -118851,6 +118885,12 @@ declare namespace Word {
          * [Api set: WordApi 1.5]
          */
         contentControlExited = "ContentControlExited",
+        /**
+         * Represents that a word count has been changed.
+         * @remarks
+         * [Api set: WordApi Unknown Version, this API may or may not work on a client. This API may not be released to 3rd parties.]
+         */
+        documentWordCountChanged = "DocumentWordCountChanged",
         /**
          * Represents that one or more new paragraphs were added.
          * @remarks
@@ -118933,7 +118973,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -118962,7 +119002,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -118991,7 +119031,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119020,7 +119060,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119049,7 +119089,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119164,7 +119204,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119200,7 +119240,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -119229,7 +119269,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -119258,7 +119298,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -140326,6 +140366,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     enum CoauthoringLockType {
         /**
@@ -146765,6 +146807,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.4]
+            *
+            * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
             */
             locks?: Word.Interfaces.CoauthoringLockData[];
             /**
@@ -146821,6 +146865,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.4]
+            *
+            * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
             */
             locks?: Word.Interfaces.CoauthoringLockData[];
             /**
@@ -155502,6 +155548,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         interface CoauthoringLockLoadOptions {
             /**
@@ -155535,6 +155583,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         interface CoauthoringLockCollectionLoadOptions {
             /**
@@ -173053,7 +173103,7 @@ declare namespace OneNote {
             */
             $top?: number;
             /**
-            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If `top` is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
         }
@@ -177966,7 +178016,7 @@ declare namespace Visio {
             */
             $top?: number;
             /**
-            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If `top` is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
         }
