@@ -405,7 +405,7 @@ declare namespace Desmos {
         getExpressions(): ExpressionState[];
         
         /**
-         * Returns a javascript object representing the current state of the calculator. Use in conjunction with `GraphingCalculator.setState` to save and restore calculator states. The return value of `GraphingCalculator.getState` may be serialized to a string using `JSON.stringify`.
+         * Returns a JavaScript object representing the current state of the calculator. Use in conjunction with `GraphingCalculator.setState` to save and restore calculator states. The return value of `GraphingCalculator.getState` may be serialized to a string using `JSON.stringify`.
          * 
          * *Warning*: Calculator states should be treated as opaque values. Manipulating states directly may produce a result that cannot be loaded by `GraphingCalculator.setState`.
          */
@@ -812,7 +812,7 @@ declare namespace Desmos {
         };
         
         /**
-         * Should be a valid property name for a javascript object (letters, numbers, and `_`).
+         * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
          */
         id?: string;
         
