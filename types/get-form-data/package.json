@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/get-form-data",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/insin/get-form-data"
+    ],
+    "devDependencies": {
+        "@types/get-form-data": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}
