@@ -520,12 +520,24 @@ declare namespace Desmos {
         setDefaultState(obj: GraphState): void;
         
         /**
-         * This will update or create a mathematical expression.
+         * This will update or create a mathematical expression. `expression_state` should be an object which represents a single expression. Different types of expressions can be specified using the `type` property of `expression_state`, which must be either `text`, `expression` or `table`. If no `type` property is explicitly specified, the type defaults to `expression`.
+         * 
+         * This function does not return any value.
          */
         setExpression(expression: ExpressionState): void;
         
         /**
-         * This function will attempt to create expressions for each element in the array.
+         * `expression_states` should be an array, and each element should be a valid argument for `GraphingCalculator.setExpression()`
+         * 
+         * This function will attempt to create expressions for each element in the array, and is equivalent to
+         * 
+         * ```ts
+         * expression_states.forEach(function (expression_state) {
+         *   calculator.setExpression(expression_state);
+         * });
+         * ```
+         * 
+         * This function does not return any value.
          */
         setExpressions(expressions: readonly ExpressionState[]): void;
         
@@ -686,38 +698,192 @@ declare namespace Desmos {
         supportedLanguages: string[];
     }
 
-    type ExpressionState =
-        | {
-            type?: "text";
+    interface Expression {
+        type?: "expression";
+            
+        /**
+         * Following {@link https://www.desmos.com/api/v1.12/docs/index.html#document-expressions Desmos Expressions}.
+         */
+        latex?: string;
+        
+        /**
+         * Hex color. See {@link https://www.desmos.com/api/v1.12/docs/#document-colors Colors}.
+         * Default will cycle through 6 default colors.
+         */
+        color?: string;
+        
+        /**
+         * Sets the line drawing style of curves or point lists.
+         * See {@link https://www.desmos.com/api/v1.12/docs/#document-styles} Styles.
+         */
+        lineStyle?: keyof typeof Styles;
+        
+        /**
+         * Determines width of lines in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number.
+         * @default 2.5
+         */
+        lineWidth?: number | string;
+        
+        /**
+         * Determines opacity of lines. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
+         * @default 0.9
+         */
+        lineOpacity?: number | string;
+        
+        /**
+         * Sets the point drawing style of point lists.
+         * See {@link https://www.desmos.com/api/v1.12/docs/#document-styles Styles}.
+         */
+        pointStyle?: keyof typeof Styles;
+        
+        /**
+         * Determines diameter of points in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number.
+         * @default 9
+         */
+        pointSize?: number | string;
+        
+        /**
+         * Determines opacity of points. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
+         * @default 0.9
+         */
+        pointOpacity?: number | string;
+        
+        /**
+         * Determines opacity of the interior of a polygon or parametric curve. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
+         * @default 0.4
+         */
+        fillOpacity?: number | string;
+        
+        /**
+         * Determines whether points are plotted for point lists.
+         */
+        points?: boolean;
+        
+        /**
+         * Determines whether line segments are plotted for point lists.
+         */
+        lines?: boolean;
+        
+        /**
+         * Determines whether a polygon or parametric curve has its interior shaded.
+         */
+        fill?: boolean;
+        
+        /**
+         * Determines whether the graph is drawn.
+         * @default false
+         */
+        hidden?: boolean;
+        
+        /**
+         * Determines whether the expression should appear in the expressions list. Does not affect graph visibility.
+         * @default false
+         */
+        secret?: boolean;
+        
+        /**
+         * Sets bounds of slider expressions. If `step` is omitted, `''`, or `undefined`, the slider will be continuously adjustable.
+         */
+        sliderBounds?: {
+            min: number | string;
+            max: number | string;
+            step?: number | string;
+        };
+        
+        /**
+         * Determines whether the expression should animate, if it is a slider.
+         * @default false
+         */
+        playing?: boolean;
+        /**
+         * Sets bounds of parametric curves.
+         */
+        parametricDomain?: {
+            min: number | string;
+            max: number | string;
+        };
+        
+        /**
+         * Sets bounds of polar curves.
+         */
+        polarDomain?: {
+            min: number | string;
+            max: number | string;
+        };
+        
+        /**
+         * Should be a valid property name for a javascript object (letters, numbers, and `_`).
+         */
+        id?: string;
+        
+        /**
+         * Sets the drag mode of a point. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-drag-modes Drag Modes}.
+         * @default DragModes.AUTO
+         */
+        dragMode?: keyof typeof DragModes;
+        
+        /**
+         * . Sets the text label of a point. If a label is set to the empty string then the point's default label (its coordinates) will be applied.
+         */
+        label?: string;
+        
+        /**
+         * Sets the visibility of a point's text label.
+         */
+        showLabel?: boolean;
+        
+        /**
+         * Specifies the text size of a point's label as a LaTeX string, which, when computed, multiplies the standard label font size of 110% of the system font size.
+         * @default '1'
+         */
+        labelSize?: keyof typeof LabelSizes;
+        
+        /**
+         * Sets the desired position of a point's text label. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-label-orientations LabelOrientations}.
+         */
+        labelOrientation?: keyof typeof LabelOrientations;
+    }
 
+    interface Table {
+        type: "table";
+            
+        /**
+         * Array of Table Columns.
+         */
+        columns: ReadonlyArray<{
             /**
-             * The text content of the note.
-             * @default ''
+             * Variable or computed expression used in the column header.
              */
-            text?: string;
-
-            /**
-             * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
-             */
-            id?: string;
-        }
-        | {
-            type?: "expression";
+            latex: string;
             
             /**
-             * Following {@link https://www.desmos.com/api/v1.12/docs/index.html#document-expressions Desmos Expressions}.
+             * Array of LaTeX strings. Need not be specified in the case of computed table columns.
              */
-            latex?: string;
+            values?: string[];
             
             /**
-             * Hex color. See {@link https://www.desmos.com/api/v1.12/docs/#document-colors Colors}.
-             * Default will cycle through 6 default colors.
+             * Hex color. See Colors. Default will cycle through 6 default colors.
              */
             color?: string;
             
             /**
-             * Sets the line drawing style of curves or point lists.
-             * See {@link https://www.desmos.com/api/v1.12/docs/#document-styles} Styles.
+             * Determines if graph is drawn.
+             * @default false
+             */
+            hidden?: boolean;
+            
+            /**
+             * Determines whether points are plotted.
+             */
+            points?: boolean;
+            
+            /**
+             * Determines whether line segments are plotted.
+             */
+            lines?: boolean;
+            
+            /**
+             * Sets the drawing style for line segments. See Styles.
              */
             lineStyle?: keyof typeof Styles;
             
@@ -728,14 +894,13 @@ declare namespace Desmos {
             lineWidth?: number | string;
             
             /**
-             * Determines opacity of lines. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
+             * Determines opacity of lines. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
              * @default 0.9
              */
             lineOpacity?: number | string;
             
             /**
-             * Sets the point drawing style of point lists.
-             * See {@link https://www.desmos.com/api/v1.12/docs/#document-styles Styles}.
+             * Sets the drawing style for points. See Styles.
              */
             pointStyle?: keyof typeof Styles;
             
@@ -746,189 +911,39 @@ declare namespace Desmos {
             pointSize?: number | string;
             
             /**
-             * Determines opacity of points. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
+             * Determines opacity of points. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
              * @default 0.9
              */
             pointOpacity?: number | string;
             
             /**
-             * Determines opacity of the interior of a polygon or parametric curve. May be a number between `0` and `1`, or a LaTeX string that evaluates to a number between `0` and `1`.
-             * @default 0.4
-             */
-            fillOpacity?: number | string;
-            
-            /**
-             * Determines whether points are plotted for point lists.
-             */
-            points?: boolean;
-            
-            /**
-             * Determines whether line segments are plotted for point lists.
-             */
-            lines?: boolean;
-            
-            /**
-             * Determines whether a polygon or parametric curve has its interior shaded.
-             */
-            fill?: boolean;
-            
-            /**
-             * Determines whether the graph is drawn.
-             * @default false
-             */
-            hidden?: boolean;
-            
-            /**
-             * Determines whether the expression should appear in the expressions list. Does not affect graph visibility.
-             * @default false
-             */
-            secret?: boolean;
-            
-            /**
-             * Sets bounds of slider expressions. If `step` is omitted, `''`, or `undefined`, the slider will be continuously adjustable.
-             */
-            sliderBounds?: {
-                min: number | string;
-                max: number | string;
-                step?: number | string;
-            };
-            
-            /**
-             * Determines whether the expression should animate, if it is a slider.
-             * @default false
-             */
-            playing?: boolean;
-            /**
-             * Sets bounds of parametric curves.
-             */
-            parametricDomain?: {
-                min: number | string;
-                max: number | string;
-            };
-            
-            /**
-             * Sets bounds of polar curves.
-             */
-            polarDomain?: {
-                min: number | string;
-                max: number | string;
-            };
-            
-            /**
-             * Should be a valid property name for a javascript object (letters, numbers, and `_`).
-             */
-            id?: string;
-            
-            /**
-             * Sets the drag mode of a point. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-drag-modes Drag Modes}.
-             * @default DragModes.AUTO
+             * See Drag Modes. Defaults to DragModes.NONE.
              */
             dragMode?: keyof typeof DragModes;
-            
-            /**
-             * . Sets the text label of a point. If a label is set to the empty string then the point's default label (its coordinates) will be applied.
-             */
-            label?: string;
-            
-            /**
-             * Sets the visibility of a point's text label.
-             */
-            showLabel?: boolean;
-            
-            /**
-             * Specifies the text size of a point's label as a LaTeX string, which, when computed, multiplies the standard label font size of 110% of the system font size.
-             * @default '1'
-             */
-            labelSize?: keyof typeof LabelSizes;
-            
-            /**
-             * Sets the desired position of a point's text label. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-label-orientations LabelOrientations}.
-             */
-            labelOrientation?: keyof typeof LabelOrientations;
-        }
-        | {
-            type: "table";
-            
-            /**
-             * Array of Table Columns.
-             */
-            columns: ReadonlyArray<{
-                /**
-                 * Variable or computed expression used in the column header.
-                 */
-                latex: string;
-                
-                /**
-                 * Array of LaTeX strings. Need not be specified in the case of computed table columns.
-                 */
-                values?: string[];
-                
-                /**
-                 * Hex color. See Colors. Default will cycle through 6 default colors.
-                 */
-                color?: string;
-                
-                /**
-                 * Determines if graph is drawn.
-                 * @default false
-                 */
-                hidden?: boolean;
-                
-                /**
-                 * Determines whether points are plotted.
-                 */
-                points?: boolean;
-                
-                /**
-                 * Determines whether line segments are plotted.
-                 */
-                lines?: boolean;
-                
-                /**
-                 * Sets the drawing style for line segments. See Styles.
-                 */
-                lineStyle?: keyof typeof Styles;
-                
-                /**
-                 * Determines width of lines in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number.
-                 * @default 2.5
-                 */
-                lineWidth?: number | string;
-                
-                /**
-                 * Determines opacity of lines. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
-                 * @default 0.9
-                 */
-                lineOpacity?: number | string;
-                
-                /**
-                 * Sets the drawing style for points. See Styles.
-                 */
-                pointStyle?: keyof typeof Styles;
-                
-                /**
-                 * Determines diameter of points in pixels. May be any positive number, or a LaTeX string that evaluates to a positive number.
-                 * @default 9
-                 */
-                pointSize?: number | string;
-                
-                /**
-                 * Determines opacity of points. May be a number between 0 and 1, or a LaTeX string that evaluates to a number between 0 and 1.
-                 * @default 0.9
-                 */
-                pointOpacity?: number | string;
-                
-                /**
-                 * See Drag Modes. Defaults to DragModes.NONE.
-                 */
-                dragMode?: keyof typeof DragModes;
-            }>;
+        }>;
 
-            /**
-             * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
-             */
-            id?: string;
-        };
+        /**
+         * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
+         */
+        id?: string;
+    }
+
+    interface Note {
+        type: "text";
+
+        /**
+         * The text content of the note.
+         * @default ''
+         */
+        text?: string;
+
+        /**
+         * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
+         */
+        id?: string;
+    }
+
+    type ExpressionState = Expression | Table | Note;
 
     interface GraphConfiguration {
         /**

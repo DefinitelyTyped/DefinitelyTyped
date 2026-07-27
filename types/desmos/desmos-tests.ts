@@ -1,6 +1,12 @@
 const elt = document.getElementById("calculator") as HTMLDivElement;
 const calculator = Desmos.GraphingCalculator(elt);
-calculator.setExpression({ id: "graph1", latex: "y=x^2" });
+
+// Set expression
+calculator.setExpression({ id: "graph1", type: "expression", latex: "y=x^2" });
+// Set note
+calculator.setExpression({ id: "graph2", type: "text", text: "Desmos is cool!" });
+// Set table
+calculator.setExpression({ id: "graph3", type: "table", columns: [] });
 
 // Save the current state of a calculator instance
 const state = calculator.getState();
@@ -95,10 +101,15 @@ calculator.setExpression({ id: "m", latex: "m=3" });
 // Inequality to shade a circle at the origin
 calculator.setExpression({ id: "circle1", latex: "x^2 + y^2 < 1" });
 
-// Restrict the slider for the m variable to the integers from 1 to 10
+// Set slider bounds
 calculator.setExpression({
     id: "m",
     sliderBounds: { min: 1, max: 10, step: 1 },
+});
+// Omit slider step
+calculator.setExpression({
+    id: "m",
+    sliderBounds: { min: 1, max: 10, },
 });
 
 // Table with three columns. Note that the first two columns have explicitly
@@ -190,13 +201,6 @@ calculator.setExpression({
     id: "3",
     latex: "y=sin(x)",
     color: calculator.colors.customBlue,
-});
-
-// Text expression
-calculator.setExpression({
-    type: "text",
-    id: "4",
-    text: "Hello World",
 });
 
 // Make a dashed line
