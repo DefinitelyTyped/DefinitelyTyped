@@ -429,13 +429,23 @@ declare namespace Desmos {
         newRandomSeed(): void;
         observe(eventName: string, callback: () => void): void;
         
-        // TODO
         /**
-         * The 'change' event is emitted by the calculator whenever any change occurs that will affect the persisted state of the calculator.
-         * This applies to any changes caused either by direct user interaction, or by calls to API methods.
-         * Observing the 'change' event allows implementing periodic saving of a user's work without the need for polling.
+         * The `'change'` event is emitted by the calculator whenever any change occurs that will affect the persisted state of the calculator. This applies to any changes caused either by direct user interaction, or by calls to API methods.
+         * 
+         * Observing the `'change'` event allows implementing periodic saving of a user's work without the need for polling.
+         * 
+         * The callback provided to `observeEvent` is called with two parameters: the name of the event (e.g. `'change'`) and an `event` object containing a boolean isUserInitiated property. The value of `event.isUserInitiated` is `true` if the change that triggered the event was caused by a user interacting with the graph, and `false` otherwise (e.g. if the change is due to an API call like `calculator.setExpression()`).
          */
-        observeEvent(eventName: string, callback: () => void): void;
+        observeEvent(
+            eventName: "change" | "graphReset" | string,
+            callback: (eventName: "change" | "graphReset" | string, event: { isUserInitiated: boolean }) => void,
+        ): void;
+        // NOTE: Desmos API hardcodes "change", but elsewhere also documents a `graphReset` event (it's very confusing). Leaving `| string` fallback since presumably they intend to expose more events in future.
+        
+        /**
+         * Remove all observers added by `GraphingCalculator.observeEvent('change')`. For finer control over removing observers, see the section on {@link https://www.desmos.com/api/v1.12/docs/index.html#managing-observers managing observers}.
+         */
+        unobserveEvent(eventName: string): void;
         
         /**
          * Convert pixel coordinates to math coordinates.
@@ -577,11 +587,6 @@ declare namespace Desmos {
          */
         undo(): void;
         unobserve(eventName: string): void;
-        
-        /**
-         * Remove all observers added by GraphingCalculator.observeEvent('change'). For finer control over removing observers, see the section on managing observers.
-         */
-        unobserveEvent(eventName: string): void;
 
         /**
          * Updates any of the properties allowed in the constructor. Only properties that are present will be changed.

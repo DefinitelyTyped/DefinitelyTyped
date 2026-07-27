@@ -1,3 +1,6 @@
+// 2D Graphing Calculator
+// —————————————————————————————————————————————————————————————————————
+
 const elt = document.getElementById("calculator") as HTMLDivElement;
 const calculator = Desmos.GraphingCalculator(elt);
 
@@ -187,7 +190,15 @@ document.addEventListener("mousemove", (evt) => {
     );
 });
 
-// Add three different observers to the 'xAxisLabel' property
+// Observe change
+calculator.observeEvent("change", function (eventName, event) {
+    console.log("Change occurred");
+    if (event.isUserInitiated) {
+        // throttledSave();
+    }
+});
+
+// Add three different observers to the "xAxisLabel" property
 calculator.settings.observe("xAxisLabel.foo", () => {});
 calculator.settings.observe("xAxisLabel.bar", () => {});
 calculator.settings.observe("xAxisLabel.baz", () => {});
@@ -258,7 +269,7 @@ calculator.updateSettings({ fontSize: Desmos.FontSizes.LARGE });
 calculator.updateSettings({ fontSize: 11 });
 
 // Inspect available languages
-Desmos.supportedLanguages; // ['es', 'fr']
+Desmos.supportedLanguages; // ["es", "fr"]
 
 // Set a calculator instance to French
 calculator.updateSettings({ language: "fr" });
@@ -279,15 +290,26 @@ Desmos.enabledFeatures.GraphingCalculator
     && !Desmos.enabledFeatures.GeometryCalculator
     && !Desmos.enabledFeatures.ScientificCalculator;
 
+
+// Four-Function Calculator
+// —————————————————————————————————————————————————————————————————————
+
 const elt1 = document.getElementById(
     "four-function-calculator",
 ) as HTMLDivElement;
 const fourFunctionCalculator = Desmos.FourFunctionCalculator(elt1);
 
+
+// Scientific Calculator
+// —————————————————————————————————————————————————————————————————————
+
 const elt2 = document.getElementById("scientific-calculator") as HTMLDivElement;
 const scientificCalculator = Desmos.ScientificCalculator(elt2);
 
-// 3d calculator
+
+// 3D Graphing Calculator
+// —————————————————————————————————————————————————————————————————————
+
 const elt3 = document.getElementById("calculator-3d") as HTMLDivElement;
 const calculator3d = Desmos.Calculator3D(elt3);
 
@@ -297,7 +319,10 @@ calculator3d.setExpression({
     color: Desmos.Colors.BLUE,
 });
 
-// geometry calculator
+
+// Geometry Calculator
+// —————————————————————————————————————————————————————————————————————
+
 const eltGeometry = document.getElementById(
     "calculator-geometry",
 ) as HTMLDivElement;
