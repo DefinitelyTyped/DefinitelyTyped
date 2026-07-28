@@ -118886,12 +118886,6 @@ declare namespace Word {
          */
         contentControlExited = "ContentControlExited",
         /**
-         * Represents that a word count has been changed.
-         * @remarks
-         * [Api set: WordApi Unknown Version, this API may or may not work on a client. This API may not be released to 3rd parties.]
-         */
-        documentWordCountChanged = "DocumentWordCountChanged",
-        /**
          * Represents that one or more new paragraphs were added.
          * @remarks
          * [Api set: WordApi 1.6]

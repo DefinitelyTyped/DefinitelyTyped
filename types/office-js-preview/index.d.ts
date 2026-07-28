@@ -117531,7 +117531,7 @@ declare namespace Word {
          */
         readonly getLabelingCapability: Word.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled";
         /**
-         * Gets the ABAC attributes available for sensitivity labels.
+         * Gets the attribute-based access control (ABAC) attributes available for sensitivity labels.
          *
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -117586,7 +117586,7 @@ declare namespace Word {
         toJSON(): Word.Interfaces.SensitivityLabelsCatalogData;
     }
     /**
-     * Represents a single ABAC attribute value for a sensitivity label.
+     * Represents a single attribute-based access control (ABAC) attribute value for a sensitivity label.
      *
      * @remarks
      * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -117655,7 +117655,7 @@ declare namespace Word {
         toJSON(): Word.Interfaces.SensitivityLabelAbacAttributeValueData;
     }
     /**
-     * Represents an ABAC attribute for sensitivity labels.
+     * Represents an attribute-based access control (ABAC) attribute for sensitivity labels.
      *
      * @remarks
      * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -117820,7 +117820,7 @@ declare namespace Word {
          */
         readonly children: Word.SensitivityLabelDetailsCollection;
         /**
-         * The ABAC attribute values associated with the sensitivity label.
+         * The attribute-based access control (ABAC) attribute values associated with the sensitivity label.
          *
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -117844,7 +117844,7 @@ declare namespace Word {
          */
         readonly id: string;
         /**
-         * Indicates whether ABAC attributes are required when applying the sensitivity label.
+         * Indicates whether attribute-based access control (ABAC) attributes are required when applying the sensitivity label.
          *
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -117852,7 +117852,7 @@ declare namespace Word {
          */
         readonly isAbacAttributesRequired: boolean;
         /**
-         * Indicates whether the sensitivity label supports ABAC attributes.
+         * Indicates whether the sensitivity label supports attribute-based access control (ABAC) attributes.
          *
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -127056,12 +127056,6 @@ declare namespace Word {
          * [Api set: WordApi 1.5]
          */
         contentControlExited = "ContentControlExited",
-        /**
-         * Represents that a word count has been changed.
-         * @remarks
-         * [Api set: WordApi Unknown Version, this API may or may not work on a client. This API may not be released to 3rd parties.]
-         */
-        documentWordCountChanged = "DocumentWordCountChanged",
         /**
          * Represents that one or more new paragraphs were added.
          * @remarks
@@ -150211,14 +150205,14 @@ declare namespace Word {
          */
         crossTenant = "CrossTenant",
         /**
-         * ABAC attribute values were supplied, but the target label is not ABAC-enabled.
+         * Attribute-based access control (ABAC) attribute values were supplied, but the target label is not ABAC-enabled.
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
          * @beta
          */
         abacAttributesNotAllowed = "AbacAttributesNotAllowed",
         /**
-         * The target label is ABAC-enabled and requires attribute selections, but no ABAC attribute values were supplied.
+         * The target label isn't enabled for attribute-based access controls and requires attribute selections, but no ABAC attribute values were supplied.
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
          * @beta
