@@ -2,11 +2,12 @@
 // https://issuetracker.google.com/savedsearches/558438
 
 // Google Maps JS API Version: 3.65
-// tslint:disable:enforce-name-casing
-// tslint:disable:no-any
-// tslint:disable:interface-over-type-literal
 // tslint:disable:array-type
+// tslint:disable:enforce-name-casing
+// tslint:disable:interface-over-type-literal
+// tslint:disable:no-any
 // tslint:disable:no-empty-interface
+// tslint:disable:no-quoted-property-signatures
 // tslint:disable:no-unnecessary-class
 // tslint:disable:strict-export-declare-modifiers
 // g3-prettier-ignore-file
@@ -3810,7 +3811,7 @@ declare namespace google.maps {
   /**
    * Access by calling `const {MVCArray} = await google.maps.importLibrary("core");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class MVCArray< T = any > extends google.maps.MVCObject {
+  export class MVCArray<T = any> extends google.maps.MVCObject {
     /**
      * A mutable MVC Array.
      * @param array
@@ -5515,8 +5516,8 @@ declare namespace google.maps {
   export class StyledMapType extends google.maps.MVCObject implements google.maps.MapType {
     /**
      * Creates a styled <code>MapType</code> with the specified options. The <code>StyledMapType</code> takes an array of <code>MapTypeStyle</code>s, where each <code>MapTypeStyle</code> is applied to the map consecutively. A later <code>MapTypeStyle</code> that applies the same <code>MapTypeStyler</code>s to the same selectors as an earlier <code>MapTypeStyle</code> will override the earlier <code>MapTypeStyle</code>. <br><br>Note that the <code>StyledMapType</code> is not supported when a map ID is set. When using both together, you will receive a console warning.
-     * @param styles
-     * @param options
+     * @param styles The styles to apply.
+     * @param options The styled map type options.
      */
     constructor(styles: (google.maps.MapTypeStyle | null)[] | null, options?: google.maps.StyledMapTypeOptions | null);
 
@@ -15574,6 +15575,20 @@ declare namespace google.maps.routes {
     units?: google.maps.UnitSystem;
   }
   /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Options for creating waypoint markers.
+   */
+  export interface CreateWaypointMarkersOptions<T = google.maps.maps3d.MarkerElement | google.maps.maps3d.Marker3DElement | google.maps.maps3d.MarkerInteractiveElement | google.maps.maps3d.Marker3DInteractiveElement> {
+    /**
+     * A custom function to mutate the created elements. The default forEach function appends pins with A-Z glyphs to each marker. For different behavior, override this function.
+     */
+    forEach?: ((arg0: T) => void) | null;
+    /**
+     * The constructor of the element to create. Supported types include: <ul> <li>{@link google.maps.maps3d.Marker3DElement}</li> <li>{@link google.maps.maps3d.Marker3DInteractiveElement}</li> <li>{@link google.maps.maps3d.MarkerElement}</li> <li>{@link google.maps.maps3d.MarkerInteractiveElement}</li> </ul>
+     */
+    markerClass?: (new () => T) | null;
+  }
+  /**
    * Encapsulates a geographic point and an optional heading.
    * Access by calling `const {DirectionalLocation} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -15903,6 +15918,11 @@ declare namespace google.maps.routes {
      * Creates markers for the route labeled &#39;A&#39;, &#39;B&#39;, &#39;C&#39;, etc. for each waypoint. Markers have default styling applied. Options can be passed in to alter the marker style based on the marker index or properties of the corresponding {@link google.maps.routes.RouteLeg}. The {@link google.maps.routes.WaypointMarkerDetails.leg} parameter will be undefined if the route has no legs. <br><br> The <code>&quot;legs&quot;</code> field must be requested in {@link google.maps.routes.ComputeRoutesRequest.fields} in order for intermediate waypoints to be included.
      */
     createWaypointAdvancedMarkers(options?: google.maps.marker.AdvancedMarkerElementOptions | ((arg0: google.maps.marker.AdvancedMarkerElementOptions, arg1: google.maps.routes.WaypointMarkerDetails) => google.maps.marker.AdvancedMarkerElementOptions)): Promise<google.maps.marker.AdvancedMarkerElement[]>;
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Creates markers for the route&#39;s origin and destination. Markers have default styling applied unless a customOverride function is specified. Intermediate waypoints are not currently supported. <br><br> Created markers have their {@link google.maps.CollisionBehavior} set to {@link google.maps.CollisionBehavior.REQUIRED_AND_HIDES_OPTIONAL} by default.
+     */
+    createWaypointMarkers<T extends google.maps.maps3d.MarkerElement | google.maps.maps3d.Marker3DElement | google.maps.maps3d.MarkerInteractiveElement | google.maps.maps3d.Marker3DInteractiveElement>(options?: google.maps.routes.CreateWaypointMarkersOptions<T>): Promise<T[]>;
     /**
      * Converts to a plain object.
      */
