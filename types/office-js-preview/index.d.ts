@@ -25360,6 +25360,8 @@ declare namespace Office {
          *
          * - We recommend that the specified task pane width not exceed 40% of the Reading Pane surface.
          *
+         * - If you specify a non-standard width, Outlook will automatically adjust the width to the nearest standard value.
+         *
          * @beta
          */
         preferredWidth?: number;
