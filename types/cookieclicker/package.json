@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/cookieclicker",
-    "version": "2.52.9999",
+    "version": "2.58.9999",
     "nonNpm": true,
     "nonNpmDescription": "cookieclicker",
     "projects": [

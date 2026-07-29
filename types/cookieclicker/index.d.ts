@@ -1,3 +1,11 @@
+/* Global variables defined in <https://orteil.dashnet.org/cookieclicker/index.html>.
+ */
+declare let VERSION: number;
+declare let BETA: Game.PseudoBoolean;
+declare let SAVESUFFIX: string;
+declare let PRESETMODS: string[];
+declare let LOCAL: typeof App | boolean;
+
 declare function AddEvent(htmlElement: HTMLElement, eventName: string, eventFunction: (e: Event) => void): void;
 declare function l(name: string): HTMLElement | null;
 declare function escapeRegExp(str: string): string;
@@ -16,6 +24,16 @@ declare function romanize(num: number): string;
  */
 declare function randomFloor(x: number): number;
 declare function shuffle<T>(array: T[]): T[];
+
+/**
+ * Unused. Does the same thing as Element.prototype.getBounds (injected by the game).
+ */
+declare function getBounds(el: Element): ReturnType<Element["getBounds"]>;
+
+/**
+ * Unused. Returns just centerx and centery from getBounds.
+ */
+declare function getCenter(el: Element): [number, number];
 
 /**
  * Returns a random member of an array, has a very slight chance to return `undefined` (When the seeded Math.random() is 1)
@@ -226,9 +244,10 @@ interface Math {
 
 interface Element {
     /**
-     * Same as `getBoundingClientRect`, but applies `Game.scale`
+     * Similar to `getBoundingClientRect`, but adjusts the bounding box according to `Game.scale`
+     * and also includes the attributes `centerx` and `centery`.
      */
-    getBounds(): DOMRect;
+    getBounds(): DOMRect & { centerx: number; centery: number };
 }
 
 interface CanvasRenderingContext2D {
@@ -374,6 +393,42 @@ declare function getAchievementName(name: string): string;
 declare function localStorageGet(key: string): Game.PseudoNull | null | string;
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 declare function localStorageSet(key: string, str: string): Game.PseudoNull | void;
+
+/**
+ * Unused; see getJson instead.
+ *
+ * Sends an XMLHttpRequest to the specified URL.
+ * Once the request is answered,
+ * calls the callback with the request's response.
+ *
+ * @param url The queried URL. The game appends '?nocache='+Date.now() before issuing the request.
+ * @param callback The function called with the request's response, once available.
+ * @returns Whether the request was issued or not.
+ *          Note that the request may still fail even if this function returns true.
+ */
+declare function ajax(url: string, callback: (arg: string) => void): boolean;
+
+/**
+ * An alias for window.location.origin+'/data/'.
+ */
+declare let DataDir: string;
+
+/**
+ * Sends an XMLHttpRequest to the specified URL.
+ * Once the request is answered,
+ * `JSON.parse`s the request's response,
+ * and calls the callback with the result.
+ *
+ * If either `JSON.parse` or `callback` throws any errors,
+ * they are passed on to the error handler.
+ *
+ * @param url The queried URL. The game appends '?nocache='+Date.now() before issuing the request.
+ * @param callback The function called with the request's response, once available.
+ * @param error The error handler, called on any try-catched errors.
+ * @returns Whether the request was issued or not.
+ *          Note that the request may still fail even if this function returns true.
+ */
+declare function getJson(url: string, callback: (arg: string) => void, error?: (e: Error) => void): boolean;
 
 declare function writeIcon(icon: Game.Icon): string;
 declare function tinyIcon(icon: Game.Icon, css?: string): string;
@@ -523,9 +578,11 @@ declare namespace Game {
 
     export let Loader: Loader;
     export let T: number;
+    export let realT: number;
     export let drawT: number;
     export let loopT: number;
     export let fps: number;
+    export let baseFps: number;
     export let season: string;
     /**
      * The main div where all the game is contained
@@ -552,6 +609,8 @@ declare namespace Game {
     export let cookies: number;
     export let cookiesd: number;
     export let cookiesPs: number;
+    export let cookiesPsRaw: number;
+    export let cookiesPsRawHighest: number;
     export let cookiesReset: number;
     export let cookieClicks: number;
     export let goldenClicks: number;
@@ -585,6 +644,12 @@ declare namespace Game {
     export let volume: number;
     export let volumeMusic: number;
     export let scale: number;
+    export let zoom: number;
+    /**
+     * List of callbacks called by Game.resize.
+     * The arguments are the width and height of the global object window.
+     */
+    export let onResizeCallbacks: Array<(w: number, h: number) => void>;
     export let elderWrath: number;
     export let elderWrathOld: number;
     export let elderWrathD: number;
@@ -805,8 +870,8 @@ declare namespace Game {
 
     export let customGrandmaNames: string[];
     export let heralds: number;
-    export function GrabData(): void;
-    export function GrabDataResponse(response: string): void;
+    export function UpdateHeralds(): void;
+    export function FetchGrandmaNames(): void;
     export let useLocalStorage: PseudoBoolean;
 
     export function ExportSave(): void;
@@ -1016,7 +1081,7 @@ declare namespace Game {
     }
     export let effs: Effects;
 
-    export function eff(name: string, def: number): number;
+    export function eff(name: string, def?: number): number;
 
     export function CalculateGains(): void;
 
@@ -1031,6 +1096,7 @@ declare namespace Game {
         constructor(type: N, obj?: C, noCount?: boolean);
         type: N;
         l: HTMLElement;
+        popped: boolean;
         x: number;
         y: number;
         id: number;
@@ -1038,7 +1104,7 @@ declare namespace Game {
         noCount: boolean;
         init: () => void;
         update: () => void;
-        pop: (event: MouseEvent) => void;
+        pop: (event?: MouseEvent) => void;
         die: () => void;
         spawnLead: undefined | 1;
     }
@@ -1189,7 +1255,7 @@ declare namespace Game {
     export let cssClasses: string[];
 
     export function addClass(what: string): void;
-    function removeClass(what: string): void;
+    export function removeClass(what: string): void;
 
     export function updateClasses(): void;
     /**
@@ -1675,6 +1741,7 @@ declare namespace Game {
         cursorL: HTMLDivElement;
         lumpRefill: HTMLDivElement;
         logic(): void;
+        reset(hard?: boolean): void;
         draw(): void;
         onResize(): void;
         onLevel(): void;
@@ -1720,7 +1787,7 @@ declare namespace Game {
         /**
          * The current slot the spirit is in
          */
-        slot: -1 | 0 | 1 | 2;
+        slot: -1 | "0" | "1" | "2";
     }
 
     export interface PantheonMinigame extends Minigame {
@@ -1785,6 +1852,7 @@ declare namespace Game {
          */
         refillTooltip(): string;
         logic(): void;
+        reset(): void;
         draw(): void;
     }
 
@@ -1919,6 +1987,7 @@ declare namespace Game {
         spellsCastTotal: number;
         magicPS: number;
         logic(): void;
+        reset(): void;
         draw(): void;
     }
 
@@ -1997,6 +2066,7 @@ declare namespace Game {
         /**
          * The amount of stocks bought of the good
          */
+        prev: number;
         stock: number;
         stockBoxL: HTMLDivElement;
         stockL: HTMLSpanElement;
@@ -2173,9 +2243,11 @@ declare namespace Game {
         graphCtx: CanvasRenderingContext2D;
         toRedraw: 0 | 1 | 2;
         logic(): void;
+        reset(hard?: boolean): void;
         draw(): void;
         onResize(): void;
     }
+    export function takeLoan(id: number, interest?: boolean): void;
 
     export let Objects: Record<string, GameObject> & {
         Farm: MinigameObject<GardenMinigame>;
@@ -2183,7 +2255,7 @@ declare namespace Game {
         "Wizard tower": MinigameObject<GrimoireMinigame>;
         Bank: MinigameObject<StocksMinigame>;
     };
-    export let ObjectsById: Record<number | string, GameObject>;
+    export let ObjectsById: Array<GameObject>;
     export let ObjectsN: number;
     export let BuildingsOwned: number;
     interface BaselessArt {
@@ -2237,6 +2309,12 @@ declare namespace Game {
         onRuinTheFun?(): void;
         draw?(): void;
         logic?(): void;
+        reset?(hard?: boolean): void;
+
+        /**
+         * Executed on load (by Game.scriptLoaded) after launch() if there is no minigameSave.
+         */
+        begin?(): void;
     }
 
     export interface BuildingArtPicture {
@@ -2451,7 +2529,7 @@ declare namespace Game {
 
         levelTooltip(): string;
 
-        levelUp(): () => void;
+        levelUp(free?: boolean): () => void;
         /**
          * If the building is visually locked, is considered unlocked after CBTA is higher than the base cost
          */
@@ -2463,7 +2541,7 @@ declare namespace Game {
 
         minigameLoading?: boolean | undefined;
 
-        minigameSave: string;
+        minigameSave?: string;
 
         minigameName: string;
 
@@ -3108,7 +3186,7 @@ declare namespace Game {
     }
     export let AllBGs: Background[];
 
-    export let BGsByChoice: Record<number, Background>;
+    export let BGsByChoice: Array<Background>;
 
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     export function loseShimmeringVeil(context: string): void | false;
@@ -3146,6 +3224,7 @@ declare namespace Game {
     export function GetHowManyReindeerDrops(): number;
 
     export let seasonDrops: string[];
+    export let keepsakes: string[];
 
     export function saySeasonSwitchUses(): string;
 
@@ -3182,6 +3261,8 @@ declare namespace Game {
     export let AchievementsById: Record<number | string, Achievement>;
     export let AchievementsN: number;
     export let AchievementsOwned: number;
+
+    export let paradeAnimLoop: number;
 
     export type AchievementPool = "normal" | "shadow" | "dungeon";
 
@@ -3379,7 +3460,7 @@ declare namespace Game {
 
         l: HTMLDivElement;
     }
-    export let buffs: Buff[];
+    export let buffs: Record<string, Buff>;
     export let buffsN: number;
     export let buffsL: HTMLDivElement;
 
@@ -3549,6 +3630,11 @@ declare namespace Game {
      * All milks, including fancy milk selection ones
      */
     export let AllMilks: Milk[];
+
+    /**
+     * A system to make milks procedurally; unused
+     */
+    export function MakeMilk(): void;
     export let mousePointer: number;
     export let cookieOriginX: number;
     export let cookieOriginY: number;
@@ -3613,9 +3699,11 @@ declare namespace Game {
         | "create"
         | "check"
         | "cps"
+        | "cpsMult"
         | "cookiesPerClick"
         | "reset"
-        | "ticker";
+        | "ticker"
+        | "tickerFinal";
 
     export function registerHook(
         hook: "cps" | "cookiesPerClick",
@@ -3627,6 +3715,13 @@ declare namespace Game {
         hook: Exclude<GameHooks, "cps" | "cookiesPerClick" | "reset" | "ticker">,
         func: (() => void) | Array<() => void>,
     ): void;
+
+    export function saveModData(): string;
+    export function loadModData(): void;
+    export function deleteModData(id: string): void;
+    export function deleteAllModData(): void;
+    export function CheckModData(): void;
+
     export let brokenMods: string[];
     export function launchMods(): void;
     export function resize(): void;
@@ -3666,6 +3761,7 @@ declare namespace Game {
      * Unused
      */
     export function setWubMusic(what: number): void;
+    export function setZoom(what: number): void;
     export function showLangSelection(firstLaunch?: boolean): void;
     /**
      * The treshold when the game considers itself to be too narrow
