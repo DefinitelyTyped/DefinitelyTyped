@@ -10884,6 +10884,52 @@ declare namespace Office {
         coercionType?: Office.CoercionType | string;
     }
     /**
+     * Represents access controls that specify whether the decrypted contents of a message can be copied and pasted, printed, or saved.
+     *
+     * @remarks
+     * [Api set: Mailbox preview]
+     *
+     * @beta
+     */
+    interface AccessControls {
+        /**
+         * If true, specifies that the decrypted contents of a message can be copied and pasted.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * **Important**:
+         *
+         * - In Outlook on the web, setting the `allowCopyPaste` property to `false` also prevents users from capturing their screen
+         * in the form of screenshots or recordings. The screen capture policy remains in effect until the user reloads the Outlook browser tab.
+         *
+         * - In Outlook on the web and the new Outlook on Windows, setting the `allowCopyPaste` property to `true` allows the user to copy content by
+         * selecting **Copy** from the context menu or pressing `Ctrl+C`. However, if another access control is set to `false`, the context menu becomes unavailable.
+         * The user must use `Ctrl+C` instead.
+         *
+         * @beta
+         */
+        allowCopyPaste?: boolean;
+        /**
+         * If true, specifies that the decrypted contents of a message can be printed.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * @beta
+         */
+        allowPrint?: boolean;
+        /**
+         * If true, specifies that the decrypted contents of a message can be saved.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * @beta
+         */
+        allowSave?: boolean;
+    }
+    /**
      * The subclass of {@link Office.Item | Item} dealing with appointments.
      *
      * **Important**: This is an internal Outlook object, not directly exposed through existing interfaces.
@@ -14759,7 +14805,10 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
          *
-         * **Important**: Attachments of type `MailboxEnums.AttachmentType.Item` aren't currently supported.
+         * **Important**: Attachments of type `MailboxEnums.AttachmentType.Item` aren't currently supported in production. However, you can preview support for the `MailboxEnums.AttachmentType.Item` type
+         * in Outlook on the web and on Windows (new and classic). For classic Outlook on Windows, you must install Version 2606 (Build 20114.15110) or later. Then, join the
+         * {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-windows/4401748 | Microsoft 365 Insider program} and select the
+         * **Beta Channel** option to access Office beta builds.
          */
         attachmentType: MailboxEnums.AttachmentType;
         /**
@@ -21472,6 +21521,17 @@ declare namespace Office {
      */
     interface MessageDecryptEventCompletedOptions {
         /**
+         * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler
+         * and set its `allowEvent` property to `true`, this property specifies whether decrypted contents of a message can be copied and pasted, printed, or saved.
+         *
+         * @remarks
+         *
+         * [Api set: Mailbox preview]
+         *
+         * @beta
+         */
+        accessControls?: AccessControls;
+        /**
          * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler,
          * this value indicates if the `OnMessageDecrypt` event should continue to run or be canceled. If the `allowEvent` property is set to `true`, the decrypted contents of the message is displayed.
          *
@@ -21532,6 +21592,25 @@ declare namespace Office {
          * **Important**: If the `emailBody` property isn't specified, an empty body is returned.
          */
         emailBody?: DecryptedMessageBody;
+        /**
+         * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler
+         * and set its `allowEvent` property to `false`, this property sets the error message displayed to the user.
+         *
+         * @remarks
+         *
+         * [Api set: Mailbox preview]
+         *
+         * **Important**:
+         *
+         * - The `errorMessage` property is only used when the `allowEvent` property is set to `false`. If you set the `allowEvent` property to `true`, the `errorMessage` property is ignored.
+         *
+         * - If you don't specify a message in the `errorMessage` property, the following default message is shown instead: "Error from \<add-in name\>: Failed to decrypt your message."
+         *
+         * - Your custom error message is automatically prepended with "Error from \<add-in name\>: " when displayed to the user.
+         *
+         * @beta
+         */
+        errorMessage?: string;
     }
     /**
      * Represents the details of the form for composing a new message.
