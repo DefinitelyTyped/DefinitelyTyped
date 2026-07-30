@@ -33,7 +33,21 @@ import ReactDOM = require(".");
 
 export {};
 
+declare const browserUsable: unique symbol;
+
+export interface BrowserUsable {
+    readonly [browserUsable]: never;
+}
+
+declare module "." {
+    export function browser(): BrowserUsable;
+}
+
 declare module "react" {
+    interface RendererUsable {
+        "react-dom/browser": BrowserUsable;
+    }
+
     // @enableViewTransition
     interface ViewTransitionPseudoElement extends Animatable {
         getComputedStyle: () => CSSStyleDeclaration;
