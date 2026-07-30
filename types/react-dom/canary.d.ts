@@ -44,7 +44,7 @@ declare module "." {
 }
 
 declare module "react" {
-    interface RendererUsable {
+    interface RendererUsable<T> {
         "react-dom/browser": BrowserUsable;
     }
 

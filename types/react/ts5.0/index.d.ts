@@ -1965,9 +1965,9 @@ declare namespace React {
      * adding an entry keyed by a renderer-specific string whose type becomes a valid
      * argument to {@link use}. Only renderers should augment this interface.
      */
-    export interface RendererUsable {}
+    export interface RendererUsable<T> {}
 
-    export type Usable<T> = ReactPromise<T> | Context<T> | RendererUsable[keyof RendererUsable];
+    export type Usable<T> = ReactPromise<T> | Context<T> | RendererUsable<T>[keyof RendererUsable<T>];
 
     export function use<T>(usable: Usable<T>): T;
 
