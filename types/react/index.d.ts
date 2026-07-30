@@ -1959,7 +1959,16 @@ declare namespace React {
         | FulfilledReactPromise<T>
         | RejectedReactPromise<T>;
 
-    export type Usable<T> = ReactPromise<T> | Context<T>;
+    /**
+     * A registry of renderer-specific {@link Usable} types.
+     *
+     * Renderers (e.g. `react-dom`) augment this interface via `declare module "react"`,
+     * adding an entry keyed by a renderer-specific string whose type becomes a valid
+     * argument to {@link use}. Only renderers should augment this interface.
+     */
+    export interface RendererUsable<T> {}
+
+    export type Usable<T> = ReactPromise<T> | Context<T> | RendererUsable<T>[keyof RendererUsable<T>];
 
     export function use<T>(usable: Usable<T>): T;
 
