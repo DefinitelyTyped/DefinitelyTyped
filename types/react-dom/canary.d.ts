@@ -40,7 +40,7 @@ export interface BrowserUsable {
 }
 
 declare module "." {
-    export function browser(): BrowserUsable;
+    function browser(): BrowserUsable;
 }
 
 declare module "react" {
