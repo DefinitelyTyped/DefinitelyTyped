@@ -1,6 +1,6 @@
-export = Job;
-declare function Job(source?: DataSet | File | MemoryStream): void;
-declare class Job {
+export = ScheduledJob;
+declare function ScheduledJob(source?: DataSet | File | MemoryStream): void;
+declare class ScheduledJob {
     constructor(source?: DataSet | File | MemoryStream);
     calcNextExecution(): void;
     loadFromStream(stream: MemoryStream | File): void;
@@ -33,10 +33,13 @@ declare class Job {
     readonly finishedSuccessfully: boolean;
     readonly lastResult: string;
     enabled: boolean;
+    userValidationMode: string;
+    userValidationModeKey: number;
+    readonly failCount: number;
 }
-declare namespace Job {
+declare namespace ScheduledJob {
     export { File, MemoryStream, DataSet };
 }
-type File = import('../io/File');
-type MemoryStream = import('../io/MemoryStream');
-type DataSet = import('../dataset/DataSet');
+type File = import('../io/File.js');
+type MemoryStream = import('../io/MemoryStream.js');
+type DataSet = import('../dataset/DataSet.js');

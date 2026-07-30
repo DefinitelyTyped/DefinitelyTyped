@@ -9,7 +9,7 @@
     ],
     "dependencies": {
         "@types/express": "*",
-        "typescript": "*",
+        "typescript": "<7",
         "@types/babel__core": "*",
         "@types/coffeescript": "*"
     },

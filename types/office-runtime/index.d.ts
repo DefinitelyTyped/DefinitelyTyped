@@ -259,11 +259,15 @@ declare namespace OfficeRuntime {
   }
   /**
    * Contains authorization related APIs.
+   * 
+   * @deprecated Use `Office.auth` instead.
    */
   const auth: Auth;
     /**
      * Provides options for the user experience when Office obtains an access token to the add-in from AAD v. 2.0 with the `getAccessToken` method.
-     *
+     * 
+     * @deprecated Use the {@link https://learn.microsoft.com/javascript/api/office/office.authoptions | Office.AuthOptions} interface instead.
+     * 
      * @remarks
      *
      * The methods in this interface are equivalent to those in the `Office.AuthOptions` interface.
@@ -324,6 +328,8 @@ declare namespace OfficeRuntime {
   }
   /**
    * Interface that contains authorization related APIs.
+   * 
+   * @deprecated Use the {@link https://learn.microsoft.com/javascript/api/office/office.auth | Office.Auth} interface instead.
    *
    * @remarks
    *

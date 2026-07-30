@@ -11,9 +11,21 @@ async function testAuth(): Promise<void> {
     await Safie.Auth.removeToken();
 }
 
+function testConfig(): void {
+    // SDK全体のテーマ設定（v1.9で追加）
+    const themeTypes: Safie.Config.Theme.ThemeType[] = ["light", "dark", "system"];
+    themeTypes.forEach(theme => {
+        Safie.Config.Theme.set(theme);
+    });
+    const currentTheme: Safie.Config.Theme.ThemeType = Safie.Config.Theme.get();
+    console.log(currentTheme);
+}
+
 async function testDevices(): Promise<void> {
     const devicesAll: Safie.Devices.QueryDevicesResult = await Safie.Devices.queryDevices();
     await Safie.Devices.queryDevices({ limit: 30, offset: 10, itemId: 1 });
+    // デバイスIDによる絞り込み（v1.9で追加）
+    await Safie.Devices.queryDevices({ deviceIds: ["device1", "device2"] });
     devicesAll.list.forEach((device: Safie.Devices.Device) => {
         const id: string = device.deviceId;
         const modelName: string = device.model.description;
@@ -21,7 +33,9 @@ async function testDevices(): Promise<void> {
         const name: string = device.setting.name;
         const streaming: boolean = device.status.videoStreaming;
         const connected: boolean = device.status.serverConnecting;
-        console.log(id, modelName, serial, name, streaming, connected);
+        // デバイスの機能情報のリスト
+        const capabilities: string[] = device.capabilities;
+        console.log(id, modelName, serial, name, streaming, connected, capabilities);
     });
 
     const thumbnail: Blob = await Safie.Devices.queryThumbnail({ deviceId: "device" });
@@ -290,6 +304,7 @@ function testErrorHandling(error: Safie.ErrorDetail): void {
 
 // 全テスト関数を参照することで未使用警告を抑止する
 testAuth();
+testConfig();
 testDevices();
 testPlayer();
 testTimeline();

@@ -3539,6 +3539,7 @@ export namespace APIControllers {
         validateRequest(): void;
         validate(): void;
         getResponse(): any;
+        getError(): any;
         getResultcode(): any;
         getMessagetype(): any;
         beforeExecute(): void;

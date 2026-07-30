@@ -44,6 +44,12 @@ const properties: Properties = {
     propertyName7: undefined,
 };
 
+// $ExpectType string[] | undefined
+properties.className;
+
+// $ExpectType string | number | boolean | (string | number)[] | null | undefined
+properties.unknown;
+
 const element: Element = {
     type: "element",
     tagName: "x",

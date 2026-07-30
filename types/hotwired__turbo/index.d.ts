@@ -79,11 +79,15 @@ export interface StreamSource {
     ): void;
 }
 
-export class StreamMessage {
-    static readonly contentType: "text/vnd.turbo-stream.html";
+/**
+ * A stream message, as accepted by {@link renderStreamMessage}.
+ *
+ * Note that Turbo does not export the `StreamMessage` class at runtime, so
+ * this interface only describes instances (there is no constructor and no
+ * access to the static `wrap` method or `contentType` property).
+ */
+export interface StreamMessage {
     readonly fragment: DocumentFragment;
-    static wrap(message: StreamMessage | string): StreamMessage;
-    constructor(fragment: DocumentFragment);
 }
 
 export interface FetchRequestHeaders {
@@ -141,18 +145,14 @@ export interface Adapter {
     linkPrefetchingIsEnabledForLocation?(location: URL): boolean;
 }
 
-export class BrowserAdapter implements Adapter {
+/**
+ * The default adapter installed on the session.
+ *
+ * Note that Turbo does not export the `BrowserAdapter` class at runtime —
+ * obtain the instance via `session.adapter` or `navigator.delegate.adapter`.
+ */
+export interface BrowserAdapter extends Adapter {
     progressBar: ProgressBar;
-    visitProposedToLocation(location: URL, options?: VisitOptions): void;
-    visitStarted(visit: Visit): void;
-    visitCompleted(visit: Visit): void;
-    visitFailed(visit: Visit): void;
-    visitRequestStarted(visit: Visit): void;
-    visitRequestCompleted(visit: Visit): void;
-    visitRequestFailedWithStatusCode(visit: Visit, statusCode: number): void;
-    visitRequestFinished(visit: Visit): void;
-    visitRendered(visit: Visit): void;
-    pageInvalidated(reason: { reason: string }): void;
     formSubmissionStarted(formSubmission: FormSubmission): void;
     formSubmissionFinished(formSubmission: FormSubmission): void;
     linkPrefetchingIsEnabledForLocation(location: URL): boolean;

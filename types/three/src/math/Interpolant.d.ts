@@ -57,7 +57,7 @@ export abstract class Interpolant<TSettings = {}> {
      *
      * @type {TypedArray}
      */
-    valueSize: TypedArray;
+    valueSize: number;
     /**
      * The interpolation settings.
      *
