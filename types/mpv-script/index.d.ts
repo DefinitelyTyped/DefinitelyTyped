@@ -1768,6 +1768,23 @@ declare namespace mp {
     function get_script_file(): string;
 
     /**
+     * Format time number into readable string.
+     *  Valid formats:
+        `%H`, `%h`: hour (`%H` is padded with 0 to two digits)
+        `%M`: minutes from 00-59 (hours are subtracted)
+        `%m`: total minutes (includes hours, unlike `%M`)
+        `%S`: seconds from 00-59 (minutes and hours are subtracted)
+        `%s`: total seconds (includes hours and minutes)
+        `%f`: like `%s`, but as float
+        `%T`: milliseconds (000-999)
+     * @param time time in seconds
+     * @param format defaults to `%H:%M:%S`
+     * @see https://github.com/mpv-player/mpv/blob/48e6c35c0e056d9e4ff04b98e012416697736d8a/common/common.c#L45
+     * @see https://github.com/mpv-player/mpv/blob/48e6c35c0e056d9e4ff04b98e012416697736d8a/player/javascript.c#L829
+     */
+    function format_time(time: number, format?: string): string;
+
+    /**
      * Global modules search paths array for the require function
      */
     let module_paths: string[];
