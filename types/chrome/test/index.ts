@@ -1966,8 +1966,8 @@ function testDevtoolsInspectedWindow() {
         useContentScriptContext: true,
     };
 
-    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType void
-    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
     chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
         result; // $ExpectType { [key: string]: unknown; }
 
@@ -1978,16 +1978,38 @@ function testDevtoolsInspectedWindow() {
         exceptionInfo.isException; // $ExpectType boolean
         exceptionInfo.value; // $ExpectType string
     });
-    chrome.devtools.inspectedWindow.eval(expression, (result) => { // $ExpectType void
+    chrome.devtools.inspectedWindow.eval(expression, (result, exceptionInfo) => { // $ExpectType void
         result; // $ExpectType { [key: string]: unknown; }
     });
     chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
         result.title; // $ExpectType string
     });
 
-    chrome.devtools.inspectedWindow.getResources((resources) => { // $ExpectType void
-        resources; // $ExpectType Resource[]
+    chrome.devtools.inspectedWindow.getResources(); // $ExpectType Promise<Resource[]>
+    chrome.devtools.inspectedWindow.getResources(([resource]) => { // $ExpectType void
+        resource; // $ExpectType Resource
+        resource.url; // $ExpectType string
+
+        resource.getContent(); // $ExpectType  Promise<{ content: string; encoding: string}>
+        resource.getContent((content, string) => { // $ExpectType void
+            content; // $ExpectType string
+            string; // $ExpectType string
+        });
+        // @ts-expect-error
+        resource.getContent(() => {}).then(() => {});
+
+        resource.setContent("content", false); // Promise<undefined>
+        resource.setContent("content", false, ({ code, description, details, isError }) => { // $ExpectType void
+            code; // $ExpectType string
+            description; // $ExpectType string
+            details; // $ExpectType string[]
+            isError; // $ExpectType boolean | undefined
+        });
+        // @ts-expect-error
+        resource.setContent(() => {}).then(() => {});
     });
+    // @ts-expect-error
+    chrome.devtools.inspectedWindow.getResources(() => {}).then(() => {});
 
     const reloadOptions: chrome.devtools.inspectedWindow.ReloadOptions = {
         ignoreCache: true,
@@ -2016,9 +2038,12 @@ function testDevtoolsPerformance() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/network
 function testDevtoolsNetwork() {
+    chrome.devtools.network.getHAR(); // $ExpectType Promise<Log>
     chrome.devtools.network.getHAR((harLog) => { // $ExpectType void
         harLog; // $ExpectType Log
     });
+    // @ts-expect-error
+    chrome.devtools.network.getHAR(() => {}).then(() => {});
 
     checkChromeEvent(chrome.devtools.network.onNavigated, (url) => {
         url; // $ExpectType string
@@ -2026,6 +2051,14 @@ function testDevtoolsNetwork() {
 
     checkChromeEvent(chrome.devtools.network.onRequestFinished, (request) => {
         request; // $ExpectType Request
+
+        request.getContent(); // $ExpectType Promise<{ content: string; encoding: string }>
+        request.getContent((content, encoding) => { // $ExpectType void
+            content; // $ExpectType string
+            encoding; // $ExpectType string
+        });
+        // @ts-expect-error
+        request.getContent(() => {}).then(() => {});
     });
 }
 
@@ -3065,6 +3098,42 @@ async function testManagement() {
     checkChromeEvent(chrome.management.onUninstalled, (id) => {
         id; // $ExpectType string
     });
+}
+
+// https://developer.chrome.com/docs/extensions/reference/api/mimeHandler
+async function testMineHandler() {
+    const mimeType = "image/jpeg";
+
+    chrome.mimeHandler.abortAndFallbackToNativeHandler(); // $ExpectType Promise<void>
+    chrome.mimeHandler.abortAndFallbackToNativeHandler(() => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.mimeHandler.abortAndFallbackToNativeHandler(() => {}).then(() => {});
+
+    chrome.mimeHandler.getMimeHandlerOptions(mimeType); // $ExpectType Promise<MimeHandlerOptions>
+    chrome.mimeHandler.getMimeHandlerOptions(mimeType, (options) => { // $ExpectType void
+        options; // $ExpectType MimeHandlerOptions
+        options.enabled; // $ExpectType boolean
+    });
+    // @ts-expect-error
+    chrome.mimeHandler.getMimeHandlerOptions(mimeType, () => {}).then(() => {});
+
+    chrome.mimeHandler.getStreamInfo(); // $ExpectType Promise<StreamInfo>
+    chrome.mimeHandler.getStreamInfo((info) => { // $ExpectType void
+        info; // $ExpectType StreamInfo
+        info.embedded; // $ExpectType boolean
+        info.mimeType; // $ExpectType string
+        info.originalUrl; // $ExpectType string
+        info.responseHeaders; // $ExpectType { [key: string]: unknown }
+        info.streamUrl; // $ExpectType string
+        info.tabId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.mimeHandler.getStreamInfo(() => {}).then(() => {});
+
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }); // $ExpectType Promise<void>
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }, () => {}).then(() => {});
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/scripting
@@ -7734,6 +7803,11 @@ function testAccessibilityFeatures() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/privacy
 function testPrivacy() {
+    chrome.privacy.AutofillBlockedType.CONTACT_INFO === "contact_info";
+    chrome.privacy.AutofillBlockedType.PAYMENTS === "payments";
+    chrome.privacy.AutofillBlockedType.IDENTITY_DOCS === "identity_docs";
+    chrome.privacy.AutofillBlockedType.TRAVEL === "travel";
+
     chrome.privacy.IPHandlingPolicy.DEFAULT === "default";
     chrome.privacy.IPHandlingPolicy.DEFAULT_PUBLIC_AND_PRIVATE_INTERFACES === "default_public_and_private_interfaces";
     chrome.privacy.IPHandlingPolicy.DEFAULT_PUBLIC_INTERFACE_ONLY === "default_public_interface_only";

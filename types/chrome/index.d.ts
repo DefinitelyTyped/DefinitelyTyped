@@ -2831,11 +2831,28 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.inspectedWindow {
+        interface SetContentResult {
+            code: string;
+            description: string;
+            details: string[];
+            isError?: boolean;
+        }
+
         /** A resource within the inspected page, such as a document, a script, or an image. */
         interface Resource {
             /** The URL of the resource. */
             url: string;
-            /** Gets the content of the resource. */
+            /**
+             * Gets the content of the resource.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+             */
+            getContent(): Promise<{
+                /** Content of the resource (potentially encoded). */
+                content: string;
+                /** Empty if the content is not encoded, encoding name otherwise. Currently, only base64 is supported.*/
+                encoding: string;
+            }>;
             getContent(
                 callback: (
                     /** Content of the resource (potentially encoded). */
@@ -2848,14 +2865,17 @@ declare namespace chrome {
              * Sets the content of the resource.
              * @param content New content of the resource. Only resources with the text type are currently supported.
              * @param commit True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
              */
             setContent(
                 content: string,
                 commit: boolean,
-                callback?: (
-                    /** Set to undefined if the resource content was set successfully; describes error otherwise. */
-                    error?: object,
-                ) => void,
+            ): Promise<undefined>;
+            setContent(
+                content: string,
+                commit: boolean,
+                callback: (result: SetContentResult) => void,
             ): void;
         }
 
@@ -2895,7 +2915,13 @@ declare namespace chrome {
          * @param expression An expression to evaluate.
          * @param options The options parameter can contain one or more options.
          * @param callback A function called when evaluation completes.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
          */
+        function eval<T = { [key: string]: unknown }>(
+            expression: string,
+            options?: EvalOptions,
+        ): Promise<{ result: T; exceptionInfo: EvaluationExceptionInfo }>;
         function eval<T = { [key: string]: unknown }>(
             expression: string,
             callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
@@ -2906,7 +2932,12 @@ declare namespace chrome {
             callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
         ): void;
 
-        /** Retrieves the list of resources from the inspected page. */
+        /**
+         * Retrieves the list of resources from the inspected page.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+         */
+        function getResources(): Promise<Resource[]>;
         function getResources(callback: (resources: Resource[]) => void): void;
 
         /** Fired when a new resource is added to the inspected page. */
@@ -2939,7 +2970,17 @@ declare namespace chrome {
     export namespace devtools.network {
         /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
         interface Request extends HARFormatEntry {
-            /** Returns content of the response body. */
+            /**
+             * Returns content of the response body.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+             */
+            getContent(): Promise<{
+                /** Content of the response body (potentially encoded). */
+                content: string;
+                /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
+                encoding: string;
+            }>;
             getContent(
                 callback: (
                     /** Content of the response body (potentially encoded). */
@@ -2950,7 +2991,12 @@ declare namespace chrome {
             ): void;
         }
 
-        /** Returns HAR log that contains all known network requests. */
+        /**
+         * Returns HAR log that contains all known network requests.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+         */
+        function getHAR(): Promise<HARFormatLog>;
         function getHAR(
             callback: (
                 /** A HAR log. See HAR specification for details. */
@@ -7416,6 +7462,66 @@ declare namespace chrome {
     }
 
     ////////////////////
+    // MimeHandler
+    ////////////////////
+    /**
+     * Use the `chrome.mimeHandler` API to handle MIME type streams in third-party extensions.
+     * @since Chrome 151, MV3
+     */
+    export namespace mimeHandler {
+        interface MimeHandlerOptions {
+            /** Whether this handler is active for the given MIME type. */
+            enabled: boolean;
+        }
+
+        interface StreamInfo {
+            /** True if loaded in an embedded context (iframe/embed/object). */
+            embedded: boolean;
+            /** The MIME type of the intercepted content. */
+            mimeType: string;
+            /** The original URL the user navigated to. */
+            originalUrl: string;
+            /** HTTP response headers as key-value pairs. */
+            responseHeaders: { [key: string]: unknown };
+            /** The URL to fetch the stream data from. */
+            streamUrl: string;
+            /** The tab ID containing the document. */
+            tabId: number;
+        }
+
+        /**
+         * Aborts current stream handling and hands the content off to the user agent's native handler. After this call the extension frame will be torn down; callers should not expect further execution.
+         *
+         * Can return its result via Promise
+         */
+        function abortAndFallbackToNativeHandler(): Promise<void>;
+        function abortAndFallbackToNativeHandler(callback: () => void): void;
+
+        /**
+         * Reads the persisted options for a MIME type. Returns defaults (enabled=true) if none have been stored.
+         * @param mimeType The MIME type whose options to read.
+         *
+         * Can return its result via Promise
+         */
+        function getMimeHandlerOptions(mimeType: string): Promise<MimeHandlerOptions>;
+        function getMimeHandlerOptions(mimeType: string, callback: (options: MimeHandlerOptions) => void): void;
+
+        /** Retrieves stream information for the current MIME handler context. Must be called from within a MIME handler extension page. */
+        function getStreamInfo(): Promise<StreamInfo>;
+        function getStreamInfo(callback: (info: StreamInfo) => void): void;
+
+        /**
+         * Sets the configuration options for a specified MIME type.
+         * @param mimeType The MIME type to configure.
+         * @param options The new options to use.
+         *
+         * Can return its result via Promise
+         */
+        function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions): Promise<void>;
+        function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions, callback: () => void): void;
+    }
+
+    ////////////////////
     // Notifications
     ////////////////////
     /**
@@ -8502,6 +8608,17 @@ declare namespace chrome {
      * Permissions: "privacy"
      */
     export namespace privacy {
+        /**
+         * Categories of Autofill data.
+         * @since Chrome 151
+         */
+        enum AutofillBlockedType {
+            CONTACT_INFO = "contact_info",
+            PAYMENTS = "payments",
+            IDENTITY_DOCS = "identity_docs",
+            TRAVEL = "travel",
+        }
+
         /**
          * The IP handling policy of WebRTC.
          * @since Chrome 48
@@ -9609,6 +9726,18 @@ declare namespace chrome {
                 /** Indicates whether the extension's options page will be opened in a new tab. If set to `false`, the extension's options page is embedded in `chrome://extensions` rather than opened in a new tab. */
                 open_in_tab?: boolean | undefined;
             } | undefined;
+            /**
+             * Maps MIME types to the extension pages that render them. As of Chrome 151, `application/pdf` is the only MIME type available to public handlers. Declaring an unsupported MIME type causes an installation warning.
+             * @since Chrome 151
+             */
+            mime_types_handler?: {
+                "application/pdf": {
+                    /** The HTML file to display when a document of the corresponding MIME type is opened. This file must be located within your extension. */
+                    handler_url: string;
+                    /** Specifies whether to handle documents embedded in `<embed>`, `<object>`, or `<iframe>` elements. Defaults to `false`, meaning the handler only receives top-level navigations. */
+                    can_embed?: boolean;
+                };
+            };
             /** Declares optional permissions for your extension. */
             optional_permissions?: ManifestOptionalPermission[] | undefined;
             /** Declares optional host permissions for your extension. */
