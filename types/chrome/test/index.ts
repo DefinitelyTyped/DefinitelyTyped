@@ -2849,7 +2849,7 @@ async function testManagement() {
     chrome.management.ExtensionType.HOSTED_APP === "hosted_app";
     chrome.management.ExtensionType.LEGACY_PACKAGED_APP === "legacy_packaged_app";
     chrome.management.ExtensionType.LOGIN_SCREEN_EXTENSION === "login_screen_extension";
-    chrome.management.ExtensionType.PACKAGE_APP === "package_app";
+    chrome.management.ExtensionType.PACKAGED_APP === "packaged_app";
     chrome.management.ExtensionType.THEME === "theme";
 
     chrome.management.LaunchType.OPEN_AS_PINNED_TAB === "OPEN_AS_PINNED_TAB";
@@ -2889,7 +2889,7 @@ async function testManagement() {
         result.optionsUrl; // $ExpectType string
         result.permissions; // $ExpectType string[]
         result.shortName; // $ExpectType string
-        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "package_app" | "theme"
+        result.type; // $ExpectType "extension" | "hosted_app" | "legacy_packaged_app" | "login_screen_extension" | "packaged_app" | "theme"
         result.updateUrl; // $ExpectType string | undefined
         result.version; // $ExpectType string
         result.versionName; // $ExpectType string | undefined
@@ -4339,6 +4339,11 @@ async function testDeclarativeNetRequest() {
 
 // https://developer.chrome.com/docs/extensions/mv2/reference/declarativeWebRequest
 function testDeclarativeWebRequest() {
+    chrome.declarativeWebRequest.Stage.ON_AUTH_REQUIRED === "onAuthRequired";
+    chrome.declarativeWebRequest.Stage.ON_BEFORE_REQUEST === "onBeforeRequest";
+    chrome.declarativeWebRequest.Stage.ON_BEFORE_SEND_HEADERS === "onBeforeSendHeaders";
+    chrome.declarativeWebRequest.Stage.ON_HEADERS_RECEIVED === "onHeadersReceived";
+
     chrome.declarativeWebRequest.onRequest.addRules([]); // $ExpectType void
     chrome.declarativeWebRequest.onRequest.removeRules([]); // $ExpectType void
     chrome.declarativeWebRequest.onRequest.getRules((rules) => { // $ExpectType void

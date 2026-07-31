@@ -1071,7 +1071,10 @@ declare namespace chrome {
 
         /** A set of data types. Missing data types are interpreted as `false`. */
         interface DataTypeSet {
-            /** Websites' WebSQL data. */
+            /**
+             * Websites' WebSQL data.
+             * @deprecated since Chrome 139. Support for WebSQL has been removed. This data type will be ignored.
+             */
             webSQL?: boolean | undefined;
             /** Websites' IndexedDB data. */
             indexedDB?: boolean | undefined;
@@ -1093,7 +1096,10 @@ declare namespace chrome {
             cache?: boolean | undefined;
             /** Cache storage. */
             cacheStorage?: boolean | undefined;
-            /** Websites' appcaches. */
+            /**
+             * Websites' appcaches.
+             * @deprecated since Chrome 98. Support for appcache has been removed. This data type will be ignored.
+             */
             appcache?: boolean | undefined;
             /** Websites' file systems. */
             fileSystems?: boolean | undefined;
@@ -1192,6 +1198,7 @@ declare namespace chrome {
          * Clears websites' WebSQL data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @deprecated since Chrome 139. Support for WebSQL has been removed. This function has no effect.
          */
         function removeWebSQL(options: RemovalOptions): Promise<void>;
         function removeWebSQL(options: RemovalOptions, callback: () => void): void;
@@ -1200,6 +1207,7 @@ declare namespace chrome {
          * Clears websites' appcache data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @deprecated since Chrome 98. Support for appcache has been removed. This function has no effect.
          */
         function removeAppcache(options: RemovalOptions): Promise<void>;
         function removeAppcache(options: RemovalOptions, callback: () => void): void;
@@ -2504,7 +2512,7 @@ declare namespace chrome {
      *
      * Permissions: "declarativeWebRequest"
      *
-     * MV2 only
+     * Beta and MV2 only
      * @deprecated Check out the {@link declarativeNetRequest} API instead
      */
     export namespace declarativeWebRequest {
@@ -2559,9 +2567,9 @@ declare namespace chrome {
             /** Matches if the MIME media type of a response (from the HTTP Content-Type header) is not contained in the list. */
             excludeContentType?: string[] | undefined;
             /** Matches if none of the request headers is matched by any of the HeaderFilters. */
-            excludeResponseHeaders?: HeaderFilter[] | undefined;
+            excludeRequestHeaders?: HeaderFilter[] | undefined;
             /** Matches if none of the response headers is matched by any of the HeaderFilters. */
-            excludeResponseHeader?: HeaderFilter[] | undefined;
+            excludeResponseHeaders?: HeaderFilter[] | undefined;
             /**
              * Matches if the conditions of the UrlFilter are fulfilled for the 'first party' URL of the request. The 'first party' URL of a request, when present, can be different from the request's target URL, and describes what is considered 'first party' for the sake of third-party checks for cookies.
              * @deprecated since Chrome 82
@@ -2628,7 +2636,7 @@ declare namespace chrome {
         /** Edits one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         interface EditResponseCookie {
             /** Filter for cookies that will be modified. All empty entries are ignored. */
-            filter: ResponseCookie;
+            filter: FilterResponseCookie;
             /** Attributes that shall be overridden in cookies that matched the filter. Attributes that are set to an empty string are removed. */
             modification: ResponseCookie;
         }
@@ -2672,7 +2680,7 @@ declare namespace chrome {
             /** Existence of the Secure cookie attribute. */
             secure?: string | undefined;
             /** Filters session cookies. Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes. */
-            session?: boolean | undefined;
+            sessionCookie?: boolean | undefined;
             /** Value of a cookie, may be padded in double-quotes. */
             value?: string | undefined;
         }
@@ -7241,7 +7249,7 @@ declare namespace chrome {
         enum ExtensionType {
             EXTENSION = "extension",
             HOSTED_APP = "hosted_app",
-            PACKAGE_APP = "package_app",
+            PACKAGED_APP = "packaged_app",
             LEGACY_PACKAGED_APP = "legacy_packaged_app",
             THEME = "theme",
             LOGIN_SCREEN_EXTENSION = "login_screen_extension",
