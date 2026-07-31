@@ -1889,6 +1889,132 @@ declare namespace mp {
          */
         function compile_js(fname: string, content_str: string): (...args: unknown[]) => unknown;
     }
+
+    namespace input {
+        interface GetOpts {
+            /**
+             * The string to be displayed before the input field.
+             */
+            prompt?: string;
+
+            /**
+             * A callback invoked when the user presses Enter. The first argument is the text in the console.
+             */
+            submit?: (inputText: string) => void;
+
+            /**
+             * Whether to keep the console open on submit. Defaults to false.
+             */
+            keep_open?: boolean;
+
+            /**
+             * A callback invoked when the console is shown. This can be used to present a list of options with `input.set_log()`.
+             */
+            opened?: () => void;
+
+            /**
+             * A callback invoked when the text changes. The first argument is the text in the console.
+             */
+            edited?: (inputText: string) => void;
+
+            /**
+             * A callback invoked when the user edits the text or moves the cursor.
+             * The first argument is the text before the cursor.
+             * The callback should return a table of the string candidate completion values and the 1-based cursor position from which the completion starts.
+             * console will show the completions that fuzzily match the text between this position and the cursor and allow selecting them.
+             * The third and optional return value is a string that will be appended to the input line without displaying it in the completions.
+             */
+            complete?: (textBeforeCursor: string) => void;
+
+            /** Whether to automatically select the first completion on submit if one wasn't already manually selected. Defaults to false. */
+            autoselect_completion?: boolean;
+
+            /**
+             * A callback invoked when the console is hidden, either because `input.terminate()` was invoked from the other callbacks, or because the user closed it with a key binding.
+             * The first argument is the text in the console, and the second argument is the cursor position.
+             */
+            closed?: (inputText: string, cursorPosition: number) => void;
+
+            /**
+             * A string to pre-fill the input field with.
+             */
+            default_text?: string;
+
+            /**
+             * The initial cursor position, starting from 1.
+             */
+            cursor_position?: number;
+
+            /**
+             * If specified, the path to save and load the history of the entered lines.
+             */
+            history_path?: string;
+
+            /**
+             * An identifier that determines which input history and log buffer to use among the ones stored for `input.get()` calls.
+             * Defaults to the calling script name with prompt appended.
+             */
+            id?: string;
+        }
+
+        /**
+         * Show the console to let the user enter text.
+         */
+        function get(opts: GetOpts): void;
+
+        /**
+         * Close the console.
+         */
+        function terminate(): void;
+
+        /**
+         * Add a line to the log buffer.
+         * `style` can contain additional ASS tags to apply to message,
+         * and `terminalStyle` can contain escape sequences that are used when the console is displayed in the terminal.
+         */
+        function log(message: string, style?: string, terminalStyle?: string): void;
+
+        /**
+         * Helper to add a line to the log buffer with the same color as the one used for commands that error. Useful when the user submits invalid input.
+         */
+        function log_error(message: string): void;
+
+        type Log = string | { text: string; style?: string; terminal_style?: string };
+
+        /**
+         * Replace the entire log buffer.
+         * `log` is a list of strings, or list with text, style and terminal_style keys.
+         */
+        function set_log(log: Log[]): void;
+
+        interface SelectOpts {
+            /**
+             * The string to be displayed before the input field.
+             */
+            prompt?: string;
+            /**
+             * The list of the entries to choose from.
+             */
+            items: string[];
+            /**
+             * The 1-based integer index of the preselected item.
+             */
+            default_item?: number;
+            /**
+             * The callback invoked when the user presses Enter. The first argument is the **1-based index** of the selected item.
+             */
+            submit?: (idx: number) => void;
+            /**
+             * Whether to keep the console open on submit. Defaults to false.
+             */
+            keep_open?: boolean;
+        }
+
+        /**
+         * Specify a list of items that are presented to the user for selection.
+         */
+        function select(opts: SelectOpts): void;
+    }
 }
 
 /**
