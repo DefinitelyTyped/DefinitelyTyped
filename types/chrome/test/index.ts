@@ -2703,7 +2703,6 @@ async function testAlarms() {
     const alarmCreateInfo: chrome.alarms.AlarmCreateInfo = {
         delayInMinutes: 1,
         periodInMinutes: 1,
-        when: 1,
         persistAcrossSessions: true,
     };
 
@@ -2714,7 +2713,7 @@ async function testAlarms() {
     // @ts-expect-error Must set at least one of when, delayInMinutes, or periodInMinutes.
     chrome.alarms.create("name", { persistAcrossSessions: true }, () => {});
     // @ts-expect-error Cannot set both when and delayInMinutes.
-    chrome.alarms.create("name", { when: 1, delayInMinutes: 1 }, () => {});
+    chrome.alarms.create("name", { when: 1, delayInMinutes: 1, periodInMinutes: 1 }, () => {});
     // @ts-expect-error
     chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
 
