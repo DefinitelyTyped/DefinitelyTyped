@@ -1060,6 +1060,10 @@
             "libraryName": "clear-module",
             "asOfVersion": "3.2.0"
         },
+        "clearoutio__clearout": {
+            "libraryName": "@clearoutio/clearout",
+            "asOfVersion": "1.1.9"
+        },
         "cli-boxes": {
             "libraryName": "cli-boxes",
             "asOfVersion": "2.0.0"
