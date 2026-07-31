@@ -36,6 +36,7 @@
         "test/unit/examples/jsm/postprocessing/EffectComposer.ts",
         "test/unit/examples/jsm/postprocessing/SavePass.ts",
         "test/unit/examples/jsm/shaders/ACESFilmicToneMappingShader.ts",
+        "test/unit/examples/jsm/tsl/display/CRT.ts",
         "test/unit/src/audio/AudioContext.ts",
         "test/unit/src/core/EventDispatcher.ts",
         "test/unit/src/core/Uniform.ts",
