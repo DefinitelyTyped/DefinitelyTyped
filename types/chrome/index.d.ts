@@ -407,7 +407,7 @@ declare namespace chrome {
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes?: number | undefined;
                     /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
-                    when?: never | undefined;
+                    when?: undefined;
                 }
                 | {
                     /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
@@ -415,11 +415,11 @@ declare namespace chrome {
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes: number;
                     /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
-                    when?: number | undefined;
+                    when?: undefined;
                 }
                 | {
                     /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
-                    delayInMinutes?: never | undefined;
+                    delayInMinutes?: undefined;
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes?: number | undefined;
                     /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
