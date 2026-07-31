@@ -6412,8 +6412,11 @@ declare namespace chrome {
          * Can return its result via Promise since Chrome 105.
          */
         function getAuthToken(details?: TokenDetails): Promise<GetAuthTokenResult>;
-        function getAuthToken(details: TokenDetails, callback: (result: GetAuthTokenResult) => void): void;
-        function getAuthToken(callback: (result: GetAuthTokenResult) => void): void;
+        function getAuthToken(
+            details: TokenDetails | undefined,
+            callback: (token?: string, grantedScopes?: string[]) => void,
+        ): void;
+        function getAuthToken(callback: (token?: string, grantedScopes?: string[]) => void): void;
 
         /**
          * Retrieves email address and obfuscated gaia id of the user signed into a profile.
