@@ -29,7 +29,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: ${{ inputs.skipPR == 'true' }}
+      - name: Commit and push ghostbust changes
+        if: ${{ inputs.skipPR == 'true' }}
         run: |
           if [ -n "`git status -s`" ]; then
             git config --global user.email "290192711+typescript-automation[bot]@users.noreply.github.com"
