@@ -281,9 +281,25 @@ DateTime.min(now, now); // $ExpectType DateTime<true>
 DateTime.min(...[dt, now].filter(date => date)); // $ExpectType DateTime<true> | DateTime<false> | undefined
 DateTime.min(); // $ExpectType undefined
 
-const anything: unknown = 0;
-if (DateTime.isDateTime(anything)) {
-    anything; // $ExpectType DateTime<true> | DateTime<false>
+// DateTime.isDateTime guard check
+function isDateTimeCheck(case1: DateTime | string, case2: DateTime<true> | number, case3: DateTime<false> | boolean) {
+    if (DateTime.isDateTime(case1)) {
+        case1; // $ExpectType DateTime<boolean>
+    } else {
+        case1; // $ExpectType string
+    }
+
+    if (DateTime.isDateTime(case2)) {
+        case2; // $ExpectType DateTime<true>
+    } else {
+        case2; // $ExpectType number
+    }
+
+    if (DateTime.isDateTime(case3)) {
+        case3; // $ExpectType DateTime<false>
+    } else {
+        case3; // $ExpectType boolean
+    }
 }
 
 const { input, result, zone } = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
@@ -349,7 +365,7 @@ dur.toFormat("", {
     floor: true,
     signMode: "negativeLargestOnly",
 });
-
+const anything: unknown = 0;
 if (Duration.isDuration(anything)) {
     anything; // $ExpectType Duration<true> | Duration<false>
 }
