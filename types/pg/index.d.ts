@@ -53,7 +53,7 @@ export interface PoolConfig extends ClientConfig {
     allowExitOnIdle?: boolean | undefined;
     maxUses?: number | undefined;
     maxLifetimeSeconds?: number | undefined;
-    Client?: (new () => ClientBase) | undefined;
+    Client?: (new() => ClientBase) | undefined;
     onConnect?: ((client: ClientBase) => void) | undefined;
     verify?: ((client: PoolClient, done: (err?: Error) => void) => void) | undefined;
 }
@@ -314,7 +314,8 @@ export interface PoolClient extends Client {
 }
 
 export class Query<R extends QueryResultRow = any, I extends any[] = any> extends events.EventEmitter
-    implements Submittable {
+    implements Submittable
+{
     constructor(
         queryTextOrConfig?: string | QueryConfig<I>,
         callback?: (error: Error | undefined, result: ResultBuilder<R>) => void,
