@@ -13,20 +13,20 @@ import {
     ZoneOffsetOptions,
 } from "luxon";
 
-/* 
+/*
  * ============================================================
  * VERSION
- * ============================================================ 
+ * ============================================================
  */
 
 function luxon_version() {
     VERSION; // $ExpectType string
 }
 
-/* 
+/*
  * ============================================================
  * DateTime
- * ============================================================ 
+ * ============================================================
  */
 
 function DateTime_staticFormatPresets() {
@@ -71,7 +71,7 @@ function DateTime_constructorIsPrivate() {
     new DateTime();
 }
 
-function DateTime_fromObjectWithNumberingSystemAndZone() { 
+function DateTime_fromObjectWithNumberingSystemAndZone() {
     const fromObject = DateTime.fromObject(
         {
             month: 4,
@@ -300,7 +300,7 @@ function DateTime_toUnixInteger(dt: DateTime) {
 
 function DateTime_knownValidNarrowsOutInvalid() {
     const now = DateTime.now();
-    
+
     // Known valid DateTime narrows out invalid returns
     now.toHTTP(); // $ExpectType string
     now.toISO(); // $ExpectType string
@@ -359,7 +359,6 @@ function DateTime_knownValidNarrowsOutInvalid() {
     now.toObject(); // $ExpectType Record<_ToObjectUnit, number>
 }
 
-
 function DateTime_plusMinusStartOfEndOf(dt: DateTime) {
     dt.plus({ hours: 3, minutes: 2 });
     dt.minus({ days: 7 });
@@ -383,7 +382,6 @@ function DateTime_zoneProperties(dt: DateTime) {
 function DateTime_set(dt: DateTime) {
     dt.set({ hour: 3 }).hour; // $ExpectType number
 }
-
 
 function DateTime_setLocale(dt: DateTime) {
     const f: { month: "long"; day: "numeric" } = { month: "long", day: "numeric" };
@@ -414,8 +412,12 @@ function DateTime_maxMin(dt: DateTime, now: DateTime<true>) {
     DateTime.min(); // $ExpectType undefined
 }
 
-function DateTime_isDateTimeTypeGuardNarrowing(case1: DateTime | string, case2: DateTime<true> | number, case3: DateTime<false> | boolean) {
-   if (DateTime.isDateTime(case1)) {
+function DateTime_isDateTimeTypeGuardNarrowing(
+    case1: DateTime | string,
+    case2: DateTime<true> | number,
+    case3: DateTime<false> | boolean,
+) {
+    if (DateTime.isDateTime(case1)) {
         case1; // $ExpectType DateTime<boolean>
     } else {
         case1; // $ExpectType string
@@ -438,16 +440,15 @@ function DateTime_fromFormatExplain() {
     const { input, result, zone } = DateTime.fromFormatExplain("Aug 6 1982", "MMMM d yyyy");
 }
 
-
 function DateTime_invalid(invalidDateTime: DateTime<false>) {
     invalidDateTime.invalidReason; // $ExpectType string
     invalidDateTime.invalidExplanation; // $ExpectType string | null
 }
 
-/* 
+/*
  * ============================================================
  * Duration
- * ============================================================ 
+ * ============================================================
  */
 
 function Duration_fromObject() {
@@ -565,7 +566,6 @@ function Duration_isDurationTypeGuardNarrowing(anything: unknown) {
     }
 }
 
-
 function Duration_invalidStatics() {
     // @ts-expect-error
     Duration.invalid();
@@ -574,15 +574,14 @@ function Duration_invalidStatics() {
     invalidDuration.invalidExplanation; // $ExpectType string | null
 }
 
-
 function Duration_isDuration(anything: unknown) {
     Duration.isDuration(anything); // $ExpectType boolean
 }
 
-/* 
+/*
  * ============================================================
  * Interval
- * ============================================================ 
+ * ============================================================
  */
 
 function Interval_fromDateTimes(now: DateTime<true>, later: DateTime<true>) {
@@ -658,11 +657,10 @@ function Interval_isInterval(anything: unknown) {
     Interval.isInterval(anything); // $ExpectType boolean
 }
 
-
-/* 
+/*
  * ============================================================
  * Info
- * ============================================================ 
+ * ============================================================
  */
 
 function Info_monthsAndWeekdays() {
@@ -691,10 +689,10 @@ function Info_weekSettings() {
     Info.getWeekendWeekdays(); // $ExpectType WeekdayNumbers[]
 }
 
-/* 
+/*
  * ============================================================
  * Settings
- * ============================================================ 
+ * ============================================================
  */
 
 function Settings_localeAndInvalid() {
@@ -738,14 +736,13 @@ function Settings_defaultWeekSettings() {
     Settings.defaultWeekSettings; // $ExpectType WeekSettings | null
 }
 
-/* 
+/*
  * ============================================================
  * Settings
- * ============================================================ 
+ * ============================================================
  */
 // The following tests were coped from the docs
 // http://moment.github.io/luxon/docs/manual/
-
 
 function Intl_localeString() {
     // prettier-ignore
@@ -790,10 +787,10 @@ function Intl_reconfigureNumberingSystem() {
     Settings.defaultNumberingSystem = "beng";
 }
 
-/* 
+/*
  * ============================================================
  * Time zones and offsets
- * ============================================================ 
+ * ============================================================
  */
 
 function Zones_featureCheck() {
@@ -822,15 +819,13 @@ function Zones_fromISOZoneName(iso: DateTime) {
 function DateTime_zonesFromISOAndFromFormatWithZone() {
     DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime<boolean>
     DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime<boolean>
-
 }
 
-/* 
+/*
  * ============================================================
  * Time zones and offsets
- * ============================================================ 
+ * ============================================================
  */
-
 
 function DateTime_calendarsISOWeekDate() {
     // prettier-ignore
@@ -849,20 +844,20 @@ function DateTime_calendarsFromObjectAndDefaultOutputCalendar() {
     Settings.defaultOutputCalendar = "persian";
 }
 
-/* 
+/*
  * ============================================================
  * Formatting
- * ============================================================ 
+ * ============================================================
  */
 
 function DateTime_formattingToFormat() {
     DateTime.fromISO("2014-08-06T13:07:04.054").toFormat("yyyy LLL dd"); // $ExpectType string
 }
 
-/* 
+/*
  * ============================================================
  * Parsing
- * ============================================================ 
+ * ============================================================
  */
 
 function DateTime_parsingFromObject() {
@@ -930,10 +925,10 @@ function DateTime_parsingInvalid() {
     DateTime.invalid("mismatched weekday", "you can't specify both a weekday and a date");
 }
 
-/* 
+/*
  * ============================================================
  * Math
- * ============================================================ 
+ * ============================================================
  */
 
 function Math_comparisons(d1: DateTime, d2: DateTime) {
@@ -1004,11 +999,10 @@ function Math_invalidProperties(dur: Duration<true>) {
     dur.invalidExplanation; // $ExpectType null
 }
 
-
-/* 
+/*
  * ============================================================
  * Sample Zone implementation
- * ============================================================ 
+ * ============================================================
  */
 
 class SampleZone extends Zone {
@@ -1040,15 +1034,14 @@ function DateTime_toLocaleStringWithSpreadFullFormat() {
     });
 }
 
-/* 
+/*
  * ============================================================
  * Type guards
- * ============================================================ 
+ * ============================================================
  */
 function isValidDateTime(dt: DateTime): dt is DateTime<true> {
     return dt.isValid;
 }
-
 
 function DateTime_typeGuardCheck(dt: DateTime): void {
     if (isValidDateTime(dt)) {
