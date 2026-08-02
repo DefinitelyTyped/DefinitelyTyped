@@ -1,21 +1,14 @@
 {
     "compilerOptions": {
         "module": "node16",
-        "lib": [
-            "es2018",
-            "DOM"
-        ],
-        "jsx": "react",
+        "lib": ["es6", "dom"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictFunctionTypes": true,
         "strictNullChecks": true,
+        "strictFunctionTypes": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "index.d.ts",
-        "commerce7__admin-ui-tests.tsx"
-    ]
+    "files": ["index.d.ts", "wicg-ua-client-hints-tests.ts"]
 }

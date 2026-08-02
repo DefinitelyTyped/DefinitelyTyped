@@ -55,6 +55,7 @@ export interface PoolConfig extends ClientConfig {
     maxLifetimeSeconds?: number | undefined;
     Client?: (new() => ClientBase) | undefined;
     onConnect?: ((client: ClientBase) => void) | undefined;
+    verify?: ((client: PoolClient, done: (err?: Error) => void) => void) | undefined;
 }
 
 export interface QueryConfig<I = any[]> {
@@ -308,7 +309,7 @@ export class Client extends ClientBase {
     end(callback: (err: Error) => void): void;
 }
 
-export interface PoolClient extends ClientBase {
+export interface PoolClient extends Client {
     release(err?: Error | boolean): void;
 }
 

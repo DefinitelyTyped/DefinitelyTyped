@@ -1,5 +1,4 @@
 // Annex A Informative Examples
-
 let referencing: CoverageJSON.ReferenceSystemConnection[] = [
     {
         coordinates: ["x", "y"],
@@ -691,6 +690,7 @@ let multiPointSeriesDomain: CoverageJSON.MultiPointSeries = {
                 [1, 20, 1],
                 [2, 21, 3],
             ],
+            bounds: [[0.5, 19.5, 0], [1.5, 20.5, 2], [1.5, 20.5, 2], [2.5, 21.5, 4]],
         },
     },
     referencing,
@@ -904,4 +904,238 @@ let verticalprofilewithRegularElevation: CoverageJSON.Domain = {
         x: { values: [10] },
         y: { values: [20] },
     },
+};
+
+const gridtiled: CoverageJSON.Coverage<CoverageJSON.Grid> = {
+    "type": "Coverage",
+    "domain": {
+        "type": "Domain",
+        "domainType": "Grid",
+        "axes": {
+            "x": { "values": [-10, -5, 0] },
+            "y": { "values": [40, 50] },
+            "t": { "values": ["2010-01-01T00:12:20Z"] },
+        },
+        "referencing": [{
+            "coordinates": ["x", "y"],
+            "system": {
+                "type": "GeographicCRS",
+                "id": "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
+            },
+        }, {
+            "coordinates": ["t"],
+            "system": {
+                "type": "TemporalRS",
+                "calendar": "Gregorian",
+            },
+        }],
+    },
+    "parameters": {
+        "LC": {
+            "type": "Parameter",
+            "description": {
+                "en": "Land Cover according to xyz classification",
+            },
+            "observedProperty": {
+                "id": "http://example.com/landcover",
+                "label": {
+                    "en": "XYZ Land Cover",
+                },
+                "categories": [{
+                    "id": "http://example.com/landcover/categories/grass",
+                    "label": {
+                        "en": "Grass",
+                    },
+                    "description": {
+                        "en": "Very green grass.",
+                    },
+                }, {
+                    "id": "http://example.com/landcover/categories/rocks",
+                    "label": {
+                        "en": "Rock",
+                    },
+                    "description": {
+                        "en": "Just rocks.",
+                    },
+                }],
+            },
+            "categoryEncoding": {
+                "http://example.com/landcover/categories/grass": 1,
+                "http://example.com/landcover/categories/rocks": 2,
+            },
+        },
+    },
+    "ranges": {
+        "LC": {
+            "type": "NdArray",
+            "dataType": "integer",
+            "axisNames": ["t", "y", "x"],
+            "shape": [1, 2, 3],
+            "values": [1, 1, null, 2, 1, 2],
+        },
+    },
+};
+
+const pointCollection: CoverageJSON.CoverageCollection<CoverageJSON.Point> = {
+    "type": "CoverageCollection",
+    "domainType": "Point",
+    "parameters": {
+        "POTM": {
+            "type": "Parameter",
+            "description": {
+                "en": "The potential temperature, in degrees celsius, of the sea water",
+            },
+            "unit": {
+                "label": {
+                    "en": "Degree Celsius",
+                },
+                "symbol": {
+                    "value": "Cel",
+                    "type": "http://www.opengis.net/def/uom/UCUM/",
+                },
+            },
+            "observedProperty": {
+                "id": "http://vocab.nerc.ac.uk/standard_name/sea_water_potential_temperature/",
+                "label": {
+                    "en": "Sea Water Potential Temperature",
+                },
+            },
+        },
+        "QC": {
+            "type": "Parameter",
+            "observedProperty": {
+                "id": "http://mmisw.org/ont/argo/qualityFlag",
+                "label": {
+                    "en": "Argo Quality Control Flag",
+                },
+                "categories": [
+                    {
+                        "id": "http://mmisw.org/ont/argo/qualityFlag/_0",
+                        "label": {
+                            "en": "No QC was performed",
+                        },
+                    },
+                    {
+                        "id": "http://mmisw.org/ont/argo/qualityFlag/_1",
+                        "label": {
+                            "en": "Good data",
+                        },
+                    },
+                    {
+                        "id": "http://mmisw.org/ont/argo/qualityFlag/_4",
+                        "label": {
+                            "en": "Bad data",
+                        },
+                    },
+                ],
+            },
+            "categoryEncoding": {
+                "http://mmisw.org/ont/argo/qualityFlag/_0": 0,
+                "http://mmisw.org/ont/argo/qualityFlag/_1": 1,
+                "http://mmisw.org/ont/argo/qualityFlag/_4": 4,
+            },
+        },
+    },
+    "referencing": [
+        {
+            "coordinates": [
+                "x",
+                "y",
+            ],
+            "system": {
+                "type": "GeographicCRS",
+                "id": "http://www.opengis.net/def/crs/OGC/1.3/CRS84",
+            },
+        },
+        {
+            "coordinates": [
+                "t",
+            ],
+            "system": {
+                "type": "TemporalRS",
+                "calendar": "Gregorian",
+            },
+        },
+    ],
+    "coverages": [
+        {
+            "type": "Coverage",
+            "domain": {
+                "type": "Domain",
+                "axes": {
+                    "x": {
+                        "values": [
+                            -5.1,
+                        ],
+                        bounds: [-6.1, -4.1],
+                    },
+                    "y": {
+                        "values": [
+                            -40.2,
+                        ],
+                    },
+                    "t": {
+                        "values": [
+                            "2013-01-01",
+                        ],
+                    },
+                },
+            },
+            "ranges": {
+                "POTM": {
+                    "type": "NdArray",
+                    "dataType": "float",
+                    "values": [
+                        23.8,
+                    ],
+                },
+                "QC": {
+                    "type": "NdArray",
+                    "dataType": "integer",
+                    "values": [
+                        1,
+                    ],
+                },
+            },
+        },
+        {
+            "type": "Coverage",
+            "domain": {
+                "type": "Domain",
+                "axes": {
+                    "x": {
+                        "values": [
+                            -5.1,
+                        ],
+                    },
+                    "y": {
+                        "values": [
+                            -39.2,
+                        ],
+                    },
+                    "t": {
+                        "values": [
+                            "2013-01-01",
+                        ],
+                    },
+                },
+            },
+            "ranges": {
+                "POTM": {
+                    "type": "NdArray",
+                    "dataType": "float",
+                    "values": [
+                        21.8,
+                    ],
+                },
+                "QC": {
+                    "type": "NdArray",
+                    "dataType": "integer",
+                    "values": [
+                        0,
+                    ],
+                },
+            },
+        },
+    ],
 };

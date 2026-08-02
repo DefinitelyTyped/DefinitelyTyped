@@ -1060,6 +1060,10 @@
             "libraryName": "clear-module",
             "asOfVersion": "3.2.0"
         },
+        "clearoutio__clearout": {
+            "libraryName": "@clearoutio/clearout",
+            "asOfVersion": "1.1.9"
+        },
         "cli-boxes": {
             "libraryName": "cli-boxes",
             "asOfVersion": "2.0.0"
@@ -1135,6 +1139,10 @@
         "comment-json": {
             "libraryName": "comment-json",
             "asOfVersion": "2.4.1"
+        },
+        "commerce7__admin-ui": {
+            "libraryName": "@commerce7/admin-ui",
+            "asOfVersion": "2.0.47"
         },
         "commitlint__load": {
             "libraryName": "@commitlint/load",

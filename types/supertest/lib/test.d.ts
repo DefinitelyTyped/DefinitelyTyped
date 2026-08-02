@@ -9,11 +9,11 @@ declare class Test extends Request {
     serverAddress(app: App, path: string): string;
 
     expect(status: number, callback?: CallbackHandler): this;
-    expect(status: number, body: any, callback?: CallbackHandler): this;
+    expect<T>(status: number, body: T, callback?: CallbackHandler): this;
     expect(checker: (res: Response) => any, callback?: CallbackHandler): this;
     expect(body: string, callback?: CallbackHandler): this;
     expect(body: RegExp, callback?: CallbackHandler): this;
-    expect(body: object, callback?: CallbackHandler): this;
+    expect<T extends object = object>(body: T, callback?: CallbackHandler): this;
     expect(field: string, val: string, callback?: CallbackHandler): this;
     expect(field: string, val: RegExp, callback?: CallbackHandler): this;
     end(callback?: CallbackHandler): this;

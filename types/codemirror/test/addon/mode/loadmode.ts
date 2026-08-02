@@ -1,5 +1,5 @@
 import CodeMirror from "codemirror";
-import "codemirror/addon/mode/loadMode";
+import "codemirror/addon/mode/loadmode";
 
 CodeMirror.requireMode("javascript", () => {
     console.log("loaded");

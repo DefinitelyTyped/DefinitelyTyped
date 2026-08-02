@@ -414,9 +414,23 @@ function DateTime_maxMin(dt: DateTime, now: DateTime<true>) {
     DateTime.min(); // $ExpectType undefined
 }
 
-function DateTime_isDateTimeTypeGuardNarrowing(anything: unknown) {
-    if (DateTime.isDateTime(anything)) {
-        anything; // $ExpectType DateTime<boolean>
+function DateTime_isDateTimeTypeGuardNarrowing(case1: DateTime | string, case2: DateTime<true> | number, case3: DateTime<false> | boolean) {
+   if (DateTime.isDateTime(case1)) {
+        case1; // $ExpectType DateTime<boolean>
+    } else {
+        case1; // $ExpectType string
+    }
+
+    if (DateTime.isDateTime(case2)) {
+        case2; // $ExpectType DateTime<true>
+    } else {
+        case2; // $ExpectType number
+    }
+
+    if (DateTime.isDateTime(case3)) {
+        case3; // $ExpectType DateTime<false>
+    } else {
+        case3; // $ExpectType boolean
     }
 }
 

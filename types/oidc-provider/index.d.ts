@@ -13,12 +13,14 @@ export type CanBePromise<T> = Promise<T> | T;
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,
-    token?: AuthorizationCode | AccessToken | DeviceCode | BackchannelAuthenticationRequest,
+    token?: AuthorizationCode | AccessToken | DeviceCode | BackchannelAuthenticationRequest | PreAuthorizedCode,
 ) => CanBePromise<Account | undefined>;
 export type TokenFormat = "opaque" | "jwt";
 export type FapiProfile = "1.0 Final" | "2.0";
 
-export type TTLFunction<T> = (ctx: KoaContextWithOIDC, token: T, client: Client) => number;
+export type TTLFunction<T, WithClient extends boolean = true> = WithClient extends true
+    ? (ctx: KoaContextWithOIDC, token: T, client: Client) => number
+    : (ctx: KoaContextWithOIDC, token: T) => number;
 
 export interface UnknownObject {
     [key: string]: unknown;
@@ -26,7 +28,7 @@ export interface UnknownObject {
 
 export interface JWK {
     kid?: string | undefined;
-    x5c?: string[] | undefined;
+    x5c?: readonly string[] | undefined;
     alg?: string | undefined;
     crv?: string | undefined;
     d?: string | undefined;
@@ -35,7 +37,7 @@ export interface JWK {
     e?: string | undefined;
     ext?: boolean | undefined;
     k?: string | undefined;
-    key_ops?: string[] | undefined;
+    key_ops?: readonly string[] | undefined;
     kty?: string | undefined;
     n?: string | undefined;
     p?: string | undefined;
@@ -49,15 +51,96 @@ export interface JWK {
 }
 
 export interface JWKS {
-    keys: Array<JWK | ExternalSigningKey>;
+    keys: ReadonlyArray<JWK | ExternalSigningKey>;
+}
+
+export interface AuthorizationDetail extends UnknownObject {
+    type: string;
+}
+
+export interface JWTVerificationResult {
+    protectedHeader: UnknownObject;
+    payload: UnknownObject;
+    key: crypto.KeyObject | crypto.webcrypto.CryptoKey;
+}
+
+export interface KeyAttestation {
+    jwt: string;
+    attestedKeys: readonly JWK[];
+    payload: UnknownObject;
+}
+
+export interface OpenID4VCIProofType {
+    proof_signing_alg_values_supported?: readonly string[] | undefined;
+    key_attestations_required?:
+        | {
+            key_storage?: readonly string[] | undefined;
+            user_authentication?: readonly string[] | undefined;
+        }
+        | undefined;
+    [key: string]: unknown;
+}
+
+export interface OpenID4VCICredentialConfiguration {
+    format: string;
+    scope?: string | undefined;
+    cryptographic_binding_methods_supported?: readonly "jwk"[] | undefined;
+    proof_types_supported?:
+        | {
+            jwt?: OpenID4VCIProofType | undefined;
+            attestation?: OpenID4VCIProofType | undefined;
+        }
+        | undefined;
+    [key: string]: unknown;
+}
+
+export interface OpenID4VCIMetadata extends UnknownObject {
+    batch_credential_issuance?:
+        | {
+            batch_size: number;
+            [key: string]: unknown;
+        }
+        | undefined;
+}
+
+export type OpenID4VCIProofs =
+    | {
+        jwt: readonly string[];
+        key_attestation?: KeyAttestation | undefined;
+        attestation?: never;
+    }
+    | {
+        attestation: KeyAttestation;
+        jwt?: never;
+        key_attestation?: never;
+    };
+
+export interface OpenID4VCICredentialContext {
+    credentialConfigurationId: string;
+    credentialConfiguration: OpenID4VCICredentialConfiguration;
+    credentialIdentifier?: string | undefined;
+    client: Client;
+    account: Account;
+    grant: Grant;
+    accessToken: AccessToken;
+}
+
+export interface OpenID4VCIIssueCredentialContext extends OpenID4VCICredentialContext {
+    body: UnknownObject;
+    proofs?: OpenID4VCIProofs | undefined;
+}
+
+export interface OpenID4VCICredentialResponse extends UnknownObject {
+    credentials: readonly unknown[];
+    notification_id?: string | undefined;
 }
 
 export interface AllClientMetadata {
     client_id?: string | undefined;
-    redirect_uris?: string[] | undefined;
-    grant_types?: string[] | undefined;
-    response_types?: ResponseType[] | undefined;
-    response_modes?: string[] | undefined;
+    redirect_uris?: readonly string[] | undefined;
+    grant_types?: readonly string[] | undefined;
+    response_types?: readonly ResponseType[] | undefined;
+    response_modes?: readonly string[] | undefined;
 
     application_type?: "web" | "native" | undefined;
     client_id_issued_at?: number | undefined;
@@ -65,8 +148,8 @@ export interface AllClientMetadata {
     client_secret_expires_at?: number | undefined;
     client_secret?: string | undefined;
     client_uri?: string | undefined;
-    contacts?: string[] | undefined;
-    default_acr_values?: string[] | undefined;
+    contacts?: readonly string[] | undefined;
+    default_acr_values?: readonly string[] | undefined;
     default_max_age?: number | undefined;
     id_token_signed_response_alg?: SigningAlgorithmWithNone | undefined;
     initiate_login_uri?: string | undefined;
@@ -74,7 +157,7 @@ export interface AllClientMetadata {
     jwks?: JWKS | undefined;
     logo_uri?: string | undefined;
     policy_uri?: string | undefined;
-    post_logout_redirect_uris?: string[] | undefined;
+    post_logout_redirect_uris?: readonly string[] | undefined;
     require_auth_time?: boolean | undefined;
     scope?: string | undefined;
     sector_identifier_uri?: string | undefined;
@@ -106,6 +189,8 @@ export interface AllClientMetadata {
     authorization_encrypted_response_enc?: EncryptionEncValues | undefined;
     tls_client_certificate_bound_access_tokens?: boolean | undefined;
     use_mtls_endpoint_aliases?: boolean | undefined;
+    dpop_bound_access_tokens?: boolean | undefined;
+    authorization_details_types?: readonly string[] | undefined;
 
     require_signed_request_object?: boolean | undefined;
     require_pushed_authorization_requests?: boolean | undefined;
@@ -114,6 +199,26 @@ export interface AllClientMetadata {
     backchannel_authentication_request_signing_alg?: string | undefined;
     backchannel_client_notification_endpoint?: string | undefined;
     backchannel_token_delivery_mode?: CIBADeliveryMode | undefined;
+
+    authorization_encryption_alg_values_supported?: readonly EncryptionAlgValues[] | undefined;
+    authorization_encryption_enc_values_supported?: readonly EncryptionEncValues[] | undefined;
+    authorization_signing_alg_values_supported?: readonly SigningAlgorithm[] | undefined;
+    backchannel_authentication_request_signing_alg_values_supported?: readonly SigningAlgorithm[] | undefined;
+    id_token_encryption_alg_values_supported?: readonly EncryptionAlgValues[] | undefined;
+    id_token_encryption_enc_values_supported?: readonly EncryptionEncValues[] | undefined;
+    id_token_signing_alg_values_supported?: readonly SigningAlgorithmWithNone[] | undefined;
+    introspection_encryption_alg_values_supported?: readonly EncryptionAlgValues[] | undefined;
+    introspection_encryption_enc_values_supported?: readonly EncryptionEncValues[] | undefined;
+    introspection_signing_alg_values_supported?: readonly SigningAlgorithmWithNone[] | undefined;
+    request_object_encryption_alg_values_supported?: readonly EncryptionAlgValues[] | undefined;
+    request_object_encryption_enc_values_supported?: readonly EncryptionEncValues[] | undefined;
+    request_object_signing_alg_values_supported?: readonly SigningAlgorithmWithNone[] | undefined;
+    subject_types_supported?: readonly SubjectTypes[] | undefined;
+    token_endpoint_auth_methods_supported?: readonly ClientAuthMethod[] | undefined;
+    token_endpoint_auth_signing_alg_values_supported?: readonly SigningAlgorithm[] | undefined;
+    userinfo_encryption_alg_values_supported?: readonly EncryptionAlgValues[] | undefined;
+    userinfo_encryption_enc_values_supported?: readonly EncryptionEncValues[] | undefined;
+    userinfo_signing_alg_values_supported?: readonly SigningAlgorithmWithNone[] | undefined;
 
     [key: string]: unknown;
 }
@@ -139,12 +244,13 @@ export type ClientAuthMethod =
     | "private_key_jwt"
     | "tls_client_auth"
     | "self_signed_tls_client_auth"
+    | "attest_jwt_client_auth"
     | "none";
 
 export interface ClaimsParameterMember {
     essential?: boolean | undefined;
     value?: string | undefined;
-    values?: string[] | undefined;
+    values?: readonly string[] | undefined;
 
     [key: string]: unknown;
 }
@@ -221,8 +327,7 @@ declare class Session extends BaseModel {
         }
         | undefined;
 
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    authTime(): string | void;
+    authTime(): number | undefined;
     past(age: number): boolean;
 
     ensureClientContainer(clientId: string): void;
@@ -233,11 +338,10 @@ declare class Session extends BaseModel {
         loginTs?: number | undefined;
         transient?: boolean | undefined;
     }): void;
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    authorizationFor(clientId: string): ClientAuthorizationState | void;
-    sidFor(clientId: string): string;
+    authorizationFor(clientId: string): ClientAuthorizationState;
+    sidFor(clientId: string): string | undefined;
     sidFor(clientId: string, value: string): void;
-    grantIdFor(clientId: string): string;
+    grantIdFor(clientId: string): string | undefined;
     grantIdFor(clientId: string, value: string): void;
 
     save(ttl: number): Promise<string>;
@@ -250,7 +354,11 @@ declare class Session extends BaseModel {
 }
 
 declare class Grant extends BaseToken {
-    constructor(properties?: { clientId?: string | undefined; accountId?: string | undefined });
+    constructor(properties?: {
+        clientId?: string | undefined;
+        accountId?: string | undefined;
+        rar?: AuthorizationDetail[] | undefined;
+    });
 
     accountId?: string | undefined;
     clientId?: string | undefined;
@@ -265,25 +373,31 @@ declare class Grant extends BaseToken {
             [resource: string]: string;
         }
         | undefined;
+    rar?: AuthorizationDetail[] | undefined;
     rejected?: Pick<Grant, "openid" | "resources"> | undefined;
 
-    addOIDCScope(scope: string): undefined;
-    rejectOIDCScope(scope: string): undefined;
+    addOIDCScope(scope: string | string[] | Set<string>): undefined;
+    rejectOIDCScope(scope: string | string[] | Set<string>): undefined;
     getOIDCScope(): string;
+    getRejectedOIDCScope(): string;
     getOIDCScopeEncountered(): string;
-    getOIDCScopeFiltered(filter: Set<string>): string;
+    getOIDCScopeFiltered(filter: string[] | Set<string>): string;
 
-    addOIDCClaims(claims: string[]): undefined;
-    rejectOIDCClaims(claims: string[]): undefined;
+    addOIDCClaims(claims: string[] | Set<string>): undefined;
+    rejectOIDCClaims(claims: string[] | Set<string>): undefined;
     getOIDCClaims(): string[];
+    getRejectedOIDCClaims(): string[];
     getOIDCClaimsEncountered(): string[];
-    getOIDCClaimsFiltered(filter: Set<string>): string[];
+    getOIDCClaimsFiltered(filter: string[] | Set<string>): string[];
 
-    addResourceScope(resource: string, scope: string): undefined;
-    rejectResourceScope(resource: string, scope: string): undefined;
+    addResourceScope(resource: string, scope: string | string[] | Set<string>): undefined;
+    rejectResourceScope(resource: string, scope: string | string[] | Set<string>): undefined;
     getResourceScope(resource: string): string;
+    getRejectedResourceScope(resource: string): string;
     getResourceScopeEncountered(resource: string): string;
-    getResourceScopeFiltered(resource: string, filter: Set<string>): string;
+    getResourceScopeFiltered(resource: string, filter: string[] | Set<string>): string;
+
+    addRar(detail: AuthorizationDetail): undefined;
 }
 
 interface BaseModel {
@@ -299,6 +413,11 @@ declare class BaseModel {
     save(ttl?: number): Promise<string>;
     destroy(): Promise<void>;
     emit(eventName: string): void;
+    ttlPercentagePassed(): number;
+
+    readonly isValid: boolean;
+    readonly isExpired: boolean;
+    readonly remainingTTL: number;
 
     static readonly adapter: Adapter;
 
@@ -316,6 +435,7 @@ declare class BaseToken extends BaseModel {
     client?: Client | undefined;
     readonly format?: string | undefined;
     readonly scopes: Set<string>;
+    readonly resourceIndicators: Set<string | undefined>;
 
     ttlPercentagePassed(): number;
 
@@ -337,19 +457,27 @@ declare class BaseToken extends BaseModel {
     static readonly adapter: Adapter;
 }
 
-declare class ReplayDetection {
+declare class ReplayDetection extends BaseModel {
     readonly kind: "ReplayDetection";
-    unique(iss: string, jti: string, exp?: number): Promise<boolean>;
-
-    readonly adapter: Adapter;
-    static readonly adapter: Adapter;
+    iss?: string | undefined;
+    static unique(iss: string, jti: string, exp: number): Promise<boolean>;
 }
 
-declare class PushedAuthorizationRequest extends BaseToken {
-    constructor(properties: { request: string });
+declare class PushedAuthorizationRequest extends BaseModel {
+    constructor(properties: {
+        request: string;
+        attestationJkt?: string | undefined;
+        dpopJkt?: string | undefined;
+        trusted?: string[] | undefined;
+    });
     readonly kind: "PushedAuthorizationRequest";
     request: string;
+    attestationJkt?: string | undefined;
     dpopJkt?: string | undefined;
+    trusted?: string[] | undefined;
+    consumed: unknown;
+
+    consume(): Promise<void>;
 }
 
 declare class RefreshToken extends BaseToken {
@@ -370,6 +498,7 @@ declare class RefreshToken extends BaseToken {
         jkt?: string | undefined;
         grantId: string;
         gty: string;
+        rar?: AuthorizationDetail[] | undefined;
         [key: string]: unknown;
     });
     readonly kind: "RefreshToken";
@@ -390,6 +519,8 @@ declare class RefreshToken extends BaseToken {
     jkt?: string | undefined;
     grantId?: string | undefined;
     gty?: string | undefined;
+    rar?: AuthorizationDetail[] | undefined;
+    attestationJkt?: string | undefined;
     consumed: unknown;
 
     totalLifetime(): number;
@@ -417,9 +548,10 @@ declare class AuthorizationCode extends BaseToken {
         sessionUid?: string | undefined;
         expiresWithSession?: boolean | undefined;
         "x5t#S256"?: string | undefined;
-        jkt?: string | undefined;
+        dpopJkt?: string | undefined;
         grantId: string;
         gty: string;
+        rar?: AuthorizationDetail[] | undefined;
         [key: string]: unknown;
     });
     readonly kind: "AuthorizationCode";
@@ -438,9 +570,11 @@ declare class AuthorizationCode extends BaseToken {
     sessionUid?: string | undefined;
     expiresWithSession?: boolean | undefined;
     "x5t#S256"?: string | undefined;
-    jkt?: string | undefined;
+    dpopJkt?: string | undefined;
     grantId?: string | undefined;
     gty?: string | undefined;
+    rar?: AuthorizationDetail[] | undefined;
+    attestationJkt?: string | undefined;
 
     consume(): Promise<void>;
 
@@ -481,6 +615,7 @@ declare class DeviceCode extends BaseToken {
     sessionUid?: string | undefined;
     expiresWithSession?: boolean | undefined;
     grantId: string;
+    attestationJkt?: string | undefined;
     consumed: unknown;
 
     consume(): Promise<void>;
@@ -507,7 +642,37 @@ declare class BackchannelAuthenticationRequest extends BaseToken {
     sessionUid?: string | undefined;
     expiresWithSession?: boolean | undefined;
     grantId: string;
+    rar?: AuthorizationDetail[] | undefined;
+    attestationJkt?: string | undefined;
     consumed: unknown;
+
+    static revokeByGrantId(grantId: string): Promise<void>;
+}
+
+declare class PreAuthorizedCode extends BaseToken {
+    constructor(properties: {
+        accountId: string;
+        clientId: string;
+        grantId: string;
+        claims?: ClaimsParameter | undefined;
+        rar?: AuthorizationDetail[] | undefined;
+        resource?: string | string[] | undefined;
+        scope: string;
+        txCode?: string | undefined;
+        [key: string]: unknown;
+    });
+
+    readonly kind: "PreAuthorizedCode";
+    accountId: string;
+    grantId: string;
+    claims?: ClaimsParameter | undefined;
+    rar?: AuthorizationDetail[] | undefined;
+    resource?: string | string[] | undefined;
+    scope: string;
+    txCode?: string | undefined;
+    consumed: unknown;
+
+    consume(): Promise<void>;
 
     static revokeByGrantId(grantId: string): Promise<void>;
 }
@@ -515,7 +680,7 @@ declare class BackchannelAuthenticationRequest extends BaseToken {
 declare class ClientCredentials extends BaseToken {
     constructor(properties: {
         client: Client;
-        resourceServer?: ResourceServer | undefined;
+        resourceServer?: ResourceServerInstance | undefined;
         scope: string;
         [key: string]: unknown;
     });
@@ -526,7 +691,7 @@ declare class ClientCredentials extends BaseToken {
     readonly tokenType: string;
     "x5t#S256"?: string | undefined;
     jkt?: string | undefined;
-    resourceServer?: ResourceServer | undefined;
+    resourceServer?: ResourceServerInstance | undefined;
 
     isSenderConstrained(): boolean;
 }
@@ -551,7 +716,7 @@ declare class AccessToken extends BaseToken {
     constructor(properties: {
         client: Client;
         accountId: string;
-        resourceServer?: ResourceServer | undefined;
+        resourceServer?: ResourceServerInstance | undefined;
         claims?: ClaimsParameter | undefined;
         aud?: string | string[] | undefined;
         scope: string;
@@ -562,17 +727,19 @@ declare class AccessToken extends BaseToken {
         jkt?: string | undefined;
         grantId: string;
         gty: string;
+        rar?: AuthorizationDetail[] | undefined;
         [key: string]: unknown;
     });
     readonly kind: "AccessToken";
     accountId: string;
-    resourceServer?: ResourceServer | undefined;
+    resourceServer?: ResourceServerInstance | undefined;
     aud: string | string[];
     claims?: ClaimsParameter | undefined;
     extra?: UnknownObject | undefined;
     grantId: string;
     scope?: string | undefined;
     gty: string;
+    rar?: AuthorizationDetail[] | undefined;
     sid?: string | undefined;
     sessionUid?: string | undefined;
     expiresWithSession?: boolean | undefined;
@@ -602,6 +769,20 @@ declare class IdToken {
     static validate(idToken: string, client: Client): Promise<{ header: UnknownObject; payload: UnknownObject }>;
 }
 
+declare class Claims {
+    constructor(
+        available: UnknownObject,
+        context:
+            | { ctx: KoaContextWithOIDC; client?: Client | undefined }
+            | { ctx?: undefined; client: Client },
+    );
+
+    scope(value?: string): this;
+    mask(value: UnknownObject): void;
+    rejected(value?: readonly string[]): void;
+    result(): Promise<UnknownObject>;
+}
+
 declare class Client {
     responseTypeAllowed(type: ResponseType): boolean;
     responseModeAllowed(type: string, responseType: ResponseType, fapiProfile: FapiProfile | undefined): boolean;
@@ -617,10 +798,10 @@ declare class Client {
 
     readonly clientId: string;
 
-    readonly grantTypes?: string[] | undefined;
-    readonly redirectUris?: string[] | undefined;
-    readonly responseTypes?: ResponseType[] | undefined;
-    readonly responseModes?: string[] | undefined;
+    readonly grantTypes?: readonly string[] | undefined;
+    readonly redirectUris?: readonly string[] | undefined;
+    readonly responseTypes?: readonly ResponseType[] | undefined;
+    readonly responseModes?: readonly string[] | undefined;
 
     readonly applicationType?: "web" | "native" | undefined;
     readonly clientIdIssuedAt?: number | undefined;
@@ -628,8 +809,8 @@ declare class Client {
     readonly clientSecretExpiresAt?: number | undefined;
     readonly clientSecret?: string | undefined;
     readonly clientUri?: string | undefined;
-    readonly contacts?: string[] | undefined;
-    readonly defaultAcrValues?: string[] | undefined;
+    readonly contacts?: readonly string[] | undefined;
+    readonly defaultAcrValues?: readonly string[] | undefined;
     readonly defaultMaxAge?: number | undefined;
     readonly idTokenSignedResponseAlg?: string | undefined;
     readonly initiateLoginUri?: string | undefined;
@@ -637,7 +818,7 @@ declare class Client {
     readonly jwks?: JWKS | undefined;
     readonly logoUri?: string | undefined;
     readonly policyUri?: string | undefined;
-    readonly postLogoutRedirectUris?: string[] | undefined;
+    readonly postLogoutRedirectUris?: readonly string[] | undefined;
     readonly requireAuthTime?: boolean | undefined;
     readonly scope?: string | undefined;
     readonly sectorIdentifierUri?: string | undefined;
@@ -670,11 +851,36 @@ declare class Client {
     readonly authorizationEncryptedResponseAlg?: string | undefined;
     readonly authorizationEncryptedResponseEnc?: string | undefined;
     readonly tlsClientCertificateBoundAccessTokens?: boolean | undefined;
+    readonly useMtlsEndpointAliases?: boolean | undefined;
+    readonly dpopBoundAccessTokens?: boolean | undefined;
+    readonly authorizationDetailsTypes?: readonly string[] | undefined;
+    readonly requireSignedRequestObject?: boolean | undefined;
+    readonly requirePushedAuthorizationRequests?: boolean | undefined;
 
     readonly backchannelUserCodeParameter?: boolean | undefined;
     readonly backchannelAuthenticationRequestSigningAlg?: string | undefined;
     readonly backchannelClientNotificationEndpoint?: string | undefined;
     readonly backchannelTokenDeliveryMode?: CIBADeliveryMode | undefined;
+
+    readonly authorizationEncryptionAlgValuesSupported?: readonly EncryptionAlgValues[] | undefined;
+    readonly authorizationEncryptionEncValuesSupported?: readonly EncryptionEncValues[] | undefined;
+    readonly authorizationSigningAlgValuesSupported?: readonly SigningAlgorithm[] | undefined;
+    readonly backchannelAuthenticationRequestSigningAlgValuesSupported?: readonly SigningAlgorithm[] | undefined;
+    readonly idTokenEncryptionAlgValuesSupported?: readonly EncryptionAlgValues[] | undefined;
+    readonly idTokenEncryptionEncValuesSupported?: readonly EncryptionEncValues[] | undefined;
+    readonly idTokenSigningAlgValuesSupported?: readonly SigningAlgorithmWithNone[] | undefined;
+    readonly introspectionEncryptionAlgValuesSupported?: readonly EncryptionAlgValues[] | undefined;
+    readonly introspectionEncryptionEncValuesSupported?: readonly EncryptionEncValues[] | undefined;
+    readonly introspectionSigningAlgValuesSupported?: readonly SigningAlgorithmWithNone[] | undefined;
+    readonly requestObjectEncryptionAlgValuesSupported?: readonly EncryptionAlgValues[] | undefined;
+    readonly requestObjectEncryptionEncValuesSupported?: readonly EncryptionEncValues[] | undefined;
+    readonly requestObjectSigningAlgValuesSupported?: readonly SigningAlgorithmWithNone[] | undefined;
+    readonly subjectTypesSupported?: readonly SubjectTypes[] | undefined;
+    readonly tokenEndpointAuthMethodsSupported?: readonly ClientAuthMethod[] | undefined;
+    readonly tokenEndpointAuthSigningAlgValuesSupported?: readonly SigningAlgorithm[] | undefined;
+    readonly userinfoEncryptionAlgValuesSupported?: readonly EncryptionAlgValues[] | undefined;
+    readonly userinfoEncryptionEncValuesSupported?: readonly EncryptionEncValues[] | undefined;
+    readonly userinfoSigningAlgValuesSupported?: readonly SigningAlgorithmWithNone[] | undefined;
 
     [key: string]: unknown;
 
@@ -686,6 +892,7 @@ export type {
     AccessToken,
     AuthorizationCode,
     BackchannelAuthenticationRequest,
+    Claims,
     Client,
     ClientCredentials,
     DeviceCode,
@@ -694,6 +901,7 @@ export type {
     InitialAccessToken,
     Interaction,
     OIDCContext,
+    PreAuthorizedCode,
     PushedAuthorizationRequest,
     RefreshToken,
     RegistrationAccessToken,
@@ -709,26 +917,33 @@ export interface ResourceServer {
     jwt?:
         | {
             sign?:
+                | false
                 | {
                     alg?: AsymmetricSigningAlgorithm | undefined;
                     kid?: string | undefined;
                 }
                 | {
                     alg: SymmetricSigningAlgorithm;
-                    key: crypto.KeyObject | Buffer;
+                    key: crypto.KeyObject | crypto.webcrypto.CryptoKey | Buffer;
                     kid?: string | undefined;
                 }
                 | undefined;
             encrypt?:
+                | false
                 | {
                     alg: EncryptionAlgValues;
                     enc: EncryptionEncValues;
-                    key: crypto.KeyObject | Buffer;
+                    key: crypto.KeyObject | crypto.webcrypto.CryptoKey | Buffer;
                     kid?: string | undefined;
                 }
                 | undefined;
         }
         | undefined;
+}
+
+export interface ResourceServerInstance extends ResourceServer {
+    readonly scopes: Set<string>;
+    identifier(): string;
 }
 
 declare class OIDCContext {
@@ -752,6 +967,7 @@ declare class OIDCContext {
         readonly InitialAccessToken?: InitialAccessToken | undefined;
         readonly Interaction?: Interaction | undefined;
         readonly PushedAuthorizationRequest?: PushedAuthorizationRequest | undefined;
+        readonly PreAuthorizedCode?: PreAuthorizedCode | undefined;
         readonly BackchannelAuthenticationRequest?: BackchannelAuthenticationRequest | undefined;
         readonly RefreshToken?: RefreshToken | undefined;
         readonly RegistrationAccessToken?: RegistrationAccessToken | undefined;
@@ -763,24 +979,32 @@ declare class OIDCContext {
     readonly claims: ClaimsParameter;
     readonly issuer: string;
     readonly provider: Provider;
-    readonly resourceServers?: { [key: string]: ResourceServer } | undefined;
+    readonly resourceServers?: { [key: string]: ResourceServerInstance } | undefined;
+    readonly fapiProfile?: FapiProfile | undefined;
 
     entity(key: string, value: any): void;
 
+    urlFor(name: string, options?: UnknownObject): string;
+    isFapi(...profiles: FapiProfile[]): FapiProfile | undefined;
     promptPending(name: string): boolean;
 
     readonly requestParamClaims: Set<string>;
     readonly requestParamScopes: Set<string>;
+    readonly requestParamOIDCScopes: Set<string>;
     readonly prompts: Set<string>;
+    readonly responseMode?: string | undefined;
     readonly result?: InteractionResults | undefined;
 
     readonly redirectUriCheckPerformed?: boolean | undefined;
     readonly trusted?: string[] | undefined;
     readonly registrationAccessToken?: RegistrationAccessToken | undefined;
     readonly deviceCode?: DeviceCode | undefined;
+    readonly authorizationCode?: AuthorizationCode | undefined;
+    readonly refreshToken?: RefreshToken | undefined;
     readonly accessToken?: AccessToken | undefined;
     readonly account?: Account | undefined;
     readonly client?: Client | undefined;
+    readonly grant?: Grant | undefined;
     readonly session?: Session | undefined;
     readonly acr: string;
     readonly amr: string[];
@@ -824,7 +1048,7 @@ export interface Account {
 }
 
 export type RotateRegistrationAccessTokenFunction = (ctx: KoaContextWithOIDC) => CanBePromise<boolean>;
-export type IssueRegistrationAccessTokenFunction = (ctx: KoaContextWithOIDC, client: Client) => boolean;
+export type IssueRegistrationAccessTokenFunction = (ctx: KoaContextWithOIDC) => CanBePromise<boolean>;
 
 export interface ErrorOut {
     error: string;
@@ -837,7 +1061,7 @@ export interface AdapterPayload extends AllClientMetadata {
     accountId?: string | undefined;
     acr?: string | undefined;
     amr?: string[] | undefined;
-    aud?: string[] | undefined;
+    aud?: string | string[] | undefined;
     authorizations?:
         | {
             [clientId: string]: ClientAuthorizationState;
@@ -845,10 +1069,12 @@ export interface AdapterPayload extends AllClientMetadata {
         | undefined;
     authTime?: number | undefined;
     claims?: ClaimsParameter | undefined;
+    cid?: string | undefined;
     clientId?: string | undefined;
     codeChallenge?: string | undefined;
     codeChallengeMethod?: string | undefined;
     consumed?: any;
+    deviceCode?: string | undefined;
     deviceInfo?: UnknownObject | undefined;
     error?: string | undefined;
     errorDescription?: string | undefined;
@@ -866,11 +1092,14 @@ export interface AdapterPayload extends AllClientMetadata {
     lastSubmission?: InteractionResults | undefined;
     loginTs?: number | undefined;
     nonce?: string | undefined;
+    parJti?: string | undefined;
     params?: UnknownObject | undefined;
     policies?: string[] | undefined;
+    prompt?: PromptDetail | undefined;
     redirectUri?: string | undefined;
     request?: string | undefined;
-    resource?: string | undefined;
+    rar?: AuthorizationDetail[] | undefined;
+    resource?: string | string[] | undefined;
     result?: InteractionResults | undefined;
     returnTo?: string | undefined;
     rotations?: number | undefined;
@@ -887,17 +1116,20 @@ export interface AdapterPayload extends AllClientMetadata {
     sessionUid?: string | undefined;
     sid?: string | undefined;
     trusted?: string[] | undefined;
+    attestationJkt?: string | undefined;
     dpopJkt?: string | undefined;
+    iss?: string | undefined;
     state?: UnknownObject | undefined;
     transient?: boolean | undefined;
     uid?: string | undefined;
     userCode?: string | undefined;
+    txCode?: string | undefined;
     jkt?: string | undefined;
     "x5t#S256"?: string | undefined;
 }
 
 export interface Adapter {
-    upsert(id: string, payload: AdapterPayload, expiresIn: number): Promise<undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    upsert(id: string, payload: AdapterPayload, expiresIn?: number): Promise<undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
     find(id: string): Promise<AdapterPayload | undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
     findByUserCode(userCode: string): Promise<AdapterPayload | undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
     findByUid(uid: string): Promise<AdapterPayload | undefined | void>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
@@ -932,20 +1164,61 @@ export type JsonArray = JsonValue[];
 export type JsonPrimitive = string | number | boolean | null;
 export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
 
+export interface RichAuthorizationRequestType {
+    validate: (
+        ctx: KoaContextWithOIDC,
+        detail: AuthorizationDetail,
+        client: Client,
+    ) => CanBePromise<void>;
+}
+
+export interface RichAuthorizationRequestsConfiguration {
+    enabled?: boolean | undefined;
+    ack?: string | undefined;
+    types?: Readonly<Record<string, RichAuthorizationRequestType>> | undefined;
+    rarForAuthorizationCode?:
+        | ((ctx: KoaContextWithOIDC) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
+        | undefined;
+    rarForBackchannelResponse?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            resourceServer: ResourceServerInstance,
+        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
+        | undefined;
+    rarForCodeResponse?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            resourceServer: ResourceServerInstance,
+        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
+        | undefined;
+    rarForIntrospectionResponse?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            token: AccessToken | ClientCredentials | RefreshToken,
+        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
+        | undefined;
+    rarForRefreshTokenResponse?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            resourceServer: ResourceServerInstance,
+        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
+        | undefined;
+}
+
 export interface Configuration {
-    acrValues?: string[] | Set<string> | undefined;
+    acrValues?: readonly string[] | ReadonlySet<string> | undefined;
 
     adapter?: AdapterConstructor | AdapterFactory | undefined;
 
     claims?:
         | {
-            [key: string]: null | string[];
+            [key: string]: null | readonly string[];
         }
         | undefined;
 
     clientBasedCORS?: ((ctx: KoaContextWithOIDC, origin: string, client: Client) => boolean) | undefined;
 
-    clients?: ClientMetadata[] | undefined;
+    clients?: readonly ClientMetadata[] | undefined;
 
     formats?:
         | {
@@ -982,7 +1255,7 @@ export interface Configuration {
                 | undefined;
             long?: CookiesSetOptions | undefined;
             short?: CookiesSetOptions | undefined;
-            keys?: Array<string | Buffer> | undefined | KeyGrip;
+            keys?: ReadonlyArray<string | Buffer> | undefined | KeyGrip;
         }
         | undefined;
 
@@ -990,11 +1263,15 @@ export interface Configuration {
 
     enableHttpPostMethods?: boolean | undefined;
 
-    extraParams?: string[] | {
-        [param: string]:
-            | null
-            | ((ctx: KoaContextWithOIDC, value: string | undefined, client: Client) => CanBePromise<void>);
-    } | undefined;
+    extraParams?:
+        | readonly string[]
+        | ReadonlySet<string>
+        | {
+            [param: string]:
+                | null
+                | ((ctx: KoaContextWithOIDC, value: string | undefined, client: Client) => CanBePromise<void>);
+        }
+        | undefined;
 
     assertJwtClientAuthClaimsAndHeader?: (
         ctx: KoaContextWithOIDC,
@@ -1020,6 +1297,23 @@ export interface Configuration {
                             claims: ClaimsParameter,
                             client: Client,
                         ) => CanBePromise<void>)
+                        | undefined;
+                }
+                | undefined;
+
+            clientIdMetadataDocument?:
+                | {
+                    enabled?: boolean | undefined;
+                    ack?: string | undefined;
+                    allowFetch?:
+                        | ((ctx: KoaContextWithOIDC, clientId: string) => CanBePromise<boolean>)
+                        | undefined;
+                    allowClient?: ((ctx: KoaContextWithOIDC, client: Client) => CanBePromise<boolean>) | undefined;
+                    cacheDuration?:
+                        | {
+                            min?: number | undefined;
+                            max?: number | undefined;
+                        }
                         | undefined;
                 }
                 | undefined;
@@ -1087,7 +1381,7 @@ export interface Configuration {
                         }
                         | undefined;
                     idFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
-                    secretFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
+                    secretFactory?: ((ctx: KoaContextWithOIDC) => CanBePromise<string>) | undefined;
                     issueRegistrationAccessToken?: IssueRegistrationAccessTokenFunction | boolean | undefined;
                 }
                 | undefined;
@@ -1157,14 +1451,14 @@ export interface Configuration {
             fapi?:
                 | {
                     enabled?: boolean | undefined;
-                    profile: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile) | undefined;
+                    profile?: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile) | undefined;
                 }
                 | undefined;
 
             ciba?:
                 | {
                     enabled?: boolean | undefined;
-                    deliveryModes: CIBADeliveryMode[];
+                    deliveryModes?: readonly CIBADeliveryMode[] | ReadonlySet<CIBADeliveryMode> | undefined;
                     triggerAuthenticationDevice?:
                         | ((
                             ctx: KoaContextWithOIDC,
@@ -1260,8 +1554,8 @@ export interface Configuration {
                         | ((
                             ctx: KoaContextWithOIDC,
                             client: Client,
-                            oneOf?: string[] | undefined,
-                        ) => CanBePromise<string | string[]>)
+                            oneOf?: readonly string[] | undefined,
+                        ) => CanBePromise<string | readonly string[] | undefined>)
                         | undefined;
                     useGrantedResource?:
                         | ((
@@ -1270,39 +1564,83 @@ export interface Configuration {
                                 | AuthorizationCode
                                 | RefreshToken
                                 | DeviceCode
-                                | BackchannelAuthenticationRequest,
+                                | BackchannelAuthenticationRequest
+                                | PreAuthorizedCode,
                         ) => CanBePromise<boolean>)
                         | undefined;
                 }
                 | undefined;
 
-            richAuthorizationRequests?: {
-                enabled?: boolean | undefined;
-                ack?: string | undefined;
-                /* experimental features are mostly explicit any */
-                [key: string]: any;
-            } | undefined;
+            richAuthorizationRequests?: RichAuthorizationRequestsConfiguration | undefined;
 
             rpMetadataChoices?: {
                 enabled?: boolean | undefined;
-                ack?: string | undefined;
-                /* experimental features are mostly explicit any */
-                [key: string]: any;
             } | undefined;
 
             externalSigningSupport?: {
                 enabled?: boolean | undefined;
                 ack?: string | undefined;
-                /* experimental features are mostly explicit any */
                 [key: string]: any;
             } | undefined;
 
             attestClientAuth?: {
                 enabled?: boolean | undefined;
                 ack?: string | undefined;
-                /* experimental features are mostly explicit any */
-                [key: string]: any;
-            };
+                additionalSecuritySignal?: false | "optional" | "required" | undefined;
+                challengeSecret?: Buffer | undefined;
+                getAttestationSignaturePublicKey?:
+                    | ((
+                        ctx: KoaContextWithOIDC,
+                        header: UnknownObject,
+                        payload: UnknownObject,
+                        client: Client,
+                    ) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>)
+                    | undefined;
+                assertAttestationJwtAndPop?:
+                    | ((
+                        ctx: KoaContextWithOIDC,
+                        attestation: JWTVerificationResult,
+                        pop: JWTVerificationResult,
+                        client: Client,
+                    ) => CanBePromise<void>)
+                    | undefined;
+            } | undefined;
+
+            openid4vci?:
+                | {
+                    enabled?: boolean | undefined;
+                    ack?: string | undefined;
+                    nonceSecret?: Buffer | undefined;
+                    preAuthorizedCodeGrant?: boolean | undefined;
+                    metadata?: OpenID4VCIMetadata | undefined;
+                    credentialConfigurationsSupported?:
+                        | Record<string, OpenID4VCICredentialConfiguration>
+                        | undefined;
+                    credentialEndpointExpectedAudience?:
+                        | ((ctx: KoaContextWithOIDC) => CanBePromise<string>)
+                        | undefined;
+                    credentialConfigurationPolicy?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            details: OpenID4VCICredentialContext,
+                        ) => CanBePromise<boolean>)
+                        | undefined;
+                    issueCredential?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            details: OpenID4VCIIssueCredentialContext,
+                        ) => CanBePromise<OpenID4VCICredentialResponse>)
+                        | undefined;
+                    getKeyAttestationSignaturePublicKey?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            issuer: string,
+                            header: UnknownObject,
+                            client: Client,
+                        ) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>)
+                        | undefined;
+                }
+                | undefined;
         }
         | undefined;
 
@@ -1312,6 +1650,15 @@ export interface Configuration {
 
     fetch?: typeof fetch;
 
+    fetchResponseBodyLimits?:
+        | {
+            "client_id metadata document"?: number | undefined;
+            jwks_uri?: number | undefined;
+            sector_identifier_uri?: number | undefined;
+            [purpose: string]: number | undefined;
+        }
+        | undefined;
+
     expiresWithSession?:
         | ((ctx: KoaContextWithOIDC, token: AccessToken | AuthorizationCode | DeviceCode) => CanBePromise<boolean>)
         | undefined;
@@ -1320,15 +1667,15 @@ export interface Configuration {
         | ((
             ctx: KoaContextWithOIDC,
             client: Client,
-            code: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest,
+            code: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest | PreAuthorizedCode,
         ) => CanBePromise<boolean>)
         | undefined;
 
     jwks?: JWKS | undefined;
 
-    responseTypes?: ResponseType[] | undefined;
+    responseTypes?: readonly ResponseType[] | undefined;
 
-    revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
+    revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>) | undefined;
 
     pkce?:
         | {
@@ -1341,6 +1688,8 @@ export interface Configuration {
             authorization?: string | undefined;
             code_verification?: string | undefined;
             device_authorization?: string | undefined;
+            challenge?: string | undefined;
+            credential?: string | undefined;
             end_session?: string | undefined;
             introspection?: string | undefined;
             jwks?: string | undefined;
@@ -1353,15 +1702,15 @@ export interface Configuration {
         }
         | undefined;
 
-    scopes?: string[] | undefined;
+    scopes?: readonly string[] | ReadonlySet<string> | undefined;
 
-    subjectTypes?: SubjectTypes[] | undefined;
+    subjectTypes?: readonly SubjectTypes[] | ReadonlySet<SubjectTypes> | undefined;
 
     pairwiseIdentifier?:
         | ((ctx: KoaContextWithOIDC, accountId: string, client: Client) => CanBePromise<string>)
         | undefined;
 
-    clientAuthMethods?: ClientAuthMethod[] | undefined;
+    clientAuthMethods?: readonly ClientAuthMethod[] | ReadonlySet<ClientAuthMethod> | undefined;
 
     ttl?:
         | {
@@ -1370,11 +1719,12 @@ export interface Configuration {
             ClientCredentials?: TTLFunction<ClientCredentials> | number | undefined;
             DeviceCode?: TTLFunction<DeviceCode> | number | undefined;
             BackchannelAuthenticationRequest?: TTLFunction<BackchannelAuthenticationRequest> | number | undefined;
+            PreAuthorizedCode?: TTLFunction<PreAuthorizedCode, false> | number | undefined;
             IdToken?: TTLFunction<IdToken> | number | undefined;
             RefreshToken?: TTLFunction<RefreshToken> | number | undefined;
-            Interaction?: TTLFunction<Interaction> | number | undefined;
-            Session?: TTLFunction<Session> | number | undefined;
-            Grant?: TTLFunction<Grant> | number | undefined;
+            Interaction?: TTLFunction<Interaction, false> | number | undefined;
+            Session?: TTLFunction<Session, false> | number | undefined;
+            Grant?: TTLFunction<Grant, false> | number | undefined;
 
             [key: string]: unknown;
         }
@@ -1384,7 +1734,7 @@ export interface Configuration {
 
     extraClientMetadata?:
         | {
-            properties?: string[] | undefined;
+            properties?: readonly string[] | undefined;
 
             validator?:
                 | ((
@@ -1414,32 +1764,35 @@ export interface Configuration {
 
     interactions?:
         | {
-            policy?: interactionPolicy.Prompt[] | undefined;
+            policy?: readonly interactionPolicy.Prompt[] | undefined;
             url?: ((ctx: KoaContextWithOIDC, interaction: Interaction) => CanBePromise<string>) | undefined;
         }
         | undefined;
 
     findAccount?: FindAccount | undefined;
 
+    sectorIdentifierUriValidate?: ((client: Client) => boolean) | undefined;
+
     enabledJWA?:
         | {
-            authorizationEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-            authorizationEncryptionEncValues?: EncryptionEncValues[] | undefined;
-            authorizationSigningAlgValues?: SigningAlgorithm[] | undefined;
-            dPoPSigningAlgValues?: AsymmetricSigningAlgorithm[] | undefined;
-            idTokenEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-            idTokenEncryptionEncValues?: EncryptionEncValues[] | undefined;
-            idTokenSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-            introspectionEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-            introspectionEncryptionEncValues?: EncryptionEncValues[] | undefined;
-            introspectionSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-            requestObjectEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-            requestObjectEncryptionEncValues?: EncryptionEncValues[] | undefined;
-            requestObjectSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
-            clientAuthSigningAlgValues?: SigningAlgorithm[] | undefined;
-            userinfoEncryptionAlgValues?: EncryptionAlgValues[] | undefined;
-            userinfoEncryptionEncValues?: EncryptionEncValues[] | undefined;
-            userinfoSigningAlgValues?: SigningAlgorithmWithNone[] | undefined;
+            authorizationEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
+            authorizationEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
+            authorizationSigningAlgValues?: readonly SigningAlgorithm[] | undefined;
+            dPoPSigningAlgValues?: readonly AsymmetricSigningAlgorithm[] | undefined;
+            attestSigningAlgValues?: readonly AsymmetricSigningAlgorithm[] | undefined;
+            idTokenEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
+            idTokenEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
+            idTokenSigningAlgValues?: readonly SigningAlgorithmWithNone[] | undefined;
+            introspectionEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
+            introspectionEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
+            introspectionSigningAlgValues?: readonly SigningAlgorithmWithNone[] | undefined;
+            requestObjectEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
+            requestObjectEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
+            requestObjectSigningAlgValues?: readonly SigningAlgorithmWithNone[] | undefined;
+            clientAuthSigningAlgValues?: readonly SigningAlgorithm[] | undefined;
+            userinfoEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
+            userinfoEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
+            userinfoSigningAlgValues?: readonly SigningAlgorithmWithNone[] | undefined;
         }
         | undefined;
 }
@@ -1514,6 +1867,30 @@ export interface InteractionResults {
     [key: string]: unknown;
 }
 
+interface ProviderAdditionalEventMap {
+    "backchannel_authentication.error": (
+        ctx: KoaContextWithOIDC,
+        err: errors.OIDCProviderError,
+    ) => void;
+    "challenge.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "code_verification.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "credential.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "device_authorization.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "device_authorization.success": (ctx: KoaContextWithOIDC, body: UnknownObject) => void;
+    "device_resume.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "end_session_confirm.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "end_session_success.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "initial_access_token.destroyed": (token: InitialAccessToken) => void;
+    "initial_access_token.saved": (token: InitialAccessToken) => void;
+    "openid_credential_issuer.error": (
+        ctx: KoaContextWithOIDC,
+        err: errors.OIDCProviderError,
+    ) => void;
+    "pre_authorized_code.consumed": (code: PreAuthorizedCode) => void;
+    "pre_authorized_code.destroyed": (code: PreAuthorizedCode) => void;
+    "pre_authorized_code.saved": (code: PreAuthorizedCode) => void;
+}
+
 export default class Provider extends Koa {
     constructor(issuer: string, configuration?: Configuration);
 
@@ -1526,10 +1903,31 @@ export default class Provider extends Koa {
 
     static get ctx(): KoaContextWithOIDC | undefined;
 
+    urlFor(name: string, options?: UnknownObject): string;
+    pathFor(name: string, options?: UnknownObject & { mountPath?: string | undefined }): string;
+    cookieName(type: string): string;
+
+    registerResponseMode(
+        name: string,
+        handler: (
+            ctx: KoaContextWithOIDC,
+            redirectUri: string,
+            payload: UnknownObject,
+        ) => CanBePromise<void>,
+    ): void;
+
     backchannelResult(
         request: BackchannelAuthenticationRequest | string,
         result: Grant | errors.OIDCProviderError | string,
-        opts?: { acr?: string | undefined; amr?: string[] | undefined; authTime?: number | undefined },
+        opts?: {
+            acr?: string | undefined;
+            amr?: string[] | undefined;
+            authTime?: number | undefined;
+            sessionUid?: string | undefined;
+            expiresWithSession?: boolean | undefined;
+            sid?: string | undefined;
+            rar?: AuthorizationDetail[] | undefined;
+        },
     ): Promise<void>;
 
     interactionResult(
@@ -1554,8 +1952,8 @@ export default class Provider extends Koa {
     registerGrantType(
         name: string,
         handler: (ctx: KoaContextWithOIDC, next: () => Promise<void>) => CanBePromise<void>,
-        params?: string | string[] | Set<string>,
-        duplicates?: string | string[] | Set<string>,
+        params?: string | readonly string[] | ReadonlySet<string>,
+        duplicates?: string | readonly string[] | ReadonlySet<string>,
     ): void;
 
     // tslint:disable:unified-signatures
@@ -1568,12 +1966,18 @@ export default class Provider extends Koa {
     addListener(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
     addListener(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
     addListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
-    addListener(event: "backchannel_authentication_request.saved", listener: (deviceCode: DeviceCode) => void): this;
+    addListener(
+        event: "backchannel_authentication_request.saved",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
     addListener(
         event: "backchannel_authentication_request.destroyed",
-        listener: (deviceCode: DeviceCode) => void,
+        listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
-    addListener(event: "backchannel_authentication_request.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    addListener(
+        event: "backchannel_authentication_request.consumed",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
     addListener(event: "client_credentials.destroyed", listener: (clientCredentials: ClientCredentials) => void): this;
     addListener(event: "client_credentials.saved", listener: (clientCredentials: ClientCredentials) => void): this;
     addListener(event: "client_credentials.issued", listener: (clientCredentials: ClientCredentials) => void): this;
@@ -1631,7 +2035,10 @@ export default class Provider extends Koa {
         event: "backchannel.error",
         listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
     ): this;
-    addListener(event: "pushed_authorization_request.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    addListener(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     addListener(
         event: "pushed_authorization_request.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
@@ -1681,6 +2088,10 @@ export default class Provider extends Koa {
         event: "revocation.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
+    addListener<Event extends keyof ProviderAdditionalEventMap>(
+        event: Event,
+        listener: ProviderAdditionalEventMap[Event],
+    ): this;
     addListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
 
     on(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
@@ -1692,9 +2103,18 @@ export default class Provider extends Koa {
     on(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
     on(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
     on(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
-    on(event: "backchannel_authentication_request.saved", listener: (deviceCode: DeviceCode) => void): this;
-    on(event: "backchannel_authentication_request.destroyed", listener: (deviceCode: DeviceCode) => void): this;
-    on(event: "backchannel_authentication_request.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    on(
+        event: "backchannel_authentication_request.saved",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
+    on(
+        event: "backchannel_authentication_request.destroyed",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
+    on(
+        event: "backchannel_authentication_request.consumed",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
     on(event: "client_credentials.destroyed", listener: (clientCredentials: ClientCredentials) => void): this;
     on(event: "client_credentials.saved", listener: (clientCredentials: ClientCredentials) => void): this;
     on(event: "client_credentials.issued", listener: (clientCredentials: ClientCredentials) => void): this;
@@ -1743,7 +2163,10 @@ export default class Provider extends Koa {
         event: "backchannel.error",
         listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
     ): this;
-    on(event: "pushed_authorization_request.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    on(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     on(
         event: "pushed_authorization_request.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
@@ -1772,6 +2195,10 @@ export default class Provider extends Koa {
     on(event: "discovery.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     on(event: "userinfo.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     on(event: "revocation.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on<Event extends keyof ProviderAdditionalEventMap>(
+        event: Event,
+        listener: ProviderAdditionalEventMap[Event],
+    ): this;
     on(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
 
     once(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
@@ -1783,9 +2210,18 @@ export default class Provider extends Koa {
     once(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
     once(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
     once(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
-    once(event: "backchannel_authentication_request.saved", listener: (deviceCode: DeviceCode) => void): this;
-    once(event: "backchannel_authentication_request.destroyed", listener: (deviceCode: DeviceCode) => void): this;
-    once(event: "backchannel_authentication_request.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    once(
+        event: "backchannel_authentication_request.saved",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
+    once(
+        event: "backchannel_authentication_request.destroyed",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
+    once(
+        event: "backchannel_authentication_request.consumed",
+        listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
     once(event: "client_credentials.destroyed", listener: (clientCredentials: ClientCredentials) => void): this;
     once(event: "client_credentials.saved", listener: (clientCredentials: ClientCredentials) => void): this;
     once(event: "client_credentials.issued", listener: (clientCredentials: ClientCredentials) => void): this;
@@ -1837,7 +2273,10 @@ export default class Provider extends Koa {
         event: "backchannel.error",
         listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
     ): this;
-    once(event: "pushed_authorization_request.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    once(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     once(
         event: "pushed_authorization_request.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
@@ -1869,6 +2308,10 @@ export default class Provider extends Koa {
     once(event: "discovery.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     once(event: "userinfo.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     once(event: "revocation.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    once<Event extends keyof ProviderAdditionalEventMap>(
+        event: Event,
+        listener: ProviderAdditionalEventMap[Event],
+    ): this;
     once(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
 
     prependListener(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
@@ -1888,15 +2331,15 @@ export default class Provider extends Koa {
     prependListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
     prependListener(
         event: "backchannel_authentication_request.saved",
-        listener: (deviceCode: DeviceCode) => void,
+        listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependListener(
         event: "backchannel_authentication_request.destroyed",
-        listener: (deviceCode: DeviceCode) => void,
+        listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependListener(
         event: "backchannel_authentication_request.consumed",
-        listener: (deviceCode: DeviceCode) => void,
+        listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependListener(
         event: "client_credentials.destroyed",
@@ -1961,7 +2404,10 @@ export default class Provider extends Koa {
         event: "backchannel.error",
         listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
     ): this;
-    prependListener(event: "pushed_authorization_request.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependListener(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     prependListener(
         event: "pushed_authorization_request.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
@@ -2014,6 +2460,10 @@ export default class Provider extends Koa {
         event: "revocation.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
+    prependListener<Event extends keyof ProviderAdditionalEventMap>(
+        event: Event,
+        listener: ProviderAdditionalEventMap[Event],
+    ): this;
     prependListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
 
     prependOnceListener(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
@@ -2036,15 +2486,15 @@ export default class Provider extends Koa {
     prependOnceListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
     prependOnceListener(
         event: "backchannel_authentication_request.saved",
-        listener: (deviceCode: DeviceCode) => void,
+        listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependOnceListener(
         event: "backchannel_authentication_request.destroyed",
-        listener: (deviceCode: DeviceCode) => void,
+        listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependOnceListener(
         event: "backchannel_authentication_request.consumed",
-        listener: (deviceCode: DeviceCode) => void,
+        listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependOnceListener(
         event: "client_credentials.destroyed",
@@ -2120,7 +2570,7 @@ export default class Provider extends Koa {
     ): this;
     prependOnceListener(
         event: "pushed_authorization_request.success",
-        listener: (ctx: KoaContextWithOIDC) => void,
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     prependOnceListener(
         event: "pushed_authorization_request.error",
@@ -2174,6 +2624,10 @@ export default class Provider extends Koa {
         event: "revocation.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
+    prependOnceListener<Event extends keyof ProviderAdditionalEventMap>(
+        event: Event,
+        listener: ProviderAdditionalEventMap[Event],
+    ): this;
     prependOnceListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
     // tslint:enable:unified-signatures
 
@@ -2188,9 +2642,14 @@ export default class Provider extends Koa {
     readonly ClientCredentials: typeof ClientCredentials;
     readonly DeviceCode: typeof DeviceCode;
     readonly BackchannelAuthenticationRequest: typeof BackchannelAuthenticationRequest;
+    readonly PreAuthorizedCode: typeof PreAuthorizedCode;
     readonly BaseToken: typeof BaseToken;
     readonly IdToken: typeof IdToken;
+    readonly Claims: typeof Claims;
     readonly ReplayDetection: typeof ReplayDetection;
+    readonly ResourceServer: {
+        new(identifier: string, data: ResourceServer): ResourceServerInstance;
+    };
     readonly OIDCContext: typeof OIDCContext;
     readonly Session: typeof Session;
     readonly Interaction: typeof Interaction;
@@ -2270,6 +2729,15 @@ export namespace errors {
     class InvalidBindingMessage extends OIDCProviderError {
         constructor(description?: string, detail?: string);
     }
+    class InvalidAuthorizationDetails extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class InvalidCredentialRequest extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class InvalidNonce extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
     class InvalidUserCode extends OIDCProviderError {
         constructor(description?: string, detail?: string);
     }
@@ -2304,16 +2772,16 @@ export namespace errors {
         constructor(description?: string, detail?: string);
     }
     class InvalidClientAuth extends OIDCProviderError {
-        constructor(detail: string);
+        constructor(detail?: string);
     }
     class InvalidClientMetadata extends OIDCProviderError {
-        constructor(description: string);
+        constructor(description: string, detail?: string);
     }
     class InvalidGrant extends OIDCProviderError {
-        constructor(detail: string);
+        constructor(detail?: string);
     }
     class InvalidRequest extends OIDCProviderError {
-        constructor(description: string, code?: number);
+        constructor(description: string, code?: number, detail?: string);
     }
     class SessionNotFound extends InvalidRequest {}
     class InvalidRequestObject extends OIDCProviderError {
@@ -2322,11 +2790,14 @@ export namespace errors {
     class InvalidRequestUri extends OIDCProviderError {
         constructor(description?: string, detail?: string);
     }
+    class InvalidProof extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
     class InvalidScope extends OIDCProviderError {
-        constructor(description: string, scope: string);
+        constructor(description: string, scope: string, detail?: string);
     }
     class InsufficientScope extends OIDCProviderError {
-        constructor(description: string, scope: string);
+        constructor(description: string, scope: string, detail?: string);
     }
     class InvalidSoftwareStatement extends OIDCProviderError {
         constructor(description?: string, detail?: string);
@@ -2334,8 +2805,14 @@ export namespace errors {
     class InvalidTarget extends OIDCProviderError {
         constructor(description?: string, detail?: string);
     }
+    class UnknownCredentialConfiguration extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class UnknownCredentialIdentifier extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
     class InvalidToken extends OIDCProviderError {
-        constructor(detail: string);
+        constructor(detail?: string);
     }
     class LoginRequired extends OIDCProviderError {
         constructor(description?: string, detail?: string);
@@ -2376,12 +2853,29 @@ export namespace errors {
     class CustomOIDCProviderError extends OIDCProviderError {
         constructor(message: string, description?: string);
     }
+    class CredentialRequestDenied extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class UseDpopNonce extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class UnsupportedTokenType extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class UseAttestationChallenge extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class UseFreshAttestation extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
+    class InvalidClientAttestation extends OIDCProviderError {
+        constructor(description?: string, detail?: string);
+    }
     class UnmetAuthenticationRequirements extends OIDCProviderError {
-        constructor(message: string, description?: string);
+        constructor(description?: string, detail?: string);
     }
 }
 
-/* experimental features are mostly explicit any */
 export class ExternalSigningKey {
     get alg(): string | undefined;
     get crv(): string | undefined;

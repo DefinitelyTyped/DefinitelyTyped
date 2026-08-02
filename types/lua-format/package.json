@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lua-format",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/Herrtt/luamin.js#readme"
+    ],
+    "devDependencies": {
+        "@types/lua-format": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yaroslav",
+            "githubUsername": "dnrovs"
+        }
+    ]
+}
