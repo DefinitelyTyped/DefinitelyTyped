@@ -87,16 +87,6 @@ export class AnimationClip {
         noLoop: boolean,
     ): Array<AnimationClip>;
     /**
-     * Parses the `animation.hierarchy` format and returns a new animation clip.
-     *
-     * @static
-     * @deprecated since r175.
-     * @param {Object} animation - A serialized animation clip as JSON.
-     * @param {Array<Bone>} bones - An array of bones.
-     * @return {?AnimationClip} The new animation clip.
-     */
-    static parseAnimation(animation: AnimationClipJSON, bones: Array<Bone>): AnimationClip | null;
-    /**
      * Constructs a new animation clip.
      *
      * Note: Instead of instantiating an AnimationClip directly with the constructor, you can

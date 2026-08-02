@@ -104,7 +104,7 @@ export class InterleavedBuffer {
      * @param offset index of the {@link BufferAttribute.array | array} at which to start copying. Expects a `Integer`. Default `0`.
      * @throws `RangeError` When {@link offset} is negative or is too large.
      */
-    set(value: ArrayLike<number>, offset: number): this;
+    set(value: ArrayLike<number>, offset?: number): this;
 
     /**
      * Set {@link BufferAttribute.usage | usage}

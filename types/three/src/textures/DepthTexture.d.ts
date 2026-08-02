@@ -15,7 +15,7 @@ import { Texture } from "./Texture.js";
  * @see {@link https://threejs.org/docs/index.html#api/en/textures/DepthTexture | Official Documentation}
  * @see {@link https://github.com/mrdoob/three.js/blob/master/src/textures/DepthTexture.js | Source}
  */
-export class DepthTexture extends Texture<DepthTextureImageData> {
+export class DepthTexture<TImage = DepthTextureImageData> extends Texture<TImage> {
     /**
      * Create a new instance of {@link DepthTexture}
      * @param width Width of the texture.
@@ -31,8 +31,8 @@ export class DepthTexture extends Texture<DepthTextureImageData> {
      * @param {number} [depth=1] - The depth of the texture.
      */
     constructor(
-        width: number,
-        height: number,
+        width?: number,
+        height?: number,
         type?: TextureDataType,
         mapping?: Mapping,
         wrapS?: Wrapping,
@@ -99,7 +99,7 @@ export class DepthTexture extends Texture<DepthTextureImageData> {
 }
 
 export interface DepthTextureImageData {
-    width: number;
-    height: number;
+    width: number | undefined;
+    height: number | undefined;
     depth: number;
 }

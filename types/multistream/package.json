@@ -11,7 +11,7 @@
     "devDependencies": {
         "@types/multistream": "workspace:.",
         "@types/through": "*",
-        "@types/through2": "*"
+        "@types/through2": "<5"
     },
     "owners": [
         {

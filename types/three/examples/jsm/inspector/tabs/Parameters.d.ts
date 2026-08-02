@@ -67,11 +67,14 @@ interface ValueColorWithParameters<
 }
 
 declare class ParametersGroup {
-    name: string;
-
     paramList: Item;
 
     constructor(parameters: never, name: string);
+
+    close(): this;
+    name(name: string): this;
+    show(): this;
+    hide(): this;
 
     add<T, K extends keyof T>(
         object: T,

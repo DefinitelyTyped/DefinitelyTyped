@@ -71,9 +71,17 @@ declare class UniformNodeClass<TValue> extends InputNode<unknown, TValue> {
      * @return {string} The uniform hash.
      */
     getUniformHash(builder: NodeBuilder): string;
-    onUpdate(callback: (frame: NodeFrame, self: this) => TValue | undefined, updateType: NodeUpdateType): this;
+    onUpdate(
+        callback: (this: this, frame: NodeFrame, self: this) => TValue | undefined,
+        updateType: NodeUpdateType,
+    ): this;
     getInputType(builder: NodeBuilder): string;
     generate(builder: NodeBuilder, output: string | null): string;
+
+    // In UniformNode, callbacks provided to onUpdate-related functions are called with `this` as the last parameter:
+    onFrameUpdate(callback: (this: this, frame: NodeFrame, self: this) => TValue | undefined): this;
+    onRenderUpdate(callback: (this: this, frame: NodeFrame, self: this) => TValue | undefined): this;
+    onObjectUpdate(callback: (this: this, frame: NodeFrame, self: this) => TValue | undefined): this;
 }
 
 declare const UniformNode: {
@@ -90,16 +98,45 @@ type UniformNode<TNodeType, TValue> = UniformNodeClass<TValue> & InputNode<TNode
 
 export default UniformNode;
 
+interface UniformValue {
+    float: number;
+    int: number;
+    uint: number;
+    bool: boolean;
+    vec2: Vector2;
+    ivec2: Vector2;
+    uvec2: Vector2;
+    vec3: Vector3;
+    ivec3: Vector3;
+    uvec3: Vector3;
+    vec4: Vector4;
+    ivec4: Vector4;
+    uvec4: Vector4;
+    mat2: Matrix2;
+    mat3: Matrix3;
+    mat4: Matrix4;
+    color: Color;
+}
+
 interface Uniform {
+    <const TNodeType extends keyof UniformValue>(type: TNodeType): UniformNode<TNodeType, UniformValue[TNodeType]>;
     (value: number, type?: "float"): UniformNode<"float", number>;
-    (value: boolean): UniformNode<"bool", boolean>;
-    (value: Vector2): UniformNode<"vec2", Vector2>;
-    (value: Vector3): UniformNode<"vec3", Vector3>;
-    (value: Vector4): UniformNode<"vec4", Vector4>;
-    (value: Matrix2): UniformNode<"mat2", Matrix2>;
-    (value: Matrix3): UniformNode<"mat3", Matrix3>;
-    (value: Matrix4): UniformNode<"mat4", Matrix4>;
-    (value: Color): UniformNode<"color", Color>;
+    (value: number, type: "int"): UniformNode<"int", number>;
+    (value: number, type: "uint"): UniformNode<"uint", number>;
+    (value: boolean, type?: "bool"): UniformNode<"bool", boolean>;
+    (value: Vector2, type?: "vec2"): UniformNode<"vec2", Vector2>;
+    (value: Vector2, type: "ivec2"): UniformNode<"ivec2", Vector2>;
+    (value: Vector2, type: "uvec2"): UniformNode<"uvec2", Vector2>;
+    (value: Vector3, type?: "vec3"): UniformNode<"vec3", Vector3>;
+    (value: Vector3, type: "ivec3"): UniformNode<"ivec3", Vector3>;
+    (value: Vector3, type: "uvec3"): UniformNode<"uvec3", Vector3>;
+    (value: Vector4, type?: "vec4"): UniformNode<"vec4", Vector4>;
+    (value: Vector4, type: "ivec4"): UniformNode<"ivec4", Vector4>;
+    (value: Vector4, type: "uvec4"): UniformNode<"uvec4", Vector4>;
+    (value: Matrix2, type?: "mat2"): UniformNode<"mat2", Matrix2>;
+    (value: Matrix3, type?: "mat3"): UniformNode<"mat3", Matrix3>;
+    (value: Matrix4, type?: "mat4"): UniformNode<"mat4", Matrix4>;
+    (value: Color, type?: "color"): UniformNode<"color", Color>;
     <TNodeType, TValue>(value: InputNode<TNodeType, TValue>): UniformNode<TNodeType, TValue>;
     <TNodeType, TValue>(value: VarNode<TNodeType, ConstNode<TNodeType, TValue>>): UniformNode<TNodeType, TValue>;
 }
@@ -113,3 +150,5 @@ interface Uniform {
  * @returns {UniformNode}
  */
 export declare const uniform: Uniform;
+
+export {};

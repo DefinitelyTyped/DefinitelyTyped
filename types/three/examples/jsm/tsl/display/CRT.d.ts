@@ -2,7 +2,7 @@ import { Node } from "three/webgpu";
 
 export const barrelUV: (curvature?: Node<"float">, coord?: Node<"vec2">) => Node<"vec2">;
 
-export const barrelMast: (coord: Node<"vec2">) => Node<"float">;
+export const barrelMask: (coord: Node<"vec2">) => Node<"float">;
 
 export const colorBleeding: (color: Node, amount?: Node<"float">) => Node<"vec3">;
 

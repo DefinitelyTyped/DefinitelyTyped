@@ -300,13 +300,19 @@ declare namespace Fancytree {
         /** Folder nodes have different default icons and click behavior. Note: Also non-folders may have children. */
         folder: boolean;
         /** Icon of the tree node. */
-        icon: string;
+        icon: boolean | GlyphIcon;
+        /** Description used as hover popup for the node's icon. @since 2.27 */
+        iconTooltip: string;
         /** null or type of temporarily generated system node like 'loading', or 'error'. */
         statusNodeType: string;
         /** True if this node is loaded on demand, i.e. on first expansion. */
         lazy: boolean;
+        /** Use isSelected(), setSelected() to access this property. */
+        selected: boolean;
         /** Alternative description used as hover banner */
         tooltip: string;
+        /** Node type, used with the `tree.types` map. @since 2.27 */
+        type: string;
         /** Outer element of single nodes */
         span: HTMLElement;
         /** Outer element of single nodes for table extension */
@@ -606,14 +612,14 @@ declare namespace Fancytree {
         /** Move this node to targetNode.
          *
          * @param mode 'child': append this node as last child of targetNode.
-         *                       This is the default. To be compatble with the D'n'd
-         *                       hitMode, we also accept 'over'.
+         *                       This is the default (used when `mode` is omitted). To be
+         *                       compatble with the D'n'd hitMode, we also accept 'over'.
          *              'before': add this node as sibling before targetNode.
          *              'after': add this node as sibling after targetNode.
          *
          * @param map optional callback(FancytreeNode) to allow modifcations
          */
-        moveTo(targetNode: FancytreeNode, mode: string, map?: (node: FancytreeNode) => void): void;
+        moveTo(targetNode: FancytreeNode, mode?: string, map?: (node: FancytreeNode) => void): void;
 
         /** Set focus relative to this node and optionally activate.
          *
@@ -638,8 +644,8 @@ declare namespace Fancytree {
          */
         removeClass(className: string): void;
 
-        /** Replace this paging node with source result. */
-        replaceWith(source: NodeData | NodeData[]): JQueryPromise<unknown>;
+        /** (experimental) Replace this node with `source`. (Currently only available for paging nodes.) */
+        replaceWith(source: Exclude<SourceData, string>): JQueryPromise<unknown>;
 
         /** This method renders and updates all HTML markup that is required to display this node in its current state.
          *
@@ -984,8 +990,8 @@ declare namespace Fancytree {
         focusOnSelect?: boolean | undefined;
         /** Add `id="..."` to node markup (default: true). */
         generateIds?: boolean | undefined;
-        /** Node icon url, if only filename, please use imagePath to set the path */
-        icon?: boolean | string | undefined;
+        /** Node icon url, if only filename, please use imagePath to set the path. May also be a callback returning the icon. */
+        icon?: boolean | GlyphIcon | ((event: JQueryEventObject, data: EventData) => boolean | GlyphIcon) | undefined;
         /** Prefix (default: "ft_") */
         idPrefix?: string | undefined;
         /** Path to a folder containing icons (default: null, using 'skin/' subdirectory). */
@@ -1044,8 +1050,11 @@ declare namespace Fancytree {
         ////////////////
         // EXTENSIONS //
         ////////////////
+        /** @deprecated since v2.31, use `dnd5` instead. Legacy drag-and-drop, based on jQuery UI draggable/droppable. */
+        dnd?: Extensions.DragAndDrop | undefined;
         dnd5?: Extensions.DragAndDrop5 | undefined;
         filter?: Extensions.Filter | undefined;
+        glyph?: Extensions.Glyph | undefined;
         table?: Extensions.Table | undefined;
 
         /** Options for misc extensions - see docs for typings */
@@ -1083,8 +1092,11 @@ declare namespace Fancytree {
 
     namespace Extensions {
         interface List {
+            /** @deprecated since v2.31, use `dnd5` instead. */
+            dnd?: DragAndDrop | undefined;
             dnd5?: DragAndDrop5 | undefined;
             filter?: Filter | undefined;
+            glyph?: Glyph | undefined;
             table?: Table | undefined;
             [extension: string]: unknown;
         }
@@ -1166,6 +1178,95 @@ declare namespace Fancytree {
              */
             [key: string]: unknown;
         }
+        /** Drop position relative to the target node, used by the `dnd` and `dnd5` extensions. */
+        type HitMode = "over" | "before" | "after";
+        /** Event data passed to the legacy `dnd` extension callbacks. */
+        interface DragAndDropEventData extends BaseEventData {
+            /** The other node, e.g. the drag source if this is a drop event. `null` in `dragStart`/`dragStop`. */
+            otherNode: FancytreeNode | null;
+            /** Drop position relative to the target node. */
+            hitMode?: HitMode | undefined;
+            /** The shared drop marker element used by the legacy dnd extension. */
+            dropMarker?: JQuery | undefined;
+            /** The `ui` object of the underlying jQuery UI draggable event. */
+            ui: JQueryUI.DraggableEventUIParams;
+            /** The jQuery UI draggable widget instance. */
+            draggable: JQueryUI.Draggable;
+        }
+        /** Data passed to the legacy `dnd` extension `initHelper` callback. */
+        interface InitHelperData {
+            node: FancytreeNode;
+            tree: Fancytree;
+            originalEvent: JQueryEventObject;
+            ui: { helper: JQuery };
+        }
+        /**
+         * Define dnd-extension (legacy, jQuery UI based) options.
+         * @deprecated since v2.31, use the `dnd5` (native HTML5) extension instead.
+         */
+        interface DragAndDrop {
+            /** Expand nodes after n milliseconds of hovering (default: 1000). */
+            autoExpandMS?: number | undefined;
+            /** Additional options passed to jQuery `draggable()`. */
+            draggable?: JQueryUI.DraggableOptions | undefined;
+            /** Additional options passed to jQuery `droppable()`. */
+            droppable?: JQueryUI.DroppableOptions | undefined;
+            /** Focus, although draggable cancels mousedown event (default: false). */
+            focusOnClick?: boolean | undefined;
+            /** Prevent dropping nodes 'before self', etc. (default: true). */
+            preventVoidMoves?: boolean | undefined;
+            /** Prevent dropping nodes on own descendants (default: true). */
+            preventRecursiveMoves?: boolean | undefined;
+            /** Set draggable.revert = true if drop was rejected (default: true). */
+            smartRevert?: boolean | undefined;
+            /** Absolute position offset for .fancytree-drop-marker. */
+            dropMarkerOffsetX?: number | undefined;
+            /** Additional offset for drop-marker with hitMode = "before"/"after". */
+            dropMarkerInsertOffsetX?: number | undefined;
+            /** Callback(sourceNode, data); return `true` to enable dragging this node. */
+            dragStart?: ((sourceNode: FancytreeNode, data: DragAndDropEventData) => boolean) | undefined;
+            /** Callback(sourceNode, data). */
+            dragStop?: ((sourceNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
+            /** Callback(sourceNode, data). */
+            initHelper?: ((sourceNode: FancytreeNode, data: InitHelperData) => void) | undefined;
+            /** Callback(sourceNode, data). */
+            updateHelper?: ((sourceNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
+            /**
+             * Callback(targetNode, data); return `false` to reject the drop, `true` to allow all
+             * positions, or a hit mode / array of hit modes to allow only those.
+             */
+            dragEnter?:
+                | ((targetNode: FancytreeNode, data: DragAndDropEventData) => boolean | HitMode | HitMode[])
+                | undefined;
+            /** Callback(targetNode, data), return false to reject the drop. */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            dragOver?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => boolean | void) | undefined;
+            /** Callback(targetNode, data), return false to prevent autoExpand. */
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+            dragExpand?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => boolean | void) | undefined;
+            /** Callback(targetNode, data). */
+            dragDrop?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
+            /** Callback(targetNode, data). */
+            dragLeave?: ((targetNode: FancytreeNode, data: DragAndDropEventData) => void) | undefined;
+            /**
+             * Support misc options
+             */
+            [key: string]: unknown;
+        }
+        /**
+         * Define glyph-extension options. Maps logical icon names to CSS classes,
+         * e.g. for Font Awesome or Bootstrap icon sets.
+         */
+        interface Glyph {
+            /** Icon set preset, e.g. "awesome3", "awesome4", "bootstrap3", or "material". */
+            preset?: string | null | undefined;
+            /** Maps icon names (e.g. `expanderClosed`, `loading`, `checkbox`) to glyph definitions. */
+            map?: Record<string, GlyphMapEntry> | undefined;
+            /**
+             * Support misc options
+             */
+            [key: string]: unknown;
+        }
         /**
          * Define filter-extension options
          */
@@ -1242,7 +1343,7 @@ declare namespace Fancytree {
     interface NodeData {
         /** node text (may contain HTML tags) */
         title: string;
-        icon?: boolean | string | undefined;
+        icon?: boolean | GlyphIcon | undefined;
         /** unique key for this node (auto-generated if omitted) */
         key?: string | undefined;
         /** (reserved) */
@@ -1263,7 +1364,7 @@ declare namespace Fancytree {
         /** class names added to the node markup (separate with space) */
         extraClasses?: string | undefined;
         /** all properties from will be copied to `node.data` */
-        data?: Object | undefined;
+        data?: Record<string, unknown> | undefined;
 
         /** Will be added as title attribute of the node's icon span,thus enabling a tooltip. */
         iconTooltip?: string | undefined;
@@ -1280,6 +1381,14 @@ declare namespace Fancytree {
         /** Use this as constant selected value(overriding selectMode 3 propagation). */
         unselectableStatus?: boolean | undefined;
     }
+
+    /** A glyph definition: a CSS class string or a `{ text | html, addClass }` object. */
+    type GlyphIcon =
+        | string
+        | { text?: string | undefined; html?: string | undefined; addClass?: string | undefined };
+
+    /** A `glyph.map` entry: a glyph definition or a callback returning one. */
+    type GlyphMapEntry = GlyphIcon | ((node: FancytreeNode, span: HTMLElement, type: string) => GlyphIcon);
 
     /** Node data, or a descriptor of how to load it: inline data, a URL string,
      * `$.ajax` options (with a required `url`), or a promise resolving to node data. */
@@ -1371,6 +1480,12 @@ declare namespace Fancytree {
 
         /** Add Fancytree extension definition to the list of globally available extensions. */
         registerExtension(definition: Object): void;
+
+        /**
+         * Set the expander, checkbox, or node icon HTML (used by extensions to render glyph icons).
+         * `icon` is either a CSS class string or an object describing the glyph.
+         */
+        setSpanIcon(span: Element | JQuery, baseClass: string, icon: GlyphIcon): void;
 
         unescapeHtml(s: string): string;
 

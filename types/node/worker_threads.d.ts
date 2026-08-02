@@ -10,7 +10,7 @@ declare module "node:worker_threads" {
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
     import { URL } from "node:url";
-    import { CPUProfileHandle, HeapInfo, HeapProfileHandle } from "node:v8";
+    import { CPUProfileHandle, CPUProfileOptions, HeapInfo, HeapProfileHandle, HeapProfileOptions } from "node:v8";
     import { Context } from "node:vm";
     import { MessageEvent } from "undici-types";
     const isInternalThread: boolean;
@@ -259,7 +259,7 @@ declare module "node:worker_threads" {
          *   `, { eval: true });
          *
          * worker.on('online', async () => {
-         *   const handle = await worker.startCpuProfile();
+         *   const handle = await worker.startCpuProfile({ sampleInterval: 1 });
          *   const profile = await handle.stop();
          *   console.log(profile);
          *   worker.terminate();
@@ -283,16 +283,16 @@ declare module "node:worker_threads" {
          * ```
          * @since v24.8.0
          */
-        startCpuProfile(): Promise<CPUProfileHandle>;
+        startCpuProfile(options?: CPUProfileOptions): Promise<CPUProfileHandle>;
         /**
          * Starting a Heap profile then return a Promise that fulfills with an error
          * or an `HeapProfileHandle` object. This API supports `await using` syntax.
          *
          * ```js
-         * const { Worker } = require('node:worker_threads');
+         * import { Worker } from 'node:worker_threads';
          *
          * const worker = new Worker(`
-         *   const { parentPort } = require('worker_threads');
+         *   const { parentPort } = require('node:worker_threads');
          *   parentPort.on('message', () => {});
          *   `, { eval: true });
          *
@@ -307,7 +307,7 @@ declare module "node:worker_threads" {
          * `await using` example.
          *
          * ```js
-         * const { Worker } = require('node:worker_threads');
+         * import { Worker } from 'node:worker_threads';
          *
          * const w = new Worker(`
          *   const { parentPort } = require('node:worker_threads');
@@ -319,8 +319,9 @@ declare module "node:worker_threads" {
          *   await using handle = await w.startHeapProfile();
          * });
          * ```
+         * @since v24.9.0
          */
-        startHeapProfile(): Promise<HeapProfileHandle>;
+        startHeapProfile(options?: HeapProfileOptions): Promise<HeapProfileHandle>;
         /**
          * Calls `worker.terminate()` when the dispose scope is exited.
          *

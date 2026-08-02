@@ -311,3 +311,6 @@ app.get("/:readonly", req => {
     // @ts-expect-error
     req.xhr = true;
 });
+
+// QUERY method presence depends on environment
+app.query?.("/foo/bar", (req) => req.method);

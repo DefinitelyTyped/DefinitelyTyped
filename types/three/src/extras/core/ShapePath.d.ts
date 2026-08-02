@@ -4,95 +4,91 @@ import { Path } from "./Path.js";
 import { Shape } from "./Shape.js";
 
 /**
- * This class is used to convert a series of shapes to an array of {@link THREE.Path | Path's},
- * for example an SVG shape to a path.
- * @see {@link https://threejs.org/docs/index.html#api/en/extras/core/ShapePath | Official Documentation}
- * @see {@link https://github.com/mrdoob/three.js/blob/master/src/extras/core/ShapePath.js | Source}
+ * This class is used to convert a series of paths to an array of
+ * shapes. It is specifically used in context of fonts and SVG.
  */
 export class ShapePath {
+    type: string;
     /**
-     * Creates a new {@link ShapePath}
-     * @remarks
-     * Unlike a {@link THREE.Path | Path}, no points are passed in as the {@link ShapePath} is designed to be generated after creation.
-     */
-    constructor();
-
-    /**
-     * A Read-only _string_ to check if `this` object type.
-     * @remarks Sub-classes will update this value.
-     * @defaultValue `ShapePath`
-     */
-    readonly type: "ShapePath";
-
-    /**
-     * Array of {@link THREE.Path | Path's}s.
-     * @defaultValue `[]`
-     */
-    subPaths: Path[];
-
-    /**
-     * The current {@link THREE.Path | Path} that is being generated.
-     * @defaultValue `null`
-     */
-    readonly currentPath: Path | null;
-
-    /**
-     * {@link THREE.Color | Color} of the shape, by default set to white _(0xffffff)_.
-     * @defaultValue `new THREE.Color()`
+     * The color of the shape.
+     *
+     * @type {Color}
      */
     color: Color;
-
     /**
-     * Starts a new {@link THREE.Path | Path} and calls {@link THREE.Path.moveTo | Path.moveTo}( x, y ) on that {@link THREE.Path | Path}
-     * @remarks
-     * Also points {@link ShapePath.currentPath | currentPath} to that {@link THREE.Path | Path}.
-     * @param x Expects a `Float`
-     * @param y Expects a `Float`
+     * The paths that have been generated for this shape.
+     *
+     * @type {Array<Path>}
+     * @default null
+     */
+    subPaths: Array<Path>;
+    /**
+     * The current path that is being generated.
+     *
+     * @type {?Path}
+     * @default null
+     */
+    currentPath: Path | null;
+    /**
+     * An object that can be used to store custom data about the shape path.
+     * Mainly used by SVGLoader to store style information.
+     *
+     * @type {Object}
+     */
+    userData: Record<string, unknown>;
+    /**
+     * Creates a new path and moves it current point to the given one.
+     *
+     * @param {number} x - The x coordinate.
+     * @param {number} y - The y coordinate.
+     * @return {ShapePath} A reference to this shape path.
      */
     moveTo(x: number, y: number): this;
-
     /**
-     * This creates a line from the {@link ShapePath.currentPath | currentPath}'s offset to X and Y and updates the offset to X and Y.
-     * @param x Expects a `Float`
-     * @param y Expects a `Float`
+     * Adds an instance of {@link LineCurve} to the path by connecting
+     * the current point with the given one.
+     *
+     * @param {number} x - The x coordinate of the end point.
+     * @param {number} y - The y coordinate of the end point.
+     * @return {ShapePath} A reference to this shape path.
      */
     lineTo(x: number, y: number): this;
-
     /**
-     * This creates a quadratic curve from the {@link ShapePath.currentPath | currentPath}'s
-     * offset to _x_ and _y_ with _cpX_ and _cpY_ as control point and updates the {@link ShapePath.currentPath | currentPath}'s offset to _x_ and _y_.
-     * @param cpX Expects a `Float`
-     * @param cpY Expects a `Float`
-     * @param x Expects a `Float`
-     * @param y Expects a `Float`
+     * Adds an instance of {@link QuadraticBezierCurve} to the path by connecting
+     * the current point with the given one.
+     *
+     * @param {number} aCPx - The x coordinate of the control point.
+     * @param {number} aCPy - The y coordinate of the control point.
+     * @param {number} aX - The x coordinate of the end point.
+     * @param {number} aY - The y coordinate of the end point.
+     * @return {ShapePath} A reference to this shape path.
      */
     quadraticCurveTo(aCPx: number, aCPy: number, aX: number, aY: number): this;
-
     /**
-     * This creates a bezier curve from the {@link ShapePath.currentPath | currentPath}'s
-     * offset to _x_ and _y_ with _cp1X_, _cp1Y_ and _cp2X_, _cp2Y_ as control points and
-     * updates the {@link ShapePath.currentPath | currentPath}'s offset to _x_ and _y_.
-     * @param cp1X Expects a `Float`
-     * @param cp1Y Expects a `Float`
-     * @param cp2X Expects a `Float`
-     * @param cp2Y Expects a `Float`
-     * @param x Expects a `Float`
-     * @param y Expects a `Float`
+     * Adds an instance of {@link CubicBezierCurve} to the path by connecting
+     * the current point with the given one.
+     *
+     * @param {number} aCP1x - The x coordinate of the first control point.
+     * @param {number} aCP1y - The y coordinate of the first control point.
+     * @param {number} aCP2x - The x coordinate of the second control point.
+     * @param {number} aCP2y - The y coordinate of the second control point.
+     * @param {number} aX - The x coordinate of the end point.
+     * @param {number} aY - The y coordinate of the end point.
+     * @return {ShapePath} A reference to this shape path.
      */
     bezierCurveTo(aCP1x: number, aCP1y: number, aCP2x: number, aCP2y: number, aX: number, aY: number): this;
-
     /**
-     * Connects a new {@link THREE.SplineCurve | SplineCurve} onto the {@link ShapePath.currentPath | currentPath}.
-     * @param points An array of {@link THREE.Vector2 | Vector2}s
+     * Adds an instance of {@link SplineCurve} to the path by connecting
+     * the current point with the given list of points.
+     *
+     * @param {Array<Vector2>} pts - An array of points in 2D space.
+     * @return {ShapePath} A reference to this shape path.
      */
-    splineThru(pts: Vector2[]): this;
-
+    splineThru(pts: Array<Vector2>): this;
     /**
-     * Converts the {@link ShapePath.subPaths | subPaths} array into an array of Shapes
-     * @remarks
-     * By default solid shapes are defined clockwise (CW) and holes are defined counterclockwise (CCW)
-     * If isCCW is set to true, then those are flipped.
-     * @param isCCW Changes how solids and holes are generated
+     * Converts the paths into an array of shapes.
+     *
+     * @return {Array<Shape>} An array of shapes.
      */
-    toShapes(isCCW: boolean): Shape[];
+    toShapes(): Array<Shape>;
 }

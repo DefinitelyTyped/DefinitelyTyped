@@ -1,5 +1,6 @@
 export class FrameElement extends HTMLElement {
-    src: string;
+    src: string | null;
+    refresh: "morph" | null;
     disabled: boolean;
     loading: "eager" | "lazy";
     loaded: Promise<void>;
@@ -78,11 +79,15 @@ export interface StreamSource {
     ): void;
 }
 
-export class StreamMessage {
-    static readonly contentType: "text/vnd.turbo-stream.html";
+/**
+ * A stream message, as accepted by {@link renderStreamMessage}.
+ *
+ * Note that Turbo does not export the `StreamMessage` class at runtime, so
+ * this interface only describes instances (there is no constructor and no
+ * access to the static `wrap` method or `contentType` property).
+ */
+export interface StreamMessage {
     readonly fragment: DocumentFragment;
-    static wrap(message: StreamMessage | string): StreamMessage;
-    constructor(fragment: DocumentFragment);
 }
 
 export interface FetchRequestHeaders {
@@ -140,18 +145,14 @@ export interface Adapter {
     linkPrefetchingIsEnabledForLocation?(location: URL): boolean;
 }
 
-export class BrowserAdapter implements Adapter {
+/**
+ * The default adapter installed on the session.
+ *
+ * Note that Turbo does not export the `BrowserAdapter` class at runtime —
+ * obtain the instance via `session.adapter` or `navigator.delegate.adapter`.
+ */
+export interface BrowserAdapter extends Adapter {
     progressBar: ProgressBar;
-    visitProposedToLocation(location: URL, options?: VisitOptions): void;
-    visitStarted(visit: Visit): void;
-    visitCompleted(visit: Visit): void;
-    visitFailed(visit: Visit): void;
-    visitRequestStarted(visit: Visit): void;
-    visitRequestCompleted(visit: Visit): void;
-    visitRequestFailedWithStatusCode(visit: Visit, statusCode: number): void;
-    visitRequestFinished(visit: Visit): void;
-    visitRendered(visit: Visit): void;
-    pageInvalidated(reason: { reason: string }): void;
     formSubmissionStarted(formSubmission: FormSubmission): void;
     formSubmissionFinished(formSubmission: FormSubmission): void;
     linkPrefetchingIsEnabledForLocation(location: URL): boolean;
@@ -291,8 +292,57 @@ export interface TurboHistory {
     replace(location: URL, restorationIdentifier?: string): void;
 }
 
+export class PageSnapshot {
+    static fromHTMLString(html?: string): PageSnapshot;
+    static fromElement(element: Element): PageSnapshot;
+    static fromDocument(document: Pick<Document, "documentElement" | "body" | "head">): PageSnapshot;
+
+    readonly headElement: HTMLHeadElement;
+    readonly isCacheable: boolean;
+    readonly isPreviewable: boolean;
+    readonly isVisitable: boolean;
+    readonly lang: string | null;
+    readonly rootLocation: URL;
+    clone(): PageSnapshot;
+}
+
+/**
+ * An LRU cache of page snapshots, keyed by location.
+ *
+ * Note that Turbo does not export the `SnapshotCache` class at runtime —
+ * obtain the instance via `session.view.snapshotCache`.
+ */
+export interface SnapshotCache {
+    has(location: URL): boolean;
+    get(location: URL): PageSnapshot | undefined;
+    put(location: URL, snapshot: PageSnapshot): PageSnapshot;
+    clear(): void;
+}
+
+/**
+ * The session's view of the current page.
+ *
+ * Note that Turbo does not export the `PageView` class at runtime —
+ * obtain the instance via `session.view`.
+ */
+export interface PageView {
+    element: HTMLElement;
+    snapshotCache: SnapshotCache;
+    /**
+     * The location of the last rendered page. Keys the snapshot cache and
+     * page-refresh detection.
+     */
+    lastRenderedLocation: URL;
+    forceReloaded: boolean;
+    readonly snapshot: PageSnapshot;
+    cacheSnapshot(snapshot?: PageSnapshot): Promise<PageSnapshot | undefined>;
+    getCachedSnapshotForLocation(location: URL): PageSnapshot | undefined;
+    clearSnapshotCache(): void;
+}
+
 export interface TurboSession {
     readonly history: TurboHistory;
+    readonly view: PageView;
     adapter: Adapter;
     readonly enabled: boolean;
     readonly started: boolean;

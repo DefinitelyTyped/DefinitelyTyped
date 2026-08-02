@@ -1563,7 +1563,10 @@ declare namespace woosmap.map {
          */
         heading?: number;
         /**
-         * Whether to display the map type control. Defaults to false.
+         * Whether to display the map type control. When unset, the control auto-attaches
+         * once the loaded maptype advertises the `satellite` capability. Pass `true`/`false`
+         * explicitly to opt in or out. Note: `get('mapTypeControl')` reflects the user
+         * option, not attachment state — it stays `false` while auto-attach is pending.
          */
         mapTypeControl?: boolean;
         /**
@@ -1594,10 +1597,9 @@ declare namespace woosmap.map {
          */
         tilt?: number;
         /**
-         * Opt into the upcoming visual refresh styles. When true, the resolved style
-         * is upgraded to its refreshed counterpart (e.g. `streets` -> `streets_next`).
-         * If unset, falls back to `woosmap.map.config.getVisualRefresh()` (default false).
-         * Experimental — will be removed once the refreshed styles become the default.
+         * Opt into the upcoming visual refresh of the default basemap styles.
+         * Defaults to false. Will be removed once the refreshed styles become
+         * the default.
          */
         visualRefresh?: boolean;
         /**
@@ -3392,6 +3394,9 @@ declare namespace woosmap.map.localities {
         | woosmap.map.localities.DeprecatedLocalitiesTypes
         | "country"
         | "admin_level"
+        | "admin_level_1"
+        | "admin_level_2"
+        | "admin_level_3"
         | "postal_code"
         | "address"
         | "route"

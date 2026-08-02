@@ -1,4 +1,4 @@
-import { C2SOptions, CanvasGradient, CanvasPattern, Context, Element } from "svgcanvas";
+import { Context, Element } from "svgcanvas";
 
 // Test Context construction
 // $ExpectType Context

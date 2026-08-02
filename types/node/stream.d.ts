@@ -1,6 +1,7 @@
 declare module "node:stream" {
     import { Blob } from "node:buffer";
     import { Abortable, EventEmitter } from "node:events";
+    import { ByteReadableStream, toAsyncStreamable } from "node:stream/iter";
     import * as promises from "node:stream/promises";
     import * as web from "node:stream/web";
     class Stream extends EventEmitter {
@@ -651,6 +652,37 @@ declare module "node:stream" {
              * @since v10.0.0
              */
             [Symbol.asyncIterator](): NodeJS.AsyncIterator<any>;
+            /**
+             * When the `--experimental-stream-iter` flag is enabled, `Readable` streams
+             * implement the `Stream.toAsyncStreamable` protocol, enabling efficient
+             * consumption by the `stream/iter` API.
+             *
+             * This provides a batched async iterator that drains the stream's internal
+             * buffer into `Uint8Array[]` batches, amortizing the per-chunk Promise overhead
+             * of the standard `Symbol.asyncIterator` path. For byte-mode streams, chunks
+             * are yielded directly as `Buffer` instances (which are `Uint8Array` subclasses).
+             * For object-mode or encoded streams, each chunk is normalized to `Uint8Array`
+             * before batching.
+             *
+             * The returned iterator is tagged as a validated source, so `from()`
+             * passes it through without additional normalization.
+             *
+             * ```js
+             * import { Readable } from 'node:stream';
+             * import { text, from } from 'node:stream/iter';
+             *
+             * const readable = new Readable({
+             *   read() { this.push('hello'); this.push(null); },
+             * });
+             *
+             * // Readable is automatically consumed via toAsyncStreamable
+             * console.log(await text(from(readable))); // 'hello'
+             * ```
+             *
+             * Without the `--experimental-stream-iter` flag, calling this method throws
+             * `ERR_STREAM_ITER_MISSING_FLAG`.
+             */
+            [toAsyncStreamable](): ByteReadableStream;
             /**
              * Calls `readable.destroy()` with an `AbortError` and returns
              * a promise that fulfills when the stream is finished.

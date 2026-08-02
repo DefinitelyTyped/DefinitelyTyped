@@ -1424,6 +1424,12 @@ declare namespace Sinon {
     interface SinonApi {
         expectation: SinonExpectationStatic;
 
+        /**
+         * Restores all methods of an object and returns the restored object.
+         * Throws an error if the object contains no restorable methods.
+         */
+        restoreObject<T extends object>(object: T): T;
+
         clock: {
             create(now: number | Date): FakeTimers.Clock;
         };

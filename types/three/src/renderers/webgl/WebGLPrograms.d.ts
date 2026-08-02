@@ -152,6 +152,8 @@ export interface WebGLProgramParameters {
 
     skinning: boolean;
 
+    hasPositionAttribute: boolean;
+
     morphTargets: boolean;
     morphNormals: boolean;
     morphColors: boolean;

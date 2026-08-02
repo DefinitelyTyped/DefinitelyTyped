@@ -47,7 +47,7 @@ export class GLTFLoader extends Loader<GLTF> {
 
     constructor(manager?: LoadingManager);
 
-    setDRACOLoader(dracoLoader: DRACOLoader): this;
+    setDRACOLoader(dracoLoader: DRACOLoader | null): this;
     setKTX2Loader(ktx2Loader: KTX2Loader | null): this;
     setMeshoptDecoder(meshoptDecoder: typeof MeshoptDecoder | null): this;
 

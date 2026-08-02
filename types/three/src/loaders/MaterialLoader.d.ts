@@ -18,4 +18,12 @@ export class MaterialLoader extends Loader<Material> {
     createMaterialFromType(type: string): Material;
 
     static createMaterialFromType(type: string): Material;
+
+    /**
+     * Registers the given material at the internal material library.
+     *
+     * @param type The material type.
+     * @param materialClass The material class.
+     */
+    static registerMaterial(type: string, materialClass: new() => Material): void;
 }

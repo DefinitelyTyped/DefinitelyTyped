@@ -1,19 +1,19 @@
 export * from "./Three.Core.js";
 
 export * from "./materials/nodes/NodeMaterials.js";
-export type { default as Backend } from "./renderers/common/Backend.js";
+export { default as Backend } from "./renderers/common/Backend.js";
 export { default as BundleGroup } from "./renderers/common/BundleGroup.js";
 export { default as PMREMGenerator } from "./renderers/common/extras/PMREMGenerator.js";
 export { default as Lighting } from "./renderers/common/Lighting.js";
 export { default as PostProcessing } from "./renderers/common/PostProcessing.js";
 export { default as QuadMesh } from "./renderers/common/QuadMesh.js";
 export { default as ReadbackBuffer } from "./renderers/common/ReadbackBuffer.js";
-export type { default as Renderer } from "./renderers/common/Renderer.js";
+export { default as Renderer, RendererParameters } from "./renderers/common/Renderer.js";
 export { default as RenderPipeline } from "./renderers/common/RenderPipeline.js";
 export { default as WebGLCapabilities } from "./renderers/webgl-fallback/utils/WebGLCapabilities.js";
 export { default as WebGLBackend } from "./renderers/webgl-fallback/WebGLBackend.js";
 export { default as WebGPUBackend } from "./renderers/webgpu/WebGPUBackend.js";
-export { default as WebGPURenderer } from "./renderers/webgpu/WebGPURenderer.js";
+export { default as WebGPURenderer, WebGPURendererParameters } from "./renderers/webgpu/WebGPURenderer.js";
 import * as RendererUtils from "./renderers/common/RendererUtils.js";
 export { RendererUtils };
 export { default as IESSpotLight } from "./lights/webgpu/IESSpotLight.js";
@@ -35,5 +35,7 @@ export { default as StorageInstancedBufferAttribute } from "./renderers/common/S
 export { default as StorageTexture } from "./renderers/common/StorageTexture.js";
 export { default as GLSLNodeBuilder } from "./renderers/webgl-fallback/nodes/GLSLNodeBuilder.js";
 export { default as BasicNodeLibrary } from "./renderers/webgpu/nodes/BasicNodeLibrary.js";
+export { default as StandardNodeLibrary } from "./renderers/webgpu/nodes/StandardNodeLibrary.js";
+export { default as WGSLNodeBuilder } from "./renderers/webgpu/nodes/WGSLNodeBuilder.js";
 import * as TSL from "./nodes/TSL.js";
 export { TSL };

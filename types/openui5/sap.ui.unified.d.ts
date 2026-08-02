@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -7713,7 +7713,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     $DateTypeRangeSettings,
   } from "sap/ui/unified/DateTypeRange";
 
-  import { ID, CSSColor, URI } from "sap/ui/core/library";
+  import { ID, aria, CSSColor, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -7828,6 +7828,27 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyCustomContent(): this;
+    /**
+     * Gets current value of property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * If the value is `None`, the attribute will not be rendered. Otherwise it will be rendered with the selected
+     * value.
+     *
+     * NOTE: Use this property only when an `sap.ui.unified.CalendarAppointment` instance is active and related
+     * to a popover/popup. The value needs to be equal to the main/root role of the popup - e.g. dialog, menu
+     * or list (examples: if you have dialog -> dialog, if you have menu -> menu; if you have list -> list;
+     * if you have dialog containing a list -> dialog). Do not use it, if you open a standard sap.m.Dialog,
+     * MessageBox or other type of modal dialogs.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.150.0
+     *
+     * @returns Value of property `ariaHasPopup`
+     */
+    getAriaHasPopup(): aria.HasPopup;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -8011,6 +8032,34 @@ declare module "sap/ui/unified/CalendarAppointment" {
        */
       vCustomContent: int | string | Control
     ): Control | null;
+    /**
+     * Sets a new value for property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * If the value is `None`, the attribute will not be rendered. Otherwise it will be rendered with the selected
+     * value.
+     *
+     * NOTE: Use this property only when an `sap.ui.unified.CalendarAppointment` instance is active and related
+     * to a popover/popup. The value needs to be equal to the main/root role of the popup - e.g. dialog, menu
+     * or list (examples: if you have dialog -> dialog, if you have menu -> menu; if you have list -> list;
+     * if you have dialog containing a list -> dialog). Do not use it, if you open a standard sap.m.Dialog,
+     * MessageBox or other type of modal dialogs.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.150.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAriaHasPopup(
+      /**
+       * New value for property `ariaHasPopup`
+       */
+      sAriaHasPopup?: aria.HasPopup | keyof typeof aria.HasPopup
+    ): this;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -8199,6 +8248,25 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @since 1.46.0
      */
     color?: CSSColor | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * If the value is `None`, the attribute will not be rendered. Otherwise it will be rendered with the selected
+     * value.
+     *
+     * NOTE: Use this property only when an `sap.ui.unified.CalendarAppointment` instance is active and related
+     * to a popover/popup. The value needs to be equal to the main/root role of the popup - e.g. dialog, menu
+     * or list (examples: if you have dialog -> dialog, if you have menu -> menu; if you have list -> list;
+     * if you have dialog containing a list -> dialog). Do not use it, if you open a standard sap.m.Dialog,
+     * MessageBox or other type of modal dialogs.
+     *
+     * @since 1.150.0
+     */
+    ariaHasPopup?:
+      | (aria.HasPopup | keyof typeof aria.HasPopup)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Holds the content of the appointment.
@@ -20974,8 +21042,7 @@ declare module "sap/ui/unified/RecurringCalendarAppointment" {
    *
    * @experimental As of version 1.149.
    */
-  export interface $RecurringCalendarAppointmentSettings
-    extends $CalendarAppointmentSettings {
+  export interface $RecurringCalendarAppointmentSettings extends $CalendarAppointmentSettings {
     /**
      * The recurrence type (Daily, Weekly, Monthly, Yearly).
      */
@@ -21251,8 +21318,7 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
    *
    * @experimental As of version 1.127.0.
    */
-  export interface $RecurringNonWorkingPeriodSettings
-    extends $NonWorkingPeriodSettings {
+  export interface $RecurringNonWorkingPeriodSettings extends $NonWorkingPeriodSettings {
     /**
      * The recurrenceType determines the pattern of recurrence for a given calendar item.
      */

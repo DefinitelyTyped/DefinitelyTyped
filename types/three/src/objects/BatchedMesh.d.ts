@@ -127,7 +127,7 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
      * Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer
      * used in your app.
      */
-    dispose(): this;
+    dispose(): void;
 
     /**
      * Takes a sort a function that is run before render. The function takes a list of instances to sort and a camera.

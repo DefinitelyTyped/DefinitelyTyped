@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/base/assert" {
   /**
@@ -6844,6 +6844,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
      * See:
      * 	{@link http://www.sap.com/protocols/SAPData "SAP Annotations for OData Version 2.0" Specification}
      *
+     * @deprecated As of version 1.150.0. will be replaced by OData V4 hierarchy functionality, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1/section_RCH Recursive Hierarchy}
      *
      * @returns The new tree binding
      */
@@ -8959,8 +8960,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
   /**
    * Parameters of the ODataModel#requestCompleted event.
    */
-  export interface ODataModel$RequestCompletedEventParameters
-    extends Model$RequestCompletedEventParameters {
+  export interface ODataModel$RequestCompletedEventParameters extends Model$RequestCompletedEventParameters {
     /**
      * The request ID
      */
@@ -8994,8 +8994,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
   /**
    * Parameters of the ODataModel#requestFailed event.
    */
-  export interface ODataModel$RequestFailedEventParameters
-    extends Model$RequestFailedEventParameters {
+  export interface ODataModel$RequestFailedEventParameters extends Model$RequestFailedEventParameters {
     /**
      * The request ID
      */
@@ -9044,8 +9043,7 @@ declare module "sap/ui/model/odata/v2/ODataModel" {
   /**
    * Parameters of the ODataModel#requestSent event.
    */
-  export interface ODataModel$RequestSentEventParameters
-    extends Model$RequestSentEventParameters {
+  export interface ODataModel$RequestSentEventParameters extends Model$RequestSentEventParameters {
     /**
      * The request ID
      */
@@ -12027,9 +12025,9 @@ declare module "sap/ui/base/Event" {
    * the event handler is done.
    */
   export default class Event<
-      ParamsType extends Record<string, any> = object,
-      SourceType extends EventProvider = EventProvider,
-    >
+    ParamsType extends Record<string, any> = object,
+    SourceType extends EventProvider = EventProvider,
+  >
     extends BaseObject
     implements Poolable
   {
@@ -20492,6 +20490,13 @@ declare module "sap/ui/core/ComponentContainer" {
      * and the models will be propagated if defined. If the `usage` property is set the ComponentLifecycle is
      * processed like a "Container" lifecycle.
      *
+     * **Note:** The `component` association is stored by ID, not by object reference (see {@link sap.ui.base.ManagedObject#setAssociation}).
+     * Setting an ID that equals the currently stored one is treated as a no-op. When a previously associated
+     * UIComponent is destroyed via {@link sap.ui.core.UIComponent#destroy}, the association is **not** cleared
+     * automatically. If, however, the application destroys the component differently or replaces it with a
+     * new instance that happens to share the same ID, the stale ID must be cleared explicitly by calling `setComponent(null)`
+     * before assigning the new instance.
+     *
      *
      * @returns the reference to `this` in order to allow method chaining
      */
@@ -20500,7 +20505,7 @@ declare module "sap/ui/core/ComponentContainer" {
        * ID of an element which becomes the new target of this component association. Alternatively, an element
        * instance may be given.
        */
-      vComponent: ID | UIComponent
+      vComponent: ID | UIComponent | null
     ): this;
     /**
      * Sets a new value for property {@link #getHandleValidation handleValidation}.
@@ -30529,172 +30534,7 @@ declare module "sap/ui/core/format/NumberFormat" {
        * The option object, which supports the following parameters. If no options are given, default values according
        * to the type and locale settings are used.
        */
-      oFormatOptions?: {
-        /**
-         * defines whether the currency is shown as a code in currency format. The currency symbol is displayed
-         * when this option is set to `false` and a symbol has been defined for the given currency code.
-         */
-        currencyCode?: boolean;
-        /**
-         * can be set either to 'standard' (the default value) or to 'accounting' for an accounting-specific currency
-         * display
-         */
-        currencyContext?: string;
-        /**
-         * defines a set of custom currencies exclusive to this NumberFormat instance. Custom currencies must not
-         * only consist of digits. If custom currencies are defined on the instance, no other currencies can be
-         * formatted and parsed by this instance. Globally available custom currencies can be added via the global
-         * configuration. See the above examples. See also {@link module:sap/base/i18n/Formatting.setCustomCurrencies Formatting.setCustomCurrencies }
-         * and {@link module:sap/base/i18n/Formatting.addCustomCurrencies Formatting.addCustomCurrencies}.
-         */
-        customCurrencies?: Record<string, object>;
-        /**
-         * The target length of places after the decimal separator; if the number has fewer decimal places than
-         * given in this option, it is padded with whitespaces at the end up to the target length. An additional
-         * whitespace character for the decimal separator is added for a number without any decimals. **Note:**
-         * This format option is only allowed if the following conditions apply:
-         * 	 - It has a value greater than 0.
-         * 	 - The `FormatOptions.showMeasure` format option is set to `false`.
-         * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
-         */
-        decimalPadding?: int;
-        /**
-         * defines the number of decimal digits
-         */
-        decimals?: int;
-        /**
-         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
-         * `groupingSeparator`.
-         */
-        decimalSeparator?: string;
-        /**
-         * since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
-         * allowed values are "" (empty string), NaN, `null`, or 0. The 'format' and 'parse' functions are done
-         * in a symmetric way. For example, when this parameter is set to NaN, an empty string is parsed as [NaN,
-         * undefined], and NaN is formatted as an empty string.
-         */
-        emptyString?: null | number | string;
-        /**
-         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
-         */
-        groupingBaseSize?: int;
-        /**
-         * defines whether grouping is enabled (grouping separators are shown). **Note:** Grouping is disabled if
-         * the `groupingSize` format option is set to a non-positive value.
-         */
-        groupingEnabled?: boolean;
-        /**
-         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
-         * from `decimalSeparator`.
-         */
-        groupingSeparator?: string;
-        /**
-         * defines the grouping size in digits; the default is `3`. **Note:** If this format option is set to a
-         * non-positive value, grouping will be disabled entirely.
-         */
-        groupingSize?: int;
-        /**
-         * defines the maximum number of decimal digits
-         */
-        maxFractionDigits?: int;
-        /**
-         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
-         * characters are shown instead of digits.
-         */
-        maxIntegerDigits?: int;
-        /**
-         * Deprecated as of 1.130; this format option does not have an effect on currency formats since decimals
-         * can always be determined, either through the given format options, custom currencies or the CLDR
-         */
-        minFractionDigits?: int;
-        /**
-         * defines the minimal number of non-decimal digits
-         */
-        minIntegerDigits?: int;
-        /**
-         * defines the used minus symbol
-         */
-        minusSign?: string;
-        /**
-         * since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
-         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e-3"
-         * is parsed to "0.005".
-         */
-        parseAsString?: boolean;
-        /**
-         * CLDR number pattern which is used to format the number
-         */
-        pattern?: string;
-        /**
-         * defines the used plus symbol
-         */
-        plusSign?: string;
-        /**
-         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
-         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
-         * is rounded to `maxFractionDigits`.
-         */
-        preserveDecimals?: boolean;
-        /**
-         * Specifies the rounding behavior for discarding the digits after the maximum fraction digits defined by
-         * `maxFractionDigits`. This can be assigned
-         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
-         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
-         *     and the number of decimal digits that should be reserved. **Using a function is deprecated since 1.121.0**;
-         *     string based numbers are not rounded via this custom function.
-         */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode;
-        /**
-         * defines the number of decimal in the shortened format string. If this isn't specified, the 'decimals'
-         * options is used
-         */
-        shortDecimals?: int;
-        /**
-         * only use short number formatting for values above this limit
-         */
-        shortLimit?: int;
-        /**
-         * since 1.40 specifies a number from which the scale factor for 'short' or 'long' style format is generated.
-         * The generated scale factor is used for all numbers which are formatted with this format instance. This
-         * option has effect only when the option 'style' is set to 'short' or 'long'. This option is by default
-         * set with `undefined` which means the scale factor is selected automatically for each number being formatted.
-         */
-        shortRefNumber?: int;
-        /**
-         * defines whether the currency code/symbol is shown in the formatted string, e.g. true: "1.00 EUR", false:
-         * "1.00" for locale "en" If both `showMeasure` and `showNumber` are false, an empty string is returned
-         */
-        showMeasure?: boolean;
-        /**
-         * defines whether the number is shown as part of the result string, e.g. 1 EUR for locale "en" `NumberFormat.getCurrencyInstance({showNumber:true}).format(1,
-         * "EUR"); // "1.00 EUR"` `NumberFormat.getCurrencyInstance({showNumber:false}).format(1, "EUR"); // "EUR"`
-         * If both `showMeasure` and `showNumber` are false, an empty string is returned
-         */
-        showNumber?: boolean;
-        /**
-         * since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
-         * only when the 'style' options is set to either 'short' or 'long'.
-         */
-        showScale?: boolean;
-        /**
-         * whether the positions of grouping separators are validated. Space characters used as grouping separators
-         * are not validated.
-         */
-        strictGroupingValidation?: boolean;
-        /**
-         * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
-         * When set to 'short' or 'long', numbers are formatted into the 'short' form only. When this option is
-         * set, the default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
-         * decimals, shortDecimals, or the 'precision' option itself.
-         */
-        style?: string;
-        /**
-         * overrides the global configuration value {@link module:sap/base/i18n/Formatting.getTrailingCurrencyCode Formatting.getTrailingCurrencyCode},
-         * which has a default value of `true</>. This is ignored if oFormatOptions.currencyCode` is set to
-         * `false`, or if `oFormatOptions.pattern` is supplied.
-         */
-        trailingCurrencyCode?: boolean;
-      },
+      oFormatOptions?: CurrencyFormatOptions,
       /**
        * The locale to get the formatter for; if no locale is given, a locale for the currently configured language
        * is used; see {@link module:sap/base/i18n/Formatting.getLanguageTag Formatting.getLanguageTag}
@@ -30947,167 +30787,7 @@ declare module "sap/ui/core/format/NumberFormat" {
        * The option object, which supports the following parameters. If no options are given, default values according
        * to the type and locale settings are used.
        */
-      oFormatOptions?: {
-        /**
-         * defines the allowed units for formatting and parsing, e.g. ["size-meter", "volume-liter", ...]
-         */
-        allowedUnits?: any[];
-        /**
-         * defines a set of custom units, e.g. {"electric-inductance": { "displayName": "henry", "unitPattern-count-one":
-         * "{0} H", "unitPattern-count-other": "{0} H", "perUnitPattern": "{0}/H", "decimals": 2, "precision": 4
-         * }}
-         */
-        customUnits?: Record<string, object>;
-        /**
-         * The target length of places after the decimal separator; if the number has fewer decimal places than
-         * given in this option, it is padded with whitespaces at the end up to the target length. An additional
-         * whitespace character for the decimal separator is added for a number without any decimals. **Note:**
-         * This format option is only allowed if the following conditions apply:
-         * 	 - It has a value greater than 0.
-         * 	 - The `FormatOptions.showMeasure` format option is set to `false`.
-         * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
-         */
-        decimalPadding?: int;
-        /**
-         * defines the number of decimal digits
-         */
-        decimals?: int;
-        /**
-         * defines the character used as decimal separator. Note: `decimalSeparator` must always be different from
-         * `groupingSeparator`.
-         */
-        decimalSeparator?: string;
-        /**
-         * since 1.30.0 defines what an empty string is parsed as, and what is formatted as an empty string. The
-         * allowed values are "" (empty string), NaN, `null`, or 0. The 'format' and 'parse' functions are done
-         * in a symmetric way. For example, when this parameter is set to NaN, an empty string is parsed as [NaN,
-         * undefined], and NaN is formatted as an empty string.
-         */
-        emptyString?: null | number | string;
-        /**
-         * defines the grouping base size in digits if it is different from the grouping size (e.g. Indian grouping)
-         */
-        groupingBaseSize?: int;
-        /**
-         * defines whether grouping is enabled (grouping separators are shown). **Note:** Grouping is disabled if
-         * the `groupingSize` format option is set to a non-positive value.
-         */
-        groupingEnabled?: boolean;
-        /**
-         * defines the character used as grouping separator. Note: `groupingSeparator` must always be different
-         * from `decimalSeparator`.
-         */
-        groupingSeparator?: string;
-        /**
-         * defines the grouping size in digits; the default is `3`. **Note:** If this format option is set to a
-         * non-positive value, grouping will be disabled entirely.
-         */
-        groupingSize?: int;
-        /**
-         * defines the maximum number of decimal digits
-         */
-        maxFractionDigits?: int;
-        /**
-         * defines the maximum number of non-decimal digits. If the number exceeds this maximum, e.g. 1e+120, "?"
-         * characters are shown instead of digits.
-         */
-        maxIntegerDigits?: int;
-        /**
-         * defines the minimal number of decimal digits
-         */
-        minFractionDigits?: int;
-        /**
-         * defines the minimal number of non-decimal digits
-         */
-        minIntegerDigits?: int;
-        /**
-         * defines the used minus symbol
-         */
-        minusSign?: string;
-        /**
-         * since 1.28.2 defines whether to output the string from the parse function in order to keep the precision
-         * for big numbers. Numbers in scientific notation are parsed back to standard notation. For example, "5e-3"
-         * is parsed to "0.005".
-         */
-        parseAsString?: boolean;
-        /**
-         * CLDR number pattern which is used to format the number
-         */
-        pattern?: string;
-        /**
-         * defines the used plus symbol
-         */
-        plusSign?: string;
-        /**
-         * The maximum number of digits in the formatted representation of a number; if the `precision` is less
-         * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
-         * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
-         * **Example:** With a `precision` of 2, the parameters `"234.567", "mass-kilogram"` are formatted to `"235
-         * kg"`. **Note:** The formatted output may differ depending on locale.
-         */
-        precision?: int;
-        /**
-         * Whether {@link #format} preserves decimal digits except trailing zeros in case there are more decimals
-         * than the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number
-         * is rounded to `maxFractionDigits`.
-         */
-        preserveDecimals?: boolean;
-        /**
-         * Specifies the rounding behavior for discarding the digits after the maximum fraction digits defined by
-         * `maxFractionDigits`. This can be assigned
-         * 	 - by value in {@link sap.ui.core.format.NumberFormat.RoundingMode RoundingMode},
-         * 	 - via a function that is used for rounding the number and takes two parameters: the number itself,
-         *     and the number of decimal digits that should be reserved. **Using a function is deprecated since 1.121.0**;
-         *     string based numbers are not rounded via this custom function.
-         */
-        roundingMode?: RoundingMode | keyof typeof RoundingMode;
-        /**
-         * defines the number of decimals in the shortened format string. If this option isn't specified, the 'decimals'
-         * option is used instead.
-         */
-        shortDecimals?: int;
-        /**
-         * defines a limit above which only short number formatting is used
-         */
-        shortLimit?: int;
-        /**
-         * since 1.40 specifies a number from which the scale factor for the 'short' or 'long' style format is generated.
-         * The generated scale factor is used for all numbers which are formatted with this format instance. This
-         * option only takes effect when the 'style' option is set to 'short' or 'long'. This option is set to `undefined`
-         * by default, which means that the scale factor is selected automatically for each number being formatted.
-         */
-        shortRefNumber?: int;
-        /**
-         * defines whether the unit of measure is shown in the formatted string, e.g. for input 1 and "duration-day"
-         * true: "1 day", false: "1". If both `showMeasure` and `showNumber` are false, an empty string is returned
-         */
-        showMeasure?: boolean;
-        /**
-         * defines whether the number is shown as part of the result string, e.g. 1 day for locale "en" `NumberFormat.getUnitInstance({showNumber:true}).format(1,
-         * "duration-day"); // "1 day"` `NumberFormat.getUnitInstance({showNumber:false}).format(1, "duration-day");
-         * // "day"` e.g. 2 days for locale "en" `NumberFormat.getUnitInstance({showNumber:true}).format(2, "duration-day");
-         * // "2 days"` `NumberFormat.getUnitInstance({showNumber:false}).format(2, "duration-day"); // "days"`
-         * If both `showMeasure` and `showNumber` are false, an empty string is returned
-         */
-        showNumber?: boolean;
-        /**
-         * since 1.40 specifies whether the scale factor is shown in the formatted number. This option takes effect
-         * only when the 'style' options is set to either 'short' or 'long'.
-         */
-        showScale?: boolean;
-        /**
-         * whether the positions of grouping separators are validated. Space characters used as grouping separators
-         * are not validated.
-         */
-        strictGroupingValidation?: boolean;
-        /**
-         * defines the style of format. Valid values are 'short, 'long' or 'standard' (based on the CLDR decimalFormat).
-         * When set to 'short' or 'long', numbers are formatted into compact forms. When this option is set, the
-         * default value of the 'precision' option is set to 2. This can be changed by setting either min/maxFractionDigits,
-         * decimals, shortDecimals, or the 'precision' option itself.
-         */
-        style?: string;
-      },
+      oFormatOptions?: UnitFormatOptions,
       /**
        * The locale to get the formatter for; if no locale is given, a locale for the currently configured language
        * is used; see {@link module:sap/base/i18n/Formatting.getLanguageTag Formatting.getLanguageTag}
@@ -31167,9 +30847,114 @@ declare module "sap/ui/core/format/NumberFormat" {
     ): number | any[] | string | null;
   }
   /**
+   * The format options for currencies.
+   */
+  export type CurrencyFormatOptions = FormatOptions & {
+    /**
+     * Defines whether the currency is shown as a code in currency format. The currency symbol is displayed
+     * when this option is set to `false` and a symbol has been defined for the given currency code.
+     */
+    currencyCode?: boolean;
+    /**
+     * Can be set either to 'standard' (the default value) or to 'accounting' for an accounting-specific currency
+     * display
+     */
+    currencyContext?:
+      | "standard"
+      | "accounting"
+      | "sap-standard"
+      | "sap-accounting";
+    /**
+     * Defines a set of custom currencies exclusive to this NumberFormat instance. Custom currencies must not
+     * only consist of digits. If custom currencies are defined on the instance, no other currencies can be
+     * formatted and parsed by this instance. Globally available custom currencies can be added via the global
+     * configuration. See the above examples. See also {@link module:sap/base/i18n/Formatting.setCustomCurrencies Formatting.setCustomCurrencies }
+     * and {@link module:sap/base/i18n/Formatting.addCustomCurrencies Formatting.addCustomCurrencies}.
+     */
+    customCurrencies?: Record<string, object>;
+    /**
+     * The number of decimal digits.
+     */
+    decimals?: int;
+    /**
+     * The target length of places after the decimal separator; if the number has fewer decimals than specified
+     * in this option, it is padded with whitespaces at the end up to the target length. An additional whitespace
+     * character for the decimal separator is added for a number without any decimals. **Note:** This format
+     * option is only allowed if the following conditions apply:
+     * 	 - It has a value greater than 0.
+     * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
+     */
+    decimalPadding?: int;
+    /**
+     * Since 1.130.0. Defines what value an empty string is parsed into and what value is formatted as an empty
+     * string. The {@link #format} and {@link #parse} functions are done in a symmetric way. For example, when
+     * this parameter is set to `NaN`, an empty string is parsed as `NaN`, and `NaN` is formatted as an empty
+     * string.
+     */
+    emptyString?: null | number | string;
+    /**
+     * Deprecated as of 1.130; this format option does not have an effect on currency formats since decimals
+     * can always be determined, either through the given format options, custom currencies or the CLDR
+     */
+    minFractionDigits?: int;
+    /**
+     * Since 1.28.2, whether to parse the number as a string in order to keep the precision for big numbers.
+     * Numbers in scientific notation are parsed back to standard notation. For example, `5e-3` is parsed to
+     * `0.005`.
+     */
+    parseAsString?: boolean;
+    /**
+     * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+     * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+     * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+     * **Example:** With a `precision` of 2, `234.567` is formatted to `235`. **Note:** The formatted output
+     * may differ depending on locale.
+     */
+    precision?: int;
+    /**
+     * Whether {@link #format} preserves decimal digits (except trailing zeros) when there are more decimals
+     * than the `maxFractionDigits` format option allows. When decimals aren't preserved, the formatted number
+     * is rounded to `maxFractionDigits`.
+     */
+    preserveDecimals?: boolean;
+    /**
+     * Defines whether the currency code/symbol is shown in the formatted string, e.g. true: "1.00 EUR", false:
+     * "1.00" for locale "en" If both `showMeasure` and `showNumber` are false, an empty string is returned
+     */
+    showMeasure?: boolean;
+    /**
+     * Defines whether the number is shown as part of the result string, e.g. 1 EUR for locale "en"
+     * ```javascript
+     * `NumberFormat.getCurrencyInstance({showNumber: true}).format(1, "EUR"); // "1.00 EUR"````
+     *
+     * ```javascript
+     * `NumberFormat.getCurrencyInstance({showNumber: false}).format(1, "EUR"); // "EUR"````
+     *  If both `showMeasure` and `showNumber` are false, an empty string is returned
+     */
+    showNumber?: boolean;
+    /**
+     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
+     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
+     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
+     * or the `precision` option itself.
+     */
+    style?: "short" | "long" | "standard";
+    /**
+     * Overrides the global configuration value {@link module:sap/base/i18n/Formatting.getTrailingCurrencyCode Formatting.getTrailingCurrencyCode},
+     * which has a default value of `true`. This is ignored if `oFormatOptions.currencyCode` is set to `false`,
+     * or if `oFormatOptions.pattern` is supplied.
+     */
+    trailingCurrencyCode?: boolean;
+  };
+
+  /**
    * The format options for floating-point numbers.
    */
   export type FloatFormatOptions = FormatOptions & {
+    /**
+     * The number of decimal digits.
+     */
+    decimals?: int;
     /**
      * The target length of places after the decimal separator; if the number has fewer decimal places than
      * given in this option, it is padded with whitespaces at the end up to the target length. An additional
@@ -31180,9 +30965,22 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     decimalPadding?: int;
     /**
+     * Since 1.130.0. Defines what value an empty string is parsed into and what value is formatted as an empty
+     * string. The {@link #format} and {@link #parse} functions are done in a symmetric way. For example, when
+     * this parameter is set to `NaN`, an empty string is parsed as `NaN`, and `NaN` is formatted as an empty
+     * string.
+     */
+    emptyString?: null | number | string;
+    /**
      * The minimal number of decimal digits.
      */
     minFractionDigits?: int;
+    /**
+     * Since 1.28.2, whether to parse the number as a string in order to keep the precision for big numbers.
+     * Numbers in scientific notation are parsed back to standard notation. For example, `5e-3` is parsed to
+     * `0.005`.
+     */
+    parseAsString?: boolean;
     /**
      * The maximum number of digits in the formatted representation of a number; if the `precision` is less
      * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
@@ -31191,6 +30989,12 @@ declare module "sap/ui/core/format/NumberFormat" {
      * may differ depending on locale.
      */
     precision?: int;
+    /**
+     * Whether {@link #format} preserves decimal digits (except trailing zeros) when there are more decimals
+     * than the `maxFractionDigits` format option allows. When decimals aren't preserved, the formatted number
+     * is rounded to `maxFractionDigits`.
+     */
+    preserveDecimals?: boolean;
     /**
      * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
      * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
@@ -31205,21 +31009,10 @@ declare module "sap/ui/core/format/NumberFormat" {
    */
   export type FormatOptions = {
     /**
-     * The number of decimal digits.
-     */
-    decimals?: int;
-    /**
      * The character used as decimal separator. If none is given, the locale-specific decimal separator is used.
      * **Note:** `decimalSeparator` must always be different from `groupingSeparator`.
      */
     decimalSeparator?: string;
-    /**
-     * Since 1.130.0. Defines what value an empty string is parsed into and what value is formatted as an empty
-     * string. The {@link #format} and {@link #parse} functions are done in a symmetric way. For example, when
-     * this parameter is set to `NaN`, an empty string is parsed as `NaN`, and `NaN` is formatted as an empty
-     * string.
-     */
-    emptyString?: null | number | string;
     /**
      * The grouping base size in digits if it is different from the grouping size (e.g. Indian grouping).
      */
@@ -31256,12 +31049,6 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     minusSign?: string;
     /**
-     * Since 1.28.2, whether to parse the number as a string in order to keep the precision for big numbers.
-     * Numbers in scientific notation are parsed back to standard notation. For example, `5e-3` is parsed to
-     * `0.005`.
-     */
-    parseAsString?: boolean;
-    /**
      * The CLDR number pattern which is used to format a number. If none is given, the default pattern for the
      * locale and type is used.
      */
@@ -31270,12 +31057,6 @@ declare module "sap/ui/core/format/NumberFormat" {
      * The symbol for the plus sign. If none is given, the locale-specific plus sign is used.
      */
     plusSign?: string;
-    /**
-     * Whether {@link #format} preserves decimal digits except trailing zeros if there are more decimals than
-     * the `maxFractionDigits` format option allows. If decimals are not preserved, the formatted number is
-     * rounded to `maxFractionDigits`.
-     */
-    preserveDecimals?: boolean;
     /**
      * Defines how numbers are rounded when the number of fraction digits exceeds the value of `maxFractionDigits`.
      * The rounding behavior of the formatter can be defined in the following ways:
@@ -31320,6 +31101,17 @@ declare module "sap/ui/core/format/NumberFormat" {
    */
   export type IntegerFormatOptions = FormatOptions & {
     /**
+     * The number of decimal digits.
+     */
+    decimals?: int;
+    /**
+     * Since 1.130.0. Defines what value an empty string is parsed into and what value is formatted as an empty
+     * string. The {@link #format} and {@link #parse} functions are done in a symmetric way. For example, when
+     * this parameter is set to `NaN`, an empty string is parsed as `NaN`, and `NaN` is formatted as an empty
+     * string.
+     */
+    emptyString?: null | number | string;
+    /**
      * The minimal number of decimal digits.
      */
     minFractionDigits?: int;
@@ -31332,6 +31124,18 @@ declare module "sap/ui/core/format/NumberFormat" {
      * `234567` is formatted to `"235K"`.
      */
     precision?: int;
+    /**
+     * Since 1.28.2, whether to parse the number as a string in order to keep the precision for big numbers.
+     * Numbers in scientific notation are parsed back to standard notation. For example, `5e-3` is parsed to
+     * `0.005`.
+     */
+    parseAsString?: boolean;
+    /**
+     * Whether {@link #format} preserves decimal digits (except trailing zeros) when there are more decimals
+     * than the `maxFractionDigits` format option allows. When decimals aren't preserved, the formatted number
+     * is rounded to `maxFractionDigits`.
+     */
+    preserveDecimals?: boolean;
     /**
      * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
      * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
@@ -31396,6 +31200,107 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     TOWARDS_ZERO = "TOWARDS_ZERO",
   }
+  /**
+   * The format options for units.
+   */
+  export type UnitFormatOptions = FormatOptions & {
+    /**
+     * Defines the allowed units for formatting and parsing, for example `["size-meter", "volume-liter", ...]`
+     * If this option is not specified, all units are allowed.
+     */
+    allowedUnits?: string[];
+    /**
+     * Defines a set of custom units, for example:
+     * ```javascript
+     * {"electric-inductance": {
+     *      "displayName": "henry",
+     *      "unitPattern-count-one": "{0} H",
+     *      "unitPattern-count-other": "{0} H",
+     *      "perUnitPattern": "{0}/H",
+     *      "decimals": 2,
+     *      "precision": 4
+     *   }
+     * }```
+     */
+    customUnits?: Record<string, object>;
+    /**
+     * The number of decimal digits.
+     */
+    decimals?: int;
+    /**
+     * The target length of places after the decimal separator; if the number has fewer decimals than specified
+     * in this option, it is padded with whitespaces at the end up to the target length. An additional whitespace
+     * character for the decimal separator is added for a number without any decimals. **Note:** This format
+     * option is only allowed if the following conditions apply:
+     * 	 - It has a value greater than 0.
+     * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
+     */
+    decimalPadding?: int;
+    /**
+     * Since 1.130.0. Defines what value an empty string is parsed into and what value is formatted as an empty
+     * string. The {@link #format} and {@link #parse} functions are done in a symmetric way. For example, when
+     * this parameter is set to `NaN`, an empty string is parsed as `NaN`, and `NaN` is formatted as an empty
+     * string.
+     */
+    emptyString?: null | number | string;
+    /**
+     * The minimal number of decimal digits.
+     */
+    minFractionDigits?: int;
+    /**
+     * Since 1.28.2, whether to parse the number as a string in order to keep the precision for big numbers.
+     * Numbers in scientific notation are parsed back to standard notation. For example, `5e-3` is parsed to
+     * `0.005`.
+     */
+    parseAsString?: boolean;
+    /**
+     * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+     * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+     * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+     * **Example:** With a `precision` of 2, `234.567` is formatted to `235`. **Note:** The formatted output
+     * may differ depending on locale.
+     */
+    precision?: int;
+    /**
+     * Whether {@link #format} preserves decimal digits (except trailing zeros) when there are more decimals
+     * than the `maxFractionDigits` format option allows. When decimals aren't preserved, the formatted number
+     * is rounded to `maxFractionDigits`.
+     */
+    preserveDecimals?: boolean;
+    /**
+     * Defines whether the unit of measure is shown in the formatted string, for example 1 day for locale "en"
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showMeasure: true})
+     *     .format(1, "duration-day"); // "1 day"```
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showMeasure: false})
+     *     .format(1, "duration-day"); // "1"```
+     *  If both `showMeasure` and `showNumber` are set to false, an empty string is returned.
+     */
+    showMeasure?: boolean;
+    /**
+     * Defines whether the number is shown as part of the formatted string, for example 1 day for locale "en"
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showNumber: true})
+     *     .format(1, "duration-day"); // "1 day"```
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showNumber: false})
+     *     .format(1, "duration-day"); // "day"```
+     *  If both `showMeasure` and `showNumber` are false, an empty string is returned
+     */
+    showNumber?: boolean;
+    /**
+     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
+     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
+     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
+     * or the `precision` option itself.
+     */
+    style?: "short" | "long" | "standard";
+  };
 }
 
 declare module "sap/ui/core/Fragment" {
@@ -45121,6 +45026,8 @@ declare module "sap/ui/core/routing/HashChanger" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import Router from "sap/ui/core/routing/Router";
+
   import { routing } from "sap/ui/core/library";
 
   import Event from "sap/ui/base/Event";
@@ -45233,6 +45140,28 @@ declare module "sap/ui/core/routing/HashChanger" {
      * @returns false if it was initialized before, true if it was initialized the first time
      */
     init(): boolean;
+    /**
+     * Parses the given hash and returns the hash segment that belongs to the given router.
+     *
+     * In nested component routing scenarios, the browser hash contains segments for multiple routers combined
+     * with "&/" delimiters and prefix keys. This method parses the given hash and returns only the portion
+     * that is relevant to the given router, based on the prefix key of its {@link sap.ui.core.routing.RouterHashChanger}.
+     *
+     * @since 1.149
+     *
+     * @returns The hash segment belonging to the given router, or `undefined` if the router has no {@link sap.ui.core.routing.RouterHashChanger }
+     * assigned
+     */
+    parseHashForRouter(
+      /**
+       * The full browser hash to parse (e.g. as returned by {@link sap.ui.core.routing.History#getPreviousHash})
+       */
+      sHash: string,
+      /**
+       * The router for which the hash segment should be extracted
+       */
+      oRouter: Router
+    ): string | undefined;
     /**
      * Replaces the hash with a certain value. When using the replace function, no browser history entry is
      * written. If you want to have an entry in the browser history, please use the {@link #setHash} function.
@@ -47347,7 +47276,8 @@ declare module "sap/ui/core/theming/Parameters" {
      *     are loaded and available or within the callback in case not all CSS files are already loaded. This is
      *     the **only asynchronous** API variant. This variant is the preferred way to retrieve theming parameters.
      *     The structure of the return value is the same as listed above depending on the type of the name property
-     *     within the `object`.
+     *     within the `object`. Further information on the usage of theming parameters can be found here: {@link https://ui5.sap.com/#/topic/45df6dff504647c686ab9ba72af827f6 Enhanced Theming Concepts}.
+     *
      *
      * The returned key-value maps are a copy so changing values in the map does not have any effect
      *
@@ -53257,8 +53187,7 @@ declare module "sap/ui/core/ws/SapPcpWebSocket" {
   /**
    * Parameters of the SapPcpWebSocket#message event.
    */
-  export interface SapPcpWebSocket$MessageEventParameters
-    extends WebSocket$MessageEventParameters {
+  export interface SapPcpWebSocket$MessageEventParameters extends WebSocket$MessageEventParameters {
     /**
      * Received pcpFields as a key-value map.
      */
@@ -61234,7 +61163,7 @@ declare module "sap/ui/model/json/TypedJSONModel" {
   export type AbsoluteBindingPath<Type> =
     Type extends Array<unknown>
       ? // if Type is an array:
-        | `/${number}` // /0 -> first element of array
+          | `/${number}` // /0 -> first element of array
           | `/${number}${AbsoluteBindingPath<Type[number]>}` // /0/{NestedPath}
       : // if Type is not an array:
         Type extends object
@@ -61242,7 +61171,7 @@ declare module "sap/ui/model/json/TypedJSONModel" {
             | {
                 [Key in keyof Type]: Type[Key] extends Array<unknown>
                   ? // Type[Key] is an array:
-                    | `/${string & Key}/${number}` // items/0 -> elem of array
+                      | `/${string & Key}/${number}` // items/0 -> elem of array
                       // path can end there or:
                       | `/${string & Key}/${number}${AbsoluteBindingPath<Type[Key][number]>}` // items/0/{NestedPath}
                   : // Type[Key] is NOT an array:
@@ -63268,6 +63197,8 @@ declare module "sap/ui/model/odata/ODataTreeBindingFlat" {
   /**
    * Adapter for TreeBindings to add the ListBinding functionality and use the tree structure in list based
    * controls.
+   *
+   * @deprecated As of version 1.150.0. will be replaced by OData V4 hierarchy functionality, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1/section_RCH Recursive Hierarchy}
    */
   export default function ODataTreeBindingFlat(): void;
 }
@@ -67990,6 +67921,8 @@ declare module "sap/ui/model/odata/type/Currency" {
 
   import ValidateException from "sap/ui/model/ValidateException";
 
+  import { FormatOptions } from "sap/ui/core/format/NumberFormat";
+
   /**
    * This class represents the `Currency` composite type with the parts amount, currency, and currency customizing.
    * The type may only be used for amount and currency parts from a {@link sap.ui.model.odata.v4.ODataModel }
@@ -68015,32 +67948,7 @@ declare module "sap/ui/model/odata/type/Currency" {
        * the feature of ignoring messages, see {@link sap.ui.model.Binding#supportsIgnoreMessages}, and the corresponding
        * binding parameter is not set manually.
        */
-      oFormatOptions?: {
-        /**
-         * Not supported; the type derives this from its currency customizing part.
-         */
-        customCurrencies?: object;
-        /**
-         * Whether the amount is parsed to a string; set to `false` if the amount's underlying type is represented
-         * as a `number`, for example {@link sap.ui.model.odata.type.Int32}
-         */
-        parseAsString?: boolean;
-        /**
-         * Whether the amount is parsed if no currency is entered; defaults to `true` if neither `showMeasure` nor
-         * `showNumber` is set to a falsy value, otherwise defaults to `false`
-         */
-        unitOptional?: boolean;
-        /**
-         * Defines how an empty string is parsed into the amount. With the default value `0` the amount becomes
-         * `0` when an empty string is parsed.
-         */
-        emptyString?: any;
-        /**
-         * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
-         * 1.89.0
-         */
-        preserveDecimals?: boolean;
-      },
+      oFormatOptions?: CurrencyFormatOptions,
       /**
        * Only the 'skipDecimalsValidation' constraint is supported. Constraints are immutable, that is, they can
        * only be set once on construction.
@@ -68167,6 +68075,100 @@ declare module "sap/ui/model/odata/type/Currency" {
       aValues: any[]
     ): void;
   }
+  /**
+   * Format options for the {@link sap.ui.model.odata.type.Currency} type.
+   */
+  export type CurrencyFormatOptions = FormatOptions & {
+    /**
+     * Defines whether the currency is shown as a code in currency format. The currency symbol is displayed
+     * when this option is set to `false` and a symbol exists for the given currency code.
+     */
+    currencyCode?: boolean;
+    /**
+     * Can be set to either 'standard' (the default value) or to 'accounting' for an accounting-specific currency
+     * display
+     */
+    currencyContext?:
+      | "standard"
+      | "accounting"
+      | "sap-standard"
+      | "sap-accounting";
+    /**
+     * The target length of places after the decimal separator; if the number has fewer decimals than specified
+     * in this option, it is padded with whitespaces at the end up to the target length. An additional whitespace
+     * character for the decimal separator is added for a number without any decimals. **Note:** This format
+     * option is only allowed if the following conditions apply:
+     * 	 - It has a value greater than 0.
+     * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
+     */
+    decimalPadding?: int;
+    /**
+     * The number of decimal digits.
+     */
+    decimals?: int;
+    /**
+     * Defines how an empty string is parsed into the amount. With the default value `0`, the amount becomes
+     * `0` when an empty string is parsed.
+     */
+    emptyString?: any;
+    /**
+     * Deprecated as of 1.130; this format option does not have an effect on currency formats since decimals
+     * can always be determined, either through the given format options, custom currencies, or the CLDR
+     */
+    minFractionDigits?: int;
+    /**
+     * Whether the amount is parsed to a string; set to `false` if the amount's underlying type is represented
+     * as a `number`, for example {@link sap.ui.model.odata.type.Int32}
+     */
+    parseAsString?: boolean;
+    /**
+     * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+     * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+     * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+     * **Example:** With a `precision` of 2, `234.567` is formatted to `235`. **Note:** The formatted output
+     * may differ depending on locale.
+     */
+    precision?: int;
+    /**
+     * By default, decimals are preserved unless `oFormatOptions.style` is given as "short" or "long"; since
+     * 1.89.0
+     */
+    preserveDecimals?: boolean;
+    /**
+     * Defines whether the currency code or symbol is shown in the formatted string, for example true: "1.00
+     * EUR", false: "1.00" for locale "en" If both `showMeasure` and `showNumber` are `false`, an empty string
+     * is returned
+     */
+    showMeasure?: boolean;
+    /**
+     * Defines whether the number is shown as part of the result string, for example 1 EUR for locale "en"
+     * ```javascript
+     * `NumberFormat.getCurrencyInstance({showNumber: true}).format(1, "EUR"); // "1.00 EUR"````
+     *
+     * ```javascript
+     * `NumberFormat.getCurrencyInstance({showNumber: false}).format(1, "EUR"); // "EUR"````
+     *  If both `showMeasure` and `showNumber` are `false`, an empty string is returned
+     */
+    showNumber?: boolean;
+    /**
+     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
+     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
+     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
+     * or the `precision` option itself.
+     */
+    style?: "short" | "long" | "standard";
+    /**
+     * Overrides the global configuration value {@link module:sap/base/i18n/Formatting.getTrailingCurrencyCode Formatting.getTrailingCurrencyCode},
+     * which has a default value of `true`. This is ignored if `oFormatOptions.currencyCode` is set to `false`,
+     * or if `oFormatOptions.pattern` is supplied.
+     */
+    trailingCurrencyCode?: boolean;
+    /**
+     * Whether the amount is parsed if no currency is entered; defaults to `true` if neither `showMeasure` nor
+     * `showNumber` is set to a falsy value, otherwise defaults to `false`
+     */
+    unitOptional?: boolean;
+  };
 }
 
 declare module "sap/ui/model/odata/type/Date" {
@@ -68746,6 +68748,8 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
 
   import Metadata from "sap/ui/base/Metadata";
 
+  import UI5Date from "sap/ui/core/date/UI5Date";
+
   import ParseException from "sap/ui/model/ParseException";
 
   /**
@@ -68854,7 +68858,7 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
     getPartsIgnoringMessages(): number[];
     /**
      * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
-     * using this type.
+     * using this type. If given, a sample date within the given range is used.
      *
      *
      * @returns The language-dependent placeholder text or `undefined` if the type does not offer a placeholder
@@ -68863,11 +68867,11 @@ declare module "sap/ui/model/odata/type/DateTimeWithTimezone" {
       /**
        * The minimum date
        */
-      oMinimum?: /* was: sap.ui.core.date.UI5Date */ any,
+      oMinimum?: UI5Date,
       /**
        * The maximum date
        */
-      oMaximum?: /* was: sap.ui.core.date.UI5Date */ any
+      oMaximum?: UI5Date
     ): string | undefined;
     /**
      * Parses the given value.
@@ -69915,9 +69919,8 @@ declare module "sap/ui/model/odata/type/ODataType" {
      * using this type. The `oMinimum` and `oMaximum` parameters are supported since 1.149.0 and only by types
      * that use {@link sap.ui.core.format.DateFormat} for formatting ({@link sap.ui.model.odata.type.Date},
      * {@link sap.ui.model.odata.type.DateTime}, {@link sap.ui.model.odata.type.DateTimeOffset}, {@link sap.ui.model.odata.type.DateTimeWithTimezone},
-     * {@link sap.ui.model.odata.type.Time}, and {@link sap.ui.model.odata.type.TimeOfDay}). The default sample
-     * date is used if it is valid. Otherwise, the closest valid year end, highest valid month end, or highest
-     * valid date is used.
+     * {@link sap.ui.model.odata.type.Time}, and {@link sap.ui.model.odata.type.TimeOfDay}). If given, a sample
+     * date within [`oMinimum`, `oMaximum`] is used.
      *
      *
      * @returns The language-dependent placeholder text or `undefined` if the type does not offer a placeholder
@@ -70878,6 +70881,8 @@ declare module "sap/ui/model/odata/type/Unit" {
 
   import ValidateException from "sap/ui/model/ValidateException";
 
+  import { FormatOptions } from "sap/ui/core/format/NumberFormat";
+
   /**
    * This class represents the `Unit` composite type with the parts measure, unit, and unit customizing. The
    * type may only be used for measure and unit parts from a {@link sap.ui.model.odata.v4.ODataModel} or a
@@ -70903,32 +70908,7 @@ declare module "sap/ui/model/odata/type/Unit" {
        * the feature of ignoring messages, see {@link sap.ui.model.Binding#supportsIgnoreMessages}, and the corresponding
        * binding parameter is not set manually.
        */
-      oFormatOptions?: {
-        /**
-         * Not supported; the type derives this from its unit customizing part.
-         */
-        customUnits?: object;
-        /**
-         * Whether the measure is parsed to a string; set to `false` if the measure's underlying type is represented
-         * as a `number`, for example {@link sap.ui.model.odata.type.Int32}
-         */
-        parseAsString?: boolean;
-        /**
-         * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
-         * 1.89.0
-         */
-        preserveDecimals?: boolean;
-        /**
-         * Whether the measure is parsed if no unit is entered; defaults to `true` if neither `showMeasure` nor
-         * `showNumber` is set to a falsy value, otherwise defaults to `false`
-         */
-        unitOptional?: boolean;
-        /**
-         * Defines how an empty string is parsed into the measure. With the default value `0` the measure becomes
-         * `0` when an empty string is parsed.
-         */
-        emptyString?: any;
-      },
+      oFormatOptions?: UnitFormatOptions,
       /**
        * Only the 'skipDecimalsValidation' constraint is supported. Constraints are immutable, that is, they can
        * only be set once on construction.
@@ -71059,6 +71039,96 @@ declare module "sap/ui/model/odata/type/Unit" {
       aValues: any[]
     ): void;
   }
+  /**
+   * Format options for the {@link sap.ui.model.odata.type.Unit}.
+   */
+  export type UnitFormatOptions = FormatOptions & {
+    /**
+     * The number of decimals to be used for formatting the numerical value of the unit composite type; if none
+     * of the format options `maxFractionDigits`, `minFractionDigits` or `decimals` are given, the following
+     * defaults apply:
+     * 	 -  **0** if the numerical value is of an OData integer type, i.e. {@link sap.ui.model.odata.type.Int }
+     *     or {@link sap.ui.model.odata.type.Int64}
+     * 	 -  the **scale constraint of the numerical value's type** if this type is {@link sap.ui.model.odata.type.Decimal }
+     *     and the scale is not "variable"
+     * 	 -  **3** otherwise
+     */
+    decimals?: int;
+    /**
+     * The target length of places after the decimal separator; if the number has fewer decimals than specified
+     * in this option, it is padded with whitespaces at the end up to the target length. An additional whitespace
+     * character for the decimal separator is added for a number without any decimals. **Note:** This format
+     * option is only allowed if the following conditions apply:
+     * 	 - It has a value greater than 0
+     * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`
+     */
+    decimalPadding?: int;
+    /**
+     * Defines how an empty string is parsed into the measure. With the default value `0` the measure becomes
+     * `0` when an empty string is parsed.
+     */
+    emptyString?: null | number | string;
+    /**
+     * The minimal number of decimal digits.
+     */
+    minFractionDigits?: int;
+    /**
+     * Whether the measure is parsed to a string; set to `false` if the measure's underlying type is represented
+     * as a `number`, for example {@link sap.ui.model.odata.type.Int32}
+     */
+    parseAsString?: boolean;
+    /**
+     * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+     * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+     * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+     * **Example:** With a `precision` of 2, `234.567` is formatted to `235`. **Note:** The formatted output
+     * may differ depending on locale.
+     */
+    precision?: int;
+    /**
+     * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
+     * 1.89.0
+     */
+    preserveDecimals?: boolean;
+    /**
+     * Defines whether the unit of measure is shown in the formatted string, for example 1 day for locale "en"
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showMeasure: true})
+     *     .format(1, "duration-day"); // "1 day"```
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showMeasure: false})
+     *     .format(1, "duration-day"); // "1"```
+     *  If both `showMeasure` and `showNumber` are set to false, an empty string is returned.
+     */
+    showMeasure?: boolean;
+    /**
+     * Defines whether the number is shown as part of the formatted string, for example 1 day for locale "en"
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showNumber: true})
+     *     .format(1, "duration-day"); // "1 day"```
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showNumber: false})
+     *     .format(1, "duration-day"); // "day"```
+     *  If both `showMeasure` and `showNumber` are false, an empty string is returned
+     */
+    showNumber?: boolean;
+    /**
+     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
+     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
+     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
+     * or the `precision` option itself.
+     */
+    style?: "short" | "long" | "standard";
+    /**
+     * Whether the measure is parsed if no unit is entered; defaults to `true` if neither `showMeasure` nor
+     * `showNumber` is set to a falsy value, otherwise defaults to `false`
+     */
+    unitOptional?: boolean;
+  };
 }
 
 declare module "sap/ui/model/odata/UpdateMethod" {
@@ -72587,6 +72657,8 @@ declare module "sap/ui/model/odata/v2/ODataTreeBinding" {
   /**
    * Tree binding implementation for the {@link sap.ui.model.odata.v2.ODataModel}. Use {@link sap.ui.model.odata.v2.ODataModel#bindTree }
    * for creating an instance.
+   *
+   * @deprecated As of version 1.150.0. will be replaced by OData V4 hierarchy functionality, see {@link topic:7d914317c0b64c23824bf932cc8a4ae1/section_RCH Recursive Hierarchy}
    */
   export default class ODataTreeBinding extends TreeBinding {
     /**
@@ -74898,8 +74970,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
   /**
    * Parameters of the ODataContextBinding#change event.
    */
-  export interface ODataContextBinding$ChangeEventParameters
-    extends Binding$ChangeEventParameters {}
+  export interface ODataContextBinding$ChangeEventParameters extends Binding$ChangeEventParameters {}
 
   /**
    * Event object of the ODataContextBinding#change event.
@@ -74912,8 +74983,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
   /**
    * Parameters of the ODataContextBinding#dataReceived event.
    */
-  export interface ODataContextBinding$DataReceivedEventParameters
-    extends Binding$DataReceivedEventParameters {
+  export interface ODataContextBinding$DataReceivedEventParameters extends Binding$DataReceivedEventParameters {
     /**
      * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
      * of the first one is provided.
@@ -74932,8 +75002,7 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
   /**
    * Parameters of the ODataContextBinding#dataRequested event.
    */
-  export interface ODataContextBinding$DataRequestedEventParameters
-    extends Binding$DataRequestedEventParameters {}
+  export interface ODataContextBinding$DataRequestedEventParameters extends Binding$DataRequestedEventParameters {}
 
   /**
    * Event object of the ODataContextBinding#dataRequested event.
@@ -76235,8 +76304,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   /**
    * Parameters of the ODataListBinding#change event.
    */
-  export interface ODataListBinding$ChangeEventParameters
-    extends Binding$ChangeEventParameters {
+  export interface ODataListBinding$ChangeEventParameters extends Binding$ChangeEventParameters {
     /**
      * During automatic determination of $expand and $select, a "virtual" context is first added with detailed
      * reason "AddVirtualContext" and then removed with detailed reason "RemoveVirtualContext" (since 1.69.0);
@@ -76315,8 +76383,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   /**
    * Parameters of the ODataListBinding#dataReceived event.
    */
-  export interface ODataListBinding$DataReceivedEventParameters
-    extends Binding$DataReceivedEventParameters {
+  export interface ODataListBinding$DataReceivedEventParameters extends Binding$DataReceivedEventParameters {
     /**
      * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
      * of the first one is provided.
@@ -76335,8 +76402,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   /**
    * Parameters of the ODataListBinding#dataRequested event.
    */
-  export interface ODataListBinding$DataRequestedEventParameters
-    extends Binding$DataRequestedEventParameters {}
+  export interface ODataListBinding$DataRequestedEventParameters extends Binding$DataRequestedEventParameters {}
 
   /**
    * Event object of the ODataListBinding#dataRequested event.
@@ -76380,8 +76446,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
   /**
    * Parameters of the ODataListBinding#refresh event.
    */
-  export interface ODataListBinding$RefreshEventParameters
-    extends Binding$RefreshEventParameters {}
+  export interface ODataListBinding$RefreshEventParameters extends Binding$RefreshEventParameters {}
 
   /**
    * Event object of the ODataListBinding#refresh event.
@@ -78456,8 +78521,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * @deprecated As of version 1.37.0. this event is not supported
    */
-  export interface ODataModel$ParseErrorEventParameters
-    extends Model$ParseErrorEventParameters {}
+  export interface ODataModel$ParseErrorEventParameters extends Model$ParseErrorEventParameters {}
 
   /**
    * Event object of the ODataModel#parseError event.
@@ -78472,8 +78536,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
   /**
    * Parameters of the ODataModel#propertyChange event.
    */
-  export interface ODataModel$PropertyChangeEventParameters
-    extends Model$PropertyChangeEventParameters {
+  export interface ODataModel$PropertyChangeEventParameters extends Model$PropertyChangeEventParameters {
     /**
      * A promise on the outcome of the PATCH request, much like {@link sap.ui.model.odata.v4.Context#setProperty }
      * provides it for `bRetry === true`; missing in case there is no PATCH
@@ -78499,8 +78562,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * @deprecated As of version 1.37.0. this event is not supported
    */
-  export interface ODataModel$RequestCompletedEventParameters
-    extends Model$RequestCompletedEventParameters {}
+  export interface ODataModel$RequestCompletedEventParameters extends Model$RequestCompletedEventParameters {}
 
   /**
    * Event object of the ODataModel#requestCompleted event.
@@ -78517,8 +78579,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * @deprecated As of version 1.37.0. this event is not supported
    */
-  export interface ODataModel$RequestFailedEventParameters
-    extends Model$RequestFailedEventParameters {}
+  export interface ODataModel$RequestFailedEventParameters extends Model$RequestFailedEventParameters {}
 
   /**
    * Event object of the ODataModel#requestFailed event.
@@ -78535,8 +78596,7 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
    *
    * @deprecated As of version 1.37.0. this event is not supported
    */
-  export interface ODataModel$RequestSentEventParameters
-    extends Model$RequestSentEventParameters {}
+  export interface ODataModel$RequestSentEventParameters extends Model$RequestSentEventParameters {}
 
   /**
    * Event object of the ODataModel#requestSent event.
@@ -78927,8 +78987,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
   /**
    * Parameters of the ODataPropertyBinding#change event.
    */
-  export interface ODataPropertyBinding$ChangeEventParameters
-    extends Binding$ChangeEventParameters {}
+  export interface ODataPropertyBinding$ChangeEventParameters extends Binding$ChangeEventParameters {}
 
   /**
    * Event object of the ODataPropertyBinding#change event.
@@ -78941,8 +79000,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
   /**
    * Parameters of the ODataPropertyBinding#dataReceived event.
    */
-  export interface ODataPropertyBinding$DataReceivedEventParameters
-    extends Binding$DataReceivedEventParameters {
+  export interface ODataPropertyBinding$DataReceivedEventParameters extends Binding$DataReceivedEventParameters {
     /**
      * The error object if a back-end request failed. If there are multiple failed back-end requests, the error
      * of the first one is provided.
@@ -78961,8 +79019,7 @@ declare module "sap/ui/model/odata/v4/ODataPropertyBinding" {
   /**
    * Parameters of the ODataPropertyBinding#dataRequested event.
    */
-  export interface ODataPropertyBinding$DataRequestedEventParameters
-    extends Binding$DataRequestedEventParameters {}
+  export interface ODataPropertyBinding$DataRequestedEventParameters extends Binding$DataRequestedEventParameters {}
 
   /**
    * Event object of the ODataPropertyBinding#dataRequested event.
@@ -80793,6 +80850,8 @@ declare module "sap/ui/model/type/Currency" {
 
   import ParseException from "sap/ui/model/ParseException";
 
+  import { FormatOptions } from "sap/ui/core/format/NumberFormat";
+
   /**
    * This class represents the composite type `Currency`, which consists of the parts "amount" (of type `number`
    * or `string`) and "currency" (of type `string`). In case the amount is a `string`, it must be the JavaScript
@@ -80811,20 +80870,7 @@ declare module "sap/ui/model/type/Currency" {
        * feature of ignoring model messages, see {@link sap.ui.model.Binding#supportsIgnoreMessages}, and the
        * corresponding binding parameter is not set manually.
        */
-      oFormatOptions?: {
-        /**
-         * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
-         * 1.89.0
-         */
-        preserveDecimals?: boolean;
-        /**
-         * A set of format options as defined for {@link sap.ui.core.format.NumberFormat.getCurrencyInstance} which
-         * describes the format of amount and currency in the model in case the model holds this in one property
-         * of type `string`, e.g. as "EUR 22". If an empty object is given, grouping is disabled, the
-         * decimal separator is a dot and the grouping separator is a comma.
-         */
-        source?: object;
-      },
+      oFormatOptions?: CurrencyFormatOptions,
       /**
        * Constraints for the value part
        */
@@ -80929,12 +80975,121 @@ declare module "sap/ui/model/type/Currency" {
       aCurrentValues?: any[]
     ): any[] | string;
   }
+  /**
+   * Format options for the {@link sap.ui.model.type.Currency} type.
+   */
+  export type CurrencyFormatOptions = FormatOptions & {
+    /**
+     * Defines whether the currency is shown as a code in currency format. The currency symbol is displayed
+     * when this option is set to `false` and a symbol exists for the given currency code.
+     */
+    currencyCode?: boolean;
+    /**
+     * Can be set to either 'standard' (the default value) or to 'accounting' for an accounting-specific currency
+     * display
+     */
+    currencyContext?:
+      | "standard"
+      | "accounting"
+      | "sap-standard"
+      | "sap-accounting";
+    /**
+     * Defines a set of custom currencies exclusive to this NumberFormat instance. Custom currencies must not
+     * consist only of digits. If custom currencies are defined on the instance, no other currencies can be
+     * formatted and parsed by this instance. Globally available custom currencies can be added via the global
+     * configuration. See {@link module:sap/base/i18n/Formatting.setCustomCurrencies Formatting.setCustomCurrencies }
+     * and {@link module:sap/base/i18n/Formatting.addCustomCurrencies Formatting.addCustomCurrencies}.
+     */
+    customCurrencies?: Record<string, object>;
+    /**
+     * The number of decimal digits.
+     */
+    decimals?: int;
+    /**
+     * The target length of places after the decimal separator; if the number has fewer decimals than specified
+     * in this option, it is padded with whitespaces at the end up to the target length. An additional whitespace
+     * character for the decimal separator is added for a number without any decimals. **Note:** This format
+     * option is only allowed if the following conditions apply:
+     * 	 - It has a value greater than 0.
+     * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`.
+     */
+    decimalPadding?: int;
+    /**
+     * Since 1.130.0. Defines what value an empty string is parsed into and what value is formatted as an empty
+     * string. The {@link #format} and {@link #parse} functions are done in a symmetric way. For example, when
+     * this parameter is set to `NaN`, an empty string is parsed as `NaN`, and `NaN` is formatted as an empty
+     * string.
+     */
+    emptyString?: null | number | string;
+    /**
+     * Deprecated as of 1.130; this format option does not have an effect on currency formats since decimals
+     * can always be determined, either through the given format options, custom currencies or the CLDR
+     */
+    minFractionDigits?: int;
+    /**
+     * Since 1.28.2, whether to parse the number as a string in order to keep the precision for large numbers.
+     * Numbers in scientific notation are parsed back to standard notation. For example, `5e-3` is parsed to
+     * `0.005`.
+     */
+    parseAsString?: boolean;
+    /**
+     * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+     * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+     * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+     * **Example:** With a `precision` of 2, `234.567` is formatted to `235`. **Note:** The formatted output
+     * may differ depending on locale.
+     */
+    precision?: int;
+    /**
+     * By default, decimals are preserved unless `oFormatOptions.style` is given as "short" or "long"; since
+     * 1.89.0
+     */
+    preserveDecimals?: boolean;
+    /**
+     * Defines whether the currency code or symbol is shown in the formatted string, for example true: "1.00
+     * EUR", false: "1.00" for locale "en" If both `showMeasure` and `showNumber` are `false`, an empty string
+     * is returned
+     */
+    showMeasure?: boolean;
+    /**
+     * Defines whether the number is shown as part of the result string, for example 1 EUR for locale "en"
+     * ```javascript
+     * `NumberFormat.getCurrencyInstance({showNumber: true}).format(1, "EUR"); // "1.00 EUR"````
+     *
+     * ```javascript
+     * `NumberFormat.getCurrencyInstance({showNumber: false}).format(1, "EUR"); // "EUR"````
+     *  If both `showMeasure` and `showNumber` are `false`, an empty string is returned
+     */
+    showNumber?: boolean;
+    /**
+     * A set of format options as defined for {@link sap.ui.core.format.NumberFormat.getCurrencyInstance} which
+     * describes the format of amount and currency in the model in case the model holds this in one property
+     * of type `string`, for example as "EUR 22". If an empty object is given, grouping is disabled, the decimal
+     * separator is a dot, and the grouping separator is a comma.
+     */
+    source?: object;
+    /**
+     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
+     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
+     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
+     * or the `precision` option itself.
+     */
+    style?: "short" | "long" | "standard";
+    /**
+     * Overrides the global configuration value {@link module:sap/base/i18n/Formatting.getTrailingCurrencyCode Formatting.getTrailingCurrencyCode},
+     * which has a default value of `true`. This is ignored if `oFormatOptions.currencyCode` is set to `false`,
+     * or if `oFormatOptions.pattern` is supplied.
+     */
+    trailingCurrencyCode?: boolean;
+  };
 }
 
 declare module "sap/ui/model/type/Date" {
   import SimpleType from "sap/ui/model/SimpleType";
 
   import Metadata from "sap/ui/base/Metadata";
+
+  import UI5Date from "sap/ui/core/date/UI5Date";
 
   /**
    * This class represents date simple types.
@@ -81018,13 +81173,25 @@ declare module "sap/ui/model/type/Date" {
      */
     getOutputPattern(): string;
     /**
-     * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
-     * using this type.
+     * Returns a language-dependent placeholder text for this type. The `oMinimum` and `oMaximum` parameters
+     * are supported since 1.150.
+     *
+     * If given, a sample date within [`oMinimum`, `oMaximum`] is used. If not given, `oConstraints.minimum`/`oConstraints.maximum`
+     * are used as fallback.
      *
      *
      * @returns The language-dependent placeholder text or `undefined` if the type does not offer a placeholder
      */
-    getPlaceholderText(): string | undefined;
+    getPlaceholderText(
+      /**
+       * The minimum date
+       */
+      oMinimum?: UI5Date,
+      /**
+       * The maximum date
+       */
+      oMaximum?: UI5Date
+    ): string | undefined;
   }
 }
 
@@ -81157,13 +81324,25 @@ declare module "sap/ui/model/type/DateInterval" {
       sTargetType: string
     ): string;
     /**
-     * Returns a language-dependent placeholder text such as "e.g. " where  is formatted
-     * using this type.
+     * Returns a language-dependent placeholder text for this type. The `oMinimum` and `oMaximum` parameters
+     * are supported since 1.150.
+     *
+     * If given, a sample date within [`oMinimum`, `oMaximum`] is used. If not given, `oConstraints.minimum`/`oConstraints.maximum`
+     * are used as fallback.
      *
      *
      * @returns The language-dependent placeholder text or `undefined` if the type does not offer a placeholder
      */
-    getPlaceholderText(): string | undefined;
+    getPlaceholderText(
+      /**
+       * The minimum date
+       */
+      oMinimum?: UI5Date,
+      /**
+       * The maximum date
+       */
+      oMaximum?: UI5Date
+    ): string | undefined;
     /**
      * Parses the given value to an array of two values representing the start date and the end date of the
      * interval, where the time part of the start date is 0 and the time part of end date is the end of day
@@ -81880,6 +82059,8 @@ declare module "sap/ui/model/type/Unit" {
 
   import ParseException from "sap/ui/model/ParseException";
 
+  import { FormatOptions } from "sap/ui/core/format/NumberFormat";
+
   /**
    * This class represents the Unit composite type.
    */
@@ -81895,30 +82076,7 @@ declare module "sap/ui/model/type/Unit" {
        * model messages, see {@link sap.ui.model.Binding#supportsIgnoreMessages}, and the corresponding binding
        * parameter is not set manually.
        */
-      oFormatOptions?: {
-        /**
-         * The number of decimals to be used for formatting the numerical value of the unit composite type; if none
-         * of the format options `maxFractionDigits`, `minFractionDigits` or `decimals` are given, the following
-         * defaults apply:
-         * 	 -  **0** if the numerical value is of an OData integer type, i.e. {@link sap.ui.model.odata.type.Int }
-         *     or {@link sap.ui.model.odata.type.Int64}
-         * 	 -  the **scale constraint of the numerical value's type** if this type is {@link sap.ui.model.odata.type.Decimal }
-         *     and the scale is not "variable"
-         * 	 -  **3** otherwise
-         */
-        decimals?: object;
-        /**
-         * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
-         * 1.89.0
-         */
-        preserveDecimals?: boolean;
-        /**
-         * Additional set of format options to be used if the property in the model is not of type `string` and
-         * needs formatting as well. If an empty object is given, the grouping is disabled and a dot is used as
-         * decimal separator.
-         */
-        source?: object;
-      },
+      oFormatOptions?: UnitFormatOptions,
       /**
        * Value constraints
        */
@@ -82033,6 +82191,116 @@ declare module "sap/ui/model/type/Unit" {
       aCurrentValues?: any[]
     ): any[] | string;
   }
+  /**
+   * Format options for the {@link sap.ui.model.type.Unit Unit type}.
+   */
+  export type UnitFormatOptions = FormatOptions & {
+    /**
+     * Defines the allowed units for formatting and parsing, for example `["size-meter", "volume-liter", ...]`
+     * If this option is not specified, all units are allowed.
+     */
+    allowedUnits?: string[];
+    /**
+     * Defines a set of custom units, for example:
+     * ```javascript
+     * {"electric-inductance": {
+     *      "displayName": "henry",
+     *      "unitPattern-count-one": "{0} H",
+     *      "unitPattern-count-other": "{0} H",
+     *      "perUnitPattern": "{0}/H",
+     *      "decimals": 2,
+     *      "precision": 4
+     *   }
+     * }```
+     */
+    customUnits?: Record<string, object>;
+    /**
+     * The number of decimals to be used for formatting the numerical value of the unit composite type; if none
+     * of the format options `maxFractionDigits`, `minFractionDigits` or `decimals` are given, the following
+     * defaults apply:
+     * 	 -  **0** if the numerical value is of an OData integer type, i.e. {@link sap.ui.model.odata.type.Int }
+     *     or {@link sap.ui.model.odata.type.Int64}
+     * 	 -  the **scale constraint of the numerical value's type** if this type is {@link sap.ui.model.odata.type.Decimal }
+     *     and the scale is not "variable"
+     * 	 -  **3** otherwise
+     */
+    decimals?: int;
+    /**
+     * The target length of places after the decimal separator; if the number has fewer decimals than specified
+     * in this option, it is padded with whitespaces at the end up to the target length. An additional whitespace
+     * character for the decimal separator is added for a number without any decimals. **Note:** This format
+     * option is only allowed if the following conditions apply:
+     * 	 - It has a value greater than 0
+     * 	 - The `oFormatOptions.style` format option is **not** set to `"short"` or `"long"`
+     */
+    decimalPadding?: int;
+    /**
+     * Defines how an empty string is parsed into the measure. With the default value `0` the measure becomes
+     * `0` when an empty string is parsed.
+     */
+    emptyString?: null | number | string;
+    /**
+     * The minimal number of decimal digits.
+     */
+    minFractionDigits?: int;
+    /**
+     * Whether the measure is parsed to a string; set to `false` if the measure's underlying type is represented
+     * as a `number`, for example {@link sap.ui.model.type.Integer}
+     */
+    parseAsString?: boolean;
+    /**
+     * The maximum number of digits in the formatted representation of a number; if the `precision` is less
+     * than the overall length of the number, its fractional part is truncated through rounding. As the `precision`
+     * only affects the rounding of a number, its integer part can retain more digits than defined by this parameter.
+     * **Example:** With a `precision` of 2, `234.567` is formatted to `235`. **Note:** The formatted output
+     * may differ depending on locale.
+     */
+    precision?: int;
+    /**
+     * By default decimals are preserved, unless `oFormatOptions.style` is given as "short" or "long"; since
+     * 1.89.0
+     */
+    preserveDecimals?: boolean;
+    /**
+     * Defines whether the unit of measure is shown in the formatted string, for example 1 day for locale "en"
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showMeasure: true})
+     *     .format(1, "duration-day"); // "1 day"```
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showMeasure: false})
+     *     .format(1, "duration-day"); // "1"```
+     *  If both `showMeasure` and `showNumber` are set to false, an empty string is returned.
+     */
+    showMeasure?: boolean;
+    /**
+     * Defines whether the number is shown as part of the formatted string, for example 1 day for locale "en"
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showNumber: true})
+     *     .format(1, "duration-day"); // "1 day"```
+     *
+     * ```javascript
+     * NumberFormat.getUnitInstance({showNumber: false})
+     *     .format(1, "duration-day"); // "day"```
+     *  If both `showMeasure` and `showNumber` are false, an empty string is returned
+     */
+    showNumber?: boolean;
+    /**
+     * Additional set of format options to be used if the property in the model is not of type `string` and
+     * needs formatting as well. If an empty object is given, the grouping is disabled and a dot is used as
+     * decimal separator.
+     */
+    source?: object;
+    /**
+     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
+     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
+     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
+     * or the `precision` option itself.
+     */
+    style?: "short" | "long" | "standard";
+  };
 }
 
 declare module "sap/ui/model/ValidateException" {
@@ -84166,8 +84434,7 @@ declare module "sap/ui/test/matchers/AggregationContainsPropertyEqual" {
   /**
    * Describes the settings that can be provided to the AggregationContainsPropertyEqual constructor.
    */
-  export interface $AggregationContainsPropertyEqualSettings
-    extends $MatcherSettings {
+  export interface $AggregationContainsPropertyEqualSettings extends $MatcherSettings {
     /**
      * The Name of the aggregation that is used for matching.
      */

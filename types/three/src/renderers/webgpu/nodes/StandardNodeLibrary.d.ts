@@ -18,7 +18,6 @@ import NodeLibrary from "../../common/nodes/NodeLibrary.js";
  * used in {@link WebGPURenderer}. It maps lights, tone mapping
  * techniques and materials to node-based implementations.
  *
- * @private
  * @augments NodeLibrary
  */
 declare class StandardNodeLibrary extends NodeLibrary {

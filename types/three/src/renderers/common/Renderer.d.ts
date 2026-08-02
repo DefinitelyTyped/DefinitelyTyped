@@ -7,12 +7,13 @@ import { RenderTarget } from "../../core/RenderTarget.js";
 import { Material } from "../../materials/Material.js";
 import { Box2 } from "../../math/Box2.js";
 import { Box3 } from "../../math/Box3.js";
-import { ColorRepresentation } from "../../math/Color.js";
+import { Color, ColorRepresentation } from "../../math/Color.js";
 import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Vector4 } from "../../math/Vector4.js";
 import ContextNode from "../../nodes/core/ContextNode.js";
 import MRTNode from "../../nodes/core/MRTNode.js";
+import Node from "../../nodes/core/Node.js";
 import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
 import { Scene } from "../../scenes/Scene.js";
@@ -21,15 +22,21 @@ import { Texture } from "../../textures/Texture.js";
 import Backend from "./Backend.js";
 import CanvasTarget from "./CanvasTarget.js";
 import ClippingContext from "./ClippingContext.js";
-import Color4 from "./Color4.js";
 import IndirectStorageBufferAttribute from "./IndirectStorageBufferAttribute.js";
 import Info from "./Info.js";
 import InspectorBase from "./InspectorBase.js";
 import Lighting from "./Lighting.js";
 import NodeLibrary from "./nodes/NodeLibrary.js";
 import ReadbackBuffer from "./ReadbackBuffer.js";
-import { RenderItem } from "./RenderList.js";
 import XRManager from "./XRManager.js";
+
+declare module "../../scenes/Scene.js" {
+    interface Scene {
+        environmentNode?: Node<"vec3"> | null | undefined;
+        backgroundNode?: Node | null | undefined;
+        fogNode?: Node | null | undefined;
+    }
+}
 
 interface DeviceLostInfo {
     api: "WebGL" | "WebGPU";
@@ -49,6 +56,18 @@ export interface RendererParameters {
     getFallback?: ((error: unknown) => Backend) | null | undefined;
     outputBufferType?: TextureDataType | undefined;
     multiview?: boolean | undefined;
+}
+
+export interface RenderItem {
+    id: number | null;
+    object: Object3D | null;
+    geometry: BufferGeometry | null;
+    material: Material | null;
+    groupOrder: number | null;
+    renderOrder: number | null;
+    z: number | null;
+    group: GeometryGroup | null;
+    clippingContext: ClippingContext | null;
 }
 
 /**
@@ -228,342 +247,30 @@ declare class Renderer {
      */
     lighting: Lighting;
     /**
-     * The number of MSAA samples.
-     *
-     * @private
-     * @type {number}
-     * @default 0
-     */
-    private _samples;
-    /**
-     * Callback when the canvas has been resized.
-     *
-     * @private
-     */
-    private _onCanvasTargetResize;
-    /**
-     * The canvas target for rendering.
-     *
-     * @private
-     * @type {CanvasTarget}
-     */
-    private _canvasTarget;
-    /**
-     * The inspector provides information about the internal renderer state.
-     *
-     * @private
-     * @type {InspectorBase}
-     */
-    private _inspector;
-    /**
-     * This callback function can be used to provide a fallback backend, if the primary backend can't be targeted.
-     *
-     * @private
-     * @type {?Function}
-     */
-    private _getFallback;
-    /**
-     * A reference to a renderer module for managing shader attributes.
-     *
-     * @private
-     * @type {?Attributes}
-     * @default null
-     */
-    private _attributes;
-    /**
-     * A reference to a renderer module for managing geometries.
-     *
-     * @private
-     * @type {?Geometries}
-     * @default null
-     */
-    private _geometries;
-    /**
-     * A reference to a renderer module for managing node related logic.
-     *
-     * @private
-     * @type {?NodeManager}
-     * @default null
-     */
-    private _nodes;
-    /**
-     * A reference to a renderer module for managing the internal animation loop.
-     *
-     * @private
-     * @type {?Animation}
-     * @default null
-     */
-    private _animation;
-    /**
-     * A reference to a renderer module for managing shader program bindings.
-     *
-     * @private
-     * @type {?Bindings}
-     * @default null
-     */
-    private _bindings;
-    /**
-     * A reference to a renderer module for managing render objects.
-     *
-     * @private
-     * @type {?RenderObjects}
-     * @default null
-     */
-    private _objects;
-    /**
-     * A reference to a renderer module for managing render and compute pipelines.
-     *
-     * @private
-     * @type {?Pipelines}
-     * @default null
-     */
-    private _pipelines;
-    /**
-     * A reference to a renderer module for managing render bundles.
-     *
-     * @private
-     * @type {?RenderBundles}
-     * @default null
-     */
-    private _bundles;
-    /**
-     * A reference to a renderer module for managing render lists.
-     *
-     * @private
-     * @type {?RenderLists}
-     * @default null
-     */
-    private _renderLists;
-    /**
-     * A reference to a renderer module for managing render contexts.
-     *
-     * @private
-     * @type {?RenderContexts}
-     * @default null
-     */
-    private _renderContexts;
-    /**
-     * A reference to a renderer module for managing textures.
-     *
-     * @private
-     * @type {?Textures}
-     * @default null
-     */
-    private _textures;
-    /**
-     * A reference to a renderer module for backgrounds.
-     *
-     * @private
-     * @type {?Background}
-     * @default null
-     */
-    private _background;
-    /**
-     * Cache for the fullscreen quad.
-     * This fullscreen quad is used for internal render passes
-     * like the tone mapping and color space output pass.
-     *
-     * @private
-     * @type {Map<Texture,QuadMesh>}
-     */
-    private _quadCache;
-    /**
-     * A reference to the current render context.
-     *
-     * @private
-     * @type {?RenderContext}
-     * @default null
-     */
-    private _currentRenderContext;
-    /**
-     * A custom sort function for the opaque render list.
-     *
-     * @private
-     * @type {?Function}
-     * @default null
-     */
-    private _opaqueSort;
-    /**
-     * A custom sort function for the transparent render list.
-     *
-     * @private
-     * @type {?Function}
-     * @default null
-     */
-    private _transparentSort;
-    /**
-     * Cache of framebuffer targets per canvas target.
-     *
-     * @private
-     * @type {Map<CanvasTarget, RenderTarget>}
-     */
-    private _frameBufferTargets;
-    /**
-     * The clear color value.
-     *
-     * @private
-     * @type {Color4}
-     */
-    private _clearColor;
-    /**
-     * The clear depth value.
-     *
-     * @private
-     * @type {number}
-     * @default 1
-     */
-    private _clearDepth;
-    /**
-     * The clear stencil value.
-     *
-     * @private
-     * @type {number}
-     * @default 0
-     */
-    private _clearStencil;
-    /**
-     * The current render target.
-     *
-     * @private
-     * @type {?RenderTarget}
-     * @default null
-     */
-    private _renderTarget;
-    /**
-     * The active cube face.
-     *
-     * @private
-     * @type {number}
-     * @default 0
-     */
-    private _activeCubeFace;
-    /**
-     * The active mipmap level.
-     *
-     * @private
-     * @type {number}
-     * @default 0
-     */
-    private _activeMipmapLevel;
-    /**
-     * The current output render target.
-     *
-     * @private
-     * @type {?RenderTarget}
-     * @default null
-     */
-    private _outputRenderTarget;
-    /**
-     * The MRT setting.
-     *
-     * @private
-     * @type {?MRTNode}
-     * @default null
-     */
-    private _mrt;
-    /**
-     * This function defines how a render object is going
-     * to be rendered.
-     *
-     * @private
-     * @type {?Function}
-     * @default null
-     */
-    private _renderObjectFunction;
-    /**
-     * Used to keep track of the current render object function.
-     *
-     * @private
-     * @type {?Function}
-     * @default null
-     */
-    private _currentRenderObjectFunction;
-    /**
-     * Used to keep track of the current render bundle.
-     *
-     * @private
-     * @type {?RenderBundle}
-     * @default null
-     */
-    private _currentRenderBundle;
-    /**
-     * Next to `_renderObjectFunction()`, this function provides another hook
-     * for influencing the render process of a render object. It is meant for internal
-     * use and only relevant for `compileAsync()` right now. Instead of using
-     * the default logic of `_renderObjectDirect()` which actually draws the render object,
-     * a different function might be used which performs no draw but just the node
-     * and pipeline updates.
-     *
-     * @private
-     * @type {Function}
-     */
-    private _handleObjectFunction;
-    /**
-     * Indicates whether the device has been lost or not. In WebGL terms, the device
-     * lost is considered as a context lost. When this is set to `true`, rendering
-     * isn't possible anymore.
-     *
-     * @private
-     * @type {boolean}
-     * @default false
-     */
-    private _isDeviceLost;
-    /**
      * A callback function that defines what should happen when a device/context lost occurs.
      *
      * @type {Function}
      */
     onDeviceLost: (info: DeviceLostInfo) => void;
     /**
-     * Defines the type of output buffers. The default `HalfFloatType` is recommend for
-     * best quality. To save memory and bandwidth, `UnsignedByteType` might be used.
-     * This will reduce rendering quality though.
+     * A callback function that defines what should happen when an uncaptured
+     * backend error is reported (e.g. a WebGPU validation/out-of-memory/internal
+     * error raised outside an error scope). Applications can override this to
+     * surface errors in their own UI without letting them escalate to a device
+     * loss. The default implementation logs to the console.
      *
-     * @private
-     * @type {number}
-     * @default HalfFloatType
+     * @type {Function}
      */
-    private _outputBufferType;
+    onError: (errorMessage: string) => void;
     /**
-     * A cache for shadow nodes per material
+     * When an override material is in use, this property points to the current
+     * source material during the rendering of a render object.
      *
      * @private
-     * @type {WeakMap<Material, Object>}
-     */
-    private _cacheShadowNodes;
-    /**
-     * Whether the renderer has been initialized or not.
-     *
-     * @private
-     * @type {boolean}
-     * @default false
-     */
-    private _initialized;
-    /**
-     * The call depth of the renderer. Counts the number of
-     * nested render calls.
-     *
-     * @private
-     * @type {number}
-     * @default - 1
-     */
-    private _callDepth;
-    /**
-     * A reference to the promise which initializes the renderer.
-     *
-     * @private
-     * @type {?Promise<this>}
+     * @type {?Material}
      * @default null
      */
-    private _initPromise;
-    /**
-     * An array of compilation promises which are used in `compileAsync()`.
-     *
-     * @private
-     * @type {?Array<Promise>}
-     * @default null
-     */
-    private _compilationPromises;
+    private _currentSourceMaterial;
     /**
      * Whether the renderer should render transparent render objects or not.
      *
@@ -761,22 +468,6 @@ declare class Renderer {
      */
     getColorBufferType(): TextureDataType;
     /**
-     * Default implementation of the device lost callback.
-     *
-     * @private
-     * @param {Object} info - Information about the context lost.
-     */
-    private _onDeviceLost;
-    /**
-     * Renders the given render bundle.
-     *
-     * @private
-     * @param {Object} bundle - Render bundle data.
-     * @param {Scene} sceneRef - The scene the render bundle belongs to.
-     * @param {LightsNode} lightsNode - The lights node.
-     */
-    private _renderBundle;
-    /**
      * Renders the scene or 3D object with the given camera. This method can only be called
      * if the renderer has been initialized. When using `render()` inside an animation loop,
      * it's guaranteed the renderer will be initialized. The animation loop must be defined
@@ -799,33 +490,6 @@ declare class Renderer {
      * @return {boolean} Whether the renderer has been initialized or not.
      */
     get initialized(): boolean;
-    /**
-     * Returns an internal render target which is used when computing the output tone mapping
-     * and color space conversion. Unlike in `WebGLRenderer`, this is done in a separate render
-     * pass and not inline to achieve more correct results.
-     *
-     * @private
-     * @return {?RenderTarget} The render target. The method returns `null` if no output conversion should be applied.
-     */
-    private _getFrameBufferTarget;
-    /**
-     * Renders the scene or 3D object with the given camera.
-     *
-     * @private
-     * @param {Object3D} scene - The scene or 3D object to render.
-     * @param {Camera} camera - The camera to render the scene with.
-     * @param {boolean} [useFrameBufferTarget=true] - Whether to use a framebuffer target or not.
-     * @return {RenderContext} The current render context.
-     */
-    private _renderScene;
-    _setXRLayerSize(width: number, height: number): void;
-    /**
-     * The output pass performs tone mapping and color space conversion.
-     *
-     * @private
-     * @param {RenderTarget} renderTarget - The current render target.
-     */
-    private _renderOutput;
     /**
      * Returns the maximum available anisotropy for texture filtering.
      *
@@ -1011,7 +675,7 @@ declare class Renderer {
      * @param {Color} target - The method writes the result in this target object.
      * @return {Color} The clear color.
      */
-    getClearColor(target: Color4): Color4;
+    getClearColor(target: Color): Color;
     /**
      * Defines the clear color and optionally the clear alpha.
      *
@@ -1208,12 +872,6 @@ declare class Renderer {
      */
     getCanvasTarget(): CanvasTarget;
     /**
-     * Resets the renderer to the initial state before WebXR started.
-     *
-     * @private
-     */
-    private _resetXRState;
-    /**
      * Callback for {@link Renderer#setRenderObjectFunction}.
      *
      * @callback renderObjectFunction
@@ -1398,58 +1056,6 @@ declare class Renderer {
         faceIndex?: number,
     ): Promise<TypedArray>;
     /**
-     * Analyzes the given 3D object's hierarchy and builds render lists from the
-     * processed hierarchy.
-     *
-     * @private
-     * @param {Object3D} object - The 3D object to process (usually a scene).
-     * @param {Camera} camera - The camera the object is rendered with.
-     * @param {number} groupOrder - The group order is derived from the `renderOrder` of groups and is used to group 3D objects within groups.
-     * @param {RenderList} renderList - The current render list.
-     * @param {ClippingContext} clippingContext - The current clipping context.
-     */
-    private _projectObject;
-    /**
-     * Renders the given render bundles.
-     *
-     * @private
-     * @param {Array<Object>} bundles - Array with render bundle data.
-     * @param {Scene} sceneRef - The scene the render bundles belong to.
-     * @param {LightsNode} lightsNode - The current lights node.
-     */
-    private _renderBundles;
-    /**
-     * Renders the transparent objects from the given render lists.
-     *
-     * @private
-     * @param {Array<Object>} renderList - The transparent render list.
-     * @param {Array<Object>} doublePassList - The list of transparent objects which require a double pass (e.g. because of transmission).
-     * @param {Camera} camera - The camera the render list should be rendered with.
-     * @param {Scene} scene - The scene the render list belongs to.
-     * @param {LightsNode} lightsNode - The current lights node.
-     */
-    private _renderTransparents;
-    /**
-     * Renders the objects from the given render list.
-     *
-     * @private
-     * @param {Array<Object>} renderList - The render list.
-     * @param {Camera} camera - The camera the render list should be rendered with.
-     * @param {Scene} scene - The scene the render list belongs to.
-     * @param {LightsNode} lightsNode - The current lights node.
-     * @param {?string} [passId=null] - An optional ID for identifying the pass.
-     */
-    private _renderObjects;
-    /**
-     * Retrieves shadow nodes for the given material. This is used to setup shadow passes.
-     * The result is cached per material and updated when the material's version changes.
-     *
-     * @private
-     * @param {Material} material
-     * @returns {Object} - The shadow nodes for the material.
-     */
-    private _getShadowNodes;
-    /**
      * This method represents the default render object function that manages the render lifecycle
      * of the object.
      *
@@ -1481,36 +1087,6 @@ declare class Renderer {
      * @return {boolean} Whether the compatibility is supported or not.
      */
     hasCompatibility(name: string): boolean;
-    /**
-     * This method represents the default `_handleObjectFunction` implementation which creates
-     * a render object from the given data and performs the draw command with the selected backend.
-     *
-     * @private
-     * @param {Object3D} object - The 3D object.
-     * @param {Material} material - The object's material.
-     * @param {Scene} scene - The scene the 3D object belongs to.
-     * @param {Camera} camera - The camera the object should be rendered with.
-     * @param {LightsNode} lightsNode - The current lights node.
-     * @param {?{start: number, count: number}} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
-     * @param {ClippingContext} clippingContext - The clipping context.
-     * @param {string} [passId] - An optional ID for identifying the pass.
-     */
-    private _renderObjectDirect;
-    /**
-     * A different implementation for `_handleObjectFunction` which only makes sure the object is ready for rendering.
-     * Used in `compileAsync()`.
-     *
-     * @private
-     * @param {Object3D} object - The 3D object.
-     * @param {Material} material - The object's material.
-     * @param {Scene} scene - The scene the 3D object belongs to.
-     * @param {Camera} camera - The camera the object should be rendered with.
-     * @param {LightsNode} lightsNode - The current lights node.
-     * @param {?{start: number, count: number}} group - Only relevant for objects using multiple materials. This represents a group entry from the respective `BufferGeometry`.
-     * @param {ClippingContext} clippingContext - The clipping context.
-     * @param {string} [passId] - An optional ID for identifying the pass.
-     */
-    private _createObjectPipeline;
     /**
      * Alias for `compileAsync()`.
      *

@@ -123,6 +123,13 @@ declare module "node:quic" {
          */
         maxDatagramFrameSize?: bigint | number | undefined;
     }
+    interface SNIEntry {
+        keys: KeyObject | readonly KeyObject[];
+        certs: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView>;
+        ca?: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView> | undefined;
+        crl?: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView> | undefined;
+        verifyPrivateKey?: boolean | undefined;
+    }
     /**
      * @since v23.8.0
      */
@@ -133,12 +140,25 @@ declare module "node:quic" {
          */
         endpoint?: EndpointOptions | QuicEndpoint | undefined;
         /**
-         * The ALPN protocol identifier.
-         * @since v23.8.0
+         * The ALPN (Application-Layer Protocol Negotiation) identifier(s).
+         *
+         * For **client** sessions, this is a single string specifying the protocol
+         * the client wants to use (e.g. `'h3'`).
+         *
+         * For **server** sessions, this is an array of protocol names in preference
+         * order that the server supports (e.g. `['h3', 'h3-29']`). During the TLS
+         * handshake, the server selects the first protocol from its list that the
+         * client also supports.
+         *
+         * The negotiated ALPN determines which Application implementation is used
+         * for the session. `'h3'` and `'h3-*'` variants select the HTTP/3
+         * application; all other values select the default application.
+         * @since v26.1.0
          */
-        alpn?: string | undefined;
+        alpn?: string | readonly string[] | undefined;
         /**
-         * The CA certificates to use for sessions.
+         * The CA certificates to use for client sessions. For server sessions, CA
+         * certificates are specified per-identity in the `sessionOptions.sni` map.
          * @since v23.8.0
          */
         ca?: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView> | undefined;
@@ -151,7 +171,8 @@ declare module "node:quic" {
          */
         cc?: `${constants.cc}` | undefined;
         /**
-         * The TLS certificates to use for sessions.
+         * The TLS certificates to use for client sessions. For server sessions,
+         * certificates are specified per-identity in the `sessionOptions.sni` map.
          * @since v23.8.0
          */
         certs?: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView> | undefined;
@@ -161,7 +182,8 @@ declare module "node:quic" {
          */
         ciphers?: string | undefined;
         /**
-         * The CRL to use for sessions.
+         * The CRL to use for client sessions. For server sessions, CRLs are specified
+         * per-identity in the `sessionOptions.sni` map.
          * @since v23.8.0
          */
         crl?: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView> | undefined;
@@ -176,7 +198,8 @@ declare module "node:quic" {
          */
         keylog?: boolean | undefined;
         /**
-         * The TLS crypto keys to use for sessions.
+         * The TLS crypto keys to use for client sessions. For server sessions,
+         * keys are specified per-identity in the `sessionOptions.sni` map.
          * @since v23.8.0
          */
         keys?: KeyObject | readonly KeyObject[] | undefined;
@@ -224,10 +247,37 @@ declare module "node:quic" {
          */
         handshakeTimeout?: bigint | number | undefined;
         /**
-         * The peer server name to target.
-         * @since v23.8.0
+         * The peer server name to target (SNI). Defaults to `'localhost'`.
+         * @since v26.1.0
          */
-        sni?: string | undefined;
+        servername?: string | undefined;
+        /**
+         * An object mapping host names to TLS identity options for Server Name
+         * Indication (SNI) support. This is required for server sessions. The
+         * special key `'*'` specifies the default/fallback identity used when
+         * no other host name matches. Each entry may contain:
+         *
+         * ```js
+         * const endpoint = await listen(callback, {
+         *   sni: {
+         *     '*': { keys: [defaultKey], certs: [defaultCert] },
+         *     'api.example.com': { keys: [apiKey], certs: [apiCert] },
+         *     'www.example.com': { keys: [wwwKey], certs: [wwwCert], ca: [customCA] },
+         *   },
+         * });
+         * ```
+         *
+         * Shared TLS options (such as `ciphers`, `groups`, `keylog`, and `verifyClient`)
+         * are specified at the top level of the session options and apply to all
+         * identities. Each SNI entry overrides only the per-identity certificate
+         * fields.
+         *
+         * The SNI map can be replaced at runtime using `endpoint.setSNIContexts()`,
+         * which atomically swaps the map for new sessions while existing sessions
+         * continue to use their original identity.
+         * @since v26.1.0
+         */
+        sni?: Record<string, SNIEntry> | undefined;
         /**
          * True to enable TLS tracing output.
          * @since v23.8.0
@@ -249,7 +299,9 @@ declare module "node:quic" {
          */
         verifyClient?: boolean | undefined;
         /**
-         * True to require private key verification.
+         * True to require private key verification for client sessions. For server
+         * sessions, this option is specified per-identity in the
+         * `sessionOptions.sni` map.
          * @since v23.8.0
          */
         verifyPrivateKey?: boolean | undefined;
@@ -406,6 +458,9 @@ declare module "node:quic" {
          */
         validateAddress?: boolean | undefined;
     }
+    interface SetSNIContextsOptions {
+        replace?: boolean | undefined;
+    }
     /**
      * A `QuicEndpoint` encapsulates the local UDP-port binding for QUIC. It can be
      * used as both a client and a server.
@@ -468,6 +523,32 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         readonly destroyed: boolean;
+        /**
+         * True if the endpoint is actively listening for incoming connections. Read only.
+         * @since v26.1.0
+         */
+        readonly listening: boolean;
+        /**
+         * Replaces or updates the SNI TLS contexts for this endpoint. This allows
+         * changing the TLS identity (key/certificate) used for specific host names
+         * without restarting the endpoint. Existing sessions are unaffected — only
+         * new sessions will use the updated contexts.
+         *
+         * ```js
+         * endpoint.setSNIContexts({
+         *   'api.example.com': { keys: [newApiKey], certs: [newApiCert] },
+         * });
+         *
+         * // Replace the entire SNI map
+         * endpoint.setSNIContexts({
+         *   'api.example.com': { keys: [newApiKey], certs: [newApiCert] },
+         * }, { replace: true });
+         * ```
+         * @since v26.1.0
+         * @param entries An object mapping host names to TLS identity options.
+         * Each entry must include `keys` and `certs`.
+         */
+        setSNIContexts(entries: Record<string, SNIEntry>, options?: SetSNIContextsOptions): void;
         /**
          * The statistics collected for an active session. Read only.
          * @since v23.8.0

@@ -103,6 +103,10 @@ console.log(
 console.log(
     util.styleText("yellow", "text", { stream: process.stdout }),
 );
+// 6-digit hex color
+console.log(util.styleText("#ff5733", "Orange text"));
+// 3-digit hex color (shorthand)
+console.log(util.styleText("#f00", "Red text"));
 
 // util.callbackify
 class callbackifyTest {

@@ -413,6 +413,21 @@ declare module "node:v8" {
         [Symbol.dispose](): void;
     }
     /**
+     * @since v26.1.0
+     */
+    interface SyncHeapProfileHandle {
+        /**
+         * Stopping collecting the profile and return the profile data.
+         * @since v26.1.0
+         */
+        stop(): string;
+        /**
+         * Stopping collecting the profile and the profile will be discarded.
+         * @since v26.1.0
+         */
+        [Symbol.dispose](): void;
+    }
+    /**
      * @since v24.8.0
      */
     interface CPUProfileHandle {
@@ -444,18 +459,85 @@ declare module "node:v8" {
          */
         [Symbol.asyncDispose](): Promise<void>;
     }
+    interface CPUProfileOptions {
+        /**
+         * Requested sampling interval in milliseconds. **Default:** `0`.
+         */
+        sampleInterval?: number | undefined;
+        /**
+         * Maximum number of samples to keep before older
+         * entries are discarded. **Default:** `4294967295`.
+         */
+        maxBufferSize?: number | undefined;
+    }
     /**
      * Starting a CPU profile then return a `SyncCPUProfileHandle` object.
      * This API supports `using` syntax.
      *
      * ```js
-     * const handle = v8.startCpuProfile();
+     * const handle = v8.startCpuProfile({ sampleInterval: 1, maxBufferSize: 10_000 });
      * const profile = handle.stop();
      * console.log(profile);
      * ```
      * @since v25.0.0
      */
-    function startCpuProfile(): SyncCPUProfileHandle;
+    function startCpuProfile(options?: CPUProfileOptions): SyncCPUProfileHandle;
+    interface HeapProfileOptions {
+        /**
+         * The average sampling interval in bytes.
+         * **Default:** `524288` (512 KiB).
+         */
+        sampleInterval?: number | undefined;
+        /**
+         * The maximum stack depth for samples.
+         * **Default:** `16`.
+         */
+        stackDepth?: number | undefined;
+        /**
+         * Force garbage collection before taking the profile.
+         * **Default:** `false`.
+         */
+        forceGC?: boolean | undefined;
+        /**
+         * Include objects collected
+         * by major GC. **Default:** `false`.
+         */
+        includeObjectsCollectedByMajorGC?: boolean | undefined;
+        /**
+         * Include objects collected
+         * by minor GC. **Default:** `false`.
+         */
+        includeObjectsCollectedByMinorGC?: boolean | undefined;
+    }
+    /**
+     * Starting a heap profile then return a `SyncHeapProfileHandle` object.
+     * This API supports `using` syntax.
+     *
+     * ```js
+     * import v8 from 'node:v8';
+     *
+     * const handle = v8.startHeapProfile();
+     * const profile = handle.stop();
+     * console.log(profile);
+     * ```
+     *
+     * With custom parameters:
+     *
+     * ```js
+     * import v8 from 'node:v8';
+     *
+     * const handle = v8.startHeapProfile({
+     *   sampleInterval: 1024,
+     *   stackDepth: 8,
+     *   forceGC: true,
+     *   includeObjectsCollectedByMajorGC: true,
+     * });
+     * const profile = handle.stop();
+     * console.log(profile);
+     * ```
+     * @since v26.1.0
+     */
+    function startHeapProfile(options?: HeapProfileOptions): SyncHeapProfileHandle;
     /**
      * V8 only supports `Latin-1/ISO-8859-1` and `UTF16` as the underlying representation of a string.
      * If the `content` uses `Latin-1/ISO-8859-1` as the underlying representation, this function will return true;

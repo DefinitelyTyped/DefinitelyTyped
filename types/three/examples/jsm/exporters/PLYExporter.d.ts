@@ -1,8 +1,9 @@
 import { Object3D } from "three";
 
 export interface PLYExporterOptionsBase {
-    excludeAttributes?: string[];
-    littleEndian?: boolean;
+    excludeAttributes?: string[] | undefined;
+    littleEndian?: boolean | undefined;
+    customPropertyMapping?: Record<string, string[]>;
 }
 
 export interface PLYExporterOptionsBinary extends PLYExporterOptionsBase {
@@ -10,11 +11,11 @@ export interface PLYExporterOptionsBinary extends PLYExporterOptionsBase {
 }
 
 export interface PLYExporterOptionsString extends PLYExporterOptionsBase {
-    binary?: false;
+    binary?: false | undefined;
 }
 
 export interface PLYExporterOptions extends PLYExporterOptionsBase {
-    binary?: boolean;
+    binary?: boolean | undefined;
 }
 
 export class PLYExporter {

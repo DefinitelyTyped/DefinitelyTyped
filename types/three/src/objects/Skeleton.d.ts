@@ -63,8 +63,6 @@ export class Skeleton {
      */
     boneMatrices: Float32Array | null;
 
-    previousBoneMatrices: Float32Array | null;
-
     /**
      * The {@link THREE.DataTexture | DataTexture} holding the bone data when using a vertex texture.
      */

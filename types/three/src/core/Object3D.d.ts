@@ -669,11 +669,15 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     updateMatrixWorld(force?: boolean): void;
 
     /**
-     * Updates the global transform of the object.
-     * @param updateParents Recursively updates global transform of ancestors.
-     * @param updateChildren Recursively updates global transform of descendants.
+     * An alternative version of {@link Object3D#updateMatrixWorld} with more control over the
+     * update of ancestor and descendant nodes.
+     *
+     * @param {boolean} [updateParents=false] Whether ancestor nodes should be updated or not.
+     * @param {boolean} [updateChildren=false] Whether descendant nodes should be updated or not.
+     * @param {boolean} [force=false] - When set to `true`, a recomputation of world matrices is forced even
+     * when {@link Object3D#matrixWorldNeedsUpdate} is `false`.
      */
-    updateWorldMatrix(updateParents: boolean, updateChildren: boolean): void;
+    updateWorldMatrix(updateParents: boolean, updateChildren: boolean, force?: boolean): void;
 
     /**
      * Convert the object to three.js {@link https://github.com/mrdoob/three.js/wiki/JSON-Object-Scene-format-4 | JSON Object/Scene format}.

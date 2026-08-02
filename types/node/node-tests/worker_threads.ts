@@ -82,6 +82,13 @@ import { createContext } from "node:vm";
     w.startHeapProfile().then(handle => {
         handle.stop().then(JSON.parse);
     });
+    w.startHeapProfile({
+        sampleInterval: 1048576,
+        stackDepth: 32,
+        forceGC: true,
+    }).then(handle => {
+        handle.stop().then(JSON.parse);
+    });
     w.terminate().then(() => {
         // woot
     });

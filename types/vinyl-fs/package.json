@@ -12,7 +12,7 @@
     },
     "devDependencies": {
         "@types/gulp": "*",
-        "@types/through2": "*",
+        "@types/through2": "<5",
         "@types/vinyl-fs": "workspace:."
     },
     "owners": [

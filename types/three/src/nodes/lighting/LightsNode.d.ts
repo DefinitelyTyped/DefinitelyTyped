@@ -18,13 +18,13 @@ export interface DirectRectAreaLightData {
 }
 
 declare class LightsNode extends Node {
-    totalDiffuseNode: Node;
-    totalSpecularNode: Node;
-    outgoingLightNode: Node;
+    totalDiffuseNode: Node<"vec3">;
+    totalSpecularNode: Node<"vec3">;
+    outgoingLightNode: Node<"vec3">;
 
     constructor();
 
-    setupLightsNode(builder: NodeBuilder): void;
+    setupLightsNode(builder: NodeBuilder): LightingNode[];
 
     setupDirectLight(builder: NodeBuilder, lightNode: Node, lightData: DirectLightData): void;
 

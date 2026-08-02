@@ -34,6 +34,7 @@ declare module "node:process" {
         "node:domain": typeof import("node:domain");
         "events": typeof import("events");
         "node:events": typeof import("node:events");
+        "node:ffi": typeof import("node:ffi");
         "fs": typeof import("fs");
         "node:fs": typeof import("node:fs");
         "fs/promises": typeof import("fs/promises");
@@ -2130,7 +2131,19 @@ declare module "node:process" {
                  * All other resources are discarded by the system when the processes are swapped, without triggering
                  * any exit or close events and without running any cleanup handler.
                  *
-                 * This function will never return, unless an error occurred.
+                 * On success, all other resources are discarded by the system when the
+                 * processes are swapped, without triggering any exit or close events, without
+                 * running any JavaScript cleanup handler (for example `process.on('exit')`),
+                 * and without invoking native `AtExit` callbacks registered through the
+                 * embedder API. Callers that need to run cleanup logic should do so before
+                 * calling `process.execve()`.
+                 *
+                 * This function does not return on success. If the underlying `execve(2)`
+                 * system call fails, an `Error` is thrown whose `code` property is set to the
+                 * corresponding `errno` string (for example, `'ENOENT'` when `file` does not
+                 * exist), with `syscall` set to `'execve'` and `path` set to `file`. When
+                 * `execve(2)` fails the current process continues to run with its state
+                 * unchanged, so a caller may handle the error and take another action.
                  *
                  * This function is not available on Windows or IBM i.
                  * @since v22.15.0

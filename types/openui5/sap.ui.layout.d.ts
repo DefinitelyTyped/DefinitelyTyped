@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.150.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -3765,8 +3765,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
   /**
    * Describes the settings that can be provided to the GridResponsiveLayout constructor.
    */
-  export interface $GridResponsiveLayoutSettings
-    extends $GridLayoutBaseSettings {
+  export interface $GridResponsiveLayoutSettings extends $GridLayoutBaseSettings {
     /**
      * If set to `true`, the current range (large, medium or small) is defined by the size of the container
      * surrounding the `CSSGrid` instead of the device screen size (media Query).
@@ -4343,8 +4342,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
   /**
    * Describes the settings that can be provided to the ResponsiveColumnItemLayoutData constructor.
    */
-  export interface $ResponsiveColumnItemLayoutDataSettings
-    extends $LayoutDataSettings {
+  export interface $ResponsiveColumnItemLayoutDataSettings extends $LayoutDataSettings {
     /**
      * Specifies the number of columns, which the item should take.
      */
@@ -4539,8 +4537,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
   /**
    * Describes the settings that can be provided to the ResponsiveColumnLayout constructor.
    */
-  export interface $ResponsiveColumnLayoutSettings
-    extends $GridLayoutBaseSettings {
+  export interface $ResponsiveColumnLayoutSettings extends $GridLayoutBaseSettings {
     /**
      * Fired when the currently active layout changes
      */
@@ -13849,8 +13846,7 @@ declare module "sap/ui/layout/ResponsiveFlowLayoutData" {
   /**
    * Describes the settings that can be provided to the ResponsiveFlowLayoutData constructor.
    */
-  export interface $ResponsiveFlowLayoutDataSettings
-    extends $LayoutDataSettings {
+  export interface $ResponsiveFlowLayoutDataSettings extends $LayoutDataSettings {
     /**
      * Defines the minimal size in px of a ResponsiveFlowLayout element. The element will be shrunk down to
      * this value.

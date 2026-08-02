@@ -16,6 +16,6 @@ script.fail(new Error("*")); // $ExpectType void
 script.copyChildrenViewPermissions(-1); // $ExpectType number
 
 function getVersion(): string {
-    return "86.0.1";
+    return "87.0.1";
 }
 getVersion(); // $ExpectType string

@@ -158,6 +158,13 @@ declare module "node:sqlite" {
          */
         onConflict?: ((conflictType: number) => number) | undefined;
     }
+    interface DeserializeOptions {
+        /**
+         * Name of the database to deserialize into.
+         * @default 'main'
+         */
+        dbName?: string | undefined;
+    }
     interface FunctionOptions {
         /**
          * If `true`, the [`SQLITE_DETERMINISTIC`](https://www.sqlite.org/c3ref/c_deterministic.html) flag is
@@ -445,6 +452,54 @@ declare module "node:sqlite" {
          * @since v22.5.0
          */
         open(): void;
+        /**
+         * Serializes the database into a binary representation, returned as a
+         * `Uint8Array`. This is useful for saving, cloning, or transferring an in-memory
+         * database. This method is a wrapper around [`sqlite3_serialize()`](https://sqlite.org/c3ref/serialize.html).
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const db = new DatabaseSync(':memory:');
+         * db.exec('CREATE TABLE t(key INTEGER PRIMARY KEY, value TEXT)');
+         * db.exec("INSERT INTO t VALUES (1, 'hello')");
+         * const buffer = db.serialize();
+         * console.log(buffer.length); // Prints the byte length of the database
+         * ```
+         * @since v26.1.0
+         * @param dbName Name of the database to serialize. This can be `'main'`
+         * (the default primary database) or any other database that has been added with
+         * [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html). **Default:** `'main'`.
+         * @returns A binary representation of the database.
+         */
+        serialize(dbName?: string): NodeJS.NonSharedUint8Array;
+        /**
+         * Loads a serialized database into this connection, replacing the current
+         * database. The deserialized database is writable. Existing prepared statements
+         * are finalized before deserialization is attempted, even if the operation
+         * subsequently fails. This method is a wrapper around
+         * [`sqlite3_deserialize()`](https://sqlite.org/c3ref/deserialize.html).
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const original = new DatabaseSync(':memory:');
+         * original.exec('CREATE TABLE t(key INTEGER PRIMARY KEY, value TEXT)');
+         * original.exec("INSERT INTO t VALUES (1, 'hello')");
+         * const buffer = original.serialize();
+         * original.close();
+         *
+         * const clone = new DatabaseSync(':memory:');
+         * clone.deserialize(buffer);
+         * console.log(clone.prepare('SELECT value FROM t').get());
+         * // Prints: { value: 'hello' }
+         * ```
+         * @since v26.1.0
+         * @param buffer A binary representation of a database, such as the
+         * output of `database.serialize()`.
+         * @param options Optional configuration for the deserialization.
+         */
+        deserialize(buffer: Uint8Array, options?: DeserializeOptions): void;
         /**
          * Compiles a SQL statement into a [prepared statement](https://www.sqlite.org/c3ref/stmt.html). This method is a wrapper
          * around [`sqlite3_prepare_v2()`](https://www.sqlite.org/c3ref/prepare.html).

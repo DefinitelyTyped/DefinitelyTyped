@@ -47,32 +47,29 @@ type StorageBufferNode<TNodeType> =
 
 export default StorageBufferNode;
 
+type StorageNodeType =
+    | "float"
+    | "uint"
+    | "int"
+    | "vec2"
+    | "uvec2"
+    | "ivec2"
+    | "vec3"
+    | "uvec3"
+    | "ivec3"
+    | "vec4"
+    | "uvec4"
+    | "ivec4"
+    | "mat2"
+    | "mat3"
+    | "mat4";
+
 interface Storage {
-    (
+    <const TNodeType extends StorageNodeType>(
         value: StorageBufferAttribute | StorageInstancedBufferAttribute | BufferAttribute,
-        type: "float",
+        type: TNodeType,
         count: number,
-    ): StorageBufferNode<"float">;
-    (
-        value: StorageBufferAttribute | StorageInstancedBufferAttribute | BufferAttribute,
-        type: "uint",
-        count: number,
-    ): StorageBufferNode<"uint">;
-    (
-        value: StorageBufferAttribute | StorageInstancedBufferAttribute | BufferAttribute,
-        type: "vec2",
-        count: number,
-    ): StorageBufferNode<"vec2">;
-    (
-        value: StorageBufferAttribute | StorageInstancedBufferAttribute | BufferAttribute,
-        type: "vec3",
-        count: number,
-    ): StorageBufferNode<"vec3">;
-    (
-        value: StorageBufferAttribute | StorageInstancedBufferAttribute | BufferAttribute,
-        type: "vec4",
-        count: number,
-    ): StorageBufferNode<"vec4">;
+    ): StorageBufferNode<TNodeType>;
     (
         value: StorageBufferAttribute | StorageInstancedBufferAttribute | BufferAttribute,
         type: Struct,
@@ -81,3 +78,5 @@ interface Storage {
 }
 
 export const storage: Storage;
+
+export {};

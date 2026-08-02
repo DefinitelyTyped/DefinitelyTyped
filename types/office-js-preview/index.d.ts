@@ -910,7 +910,7 @@ declare namespace Office {
          */
         Project,
         /**
-         * The Office application is Microsoft Access.
+         * The Office application is Microsoft Access. Warning: Microsoft Access is no longer supported.
          * 
          * @deprecated Microsoft Access is no longer supported.
          */
@@ -3329,10 +3329,8 @@ declare namespace Office {
         /**
          * Shows the task pane associated with the add-in.
          * @returns A promise that is resolved when the UI is shown.
-         * 
+         *
          * @remarks
-         * This method applies only to centrally deployed or sideloaded add-ins. For add-ins published in the Microsoft Marketplace, the method is ignored and the task pane doesn't open.
-         * 
          * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/shared-runtime-requirement-sets | SharedRuntime 1.1}
          */
         showAsTaskpane(): Promise<void>;
@@ -10822,7 +10820,7 @@ declare namespace Office {
          * Specifies the status of Exchange Web Services (EWS) callback tokens or REST API tokens in an organization.
          *
          * @remarks
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
@@ -10830,8 +10828,6 @@ declare namespace Office {
          * If an Outlook add-in requires delegated user access or user identity, we recommend using MSAL (Microsoft Authentication Library) and nested app authentication (NAA).
          * Exchange user identity tokens are still supported for Exchange on-premises. For more information, see
          * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/faq-nested-app-auth-outlook-legacy-tokens | Nested app authentication FAQ}.
-         *
-         * @beta
          */
         enum TokenStatus {
             /**
@@ -10886,6 +10882,52 @@ declare namespace Office {
          * The desired data format.
          */
         coercionType?: Office.CoercionType | string;
+    }
+    /**
+     * Represents access controls that specify whether the decrypted contents of a message can be copied and pasted, printed, or saved.
+     *
+     * @remarks
+     * [Api set: Mailbox preview]
+     *
+     * @beta
+     */
+    interface AccessControls {
+        /**
+         * If true, specifies that the decrypted contents of a message can be copied and pasted.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * **Important**:
+         *
+         * - In Outlook on the web, setting the `allowCopyPaste` property to `false` also prevents users from capturing their screen
+         * in the form of screenshots or recordings. The screen capture policy remains in effect until the user reloads the Outlook browser tab.
+         *
+         * - In Outlook on the web and the new Outlook on Windows, setting the `allowCopyPaste` property to `true` allows the user to copy content by
+         * selecting **Copy** from the context menu or pressing `Ctrl+C`. However, if another access control is set to `false`, the context menu becomes unavailable.
+         * The user must use `Ctrl+C` instead.
+         *
+         * @beta
+         */
+        allowCopyPaste?: boolean;
+        /**
+         * If true, specifies that the decrypted contents of a message can be printed.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * @beta
+         */
+        allowPrint?: boolean;
+        /**
+         * If true, specifies that the decrypted contents of a message can be saved.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * @beta
+         */
+        allowSave?: boolean;
     }
     /**
      * The subclass of {@link Office.Item | Item} dealing with appointments.
@@ -11151,7 +11193,8 @@ declare namespace Office {
         /**
          * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
          *
-         * **Important**: The entire SessionData object is limited to 50,000 characters per add-in.
+         * **Important**: In Outlook clients that support Mailbox 1.15 or earlier, the entire SessionData object for each mail item is limited to 50,000 characters per add-in.
+         * In clients that support Mailbox 1.16 or later, the character limit per add-in is 2,621,440 characters.
          *
          * @remarks
          * [Api set: Mailbox 1.11]
@@ -11929,7 +11972,7 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
          *
-         * *Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
+         * **Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          *
@@ -11963,7 +12006,7 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
          *
-         * *Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
+         * **Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          *
@@ -12564,13 +12607,13 @@ declare namespace Office {
          * The `optionalAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
          * each optional attendee to the meeting. The maximum number of attendees returned varies per Outlook client.
          *
-         * - Windows (new and classic): 500 attendees
+         * - Windows (classic - Mailbox 1.15 and earlier): 500 attendees
          *
-         * - Windows (classic - in preview starting in Version 2511 (Build 19426.20000)): 1,000 attendees
+         * - Web, Windows (new, classic - Mailbox 1.16 and later): 1,000 recipients
          *
          * - Android, classic Mac UI, iOS: 100 attendees
          *
-         * - New Mac UI, web browser: No limit
+         * - New Mac UI: No limit
          *
          * @remarks
          *
@@ -12614,13 +12657,13 @@ declare namespace Office {
          * The `requiredAttendees` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
          * each required attendee to the meeting. The maximum number of attendees returned varies per Outlook client.
          *
-         * - Windows (new and classic): 500 attendees
+         * - Windows (classic - Mailbox 1.15 and earlier): 500 attendees
          *
-         * - Windows (classic - in preview starting in Version 2511 (Build 19426.20000)): 1,000 recipients
+         * - Web, Windows (new, classic - Mailbox 1.16 and later): 1,000 recipients
          *
          * - Android, classic Mac UI, iOS: 100 attendees
          *
-         * - New Mac UI, web browser: No limit
+         * - New Mac UI: No limit
          *
          * @remarks
          *
@@ -13414,18 +13457,15 @@ declare namespace Office {
          * Gets the content identifier of an inline attachment.
          *
          * @remarks
+         * [Api set: Mailbox 1.16]
          *
-         * **Important**:
-         *
-         * - The `contentId` property is only supported in Outlook on the web, the new Outlook on Windows, and classic Outlook on Windows (preview).
-         * To preview the `contentId` property in classic Outlook on Windows, your Outlook client must run Version 2510 (Build 19312.20000)
-         * or later and must be on the Beta Channel. For more information, see {@link https://aka.ms/Msft365InsiderProgram | Microsoft 365 Insider Program}.
-         *
-         * - Changes to how inline images are represented in the HTML body of Outlook emails in Outlook on the web and the new Outlook on Windows released on November 15, 2025.
+         * **Important**: Changes to how inline images are represented in the HTML body of Outlook emails in
+         * Outlook on the web and the new Outlook on Windows released on November 15, 2025.
          * Previously, the attachment ID of the image appeared in the `src` attribute of the applicable `<img>` element.
          * Now, the image is represented by a content ID (`cid`) in the `src` attribute instead.
-         * If you parse the attachment ID from the HTML editor or get the Base64-encoded value of the image from the URL in the `src` attribute, you must update your add-in's parsing logic.
-         * For more information, see {@link https://devblogs.microsoft.com/microsoft365dev/changes-to-inline-images-in-outlook | Changes to inline image representation in Outlook on the web and new Outlook for Windows}.
+         * If you parse the attachment ID from the HTML editor or get the Base64-encoded value of the image from the URL in the
+         * `src` attribute, you must update your add-in's parsing logic. For more information, see
+         * {@link https://devblogs.microsoft.com/microsoft365dev/changes-to-inline-images-in-outlook | Changes to inline image representation in Outlook on the web and new Outlook for Windows}.
          */
         contentId: string;
         /**
@@ -13517,18 +13557,15 @@ declare namespace Office {
          * Gets the content identifier of an inline attachment.
          *
          * @remarks
+         * [Api set: Mailbox 1.16]
          *
-         * **Important**:
-         *
-         * - The `contentId` property is only supported in Outlook on the web, the new Outlook on Windows, and classic Outlook on Windows (preview).
-         * To preview the `contentId` property in classic Outlook on Windows, your Outlook client must run Version 2510 (Build 19312.20000)
-         * or later and must be on the Beta Channel. For more information, see {@link https://aka.ms/Msft365InsiderProgram | Microsoft 365 Insider Program}.
-         *
-         * - Changes to how inline images are represented in the HTML body of Outlook emails in Outlook on the web and the new Outlook on Windows released on November 15, 2025.
+         * **Important**: Changes to how inline images are represented in the HTML body of Outlook emails in
+         * Outlook on the web and the new Outlook on Windows released on November 15, 2025.
          * Previously, the attachment ID of the image appeared in the `src` attribute of the applicable `<img>` element.
          * Now, the image is represented by a content ID (`cid`) in the `src` attribute instead.
-         * If you parse the attachment ID from the HTML editor or get the Base64-encoded value of the image from the URL in the `src` attribute, you must update your add-in's parsing logic.
-         * For more information, see {@link https://devblogs.microsoft.com/microsoft365dev/changes-to-inline-images-in-outlook | Changes to inline image representation in Outlook on the web and new Outlook for Windows}.
+         * If you parse the attachment ID from the HTML editor or get the Base64-encoded value of the image from the URL in the
+         * `src` attribute, you must update your add-in's parsing logic. For more information, see
+         * {@link https://devblogs.microsoft.com/microsoft365dev/changes-to-inline-images-in-outlook | Changes to inline image representation in Outlook on the web and new Outlook for Windows}.
          */
         contentId: string;
         /**
@@ -13860,8 +13897,8 @@ declare namespace Office {
          * make it render efficiently with its rendering engine. This means that the value returned from a subsequent call to the `Body.getAsync` method
          * (introduced in Mailbox 1.3) won't necessarily contain the exact value that was passed in the previous `prependAsync` call.
          *
-         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
-         * (see the **Examples** section for a sample).
+         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP".
+         * For example, `'<a id="LPNoLP" href="http://www.contoso.com">Click here!</a>'`.
          *
          * - In Outlook on Android and on iOS, this method isn't supported in the Message Compose mode. Only the Appointment Organizer mode is
          * supported. For more information on supported APIs in Outlook mobile, see
@@ -13910,8 +13947,8 @@ declare namespace Office {
          * make it render efficiently with its rendering engine. This means that the value returned from a subsequent call to the `Body.getAsync` method
          * (introduced in Mailbox 1.3) won't necessarily contain the exact value that was passed in the previous `prependAsync` call.
          *
-         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
-         * (see the **Examples** section for a sample).
+         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP".
+         * For example, `'<a id="LPNoLP" href="http://www.contoso.com">Click here!</a>'`.
          *
          * - In Outlook on Android and on iOS, this method isn't supported in the Message Compose mode. Only the Appointment Organizer mode is
          * supported. For more information on supported APIs in Outlook mobile, see
@@ -14050,8 +14087,8 @@ declare namespace Office {
          * be the exact same value that was previously passed in the `Body.setAsync` method. The client may modify the value passed to `setAsync` to make it
          * render efficiently with its rendering engine.
          *
-         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
-         * (see the **Examples** section for a sample).
+         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP".
+         * For example, `'<a id="LPNoLP" href="http://www.contoso.com">Click here!</a>'`.
          *
          * - In Outlook on Windows (classic) and on Mac, the add-in user isn't able to revert this action with the **Undo** command.
          *
@@ -14120,8 +14157,8 @@ declare namespace Office {
          * be the exact same value that was previously passed in the `Body.setAsync` method. The client may modify the value passed to `setAsync` to make it
          * render efficiently with its rendering engine.
          *
-         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
-         * (see the **Examples** section for a sample).
+         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP".
+         * For example, `'<a id="LPNoLP" href="http://www.contoso.com">Click here!</a>'`.
          *
          * - In Outlook on Windows (classic) and on Mac, the add-in user isn't able to revert this action with the **Undo** command.
          *
@@ -14178,8 +14215,8 @@ declare namespace Office {
          *
          * **Important**:
          *
-         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
-         * (see the **Examples** section for a sample).
+         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP".
+         * For example, `'<a id="LPNoLP" href="http://www.contoso.com">Click here!</a>'`.
          *
          * - SVG files aren't supported. Use JPG or PNG files instead.
          *
@@ -14220,8 +14257,8 @@ declare namespace Office {
          *
          * **Important**:
          *
-         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP"
-         * (see the **Examples** section for a sample).
+         * - When including links in HTML markup, you can disable online link preview by setting the `id` attribute on the anchor (\<a\>) to "LPNoLP".
+         * For example, `'<a id="LPNoLP" href="http://www.contoso.com">Click here!</a>'`.
          *
          * - SVG files aren't supported. Use JPG or PNG files instead.
          *
@@ -14748,15 +14785,13 @@ declare namespace Office {
      *
      * @remarks
      *
-     * [Api set: Mailbox preview]
+     * [Api set: Mailbox 1.16]
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
      *
      * To learn how to develop an encryption add-in in Outlook, see {@link https://learn.microsoft.com/office/dev/add-ins/outlook/encryption-decryption | Create an encryption Outlook add-in}.
-     *
-     * @beta
      */
     interface DecryptedMessageAttachment {
         /**
@@ -14764,15 +14799,16 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
          *
-         * **Important**: Attachments of type `MailboxEnums.AttachmentType.Item` aren't currently supported.
-         *
-         * @beta
+         * **Important**: Attachments of type `MailboxEnums.AttachmentType.Item` aren't currently supported in production. However, you can preview support for the `MailboxEnums.AttachmentType.Item` type
+         * in Outlook on the web and on Windows (new and classic). For classic Outlook on Windows, you must install Version 2606 (Build 20114.15110) or later. Then, join the
+         * {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-windows/4401748 | Microsoft 365 Insider program} and select the
+         * **Beta Channel** option to access Office beta builds.
          */
         attachmentType: MailboxEnums.AttachmentType;
         /**
@@ -14780,15 +14816,13 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
          *
          * **Important**: The `content` property isn't supported by attachments of type `MailboxEnums.AttachmentType.Cloud`. 
-         *
-         * @beta
          */
         content: string;
         /**
@@ -14798,7 +14832,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
@@ -14808,8 +14842,6 @@ declare namespace Office {
          * specified in the `src` attribute of the `<img>` element (for example, `<img width=96 height=96 id="Picture_1" src="cid:image001.png@01DC1E6F.FC7C7410">`).
          * To easily identify and provide these inline attachments during decryption, we recommend saving the content IDs of inline attachments to the message header during encryption.
          * Call `Office.context.mailbox.item.getAttachmentsAsync` to get the content ID of an inline attachment. Then, call `Office.context.mailbox.item.internetHeaders.setAsync` to save the ID to the header of the message.
-         *
-         * @beta
          */
         contentId?: string;
         /**
@@ -14818,13 +14850,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * @beta
          */
         isInline?: boolean;
         /**
@@ -14832,13 +14862,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * @beta
          */
         name: string;
         /**
@@ -14847,13 +14875,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * @beta
          */
         path?: string;
     }
@@ -14862,15 +14888,13 @@ declare namespace Office {
      *
      * @remarks
      *
-     * [Api set: Mailbox preview]
+     * [Api set: Mailbox 1.16]
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
      *
      * To learn how to develop an encryption add-in in Outlook, see {@link https://learn.microsoft.com/office/dev/add-ins/outlook/encryption-decryption | Create an encryption Outlook add-in}.
-     *
-     * @beta
      */
     interface DecryptedMessageBody {
         /**
@@ -14879,13 +14903,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * @beta
          */
         coercionType: Office.CoercionType;
         /**
@@ -14893,13 +14915,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * @beta
          */
         content: string;
     }
@@ -15034,22 +15054,16 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
-         * **Important**:
-         *
-         * - The `ews` property is available for preview in Outlook on the web and on Windows (new and classic (Version 2510, Build 19328.20000 and later)).
-         *
-         * - Legacy Exchange Online user identity tokens and callback tokens are no longer supported and are turned off across all Microsoft 365 tenants.
+         * **Important**: Legacy Exchange Online user identity tokens and callback tokens are no longer supported and are turned off across all Microsoft 365 tenants.
          * If an Outlook add-in requires delegated user access or user identity, we recommend using MSAL (Microsoft Authentication Library) and nested app authentication (NAA).
          * Exchange user identity tokens are still supported for Exchange on-premises. For more information, see
          * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/faq-nested-app-auth-outlook-legacy-tokens | Nested app authentication FAQ}.
-         *
-         * @beta
          */
         ews: Ews;
         /**
@@ -15854,7 +15868,7 @@ declare namespace Office {
      *
      * @remarks
      *
-     * [Api set: Mailbox preview]
+     * [Api set: Mailbox 1.16]
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read item**
      *
@@ -15864,8 +15878,6 @@ declare namespace Office {
      * If an Outlook add-in requires delegated user access or user identity, we recommend using MSAL (Microsoft Authentication Library) and nested app authentication (NAA).
      * Exchange user identity tokens are still supported for Exchange on-premises. For more information, see
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/faq-nested-app-auth-outlook-legacy-tokens | Nested app authentication FAQ}.
-     *
-     * @beta
      */
     interface Ews {
         /**
@@ -15873,15 +15885,13 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
          * **Important**:
-         *
-         * - The `getTokenStatusAsync` method is available for preview in Outlook on the web and on Windows (new and classic (Version 2510, Build 19328.20000 and later)).
          *
          * - The `getTokenStatusAsync` method isn't supported if you load an add-in in an Outlook.com or Gmail mailbox.
          *
@@ -15893,8 +15903,6 @@ declare namespace Office {
          *                   The `asyncResult.value` property returns the token status, which can be `Office.MailboxEnums.TokenStatus.Enabled`, `Office.MailboxEnums.TokenStatus.Disabled`, or
          *                   `Office.MailboxEnums.TokenStatus.Removed`. A `Office.MailboxEnums.TokenStatus.Removed` status indicates that the mailbox is hosted in an Exchange Online environment
          *                   where legacy Exchange tokens are turned off and are no longer supported.
-         *
-         * @beta
          */
         getTokenStatusAsync(options: Office.AsyncContextOptions & { isRest?: boolean }, callback: (asyncResult: Office.AsyncResult<MailboxEnums.TokenStatus>) => void): void;
         /**
@@ -15902,15 +15910,13 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
          * **Important**:
-         *
-         * - The `getTokenStatusAsync` method is available for preview in Outlook on the web and on Windows (new and classic (Version 2510, Build 19328.20000 and later)).
          *
          * - The `getTokenStatusAsync` method isn't supported if you load an add-in in an Outlook.com or Gmail mailbox.
          *
@@ -15920,8 +15926,6 @@ declare namespace Office {
          *                   The `asyncResult.value` property returns the token status, which can be `Office.MailboxEnums.TokenStatus.Enabled`, `Office.MailboxEnums.TokenStatus.Disabled`, or
          *                   `Office.MailboxEnums.TokenStatus.Removed`. A `Office.MailboxEnums.TokenStatus.Removed` status indicates that the mailbox is hosted in an Exchange Online environment
          *                   where legacy Exchange tokens are turned off and are no longer supported.
-         *
-         * @beta
          */
         getTokenStatusAsync(callback: (asyncResult: Office.AsyncResult<MailboxEnums.TokenStatus>) => void): void;
     }
@@ -18425,24 +18429,7 @@ declare namespace Office {
         /**
          * Provides diagnostic information to an Outlook add-in.
          *
-         * Contains the following members.
-         *
-         *  - `hostName` (string): A string that represents the name of the Office application.
-         * It should be one of the following values: `Outlook`, `newOutlookWindows`, `OutlookWebApp`, `OutlookIOS`, or `OutlookAndroid`.
-         * **Note**: The "Outlook" value is returned for Outlook on Windows (classic) and on Mac.
-         *
-         *  - `hostVersion` (string): A string that represents the version of either the Office application or the Exchange Server (e.g., "15.0.468.0").
-         * If the mail add-in is running in Outlook on Windows (classic), on Mac, or on mobile devices, the `hostVersion` property returns the version of the
-         * Outlook client. In Outlook on the web and {@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new Outlook on Windows},
-         * the property returns the version of the Exchange Server.
-         *
-         *  - `OWAView` (`MailboxEnums.OWAView` or string): An enum (or string literal) that represents the current view of Outlook on the web.
-         * If the application is not Outlook on the web, then accessing this property results in undefined.
-         * Outlook on the web has three views (`OneColumn` - displayed when the screen is narrow, `TwoColumns` - displayed when the screen is wider,
-         * and `ThreeColumns` - displayed when the screen is wide) that correspond to the width of the screen and the window, and the number of columns
-         * that can be displayed.
-         *
-         * More information is under {@link Office.Diagnostics}.
+         * For information about the diagnostic properties you can access, see {@link Office.Diagnostics}.
          *
          * @remarks
          *
@@ -19531,7 +19518,7 @@ declare namespace Office {
      * {@link https://learn.microsoft.com/office/dev/add-ins/develop/event-based-activation | event-based activation}, including
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/onmessagesend-onappointmentsend-events | Smart Alerts}, the
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/spam-reporting | integrated spam-reporting feature}, or
-     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/encryption-decryption | decryption} (preview).
+     * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/encryption-decryption | decryption}.
      * It allows the add-in to signify to the Outlook client that it has completed processing an event.
      *
      * @remarks
@@ -19545,6 +19532,8 @@ declare namespace Office {
      *
      * - Support for the integrated spam-reporting feature was introduced in Mailbox 1.14.
      *
+     * - Support for the decryption feature was introduced in Mailbox 1.16.
+     *
      * - For information about the Event object used by the {@link https://learn.microsoft.com/office/dev/add-ins/design/add-in-commands | function command button},
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-on-send-addins | on-send add-in},
      * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/online-meeting | online-meeting provider add-in}, and
@@ -19553,7 +19542,7 @@ declare namespace Office {
      */
     interface MailboxEvent {
         /**
-         * Indicates that the event-based, spam-reporting, or decryption (preview) add-in has completed processing an event.
+         * Indicates that the event-based, spam-reporting, or decryption add-in has completed processing an event.
          *
          * @remarks
          * [Api set: Mailbox 1.10]
@@ -19567,6 +19556,8 @@ declare namespace Office {
          * - Support for the integrated spam-reporting feature was introduced in Mailbox 1.14.
          *
          * - Support to assign a `SmartAlertsEventCompletedOptions` object to the `options` parameter was introduced in Mailbox 1.12.
+         *
+         * - Support for the decryption feature was introduced in Mailbox 1.16.
          *
          * @param options - Optional. An object that specifies the behavior of an event-based, spam-reporting, or decryption add-in when it completes processing an event.
          */
@@ -20034,7 +20025,8 @@ declare namespace Office {
         /**
          * Manages the {@link Office.SessionData | SessionData} of an item in Compose mode.
          *
-         * **Important**: The entire SessionData object is limited to 50,000 characters per add-in.
+         * **Important**: In Outlook clients that support Mailbox 1.15 or earlier, the entire SessionData object for each mail item is limited to 50,000 characters per add-in.
+         * In clients that support Mailbox 1.16 or later, the character limit per add-in is 2,621,440 characters.
          *
          * @remarks
          * [Api set: Mailbox 1.11]
@@ -21211,7 +21203,7 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Compose
          *
-         * *Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
+         * **Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          *
@@ -21245,7 +21237,7 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Compose
          *
-         * *Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
+         * **Important**: The `removeAttachmentAsync` method doesn't remove inline attachments from a mail item.
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          *
@@ -21521,28 +21513,35 @@ declare namespace Office {
      *
      * @remarks
      *
-     * [Api set: Mailbox preview]
+     * [Api set: Mailbox 1.16]
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-     *
-     * @beta
      */
     interface MessageDecryptEventCompletedOptions {
+        /**
+         * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler
+         * and set its `allowEvent` property to `true`, this property specifies whether decrypted contents of a message can be copied and pasted, printed, or saved.
+         *
+         * @remarks
+         *
+         * [Api set: Mailbox preview]
+         *
+         * @beta
+         */
+        accessControls?: AccessControls;
         /**
          * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler,
          * this value indicates if the `OnMessageDecrypt` event should continue to run or be canceled. If the `allowEvent` property is set to `true`, the decrypted contents of the message is displayed.
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * @beta
          */
         allowEvent: boolean;
         /**
@@ -21551,13 +21550,11 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
-         *
-         * @beta
          */
         attachments?: DecryptedMessageAttachment[];
         /**
@@ -21566,7 +21563,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
@@ -21578,8 +21575,6 @@ declare namespace Office {
          * If you create a JSON string using `JSON.stringify()` and assign it to the `contextData` property, you must parse the string using `JSON.parse()` once you retrieve it.
          *
          * - You can use the `contextData` property to store custom internet headers to decrypt messages in reply and forward scenarios.
-         *
-         * @beta
          */
         contextData?: any;
         /**
@@ -21588,17 +21583,34 @@ declare namespace Office {
          *
          * @remarks
          *
-         * [Api set: Mailbox preview]
+         * [Api set: Mailbox 1.16]
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read/write item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Message Read
          *
          * **Important**: If the `emailBody` property isn't specified, an empty body is returned.
+         */
+        emailBody?: DecryptedMessageBody;
+        /**
+         * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler
+         * and set its `allowEvent` property to `false`, this property sets the error message displayed to the user.
+         *
+         * @remarks
+         *
+         * [Api set: Mailbox preview]
+         *
+         * **Important**:
+         *
+         * - The `errorMessage` property is only used when the `allowEvent` property is set to `false`. If you set the `allowEvent` property to `true`, the `errorMessage` property is ignored.
+         *
+         * - If you don't specify a message in the `errorMessage` property, the following default message is shown instead: "Error from \<add-in name\>: Failed to decrypt your message."
+         *
+         * - Your custom error message is automatically prepended with "Error from \<add-in name\>: " when displayed to the user.
          *
          * @beta
          */
-        emailBody?: DecryptedMessageBody;
+        errorMessage?: string;
     }
     /**
      * Represents the details of the form for composing a new message.
@@ -21843,13 +21855,13 @@ declare namespace Office {
          * The `cc` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
          * each recipient listed on the **Cc** line of the message. The maximum number of recipients returned varies per Outlook client.
          *
-         * - Windows (classic): 500 recipients
+         * - Windows (classic - Mailbox 1.15 and earlier): 500 recipients
          *
-         * - Windows (classic - in preview starting in Version 2511 (Build 19426.20000)): 1,000 recipients
+         * - Windows (classic - Mailbox 1.16 and later): 1,000 recipients
          *
          * - Android, classic Mac UI, iOS: 100 recipients
          *
-         * - Web browser, Windows (new): 20 recipients (collapsed view), 500 recipients (expanded view)
+         * - Web browser, Windows (new): 20 recipients (collapsed view), 1,000 recipients (expanded view)
          *
          * - New Mac UI: No limit
          *
@@ -22186,13 +22198,13 @@ declare namespace Office {
          * The `to` property returns an array that contains an {@link Office.EmailAddressDetails | EmailAddressDetails} object for
          * each recipient listed on the **To** line of the message. The maximum number of recipients returned varies per Outlook client.
          *
-         * - Windows (classic): 500 recipients
+         * - Windows (classic - Mailbox 1.15 and earlier): 500 recipients
          *
-         * - Windows (classic - in preview starting in Version 2511 (Build 19426.20000)): 1,000 recipients
+         * - Windows (classic - Mailbox 1.16 and later): 1,000 recipients
          *
          * - Android, classic Mac UI, iOS: 100 recipients
          *
-         * - Web browser, Windows (new): 20 recipients (collapsed view), 500 recipients (expanded view)
+         * - Web browser, Windows (new): 20 recipients (collapsed view), 1,000 recipients (expanded view)
          *
          * - New Mac UI: No limit
          *
@@ -23482,16 +23494,14 @@ declare namespace Office {
          *
          * **Important**:
          *
-         * With the `addAsync` method, you can add a maximum of 100 recipients to a mail item in Outlook on the web, on Windows
+         * With the `addAsync` method, you can add a maximum of 100 recipients to a mail item at a time in Outlook on the web, on Windows
          * ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new} and classic), on Mac (classic UI), on Android, and on iOS.
          * However, take note of the following:
          *
-         * - In Outlook on the web, on Windows (new and classic), and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
-         * If you need to add more than 100 recipients to a mail item, you can call `addAsync` repeatedly, but be mindful of the recipient limit of the field.
-         *
-         * - In classic Outlook on Windows, a maximum of 1,000 recipients in a target field is available for preview. To test this increased limit, you must install Version 2511 (Build 19426.20000) or later.
-         * Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-windows/4401748 | Microsoft 365 Insider program} and select the
-         * **Beta Channel** option to access Office beta builds.
+         * - In classic Outlook on Windows (Mailbox 1.15 and earlier) and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
+         * In classic Outlook on Windows, clients that support Mailbox 1.16 and later can have a maximum of 1,000 recipients. Target fields in Outlook on the web and the
+         * new Outlook on Windows have no recipient limits. If you need to add more than 100 recipients to a mail item, you can call `addAsync` repeatedly,
+         * but be mindful of the recipient limit of the field.
          *
          * - In Outlook on Android and on iOS, the `addAsync` method is supported starting in Version 4.2530.0. On these mobile clients, the `addAsync` method isn't
          * supported when a user replies from the the reply field at the bottom of a message.
@@ -23500,6 +23510,14 @@ declare namespace Office {
          *
          * The `addAsync` method isn't supported on a message that's currently loaded using the `loadItemByIdAsync` method.
          * For more information, see {@link https://learn.microsoft.com/office/dev/add-ins/outlook/item-multi-select | Activate your Outlook add-in on multiple messages}.
+         *
+         * All Outlook clients use regular expression rules to resolve email addresses in recipient fields.
+         *
+         * In Outlook on the web and the new Outlook on Windows, `addAsync` and `setAsync` add both resolved and unresolved email addresses to recipient fields.
+         * However, unresolved email addresses prevent an item from being sent until they are resolved or successfully validated.
+         * If unresolved recipients are added by a Smart Alerts add-in to any recipient field, the send operation is blocked and an error notification is displayed.
+         * The error notification identifies the add-in that added the unresolved recipients and lists the affected email addresses.
+         * If a Smart Alerts dialog is shown after selecting **Send**, the error notification is displayed after the dialog is dismissed (by selecting **Send Anyway** or **Don't Send**, or by closing the dialog).
          *
          * **Errors**:
          *
@@ -23525,15 +23543,14 @@ declare namespace Office {
          *
          * **Important**:
          *
-         * With the `addAsync` method, you can add a maximum of 100 recipients to a mail item in Outlook on the web, on Windows,
-         * on Mac (classic UI), on Android, and on iOS. However, take note of the following:
+         * With the `addAsync` method, you can add a maximum of 100 recipients to a mail item at a time in Outlook on the web, on Windows
+         * ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new} and classic), on Mac (classic UI), on Android, and on iOS.
+         * However, take note of the following:
          *
-         * - In Outlook on the web, on Windows, and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
-         * If you need to add more than 100 recipients to a mail item, you can call `addAsync` repeatedly, but be mindful of the recipient limit of the field.
-         *
-         * - In classic Outlook on Windows, a maximum of 1,000 recipients in a target field is available for preview. To test this increased limit, you must install Version 2511 (Build 19426.20000) or later.
-         * Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-windows/4401748 | Microsoft 365 Insider program} and select the
-         * **Beta Channel** option to access Office beta builds.
+         * - In classic Outlook on Windows (Mailbox 1.15 and earlier) and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
+         * In classic Outlook on Windows, clients that support Mailbox 1.16 and later can have a maximum of 1,000 recipients. Target fields in Outlook on the web and the
+         * new Outlook on Windows have no recipient limits. If you need to add more than 100 recipients to a mail item, you can call `addAsync` repeatedly,
+         * but be mindful of the recipient limit of the field.
          *
          * - In Outlook on Android and on iOS, the `addAsync` method is supported starting in Version 4.2530.0. On these mobile clients, the `addAsync` method isn't
          * supported when a user replies from the the reply field at the bottom of a message.
@@ -23542,6 +23559,14 @@ declare namespace Office {
          *
          * The `addAsync` method isn't supported on a message that's currently loaded using the `loadItemByIdAsync` method.
          * For more information, see {@link https://learn.microsoft.com/office/dev/add-ins/outlook/item-multi-select | Activate your Outlook add-in on multiple messages}.
+         *
+         * All Outlook clients use regular expression rules to resolve email addresses in recipient fields.
+         *
+         * In Outlook on the web and the new Outlook on Windows, `addAsync` and `setAsync` add both resolved and unresolved email addresses to recipient fields.
+         * However, unresolved email addresses prevent an item from being sent until they are resolved or successfully validated.
+         * If unresolved recipients are added by a Smart Alerts add-in to any recipient field, the send operation is blocked and an error notification is displayed.
+         * The error notification identifies the add-in that added the unresolved recipients and lists the affected email addresses.
+         * If a Smart Alerts dialog is shown after selecting **Send**, the error notification is displayed after the dialog is dismissed (by selecting **Send Anyway** or **Don't Send**, or by closing the dialog).
          *
          * **Errors**:
          *
@@ -23567,9 +23592,9 @@ declare namespace Office {
          *
          * The maximum number of recipients returned by this method varies per Outlook client.
          *
-         * - Windows ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new} and classic), web browser, Mac (classic UI): 500 recipients
+         * - Windows (classic - Mailbox 1.15 and earlier), Mac (classic UI): 500 recipients
          *
-         * - Windows (classic - in preview starting in Version 2511 (Build 19426.20000)): 1,000 recipients
+         * - Web, Windows ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new}, classic - Mailbox 1.16 and later): 1,000 recipients
          *
          * - Android, iOS: 100 recipients
          *
@@ -23623,9 +23648,9 @@ declare namespace Office {
          *
          * The maximum number of recipients returned by this method varies per Outlook client.
          *
-         * - Windows ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new} and classic), web browser, Mac (classic UI): 500 recipients
+         * - Windows (classic - Mailbox 1.15 and earlier), Mac (classic UI): 500 recipients
          *
-         * - Windows (classic - in preview starting in Version 2511 (Build 19426.20000)): 1,000 recipients
+         * - Web, Windows ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new}, classic - Mailbox 1.16 and later): 1,000 recipients
          *
          * - Android, iOS: 100 recipients
          *
@@ -23674,16 +23699,14 @@ declare namespace Office {
          *
          * **Important**:
          *
-         * With the `setAsync` method, you can set a maximum of 100 recipients in Outlook on the web, on Windows
+         * With the `setAsync` method, you can set a maximum of 100 recipients at a time in Outlook on the web, on Windows
          * ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new} and classic), on Mac (classic UI), on Android, and on iOS.
          * However, take note of the following:
          *
-         * - In Outlook on the web, on Windows (new and classic), and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
-         * If you need to add more recipients after setting 100 recipients, you can call `addAsync` repeatedly, but be mindful of the recipient limit of the field.
-         *
-         * - In classic Outlook on Windows, a maximum of 1,000 recipients in a target field is available for preview. To test this increased limit, you must install Version 2511 (Build 19426.20000) or later.
-         * Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-windows/4401748 | Microsoft 365 Insider program} and select the
-         * **Beta Channel** option to access Office beta builds.
+         * - In classic Outlook on Windows (Mailbox 1.15 and earlier) and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
+         * In classic Outlook on Windows, clients that support Mailbox 1.16 and later can have a maximum of 1,000 recipients. Target fields in Outlook on the web and the
+         * new Outlook on Windows have no recipient limits. If you need to add more than 100 recipients to a mail item, you can call `addAsync` repeatedly,
+         * but be mindful of the recipient limit of the field.
          *
          * - In Outlook on Android and on iOS, the `setAsync` method is supported starting in Version 4.2530.0. On these mobile clients, the `setAsync` method isn't
          * supported when a user replies from the the reply field at the bottom of a message.
@@ -23692,6 +23715,14 @@ declare namespace Office {
          *
          * The `setAsync` method isn't supported on a message that's currently loaded using the `loadItemByIdAsync` method.
          * For more information, see {@link https://learn.microsoft.com/office/dev/add-ins/outlook/item-multi-select | Activate your Outlook add-in on multiple messages}.
+         *
+         * All Outlook clients use regular expression rules to resolve email addresses in recipient fields.
+         *
+         * In Outlook on the web and the new Outlook on Windows, `addAsync` and `setAsync` add both resolved and unresolved email addresses to recipient fields.
+         * However, unresolved email addresses prevent an item from being sent until they are resolved or successfully validated.
+         * If unresolved recipients are added by a Smart Alerts add-in to any recipient field, the send operation is blocked and an error notification is displayed.
+         * The error notification identifies the add-in that added the unresolved recipients and lists the affected email addresses.
+         * If a Smart Alerts dialog is shown after selecting **Send**, the error notification is displayed after the dialog is dismissed (by selecting **Send Anyway** or **Don't Send**, or by closing the dialog).
          *
          * **Errors**:
          *
@@ -23720,16 +23751,14 @@ declare namespace Office {
          *
          * **Important**:
          *
-         * With the `setAsync` method, you can set a maximum of 100 recipients in Outlook on the web, on Windows
+         * With the `setAsync` method, you can set a maximum of 100 recipients at a time in Outlook on the web, on Windows
          * ({@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new} and classic), on Mac (classic UI), on Android, and on iOS.
          * However, take note of the following:
          *
-         * - In Outlook on the web, on Windows (new and classic), and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
-         * If you need to add more recipients after setting 100 recipients, you can call `addAsync` repeatedly, but be mindful of the recipient limit of the field.
-         *
-         * - In classic Outlook on Windows, a maximum of 1,000 recipients in a target field is available for preview. To test this increased limit, you must install Version 2511 (Build 19426.20000) or later.
-         * Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-windows/4401748 | Microsoft 365 Insider program} and select the
-         * **Beta Channel** option to access Office beta builds.
+         * - In classic Outlook on Windows (Mailbox 1.15 and earlier) and on Mac (classic UI), you can have a maximum of 500 recipients in a target field.
+         * In classic Outlook on Windows, clients that support Mailbox 1.16 and later can have a maximum of 1,000 recipients. Target fields in Outlook on the web and the
+         * new Outlook on Windows have no recipient limits. If you need to add more than 100 recipients to a mail item, you can call `addAsync` repeatedly,
+         * but be mindful of the recipient limit of the field.
          *
          * - In Outlook on Android and on iOS, the `setAsync` method is supported starting in Version 4.2530.0. On these mobile clients, the `setAsync` method isn't
          * supported when a user replies from the the reply field at the bottom of a message.
@@ -23738,6 +23767,14 @@ declare namespace Office {
          *
          * The `setAsync` method isn't supported on a message that's currently loaded using the `loadItemByIdAsync` method.
          * For more information, see {@link https://learn.microsoft.com/office/dev/add-ins/outlook/item-multi-select | Activate your Outlook add-in on multiple messages}.
+         *
+         * All Outlook clients use regular expression rules to resolve email addresses in recipient fields.
+         *
+         * In Outlook on the web and the new Outlook on Windows, `addAsync` and `setAsync` add both resolved and unresolved email addresses to recipient fields.
+         * However, unresolved email addresses prevent an item from being sent until they are resolved or successfully validated.
+         * If unresolved recipients are added by a Smart Alerts add-in to any recipient field, the send operation is blocked and an error notification is displayed.
+         * The error notification identifies the add-in that added the unresolved recipients and lists the affected email addresses.
+         * If a Smart Alerts dialog is shown after selecting **Send**, the error notification is displayed after the dialog is dismissed (by selecting **Send Anyway** or **Don't Send**, or by closing the dialog).
          *
          * **Errors**:
          *
@@ -25016,7 +25053,8 @@ declare namespace Office {
      *
      * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
      *
-     * **Important**: For each mail item, the entire SessionData object is limited to 50,000 characters per add-in.
+     * **Important**: In Outlook clients that support Mailbox 1.15 or earlier, the entire SessionData object for each mail item is limited to 50,000 characters per add-in.
+     * In clients that support Mailbox 1.16 or later, the character limit per add-in is 2,621,440 characters.
      */
     interface SessionData {
         /**
@@ -25121,9 +25159,7 @@ declare namespace Office {
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          *
          * **Important**: In Outlook clients that support Mailbox 1.15 or earlier, the entire SessionData object for each mail item is limited to 50,000 characters per add-in.
-         * In classic Outlook on Windows, you can preview an increased character limit of up to 2,621,440 characters per add-in. To test the updated limit, join the
-         * {@link https://aka.ms/MSFT365InsiderProgram | Microsoft 365 Insider program}, then choose the Beta Channel in the classic Outlook on Windows client.
-         * Your client must be on Version 2510 (Build 19317.20000) or later.
+         * In clients that support Mailbox 1.16 or later, the character limit per add-in is 2,621,440 characters.
          *
          * @param name - The session data key.
          * @param value - The session data value as a string.
@@ -25144,9 +25180,7 @@ declare namespace Office {
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          *
          * **Important**: In Outlook clients that support Mailbox 1.15 or earlier, the entire SessionData object for each mail item is limited to 50,000 characters per add-in.
-         * In classic Outlook on Windows, you can preview an increased character limit of up to 2,621,440 characters per add-in. To test the updated limit, join the
-         * {@link https://aka.ms/MSFT365InsiderProgram | Microsoft 365 Insider program}, then choose the Beta Channel in the classic Outlook on Windows client.
-         * Your client must be on Version 2510 (Build 19317.20000) or later.
+         * In clients that support Mailbox 1.16 or later, the character limit per add-in is 2,621,440 characters.
          *
          * @param name - The session data key.
          * @param value - The session data value as a string.
@@ -26066,7 +26100,7 @@ declare namespace OfficeExtension {
         top?: number;
         /**
          * Only usable on collection types. Specifies the number of items in the collection that are to be skipped and not included in the result.
-         * If top is specified, the result set will start after skipping the specified number of items.
+         * If `top` is specified, the result set will start after skipping the specified number of items.
          */
         skip?: number;
     }
@@ -26318,15 +26352,17 @@ declare namespace OfficeExtension {
          */
         add(objects: ClientObject[]): void;
         /**
-         * Release the memory associated with an object that was previously added to this collection.
-         * Having many tracked objects slows down the Office application, so please remember to free any objects you add, once you're done using them.
-         * You will need to call `context.sync()` before the memory release takes effect.
+         * If the given proxy object is already in this collection, this method releases the memory associated with the object.
+         * You need to call `context.sync()` before the memory release takes effect.
+         * If the given proxy object isn't in this collection, the proxy object won't be stored after `context.sync()` is called.
+         * This speeds up instances where many objects are created for single-use operations.
          */
         remove(object: ClientObject): void;
         /**
-         * Release the memory associated with an object that was previously added to this collection.
-         * Having many tracked objects slows down the Office application, so please remember to free any objects you add, once you're done using them.
-         * You will need to call `context.sync()` before the memory release takes effect.
+         * If the given proxy objects are already in this collection, this method releases the memory associated with the objects.
+         * You need to call `context.sync()` before the memory release takes effect.
+         * If the given proxy objects aren't in this collection, the proxy objects won't be stored after `context.sync()` is called.
+         * This speeds up instances where many objects are created for single-use operations.
          */
         remove(objects: ClientObject[]): void;
     }
@@ -26421,7 +26457,6 @@ declare namespace OfficeCore {
 ////////////////////////////////////////////////////////////////
 /////////////////////// Begin Excel APIs ///////////////////////
 ////////////////////////////////////////////////////////////////
-
 
 declare namespace Excel {
     /**
@@ -35573,6 +35608,10 @@ declare namespace Excel {
         * [Api set: ExcelApi 1.5]
         */
         readonly runtime: Runtime;
+        /**
+        * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+        */
+        readonly sensitivityLabelsCatalog: SensitivityLabelsCatalog;
     }
     interface RunOptions extends OfficeExtension.RunOptions<Session> {
         /**
@@ -35623,8 +35662,416 @@ declare namespace Excel {
      * @param batch - A function that takes in a RequestContext and returns a promise (typically, just the result of "context.sync()"). The context parameter facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the RequestContext is required to get access to the Excel object model from the add-in.
      */
     function run<T>(context: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
-    function postprocessBindingDescriptor(response: any): any;
-    function getDataCommonPostprocess(response: any, callArgs: any): any;
+    /**
+     * Represents the labeling capability status of the sensitivity label catalog.
+     *
+     * @remarks
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum LabelingCapability {
+        /**
+         * No valid license is available for sensitivity labeling.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        noLicense = "NoLicense",
+        /**
+         * Sensitivity labeling is disabled for the user or tenant.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingDisabled = "LabelingDisabled",
+        /**
+         * No labeling policy was found for the user.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingPolicyNotFound = "LabelingPolicyNotFound",
+        /**
+         * Sensitivity labeling is fully enabled.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingEnabled = "LabelingEnabled"
+    }
+    /**
+     * Represents the sensitivity label on the workbook.
+     *
+     * @remarks
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabel extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Gets the current label information that exists on the workbook for the user.
+                    If there's no sensitivity label on the current workbook, an object with an `isNullObject` property set to `true` is returned.
+                    For further information, see {@link https://learn.microsoft.com/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties | *OrNullObject methods and properties}.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The current `SensitivityLabelDetails` object.
+         */
+        getCurrentOrNullObject(): Excel.SensitivityLabelDetails;
+        /**
+         * Tries to update to the provided sensitivity label on the workbook for the user.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param labelId The ID of the label to apply.
+         * @returns The `SensitivityLabelUpdateResult` object.
+         */
+        tryToUpdate(labelId: string): OfficeExtension.ClientResult<Excel.SensitivityLabelUpdateResult>;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Excel.SensitivityLabel` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.SensitivityLabelData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): {
+            [key: string]: string;
+        };
+    }
+    /**
+     * Represents the properties of available sensitivity labels in Excel.
+     *
+     * @remarks
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelDetails extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Gets the sublabels of the sensitivity label. Returns `null` if a label doesn't have any sublabels.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly children: SensitivityLabelDetailsCollection | null;
+        /**
+         * Gets the color of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly color: string;
+        /**
+         * Gets the unique identifier (GUID) of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly id: string;
+        /**
+         * Gets a value indicating whether the label is enabled.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isEnabled: boolean;
+        /**
+         * Gets the name of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly name: string;
+        /**
+         * Gets the priority of the sensitivity label, with 0 as lowest priority.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly order: number;
+        /**
+         * Gets a value indicating the protection type provided by this label.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly protectionType: Excel.SensitivityLabelProtectionType | "NoProtection" | "AdminDefined" | "UserDefined";
+        /**
+         * Gets the unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly siteId: string;
+        /**
+         * Gets the description of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly tooltip: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.SensitivityLabelDetailsLoadOptions): Excel.SensitivityLabelDetails;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.SensitivityLabelDetails;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.SensitivityLabelDetails;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Excel.SensitivityLabelDetails` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.SensitivityLabelDetailsData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.SensitivityLabelDetailsData;
+    }
+    /**
+     * Represents the collection of {@link Excel.SensitivityLabelDetails} objects.
+     *
+     * @remarks
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelDetailsCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Excel.SensitivityLabelDetails[];
+        /**
+         * Gets the first `SensitivityLabelDetails` object in this collection. Throws an `ItemNotFound` error if this collection is empty.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns A new `SensitivityLabelDetails` object.
+         */
+        getFirst(): Excel.SensitivityLabelDetails;
+        /**
+         * Gets the first `SensitivityLabelDetails` object in this collection. If this collection is empty, then this method will return an object with its `isNullObject` property set to `true`. For further information, see {@link https://learn.microsoft.com/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties | *OrNullObject methods and properties}.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The new `SensitivityLabelDetails` object.
+         */
+        getFirstOrNullObject(): OfficeExtension.ClientResult<any>;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.SensitivityLabelDetailsCollectionLoadOptions & Excel.Interfaces.CollectionLoadOptions): Excel.SensitivityLabelDetailsCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.SensitivityLabelDetailsCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.SensitivityLabelDetailsCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Excel.SensitivityLabelDetailsCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.SensitivityLabelDetailsCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Excel.Interfaces.SensitivityLabelDetailsCollectionData;
+    }
+    /**
+     * Represents the protection type.
+     *
+     * @remarks
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum SensitivityLabelProtectionType {
+        /**
+         * No protection is applied by this label.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        noProtection = "NoProtection",
+        /**
+         * Protection is defined by an administrator.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        adminDefined = "AdminDefined",
+        /**
+         * Protection is defined by the user.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        userDefined = "UserDefined"
+    }
+    /**
+     * Represents the result of updating the sensitivity label on the workbook.
+     *
+     * @remarks
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum SensitivityLabelUpdateResult {
+        /**
+         * The sensitivity label was successfully updated.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        success = "Success",
+        /**
+         * The update failed due to an unspecified error.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unspecifiedFailure = "UnspecifiedFailure",
+        /**
+         * The specified sensitivity label could not be found.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelNotFound = "LabelNotFound",
+        /**
+         * The document is read-only and cannot be modified.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        documentReadOnly = "DocumentReadOnly",
+        /**
+         * The user does not have sufficient permissions to update the label.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        insufficientPermission = "InsufficientPermission",
+        /**
+         * The label update failed due to unsupported Double Key Encryption (DKE).
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unsupportedDoubleKeyEncryption = "UnsupportedDoubleKeyEncryption",
+        /**
+         * The label update failed because native labeling is not enabled for the user or installed SKU.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingDisabled = "LabelingDisabled",
+        /**
+         * The label update failed because the user's identity is not valid for applying a label.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        userNotFound = "UserNotFound",
+        /**
+         * The label update failed due to unsupported User Defined Permissions (UDP).
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unsupportedUdp = "UnsupportedUdp",
+        /**
+         * The label update failed because the specified label is a parent label, which cannot be applied.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        parentLabelNotSupported = "ParentLabelNotSupported",
+        /**
+         * The label update failed because the document doesn't belong to the same tenant as the user.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        crossTenant = "CrossTenant"
+    }
+    /**
+     * Provides methods to check the status of the catalog of sensitivity labels in Excel and retrieve all available sensitivity labels if the catalog is enabled.
+     *
+     * @remarks
+     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelsCatalog extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Gets whether the catalog of sensitivity labels is enabled in Excel.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly getLabelingCapability: Excel.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled";
+        /**
+         * Gets sensitivity labels that are available to the current user.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns The current `SensitivityLabelDetailsCollection` object.
+         */
+        getLabels(): Excel.SensitivityLabelDetailsCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Excel.Interfaces.SensitivityLabelsCatalogLoadOptions): Excel.SensitivityLabelsCatalog;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Excel.SensitivityLabelsCatalog;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Excel.SensitivityLabelsCatalog;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Excel.SensitivityLabelsCatalog` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.SensitivityLabelsCatalogData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Excel.Interfaces.SensitivityLabelsCatalogData;
+    }
     /**
      * Provides information about the ranges that raised the `onCalculationBusy` event, which triggers when the calculation is in progress in a worksheet.
      *
@@ -40904,6 +41351,14 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.1]
          */
         readonly worksheets: Excel.WorksheetCollection;
+        /**
+         * Returns the sensitivity label of the workbook.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly sensitivityLabel: Excel.SensitivityLabel;
         /**
          * Specifies if the workbook is in AutoSave mode.
          *
@@ -62293,6 +62748,49 @@ declare namespace Excel {
         toJSON(): Excel.Interfaces.SlicerItemCollectionData;
     }
     /**
+     * Provides information about the `LinkedEntityCellValue` that was requested given a specified `LinkedEntityId`.
+     *
+     * @remarks
+     * [Api set: ExcelApi 1.21]
+     */
+    interface LinkedEntityCellValueLoadedEventArgs {
+        /**
+         * Any error encountered during the request to load the `LinkedEntityCellValue`.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.21]
+         */
+        error?: string;
+        /**
+         * Gets the `LinkedEntityId` of the requested `LinkedEntityCellValue`.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.21]
+         */
+        id: LinkedEntityId;
+        /**
+         * Gets the `LinkedEntityCellValue` of the requested `LinkedEntityId`. If the load operation failed, this property is `null`.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.21]
+         */
+        linkedEntityCellValue?: LinkedEntityCellValue;
+        /**
+         * Gets the source of the event. See `Excel.EventSource` for details.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.21]
+         */
+        source: Excel.EventSource | "Local" | "Remote";
+        /**
+         * Gets the type of the event. See `Excel.EventType` for details.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.21]
+         */
+        type: "LinkedEntityDataDomainLinkedEntityCellValueLoaded";
+    }
+    /**
      * Represents a specific category or field of information that shares some common characteristics or attributes.
                 A data domain is linked to a data provider, that acts as the data source for `LinkedEntityCellValue` objects in the workbook.
                 A data domain is a category of data, such as stocks, geography, or currencies. A data provider is a service, such as Bing, Power BI, or an Office Add-in.
@@ -62593,6 +63091,16 @@ declare namespace Excel {
          */
         getItemOrNullObject(id: string): Excel.LinkedEntityDataDomain;
         /**
+         * Submits a request to load the `LinkedEntityCellValue` object with the specified `LinkedEntityId`.
+                    If found, the `LinkedEntityCellValue` object will be returned through the `LinkedEntityCellValueLoaded` event.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.21]
+         *
+         * @param id A specific `LinkedEntityId`
+         */
+        loadLinkedEntityCellValue(id: LinkedEntityId): void;
+        /**
          * Refreshes all `LinkedEntityCellValue` objects of all linked entity data domains in this collection.
                     The refresh request can fail if the data providers are busy or temporarily inaccessible.
          *
@@ -62620,6 +63128,17 @@ declare namespace Excel {
          * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
          */
         load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Excel.LinkedEntityDataDomainCollection;
+        /**
+         * Occurs when the request to load a `LinkedEntityCellValue` is completed.
+         *
+         * @remarks
+         * [Api set: ExcelApi 1.21]
+         * 
+         * This event isn't supported in Excel on the web.
+         *
+         * @eventproperty
+         */
+        readonly onLinkedEntityCellValueLoaded: OfficeExtension.EventHandlers<Excel.LinkedEntityCellValueLoadedEventArgs>;
         /**
          * Occurs when a new linked entity data domain is added to the workbook.
          *
@@ -74968,6 +75487,10 @@ declare namespace Excel {
             */
             $skip?: number;
         }
+        /** An interface for updating data on the `SensitivityLabelDetailsCollection` object, for use in `sensitivityLabelDetailsCollection.set({ ... })`. */
+        interface SensitivityLabelDetailsCollectionUpdateData {
+            items?: Excel.Interfaces.SensitivityLabelDetailsData[];
+        }
         /** An interface for updating data on the `AllowEditRange` object, for use in `allowEditRange.set({ ... })`. */
         interface AllowEditRangeUpdateData {
             /**
@@ -80620,6 +81143,96 @@ declare namespace Excel {
         /** An interface for updating data on the `PaneCollection` object, for use in `paneCollection.set({ ... })`. */
         interface PaneCollectionUpdateData {
             items?: Excel.Interfaces.PaneData[];
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelDetails.toJSON()`. */
+        interface SensitivityLabelDetailsData {
+            /**
+             * Gets the sublabels of the sensitivity label. Returns `null` if a label doesn't have any sublabels.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            children?: SensitivityLabelDetailsCollection | null;
+            /**
+             * Gets the color of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            color?: string;
+            /**
+             * Gets the unique identifier (GUID) of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+            /**
+             * Gets a value indicating whether the label is enabled.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEnabled?: boolean;
+            /**
+             * Gets the name of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+            /**
+             * Gets the priority of the sensitivity label, with 0 as lowest priority.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            order?: number;
+            /**
+             * Gets a value indicating the protection type provided by this label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            protectionType?: Excel.SensitivityLabelProtectionType | "NoProtection" | "AdminDefined" | "UserDefined";
+            /**
+             * Gets the unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            siteId?: string;
+            /**
+             * Gets the description of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            tooltip?: string;
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelDetailsCollection.toJSON()`. */
+        interface SensitivityLabelDetailsCollectionData {
+            items?: Excel.Interfaces.SensitivityLabelDetailsData[];
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelsCatalog.toJSON()`. */
+        interface SensitivityLabelsCatalogData {
+            /**
+             * Gets whether the catalog of sensitivity labels is enabled in Excel.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            getLabelingCapability?: Excel.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled";
         }
         /** An interface describing the data returned by calling `allowEditRange.toJSON()`. */
         interface AllowEditRangeData {
@@ -88412,6 +89025,197 @@ declare namespace Excel {
              * [Api set: ExcelApi 1.2]
              */
             value?: T;
+        }
+        /**
+         * Represents the properties of available sensitivity labels in Excel.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelDetailsLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * Gets the sublabels of the sensitivity label. Returns `null` if a label doesn't have any sublabels.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            children?: boolean;
+            /**
+             * Gets the color of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            color?: boolean;
+            /**
+             * Gets the unique identifier (GUID) of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             * Gets a value indicating whether the label is enabled.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEnabled?: boolean;
+            /**
+             * Gets the name of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             * Gets the priority of the sensitivity label, with 0 as lowest priority.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            order?: boolean;
+            /**
+             * Gets a value indicating the protection type provided by this label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            protectionType?: boolean;
+            /**
+             * Gets the unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            siteId?: boolean;
+            /**
+             * Gets the description of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            tooltip?: boolean;
+        }
+        /**
+         * Represents the collection of {@link Excel.SensitivityLabelDetails} objects.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelDetailsCollectionLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets the sublabels of the sensitivity label. Returns `null` if a label doesn't have any sublabels.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            children?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets the color of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            color?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets the unique identifier (GUID) of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets a value indicating whether the label is enabled.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEnabled?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets the name of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets the priority of the sensitivity label, with 0 as lowest priority.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            order?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets a value indicating the protection type provided by this label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            protectionType?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets the unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            siteId?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets the description of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            tooltip?: boolean;
+        }
+        /**
+         * Provides methods to check the status of the catalog of sensitivity labels in Excel and retrieve all available sensitivity labels if the catalog is enabled.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelsCatalogLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * Gets whether the catalog of sensitivity labels is enabled in Excel.
+             *
+             * @remarks
+             * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            getLabelingCapability?: boolean;
         }
         /**
          * Represents an `AllowEditRange` object found in a worksheet. This object works with worksheet protection properties.
@@ -104027,6 +104831,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     class CoauthoringLock extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -104065,6 +104871,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         unlock(): void;
         /**
@@ -104107,6 +104915,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     class CoauthoringLockCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -104119,6 +104929,8 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApiDesktop 1.4]
          *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
+         *
          * @param options Optional. The options to further configure the coauthoring lock.
          */
         add(options?: Word.CoauthoringLockAddOptions): Word.CoauthoringLock;
@@ -104127,6 +104939,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         unlockEphemeralLocks(): void;
         /**
@@ -104166,6 +104980,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     interface CoauthoringLockAddOptions {
         /**
@@ -104197,6 +105013,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         readonly locks: Word.CoauthoringLockCollection;
         /**
@@ -104333,6 +105151,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         readonly locks: Word.CoauthoringLockCollection;
         /**
@@ -108108,6 +108928,14 @@ declare namespace Word {
          * [Api set: WordApiDesktop 1.4]
          */
         readonly selection: Word.Selection;
+        /**
+         * Returns the sensitivity label of the document.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly sensitivityLabel: Word.SensitivityLabel;
         /**
          * Gets the `RangeScopedCollection` object that represents all the sentences in the document.
          *
@@ -116704,6 +117532,496 @@ declare namespace Word {
         * Whereas the original `Word.SectionCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SectionCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
         */
         toJSON(): Word.Interfaces.SectionCollectionData;
+    }
+    /**
+     * Represents the sensitivity label on the document.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabel extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Gets the current label information that exists on the document for the user.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getCurrentOrNullObject(): Word.SensitivityLabelDetails;
+        /**
+         * Try to update to the provided sensitivity label on the document for the user.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param LabelId The label information that needs to be set on the document.
+         * @param Justification Optional. The justification of changing the label.
+         */
+        tryToUpdate(LabelId: string, Justification?: string): OfficeExtension.ClientResult<Word.SensitivityLabelUpdateResult>;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SensitivityLabel;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Word.SensitivityLabel;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.add(thisObject)}. If you're using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.
+         */
+        track(): Word.SensitivityLabel;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.remove(thisObject)}. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.
+         */
+        untrack(): Word.SensitivityLabel;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Word.SensitivityLabel` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SensitivityLabelData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): {
+            [key: string]: string;
+        };
+    }
+    /**
+     * Provides methods to check the status of the catalog of sensitivity labels in Word and retrieve all available sensitivity labels if the catalog is enabled.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelsCatalog extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Gets the labeling capability status of the sensitivity label catalog in Word.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly getLabelingCapability: Word.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled";
+        /**
+         * Gets the attribute-based access control (ABAC) attributes available for sensitivity labels.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getAttributes(): OfficeExtension.ClientResult<Word.SensitivityLabelAbacAttribute[]>;
+        /**
+         * Gets all the sensitivity labels that are enabled in Word.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getLabels(): Word.SensitivityLabelDetailsCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Word.Interfaces.SensitivityLabelsCatalogLoadOptions): Word.SensitivityLabelsCatalog;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SensitivityLabelsCatalog;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Word.SensitivityLabelsCatalog;
+        /**
+         * Create a new instance of the `Word.SensitivityLabelsCatalog` object.
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): Word.SensitivityLabelsCatalog;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.add(thisObject)}. If you're using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.
+         */
+        track(): Word.SensitivityLabelsCatalog;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.remove(thisObject)}. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.
+         */
+        untrack(): Word.SensitivityLabelsCatalog;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Word.SensitivityLabelsCatalog` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SensitivityLabelsCatalogData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Word.Interfaces.SensitivityLabelsCatalogData;
+    }
+    /**
+     * Represents a single attribute-based access control (ABAC) attribute value for a sensitivity label.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelAbacAttributeValue extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * The display name of the ABAC attribute value.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayName: string;
+        /**
+         * The display order of the ABAC attribute value.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayOrder: number;
+        /**
+         * The unique identifier of the ABAC attribute value.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly id: string;
+        /**
+         * Indicates whether the ABAC attribute value is active.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isActive: boolean;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Word.Interfaces.SensitivityLabelAbacAttributeValueLoadOptions): Word.SensitivityLabelAbacAttributeValue;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SensitivityLabelAbacAttributeValue;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Word.SensitivityLabelAbacAttributeValue;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Word.SensitivityLabelAbacAttributeValue` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SensitivityLabelAbacAttributeValueData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Word.Interfaces.SensitivityLabelAbacAttributeValueData;
+    }
+    /**
+     * Represents an attribute-based access control (ABAC) attribute for sensitivity labels.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelAbacAttribute extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * The display name of the ABAC attribute.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayName: string;
+        /**
+         * The display order of the ABAC attribute.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayOrder: number;
+        /**
+         * Indicates whether the ABAC attribute is active.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isActive: boolean;
+        /**
+         * Indicates whether the ABAC attribute can have multiple values.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isMultiValued: boolean;
+        /**
+         * The values available for the ABAC attribute.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly values: Word.SensitivityLabelAbacAttributeValue[];
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Word.Interfaces.SensitivityLabelAbacAttributeLoadOptions): Word.SensitivityLabelAbacAttribute;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SensitivityLabelAbacAttribute;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Word.SensitivityLabelAbacAttribute;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Word.SensitivityLabelAbacAttribute` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SensitivityLabelAbacAttributeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Word.Interfaces.SensitivityLabelAbacAttributeData;
+    }
+    /**
+     * Represents the collection of {@link Word.SensitivityLabelDetails} objects.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelDetailsCollection extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /** Gets the loaded child items in this collection. */
+        readonly items: Word.SensitivityLabelDetails[];
+        /**
+         * Gets the first `SensitivityLabelDetails` object in this collection. Throws an `ItemNotFound` error if this collection is empty.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getFirst(): Word.SensitivityLabelDetails;
+        /**
+         * Gets the first `SensitivityLabelDetails` object in this collection. If this collection is empty, then this method will return an object with its `isNullObject` property set to `true`. For further information, see {@link https://learn.microsoft.com/office/dev/add-ins/develop/application-specific-api-model#ornullobject-methods-and-properties | *OrNullObject methods and properties}.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getFirstOrNullObject(): Word.SensitivityLabelDetails;
+        /**
+         * Gets a `SensitivityLabelDetails` object by its index in the collection.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         *
+         * @param index A number that identifies the index location of a `SensitivityLabelDetails` object.
+         */
+        getItem(index: number): Word.SensitivityLabelDetails;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Word.Interfaces.SensitivityLabelDetailsCollectionLoadOptions & Word.Interfaces.CollectionLoadOptions): Word.SensitivityLabelDetailsCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SensitivityLabelDetailsCollection;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: OfficeExtension.LoadOption): Word.SensitivityLabelDetailsCollection;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.add(thisObject)}. If you're using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.
+         */
+        track(): Word.SensitivityLabelDetailsCollection;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.remove(thisObject)}. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.
+         */
+        untrack(): Word.SensitivityLabelDetailsCollection;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Word.SensitivityLabelDetailsCollection` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SensitivityLabelDetailsCollectionData`) that contains an "items" array with shallow copies of any loaded properties from the collection's items.
+        */
+        toJSON(): Word.Interfaces.SensitivityLabelDetailsCollectionData;
+    }
+    /**
+     * Represents the properties of available sensitivity labels in Word.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelDetails extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * The sublabels of the sensitivity label. Returns null if a label doesn't have any sublabels.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly children: Word.SensitivityLabelDetailsCollection;
+        /**
+         * The attribute-based access control (ABAC) attribute values associated with the sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly abacAttributeValues: Word.SensitivityLabelAbacAttributeValue[];
+        /**
+         * The color of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly color: string;
+        /**
+         * The unique identifier (GUID) of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly id: string;
+        /**
+         * Indicates whether attribute-based access control (ABAC) attributes are required when applying the sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isAbacAttributesRequired: boolean;
+        /**
+         * Indicates whether the sensitivity label supports attribute-based access control (ABAC) attributes.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isAbacEnabled: boolean;
+        /**
+         * Gets a value indicating whether the label is enabled.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isEnabled: boolean;
+        /**
+         * The name of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly name: string;
+        /**
+         * The order of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly order: number;
+        /**
+         * Gets a value indicating the protection type provided by this label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly protectionType: Word.SensitivityLabelProtectionType | "NoProtection" | "AdminDefined" | "UserDefined";
+        /**
+         * The unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly siteId: string;
+        /**
+         * The description of the sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly tooltip: string;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: Word.Interfaces.SensitivityLabelDetailsLoadOptions): Word.SensitivityLabelDetails;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): Word.SensitivityLabelDetails;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): Word.SensitivityLabelDetails;
+        /**
+         * Track the object for automatic adjustment based on surrounding changes in the document. This call is a shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.add(thisObject)}. If you're using this object across `.sync` calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you need to add the object to the tracked object collection when the object was first created. If this object is part of a collection, you should also track the parent collection.
+         */
+        track(): Word.SensitivityLabelDetails;
+        /**
+         * Release the memory associated with this object, if it has previously been tracked. This call is shorthand for {@link https://learn.microsoft.com/javascript/api/office/officeextension.clientrequestcontext#office-officeextension-clientrequestcontext-trackedobjects-member | context.trackedObjects.remove(thisObject)}. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You'll need to call `context.sync()` before the memory release takes effect.
+         */
+        untrack(): Word.SensitivityLabelDetails;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `Word.SensitivityLabelDetails` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Word.Interfaces.SensitivityLabelDetailsData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): Word.Interfaces.SensitivityLabelDetailsData;
     }
     /**
      * Represents a setting of the add-in.
@@ -148803,6 +150121,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApiDesktop 1.4]
+     *
+     * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
      */
     enum CoauthoringLockType {
         /**
@@ -148861,6 +150181,194 @@ declare namespace Word {
          * [Api set: WordApiDesktop 1.4]
          */
         owners = "Owners",
+    }
+    /**
+     * Represents the result of updating the sensitivity label on the document.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum SensitivityLabelUpdateResult {
+        /**
+         * The sensitivity label was successfully updated.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        success = "Success",
+        /**
+         * The update failed due to an unspecified error.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unspecifiedFailure = "UnspecifiedFailure",
+        /**
+         * The specified sensitivity label could not be found.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelNotFound = "LabelNotFound",
+        /**
+         * The document is read-only and cannot be modified.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        documentReadOnly = "DocumentReadOnly",
+        /**
+         * The user does not have sufficient permissions to update the label.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        insufficientPermission = "InsufficientPermission",
+        /**
+         * The label update failed due to unsupported Double Key Encryption (DKE).
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unsupportedDoubleKeyEncryption = "UnsupportedDoubleKeyEncryption",
+        /**
+         * The label update failed because native labeling is not enabled for the user or installed SKU.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingDisabled = "LabelingDisabled",
+        /**
+         * The label update failed because the user's identity is not valid for applying a label.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        userNotFound = "UserNotFound",
+        /**
+         * The label update failed due to unsupported Universal Data Protection (UDP).
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unsupportedUdp = "UnsupportedUdp",
+        /**
+         * The label update failed because the specified label is a parent label, which cannot be applied.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        parentLabelNotSupported = "ParentLabelNotSupported",
+        /**
+         * The label update failed because the document doesn't belong to the same tenant as the user.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        crossTenant = "CrossTenant",
+        /**
+         * Attribute-based access control (ABAC) attribute values were supplied, but the target label is not ABAC-enabled.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        abacAttributesNotAllowed = "AbacAttributesNotAllowed",
+        /**
+         * The target label isn't enabled for attribute-based access controls and requires attribute selections, but no ABAC attribute values were supplied.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        abacAttributesRequired = "AbacAttributesRequired",
+        /**
+         * The label update failed due to unsupported attribute-based access control (ABAC).
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unsupportedAbac = "UnsupportedAbac",
+        /**
+         * The label update failed because the specified label is disabled or not applicable to the user.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelDisabled = "LabelDisabled",
+        /**
+         * The label update failed because removing the sensitivity label is not supported.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        removingLabelNotSupported = "RemovingLabelNotSupported",
+    }
+    /**
+     * Represents the labeling capability status of the sensitivity label catalog.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum LabelingCapability {
+        /**
+         * No valid license is available for sensitivity labeling.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        noLicense = "NoLicense",
+        /**
+         * Sensitivity labeling is disabled for the user or tenant.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingDisabled = "LabelingDisabled",
+        /**
+         * No labeling policy was found for the user.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingPolicyNotFound = "LabelingPolicyNotFound",
+        /**
+         * Sensitivity labeling is fully enabled.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        labelingEnabled = "LabelingEnabled",
+    }
+    /**
+     * Specifies the type of protection applied by a sensitivity label.
+     *
+     * @remarks
+     * [Api set: WordApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum SensitivityLabelProtectionType {
+        /**
+         * The label applies no protection.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        noProtection = "NoProtection",
+        /**
+         * The label applies admin-defined protection.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        adminDefined = "AdminDefined",
+        /**
+         * The label applies user-defined protection.
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        userDefined = "UserDefined",
     }
     enum ErrorCodes {
         accessDenied = "AccessDenied",
@@ -151599,6 +153107,10 @@ declare namespace Word {
         /** An interface for updating data on the `SectionCollection` object, for use in `sectionCollection.set({ ... })`. */
         interface SectionCollectionUpdateData {
             items?: Word.Interfaces.SectionData[];
+        }
+        /** An interface for updating data on the `SensitivityLabelDetailsCollection` object, for use in `sensitivityLabelDetailsCollection.set({ ... })`. */
+        interface SensitivityLabelDetailsCollectionUpdateData {
+            items?: Word.Interfaces.SensitivityLabelDetailsData[];
         }
         /** An interface for updating data on the `Setting` object, for use in `setting.set({ ... })`. */
         interface SettingUpdateData {
@@ -155281,6 +156793,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.4]
+            *
+            * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
             */
             locks?: Word.Interfaces.CoauthoringLockData[];
             /**
@@ -155337,6 +156851,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.4]
+            *
+            * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
             */
             locks?: Word.Interfaces.CoauthoringLockData[];
             /**
@@ -159064,6 +160580,198 @@ declare namespace Word {
         /** An interface describing the data returned by calling `sectionCollection.toJSON()`. */
         interface SectionCollectionData {
             items?: Word.Interfaces.SectionData[];
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelsCatalog.toJSON()`. */
+        interface SensitivityLabelsCatalogData {
+            /**
+             * Gets the labeling capability status of the sensitivity label catalog in Word.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            getLabelingCapability?: Word.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled";
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelAbacAttributeValue.toJSON()`. */
+        interface SensitivityLabelAbacAttributeValueData {
+            /**
+             * The display name of the ABAC attribute value.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: string;
+            /**
+             * The display order of the ABAC attribute value.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: number;
+            /**
+             * The unique identifier of the ABAC attribute value.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+            /**
+             * Indicates whether the ABAC attribute value is active.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelAbacAttribute.toJSON()`. */
+        interface SensitivityLabelAbacAttributeData {
+            /**
+             * The display name of the ABAC attribute.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: string;
+            /**
+             * The display order of the ABAC attribute.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: number;
+            /**
+             * Indicates whether the ABAC attribute is active.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+            /**
+             * Indicates whether the ABAC attribute can have multiple values.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isMultiValued?: boolean;
+            /**
+             * The values available for the ABAC attribute.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            values?: Word.SensitivityLabelAbacAttributeValue[];
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelDetailsCollection.toJSON()`. */
+        interface SensitivityLabelDetailsCollectionData {
+            items?: Word.Interfaces.SensitivityLabelDetailsData[];
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelDetails.toJSON()`. */
+        interface SensitivityLabelDetailsData {
+            /**
+            * The sublabels of the sensitivity label. Returns null if a label doesn't have any sublabels.
+            *
+            * @remarks
+            * [Api set: WordApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            children?: Word.Interfaces.SensitivityLabelDetailsData[];
+            /**
+             * The ABAC attribute values associated with the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            abacAttributeValues?: Word.SensitivityLabelAbacAttributeValue[];
+            /**
+             * The color of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            color?: string;
+            /**
+             * The unique identifier (GUID) of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+            /**
+             * Indicates whether ABAC attributes are required when applying the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacAttributesRequired?: boolean;
+            /**
+             * Indicates whether the sensitivity label supports ABAC attributes.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacEnabled?: boolean;
+            /**
+             * Gets a value indicating whether the label is enabled.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEnabled?: boolean;
+            /**
+             * The name of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: string;
+            /**
+             * The order of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            order?: number;
+            /**
+             * Gets a value indicating the protection type provided by this label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            protectionType?: Word.SensitivityLabelProtectionType | "NoProtection" | "AdminDefined" | "UserDefined";
+            /**
+             * The unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            siteId?: string;
+            /**
+             * The description of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            tooltip?: string;
         }
         /** An interface describing the data returned by calling `setting.toJSON()`. */
         interface SettingData {
@@ -164121,6 +165829,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         interface CoauthoringLockLoadOptions {
             /**
@@ -164154,6 +165864,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
+         *
+         * This API works only with legacy coauthoring locks. It doesn't apply to modern OneDrive or SharePoint coauthoring, where lock management is handled automatically by the service. Calls on a modern document will fail with a `GeneralException` error.
          */
         interface CoauthoringLockCollectionLoadOptions {
             /**
@@ -170344,6 +172056,327 @@ declare namespace Word {
              * [Api set: WordApiDesktop 1.3]
              */
             protectedForForms?: boolean;
+        }
+        /**
+         * Provides methods to check the status of the catalog of sensitivity labels in Word and retrieve all available sensitivity labels if the catalog is enabled.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelsCatalogLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * Gets the labeling capability status of the sensitivity label catalog in Word.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            getLabelingCapability?: boolean;
+        }
+        /**
+         * Represents a single ABAC attribute value for a sensitivity label.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelAbacAttributeValueLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * The display name of the ABAC attribute value.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: boolean;
+            /**
+             * The display order of the ABAC attribute value.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: boolean;
+            /**
+             * The unique identifier of the ABAC attribute value.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             * Indicates whether the ABAC attribute value is active.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+        }
+        /**
+         * Represents an ABAC attribute for sensitivity labels.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelAbacAttributeLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * The display name of the ABAC attribute.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: boolean;
+            /**
+             * The display order of the ABAC attribute.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: boolean;
+            /**
+             * Indicates whether the ABAC attribute is active.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+            /**
+             * Indicates whether the ABAC attribute can have multiple values.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isMultiValued?: boolean;
+            /**
+             * The values available for the ABAC attribute.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            values?: boolean;
+        }
+        /**
+         * Represents the collection of {@link Word.SensitivityLabelDetails} objects.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelDetailsCollectionLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * For EACH ITEM in the collection: The ABAC attribute values associated with the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            abacAttributeValues?: boolean;
+            /**
+             * For EACH ITEM in the collection: The color of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            color?: boolean;
+            /**
+             * For EACH ITEM in the collection: The unique identifier (GUID) of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             * For EACH ITEM in the collection: Indicates whether ABAC attributes are required when applying the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacAttributesRequired?: boolean;
+            /**
+             * For EACH ITEM in the collection: Indicates whether the sensitivity label supports ABAC attributes.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacEnabled?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets a value indicating whether the label is enabled.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEnabled?: boolean;
+            /**
+             * For EACH ITEM in the collection: The name of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             * For EACH ITEM in the collection: The order of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            order?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets a value indicating the protection type provided by this label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            protectionType?: boolean;
+            /**
+             * For EACH ITEM in the collection: The unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            siteId?: boolean;
+            /**
+             * For EACH ITEM in the collection: The description of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            tooltip?: boolean;
+        }
+        /**
+         * Represents the properties of available sensitivity labels in Word.
+         *
+         * @remarks
+         * [Api set: WordApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelDetailsLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * The ABAC attribute values associated with the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            abacAttributeValues?: boolean;
+            /**
+             * The color of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            color?: boolean;
+            /**
+             * The unique identifier (GUID) of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             * Indicates whether ABAC attributes are required when applying the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacAttributesRequired?: boolean;
+            /**
+             * Indicates whether the sensitivity label supports ABAC attributes.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacEnabled?: boolean;
+            /**
+             * Gets a value indicating whether the label is enabled.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isEnabled?: boolean;
+            /**
+             * The name of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            name?: boolean;
+            /**
+             * The order of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            order?: boolean;
+            /**
+             * Gets a value indicating the protection type provided by this label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            protectionType?: boolean;
+            /**
+             * The unique identifier (GUID) of the tenant which the sensitivity label is belonged.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            siteId?: boolean;
+            /**
+             * The description of the sensitivity label.
+             *
+             * @remarks
+             * [Api set: WordApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            tooltip?: boolean;
         }
         /**
          * Represents a setting of the add-in.
@@ -177658,6 +179691,7 @@ declare namespace Word {
         constructor(url?: string);
         readonly document: Document;
         readonly application: Application;
+        readonly sensitivityLabelsCatalog: SensitivityLabelsCatalog;
     }
     /**
      * Executes a batch script that performs actions on the Word object model, using the RequestContext of previously created API objects.
@@ -181879,7 +183913,7 @@ declare namespace OneNote {
             */
             $top?: number;
             /**
-            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If `top` is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
         }
@@ -186809,7 +188843,7 @@ declare namespace Visio {
             */
             $top?: number;
             /**
-            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If `top` is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
         }
@@ -194957,12 +196991,14 @@ declare namespace PowerPoint {
     enum ThemeColor {
         /**
          * Specifies a mixed theme color.
+                    Not applicable as input to {@link PowerPoint.ThemeColorScheme | ThemeColorScheme.getThemeColor} nor {@link PowerPoint.ThemeColorScheme| ThemeColorScheme.setThemeColor}.
          * @remarks
          * [Api set: PowerPointApi 1.10]
          */
         mixed = "Mixed",
         /**
          * Specifies no theme color.
+                    Not applicable as input to {@link PowerPoint.ThemeColorScheme | ThemeColorScheme.getThemeColor} nor {@link PowerPoint.ThemeColorScheme| ThemeColorScheme.setThemeColor}.
          * @remarks
          * [Api set: PowerPointApi 1.10]
          */
@@ -195055,7 +197091,7 @@ declare namespace PowerPoint {
          * @remarks
          * [Api set: PowerPointApi 1.10]
          *
-         * @param color The theme color.
+         * @param color The theme color. The values `none` and `mixed` are invalid for this API.
          * @returns The color value in #RRGGBB format (e.g., "FFA500").
          */
         getThemeColor(color: PowerPoint.ThemeColor): OfficeExtension.ClientResult<string>;
@@ -195065,7 +197101,7 @@ declare namespace PowerPoint {
          * @remarks
          * [Api set: PowerPointApi 1.10]
          *
-         * @param color The theme color.
+         * @param color The theme color. The values `none` and `mixed` are invalid for this API.
          * @returns The color value in #RRGGBB format (e.g., "FFA500").
          */
         getThemeColor(color: "Mixed" | "None" | "Accent1" | "Accent2" | "Accent3" | "Accent4" | "Accent5" | "Accent6" | "Dark1" | "Dark2" | "FollowedHyperlink" | "Hyperlink" | "Light1" | "Light2"): OfficeExtension.ClientResult<string>;
@@ -195075,7 +197111,7 @@ declare namespace PowerPoint {
          * @remarks
          * [Api set: PowerPointApi 1.10]
          *
-         * @param color The theme color.
+         * @param color The theme color. The values `none` and `mixed` are invalid for this API.
          * @param rgbColor The color value in #RRGGBB format (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          */
         setThemeColor(color: PowerPoint.ThemeColor, rgbColor: string): void;
@@ -195085,7 +197121,7 @@ declare namespace PowerPoint {
          * @remarks
          * [Api set: PowerPointApi 1.10]
          *
-         * @param color The theme color.
+         * @param color The theme color. The values `none` and `mixed` are invalid for this API.
          * @param rgbColor The color value in #RRGGBB format (e.g., "FFA500") or as a named HTML color (e.g., "orange").
          */
         setThemeColor(color: "Mixed" | "None" | "Accent1" | "Accent2" | "Accent3" | "Accent4" | "Accent5" | "Accent6" | "Dark1" | "Dark2" | "FollowedHyperlink" | "Hyperlink" | "Light1" | "Light2", rgbColor: string): void;

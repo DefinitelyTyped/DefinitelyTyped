@@ -126,6 +126,8 @@ declare module "node:fs" {
         bavail: T;
         /** Total file nodes in file system. */
         files: T;
+        /** Fundamental file system block size. */
+        frsize: T;
         /** Free file nodes in file system. */
         ffree: T;
     }
@@ -4576,6 +4578,7 @@ declare module "node:fs" {
         bigint: true;
     }
     interface StatOptions {
+        // TODO: add signal option once we sort its behavior out upstream
         bigint?: boolean | undefined;
         throwIfNoEntry?: boolean | undefined;
     }
@@ -4676,12 +4679,6 @@ declare module "node:fs" {
          */
         cwd?: string | URL | undefined;
         /**
-         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
-         * @default false
-         * @since v22.2.0
-         */
-        withFileTypes?: boolean | undefined;
-        /**
          * Function to filter out files/directories or a
          * list of glob patterns to be excluded. If a function is provided, return
          * `true` to exclude the item, `false` to include it.
@@ -4691,6 +4688,18 @@ declare module "node:fs" {
          * @default undefined
          */
         exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
+        /**
+         * When `true`, symbolic links to directories are
+         * followed while expanding `**` patterns.
+         * @default false
+         */
+        followSymlinks?: boolean | undefined;
+        /**
+         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
+         * @default false
+         * @since v22.2.0
+         */
+        withFileTypes?: boolean | undefined;
     }
     interface GlobOptionsWithFileTypes extends GlobOptions<Dirent> {
         withFileTypes: true;
@@ -4701,6 +4710,9 @@ declare module "node:fs" {
 
     /**
      * Retrieves the files matching the specified pattern.
+     *
+     * When `followSymlinks` is enabled, detected symbolic link cycles are not
+     * traversed recursively.
      *
      * ```js
      * import { glob } from 'node:fs';
@@ -4741,6 +4753,9 @@ declare module "node:fs" {
         ) => void,
     ): void;
     /**
+     * When `followSymlinks` is enabled, detected symbolic link cycles are not
+     * traversed recursively.
+     *
      * ```js
      * import { globSync } from 'node:fs';
      *

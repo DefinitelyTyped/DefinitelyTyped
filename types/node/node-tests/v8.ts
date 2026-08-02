@@ -95,4 +95,20 @@ v8.isStringOneByteRepresentation("你好"); // $ExpectType boolean
 {
     using profile: v8.SyncCPUProfileHandle = v8.startCpuProfile();
     profile.stop(); // $ExpectType string
+
+    v8.startCpuProfile({
+        sampleInterval: 1048576,
+        maxBufferSize: 1073741823,
+    });
+}
+
+{
+    using profile = v8.startHeapProfile();
+    profile.stop(); // $ExpectType string
+
+    v8.startHeapProfile({
+        sampleInterval: 1048576,
+        stackDepth: 32,
+        forceGC: true,
+    });
 }

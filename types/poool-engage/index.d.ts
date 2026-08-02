@@ -70,6 +70,17 @@ export namespace Poool {
         * More infos: https://www.poool.dev/docs/engage/javascript/configuration#gtagautotrackingenabled
         */
         gtagAutoTrackingEnabled?: boolean;
+
+        /**
+         * Enable/disable dark mode for engage elements.
+         *
+         * Light mode is used by default, but you can force dark mode or let the engage elements adapt to the user's system preferences with the `auto` option.
+         *
+         * default: `light`
+         *
+         * More infos: https://www.poool.dev/docs/engage/javascript/configuration#theme
+         */
+        theme?: "light" | "dark" | "auto";
     }
 
     interface EngageConfig {

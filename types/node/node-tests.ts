@@ -11,6 +11,7 @@ import "./node-tests/diagnostics_channel";
 import "./node-tests/dns";
 import "./node-tests/events";
 import "./node-tests/events-maps";
+import "./node-tests/ffi";
 import "./node-tests/fs";
 import "./node-tests/globals";
 import "./node-tests/http";

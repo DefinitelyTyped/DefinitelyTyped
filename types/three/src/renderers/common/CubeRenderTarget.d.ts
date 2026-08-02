@@ -1,4 +1,5 @@
 import { RenderTarget, RenderTargetOptions } from "../../core/RenderTarget.js";
+import { CubeTexture } from "../../textures/CubeTexture.js";
 import { Texture } from "../../textures/Texture.js";
 import Renderer from "./Renderer.js";
 
@@ -8,7 +9,7 @@ import Renderer from "./Renderer.js";
  *
  * @augments RenderTarget
  */
-declare class CubeRenderTarget extends RenderTarget {
+declare class CubeRenderTarget extends RenderTarget<CubeTexture> {
     /**
      * Constructs a new cube render target.
      *

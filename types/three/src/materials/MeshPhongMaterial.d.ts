@@ -29,12 +29,23 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * with {@link Material#transparent} or {@link Material#alphaTest}. The texture map
      * color is modulated by the diffuse `color`.
      *
+     * `map` represents color data, and the texture must be assigned a
+     * {@link Texture#colorSpace}. Most `map` textures set
+     * `texture.colorSpace = SRGBColorSpace`.
+     *
+     * @type {?Texture}
      * @default null
      */
     map: Texture | null;
     /**
      * The light map. Requires a second set of UVs.
      *
+     * `lightMap` represents pre-baked illuminance data, and the texture must be assigned
+     * a {@link Texture#colorSpace}. Most `lightMap` textures set
+     * `texture.colorSpace = LinearSRGBColorSpace` and use float-type formats
+     * such as `.exr` or `.hdr`.
+     *
+     * @type {?Texture}
      * @default null
      */
     lightMap: Texture | null;
@@ -48,6 +59,10 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * The red channel of this texture is used as the ambient occlusion map.
      * Requires a second set of UVs.
      *
+     * `aoMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     aoMap: Texture | null;
@@ -77,6 +92,11 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * emissive color and the emissive intensity. If you have an emissive map,
      * be sure to set the emissive color to something other than black.
      *
+     * `emissiveMap` represents color data, and the texture must be assigned a
+     * {@link Texture#colorSpace}. Most `emissiveMap` textures set
+     * `texture.colorSpace = SRGBColorSpace`.
+     *
+     * @type {?Texture}
      * @default null
      */
     emissiveMap: Texture | null;
@@ -86,6 +106,10 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * the geometry of the object, only the lighting. If a normal map is defined
      * this will be ignored.
      *
+     * `bumpMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     bumpMap: Texture | null;
@@ -103,6 +127,10 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * convention, the `y` component of `normalScale` should be negated to compensate
      * for the different handedness.
      *
+     * `normalMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     normalMap: Texture | null;
@@ -124,8 +152,14 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * displaced vertices can cast shadows, block other objects, and otherwise
      * act as real geometry. The displacement texture is an image where the value
      * of each pixel (white being the highest) is mapped against, and
-     * repositions, the vertices of the mesh.
+     * repositions, the vertices of the mesh. For best results, pair a
+     * displacement map with a matching normal map, since the renderer can
+     * not recompute surface normals from the displaced vertices.
      *
+     * `displacementMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     displacementMap: Texture | null;
@@ -150,6 +184,11 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * highlight contributes and how much of the environment map affects the
      * surface.
      *
+     * `specularMap` represents color data, and the texture must be assigned a
+     * {@link Texture#colorSpace}. Most `specularMap` textures set
+     * `texture.colorSpace = SRGBColorSpace`.
+     *
+     * @type {?Texture}
      * @default null
      */
     specularMap: Texture | null;
@@ -163,12 +202,22 @@ export interface MeshPhongMaterialProperties extends MaterialProperties {
      * green in DXT-compressed and uncompressed RGB 565 formats. Luminance-only and
      * luminance/alpha textures will also still work as expected.
      *
+     * `alphaMap` represents non-color data. Any texture assigned must have
+     * `texture.colorSpace = NoColorSpace` (default).
+     *
+     * @type {?Texture}
      * @default null
      */
     alphaMap: Texture | null;
     /**
      * The environment map.
      *
+     * `envMap` represents luminance data, and the texture must be assigned
+     * a {@link Texture#colorSpace}. Most `envMap` textures set
+     * `texture.colorSpace = LinearSRGBColorSpace` and use float-type formats
+     * such as `.exr` or `.hdr`.
+     *
+     * @type {?Texture}
      * @default null
      */
     envMap: Texture | null;

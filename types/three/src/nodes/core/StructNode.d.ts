@@ -13,8 +13,6 @@ export interface Struct {
     (): StructNode;
     (values: Node[]): StructNode;
     (...values: Node[]): StructNode;
-    layout: StructTypeNode;
-    isStruct: true;
 }
 
 export const struct: (membersLayout: MembersLayout, name?: string | null) => Struct;

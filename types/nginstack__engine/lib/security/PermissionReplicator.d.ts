@@ -25,13 +25,11 @@ declare class PermissionReplicator {
         toGroupUser: number,
         parents?: number[],
         fieldNames?: string[]
-    ):
-        | {}
-        | {
-              insertedKeys: number[];
-              updatedKeys: number[];
-              deletedKeys: number[];
-          };
+    ): {
+        insertedKeys: number[];
+        updatedKeys: number[];
+        deletedKeys: number[];
+    };
     replicateToChildren(
         parent: number,
         permissions: number[]

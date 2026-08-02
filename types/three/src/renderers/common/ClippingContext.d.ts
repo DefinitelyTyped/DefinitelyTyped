@@ -49,6 +49,12 @@ declare class ClippingContext {
      */
     shadowPass: boolean;
     /**
+     * The view matrix.
+     *
+     * @type {Matrix4}
+     */
+    viewMatrix: Matrix4;
+    /**
      * The view normal matrix.
      *
      * @type {Matrix3}
@@ -79,7 +85,6 @@ declare class ClippingContext {
      * @readonly
      */
     readonly parentVersion: number | null;
-    viewMatrix?: Matrix4;
     /**
      * Projects the given source clipping planes and writes the result into the
      * destination array.

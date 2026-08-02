@@ -1,16 +1,26 @@
 import Node from "../core/Node.js";
 
-declare class SampleNode extends Node {
-    callback: (uv: Node) => Node;
-    uvNode: Node | null;
+declare interface SampleNodeInterface<TNodeType> {
+    callback: (uv: Node<"vec2">) => Node<TNodeType>;
+    uvNode: Node<"vec2"> | null;
 
-    readonly isSampleNode: true;
+    readonly isSampleNode: boolean;
 
-    constructor(callback: (uv: Node) => Node, uvNode?: Node | null);
-
-    sample(uv: Node): Node;
+    sample(uv: Node<"vec2">): Node<TNodeType>;
 }
+
+declare const SampleNode: {
+    new<TNodeType>(
+        callback: (uv: Node<"vec2">) => Node<TNodeType>,
+        uvNode?: Node<"vec2"> | null,
+    ): SampleNode<TNodeType>;
+};
+
+type SampleNode<TNodeType> = SampleNodeInterface<TNodeType> & Node<TNodeType>;
 
 export default SampleNode;
 
-export const sample: (callback: (uv: Node) => Node, uv?: Node | null) => SampleNode;
+export const sample: <TNodeType>(
+    callback: (uv: Node<"vec2">) => Node<TNodeType>,
+    uvNode?: Node<"vec2"> | null,
+) => SampleNode<TNodeType>;

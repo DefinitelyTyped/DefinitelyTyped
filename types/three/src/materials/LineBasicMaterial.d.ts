@@ -13,6 +13,11 @@ export interface LineBasicMaterialProperties extends MaterialProperties {
      * Sets the color of the lines using data from a texture. The texture map
      * color is modulated by the diffuse `color`.
      *
+     * `map` represents color data, and the texture must be assigned a
+     * {@link Texture#colorSpace}. Most `map` textures set
+     * `texture.colorSpace = SRGBColorSpace`.
+     *
+     * @type {?Texture}
      * @default null
      */
     map: Texture | null;

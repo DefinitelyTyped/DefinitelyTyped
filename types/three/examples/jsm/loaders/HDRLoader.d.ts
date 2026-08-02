@@ -1,21 +1,11 @@
-import { DataTextureLoader, LoadingManager, TextureDataType } from "three";
-
-export interface HDR {
-    width: number;
-    height: number;
-    data: Float32Array | Uint8Array;
-    header: string;
-    gamma: number;
-    exposure: number;
-    type: TextureDataType;
-}
+import { DataTextureLoader, DataTextureLoaderTexData, LoadingManager, TextureDataType } from "three";
 
 declare class HDRLoader extends DataTextureLoader {
     type: TextureDataType;
 
     constructor(manager?: LoadingManager);
 
-    parse(buffer: ArrayBuffer): HDR;
+    parse(buffer: ArrayBuffer): DataTextureLoaderTexData;
     setDataType(type: TextureDataType): this;
 }
 

@@ -153,7 +153,11 @@ declare module "node:fs/promises" {
          * @return Fulfills with `undefined` upon success.
          */
         appendFile(
-            data: string | Uint8Array,
+            data:
+                | string
+                | NodeJS.ArrayBufferView
+                | Iterable<string | NodeJS.ArrayBufferView>
+                | AsyncIterable<string | NodeJS.ArrayBufferView>,
             options?:
                 | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
@@ -470,7 +474,11 @@ declare module "node:fs/promises" {
          * @since v10.0.0
          */
         writeFile(
-            data: string | Uint8Array,
+            data:
+                | string
+                | NodeJS.ArrayBufferView
+                | Iterable<string | NodeJS.ArrayBufferView>
+                | AsyncIterable<string | NodeJS.ArrayBufferView>,
             options?:
                 | (ObjectEncodingOptions & Abortable)
                 | BufferEncoding
@@ -1208,8 +1216,7 @@ declare module "node:fs/promises" {
             | string
             | NodeJS.ArrayBufferView
             | Iterable<string | NodeJS.ArrayBufferView>
-            | AsyncIterable<string | NodeJS.ArrayBufferView>
-            | Stream,
+            | AsyncIterable<string | NodeJS.ArrayBufferView>,
         options?:
             | (ObjectEncodingOptions & {
                 mode?: Mode | undefined;
@@ -1240,7 +1247,11 @@ declare module "node:fs/promises" {
      */
     function appendFile(
         path: PathLike | FileHandle,
-        data: string | Uint8Array,
+        data:
+            | string
+            | NodeJS.ArrayBufferView
+            | Iterable<string | NodeJS.ArrayBufferView>
+            | AsyncIterable<string | NodeJS.ArrayBufferView>,
         options?: (ObjectEncodingOptions & FlagAndOpenMode & { flush?: boolean | undefined }) | BufferEncoding | null,
     ): Promise<void>;
     /**
@@ -1432,13 +1443,15 @@ declare module "node:fs/promises" {
      * When copying a directory to another directory, globs are not supported and
      * behavior is similar to `cp dir1/ dir2/`.
      * @since v16.7.0
-     * @experimental
      * @param src source path to copy.
      * @param dest destination path to copy to.
      * @return Fulfills with `undefined` upon success.
      */
     function cp(source: string | URL, destination: string | URL, opts?: CopyOptions): Promise<void>;
     /**
+     * When `followSymlinks` is enabled, detected symbolic link cycles are not
+     * traversed recursively.
+     *
      * ```js
      * import { glob } from 'node:fs/promises';
      *

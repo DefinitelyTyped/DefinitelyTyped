@@ -1190,6 +1190,11 @@ import { promisify } from "node:util";
 }
 
 {
+    let privateKey!: crypto.KeyObject;
+    crypto.createPublicKey(privateKey);
+}
+
+{
     crypto.createSecretKey(Buffer.from("asdf"));
     crypto.createSecretKey(new Uint8Array(128));
     crypto.createSecretKey("ascii", "ascii");
@@ -1549,6 +1554,13 @@ import { promisify } from "node:util";
     crypto.randomUUID({ disableEntropyCache: true });
     crypto.randomUUID({ disableEntropyCache: false });
     crypto.randomUUID();
+}
+
+{
+    crypto.randomUUIDv7({});
+    crypto.randomUUIDv7({ disableEntropyCache: true });
+    crypto.randomUUIDv7({ disableEntropyCache: false });
+    crypto.randomUUIDv7();
 }
 
 {

@@ -25,6 +25,8 @@ declare class LightingModel {
     direct(lightData: LightingModelDirectInput, builder: NodeBuilder): void;
     directRectArea(lightData: LightingModelDirectRectAreaInput, builder: NodeBuilder): void;
     indirect(builder: NodeBuilder): void;
+    indirectDiffuse(builder: NodeBuilder): void;
+    indirectSpecular(builder: NodeBuilder): void;
     ambientOcclusion(builder: NodeBuilder): void;
 }
 
