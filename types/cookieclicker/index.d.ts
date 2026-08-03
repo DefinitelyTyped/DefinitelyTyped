@@ -2064,9 +2064,12 @@ declare namespace Game {
          */
         name: string;
         /**
-         * The amount of stocks bought of the good
+         * The value this stock was previously purchased at.
          */
         prev: number;
+        /**
+         * The amount of stocks bought of the good
+         */
         stock: number;
         stockBoxL: HTMLDivElement;
         stockL: HTMLSpanElement;
