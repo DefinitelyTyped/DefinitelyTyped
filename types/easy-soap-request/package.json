@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/easy-soap-request": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Steven Snoeijen",
-            "githubUsername": "stevensnoeijen"
-        }
-    ]
+    "owners": []
 }

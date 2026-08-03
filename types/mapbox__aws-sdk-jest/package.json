@@ -12,10 +12,5 @@
     "devDependencies": {
         "@types/mapbox__aws-sdk-jest": "workspace:."
     },
-    "owners": [
-        {
-            "name": "stevensnoeijen",
-            "githubUsername": "stevensnoeijen"
-        }
-    ]
+    "owners": []
 }

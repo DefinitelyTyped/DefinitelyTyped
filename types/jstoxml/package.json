@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/jstoxml": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Steven Snoeijen",
-            "githubUsername": "stevensnoeijen"
-        }
-    ]
+    "owners": []
 }
