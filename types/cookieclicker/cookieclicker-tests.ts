@@ -244,3 +244,49 @@ let someChoice5: [number, number] = Game.YouCustomizer.genesById["moddedGene"].c
 // offsetGene cannot handle numbers except -1, 0, 1
 // @ts-expect-error
 Game.YouCustomizer.offsetGene("acc2", 2);
+
+Game.cookiesPsRawHighest < Game.cookiesPsRaw;
+let effect = Game.eff("goldenCookieEffDur");
+let effectWithDefault = Game.eff("goldenCookieEffDur", 1);
+Game.RuinTheFun(1);
+Game.isMinigameReady(Game.Objects["Bank"]);
+Game.Objects["Bank"].minigame.reset();
+
+// Game.ObjectsById is an array
+Game.ObjectsById.length;
+Game.ObjectsById[2];
+Game.ObjectsById["2"];
+for (var i in Game.ObjectsById) {
+    Game.ObjectsById[i].levelUp(true);
+}
+
+// Shimmers can be popped with, and without, an explicit MouseEvent
+let goldenCookie = new Game.shimmer("golden", { noWrath: true, type: "blab" });
+goldenCookie.pop(new MouseEvent("click"));
+goldenCookie.pop();
+
+// Loans
+if (Game.isMinigameReady(Game.Objects["Bank"])) {
+    Game.Objects["Bank"].minigame.takeLoan(1);
+    Game.Objects["Bank"].minigame.takeLoan(1, true);
+    /* Game.takeLoan is defined once Game.isMinigameReady(Game.Objects["Bank"]),
+     * but TypeScript cannot express that.
+     * So we simply tell the compiler to trust us.
+     */
+    Game.takeLoan!(2);
+    Game.takeLoan!(2, true)!;
+}
+
+// Temple slots
+if (Game.Objects["Temple"].minigame.gods["ages"].slot != -1) {
+    let slot = Game.Objects["Temple"].minigame.gods["ages"].slot;
+    // $ExpectType "0" | "1" | "2"
+    slot;
+}
+
+// Buffs are iterable
+for (var i in Game.buffs) {}
+
+// Global functions
+// $ExpectType number
+getBounds(l("bigCookie")!).centerx;
