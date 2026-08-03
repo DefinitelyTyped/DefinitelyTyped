@@ -266,10 +266,16 @@ goldenCookie.pop(new MouseEvent("click"));
 goldenCookie.pop();
 
 // Loans
-Game.Objects["Bank"].minigame.takeLoan(1);
-Game.Objects["Bank"].minigame.takeLoan(1, true);
-Game.takeLoan(2);
-Game.takeLoan(2, true);
+if (Game.isMinigameReady(Game.Objects["Bank"])) {
+    Game.Objects["Bank"].minigame.takeLoan(1);
+    Game.Objects["Bank"].minigame.takeLoan(1, true);
+    /* Game.takeLoan is defined once Game.isMinigameReady(Game.Objects["Bank"]),
+     * but TypeScript cannot express that.
+     * So we simply tell the compiler to trust us.
+     */
+    Game.takeLoan!(2);
+    Game.takeLoan!(2, true)!;
+}
 
 // Temple slots
 if (Game.Objects["Temple"].minigame.gods["ages"].slot != -1) {

@@ -2247,7 +2247,12 @@ declare namespace Game {
         draw(): void;
         onResize(): void;
     }
-    export function takeLoan(id: number, interest?: boolean): void;
+
+    /**
+     * Alias for `Game.Objects["Bank"].minigame.takeLoan`.
+     * Only available if the stock market minigame is loaded.
+     */
+    export let takeLoan: undefined | ((id: number, interest?: boolean) => void);
 
     export let Objects: Record<string, GameObject> & {
         Farm: MinigameObject<GardenMinigame>;
@@ -3262,7 +3267,14 @@ declare namespace Game {
     export let AchievementsN: number;
     export let AchievementsOwned: number;
 
-    export let paradeAnimLoop: number;
+    /**
+     * The interval timer (from a `setInterval` call)
+     * that animates the tooltip for the "Cookie Clicker" achievement.
+     *
+     * This variable is not set when the game first launches.
+     * The timer is cleared (and this variable is set to 0) when that tooltip is no longer shown.
+     */
+    export let paradeAnimLoop: number | undefined;
 
     export type AchievementPool = "normal" | "shadow" | "dungeon";
 
