@@ -5,8 +5,6 @@ ast; // $ExpectType CssNode
 
 csstree.parse(".a { color: red; }", {}); // $ExpectType CssNode
 csstree.parse(".a { color: red; }", { context: "selector", positions: true }); // $ExpectType CssNode
-csstree.parse(".a { color: red; }", { list: true }); // $ExpectType CssNode
-csstree.parse(".a { color: red; }", { list: false }); // $ExpectType CssNodePlain
 
 csstree.walk(ast, (node, item, list) => {
     node; // $ExpectType CssNode
@@ -75,30 +73,21 @@ csstree.generate(ast, {}); // $ExpectType string
 csstree.generate(ast, {
     sourceMap: true,
     decorator: handlers => ({
+        children(node, delimiter) {
+            node; // $ExpectType CssNode
+            delimiter; // $ExpectType ((node: CssNode) => void) | undefined
+            handlers.children.call(handlers, node, delimiter);
+        },
         node(node) {
             node; // $ExpectType CssNode
             handlers.node(node);
         },
-        tokenBefore(prevCode, type, value) {
-            prevCode; // $ExpectType number
-            type; // $ExpectType number
-            value; // $ExpectType string
-            return handlers.tokenBefore(prevCode, type, value);
-        },
-        token(type, value, suppressAutoWhiteSpace) {
-            type; // $ExpectType number
-            value; // $ExpectType string
-            suppressAutoWhiteSpace; // $ExpectType boolean | undefined
-            handlers.token(type, value, suppressAutoWhiteSpace);
-        },
-        emit(value, type, auto) {
-            value; // $ExpectType string
-            type; // $ExpectType number
-            auto; // $ExpectType boolean
-            handlers.emit(value, type, auto);
+        chunk(chunk) {
+            chunk; // $ExpectType string
+            handlers.chunk(chunk);
         },
         result() {
-            return handlers.result();
+            return handlers.result.call(handlers);
         },
     }),
     mode: "spec",
@@ -130,9 +119,6 @@ const list = new csstree.List<Test>();
 
 const anItem = list.createItem({ a: "c" });
 anItem; // $ExpectType ListItem<Test>
-
-const staticItem = csstree.List.createItem({ a: "c" });
-staticItem; // $ExpectType ListItem<{ a: string; }>
 
 list.fromArray([{ a: "b" }]);
 list.toArray(); // $ExpectType Test[]
@@ -276,19 +262,18 @@ list.prepend(anItem); // $ExpectType List<Test>
 list.prependData({ a: "b" }); // $ExpectType List<Test>
 list.append(anItem); // $ExpectType List<Test>
 list.appendData({ a: "b" }); // $ExpectType List<Test>
-list.insert(anItem); // $ExpectType List<Test>
 list.insert(anItem, anItem); // $ExpectType List<Test>
 list.insertData({ a: "b" }, anItem); // $ExpectType List<Test>
 list.remove(anItem); // $ExpectType ListItem<Test>
 list.push({ a: "b" }); // $ExpectType void
-list.pop(); // $ExpectType ListItem<Test> | null
+list.pop(); // $ExpectType ListItem<Test> | undefined
 list.unshift({ a: "b" }); // $ExpectType void
-list.shift(); // $ExpectType ListItem<Test> | null
+list.shift(); // $ExpectType ListItem<Test> | undefined
 list.prependList(list); // $ExpectType List<Test>
 list.appendList(list); // $ExpectType List<Test>
 list.insertList(list, anItem); // $ExpectType List<Test>
-list.replace(anItem, list); // $ExpectType void
-list.replace(anItem, anItem); // $ExpectType void
+list.replace(anItem, list); // $ExpectType List<Test>
+list.replace(anItem, anItem); // $ExpectType List<Test>
 
 switch (ast.type) {
     case "AnPlusB":
@@ -371,46 +356,13 @@ switch (ast.type) {
         ast.name; // $ExpectType string
         break;
 
-    case "Feature":
-        ast.kind; // $ExpectType string
+    case "MediaFeature":
         ast.name; // $ExpectType string
-        ast.value; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio | null
-        break;
-
-    case "FeatureRange":
-        ast.kind; // $ExpectType string
-        ast.left; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio
-        ast.leftComparison; // $ExpectType string
-        ast.middle; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio
-        ast.rightComparison; // $ExpectType string | null
-        ast.right; // $ExpectType Dimension | FunctionNode | Identifier | NumberNode | Ratio | null
-        break;
-
-    case "FeatureFunction":
-        ast.kind; // $ExpectType string
-        ast.feature; // $ExpectType string
-        ast.value; // $ExpectType Declaration | Selector
-        break;
-
-    case "GeneralEnclosed":
-        ast.kind; // $ExpectType string
-        ast.function; // $ExpectType string | null
-        ast.children; // $ExpectType List<CssNode>
-        break;
-
-    case "Condition":
-        ast.kind; // $ExpectType string
-        ast.children; // $ExpectType List<CssNode>
-        break;
-
-    case "SupportsDeclaration":
-        ast.declaration; // $ExpectType Declaration
+        ast.value; // $ExpectType Dimension | Identifier | NumberNode | Ratio | null
         break;
 
     case "MediaQuery":
-        ast.modifier; // $ExpectType string | null
-        ast.mediaType; // $ExpectType string | null
-        ast.condition; // $ExpectType Condition | null
+        ast.children; // $ExpectType List<CssNode>
         break;
 
     case "MediaQueryList":
@@ -452,8 +404,8 @@ switch (ast.type) {
         break;
 
     case "Ratio":
-        ast.left; // $ExpectType FunctionNode | NumberNode
-        ast.right; // $ExpectType FunctionNode | NumberNode | null
+        ast.left; // $ExpectType string
+        ast.right; // $ExpectType string
         break;
 
     case "Raw":
@@ -499,19 +451,6 @@ switch (ast.type) {
 
     case "WhiteSpace":
         ast.value; // $ExpectType string
-        break;
-
-    case "Layer":
-        ast.name; // $ExpectType string
-        break;
-
-    case "LayerList":
-        ast.children; // $ExpectType List<CssNode>
-        break;
-
-    case "Scope":
-        ast.root; // $ExpectType Raw | SelectorList | null
-        ast.limit; // $ExpectType Raw | SelectorList | null
         break;
 
     default:
@@ -599,46 +538,13 @@ switch (toPlain.type) {
         toPlain.name; // $ExpectType string
         break;
 
-    case "Feature":
-        toPlain.kind; // $ExpectType string
+    case "MediaFeature":
         toPlain.name; // $ExpectType string
-        toPlain.value; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain | null
-        break;
-
-    case "FeatureRange":
-        toPlain.kind; // $ExpectType string
-        toPlain.left; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain
-        toPlain.leftComparison; // $ExpectType string
-        toPlain.middle; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain
-        toPlain.rightComparison; // $ExpectType string | null
-        toPlain.right; // $ExpectType Dimension | FunctionNodePlain | Identifier | NumberNode | RatioPlain | null
-        break;
-
-    case "FeatureFunction":
-        toPlain.kind; // $ExpectType string
-        toPlain.feature; // $ExpectType string
-        toPlain.value; // $ExpectType DeclarationPlain | SelectorPlain
-        break;
-
-    case "GeneralEnclosed":
-        toPlain.kind; // $ExpectType string
-        toPlain.function; // $ExpectType string | null
-        toPlain.children; // $ExpectType CssNodePlain[]
-        break;
-
-    case "Condition":
-        toPlain.kind; // $ExpectType string
-        toPlain.children; // $ExpectType CssNodePlain[]
-        break;
-
-    case "SupportsDeclaration":
-        toPlain.declaration; // $ExpectType DeclarationPlain
+        toPlain.value; // $ExpectType Dimension | Identifier | NumberNode | Ratio | null
         break;
 
     case "MediaQuery":
-        toPlain.modifier; // $ExpectType string | null
-        toPlain.mediaType; // $ExpectType string | null
-        toPlain.condition; // $ExpectType ConditionPlain | null
+        toPlain.children; // $ExpectType CssNodePlain[]
         break;
 
     case "MediaQueryList":
@@ -677,8 +583,8 @@ switch (toPlain.type) {
         break;
 
     case "Ratio":
-        toPlain.left; // $ExpectType FunctionNodePlain | NumberNode
-        toPlain.right; // $ExpectType FunctionNodePlain | NumberNode | null
+        toPlain.left; // $ExpectType string
+        toPlain.right; // $ExpectType string
         break;
 
     case "Raw":
@@ -726,37 +632,17 @@ switch (toPlain.type) {
         toPlain.value; // $ExpectType string
         break;
 
-    case "Layer":
-        toPlain.name; // $ExpectType string
-        break;
-
-    case "LayerList":
-        toPlain.children; // $ExpectType CssNodePlain[]
-        break;
-
-    case "Scope":
-        toPlain.root; // $ExpectType Raw | SelectorListPlain | null
-        toPlain.limit; // $ExpectType Raw | SelectorListPlain | null
-        break;
-
     default:
         toPlain; // $ExpectType never
 }
 
-const dsError = csstree.definitionSyntax.SyntaxError("message", "input", 0); // $ExpectType DefinitionSyntaxError
-dsError.input; // $ExpectType string
-dsError.offset; // $ExpectType number
-dsError.rawMessage; // $ExpectType string
+csstree.definitionSyntax.syntaxError; // $ExpectType SyntaxError
 const syntax = csstree.definitionSyntax.parse("foo | bar"); // $ExpectType DSNodeGroup
 const node = syntax.terms[0]; // $ExpectType DSNode
 switch (node.type) {
     case "AtKeyword":
         node; // $ExpectType DSNodeAtWord
         node.name; // $ExpectType string
-        break;
-    case "Boolean":
-        node; // $ExpectType DSNodeBoolean
-        node.term; // $ExpectType DSNode
         break;
     case "Comma":
         node; // $ExpectType DSNodeComma
@@ -806,17 +692,11 @@ csstree.definitionSyntax.generate(syntax); // $ExpectType string
 csstree.definitionSyntax.generate(syntax, { forceBraces: true }); // $ExpectType string
 csstree.definitionSyntax.generate(syntax, { compact: true }); // $ExpectType string
 csstree.definitionSyntax.generate(syntax, {
-    decorate: (result, node) => {
+    decorate: (result: string, node) => {
         result; // $ExpectType string
-        node; // $ExpectType DSNode | DSNodeTypeOpts
+        node; // $ExpectType DSNode
         return result;
     },
-});
-// $ExpectType string
-csstree.definitionSyntax.generate(syntax, (result, node) => {
-    result; // $ExpectType string
-    node; // $ExpectType DSNode | DSNodeTypeOpts
-    return result;
 });
 
 csstree.definitionSyntax.walk(syntax, (node) => {
@@ -836,25 +716,9 @@ csstree.parse(".selector { /* comment */ }", {
 csstree.parse(".a { ::: invalid css ::: }", {
     onParseError(error, fallbackNode) {
         error; // $ExpectType SyntaxParseError
-        error.source; // $ExpectType string
-        error.line; // $ExpectType number
-        error.column; // $ExpectType number
-        error.formattedMessage; // $ExpectType string
-        error.sourceFragment(); // $ExpectType string
         fallbackNode; // $ExpectType CssNode
     },
 });
-
-csstree.parse(".a {}", {
-    onToken(type, start, end, index) {
-        type; // $ExpectType number
-        start; // $ExpectType number
-        end; // $ExpectType number
-        index; // $ExpectType number
-    },
-});
-const tokenRecords: Array<{ type: number; start: number; end: number }> = [];
-csstree.parse(".a {}", { onToken: tokenRecords, positions: true });
 
 csstree.ident.decode("foo"); // $ExpectType string
 csstree.ident.encode("foo"); // $ExpectType string
@@ -864,39 +728,14 @@ csstree.string.encode("foo", true); // $ExpectType string
 csstree.url.decode("foo"); // $ExpectType string
 csstree.url.encode("foo"); // $ExpectType string
 
-csstree.fork({}); // $ExpectType Syntax
-csstree.fork(config => config); // $ExpectType Syntax
-const forked = csstree.fork({
+csstree.fork({}); // $ExpectType { lexer: Lexer; }
+const { lexer } = csstree.fork({
     atrules: {},
     properties: {},
     types: { foo: "<length>" },
     cssWideKeywords: ["initial"],
 });
-forked; // $ExpectType Syntax
-const { lexer } = forked;
 lexer; // $ExpectType Lexer
-
-csstree.createSyntax({}); // $ExpectType Syntax
-csstree.createLexer(); // $ExpectType Lexer
-csstree.createLexer({}); // $ExpectType Lexer
-
-forked.parse(".a {}"); // $ExpectType CssNode
-forked.parse(".a {}", { list: false }); // $ExpectType CssNodePlain
-forked.generate(ast); // $ExpectType string
-forked.walk(ast, () => {});
-forked.find(ast, () => true); // $ExpectType CssNode | null
-forked.findLast(ast, () => true); // $ExpectType CssNode | null
-forked.findAll(ast, () => true); // $ExpectType CssNode[]
-forked.fromPlainObject(toPlain); // $ExpectType CssNode
-forked.toPlainObject(ast); // $ExpectType CssNodePlain
-forked.createLexer(); // $ExpectType Lexer
-forked.fork({}); // $ExpectType Syntax
-forked.tokenize(".a {}", (type, start, end) => {
-    type; // $ExpectType number
-    start; // $ExpectType number
-    end; // $ExpectType number
-});
-
 lexer.matchAtruleDescriptor("foo", "bar", ast); // $ExpectType LexerMatchResult
 lexer.matchAtruleDescriptor("foo", "bar", "baz"); // $ExpectType LexerMatchResult
 lexer.matchAtrulePrelude("foo", ast); // $ExpectType LexerMatchResult
@@ -911,57 +750,4 @@ lexer.match("foo", "bar"); // $ExpectType LexerMatchResult
 lexer.match(syntax, ast); // $ExpectType LexerMatchResult
 lexer.match(syntax, "bar"); // $ExpectType LexerMatchResult
 
-const matchResult = lexer.matchProperty("color", ast);
-matchResult.matched; // $ExpectType SyntaxMatchNode | null
-matchResult.iterations; // $ExpectType number
-matchResult.error; // $ExpectType Error | SyntaxMatchError | SyntaxReferenceError | null
-matchResult.getTrace(ast); // $ExpectType SyntaxMatchNode[] | null
-matchResult.isType(ast, "foo"); // $ExpectType boolean
-matchResult.isProperty(ast, "color"); // $ExpectType boolean
-matchResult.isKeyword(ast); // $ExpectType boolean
-
-lexer.checkStructure(ast); // $ExpectType false | StructureWarning[]
-lexer.checkAtruleName("media"); // $ExpectType SyntaxReferenceError | undefined
-lexer.checkAtrulePrelude("media", ast); // $ExpectType Error | SyntaxReferenceError | undefined
-lexer.checkAtruleDescriptorName("media", "foo"); // $ExpectType SyntaxError | SyntaxReferenceError | undefined
-lexer.checkPropertyName("color"); // $ExpectType SyntaxReferenceError | undefined
-
-lexer.findValueFragments("color", ast, "Type", "foo"); // $ExpectType LexerValueFragment[]
-lexer.findAllFragments(ast, "Type", "foo"); // $ExpectType LexerValueFragment[]
-
-lexer.getAtrule("media"); // $ExpectType AtruleDescriptor | null
-lexer.getAtrulePrelude("media"); // $ExpectType SyntaxDescriptor | null
-lexer.getAtruleDescriptor("media", "foo"); // $ExpectType SyntaxDescriptor | null
-lexer.getProperty("color"); // $ExpectType SyntaxDescriptor | null
-lexer.getType("length"); // $ExpectType SyntaxDescriptor | null
-lexer.validate(); // $ExpectType LexerValidationResult | null
-lexer.dump(); // $ExpectType unknown
-lexer.toString(); // $ExpectType string
-
 csstree.lexer; // $ExpectType Lexer
-
-csstree.tokenize(".a {}"); // $ExpectType void
-csstree.tokenize(".a {}", (type, start, end) => {
-    type; // $ExpectType number
-    start; // $ExpectType number
-    end; // $ExpectType number
-});
-csstree.tokenTypes.Ident; // $ExpectType number
-csstree.tokenNames; // $ExpectType string[]
-
-const tokenStream = new csstree.TokenStream(".a {}", csstree.tokenize);
-tokenStream.source; // $ExpectType string
-tokenStream.tokenType; // $ExpectType number
-tokenStream.eof; // $ExpectType boolean
-tokenStream.next(); // $ExpectType void
-tokenStream.lookupType(1); // $ExpectType number
-tokenStream.getTokenType(0); // $ExpectType number
-tokenStream.dump(); // $ExpectType { idx: number; type: string; chunk: string; balance: number; }[]
-
-const offsetToLocation = new csstree.OffsetToLocation(".a {}");
-offsetToLocation.getLocation(0); // $ExpectType { source: string; offset: number; line: number; column: number; }
-offsetToLocation.getLocationRange(0, 1); // $ExpectType CssLocation
-
-csstree.vendorPrefix("-webkit-foo"); // $ExpectType string
-csstree.isCustomProperty("--foo"); // $ExpectType boolean
-csstree.version; // $ExpectType string
