@@ -884,6 +884,9 @@ provider.backchannelResult("request", rarGrant, {
 provider.on("credential.error", (ctx, err) => {
     ctx.oidc.issuer.substring(0);
     err.error.substring(0);
+    if (err.cause instanceof Error) {
+        err.cause.message.substring(0);
+    }
 });
 provider.on("pre_authorized_code.saved", code => {
     code.txCode?.substring(0);
@@ -1149,11 +1152,43 @@ const claims = new provider.Claims(
 claims.scope("openid").result().then(JSON.stringify);
 
 provider.ReplayDetection.unique("issuer", "jti", Date.now()).then(Boolean);
+const errorCause = new Error("validation failed");
+const errorOptions: oidc.errors.OIDCProviderErrorOptions = {
+    cause: errorCause,
+    detail: "validation detail",
+};
+
+const providerError = new oidc.errors.OIDCProviderError(400, "custom_error", errorOptions);
+if (providerError.cause instanceof Error) {
+    providerError.cause.message.substring(0);
+}
+
+new oidc.errors.CustomOIDCProviderError("custom_error", "custom error");
+new oidc.errors.CustomOIDCProviderError("custom_error", "custom error", errorOptions);
+
 new oidc.errors.InvalidClientAuth();
-new oidc.errors.InvalidClientMetadata("invalid metadata", "validation detail");
+new oidc.errors.InvalidClientAuth("validation detail");
+new oidc.errors.InvalidClientAuth({ cause: errorCause });
 new oidc.errors.InvalidGrant();
-new oidc.errors.InvalidRequest("invalid request", 400, "validation detail");
-new oidc.errors.InvalidScope("invalid scope", "api:write", "validation detail");
-new oidc.errors.InsufficientScope("insufficient scope", "api:write", "validation detail");
+new oidc.errors.InvalidGrant("validation detail");
+new oidc.errors.InvalidGrant(errorOptions);
 new oidc.errors.InvalidToken();
+new oidc.errors.InvalidToken("validation detail");
+new oidc.errors.InvalidToken({ cause: "non-error cause" });
+
+new oidc.errors.InvalidClientMetadata("invalid metadata", "validation detail");
+new oidc.errors.InvalidClientMetadata("invalid metadata", errorOptions);
+new oidc.errors.InvalidRequest("invalid request", 400, "validation detail");
+new oidc.errors.InvalidRequest("invalid request", 400, errorOptions);
+new oidc.errors.InvalidScope("invalid scope", "api:write", "validation detail");
+new oidc.errors.InvalidScope("invalid scope", "api:write", errorOptions);
+new oidc.errors.InsufficientScope("insufficient scope", "api:write", "validation detail");
+new oidc.errors.InsufficientScope("insufficient scope", "api:write", errorOptions);
+
 new oidc.errors.UnmetAuthenticationRequirements("authentication required", "validation detail");
+new oidc.errors.UnmetAuthenticationRequirements("authentication required", errorOptions);
+new oidc.errors.AccessDenied(undefined, { cause: errorCause });
+
+new oidc.errors.InvalidRedirectUri();
+new oidc.errors.InvalidRedirectUri({ cause: errorCause });
+new oidc.errors.InvalidRedirectUri("legacy description", "legacy detail");
