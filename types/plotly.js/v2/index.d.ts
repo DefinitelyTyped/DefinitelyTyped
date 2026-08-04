@@ -1310,7 +1310,6 @@ export type ModeBarDefaultButtons =
     | "reset"
     | "resetView";
 
-
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 
 export interface Icon {
