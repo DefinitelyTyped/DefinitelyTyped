@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/tnt/library" {
   /**
@@ -788,6 +788,20 @@ declare module "sap/tnt/NavigationList" {
       oItem: NavigationListItemBase
     ): this;
     /**
+     * Announces the number of search matches found in the navigation list to assistive technologies.
+     *
+     * This method uses an invisible live region message so screen readers can inform users about the current
+     * number of search matches.
+     *
+     * @since 1.151
+     */
+    announceSearchMatchCount(
+      /**
+       * The number of matching navigation items.
+       */
+      iCount: int
+    ): void;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:itemPress itemPress} event of this `sap.tnt.NavigationList`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -973,6 +987,19 @@ declare module "sap/tnt/NavigationList" {
      */
     getExpanded(): boolean;
     /**
+     * Gets current value of property {@link #getHighlightedText highlightedText}.
+     *
+     * Specifies a term to be highlighted in the navigation items' text. When set, matching portions of item
+     * and group texts are visually emphasized during rendering.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.151
+     *
+     * @returns Value of property `highlightedText`
+     */
+    getHighlightedText(): string;
+    /**
      * Gets content of aggregation {@link #getItems items}.
      *
      * The items displayed in the list.
@@ -1113,6 +1140,26 @@ declare module "sap/tnt/NavigationList" {
       bExpanded?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getHighlightedText highlightedText}.
+     *
+     * Specifies a term to be highlighted in the navigation items' text. When set, matching portions of item
+     * and group texts are visually emphasized during rendering.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.151
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHighlightedText(
+      /**
+       * New value for property `highlightedText`
+       */
+      sHighlightedText?: string
+    ): this;
+    /**
      * Sets the association for selectedItem. Set `null` to deselect.
      *
      *
@@ -1173,6 +1220,14 @@ declare module "sap/tnt/NavigationList" {
      * @since 1.62.0
      */
     selectedKey?: string | PropertyBindingInfo;
+
+    /**
+     * Specifies a term to be highlighted in the navigation items' text. When set, matching portions of item
+     * and group texts are visually emphasized during rendering.
+     *
+     * @since 1.151
+     */
+    highlightedText?: string | PropertyBindingInfo;
 
     /**
      * The items displayed in the list.
@@ -2681,6 +2736,14 @@ declare module "sap/tnt/SideNavigation" {
       oBindingInfo: AggregationBindingInfo
     ): this;
     /**
+     * Destroys the filterSection in the aggregation {@link #getFilterSection filterSection}.
+     *
+     * @since 1.151
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyFilterSection(): this;
+    /**
      * Destroys the fixedItem in the aggregation {@link #getFixedItem fixedItem}.
      *
      *
@@ -2803,6 +2866,14 @@ declare module "sap/tnt/SideNavigation" {
      */
     getExpanded(): boolean;
     /**
+     * Gets content of aggregation {@link #getFilterSection filterSection}.
+     *
+     * Defines the filter section.
+     *
+     * @since 1.151
+     */
+    getFilterSection(): Control;
+    /**
      * Gets content of aggregation {@link #getFixedItem fixedItem}.
      *
      * Defines the content inside the fixed part.
@@ -2901,6 +2972,19 @@ declare module "sap/tnt/SideNavigation" {
        * Indication if the SideNavigation is expanded.
        */
       bExpanded: boolean
+    ): this;
+    /**
+     * Sets the aggregated {@link #getFilterSection filterSection}.
+     *
+     * @since 1.151
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFilterSection(
+      /**
+       * The filterSection to set
+       */
+      oFilterSection: Control
     ): this;
     /**
      * Sets the aggregated {@link #getFixedItem fixedItem}.
@@ -3054,6 +3138,13 @@ declare module "sap/tnt/SideNavigation" {
     footer?: NavigationList;
 
     /**
+     * Defines the filter section.
+     *
+     * @since 1.151
+     */
+    filterSection?: Control;
+
+    /**
      * The selected `NavigationListItem`.
      *
      * @since 1.52.0
@@ -3128,6 +3219,98 @@ declare module "sap/tnt/SideNavigation" {
     SideNavigation$ItemSelectEventParameters,
     SideNavigation
   >;
+}
+
+declare module "sap/tnt/SideNavigationSearchField" {
+  import {
+    default as SearchField,
+    $SearchFieldSettings,
+  } from "sap/m/SearchField";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  /**
+   * Search field for side navigation with predefined accessibility settings.
+   *
+   * The `SideNavigationSearchField` control extends {@link sap.m.SearchField} and provides accessibility-related
+   * defaults tailored for use in a {@link sap.tnt.SideNavigation}.
+   *
+   * @since 1.151
+   */
+  export default class SideNavigationSearchField extends SearchField {
+    /**
+     * Constructor for a new SideNavigationSearchField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SearchField#constructor sap.m.SearchField }
+     * can be used.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SideNavigationSearchFieldSettings
+    );
+    /**
+     * Constructor for a new SideNavigationSearchField.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.m.SearchField#constructor sap.m.SearchField }
+     * can be used.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $SideNavigationSearchFieldSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.tnt.SideNavigationSearchField with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.m.SearchField.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, SideNavigationSearchField>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.tnt.SideNavigationSearchField.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+  }
+  /**
+   * Describes the settings that can be provided to the SideNavigationSearchField constructor.
+   */
+  export interface $SideNavigationSearchFieldSettings extends $SearchFieldSettings {}
 }
 
 declare module "sap/tnt/ToolHeader" {
@@ -3715,6 +3898,8 @@ declare namespace sap {
     "sap/tnt/NavigationListItemBase": undefined;
 
     "sap/tnt/SideNavigation": undefined;
+
+    "sap/tnt/SideNavigationSearchField": undefined;
 
     "sap/tnt/ToolHeader": undefined;
 
