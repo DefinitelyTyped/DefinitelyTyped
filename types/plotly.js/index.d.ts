@@ -1270,7 +1270,6 @@ export type ModeBarDefaultButtons =
     | "zoomOutGeo"
     | "resetGeo"
     | "hoverClosestGeo"
-    | "hoverClosestGl2d" // was dropped in poltly.js v3.0.0 (see https://github.com/plotly/plotly.js/commit/3a064e7d32911560d659daf4732990587774b916)
     | "hoverClosestPie"
     | "toggleHover"
     | "toImage"
