@@ -1,6 +1,7 @@
 import { connect } from "net";
 import * as pg from "pg";
 import {
+    ClientBase,
     Client,
     Connection,
     CustomTypesConfig,
@@ -25,6 +26,11 @@ const binary: boolean | undefined = defaults.binary;
 const parseInt8: boolean | undefined = defaults.parseInt8;
 const parseInputDatesAsUTC: boolean | undefined = defaults.parseInputDatesAsUTC;
 
+declare const clientBase: ClientBase;
+
+// $ExpectType TransactionStatus
+clientBase.getTransactionStatus();
+
 const client = new Client({
     host: "my.database-server.com",
     port: 5334,
@@ -35,6 +41,9 @@ const client = new Client({
 });
 client.setTypeParser(20, val => Number(val));
 client.getTypeParser(20);
+
+// $ExpectType TransactionStatus
+client.getTransactionStatus();
 
 const user: string | undefined = client.user;
 const database: string | undefined = client.database;
