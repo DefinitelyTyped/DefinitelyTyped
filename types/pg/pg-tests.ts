@@ -1,8 +1,8 @@
 import { connect } from "net";
 import * as pg from "pg";
 import {
-    ClientBase,
     Client,
+    ClientBase,
     Connection,
     CustomTypesConfig,
     DatabaseError,
