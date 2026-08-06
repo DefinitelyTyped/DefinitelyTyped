@@ -1119,7 +1119,7 @@ export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
-    scaleanchor: AxisName;
+    scaleanchor: AxisName | false;
     scaleratio: number;
     constrain: "range" | "domain";
     constraintoward: "left" | "center" | "right" | "top" | "middle" | "bottom";

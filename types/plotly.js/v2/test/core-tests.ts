@@ -40,6 +40,7 @@ const layout = {
         showgrid: false,
         zeroline: false,
         tickangle,
+        scaleanchor: false,
     },
     yaxis: {
         title: "Percent",
