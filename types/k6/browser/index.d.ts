@@ -729,6 +729,66 @@ export interface NewBrowserContextOptions {
 export const browser: Browser;
 
 /**
+ * The `chromium` named export allows attaching to an already running
+ * Chromium-based browser over the Chrome DevTools Protocol (CDP), instead of
+ * relying on the browser instance that k6 launches and manages for you.
+ */
+export const chromium: BrowserType;
+
+/**
+ * `BrowserType` is the entry point to connect to an existing Chromium-based
+ * browser.
+ */
+export interface BrowserType {
+    /**
+     * Attaches to an already running Chromium-based browser over the Chrome
+     * DevTools Protocol (CDP), and returns the corresponding `Browser`
+     * instance.
+     *
+     * The returned `Browser` is closed automatically at the end of the
+     * iteration. Use {@link ConnectedBrowser.close | close} to release the
+     * connection earlier.
+     *
+     * **Usage**
+     *
+     * ```js
+     * const browser = await chromium.connectOverCDP('ws://localhost:9222/devtools/browser/<id>');
+     * const page = await browser.newPage();
+     *
+     * try {
+     *   await page.goto('https://quickpizza.grafana.com/');
+     * } finally {
+     *   await page.close();
+     *   await browser.close();
+     * }
+     * ```
+     *
+     * @param wsEndpoint The WebSocket endpoint of the browser to attach to,
+     * e.g. 'ws://localhost:9222/devtools/browser/<id>'.
+     */
+    connectOverCDP(wsEndpoint: string): Promise<ConnectedBrowser>;
+}
+
+/**
+ * `ConnectedBrowser` represents a web browser instance that k6 attached to over
+ * the Chrome DevTools Protocol (CDP), rather than launched itself.
+ *
+ * On top of the `Browser` API, it exposes a `close` method, since the
+ * connection is user managed and can be released on demand.
+ */
+export interface ConnectedBrowser extends Browser {
+    /**
+     * Closes the connection to the browser, and all of its `BrowserContext`s
+     * and `Page`s.
+     *
+     * Calling this method is optional: the connection is closed automatically
+     * at the end of the iteration. Closing an already closed `Browser` is a
+     * no-op.
+     */
+    close(): Promise<void>;
+}
+
+/**
  * `Browser` represents the main web browser instance.
  */
 export interface Browser {
