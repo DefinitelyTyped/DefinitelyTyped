@@ -6,7 +6,7 @@
         "https://github.com/webtorrent/parse-torrent"
     ],
     "dependencies": {
-        "@types/magnet-uri": "*",
+        "@types/magnet-uri": "^5",
         "@types/node": "*",
         "@types/parse-torrent-file": "*"
     },
