@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -3553,7 +3553,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
     /**
      * Array of indices whose selection has been changed (either selected or deselected)
      */
-    indices?: int[];
+    rowIndices?: int[];
 
     /**
      * Indicates whether the selection limit has been reached

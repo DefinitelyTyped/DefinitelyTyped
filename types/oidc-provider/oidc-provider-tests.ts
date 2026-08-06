@@ -279,7 +279,11 @@ const provider = new oidc.Provider("https://op.example.com", {
     async issueRefreshToken(
         ctx: oidc.KoaContextWithOIDC,
         client: oidc.Client,
-        token: oidc.AuthorizationCode | oidc.DeviceCode | oidc.BackchannelAuthenticationRequest,
+        token:
+            | oidc.AuthorizationCode
+            | oidc.DeviceCode
+            | oidc.BackchannelAuthenticationRequest
+            | oidc.PreAuthorizedCode,
     ) {
         ctx.oidc.issuer.substring(0);
         client.clientId.substring(0);
@@ -721,3 +725,435 @@ provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJw
         },
     });
 }
+
+new Provider("https://op.example.com", {
+    fetchResponseBodyLimits: {
+        "client_id metadata document": 5 * 1024,
+        jwks_uri: Infinity,
+        sector_identifier_uri: Infinity,
+    },
+    routes: {
+        challenge: "/challenge",
+        credential: "/credential",
+    },
+    ttl: {
+        PreAuthorizedCode: 600,
+    },
+    enabledJWA: {
+        attestSigningAlgValues: ["ES256", "EdDSA"],
+    },
+    features: {
+        rpMetadataChoices: {
+            enabled: true,
+        },
+        clientIdMetadataDocument: {
+            enabled: true,
+            ack: "draft-02",
+            async allowFetch(ctx, clientId) {
+                ctx.oidc.issuer.substring(0);
+                clientId.substring(0);
+                return true;
+            },
+            async allowClient(ctx, client) {
+                ctx.oidc.issuer.substring(0);
+                client.clientId.substring(0);
+                return true;
+            },
+            cacheDuration: {
+                min: 30,
+                max: 86400,
+            },
+        },
+        attestClientAuth: {
+            enabled: true,
+            ack: "draft-10",
+            additionalSecuritySignal: "optional",
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey(ctx, header, payload, client) {
+                ctx.oidc.issuer.substring(0);
+                JSON.stringify(header);
+                JSON.stringify(payload);
+                client.clientId.substring(0);
+                return crypto.generateKeyPairSync("ed25519").publicKey;
+            },
+            assertAttestationJwtAndPop(ctx, attestation, pop, client) {
+                ctx.oidc.issuer.substring(0);
+                JSON.stringify(attestation.protectedHeader);
+                JSON.stringify(pop.payload);
+                client.clientId.substring(0);
+            },
+        },
+        openid4vci: {
+            enabled: true,
+            ack: "experimental-01",
+            nonceSecret: Buffer.alloc(32),
+            preAuthorizedCodeGrant: true,
+            metadata: {
+                batch_credential_issuance: {
+                    batch_size: 2,
+                },
+            },
+            credentialConfigurationsSupported: {
+                "org.iso.18013.5.1.mDL": {
+                    format: "mso_mdoc",
+                    scope: "mdl_scope",
+                    cryptographic_binding_methods_supported: ["jwk"],
+                    proof_types_supported: {
+                        jwt: {
+                            proof_signing_alg_values_supported: ["ES256"],
+                            key_attestations_required: {
+                                key_storage: ["iso_18045_high"],
+                            },
+                        },
+                    },
+                },
+            },
+            credentialEndpointExpectedAudience(ctx) {
+                return ctx.oidc.urlFor("credential");
+            },
+            credentialConfigurationPolicy(ctx, details) {
+                ctx.oidc.issuer.substring(0);
+                details.credentialConfigurationId.substring(0);
+                details.credentialConfiguration.format.substring(0);
+                details.credentialIdentifier?.substring(0);
+                details.client.clientId.substring(0);
+                details.account.accountId.substring(0);
+                details.grant.getOIDCScope();
+                details.accessToken.scopes.has("mdl_scope");
+                return true;
+            },
+            issueCredential(ctx, details) {
+                ctx.oidc.issuer.substring(0);
+                JSON.stringify(details.body);
+                if (details.proofs && "jwt" in details.proofs) {
+                    details.proofs.jwt?.[0].substring(0);
+                    details.proofs.key_attestation?.attestedKeys[0].kty;
+                }
+                return {
+                    credentials: [{ credential: "serialized credential" }],
+                    notification_id: "notification-id",
+                };
+            },
+            getKeyAttestationSignaturePublicKey(ctx, issuer, header, client) {
+                ctx.oidc.issuer.substring(0);
+                issuer.substring(0);
+                JSON.stringify(header);
+                client.clientId.substring(0);
+                return crypto.generateKeyPairSync("ed25519").publicKey;
+            },
+        },
+        resourceIndicators: {
+            enabled: true,
+            useGrantedResource(ctx, model) {
+                ctx.oidc.issuer.substring(0);
+                if (model.kind === "PreAuthorizedCode") {
+                    model.txCode?.substring(0);
+                }
+                return true;
+            },
+        },
+    },
+});
+
+const preAuthorizedCode = new provider.PreAuthorizedCode({
+    accountId: "account",
+    clientId: "client",
+    grantId: "grant",
+    resource: "https://op.example.com/credential",
+    scope: "mdl_scope",
+    txCode: "493536",
+    rar: [{ type: "openid_credential", credential_configuration_id: "org.iso.18013.5.1.mDL" }],
+});
+preAuthorizedCode.txCode?.substring(0);
+preAuthorizedCode.consume().then(console.log);
+provider.PreAuthorizedCode.revokeByGrantId("grant").then(console.log);
+
+const rarGrant = new provider.Grant({ clientId: "client", accountId: "account" });
+rarGrant.addRar({ type: "openid_credential", credential_configuration_id: "org.iso.18013.5.1.mDL" });
+
+provider.backchannelResult("request", rarGrant, {
+    acr: "urn:example:acr",
+    amr: ["pwd"],
+    authTime: Date.now(),
+    sessionUid: "session",
+    expiresWithSession: true,
+    sid: "sid",
+    rar: [{ type: "openid_credential", credential_configuration_id: "org.iso.18013.5.1.mDL" }],
+});
+
+provider.on("credential.error", (ctx, err) => {
+    ctx.oidc.issuer.substring(0);
+    err.error.substring(0);
+});
+provider.on("pre_authorized_code.saved", code => {
+    code.txCode?.substring(0);
+});
+new oidc.errors.InvalidAuthorizationDetails();
+new oidc.errors.InvalidCredentialRequest();
+new oidc.errors.InvalidNonce();
+new oidc.errors.InvalidProof();
+new oidc.errors.UnknownCredentialConfiguration();
+new oidc.errors.UnknownCredentialIdentifier();
+new oidc.errors.CredentialRequestDenied();
+new oidc.errors.UseFreshAttestation();
+
+const immutableConfiguration = {
+    acrValues: ["urn:example:bronze"],
+    claims: {
+        profile: ["name", "family_name"],
+    },
+    clients: [
+        {
+            client_id: "immutable-client",
+            redirect_uris: ["https://client.example.com/cb"],
+            grant_types: ["authorization_code"],
+            response_types: ["code"],
+            contacts: ["ops@example.com"],
+            default_acr_values: ["urn:example:bronze"],
+            post_logout_redirect_uris: ["https://client.example.com/logout/cb"],
+            authorization_details_types: ["payment"],
+            dpop_bound_access_tokens: true,
+            require_pushed_authorization_requests: true,
+            require_signed_request_object: true,
+            use_mtls_endpoint_aliases: true,
+            authorization_encryption_alg_values_supported: ["RSA-OAEP"],
+            authorization_encryption_enc_values_supported: ["A256GCM"],
+            authorization_signing_alg_values_supported: ["PS256"],
+            backchannel_authentication_request_signing_alg_values_supported: ["PS256"],
+            id_token_encryption_alg_values_supported: ["RSA-OAEP"],
+            id_token_encryption_enc_values_supported: ["A256GCM"],
+            id_token_signing_alg_values_supported: ["PS256"],
+            introspection_encryption_alg_values_supported: ["RSA-OAEP"],
+            introspection_encryption_enc_values_supported: ["A256GCM"],
+            introspection_signing_alg_values_supported: ["PS256"],
+            request_object_encryption_alg_values_supported: ["RSA-OAEP"],
+            request_object_encryption_enc_values_supported: ["A256GCM"],
+            request_object_signing_alg_values_supported: ["PS256"],
+            subject_types_supported: ["public"],
+            token_endpoint_auth_methods_supported: ["private_key_jwt"],
+            token_endpoint_auth_signing_alg_values_supported: ["PS256"],
+            userinfo_encryption_alg_values_supported: ["RSA-OAEP"],
+            userinfo_encryption_enc_values_supported: ["A256GCM"],
+            userinfo_signing_alg_values_supported: ["PS256"],
+        },
+    ],
+    cookies: {
+        keys: ["immutable-cookie-key"],
+    },
+    extraParams: ["audience"],
+    responseTypes: ["code"],
+    scopes: ["openid", "profile"],
+    subjectTypes: ["public", "pairwise"],
+    clientAuthMethods: ["private_key_jwt", "none"],
+    extraClientMetadata: {
+        properties: ["tenant_id"],
+    },
+    enabledJWA: {
+        authorizationEncryptionAlgValues: ["RSA-OAEP"],
+        authorizationEncryptionEncValues: ["A256GCM"],
+        authorizationSigningAlgValues: ["PS256"],
+        dPoPSigningAlgValues: ["PS256"],
+        attestSigningAlgValues: ["PS256"],
+        idTokenEncryptionAlgValues: ["RSA-OAEP"],
+        idTokenEncryptionEncValues: ["A256GCM"],
+        idTokenSigningAlgValues: ["PS256"],
+        introspectionEncryptionAlgValues: ["RSA-OAEP"],
+        introspectionEncryptionEncValues: ["A256GCM"],
+        introspectionSigningAlgValues: ["PS256"],
+        requestObjectEncryptionAlgValues: ["RSA-OAEP"],
+        requestObjectEncryptionEncValues: ["A256GCM"],
+        requestObjectSigningAlgValues: ["PS256"],
+        clientAuthSigningAlgValues: ["PS256"],
+        userinfoEncryptionAlgValues: ["RSA-OAEP"],
+        userinfoEncryptionEncValues: ["A256GCM"],
+        userinfoSigningAlgValues: ["PS256"],
+    },
+    features: {
+        ciba: {
+            deliveryModes: ["poll"],
+        },
+        fapi: {
+            enabled: false,
+        },
+        openid4vci: {
+            credentialConfigurationsSupported: {
+                credential: {
+                    format: "example",
+                    cryptographic_binding_methods_supported: ["jwk"],
+                    proof_types_supported: {
+                        jwt: {
+                            proof_signing_alg_values_supported: ["PS256"],
+                            key_attestations_required: {
+                                key_storage: ["hardware"],
+                                user_authentication: ["biometric"],
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
+    jwks: {
+        keys: [
+            {
+                kty: "RSA",
+                key_ops: ["sign"],
+                x5c: ["certificate"],
+            },
+        ],
+    },
+} as const satisfies oidc.Configuration;
+
+new Provider("https://op.example.com", immutableConfiguration);
+
+const readonlyValuesConfiguration: oidc.Configuration = {
+    acrValues: new Set(["urn:example:bronze"]) as ReadonlySet<string>,
+    clientAuthMethods: new Set(["none"]) as ReadonlySet<oidc.ClientAuthMethod>,
+    extraParams: new Set(["audience"]) as ReadonlySet<string>,
+    scopes: new Set(["openid"]) as ReadonlySet<string>,
+    subjectTypes: new Set(["public"]) as ReadonlySet<oidc.SubjectTypes>,
+    features: {
+        ciba: {
+            deliveryModes: new Set(["poll"]) as ReadonlySet<oidc.CIBADeliveryMode>,
+        },
+    },
+};
+new Provider("https://op.example.com", readonlyValuesConfiguration);
+
+new Provider("https://op.example.com", {
+    async revokeGrantPolicy(ctx) {
+        return ctx.oidc.route !== "revocation";
+    },
+    sectorIdentifierUriValidate(client) {
+        return client.sectorIdentifierUri !== undefined;
+    },
+    ttl: {
+        AccessToken(ctx, token, client) {
+            ctx.oidc.issuer.substring(0);
+            token.jti.substring(0);
+            client.clientId.substring(0);
+            return 60;
+        },
+        Grant(ctx, grant) {
+            ctx.oidc.issuer.substring(0);
+            grant.getOIDCScope();
+            return 60;
+        },
+        Interaction(ctx, interaction) {
+            ctx.oidc.issuer.substring(0);
+            interaction.uid.substring(0);
+            return 60;
+        },
+        PreAuthorizedCode(ctx, code) {
+            ctx.oidc.issuer.substring(0);
+            code.jti.substring(0);
+            return 60;
+        },
+        Session(ctx, session) {
+            ctx.oidc.issuer.substring(0);
+            session.uid.substring(0);
+            return 60;
+        },
+    },
+    features: {
+        registration: {
+            async secretFactory(ctx) {
+                return ctx.oidc.issuer;
+            },
+            async issueRegistrationAccessToken(ctx) {
+                return ctx.oidc.route === "registration";
+            },
+        },
+        resourceIndicators: {
+            defaultResource(ctx, client, oneOf) {
+                ctx.oidc.issuer.substring(0);
+                client.clientId.substring(0);
+                return oneOf;
+            },
+            getResourceServerInfo() {
+                return {
+                    scope: "api:read",
+                    jwt: {
+                        sign: false,
+                        encrypt: {
+                            alg: "dir",
+                            enc: "A256GCM",
+                            key: null as unknown as crypto.webcrypto.CryptoKey,
+                        },
+                    },
+                };
+            },
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: {
+                payment: {
+                    async validate(ctx, detail, client) {
+                        ctx.oidc.issuer.substring(0);
+                        detail.type.substring(0);
+                        client.clientId.substring(0);
+                    },
+                },
+            },
+            rarForAuthorizationCode(ctx) {
+                return ctx.oidc.grant?.rar;
+            },
+            rarForBackchannelResponse(ctx, resourceServer) {
+                resourceServer.identifier().substring(0);
+                resourceServer.scopes.has("api:read");
+                return ctx.oidc.grant?.rar;
+            },
+            rarForCodeResponse(ctx, resourceServer) {
+                resourceServer.identifier().substring(0);
+                return ctx.oidc.grant?.rar;
+            },
+            rarForIntrospectionResponse(ctx, token) {
+                token.jti.substring(0);
+                return ctx.oidc.grant?.rar;
+            },
+            rarForRefreshTokenResponse(ctx, resourceServer) {
+                resourceServer.identifier().substring(0);
+                return ctx.oidc.grant?.rar;
+            },
+        },
+    },
+});
+
+provider.urlFor("authorization").substring(0);
+provider.pathFor("authorization", { mountPath: "/oidc" }).substring(0);
+provider.cookieName("session").substring(0);
+provider.registerResponseMode("custom", (ctx, redirectUri, payload) => {
+    ctx.oidc.issuer.substring(0);
+    redirectUri.substring(0);
+    JSON.stringify(payload);
+});
+provider.registerGrantType(
+    "custom",
+    async ctx => {
+        ctx.oidc.issuer.substring(0);
+    },
+    ["custom"] as const,
+    new Set(["resource"]) as ReadonlySet<string>,
+);
+
+const resourceServer = new provider.ResourceServer("https://api.example.com", {
+    scope: "api:read",
+});
+resourceServer.identifier().substring(0);
+resourceServer.scopes.has("api:read");
+
+const claims = new provider.Claims(
+    { sub: "account" },
+    { client: null as unknown as oidc.Client },
+);
+claims.scope("openid").result().then(JSON.stringify);
+
+provider.ReplayDetection.unique("issuer", "jti", Date.now()).then(Boolean);
+new oidc.errors.InvalidClientAuth();
+new oidc.errors.InvalidClientMetadata("invalid metadata", "validation detail");
+new oidc.errors.InvalidGrant();
+new oidc.errors.InvalidRequest("invalid request", 400, "validation detail");
+new oidc.errors.InvalidScope("invalid scope", "api:write", "validation detail");
+new oidc.errors.InsufficientScope("insufficient scope", "api:write", "validation detail");
+new oidc.errors.InvalidToken();
+new oidc.errors.UnmetAuthenticationRequirements("authentication required", "validation detail");

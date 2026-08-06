@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/ui/suite/library" {
   /**

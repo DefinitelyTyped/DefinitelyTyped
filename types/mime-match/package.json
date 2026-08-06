@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mime-match",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/DamonOehlman/mime-match"
+    ],
+    "devDependencies": {
+        "@types/mime-match": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

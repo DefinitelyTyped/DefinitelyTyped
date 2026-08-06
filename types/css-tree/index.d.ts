@@ -34,6 +34,7 @@ export type ReduceFn<TData, TValue, TContext = List<TData>> = (this: TContext, a
 
 export class List<TData> {
     constructor();
+    static createItem<T>(data: T): ListItem<T>;
     get size(): number;
     get isEmpty(): boolean;
     get first(): TData | null;
@@ -73,17 +74,17 @@ export class List<TData> {
     prependData(data: TData): List<TData>;
     append(item: ListItem<TData>): List<TData>;
     appendData(data: TData): List<TData>;
-    insert(item: ListItem<TData>, before: ListItem<TData>): List<TData>;
+    insert(item: ListItem<TData>, before?: ListItem<TData> | null): List<TData>;
     insertData(data: TData, before: ListItem<TData>): List<TData>;
     remove(item: ListItem<TData>): ListItem<TData>;
     push(item: TData): void;
-    pop(): ListItem<TData> | undefined;
+    pop(): ListItem<TData> | null;
     unshift(data: TData): void;
-    shift(): ListItem<TData> | undefined;
+    shift(): ListItem<TData> | null;
     prependList(list: List<TData>): List<TData>;
     appendList(list: List<TData>): List<TData>;
     insertList(list: List<TData>, before: ListItem<TData>): List<TData>;
-    replace(oldItem: ListItem<TData>, newItemOrList: List<TData> | ListItem<TData>): List<TData>;
+    replace(oldItem: ListItem<TData>, newItemOrList: List<TData> | ListItem<TData>): void;
 }
 
 export interface CssNodeCommon {
@@ -229,20 +230,129 @@ export interface Identifier extends CssNodeCommon {
     name: string;
 }
 
-export interface MediaFeature extends CssNodeCommon {
-    type: "MediaFeature";
+export interface Layer extends CssNodeCommon {
+    type: "Layer";
     name: string;
-    value: Identifier | NumberNode | Dimension | Ratio | null;
+}
+
+export interface LayerList extends CssNodeCommon {
+    type: "LayerList";
+    children: List<CssNode>;
+}
+
+export interface LayerListPlain extends CssNodeCommon {
+    type: "LayerList";
+    children: CssNodePlain[];
+}
+
+export interface Feature extends CssNodeCommon {
+    type: "Feature";
+    kind: string;
+    name: string;
+    value: Identifier | NumberNode | Dimension | Ratio | FunctionNode | null;
+}
+
+export interface FeaturePlain extends CssNodeCommon {
+    type: "Feature";
+    kind: string;
+    name: string;
+    value: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain | null;
+}
+
+export interface FeatureRange extends CssNodeCommon {
+    type: "FeatureRange";
+    kind: string;
+    left: Identifier | NumberNode | Dimension | Ratio | FunctionNode;
+    leftComparison: string;
+    middle: Identifier | NumberNode | Dimension | Ratio | FunctionNode;
+    rightComparison: string | null;
+    right: Identifier | NumberNode | Dimension | Ratio | FunctionNode | null;
+}
+
+export interface FeatureRangePlain extends CssNodeCommon {
+    type: "FeatureRange";
+    kind: string;
+    left: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain;
+    leftComparison: string;
+    middle: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain;
+    rightComparison: string | null;
+    right: Identifier | NumberNode | Dimension | RatioPlain | FunctionNodePlain | null;
+}
+
+export interface FeatureFunction extends CssNodeCommon {
+    type: "FeatureFunction";
+    kind: string;
+    feature: string;
+    value: Declaration | Selector;
+}
+
+export interface FeatureFunctionPlain extends CssNodeCommon {
+    type: "FeatureFunction";
+    kind: string;
+    feature: string;
+    value: DeclarationPlain | SelectorPlain;
+}
+
+export interface GeneralEnclosed extends CssNodeCommon {
+    type: "GeneralEnclosed";
+    kind: string;
+    function: string | null;
+    children: List<CssNode>;
+}
+
+export interface GeneralEnclosedPlain extends CssNodeCommon {
+    type: "GeneralEnclosed";
+    kind: string;
+    function: string | null;
+    children: CssNodePlain[];
+}
+
+export interface Condition extends CssNodeCommon {
+    type: "Condition";
+    kind: string;
+    children: List<CssNode>;
+}
+
+export interface ConditionPlain extends CssNodeCommon {
+    type: "Condition";
+    kind: string;
+    children: CssNodePlain[];
+}
+
+export interface SupportsDeclaration extends CssNodeCommon {
+    type: "SupportsDeclaration";
+    declaration: Declaration;
+}
+
+export interface SupportsDeclarationPlain extends CssNodeCommon {
+    type: "SupportsDeclaration";
+    declaration: DeclarationPlain;
+}
+
+export interface Scope extends CssNodeCommon {
+    type: "Scope";
+    root: SelectorList | Raw | null;
+    limit: SelectorList | Raw | null;
+}
+
+export interface ScopePlain extends CssNodeCommon {
+    type: "Scope";
+    root: SelectorListPlain | Raw | null;
+    limit: SelectorListPlain | Raw | null;
 }
 
 export interface MediaQuery extends CssNodeCommon {
     type: "MediaQuery";
-    children: List<CssNode>;
+    modifier: string | null;
+    mediaType: string | null;
+    condition: Condition | null;
 }
 
 export interface MediaQueryPlain extends CssNodeCommon {
     type: "MediaQuery";
-    children: CssNodePlain[];
+    modifier: string | null;
+    mediaType: string | null;
+    condition: ConditionPlain | null;
 }
 
 export interface MediaQueryList extends CssNodeCommon {
@@ -322,8 +432,14 @@ export interface PseudoElementSelectorPlain extends CssNodeCommon {
 
 export interface Ratio extends CssNodeCommon {
     type: "Ratio";
-    left: string;
-    right: string;
+    left: NumberNode | FunctionNode;
+    right: NumberNode | FunctionNode | null;
+}
+
+export interface RatioPlain extends CssNodeCommon {
+    type: "Ratio";
+    left: NumberNode | FunctionNodePlain;
+    right: NumberNode | FunctionNodePlain | null;
 }
 
 export interface Raw extends CssNodeCommon {
@@ -427,7 +543,12 @@ export type CssNode =
     | Hash
     | IdSelector
     | Identifier
-    | MediaFeature
+    | Feature
+    | FeatureRange
+    | FeatureFunction
+    | GeneralEnclosed
+    | Condition
+    | SupportsDeclaration
     | MediaQuery
     | MediaQueryList
     | NestingSelector
@@ -449,7 +570,10 @@ export type CssNode =
     | UnicodeRange
     | Url
     | Value
-    | WhiteSpace;
+    | WhiteSpace
+    | Layer
+    | LayerList
+    | Scope;
 
 export type CssNodePlain =
     | AnPlusB
@@ -470,7 +594,12 @@ export type CssNodePlain =
     | Hash
     | IdSelector
     | Identifier
-    | MediaFeature
+    | FeaturePlain
+    | FeatureRangePlain
+    | FeatureFunctionPlain
+    | GeneralEnclosedPlain
+    | ConditionPlain
+    | SupportsDeclarationPlain
     | MediaQueryPlain
     | MediaQueryListPlain
     | NthPlain
@@ -480,7 +609,7 @@ export type CssNodePlain =
     | Percentage
     | PseudoClassSelectorPlain
     | PseudoElementSelectorPlain
-    | Ratio
+    | RatioPlain
     | Raw
     | RulePlain
     | SelectorPlain
@@ -491,13 +620,18 @@ export type CssNodePlain =
     | UnicodeRange
     | Url
     | ValuePlain
-    | WhiteSpace;
+    | WhiteSpace
+    | Layer
+    | LayerListPlain
+    | ScopePlain;
 
 export interface SyntaxParseError extends SyntaxError {
-    input: string;
+    source: string;
     offset: number;
-    rawMessage: string;
+    line: number;
+    column: number;
     formattedMessage: string;
+    sourceFragment(extraLines?: number): string;
 }
 
 export interface ParseOptions {
@@ -514,15 +648,22 @@ export interface ParseOptions {
     parseRulePrelude?: boolean | undefined;
     parseValue?: boolean | undefined;
     parseCustomProperty?: boolean | undefined;
+    onToken?:
+        | ((type: number, start: number, end: number, index: number) => void)
+        | Array<{ type: number; start: number; end: number }>
+        | undefined;
+    list?: boolean | undefined;
 }
 
+export function parse(text: string, options: ParseOptions & { list: false }): CssNodePlain;
 export function parse(text: string, options?: ParseOptions): CssNode;
 
 export interface GenerateHandlers {
-    children: (node: CssNode, delimiter?: (node: CssNode) => void) => void;
-    node: (node: CssNode) => void;
-    chunk: (chunk: string) => void;
-    result: () => string;
+    node(node: CssNode): void;
+    tokenBefore(prevCode: number, type: number, value: string): number;
+    token(type: number, value: string, suppressAutoWhiteSpace?: boolean): void;
+    emit(value: string, type: number, auto: boolean): void;
+    result(): string;
 }
 
 export interface GenerateOptions {
@@ -597,7 +738,12 @@ export type WalkOptions =
     | WalkOptionsVisit<Hash>
     | WalkOptionsVisit<IdSelector>
     | WalkOptionsVisit<Identifier>
-    | WalkOptionsVisit<MediaFeature>
+    | WalkOptionsVisit<Feature>
+    | WalkOptionsVisit<FeatureRange>
+    | WalkOptionsVisit<FeatureFunction>
+    | WalkOptionsVisit<GeneralEnclosed>
+    | WalkOptionsVisit<Condition>
+    | WalkOptionsVisit<SupportsDeclaration>
     | WalkOptionsVisit<MediaQuery>
     | WalkOptionsVisit<MediaQueryList>
     | WalkOptionsVisit<Nth>
@@ -619,6 +765,10 @@ export type WalkOptions =
     | WalkOptionsVisit<Url>
     | WalkOptionsVisit<Value>
     | WalkOptionsVisit<WhiteSpace>
+    | WalkOptionsVisit<NestingSelector>
+    | WalkOptionsVisit<Layer>
+    | WalkOptionsVisit<LayerList>
+    | WalkOptionsVisit<Scope>
     | WalkOptionsNoVisit;
 
 export const walk: {
@@ -673,6 +823,14 @@ export function toPlainObject(node: CssNode): CssNodePlain;
 export interface DSNodeAtWord {
     type: "AtKeyword";
     name: string;
+}
+
+/**
+ * Definition syntax Boolean node
+ */
+export interface DSNodeBoolean {
+    type: "Boolean";
+    term: DSNode;
 }
 
 /**
@@ -769,6 +927,7 @@ export interface DSNodeType {
  */
 export type DSNode =
     | DSNodeAtWord
+    | DSNodeBoolean
     | DSNodeComma
     | DSNodeFunction
     | DSNodeGroup
@@ -788,7 +947,15 @@ export type DSNodeMultiplied =
     | DSNodeKeyword
     | DSNodeProperty
     | DSNodeString
-    | DSNodeType;
+    | DSNodeType
+    | DSNodeToken
+    | DSNodeBoolean
+    | DSNodeMultiplier;
+
+export type DSGenerateDecorateFn = (
+    result: string,
+    node: DSNode | DSNodeTypeOpts,
+) => string;
 
 /**
  * Definition syntax generate options
@@ -796,7 +963,7 @@ export type DSNodeMultiplied =
 export interface DSGenerateOptions {
     forceBraces?: boolean | undefined;
     compact?: boolean | undefined;
-    decorate?: ((result: string, node: DSNode) => void) | undefined;
+    decorate?: DSGenerateDecorateFn | undefined;
 }
 
 /**
@@ -812,6 +979,12 @@ export interface DSWalkOptions {
  */
 export type DSWalkEnterOrLeaveFn = (node: DSNode) => void;
 
+export interface DefinitionSyntaxError extends SyntaxError {
+    input: string;
+    offset: number;
+    rawMessage: string;
+}
+
 /**
  * DefinitionSyntax
  */
@@ -825,7 +998,7 @@ export interface DefinitionSyntax {
      * @example
      *  generate({type: 'Keyword', name: 'foo'}) => 'foo'
      */
-    generate(node: DSNode, options?: DSGenerateOptions): string;
+    generate(node: DSNode, options?: DSGenerateOptions | DSGenerateDecorateFn): string;
 
     /**
      * Generates an AST from a CSS value syntax
@@ -855,7 +1028,11 @@ export interface DefinitionSyntax {
     /**
      * Wrapper for syntax errors
      */
-    syntaxError: SyntaxError;
+    SyntaxError: (
+        message: string,
+        input: string,
+        offset?: number,
+    ) => DefinitionSyntaxError;
 }
 
 export const definitionSyntax: DefinitionSyntax;
@@ -875,7 +1052,7 @@ export const url: {
     encode(input: string): string;
 };
 
-export class SyntaxMatchError extends SyntaxError {
+export interface SyntaxMatchError extends SyntaxError {
     rawMessage: string;
     syntax: string;
     css: string;
@@ -891,28 +1068,288 @@ export class SyntaxMatchError extends SyntaxError {
     };
 }
 
-export class SyntaxReferenceError extends SyntaxError {
+export interface SyntaxReferenceError extends SyntaxError {
     reference: string;
 }
 
+export interface SyntaxMatchNode {
+    syntax: { type: string; name: string } | null;
+    match?: SyntaxMatchNode[];
+    node?: CssNode;
+}
+
 export interface LexerMatchResult {
+    matched: SyntaxMatchNode | null;
+    iterations: number;
     error: Error | SyntaxMatchError | SyntaxReferenceError | null;
+    getTrace(node: CssNode): SyntaxMatchNode[] | null;
+    isType(node: CssNode, type: string): boolean;
+    isProperty(node: CssNode, property: string): boolean;
+    isKeyword(node: CssNode): boolean;
+}
+
+export interface LexerValueFragment {
+    parent: List<CssNode>;
+    nodes: List<CssNode>;
+}
+
+export interface SyntaxDescriptor {
+    type: "Property" | "Type" | "AtrulePrelude" | "AtruleDescriptor";
+    name: string;
+    parent: SyntaxDescriptor | null;
+    serializable: boolean;
+    syntax: DSNode | null;
+    match: ((...args: unknown[]) => unknown) | null;
+    matchRef?: ((...args: unknown[]) => unknown) | null;
+}
+
+export interface AtruleDescriptor {
+    type: "Atrule";
+    name: string;
+    prelude: SyntaxDescriptor | null;
+    descriptors: Record<string, SyntaxDescriptor> | null;
+}
+
+export interface StructureWarning {
+    node: CssNode;
+    message: string;
+}
+
+export interface LexerValidationResult {
+    errors: string[];
+    types: string[];
+    properties: string[];
 }
 
 export class Lexer {
-    matchAtruleDescriptor(atruleName: string, descriptorName: string, value: CssNode | string): LexerMatchResult;
-    matchAtrulePrelude(atruleName: string, prelude: CssNode | string): LexerMatchResult;
+    checkStructure(ast: CssNode): StructureWarning[] | false;
+    checkAtruleName(atruleName: string): SyntaxReferenceError | undefined;
+    checkAtrulePrelude(
+        atruleName: string,
+        prelude: CssNode | string,
+    ): Error | SyntaxReferenceError | undefined;
+    checkAtruleDescriptorName(
+        atruleName: string,
+        descriptorName: string,
+    ): SyntaxReferenceError | SyntaxError | undefined;
+    checkPropertyName(propertyName: string): SyntaxReferenceError | undefined;
+
+    matchAtruleDescriptor(
+        atruleName: string,
+        descriptorName: string,
+        value: CssNode | string,
+    ): LexerMatchResult;
+    matchAtrulePrelude(
+        atruleName: string,
+        prelude: CssNode | string,
+    ): LexerMatchResult;
     matchDeclaration(node: CssNode): LexerMatchResult;
-    matchProperty(propertyName: string, value: CssNode | string): LexerMatchResult;
+    matchProperty(
+        propertyName: string,
+        value: CssNode | string,
+    ): LexerMatchResult;
     matchType(typeName: string, value: CssNode | string): LexerMatchResult;
     match(syntax: DSNode | string, value: CssNode | string): LexerMatchResult;
+    findValueFragments(
+        propertyName: string,
+        value: CssNode,
+        type: string,
+        name: string,
+    ): LexerValueFragment[];
+    findDeclarationValueFragments(
+        declaration: Declaration,
+        type: string,
+        name: string,
+    ): LexerValueFragment[];
+    findAllFragments(
+        ast: CssNode,
+        type: string,
+        name: string,
+    ): LexerValueFragment[];
+
+    getAtrule(
+        atruleName: string,
+        fallbackBasename?: boolean,
+    ): AtruleDescriptor | null;
+    getAtrulePrelude(
+        atruleName: string,
+        fallbackBasename?: boolean,
+    ): SyntaxDescriptor | null;
+    getAtruleDescriptor(
+        atruleName: string,
+        name: string,
+    ): SyntaxDescriptor | null;
+    getProperty(
+        propertyName: string,
+        fallbackBasename?: boolean,
+    ): SyntaxDescriptor | null;
+    getType(name: string): SyntaxDescriptor | null;
+
+    validate(): LexerValidationResult | null;
+    dump(syntaxAsAst?: boolean, pretty?: boolean): unknown;
+    toString(): string;
 }
 
 export const lexer: Lexer;
 
-export function fork(extension: {
-    atrules?: Record<string, string> | undefined;
-    properties?: Record<string, string> | undefined;
+export interface SyntaxConfig {
+    generic?: boolean | undefined;
+    cssWideKeywords?: string[] | undefined;
+    units?: Record<string, string[]> | undefined;
     types?: Record<string, string> | undefined;
-    cssWideKeywords?: Array<string> | undefined;
-}): { lexer: Lexer };
+    atrules?:
+        | Record<
+            string,
+            | string
+            | {
+                prelude?: string | null;
+                descriptors?: Record<string, string> | null;
+            }
+        >
+        | undefined;
+    properties?: Record<string, string> | undefined;
+    node?: Record<string, unknown> | undefined;
+}
+
+export interface Syntax {
+    lexer: Lexer;
+    createLexer(config?: SyntaxConfig): Lexer;
+    tokenize(
+        source: string,
+        onToken?: (type: number, start: number, end: number) => void,
+    ): void;
+    parse(text: string, options: ParseOptions & { list: false }): CssNodePlain;
+    parse(text: string, options?: ParseOptions): CssNode;
+    generate(ast: CssNode, options?: GenerateOptions): string;
+    walk(ast: CssNode, options: EnterOrLeaveFn | WalkOptions): void;
+    find(ast: CssNode, fn: FindFn): CssNode | null;
+    findLast(ast: CssNode, fn: FindFn): CssNode | null;
+    findAll(ast: CssNode, fn: FindFn): CssNode[];
+    fromPlainObject(node: CssNodePlain): CssNode;
+    toPlainObject(node: CssNode): CssNodePlain;
+    fork(
+        extension: SyntaxConfig | ((config: SyntaxConfig) => SyntaxConfig),
+    ): Syntax;
+}
+
+export function createSyntax(config: SyntaxConfig): Syntax;
+
+export function fork(
+    extension: SyntaxConfig | ((config: SyntaxConfig) => SyntaxConfig),
+): Syntax;
+
+export function createLexer(config?: SyntaxConfig): Lexer;
+
+export function tokenize(
+    source: string,
+    onToken?: (type: number, start: number, end: number) => void,
+): void;
+
+export const tokenTypes: {
+    readonly EOF: number;
+    readonly Ident: number;
+    readonly Function: number;
+    readonly AtKeyword: number;
+    readonly Hash: number;
+    readonly String: number;
+    readonly BadString: number;
+    readonly Url: number;
+    readonly BadUrl: number;
+    readonly Delim: number;
+    readonly Number: number;
+    readonly Percentage: number;
+    readonly Dimension: number;
+    readonly WhiteSpace: number;
+    readonly CDO: number;
+    readonly CDC: number;
+    readonly Colon: number;
+    readonly Semicolon: number;
+    readonly Comma: number;
+    readonly LeftSquareBracket: number;
+    readonly RightSquareBracket: number;
+    readonly LeftParenthesis: number;
+    readonly RightParenthesis: number;
+    readonly LeftCurlyBracket: number;
+    readonly RightCurlyBracket: number;
+    readonly Comment: number;
+};
+
+export const tokenNames: string[];
+
+export type TokenizeHandler = (
+    source: string,
+    onToken: (type: number, start: number, end: number) => void,
+) => void;
+
+export class TokenStream {
+    source: string;
+    firstCharOffset: number;
+    tokenCount: number;
+    eof: boolean;
+    tokenIndex: number;
+    tokenType: number;
+    tokenStart: number;
+    tokenEnd: number;
+    constructor(source: string, tokenize: TokenizeHandler);
+    reset(): void;
+    setSource(source?: string, tokenize?: TokenizeHandler): void;
+    lookupType(offset: number): number;
+    lookupTypeNonSC(idx: number): number;
+    lookupOffset(offset: number): number;
+    lookupOffsetNonSC(idx: number): number;
+    lookupValue(offset: number, referenceStr: string): boolean;
+    getTokenStart(tokenIndex: number): number;
+    getTokenEnd(tokenIndex: number): number;
+    getTokenType(tokenIndex: number): number;
+    substrToCursor(start: number): string;
+    isBlockOpenerTokenType(tokenType: number): boolean;
+    isBlockCloserTokenType(tokenType: number): boolean;
+    getBlockTokenPairIndex(tokenIndex: number): number;
+    isBalanceEdge(tokenIndex: number): boolean;
+    isDelim(code: number, offset?: number): boolean;
+    skip(tokenCount: number): void;
+    next(): void;
+    skipSC(): void;
+    skipUntilBalanced(
+        startToken: number,
+        stopConsume: (code: number) => number,
+    ): void;
+    forEachToken(
+        fn: (type: number, start: number, end: number, index: number) => void,
+    ): void;
+    dump(): Array<{
+        idx: number;
+        type: string;
+        chunk: string;
+        balance: number;
+    }>;
+}
+
+export class OffsetToLocation {
+    constructor(
+        source: string,
+        startOffset?: number,
+        startLine?: number,
+        startColumn?: number,
+    );
+    setSource(
+        source?: string,
+        startOffset?: number,
+        startLine?: number,
+        startColumn?: number,
+    ): void;
+    getLocation(
+        offset: number,
+        filename?: string,
+    ): { source: string; offset: number; line: number; column: number };
+    getLocationRange(
+        start: number,
+        end: number,
+        filename?: string,
+    ): CssLocation;
+}
+
+export function vendorPrefix(str: string, offset?: number): string;
+export function isCustomProperty(str: string, offset?: number): boolean;
+
+export const version: string;

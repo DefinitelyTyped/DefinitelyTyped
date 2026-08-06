@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -1114,6 +1114,21 @@ declare module "sap/ui/unified/Calendar" {
      */
     getShowWeekNumbers(): boolean;
     /**
+     * Gets current value of property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Value of property `showWeekNumbersHeader`
+     */
+    getShowWeekNumbersHeader(): boolean;
+    /**
      * Gets current value of property {@link #getSingleSelection singleSelection}.
      *
      * Determines if a single date or single interval, when `intervalSelection` is set to `true`, can be selected.
@@ -1568,6 +1583,28 @@ declare module "sap/ui/unified/Calendar" {
       bShowWeekNumbers?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowWeekNumbersHeader(
+      /**
+       * New value for property `showWeekNumbersHeader`
+       */
+      bShowWeekNumbersHeader?: boolean
+    ): this;
+    /**
      * Setter for the property `singleSelection`. If set to `true` only a single date or single interval, when
      * `intervalSelection` is set to `true`, can be selected.
      *
@@ -1729,6 +1766,16 @@ declare module "sap/ui/unified/Calendar" {
      * @since 1.48
      */
     showWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * @since 1.151
+     */
+    showWeekNumbersHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
@@ -3984,6 +4031,21 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     getShowWeekNumbers(): boolean;
     /**
+     * Gets current value of property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Value of property `showWeekNumbersHeader`
+     */
+    getShowWeekNumbersHeader(): boolean;
+    /**
      * Gets current value of property {@link #getSingleSelection singleSelection}.
      *
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
@@ -4403,6 +4465,28 @@ declare module "sap/ui/unified/calendar/Month" {
       bShowWeekNumbers?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowWeekNumbersHeader(
+      /**
+       * New value for property `showWeekNumbersHeader`
+       */
+      bShowWeekNumbersHeader?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getSingleSelection singleSelection}.
      *
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
@@ -4518,6 +4602,16 @@ declare module "sap/ui/unified/calendar/Month" {
      * @since 1.48
      */
     showWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * @since 1.151
+     */
+    showWeekNumbersHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the

@@ -226,6 +226,11 @@ declare namespace GoogleAppsScript {
                     resource: Schema.GetSpreadsheetByDataFilterRequest,
                     spreadsheetId: string,
                 ): Sheets.Schema.Spreadsheet;
+                getByDataFilter(
+                    resource: Schema.GetSpreadsheetByDataFilterRequest,
+                    spreadsheetId: string,
+                    optionalArgs: object,
+                ): Sheets.Schema.Spreadsheet;
             }
         }
         namespace Schema {
@@ -275,10 +280,17 @@ declare namespace GoogleAppsScript {
             interface AddSheetResponse {
                 properties?: Sheets.Schema.SheetProperties | undefined;
             }
+            interface AddTableRequest {
+                table?: Sheets.Schema.Table | undefined;
+            }
+            interface AddTableResponse {
+                table?: Sheets.Schema.Table | undefined;
+            }
             interface AppendCellsRequest {
                 fields?: string | undefined;
                 rows?: Sheets.Schema.RowData[] | undefined;
                 sheetId?: number | undefined;
+                tableId?: string | undefined;
             }
             interface AppendDimensionRequest {
                 dimension?: string | undefined;
@@ -352,6 +364,7 @@ declare namespace GoogleAppsScript {
                 criteria?: object | undefined;
                 range?: Sheets.Schema.GridRange | undefined;
                 sortSpecs?: Sheets.Schema.SortSpec[] | undefined;
+                tableId?: string | undefined;
             }
             interface BatchClearValuesByDataFilterRequest {
                 dataFilters?: Sheets.Schema.DataFilter[] | undefined;
@@ -637,6 +650,9 @@ declare namespace GoogleAppsScript {
             interface DeleteSheetRequest {
                 sheetId?: number | undefined;
             }
+            interface DeleteTableRequest {
+                tableId?: string | undefined;
+            }
             interface DeveloperMetadata {
                 location?: Sheets.Schema.DeveloperMetadataLocation | undefined;
                 metadataId?: number | undefined;
@@ -729,6 +745,7 @@ declare namespace GoogleAppsScript {
                 namedRangeId?: string | undefined;
                 range?: Sheets.Schema.GridRange | undefined;
                 sortSpecs?: Sheets.Schema.SortSpec[] | undefined;
+                tableId?: string | undefined;
                 title?: string | undefined;
             }
             interface FindReplaceRequest {
@@ -751,6 +768,7 @@ declare namespace GoogleAppsScript {
             }
             interface GetSpreadsheetByDataFilterRequest {
                 dataFilters?: Sheets.Schema.DataFilter[] | undefined;
+                excludeTablesInBandedRanges?: boolean | undefined;
                 includeGridData?: boolean | undefined;
             }
             interface GradientRule {
@@ -940,6 +958,7 @@ declare namespace GoogleAppsScript {
                 protectedRangeId?: number | undefined;
                 range?: Sheets.Schema.GridRange | undefined;
                 requestingUserCanEdit?: boolean | undefined;
+                tableId?: string | undefined;
                 unprotectedRanges?: Sheets.Schema.GridRange[] | undefined;
                 warningOnly?: boolean | undefined;
             }
@@ -960,6 +979,7 @@ declare namespace GoogleAppsScript {
                 addNamedRange?: Sheets.Schema.AddNamedRangeRequest | undefined;
                 addProtectedRange?: Sheets.Schema.AddProtectedRangeRequest | undefined;
                 addSheet?: Sheets.Schema.AddSheetRequest | undefined;
+                addTable?: Sheets.Schema.AddTableRequest | undefined;
                 appendCells?: Sheets.Schema.AppendCellsRequest | undefined;
                 appendDimension?: Sheets.Schema.AppendDimensionRequest | undefined;
                 autoFill?: Sheets.Schema.AutoFillRequest | undefined;
@@ -979,6 +999,7 @@ declare namespace GoogleAppsScript {
                 deleteProtectedRange?: Sheets.Schema.DeleteProtectedRangeRequest | undefined;
                 deleteRange?: Sheets.Schema.DeleteRangeRequest | undefined;
                 deleteSheet?: Sheets.Schema.DeleteSheetRequest | undefined;
+                deleteTable?: Sheets.Schema.DeleteTableRequest | undefined;
                 duplicateFilterView?: Sheets.Schema.DuplicateFilterViewRequest | undefined;
                 duplicateSheet?: Sheets.Schema.DuplicateSheetRequest | undefined;
                 findReplace?: Sheets.Schema.FindReplaceRequest | undefined;
@@ -1008,6 +1029,7 @@ declare namespace GoogleAppsScript {
                 updateProtectedRange?: Sheets.Schema.UpdateProtectedRangeRequest | undefined;
                 updateSheetProperties?: Sheets.Schema.UpdateSheetPropertiesRequest | undefined;
                 updateSpreadsheetProperties?: Sheets.Schema.UpdateSpreadsheetPropertiesRequest | undefined;
+                updateTable?: Sheets.Schema.UpdateTableRequest | undefined;
             }
             interface Response {
                 addBanding?: Sheets.Schema.AddBandingResponse | undefined;
@@ -1017,6 +1039,7 @@ declare namespace GoogleAppsScript {
                 addNamedRange?: Sheets.Schema.AddNamedRangeResponse | undefined;
                 addProtectedRange?: Sheets.Schema.AddProtectedRangeResponse | undefined;
                 addSheet?: Sheets.Schema.AddSheetResponse | undefined;
+                addTable?: Sheets.Schema.AddTableResponse | undefined;
                 createDeveloperMetadata?: Sheets.Schema.CreateDeveloperMetadataResponse | undefined;
                 deleteConditionalFormatRule?: Sheets.Schema.DeleteConditionalFormatRuleResponse | undefined;
                 deleteDeveloperMetadata?: Sheets.Schema.DeleteDeveloperMetadataResponse | undefined;
@@ -1057,6 +1080,7 @@ declare namespace GoogleAppsScript {
                 properties?: Sheets.Schema.SheetProperties | undefined;
                 protectedRanges?: Sheets.Schema.ProtectedRange[] | undefined;
                 rowGroups?: Sheets.Schema.DimensionGroup[] | undefined;
+                tables?: Sheets.Schema.Table[] | undefined;
             }
             interface SheetProperties {
                 gridProperties?: Sheets.Schema.GridProperties | undefined;
@@ -1100,6 +1124,28 @@ declare namespace GoogleAppsScript {
                 locale?: string | undefined;
                 timeZone?: string | undefined;
                 title?: string | undefined;
+            }
+            interface Table {
+                columnProperties?: Sheets.Schema.TableColumnProperties[] | undefined;
+                name?: string | undefined;
+                range?: Sheets.Schema.GridRange | undefined;
+                rowsProperties?: Sheets.Schema.TableRowsProperties | undefined;
+                tableId?: string | undefined;
+            }
+            interface TableColumnDataValidationRule {
+                condition?: Sheets.Schema.BooleanCondition | undefined;
+            }
+            interface TableColumnProperties {
+                columnIndex?: number | undefined;
+                columnName?: string | undefined;
+                columnType?: string | undefined;
+                dataValidationRule?: Sheets.Schema.TableColumnDataValidationRule | undefined;
+            }
+            interface TableRowsProperties {
+                firstBandColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                footerColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                headerColorStyle?: Sheets.Schema.ColorStyle | undefined;
+                secondBandColorStyle?: Sheets.Schema.ColorStyle | undefined;
             }
             interface TextFormat {
                 bold?: boolean | undefined;
@@ -1235,6 +1281,10 @@ declare namespace GoogleAppsScript {
                 fields?: string | undefined;
                 properties?: Sheets.Schema.SpreadsheetProperties | undefined;
             }
+            interface UpdateTableRequest {
+                fields?: string | undefined;
+                table?: Sheets.Schema.Table | undefined;
+            }
             interface UpdateValuesByDataFilterResponse {
                 dataFilter?: Sheets.Schema.DataFilter | undefined;
                 updatedCells?: number | undefined;
@@ -1305,6 +1355,8 @@ declare namespace GoogleAppsScript {
         newAddProtectedRangeRequest(): Sheets.Schema.AddProtectedRangeRequest;
         // Create a new instance of AddSheetRequest
         newAddSheetRequest(): Sheets.Schema.AddSheetRequest;
+        // Create a new instance of AddTableRequest
+        newAddTableRequest(): Sheets.Schema.AddTableRequest;
         // Create a new instance of AppendCellsRequest
         newAppendCellsRequest(): Sheets.Schema.AppendCellsRequest;
         // Create a new instance of AppendDimensionRequest
@@ -1417,6 +1469,8 @@ declare namespace GoogleAppsScript {
         newDeleteRangeRequest(): Sheets.Schema.DeleteRangeRequest;
         // Create a new instance of DeleteSheetRequest
         newDeleteSheetRequest(): Sheets.Schema.DeleteSheetRequest;
+        // Create a new instance of DeleteTableRequest
+        newDeleteTableRequest(): Sheets.Schema.DeleteTableRequest;
         // Create a new instance of DeveloperMetadata
         newDeveloperMetadata(): Sheets.Schema.DeveloperMetadata;
         // Create a new instance of DeveloperMetadataLocation
@@ -1539,6 +1593,14 @@ declare namespace GoogleAppsScript {
         newSpreadsheet(): Sheets.Schema.Spreadsheet;
         // Create a new instance of SpreadsheetProperties
         newSpreadsheetProperties(): Sheets.Schema.SpreadsheetProperties;
+        // Create a new instance of Table
+        newTable(): Sheets.Schema.Table;
+        // Create a new instance of TableColumnDataValidationRule
+        newTableColumnDataValidationRule(): Sheets.Schema.TableColumnDataValidationRule;
+        // Create a new instance of TableColumnProperties
+        newTableColumnProperties(): Sheets.Schema.TableColumnProperties;
+        // Create a new instance of TableRowsProperties
+        newTableRowsProperties(): Sheets.Schema.TableRowsProperties;
         // Create a new instance of TextFormat
         newTextFormat(): Sheets.Schema.TextFormat;
         // Create a new instance of TextFormatRun
@@ -1583,6 +1645,8 @@ declare namespace GoogleAppsScript {
         newUpdateSheetPropertiesRequest(): Sheets.Schema.UpdateSheetPropertiesRequest;
         // Create a new instance of UpdateSpreadsheetPropertiesRequest
         newUpdateSpreadsheetPropertiesRequest(): Sheets.Schema.UpdateSpreadsheetPropertiesRequest;
+        // Create a new instance of UpdateTableRequest
+        newUpdateTableRequest(): Sheets.Schema.UpdateTableRequest;
         // Create a new instance of ValueRange
         newValueRange(): Sheets.Schema.ValueRange;
         // Create a new instance of WaterfallChartColumnStyle

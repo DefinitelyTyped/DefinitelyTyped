@@ -17,7 +17,7 @@ declare function favicon(path: string, options?: {
     /**
      * cache-control max-age directive in ms, defaulting to 1 day.
      */
-    maxage?: number | undefined;
+    maxAge?: number | undefined;
     /**
      * MIME type of the file at path, defaulting to image/x-icon.
      */

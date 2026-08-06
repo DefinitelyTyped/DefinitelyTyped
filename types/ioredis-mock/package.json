@@ -6,11 +6,11 @@
         "https://github.com/stipsan/ioredis-mock#readme"
     ],
     "peerDependencies": {
-        "ioredis": ">=5"
+        "ioredis": "^5"
     },
     "devDependencies": {
         "@types/node": "*",
-        "ioredis": ">=5",
+        "ioredis": "^5",
         "@types/ioredis-mock": "workspace:."
     },
     "owners": [
