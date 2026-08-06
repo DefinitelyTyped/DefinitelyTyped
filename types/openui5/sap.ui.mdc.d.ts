@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1590,14 +1590,9 @@ declare module "sap/ui/mdc/FilterBarDelegate" {
        */
       oFilterBar: FilterBar,
       /**
-       * Object describing the validation result. This object is only provided when called from the {@link sap.ui.mdc.FilterBar FilterBar}
+       * Status of the validation {@link sap.ui.mdc.enums.FilterBarValidationStatus}
        */
-      mValidation?: {
-        /**
-         * Status of the validation {@link sap.ui.mdc.enums.FilterBarValidationStatus}
-         */
-        status?: string;
-      }
+      sValidationStatus?: string
     ): FilterBarValidationStatus;
     /**
      * Retrieves the relevant metadata for a given payload and returns the property info array.
@@ -2285,6 +2280,14 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
    * **Note:** This base delegate supports the `p13nMode` `Aggregate` only if the table type is {@link sap.ui.mdc.table.GridTableType GridTable}.
    * The `p13nMode` `Group` is not supported if the table type is {@link sap.ui.mdc.table.TreeTableType TreeTable}.
    * This cannot be changed in your delegate implementation.
+   *
+   * **Note:** When grouping in the {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTable}, the paths
+   * required for the group header text (the grouped property's path and, if defined, the path of its text
+   * property) are conveyed via {@link sap.ui.model.Sorter#getGroupPaths}. The {@link sap.ui.model.odata.v4.ODataListBinding }
+   * evaluates these paths only if the {@link sap.ui.model.odata.v4.ODataModel} runs with `autoExpandSelect`
+   * enabled; without it, paths that traverse a `NavigationProperty` are not loaded and the group header text
+   * is incomplete. Applications that must run without `autoExpandSelect` and require grouping by such properties
+   * need to override the delegate to add the required `$expand` to the binding parameters.
    *
    * All binding-related limitations regarding selection also apply in the context of this delegate. For details,
    * see {@link sap.ui.model.odata.v4.Context#setSelected} and {@link sap.ui.model.odata.v4.ODataModel#bindList}.

@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -189,7 +189,7 @@ declare module "sap/ui/rta/plugin/annotations/AnnotationChangeDialog" {
       text: string;
     }>;
     /**
-     * Name of the property that should be filtered for initially
+     * Annotation path of the property to preselect
      */
     preSelectedProperty?: string;
   };

@@ -1,6 +1,10 @@
 // eslint-disable-next-line @definitelytyped/no-relative-import-in-test
 import fp = require("./fp");
 import _ = require("lodash");
+import conforms = require("lodash/conforms");
+import stubArray = require("lodash/stubArray");
+import stubObject = require("lodash/stubObject");
+import stubString = require("lodash/stubString");
 
 import type {
     GetFieldType,
@@ -3964,6 +3968,7 @@ fp.now(); // $ExpectType number
     _({ foo: (v: string) => false }).conforms().value()({ foo: "foo" }); // $ExpectType boolean
     _.chain({ foo: (v: string) => false }).conforms().value()({ foo: "foo" }); // $ExpectType boolean
     fp.conforms({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
+    conforms({ foo: (v: string) => false })({ foo: "foo" }); // $ExpectType boolean
 }
 
 // _.conformsTo
@@ -7834,4 +7839,11 @@ _.templateSettings; // $ExpectType TemplateSettings
     type B = GetFieldType<Exclude<Type, string>, 0>; // $ExpectType 'ArrVal' | 'ObjVal0' | undefined
     type C = GetFieldType<Type, 'A'>; // $ExpectType 'ObjValA' | undefined
     type D = GetFieldType<Type, 'length'>; // $ExpectType number | undefined
+}
+
+// Stub modules
+{
+    stubArray(); // $ExpectType any[]
+    stubObject(); // $ExpectType any
+    stubString(); // $ExpectType string
 }

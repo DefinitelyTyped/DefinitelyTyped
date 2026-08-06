@@ -40,3 +40,5 @@ process.on("deprecation", error => {
     err.namespace; // $ExpectType string
     err.stack; // $ExpectType string
 });
+
+process.listeners("deprecation"); // $ExpectType ((deprecationError: DeprecationError) => void)[]

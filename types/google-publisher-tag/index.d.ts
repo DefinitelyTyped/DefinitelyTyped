@@ -2041,7 +2041,7 @@ declare namespace googletag {
         /**
          * Settings to configure the continue button behavior.
          *
-         * @see {@link googletag.config.PageSettingsConfig.continueButton | PageSettingsConfig.continueButton}
+         * @see {@link googletag.config.SlotSettingsConfig.continueButton | SlotSettingsConfig.continueButton}
          */
         interface ContinueButtonConfig {
             /**
@@ -2503,34 +2503,6 @@ declare namespace googletag {
              *   googletag.setConfig({autoRefresh: null});
              */
             autoRefresh?: AutoRefreshConfig | null;
-
-            /**
-             * Settings to configure the continue button behavior for content pause ads.
-             *
-             * These settings allow customizing the appearance and behavior of the exit and
-             * continue reading interactions associated with content pause formats.
-             *
-             * Any continue button settings which are not specified when calling
-             * `setConfig()` will use a default value set by Google.
-             *
-             * To disable or clear all continue button settings, pass `null`.
-             *
-             * @example
-             *   // Configure continue button settings.
-             *   googletag.setConfig({
-             *     continueButton: {
-             *       font: 'Arial',
-             *       fontColor: 'white',
-             *       backgroundColor: 'blue',
-             *       targetId: 'target-div-id',
-             *       freqCapIntervalMinutes: 20
-             *     }
-             *   });
-             *
-             *   // Clear continue button settings.
-             *   googletag.setConfig({continueButton: null});
-             */
-            continueButton?: ContinueButtonConfig | null;
         }
 
         /**
@@ -2915,6 +2887,36 @@ declare namespace googletag {
              *   slot.setConfig({adsenseAttributes: null});
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
+
+            /**
+             * Settings to configure the continue button behavior for content pause ads.
+             *
+             * These settings allow customizing the appearance and behavior of the exit and
+             * continue reading interactions associated with content pause formats.
+             *
+             * Any continue button settings which are not specified when calling
+             * `setConfig()` will use a default value set by Google.
+             *
+             * To disable or clear all continue button settings, pass `null`.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *            .addService(googletag.pubads());
+             *   // Configure continue button settings.
+             *   slot.setConfig({
+             *     continueButton: {
+             *       font: 'Arial',
+             *       fontColor: 'white',
+             *       backgroundColor: 'blue',
+             *       targetId: 'target-div-id',
+             *       freqCapIntervalMinutes: 20
+             *     }
+             *   });
+             *
+             *   // Clear continue button settings.
+             *   slot.setConfig({continueButton: null});
+             */
+            continueButton?: ContinueButtonConfig | null;
         }
 
         /**

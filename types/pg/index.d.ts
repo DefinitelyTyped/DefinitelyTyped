@@ -55,6 +55,7 @@ export interface PoolConfig extends ClientConfig {
     maxLifetimeSeconds?: number | undefined;
     Client?: (new() => ClientBase) | undefined;
     onConnect?: ((client: ClientBase) => void) | undefined;
+    verify?: ((client: PoolClient, done: (err?: Error) => void) => void) | undefined;
 }
 
 export interface QueryConfig<I = any[]> {
@@ -281,9 +282,9 @@ export class ClientBase extends events.EventEmitter {
     setTypeParser: typeof pgTypes.setTypeParser;
     getTypeParser: typeof pgTypes.getTypeParser;
 
-    on<E extends "drain" | "error" | "notice" | "notification" | "end">(
+    on<E extends "connect" | "drain" | "error" | "notice" | "notification" | "end">(
         event: E,
-        listener: E extends "drain" | "end" ? () => void
+        listener: E extends "connect" | "drain" | "end" ? () => void
             : E extends "error" ? (err: Error) => void
             : E extends "notice" ? (notice: NoticeMessage) => void
             : (message: Notification) => void,
@@ -308,7 +309,7 @@ export class Client extends ClientBase {
     end(callback: (err: Error) => void): void;
 }
 
-export interface PoolClient extends ClientBase {
+export interface PoolClient extends Client {
     release(err?: Error | boolean): void;
 }
 

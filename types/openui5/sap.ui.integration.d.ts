@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/ui/integration/library" {
   import { URI } from "sap/ui/core/library";
@@ -982,6 +982,14 @@ declare module "sap/ui/integration/widgets/Card" {
    * 	 - Content
    * 	 - Data source
    * 	 - Possible actions
+   * 	 - Badge (optional) - Since 1.151
+   *
+   * Manifest Badges vs. Programmatic Badges:: Badges can be set in two ways:
+   * 	 - **Manifest Badges:** Defined in `sap.card/badges` array - ideal for backend-driven scenarios where
+   *     badge state is known at card definition time
+   * 	 - **Programmatic Badges:** Added via `customData` aggregation using {@link sap.f.cards.CardBadgeCustomData }
+   *     - ideal for runtime dynamic scenarios controlled by the host application  Both types can coexist
+   *     on the same card, allowing combination of backend-defined and host-controlled badges.
    *
    * The role of the app developer is to integrate the card into the app and define:
    * 	 - The dimensions of the card inside a layout of choice, using the `width` and `height` properties
@@ -1486,6 +1494,24 @@ declare module "sap/ui/integration/widgets/Card" {
      */
     getCombinedParameters(): Record<string, any>;
     /**
+     * Returns the context paths that the card depends on.
+     *
+     * Scans the `sap.card` section of the manifest for context model references and returns a deduplicated
+     * array of the context paths found.
+     *
+     * Must be called after the manifest is ready (for example, in the `manifestReady` event handler).
+     *
+     * **Limitation:** Only context references directly in the manifest are detected. Context referenced from
+     * inside an extension or component will not be returned. If context needs to be used from an extension,
+     * assign it to a parameter first.
+     *
+     * @experimental As of version 1.151.
+     *
+     * @returns An array of context paths found in the manifest (for example, `["/sample/currentUser/id", "/sample/supplier/id/value"]`).
+     * Returns an empty array if no context dependencies are found or if the manifest is not ready.
+     */
+    getContextDependencies(): string[];
+    /**
      * Gets current value of property {@link #getDataMode dataMode}.
      *
      * Defines the state of the `Card`. When set to `Inactive`, the `Card` doesn't make requests.
@@ -1712,7 +1738,8 @@ declare module "sap/ui/integration/widgets/Card" {
       eCardArea?: CardArea | keyof typeof CardArea
     ): void;
     /**
-     * Hides the message previously shown by showMessage.
+     * Hides the message previously shown by {@link sap.ui.integration.widgets.Card#showMessage showMessage}.
+     * Can be used only after the `manifestApplied` event is fired.
      *
      * @experimental As of version 1.117.
      */
@@ -2359,7 +2386,8 @@ declare module "sap/ui/integration/widgets/Card" {
       eCardArea?: CardArea | keyof typeof CardArea
     ): void;
     /**
-     * Hides the message previously shown by showMessage.
+     * Hides the message previously shown by {@link sap.ui.integration.widgets.Card#showMessage showMessage}.
+     * Can be used only after the `manifestApplied` event is fired.
      *
      * @experimental As of version 1.117.
      */

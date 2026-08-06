@@ -108,3 +108,9 @@ function formrelatedEventTests() {
         }}
     />;
 }
+
+function browserUsableTests() {
+    // browser() returns an opaque, renderer-specific Usable that React.use accepts
+    // $ExpectType unknown
+    React.use(ReactDOM.browser());
+}
