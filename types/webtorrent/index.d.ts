@@ -298,7 +298,10 @@ export default class WebTorrent extends EventEmitter {
     createServer(): NodeServer | BrowserServer;
     createServer(opts: NodeServerOptions, force: "node"): NodeServer;
     createServer(opts: BrowserServerOptions, force: "browser"): BrowserServer;
-    createServer(opts?: BrowserServerOptions | NodeServerOptions, force?: "browser" | "node"): NodeServer | BrowserServer;
+    createServer(
+        opts?: BrowserServerOptions | NodeServerOptions,
+        force?: "browser" | "node",
+    ): NodeServer | BrowserServer;
 
     add(
         torrentId: string | Uint8Array | File | Blob | ParseTorrentInstance,
