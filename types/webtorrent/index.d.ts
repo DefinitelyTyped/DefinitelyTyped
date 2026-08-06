@@ -6,6 +6,7 @@ import type { Server } from "http";
 import type { AddressInfo } from "net";
 import type { Instance as ParseTorrentInstance } from "parse-torrent";
 import type { Instance as SimplePeerInstance } from "simple-peer";
+import type { Readable } from "stream";
 
 export interface Options {
     maxConns?: number | undefined;
@@ -113,7 +114,7 @@ export interface TorrentDestroyOptions {
 export type PeerSource = "manual" | "tracker" | "dht" | "lsd" | "ut_pex";
 
 export interface FileStreamData {
-    stream: NodeJS.ReadableStream;
+    stream: Readable;
     file: TorrentFile;
     req: Request;
 }
@@ -235,7 +236,7 @@ export interface TorrentFile extends EventEmitter {
 
     select(priority?: number): void;
     deselect(): void;
-    createReadStream(opts?: { start: number; end: number }): NodeJS.ReadableStream;
+    createReadStream(opts?: { start: number; end: number }): Readable;
     arrayBuffer(opts?: { start: number; end: number }): Promise<ArrayBuffer>;
     blob(opts?: { start: number; end: number }): Promise<Blob>;
     stream(opts?: { start: number; end: number }): ReadableStream;
@@ -244,14 +245,14 @@ export interface TorrentFile extends EventEmitter {
     [Symbol.asyncIterator](opts?: { start: number; end: number }): AsyncIterableIterator<Uint8Array>;
 
     on(event: "done", callback: () => void): this;
-    on(event: "stream", callback: (data: FileStreamData, cb: (stream: NodeJS.ReadableStream) => void) => void): this;
+    on(event: "stream", callback: (data: FileStreamData, cb: (stream: Readable) => void) => void): this;
     on(
         event: "iterator",
         callback: (data: FileIteratorData, cb: (iterator: AsyncIterableIterator<Uint8Array>) => void) => void,
     ): this;
 
     once(event: "done", callback: () => void): this;
-    once(event: "stream", callback: (data: FileStreamData, cb: (stream: NodeJS.ReadableStream) => void) => void): this;
+    once(event: "stream", callback: (data: FileStreamData, cb: (stream: Readable) => void) => void): this;
     once(
         event: "iterator",
         callback: (data: FileIteratorData, cb: (iterator: AsyncIterableIterator<Uint8Array>) => void) => void,
@@ -294,10 +295,10 @@ export default class WebTorrent extends EventEmitter {
 
     constructor(opts?: Options);
 
-    createServer(
-        opts?: BrowserServerOptions | NodeServerOptions,
-        force?: "browser" | "node",
-    ): NodeServer | BrowserServer;
+    createServer(): NodeServer | BrowserServer;
+    createServer(opts: NodeServerOptions, force: "node"): NodeServer;
+    createServer(opts: BrowserServerOptions, force: "browser"): BrowserServer;
+    createServer(opts?: BrowserServerOptions | NodeServerOptions, force?: "browser" | "node"): NodeServer | BrowserServer;
 
     add(
         torrentId: string | Uint8Array | File | Blob | ParseTorrentInstance,

@@ -37,7 +37,7 @@ client.add(magnetURI, torrentOpts, (torrent: Torrent) => {
         ),
     );
 
-    torrent.files.forEach((file: TorrentFile) => {
+    torrent.files.forEach(async (file: TorrentFile) => {
         console.log(file.name, file.path, file.length, file.size, file.type, file.offset, file.done);
 
         file.select();
@@ -108,7 +108,7 @@ client.seed("./file.txt", {}, (torrent: Torrent) => {
     console.log("Client is seeding:", torrent.infoHash);
 });
 
-client.seed([fs.readFileSync("file.txt")], { name: "file.txt" }, (torrent: Torrent) => {
+client.seed([fs.readFileSync("file.txt")], (torrent: Torrent) => {
     console.log("Client is seeding:", torrent.infoHash);
 });
 
