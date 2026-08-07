@@ -347,7 +347,12 @@ declare module "node:quic" {
         minVersion?: number | undefined;
         /**
          * When the remote peer advertises a preferred address, this option specifies whether
-         * to use it or ignore it.
+         * to use it or ignore it. The default is `'ignore'` because honoring a server's
+         * preferred address causes the client to migrate its connection to a different IP
+         * address, which can be exploited for data exfiltration attacks that are
+         * indistinguishable from legitimate QUIC connection migration at the network level.
+         * Set to `'use'` only when connecting to trusted servers that require preferred
+         * address migration.
          * @since v23.8.0
          */
         preferredAddressPolicy?: "use" | "ignore" | "default" | undefined;
