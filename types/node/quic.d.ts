@@ -192,34 +192,40 @@ declare module "node:quic" {
          */
         authoritative?: boolean | undefined;
     }
+    /**
+     * @since v26.3.0
+     */
     interface ApplicationOptions {
         /**
-         * Maximum number of header name-value pairs accepted per header block. Headers beyond this limit are silently
-         * dropped. **Default:** `128`
+         * Maximum number of header name-value pairs accepted per header block.
+         * Headers beyond this limit are silently dropped. **Default:** `128`
          */
-        maxHeaderPairs?: number | undefined;
+        maxHeaderPairs?: bigint | number | undefined;
         /**
-         * Maximum total byte length of all header names and values combined per header block. Headers that would push
-         * the total over this limit are silently dropped. **Default:** `8192`
+         * Maximum total byte length of all header names and values combined per header
+         * block. Headers that would push the total over this limit are silently
+         * dropped. **Default:** `8192`
          */
-        maxHeaderLength?: number | undefined;
+        maxHeaderLength?: bigint | number | undefined;
         /**
-         * Maximum size of a compressed header field section (QPACK). `0` means unlimited. **Default:** `0`
+         * Maximum size of a compressed header field section (QPACK). `0` means
+         * unlimited. **Default:** `0`
          */
-        maxFieldSectionSize?: number | undefined;
+        maxFieldSectionSize?: bigint | number | undefined;
         /**
-         * QPACK dynamic table capacity in bytes. Set to `0` to disable the dynamic table. **Default:** `4096`
+         * QPACK dynamic table capacity in bytes. Set to `0` to disable the dynamic
+         * table. **Default:** `4096`
          */
-        qpackMaxDTableCapacity?: number | undefined;
+        qpackMaxDTableCapacity?: bigint | number | undefined;
         /**
          * QPACK encoder maximum dynamic table capacity. **Default:** `4096`
          */
-        qpackEncoderMaxDTableCapacity?: number | undefined;
+        qpackEncoderMaxDTableCapacity?: bigint | number | undefined;
         /**
-         * Maximum number of streams that can be blocked waiting for QPACK dynamic table updates.
-         * **Default:** `100`
+         * Maximum number of streams that can e blocked waiting for QPACK dynamic table
+         * updates. **Default:** `100`
          */
-        qpackBlockedStreams?: number | undefined;
+        qpackBlockedStreams?: bigint | number | undefined;
         /**
          * Enable the extended CONNECT protocol (RFC 9220). **Default:** `false`
          */
@@ -256,8 +262,7 @@ declare module "node:quic" {
          */
         alpn?: string | readonly string[] | undefined;
         /**
-         * HTTP/3 application-specific options. These only apply when the negotiated
-         * ALPN selects the HTTP/3 application (`'h3'`).
+         * Application-specific options.
          * @since v26.2.0
          */
         application?: ApplicationOptions | undefined;
@@ -997,6 +1002,13 @@ declare module "node:quic" {
      */
     class QuicSession implements AsyncDisposable {
         private constructor();
+        /**
+         * The current application-level options for this session. These include settings
+         * that are specific to the negotiated application protocol (e.g. HTTP/3) and may
+         * be negotiated separately from the transport parameters. Read only.
+         * @since v26.3.0
+         */
+        readonly applicationOptions: { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
         /**
          * Initiate a graceful close of the session. Existing streams will be allowed
          * to complete but no new streams will be opened. Once all streams have closed,
