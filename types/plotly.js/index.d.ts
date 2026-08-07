@@ -1117,7 +1117,7 @@ export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
-    scaleanchor: AxisName;
+    scaleanchor: AxisName | false;
     scaleratio: number;
     constrain: "range" | "domain";
     constraintoward: "left" | "center" | "right" | "top" | "middle" | "bottom";
@@ -1134,7 +1134,8 @@ export interface LayoutAxis extends Axis {
     automargin: boolean;
     angle: any;
     griddash: Dash;
-    l2p: (v: Datum) => number;
+    l2p: (v: number) => number;
+    d2p: (v: Datum, clip?: any, calendar?: any) => number;
 
     autotickangles: number[];
     insiderange: any[];

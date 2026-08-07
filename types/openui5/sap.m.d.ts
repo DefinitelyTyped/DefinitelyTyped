@@ -1,4 +1,4 @@
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -65642,6 +65642,21 @@ declare module "sap/m/MultiInput" {
      */
     openMultiLine(): void;
     /**
+     * Prevents the `change` event from firing when focus moves between the inner input element and a Token
+     * of this MultiInput's Tokenizer (e.g. via Arrow keys). The change event must only fire on ENTER or when
+     * focus leaves the MultiInput entirely.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether the change event should be prevented.
+     */
+    preventChangeOnFocusLeave(
+      /**
+       * The event object.
+       */
+      oEvent?: jQuery.Event
+    ): boolean;
+    /**
      * Removes all the controls from the aggregation {@link #getTokens tokens}.
      *
      * Additionally, it unregisters them from the hosting UIArea.
@@ -111101,6 +111116,19 @@ declare module "sap/m/SearchField" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Adds some ariaControl into the association {@link #getAriaControls ariaControls}.
+     *
+     * @since 1.150
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaControl(
+      /**
+       * The ariaControls to add; if empty, nothing is inserted
+       */
+      vAriaControl: ID | Control
+    ): this;
+    /**
      * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
      *
      *
@@ -111493,6 +111521,12 @@ declare module "sap/m/SearchField" {
       mParameters?: SearchField$SuggestEventParameters
     ): this;
     /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaControls ariaControls}.
+     *
+     * @since 1.150
+     */
+    getAriaControls(): ID[];
+    /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
      */
     getAriaDescribedBy(): ID[];
@@ -111708,6 +111742,14 @@ declare module "sap/m/SearchField" {
       iIndex: int
     ): this;
     /**
+     * Removes all the controls in the association named {@link #getAriaControls ariaControls}.
+     *
+     * @since 1.150
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaControls(): ID[];
+    /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
      *
      *
@@ -111731,6 +111773,19 @@ declare module "sap/m/SearchField" {
      * @returns An array of the removed elements (might be empty)
      */
     removeAllSuggestionItems(): SuggestionItem[];
+    /**
+     * Removes an ariaControl from the association named {@link #getAriaControls ariaControls}.
+     *
+     * @since 1.150
+     *
+     * @returns The removed ariaControl or `null`
+     */
+    removeAriaControl(
+      /**
+       * The ariaControl to be removed or its index or ID
+       */
+      vAriaControl: int | ID | Control
+    ): ID | null;
     /**
      * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
      *
@@ -112137,6 +112192,14 @@ declare module "sap/m/SearchField" {
      * Association to controls / ids which label this control (see WAI-ARIA attribute aria-labelledby).
      */
     ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Associates controls or IDs that are controlled by this control, as described by the WAI-ARIA attribute
+     * `aria-controls`.
+     *
+     * @since 1.150
+     */
+    ariaControls?: Array<Control | string>;
 
     /**
      * Event which is fired when the user triggers a search.
@@ -150937,9 +151000,9 @@ declare module "sap/m/TileContent" {
   } from "sap/ui/base/ManagedObject";
 
   import {
+    Priority,
     ValueColor,
     FrameType,
-    Priority,
     Size,
     LoadState,
   } from "sap/m/library";
@@ -151036,6 +151099,30 @@ declare module "sap/m/TileContent" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyContent(): this;
+    /**
+     * Gets current value of property {@link #getAdditionalPriority additionalPriority}.
+     *
+     * Sets the priority level for the additional priority badge. Determines the state and icon of the badge.
+     * Works only for generic tiles with ActionMode or Article Mode where FrameType Stretch is enabled.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.151
+     *
+     * @returns Value of property `additionalPriority`
+     */
+    getAdditionalPriority(): Priority;
+    /**
+     * Gets current value of property {@link #getAdditionalPriorityText additionalPriorityText}.
+     *
+     * Sets the text within the additional priority badge that is displayed next to the priority badge. Works
+     * only in Generic Tiles in ActionMode or Article Mode containing FrameType Stretch.
+     *
+     * @since 1.151
+     *
+     * @returns Value of property `additionalPriorityText`
+     */
+    getAdditionalPriorityText(): string;
     /**
      * Gets content of aggregation {@link #getContent content}.
      *
@@ -151144,6 +151231,30 @@ declare module "sap/m/TileContent" {
      * @returns Value of property `unit`
      */
     getUnit(): string;
+    /**
+     * Sets the priority level for the additional priority badge.
+     *
+     *
+     * @returns Reference to the current instance for method chaining.
+     */
+    setAdditionalPriority(
+      /**
+       * The priority level.
+       */
+      sPriority: Priority | keyof typeof Priority
+    ): this;
+    /**
+     * Sets the text for the additional priority badge.
+     *
+     *
+     * @returns Reference to the current instance for method chaining.
+     */
+    setAdditionalPriorityText(
+      /**
+       * The text to be displayed on the badge.
+       */
+      sPriorityText: string
+    ): this;
     /**
      * Sets the aggregated {@link #getContent content}.
      *
@@ -151407,6 +151518,25 @@ declare module "sap/m/TileContent" {
      * @since 1.103
      */
     priorityText?: string | PropertyBindingInfo;
+
+    /**
+     * Sets the priority level for the additional priority badge. Determines the state and icon of the badge.
+     * Works only for generic tiles with ActionMode or Article Mode where FrameType Stretch is enabled.
+     *
+     * @since 1.151
+     */
+    additionalPriority?:
+      | (Priority | keyof typeof Priority)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Sets the text within the additional priority badge that is displayed next to the priority badge. Works
+     * only in Generic Tiles in ActionMode or Article Mode containing FrameType Stretch.
+     *
+     * @since 1.151
+     */
+    additionalPriorityText?: string | PropertyBindingInfo;
 
     /**
      * The load status.

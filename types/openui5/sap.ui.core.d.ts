@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.150.0
+// For Library Version: 1.151.0
 
 declare module "sap/base/assert" {
   /**
@@ -3458,7 +3458,7 @@ declare module "sap/base/util/UriParameters" {
       sName: string,
       /**
        * Whether all values for the parameter should be returned; the use of this parameter is deprecated and
-       * highly discouraged; use the {@link #getAll} method instead
+       * highly discouraged; use the {@link #getAll} method instead {@deprecated}
        */
       bAll?: boolean
     ): string | null;
@@ -3990,6 +3990,44 @@ declare module "sap/ui/core/ControlBehavior" {
    */
   interface ControlBehavior {
     /**
+     * Attaches a handler to the {@link #event:extendedKeyboardNavigationChanged} event.
+     *
+     * The handler is invoked whenever the Extended Keyboard Navigation state is toggled via {@link #setExtendedKeyboardNavigationEnabled }
+     * — both for transitions from `false` to `true` and from `true` to `false`. No event is fired for the initial
+     * value provided via configuration; call {@link #isExtendedKeyboardNavigationEnabled} once after attaching
+     * to learn the current state.
+     *
+     * API might change before stable release.
+     *
+     * @experimental As of version 1.151.
+     */
+    attachExtendedKeyboardNavigationChanged(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (
+        p1: ControlBehavior$ExtendedKeyboardNavigationChangedEvent
+      ) => void
+    ): void;
+    /**
+     * Detaches a handler from the {@link #event:extendedKeyboardNavigationChanged} event.
+     *
+     * The passed function must be the same one used for the corresponding `attachExtendedKeyboardNavigationChanged`
+     * call.
+     *
+     * API might change before stable release.
+     *
+     * @experimental As of version 1.151.
+     */
+    detachExtendedKeyboardNavigationChanged(
+      /**
+       * The function to be detached
+       */
+      fnFunction: (
+        p1: ControlBehavior$ExtendedKeyboardNavigationChangedEvent
+      ) => void
+    ): void;
+    /**
      * Returns the current animation mode.
      *
      * @since 1.120
@@ -4005,6 +4043,20 @@ declare module "sap/ui/core/ControlBehavior" {
      * @returns whether the accessibility mode is enabled or not
      */
     isAccessibilityEnabled(): boolean;
+    /**
+     * Returns whether Extended Keyboard Navigation is currently enabled.
+     *
+     * Extended Keyboard Navigation extends the keyboard tab order to include non-interactive, text-bearing
+     * elements so their tooltips become reachable by keyboard. The feature is not recommended for screen-reader
+     * users.
+     *
+     * API might change before stable release.
+     *
+     * @experimental As of version 1.151.
+     *
+     * @returns whether Extended Keyboard Navigation is enabled
+     */
+    isExtendedKeyboardNavigationEnabled(): boolean;
     /**
      * Sets the current animation mode.
      *
@@ -4024,6 +4076,20 @@ declare module "sap/ui/core/ControlBehavior" {
   }
   const ControlBehavior: ControlBehavior;
   export default ControlBehavior;
+
+  /**
+   * The Extended Keyboard Navigation change Event.
+   *
+   * API might change before stable release.
+   *
+   * @experimental As of version 1.151.
+   */
+  export type ControlBehavior$ExtendedKeyboardNavigationChangedEvent = {
+    /**
+     * The new value
+     */
+    extendedKeyboardNavigationEnabled: boolean;
+  };
 }
 
 declare module "sap/ui/core/date/CalendarUtils" {
@@ -5016,6 +5082,14 @@ declare module "sap/ui/core/Messaging" {
      * @returns oMessageModel The Message Model
      */
     getMessageModel(): MessageModel;
+    /**
+     * Returns all messages currently managed by Messaging.
+     *
+     * @since 1.151
+     *
+     * @returns An array of all current messages
+     */
+    getMessages(): Message[];
     /**
      * Register MessageProcessor
      */
@@ -10874,8 +10948,9 @@ declare module "sap/ui/test/starter/config" {
      */
     searchParams?: Record<string, string | string[]>;
     /**
-     * A map-like object with URL parameters that are appended to the `page` URL. {@deprecated As of version
-     * 1.141.0, use `searchParams` instead.}
+     * A map-like object with URL parameters that are appended to the `page` URL.
+     *
+     * @deprecated As of version 1.141.0. use `searchParams` instead.
      */
     uriParams?: Record<string, string | string[]>;
     /**
@@ -10952,7 +11027,7 @@ declare module "sap/ui/test/starter/config" {
      * When this option is true, the core is not only loaded and started, but loading and execution of the test
      * module(s) is also delayed until a listener registered with sap.ui.getCore().attachInit() has been executed.
      *
-     * {@deprecated As of version 1.120, it should not be used in new tests}
+     * @deprecated As of version 1.120. it should not be used in new tests
      */
     bootCore?: boolean;
     /**
@@ -11060,11 +11135,11 @@ declare module "sap/ui/util/Mobile" {
          */
         useFullScreenHeight?: boolean;
         /**
-         * deprecated since 1.12, use sap/ui/util/Mobile.setIcons instead.
+         * @deprecated As of version 1.12. use sap/ui/util/Mobile.setIcons instead.
          */
         homeIcon?: string;
         /**
-         * deprecated since 1.12, use sap/ui/util/Mobile.setIcons instead.
+         * @deprecated As of version 1.12. use sap/ui/util/Mobile.setIcons instead.
          */
         homeIconPrecomposed?: boolean;
         /**
@@ -19236,8 +19311,10 @@ declare module "sap/ui/core/Component" {
          */
         manifest?: boolean | string | object;
         /**
-         * @since 1.61.0 Alternative URL for the manifest.json. If `mOptions.manifest` is set to an object value,
-         * this URL specifies the location to which the manifest object should resolve the relative URLs to.
+         * Alternative URL for the manifest.json. If `mOptions.manifest` is set to an object value, this URL specifies
+         * the location to which the manifest object should resolve the relative URLs to.
+         *
+         * @since 1.61.0
          */
         altManifestUrl?: string;
         /**
@@ -19445,8 +19522,10 @@ declare module "sap/ui/core/Component" {
          */
         manifest?: boolean | string | object;
         /**
-         * @since 1.61.0 Alternative URL for the manifest.json. If `mOptions.manifest` is set to an object value,
-         * this URL specifies the location to which the manifest object should resolve the relative URLs to.
+         * Alternative URL for the manifest.json. If `mOptions.manifest` is set to an object value, this URL specifies
+         * the location to which the manifest object should resolve the relative URLs to.
+         *
+         * @since 1.61.0
          */
         altManifestUrl?: string;
         /**
@@ -25043,6 +25122,10 @@ declare module "sap/ui/core/CustomData" {
   export default class CustomData extends UI5Element {
     /**
      * Constructor for a new `CustomData` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
      */
     constructor(
       /**
@@ -25052,6 +25135,10 @@ declare module "sap/ui/core/CustomData" {
     );
     /**
      * Constructor for a new `CustomData` element.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
      */
     constructor(
       /**
@@ -25065,10 +25152,10 @@ declare module "sap/ui/core/CustomData" {
     );
 
     /**
-     * Creates a new subclass of `CustomData` with name `sClassName` and enriches it with the information contained
-     * in `oClassInfo`.
+     * Creates a new subclass of class sap.ui.core.CustomData with name `sClassName` and enriches it with the
+     * information contained in `oClassInfo`.
      *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend Element.extend}.
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Element.extend}.
      *
      *
      * @returns Created class / constructor function
@@ -25083,12 +25170,13 @@ declare module "sap/ui/core/CustomData" {
        */
       oClassInfo?: sap.ClassInfo<T, CustomData>,
       /**
-       * Constructor function for the metadata object; if not given, it defaults to `sap.ui.core.ElementMetadata`
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
        */
       FNMetaImpl?: Function
     ): Function;
     /**
-     * Returns a metadata object for class `sap.ui.core.CustomData`.
+     * Returns a metadata object for class sap.ui.core.CustomData.
      *
      *
      * @returns Metadata object describing this class
@@ -25707,15 +25795,15 @@ declare module "sap/ui/core/delegate/ScrollEnablement" {
          */
         vertical?: boolean;
         /**
-         * Deprecated since 1.42, the parameter has no effect
+         * @deprecated As of version 1.42. the parameter has no effect
          */
         zynga?: boolean;
         /**
-         * Deprecated since 1.42, the parameter has no effect
+         * @deprecated As of version 1.42. the parameter has no effect
          */
         iscroll?: boolean;
         /**
-         * Deprecated since 1.42, the parameter has no effect
+         * @deprecated As of version 1.42. the parameter has no effect
          */
         preventDefault?: boolean;
         /**
@@ -28156,8 +28244,10 @@ declare module "sap/ui/core/Element" {
        */
       oFocusInfo: {
         /**
-         * @since 1.60 if it's set to true, the focused element won't be shifted into the viewport if it's not completely
-         * visible before the focus is set
+         * if it's set to true, the focused element won't be shifted into the viewport if it's not completely visible
+         * before the focus is set
+         *
+         * @since 1.60
          */
         preventScroll?: boolean;
       }
@@ -28442,12 +28532,16 @@ declare module "sap/ui/core/Element" {
        */
       oFocusInfo?: {
         /**
-         * @since 1.60 if it's set to true, the focused element won't be shifted into the viewport if it's not completely
-         * visible before the focus is set
+         * if it's set to true, the focused element won't be shifted into the viewport if it's not completely visible
+         * before the focus is set
+         *
+         * @since 1.60
          */
         preventScroll?: boolean;
         /**
-         * Further control-specific setting of the focus target within the control @since 1.98
+         * Further control-specific setting of the focus target within the control
+         *
+         * @since 1.98
          */
         targetInfo?: any;
       }
@@ -30933,10 +31027,9 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     showNumber?: boolean;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into the `short` form only.
+     * When this option is set, the default value of the `precision` option is set to `2`. This can be changed
+     * by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
     /**
@@ -30996,10 +31089,9 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     preserveDecimals?: boolean;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into compact forms. When this
+     * option is set, the default value of the `precision` option is set to `2`. This can be changed by setting
+     * either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
   };
@@ -31137,10 +31229,9 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     preserveDecimals?: boolean;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into compact forms. When this
+     * option is set, the default value of the `precision` option is set to `2`. This can be changed by setting
+     * either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
   };
@@ -31294,10 +31385,9 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     showNumber?: boolean;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into compact forms. When this
+     * option is set, the default value of the `precision` option is set to `2`. This can be changed by setting
+     * either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
   };
@@ -36880,6 +36970,12 @@ declare module "sap/ui/core/message/Message" {
          * An object containing technical details for a message
          */
         technicalDetails?: object;
+        /**
+         * Whether the message originates from a client-side type validation or parse error. Set to `true` by the
+         * framework when creating messages for `validationError`, `parseError`, or `formatError` binding events.
+         * Read via {@link #isValidation}; cannot be changed after construction.
+         */
+        validation?: boolean;
 
         processor?: MessageProcessor;
         /**
@@ -37061,6 +37157,24 @@ declare module "sap/ui/core/message/Message" {
      * @returns type
      */
     getType(): MessageType;
+    /**
+     * Returns whether the message originated from a client-side type validation or parse error.
+     *
+     * A message is considered a validation message when it was created by the binding layer in response to
+     * a type validator or parser rejecting a user-entered value (i.e. a `validationError`, `parseError`, or
+     * `formatError` event fired by a managed object binding). Such messages are created with `mParameters.validation:
+     * true` in the {@link sap.ui.core.message.Message} constructor. The flag is set at construction time and
+     * cannot be changed afterwards.
+     *
+     * Use this method to distinguish client-side validation messages from server-side messages (e.g. OData
+     * error responses) or application-created messages, which always have `validation: false`.
+     *
+     * @since 1.151
+     *
+     * @returns `true` if the message originated from a client-side type validation or parse error, `false`
+     * otherwise
+     */
+    isValidation(): boolean;
     /**
      * Sets the additionaltext for the message or merge different additionaltext strings
      */
@@ -40147,8 +40261,10 @@ declare module "sap/ui/core/mvc/XMLView" {
         | string
         | ((p1: Object, p2: Preprocessor.ViewInfo, p3: object) => void),
       /**
-       * Since 1.89, added for signature compatibility with {@link sap.ui.core.mvc.View#registerPreprocessor View#registerPreprocessor}.
+       * added for signature compatibility with {@link sap.ui.core.mvc.View#registerPreprocessor View#registerPreprocessor}.
        * Only supported value is "XML".
+       *
+       * @since 1.89
        */
       sViewType: string,
       /**
@@ -43862,11 +43978,13 @@ declare module "sap/ui/core/routing/Router" {
        */
       oConfig?: {
         /**
-         * Since 1.28. Settings which are used when no route of the router is matched after a hash change.
+         * Settings which are used when no route of the router is matched after a hash change.
+         *
+         * @since 1.28
          */
         bypassed?: {
           /**
-           * Since 1.28. One or multiple names of targets that will be displayed, if no route of the router is matched.
+           * One or multiple names of targets that will be displayed, if no route of the router is matched.
            *  A typical use case is a not found page.
            *  The current hash will be passed to the display event of the target.
            *  **Example:**
@@ -43896,12 +44014,17 @@ declare module "sap/ui/core/routing/Router" {
            *          }
            *     });
            * ```
+           *
+           *
+           * @since 1.28
            */
           target?: string | string[];
         };
         /**
-         * Since 1.34. Whether views are loaded asynchronously within this router instance. As of 1.90 synchronous
-         * routing is deprecated. Therefore, you should explicitly set `oConfig.async` to `true`.
+         * Whether views are loaded asynchronously within this router instance. As of 1.90 synchronous routing is
+         * deprecated. Therefore, you should explicitly set `oConfig.async` to `true`.
+         *
+         * @since 1.34
          */
         async?: boolean;
       },
@@ -43912,8 +44035,8 @@ declare module "sap/ui/core/routing/Router" {
        */
       oOwner?: UIComponent,
       /**
-       * Since 1.28 the target configuration, see {@link sap.ui.core.routing.Targets#constructor} documentation
-       * (the options object).
+       * the target configuration, see {@link sap.ui.core.routing.Targets#constructor} documentation (the options
+       * object).
        *  You should use Targets to create and display views. Since 1.28 the route should only contain routing
        * relevant properties.
        *  **Example:**
@@ -43952,6 +44075,9 @@ declare module "sap/ui/core/routing/Router" {
        *          }
        *     })
        * ```
+       *
+       *
+       * @since 1.28
        */
       oTargetsConfig?: Record<string, $TargetSettings>
     );
@@ -44621,7 +44747,9 @@ declare module "sap/ui/core/routing/Router" {
      */
     initialize(
       /**
-       * Since 1.48.0. Whether the current URL hash shouldn't be parsed after the router is initialized
+       * Whether the current URL hash shouldn't be parsed after the router is initialized
+       *
+       * @since 1.48.0
        */
       bIgnoreInitialHash?: boolean
     ): this;
@@ -45813,9 +45941,11 @@ declare module "sap/ui/core/routing/Targets" {
          */
         rootView?: string;
         /**
-         * @since 1.34 Whether the views which are created through this Targets are loaded asynchronously. This
-         * option can be set only when the Targets is used standalone without the involvement of a Router. Otherwise
-         * the async option is inherited from the Router.
+         * Whether the views which are created through this Targets are loaded asynchronously. This option can be
+         * set only when the Targets is used standalone without the involvement of a Router. Otherwise the async
+         * option is inherited from the Router.
+         *
+         * @since 1.34
          */
         async?: boolean;
       };
@@ -46167,9 +46297,11 @@ declare module "sap/ui/core/routing/Views" {
        */
       component?: UIComponent;
       /**
-       * @since 1.34 Whether the views which are created through this Views are loaded asyncly. This option can
-       * be set only when the Views is used standalone without the involvement of a Router. Otherwise the async
-       * option is inherited from the Router.
+       * Whether the views which are created through this Views are loaded asyncly. This option can be set only
+       * when the Views is used standalone without the involvement of a Router. Otherwise the async option is
+       * inherited from the Router.
+       *
+       * @since 1.34
        */
       async?: boolean;
     });
@@ -68151,10 +68283,9 @@ declare module "sap/ui/model/odata/type/Currency" {
      */
     showNumber?: boolean;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into the `short` form only.
+     * When this option is set, the default value of the `precision` option is set to `2`. This can be changed
+     * by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
     /**
@@ -71117,10 +71248,9 @@ declare module "sap/ui/model/odata/type/Unit" {
      */
     showNumber?: boolean;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into compact forms. When this
+     * option is set, the default value of the `precision` option is set to `2`. This can be changed by setting
+     * either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
     /**
@@ -73613,8 +73743,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * (for example due to a filter), and the group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
      * Such a deletion is not a pending change.
      *
-     * When using data aggregation without `groupLevels`, single entities can be deleted (@experimental as of
-     * version 1.144.0, see {@link #isAggregated}). The same restrictions as for a recursive hierarchy apply.
+     * When using data aggregation without `groupLevels`, single entities can be deleted (since 1.151.0, see
+     * {@link #isAggregated}). The same restrictions as for a recursive hierarchy apply.
      * See:
      * 	#hasPendingChanges
      * 	#resetChanges
@@ -74190,7 +74320,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * When using data aggregation but no recursive hierarchy, and without `groupLevels` or `"grandTotal like
      * 1.84"` (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}), this context can also represent
-     * a single entity (see {@link #isAggregated}, @experimental as of version 1.146.0).
+     * a single entity (see {@link #isAggregated}, since 1.151.0).
      * See:
      * 	sap.ui.model.odata.v4.ODataContextBinding#getBoundContext
      * 	sap.ui.model.odata.v4.ODataContextBinding#invoke
@@ -74272,8 +74402,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * Note: This is only supported if the model uses the `autoExpandSelect` parameter.
      *
-     * Note: This can be used for single entities in a data aggregation scenario (@experimental as of version
-     * 1.144.0), see {@link #isAggregated}. Such a kept-alive context
+     * Note: This can be used for single entities in a data aggregation scenario (since 1.151.0), see {@link #isAggregated}.
+     * Such a kept-alive context
      * 	 can be used as a binding context,  can be used for updating data (see {@link #setProperty}),
      * can be refreshed (see {@link #refresh} and {@link #requestRefresh}),  is refreshed when its list
      * binding's {@link sap.ui.model.odata.v4.ODataListBinding#refresh}) is called, and  is refreshed when
@@ -74783,14 +74913,20 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      * has to be bi-directional. Also a navigation property binding has to be available for the entity set of
      * the first segment in the parent context's path. **Note:** Ensure your service implementation returns
      * all selected key properties; otherwise, no return value context is provided.
+     *  Since 1.151.0, if the operation returns an "Edm.Stream" and the group ID '$stream' is used, the promise
+     * resolves with a partial `Response` object containing only:
+     * 	 `body`: The response's `ReadableStream`  `headers`: The response's `Headers`  The promise
+     * rejects if '$stream' is used with a wrong return type.
      */
     invoke(
       /**
        * The group ID to be used for the request; if not specified, the group ID for this binding is used, see
        * {@link #constructor} and {@link #getGroupId}. To use the update group ID, see {@link #getUpdateGroupId},
        * it needs to be specified explicitly. Valid values are `undefined`, '$auto', '$auto.*', '$direct', '$single',
-       * or application group IDs as specified in {@link sap.ui.model.odata.v4.ODataModel}. If '$single' is used,
-       * the request will be sent as fast as '$direct', but wrapped in a batch request like '$auto' (since 1.121.0).
+       * '$stream', or application group IDs as specified in {@link sap.ui.model.odata.v4.ODataModel}. If '$single'
+       * is used, the request will be sent as fast as '$direct', but wrapped in a batch request like '$auto' (since
+       * 1.121.0). If '$stream' is used with an operation that returns "Edm.Stream", the stream response's body
+       * and headers can be retrieved (since 1.151.0).
        */
       sGroupId?: string,
       /**
@@ -74821,7 +74957,15 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
        * binding parameter is set to `true`. Since 1.97.0.
        */
       bReplaceWithRVC?: boolean
-    ): Promise<Context | undefined>;
+    ): Promise<
+      | Context
+      | {
+          body: ReadableStream;
+
+          headers: Headers;
+        }
+      | undefined
+    >;
     /**
      * Method not supported
      *
@@ -75366,7 +75510,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * which can be used for {@link #getKeepAliveContext}.
      *
      * When using data aggregation without `groupLevels` and without `"grandTotal like 1.84"` (see {@link #setAggregation}),
-     * single entities can be created (@experimental as of version 1.146.0, see {@link sap.ui.model.odata.v4.Context#isAggregated}).
+     * single entities can be created (since 1.151.0, see {@link sap.ui.model.odata.v4.Context#isAggregated}).
      *
      * @since 1.43.0
      *
@@ -77231,7 +77375,9 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      *
      * For fixed values, only one mapping is expected and the qualifier is ignored. The mapping is available
      * with key "" and has an additional property "$qualifier" which is the original qualifier (useful in case
-     * of "ValueListRelevantQualifiers" annotation).
+     * of "ValueListRelevantQualifiers" annotation). Since 1.151.0, multiple mappings are supported in case
+     * of "ValueListRelevantQualifiers" annotation but missing `oContext` instance; in this case qualifiers
+     * are unchanged.
      *
      * The promise is rejected with an error if there is no value list information available for the given property
      * path. Use {@link #getValueListType} to determine if value list information exists. It is also rejected
@@ -77245,7 +77391,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
      * 	 There is a reference, but the referenced service does not contain mappings for the property.  The
      * referenced service contains annotation targets in the namespace of the data service that are not mappings
      * for the property.  Two different referenced services contain a mapping using the same qualifier.
-     *  A service is referenced twice.  There are multiple mappings for a fixed value list.  A `com.sap.vocabularies.Common.v1.ValueList`
+     *  A service is referenced twice.  There are multiple mappings for a fixed value list (with given
+     * `oContext` instance or missing "ValueListRelevantQualifiers" annotation).  A `com.sap.vocabularies.Common.v1.ValueList`
      * annotation in a referenced service has the property `CollectionRoot` or `SearchSupported`.
      */
     requestValueListInfo(
@@ -81069,10 +81216,9 @@ declare module "sap/ui/model/type/Currency" {
      */
     source?: object;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into the `short` form only.
+     * When this option is set, the default value of the `precision` option is set to `2`. This can be changed
+     * by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
     /**
@@ -82294,10 +82440,9 @@ declare module "sap/ui/model/type/Unit" {
      */
     source?: object;
     /**
-     * The style of format. Valid values are based on the CLDR `decimalFormat`. When set to `short` or `long`,
-     * numbers are formatted into compact forms. When this option is set, the default value of the `precision`
-     * option is set to `2`. This can be changed by setting either `min/maxFractionDigits`, `decimals`, `shortDecimals`,
-     * or the `precision` option itself.
+     * The style of format. When set to `short` or `long`, numbers are formatted into compact forms. When this
+     * option is set, the default value of the `precision` option is set to `2`. This can be changed by setting
+     * either `min/maxFractionDigits`, `decimals`, `shortDecimals`, or the `precision` option itself.
      */
     style?: "short" | "long" | "standard";
   };
@@ -84838,6 +84983,8 @@ declare module "sap/ui/test/matchers/AggregationLengthEquals" {
 }
 
 declare module "sap/ui/test/matchers/Ancestor" {
+  import UI5Element from "sap/ui/core/Element";
+
   /**
    * Checks if a control has a defined ancestor.
    *
@@ -84851,19 +84998,21 @@ declare module "sap/ui/test/matchers/Ancestor" {
    *
    * @since 1.27
    */
-  export default class Ancestor {
-    constructor(
+  interface Ancestor {
+    new (
       /**
-       * the ancestor control to check, if undefined, validates every control to true. Can be a control or a control
-       * ID
+       * The ancestor control to check, if undefined, validates every control to true.
+       * Can be a control or a control ID
        */
       vAncestor: object | string,
       /**
-       * specifies if the ancestor should be a direct ancestor (parent)
+       * Specifies if the ancestor should be a direct ancestor (parent)
        */
       bDirect?: boolean
-    );
+    ): (p1: UI5Element) => boolean;
   }
+  const Ancestor: Ancestor;
+  export default Ancestor;
 }
 
 declare module "sap/ui/test/matchers/BindingPath" {
@@ -85120,6 +85269,8 @@ declare module "sap/ui/test/matchers/BindingPath" {
 }
 
 declare module "sap/ui/test/matchers/Descendant" {
+  import UI5Element from "sap/ui/core/Element";
+
   /**
    * Checks if a control has a given descendant.
    *
@@ -85133,19 +85284,21 @@ declare module "sap/ui/test/matchers/Descendant" {
    *
    * @since 1.66
    */
-  export default class Descendant {
-    constructor(
+  interface Descendant {
+    new (
       /**
-       * The descendant control to check. If undefined, it validates every control to true. Can be a control or
-       * a control ID
+       * The descendant control to check. If undefined, it validates every control to true.
+       * Can be a control or a control ID
        */
       vDescendantControl: object | string,
       /**
-       * specifies if the descendant should be a direct child
+       * Specifies if the descendant should be a direct child
        */
       bDirect?: boolean
-    );
+    ): (p1: UI5Element) => boolean;
   }
+  const Descendant: Descendant;
+  export default Descendant;
 }
 
 declare module "sap/ui/test/matchers/I18NText" {
@@ -85817,6 +85970,8 @@ declare module "sap/ui/test/matchers/Matcher" {
 }
 
 declare module "sap/ui/test/matchers/Properties" {
+  import UI5Element from "sap/ui/core/Element";
+
   /**
    * Checks if a control's properties have the provided values - all properties have to match their values.
    *
@@ -85845,25 +86000,17 @@ declare module "sap/ui/test/matchers/Properties" {
    *
    * @since 1.27
    */
-  export default class Properties {
-    constructor(
+  interface Properties {
+    new (
       /**
-       * the object with the properties to be checked. Example:
-       * ```javascript
-       *
-       * // Would filter for an enabled control with the text "Accept".
-       * new Properties({
-       *     // The property text has the exact value "Accept"
-       *     text: "Accept",
-       *     // The property enabled also has to be true
-       *     enabled: true
-       * })
-       * ```
-       *  If the value is a RegExp, it tests the RegExp with the value. RegExp only works with string properties.
+       * The object with the properties to be checked.
+       * If a value is a RegExp, it tests the RegExp with the value. RegExp only works with string properties.
        */
       oProperties: object
-    );
+    ): (p1: UI5Element) => boolean;
   }
+  const Properties: Properties;
+  export default Properties;
 }
 
 declare module "sap/ui/test/matchers/PropertyStrictEquals" {
@@ -86018,6 +86165,8 @@ declare module "sap/ui/test/matchers/PropertyStrictEquals" {
 }
 
 declare module "sap/ui/test/matchers/Sibling" {
+  import UI5Element from "sap/ui/core/Element";
+
   /**
    * Checks if a control has a defined sibling. Available as a declarative matcher with the following syntax:
    *
@@ -86030,36 +86179,38 @@ declare module "sap/ui/test/matchers/Sibling" {
    *
    * @since 1.91
    */
-  export default class Sibling {
-    constructor(
+  interface Sibling {
+    new (
       /**
        * the sibling control to check. Can be a control or a control ID. If undefined, the result will always
        * be true.
        */
       vSibling: object | string,
       /**
-       * specifies how to match
+       * Specifies how to match
        */
       oOptions?: {
         /**
-         * whether to match by relationships of the DOM references. false by default
+         * Whether to match by relationships of the DOM references, false by default
          */
         useDom: boolean;
         /**
-         * match only if control's DOM reference is before the sibling's in the DOM tree
+         * Match only if control's DOM reference is before the sibling's in the DOM tree
          */
         prev: boolean;
         /**
-         * match only if control's DOM reference is after the sibling's in the DOM tree,
+         * Match only if control's DOM reference is after the sibling's in the DOM tree
          */
         next: boolean;
         /**
-         * how many levels of ancestors to search
+         * How many levels of ancestors to search
          */
         level: boolean;
       }
-    );
+    ): (p1: UI5Element) => boolean;
   }
+  const Sibling: Sibling;
+  export default Sibling;
 }
 
 declare module "sap/ui/test/Opa" {
@@ -87981,9 +88132,11 @@ declare namespace sap {
              */
             async?: boolean;
             /**
-             * @since 1.27.0 Hints for the asynchronous loading. **Beware:** This parameter is only used internally
-             * by the UI5 framework and compatibility cannot be guaranteed. The parameter must not be used in productive
-             * code, except in code delivered by the UI5 teams.
+             * Hints for the asynchronous loading. **Beware:** This parameter is only used internally by the UI5 framework
+             * and compatibility cannot be guaranteed. The parameter must not be used in productive code, except in
+             * code delivered by the UI5 teams.
+             *
+             * @since 1.27.0
              */
             asyncHints?: {
               /**
@@ -87995,33 +88148,41 @@ declare namespace sap {
                */
               components?: string[];
               /**
-               * @since 1.37.0 a `Promise` or and array of `Promise`s for which the Component instantiation should wait
-               * (experimental setting)
+               * a `Promise` or and array of `Promise`s for which the Component instantiation should wait (experimental
+               * setting)
+               *
+               * @since 1.37.0
                */
               waitFor?: Promise<any> | Array<Promise<any>>;
             };
             /**
-             * @since 1.49.0 Controls when and from where to load the manifest for the Component. When set to any truthy
-             * value, the manifest will be loaded asynchronously by default and evaluated before the Component controller,
-             * if it is set to a falsy value other than `undefined`, the manifest will be loaded after the controller.
-             * A non-empty string value will be interpreted as the URL location from where to load the manifest. A non-null
-             * object value will be interpreted as manifest content. Setting this property to a value other than `undefined`,
+             * Controls when and from where to load the manifest for the Component. When set to any truthy value, the
+             * manifest will be loaded asynchronously by default and evaluated before the Component controller, if it
+             * is set to a falsy value other than `undefined`, the manifest will be loaded after the controller. A non-empty
+             * string value will be interpreted as the URL location from where to load the manifest. A non-null object
+             * value will be interpreted as manifest content. Setting this property to a value other than `undefined`,
              * completely deactivates the properties `manifestUrl` and `manifestFirst`, no matter what their values
              * are.
+             *
+             * @since 1.49.0
              */
             manifest?: boolean | string | object;
             /**
-             * @since 1.33.0 Specifies the URL from where the manifest should be loaded from Using this property implies
-             * `vConfig.manifestFirst=true`.
+             * Specifies the URL from where the manifest should be loaded from Using this property implies `vConfig.manifestFirst=true`.
+             *
              * **DEPRECATED since 1.49.0, use `vConfig.manifest=url` instead!**. Note that this property is ignored
              * when `vConfig.manifest` has a value other than `undefined`.
+             *
+             * @since 1.33.0
              */
             manifestUrl?: string;
             /**
-             * @since 1.33.0 defines whether the manifest is loaded before or after the Component controller. Defaults
-             * to `sap.ui.getCore().getConfiguration().getManifestFirst()`
+             * defines whether the manifest is loaded before or after the Component controller. Defaults to `sap.ui.getCore().getConfiguration().getManifestFirst()`
+             *
              * **DEPRECATED since 1.49.0, use `vConfig.manifest=true|false` instead!** Note that this property is ignored
              * when `vConfig.manifest` has a value other than `undefined`.
+             *
+             * @since 1.33.0
              */
             manifestFirst?: boolean;
             /**
@@ -90739,6 +90900,8 @@ declare namespace sap {
 
     "sap/base/strings/formatMessage": undefined;
 
+    "sap/base/strings/highlightText": undefined;
+
     "sap/base/strings/hyphenate": undefined;
 
     "sap/base/strings/whitespaceReplacer": undefined;
@@ -91088,6 +91251,8 @@ declare namespace sap {
     "sap/ui/core/tmpl/Template": undefined;
 
     "sap/ui/core/tmpl/TemplateControl": undefined;
+
+    "sap/ui/core/tooltip/TooltipEnablement": undefined;
 
     "sap/ui/core/TooltipBase": undefined;
 

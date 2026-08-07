@@ -11,6 +11,7 @@ declare module "node:perf_hooks" {
         | "measure" // available on the Web
         | "net" // Node.js only
         | "node" // Node.js only
+        | "quic" // Node.js only
         | "resource"; // available on the Web
     interface ConnectionTimingInfo {
         domainLookupStartTime: number;
@@ -214,7 +215,7 @@ declare module "node:perf_hooks" {
          * @since v16.0.0
          */
         readonly detail: any;
-        readonly entryType: "dns" | "function" | "gc" | "http2" | "http" | "net" | "node";
+        readonly entryType: "dns" | "function" | "gc" | "http2" | "http" | "net" | "node" | "quic";
     }
     interface UVMetrics {
         /**
