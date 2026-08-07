@@ -2993,6 +2993,10 @@
             "libraryName": "htmlparser2",
             "asOfVersion": "4.1.0"
         },
+        "http-codes": {
+            "libraryName": "http-codes",
+            "asOfVersion": "2.0.0"
+        },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
             "asOfVersion": "2.3.0"
