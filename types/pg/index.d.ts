@@ -124,6 +124,8 @@ export interface QueryParse {
 
 type ValueMapper = (param: any, index: number) => any;
 
+export type TransactionStatus = "I" | "T" | "E" | null;
+
 export interface BindConfig {
     portal?: string | undefined;
     statement?: string | undefined;
@@ -281,6 +283,8 @@ export class ClientBase extends events.EventEmitter {
     escapeLiteral: typeof escapeLiteral;
     setTypeParser: typeof pgTypes.setTypeParser;
     getTypeParser: typeof pgTypes.getTypeParser;
+
+    getTransactionStatus(): TransactionStatus;
 
     on<E extends "connect" | "drain" | "error" | "notice" | "notification" | "end">(
         event: E,
