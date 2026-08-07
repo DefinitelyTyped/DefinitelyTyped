@@ -97,7 +97,8 @@ import { TextEncoder } from "node:util";
 
 {
     const database = new DatabaseSync(":memory:", { allowExtension: true });
-    database.loadExtension("/path/to/extension.so");
+    database.loadExtension("./decimal.dylib");
+    database.loadExtension("./base64.dylib", "sqlite3_base64_init");
     database.enableLoadExtension(false);
 }
 

@@ -265,6 +265,15 @@ declare module "node:test" {
              */
             testSkipPatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
             /**
+             * A tag name, or an array of tag names,
+             * used to filter tests by their declared tags. Tests must contain every
+             * listed tag to run. Equivalent to passing `--experimental-test-tag-filter`
+             * on the command line. See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+             * @default undefined
+             * @since v26.2.0
+             */
+            testTagFilters?: string | readonly string[] | undefined;
+            /**
              * The number of milliseconds after which the test execution will fail.
              * If unspecified, subtests inherit this value from their parent.
              * @default Infinity
@@ -669,6 +678,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
                  * A numeric identifier for this test instance, unique
                  * within the test file's process. Consistent across all events for the same
                  * test instance, enabling reliable correlation in custom reporters.
@@ -697,6 +712,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
                  * A numeric identifier for this test instance, unique
                  * within the test file's process. Consistent across all events for the same
                  * test instance, enabling reliable correlation in custom reporters.
@@ -717,6 +738,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+                 */
+                tags: string[];
                 /**
                  * A numeric identifier for this test instance, unique
                  * within the test file's process. Consistent across all events for the same
@@ -762,6 +789,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+                 */
+                tags: string[];
                 /**
                  * A numeric identifier for this test instance, unique
                  * within the test file's process. Consistent across all events for the same
@@ -824,6 +857,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
                  * A numeric identifier for this test instance, unique
                  * within the test file's process. Consistent across all events for the same
                  * test instance, enabling reliable correlation in custom reporters.
@@ -861,6 +900,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+                 */
+                tags: string[];
                 /**
                  * A numeric identifier for this test instance, unique
                  * within the test file's process. Consistent across all events for the same
@@ -1082,6 +1127,13 @@ declare module "node:test" {
              * @since v21.7.0, v20.12.0
              */
             readonly attempt: number;
+            /**
+             * A frozen array of the test's flattened lowercased tags, in declaration
+             * order, including any tags inherited from ancestor suites. Empty when the
+             * test has no tags. See [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+             * @since v26.2.0
+             */
+            readonly tags: readonly string[];
             /**
              * The unique identifier of the worker running the current test file. This value is
              * derived from the `NODE_TEST_WORKER_ID` environment variable. When running tests
@@ -1443,6 +1495,15 @@ declare module "node:test" {
              * @default false
              */
             skip?: boolean | string | undefined;
+            /**
+             * An array of string labels associated with the test.
+             * Used together with `--experimental-test-tag-filter` to filter which
+             * tests run. Tags inherit from suites to nested tests by union. See
+             * [Test tags](https://nodejs.org/docs/latest-v26.x/api/test.html#test-tags).
+             * @default []
+             * @since v26.2.0
+             */
+            tags?: readonly string[] | undefined;
             /**
              * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
              * value from their parent.
