@@ -1464,6 +1464,18 @@ declare module "node:test" {
              * @since v22.2.0
              */
             plan?: number | undefined;
+
+            /**
+             * The test function. If this option _and_ a test function are
+             * provided to {@link test}, this takes precedence.
+             */
+            fn?: TestFn | undefined;
+
+            /**
+             * The test name. If this option _and_ a test name are provided to
+             * {@link test}, this takes precedence.
+             */
+            name?: string | undefined;
         }
         /**
          * This function creates a hook that runs before executing a suite.
