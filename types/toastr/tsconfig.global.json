@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "node16",
+        "module": "commonjs",
         "lib": [
             "es6",
             "dom"
@@ -15,7 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "toastr-tests.ts",
-        "toastr-global-module-tests.ts"
+        "toastr-global-tests.ts"
     ]
 }
