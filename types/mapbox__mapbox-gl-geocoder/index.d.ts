@@ -154,7 +154,7 @@ declare namespace MapboxGeocoder {
          * Requires that `options.mapboxgl` also be set.
          * @default true
          */
-        marker?: boolean | mapboxgl.Marker | undefined;
+        marker?: boolean | mapboxgl.Marker | mapboxgl.MarkerOptions | undefined;
         /**
          * A function that specifies how the results should be rendered in the dropdown menu.
          * This function should accepts a single [Carmen GeoJSON](https://github.com/mapbox/carmen/blob/master/carmen-geojson.md)
