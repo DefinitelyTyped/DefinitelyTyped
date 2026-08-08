@@ -23649,9 +23649,9 @@ declare namespace Office {
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          *
          * @param options - An object literal that contains the following properties. `asyncContext`: Use the `asyncContext` property to specify any object you want to access in the callback function.
-         *                  `waitForContentId`: Optional. If true, indicates that an inline picture in Outlook on the web and the new Outlook on Windows must have a content ID assigned to it before the
+         *                  `waitForContentId`: Optional. If true, indicates that an inline picture in Outlook on the web and the new Outlook on Windows must have a content ID (`cid`) assigned to it before the
          *                  results of the `getAllAsync` method are returned. In Outlook on the web and the new Outlook on Windows, inline attachments are assigned a temporary ID prefixed with `addinId`
-         *                  while the attachments are uploaded to the server. Once the images are uploaded to the server, they're then assigned an Exchange Web Services (EWS) ID.
+         *                  while the attachments are uploaded to the Exchange server. Once the images are uploaded to the server, they're then assigned a content ID.
          *                  If the `waitForContentId` option isn't specified, the method returns the inline pictures regardless of whether they have a content ID.
          * @param callback - When the method completes, the function passed in the `callback` parameter is called with a single parameter, `asyncResult`. The `asyncResult`
          *                   parameter is an `Office.AsyncResult` object. An array of inline pictures is returned in the `asyncResult.value` property. The inline pictures are returned in the order of their
