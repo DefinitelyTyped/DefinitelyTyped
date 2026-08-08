@@ -44,6 +44,8 @@ export interface HostedFieldsField {
     container?: string | HTMLElement | undefined;
     placeholder?: string | undefined;
     type?: string | undefined;
+    iframeTitle?: string | undefined;
+    internalLabel?: string | undefined;
     formatInput?: boolean | undefined;
     maskInput?: boolean | HostedFieldsFieldMaskInput | undefined;
     select?: boolean | { options: string[] } | undefined;
@@ -189,11 +191,30 @@ export interface HostedFieldsAccountDetails {
     lastFour: string;
 }
 
+export type HostedFieldsTokenizeValues = "Yes" | "No" | "Unknown";
+
+export interface HostedFieldsBinData {
+    commercial: HostedFieldsTokenizeValues;
+    countryOfIssuance: string;
+    debit: HostedFieldsTokenizeValues;
+    durbinRegulated: HostedFieldsTokenizeValues;
+    healthcare: HostedFieldsTokenizeValues;
+    issuingBank: string;
+    payroll: HostedFieldsTokenizeValues;
+    prepaid: HostedFieldsTokenizeValues;
+    productId: string;
+    business: HostedFieldsTokenizeValues;
+    consumer: HostedFieldsTokenizeValues;
+    purchase: HostedFieldsTokenizeValues;
+    corporate: HostedFieldsTokenizeValues;
+}
+
 export interface HostedFieldsTokenizePayload {
     nonce: string;
     details: HostedFieldsAccountDetails;
     type: string;
     description: string;
+    binData: HostedFieldsBinData;
     /**
      * Provides details about regulatory environment.
      * See https://developer.paypal.com/braintree/docs/guides/3d-secure/migration/javascript/v3#authentication-insight.
@@ -337,6 +358,7 @@ export interface HostedFields {
      */
     tokenize(options?: {
         vault?: boolean | undefined;
+        authenticationInsight?: { merchantAccountId: string } | undefined;
         fieldsToTokenize?: Array<TokenizationFields> | undefined;
         cardholderName?: string | undefined;
         billingAddress?: HostedFieldsBillingAddress | undefined;
@@ -344,6 +366,7 @@ export interface HostedFields {
     tokenize(
         options: {
             vault?: boolean | undefined;
+            authenticationInsight?: { merchantAccountId: string } | undefined;
             fieldsToTokenize?: Array<TokenizationFields> | undefined;
             cardholderName?: string | undefined;
             billingAddress?: HostedFieldsBillingAddress | undefined;
@@ -361,7 +384,8 @@ export interface HostedFields {
      *   }
      * });
      */
-    addClass(field: string, classname: string, callback?: callback): void;
+    addClass(field: HostedFieldsHostedFieldsFieldName, classname: string): Promise<void>;
+    addClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback: callback<void>): void;
 
     /**
      * Removes a class to a {@link module:braintree-web/hosted-fields~field field}. Useful for updating field styles when events occur elsewhere in your checkout.     *
@@ -376,7 +400,8 @@ export interface HostedFields {
      *   hostedFieldsInstance.removeClass('number', 'custom-class');
      * });
      */
-    removeClass(field: string, classname: string, callback?: callback): void;
+    removeClass(field: HostedFieldsHostedFieldsFieldName, classname: string): Promise<void>;
+    removeClass(field: HostedFieldsHostedFieldsFieldName, classname: string, callback: callback): void;
 
     /**
      * Sets the placeholder of a {@link module:braintree-web/hosted-fields~field field}.     *
@@ -400,7 +425,8 @@ export interface HostedFields {
      *   }
      * });
      */
-    setPlaceholder(field: string, placeholder: string, callback?: callback): void;
+    setPlaceholder(field: HostedFieldsHostedFieldsFieldName, placeholder: string): Promise<void>;
+    setPlaceholder(field: HostedFieldsHostedFieldsFieldName, placeholder: string, callback: callback<void>): void;
 
     /**
      * @example
@@ -415,7 +441,8 @@ export interface HostedFields {
      * hostedFieldsInstance.clear('cvv');
      * hostedFieldsInstance.clear('expirationDate');
      */
-    clear(field: string, callback?: callback): void;
+    clear(field: HostedFieldsHostedFieldsFieldName): Promise<void>;
+    clear(field: HostedFieldsHostedFieldsFieldName, callback: callback<void>): void;
 
     /**
      * Returns an {@link HostedFields~stateObject|object} that includes the state of all fields and possible card types.
@@ -437,7 +464,28 @@ export interface HostedFields {
      *   }
      * });
      */
-    focus(field: HostedFieldsHostedFieldsFieldName, callback?: callback): void;
+    focus(field: HostedFieldsHostedFieldsFieldName): Promise<void>;
+    focus(field: HostedFieldsHostedFieldsFieldName, callback: callback<void>): void;
+
+    /**
+     * Get card verification challenges, such as requirements for cvv and postal code.
+     * @example
+     * hostedFieldsInstance.getChallenges().then(function (challenges) {
+     *   challenges // ['cvv', 'postal_code']
+     * });
+     */
+    getChallenges(): Promise<string[]>;
+    getChallenges(callback: callback<string[]>): void;
+
+    /**
+     * Get supported card types configured in the Braintree Control Panel
+     * @example
+     * hostedFieldsInstance.getSupportedCardTypes().then(function (cardTypes) {
+     *  cardTypes // ['Visa', 'American Express', 'Mastercard']
+     * });
+     */
+    getSupportedCardTypes(): Promise<string[]>;
+    getSupportedCardTypes(callback: callback<string[]>): void;
 
     /**
      * Sets an attribute of a {@link module:braintree-web/hosted-fields~field field}.
@@ -473,7 +521,8 @@ export interface HostedFields {
      *
      * @returns Returns a promise if no callback is provided.
      */
-    setAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
+    setAttribute(options: HostedFieldAttributeOptions): Promise<void>;
+    setAttribute(options: HostedFieldAttributeOptions, callback: callback<void>): void;
 
     /**
      * Removes a supported attribute from a {@link module:braintree-web/hosted-fields~field field}.
@@ -495,7 +544,8 @@ export interface HostedFields {
      *
      * @returns Returns a promise if no callback is provided.
      */
-    removeAttribute(options: HostedFieldAttributeOptions, callback?: callback): void;
+    removeAttribute(options: HostedFieldAttributeOptions): Promise<void>;
+    removeAttribute(options: HostedFieldAttributeOptions, callback: callback<void>): void;
 
     /**
      * Sets a visually hidden message (for screen readers) on a {@link module:braintree-web/hosted-fields~field field}.
@@ -517,6 +567,30 @@ export interface HostedFields {
      * });
      */
     setMessage(options: HostedFieldMessageOptions): void;
+
+    /**
+     * Sets the month options for the expiration month field when presented as a select element.
+     *
+     * @param options An array of 12 entries corresponding to the 12 months.
+     *
+     * @example <caption>Update the month options to spanish</caption>
+     * hostedFieldsInstance.setMonthOptions([
+     *   '01 - enero',
+     *   '02 - febrero',
+     *   '03 - marzo',
+     *   '04 - abril',
+     *   '05 - mayo',
+     *   '06 - junio',
+     *   '07 - julio',
+     *   '08 - agosto',
+     *   '09 - septiembre',
+     *   '10 - octubre',
+     *   '11 - noviembre',
+     *   '12 - diciembre'
+     * ]);
+     */
+    setMonthOptions(options: ReadonlyArray<string>): Promise<void>;
+    setMonthOptions(options: ReadonlyArray<string>, callback: callback<void>): void;
 }
 
 /**
@@ -551,14 +625,20 @@ export function create(options: {
     client?: Client | undefined;
     authorization?: string | undefined;
     fields: HostedFieldFieldOptions;
-    styles?: any;
+    styles?: Record<string, string | Record<string, string>> | undefined;
+    preventAutofill?: boolean | undefined;
+    binVerificationLength?: number | undefined;
+    sessionId?: string | undefined;
 }): Promise<HostedFields>;
 export function create(
     options: {
         client?: Client | undefined;
         authorization?: string | undefined;
         fields: HostedFieldFieldOptions;
-        styles?: any;
+        styles?: Record<string, string | Record<string, string>> | undefined;
+        preventAutofill?: boolean | undefined;
+        binVerificationLength?: number | undefined;
+        sessionId?: string | undefined;
     },
     callback: callback<HostedFields>,
 ): void;
