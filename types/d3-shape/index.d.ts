@@ -2534,7 +2534,7 @@ export interface Stack<This, Datum, Key> {
      *
      * @param order A function returning a sort order array. It is passed the generated series array and must return an array of numeric indexes representing the stack order.
      */
-    order(order: (series: Series<Datum, Key>) => Iterable<number>): this;
+    order(order: (series: Array<Series<Datum, Key>>) => Iterable<number>): this;
 
     /**
      * Returns the current offset accessor, which defaults to stackOffsetNone; this uses a zero baseline.
