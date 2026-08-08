@@ -125,26 +125,30 @@ export interface QueueObject<T> {
      * Instead of a single task, a tasks array can be submitted.
      * The respective callback is used for every task in the list.
      */
-    push<R>(task: T | T[]): Promise<R>;
-    push<R, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
+    push<R = unknown>(task: T): Promise<R>;
+    push<R = unknown>(task: T[]): Promise<R>[] | undefined;
+    push<R = unknown, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
 
     /**
      * Add a new task to the front of the queue
      */
-    unshift<R>(task: T | T[]): Promise<R>;
-    unshift<R, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
+    unshift<R = unknown>(task: T): Promise<R>;
+    unshift<R = unknown>(task: T[]): Promise<R>[] | undefined;
+    unshift<R = unknown, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
 
     /**
      * The same as `q.push`, except this returns a promise that rejects if an error occurs.
      * The `callback` arg is ignored
      */
-    pushAsync<R>(task: T | T[]): Promise<R>;
+    pushAsync<R = unknown>(task: T): Promise<R>;
+    pushAsync<R = unknown>(task: T[]): Promise<R>[] | undefined;
 
     /**
      * The same as `q.unshift`, except this returns a promise that rejects if an error occurs.
      * The `callback` arg is ignored
      */
-    unshiftAsync<R>(task: T | T[]): Promise<R>;
+    unshiftAsync<R = unknown>(task: T): Promise<R>;
+    unshiftAsync<R = unknown>(task: T[]): Promise<R>[] | undefined;
 
     /**
      * Remove items from the queue that match a test function.
@@ -239,7 +243,7 @@ export interface QueueObject<T> {
  */
 // FIXME: can not use Omit due to ts version restriction. Replace Pick with Omit, when ts 3.5+ will be allowed
 export interface AsyncPriorityQueue<T> extends Pick<QueueObject<T>, Exclude<keyof QueueObject<T>, "push" | "unshift">> {
-    push<R>(task: T | T[], priority?: number): Promise<R>;
+    push<I extends T | T[], R>(task: I, priority?: number): undefined | (I extends T[] ? Promise<R>[] : Promise<R>);
     push<R, E = Error>(task: T | T[], priority: number, callback: AsyncResultCallback<R, E>): void;
 }
 
