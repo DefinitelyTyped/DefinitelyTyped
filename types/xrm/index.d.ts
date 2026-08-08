@@ -4727,6 +4727,13 @@ declare namespace Xrm {
             getName(): string;
 
             /**
+             * Returns the progress of the action step.
+             * @returns Returns one of the following values: 0=None, 1,=Processing, 2=Completed, 3=Failure, 4=Invalid
+             * @remarks This method is only supported for action steps. Introduced in v9.0.
+             */
+            getProgress(): 0 | 1 | 2 | 3 | 4;
+
+            /**
              * Returns whether the step is required in the business process flow.
              * @returns true if required, false if not.
              * @remarks     Returns true if the step is marked as required in the Business Process Flow editor; otherwise, false.
@@ -4734,6 +4741,15 @@ declare namespace Xrm {
              *              attribute RequiredLevel methods.
              */
             isRequired(): boolean;
+
+            /**
+             * Updates the progress of the action step.
+             * @param stepProgress One of the following values to set the step process: 0=None, 1,=Processing, 2=Completed, 3=Failure, 4=Invalid
+             * @param message Optional message that is set as the Alt text on the icon for the step.
+             * @returns Returns "invalid" or "success" depending on whether the step progress was updated.
+             * @remarks This method is only supported for action steps. Introduced in v9.0.
+             */
+            setProgress(stepProgress: 0 | 1 | 2 | 3 | 4, message?: string): "invalid" | "success";
         }
 
         /**
