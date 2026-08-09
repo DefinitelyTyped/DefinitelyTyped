@@ -786,3 +786,5 @@ Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the do
 This project is licensed under the MIT license.
 
 Copyrights on the definition files are respective of each contributor listed at the beginning of each definition file.
+
+empty
