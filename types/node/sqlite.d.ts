@@ -298,10 +298,23 @@ declare module "node:sqlite" {
          * Loads a shared library into the database connection. This method is a wrapper
          * around [`sqlite3_load_extension()`](https://www.sqlite.org/c3ref/load_extension.html). It is required to enable the
          * `allowExtension` option when constructing the `DatabaseSync` instance.
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         * const database = new DatabaseSync(':memory:', { allowExtension: true });
+         *
+         * // Load using the entry point derived from the filename.
+         * database.loadExtension('./decimal.dylib');
+         *
+         * // Override the entry point when the derived name does not match.
+         * database.loadExtension('./base64.dylib', 'sqlite3_base64_init');
          * @since v22.13.0
          * @param path The path to the shared library to load.
+         * @param entryPoint The name of the extension's entry-point function. When
+         * omitted, SQLite derives the entry point from the shared library's filename;
+         * pass this argument explicitly when the derived name does not match.
          */
-        loadExtension(path: string): void;
+        loadExtension(path: string, entryPoint?: string): void;
         /**
          * Enables or disables the `loadExtension` SQL function, and the `loadExtension()`
          * method. When `allowExtension` is `false` when constructing, you cannot enable

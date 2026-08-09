@@ -277,6 +277,12 @@ import * as url from "node:url";
     res.writeHead(200, ["Transfer-Encoding", "chunked"]);
     res.writeHead(200);
 
+    // writeInformation
+    res.writeInformation(110);
+    res.writeInformation(110, () => {});
+    res.writeInformation(110, { "X-Progress": "50%" });
+    res.writeInformation(110, { "X-Progress": "50%" }, () => {});
+
     // writeProcessing
     res.writeProcessing();
     res.writeProcessing(() => {});

@@ -980,6 +980,14 @@ async function testStat(
     fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
 }
 
+{
+    let stats!: fs.Stats | fs.BigIntStats;
+    stats.atimeInstant; // $ExpectType Instant || unknown
+    stats.mtimeInstant; // $ExpectType Instant || unknown
+    stats.ctimeInstant; // $ExpectType Instant || unknown
+    stats.birthtimeInstant; // $ExpectType Instant || unknown
+}
+
 const bigStats: fs.BigIntStats = fs.statSync(".", { bigint: true });
 const bigIntStat: bigint = bigStats.atimeNs;
 const anyStats: fs.Stats | fs.BigIntStats = fs.statSync(".", { bigint: Math.random() > 0.5 });

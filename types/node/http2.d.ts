@@ -59,7 +59,7 @@ declare module "node:http2" {
         "ready": [];
         "streamClosed": [code: number];
         "timeout": [];
-        "trailers": [trailers: IncomingHttpHeaders, flags: number];
+        "trailers": [headers: IncomingHttpHeaders, flags: number, rawHeaders: string[]];
         "wantTrailers": [];
     }
     interface Http2Stream extends stream.Duplex {
@@ -245,7 +245,7 @@ declare module "node:http2" {
     interface ClientHttp2StreamEventMap extends Http2StreamEventMap {
         "continue": [];
         "headers": [headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number, rawHeaders: string[]];
-        "push": [headers: IncomingHttpHeaders, flags: number];
+        "push": [headers: IncomingHttpHeaders, flags: number, rawHeaders: string[]];
         "response": [headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number, rawHeaders: string[]];
     }
     interface ClientHttp2Stream extends Http2Stream {
@@ -1644,8 +1644,8 @@ declare module "node:http2" {
          *
          * Then `request.url` will be:
          *
-         * ```js
-         * '/status?name=ryan'
+         * ```json
+         * "/status?name=ryan"
          * ```
          *
          * To parse the url into its parts, `new URL()` can be used:
