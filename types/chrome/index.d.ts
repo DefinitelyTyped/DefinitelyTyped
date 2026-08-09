@@ -4743,6 +4743,25 @@ declare namespace chrome {
         type CSSOrigin = "author" | "user";
 
         /**
+         * Details of the CSS to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         */
+        interface DeleteInjectionDetails {
+            /** If allFrames is `true`, implies that the CSS should be removed from all frames of current page. By default, it's `false` and is only removed from the top frame. If `true` and `frameId` is set, then the code is removed from the selected frame and all of its child frames. */
+            allFrames?: boolean;
+            /**  CSS code to remove. */
+            code?: string;
+            /** The origin of the CSS to remove. Defaults to `"author"`. */
+            cssOrigin?: CSSOrigin;
+            /** CSS file to remove. */
+            file?: string;
+            /** The frame from where the CSS should be removed. Defaults to 0 (the top-level frame). */
+            frameId?: number;
+            /** If matchAboutBlank is true, then the code is also removed from about:blank and about:srcdoc frames if your extension has access to its parent document. By default it is `false`. */
+            matchAboutBlank?: boolean;
+        }
+
+        /**
          * The document lifecycle of the frame.
          * @since Chrome 106
          */
@@ -11890,7 +11909,7 @@ declare namespace chrome {
          * MV2 only
          * @param tabId The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
          * @param details Details of the CSS text to insert. Either the code or the file property must be set, but both may not be set at the same time.
-         * @deprecated since Chrome 99. Replaced by {@link scripting.insertCSS} in Manifest V3.
+         * @deprecated since Chrome 91. Replaced by {@link scripting.insertCSS} in Manifest V3.
          */
         function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
@@ -11898,6 +11917,26 @@ declare namespace chrome {
         function insertCSS(
             tabId: number | undefined,
             details: extensionTypes.InjectDetails,
+            callback: () => void,
+        ): void;
+
+        /**
+         * Removes from a page CSS that was previously injected by a call to {@link tabs.insertCSS}.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
+         *
+         * MV2 only
+         * @param tabId The ID of the tab from which to remove the CSS; defaults to the active tab of the current window.
+         * @param details Details of the CSS text to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         * @deprecated since Chrome 91. Replaced by {@link scripting.removeCSS} in Manifest V3.
+         */
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(tabId: number | undefined, details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails, callback: () => void): void;
+        function removeCSS(
+            tabId: number | undefined,
+            details: extensionTypes.DeleteInjectionDetails,
             callback: () => void,
         ): void;
 
