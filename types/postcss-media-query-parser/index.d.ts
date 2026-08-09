@@ -9,8 +9,8 @@ export interface Node {
     sourceIndex: number;
     nodes?: Child[] | undefined;
 
-    walk(filter: string | RegExp, callback: WalkerCallback): void;
-    walk(callback: WalkerCallback): void;
+    walk(filter: string | RegExp, callback: WalkerCallback): boolean;
+    walk(callback: WalkerCallback): boolean;
 }
 
 export interface Child extends Node {
