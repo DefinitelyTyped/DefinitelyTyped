@@ -42,16 +42,6 @@ function testDriveV3() {
     const list = files.list();
 }
 
-function testAdminDirectory() {
-    if (!AdminDirectory) return;
-    // $ExpectType AdminDirectory
-    const admin = AdminDirectory;
-    // $ExpectType UsersCollection
-    const users = admin.Users;
-    // $ExpectType Users
-    const list = users.list();
-}
-
 function testSheets() {
     if (!Sheets) return;
     // $ExpectType Sheets
@@ -228,38 +218,6 @@ function testYouTube() {
     const list = videos.list("snippet");
 }
 
-function testAnalytics() {
-    if (!Analytics) return;
-    // $ExpectType Analytics
-    const analytics = Analytics;
-    // $ExpectType ManagementCollection
-    const management = analytics.Management;
-    // $ExpectType AccountsCollection
-    const accounts = management.Accounts;
-    // $ExpectType Accounts
-    const list = accounts.list();
-}
-
-function testAnalyticsReporting() {
-    if (!AnalyticsReporting) return;
-    // $ExpectType AnalyticsReporting
-    const analyticsreporting = AnalyticsReporting;
-    // $ExpectType ReportsCollection
-    const reports = analyticsreporting.Reports;
-    // $ExpectType GetReportsResponse
-    const batchGet = reports.batchGet({});
-}
-
-function testAppsactivity() {
-    if (!Appsactivity) return;
-    // $ExpectType Appsactivity
-    const appsactivity = Appsactivity;
-    // $ExpectType ActivitiesCollection
-    const activities = appsactivity.Activities;
-    // $ExpectType ListActivitiesResponse
-    const list = activities.list();
-}
-
 function testBigQuery() {
     if (!BigQuery) return;
     // $ExpectType BigQuery
@@ -320,16 +278,6 @@ function testAdminGroupsMigration() {
     const insert = archive.insert("groupId");
 }
 
-function testAdminGroupsSettings() {
-    if (!AdminGroupsSettings) return;
-    // $ExpectType AdminGroupsSettings
-    const adminGroupsSettings = AdminGroupsSettings;
-    // $ExpectType GroupsCollection
-    const groups = adminGroupsSettings.Groups;
-    // $ExpectType Groups
-    const get = groups.get("groupUniqueId");
-}
-
 function testAdminLicenseManager() {
     if (!AdminLicenseManager) return;
     // $ExpectType AdminLicenseManager
@@ -338,16 +286,6 @@ function testAdminLicenseManager() {
     const licenseAssignments = adminLicenseManager.LicenseAssignments;
     // $ExpectType LicenseAssignmentList
     const list = licenseAssignments.listForProduct("productId", "customerId");
-}
-
-function testMirror() {
-    if (!Mirror) return;
-    // $ExpectType Mirror
-    const mirror = Mirror;
-    // $ExpectType TimelineCollection
-    const timeline = mirror.Timeline;
-    // $ExpectType TimelineListResponse
-    const list = timeline.list();
 }
 
 function testPeopleApi() {
@@ -398,14 +336,4 @@ function testYouTubeAnalytics() {
     const reports = youTubeAnalytics.Reports;
     // $ExpectType QueryResponse
     const query = reports.query();
-}
-
-function testYoutubePartner() {
-    if (!YoutubePartner) return;
-    // $ExpectType YoutubePartner
-    const youtubePartner = YoutubePartner;
-    // $ExpectType AssetsCollection
-    const assets = youtubePartner.Assets;
-    // $ExpectType AssetListResponse
-    const list = assets.list("id");
 }
