@@ -10,10 +10,5 @@
     "devDependencies": {
         "@types/fancade-editor": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Bricked",
-            "githubUsername": "brckd"
-        }
-    ]
+    "owners": []
 }
