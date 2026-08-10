@@ -54,7 +54,7 @@ export interface PoolConfig extends ClientConfig {
     maxUses?: number | undefined;
     maxLifetimeSeconds?: number | undefined;
     Client?: (new() => ClientBase) | undefined;
-    onConnect?: ((client: ClientBase) => void) | undefined;
+    onConnect?: ((client: ClientBase) => void | Promise<void>) | undefined;
     verify?: ((client: PoolClient, done: (err?: Error) => void) => void) | undefined;
 }
 
