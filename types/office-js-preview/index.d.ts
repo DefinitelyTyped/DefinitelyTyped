@@ -10084,7 +10084,11 @@ declare namespace Office {
              */
             Cid = "cid",
             /**
-             * The inline picture is an attachment embedded in a mail item that uses the Rich Text Format (RTF).
+             * The inline picture is an attachment on a reply to a decrypted message. This enum value only applies to Outlook on the web and the new Outlook on Windows.
+             */
+            Data = "data",
+            /**
+             * The inline picture is an attachment on a mail item that uses the Rich Text Format (RTF).
              *
              * @beta
              */
@@ -23544,7 +23548,7 @@ declare namespace Office {
          */
         name?: string;
         /**
-         * Gets the size of the inline picture in bytes. Applies to inline pictures with a source type of `Office.MailboxEnums.PictureSourceType.Cid`.
+         * Gets the size of the inline picture in bytes. Applies to inline pictures with a source type of `Office.MailboxEnums.PictureSourceType.Cid` or `Office.MailboxEnums.PictureSourceType.Data`.
          *
          * @remarks
          * [Api set: Mailbox preview]
