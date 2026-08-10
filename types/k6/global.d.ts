@@ -52,56 +52,6 @@ declare global {
     // === Init context and VU logic ===
     // ---------------------------------
 
-    /** Options for the TextDecoder.decode() method. */
-    interface TextDecodeOptions {
-        /** Whether additional data will follow in subsequent calls to decode(). */
-        stream?: boolean;
-    }
-
-    /** Options for the TextDecoder constructor. */
-    interface TextDecoderOptions {
-        /** Whether decode() throws a TypeError when the input contains invalid data. */
-        fatal?: boolean;
-        /** Whether the decoder treats a byte order mark as part of the text. */
-        ignoreBOM?: boolean;
-    }
-
-    /**
-     * Decodes UTF-8 or UTF-16 encoded bytes into a string.
-     * https://grafana.com/docs/k6/latest/javascript-api/text-encoding/
-     */
-    interface TextDecoder {
-        /** The canonical name of the decoder's encoding. */
-        readonly encoding: string;
-        /** Whether invalid encoded data causes decode() to throw a TypeError. */
-        readonly fatal: boolean;
-        /** Whether the decoder treats a byte order mark as part of the text. */
-        readonly ignoreBOM: boolean;
-        /** Decodes an ArrayBuffer, typed array, or DataView into a string. */
-        decode(input?: ArrayBuffer | ArrayBufferView, options?: TextDecodeOptions): string;
-    }
-
-    var TextDecoder: {
-        prototype: TextDecoder;
-        new(label?: string, options?: TextDecoderOptions): TextDecoder;
-    };
-
-    /**
-     * Encodes strings as UTF-8 bytes.
-     * https://grafana.com/docs/k6/latest/javascript-api/text-encoding/
-     */
-    interface TextEncoder {
-        /** The encoder's encoding, which is always "utf-8". */
-        readonly encoding: string;
-        /** Encodes a string as UTF-8 bytes. */
-        encode(input?: string): Uint8Array;
-    }
-
-    var TextEncoder: {
-        prototype: TextEncoder;
-        new(): TextEncoder;
-    };
-
     /**
      * Environment variables.
      * https://grafana.com/docs/k6/latest/using-k6/environment-variables/
