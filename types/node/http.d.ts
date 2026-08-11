@@ -263,6 +263,7 @@ declare module "node:http" {
          *       Cannot be used together with `insecureHTTPParser`.
          *
          * @default 'strict'
+         * @since v26.3.0
          */
         httpValidation?: string | undefined;
         /**

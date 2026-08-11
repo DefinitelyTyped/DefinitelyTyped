@@ -41,6 +41,7 @@ import * as url from "node:url";
         headersTimeout: 50000,
         optimizeEmptyRequests: true,
         requireHostHeader: false,
+        httpValidation: "strict",
         rejectNonStandardBodyWrites: false,
         shouldUpgradeCallback(request) {
             request; // $ExpectType IncomingMessage
