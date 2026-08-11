@@ -190017,6 +190017,15 @@ declare namespace PowerPoint {
          */
         readonly getLabelingCapability: PowerPoint.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled";
         /**
+         * Gets the attribute-based access control (ABAC) attributes that are available to the current user.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         * @returns An array of  objects.
+         */
+        getAttributes(): OfficeExtension.ClientResult<PowerPoint.SensitivityLabelAbacAttribute[]>;
+        /**
          * Gets sensitivity labels that are available to the current user.
          *
          * @remarks
@@ -199102,6 +199111,14 @@ declare namespace PowerPoint {
          */
         readonly children: PowerPoint.SensitivityLabelDetailsCollection;
         /**
+         * Gets the attribute-based access control (ABAC) attribute values currently applied to this sensitivity label. Returns an empty array when no ABAC attributes are applied or this label is not ABAC-enabled.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly abacAttributeValues: PowerPoint.SensitivityLabelAbacAttributeValue[];
+        /**
          * Gets the color of the sensitivity label.
          *
          * @remarks
@@ -199117,6 +199134,22 @@ declare namespace PowerPoint {
          * @beta
          */
         readonly id: string;
+        /**
+         * Gets whether ABAC attribute selections are required to apply this label. If `true`, callers must supply attribute values when applying the label; otherwise the update returns `SensitivityLabelUpdateResult.MissingRequiredAttributes`.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isAbacAttributesRequired: boolean;
+        /**
+         * Gets whether this label is attribute-based access control (ABAC) enabled. Returns `false` when the host's labeling capabilities don't include `attributeBasedAccessControlEnabled`.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isAbacEnabled: boolean;
         /**
          * Gets a value indicating whether the label is enabled.
          *
@@ -199277,6 +199310,173 @@ declare namespace PowerPoint {
          * @beta
          */
         crossTenant = "CrossTenant",
+        /**
+         * The label update failed because attribute-based access control (ABAC) is not supported in this context.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        abacNotSupported = "AbacNotSupported",
+        /**
+         * The label update failed because required ABAC attribute selections were not provided.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        missingRequiredAttributes = "MissingRequiredAttributes",
+        /**
+         * The label update failed because removing the current label is not supported.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        removingLabelNotSupported = "RemovingLabelNotSupported",
+    }
+    /**
+     * Represents a single selectable value of an Attribute-Based Access Control (ABAC) attribute that can be applied to a sensitivity label.
+     *
+     * @remarks
+     * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelAbacAttributeValue extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Gets the display name of the ABAC attribute value. Add-ins are responsible for presenting localized user-facing UI.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayName: string;
+        /**
+         * Gets the recommended ordering of this ABAC value within its attribute when displayed to a user.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayOrder: number;
+        /**
+         * Gets the unique identifier of the ABAC attribute value. This identifier is used when applying or updating the label's ABAC attribute selections.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly id: string;
+        /**
+         * Gets whether this ABAC attribute value is active. `true` if the value is active; otherwise, `false`.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isActive: boolean;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.SensitivityLabelAbacAttributeValueLoadOptions): PowerPoint.SensitivityLabelAbacAttributeValue;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.SensitivityLabelAbacAttributeValue;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): PowerPoint.SensitivityLabelAbacAttributeValue;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `PowerPoint.SensitivityLabelAbacAttributeValue` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.SensitivityLabelAbacAttributeValueData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): PowerPoint.Interfaces.SensitivityLabelAbacAttributeValueData;
+    }
+    /**
+     * Represents an attribute-based access control (ABAC) attribute available for selection on an ABAC-enabled sensitivity label.
+     *
+     * @remarks
+     * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    class SensitivityLabelAbacAttribute extends OfficeExtension.ClientObject {
+        /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
+        context: RequestContext;
+        /**
+         * Gets the display name of the ABAC attribute. Add-ins are responsible for presenting localized user-facing UI.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayName: string;
+        /**
+         * Gets the recommended ordering of this ABAC attribute when displayed to a user.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly displayOrder: number;
+        /**
+         * Gets whether this ABAC attribute is active. `true` if the attribute is active; otherwise, `false`.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isActive: boolean;
+        /**
+         * Gets whether more than one value can be selected for this ABAC attribute. `true` if multi-select; otherwise, `false`.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly isMultiValued: boolean;
+        /**
+         * Gets the values that are selectable for this ABAC attribute.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly values: PowerPoint.SensitivityLabelAbacAttributeValue[];
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param options Provides options for which properties of the object to load.
+         */
+        load(options?: PowerPoint.Interfaces.SensitivityLabelAbacAttributeLoadOptions): PowerPoint.SensitivityLabelAbacAttribute;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNames A comma-delimited string or an array of strings that specify the properties to load.
+         */
+        load(propertyNames?: string | string[]): PowerPoint.SensitivityLabelAbacAttribute;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
+         *
+         * @param propertyNamesAndPaths `propertyNamesAndPaths.select` is a comma-delimited string that specifies the properties to load, and `propertyNamesAndPaths.expand` is a comma-delimited string that specifies the navigation properties to load.
+         */
+        load(propertyNamesAndPaths?: {
+            select?: string;
+            expand?: string;
+        }): PowerPoint.SensitivityLabelAbacAttribute;
+        /**
+        * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
+        * Whereas the original `PowerPoint.SensitivityLabelAbacAttribute` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `PowerPoint.Interfaces.SensitivityLabelAbacAttributeData`) that contains shallow copies of any loaded child properties from the original object.
+        */
+        toJSON(): PowerPoint.Interfaces.SensitivityLabelAbacAttributeData;
     }
     /**
      * Represents the sensitivity label on the presentation.
@@ -201669,6 +201869,22 @@ declare namespace PowerPoint {
         /** An interface describing the data returned by calling `sensitivityLabelDetails.toJSON()`. */
         interface SensitivityLabelDetailsData {
             /**
+            * Gets the sublabels of the sensitivity label.
+            *
+            * @remarks
+            * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+            * @beta
+            */
+            children?: PowerPoint.Interfaces.SensitivityLabelDetailsData[];
+            /**
+             * Gets the attribute-based access control (ABAC) attribute values currently applied to this sensitivity label. Returns an empty array when no ABAC attributes are applied or this label is not ABAC-enabled.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            abacAttributeValues?: PowerPoint.SensitivityLabelAbacAttributeValue[];
+            /**
              * Gets the color of the sensitivity label.
              *
              * @remarks
@@ -201684,6 +201900,22 @@ declare namespace PowerPoint {
              * @beta
              */
             id?: string;
+            /**
+             * Gets whether ABAC attribute selections are required to apply this label. If `true`, callers must supply attribute values when applying the label; otherwise the update returns `SensitivityLabelUpdateResult.MissingRequiredAttributes`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacAttributesRequired?: boolean;
+            /**
+             * Gets whether this label is attribute-based access control (ABAC) enabled. Returns `false` when the host's labeling capabilities don't include `attributeBasedAccessControlEnabled`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacEnabled?: boolean;
             /**
              * Gets a value indicating whether the label is enabled.
              *
@@ -201732,6 +201964,84 @@ declare namespace PowerPoint {
              * @beta
              */
             tooltip?: string;
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelAbacAttributeValue.toJSON()`. */
+        interface SensitivityLabelAbacAttributeValueData {
+            /**
+             * Gets the display name of the ABAC attribute value. Add-ins are responsible for presenting localized user-facing UI.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: string;
+            /**
+             * Gets the recommended ordering of this ABAC value within its attribute when displayed to a user.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: number;
+            /**
+             * Gets the unique identifier of the ABAC attribute value. This identifier is used when applying or updating the label's ABAC attribute selections.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: string;
+            /**
+             * Gets whether this ABAC attribute value is active. `true` if the value is active; otherwise, `false`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+        }
+        /** An interface describing the data returned by calling `sensitivityLabelAbacAttribute.toJSON()`. */
+        interface SensitivityLabelAbacAttributeData {
+            /**
+             * Gets the display name of the ABAC attribute. Add-ins are responsible for presenting localized user-facing UI.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: string;
+            /**
+             * Gets the recommended ordering of this ABAC attribute when displayed to a user.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: number;
+            /**
+             * Gets whether this ABAC attribute is active. `true` if the attribute is active; otherwise, `false`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+            /**
+             * Gets whether more than one value can be selected for this ABAC attribute. `true` if multi-select; otherwise, `false`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isMultiValued?: boolean;
+            /**
+             * Gets the values that are selectable for this ABAC attribute.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            values?: PowerPoint.SensitivityLabelAbacAttributeValue[];
         }
         /** An interface describing the data returned by calling `slideCollection.toJSON()`. */
         interface SlideCollectionData {
@@ -204298,6 +204608,14 @@ declare namespace PowerPoint {
              */
             $all?: boolean;
             /**
+             * For EACH ITEM in the collection: Gets the attribute-based access control (ABAC) attribute values currently applied to this sensitivity label. Returns an empty array when no ABAC attributes are applied or this label is not ABAC-enabled.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            abacAttributeValues?: boolean;
+            /**
              * For EACH ITEM in the collection: Gets the color of the sensitivity label.
              *
              * @remarks
@@ -204313,6 +204631,22 @@ declare namespace PowerPoint {
              * @beta
              */
             id?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets whether ABAC attribute selections are required to apply this label. If `true`, callers must supply attribute values when applying the label; otherwise the update returns `SensitivityLabelUpdateResult.MissingRequiredAttributes`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacAttributesRequired?: boolean;
+            /**
+             * For EACH ITEM in the collection: Gets whether this label is attribute-based access control (ABAC) enabled. Returns `false` when the host's labeling capabilities don't include `attributeBasedAccessControlEnabled`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacEnabled?: boolean;
             /**
              * For EACH ITEM in the collection: Gets a value indicating whether the label is enabled.
              *
@@ -204375,6 +204709,14 @@ declare namespace PowerPoint {
              */
             $all?: boolean;
             /**
+             * Gets the attribute-based access control (ABAC) attribute values currently applied to this sensitivity label. Returns an empty array when no ABAC attributes are applied or this label is not ABAC-enabled.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            abacAttributeValues?: boolean;
+            /**
              * Gets the color of the sensitivity label.
              *
              * @remarks
@@ -204390,6 +204732,22 @@ declare namespace PowerPoint {
              * @beta
              */
             id?: boolean;
+            /**
+             * Gets whether ABAC attribute selections are required to apply this label. If `true`, callers must supply attribute values when applying the label; otherwise the update returns `SensitivityLabelUpdateResult.MissingRequiredAttributes`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacAttributesRequired?: boolean;
+            /**
+             * Gets whether this label is attribute-based access control (ABAC) enabled. Returns `false` when the host's labeling capabilities don't include `attributeBasedAccessControlEnabled`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isAbacEnabled?: boolean;
             /**
              * Gets a value indicating whether the label is enabled.
              *
@@ -204438,6 +204796,104 @@ declare namespace PowerPoint {
              * @beta
              */
             tooltip?: boolean;
+        }
+        /**
+         * Represents a single selectable value of an Attribute-Based Access Control (ABAC) attribute that can be applied to a sensitivity label.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelAbacAttributeValueLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * Gets the display name of the ABAC attribute value. Add-ins are responsible for presenting localized user-facing UI.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: boolean;
+            /**
+             * Gets the recommended ordering of this ABAC value within its attribute when displayed to a user.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: boolean;
+            /**
+             * Gets the unique identifier of the ABAC attribute value. This identifier is used when applying or updating the label's ABAC attribute selections.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            id?: boolean;
+            /**
+             * Gets whether this ABAC attribute value is active. `true` if the value is active; otherwise, `false`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+        }
+        /**
+         * Represents an attribute-based access control (ABAC) attribute available for selection on an ABAC-enabled sensitivity label.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        interface SensitivityLabelAbacAttributeLoadOptions {
+            /**
+              Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
+             */
+            $all?: boolean;
+            /**
+             * Gets the display name of the ABAC attribute. Add-ins are responsible for presenting localized user-facing UI.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayName?: boolean;
+            /**
+             * Gets the recommended ordering of this ABAC attribute when displayed to a user.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            displayOrder?: boolean;
+            /**
+             * Gets whether this ABAC attribute is active. `true` if the attribute is active; otherwise, `false`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isActive?: boolean;
+            /**
+             * Gets whether more than one value can be selected for this ABAC attribute. `true` if multi-select; otherwise, `false`.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            isMultiValued?: boolean;
+            /**
+             * Gets the values that are selectable for this ABAC attribute.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            values?: boolean;
         }
         /**
          * Represents the collection of slides in the presentation.
