@@ -23857,7 +23857,7 @@ declare namespace Office {
          *
          * @beta
          */
-        type: "olkPicturesChanged";
+        type: "olkInlinePicturesChanged";
     }
     /**
      * Represents recipients of an item. Compose mode only.
