@@ -59,6 +59,7 @@ const shippingAddressParametersEmptyObjectIsValid: google.payments.api.ShippingA
 const getGooglePaymentsClient = (env?: google.payments.api.Environment) => {
     return new google.payments.api.PaymentsClient({
         environment: env,
+        nonce: "abc123def456",
         paymentDataCallbacks: {
             onPaymentAuthorized: (paymentData) => ({ transactionState: "SUCCESS" }),
             onPaymentDataChanged: (paymentData) => {
