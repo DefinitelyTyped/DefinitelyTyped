@@ -20,6 +20,7 @@ export interface ClientConfig {
     stream?: () => stream.Duplex | undefined;
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
+    sslnegotiation?: "postgres" | "direct" | undefined;
     query_timeout?: number | undefined;
     lock_timeout?: number | undefined;
     keepAliveInitialDelayMillis?: number | undefined;
