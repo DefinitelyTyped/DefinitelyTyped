@@ -438,6 +438,30 @@ declare namespace Pannellum {
         scale?: boolean;
     }
 
+    /** A tour configuration */
+    interface TourOptions {
+        /**
+         * The `default` property contains options that are used for each scene,
+         * but options specified for individual scenes override these options. The
+         * `default` property is required to have a `firstScene` property that contains
+         * the scene ID for the first scene to be displayed.
+         */
+        default: ConfigOptions & {
+            firstScene: string;
+        };
+
+        /**
+         * The `scenes` property contains a dictionary of scenes, specified by scene
+         * IDs. The values assigned to these IDs are specific to each scene.
+         */
+        scenes: {
+            [sceneId: string]: ConfigOptions;
+        };
+
+        /** @deprecated -- undocumented alternative to `default.firstScene`. */
+        firstScene?: string;
+    }
+
     class Renderer {
         /**
          * Create a new panorama renderer.
@@ -532,7 +556,7 @@ declare namespace Pannellum {
          * @param container - The container (div) element for the viewer, or its ID.
          * @param initialConfig - Initial configuration for the viewer.
          */
-        constructor(container: HTMLElement | string, initialConfig: ConfigOptions);
+        constructor(container: HTMLElement | string, initialConfig: ConfigOptions | TourOptions);
 
         /**
          * Checks whether or not a panorama is loaded.
@@ -888,14 +912,12 @@ interface Window {
         renderer(container: HTMLElement): Pannellum.Renderer;
     };
     pannellum: {
-        viewer(container: HTMLElement | string, initialConfig: Pannellum.ConfigOptions): Pannellum.Viewer;
+        viewer(
+            container: HTMLElement | string,
+            initialConfig: Pannellum.ConfigOptions | Pannellum.TourOptions,
+        ): Pannellum.Viewer;
     };
 }
 
-declare const libpannellum: {
-    renderer(container: HTMLElement): Pannellum.Renderer;
-};
-
-declare const pannellum: {
-    viewer(container: HTMLElement | string, initialConfig: Pannellum.ConfigOptions): Pannellum.Viewer;
-};
+declare const libpannellum: Window["libpannellum"];
+declare const pannellum: Window["pannellum"];
