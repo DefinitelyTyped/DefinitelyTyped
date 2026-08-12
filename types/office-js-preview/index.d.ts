@@ -23845,6 +23845,19 @@ declare namespace Office {
          * @beta
          */
         pictureIds: string[];
+        /**
+         * Gets the type of the event. For more information, see {@link https://learn.microsoft.com/javascript/api/office/office.eventtype | Office.EventType}.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read item**
+         *
+         * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * @beta
+         */
+        type: "olkPicturesChanged";
     }
     /**
      * Represents recipients of an item. Compose mode only.
