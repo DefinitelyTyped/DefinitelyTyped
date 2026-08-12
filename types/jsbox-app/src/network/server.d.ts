@@ -16,7 +16,7 @@ declare namespace ServerTypes {
     interface BaseRequest {
         method: string;
         url: string;
-        headers: any;
+        headers: Record<string, string>;
         path: string;
         query: any;
         contentType: string;
@@ -64,9 +64,10 @@ declare namespace ServerTypes {
 
     interface BaseResponse {
         redirect?: string;
+        permanent?: boolean;
         statusCode?: number;
         contentType?: string;
-        contentLength?: string;
+        contentLength?: number;
         cacheControlMaxAge?: number;
         lastModifiedDate?: Date;
         eTag?: string;

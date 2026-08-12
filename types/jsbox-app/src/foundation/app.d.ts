@@ -41,8 +41,9 @@ interface JBApp {
     idleTimerDisabled: boolean;
     close(delay?: number): void;
     isDebugging: boolean;
-    env: number; // The value is in $env.
-    widgetIndex: number; // 0 ~ 2; other values indicate that it is not a widget.
+    env: (typeof $env)[keyof typeof $env];
+    /** 0 ~ 2 is valid; other values indicate that it is not a widget. */
+    widgetIndex: number;
     autoKeyboardEnabled: boolean;
     keyboardToolbarEnabled: boolean;
     rotateDisabled: boolean;
