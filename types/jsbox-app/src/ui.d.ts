@@ -972,8 +972,12 @@ declare namespace UiTypes {
         sourceView: AllUIView;
         /** sender.bounds by default */
         sourceRect?: JBRect;
-        /** $popoverDirection.up by default */
-        directions?: (typeof $popoverDirection)[keyof typeof $popoverDirection];
+        /**
+         * A bitmask value from `$popoverDirection`.
+         * Multiple subtype values can be combined using the bitwise OR operator (`|`).
+         * @default $popoverDirection.up
+         */
+        directions?: number;
         /** fits content by default */
         size?: JBSize;
         items: string[];
@@ -984,8 +988,12 @@ declare namespace UiTypes {
         sourceView: AllUIView;
         /** sender.bounds by default */
         sourceRect?: JBRect;
-        /** $popoverDirection.any by default */
-        directions?: (typeof $popoverDirection)[keyof typeof $popoverDirection];
+        /**
+         * A bitmask value from `$popoverDirection`.
+         * Multiple subtype values can be combined using the bitwise OR operator (`|`).
+         * @default $popoverDirection.any
+         */
+        directions?: number;
         /** fits screen width by default */
         size?: JBSize;
         views: AllViewOptions[];

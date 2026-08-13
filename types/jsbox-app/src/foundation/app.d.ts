@@ -41,7 +41,11 @@ interface JBApp {
     idleTimerDisabled: boolean;
     close(delay?: number): void;
     isDebugging: boolean;
-    env: (typeof $env)[keyof typeof $env];
+    /**
+     * A bitmask value from `$env`.
+     * Multiple subtype values can be combined using the bitwise OR operator (`|`).
+     */
+    env: number;
     /** 0 ~ 2 is valid; other values indicate that it is not a widget. */
     widgetIndex: number;
     autoKeyboardEnabled: boolean;

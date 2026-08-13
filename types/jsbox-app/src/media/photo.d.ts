@@ -211,7 +211,11 @@ declare namespace PhotoTypes {
     interface FetchOptionsBase {
         count?: number;
         type?: (typeof $assetMedia.type)[keyof typeof $assetMedia.type];
-        subType?: (typeof $assetMedia.subType)[keyof typeof $assetMedia.subType];
+        /**
+         * A bitmask value from `$assetMedia.subType`.
+         * Multiple subtype values can be combined using the bitwise OR operator (`|`).
+         */
+        subType?: number;
         size?: JBSize;
     }
 
