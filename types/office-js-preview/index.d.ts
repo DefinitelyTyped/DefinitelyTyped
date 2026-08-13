@@ -190022,7 +190022,6 @@ declare namespace PowerPoint {
          * @remarks
          * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
          * @beta
-         * @returns An array of  objects.
          */
         getAttributes(): OfficeExtension.ClientResult<PowerPoint.SensitivityLabelAbacAttribute[]>;
         /**
@@ -199333,7 +199332,7 @@ declare namespace PowerPoint {
         removingLabelNotSupported = "RemovingLabelNotSupported",
     }
     /**
-     * Represents a single selectable value of an Attribute-Based Access Control (ABAC) attribute that can be applied to a sensitivity label.
+     * Represents a single selectable value of an attribute-based access control (ABAC) attribute that can be applied to a sensitivity label.
      *
      * @remarks
      * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
@@ -204798,7 +204797,7 @@ declare namespace PowerPoint {
             tooltip?: boolean;
         }
         /**
-         * Represents a single selectable value of an Attribute-Based Access Control (ABAC) attribute that can be applied to a sensitivity label.
+         * Represents a single selectable value of an attribute-based access control (ABAC) attribute that can be applied to a sensitivity label.
          *
          * @remarks
          * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
