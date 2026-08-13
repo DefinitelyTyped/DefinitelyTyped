@@ -682,7 +682,9 @@ async function testSsh(context: TestContext): Promise<void> {
             const sftpDirectoryExistsPromise: Promise<boolean> = session.sftp.directoryExists({ path: "/tmp" });
             const sftpCreateDirectoryPromise: Promise<boolean> = session.sftp.createDirectory({ path: "/tmp/jsbox" });
             const sftpRemoveDirectoryPromise: Promise<boolean> = session.sftp.removeDirectory({ path: "/tmp/jsbox" });
-            const sftpContentsPromise: Promise<SshTypes.SftpFile[]> = session.sftp.contentsOfDirectory({ path: "/tmp" });
+            const sftpContentsPromise: Promise<SshTypes.SftpFile[]> = session.sftp.contentsOfDirectory({
+                path: "/tmp",
+            });
             const sftpInfoPromise: Promise<SshTypes.SftpFile> = session.sftp.infoForFile({ path: "/tmp/hello.txt" });
             const sftpFileExistsPromise: Promise<boolean> = session.sftp.fileExists({ path: "/tmp/hello.txt" });
             const sftpLinkPromise: Promise<boolean> = session.sftp.createSymbolicLink({
@@ -1599,7 +1601,7 @@ async function testFoundationApp(context: TestContext): Promise<void> {
     $app.minSDKVer.toLowerCase();
     $app.minOSVer.toLowerCase();
     $app.isDebugging.valueOf();
-    const appEnvironment: (typeof $env)[keyof typeof $env] = $app.env;
+    const appEnvironment: number = $app.env;
     appEnvironment.valueOf();
     $app.widgetIndex.valueOf();
     appStrings.en = { HELLO: "Hello" };
