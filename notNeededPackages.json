@@ -2899,7 +2899,7 @@
         },
         "hashmap": {
             "libraryName": "hashmap",
-            "asOfVersion": "3.0.0"
+            "asOfVersion": "3.0.1"
         },
         "hcaptcha__react-hcaptcha": {
             "libraryName": "@hcaptcha/react-hcaptcha",
