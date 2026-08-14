@@ -3916,7 +3916,7 @@ async function testTabs() {
 
     const deleteInjectionDetails: chrome.extensionTypes.DeleteInjectionDetails = {
         allFrames: true,
-        code: "alert('hello world');",
+        code: "body { background: red }",
         cssOrigin: "author",
         frameId,
         matchAboutBlank: true,
