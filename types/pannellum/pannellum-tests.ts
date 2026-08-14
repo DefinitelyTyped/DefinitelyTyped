@@ -47,3 +47,27 @@ viewer.addScene("myScene", {
 viewer.addScene("myScene", {
     // test that all properties are optional
 });
+
+// Test tour configurations
+const tourOptions: Pannellum.TourOptions = {
+    default: {
+        firstScene: "s1",
+        sceneFadeDuration: 1000,
+        author: "Me",
+    },
+    scenes: {
+        s1: {
+            showFullscreenCtrl: false,
+            autoLoad: false,
+            compass: false,
+            yaw: 0,
+            type: "equirectangular",
+            preview: "",
+            panorama: "",
+            northOffset: 1.3,
+        },
+        s2: {},
+    },
+};
+
+pannellum.viewer("abc", tourOptions);

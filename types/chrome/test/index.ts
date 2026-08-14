@@ -1099,12 +1099,6 @@ function testGetManifest() {
         manifest.export.allowlist; // $ExpectType string[] | undefined
     }
 
-    if (manifest.file_system_provider_capabilities) {
-        manifest.file_system_provider_capabilities.configurable; // $ExpectType boolean | undefined
-        manifest.file_system_provider_capabilities.watchable; // $ExpectType boolean | undefined
-        manifest.file_system_provider_capabilities.source; // $ExpectType "file" | "device" | "network"
-    }
-
     manifest.incognito; // $ExpectType "spanning" | "split" | "not_allowed" | undefined
 
     if (manifest.input_components) {
@@ -4865,7 +4859,7 @@ function testEnterpriseHardwarePlatform() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/networkingAttributes
-function testEntrepriseNetworkingAttributes() {
+function testEnterpriseNetworkingAttributes() {
     chrome.enterprise.networkingAttributes.getNetworkDetails(); // $ExpectType Promise<NetworkDetails>
     chrome.enterprise.networkingAttributes.getNetworkDetails((networkAddresses) => { // $ExpectType void
         networkAddresses.ipv4; // $ExpectType string | undefined
