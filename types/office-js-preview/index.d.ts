@@ -756,7 +756,7 @@ declare namespace Office {
          * [Api set: Mailbox preview]
          *
          * **Important**: The `PicturesChanged` event is available for preview in Outlook on the web and on Windows (new and classic). To test the event in
-         * classic Outlook on Windows, install Version //TODO or later. Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
+         * classic Outlook on Windows, install Version 2609 (Build 20406.15000) or later. Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
          * and select the **Beta Channel** option to access Office beta builds.
          *
          * @beta
@@ -11685,7 +11685,7 @@ declare namespace Office {
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
          *
          * - In classic Outlook on Windows, `getAttachmentsAsync` doesn't return inline pictures added from the ribbon using the **Insert** > **Pictures** option.
-         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version //TODO).
+         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version 2609 (Build 20406.15000)).
          *
          * @param options - An object literal that contains one or more of the following properties:-
          *        `asyncContext`: Developers can provide any object they wish to access in the callback function.
@@ -11710,7 +11710,7 @@ declare namespace Office {
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
          *
          * - In classic Outlook on Windows, `getAttachmentsAsync` doesn't return inline pictures added from the ribbon using the **Insert** > **Pictures** option.
-         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version //TODO).
+         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version 2609 (Build 20406.15000)).
          *
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
@@ -11992,7 +11992,7 @@ declare namespace Office {
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          * Alternatively, test the `Office.context.mailbox.item.body.pictures.deleteAsync` method that's available for preview in Outlook on the web and on
-         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version //TODO or later. Then, join the
+         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version 2609 (Build 20406.15000) or later. Then, join the
          * {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
          * and select the **Beta Channel** option to access Office beta builds.
          *
@@ -12030,7 +12030,7 @@ declare namespace Office {
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          * Alternatively, test the `Office.context.mailbox.item.body.pictures.deleteAsync` method that's available for preview in Outlook on the web and on
-         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version //TODO or later. Then, join the
+         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version 2609 (Build 20406.15000) or later. Then, join the
          * {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
          * and select the **Beta Channel** option to access Office beta builds.
          *
@@ -13689,7 +13689,7 @@ declare namespace Office {
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
          *
          * **Important**: The `pictures` property is available for preview in Outlook on the web and on Windows (new and classic). To test the property in classic Outlook on Windows,
-         * install Version //TODO or later. Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
+         * install Version 2609 (Build 20406.15000) or later. Then, join the {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
          * and select the **Beta Channel** option to access Office beta builds.
          *
          * @beta
@@ -20693,7 +20693,7 @@ declare namespace Office {
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
          *
          * - In classic Outlook on Windows, `getAttachmentsAsync` doesn't return inline pictures added from the ribbon using the **Insert** > **Pictures** option.
-         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version //TODO).
+         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version 2609 (Build 20406.15000)).
          *
          * @param options - An object literal that contains one or more of the following properties:-
          *        `asyncContext`: Developers can provide any object they wish to access in the callback function.
@@ -20724,7 +20724,7 @@ declare namespace Office {
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
          *
          * - In classic Outlook on Windows, `getAttachmentsAsync` doesn't return inline pictures added from the ribbon using the **Insert** > **Pictures** option.
-         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version //TODO).
+         * To retrieve all the inline pictures in the body of the mail item, call `Office.context.mailbox.item.body.pictures.getAllAsync` instead (in preview starting in Version 2609 (Build 20406.15000)).
          *
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
@@ -21252,7 +21252,7 @@ declare namespace Office {
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          * Alternatively, test the `Office.context.mailbox.item.body.pictures.deleteAsync` method that's available for preview in Outlook on the web and on
-         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version //TODO or later. Then, join the
+         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version 2609 (Build 20406.15000) or later. Then, join the
          * {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
          * and select the **Beta Channel** option to access Office beta builds.
          *
@@ -21290,7 +21290,7 @@ declare namespace Office {
          * To remove an inline attachment, first get the item's body, then remove any references of the attachment from its contents.
          * Use the {@link https://learn.microsoft.com/javascript/api/outlook/office.body | Office.Body} APIs to get and set the body of an item.
          * Alternatively, test the `Office.context.mailbox.item.body.pictures.deleteAsync` method that's available for preview in Outlook on the web and on
-         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version //TODO or later. Then, join the
+         * Windows (new and classic). To test the method in classic Outlook on Windows, install Version 2609 (Build 20406.15000) or later. Then, join the
          * {@link https://techcommunity.microsoft.com/kb/microsoft-365-insider-kb/join-the-microsoft-365-insider-program-on-macos/4401756 | Microsoft 365 Insider program}
          * and select the **Beta Channel** option to access Office beta builds.
          *
