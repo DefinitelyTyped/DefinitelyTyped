@@ -17,7 +17,12 @@ import {
 import { Client, create as clientCreate, CreditCardInfo } from "./client";
 import { BraintreeError, callback, VERSION } from "./core";
 import { create as dataCollectorCreate, DataCollector, DataCollectorDeferred } from "./data-collector";
-import { create as googlePaymentCreate, GooglePayment, GooglePaymentDeferred, GooglePaymentTokenizePayload } from "./google-payment";
+import {
+    create as googlePaymentCreate,
+    GooglePayment,
+    GooglePaymentDeferred,
+    GooglePaymentTokenizePayload,
+} from "./google-payment";
 import {
     create as hostedFieldsCreate,
     HostedFieldFieldOptions,
