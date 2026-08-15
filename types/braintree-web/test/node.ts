@@ -771,6 +771,15 @@ braintree.client.create(
                         verifyPayload.threeDSecureInfo.status; // boolean
                     },
                 );
+
+                (async () => {
+                    const verifyPayload = await threeDSecure.cancelVerifyCard();
+
+                    verifyPayload.nonce; // The nonce returned from the 3ds lookup call
+                    verifyPayload.liabilityShifted; // boolean
+                    verifyPayload.liabilityShiftPossible;
+                    verifyPayload.threeDSecureInfo.status; // boolean
+                })();
             },
         );
     },

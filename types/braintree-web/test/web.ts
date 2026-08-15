@@ -1197,6 +1197,15 @@ braintree.client.create(
                     },
                 );
 
+                (async () => {
+                    const verifyPayload = await threeDSecure.cancelVerifyCard();
+
+                    verifyPayload.nonce; // The nonce returned from the 3ds lookup call
+                    verifyPayload.liabilityShifted; // boolean
+                    verifyPayload.liabilityShiftPossible;
+                    verifyPayload.threeDSecureInfo.status; // boolean
+                })();
+
                 threeDSecure.on("lookup-complete", (data, next) => {
                     console.log("data from lookup", data);
                     console.log("version", data.lookup.threeDSecureVersion);

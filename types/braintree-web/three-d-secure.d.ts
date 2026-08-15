@@ -149,7 +149,7 @@ export interface ThreeDSecureVerifyOptions {
     dataOnlyRequested?: boolean | undefined;
     requestVisaDAF?: boolean | undefined;
     merchantName?: string | undefined;
-    requestedExemptionType?: string | undefined;
+    requestedExemptionType?: "low_value" | "transaction_risk_analysis" | undefined;
     applySmartAuthentication?: boolean | undefined;
     customFields?: Record<string, any> | undefined;
     onLookupComplete?: ((data: ThreeDSecureVerificationData, next: () => void) => void) | undefined;
@@ -288,8 +288,8 @@ export interface ThreeDSecure {
      *   verifyPayload.liabilityShiftPossible; // boolean
      * });
      */
-    cancelVerifyCard(): Promise<void>;
-    cancelVerifyCard(callback: callback): void;
+    cancelVerifyCard(): Promise<ThreeDSecureVerifyPayload>;
+    cancelVerifyCard(callback: callback<ThreeDSecureVerifyPayload>): void;
 
     /**
      * Gather the data needed for a 3D Secure lookup call.

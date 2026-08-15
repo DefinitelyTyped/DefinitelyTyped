@@ -627,7 +627,7 @@ export function create(options: {
     fields: HostedFieldFieldOptions;
     styles?: Record<string, string | Record<string, string>> | undefined;
     preventAutofill?: boolean | undefined;
-    binVerificationLength?: number | undefined;
+    binVerificationLength?: 6 | 8 | undefined;
     sessionId?: string | undefined;
 }): Promise<HostedFields>;
 export function create(
@@ -637,7 +637,7 @@ export function create(
         fields: HostedFieldFieldOptions;
         styles?: Record<string, string | Record<string, string>> | undefined;
         preventAutofill?: boolean | undefined;
-        binVerificationLength?: number | undefined;
+        binVerificationLength?: 6 | 8 | undefined;
         sessionId?: string | undefined;
     },
     callback: callback<HostedFields>,
