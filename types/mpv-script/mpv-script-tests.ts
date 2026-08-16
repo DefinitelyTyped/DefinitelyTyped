@@ -146,36 +146,117 @@ function onIdle() {}
 mp.register_idle(onIdle);
 mp.unregister_idle(onIdle);
 
-// $ExpectType string | undefined
-mp.get_property("test");
 // $ExpectType string
-mp.get_property("test", "default");
+mp.get_property("playlist", "default");
+// optional boolean property should return "yes" | "no" | undefined
+// $ExpectType "yes" | "no" | undefined
+mp.get_property("ao-mute");
+// optional number property should return string | undefined
+// $ExpectType string | undefined
+mp.get_property("time-pos");
+// optional string property should return string | undefined
+// $ExpectType string | undefined
+mp.get_property("filename");
+// boolean property always presented should return "yes" | "no"
+// $ExpectType "yes" | "no"
+mp.get_property("hwdec");
+// string property always presented should return string
+// $ExpectType string
+mp.get_property("audio-device");
+// number property always presented should return string
+// $ExpectType string
+mp.get_property("playlist-pos");
+// an unknown property returns string | undefined
+// $ExpectType string | undefined
+mp.get_property("foo");
+// $ExpectType string | 123
+mp.get_property("foo", 123);
 
-// $ExpectType boolean | undefined
-mp.get_property_bool("test");
+// $ExpectType string
+mp.get_property_osd("playlist", "default");
+// optional boolean property should return "yes" | "no" | undefined
+// $ExpectType "yes" | "no" | undefined
+mp.get_property_osd("ao-mute");
+// optional number property should return string | undefined
+// $ExpectType string | undefined
+mp.get_property_osd("time-pos");
+// optional string property should return string | undefined
+// $ExpectType string | undefined
+mp.get_property_osd("filename");
+// boolean property always presented should return "yes" | "no"
+// $ExpectType "yes" | "no"
+mp.get_property_osd("hwdec");
+// string property always presented should return string
+// $ExpectType string
+mp.get_property_osd("audio-device");
+// number property always presented should return string
+// $ExpectType string
+mp.get_property_osd("playlist-pos");
+// an unknown property returns string | undefined
+// $ExpectType string | undefined
+mp.get_property_osd("foo");
+// $ExpectType string | 123
+mp.get_property_osd("foo", 123);
+
 // $ExpectType boolean
-mp.get_property_bool("test", false);
+mp.get_property_bool("playback-abort", false);
+// boolean property always presented should return boolean
+// $ExpectType boolean
+mp.get_property_bool("hwdec");
+// optional boolean property should return boolean | undefined
+// $ExpectType boolean | undefined
+mp.get_property_bool("ao-mute");
+// an unknown property returns boolean | undefined
+// $ExpectType boolean | undefined
+mp.get_property_bool("foo");
+// $ExpectType boolean | "yes or no"
+mp.get_property_bool("foo", "yes or no");
 
-// $ExpectType number | undefined
-mp.get_property_number("test");
+// number property always presented should return number
 // $ExpectType number
-mp.get_property_number("test", 0);
+mp.get_property_number("playlist-pos");
+// optional number property should return number | undefined
+// $ExpectType number | undefined
+mp.get_property_number("file-size");
+// an unknown property returns number | undefined
+// $ExpectType number | undefined
+mp.get_property_number("foo");
+// $ExpectType number
+mp.get_property_number("foo", -1);
+// $ExpectType number | 'bar'
+mp.get_property_number("foo", "bar");
 
+// native property always presented should return native
+// $ExpectType ChapterListItem[]
+mp.get_property_native("chapter-list");
+// optional native property should return native | undefined
+// $ExpectType SubprocessResultWithStd | undefined
+mp.get_property_native("user-data/mpv/ytdl/json-subprocess-result");
+// $ExpectType -1 | (SubprocessResultWithStdout & SubprocessResultWithStderr)
+mp.get_property_native("user-data/mpv/ytdl/json-subprocess-result", -1); // it's quirky that SubprocessResultWithStd is not the same as the intersection for eslint
+// an unknown property returns unknown
 // $ExpectType unknown
-mp.get_property_native("filename");
-// $ExpectType unknown
-mp.get_property_native("filename", "foo.mp4");
+mp.get_property_native("foo");
+// $ExpectType {} | -1
+mp.get_property_native("foo", -1); // it has {} because NonNullable<unknown> is {} which is a non-null unknown
 
-mp.observe_property("test", "native", (name, value) => {
-    // $ExpectType unknown
+// @ts-expect-error
+mp.set_property("fullscreen", "yes and no");
+// @ts-expect-error
+mp.set_property_native("chapter-list", "foo");
+mp.set_property_bool("fullscreen", true);
+mp.set_property_number("time-pos", 5);
+
+mp.observe_property("chapter-list", "native", (name, value) => {
+    // $ExpectType ChapterListItem[]
     value = value;
 });
 mp.observe_property("test", "bool", (name, value) => {
     // $ExpectType boolean | undefined
     value = value;
 });
-mp.observe_property("test", "string", (name, value) => {
-    // $ExpectType string | undefined
+mp.observe_property("fullscreen", "string", (name, value) => {
+    // $ExpectType "yes" | "no"
     value = value;
 });
 mp.observe_property("test", "number", (name, value) => {

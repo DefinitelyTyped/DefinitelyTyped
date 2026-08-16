@@ -26,10 +26,9 @@ declare namespace mp {
         | "on_before_start_file"
         | "on_after_end_file";
 
-    /**
-     * @see https://mpv.io/manual/stable/#list-of-input-commands
-     * run `mpv --input-cmdlist` to get full list of input commands
-     */
+    // NOTE: this isn't ready to change to __CommandInfoUnion['name']
+    // because __CommandInfoUnion doesn't include commands without named arguments support
+    // type __NotHandledCommandName = Exclude<CommandName, __CommandInfoUnion['name']>
     type CommandName =
         // Playback Control
         | "seek"
@@ -106,183 +105,27 @@ declare namespace mp {
         | "begin-vo-dragging"
         | "context-menu";
 
-    /** @see https://mpv.io/manual/stable/#properties */
-    type WriteablePropertyName =
-        | "percent-pos"
-        | "time-pos"
-        | "time-pos/full"
-        | "playback-time"
-        | "playback-time/full"
-        | "chapter"
-        | "edition"
-        | "ao-volume"
-        | "ao-mute"
-        | "hwdec"
-        | "current-window-scale"
-        | "playlist-pos"
-        | "playlist-pos-1"
-        | "playlist-current-pos"
-        | "chapter-list"
-        | "chapter-list/count"
+    // reserved as it requires template literal
+    // TODO: it can be added to __PropertyInfoUnion but I'm lazy now
+    // maybe only add it only when we decide to get rid of plain es5 support otherwise it's just pointless
+    type __UnhandledWriteablePropertyName =
         | `chapter-list/${number}/${"title" | "time"}`
-        | "af"
-        | "vf"
-        | "cursor-autohide"
-        | "audio-device"
-        | "user-data"
-        | "user-data/osc/margins"
-        | `user-data/mpv/ytdl/${"path" | "json-subprocess-result"}`
-        | "user-data/mpv/console/open"
-        | "menu-data"
         | `options/${string}`
-        | `file-local-options/${string}`
-        | `clipboard/${"text" | "text-primary"}`
-        // es5 doesn't support string interpolation so Template Literal Types became pointless here.
-        // it was awkward to only realized it after added all these.
-        // now it only provides partial completeions from literal unions and allows any other arbitrary string
-        | (string & {});
+        | `file-local-options/${string}`;
 
-    /** @see https://mpv.io/manual/stable/#properties */
-    type ReadonlyPropertyName =
-        | `${"audio" | "video"}-speed-correction`
-        | "display-sync-active"
-        | "filename"
-        | "filename/no-ext"
-        | "file-size"
-        | `estimated-frame-${"count" | "number"}`
-        | "pid"
-        | "path"
-        | "stream-open-filename"
-        | "media-title"
-        | "file-format"
-        | "current-demuxer"
-        | `stream-${"path" | "pos" | "end"}`
-        | "duration"
-        | "avsync"
-        | "total-avsync-change"
-        | "decoder-frame-drop-count"
-        | "frame-drop-count"
-        | "mistimed-frame-count"
-        | "vsync-ratio"
-        | "vo-delayed-frame-count"
-        | "time-start"
-        | "time-remaining"
-        | "time-remaining/full"
-        | "audio-pts"
-        | "audio-pts/full"
-        | "playtime-remaining"
-        | "playtime-remaining/full"
-        | "remaining-file-loops"
-        | "remaining-ab-loops"
-        | "current-edition"
-        | "chapters"
-        | "editions"
-        | "edition-list"
-        | "edition-list/count"
+    // reserved as it requires template literal
+    // TODO: it can be added to __PropertyInfoUnion but I'm lazy now
+    // maybe add it only when we decide to get rid of plain es5 support otherwise it's just pointless
+    type __UnhandledReadonlyPropertyName =
         | `edition-list/${number}/${"id" | "default" | "title"}`
-        | "metadata"
         | `metadata/by-key/${string}`
-        | "metadata/list/count"
         | `metadata/list/${number}/${"key" | "value"}`
         | `metadata/${string}`
-        | "filtered-metadata"
-        | "chapter-metadata"
         | `${"vf" | "af"}-metadata/${string}`
-        | "deinterlace-active"
-        | "idle-active"
-        | "core-idle"
-        | "cache-speed"
-        | `demuxer-cache-${"duration" | "time" | "idle" | "state"}`
-        | "demuxer-via-network"
-        | "demuxer-start-time"
-        | "paused-for-cache"
-        | "cache-buffering-state"
-        | "eof-reached"
-        | "seeking"
-        | "mixer-active"
-        | "audio-params"
-        | `audio-params-${"format" | "samplerate" | "channels" | "hr-channels" | "channel-count"}`
-        | "audio-out-params"
-        | "colormatrix"
-        | "colormatrix-input-range"
-        | "colormatrix-primaries"
-        | `hwdec-${"current" | "interop"}`
-        | "width"
-        | "height"
-        | "video-params"
-        | `video-params/${__VideoParamSub}`
-        | "dwidth"
-        | "dheight"
-        | `video-${"dec" | "out" | "target"}-params`
-        | "video-frame-info"
-        | `video-frame-info/${
-            | "picture-type"
-            | "interlaced"
-            | "tff"
-            | "repeat"
-            | "gop-timecode"
-            | "smpte-timecode"
-            | "estimated-smpte-timecode"}`
-        | "container-fps"
-        | "estimated-vf-fps"
-        | "focused"
-        | "ambient-light"
-        | "display-names"
-        | "display-fps"
-        | "estimated-display-fps"
-        | "vsync-jitter"
-        | `display-${"width" | "height"}`
-        | "display-hidpi-scale"
-        | `osd-${"width" | "height"}`
-        | "osd-par"
-        | "osd-dimensions"
-        | `osd-dimensions/${"w" | "h" | "par" | "aspect" | "mt" | "mb" | "ml" | "mr"}`
-        | "term-size"
-        | `term-size/${"w" | "h"}`
-        | "window-id"
-        | "display-swapchain"
-        | "mouse-pos"
-        | `mouse-pos/${"x" | "y" | "hover"}`
-        | "touch-pos"
-        | "touch-pos/count"
         | `touch-pos/${number}/${"x" | "y" | "id"}`
-        | "tablet-pos"
-        | `tablet-pos/${
-            | "x"
-            | "y"
-            | "tool-in-proximity"
-            | "tool-tip"
-            | `tool-stylus-btn${"1" | "2" | "3"}`
-            | "pad-focus"}`
         | `tablet-pos/pad-btns/${number}`
-        | "sub-ass-extradata"
-        | "sub-text"
-        | `sub-text/${"ass" | "ass-full"}`
-        | "secondary-sub-text"
-        | "sub-start"
-        | "sub-start/full"
-        | "secondary-sub-start"
-        | "sub-end"
-        | "sub-end/full"
-        | "secondary-sub-end"
-        | "playlist-playing-pos"
-        | "playlist-count"
-        | "playlist-path"
-        | "playlist"
-        | "playlist/count"
         | `playlist/${number}/${"filename" | "playing" | "current" | "title" | "id" | "playlist-path"}`
-        | "track-list"
-        | `track-list/${"count" | "video" | "audio" | "sub"}`
-        | `track-list/${number}/${__TrackListSub}` // note: current-track/... is not typed here as the doc is confusing
-        | "seekable"
-        | "partially-seekable"
-        | "playback-abort"
-        | "term-clip-cc"
-        | "osd-sym-cc"
-        | "osd-ass-cc"
-        | "vo-configured"
-        | "vo-passes"
-        | `vo-passes/${"fresh" | "redraw"}/count`
+        | `track-list/${number}/${keyof TrackInfo}`
         | `vo-passes/${"fresh" | "redraw"}/${number}/${
             | "desc"
             | "last"
@@ -290,24 +133,6 @@ declare namespace mp {
             | "peak"
             | "count"
             | `samples/${number}`}`
-        | "perf-info"
-        | `${"video" | "audio" | "sub"}-bitrate`
-        | "audio-device-list"
-        | "current-vo"
-        | "current-gpu-context"
-        | "current-ao"
-        | "working-directory"
-        | "current-watch-later-dir"
-        | "protocol-list"
-        | "decoder-list"
-        | "encoder-list"
-        | "demuxer-lavf-list"
-        | "input-key-list"
-        | "mpv-version"
-        | "mpv-configuration"
-        | "ffmpeg-version"
-        | "libass-version"
-        | "platform"
         | `option-info/${string}`
         | `option-info/${string}/${
             | "name"
@@ -318,94 +143,7 @@ declare namespace mp {
             | "default-value"
             | "min"
             | "max"
-            | "choices"}`
-        | "property-list"
-        | "profile-list"
-        | "command-list"
-        | "input-bindings"
-        | "clipboard"
-        | "current-clipboard-backend"
-        | "clock"
-        // es5 doesn't support string interpolation so Template Literal Types became pointless here.
-        // it was awkward to only realized it after added all these.
-        // now it only provides partial completeions from literal unions and allows any other arbitrary string
-        | (string & {});
-
-    /**
-     * sub property names of track-list/N/
-     * @see https://mpv.io/manual/stable/#command-interface-track-list
-     */
-    type __TrackListSub =
-        | "id"
-        | "type"
-        | "src-id"
-        | "title"
-        | "lang"
-        | "image"
-        | "albumart"
-        | "default"
-        | "forced"
-        | "dependent"
-        | "visual-impaired"
-        | "hearing-impaired"
-        | "hls-bitrate"
-        | "program-id"
-        | "codec"
-        | "codec-desc"
-        | "codec-profile"
-        | "external"
-        | "external-filename"
-        | "selected"
-        | "main-selection"
-        | "ff-index"
-        | "decoder"
-        | "decoder-desc"
-        | `demux-${"w" | "h"}`
-        | `demux-crop-${"x" | "y" | "w" | "h"}`
-        | "demux-channel-count"
-        | `demux-${"channels" | "samplerate" | "fps" | "bitrate" | "rotation" | "par"}`
-        | "format-name"
-        | `replaygain-${"track" | "album"}-${"peak" | "gain"}`
-        | `dolby-vision-${"profile" | "level"}`
-        | "metadata";
-
-    /**
-     * sub property names of video-params/N/
-     * @see https://mpv.io/manual/stable/#command-interface-video-params
-     */
-    type __VideoParamSub =
-        | "pixelformat"
-        | "hw-pixelformat"
-        | "average-bpp"
-        | "w"
-        | "h"
-        | "dw"
-        | "dh"
-        | "crop-x"
-        | "crop-y"
-        | "crop-w"
-        | "crop-h"
-        | "aspect"
-        | "aspect-name"
-        | "par"
-        | "sar"
-        | "sar-name"
-        | "colormatrix"
-        | "colorlevels"
-        | "primaries"
-        | "gamma"
-        | "sig-peak"
-        | "light"
-        | "chroma-location"
-        | "rotate"
-        | "stereo-in"
-        | "min-luma"
-        | "max-luma"
-        | "max-cll"
-        | "max-fall"
-        | `scene-max-${"r" | "g" | "b"}`
-        | `${"max" | "avg"}-pq-y`
-        | `prim-${"red" | "green" | "blue" | "white"}-${"x" | "y"}`;
+            | "choices"}`;
 
     /**
      * @see https://mpv.io/manual/stable/#input-command-prefixes
@@ -423,19 +161,6 @@ declare namespace mp {
         | "nonscalable"
         | "async"
         | "sync";
-
-    /**
-     * Options can be set like properties as well
-     * this is a not completed list of writeable options that can be set/get by `mp.set_property` etc
-     *
-     * see: https://github.com/mpv-player/mpv/blob/33111f3212ee272ac4a79fe284a7b55c9b5be997/DOCS/man/input.rst#property-list
-     *
-     * see also: https://github.com/mpv-player/mpv/blob/33111f3212ee272ac4a79fe284a7b55c9b5be997/DOCS/man/input.rst#inconsistencies-between-options-and-properties
-     */
-    type WriteableOptionName = "fullscreen" | "pause";
-
-    type GetPropertyName = ReadonlyPropertyName | WriteablePropertyName | WriteableOptionName;
-    type SetPropertyName = WriteablePropertyName | WriteableOptionName;
 
     interface OSDOverlay {
         data: string;
@@ -495,7 +220,12 @@ declare namespace mp {
      * Commands have their own dedicated arguments as object properties(namely Named Arguments in the doc)
      * `__return` field is a helper field to represent exceptional return type of the command, it has nothing to do with mpv
      */
+    /**
+     * @see https://mpv.io/manual/stable/#list-of-input-commands
+     * run `mpv --input-cmdlist` to get full list of input commands
+     */
     // TODO: change `name` to `_name`
+    // TODO: move current shape to dedicated `opts` field for command opts, add other properties like `type`, `invocableBy`(to indicate if it support named arguments etc)
     type __CommandInfoUnion =
         | {
             name: "seek";
@@ -1113,6 +843,1752 @@ declare namespace mp {
     // `subprocess` is a special command that could return variants of result shape so it was handled separately instead
 
     /**
+     * @see https://mpv.io/manual/stable/#command-interface-playlist
+     */
+    interface PlaylistItem {
+        /**
+         * Path of the file
+         */
+        filename: string;
+
+        /**
+         * Indicating whether it's the current item
+         */
+        current?: boolean;
+
+        /**
+         * Indicating whether it's playing
+         */
+        playing?: boolean;
+
+        /**
+         * 1-based index of playlist item
+         */
+        id: number;
+
+        /**
+         * Name of the entry.
+         * Available if the playlist file contains such fields and mpv's parser supports it for the given playlist format,
+         * or if the playlist entry has been opened before and a media-title other than filename has been acquired.
+         */
+        title?: string;
+
+        /**
+         * The original path of the playlist for this entry before mpv expanded it.
+         * Unavailable if the file was not originally associated with a playlist in some way.
+         */
+        "playlist-path"?: "-" | (string & {});
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-chapter-list
+     */
+    interface ChapterListItem {
+        /**
+         * time-pos in seconds
+         */
+        time: number;
+        /**
+         * Title of the chapter
+         */
+        title: string;
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-menu-data
+     */
+    interface MenuItem {
+        type: "separator" | "submenu" | "";
+        /**
+         * Required if `type` is not "separator"
+         */
+        title?: string;
+        /**
+         * mpv command to execute when the menu item is clicked.
+         */
+        cmd?: string;
+        /**
+         * Menu item shortcut key which appears to the right of the menu item.
+         * A shortcut key does not have to be functional; it's just a visual hint.
+         */
+        shortcut?: string;
+        /**
+         * Menu item state. Can be: checked, disabled, hidden, or empty.
+         */
+        state?: "checked" | "disabled" | "hidden" | "";
+        /**
+         * Submenu items, which is required if type is "submenu".
+         */
+        submenu?: MenuItem[];
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-edition-list
+     */
+    interface EditionListItem {
+        id: number;
+        title: string;
+        /**
+         * Indicates if this is the default edition for the file
+         */
+        default: boolean;
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-demuxer-cache-state
+     */
+    interface DemuxerCacheState {
+        /**
+         * Each entry in seekable-ranges represents a region in the demuxer cache that can be seeked to, with a `start` and `end` fields containing the respective timestamps.
+         */
+        "seekable-ranges": { start: number; end: number }[];
+        /**
+         * Indicates whether the seek range with the lowest timestamp points to the beginning of the stream (BOF).
+         * This implies you cannot seek before this position at all.
+         */
+        "bof-cached": boolean;
+        /**
+         * Indicates whether the seek range with the highest timestamp points to the end of the stream (EOF).
+         */
+        "eof-cached": boolean;
+        /**
+         * The number of bytes of packets buffered in the range starting from the current decoding position.
+         * This is a rough estimate (may not account correctly for various overhead), and stops at the demuxer position (it ignores seek ranges after it).
+         */
+        "fw-bytes": number;
+        /**
+         * The number of bytes stored in the file cache.
+         * This includes all overhead, and possibly unused data (like pruned data).
+         * This member is missing if the file cache wasn't enabled with `--cache-on-disk=yes`.
+         */
+        "file-cache-bytes"?: number;
+        /**
+         * Equivalent to `demuxer-cache-time` property
+         */
+        "cache-end"?: number;
+        /**
+         * The approximate timestamp of the start of the buffered range.
+         */
+        "reader-pts"?: number;
+        /**
+         * The estimated input rate of the network layer (or any other byte-oriented input layer) in bytes per second.
+         * May be inaccurate or missing.
+         */
+        "raw-input-rate"?: number;
+        "ts-per-stream": {
+            type: "audio" | "video" | "subtitle";
+            "reader-pts"?: number;
+            "cache-end"?: number;
+            "cache-duration"?: number;
+        };
+        /**
+         * Whether the reader thread has hit the end of the file.
+         */
+        eof: boolean;
+        /**
+         * Whether the reader thread could not satisfy a decoder's request for a new packet.
+         */
+        underrun: boolean;
+        /**
+         * Whether the thread is currently not reading.
+         */
+        idle: boolean;
+        /**
+         * Sum of packet bytes (plus some overhead estimation) of the entire packet queue, including cached seekable ranges.
+         */
+        "total-bytes": number;
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-audio-params
+     */
+    interface AudioParam {
+        /**
+         * Number of audio channels.
+         * This is redundant to the `channels` field.
+         */
+        "channel-count": number;
+        /**
+         * The channel layout as a string.
+         * This is similar to what the `--audio-channels` accepts.
+         */
+        channels: string;
+        /**
+         * The sample format as string.
+         * This uses the same names as used in other places of mpv.
+         */
+        format: string;
+        /**
+         * As channels, but instead of the possibly cryptic actual layout sent to the audio device
+         */
+        "hr-channels": string;
+        samplerate: number;
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-video-params
+     */
+    interface VideoParam {
+        /**
+         * The pixel format as string. This uses the same names as used in other places of mpv.
+         */
+        pixelformat: string;
+        /**
+         * The underlying pixel format as string. This is relevant for some cases of hardware decoding and unavailable otherwise.
+         */
+        "hw-pixelformat": string;
+        /**
+         * Video width as integers, with no aspect correction applied.
+         */
+        w: number;
+        /**
+         * Video height as integers, with no aspect correction applied.
+         */
+        h: number;
+        /**
+         * Video width as integers, scaled for correct aspect ratio.
+         */
+        dw: number;
+        /**
+         * Video height as integers, scaled for correct aspect ratio.
+         */
+        dh: number;
+        /**
+         * Crop offset of the source video frame.
+         */
+        "crop-x": number;
+        /**
+         * Crop offset of the source video frame.
+         */
+        "crop-y": number;
+        /**
+         * Video size after cropping.
+         */
+        "crop-w": number;
+        /**
+         * Video size after cropping.
+         */
+        "crop-h": number;
+        /**
+         * Display aspect ratio as double.
+         */
+        aspect: number;
+        /**
+         * Display aspect ratio name as string.
+         * The name corresponds to motion picture film format that introduced given aspect ratio in film.
+         */
+        "aspect-name"?: string;
+        /**
+         * Pixel aspect ratio.
+         */
+        par: number;
+        /**
+         * Storage aspect ratio.
+         */
+        sar: number;
+        /**
+         * Storage aspect ratio name as string.
+         */
+        "sar-name"?: string;
+        /**
+         * The colormatrix in use as string. (Exact values subject to change.)
+         */
+        colormatrix: string;
+        /**
+         * The colorlevels as string. (Exact values subject to change.)
+         */
+        colorlevels: string;
+        /**
+         * The primaries in use as string. (Exact values subject to change.)
+         */
+        primaries: string;
+        /**
+         * The gamma function in use as string. (Exact values subject to change.)
+         */
+        gamma: string;
+        /**
+         * The video file's tagged signal peak as float.
+         */
+        "sig-peak": number;
+        /**
+         * The light type in use as a string. (Exact values subject to change.)
+         */
+        light: string;
+        /**
+         * Chroma location as string. (Exact values subject to change.)
+         */
+        "chroma-location": string;
+        /**
+         * Intended display rotation in degrees (clockwise).
+         */
+        "rotate": number;
+        /**
+         * Source file stereo 3D mode. (See the format video filter's stereo-in option.)
+         */
+        "stereo-in": string;
+        /**
+         * Average bits-per-pixel as integer.
+         * Subsampled planar formats use a different resolution, which is the reason this value can sometimes be odd or confusing. Can be unavailable with some formats.
+         */
+        "average-bpp": number;
+        /**
+         * Alpha type. If the format has no alpha channel, this will be unavailable (but in future releases, it could change to no).
+         * If alpha is present, this is set to straight or premul.
+         */
+        alpha: string;
+        /**
+         * Minimum luminance, as reported by HDR10 metadata (in cd/m²)
+         */
+        "min-luma": number;
+        /**
+         * Maximum luminance, as reported by HDR10 metadata (in cd/m²)
+         */
+        "max-luma": number;
+        /**
+         * Maximum content light level, as reported by HDR10 metadata (in cd/m²)
+         */
+        "max-cll": number;
+        /**
+         * Maximum frame average light level, as reported by HDR10 metadata (in cd/m²)
+         */
+        "max-fall": number;
+        /**
+         * MaxRGB of a scene for R component, as reported by HDR10+ metadata (in cd/m²)
+         */
+        "scene-max-r": number;
+        /**
+         * MaxRGB of a scene for G component, as reported by HDR10+ metadata (in cd/m²)
+         */
+        "scene-max-g": number;
+        /**
+         * MaxRGB of a scene for B component, as reported by HDR10+ metadata (in cd/m²)
+         */
+        "scene-max-b": number;
+        /**
+         * Maximum PQ luminance of a frame, as reported by peak detection (in PQ, 0-1)
+         */
+        "max-pq-y": number;
+        /**
+         * Average PQ luminance of a frame, as reported by peak detection (in PQ, 0-1)
+         */
+        "avg-pq-y": number;
+        /**
+         * Red primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-red-x": number;
+        /**
+         * Red primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-red-y": number;
+        /**
+         * Green primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-green-x": number;
+        /**
+         * Green primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-green-y": number;
+        /**
+         * Blue primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-blue-x": number;
+        /**
+         * Blue primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-blue-y": number;
+        /**
+         * White primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-white-x": number;
+        /**
+         * White primary chromaticity coordinates, available only if differs from `video-params/primaries`
+         */
+        "prim-white-y": number;
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-video-frame-info
+     */
+    interface VideoFrameInfo {
+        /**
+         * The type of the picture. It can be "I" (intra), "P" (predicted), "B" (bi-dir predicted) or unavailable.
+         */
+        "picture-type"?: "I" | "P" | "B";
+        /**
+         * Whether the content of the frame is interlaced.
+         */
+        interlaced: boolean;
+        /**
+         * If the content is interlaced, whether the top field is displayed first.
+         */
+        tff: boolean;
+        /**
+         * Whether the frame must be delayed when decoding.
+         */
+        repeat: boolean;
+        /**
+         * String with the GOP timecode encoded in the frame.
+         */
+        "gop-timecode"?: string;
+        /**
+         * String with the SMPTE timecode encoded in the frame.
+         */
+        "smpte-timecode"?: string;
+        /**
+         * Estimated timecode based on the current playback position and frame count.
+         */
+        "estimated-smpte-timecode": string;
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-osd-dimensions
+     */
+    interface OSDDimensions {
+        /**
+         * Size of the VO window in OSD render units (usually pixels, but may be scaled pixels with VOs like xv).
+         */
+        w: number;
+        /**
+         * Size of the VO window in OSD render units
+         */
+        h: number;
+        /**
+         * Pixel aspect ratio of the OSD (usually 1).
+         */
+        par: number;
+        /**
+         * Display aspect ratio of the VO window. (Computing from the properties above.)
+         */
+        aspect: number;
+        /**
+         * OSD to video margins top. This describes the area into which the video is rendered.
+         */
+        mt: number;
+        /**
+         * OSD to video margins bottom. This describes the area into which the video is rendered.
+         */
+        mb: number;
+        /**
+         * OSD to video margins left. This describes the area into which the video is rendered.
+         */
+        ml: number;
+        /**
+         * OSD to video margins right. This describes the area into which the video is rendered.
+         */
+        mr: number;
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-tablet-pos
+     */
+    interface TabletPosInfo {
+        /**
+         * Last known coordinates of the tablet tool.
+         */
+        x: number;
+        /**
+         * Last known coordinates of the tablet tool.
+         */
+        y: number;
+        /**
+         * Whether a tablet tool is currently in proximity of the tablet surface/hovers above the tablet surface.
+         */
+        "tool-in-proximity": boolean;
+        /**
+         * The state of the tablet tool tip, "up" or "down".
+         */
+        "tool-tip": "up" | "down";
+        /**
+         * The state of tablet tool side buttons, "pressed" or "released".
+         */
+        "tool-stylus-btn1": "pressed" | "released";
+        /**
+         * The state of tablet tool side buttons, "pressed" or "released".
+         */
+        "tool-stylus-btn2": "pressed" | "released";
+        /**
+         * The state of tablet tool side buttons, "pressed" or "released".
+         */
+        "tool-stylus-btn3": "pressed" | "released";
+        /**
+         *  Whether a tablet pad is currently focused.
+         */
+        "pad-focus": boolean;
+        "pad-btns": {};
+    }
+
+    /**
+     * @see https://mpv.io/manual/stable/#command-interface-track-list
+     */
+    interface TrackInfo {
+        /**
+         * The ID as it's used for --sid/--aid/--vid.
+         * This is unique within tracks of the same type (sub/audio/video), but otherwise not.
+         */
+        id: number;
+        /**
+         * String describing the media type. One of "audio", "video", "sub".
+         */
+        type: "audio" | "video" | "sub";
+        /**
+         * Track ID as used in the source file.
+         * It is missing if the format has no native ID, if the track is a pseudo-track that does not exist in this way in the actual file,
+         * or if the format is handled by "libavformat", and the format was not whitelisted as having track IDs.
+         */
+        "src-id"?: number;
+        /**
+         * Track title as it is stored in the file. Not always available.
+         */
+        title?: string;
+        /**
+         * Track language as identified by the file. Not always available.
+         */
+        lang?: string;
+        /**
+         * True if this is a video track that consists of a single picture, false or unavailable otherwise.
+         * The heuristic used to determine if a stream is an image doesn't attempt to detect images in codecs normally used for videos.
+         * Otherwise, it is reliable.
+         */
+        image?: boolean;
+        /**
+         * True if this is an image embedded in an audio file or external cover art, false or unavailable otherwise.
+         */
+        albumart?: boolean;
+        /**
+         * True if the track has the default flag set in the file, false or unavailable otherwise.
+         */
+        default?: boolean;
+        /**
+         * True if the track has the forced flag set in the file, false or unavailable otherwise.
+         */
+        forced: boolean;
+        /**
+         * True if the track has the dependent flag set in the file, false or unavailable otherwise.
+         */
+        dependent?: boolean;
+        /**
+         * True if the track has the visual impaired flag set in the file, false or unavailable otherwise.
+         */
+        "visual-impaired"?: boolean;
+        /**
+         * True if the track has the hearing impaired flag set in the file, false or unavailable otherwise.
+         */
+        "hearing-impaired"?: boolean;
+        /**
+         * The bitrate of the HLS stream, if available.
+         */
+        "hls-bitrate"?: number;
+        /**
+         * The program ID of the HLS stream, if available.
+         */
+        "program-id"?: number;
+        /**
+         * True if the track is currently decoded, false or unavailable otherwise.
+         */
+        selected?: boolean;
+        /**
+         * It indicates the selection order of tracks for the same type.
+         * If a track is not selected, or is selected by the `--lavfi-complex`, it is not available.
+         * For subtitle tracks, 0 represents the sid, and 1 represents the secondary-sid.
+         */
+        "main-selection"?: number;
+        /**
+         * True if the track is an external file, false or unavailable otherwise. This is set for separate subtitle files.
+         */
+        external?: boolean;
+        /**
+         * The filename if the track is from an external file, unavailable otherwise.
+         */
+        "external-filename"?: string;
+        /**
+         * The codec name used by this track, for example h264. Unavailable in some rare cases.
+         */
+        codec: string;
+        /**
+         * The codec descriptive name used by this track.
+         */
+        "codec-desc": string;
+        /**
+         * The codec profile used by this track.
+         * Available only if the track has been already decoded.
+         */
+        "codec-profile"?: string;
+        /**
+         * The stream index as usually used by the FFmpeg utilities.
+         * Note that this can be potentially wrong if a demuxer other than "libavformat" (`--demuxer=lavf`) is used.
+         * For mkv files, the index will usually match even if the default (builtin) demuxer is used, but there is no hard guarantee.
+         */
+        "ff-index": number;
+        /**
+         * If this track is being decoded, the short decoder name,
+         */
+        "decoder"?: string;
+        /**
+         * If this track is being decoded, the human-readable decoder name,
+         */
+        "decoder-desc"?: string;
+        /**
+         * Video width hint as indicated by the container. (Not always accurate.)
+         */
+        "demux-w": number;
+        /**
+         * Video height hint as indicated by the container. (Not always accurate.)
+         */
+        "demux-h": number;
+        /**
+         * Crop offset x of the source video frame.
+         */
+        "demux-crop-x": number;
+        /**
+         * Crop offset y of the source video frame.
+         */
+        "demux-crop-y": number;
+        /**
+         * Video width after cropping.
+         */
+        "demux-crop-w": number;
+        /**
+         * Video height after cropping.
+         */
+        "demux-crop-h": number;
+        /**
+         * Number of audio channels as indicated by the container.
+         * (Not always accurate - in particular, the track could be decoded as a different number of channels.)
+         */
+        "demux-channel-count": number;
+        /**
+         * Channel layout as indicated by the container. (Not always accurate.)
+         */
+        "demux-channels": string;
+        /**
+         * Audio sample rate as indicated by the container. (Not always accurate.)
+         */
+        "demux-samplerate": number;
+        /**
+         * Video FPS as indicated by the container. (Not always accurate.)
+         */
+        "demux-fps": number;
+        /**
+         * Audio average bitrate, in bits per second. (Not always accurate.)
+         */
+        "demux-bitrate": number;
+        /**
+         * Video clockwise rotation metadata, in degrees.
+         */
+        "demux-rotation": number;
+        /**
+         * Pixel aspect ratio.
+         */
+        "demux-par": number;
+        /**
+         * Short name for format from ffmpeg.
+         * If the track is audio, this will be the name of the sample format. If the track is video, this will be the name of the pixel format.
+         */
+        "format-name": string;
+        /**
+         * @deprecated Deprecated alias for `demux-channel-count`.
+         */
+        "audio-channels": number;
+        /**
+         * Per-track replaygain values.
+         * Only available for audio tracks with corresponding information stored in the source file.
+         */
+        "replaygain-track-peak"?: number;
+        /**
+         * Per-track replaygain values.
+         * Only available for audio tracks with corresponding information stored in the source file.
+         */
+        "replaygain-track-gain"?: number;
+        /**
+         * Per-album replaygain values.
+         * If the file has per-track but no per-album information, the per-album values will be copied from the per-track values currently.
+         * It's possible that future mpv versions will make these properties unavailable instead in this case.
+         */
+        "replaygain-album-peak"?: number;
+        /**
+         * Per-album replaygain values.
+         * If the file has per-track but no per-album information, the per-album values will be copied from the per-track values currently.
+         * It's possible that future mpv versions will make these properties unavailable instead in this case.
+         */
+        "replaygain-album-gain"?: number;
+        /**
+         * Dolby Vision profile.
+         * May not be available if the container does not provide this information.
+         */
+        "dolby-vision-profile"?: number;
+        /**
+         * Dolby Vision level.
+         * May not be available if the container does not provide this information.
+         */
+        "dolby-vision-level": number;
+        /**
+         * Works like the metadata property, but it accesses metadata that is set per track/stream instead of global values for the entire file.
+         */
+        metadata: Record<string, string>;
+    }
+
+    interface VOPass {
+        /**
+         * Human-friendy description of the pass.
+         */
+        desc: string;
+        /**
+         * Last measured execution time, in nanoseconds.
+         */
+        last: number;
+        /**
+         * Average execution time of this pass, in nanoseconds. The exact timeframe varies, but it should generally be a handful of seconds.
+         */
+        avg: number;
+        /**
+         * The peak execution time (highest value) within this averaging range, in nanoseconds.
+         */
+        peak: number;
+        /**
+         * The number of samples for this pass.
+         */
+        count: number;
+        /**
+         * The raw execution time of a specific sample for this pass, in nanoseconds.
+         */
+        samples: number[];
+    }
+
+    interface CommandInfo {
+        /**
+         * The name of the command.
+         */
+        name: string;
+        /**
+         * Whether the command accepts a variable number of arguments.
+         */
+        vararg: boolean;
+        args: {
+            name: CommandName | (string & {});
+            /**
+             * The name of the argument type, like "String" or "Integer".
+             */
+            type: // values observed from mp.get_property_native('command-list')
+                | "Time"
+                | "Flags"
+                | "Choice"
+                | "Integer"
+                | "String"
+                | "Flag"
+                | "Key/value list"
+                | "String list"
+                | "ByteSize"
+                | "Double"
+                | "up|down"
+                | "Integer64"
+                | (string & {});
+            /**
+             * Whether the argument is optional.
+             */
+            optional: boolean;
+        }[];
+    }
+
+    interface InputBindingInfo {
+        /**
+         * The key name. This is normalized and may look slightly different from how it was specified in the source (e.g. in input.conf).
+         */
+        key: string;
+        /**
+         * The command mapped to the key.
+         * (Currently, this is exactly the same string as specified in the source, other than stripping whitespace and comments.
+         * It's possible that it will be normalized in the future.)
+         */
+        cmd: string;
+        /**
+         * If set to true, any existing and active user bindings will take priority.
+         */
+        is_weak: boolean;
+        /**
+         * If this entry exists, the name of the script (or similar) which added this binding.
+         */
+        owner?: string;
+        /**
+         * A number. Bindings with a higher value are preferred over bindings with a lower value.
+         * If the value is negative, this binding is inactive and will not be triggered by input.
+         * Note that mpv does not use this value internally, and matching of bindings may work slightly differently in some cases.
+         * In addition, this value is dynamic and can change around at runtime.
+         */
+        priority: number;
+        /**
+         * Name of the section this binding is part of. This is a rarely used mechanism.
+         * This entry may be removed or change meaning in the future.
+         */
+        section: string;
+        /**
+         * If available, the comment following the command on the same line.
+         * For example, the input.conf entry `f cycle bla # toggle bla` would result in an entry with `comment = "toggle bla", cmd = "cycle bla"`.
+         */
+        comment?: string;
+    }
+
+    // use property `name` as discriminator
+    type __PropertyInfoUnion =
+        | {
+            name: "time-pos";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "time-pos/full";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "percent-pos";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "playback-time";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "playback-time/full";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "chapter";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "edition";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "ao-volume";
+            type: number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "ao-mute";
+            type: boolean | undefined;
+            readonly: false;
+        }
+        | {
+            name: "hwdec";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "current-window-scale";
+            type: number | undefined; // undefined when video stream is absent
+            readonly: false;
+        }
+        | {
+            name: "playlist-pos";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "playlist-pos-1";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "playlist-current-pos";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "chapter-list";
+            type: ChapterListItem[];
+            readonly: false;
+        }
+        | {
+            name: "chapter-list/count";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "af";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "vf";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "cursor-autohide"; // see --cursor-autohide
+            type: "no" | "always" | number;
+            readonly: false;
+        }
+        | {
+            name: "audio-device";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "user-data";
+            type: unknown;
+            readonly: false;
+        }
+        | {
+            name: "user-data/osc/margins";
+            type: { l: number; r: number; t: number; b: number };
+            readonly: false;
+        }
+        | {
+            name: "user-data/mpv/ytdl/path";
+            type: string | undefined;
+            readonly: false;
+        }
+        | {
+            name: "user-data/mpv/ytdl/json-subprocess-result";
+            type: SubprocessResultWithStd | undefined;
+            readonly: false;
+        }
+        | {
+            name: "user-data/mpv/console/open";
+            type: boolean | undefined;
+            readonly: false;
+        }
+        | {
+            name: "menu-data";
+            type: MenuItem[];
+            readonly: false;
+        }
+        | {
+            name: "audio-speed-correction";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "video-speed-correction";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "display-sync-active";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "filename";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "filename/no-ext";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "file-size";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "estimated-frame-count";
+            type: number | undefined; // undefined if video stream is absent
+            readonly: true;
+        }
+        | {
+            name: "estimated-frame-number";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "pid";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "path";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "stream-open-filename";
+            type: string | number;
+            readonly: true;
+        }
+        | {
+            name: "media-title";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "file-format";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "current-demuxer";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "stream-path";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "stream-pos";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "stream-end";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "duration";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "duration/full";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "avsync";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "total-avsync-change";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "decoder-frame-drop-count";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "frame-drop-count";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "mistimed-frame-count";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "vsync-ratio";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "vo-delayed-frame-count";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "time-start";
+            type: 0;
+            readonly: true;
+        }
+        | {
+            name: "time-remaining";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "time-remaining/full";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "audio-pts";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "audio-pts/full";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "playtime-remaining";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "playtime-remaining/full";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "current-edition";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "chapters";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "editions";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "edition-list";
+            type: EditionListItem[] | undefined;
+            readonly: true;
+        }
+        | {
+            name: "edition-list/count";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "metadata";
+            type: Record<string, string> | undefined;
+            readonly: true;
+        }
+        | {
+            name: "metadata/list/count";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "filtered-metadata";
+            type: Record<string, string> | undefined;
+            readonly: true;
+        }
+        | {
+            name: "chapter-metadata";
+            type: Record<"title" | (string & {}), string> | undefined;
+            readonly: true;
+        }
+        | {
+            name: "deinterlace-active";
+            type: boolean | undefined;
+            readonly: true;
+        }
+        | {
+            name: "idle-active";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "core-idle";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "cache-speed";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "demuxer-cache-duration";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "demuxer-cache-time";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "demuxer-cache-idle";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "demuxer-cache-state";
+            type: DemuxerCacheState | undefined;
+            readonly: true;
+        }
+        | {
+            name: "demuxer-via-network";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "demuxer-start-time";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "paused-for-cache";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "cache-buffering-state";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "eof-reached";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "seeking";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "mixer-active";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "audio-params";
+            type: AudioParam | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"audio-params", AudioParam>
+        | {
+            name: "audio-out-params";
+            type: AudioParam | undefined;
+            readonly: true;
+        }
+        | {
+            name: "colormatrix";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "colormatrix-input-range";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "colormatrix-primaries";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "hwdec-current";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "hwdec-interop";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "width";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "height";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "video-params";
+            type: VideoParam | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"video-params", VideoParam>
+        | {
+            name: "dwidth";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "dheight";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "video-dec-params";
+            type: VideoParam | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"video-dec-params", VideoParam>
+        | {
+            name: "video-out-params";
+            type: VideoParam | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"video-out-params", VideoParam>
+        | {
+            name: "video-target-params";
+            type: VideoParam | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"video-target-params", VideoParam>
+        | {
+            name: "video-frame-info";
+            type: VideoFrameInfo | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"video-frame-info", VideoFrameInfo>
+        | {
+            name: "container-fps";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "estimated-vf-fps";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "focused";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "ambient-light";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "display-names";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "display-fps";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "estimated-display-fps";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "vsync-jitter";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "display-width";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "display-height";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "display-hidpi-scale";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "osd-width";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "osd-height";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "osd-par";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "osd-dimensions";
+            type: OSDDimensions;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"osd-dimensions", OSDDimensions>
+        | {
+            name: "term-size";
+            type: { w: number; h: number };
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"term-size", { w: number; h: number }>
+        | {
+            name: "window-id";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "display-swapchain";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "mouse-pos";
+            type: { x: number; y: number; hover: boolean };
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"mouse-pos", { x: number; y: number; hover: boolean }>
+        | {
+            name: "touch-pos";
+            type: { id: number; x: number; y: number }[];
+            readonly: true;
+        }
+        | {
+            name: "touch-pos/count";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "tablet-pos";
+            type: TabletPosInfo;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"tablet-pos", TabletPosInfo>
+        | {
+            name: "sub-ass-extradata";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-text";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-text/ass";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-text/ass-full";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "secondary-sub-text";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-start";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-start/full";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "secondary-sub-start";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-end";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-end/full";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "secondary-sub-end";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "playlist-playing-pos";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "playlist-count";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "playlist-path";
+            type: "-" | (string & {}) | undefined;
+            readonly: true;
+        }
+        | {
+            name: "playlist";
+            type: PlaylistItem[];
+            readonly: true;
+        }
+        | {
+            name: "playlist/count";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "track-list";
+            type: TrackInfo[];
+            readonly: true;
+        }
+        | {
+            name: "track-list/count";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "current-tracks/video";
+            type: TrackInfo | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"current-tracks/video", TrackInfo>
+        | {
+            name: "current-tracks/audio";
+            type: TrackInfo | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"current-tracks/audio", TrackInfo>
+        | {
+            name: "current-tracks/sub";
+            type: TrackInfo | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"current-tracks/sub", TrackInfo>
+        | {
+            name: "current-tracks/sub2";
+            type: TrackInfo | undefined;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"current-tracks/sub2", TrackInfo>
+        | {
+            name: "seekable";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "seekable";
+            type: boolean | undefined;
+            readonly: true;
+        }
+        | {
+            name: "partially-seekable";
+            type: boolean | undefined;
+            readonly: true;
+        }
+        | {
+            name: "playback-abort";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "term-clip-cc";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "osd-sym-cc";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "osd-ass-cc";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "vo-configured";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "vo-passes";
+            type: { redraw: VOPass[]; fresh: VOPass[] };
+            readonly: true;
+        }
+        | {
+            name: "vo-passes/redraw";
+            type: VOPass[];
+            readonly: true;
+        }
+        | {
+            name: "vo-passes/redraw/count";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "vo-passes/fresh";
+            type: VOPass[];
+            readonly: true;
+        }
+        | {
+            name: "vo-passes/fresh/count";
+            type: number;
+            readonly: true;
+        }
+        | {
+            name: "video-bitrate";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "audio-bitrate";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-bitrate";
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: "audio-device-list";
+            type: { name: "auto" | (string & {}); description: string }[];
+            readonly: true;
+        }
+        | {
+            name: "current-vo";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "current-gpu-context";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "current-ao";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "working-directory";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "current-watch-later-dir";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "protocol-list";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "decoder-list";
+            type: { codec: string; driver: string; description: string }[];
+            readonly: true;
+        }
+        | {
+            name: "encoder-list";
+            type: { codec: string; driver: string; description: string }[];
+            readonly: true;
+        }
+        | {
+            name: "demuxer-lavf-list";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "input-key-list";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "mpv-version";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "mpv-configuration";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "ffmpeg-version";
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: "libass-version";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "platform";
+            type: "windows" | "linux" | "darwin" | "android" | "freebsd" | (string & {});
+            readonly: true;
+        }
+        | {
+            name: "property-list";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "profile-list";
+            type: { name: string; options: { key: string; value: string }[] }[];
+            readonly: true;
+        }
+        | {
+            name: "command-list";
+            type: CommandInfo[];
+            readonly: true;
+        }
+        | {
+            name: "input-bindings";
+            type: InputBindingInfo[];
+            readonly: true;
+        }
+        | {
+            name: "clipboard";
+            type: { text: string; "text-primary": string };
+            readonly: false;
+        }
+        | __PropertyInfoFromType<"clipboard", { text: string; "text-primary": string }, false, false>
+        | {
+            name: "current-clipboard-backend";
+            type: "win32" | "mac" | "x11" | "wayland" | "vo";
+            readonly: true;
+        }
+        | {
+            name: "clock";
+            type: string;
+            readonly: true;
+        };
+
+    // some sub-properties are just properties of its main-property type
+    type __PropertyInfoFromType<
+        TPrefix extends string, // super property name e.g. "video-params"
+        TSuper extends {}, // the super property type e.g. mp.VideoParam for "video-params/" property
+        TReadonly extends boolean = true, // if the super property is readonly its sub-properties should be readonly as well
+        TOptional extends boolean = true, // if the super property is optional its sub-properties should be optional as well
+    > = {
+        // exclude non-string key here, not possible to constraint this on TSuper
+        [K in string & keyof TSuper]: {
+            name: `${TPrefix}/${K}`; // e.g. "video-params/aspect"
+            type: TSuper[K] | (TOptional extends true ? undefined : never);
+            readonly: TReadonly;
+        };
+    }[string & keyof TSuper];
+
+    /**
+     * Options can be set like properties as well
+     * this is a not completed list of writeable options that can be set/get by `mp.set_property` etc
+     *
+     * see: https://github.com/mpv-player/mpv/blob/33111f3212ee272ac4a79fe284a7b55c9b5be997/DOCS/man/input.rst#property-list
+     *
+     * see also: https://github.com/mpv-player/mpv/blob/33111f3212ee272ac4a79fe284a7b55c9b5be997/DOCS/man/input.rst#inconsistencies-between-options-and-properties
+     */
+    type __OptionInfoUnion = {
+        name: "fullscreen";
+        type: boolean;
+        readonly: false;
+    } | {
+        name: "pause";
+        type: boolean;
+        readonly: false;
+    };
+
+    /**
      * Base result when only `opts.name = 'subprocess'` and `opts.args` is specified
      */
     interface SubprocessResultBase {
@@ -1132,7 +2608,7 @@ declare namespace mp {
         error_string: "" | "killed" | "init";
         /**
          * Whether the process has been killed by mpv, for example as a result of `playback_only` being set to true, aborting the command
-         * (e.g. by mp.abort_async_command()), or if the player is about to exit.
+         * (e.g. by `mp.abort_async_command()`), or if the player is about to exit.
          */
         killed_by_us: boolean;
     }
@@ -1175,11 +2651,11 @@ declare namespace mp {
     /**
      * Commands that can only be invoked by Named Arguments
      */
-    type NamedArgumentsOnlyCommand = "subprocess";
+    type NamedArgumentsOnlyCommand = "subprocess"; // TODO: add helper property in __CommandInfoUnion instead, don't do explicit listing
     /**
      * Commands that can only be invoked by mpv command syntax
      */
-    type SyntaxOnlyCommand = "run" | "script-message" | "script-message-to" | "cycle-values";
+    type SyntaxOnlyCommand = "run" | "script-message" | "script-message-to" | "cycle-values"; // TODO: add helper property in __CommandInfoUnion instead, don't do explicit listing
 
     function command(command: string): true | undefined;
 
@@ -1310,16 +2786,41 @@ declare namespace mp {
      */
     function del_property(name: string): true | undefined;
 
-    /**
-     * Return the value of the given property as string.
-     *
-     * These are the same properties as used in `input.conf`. See Properties for a list of properties.
-     *
-     * The returned string is formatted similar to `${=name}` (see Property Expansion).
-     *
-     * Returns the string on success, or `def` on error. `def` is the second parameter provided to the function, and is `undefined` if it's missing.
-     */
-    function get_property(name: GetPropertyName, def: string): string;
+    type SettablePropertyName = Extract<__PropertyInfoUnion | __OptionInfoUnion, { readonly: false }>["name"];
+    type GettablePropertyName = __PropertyInfoUnion["name"] | __OptionInfoUnion["name"];
+    type BooleanPropertyName = Extract<__PropertyInfoUnion | __OptionInfoUnion, { type: boolean | undefined }>["name"];
+    type NumberPropertyName = Extract<__PropertyInfoUnion | __OptionInfoUnion, { type: number | undefined }>["name"];
+
+    type WriteableBooleanPropertyName = Extract<
+        __PropertyInfoUnion | __OptionInfoUnion,
+        { readonly: false; type: boolean | undefined }
+    >["name"];
+
+    type WriteableNumberPropertyName = Extract<
+        __PropertyInfoUnion | __OptionInfoUnion,
+        { readonly: false; type: number | undefined }
+    >["name"];
+
+    // mp.get_property can basically accept every property name so we should handle every case
+    type GetStringPropertyType<N extends string> = Extract<
+        __PropertyInfoUnion | __OptionInfoUnion,
+        { name: N }
+    > extends infer P ? [P] extends [never] ? string | undefined // Extract returns never when property is unknown, which should return string | undefined
+        : P extends { type: infer T } ? boolean extends T ? "yes" | "no" | (undefined extends T ? undefined : never)
+            : Exclude<T, undefined> extends string ? T // don't loose type even though it's string
+            : string | (undefined extends T ? undefined : never) // for numbers and native
+        : never
+        : never;
+
+    // TElse as the return type when name: P is not found in the union
+    type GetPropertyTypeOr<P extends string, TElse> =
+        Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: P }> extends infer P
+            ? [P] extends [never] ? TElse : P extends { type: infer T } ? T
+            : never
+            : never;
+
+    // TODO: for get_property_* functions with def fallback, when the property is always non-null(meaning it never fail to get a valid value)
+    // it should not include the D case(fail case), just write a helper conditional type for this(name it like FallbackOnNullable<P, D>)
 
     /**
      * Return the value of the given property as string.
@@ -1330,38 +2831,56 @@ declare namespace mp {
      *
      * Returns the string on success, or `undefined` on error.
      */
-    function get_property(name: GetPropertyName): string | undefined;
+    function get_property<P extends GettablePropertyName | (string & {})>(
+        name: P,
+    ): GetStringPropertyType<P>;
+
+    function get_property<P extends GettablePropertyName | (string & {}), D>(
+        name: P,
+        def: D | GetStringPropertyType<P>, // def can be any type, this union helps to get completions for expected property type
+    ): NonNullable<GetStringPropertyType<P>> | D; // success | fail
 
     /**
-     * Similar to mp.get_property, but return the property value formatted for OSD.
+     * Similar to `mp.get_property`, but return the property value formatted for OSD.
+     *
+     * This is the same string as printed with `${name}` when used in `input.conf`.
+     *
+     * Returns the string on success, or `undefined` on error.
+     * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
+     */
+    function get_property_osd<P extends GettablePropertyName | (string & {})>(
+        name: P,
+    ): GetStringPropertyType<P>;
+
+    /**
+     * Similar to `mp.get_property`, but return the property value formatted for OSD.
      *
      * This is the same string as printed with `${name}` when used in `input.conf`.
      *
      * Returns the string on success, or `def` on error. `def` is the second parameter provided to the function, and is an empty string if it's missing.
      * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
      */
-    function get_property_osd(name: GetPropertyName, def?: string): string;
-
-    /**
-     * Similar to `mp.get_property`, but return the property value as Boolean.
-     * Returns a Boolean on success, or `def`
-     */
-    function get_property_bool(name: GetPropertyName, def: boolean): boolean;
+    function get_property_osd<P extends GettablePropertyName | (string & {}), D>(
+        name: P,
+        def: D | GetStringPropertyType<P>,
+    ): NonNullable<GetStringPropertyType<P>> | D; // success | fail
 
     /**
      * Similar to `mp.get_property`, but return the property value as Boolean.
      * Returns a Boolean on success, `undefined` on error
      */
-    function get_property_bool(name: GetPropertyName): boolean | undefined;
+    function get_property_bool<P extends BooleanPropertyName | (string & {})>(
+        name: P,
+    ): GetPropertyTypeOr<P, boolean | undefined>;
 
     /**
-     * Similar to `mp.get_property`, but return the property value as number.
-     *
-     * Note that while js does not distinguish between integers and floats, mpv internals do.
-     * This function simply request a double float from mpv, and mpv will usually convert integer property values to float.
-     * Returns a number on success, or `def`
+     * Similar to `mp.get_property`, but return the property value as Boolean.
+     * Returns a Boolean on success, or `def`
      */
-    function get_property_number(name: GetPropertyName, def: number): number;
+    function get_property_bool<P extends BooleanPropertyName | (string & {}), D>(
+        name: P,
+        def: D | GetPropertyTypeOr<P, D>, // def can be any type, this union helps to get completions for expected property type
+    ): NonNullable<GetPropertyTypeOr<P, boolean>> | D; // success | fail
 
     /**
      * Similar to `mp.get_property`, but return the property value as number.
@@ -1370,31 +2889,68 @@ declare namespace mp {
      * This function simply request a double float from mpv, and mpv will usually convert integer property values to float.
      * Returns a number on success, `undefined` on error
      */
-    function get_property_number(name: GetPropertyName): number | undefined;
+    function get_property_number<P extends NumberPropertyName | (string & {})>(
+        name: P,
+    ): GetPropertyTypeOr<P, number | undefined>;
 
     /**
-     * Similar to `mp.get_property`, but return the property value using the best Lua type for the property.
+     * Similar to `mp.get_property`, but return the property value as number.
+     *
+     * Note that while js does not distinguish between integers and floats, mpv internals do.
+     * This function simply request a double float from mpv, and mpv will usually convert integer property values to float.
+     * Returns a number on success, or `def`
+     */
+    function get_property_number<P extends NumberPropertyName | (string & {}), D>(
+        name: P,
+        def: D | GetPropertyTypeOr<P, D>, // def can be any type, this union helps to get completions for expected property type
+    ): NonNullable<GetPropertyTypeOr<P, number>> | D; // success | fail
+
+    /**
+     * Similar to `mp.get_property`, but return the property value using the best type for the property.
+     *
+     * Most time, this will return a `string`, `boolean`, or `number`.
+     * Some properties (for example `chapter-list`) are returned as list.
+     * Returns a value on success, or `undefined`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
+     */
+    function get_property_native<P extends GettablePropertyName | (string & {})>(
+        name: P,
+    ): GetPropertyTypeOr<P, unknown>;
+
+    /**
+     * Similar to `mp.get_property`, but return the property value using the best type for the property.
      *
      * Most time, this will return a `string`, `boolean`, or `number`.
      * Some properties (for example `chapter-list`) are returned as list.
      * Returns a value on success, or `def`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
      */
-    function get_property_native(name: GetPropertyName, def?: unknown): unknown;
+    function get_property_native<P extends GettablePropertyName | (string & {}), D>(
+        name: P,
+        def: D | GetPropertyTypeOr<P, D>, // def can be any type, this union helps to get completions for expected property type
+    ): NonNullable<GetPropertyTypeOr<P, unknown>> | D; // success | fail
 
-    function get_property_native(name: GetPropertyName): unknown;
-
+    // NOTE: mp.set_property can handle most of properties, except those with non-primitive type such as `chapter-list`
     /**
      * Set the given property to the given string value.
      *
      * See `mp.get_property` and Properties for more information about properties.
      * Returns `true` on success, or `undefined` on error.
      */
-    function set_property(name: SetPropertyName, value: string): true | undefined;
+    function set_property<
+        P extends
+            | Extract<
+                __PropertyInfoUnion | __OptionInfoUnion,
+                { readonly: false; type: string | number | boolean | undefined } // it can only handle properties with primitive value
+            >["name"]
+            | (string & {}),
+    >(name: P, value: NonNullable<GetStringPropertyType<P>>): true | undefined;
 
     /**
      * Similar to `mp.set_property`, but set the given property to the given Boolean value.
      */
-    function set_property_bool(name: SetPropertyName, value: boolean): true | undefined;
+    function set_property_bool<P extends WriteableBooleanPropertyName | (string & {})>(
+        name: P,
+        value: NonNullable<GetPropertyTypeOr<P, boolean>>,
+    ): true | undefined;
 
     /**
      * Similar to `mp.set_property`, but set the given property to the given numeric value.
@@ -1402,7 +2958,10 @@ declare namespace mp {
      * Note that while Lua does not distinguish between integers and floats, mpv internals do.
      * This function will test whether the number can be represented as integer, and if so, it will pass an integer value to mpv, otherwise a double float.
      */
-    function set_property_number(name: SetPropertyName, value: number): true | undefined;
+    function set_property_number<P extends WriteableNumberPropertyName | (string & {})>(
+        name: P,
+        value: NonNullable<GetPropertyTypeOr<P, number>>,
+    ): true | undefined;
 
     /**
      * Similar to `mp.set_property`, but set the given property using its native type.
@@ -1415,7 +2974,10 @@ declare namespace mp {
      *
      * For these reasons, this function **should probably be avoided for now**, except for properties that use tables natively.
      */
-    function set_property_native(name: SetPropertyName, value: unknown): true | undefined;
+    function set_property_native<P extends SettablePropertyName>(
+        name: P,
+        value: NonNullable<GetPropertyTypeOr<P, unknown>>,
+    ): true | undefined;
 
     /**
      * Return the current mpv internal time in seconds as a number.
@@ -1622,12 +3184,12 @@ declare namespace mp {
      */
     function unregister_event(fn: (...args: unknown[]) => void): void;
 
-    interface __ObservablePropertyTypeMap {
-        bool: boolean;
-        number: number;
-        string: string;
-        native: unknown;
-    }
+    type GetObservedValueType<T extends "bool" | "number" | "string" | "native", P extends string> = T extends "bool"
+        ? GetPropertyTypeOr<P, boolean | undefined>
+        : T extends "number" ? GetPropertyTypeOr<P, number | undefined>
+        : T extends "string" ? GetStringPropertyType<P>
+        : T extends "native" ? GetPropertyTypeOr<P, unknown>
+        : never;
 
     /**
      * Watch a property for changes.
@@ -1648,16 +3210,19 @@ declare namespace mp {
      *
      * You always get an initial change notification. This is meant to initialize the user's state to the current value of the property.
      */
-    function observe_property<TType extends keyof __ObservablePropertyTypeMap>(
-        name: WriteablePropertyName | ReadonlyPropertyName | WriteableOptionName,
-        type: TType,
-        fn: (name: string, value: __ObservablePropertyTypeMap[TType] | undefined) => void,
+    function observe_property<
+        T extends "bool" | "number" | "string" | "native",
+        P extends GettablePropertyName | (string & {}),
+    >(
+        name: P,
+        type: T,
+        fn: (name: NoInfer<P>, value: GetObservedValueType<T, P>) => void,
     ): void;
 
-    function observe_property(
-        name: WriteablePropertyName | ReadonlyPropertyName | WriteableOptionName,
+    function observe_property<P extends GettablePropertyName | (string & {})>(
+        name: P,
         type: "none" | undefined,
-        fn: (name: string) => void,
+        fn: (name: NoInfer<P>) => void,
     ): void;
 
     /**
