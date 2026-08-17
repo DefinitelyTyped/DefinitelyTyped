@@ -38,6 +38,7 @@ const client = new Client({
     password: "secretpassword!!",
     application_name: "DefinitelyTyped",
     keepAlive: true,
+    enableChannelBinding: true,
     ssl: true,
     sslnegotiation: "direct",
     pipeline: true,
@@ -270,6 +271,7 @@ const pool = new Pool({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     keepAlive: false,
+    enableChannelBinding: true,
     lock_timeout: 5000,
     log: (...args) => {
         console.log.apply(console, args);
