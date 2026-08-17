@@ -2796,15 +2796,48 @@ declare namespace mp {
         { readonly: false; type: number | undefined }
     >["name"];
 
-    // mp.get_property can basically accept every property name so we should handle every case
-    type GetStringPropertyType<N extends string> = Extract<
-        __PropertyInfoUnion | __OptionInfoUnion,
-        { name: N }
-    > extends infer P ? [P] extends [never] ? string | undefined // Extract returns never when property is unknown, which should return string | undefined
-        : P extends { type: infer T } ? boolean extends T ? "yes" | "no" | (undefined extends T ? undefined : never)
-            : Exclude<T, undefined> extends string ? T // don't loose type even though it's string
-            : string | (undefined extends T ? undefined : never) // for numbers and native
+    /**
+     * Returns `undefined` only if T is possibly `undefined` and `TUndefinable` is true
+     */
+    // dprint-ignore
+    type __UndefinedIf<T, TUndefinable extends boolean> = TUndefinable extends true
+      ? undefined extends T
+        ? undefined
         : never
+      : never;
+
+    // mp.get_property can basically accept every property name so we should handle every case
+    // NOTE: `TUndefinable` is for explicit control on whether it could include undefined case
+    // this is needed because I want to preserve completions for string cases of mp.set_property value
+    // but external `NonNullable<GetStringPropertyType<>>` loose everything into any string if it contains `(string & {})`
+    // so I have to handle the conditional undefined case internally using a dedicated type parameter TUndefinable
+    // dprint-ignore
+    type GetStringPropertyType<
+      N extends string,
+      TUndefinable extends boolean = true,
+    > =
+      Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: N }> extends infer P
+        ? [P] extends [never]
+          ? string | __UndefinedIf<undefined, TUndefinable> // if property not found
+          : P extends { type: infer T }
+            ? Extract<T, string> extends never // T is not any string here
+              ? boolean extends T
+                ?
+                    | "yes"
+                    | "no"
+                    | (Exclude<T, boolean | undefined> extends never
+                        ? never
+                        : string & {}) // if it has something other than boolean, should preserve completions
+                    | __UndefinedIf<T, TUndefinable>
+                : string | __UndefinedIf<T, TUndefinable> // neither a string nor boolean i.e. number/object types
+              : // T has string case here
+                  | Extract<T, string> // include every string case
+                  | (boolean extends T ? "yes" | "no" : never) // convert boolean to string case
+                  | (Exclude<T, string | boolean | undefined> extends never
+                      ? never
+                      : string & {}) // if it has something other than string and boolean, do preserve completions
+                  | __UndefinedIf<T, TUndefinable>
+            : never
         : never;
 
     // TElse as the return type when name: P is not found in the union
@@ -2937,7 +2970,7 @@ declare namespace mp {
                 { readonly: false; type: string | number | boolean | undefined } // it can only handle properties with primitive value
             >["name"]
             | (string & {}),
-    >(name: P, value: NonNullable<GetStringPropertyType<P>>): true | undefined;
+    >(name: P, value: GetStringPropertyType<P, false>): true | undefined;
 
     /**
      * Similar to `mp.set_property`, but set the given property to the given Boolean value.
@@ -2969,7 +3002,7 @@ declare namespace mp {
      *
      * For these reasons, this function **should probably be avoided for now**, except for properties that use tables natively.
      */
-    function set_property_native<P extends SettablePropertyName>(
+    function set_property_native<P extends SettablePropertyName | (string & {})>(
         name: P,
         value: NonNullable<GetPropertyTypeOr<P, unknown>>,
     ): true | undefined;
