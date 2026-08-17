@@ -581,6 +581,7 @@ declare namespace Autodesk {
                 successCallback: (doc: Document) => void,
                 errorCallback: (errorCode: ErrorCodes, errorMsg: string, messages: any[]) => void,
                 accessControlProperties?: any,
+                options?: object,
             ): void;
 
             downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
