@@ -39,20 +39,36 @@ export function isSpace(code: number): boolean;
 export function isWhiteSpace(code: number): boolean;
 
 /**
- * Markdown ASCII punctuation characters.
+ * Markdown [ASCII punctuation characters](https://spec.commonmark.org/0.31.2/#ascii-punctuation-character).
  *
- * !, ", #, $, %, &, ', (, ), *, +, ,, -, ., /, :, ;, <, =, >, ?, @, [, \, ], ^, _, `, {, |, }, or ~
+ * !, ", #, $, %, &, ', (, ), *, +, ,, -, ., /, :, ;, <, =, >, ?, \@, [, \\, ], ^, _, `, {, |, }, or ~
  *
- * Don't confuse with unicode punctuation !!! It lacks some chars in ascii range.
+ * {@link isPunctChar} is missing some ASCII punctuation chars in < 14.1.0.
+ * This is consistent with CommonMark 0.30 and older behavior, where the range of ASCII punctuation
+ * characters was not fully contained in that of
+ * [Unicode punctuation characters](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character).
  *
- * @see http://spec.commonmark.org/0.15/#ascii-punctuation-character
+ * In >= 14.1.0 (compliant with CommonMark 0.31.2), {@link isPunctChar} includes all ASCII punctuation characters,
+ * so combining {@link isMdAsciiPunct} with {@link isPunctChar} is only for backwards compatibility or
+ * to try to provide a fast path for ASCII ranges.
+ *
+ * @see https://spec.commonmark.org/0.31.2/changes.html#part-4
  */
 export function isMdAsciiPunct(code: number): boolean;
 
 /**
- * Currently without astral characters support.
+ * [Unicode punctuation characters](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character).
+ *
+ * Astral (supplementary) characters support requires >= 14.2.0.
  */
 export function isPunctChar(ch: string): boolean;
+
+/**
+ * [Unicode punctuation characters](https://spec.commonmark.org/0.31.2/#unicode-punctuation-character).
+ *
+ * Added in 14.2.0. Supports astral (supplementary) characters.
+ */
+export function isPunctCharCode(code: number): boolean;
 
 export function escapeRE(str: string): string;
 
