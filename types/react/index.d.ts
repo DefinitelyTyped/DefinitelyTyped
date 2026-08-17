@@ -4174,8 +4174,7 @@ declare namespace React {
         interface IntrinsicAttributes extends React.Attributes {}
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> {}
 
-        interface IntrinsicElements {
-            // HTML
+        interface IntrinsicHTMLElements {
             a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
             abbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             address: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
@@ -4295,8 +4294,9 @@ declare namespace React {
             video: React.DetailedHTMLProps<React.VideoHTMLAttributes<HTMLVideoElement>, HTMLVideoElement>;
             wbr: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
             webview: React.DetailedHTMLProps<React.WebViewHTMLAttributes<HTMLWebViewElement>, HTMLWebViewElement>;
+        }
 
-            // SVG
+        interface IntrinsicSVGElements {
             svg: React.SVGProps<SVGSVGElement>;
 
             animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
@@ -4358,6 +4358,8 @@ declare namespace React {
             use: React.SVGProps<SVGUseElement>;
             view: React.SVGProps<SVGViewElement>;
         }
+
+        interface IntrinsicElements extends IntrinsicHTMLElements, IntrinsicSVGElements {}
     }
 }
 
