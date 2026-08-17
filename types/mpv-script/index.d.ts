@@ -2360,11 +2360,6 @@ declare namespace mp {
         | __PropertyInfoFromType<"current-tracks/sub2", TrackInfo>
         | {
             name: "seekable";
-            type: boolean;
-            readonly: true;
-        }
-        | {
-            name: "seekable";
             type: boolean | undefined;
             readonly: true;
         }
