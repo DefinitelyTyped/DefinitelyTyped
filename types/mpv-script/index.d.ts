@@ -2672,28 +2672,41 @@ declare namespace mp {
     //   1. some commands can only be invoked by array-like overload `command_native(array)` such as `run`
     //   1. some commands can only be invoked by `command_native(opts)` overload(namely named arguments) such as `subprocess`
 
-    type CommandOptsUnion = __CommandInfoUnion extends infer U ? U extends { __return: any } ? Omit<U, "__return">
+    // dprint-ignore
+    type CommandOptsUnion = __CommandInfoUnion extends infer U
+      ? U extends { __return: any }
+        ? Omit<U, "__return">
         : U
-        : never;
+      : never;
 
+    // dprint-ignore
     type GetCommonCommandResult<TOpts extends { name: string }> =
-        Extract<__CommandInfoUnion, { name: TOpts["name"] }> extends { __return: infer R } ? R
-            : null | undefined; // null on success, undefined on error
+      Extract<__CommandInfoUnion, { name: TOpts["name"] }> extends {
+        __return: infer R;
+      }
+        ? R
+        : null | undefined; // null on success, undefined on error
 
     /**
      * Gets the shape of `subprocess` command result based on whether `capture_stderr` and `capture_stdout` are specified
      */
+    // dprint-ignore
     type GetSubprocessResult<TOpts> = TOpts extends {
-        capture_stderr: true;
-        capture_stdout: true;
-    } ? SubprocessResultWithStd
-        : TOpts extends { capture_stderr: true } ? SubprocessResultWithStderr
-        : TOpts extends { capture_stdout: true } ? SubprocessResultWithStdout
-        : SubprocessResultBase;
+       capture_stderr: true;
+       capture_stdout: true;
+     }
+       ? SubprocessResultWithStd
+       : TOpts extends { capture_stderr: true }
+         ? SubprocessResultWithStderr
+         : TOpts extends { capture_stdout: true }
+           ? SubprocessResultWithStdout
+           : SubprocessResultBase;
 
-    type GetCommandResult<TOpts extends { name: string }> = TOpts["name"] extends "subprocess"
-        ? GetSubprocessResult<TOpts>
-        : GetCommonCommandResult<TOpts>;
+    // dprint-ignore
+    type GetCommandResult<TOpts extends { name: string }> =
+       TOpts["name"] extends "subprocess"
+         ? GetSubprocessResult<TOpts>
+         : GetCommonCommandResult<TOpts>;
 
     // TODO: change `name` to `_name` if `_name` is released officially
     /**
@@ -2841,11 +2854,15 @@ declare namespace mp {
         : never;
 
     // TElse as the return type when name: P is not found in the union
+    // dprint-ignore
     type GetPropertyTypeOr<P extends string, TElse> =
-        Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: P }> extends infer P
-            ? [P] extends [never] ? TElse : P extends { type: infer T } ? T
+      Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: P }> extends infer P
+        ? [P] extends [never]
+          ? TElse
+          : P extends { type: infer T }
+            ? T
             : never
-            : never;
+        : never;
 
     // TODO: for get_property_* functions with def fallback, when the property is always non-null(meaning it never fail to get a valid value)
     // it should not include the D case(fail case), just write a helper conditional type for this(name it like FallbackOnNullable<P, D>)
@@ -3212,12 +3229,19 @@ declare namespace mp {
      */
     function unregister_event(fn: (...args: unknown[]) => void): void;
 
-    type GetObservedValueType<T extends "bool" | "number" | "string" | "native", P extends string> = T extends "bool"
-        ? GetPropertyTypeOr<P, boolean | undefined>
-        : T extends "number" ? GetPropertyTypeOr<P, number | undefined>
-        : T extends "string" ? GetStringPropertyType<P>
-        : T extends "native" ? GetPropertyTypeOr<P, unknown>
-        : never;
+    // dprint-ignore
+    type GetObservedValueType<
+      T extends "bool" | "number" | "string" | "native",
+      P extends string,
+    > = T extends "bool"
+      ? GetPropertyTypeOr<P, boolean | undefined>
+      : T extends "number"
+        ? GetPropertyTypeOr<P, number | undefined>
+        : T extends "string"
+          ? GetStringPropertyType<P>
+          : T extends "native"
+            ? GetPropertyTypeOr<P, unknown>
+            : never;
 
     /**
      * Watch a property for changes.
