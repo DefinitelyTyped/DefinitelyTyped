@@ -3143,7 +3143,6 @@
 /types/hash-stream/                                     @BendingBender
 /types/hash-sum/                                        @DanielRosenwasser
 /types/hasher/                                          @flyfishMT
-/types/hashmap/                                         @rafalwrzeszcz @outring @dodomorandi
 /types/hashring/                                        @medns
 /types/hashset/                                         @gerich-home
 /types/hashtable/                                       @gerich-home
@@ -3258,7 +3257,6 @@
 /types/http-aws-es/                                     @marcogrcr
 /types/http-build-query/                                @alexu740
 /types/http-cache-semantics/                            @BendingBender
-/types/http-codes/                                      @mhegazy
 /types/http-context/                                    @mtraynham
 /types/http-errors/                                     @tkrotoff @BendingBender @bjohansebas
 /types/http-headers/                                    @BendingBender
