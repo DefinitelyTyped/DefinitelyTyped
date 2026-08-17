@@ -38,7 +38,14 @@ const client = new Client({
     password: "secretpassword!!",
     application_name: "DefinitelyTyped",
     keepAlive: true,
+    ssl: true,
+    sslnegotiation: "direct",
+    pipeline: true,
 });
+// $ExpectType boolean
+client.pipeline;
+// @ts-expect-error – pipeline is readonly
+client.pipeline = false;
 client.setTypeParser(20, val => Number(val));
 client.getTypeParser(20);
 
@@ -244,6 +251,8 @@ const poolParameterlessCtor = new Pool();
 
 const poolOne = new Pool({
     connectionString: "postgresql://dbuser:secretpassword@database.server.com:3211/mydb",
+    sslnegotiation: "postgres",
+    pipeline: true,
 });
 
 class MyClient extends Client {
