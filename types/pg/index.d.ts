@@ -21,6 +21,7 @@ export interface ClientConfig {
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
     enableChannelBinding?: boolean | undefined;
+    sslnegotiation?: "postgres" | "direct" | undefined;
     query_timeout?: number | undefined;
     lock_timeout?: number | undefined;
     keepAliveInitialDelayMillis?: number | undefined;
@@ -31,6 +32,7 @@ export interface ClientConfig {
     types?: CustomTypesConfig | undefined;
     options?: string | undefined;
     client_encoding?: string | undefined;
+    pipeline?: boolean | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -303,6 +305,7 @@ export class Client extends ClientBase {
     host: string;
     password?: string | undefined;
     ssl: boolean;
+    readonly pipeline: boolean;
     readonly connection: Connection;
 
     constructor(config?: string | ClientConfig);

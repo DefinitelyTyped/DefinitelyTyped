@@ -7,7 +7,16 @@ mp.command_native(["print-text", "test"]);
 // $ExpectType null | "def"
 mp.command_native(["print-text", "test"], "def");
 
-// $ExpectType null | undefined
+// $ExpectType string
+mp.command_native(["normalize-path", "foo/bar"]);
+
+// $ExpectType string
+mp.command_native({
+    name: "normalize-path",
+    filename: "foo/bar",
+});
+
+// $ExpectType string
 mp.command_native({
     name: "expand-path",
     text: "foo",
@@ -65,7 +74,7 @@ mp.command_native_async({
     name: "expand-path",
     text: "foo",
 }, function(ok, res, err) {
-    // $ExpectType null | undefined
+    // $ExpectType string
     var r = res;
 });
 

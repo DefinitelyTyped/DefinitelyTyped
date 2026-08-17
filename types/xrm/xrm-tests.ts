@@ -444,6 +444,25 @@ function testOnLoadTypes(formContext: Xrm.FormContext) {
     }
 }
 
+function testLoadedTypes(formContext: Xrm.FormContext) {
+    formContext.ui.addLoaded(onLoaded);
+    formContext.ui.removeLoaded(onLoaded);
+
+    function onLoaded(eventContext: Xrm.Events.LoadEventContext) {
+        eventContext.getEventArgs().getDataLoadState() === 2;
+    }
+
+    formContext.ui.addLoaded(asyncOnLoaded);
+    formContext.ui.removeLoaded(asyncOnLoaded);
+
+    async function asyncOnLoaded(eventContext: Xrm.Events.LoadEventContextAsync) {
+        const eventArgs = eventContext.getEventArgs();
+        eventArgs.disableAsyncTimeout();
+
+        eventArgs.getDataLoadState() === XrmEnum.FormDataLoadState.Refresh;
+    }
+}
+
 // Demonstrate Xrm.Utility.lookupObjects parameters
 Xrm.Utility.lookupObjects({
     entityTypes: ["contact"],

@@ -2897,6 +2897,10 @@
             "libraryName": "hashids",
             "asOfVersion": "2.0.0"
         },
+        "hashmap": {
+            "libraryName": "hashmap",
+            "asOfVersion": "3.0.1"
+        },
         "hcaptcha__react-hcaptcha": {
             "libraryName": "@hcaptcha/react-hcaptcha",
             "asOfVersion": "0.3.7"
@@ -2992,6 +2996,10 @@
         "htmlparser2": {
             "libraryName": "htmlparser2",
             "asOfVersion": "4.1.0"
+        },
+        "http-codes": {
+            "libraryName": "http-codes",
+            "asOfVersion": "2.0.0"
         },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
