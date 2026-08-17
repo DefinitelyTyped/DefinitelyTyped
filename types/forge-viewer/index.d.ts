@@ -581,6 +581,7 @@ declare namespace Autodesk {
                 successCallback: (doc: Document) => void,
                 errorCallback: (errorCode: ErrorCodes, errorMsg: string, messages: any[]) => void,
                 accessControlProperties?: any,
+                options?: object,
             ): void;
 
             downloadAecModelData(onFinished?: (data: any) => void): Promise<any>;
@@ -599,13 +600,6 @@ declare namespace Autodesk {
             getViewableItems(document: Document): void;
             getViewablePath(item: object, outLoadOptions?: object): string;
             getViewGeometry(item: object): object;
-            load(
-                documentId: string,
-                onSuccessCallback: () => void,
-                onErrorCallback: () => void,
-                accessControlProperties?: object,
-                options?: object,
-            ): void;
             requestThumbnailWithSecurity(data: string, onComplete: (err: Error, response: any) => void): void;
         }
 
