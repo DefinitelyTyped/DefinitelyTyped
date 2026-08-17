@@ -38,13 +38,13 @@ function DateTime_staticFormatPresets() {
 
 function DateTime_localOverloads() {
     DateTime.local({ zone: "Atlantic/Azores" }); // $ExpectType DateTime<true>
-    DateTime.local(2021, 8, 28, { zone: "Atlantic/Azores" }); // $ExpectType DateTime<boolean>
+    DateTime.local(2021, 8, 28, { zone: "Atlantic/Azores" }); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_utcOverloads() {
     DateTime.utc(); // $ExpectType DateTime<true>
     DateTime.utc({ locale: "en-US" }); // $ExpectType DateTime<true>
-    DateTime.utc(2018, 5, 31, 23, { numberingSystem: "arabext" }); // $ExpectType DateTime<boolean>
+    DateTime.utc(2018, 5, 31, 23, { numberingSystem: "arabext" }); // $ExpectType DateTime<true> | DateTime<false>
     // @ts-expect-error
     DateTime.utc(2019, { locale: "en-GB" }, 5);
 }
@@ -395,7 +395,7 @@ function DateTime_setZone() {
 }
 
 function DateTime_utcAndLocalConversions() {
-    DateTime.utc(2017, 5, 15); // $ExpectType DateTime<boolean>
+    DateTime.utc(2017, 5, 15); // $ExpectType DateTime<true> | DateTime<false>
     DateTime.utc(); // $ExpectType DateTime<true>
     DateTime.local().toUTC(); // $ExpectType DateTime<true>
     DateTime.utc().toLocal(); // $ExpectType DateTime<true>
@@ -599,11 +599,11 @@ function Interval_contains(i: Interval) {
 }
 
 function Interval_set(i: Interval) {
-    i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<boolean>
+    i.set({ end: DateTime.local(2020) }); // $ExpectType Interval<true> | Interval<false>
 }
 
 function Interval_mapEndpoints(i: Interval) {
-    i.mapEndpoints(d => d); // $ExpectType Interval<boolean>
+    i.mapEndpoints(d => d); // $ExpectType Interval<true> | Interval<false>
 }
 
 function Interval_intersection(i: Interval) {
@@ -624,8 +624,8 @@ function Interval_toStringMethods(i: Interval) {
 }
 
 function Interval_toDuration(i: Interval) {
-    i.toDuration("months"); // $ExpectType Duration<boolean>
-    i.toDuration(); // $ExpectType Duration<boolean>
+    i.toDuration("months"); // $ExpectType Duration<true> | Duration<false>
+    i.toDuration(); // $ExpectType Duration<true> | Duration<false>
 }
 
 function Interval_divideEqually(i: Interval) {
@@ -807,8 +807,8 @@ function Zones_invalidZone(bogus: DateTime) {
 function Zones_setZone(local: DateTime) {
     local.zoneName; // $ExpectType string | null
     local.toString(); // $ExpectType string
-    local.setZone("America/Los_Angeles"); // $ExpectType DateTime<boolean>
-    local.setZone("America/Los_Angeles", { keepLocalTime: true }); // $ExpectType DateTime<boolean>
+    local.setZone("America/Los_Angeles"); // $ExpectType DateTime<true> | DateTime<false>
+    local.setZone("America/Los_Angeles", { keepLocalTime: true }); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function Zones_fromISOZoneName(iso: DateTime) {
@@ -817,8 +817,8 @@ function Zones_fromISOZoneName(iso: DateTime) {
 }
 
 function DateTime_zonesFromISOAndFromFormatWithZone() {
-    DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime<boolean>
-    DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime<boolean>
+    DateTime.fromISO("2017-05-15T09:10:23", { zone: "Europe/Paris", setZone: true }); // $ExpectType DateTime<true> | DateTime<false>
+    DateTime.fromFormat("2017-05-15T09:10:23 Europe/Paris", "yyyy-MM-dd'T'HH:mm:ss z"); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 /*
@@ -863,57 +863,57 @@ function DateTime_formattingToFormat() {
 function DateTime_parsingFromObject() {
     // @ts-expect-error
     DateTime.fromObject();
-    DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<boolean>
-    DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: "en-US" }); // $ExpectType DateTime<boolean>
+    DateTime.fromObject({}, { zone: "America/Los_Angeles" }); // $ExpectType DateTime<true> | DateTime<false>
+    DateTime.fromObject({ localWeekYear: 2022, localWeekNumber: 1, localWeekday: 1 }, { locale: "en-US" }); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromISO() {
     // @ts-expect-error
     DateTime.fromISO();
-    DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<boolean>
+    DateTime.fromISO("2016-05-25"); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromJSDate() {
     // @ts-expect-error
     DateTime.fromJSDate();
-    DateTime.fromJSDate(new Date()); // $ExpectType DateTime<boolean>
+    DateTime.fromJSDate(new Date()); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromRFC2822() {
     // @ts-expect-error
     DateTime.fromRFC2822();
-    DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime<boolean>
+    DateTime.fromRFC2822("Tue, 01 Nov 2016 13:23:12 +0630"); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromHTTP() {
     // @ts-expect-error
     DateTime.fromHTTP();
-    DateTime.fromHTTP("Sunday, 06-Nov-94 08:49:37 GMT"); // $ExpectType DateTime<boolean>
+    DateTime.fromHTTP("Sunday, 06-Nov-94 08:49:37 GMT"); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromSQL() {
     // @ts-expect-error
     DateTime.fromSQL();
-    DateTime.fromSQL("2017-05-15 09:24:15"); // $ExpectType DateTime<boolean>
+    DateTime.fromSQL("2017-05-15 09:24:15"); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromMillis() {
     // @ts-expect-error
     DateTime.fromMillis();
-    DateTime.fromMillis(1542674993410); // $ExpectType DateTime<boolean>
+    DateTime.fromMillis(1542674993410); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromSeconds() {
     // @ts-expect-error
     DateTime.fromSeconds();
-    DateTime.fromSeconds(1542674993); // $ExpectType DateTime<boolean>
+    DateTime.fromSeconds(1542674993); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromFormat() {
     // @ts-expect-error
     DateTime.fromFormat();
-    DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<boolean>
-    DateTime.fromFormat("mai 25 1982", "LLLL dd yyyy", { locale: "fr" }); // $ExpectType DateTime<boolean>
+    DateTime.fromFormat("May 25 1982", "LLLL dd yyyy"); // $ExpectType DateTime<true> | DateTime<false>
+    DateTime.fromFormat("mai 25 1982", "LLLL dd yyyy", { locale: "fr" }); // $ExpectType DateTime<true> | DateTime<false>
 }
 
 function DateTime_parsingFromFormatExplain() {
@@ -975,9 +975,9 @@ function Math_plusShiftedDuration(dur: Duration) {
 }
 
 function Math_fromISO() {
-    Duration.fromISO("PY23", { conversionAccuracy: "longterm" }); // $ExpectType Duration<boolean>
-    Duration.fromISOTime("21:37.000"); // $ExpectType Duration<boolean>
-    Duration.fromISOTime("21:37.000", { conversionAccuracy: "longterm" }); // $ExpectType Duration<boolean>
+    Duration.fromISO("PY23", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
+    Duration.fromISOTime("21:37.000"); // $ExpectType Duration<true> | Duration<false>
+    Duration.fromISOTime("21:37.000", { conversionAccuracy: "longterm" }); // $ExpectType Duration<true> | Duration<false>
 }
 
 function Math_diffWithAccuracyAndUnits(end: DateTime, start: DateTime) {
@@ -991,7 +991,7 @@ function Math_reconfigure(dur: Duration<true>) {
 
 function Math_untilAndIntervalToDuration(end: DateTime, start: DateTime, i: Interval) {
     start.until(end); // $ExpectType Interval<true> | DateTime<false> || DateTime<false> | Interval<true>
-    i.toDuration(["years", "months", "days"]); // $ExpectType Duration<boolean>
+    i.toDuration(["years", "months", "days"]); // $ExpectType Duration<true> | Duration<false>
 }
 
 function Math_invalidProperties(dur: Duration<true>) {
@@ -1051,4 +1051,49 @@ function DateTime_typeGuardCheck(dt: DateTime): void {
     }
 
     dt; // $ExpectType DateTime<boolean>
+}
+
+/*
+ * ============================================================
+ * Validity narrowing
+ * ============================================================
+ */
+function DateTime_isValidNarrowsFactoryResult() {
+    const dt = DateTime.fromISO("2016-05-25");
+
+    if (dt.isValid) {
+        dt; // $ExpectType DateTime<true>
+        dt.toISO(); // $ExpectType string
+        dt.toISODate(); // $ExpectType string
+        return;
+    }
+
+    dt; // $ExpectType DateTime<false>
+    dt.toISO(); // $ExpectType null
+}
+
+function Duration_isValidNarrowsFactoryResult() {
+    const dur = Duration.fromISO("P3Y6M1W4DT12H30M5S");
+
+    if (dur.isValid) {
+        dur; // $ExpectType Duration<true>
+        dur.toISO(); // $ExpectType string
+        return;
+    }
+
+    dur; // $ExpectType Duration<false>
+    dur.toISO(); // $ExpectType null
+}
+
+function Interval_isValidNarrowsFactoryResult() {
+    const interval = Interval.fromISO("2016-05-25/2016-05-27");
+
+    if (interval.isValid) {
+        interval; // $ExpectType Interval<true>
+        interval.toISO(); // $ExpectType string
+        return;
+    }
+
+    interval; // $ExpectType Interval<false>
+    interval.toISO(); // $ExpectType "Invalid Interval"
 }
