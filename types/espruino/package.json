@@ -2,6 +2,14 @@
     "private": true,
     "name": "@types/espruino",
     "version": "1.95.9999",
+    "types": "index",
+    "typesVersions": {
+        "<=6.0": {
+            "*": [
+                "ts6.0/*"
+            ]
+        }
+    },
     "projects": [
         "http://www.espruino.com/",
         "https://github.com/espruino/espruinotools"
