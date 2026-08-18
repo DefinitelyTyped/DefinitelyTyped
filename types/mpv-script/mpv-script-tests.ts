@@ -152,7 +152,7 @@ mp.get_property("playlist", "default");
 // $ExpectType "yes" | "no" | undefined
 mp.get_property("ao-mute");
 // optional number property should return string | undefined
-// $ExpectType string | undefined
+// $ExpectType `${number}` | undefined
 mp.get_property("time-pos");
 // optional string property should return string | undefined
 // $ExpectType string | undefined
@@ -164,11 +164,14 @@ mp.get_property("hwdec");
 // $ExpectType string
 mp.get_property("audio-device");
 // number property always presented should return string
-// $ExpectType string
+// $ExpectType `${number}`
 mp.get_property("playlist-pos");
 // an unknown property returns string | undefined
 // $ExpectType string | undefined
 mp.get_property("foo");
+// a property with string | number should return string as string is the super type of `${number}`
+// $ExpectType string
+mp.get_property("stream-open-filename");
 // $ExpectType string | 123
 mp.get_property("foo", 123);
 
@@ -178,7 +181,7 @@ mp.get_property_osd("playlist", "default");
 // $ExpectType "yes" | "no" | undefined
 mp.get_property_osd("ao-mute");
 // optional number property should return string | undefined
-// $ExpectType string | undefined
+// $ExpectType `${number}:${number}:${number}` | undefined
 mp.get_property_osd("time-pos");
 // optional string property should return string | undefined
 // $ExpectType string | undefined
@@ -190,12 +193,12 @@ mp.get_property_osd("hwdec");
 // $ExpectType string
 mp.get_property_osd("audio-device");
 // number property always presented should return string
-// $ExpectType string
+// $ExpectType `${number}`
 mp.get_property_osd("playlist-pos");
 // an unknown property returns string | undefined
 // $ExpectType string | undefined
 mp.get_property_osd("foo");
-// $ExpectType string | 123
+// $ExpectType string | undefined | 123
 mp.get_property_osd("foo", 123);
 
 // $ExpectType boolean

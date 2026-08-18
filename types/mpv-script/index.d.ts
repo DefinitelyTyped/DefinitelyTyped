@@ -1632,11 +1632,13 @@ declare namespace mp {
         | {
             name: "time-pos";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: false;
         }
         | {
             name: "time-pos/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: false;
         }
         | {
@@ -2550,6 +2552,12 @@ declare namespace mp {
             readonly: true;
         };
 
+    /**
+     * @template TPrefix Name of super property
+     * @template TSuper The type of the super property
+     * @template TReadonly Whether the super property is readonly
+     * @template TOptional Whether the super property is possibly undefined
+     */
     // some sub-properties are just properties of its main-property type
     type __PropertyInfoFromType<
         TPrefix extends string, // super property name e.g. "video-params"
@@ -2819,44 +2827,134 @@ declare namespace mp {
         : never
       : never;
 
+    /**
+     * Convert boolean to "yes" | "no", number to `${number}`, object to string
+     * @template TWiden Whether to widen to any string and preserve completions when possible
+     */
+    // dprint-ignore
+    type ToStringType<T, TWiden extends boolean = false> =
+      | (GetBooleanString<T> & {}) // to expand the type
+      | GetNumberString<T>
+      | GetLiteralString<T> extends infer L
+      ? [L] extends [never]
+        ? string // if it has no string/number/boolean literal, anything else is string
+        : // if it has literal strings
+            | L
+            | (string extends T
+                ? TWiden extends true
+                  ? string & {} // reserve completions when widen string case exists
+                  : string // should still contain string because the original type has it!
+                : never)
+            | (Extract<T, object> extends never
+                ? never
+                : TWiden extends true
+                  ? string & {}  // reserve completions when object case exists
+                  : never)
+      : never;
+
     // mp.get_property can basically accept every property name so we should handle every case
     // NOTE: `TUndefinable` is for explicit control on whether it could include undefined case
     // this is needed because I want to preserve completions for string cases of mp.set_property value
     // but external `NonNullable<GetStringPropertyType<>>` loose everything into any string if it contains `(string & {})`
     // so I have to handle the conditional undefined case internally using a dedicated type parameter TUndefinable
+    /**
+     * @template N Property name
+     * @template TWiden Whether to widen to any string and preserve completions when possible
+     * @template TUndefinable Whether to include undefined case
+     */
     // dprint-ignore
     type GetStringPropertyType<
       N extends string,
-      TUndefinable extends boolean = true,
+      TWiden extends boolean = false, // whether to reserve completion when possible
+      TUndefinable extends boolean = true, // whether to exclude undefined case in the result
     > =
       Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: N }> extends infer P
         ? [P] extends [never]
           ? string | __UndefinedIf<undefined, TUndefinable> // if property not found
           : P extends { type: infer T }
-            ? Extract<T, string> extends never // T is not any string here
-              ? boolean extends T
-                ?
-                    | "yes"
-                    | "no"
-                    | (Exclude<T, boolean | undefined> extends never
-                        ? never
-                        : string & {}) // if it has something other than boolean, should preserve completions
-                    | __UndefinedIf<T, TUndefinable>
-                : string | __UndefinedIf<T, TUndefinable> // neither a string nor boolean i.e. number/object types
-              : // T has string case here
-                  | Extract<T, string> // include every string case
-                  | (boolean extends T ? "yes" | "no" : never) // convert boolean to string case
-                  | (Exclude<T, string | boolean | undefined> extends never
-                      ? never
-                      : string & {}) // if it has something other than string and boolean, do preserve completions
-                  | __UndefinedIf<T, TUndefinable>
+            ? ToStringType<T, TWiden> | __UndefinedIf<T, TUndefinable>
             : never
         : never;
 
-    // TElse as the return type when name: P is not found in the union
+    /**
+     * Get return type from mp.get_property
+     * @template N Property name
+     * @template TWiden Whether to widen to any string and preserve completions when possible
+     */
+    type GetNonNullableStringPropertyType<
+        N extends string,
+        TWiden extends boolean,
+    > = GetStringPropertyType<N, TWiden, false>;
+
+    /**
+     * Get return type from mp.get_property
+     * @template N Property name
+     * @template TUndefinable Whether to include undefined case
+     */
+    type GetStringPropertyReturnType<
+        N extends string,
+        TUndefinable extends boolean,
+    > = GetStringPropertyType<N, false, TUndefinable>;
+
+    /**
+     * Get property types from mp.get_property_osd
+     * @template N Property name
+     * @template TWiden Whether to widen to any string and preserve completions when possible
+     * @template TUndefinable Whether to include undefined case
+     */
     // dprint-ignore
-    type GetPropertyTypeOr<P extends string, TElse> =
-      Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: P }> extends infer P
+    type GetOSDPropertyType<
+      N extends string,
+      TWiden extends boolean = false,
+      TUndefinable extends boolean = true,
+    > =
+      Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: N }> extends infer P
+        ? [P] extends [never]
+          ? string | __UndefinedIf<undefined, TUndefinable> // if property not found
+          : P extends { osd_type: infer O }
+            ? O
+            : P extends { type: infer T } // if it doesn't have osd type, fallback to regular string type
+              ? ToStringType<T, TWiden> | __UndefinedIf<T, TUndefinable>
+              : never
+        : never;
+
+    /**
+     * Get literal string cases
+     */
+    // dprint-ignore
+    type GetLiteralString<T> = T extends infer S
+      ? string extends S
+        ? never
+        : S extends string
+          ? S
+          : never
+      : never;
+
+    /**
+     * Get boolean cases and convert them to "yes" | "no"
+     */
+    // dprint-ignore
+    type GetBooleanString<T> =
+      | (true extends T ? "yes" : never)
+      | (false extends T ? "no" : never);
+
+    /**
+     * Get number cases and convert them to `${number}`
+     */
+    // dprint-ignore
+    type GetNumberString<T> = T extends infer N
+      ? N extends number
+        ? `${N}`
+        : never
+      : never;
+
+    /**
+     * @template P Property name
+     * @template TElse as the return type when { name: P } is not found in the property union
+     */
+    // dprint-ignore
+    type GetPropertyTypeOr<N extends string, TElse> =
+      Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: N }> extends infer P
         ? [P] extends [never]
           ? TElse
           : P extends { type: infer T }
@@ -2878,12 +2976,12 @@ declare namespace mp {
      */
     function get_property<P extends GettablePropertyName | (string & {})>(
         name: P,
-    ): GetStringPropertyType<P>;
+    ): GetStringPropertyReturnType<P, true>;
 
     function get_property<P extends GettablePropertyName | (string & {}), D>(
         name: P,
-        def: D | GetStringPropertyType<P>, // def can be any type, this union helps to get completions for expected property type
-    ): NonNullable<GetStringPropertyType<P>> | D; // success | fail
+        def: D | GetStringPropertyType<P, true, true>, // def can be any type, this union helps to get completions for expected property type
+    ): GetStringPropertyReturnType<P, false> | D; // success | fail
 
     /**
      * Similar to `mp.get_property`, but return the property value formatted for OSD.
@@ -2895,7 +2993,7 @@ declare namespace mp {
      */
     function get_property_osd<P extends GettablePropertyName | (string & {})>(
         name: P,
-    ): GetStringPropertyType<P>;
+    ): GetOSDPropertyType<P>;
 
     /**
      * Similar to `mp.get_property`, but return the property value formatted for OSD.
@@ -2907,8 +3005,8 @@ declare namespace mp {
      */
     function get_property_osd<P extends GettablePropertyName | (string & {}), D>(
         name: P,
-        def: D | GetStringPropertyType<P>,
-    ): NonNullable<GetStringPropertyType<P>> | D; // success | fail
+        def: D | GetOSDPropertyType<P, true>,
+    ): GetOSDPropertyType<P> | D; // success | fail
 
     /**
      * Similar to `mp.get_property`, but return the property value as Boolean.
@@ -3238,7 +3336,7 @@ declare namespace mp {
       : T extends "number"
         ? GetPropertyTypeOr<P, number | undefined>
         : T extends "string"
-          ? GetStringPropertyType<P>
+          ? GetStringPropertyReturnType<P, true>
           : T extends "native"
             ? GetPropertyTypeOr<P, unknown>
             : never;
@@ -3263,8 +3361,8 @@ declare namespace mp {
      * You always get an initial change notification. This is meant to initialize the user's state to the current value of the property.
      */
     function observe_property<
+        P extends GettablePropertyName | (string & {}), // TODO: include only specific names depending on T
         T extends "bool" | "number" | "string" | "native",
-        P extends GettablePropertyName | (string & {}),
     >(
         name: P,
         type: T,
