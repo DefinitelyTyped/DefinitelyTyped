@@ -10,6 +10,7 @@ import {
     DispatchProp,
     MapDispatchToProps,
     MapStateToProps,
+    MapStateToPropsFactory,
     Provider,
     ReactReduxContext,
     ReactReduxContextValue,
@@ -97,7 +98,7 @@ function MapStateFactory() {
 
     class TestComponent extends React.Component<OwnProps & StateProps> {}
 
-    const mapStateToProps = () => () => ({
+    const mapStateToProps: MapStateToPropsFactory<StateProps, OwnProps> = () => () => ({
         bar: 1,
     });
 
@@ -360,7 +361,7 @@ function MapStateFactoryAndDispatch() {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory = () => () => ({
+    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps> = () => () => ({
         bar: 1,
     });
 
@@ -389,7 +390,7 @@ function MapStateFactoryAndDispatchFactory() {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory = () => () => ({
+    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps> = () => () => ({
         bar: 1,
     });
 
