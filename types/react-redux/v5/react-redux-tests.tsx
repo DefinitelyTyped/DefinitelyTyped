@@ -1,6 +1,15 @@
 import { Component, ReactElement } from "react";
 import * as React from "react";
-import { Connect, connect, createProvider, DispatchProp, MapStateToProps, Options, Provider } from "react-redux";
+import {
+    Connect,
+    connect,
+    createProvider,
+    DispatchProp,
+    MapStateToProps,
+    MapStateToPropsFactory,
+    Options,
+    Provider,
+} from "react-redux";
 import { ActionCreator, ActionCreatorsMapObject, bindActionCreators, createStore, Dispatch, Store } from "redux";
 import objectAssign = require("object-assign");
 
@@ -78,7 +87,7 @@ namespace MapStateFactory {
 
     class TestComponent extends Component<OwnProps & StateProps> {}
 
-    const mapStateToProps = () => () => ({
+    const mapStateToProps: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
         bar: 1,
     });
 
@@ -220,7 +229,7 @@ namespace MapStateFactoryAndDispatch {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory = () => () => ({
+    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
         bar: 1,
     });
 
@@ -249,7 +258,7 @@ namespace MapStateFactoryAndDispatchFactory {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory = () => () => ({
+    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
         bar: 1,
     });
 

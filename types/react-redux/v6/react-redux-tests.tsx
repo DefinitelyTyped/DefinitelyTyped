@@ -1,6 +1,15 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
-import { Connect, connect, createProvider, DispatchProp, MapStateToProps, Options, Provider } from "react-redux";
+import {
+    Connect,
+    connect,
+    createProvider,
+    DispatchProp,
+    MapStateToProps,
+    MapStateToPropsFactory,
+    Options,
+    Provider,
+} from "react-redux";
 import {
     ActionCreator,
     ActionCreatorsMapObject,
@@ -87,7 +96,7 @@ function MapStateFactory() {
 
     class TestComponent extends React.Component<OwnProps & StateProps> {}
 
-    const mapStateToProps = () => () => ({
+    const mapStateToProps: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
         bar: 1,
     });
 
@@ -321,7 +330,7 @@ function MapStateFactoryAndDispatch() {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory = () => () => ({
+    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
         bar: 1,
     });
 
@@ -350,7 +359,7 @@ function MapStateFactoryAndDispatchFactory() {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory = () => () => ({
+    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
         bar: 1,
     });
 
