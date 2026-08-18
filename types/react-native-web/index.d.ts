@@ -1242,24 +1242,26 @@ type ViewPropsWithoutStyle = Omit<ViewProps, "style">;
 
 export const View: FunctionComponent<ActivityIndicatorProps & RefAttributes<HTMLElement>>;
 
-export type VirtualizedListProps<ItemT> = Omit<
-    VirtualizedListPropsRN,
-    "data" | "getItem" | "getItemCount" | "keyExtractor" | "renderItem"
-> & {
-    data?: readonly ItemT[] | null;
-    getItem?: (data: readonly ItemT[] | null | undefined, index: number) => ItemT | undefined;
-    getItemCount?: (data: readonly ItemT[] | null | undefined) => number;
-    keyExtractor?: (item: ItemT, index: number) => string;
-    renderItem?: (info: {
-        item: ItemT;
-        index: number;
-        separators: {
-            highlight(): void;
-            unhighlight(): void;
-            updateProps(select: "leading" | "trailing", newProps: object): void;
-        };
-    }) => ReactNode;
-};
+export type VirtualizedListProps<ItemT> =
+    & Omit<
+        VirtualizedListPropsRN,
+        "data" | "getItem" | "getItemCount" | "keyExtractor" | "renderItem"
+    >
+    & {
+        data?: readonly ItemT[] | null;
+        getItem?: (data: readonly ItemT[] | null | undefined, index: number) => ItemT | undefined;
+        getItemCount?: (data: readonly ItemT[] | null | undefined) => number;
+        keyExtractor?: (item: ItemT, index: number) => string;
+        renderItem?: (info: {
+            item: ItemT;
+            index: number;
+            separators: {
+                highlight(): void;
+                unhighlight(): void;
+                updateProps(select: "leading" | "trailing", newProps: object): void;
+            };
+        }) => ReactNode;
+    };
 export function VirtualizedList<ItemT>(
     props: VirtualizedListProps<ItemT> & RefAttributes<VirtualizedListInstance>,
 ): ReactElement<VirtualizedListProps<ItemT>> | null;

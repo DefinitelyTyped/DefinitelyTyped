@@ -1,11 +1,4 @@
-import {
-    PressableProps,
-    ScrollViewProps,
-    TextInputProps,
-    TextProps,
-    UIManager,
-    ViewProps,
-} from "react-native";
+import { PressableProps, ScrollViewProps, TextInputProps, TextProps, UIManager, ViewProps } from "react-native";
 
 import {
     // components

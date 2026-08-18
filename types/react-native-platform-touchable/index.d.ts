@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-    TouchableNativeFeedback,
-    TouchableNativeFeedbackProps,
-    TouchableWithoutFeedbackProps,
-} from "react-native";
+import { TouchableNativeFeedback, TouchableNativeFeedbackProps, TouchableWithoutFeedbackProps } from "react-native";
 
 export interface PlatformTouchableProps extends TouchableWithoutFeedbackProps {
     // TouchableOpacity (default iOS)
