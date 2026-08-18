@@ -1,6 +1,7 @@
 import Prism = require("prismjs");
 import * as components from "prismjs/components";
-import loadLanguages = require("prismjs/components/");
+// TypeScript 7 currently resolves the trailing-slash runtime entrypoint to components.d.ts.
+import loadLanguages = require("prismjs/components/index");
 
 const myGrammar: Prism.Grammar = {
     "my-sub-grammar": {
