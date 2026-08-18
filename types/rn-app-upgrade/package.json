@@ -6,6 +6,7 @@
         "https://github.com/songxiaoliang/react-native-app-upgrade#readme"
     ],
     "dependencies": {
+        "@types/react": "*",
         "react-native": "*"
     },
     "devDependencies": {

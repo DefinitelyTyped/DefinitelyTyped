@@ -1,10 +1,7 @@
 import * as React from "react";
 import {
     ColorValue,
-    NativeSyntheticEvent,
     StyleProp,
-    TextInputChangeEventData,
-    TextInputFocusEventData,
     TextInputProps,
     TextStyle,
     ViewStyle,
