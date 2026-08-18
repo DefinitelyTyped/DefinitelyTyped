@@ -70,14 +70,15 @@ mdns.query(
         bytes; // $ExpectType number | undefined
     },
 );
-// @ts-expect-error
-mdns.query(
+const invalidQueryArguments: Parameters<typeof mdns.query> = [
+    // @ts-expect-error The overload accepting a record type requires a string query.
     {
         questions: [{ name: "brunhilde.local", type: "A" }],
     },
     "A",
     { port: 1234 },
-);
+];
+mdns.query(...invalidQueryArguments);
 mdns.query(
     // @ts-expect-error
     {
