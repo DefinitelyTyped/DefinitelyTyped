@@ -58,9 +58,9 @@ const promiseLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
 });
 
 const syncLintedCm3: CodeMirror.Editor = CodeMirror(document.body, {
-    // @ts-expect-error
     lint: {
-        getAnnotations(content: string, options: any, cm: CodeMirror.Editor) {
+        getAnnotations(content: string, options: any, cm: CodeMirror.Editor): Annotation[] {
+            // @ts-expect-error A synchronous linter must return annotations.
             return null;
         },
     },

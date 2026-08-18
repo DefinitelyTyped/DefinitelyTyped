@@ -69,7 +69,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 /** Filtering examples. */
 <DualListBox options={flatOptions} canFilter={false} />;
 <DualListBox options={readonlyFlatOptions} canFilter={false} />;
-<DualListBox
+<DualListBox<string, true>
     options={flatOptions}
     canFilter
     filter={{
@@ -79,7 +79,7 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
     onFilterChange={() => {}}
     filterCallback={(option: Option<string>) => true}
 />;
-<DualListBox
+<DualListBox<string, true>
     options={readonlyFlatOptions}
     canFilter
     filter={{
@@ -91,29 +91,34 @@ const optionsChange = (selectedValues: Array<Option<string>>) => {};
 />;
 
 /** Filtering error examples. */
-// @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
-<DualListBox
-    options={flatOptions}
-    filter={{
+const filterPropertiesWithoutFiltering: DualListBox.DualListBoxProperties<string, false, true> = {
+    options: flatOptions,
+    filter: {
         available: flatOptions.map(o => o.value),
         selected: [],
-    }}
-    onFilterChange={() => {}}
-    filterPlaceholder={""}
-    filterCallback={(option: Option<string>) => true}
-/>;
-// @ts-expect-error You can not use filter properties when `canFilter` is not `true`.
-<DualListBox
-    options={flatOptions}
-    canFilter={false}
-    filter={{
-        available: flatOptions.map(o => o.value),
+    },
+    // @ts-expect-error You cannot use a filter change handler when `canFilter` is not `true`.
+    onFilterChange: () => {},
+    filterPlaceholder: "",
+    // @ts-expect-error You cannot use a filter callback when `canFilter` is not `true`.
+    filterCallback: (option: Option<string>) => true,
+};
+<DualListBox {...filterPropertiesWithoutFiltering} />;
+
+const filterPropertiesWithFilteringDisabled: DualListBox.DualListBoxProperties<string, false, true> = {
+    options: readonlyFlatOptions,
+    canFilter: false,
+    filter: {
+        available: readonlyFlatOptions.map(o => o.value),
         selected: [],
-    }}
-    onFilterChange={() => {}}
-    filterPlaceholder={""}
-    filterCallback={(option: Option<string>) => true}
-/>;
+    },
+    // @ts-expect-error You cannot use a filter change handler when `canFilter` is `false`.
+    onFilterChange: () => {},
+    filterPlaceholder: "",
+    // @ts-expect-error You cannot use a filter callback when `canFilter` is `false`.
+    filterCallback: (option: Option<string>) => true,
+};
+<DualListBox {...filterPropertiesWithFilteringDisabled} />;
 
 /** Section labels. */
 <DualListBox
