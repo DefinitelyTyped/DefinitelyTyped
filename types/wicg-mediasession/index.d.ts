@@ -6,10 +6,6 @@ interface Window {
     MediaSession?: MediaSession | undefined;
 }
 
-interface SetPositionState {
-    (playbackState?: MediaPositionState): void;
-}
-
 interface MediaSession {
     // Current media session playback state.
     playbackState: MediaSessionPlaybackState;
@@ -26,7 +22,7 @@ interface MediaSession {
     setActionHandler(action: MediaSessionAction, listener: ((details: MediaSessionActionDetails) => void) | null): void;
 
     // Set/unset position state
-    setPositionState: SetPositionState;
+    setPositionState(playbackState?: MediaPositionState): void;
 
     // Set/unset active camera
     setCameraActive(active: boolean): void;
