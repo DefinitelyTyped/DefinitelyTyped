@@ -9,6 +9,7 @@ import type {
     KeyboardEventHandler,
     MouseEventHandler,
     PointerEventHandler,
+    ReactElement,
     ReactNode,
     RefAttributes,
     TouchEventHandler,
@@ -20,12 +21,11 @@ import type {
     BackHandler as BackHandlerRN,
     DeviceEventEmitter as DeviceEventEmitterRN,
     Dimensions as DimensionsRN,
-    DimensionValue,
     Easing as EasingRN,
     FlatList as FlatListRN,
     FlatListProps as FlatListPropsRN,
     GestureResponderEvent,
-    InteractionManager as InteractionManagerRN,
+    ImageStyle as ImageStyleRN,
     LayoutAnimation as LayoutAnimationRN,
     MeasureInWindowOnSuccessCallback,
     MeasureLayoutOnSuccessCallback,
@@ -35,9 +35,9 @@ import type {
     SectionListProps as SectionListPropsRN,
     StyleProp,
     StyleSheet as StyleSheetRN,
-    TextStyle,
-    ViewStyle,
-    VirtualizedList as VirtualizedListRN,
+    TextStyle as TextStyleRN,
+    ViewStyle as ViewStyleRN,
+    VirtualizedListInstance,
     VirtualizedListProps as VirtualizedListPropsRN,
 } from "react-native";
 
@@ -359,6 +359,10 @@ export interface WebStyle extends CSSProperties {
     enableBackground?: string;
 }
 
+export type ViewStyle = Omit<ViewStyleRN, keyof WebStyle> & WebStyle;
+export type TextStyle = Omit<TextStyleRN, keyof WebStyle> & WebStyle;
+export type ImageStyle = Omit<ImageStyleRN, keyof WebStyle> & WebStyle;
+
 // APIs
 export interface NativeModules {
     UIManager: UIManager;
@@ -467,7 +471,12 @@ export interface Keyboard {
     removeListener(): void;
 }
 
-export type InteractionManager = typeof InteractionManagerRN;
+export interface InteractionManager {
+    runAfterInteractions(task?: GenericFunction): Promise<void>;
+    createInteractionHandle(): number;
+    clearInteractionHandle(handle: number): void;
+    setDeadline(deadline: number): void;
+}
 
 export type LayoutAnimation = typeof LayoutAnimationRN;
 
@@ -975,9 +984,7 @@ export const Picker: FunctionComponent<PickerProps & RefAttributes<HTMLElement &
 export interface PressableProps extends ViewPropsWithoutStyle {
     children:
         | ReactNode
-        | ((state: {
-            pressed: boolean;
-        }) => ReactNode);
+        | ((state: PressableStateCallbackType) => ReactNode);
     // Duration (in milliseconds) from `onPressIn` before `onLongPress` is called.
     delayLongPress?: number;
     // Duration (in milliseconds) from `onPressStart` is called after pointerdown
@@ -1004,9 +1011,12 @@ export interface PressableProps extends ViewPropsWithoutStyle {
     onPressOut?: (event: any) => void;
     style?:
         | StyleProp<ViewStyle>
-        | ((state: {
-            pressed: boolean;
-        }) => StyleProp<ViewStyle>);
+        | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>);
+}
+export interface PressableStateCallbackType {
+    readonly focused: boolean;
+    readonly hovered: boolean;
+    readonly pressed: boolean;
 }
 export const Pressable: FunctionComponent<PressableProps & RefAttributes<typeof View>>;
 
@@ -1232,8 +1242,27 @@ type ViewPropsWithoutStyle = Omit<ViewProps, "style">;
 
 export const View: FunctionComponent<ActivityIndicatorProps & RefAttributes<HTMLElement>>;
 
-export type VirtualizedListProps<ItemT> = VirtualizedListPropsRN<ItemT>;
-export const VirtualizedList: typeof VirtualizedListRN;
+export type VirtualizedListProps<ItemT> = Omit<
+    VirtualizedListPropsRN,
+    "data" | "getItem" | "getItemCount" | "keyExtractor" | "renderItem"
+> & {
+    data?: readonly ItemT[] | null;
+    getItem?: (data: readonly ItemT[] | null | undefined, index: number) => ItemT | undefined;
+    getItemCount?: (data: readonly ItemT[] | null | undefined) => number;
+    keyExtractor?: (item: ItemT, index: number) => string;
+    renderItem?: (info: {
+        item: ItemT;
+        index: number;
+        separators: {
+            highlight(): void;
+            unhighlight(): void;
+            updateProps(select: "leading" | "trailing", newProps: object): void;
+        };
+    }) => ReactNode;
+};
+export function VirtualizedList<ItemT>(
+    props: VirtualizedListProps<ItemT> & RefAttributes<VirtualizedListInstance>,
+): ReactElement<VirtualizedListProps<ItemT>> | null;
 
 export const YellowBox: FunctionComponent<object>;
 
@@ -1269,101 +1298,6 @@ export const unstable_createElement: typeof createElement;
 export {};
 
 declare module "react-native" {
-    interface AccessibilityProps {
-        "aria-activedescendant"?: idRef;
-        "aria-atomic"?: boolean;
-        "aria-autocomplete"?: "none" | "list" | "inline" | "both";
-        "aria-busy"?: boolean;
-        "aria-checked"?: boolean | "mixed";
-        "aria-colcount"?: number;
-        "aria-colindex"?: number;
-        "aria-colspan"?: number;
-        "aria-controls"?: idRef;
-        "aria-current"?: boolean | "page" | "step" | "location" | "date" | "time";
-        "aria-describedby"?: idRef;
-        "aria-details"?: idRef;
-        "aria-disabled"?: boolean;
-        "aria-errormessage"?: idRef;
-        "aria-expanded"?: boolean;
-        "aria-flowto"?: idRef;
-        "aria-haspopup"?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
-        "aria-hidden"?: boolean;
-        "aria-invalid"?: boolean;
-        "aria-keyshortcuts"?: string;
-        "aria-label"?: string;
-        "aria-labelledby"?: idRef;
-        "aria-level"?: number;
-        "aria-live"?: "assertive" | "off" | "polite";
-        "aria-modal"?: boolean;
-        "aria-multiline"?: boolean;
-        "aria-multiselectable"?: boolean;
-        "aria-orientation"?: "horizontal" | "vertical";
-        "aria-owns"?: idRef;
-        "aria-placeholder"?: string;
-        "aria-posinset"?: number;
-        "aria-pressed"?: boolean | "mixed";
-        "aria-readonly"?: boolean;
-        "aria-required"?: boolean;
-        "aria-roledescription"?: string;
-        "aria-rowcount"?: number;
-        "aria-rowindex"?: number;
-        "aria-rowspan"?: number;
-        "aria-selected"?: boolean;
-        "aria-setsize"?: number;
-        "aria-sort"?: "ascending" | "descending" | "none" | "other";
-        "aria-valuemax"?: number;
-        "aria-valuemin"?: number;
-        "aria-valuenow"?: number;
-        "aria-valuetext"?: string;
-
-        // @deprecated
-        accessibilityActiveDescendant?: idRef;
-        accessibilityAtomic?: boolean;
-        accessibilityAutoComplete?: "none" | "list" | "inline" | "both";
-        accessibilityBusy?: boolean;
-        accessibilityChecked?: boolean | "mixed";
-        accessibilityColumnCount?: number;
-        accessibilityColumnIndex?: number;
-        accessibilityColumnSpan?: number;
-        accessibilityControls?: idRefList;
-        accessibilityCurrent?: boolean | "page" | "step" | "location" | "date" | "time";
-        accessibilityDescribedBy?: idRefList;
-        accessibilityDetails?: idRef;
-        accessibilityDisabled?: boolean;
-        accessibilityErrorMessage?: idRef;
-        accessibilityExpanded?: boolean;
-        accessibilityFlowTo?: idRefList;
-        accessibilityHasPopup?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
-        accessibilityHidden?: boolean;
-        accessibilityInvalid?: boolean;
-        accessibilityKeyShortcuts?: string[];
-        accessibilityLabel?: string;
-        accessibilityLabelledBy?: idRef;
-        accessibilityLevel?: number;
-        accessibilityLiveRegion?: "assertive" | "none" | "polite";
-        accessibilityModal?: boolean;
-        accessibilityMultiline?: boolean;
-        accessibilityMultiSelectable?: boolean;
-        accessibilityOrientation?: "horizontal" | "vertical";
-        accessibilityOwns?: idRefList;
-        accessibilityPlaceholder?: string;
-        accessibilityPosInSet?: number;
-        accessibilityPressed?: boolean | "mixed";
-        accessibilityReadOnly?: boolean;
-        accessibilityRequired?: boolean;
-        accessibilityRoleDescription?: string;
-        accessibilityRowCount?: number;
-        accessibilityRowIndex?: number;
-        accessibilityRowSpan?: number;
-        accessibilitySelected?: boolean;
-        accessibilitySetSize?: number;
-        accessibilitySort?: "ascending" | "descending" | "none" | "other";
-        accessibilityValueMax?: number;
-        accessibilityValueMin?: number;
-        accessibilityValueNow?: number;
-        accessibilityValueText?: string;
-    }
-
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface ViewProps extends WebViewProps {}
 
@@ -1411,17 +1345,6 @@ declare module "react-native" {
     interface TextInputProps extends WebTextInputProps {}
 
     /**
-     * Image
-     * Extracted from react-native-web, packages/react-native-web/src/exports/Image/types.js
-     */
-    interface WebImageProps extends WebSharedProps {
-        dir?: "ltr" | "rtl";
-        draggable?: boolean;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface ImageProps extends WebImageProps {}
-
-    /**
      * ScrollView
      * Extracted from react-native-web, packages/react-native-web/src/exports/ScrollView/ScrollViewBase.js
      */
@@ -1433,16 +1356,6 @@ declare module "react-native" {
     /**
      * Pressable
      */
-    // https://necolas.github.io/react-native-web/docs/pressable/#interactionstate
-    // Extracted from react-native-web, packages/react-native-web/src/exports/Pressable/index.js
-    interface WebPressableStateCallbackType {
-        readonly focused: boolean;
-        readonly hovered: boolean;
-        readonly pressed: boolean;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface PressableStateCallbackType extends WebPressableStateCallbackType {}
-
     // Extracted from react-native-web, packages/react-native-web/src/exports/Pressable/index.js
     interface WebPressableProps extends WebSharedProps {
         /** Duration (in milliseconds) from `onPressStart` is called after pointerdown. */
@@ -1455,88 +1368,6 @@ declare module "react-native" {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface PressableProps extends WebPressableProps {}
 
-    interface ViewStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside ViewStyle.
-        zIndex?: CSSProperties["zIndex"] | undefined;
-        overflow?: CSSProperties["overflow"] | undefined;
-        display?: CSSProperties["display"] | undefined;
-        position?: CSSProperties["position"] | undefined;
-        top?: CSSProperties["top"] | DimensionValue | undefined;
-        right?: CSSProperties["right"] | DimensionValue | undefined;
-        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
-        left?: CSSProperties["left"] | DimensionValue | undefined;
-        height?: CSSProperties["height"] | DimensionValue | undefined;
-        width?: CSSProperties["width"] | DimensionValue | undefined;
-        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
-        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
-        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
-        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
-        margin?: CSSProperties["margin"] | DimensionValue | undefined;
-        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
-        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
-        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
-        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
-        padding?: CSSProperties["padding"] | DimensionValue | undefined;
-        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
-        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
-        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
-        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
-    }
-
-    interface TextStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside TextStyle.
-        zIndex?: CSSProperties["zIndex"] | undefined;
-        overflow?: CSSProperties["overflow"] | undefined;
-        display?: CSSProperties["display"] | undefined;
-        position?: CSSProperties["position"] | undefined;
-        top?: CSSProperties["top"] | DimensionValue | undefined;
-        right?: CSSProperties["right"] | DimensionValue | undefined;
-        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
-        left?: CSSProperties["left"] | DimensionValue | undefined;
-        height?: CSSProperties["height"] | DimensionValue | undefined;
-        width?: CSSProperties["width"] | DimensionValue | undefined;
-        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
-        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
-        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
-        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
-        margin?: CSSProperties["margin"] | DimensionValue | undefined;
-        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
-        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
-        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
-        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
-        padding?: CSSProperties["padding"] | DimensionValue | undefined;
-        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
-        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
-        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
-        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
-    }
-
-    interface ImageStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside ImageStyle.
-        zIndex?: CSSProperties["zIndex"] | undefined;
-        display?: CSSProperties["display"] | undefined;
-        position?: CSSProperties["position"] | undefined;
-        top?: CSSProperties["top"] | DimensionValue | undefined;
-        right?: CSSProperties["right"] | DimensionValue | undefined;
-        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
-        left?: CSSProperties["left"] | DimensionValue | undefined;
-        height?: CSSProperties["height"] | DimensionValue | undefined;
-        width?: CSSProperties["width"] | DimensionValue | undefined;
-        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
-        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
-        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
-        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
-        margin?: CSSProperties["margin"] | DimensionValue | undefined;
-        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
-        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
-        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
-        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
-        padding?: CSSProperties["padding"] | DimensionValue | undefined;
-        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
-        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
-        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
-        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
-    }
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface UIManagerStatic extends UIManager {}
 }

@@ -1,15 +1,10 @@
 import {
-    AccessibilityProps,
-    ImageStyle,
     PressableProps,
-    PressableStateCallbackType,
     ScrollViewProps,
     TextInputProps,
     TextProps,
-    TextStyle,
     UIManager,
     ViewProps,
-    ViewStyle,
 } from "react-native";
 
 import {
@@ -24,11 +19,13 @@ import {
     Image,
     ImageBackground,
     ImageProps,
+    ImageStyle,
     KeyboardAvoidingView,
     KeyboardProps,
     Modal,
     Picker,
     Pressable,
+    PressableStateCallbackType,
     ProgressBar,
     RefreshControl,
     SafeAreaView,
@@ -38,6 +35,7 @@ import {
     Switch,
     Text,
     TextInput,
+    TextStyle,
     TouchableHighlight,
     TouchableNativeFeedback,
     TouchableOpacity,
@@ -49,6 +47,7 @@ import {
     useLocaleContext,
     useWindowDimensions,
     View,
+    ViewStyle,
     VirtualizedList,
     YellowBox,
 } from "react-native-web";
@@ -288,7 +287,7 @@ const keyboardProps: KeyboardProps = {
 };
 
 // Test accessibility
-const accessibility: AccessibilityProps = {
+const accessibility: ViewProps = {
     "aria-activedescendant": "descendantId",
     "aria-atomic": true,
     "aria-autocomplete": "none",
@@ -392,15 +391,15 @@ const windowDimensions = useWindowDimensions();
 const videoElement = unstable_createElement("video", { src: "a_url", controls: true, muted: "arst" });
 
 const node = 0;
-UIManager.blur(node);
-UIManager.focus(node);
-UIManager.measure(node, () => {});
-UIManager.measureInWindow(node, () => {});
+UIManager.blur?.(node);
+UIManager.focus?.(node);
+UIManager.measure?.(node, () => {});
+UIManager.measureInWindow?.(node, () => {});
 UIManager.measureLayout(
     node,
     node,
     () => {},
     () => {},
 );
-UIManager.updateView(node, {});
-UIManager.configureNextLayoutAnimation(null, () => {});
+UIManager.updateView(node, "View", {});
+UIManager.configureNextLayoutAnimation({}, () => {}, () => {});
