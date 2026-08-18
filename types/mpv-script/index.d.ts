@@ -1649,16 +1649,19 @@ declare namespace mp {
         | {
             name: "playback-time";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: false;
         }
         | {
             name: "playback-time/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: false;
         }
         | {
             name: "chapter";
             type: number | undefined;
+            osd_type: `(${number}) ${string}` | undefined;
             readonly: false;
         }
         | {
@@ -1849,11 +1852,13 @@ declare namespace mp {
         | {
             name: "duration";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: true;
         }
         | {
             name: "duration/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: true;
         }
         | {
@@ -1894,36 +1899,43 @@ declare namespace mp {
         | {
             name: "time-start";
             type: 0;
+            osd_type: "00:00:00";
             readonly: true;
         }
         | {
             name: "time-remaining";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: true;
         }
         | {
             name: "time-remaining/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: true;
         }
         | {
             name: "audio-pts";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: true;
         }
         | {
             name: "audio-pts/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: true;
         }
         | {
             name: "playtime-remaining";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: true;
         }
         | {
             name: "playtime-remaining/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: true;
         }
         | {
@@ -2274,11 +2286,13 @@ declare namespace mp {
         | {
             name: "sub-start";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: true;
         }
         | {
             name: "sub-start/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: true;
         }
         | {
@@ -2289,16 +2303,19 @@ declare namespace mp {
         | {
             name: "sub-end";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: true;
         }
         | {
             name: "sub-end/full";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}.${number}` | undefined;
             readonly: true;
         }
         | {
             name: "secondary-sub-end";
             type: number | undefined;
+            osd_type: `${number}:${number}:${number}` | undefined;
             readonly: true;
         }
         | {
