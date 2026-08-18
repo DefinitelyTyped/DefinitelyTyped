@@ -241,7 +241,12 @@ mp.add_key_binding(
     { complex: true },
 );
 
-// @ts-expect-error
+const invalidComplexFlags: mp.ComplexKeyBindingFlags = {
+    complex: true,
+    // @ts-expect-error Complex bindings cannot be repeatable.
+    repeatable: true,
+};
+
 mp.add_key_binding(
     "Ctrl+f",
     "complex_nonsence",
@@ -249,7 +254,7 @@ mp.add_key_binding(
         dump("complex, nonsense");
         dump("   ", table);
     },
-    { complex: true, repeatable: true }, // see also the comment for `ComplexKeyBindingFlags`
+    invalidComplexFlags,
 );
 
 // $ExpectType OSDSize | undefined
