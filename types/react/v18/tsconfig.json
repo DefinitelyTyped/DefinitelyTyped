@@ -26,11 +26,6 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "preserve",
-        "paths": {
-            "react": [
-                "./index.d.ts"
-            ]
-        },
         "esModuleInterop": true
     }
 }
