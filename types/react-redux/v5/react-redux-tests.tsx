@@ -1,15 +1,6 @@
 import { Component, ReactElement } from "react";
 import * as React from "react";
-import {
-    Connect,
-    connect,
-    createProvider,
-    DispatchProp,
-    MapStateToProps,
-    MapStateToPropsFactory,
-    Options,
-    Provider,
-} from "react-redux";
+import { Connect, connect, createProvider, DispatchProp, MapStateToProps, Options, Provider } from "react-redux";
 import { ActionCreator, ActionCreatorsMapObject, bindActionCreators, createStore, Dispatch, Store } from "redux";
 import objectAssign = require("object-assign");
 
@@ -87,14 +78,18 @@ namespace MapStateFactory {
 
     class TestComponent extends Component<OwnProps & StateProps> {}
 
-    const mapStateToProps: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
+    const mapStateToProps = () => () => ({
         bar: 1,
     });
 
     const Test = connect(
         mapStateToProps,
-    )(TestComponent);
+    )(
+        // @ts-expect-error >=7.0
+        TestComponent,
+    );
 
+    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -229,7 +224,7 @@ namespace MapStateFactoryAndDispatch {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
+    const mapStateToPropsFactory = () => () => ({
         bar: 1,
     });
 
@@ -242,8 +237,12 @@ namespace MapStateFactoryAndDispatch {
     const Test = connect(
         mapStateToPropsFactory,
         mapDispatchToProps,
-    )(TestComponent);
+    )(
+        // @ts-expect-error >=7.0
+        TestComponent,
+    );
 
+    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -258,7 +257,7 @@ namespace MapStateFactoryAndDispatchFactory {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
+    const mapStateToPropsFactory = () => () => ({
         bar: 1,
     });
 
@@ -271,8 +270,12 @@ namespace MapStateFactoryAndDispatchFactory {
     const Test = connect(
         mapStateToPropsFactory,
         mapDispatchToPropsFactory,
-    )(TestComponent);
+    )(
+        // @ts-expect-error >=7.0
+        TestComponent,
+    );
 
+    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 

@@ -62,7 +62,7 @@ import {
     unstable_Section as UnstableSection,
 } from "carbon-components-react";
 import ComboBox from "carbon-components-react/lib/components/ComboBox";
-import { Dialog, DialogCustomComponentProps } from "carbon-components-react/lib/components/Dialog";
+import { Dialog } from "carbon-components-react/lib/components/Dialog";
 import { LayoutDirection } from "carbon-components-react/lib/components/Layout";
 import { Popover, PopoverContent } from "carbon-components-react/lib/components/Popover";
 import { Text } from "carbon-components-react/lib/components/Text";
@@ -1238,17 +1238,20 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
         </Dialog>
     );
 
-    const invalidDialogProps: DialogCustomComponentProps<typeof TestComp2> = {
-        as: TestComp2,
-        "aria-labelledby": "test",
-        onDismiss: () => {},
-        someProp: 5,
-        // @ts-expect-error `unknownProp` is not accepted by the custom component.
-        unknownProp: "a",
-        "data-testid": "test",
-        children: "Test",
-    };
-    const dialogCustomCompT2 = <Dialog {...invalidDialogProps} />;
+    const dialogCustomCompT2 = (
+        // @ts-expect-error <7.0
+        <Dialog
+            as={TestComp2}
+            aria-labelledby="test"
+            onDismiss={() => {}}
+            someProp={5}
+            // @ts-expect-error >=7.0
+            unknownProp="a"
+            data-testid="test"
+        >
+            Test
+        </Dialog>
+    );
 }
 
 //

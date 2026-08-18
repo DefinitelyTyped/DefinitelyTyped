@@ -1,15 +1,6 @@
 import * as PropTypes from "prop-types";
 import * as React from "react";
-import {
-    Connect,
-    connect,
-    createProvider,
-    DispatchProp,
-    MapStateToProps,
-    MapStateToPropsFactory,
-    Options,
-    Provider,
-} from "react-redux";
+import { Connect, connect, createProvider, DispatchProp, MapStateToProps, Options, Provider } from "react-redux";
 import {
     ActionCreator,
     ActionCreatorsMapObject,
@@ -96,7 +87,7 @@ function MapStateFactory() {
 
     class TestComponent extends React.Component<OwnProps & StateProps> {}
 
-    const mapStateToProps: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
+    const mapStateToProps = () => () => ({
         bar: 1,
     });
 
@@ -104,6 +95,7 @@ function MapStateFactory() {
         mapStateToProps,
     )(TestComponent);
 
+    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -330,7 +322,7 @@ function MapStateFactoryAndDispatch() {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
+    const mapStateToPropsFactory = () => () => ({
         bar: 1,
     });
 
@@ -345,6 +337,7 @@ function MapStateFactoryAndDispatch() {
         mapDispatchToProps,
     )(TestComponent);
 
+    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -359,7 +352,7 @@ function MapStateFactoryAndDispatchFactory() {
         onClick: () => void;
     }
 
-    const mapStateToPropsFactory: MapStateToPropsFactory<StateProps, OwnProps, {}> = () => () => ({
+    const mapStateToPropsFactory = () => () => ({
         bar: 1,
     });
 
@@ -374,6 +367,7 @@ function MapStateFactoryAndDispatchFactory() {
         mapDispatchToPropsFactory,
     )(TestComponent);
 
+    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
