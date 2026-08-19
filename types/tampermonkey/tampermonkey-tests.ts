@@ -4,7 +4,6 @@ let title: string = unsafeWindow.document.title;
 
 // $ExpectType Console
 unsafeWindow.console;
-
 // window.onurlchange
 
 if (window.onurlchange === null) {
@@ -50,11 +49,18 @@ GM_setValue("b", 123);
 GM_setValue("c", true);
 GM_setValue("d", { form: { name: "Bob" } });
 
+// GM_setValues
+GM_setValues({ foo: 1, bar: 2 });
+
 // GM_addValueChangeListener
 
 GM_addValueChangeListener("a", (name: string, oldValue: string, newValue: string, remote: boolean) => {});
 GM_addValueChangeListener("b", (name, oldValue: number, newValue: number, remote) => {});
 GM_addValueChangeListener("c", (name, oldValue: boolean, newValue: boolean, remote) => {});
+GM_addValueChangeListener("migrated", (name, oldValue: string, newValue: number, remote) => {
+    const previous: string = oldValue;
+    const current: number = newValue;
+});
 const dValueChangeListenerId: number = GM_addValueChangeListener(
     "d",
     (name, oldValue: AppState, newValue: AppState, remote) => {
@@ -77,9 +83,28 @@ const f: number = GM_getValue("f");
 const g: boolean = GM_getValue("g");
 const h: AppState = GM_getValue("h");
 
+// GM_getValues
+
+interface AppValues {
+    name: string;
+    count: number;
+    enabled: boolean;
+}
+
+const values = GM_getValues<AppValues>(["name", "enabled"]);
+const name: string = values.name;
+const enabled: boolean = values.enabled;
+
+const defaultValues = GM_getValues({ name: "Bob", count: 1 });
+const defaultName: string = defaultValues.name;
+const defaultCount: number = defaultValues.count;
+
 // GM_deleteValue
 
 GM_deleteValue("d");
+
+// GM_deleteValues
+GM_deleteValues(['foo', 'bar']);
 
 // GM_listValues
 
@@ -315,6 +340,29 @@ downloadHandle.abort();
 
 GM_download("http://tampermonkey.net/crx/tampermonkey.xml", "tampermonkey.xml");
 
+GM_download("http://example.com/file.txt", "file.txt");
+
+const download = GM_download({
+    url: "http://example.com/file.txt",
+    name: "file.txt",
+    saveAs: true
+});
+
+// cancel download after 5 seconds
+window.setTimeout(() => download.abort(), 5000);
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Blob
+const obj = { hello: "world" };
+const blob = new Blob([JSON.stringify(obj, null, 2)], {
+    type: "application/json",
+});
+GM_download(blob, "test.json");
+
+const file = new File(["foo"], "foo.txt", {
+    type: "text/plain",
+});
+GM_download(file, "foo.txt");
+
 // GM_saveTab
 
 interface TabState {
@@ -468,6 +516,29 @@ GM_cookie.delete({ name: "cookie_name" }, error => {
 // @ts-expect-error
 GM_cookie.delete({}, () => {});
 
+// GM_audio.*
+
+GM_audio.setMute({ isMuted: true }, function(err) {
+    if (err) console.error("mute failed:", err);
+    else console.log("tab muted");
+});
+
+GM_audio.getState(function(state) {
+    if (!state) return console.error("failed to read state");
+    console.log("muted?", state.isMuted, "reason:", state.muteReason);
+    console.log("audible?", state.isAudible);
+});
+
+GM_audio.addStateChangeListener(function(e) {
+    if ("muted" in e) console.log("muted:", e.muted);
+    if ("audible" in e) console.log("audible:", e.audible);
+});
+
+function onAudio(info: Tampermonkey.AudioStateListenerInfo) { console.log(info); }
+GM_audio.addStateChangeListener(onAudio);
+
+GM_audio.removeStateChangeListener(onAudio, () => console.log("listener removed"));
+
 // GM_info
 
 // $ExpectType ScriptInfo
@@ -484,6 +555,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
         antifeatures: {},
         author: null,
         blockers: [],
+        connects: [],
         copyright: null,
         description: "A description",
         description_i18n: {},
@@ -508,7 +580,6 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
             compat_foreach: false,
             compat_metadata: false,
             compat_powerful_this: false,
-            compat_prototypes: false,
             compat_wrappedjsobject: false,
             compatopts_for_requires: true,
             noframes: null,
@@ -523,6 +594,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
                 orig_matches: ["https://*/*"],
                 orig_noframes: null,
                 orig_run_at: "document-idle",
+                orig_run_in: [],
                 use_blockers: [],
                 use_connects: [],
                 use_excludes: [],
@@ -530,9 +602,11 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
                 use_matches: [],
             },
             run_at: "document-idle",
+            run_in: [],
             sandbox: null,
-            tab_types: null,
+            tags: ["productivity"],
             unwrap: null,
+            user_modified: null
         },
         position: 1,
         resources: [
@@ -544,6 +618,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
             },
         ],
         "run-at": "document-idle",
+        "run-in": [],
         supportURL: null,
         sync: {
             imported: 9,
@@ -558,6 +633,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
     scriptSource: "console.log(GM_info);",
     scriptUpdateURL: null,
     scriptWillUpdate: false,
+    userAgentData: {},
     version: "4.13.6136",
     scriptHandler: "Tampermonkey",
     isIncognito: false,

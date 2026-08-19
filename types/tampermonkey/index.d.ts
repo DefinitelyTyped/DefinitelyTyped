@@ -3,13 +3,17 @@
 // TypeScript Version: 3.3
 
 declare namespace Tampermonkey {
+    type StorageValue = object | string | number | boolean | undefined | null;
+
     /**
      * @param key The key whose value has changed.
      * @param oldValue The previous value of the key.
      * @param newValue The new value of the key
      * @param remote A boolean indicating whether the change originated from a different userscript instance.
      */
-    type ValueChangeListener = (name: string, oldValue: any, newValue: any, remote: boolean) => void;
+    type ValueChangeListener = {
+        bivarianceHack(name: string, oldValue: StorageValue, newValue: StorageValue, remote: boolean): void;
+    }["bivarianceHack"];
 
     // Response
 
@@ -66,8 +70,8 @@ declare namespace Tampermonkey {
 
     interface Request<TContext = object> {
         method?: "GET" | "HEAD" | "POST" | "PUT" | "DELETE";
-        /** The destination URL */
-        url: string | URL;
+        /** The destination URL, or a Blob or File object (since v5.4.6226) */
+        url: string | URL | File | Blob;
         /**
          * i.e. user-agent, referer... (some special headers are not supported
          * by Safari and Android browsers)
@@ -105,6 +109,27 @@ declare namespace Tampermonkey {
          * makes `xhr.onreadystatechange` receive only readyState 4 events)
          */
         fetch?: boolean;
+        /** Explicit proxy configuration. Available since v5.5.6233 and is only applicable in Firefox. */
+        proxy?: {
+            /** The kind of proxy to use (e.g. `direct`, `http`, `https`, `socks`, `socks4`) */
+            type: string;
+            /** The hostname of the proxy server */
+            host: string;
+            /** The port number of the proxy server */
+            port: number;
+            /** Username for SOCKS proxies */
+            username?: string;
+            /** Password for SOCKS proxies */
+            password?: string;
+            /** Use the proxy for DNS resolution (only for `socks`/`socks4`) */
+            proxyDNS?: boolean;
+            /** Fail‑over timeout in seconds */
+            failoverTimeout?: number;
+            /** Value sent as Proxy-Authorization for HTTP/HTTPS proxies */
+            proxyAuthorizationHeader?: string;
+            /** Additional key for connection isolation */
+            connectionIsolationKey?: string;
+        };
         /** Username for authentication */
         user?: string;
         /** Password for authentication */
@@ -141,11 +166,11 @@ declare namespace Tampermonkey {
          * - `not_whitelisted` - the requested file extension is not
          * whitelisted
          * - `not_permitted` - the user enabled the download feature, but did
-         * not give the downloads permission
+         * not give the *downloads* permission
          * - `not_supported` - the download feature isn't supported by the
          * browser/version
          * - `not_succeeded` - the download wasn't started or failed, the
-         * details attribute may provide more information
+         * *details* attribute may provide more information
          */
         error: "not_enabled" | "not_whitelisted" | "not_permitted" | "not_supported" | "not_succeeded";
         /** Detail about that error */
@@ -156,10 +181,10 @@ declare namespace Tampermonkey {
 
     interface DownloadRequest {
         /**
-         * The URL of the file to download. This must be a valid URL and
-         * must point to a file that is accessible to the user.
+         * The URL of the file to download or a `Blob` or `File` object (v5.4.6226+). In case of a
+         * string, this must be a valid URL and must point to a file that is accessible to the user.
          */
-        url: string;
+        url: string | Blob | File;
         /**
          * The name to use for the downloaded file. This should include the file's extension,
          * such as `.txt` or `.pdf`. For security reasons the file extension needs to be
@@ -196,6 +221,7 @@ declare namespace Tampermonkey {
     }
 
     interface AbortHandle<TReturn> {
+        /** A function which can be called to cancel this action. */
         abort(): TReturn;
     }
 
@@ -213,6 +239,8 @@ declare namespace Tampermonkey {
         setParent?: boolean;
         /** A boolean value that makes the tab being opened inside a incognito mode/private mode window. */
         incognito?: boolean;
+        /** A boolean value has the opposite meaning of `active` and was added to achieve Greasemonkey 3.x compatibility. */
+        loadInBackground?: boolean;
     }
 
     interface OpenTabObject {
@@ -296,8 +324,9 @@ declare namespace Tampermonkey {
         orig_excludes: string[];
         orig_includes: string[];
         orig_matches: string[];
-        orig_noframes: string | null;
+        orig_noframes: boolean | null;
         orig_run_at: string | null;
+        orig_run_in: string[] | null;
         use_blockers: string[];
         use_connects: string[];
         use_excludes: string[];
@@ -315,16 +344,28 @@ declare namespace Tampermonkey {
         compat_foreach: boolean;
         compat_metadata: boolean;
         compat_powerful_this: boolean | null;
-        compat_prototypes: boolean;
         compat_wrappedjsobject: boolean;
         compatopts_for_requires: boolean;
         noframes: boolean | null;
         run_at: string;
+        run_in: string[];
         sandbox: string | null;
-        tab_types: string | null;
+        tags: string[];
         unwrap: boolean | null;
+        user_modified: number | null;
 
         override: ScriptMetadataOverrides;
+    }
+
+    interface UADataValues {
+        brands?: {
+            brand: string;
+            version: string;
+        }[];
+        mobile?: boolean;
+        platform?: string;
+        architecture?: string;
+        bitness?: string;
     }
 
     /**
@@ -364,10 +405,10 @@ declare namespace Tampermonkey {
         author: string | null;
 
         blockers: string[];
-
+        connects: string[];
         copyright: string | null;
         deleted?: number;
-        description: string | null;
+        description: string;
         description_i18n: Record<string, string> | null;
         downloadURL: string | null;
         enabled?: boolean;
@@ -375,7 +416,7 @@ declare namespace Tampermonkey {
         excludes: string[];
         fileURL?: string | null;
         grant: string[];
-        header: string;
+        header: string | null;
         homepage: string | null;
         icon: string | null;
         icon64: string | null;
@@ -394,13 +435,14 @@ declare namespace Tampermonkey {
          * Never null, defaults to document-idle
          */
         "run-at": string;
+        "run-in": string[] | null;
 
         supportURL: string | null;
         sync?: {
             imported?: number;
         };
         system?: boolean;
-        unwrap: boolean;
+        unwrap: boolean | null;
         updateURL: string | null;
         uuid: string;
         version: string;
@@ -408,6 +450,11 @@ declare namespace Tampermonkey {
     }
 
     interface ScriptInfo {
+        /** Available since v5.3, only applicable to Firefox. */
+        container?: { // 5.3+ | Firefox only
+            id: string,
+            name?: string
+        },
         downloadMode: "native" | "browser" | "disabled";
         isFirstPartyIsolation?: boolean;
         isIncognito: boolean;
@@ -425,6 +472,8 @@ declare namespace Tampermonkey {
         scriptSource: string;
         scriptUpdateURL: string | null;
         scriptWillUpdate: boolean;
+
+        userAgentData: UADataValues;
 
         /** This refers to tampermonkey's version */
         version?: string;
@@ -589,6 +638,42 @@ declare namespace Tampermonkey {
             topLevelSite?: string;
         };
     }
+
+    interface AudioStateInfo {
+        /** Whether the tab is currently muted. */
+        isMuted?: boolean;
+        /**
+         * The reason why the tab was muted, if it is currently muted:
+         * - `user`: user action (e.g., mute button).
+         * - `capture`: tab capture API call.
+         * - `extension`: extension call.
+         */
+        muteReason?: "user" | "capture" | "extension";
+        /** Whether the tab is currently playing audio. */
+        isAudible?: boolean;
+    }
+
+    type AudioStateCallback = (
+        /** An object representing the retrieved state */
+        info: Tampermonkey.AudioStateInfo
+    ) => void;
+
+    type ErrorCallback = (
+        /** Contains an error message if the action fails, otherwise it is `undefined`. */
+        error?: string,
+    ) => void;
+
+    interface AudioStateListenerInfo {
+        /** Mute reason or `false` if not muted. */
+        muted?: string | false;
+        /** Whether the tab is currently playing audio. */
+        audible?: boolean;
+    }
+
+    type AudioStateListener = (
+        /** An object representing the retrieved state change. */
+        info: Tampermonkey.AudioStateListenerInfo
+    ) => void;
 }
 
 /**
@@ -602,13 +687,17 @@ declare var unsafeWindow:
         | "GM_addElement"
         | "GM_addStyle"
         | "GM_addValueChangeListener"
+        | "GM_audio"
+        | "GM_cookie"
         | "GM_deleteValue"
+        | "GM_deleteValues"
         | "GM_download"
         | "GM_getResourceText"
         | "GM_getResourceURL"
         | "GM_getTab"
         | "GM_getTabs"
         | "GM_getValue"
+        | "GM_getValues"
         | "GM_info"
         | "GM_listValues"
         | "GM_log"
@@ -619,21 +708,23 @@ declare var unsafeWindow:
         | "GM_saveTab"
         | "GM_setClipboard"
         | "GM_setValue"
+        | "GM_setValues"
         | "GM_unregisterMenuCommand"
         | "GM_xmlhttpRequest"
+        | "GM_webRequest"
         | "GM"
     >;
 
 /**
- * Patched onurlchange attribute based on document {@link https://www.tampermonkey.net/documentation.php#meta:grant}
- * @url https://www.tampermonkey.net/documentation.php#meta:grant
+ * Patched onurlchange attribute based on document {@link https://www.tampermonkey.net/documentation.php?q=grant#meta:grant}
+ * @url https://www.tampermonkey.net/documentation.php?q=grant#meta:grant
  */
 interface Window {
     /**
      * check before use addEventListener
      *
      * According to the documentation and code, the value can currently only be of type null
-     * @url https://www.tampermonkey.net/documentation.php#meta:grant
+     * @url https://www.tampermonkey.net/documentation.php?q=grant#meta:grant
      * @example
      * if (window.onurlchange === null) {
      *   window.addEventListener('urlchange', (info) => console.log(info));
@@ -644,14 +735,13 @@ interface Window {
 }
 
 /**
- * `GM_addElement` allows Tampermonkey scripts to add new elements to the page
- * that Tampermonkey is running on. This can be useful for a variety of purposes,
- * such as adding `script` and `img` tags if the page limits these elements
- * with a content security policy (CSP).
+ * Add new elements to the page that Tampermonkey is running on. This can be useful for
+ * a variety of purposes, such as adding `script` and `img` tags if the page limits
+ * these elements with a content security policy (CSP).
  *
  * The resulting HTML element will be attached to document head or body.
  *
- * @url https://www.tampermonkey.net/documentation.php#api:GM_addElement
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_addElement
  * @param tagName Specifies the HTML element tag name.
  * @param attributes Attributes that applied to the HTML element.
  * For suitable `attributes`, please consult the appropriate documentation. For example:
@@ -664,12 +754,11 @@ interface Window {
 declare function GM_addElement(tagName: string, attributes: object): HTMLElement;
 
 /**
- * `GM_addElement` allows Tampermonkey scripts to add new elements to the page
- * that Tampermonkey is running on. This can be useful for a variety of purposes,
- * such as adding `script` and `img` tags if the page limits these elements
- * with a content security policy (CSP).
+ * Add new elements to the page that Tampermonkey is running on. This can be useful for
+ * a variety of purposes, such as adding `script` and `img` tags if the page limits
+ * these elements with a content security policy (CSP).
  *
- * @url https://www.tampermonkey.net/documentation.php#api:GM_addElement
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_addElement
  * @param parentNode The node the resulting HTML element will be attached to.
  * @param tagName Specifies the HTML element tag name.
  * @param attributes Attributes that applied to the HTML element.
@@ -691,7 +780,7 @@ declare function GM_addElement(
 
 /**
  * Applies the given style to the document.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_addStyle
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_addStyle
  * @param css The styles to apply.
  * @returns The injected style element.
  */
@@ -701,16 +790,23 @@ declare function GM_addStyle(css: string): HTMLStyleElement;
 
 /**
  * Sets the value of a specific key in the userscript's storage.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_setValue
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_setValue
  * @param name A string specifying the key for which the value should be set.
  * @param value The value to be set for the key.
  */
-declare function GM_setValue(name: string, value: any): void;
+declare function GM_setValue(name: string, value: Tampermonkey.StorageValue): void;
+
+/**
+ * Sets multiple key-value pairs in the userscript's storage simultaneously.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_setValues
+ * @param values An object where each key-value pair corresponds to a key and the value to be set for that key.
+ */
+declare function GM_setValues(values: Record<string, Tampermonkey.StorageValue>): void;
 
 /**
  * Adds a listener for changes to the value of a specific key in the userscript's storage.
  * This functionality can be used by scripts of different browser tabs to communicate with each other.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_addValueChangeListener
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_addValueChangeListener
  * @param name A string specifying the key for which changes should be monitored.
  * @param listener A callback function that will be called when the value of the key changes.
  * @returns A `listenerId` value that can be used to remove the listener later using `GM_removeValueChangeListener`.
@@ -718,14 +814,15 @@ declare function GM_setValue(name: string, value: any): void;
 declare function GM_addValueChangeListener(name: string, listener: Tampermonkey.ValueChangeListener): number;
 
 /**
- * Removes a change listener by its ID.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_removeValueChangeListener
+ * Removes the change listener with the specified ID.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_removeValueChangeListener
+ * @param listenerId The ID of the listener to be removed.
  */
 declare function GM_removeValueChangeListener(listenerId: number): void;
 
 /**
  * Retrieves the value of a specific key in the extension's storage.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_getValue
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_getValue
  * @param name A string specifying the key for which the value should be retrieved.
  * @param defaultValue A default value to be returned if the key does not exist in the extension's storage.
  * @returns The value of the specified key from the extension's storage, or the default value if the key does not exist.
@@ -733,33 +830,63 @@ declare function GM_removeValueChangeListener(listenerId: number): void;
 declare function GM_getValue<TValue>(name: string, defaultValue?: TValue): TValue;
 
 /**
- * Deletes `name` from the userscript's storage.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_deleteValue
- * @param name A string specifying the key that should be deleted from storage.
+ * Retrieves the values of multiple keys in the userscript's storage. It can also provide
+ * default values if the keys do not exist.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_getValues
+ * @param keys An array of strings specifying the keys for which the values should be retrieved
+ * @returns An object containing the values of the specified keys from the userscript's storage,
+ *          or the default values if the keys do not exist.
  */
-declare function GM_deleteValue(name: string): void;
+declare function GM_getValues<
+    TValues extends object,
+    TKeys extends readonly (keyof TValues & string)[] = readonly (keyof TValues & string)[],
+>(keys: TKeys): Pick<TValues, TKeys[number]>;
+
+/**
+ * Retrieves the values of multiple keys in the userscript's storage. It can also provide
+ * default values if the keys do not exist.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_getValues
+ * @param defaults An object specifying the default values to be returned if the keys do not exist.
+ * @returns An object containing the values of the specified keys from the userscript's storage,
+ *          or the default values if the keys do not exist.
+ */
+declare function GM_getValues<TDefaults extends { [key: string]: Tampermonkey.StorageValue }>(defaults: TDefaults): TDefaults;
+
+/**
+ * Deletes `key` from the userscript's storage.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_deleteValue
+ * @param key A string specifying the key that should be deleted from storage.
+ */
+declare function GM_deleteValue(key: string): void;
+
+/**
+ * Deletes multiple keys from the userscript's storage simultaneously.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_deleteValues
+ * @param keys An array of strings specifying the keys to be deleted from the userscript's storage.
+ */
+declare function GM_deleteValues(keys: string[]): void;
 
 /**
  * Returns a list of keys of all stored data.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_listValues
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_values#api:GM_listValues
  */
 declare function GM_listValues(): string[];
 
 // Resources
 
 /**
- * Retrieves the text of a resource (such as a JavaScript or CSS file)
- * that has been included in a userscript via @resource.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_getResourceText
+ * Retrieves the text of a resource (such as a JavaScript or CSS file) that has
+ * been included in a userscript via a `@resource` tag at the script header.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_getResource#api:GM_getResourceText
  * @param name The name of the resource to retrieve.
  * @returns The text of the resource as a string.
  */
 declare function GM_getResourceText(name: string): string;
 
 /**
- * Get the base64 encoded URI of a predefined `@resource` tag at the script
- * header
- * @url https://www.tampermonkey.net/documentation.php#api:GM_getResourceURL
+ * Retrieves the URL of a resource (such as a CSS or image file) that has been included
+ * in the userscript via a `@resource` tag at the script header.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_getResource#api:GM_getResourceURL
  * @param name The name of the resource to retrieve.
  * @returns The URL of the resource as a string.
  */
@@ -768,9 +895,10 @@ declare function GM_getResourceURL(name: string): string;
 // Menu commands
 
 /**
- * Adds a new entry to the userscript's menu in the browser,
- * and specifies a function to be called when the menu item is selected.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_registerMenuCommand
+ * Adds a new entry to the userscript's menu in the browser, and specifies a function
+ * to be called when the menu item is selected. Menu items created from different frames
+ * are merged into a single menu entry if `name`, `title` and `accessKey` are the same.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_registerMenuCommand#api:GM_registerMenuCommand
  * @param name A string containing the text to display for the menu item.
  * @param onclick A function to be called when the menu item is selected.
  *                The function will be passed a single parameter,
@@ -795,7 +923,8 @@ declare function GM_registerMenuCommand(
          * An optional access key for the menu item. This can be used to create a shortcut for the menu item.
          * For example, if the access key is "s", the user can select the menu item by pressing "s"
          * when Tampermonkey's popup-menu is open. Please note that there are browser-wide shortcuts
-         * configurable to open Tampermonkey's popup-menu.
+         * configurable to open Tampermonkey's popup-menu (`chrome://extensions/shortcuts` in Chrome,
+         * `about:addons` + "Manage Extension Shortcuts" in Firefox)
          */
         accessKey?: string;
         /**
@@ -816,7 +945,7 @@ declare function GM_registerMenuCommand(
  * Removes an existing entry from the userscript's menu in the browser
  * that was previously registered by `GM_registerMenuCommand` or `GM.registerMenuCommand`
  * with the given menu command ID.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_unregisterMenuCommand
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_registerMenuCommand#api:GM_unregisterMenuCommand
  * @param menuCommandId The id of the menu item to remove.
  */
 declare function GM_unregisterMenuCommand(menuCommandId: number): void;
@@ -824,8 +953,24 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
 // Requests
 
 /**
- * Sends an HTTP request and handles the response.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_xmlhttpRequest
+ * Sends an HTTP request and handles the response. `GM_xmlhttpRequest` is dispatched
+ * by Tampermonkey's background context.
+ * If you want to use this method then please also check the documentation about
+ * [`@connect`](https://www.tampermonkey.net/documentation.php?q=meta:connect).
+ * 
+ * **Proxy.** Tampermonkey does not implement its own proxy resolution (PAC, WPAD, WinHTTP, or NO_PROXY).
+ * Requests use the browser's native networking stack, so proxy settings follow whatever the browser is
+ * configured to use. The `proxy` property on the request details allows you to override this and route a
+ * specific request through an explicit proxy server.
+ * 
+ * **Certificates.** No custom certificate or trust-store handling is performed. Requests use the browser's
+ * TLS stack, so they trust whichever root certificates the browser trusts (e.g., OS trust store on Chrome,
+ * Firefox's own certificate database on Firefox).
+ * 
+ * **Authentication Challenges (401/407).** HTTP 401 and 407 responses come from the destination server or
+ * proxy before Tampermonkey can intercept them. They must be resolved at the browser or OS proxy-authentication
+ * level, or by providing credentials via the user/password properties.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_xmlhttpRequest
  * @param details An object containing the details of the request to be sent
  *                and the callback functions to be called when the response is received.
  */
@@ -834,31 +979,38 @@ declare function GM_xmlhttpRequest<TContext = any>( // eslint-disable-line @defi
 ): Tampermonkey.AbortHandle<void>;
 
 /**
- * Downloads a file from a specified URL and save it to the user's local machine.
+ * Downloads a file from a specified URL and saves it to the user's local machine.
  * Note: The browser might modify the desired filename. Especially a file extension might
  * be added if the browser finds this to be safe to download at the current OS.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_download
+ *
+ * Depending on the download mode, `GM_info` provides a property called `downloadMode`
+ * which is set to one of the following values: `native`, `disabled` or `browser`.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_download
  * @param details Details about the download.
  */
 declare function GM_download(details: Tampermonkey.DownloadRequest): Tampermonkey.AbortHandle<boolean>;
 /**
- * Downloads a file from a specified URL and save it to the user's local machine.
+ * Downloads a file from a specified URL and saves it to the user's local machine.
  * Note: The browser might modify the desired filename. Especially a file extension might
  * be added if the browser finds this to be safe to download at the current OS.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_download
- * @param url The URL of the file to download. This must be a valid URL and must point to a file that is accessible to the user.
+ *
+ * Depending on the download mode, `GM_info` provides a property called `downloadMode`
+ * which is set to one of the following values: `native`, `disabled` or `browser`.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_download
+ * @param url The URL of the file to download or a `Blob` or `File` object (v5.4.6226+). In case of a
+ *            string, this must be a valid URL and must point to a file that is accessible to the user.
  * @param name The name to use for the downloaded file. This should include the file's extension,
  *             such as `.txt` or `.pdf`. For security reasons the file extension needs to be whitelisted
  *             at Tampermonkey's options page
  */
-declare function GM_download(url: string, name: string): Tampermonkey.AbortHandle<boolean>;
+declare function GM_download(url: string | File | Blob, name: string): Tampermonkey.AbortHandle<boolean>;
 
 // Tabs
 
 /**
  * Saves information about a tab so that it can be retrieved later
  * using the `GM_getTab` function.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_saveTab
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_tabs#api:GM_saveTab
  * @param tab An object containing the information to be saved about the tab.
  * @param callback An optional callback function
  */
@@ -866,14 +1018,14 @@ declare function GM_saveTab(tab: object, callback?: () => void): void;
 
 /**
  * Gets a object that is persistent as long as this tab is open
- * @url https://www.tampermonkey.net/documentation.php#api:GM_getTab
- * @param callback Function that will be called with an object that is persistent as long as this tab is open.
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_tabs#api:GM_getTab
+ * @param callback A callback function that will be called with an object that is persistent as long as this tab is open.
  */
 declare function GM_getTab(callback: (obj: any) => void): void;
 
 /**
  * Gets all tab objects as a hash to communicate with other script instances
- * @url https://www.tampermonkey.net/documentation.php#api:GM_getTabs
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_tabs#api:GM_getTabs
  * @param callback A callback function that will be called with the information about the tabs..
  */
 declare function GM_getTabs(
@@ -890,13 +1042,13 @@ declare function GM_getTabs(
 
 /**
  * Returns information about the script and Tampermonkey.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_info
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_info
  */
 declare var GM_info: Tampermonkey.ScriptInfo;
 
 /**
  * Logs a message to the console
- * @url https://www.tampermonkey.net/documentation.php#api:GM_log
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_log
  */
 declare function GM_log(...message: any[]): void;
 
@@ -913,7 +1065,7 @@ declare function GM_log(...message: any[]): void;
  *
  * If neither `active` nor `loadInBackground` is given, then the tab will not be
  * focused.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_openInTab
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_openInTab
  * @param url The URL of the page to open in the new tab.
  * @param options An object that can be used to customize the behavior of the new tab.
  * @returns An object with the function `close`, the listener `onclose` and a flag
@@ -930,7 +1082,7 @@ declare function GM_openInTab(
  *
  * Since v5.0, if no `url` and no `tag` is provided in `details` argument, the notification will close
  * when the userscript unloads (e.g. when the page is reloaded or the tab is closed).
- * @url https://www.tampermonkey.net/documentation.php#api:GM_notification
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_notification
  * @param details Notification parameters.
  * @param ondone A callback function that will be called when the notification is closed
  *              (no matter if this was triggered by a timeout or a click) or the tab was highlighted.
@@ -944,7 +1096,7 @@ declare function GM_notification(
 /**
  * Shows an HTML5 Desktop notification and/or highlight the current tab
  * using a provided message and other optional parameters.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_notification
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_notification
  * @param text A string containing the message to display in the notification.
  * @param title The title of the notification. If not specified, the script name is used.
  * @param image The URL of an image to display in the notification.
@@ -959,12 +1111,10 @@ declare function GM_notification(
 
 /**
  * Sets the text of the clipboard to a specified value.
- * The parameter 'info' can be an object like
- * `{ type: 'text', mimetype: 'text/plain'}` or just a string expressing the
- * type ("text" or "html").
- * @url https://www.tampermonkey.net/documentation.php#api:GM_setClipboard
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_setClipboard
  * @param data The string to set as the clipboard text.
- * @param info A string expressing the type `text` or `html` or an object.
+ * @param info A string expressing the type `text` or `html` or an object
+ *             like `{ type: 'text', mimetype: 'text/plain'}`.
  * @param callback An optional callback function that is called when the clipboard has been set.
  */
 declare function GM_setClipboard(
@@ -974,13 +1124,13 @@ declare function GM_setClipboard(
 ): void;
 
 /**
- * `GM_webRequest` (re-)registers rules for web request manipulations
- * and the listener of triggered rules. If you need to just register rules
- * it's better to use `@webRequest` header. Note, `webRequest` proceeds only requests
- * with types `sub_frame`, `script`, `xhr` and `websocket`.
- * **Note: this API is experimental and might change at any time.**
- * It might also disappear or change during manifest v3 migration.
- * @url https://www.tampermonkey.net/documentation.php#api:GM_webRequest
+ * (Re-)registers rules for web request manipulations and the listener of triggered rules.
+ * If you need to just register rules it's better to use `@webRequest` header.
+ * `webRequest` proceeds only requests with types `sub_frame`, `script`, `xhr` and `websocket`.
+ *
+ * **Note:** this API is experimental and might change at any time. It is also not available
+ * anymore at Manifest v3 versions of Tampermonkey 5.2+ (Chrome and derivates).
+ * @url https://www.tampermonkey.net/documentation.php?q=GM_webRequest
  * @param rules An array of rules.
  * @param listener A function called when the rule is triggered. It cannot impact on the rule action.
  * @returns An object with an `.abort()` method.
@@ -1004,12 +1154,13 @@ declare var GM_cookie: {
      *
      * **Note: the `GM_cookie` API is experimental and might
      * return a `not supported` error at some Tampermonkey versions.**
-     * @url https://www.tampermonkey.net/documentation.php#api:GM_cookie.list
+     * `httpOnly` cookies are supported at the BETA versions of Tampermonkey only for now.
+     * @url https://www.tampermonkey.net/documentation.php?q=GM_cookie#api:GM_cookie.list
      * @param details Object containing properties of the cookies to retrieve.
      * @param callback Function to be called when the cookies have been retrieved.
      */
     list(
-        details?: Tampermonkey.ListCookiesDetails,
+        details: Tampermonkey.ListCookiesDetails,
         callback?: Tampermonkey.ListCookiesCallback,
     ): void;
 
@@ -1019,19 +1170,13 @@ declare var GM_cookie: {
      *
      * **Note: the `GM_cookie` API is experimental and might
      * return a `not supported` error at some Tampermonkey versions.**
-     * @url https://www.tampermonkey.net/documentation.php##api:GM_cookie.set
+     * @url https://www.tampermonkey.net/documentation.php?q=GM_cookie#api:GM_cookie.set
      * @param details An object containing the details of the cookie to be set.
      * @param callback A function to be called when the operation is complete.
      */
     set(
         details: Tampermonkey.SetCookiesDetails,
-        callback?: (
-            /**
-             * If there was an error setting the cookie, this contains
-             * an error message. Otherwise, it is `undefined`.
-             */
-            error?: string,
-        ) => void,
+        callback?: Tampermonkey.ErrorCallback,
     ): void;
 
     /**
@@ -1039,18 +1184,61 @@ declare var GM_cookie: {
      *
      * **Note: the `GM_cookie` API is experimental and might
      * return a `not supported` error at some Tampermonkey versions.**
-     * @url https://www.tampermonkey.net/documentation.php##api:GM_cookie.delete
+     * @url https://www.tampermonkey.net/documentation.php?q=GM_cookie#api:GM_cookie.delete
      * @param details An object containing the details of the cookie to be deleted.
      * @param callback Function called when the cookie has been deleted or when an error has occurred.
      */
     delete(
         details: AtLeastOneOf<Tampermonkey.DeleteCookiesDetails>,
-        callback?: (
-            /** An error message, or `undefined` if the cookie was deleted successfully. */
-            error?: string,
-        ) => void,
+        callback?: Tampermonkey.ErrorCallback,
     ): void;
 };
+
+// GM_audio.*
+declare var GM_audio: {
+    /**
+     * Sets the mute state of the current tab.
+     * @url https://www.tampermonkey.net/documentation.php?q=GM_audio#api:GM_audio.setMute
+     * @param details An object describing the new mute state of the tab
+     * @param callback A callback function called when the operation finishes
+     */
+    setMute(
+        details: {
+            /** `true` to mute the tab, `false` to un‑mute it. */
+            isMuted: boolean;
+        },
+        callback?: Tampermonkey.ErrorCallback,
+    ): void;
+
+    /**
+     * Retrieves the current audio state of the tab.
+     * @url https://www.tampermonkey.net/documentation.php?q=GM_audio#api:GM_audio.getState
+     * @param callback A callback function called with an object describing the tab’s audio state.
+     */
+    getState(callback: Tampermonkey.AudioStateCallback): void;
+
+    /**
+     * Registers a listener that is called whenever the tab's mute or audible state changes.
+     * @url https://www.tampermonkey.net/documentation.php?q=GM_audio#api:GM_audio.addStateChangeListener
+     * @param listener A callback function called when state changes.
+     * @param callback A callback function called once the registration attempt is complete.
+     */
+    addStateChangeListener(
+        listener: Tampermonkey.AudioStateListener,
+        callback?: Tampermonkey.ErrorCallback,
+    ): void;
+
+    /**
+     * Unregisters a previously added state‑change listener.
+     * @url https://www.tampermonkey.net/documentation.php?q=GM_audio#api:GM_audio.removeStateChangeListener
+     * @param listener The exact listener function that was passed to `addStateChangeListener`.
+     * @param callback A callback function called once the listener has been removed.
+     */
+    removeStateChangeListener(
+        listener: Tampermonkey.AudioStateListener,
+        callback?: Tampermonkey.ErrorCallback,
+    ): void;
+}
 
 // GM.*
 
@@ -1112,8 +1300,8 @@ declare var GM: Readonly<{
      */
     registerMenuCommand(name: string, onClick: () => void, accessKey?: string): Promise<number>;
     /**
-     *  Unregister a menu command that was previously registered by
-     * `GM_registerMenuCommand` or `GM.registerMenuCommand` with the given menu command ID.
+     * Unregister a menu command that was previously registered by `GM_registerMenuCommand`
+     * or `GM.registerMenuCommand` with the given menu command ID.
      */
     unregisterMenuCommand(menuCommandId: number): Promise<void>;
 
