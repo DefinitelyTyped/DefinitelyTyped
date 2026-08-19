@@ -95,7 +95,6 @@ function MapStateFactory() {
         mapStateToProps,
     )(TestComponent);
 
-    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -337,7 +336,6 @@ function MapStateFactoryAndDispatch() {
         mapDispatchToProps,
     )(TestComponent);
 
-    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -367,7 +365,6 @@ function MapStateFactoryAndDispatchFactory() {
         mapDispatchToPropsFactory,
     )(TestComponent);
 
-    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 

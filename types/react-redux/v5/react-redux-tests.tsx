@@ -84,12 +84,8 @@ namespace MapStateFactory {
 
     const Test = connect(
         mapStateToProps,
-    )(
-        // @ts-expect-error >=7.0
-        TestComponent,
-    );
+    )(TestComponent);
 
-    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -237,12 +233,8 @@ namespace MapStateFactoryAndDispatch {
     const Test = connect(
         mapStateToPropsFactory,
         mapDispatchToProps,
-    )(
-        // @ts-expect-error >=7.0
-        TestComponent,
-    );
+    )(TestComponent);
 
-    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
@@ -270,12 +262,8 @@ namespace MapStateFactoryAndDispatchFactory {
     const Test = connect(
         mapStateToPropsFactory,
         mapDispatchToPropsFactory,
-    )(
-        // @ts-expect-error >=7.0
-        TestComponent,
-    );
+    )(TestComponent);
 
-    // @ts-expect-error >=7.0
     const verify = <Test foo="bar" />;
 }
 
