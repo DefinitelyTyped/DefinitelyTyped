@@ -92,13 +92,9 @@ router3.get("/", (ctx) => {
     console.log(ctx.router.params);
     ctx.body = "Hello World!";
 });
-router3.get(
-    "/foo",
-    // @ts-expect-error >=7.1
-    (ctx: Router.RouterContext) => {
-        ctx.body = "Yup";
-    },
-);
+router3.get("/foo", (ctx) => {
+    ctx.body = "Yup";
+});
 new Koa()
     .use(async (ctx, next) => next())
     .use(router3.routes())
@@ -200,38 +196,10 @@ router4.patch("foo", "/foo", middleware3, routeHandler1);
 router4.delete("/foo", middleware1, routeHandler2);
 router4.head("/foo", middleware2, routeHandler3);
 
-router4.post(
-    "/foo",
-    emptyMiddleware,
-    emptyMiddleware,
-    // @ts-expect-error >=7.1
-    routeHandler4,
-);
-router4.post(
-    "/foo",
-    emptyMiddleware,
-    emptyMiddleware,
-    emptyMiddleware,
-    // @ts-expect-error >=7.1
-    routeHandler4,
-);
-router4.get(
-    "name",
-    // @ts-expect-error >=7.1
-    "/foo",
-    emptyMiddleware,
-    emptyMiddleware,
-    routeHandler4,
-);
-router4.get(
-    "name",
-    // @ts-expect-error >=7.1
-    "/foo",
-    emptyMiddleware,
-    emptyMiddleware,
-    emptyMiddleware,
-    routeHandler4,
-);
+router4.post<{}, {}>("/foo", emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.post<{}, {}>("/foo", emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.get<{}, {}>("name", "/foo", emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.get<{}, {}>("name", "/foo", emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
 
 const router5 = new Router<any, {}>();
 router5.register("/foo", ["GET"], middleware1, {
