@@ -6,6 +6,10 @@ interface Window {
     MediaSession?: MediaSession | undefined;
 }
 
+interface SetPositionState {
+    (playbackState?: MediaPositionState): void;
+}
+
 interface MediaSession {
     // Current media session playback state.
     playbackState: MediaSessionPlaybackState;
