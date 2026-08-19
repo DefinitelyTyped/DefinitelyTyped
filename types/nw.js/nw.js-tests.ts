@@ -4,10 +4,46 @@
 
 var argv = nw.App.argv;
 var fullArgv = nw.App.fullArgv;
-var filteredArgv = nw.App.filteredArgv;
+// `filteredArgv` is a list of RegExp patterns, not plain objects
+var filteredArgv: RegExp[] = nw.App.filteredArgv;
+filteredArgv.forEach(function(pattern) {
+    console.log(pattern.test("--url=https://github.com"));
+});
 var startPath = nw.App.startPath;
 var dataPath = nw.App.dataPath;
 var manifest = nw.App.manifest;
+
+// Known manifest fields are typed; unknown `package.json` fields still resolve
+console.log(manifest.main, manifest.name, manifest["node-main"], manifest.dependencies);
+
+// `webview` permissions in the manifest
+if (manifest.webview && manifest.webview.partitions) {
+    manifest.webview.partitions.forEach(function(partition) {
+        console.log(partition.name, partition.accessible_resources);
+    });
+}
+
+var trustedManifest: NWJS_Helpers.Manifest = {
+    main: "index.html",
+    name: "my-app",
+    window: {
+        title: "My App",
+        frame: false,
+        focus: true,
+    },
+    webkit: {
+        plugin: false,
+    },
+    webview: {
+        partitions: [
+            {
+                name: "trusted",
+                accessible_resources: ["<all_urls>"],
+            },
+        ],
+    },
+};
+console.log(trustedManifest);
 
 nw.App.clearCache();
 nw.App.clearAppCache("/path/to/manifest_url");
@@ -59,7 +95,7 @@ clipboard.clear();
 /**
  * nw.Menu Tests
  */
-// Create an empty context menu
+// Create an empty context menu. The option argument, and its `type` field, are optional
 var menu = new nw.Menu();
 
 // Add some items
@@ -78,6 +114,11 @@ menu.popup(10, 10);
 for (var i = 0; i < menu.items.length; ++i) {
     console.log(menu.items[i]);
 }
+
+// `type` only accepts "menubar" or "contextmenu"
+var contextMenuOption: NWJS_Helpers.MenuOption = { type: "contextmenu" };
+console.log(new nw.Menu(contextMenuOption));
+
 // Create an empty menubar
 var menu = new nw.Menu({ type: "menubar" });
 
@@ -96,6 +137,12 @@ menu.append(
 
 // Assign it to `window.menu` to get the menu displayed
 nw.Window.get().menu = menu;
+
+// Setting the menubar to null removes it
+nw.Window.get().menu = null;
+
+// Mac only: populate the builtin App, Edit and Window menus
+menu.createMacBuiltin("My App", { hideEdit: false, hideWindow: true });
 
 /**
  * nw.MenuItem Tests
@@ -144,6 +191,12 @@ item.click = function() {
 // init must be called once during startup, before any function to nw.Screen can be called
 nw.Screen.Init();
 
+var screens: NWJS_Helpers.screen[] = nw.Screen.screens;
+screens.forEach(function(screen) {
+    console.log(screen.id, screen.bounds.width, screen.work_area.height, screen.scaleFactor);
+    console.log(screen.isBuiltIn, screen.rotation, screen.touchSupport);
+});
+
 var screenCB = {
     onDisplayBoundsChanged: function(screen: any) {
         console.log("displayBoundsChanged", screen);
@@ -186,18 +239,21 @@ nw.Screen.chooseDesktopMedia(["window", "screen"], function(streamId) {
 var dcm = nw.Screen.DesktopCaptureMonitor;
 nw.Screen.Init();
 dcm.on("added", function(id, name, order, type, primary) {
+    // `registerStream` returns the stream id to pass as `chromeMediaSourceId`
+    var registeredStreamId: string = dcm.registerStream(id);
+
     // select first stream and shutdown
     var constraints = {
         audio: {
             mandatory: {
                 chromeMediaSource: "system",
-                chromeMediaSourceId: dcm.registerStream(id),
+                chromeMediaSourceId: registeredStreamId,
             },
         },
         video: {
             mandatory: {
                 chromeMediaSource: "desktop",
-                chromeMediaSourceId: dcm.registerStream(id),
+                chromeMediaSourceId: registeredStreamId,
             },
         },
     };
@@ -212,6 +268,7 @@ dcm.on("orderchanged", function(id, new_order, old_order) {});
 dcm.on("namechanged", function(id, name) {});
 dcm.on("thumbnailchanged", function(id, thumbnail) {});
 dcm.start(true, true);
+console.log(dcm.started);
 
 /**
  * nw.Shell Tests
@@ -304,6 +361,19 @@ nw.Window.open("https://github.com", {}, function(new_win) {
     });
 });
 
+// The opened window is not focused by default; `focus` opts back in
+nw.Window.open("https://github.com/nwjs/nw.js", {
+    position: "center",
+    width: 901,
+    height: 127,
+    focus: true,
+    new_instance: true,
+    mixed_context: true,
+    inject_js_start: "inject_start.js",
+    inject_js_end: "inject_end.js",
+    id: "main-window",
+});
+
 // Get the current window
 var win = nw.Window.get();
 
@@ -339,6 +409,24 @@ win.capturePage(
     },
     { format: "png", datatype: "buffer" },
 );
+
+// captureScreenshot with a callback...
+win.captureScreenshot({ fullSize: true, format: "png" }, function(err, data) {
+    if (err !== null) {
+        console.error(err);
+        return;
+    }
+    console.log(data);
+});
+
+// ...or without one, in which case it resolves with the base64 encoded image
+win.captureScreenshot({
+    format: "jpeg",
+    quality: 80,
+    clip: { x: 0, y: 0, width: 800, height: 600, scale: 1 },
+}).then(function(data: string) {
+    console.log(data);
+});
 
 // Open a new window.
 nw.Window.open("popup.html", {}, function(win) {
@@ -377,5 +465,64 @@ nw.Window.get().on("new-win-policy", function(frame, url, policy) {
     nw.Shell.openExternal(url);
 });
 
+nw.Window.get().on("navigation", function(frame, url, policy) {
+    if (policy) policy.ignore();
+});
+
+/**
+ * <webview> Tag Tests
+ */
+declare var webviewEl: NWJS_Helpers.webview;
+
+// Show the DevTools of the guest contents in a new window...
+webviewEl.showDevTools(true);
+
+// ...or inside another, trusted, webview
+declare var devtoolsContainer: NWJS_Helpers.webview;
+webviewEl.showDevTools(true, devtoolsContainer);
+
+webviewEl.inspectElementAt(120, 240);
+
+// The store id can be passed to the chrome.cookies API
+var cookieStoreId: string = webviewEl.getCookieStoreId();
+console.log(cookieStoreId);
+
+// `mainWorld` can be added to the InjectDetails of webview.executeScript()
+var injectDetails: NWJS_Helpers.WebviewInjectDetails = { mainWorld: true };
+console.log(injectDetails);
+
+/**
+ * JavaScript Contexts Tests
+ */
 // Require a package
 var fs = nw.require("fs");
+
+// The Node context's global object and process module
+var nodeGlobal = nw.global;
+console.log(nodeGlobal);
+
+console.log(nw.process.versions.nw);
+console.log(nw.process.versions.chromium);
+console.log(nw.process.versions["nw-flavor"]);
+console.log(process.versions.nw, process.versions["nw-flavor"]);
+
+/**
+ * Changes to DOM Tests
+ */
+var fileinput = document.querySelector("input[type=file]") as HTMLInputElement;
+
+// The value contains the native path of the local file
+var nativePath: string = fileinput.value;
+console.log(nativePath);
+
+// And so does `path` on each item of `files`
+var files = fileinput.files;
+if (files !== null) {
+    for (var f = 0; f < files.length; ++f) {
+        console.log(files[f].path);
+    }
+}
+
+// The nw* attributes are content attributes with no reflected IDL property
+fileinput.setAttribute("nwsaveas", "filename.txt");
+fileinput.setAttribute("nwworkingdir", "/home/path/");
