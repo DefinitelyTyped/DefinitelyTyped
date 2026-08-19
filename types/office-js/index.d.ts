@@ -9028,19 +9028,31 @@ declare namespace Office {
          *
          * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/task-pane-api-requirement-sets | TaskPaneApi 1.1}
          *
-         * **Important**: The default width of the task pane of an add-in varies depending on the platform.
+         * **Important**: The minimum and maximum width constraints vary by platform.
+         *
+         * - **Web (Excel)**: Between 350 and 500 px (inclusive)
+         *
+         * - **Web (Word)**: Between 330 and 500 px (inclusive)
+         *
+         * - **Windows**: Between 86 px and 50% of the client window
+         *
+         * - **Mac**: Between 270 px and 50% of the client window
+         * 
+         * The default width of the task pane of an add-in varies depending on the platform.
          *
          * - **Web (Excel)**: 350 px
          *
          * - **Web (Word)**: 330 px
          *
-         * - **Windows, Mac**: 51 px
+         * - **Windows**: 320 px
+         *
+         * - **Mac**: 270 px
          *
          * If you pass a width beyond the minimum and maximum constraints, the task pane isn't resized and no error is shown.
          *
-         * @param width The width of a task pane in pixels. The minimum and maximum constraints vary by platform. In Excel on the web, the width must be between
-         *              350 and 500 px (inclusive). In Word on the web, the width must be between 330 and 500 px (inclusive). In Office on Windows and on Mac, the width
-         *              must be between 51 px and 50% of the client window.
+         * The `setWidth` method isn't supported in PowerPoint on the web.
+         *
+         * @param width The width of a task pane in pixels.
          */
         setWidth(width: number): void;
     }
