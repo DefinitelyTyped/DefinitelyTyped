@@ -15,8 +15,8 @@ declare namespace DriveTypes {
     interface SaveOptions {
         data: NSData;
         name: string;
+        /** Empirical testing shows that the handler has an available parameter, which is the file path. */
         handler?: (path: string) => void;
-        // Empirical testing shows that the handler has an available parameter, which is the file path.
     }
 }
 
@@ -27,8 +27,8 @@ interface JBDrive {
     open(options: Omit<DriveTypes.DriveOpenOptionsMulti, "handler">): Promise<NSData[]>;
 
     save(options: DriveTypes.SaveOptions): void;
+    /** Empirical testing shows that this method returns a file path. */
     save(options: Omit<DriveTypes.SaveOptions, "handler">): Promise<string>;
-    // Empirical testing shows that this method returns a file path.
 
     read(path: string): NSData;
     download(path: string): Promise<NSData>;

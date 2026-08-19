@@ -21,7 +21,7 @@ declare function $data(content: { string: string; encoding?: number }): NSData;
 declare function $data(content: { path: string }): NSData;
 declare function $data(content: { url: string }): NSData;
 declare function $data(content: { base64: string }): NSData;
-declare function $data(content: { byteArray: number[] }): NSData;
+declare function $data(content: { byteArray: number[] | Uint8Array }): NSData;
 declare function $image(source: string, scale?: number): UIImage;
 declare function $image(lightModeSource: string | UIImage, darkModeSource: string | UIImage): UIImage;
 declare function $image(source: { light: string | UIImage; dark: string | UIImage }, scale?: number): UIImage;
@@ -31,7 +31,7 @@ declare function $accessibilityAction(name: string, handler: () => void): UIAcce
 declare function $objc(className: string): any;
 declare function $define(options: { type: string; events?: any; classEvents?: any }): any;
 declare function $delegate(options: { type: string; events?: any }): any;
-declare function $block(definition: string, handler: (...args: any[]) => void): any;
+declare function $block(definition: string, handler: (...any: any[]) => void): any;
 declare function $defc(...args: string[]): any;
 declare function $objc_retain(object: any): void;
 declare function $objc_release(object: any): void;
