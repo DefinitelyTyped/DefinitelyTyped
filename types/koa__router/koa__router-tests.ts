@@ -196,10 +196,10 @@ router4.patch("foo", "/foo", middleware3, routeHandler1);
 router4.delete("/foo", middleware1, routeHandler2);
 router4.head("/foo", middleware2, routeHandler3);
 
-router4.post<{}, {}>("/foo", emptyMiddleware, emptyMiddleware, routeHandler4);
-router4.post<{}, {}>("/foo", emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
-router4.get<{}, {}>("name", "/foo", emptyMiddleware, emptyMiddleware, routeHandler4);
-router4.get<{}, {}>("name", "/foo", emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.post("/foo", emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.post("/foo", emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.get("name", "/foo", emptyMiddleware, emptyMiddleware, routeHandler4);
+router4.get("name", "/foo", emptyMiddleware, emptyMiddleware, emptyMiddleware, routeHandler4);
 
 const router5 = new Router<any, {}>();
 router5.register("/foo", ["GET"], middleware1, {
