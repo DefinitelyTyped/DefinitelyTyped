@@ -104,7 +104,7 @@ const defaultCount: number = defaultValues.count;
 GM_deleteValue("d");
 
 // GM_deleteValues
-GM_deleteValues(['foo', 'bar']);
+GM_deleteValues(["foo", "bar"]);
 
 // GM_listValues
 
@@ -345,7 +345,7 @@ GM_download("http://example.com/file.txt", "file.txt");
 const download = GM_download({
     url: "http://example.com/file.txt",
     name: "file.txt",
-    saveAs: true
+    saveAs: true,
 });
 
 // cancel download after 5 seconds
@@ -534,7 +534,9 @@ GM_audio.addStateChangeListener(function(e) {
     if ("audible" in e) console.log("audible:", e.audible);
 });
 
-function onAudio(info: Tampermonkey.AudioStateListenerInfo) { console.log(info); }
+function onAudio(info: Tampermonkey.AudioStateListenerInfo) {
+    console.log(info);
+}
 GM_audio.addStateChangeListener(onAudio);
 
 GM_audio.removeStateChangeListener(onAudio, () => console.log("listener removed"));
@@ -606,7 +608,7 @@ const exampleInfo: Tampermonkey.ScriptInfo = {
             sandbox: null,
             tags: ["productivity"],
             unwrap: null,
-            user_modified: null
+            user_modified: null,
         },
         position: 1,
         resources: [

@@ -452,9 +452,9 @@ declare namespace Tampermonkey {
     interface ScriptInfo {
         /** Available since v5.3, only applicable to Firefox. */
         container?: { // 5.3+ | Firefox only
-            id: string,
-            name?: string
-        },
+            id: string;
+            name?: string;
+        };
         downloadMode: "native" | "browser" | "disabled";
         isFirstPartyIsolation?: boolean;
         isIncognito: boolean;
@@ -655,7 +655,7 @@ declare namespace Tampermonkey {
 
     type AudioStateCallback = (
         /** An object representing the retrieved state */
-        info: Tampermonkey.AudioStateInfo
+        info: Tampermonkey.AudioStateInfo,
     ) => void;
 
     type ErrorCallback = (
@@ -672,7 +672,7 @@ declare namespace Tampermonkey {
 
     type AudioStateListener = (
         /** An object representing the retrieved state change. */
-        info: Tampermonkey.AudioStateListenerInfo
+        info: Tampermonkey.AudioStateListenerInfo,
     ) => void;
 }
 
@@ -850,7 +850,9 @@ declare function GM_getValues<
  * @returns An object containing the values of the specified keys from the userscript's storage,
  *          or the default values if the keys do not exist.
  */
-declare function GM_getValues<TDefaults extends { [key: string]: Tampermonkey.StorageValue }>(defaults: TDefaults): TDefaults;
+declare function GM_getValues<TDefaults extends { [key: string]: Tampermonkey.StorageValue }>(
+    defaults: TDefaults,
+): TDefaults;
 
 /**
  * Deletes `key` from the userscript's storage.
@@ -957,16 +959,16 @@ declare function GM_unregisterMenuCommand(menuCommandId: number): void;
  * by Tampermonkey's background context.
  * If you want to use this method then please also check the documentation about
  * [`@connect`](https://www.tampermonkey.net/documentation.php?q=meta:connect).
- * 
+ *
  * **Proxy.** Tampermonkey does not implement its own proxy resolution (PAC, WPAD, WinHTTP, or NO_PROXY).
  * Requests use the browser's native networking stack, so proxy settings follow whatever the browser is
  * configured to use. The `proxy` property on the request details allows you to override this and route a
  * specific request through an explicit proxy server.
- * 
+ *
  * **Certificates.** No custom certificate or trust-store handling is performed. Requests use the browser's
  * TLS stack, so they trust whichever root certificates the browser trusts (e.g., OS trust store on Chrome,
  * Firefox's own certificate database on Firefox).
- * 
+ *
  * **Authentication Challenges (401/407).** HTTP 401 and 407 responses come from the destination server or
  * proxy before Tampermonkey can intercept them. They must be resolved at the browser or OS proxy-authentication
  * level, or by providing credentials via the user/password properties.
@@ -1238,7 +1240,7 @@ declare var GM_audio: {
         listener: Tampermonkey.AudioStateListener,
         callback?: Tampermonkey.ErrorCallback,
     ): void;
-}
+};
 
 // GM.*
 
