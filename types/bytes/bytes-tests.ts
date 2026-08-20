@@ -1,13 +1,12 @@
-import bytes = require('bytes');
-import { BytesOptions, Unit } from 'bytes';
+import bytes = require("bytes");
+import { BytesOptions, Unit } from "bytes";
 
-// Test options interface
 const options: BytesOptions = {
     decimalPlaces: 2,
-    thousandsSeparator: ',',
-    unitSeparator: ' ',
+    thousandsSeparator: ",",
+    unitSeparator: " ",
     fixedDecimals: false,
-    unit: 'MB',
+    unit: "MB",
 };
 
 // $ExpectType string | null
@@ -20,16 +19,16 @@ bytes(1024, options);
 bytes(1024, { decimalPlaces: 0, fixedDecimals: true });
 
 // $ExpectType number | null
-bytes('1KB');
+bytes("1KB");
 
 // $ExpectType number | null
-bytes('10.5 MB');
+bytes("10.5 MB");
 
 // $ExpectType number | null
-bytes.parse('100GB');
+bytes.parse("100GB");
 
 // $ExpectType number | null
-bytes.parse('1024');
+bytes.parse("1024");
 
 // $ExpectType number | null
 bytes.parse(1024);
@@ -41,12 +40,11 @@ bytes.format(1024);
 bytes.format(1024 * 1024, options);
 
 // $ExpectType string | null
-bytes.format(1024 * 1024 * 1024, { unit: 'GB', unitSeparator: '_' });
+bytes.format(1024 * 1024 * 1024, { unit: "GB", unitSeparator: "_" });
 
-// Test specific unit values
-const kb: Unit = 'KB';
-const mb: Unit = 'MB';
-const gb: Unit = 'GB';
+const kb: Unit = "KB";
+const mb: Unit = "MB";
+const gb: Unit = "GB";
 
 // $ExpectType string | null
 bytes.format(1000, { unit: kb });
