@@ -269,7 +269,7 @@ interface Upload {
 }
 
 interface GenerateHash {
-    (value: string): string;
+    (value: string): number;
 }
 
 interface CreateConsentState {
