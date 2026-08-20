@@ -735,7 +735,7 @@ interface Window {
 }
 
 /**
- * Add new elements to the page that Tampermonkey is running on. This can be useful for
+ * Adds new elements to the page that Tampermonkey is running on. This can be useful for
  * a variety of purposes, such as adding `script` and `img` tags if the page limits
  * these elements with a content security policy (CSP).
  *
@@ -754,7 +754,7 @@ interface Window {
 declare function GM_addElement(tagName: string, attributes: object): HTMLElement;
 
 /**
- * Add new elements to the page that Tampermonkey is running on. This can be useful for
+ * Adds new elements to the page that Tampermonkey is running on. This can be useful for
  * a variety of purposes, such as adding `script` and `img` tags if the page limits
  * these elements with a content security policy (CSP).
  *
