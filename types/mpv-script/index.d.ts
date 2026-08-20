@@ -2819,19 +2819,33 @@ declare namespace mp {
      */
     function del_property(name: string): true | undefined;
 
-    type SettablePropertyName = Extract<__PropertyInfoUnion | __OptionInfoUnion, { readonly: false }>["name"];
-    type GettablePropertyName = __PropertyInfoUnion["name"] | __OptionInfoUnion["name"];
-    type BooleanPropertyName = Extract<__PropertyInfoUnion | __OptionInfoUnion, { type: boolean | undefined }>["name"];
-    type NumberPropertyName = Extract<__PropertyInfoUnion | __OptionInfoUnion, { type: number | undefined }>["name"];
+    type WriteablePropertyName = Extract<__PropertyInfoUnion | __OptionInfoUnion, { readonly: false }>["name"];
+    type PropertyName = __PropertyInfoUnion["name"] | __OptionInfoUnion["name"];
+
+    /**
+     * Find the property names with possible type
+     * @template U The possible type
+     */
+    // dprint-ignore
+    type __PropertyInfoWithPossibleType<U> =
+      | __PropertyInfoUnion
+      | __OptionInfoUnion extends infer P
+      ? P extends { type: infer T }
+        ? Extract<T, U> extends never ? never : P // count if any case of the property type is of U
+        : never
+      : never;
+
+    type BooleanPropertyName = __PropertyInfoWithPossibleType<boolean>["name"];
+    type NumberPropertyName = __PropertyInfoWithPossibleType<number>["name"];
 
     type WriteableBooleanPropertyName = Extract<
-        __PropertyInfoUnion | __OptionInfoUnion,
-        { readonly: false; type: boolean | undefined }
+        __PropertyInfoWithPossibleType<boolean>,
+        { readonly: false }
     >["name"];
 
     type WriteableNumberPropertyName = Extract<
-        __PropertyInfoUnion | __OptionInfoUnion,
-        { readonly: false; type: number | undefined }
+        __PropertyInfoWithPossibleType<number>,
+        { readonly: false }
     >["name"];
 
     /**
@@ -2894,17 +2908,8 @@ declare namespace mp {
         : never;
 
     /**
-     * Get return type from mp.get_property
-     * @template N Property name
-     * @template TWiden Whether to widen to any string and preserve completions when possible
-     */
-    type GetNonNullableStringPropertyType<
-        N extends string,
-        TWiden extends boolean,
-    > = GetStringPropertyType<N, TWiden, false>;
-
-    /**
-     * Get return type from mp.get_property
+     * Get return type from `mp.get_property`
+     * This is a helper type based on `GetStringPropertyType<>` as `TWiden` should always be false for the return type
      * @template N Property name
      * @template TUndefinable Whether to include undefined case
      */
@@ -2914,7 +2919,7 @@ declare namespace mp {
     > = GetStringPropertyType<N, false, TUndefinable>;
 
     /**
-     * Get property types from mp.get_property_osd
+     * Get property types from `mp.get_property_osd`
      * @template N Property name
      * @template TWiden Whether to widen to any string and preserve completions when possible
      * @template TUndefinable Whether to include undefined case
@@ -2956,7 +2961,7 @@ declare namespace mp {
       | (false extends T ? "no" : never);
 
     /**
-     * Get number cases and convert them to `${number}`
+     * Get number cases and convert them to `${number}` or literal string
      */
     // dprint-ignore
     type GetNumberString<T> = T extends infer N
@@ -2966,16 +2971,49 @@ declare namespace mp {
       : never;
 
     /**
+     * Get the type of property, fallback to `TElse` if not found.
      * @template P Property name
-     * @template TElse as the return type when { name: P } is not found in the property union
+     * @template TElse as the return type when property with name `P` isn't found.
      */
     // dprint-ignore
-    type GetPropertyTypeOr<N extends string, TElse> =
+    type GetPropertyTypeOrElse<N extends string, TElse> =
       Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: N }> extends infer P
         ? [P] extends [never]
           ? TElse
           : P extends { type: infer T }
             ? T
+            : never
+        : never;
+
+    /**
+     * Get types assignable to `U` from a property type.
+     * If there's any case not assignable to `U`, include `undefined` in the result.
+     *
+     * This helper type is particularly for `mp.get_property_number/bool`, as the property
+     * might contain non-number/boolean case that would be returned as `undefined`.
+     *
+     * For example, `mp.get_property_number('cursor-autohide')` might return `undefined`
+     * if the current value is `"no"` or `"always"`, meaning it can't be coerced to `number`.
+     * @template N property name
+     * @template U type to coerce to
+     * @template TElse fallback if property with name `N` is not found
+     * @example
+     * ```ts
+     * // "cursor-autohide" has property type "no" | "always" | number
+     * // it should return `number | undefined` as it contains types not assignable to `number`
+     * type foo = GetCoercedPropertyTypeOrElse<'cursor-autohide', number> // number | undefined
+     * ```
+     */
+    // NOTE: we don't include string coercion here as it's complicated
+    // even though every property value can be coerced to string,
+    // just use GetStringPropertyType<> instead.
+    // dprint-ignore
+    type GetCoercedPropertyTypeOrElse<N extends string, C, TElse = C | undefined> =
+      Extract<__PropertyInfoUnion | __OptionInfoUnion, { name: N }> extends infer P
+        ? [P] extends [never]
+          ? TElse
+          : P extends { type: infer T }
+            ? Extract<T, C> | (Exclude<T, C> extends never ? never : undefined)
             : never
         : never;
 
@@ -2991,11 +3029,11 @@ declare namespace mp {
      *
      * Returns the string on success, or `undefined` on error.
      */
-    function get_property<P extends GettablePropertyName | (string & {})>(
+    function get_property<P extends PropertyName | (string & {})>(
         name: P,
     ): GetStringPropertyReturnType<P, true>;
 
-    function get_property<P extends GettablePropertyName | (string & {}), D>(
+    function get_property<P extends PropertyName | (string & {}), D>(
         name: P,
         def: D | GetStringPropertyType<P, true, true>, // def can be any type, this union helps to get completions for expected property type
     ): GetStringPropertyReturnType<P, false> | D; // success | fail
@@ -3008,7 +3046,7 @@ declare namespace mp {
      * Returns the string on success, or `undefined` on error.
      * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
      */
-    function get_property_osd<P extends GettablePropertyName | (string & {})>(
+    function get_property_osd<P extends PropertyName | (string & {})>(
         name: P,
     ): GetOSDPropertyType<P>;
 
@@ -3020,7 +3058,7 @@ declare namespace mp {
      * Returns the string on success, or `def` on error. `def` is the second parameter provided to the function, and is an empty string if it's missing.
      * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
      */
-    function get_property_osd<P extends GettablePropertyName | (string & {}), D>(
+    function get_property_osd<P extends PropertyName | (string & {}), D>(
         name: P,
         def: D | GetOSDPropertyType<P, true>,
     ): GetOSDPropertyType<P> | D; // success | fail
@@ -3031,7 +3069,7 @@ declare namespace mp {
      */
     function get_property_bool<P extends BooleanPropertyName | (string & {})>(
         name: P,
-    ): GetPropertyTypeOr<P, boolean | undefined>;
+    ): GetCoercedPropertyTypeOrElse<P, boolean, boolean | undefined>;
 
     /**
      * Similar to `mp.get_property`, but return the property value as Boolean.
@@ -3039,8 +3077,10 @@ declare namespace mp {
      */
     function get_property_bool<P extends BooleanPropertyName | (string & {}), D>(
         name: P,
-        def: D | GetPropertyTypeOr<P, D>, // def can be any type, this union helps to get completions for expected property type
-    ): NonNullable<GetPropertyTypeOr<P, boolean>> | D; // success | fail
+        def: D | GetCoercedPropertyTypeOrElse<P, boolean, D>, // def can be any type, this union helps to get completions for expected property type
+    ): NonNullable<GetCoercedPropertyTypeOrElse<P, boolean>> & {} | D; // success | fail
+    // NOTE: added & {} to expand NonNullable for testing, because $ExpectType doesn't expand type but compare literally
+    // it's safe to add & {} here as it's NonNullable anyway
 
     /**
      * Similar to `mp.get_property`, but return the property value as number.
@@ -3051,7 +3091,7 @@ declare namespace mp {
      */
     function get_property_number<P extends NumberPropertyName | (string & {})>(
         name: P,
-    ): GetPropertyTypeOr<P, number | undefined>;
+    ): GetCoercedPropertyTypeOrElse<P, number, number | undefined>; // if property type has any case other than number, it should include undefined
 
     /**
      * Similar to `mp.get_property`, but return the property value as number.
@@ -3062,8 +3102,8 @@ declare namespace mp {
      */
     function get_property_number<P extends NumberPropertyName | (string & {}), D>(
         name: P,
-        def: D | GetPropertyTypeOr<P, D>, // def can be any type, this union helps to get completions for expected property type
-    ): NonNullable<GetPropertyTypeOr<P, number>> | D; // success | fail
+        def: D | GetCoercedPropertyTypeOrElse<P, number, D>, // def can be any type, this union helps to get completions for expected property type
+    ): NonNullable<GetCoercedPropertyTypeOrElse<P, number>> | D; // success | fail
 
     /**
      * Similar to `mp.get_property`, but return the property value using the best type for the property.
@@ -3072,9 +3112,9 @@ declare namespace mp {
      * Some properties (for example `chapter-list`) are returned as list.
      * Returns a value on success, or `undefined`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
      */
-    function get_property_native<P extends GettablePropertyName | (string & {})>(
+    function get_property_native<P extends PropertyName | (string & {})>(
         name: P,
-    ): GetPropertyTypeOr<P, unknown>;
+    ): GetPropertyTypeOrElse<P, unknown>;
 
     /**
      * Similar to `mp.get_property`, but return the property value using the best type for the property.
@@ -3083,10 +3123,10 @@ declare namespace mp {
      * Some properties (for example `chapter-list`) are returned as list.
      * Returns a value on success, or `def`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
      */
-    function get_property_native<P extends GettablePropertyName | (string & {}), D>(
+    function get_property_native<P extends PropertyName | (string & {}), D>(
         name: P,
-        def: D | GetPropertyTypeOr<P, D>, // def can be any type, this union helps to get completions for expected property type
-    ): NonNullable<GetPropertyTypeOr<P, unknown>> | D; // success | fail
+        def: D | GetPropertyTypeOrElse<P, D>, // def can be any type, this union helps to get completions for expected property type
+    ): NonNullable<GetPropertyTypeOrElse<P, unknown>> | D; // success | fail
 
     // NOTE: mp.set_property can handle most of properties, except those with non-primitive type such as `chapter-list`
     /**
@@ -3109,7 +3149,7 @@ declare namespace mp {
      */
     function set_property_bool<P extends WriteableBooleanPropertyName | (string & {})>(
         name: P,
-        value: NonNullable<GetPropertyTypeOr<P, boolean>>,
+        value: NonNullable<GetCoercedPropertyTypeOrElse<P, boolean>>,
     ): true | undefined;
 
     /**
@@ -3120,7 +3160,7 @@ declare namespace mp {
      */
     function set_property_number<P extends WriteableNumberPropertyName | (string & {})>(
         name: P,
-        value: NonNullable<GetPropertyTypeOr<P, number>>,
+        value: NonNullable<GetCoercedPropertyTypeOrElse<P, number>>,
     ): true | undefined;
 
     /**
@@ -3134,9 +3174,9 @@ declare namespace mp {
      *
      * For these reasons, this function **should probably be avoided for now**, except for properties that use tables natively.
      */
-    function set_property_native<P extends SettablePropertyName | (string & {})>(
+    function set_property_native<P extends WriteablePropertyName | (string & {})>(
         name: P,
-        value: NonNullable<GetPropertyTypeOr<P, unknown>>,
+        value: NonNullable<GetPropertyTypeOrElse<P, unknown>>,
     ): true | undefined;
 
     /**
@@ -3349,13 +3389,13 @@ declare namespace mp {
       T extends "bool" | "number" | "string" | "native",
       P extends string,
     > = T extends "bool"
-      ? GetPropertyTypeOr<P, boolean | undefined>
+      ? GetPropertyTypeOrElse<P, boolean | undefined>
       : T extends "number"
-        ? GetPropertyTypeOr<P, number | undefined>
+        ? GetPropertyTypeOrElse<P, number | undefined>
         : T extends "string"
           ? GetStringPropertyReturnType<P, true>
           : T extends "native"
-            ? GetPropertyTypeOr<P, unknown>
+            ? GetPropertyTypeOrElse<P, unknown>
             : never;
 
     /**
@@ -3378,7 +3418,7 @@ declare namespace mp {
      * You always get an initial change notification. This is meant to initialize the user's state to the current value of the property.
      */
     function observe_property<
-        P extends GettablePropertyName | (string & {}), // TODO: include only specific names depending on T
+        P extends PropertyName | (string & {}), // TODO: include only specific names depending on T
         T extends "bool" | "number" | "string" | "native",
     >(
         name: P,
@@ -3386,7 +3426,7 @@ declare namespace mp {
         fn: (name: NoInfer<P>, value: GetObservedValueType<T, P>) => void,
     ): void;
 
-    function observe_property<P extends GettablePropertyName | (string & {})>(
+    function observe_property<P extends PropertyName | (string & {})>(
         name: P,
         type: "none" | undefined,
         fn: (name: NoInfer<P>) => void,

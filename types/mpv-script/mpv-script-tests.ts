@@ -221,6 +221,11 @@ mp.get_property_number("playlist-pos");
 // optional number property should return number | undefined
 // $ExpectType number | undefined
 mp.get_property_number("file-size");
+// a possibly number property with mixed cases("no" | "always" | number) returns number | undefined
+// $ExpectType number | undefined
+mp.get_property_number("cursor-autohide");
+// $ExpectType number | "foo"
+mp.get_property_number("cursor-autohide", "foo");
 // an unknown property returns number | undefined
 // $ExpectType number | undefined
 mp.get_property_number("foo");
