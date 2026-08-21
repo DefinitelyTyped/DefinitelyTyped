@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ez-plus",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/igorlino/elevatezoom-plus",
+        "http://igorlino.github.io/elevatezoom-plus"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/ez-plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anderson Friaça",
+            "githubUsername": "AndersonFriaca"
+        }
+    ]
+}

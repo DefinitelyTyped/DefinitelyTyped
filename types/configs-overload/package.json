@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/configs-overload",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/floatdrop/configs-overload"
+    ],
+    "devDependencies": {
+        "@types/configs-overload": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anton Drobot",
+            "githubUsername": "anton-drobot"
+        }
+    ]
+}

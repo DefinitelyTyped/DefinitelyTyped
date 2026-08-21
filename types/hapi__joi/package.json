@@ -1,0 +1,105 @@
+{
+    "private": true,
+    "name": "@types/hapi__joi",
+    "version": "17.1.9999",
+    "projects": [
+        "https://github.com/hapijs/joi"
+    ],
+    "devDependencies": {
+        "@types/hapi__joi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Laurence Dougal Myers",
+            "githubUsername": "laurence-myers"
+        },
+        {
+            "name": "Christopher Glantschnig",
+            "githubUsername": "cglantschnig"
+        },
+        {
+            "name": "David Broder-Rodgers",
+            "githubUsername": "DavidBR-SW"
+        },
+        {
+            "name": "Gael Magnan de Bornier",
+            "githubUsername": "GaelMagnan"
+        },
+        {
+            "name": "Rytis Alekna",
+            "githubUsername": "ralekna"
+        },
+        {
+            "name": "Pavel Ivanov",
+            "githubUsername": "schfkt"
+        },
+        {
+            "name": "Youngrok Kim",
+            "githubUsername": "rokoroku"
+        },
+        {
+            "name": "Dan Kraus",
+            "githubUsername": "dankraus"
+        },
+        {
+            "name": "Anjun Wang",
+            "githubUsername": "wanganjun"
+        },
+        {
+            "name": "Rafael Kallis",
+            "githubUsername": "rafaelkallis"
+        },
+        {
+            "name": "Conan Lai",
+            "githubUsername": "aconanlai"
+        },
+        {
+            "name": "Peter Thorson",
+            "githubUsername": "zaphoyd"
+        },
+        {
+            "name": "Will Garcia",
+            "githubUsername": "thewillg"
+        },
+        {
+            "name": "Simon Schick",
+            "githubUsername": "SimonSchick"
+        },
+        {
+            "name": "Alejandro Fernandez Haro",
+            "githubUsername": "afharo"
+        },
+        {
+            "name": "Silas Rech",
+            "githubUsername": "lenovouser"
+        },
+        {
+            "name": "Anand Chowdhary",
+            "githubUsername": "AnandChowdhary"
+        },
+        {
+            "name": "Miro Yovchev",
+            "githubUsername": "myovchev"
+        },
+        {
+            "name": "David Recuenco",
+            "githubUsername": "RecuencoJones"
+        },
+        {
+            "name": "Frederic Reisenhauer",
+            "githubUsername": "freisenhauer"
+        },
+        {
+            "name": "Stefan-Gabriel Muscalu",
+            "githubUsername": "legraphista"
+        },
+        {
+            "name": "Steven Barnett",
+            "githubUsername": "stevendesu"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+trigger:
+  - master
+
+pr: none
+
+jobs:
+  - job: npmRunTest
+    pool:
+      vmImage: ubuntu-latest
+      demands: npm
+
+    timeoutInMinutes: 360
+
+    steps:
+      - checkout: self
+        fetchDepth: 1
+        fetchTags: false
+
+      - script: |
+          echo "Disabled"
+        displayName: 'Do nothing'

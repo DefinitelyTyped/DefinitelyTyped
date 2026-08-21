@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/splashy",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/microlinkhq/splashy"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/splashy": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Valentin Dijkstra",
+            "githubUsername": "ValentinMumble"
+        }
+    ]
+}

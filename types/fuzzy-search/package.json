@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fuzzy-search",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/wouter2203/fuzzy-search#readme"
+    ],
+    "devDependencies": {
+        "@types/fuzzy-search": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

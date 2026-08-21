@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/svgjs.resize",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "svgjs.resize",
+    "projects": [
+        "http://www.svgjs.com/"
+    ],
+    "devDependencies": {
+        "@types/svgjs.resize": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kevin Gutiérrez",
+            "githubUsername": "jkevingutierrez"
+        }
+    ]
+}

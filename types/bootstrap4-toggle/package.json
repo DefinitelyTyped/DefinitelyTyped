@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/bootstrap4-toggle",
+    "version": "3.6.9999",
+    "projects": [
+        "https://github.com/gitbrent/bootstrap4-toggle",
+        "https://gitbrent.github.io/bootstrap4-toggle/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/bootstrap4-toggle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mitchell Grice",
+            "githubUsername": "gricey432"
+        }
+    ]
+}

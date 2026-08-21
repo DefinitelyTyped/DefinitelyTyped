@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/qtip2",
+    "version": "2.2.9999",
+    "projects": [
+        "http://qtip2.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/qtip2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Pitman",
+            "githubUsername": "Seltzer"
+        },
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        }
+    ]
+}

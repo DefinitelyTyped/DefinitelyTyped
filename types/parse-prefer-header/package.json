@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/parse-prefer-header",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ppaskaris/node-parse-prefer-header"
+    ],
+    "devDependencies": {
+        "@types/parse-prefer-header": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vincenzo Chianese",
+            "githubUsername": "XVincentX"
+        },
+        {
+            "name": "Marcell Toth",
+            "githubUsername": "marcelltoth"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/mapbox",
+    "version": "1.6.9999",
+    "projects": [
+        "https://www.mapbox.com/mapbox.js/",
+        "https://github.com/mapbox/mapbox-sdk-js"
+    ],
+    "dependencies": {
+        "@types/leaflet": "^0"
+    },
+    "devDependencies": {
+        "@types/mapbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxime Fabre",
+            "githubUsername": "anahkiasen"
+        },
+        {
+            "name": "Florian Luccioni",
+            "githubUsername": "Fluccioni"
+        }
+    ]
+}

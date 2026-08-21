@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/smart-fox-server",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "smart-fox-server",
+    "projects": [
+        "http://docs2x.smartfoxserver.com/api-docs/jsdoc/"
+    ],
+    "devDependencies": {
+        "@types/smart-fox-server": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gregory Moore",
+            "githubUsername": "ChanceM"
+        }
+    ]
+}

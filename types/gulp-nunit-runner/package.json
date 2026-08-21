@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gulp-nunit-runner",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/keithmorris/gulp-nunit-runner"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-nunit-runner": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Spicy Pixel",
+            "url": "https://spicypixel.com"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/inquirer-autocomplete-prompt",
+    "version": "2.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/inquirer-autocomplete-prompt"
+    ],
+    "dependencies": {
+        "@types/inquirer": "^8"
+    },
+    "devDependencies": {
+        "@types/inquirer-autocomplete-prompt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Catel",
+            "githubUsername": "jayeeson"
+        }
+    ]
+}

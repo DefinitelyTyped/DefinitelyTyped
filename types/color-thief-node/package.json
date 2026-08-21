@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/color-thief-node",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zicodeng/color-thief-node#readme"
+    ],
+    "devDependencies": {
+        "@types/color-thief-node": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Almeida",
+            "githubUsername": "almeidx"
+        }
+    ]
+}

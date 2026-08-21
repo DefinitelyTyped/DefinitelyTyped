@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.cycle",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.cycle",
+    "projects": [
+        "http://jquery.malsup.com/cycle/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.cycle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "François Guillot",
+            "url": "http://fguillot.developpez.com/"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/ndarray",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/scijs/ndarray",
+        "https://github.com/mikolalysenko/ndarray"
+    ],
+    "devDependencies": {
+        "@types/ndarray": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Giff Song",
+            "githubUsername": "pawsong"
+        },
+        {
+            "name": "taoqf",
+            "githubUsername": "taoqf"
+        },
+        {
+            "name": "Axel Bocciarelli",
+            "githubUsername": "axelboc"
+        }
+    ]
+}

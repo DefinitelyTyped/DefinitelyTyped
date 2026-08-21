@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/s-salt-pepper",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/sebastiansandqvist/s-salt-pepper"
+    ],
+    "devDependencies": {
+        "@types/s-salt-pepper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konrad Guzek",
+            "githubUsername": "kguzek"
+        }
+    ]
+}

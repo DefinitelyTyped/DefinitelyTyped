@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "nonNpm": true,
+    "nonNpmDescription": "Implementation of Isolated Web App (IWA) APIs resides in Chromium.",
+    "name": "@types/w3c-screen-capture",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/WICG/isolated-web-apps"
+    ],
+    "devDependencies": {
+        "@types/web": "*",
+        "@types/w3c-screen-capture": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paulina Gacek",
+            "githubUsername": "paulinagacek"
+        },
+        {
+            "name": "Andrew Rayskiy",
+            "githubUsername": "GrapeGreen"
+        },
+        {
+            "name": "Simon Hangl",
+            "githubUsername": "shangl"
+        }
+    ]
+}

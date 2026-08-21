@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/elizabot",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/tkafka/node-elizabot#readme"
+    ],
+    "devDependencies": {
+        "@types/elizabot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Elliott Lawrence",
+            "githubUsername": "elliottlawrence"
+        }
+    ]
+}

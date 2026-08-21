@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tea-merge",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/qualiancy/tea-merge"
+    ],
+    "devDependencies": {
+        "@types/tea-merge": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "No one",
+            "url": "null@example.com"
+        }
+    ]
+}

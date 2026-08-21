@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/lazy.js",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/dtao/lazy.js/"
+    ],
+    "devDependencies": {
+        "@types/lazy.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Gabriel Lorquet",
+            "githubUsername": "gablorquet"
+        },
+        {
+            "name": "Alexey Gerasimov",
+            "githubUsername": "fan-tom"
+        }
+    ]
+}

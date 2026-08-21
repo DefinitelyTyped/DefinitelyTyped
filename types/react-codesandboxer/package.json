@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-codesandboxer",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/codesandbox/codesandboxer#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-codesandboxer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

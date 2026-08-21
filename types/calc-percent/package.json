@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/calc-percent",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kevva/calc-percent"
+    ],
+    "devDependencies": {
+        "@types/calc-percent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

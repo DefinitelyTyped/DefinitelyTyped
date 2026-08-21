@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/deps-sort",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/browserify/deps-sort",
+        "https://github.com/substack/deps-sort"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/deps-sort": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TeamworkGuy2",
+            "githubUsername": "TeamworkGuy2"
+        }
+    ]
+}

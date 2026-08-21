@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/number-is-nan",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/number-is-nan#readme"
+    ],
+    "devDependencies": {
+        "@types/number-is-nan": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

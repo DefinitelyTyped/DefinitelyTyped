@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cordova-plugin-native-keyboard",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/EddyVerbruggen/cordova-plugin-native-keyboard#readme"
+    ],
+    "devDependencies": {
+        "@types/cordova-plugin-native-keyboard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Brolli",
+            "githubUsername": "lobo87"
+        }
+    ]
+}

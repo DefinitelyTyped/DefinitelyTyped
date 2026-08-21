@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/gl-texture2d",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/stackgl/gl-texture2d"
+    ],
+    "dependencies": {
+        "@types/ndarray": "*"
+    },
+    "devDependencies": {
+        "@types/gl-texture2d": "workspace:."
+    },
+    "owners": []
+}

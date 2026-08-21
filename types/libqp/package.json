@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/libqp",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/nodemailer/libqp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/libqp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris. Webster",
+            "githubUsername": "webstech"
+        }
+    ]
+}

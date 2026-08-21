@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-weibo",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/xinbenlv/passport-weibo#readme"
+    ],
+    "dependencies": {
+        "@types/passport": "*",
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/passport-weibo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bangbang93",
+            "githubUsername": "bangbang93"
+        }
+    ]
+}

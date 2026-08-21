@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/digibyte",
+    "version": "0.14.9999",
+    "projects": [
+        "https://github.com/digicontributer/digibyte-js"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/digibyte": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lautaro Dragan",
+            "githubUsername": "lautarodragan"
+        },
+        {
+            "name": "Adam Wolfe",
+            "githubUsername": "werewolfe"
+        },
+        {
+            "name": "Ryan Aunur Rassyid",
+            "githubUsername": "nyancodeid"
+        }
+    ]
+}

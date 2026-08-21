@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gapi.pagespeedonline",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.pagespeedonline",
+    "projects": [
+        "https://developers.google.com/speed/pagespeed/"
+    ],
+    "dependencies": {
+        "@types/gapi": "*"
+    },
+    "devDependencies": {
+        "@types/gapi.pagespeedonline": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frank M",
+            "githubUsername": "sgtfrankieboy"
+        }
+    ]
+}

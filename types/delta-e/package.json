@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/delta-e",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/zschuessler/DeltaE#readme"
+    ],
+    "devDependencies": {
+        "@types/delta-e": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron Ross",
+            "githubUsername": "superhawk610"
+        }
+    ]
+}

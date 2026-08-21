@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/charset",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/node-modules/charset"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/charset": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Bradley",
+            "githubUsername": "cspotcode"
+        }
+    ]
+}

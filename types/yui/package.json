@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/yui",
+    "version": "3.14.9999",
+    "projects": [
+        "https://github.com/yui/yui3"
+    ],
+    "devDependencies": {
+        "@types/yui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gia Bảo @ Sân Đình",
+            "githubUsername": "giabao"
+        }
+    ]
+}

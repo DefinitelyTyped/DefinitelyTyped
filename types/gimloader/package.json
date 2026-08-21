@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/gimloader",
+    "version": "1.12.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Types for the Gimloader global variables",
+    "projects": [
+        "https://github.com/Gimloader/Gimloader#readme"
+    ],
+    "dependencies": {
+        "@gimloader/types": "latest"
+    },
+    "devDependencies": {
+        "@types/gimloader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TheLazySquid",
+            "githubUsername": "TheLazySquid"
+        },
+        {
+            "name": "Riptide",
+            "githubUsername": "RiptideAtlantic"
+        }
+    ]
+}

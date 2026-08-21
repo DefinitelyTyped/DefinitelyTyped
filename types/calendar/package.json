@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/calendar",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ramalho/calendar.js#readme"
+    ],
+    "devDependencies": {
+        "@types/calendar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Imdahl",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

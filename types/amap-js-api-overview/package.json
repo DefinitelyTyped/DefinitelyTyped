@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/amap-js-api-overview",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-api-overview",
+    "projects": [
+        "https://lbs.amap.com/api/javascript-api/reference/map-control#AMap.OverView"
+    ],
+    "dependencies": {
+        "@types/amap-js-api": "*"
+    },
+    "devDependencies": {
+        "@types/amap-js-api-overview": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "breeze9527",
+            "githubUsername": "breeze9527"
+        }
+    ]
+}

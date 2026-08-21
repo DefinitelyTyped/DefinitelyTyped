@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/react-linkify",
+    "version": "1.0.9999",
+    "projects": [
+        "http://tasti.github.io/react-linkify/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/linkify-it": "*",
+        "@types/react-linkify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael James",
+            "githubUsername": "majames"
+        },
+        {
+            "name": "Jacky Wang",
+            "githubUsername": "jackywang529"
+        },
+        {
+            "name": "Akhil Stanislavose",
+            "githubUsername": "akhilstanis"
+        }
+    ]
+}

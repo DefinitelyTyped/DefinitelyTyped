@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "ES2015"
+        ],
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "similarity-tests.ts"
+    ]
+}

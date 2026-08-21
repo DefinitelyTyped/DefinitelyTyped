@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-simple-locale",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/n26/express-simple-locale#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/express-simple-locale": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

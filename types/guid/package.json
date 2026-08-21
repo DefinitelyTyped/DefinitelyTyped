@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/guid",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dandean/guid"
+    ],
+    "devDependencies": {
+        "@types/guid": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marc-Andre Roy",
+            "githubUsername": "maroy1986"
+        }
+    ]
+}

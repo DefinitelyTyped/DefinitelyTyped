@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/koa-static-cache",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/koajs/static-cache#readme"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-static-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "JounQin",
+            "githubUsername": "JounQin"
+        }
+    ]
+}

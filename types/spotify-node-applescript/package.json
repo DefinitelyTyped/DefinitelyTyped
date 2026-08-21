@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spotify-node-applescript",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/andrehaveman/spotify-node-applescript#readme"
+    ],
+    "devDependencies": {
+        "@types/spotify-node-applescript": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mattia Panzeri",
+            "githubUsername": "panz3r"
+        }
+    ]
+}

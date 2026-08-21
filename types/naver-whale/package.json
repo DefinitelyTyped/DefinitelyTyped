@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/naver-whale",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "naver-whale",
+    "projects": [
+        "https://developers.whale.naver.com/getting_started/"
+    ],
+    "dependencies": {
+        "@types/chrome": "*"
+    },
+    "devDependencies": {
+        "@types/naver-whale": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "tbvjaos510",
+            "githubUsername": "tbvjaos510"
+        }
+    ]
+}

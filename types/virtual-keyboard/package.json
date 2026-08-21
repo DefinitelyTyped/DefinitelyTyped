@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/virtual-keyboard",
+    "version": "1.26.9999",
+    "projects": [
+        "https://github.com/mottie/keyboard"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/virtual-keyboard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bogdan Surai",
+            "githubUsername": "bsurai"
+        }
+    ]
+}

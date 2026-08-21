@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/kakao.postcode",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Kakao Postcode",
+    "projects": [
+        "https://postcode.map.kakao.com/guide"
+    ],
+    "devDependencies": {
+        "@types/kakao.postcode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "doinki",
+            "githubUsername": "doinki"
+        }
+    ]
+}

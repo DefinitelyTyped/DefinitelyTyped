@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/xsalsa20-encoding",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/little-core-labs/xsalsa20-encoding"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/xsalsa20-encoding": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

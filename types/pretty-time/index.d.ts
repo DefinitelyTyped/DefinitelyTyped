@@ -1,0 +1,36 @@
+type Increment =
+    | "ns"
+    | "nano"
+    | "nanosecond"
+    | "nanoseconds"
+    | "μs"
+    | "micro"
+    | "microsecond"
+    | "microseconds"
+    | "ms"
+    | "milli"
+    | "millisecond"
+    | "milliseconds"
+    | "s"
+    | "sec"
+    | "second"
+    | "seconds"
+    | "m"
+    | "min"
+    | "minute"
+    | "minutes"
+    | "h"
+    | "hr"
+    | "hour"
+    | "hours"
+    | "d"
+    | "day"
+    | "days"
+    | "w"
+    | "wk"
+    | "week"
+    | "weeks";
+
+declare function prettyTime(time: number | number[] | string[], smallest?: Increment | string, digits?: number): string;
+
+export = prettyTime;

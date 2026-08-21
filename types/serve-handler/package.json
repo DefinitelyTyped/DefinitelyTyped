@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/serve-handler",
+    "version": "6.1.9999",
+    "projects": [
+        "https://github.com/zeit/serve-handler#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/serve-handler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "simonhaenisch",
+            "githubUsername": "simonhaenisch"
+        }
+    ]
+}

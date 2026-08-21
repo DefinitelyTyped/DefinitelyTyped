@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/canvas-multiline-text",
+    "version": "1.0.9999",
+    "projects": [
+        "https://gitlab.com/davideblasutto/canvas-multiline-text"
+    ],
+    "devDependencies": {
+        "@types/canvas-multiline-text": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AKORA",
+            "githubUsername": "A-K-O-R-A"
+        },
+        {
+            "name": "Kiara",
+            "githubUsername": "DragonCat4012"
+        }
+    ]
+}

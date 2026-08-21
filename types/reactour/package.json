@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/reactour",
+    "version": "1.18.9999",
+    "projects": [
+        "https://github.com/elrumordelaluz/reactour#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/reactour": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paweł Dąbrowski",
+            "githubUsername": "paolostyle"
+        },
+        {
+            "name": "jzsplk",
+            "githubUsername": "jzsplk"
+        }
+    ]
+}

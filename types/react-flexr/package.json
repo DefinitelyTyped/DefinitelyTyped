@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-flexr",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/kodyl/react-flexr"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-dom": "*",
+        "@types/react-flexr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeffery Grajkowski",
+            "githubUsername": "pushplay"
+        }
+    ]
+}

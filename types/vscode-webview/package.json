@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/vscode-webview",
+    "version": "1.57.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "vscode-webview",
+    "projects": [
+        "https://code.visualstudio.com/api/extension-guides/webview"
+    ],
+    "devDependencies": {
+        "@types/vscode-webview": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Bierner",
+            "githubUsername": "mjbvz"
+        }
+    ]
+}

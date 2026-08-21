@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/queue-tick",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mafintosh/queue-tick"
+    ],
+    "devDependencies": {
+        "@types/queue-tick": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

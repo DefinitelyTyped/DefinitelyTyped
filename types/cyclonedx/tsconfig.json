@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/cyclonedx-tests.ts",
+        "test/cyclonedx_v1_2-tests.ts",
+        "test/cyclonedx_v1_3-tests.ts",
+        "test/cyclonedx_v1_4-tests.ts"
+    ]
+}

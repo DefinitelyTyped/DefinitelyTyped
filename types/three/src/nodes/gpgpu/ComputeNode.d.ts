@@ -1,0 +1,50 @@
+import Renderer from "../../renderers/common/Renderer.js";
+import Node from "../core/Node.js";
+import UniformNode from "../core/UniformNode.js";
+
+export default class ComputeNode extends Node {
+    readonly isComputeNode: boolean;
+
+    computeNode: Node;
+    workgroupSize: number[];
+    count: number | number[] | null;
+    dispatchSize: number | number[] | null;
+    name: string;
+
+    onInitFunction: ((args: { renderer: Renderer }) => void) | null;
+
+    countNode: UniformNode<"uint", number> | null;
+
+    constructor(computeNode: Node, workgroupSize: number[]);
+
+    setCount(count: number | number[]): this;
+    getCount(): number | number[] | null;
+
+    setName: (name: string) => this;
+
+    /**
+     * @deprecated "label()" has been deprecated. Use "setName()" instead.
+     */
+    label: (name: string) => this;
+
+    onInit(callback: ((args: { renderer: Renderer }) => void) | null): this;
+}
+
+export const computeKernel: (node: Node, workgroupSize?: number[]) => ComputeNode;
+
+export const compute: (
+    node: Node,
+    count: number,
+    workgroupSize?: number[],
+) => ComputeNode;
+
+declare module "../core/Node.js" {
+    interface NodeElements {
+        compute: (
+            count: number,
+            workgroupSize?: number[],
+        ) => ComputeNode;
+
+        computeKernel: (workgroupSize?: number[]) => ComputeNode;
+    }
+}

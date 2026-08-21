@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/morgan-json",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/indexzero/morgan-json#readme"
+    ],
+    "dependencies": {
+        "@types/morgan": "*"
+    },
+    "devDependencies": {
+        "@types/morgan-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michal Grezel",
+            "githubUsername": "dracomithril"
+        }
+    ]
+}

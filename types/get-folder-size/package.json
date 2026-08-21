@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/get-folder-size",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/alessioalex/get-folder-size"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/get-folder-size": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mariusz Szczepańczyk",
+            "githubUsername": "mszczepanczyk"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

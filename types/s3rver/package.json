@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/s3rver",
+    "version": "3.7.9999",
+    "projects": [
+        "https://github.com/jamhall/s3rver"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/s3rver": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "David Broder-Rodgers",
+            "githubUsername": "DavidBR-SW"
+        },
+        {
+            "name": "F. Eugene Aumson",
+            "githubUsername": "feuGeneA"
+        },
+        {
+            "name": "Trygve Aaberge",
+            "githubUsername": "trygveaa"
+        }
+    ]
+}

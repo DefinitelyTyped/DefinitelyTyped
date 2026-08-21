@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/make-arrow-function",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/ljharb/make-arrow-function#readme"
+    ],
+    "devDependencies": {
+        "@types/make-arrow-function": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

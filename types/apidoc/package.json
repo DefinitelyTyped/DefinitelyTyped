@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/apidoc",
+    "version": "0.50.9999",
+    "projects": [
+        "https://github.com/apidoc/apidoc"
+    ],
+    "devDependencies": {
+        "@types/apidoc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "rigwild",
+            "githubUsername": "rigwild"
+        },
+        {
+            "name": "hoonga",
+            "githubUsername": "hoonga"
+        },
+        {
+            "name": "NicolasCARPi",
+            "githubUsername": "NicolasCARPi"
+        }
+    ]
+}

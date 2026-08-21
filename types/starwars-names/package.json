@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/starwars-names",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/kentcdodds/starwars-names#readme"
+    ],
+    "devDependencies": {
+        "@types/starwars-names": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Claas Ahlrichs",
+            "githubUsername": "claasahl"
+        }
+    ]
+}

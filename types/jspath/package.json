@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jspath",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/dfilatov/jspath"
+    ],
+    "devDependencies": {
+        "@types/jspath": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piot Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

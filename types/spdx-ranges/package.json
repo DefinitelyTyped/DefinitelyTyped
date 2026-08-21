@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-ranges",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-ranges.js"
+    ],
+    "devDependencies": {
+        "@types/spdx-ranges": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

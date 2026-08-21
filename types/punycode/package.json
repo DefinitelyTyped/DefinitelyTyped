@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/punycode",
+    "version": "2.1.9999",
+    "projects": [
+        "https://mths.be/punycode"
+    ],
+    "devDependencies": {
+        "@types/punycode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitry Guketlev",
+            "githubUsername": "yavanosta"
+        }
+    ]
+}

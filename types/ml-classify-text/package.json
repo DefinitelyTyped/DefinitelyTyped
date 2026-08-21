@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ml-classify-text",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/andreekeberg/ml-classify-text-js"
+    ],
+    "devDependencies": {
+        "@types/ml-classify-text": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Glenn",
+            "githubUsername": "promise"
+        }
+    ]
+}

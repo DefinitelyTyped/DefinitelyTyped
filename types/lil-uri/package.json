@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lil-uri",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/lil-js/uri#readme"
+    ],
+    "devDependencies": {
+        "@types/lil-uri": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wayne Carson",
+            "githubUsername": "wcarson"
+        }
+    ]
+}

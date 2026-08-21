@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/passport-http",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-http"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/passport-http": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christophe Vidal",
+            "githubUsername": "krizalys"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Chris Barth",
+            "githubUsername": "cjbarth"
+        },
+        {
+            "name": "James Adarich",
+            "githubUsername": "jamesadarich"
+        }
+    ]
+}

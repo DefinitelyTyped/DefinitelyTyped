@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/nopt",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/npm/nopt"
+    ],
+    "devDependencies": {
+        "@types/nopt": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "jbondc",
+            "githubUsername": "jbondc"
+        }
+    ]
+}

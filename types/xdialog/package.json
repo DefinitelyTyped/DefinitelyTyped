@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/xdialog",
+    "version": "3.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "A simple and beautiful javascript dialog library",
+    "projects": [
+        "https://github.com/xxjapp/xdialog"
+    ],
+    "devDependencies": {
+        "@types/xdialog": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "DonaldDuck313",
+            "githubUsername": "DonaldDuck313"
+        }
+    ]
+}

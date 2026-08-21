@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/diacritic",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/nijikokun/Diacritics.js"
+    ],
+    "devDependencies": {
+        "@types/diacritic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TurtIeSocks",
+            "githubUsername": "TurtIeSocks"
+        }
+    ]
+}

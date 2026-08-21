@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/amap-js-api-driving",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-api-driving",
+    "projects": [
+        "https://lbs.amap.com/api/javascript-api/reference/route-search#m_AMap.Driving"
+    ],
+    "dependencies": {
+        "@types/amap-js-api": "*",
+        "@types/amap-js-api-place-search": "*"
+    },
+    "devDependencies": {
+        "@types/amap-js-api-driving": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "breeze9527",
+            "githubUsername": "breeze9527"
+        }
+    ]
+}

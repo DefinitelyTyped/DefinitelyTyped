@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/recorder-js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ijsnow/studiojs#readme"
+    ],
+    "devDependencies": {
+        "@types/recorder-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Yusuke Higuchi",
+            "githubUsername": "higuri"
+        }
+    ]
+}

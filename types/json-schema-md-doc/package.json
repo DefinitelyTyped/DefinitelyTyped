@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/json-schema-md-doc",
+    "version": "1.0.9999",
+    "projects": [
+        "https://brianwendt.github.io/json-schema-md-doc"
+    ],
+    "devDependencies": {
+        "@types/json-schema-md-doc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Prentki",
+            "githubUsername": "DJAlPee"
+        },
+        {
+            "name": "Brian Wendt",
+            "githubUsername": "brianwendt"
+        }
+    ]
+}

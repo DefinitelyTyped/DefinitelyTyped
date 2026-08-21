@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/calq",
+    "version": "0.0.9999",
+    "projects": [
+        "https://calq.io/docs/client/javascript/reference"
+    ],
+    "devDependencies": {
+        "@types/calq": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eirik Hoem",
+            "githubUsername": "eirikhm"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/architect__utils",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/architect/utils#readme"
+    ],
+    "devDependencies": {
+        "@types/architect__utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Leo Singer",
+            "githubUsername": "lpsinger"
+        },
+        {
+            "name": "Dakota Dutko",
+            "githubUsername": "dakota002"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/android-device-list",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/pbakondy/android-device-list#readme"
+    ],
+    "devDependencies": {
+        "@types/android-device-list": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/dotenv-safe",
+    "version": "9.1.9999",
+    "projects": [
+        "https://github.com/rolodato/dotenv-safe"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/dotenv-safe": "workspace:.",
+        "dotenv": ">=13"
+    },
+    "peerDependencies": {
+        "dotenv": ">=8.2.0"
+    },
+    "owners": [
+        {
+            "name": "Stan Goldmann",
+            "githubUsername": "krenor"
+        }
+    ]
+}

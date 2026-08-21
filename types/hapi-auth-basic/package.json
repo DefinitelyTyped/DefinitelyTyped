@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/hapi-auth-basic",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/hapijs/hapi-auth-basic"
+    ],
+    "dependencies": {
+        "@types/hapi": "*"
+    },
+    "devDependencies": {
+        "@types/bcrypt": "*",
+        "@types/hapi-auth-basic": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AJP",
+            "githubUsername": "AJamesPhillips"
+        },
+        {
+            "name": "Rodrigo Saboya",
+            "githubUsername": "saboya"
+        }
+    ]
+}

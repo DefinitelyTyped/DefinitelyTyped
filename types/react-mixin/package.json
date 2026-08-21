@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-mixin",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/brigand/react-mixin"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/create-react-class": "*"
+    },
+    "devDependencies": {
+        "@types/react-mixin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkqubo"
+        }
+    ]
+}

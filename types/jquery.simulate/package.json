@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.simulate",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.simulate",
+    "projects": [
+        "https://github.com/jquery/jquery-simulate"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.simulate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Derek Cicerone",
+            "githubUsername": "derekcicerone"
+        }
+    ]
+}

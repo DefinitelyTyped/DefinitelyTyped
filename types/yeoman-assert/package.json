@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/yeoman-assert",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/yeoman/yeoman-assert",
+        "http://yeoman.io"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/yeoman-assert": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Toilal",
+            "githubUsername": "Toilal"
+        }
+    ]
+}

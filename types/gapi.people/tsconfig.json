@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "types": [],
+        "module": "node16",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "gapi.people-tests.ts"
+    ]
+}

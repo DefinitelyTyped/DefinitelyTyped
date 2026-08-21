@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mime-types",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jshttp/mime-types#readme"
+    ],
+    "devDependencies": {
+        "@types/mime-types": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gyusun Yeom",
+            "githubUsername": "Perlmint"
+        },
+        {
+            "name": "Sebastian Beltran",
+            "githubUsername": "bjohansebas"
+        }
+    ]
+}

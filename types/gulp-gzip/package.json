@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-gzip",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/jstuckey/gulp-gzip"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-gzip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Qubo",
+            "githubUsername": "tkQubo"
+        }
+    ]
+}

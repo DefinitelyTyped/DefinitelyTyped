@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jug",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/kaiquewdev/Graph"
+    ],
+    "devDependencies": {
+        "@types/jug": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "yevt",
+            "githubUsername": "yevt"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-panelgroup",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/DanFessler/react-panelgroup",
+        "http://www.danfessler.com"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-panelgroup": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Quentin Golsteyn",
+            "githubUsername": "qgolsteyn"
+        }
+    ]
+}

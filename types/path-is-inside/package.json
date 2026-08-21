@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/path-is-inside",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/domenic/path-is-inside#readme"
+    ],
+    "devDependencies": {
+        "@types/path-is-inside": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Marks",
+            "githubUsername": "aomarks"
+        }
+    ]
+}

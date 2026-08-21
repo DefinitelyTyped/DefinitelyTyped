@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/pinyin4js",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/superbiger/pinyin4js"
+    ],
+    "devDependencies": {
+        "@types/pinyin4js": "workspace:."
+    },
+    "owners": []
+}

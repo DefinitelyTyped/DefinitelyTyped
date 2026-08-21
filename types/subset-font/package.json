@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/subset-font",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/papandreou/subset-font"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/subset-font": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Logan Graham",
+            "githubUsername": "omacranger"
+        }
+    ]
+}

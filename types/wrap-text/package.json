@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/wrap-text",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/IonicaBizau/wrap-text#readme"
+    ],
+    "devDependencies": {
+        "@types/wrap-text": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

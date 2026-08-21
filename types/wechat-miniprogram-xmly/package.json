@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/wechat-miniprogram-xmly",
+    "version": "3.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Wechat Mini Program - xmly-plugin",
+    "projects": [
+        "https://mp.weixin.qq.com/wxopen/pluginbasicprofile?action=intro&appid=wxc6a13dda5815c529"
+    ],
+    "devDependencies": {
+        "@types/wechat-miniprogram-xmly": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " TB",
+            "githubUsername": "Durianicecream"
+        }
+    ]
+}

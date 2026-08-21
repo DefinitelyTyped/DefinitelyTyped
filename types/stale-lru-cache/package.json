@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/stale-lru-cache",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/cyberthom/stale-lru-cache"
+    ],
+    "devDependencies": {
+        "@types/stale-lru-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joona Heikkilä",
+            "githubUsername": "cxcorp"
+        }
+    ]
+}

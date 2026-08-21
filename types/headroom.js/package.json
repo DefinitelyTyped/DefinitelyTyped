@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/headroom.js",
+    "version": "0.12.9999",
+    "projects": [
+        "https://github.com/WickyNilliams/headroom.js"
+    ],
+    "devDependencies": {
+        "@types/headroom.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Olek",
+            "githubUsername": "hakubo"
+        },
+        {
+            "name": "Juninho Cruz",
+            "githubUsername": "juninhocruzg3"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "Manol Donev",
+            "githubUsername": "manoldonev"
+        }
+    ]
+}

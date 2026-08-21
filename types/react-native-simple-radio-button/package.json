@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-simple-radio-button",
+    "version": "2.7.9999",
+    "projects": [
+        "https://github.com/moschan/react-native-simple-radio-button"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-simple-radio-button": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Frabanz",
+            "githubUsername": "Frabanz"
+        }
+    ]
+}

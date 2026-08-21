@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/knockout.es5",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "knockout.es5",
+    "projects": [
+        "https://github.com/SteveSanderson/knockout-es5"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.es5": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sebastián Galiano",
+            "githubUsername": "sgaliano"
+        }
+    ]
+}

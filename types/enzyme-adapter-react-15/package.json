@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/enzyme-adapter-react-15",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/airbnb/enzyme",
+        "http://airbnb.io/enzyme"
+    ],
+    "dependencies": {
+        "@types/enzyme": "*"
+    },
+    "devDependencies": {
+        "@types/enzyme-adapter-react-15": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

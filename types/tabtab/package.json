@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/tabtab",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/mklabs/node-tabtab"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/minimist": "*",
+        "@types/tabtab": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vojtěch Habarta",
+            "githubUsername": "vojtechhabarta"
+        },
+        {
+            "name": "Kamontat Chantrachirathumrong",
+            "githubUsername": "kamontat"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

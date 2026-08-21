@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/tengitsui",
+    "version": "4.3.9999",
+    "projects": [
+        "https://github.com/1026385513/tengitsui"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/tengitsui": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "1026385513",
+            "githubUsername": "1026385513"
+        }
+    ]
+}

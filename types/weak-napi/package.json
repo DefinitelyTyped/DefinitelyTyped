@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/weak-napi",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/node-ffi-napi/weak-napi"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/weak-napi": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/color-string",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/qix-/color-string#readme"
+    ],
+    "devDependencies": {
+        "@types/color-string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Dan Marshall",
+            "githubUsername": "danmarshall"
+        },
+        {
+            "name": "Eric NICOLAS (ccjmne)",
+            "githubUsername": "ccjmne"
+        }
+    ]
+}

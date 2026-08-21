@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/esm",
+    "version": "3.2.9999",
+    "projects": [
+        "https://github.com/standard-things/esm#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/esm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

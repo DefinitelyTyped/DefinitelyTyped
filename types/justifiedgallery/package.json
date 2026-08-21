@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/justifiedgallery",
+    "version": "3.8.9999",
+    "projects": [
+        "https://github.com/miromannino/Justified-Gallery"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/justifiedgallery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Smith",
+            "githubUsername": "mattsmithcode"
+        }
+    ]
+}

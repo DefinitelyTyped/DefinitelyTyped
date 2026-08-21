@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/text-metrics",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/bezoerb/text-metrics"
+    ],
+    "devDependencies": {
+        "@types/text-metrics": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jose Fort",
+            "githubUsername": "modus-jose"
+        }
+    ]
+}

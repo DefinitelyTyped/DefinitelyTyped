@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/d3.slider",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "d3.slider",
+    "projects": [
+        "https://github.com/MasterMaps/d3-slider"
+    ],
+    "dependencies": {
+        "@types/d3": "^3"
+    },
+    "devDependencies": {
+        "@types/d3.slider": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Linkun Chen",
+            "githubUsername": "lk-chen"
+        }
+    ]
+}

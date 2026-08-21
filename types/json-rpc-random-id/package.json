@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-rpc-random-id",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/kumavis/json-rpc-random-id#readme"
+    ],
+    "devDependencies": {
+        "@types/json-rpc-random-id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Micah Riggan",
+            "githubUsername": "micahriggan"
+        }
+    ]
+}

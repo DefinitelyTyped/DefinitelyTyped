@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/bip38",
+    "version": "3.1.9999",
+    "projects": [
+        "https://github.com/bitcoinjs/bip38",
+        "http://cryptocoinjs.com/modules/currency/bip38"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/bip38": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Satana Charuwichitratana",
+            "githubUsername": "micksatana"
+        }
+    ]
+}

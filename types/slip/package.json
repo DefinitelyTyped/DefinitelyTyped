@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/slip",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/colinbdclark/slip.js"
+    ],
+    "devDependencies": {
+        "@types/slip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Finomnis",
+            "githubUsername": "Finomnis"
+        }
+    ]
+}

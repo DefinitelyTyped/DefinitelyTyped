@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/filesize-parser",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/patrickkettner/filesize-parser#readme"
+    ],
+    "devDependencies": {
+        "@types/filesize-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gary King",
+            "githubUsername": "garyking"
+        }
+    ]
+}

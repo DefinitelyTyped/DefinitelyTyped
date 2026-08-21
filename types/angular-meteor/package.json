@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/angular-meteor",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/Urigo/angular-meteor"
+    ],
+    "dependencies": {
+        "@types/angular": "*",
+        "@types/meteor": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/angular-meteor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Grman",
+            "githubUsername": "pgrm"
+        }
+    ]
+}

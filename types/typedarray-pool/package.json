@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/typedarray-pool",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/typedarray-pool"
+    ],
+    "devDependencies": {
+        "@types/tape": "^4.0.0",
+        "@types/typedarray-pool": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Giff Song",
+            "githubUsername": "pawsong"
+        }
+    ]
+}

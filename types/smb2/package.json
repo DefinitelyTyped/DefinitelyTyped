@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/smb2",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/bchelli/node-smb2"
+    ],
+    "devDependencies": {
+        "@types/smb2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Whitlock",
+            "githubUsername": "eezstreet"
+        }
+    ]
+}

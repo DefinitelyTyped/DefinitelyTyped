@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/enamdict",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jeresig/node-enamdict#readme"
+    ],
+    "devDependencies": {
+        "@types/enamdict": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

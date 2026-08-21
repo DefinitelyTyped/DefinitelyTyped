@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/config-yaml",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/neolao/config-yaml#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/config-yaml": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arylo Yeung",
+            "githubUsername": "Arylo"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-cached",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/wearefractal/gulp-cached"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-cached": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thomas Corbière",
+            "githubUsername": "tomc974"
+        }
+    ]
+}

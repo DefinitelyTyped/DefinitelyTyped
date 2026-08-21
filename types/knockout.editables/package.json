@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/knockout.editables",
+    "version": "0.9.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "knockout.editables",
+    "projects": [
+        "http://romanych.github.com/ko.editables/"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.editables": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Boris Yankov",
+            "githubUsername": "borisyankov"
+        }
+    ]
+}

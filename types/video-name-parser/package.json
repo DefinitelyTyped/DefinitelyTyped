@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/video-name-parser",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/Ivshti/video-name-parser"
+    ],
+    "devDependencies": {
+        "@types/video-name-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kira Oakley",
+            "githubUsername": "hackergrrl"
+        }
+    ]
+}

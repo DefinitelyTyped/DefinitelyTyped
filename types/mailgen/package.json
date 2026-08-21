@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/mailgen",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/eladnava/mailgen#readme"
+    ],
+    "devDependencies": {
+        "@types/mailgen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kiet Thanh Vo",
+            "githubUsername": "vothanhkiet"
+        },
+        {
+            "name": "Jordan Farrer",
+            "githubUsername": "jordanfarrer"
+        },
+        {
+            "name": "Grzegorz Kawka-Osik",
+            "githubUsername": "grzegorzkawkaosik"
+        }
+    ]
+}

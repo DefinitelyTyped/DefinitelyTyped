@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/mg-api-js",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/Geotab/mg-api-js#readme"
+    ],
+    "devDependencies": {
+        "@types/mg-api-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kaden Sharpin",
+            "githubUsername": "kadensharpin"
+        }
+    ]
+}

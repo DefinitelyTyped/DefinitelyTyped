@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/uapi-json",
+    "version": "1.13.9999",
+    "projects": [
+        "https://github.com/Travelport-Ukraine/uapi-json"
+    ],
+    "devDependencies": {
+        "@types/uapi-json": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Zvi Wex",
+            "githubUsername": "zviwex"
+        }
+    ]
+}

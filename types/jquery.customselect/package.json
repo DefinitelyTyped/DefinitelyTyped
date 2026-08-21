@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.customselect",
+    "version": "0.5.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.customselect",
+    "projects": [
+        "http://adam.co/lab/jquery/customselect//"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.customselect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "adamcoulombe",
+            "githubUsername": "adamcoulombe"
+        }
+    ]
+}

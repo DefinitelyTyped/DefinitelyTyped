@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": ["es6", "dom"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "lib/rangy-core.d.ts",
+        "lib/rangy-classapplier.d.ts",
+        "lib/rangy-highlighter.d.ts",
+        "lib/rangy-selectionsaverestore.d.ts",
+        "lib/rangy-serializer.d.ts",
+        "lib/rangy-textrange.d.ts",
+        "rangy-tests.ts"
+    ]
+}

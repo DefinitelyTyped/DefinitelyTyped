@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/javascript-bignum",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "javascript-bignum",
+    "projects": [
+        "https://github.com/jtobey/javascript-bignum"
+    ],
+    "devDependencies": {
+        "@types/javascript-bignum": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Shively-Sanders",
+            "githubUsername": "sandersn"
+        }
+    ]
+}

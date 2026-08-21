@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/prompt-sync",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/heapwolf/prompt-sync"
+    ],
+    "devDependencies": {
+        "@types/prompt-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TANAKA Koichi",
+            "githubUsername": "MugeSo"
+        },
+        {
+            "name": "Yingbo Qiu",
+            "githubUsername": "qyb"
+        }
+    ]
+}

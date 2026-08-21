@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/buffers",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/substack/node-buffers"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/buffers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robert Hencke",
+            "githubUsername": "rhencke"
+        }
+    ]
+}

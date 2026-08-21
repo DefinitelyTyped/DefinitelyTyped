@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/typopo",
+    "version": "2.5.9999",
+    "projects": [
+        "https://github.com/surfinzap/typopo#readme"
+    ],
+    "devDependencies": {
+        "@types/typopo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/lazy-property",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/lazy-property"
+    ],
+    "devDependencies": {
+        "@types/lazy-property": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jan Kühnlein",
+            "githubUsername": "jank1310"
+        }
+    ]
+}

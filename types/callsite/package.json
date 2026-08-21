@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/callsite",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/tj/callsite"
+    ],
+    "devDependencies": {
+        "@types/callsite": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "newclear",
+            "githubUsername": "newclear"
+        }
+    ]
+}

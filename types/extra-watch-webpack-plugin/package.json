@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/extra-watch-webpack-plugin",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/pigcan/extra-watch-webpack-plugin#readme"
+    ],
+    "dependencies": {
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/extra-watch-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dave Cardwell",
+            "githubUsername": "davecardwell"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/floreal",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/seeschloss/floreal"
+    ],
+    "devDependencies": {
+        "@types/floreal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mike castleman",
+            "githubUsername": "mlc"
+        }
+    ]
+}

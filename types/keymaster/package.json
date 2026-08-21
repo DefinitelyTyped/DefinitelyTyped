@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/keymaster",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/madrobby/keymaster"
+    ],
+    "devDependencies": {
+        "@types/keymaster": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin W. Kirst",
+            "githubUsername": "nitram509"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

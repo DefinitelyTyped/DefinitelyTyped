@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/react-native-google-signin",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/react-native-community/react-native-google-signin"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-google-signin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jacob Froman",
+            "githubUsername": "j-fro"
+        },
+        {
+            "name": "Michele Bombardi",
+            "githubUsername": "bm-software"
+        },
+        {
+            "name": "Christian Chown",
+            "githubUsername": "christianchown"
+        },
+        {
+            "name": "Eric Chen",
+            "githubUsername": "echentw"
+        }
+    ]
+}

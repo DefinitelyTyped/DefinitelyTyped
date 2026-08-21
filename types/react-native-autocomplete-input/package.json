@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/react-native-autocomplete-input",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/mrlaessig/react-native-autocomplete-input#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "@types/react-native": "^0.70"
+    },
+    "devDependencies": {
+        "@types/react-native-autocomplete-input": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ifiok Jr.",
+            "githubUsername": "ifiokjr"
+        },
+        {
+            "name": "Kanitkorn Sujautra",
+            "githubUsername": "lukyth"
+        },
+        {
+            "name": "joleb",
+            "githubUsername": "joleb"
+        },
+        {
+            "name": "AJ",
+            "githubUsername": "ajenkins"
+        }
+    ]
+}

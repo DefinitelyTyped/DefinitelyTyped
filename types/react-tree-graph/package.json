@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-tree-graph",
+    "version": "8.0.9999",
+    "projects": [
+        "https://jpb12.github.io/react-tree-graph"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-tree-graph": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "PCOffline",
+            "githubUsername": "PCOffline"
+        }
+    ]
+}

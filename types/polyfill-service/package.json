@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/polyfill-service",
+    "version": "3.25.9999",
+    "projects": [
+        "https://github.com/financial-times/polyfill-service#readme"
+    ],
+    "devDependencies": {
+        "@types/polyfill-service": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Arturas Molcanovas",
+            "githubUsername": "Alorel"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/node-gcm",
+    "version": "1.0.9999",
+    "projects": [
+        "https://www.npmjs.org/package/node-gcm"
+    ],
+    "devDependencies": {
+        "@types/node-gcm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hiroki Horiuchi",
+            "githubUsername": "horiuchi"
+        },
+        {
+            "name": "BWYou",
+            "githubUsername": "yousky"
+        }
+    ]
+}

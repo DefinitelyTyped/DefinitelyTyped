@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/forever-monitor",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/nodejitsu/forever-monitor#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/forever-monitor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shun Takahashi",
+            "githubUsername": "shuntksh"
+        },
+        {
+            "name": "Will Boyce",
+            "githubUsername": "wrboyce"
+        }
+    ]
+}

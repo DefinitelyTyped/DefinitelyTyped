@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/object-assign",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/object-assign"
+    ],
+    "devDependencies": {
+        "@types/object-assign": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christopher Brown",
+            "githubUsername": "chbrown"
+        }
+    ]
+}

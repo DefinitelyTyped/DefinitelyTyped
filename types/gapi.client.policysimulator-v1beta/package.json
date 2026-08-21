@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.policysimulator-v1beta",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Policy Simulator API v1beta",
+    "projects": [
+        "https://cloud.google.com/iam/docs/simulating-access"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.policysimulator-v1beta": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.policysimulator-v1beta": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

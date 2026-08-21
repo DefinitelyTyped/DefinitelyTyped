@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/xmpp__sasl-scram-sha-1",
+    "version": "0.14.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/xmppjs/xmpp.js/tree/main/packages/sasl-scram-sha-1"
+    ],
+    "dependencies": {
+        "@types/xmpp__sasl": "*"
+    },
+    "devDependencies": {
+        "@types/xmpp__sasl-scram-sha-1": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

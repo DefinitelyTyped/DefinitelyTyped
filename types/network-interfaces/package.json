@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/network-interfaces",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/Wizcorp/network-interfaces#readme"
+    ],
+    "devDependencies": {
+        "@types/network-interfaces": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Anders Westberg",
+            "githubUsername": "anderswestberg"
+        }
+    ]
+}

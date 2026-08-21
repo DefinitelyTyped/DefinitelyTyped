@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/angular-httpi",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "angular-httpi",
+    "projects": [
+        "https://github.com/bennadel/httpi"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/angular-httpi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Camilleri",
+            "githubUsername": "Kukks"
+        }
+    ]
+}

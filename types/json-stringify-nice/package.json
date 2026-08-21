@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-stringify-nice",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/isaacs/json-stringify-nice"
+    ],
+    "devDependencies": {
+        "@types/json-stringify-nice": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

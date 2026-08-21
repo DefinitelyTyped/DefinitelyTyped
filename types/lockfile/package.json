@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/lockfile",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/npm/lockfile"
+    ],
+    "devDependencies": {
+        "@types/lockfile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

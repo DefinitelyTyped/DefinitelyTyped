@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/passport-bnet",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/Blizzard/passport-bnet#readme"
+    ],
+    "dependencies": {
+        "@types/passport-oauth2": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/passport-bnet": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ivan Fernandes",
+            "githubUsername": "ivan94"
+        }
+    ]
+}

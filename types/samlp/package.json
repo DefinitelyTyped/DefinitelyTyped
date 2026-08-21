@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/samlp",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/auth0/node-samlp"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/samlp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "horiuchi",
+            "githubUsername": "horiuchi"
+        }
+    ]
+}

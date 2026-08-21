@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/unicode-escape",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jmeas/unicode-string-to-javascript-escape.js"
+    ],
+    "devDependencies": {
+        "@types/unicode-escape": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/s3-streams",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/izaakschroeder/s3-streams"
+    ],
+    "dependencies": {
+        "@types/aws-sdk2-types": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/s3-streams": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Carl Fürstenberg",
+            "githubUsername": "azatoth"
+        }
+    ]
+}

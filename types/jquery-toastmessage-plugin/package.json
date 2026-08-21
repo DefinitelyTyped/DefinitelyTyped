@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery-toastmessage-plugin",
+    "version": "0.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery-toastmessage-plugin",
+    "projects": [
+        "https://github.com/akquinet/jquery-toastmessage-plugin"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery-toastmessage-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joe Skeen",
+            "githubUsername": "joeskeen"
+        }
+    ]
+}

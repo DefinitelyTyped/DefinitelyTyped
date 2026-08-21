@@ -1,0 +1,8 @@
+{
+    "rules": {
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-duplicate-imports": "off",
+        "@typescript-eslint/consistent-type-definitions": "off"
+    }
+}

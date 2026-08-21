@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/slick-carousel",
+    "version": "1.6.9999",
+    "projects": [
+        "http://kenwheeler.github.io/slick/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/slick-carousel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Gouigouix",
+            "githubUsername": "Gouigouix"
+        },
+        {
+            "name": "Hugo Alliaume",
+            "githubUsername": "Kocal"
+        }
+    ]
+}

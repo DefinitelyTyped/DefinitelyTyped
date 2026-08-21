@@ -1,0 +1,9 @@
+{
+    "private": true,
+    "description": "Script to generate the type definitions for icons in the @trendmicro/tmicon package",
+    "author": "Zachary Legros",
+    "devDependencies": {
+        "@types/node": "*",
+        "@trendmicro/tmicon": "1.40.0"
+    }
+}

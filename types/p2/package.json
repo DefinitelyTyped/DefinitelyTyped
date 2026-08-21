@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/p2",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/schteppe/p2.js/"
+    ],
+    "devDependencies": {
+        "@types/p2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Clark Stevenson",
+            "githubUsername": "clark-stevenson"
+        },
+        {
+            "name": "Janne Ramstedt",
+            "githubUsername": "jramstedt"
+        }
+    ]
+}

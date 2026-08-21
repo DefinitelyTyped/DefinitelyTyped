@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/kurento-utils",
+    "version": "6.7.9999",
+    "projects": [
+        "https://github.com/Kurento/kurento-utils-js",
+        "https://www.kurento.org"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/kurento-utils": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Miloslav Nenadál",
+            "githubUsername": "nenadalm"
+        },
+        {
+            "name": "Benjamin Riggs",
+            "githubUsername": "riggs"
+        }
+    ]
+}

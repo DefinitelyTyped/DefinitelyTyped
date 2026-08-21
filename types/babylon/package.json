@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/babylon",
+    "version": "6.16.9999",
+    "projects": [
+        "https://github.com/babel/babylon",
+        "https://babeljs.io"
+    ],
+    "dependencies": {
+        "@types/babel-types": "*"
+    },
+    "devDependencies": {
+        "@types/babylon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Troy Gerwien",
+            "githubUsername": "yortus"
+        },
+        {
+            "name": "Marvin Hagemeister",
+            "githubUsername": "marvinhagemeister"
+        }
+    ]
+}

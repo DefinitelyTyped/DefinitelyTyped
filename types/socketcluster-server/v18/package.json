@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/socketcluster-server",
+    "version": "18.2.9999",
+    "projects": [
+        "https://github.com/SocketCluster/socketcluster-server"
+    ],
+    "dependencies": {
+        "@types/ag-auth": "*",
+        "@types/ag-request": "*",
+        "@types/ag-simple-broker": "^5",
+        "@types/async-stream-emitter": "^6",
+        "@types/consumable-stream": "*",
+        "@types/jsonwebtoken": "*",
+        "@types/sc-errors": "*",
+        "@types/stream-demux": "^9",
+        "@types/writable-consumable-stream": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/socketcluster-server": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

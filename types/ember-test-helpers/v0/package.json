@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ember-test-helpers",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/emberjs/ember-test-helpers#readme"
+    ],
+    "dependencies": {
+        "@types/ember": "^2",
+        "@types/htmlbars-inline-precompile": "*",
+        "@types/jquery": "*",
+        "@types/rsvp": "*"
+    },
+    "devDependencies": {
+        "@types/ember-test-helpers": "workspace:.",
+        "@types/qunit": "*"
+    },
+    "owners": [
+        {
+            "name": "Derek Wickern",
+            "githubUsername": "dwickern"
+        },
+        {
+            "name": "Mike North",
+            "githubUsername": "mike-north"
+        }
+    ]
+}

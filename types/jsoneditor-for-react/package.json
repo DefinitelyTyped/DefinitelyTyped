@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jsoneditor-for-react",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/mixj93/jsoneditor-for-react#readme"
+    ],
+    "dependencies": {
+        "@types/jsoneditor": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/jsoneditor-for-react": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Joep Kockelkorn",
+            "githubUsername": "joepkockelkorn"
+        }
+    ]
+}

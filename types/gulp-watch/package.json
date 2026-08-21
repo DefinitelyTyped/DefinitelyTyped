@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/gulp-watch",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/floatdrop/gulp-watch"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/vinyl": "*",
+        "@types/vinyl-fs": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-watch": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

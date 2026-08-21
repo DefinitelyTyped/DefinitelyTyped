@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/atom",
+    "version": "1.40.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Atom",
+    "projects": [
+        "https://github.com/atom/atom"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/atom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "GlenCFL",
+            "githubUsername": "GlenCFL"
+        },
+        {
+            "name": "smhxx",
+            "githubUsername": "smhxx"
+        },
+        {
+            "name": "lierdakil",
+            "githubUsername": "lierdakil"
+        },
+        {
+            "name": "aminya",
+            "githubUsername": "aminya"
+        }
+    ]
+}

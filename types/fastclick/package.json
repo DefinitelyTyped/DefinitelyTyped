@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fastclick",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ftlabs/fastclick"
+    ],
+    "devDependencies": {
+        "@types/fastclick": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shinnosuke Watanabe",
+            "githubUsername": "shinnn"
+        }
+    ]
+}

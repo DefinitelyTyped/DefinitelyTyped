@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/leaflet.wms",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/heigeo/leaflet.wms"
+    ],
+    "dependencies": {
+        "@types/leaflet": "^1.9"
+    },
+    "devDependencies": {
+        "@types/leaflet.wms": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Antonio Vida",
+            "githubUsername": "antoniovlx"
+        }
+    ]
+}

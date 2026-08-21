@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/chai-string",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/onechiporenko/chai-string"
+    ],
+    "dependencies": {
+        "@types/chai": "*"
+    },
+    "devDependencies": {
+        "@types/chai-string": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nick Malaguti",
+            "githubUsername": "nmalaguti"
+        }
+    ]
+}

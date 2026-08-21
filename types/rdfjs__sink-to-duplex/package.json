@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/rdfjs__sink-to-duplex",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/rdfjs-base/sink-to-duplex"
+    ],
+    "dependencies": {
+        "@rdfjs/types": "*",
+        "@types/duplexify": "^3.6.4"
+    },
+    "devDependencies": {
+        "@types/rdfjs__sink-to-duplex": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        }
+    ]
+}

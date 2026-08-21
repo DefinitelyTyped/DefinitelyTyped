@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/micromodal",
+    "version": "0.7.9999",
+    "projects": [
+        "https://github.com/ghosh/micromodal#readme"
+    ],
+    "devDependencies": {
+        "@types/micromodal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wayne Carson",
+            "githubUsername": "wcarson"
+        },
+        {
+            "name": "Anders Kaseorg",
+            "githubUsername": "andersk"
+        }
+    ]
+}

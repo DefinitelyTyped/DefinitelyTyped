@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/clovelced-plugin-audiomanagement",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/clovelCed/cordova-plugin-audiomanagement#readme"
+    ],
+    "devDependencies": {
+        "@types/clovelced-plugin-audiomanagement": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marc Kassay",
+            "githubUsername": "marckassay"
+        }
+    ]
+}

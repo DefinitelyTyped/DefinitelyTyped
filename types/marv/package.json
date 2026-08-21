@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/marv",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/guidesmiths/marv"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/marv": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joonas Rouhiainen",
+            "githubUsername": "rjoonas"
+        }
+    ]
+}

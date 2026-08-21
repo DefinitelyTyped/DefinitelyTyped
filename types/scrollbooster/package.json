@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/scrollbooster",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/ilyashubin/scrollbooster"
+    ],
+    "devDependencies": {
+        "@types/scrollbooster": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris",
+            "githubUsername": "chrisneven"
+        },
+        {
+            "name": "Chris Frewin",
+            "githubUsername": "princefishthrower"
+        }
+    ]
+}

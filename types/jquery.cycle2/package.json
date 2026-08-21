@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jquery.cycle2",
+    "version": "2.1.9999",
+    "projects": [
+        "http://jquery.malsup.com/cycle2/",
+        "https://github.com/malsup/cycle2"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.cycle2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Donny Nadolny",
+            "githubUsername": "dnadolny"
+        }
+    ]
+}

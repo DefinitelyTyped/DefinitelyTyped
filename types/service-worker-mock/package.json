@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/service-worker-mock",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/pinterest/service-workers/tree/master/packages/service-worker-mock#readme"
+    ],
+    "devDependencies": {
+        "@types/service-worker-mock": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

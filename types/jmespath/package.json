@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jmespath",
+    "version": "0.15.9999",
+    "projects": [
+        "https://github.com/jmespath/jmespath.js"
+    ],
+    "devDependencies": {
+        "@types/jmespath": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeffery Grajkowski",
+            "githubUsername": "pushplay"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/triple-beam",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/winstonjs/triple-beam"
+    ],
+    "devDependencies": {
+        "@types/triple-beam": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Byrne",
+            "githubUsername": "danwbyrne"
+        }
+    ]
+}

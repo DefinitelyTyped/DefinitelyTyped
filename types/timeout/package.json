@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/timeout",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/amccollum/timeout"
+    ],
+    "devDependencies": {
+        "@types/timeout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "newt",
+            "githubUsername": "itsnewt"
+        }
+    ]
+}

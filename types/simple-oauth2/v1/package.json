@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/simple-oauth2",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/lelylan/simple-oauth2"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*"
+    },
+    "devDependencies": {
+        "@types/simple-oauth2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Müller",
+            "githubUsername": "mad-mike"
+        },
+        {
+            "name": "Martín Rodriguez",
+            "githubUsername": "netux"
+        }
+    ]
+}

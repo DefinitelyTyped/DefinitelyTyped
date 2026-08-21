@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cheerio-tableparser",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/misterparser/cheerio-tableparser#readme"
+    ],
+    "dependencies": {
+        "cheerio": ">=1"
+    },
+    "devDependencies": {
+        "@types/cheerio-tableparser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Josh Kelley",
+            "githubUsername": "joshkel"
+        }
+    ]
+}

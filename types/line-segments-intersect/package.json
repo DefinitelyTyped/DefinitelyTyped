@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/line-segments-intersect",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/geosquare/line-segments-intersect"
+    ],
+    "devDependencies": {
+        "@types/line-segments-intersect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jeremy Banka",
+            "githubUsername": "jeremybanka"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-modals",
+    "version": "0.22.9999",
+    "projects": [
+        "https://github.com/jacklam718/react-native-modals/blob/master/README.md"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-modals": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paito Anderson",
+            "githubUsername": "PaitoAnderson"
+        },
+        {
+            "name": "Jean-Baptiste Crestot",
+            "githubUsername": "jbcrestot"
+        }
+    ]
+}

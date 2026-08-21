@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/aws-regions",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jsonmaur/aws-regions#readme"
+    ],
+    "devDependencies": {
+        "@types/aws-regions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alex Lapa",
+            "githubUsername": "Deadarius"
+        }
+    ]
+}

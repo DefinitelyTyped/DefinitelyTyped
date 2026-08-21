@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/lineclip",
+    "version": "2.0.9999",
+    "type": "module",
+    "projects": [
+        "https://github.com/mapbox/lineclip#readme"
+    ],
+    "devDependencies": {
+        "@types/lineclip": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sikriti Dakua",
+            "githubUsername": "devloop01"
+        },
+        {
+            "name": "Marc Emmanuel",
+            "githubUsername": "SheepFromHeaven"
+        }
+    ]
+}

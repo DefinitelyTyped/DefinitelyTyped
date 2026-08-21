@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/pacote",
+    "version": "11.1.9999",
+    "projects": [
+        "https://github.com/npm/pacote#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/npm-registry-fetch": "*",
+        "@types/npmlog": "*",
+        "@types/ssri": "*"
+    },
+    "devDependencies": {
+        "@types/pacote": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Bates",
+            "githubUsername": "jablko"
+        }
+    ]
+}

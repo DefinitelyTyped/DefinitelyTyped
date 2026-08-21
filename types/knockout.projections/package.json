@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/knockout.projections",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "knockout.projections",
+    "projects": [
+        "https://github.com/stevesanderson/knockout-projections"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.projections": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "John Reilly",
+            "githubUsername": "johnnyreilly"
+        }
+    ]
+}

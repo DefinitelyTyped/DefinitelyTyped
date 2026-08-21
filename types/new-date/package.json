@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/new-date",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/segmentio/new-date#readme"
+    ],
+    "devDependencies": {
+        "@types/new-date": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

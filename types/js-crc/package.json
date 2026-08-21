@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/js-crc",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/emn178/js-crc"
+    ],
+    "devDependencies": {
+        "@types/js-crc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anders Kjeldsen",
+            "githubUsername": "and3k5"
+        }
+    ]
+}

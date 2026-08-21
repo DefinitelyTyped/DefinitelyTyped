@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/rails__request.js",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/rails/request.js"
+    ],
+    "devDependencies": {
+        "@types/rails__request.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Gitter",
+            "githubUsername": "alexandergitter"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/quixote",
+    "version": "0.7.9999",
+    "projects": [
+        "http://quixote-css.com/"
+    ],
+    "devDependencies": {
+        "@types/quixote": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aleksandr Filatov",
+            "githubUsername": "greybax"
+        }
+    ]
+}

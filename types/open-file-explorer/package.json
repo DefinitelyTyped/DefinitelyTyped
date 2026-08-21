@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/open-file-explorer",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/vibhor1997a/nodejs-open-file-explorer#readme"
+    ],
+    "devDependencies": {
+        "@types/open-file-explorer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "sevenc-nanashi",
+            "githubUsername": "sevenc-nanashi"
+        }
+    ]
+}

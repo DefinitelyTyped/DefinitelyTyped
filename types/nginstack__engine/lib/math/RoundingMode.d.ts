@@ -1,0 +1,10 @@
+export const HALF_EVEN = 1;
+export const HALF_ODD = 2;
+export const HALF_POSITIVE = 3;
+export const HALF_NEGATIVE = 4;
+export const HALF_DOWN = 5;
+export const HALF_UP = 6;
+export const FLOOR = 7;
+export const CEILING = 8;
+export const DOWN = 9;
+export const UP = 10;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/flat-cache",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/royriojas/flat-cache#readme"
+    ],
+    "devDependencies": {
+        "@types/flat-cache": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kevin Pollet",
+            "githubUsername": "kevinpollet"
+        }
+    ]
+}

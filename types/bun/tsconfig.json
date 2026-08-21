@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "ESNext"
+        ],
+        "strict": true,
+        "target": "esnext",
+        "module": "node16",
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "types": [],
+        "noUnusedLocals": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "bun-tests.ts"
+    ]
+}

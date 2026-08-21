@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-input-mask",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/sanniassin/react-input-mask"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-input-mask": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexandre Paré",
+            "githubUsername": "apare"
+        },
+        {
+            "name": "Dima Danylyuk",
+            "githubUsername": "dima7a14"
+        },
+        {
+            "name": "Lucas Rêgo",
+            "githubUsername": "lucasraziel"
+        }
+    ]
+}

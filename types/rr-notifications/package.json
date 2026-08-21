@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rr-notifications",
+    "version": "1.1.9999",
+    "projects": [
+        "https://thegrinder.github.io/rr-notifications"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/rr-notifications": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Robbie Moore",
+            "githubUsername": "RobbieGM"
+        }
+    ]
+}

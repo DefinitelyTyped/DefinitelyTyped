@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/moonjs",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/KingPixil/moon"
+    ],
+    "devDependencies": {
+        "@types/moonjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rosenwasser",
+            "githubUsername": "DanielRosenwasser"
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "lib": [
+            "es6",
+            "DOM"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "lib/base.d.ts",
+        "lib/callback.d.ts",
+        "lib/context.d.ts",
+        "lib/hosthandlers.d.ts",
+        "lib/localizer.d.ts",
+        "lib/powerup.d.ts",
+        "lib/restapi.d.ts",
+        "lib/theming.d.ts",
+        "lib/util.d.ts",
+        "tests/base-tests.ts",
+        "tests/callback-tests.ts",
+        "tests/context-tests.ts",
+        "tests/index-tests.ts",
+        "tests/localizer-tests.ts",
+        "tests/hosthandlers-tests.ts",
+        "tests/powerup-tests.ts",
+        "tests/restapi-tests.ts",
+        "tests/theming-tests.ts",
+        "tests/util-tests.ts"
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/multi-number-parse",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/mjamado/multi-number-parse#readme"
+    ],
+    "devDependencies": {
+        "@types/multi-number-parse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mikhail Vorobeychikov",
+            "githubUsername": "leequixxx"
+        }
+    ]
+}

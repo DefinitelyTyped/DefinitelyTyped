@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/react-native-material-dropdown",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/n4kz/react-native-material-dropdown"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-material-dropdown": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jaydeep",
+            "githubUsername": "jaydeep987"
+        },
+        {
+            "name": "Michael",
+            "githubUsername": "mchappell"
+        }
+    ]
+}

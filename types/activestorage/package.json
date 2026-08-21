@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/activestorage",
+    "version": "5.2.9999",
+    "projects": [
+        "https://github.com/rails/rails/tree/master/activestorage/app/javascript",
+        "http://rubyonrails.org"
+    ],
+    "devDependencies": {
+        "@types/activestorage": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cameron Bothner",
+            "githubUsername": "cbothner"
+        }
+    ]
+}

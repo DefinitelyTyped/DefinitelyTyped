@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ember__runloop",
+    "version": "3.16.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "@ember/runloop",
+    "projects": [
+        "https://emberjs.com/api/ember/3.16/modules/@ember%2Frunloop"
+    ],
+    "devDependencies": {
+        "@types/ember__object": "*",
+        "@types/ember__runloop": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Krystan HuffMenne",
+            "githubUsername": "gitKrystan"
+        },
+        {
+            "name": "James C. Davis",
+            "githubUsername": "jamescdavis"
+        },
+        {
+            "name": "Peter Wagenet",
+            "githubUsername": "wagenet"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/algebra.js",
+    "version": "0.2.9999",
+    "projects": [
+        "http://algebra.js.org"
+    ],
+    "devDependencies": {
+        "@types/algebra.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Federico Caselli",
+            "githubUsername": "CaselIT"
+        }
+    ]
+}

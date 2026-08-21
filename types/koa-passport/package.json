@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/koa-passport",
+    "version": "6.0.9999",
+    "projects": [
+        "https://github.com/rkusa/koa-passport"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/passport": "*"
+    },
+    "devDependencies": {
+        "@types/koa-passport": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "horiuchi",
+            "githubUsername": "horiuchi"
+        },
+        {
+            "name": "Tomek Łaziuk",
+            "githubUsername": "tlaziuk"
+        },
+        {
+            "name": "Tümay Çeber",
+            "githubUsername": "brendtumi"
+        }
+    ]
+}

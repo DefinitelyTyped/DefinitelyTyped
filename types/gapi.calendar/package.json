@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gapi.calendar",
+    "version": "3.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gapi.calendar",
+    "projects": [
+        "https://developers.google.com/google-apps/calendar/"
+    ],
+    "dependencies": {
+        "@types/gapi": "*"
+    },
+    "devDependencies": {
+        "@types/gapi.calendar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

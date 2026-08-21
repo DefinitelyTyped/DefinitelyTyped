@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/svgdom",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/svgdotjs/svgdom#readme"
+    ],
+    "type": "module",
+    "devDependencies": {
+        "@types/svgdom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alan Norbauer",
+            "githubUsername": "altano"
+        }
+    ]
+}

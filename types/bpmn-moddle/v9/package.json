@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/bpmn-moddle",
+    "version": "9.0.9999",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        }
+    },
+    "projects": [
+        "https://github.com/bpmn-io/bpmn-moddle"
+    ],
+    "devDependencies": {
+        "@types/bpmn-moddle": "workspace:."
+    },
+    "owners": []
+}

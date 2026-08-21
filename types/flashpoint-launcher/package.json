@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/flashpoint-launcher",
+    "version": "10.1.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "flashpoint-launcher",
+    "projects": [
+        "Flashpoint Launcher https://github.com/FlashpointProject/launcher"
+    ],
+    "devDependencies": {
+        "@types/flashpoint-launcher": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Colin Berry",
+            "githubUsername": "colin969"
+        }
+    ]
+}

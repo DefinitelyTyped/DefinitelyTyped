@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/gulp-connect-php",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/micahblu/gulp-connect-php"
+    ],
+    "devDependencies": {
+        "@types/gulp-connect-php": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

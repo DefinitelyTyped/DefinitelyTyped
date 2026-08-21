@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/uuid-encoder",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/salieri/uuid-encoder#readme"
+    ],
+    "devDependencies": {
+        "@types/uuid-encoder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthijs van Henten",
+            "githubUsername": "mvhenten"
+        }
+    ]
+}

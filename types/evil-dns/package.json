@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/evil-dns",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/JamesHight/node-evil-dns#readme"
+    ],
+    "devDependencies": {
+        "@types/evil-dns": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "GeekCorner",
+            "githubUsername": "GeekCornerGH"
+        }
+    ]
+}

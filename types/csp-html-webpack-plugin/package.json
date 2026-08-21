@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/csp-html-webpack-plugin",
+    "version": "5.1.9999",
+    "projects": [
+        "https://github.com/slackhq/csp-html-webpack-plugin"
+    ],
+    "dependencies": {
+        "cheerio": ">=1",
+        "html-webpack-plugin": ">=4",
+        "tapable": "^2.2.1",
+        "@types/webpack": "^4"
+    },
+    "devDependencies": {
+        "@types/csp-html-webpack-plugin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Porama Ruengrairatanaroj",
+            "githubUsername": "Seally"
+        }
+    ]
+}

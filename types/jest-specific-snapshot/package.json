@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/jest-specific-snapshot",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/igor-dv/jest-specific-snapshot#readme"
+    ],
+    "dependencies": {
+        "@types/jest": "*"
+    },
+    "devDependencies": {
+        "@types/enzyme-to-json": "*",
+        "@types/jest-specific-snapshot": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Janeene Beeforth",
+            "githubUsername": "dawnmist"
+        }
+    ]
+}

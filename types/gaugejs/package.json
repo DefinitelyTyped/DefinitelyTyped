@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/gaugejs",
+    "version": "1.3.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "gaugejs",
+    "projects": [
+        "https://github.com/bernii/gauge.js#readme"
+    ],
+    "devDependencies": {
+        "@types/gaugejs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bradley Odell",
+            "githubUsername": "BTOdell"
+        }
+    ]
+}

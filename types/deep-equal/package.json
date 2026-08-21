@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/deep-equal",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/substack/node-deep-equal"
+    ],
+    "devDependencies": {
+        "@types/deep-equal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "remojansen",
+            "githubUsername": "remojansen"
+        },
+        {
+            "name": "Jay Anslow",
+            "githubUsername": "janslow"
+        }
+    ]
+}

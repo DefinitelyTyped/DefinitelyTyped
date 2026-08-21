@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/github-label-sync",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/Financial-Times/github-label-sync"
+    ],
+    "devDependencies": {
+        "@types/github-label-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Federico Grandi",
+            "githubUsername": "EndBug"
+        }
+    ]
+}

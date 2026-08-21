@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/jsqrcode",
+    "version": "1.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "jsqrcode",
+    "projects": [
+        "https://github.com/LazarSoft/jsqrcode"
+    ],
+    "devDependencies": {
+        "@types/jsqrcode": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ricardo Azzi Silva",
+            "githubUsername": "lordazzi"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/amap-js-api-control-bar",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "amap-js-api-control-bar",
+    "projects": [
+        "https://lbs.amap.com/api/javascript-api/reference/map-control#control-bar"
+    ],
+    "dependencies": {
+        "@types/amap-js-api": "*"
+    },
+    "devDependencies": {
+        "@types/amap-js-api-control-bar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "breeze9527",
+            "githubUsername": "breeze9527"
+        }
+    ]
+}

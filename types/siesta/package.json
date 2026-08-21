@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/siesta",
+    "version": "0.0.9999",
+    "projects": [
+        "http://www.bryntum.com/products/siesta/"
+    ],
+    "devDependencies": {
+        "@types/siesta": "workspace:."
+    },
+    "owners": []
+}

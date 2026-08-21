@@ -1,0 +1,13 @@
+License Notices:
+
+The API definitions and documents are from Google Apps Script reference site [1].
+
+The document comments are reproduced from work created and shared by Google [2]
+and used according to terms described in the Creative Commons 3.0 Attribution License [3].
+
+The code samples in the documents and the test code are licensed under the Apache 2.0 License [4].
+
+[1] https://developers.google.com/apps-script/
+[2] https://developers.google.com/readme/policies/
+[3] http://creativecommons.org/licenses/by/3.0/
+[4] http://www.apache.org/licenses/LICENSE-2.0

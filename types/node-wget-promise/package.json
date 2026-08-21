@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-wget-promise",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ajhsu/node-wget-promise"
+    ],
+    "devDependencies": {
+        "@types/node-wget-promise": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Shively-Sanders",
+            "githubUsername": "sandersn"
+        }
+    ]
+}

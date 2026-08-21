@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/absinthe__socket",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/absinthe-graphql/absinthe-socket#readme"
+    ],
+    "dependencies": {
+        "@types/phoenix": "*"
+    },
+    "devDependencies": {
+        "@types/absinthe__socket": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maarten van Vliet",
+            "githubUsername": "maartenvanvliet"
+        }
+    ]
+}

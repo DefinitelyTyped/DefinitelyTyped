@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/has-package-exports",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/inspect-js/has-package-exports#readme"
+    ],
+    "devDependencies": {
+        "@types/has-package-exports": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

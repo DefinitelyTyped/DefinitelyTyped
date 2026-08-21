@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/sha",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/ForbesLindesay/sha"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/sha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Oscar Busk",
+            "githubUsername": "oBusk"
+        }
+    ]
+}

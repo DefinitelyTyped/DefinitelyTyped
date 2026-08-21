@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gc-stats",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/dainis/node-gcstats#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gc-stats": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vitor Fernandes",
+            "githubUsername": "vfernandestoptal"
+        }
+    ]
+}

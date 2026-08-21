@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/save-pixels",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/save-pixels#readme"
+    ],
+    "dependencies": {
+        "@types/ndarray": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/save-pixels": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Don McCurdy",
+            "githubUsername": "donmccurdy"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/fbdl-core",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Snowflake107/fbdl-core#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/fbdl-core": "workspace:."
+    },
+    "owners": []
+}

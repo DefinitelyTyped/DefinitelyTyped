@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/readable-to-readable",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/bergos/readable-to-readable"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/readable-to-readable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tomasz Pluskiewicz",
+            "githubUsername": "tpluscode"
+        },
+        {
+            "name": "Ludovic Muller",
+            "githubUsername": "ludovicm67"
+        }
+    ]
+}

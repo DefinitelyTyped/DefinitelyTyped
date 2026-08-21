@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/to-regex-range",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/micromatch/to-regex-range"
+    ],
+    "devDependencies": {
+        "@types/to-regex-range": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

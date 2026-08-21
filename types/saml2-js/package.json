@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/saml2-js",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/Clever/saml2"
+    ],
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/node": "*",
+        "@types/saml2-js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "horiuchi",
+            "githubUsername": "horiuchi"
+        }
+    ]
+}

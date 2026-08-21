@@ -1,0 +1,15 @@
+{
+    "private": true,
+    "name": "@types/git-http-backend",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/substack/git-http-backend"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/git-http-backend": "workspace:."
+    },
+    "owners": []
+}

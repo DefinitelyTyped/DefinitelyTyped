@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.simplemodal",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.simplemodal",
+    "projects": [
+        "http://www.ericmmartin.com/projects/simplemodal/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.simplemodal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Friedrich von Never",
+            "githubUsername": "ForNeVeR"
+        }
+    ]
+}

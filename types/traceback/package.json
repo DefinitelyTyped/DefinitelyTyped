@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/traceback",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/iriscouch/traceback"
+    ],
+    "devDependencies": {
+        "@types/traceback": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Zabka",
+            "githubUsername": "misak113"
+        }
+    ]
+}

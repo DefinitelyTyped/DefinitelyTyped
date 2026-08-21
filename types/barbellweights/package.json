@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/barbellweights",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/toddhibbs/barbellweight#readme"
+    ],
+    "devDependencies": {
+        "@types/barbellweights": "workspace:."
+    },
+    "owners": []
+}

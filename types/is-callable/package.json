@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-callable",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/ljharb/is-callable"
+    ],
+    "devDependencies": {
+        "@types/is-callable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel",
+            "githubUsername": "nieltg"
+        }
+    ]
+}

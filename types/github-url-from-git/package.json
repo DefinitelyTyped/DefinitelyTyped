@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/github-url-from-git",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/tj/node-github-url-from-git"
+    ],
+    "devDependencies": {
+        "@types/github-url-from-git": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Murphy",
+            "githubUsername": "ChristianMurphy"
+        }
+    ]
+}

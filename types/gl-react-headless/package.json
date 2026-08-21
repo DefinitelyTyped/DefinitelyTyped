@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gl-react-headless",
+    "version": "3.15.9999",
+    "projects": [
+        "https://github.com/gre/gl-react"
+    ],
+    "dependencies": {
+        "@types/gl-react": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/gl-react-headless": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jussi Kinnula",
+            "githubUsername": "jussikinnula"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-native-joi",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/GoldenOwlAsia/react-native-joi.git"
+    ],
+    "devDependencies": {
+        "@types/react-native-joi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "charles strong",
+            "githubUsername": "CharlesStrong-GeoH"
+        }
+    ]
+}

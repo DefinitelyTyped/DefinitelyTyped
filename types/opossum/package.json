@@ -1,0 +1,37 @@
+{
+    "private": true,
+    "name": "@types/opossum",
+    "version": "8.1.9999",
+    "projects": [
+        "https://github.com/nodeshift/opossum",
+        "https://nodeshift.dev/opossum"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/opossum": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Quinn Langille",
+            "githubUsername": "quinnlangille"
+        },
+        {
+            "name": "Willy Zhang",
+            "githubUsername": "merufm"
+        },
+        {
+            "name": "Lance Ball",
+            "githubUsername": "lance"
+        },
+        {
+            "name": "Matt R. Wilson",
+            "githubUsername": "mastermatt"
+        },
+        {
+            "name": "Tom Jenkinson",
+            "githubUsername": "tjenkinson"
+        }
+    ]
+}

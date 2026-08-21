@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-pdftk",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jjwilly16/node-pdftk#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/node-pdftk": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrea Ascari",
+            "githubUsername": "ascariandrea"
+        }
+    ]
+}

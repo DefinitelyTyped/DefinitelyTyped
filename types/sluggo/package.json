@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sluggo",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/apostrophecms/sluggo"
+    ],
+    "devDependencies": {
+        "@types/sluggo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Reece Dunham",
+            "githubUsername": "RDIL"
+        }
+    ]
+}

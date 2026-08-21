@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/cpx",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/mysticatea/cpx"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/cpx": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alan Agius",
+            "githubUsername": "alan-agius4"
+        }
+    ]
+}

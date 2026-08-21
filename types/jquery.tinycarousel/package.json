@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.tinycarousel",
+    "version": "1.9.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.tinycarousel",
+    "projects": [
+        "http://baijs.nl/tinycarousel/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.tinycarousel": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christiaan Rakowski",
+            "githubUsername": "csrakowski"
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/kraken-js",
+    "version": "2.2.9999",
+    "projects": [
+        "http://krakenjs.com",
+        "https://github.com/krakenjs/kraken-js"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/kraken-js": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Timur Manyanov",
+            "githubUsername": "darkwebdev"
+        },
+        {
+            "name": "Satana Charuwichitratana",
+            "githubUsername": "micksatana"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.timeago",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.timeago",
+    "projects": [
+        "http://timeago.yarp.com/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.timeago": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "François Guillot",
+            "url": "http://fguillot.developpez.com/"
+        }
+    ]
+}

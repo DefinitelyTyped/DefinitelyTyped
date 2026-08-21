@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/react-d3-graph",
+    "version": "2.6.9999",
+    "projects": [
+        "https://github.com/danielcaldas/react-d3-graph#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-d3-graph": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adina Todoran",
+            "githubUsername": "adina-todoran"
+        },
+        {
+            "name": "Robin Leclerc",
+            "githubUsername": "BreadAndRoses95"
+        },
+        {
+            "name": "Nate Moore",
+            "githubUsername": "TranquilMarmot"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jsurl",
+    "version": "0.1.9999",
+    "projects": [
+        "http://github.com/Sage/jsurl"
+    ],
+    "devDependencies": {
+        "@types/jsurl": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

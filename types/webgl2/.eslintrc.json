@@ -1,0 +1,6 @@
+{
+    "rules": {
+        "@typescript-eslint/adjacent-overload-signatures": "off",
+        "@typescript-eslint/no-empty-interface": "off"
+    }
+}

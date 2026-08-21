@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/valerie-browser",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "valerie",
+    "projects": [
+        "https://github.com/smagreen/valerie"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/valerie-browser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Howard Richards",
+            "githubUsername": "conficient"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/weapp-api",
+    "version": "0.0.9999",
+    "projects": [
+        "https://mp.weixin.qq.com/debug/wxadoc/dev/index.html"
+    ],
+    "devDependencies": {
+        "@types/weapp-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vargeek",
+            "githubUsername": "vargeek"
+        }
+    ]
+}

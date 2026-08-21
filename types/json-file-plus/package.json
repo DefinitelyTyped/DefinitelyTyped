@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/json-file-plus",
+    "version": "3.3.9999",
+    "projects": [
+        "https://github.com/ljharb/json-file-plus"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/json-file-plus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Byrne",
+            "githubUsername": "danwbyrne"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/ng-command",
+    "version": "0.2.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "ng-command",
+    "projects": [
+        "https://github.com/stephenlautier/ng-command"
+    ],
+    "dependencies": {
+        "@types/angular": "*"
+    },
+    "devDependencies": {
+        "@types/ng-command": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stephen Lautier",
+            "githubUsername": "stephenlautier"
+        }
+    ]
+}

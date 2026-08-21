@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-path-reverse",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/Pomax/svg-path-reverse#readme"
+    ],
+    "devDependencies": {
+        "@types/svg-path-reverse": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vlad",
+            "githubUsername": "DefinitelyTyped"
+        }
+    ]
+}

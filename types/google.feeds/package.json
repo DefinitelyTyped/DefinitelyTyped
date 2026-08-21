@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/google.feeds",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "google.feeds",
+    "projects": [
+        "https://developers.google.com/feed/"
+    ],
+    "devDependencies": {
+        "@types/google.feeds": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "RodneyJT",
+            "githubUsername": "RodneyJT"
+        }
+    ]
+}

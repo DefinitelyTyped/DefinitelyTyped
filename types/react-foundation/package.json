@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/react-foundation",
+    "version": "0.9.9999",
+    "projects": [
+        "https://github.com/digiaonline/react-foundation",
+        "https://github.com/nordsoftware/react-foundation"
+    ],
+    "dependencies": {
+        "@types/prop-types": "*",
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-foundation": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Earwicker",
+            "githubUsername": "danielearwicker"
+        }
+    ]
+}

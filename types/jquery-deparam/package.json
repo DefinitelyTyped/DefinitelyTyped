@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jquery-deparam",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/AceMetrix/jquery-deparam"
+    ],
+    "devDependencies": {
+        "@types/jquery-deparam": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Pat Sissons",
+            "githubUsername": "patsissons"
+        }
+    ]
+}

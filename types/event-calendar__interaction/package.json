@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "type": "module",
+    "name": "@types/event-calendar__interaction",
+    "version": "3.4.9999",
+    "projects": [
+        "https://vkurko.github.io/calendar/"
+    ],
+    "devDependencies": {
+        "@types/event-calendar__interaction": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michael Driscoll",
+            "githubUsername": "syncsynchalt"
+        },
+        {
+            "name": "Vladimir",
+            "githubUsername": "vkurko"
+        }
+    ]
+}

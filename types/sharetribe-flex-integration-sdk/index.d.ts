@@ -1,0 +1,1063 @@
+/**
+ * Represents a universally unique identifier for Sharetribe resources
+ */
+export interface UUID {
+    _sdkType: "UUID";
+    uuid: string;
+}
+
+/**
+ * Represents monetary values with currency information
+ */
+export interface Money {
+    _sdkType: "Money";
+    amount: number;
+    currency: string;
+}
+
+/**
+ * Represents a geographic location with latitude and longitude
+ */
+export interface LatLng {
+    _sdkType: "LatLng";
+    lat: number;
+    lng: number;
+}
+
+/**
+ * Reference to a related resource
+ */
+export interface ResourceReference {
+    id: UUID;
+    type: string;
+}
+
+/**
+ * Generic included resource in API responses
+ */
+export interface IncludedResource {
+    id: UUID;
+    type: string;
+    attributes?: Record<string, unknown>;
+    relationships?: Record<string, { data: ResourceReference | ResourceReference[] }>;
+}
+
+/**
+ * Transaction attributes
+ */
+export interface TransactionAttributes {
+    createdAt?: string;
+    processName?: string;
+    processVersion?: number;
+    lastTransition?: string;
+    lastTransitionedAt?: string;
+    transitions?: Array<{
+        transition: string;
+        createdAt: string;
+        by: string;
+    }>;
+    payinTotal?: Money;
+    payoutTotal?: Money;
+    lineItems?: Array<{
+        code: string;
+        unitPrice: Money;
+        quantity?: number;
+        lineTotal: Money;
+        includeFor: string[];
+        reversal?: boolean;
+    }>;
+    protectedData?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
+}
+
+/**
+ * Transaction relationships
+ */
+export interface TransactionRelationships {
+    customer: {
+        data: ResourceReference;
+    };
+    provider: {
+        data: ResourceReference;
+    };
+    listing: {
+        data: ResourceReference;
+    };
+    marketplace?: {
+        data: ResourceReference;
+    };
+    booking?: {
+        data: ResourceReference;
+    };
+    reviews?: {
+        data: ResourceReference[];
+    };
+    messages?: {
+        data: ResourceReference[];
+    };
+    protectedFileAttachments?: {
+        data: ResourceReference[];
+    };
+}
+
+/**
+ * Transaction resource
+ */
+export interface Transaction {
+    id: UUID;
+    type: "transaction";
+    attributes: TransactionAttributes;
+    relationships: TransactionRelationships;
+}
+
+/**
+ * User profile information
+ */
+export interface UserProfile {
+    displayName?: string;
+    firstName?: string;
+    lastName?: string;
+    bio?: string;
+    abbreviatedName?: string;
+    publicData?: Record<string, unknown>;
+    protectedData?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
+}
+
+/**
+ * User attributes
+ */
+export interface UserAttributes {
+    banned?: boolean;
+    deleted?: boolean;
+    email?: string;
+    emailVerified?: boolean;
+    pendingEmail?: string;
+    profile: UserProfile;
+    createdAt?: string;
+}
+
+/**
+ * User relationships
+ */
+export interface UserRelationships {
+    profileImage?: {
+        data?: ResourceReference;
+    };
+    stripeAccount?: {
+        data?: ResourceReference;
+    };
+    privateFileAttachments?: {
+        data: ResourceReference[];
+    };
+}
+
+/**
+ * User resource
+ */
+export interface User {
+    id: UUID;
+    type: "user";
+    attributes: UserAttributes;
+    relationships?: UserRelationships;
+}
+
+/**
+ * Listing attributes
+ */
+export interface ListingAttributes {
+    title: string;
+    description?: string;
+    geolocation?: LatLng;
+    deleted?: boolean;
+    state?: string;
+    createdAt?: string;
+    price?: Money;
+    availabilityPlan?: {
+        type: string;
+        timezone?: string;
+        entries?: Array<{
+            dayOfWeek: string;
+            startTime: string;
+            endTime: string;
+            seats?: number;
+        }>;
+    };
+    publicData?: Record<string, unknown>;
+    privateData?: Record<string, unknown>;
+    metadata?: Record<string, unknown>;
+}
+
+/**
+ * Listing relationships
+ */
+export interface ListingRelationships {
+    author?: {
+        data: ResourceReference;
+    };
+    marketplace?: {
+        data: ResourceReference;
+    };
+    currentStock?: {
+        data: ResourceReference;
+    };
+    images?: {
+        data: ResourceReference[];
+    };
+    protectedFileAttachments?: {
+        data: ResourceReference[];
+    };
+}
+
+/**
+ * Listing resource
+ */
+export interface Listing {
+    id: UUID;
+    type: "listing";
+    attributes: ListingAttributes;
+    relationships?: ListingRelationships;
+}
+
+/**
+ * Message attributes
+ */
+export interface MessageAttributes {
+    content: string;
+    createdAt: string;
+    deleted?: boolean;
+}
+
+/**
+ * Message relationships
+ */
+export interface MessageRelationships {
+    transaction: {
+        data: ResourceReference;
+    };
+    sender: {
+        data: ResourceReference;
+    };
+    publicFileAttachments?: {
+        data: ResourceReference[];
+    };
+}
+
+/**
+ * Message resource
+ */
+export interface Message {
+    id: UUID;
+    type: "message";
+    attributes: MessageAttributes;
+    relationships: MessageRelationships;
+}
+
+/**
+ * Lifecycle state of a file resource
+ */
+export type FileState = "pendingUpload" | "pendingVerification" | "available" | "verificationFailed";
+
+/**
+ * A single automatic verification check performed on a file (e.g. `{ type: "malwareScan", result: "success" }`)
+ */
+export interface FileVerificationCheck {
+    type: string;
+    result: string;
+}
+
+/**
+ * File attributes
+ */
+export interface FileAttributes {
+    name: string;
+    size: number;
+    state: FileState;
+    verificationChecks: FileVerificationCheck[];
+    requiredVerificationChecks: string[];
+    createdAt: string;
+    stateUpdatedAt: string;
+    deleted: boolean;
+}
+
+/**
+ * File relationships
+ */
+export interface FileRelationships {
+    owner: {
+        data: ResourceReference;
+    };
+    marketplace: {
+        data: ResourceReference;
+    };
+}
+
+/**
+ * File resource
+ */
+export interface File {
+    id: UUID;
+    type: "file";
+    attributes: FileAttributes;
+    relationships: FileRelationships;
+}
+
+/**
+ * File attachment relationships. Exactly one of `message`, `listing` or `transaction` is present,
+ * naming the resource the file is attached to.
+ */
+export interface FileAttachmentRelationships {
+    file: {
+        data: ResourceReference;
+    };
+    message?: {
+        data: ResourceReference;
+    };
+    listing?: {
+        data: ResourceReference;
+    };
+    transaction?: {
+        data: ResourceReference;
+    };
+}
+
+/**
+ * Visibility of a file attachment. `protected` and `private` files are readable only by the
+ * resource owner and marketplace operators; `protected` ones can additionally be revealed to
+ * transaction parties by a transaction process action.
+ */
+export type FileAttachmentScope = "public" | "protected" | "private";
+
+/**
+ * File attachment resource (links a file to a message, listing or transaction)
+ */
+export interface FileAttachment {
+    id: UUID;
+    type: "fileAttachment";
+    attributes: {
+        scope: FileAttachmentScope;
+        deleted: boolean;
+    };
+    relationships: FileAttachmentRelationships;
+}
+
+/**
+ * A file to attach, as accepted by the `protectedFileAttachments` and `privateFileAttachments`
+ * body parameters
+ */
+export interface FileAttachmentParam {
+    fileId: UUID | string;
+}
+
+/**
+ * A presigned upload target returned by `integrationSdk.fileUploads.create()`
+ */
+export interface FileUpload {
+    id: UUID;
+    type: "fileUpload";
+    attributes: {
+        fileId: UUID;
+        url: string;
+        method: string;
+        headers: Record<string, string>;
+        expiresAt: string;
+    };
+}
+
+/**
+ * A short-lived download URL returned by `integrationSdk.fileDownloads.create()`
+ */
+export interface FileDownload {
+    id: UUID;
+    type: "fileDownload";
+    attributes: {
+        fileId: UUID;
+        url: string;
+        expiresAt: string;
+    };
+}
+
+/**
+ * File metadata extracted by `file.metadata()`, suitable for `integrationSdk.files.create()`
+ */
+export interface FileMetadata {
+    name: string;
+    mimeType: string;
+    size: number;
+}
+
+/**
+ * Event attributes
+ */
+export interface EventAttributes {
+    sequenceId: number;
+    marketplaceId: string;
+    eventType: string;
+    resourceType: string;
+    resourceId: string;
+    resource: unknown;
+    previousValues?: Record<string, unknown>;
+    source?: string;
+    createdAt: string;
+}
+
+/**
+ * Event resource
+ */
+export interface Event {
+    id: UUID;
+    type: "event";
+    attributes: EventAttributes;
+}
+
+/**
+ * Image attributes
+ */
+export interface ImageAttributes {
+    variants: Record<string, {
+        name: string;
+        width: number;
+        height: number;
+        url: string;
+    }>;
+}
+
+/**
+ * Image resource
+ */
+export interface Image {
+    id: UUID;
+    type: "image";
+    attributes: ImageAttributes;
+}
+
+/**
+ * Availability exception attributes
+ */
+export interface AvailabilityExceptionAttributes {
+    start: string;
+    end: string;
+    seats?: number;
+}
+
+/**
+ * Availability exception resource
+ */
+export interface AvailabilityException {
+    id: UUID;
+    type: "availabilityException";
+    attributes: AvailabilityExceptionAttributes;
+}
+
+/**
+ * Stock adjustment attributes
+ */
+export interface StockAdjustmentAttributes {
+    quantity: number;
+    at: string;
+}
+
+/**
+ * Stock adjustment relationships
+ */
+export interface StockAdjustmentRelationships {
+    listing: {
+        data: ResourceReference;
+    };
+    stock: {
+        data: ResourceReference;
+    };
+}
+
+/**
+ * Stock adjustment resource
+ */
+export interface StockAdjustment {
+    id: UUID;
+    type: "stockAdjustment";
+    attributes: StockAdjustmentAttributes;
+    relationships: StockAdjustmentRelationships;
+}
+
+/**
+ * Stock resource
+ */
+export interface Stock {
+    id: UUID;
+    type: "stock";
+    attributes: {
+        quantity: number;
+    };
+}
+
+/**
+ * Stock reservation attributes
+ */
+export interface StockReservationAttributes {
+    quantity: number;
+    state: string;
+}
+
+/**
+ * Stock reservation resource
+ */
+export interface StockReservation {
+    id: UUID;
+    type: "stockReservation";
+    attributes: StockReservationAttributes;
+}
+
+/**
+ * Marketplace attributes
+ */
+export interface MarketplaceAttributes {
+    name: string;
+    description: string | null;
+}
+
+/**
+ * Marketplace resource
+ */
+export interface Marketplace {
+    id: UUID;
+    type: "marketplace";
+    attributes: MarketplaceAttributes;
+}
+
+/**
+ * Metadata for paginated query responses
+ */
+export interface QueryMeta {
+    totalPages: number;
+    totalItems?: number;
+    page?: number;
+    perPage?: number;
+}
+
+/**
+ * Standard response structure for queries returning multiple resources
+ */
+export interface QueryResponse<T = unknown> {
+    status: number;
+    statusText: string;
+    data: {
+        data: T[];
+        included?: IncludedResource[];
+        meta: QueryMeta;
+    };
+}
+
+/**
+ * Standard response structure for operations returning a single resource
+ */
+export interface ShowResponse<T = unknown> {
+    status: number;
+    statusText: string;
+    data: {
+        data: T;
+        included?: IncludedResource[];
+    };
+}
+
+/**
+ * Standard response structure for mutation operations
+ */
+export interface MutationResponse<T = unknown> {
+    status: number;
+    statusText: string;
+    data: {
+        data: T;
+        included?: IncludedResource[];
+    };
+}
+
+/**
+ * Common query parameters for GET requests
+ */
+export interface BaseQueryParams {
+    include?: string[];
+    "fields.user"?: string[];
+    "fields.listing"?: string[];
+    "fields.transaction"?: string[];
+    "fields.image"?: string[];
+}
+
+/**
+ * Pagination parameters
+ */
+export interface PaginationParams {
+    page?: number;
+    perPage?: number;
+}
+
+/**
+ * Options for per-request configuration
+ */
+export interface PerRequestOptions {
+    expand?: boolean;
+}
+
+/**
+ * Main Sharetribe Integration SDK interface
+ */
+export interface IntegrationSdk {
+    marketplace: {
+        /**
+         * Show marketplace information
+         */
+        show: (params?: BaseQueryParams) => Promise<ShowResponse<Marketplace>>;
+    };
+
+    events: {
+        /**
+         * Query events from the Integration API
+         * Polls for new events using sequence IDs
+         */
+        query: (
+            params?: { startAfterSequenceId?: number } & BaseQueryParams,
+        ) => Promise<QueryResponse<Event>>;
+    };
+
+    users: {
+        /**
+         * Show a specific user
+         */
+        show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<User>>;
+        /**
+         * Query users
+         */
+        query: (params?: PaginationParams & BaseQueryParams) => Promise<QueryResponse<User>>;
+        /**
+         * Update user data (generic method for updating public, protected, or private data)
+         */
+        update: (
+            params: {
+                id: UUID | string;
+                publicData?: Record<string, unknown>;
+                protectedData?: Record<string, unknown>;
+                privateData?: Record<string, unknown>;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
+        /**
+         * Update user profile
+         */
+        updateProfile: (
+            params: {
+                id: UUID | string;
+                firstName?: string;
+                lastName?: string;
+                displayName?: string;
+                bio?: string;
+                publicData?: Record<string, unknown>;
+                protectedData?: Record<string, unknown>;
+                privateData?: Record<string, unknown>;
+                profileImageId?: UUID;
+                privateFileAttachments?: FileAttachmentParam[];
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
+        /**
+         * Approve a user
+         */
+        approve: (
+            params: { id: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
+        /**
+         * Update user permissions
+         */
+        updatePermissions: (
+            params: {
+                id: UUID | string;
+                permissions?: Record<string, unknown>;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
+        /**
+         * Mark a user's email as verified. The email must match the user's primary email or pending email.
+         */
+        verifyEmail: (
+            params: { id: UUID | string; email: string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<User>>;
+    };
+
+    listings: {
+        /**
+         * Show a specific listing
+         */
+        show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<Listing>>;
+        /**
+         * Query listings
+         */
+        query: (
+            params?:
+                & {
+                    authorId?: UUID | string;
+                    ids?: Array<UUID | string>;
+                    states?: string[];
+                }
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<Listing>>;
+        /**
+         * Create a new listing
+         * Allows both Money object and plain price object for flexibility
+         */
+        create: (
+            params: {
+                authorId: UUID | string;
+                title: string;
+                state: "published" | "pendingApproval";
+                description?: string;
+                geolocation?: LatLng;
+                price?: Money | { amount: number; currency: string };
+                availabilityPlan?: unknown;
+                publicData?: Record<string, unknown>;
+                privateData?: Record<string, unknown>;
+                metadata?: Record<string, unknown>;
+                images?: Array<UUID | string>;
+                protectedFileAttachments?: FileAttachmentParam[];
+            },
+            options?: PerRequestOptions & { include?: string[] },
+        ) => Promise<MutationResponse<Listing>>;
+        /**
+         * Update a listing
+         * Allows both Money object and plain price object for flexibility
+         */
+        update: (
+            params: {
+                id: UUID | string;
+                title?: string;
+                description?: string;
+                geolocation?: LatLng;
+                price?: Money | { amount: number; currency: string };
+                availabilityPlan?: unknown;
+                publicData?: Record<string, unknown>;
+                privateData?: Record<string, unknown>;
+                metadata?: Record<string, unknown>;
+                images?: Array<UUID | string>;
+                protectedFileAttachments?: FileAttachmentParam[];
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Listing>>;
+        /**
+         * Approve a listing
+         */
+        approve: (
+            params: { id: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Listing>>;
+        /**
+         * Open a listing
+         */
+        open: (
+            params: { id: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Listing>>;
+        /**
+         * Close a listing
+         */
+        close: (
+            params: { id: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Listing>>;
+    };
+
+    transactions: {
+        /**
+         * Show a specific transaction
+         */
+        show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<Transaction>>;
+        /**
+         * Query transactions
+         */
+        query: (
+            params?:
+                & {
+                    customerId?: UUID | string;
+                    providerId?: UUID | string;
+                    listingId?: UUID | string;
+                    lastTransitions?: string[];
+                }
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<Transaction>>;
+        /**
+         * Transition a transaction to a new state
+         */
+        transition: (
+            params: {
+                id: UUID | string;
+                transition: string;
+                params?: Record<string, unknown>;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Transaction>>;
+        /**
+         * Transition transaction speculatively (preview without applying)
+         */
+        transitionSpeculative: (
+            params: {
+                id: UUID | string;
+                transition: string;
+                params?: Record<string, unknown>;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Transaction>>;
+        /**
+         * Update transaction metadata
+         */
+        updateMetadata: (
+            params: {
+                id: UUID | string;
+                metadata: Record<string, unknown>;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Transaction>>;
+    };
+
+    images: {
+        /**
+         * Upload an image from a file path
+         * @param params.image - Path to the image file to upload
+         */
+        upload: (
+            params: { image: string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Image>>;
+    };
+
+    availabilityExceptions: {
+        /**
+         * Query availability exceptions for a listing
+         */
+        query: (
+            params: { listingId: UUID | string; start?: string; end?: string } & PaginationParams & BaseQueryParams,
+        ) => Promise<QueryResponse<AvailabilityException>>;
+        /**
+         * Create availability exception
+         */
+        create: (
+            params: {
+                listingId: UUID | string;
+                start: string;
+                end: string;
+                seats?: number;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<AvailabilityException>>;
+        /**
+         * Delete availability exception
+         */
+        delete: (
+            params: { id: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<AvailabilityException>>;
+    };
+
+    stockAdjustments: {
+        /**
+         * Query stock adjustments
+         */
+        query: (
+            params: { listingId: UUID | string } & PaginationParams & BaseQueryParams,
+        ) => Promise<QueryResponse<StockAdjustment>>;
+        /**
+         * Create stock adjustment
+         */
+        create: (
+            params: {
+                listingId: UUID | string;
+                quantity: number;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<StockAdjustment>>;
+    };
+
+    stock: {
+        /**
+         * Compare and set stock quantity atomically
+         * oldTotal can be null for new listings without existing stock
+         */
+        compareAndSet: (
+            params: {
+                listingId: UUID | string;
+                oldTotal: number | null;
+                newTotal: number;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<Stock>>;
+    };
+
+    stockReservations: {
+        /**
+         * Show a specific stock reservation
+         */
+        show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<StockReservation>>;
+    };
+
+    messages: {
+        /**
+         * Query messages. Either `transactionId` or `ids` must be provided.
+         */
+        query: (
+            params:
+                & (
+                    | { transactionId: UUID | string; ids?: Array<UUID | string> }
+                    | { transactionId?: UUID | string; ids: Array<UUID | string> }
+                )
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<Message>>;
+    };
+
+    files: {
+        /**
+         * Query files
+         */
+        query: (
+            params?:
+                & {
+                    ids?: Array<UUID | string>;
+                    messageId?: UUID | string;
+                    ownerId?: UUID | string;
+                    createdAtStart?: Date | string;
+                    createdAtEnd?: Date | string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<File>>;
+        /**
+         * Register a file with the Integration API (first step of the upload flow). The created
+         * file starts in the `pendingUpload` state.
+         */
+        create: (
+            params: {
+                ownerId: UUID | string;
+                name: string;
+                mimeType: string;
+                size: number;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<File>>;
+    };
+
+    fileAttachments: {
+        /**
+         * Query file attachments
+         */
+        query: (
+            params?:
+                & {
+                    ids?: Array<UUID | string>;
+                    fileIds?: Array<UUID | string>;
+                    messageId?: UUID | string;
+                    listingId?: UUID | string;
+                    transactionId?: UUID | string;
+                }
+                & PaginationParams
+                & BaseQueryParams,
+        ) => Promise<QueryResponse<FileAttachment>>;
+    };
+
+    fileUploads: {
+        /**
+         * Request a presigned upload URL for a file in the `pendingUpload` state
+         */
+        create: (
+            params: { fileId: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileUpload>>;
+    };
+
+    fileDownloads: {
+        /**
+         * Request a short-lived download URL for a file
+         */
+        create: (
+            params: { fileId: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileDownload>>;
+    };
+
+    /**
+     * Revoke authentication token
+     */
+    revoke: () => Promise<unknown>;
+
+    /**
+     * Get authentication information
+     */
+    authInfo: () => Promise<unknown>;
+}
+
+/**
+ * SDK configuration options for Integration API
+ */
+export interface IntegrationSdkConfig {
+    clientId: string;
+    clientSecret: string;
+    baseUrl?: string;
+    queryLimiter?: unknown;
+    commandLimiter?: unknown;
+    adapter?: unknown;
+    tokenStore?: unknown;
+    typeHandlers?: unknown[];
+    transitVerbose?: boolean;
+    httpAgent?: unknown;
+    httpsAgent?: unknown;
+}
+
+/**
+ * Create a new Sharetribe Integration SDK instance
+ * @param config - SDK configuration including required clientId and clientSecret
+ * @returns Configured Integration SDK instance
+ */
+export function createInstance(config: IntegrationSdkConfig): IntegrationSdk;
+
+/**
+ * Utility functions for SDK configuration
+ */
+export namespace util {
+    /**
+     * Create a rate limiter for API requests
+     * @param config - Rate limiter configuration
+     * @returns Rate limiter instance
+     */
+    function createRateLimiter(config: unknown): unknown;
+
+    /**
+     * Production-ready query rate limiter configuration
+     */
+    const prodQueryLimiterConfig: unknown;
+
+    /**
+     * Production-ready command rate limiter configuration
+     */
+    const prodCommandLimiterConfig: unknown;
+}
+
+/**
+ * Helpers for the file upload flow
+ */
+export namespace file {
+    /**
+     * Extract the metadata needed for `integrationSdk.files.create()` from a `File` object.
+     * @param file - A `File` object, e.g. from an `<input type="file">` element
+     */
+    function metadata(file: unknown): FileMetadata;
+    /**
+     * Upload a file directly to cloud storage using a presigned URL obtained from
+     * `integrationSdk.fileUploads.create()`. This bypasses the SDK interceptor pipeline.
+     * @returns A promise that resolves when the upload is complete
+     */
+    function upload(params: {
+        url: string;
+        file: unknown;
+        method?: string;
+        headers?: Record<string, string>;
+        onUploadProgress?: (progressEvent: unknown) => void;
+    }): Promise<unknown>;
+}

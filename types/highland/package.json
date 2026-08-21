@@ -1,0 +1,36 @@
+{
+    "private": true,
+    "name": "@types/highland",
+    "version": "2.13.9999",
+    "projects": [
+        "http://highlandjs.org/"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/highland": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Hugo Wood",
+            "githubUsername": "hgwood"
+        },
+        {
+            "name": "William Yu",
+            "githubUsername": "iwllyu"
+        },
+        {
+            "name": "Alvis HT Tang",
+            "githubUsername": "alvis"
+        },
+        {
+            "name": "Jack Wearden",
+            "githubUsername": "notbobthebuilder"
+        }
+    ]
+}

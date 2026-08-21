@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/underscore-ko",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/kamranayub/UnderscoreKO"
+    ],
+    "dependencies": {
+        "@types/knockout": "*",
+        "@types/underscore": "*"
+    },
+    "devDependencies": {
+        "@types/underscore-ko": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maurits Elbers",
+            "githubUsername": "MagicMau"
+        }
+    ]
+}

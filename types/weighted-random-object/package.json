@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/weighted-random-object",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/misund/weighted-random-object"
+    ],
+    "devDependencies": {
+        "@types/weighted-random-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mike castleman",
+            "githubUsername": "mlc"
+        }
+    ]
+}

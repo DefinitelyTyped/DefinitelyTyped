@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/react-lazyload-youtube",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ahakem/react-lazyload-youtube#readme"
+    ],
+    "exports": {
+        "types": {
+            "default": "./index.d.ts",
+            "import": "./index.modern.d.ts"
+        }
+    },
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-lazyload-youtube": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sort-array",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/75lb/sort-array#readme"
+    ],
+    "devDependencies": {
+        "@types/sort-array": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "mrmlnc",
+            "githubUsername": "mrmlnc"
+        }
+    ]
+}

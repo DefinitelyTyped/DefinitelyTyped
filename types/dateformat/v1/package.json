@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dateformat",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/felixge/node-dateformat"
+    ],
+    "devDependencies": {
+        "@types/dateformat": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kombu",
+            "githubUsername": "aicest"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/scroll-into-view",
+    "version": "1.16.9999",
+    "projects": [
+        "https://github.com/KoryNunn/scroll-into-view"
+    ],
+    "devDependencies": {
+        "@types/scroll-into-view": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "zivni",
+            "githubUsername": "zivni"
+        },
+        {
+            "name": "Thibaut",
+            "githubUsername": "Thibaut-Fatus"
+        },
+        {
+            "name": "goodCycle",
+            "githubUsername": "goodCycle"
+        }
+    ]
+}

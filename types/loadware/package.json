@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/loadware",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/franciscop/loadware"
+    ],
+    "devDependencies": {
+        "@types/loadware": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "A.J.J. Lyman",
+            "githubUsername": "ALyman"
+        }
+    ]
+}

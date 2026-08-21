@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/caniuse-api",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/nyalab/caniuse-api#readme"
+    ],
+    "devDependencies": {
+        "@types/caniuse-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dave Cardwell",
+            "githubUsername": "davecardwell"
+        },
+        {
+            "name": "Matt Miller",
+            "githubUsername": "matt123miller"
+        }
+    ]
+}

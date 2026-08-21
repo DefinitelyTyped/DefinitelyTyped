@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/paystack",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/kehers/paystack"
+    ],
+    "devDependencies": {
+        "@types/paystack": "workspace:."
+    },
+    "owners": []
+}

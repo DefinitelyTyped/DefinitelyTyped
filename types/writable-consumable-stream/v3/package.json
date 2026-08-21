@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/writable-consumable-stream",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/SocketCluster/writable-consumable-stream"
+    ],
+    "dependencies": {
+        "@types/consumable-stream": "^2"
+    },
+    "devDependencies": {
+        "@types/writable-consumable-stream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rose",
+            "githubUsername": "DanielRose"
+        },
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

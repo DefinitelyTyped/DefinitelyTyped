@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/laravel-js-str",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zhorton34/laravel-js-str#readme"
+    ],
+    "devDependencies": {
+        "@types/laravel-js-str": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Abraham Arango",
+            "githubUsername": "abetwothree"
+        }
+    ]
+}

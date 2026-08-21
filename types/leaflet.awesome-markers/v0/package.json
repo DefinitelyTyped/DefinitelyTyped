@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/leaflet.awesome-markers",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/sigma-geosistemas/Leaflet.awesome-markers#properties"
+    ],
+    "dependencies": {
+        "@types/leaflet": "^0"
+    },
+    "devDependencies": {
+        "@types/leaflet.awesome-markers": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Egor Komarov",
+            "githubUsername": "Odrin"
+        },
+        {
+            "name": "Marcel Sebek",
+            "githubUsername": "sebek64"
+        }
+    ]
+}

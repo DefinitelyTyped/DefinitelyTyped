@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/better-curry",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/pocesar/js-bettercurry"
+    ],
+    "devDependencies": {
+        "@types/better-curry": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Paulo Cesar",
+            "githubUsername": "pocesar"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/promise-map-limit",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/dbrockman/promise-map-limit"
+    ],
+    "devDependencies": {
+        "@types/promise-map-limit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joseph Kohlmann",
+            "githubUsername": "kohlmannj"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/human-crypto-keys",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/ipfs-shipyard/js-human-crypto-keys"
+    ],
+    "devDependencies": {
+        "@types/human-crypto-keys": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jack Hedaya",
+            "githubUsername": "jackHedaya"
+        }
+    ]
+}

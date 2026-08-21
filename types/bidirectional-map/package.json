@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bidirectional-map",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/educastellano/bidirectional-map"
+    ],
+    "devDependencies": {
+        "@types/bidirectional-map": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Helen Anderson",
+            "githubUsername": "helenanderson"
+        }
+    ]
+}

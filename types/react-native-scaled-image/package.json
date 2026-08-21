@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-scaled-image",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/nanlabs/react-native-scaled-image"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-scaled-image": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Jaeger",
+            "githubUsername": "Jaeger25"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-electron-renderer",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/jprichardson/is-electron-renderer#readme"
+    ],
+    "devDependencies": {
+        "@types/is-electron-renderer": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

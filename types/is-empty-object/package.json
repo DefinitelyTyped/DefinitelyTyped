@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/is-empty-object",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/gummesson/is-empty-object"
+    ],
+    "devDependencies": {
+        "@types/is-empty-object": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Richie Bendall",
+            "githubUsername": "Richienb"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/keen-tracking",
+    "version": "4.5.9999",
+    "projects": [
+        "https://github.com/keen/keen-tracking.js#readme",
+        "https://keen.io"
+    ],
+    "devDependencies": {
+        "@types/keen-tracking": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rui Ferreira",
+            "githubUsername": "rui-ferreira"
+        },
+        {
+            "name": "Tudor Tacal",
+            "githubUsername": "TudorTacal"
+        }
+    ]
+}

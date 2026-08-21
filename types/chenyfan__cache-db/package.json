@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/chenyfan__cache-db",
+    "version": "0.0.9999",
+    "projects": [
+        "https://www.npmjs.com/package/@chenyfan/cache-db"
+    ],
+    "devDependencies": {
+        "@types/chenyfan__cache-db": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "AHdark",
+            "githubUsername": "AH-dark"
+        }
+    ]
+}

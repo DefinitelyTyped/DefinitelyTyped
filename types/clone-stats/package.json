@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/clone-stats",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/hughsk/clone-stats"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/clone-stats": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

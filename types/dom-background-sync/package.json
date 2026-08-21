@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/dom-background-sync",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "dom-background-sync-browser",
+    "projects": [
+        "https://wicg.github.io/background-sync/spec/#api-description"
+    ],
+    "devDependencies": {
+        "@types/dom-background-sync": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bradford Smith",
+            "githubUsername": "brad4d"
+        },
+        {
+            "name": "Ben Lickly",
+            "githubUsername": "blickly"
+        },
+        {
+            "name": "James Wright",
+            "githubUsername": "12wrigja"
+        }
+    ]
+}

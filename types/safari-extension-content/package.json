@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/safari-extension-content",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "safari-extension-content",
+    "projects": [
+        "https://developer.apple.com/library/safari/documentation/Tools/Conceptual/SafariExtensionGuide/InjectingScripts/InjectingScripts.html#//apple_ref/doc/uid/TP40009977-CH6-SW1"
+    ],
+    "devDependencies": {
+        "@types/safari-extension-content": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Luuk",
+            "githubUsername": "luukd"
+        }
+    ]
+}

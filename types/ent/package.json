@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/ent",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/substack/node-ent"
+    ],
+    "devDependencies": {
+        "@types/ent": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        }
+    ]
+}

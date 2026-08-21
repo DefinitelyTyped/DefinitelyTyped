@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "module": "node16",
+        "target": "es2021",
+        "lib": [
+            "es2021"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "types": [],
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true
+    },
+    "files": [
+        "index.d.ts",
+        "test/akamai-edgeworkers-global.test.ts",
+        "test/cookies-tests.ts",
+        "test/create-response-tests.ts",
+        "test/crypto.ts",
+        "test/encoding.ts",
+        "test/html-rewriter.ts",
+        "test/http-request-tests.ts",
+        "test/log-tests.ts",
+        "test/set_variable.ts",
+        "test/req_body.ts",
+        "test/set_variable.ts",
+        "test/scenario-crypto.ts",
+        "test/scenario-stream.ts",
+        "test/stream.ts",
+        "test/transformstream.ts",
+        "test/true-client-ip-tests.ts",
+        "test/url-search-params-tests.ts",
+        "test/user-location.ts"
+    ]
+}

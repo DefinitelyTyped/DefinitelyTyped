@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/klaw",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jprichardson/node-klaw"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/klaw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthew McEachen",
+            "githubUsername": "mceachen"
+        },
+        {
+            "name": "Pascal Sthamer",
+            "githubUsername": "p4sca1"
+        }
+    ]
+}

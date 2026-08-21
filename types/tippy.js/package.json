@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tippy.js",
+    "version": "6.3.9999",
+    "projects": [
+        "https://github.com/atomiks/tippyjs"
+    ],
+    "devDependencies": {
+        "@types/tippy.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "DonaldDuck313",
+            "githubUsername": "DonaldDuck313"
+        }
+    ]
+}

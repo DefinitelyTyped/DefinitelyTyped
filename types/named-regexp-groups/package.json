@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/named-regexp-groups",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/commenthol/named-regexp-groups/"
+    ],
+    "devDependencies": {
+        "@types/named-regexp-groups": "workspace:."
+    },
+    "owners": []
+}

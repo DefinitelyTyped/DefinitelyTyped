@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/simple-websocket",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/feross/simple-websocket"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/simple-websocket": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Piotr Roszatycki",
+            "githubUsername": "dex4er"
+        }
+    ]
+}

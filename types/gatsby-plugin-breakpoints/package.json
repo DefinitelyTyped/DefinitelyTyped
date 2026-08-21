@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/gatsby-plugin-breakpoints",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/JimmyBeldone/gatsby-plugin-breakpoints"
+    ],
+    "devDependencies": {
+        "@types/gatsby-plugin-breakpoints": "workspace:.",
+        "@types/react": "*"
+    },
+    "owners": [
+        {
+            "name": "Iva Kop",
+            "githubUsername": "IvaKop"
+        }
+    ]
+}

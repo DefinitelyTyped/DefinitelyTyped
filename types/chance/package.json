@@ -1,0 +1,41 @@
+{
+    "private": true,
+    "name": "@types/chance",
+    "version": "1.1.9999",
+    "projects": [
+        "http://chancejs.com"
+    ],
+    "devDependencies": {
+        "@types/chance": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Bowdon",
+            "githubUsername": "cbowdon"
+        },
+        {
+            "name": "Brice BERNARD",
+            "githubUsername": "brikou"
+        },
+        {
+            "name": "Carlos Sanchez",
+            "githubUsername": "cafesanu"
+        },
+        {
+            "name": "Colby M. White",
+            "githubUsername": "colbywhite"
+        },
+        {
+            "name": "Zachary Dow",
+            "githubUsername": "NewDark90"
+        },
+        {
+            "name": "Jacob Easley",
+            "githubUsername": "jacobez"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

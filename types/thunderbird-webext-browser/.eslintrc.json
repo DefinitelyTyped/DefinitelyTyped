@@ -1,0 +1,7 @@
+{
+    "rules": {
+        "@definitelytyped/no-single-element-tuple-type": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@typescript-eslint/no-empty-interface": "off"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/es6template",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/zalmoxisus/es6-template"
+    ],
+    "devDependencies": {
+        "@types/es6template": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

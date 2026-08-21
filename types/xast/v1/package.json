@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "name": "@types/xast",
+    "version": "1.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "xast",
+    "projects": [
+        "https://github.com/syntax-tree/xast"
+    ],
+    "dependencies": {
+        "@types/unist": "^2"
+    },
+    "devDependencies": {
+        "@types/xast": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "stefanprobst",
+            "githubUsername": "stefanprobst"
+        },
+        {
+            "name": "Titus Wormer",
+            "githubUsername": "wooorm"
+        },
+        {
+            "name": "Christian Murphy",
+            "githubUsername": "ChristianMurphy"
+        },
+        {
+            "name": "Junyoung Choi",
+            "githubUsername": "rokt33r"
+        }
+    ]
+}

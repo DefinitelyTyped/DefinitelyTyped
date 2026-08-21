@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/esrever",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/mathiasbynens/esrever"
+    ],
+    "devDependencies": {
+        "@types/esrever": "workspace:."
+    },
+    "owners": []
+}

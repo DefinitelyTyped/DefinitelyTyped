@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/svg-maps__brazil",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/VictorCazanave/svg-maps/tree/master/packages/brazil"
+    ],
+    "dependencies": {
+        "@types/svg-maps__common": "*"
+    },
+    "devDependencies": {
+        "@types/svg-maps__brazil": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Joao Sutel",
+            "githubUsername": "joaosutel"
+        }
+    ]
+}

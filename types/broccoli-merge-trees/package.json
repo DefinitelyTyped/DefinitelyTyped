@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/broccoli-merge-trees",
+    "version": "4.2.9999",
+    "projects": [
+        "https://github.com/broccolijs/broccoli-merge-trees#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "broccoli-node-api": "^1.7.0",
+        "broccoli-plugin": "^4.0.7"
+    },
+    "devDependencies": {
+        "@types/broccoli-merge-trees": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Konrad Perlicki",
+            "githubUsername": "KonradPerlicki"
+        }
+    ]
+}

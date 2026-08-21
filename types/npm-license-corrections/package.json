@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/npm-license-corrections",
+    "version": "1.9.9999",
+    "projects": [
+        "https://github.com/jslicense/npm-license-corrections.json"
+    ],
+    "devDependencies": {
+        "@types/npm-license-corrections": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

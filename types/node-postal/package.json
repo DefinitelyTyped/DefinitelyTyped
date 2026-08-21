@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/node-postal",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/openvenues/node-postal"
+    ],
+    "devDependencies": {
+        "@types/node-postal": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "João Carmo",
+            "githubUsername": "joaocarmo"
+        }
+    ]
+}

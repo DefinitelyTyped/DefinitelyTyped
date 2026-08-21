@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.pin",
+    "version": "1.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.pin",
+    "projects": [
+        "https://github.com/webpop/jquery.pin"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.pin": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Anderson Friaça",
+            "githubUsername": "AndersonFriaca"
+        }
+    ]
+}

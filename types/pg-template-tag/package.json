@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/pg-template-tag",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/xecycle/pg-template-tag"
+    ],
+    "devDependencies": {
+        "@types/pg": "*",
+        "@types/pg-template-tag": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Johan Levin",
+            "githubUsername": "johan13"
+        }
+    ]
+}

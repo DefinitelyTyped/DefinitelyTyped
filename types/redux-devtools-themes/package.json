@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/redux-devtools-themes",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/gaearon/redux-devtools-themes"
+    ],
+    "dependencies": {
+        "@types/base16": "*"
+    },
+    "devDependencies": {
+        "@types/redux-devtools-themes": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nathan Bierema",
+            "githubUsername": "Methuselah96"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/math-sign",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/sindresorhus/math-sign#readme"
+    ],
+    "devDependencies": {
+        "@types/math-sign": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Cassidy",
+            "githubUsername": "djcsdy"
+        }
+    ]
+}

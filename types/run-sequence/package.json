@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/run-sequence",
+    "version": "2.2.9999",
+    "projects": [
+        "https://github.com/OverZealous/run-sequence"
+    ],
+    "dependencies": {
+        "@types/gulp": ">=3.8",
+        "@types/node": "*",
+        "@types/undertaker": ">=1.2.6"
+    },
+    "devDependencies": {
+        "@types/run-sequence": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Keita Kagurazaka",
+            "githubUsername": "k-kagurazaka"
+        }
+    ]
+}

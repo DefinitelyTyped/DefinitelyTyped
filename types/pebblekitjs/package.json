@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/pebblekitjs",
+    "version": "4.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "pebblekitjs",
+    "projects": [
+        "https://developer.pebble.com/docs/js/Pebble/"
+    ],
+    "devDependencies": {
+        "@types/pebblekitjs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Makoto Kawasaki",
+            "githubUsername": "makotokw"
+        }
+    ]
+}

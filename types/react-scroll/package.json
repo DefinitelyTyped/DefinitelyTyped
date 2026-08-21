@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-scroll",
+    "version": "1.8.9999",
+    "projects": [
+        "https://github.com/fisshy/react-scroll"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-scroll": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ioannis Kokkinidis",
+            "githubUsername": "sudoplz"
+        },
+        {
+            "name": "Giedrius Grabauskas",
+            "githubUsername": "GiedriusGrabauskas"
+        }
+    ]
+}

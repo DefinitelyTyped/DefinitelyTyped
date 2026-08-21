@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/angular-clipboard",
+    "version": "1.5.9999",
+    "projects": [
+        "https://github.com/omichelsen/angular-clipboard"
+    ],
+    "devDependencies": {
+        "@types/angular": "*",
+        "@types/angular-clipboard": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bradford Wagner",
+            "githubUsername": "bradfordwagner"
+        }
+    ]
+}

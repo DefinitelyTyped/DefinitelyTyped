@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/pica",
+    "version": "9.0.9999",
+    "projects": [
+        "https://github.com/nodeca/pica"
+    ],
+    "devDependencies": {
+        "@types/pica": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hamit YILMAZ",
+            "githubUsername": "hmtylmz"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        },
+        {
+            "name": "sapphi-red",
+            "githubUsername": "sapphi-red"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/urlsafe-base64",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/RGBboy/urlsafe-base64"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/urlsafe-base64": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Tanguy Krotoff",
+            "githubUsername": "tkrotoff"
+        }
+    ]
+}

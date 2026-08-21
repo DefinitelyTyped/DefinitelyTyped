@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/json-string-splitter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/Densaugeo/JSON-String-Splitter"
+    ],
+    "devDependencies": {
+        "@types/json-string-splitter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jesse Wright",
+            "githubUsername": "jeswr"
+        }
+    ]
+}

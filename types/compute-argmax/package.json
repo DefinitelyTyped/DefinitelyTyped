@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/compute-argmax",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/compute-io/argmax"
+    ],
+    "devDependencies": {
+        "@types/compute-argmax": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric Crosson",
+            "githubUsername": "EricCrosson"
+        }
+    ]
+}

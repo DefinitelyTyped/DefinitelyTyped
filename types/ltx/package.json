@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/ltx",
+    "version": "3.1.9999",
+    "projects": [
+        "http://github.com/node-xmpp/ltx"
+    ],
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.mts",
+                "default": "./index.d.ts"
+            }
+        },
+        "./src/*": "./src/*",
+        "./lib/*": "./lib/*"
+    },
+    "dependencies": {
+        "@types/events": "*"
+    },
+    "devDependencies": {
+        "@types/ltx": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

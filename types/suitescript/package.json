@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/suitescript",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "suitescript",
+    "projects": [
+        "http://www.netsuite.com"
+    ],
+    "devDependencies": {
+        "@types/suitescript": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Darren Hill",
+            "githubUsername": "darrenhillconsulting"
+        }
+    ]
+}

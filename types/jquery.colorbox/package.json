@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.colorbox",
+    "version": "1.4.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.colorbox",
+    "projects": [
+        "http://www.jacklmoore.com/colorbox/"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.colorbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Gidon Junge",
+            "githubUsername": "gjunge"
+        }
+    ]
+}

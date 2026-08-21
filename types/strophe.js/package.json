@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/strophe.js",
+    "version": "1.4.9999",
+    "projects": [
+        "http://strophe.im/strophejs/"
+    ],
+    "devDependencies": {
+        "@types/strophe.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jakub Mikos",
+            "githubUsername": "CodeBast4rd"
+        },
+        {
+            "name": "David Deutsch",
+            "githubUsername": "DavidKDeutsch"
+        }
+    ]
+}

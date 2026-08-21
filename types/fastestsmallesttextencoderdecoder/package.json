@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fastestsmallesttextencoderdecoder",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/anonyco/FastestSmallestTextEncoderDecoder#quick-start"
+    ],
+    "devDependencies": {
+        "@types/fastestsmallesttextencoderdecoder": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Loren 🤓",
+            "githubUsername": "lorensr"
+        }
+    ]
+}

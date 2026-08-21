@@ -1,0 +1,33 @@
+{
+    "private": true,
+    "name": "@types/browserify",
+    "version": "12.0.9999",
+    "projects": [
+        "http://browserify.org/"
+    ],
+    "dependencies": {
+        "@types/insert-module-globals": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/browserify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Andrew Gaspar",
+            "githubUsername": "AndrewGaspar"
+        },
+        {
+            "name": "John Vilk",
+            "githubUsername": "jvilk"
+        },
+        {
+            "name": "Leonard Thieu",
+            "githubUsername": "leonard-thieu"
+        },
+        {
+            "name": "Linus Unnebäck",
+            "githubUsername": "LinusU"
+        }
+    ]
+}

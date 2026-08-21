@@ -1,0 +1,159 @@
+// https://webaudio.github.io/web-speech-api/#speechreco-section
+interface SpeechRecognitionEventMap {
+    audioend: Event;
+    audiostart: Event;
+    end: Event;
+    error: SpeechRecognitionErrorEvent;
+    nomatch: SpeechRecognitionEvent;
+    result: SpeechRecognitionEvent;
+    soundend: Event;
+    soundstart: Event;
+    speechend: Event;
+    speechstart: Event;
+    start: Event;
+}
+
+// https://webaudio.github.io/web-speech-api/#speechreco-section
+interface SpeechRecognition extends EventTarget {
+    continuous: boolean;
+    grammars: SpeechGrammarList;
+    interimResults: boolean;
+    lang: string;
+    maxAlternatives: number;
+    processLocally: boolean;
+    onaudioend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onaudiostart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onerror: ((this: SpeechRecognition, ev: SpeechRecognitionErrorEvent) => any) | null;
+    onnomatch: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+    onresult: ((this: SpeechRecognition, ev: SpeechRecognitionEvent) => any) | null;
+    onsoundend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onsoundstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechend: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onspeechstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    onstart: ((this: SpeechRecognition, ev: Event) => any) | null;
+    abort(): void;
+    start(audioTrack?: MediaStreamTrack): void;
+    stop(): void;
+    addEventListener<K extends keyof SpeechRecognitionEventMap>(
+        type: K,
+        listener: (this: SpeechRecognition, ev: SpeechRecognitionEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof SpeechRecognitionEventMap>(
+        type: K,
+        listener: (this: SpeechRecognition, ev: SpeechRecognitionEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
+}
+
+// https://webaudio.github.io/web-speech-api/#dictdef-speechrecognitionoptions
+interface SpeechRecognitionOptions {
+    langs: string[];
+    processLocally: boolean;
+}
+
+type AvailabilityStatus =
+    | "unavailable"
+    | "downloadable"
+    | "downloading"
+    | "available";
+
+// https://webaudio.github.io/web-speech-api/#speechrecognition
+declare var SpeechRecognition: {
+    prototype: SpeechRecognition;
+    new(): SpeechRecognition;
+    available(options: SpeechRecognitionOptions): Promise<AvailabilityStatus>;
+    install(options: SpeechRecognitionOptions): Promise<boolean>;
+};
+
+// https://webaudio.github.io/web-speech-api/#speechrecognitionevent
+interface SpeechRecognitionEventInit extends EventInit {
+    resultIndex?: number;
+    results: SpeechRecognitionResultList;
+}
+
+// https://webaudio.github.io/web-speech-api/#dictdef-speechrecognitioneventinit
+interface SpeechRecognitionEvent extends Event {
+    readonly resultIndex: number;
+    readonly results: SpeechRecognitionResultList;
+}
+
+declare var SpeechRecognitionEvent: {
+    prototype: SpeechRecognitionEvent;
+    new(type: string, eventInitDict: SpeechRecognitionEventInit): SpeechRecognitionEvent;
+};
+
+// https://webaudio.github.io/web-speech-api/#enumdef-speechrecognitionerrorcode
+// type SpeechRecognitionErrorCode =
+//     | "aborted"
+//     | "audio-capture"
+//     | "bad-grammar"
+//     | "language-not-supported"
+//     | "network"
+//     | "no-speech"
+//     | "not-allowed"
+//     | "service-not-allowed";
+
+// https://webaudio.github.io/web-speech-api/#dictdef-speechrecognitionerroreventinit
+interface SpeechRecognitionErrorEventInit extends EventInit {
+    error: SpeechRecognitionErrorCode;
+    message?: string;
+}
+
+// https://webaudio.github.io/web-speech-api/#speechrecognitionerrorevent
+interface SpeechRecognitionErrorEvent extends Event {
+    readonly error: SpeechRecognitionErrorCode;
+    readonly message: string;
+}
+
+declare var SpeechRecognitionErrorEvent: {
+    prototype: SpeechRecognitionErrorEvent;
+    new(type: string, eventInitDict: SpeechRecognitionErrorEventInit): SpeechRecognitionErrorEvent;
+};
+
+// https://webaudio.github.io/web-speech-api/#speechgrammar
+interface SpeechGrammar {
+    src: string;
+    weight: number;
+}
+
+declare var SpeechGrammar: {
+    prototype: SpeechGrammar;
+    new(): SpeechGrammar;
+};
+
+// https://webaudio.github.io/web-speech-api/#speechgrammarlist
+interface SpeechGrammarList {
+    readonly length: number;
+    addFromString(string: string, weight?: number): void;
+    addFromURI(src: string, weight?: number): void;
+    item(index: number): SpeechGrammar;
+    [index: number]: SpeechGrammar;
+}
+
+declare var SpeechGrammarList: { prototype: SpeechGrammarList; new(): SpeechGrammarList };
+
+// prefixed global variables in Chrome; should match the equivalents above
+// https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API/Using_the_Web_Speech_API#chrome_support
+declare var webkitSpeechRecognition: {
+    prototype: SpeechRecognition;
+    new(): SpeechRecognition;
+    available(options: SpeechRecognitionOptions): Promise<AvailabilityStatus>;
+    install(options: SpeechRecognitionOptions): Promise<boolean>;
+};
+declare var webkitSpeechGrammarList: { prototype: SpeechGrammarList; new(): SpeechGrammarList };
+declare var webkitSpeechRecognitionEvent: {
+    prototype: SpeechRecognitionEvent;
+    new(type: string, eventInitDict: SpeechRecognitionEventInit): SpeechRecognitionEvent;
+};

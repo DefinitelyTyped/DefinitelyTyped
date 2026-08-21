@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/youtube-captions-scraper",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/algolia/youtube-captions-scraper"
+    ],
+    "devDependencies": {
+        "@types/youtube-captions-scraper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "oof2win2",
+            "githubUsername": "oof2win2"
+        }
+    ]
+}

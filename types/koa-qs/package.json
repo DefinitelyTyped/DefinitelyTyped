@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/koa-qs",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/koajs/qs#readme"
+    ],
+    "dependencies": {
+        "@types/koa": "*",
+        "@types/qs": "*"
+    },
+    "devDependencies": {
+        "@types/koa-qs": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rémy Jeancolas",
+            "githubUsername": "RemyJeancolas"
+        }
+    ]
+}

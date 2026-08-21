@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/user-event",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/testing-library/user-event"
+    ],
+    "devDependencies": {
+        "@types/user-event": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Wu Haotian",
+            "githubUsername": "whtsky"
+        }
+    ]
+}

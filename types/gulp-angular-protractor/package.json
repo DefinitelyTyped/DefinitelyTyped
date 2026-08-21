@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/gulp-angular-protractor",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/rochejul/gulp-angular-protractor"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/through": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-angular-protractor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Kwiatek",
+            "githubUsername": "akwiatek"
+        }
+    ]
+}

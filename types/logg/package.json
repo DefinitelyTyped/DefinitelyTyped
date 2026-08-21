@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/logg",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/dpup/node-logg"
+    ],
+    "devDependencies": {
+        "@types/logg": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bret Little",
+            "githubUsername": "blittle"
+        }
+    ]
+}

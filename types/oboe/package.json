@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/oboe",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/jimhigson/oboe.js"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/oboe": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jared Klopper",
+            "githubUsername": "optical"
+        }
+    ]
+}

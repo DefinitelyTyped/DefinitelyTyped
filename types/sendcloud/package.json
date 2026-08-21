@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sendcloud",
+    "version": "1.6.9999",
+    "projects": [
+        "https://github.com/shanelau/sendcloud"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/nodemailer": "*"
+    },
+    "devDependencies": {
+        "@types/sendcloud": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "bangbang93",
+            "githubUsername": "bangbang93"
+        }
+    ]
+}

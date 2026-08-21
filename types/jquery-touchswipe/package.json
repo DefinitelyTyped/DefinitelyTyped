@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/jquery-touchswipe",
+    "version": "1.6.9999",
+    "projects": [
+        "http://labs.rampinteractive.co.uk/touchSwipe/demos/"
+    ],
+    "devDependencies": {
+        "@types/jquery-touchswipe": "workspace:."
+    },
+    "peerDependencies": {
+        "@types/jquery": "*"
+    },
+    "owners": [
+        {
+            "name": "Andre Wachsmuth",
+            "githubUsername": "blutorange"
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/trellopowerup",
+    "version": "1.25.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Trello PowerUp Client Library",
+    "projects": [
+        "https://developer.atlassian.com/cloud/trello/power-ups/"
+    ],
+    "devDependencies": {
+        "@types/trellopowerup": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Angelo Tata",
+            "githubUsername": "tatablack"
+        }
+    ]
+}

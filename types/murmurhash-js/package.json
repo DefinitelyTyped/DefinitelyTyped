@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/murmurhash-js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mikolalysenko/murmurhash-js"
+    ],
+    "devDependencies": {
+        "@types/murmurhash-js": "workspace:."
+    },
+    "owners": []
+}

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/pexrtc",
+    "version": "26.0.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "PexRTC",
+    "projects": [
+        "https://docs.pexip.com/api_client/api_pexrtc.htm"
+    ],
+    "devDependencies": {
+        "@types/pexrtc": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "10Clouds",
+            "githubUsername": "10clouds"
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/promise.prototype.finally",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/es-shims/promise.prototype.finally"
+    ],
+    "devDependencies": {
+        "@types/promise.prototype.finally": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Slava Shpitalny",
+            "githubUsername": "slavik57"
+        },
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

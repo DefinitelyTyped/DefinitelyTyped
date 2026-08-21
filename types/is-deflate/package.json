@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/is-deflate",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/watson/is-deflate#readme"
+    ],
+    "devDependencies": {
+        "@types/is-deflate": "workspace:.",
+        "@types/node": "*"
+    },
+    "owners": [
+        {
+            "name": "Matt Cowley",
+            "githubUsername": "MattIPv4"
+        }
+    ]
+}

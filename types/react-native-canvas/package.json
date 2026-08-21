@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-canvas",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/iddan/react-native-canvas#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-canvas": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "hmajid2301",
+            "githubUsername": "hmajid2301"
+        }
+    ]
+}

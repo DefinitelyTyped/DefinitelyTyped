@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/custom-error-generator",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/jproulx/node-custom-error"
+    ],
+    "devDependencies": {
+        "@types/custom-error-generator": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Thierry Miceli",
+            "githubUsername": "thmiceli"
+        }
+    ]
+}

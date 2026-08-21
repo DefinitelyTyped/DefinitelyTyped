@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-image-gallery",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/archriss/react-native-image-gallery#readme"
+    ],
+    "dependencies": {
+        "@types/react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@types/react-native-image-gallery": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Shirsh Zibbu",
+            "githubUsername": "zhirzh"
+        }
+    ]
+}

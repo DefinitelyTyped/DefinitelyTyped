@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/rx-dom",
+    "version": "7.0.9999",
+    "projects": [
+        "https://github.com/Reactive-Extensions/RxJS-DOM"
+    ],
+    "dependencies": {
+        "@types/rx": "*"
+    },
+    "devDependencies": {
+        "@types/rx-dom": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "oliver Weichhold",
+            "githubUsername": "oliverw"
+        }
+    ]
+}

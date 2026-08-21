@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/x-ray",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/lapwinglabs/x-ray#readme"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/node": "*",
+        "@types/x-ray-crawler": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/x-ray": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matt Traynham",
+            "githubUsername": "mtraynham"
+        }
+    ]
+}

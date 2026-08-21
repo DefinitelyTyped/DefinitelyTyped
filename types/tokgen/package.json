@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/tokgen",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/maxtruxa/tokgen#readme"
+    ],
+    "devDependencies": {
+        "@types/tokgen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jonas Lochmann",
+            "githubUsername": "l-jonas"
+        }
+    ]
+}

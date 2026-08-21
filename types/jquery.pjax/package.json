@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/jquery.pjax",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "jquery.pjax",
+    "projects": [
+        "https://github.com/defunkt/jquery-pjax"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.pjax": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Junle Li",
+            "githubUsername": "lijunle"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/react-speech-kit",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/MikeyParton/react-speech-kit"
+    ],
+    "devDependencies": {
+        "@types/react-speech-kit": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Q",
+            "githubUsername": "SamQuail"
+        }
+    ]
+}

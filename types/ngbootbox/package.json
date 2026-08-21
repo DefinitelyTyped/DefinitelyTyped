@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/ngbootbox",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/eriktufvesson/ngBootbox"
+    ],
+    "dependencies": {
+        "@types/bootbox": "*"
+    },
+    "devDependencies": {
+        "@types/angular": "*",
+        "@types/ngbootbox": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sam Saint-Pettersen",
+            "githubUsername": "stpettersens"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/dotenv-load",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/formatlos/dotenv-load"
+    ],
+    "devDependencies": {
+        "@types/dotenv-load": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean S. LeBlanc",
+            "githubUsername": "seleb"
+        }
+    ]
+}

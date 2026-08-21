@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/distributions-poisson-quantile",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/distributions-io/poisson-quantile#readme"
+    ],
+    "devDependencies": {
+        "@types/distributions-poisson-quantile": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel McNally",
+            "githubUsername": "sangaman"
+        }
+    ]
+}

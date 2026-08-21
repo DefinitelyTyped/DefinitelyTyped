@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/hls-parser",
+    "version": "0.8.9999",
+    "projects": [
+        "https://github.com/kuu/hls-parser#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/hls-parser": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Christian Rackerseder",
+            "githubUsername": "screendriver"
+        },
+        {
+            "name": "Christopher Manouvrier",
+            "githubUsername": "cmanou"
+        },
+        {
+            "name": "Joe Flateau",
+            "githubUsername": "joeflateau"
+        }
+    ]
+}

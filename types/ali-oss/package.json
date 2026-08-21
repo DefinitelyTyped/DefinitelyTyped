@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/ali-oss",
+    "version": "6.23.9999",
+    "projects": [
+        "https://github.com/ali-sdk/ali-oss"
+    ],
+    "devDependencies": {
+        "@types/ali-oss": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ptrdu",
+            "githubUsername": "ptrdu"
+        },
+        {
+            "name": "StarHeart",
+            "githubUsername": "StarHeartHunt"
+        },
+        {
+            "name": "cnjsstong",
+            "githubUsername": "cnjsstong"
+        }
+    ]
+}

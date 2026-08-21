@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-copyleft",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-copyleft.json"
+    ],
+    "devDependencies": {
+        "@types/spdx-copyleft": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

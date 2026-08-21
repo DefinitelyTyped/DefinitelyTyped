@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/passport-openidconnect",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jaredhanson/passport-openidconnect#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/oauth": "*",
+        "@types/passport": "*",
+        "@types/passport-strategy": "*"
+    },
+    "devDependencies": {
+        "@types/passport-openidconnect": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lior Mualem",
+            "githubUsername": "liorm"
+        },
+        {
+            "name": "Seng-Siong Lim",
+            "githubUsername": "seng-siong"
+        }
+    ]
+}

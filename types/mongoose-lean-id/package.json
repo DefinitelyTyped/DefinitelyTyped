@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/mongoose-lean-id",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/mongoosejs/mongoose-lean-id"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "mongoose": "7.x || 8.x"
+    },
+    "devDependencies": {
+        "@types/mongoose-lean-id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mike Yin",
+            "githubUsername": "yincrash"
+        }
+    ]
+}

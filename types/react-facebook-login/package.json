@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/react-facebook-login",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/keppelen/react-facebook-login"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-facebook-login": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexandre Paré",
+            "githubUsername": "apare"
+        },
+        {
+            "name": "Jan Karres",
+            "githubUsername": "jankarres"
+        }
+    ]
+}

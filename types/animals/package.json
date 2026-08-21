@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/animals",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/boennemann/animals"
+    ],
+    "devDependencies": {
+        "@types/animals": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Cooper",
+            "githubUsername": "bencooper222"
+        }
+    ]
+}

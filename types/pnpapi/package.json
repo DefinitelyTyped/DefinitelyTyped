@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/pnpapi",
+    "version": "0.0.9999",
+    "projects": [
+        "https://yarnpkg.github.io/berry/advanced/pnpapi"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/pnpapi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maël Nison",
+            "githubUsername": "arcanis"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

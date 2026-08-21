@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/i18n-iso-countries-regions",
+    "version": "1.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/i18n-iso-countries-regions"
+    ],
+    "devDependencies": {
+        "@types/i18n-iso-countries-regions": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Haykel Mahfoudhi",
+            "githubUsername": "haykelmahfoudhi"
+        }
+    ]
+}

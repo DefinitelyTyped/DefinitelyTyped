@@ -1,0 +1,35 @@
+{
+    "private": true,
+    "name": "@types/tsl-textures",
+    "version": "3.0.9999",
+    "type": "module",
+    "projects": [
+        "https://boytchev.github.io/tsl-textures/"
+    ],
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        },
+        "./tsl-textures.js": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        }
+    },
+    "dependencies": {
+        "@types/three": "*"
+    },
+    "devDependencies": {
+        "@types/tsl-textures": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Hannah Watsky",
+            "githubUsername": "HannahLilyW"
+        },
+        {
+            "name": "Pavel Boytchev",
+            "githubUsername": "boytchev"
+        }
+    ]
+}

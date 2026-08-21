@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/console-log-level",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/watson/console-log-level"
+    ],
+    "devDependencies": {
+        "@types/console-log-level": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ali Ijaz Sheikh",
+            "githubUsername": "ofrobots"
+        }
+    ]
+}

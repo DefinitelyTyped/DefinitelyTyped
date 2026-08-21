@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/hashtable",
+    "version": "3.0.9999",
+    "projects": [
+        "http://www.timdown.co.uk/jshashtable/"
+    ],
+    "devDependencies": {
+        "@types/hashtable": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sergey Gerasimov",
+            "githubUsername": "gerich-home"
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/easy-api-request",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/DeadAlready/easy-api-request"
+    ],
+    "dependencies": {
+        "@types/bunyan": "*",
+        "@types/express": "*",
+        "@types/node": "*",
+        "@types/q": "^0",
+        "@types/request": "*"
+    },
+    "devDependencies": {
+        "@types/easy-api-request": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Karl Düüna",
+            "githubUsername": "DeadAlready"
+        }
+    ]
+}

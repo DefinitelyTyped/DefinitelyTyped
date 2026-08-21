@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/jasminewd2",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/angular/jasminewd"
+    ],
+    "dependencies": {
+        "@types/jasmine": "*"
+    },
+    "devDependencies": {
+        "@types/jasminewd2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sammy Jelin",
+            "githubUsername": "sjelin"
+        },
+        {
+            "name": "George Kalpakas",
+            "githubUsername": "gkalpak"
+        }
+    ]
+}

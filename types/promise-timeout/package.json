@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/promise-timeout",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/building5/promise-timeout#readme"
+    ],
+    "devDependencies": {
+        "@types/promise-timeout": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aankhen",
+            "githubUsername": "Aankhen"
+        }
+    ]
+}

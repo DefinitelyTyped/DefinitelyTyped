@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/react-canvas-draw",
+    "version": "1.2.9999",
+    "projects": [
+        "https://embiem.github.io/react-canvas-draw/"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/react-canvas-draw": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kamil Socha",
+            "githubUsername": "ksocha"
+        }
+    ]
+}

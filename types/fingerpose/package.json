@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fingerpose",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/andypotato/fingerpose#readme"
+    ],
+    "devDependencies": {
+        "@types/fingerpose": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ethan L",
+            "githubUsername": "EthanL06"
+        }
+    ]
+}

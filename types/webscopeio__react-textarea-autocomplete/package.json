@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/webscopeio__react-textarea-autocomplete",
+    "version": "4.7.9999",
+    "projects": [
+        "https://github.com/webscopeio/react-textarea-autocomplete"
+    ],
+    "dependencies": {
+        "@types/react": "*"
+    },
+    "devDependencies": {
+        "@types/webscopeio__react-textarea-autocomplete": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Michal Zochowski",
+            "githubUsername": "michauzo"
+        }
+    ]
+}

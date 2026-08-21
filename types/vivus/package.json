@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "@types/vivus",
+    "version": "0.4.9999",
+    "projects": [
+        "http://maxwellito.github.io/vivus/"
+    ],
+    "devDependencies": {
+        "@types/vivus": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Daniel Rosenwasser",
+            "githubUsername": "DanielRosenwasser"
+        },
+        {
+            "name": "Ruslan Lekhman",
+            "githubUsername": "lekhmanrus"
+        },
+        {
+            "name": "Shuta Hirai",
+            "githubUsername": "shuta13"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/blacklist",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/dcousens/blacklist"
+    ],
+    "devDependencies": {
+        "@types/blacklist": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mohamed Hegazy",
+            "githubUsername": "mhegazy"
+        }
+    ]
+}

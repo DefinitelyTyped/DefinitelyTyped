@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-baker-runtime",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/JetBrains/svg-mixer/blob/v1/packages/svg-baker-runtime"
+    ],
+    "devDependencies": {
+        "@types/svg-baker-runtime": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "vagusX",
+            "githubUsername": "vagusX"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/string-algorithms",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/burgaard/string-algorithms"
+    ],
+    "devDependencies": {
+        "@types/string-algorithms": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lionel Rowe",
+            "githubUsername": "lionel-rowe"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/event-stream",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/dominictarr/event-stream"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/event-stream": "workspace:.",
+        "@types/gulp": "*"
+    },
+    "owners": [
+        {
+            "name": "David Gardiner",
+            "githubUsername": "flcdrg"
+        }
+    ]
+}

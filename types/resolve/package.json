@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "name": "@types/resolve",
+    "version": "1.20.9999",
+    "projects": [
+        "https://github.com/browserify/resolve"
+    ],
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/resolve": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Mario Nebl",
+            "githubUsername": "marionebl"
+        },
+        {
+            "name": "Klaus Meinhardt",
+            "githubUsername": "ajafff"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+{
+    "private": true,
+    "name": "@types/gapi.client.meet-v2",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Meet API v2",
+    "projects": [
+        "https://developers.google.com/meet/api"
+    ],
+    "dependencies": {
+        "@maxim_mazurok/gapi.client.meet-v2": "latest"
+    },
+    "devDependencies": {
+        "@types/gapi.client.meet-v2": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Maxim Mazurok",
+            "githubUsername": "Maxim-Mazurok"
+        },
+        {
+            "name": "Nick Amoscato",
+            "githubUsername": "namoscato"
+        },
+        {
+            "name": "Declan Vong",
+            "githubUsername": "declanvong"
+        }
+    ]
+}

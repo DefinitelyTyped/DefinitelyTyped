@@ -1,0 +1,22 @@
+{
+    "private": true,
+    "name": "@types/knockout.mapper",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "knockout.mapper",
+    "projects": [
+        "https://github.com/LucasLorentz/knockout.mapper"
+    ],
+    "dependencies": {
+        "@types/knockout": "*"
+    },
+    "devDependencies": {
+        "@types/knockout.mapper": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Brandon Meyer",
+            "githubUsername": "BMeyerKC"
+        }
+    ]
+}

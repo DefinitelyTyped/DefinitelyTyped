@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/brittle",
+    "version": "3.5.9999",
+    "projects": [
+        "https://github.com/holepunchto/brittle#readme"
+    ],
+    "devDependencies": {
+        "@types/brittle": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Evan Hahn",
+            "githubUsername": "EvanHahn"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/reconnect-core",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/juliangruber/reconnect-core"
+    ],
+    "dependencies": {
+        "@types/backoff": "*"
+    },
+    "devDependencies": {
+        "@types/node": "*",
+        "@types/reconnect-core": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "James Bromwell",
+            "githubUsername": "thw0rted"
+        }
+    ]
+}

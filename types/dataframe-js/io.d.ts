@@ -1,0 +1,12 @@
+export function toDSV(df: any, sep?: string, header?: boolean, path?: any): any;
+export function toCSV(df: any, header?: boolean, path?: any): any;
+export function toTSV(df: any, header?: boolean, path?: any): any;
+export function toPSV(df: any, header?: boolean, path?: any): any;
+export function toText(df: any, sep?: string, header?: boolean, path?: any): any;
+export function toJSON(df: any, asCollection?: boolean, path?: any): string;
+export function fromDSV(pathOrFile: any, sep?: string, header?: boolean): Promise<any>;
+export function fromCSV(pathOrFile: any, header?: boolean): Promise<any>;
+export function fromTSV(pathOrFile: any, header?: boolean): Promise<any>;
+export function fromPSV(pathOrFile: any, header?: boolean): Promise<any>;
+export function fromText(pathOrFile: any, sep?: string, header?: boolean): Promise<any>;
+export function fromJSON(pathOrFile: any): Promise<any>;

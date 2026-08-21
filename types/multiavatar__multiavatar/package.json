@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/multiavatar__multiavatar",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/multiavatar/Multiavatar"
+    ],
+    "devDependencies": {
+        "@types/multiavatar__multiavatar": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Ben Grynhaus",
+            "githubUsername": "bengry"
+        }
+    ]
+}

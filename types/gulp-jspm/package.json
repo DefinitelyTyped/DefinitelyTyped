@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/gulp-jspm",
+    "version": "0.5.9999",
+    "projects": [
+        "https://www.npmjs.com/package/gulp-jspm"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/gulp": "*",
+        "@types/gulp-jspm": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter Juras",
+            "githubUsername": "peterjuras"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/kochava",
+    "version": "3.1.9999",
+    "projects": [
+        "https://www.npmjs.com/package/kochava"
+    ],
+    "devDependencies": {
+        "@types/kochava": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Muhammad Abu 'l-Gharaniq",
+            "githubUsername": "midoghranek"
+        },
+        {
+            "name": "Armia Talaat",
+            "githubUsername": "armia-talaat"
+        }
+    ]
+}

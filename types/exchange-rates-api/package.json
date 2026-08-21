@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/exchange-rates-api",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/over-engineer/exchange-rates"
+    ],
+    "devDependencies": {
+        "@types/exchange-rates-api": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Marton Lederer",
+            "githubUsername": "martonlederer"
+        }
+    ]
+}

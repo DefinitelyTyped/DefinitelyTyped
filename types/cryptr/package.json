@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/cryptr",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/MauriceButler/cryptr"
+    ],
+    "devDependencies": {
+        "@types/cryptr": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Roman Rogowski",
+            "githubUsername": "rrogowski"
+        }
+    ]
+}

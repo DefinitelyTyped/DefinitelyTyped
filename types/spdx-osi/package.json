@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/spdx-osi",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/jslicense/spdx-osi.json"
+    ],
+    "devDependencies": {
+        "@types/spdx-osi": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jamie Magee",
+            "githubUsername": "JamieMagee"
+        }
+    ]
+}

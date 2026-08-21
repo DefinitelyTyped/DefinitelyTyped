@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/section-matter",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jonschlinkert/section-matter"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/section-matter": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jon Schlinkert",
+            "githubUsername": "jonschlinkert"
+        },
+        {
+            "name": "gaspard",
+            "githubUsername": "gasp"
+        }
+    ]
+}

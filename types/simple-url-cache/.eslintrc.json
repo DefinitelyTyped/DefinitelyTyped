@@ -1,0 +1,10 @@
+{
+    "rules": {
+        "@definitelytyped/no-declare-current-package": "off",
+        "@definitelytyped/strict-export-declare-modifiers": "off",
+        "@definitelytyped/no-single-declare-module": "off",
+        "@typescript-eslint/prefer-namespace": "off",
+        "@typescript-eslint/explicit-member-accessibility": "off",
+        "@typescript-eslint/triple-slash-reference": "off"
+    }
+}

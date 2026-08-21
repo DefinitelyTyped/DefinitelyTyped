@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/parse-passwd",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/doowb/parse-passwd"
+    ],
+    "devDependencies": {
+        "@types/parse-passwd": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "BendingBender",
+            "githubUsername": "BendingBender"
+        }
+    ]
+}

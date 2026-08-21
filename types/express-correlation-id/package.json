@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/express-correlation-id",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/toboid/express-correlation-id#readme"
+    ],
+    "dependencies": {
+        "@types/express-serve-static-core": "*"
+    },
+    "devDependencies": {
+        "@types/express": "*",
+        "@types/express-correlation-id": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Kitthanat Srirussamee",
+            "githubUsername": "greenrenge"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/sylvester",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/jcoglan/sylvester"
+    ],
+    "devDependencies": {
+        "@types/sylvester": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stephane Alie",
+            "githubUsername": "StephaneAlie"
+        }
+    ]
+}

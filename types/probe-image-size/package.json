@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/probe-image-size",
+    "version": "7.2.9999",
+    "projects": [
+        "https://github.com/nodeca/probe-image-size#readme"
+    ],
+    "dependencies": {
+        "@types/needle": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/probe-image-size": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jinesh Shah",
+            "githubUsername": "jineshshah36"
+        },
+        {
+            "name": "Piotr Błażejewicz",
+            "githubUsername": "peterblazejewicz"
+        }
+    ]
+}

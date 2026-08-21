@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "name": "@types/plaid-link",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Plaid Link",
+    "projects": [
+        "https://cdn.plaid.com/link/v2/stable/link-initialize.js"
+    ],
+    "devDependencies": {
+        "@types/plaid-link": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aaron Holderman",
+            "githubUsername": "afholderman"
+        },
+        {
+            "name": "Brian Howald",
+            "githubUsername": "bdhowald"
+        },
+        {
+            "name": "Hannes Kindströmmer",
+            "githubUsername": "brolaugh"
+        }
+    ]
+}

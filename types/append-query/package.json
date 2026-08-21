@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/append-query",
+    "version": "2.0.9999",
+    "projects": [
+        "https://github.com/lakenen/node-append-query"
+    ],
+    "devDependencies": {
+        "@types/append-query": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

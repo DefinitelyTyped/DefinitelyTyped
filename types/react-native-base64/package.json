@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/react-native-base64",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/eranbo/react-native-base64#readme"
+    ],
+    "devDependencies": {
+        "@types/react-native-base64": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "seongjoojin",
+            "githubUsername": "seongjoojin"
+        },
+        {
+            "name": "markyao6275",
+            "githubUsername": "markyao6275"
+        }
+    ]
+}

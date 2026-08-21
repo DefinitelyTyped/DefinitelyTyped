@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/lazystream",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jpommerening/node-lazystream"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "@types/readable-stream": "*"
+    },
+    "devDependencies": {
+        "@types/lazystream": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Thompson-Sharpe",
+            "githubUsername": "MysteryBlokHed"
+        }
+    ]
+}

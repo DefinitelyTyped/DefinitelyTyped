@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/jquery.payment",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/stripe/jquery.payment"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/jquery.payment": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Eric J. Smith",
+            "githubUsername": "ejsmith"
+        },
+        {
+            "name": "John Rutherford",
+            "githubUsername": "johnrutherford"
+        }
+    ]
+}

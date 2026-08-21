@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/powerbi-visuals-tools",
+    "version": "1.11.9999",
+    "projects": [
+        "https://github.com/Microsoft/PowerBI-visuals-tools"
+    ],
+    "devDependencies": {
+        "@types/powerbi-visuals-tools": "workspace:."
+    },
+    "owners": [
+        {
+            "name": " Ilfat Galiev",
+            "githubUsername": "zBritva"
+        },
+        {
+            "name": "Microsoft",
+            "githubUsername": "Microsoft"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/eslint-plugin-pii",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/shiva-hack/eslint-plugin-pii"
+    ],
+    "dependencies": {
+        "@types/eslint": "*"
+    },
+    "devDependencies": {
+        "@types/eslint-plugin-pii": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dmitrii Kustov",
+            "githubUsername": "Simbiat"
+        }
+    ]
+}

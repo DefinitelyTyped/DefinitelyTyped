@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/json-rpc-ws",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/andyet/json-rpc-ws"
+    ],
+    "dependencies": {
+        "@types/ws": "*"
+    },
+    "devDependencies": {
+        "@types/json-rpc-ws": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Nicolas Penin",
+            "githubUsername": "npenin"
+        },
+        {
+            "name": "Margus Lamp",
+            "githubUsername": "mlamp"
+        }
+    ]
+}

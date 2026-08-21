@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/imagesloaded",
+    "version": "4.1.9999",
+    "projects": [
+        "https://github.com/desandro/imagesloaded"
+    ],
+    "dependencies": {
+        "@types/jquery": "*"
+    },
+    "devDependencies": {
+        "@types/imagesloaded": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cameron Little",
+            "githubUsername": "apexskier"
+        }
+    ]
+}

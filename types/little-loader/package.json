@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/little-loader",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/walmartlabs/little-loader"
+    ],
+    "devDependencies": {
+        "@types/little-loader": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Chris Drackett",
+            "githubUsername": "chrisdrackett"
+        }
+    ]
+}

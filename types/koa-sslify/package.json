@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/koa-sslify",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/turboMaCk/koa-sslify#readme"
+    ],
+    "dependencies": {
+        "@types/koa": "*"
+    },
+    "devDependencies": {
+        "@types/koa-sslify": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Matthew Bull",
+            "githubUsername": "wingsbob"
+        },
+        {
+            "name": "Mihkel Sokk",
+            "githubUsername": "msokk"
+        }
+    ]
+}

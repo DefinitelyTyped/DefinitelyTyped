@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/iterate-value",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/ljharb/iterate-value#readme"
+    ],
+    "devDependencies": {
+        "@types/iterate-value": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Jason Kwok",
+            "githubUsername": "JasonHK"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        }
+    ]
+}

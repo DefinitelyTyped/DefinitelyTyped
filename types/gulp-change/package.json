@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/gulp-change",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/PoliteJS/gulp-change"
+    ],
+    "dependencies": {
+        "@types/event-stream": "*"
+    },
+    "devDependencies": {
+        "@types/gulp-change": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Aankhen",
+            "githubUsername": "Aankhen"
+        }
+    ]
+}

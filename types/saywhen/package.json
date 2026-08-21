@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/saywhen",
+    "version": "1.1.9999",
+    "projects": [
+        "https://github.com/pushtechnology/saywhen"
+    ],
+    "dependencies": {
+        "@types/jasmine": "*"
+    },
+    "devDependencies": {
+        "@types/saywhen": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Sean Sobey",
+            "githubUsername": "SeanSobey"
+        }
+    ]
+}

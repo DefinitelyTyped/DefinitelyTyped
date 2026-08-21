@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "name": "@types/titanium",
+    "version": "13.3.9999",
+    "nonNpm": "conflict",
+    "nonNpmDescription": "Titanium",
+    "projects": [
+        "https://github.com/tidev/titanium-sdk"
+    ],
+    "devDependencies": {
+        "@types/titanium": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TiDev, Inc.",
+            "githubUsername": "tidev"
+        },
+        {
+            "name": "Jan Vennemann",
+            "githubUsername": "janvennemann"
+        }
+    ]
+}

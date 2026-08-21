@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/adobe__aio-lib-analytics",
+    "version": "3.0.9999",
+    "projects": [
+        "https://github.com/adobe/aio-lib-analytics"
+    ],
+    "devDependencies": {
+        "@types/adobe__aio-lib-analytics": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Samuel Bodin",
+            "githubUsername": "bodinsamuel"
+        }
+    ]
+}

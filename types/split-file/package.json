@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/split-file",
+    "version": "2.3.9999",
+    "projects": [
+        "https://github.com/tomvlk/node-split-file#readme"
+    ],
+    "dependencies": {
+        "@types/bluebird": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/split-file": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dolan Miu",
+            "githubUsername": "dolanmiu"
+        }
+    ]
+}

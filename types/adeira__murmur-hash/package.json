@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/adeira__murmur-hash",
+    "version": "0.2.9999",
+    "projects": [
+        "https://github.com/adeira/universe/tree/master/src/murmur-hash"
+    ],
+    "devDependencies": {
+        "@types/adeira__murmur-hash": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Martin Zlámal",
+            "githubUsername": "mrtnzlml"
+        }
+    ]
+}

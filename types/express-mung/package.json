@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/express-mung",
+    "version": "0.5.9999",
+    "projects": [
+        "https://github.com/richardschneider/express-mung"
+    ],
+    "dependencies": {
+        "@types/express": "*",
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/express-mung": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Cyril Schumacher",
+            "githubUsername": "cyrilschumacher"
+        },
+        {
+            "name": "Levi Bostian",
+            "githubUsername": "levibostian"
+        }
+    ]
+}

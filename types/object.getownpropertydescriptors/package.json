@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/object.getownpropertydescriptors",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/ljharb/object.getownpropertydescriptors#readme"
+    ],
+    "devDependencies": {
+        "@types/object.getownpropertydescriptors": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Vitor Luiz Cavalcanti",
+            "githubUsername": "VitorLuizC"
+        },
+        {
+            "name": "Jordan Harband",
+            "githubUsername": "ljharb"
+        },
+        {
+            "name": "ExE Boss",
+            "githubUsername": "ExE-Boss"
+        }
+    ]
+}

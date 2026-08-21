@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "name": "@types/google.picker",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Google Picker API",
+    "projects": [
+        "https://developers.google.com/picker/"
+    ],
+    "devDependencies": {
+        "@types/google.picker": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Justin Poehnelt",
+            "githubUsername": "jpoehnelt"
+        },
+        {
+            "name": "Steve Bazyl",
+            "githubUsername": "sqrrrl"
+        },
+        {
+            "name": "Pierrick Voulet",
+            "githubUsername": "PierrickVoulet"
+        },
+        {
+            "name": "Vinay Vyas",
+            "githubUsername": "vinay-google"
+        }
+    ]
+}

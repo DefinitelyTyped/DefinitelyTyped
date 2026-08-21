@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/contrast-color",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/busterc/contrast-color#readme"
+    ],
+    "devDependencies": {
+        "@types/contrast-color": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Adam Jones",
+            "githubUsername": "domdomegg"
+        }
+    ]
+}

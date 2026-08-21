@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/fast-stats",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/bluesmoon/node-faststats"
+    ],
+    "devDependencies": {
+        "@types/fast-stats": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/node-pixel",
+    "version": "0.11.9999",
+    "projects": [
+        "https://github.com/ajfisher/node-pixel#readme"
+    ],
+    "owners": [
+        {
+            "name": "Andréas \"ScreamZ\" HANSS",
+            "githubUsername": "ScreamZ"
+        }
+    ],
+    "dependencies": {
+        "@types/johnny-five": "^2.1"
+    },
+    "devDependencies": {
+        "@types/node-pixel": "workspace:."
+    }
+}

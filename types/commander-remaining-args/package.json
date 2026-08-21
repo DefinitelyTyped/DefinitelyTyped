@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/commander-remaining-args",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/axelchalon/commander-remaining-args#readme"
+    ],
+    "dependencies": {
+        "commander": "^4.0.1"
+    },
+    "devDependencies": {
+        "@types/commander-remaining-args": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Florian Keller",
+            "githubUsername": "ffflorian"
+        }
+    ]
+}

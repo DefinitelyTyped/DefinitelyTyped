@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/jotform-css.js",
+    "version": "1.0.9999",
+    "projects": [
+        "https://github.com/jotform/css.js"
+    ],
+    "devDependencies": {
+        "@types/jotform-css.js": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Peter van der Woude",
+            "githubUsername": "pandawood"
+        }
+    ]
+}

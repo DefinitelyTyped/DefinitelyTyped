@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/closure-compiler",
+    "version": "0.0.9999",
+    "projects": [
+        "https://github.com/tim-smart/node-closure/"
+    ],
+    "devDependencies": {
+        "@types/closure-compiler": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bradford Smith",
+            "githubUsername": "brad4d"
+        },
+        {
+            "name": "Ben Lickly",
+            "githubUsername": "blickly"
+        },
+        {
+            "name": "James Wright",
+            "githubUsername": "12wrigja"
+        }
+    ]
+}

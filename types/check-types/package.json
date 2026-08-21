@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/check-types",
+    "version": "11.2.9999",
+    "projects": [
+        "https://gitlab.com/philbooth/check-types.js"
+    ],
+    "devDependencies": {
+        "@types/check-types": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "idchlife",
+            "githubUsername": "idchlife"
+        },
+        {
+            "name": "shov",
+            "githubUsername": "shov"
+        }
+    ]
+}

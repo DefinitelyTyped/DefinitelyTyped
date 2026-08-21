@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/webcrypto",
+    "version": "0.0.9999",
+    "projects": [
+        "http://www.w3.org/TR/WebCryptoAPI/"
+    ],
+    "devDependencies": {
+        "@types/webcrypto": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Lucas Dixon",
+            "githubUsername": "iislucas"
+        }
+    ]
+}

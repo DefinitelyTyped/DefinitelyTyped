@@ -1,0 +1,12 @@
+{
+    "private": true,
+    "name": "@types/is-natural-number",
+    "version": "4.0.9999",
+    "projects": [
+        "https://github.com/shinnn/is-natural-number.js"
+    ],
+    "devDependencies": {
+        "@types/is-natural-number": "workspace:."
+    },
+    "owners": []
+}

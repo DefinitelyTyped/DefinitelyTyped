@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/hotwired__turbo-rails",
+    "version": "8.0.9999",
+    "projects": [
+        "https://github.com/hotwired/turbo-rails"
+    ],
+    "dependencies": {
+        "@types/hotwired__turbo": "*",
+        "@types/rails__actioncable": "*"
+    },
+    "devDependencies": {
+        "@types/hotwired__turbo-rails": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Alexander Brandon Coles",
+            "githubUsername": "myabc"
+        },
+        {
+            "name": "Gareth Jones",
+            "githubUsername": "G-Rath"
+        }
+    ]
+}

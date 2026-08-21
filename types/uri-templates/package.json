@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/uri-templates",
+    "version": "0.1.9999",
+    "projects": [
+        "https://github.com/geraintluff/uri-templates"
+    ],
+    "devDependencies": {
+        "@types/uri-templates": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bart van der Schoor",
+            "githubUsername": "Bartvds"
+        },
+        {
+            "name": "Bartek Szczepański",
+            "githubUsername": "barnski"
+        }
+    ]
+}

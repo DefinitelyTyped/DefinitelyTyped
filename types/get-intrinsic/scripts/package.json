@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "devDependencies": {
+        "@types/has": "*",
+        "@types/node": "*"
+    }
+}

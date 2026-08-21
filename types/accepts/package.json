@@ -1,0 +1,24 @@
+{
+    "private": true,
+    "name": "@types/accepts",
+    "version": "1.3.9999",
+    "projects": [
+        "https://github.com/jshttp/accepts"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/accepts": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Stefan Reichel",
+            "githubUsername": "bomret"
+        },
+        {
+            "name": "Brice BERNARD",
+            "githubUsername": "brikou"
+        }
+    ]
+}

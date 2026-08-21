@@ -1,0 +1,28 @@
+{
+    "private": true,
+    "name": "@types/ftp",
+    "version": "0.3.9999",
+    "projects": [
+        "https://github.com/mscdex/node-ftp"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/ftp": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Rogier Schouten",
+            "githubUsername": "rogierschouten"
+        },
+        {
+            "name": "Nathan Rajlich",
+            "githubUsername": "TooTallNate"
+        },
+        {
+            "name": "Marvin Witt",
+            "githubUsername": "NurMarvin"
+        }
+    ]
+}
