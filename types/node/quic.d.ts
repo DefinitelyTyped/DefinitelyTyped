@@ -683,6 +683,22 @@ declare module "node:quic" {
          */
         immediateCloseBurst?: number | undefined;
         /**
+         * The maximum number of new sessions that a single remote address can create per
+         * second. This is a per-host rate limit tracked in the address validation LRU
+         * cache. It prevents a validated remote address from churning through sessions
+         * (rapidly opening and abandoning connections) faster than the server can handle.
+         * For benchmarking where traffic comes from a single source, set this to a high
+         * value.
+         * @since v26.3.0
+         */
+        sessionCreationRate?: number | undefined;
+        /**
+         * The maximum burst of new session creations allowed from a single remote address
+         * before rate limiting takes effect.
+         * @since v26.3.0
+         */
+        sessionCreationBurst?: number | undefined;
+        /**
          * Specifies the length of time a QUIC retry token is considered valid.
          * @since v23.8.0
          */
@@ -941,6 +957,13 @@ declare module "node:quic" {
              * @since v26.3.0
              */
             readonly immediateCloseRateLimited: bigint;
+            /**
+             * The total number of session creation attempts dropped by the
+             * per-host rate limiter. Read only. A non-zero value indicates one or more
+             * remote addresses are creating sessions faster than the configured rate allows.
+             * @since v26.3.0
+             */
+            readonly sessionCreationRateLimited: bigint;
         }
     }
     interface CreateStreamOptions {
