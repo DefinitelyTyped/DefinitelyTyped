@@ -408,6 +408,30 @@ declare module "node:quic" {
          */
         handshakeTimeout?: bigint | number | undefined;
         /**
+         * Controls how the client handles server certificate validation:
+         *
+         * * `'strict'` — OpenSSL aborts the TLS handshake immediately if the server's
+         *   certificate fails validation. The `session.opened` promise rejects with a
+         *   TLS error. The application cannot inspect the certificate or the error
+         *   details. This is the most secure mode.
+         *
+         * * `'auto'` — The TLS handshake completes regardless of validation result.
+         *   If validation fails, the `session.opened` promise is rejected with an error
+         *   containing the validation reason, and the session is destroyed. The
+         *   `onhandshake` callback (if set) fires before rejection, allowing diagnostic
+         *   logging. This is the default and matches the behavior of `tls.connect()`
+         *   with `rejectUnauthorized: true`.
+         *
+         * * `'manual'` — The TLS handshake completes regardless of validation result.
+         *   The `session.opened` promise resolves with the handshake info, which includes
+         *   `validationErrorReason` and `validationErrorCode` if validation failed. The
+         *   application is responsible for checking these values and deciding whether to
+         *   continue. Use this mode for custom validation logic, certificate pinning, or
+         *   intentionally accepting self-signed certificates.
+         * @since v26.3.0
+         */
+        verifyPeer?: "strict" | "auto" | "manual" | undefined;
+        /**
          * The peer server name to target (SNI). Defaults to `'localhost'`.
          * @since v26.1.0
          */
