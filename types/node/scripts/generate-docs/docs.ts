@@ -84,7 +84,7 @@ const ignoreFiles = new Set([
 function findDprint() {
     let p = __dirname;
     while (true) {
-        const dprintPath = join(p, "node_modules", "dprint", "bin.js");
+        const dprintPath = join(p, "node_modules", "dprint", "bin.cjs");
         if (fs.existsSync(dprintPath)) {
             return dprintPath;
         }

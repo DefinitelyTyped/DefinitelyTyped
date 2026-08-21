@@ -36,7 +36,7 @@
         "@definitelytyped/header-parser": "latest",
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
-        "dprint": "^0.56.0",
+        "dprint": "^0.56.1",
         "eslint-plugin-jsdoc": "^44.2.7",
         "husky": "^9.1.7",
         "lint-staged": "^15.2.0",
