@@ -106,7 +106,7 @@ export interface RawOp {
 
 export type CreateOp = Partial<RawOp> & { create: { type: string; data: any } };
 export type DeleteOp = Partial<RawOp> & { del: boolean };
-export type EditOp = Partial<RawOp> & { op: any[] };
+export type EditOp = Partial<RawOp> & { op: any[] | Record<string, any> };
 
 export type OTType = "ot-text" | "ot-json0" | "ot-json1" | "ot-text-tp2" | "rich-text";
 
