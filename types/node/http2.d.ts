@@ -1170,6 +1170,11 @@ declare module "node:http2" {
          */
         maxHeaderListPairs?: number | undefined;
         /**
+         * Sets the maximum number of uniq origin the sever
+         * can send via ORIGIN frames. **Default:** `128`.
+         */
+        maxOriginSetSize?: number | undefined;
+        /**
          * Sets the maximum number of outstanding, unacknowledged pings.
          * @default 10
          */
