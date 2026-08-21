@@ -3742,7 +3742,7 @@ declare module "node:crypto" {
                 ciphertext: NodeJS.BufferSource,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             decrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
@@ -3774,7 +3774,7 @@ declare module "node:crypto" {
                 encapsulationKey: CryptoKey,
                 sharedKeyAlgorithm: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<EncapsulatedKey>;
             encrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
