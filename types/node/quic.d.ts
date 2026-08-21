@@ -2,7 +2,7 @@ declare module "node:quic" {
     import { NonSharedBuffer } from "node:buffer";
     import { KeyObject } from "node:crypto";
     import { FileHandle } from "node:fs/promises";
-    import { SocketAddress } from "node:net";
+    import { BlockList, SocketAddress } from "node:net";
     import { Writer } from "node:stream/iter";
     import { EphemeralKeyInfo, PeerCertificate } from "node:tls";
     /**
@@ -604,6 +604,31 @@ declare module "node:quic" {
          */
         address?: SocketAddress | string | undefined;
         /**
+         * An optional `net.BlockList` instance for filtering incoming packets by
+         * source address. When configured, every received UDP packet is checked against
+         * the block list before any QUIC processing occurs, minimizing resource
+         * expenditure on blocked sources. The block list is evaluated live — rules
+         * added to the `BlockList` object after the endpoint is created take effect
+         * immediately.
+         *
+         * See `endpointOptions.blockListPolicy` for how matches are interpreted.
+         * @since v26.3.0
+         */
+        blockList?: BlockList | undefined;
+        /**
+         * Controls how the `endpointOptions.blockList` is interpreted:
+         *
+         * * `'deny'` — Packets from addresses matching the block list are dropped.
+         *   All other addresses are accepted. This is the typical blocklist mode.
+         * * `'allow'` — Only packets from addresses matching the block list are
+         *   accepted. All other addresses are dropped. This is an allowlist mode
+         *   for restricting access to known clients.
+         *
+         * If no block list is configured, this option has no effect.
+         * @since v26.3.0
+         */
+        blockListPolicy?: "deny" | "allow" | undefined;
+        /**
          * The endpoint maintains an internal cache of validated socket addresses as a
          * performance optimization. This option sets the maximum number of addresses
          * that are cached. This is an advanced option that users typically won't have
@@ -988,6 +1013,12 @@ declare module "node:quic" {
              * @since v26.3.0
              */
             readonly sessionCreationRateLimited: bigint;
+            /**
+             * The total number of incoming packets dropped by the
+             * block list filter. Read only.
+             * @since v26.3.0
+             */
+            readonly packetsBlocked: bigint;
         }
     }
     interface CreateStreamOptions {
