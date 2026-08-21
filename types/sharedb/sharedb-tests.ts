@@ -351,6 +351,13 @@ const op1 = [{ insert: "Hello" }];
 const op2 = [{ retain: 5 }, { insert: " world!" }];
 const op3 = ShareDBClient.types.map["rich-text"].compose(op1, op2);
 
+// An EditOp's `op` is type-specific: an array for json0/text ops, or an object
+// for OT types whose ops serialize to a delta (e.g. rich-text / quill-delta,
+// where a composed op is sent as `{ ops: [...] }`).
+const arrayEditOp: ShareDB.EditOp = { op: [{ p: ["numClicks"], na: 1 }] };
+const objectEditOp: ShareDB.EditOp = { op: { ops: [{ retain: 5 }, { insert: " world!" }] } };
+console.log(arrayEditOp.op, objectEditOp.op);
+
 ShareDB.logger.setMethods({
     warn: (...args: any[]) => console.log(...args),
 });
