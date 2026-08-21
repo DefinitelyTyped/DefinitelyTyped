@@ -105,46 +105,6 @@ declare namespace mp {
         | "begin-vo-dragging"
         | "context-menu";
 
-    // reserved as it requires template literal
-    // TODO: it can be added to __PropertyInfoUnion but I'm lazy now
-    // maybe only add it only when we decide to get rid of plain es5 support otherwise it's just pointless
-    type __UnhandledWriteablePropertyName =
-        | `chapter-list/${number}/${"title" | "time"}`
-        | `options/${string}`
-        | `file-local-options/${string}`;
-
-    // reserved as it requires template literal
-    // TODO: it can be added to __PropertyInfoUnion but I'm lazy now
-    // maybe add it only when we decide to get rid of plain es5 support otherwise it's just pointless
-    type __UnhandledReadonlyPropertyName =
-        | `edition-list/${number}/${"id" | "default" | "title"}`
-        | `metadata/by-key/${string}`
-        | `metadata/list/${number}/${"key" | "value"}`
-        | `metadata/${string}`
-        | `${"vf" | "af"}-metadata/${string}`
-        | `touch-pos/${number}/${"x" | "y" | "id"}`
-        | `tablet-pos/pad-btns/${number}`
-        | `playlist/${number}/${"filename" | "playing" | "current" | "title" | "id" | "playlist-path"}`
-        | `track-list/${number}/${keyof TrackInfo}`
-        | `vo-passes/${"fresh" | "redraw"}/${number}/${
-            | "desc"
-            | "last"
-            | "avg"
-            | "peak"
-            | "count"
-            | `samples/${number}`}`
-        | `option-info/${string}`
-        | `option-info/${string}/${
-            | "name"
-            | "type"
-            | "set-from-commandline"
-            | "set-locally"
-            | "expects-file"
-            | "default-value"
-            | "min"
-            | "max"
-            | "choices"}`;
-
     /**
      * @see https://mpv.io/manual/stable/#input-command-prefixes
      */
@@ -1568,25 +1528,74 @@ declare namespace mp {
             /**
              * The name of the argument type, like "String" or "Integer".
              */
-            type: // values observed from mp.get_property_native('command-list')
-                | "Time"
-                | "Flags"
-                | "Choice"
-                | "Integer"
-                | "String"
-                | "Flag"
-                | "Key/value list"
-                | "String list"
-                | "ByteSize"
-                | "Double"
-                | "up|down"
-                | "Integer64"
-                | (string & {});
+            type: InternalDataTypeName | (string & {});
             /**
              * Whether the argument is optional.
              */
             optional: boolean;
         }[];
+    }
+
+    // values observed from mp.get_property_native('command-list')
+    type InternalDataTypeName =
+        | "Time"
+        | "Flags"
+        | "Choice"
+        | "Integer"
+        | "String"
+        | "Flag"
+        | "Key/value list"
+        | "String list"
+        | "ByteSize"
+        | "Double"
+        | "up|down"
+        | "Integer64";
+
+    interface OptionInfo<T = unknown> {
+        /**
+         * The name of the option.
+         */
+        name: string;
+        /**
+         * The name of the option type, like String or Integer. For many complex types, this isn't very accurate.
+         */
+        "type": InternalDataTypeName | (string & {});
+        /**
+         * Whether the option was set from the mpv command line.
+         * What this is set to if the option is e.g. changed at runtime is left undefined (meaning it could change in the future).
+         */
+        "set-from-commandline": boolean;
+        /**
+         * Whether the option was set per-file.
+         * This is the case with automatically loaded profiles, file-dir configs, and other cases. It means the option value will be restored to the value before playback start when playback ends.
+         */
+        "set-locally": boolean;
+        /**
+         * Whether the option takes file paths as arguments.
+         */
+        "expects-file": boolean;
+        /**
+         * The default value of the option. May not always be available.
+         */
+        "default-value": T | undefined;
+        /**
+         * Integer minimum allowed for the option.
+         * Only available if the options are numeric, and the minimum/maximum has been set internally.
+         * It's also possible that only one of these is set.
+         */
+        min?: number;
+        /**
+         * Integer maximum allowed for the option.
+         * Only available if the options are numeric, and the minimum/maximum has been set internally.
+         * It's also possible that only one of these is set.
+         */
+        max?: number;
+        /**
+         * If the option is a choice option, the possible choices.
+         * Choices that are integers may or may not be included (they can be implied by min and max).
+         * Note that options which behave like choice options, but are not actual choice options internally, may not have this info available.
+         */
+        choices?: unknown; // TODO: type unconfirmed
     }
 
     interface InputBindingInfo {
@@ -1681,7 +1690,7 @@ declare namespace mp {
         }
         | {
             name: "hwdec";
-            type: boolean;
+            type: "no" | "auto" | (string & {});
             readonly: false;
         }
         | {
@@ -1712,6 +1721,16 @@ declare namespace mp {
         | {
             name: "chapter-list/count";
             type: number;
+            readonly: true;
+        }
+        | {
+            name: `chapter-list/${number}/title`;
+            type: string | undefined;
+            readonly: false;
+        }
+        | {
+            name: `chapter-list/${number}/time`;
+            type: number | undefined;
             readonly: false;
         }
         | {
@@ -1954,6 +1973,21 @@ declare namespace mp {
             readonly: true;
         }
         | {
+            name: `edition-list/${number}/id`;
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: `edition-list/${number}/default`;
+            type: boolean | undefined;
+            readonly: true;
+        }
+        | {
+            name: `edition-list/${number}/title`;
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
             name: "edition-list";
             type: EditionListItem[] | undefined;
             readonly: true;
@@ -1974,6 +2008,26 @@ declare namespace mp {
             readonly: true;
         }
         | {
+            name: `metadata/by-key/${string}`;
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: `metadata/list/${number}/key`;
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: `metadata/list/${number}/value`;
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: `metadata/${string}`;
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
             name: "filtered-metadata";
             type: Record<string, string> | undefined;
             readonly: true;
@@ -1981,6 +2035,16 @@ declare namespace mp {
         | {
             name: "chapter-metadata";
             type: Record<"title" | (string & {}), string> | undefined;
+            readonly: true;
+        }
+        | {
+            name: `vf-metadata/${string}`;
+            type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: `af-metadata/${string}`;
+            type: string | undefined;
             readonly: true;
         }
         | {
@@ -2071,17 +2135,17 @@ declare namespace mp {
         }
         | {
             name: "colormatrix";
-            type: string | undefined;
+            type: VideoParam["colormatrix"] | undefined;
             readonly: true;
         }
         | {
             name: "colormatrix-input-range";
-            type: string | undefined;
+            type: VideoParam["colormatrix"] | undefined;
             readonly: true;
         }
         | {
             name: "colormatrix-primaries";
-            type: string | undefined;
+            type: VideoParam["colormatrix"] | undefined;
             readonly: true;
         }
         | {
@@ -2253,11 +2317,30 @@ declare namespace mp {
             readonly: true;
         }
         | {
+            name: `touch-pos/${number}/x`;
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: `touch-pos/${number}/y`;
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
+            name: `touch-pos/${number}/id`;
+            type: number | undefined;
+            readonly: true;
+        }
+        | {
             name: "tablet-pos";
             type: TabletPosInfo;
             readonly: true;
         }
         | __PropertyInfoFromType<"tablet-pos", TabletPosInfo>
+        | {
+            name: `tablet-pos/pad-btns/${number}`;
+            type: TabletPosInfo["tool-stylus-btn1"];
+        }
         | {
             name: "sub-ass-extradata";
             type: string | undefined;
@@ -2343,6 +2426,7 @@ declare namespace mp {
             type: number;
             readonly: true;
         }
+        | __PropertyInfoFromType<`playlist/${number}`, PlaylistItem, true, false>
         | {
             name: "track-list";
             type: TrackInfo[];
@@ -2353,6 +2437,7 @@ declare namespace mp {
             type: number;
             readonly: true;
         }
+        | __PropertyInfoFromType<`track-list/${number}`, TrackInfo, true, false>
         | {
             name: "current-tracks/video";
             type: TrackInfo | undefined;
@@ -2417,6 +2502,8 @@ declare namespace mp {
             type: { redraw: VOPass[]; fresh: VOPass[] };
             readonly: true;
         }
+        | __PropertyInfoFromType<`vo-passes/fresh/${number}`, VOPass, true, false>
+        | __PropertyInfoFromType<`vo-passes/redraw/${number}`, VOPass, true, false>
         | {
             name: "vo-passes/redraw";
             type: VOPass[];
@@ -2532,6 +2619,22 @@ declare namespace mp {
             type: "windows" | "linux" | "darwin" | "android" | "freebsd" | (string & {});
             readonly: true;
         }
+        | {
+            name: `options/${string}`;
+            type: unknown;
+            readonly: false;
+        }
+        | {
+            name: `file-local-options/${string}`;
+            type: unknown;
+            readonly: false;
+        }
+        | {
+            name: `option-info/${string}`;
+            type: OptionInfo<unknown>;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<`option-info/${string}`, OptionInfo<unknown>, true>
         | {
             name: "property-list";
             type: string[];

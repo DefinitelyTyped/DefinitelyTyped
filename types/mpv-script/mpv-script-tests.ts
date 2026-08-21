@@ -159,7 +159,7 @@ mp.get_property("time-pos");
 mp.get_property("filename");
 // boolean property always presented should return "yes" | "no"
 // $ExpectType "yes" | "no"
-mp.get_property("hwdec");
+mp.get_property("fullscreen");
 // string property always presented should return string
 // $ExpectType string
 mp.get_property("audio-device");
@@ -188,7 +188,7 @@ mp.get_property_osd("time-pos");
 mp.get_property_osd("filename");
 // boolean property always presented should return "yes" | "no"
 // $ExpectType "yes" | "no"
-mp.get_property_osd("hwdec");
+mp.get_property_osd("fullscreen");
 // string property always presented should return string
 // $ExpectType string
 mp.get_property_osd("audio-device");
@@ -205,7 +205,7 @@ mp.get_property_osd("foo", 123);
 mp.get_property_bool("playback-abort", false);
 // boolean property always presented should return boolean
 // $ExpectType boolean
-mp.get_property_bool("hwdec");
+mp.get_property_bool("fullscreen");
 // optional boolean property should return boolean | undefined
 // $ExpectType boolean | undefined
 mp.get_property_bool("ao-mute");
