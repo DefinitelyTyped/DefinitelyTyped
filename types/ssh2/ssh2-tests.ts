@@ -407,6 +407,14 @@ new ssh2.Server({
                 stream.exit(0);
                 stream.end();
             });
+            session.once("pty", (accept, reject, info) => {
+                info.term; // $ExpectType string
+                info.cols; // $ExpectType number
+                info.rows; // $ExpectType number
+                info.width; // $ExpectType number
+                info.height; // $ExpectType number
+                accept?.();
+            });
         });
     }).on("end", () => {
         console.log("Client disconnected");

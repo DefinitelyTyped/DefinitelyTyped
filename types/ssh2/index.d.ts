@@ -1487,6 +1487,8 @@ export interface Session extends ServerChannel {
 }
 
 export interface PseudoTtyInfo {
+    /** The value of the TERM environment variable requested for the pseudo-TTY (defaults to "vt100" if the client did not specify one). */
+    term: string;
     /** The number of columns for the pseudo-TTY. */
     cols: number;
     /** The number of rows for the pseudo-TTY. */
