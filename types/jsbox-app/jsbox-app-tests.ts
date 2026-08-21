@@ -498,7 +498,7 @@ async function testSqlite(context: TestContext): Promise<void> {
             rs.query.toLowerCase();
             rs.isNull(0).valueOf();
             rs.close();
-            err.toLowerCase();
+            err.localizedDescription.toLowerCase();
         },
     );
     sqliteDb.beginTransaction();
@@ -510,10 +510,11 @@ async function testSqlite(context: TestContext): Promise<void> {
     });
     sqliteQueue.transaction((db) => {
         db.update({ sql: "DELETE FROM items WHERE id = ?", args: [1] });
+        return true;
     });
     sqliteQueue.close();
     sqliteUpdateResult.result.valueOf();
-    sqliteUpdateResult.error.toLowerCase();
+    sqliteUpdateResult.error.localizedDescription.toLowerCase();
     sqliteDb.close();
     $sqlite.close(sqliteDb);
 }
@@ -533,8 +534,8 @@ async function testSsh(context: TestContext): Promise<void> {
             session.port.toFixed();
             session.username.toLowerCase();
             session.timeout.toFixed();
-            session.fingerprintHash.toLowerCase();
-            session.banner.toLowerCase();
+            session.fingerprintHash.valueOf();
+            session.banner?.toLowerCase();
             session.remoteBanner.toLowerCase();
             session.connected.valueOf();
             session.authorized.valueOf();
@@ -582,7 +583,18 @@ async function testSsh(context: TestContext): Promise<void> {
                 },
             });
 
-            const sftpConnectPromise: Promise<void> = session.sftp.connect();
+            const executePromise: Promise<SshTypes.ExecuteResult> = session.channel.execute({ script: "ls -la" });
+            const writePromise: Promise<SshTypes.WriteResult> = session.channel.write({ command: "pwd" });
+            const uploadPromise: Promise<boolean> = session.channel.upload({
+                path: "shared/hello.txt",
+                dest: "/tmp/hello.txt",
+            });
+            const downloadPromise: Promise<boolean> = session.channel.download({
+                path: "/tmp/hello.txt",
+                dest: "shared/hello.txt",
+            });
+
+            const sftpConnectPromise: Promise<boolean> = session.sftp.connect();
             session.sftp.bufferSize.toFixed();
             session.sftp.connected.valueOf();
             session.sftp.moveItem({ src: "/tmp/a.txt", dest: "/tmp/b.txt" });
@@ -666,7 +678,53 @@ async function testSsh(context: TestContext): Promise<void> {
                     success.valueOf();
                 },
             });
+            const sftpMovePromise: Promise<boolean> = session.sftp.moveItem({ src: "/tmp/a.txt", dest: "/tmp/b.txt" });
+            const sftpDirectoryExistsPromise: Promise<boolean> = session.sftp.directoryExists({ path: "/tmp" });
+            const sftpCreateDirectoryPromise: Promise<boolean> = session.sftp.createDirectory({ path: "/tmp/jsbox" });
+            const sftpRemoveDirectoryPromise: Promise<boolean> = session.sftp.removeDirectory({ path: "/tmp/jsbox" });
+            const sftpContentsPromise: Promise<SshTypes.SftpFile[]> = session.sftp.contentsOfDirectory({
+                path: "/tmp",
+            });
+            const sftpInfoPromise: Promise<SshTypes.SftpFile> = session.sftp.infoForFile({ path: "/tmp/hello.txt" });
+            const sftpFileExistsPromise: Promise<boolean> = session.sftp.fileExists({ path: "/tmp/hello.txt" });
+            const sftpLinkPromise: Promise<boolean> = session.sftp.createSymbolicLink({
+                path: "/tmp/hello.txt",
+                dest: "/tmp/hello.link",
+            });
+            const sftpRemoveFilePromise: Promise<boolean> = session.sftp.removeFile({ path: "/tmp/hello.txt" });
+            const sftpReadPromise: Promise<NSData> = session.sftp.contents({ path: "/tmp/hello.txt" });
+            const sftpWritePromise: Promise<boolean> = session.sftp.write({
+                file: sampleData,
+                path: "/tmp/hello.txt",
+                progress: (sent) => sent > 0,
+            });
+            const sftpAppendPromise: Promise<boolean> = session.sftp.append({
+                file: sampleData,
+                path: "/tmp/hello.txt",
+            });
+            const sftpCopyPromise: Promise<boolean> = session.sftp.copy({
+                path: "/tmp/hello.txt",
+                dest: "shared/hello.txt",
+                progress: (copied, totalBytes) => copied <= totalBytes,
+            });
+            executePromise;
+            writePromise;
+            uploadPromise;
+            downloadPromise;
             sftpConnectPromise;
+            sftpMovePromise;
+            sftpDirectoryExistsPromise;
+            sftpCreateDirectoryPromise;
+            sftpRemoveDirectoryPromise;
+            sftpContentsPromise;
+            sftpInfoPromise;
+            sftpFileExistsPromise;
+            sftpLinkPromise;
+            sftpRemoveFilePromise;
+            sftpReadPromise;
+            sftpWritePromise;
+            sftpAppendPromise;
+            sftpCopyPromise;
         },
     });
     $ssh.disconnect();
@@ -1085,6 +1143,9 @@ async function testWidget(context: TestContext): Promise<void> {
         mode.toFixed();
     };
     $widget.family = $widgetFamily.medium;
+    const iOS26AccessoryCircularFamily: WidgetTypes.WidgetFamily = 6;
+    const iOS26AccessoryRectangularFamily: WidgetTypes.WidgetFamily = 7;
+    const iOS26AccessoryInlineFamily: WidgetTypes.WidgetFamily = 8;
     const widgetTimeline: WidgetTypes.WidgetOptions = {
         entries: [
             {
@@ -1205,6 +1266,9 @@ async function testWidget(context: TestContext): Promise<void> {
             };
         },
     };
+    iOS26AccessoryCircularFamily.valueOf();
+    iOS26AccessoryRectangularFamily.valueOf();
+    iOS26AccessoryInlineFamily.valueOf();
     $widget.setTimeline(widgetTimeline);
     $widget.setTimeline((ctx) => ({
         type: "text",
@@ -1537,7 +1601,8 @@ async function testFoundationApp(context: TestContext): Promise<void> {
     $app.minSDKVer.toLowerCase();
     $app.minOSVer.toLowerCase();
     $app.isDebugging.valueOf();
-    $app.env.valueOf();
+    const appEnvironment: number = $app.env;
+    appEnvironment.valueOf();
     $app.widgetIndex.valueOf();
     appStrings.en = { HELLO: "Hello" };
 }
@@ -1664,6 +1729,18 @@ async function testFoundationHttp(context: TestContext): Promise<void> {
             }
         },
     });
+    const httpImageFile: HttpTypes.HttpFile = {
+        image: sampleImage,
+        name: "image",
+        filename: "image.png",
+        "content-type": "image/png",
+    };
+    const httpDataFile: HttpTypes.HttpFile = {
+        data: sampleData,
+        name: "file",
+        filename: "hello.txt",
+        "content-type": "text/plain",
+    };
     const httpGetResponse: HttpTypes.HttpResponse = await $http.get("https://example.com");
     const httpPostResponse: HttpTypes.HttpResponse = await $http.post({
         url: "https://example.com/search",
@@ -1679,14 +1756,7 @@ async function testFoundationHttp(context: TestContext): Promise<void> {
     });
     const httpUploadResponse: HttpTypes.HttpResponse = await $http.upload({
         url: "https://example.com/upload",
-        files: [
-            {
-                data: sampleData,
-                name: "file",
-                filename: "hello.txt",
-                "content-type": "text/plain",
-            },
-        ],
+        files: [httpImageFile, httpDataFile],
         showsProgress: true,
         progress: (percentage) => {
             percentage.toFixed();
@@ -2012,6 +2082,11 @@ async function testMediaPhoto(context: TestContext): Promise<void> {
     const pickedPhoto: PhotoTypes.PickResponse<"image", false> = await $photo.pick({ edit: true });
     const pickedPhotoData: PhotoTypes.PickResponse<"data", false> = await $photo.pick({ format: "data" });
     const pickedMultiPhotos: PhotoTypes.PickResponse<"image", true> = await $photo.pick({ multi: true });
+    const pickedMultiPhotoData: PhotoTypes.PickResponse<"data", true> = await $photo.pick({
+        format: "data",
+        multi: true,
+        selectionLimit: 3,
+    });
     $photo.prompt({
         edit: true,
         handler: (resp) => {
@@ -2026,6 +2101,12 @@ async function testMediaPhoto(context: TestContext): Promise<void> {
     const scannedPhotos: PhotoTypes.ScanResponse = await $photo.scan();
     $photo.save({
         data: sampleData,
+        handler: (success) => {
+            success.valueOf();
+        },
+    });
+    $photo.save({
+        image: sampleImage,
         handler: (success) => {
             success.valueOf();
         },
@@ -2048,6 +2129,10 @@ async function testMediaPhoto(context: TestContext): Promise<void> {
     pickedPhoto.image.size.width.toFixed();
     pickedPhotoData.data.byteArray.length.valueOf();
     pickedMultiPhotos.results.length.valueOf();
+    pickedMultiPhotoData.results[0].data.byteArray.length.valueOf();
+    takenPhoto.metadata.PixelWidth?.toFixed();
+    takenPhoto.metadata["{Exif}"]?.DateTimeOriginal?.toLowerCase();
+    takenPhoto.metadata.UIImagePickerControllerMediaType?.toLowerCase();
     scannedPhotos.results.length.valueOf();
     fetchedPhotos.length.valueOf();
     fetchedPhotoData.length.valueOf();

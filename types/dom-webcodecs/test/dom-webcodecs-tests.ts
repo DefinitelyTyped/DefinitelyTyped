@@ -266,6 +266,36 @@ new AudioData({
     sampleRate: 48000,
 });
 
+// AudioDataInit.data is a plain BufferSource, as in the spec and in lib.dom.d.ts, so any
+// ArrayBuffer-backed view is accepted alongside the ArrayBuffer itself.
+// $ExpectType AudioData
+new AudioData({
+    data: new Uint8Array(1024),
+    timestamp: 100,
+    format: "f32",
+    numberOfChannels: 2,
+    numberOfFrames: 1,
+    sampleRate: 48000,
+});
+
+// $ExpectType AudioData
+new AudioData({
+    data: new DataView(audioBuffer),
+    timestamp: 100,
+    format: "f32",
+    numberOfChannels: 2,
+    numberOfFrames: 1,
+    sampleRate: 48000,
+});
+
+// copyTo, unlike AudioDataInit.data, is AllowShared in both the spec and lib.dom.d.ts, so a
+// SharedArrayBuffer-backed destination is accepted here. Keeping the two apart is what stops
+// this file from colliding with the lib.dom.d.ts declarations it merges into.
+declare const sharedDestination: Uint8Array<SharedArrayBuffer>;
+
+// $ExpectType void
+audioFrame.copyTo(sharedDestination, { planeIndex: 0 });
+
 // $ExpectType AudioData
 audioFrame.clone();
 

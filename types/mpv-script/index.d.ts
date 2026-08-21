@@ -493,9 +493,10 @@ declare namespace mp {
     /**
      * NOTE:
      * Commands have their own dedicated arguments as object properties(namely Named Arguments in the doc)
+     * `__return` field is a helper field to represent exceptional return type of the command, it has nothing to do with mpv
      */
     // TODO: change `name` to `_name`
-    type CommandOptsUnion =
+    type __CommandInfoUnion =
         | {
             name: "seek";
             /**
@@ -764,18 +765,22 @@ declare namespace mp {
         | {
             name: "expand-text";
             text: string;
+            __return: string;
         }
         | {
             name: "expand-path";
             text: string;
+            __return: string;
         }
         | {
             name: "normalize-path";
             filename: string;
+            __return: string;
         }
         | {
             name: "escape-ass";
             text: string;
+            __return: string;
         }
         | {
             name: "apply-profile";
@@ -1196,6 +1201,14 @@ declare namespace mp {
     //   1. some commands can only be invoked by array-like overload `command_native(array)` such as `run`
     //   1. some commands can only be invoked by `command_native(opts)` overload(namely named arguments) such as `subprocess`
 
+    type CommandOptsUnion = __CommandInfoUnion extends infer U ? U extends { __return: any } ? Omit<U, "__return">
+        : U
+        : never;
+
+    type GetCommonCommandResult<TOpts extends { name: string }> =
+        Extract<__CommandInfoUnion, { name: TOpts["name"] }> extends { __return: infer R } ? R
+            : null | undefined; // null on success, undefined on error
+
     /**
      * Gets the shape of `subprocess` command result based on whether `capture_stderr` and `capture_stdout` are specified
      */
@@ -1209,7 +1222,7 @@ declare namespace mp {
 
     type GetCommandResult<TOpts extends { name: string }> = TOpts["name"] extends "subprocess"
         ? GetSubprocessResult<TOpts>
-        : null | undefined; // null on success, undefined on error
+        : GetCommonCommandResult<TOpts>;
 
     // TODO: change `name` to `_name` if `_name` is released officially
     /**
@@ -1225,12 +1238,16 @@ declare namespace mp {
     ): null | TDefault; // null if success, TDefault on error
 
     // NOTE: currently when named argument overload has mismatched shape it would fallback to array overload, producing confusing error message
+    // NOTE: editor completion for the first element(command name) is broken, no idea why,
+    // and this won't be fixed as TypeScript6(the last version supporting es5) has been deprecated anyway.
     /**
      * Returns `null` on success, `undefined` on error
      */
-    function command_native(
-        list: [Exclude<CommandName, NamedArgumentsOnlyCommand> | (string & {}), ...unknown[]],
-    ): null | undefined;
+    function command_native<
+        TArgs extends [Exclude<CommandName, NamedArgumentsOnlyCommand>, ...unknown[]],
+    >(
+        list: TArgs,
+    ): GetCommandResult<{ name: TArgs[0] }>;
 
     /**
      * Returns `null` on success, `T` on error

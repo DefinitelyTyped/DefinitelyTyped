@@ -1,4 +1,4 @@
-import { browser, devices } from "k6/browser";
+import { browser, chromium, devices } from "k6/browser";
 
 const url = "http://example.com";
 const selector = "a[href=\"http://example.com\"]";
@@ -120,6 +120,30 @@ async function test() {
 
     // $ExpectType string
     browser.version();
+
+    //
+    // Connect to an existing browser over CDP
+    //
+    // @ts-expect-error
+    chromium.connectOverCDP();
+    // $ExpectType Promise<ConnectedBrowser>
+    chromium.connectOverCDP("ws://localhost:9222/devtools/browser/1234");
+
+    const connectedBrowser = await chromium.connectOverCDP("ws://localhost:9222/devtools/browser/1234");
+
+    // $ExpectType Promise<void>
+    connectedBrowser.close();
+    // $ExpectType Promise<Page>
+    connectedBrowser.newPage();
+    // $ExpectType Promise<BrowserContext>
+    connectedBrowser.newContext({ viewport: { width: 1280, height: 720 } });
+    // $ExpectType boolean
+    connectedBrowser.isConnected();
+    // $ExpectType string
+    connectedBrowser.version();
+
+    // @ts-expect-error
+    browser.close();
 
     //
     // Create a browserContext

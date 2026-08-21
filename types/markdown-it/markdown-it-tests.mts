@@ -4,14 +4,22 @@ import LinkifyIt from "linkify-it";
 import MarkdownIt, { Options, PresetName } from "markdown-it";
 // eslint-disable-next-line no-duplicate-imports
 import MarkdownIt1 from "markdown-it";
+// eslint-disable-next-line no-duplicate-imports
+import type {
+    Delimiter,
+    MarkdownIt as MarkdownIt2,
+    MarkdownItOptions as Options2,
+    MarkdownItPresetName as PresetName2,
+    Renderer,
+    StateBlock,
+    StateCore,
+    StateInline,
+    Token,
+} from "markdown-it";
 import { RuleBlock } from "markdown-it/lib/parser_block.mjs";
 import { RuleCore } from "markdown-it/lib/parser_core.mjs";
 import { RuleInline, RuleInline2 } from "markdown-it/lib/parser_inline.mjs";
-import Renderer from "markdown-it/lib/renderer.mjs";
-import StateBlock from "markdown-it/lib/rules_block/state_block.mjs";
-import StateCore from "markdown-it/lib/rules_core/state_core.mjs";
-import StateInline, { Delimiter, Scanned, TokenMeta } from "markdown-it/lib/rules_inline/state_inline.mjs";
-import Token from "markdown-it/lib/token.mjs";
+import { Scanned, TokenMeta } from "markdown-it/lib/rules_inline/state_inline.mjs";
 
 // stub highlight-js interaction
 declare const hljs: {
@@ -518,4 +526,21 @@ let md: MarkdownIt;
     token.attrSet("href", "https://github.com/markdown-it/markdown-it");
     const href: string | null = token.attrGet("href");
     token.attrJoin("class", "foobar");
+}
+
+{
+    // Minimal compatibility with built-in types in v15
+
+    const options: Options2 = { html: true, linkify: true };
+    const preset: PresetName2 = "default";
+
+    const md2: MarkdownIt2 = new MarkdownIt();
+    const md3: MarkdownIt2 = new MarkdownIt(options);
+    const md4: MarkdownIt2 = new MarkdownIt(preset);
+    const md5: MarkdownIt2 = new MarkdownIt(preset, options);
+
+    md2.render("# Example");
+    md3.renderInline("**Example**");
+    md4.render("[link](https://example.com)");
+    md5.render("---\n\nA paragraph");
 }

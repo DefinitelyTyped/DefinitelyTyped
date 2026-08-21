@@ -31,8 +31,10 @@ interface JBPicker {
         };
         handler: (data: string[]) => void;
     }): void;
-    color(args?: { color: UIColor }): Promise<UIColor>; // The parameter is the default color
-    color(args?: { color: UIColor; handler: (color: UIColor) => void }): void;
+    /** The parameter is the default color */
+    color(args?: { color?: UIColor }): Promise<UIColor>;
+    /** The parameter is the default color */
+    color(args?: { color?: UIColor; handler: (color: UIColor) => void }): void;
 }
 
 declare const $picker: JBPicker;

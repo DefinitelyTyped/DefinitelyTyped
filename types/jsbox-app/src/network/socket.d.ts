@@ -33,7 +33,8 @@ declare namespace SocketTypes {
         close(closeOptions?: CloseOptions): void;
         send(data: string | SendOptions): { result: boolean; error?: NSError };
         ping(data: NSData): { result: boolean; error?: NSError };
-        readyState: number; // 0: connecting, 1: open, 2: closing, 3: closed
+        /** 0: connecting, 1: open, 2: closing, 3: closed */
+        readonly readyState: 0 | 1 | 2 | 3;
     }
 }
 
