@@ -608,6 +608,20 @@ declare module "node:quic" {
      * @since v23.8.0
      */
     function listen(onsession: OnSessionCallback, options?: SessionOptions): Promise<QuicEndpoint>;
+    interface ListEndpointsOptions {
+        /**
+         * If `true` (the default), only returns endpoints that are
+         * active (not destroyed, not closing, and not busy). If `false` returns all
+         * endpoints.
+         */
+        active?: boolean | undefined;
+    }
+    /**
+     * Returns the list of all `QuicEndpoint` instances. By default, only active
+     * endpoints are returned.
+     * @since v26.4.0
+     */
+    function listEndpoints(options?: ListEndpointsOptions): QuicEndpoint[];
     /**
      * The endpoint configuration options passed when constructing a new `QuicEndpoint` instance.
      * @since v23.8.0
