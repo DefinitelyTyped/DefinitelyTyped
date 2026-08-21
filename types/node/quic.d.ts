@@ -635,15 +635,53 @@ declare module "node:quic" {
          */
         maxConnectionsTotal?: number | undefined;
         /**
-         * Specifies the maximum number of QUIC retry attempts allowed per remote peer address.
-         * @since v23.8.0
+         * The maximum number of QUIC retry packets the endpoint will send per second.
+         * This is a global rate limit (not per-host) that caps the total server-wide
+         * retry response rate, preventing spoofed-source floods from consuming unbounded
+         * resources.
+         * @since v26.3.0
          */
-        maxRetries?: bigint | number | undefined;
+        retryRate?: number | undefined;
         /**
-         * Specifies the maximum number of stateless resets that are allowed per remote peer address.
-         * @since v23.8.0
+         * The maximum burst of retry packets allowed before rate limiting takes effect.
+         * @since v26.3.0
          */
-        maxStatelessResetsPerHost?: bigint | number | undefined;
+        retryBurst?: number | undefined;
+        /**
+         * The maximum number of stateless reset packets the endpoint will send per second.
+         * @since v26.3.0
+         */
+        statelessResetRate?: number | undefined;
+        /**
+         * The maximum burst of stateless reset packets allowed before rate limiting
+         * takes effect.
+         * @since v26.3.0
+         */
+        statelessResetBurst?: number | undefined;
+        /**
+         * The maximum number of version negotiation packets the endpoint will send per
+         * second.
+         * @since v26.3.0
+         */
+        versionNegotiationRate?: number | undefined;
+        /**
+         * The maximum number of immediate connection close packets the endpoint will
+         * send per second.
+         * @since v26.3.0
+         */
+        versionNegotiationBurst?: number | undefined;
+        /**
+         * The maximum number of immediate connection close packets the endpoint will
+         * send per second.
+         * @since v26.3.0
+         */
+        immediateCloseRate?: number | undefined;
+        /**
+         * The maximum burst of immediate connection close packets allowed before rate
+         * limiting takes effect.
+         * @since v26.3.0
+         */
+        immediateCloseBurst?: number | undefined;
         /**
          * Specifies the length of time a QUIC retry token is considered valid.
          * @since v23.8.0
@@ -856,25 +894,53 @@ declare module "node:quic" {
              */
             readonly serverBusyCount: bigint;
             /**
-             * The total number of QUIC retry attempts on this endpoint. Read only.
+             * The total number of retry packets sent by this endpoint. Read only.
              * @since v23.8.0
              */
             readonly retryCount: bigint;
             /**
-             * The total number of sessions rejected due to QUIC version mismatch. Read only.
+             * The total number of retry packets dropped by the global rate
+             * limiter. Read only. A non-zero value indicates the endpoint is under retry
+             * flood pressure.
+             * @since v26.3.0
+             */
+            readonly retryRateLimited: bigint;
+            /**
+             * The total number of version negotiation packets sent by this
+             * endpoint. Read only.
              * @since v23.8.0
              */
             readonly versionNegotiationCount: bigint;
             /**
-             * The total number of stateless resets handled by this endpoint. Read only.
+             * The total number of version negotiation packets dropped by
+             * the global rate limiter. Read only.
+             * @since v26.3.0
+             */
+            readonly versionNegotiationRateLimited: bigint;
+            /**
+             * The total number of stateless reset packets sent by this
+             * endpoint. Read only.
              * @since v23.8.0
              */
             readonly statelessResetCount: bigint;
             /**
-             * The total number of sessions that were closed before handshake completed. Read only.
+             * The total number of stateless reset packets dropped by the
+             * global rate limiter. Read only.
+             * @since v26.3.0
+             */
+            readonly statelessResetRateLimited: bigint;
+            /**
+             * The total number of immediate connection close packets sent
+             * by this endpoint. Read only.
              * @since v23.8.0
              */
             readonly immediateCloseCount: bigint;
+            /**
+             * The total number of immediate connection close packets
+             * dropped by the global rate limiter. Read only.
+             * @since v26.3.0
+             */
+            readonly immediateCloseRateLimited: bigint;
         }
     }
     interface CreateStreamOptions {
