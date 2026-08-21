@@ -33,6 +33,7 @@ import * as url from "node:url";
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
     // TODO: add test for all remaining options
     server = http.createServer({
+        httpValidation: "insecure",
         insecureHTTPParser: true,
         keepAlive: true,
         keepAliveInitialDelay: 1000,

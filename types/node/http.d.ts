@@ -175,6 +175,7 @@ declare module "node:http" {
         headers?: OutgoingHttpHeaders | readonly string[] | undefined;
         host?: string | null | undefined;
         hostname?: string | null | undefined;
+        httpValidation?: "strict" | "relaxed" | "insecure" | undefined;
         insecureHTTPParser?: boolean | undefined;
         localAddress?: string | undefined;
         localPort?: number | undefined;
@@ -254,6 +255,21 @@ declare module "node:http" {
          * @since v20.1.0
          */
         highWaterMark?: number | undefined;
+        /**
+         * Controls HTTP header value validation strictness
+         * for incoming requests. Accepted values are:
+         * * `'strict'`: Strictest validation; rejects any non-ASCII or control
+         *   characters in header values.
+         * * `'relaxed'`: Allows a limited set of non-ASCII characters in header
+         *   values, aligning with the
+         *   [Fetch specification](https://fetch.spec.whatwg.org/).
+         * * `'insecure'`: Disables all header value validation (equivalent to
+         *   `insecureHTTPParser: true`).
+         *
+         * Cannot be used together with `insecureHTTPParser`. **Default:** `'strict'`.
+         * @since v26.3.0
+         */
+        httpValidation?: "strict" | "relaxed" | "insecure" | undefined;
         /**
          * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.
