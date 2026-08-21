@@ -381,6 +381,21 @@ declare module "node:quic" {
          */
         datagramDropPolicy?: "drop-oldest" | "drop-newest" | undefined;
         /**
+         * The maximum time in milliseconds that a peer-initiated stream can be idle
+         * (no data received) before it is automatically destroyed. This protects
+         * against slowloris-style attacks where a remote peer opens streams but never
+         * sends data, holding server resources indefinitely. Only peer-initiated
+         * streams are checked — locally-initiated streams are the application's
+         * responsibility. Set to `0` to disable.
+         *
+         * The idle check runs as part of the normal send processing loop, so it adds
+         * no additional timers or event loop overhead. The
+         * `session.stats.streamsIdleTimedOut` counter tracks how many streams have been
+         * destroyed by this mechanism.
+         * @since v26.3.0
+         */
+        streamIdleTimeout?: bigint | number | undefined;
+        /**
          * The maximum number of `SendPendingData` cycles a datagram can survive
          * without being sent before it is abandoned. When a datagram cannot be
          * sent due to congestion control or packet size constraints, it remains
@@ -1556,6 +1571,12 @@ declare module "node:quic" {
              * @since v23.8.0
              */
             readonly datagramsLost: bigint;
+            /**
+             * The total number of peer-initiated streams destroyed by the
+             * stream idle timeout. Read only.
+             * @since v26.3.0
+             */
+            readonly streamsIdleTimedOut: bigint;
         }
     }
     interface QuicErrorOptions {
