@@ -96,7 +96,14 @@ declare class NodeMediaServer {
     run(): void;
     on(eventName: string, listener: (id: string, StreamPath: string, args: object) => void): void;
     stop(): void;
-    getSession(id: string): Map<string, unknown>;
+    /**
+     * Looks up a single session by its id.
+     *
+     * The returned value is one of the internal session objects (`NodeRtmpSession`,
+     * `NodeFlvSession`, `NodeRelaySession`, ...), which this package does not
+     * declare, or `undefined` when no session is registered for `id`.
+     */
+    getSession(id: string): unknown;
 }
 
 export = NodeMediaServer;
