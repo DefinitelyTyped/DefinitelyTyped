@@ -1,15 +1,15 @@
 // eslint-disable-next-line @definitelytyped/no-declare-current-package
-declare module "@novnc/novnc/lib/rfb" {
+declare module "@novnc/novnc" {
     /**
      * An `object` specifying the credentials to provide to the server when authenticating.
      */
     interface NoVncCredentials {
         /** The user that authenticates */
-        username: string;
+        username?: string;
         /** Password for the user */
         password: string;
         /** Target machine or session */
-        target: string;
+        target?: string;
     }
 
     /**
