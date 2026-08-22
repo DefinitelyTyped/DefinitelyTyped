@@ -741,7 +741,7 @@ declare module "node:vm" {
          */
         status: ModuleStatus;
         /**
-         * Evaluate the module and its depenendencies. Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of
+         * Evaluate the module and its dependencies. Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of
          * [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records)s in the ECMAScript specification.
          *
          * If the module is a `vm.SourceTextModule`, `evaluate()` must be called after the module has been instantiated;
