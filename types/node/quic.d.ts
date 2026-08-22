@@ -28,6 +28,10 @@ declare module "node:quic" {
     /**
      * @since v23.8.0
      */
+    type OnApplicationCallback = (this: QuicSession, applicationoptions: SessionApplicationOptions) => void;
+    /**
+     * @since v23.8.0
+     */
     type OnPathValidationCallback = (
         this: QuicSession,
         result: "success" | "failure" | "aborted",
@@ -235,6 +239,7 @@ declare module "node:quic" {
          */
         enableDatagrams?: boolean | undefined;
     }
+    type SessionApplicationOptions = { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
     /**
      * @since v23.8.0
      */
@@ -539,6 +544,7 @@ declare module "node:quic" {
         ongoaway?: QuicSession["ongoaway"] | undefined;
         onkeylog?: QuicSession["onkeylog"] | undefined;
         onqlog?: QuicSession["onqlog"] | undefined;
+        onapplication?: QuicSession["onapplication"] | undefined;
         onheaders?: QuicStream["onheaders"] | undefined;
         ontrailers?: QuicStream["ontrailers"] | undefined;
         oninfo?: QuicStream["oninfo"] | undefined;
@@ -1186,7 +1192,7 @@ declare module "node:quic" {
          * be negotiated separately from the transport parameters. Read only.
          * @since v26.3.0
          */
-        readonly applicationOptions: { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
+        readonly applicationOptions: SessionApplicationOptions;
         /**
          * Initiate a graceful close of the session. Existing streams will be allowed
          * to complete but no new streams will be opened. Once all streams have closed,
@@ -1240,6 +1246,11 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         readonly endpoint: QuicEndpoint | null;
+        /**
+         * The callback to invoke when new application options, e.g. HTTP/3 settings arrived.
+         * @since v26.4
+         */
+        onapplication: OnApplicationCallback | undefined;
         /**
          * An optional callback invoked when the session is destroyed with an error.
          * This includes errors caused by user callbacks that throw or reject (see
