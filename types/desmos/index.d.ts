@@ -1282,7 +1282,7 @@ declare namespace Desmos {
         /**
          * Manually set a description for the graph canvas (which replaces the automatically generated text we create). Set to an empty string to remove the description entirely, or undefined to restore the generated text. See {@link https://www.desmos.com/api/v1.12/docs/index.html#document-accessibility Accessibility Notes}.
          */
-        graphDescription?: boolean;
+        graphDescription?: string;
 
         /**
          * When `true`, tables and distributions will display an icon that allows the user to automatically snap the viewport to appropriate bounds for viewing that expression.
