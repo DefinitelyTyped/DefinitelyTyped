@@ -380,6 +380,10 @@
             "libraryName": "baconjs",
             "asOfVersion": "3.0.0"
         },
+        "bad-words": {
+            "libraryName": "bad-words",
+            "asOfVersion": "4.0.0"
+        },
         "badgen": {
             "libraryName": "badgen",
             "asOfVersion": "2.7.1"
