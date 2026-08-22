@@ -1749,6 +1749,10 @@
             "libraryName": "dot-prop",
             "asOfVersion": "5.0.0"
         },
+        "dot-prop-immutable": {
+            "libraryName": "dot-prop-immutable",
+            "asOfVersion": "2.0.0"
+        },
         "dotenv": {
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
