@@ -121,7 +121,7 @@ client.add(magnetURI, (torrent: Torrent) => {
     client.remove(torrent, { destroyStore: true });
 });
 
-client.remove(magnetURI).then(() => {});
+client.remove(magnetURI).then(() => { });
 
 client.get(magnetURI).then(torrent => {
     console.log(torrent?.infoHash);
@@ -139,8 +139,8 @@ client.add(magnetURI, (torrent: Torrent) => {
 
 // node server
 const nodeServer: NodeServer = client.createServer({ hostname: "localhost" }, "node");
-nodeServer.server.listen(0);
-nodeServer.listen(1234);
+nodeServer.server.listen(0, () => { });
+nodeServer.listen(1234, () => { });
 nodeServer.address();
 nodeServer.close();
 nodeServer.destroy();

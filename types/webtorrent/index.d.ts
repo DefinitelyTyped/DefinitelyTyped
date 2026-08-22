@@ -67,7 +67,7 @@ export interface BrowserServer extends ServerBase {
     registration: ServiceWorkerRegistration;
     workerKeepAliveInterval: ReturnType<typeof setInterval> | null;
     workerPortCount: number;
-    listen(_: unknown, cb?: () => void): void;
+    listen(_: unknown, cb: () => void): void;
     address(): ServerAddress;
 }
 
