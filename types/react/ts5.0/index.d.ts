@@ -3058,6 +3058,8 @@ declare namespace React {
     }
 
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
+        commandFor?: string | undefined;
+        command?: string | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?:
