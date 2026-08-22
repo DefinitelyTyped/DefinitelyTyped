@@ -18,6 +18,11 @@ new jsVectorMap({});
 new jsVectorMap({ selector: "#map", notAnOption: true });
 // @ts-expect-error
 new jsVectorMap({ selector: 1 });
+// The selection options only accept arrays.
+// @ts-expect-error
+new jsVectorMap({ selector: "#map", selectedRegions: "US" });
+// @ts-expect-error
+new jsVectorMap({ selector: "#map", selectedMarkers: "0" });
 
 const map = new jsVectorMap({
     selector: "#map",
@@ -40,7 +45,7 @@ const map = new jsVectorMap({
     markersSelectable: true,
     markersSelectableOne: false,
     selectedRegions: ["US", "FR"],
-    selectedMarkers: ["0"],
+    selectedMarkers: [0, "1"],
     regionStyle: {
         initial: { fill: "#d1d5db", fillOpacity: 1, stroke: "none" },
         hover: { fillOpacity: 0.7, cursor: "pointer" },
@@ -175,7 +180,6 @@ map.setSelectedRegions(1);
 // Markers
 
 map.getSelectedMarkers(); // $ExpectType string[]
-map.setSelectedMarkers("0"); // $ExpectType void
 map.setSelectedMarkers(["0", "1"]); // $ExpectType void
 map.setSelectedMarkers([0, "1"]); // $ExpectType void
 map.clearSelectedMarkers(); // $ExpectType void
@@ -190,6 +194,9 @@ map.addMarkers([
 ]);
 map.removeMarkers(); // $ExpectType void
 map.removeMarkers([0, "1"]); // $ExpectType void
+// A bare index key is not accepted, only an array of them.
+// @ts-expect-error
+map.setSelectedMarkers("0");
 // @ts-expect-error
 map.addMarkers({ name: "Cairo" });
 // @ts-expect-error
@@ -237,15 +244,28 @@ circle.isSelected; // $ExpectType boolean
 circle.setStyle("fill", "#00f"); // $ExpectType void
 circle.setStyle({ fill: "#00f", strokeWidth: 2 }); // $ExpectType void
 circle.updateStyle(); // $ExpectType void
+circle.addClass("jvm-marker"); // $ExpectType void
+circle.set("fill", "#0f0"); // $ExpectType void
+circle.set({ fill: "#0f0", r: 8 }); // $ExpectType void
+circle.get("fill"); // $ExpectType StyleValue
+circle.applyAttr("fill", "#0f0"); // $ExpectType void
 circle.getBBox(); // $ExpectType DOMRect
 circle.remove(); // $ExpectType void
 
 map.canvas.createPath({ d: "M0,0L10,10Z" }); // $ExpectType SVGShapeElement
-map.canvas.createText({ x: 0, y: 0 }); // $ExpectType SVGTextElement
+map.canvas.createLine({ x1: 0, y1: 0, x2: 10, y2: 10 }); // $ExpectType SVGShapeElement
 map.canvas.createImage({ x: 0, y: 0 }); // $ExpectType SVGImageElement
 map.canvas.setSize(600, 400); // $ExpectType void
 map.canvas.applyTransformParams(2, 10, 10); // $ExpectType void
 map.canvas.node; // $ExpectType SVGSVGElement
+
+// `SVGTextElement` is an alias of `SVGShapeElement`.
+const text: jsVectorMap.SVGTextElement = map.canvas.createText({ x: 0, y: 0, text: "Cairo" });
+text.setStyle("fontSize", 12); // $ExpectType void
+
+const image = map.canvas.createImage({ x: 0, y: 0 }, { initial: { image: "/pin.png" } });
+image.offset; // $ExpectType Offset | undefined
+image.width; // $ExpectType number | undefined
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Series, legends & data visualization
@@ -283,12 +303,12 @@ seriesMap.legendHorizontal; // $ExpectType HTMLElement | null | undefined
 seriesMap.legendVertical; // $ExpectType HTMLElement | null | undefined
 seriesMap.dataVisualization?.getValue(50); // $ExpectType string | undefined
 seriesMap.dataVisualization?.hexToRgb("#0071a4"); // $ExpectType [number, number, number] | undefined
+seriesMap.dataVisualization?.min; // $ExpectType number | undefined
+seriesMap.dataVisualization?.visualize(); // $ExpectType void | undefined
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Statics
 
-jsVectorMap.maps["world"]; // $ExpectType MapData
-jsVectorMap.defaults.zoomMax; // $ExpectType number | undefined
 // $ExpectType void
 jsVectorMap.addMap("egypt", {
     width: 900,
@@ -320,6 +340,30 @@ map.addMarkers(markers);
 map.addLine("Cairo", "Cairo", lineStyle);
 map.setFocus(focus);
 projection.type; // $ExpectType ProjectionType
+
+// The components are structural interfaces: they can be referenced as types,
+// but the library does not expose their constructors.
+declare const region: jsVectorMap.Region;
+region.shape.isSelected; // $ExpectType boolean
+region.labelX; // $ExpectType number | undefined
+region.getLabelText("US"); // $ExpectType string | undefined
+region.getLabelOffsets("US"); // $ExpectType Offset
+region.hover(true); // $ExpectType void
+region.dispose(); // $ExpectType void
+
+declare const entry: jsVectorMap.MarkerEntry;
+entry._uid; // $ExpectType string
+entry.element.getConfig(); // $ExpectType MarkerConfig
+entry.element.updateLabelPosition(); // $ExpectType void
+
+declare const line: jsVectorMap.Line;
+line.getConfig(); // $ExpectType LineConfig
+line.setStyle({ stroke: "#000" }); // $ExpectType void
+line.setStyle("stroke", "#000"); // $ExpectType void
+
+declare const scale: jsVectorMap.OrdinalScale;
+scale.getValue("50"); // $ExpectType string | ImageStyle
+scale.getTicks(); // $ExpectType { label: string; value: string | ImageStyle; }[]
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Teardown
