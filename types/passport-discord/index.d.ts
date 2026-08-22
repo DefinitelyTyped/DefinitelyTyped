@@ -5,7 +5,7 @@ import oauth2 = require("passport-oauth2");
 
 import discord = Strategy;
 
-declare class Strategy extends oauth2.Strategy {
+declare class Strategy {
     constructor(
         options: discord.StrategyOptions,
         verify: (
@@ -52,6 +52,10 @@ declare class Strategy extends oauth2.Strategy {
     );
     checkScope(scope: string, accessToken: string, cb: (err?: Error | null, value?: any) => void): void;
 }
+
+// Merge the base instance members without inheriting its constructor overloads.
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface Strategy extends oauth2.Strategy {}
 
 declare namespace Strategy {
     // NOTE: not true for `export import` statements
