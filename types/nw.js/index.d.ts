@@ -20,6 +20,20 @@ declare global {
             set(data: string, type?: string, raw?: boolean): void;
 
             /**
+             * Write `clipboardData` to the clipboard.
+             *
+             * @param clipboardData {NWJS_Helpers.ClipboardData} JSON object containing `data`, `type` and `raw` to be written to clipboard.
+             */
+            set(clipboardData: ClipboardData): void;
+
+            /**
+             * Write multiple types of data to clipboard simultaneously.
+             *
+             * @param clipboardDataList {NWJS_Helpers.ClipboardData[]} Array of `clipboardData` to be written to clipboard.
+             */
+            set(clipboardDataList: ClipboardData[]): void;
+
+            /**
              * Get the data of `type` from clipboard.
              *
              * @param type {string} (Optional) the type of the data. Support text, png, jpeg, html and rtf. By default, type is set to "text".
@@ -27,6 +41,22 @@ declare global {
              * @returns {string} the data retrieved from the clipboard.
              */
             get(type?: string, raw?: boolean): string;
+
+            /**
+             * Get the data described by `clipboardData` from clipboard.
+             *
+             * @param clipboardData {NWJS_Helpers.ClipboardReadOptions} JSON object containing `type` and `raw` argument for reading data from clipboard.
+             * @returns {string} the data retrieved from the clipboard.
+             */
+            get(clipboardData: ClipboardReadOptions): string;
+
+            /**
+             * Get multiple types of data from clipboard simultaneously.
+             *
+             * @param clipboardDataList {NWJS_Helpers.ClipboardReadOptions[]} Array of `clipboardData` for reading data from clipboard.
+             * @returns {NWJS_Helpers.ClipboardDataResult[]} array of `clipboardData` retrieved from the clipboard. Each item contains `type`, `data` and `raw` (optional) attributes.
+             */
+            get(clipboardDataList: ClipboardReadOptions[]): ClipboardDataResult[];
 
             /**
              * Get an array contains list of available types of data in clipboard currenly.
@@ -40,6 +70,61 @@ declare global {
              * Clear the clipboard.
              */
             clear(): void;
+        }
+
+        /**
+         * JSON object containing `data`, `type` and `raw` to be written to the clipboard via `clip.set()`.
+         */
+        interface ClipboardData {
+            /**
+             * The data to write to the clipboard.
+             */
+            data: string;
+
+            /**
+             * (Optional) the type of the data. Support text, png, jpeg, html and rtf. By default, type is set to "text".
+             */
+            type?: string | undefined;
+
+            /**
+             * (Optional) requiring raw image data. This option is only valid if type is png or jpeg. By default, raw is set to false.
+             */
+            raw?: boolean | undefined;
+        }
+
+        /**
+         * JSON object containing `type` and `raw` argument for reading data from the clipboard via `clip.get()`.
+         */
+        interface ClipboardReadOptions {
+            /**
+             * (Optional) the type of the data. Support text, png, jpeg, html and rtf. By default, type is set to "text".
+             */
+            type?: string | undefined;
+
+            /**
+             * (Optional) requiring raw image data. This option is only valid if type is png or jpeg.
+             */
+            raw?: boolean | undefined;
+        }
+
+        /**
+         * An item returned by `clip.get(clipboardDataList)`.
+         */
+        interface ClipboardDataResult {
+            /**
+             * The type of the data.
+             */
+            type: string;
+
+            /**
+             * The data retrieved from the clipboard.
+             */
+            data: string;
+
+            /**
+             * (Optional) Whether the image data is raw. Only present if type is png or jpeg.
+             */
+            raw?: boolean | undefined;
         }
 
         /**
@@ -175,7 +260,10 @@ declare global {
              * @param should_include_screens {boolean} Whether should include screens
              * @param should_include_windows {boolean} Whether should include windows
              */
-            start(should_include_screens: boolean, should_include_windows: boolean): void;
+            start(
+                should_include_screens: boolean,
+                should_include_windows: boolean,
+            ): void;
 
             /**
              * The DesktopCaptureMonitor will stop monitoring the system.
@@ -204,7 +292,13 @@ declare global {
              */
             on(
                 event: "added",
-                listener: (id: string, name: string, order: number, type: string, primary: boolean) => any,
+                listener: (
+                    id: string,
+                    name: string,
+                    order: number,
+                    type: string,
+                    primary: boolean,
+                ) => any,
             ): this;
 
             /**
@@ -225,7 +319,10 @@ declare global {
              * - (optional) new_order {number} Is the new z-order.
              * - (optional) old_order {number} Is the old z-order.
              */
-            on(event: "orderchanged", listener: (id?: string, new_order?: number, old_order?: number) => any): this;
+            on(
+                event: "orderchanged",
+                listener: (id?: string, new_order?: number, old_order?: number) => any,
+            ): this;
 
             /**
              * Emit when the name of the source has changed. This can happen when a window changes title.
@@ -235,7 +332,10 @@ declare global {
              * - (optional) id {string} Is the media id of the screen or window that has a name changed.
              * - (optional) name {string} Is the new name of the screen or window.
              */
-            on(event: "namechanged", listener: (id?: string, name?: string) => any): this;
+            on(
+                event: "namechanged",
+                listener: (id?: string, name?: string) => any,
+            ): this;
 
             /**
              * Emit when the thumbnail of a source changed.
@@ -245,7 +345,10 @@ declare global {
              * - (optional) id {string} Is the media id of the screen or window that has an updated thumbnail.
              * - (optional) name {string} Is the base64 encoded png of the thumbnail.
              */
-            on(event: "thumbnailchanged", listener: (id?: string, thumbnail?: string) => any): this;
+            on(
+                event: "thumbnailchanged",
+                listener: (id?: string, thumbnail?: string) => any,
+            ): this;
         }
 
         /**
@@ -255,14 +358,14 @@ declare global {
             /**
              * {Function} (Optional) A callback when the hotkey is triggered.
              */
-            active: Function;
+            active?: Function | undefined;
 
             /**
              * {Function} (Optional) A callback when failed to register the hotkey.
              *
              * @param msg {string} Failure message
              */
-            failed: (msg?: string) => any;
+            failed?: ((msg?: string) => any) | undefined;
 
             /**
              * {string} Key combinations of the shortcut, such as "ctrl+shift+a".
@@ -310,35 +413,101 @@ declare global {
          */
         interface PrintOption {
             /**
-             * The device name of the printer
+             * (Optional) Whether to print without the need for user's interaction. True by default.
              */
-            printer: string;
+            autoprint?: boolean | undefined;
 
             /**
-             * The path of the output PDF when printing to PDF
+             * (Optional) Hide the flashing print preview dialog. False by default.
              */
-            pdf_path: string;
+            silent?: boolean | undefined;
 
             /**
-             * Whether to enable header and footer
+             * (Optional) The device name of the printer returned by `nw.Window.getPrinters()`. No need to set this when printing to PDF.
              */
-            headerFooterEnabled: boolean;
+            printer?: string | undefined;
 
             /**
-             * Whether to use landscape or portrait
+             * (Optional) The path of the output PDF when printing to PDF
              */
-            landscape: boolean;
+            pdf_path?: string | undefined;
 
             /**
-             * The paper size spec
+             * (Optional) Whether to enable header and footer
+             */
+            headerFooterEnabled?: boolean | undefined;
+
+            /**
+             * (Optional) Whether to use landscape or portrait
+             */
+            landscape?: boolean | undefined;
+
+            /**
+             * (Optional) The paper size spec
              * example: 'mediaSize':{'name': 'CUSTOM', 'width_microns': 279400, 'height_microns': 215900, 'custom_display_name':'Letter', 'is_default': true}
              */
-            mediaSize: any;
+            mediaSize?: any;
 
             /**
-             * Whether to print CSS backgrounds
+             * (Optional) Whether to print CSS backgrounds
              */
-            shouldPrintBackgrounds: boolean;
+            shouldPrintBackgrounds?: boolean | undefined;
+
+            /**
+             * (Optional) 0 - Default; 1 - No margins; 2 - minimum; 3 - Custom, see `marginsCustom`.
+             */
+            marginsType?: number | undefined;
+
+            /**
+             * (Optional) The custom margin setting; units are points.
+             * example: "marginsCustom":{"marginBottom":54,"marginLeft":70,"marginRight":28,"marginTop":32}
+             */
+            marginsCustom?: PrintMarginsCustom | undefined;
+
+            /**
+             * (Optional) The number of copies to print.
+             */
+            copies?: number | undefined;
+
+            /**
+             * (Optional) The scale factor; 100 is the default.
+             */
+            scaleFactor?: number | undefined;
+
+            /**
+             * (Optional) String to replace the URL in the header.
+             */
+            headerString?: string | undefined;
+
+            /**
+             * (Optional) String to replace the URL in the footer.
+             */
+            footerString?: string | undefined;
+        }
+
+        /**
+         * The custom margin setting used by `PrintOption.marginsCustom`. Units are points.
+         */
+        interface PrintMarginsCustom {
+            /**
+             * (Optional) The bottom margin, in points.
+             */
+            marginBottom?: number | undefined;
+
+            /**
+             * (Optional) The left margin, in points.
+             */
+            marginLeft?: number | undefined;
+
+            /**
+             * (Optional) The right margin, in points.
+             */
+            marginRight?: number | undefined;
+
+            /**
+             * (Optional) The top margin, in points.
+             */
+            marginTop?: number | undefined;
         }
 
         /**
@@ -357,6 +526,61 @@ declare global {
         }
 
         /**
+         * Options for nw.Window.get().captureScreenshot().
+         */
+        interface CaptureScreenshotOptions {
+            /**
+             * (Optional) Capture the whole page beyond the visible area. Currently the height of captured image is capped at 16384 pixels by Chromium.
+             */
+            fullSize?: boolean | undefined;
+
+            /**
+             * (Optional) The image format used to generate the image. It supports two formats: "png" and "jpeg". "png" is the default.
+             */
+            format?: string | undefined;
+
+            /**
+             * (Optional) Compression quality from range [0..100] (jpeg only).
+             */
+            quality?: number | undefined;
+
+            /**
+             * (Optional) Capture the screenshot of a given region only.
+             */
+            clip?: CaptureScreenshotClip | undefined;
+        }
+
+        /**
+         * Region to capture, used by `CaptureScreenshotOptions.clip`.
+         */
+        interface CaptureScreenshotClip {
+            /**
+             * X offset in device independent pixels (dip).
+             */
+            x: number;
+
+            /**
+             * Y offset in device independent pixels (dip).
+             */
+            y: number;
+
+            /**
+             * Rectangle width in device independent pixels (dip).
+             */
+            width: number;
+
+            /**
+             * Rectangle height in device independent pixels (dip).
+             */
+            height: number;
+
+            /**
+             * Page scale factor.
+             */
+            scale: number;
+        }
+
+        /**
          * This includes multiple functions to manipulate the cookies.
          */
         interface Cookies {
@@ -367,7 +591,10 @@ declare global {
              * @param callback {function(cookie?)} The callback when cookie retrieved.
              * - (Optional) cookie {Cookie} Contains details about the cookie. This parameter is null if no such cookie was found.
              */
-            get(details: CookiesGetDetails, callback: (cookie?: Cookie) => void): void;
+            get(
+                details: CookiesGetDetails,
+                callback: (cookie?: Cookie) => void,
+            ): void;
 
             /**
              * Retrieves all cookies from a single cookie store that match the given information.
@@ -376,7 +603,10 @@ declare global {
              * @param callback {function(cookies?)} The callback when cookies retrieved.
              * - (Optional) cookies {Cookie[]} All the existing, unexpired cookies that match the given cookie info.
              */
-            getAll(details: CookiesGetAllDetails, callback: (cookies?: Cookie[]) => void): void;
+            getAll(
+                details: CookiesGetAllDetails,
+                callback: (cookies?: Cookie[]) => void,
+            ): void;
 
             /**
              * Sets a cookie with the given cookie data; may overwrite equivalent cookies if they exist.
@@ -385,7 +615,10 @@ declare global {
              * @param callback {function(cookie?)} The callback when cookie has been set.
              * - (Optional) cookie {Cookie} Contains details about the cookie that's been set. If setting failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
              */
-            set(details: CookiesSetDetails, callback: (cookie?: Cookie) => void): void;
+            set(
+                details: CookiesSetDetails,
+                callback: (cookie?: Cookie) => void,
+            ): void;
 
             /**
              * Deletes a cookie by name.
@@ -394,7 +627,10 @@ declare global {
              * @param callback {function(cookie?)} The callback when cookie has been set.
              * - (Optional) details {Objet} Contains details about the cookie that's been removed. If removal failed for any reason, this will be "null", and "chrome.runtime.lastError" will be set.
              */
-            remove(details: CookiesRemoveDetails, callback: (details?: CookiesRemovedDetails) => void): void;
+            remove(
+                details: CookiesRemoveDetails,
+                callback: (details?: CookiesRemovedDetails) => void,
+            ): void;
 
             /**
              * Fired when a cookie is set or removed.
@@ -406,7 +642,18 @@ declare global {
                  * @param callback {function(changeInfo?)} The callback when cookie has been changed.
                  * - (Optional) changeInfo {Objet} Contains details about the cookie that's been changed.
                  */
-                addListener(callback: (changeInfo: CookiesOnChangedCallbackChangeInfo) => void): void;
+                addListener(
+                    callback: (changeInfo: CookiesOnChangedCallbackChangeInfo) => void,
+                ): void;
+
+                /**
+                 * Remove a listener for onChanged event.
+                 *
+                 * @param callback {function(changeInfo?)} The callback to remove.
+                 */
+                removeListener(
+                    callback: (changeInfo: CookiesOnChangedCallbackChangeInfo) => void,
+                ): void;
             };
         }
 
@@ -642,7 +889,13 @@ declare global {
             /**
              * The underlying reason behind the cookie's change.
              */
-            cause: string | "evicted" | "expired" | "explicit" | "expired_overwrite" | "overwrite";
+            cause:
+            | string
+            | "evicted"
+            | "expired"
+            | "explicit"
+            | "expired_overwrite"
+            | "overwrite";
         }
 
         /**
@@ -682,6 +935,139 @@ declare global {
             setNewWindowManifest(m: WindowOption): void;
         }
 
+        /* Manifest Format: http://docs.nwjs.io/en/latest/References/Manifest%20Format/ */
+        /**
+         * The `package.json` manifest of an NW.js app, as returned by `nw.App.manifest`.
+         * Only the fields NW.js reads are typed here; a manifest may carry arbitrary
+         * additional `package.json` fields NW.js ignores.
+         */
+        interface Manifest {
+            /**
+             * Which HTML page should be opened or which JavaScript file should be executed when NW.js starts.
+             */
+            main: string;
+
+            /**
+             * The name of the package. Must be a unique, lowercase alpha-numeric name without spaces (may include `.`, `_` or `-`).
+             */
+            name: string;
+
+            /**
+             * (Optional) Use it to rename the Helper application under macOS.
+             */
+            product_string?: string | undefined;
+
+            /**
+             * (Optional) Set to `false` to disable Node support in NW.js.
+             */
+            nodejs?: boolean | undefined;
+
+            /**
+             * (Optional) Path to a Node.js script file, executed on startup in Node context before the first DOM window loads.
+             */
+            "node-main"?: string | undefined;
+
+            /**
+             * (Optional) The host in the `chrome-extension://` protocol URL used for the application.
+             */
+            domain?: string | undefined;
+
+            /**
+             * (Optional) Whether to start up a single instance of the app. `true` by default.
+             *
+             * @deprecated since version 0.13.0
+             */
+            "single-instance"?: boolean | undefined;
+
+            /**
+             * (Optional) Background script, executed in the background page at app start.
+             */
+            "bg-script"?: string | undefined;
+
+            /**
+             * (Optional) Controls how the window looks. See `WindowOption`.
+             */
+            window?: WindowOption | undefined;
+
+            /**
+             * (Optional) Controls what features of WebKit should be on/off.
+             */
+            webkit?: WebkitOption | undefined;
+
+            /**
+             * (Optional) Overrides the `User-Agent` header in HTTP requests made from the application.
+             * Supports `%name`, `%ver`, `%nwver`, `%webkit_ver`, `%chromium_ver` and `%osinfo` placeholders.
+             */
+            "user-agent"?: string | undefined;
+
+            /**
+             * (Optional) Enables calling Node in remote pages. Value(s) follow Chrome extension match patterns.
+             */
+            "node-remote"?: string | string[] | undefined;
+
+            /**
+             * (Optional) Chromium (content shell) command line arguments.
+             */
+            "chromium-args"?: string | undefined;
+
+            /**
+             * (Optional) URL of the crash report server.
+             */
+            crash_report_url?: string | undefined;
+
+            /**
+             * (Optional) Flags passed to the JS engine (v8).
+             */
+            "js-flags"?: string | undefined;
+
+            /**
+             * (Optional) Local filename, relative to the application path, of a script injected after CSS but before other DOM/script.
+             */
+            inject_js_start?: string | undefined;
+
+            /**
+             * (Optional) Local filename, relative to the application path, of a script injected after the document loads, before `onload`.
+             */
+            inject_js_end?: string | undefined;
+
+            /**
+             * (Optional) List of PEM-encoded certificates used as additional root certificates for validation.
+             */
+            additional_trust_anchors?: string[] | undefined;
+
+            /**
+             * (Optional) Number of megabytes for the quota of the DOM storage.
+             */
+            dom_storage_quota?: number | undefined;
+
+            /**
+             * (Optional, Mac) Whether the default `Edit` menu should be disabled. `false` by default.
+             *
+             * @deprecated since version 0.13.0
+             */
+            "no-edit-menu"?: boolean | undefined;
+
+            /**
+             * NW.js only reads the fields above; any other `package.json` field (e.g. `dependencies`, `scripts`) is preserved as-is.
+             */
+            [key: string]: any;
+        }
+
+        /**
+         * `webkit` manifest subfield, controls what features of WebKit should be on/off.
+         */
+        interface WebkitOption {
+            /**
+             * (Optional, Mac) Enable zooming with double tapping using 2 fingers. `false` by default.
+             */
+            double_tap_to_zoom_enabled?: boolean | undefined;
+
+            /**
+             * (Optional) Whether to load external browser plugins like Flash. `true` by default.
+             */
+            plugin?: boolean | undefined;
+        }
+
         /**
          * nw.Window Option that is in the same format as the Window subfields in manifest format.
          */
@@ -690,6 +1076,13 @@ declare global {
              * The id used to identify the window.
              */
             id?: string | undefined;
+
+            /**
+             * (Optional) Whether the navigation toolbar should be shown.
+             *
+             * @deprecated since version 0.13.0
+             */
+            toolbar?: boolean | undefined;
 
             /**
              * The default title of window created by NW.js
@@ -794,6 +1187,11 @@ declare global {
             new_instance?: boolean | undefined;
 
             /**
+             * (Optional) If true, the Node context and DOM context are merged in the new window's process. Use only when `new_instance` is true.
+             */
+            mixed_context?: boolean | undefined;
+
+            /**
              * (Optional) The script to be injected before document loaded.
              */
             inject_js_start?: string | undefined;
@@ -856,6 +1254,11 @@ declare global {
             menu: nw.Menu;
 
             /**
+             * Get whether the window is always on top of other windows.
+             */
+            isAlwaysOnTop: boolean;
+
+            /**
              * Get whether we're in fullscreen mode.
              */
             isFullscreen: boolean;
@@ -903,6 +1306,20 @@ declare global {
              * @param height {Integer} The height of the window
              */
             resizeTo(width: number, height: number): void;
+
+            /**
+             * Sets the inner width of the window.
+             *
+             * @param width {Integer} The inner width of the window
+             */
+            setInnerWidth(width: number): void;
+
+            /**
+             * Sets the inner height of the window.
+             *
+             * @param height {Integer} The inner height of the window
+             */
+            setInnerHeight(height: number): void;
 
             /**
              * Resizes a window by the specified amount.
@@ -962,6 +1379,13 @@ declare global {
             maximize(): void;
 
             /**
+             * Unmaximize the window, i.e. the reverse of `maximize()`.
+             *
+             * @deprecated since version 0.13. Replaced by the `restore` event.
+             */
+            unmaximize(): void;
+
+            /**
              * Minimize the window to task bar on Windows, iconify the window on GTK, and miniaturize the window on Mac OS X.
              */
             minimize(): void;
@@ -1002,13 +1426,31 @@ declare global {
             toggleKioskMode(): void;
 
             /**
+             * Turn on/off the transparency support.
+             *
+             * @deprecated since version 0.13.
+             * @param transparent {boolean} Whether to set the window to be transparent
+             */
+            setTransparent(transparent: boolean): void;
+
+            /**
+             * Turn the window's native shadow on/off. Useful for frameless, transparent windows. (Mac)
+             *
+             * @param shadow {boolean} Whether the window has a shadow
+             */
+            setShadow(shadow: boolean): void;
+
+            /**
              * Open the devtools to inspect the window.
              *
              * @param iframe {Integer} (Optional) the id or the element of the <iframe> to be jailed on. By default, the DevTools is shown for entire window.
              * @param callback {function(dev_win?)} callback with the native window of the DevTools window.
              * - (optional) dev_win {window} Window object that you can use any properties and methods of Window except the events
              */
-            showDevTools(iframe?: string | HTMLIFrameElement, callback?: (dev_win?: Window) => void): void;
+            showDevTools(
+                iframe?: string | HTMLIFrameElement,
+                callback?: (dev_win?: Window) => void,
+            ): void;
 
             /**
              * Close the devtools window.
@@ -1107,7 +1549,27 @@ declare global {
              * - (optional) arg {base64string|Buffer} Captured page data.
              * @param config {string|CapturePageConfig} (Optional) Conig how captured page returned.
              */
-            capturePage(callback: (arg: string | Object) => void, config?: string | CapturePageConfig): void;
+            capturePage(
+                callback: (arg: string | Object) => void,
+                config?: string | CapturePageConfig,
+            ): void;
+
+            /**
+             * Captures the window. It can be used to capture the full page beyond the visible area. To capture only the
+             * visible area, see `win.capturePage`. When `callback` is omitted, a Promise is returned and it will resolve
+             * with the `data` argument of the callback.
+             *
+             * @param options {CaptureScreenshotOptions} Options for the screenshot.
+             * @param callback {function(err, data)} (Optional) The callback when finished capturing the window.
+             * - err {string | null} `null` for success; a string with the error message for failure.
+             * - data {string} base64 encoded image
+             * @returns {Promise<string> | void} A promise resolving with the base64 encoded image, if `callback` is omitted.
+             */
+            captureScreenshot(
+                options: CaptureScreenshotOptions,
+                callback: (err: string | null, data: string) => void,
+            ): void;
+            captureScreenshot(options: CaptureScreenshotOptions): Promise<string>;
 
             /**
              * Show window progress bar.
@@ -1135,9 +1597,26 @@ declare global {
              * Load and execute the compiled snapshot in the frame.
              *
              * @param frame {HTMLIFrameElement} The frame to execute in. If iframe is null, it assumes in current window / frame.
-             * @param path {string} the path of the snapshot file generated by nwjc
+             * @param path {string | ArrayBuffer | Buffer} the path or Buffer or ArrayBuffer of the binary file generated by nwjc
              */
-            evalNWBin(frame: HTMLIFrameElement, path: string): void;
+            evalNWBin(
+                frame: HTMLIFrameElement,
+                path: string | ArrayBuffer | Buffer,
+            ): void;
+
+            /**
+             * Load and execute the compiled binary for Modules in the frame. The binary should be compiled with `nwjc --nw-module`.
+             * The module must be registered with `evalNWBinModule` before it is imported.
+             *
+             * @param frame {HTMLIFrameElement} The frame to execute in. If iframe is null, it assumes in current window / frame.
+             * @param path {string | ArrayBuffer | Buffer} the path or Buffer or ArrayBuffer of the binary file generated by nwjc
+             * @param module_path {string} the module URL related to the current document. It will be used to resolve the module specifier.
+             */
+            evalNWBinModule(
+                frame: HTMLIFrameElement,
+                path: string | ArrayBuffer | Buffer,
+                module_path: string,
+            ): void;
 
             on(event: string, listener: Function): this;
 
@@ -1181,7 +1660,10 @@ declare global {
              * @param listener {function(byCommandQ?)} The callback that handles the `document-start` event.
              * - (optional) frame {HTMLIFrameElement|any} Is the iframe object, or null if the event is for the window..
              */
-            on(event: "document-start", listener: (frame: HTMLIFrameElement | any) => any): this;
+            on(
+                event: "document-start",
+                listener: (frame: HTMLIFrameElement | any) => any,
+            ): this;
 
             /**
              * Emitted when the document object in this window or a child iframe is unloaded, but before the onunload event is emitted.
@@ -1190,7 +1672,10 @@ declare global {
              * @param listener {function(byCommandQ?)} The callback that handles the `document-end` event.
              * - (optional) frame {HTMLIFrameElement|any} Is the iframe object, or null if the event is for the window..
              */
-            on(event: "document-end", listener: (frame: HTMLIFrameElement | any) => any): this;
+            on(
+                event: "document-end",
+                listener: (frame: HTMLIFrameElement | any) => any,
+            ): this;
 
             /**
              * Emitted when window gets focus.
@@ -1250,7 +1735,10 @@ declare global {
              * - (optional) width {Integer} The new width of the window.
              * - (optional) height {Integer} The new height of the window.
              */
-            on(event: "resize", listener: (width?: number, height?: number) => any): this;
+            on(
+                event: "resize",
+                listener: (width?: number, height?: number) => any,
+            ): this;
 
             /**
              * Emitted when window enters fullscreen state.
@@ -1261,6 +1749,15 @@ declare global {
             on(event: "enter-fullscreen", listener: () => any): this;
 
             /**
+             * Emitted when window leaves fullscreen state.
+             *
+             * @deprecated since version 0.13. Replaced by the `restore` event.
+             * @param event {string} Event name
+             * @param listener {function} The callback that handles the `leave-fullscreen` event.
+             */
+            on(event: "leave-fullscreen", listener: () => any): this;
+
+            /**
              * Emitted when window zooming changed.
              *
              * @param event {string} Event name
@@ -1268,6 +1765,29 @@ declare global {
              * - (optional) zoom {Integer} Indicating the new zoom level
              */
             on(event: "zoom", listener: (zoom?: number) => any): this;
+
+            /**
+             * Emitted after the capturePage method is called and image data is ready.
+             *
+             * @deprecated since version 0.13. Use the callback with `win.capturePage()` instead.
+             * @param event {string} Event name
+             * @param listener {function(arg?)} The callback that handles the `capturepagedone` event.
+             * - (optional) arg {string|Object} Captured page data.
+             */
+            on(
+                event: "capturepagedone",
+                listener: (arg?: string | Object) => any,
+            ): this;
+
+            /**
+             * Emitted when the DevTools window has been opened.
+             *
+             * @deprecated since version 0.13. Use the `callback` passed to `win.showDevTools()` instead.
+             * @param event {string} Event name
+             * @param listener {function(url?)} The callback that handles the `devtools-opened` event.
+             * - (optional) url {string} URL of the DevTools window.
+             */
+            on(event: "devtools-opened", listener: (url?: string) => any): this;
 
             /**
              * Emitted after Devtools is closed.
@@ -1288,7 +1808,11 @@ declare global {
              */
             on(
                 event: "new-win-policy",
-                listener: (frame: HTMLIFrameElement | null, url: string, policy: WinPolicy) => any,
+                listener: (
+                    frame: HTMLIFrameElement | null,
+                    url: string,
+                    policy: WinPolicy,
+                ) => any,
             ): this;
 
             /**
@@ -1302,7 +1826,11 @@ declare global {
              */
             on(
                 event: "navigation",
-                listener: (frame?: HTMLIFrameElement | any, url?: string, policy?: WinNavigationPolicy) => any,
+                listener: (
+                    frame?: HTMLIFrameElement | any,
+                    url?: string,
+                    policy?: WinNavigationPolicy,
+                ) => any,
             ): this;
         }
     }
@@ -1341,7 +1869,7 @@ declare global {
             /**
              * Get the json object of the manifest file.
              */
-            manifest: any;
+            manifest: NWJS_Helpers.Manifest;
 
             /**
              * Clear the HTTP cache in memory and the one on disk. This method call is synchronized.
@@ -1374,7 +1902,10 @@ declare global {
              * @param component {string} ID of component; currently only `WIDEVINE` is supported.
              * @param callback {(version: string) => void} Callback after the component is enabled; `version` string parameter is the version of the enabled component. ‘0.0.0.0’ means it’s not installed. Use `App.updateComponent()` to install it.
              */
-            enableComponent(component: string, callback: (version: string) => void): void;
+            enableComponent(
+                component: string,
+                callback: (version: string) => void,
+            ): void;
 
             /**
              * Query the proxy to be used for loading `url` in DOM.
@@ -1455,7 +1986,10 @@ declare global {
              * @param component {string} ID of component; currently only `WIDEVINE` is supported.
              * @param callback {(success: boolean) => void} Callback after the component is updated; success is a boolean parameter for the update result.
              */
-            updateComponent(component: string, callback: (success: boolean) => void): void;
+            updateComponent(
+                component: string,
+                callback: (success: boolean) => void,
+            ): void;
 
             on(event: string, listener: Function): this;
 
@@ -1550,7 +2084,10 @@ declare global {
              * @param appname {string} The application name
              * @param options {Object} (Optional) Options to modify default `edit` and `window` MenuItems in Mac
              */
-            createMacBuiltin(appname: string, options?: NWJS_Helpers.CreateMacBuiltinOption): void;
+            createMacBuiltin(
+                appname: string,
+                options?: NWJS_Helpers.CreateMacBuiltinOption,
+            ): void;
         }
 
         /* MenuItem: http://docs.nwjs.io/en/latest/References/MenuItem/ */
@@ -1588,7 +2125,7 @@ declare global {
             /**
              * Get or set the `tooltip` of a `MenuItem`
              */
-            tooltip: boolean;
+            tooltip: string;
 
             /**
              * Get or set whether the `MenuItem` is `checked`
@@ -1652,7 +2189,10 @@ declare global {
              * @param callback {Function} callback function with chosed streamId.
              * - (optional) streamId {string}  streamId will be false if failed to execute or existing session is alive.
              */
-            chooseDesktopMedia(sources: string[], callback: (streamId?: string | boolean) => void): void;
+            chooseDesktopMedia(
+                sources: string[],
+                callback: (streamId?: string | boolean) => void,
+            ): void;
 
             /**
              * Use this API to monitor the changes of screens and windows on desktop. This is an instance of EventEmitter.
@@ -1668,7 +2208,10 @@ declare global {
              * @param listener {Function(screen?)} The callback that handles the `displayBoundsChanged` event.
              * - (optional) screen {screen} screen object
              */
-            on(event: "displayBoundsChanged", listener: (screen: NWJS_Helpers.screen) => any): this;
+            on(
+                event: "displayBoundsChanged",
+                listener: (screen: NWJS_Helpers.screen) => any,
+            ): this;
 
             /**
              * Emitted when a new screen added.
@@ -1677,7 +2220,10 @@ declare global {
              * @param listener {Function(screen?)} The callback that handles the `displayAdded` event.
              * - (optional) screen {screen} screen object
              */
-            on(event: "displayAdded ", listener: (screen: NWJS_Helpers.screen) => any): this;
+            on(
+                event: "displayAdded",
+                listener: (screen: NWJS_Helpers.screen) => any,
+            ): this;
 
             /**
              * Emitted when existing screen removed.
@@ -1686,7 +2232,10 @@ declare global {
              * @param listener {Function(screen?)} The callback that handles the `displayRemoved` event.
              * - (optional) screen {screen} screen object
              */
-            on(event: "displayRemoved ", listener: (screen: NWJS_Helpers.screen) => any): this;
+            on(
+                event: "displayRemoved",
+                listener: (screen: NWJS_Helpers.screen) => any,
+            ): this;
         }
 
         /* Shell: http://docs.nwjs.io/en/latest/References/Shell/ */
@@ -1819,7 +2368,7 @@ declare global {
              * @param event {string} Event name
              * @param listener {Function} The callback that handles the `click` event.
              */
-            on(event: "click ", listener: () => any): this;
+            on(event: "click", listener: () => any): this;
         }
 
         /* Window: http://docs.nwjs.io/en/latest/References/Window/ */
@@ -1864,13 +2413,33 @@ declare global {
         export var Shell: Shell;
         export var Window: Window;
     }
+
+    /* Changes to Node: http://docs.nwjs.io/en/latest/References/Changes%20to%20Node/ */
+    namespace NodeJS {
+        interface ProcessVersions {
+            /**
+             * NW.js's version.
+             */
+            nw: string;
+
+            /**
+             * The Chromium version which NW.js is based on.
+             */
+            chromium: string;
+
+            /**
+             * `"sdk"` when the binary is a SDK build, or `"normal"` when the binary is a normal build.
+             */
+            "nw-flavor": "sdk" | "normal";
+        }
+    }
 }
 
 declare module "nw.gui" {
-    export class Menu extends nw.Menu {}
-    export class MenuItem extends nw.MenuItem {}
-    export class Shortcut extends nw.Shortcut {}
-    export class Tray extends nw.Tray {}
+    export class Menu extends nw.Menu { }
+    export class MenuItem extends nw.MenuItem { }
+    export class Shortcut extends nw.Shortcut { }
+    export class Tray extends nw.Tray { }
     export var App: nw.App;
     export var Clipboard: nw.Clipboard;
     export var Screen: nw.Screen;
