@@ -7815,6 +7815,10 @@
             "libraryName": "tokenizr",
             "asOfVersion": "1.6.0"
         },
+        "totp-generator": {
+            "libraryName": "totp-generator",
+            "asOfVersion": "2.0.1"
+        },
         "transliteration": {
             "libraryName": "transliteration",
             "asOfVersion": "1.6.6"
