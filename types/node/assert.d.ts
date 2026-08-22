@@ -482,17 +482,17 @@ declare module "node:assert" {
          * instead of the `AssertionError`.
          * @since v0.1.21
          */
-        function strictEqual<T>(
+        function strictEqual(
             actual: unknown,
-            expected: T,
+            expected: unknown,
             message?: Error | AssertMessageFunction,
-        ): asserts actual is T;
-        function strictEqual<T>(
+        ): void;
+        function strictEqual(
             actual: unknown,
-            expected: T,
+            expected: unknown,
             message: string,
             ...args: unknown[]
-        ): asserts actual is T;
+        ): void;
         /**
          * Tests strict inequality between the `actual` and `expected` parameters as
          * determined by [`Object.is()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
@@ -534,17 +534,17 @@ declare module "node:assert" {
          * are recursively evaluated also by the following rules.
          * @since v1.2.0
          */
-        function deepStrictEqual<T>(
+        function deepStrictEqual(
             actual: unknown,
-            expected: T,
+            expected: unknown,
             message?: Error | AssertMessageFunction,
-        ): asserts actual is T;
-        function deepStrictEqual<T>(
+        ): void;
+        function deepStrictEqual(
             actual: unknown,
-            expected: T,
+            expected: unknown,
             message: string,
             ...args: unknown[]
-        ): asserts actual is T;
+        ): void;
         /**
          * Tests for deep strict inequality. Opposite of {@link deepStrictEqual}.
          *

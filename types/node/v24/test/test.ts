@@ -1062,7 +1062,7 @@ test("planning with streams", (t: TestContext, done) => {
     stream.on("data", (chunk) => {
         t.assert.strictEqual(chunk, expected.shift()!);
 
-        // $ExpectType string
+        // $ExpectType any
         chunk;
     });
 
