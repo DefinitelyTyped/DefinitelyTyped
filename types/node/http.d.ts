@@ -255,6 +255,18 @@ declare module "node:http" {
          */
         highWaterMark?: number | undefined;
         /**
+         * Controls HTTP header value validation strictness for incoming requests. Accepted values are:
+         * * `'strict'`: Strictest validation; rejects any non-ASCII or control characters in header values.
+         * * `'relaxed'`: Allows a limited set of non-ASCII characters in header values, aligning with the
+         *       [Fetch specification](https://fetch.spec.whatwg.org/).
+         * * `'insecure'`: Disables all header value validation (equivalent to `insecureHTTPParser: true`).
+         *       Cannot be used together with `insecureHTTPParser`.
+         *
+         * @default 'strict'
+         * @since v26.3.0
+         */
+        httpValidation?: string | undefined;
+        /**
          * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.
          * See --insecure-http-parser for more information.
