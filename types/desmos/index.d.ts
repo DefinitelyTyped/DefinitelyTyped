@@ -1359,7 +1359,7 @@ declare namespace Desmos {
         /**
          * A function `(string) -> void` that will be invoked when the user clicks an expression evaluation's copy button (see above) with the evaluation LaTeX as its argument. The default implementation copies to the system clipboard.
          */
-        onEvaluationCopyClick?: boolean;
+        onEvaluationCopyClick?: (latex: string) => void;
 
         /**
          * When `true`, allow the use of recursive functions. See {@link https://help.desmos.com/hc/en-us/articles/25917735966989-Recursion the article on recursion} for more information.
