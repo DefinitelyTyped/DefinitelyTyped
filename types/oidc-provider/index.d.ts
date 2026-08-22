@@ -438,6 +438,11 @@ declare class BaseToken extends BaseModel {
     readonly resourceIndicators: Set<string | undefined>;
 
     ttlPercentagePassed(): number;
+    /**
+     * Generates a new opaque token identifier for the model's configured format.
+     * Used to mint a value without persisting the token via the adapter.
+     */
+    generateTokenId(): string;
 
     readonly isValid: boolean;
     readonly isExpired: boolean;
