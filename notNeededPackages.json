@@ -8255,6 +8255,10 @@
             "libraryName": "which-pm",
             "asOfVersion": "1.1.0"
         },
+        "wif": {
+            "libraryName": "wif",
+            "asOfVersion": "5.0.0"
+        },
         "wikidata-sdk": {
             "libraryName": "wikidata-sdk",
             "asOfVersion": "6.1.0"
