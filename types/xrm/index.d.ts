@@ -1220,6 +1220,13 @@ declare namespace Xrm {
      */
     interface Ui {
         /**
+         * Adds a function to be called on the form Loaded event.
+         * The function will be added to the bottom of the event handler pipeline.
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/addloaded External Link: ui.addLoaded (Client API reference)}
+         */
+        addLoaded(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
+
+        /**
          * Adds a function to be called on the form OnLoad event.
          * The function will be added to the bottom of the event handler pipeline.
          * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/addonload External Link: ui.addOnLoad (Client API reference)}
@@ -1302,6 +1309,12 @@ declare namespace Xrm {
          * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/removeonload External Link: ui.removeOnLoad (Client API reference)}
          */
         removeOnLoad(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
+
+        /**
+         * Removes a function from the form Loaded event.
+         * @see {@link https://learn.microsoft.com/power-apps/developer/model-driven-apps/clientapi/reference/formcontext-ui/removeloaded External Link: ui.removeLoaded (Client API reference)}
+         */
+        removeLoaded(handler: Events.LoadEventHandler | Events.LoadEventHandlerAsync): void;
 
         /**
          * Sets the name of the table to be displayed on the form.

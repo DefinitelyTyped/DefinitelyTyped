@@ -329,21 +329,37 @@ interface Mul
 interface MulNumExtension<TNum extends NumType>
     extends AddSubMulDivNumberVecNumExtensions<TNum>, MulMatNumNumExtensions
 {
+    (b: TNum extends "float" ? Node<"color"> : never): Node<"vec3">;
+}
+
+interface AddVec2Extensions<TNum extends NumType> extends AddSubMulDivNumberVecVec2Extensions<TNum> {
+    (b: TNum extends "float" ? Node<"color"> : never): Node<"vec3">;
+}
+
+interface AddVec3Extensions<TNum extends NumType> extends AddSubMulDivNumberVecVec3Extensions<TNum> {
+    (b: TNum extends "float" ? Node<"color"> : never): Node<"vec3">;
+}
+
+interface AddVec4Extensions<TNum extends NumType> extends AddSubMulDivNumberVecVec4Extensions<TNum> {
+    (b: TNum extends "float" ? Node<"color"> : never): Node<"vec4">;
 }
 
 interface MulVec2Extensions<TNum extends NumType>
     extends AddSubMulDivNumberVecVec2Extensions<TNum>, MulVecMatVecExtensions
 {
+    (b: TNum extends "float" ? Node<"color"> : never): Node<"vec3">;
 }
 
 interface MulVec3Extensions<TNum extends NumType>
     extends AddSubMulDivNumberVecVec3Extensions<TNum>, MulVecMatVecExtensions
 {
+    (b: TNum extends "float" ? Node<"color"> : never): Node<"vec3">;
 }
 
 interface MulVec4Extensions<TNum extends NumType>
     extends AddSubMulDivNumberVecVec4Extensions<TNum>, MulVecMatVecExtensions
 {
+    (b: TNum extends "float" ? Node<"color"> : never): Node<"vec4">;
 }
 
 interface MulMat2Extensions extends AddSubMulMat2Extensions, MulMatNumMat2Extensions, MulVecMatMat2Extensions {
@@ -371,10 +387,6 @@ interface Div extends AddSubMulDivNumberVec<"float">, AddSubMulDivNumberVec<"int
 export const div: Div;
 
 declare module "../core/Node.js" {
-    interface FloatExtensions {
-        mul: (b: Node<"color">) => Node<"vec3">;
-    }
-
     interface NumExtensions<TNum extends NumType> {
         add: AddSubMulDivNumberVecNumExtensions<TNum>;
         sub: AddSubMulDivNumberVecNumExtensions<TNum>;
@@ -387,21 +399,6 @@ declare module "../core/Node.js" {
         divAssign: AddSubMulDivNumberVecNumberAssignExtensions<TNum>;
     }
 
-    interface Vec2Extensions {
-        add: (b: Node<"color">) => Node<"vec3">;
-        mul: (b: Node<"color">) => Node<"vec3">;
-    }
-
-    interface Vec3Extensions {
-        add: (b: Node<"color">) => Node<"vec3">;
-        mul: (b: Node<"color">) => Node<"vec3">;
-    }
-
-    interface Vec4Extensions {
-        add: (b: Node<"color">) => Node<"vec4">;
-        mul: (b: Node<"color">) => Node<"vec4">;
-    }
-
     interface ColorExtensions {
         add: (b: Number<"float">) => Node<"vec3">;
         sub: (b: Number<"float">) => Node<"vec3">;
@@ -410,7 +407,7 @@ declare module "../core/Node.js" {
     }
 
     interface NumVec2Extensions<TNum extends NumType> {
-        add: AddSubMulDivNumberVecVec2Extensions<TNum>;
+        add: AddVec2Extensions<TNum>;
         sub: AddSubMulDivNumberVecVec2Extensions<TNum>;
         mul: MulVec2Extensions<TNum>;
         div: AddSubMulDivNumberVecVec2Extensions<TNum>;
@@ -422,7 +419,7 @@ declare module "../core/Node.js" {
     }
 
     interface NumVec3Extensions<TNum extends NumType> {
-        add: AddSubMulDivNumberVecVec3Extensions<TNum>;
+        add: AddVec3Extensions<TNum>;
         sub: AddSubMulDivNumberVecVec3Extensions<TNum>;
         mul: MulVec3Extensions<TNum>;
         div: AddSubMulDivNumberVecVec3Extensions<TNum>;
@@ -434,7 +431,7 @@ declare module "../core/Node.js" {
     }
 
     interface NumVec4Extensions<TNum extends NumType> {
-        add: AddSubMulDivNumberVecVec4Extensions<TNum>;
+        add: AddVec4Extensions<TNum>;
         sub: AddSubMulDivNumberVecVec4Extensions<TNum>;
         mul: MulVec4Extensions<TNum>;
         div: AddSubMulDivNumberVecVec4Extensions<TNum>;

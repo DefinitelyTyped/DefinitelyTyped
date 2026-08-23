@@ -407,6 +407,16 @@ declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/api.md
     interface IApi<T, U> {
         /**
+         * The original input element the control was created from.
+         */
+        $input: JQuery;
+
+        /**
+         * The settings the control was initialized with, merged with the defaults.
+         */
+        settings: IOptions<T, U>;
+
+        /**
          * An array of selected values.
          */
         items: T[];
@@ -476,6 +486,11 @@ declare namespace Selectize {
         addItem(value: T, silent?: boolean): void;
 
         /**
+         * "Selects" multiple items at once. Adds them to the list at the current caret position.
+         */
+        addItems(values: T | T[], silent?: boolean): void;
+
+        /**
          * Removes the selected item matching the provided value.
          */
         removeItem(value: T, silent?: boolean): void;
@@ -499,6 +514,16 @@ declare namespace Selectize {
          * The "id" argument refers to a value of the property in option identified by the "optgroupField" setting.
          */
         addOptionGroup(id: string, data: U): void;
+
+        /**
+         * Removes the existing optgroup identified by the given id.
+         */
+        removeOptionGroup(id: string): void;
+
+        /**
+         * Removes all existing optgroups from the control.
+         */
+        clearOptionGroups(): void;
 
         // Events
         // ------------------------------------------------------------------------------------------------------------

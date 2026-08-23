@@ -493,9 +493,10 @@ declare namespace mp {
     /**
      * NOTE:
      * Commands have their own dedicated arguments as object properties(namely Named Arguments in the doc)
+     * `__return` field is a helper field to represent exceptional return type of the command, it has nothing to do with mpv
      */
     // TODO: change `name` to `_name`
-    type CommandOptsUnion =
+    type __CommandInfoUnion =
         | {
             name: "seek";
             /**
@@ -764,18 +765,22 @@ declare namespace mp {
         | {
             name: "expand-text";
             text: string;
+            __return: string;
         }
         | {
             name: "expand-path";
             text: string;
+            __return: string;
         }
         | {
             name: "normalize-path";
             filename: string;
+            __return: string;
         }
         | {
             name: "escape-ass";
             text: string;
+            __return: string;
         }
         | {
             name: "apply-profile";
@@ -1196,6 +1201,14 @@ declare namespace mp {
     //   1. some commands can only be invoked by array-like overload `command_native(array)` such as `run`
     //   1. some commands can only be invoked by `command_native(opts)` overload(namely named arguments) such as `subprocess`
 
+    type CommandOptsUnion = __CommandInfoUnion extends infer U ? U extends { __return: any } ? Omit<U, "__return">
+        : U
+        : never;
+
+    type GetCommonCommandResult<TOpts extends { name: string }> =
+        Extract<__CommandInfoUnion, { name: TOpts["name"] }> extends { __return: infer R } ? R
+            : null | undefined; // null on success, undefined on error
+
     /**
      * Gets the shape of `subprocess` command result based on whether `capture_stderr` and `capture_stdout` are specified
      */
@@ -1209,7 +1222,7 @@ declare namespace mp {
 
     type GetCommandResult<TOpts extends { name: string }> = TOpts["name"] extends "subprocess"
         ? GetSubprocessResult<TOpts>
-        : null | undefined; // null on success, undefined on error
+        : GetCommonCommandResult<TOpts>;
 
     // TODO: change `name` to `_name` if `_name` is released officially
     /**
@@ -1225,12 +1238,16 @@ declare namespace mp {
     ): null | TDefault; // null if success, TDefault on error
 
     // NOTE: currently when named argument overload has mismatched shape it would fallback to array overload, producing confusing error message
+    // NOTE: editor completion for the first element(command name) is broken, no idea why,
+    // and this won't be fixed as TypeScript6(the last version supporting es5) has been deprecated anyway.
     /**
      * Returns `null` on success, `undefined` on error
      */
-    function command_native(
-        list: [Exclude<CommandName, NamedArgumentsOnlyCommand> | (string & {}), ...unknown[]],
-    ): null | undefined;
+    function command_native<
+        TArgs extends [Exclude<CommandName, NamedArgumentsOnlyCommand>, ...unknown[]],
+    >(
+        list: TArgs,
+    ): GetCommandResult<{ name: TArgs[0] }>;
 
     /**
      * Returns `null` on success, `T` on error
@@ -1788,6 +1805,36 @@ declare namespace mp {
      * Global modules search paths array for the require function
      */
     let module_paths: string[];
+
+    let keep_running: boolean;
+
+    /**
+     * @param seconds wait in secs (infinite if negative) if mpv doesn't send events earlier.
+     * @see https://github.com/mpv-player/mpv/blob/1d15686142fd5d53c954aab7526cedab05ef9dc3/player/javascript.c#L1151
+     */
+    function wait_event(timeout: number): { event: "none" | EventName; args?: string[] };
+
+    /**
+     * Calls back the handlers registered for `e.event`, if there are such (event handlers, property observers, script messages, etc).
+     */
+    function dispatch_event(e: { event: "none" | EventName; args?: string[] }): void;
+
+    /**
+     * calls back the idle observers, which we do when we're about to sleep, but the observers may add timers or take non-negligible duration to complete, so we re-calculate wait afterwards.
+     */
+    function notify_idle_observers(): void;
+
+    /**
+     * Calls back the already-added, non-canceled due timers, and returns the duration in ms till the next due timer (possibly 0), or -1 if there are no pending timers. Must not be called recursively.
+     */
+    function process_timers(): number;
+
+    /**
+     * Returns the same values as `mp.process_timers()` but without doing anything. Invalid result if called from a timer callback.
+     * @returns -1: no timers, 0: due, positive: ms to wait
+     * @see https://github.com/mpv-player/mpv/blob/1d15686142fd5d53c954aab7526cedab05ef9dc3/player/javascript/defaults.js#L406
+     */
+    function peek_timers_wait(): number;
 
     namespace msg {
         function log(level: LogLevel, ...msg: unknown[]): void;

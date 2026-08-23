@@ -6,7 +6,7 @@
         "https://github.com/jaketrent/html-webpack-template"
     ],
     "dependencies": {
-        "@types/html-webpack-plugin": "*"
+        "@types/html-webpack-plugin": "<4"
     },
     "devDependencies": {
         "@types/html-webpack-template": "workspace:."

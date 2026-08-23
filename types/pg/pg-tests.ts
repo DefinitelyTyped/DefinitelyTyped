@@ -2,6 +2,7 @@ import { connect } from "net";
 import * as pg from "pg";
 import {
     Client,
+    ClientBase,
     Connection,
     CustomTypesConfig,
     DatabaseError,
@@ -25,6 +26,11 @@ const binary: boolean | undefined = defaults.binary;
 const parseInt8: boolean | undefined = defaults.parseInt8;
 const parseInputDatesAsUTC: boolean | undefined = defaults.parseInputDatesAsUTC;
 
+declare const clientBase: ClientBase;
+
+// $ExpectType TransactionStatus
+clientBase.getTransactionStatus();
+
 const client = new Client({
     host: "my.database-server.com",
     port: 5334,
@@ -32,9 +38,20 @@ const client = new Client({
     password: "secretpassword!!",
     application_name: "DefinitelyTyped",
     keepAlive: true,
+    enableChannelBinding: true,
+    ssl: true,
+    sslnegotiation: "direct",
+    pipeline: true,
 });
+// $ExpectType boolean
+client.pipeline;
+// @ts-expect-error – pipeline is readonly
+client.pipeline = false;
 client.setTypeParser(20, val => Number(val));
 client.getTypeParser(20);
+
+// $ExpectType TransactionStatus
+client.getTransactionStatus();
 
 const user: string | undefined = client.user;
 const database: string | undefined = client.database;
@@ -235,6 +252,8 @@ const poolParameterlessCtor = new Pool();
 
 const poolOne = new Pool({
     connectionString: "postgresql://dbuser:secretpassword@database.server.com:3211/mydb",
+    sslnegotiation: "postgres",
+    pipeline: true,
 });
 
 class MyClient extends Client {
@@ -252,6 +271,7 @@ const pool = new Pool({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     keepAlive: false,
+    enableChannelBinding: true,
     lock_timeout: 5000,
     log: (...args) => {
         console.log.apply(console, args);

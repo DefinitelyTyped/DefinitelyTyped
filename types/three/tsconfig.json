@@ -42,6 +42,7 @@
         "test/unit/src/core/Uniform.ts",
         "test/unit/src/math/Vector3.ts",
         "test/unit/src/nodes/display/ColorAdjustment.ts",
+        "test/unit/src/nodes/math/OperatorNode.ts",
         "test/unit/src/nodes/materialx/lib/mx_hsv.ts",
         "test/unit/src/nodes/materialx/lib/mx_noise.ts",
         "test/unit/src/nodes/materialx/lib/mx_transform_color.ts",

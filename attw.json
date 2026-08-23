@@ -43,6 +43,7 @@
         "crypto-ld",
         "css-declaration-sorter",
         "css-tree",
+        "css-tree/v2",
         "csso",
         "d3-array",
         "d3-axis",

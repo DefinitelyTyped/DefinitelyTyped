@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/bittorrent-protocol": "*",
         "@types/node": "*",
-        "@types/parse-torrent": "*",
+        "@types/parse-torrent": "^5",
         "@types/simple-peer": "*"
     },
     "devDependencies": {

@@ -1119,7 +1119,7 @@ export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
-    scaleanchor: AxisName;
+    scaleanchor: AxisName | false;
     scaleratio: number;
     constrain: "range" | "domain";
     constraintoward: "left" | "center" | "right" | "top" | "middle" | "bottom";
@@ -1289,7 +1289,26 @@ export type ModeBarDefaultButtons =
     | "togglehover"
     | "hovercompare"
     | "hoverclosest"
-    | "v1hovermode";
+    | "v1hovermode"
+    | "drawclosedpath"
+    | "drawopenpath"
+    | "drawline"
+    | "drawrect"
+    | "drawcircle"
+    | "eraseshape"
+    | "resetViewSankey"
+    | "zoom"
+    | "pan"
+    | "select"
+    | "lasso"
+    | "zoomin"
+    | "zoomout"
+    | "autoscale"
+    | "resetscale"
+    | "resetCameraDefault"
+    | "resetCameraLastSave"
+    | "reset"
+    | "resetView";
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 

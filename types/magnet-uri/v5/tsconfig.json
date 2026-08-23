@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "pako-tests.ts"
+        "magnet-uri-tests.ts"
     ]
 }

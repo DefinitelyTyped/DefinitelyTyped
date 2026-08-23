@@ -48,6 +48,13 @@ declare module "node:fs" {
         mtime: Date;
         ctime: Date;
         birthtime: Date;
+        // Deliberately not defining a type alias here... it'd be exported, and something in the ecosystem would inevitably start using it.
+        // TODO: replace with Temporal builtins once @types/node no longer supports TS <6.0.
+        atimeInstant: typeof globalThis extends { Temporal: { Instant: new(...args: any[]) => infer T } } ? T : unknown;
+        mtimeInstant: typeof globalThis extends { Temporal: { Instant: new(...args: any[]) => infer T } } ? T : unknown;
+        ctimeInstant: typeof globalThis extends { Temporal: { Instant: new(...args: any[]) => infer T } } ? T : unknown;
+        birthtimeInstant: typeof globalThis extends { Temporal: { Instant: new(...args: any[]) => infer T } } ? T
+            : unknown;
     }
     interface Stats extends StatsBase<number> {}
     /**

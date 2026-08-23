@@ -1099,12 +1099,6 @@ function testGetManifest() {
         manifest.export.allowlist; // $ExpectType string[] | undefined
     }
 
-    if (manifest.file_system_provider_capabilities) {
-        manifest.file_system_provider_capabilities.configurable; // $ExpectType boolean | undefined
-        manifest.file_system_provider_capabilities.watchable; // $ExpectType boolean | undefined
-        manifest.file_system_provider_capabilities.source; // $ExpectType "file" | "device" | "network"
-    }
-
     manifest.incognito; // $ExpectType "spanning" | "split" | "not_allowed" | undefined
 
     if (manifest.input_components) {
@@ -3869,22 +3863,21 @@ async function testTabs() {
         zoomChangeInfo.zoomSettings; // $ExpectType ZoomSettings
     });
 
-    const details: chrome.extensionTypes.InjectDetails = {
+    const injectDetails: chrome.extensionTypes.InjectDetails = {
         allFrames: true,
         code: "alert('hello world');",
         cssOrigin: "author",
-        file: "file.js",
         frameId,
         matchAboutBlank: true,
         runAt: "document_idle",
     };
 
-    chrome.tabs.executeScript(details); // $ExpectType Promise<any[] | undefined>
-    chrome.tabs.executeScript(tabId, details); // $ExpectType Promise<any[] | undefined>
-    chrome.tabs.executeScript(details, (result) => { // $ExpectType void
+    chrome.tabs.executeScript(injectDetails); // $ExpectType Promise<any[] | undefined>
+    chrome.tabs.executeScript(tabId, injectDetails); // $ExpectType Promise<any[] | undefined>
+    chrome.tabs.executeScript(injectDetails, (result) => { // $ExpectType void
         result; // $ExpectType any[] | undefined
     });
-    chrome.tabs.executeScript(tabId, details, (result) => { // $ExpectType void
+    chrome.tabs.executeScript(tabId, injectDetails, (result) => { // $ExpectType void
         result; // $ExpectType any[] | undefined
     });
     // @ts-expect-error
@@ -3912,14 +3905,31 @@ async function testTabs() {
     // @ts-expect-error
     chrome.tabs.getSelected(() => {}).then(() => {});
 
-    chrome.tabs.insertCSS(details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(tabId, details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(undefined, details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(details, () => {}); // $ExpectType void
-    chrome.tabs.insertCSS(tabId, details, () => {}); // $ExpectType void
-    chrome.tabs.insertCSS(undefined, details, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(injectDetails); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(tabId, injectDetails); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(undefined, injectDetails); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(injectDetails, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(tabId, injectDetails, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(undefined, injectDetails, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.tabs.insertCSS(() => {}).then(() => {});
+
+    const deleteInjectionDetails: chrome.extensionTypes.DeleteInjectionDetails = {
+        allFrames: true,
+        code: "body { background: red }",
+        cssOrigin: "author",
+        frameId,
+        matchAboutBlank: true,
+    };
+
+    chrome.tabs.removeCSS(deleteInjectionDetails); // $ExpectType Promise<void>
+    chrome.tabs.removeCSS(tabId, deleteInjectionDetails); // $ExpectType Promise<void>
+    chrome.tabs.removeCSS(undefined, deleteInjectionDetails); // $ExpectType Promise<void>
+    chrome.tabs.removeCSS(deleteInjectionDetails, () => {}); // $ExpectType void
+    chrome.tabs.removeCSS(tabId, deleteInjectionDetails, () => {}); // $ExpectType void
+    chrome.tabs.removeCSS(undefined, deleteInjectionDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.removeCSS(() => {}).then(() => {});
 
     const request = "Hello World!";
 
@@ -4865,7 +4875,7 @@ function testEnterpriseHardwarePlatform() {
 }
 
 // https://developer.chrome.com/docs/extensions/reference/api/enterprise/networkingAttributes
-function testEntrepriseNetworkingAttributes() {
+function testEnterpriseNetworkingAttributes() {
     chrome.enterprise.networkingAttributes.getNetworkDetails(); // $ExpectType Promise<NetworkDetails>
     chrome.enterprise.networkingAttributes.getNetworkDetails((networkAddresses) => { // $ExpectType void
         networkAddresses.ipv4; // $ExpectType string | undefined

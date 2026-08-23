@@ -20,6 +20,8 @@ export interface ClientConfig {
     stream?: () => stream.Duplex | undefined;
     statement_timeout?: false | number | undefined;
     ssl?: boolean | ConnectionOptions | undefined;
+    enableChannelBinding?: boolean | undefined;
+    sslnegotiation?: "postgres" | "direct" | undefined;
     query_timeout?: number | undefined;
     lock_timeout?: number | undefined;
     keepAliveInitialDelayMillis?: number | undefined;
@@ -30,6 +32,7 @@ export interface ClientConfig {
     types?: CustomTypesConfig | undefined;
     options?: string | undefined;
     client_encoding?: string | undefined;
+    pipeline?: boolean | undefined;
 }
 
 export type ConnectionConfig = ClientConfig;
@@ -123,6 +126,8 @@ export interface QueryParse {
 }
 
 type ValueMapper = (param: any, index: number) => any;
+
+export type TransactionStatus = "I" | "T" | "E" | null;
 
 export interface BindConfig {
     portal?: string | undefined;
@@ -282,9 +287,11 @@ export class ClientBase extends events.EventEmitter {
     setTypeParser: typeof pgTypes.setTypeParser;
     getTypeParser: typeof pgTypes.getTypeParser;
 
-    on<E extends "drain" | "error" | "notice" | "notification" | "end">(
+    getTransactionStatus(): TransactionStatus;
+
+    on<E extends "connect" | "drain" | "error" | "notice" | "notification" | "end">(
         event: E,
-        listener: E extends "drain" | "end" ? () => void
+        listener: E extends "connect" | "drain" | "end" ? () => void
             : E extends "error" ? (err: Error) => void
             : E extends "notice" ? (notice: NoticeMessage) => void
             : (message: Notification) => void,
@@ -298,6 +305,7 @@ export class Client extends ClientBase {
     host: string;
     password?: string | undefined;
     ssl: boolean;
+    readonly pipeline: boolean;
     readonly connection: Connection;
 
     constructor(config?: string | ClientConfig);

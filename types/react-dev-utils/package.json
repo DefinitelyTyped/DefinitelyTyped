@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/eslint": "*",
         "@types/express": "*",
-        "@types/html-webpack-plugin": "*",
+        "@types/html-webpack-plugin": "<4",
         "@types/node": "*",
         "@types/webpack": "^4",
         "@types/webpack-dev-server": "3"

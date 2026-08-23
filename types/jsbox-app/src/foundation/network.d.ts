@@ -29,6 +29,34 @@ declare namespace NetworkTypes {
         rtt: number;
         status: number;
     }
+
+    interface ProxyConfiguration {
+        [key: string]: string | number | string[] | undefined;
+
+        ExceptionsList?: string[];
+        FTPPassive?: number;
+
+        HTTPEnable?: number;
+        HTTPProxy?: string;
+        HTTPPort?: number;
+        HTTPProxyAuthenticated?: number;
+        HTTPProxyUsername?: string;
+
+        HTTPSEnable?: number;
+        HTTPSProxy?: string;
+        HTTPSPort?: number;
+
+        ProxyAutoConfigEnable?: number;
+        ProxyAutoConfigURLString?: string;
+        ProxyAutoConfigJavaScript?: string;
+    }
+
+    interface ProxySettings {
+        [key: string]: string | number | string[] | Record<string, ProxyConfiguration> | undefined;
+
+        FTPPassive?: number;
+        __SCOPED__?: Record<string, ProxyConfiguration>;
+    }
 }
 
 interface JBNetwork {
@@ -36,7 +64,7 @@ interface JBNetwork {
     interfaces: NetworkTypes.NetworkInterfaceInfo;
     startPinging(options: NetworkTypes.PingOptions): void;
     stopPinging(): void;
-    proxy_settings: any; // The documentation lacks specific details, so any is used here as a fallback.
+    proxy_settings: NetworkTypes.ProxySettings;
 }
 
 declare const $network: JBNetwork;

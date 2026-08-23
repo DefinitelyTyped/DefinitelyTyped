@@ -168,7 +168,7 @@ declare namespace chrome {
         interface TitleDetails {
             /** The string the action should display when moused over. */
             title: string;
-            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | undefined;
         }
 
@@ -201,12 +201,12 @@ declare namespace chrome {
 
         /** @since Chrome 99 */
         interface OpenPopupOptions {
-            /** The id of the window to open the action popup in. Defaults to the currently-active window if unspecified.  */
+            /** The id of the window to open the action popup in. Defaults to the currently-active window if unspecified. */
             windowId?: number | undefined;
         }
 
         interface TabDetails {
-            /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
+            /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned. */
             tabId?: number | undefined;
         }
 
@@ -402,7 +402,7 @@ declare namespace chrome {
             }
             & (
                 | {
-                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire. */
                     delayInMinutes: number;
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes?: number | undefined;
@@ -410,7 +410,7 @@ declare namespace chrome {
                     when?: undefined;
                 }
                 | {
-                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire. */
                     delayInMinutes?: number | undefined;
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes: number;
@@ -418,7 +418,7 @@ declare namespace chrome {
                     when?: undefined;
                 }
                 | {
-                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire. */
                     delayInMinutes?: undefined;
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes?: number | undefined;
@@ -833,7 +833,7 @@ declare namespace chrome {
         function removeTree(id: string, callback: () => void): void;
 
         interface SearchQuery {
-            /** A string of words and quoted phrases that are matched against bookmark URLs and titles.*/
+            /** A string of words and quoted phrases that are matched against bookmark URLs and titles. */
             query?: string;
             /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
             url?: string;
@@ -863,7 +863,7 @@ declare namespace chrome {
         function update(id: string, changes: UpdateChanges): Promise<BookmarkTreeNode>;
         function update(id: string, changes: UpdateChanges, callback: (result: BookmarkTreeNode) => void): void;
 
-        /** Fired when a bookmark or folder changes. **Note:** Currently, only title and url changes trigger this.*/
+        /** Fired when a bookmark or folder changes. **Note:** Currently, only title and url changes trigger this. */
         const onChanged: events.Event<(id: string, changeInfo: { title: string; url?: string }) => void>;
 
         /** Fired when the children of a folder have changed their order due to the order being sorted in the UI. This is not called as a result of a move(). */
@@ -875,7 +875,7 @@ declare namespace chrome {
         /** Fired when a bookmark import session is begun. Expensive observers should ignore onCreated updates until onImportEnded is fired. Observers should still handle other notifications immediately. */
         const onImportBegan: events.Event<() => void>;
 
-        /** Fired when a bookmark import session is ended.  */
+        /** Fired when a bookmark import session is ended. */
         const onImportEnded: events.Event<() => void>;
 
         /** Fired when a bookmark or folder is moved to a different parent folder. */
@@ -933,7 +933,7 @@ declare namespace chrome {
         interface TitleDetails {
             /** The string the browser action should display when moused over. */
             title: string;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | null | undefined;
         }
 
@@ -965,7 +965,7 @@ declare namespace chrome {
         interface PopupDetails {
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | null | undefined;
-            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown.*/
+            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown. */
             popup: string;
         }
 
@@ -1329,7 +1329,7 @@ declare namespace chrome {
             GENERAL_ERROR = "GENERAL_ERROR",
         }
 
-        /** @deprecated Replaced by {@link Algorithm}.*/
+        /** @deprecated Replaced by {@link Algorithm}. */
         enum Hash {
             /** Specifies the MD5 and SHA1 hashing algorithms. */
             MD5_SHA1 = "MD5_SHA1",
@@ -1407,7 +1407,7 @@ declare namespace chrome {
             error?: `${Error}` | undefined;
         }
 
-        /**  @since Chrome 86 */
+        /** @since Chrome 86 */
         interface SignatureRequest {
             /** Signature algorithm to be used. */
             algorithm: `${Algorithm}`;
@@ -1422,7 +1422,7 @@ declare namespace chrome {
         interface SignRequest {
             /** The DER encoding of a X.509 certificate. The extension must sign `digest` using the associated private key. */
             certificate: ArrayBuffer;
-            /**  The digest that must be signed. */
+            /** The digest that must be signed. */
             digest: ArrayBuffer;
             /** Refers to the hash algorithm that was used to create `digest`. */
             hash: `${Hash}`;
@@ -1589,7 +1589,7 @@ declare namespace chrome {
             resourceIdentifier?: ResourceIdentifier;
             /** Where to set the setting (default: regular). */
             scope?: `${Scope}`;
-            /** The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.*/
+            /** The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns. */
             secondaryPattern?: string;
             /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
             setting: T;
@@ -1700,7 +1700,7 @@ declare namespace chrome {
 
         /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
         interface ResourceIdentifier {
-            /** A human readable description of the resource.  */
+            /** A human readable description of the resource. */
             description?: string;
             /** The resource identifier for the given content type. */
             id: string;
@@ -1939,15 +1939,15 @@ declare namespace chrome {
             checked?: boolean;
             /** List of contexts this menu item will appear in. Defaults to `['page']`. */
             contexts?: [`${ContextType}`, ...`${ContextType}`[]];
-            /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns.  */
+            /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns. */
             documentUrlPatterns?: string[];
-            /**  Whether this context menu item is enabled or disabled. Defaults to `true`. */
+            /** Whether this context menu item is enabled or disabled. Defaults to `true`. */
             enabled?: boolean;
             /** The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension. */
             id?: string;
-            /**  The ID of a parent menu item; this makes the item a child of a previously added item. */
+            /** The ID of a parent menu item; this makes the item a child of a previously added item. */
             parentId?: number | string;
-            /**  Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
+            /** Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
             targetUrlPatterns?: string[];
             /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
             title?: string;
@@ -1981,7 +1981,7 @@ declare namespace chrome {
         interface OnClickData {
             /** A flag indicating the state of a checkbox or radio item after it is clicked. */
             checked?: boolean;
-            /**  A flag indicating whether the element is editable (text input, textarea, etc.). */
+            /** A flag indicating whether the element is editable (text input, textarea, etc.). */
             editable: boolean;
             /**
              * The ID of the frame of the element where the context menu was clicked, if it was in a frame.
@@ -1998,7 +1998,7 @@ declare namespace chrome {
             menuItemId: number | string;
             /** The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu. */
             pageUrl?: string;
-            /** The parent ID, if any, for the item clicked.*/
+            /** The parent ID, if any, for the item clicked. */
             parentMenuItemId?: number | string;
             /** The text for the context selection, if any. */
             selectionText?: string | undefined;
@@ -2063,7 +2063,7 @@ declare namespace chrome {
      * Manifest: "host_permissions"
      */
     export namespace cookies {
-        /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. **/
+        /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. */
         enum SameSiteStatus {
             NO_RESTRICTION = "no_restriction",
             LAX = "lax",
@@ -2314,7 +2314,7 @@ declare namespace chrome {
          * @since Chrome 125
          */
         interface DebuggerSession {
-            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used.*/
+            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used. */
             extensionId?: string;
             /** The opaque id of the Chrome DevTools Protocol session. Identifies a child session within the root session identified by tabId, extensionId or targetId. */
             sessionId?: string;
@@ -2349,7 +2349,7 @@ declare namespace chrome {
             title: string;
             /** Target URL. */
             url: string;
-            /** Target favicon URL.  */
+            /** Target favicon URL. */
             faviconUrl?: string;
         }
 
@@ -2850,7 +2850,7 @@ declare namespace chrome {
             getContent(): Promise<{
                 /** Content of the resource (potentially encoded). */
                 content: string;
-                /** Empty if the content is not encoded, encoding name otherwise. Currently, only base64 is supported.*/
+                /** Empty if the content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
                 encoding: string;
             }>;
             getContent(
@@ -3382,7 +3382,7 @@ declare namespace chrome {
         enum OperationResult {
             /** An unknown or generic failure occurred. */
             UNKNOWN = "UNKNOWN",
-            /**The operation succeeded. */
+            /** The operation succeeded. */
             SUCCESS = "SUCCESS",
             /** The operation is not supported. */
             UNSUPPORTED = "UNSUPPORTED",
@@ -3565,7 +3565,7 @@ declare namespace chrome {
 
         /** @since Chrome 125 */
         interface SetOptionResult {
-            /**  Indicates the name of the option that was set. */
+            /** Indicates the name of the option that was set. */
             name: string;
             /** Indicates the result of setting the option. */
             result: `${OperationResult}`;
@@ -3597,7 +3597,7 @@ declare namespace chrome {
         interface StartScanResponse<T> {
             /** If `result` is `SUCCESS`, provides a handle that can be used to read scan data or cancel the job. */
             job?: string;
-            /**  The result of starting a scan. If the value of this is `SUCCESS`, the `job` property will be populated. */
+            /** The result of starting a scan. If the value of this is `SUCCESS`, the `job` property will be populated. */
             result: `${OperationResult}`;
             /** Provides the same scanner handle that was passed to {@link startScan}. */
             scannerHandle: T;
@@ -4743,6 +4743,25 @@ declare namespace chrome {
         type CSSOrigin = "author" | "user";
 
         /**
+         * Details of the CSS to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         */
+        interface DeleteInjectionDetails {
+            /** If allFrames is `true`, implies that the CSS should be removed from all frames of current page. By default, it's `false` and is only removed from the top frame. If `true` and `frameId` is set, then the code is removed from the selected frame and all of its child frames. */
+            allFrames?: boolean;
+            /**  CSS code to remove. */
+            code?: string;
+            /** The origin of the CSS to remove. Defaults to `"author"`. */
+            cssOrigin?: CSSOrigin;
+            /** CSS file to remove. */
+            file?: string;
+            /** The frame from where the CSS should be removed. Defaults to 0 (the top-level frame). */
+            frameId?: number;
+            /** If matchAboutBlank is true, then the code is also removed from about:blank and about:srcdoc frames if your extension has access to its parent document. By default it is `false`. */
+            matchAboutBlank?: boolean;
+        }
+
+        /**
          * The document lifecycle of the frame.
          * @since Chrome 106
          */
@@ -5165,7 +5184,7 @@ declare namespace chrome {
             requestId: number;
         }
 
-        /** Error codes used by providing extensions in response to requests as well as in case of errors when calling methods of the API. For success, `"OK"` must be used.*/
+        /** Error codes used by providing extensions in response to requests as well as in case of errors when calling methods of the API. For success, `"OK"` must be used. */
         enum ProviderError {
             OK = "OK",
             FAILED = "FAILED",
@@ -5372,7 +5391,7 @@ declare namespace chrome {
             ) => void
         >;
 
-        /** Raised when opening a file previously opened with `openRequestId` is requested to be closed.*/
+        /** Raised when opening a file previously opened with `openRequestId` is requested to be closed. */
         const onCloseFileRequested: events.Event<
             (
                 options: CloseFileRequestedOptions,
@@ -5817,7 +5836,7 @@ declare namespace chrome {
             genericFamily: `${GenericFamily}`;
             /** The level of control this extension has over the setting. */
             levelOfControl: `${LevelOfControl}`;
-            /** Optional. The script code for which the font setting has changed.  */
+            /** Optional. The script code for which the font setting has changed. */
             script?: `${ScriptCode}`;
             /** The font ID. See the description in {@link getFont}. */
             fontId: string;
@@ -6276,7 +6295,8 @@ declare namespace chrome {
         /** Gets the browser UI language of the browser. This is different from {@link i18n.getAcceptLanguages} which returns the preferred user languages. */
         function getUILanguage(): string;
 
-        /** Detects the language of the provided text using CLD.
+        /**
+         * Detects the language of the provided text using CLD.
          * @param text User input string to be translated.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99.
@@ -6406,7 +6426,7 @@ declare namespace chrome {
          *
          * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
          *
-         * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
+         * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with no context. In particular, do not use getAuthToken interactively when your app is first launched.
          * @param details Token options.
          *
          * Can return its result via Promise since Chrome 105.
@@ -7029,13 +7049,13 @@ declare namespace chrome {
         /** This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events. */
         const onDeactivated: events.Event<(engineID: string) => void>;
 
-        /** This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
+        /** This event is sent when the properties of the current InputContext change, such as the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
         const onInputContextUpdate: events.Event<(context: InputContext) => void>;
 
         /** This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events. */
         const onActivate: events.Event<(engineID: string, screen: `${ScreenType}`) => void>;
 
-        // /** This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
+        /** This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
         const onFocus: events.Event<(context: InputContext) => void>;
 
         /** Called when the user selects a menu item */
@@ -7193,7 +7213,7 @@ declare namespace chrome {
         function getSessionState(): Promise<`${SessionState}`>;
         function getSessionState(callback: (sessionState: `${SessionState}`) => void): void;
 
-        /** Dispatched when the session state changes. `sessionState` is the new session state.*/
+        /** Dispatched when the session state changes. `sessionState` is the new session state. */
         const onSessionStateChanged: events.Event<(sessionState: `${SessionState}`) => void>;
     }
 
@@ -7603,7 +7623,8 @@ declare namespace chrome {
              * **Note:** This value is required for the {@link notifications.create}() method.
              */
             title?: string;
-            /** Which type of notification to display.
+            /**
+             * Which type of notification to display.
              *
              * **Note:** This value is required for the {@link notifications.create}() method.
              */
@@ -8067,7 +8088,7 @@ declare namespace chrome {
     // Platform Keys
     ////////////////////
     /**
-     * Use the `chrome.platformKeys` API to access client certificates managed by the platform. If the user or policy grants the permission, an extension can use such a certficate in its custom authentication protocol. E.g. this allows usage of platform managed certificates in third party VPNs (see chrome.vpnProvider).
+     * Use the `chrome.platformKeys` API to access client certificates managed by the platform. If the user or policy grants the permission, an extension can use such a certificate in its custom authentication protocol. E.g. this allows usage of platform managed certificates in third party VPNs (see chrome.vpnProvider).
      *
      * Permissions: "platformKeys"
      * @platform ChromeOS only
@@ -8229,7 +8250,7 @@ declare namespace chrome {
         enum PrintError {
             /** Specifies that the operation was completed successfully. */
             OK = "OK",
-            /** Specifies that a general failure occured. */
+            /** Specifies that a general failure occurred. */
             FAILED = "FAILED",
             /** Specifies that the print ticket is invalid. For example, the ticket is inconsistent with some capabilities, or the extension is not able to handle all settings from the ticket. */
             INVALID_TICKET = "INVALID_TICKET",
@@ -9030,7 +9051,7 @@ declare namespace chrome {
      */
     export namespace runtime {
         interface LastError {
-            /** Details about the error which occurred.  */
+            /** Details about the error which occurred. */
             message?: string;
         }
 
@@ -9066,19 +9087,19 @@ declare namespace chrome {
          * @since Chrome 44
          */
         enum PlatformArch {
-            /** Specifies the processer architecture as arm. */
+            /** Specifies the processor architecture as arm. */
             ARM = "arm",
-            /** Specifies the processer architecture as arm64. */
+            /** Specifies the processor architecture as arm64. */
             ARM64 = "arm64",
-            /** Specifies the processer architecture as x86-32. */
+            /** Specifies the processor architecture as x86-32. */
             X86_32 = "x86-32",
-            /** Specifies the processer architecture as x86-64. */
+            /** Specifies the processor architecture as x86-64. */
             X86_64 = "x86-64",
-            /** Specifies the processer architecture as mips. */
+            /** Specifies the processor architecture as mips. */
             MIPS = "mips",
-            /** Specifies the processer architecture as mips64. */
+            /** Specifies the processor architecture as mips64. */
             MIPS64 = "mips64",
-            /** Specifies the processer architecture as riscv64. */
+            /** Specifies the processor architecture as riscv64. */
             RISCV64 = "riscv64",
         }
 
@@ -9185,7 +9206,7 @@ declare namespace chrome {
             contextId: string;
             /** The type of context this corresponds to. */
             contextType: `${ContextType}`;
-            /** A UUID for the document associated with this context, or undefined if this context is hosted not in a document.*/
+            /** A UUID for the document associated with this context, or undefined if this context is hosted not in a document. */
             documentId?: string;
             /** The origin of the document associated with this context, or undefined if the context is not hosted in a document. */
             documentOrigin?: string;
@@ -9467,7 +9488,7 @@ declare namespace chrome {
             // Optional
             /** @deprecated As of February 2024, the `author` key is no longer supported by Chrome or the Chrome Web Store. If present, it's silently ignored. */
             author?: { email: string } | undefined;
-            /** Defines overrides for selected Chrome settings.  */
+            /** Defines overrides for selected Chrome settings. */
             chrome_settings_overrides?: {
                 /** The new value for the homepage. */
                 homepage?: string | undefined;
@@ -9544,7 +9565,7 @@ declare namespace chrome {
                 /** Files app uses above information in order to render related UI elements appropriately. For example, if `configurable` is set to true, then a menu item for configuring volumes will be rendered. Similarly, if `multiple_mounts` is set to true, then Files app will allow to add more than one mount points from the UI. If `watchable` is false, then a refresh button will be rendered. Note, that if possible you should add support for watchers, so changes on the file system can be reflected immediately and automatically. */
                 source: "file" | "device" | "network";
             } | undefined;
-            /**  string specifying a URL for the extension's homepage. If this is undefined, the homepage defaults to the extension's Chrome Web Store page. This field is particularly useful if you host the extension on your own site. */
+            /** string specifying a URL for the extension's homepage. If this is undefined, the homepage defaults to the extension's Chrome Web Store page. This field is particularly useful if you host the extension on your own site. */
             homepage_url?: string | undefined;
             /** Allows resources to be imported into the extension. */
             import?:
@@ -10667,9 +10688,9 @@ declare namespace chrome {
         }
 
         interface Bounds {
-            /**  The x-coordinate of the upper-left corner. */
+            /** The x-coordinate of the upper-left corner. */
             left: number;
-            /**  The y-coordinate of the upper-left corner. */
+            /** The y-coordinate of the upper-left corner. */
             top: number;
             /** The width of the display in pixels. */
             width: number;
@@ -10899,7 +10920,8 @@ declare namespace chrome {
             dpiX: number;
             /** The number of pixels per inch along the y-axis. */
             dpiY: number;
-            /** The display's clockwise rotation in degrees relative to the vertical position.
+            /**
+             * The display's clockwise rotation in degrees relative to the vertical position.
              * Currently exposed only on ChromeOS. Will be set to 0 on other platforms.
              * A value of -1 will be interpreted as auto-rotate when the device is in a physical tablet state.
              * @platform ChromeOS only
@@ -11164,7 +11186,7 @@ declare namespace chrome {
 
         /** @since Chrome 71 */
         interface GetMediaStreamOptions {
-            /** Optional tab id of the tab which will later invoke `getUserMedia()` to consume the stream. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches the consumber tab's origin. The tab's origin must be a secure origin, e.g. HTTPS. */
+            /** Optional tab id of the tab which will later invoke `getUserMedia()` to consume the stream. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches the consumer tab's origin. The tab's origin must be a secure origin, e.g. HTTPS. */
             consumerTabId?: number | undefined;
             /** Optional tab id of the tab which will be captured. If not specified then the current active tab will be selected. Only tabs for which the extension has been granted the `activeTab` permission can be used as the target tab. */
             targetTabId?: number | undefined;
@@ -11438,7 +11460,7 @@ declare namespace chrome {
             url?: string | undefined;
             /** Adds or removes the tab from the current selection. */
             highlighted?: boolean | undefined;
-            /** Whether the tab should be active. Does not affect whether the window is focused (see {@link windows.update}).*/
+            /** Whether the tab should be active. Does not affect whether the window is focused (see {@link windows.update}). */
             active?: boolean | undefined;
             /**
              * Whether the tab should be selected.
@@ -11887,7 +11909,7 @@ declare namespace chrome {
          * MV2 only
          * @param tabId The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
          * @param details Details of the CSS text to insert. Either the code or the file property must be set, but both may not be set at the same time.
-         * @deprecated since Chrome 99. Replaced by {@link scripting.insertCSS} in Manifest V3.
+         * @deprecated since Chrome 91. Replaced by {@link scripting.insertCSS} in Manifest V3.
          */
         function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
@@ -11895,6 +11917,26 @@ declare namespace chrome {
         function insertCSS(
             tabId: number | undefined,
             details: extensionTypes.InjectDetails,
+            callback: () => void,
+        ): void;
+
+        /**
+         * Removes from a page CSS that was previously injected by a call to {@link tabs.insertCSS}.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
+         *
+         * MV2 only
+         * @param tabId The ID of the tab from which to remove the CSS; defaults to the active tab of the current window.
+         * @param details Details of the CSS text to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         * @deprecated since Chrome 91. Replaced by {@link scripting.removeCSS} in Manifest V3.
+         */
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(tabId: number | undefined, details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails, callback: () => void): void;
+        function removeCSS(
+            tabId: number | undefined,
+            details: extensionTypes.DeleteInjectionDetails,
             callback: () => void,
         ): void;
 
@@ -11975,7 +12017,7 @@ declare namespace chrome {
          * Discards a tab from memory. Discarded tabs are still visible on the tab strip and are reloaded when activated.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
-         * @param tabId The ID of the tab to be discarded. If specified, the tab is discarded unless it is active or already discarded. If omitted, the browser discards the least important tab. This can fail if no discardable tabs exist..
+         * @param tabId The ID of the tab to be discarded. If specified, the tab is discarded unless it is active or already discarded. If omitted, the browser discards the least important tab. This can fail if no discardable tabs exist.
          * @since Chrome 54
          */
         function discard(tabId?: number): Promise<Tab | undefined>;
@@ -12350,7 +12392,7 @@ declare namespace chrome {
             voiceName?: string;
         }
 
-        /** @deprecated since Chrome 70. Gender is deprecated and is ignored.*/
+        /** @deprecated since Chrome 70. Gender is deprecated and is ignored. */
         enum VoiceGender {
             FEMALE = "female",
             MALE = "male",
@@ -12817,7 +12859,7 @@ declare namespace chrome {
         /** Triggered when a configuration created by the extension is removed by the platform. */
         const onConfigRemoved: events.Event<(id: string) => void>;
 
-        // /** Triggered when a configuration is created by the platform for the extension. */
+        /** Triggered when a configuration is created by the platform for the extension. */
         const onConfigCreated: events.Event<
             (id: string, name: string, data: { [key: string]: unknown }) => void
         >;
@@ -12903,7 +12945,7 @@ declare namespace chrome {
         interface GetRequest {
             /** The `PublicKeyCredentialRequestOptions` passed to `navigator.credentials.get()`, serialized as a JSON string. The serialization format is compatible with [`PublicKeyCredential.parseRequestOptionsFromJSON()`](https://w3c.github.io/webauthn/#sctn-parseRequestOptionsFromJSON). */
             requestDetailsJson: string;
-            /**  An opaque identifier for the request. */
+            /** An opaque identifier for the request. */
             requestId: number;
         }
 
@@ -12935,7 +12977,7 @@ declare namespace chrome {
          *
          * The attached extension must call `detach()` once the remote desktop session has ended in order to resume regular WebAuthn request processing. Extensions automatically become detached if they are unloaded.
          *
-         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to to the (possibly suspended) extension.
+         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to the (possibly suspended) extension.
          */
         function attach(): Promise<string | undefined>;
         function attach(callback: (error?: string | undefined) => void): void;
@@ -12957,7 +12999,7 @@ declare namespace chrome {
          *
          * This method is typically called when the extension detects that a remote desktop session was terminated. Once this method returns, the extension ceases to be the active Web Authentication API request proxy.
          *
-         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to to the (possibly suspended) extension.
+         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to the (possibly suspended) extension.
          */
         function detach(): Promise<string | undefined>;
         function detach(callback: (error?: string | undefined) => void): void;
@@ -13054,7 +13096,7 @@ declare namespace chrome {
             );
 
         interface GetFrameResultDetails {
-            /** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists. */
+            /** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that a URL is associated with a given frameId does not imply that the corresponding frame still exists. */
             url: string;
             /** A UUID of the document loaded. */
             documentId: string;
@@ -13159,7 +13201,7 @@ declare namespace chrome {
             documentId: string;
             /** Cause of the navigation. */
             transitionType: `${TransitionType}`;
-            /** A list of transition qualifiers.*/
+            /** A list of transition qualifiers. */
             transitionQualifiers: `${TransitionQualifier}`[];
         }
 
@@ -13210,7 +13252,7 @@ declare namespace chrome {
         /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
         const onCompleted: WebNavigationEvent<(details: WebNavigationFramedCallbackDetails) => void>;
 
-        // /** Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL. */
+        /** Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL. */
         const onHistoryStateUpdated: WebNavigationEvent<
             (details: WebNavigationTransitionCallbackDetails) => void
         >;
@@ -13220,7 +13262,7 @@ declare namespace chrome {
             (details: WebNavigationSourceCallbackDetails) => void
         >;
 
-        /** Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab*/
+        /** Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab */
         const onTabReplaced: events.Event<(details: WebNavigationReplacementCallbackDetails) => void>;
 
         /** Fired when a navigation is about to occur. */
@@ -13513,7 +13555,7 @@ declare namespace chrome {
              * @since Chrome 43
              */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
             statusLine: string;
         }
 
@@ -13528,7 +13570,7 @@ declare namespace chrome {
             responseHeaders?: HttpHeader[];
             /** Standard HTTP status code returned by the server. */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
             statusLine: string;
         }
 
@@ -13560,7 +13602,7 @@ declare namespace chrome {
             responseHeaders?: HttpHeader[];
             /** Standard HTTP status code returned by the server. */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
             statusLine: string;
         }
 
@@ -13583,7 +13625,7 @@ declare namespace chrome {
             securityInfo?: SecurityInfo;
             /** Standard HTTP status code returned by the server. */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
             statusLine: string;
         }
 
@@ -13614,9 +13656,9 @@ declare namespace chrome {
 
         const onActionIgnored: events.Event<
             (details: {
-                // The proposed action which was ignored.
+                /** The proposed action which was ignored. */
                 action: `${IgnoredActionType}`;
-                // The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+                /** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
                 requestId: string;
             }) => void
         >;
@@ -13661,7 +13703,6 @@ declare namespace chrome {
             ) => BlockingResponse | undefined,
             `${OnAuthRequiredOptions}`[]
         >;
-        // const onAuthRequired: WebAuthenticationChallengeEvent;
 
         /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
         const onResponseStarted: WebRequestEvent<
@@ -14767,13 +14808,13 @@ declare namespace chrome {
         /** @since Chrome 141 */
         type CloseOptions =
             | {
-                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided.  */
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided. */
                 tabId: number;
                 /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
                 windowId?: number | undefined;
             }
             | {
-                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided.  */
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided. */
                 tabId?: number | undefined;
                 /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
                 windowId: number;
@@ -14793,7 +14834,7 @@ declare namespace chrome {
                 /**
                  * The tab in which to open the side panel.
                  * If the corresponding tab has a tab-specific side panel, the panel will only be open for that tab.
-                 * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab- specific panel.
+                 * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab-specific panel.
                  * This will override any currently-active side panel (global or tab-specific) in the corresponding tab.
                  * At least one of this and `windowId` must be provided. */
                 tabId?: number | undefined;
@@ -14985,7 +15026,7 @@ declare namespace chrome {
         interface WorldProperties {
             /** Specifies the world csp. The default is the `ISOLATED` world csp. */
             csp?: string | undefined;
-            /** Specifies whether messaging APIs are exposed. The default is `false`.*/
+            /** Specifies whether messaging APIs are exposed. The default is `false`. */
             messaging?: boolean | undefined;
             /**
              * Specifies the ID of the specific user script world to update. If not provided, updates the properties of the default user script world. Values with leading underscores (`_`) are reserved.
@@ -14999,7 +15040,7 @@ declare namespace chrome {
             ids?: string[] | undefined;
         }
 
-        // /** @since Chrome 135 */
+        /** @since Chrome 135 */
         type InjectionTarget =
             & {
                 /** The ID of the tab into which to inject. */
@@ -15037,13 +15078,13 @@ declare namespace chrome {
             allFrames?: boolean | undefined;
             /** Specifies wildcard patterns for pages this user script will NOT be injected into. */
             excludeGlobs?: string[] | undefined;
-            /**Excludes pages that this user script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings. */
+            /** Excludes pages that this user script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings. */
             excludeMatches?: string[] | undefined;
             /** The ID of the user script specified in the API call. This property must not start with a '_' as it's reserved as a prefix for generated script IDs. */
             id: string;
             /** Specifies wildcard patterns for pages this user script will be injected into. */
             includeGlobs?: string[] | undefined;
-            /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for {@link register}, and when specified it must be a non-empty array.*/
+            /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for {@link register}, and when specified it must be a non-empty array. */
             js?: ScriptSource[] | undefined;
             /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for {@link register}. */
             matches?: string[] | undefined;

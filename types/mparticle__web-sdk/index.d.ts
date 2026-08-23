@@ -269,7 +269,7 @@ interface Upload {
 }
 
 interface GenerateHash {
-    (value: string): string;
+    (value: string): number;
 }
 
 interface CreateConsentState {
@@ -614,6 +614,9 @@ export namespace eCommerce {
     const logImpression: LogImpression;
     const logProductAction: LogProductAction;
     const logPromotion: LogPromotion;
+    /**
+     * @deprecated Use logProductAction with ProductActionType.Purchase instead.
+     */
     const logPurchase: LogPurchase;
     /**
      * @deprecated logRefund has been deprecated
@@ -899,6 +902,9 @@ declare class mParticleInstance {
         logImpression: LogImpression;
         logProductAction: LogProductAction;
         logPromotion: LogPromotion;
+        /**
+         * @deprecated Use logProductAction with ProductActionType.Purchase instead.
+         */
         logPurchase: LogPurchase;
         logRefund: LogRefund;
         setCurrencyCode: SetCurrencyCode;

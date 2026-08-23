@@ -1117,7 +1117,7 @@ export type AxisName = XAxisName | YAxisName;
 
 export interface LayoutAxis extends Axis {
     fixedrange: boolean;
-    scaleanchor: AxisName;
+    scaleanchor: AxisName | false;
     scaleratio: number;
     constrain: "range" | "domain";
     constraintoward: "left" | "center" | "right" | "top" | "middle" | "bottom";
@@ -1134,7 +1134,8 @@ export interface LayoutAxis extends Axis {
     automargin: boolean;
     angle: any;
     griddash: Dash;
-    l2p: (v: Datum) => number;
+    l2p: (v: number) => number;
+    d2p: (v: Datum, clip?: any, calendar?: any) => number;
 
     autotickangles: number[];
     insiderange: any[];
@@ -1270,7 +1271,6 @@ export type ModeBarDefaultButtons =
     | "zoomOutGeo"
     | "resetGeo"
     | "hoverClosestGeo"
-    | "hoverClosestGl2d"
     | "hoverClosestPie"
     | "toggleHover"
     | "toImage"
@@ -1286,7 +1286,27 @@ export type ModeBarDefaultButtons =
     | "togglehover"
     | "hovercompare"
     | "hoverclosest"
-    | "v1hovermode";
+    | "v1hovermode"
+    | "sendChartToCloud"
+    | "drawclosedpath"
+    | "drawopenpath"
+    | "drawline"
+    | "drawrect"
+    | "drawcircle"
+    | "eraseshape"
+    | "resetViewSankey"
+    | "zoom"
+    | "pan"
+    | "select"
+    | "lasso"
+    | "zoomin"
+    | "zoomout"
+    | "autoscale"
+    | "resetscale"
+    | "resetCameraDefault"
+    | "resetCameraLastSave"
+    | "reset"
+    | "resetView";
 
 export type ButtonClickEvent = (gd: PlotlyHTMLElement, ev: MouseEvent) => void;
 

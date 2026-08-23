@@ -51,6 +51,7 @@ run({
     isolation: "process",
     testNamePatterns: ["executed", /^core-/],
     testSkipPatterns: ["excluded", /^lib-/],
+    testTagFilters: ["tag1", "tag2"],
     only: true,
     setup: (reporter) => {
         // $ExpectType TestsStream
@@ -178,6 +179,8 @@ test(undefined, undefined, t => {
     t.error;
     // $ExpectType number
     t.attempt;
+    // $ExpectType readonly string[]
+    t.tags;
     // $ExpectType number | undefined
     t.workerId;
 });
@@ -527,6 +530,14 @@ suite("foo", (context) => {
     context.attempt;
 
     context.diagnostic("diagnostic");
+});
+
+suite("test tags", () => {
+    describe("database", { tags: ["db"] }, () => {
+        it("reads a row"); // tags: ['db']
+        it("writes a row", { tags: ["integration"] }); // tags: ['db', 'integration']
+        it("reconnects after disconnect", { tags: ["flaky"] }); // tags: ['db', 'flaky']
+    });
 });
 
 // Hooks

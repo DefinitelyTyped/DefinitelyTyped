@@ -2897,6 +2897,10 @@
             "libraryName": "hashids",
             "asOfVersion": "2.0.0"
         },
+        "hashmap": {
+            "libraryName": "hashmap",
+            "asOfVersion": "3.0.1"
+        },
         "hcaptcha__react-hcaptcha": {
             "libraryName": "@hcaptcha/react-hcaptcha",
             "asOfVersion": "0.3.7"
@@ -2981,6 +2985,10 @@
             "libraryName": "html-void-elements",
             "asOfVersion": "2.0.0"
         },
+        "html-webpack-plugin": {
+            "libraryName": "html-webpack-plugin",
+            "asOfVersion": "4.0.0"
+        },
         "html-webpack-tags-plugin": {
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
@@ -2992,6 +3000,10 @@
         "htmlparser2": {
             "libraryName": "htmlparser2",
             "asOfVersion": "4.1.0"
+        },
+        "http-codes": {
+            "libraryName": "http-codes",
+            "asOfVersion": "2.0.0"
         },
         "http-graceful-shutdown": {
             "libraryName": "http-graceful-shutdown",
@@ -5236,6 +5248,10 @@
         "pad": {
             "libraryName": "pad",
             "asOfVersion": "2.1.0"
+        },
+        "pako": {
+            "libraryName": "pako",
+            "asOfVersion": "3.0.0"
         },
         "paper": {
             "libraryName": "paper",

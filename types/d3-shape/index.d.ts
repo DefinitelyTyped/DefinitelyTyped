@@ -317,6 +317,20 @@ export interface Arc<This, Datum> {
      * If context is not specified, returns the current context, which defaults to null.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this arc generator.
+     *
+     * This option only applies when the associated context is null, as when this arc generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 }
 
 /**
@@ -750,6 +764,20 @@ export interface Line<Datum> {
      * Sets the context and returns this line generator.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this line generator.
+     *
+     * This option only applies when the associated context is null, as when this line generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 }
 
 /**
@@ -915,6 +943,20 @@ export interface LineRadial<Datum> {
      * Equivalent to line.context.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this radial line generator.
+     *
+     * This option only applies when the associated context is null, as when this radial line generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 }
 
 /**
@@ -1182,6 +1224,20 @@ export interface Area<Datum> {
      * Sets the context and returns this area generator.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this area generator.
+     *
+     * This option only applies when the associated context is null, as when this area generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 
     /**
      * Returns a new line generator that has this area generator’s current defined accessor, curve and context.
@@ -1457,6 +1513,20 @@ export interface AreaRadial<Datum> {
      * Equivalent to line.context.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this radial area generator.
+     *
+     * This option only applies when the associated context is null, as when this radial area generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 
     /**
      * Returns a new radial line generator that has this radial area generator’s current defined accessor, curve and context.
@@ -1931,6 +2001,20 @@ export interface Link<This, LinkDatum, NodeDatum> {
      * Sets the context and returns this link generator.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this link generator.
+     *
+     * This option only applies when the associated context is null, as when this link generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 }
 
 /**
@@ -2129,6 +2213,20 @@ export interface LinkRadial<This, LinkDatum, NodeDatum> {
      * Sets the context and returns this link generator.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this radial link generator.
+     *
+     * This option only applies when the associated context is null, as when this radial link generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 }
 
 /**
@@ -2280,6 +2378,20 @@ export interface Symbol<This, Datum> {
      * Sets the context and returns this symbol generator.
      */
     context(context: CanvasRenderingContext2D | null): this;
+
+    /**
+     * Returns the maximum number of digits after the decimal separator, which defaults to 3.
+     */
+    digits(): number | null;
+    /**
+     * Sets the maximum number of digits after the decimal separator and returns this symbol generator.
+     *
+     * This option only applies when the associated context is null, as when this symbol generator is used
+     * to produce path data.
+     *
+     * @param digits The maximum number of digits after the decimal separator, or null for full precision.
+     */
+    digits(digits: number | null): this;
 }
 
 /**

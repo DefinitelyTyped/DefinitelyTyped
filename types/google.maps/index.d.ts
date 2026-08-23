@@ -9335,6 +9335,54 @@ declare namespace google.maps.maps3d {
   }
   export type GestureHandlingString = `${google.maps.maps3d.GestureHandling}`;
   /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Represents a text label associated with a 3D marker on a map, allowing independent configuration of properties such as collision behavior.
+   * Access by calling `const {Label3DElement} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Label3DElement extends HTMLElement implements google.maps.maps3d.Label3DElementOptions {
+    /**
+     * Creates an <code>Label3DElement</code> with the options specified.
+     * @param options
+     */
+    constructor(options?: google.maps.maps3d.Label3DElementOptions);
+    /**
+     * An enumeration specifying how the label of a Marker3DElement should behave when it collides with another element.
+     * @defaultValue {@link google.maps.CollisionBehavior.REQUIRED}
+     */
+    get collisionBehavior(): google.maps.CollisionBehaviorString | null;
+    /**
+     * An enumeration specifying how the label of a Marker3DElement should behave when it collides with another element.
+     * @defaultValue {@link google.maps.CollisionBehavior.REQUIRED}
+     */
+    set collisionBehavior(value: google.maps.CollisionBehaviorString | null | undefined);
+    /**
+     * The Marker3DElement that this label is for.
+     */
+    get for(): string | HTMLElement | null;
+    /**
+     * The Marker3DElement that this label is for.
+     */
+    set for(value: string | HTMLElement | null | undefined);
+    addEventListener<K extends keyof Label3DElementEventMap>(type: K, listener: (this: Label3DElement, ev: Label3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+  }
+  export interface Label3DElementEventMap extends HTMLElementEventMap {
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Label3DElementOptions object used to define the properties that can be set on a Label3DElement.
+   */
+  export interface Label3DElementOptions {
+    /**
+     * An enumeration specifying how the label of a Marker3DElement should behave when it collides with another element.
+     */
+    collisionBehavior?: google.maps.CollisionBehaviorString | null;
+    /**
+     * The Marker3DElement that this label is for.
+     */
+    for?: string | HTMLElement | null;
+  }
+  /**
    * This event is created from clicking a Map3DElement.
    * Access by calling `const {LocationClickEvent} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -16002,6 +16050,16 @@ declare namespace google.maps.routes {
      */
     set routingPreference(value: google.maps.routes.RoutingPreferenceString | null | undefined);
     /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     * @defaultValue <code>false</code>
+     */
+    get trafficPolylinesDisabled(): boolean;
+    /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     * @defaultValue <code>false</code>
+     */
+    set trafficPolylinesDisabled(value: boolean | null | undefined);
+    /**
      * If provided, the polyline is based on the specified travel mode.
      */
     get travelMode(): google.maps.TravelModeString | null;
@@ -16044,6 +16102,10 @@ declare namespace google.maps.routes {
      * See {@link google.maps.routes.Route3DElement.routingPreference}.
      */
     routingPreference?: google.maps.routes.RoutingPreferenceString | null;
+    /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     */
+    trafficPolylinesDisabled?: boolean | null;
     /**
      * See {@link google.maps.routes.Route3DElement.travelMode}.
      */
@@ -16960,6 +17022,7 @@ declare namespace google.maps {
     "gmp-basic-place-autocomplete": google.maps.places.BasicPlaceAutocompleteElementEventMap;
     "gmp-circle-path": google.maps.maps3d.CirclePathElementEventMap;
     "gmp-flattener": google.maps.maps3d.FlattenerElementEventMap;
+    "gmp-label-3d": google.maps.maps3d.Label3DElementEventMap;
     "gmp-map": google.maps.MapElementEventMap;
     "gmp-map-3d": google.maps.maps3d.Map3DElementEventMap;
     "gmp-marker": google.maps.maps3d.MarkerElementEventMap;
@@ -17013,6 +17076,7 @@ declare namespace google.maps {
     "gmp-basic-place-autocomplete": google.maps.places.BasicPlaceAutocompleteElementOptions;
     "gmp-circle-path": google.maps.maps3d.CirclePathElementOptions;
     "gmp-flattener": google.maps.maps3d.FlattenerElementOptions;
+    "gmp-label-3d": google.maps.maps3d.Label3DElementOptions;
     "gmp-map": google.maps.MapElementOptions;
     "gmp-map-3d": google.maps.maps3d.Map3DElementOptions;
     "gmp-marker": google.maps.maps3d.MarkerElementOptions;
@@ -17066,6 +17130,7 @@ declare namespace google.maps {
     "gmp-basic-place-autocomplete": google.maps.places.BasicPlaceAutocompleteElement;
     "gmp-circle-path": google.maps.maps3d.CirclePathElement;
     "gmp-flattener": google.maps.maps3d.FlattenerElement;
+    "gmp-label-3d": google.maps.maps3d.Label3DElement;
     "gmp-map": google.maps.MapElement;
     "gmp-map-3d": google.maps.maps3d.Map3DElement;
     "gmp-marker": google.maps.maps3d.MarkerElement;

@@ -2170,6 +2170,12 @@ declare namespace google.payments.api {
          * This object declares the callbacks used for Dynamic Price Updates.
          */
         paymentDataCallbacks?: PaymentDataCallbacks | undefined;
+
+        /**
+         * Optional Content Security Policy (CSP) nonce to apply to all dynamically
+         * injected styles and scripts.
+         */
+        nonce?: string;
     }
 
     /**
