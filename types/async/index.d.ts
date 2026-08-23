@@ -125,30 +125,30 @@ export interface QueueObject<T> {
      * Instead of a single task, a tasks array can be submitted.
      * The respective callback is used for every task in the list.
      */
-    push<R = unknown>(task: T): Promise<R>;
-    push<R = unknown>(task: T[]): Promise<R>[] | undefined;
-    push<R = unknown, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
+    push<R>(task: T): Promise<R>;
+    push<R>(task: T[]): Promise<R>[] | undefined;
+    push<R, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
 
     /**
      * Add a new task to the front of the queue
      */
-    unshift<R = unknown>(task: T): Promise<R>;
-    unshift<R = unknown>(task: T[]): Promise<R>[] | undefined;
-    unshift<R = unknown, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
+    unshift<R>(task: T): Promise<R>;
+    unshift<R>(task: T[]): Promise<R>[] | undefined;
+    unshift<R, E = Error>(task: T | T[], callback: AsyncResultCallback<R, E>): void;
 
     /**
      * The same as `q.push`, except this returns a promise that rejects if an error occurs.
      * The `callback` arg is ignored
      */
-    pushAsync<R = unknown>(task: T): Promise<R>;
-    pushAsync<R = unknown>(task: T[]): Promise<R>[] | undefined;
+    pushAsync<R>(task: T): Promise<R>;
+    pushAsync<R>(task: T[]): Promise<R>[] | undefined;
 
     /**
      * The same as `q.unshift`, except this returns a promise that rejects if an error occurs.
      * The `callback` arg is ignored
      */
-    unshiftAsync<R = unknown>(task: T): Promise<R>;
-    unshiftAsync<R = unknown>(task: T[]): Promise<R>[] | undefined;
+    unshiftAsync<R>(task: T): Promise<R>;
+    unshiftAsync<R>(task: T[]): Promise<R>[] | undefined;
 
     /**
      * Remove items from the queue that match a test function.
