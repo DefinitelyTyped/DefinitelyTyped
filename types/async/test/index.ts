@@ -435,6 +435,20 @@ q3.error();
 
 q3.push(["task1", "task2", "task3"]);
 
+// tests for the push method of priorityQueue
+const q4 = async.priorityQueue<string>((task: string, callback: () => void) => {
+    console.log("Task: " + task);
+    callback();
+}, 1)
+
+// $ExpectType Promise<unknown>
+q4.push("task1")
+
+// $ExpectType Promise<unknown>[] | undefined
+q4.push(["task2", "task3"])
+
+q4.push("task4", 1, () => { })
+
 // create a cargo object with payload 2
 const cargo = async.cargo<{ name: string }>((tasks, callback) => {
     for (const task of tasks) {
