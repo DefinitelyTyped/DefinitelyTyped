@@ -40,7 +40,14 @@ export interface BrowserUsable {
 }
 
 declare module "." {
-    function browser(): BrowserUsable;
+    /**
+     * Creates an opaque Usable that opts a subtree into browser-only rendering.
+     * `reason` is diagnostic metadata: an SSR renderer uses it as the `cause` of
+     * the recoverable error it reports when deferring the subtree to the browser.
+     * A function is called lazily by that renderer; in the browser the reason is
+     * never observed.
+     */
+    function browser(reason?: string | (() => unknown)): BrowserUsable;
 }
 
 declare module "react" {
