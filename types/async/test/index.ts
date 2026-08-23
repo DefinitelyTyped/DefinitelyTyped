@@ -439,15 +439,15 @@ q3.push(["task1", "task2", "task3"]);
 const q4 = async.priorityQueue<string>((task: string, callback: () => void) => {
     console.log("Task: " + task);
     callback();
-}, 1)
+}, 1);
 
 // $ExpectType Promise<unknown>
-q4.push("task1")
+q4.push("task1");
 
 // $ExpectType Promise<unknown>[] | undefined
-q4.push(["task2", "task3"])
+q4.push(["task2", "task3"]);
 
-q4.push("task4", 1, () => { })
+q4.push("task4", 1, () => {});
 
 // create a cargo object with payload 2
 const cargo = async.cargo<{ name: string }>((tasks, callback) => {
