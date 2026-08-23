@@ -135,7 +135,7 @@ describe("jasminewd", () => {
                     return {
                         compare(actual: any, expected: void) {
                             return {
-                                pass: (actual.isDisplayed() as Promise<boolean>),
+                                pass: actual.isDisplayed() as Promise<boolean>,
                             };
                         },
                     };
