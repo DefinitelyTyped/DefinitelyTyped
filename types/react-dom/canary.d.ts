@@ -1,5 +1,3 @@
-/* eslint-disable @definitelytyped/no-self-import -- self-imports in module augmentations aren't self-imports */
-/* eslint-disable @definitelytyped/no-declare-current-package -- The module augmentations are optional */
 /**
  * These are types for things that are present in the upcoming React 18 release.
  *
@@ -33,40 +31,3 @@ import ReactDOM = require(".");
 import { ErrorInfo } from "./client";
 
 export {};
-
-declare module "react" {
-    // @enableViewTransition
-    interface ViewTransitionPseudoElement extends Animatable {
-        getComputedStyle: () => CSSStyleDeclaration;
-    }
-
-    interface ViewTransitionInstance {
-        group: ViewTransitionPseudoElement;
-        imagePair: ViewTransitionPseudoElement;
-        old: ViewTransitionPseudoElement;
-        new: ViewTransitionPseudoElement;
-    }
-
-    // @enableFragmentRefs
-    interface FragmentInstance {
-        blur: () => void;
-        focus: (focusOptions?: FocusOptions | undefined) => void;
-        focusLast: (focusOptions?: FocusOptions | undefined) => void;
-        observeUsing(observer: IntersectionObserver | ResizeObserver): void;
-        unobserveUsing(observer: IntersectionObserver | ResizeObserver): void;
-        getClientRects(): Array<DOMRect>;
-        getRootNode(getRootNodeOptions?: GetRootNodeOptions | undefined): Document | ShadowRoot | FragmentInstance;
-        addEventListener(
-            type: string,
-            listener: EventListener,
-            optionsOrUseCapture?: Parameters<Element["addEventListener"]>[2],
-        ): void;
-        removeEventListener(
-            type: string,
-            listener: EventListener,
-            optionsOrUseCapture?: Parameters<Element["removeEventListener"]>[2],
-        ): void;
-        dispatchEvent(event: Event): boolean;
-        scrollIntoView(alignToTop?: boolean): void;
-    }
-}
