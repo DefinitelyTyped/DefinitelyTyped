@@ -289,6 +289,7 @@ function app_reporter_js() {
     const result: jasmine.SpecResult = {
         passedExpectations: [],
         pendingReason: "text",
+        notApplicableReason: "",
         debugLogs: [],
         id: "text",
         filename: "text",
@@ -296,7 +297,7 @@ function app_reporter_js() {
         fullName: "text",
         failedExpectations: [],
         deprecationWarnings: [],
-        status: "text",
+        status: "passed",
         duration: 0,
         properties: {},
     };

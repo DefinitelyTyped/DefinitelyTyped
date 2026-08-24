@@ -447,6 +447,11 @@ describe("Pending specs", () => {
         pending(); // without reason
         pending("this is why it is pending");
     });
+
+    it("can be declared by calling 'notApplicable' in the spec body", () => {
+        expect(true).toBe(false);
+        notApplicable("this is why it is not applicable");
+    });
 });
 
 describe("setSpecProperty", () => {

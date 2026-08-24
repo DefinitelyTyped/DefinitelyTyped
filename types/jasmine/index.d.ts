@@ -52,9 +52,19 @@ declare function xit(expectation: string, assertion?: jasmine.ImplementationCall
 /**
  * Mark a spec as pending, expectation results will be ignored.
  * If you call the function pending anywhere in the spec body, no matter the expectations, the spec will be marked pending.
- * @param reason Reason the spec is pending.
+ * @param reason Reason why the spec is pending.
  */
 declare function pending(reason?: string): void;
+
+/**
+ * Mark a spec as not applicable. This is similar to {@link pending} except
+ * that the spec is never expected to pass in the current environment.
+ *
+ * If you call the function notApplicable anywhere in the spec body, no matter the expectations, the spec will be marked not applicable.
+ * @since 7.0.0
+ * @param reason Reason why the spec is not applicable.
+ */
+declare function notApplicable(reason: string): void;
 
 /**
  * Sets a user-defined property that will be provided to reporters as
@@ -308,8 +318,9 @@ declare namespace jasmine {
          * Whether to forbid duplicate spec or suite names. If set to true, using
          * the same name multiple times in the same immediate parent suite is an
          * error.
+         * @deprecated Deprecated in jasmine 7.
          * @since 5.5.0
-         * @default false
+         * @default true
          */
         forbidDuplicateNames?: boolean | undefined;
         /**
@@ -1314,7 +1325,7 @@ declare namespace jasmine {
         /**
          * Once the spec has completed, this string represents the pass/fail status of this spec.
          */
-        status: string;
+        status: "excluded" | "pending" | "notApplicable" | "failed" | "passed";
 
         /**
          * The time in ms used by the spec execution, including any before/afterEach.
@@ -1338,6 +1349,11 @@ declare namespace jasmine {
          */
         pendingReason: string;
 
+        /**
+         * If the spec is not applicable, this will be the reason.
+         */
+        notApplicableReason: string;
+
         debugLogs: DebugLogEntry[] | null;
 
         /**
@@ -1352,7 +1368,7 @@ declare namespace jasmine {
     }
 
     interface JasmineDoneInfo {
-        overallStatus: string;
+        overallStatus: "incomplete" | "failed" | "passed";
         totalTime: number;
         incompleteReason: string;
         order: Order;
