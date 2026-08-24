@@ -108,19 +108,3 @@ function formrelatedEventTests() {
         }}
     />;
 }
-
-function browserUsableTests() {
-    // browser() returns an opaque, renderer-specific Usable that React.use accepts
-    // $ExpectType unknown
-    React.use(ReactDOM.browser());
-
-    // The reason can be a string or a lazy initializer whose return value an
-    // SSR renderer uses as the cause of the recoverable error.
-    // $ExpectType BrowserUsable
-    ReactDOM.browser("Only render this content in a browser");
-    // $ExpectType BrowserUsable
-    ReactDOM.browser(() => new Error("Only render this content in a browser"));
-
-    // @ts-expect-error -- the reason is a string or a zero-arg initializer, not an arbitrary value
-    ReactDOM.browser(new Error("Only render this content in a browser"));
-}
