@@ -34,72 +34,7 @@ import { ErrorInfo } from "./client";
 
 export {};
 
-declare const browserUsable: unique symbol;
-
-export interface BrowserUsable {
-    readonly [browserUsable]: never;
-}
-
-declare module "." {
-    /**
-     * Creates an opaque Usable that opts a subtree into browser-only rendering.
-     * `reason` is diagnostic metadata: an SSR renderer uses it as the `cause` of
-     * the recoverable error it reports when deferring the subtree to the browser.
-     * A function is called lazily by that renderer; in the browser the reason is
-     * never observed.
-     */
-    function browser(reason?: string | (() => unknown)): BrowserUsable;
-}
-
-declare module "./server" {
-    interface RenderToPipeableStreamOptions {
-        /**
-         * A callback React calls when it recovers from `browser()` by leaving a
-         * Suspense fallback for the browser to replace.
-         */
-        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
-    }
-
-    interface RenderToReadableStreamOptions {
-        /**
-         * A callback React calls when it recovers from `browser()` by leaving a
-         * Suspense fallback for the browser to replace.
-         */
-        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
-    }
-
-    interface ResumeToPipeableStreamOptions {
-        /**
-         * A callback React calls when it recovers from `browser()` by leaving a
-         * Suspense fallback for the browser to replace.
-         */
-        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
-    }
-}
-
-declare module "./static" {
-    interface PrerenderOptions {
-        /**
-         * A callback React calls when it recovers from `browser()` by leaving a
-         * Suspense fallback for the browser to replace.
-         */
-        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
-    }
-
-    interface ResumeOptions {
-        /**
-         * A callback React calls when it recovers from `browser()` by leaving a
-         * Suspense fallback for the browser to replace.
-         */
-        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
-    }
-}
-
 declare module "react" {
-    interface RendererUsable<T> {
-        "react-dom/browser": BrowserUsable;
-    }
-
     // @enableViewTransition
     interface ViewTransitionPseudoElement extends Animatable {
         getComputedStyle: () => CSSStyleDeclaration;

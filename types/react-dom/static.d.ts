@@ -95,6 +95,11 @@ export interface PrerenderOptions {
     identifierPrefix?: string;
     importMap?: ReactImportMap | undefined;
     namespaceURI?: string;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
     onHeaders?: ((headers: Headers) => void) | undefined;
     progressiveChunkSize?: number;
@@ -137,6 +142,11 @@ export function prerenderToNodeStream(
 export interface ResumeOptions {
     nonce?: NonceOption | undefined;
     signal?: AbortSignal;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown) => string | undefined | void;
 }
 
