@@ -57,6 +57,12 @@ declare module "node:net" {
     }
     type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
     type SocketReadyState = "opening" | "open" | "readOnly" | "writeOnly" | "closed";
+    interface SetKeepAliveOptions {
+        enable?: boolean | undefined;
+        initialDelay?: number | undefined;
+        interval?: number | undefined;
+        count?: number | undefined;
+    }
     interface SocketEventMap extends Omit<stream.DuplexEventMap, "close"> {
         "close": [hadError: boolean];
         "connect": [];
@@ -199,25 +205,27 @@ declare module "node:net" {
          */
         setNoDelay(noDelay?: boolean): this;
         /**
-         * Enable/disable keep-alive functionality, and optionally set the initial
-         * delay before the first keepalive probe is sent on an idle socket.
+         * Configure keep-alive using an options object. See `socket.setKeepAlive()`
+         * for a description of each property.
          *
-         * Set `initialDelay` (in milliseconds) to set the delay between the last
-         * data packet received and the first keepalive probe. Setting `0` for`initialDelay` will leave the value unchanged from the default
-         * (or previous) setting.
-         *
-         * Enabling the keep-alive functionality will set the following socket options:
-         *
-         * * `SO_KEEPALIVE=1`
-         * * `TCP_KEEPIDLE=initialDelay`
-         * * `TCP_KEEPCNT=10`
-         * * `TCP_KEEPINTVL=1`
-         * @since v0.1.92
-         * @param [enable=false]
-         * @param [initialDelay=0]
-         * @return The socket itself.
+         * ```js
+         * socket.setKeepAlive({ enable: true, initialDelay: 1000, interval: 1000, count: 10 });
+         * ```
+         * @since v26.4.0
+         * @returns The socket itself.
          */
-        setKeepAlive(enable?: boolean, initialDelay?: number): this;
+        setKeepAlive(options: SetKeepAliveOptions): this;
+        /**
+         * Configure keep-alive using positional arguments. See
+         * `socket.setKeepAlive()` for a description of each argument.
+         * @since v0.1.92
+         * @param enable **Default:** `false`
+         * @param initialDelay **Default:** `0`
+         * @param interval **Default:** `1000`
+         * @param count **Default:** `10`
+         * @returns The socket itself.
+         */
+        setKeepAlive(enable: boolean, initialDelay?: number, interval?: number, count?: number): this;
         /**
          * Returns the current Type of Service (TOS) field for IPv4 packets or Traffic
          * Class for IPv6 packets for this socket.
