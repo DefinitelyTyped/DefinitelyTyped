@@ -683,20 +683,24 @@ declare class ClientCredentials extends BaseToken {
     constructor(properties: {
         client: Client;
         resourceServer?: ResourceServerInstance | undefined;
-        scope: string;
+        aud?: string | string[] | undefined;
+        scope?: string | undefined;
         rar?: AuthorizationDetail[] | undefined;
         [key: string]: unknown;
     });
     readonly kind: "ClientCredentials";
     scope?: string | undefined;
     extra?: UnknownObject | undefined;
-    aud: string | string[];
+    aud?: string | string[] | undefined;
     readonly tokenType: string;
     "x5t#S256"?: string | undefined;
     jkt?: string | undefined;
     resourceServer?: ResourceServerInstance | undefined;
     rar?: AuthorizationDetail[] | undefined;
 
+    setAudience(audience: string | string[]): void;
+    setThumbprint(prop: "x5t", input: string | crypto.X509Certificate): void;
+    setThumbprint(prop: "jkt", input: string): void;
     isSenderConstrained(): boolean;
 }
 
@@ -723,7 +727,7 @@ declare class AccessToken extends BaseToken {
         resourceServer?: ResourceServerInstance | undefined;
         claims?: ClaimsParameter | undefined;
         aud?: string | string[] | undefined;
-        scope: string;
+        scope?: string | undefined;
         sid?: string | undefined;
         sessionUid?: string | undefined;
         expiresWithSession?: boolean | undefined;
@@ -737,7 +741,7 @@ declare class AccessToken extends BaseToken {
     readonly kind: "AccessToken";
     accountId: string;
     resourceServer?: ResourceServerInstance | undefined;
-    aud: string | string[];
+    aud?: string | string[] | undefined;
     claims?: ClaimsParameter | undefined;
     extra?: UnknownObject | undefined;
     grantId: string;
@@ -751,6 +755,9 @@ declare class AccessToken extends BaseToken {
     "x5t#S256"?: string | undefined;
     jkt?: string | undefined;
 
+    setAudience(audience: string | string[]): void;
+    setThumbprint(prop: "x5t", input: string | crypto.X509Certificate): void;
+    setThumbprint(prop: "jkt", input: string): void;
     isSenderConstrained(): boolean;
 
     static revokeByGrantId(grantId: string): Promise<void>;
@@ -1026,6 +1033,23 @@ export type KoaContextWithOIDC = Koa.ParameterizedContext<
         oidc: OIDCContext;
     }
 >;
+
+export interface TokenEndpointGrantParameters extends UnknownObject {
+    grant_type: string;
+    scope?: string | undefined;
+    resource?: string | string[] | undefined;
+    authorization_details?: string | undefined;
+}
+
+/** Context passed to a handler registered with `Provider.registerGrantType()`. */
+export type TokenEndpointGrantContext<Params extends object = UnknownObject> = KoaContextWithOIDC & {
+    oidc: OIDCContext & {
+        readonly provider: Provider;
+        readonly client: Client;
+        readonly params: TokenEndpointGrantParameters & Params;
+        readonly resourceServers: { [identifier: string]: ResourceServerInstance };
+    };
+};
 
 export type TLSClientAuthProperty =
     | "tls_client_auth_subject_dn"
@@ -1951,9 +1975,9 @@ export default class Provider extends Koa {
         res: http.ServerResponse | http2.Http2ServerResponse,
     ): Promise<Interaction>;
 
-    registerGrantType(
+    registerGrantType<Params extends object = UnknownObject>(
         name: string,
-        handler: (ctx: KoaContextWithOIDC, next: () => Promise<void>) => CanBePromise<void>,
+        handler: (ctx: TokenEndpointGrantContext<Params>) => CanBePromise<void>,
         params?: string | readonly string[] | ReadonlySet<string>,
         duplicates?: string | readonly string[] | ReadonlySet<string>,
     ): void;

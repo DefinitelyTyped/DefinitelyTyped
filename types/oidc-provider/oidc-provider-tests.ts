@@ -5,6 +5,7 @@ import * as crypto from "node:crypto";
 import KeyGrip from "keygrip";
 import Provider from "oidc-provider";
 import * as oidc from "oidc-provider";
+import * as grantHelpers from "oidc-provider/lib/helpers/grants.js";
 
 oidc.errors.AccessDenied.name;
 
@@ -629,9 +630,8 @@ provider.on("access_token.saved", (accessToken: oidc.AccessToken) => {
 
 provider.registerGrantType(
     "urn:example",
-    async (ctx: oidc.KoaContextWithOIDC, next) => {
+    async (ctx: oidc.TokenEndpointGrantContext) => {
         ctx.oidc.route.substring(0);
-        return next();
     },
     ["foo", "bar"],
     ["foo"],
@@ -1155,6 +1155,158 @@ provider.registerGrantType(
     },
     ["custom"] as const,
     new Set(["resource"]) as ReadonlySet<string>,
+);
+
+interface TokenExchangeParameters {
+    subject_token: string;
+    subject_token_type: string;
+    actor_token?: string | undefined;
+    actor_token_type?: string | undefined;
+    audience?: string | string[] | undefined;
+}
+
+provider.registerGrantType<TokenExchangeParameters>(
+    "urn:ietf:params:oauth:grant-type:token-exchange",
+    async ctx => {
+        ctx.oidc.provider.issuer.substring(0);
+        ctx.oidc.client.clientId.substring(0);
+        ctx.oidc.params.grant_type.substring(0);
+        ctx.oidc.params.subject_token.substring(0);
+        ctx.oidc.params.subject_token_type.substring(0);
+        ctx.oidc.params.actor_token?.substring(0);
+        ctx.oidc.params.audience?.valueOf();
+        Object.values(ctx.oidc.resourceServers).map(resource => resource.identifier());
+
+        const source = await grantHelpers.findGrantSource<oidc.AccessToken>(
+            provider,
+            ctx,
+            provider.AccessToken,
+            ctx.oidc.params.subject_token,
+            "subject token",
+        );
+        const clientBoundSource: grantHelpers.ClientBoundGrantSource = source;
+        clientBoundSource.clientId?.substring(0);
+        const sourceModel: grantHelpers.GrantSourceModel<oidc.AccessToken> = provider.AccessToken;
+        sourceModel.find("access-token", { ignoreExpiration: true }).then(found => found?.jti.substring(0));
+        const code = await grantHelpers.findGrantSource<oidc.AuthorizationCode>(
+            provider,
+            ctx,
+            provider.AuthorizationCode,
+            "authorization-code",
+            "authorization code",
+        );
+        const consumableSource: grantHelpers.ConsumableGrantSource = code;
+        consumableSource.grantId?.substring(0);
+        await grantHelpers.consumeGrantSource(provider, ctx, code, "authorization code");
+
+        const grant = await grantHelpers.validateGrant(provider, ctx, source.grantId);
+        const account = await grantHelpers.findAccount(provider, ctx, source.accountId, source);
+        account?.accountId.substring(0);
+
+        const scopes = grantHelpers.validateClientScope(provider, ctx);
+        grantHelpers.validateClientScope(provider, ctx, "api:read api:write");
+        grantHelpers.validateClientScope(provider, ctx, ["api:read"]);
+        const resources = await grantHelpers.resolveRequestedResources(provider, ctx);
+        resources.map(resource => resource.identifier());
+
+        const accessToken = new provider.AccessToken({
+            accountId: source.accountId,
+            client: ctx.oidc.client,
+            grantId: source.grantId,
+            gty: ctx.oidc.params.grant_type,
+        });
+        accessToken.setAudience("https://api.example.com");
+        accessToken.setAudience(["https://api.example.com"]);
+        accessToken.setThumbprint("jkt", "thumbprint");
+        accessToken.setThumbprint("x5t", "certificate");
+        accessToken.setThumbprint("x5t", new crypto.X509Certificate(Buffer.alloc(0)));
+
+        const resource = await grantHelpers.resolveAndApplyResource(
+            provider,
+            ctx,
+            source,
+            accessToken,
+            grant,
+            scopes,
+        );
+        resource?.substring(0);
+        const resourceSource: grantHelpers.ResourceGrantSource = source;
+        resourceSource.scopes.has("api:read");
+        const authorizationDetailsSource: grantHelpers.AuthorizationDetailsSource = source;
+        authorizationDetailsSource.rar?.[0].type.substring(0);
+
+        const constraints: grantHelpers.SenderConstraints = await grantHelpers.validateSenderConstraints(
+            provider,
+            ctx,
+            oidc.errors.InvalidGrant,
+        );
+        constraints.dPoP?.thumbprint.substring(0);
+        constraints.dPoP?.jti.substring(0);
+        constraints.dPoP?.iat.toFixed();
+        await grantHelpers.applySenderConstraints(provider, ctx, accessToken, constraints, oidc.errors.InvalidRequest);
+        await grantHelpers.applyAuthorizationDetails(provider, ctx, accessToken, source);
+
+        const refreshToken = new provider.RefreshToken({
+            accountId: source.accountId,
+            client: ctx.oidc.client,
+            grantId: source.grantId,
+            gty: ctx.oidc.params.grant_type,
+            scope: accessToken.scope || "",
+        });
+        if (await grantHelpers.shouldIssueRefreshToken(provider, ctx, source)) {
+            await grantHelpers.applyRefreshTokenBindings(provider, ctx, accessToken, refreshToken);
+        }
+
+        const responseInput: grantHelpers.TokenResponseInput<{ transaction_id: string }> = {
+            accessToken: "serialized-access-token",
+            expiresIn: accessToken.expiration,
+            issuedTokenType: "urn:ietf:params:oauth:token-type:access_token",
+            parameters: {
+                transaction_id: "transaction-id",
+            },
+            scope: accessToken.scope,
+            tokenType: accessToken.tokenType,
+        };
+        const response = grantHelpers.buildTokenResponse(provider, responseInput);
+        response.access_token.substring(0);
+        response.token_type.substring(0);
+        response.transaction_id.substring(0);
+        const standardResponse: grantHelpers.TokenResponse = response;
+        standardResponse.issued_token_type?.substring(0);
+        const reservedMember: grantHelpers.ReservedTokenResponseParameter = "access_token";
+        reservedMember.substring(0);
+
+        const clientCredentials = new provider.ClientCredentials({ client: ctx.oidc.client });
+        clientCredentials.setAudience("https://api.example.com");
+        clientCredentials.setThumbprint("jkt", "thumbprint");
+        await grantHelpers.applyAuthorizationDetails(provider, ctx, clientCredentials);
+
+        const errorConstructor: grantHelpers.OIDCProviderErrorConstructor = oidc.errors.InvalidGrant;
+        errorConstructor.name.substring(0);
+        const dpopResult: grantHelpers.DPoPValidationResult | undefined = constraints.dPoP;
+        dpopResult?.thumbprint.substring(0);
+
+        // @ts-expect-error The provider argument must be an oidc-provider instance.
+        grantHelpers.validateClientScope({}, ctx);
+        grantHelpers.buildTokenResponse(provider, {
+            accessToken: "serialized-access-token",
+            tokenType: "Bearer",
+            // @ts-expect-error Extension parameters cannot override reserved response members.
+            parameters: {
+                access_token: "replacement",
+            },
+        });
+        // @ts-expect-error tokenType is required.
+        grantHelpers.buildTokenResponse(provider, { accessToken: "serialized-access-token" });
+    },
+    [
+        "subject_token",
+        "subject_token_type",
+        "actor_token",
+        "actor_token_type",
+        "audience",
+    ],
+    ["audience"],
 );
 
 const resourceServer = new provider.ResourceServer("https://api.example.com", {
