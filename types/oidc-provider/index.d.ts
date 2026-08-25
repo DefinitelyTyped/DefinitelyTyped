@@ -1177,7 +1177,9 @@ export interface CookiesSetOptions {
     domain?: string | undefined;
     secure?: boolean | undefined;
     httpOnly?: boolean | undefined;
-    sameSite?: "strict" | "lax" | "none" | undefined;
+    partitioned?: boolean | undefined;
+    priority?: "low" | "medium" | "high" | undefined;
+    sameSite?: boolean | "strict" | "lax" | "none" | undefined;
     signed?: boolean | undefined;
     overwrite?: boolean | undefined;
 }
@@ -1238,7 +1240,7 @@ export interface Configuration {
 
     claims?:
         | {
-            [key: string]: null | readonly string[];
+            [key: string]: null | readonly string[] | Readonly<Record<string, null>>;
         }
         | undefined;
 
@@ -1276,7 +1278,6 @@ export interface Configuration {
                     session?: string | undefined;
                     interaction?: string | undefined;
                     resume?: string | undefined;
-                    state?: string | undefined;
                 }
                 | undefined;
             long?: CookiesSetOptions | undefined;
@@ -1764,7 +1765,7 @@ export interface Configuration {
 
             validator?:
                 | ((
-                    ctx: KoaContextWithOIDC,
+                    ctx: KoaContextWithOIDC | undefined,
                     key: string,
                     value: unknown,
                     metadata: ClientMetadata,

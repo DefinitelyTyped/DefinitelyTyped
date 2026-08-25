@@ -206,6 +206,10 @@ const provider = new oidc.Provider("https://op.example.com", {
         acr: null,
         foo: null,
         bar: ["bar"],
+        address: {
+            formatted: null,
+            country: null,
+        },
     },
     clientBasedCORS(ctx: oidc.KoaContextWithOIDC, origin, client: oidc.Client) {
         ctx.oidc.issuer.substring(0);
@@ -230,14 +234,19 @@ const provider = new oidc.Provider("https://op.example.com", {
     cookies: {
         names: {
             session: "_foo",
+            // @ts-expect-error `state` is not a configurable cookie name.
+            state: "_state",
         },
         long: {
+            partitioned: true,
+            priority: "high",
             sameSite: "none",
             secure: true,
         },
         short: {
             httpOnly: true,
-            sameSite: "lax",
+            priority: "low",
+            sameSite: true,
         },
         keys: ["foo", Buffer.from("bar")],
     },
@@ -358,8 +367,11 @@ const provider = new oidc.Provider("https://op.example.com", {
     },
     extraClientMetadata: {
         properties: ["foo", "bar"],
-        validator(ctx: oidc.KoaContextWithOIDC, key, value, metadata: oidc.ClientMetadata) {
+        validator(ctx, key, value, metadata: oidc.ClientMetadata) {
+            const optionalContext: oidc.KoaContextWithOIDC | undefined = ctx;
+            // @ts-expect-error The validator context may be undefined.
             ctx.oidc.issuer.substring(0);
+            optionalContext?.oidc.issuer.substring(0);
             metadata.client_id.substring(0);
             key.substring(0);
             metadata.foo = "bar";
@@ -921,6 +933,10 @@ const immutableConfiguration = {
     acrValues: ["urn:example:bronze"],
     claims: {
         profile: ["name", "family_name"],
+        address: {
+            formatted: null,
+            country: null,
+        },
     },
     clients: [
         {
