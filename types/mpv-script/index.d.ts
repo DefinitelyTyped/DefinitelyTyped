@@ -1484,7 +1484,7 @@ declare namespace mp {
         /**
          * Works like the metadata property, but it accesses metadata that is set per track/stream instead of global values for the entire file.
          */
-        metadata: Record<string, string>;
+        metadata: Record<string, string | undefined>;
     }
 
     interface VOPass {
@@ -1690,7 +1690,7 @@ declare namespace mp {
         }
         | {
             name: "hwdec";
-            type: "no" | "auto" | (string & {});
+            type: ("no" | "auto" | "auto-copy" | (string & {}))[];
             readonly: false;
         }
         | {
@@ -1999,7 +1999,7 @@ declare namespace mp {
         }
         | {
             name: "metadata";
-            type: Record<string, string> | undefined;
+            type: Record<string, string | undefined> | undefined;
             readonly: true;
         }
         | {
@@ -2029,7 +2029,7 @@ declare namespace mp {
         }
         | {
             name: "filtered-metadata";
-            type: Record<string, string> | undefined;
+            type: Record<string, string | undefined> | undefined;
             readonly: true;
         }
         | {
@@ -2340,6 +2340,7 @@ declare namespace mp {
         | {
             name: `tablet-pos/pad-btns/${number}`;
             type: TabletPosInfo["tool-stylus-btn1"];
+            readonly: true;
         }
         | {
             name: "sub-ass-extradata";
@@ -2701,15 +2702,4101 @@ declare namespace mp {
      *
      * see also: https://github.com/mpv-player/mpv/blob/33111f3212ee272ac4a79fe284a7b55c9b5be997/DOCS/man/input.rst#inconsistencies-between-options-and-properties
      */
-    type __OptionInfoUnion = {
-        name: "fullscreen";
-        type: boolean;
-        readonly: false;
-    } | {
-        name: "pause";
-        type: boolean;
-        readonly: false;
-    };
+    type __OptionInfoUnion =
+        | {
+            name: "alang";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "slang";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "vlang";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "aid";
+            type: number | "auto" | "no";
+            readonly: false;
+        }
+        | {
+            name: "audio";
+            type: number | "auto" | "no";
+            readonly: false;
+        }
+        | {
+            name: "sid";
+            type: number | "auto" | "no";
+            readonly: false;
+        }
+        | {
+            name: "sub";
+            type: number | "auto" | "no";
+            readonly: false;
+        }
+        | {
+            name: "vid";
+            type: number | "auto" | "no";
+            readonly: false;
+        }
+        | {
+            name: "video";
+            type: number | "auto" | "no";
+            readonly: false;
+        }
+        | {
+            // name conflicts with property "edition", should use "options/" as prefix
+            // see: https://mpv.io/manual/stable/#command-interface-options/<name%3e
+            name: "options/edition";
+            type: number | "auto";
+            readonly: false;
+        }
+        | {
+            name: "track-auto-selection";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "subs-with-matching-audio";
+            type: boolean | "forced";
+            readonly: false;
+        }
+        | {
+            name: "subs-match-os-language";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "subs-fallback";
+            type: boolean | "default";
+            readonly: false;
+        }
+        | {
+            name: "subs-fallback-forced";
+            type: boolean | "always";
+            readonly: false;
+        }
+        | {
+            name: "start";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "end";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "length";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "rebase-start-time";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "speed";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "pitch";
+            type: number | string;
+            readonly: false;
+        }
+        | {
+            name: "pause";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "shuffle";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "playlist-start";
+            type: "auto" | number;
+            readonly: false;
+        }
+        | {
+            name: "chapter-merge-threshold";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "chapter-seek-threshold";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hr-seek";
+            type: boolean | "absolute" | "default";
+            readonly: false;
+        }
+        | {
+            name: "hr-seek-demuxer-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hr-seek-framedrop";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "index";
+            type: "default" | "recreate";
+            readonly: false;
+        }
+        | {
+            name: "load-unsafe-playlists";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "access-references";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "loop-playlist";
+            // NOTE: even though this property can be set by get/set_property_bool
+            // boolean shouldn't be included here as the true case string is "inf" not "yes"
+            // that would complicate things too much
+            type: number | "inf" | "force" | "no";
+            readonly: false;
+        }
+        | {
+            name: "loop-file";
+            // NOTE: see loop-playlist
+            type: number | "inf" | "no";
+            readonly: false;
+        }
+        | {
+            name: "ab-loop-a";
+            type: "no" | undefined | number;
+            readonly: false;
+        }
+        | {
+            name: "ab-loop-b";
+            type: "no" | undefined | number;
+            readonly: false;
+        }
+        | {
+            name: "ab-loop-count";
+            type: number | "inf";
+            readonly: false;
+        }
+        | {
+            name: "ordered-chapters";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "ordered-chapters-files";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "chapters-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sstep";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "stop-playback-on-init-failure";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "play-direction";
+            type: "forward" | "backward" | "+" | "-";
+            readonly: false;
+            default: "forward";
+        }
+        | {
+            name: "video-reversal-buffer";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-reversal-buffer";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-backward-overlap";
+            type: number | "auto";
+            readonly: false;
+            default: "auto";
+        }
+        | {
+            name: "audio-backward-overlap";
+            type: number | "auto";
+            readonly: false;
+            default: "auto";
+        }
+        | {
+            name: "video-backward-batch";
+            type: number;
+            readonly: false;
+            default: 1;
+        }
+        | {
+            name: "audio-backward-batch";
+            type: number;
+            readonly: false;
+            default: 10;
+        }
+        | {
+            name: "demuxer-backward-playback-step";
+            type: number;
+            readonly: false;
+            default: 60;
+        }
+        | {
+            name: "log-file";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "config-dir";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "dump-stats";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "idle";
+            type: boolean | "once";
+            readonly: false;
+        }
+        | {
+            name: "load-scripts";
+            type: boolean;
+            readonly: true;
+            default: true;
+        }
+        | {
+            name: "script";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "scripts";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "script-opt";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "script-opts";
+            type: Record<string, string | undefined>;
+            readonly: true;
+        }
+        | {
+            name: "merge-files";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "reset-on-next-file";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "use-filedir-conf";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "ytdl";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "ytdl-format";
+            type: "ytdl" | "best" | "worst" | "mp4" | "webm" | (string & {});
+            readonly: true;
+        }
+        | {
+            name: "ytdl-raw-options";
+            type: Record<string, string | undefined>;
+            readonly: true;
+        }
+        | {
+            name: "js-memory-report";
+            type: boolean;
+            readonly: true;
+            default: false;
+        }
+        | {
+            name: "load-stats-overlay";
+            type: boolean;
+            readonly: true;
+            default: true;
+        }
+        | {
+            name: "load-console";
+            type: boolean;
+            readonly: true;
+            default: true;
+        }
+        | {
+            name: "load-commands";
+            type: boolean;
+            readonly: true;
+            default: true;
+        }
+        | {
+            name: "load-auto-profiles";
+            type: boolean | "auto";
+            readonly: true;
+            default: "auto";
+        }
+        | {
+            name: "load-select";
+            type: boolean;
+            readonly: true;
+            default: true;
+        }
+        | {
+            name: "load-context-menu";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "load-positioning";
+            type: boolean;
+            readonly: true;
+            default: true;
+        }
+        | {
+            name: "player-operation-mode";
+            type: "cplayer" | "pseudo-gui";
+            readonly: true;
+        }
+        | {
+            name: "save-position-on-quit";
+            type: boolean;
+            readonly: false;
+            default: false;
+        }
+        | {
+            name: "watch-later-dir";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "resume-playback";
+            type: boolean;
+            readonly: true;
+            default: true;
+        }
+        | {
+            name: "resume-playback-check-mtime";
+            type: boolean;
+            readonly: true;
+            default: false;
+        }
+        | {
+            name: "watch-later-options";
+            type: string[];
+            readonly: true;
+        }
+        | {
+            name: "write-filename-in-watch-later-config";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "ignore-path-in-watch-later-config";
+            type: boolean;
+            readonly: true;
+            default: false;
+        }
+        | {
+            name: "save-watch-history";
+            type: boolean;
+            readonly: false;
+            default: false;
+        }
+        | {
+            name: "watch-history-path";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "vo";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "vd";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "untimed";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "framedrop";
+            type: "no" | "vo" | "decoder" | "decoder+vo";
+            readonly: false;
+        }
+        | {
+            name: "video-latency-hacks";
+            type: boolean;
+            readonly: false;
+            default: false;
+        }
+        | {
+            name: "display-fps-override";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "gpu-hwdec-interop";
+            type: "auto" | "all" | "no" | (string & {});
+            readonly: false;
+            default: "auto";
+        }
+        | {
+            name: "hwdec-extra-frames";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hwdec-image-format";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "cuda-decode-device";
+            type: "auto" | number;
+            readonly: false;
+        }
+        | {
+            name: "vaapi-device";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "panscan";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-aspect-override";
+            type: "no" | number;
+            readonly: false;
+        }
+        | {
+            name: "video-aspect-method";
+            type: "container" | "bitstream" | "ignore";
+            readonly: false;
+        }
+        | {
+            name: "video-unscaled";
+            type: boolean | "downscale-big";
+            readonly: false;
+        }
+        | {
+            name: "video-pan-x";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-pan-y";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-rotate";
+            type: number | "no";
+            readonly: false;
+        }
+        | {
+            name: "video-crop";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "video-zoom";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-scale-x";
+            type: number;
+            readonly: false;
+            default: 1;
+        }
+        | {
+            name: "video-scale-y";
+            type: number;
+            readonly: false;
+            default: 1;
+        }
+        | {
+            name: "video-align-x";
+            type: number;
+            readonly: false;
+            default: 0;
+        }
+        | {
+            name: "video-align-y";
+            type: number;
+            readonly: false;
+            default: 0;
+        }
+        | {
+            name: "video-recenter";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "video-margin-ratio-left";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-margin-ratio-right";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-margin-ratio-top";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-margin-ratio-bottom";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "correct-pts";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "container-fps-override";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "deinterlace";
+            type: boolean | "auto";
+            readonly: false;
+            default: false;
+        }
+        | {
+            name: "deinterlace-field-parity";
+            type: "tff" | "bff" | "auto";
+            readonly: false;
+            default: "auto";
+        }
+        | {
+            name: "frames";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-output-levels";
+            type: "auto" | "limited" | "full";
+            readonly: false;
+        }
+        | {
+            name: "hwdec-codecs";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "hwdec-threads";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hwdec-software-fallback";
+            type: boolean | number;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-check-hw-profile";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-film-grain";
+            type: "auto" | "gpu" | "cpu";
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-dr";
+            type: "auto" | boolean;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-bitexact";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-fast";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-o";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-show-all";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-skiploopfilter";
+            type: "none" | "default" | "nonref" | "bidir" | "nonkey" | "all";
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-skipidct";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-skipframe";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-skipdrop";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-threads";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vd-lavc-assume-old-x264";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vd-apply-cropping";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "swapchain-depth";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-pitch-correction";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-exclusive";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-fallback-to-null";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "ao";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "audio-spdif";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "ad";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "volume";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "volume-max";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "volume-gain";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "volume-gain-max";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "volume-gain-min";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "replaygain";
+            type: "no" | "track" | "album";
+            readonly: false;
+        }
+        | {
+            name: "replaygain-preamp";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "replaygain-clip";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "replaygain-fallback";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-delay";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "mute";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-demuxer";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "ad-lavc-ac3drc";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "ad-lavc-downmix";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "ad-lavc-threads";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "ad-lavc-o";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "ad-spdif-dtshd";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "dtshd";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-channels";
+            type: "auto-safe" | "auto" | (string & {}) | "stereo" | "mono";
+            readonly: false;
+        }
+        | {
+            name: "audio-display";
+            type: "no" | "embedded-first" | "external-first";
+            readonly: false;
+        }
+        | {
+            name: "audio-files";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "audio-format";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "audio-samplerate";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "gapless-audio";
+            type: boolean | "weak";
+            readonly: false;
+        }
+        | {
+            name: "initial-audio-sync";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-file-auto";
+            type: "no" | "exact" | "fuzzy" | "all";
+            readonly: false;
+        }
+        | {
+            name: "audio-exts";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "audio-file-paths";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "audio-client-name";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "audio-set-media-role";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-buffer";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-stream-silence";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-wait-open";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-demuxer";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sub-lavc-o";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "sub-delay";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "secondary-sub-delay";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-files";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "sub-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "secondary-sid";
+            type: number | "auto" | "no";
+            readonly: false;
+        }
+        | {
+            name: "sub-scale";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-scale-signs";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-scale-by-window";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-scale-with-window";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "embeddedfonts";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-pos";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "secondary-sub-pos";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-speed";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-style-overrides";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "sub-hinting";
+            type: "light" | "none" | "normal" | "native";
+            readonly: false;
+        }
+        | {
+            name: "sub-line-spacing";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-shaper";
+            type: "simple" | "complex";
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-prune-delay";
+            type: -1 | (number & {});
+            readonly: false;
+        }
+        | {
+            name: "sub-glyph-limit";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-bitmap-max-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-styles";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-override";
+            type: boolean | "scale" | "force" | "strip";
+            readonly: false;
+        }
+        | {
+            name: "secondary-sub-ass-override";
+            type: boolean | "scale" | "force" | "strip";
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-force-margins";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-use-margins";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-use-video-data";
+            type: "none" | "all" | number;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-video-aspect-override";
+            type: "no" | number;
+            readonly: false;
+        }
+        | {
+            name: "sub-vsfilter-bidi-compat";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-vsfilter-color-compat";
+            type: "basic" | "full" | "force-601" | "no";
+            readonly: false;
+        }
+        | {
+            name: "stretch-dvd-subs";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "stretch-image-subs-to-screen";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "image-subs-video-resolution";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "image-subs-hdr-peak";
+            type: "sdr" | "video" | number;
+            readonly: false;
+        }
+        | {
+            name: "sub-hdr-peak";
+            type: "sdr" | number;
+            readonly: false;
+        }
+        | {
+            name: "sub-ass";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-auto";
+            type: "no" | "exact" | "fuzzy" | "all";
+            readonly: false;
+        }
+        | {
+            name: "sub-auto-exts";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "sub-codepage";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sub-stretch-durations";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-fix-timing";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-fix-timing-threshold";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-fix-timing-keep";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-forced-events-only";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-fps";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-gauss";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-gray";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-file-paths";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "sub-visibility";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "secondary-sub-visibility";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-clear-on-seek";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "teletext-page";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-past-video-end";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-font";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sub-font-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-blur";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-bold";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-italic";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-outline-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sub-back-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sub-outline-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-border-style";
+            type: "outline-and-shadow" | "opaque-box" | "background-box";
+            readonly: false;
+        }
+        | {
+            name: "sub-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sub-margin-x";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-margin-y";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-align-x";
+            type: "left" | "center" | "right";
+            readonly: false;
+        }
+        | {
+            name: "sub-align-y";
+            type: "top" | "center" | "bottom";
+            readonly: false;
+        }
+        | {
+            name: "sub-justify";
+            type: "auto" | "left" | "center" | "right";
+            readonly: false;
+        }
+        | {
+            name: "sub-ass-justify";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-shadow-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-spacing";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sub-filter-sdh";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-filter-sdh-harder";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-filter-sdh-enclosures";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "sub-filter-regex-plain";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-filter-regex-warn";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-filter-regex-enable";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-create-cc-track";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sub-font-provider";
+            type: "auto" | "none" | "fontconfig";
+            readonly: false;
+        }
+        | {
+            name: "sub-fonts-dir";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "title";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "screen";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "screen-name";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "fullscreen";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "fs";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "fs-screen";
+            type: "all" | "current" | number;
+            readonly: false;
+        }
+        | {
+            name: "fs-screen-name";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "keep-open";
+            type: boolean | "always";
+            readonly: false;
+        }
+        | {
+            name: "keep-open-pause";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "image-display-duration";
+            type: number | "inf";
+            readonly: false;
+        }
+        | {
+            name: "force-window";
+            type: boolean | "immediate";
+            readonly: false;
+        }
+        | {
+            name: "taskbar-progress";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "snap-window";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "drag-and-drop";
+            type: "no" | "auto" | "replace" | "append" | "insert-next";
+            readonly: false;
+        }
+        | {
+            name: "ontop";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "ontop-level";
+            type: "window" | "system" | "deskstop" | "level";
+            readonly: false;
+        }
+        | {
+            name: "focus-on";
+            type: "never" | "open" | "all";
+            readonly: false;
+        }
+        | {
+            name: "window-corners";
+            type: "default" | "donotround" | "round" | "roundsmall";
+            readonly: false;
+        }
+        | {
+            name: "border";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "title-bar";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "on-all-workspaces";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "geometry";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "autofit";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "autofit-larger";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "autofit-smaller";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "window-scale";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "window-minimized";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "window-maximized";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cursor-autohide-fs-only";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "force-rgba-osd-rendering";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "force-render";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "force-window-position";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "auto-window-resize";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "keepaspect";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "keepaspect-window";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "monitoraspect";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hidpi-window-scale";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "native-fs";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "show-in-taskbar";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "monitorpixelaspect";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "stop-screensaver";
+            type: boolean | "always";
+            readonly: false;
+        }
+        | {
+            name: "wid";
+            type: -1 | (number & {});
+            readonly: false;
+        }
+        | {
+            name: "window-dragging";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "x11-name";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "x11-netwm";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "x11-bypass-compositor";
+            type: boolean | "fs-only" | "never";
+            readonly: false;
+        }
+        | {
+            name: "x11-present";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "x11-wid-title";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cdda-device";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "dvd-device";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "bluray-device";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "cdda-speed";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cdda-paranoia";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cdda-sector-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cdda-overlap";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cdda-toc-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cdda-skip";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cdda-cdtext";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "dvd-speed";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dvd-angle";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "bluray-angle";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "brightness";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "contrast";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "saturation";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "gamma";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hue";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-analyzeduration";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-probe-info";
+            type: boolean | "auto" | "nostreams";
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-probescore";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-allow-mimetype";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-format";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-hacks";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-o";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-probesize";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-buffersize";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-linearize-timestamps";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "demuxer-lavf-propagate-opts";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-mkv-subtitle-preroll";
+            type: boolean | number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-mkv-subtitle-preroll-secs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-mkv-probe-start-time";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-mkv-probe-video-duration";
+            type: boolean | "full";
+            readonly: false;
+        }
+        | {
+            name: "demuxer-mkv-crop-compat";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawaudio-channels";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawaudio-format";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawaudio-rate";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawvideo-fps";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawvideo-w";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawvideo-h";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawvideo-format";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawvideo-mp-format";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawvideo-codec";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-rawvideo-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-max-bytes";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-max-back-bytes";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-donate-buffer";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-seekable-cache";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "demuxer-thread";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-termination-timeout";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-readahead-secs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-hysteresis-secs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "prefetch-playlist";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "force-seekable";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-cache-wait";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "rar-list-all-volumes";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "directory-mode";
+            type: "auto" | "lazy" | "recursive" | "ignore";
+            readonly: false;
+        }
+        | {
+            name: "directory-filter-types";
+            type: ("video" | "audio" | "image" | "archive" | "playlist")[];
+            readonly: false;
+        }
+        | {
+            name: "autocreate-playlist";
+            type: "no" | "filter" | "same";
+            readonly: false;
+        }
+        | {
+            name: "native-keyrepeat";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "native-touch";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-ar-delay";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "input-ar-rate";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "input-conf";
+            type: string;
+            readonly: true;
+        }
+        | {
+            name: "input-default-bindings";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "input-builtin-bindings";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "input-builtin-dragging";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "input-commands";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "input-doubleclick-time";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "input-key-fifo-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "input-test";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-terminal";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-ipc-server";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "input-ipc-client";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "input-gamepad";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-cursor";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-cursor-passthrough";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-media-keys";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-preprocess-wheel";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-right-alt-gr";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-vo-keyboard";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-touch-emulate-mouse";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-tablet-emulate-mouse";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "input-dragging-deadzone";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "input-ime";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osc";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osd-on-seek";
+            type: "no" | "bar" | "msg" | "msg" | "msg-bar" | (string & {});
+            readonly: false;
+        }
+        | {
+            name: "osd-duration";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-font";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-font-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-msg1";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-msg2";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-msg3";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-status-msg";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-playing-msg";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-playing-msg-duration";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-playlist-entry";
+            type: "title" | "filename" | "both";
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-align-x";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-align-y";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-w";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-h";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-outline-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-marker-scale";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-marker-min-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bar-marker-style";
+            type: "none" | "triangle" | "line";
+            readonly: false;
+        }
+        | {
+            name: "osd-blur";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bold";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osd-italic";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osd-outline-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-back-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-outline-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-border-style";
+            type: "outline-and-shadow" | "opaque-box" | "background-box";
+            readonly: false;
+        }
+        | {
+            name: "osd-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-selected-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-selected-outline-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-fractions";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osd-level";
+            type: 0 | 1 | 2 | 3;
+            readonly: false;
+        }
+        | {
+            name: "osd-margin-x";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-margin-y";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-align-x";
+            type: "left" | "center" | "right";
+            readonly: false;
+        }
+        | {
+            name: "osd-align-y";
+            type: "top" | "center" | "bottom";
+            readonly: false;
+        }
+        | {
+            name: "osd-scale";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-scale-by-window";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osd-shadow-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-spacing";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-osd";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "osd-font-provider";
+            type: "auto" | "none" | "fontconfig";
+            readonly: false;
+        }
+        | {
+            name: "osd-fonts-dir";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "osd-glyph-limit";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-bitmap-max-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "osd-prune-delay";
+            type: -1 | (number & {});
+            readonly: false;
+        }
+        | {
+            name: "osd-shaper";
+            type: "simple" | "complex";
+            readonly: false;
+        }
+        | {
+            name: "screenshot-format";
+            type: "png" | "jpg" | "jpeg" | "webp" | "jxl" | "avif";
+            readonly: false;
+        }
+        | {
+            name: "screenshot-tag-colorspace";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-high-bit-depth";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-template";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-dir";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-jpeg-quality";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-jpeg-source-chroma";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-png-compression";
+            type: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-png-filter";
+            type: 0 | 1 | 2 | 3 | 4 | 5;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-webp-lossless";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-webp-quality";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-webp-compression";
+            type: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-jxl-distance";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-jxl-effort";
+            type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-avif-encoder";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-avif-pixfmt";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-avif-opts";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "screenshot-sw";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sws-scaler";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "sws-lgb";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sws-cgb";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sws-ls";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sws-cs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sws-chs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sws-cvs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sws-bitexact";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sws-fast";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sws-allow-zimg";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "zimg-scaler";
+            type: "point" | "bilinear" | "bicubic" | "spline16" | "spline36" | "lanczos";
+            readonly: false;
+        }
+        | {
+            name: "zimg-scaler-param-a";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "zimg-scaler-param-b";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "zimg-scaler-chroma";
+            type: "point" | "bilinear" | "bicubic" | "spline16" | "spline36" | "lanczos";
+            readonly: false;
+        }
+        | {
+            name: "zimg-scaler-chroma-param-a";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "zimg-scaler-chroma-param-b";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "zimg-dither";
+            type: "no" | "ordered" | "random" | "error-diffusion";
+            readonly: false;
+        }
+        | {
+            name: "zimg-threads";
+            type: "auto" | number;
+            readonly: false;
+        }
+        | {
+            name: "zimg-fast";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-resample-filter-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-resample-phase-shift";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-resample-cutoff";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-resample-linear";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-normalize-downmix";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "audio-resample-max-output-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "audio-swresample-o";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "quiet";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "really-quiet";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "terminal";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "msg-color";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "msg-level";
+            type: Record<string, "no" | "status" | LogLevel>;
+            readonly: false;
+        }
+        | {
+            name: "term-osd";
+            type: "auto" | "no" | "force";
+            readonly: false;
+        }
+        | {
+            name: "term-osd-bar";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "term-osd-bar-chars";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "term-playing-msg";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "term-status-msg";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "term-title";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "msg-module";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "msg-time";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cache";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cache-secs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cache-on-disk";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-cache-dir";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "cache-pause";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cache-pause-wait";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cache-pause-initial";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "demuxer-cache-unlink-files";
+            type: "immediate" | "whendone" | "no";
+            readonly: false;
+        }
+        | {
+            name: "stream-buffer-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vd-queue-enable";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "ad-queue-enable";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vd-queue-max-bytes";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "ad-queue-max-bytes";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vd-queue-max-samples";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "ad-queue-max-samples";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vd-queue-max-secs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "ad-queue-max-secs";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "user-agent";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "cookies";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cookies-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "http-header-fields";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "http-proxy";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "tls-ca-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "tls-verify";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "tls-cert-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "tls-key-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "referrer";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "network-timeout";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "rtsp-transport";
+            type: "lavf" | "udp" | "udp_multicast" | "tcp" | "http";
+            readonly: false;
+        }
+        | {
+            name: "hls-bitrate";
+            type: "no" | "min" | "max" | number;
+            readonly: false;
+        }
+        | {
+            name: "dvbin-prog";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "dvbin-card";
+            type: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
+            readonly: false;
+        }
+        | {
+            name: "dvbin-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "dvbin-timeout";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dvbin-full-transponder";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "dvbin-channel-switch-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "scale";
+            type: __ScaleFilterName;
+            readonly: false;
+        }
+        | {
+            name: "cscale";
+            type: __ScaleFilterName;
+            readonly: false;
+        }
+        | {
+            name: "dscale";
+            type: __ScaleFilterName;
+            readonly: false;
+        }
+        | {
+            name: "tscale";
+            type: // mpv --tscale=help
+                | "oversample"
+                | "linear"
+                | "spline16"
+                | "spline36"
+                | "spline64"
+                | "sinc"
+                | "lanczos"
+                | "ginseng"
+                | "bicubic"
+                | "hermite"
+                | "catmull_rom"
+                | "mitchell"
+                | "robidoux"
+                | "robidouxsharp"
+                | "box"
+                | "nearest"
+                | "triangle"
+                | "gaussian"
+                | "bartlett"
+                | "cosine"
+                | "hanning"
+                | "tukey"
+                | "hamming"
+                | "quadric"
+                | "welch"
+                | "kaiser"
+                | "blackman"
+                | "sphinx"
+                | "jinc";
+            readonly: false;
+        }
+        | {
+            name: "scale-param1";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "scale-param2";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-param1";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-param2";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-param1";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-param2";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-param1";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-param2";
+            type: "default" | number;
+            readonly: false;
+        }
+        | {
+            name: "scale-blur";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-blur";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-blur";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-blur";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "scale-clamp";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-clamp";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-clamp";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-clamp";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "scale-taper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "scale-wtaper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-taper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-wtaper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-taper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-wtaper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-taper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-wtaper";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "scale-radius";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-radius";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-radius";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-radius";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "scale-antiring";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "cscale-antiring";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "dscale-antiring";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tscale-antiring";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "scale-window";
+            type: __ScaleWindowFunctionName;
+            readonly: false;
+        }
+        | {
+            name: "cscale-window";
+            type: __ScaleWindowFunctionName;
+            readonly: false;
+        }
+        | {
+            name: "dscale-window";
+            type: __ScaleWindowFunctionName;
+            readonly: false;
+        }
+        | {
+            name: "tscale-window";
+            type: __ScaleWindowFunctionName;
+            readonly: false;
+        }
+        | {
+            name: "scale-wparam";
+            type: number | "default";
+            readonly: false;
+        }
+        | {
+            name: "cscale-wparam";
+            type: number | "default";
+            readonly: false;
+        }
+        | {
+            name: "dscale-wparam";
+            type: number | "default";
+            readonly: false;
+        }
+        | {
+            name: "tscale-wparam";
+            type: number | "default";
+            readonly: false;
+        }
+        | {
+            name: "scaler-resizes-only";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "correct-downscaling";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "linear-downscaling";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "linear-upscaling";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sigmoid-upscaling";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sigmoid-center";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "sigmoid-slope";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "interpolation";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "interpolation-threshold";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "interpolation-preserve";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "opengl-pbo";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "dither-depth";
+            type: "no" | "auto" | 8 | (number & {});
+            readonly: false;
+        }
+        | {
+            name: "dither-size-fruit";
+            type: 2 | 3 | 4 | 5 | 6 | 7 | 8;
+            readonly: false;
+        }
+        | {
+            name: "dither";
+            type: "fruit" | "ordered" | "error-diffusion" | "no";
+            readonly: false;
+        }
+        | {
+            name: "temporal-dither";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "temporal-dither-period";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "error-diffusion";
+            type: // mpv --error-diffusion=help
+                | "simple"
+                | "false-fs"
+                | "sierra-lite"
+                | "floyd-steinberg"
+                | "atkinson"
+                | "jarvis-judice-ninke"
+                | "stucki"
+                | "burkes"
+                | "sierra-3"
+                | "sierra-2";
+            readonly: false;
+        }
+        | {
+            name: "gpu-debug";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "opengl-swapinterval";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "egl-config-id";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "egl-output-format";
+            type:
+                | "auto"
+                | "rgb8"
+                | "rgba8"
+                | "rgb10"
+                | "rgb10_a2"
+                | "rgb16"
+                | "rgba16"
+                | "rgb16f"
+                | "rgba16f"
+                | "rgb32f"
+                | "rgba32f";
+            readonly: false;
+        }
+        | {
+            name: "vulkan-device";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "vulkan-swap-mode";
+            type: "auto" | "fifo" | "fifo-relaxed" | "mailbox" | "immediate";
+            readonly: false;
+        }
+        | {
+            name: "vulkan-queue-count";
+            type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+            readonly: false;
+        }
+        | {
+            name: "vulkan-async-transfer";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vulkan-async-compute";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "vulkan-display-display";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vulkan-display-mode";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "vulkan-display-plane";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "d3d11-exclusive-fs";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "d3d11-warp";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "d3d11-output-mode";
+            type: "auto" | "window" | "composition";
+            readonly: false;
+        }
+        | {
+            name: "d3d11-feature-level";
+            type:
+                | "12_1"
+                | "12_0"
+                | "11_1"
+                | "11_0"
+                | "10_1"
+                | "10_0"
+                | "9_3"
+                | "9_2"
+                | "9_1";
+            readonly: false;
+        }
+        | {
+            name: "d3d11-flip";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "d3d11-sync-interval";
+            type: 0 | 1 | 2 | 3 | 4;
+            readonly: false;
+        }
+        | {
+            name: "d3d11-adapter";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "d3d11-output-format";
+            type: "auto" | "rgba8" | "bgra8" | "rgb10_a2" | "rgba16f";
+            readonly: false;
+        }
+        | {
+            name: "d3d11-output-csp";
+            type: "auto" | "srgb" | "linear" | "pq" | "bt.2020";
+            readonly: false;
+        }
+        | {
+            name: "d3d11va-zero-copy";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "wayland-app-id";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "wayland-configure-bounds";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "wayland-content-type";
+            type: "auto" | "none" | "photo" | "video" | "game";
+            readonly: false;
+        }
+        | {
+            name: "wayland-edge-pixels-pointer";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "wayland-edge-pixels-touch";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "wayland-internal-vsync";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "wayland-present";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "spirv-compiler";
+            type: "auto" | "shaderc";
+            readonly: false;
+        }
+        | {
+            name: "glsl-shader";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "glsl-shaders";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "glsl-shader-opts";
+            type: Record<
+                | "PTS"
+                | "chroma_offset_x"
+                | "chroma_offset_y"
+                | "min_luma"
+                | "max_luma"
+                | "max_cll"
+                | "max_fall"
+                | "scene_max_r"
+                | "scene_max_g"
+                | "scene_max_b"
+                | "scene_avg"
+                | "max_pq_y"
+                | "avg_pq_y",
+                string | undefined
+            >;
+            readonly: false;
+        }
+        | {
+            name: "deband";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "deband-iterations";
+            type: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
+            readonly: false;
+        }
+        | {
+            name: "deband-threshold";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "deband-range";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "deband-grain";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "corner-rounding";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "sharpen";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "opengl-glfinish";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "opengl-waitvsync";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "opengl-dwmflush";
+            type: boolean | "auto" | "windowed";
+            readonly: false;
+        }
+        | {
+            name: "angle-d3d11-feature-level";
+            type: "11_0" | "10_1" | "10_0" | "9_3";
+            readonly: false;
+        }
+        | {
+            name: "angle-d3d11-warp";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "angle-egl-windowing";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "angle-flip";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "angle-renderer";
+            type: "d3d9" | "d3d11" | "auto";
+            readonly: false;
+        }
+        | {
+            name: "macos-force-dedicated-gpu";
+            type: boolean | undefined;
+            readonly: false;
+        }
+        | {
+            name: "cocoa-cb-sw-renderer";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "cocoa-cb-10bit-context";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "cocoa-cb-output-csp";
+            type:
+                | "auto"
+                | "display-p3"
+                | "display-p3-hlg"
+                | "display-p3-pq"
+                | "display-p3-linear"
+                | "dci-p3"
+                | "bt.2020"
+                | "bt.2020-linear"
+                | "bt.2100-hlg"
+                | "bt.2100-pq"
+                | "bt.709"
+                | "srgb"
+                | "srgb-linear"
+                | "rgb-linear"
+                | "adobe";
+            readonly: false;
+        }
+        | {
+            name: "macos-title-bar-appearance";
+            type:
+                | "auto"
+                | "aqua"
+                | "darkAqua"
+                | "vibrantLight"
+                | "vibrantDark"
+                | "aquaHighContrast"
+                | "darkAquaHighContrast"
+                | "vibrantLightHighContrast"
+                | "vibrantDarkHighContrast"
+                | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-title-bar-material";
+            type:
+                | "title"
+                | "selection"
+                | "menu"
+                | "popover"
+                | "sidebar"
+                | "headerView"
+                | "sheet"
+                | "windowBackground"
+                | "hudWindow"
+                | "fullScreen"
+                | "toolTip"
+                | "contentBackground"
+                | "underWindowBackground"
+                | "underPageBackground"
+                | "dark"
+                | "light"
+                | "mediumLight"
+                | "ultraDark"
+                | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-title-bar-color";
+            type: string | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-fs-animation-duration";
+            type: "default" | number | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-app-activation-policy";
+            type: "regular" | "accessory" | "prohibited" | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-geometry-calculation";
+            type: "visible" | "whole" | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-render-timer";
+            type: "callback" | "precise" | "system" | "feedback" | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-menu-shortcuts";
+            type: boolean | undefined;
+            readonly: false;
+        }
+        | {
+            name: "macos-bundle-path";
+            type: string | undefined;
+            readonly: false;
+        }
+        | {
+            name: "android-surface-size";
+            type: string | undefined;
+            readonly: false;
+        }
+        | {
+            name: "d3d11-composition-size";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "gpu-sw";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "gpu-context";
+            type: (
+                | "auto"
+                | "win"
+                | "winvk"
+                | "angle"
+                | "dxinterop"
+                | "d3d11"
+                | "x11"
+                | "x11vk"
+                | "wayland"
+                | "waylandvk"
+                | "drm"
+                | "displayvk"
+                | "x11egl"
+                | "android"
+                | "macvk"
+            )[];
+            readonly: false;
+        }
+        | {
+            name: "gpu-api";
+            type: ("auto" | "opengl" | "vulkan" | "d3d11")[];
+            readonly: false;
+        }
+        | {
+            name: "opengl-es";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "fbo-format";
+            type:
+                | "auto"
+                | "rgb8"
+                | "rgb10"
+                | "rgb10_a2"
+                | "rgb16"
+                | "rgb16f"
+                | "rgb32f"
+                | "rgba12"
+                | "rgba16"
+                | "rgba16f"
+                | "rgba16hf"
+                | "rgba32f";
+            readonly: false;
+        }
+        | {
+            name: "gamma-factor";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "image-lut";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "image-lut-type";
+            type: "auto" | "native" | "normalized" | "conversion";
+            readonly: false;
+        }
+        | {
+            name: "target-colorspace-hint";
+            type: "auto" | boolean;
+            readonly: false;
+        }
+        | {
+            name: "target-colorspace-hint-mode";
+            type: "target" | "source" | "source-dynamic";
+            readonly: false;
+        }
+        | {
+            name: "target-colorspace-hint-strict";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "target-prim";
+            type:
+                | "auto"
+                | "bt.470m"
+                | "bt.601-525"
+                | "bt.601-625"
+                | "bt.709"
+                | "bt.2020"
+                | "apple"
+                | "adobe"
+                | "prophoto"
+                | "cie1931"
+                | "dci-p3"
+                | "display-p3"
+                | "v-gamut"
+                | "s-gamut";
+            readonly: false;
+        }
+        | {
+            name: "target-trc";
+            type:
+                | "auto"
+                | "bt.1886"
+                | "srgb"
+                | "linear"
+                | "gamma1.8"
+                | "gamma2.0"
+                | "gamma2.2"
+                | "gamma2.4"
+                | "gamma2.6"
+                | "gamma2.8"
+                | "prophoto"
+                | "pq"
+                | "hlg"
+                | "v-log"
+                | "s-log1"
+                | "s-log2";
+            readonly: false;
+        }
+        | {
+            name: "target-peak";
+            type: "auto" | number;
+            readonly: false;
+        }
+        | {
+            name: "target-contrast";
+            type: "auto" | number | "inf";
+            readonly: false;
+        }
+        | {
+            name: "target-gamut";
+            type:
+                | "auto"
+                | "bt.601-525"
+                | "bt.601-625"
+                | "bt.709"
+                | "bt.2020"
+                | "bt.470m"
+                | "apple"
+                | "adobe"
+                | "prophoto"
+                | "cie1931"
+                | "dci-p3"
+                | "display-p3"
+                | "v-gamut"
+                | "s-gamut"
+                | "ebu3213"
+                | "film-c"
+                | "aces-ap0"
+                | "aces-ap1";
+            readonly: false;
+        }
+        | {
+            name: "target-lut";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "hdr-reference-white";
+            type: "auto" | number;
+            readonly: false;
+        }
+        | {
+            name: "sdr-adjust-gamma";
+            type: "auto" | boolean;
+            readonly: false;
+        }
+        | {
+            name: "treat-srgb-as-power22";
+            type: "no" | "input" | "output" | "both" | "auto";
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping";
+            type:
+                | "auto"
+                | "clip"
+                | "mobius"
+                | "reinhard"
+                | "hable"
+                | "bt.2390"
+                | "gamma"
+                | "linear"
+                | "spline"
+                | "bt.2446a"
+                | "st2094-40"
+                | "st2094-10";
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-param";
+            type: number | "default";
+            readonly: false;
+        }
+        | {
+            name: "inverse-tone-mapping";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-max-boost";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-visualize";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "gamut-mapping-mode";
+            type:
+                | "auto"
+                | "clip"
+                | "perceptual"
+                | "relative"
+                | "saturation"
+                | "absolute"
+                | "desaturate"
+                | "darken"
+                | "warn"
+                | "linear";
+            readonly: false;
+        }
+        | {
+            name: "hdr-compute-peak";
+            type: "auto" | boolean;
+            readonly: false;
+        }
+        | {
+            name: "allow-delayed-peak-detect";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "hdr-peak-percentile";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hdr-peak-decay-rate";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hdr-scene-threshold-low";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hdr-scene-threshold-high";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hdr-contrast-recovery";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hdr-contrast-smoothness";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "use-embedded-icc-profile";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "icc-profile";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "icc-profile-auto";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "icc-cache";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "icc-cache-dir";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "icc-intent";
+            type: 0 | 1 | 2 | 3;
+            readonly: false;
+        }
+        | {
+            name: "icc-3dlut-size";
+            type: "auto" | (string & {});
+            readonly: false;
+        }
+        | {
+            name: "icc-force-contrast";
+            type: "no" | number | "inf";
+            readonly: false;
+        }
+        | {
+            name: "icc-use-luma";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "lut";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "lut-type";
+            type: "auto" | "native" | "normalized" | "conversion";
+            readonly: false;
+        }
+        | {
+            name: "blend-subtitles";
+            type: boolean | "video";
+            readonly: false;
+        }
+        | {
+            name: "background";
+            type: "none" | "color" | "tiles";
+            readonly: false;
+        }
+        | {
+            name: "background-color";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "background-tile-color-0";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "background-tile-color-1";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "background-tile-size";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "border-background";
+            type: "none" | "color" | "tiles" | "blur";
+            readonly: false;
+        }
+        | {
+            name: "background-blur-radius";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "opengl-rectangle-textures";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "gpu-tex-pad-x";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "gpu-tex-pad-y";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "opengl-early-flush";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "gpu-dumb-mode";
+            type: boolean | "auto";
+            readonly: false;
+        }
+        | {
+            name: "gpu-shader-cache";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "gpu-shader-cache-dir";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "libplacebo-opts";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "mc";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "autosync";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-timing-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-sync";
+            type:
+                | "audio"
+                | "display-resample"
+                | "display-resample-vdrop"
+                | "display-resample-desync"
+                | "display-tempo"
+                | "display-vdrop"
+                | "display-adrop"
+                | "display-desync"
+                | "desync";
+            readonly: false;
+        }
+        | {
+            name: "video-sync-max-factor";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-sync-max-video-change";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "video-sync-max-audio-change";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "display-tags";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "mf-fps";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "mf-type";
+            type: "jpeg" | "png" | "tga" | "sgi";
+            readonly: false;
+        }
+        | {
+            name: "stream-dump";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "stream-lavf-o";
+            type: Record<string, string | undefined>;
+            readonly: false;
+        }
+        | {
+            name: "backdrop-type";
+            type: "auto" | "none" | "mica" | "acrylic" | "mica-alt" | undefined;
+            readonly: false;
+        }
+        | {
+            name: "window-affinity";
+            type: "default" | "excludefromcapture" | "monitor" | undefined;
+            readonly: false;
+        }
+        | {
+            name: "vo-mmcss-profile";
+            type: "Playback" | (string & {}) | undefined;
+            readonly: false;
+        }
+        | {
+            name: "priority";
+            type: "idle" | "belownormal" | "normal" | "abovenormal" | "high" | "realtime" | undefined;
+            readonly: false;
+        }
+        | {
+            name: "media-controls";
+            type: boolean | undefined;
+            readonly: false;
+        }
+        | {
+            name: "force-media-title";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "external-files";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "external-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "cover-art-files";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "cover-art-file";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "cover-art-auto";
+            type: "no" | "fuzzy" | "exact" | "all";
+            readonly: false;
+        }
+        | {
+            name: "image-exts";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "cover-art-whitelist";
+            type: (
+                | "AlbumArt"
+                | "Album"
+                | "cover"
+                | "front"
+                | "AlbumArtSmall"
+                | "Folder"
+                | ".folder"
+                | "thumb"
+                | (string & {})
+            )[];
+            readonly: false;
+        }
+        | {
+            name: "video-exts";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "archive-exts";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "playlist-exts";
+            type: string[];
+            readonly: false;
+        }
+        | {
+            name: "autoload-files";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "stream-record";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "lavfi-complex";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "metadata-codepage";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "clipboard-backends";
+            type: "win32" | "mac" | "x11" | "wayland" | "vo";
+            readonly: false;
+        }
+        | {
+            name: "clipboard-monitor";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "clipboard-xwayland";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "register";
+            type: boolean | undefined;
+            readonly: false;
+        }
+        | {
+            name: "register-rpath";
+            type: string | undefined;
+            readonly: false;
+        }
+        | {
+            name: "unregister";
+            type: boolean | undefined;
+            readonly: false;
+        };
+
+    // mpv --scale-window=help
+    type __ScaleWindowFunctionName =
+        | "bartlett"
+        | "cosine"
+        | "hanning"
+        | "tukey"
+        | "hamming"
+        | "quadric"
+        | "welch"
+        | "kaiser"
+        | "blackman"
+        | "sphinx"
+        | "jinc";
+
+    // mpv --scale=help
+    type __ScaleFilterName =
+        | "bilinear"
+        | "bicubic_fast"
+        | "oversample"
+        | "spline16"
+        | "spline36"
+        | "spline64"
+        | "sinc"
+        | "lanczos"
+        | "ginseng"
+        | "bicubic"
+        | "hermite"
+        | "catmull_rom"
+        | "mitchell"
+        | "robidoux"
+        | "robidouxsharp"
+        | "box"
+        | "nearest"
+        | "triangle"
+        | "gaussian"
+        | "jinc"
+        | "ewa_lanczos"
+        | "ewa_hanning"
+        | "ewa_ginseng"
+        | "ewa_lanczossharp"
+        | "ewa_lanczos4sharpest"
+        | "ewa_lanczossoft"
+        | "haasnsoft"
+        | "ewa_robidoux"
+        | "ewa_robidouxsharp"
+        | "bartlett"
+        | "cosine"
+        | "hanning"
+        | "tukey"
+        | "hamming"
+        | "quadric"
+        | "welch"
+        | "kaiser"
+        | "blackman"
+        | "sphinx";
 
     /**
      * Base result when only `opts.name = 'subprocess'` and `opts.args` is specified
@@ -2967,7 +7054,7 @@ declare namespace mp {
      */
     // dprint-ignore
     type ToStringType<T, TWiden extends boolean = false> =
-      | (GetBooleanString<T> & {}) // to expand the type
+      | (GetBooleanString<T> & {}) // to expand the type on lsp hovering, it's safe here as `never & {}` is still never
       | GetNumberString<T>
       | GetLiteralString<T> extends infer L
       ? [L] extends [never]
@@ -3022,7 +7109,7 @@ declare namespace mp {
     > = GetStringPropertyType<N, false, TUndefinable>;
 
     /**
-     * Get property types from `mp.get_property_osd`
+     * Get property types returned from `mp.get_property_osd`
      * @template N Property name
      * @template TWiden Whether to widen to any string and preserve completions when possible
      * @template TUndefinable Whether to include undefined case
@@ -3240,10 +7327,11 @@ declare namespace mp {
      */
     function set_property<
         P extends
-            | Extract<
-                __PropertyInfoUnion | __OptionInfoUnion,
-                { readonly: false; type: string | number | boolean | undefined } // it can only handle properties with primitive value
-            >["name"]
+            | (
+                | __PropertyInfoWithPossibleType<number>
+                | __PropertyInfoWithPossibleType<string>
+                | __PropertyInfoWithPossibleType<boolean>
+            )["name"]
             | (string & {}),
     >(name: P, value: GetStringPropertyType<P, false>): true | undefined;
 
