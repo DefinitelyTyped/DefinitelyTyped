@@ -13,7 +13,13 @@ export type CanBePromise<T> = Promise<T> | T;
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,
-    token?: AuthorizationCode | AccessToken | DeviceCode | BackchannelAuthenticationRequest | PreAuthorizedCode,
+    token?:
+        | AuthorizationCode
+        | AccessToken
+        | RefreshToken
+        | DeviceCode
+        | BackchannelAuthenticationRequest
+        | PreAuthorizedCode,
 ) => CanBePromise<Account | undefined>;
 export type TokenFormat = "opaque" | "jwt";
 export type FapiProfile = "1.0 Final" | "2.0";
@@ -1565,7 +1571,7 @@ export interface Configuration {
                             ctx: KoaContextWithOIDC,
                             token: AccessToken | ClientCredentials,
                             parts: JWTStructured,
-                        ) => CanBePromise<JWTStructured>)
+                        ) => CanBePromise<void>)
                         | undefined;
                 }
                 | undefined;
@@ -2223,7 +2229,10 @@ export default class Provider extends Koa {
     addListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     addListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
     addListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
-    addListener(event: "authorization.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    addListener(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
     addListener(
         event: "authorization.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
@@ -2360,7 +2369,10 @@ export default class Provider extends Koa {
     on(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     on(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
     on(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
-    on(event: "authorization.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    on(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
     on(event: "authorization.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     on(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
     on(event: "end_session.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
@@ -2467,7 +2479,10 @@ export default class Provider extends Koa {
     once(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     once(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
     once(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
-    once(event: "authorization.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    once(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
     once(
         event: "authorization.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
@@ -2589,7 +2604,10 @@ export default class Provider extends Koa {
     prependListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     prependListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
     prependListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependListener(event: "authorization.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependListener(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
     prependListener(
         event: "authorization.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
@@ -2753,7 +2771,10 @@ export default class Provider extends Koa {
     prependOnceListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     prependOnceListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
     prependOnceListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependOnceListener(event: "authorization.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependOnceListener(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
     prependOnceListener(
         event: "authorization.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,

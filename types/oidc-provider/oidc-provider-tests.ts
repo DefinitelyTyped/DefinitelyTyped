@@ -334,11 +334,14 @@ new oidc.Provider("https://op.example.com", {
                 token.iat.toFixed();
                 parts.header = { foo: "bar" };
                 parts.payload.foo = "bar";
-                return parts;
             },
         },
     },
 });
+
+const findAccountRefreshToken = null as unknown as oidc.RefreshToken;
+const findAccountToken: Parameters<oidc.FindAccount>[2] = findAccountRefreshToken;
+findAccountToken?.iat.toFixed();
 
 new oidc.Provider("https://op.example.com", {
     pkce: {
@@ -563,7 +566,6 @@ const provider = new oidc.Provider("https://op.example.com", {
                 token.iat.toFixed();
                 parts.header = { foo: "bar" };
                 parts.payload.foo = "bar";
-                return parts;
             },
         },
     },
@@ -949,6 +951,21 @@ provider.on("authorization.accepted", (ctx: oidc.KoaContextWithOIDC) => {
 
     ctx.oidc.cookies.set("key", "value", { signed: true, sameSite: "strict" });
 });
+
+const authorizationSuccessListener = (ctx: oidc.KoaContextWithOIDC, response?: oidc.UnknownObject) => {
+    ctx.oidc.route.substring(0);
+    response?.state;
+};
+
+provider.on("authorization.success", (ctx, response) => {
+    ctx.oidc.route.substring(0);
+    const optionalResponse: oidc.UnknownObject | undefined = response;
+    optionalResponse?.state;
+});
+provider.addListener("authorization.success", authorizationSuccessListener);
+provider.once("authorization.success", authorizationSuccessListener);
+provider.prependListener("authorization.success", authorizationSuccessListener);
+provider.prependOnceListener("authorization.success", authorizationSuccessListener);
 
 provider.on("interaction.started", (ctx: oidc.KoaContextWithOIDC, prompt: oidc.PromptDetail) => {
     ctx.oidc.route.substring(0);
