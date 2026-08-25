@@ -746,6 +746,7 @@ declare module "node:tls" {
         // #endregion
     }
     type SecureVersion = "TLSv1.3" | "TLSv1.2" | "TLSv1.1" | "TLSv1";
+    type CertificateCompressionAlgorithm = "zlib" | "brotli" | "zstd";
     interface SecureContextOptions {
         /**
          * If set, this will be called when a client opens a connection using the ALPN extension.
@@ -782,6 +783,15 @@ declare module "node:tls" {
          *  able to validate the certificate, and the handshake will fail.
          */
         cert?: string | Buffer | Array<string | Buffer> | undefined;
+        /**
+         * An array of supported certificate
+         * compression algorithm names, in preference order. Supported values are
+         * `'zlib'`, `'brotli'`, and `'zstd'`. When set, enables TLS certificate
+         * compression ([RFC 8879](https://tools.ietf.org/html/rfc8879)) which compresses certificates during the TLS
+         * handshake, reducing handshake size. Only effective with TLSv1.3.
+         * **Default:** `[]` (disabled).
+         */
+        certificateCompression?: readonly CertificateCompressionAlgorithm[] | undefined;
         /**
          *  Colon-separated list of supported signature algorithms. The list
          *  can contain digest algorithms (SHA256, MD5 etc.), public key
@@ -1110,6 +1120,20 @@ declare module "node:tls" {
      * @since v0.10.2
      */
     function getCiphers(): string[];
+    /**
+     * Returns an array with the names of the RFC 8879 certificate compression
+     * algorithms supported by the current OpenSSL build, suitable for use in the
+     * `certificateCompression` option of `tls.createSecureContext()`. Possible
+     * values include `'zlib'`, `'brotli'`, and `'zstd'`.
+     *
+     * The array is empty when certificate compression is unavailable.
+     *
+     * ```js
+     * console.log(tls.getCertificateCompressionAlgorithms()); // ['zlib', 'brotli', 'zstd']
+     * ```
+     * @since v26.4.0
+     */
+    function getCertificateCompressionAlgorithms(): CertificateCompressionAlgorithm[];
     /**
      * Sets the default CA certificates used by Node.js TLS clients. If the provided
      * certificates are parsed successfully, they will become the default CA
