@@ -490,3 +490,16 @@ import * as net from "node:net";
     bl.toJSON(); // $ExpectType readonly string[]
     net.BlockList.isBlockList(bl); // $ExpectType boolean
 }
+
+{
+    using boundSocket = new net.BoundSocket({
+        host: "1234:5678::1",
+        port: 8080,
+        ipv6Only: false,
+        reusePort: false,
+    });
+    boundSocket.address(); // $ExpectType AddressInfo
+    boundSocket.fd(); // $ExpectType number
+
+    new net.Socket({ handle: new net.BoundSocket() });
+}

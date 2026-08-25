@@ -25,6 +25,7 @@ declare module "node:net" {
         keepAliveInitialDelay?: number | undefined;
         blockList?: BlockList | undefined;
         typeOfService?: number | undefined;
+        handle?: BoundSocket | undefined;
     }
     interface OnReadOpts {
         buffer: Uint8Array | (() => Uint8Array);
@@ -450,9 +451,92 @@ declare module "node:net" {
         removeListener(eventName: string | symbol, listener: (...args: any[]) => void): this;
         // #endregion
     }
+    interface BoundSocketOptions {
+        /**
+         * Local address to bind. Must be a numeric IP literal; no DNS
+         * resolution is performed. **Default:** `'0.0.0.0'`, or `'::'` when
+         * `ipv6Only` is `true`.
+         */
+        host?: string | undefined;
+        /**
+         * Local port. `0` requests an OS-assigned ephemeral port.
+         * **Default:** `0`.
+         */
+        port?: number | undefined;
+        /**
+         * Sets `IPV6_V6ONLY`, disabling dual-stack support so the
+         * socket binds IPv6 only. Only meaningful for IPv6 binds. **Default:**
+         * `false`.
+         */
+        ipv6Only?: boolean | undefined;
+        /**
+         * Sets `SO_REUSEPORT`, allowing multiple sockets to bind
+         * the same address and port for kernel-level load balancing. Support is
+         * platform-dependent. **Default:** `false`.
+         */
+        reusePort?: boolean | undefined;
+    }
+    /**
+     * Allows for the synchronous creation of a pre-bound socket, that can be passed
+     * to `listen()` or `new net.Socket()` later on. For `listen()` this enables
+     * synchronous port reservation, while for `new net.Socket()`, it allows control
+     * over the local egress port/IP, via `bind(2)` semantics.
+     *
+     * Adoption transfers ownership of the socket; afterwards `address()` and `close()`
+     * throw `ERR_SOCKET_HANDLE_ADOPTED`. A handle that is never adopted must be
+     * closed to avoid leaking the socket.
+     *
+     * ```js
+     * import net from 'node:net';
+     *
+     * const bound = new net.BoundSocket();
+     * const { port } = bound.address();
+     * console.log(`Reserved port ${port} for server`);
+     *
+     * const server = net.createServer();
+     * server.listen(bound); // Adopt as a server, or pass to new net.Socket() instead.
+     * ```
+     * @since v26.4.0
+     */
+    class BoundSocket {
+        /**
+         * @since v26.4.0
+         */
+        constructor(options?: BoundSocketOptions);
+        /**
+         * Returns the bound local address. When bound with `port: 0`, `port` is the
+         * OS-assigned ephemeral port.
+         * @since v26.4.0
+         * @returns An object with `address`, `family`, and `port` properties,
+         * as `server.address()` returns.
+         */
+        address(): AddressInfo;
+        /**
+         * Returns the file descriptor of the bound socket. Ownership remains with the
+         * `BoundSocket`, so the descriptor must not be closed by the caller. The
+         * descriptor is only available before the handle is adopted; afterwards it belongs
+         * to the adopting `net.Server` or `net.Socket` and `fd()` throws
+         * `ERR_SOCKET_HANDLE_ADOPTED`.
+         * @since v26.4.0
+         * @returns The underlying OS file descriptor, or `-1` on platforms
+         * that do not expose one for sockets (such as Windows).
+         */
+        fd(): number;
+        /**
+         * Releases the bound socket. Only needed when the handle is never adopted.
+         * @since v26.4.0
+         */
+        close(): void;
+        /**
+         * Closes the handle if it has not been adopted or closed; otherwise a no-op.
+         * @since v26.4.0
+         */
+        [Symbol.dispose](): void;
+    }
     interface ListenOptions extends Abortable {
         backlog?: number | undefined;
         exclusive?: boolean | undefined;
+        handle?: BoundSocket | undefined;
         host?: string | undefined;
         /**
          * @default false
