@@ -1202,36 +1202,343 @@ export interface RichAuthorizationRequestType {
     ) => CanBePromise<void>;
 }
 
-export interface RichAuthorizationRequestsConfiguration {
+export type AuthorizationDetailsForGrantSource = (
+    ctx: KoaContextWithOIDC,
+    source: AuthorizationCode | DeviceCode,
+) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
+
+export type AuthorizationDetailsForAccessToken = (
+    ctx: KoaContextWithOIDC,
+    token: AccessToken | ClientCredentials,
+    source:
+        | AuthorizationCode
+        | BackchannelAuthenticationRequest
+        | DeviceCode
+        | PreAuthorizedCode
+        | RefreshToken
+        | undefined,
+    grantType: string,
+) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
+
+export type AuthorizationDetailsForIntrospection = (
+    ctx: KoaContextWithOIDC,
+    token: AccessToken | ClientCredentials | RefreshToken,
+) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
+
+export interface RichAuthorizationRequestsConfigurationBase {
     enabled?: boolean | undefined;
     types?: Readonly<Record<string, RichAuthorizationRequestType>> | undefined;
-    authorizationDetailsForGrantSource?:
-        | ((
-            ctx: KoaContextWithOIDC,
-            source: AuthorizationCode | DeviceCode,
-        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
-        | undefined;
-    authorizationDetailsForAccessToken?:
-        | ((
-            ctx: KoaContextWithOIDC,
-            token: AccessToken | ClientCredentials,
-            source:
-                | AuthorizationCode
-                | BackchannelAuthenticationRequest
-                | DeviceCode
-                | PreAuthorizedCode
-                | RefreshToken
-                | undefined,
-            grantType: string,
-        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
-        | undefined;
-    authorizationDetailsForIntrospection?:
-        | ((
-            ctx: KoaContextWithOIDC,
-            token: AccessToken | ClientCredentials | RefreshToken,
-        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
+    authorizationDetailsForGrantSource?: AuthorizationDetailsForGrantSource | undefined;
+    authorizationDetailsForAccessToken?: AuthorizationDetailsForAccessToken | undefined;
+    authorizationDetailsForIntrospection?: AuthorizationDetailsForIntrospection | undefined;
+}
+
+export interface RichAuthorizationRequestsDisabledConfiguration extends RichAuthorizationRequestsConfigurationBase {
+    enabled?: false | undefined;
+}
+
+export interface RichAuthorizationRequestsInactiveConfiguration extends RichAuthorizationRequestsConfigurationBase {
+    enabled: boolean;
+    types?: Readonly<Record<string, never>> | undefined;
+}
+
+export interface RichAuthorizationRequestsActiveConfiguration extends RichAuthorizationRequestsConfigurationBase {
+    enabled: boolean;
+    types: Readonly<Record<string, RichAuthorizationRequestType>>;
+    authorizationDetailsForGrantSource: AuthorizationDetailsForGrantSource;
+    authorizationDetailsForAccessToken: AuthorizationDetailsForAccessToken;
+}
+
+export type RichAuthorizationRequestsConfiguration =
+    | RichAuthorizationRequestsDisabledConfiguration
+    | RichAuthorizationRequestsInactiveConfiguration
+    | RichAuthorizationRequestsActiveConfiguration;
+
+export interface FapiDisabledConfiguration {
+    enabled?: false | undefined;
+    profile?:
+        | FapiProfile
+        | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile | undefined)
         | undefined;
 }
+
+export interface FapiEnabledConfiguration {
+    enabled: boolean;
+    profile: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile | undefined);
+}
+
+export type FapiConfiguration = FapiDisabledConfiguration | FapiEnabledConfiguration;
+
+export type CIBATriggerAuthenticationDevice = (
+    ctx: KoaContextWithOIDC,
+    request: BackchannelAuthenticationRequest,
+    account: Account,
+    client: Client,
+) => CanBePromise<void>;
+
+export type CIBAValidateRequestContext = (
+    ctx: KoaContextWithOIDC,
+    requestContext?: string,
+) => CanBePromise<void>;
+
+export type CIBAVerifyUserCode = (
+    ctx: KoaContextWithOIDC,
+    account: Account,
+    userCode?: string,
+) => CanBePromise<void>;
+
+export interface CIBAConfigurationBase {
+    enabled?: boolean | undefined;
+    deliveryModes?: readonly CIBADeliveryMode[] | ReadonlySet<CIBADeliveryMode> | undefined;
+    triggerAuthenticationDevice?: CIBATriggerAuthenticationDevice | undefined;
+    validateBindingMessage?:
+        | ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>)
+        | undefined;
+    validateRequestContext?: CIBAValidateRequestContext | undefined;
+    processLoginHintToken?:
+        | ((ctx: KoaContextWithOIDC, loginHintToken?: string) => CanBePromise<string | undefined>)
+        | undefined;
+    processLoginHint?:
+        | ((ctx: KoaContextWithOIDC, loginHint?: string) => CanBePromise<string | undefined>)
+        | undefined;
+    verifyUserCode?: CIBAVerifyUserCode | undefined;
+}
+
+export interface CIBADisabledConfiguration extends CIBAConfigurationBase {
+    enabled?: false | undefined;
+}
+
+export interface CIBAEnabledConfiguration extends CIBAConfigurationBase {
+    enabled: boolean;
+    triggerAuthenticationDevice: CIBATriggerAuthenticationDevice;
+    validateRequestContext: CIBAValidateRequestContext;
+    verifyUserCode: CIBAVerifyUserCode;
+}
+
+export type CIBAConfiguration = CIBADisabledConfiguration | CIBAEnabledConfiguration;
+
+export type MTLSGetCertificate = (
+    ctx: KoaContextWithOIDC,
+) => crypto.X509Certificate | string | undefined;
+export type MTLSCertificateAuthorized = (ctx: KoaContextWithOIDC) => boolean;
+export type MTLSCertificateSubjectMatches = (
+    ctx: KoaContextWithOIDC,
+    property: TLSClientAuthProperty,
+    expected: string,
+) => boolean;
+
+export interface MTLSConfigurationBase {
+    enabled?: boolean | undefined;
+    certificateBoundAccessTokens?: boolean | undefined;
+    selfSignedTlsClientAuth?: boolean | undefined;
+    tlsClientAuth?: boolean | undefined;
+    getCertificate?: MTLSGetCertificate | undefined;
+    certificateAuthorized?: MTLSCertificateAuthorized | undefined;
+    certificateSubjectMatches?: MTLSCertificateSubjectMatches | undefined;
+}
+
+export interface MTLSDisabledConfiguration extends MTLSConfigurationBase {
+    enabled?: false | undefined;
+}
+
+export interface MTLSEnabledWithoutCertificateConfiguration extends MTLSConfigurationBase {
+    enabled: boolean;
+    certificateBoundAccessTokens?: false | undefined;
+    selfSignedTlsClientAuth?: false | undefined;
+    tlsClientAuth?: false | undefined;
+}
+
+export type MTLSEnabledCertificateConfiguration =
+    & MTLSConfigurationBase
+    & {
+        enabled: boolean;
+        tlsClientAuth?: false | undefined;
+        getCertificate: MTLSGetCertificate;
+    }
+    & (
+        | { certificateBoundAccessTokens: true }
+        | { selfSignedTlsClientAuth: true }
+    );
+
+export interface MTLSEnabledClientAuthenticationConfiguration extends MTLSConfigurationBase {
+    enabled: boolean;
+    tlsClientAuth: true;
+    getCertificate: MTLSGetCertificate;
+    certificateAuthorized: MTLSCertificateAuthorized;
+    certificateSubjectMatches: MTLSCertificateSubjectMatches;
+}
+
+export type MTLSEnabledDynamicCertificateFlagsConfiguration =
+    & MTLSConfigurationBase
+    & {
+        enabled: boolean;
+        getCertificate: MTLSGetCertificate;
+        tlsClientAuth?: false | undefined;
+    }
+    & (
+        | { certificateBoundAccessTokens: boolean }
+        | { selfSignedTlsClientAuth: boolean }
+    );
+
+export interface MTLSEnabledDynamicTlsClientAuthConfiguration extends MTLSConfigurationBase {
+    enabled: boolean;
+    tlsClientAuth: boolean;
+    getCertificate: MTLSGetCertificate;
+    certificateAuthorized: MTLSCertificateAuthorized;
+    certificateSubjectMatches: MTLSCertificateSubjectMatches;
+}
+
+export type MTLSConfiguration =
+    | MTLSDisabledConfiguration
+    | MTLSEnabledWithoutCertificateConfiguration
+    | MTLSEnabledCertificateConfiguration
+    | MTLSEnabledClientAuthenticationConfiguration
+    | MTLSEnabledDynamicCertificateFlagsConfiguration
+    | MTLSEnabledDynamicTlsClientAuthConfiguration;
+
+export type AttestationSignaturePublicKey = (
+    ctx: KoaContextWithOIDC,
+    header: UnknownObject,
+    payload: UnknownObject,
+    client: Client,
+) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>;
+
+export interface AttestClientAuthConfigurationBase {
+    enabled?: boolean | undefined;
+    ack?: string | undefined;
+    additionalSecuritySignal?: false | "optional" | "required" | undefined;
+    challengeSecret?: Buffer | undefined;
+    getAttestationSignaturePublicKey?: AttestationSignaturePublicKey | undefined;
+    assertAttestationJwtAndPop?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            attestation: JWTVerificationResult,
+            pop: JWTVerificationResult,
+            client: Client,
+        ) => CanBePromise<void>)
+        | undefined;
+}
+
+export interface AttestClientAuthDisabledConfiguration extends AttestClientAuthConfigurationBase {
+    enabled?: false | undefined;
+}
+
+export interface AttestClientAuthEnabledConfiguration extends AttestClientAuthConfigurationBase {
+    enabled: boolean;
+    challengeSecret: Buffer;
+    getAttestationSignaturePublicKey: AttestationSignaturePublicKey;
+}
+
+export type AttestClientAuthConfiguration =
+    | AttestClientAuthDisabledConfiguration
+    | AttestClientAuthEnabledConfiguration;
+
+export type OpenID4VCIIssueCredential = (
+    ctx: KoaContextWithOIDC,
+    details: OpenID4VCIIssueCredentialContext,
+) => CanBePromise<OpenID4VCICredentialResponse>;
+
+export type OpenID4VCIKeyAttestationSignaturePublicKey = (
+    ctx: KoaContextWithOIDC,
+    issuer: string,
+    header: UnknownObject,
+    client: Client,
+) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>;
+
+export interface OpenID4VCIConfigurationBase {
+    enabled?: boolean | undefined;
+    ack?: string | undefined;
+    nonceSecret?: Buffer | undefined;
+    preAuthorizedCodeGrant?: boolean | undefined;
+    metadata?: OpenID4VCIMetadata | undefined;
+    credentialConfigurationsSupported?:
+        | Readonly<Record<string, OpenID4VCICredentialConfiguration>>
+        | undefined;
+    credentialEndpointExpectedAudience?: ((ctx: KoaContextWithOIDC) => CanBePromise<string>) | undefined;
+    credentialConfigurationPolicy?:
+        | ((ctx: KoaContextWithOIDC, details: OpenID4VCICredentialContext) => CanBePromise<boolean>)
+        | undefined;
+    issueCredential?: OpenID4VCIIssueCredential | undefined;
+    getKeyAttestationSignaturePublicKey?: OpenID4VCIKeyAttestationSignaturePublicKey | undefined;
+}
+
+export interface OpenID4VCIDisabledConfiguration extends OpenID4VCIConfigurationBase {
+    enabled?: false | undefined;
+}
+
+export interface OpenID4VCIEnabledConfiguration extends OpenID4VCIConfigurationBase {
+    enabled: boolean;
+    nonceSecret: Buffer;
+    credentialConfigurationsSupported: Readonly<Record<string, OpenID4VCICredentialConfiguration>>;
+    issueCredential: OpenID4VCIIssueCredential;
+}
+
+export type OpenID4VCIConfiguration = OpenID4VCIDisabledConfiguration | OpenID4VCIEnabledConfiguration;
+
+interface IntrospectionFeatureBase {
+    enabled?: boolean | undefined;
+    allowedPolicy?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            client: Client,
+            token: AccessToken | ClientCredentials | RefreshToken,
+        ) => CanBePromise<boolean>)
+        | undefined;
+}
+
+interface IntrospectionDisabledFeature extends IntrospectionFeatureBase {
+    enabled?: false | undefined;
+}
+
+interface IntrospectionPossiblyEnabledFeature extends IntrospectionFeatureBase {
+    enabled: boolean;
+}
+
+type RichAuthorizationRequestsActiveWithIntrospection = RichAuthorizationRequestsActiveConfiguration & {
+    authorizationDetailsForIntrospection: AuthorizationDetailsForIntrospection;
+};
+
+type RichAuthorizationRequestsEnabledByOpenID4VCI = RichAuthorizationRequestsConfigurationBase & {
+    enabled: boolean;
+    authorizationDetailsForGrantSource: AuthorizationDetailsForGrantSource;
+    authorizationDetailsForAccessToken: AuthorizationDetailsForAccessToken;
+};
+
+type RichAuthorizationRequestsEnabledByOpenID4VCIWithIntrospection = RichAuthorizationRequestsEnabledByOpenID4VCI & {
+    authorizationDetailsForIntrospection: AuthorizationDetailsForIntrospection;
+};
+
+type ConditionalRichAuthorizationRequestFeatures =
+    | {
+        openid4vci: OpenID4VCIEnabledConfiguration;
+        introspection: IntrospectionPossiblyEnabledFeature;
+        richAuthorizationRequests?:
+            | RichAuthorizationRequestsDisabledConfiguration
+            | RichAuthorizationRequestsEnabledByOpenID4VCIWithIntrospection
+            | undefined;
+    }
+    | {
+        openid4vci: OpenID4VCIEnabledConfiguration;
+        introspection?: IntrospectionDisabledFeature | undefined;
+        richAuthorizationRequests?:
+            | RichAuthorizationRequestsDisabledConfiguration
+            | RichAuthorizationRequestsEnabledByOpenID4VCI
+            | undefined;
+    }
+    | {
+        openid4vci?: OpenID4VCIDisabledConfiguration | undefined;
+        introspection: IntrospectionPossiblyEnabledFeature;
+        richAuthorizationRequests?:
+            | RichAuthorizationRequestsDisabledConfiguration
+            | RichAuthorizationRequestsInactiveConfiguration
+            | RichAuthorizationRequestsActiveWithIntrospection
+            | undefined;
+    }
+    | {
+        openid4vci?: OpenID4VCIDisabledConfiguration | undefined;
+        introspection?: IntrospectionDisabledFeature | undefined;
+        richAuthorizationRequests?: RichAuthorizationRequestsConfiguration | undefined;
+    };
 
 export interface Configuration {
     acrValues?: readonly string[] | ReadonlySet<string> | undefined;
@@ -1351,19 +1658,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            introspection?:
-                | {
-                    enabled?: boolean | undefined;
-                    allowedPolicy?:
-                        | ((
-                            ctx: KoaContextWithOIDC,
-                            client: Client,
-                            token: AccessToken | ClientCredentials | RefreshToken,
-                        ) => CanBePromise<boolean>)
-                        | undefined;
-                }
-                | undefined;
-
             revocation?:
                 | {
                     enabled?: boolean | undefined;
@@ -1475,42 +1769,9 @@ export interface Configuration {
                 }
                 | undefined;
 
-            fapi?:
-                | {
-                    enabled?: boolean | undefined;
-                    profile?: FapiProfile | ((ctx: KoaContextWithOIDC, client: Client) => FapiProfile) | undefined;
-                }
-                | undefined;
+            fapi?: FapiConfiguration | undefined;
 
-            ciba?:
-                | {
-                    enabled?: boolean | undefined;
-                    deliveryModes?: readonly CIBADeliveryMode[] | ReadonlySet<CIBADeliveryMode> | undefined;
-                    triggerAuthenticationDevice?:
-                        | ((
-                            ctx: KoaContextWithOIDC,
-                            request: BackchannelAuthenticationRequest,
-                            account: Account,
-                            client: Client,
-                        ) => CanBePromise<void>)
-                        | undefined;
-                    validateBindingMessage?:
-                        | ((ctx: KoaContextWithOIDC, bindingMessage?: string) => CanBePromise<void>)
-                        | undefined;
-                    validateRequestContext?:
-                        | ((ctx: KoaContextWithOIDC, requestContext?: string) => CanBePromise<void>)
-                        | undefined;
-                    processLoginHintToken?:
-                        | ((ctx: KoaContextWithOIDC, loginHintToken?: string) => CanBePromise<string | undefined>)
-                        | undefined;
-                    processLoginHint?:
-                        | ((ctx: KoaContextWithOIDC, loginHint?: string) => CanBePromise<string | undefined>)
-                        | undefined;
-                    verifyUserCode?:
-                        | ((ctx: KoaContextWithOIDC, userCode?: string) => CanBePromise<void>)
-                        | undefined;
-                }
-                | undefined;
+            ciba?: CIBAConfiguration | undefined;
 
             webMessageResponseMode?:
                 | {
@@ -1551,21 +1812,7 @@ export interface Configuration {
                 }
                 | undefined;
 
-            mTLS?:
-                | {
-                    enabled?: boolean | undefined;
-                    certificateBoundAccessTokens?: boolean | undefined;
-                    selfSignedTlsClientAuth?: boolean | undefined;
-                    tlsClientAuth?: boolean | undefined;
-                    getCertificate?:
-                        | ((ctx: KoaContextWithOIDC) => crypto.X509Certificate | string | undefined)
-                        | undefined;
-                    certificateAuthorized?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
-                    certificateSubjectMatches?:
-                        | ((ctx: KoaContextWithOIDC, property: TLSClientAuthProperty, expected: string) => boolean)
-                        | undefined;
-                }
-                | undefined;
+            mTLS?: MTLSConfiguration | undefined;
 
             resourceIndicators?:
                 | {
@@ -1598,8 +1845,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            richAuthorizationRequests?: RichAuthorizationRequestsConfiguration | undefined;
-
             rpMetadataChoices?: {
                 enabled?: boolean | undefined;
             } | undefined;
@@ -1607,68 +1852,10 @@ export interface Configuration {
             externalSigningSupport?: {
                 enabled?: boolean | undefined;
                 ack?: string | undefined;
-                [key: string]: any;
             } | undefined;
 
-            attestClientAuth?: {
-                enabled?: boolean | undefined;
-                ack?: string | undefined;
-                additionalSecuritySignal?: false | "optional" | "required" | undefined;
-                challengeSecret?: Buffer | undefined;
-                getAttestationSignaturePublicKey?:
-                    | ((
-                        ctx: KoaContextWithOIDC,
-                        header: UnknownObject,
-                        payload: UnknownObject,
-                        client: Client,
-                    ) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>)
-                    | undefined;
-                assertAttestationJwtAndPop?:
-                    | ((
-                        ctx: KoaContextWithOIDC,
-                        attestation: JWTVerificationResult,
-                        pop: JWTVerificationResult,
-                        client: Client,
-                    ) => CanBePromise<void>)
-                    | undefined;
-            } | undefined;
-
-            openid4vci?:
-                | {
-                    enabled?: boolean | undefined;
-                    ack?: string | undefined;
-                    nonceSecret?: Buffer | undefined;
-                    preAuthorizedCodeGrant?: boolean | undefined;
-                    metadata?: OpenID4VCIMetadata | undefined;
-                    credentialConfigurationsSupported?:
-                        | Record<string, OpenID4VCICredentialConfiguration>
-                        | undefined;
-                    credentialEndpointExpectedAudience?:
-                        | ((ctx: KoaContextWithOIDC) => CanBePromise<string>)
-                        | undefined;
-                    credentialConfigurationPolicy?:
-                        | ((
-                            ctx: KoaContextWithOIDC,
-                            details: OpenID4VCICredentialContext,
-                        ) => CanBePromise<boolean>)
-                        | undefined;
-                    issueCredential?:
-                        | ((
-                            ctx: KoaContextWithOIDC,
-                            details: OpenID4VCIIssueCredentialContext,
-                        ) => CanBePromise<OpenID4VCICredentialResponse>)
-                        | undefined;
-                    getKeyAttestationSignaturePublicKey?:
-                        | ((
-                            ctx: KoaContextWithOIDC,
-                            issuer: string,
-                            header: UnknownObject,
-                            client: Client,
-                        ) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>)
-                        | undefined;
-                }
-                | undefined;
-        }
+            attestClientAuth?: AttestClientAuthConfiguration | undefined;
+        } & ConditionalRichAuthorizationRequestFeatures
         | undefined;
 
     extraTokenClaims?:

@@ -21,6 +21,298 @@ new Provider("https://op.example.com", {
 });
 
 new Provider("https://op.example.com", {
+    cookies: {
+        long: {
+            // @ts-expect-error Cookie priority has a finite set of supported values.
+            priority: "urgent",
+        },
+    },
+});
+
+const getAttestationSignaturePublicKey: oidc.AttestationSignaturePublicKey = async () =>
+    crypto.generateKeyPairSync(
+        "ec",
+        { namedCurve: "P-256" },
+    ).publicKey;
+const issueCredential: oidc.OpenID4VCIIssueCredential = async () => ({ credentials: ["credential"] });
+const authorizationDetailsForGrantSource: oidc.AuthorizationDetailsForGrantSource = async () => undefined;
+const authorizationDetailsForAccessToken: oidc.AuthorizationDetailsForAccessToken = async () => undefined;
+const authorizationDetailsForIntrospection: oidc.AuthorizationDetailsForIntrospection = async () => undefined;
+const paymentAuthorizationDetail = {
+    validate(_ctx: oidc.KoaContextWithOIDC, detail: oidc.AuthorizationDetail) {
+        detail.type.substring(0);
+    },
+};
+const dynamicallyEnabled: boolean = true;
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: {
+            enabled: true,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+        ciba: {
+            enabled: true,
+            triggerAuthenticationDevice() {},
+            validateRequestContext() {},
+            verifyUserCode() {},
+        },
+        fapi: {
+            enabled: true,
+            profile: "2.0",
+        },
+        mTLS: {
+            enabled: true,
+            tlsClientAuth: true,
+            getCertificate: () => undefined,
+            certificateAuthorized: () => true,
+            certificateSubjectMatches: () => true,
+        },
+        openid4vci: {
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        introspection: { enabled: true },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: { payment: paymentAuthorizationDetail },
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+            authorizationDetailsForIntrospection,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: {
+            enabled: dynamicallyEnabled,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+        ciba: {
+            enabled: dynamicallyEnabled,
+            triggerAuthenticationDevice() {},
+            validateRequestContext() {},
+            verifyUserCode() {},
+        },
+        fapi: {
+            enabled: dynamicallyEnabled,
+            profile: () => undefined,
+        },
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            tlsClientAuth: dynamicallyEnabled,
+            getCertificate: () => undefined,
+            certificateAuthorized: () => true,
+            certificateSubjectMatches: () => true,
+        },
+        openid4vci: {
+            enabled: dynamicallyEnabled,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: {
+            enabled: true,
+            certificateBoundAccessTokens: true,
+            getCertificate: () => undefined,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: {},
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            certificateBoundAccessTokens: dynamicallyEnabled,
+            getCertificate: () => undefined,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: {},
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled attestClientAuth requires its challenge secret and key resolver
+        attestClientAuth: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error the challenge secret does not make the attestation key resolver optional
+        attestClientAuth: { enabled: true, challengeSecret: Buffer.alloc(32) },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error active RAR with introspection requires an introspection projection policy
+        introspection: { enabled: true },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: { payment: paymentAuthorizationDetail },
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            // @ts-expect-error OpenID4VCI activates an otherwise empty enabled RAR configuration
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: {},
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled CIBA requires its always-invoked application callbacks
+        ciba: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error verifyUserCode remains mandatory when the other CIBA callbacks are configured
+        ciba: {
+            enabled: true,
+            triggerAuthenticationDevice() {},
+            validateRequestContext() {},
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled FAPI requires a profile
+        fapi: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled OpenID4VCI requires a nonce secret, configurations, and issuance callback
+        openid4vci: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            // @ts-expect-error issueCredential remains mandatory when the other OpenID4VCI values are configured
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: { credential: { format: "example" } },
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error certificate-bound access tokens require a certificate resolver
+        mTLS: { enabled: true, certificateBoundAccessTokens: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error self-signed TLS client authentication requires a certificate resolver
+        mTLS: { enabled: true, selfSignedTlsClientAuth: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error tls_client_auth requires all three certificate callbacks
+        mTLS: { enabled: true, tlsClientAuth: true, getCertificate: () => undefined },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error a dynamic certificate-bound flag still requires a certificate resolver
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            certificateBoundAccessTokens: dynamicallyEnabled,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error a dynamic tls_client_auth flag still requires all three certificate callbacks
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            tlsClientAuth: dynamicallyEnabled,
+            getCertificate: () => undefined,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error a non-empty RAR type map requires grant-source and access-token policies
+        richAuthorizationRequests: {
+            enabled: true,
+            types: { payment: paymentAuthorizationDetail },
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
     assertJwtClientAuthClaimsAndHeader(ctx, claims, header, client) {
         ctx.oidc.issuer.substring(0);
         claims.sub;
@@ -727,7 +1019,12 @@ provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJw
 
     new Provider("", {
         features: {
-            externalSigningSupport: { enabled: true, ack: "" },
+            externalSigningSupport: {
+                enabled: true,
+                ack: "",
+                // @ts-expect-error externalSigningSupport has a finite configuration schema.
+                custom: true,
+            },
         },
         jwks: {
             keys: [
