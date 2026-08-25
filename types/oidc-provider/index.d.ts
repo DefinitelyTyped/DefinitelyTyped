@@ -2891,10 +2891,10 @@ export default class Provider extends Koa {
 }
 
 declare class Checks extends Array<interactionPolicy.Check> {
-    get(name: string): interactionPolicy.Check | undefined;
-    remove(name: string): void;
+    get(reason: string): interactionPolicy.Check | undefined;
+    remove(reason: string): void;
     clear(): void;
-    add(prompt: interactionPolicy.Check, index?: number): void;
+    add(check: interactionPolicy.Check, index?: number): void;
 }
 
 export namespace interactionPolicy {
@@ -2914,19 +2914,19 @@ export namespace interactionPolicy {
             description: string,
             error: string,
             check: (ctx: KoaContextWithOIDC) => CanBePromise<boolean>,
-            details?: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject>,
+            details?: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject | undefined>,
         );
         constructor(
             reason: string,
             description: string,
             check: (ctx: KoaContextWithOIDC) => CanBePromise<boolean>,
-            details?: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject>,
+            details?: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject | undefined>,
         );
 
         reason: string;
         description: string;
-        error: string;
-        details: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject>;
+        error: string | undefined;
+        details: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject | undefined>;
         check: (ctx: KoaContextWithOIDC) => CanBePromise<boolean>;
     }
 
@@ -2934,13 +2934,13 @@ export namespace interactionPolicy {
         constructor(info: { name: string; requestable?: boolean | undefined }, ...checks: Check[]);
         constructor(
             info: { name: string; requestable?: boolean | undefined },
-            details: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject>,
+            details: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject | undefined>,
             ...checks: Check[]
         );
 
         name: string;
         requestable: boolean;
-        details?: ((ctx: KoaContextWithOIDC) => Promise<UnknownObject>) | undefined;
+        details: (ctx: KoaContextWithOIDC) => CanBePromise<UnknownObject | undefined>;
         checks: Checks;
     }
 

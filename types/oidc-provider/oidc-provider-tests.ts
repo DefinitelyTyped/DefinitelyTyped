@@ -930,6 +930,35 @@ const provider = new oidc.Provider("https://op.example.com", {
     },
 });
 
+const firstInteractionCheck = new oidc.interactionPolicy.Check("first", "first check", () => false);
+const secondInteractionCheck = new oidc.interactionPolicy.Check("second", "second check", () => false);
+const interactionPrompt = new oidc.interactionPolicy.Prompt(
+    { name: "step-up" },
+    () => ({ method: "webauthn" }),
+    firstInteractionCheck,
+);
+const selectAccountPrompt = new oidc.interactionPolicy.Prompt({ name: "select_account" });
+const configuredInteractionPolicy = oidc.interactionPolicy.base();
+const interactionPolicyContext = null as unknown as oidc.KoaContextWithOIDC;
+
+firstInteractionCheck.error?.substring(0);
+configuredInteractionPolicy.get("login")?.name.substring(0);
+configuredInteractionPolicy.remove("missing");
+configuredInteractionPolicy.add(interactionPrompt);
+configuredInteractionPolicy.clear();
+
+interactionPrompt.checks.get("first")?.description.substring(0);
+interactionPrompt.checks.remove("missing");
+interactionPrompt.checks.add(secondInteractionCheck);
+interactionPrompt.checks.clear();
+Promise.resolve(interactionPrompt.details(interactionPolicyContext)).then(details => details?.method);
+Promise.resolve(selectAccountPrompt.details(interactionPolicyContext)).then(details => details?.method);
+
+// @ts-expect-error policy collections only accept Prompt instances
+configuredInteractionPolicy.add(firstInteractionCheck);
+// @ts-expect-error check collections only accept Check instances
+interactionPrompt.checks.add(interactionPrompt);
+
 provider.on("access_token.saved", (accessToken: oidc.AccessToken) => {
     accessToken.jti.substring(0);
 });
