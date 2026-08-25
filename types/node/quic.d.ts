@@ -1,10 +1,10 @@
 declare module "node:quic" {
     import { NonSharedBuffer } from "node:buffer";
-    import { KeyObject } from "node:crypto";
+    import { KeyObject, X509Certificate } from "node:crypto";
     import { FileHandle } from "node:fs/promises";
     import { BlockList, SocketAddress } from "node:net";
     import { Writer } from "node:stream/iter";
-    import { EphemeralKeyInfo, PeerCertificate } from "node:tls";
+    import { EphemeralKeyInfo } from "node:tls";
     /**
      * @since v23.8.0
      */
@@ -1437,19 +1437,20 @@ declare module "node:quic" {
             encoding?: BufferEncoding,
         ): Promise<bigint>;
         /**
-         * The local certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or no certificate is available.
+         * The local certificate as a `crypto.X509Certificate` instance. Server
+         * sessions return the certificate configured for the negotiated SNI host.
+         * Client sessions return `undefined` unless a client certificate was sent.
+         * Returns `undefined` if the session is destroyed.
          * @since v26.2.0
          */
-        readonly certificate: PeerCertificate | undefined;
+        readonly certificate: X509Certificate | undefined;
         /**
-         * The peer's certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or the peer did not present a certificate.
+         * The peer's certificate as a `crypto.X509Certificate` instance. Returns
+         * `undefined` if the peer did not present a certificate or the session is
+         * destroyed.
          * @since v26.2.0
          */
-        readonly peerCertificate: PeerCertificate | undefined;
+        readonly peerCertificate: X509Certificate | undefined;
         /**
          * The ephemeral key information for the session, with properties such as
          * `type`, `name`, and `size`. Only available on client sessions. Returns
