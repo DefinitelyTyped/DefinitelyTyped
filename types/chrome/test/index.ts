@@ -1903,40 +1903,76 @@ function testDevtoolsPanels() {
     const title = "title";
     const iconPath = "iconPath";
     const pagePath = "pagePath";
+    const expression = "expression";
+    const rootTitle = "rootTitle";
 
     chrome.devtools.panels.elements; // $ExpectType ElementsPanel
-    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType Promise<ExtensionSidebarPane>
     chrome.devtools.panels.elements.createSidebarPane(title, result => { // $ExpectType void
         result; // $ExpectType ExtensionSidebarPane
+
+        checkChromeEvent(result.onHidden, () => void 0);
+        checkChromeEvent(result.onShown, () => void 0);
+
+        result.setExpression(expression); // $ExpectType Promise<void>
+        // @ts-expect-error Uncaught DataCloneError: Failed to execute 'postMessage' on 'MessagePort'
+        result.setExpression(expression, () => void 0);
+        result.setExpression(expression, undefined, () => void 0); // $ExpectType void
+        result.setExpression(expression, rootTitle); // $ExpectType Promise<void>
+        result.setExpression(expression, rootTitle, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        result.setExpression(expression, rootTitle, () => {}).then(() => {});
+
+        result.setHeight("100px"); // $ExpectType void
+
+        result.setObject({}); // $ExpectType Promise<void>
+        // @ts-expect-error Uncaught DataCloneError: Failed to execute 'postMessage' on 'MessagePort'
+        result.setObject({}, () => void 0);
+        result.setObject({}, undefined, () => void 0); // $ExpectType void
+        result.setObject({}, rootTitle); // $ExpectType Promise<void>
+        result.setObject({}, rootTitle, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        result.setObject({}, rootTitle, () => {}).then(() => {});
+
+        result.setPage("path"); // $ExpectType void
     });
+    // @ts-expect-error
+    chrome.devtools.panels.elements.createSidebarPane(title, () => {}).then(() => {});
     checkChromeEvent(chrome.devtools.panels.elements.onSelectionChanged, () => void 0);
 
     chrome.devtools.panels.sources; // $ExpectType SourcesPanel
-    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType Promise<ExtensionSidebarPane>
     chrome.devtools.panels.sources.createSidebarPane(title, result => { // $ExpectType void
         result; // $ExpectType ExtensionSidebarPane
     });
+    // @ts-expect-error
+    chrome.devtools.panels.sources.createSidebarPane(title, () => {}).then(() => {});
     checkChromeEvent(chrome.devtools.panels.sources.onSelectionChanged, () => void 0);
 
     chrome.devtools.panels.themeName; // $ExpectType Theme
 
-    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
+    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType Promise<ExtensionPanel>
     chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
+        panel; // ExpectType ExtensionPanel
         checkChromeEvent(panel.onHidden, () => void 0);
         checkChromeEvent(panel.onSearch, () => void 0);
         checkChromeEvent(panel.onShown, () => void 0);
         panel.createStatusBarButton("iconPath", "tooltipText", true); // $ExpectType Button
         panel.show(); // $ExpectType void
     });
+    // @ts-expect-error
+    chrome.devtools.panels.create(title, iconPath, pagePath, () => {}).then(() => {});
 
     const url = "url";
     const lineNumber = 10;
     const columnNumber = 10;
 
-    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType void
-    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType Promise<void>
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType Promise<void>
     chrome.devtools.panels.openResource(url, lineNumber, columnNumber, () => void 0); // $ExpectType void
     chrome.devtools.panels.openResource(url, lineNumber, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.devtools.panels.openResource(url, lineNumber, () => {}).then(() => {});
 
     chrome.devtools.panels.setOpenResourceHandler(); // $ExpectType void
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
@@ -2708,6 +2744,8 @@ async function testAlarms() {
     chrome.alarms.create("name", { persistAcrossSessions: true }, () => {});
     // @ts-expect-error Cannot set both when and delayInMinutes.
     chrome.alarms.create("name", { when: 1, delayInMinutes: 1, periodInMinutes: 1 }, () => {});
+    // @ts-expect-error Cannot set alarm name in both separate argument and object form.
+    chrome.alarms.create("name", { delayInMinutes: 1, name: "name" }, () => {});
     // @ts-expect-error
     chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
 
