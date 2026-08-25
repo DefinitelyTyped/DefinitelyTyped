@@ -155,6 +155,8 @@ sock.connect(8000);
 sock.connect(8000, "192.0.2.1");
 sock.connect(8000, () => undefined);
 sock.connect(8000, "192.0.2.1", () => undefined);
+sock.connectSync(8000);
+sock.connectSync(8000, "192.0.2.1");
 sock.disconnect();
 sock.dropMembership("233.252.0.0");
 sock.dropMembership("233.252.0.0", "192.0.2.1");

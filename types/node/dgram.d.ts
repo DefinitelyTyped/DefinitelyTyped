@@ -262,6 +262,42 @@ declare module "node:dgram" {
         connect(port: number, address?: string, callback?: () => void): void;
         connect(port: number, callback: () => void): void;
         /**
+         * The synchronous counterpart of `socket.connect()`. For a UDP socket
+         * `connect(2)` only records the default peer address and is a local, non-blocking
+         * system call, so the association is performed inline. Any error raised by the
+         * call itself (for example `EAFNOSUPPORT` for a mismatched address family) is
+         * thrown synchronously rather than reported via the `'error'` event. Because
+         * `connect(2)` does not probe reachability, errors such as `ECONNREFUSED` are
+         * still surfaced asynchronously on a later send or receive, exactly as for
+         * `socket.connect()`:
+         *
+         * ```js
+         * const dgram = require('node:dgram');
+         *
+         * const socket = dgram.createSocket('udp4');
+         * socket.connectSync(41234, '127.0.0.1');
+         * console.log(socket.remoteAddress()); // { address: '127.0.0.1', family: 'IPv4', port: 41234 }
+         * ```
+         *
+         * If the socket is still unbound it is bound synchronously first. After
+         * `connectSync()` returns, `socket.remoteAddress()` is valid synchronously
+         * and the `'connect'` event is emitted on the next tick. Trying to call
+         * `connectSync()` on an already connected socket throws an
+         * `ERR_SOCKET_DGRAM_IS_CONNECTED` exception, and calling it while an
+         * asynchronous [`socket.bind()`][] is still in progress throws an
+         * `ERR_SOCKET_ALREADY_BOUND` exception.
+         *
+         * `address` must be a numeric IP literal; `connectSync()` never performs DNS
+         * resolution (asynchronous name resolution being the only genuinely blocking part
+         * of connecting).
+         * @since v26.4.0
+         * @param address A numeric IP address to connect to. Unlike
+         * `socket.connect()`, no DNS resolution is performed, so a host name is not
+         * accepted. If omitted, `'127.0.0.1'` (for `udp4` sockets) or `'::1'` (for
+         * `udp6` sockets) is used.
+         */
+        connectSync(port: number, address?: string): void;
+        /**
          * A synchronous function that disassociates a connected `dgram.Socket` from
          * its remote address. Trying to call `disconnect()` on an unbound or already
          * disconnected socket will result in an `ERR_SOCKET_DGRAM_NOT_CONNECTED` exception.
