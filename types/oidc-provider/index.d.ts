@@ -588,6 +588,7 @@ declare class DeviceCode extends BaseToken {
         grantId: string;
         client: Client;
         deviceInfo: UnknownObject;
+        rar?: AuthorizationDetail[] | undefined;
         [key: string]: unknown;
     });
 
@@ -615,6 +616,7 @@ declare class DeviceCode extends BaseToken {
     sessionUid?: string | undefined;
     expiresWithSession?: boolean | undefined;
     grantId: string;
+    rar?: AuthorizationDetail[] | undefined;
     attestationJkt?: string | undefined;
     consumed: unknown;
 
@@ -682,6 +684,7 @@ declare class ClientCredentials extends BaseToken {
         client: Client;
         resourceServer?: ResourceServerInstance | undefined;
         scope: string;
+        rar?: AuthorizationDetail[] | undefined;
         [key: string]: unknown;
     });
     readonly kind: "ClientCredentials";
@@ -692,6 +695,7 @@ declare class ClientCredentials extends BaseToken {
     "x5t#S256"?: string | undefined;
     jkt?: string | undefined;
     resourceServer?: ResourceServerInstance | undefined;
+    rar?: AuthorizationDetail[] | undefined;
 
     isSenderConstrained(): boolean;
 }
@@ -1174,33 +1178,31 @@ export interface RichAuthorizationRequestType {
 
 export interface RichAuthorizationRequestsConfiguration {
     enabled?: boolean | undefined;
-    ack?: string | undefined;
     types?: Readonly<Record<string, RichAuthorizationRequestType>> | undefined;
-    rarForAuthorizationCode?:
-        | ((ctx: KoaContextWithOIDC) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
-        | undefined;
-    rarForBackchannelResponse?:
+    authorizationDetailsForGrantSource?:
         | ((
             ctx: KoaContextWithOIDC,
-            resourceServer: ResourceServerInstance,
+            source: AuthorizationCode | DeviceCode,
         ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
         | undefined;
-    rarForCodeResponse?:
+    authorizationDetailsForAccessToken?:
         | ((
             ctx: KoaContextWithOIDC,
-            resourceServer: ResourceServerInstance,
+            token: AccessToken | ClientCredentials,
+            source:
+                | AuthorizationCode
+                | BackchannelAuthenticationRequest
+                | DeviceCode
+                | PreAuthorizedCode
+                | RefreshToken
+                | undefined,
+            grantType: string,
         ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
         | undefined;
-    rarForIntrospectionResponse?:
+    authorizationDetailsForIntrospection?:
         | ((
             ctx: KoaContextWithOIDC,
             token: AccessToken | ClientCredentials | RefreshToken,
-        ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
-        | undefined;
-    rarForRefreshTokenResponse?:
-        | ((
-            ctx: KoaContextWithOIDC,
-            resourceServer: ResourceServerInstance,
         ) => CanBePromise<readonly AuthorizationDetail[] | undefined>)
         | undefined;
 }

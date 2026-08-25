@@ -868,6 +868,23 @@ preAuthorizedCode.txCode?.substring(0);
 preAuthorizedCode.consume().then(console.log);
 provider.PreAuthorizedCode.revokeByGrantId("grant").then(console.log);
 
+const deviceCode = new provider.DeviceCode({
+    client: null as unknown as oidc.Client,
+    deviceInfo: {},
+    grantId: "grant",
+    params: {},
+    userCode: "ABCD-EFGH",
+    rar: [{ type: "payment", actions: ["initiate"] }],
+});
+deviceCode.rar?.[0].type.substring(0);
+
+const clientCredentials = new provider.ClientCredentials({
+    client: null as unknown as oidc.Client,
+    scope: "api:read",
+    rar: [{ type: "payment", actions: ["read"] }],
+});
+clientCredentials.rar?.[0].type.substring(0);
+
 const rarGrant = new provider.Grant({ clientId: "client", accountId: "account" });
 rarGrant.addRar({ type: "openid_credential", credential_configuration_id: "org.iso.18013.5.1.mDL" });
 
@@ -1098,25 +1115,26 @@ new Provider("https://op.example.com", {
                     },
                 },
             },
-            rarForAuthorizationCode(ctx) {
-                return ctx.oidc.grant?.rar;
+            authorizationDetailsForGrantSource(ctx, source) {
+                ctx.oidc.issuer.substring(0);
+                if (source.kind === "DeviceCode") {
+                    source.userCode.substring(0);
+                } else {
+                    source.redirectUri?.substring(0);
+                }
+                return source.rar;
             },
-            rarForBackchannelResponse(ctx, resourceServer) {
-                resourceServer.identifier().substring(0);
-                resourceServer.scopes.has("api:read");
-                return ctx.oidc.grant?.rar;
-            },
-            rarForCodeResponse(ctx, resourceServer) {
-                resourceServer.identifier().substring(0);
-                return ctx.oidc.grant?.rar;
-            },
-            rarForIntrospectionResponse(ctx, token) {
+            authorizationDetailsForAccessToken(ctx, token, source, grantType) {
+                ctx.oidc.issuer.substring(0);
                 token.jti.substring(0);
-                return ctx.oidc.grant?.rar;
+                source?.jti.substring(0);
+                grantType.substring(0);
+                return token.rar;
             },
-            rarForRefreshTokenResponse(ctx, resourceServer) {
-                resourceServer.identifier().substring(0);
-                return ctx.oidc.grant?.rar;
+            authorizationDetailsForIntrospection(ctx, token) {
+                ctx.oidc.issuer.substring(0);
+                token.jti.substring(0);
+                return token.rar;
             },
         },
     },
