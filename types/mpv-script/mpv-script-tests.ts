@@ -263,7 +263,7 @@ if (osd_size) {
     osd_size.aspect;
 }
 
-// $ExpectType __IntervalId
+// $ExpectType IntervalId
 const interval_id = setInterval(
     function(foo, bar) {
         // $ExpectType string
@@ -279,7 +279,7 @@ const interval_id = setInterval(
 // @ts-expect-error
 clearInterval(100);
 
-// $ExpectType __TimeoutId
+// $ExpectType TimeoutId
 const timeout_id = setTimeout(
     function(foo, bar) {
         // $ExpectType string
