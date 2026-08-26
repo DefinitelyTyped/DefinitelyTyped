@@ -34,6 +34,7 @@ declare namespace ndarray {
 
     type MaybeBigInt64Array = InstanceType<typeof globalThis extends { BigInt64Array: infer T } ? T : never>;
     type MaybeBigUint64Array = InstanceType<typeof globalThis extends { BigUint64Array: infer T } ? T : never>;
+    type MaybeFloat16Array = InstanceType<typeof globalThis extends { Float16Array: infer T } ? T : never>;
 
     type Data<T = any> = T extends number ? GenericArray<T> | T[] | TypedArray
         : T extends bigint ? GenericArray<T> | T[] | MaybeBigInt64Array | MaybeBigUint64Array
@@ -47,6 +48,7 @@ declare namespace ndarray {
         | Uint8ClampedArray
         | Uint16Array
         | Uint32Array
+        | MaybeFloat16Array
         | Float32Array
         | Float64Array;
 
@@ -59,6 +61,7 @@ declare namespace ndarray {
         : D extends Uint8ClampedArray ? "uint8_clamped"
         : D extends Uint16Array ? "uint16"
         : D extends Uint32Array ? "uint32"
+        : D extends MaybeFloat16Array ? "float16"
         : D extends Float32Array ? "float32"
         : D extends Float64Array ? "float64"
         : D extends MaybeBigInt64Array ? "bigint64"
