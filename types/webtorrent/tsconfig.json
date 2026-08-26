@@ -3,7 +3,8 @@
         "module": "node16",
         "lib": [
             "es6",
-            "dom"
+            "dom",
+            "esnext.asynciterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
