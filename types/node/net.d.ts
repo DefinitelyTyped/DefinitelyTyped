@@ -226,7 +226,7 @@ declare module "node:net" {
          * @param count **Default:** `10`
          * @returns The socket itself.
          */
-        setKeepAlive(enable: boolean, initialDelay?: number, interval?: number, count?: number): this;
+        setKeepAlive(enable?: boolean, initialDelay?: number, interval?: number, count?: number): this;
         /**
          * Returns the current Type of Service (TOS) field for IPv4 packets or Traffic
          * Class for IPv6 packets for this socket.
