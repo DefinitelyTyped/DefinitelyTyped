@@ -38,7 +38,7 @@ const issueCredential: oidc.OpenID4VCIIssueCredential = async () => ({ credentia
 const authorizationDetailsForGrantSource: oidc.AuthorizationDetailsForGrantSource = async () => undefined;
 const authorizationDetailsForAccessToken: oidc.AuthorizationDetailsForAccessToken = async () => undefined;
 const authorizationDetailsForIntrospection: oidc.AuthorizationDetailsForIntrospection = async () => undefined;
-const paymentAuthorizationDetail = {
+const paymentAuthorizationDetail: oidc.RichAuthorizationRequestType = {
     validate(_ctx: oidc.KoaContextWithOIDC, detail: oidc.AuthorizationDetail) {
         detail.type.substring(0);
     },
