@@ -10,13 +10,6 @@ import Koa = require("koa");
 export {};
 
 export type CanBePromise<T> = Promise<T> | T;
-export type FindAccount = ConfigurationOptionTypes["findAccount"];
-export type TokenFormat = "opaque" | "jwt";
-export type FapiProfile = "1.0 Final" | "2.0";
-
-export type TTLFunction<T, WithClient extends boolean = true> = WithClient extends true
-    ? (ctx: KoaContextWithOIDC, token: T, client: Client) => number
-    : (ctx: KoaContextWithOIDC, token: T) => number;
 
 export interface UnknownObject {
     [key: string]: unknown;
@@ -48,87 +41,6 @@ export interface JWK {
 
 export interface JWKS {
     keys: ReadonlyArray<JWK | ExternalSigningKey>;
-}
-
-export interface AuthorizationDetail extends UnknownObject {
-    type: string;
-}
-
-export interface JWTVerificationResult {
-    protectedHeader: UnknownObject;
-    payload: UnknownObject;
-    key: crypto.KeyObject | crypto.webcrypto.CryptoKey;
-}
-
-export interface KeyAttestation {
-    jwt: string;
-    attestedKeys: readonly JWK[];
-    payload: UnknownObject;
-}
-
-export interface OpenID4VCIProofType {
-    proof_signing_alg_values_supported?: readonly string[] | undefined;
-    key_attestations_required?:
-        | {
-            key_storage?: readonly string[] | undefined;
-            user_authentication?: readonly string[] | undefined;
-        }
-        | undefined;
-    [key: string]: unknown;
-}
-
-export interface OpenID4VCICredentialConfiguration {
-    format: string;
-    scope?: string | undefined;
-    cryptographic_binding_methods_supported?: readonly "jwk"[] | undefined;
-    proof_types_supported?:
-        | {
-            jwt?: OpenID4VCIProofType | undefined;
-            attestation?: OpenID4VCIProofType | undefined;
-        }
-        | undefined;
-    [key: string]: unknown;
-}
-
-export interface OpenID4VCIMetadata extends UnknownObject {
-    batch_credential_issuance?:
-        | {
-            batch_size: number;
-            [key: string]: unknown;
-        }
-        | undefined;
-}
-
-export type OpenID4VCIProofs =
-    | {
-        jwt: readonly string[];
-        key_attestation?: KeyAttestation | undefined;
-        attestation?: never;
-    }
-    | {
-        attestation: KeyAttestation;
-        jwt?: never;
-        key_attestation?: never;
-    };
-
-export interface OpenID4VCICredentialContext {
-    credentialConfigurationId: string;
-    credentialConfiguration: OpenID4VCICredentialConfiguration;
-    credentialIdentifier?: string | undefined;
-    client: Client;
-    account: Account;
-    grant: Grant;
-    accessToken: AccessToken;
-}
-
-export interface OpenID4VCIIssueCredentialContext extends OpenID4VCICredentialContext {
-    body: UnknownObject;
-    proofs?: OpenID4VCIProofs | undefined;
-}
-
-export interface OpenID4VCICredentialResponse extends UnknownObject {
-    credentials: readonly unknown[];
-    notification_id?: string | undefined;
 }
 
 export interface AllClientMetadata {
@@ -916,43 +828,6 @@ export type {
     Session,
 };
 
-export interface ResourceServer {
-    scope: string;
-    audience?: string | undefined;
-    accessTokenTTL?: number | undefined;
-    accessTokenFormat?: TokenFormat | undefined;
-    jwt?:
-        | {
-            sign?:
-                | false
-                | {
-                    alg?: AsymmetricSigningAlgorithm | undefined;
-                    kid?: string | undefined;
-                }
-                | {
-                    alg: SymmetricSigningAlgorithm;
-                    key: crypto.KeyObject | crypto.webcrypto.CryptoKey | Buffer;
-                    kid?: string | undefined;
-                }
-                | undefined;
-            encrypt?:
-                | false
-                | {
-                    alg: EncryptionAlgValues;
-                    enc: EncryptionEncValues;
-                    key: crypto.KeyObject | crypto.webcrypto.CryptoKey | Buffer;
-                    kid?: string | undefined;
-                }
-                | undefined;
-        }
-        | undefined;
-}
-
-export interface ResourceServerInstance extends ResourceServer {
-    readonly scopes: Set<string>;
-    identifier(): string;
-}
-
 declare class OIDCContext {
     constructor(ctx: Koa.Context);
     readonly route: string;
@@ -1047,6 +922,150 @@ export type TokenEndpointGrantContext<Params extends object = UnknownObject> = K
     };
 };
 
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
+// BEGIN GENERATED OIDC-PROVIDER CONTRACTS
+// oidc-provider types artifact "9.12.0"; schema 1; sha256 781afaad6598727ec6dbbfea7486752924eb51914dd4cac579f9244a84041e9a
+export type FindAccount = (
+    ctx: KoaContextWithOIDC,
+    sub: string,
+    token?:
+        | AuthorizationCode
+        | AccessToken
+        | RefreshToken
+        | DeviceCode
+        | BackchannelAuthenticationRequest
+        | PreAuthorizedCode,
+) => CanBePromise<Account | undefined>;
+export type TokenFormat = "opaque" | "jwt";
+export type FapiProfile = "1.0 Final" | "2.0";
+
+/**
+ * A synchronous TTL policy callback. The returned number of seconds must be a
+ * positive safe integer.
+ */
+export type TTLFunction<T, WithClient extends boolean = true> = WithClient extends true
+    ? (ctx: KoaContextWithOIDC, token: T, client: Client) => number
+    : (ctx: KoaContextWithOIDC, token: T) => number;
+
+export interface AuthorizationDetail extends UnknownObject {
+    type: string;
+}
+
+export interface JWTVerificationResult {
+    protectedHeader: UnknownObject;
+    payload: UnknownObject;
+    key: crypto.KeyObject | crypto.webcrypto.CryptoKey;
+}
+
+export interface KeyAttestation {
+    jwt: string;
+    attestedKeys: readonly JWK[];
+    payload: UnknownObject;
+}
+
+export interface OpenID4VCIProofType {
+    proof_signing_alg_values_supported?: readonly string[] | undefined;
+    key_attestations_required?:
+        | {
+            key_storage?: readonly string[] | undefined;
+            user_authentication?: readonly string[] | undefined;
+        }
+        | undefined;
+    [key: string]: unknown;
+}
+
+export interface OpenID4VCICredentialConfiguration {
+    format: string;
+    scope?: string | undefined;
+    cryptographic_binding_methods_supported?: readonly "jwk"[] | undefined;
+    proof_types_supported?:
+        | {
+            jwt?: OpenID4VCIProofType | undefined;
+            attestation?: OpenID4VCIProofType | undefined;
+        }
+        | undefined;
+    [key: string]: unknown;
+}
+
+export interface OpenID4VCIMetadata extends UnknownObject {
+    batch_credential_issuance?:
+        | {
+            batch_size: number;
+            [key: string]: unknown;
+        }
+        | undefined;
+}
+
+export type OpenID4VCIProofs =
+    | {
+        jwt: readonly string[];
+        key_attestation?: KeyAttestation | undefined;
+        attestation?: never;
+    }
+    | {
+        attestation: KeyAttestation;
+        jwt?: never;
+        key_attestation?: never;
+    };
+
+export interface OpenID4VCICredentialContext {
+    credentialConfigurationId: string;
+    credentialConfiguration: OpenID4VCICredentialConfiguration;
+    credentialIdentifier?: string | undefined;
+    client: Client;
+    account: Account;
+    grant: Grant;
+    accessToken: AccessToken;
+}
+
+export interface OpenID4VCIIssueCredentialContext extends OpenID4VCICredentialContext {
+    body: UnknownObject;
+    proofs?: OpenID4VCIProofs | undefined;
+}
+
+export interface OpenID4VCICredentialResponse extends UnknownObject {
+    credentials: readonly unknown[];
+    notification_id?: string | undefined;
+}
+
+export interface ResourceServer {
+    scope: string;
+    audience?: string | undefined;
+    /** A positive safe integer number of seconds. */
+    accessTokenTTL?: number | undefined;
+    accessTokenFormat?: TokenFormat | undefined;
+    jwt?:
+        | {
+            sign?:
+                | false
+                | {
+                    alg?: AsymmetricSigningAlgorithm | undefined;
+                    kid?: string | undefined;
+                }
+                | {
+                    alg: SymmetricSigningAlgorithm;
+                    key: crypto.KeyObject | crypto.webcrypto.CryptoKey | Buffer;
+                    kid?: string | undefined;
+                }
+                | undefined;
+            encrypt?:
+                | false
+                | {
+                    alg: EncryptionAlgValues;
+                    enc: EncryptionEncValues;
+                    key: crypto.KeyObject | crypto.webcrypto.CryptoKey | Buffer;
+                    kid?: string | undefined;
+                }
+                | undefined;
+        }
+        | undefined;
+}
+
+export interface ResourceServerInstance extends ResourceServer {
+    readonly scopes: Set<string>;
+    identifier(): string;
+}
+
 export type TLSClientAuthProperty =
     | "tls_client_auth_subject_dn"
     | "tls_client_auth_san_dns"
@@ -1071,305 +1090,18 @@ export interface Account {
     [key: string]: unknown;
 }
 
-// BEGIN GENERATED CONFIGURATION OPTION TYPES
-// Generated by scripts/update-configuration.mjs from oidc-provider documentation metadata.
-// Do not edit this region by hand.
-/* eslint-disable @typescript-eslint/no-invalid-void-type */
-interface ConfigurationOptionTypes {
-    "assertJwtClientAuthClaimsAndHeader": (
-        ctx: KoaContextWithOIDC,
-        claims: Record<string, JsonValue>,
-        header: Record<string, JsonValue>,
-        client: Client,
-    ) => CanBePromise<void>;
-    "clientBasedCORS": (ctx: KoaContextWithOIDC, origin: string, client: Client) => boolean;
-    "expiresWithSession": (
-        ctx: KoaContextWithOIDC,
-        source: AccessToken | AuthorizationCode | DeviceCode,
-    ) => CanBePromise<boolean>;
-    "extraClientMetadata.validator": (
-        ctx: KoaContextWithOIDC | undefined,
-        key: string,
-        value: unknown,
-        metadata: ClientMetadata,
-    ) => void | undefined;
-    "extraParams": readonly string[] | ReadonlySet<string> | {
-        [name: string]:
-            | null
-            | ((
-                ctx: KoaContextWithOIDC,
-                value: string | undefined,
-                client: Client,
-            ) => CanBePromise<void>);
-    };
-    "extraTokenClaims": (
-        ctx: KoaContextWithOIDC,
-        token: AccessToken | ClientCredentials,
-    ) => CanBePromise<UnknownObject | undefined>;
-    "features.attestClientAuth.assertAttestationJwtAndPop": (
-        ctx: KoaContextWithOIDC,
-        attestation: JWTVerificationResult,
-        pop: JWTVerificationResult,
-        client: Client,
-    ) => CanBePromise<void>;
-    "features.attestClientAuth.getAttestationSignaturePublicKey": (
-        ctx: KoaContextWithOIDC,
-        header: UnknownObject,
-        payload: UnknownObject,
-        client: Client,
-    ) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>;
-    "features.ciba.processLoginHint": (
-        ctx: KoaContextWithOIDC,
-        loginHint?: string,
-    ) => CanBePromise<string | undefined>;
-    "features.ciba.processLoginHintToken": (
-        ctx: KoaContextWithOIDC,
-        loginHintToken?: string,
-    ) => CanBePromise<string | undefined>;
-    "features.ciba.triggerAuthenticationDevice": (
-        ctx: KoaContextWithOIDC,
-        request: BackchannelAuthenticationRequest,
-        account: Account,
-        client: Client,
-    ) => CanBePromise<void>;
-    "features.ciba.validateBindingMessage": (
-        ctx: KoaContextWithOIDC,
-        bindingMessage?: string,
-    ) => CanBePromise<void>;
-    "features.ciba.validateRequestContext": (
-        ctx: KoaContextWithOIDC,
-        requestContext?: string,
-    ) => CanBePromise<void>;
-    "features.ciba.verifyUserCode": (
-        ctx: KoaContextWithOIDC,
-        account: Account,
-        userCode?: string,
-    ) => CanBePromise<void>;
-    "features.claimsParameter.assertClaimsParameter": (
-        ctx: KoaContextWithOIDC,
-        claims: ClaimsParameter,
-        client: Client,
-    ) => CanBePromise<void>;
-    "features.clientIdMetadataDocument.allowClient": (
-        ctx: KoaContextWithOIDC,
-        client: Client,
-    ) => CanBePromise<boolean>;
-    "features.clientIdMetadataDocument.allowFetch": (
-        ctx: KoaContextWithOIDC,
-        clientId: string,
-    ) => CanBePromise<boolean>;
-    "features.dPoP.requireNonce": (ctx: KoaContextWithOIDC) => boolean;
-    "features.deviceFlow.deviceInfo": (ctx: KoaContextWithOIDC) => UnknownObject;
-    "features.deviceFlow.successSource": (ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>;
-    "features.deviceFlow.userCodeConfirmSource": (
-        ctx: KoaContextWithOIDC,
-        form: string,
-        client: Client,
-        deviceInfo: UnknownObject,
-        userCode: string,
-    ) => CanBePromise<undefined | void>;
-    "features.deviceFlow.userCodeInputSource": (
-        ctx: KoaContextWithOIDC,
-        form: string,
-        out?: ErrorOut,
-        err?: errors.OIDCProviderError | Error,
-    ) => CanBePromise<undefined | void>;
-    "features.fapi.profile":
-        | FapiProfile
-        | ((
-            ctx: KoaContextWithOIDC,
-            client: Client,
-        ) => FapiProfile | undefined);
-    "features.introspection.allowedPolicy": (
-        ctx: KoaContextWithOIDC,
-        client: Client,
-        token: AccessToken | ClientCredentials | RefreshToken,
-    ) => CanBePromise<boolean>;
-    "features.mTLS.certificateAuthorized": (ctx: KoaContextWithOIDC) => boolean;
-    "features.mTLS.certificateSubjectMatches": (
-        ctx: KoaContextWithOIDC,
-        property: TLSClientAuthProperty,
-        expected: string,
-    ) => boolean;
-    "features.mTLS.getCertificate": (
-        ctx: KoaContextWithOIDC,
-    ) => crypto.X509Certificate | string | undefined;
-    "features.openid4vci.credentialConfigurationPolicy": (
-        ctx: KoaContextWithOIDC,
-        details: OpenID4VCICredentialContext,
-    ) => CanBePromise<boolean>;
-    "features.openid4vci.credentialEndpointExpectedAudience": (ctx: KoaContextWithOIDC) => CanBePromise<string>;
-    "features.openid4vci.getKeyAttestationSignaturePublicKey": (
-        ctx: KoaContextWithOIDC,
-        issuer: string,
-        header: UnknownObject,
-        client: Client,
-    ) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>;
-    "features.openid4vci.issueCredential": (
-        ctx: KoaContextWithOIDC,
-        details: OpenID4VCIIssueCredentialContext,
-    ) => CanBePromise<OpenID4VCICredentialResponse>;
-    "features.registration.idFactory": (ctx: KoaContextWithOIDC) => string;
-    "features.registration.issueRegistrationAccessToken":
-        | boolean
-        | ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>);
-    "features.registration.policies": {
-        [name: string]: (
-            ctx: KoaContextWithOIDC,
-            metadata: ClientMetadata,
-        ) => CanBePromise<undefined | void>;
-    };
-    "features.registration.secretFactory": (ctx: KoaContextWithOIDC) => CanBePromise<string>;
-    "features.registrationManagement.rotateRegistrationAccessToken":
-        | boolean
-        | ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>);
-    "features.requestObjects.assertJwtClaimsAndHeader": (
-        ctx: KoaContextWithOIDC,
-        claims: Record<string, JsonValue>,
-        header: Record<string, JsonValue>,
-        client: Client,
-    ) => CanBePromise<void>;
-    "features.resourceIndicators.defaultResource": (
-        ctx: KoaContextWithOIDC,
-        client: Client,
-        oneOf?: readonly string[] | undefined,
-    ) => CanBePromise<string | readonly string[] | undefined>;
-    "features.resourceIndicators.getResourceServerInfo": (
-        ctx: KoaContextWithOIDC,
-        resourceIndicator: string,
-        client: Client,
-    ) => CanBePromise<ResourceServer>;
-    "features.resourceIndicators.useGrantedResource": (
-        ctx: KoaContextWithOIDC,
-        model:
-            | AuthorizationCode
-            | RefreshToken
-            | DeviceCode
-            | BackchannelAuthenticationRequest
-            | PreAuthorizedCode,
-    ) => CanBePromise<boolean>;
-    "features.revocation.allowedPolicy": (
-        ctx: KoaContextWithOIDC,
-        client: Client,
-        token: AccessToken | ClientCredentials | RefreshToken,
-    ) => CanBePromise<boolean>;
-    "features.richAuthorizationRequests.authorizationDetailsForAccessToken": (
-        ctx: KoaContextWithOIDC,
-        token: AccessToken | ClientCredentials,
-        source:
-            | AuthorizationCode
-            | BackchannelAuthenticationRequest
-            | DeviceCode
-            | PreAuthorizedCode
-            | RefreshToken
-            | undefined,
-        grantType: string,
-    ) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
-    "features.richAuthorizationRequests.authorizationDetailsForGrantSource": (
-        ctx: KoaContextWithOIDC,
-        source: AuthorizationCode | DeviceCode,
-    ) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
-    "features.richAuthorizationRequests.authorizationDetailsForIntrospection": (
-        ctx: KoaContextWithOIDC,
-        token: AccessToken | ClientCredentials | RefreshToken,
-    ) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
-    "features.richAuthorizationRequests.types": {
-        [type: string]: {
-            validate: (
-                ctx: KoaContextWithOIDC,
-                detail: AuthorizationDetail,
-                client: Client,
-            ) => CanBePromise<void>;
-        };
-    };
-    "features.rpInitiatedLogout.logoutSource": (
-        ctx: KoaContextWithOIDC,
-        form: string,
-    ) => CanBePromise<undefined | void>;
-    "features.rpInitiatedLogout.postLogoutSuccessSource": (ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>;
-    "fetch": (
-        input: string | URL | Request,
-        init?: RequestInit,
-    ) => Promise<Response>;
-    "findAccount": (
-        ctx: KoaContextWithOIDC,
-        sub: string,
-        token?:
-            | AuthorizationCode
-            | AccessToken
-            | RefreshToken
-            | DeviceCode
-            | BackchannelAuthenticationRequest
-            | PreAuthorizedCode,
-    ) => CanBePromise<Account | undefined>;
-    "formats.bitsOfOpaqueRandomness": number | ((ctx: KoaContextWithOIDC, model: BaseModel) => number);
-    "formats.customizers": {
-        jwt?:
-            | ((
-                ctx: KoaContextWithOIDC,
-                token: AccessToken | ClientCredentials,
-                parts: JWTStructured,
-            ) => CanBePromise<void>)
-            | undefined;
-    };
-    "interactions.policy": readonly interactionPolicy.Prompt[];
-    "interactions.url": (
-        ctx: KoaContextWithOIDC,
-        interaction: Interaction,
-    ) => CanBePromise<string>;
-    "issueRefreshToken": (
-        ctx: KoaContextWithOIDC,
-        client: Client,
-        source: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest | PreAuthorizedCode,
-    ) => CanBePromise<boolean>;
-    "loadExistingGrant": (ctx: KoaContextWithOIDC) => CanBePromise<Grant | undefined>;
-    "pairwiseIdentifier": (
-        ctx: KoaContextWithOIDC,
-        accountId: string,
-        client: Client,
-    ) => CanBePromise<string>;
-    "pkce.required": (ctx: KoaContextWithOIDC, client: Client) => boolean;
-    "renderError": (
-        ctx: KoaContextWithOIDC,
-        out: ErrorOut,
-        error: errors.OIDCProviderError | Error,
-    ) => CanBePromise<void | undefined>;
-    "revokeGrantPolicy": (ctx: KoaContextWithOIDC) => CanBePromise<boolean>;
-    "rotateRefreshToken": (ctx: KoaContextWithOIDC) => CanBePromise<boolean>;
-    "sectorIdentifierUriValidate": (client: Client) => boolean;
-    "ttl": {
-        AccessToken?: number | ((ctx: KoaContextWithOIDC, token: AccessToken, client: Client) => number) | undefined;
-        AuthorizationCode?:
-            | number
-            | ((ctx: KoaContextWithOIDC, code: AuthorizationCode, client: Client) => number)
-            | undefined;
-        BackchannelAuthenticationRequest?:
-            | number
-            | ((ctx: KoaContextWithOIDC, request: BackchannelAuthenticationRequest, client: Client) => number)
-            | undefined;
-        ClientCredentials?:
-            | number
-            | ((ctx: KoaContextWithOIDC, token: ClientCredentials, client: Client) => number)
-            | undefined;
-        DeviceCode?: number | ((ctx: KoaContextWithOIDC, code: DeviceCode, client: Client) => number) | undefined;
-        Grant?: number | ((ctx: KoaContextWithOIDC, grant: Grant) => number) | undefined;
-        IdToken?: number | ((ctx: KoaContextWithOIDC, token: IdToken, client: Client) => number) | undefined;
-        Interaction?: number | ((ctx: KoaContextWithOIDC, interaction: Interaction) => number) | undefined;
-        PreAuthorizedCode?: number | ((ctx: KoaContextWithOIDC, code: PreAuthorizedCode) => number) | undefined;
-        RefreshToken?: number | ((ctx: KoaContextWithOIDC, token: RefreshToken, client: Client) => number) | undefined;
-        Session?: number | ((ctx: KoaContextWithOIDC, session: Session) => number) | undefined;
-        [key: string]: unknown;
-    };
-}
-/* eslint-enable @typescript-eslint/no-invalid-void-type */
-// END GENERATED CONFIGURATION OPTION TYPES
-
 export type RotateRegistrationAccessTokenFunction = Exclude<
-    ConfigurationOptionTypes["features.registrationManagement.rotateRegistrationAccessToken"],
+    (
+        | boolean
+        | ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>)
+    ),
     boolean
 >;
 export type IssueRegistrationAccessTokenFunction = Exclude<
-    ConfigurationOptionTypes["features.registration.issueRegistrationAccessToken"],
+    (
+        | boolean
+        | ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>)
+    ),
     boolean
 >;
 
@@ -1489,23 +1221,44 @@ export type JsonArray = JsonValue[];
 export type JsonPrimitive = string | number | boolean | null;
 export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
 
-type RichAuthorizationRequestTypeBase = ConfigurationOptionTypes["features.richAuthorizationRequests.types"][string];
+type RichAuthorizationRequestTypeBase = ({
+    [type: string]: {
+        validate: (
+            ctx: KoaContextWithOIDC,
+            detail: AuthorizationDetail,
+            client: Client,
+        ) => CanBePromise<void>;
+    };
+})[string];
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface RichAuthorizationRequestType extends RichAuthorizationRequestTypeBase {}
 
-export type AuthorizationDetailsForGrantSource =
-    ConfigurationOptionTypes["features.richAuthorizationRequests.authorizationDetailsForGrantSource"];
+export type AuthorizationDetailsForGrantSource = (
+    ctx: KoaContextWithOIDC,
+    source: AuthorizationCode | DeviceCode,
+) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
 
-export type AuthorizationDetailsForAccessToken =
-    ConfigurationOptionTypes["features.richAuthorizationRequests.authorizationDetailsForAccessToken"];
+export type AuthorizationDetailsForAccessToken = (
+    ctx: KoaContextWithOIDC,
+    token: AccessToken | ClientCredentials,
+    source:
+        | AuthorizationCode
+        | BackchannelAuthenticationRequest
+        | DeviceCode
+        | PreAuthorizedCode
+        | RefreshToken
+        | undefined,
+    grantType: string,
+) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
 
-export type AuthorizationDetailsForIntrospection =
-    ConfigurationOptionTypes["features.richAuthorizationRequests.authorizationDetailsForIntrospection"];
+export type AuthorizationDetailsForIntrospection = (
+    ctx: KoaContextWithOIDC,
+    token: AccessToken | ClientCredentials | RefreshToken,
+) => CanBePromise<readonly AuthorizationDetail[] | undefined>;
 
 export interface RichAuthorizationRequestsConfigurationBase {
     enabled?: boolean | undefined;
-    // @configuration-docs features.richAuthorizationRequests.types
     /**
      * Specifies the authorization details type identifiers that shall be supported by the authorization server. Each
      * type identifier MUST have an associated validation function that defines the required structure and constraints
@@ -1514,7 +1267,6 @@ export interface RichAuthorizationRequestsConfigurationBase {
      * `errors.InvalidAuthorizationDetails`.
      */
     types?: Readonly<Record<string, RichAuthorizationRequestType>> | undefined;
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForGrantSource
     /**
      * **Important:**
      *
@@ -1526,7 +1278,6 @@ export interface RichAuthorizationRequestsConfigurationBase {
      * the grant source, or undefined. An empty array is treated as undefined.
      */
     authorizationDetailsForGrantSource?: AuthorizationDetailsForGrantSource | undefined;
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForAccessToken
     /**
      * **Important:**
      *
@@ -1541,7 +1292,6 @@ export interface RichAuthorizationRequestsConfigurationBase {
      * values. To reject client-provided authorization details, throw `errors.InvalidAuthorizationDetails`.
      */
     authorizationDetailsForAccessToken?: AuthorizationDetailsForAccessToken | undefined;
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForIntrospection
     /**
      * **Important:**
      *
@@ -1561,7 +1311,6 @@ export interface RichAuthorizationRequestsDisabledConfiguration extends RichAuth
 
 export interface RichAuthorizationRequestsInactiveConfiguration extends RichAuthorizationRequestsConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.richAuthorizationRequests.types
     /**
      * Specifies the authorization details type identifiers that shall be supported by the authorization server. Each
      * type identifier MUST have an associated validation function that defines the required structure and constraints
@@ -1574,7 +1323,6 @@ export interface RichAuthorizationRequestsInactiveConfiguration extends RichAuth
 
 export interface RichAuthorizationRequestsActiveConfiguration extends RichAuthorizationRequestsConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.richAuthorizationRequests.types
     /**
      * Specifies the authorization details type identifiers that shall be supported by the authorization server. Each
      * type identifier MUST have an associated validation function that defines the required structure and constraints
@@ -1583,7 +1331,6 @@ export interface RichAuthorizationRequestsActiveConfiguration extends RichAuthor
      * `errors.InvalidAuthorizationDetails`.
      */
     types: Readonly<Record<string, RichAuthorizationRequestType>>;
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForGrantSource
     /**
      * **Important:**
      *
@@ -1595,7 +1342,6 @@ export interface RichAuthorizationRequestsActiveConfiguration extends RichAuthor
      * the grant source, or undefined. An empty array is treated as undefined.
      */
     authorizationDetailsForGrantSource: AuthorizationDetailsForGrantSource;
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForAccessToken
     /**
      * **Important:**
      *
@@ -1619,7 +1365,6 @@ export type RichAuthorizationRequestsConfiguration =
 
 export interface FapiDisabledConfiguration {
     enabled?: false | undefined;
-    // @configuration-docs features.fapi.profile
     /**
      * Specifies the FAPI profile version that shall be applied for security policy enforcement. The authorization
      * server shall implement the behaviors defined in the selected profile specification. Supported values include:
@@ -1632,12 +1377,19 @@ export interface FapiDisabledConfiguration {
      *   contextually. The function shall return one of the supported profile values or undefined when FAPI behaviors
      *   should be ignored for the current request context.
      */
-    profile?: ConfigurationOptionTypes["features.fapi.profile"] | undefined;
+    profile?:
+        | (
+            | FapiProfile
+            | ((
+                ctx: KoaContextWithOIDC,
+                client: Client,
+            ) => FapiProfile | undefined)
+        )
+        | undefined;
 }
 
 export interface FapiEnabledConfiguration {
     enabled: boolean;
-    // @configuration-docs features.fapi.profile
     /**
      * Specifies the FAPI profile version that shall be applied for security policy enforcement. The authorization
      * server shall implement the behaviors defined in the selected profile specification. Supported values include:
@@ -1650,20 +1402,36 @@ export interface FapiEnabledConfiguration {
      *   contextually. The function shall return one of the supported profile values or undefined when FAPI behaviors
      *   should be ignored for the current request context.
      */
-    profile: ConfigurationOptionTypes["features.fapi.profile"];
+    profile:
+        | FapiProfile
+        | ((
+            ctx: KoaContextWithOIDC,
+            client: Client,
+        ) => FapiProfile | undefined);
 }
 
 export type FapiConfiguration = FapiDisabledConfiguration | FapiEnabledConfiguration;
 
-export type CIBATriggerAuthenticationDevice = ConfigurationOptionTypes["features.ciba.triggerAuthenticationDevice"];
+export type CIBATriggerAuthenticationDevice = (
+    ctx: KoaContextWithOIDC,
+    request: BackchannelAuthenticationRequest,
+    account: Account,
+    client: Client,
+) => CanBePromise<void>;
 
-export type CIBAValidateRequestContext = ConfigurationOptionTypes["features.ciba.validateRequestContext"];
+export type CIBAValidateRequestContext = (
+    ctx: KoaContextWithOIDC,
+    requestContext?: string,
+) => CanBePromise<void>;
 
-export type CIBAVerifyUserCode = ConfigurationOptionTypes["features.ciba.verifyUserCode"];
+export type CIBAVerifyUserCode = (
+    ctx: KoaContextWithOIDC,
+    account: Account,
+    userCode?: string,
+) => CanBePromise<void>;
 
 export interface CIBAConfigurationBase {
     enabled?: boolean | undefined;
-    // @configuration-docs features.ciba.deliveryModes
     /**
      * Specifies the token delivery modes supported by this authorization server. The following delivery modes are
      * defined:
@@ -1671,7 +1439,6 @@ export interface CIBAConfigurationBase {
      * - `ping` - Authorization server notifies client of completion via HTTP callback
      */
     deliveryModes?: readonly CIBADeliveryMode[] | ReadonlySet<CIBADeliveryMode> | undefined;
-    // @configuration-docs features.ciba.triggerAuthenticationDevice
     /**
      * **Important:**
      *
@@ -1685,7 +1452,6 @@ export interface CIBAConfigurationBase {
      * Consumption Device login process.
      */
     triggerAuthenticationDevice?: CIBATriggerAuthenticationDevice | undefined;
-    // @configuration-docs features.ciba.validateBindingMessage
     /**
      * **Important:**
      *
@@ -1701,8 +1467,12 @@ export interface CIBAConfigurationBase {
      * **Recommendation:** Use `return undefined` when a binding_message is not required by policy and was not provided
      * in the request.
      */
-    validateBindingMessage?: ConfigurationOptionTypes["features.ciba.validateBindingMessage"] | undefined;
-    // @configuration-docs features.ciba.validateRequestContext
+    validateBindingMessage?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            bindingMessage?: string,
+        ) => CanBePromise<void>)
+        | undefined;
     /**
      * **Important:**
      *
@@ -1719,7 +1489,6 @@ export interface CIBAConfigurationBase {
      * in the request.
      */
     validateRequestContext?: CIBAValidateRequestContext | undefined;
-    // @configuration-docs features.ciba.processLoginHintToken
     /**
      * **Important:**
      *
@@ -1739,8 +1508,12 @@ export interface CIBAConfigurationBase {
      * **Recommendation:** Use `return undefined` when the accountId cannot be determined from the provided
      * login_hint_token.
      */
-    processLoginHintToken?: ConfigurationOptionTypes["features.ciba.processLoginHintToken"] | undefined;
-    // @configuration-docs features.ciba.processLoginHint
+    processLoginHintToken?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            loginHintToken?: string,
+        ) => CanBePromise<string | undefined>)
+        | undefined;
     /**
      * **Important:**
      *
@@ -1756,8 +1529,12 @@ export interface CIBAConfigurationBase {
      *
      * **Recommendation:** Use `return undefined` when the accountId cannot be determined from the provided login_hint.
      */
-    processLoginHint?: ConfigurationOptionTypes["features.ciba.processLoginHint"] | undefined;
-    // @configuration-docs features.ciba.verifyUserCode
+    processLoginHint?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            loginHint?: string,
+        ) => CanBePromise<string | undefined>)
+        | undefined;
     /**
      * **Important:**
      *
@@ -1784,7 +1561,6 @@ export interface CIBADisabledConfiguration extends CIBAConfigurationBase {
 
 export interface CIBAEnabledConfiguration extends CIBAConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.ciba.triggerAuthenticationDevice
     /**
      * **Important:**
      *
@@ -1798,7 +1574,6 @@ export interface CIBAEnabledConfiguration extends CIBAConfigurationBase {
      * Consumption Device login process.
      */
     triggerAuthenticationDevice: CIBATriggerAuthenticationDevice;
-    // @configuration-docs features.ciba.validateRequestContext
     /**
      * **Important:**
      *
@@ -1815,7 +1590,6 @@ export interface CIBAEnabledConfiguration extends CIBAConfigurationBase {
      * in the request.
      */
     validateRequestContext: CIBAValidateRequestContext;
-    // @configuration-docs features.ciba.verifyUserCode
     /**
      * **Important:**
      *
@@ -1838,34 +1612,36 @@ export interface CIBAEnabledConfiguration extends CIBAConfigurationBase {
 
 export type CIBAConfiguration = CIBADisabledConfiguration | CIBAEnabledConfiguration;
 
-export type MTLSGetCertificate = ConfigurationOptionTypes["features.mTLS.getCertificate"];
-export type MTLSCertificateAuthorized = ConfigurationOptionTypes["features.mTLS.certificateAuthorized"];
-export type MTLSCertificateSubjectMatches = ConfigurationOptionTypes["features.mTLS.certificateSubjectMatches"];
+export type MTLSGetCertificate = (
+    ctx: KoaContextWithOIDC,
+) => crypto.X509Certificate | string | undefined;
+export type MTLSCertificateAuthorized = (ctx: KoaContextWithOIDC) => boolean;
+export type MTLSCertificateSubjectMatches = (
+    ctx: KoaContextWithOIDC,
+    property: TLSClientAuthProperty,
+    expected: string,
+) => boolean;
 
 export interface MTLSConfigurationBase {
     enabled?: boolean | undefined;
-    // @configuration-docs features.mTLS.certificateBoundAccessTokens
     /**
      * Specifies whether Certificate-Bound Access Tokens shall be enabled as defined in RFC 8705 sections 3 and 4. When
      * enabled, the authorization server shall expose the client's `tls_client_certificate_bound_access_tokens` metadata
      * property for mutual TLS certificate binding functionality.
      */
     certificateBoundAccessTokens?: boolean | undefined;
-    // @configuration-docs features.mTLS.selfSignedTlsClientAuth
     /**
      * Specifies whether Self-Signed Certificate Mutual TLS client authentication shall be enabled as defined in RFC
      * 8705 section 2.2. When enabled, the authorization server shall support the `self_signed_tls_client_auth`
      * authentication method within the server's `clientAuthMethods` configuration.
      */
     selfSignedTlsClientAuth?: boolean | undefined;
-    // @configuration-docs features.mTLS.tlsClientAuth
     /**
      * Specifies whether PKI Mutual TLS client authentication shall be enabled as defined in RFC 8705 section 2.1. When
      * enabled, the authorization server shall support the `tls_client_auth` authentication method within the server's
      * `clientAuthMethods` configuration.
      */
     tlsClientAuth?: boolean | undefined;
-    // @configuration-docs features.mTLS.getCertificate
     /**
      * **Important:**
      *
@@ -1875,7 +1651,6 @@ export interface MTLSConfigurationBase {
      * Returning `undefined` causes authentication to fail wherever a certificate is required.
      */
     getCertificate?: MTLSGetCertificate | undefined;
-    // @configuration-docs features.mTLS.certificateAuthorized
     /**
      * **Important:**
      *
@@ -1888,7 +1663,6 @@ export interface MTLSConfigurationBase {
      * `true` accepts the certificate trust result; `false` rejects client authentication.
      */
     certificateAuthorized?: MTLSCertificateAuthorized | undefined;
-    // @configuration-docs features.mTLS.certificateSubjectMatches
     /**
      * **Important:**
      *
@@ -1910,21 +1684,18 @@ export interface MTLSDisabledConfiguration extends MTLSConfigurationBase {
 
 export interface MTLSEnabledWithoutCertificateConfiguration extends MTLSConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.mTLS.certificateBoundAccessTokens
     /**
      * Specifies whether Certificate-Bound Access Tokens shall be enabled as defined in RFC 8705 sections 3 and 4. When
      * enabled, the authorization server shall expose the client's `tls_client_certificate_bound_access_tokens` metadata
      * property for mutual TLS certificate binding functionality.
      */
     certificateBoundAccessTokens?: false | undefined;
-    // @configuration-docs features.mTLS.selfSignedTlsClientAuth
     /**
      * Specifies whether Self-Signed Certificate Mutual TLS client authentication shall be enabled as defined in RFC
      * 8705 section 2.2. When enabled, the authorization server shall support the `self_signed_tls_client_auth`
      * authentication method within the server's `clientAuthMethods` configuration.
      */
     selfSignedTlsClientAuth?: false | undefined;
-    // @configuration-docs features.mTLS.tlsClientAuth
     /**
      * Specifies whether PKI Mutual TLS client authentication shall be enabled as defined in RFC 8705 section 2.1. When
      * enabled, the authorization server shall support the `tls_client_auth` authentication method within the server's
@@ -1937,14 +1708,12 @@ export type MTLSEnabledCertificateConfiguration =
     & MTLSConfigurationBase
     & {
         enabled: boolean;
-        // @configuration-docs features.mTLS.tlsClientAuth
         /**
          * Specifies whether PKI Mutual TLS client authentication shall be enabled as defined in RFC 8705 section 2.1.
          * When enabled, the authorization server shall support the `tls_client_auth` authentication method within the
          * server's `clientAuthMethods` configuration.
          */
         tlsClientAuth?: false | undefined;
-        // @configuration-docs features.mTLS.getCertificate
         /**
          * **Important:**
          *
@@ -1957,7 +1726,6 @@ export type MTLSEnabledCertificateConfiguration =
     }
     & (
         | {
-            // @configuration-docs features.mTLS.certificateBoundAccessTokens
             /**
              * Specifies whether Certificate-Bound Access Tokens shall be enabled as defined in RFC 8705 sections 3 and
              * 4. When enabled, the authorization server shall expose the client's
@@ -1967,7 +1735,6 @@ export type MTLSEnabledCertificateConfiguration =
             certificateBoundAccessTokens: true;
         }
         | {
-            // @configuration-docs features.mTLS.selfSignedTlsClientAuth
             /**
              * Specifies whether Self-Signed Certificate Mutual TLS client authentication shall be enabled as defined in
              * RFC 8705 section 2.2. When enabled, the authorization server shall support the
@@ -1980,14 +1747,12 @@ export type MTLSEnabledCertificateConfiguration =
 
 export interface MTLSEnabledClientAuthenticationConfiguration extends MTLSConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.mTLS.tlsClientAuth
     /**
      * Specifies whether PKI Mutual TLS client authentication shall be enabled as defined in RFC 8705 section 2.1. When
      * enabled, the authorization server shall support the `tls_client_auth` authentication method within the server's
      * `clientAuthMethods` configuration.
      */
     tlsClientAuth: true;
-    // @configuration-docs features.mTLS.getCertificate
     /**
      * **Important:**
      *
@@ -1997,7 +1762,6 @@ export interface MTLSEnabledClientAuthenticationConfiguration extends MTLSConfig
      * Returning `undefined` causes authentication to fail wherever a certificate is required.
      */
     getCertificate: MTLSGetCertificate;
-    // @configuration-docs features.mTLS.certificateAuthorized
     /**
      * **Important:**
      *
@@ -2010,7 +1774,6 @@ export interface MTLSEnabledClientAuthenticationConfiguration extends MTLSConfig
      * `true` accepts the certificate trust result; `false` rejects client authentication.
      */
     certificateAuthorized: MTLSCertificateAuthorized;
-    // @configuration-docs features.mTLS.certificateSubjectMatches
     /**
      * **Important:**
      *
@@ -2030,7 +1793,6 @@ export type MTLSEnabledDynamicCertificateFlagsConfiguration =
     & MTLSConfigurationBase
     & {
         enabled: boolean;
-        // @configuration-docs features.mTLS.getCertificate
         /**
          * **Important:**
          *
@@ -2040,7 +1802,6 @@ export type MTLSEnabledDynamicCertificateFlagsConfiguration =
          * request. Returning `undefined` causes authentication to fail wherever a certificate is required.
          */
         getCertificate: MTLSGetCertificate;
-        // @configuration-docs features.mTLS.tlsClientAuth
         /**
          * Specifies whether PKI Mutual TLS client authentication shall be enabled as defined in RFC 8705 section 2.1.
          * When enabled, the authorization server shall support the `tls_client_auth` authentication method within the
@@ -2050,7 +1811,6 @@ export type MTLSEnabledDynamicCertificateFlagsConfiguration =
     }
     & (
         | {
-            // @configuration-docs features.mTLS.certificateBoundAccessTokens
             /**
              * Specifies whether Certificate-Bound Access Tokens shall be enabled as defined in RFC 8705 sections 3 and
              * 4. When enabled, the authorization server shall expose the client's
@@ -2060,7 +1820,6 @@ export type MTLSEnabledDynamicCertificateFlagsConfiguration =
             certificateBoundAccessTokens: boolean;
         }
         | {
-            // @configuration-docs features.mTLS.selfSignedTlsClientAuth
             /**
              * Specifies whether Self-Signed Certificate Mutual TLS client authentication shall be enabled as defined in
              * RFC 8705 section 2.2. When enabled, the authorization server shall support the
@@ -2073,14 +1832,12 @@ export type MTLSEnabledDynamicCertificateFlagsConfiguration =
 
 export interface MTLSEnabledDynamicTlsClientAuthConfiguration extends MTLSConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.mTLS.tlsClientAuth
     /**
      * Specifies whether PKI Mutual TLS client authentication shall be enabled as defined in RFC 8705 section 2.1. When
      * enabled, the authorization server shall support the `tls_client_auth` authentication method within the server's
      * `clientAuthMethods` configuration.
      */
     tlsClientAuth: boolean;
-    // @configuration-docs features.mTLS.getCertificate
     /**
      * **Important:**
      *
@@ -2090,7 +1847,6 @@ export interface MTLSEnabledDynamicTlsClientAuthConfiguration extends MTLSConfig
      * Returning `undefined` causes authentication to fail wherever a certificate is required.
      */
     getCertificate: MTLSGetCertificate;
-    // @configuration-docs features.mTLS.certificateAuthorized
     /**
      * **Important:**
      *
@@ -2103,7 +1859,6 @@ export interface MTLSEnabledDynamicTlsClientAuthConfiguration extends MTLSConfig
      * `true` accepts the certificate trust result; `false` rejects client authentication.
      */
     certificateAuthorized: MTLSCertificateAuthorized;
-    // @configuration-docs features.mTLS.certificateSubjectMatches
     /**
      * **Important:**
      *
@@ -2127,13 +1882,16 @@ export type MTLSConfiguration =
     | MTLSEnabledDynamicCertificateFlagsConfiguration
     | MTLSEnabledDynamicTlsClientAuthConfiguration;
 
-export type AttestationSignaturePublicKey =
-    ConfigurationOptionTypes["features.attestClientAuth.getAttestationSignaturePublicKey"];
+export type AttestationSignaturePublicKey = (
+    ctx: KoaContextWithOIDC,
+    header: UnknownObject,
+    payload: UnknownObject,
+    client: Client,
+) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>;
 
 export interface AttestClientAuthConfigurationBase {
     enabled?: boolean | undefined;
     ack?: string | undefined;
-    // @configuration-docs features.attestClientAuth.additionalSecuritySignal
     /**
      * Specifies whether Client Attestation shall be accepted or required as an additional security signal alongside
      * regular client authentication. Use `optional` to validate the signal when it is present, or `required` to require
@@ -2141,7 +1899,6 @@ export interface AttestClientAuthConfigurationBase {
      * the `attestation_pop_jwt` method and does not enable DPoP combined mode.
      */
     additionalSecuritySignal?: false | "optional" | "required" | undefined;
-    // @configuration-docs features.attestClientAuth.challengeSecret
     /**
      * Specifies the cryptographic secret value used for generating server-provided challenges. This value MUST be a
      * 32-byte Buffer instance to ensure sufficient entropy for secure challenge generation. Challenges are derived from
@@ -2149,7 +1906,6 @@ export interface AttestClientAuthConfigurationBase {
      * stable across restarts.
      */
     challengeSecret?: Buffer | undefined;
-    // @configuration-docs features.attestClientAuth.getAttestationSignaturePublicKey
     /**
      * **Important:**
      *
@@ -2163,7 +1919,6 @@ export interface AttestClientAuthConfigurationBase {
      * invalid key rejects client authentication.
      */
     getAttestationSignaturePublicKey?: AttestationSignaturePublicKey | undefined;
-    // @configuration-docs features.attestClientAuth.assertAttestationJwtAndPop
     /**
      * Specifies a helper function that shall be invoked to perform additional validation of the Client Attestation JWT
      * and Client Attestation Proof-of-Possession JWT beyond the specification requirements. This enables enforcement of
@@ -2174,7 +1929,12 @@ export interface AttestClientAuthConfigurationBase {
      * acceptance of the client authentication attempt or additional security signal.
      */
     assertAttestationJwtAndPop?:
-        | ConfigurationOptionTypes["features.attestClientAuth.assertAttestationJwtAndPop"]
+        | ((
+            ctx: KoaContextWithOIDC,
+            attestation: JWTVerificationResult,
+            pop: JWTVerificationResult,
+            client: Client,
+        ) => CanBePromise<void>)
         | undefined;
 }
 
@@ -2184,7 +1944,6 @@ export interface AttestClientAuthDisabledConfiguration extends AttestClientAuthC
 
 export interface AttestClientAuthEnabledConfiguration extends AttestClientAuthConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.attestClientAuth.challengeSecret
     /**
      * Specifies the cryptographic secret value used for generating server-provided challenges. This value MUST be a
      * 32-byte Buffer instance to ensure sufficient entropy for secure challenge generation. Challenges are derived from
@@ -2192,7 +1951,6 @@ export interface AttestClientAuthEnabledConfiguration extends AttestClientAuthCo
      * stable across restarts.
      */
     challengeSecret: Buffer;
-    // @configuration-docs features.attestClientAuth.getAttestationSignaturePublicKey
     /**
      * **Important:**
      *
@@ -2212,15 +1970,21 @@ export type AttestClientAuthConfiguration =
     | AttestClientAuthDisabledConfiguration
     | AttestClientAuthEnabledConfiguration;
 
-export type OpenID4VCIIssueCredential = ConfigurationOptionTypes["features.openid4vci.issueCredential"];
+export type OpenID4VCIIssueCredential = (
+    ctx: KoaContextWithOIDC,
+    details: OpenID4VCIIssueCredentialContext,
+) => CanBePromise<OpenID4VCICredentialResponse>;
 
-export type OpenID4VCIKeyAttestationSignaturePublicKey =
-    ConfigurationOptionTypes["features.openid4vci.getKeyAttestationSignaturePublicKey"];
+export type OpenID4VCIKeyAttestationSignaturePublicKey = (
+    ctx: KoaContextWithOIDC,
+    issuer: string,
+    header: UnknownObject,
+    client: Client,
+) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>;
 
 export interface OpenID4VCIConfigurationBase {
     enabled?: boolean | undefined;
     ack?: string | undefined;
-    // @configuration-docs features.openid4vci.nonceSecret
     /**
      * Specifies the cryptographic secret used to generate and validate OpenID4VCI `c_nonce` challenges exposed by the
      * nonce endpoint. This value MUST be a 32-byte Buffer instance. `c_nonce` values are derived from this secret
@@ -2228,7 +1992,6 @@ export interface OpenID4VCIConfigurationBase {
      * restarts.
      */
     nonceSecret?: Buffer | undefined;
-    // @configuration-docs features.openid4vci.preAuthorizedCodeGrant
     /**
      * Specifies whether the OpenID4VCI Pre-Authorized Code Flow shall be enabled. When enabled, the authorization
      * server shall accept `urn:ietf:params:oauth:grant-type:pre-authorized_code` grant type exchanges at the token
@@ -2246,19 +2009,16 @@ export interface OpenID4VCIConfigurationBase {
      * No ID Token is issued as part of this grant type's token exchange.
      */
     preAuthorizedCodeGrant?: boolean | undefined;
-    // @configuration-docs features.openid4vci.metadata
     /**
      * Free-form object with additional top-level members to be merged into the Credential Issuer Metadata response.
      */
     metadata?: OpenID4VCIMetadata | undefined;
-    // @configuration-docs features.openid4vci.credentialConfigurationsSupported
     /**
      * Specifies static Credential Issuer metadata values for `credential_configurations_supported`.
      */
     credentialConfigurationsSupported?:
         | Readonly<Record<string, OpenID4VCICredentialConfiguration>>
         | undefined;
-    // @configuration-docs features.openid4vci.credentialEndpointExpectedAudience
     /**
      * Specifies a helper function that shall be invoked to resolve the value the Access Token's `aud` claim must equal
      * in order to access the Credential Endpoint. It shall return a non-empty string.
@@ -2273,17 +2033,18 @@ export interface OpenID4VCIConfigurationBase {
      * another value that does not vary with the host serving the request.
      */
     credentialEndpointExpectedAudience?:
-        | ConfigurationOptionTypes["features.openid4vci.credentialEndpointExpectedAudience"]
+        | ((ctx: KoaContextWithOIDC) => CanBePromise<string>)
         | undefined;
-    // @configuration-docs features.openid4vci.credentialConfigurationPolicy
     /**
      * Specifies a helper function that shall be invoked at runtime to decide whether a specific credential
      * configuration is currently issuable for the current request context.
      */
     credentialConfigurationPolicy?:
-        | ConfigurationOptionTypes["features.openid4vci.credentialConfigurationPolicy"]
+        | ((
+            ctx: KoaContextWithOIDC,
+            details: OpenID4VCICredentialContext,
+        ) => CanBePromise<boolean>)
         | undefined;
-    // @configuration-docs features.openid4vci.issueCredential
     /**
      * **Important:**
      *
@@ -2314,7 +2075,6 @@ export interface OpenID4VCIConfigurationBase {
      *     before this function is called.
      */
     issueCredential?: OpenID4VCIIssueCredential | undefined;
-    // @configuration-docs features.openid4vci.getKeyAttestationSignaturePublicKey
     /**
      * **Important:**
      *
@@ -2336,7 +2096,6 @@ export interface OpenID4VCIDisabledConfiguration extends OpenID4VCIConfiguration
 
 export interface OpenID4VCIEnabledConfiguration extends OpenID4VCIConfigurationBase {
     enabled: boolean;
-    // @configuration-docs features.openid4vci.nonceSecret
     /**
      * Specifies the cryptographic secret used to generate and validate OpenID4VCI `c_nonce` challenges exposed by the
      * nonce endpoint. This value MUST be a 32-byte Buffer instance. `c_nonce` values are derived from this secret
@@ -2344,12 +2103,10 @@ export interface OpenID4VCIEnabledConfiguration extends OpenID4VCIConfigurationB
      * restarts.
      */
     nonceSecret: Buffer;
-    // @configuration-docs features.openid4vci.credentialConfigurationsSupported
     /**
      * Specifies static Credential Issuer metadata values for `credential_configurations_supported`.
      */
     credentialConfigurationsSupported: Readonly<Record<string, OpenID4VCICredentialConfiguration>>;
-    // @configuration-docs features.openid4vci.issueCredential
     /**
      * **Important:**
      *
@@ -2386,7 +2143,6 @@ export type OpenID4VCIConfiguration = OpenID4VCIDisabledConfiguration | OpenID4V
 
 interface IntrospectionFeatureBase {
     enabled?: boolean | undefined;
-    // @configuration-docs features.introspection.allowedPolicy
     /**
      * **Important:**
      *
@@ -2400,7 +2156,13 @@ interface IntrospectionFeatureBase {
      * whether the token exists. The default permits confidential clients and only permits public clients to introspect
      * their own tokens.
      */
-    allowedPolicy?: ConfigurationOptionTypes["features.introspection.allowedPolicy"] | undefined;
+    allowedPolicy?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            client: Client,
+            token: AccessToken | ClientCredentials | RefreshToken,
+        ) => CanBePromise<boolean>)
+        | undefined;
 }
 
 interface IntrospectionDisabledFeature extends IntrospectionFeatureBase {
@@ -2412,7 +2174,6 @@ interface IntrospectionPossiblyEnabledFeature extends IntrospectionFeatureBase {
 }
 
 type RichAuthorizationRequestsActiveWithIntrospection = RichAuthorizationRequestsActiveConfiguration & {
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForIntrospection
     /**
      * **Important:**
      *
@@ -2428,7 +2189,6 @@ type RichAuthorizationRequestsActiveWithIntrospection = RichAuthorizationRequest
 
 type RichAuthorizationRequestsEnabledByOpenID4VCI = RichAuthorizationRequestsConfigurationBase & {
     enabled: boolean;
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForGrantSource
     /**
      * **Important:**
      *
@@ -2440,7 +2200,6 @@ type RichAuthorizationRequestsEnabledByOpenID4VCI = RichAuthorizationRequestsCon
      * the grant source, or undefined. An empty array is treated as undefined.
      */
     authorizationDetailsForGrantSource: AuthorizationDetailsForGrantSource;
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForAccessToken
     /**
      * **Important:**
      *
@@ -2458,7 +2217,6 @@ type RichAuthorizationRequestsEnabledByOpenID4VCI = RichAuthorizationRequestsCon
 };
 
 type RichAuthorizationRequestsEnabledByOpenID4VCIWithIntrospection = RichAuthorizationRequestsEnabledByOpenID4VCI & {
-    // @configuration-docs features.richAuthorizationRequests.authorizationDetailsForIntrospection
     /**
      * **Important:**
      *
@@ -2474,7 +2232,6 @@ type RichAuthorizationRequestsEnabledByOpenID4VCIWithIntrospection = RichAuthori
 
 type ConditionalRichAuthorizationRequestFeatures =
     | {
-        // @configuration-docs features.openid4vci
         /**
          * [OpenID for Verifiable Credential Issuance 1.0](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html)
          *
@@ -2512,7 +2269,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * `true` so that the issued Access Token targets the Credential Endpoint rather than the UserInfo Endpoint.
          */
         openid4vci: OpenID4VCIEnabledConfiguration;
-        // @configuration-docs features.introspection
         /**
          * [RFC7662](https://www.rfc-editor.org/info/rfc7662/) - OAuth 2.0 Token Introspection
          *
@@ -2529,7 +2285,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * - Refresh tokens
          */
         introspection: IntrospectionPossiblyEnabledFeature;
-        // @configuration-docs features.richAuthorizationRequests
         /**
          * [RFC9396](https://www.rfc-editor.org/info/rfc9396/) - OAuth 2.0 Rich Authorization Requests
          *
@@ -2556,7 +2311,6 @@ type ConditionalRichAuthorizationRequestFeatures =
             | undefined;
     }
     | {
-        // @configuration-docs features.openid4vci
         /**
          * [OpenID for Verifiable Credential Issuance 1.0](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html)
          *
@@ -2594,7 +2348,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * `true` so that the issued Access Token targets the Credential Endpoint rather than the UserInfo Endpoint.
          */
         openid4vci: OpenID4VCIEnabledConfiguration;
-        // @configuration-docs features.introspection
         /**
          * [RFC7662](https://www.rfc-editor.org/info/rfc7662/) - OAuth 2.0 Token Introspection
          *
@@ -2611,7 +2364,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * - Refresh tokens
          */
         introspection?: IntrospectionDisabledFeature | undefined;
-        // @configuration-docs features.richAuthorizationRequests
         /**
          * [RFC9396](https://www.rfc-editor.org/info/rfc9396/) - OAuth 2.0 Rich Authorization Requests
          *
@@ -2638,7 +2390,6 @@ type ConditionalRichAuthorizationRequestFeatures =
             | undefined;
     }
     | {
-        // @configuration-docs features.openid4vci
         /**
          * [OpenID for Verifiable Credential Issuance 1.0](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html)
          *
@@ -2676,7 +2427,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * `true` so that the issued Access Token targets the Credential Endpoint rather than the UserInfo Endpoint.
          */
         openid4vci?: OpenID4VCIDisabledConfiguration | undefined;
-        // @configuration-docs features.introspection
         /**
          * [RFC7662](https://www.rfc-editor.org/info/rfc7662/) - OAuth 2.0 Token Introspection
          *
@@ -2693,7 +2443,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * - Refresh tokens
          */
         introspection: IntrospectionPossiblyEnabledFeature;
-        // @configuration-docs features.richAuthorizationRequests
         /**
          * [RFC9396](https://www.rfc-editor.org/info/rfc9396/) - OAuth 2.0 Rich Authorization Requests
          *
@@ -2721,7 +2470,6 @@ type ConditionalRichAuthorizationRequestFeatures =
             | undefined;
     }
     | {
-        // @configuration-docs features.openid4vci
         /**
          * [OpenID for Verifiable Credential Issuance 1.0](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html)
          *
@@ -2759,7 +2507,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * `true` so that the issued Access Token targets the Credential Endpoint rather than the UserInfo Endpoint.
          */
         openid4vci?: OpenID4VCIDisabledConfiguration | undefined;
-        // @configuration-docs features.introspection
         /**
          * [RFC7662](https://www.rfc-editor.org/info/rfc7662/) - OAuth 2.0 Token Introspection
          *
@@ -2776,7 +2523,6 @@ type ConditionalRichAuthorizationRequestFeatures =
          * - Refresh tokens
          */
         introspection?: IntrospectionDisabledFeature | undefined;
-        // @configuration-docs features.richAuthorizationRequests
         /**
          * [RFC9396](https://www.rfc-editor.org/info/rfc9396/) - OAuth 2.0 Rich Authorization Requests
          *
@@ -2801,7 +2547,6 @@ type ConditionalRichAuthorizationRequestFeatures =
     };
 
 export interface Configuration {
-    // @configuration-docs acrValues
     /**
      * Authentication Context Class References
      *
@@ -2810,7 +2555,6 @@ export interface Configuration {
      */
     acrValues?: readonly string[] | ReadonlySet<string> | undefined;
 
-    // @configuration-docs adapter
     /**
      * Storage Adapter
      *
@@ -2835,7 +2579,6 @@ export interface Configuration {
      */
     adapter?: AdapterConstructor | AdapterFactory | undefined;
 
-    // @configuration-docs claims
     /**
      * Available Claims
      *
@@ -2853,7 +2596,6 @@ export interface Configuration {
         }
         | undefined;
 
-    // @configuration-docs clientBasedCORS
     /**
      * Cross-Origin Resource Sharing (CORS)
      *
@@ -2867,9 +2609,8 @@ export interface Configuration {
      *
      * @see [Configuring Client Metadata-based CORS Origin allow list](https://github.com/panva/node-oidc-provider/discussions/1298)
      */
-    clientBasedCORS?: ConfigurationOptionTypes["clientBasedCORS"] | undefined;
+    clientBasedCORS?: ((ctx: KoaContextWithOIDC, origin: string, client: Client) => boolean) | undefined;
 
-    // @configuration-docs clients
     /**
      * Statically Configured Clients
      *
@@ -2888,7 +2629,6 @@ export interface Configuration {
 
     formats?:
         | {
-            // @configuration-docs formats.bitsOfOpaqueRandomness
             /**
              * Specifies the entropy configuration for opaque token generation. The value shall be an integer (or a
              * function returning an integer) that determines the cryptographic strength of generated opaque tokens. The
@@ -2896,8 +2636,7 @@ export interface Configuration {
              * specified bit count and `n` is the number of symbols in the encoding alphabet (64 characters in the
              * base64url character set used by this implementation).
              */
-            bitsOfOpaqueRandomness?: ConfigurationOptionTypes["formats.bitsOfOpaqueRandomness"] | undefined;
-            // @configuration-docs formats.customizers
+            bitsOfOpaqueRandomness?: (number | ((ctx: KoaContextWithOIDC, model: BaseModel) => number)) | undefined;
             /**
              * Specifies customizer functions that shall be invoked immediately before issuing structured Access Tokens
              * to enable modification of token headers and payload claims according to authorization server policy.
@@ -2905,11 +2644,20 @@ export interface Configuration {
              * customizations to the token structure before signing. Customize the supplied `jwt.header` and
              * `jwt.payload` objects in place; a customizer's return value is ignored.
              */
-            customizers?: ConfigurationOptionTypes["formats.customizers"] | undefined;
+            customizers?:
+                | ({
+                    jwt?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            token: AccessToken | ClientCredentials,
+                            parts: JWTStructured,
+                        ) => CanBePromise<void>)
+                        | undefined;
+                })
+                | undefined;
         }
         | undefined;
 
-    // @configuration-docs clientDefaults
     /**
      * Default Client Metadata
      *
@@ -2919,7 +2667,6 @@ export interface Configuration {
      */
     clientDefaults?: AllClientMetadata | undefined;
 
-    // @configuration-docs clockTolerance
     /**
      * Clock Skew Tolerance
      *
@@ -2931,7 +2678,6 @@ export interface Configuration {
      */
     clockTolerance?: number | undefined;
 
-    // @configuration-docs conformIdTokenClaims
     /**
      * ID Token Claims Conformance
      *
@@ -2945,7 +2691,6 @@ export interface Configuration {
      */
     conformIdTokenClaims?: boolean | undefined;
 
-    // @configuration-docs cookies
     /**
      * HTTP Cookie Configuration
      *
@@ -2957,7 +2702,6 @@ export interface Configuration {
      */
     cookies?:
         | {
-            // @configuration-docs cookies.names
             /**
              * Specifies the HTTP cookie names used for state management during the authorization flow.
              */
@@ -2968,21 +2712,25 @@ export interface Configuration {
                     resume?: string | undefined;
                 }
                 | undefined;
-            // @configuration-docs cookies.long
             /**
              * Options for long-term cookies.
              */
             long?: CookiesSetOptions | undefined;
-            // @configuration-docs cookies.short
             /**
              * Options for short-term cookies.
              */
             short?: CookiesSetOptions | undefined;
+            /**
+             * [Keygrip](https://www.npmjs.com/package/keygrip) signing keys used for cookie signing to prevent
+             * tampering. You may also pass your own KeyGrip instance.
+             *
+             * **Recommendation:** Rotate regularly (by prepending new keys) with a reasonable interval and keep a
+             * reasonable history of keys to allow for returning user session cookies to still be valid and re-signed.
+             */
             keys?: ReadonlyArray<string | Buffer> | undefined | KeyGrip;
         }
         | undefined;
 
-    // @configuration-docs discovery
     /**
      * Extending the Discovery Document
      *
@@ -2993,7 +2741,6 @@ export interface Configuration {
      */
     discovery?: UnknownObject | undefined;
 
-    // @configuration-docs enableHttpPostMethods
     /**
      * HTTP POST Method Support
      *
@@ -3004,7 +2751,6 @@ export interface Configuration {
      */
     enableHttpPostMethods?: boolean | undefined;
 
-    // @configuration-docs extraParams
     /**
      * Additional Authorization Request Parameters
      *
@@ -3023,9 +2769,18 @@ export interface Configuration {
      * Note: These validators execute during the final phase of the request validation process. Modifications to other
      * parameters (such as assigning default values) will not trigger re-validation of the entire request.
      */
-    extraParams?: ConfigurationOptionTypes["extraParams"] | undefined;
+    extraParams?:
+        | (readonly string[] | ReadonlySet<string> | {
+            [name: string]:
+                | null
+                | ((
+                    ctx: KoaContextWithOIDC,
+                    value: string | undefined,
+                    client: Client,
+                ) => CanBePromise<void>);
+        })
+        | undefined;
 
-    // @configuration-docs assertJwtClientAuthClaimsAndHeader
     /**
      * JWT Client Authentication Assertion Validation
      *
@@ -3039,10 +2794,14 @@ export interface Configuration {
      * additionally requires an exact issuer identifier audience when the FAPI 2.0 profile applies.
      */
     assertJwtClientAuthClaimsAndHeader?:
-        | ConfigurationOptionTypes["assertJwtClientAuthClaimsAndHeader"]
+        | ((
+            ctx: KoaContextWithOIDC,
+            claims: Record<string, JsonValue>,
+            header: Record<string, JsonValue>,
+            client: Client,
+        ) => CanBePromise<void>)
         | undefined;
 
-    // @configuration-docs features
     /**
      * Feature Configurations
      *
@@ -3061,7 +2820,6 @@ export interface Configuration {
      */
     features?:
         | {
-            // @configuration-docs features.devInteractions
             /**
              * Development-only Interaction Views
              *
@@ -3079,7 +2837,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.claimsParameter
             /**
              * [OIDC Core 1.0](https://openid.net/specs/openid-connect-core-1_0-errata2.html#ClaimsParameter) -
              * Requesting Claims using the "claims" Request Parameter
@@ -3091,7 +2848,6 @@ export interface Configuration {
             claimsParameter?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.claimsParameter.assertClaimsParameter
                     /**
                      * Specifies a helper function that shall be invoked to perform additional validation of the
                      * `claims` parameter. This function enables enforcement of deployment-specific policies, security
@@ -3101,12 +2857,15 @@ export interface Configuration {
                      * indicate acceptance of the claims parameter content.
                      */
                     assertClaimsParameter?:
-                        | ConfigurationOptionTypes["features.claimsParameter.assertClaimsParameter"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            claims: ClaimsParameter,
+                            client: Client,
+                        ) => CanBePromise<void>)
                         | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.clientIdMetadataDocument
             /**
              * [draft-ietf-oauth-client-id-metadata-document-02](https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-02.html)
              * - OAuth Client ID Metadata Document (CIMD)
@@ -3122,7 +2881,6 @@ export interface Configuration {
                 | {
                     enabled?: boolean | undefined;
                     ack?: string | undefined;
-                    // @configuration-docs features.clientIdMetadataDocument.allowFetch
                     /**
                      * Specifies a helper function that shall be invoked before fetching a Client ID Metadata Document
                      * from a Client Identifier URL. This function enables enforcement of domain allowlisting, rate
@@ -3130,9 +2888,11 @@ export interface Configuration {
                      * `client_id`.
                      */
                     allowFetch?:
-                        | ConfigurationOptionTypes["features.clientIdMetadataDocument.allowFetch"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            clientId: string,
+                        ) => CanBePromise<boolean>)
                         | undefined;
-                    // @configuration-docs features.clientIdMetadataDocument.allowClient
                     /**
                      * Specifies a helper function that shall be invoked every time a client resolved from a Client ID
                      * Metadata Document is about to be used, including when served from cache. This function enables
@@ -3140,9 +2900,11 @@ export interface Configuration {
                      * clients. Return `true` to allow the client, or `false` to reject it.
                      */
                     allowClient?:
-                        | ConfigurationOptionTypes["features.clientIdMetadataDocument.allowClient"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            client: Client,
+                        ) => CanBePromise<boolean>)
                         | undefined;
-                    // @configuration-docs features.clientIdMetadataDocument.cacheDuration
                     /**
                      * Specifies the minimum and maximum cache duration bounds (in seconds) applied to HTTP cache
                      * headers when caching fetched Client ID Metadata Documents. Cache-Control and Expires response
@@ -3157,7 +2919,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.clientCredentials
             /**
              * [RFC6749](https://www.rfc-editor.org/info/rfc6749/#section-1.3.4) - Client Credentials
              *
@@ -3171,7 +2932,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.revocation
             /**
              * [RFC7009](https://www.rfc-editor.org/info/rfc7009/) - OAuth 2.0 Token Revocation
              *
@@ -3191,7 +2951,6 @@ export interface Configuration {
             revocation?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.revocation.allowedPolicy
                     /**
                      * **Important:**
                      *
@@ -3207,11 +2966,16 @@ export interface Configuration {
                      * response. By default, a client may revoke its own tokens; a mismatched public client is denied
                      * without an error and a mismatched confidential client is rejected.
                      */
-                    allowedPolicy?: ConfigurationOptionTypes["features.revocation.allowedPolicy"] | undefined;
+                    allowedPolicy?:
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            client: Client,
+                            token: AccessToken | ClientCredentials | RefreshToken,
+                        ) => CanBePromise<boolean>)
+                        | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.userinfo
             /**
              * [OIDC Core 1.0](https://openid.net/specs/openid-connect-core-1_0-errata2.html#UserInfo) - UserInfo
              * Endpoint
@@ -3227,7 +2991,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.jwtUserinfo
             /**
              * [OIDC Core 1.0](https://openid.net/specs/openid-connect-core-1_0-errata2.html#UserInfo) - JWT UserInfo
              * Endpoint Responses
@@ -3244,7 +3007,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.encryption
             /**
              * JWE Encryption
              *
@@ -3257,7 +3019,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.registration
             /**
              * [OIDC Dynamic Client Registration 1.0](https://openid.net/specs/openid-connect-registration-1_0-errata2.html)
              * and [RFC7591](https://www.rfc-editor.org/info/rfc7591/) - OAuth 2.0 Dynamic Client Registration Protocol
@@ -3270,7 +3031,6 @@ export interface Configuration {
             registration?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.registration.initialAccessToken
                     /**
                      * Specifies whether the registration endpoint shall require an initial access token as
                      * authorization for client registration requests. This configuration controls access to the dynamic
@@ -3281,7 +3041,6 @@ export interface Configuration {
                      *   tokens; when false, registration requests are processed without initial access tokens.
                      */
                     initialAccessToken?: boolean | string | undefined;
-                    // @configuration-docs features.registration.policies
                     /**
                      * Specifies registration and registration management policies that shall be applied to client
                      * metadata properties during dynamic registration operations. Policies are synchronous or
@@ -3302,22 +3061,26 @@ export interface Configuration {
                      * ctx.oidc.entities.RegistrationAccessToken.policies = ['update-policy'];
                      * `` `
                      */
-                    policies?: ConfigurationOptionTypes["features.registration.policies"] | undefined;
-                    // @configuration-docs features.registration.idFactory
+                    policies?:
+                        | ({
+                            [name: string]: (
+                                ctx: KoaContextWithOIDC,
+                                metadata: ClientMetadata,
+                            ) => CanBePromise<undefined | void>;
+                        })
+                        | undefined;
                     /**
                      * Specifies a helper function that shall be invoked to generate random client identifiers during
                      * dynamic client registration operations. This function enables customization of client identifier
                      * generation according to authorization server requirements and conventions.
                      */
-                    idFactory?: ConfigurationOptionTypes["features.registration.idFactory"] | undefined;
-                    // @configuration-docs features.registration.secretFactory
+                    idFactory?: ((ctx: KoaContextWithOIDC) => string) | undefined;
                     /**
                      * Specifies a helper function that shall be invoked to generate random client secrets during
                      * dynamic client registration operations. This function enables customization of client secret
                      * generation according to authorization server security requirements and entropy specifications.
                      */
-                    secretFactory?: ConfigurationOptionTypes["features.registration.secretFactory"] | undefined;
-                    // @configuration-docs features.registration.issueRegistrationAccessToken
+                    secretFactory?: ((ctx: KoaContextWithOIDC) => CanBePromise<string>) | undefined;
                     /**
                      * Specifies whether a registration access token shall be issued upon successful client
                      * registration. This configuration determines if clients receive tokens for subsequent registration
@@ -3328,12 +3091,14 @@ export interface Configuration {
                      *   request context and authorization server policy
                      */
                     issueRegistrationAccessToken?:
-                        | ConfigurationOptionTypes["features.registration.issueRegistrationAccessToken"]
+                        | (
+                            | boolean
+                            | ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>)
+                        )
                         | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.registrationManagement
             /**
              * [RFC7592](https://www.rfc-editor.org/info/rfc7592/) - OAuth 2.0 Dynamic Client Registration Management
              * Protocol
@@ -3346,7 +3111,6 @@ export interface Configuration {
             registrationManagement?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.registrationManagement.rotateRegistrationAccessToken
                     /**
                      * Specifies whether registration access token rotation shall be enabled as a security policy for
                      * client registration management operations. When token rotation is active, the authorization
@@ -3360,12 +3124,14 @@ export interface Configuration {
                      *   occur based on request context and authorization server policy
                      */
                     rotateRegistrationAccessToken?:
-                        | ConfigurationOptionTypes["features.registrationManagement.rotateRegistrationAccessToken"]
+                        | (
+                            | boolean
+                            | ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>)
+                        )
                         | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.deviceFlow
             /**
              * [RFC8628](https://www.rfc-editor.org/info/rfc8628/) - OAuth 2.0 Device Authorization Grant (Device Flow)
              *
@@ -3385,7 +3151,6 @@ export interface Configuration {
             deviceFlow?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.deviceFlow.charset
                     /**
                      * Specifies the character set used for generating user codes in the device authorization flow. This
                      * configuration determines the alphabet from which user codes are constructed. Supported values
@@ -3394,7 +3159,6 @@ export interface Configuration {
                      * - `digits` - Uses characters 0123456789 (numeric only)
                      */
                     charset?: "base-20" | "digits" | undefined;
-                    // @configuration-docs features.deviceFlow.mask
                     /**
                      * Specifies the template pattern used for generating user codes in the device authorization flow.
                      * The authorization server shall replace `*` characters with random characters from the configured
@@ -3403,7 +3167,6 @@ export interface Configuration {
                      * generation.
                      */
                     mask?: string | undefined;
-                    // @configuration-docs features.deviceFlow.deviceInfo
                     /**
                      * Specifies a helper function that shall be invoked to extract device-specific information from
                      * device authorization endpoint requests. The extracted information becomes available during the
@@ -3411,8 +3174,7 @@ export interface Configuration {
                      * originated from a device in their possession. This enhances security by enabling users to confirm
                      * device identity before granting authorization.
                      */
-                    deviceInfo?: ConfigurationOptionTypes["features.deviceFlow.deviceInfo"] | undefined;
-                    // @configuration-docs features.deviceFlow.userCodeInputSource
+                    deviceInfo?: ((ctx: KoaContextWithOIDC) => UnknownObject) | undefined;
                     /**
                      * **Important:**
                      *
@@ -3425,9 +3187,13 @@ export interface Configuration {
                      * for verification.
                      */
                     userCodeInputSource?:
-                        | ConfigurationOptionTypes["features.deviceFlow.userCodeInputSource"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            form: string,
+                            out?: ErrorOut,
+                            err?: errors.OIDCProviderError | Error,
+                        ) => CanBePromise<undefined | void>)
                         | undefined;
-                    // @configuration-docs features.deviceFlow.userCodeConfirmSource
                     /**
                      * **Important:**
                      *
@@ -3440,9 +3206,14 @@ export interface Configuration {
                      * flow.
                      */
                     userCodeConfirmSource?:
-                        | ConfigurationOptionTypes["features.deviceFlow.userCodeConfirmSource"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            form: string,
+                            client: Client,
+                            deviceInfo: UnknownObject,
+                            userCode: string,
+                        ) => CanBePromise<undefined | void>)
                         | undefined;
-                    // @configuration-docs features.deviceFlow.successSource
                     /**
                      * **Important:**
                      *
@@ -3454,11 +3225,10 @@ export interface Configuration {
                      * authorization flow to inform the end-user that authorization has been granted to the requesting
                      * device.
                      */
-                    successSource?: ConfigurationOptionTypes["features.deviceFlow.successSource"] | undefined;
+                    successSource?: ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>) | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.requestObjects
             /**
              * [OIDC Core 1.0](https://openid.net/specs/openid-connect-core-1_0-errata2.html#RequestObject) and
              * [RFC9101](https://www.rfc-editor.org/info/rfc9101/#name-passing-a-request-object-by) - Passing a Request
@@ -3472,14 +3242,12 @@ export interface Configuration {
             requestObjects?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.requestObjects.requireSignedRequestObject
                     /**
                      * Specifies whether the use of signed request objects shall be mandatory for all authorization
                      * requests as an authorization server security policy. When enabled, the authorization server shall
                      * reject authorization requests that do not include a signed Request Object JWT.
                      */
                     requireSignedRequestObject?: boolean | undefined;
-                    // @configuration-docs features.requestObjects.assertJwtClaimsAndHeader
                     /**
                      * Specifies a helper function that shall be invoked to perform additional validation of the Request
                      * Object JWT Claims Set and Header beyond the standard JAR specification requirements. This
@@ -3487,12 +3255,16 @@ export interface Configuration {
                      * validation logic according to authorization server requirements.
                      */
                     assertJwtClaimsAndHeader?:
-                        | ConfigurationOptionTypes["features.requestObjects.assertJwtClaimsAndHeader"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            claims: Record<string, JsonValue>,
+                            header: Record<string, JsonValue>,
+                            client: Client,
+                        ) => CanBePromise<void>)
                         | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.dPoP
             /**
              * [RFC9449](https://www.rfc-editor.org/info/rfc9449/) - OAuth 2.0 Demonstration of Proof-of-Possession at
              * the Application Layer (DPoP)
@@ -3503,7 +3275,6 @@ export interface Configuration {
             dPoP?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.dPoP.nonceSecret
                     /**
                      * Specifies the cryptographic secret value used for generating server-provided DPoP nonces. When
                      * provided, this value MUST be a 32-byte Buffer instance to ensure sufficient entropy for secure
@@ -3511,14 +3282,12 @@ export interface Configuration {
                      * configured on all instances of a deployment and kept stable across restarts.
                      */
                     nonceSecret?: Buffer | undefined;
-                    // @configuration-docs features.dPoP.requireNonce
                     /**
                      * Specifies a function that determines whether a DPoP nonce shall be required for
                      * proof-of-possession validation in the current request context. This function is invoked during
                      * DPoP proof validation to enforce nonce requirements based on authorization server policy.
                      */
-                    requireNonce?: ConfigurationOptionTypes["features.dPoP.requireNonce"] | undefined;
-                    // @configuration-docs features.dPoP.allowReplay
+                    requireNonce?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
                     /**
                      * Specifies whether DPoP Proof replay shall be permitted by the authorization server. When set to
                      * false, the server enforces strict replay protection by rejecting previously used DPoP proofs,
@@ -3528,7 +3297,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.backchannelLogout
             /**
              * [OIDC Back-Channel Logout 1.0](https://openid.net/specs/openid-connect-backchannel-1_0-final.html)
              *
@@ -3542,7 +3310,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.fapi
             /**
              * FAPI Security Profiles
              *
@@ -3552,7 +3319,6 @@ export interface Configuration {
              */
             fapi?: FapiConfiguration | undefined;
 
-            // @configuration-docs features.ciba
             /**
              * [OIDC Client Initiated Backchannel Authentication Flow (CIBA)](https://openid.net/specs/openid-client-initiated-backchannel-authentication-core-1_0-final.html)
              *
@@ -3577,7 +3343,6 @@ export interface Configuration {
              */
             ciba?: CIBAConfiguration | undefined;
 
-            // @configuration-docs features.webMessageResponseMode
             /**
              * [draft-sakimura-oauth-wmrm-01](https://tools.ietf.org/html/draft-sakimura-oauth-wmrm-01) - OAuth 2.0 Web
              * Message Response Mode
@@ -3603,7 +3368,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.jwtIntrospection
             /**
              * [RFC9701](https://www.rfc-editor.org/info/rfc9701/) - JWT Response for OAuth Token Introspection
              *
@@ -3617,7 +3381,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.jwtResponseModes
             /**
              * [JWT Secured Authorization Response Mode (JARM)](https://openid.net/specs/oauth-v2-jarm-errata1.html)
              *
@@ -3631,7 +3394,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.pushedAuthorizationRequests
             /**
              * [RFC9126](https://www.rfc-editor.org/info/rfc9126/) - OAuth 2.0 Pushed Authorization Requests (PAR)
              *
@@ -3643,14 +3405,12 @@ export interface Configuration {
              */
             pushedAuthorizationRequests?:
                 | {
-                    // @configuration-docs features.pushedAuthorizationRequests.requirePushedAuthorizationRequests
                     /**
                      * Specifies whether PAR usage shall be mandatory for all authorization requests as an authorization
                      * server security policy. When enabled, the authorization server shall reject authorization
                      * endpoint requests that do not utilize the pushed authorization request mechanism.
                      */
                     requirePushedAuthorizationRequests?: boolean | undefined;
-                    // @configuration-docs features.pushedAuthorizationRequests.allowUnregisteredRedirectUris
                     /**
                      * Specifies whether unregistered redirect_uri values shall be permitted for authenticated clients
                      * using PAR that do not utilize a sector_identifier_uri. This configuration enables dynamic
@@ -3662,7 +3422,6 @@ export interface Configuration {
                 }
                 | undefined;
 
-            // @configuration-docs features.rpInitiatedLogout
             /**
              * [OIDC RP-Initiated Logout 1.0](https://openid.net/specs/openid-connect-rpinitiated-1_0-final.html)
              *
@@ -3680,7 +3439,6 @@ export interface Configuration {
             rpInitiatedLogout?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.rpInitiatedLogout.postLogoutSuccessSource
                     /**
                      * **Important:**
                      *
@@ -3693,9 +3451,8 @@ export interface Configuration {
                      * successfully and provide appropriate post-logout guidance.
                      */
                     postLogoutSuccessSource?:
-                        | ConfigurationOptionTypes["features.rpInitiatedLogout.postLogoutSuccessSource"]
+                        | ((ctx: KoaContextWithOIDC) => CanBePromise<undefined | void>)
                         | undefined;
-                    // @configuration-docs features.rpInitiatedLogout.logoutSource
                     /**
                      * **Important:**
                      *
@@ -3708,12 +3465,14 @@ export interface Configuration {
                      * session termination.
                      */
                     logoutSource?:
-                        | ConfigurationOptionTypes["features.rpInitiatedLogout.logoutSource"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            form: string,
+                        ) => CanBePromise<undefined | void>)
                         | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.mTLS
             /**
              * [RFC8705](https://www.rfc-editor.org/info/rfc8705/) - OAuth 2.0 Mutual TLS Client Authentication and
              * Certificate Bound Access Tokens (MTLS)
@@ -3733,7 +3492,6 @@ export interface Configuration {
              */
             mTLS?: MTLSConfiguration | undefined;
 
-            // @configuration-docs features.resourceIndicators
             /**
              * [RFC8707](https://www.rfc-editor.org/info/rfc8707/) - Resource Indicators for OAuth 2.0
              *
@@ -3777,7 +3535,6 @@ export interface Configuration {
             resourceIndicators?:
                 | {
                     enabled?: boolean | undefined;
-                    // @configuration-docs features.resourceIndicators.getResourceServerInfo
                     /**
                      * **Important:**
                      *
@@ -3799,9 +3556,12 @@ export interface Configuration {
                      * to implement your policy using this function.
                      */
                     getResourceServerInfo?:
-                        | ConfigurationOptionTypes["features.resourceIndicators.getResourceServerInfo"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            resourceIndicator: string,
+                            client: Client,
+                        ) => CanBePromise<ResourceServer>)
                         | undefined;
-                    // @configuration-docs features.resourceIndicators.defaultResource
                     /**
                      * Specifies a helper function that shall be invoked to determine the default resource indicator for
                      * a request when none is provided by the client during the authorization request or when multiple
@@ -3813,9 +3573,12 @@ export interface Configuration {
                      * causes a request that requires one target to fail with `invalid_target`.
                      */
                     defaultResource?:
-                        | ConfigurationOptionTypes["features.resourceIndicators.defaultResource"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            client: Client,
+                            oneOf?: readonly string[] | undefined,
+                        ) => CanBePromise<string | readonly string[] | undefined>)
                         | undefined;
-                    // @configuration-docs features.resourceIndicators.useGrantedResource
                     /**
                      * Specifies a helper function that shall be invoked to determine whether an already granted
                      * resource indicator should be used without being explicitly requested by the client during the
@@ -3833,12 +3596,19 @@ export interface Configuration {
                      * Token for the UserInfo Endpoint should be returned.
                      */
                     useGrantedResource?:
-                        | ConfigurationOptionTypes["features.resourceIndicators.useGrantedResource"]
+                        | ((
+                            ctx: KoaContextWithOIDC,
+                            model:
+                                | AuthorizationCode
+                                | RefreshToken
+                                | DeviceCode
+                                | BackchannelAuthenticationRequest
+                                | PreAuthorizedCode,
+                        ) => CanBePromise<boolean>)
                         | undefined;
                 }
                 | undefined;
 
-            // @configuration-docs features.rpMetadataChoices
             /**
              * [OIDC Relying Party Metadata Choices 1.0](https://openid.net/specs/openid-connect-rp-metadata-choices-1_0-final.html)
              *
@@ -3870,7 +3640,6 @@ export interface Configuration {
                 enabled?: boolean | undefined;
             } | undefined;
 
-            // @configuration-docs features.externalSigningSupport
             /**
              * External Signing Support
              *
@@ -3890,7 +3659,6 @@ export interface Configuration {
                 ack?: string | undefined;
             } | undefined;
 
-            // @configuration-docs features.attestClientAuth
             /**
              * [draft-ietf-oauth-attestation-based-client-auth-10](https://www.ietf.org/archive/id/draft-ietf-oauth-attestation-based-client-auth-10.html)
              * - OAuth 2.0 Attestation-Based Client Authentication
@@ -3915,7 +3683,6 @@ export interface Configuration {
         } & ConditionalRichAuthorizationRequestFeatures
         | undefined;
 
-    // @configuration-docs extraTokenClaims
     /**
      * Additional Access Token Claims
      *
@@ -3925,9 +3692,13 @@ export interface Configuration {
      * JWT-formatted Access Tokens, the returned claims shall be included as top-level claims within the JWT payload.
      * Claims returned by this function will not overwrite pre-existing top-level claims in the token.
      */
-    extraTokenClaims?: ConfigurationOptionTypes["extraTokenClaims"] | undefined;
+    extraTokenClaims?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            token: AccessToken | ClientCredentials,
+        ) => CanBePromise<UnknownObject | undefined>)
+        | undefined;
 
-    // @configuration-docs fetch
     /**
      * Fetching External Resources
      *
@@ -3943,9 +3714,13 @@ export interface Configuration {
      * - `dispatcher` to a custom `undici.Agent` that rejects connections to private, loopback, and other
      *   non-globally-routable IP addresses, preventing Server-Side Request Forgery (SSRF)
      */
-    fetch?: ConfigurationOptionTypes["fetch"] | undefined;
+    fetch?:
+        | ((
+            input: string | URL | Request,
+            init?: RequestInit,
+        ) => Promise<Response>)
+        | undefined;
 
-    // @configuration-docs fetchResponseBodyLimits
     /**
      * Fetch Response Body Size Limits
      *
@@ -3963,7 +3738,6 @@ export interface Configuration {
         }
         | undefined;
 
-    // @configuration-docs expiresWithSession
     /**
      * Session-Bound Token Expiration
      *
@@ -3978,9 +3752,13 @@ export interface Configuration {
      * authorization as persisting logout. The default returns `false` only when the source includes the
      * `offline_access` scope.
      */
-    expiresWithSession?: ConfigurationOptionTypes["expiresWithSession"] | undefined;
+    expiresWithSession?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            source: AccessToken | AuthorizationCode | DeviceCode,
+        ) => CanBePromise<boolean>)
+        | undefined;
 
-    // @configuration-docs issueRefreshToken
     /**
      * Refresh Token Issuance Policy
      *
@@ -3991,9 +3769,14 @@ export interface Configuration {
      * `true` issues a refresh token and `false` does not. The default requires both the `refresh_token` grant type and
      * the `offline_access` scope.
      */
-    issueRefreshToken?: ConfigurationOptionTypes["issueRefreshToken"] | undefined;
+    issueRefreshToken?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            client: Client,
+            source: AuthorizationCode | DeviceCode | BackchannelAuthenticationRequest | PreAuthorizedCode,
+        ) => CanBePromise<boolean>)
+        | undefined;
 
-    // @configuration-docs jwks
     /**
      * JSON Web Key Set (JWKS)
      *
@@ -4023,7 +3806,6 @@ export interface Configuration {
      */
     jwks?: JWKS | undefined;
 
-    // @configuration-docs responseTypes
     /**
      * Supported response_type Values
      *
@@ -4033,7 +3815,6 @@ export interface Configuration {
      */
     responseTypes?: readonly ResponseType[] | undefined;
 
-    // @configuration-docs revokeGrantPolicy
     /**
      * Grant Revocation Policy
      *
@@ -4053,9 +3834,8 @@ export interface Configuration {
      * related token artifacts are revoked and emits `grant.revoked`; `false` preserves the Grant. The default preserves
      * the Grant only when revoking an AccessToken at the revocation endpoint.
      */
-    revokeGrantPolicy?: ConfigurationOptionTypes["revokeGrantPolicy"] | undefined;
+    revokeGrantPolicy?: ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>) | undefined;
 
-    // @configuration-docs pkce
     /**
      * [RFC7636](https://www.rfc-editor.org/info/rfc7636/) - Proof Key for Code Exchange (PKCE)
      *
@@ -4063,17 +3843,15 @@ export interface Configuration {
      */
     pkce?:
         | {
-            // @configuration-docs pkce.required
             /**
              * Configures if and when the authorization server requires clients to use `PKCE`. This helper is called
              * whenever an authorization request lacks the code_challenge parameter. `false` allows the request to
              * continue without PKCE, while `true` rejects it.
              */
-            required?: ConfigurationOptionTypes["pkce.required"] | undefined;
+            required?: ((ctx: KoaContextWithOIDC, client: Client) => boolean) | undefined;
         }
         | undefined;
 
-    // @configuration-docs routes
     /**
      * Endpoint URL Paths
      *
@@ -4099,7 +3877,6 @@ export interface Configuration {
         }
         | undefined;
 
-    // @configuration-docs scopes
     /**
      * Supported OAuth 2.0 Scope Values
      *
@@ -4109,7 +3886,6 @@ export interface Configuration {
      */
     scopes?: readonly string[] | ReadonlySet<string> | undefined;
 
-    // @configuration-docs subjectTypes
     /**
      * Subject Identifier Types
      *
@@ -4121,7 +3897,6 @@ export interface Configuration {
      */
     subjectTypes?: readonly SubjectTypes[] | ReadonlySet<SubjectTypes> | undefined;
 
-    // @configuration-docs pairwiseIdentifier
     /**
      * Pairwise Subject Identifier Generation
      *
@@ -4140,9 +3915,14 @@ export interface Configuration {
      * **Recommendation:** Implementations should employ memoization or caching mechanisms when this function may be
      * invoked multiple times with identical arguments within a single request.
      */
-    pairwiseIdentifier?: ConfigurationOptionTypes["pairwiseIdentifier"] | undefined;
+    pairwiseIdentifier?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            accountId: string,
+            client: Client,
+        ) => CanBePromise<string>)
+        | undefined;
 
-    // @configuration-docs clientAuthMethods
     /**
      * Supported Client Authentication Methods
      *
@@ -4151,7 +3931,6 @@ export interface Configuration {
      */
     clientAuthMethods?: readonly ClientAuthMethod[] | ReadonlySet<ClientAuthMethod> | undefined;
 
-    // @configuration-docs ttl
     /**
      * Artifact Expirations (TTL)
      *
@@ -4184,9 +3963,38 @@ export interface Configuration {
      * configuration option, which extends effective token lifetime through rotation rather than extended initial TTL
      * values.
      */
-    ttl?: ConfigurationOptionTypes["ttl"] | undefined;
+    ttl?:
+        | ({
+            AccessToken?:
+                | number
+                | ((ctx: KoaContextWithOIDC, token: AccessToken, client: Client) => number)
+                | undefined;
+            AuthorizationCode?:
+                | number
+                | ((ctx: KoaContextWithOIDC, code: AuthorizationCode, client: Client) => number)
+                | undefined;
+            BackchannelAuthenticationRequest?:
+                | number
+                | ((ctx: KoaContextWithOIDC, request: BackchannelAuthenticationRequest, client: Client) => number)
+                | undefined;
+            ClientCredentials?:
+                | number
+                | ((ctx: KoaContextWithOIDC, token: ClientCredentials, client: Client) => number)
+                | undefined;
+            DeviceCode?: number | ((ctx: KoaContextWithOIDC, code: DeviceCode, client: Client) => number) | undefined;
+            Grant?: number | ((ctx: KoaContextWithOIDC, grant: Grant) => number) | undefined;
+            IdToken?: number | ((ctx: KoaContextWithOIDC, token: IdToken, client: Client) => number) | undefined;
+            Interaction?: number | ((ctx: KoaContextWithOIDC, interaction: Interaction) => number) | undefined;
+            PreAuthorizedCode?: number | ((ctx: KoaContextWithOIDC, code: PreAuthorizedCode) => number) | undefined;
+            RefreshToken?:
+                | number
+                | ((ctx: KoaContextWithOIDC, token: RefreshToken, client: Client) => number)
+                | undefined;
+            Session?: number | ((ctx: KoaContextWithOIDC, session: Session) => number) | undefined;
+            [key: string]: unknown;
+        })
+        | undefined;
 
-    // @configuration-docs loadExistingGrant
     /**
      * Loading Existing Grants
      *
@@ -4195,9 +4003,8 @@ export interface Configuration {
      * based on the interaction result's `consent.grantId` property, falling back to the existing grantId for the
      * requesting client in the current session.
      */
-    loadExistingGrant?: ConfigurationOptionTypes["loadExistingGrant"] | undefined;
+    loadExistingGrant?: ((ctx: KoaContextWithOIDC) => CanBePromise<Grant | undefined>) | undefined;
 
-    // @configuration-docs extraClientMetadata
     /**
      * Custom Client Metadata Properties
      *
@@ -4209,7 +4016,6 @@ export interface Configuration {
      */
     extraClientMetadata?:
         | {
-            // @configuration-docs extraClientMetadata.properties
             /**
              * Specifies an array of property names that clients shall be allowed to have defined within their client
              * metadata during registration and management operations. Each property name listed here extends the
@@ -4217,7 +4023,6 @@ export interface Configuration {
              */
             properties?: readonly string[] | undefined;
 
-            // @configuration-docs extraClientMetadata.validator
             /**
              * Specifies a validator function that shall be executed in order once for every property defined in
              * `extraClientMetadata.properties`, regardless of its value or presence in the client metadata passed
@@ -4227,11 +4032,17 @@ export interface Configuration {
              * `ctx` is provided for registration and update requests and is `undefined` for other Client construction
              * paths.
              */
-            validator?: ConfigurationOptionTypes["extraClientMetadata.validator"] | undefined;
+            validator?:
+                | ((
+                    ctx: KoaContextWithOIDC | undefined,
+                    key: string,
+                    value: unknown,
+                    metadata: ClientMetadata,
+                ) => void | undefined)
+                | undefined;
         }
         | undefined;
 
-    // @configuration-docs rotateRefreshToken
     /**
      * Refresh Token Rotation Policy
      *
@@ -4254,9 +4065,8 @@ export interface Configuration {
      * `true` consumes the presented token and issues a rotated refresh token; `false` continues without rotation. A
      * configured literal Boolean applies that decision without invoking a function.
      */
-    rotateRefreshToken?: ConfigurationOptionTypes["rotateRefreshToken"] | boolean | undefined;
+    rotateRefreshToken?: ((ctx: KoaContextWithOIDC) => CanBePromise<boolean>) | boolean | undefined;
 
-    // @configuration-docs renderError
     /**
      * Error Response Rendering
      *
@@ -4268,9 +4078,14 @@ export interface Configuration {
      * server operations. This function enables customization of error presentation according to deployment-specific
      * user interface requirements.
      */
-    renderError?: ConfigurationOptionTypes["renderError"] | undefined;
+    renderError?:
+        | ((
+            ctx: KoaContextWithOIDC,
+            out: ErrorOut,
+            error: errors.OIDCProviderError | Error,
+        ) => CanBePromise<void | undefined>)
+        | undefined;
 
-    // @configuration-docs allowOmittingSingleRegisteredRedirectUri
     /**
      * Redirect URI Parameter Omission for Single Registered URI
      *
@@ -4283,7 +4098,6 @@ export interface Configuration {
      */
     allowOmittingSingleRegisteredRedirectUri?: boolean | undefined;
 
-    // @configuration-docs acceptQueryParamAccessTokens
     /**
      * Query Parameter Access Tokens
      *
@@ -4293,7 +4107,6 @@ export interface Configuration {
      */
     acceptQueryParamAccessTokens?: boolean | undefined;
 
-    // @configuration-docs interactions
     /**
      * End-User Interaction Policy
      *
@@ -4303,7 +4116,6 @@ export interface Configuration {
      */
     interactions?:
         | {
-            // @configuration-docs interactions.policy
             /**
              * Specifies the structure of Prompts and their associated checks that shall be applied during authorization
              * request processing. The policy is formed by Prompt and Check class instances that define the conditions
@@ -4312,19 +4124,22 @@ export interface Configuration {
              * belonging to a Prompt are evaluated concurrently. Checks within the same Prompt MUST NOT depend on
              * evaluation order or on mutations performed by another check.
              */
-            policy?: ConfigurationOptionTypes["interactions.policy"] | undefined;
-            // @configuration-docs interactions.url
+            policy?: (readonly interactionPolicy.Prompt[]) | undefined;
             /**
              * Specifies a function that shall be invoked to determine the destination URL for redirecting the
              * User-Agent when user interaction is required during authorization processing. This function enables
              * customization of the interaction endpoint location and may return both absolute and relative URLs
              * according to deployment requirements.
              */
-            url?: ConfigurationOptionTypes["interactions.url"] | undefined;
+            url?:
+                | ((
+                    ctx: KoaContextWithOIDC,
+                    interaction: Interaction,
+                ) => CanBePromise<string>)
+                | undefined;
         }
         | undefined;
 
-    // @configuration-docs findAccount
     /**
      * Account Loading and Claims Resolution
      *
@@ -4340,16 +4155,14 @@ export interface Configuration {
      */
     findAccount?: FindAccount | undefined;
 
-    // @configuration-docs sectorIdentifierUriValidate
     /**
      * Sector Identifier URI Validation
      *
      * Specifies a function that shall be invoked to determine whether the sectorIdentifierUri of a client being loaded,
      * registered, or updated should be fetched and its contents validated against the client metadata.
      */
-    sectorIdentifierUriValidate?: ConfigurationOptionTypes["sectorIdentifierUriValidate"] | undefined;
+    sectorIdentifierUriValidate?: ((client: Client) => boolean) | undefined;
 
-    // @configuration-docs enabledJWA
     /**
      * Supported JSON Web Algorithms (JWA)
      *
@@ -4358,102 +4171,84 @@ export interface Configuration {
      */
     enabledJWA?:
         | {
-            // @configuration-docs enabledJWA.authorizationEncryptionAlgValues
             /**
              * JWE "alg" Algorithm values the authorization server supports for JWT Authorization response (`JARM`)
              * encryption
              */
             authorizationEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
-            // @configuration-docs enabledJWA.authorizationEncryptionEncValues
             /**
              * JWE "enc" Content Encryption Algorithm values the authorization server supports to encrypt JWT
              * Authorization Responses (`JARM`) with
              */
             authorizationEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
-            // @configuration-docs enabledJWA.authorizationSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports to sign JWT Authorization Responses (`JARM`)
              * with
              */
             authorizationSigningAlgValues?: readonly SigningAlgorithm[] | undefined;
-            // @configuration-docs enabledJWA.dPoPSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports to verify signed DPoP proof JWTs with
              */
             dPoPSigningAlgValues?: readonly AsymmetricSigningAlgorithm[] | undefined;
-            // @configuration-docs enabledJWA.attestSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports to verify signed Client Attestation and
              * Client Attestation PoP JWTs with
              */
             attestSigningAlgValues?: readonly AsymmetricSigningAlgorithm[] | undefined;
-            // @configuration-docs enabledJWA.idTokenEncryptionAlgValues
             /**
              * JWE "alg" Algorithm values the authorization server supports for ID Token encryption
              */
             idTokenEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
-            // @configuration-docs enabledJWA.idTokenEncryptionEncValues
             /**
              * JWE "enc" Content Encryption Algorithm values the authorization server supports to encrypt ID Tokens with
              */
             idTokenEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
-            // @configuration-docs enabledJWA.idTokenSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports to sign ID Tokens with.
              */
             idTokenSigningAlgValues?: readonly SigningAlgorithmWithNone[] | undefined;
-            // @configuration-docs enabledJWA.introspectionEncryptionAlgValues
             /**
              * JWE "alg" Algorithm values the authorization server supports for JWT Introspection response encryption
              */
             introspectionEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
-            // @configuration-docs enabledJWA.introspectionEncryptionEncValues
             /**
              * JWE "enc" Content Encryption Algorithm values the authorization server supports to encrypt JWT
              * Introspection responses with
              */
             introspectionEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
-            // @configuration-docs enabledJWA.introspectionSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports to sign JWT Introspection responses with
              */
             introspectionSigningAlgValues?: readonly SigningAlgorithmWithNone[] | undefined;
-            // @configuration-docs enabledJWA.requestObjectEncryptionAlgValues
             /**
              * JWE "alg" Algorithm values the authorization server supports to receive encrypted Request Objects (`JAR`)
              * with
              */
             requestObjectEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
-            // @configuration-docs enabledJWA.requestObjectEncryptionEncValues
             /**
              * JWE "enc" Content Encryption Algorithm values the authorization server supports to decrypt Request
              * Objects (`JAR`) with
              */
             requestObjectEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
-            // @configuration-docs enabledJWA.requestObjectSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports to receive signed Request Objects (`JAR`)
              * with
              */
             requestObjectSigningAlgValues?: readonly SigningAlgorithmWithNone[] | undefined;
-            // @configuration-docs enabledJWA.clientAuthSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports for signed JWT Client Authentication
              * (`private_key_jwt` and `client_secret_jwt`)
              */
             clientAuthSigningAlgValues?: readonly SigningAlgorithm[] | undefined;
-            // @configuration-docs enabledJWA.userinfoEncryptionAlgValues
             /**
              * JWE "alg" Algorithm values the authorization server supports for UserInfo Response encryption
              */
             userinfoEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
-            // @configuration-docs enabledJWA.userinfoEncryptionEncValues
             /**
              * JWE "enc" Content Encryption Algorithm values the authorization server supports to encrypt UserInfo
              * responses with
              */
             userinfoEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
-            // @configuration-docs enabledJWA.userinfoSigningAlgValues
             /**
              * JWS "alg" Algorithm values the authorization server supports to sign UserInfo responses with
              */
@@ -4461,6 +4256,45 @@ export interface Configuration {
         }
         | undefined;
 }
+
+export class ExternalSigningKey {
+    get alg(): string | undefined;
+    get crv(): string | undefined;
+    get e(): string | undefined;
+    get key_ops(): string[] | undefined;
+    get kid(): string | undefined;
+    get kty(): string;
+    get n(): string | undefined;
+    get pub(): string | undefined;
+    get use(): "sig";
+    get x(): string | undefined;
+    get x5c(): string[] | undefined;
+    get y(): string | undefined;
+
+    keyObject(): Promise<crypto.KeyObject> | crypto.KeyObject;
+
+    sign(data: Uint8Array): Promise<Uint8Array> | Uint8Array;
+}
+
+interface ProviderAdditionalEventMap {
+    "backchannel_authentication.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "challenge.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "code_verification.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "credential.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "device_authorization.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "device_authorization.success": (ctx: KoaContextWithOIDC, body: UnknownObject) => void;
+    "device_resume.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "end_session_confirm.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "end_session_success.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "initial_access_token.destroyed": (token: InitialAccessToken) => void;
+    "initial_access_token.saved": (token: InitialAccessToken) => void;
+    "openid_credential_issuer.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
+    "pre_authorized_code.consumed": (code: PreAuthorizedCode) => void;
+    "pre_authorized_code.destroyed": (code: PreAuthorizedCode) => void;
+    "pre_authorized_code.saved": (code: PreAuthorizedCode) => void;
+}
+// END GENERATED OIDC-PROVIDER CONTRACTS
+/* eslint-enable @typescript-eslint/no-invalid-void-type */
 
 export interface HttpOptions {
     signal?: AbortSignal | undefined;
@@ -4532,30 +4366,6 @@ export interface InteractionResults {
     [key: string]: unknown;
 }
 
-interface ProviderAdditionalEventMap {
-    "backchannel_authentication.error": (
-        ctx: KoaContextWithOIDC,
-        err: errors.OIDCProviderError,
-    ) => void;
-    "challenge.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
-    "code_verification.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
-    "credential.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
-    "device_authorization.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
-    "device_authorization.success": (ctx: KoaContextWithOIDC, body: UnknownObject) => void;
-    "device_resume.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
-    "end_session_confirm.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
-    "end_session_success.error": (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void;
-    "initial_access_token.destroyed": (token: InitialAccessToken) => void;
-    "initial_access_token.saved": (token: InitialAccessToken) => void;
-    "openid_credential_issuer.error": (
-        ctx: KoaContextWithOIDC,
-        err: errors.OIDCProviderError,
-    ) => void;
-    "pre_authorized_code.consumed": (code: PreAuthorizedCode) => void;
-    "pre_authorized_code.destroyed": (code: PreAuthorizedCode) => void;
-    "pre_authorized_code.saved": (code: PreAuthorizedCode) => void;
-}
-
 export default class Provider extends Koa {
     constructor(issuer: string, configuration?: Configuration);
 
@@ -4568,6 +4378,7 @@ export default class Provider extends Koa {
 
     static get ctx(): KoaContextWithOIDC | undefined;
 
+    // BEGIN GENERATED OIDC-PROVIDER MEMBERS
     urlFor(name: string, options?: UnknownObject): string;
     pathFor(name: string, options?: UnknownObject & { mountPath?: string | undefined }): string;
     cookieName(type: string): string;
@@ -4625,14 +4436,28 @@ export default class Provider extends Koa {
     addListener(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
     addListener(event: "access_token.saved", listener: (accessToken: AccessToken) => void): this;
     addListener(event: "access_token.issued", listener: (accessToken: AccessToken) => void): this;
-    addListener(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
-    addListener(event: "authorization_code.destroyed", listener: (authorizationCode: AuthorizationCode) => void): this;
     addListener(event: "authorization_code.consumed", listener: (authorizationCode: AuthorizationCode) => void): this;
-    addListener(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
-    addListener(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
-    addListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    addListener(event: "authorization_code.destroyed", listener: (authorizationCode: AuthorizationCode) => void): this;
+    addListener(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
+    addListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
     addListener(
-        event: "backchannel_authentication_request.saved",
+        event: "authorization.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    addListener(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
+    addListener(
+        event: "backchannel.error",
+        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    addListener(
+        event: "backchannel.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    addListener(
+        event: "backchannel_authentication_request.consumed",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     addListener(
@@ -4640,20 +4465,51 @@ export default class Provider extends Koa {
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     addListener(
-        event: "backchannel_authentication_request.consumed",
+        event: "backchannel_authentication_request.saved",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
+    addListener(event: "jwks.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     addListener(event: "client_credentials.destroyed", listener: (clientCredentials: ClientCredentials) => void): this;
     addListener(event: "client_credentials.saved", listener: (clientCredentials: ClientCredentials) => void): this;
     addListener(event: "client_credentials.issued", listener: (clientCredentials: ClientCredentials) => void): this;
-    addListener(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
-    addListener(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
-    addListener(event: "session.destroyed", listener: (session: Session) => void): this;
-    addListener(event: "session.saved", listener: (session: Session) => void): this;
+    addListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    addListener(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
+    addListener(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
+    addListener(
+        event: "discovery.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    addListener(
+        event: "end_session.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    addListener(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
     addListener(event: "grant.destroyed", listener: (grant: Grant) => void): this;
+    addListener(event: "grant.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    addListener(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
     addListener(event: "grant.saved", listener: (grant: Grant) => void): this;
+    addListener(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    addListener(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
+    addListener(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
+    addListener(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
+    addListener(
+        event: "interaction.started",
+        listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void,
+    ): this;
+    addListener(
+        event: "introspection.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
     addListener(event: "replay_detection.destroyed", listener: (replayDetection: ReplayDetection) => void): this;
     addListener(event: "replay_detection.saved", listener: (replayDetection: ReplayDetection) => void): this;
+    addListener(
+        event: "pushed_authorization_request.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    addListener(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     addListener(
         event: "pushed_authorization_request.destroyed",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
@@ -4662,6 +4518,9 @@ export default class Provider extends Koa {
         event: "pushed_authorization_request.saved",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
     ): this;
+    addListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
+    addListener(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
+    addListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     addListener(
         event: "registration_access_token.destroyed",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
@@ -4670,61 +4529,8 @@ export default class Provider extends Koa {
         event: "registration_access_token.saved",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
     ): this;
-    addListener(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
-    addListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
-    addListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
-    addListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
     addListener(
-        event: "authorization.success",
-        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
-    ): this;
-    addListener(
-        event: "authorization.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    addListener(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    addListener(
-        event: "end_session.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    addListener(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    addListener(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
-    addListener(
-        event: "interaction.started",
-        listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void,
-    ): this;
-    addListener(event: "grant.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    addListener(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
-    addListener(
-        event: "backchannel.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    addListener(
-        event: "backchannel.error",
-        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    addListener(
-        event: "pushed_authorization_request.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    addListener(
-        event: "pushed_authorization_request.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    addListener(
-        event: "registration_update.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    addListener(
-        event: "registration_update.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    addListener(
-        event: "registration_delete.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    addListener(
-        event: "registration_delete.error",
+        event: "registration_create.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     addListener(
@@ -4732,47 +4538,59 @@ export default class Provider extends Koa {
         listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     addListener(
-        event: "registration_create.error",
+        event: "registration_delete.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     addListener(
-        event: "introspection.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+        event: "registration_delete.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     addListener(
         event: "registration_read.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
-    addListener(event: "jwks.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     addListener(
-        event: "discovery.error",
+        event: "registration_update.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     addListener(
-        event: "userinfo.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+        event: "registration_update.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     addListener(
         event: "revocation.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    addListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
+    addListener(event: "session.destroyed", listener: (session: Session) => void): this;
+    addListener(event: "session.saved", listener: (session: Session) => void): this;
+    addListener(
+        event: "userinfo.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     addListener<Event extends keyof ProviderAdditionalEventMap>(
         event: Event,
         listener: ProviderAdditionalEventMap[Event],
     ): this;
-    addListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
-
     on(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
     on(event: "access_token.saved", listener: (accessToken: AccessToken) => void): this;
     on(event: "access_token.issued", listener: (accessToken: AccessToken) => void): this;
-    on(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
-    on(event: "authorization_code.destroyed", listener: (authorizationCode: AuthorizationCode) => void): this;
     on(event: "authorization_code.consumed", listener: (authorizationCode: AuthorizationCode) => void): this;
-    on(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
-    on(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
-    on(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    on(event: "authorization_code.destroyed", listener: (authorizationCode: AuthorizationCode) => void): this;
+    on(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
+    on(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
+    on(event: "authorization.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on(event: "authorization.success", listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void): this;
     on(
-        event: "backchannel_authentication_request.saved",
+        event: "backchannel.error",
+        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    on(
+        event: "backchannel.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    on(
+        event: "backchannel_authentication_request.consumed",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     on(
@@ -4780,20 +4598,39 @@ export default class Provider extends Koa {
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     on(
-        event: "backchannel_authentication_request.consumed",
+        event: "backchannel_authentication_request.saved",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
+    on(event: "jwks.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     on(event: "client_credentials.destroyed", listener: (clientCredentials: ClientCredentials) => void): this;
     on(event: "client_credentials.saved", listener: (clientCredentials: ClientCredentials) => void): this;
     on(event: "client_credentials.issued", listener: (clientCredentials: ClientCredentials) => void): this;
-    on(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
-    on(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
-    on(event: "session.destroyed", listener: (session: Session) => void): this;
-    on(event: "session.saved", listener: (session: Session) => void): this;
+    on(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    on(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
+    on(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
+    on(event: "discovery.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on(event: "end_session.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
     on(event: "grant.destroyed", listener: (grant: Grant) => void): this;
+    on(event: "grant.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
     on(event: "grant.saved", listener: (grant: Grant) => void): this;
+    on(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    on(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
+    on(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
+    on(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
+    on(event: "interaction.started", listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void): this;
+    on(event: "introspection.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     on(event: "replay_detection.destroyed", listener: (replayDetection: ReplayDetection) => void): this;
     on(event: "replay_detection.saved", listener: (replayDetection: ReplayDetection) => void): this;
+    on(
+        event: "pushed_authorization_request.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    on(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     on(
         event: "pushed_authorization_request.destroyed",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
@@ -4802,6 +4639,9 @@ export default class Provider extends Koa {
         event: "pushed_authorization_request.saved",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
     ): this;
+    on(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
+    on(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
+    on(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     on(
         event: "registration_access_token.destroyed",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
@@ -4810,79 +4650,56 @@ export default class Provider extends Koa {
         event: "registration_access_token.saved",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
     ): this;
-    on(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
-    on(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
-    on(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
-    on(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
     on(
-        event: "authorization.success",
-        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
-    ): this;
-    on(event: "authorization.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    on(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    on(event: "end_session.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    on(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    on(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
-    on(event: "interaction.started", listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void): this;
-    on(event: "grant.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    on(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
-    on(
-        event: "backchannel.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    on(
-        event: "backchannel.error",
-        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    on(
-        event: "pushed_authorization_request.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    on(
-        event: "pushed_authorization_request.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    on(event: "registration_update.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
-    on(
-        event: "registration_update.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    on(event: "registration_delete.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
-    on(
-        event: "registration_delete.error",
+        event: "registration_create.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     on(event: "registration_create.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
     on(
-        event: "registration_create.error",
+        event: "registration_delete.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
-    on(event: "introspection.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on(event: "registration_delete.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
     on(
         event: "registration_read.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
-    on(event: "jwks.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    on(event: "discovery.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    on(event: "userinfo.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on(
+        event: "registration_update.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    on(event: "registration_update.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
     on(event: "revocation.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    on(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
+    on(event: "session.destroyed", listener: (session: Session) => void): this;
+    on(event: "session.saved", listener: (session: Session) => void): this;
+    on(event: "userinfo.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     on<Event extends keyof ProviderAdditionalEventMap>(
         event: Event,
         listener: ProviderAdditionalEventMap[Event],
     ): this;
-    on(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
-
     once(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
     once(event: "access_token.saved", listener: (accessToken: AccessToken) => void): this;
     once(event: "access_token.issued", listener: (accessToken: AccessToken) => void): this;
-    once(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
-    once(event: "authorization_code.destroyed", listener: (authorizationCode: AuthorizationCode) => void): this;
     once(event: "authorization_code.consumed", listener: (authorizationCode: AuthorizationCode) => void): this;
-    once(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
-    once(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
-    once(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    once(event: "authorization_code.destroyed", listener: (authorizationCode: AuthorizationCode) => void): this;
+    once(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
+    once(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
     once(
-        event: "backchannel_authentication_request.saved",
+        event: "authorization.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    once(event: "authorization.success", listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void): this;
+    once(
+        event: "backchannel.error",
+        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    once(
+        event: "backchannel.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    once(
+        event: "backchannel_authentication_request.consumed",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     once(
@@ -4890,20 +4707,42 @@ export default class Provider extends Koa {
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     once(
-        event: "backchannel_authentication_request.consumed",
+        event: "backchannel_authentication_request.saved",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
+    once(event: "jwks.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     once(event: "client_credentials.destroyed", listener: (clientCredentials: ClientCredentials) => void): this;
     once(event: "client_credentials.saved", listener: (clientCredentials: ClientCredentials) => void): this;
     once(event: "client_credentials.issued", listener: (clientCredentials: ClientCredentials) => void): this;
-    once(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
-    once(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
-    once(event: "session.destroyed", listener: (session: Session) => void): this;
-    once(event: "session.saved", listener: (session: Session) => void): this;
+    once(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    once(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
+    once(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
+    once(event: "discovery.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    once(event: "end_session.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    once(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
     once(event: "grant.destroyed", listener: (grant: Grant) => void): this;
+    once(event: "grant.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    once(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
     once(event: "grant.saved", listener: (grant: Grant) => void): this;
+    once(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    once(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
+    once(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
+    once(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
+    once(event: "interaction.started", listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void): this;
+    once(
+        event: "introspection.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
     once(event: "replay_detection.destroyed", listener: (replayDetection: ReplayDetection) => void): this;
     once(event: "replay_detection.saved", listener: (replayDetection: ReplayDetection) => void): this;
+    once(
+        event: "pushed_authorization_request.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    once(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     once(
         event: "pushed_authorization_request.destroyed",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
@@ -4912,6 +4751,9 @@ export default class Provider extends Koa {
         event: "pushed_authorization_request.saved",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
     ): this;
+    once(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
+    once(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
+    once(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     once(
         event: "registration_access_token.destroyed",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
@@ -4920,91 +4762,65 @@ export default class Provider extends Koa {
         event: "registration_access_token.saved",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
     ): this;
-    once(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
-    once(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
-    once(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
-    once(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
-    once(
-        event: "authorization.success",
-        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
-    ): this;
-    once(
-        event: "authorization.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    once(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    once(event: "end_session.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    once(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    once(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
-    once(event: "interaction.started", listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void): this;
-    once(event: "grant.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    once(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
-    once(
-        event: "backchannel.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    once(
-        event: "backchannel.error",
-        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    once(
-        event: "pushed_authorization_request.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    once(
-        event: "pushed_authorization_request.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    once(event: "registration_update.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
-    once(
-        event: "registration_update.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    once(event: "registration_delete.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
-    once(
-        event: "registration_delete.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    once(event: "registration_create.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
     once(
         event: "registration_create.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
+    once(event: "registration_create.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
     once(
-        event: "introspection.error",
+        event: "registration_delete.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
+    once(event: "registration_delete.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
     once(
         event: "registration_read.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
-    once(event: "jwks.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    once(event: "discovery.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
-    once(event: "userinfo.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    once(
+        event: "registration_update.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    once(event: "registration_update.success", listener: (ctx: KoaContextWithOIDC, client: Client) => void): this;
     once(event: "revocation.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
+    once(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
+    once(event: "session.destroyed", listener: (session: Session) => void): this;
+    once(event: "session.saved", listener: (session: Session) => void): this;
+    once(event: "userinfo.error", listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void): this;
     once<Event extends keyof ProviderAdditionalEventMap>(
         event: Event,
         listener: ProviderAdditionalEventMap[Event],
     ): this;
-    once(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
-
     prependListener(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
     prependListener(event: "access_token.saved", listener: (accessToken: AccessToken) => void): this;
     prependListener(event: "access_token.issued", listener: (accessToken: AccessToken) => void): this;
-    prependListener(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
-    prependListener(
-        event: "authorization_code.destroyed",
-        listener: (authorizationCode: AuthorizationCode) => void,
-    ): this;
     prependListener(
         event: "authorization_code.consumed",
         listener: (authorizationCode: AuthorizationCode) => void,
     ): this;
-    prependListener(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
-    prependListener(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
-    prependListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
     prependListener(
-        event: "backchannel_authentication_request.saved",
+        event: "authorization_code.destroyed",
+        listener: (authorizationCode: AuthorizationCode) => void,
+    ): this;
+    prependListener(event: "authorization_code.saved", listener: (authorizationCode: AuthorizationCode) => void): this;
+    prependListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependListener(
+        event: "authorization.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependListener(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
+    prependListener(
+        event: "backchannel.error",
+        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    prependListener(
+        event: "backchannel.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    prependListener(
+        event: "backchannel_authentication_request.consumed",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependListener(
@@ -5012,8 +4828,12 @@ export default class Provider extends Koa {
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependListener(
-        event: "backchannel_authentication_request.consumed",
+        event: "backchannel_authentication_request.saved",
         listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
+    prependListener(
+        event: "jwks.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependListener(
         event: "client_credentials.destroyed",
@@ -5021,14 +4841,47 @@ export default class Provider extends Koa {
     ): this;
     prependListener(event: "client_credentials.saved", listener: (clientCredentials: ClientCredentials) => void): this;
     prependListener(event: "client_credentials.issued", listener: (clientCredentials: ClientCredentials) => void): this;
-    prependListener(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
-    prependListener(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
-    prependListener(event: "session.destroyed", listener: (session: Session) => void): this;
-    prependListener(event: "session.saved", listener: (session: Session) => void): this;
+    prependListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    prependListener(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
+    prependListener(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
+    prependListener(
+        event: "discovery.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependListener(
+        event: "end_session.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependListener(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
     prependListener(event: "grant.destroyed", listener: (grant: Grant) => void): this;
+    prependListener(
+        event: "grant.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependListener(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
     prependListener(event: "grant.saved", listener: (grant: Grant) => void): this;
+    prependListener(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependListener(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
+    prependListener(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependListener(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
+    prependListener(
+        event: "interaction.started",
+        listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void,
+    ): this;
+    prependListener(
+        event: "introspection.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
     prependListener(event: "replay_detection.destroyed", listener: (replayDetection: ReplayDetection) => void): this;
     prependListener(event: "replay_detection.saved", listener: (replayDetection: ReplayDetection) => void): this;
+    prependListener(
+        event: "pushed_authorization_request.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependListener(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     prependListener(
         event: "pushed_authorization_request.destroyed",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
@@ -5037,6 +4890,9 @@ export default class Provider extends Koa {
         event: "pushed_authorization_request.saved",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
     ): this;
+    prependListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
+    prependListener(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
+    prependListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     prependListener(
         event: "registration_access_token.destroyed",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
@@ -5045,64 +4901,8 @@ export default class Provider extends Koa {
         event: "registration_access_token.saved",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
     ): this;
-    prependListener(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
-    prependListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
-    prependListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
-    prependListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
     prependListener(
-        event: "authorization.success",
-        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
-    ): this;
-    prependListener(
-        event: "authorization.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependListener(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependListener(
-        event: "end_session.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependListener(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependListener(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependListener(
-        event: "interaction.started",
-        listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void,
-    ): this;
-    prependListener(
-        event: "grant.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependListener(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
-    prependListener(
-        event: "backchannel.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    prependListener(
-        event: "backchannel.error",
-        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    prependListener(
-        event: "pushed_authorization_request.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    prependListener(
-        event: "pushed_authorization_request.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependListener(
-        event: "registration_update.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    prependListener(
-        event: "registration_update.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependListener(
-        event: "registration_delete.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    prependListener(
-        event: "registration_delete.error",
+        event: "registration_create.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependListener(
@@ -5110,44 +4910,45 @@ export default class Provider extends Koa {
         listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     prependListener(
-        event: "registration_create.error",
+        event: "registration_delete.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependListener(
-        event: "introspection.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+        event: "registration_delete.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     prependListener(
         event: "registration_read.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependListener(
-        event: "jwks.error",
+        event: "registration_update.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependListener(
-        event: "discovery.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependListener(
-        event: "userinfo.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+        event: "registration_update.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     prependListener(
         event: "revocation.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
+    prependListener(event: "session.destroyed", listener: (session: Session) => void): this;
+    prependListener(event: "session.saved", listener: (session: Session) => void): this;
+    prependListener(
+        event: "userinfo.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependListener<Event extends keyof ProviderAdditionalEventMap>(
         event: Event,
         listener: ProviderAdditionalEventMap[Event],
     ): this;
-    prependListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
-
     prependOnceListener(event: "access_token.destroyed", listener: (accessToken: AccessToken) => void): this;
     prependOnceListener(event: "access_token.saved", listener: (accessToken: AccessToken) => void): this;
     prependOnceListener(event: "access_token.issued", listener: (accessToken: AccessToken) => void): this;
     prependOnceListener(
-        event: "authorization_code.saved",
+        event: "authorization_code.consumed",
         listener: (authorizationCode: AuthorizationCode) => void,
     ): this;
     prependOnceListener(
@@ -5155,14 +4956,28 @@ export default class Provider extends Koa {
         listener: (authorizationCode: AuthorizationCode) => void,
     ): this;
     prependOnceListener(
-        event: "authorization_code.consumed",
+        event: "authorization_code.saved",
         listener: (authorizationCode: AuthorizationCode) => void,
     ): this;
-    prependOnceListener(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
-    prependOnceListener(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
-    prependOnceListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    prependOnceListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
     prependOnceListener(
-        event: "backchannel_authentication_request.saved",
+        event: "authorization.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependOnceListener(
+        event: "authorization.success",
+        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
+    ): this;
+    prependOnceListener(
+        event: "backchannel.error",
+        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    prependOnceListener(
+        event: "backchannel.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
+    ): this;
+    prependOnceListener(
+        event: "backchannel_authentication_request.consumed",
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependOnceListener(
@@ -5170,8 +4985,12 @@ export default class Provider extends Koa {
         listener: (request: BackchannelAuthenticationRequest) => void,
     ): this;
     prependOnceListener(
-        event: "backchannel_authentication_request.consumed",
+        event: "backchannel_authentication_request.saved",
         listener: (request: BackchannelAuthenticationRequest) => void,
+    ): this;
+    prependOnceListener(
+        event: "jwks.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependOnceListener(
         event: "client_credentials.destroyed",
@@ -5185,17 +5004,50 @@ export default class Provider extends Koa {
         event: "client_credentials.issued",
         listener: (clientCredentials: ClientCredentials) => void,
     ): this;
-    prependOnceListener(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
-    prependOnceListener(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
-    prependOnceListener(event: "session.destroyed", listener: (session: Session) => void): this;
-    prependOnceListener(event: "session.saved", listener: (session: Session) => void): this;
+    prependOnceListener(event: "device_code.consumed", listener: (deviceCode: DeviceCode) => void): this;
+    prependOnceListener(event: "device_code.destroyed", listener: (deviceCode: DeviceCode) => void): this;
+    prependOnceListener(event: "device_code.saved", listener: (deviceCode: DeviceCode) => void): this;
+    prependOnceListener(
+        event: "discovery.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependOnceListener(
+        event: "end_session.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependOnceListener(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
     prependOnceListener(event: "grant.destroyed", listener: (grant: Grant) => void): this;
+    prependOnceListener(
+        event: "grant.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependOnceListener(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
     prependOnceListener(event: "grant.saved", listener: (grant: Grant) => void): this;
+    prependOnceListener(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependOnceListener(event: "interaction.destroyed", listener: (interaction: Interaction) => void): this;
+    prependOnceListener(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
+    prependOnceListener(event: "interaction.saved", listener: (interaction: Interaction) => void): this;
+    prependOnceListener(
+        event: "interaction.started",
+        listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void,
+    ): this;
+    prependOnceListener(
+        event: "introspection.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
     prependOnceListener(
         event: "replay_detection.destroyed",
         listener: (replayDetection: ReplayDetection) => void,
     ): this;
     prependOnceListener(event: "replay_detection.saved", listener: (replayDetection: ReplayDetection) => void): this;
+    prependOnceListener(
+        event: "pushed_authorization_request.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependOnceListener(
+        event: "pushed_authorization_request.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
+    ): this;
     prependOnceListener(
         event: "pushed_authorization_request.destroyed",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
@@ -5204,6 +5056,9 @@ export default class Provider extends Koa {
         event: "pushed_authorization_request.saved",
         listener: (pushedAuthorizationRequest: PushedAuthorizationRequest) => void,
     ): this;
+    prependOnceListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
+    prependOnceListener(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
+    prependOnceListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
     prependOnceListener(
         event: "registration_access_token.destroyed",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
@@ -5212,64 +5067,8 @@ export default class Provider extends Koa {
         event: "registration_access_token.saved",
         listener: (registrationAccessToken: RegistrationAccessToken) => void,
     ): this;
-    prependOnceListener(event: "refresh_token.destroyed", listener: (refreshToken: RefreshToken) => void): this;
-    prependOnceListener(event: "refresh_token.saved", listener: (refreshToken: RefreshToken) => void): this;
-    prependOnceListener(event: "refresh_token.consumed", listener: (refreshToken: RefreshToken) => void): this;
-    prependOnceListener(event: "authorization.accepted", listener: (ctx: KoaContextWithOIDC) => void): this;
     prependOnceListener(
-        event: "authorization.success",
-        listener: (ctx: KoaContextWithOIDC, response?: UnknownObject) => void,
-    ): this;
-    prependOnceListener(
-        event: "authorization.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependOnceListener(event: "end_session.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependOnceListener(
-        event: "end_session.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependOnceListener(event: "grant.success", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependOnceListener(event: "interaction.ended", listener: (ctx: KoaContextWithOIDC) => void): this;
-    prependOnceListener(
-        event: "interaction.started",
-        listener: (ctx: KoaContextWithOIDC, interaction: PromptDetail) => void,
-    ): this;
-    prependOnceListener(
-        event: "grant.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependOnceListener(event: "grant.revoked", listener: (ctx: KoaContextWithOIDC, grantId: string) => void): this;
-    prependOnceListener(
-        event: "backchannel.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    prependOnceListener(
-        event: "backchannel.error",
-        listener: (ctx: KoaContextWithOIDC, err: Error, client: Client, accountId: string, sid: string) => void,
-    ): this;
-    prependOnceListener(
-        event: "pushed_authorization_request.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    prependOnceListener(
-        event: "pushed_authorization_request.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependOnceListener(
-        event: "registration_update.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    prependOnceListener(
-        event: "registration_update.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependOnceListener(
-        event: "registration_delete.success",
-        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
-    ): this;
-    prependOnceListener(
-        event: "registration_delete.error",
+        event: "registration_create.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependOnceListener(
@@ -5277,39 +5076,42 @@ export default class Provider extends Koa {
         listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     prependOnceListener(
-        event: "registration_create.error",
+        event: "registration_delete.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependOnceListener(
-        event: "introspection.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+        event: "registration_delete.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     prependOnceListener(
         event: "registration_read.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependOnceListener(
-        event: "jwks.error",
+        event: "registration_update.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependOnceListener(
-        event: "discovery.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
-    ): this;
-    prependOnceListener(
-        event: "userinfo.error",
-        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+        event: "registration_update.success",
+        listener: (ctx: KoaContextWithOIDC, client: Client) => void,
     ): this;
     prependOnceListener(
         event: "revocation.error",
+        listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
+    ): this;
+    prependOnceListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
+    prependOnceListener(event: "session.destroyed", listener: (session: Session) => void): this;
+    prependOnceListener(event: "session.saved", listener: (session: Session) => void): this;
+    prependOnceListener(
+        event: "userinfo.error",
         listener: (ctx: KoaContextWithOIDC, err: errors.OIDCProviderError) => void,
     ): this;
     prependOnceListener<Event extends keyof ProviderAdditionalEventMap>(
         event: Event,
         listener: ProviderAdditionalEventMap[Event],
     ): this;
-    prependOnceListener(event: "server_error", listener: (ctx: KoaContextWithOIDC, err: Error) => void): this;
     // tslint:enable:unified-signatures
+    // END GENERATED OIDC-PROVIDER MEMBERS
 
     readonly Grant: typeof Grant;
     readonly Client: typeof Client;
@@ -5335,6 +5137,7 @@ export default class Provider extends Koa {
     readonly Interaction: typeof Interaction;
 }
 
+// BEGIN GENERATED OIDC-PROVIDER RELATED CONTRACTS
 declare class Checks extends Array<interactionPolicy.Check> {
     get(reason: string): interactionPolicy.Check | undefined;
     remove(reason: string): void;
@@ -5562,24 +5365,6 @@ export namespace errors {
         constructor(description?: string, options?: string | OIDCProviderErrorOptions);
     }
 }
-
-export class ExternalSigningKey {
-    get alg(): string | undefined;
-    get crv(): string | undefined;
-    get e(): string | undefined;
-    get key_ops(): string[] | undefined;
-    get kid(): string | undefined;
-    get kty(): string;
-    get n(): string | undefined;
-    get pub(): string | undefined;
-    get use(): "sig";
-    get x(): string | undefined;
-    get x5c(): string[] | undefined;
-    get y(): string | undefined;
-
-    keyObject(): Promise<crypto.KeyObject> | crypto.KeyObject;
-
-    sign(data: Uint8Array): Promise<Uint8Array> | Uint8Array;
-}
+// END GENERATED OIDC-PROVIDER RELATED CONTRACTS
 
 export { Provider };

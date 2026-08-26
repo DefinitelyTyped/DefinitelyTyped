@@ -43,6 +43,9 @@ const paymentAuthorizationDetail: oidc.RichAuthorizationRequestType = {
         detail.type.substring(0);
     },
 };
+const optionalAuthorizationDetailTypes = undefined as
+    | Readonly<Record<string, oidc.RichAuthorizationRequestType>>
+    | undefined;
 const dynamicallyEnabled: boolean = true;
 
 new Provider("https://op.example.com", {
@@ -166,6 +169,25 @@ new Provider("https://op.example.com", {
         richAuthorizationRequests: {
             enabled: true,
             types: {},
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: optionalAuthorizationDetailTypes,
             authorizationDetailsForGrantSource,
             authorizationDetailsForAccessToken,
         },
