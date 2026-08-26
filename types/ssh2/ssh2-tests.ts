@@ -413,6 +413,8 @@ new ssh2.Server({
                 info.rows; // $ExpectType number
                 info.width; // $ExpectType number
                 info.height; // $ExpectType number
+                info.modes; // $ExpectType TerminalModes
+                info.modes.VINTR; // $ExpectType number | undefined
                 accept?.();
             });
         });
