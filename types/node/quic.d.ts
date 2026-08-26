@@ -1,10 +1,10 @@
 declare module "node:quic" {
     import { NonSharedBuffer } from "node:buffer";
-    import { KeyObject } from "node:crypto";
+    import { KeyObject, X509Certificate } from "node:crypto";
     import { FileHandle } from "node:fs/promises";
     import { BlockList, SocketAddress } from "node:net";
     import { Writer } from "node:stream/iter";
-    import { EphemeralKeyInfo, PeerCertificate } from "node:tls";
+    import { EphemeralKeyInfo } from "node:tls";
     /**
      * @since v23.8.0
      */
@@ -25,6 +25,10 @@ declare module "node:quic" {
         id: bigint,
         status: "acknowledged" | "lost" | "abandoned",
     ) => void;
+    /**
+     * @since v23.8.0
+     */
+    type OnApplicationCallback = (this: QuicSession, applicationoptions: SessionApplicationOptions) => void;
     /**
      * @since v23.8.0
      */
@@ -235,6 +239,7 @@ declare module "node:quic" {
          */
         enableDatagrams?: boolean | undefined;
     }
+    type SessionApplicationOptions = { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
     /**
      * @since v23.8.0
      */
@@ -539,6 +544,7 @@ declare module "node:quic" {
         ongoaway?: QuicSession["ongoaway"] | undefined;
         onkeylog?: QuicSession["onkeylog"] | undefined;
         onqlog?: QuicSession["onqlog"] | undefined;
+        onapplication?: QuicSession["onapplication"] | undefined;
         onheaders?: QuicStream["onheaders"] | undefined;
         ontrailers?: QuicStream["ontrailers"] | undefined;
         oninfo?: QuicStream["oninfo"] | undefined;
@@ -608,6 +614,20 @@ declare module "node:quic" {
      * @since v23.8.0
      */
     function listen(onsession: OnSessionCallback, options?: SessionOptions): Promise<QuicEndpoint>;
+    interface ListEndpointsOptions {
+        /**
+         * If `true` (the default), only returns endpoints that are
+         * active (not destroyed, not closing, and not busy). If `false` returns all
+         * endpoints.
+         */
+        active?: boolean | undefined;
+    }
+    /**
+     * Returns the list of all `QuicEndpoint` instances. By default, only active
+     * endpoints are returned.
+     * @since v26.4.0
+     */
+    function listEndpoints(options?: ListEndpointsOptions): QuicEndpoint[];
     /**
      * The endpoint configuration options passed when constructing a new `QuicEndpoint` instance.
      * @since v23.8.0
@@ -1172,7 +1192,7 @@ declare module "node:quic" {
          * be negotiated separately from the transport parameters. Read only.
          * @since v26.3.0
          */
-        readonly applicationOptions: { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
+        readonly applicationOptions: SessionApplicationOptions;
         /**
          * Initiate a graceful close of the session. Existing streams will be allowed
          * to complete but no new streams will be opened. Once all streams have closed,
@@ -1226,6 +1246,11 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         readonly endpoint: QuicEndpoint | null;
+        /**
+         * The callback to invoke when new application options, e.g. HTTP/3 settings arrived.
+         * @since v26.4
+         */
+        onapplication: OnApplicationCallback | undefined;
         /**
          * An optional callback invoked when the session is destroyed with an error.
          * This includes errors caused by user callbacks that throw or reject (see
@@ -1412,19 +1437,20 @@ declare module "node:quic" {
             encoding?: BufferEncoding,
         ): Promise<bigint>;
         /**
-         * The local certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or no certificate is available.
+         * The local certificate as a `crypto.X509Certificate` instance. Server
+         * sessions return the certificate configured for the negotiated SNI host.
+         * Client sessions return `undefined` unless a client certificate was sent.
+         * Returns `undefined` if the session is destroyed.
          * @since v26.2.0
          */
-        readonly certificate: PeerCertificate | undefined;
+        readonly certificate: X509Certificate | undefined;
         /**
-         * The peer's certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or the peer did not present a certificate.
+         * The peer's certificate as a `crypto.X509Certificate` instance. Returns
+         * `undefined` if the peer did not present a certificate or the session is
+         * destroyed.
          * @since v26.2.0
          */
-        readonly peerCertificate: PeerCertificate | undefined;
+        readonly peerCertificate: X509Certificate | undefined;
         /**
          * The ephemeral key information for the session, with properties such as
          * `type`, `name`, and `size`. Only available on client sessions. Returns
