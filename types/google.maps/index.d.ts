@@ -1,7 +1,7 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.65
+// Google Maps JS API Version: 3.66
 // tslint:disable:array-type
 // tslint:disable:enforce-name-casing
 // tslint:disable:interface-over-type-literal
