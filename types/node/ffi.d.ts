@@ -459,7 +459,7 @@ declare module "node:ffi" {
         "void": void;
         "number": number;
         "bigint": bigint;
-        "pointer": bigint | null;
+        "pointer": bigint;
     }
     enum types {
         VOID = "void",
