@@ -29,7 +29,6 @@ var trustedManifest: NWJS_Helpers.Manifest = {
     window: {
         title: "My App",
         frame: false,
-        focus: true,
     },
     webkit: {
         plugin: false,
