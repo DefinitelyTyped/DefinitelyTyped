@@ -7,6 +7,7 @@ import { isAbsolute, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const SCHEMA_VERSION = 1;
+const STATUS_SCHEMA_VERSION = 1;
 const GRANTS_PATH = "lib/helpers/grants.d.ts";
 const FRAGMENT_NAMES = ["contracts", "providerMembers", "relatedContracts"];
 const REGIONS = {
@@ -23,19 +24,32 @@ const REGIONS = {
         end: "// END GENERATED OIDC-PROVIDER RELATED CONTRACTS",
     },
 };
+const PROVENANCE_PATTERN = /^\/\/ oidc-provider types artifact .*; schema \d+; sha256 [a-f0-9]{64}\n?/m;
 
 function fail(message) {
     console.error(`update-types: ${message}`);
     process.exit(1);
 }
 
+function usage() {
+    return "usage: node scripts/update-types.mjs [--check | --status] (--artifact <path> | <provider-checkout>)";
+}
+
 function parseArguments(argv) {
-    let check = false;
+    let mode = "update";
+    let artifactPath;
     const positional = [];
 
-    for (const argument of argv) {
-        if (argument === "--check") {
-            check = true;
+    for (let index = 0; index < argv.length; index += 1) {
+        const argument = argv[index];
+        if (argument === "--check" || argument === "--status") {
+            if (mode !== "update") fail("--check and --status cannot be combined");
+            mode = argument.slice(2);
+        } else if (argument === "--artifact") {
+            if (artifactPath !== undefined) fail("--artifact may only be specified once");
+            artifactPath = argv[index + 1];
+            if (!artifactPath || artifactPath.startsWith("-")) fail("--artifact requires a path");
+            index += 1;
         } else if (argument.startsWith("-")) {
             fail(`unknown option ${JSON.stringify(argument)}`);
         } else {
@@ -43,11 +57,15 @@ function parseArguments(argv) {
         }
     }
 
-    if (positional.length !== 1) {
-        fail("usage: node scripts/update-types.mjs [--check] <provider-checkout>");
+    if ((artifactPath === undefined && positional.length !== 1) || (artifactPath !== undefined && positional.length)) {
+        fail(usage());
     }
 
-    return { check, providerDirectory: resolve(positional[0]) };
+    return {
+        artifactPath: artifactPath === undefined ? undefined : resolve(artifactPath),
+        mode,
+        providerDirectory: artifactPath === undefined ? resolve(positional[0]) : undefined,
+    };
 }
 
 function readJson(path, label) {
@@ -58,12 +76,23 @@ function readJson(path, label) {
     }
 }
 
-function majorMinor(version, label) {
+function versionLine(version, label) {
+    if (typeof version !== "string") {
+        fail(`${label} has an invalid version: ${JSON.stringify(version)}`);
+    }
     const match = /^(\d+)\.(\d+)(?:\.|$)/.exec(version);
     if (!match) {
         fail(`${label} has an invalid version: ${JSON.stringify(version)}`);
     }
-    return `${match[1]}.${match[2]}`;
+    return { major: Number(match[1]), minor: Number(match[2]) };
+}
+
+function compareVersionLines(left, right) {
+    return left.major - right.major || left.minor - right.minor;
+}
+
+function targetTypesVersion(providerLine) {
+    return `${providerLine.major}.${providerLine.minor}.9999`;
 }
 
 function exactKeys(value, expected, label) {
@@ -122,7 +151,7 @@ function canonicalContent(indexFragments, files) {
     });
 }
 
-function validateArtifact(payload, providerVersion) {
+function validateArtifact(payload, expectedProviderVersion) {
     exactKeys(
         payload,
         ["schemaVersion", "providerVersion", "hash", "indexFragments", "files"],
@@ -131,9 +160,12 @@ function validateArtifact(payload, providerVersion) {
     if (payload.schemaVersion !== SCHEMA_VERSION) {
         fail(`unsupported provider types schema version ${JSON.stringify(payload.schemaVersion)}`);
     }
-    if (payload.providerVersion !== providerVersion) {
+    versionLine(payload.providerVersion, "provider types artifact");
+    if (expectedProviderVersion !== undefined && payload.providerVersion !== expectedProviderVersion) {
         fail(
-            `provider types artifact is for ${JSON.stringify(payload.providerVersion)}, expected ${providerVersion}`,
+            `provider types artifact is for ${
+                JSON.stringify(payload.providerVersion)
+            }, expected ${expectedProviderVersion}`,
         );
     }
     if (typeof payload.hash !== "string" || !/^[a-f0-9]{64}$/.test(payload.hash)) {
@@ -225,55 +257,132 @@ function generateArtifact(providerDirectory) {
     }
 }
 
-const { check, providerDirectory } = parseArguments(process.argv.slice(2));
+function renderedHash(outputs) {
+    return createHash("sha256").update(JSON.stringify({
+        "index.d.ts": outputs.get("index.d.ts"),
+        [GRANTS_PATH]: outputs.get(GRANTS_PATH),
+    })).digest("hex");
+}
+
+function renderedOutputs(index, grants, packageDirectory, indexPath, grantsPath) {
+    return new Map([
+        ["index.d.ts", formatDeclaration(index.replace(PROVENANCE_PATTERN, ""), packageDirectory, indexPath)],
+        [GRANTS_PATH, formatDeclaration(grants, packageDirectory, grantsPath)],
+    ]);
+}
+
+const { artifactPath, mode, providerDirectory } = parseArguments(process.argv.slice(2));
 const packageDirectory = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const indexPath = resolve(packageDirectory, "index.d.ts");
 const grantsPath = resolve(packageDirectory, GRANTS_PATH);
-const typesPackage = readJson(resolve(packageDirectory, "package.json"), "@types package.json");
-const providerPackage = readJson(resolve(providerDirectory, "package.json"), "provider package.json");
+const packagePath = resolve(packageDirectory, "package.json");
+const typesPackage = readJson(packagePath, "@types package.json");
 
 if (typesPackage.name !== "@types/oidc-provider") {
     fail(`expected @types/oidc-provider, found ${JSON.stringify(typesPackage.name)}`);
 }
-if (providerPackage.name !== "oidc-provider") {
-    fail(`expected oidc-provider, found ${JSON.stringify(providerPackage.name)}`);
+
+let artifactPayload;
+let expectedProviderVersion;
+if (artifactPath === undefined) {
+    const providerPackage = readJson(resolve(providerDirectory, "package.json"), "provider package.json");
+    if (providerPackage.name !== "oidc-provider") {
+        fail(`expected oidc-provider, found ${JSON.stringify(providerPackage.name)}`);
+    }
+    expectedProviderVersion = providerPackage.version;
+    artifactPayload = generateArtifact(providerDirectory);
+} else {
+    artifactPayload = readJson(artifactPath, "provider types artifact");
 }
-const typesVersion = majorMinor(typesPackage.version, "@types/oidc-provider");
-const providerVersion = majorMinor(providerPackage.version, "oidc-provider");
-if (typesVersion !== providerVersion) {
+const artifact = validateArtifact(artifactPayload, expectedProviderVersion);
+
+const typesLine = versionLine(typesPackage.version, "@types/oidc-provider");
+const providerLine = versionLine(artifact.providerVersion, "oidc-provider");
+const lineComparison = compareVersionLines(providerLine, typesLine);
+if (mode === "check" && lineComparison !== 0) {
     fail(
-        `version mismatch: @types/oidc-provider is ${typesVersion}.x but oidc-provider is ${providerVersion}.x`,
+        `version mismatch: @types/oidc-provider is ${typesLine.major}.${typesLine.minor}.x but oidc-provider is ${providerLine.major}.${providerLine.minor}.x`,
     );
 }
 
-const artifact = validateArtifact(generateArtifact(providerDirectory), providerPackage.version);
-let generatedIndex = readFileSync(indexPath, "utf8");
+const currentIndex = readFileSync(indexPath, "utf8");
+const currentGrants = readFileSync(grantsPath, "utf8");
+let generatedIndex = currentIndex;
 for (const name of FRAGMENT_NAMES) {
     const fragment = name === "contracts"
         ? `${artifactMetadata(artifact)}\n${artifact.indexFragments[name]}`
         : artifact.indexFragments[name];
     generatedIndex = replaceRegion(generatedIndex, fragment, REGIONS[name], name);
 }
-
-const outputs = new Map([
+const generatedGrants = artifact.files[GRANTS_PATH];
+const exactOutputs = new Map([
     [indexPath, formatDeclaration(generatedIndex, packageDirectory, indexPath)],
-    [grantsPath, artifact.files[GRANTS_PATH]],
+    [grantsPath, generatedGrants],
 ]);
-const changed = [...outputs].filter(([path, contents]) => readFileSync(path, "utf8") !== contents);
 
-if (!changed.length) {
-    console.log("oidc-provider declaration mirrors are up to date.");
-} else if (check) {
-    fail(
-        `declaration mirrors are not up to date: ${
-            changed.map(([path]) => path.slice(packageDirectory.length + 1)).join(", ")
-        }`,
-    );
+const currentRendered = renderedOutputs(currentIndex, currentGrants, packageDirectory, indexPath, grantsPath);
+const candidateRendered = renderedOutputs(generatedIndex, generatedGrants, packageDirectory, indexPath, grantsPath);
+const declarationChanges = [...candidateRendered]
+    .filter(([path, contents]) => currentRendered.get(path) !== contents)
+    .map(([path]) => path);
+const reasons = [];
+if (declarationChanges.length) reasons.push("declarations");
+if (providerLine.major > typesLine.major) reasons.push("major-version");
+
+const olderTrackedLine = lineComparison < 0;
+const updateRequired = !olderTrackedLine && reasons.length > 0;
+const warning = olderTrackedLine
+    ? `oidc-provider ${artifact.providerVersion} is older than the tracked @types/oidc-provider ${typesLine.major}.${typesLine.minor}.x line; skipping`
+    : undefined;
+
+if (updateRequired) {
+    const candidateVersion = targetTypesVersion(providerLine);
+    if (typesPackage.version !== candidateVersion) {
+        exactOutputs.set(packagePath, `${JSON.stringify({ ...typesPackage, version: candidateVersion }, null, 4)}\n`);
+    }
+}
+const changedFiles = updateRequired
+    ? [...exactOutputs]
+        .filter(([path, contents]) => readFileSync(path, "utf8") !== contents)
+        .map(([path]) => path.slice(packageDirectory.length + 1))
+    : [];
+
+if (mode === "status") {
+    const status = {
+        schemaVersion: STATUS_SCHEMA_VERSION,
+        updateRequired,
+        reasons: updateRequired ? reasons : [],
+        providerVersion: artifact.providerVersion,
+        typesVersion: typesPackage.version,
+        currentHash: renderedHash(currentRendered),
+        candidateHash: renderedHash(candidateRendered),
+        changedFiles,
+    };
+    if (warning !== undefined) status.warning = warning;
+    process.stdout.write(`${JSON.stringify(status)}\n`);
+} else if (olderTrackedLine) {
+    console.warn(`update-types: ${warning}`);
 } else {
-    for (const [path, contents] of changed) writeFileSync(path, contents);
-    console.log(
-        `Updated oidc-provider declaration mirrors: ${
-            changed.map(([path]) => path.slice(packageDirectory.length + 1)).join(", ")
-        }.`,
-    );
+    if (mode === "update" && !updateRequired) {
+        console.log("No declaration update is required for this oidc-provider release.");
+        process.exit(0);
+    }
+
+    const changed = [...exactOutputs].filter(([path, contents]) => readFileSync(path, "utf8") !== contents);
+    if (!changed.length) {
+        console.log("oidc-provider declaration mirrors are up to date.");
+    } else if (mode === "check") {
+        fail(
+            `declaration mirrors are not up to date: ${
+                changed.map(([path]) => path.slice(packageDirectory.length + 1)).join(", ")
+            }`,
+        );
+    } else {
+        for (const [path, contents] of changed) writeFileSync(path, contents);
+        console.log(
+            `Updated oidc-provider declaration mirrors: ${
+                changed.map(([path]) => path.slice(packageDirectory.length + 1)).join(", ")
+            }.`,
+        );
+    }
 }
