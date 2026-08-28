@@ -873,25 +873,57 @@ const context = Xrm.Utility.getGlobalContext();
 // $ExpectType Promise<{ [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }>
 const privilegePromise = context.userSettings.getSecurityRolePrivilegesInfo();
 
-// Test .then(successCallback, errorCallback)
-privilegePromise.then(
-    (result) => {
+privilegePromise.then(result => {
+    // $ExpectType { [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }
+    result;
+
+    Object.keys(result).forEach(privilegeId => {
+        const privilege = result[privilegeId];
+
+        // $ExpectType string
+        privilege.id;
+
+        // $ExpectType string
+        privilege.businessUnitId;
+
+        // $ExpectType string
+        privilege.privilegeName;
+
+        // $ExpectType number
+        privilege.depth;
+    });
+});
+
+// Test the successCallback and errorCallback parameter types.
+context.userSettings.getSecurityRolePrivilegesInfo(
+    result => {
         // $ExpectType { [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }
+        result;
+
         Object.keys(result).forEach(privilegeId => {
             const privilege = result[privilegeId];
+
             // $ExpectType string
             privilege.id;
+
             // $ExpectType string
             privilege.businessUnitId;
+
             // $ExpectType string
             privilege.privilegeName;
+
             // $ExpectType number
             privilege.depth;
         });
     },
-    (error) => {
+    error => {
         // $ExpectType { errorCode: number; message: string }
+        error;
+
+        // $ExpectType number
         error.errorCode;
+
+        // $ExpectType string
         error.message;
     },
 );
