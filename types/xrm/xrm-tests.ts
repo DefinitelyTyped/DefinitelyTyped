@@ -865,3 +865,33 @@ Xrm.WebApi.offline.isAvailableOffline(12345);
 // Should error with extra parameters
 // @ts-expect-error
 Xrm.WebApi.offline.isAvailableOffline("account", "extra");
+
+// Demonstrate userSettings.getSecurityRolePrivilegesInfo().then(successCallback, errorCallback)
+
+const context = Xrm.Utility.getGlobalContext();
+
+// $ExpectType Promise<{ [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }>
+const privilegePromise = context.userSettings.getSecurityRolePrivilegesInfo();
+
+// Test .then(successCallback, errorCallback)
+privilegePromise.then(
+    (result) => {
+        // $ExpectType { [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }
+        Object.keys(result).forEach(privilegeId => {
+            const privilege = result[privilegeId];
+            // $ExpectType string
+            privilege.id;
+            // $ExpectType string
+            privilege.businessUnitId;
+            // $ExpectType string
+            privilege.privilegeName;
+            // $ExpectType number
+            privilege.depth;
+        });
+    },
+    (error) => {
+        // $ExpectType { errorCode: number; message: string }
+        error.errorCode;
+        error.message;
+    },
+);

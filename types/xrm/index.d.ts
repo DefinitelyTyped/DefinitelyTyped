@@ -321,6 +321,24 @@ declare namespace Xrm {
          * Returns the difference in minutes between the local time and Coordinated Universal Time (UTC).
          */
         getTimeZoneOffsetMinutes(): number;
+        /**
+         * Returns a promise resolving to an object whose properties are the privilege GUIDs and whose values are privilege info objects for each security role privilege assigned to the user.
+         * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-utility/getglobalcontext/usersettings#getsecurityroleprivilegesinfo-method Microsoft Docs: getSecurityRolePrivilegesInfo}
+         *
+         * @param successCallback Optional. A callback function to execute when the operation is successful.
+         * @param errorCallback Optional. A callback function to execute if the operation fails.
+         * @returns A promise that resolves to a dictionary where each key is a privilege GUID and value is an object with privilege details.
+         */
+        getSecurityRolePrivilegesInfo(
+            successCallback?: (
+                result: {
+                    [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number };
+                },
+            ) => void,
+            errorCallback?: (error: { errorCode: number; message: string }) => void,
+        ): Promise<
+            { [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }
+        >;
     }
 
     /**
