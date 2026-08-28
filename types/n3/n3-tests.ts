@@ -628,5 +628,10 @@ function test_base_iri_constructor() {
     const relative1: string = baseIri.toRelative("http://example.org/path/resource");
 }
 
+function test_term_from_id_optional_factory() {
+    // factory defaults to N3's own DataFactory
+    const t1: N3.Term = N3.termFromId("http://example.org/");
+}
+
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
 export const df: RDF.DataFactory = N3.DataFactory;
