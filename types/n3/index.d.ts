@@ -394,4 +394,4 @@ export namespace Util {
 }
 
 export function termToId(term: Term): string;
-export function termFromId(id: string, factory: RDF.DataFactory): Term;
+export function termFromId(id: string, factory?: RDF.DataFactory): Term;
