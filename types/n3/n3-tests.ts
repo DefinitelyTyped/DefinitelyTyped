@@ -633,5 +633,10 @@ function test_term_from_id_optional_factory() {
     const t1: N3.Term = N3.termFromId("http://example.org/");
 }
 
+function test_get_rules_from_dataset() {
+    const store = new N3.Store();
+    const rules: N3.Rule[] = N3.getRulesFromDataset(store);
+}
+
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
 export const df: RDF.DataFactory = N3.DataFactory;
