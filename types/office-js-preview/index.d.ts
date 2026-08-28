@@ -9253,7 +9253,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Applications**: Excel, Outlook (Minimum requirement set: Mailbox 1.5), PowerPoint, Word
+         * **Applications**: Excel, Outlook (Minimum requirement set: Mailbox 1.5), PowerPoint
          *
          * **Requirement sets**:
          *
