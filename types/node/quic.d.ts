@@ -1,10 +1,10 @@
 declare module "node:quic" {
     import { NonSharedBuffer } from "node:buffer";
-    import { KeyObject } from "node:crypto";
+    import { KeyObject, X509Certificate } from "node:crypto";
     import { FileHandle } from "node:fs/promises";
-    import { SocketAddress } from "node:net";
+    import { BlockList, SocketAddress } from "node:net";
     import { Writer } from "node:stream/iter";
-    import { EphemeralKeyInfo, PeerCertificate } from "node:tls";
+    import { EphemeralKeyInfo } from "node:tls";
     /**
      * @since v23.8.0
      */
@@ -25,6 +25,10 @@ declare module "node:quic" {
         id: bigint,
         status: "acknowledged" | "lost" | "abandoned",
     ) => void;
+    /**
+     * @since v23.8.0
+     */
+    type OnApplicationCallback = (this: QuicSession, applicationoptions: SessionApplicationOptions) => void;
     /**
      * @since v23.8.0
      */
@@ -192,34 +196,40 @@ declare module "node:quic" {
          */
         authoritative?: boolean | undefined;
     }
+    /**
+     * @since v26.3.0
+     */
     interface ApplicationOptions {
         /**
-         * Maximum number of header name-value pairs accepted per header block. Headers beyond this limit are silently
-         * dropped. **Default:** `128`
+         * Maximum number of header name-value pairs accepted per header block.
+         * Headers beyond this limit are silently dropped. **Default:** `128`
          */
-        maxHeaderPairs?: number | undefined;
+        maxHeaderPairs?: bigint | number | undefined;
         /**
-         * Maximum total byte length of all header names and values combined per header block. Headers that would push
-         * the total over this limit are silently dropped. **Default:** `8192`
+         * Maximum total byte length of all header names and values combined per header
+         * block. Headers that would push the total over this limit are silently
+         * dropped. **Default:** `8192`
          */
-        maxHeaderLength?: number | undefined;
+        maxHeaderLength?: bigint | number | undefined;
         /**
-         * Maximum size of a compressed header field section (QPACK). `0` means unlimited. **Default:** `0`
+         * Maximum size of a compressed header field section (QPACK). `0` means
+         * unlimited. **Default:** `0`
          */
-        maxFieldSectionSize?: number | undefined;
+        maxFieldSectionSize?: bigint | number | undefined;
         /**
-         * QPACK dynamic table capacity in bytes. Set to `0` to disable the dynamic table. **Default:** `4096`
+         * QPACK dynamic table capacity in bytes. Set to `0` to disable the dynamic
+         * table. **Default:** `4096`
          */
-        qpackMaxDTableCapacity?: number | undefined;
+        qpackMaxDTableCapacity?: bigint | number | undefined;
         /**
          * QPACK encoder maximum dynamic table capacity. **Default:** `4096`
          */
-        qpackEncoderMaxDTableCapacity?: number | undefined;
+        qpackEncoderMaxDTableCapacity?: bigint | number | undefined;
         /**
-         * Maximum number of streams that can be blocked waiting for QPACK dynamic table updates.
-         * **Default:** `100`
+         * Maximum number of streams that can e blocked waiting for QPACK dynamic table
+         * updates. **Default:** `100`
          */
-        qpackBlockedStreams?: number | undefined;
+        qpackBlockedStreams?: bigint | number | undefined;
         /**
          * Enable the extended CONNECT protocol (RFC 9220). **Default:** `false`
          */
@@ -229,6 +239,7 @@ declare module "node:quic" {
          */
         enableDatagrams?: boolean | undefined;
     }
+    type SessionApplicationOptions = { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
     /**
      * @since v23.8.0
      */
@@ -256,8 +267,7 @@ declare module "node:quic" {
          */
         alpn?: string | readonly string[] | undefined;
         /**
-         * HTTP/3 application-specific options. These only apply when the negotiated
-         * ALPN selects the HTTP/3 application (`'h3'`).
+         * Application-specific options.
          * @since v26.2.0
          */
         application?: ApplicationOptions | undefined;
@@ -342,7 +352,12 @@ declare module "node:quic" {
         minVersion?: number | undefined;
         /**
          * When the remote peer advertises a preferred address, this option specifies whether
-         * to use it or ignore it.
+         * to use it or ignore it. The default is `'ignore'` because honoring a server's
+         * preferred address causes the client to migrate its connection to a different IP
+         * address, which can be exploited for data exfiltration attacks that are
+         * indistinguishable from legitimate QUIC connection migration at the network level.
+         * Set to `'use'` only when connecting to trusted servers that require preferred
+         * address migration.
          * @since v23.8.0
          */
         preferredAddressPolicy?: "use" | "ignore" | "default" | undefined;
@@ -371,6 +386,21 @@ declare module "node:quic" {
          */
         datagramDropPolicy?: "drop-oldest" | "drop-newest" | undefined;
         /**
+         * The maximum time in milliseconds that a peer-initiated stream can be idle
+         * (no data received) before it is automatically destroyed. This protects
+         * against slowloris-style attacks where a remote peer opens streams but never
+         * sends data, holding server resources indefinitely. Only peer-initiated
+         * streams are checked — locally-initiated streams are the application's
+         * responsibility. Set to `0` to disable.
+         *
+         * The idle check runs as part of the normal send processing loop, so it adds
+         * no additional timers or event loop overhead. The
+         * `session.stats.streamsIdleTimedOut` counter tracks how many streams have been
+         * destroyed by this mechanism.
+         * @since v26.3.0
+         */
+        streamIdleTimeout?: bigint | number | undefined;
+        /**
          * The maximum number of `SendPendingData` cycles a datagram can survive
          * without being sent before it is abandoned. When a datagram cannot be
          * sent due to congestion control or packet size constraints, it remains
@@ -397,6 +427,30 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         handshakeTimeout?: bigint | number | undefined;
+        /**
+         * Controls how the client handles server certificate validation:
+         *
+         * * `'strict'` — OpenSSL aborts the TLS handshake immediately if the server's
+         *   certificate fails validation. The `session.opened` promise rejects with a
+         *   TLS error. The application cannot inspect the certificate or the error
+         *   details. This is the most secure mode.
+         *
+         * * `'auto'` — The TLS handshake completes regardless of validation result.
+         *   If validation fails, the `session.opened` promise is rejected with an error
+         *   containing the validation reason, and the session is destroyed. The
+         *   `onhandshake` callback (if set) fires before rejection, allowing diagnostic
+         *   logging. This is the default and matches the behavior of `tls.connect()`
+         *   with `rejectUnauthorized: true`.
+         *
+         * * `'manual'` — The TLS handshake completes regardless of validation result.
+         *   The `session.opened` promise resolves with the handshake info, which includes
+         *   `validationErrorReason` and `validationErrorCode` if validation failed. The
+         *   application is responsible for checking these values and deciding whether to
+         *   continue. Use this mode for custom validation logic, certificate pinning, or
+         *   intentionally accepting self-signed certificates.
+         * @since v26.3.0
+         */
+        verifyPeer?: "strict" | "auto" | "manual" | undefined;
         /**
          * The peer server name to target (SNI). Defaults to `'localhost'`.
          * @since v26.1.0
@@ -490,6 +544,7 @@ declare module "node:quic" {
         ongoaway?: QuicSession["ongoaway"] | undefined;
         onkeylog?: QuicSession["onkeylog"] | undefined;
         onqlog?: QuicSession["onqlog"] | undefined;
+        onapplication?: QuicSession["onapplication"] | undefined;
         onheaders?: QuicStream["onheaders"] | undefined;
         ontrailers?: QuicStream["ontrailers"] | undefined;
         oninfo?: QuicStream["oninfo"] | undefined;
@@ -559,6 +614,20 @@ declare module "node:quic" {
      * @since v23.8.0
      */
     function listen(onsession: OnSessionCallback, options?: SessionOptions): Promise<QuicEndpoint>;
+    interface ListEndpointsOptions {
+        /**
+         * If `true` (the default), only returns endpoints that are
+         * active (not destroyed, not closing, and not busy). If `false` returns all
+         * endpoints.
+         */
+        active?: boolean | undefined;
+    }
+    /**
+     * Returns the list of all `QuicEndpoint` instances. By default, only active
+     * endpoints are returned.
+     * @since v26.4.0
+     */
+    function listEndpoints(options?: ListEndpointsOptions): QuicEndpoint[];
     /**
      * The endpoint configuration options passed when constructing a new `QuicEndpoint` instance.
      * @since v23.8.0
@@ -569,6 +638,31 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         address?: SocketAddress | string | undefined;
+        /**
+         * An optional `net.BlockList` instance for filtering incoming packets by
+         * source address. When configured, every received UDP packet is checked against
+         * the block list before any QUIC processing occurs, minimizing resource
+         * expenditure on blocked sources. The block list is evaluated live — rules
+         * added to the `BlockList` object after the endpoint is created take effect
+         * immediately.
+         *
+         * See `endpointOptions.blockListPolicy` for how matches are interpreted.
+         * @since v26.3.0
+         */
+        blockList?: BlockList | undefined;
+        /**
+         * Controls how the `endpointOptions.blockList` is interpreted:
+         *
+         * * `'deny'` — Packets from addresses matching the block list are dropped.
+         *   All other addresses are accepted. This is the typical blocklist mode.
+         * * `'allow'` — Only packets from addresses matching the block list are
+         *   accepted. All other addresses are dropped. This is an allowlist mode
+         *   for restricting access to known clients.
+         *
+         * If no block list is configured, this option has no effect.
+         * @since v26.3.0
+         */
+        blockListPolicy?: "deny" | "allow" | undefined;
         /**
          * The endpoint maintains an internal cache of validated socket addresses as a
          * performance optimization. This option sets the maximum number of addresses
@@ -625,15 +719,69 @@ declare module "node:quic" {
          */
         maxConnectionsTotal?: number | undefined;
         /**
-         * Specifies the maximum number of QUIC retry attempts allowed per remote peer address.
-         * @since v23.8.0
+         * The maximum number of QUIC retry packets the endpoint will send per second.
+         * This is a global rate limit (not per-host) that caps the total server-wide
+         * retry response rate, preventing spoofed-source floods from consuming unbounded
+         * resources.
+         * @since v26.3.0
          */
-        maxRetries?: bigint | number | undefined;
+        retryRate?: number | undefined;
         /**
-         * Specifies the maximum number of stateless resets that are allowed per remote peer address.
-         * @since v23.8.0
+         * The maximum burst of retry packets allowed before rate limiting takes effect.
+         * @since v26.3.0
          */
-        maxStatelessResetsPerHost?: bigint | number | undefined;
+        retryBurst?: number | undefined;
+        /**
+         * The maximum number of stateless reset packets the endpoint will send per second.
+         * @since v26.3.0
+         */
+        statelessResetRate?: number | undefined;
+        /**
+         * The maximum burst of stateless reset packets allowed before rate limiting
+         * takes effect.
+         * @since v26.3.0
+         */
+        statelessResetBurst?: number | undefined;
+        /**
+         * The maximum number of version negotiation packets the endpoint will send per
+         * second.
+         * @since v26.3.0
+         */
+        versionNegotiationRate?: number | undefined;
+        /**
+         * The maximum number of immediate connection close packets the endpoint will
+         * send per second.
+         * @since v26.3.0
+         */
+        versionNegotiationBurst?: number | undefined;
+        /**
+         * The maximum number of immediate connection close packets the endpoint will
+         * send per second.
+         * @since v26.3.0
+         */
+        immediateCloseRate?: number | undefined;
+        /**
+         * The maximum burst of immediate connection close packets allowed before rate
+         * limiting takes effect.
+         * @since v26.3.0
+         */
+        immediateCloseBurst?: number | undefined;
+        /**
+         * The maximum number of new sessions that a single remote address can create per
+         * second. This is a per-host rate limit tracked in the address validation LRU
+         * cache. It prevents a validated remote address from churning through sessions
+         * (rapidly opening and abandoning connections) faster than the server can handle.
+         * For benchmarking where traffic comes from a single source, set this to a high
+         * value.
+         * @since v26.3.0
+         */
+        sessionCreationRate?: number | undefined;
+        /**
+         * The maximum burst of new session creations allowed from a single remote address
+         * before rate limiting takes effect.
+         * @since v26.3.0
+         */
+        sessionCreationBurst?: number | undefined;
         /**
          * Specifies the length of time a QUIC retry token is considered valid.
          * @since v23.8.0
@@ -846,25 +994,66 @@ declare module "node:quic" {
              */
             readonly serverBusyCount: bigint;
             /**
-             * The total number of QUIC retry attempts on this endpoint. Read only.
+             * The total number of retry packets sent by this endpoint. Read only.
              * @since v23.8.0
              */
             readonly retryCount: bigint;
             /**
-             * The total number of sessions rejected due to QUIC version mismatch. Read only.
+             * The total number of retry packets dropped by the global rate
+             * limiter. Read only. A non-zero value indicates the endpoint is under retry
+             * flood pressure.
+             * @since v26.3.0
+             */
+            readonly retryRateLimited: bigint;
+            /**
+             * The total number of version negotiation packets sent by this
+             * endpoint. Read only.
              * @since v23.8.0
              */
             readonly versionNegotiationCount: bigint;
             /**
-             * The total number of stateless resets handled by this endpoint. Read only.
+             * The total number of version negotiation packets dropped by
+             * the global rate limiter. Read only.
+             * @since v26.3.0
+             */
+            readonly versionNegotiationRateLimited: bigint;
+            /**
+             * The total number of stateless reset packets sent by this
+             * endpoint. Read only.
              * @since v23.8.0
              */
             readonly statelessResetCount: bigint;
             /**
-             * The total number of sessions that were closed before handshake completed. Read only.
+             * The total number of stateless reset packets dropped by the
+             * global rate limiter. Read only.
+             * @since v26.3.0
+             */
+            readonly statelessResetRateLimited: bigint;
+            /**
+             * The total number of immediate connection close packets sent
+             * by this endpoint. Read only.
              * @since v23.8.0
              */
             readonly immediateCloseCount: bigint;
+            /**
+             * The total number of immediate connection close packets
+             * dropped by the global rate limiter. Read only.
+             * @since v26.3.0
+             */
+            readonly immediateCloseRateLimited: bigint;
+            /**
+             * The total number of session creation attempts dropped by the
+             * per-host rate limiter. Read only. A non-zero value indicates one or more
+             * remote addresses are creating sessions faster than the configured rate allows.
+             * @since v26.3.0
+             */
+            readonly sessionCreationRateLimited: bigint;
+            /**
+             * The total number of incoming packets dropped by the
+             * block list filter. Read only.
+             * @since v26.3.0
+             */
+            readonly packetsBlocked: bigint;
         }
     }
     interface CreateStreamOptions {
@@ -998,6 +1187,13 @@ declare module "node:quic" {
     class QuicSession implements AsyncDisposable {
         private constructor();
         /**
+         * The current application-level options for this session. These include settings
+         * that are specific to the negotiated application protocol (e.g. HTTP/3) and may
+         * be negotiated separately from the transport parameters. Read only.
+         * @since v26.3.0
+         */
+        readonly applicationOptions: SessionApplicationOptions;
+        /**
          * Initiate a graceful close of the session. Existing streams will be allowed
          * to complete but no new streams will be opened. Once all streams have closed,
          * the session will be destroyed. The returned promise will be fulfilled once
@@ -1050,6 +1246,11 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         readonly endpoint: QuicEndpoint | null;
+        /**
+         * The callback to invoke when new application options, e.g. HTTP/3 settings arrived.
+         * @since v26.4
+         */
+        onapplication: OnApplicationCallback | undefined;
         /**
          * An optional callback invoked when the session is destroyed with an error.
          * This includes errors caused by user callbacks that throw or reject (see
@@ -1236,19 +1437,20 @@ declare module "node:quic" {
             encoding?: BufferEncoding,
         ): Promise<bigint>;
         /**
-         * The local certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or no certificate is available.
+         * The local certificate as a `crypto.X509Certificate` instance. Server
+         * sessions return the certificate configured for the negotiated SNI host.
+         * Client sessions return `undefined` unless a client certificate was sent.
+         * Returns `undefined` if the session is destroyed.
          * @since v26.2.0
          */
-        readonly certificate: PeerCertificate | undefined;
+        readonly certificate: X509Certificate | undefined;
         /**
-         * The peer's certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or the peer did not present a certificate.
+         * The peer's certificate as a `crypto.X509Certificate` instance. Returns
+         * `undefined` if the peer did not present a certificate or the session is
+         * destroyed.
          * @since v26.2.0
          */
-        readonly peerCertificate: PeerCertificate | undefined;
+        readonly peerCertificate: X509Certificate | undefined;
         /**
          * The ephemeral key information for the session, with properties such as
          * `type`, `name`, and `size`. Only available on client sessions. Returns
@@ -1395,6 +1597,12 @@ declare module "node:quic" {
              * @since v23.8.0
              */
             readonly datagramsLost: bigint;
+            /**
+             * The total number of peer-initiated streams destroyed by the
+             * stream idle timeout. Read only.
+             * @since v26.3.0
+             */
+            readonly streamsIdleTimedOut: bigint;
         }
     }
     interface QuicErrorOptions {

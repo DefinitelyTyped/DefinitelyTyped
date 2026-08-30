@@ -433,7 +433,7 @@ declare module "node:http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
@@ -548,7 +548,7 @@ declare module "node:http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
@@ -840,9 +840,12 @@ declare module "node:http2" {
          * HTTP/2 request to the connected server.
          *
          * When a `ClientHttp2Session` is first created, the socket may not yet be
-         * connected. if `clienthttp2session.request()` is called during this time, the
+         * connected. If `clienthttp2session.request()` is called during this time, the
          * actual request will be deferred until the socket is ready to go.
-         * If the `session` is closed before the actual request be executed, an `ERR_HTTP2_GOAWAY_SESSION` is thrown.
+         *
+         * If the session becomes unavailable before the request can be created, the
+         * returned stream will emit `ERR_HTTP2_GOAWAY_SESSION` or
+         * `ERR_HTTP2_INVALID_SESSION` asynchronously.
          *
          * This method is only available if `http2session.type` is equal to `http2.constants.NGHTTP2_SESSION_CLIENT`.
          *
@@ -1166,6 +1169,11 @@ declare module "node:http2" {
          * @default 128
          */
         maxHeaderListPairs?: number | undefined;
+        /**
+         * Sets the maximum number of uniq origin the sever
+         * can send via ORIGIN frames. **Default:** `128`.
+         */
+        maxOriginSetSize?: number | undefined;
         /**
          * Sets the maximum number of outstanding, unacknowledged pings.
          * @default 10

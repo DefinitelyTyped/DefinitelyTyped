@@ -2022,6 +2022,22 @@ declare namespace googletag {
          */
         interface AutoRefreshConfig {
             /**
+             * Whether GPT will automatically refresh an ad slot when the page is restored
+             * from the back/forward cache. Defaults to `true`.
+             *
+             * @example
+             *   // Set the auto refresh configuration, disabling auto refresh on
+             *   // back/forward cache restore.
+             *   googletag.setConfig({autoRefresh: {backForwardCache: false}});
+             *
+             *   // Clear the auto refresh configuration, restoring to default behavior.
+             *   googletag.setConfig({autoRefresh: null});
+             *
+             * @see [Back/forward cache](https://web.dev/articles/bfcache)
+             */
+            backForwardCache?: boolean;
+
+            /**
              * Whether GPT will automatically refresh an ad slot if Chrome's Heavy Ad
              * Intervention triggers on the slot's ad iframe. Defaults to `true`.
              *

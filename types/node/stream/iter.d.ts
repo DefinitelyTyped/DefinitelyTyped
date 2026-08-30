@@ -271,8 +271,8 @@ declare module "node:stream/iter" {
      *
      * If the object implements the `toAsyncStreamable` protocol (as
      * `stream.Readable` does), that protocol is used. Otherwise, the function
-     * duck-types on `read()` and `on()` (EventEmitter) and wraps the stream with
-     * a batched async iterator.
+     * duck-types on `read()`, `on()`, and `off()` (EventEmitter) and wraps the
+     * stream with a batched async iterator.
      *
      * The result is cached per instance -- calling `fromReadable()` twice with the
      * same stream returns the same iterable.
@@ -294,7 +294,7 @@ declare module "node:stream/iter" {
      * @since v26.1.0
      * @experimental
      * @param readable A classic Readable stream or any object
-     * with `read()` and `on()` methods.
+     * with `read()`, `on()` and `off()` methods.
      * @returns A stream/iter async iterable source.
      */
     function fromReadable(readable: NodeJS.ReadableStream): ByteReadableStream;
@@ -389,7 +389,7 @@ declare module "node:stream/iter" {
      *
      * Each `_write()` / `_writev()` call attempts the Writer's synchronous method
      * first (`writeSync` / `writevSync`), falling back to the async method if the
-     * sync path returns `false` or throws. Similarly, `_final()` tries `endSync()`
+     * sync path returns `false`. Similarly, `_final()` tries `endSync()`
      * before `end()`. When the sync path succeeds, the callback is deferred via
      * `queueMicrotask` to preserve the async resolution contract.
      *

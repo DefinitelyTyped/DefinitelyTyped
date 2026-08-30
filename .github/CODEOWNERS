@@ -721,7 +721,7 @@
 /types/byline/                                          @reppners
 /types/byte-range/                                      @BendingBender
 /types/byte-size/                                       @lntel
-/types/bytes/                                           @danny8002 @believer @ffflorian
+/types/bytes/                                           @danny8002 @believer @ffflorian @semihgemi
 /types/bytewise/                                        @danwbyrne
 /types/c-struct/                                        @benallfree
 /types/c3/                                              @mcliment @gerinjacob @denyo @dmitryshindin @timn @iansan5653
@@ -2030,7 +2030,6 @@
 /types/falcor-json-graph/                               @Quramy @lukerielley
 /types/falcor-router/                                   @Quramy @cdhgee @lukerielley
 /types/famous/                                          @borisvasilenko
-/types/fancade-editor/                                  @brckd
 /types/fancy-log/                                       @pine
 /types/fancybox/                                        @borisyankov @SPWizard01
 /types/farbtastic/                                      @EnableSoftware
@@ -3239,7 +3238,6 @@
 /types/html-to-pdfmake/                                 @me @cwoebker
 /types/html-to-rtf/                                     @bricka
 /types/html-to-text/                                    @erykwarren @CarsonF @webstech
-/types/html-webpack-plugin/                             @deevus @bumbleblym @tlaziuk
 /types/html-webpack-template/                           @bumbleblym
 /types/html2json/                                       @YEK-PLUS
 /types/html2pdf.js/                                     @Mutesa-Cedric
@@ -3929,7 +3927,7 @@
 /types/jwt-then/                                        @phenomax
 /types/jxon/                                            @maxbogus
 /types/k-bucket/                                        @tomonari-t
-/types/k6/                                              @MStoykov @codebien @oleiade @ankur22 @inancgumus @joanlopez @AgnesToulet @szkiba
+/types/k6/                                              @MStoykov @codebien @oleiade @ankur22 @inancgumus @joanlopez @AgnesToulet @szkiba @janHildebrandt98
 /types/kafka-node-avro/                                 @alfamegaxq
 /types/kafkajs-snappy/                                  @matteodisabatino
 /types/kahoot.js-updated/                               @MysteryBlokHed

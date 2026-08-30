@@ -1,8 +1,8 @@
 import vex = require("vex-js");
 
 var vexContent = vex.open({
-    afterClose: (() => null),
-    afterOpen: ((vexContent: JQuery) => null),
+    afterClose: () => null,
+    afterOpen: (vexContent: JQuery) => null,
     content: "<div><p>Modal</p></div>",
     showCloseButton: false,
     escapeButtonCloses: true,

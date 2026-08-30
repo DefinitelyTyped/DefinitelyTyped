@@ -103,3 +103,25 @@ function bigintDtype(arr: ndarray.NdArray<ndarray.Data<bigint>>): "generic" | "a
 function stringDtype(arr: ndarray.NdArray<ndarray.Data<string>>): "generic" | "array" {
     return arr.dtype;
 }
+
+// TypeScript's float16 lib is `esnext.float16` in 5.8/5.9 and `es2025.float16`
+// in 6.0, and absent before 5.8, so no `/// <reference lib="..." />` covers
+// every version dtslint checks. Declaring the global exercises
+// MaybeFloat16Array on all of them; this package's tsconfig never loads a
+// float16 lib, so there is nothing to conflict with.
+declare global {
+    interface Float16Array {
+        readonly length: number;
+        [index: number]: number;
+    }
+    var Float16Array: {
+        prototype: Float16Array;
+        new(values: readonly number[]): Float16Array;
+        from(values: readonly number[]): Float16Array;
+    };
+}
+
+function float16Dtype(arr: ndarray.NdArray<ndarray.MaybeFloat16Array>): "float16" {
+    return arr.dtype;
+}
+console.log(float16Dtype(ndarray(Float16Array.from([1.5, -2.5]), [2])));

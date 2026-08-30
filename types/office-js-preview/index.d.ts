@@ -9253,7 +9253,7 @@ declare namespace Office {
          *
          * @remarks
          *
-         * **Applications**: Excel, Outlook (Minimum requirement set: Mailbox 1.5), PowerPoint, Word
+         * **Applications**: Excel, Outlook (Minimum requirement set: Mailbox 1.5), PowerPoint
          *
          * **Requirement sets**:
          *
@@ -11703,8 +11703,13 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
          *
-         * **Important**: In Outlook on the web and the new Outlook on Windows, users can select the **Upload and share** option to upload an attachment to OneDrive and
+         * **Important**:
+         *
+         * - In Outlook on the web and the new Outlook on Windows, users can select the **Upload and share** option to upload an attachment to OneDrive and
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
+         *
+         * - For attachments of type `Office.MailboxEnums.AttachmentType.Item`, the size and serialized content returned by `getAttachmentsAsync` might differ between calls
+         * made from an `OnMessageSend` or `OnAppointmentSend` event handler. To reliably detect attachment changes, handle the `OnMessageAttachmentsChanged` or `OnAppointmentAttachmentsChanged` event instead.
          *
          * @param options - An object literal that contains one or more of the following properties:-
          *        `asyncContext`: Developers can provide any object they wish to access in the callback function.
@@ -11723,8 +11728,13 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Appointment Organizer
          *
-         * **Important**: In Outlook on the web and the new Outlook on Windows, users can select the **Upload and share** option to upload an attachment to OneDrive and
+         * **Important**:
+         *
+         * - In Outlook on the web and the new Outlook on Windows, users can select the **Upload and share** option to upload an attachment to OneDrive and
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
+         *
+         * - For attachments of type `Office.MailboxEnums.AttachmentType.Item`, the size and serialized content returned by `getAttachmentsAsync` might differ between calls
+         * made from an `OnMessageSend` or `OnAppointmentSend` event handler. To reliably detect attachment changes, handle the `OnMessageAttachmentsChanged` or `OnAppointmentAttachmentsChanged` event instead.
          *
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for
@@ -14696,6 +14706,8 @@ declare namespace Office {
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
          *
+         * **Important**: In classic Outlook on Windows, custom properties saved to a mail item in read mode remain accessible while the item is being forwarded.
+         *
          * @param name - The name of the custom property to be returned.
          */
         get(name: string): any;
@@ -14716,6 +14728,8 @@ declare namespace Office {
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level}**: **read item**
          *
          * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose or Read
+         *
+         * **Important**: In classic Outlook on Windows, custom properties saved to a mail item in read mode remain accessible while the item is being forwarded.
          */
         getAll(): any;
         /**
@@ -20683,6 +20697,9 @@ declare namespace Office {
          * - In Outlook on the web and the new Outlook on Windows, users can select the **Upload and share** option to upload an attachment to OneDrive and
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
          *
+         * - For attachments of type `Office.MailboxEnums.AttachmentType.Item`, the size and serialized content returned by `getAttachmentsAsync` might differ between calls
+         * made from an `OnMessageSend` or `OnAppointmentSend` event handler. To reliably detect attachment changes, handle the `OnMessageAttachmentsChanged` or `OnAppointmentAttachmentsChanged` event instead.
+         *
          * @param options - An object literal that contains one or more of the following properties:-
          *        `asyncContext`: Developers can provide any object they wish to access in the callback function.
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
@@ -20710,6 +20727,9 @@ declare namespace Office {
          *
          * - In Outlook on the web and the new Outlook on Windows, users can select the **Upload and share** option to upload an attachment to OneDrive and
          * include a link to the file in the mail item. However, since only a link is included, `getAttachmentsAsync` doesn't return this attachment.
+         *
+         * - For attachments of type `Office.MailboxEnums.AttachmentType.Item`, the size and serialized content returned by `getAttachmentsAsync` might differ between calls
+         * made from an `OnMessageSend` or `OnAppointmentSend` event handler. To reliably detect attachment changes, handle the `OnMessageAttachmentsChanged` or `OnAppointmentAttachmentsChanged` event instead.
          *
          * @param callback - Optional. When the method completes, the function passed in the `callback` parameter is called with a single parameter of
          *                 type `Office.AsyncResult`. If the call fails, the `asyncResult.error` property will contain an error code with the reason for

@@ -1,0 +1,25 @@
+{
+    "private": true,
+    "name": "@types/jsvectormap",
+    "version": "1.7.9999",
+    "projects": [
+        "https://github.com/themustafaomar/jsvectormap"
+    ],
+    "exports": {
+        ".": {
+            "types": {
+                "import": "./index.d.ts",
+                "require": "./index.d.ts"
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/jsvectormap": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "one_222333",
+            "githubUsername": "bt-23"
+        }
+    ]
+}

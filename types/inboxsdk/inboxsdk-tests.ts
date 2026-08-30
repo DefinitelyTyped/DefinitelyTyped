@@ -644,7 +644,7 @@ InboxSDK.load(1, "1234").then((sdk: InboxSDK.InboxSDKInstance) => {
 InboxSDK.load(1, "1234").then((sdk: InboxSDK.InboxSDKInstance) => {
     const unregister = sdk.Toolbars.registerThreadButton({
         hasDropdown: true,
-        hideFor: (routeView => routeView.getParams()),
+        hideFor: routeView => routeView.getParams(),
         iconClass: "big",
         iconUrl: "http://url.com",
         keyboardShortcutHandle: {

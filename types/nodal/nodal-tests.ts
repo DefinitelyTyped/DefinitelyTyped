@@ -87,7 +87,7 @@ class AccessToken extends Nodal.Model {
                             new Date().valueOf(),
                         ),
                         token_type: "bearer",
-                        expires_at: (new Date(new Date().valueOf() + (30 * 24 * 60 * 60 * 1000))),
+                        expires_at: new Date(new Date().valueOf() + (30 * 24 * 60 * 60 * 1000)),
                         ip_address: params.ip_address,
                     }).save(callback);
                 });

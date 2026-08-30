@@ -3475,7 +3475,6 @@ declare module "node:crypto" {
      * ```
      * @since v24.7.0
      * @param algorithm Variant of Argon2, one of `"argon2d"`, `"argon2i"` or `"argon2id"`.
-     * @experimental
      */
     function argon2(
         algorithm: Argon2Algorithm,
@@ -3515,7 +3514,6 @@ declare module "node:crypto" {
      * console.log(derivedKey.toString('hex'));  // 'af91dad...9520f15'
      * ```
      * @since v24.7.0
-     * @experimental
      */
     function argon2Sync(algorithm: Argon2Algorithm, parameters: Argon2Parameters): NonSharedBuffer;
     /**
@@ -3742,7 +3740,7 @@ declare module "node:crypto" {
                 ciphertext: NodeJS.BufferSource,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             decrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
@@ -3774,7 +3772,7 @@ declare module "node:crypto" {
                 encapsulationKey: CryptoKey,
                 sharedKeyAlgorithm: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<EncapsulatedKey>;
             encrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
