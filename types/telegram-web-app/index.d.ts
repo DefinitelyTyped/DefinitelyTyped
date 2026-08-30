@@ -1353,6 +1353,11 @@ export interface WebAppInitData {
      * messages via the answerWebAppQuery method.
      */
     query_id?: string;
+    /**
+     * A unique identifier for the chat join request query, required for
+     * processing the query via the method {@link https://core.telegram.org/bots/api#answerchatjoinrequestquery|answerChatJoinRequestQuery}.
+     */
+    chat_join_request_query_id?: string;
     /** An object containing data about the current user. */
     user?: WebAppUser;
     /**
