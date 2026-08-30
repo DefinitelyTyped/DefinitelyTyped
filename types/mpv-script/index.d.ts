@@ -2669,7 +2669,7 @@ declare namespace mp {
         }
         | {
             name: "clock";
-            type: string;
+            type: `${number}:${number}`;
             readonly: true;
         };
 
