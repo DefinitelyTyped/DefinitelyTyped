@@ -1310,7 +1310,7 @@ declare namespace mp {
      * Nominal brand for return type of `mp.command_native_async`.
      * Just in case a random unknown is accidentally passed to `mp.abort_async_command`
      */
-    type AsyncCommandId = unknown & { __brand: "command_native_async" };
+    type AsyncCommandId = number & { __brand: "command_native_async" };
 
     /**
    * @see https://mpv.io/manual/stable/#command-interface-subprocess
