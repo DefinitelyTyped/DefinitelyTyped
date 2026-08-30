@@ -238,6 +238,13 @@ export namespace Tabs {
         groupId?: number;
 
         /**
+         * The ID of the Split View that the tab belongs to. $(ref:tabs.SPLIT_VIEW_ID_NONE) if the tab does not belong to a split
+         * view.
+         * Optional.
+         */
+        splitViewId?: number;
+
+        /**
          * The URL the tab is navigating to, before it has committed. This property is only present if the extension's manifest
          * includes the "tabs" permission and there is a pending navigation.
          * Optional.
@@ -466,6 +473,7 @@ export namespace Tabs {
         | "mutedInfo"
         | "pinned"
         | "sharingState"
+        | "splitViewId"
         | "status"
         | "title"
         | "url";
@@ -515,6 +523,12 @@ export namespace Tabs {
          * Optional.
          */
         frameId?: number;
+
+        /**
+         * Open a port to a specific document identified by <code>documentId</code> instead of all frames in the tab.
+         * Optional.
+         */
+        documentId?: string;
     }
 
     interface SendMessageOptionsType {
@@ -524,6 +538,12 @@ export namespace Tabs {
          * Optional.
          */
         frameId?: number;
+
+        /**
+         * Send a message to a specific document identified by <code>documentId</code> instead of all frames in the tab.
+         * Optional.
+         */
+        documentId?: string;
     }
 
     interface CreateCreatePropertiesType {
@@ -734,6 +754,13 @@ export namespace Tabs {
          * Optional.
          */
         groupId?: number;
+
+        /**
+         * The ID of the Split View that the tab belongs to. $(ref:tabs.SPLIT_VIEW_ID_NONE) if the tab does not belong to a split
+         * view.
+         * Optional.
+         */
+        splitViewId?: number;
 
         /**
          * True for any screen sharing, or a string to specify type of screen sharing.
@@ -960,6 +987,13 @@ export namespace Tabs {
          * Optional.
          */
         sharingState?: SharingState;
+
+        /**
+         * The ID of the Split View that the tab belongs to. $(ref:tabs.SPLIT_VIEW_ID_NONE) if the tab does not belong to a split
+         * view.
+         * Optional.
+         */
+        splitViewId?: number;
 
         /**
          * The status of the tab. Can be either <em>loading</em> or <em>complete</em>.
@@ -1475,5 +1509,10 @@ export namespace Tabs {
          * An ID which represents the absence of a browser tab.
          */
         TAB_ID_NONE: -1;
+
+        /**
+         * A value for use with splitViewId to represent that the tab is not a member of a Split View.
+         */
+        SPLIT_VIEW_ID_NONE: -1;
     }
 }

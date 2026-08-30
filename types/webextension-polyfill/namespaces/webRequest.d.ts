@@ -484,6 +484,18 @@ export namespace WebRequest {
         parentFrameId: number;
 
         /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * True for private browsing requests.
          * Optional.
          */
@@ -572,6 +584,18 @@ export namespace WebRequest {
          * ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
          */
         parentFrameId: number;
+
+        /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * True for private browsing requests.
@@ -664,6 +688,18 @@ export namespace WebRequest {
         parentFrameId: number;
 
         /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * True for private browsing requests.
          * Optional.
          */
@@ -752,6 +788,18 @@ export namespace WebRequest {
          * ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
          */
         parentFrameId: number;
+
+        /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * True for private browsing requests.
@@ -853,6 +901,18 @@ export namespace WebRequest {
          * ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
          */
         parentFrameId: number;
+
+        /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * True for private browsing requests.
@@ -977,6 +1037,18 @@ export namespace WebRequest {
         parentFrameId: number;
 
         /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * True for private browsing requests.
          * Optional.
          */
@@ -1087,6 +1159,18 @@ export namespace WebRequest {
          * ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
          */
         parentFrameId: number;
+
+        /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * True for private browsing requests.
@@ -1204,6 +1288,18 @@ export namespace WebRequest {
          * ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
          */
         parentFrameId: number;
+
+        /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * True for private browsing requests.
@@ -1325,6 +1421,18 @@ export namespace WebRequest {
          * ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists.
          */
         parentFrameId: number;
+
+        /**
+         * The UUID of the document making the request. This value is not present if the request is a navigation of a frame.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * True for private browsing requests.

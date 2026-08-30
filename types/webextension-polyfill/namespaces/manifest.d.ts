@@ -127,6 +127,11 @@ export namespace Manifest {
         /**
          * Optional.
          */
+        sandbox?: WebExtensionManifestSandboxType;
+
+        /**
+         * Optional.
+         */
         permissions?: PermissionOrOrigin[] | Permission[];
 
         /**
@@ -285,6 +290,7 @@ export namespace Manifest {
         | "idle"
         | "cookies"
         | "menus.overrideContext"
+        | "publicSuffix"
         | "scripting"
         | "search"
         | "tabGroups"
@@ -641,6 +647,21 @@ export namespace Manifest {
         properties?: ThemeExperimentPropertiesType;
     }
 
+    /**
+     * A CSS gradient that can be used as a theme background, in addition to image assets.
+     * The single property name selects the gradient function, and its value holds the gradient's arguments, e.g.
+     * `{ "linear-gradient": "to bottom, #FF6BBA, #FFC999" }`.
+     */
+    type ThemeCSSGradient =
+        | ThemeCSSGradientC1Type
+        | ThemeCSSGradientC2Type
+        | ThemeCSSGradientC3Type
+        | ThemeCSSGradientC4Type
+        | ThemeCSSGradientC5Type
+        | ThemeCSSGradientC6Type;
+
+    type ThemeBackground = ImageDataOrExtensionURL | ThemeCSSGradient;
+
     interface ThemeType {
         /**
          * Optional.
@@ -778,6 +799,19 @@ export namespace Manifest {
          * Optional.
          */
         sandbox?: string;
+    }
+
+    interface WebExtensionManifestSandboxType {
+        /**
+         * The list of pages in the form of globs to serve as sandboxed extension pages.
+         */
+        pages: string[];
+
+        /**
+         * The content security policy used for sandboxed extension pages.
+         * Optional.
+         */
+        content_security_policy?: string;
     }
 
     interface WebExtensionManifestWebAccessibleResourcesC2ItemType {
@@ -1068,16 +1102,40 @@ export namespace Manifest {
         [s: string]: unknown;
     }
 
+    interface ThemeCSSGradientC1Type {
+        "linear-gradient": string;
+    }
+
+    interface ThemeCSSGradientC2Type {
+        "radial-gradient": string;
+    }
+
+    interface ThemeCSSGradientC3Type {
+        "conic-gradient": string;
+    }
+
+    interface ThemeCSSGradientC4Type {
+        "repeating-linear-gradient": string;
+    }
+
+    interface ThemeCSSGradientC5Type {
+        "repeating-radial-gradient": string;
+    }
+
+    interface ThemeCSSGradientC6Type {
+        "repeating-conic-gradient": string;
+    }
+
     interface ThemeTypeImagesType {
         /**
          * Optional.
          */
-        additional_backgrounds?: ImageDataOrExtensionURL[];
+        additional_backgrounds?: ThemeBackground[];
 
         /**
          * Optional.
          */
-        theme_frame?: ImageDataOrExtensionURL;
+        theme_frame?: ThemeBackground;
     }
 
     interface ThemeTypeColorsType {
@@ -1278,6 +1336,8 @@ export namespace Manifest {
         toolbar_field_highlight_text?: ThemeColor;
     }
 
+    type ThemeTypePropertiesBackgroundsAreaEnum = "auto" | "window" | "top_toolbars";
+
     type ThemeTypePropertiesAdditionalBackgroundsAlignmentItemEnum =
         | "bottom"
         | "center"
@@ -1304,12 +1364,22 @@ export namespace Manifest {
         /**
          * Optional.
          */
+        backgrounds_area?: ThemeTypePropertiesBackgroundsAreaEnum;
+
+        /**
+         * Optional.
+         */
         additional_backgrounds_alignment?: ThemeTypePropertiesAdditionalBackgroundsAlignmentItemEnum[];
 
         /**
          * Optional.
          */
         additional_backgrounds_tiling?: ThemeTypePropertiesAdditionalBackgroundsTilingItemEnum[];
+
+        /**
+         * Optional.
+         */
+        additional_backgrounds_size?: string[];
 
         /**
          * Optional.
