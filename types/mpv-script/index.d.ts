@@ -2034,7 +2034,7 @@ declare namespace mp {
         }
         | {
             name: "chapter-metadata";
-            type: Record<"title" | (string & {}), string> | undefined;
+            type: Record<"title" | (string & {}), string | undefined> | undefined;
             readonly: true;
         }
         | {
@@ -7055,22 +7055,45 @@ declare namespace mp {
     // dprint-ignore
     type ToStringType<T, TWiden extends boolean = false> =
       | (GetBooleanString<T> & {}) // to expand the type on lsp hovering, it's safe here as `never & {}` is still never
-      | GetNumberString<T>
+      | GetNumberLiteralString<T>
       | GetLiteralString<T> extends infer L
       ? [L] extends [never]
-        ? string // if it has no string/number/boolean literal, anything else is string
-        : // if it has literal strings
-            | L
-            | (string extends T
-                ? TWiden extends true
-                  ? string & {} // reserve completions when widen string case exists
-                  : string // should still contain string because the original type has it!
-                : never)
-            | (Extract<T, object> extends never
-                ? never
-                : TWiden extends true
-                  ? string & {}  // reserve completions when object case exists
-                  : never)
+        ?
+          | (string extends T ? string : never)
+          | (number extends T ? `${number}` : never)
+          | (T extends any[] ? string : never)
+          | (T extends object ? string : never)
+        : // when L is not empty, we should widen the result conditionally to reserve completions from lsp:
+          | L
+          // if T has `string` or `string & {}` case, widen it anyway
+          // bidirectional checking is required here otherwise a random `object` case can trigger it.
+          | (T extends infer S
+              ? S extends string & {}
+                ? string & {} extends S
+                  ? string & {}
+                  : never
+                : never
+              : never)
+          // if T has `number` or `number & {}` case, widen it with `${number}` & {}
+          | (T extends infer N
+              ? N extends number & {}
+                ? number & {} extends N
+                  ? `${number}` & {}
+                  : never
+                : never
+              : never)
+          | (T extends any[] ? string & {} : never)
+          // For any case is subtype of `object` but not subtype of `string` and `number`, widen it.
+          // Excluding `number | string` is needed because things like `number & {}` is subtype of both `object` and `number` at the same time.
+          // Without the checking it can be evaluated unexpectedly for `number & {}` case
+          | (T extends infer O
+              ? O extends object
+                ? O extends string | number
+                  ? never
+                  : string & {} // if it's object but not string & {} and not number & {}, widen it
+                : never
+              : never)
+          | (TWiden extends true ? string & {} : never)
       : never;
 
     // mp.get_property can basically accept every property name so we should handle every case
@@ -7145,19 +7168,22 @@ declare namespace mp {
     /**
      * Get boolean cases and convert them to "yes" | "no"
      */
+    // WARN: GetBooleanString<any> returns "yes" | "no", but this is not a problem for now
     // dprint-ignore
-    type GetBooleanString<T> =
-      | (true extends T ? "yes" : never)
-      | (false extends T ? "no" : never);
+    type GetBooleanString<T> = T extends boolean
+      ? (true extends T ? "yes" : never) | (false extends T ? "no" : never)
+      : never;
 
     /**
-     * Get number cases and convert them to `${number}` or literal string
+     * Get number literal cases and convert them into string literals
      */
     // dprint-ignore
-    type GetNumberString<T> = T extends infer N
-      ? N extends number
-        ? `${N}`
-        : never
+    type GetNumberLiteralString<T> = T extends infer N
+      ? number extends N
+        ? never
+        : N extends number
+          ? `${N}`
+          : never
       : never;
 
     /**
