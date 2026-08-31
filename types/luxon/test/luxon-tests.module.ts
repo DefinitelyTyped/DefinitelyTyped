@@ -1103,11 +1103,12 @@ function Interval_isValidNarrowsFactoryResult() {
     interval.toISO(); // $ExpectType "Invalid Interval"
 }
 
-function Validity_helperTypes() {
-    const canBeInvalid: CanBeInvalid = true;
-    const valid = DateTime.now() as DateTime<Valid>;
-    const invalid = DateTime.fromISO("nope") as DateTime<Invalid>;
-    const maybeValid = DateTime.now() as DateTime<DefaultValidity>;
+function Validity_helperTypes(
+    canBeInvalid: CanBeInvalid,
+    valid: DateTime<Valid>,
+    invalid: DateTime<Invalid>,
+    maybeValid: DateTime<DefaultValidity>,
+) {
     const start: IfValid<DateTime<Valid>, null, DefaultValidity> = Interval.fromISO("2016-05-25/2016-05-27").start;
 
     canBeInvalid; // $ExpectType true
