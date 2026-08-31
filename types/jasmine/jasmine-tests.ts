@@ -1305,33 +1305,6 @@ describe("jasmine.any", () => {
     });
 });
 
-describe("DiffBuilder", () => {
-    it("records the actual and expected objects", () => {
-        const diffBuilder = jasmine.DiffBuilder();
-        diffBuilder.setRoots({ x: "actual" }, { x: "expected" });
-        diffBuilder.recordMismatch();
-
-        expect(diffBuilder.getMessage()).toEqual(
-            "Expected Object({ x: 'actual' }) to equal Object({ x: 'expected' }).",
-        );
-    });
-
-    it("allows customization of the message", () => {
-        const diffBuilder = jasmine.DiffBuilder();
-        diffBuilder.setRoots({ x: "bar" }, { x: "foo" });
-
-        function darthVaderFormatter(actual: any, expected: any, path: any) {
-            return `I find your lack of ${expected} disturbing. (was ${actual}, at ${path})`;
-        }
-
-        diffBuilder.withPath("x", () => {
-            diffBuilder.recordMismatch(darthVaderFormatter);
-        });
-
-        expect(diffBuilder.getMessage()).toEqual("I find your lack of foo disturbing. (was bar, at $.x)");
-    });
-});
-
 describe("custom asymmetry", () => {
     const tester: jasmine.AsymmetricMatcher<string> = {
         asymmetricMatch: (actual: string, matchersUtil: jasmine.MatchersUtil) => {
@@ -2541,70 +2514,6 @@ describe("Debug logging", function() {
         jasmine.debugLog("test");
     });
 });
-
-(() => {
-    // from boot.js
-    const env = jasmine.getEnv();
-
-    const htmlReporter = new jasmine.HtmlReporter();
-    env.addReporter(htmlReporter);
-
-    const specFilter = new jasmine.HtmlSpecFilter();
-    env.configure({
-        specFilter: spec => {
-            return specFilter.matches(spec.getFullName());
-        },
-    });
-
-    env.setSpecProperty("name", "value");
-    env.setSuiteProperty("other-name", null);
-
-    const currentWindowOnload = window.onload;
-    window.onload = () => {
-        if (currentWindowOnload) {
-            (currentWindowOnload as any)(null);
-        }
-        htmlReporter.initialize();
-        env.execute();
-    };
-
-    afterAll(() => {
-        const jsApiReporter: jasmine.JsApiReporter = (window as any).jsApiReporter;
-        const suites = jsApiReporter.suites();
-        const time = jsApiReporter.executionTime();
-
-        console.log("time", time);
-
-        for (const k in suites) {
-            const suite: jasmine.SuiteResult = suites[k];
-            console.log(suite);
-            console.log("id", suite.id);
-            console.log("description", suite.description);
-            console.log("fullName", suite.fullName);
-            console.log("filename", suite.filename);
-            console.log("fe", suite.failedExpectations);
-
-            for (const fe of suite.failedExpectations) {
-                console.log(">> matcherName:", fe.matcherName);
-                console.log(">> passed:", fe.passed);
-                console.log(">> expected:", fe.expected);
-                console.log(">> actual:", fe.actual);
-                console.log(">> message:", fe.message);
-                console.log(">> stack:", fe.stack);
-            }
-
-            console.log("dw", suite.deprecationWarnings);
-
-            for (const fe of suite.deprecationWarnings) {
-                console.log(">> message:", fe.message);
-            }
-
-            console.log("status", suite.status);
-            console.log("duraiton", suite.duration);
-            console.log("properties", suite.properties);
-        }
-    });
-})();
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 jasmine.MAX_PRETTY_PRINT_DEPTH = 40;

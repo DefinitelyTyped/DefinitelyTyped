@@ -377,10 +377,6 @@ declare namespace jasmine {
      * @returns {Clock}
      */
     function clock(): Clock;
-    /**
-     * @deprecated Private method that may be changed or removed in the future
-     */
-    function DiffBuilder(): DiffBuilder;
 
     /**
      * Formats a value for display, taking into account the current set of
@@ -734,16 +730,6 @@ declare namespace jasmine {
         message?: string | undefined;
     }
 
-    /**
-     * @deprecated Private type that may be changed or removed in the future
-     */
-    interface DiffBuilder {
-        setRoots(actual: any, expected: any): void;
-        recordMismatch(formatter?: (actual: any, expected: any, path?: any, prettyPrinter?: any) => string): void;
-        withPath(pathComponent: string, block: () => void): void;
-        getMessage(): string;
-    }
-
     interface MatchersUtil {
         equals(a: any, b: any): boolean;
         contains<T>(
@@ -801,14 +787,6 @@ declare namespace jasmine {
          * @since 2.0.0
          */
         topSuite(): Suite;
-    }
-
-    interface HtmlReporter {
-        new(): any;
-    }
-
-    interface HtmlSpecFilter {
-        new(): any;
     }
 
     interface Result {
@@ -1518,29 +1496,11 @@ declare namespace jasmine {
         extend(destination: any, source: any): any;
     }
 
-    interface JsApiReporter extends CustomReporter {
-        new(): any;
-
-        started: boolean;
-        finished: boolean;
-        runDetails: JasmineDoneInfo;
-
-        status(): string;
-        suiteResults(index: number, length: number): SuiteResult[];
-        specResults(index: number, length: number): SpecResult[];
-        suites(): { [id: string]: SuiteResult };
-        specs(): SpecResult[];
-        executionTime(): number;
-    }
-
     interface Jasmine {
         Spec: Spec;
         clock: Clock;
         util: Util;
     }
-
-    var HtmlReporter: HtmlReporter;
-    var HtmlSpecFilter: HtmlSpecFilter;
 
     /**
      * Default number of milliseconds Jasmine will wait for an asynchronous spec to complete.
