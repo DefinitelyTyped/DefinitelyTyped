@@ -244,6 +244,7 @@ function getGoogleRecurringPaymentDataConfiguration(): google.payments.api.Payme
         apiVersionMinor: 0,
         allowedPaymentMethods,
         merchantInfo: {
+            merchantId: "01234567890123456789",
             merchantName: "Example Merchant",
         },
         recurringTransactionInfo,
@@ -266,6 +267,7 @@ function getGoogleDeferredPaymentDataConfiguration(): google.payments.api.Paymen
         apiVersionMinor: 0,
         allowedPaymentMethods,
         merchantInfo: {
+            merchantId: "01234567890123456789",
             merchantName: "Example Merchant",
         },
         deferredTransactionInfo,
@@ -287,6 +289,7 @@ function getGoogleAutomaticReloadPaymentDataConfiguration(): google.payments.api
         apiVersionMinor: 0,
         allowedPaymentMethods,
         merchantInfo: {
+            merchantId: "01234567890123456789",
             merchantName: "Example Merchant",
         },
         automaticReloadTransactionInfo,
