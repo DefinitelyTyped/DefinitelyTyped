@@ -218,6 +218,81 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
     };
 }
 
+function getGoogleRecurringPaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
+    const recurringTransactionInfo: google.payments.api.RecurringTransactionInfo = {
+        currencyCode: "USD",
+        countryCode: "US",
+        immediateTotalPrice: "0.00",
+        recurrenceItems: [
+            {
+                label: "Monthly subscription",
+                priceStatus: "FINAL",
+                recurrencePeriod: "MONTH",
+                recurrencePeriodCount: 1,
+                price: "9.99",
+            },
+        ],
+        introductoryPeriodInfo: {
+            introductoryPeriodEndDateTime: "2026-09-30T23:59:59Z",
+            label: "Free trial",
+            totalPrice: "0.00",
+        },
+    };
+
+    return {
+        apiVersion: 2,
+        apiVersionMinor: 0,
+        allowedPaymentMethods,
+        merchantInfo: {
+            merchantName: "Example Merchant",
+        },
+        recurringTransactionInfo,
+    };
+}
+
+function getGoogleDeferredPaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
+    const deferredTransactionInfo: google.payments.api.DeferredTransactionInfo = {
+        currencyCode: "USD",
+        countryCode: "US",
+        immediateTotalPrice: "0.00",
+        billingDateTime: "2026-09-30T23:59:59Z",
+        priceStatus: "FINAL",
+        label: "Pay later",
+        price: "49.99",
+    };
+
+    return {
+        apiVersion: 2,
+        apiVersionMinor: 0,
+        allowedPaymentMethods,
+        merchantInfo: {
+            merchantName: "Example Merchant",
+        },
+        deferredTransactionInfo,
+    };
+}
+
+function getGoogleAutomaticReloadPaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
+    const automaticReloadTransactionInfo: google.payments.api.AutomaticReloadTransactionInfo = {
+        currencyCode: "USD",
+        countryCode: "US",
+        immediateTotalPrice: "10.00",
+        minimumBalanceAmount: "5.00",
+        reloadAmount: "25.00",
+        label: "Transit card reload",
+    };
+
+    return {
+        apiVersion: 2,
+        apiVersionMinor: 0,
+        allowedPaymentMethods,
+        merchantInfo: {
+            merchantName: "Example Merchant",
+        },
+        automaticReloadTransactionInfo,
+    };
+}
+
 function prefetchGooglePaymentData() {
     const client = getGooglePaymentsClient();
     client.prefetchPaymentData(getGooglePaymentDataConfiguration());

@@ -78,9 +78,53 @@ declare namespace google.payments.api {
         /**
          * Detailed information about the transaction.
          *
-         * This field is required.
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
          */
-        transactionInfo: TransactionInfo;
+        transactionInfo?: TransactionInfo | undefined;
+
+        /**
+         * Details about enrollment for a recurring transaction.
+         *
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
+         *
+         * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#RecurringTransactionInfo RecurringTransactionInfo}
+         */
+        recurringTransactionInfo?: RecurringTransactionInfo | undefined;
+
+        /**
+         * Details about enrollment for a deferred transaction.
+         *
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
+         *
+         * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#DeferredTransactionInfo DeferredTransactionInfo}
+         */
+        deferredTransactionInfo?: DeferredTransactionInfo | undefined;
+
+        /**
+         * Details about enrollment for automatic reload of a stored balance
+         * account.
+         *
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
+         *
+         * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#AutomaticReloadTransactionInfo AutomaticReloadTransactionInfo}
+         */
+        automaticReloadTransactionInfo?: AutomaticReloadTransactionInfo | undefined;
 
         /**
          * Offers available for redemption that can be used with the current
@@ -1091,6 +1135,154 @@ declare namespace google.payments.api {
     }
 
     /**
+     * Details about enrollment for a recurring transaction.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#RecurringTransactionInfo RecurringTransactionInfo}
+     */
+    interface RecurringTransactionInfo {
+        /**
+         * ISO 4217 alphabetic currency code.
+         */
+        currencyCode: string;
+
+        /**
+         * ISO 3166-1 alpha-2 country code where the transaction is processed.
+         */
+        countryCode: string;
+
+        /**
+         * Total price of the transaction due today.
+         */
+        immediateTotalPrice: string;
+
+        /**
+         * Recurrence periods that detail billing frequency and pricing.
+         */
+        recurrenceItems: RecurrencePeriodItem[];
+
+        transactionId?: string | undefined;
+        tokenUpdateUrl?: string | undefined;
+        managementUrl?: string | undefined;
+        billingAgreement?: string | undefined;
+        immediateDisplayItems?: DisplayItem[] | undefined;
+        introductoryPeriodInfo?: IntroductoryPeriodInfo | undefined;
+    }
+
+    /**
+     * An introductory period for a recurring transaction.
+     */
+    interface IntroductoryPeriodInfo {
+        /**
+         * End time of the introductory service period in RFC 3339 format.
+         */
+        introductoryPeriodEndDateTime: string;
+
+        /**
+         * Short label for the introductory period.
+         */
+        label: string;
+
+        /**
+         * Price of the introductory period.
+         */
+        totalPrice: string;
+
+        introductoryPeriodStartDateTime?: string | undefined;
+        displayItems?: DisplayItem[] | undefined;
+    }
+
+    /**
+     * A recurrence period for a recurring transaction.
+     */
+    interface RecurrencePeriodItem {
+        /**
+         * Short label for the recurring transaction period.
+         */
+        label: string;
+
+        /**
+         * Status of the price.
+         */
+        priceStatus: TotalPriceStatus;
+
+        /**
+         * Period of the recurrence.
+         */
+        recurrencePeriod: RecurrencePeriod;
+
+        /**
+         * Number of periods between billing cycles.
+         */
+        recurrencePeriodCount: number;
+
+        /**
+         * Price of the recurring transaction period.
+         *
+         * Must be present if [[RecurrencePeriodItem.priceStatus]] is
+         * [[TotalPriceStatus|`FINAL`]] or [[TotalPriceStatus|`ESTIMATED`]].
+         * Must be null if [[RecurrencePeriodItem.priceStatus]] is
+         * [[TotalPriceStatus|`NOT_CURRENTLY_KNOWN`]].
+         */
+        price?: string | null | undefined;
+
+        billingInitialDateTime?: string | undefined;
+        billingFinalDateTime?: string | null | undefined;
+        displayItems?: DisplayItem[] | undefined;
+    }
+
+    /**
+     * Details about enrollment for a deferred transaction.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#DeferredTransactionInfo DeferredTransactionInfo}
+     */
+    interface DeferredTransactionInfo {
+        currencyCode: string;
+        countryCode: string;
+        immediateTotalPrice: string;
+        billingDateTime: string;
+        priceStatus: TotalPriceStatus;
+        label: string;
+
+        transactionId?: string | undefined;
+        tokenUpdateUrl?: string | undefined;
+        managementUrl?: string | undefined;
+        billingAgreement?: string | undefined;
+        immediateDisplayItems?: DisplayItem[] | undefined;
+
+        /**
+         * Price of the transaction charged in the future, if known.
+         *
+         * Must be present if [[DeferredTransactionInfo.priceStatus]] is
+         * [[TotalPriceStatus|`FINAL`]] or [[TotalPriceStatus|`ESTIMATED`]].
+         * Must be null if [[DeferredTransactionInfo.priceStatus]] is
+         * [[TotalPriceStatus|`NOT_CURRENTLY_KNOWN`]].
+         */
+        price?: string | null | undefined;
+        displayItems?: DisplayItem[] | undefined;
+    }
+
+    /**
+     * Details about enrollment for automatic reload of a stored balance
+     * account.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#AutomaticReloadTransactionInfo AutomaticReloadTransactionInfo}
+     */
+    interface AutomaticReloadTransactionInfo {
+        currencyCode: string;
+        countryCode: string;
+        immediateTotalPrice: string;
+        minimumBalanceAmount: string;
+        reloadAmount: string;
+        label: string;
+
+        transactionId?: string | undefined;
+        tokenUpdateUrl?: string | undefined;
+        managementUrl?: string | undefined;
+        billingAgreement?: string | undefined;
+        immediateDisplayItems?: DisplayItem[] | undefined;
+    }
+
+    /**
      * Data for a payment method.
      */
     interface PaymentMethodData {
@@ -1673,6 +1865,11 @@ declare namespace google.payments.api {
      *   not change based on selections made by the buyer.
      */
     type TotalPriceStatus = "NOT_CURRENTLY_KNOWN" | "ESTIMATED" | "FINAL";
+
+    /**
+     * Period of a recurring transaction.
+     */
+    type RecurrencePeriod = "YEAR" | "MONTH" | "WEEK" | "DAY";
 
     /**
      * The options for checkout.
