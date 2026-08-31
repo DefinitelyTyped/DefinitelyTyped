@@ -1,4 +1,4 @@
-// For Library Version: 1.151.0
+// For Library Version: 1.152.0
 
 declare module "sap/tnt/library" {
   export interface IToolHeader {
@@ -165,6 +165,60 @@ declare module "sap/f/library" {
    */
   export type DynamicPageTitleShrinkRatio = string;
 
+  /**
+   * Defines the placement of the actions slot within the {@link sap.f.HeroBanner} header area.
+   *
+   * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'HeroBannerActionsPlacement'.
+   *
+   * @experimental As of version 1.152.
+   */
+  export enum HeroBannerActionsPlacement {
+    /**
+     * Actions are displayed below the header text, left-aligned, regardless of `columnsRatio` or slot usage.
+     */
+    BottomStart = "BottomStart",
+    /**
+     * Actions are displayed to the right of the header text, at the top of the header row.
+     */
+    TopEnd = "TopEnd",
+  }
+  /**
+   * Defines the ratio between the two content columns inside the {@link sap.f.HeroBanner}.
+   *
+   * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'HeroBannerColumnsRatio'.
+   *
+   * @experimental As of version 1.152.
+   */
+  export enum HeroBannerColumnsRatio {
+    /**
+     * Two equal columns. Both content blocks share the available width equally. On smaller screens, both slots
+     * stack vertically.
+     */
+    Equal = "Equal",
+    /**
+     * Two unequal columns. The start content takes two-thirds of the width, the end content one-third. On smaller
+     * screens, both slots stack vertically.
+     */
+    FirstWider = "FirstWider",
+  }
+  /**
+   * Defines the vertical placement of the header block within the {@link sap.f.HeroBanner} content area.
+   *
+   * This enum is part of the 'sap/f/library' module export and must be accessed by the property 'HeroBannerHeaderBlockPlacement'.
+   *
+   * @experimental As of version 1.152.
+   */
+  export enum HeroBannerHeaderBlockPlacement {
+    /**
+     * Header block is pushed to the bottom of column 1. Only takes effect when `columnsRatio` is `Equal` or
+     * `FirstWider` and only `endContent` is provided.
+     */
+    Bottom = "Bottom",
+    /**
+     * Header block is placed at the top of the content area.
+     */
+    Top = "Top",
+  }
   /**
    * Interface that should be implemented by all card controls.
    *
@@ -1968,7 +2022,7 @@ declare module "sap/f/cards/BaseHeader" {
     /**
      * Adds some infoSection to the aggregation {@link #getInfoSection infoSection}.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2028,7 +2082,7 @@ declare module "sap/f/cards/BaseHeader" {
     /**
      * Destroys all the infoSection in the aggregation {@link #getInfoSection infoSection}.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2036,7 +2090,7 @@ declare module "sap/f/cards/BaseHeader" {
     /**
      * Destroys the toolbar in the aggregation {@link #getToolbar toolbar}.
      *
-     * @experimental As of version 1.86.
+     * @since 1.86
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2084,7 +2138,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `empty string`.
      *
-     * @experimental As of version 1.89.
+     * @since 1.89
      *
      * @returns Value of property `dataTimestamp`
      */
@@ -2094,27 +2148,16 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Info sections to be displayed in the header.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      */
     getInfoSection(): Control[];
     /**
-     * Gets current value of property {@link #getStatusVisible statusVisible}.
-     *
-     * Defines the status text visibility.
-     *
-     * Default value is `true`.
-     *
-     * @experimental As of version 1.116.
-     *
-     * @returns Value of property `statusVisible`
-     */
-    getStatusVisible(): boolean;
-    /**
      * Gets content of aggregation {@link #getToolbar toolbar}.
      *
-     * Defines the toolbar.
+     * Defines an additional content shown in the header's toolbar area, typically actions such as a close button
+     * or a menu.
      *
-     * @experimental As of version 1.86.
+     * @since 1.86
      */
     getToolbar(): Control;
     /**
@@ -2125,7 +2168,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `Normal`.
      *
-     * @experimental As of version 1.122.
+     * @since 1.122
      *
      * @returns Value of property `wrappingType`
      */
@@ -2134,7 +2177,7 @@ declare module "sap/f/cards/BaseHeader" {
      * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getInfoSection infoSection}.
      * and returns its index if found or -1 otherwise.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      *
      * @returns The index of the provided control in the aggregation if found, or -1 otherwise
      */
@@ -2147,7 +2190,7 @@ declare module "sap/f/cards/BaseHeader" {
     /**
      * Inserts a infoSection into the aggregation {@link #getInfoSection infoSection}.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2168,7 +2211,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Additionally, it unregisters them from the hosting UIArea.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      *
      * @returns An array of the removed elements (might be empty)
      */
@@ -2176,7 +2219,7 @@ declare module "sap/f/cards/BaseHeader" {
     /**
      * Removes a infoSection from the aggregation {@link #getInfoSection infoSection}.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      *
      * @returns The removed infoSection or `null`
      */
@@ -2200,7 +2243,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `empty string`.
      *
-     * @experimental As of version 1.89.
+     * @since 1.89
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2211,28 +2254,9 @@ declare module "sap/f/cards/BaseHeader" {
       sDataTimestamp?: string
     ): this;
     /**
-     * Sets a new value for property {@link #getStatusVisible statusVisible}.
-     *
-     * Defines the status text visibility.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     * @experimental As of version 1.116.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setStatusVisible(
-      /**
-       * New value for property `statusVisible`
-       */
-      bStatusVisible?: boolean
-    ): this;
-    /**
      * Sets the aggregated {@link #getToolbar toolbar}.
      *
-     * @experimental As of version 1.86.
+     * @since 1.86
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2252,7 +2276,7 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Default value is `Normal`.
      *
-     * @experimental As of version 1.122.
+     * @since 1.122
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2275,22 +2299,15 @@ declare module "sap/f/cards/BaseHeader" {
      *
      * Will be shown as a relative time like "5 minutes ago".
      *
-     * @experimental As of version 1.89.
+     * @since 1.89
      */
     dataTimestamp?: string | PropertyBindingInfo;
-
-    /**
-     * Defines the status text visibility.
-     *
-     * @experimental As of version 1.116.
-     */
-    statusVisible?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Defines the type of text wrapping to be used inside the header. This applies to title, subtitle and details
      * texts of the header.
      *
-     * @experimental As of version 1.122.
+     * @since 1.122
      */
     wrappingType?:
       | (WrappingType | keyof typeof WrappingType)
@@ -2300,14 +2317,15 @@ declare module "sap/f/cards/BaseHeader" {
     /**
      * Info sections to be displayed in the header.
      *
-     * @experimental As of version 1.136.
+     * @since 1.136
      */
     infoSection?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
 
     /**
-     * Defines the toolbar.
+     * Defines an additional content shown in the header's toolbar area, typically actions such as a close button
+     * or a menu.
      *
-     * @experimental As of version 1.86.
+     * @since 1.86
      */
     toolbar?: Control;
 
@@ -2745,7 +2763,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `empty string`.
      *
-     * @experimental As of version 1.81.
+     * @since 1.81
      *
      * @returns Value of property `iconAlt`
      */
@@ -2757,7 +2775,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `Transparent`.
      *
-     * @experimental As of version 1.83.
+     * @since 1.83
      *
      * @returns Value of property `iconBackgroundColor`
      */
@@ -2803,7 +2821,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `S`.
      *
-     * @experimental As of version 1.119.
+     * @since 1.119
      *
      * @returns Value of property `iconSize`
      */
@@ -2831,18 +2849,6 @@ declare module "sap/f/cards/Header" {
      * @returns Value of property `iconState`
      */
     getIconState(): ValueState;
-    /**
-     * Gets current value of property {@link #getIconVisible iconVisible}.
-     *
-     * Defines whether the card icon is visible.
-     *
-     * Default value is `true`.
-     *
-     * @experimental As of version 1.83.
-     *
-     * @returns Value of property `iconVisible`
-     */
-    getIconVisible(): boolean;
     /**
      * Gets current value of property {@link #getStatusText statusText}.
      *
@@ -2872,7 +2878,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `2`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Value of property `subtitleMaxLines`
      */
@@ -2895,7 +2901,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `3`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Value of property `titleMaxLines`
      */
@@ -2909,7 +2915,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `empty string`.
      *
-     * @experimental As of version 1.81.
+     * @since 1.81
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -2928,7 +2934,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `Transparent`.
      *
-     * @experimental As of version 1.83.
+     * @since 1.83
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3002,7 +3008,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `S`.
      *
-     * @experimental As of version 1.119.
+     * @since 1.119
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3050,25 +3056,6 @@ declare module "sap/f/cards/Header" {
       sIconState?: ValueState | keyof typeof ValueState
     ): this;
     /**
-     * Sets a new value for property {@link #getIconVisible iconVisible}.
-     *
-     * Defines whether the card icon is visible.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `true`.
-     *
-     * @experimental As of version 1.83.
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setIconVisible(
-      /**
-       * New value for property `iconVisible`
-       */
-      bIconVisible?: boolean
-    ): this;
-    /**
      * Sets a new value for property {@link #getStatusText statusText}.
      *
      * Defines the status text.
@@ -3113,7 +3100,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `2`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3150,7 +3137,7 @@ declare module "sap/f/cards/Header" {
      *
      * Default value is `3`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3179,7 +3166,7 @@ declare module "sap/f/cards/Header" {
     /**
      * Limits the number of lines for the title.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      */
     titleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -3191,7 +3178,7 @@ declare module "sap/f/cards/Header" {
     /**
      * Limits the number of lines for the subtitle.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      */
     subtitleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -3221,14 +3208,14 @@ declare module "sap/f/cards/Header" {
     /**
      * Defines an alt text for the avatar or icon.
      *
-     * @experimental As of version 1.81.
+     * @since 1.81
      */
     iconAlt?: string | PropertyBindingInfo;
 
     /**
      * Defines a background color for the avatar or icon.
      *
-     * @experimental As of version 1.83.
+     * @since 1.83
      */
     iconBackgroundColor?:
       | (AvatarColor | keyof typeof AvatarColor)
@@ -3236,16 +3223,9 @@ declare module "sap/f/cards/Header" {
       | `{${string}}`;
 
     /**
-     * Defines whether the card icon is visible.
-     *
-     * @experimental As of version 1.83.
-     */
-    iconVisible?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
      * Defines the size of the icon.
      *
-     * @experimental As of version 1.119.
+     * @since 1.119
      */
     iconSize?:
       | (AvatarSize | keyof typeof AvatarSize)
@@ -3330,9 +3310,15 @@ declare module "sap/f/cards/NumericHeader" {
 
   import Control from "sap/ui/core/Control";
 
+  import AvatarColor from "sap/m/AvatarColor";
+
+  import AvatarShape from "sap/m/AvatarShape";
+
   import AvatarImageFitType from "sap/m/AvatarImageFitType";
 
   import AvatarSize from "sap/m/AvatarSize";
+
+  import { URI } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -3439,7 +3425,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Destroys the microChart in the aggregation {@link #getMicroChart microChart}.
      *
-     * @experimental As of version 1.124.
+     * @since 1.124
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3487,11 +3473,47 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `1`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Value of property `detailsMaxLines`
      */
     getDetailsMaxLines(): int;
+    /**
+     * Gets current value of property {@link #getIconAlt iconAlt}.
+     *
+     * Defines an alt text for the avatar or icon.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.118
+     *
+     * @returns Value of property `iconAlt`
+     */
+    getIconAlt(): string;
+    /**
+     * Gets current value of property {@link #getIconBackgroundColor iconBackgroundColor}.
+     *
+     * Defines a background color for the avatar or icon.
+     *
+     * Default value is `Transparent`.
+     *
+     * @since 1.118
+     *
+     * @returns Value of property `iconBackgroundColor`
+     */
+    getIconBackgroundColor(): AvatarColor;
+    /**
+     * Gets current value of property {@link #getIconDisplayShape iconDisplayShape}.
+     *
+     * Defines the shape of the icon.
+     *
+     * Default value is `Circle`.
+     *
+     * @since 1.118
+     *
+     * @returns Value of property `iconDisplayShape`
+     */
+    getIconDisplayShape(): AvatarShape;
     /**
      * Gets current value of property {@link #getIconFitType iconFitType}.
      *
@@ -3505,23 +3527,47 @@ declare module "sap/f/cards/NumericHeader" {
      */
     getIconFitType(): AvatarImageFitType;
     /**
+     * Gets current value of property {@link #getIconInitials iconInitials}.
+     *
+     * Defines the initials of the icon.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.118
+     *
+     * @returns Value of property `iconInitials`
+     */
+    getIconInitials(): string;
+    /**
      * Gets current value of property {@link #getIconSize iconSize}.
      *
      * Defines the size of the icon.
      *
      * Default value is `S`.
      *
-     * @experimental As of version 1.119.
+     * @since 1.119
      *
      * @returns Value of property `iconSize`
      */
     getIconSize(): AvatarSize;
     /**
+     * Gets current value of property {@link #getIconSrc iconSrc}.
+     *
+     * Defines the icon source.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.118
+     *
+     * @returns Value of property `iconSrc`
+     */
+    getIconSrc(): URI;
+    /**
      * Gets content of aggregation {@link #getMicroChart microChart}.
      *
      * Micro Chart
      *
-     * @experimental As of version 1.124.
+     * @since 1.124
      */
     getMicroChart(): Control;
     /**
@@ -3593,7 +3639,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `"Neutral"`.
      *
-     * @experimental As of version 1.64.
+     * @since 1.64
      *
      * @returns Value of property `state`
      */
@@ -3625,7 +3671,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `2`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Value of property `subtitleMaxLines`
      */
@@ -3646,7 +3692,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `3`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Value of property `titleMaxLines`
      */
@@ -3748,7 +3794,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `1`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3757,6 +3803,63 @@ declare module "sap/f/cards/NumericHeader" {
        * New value for property `detailsMaxLines`
        */
       iDetailsMaxLines?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconAlt iconAlt}.
+     *
+     * Defines an alt text for the avatar or icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconAlt(
+      /**
+       * New value for property `iconAlt`
+       */
+      sIconAlt?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconBackgroundColor iconBackgroundColor}.
+     *
+     * Defines a background color for the avatar or icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Transparent`.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconBackgroundColor(
+      /**
+       * New value for property `iconBackgroundColor`
+       */
+      sIconBackgroundColor?: AvatarColor | keyof typeof AvatarColor
+    ): this;
+    /**
+     * Sets a new value for property {@link #getIconDisplayShape iconDisplayShape}.
+     *
+     * Defines the shape of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Circle`.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconDisplayShape(
+      /**
+       * New value for property `iconDisplayShape`
+       */
+      sIconDisplayShape?: AvatarShape | keyof typeof AvatarShape
     ): this;
     /**
      * Sets a new value for property {@link #getIconFitType iconFitType}.
@@ -3778,6 +3881,25 @@ declare module "sap/f/cards/NumericHeader" {
       sIconFitType?: AvatarImageFitType | keyof typeof AvatarImageFitType
     ): this;
     /**
+     * Sets a new value for property {@link #getIconInitials iconInitials}.
+     *
+     * Defines the initials of the icon.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconInitials(
+      /**
+       * New value for property `iconInitials`
+       */
+      sIconInitials?: string
+    ): this;
+    /**
      * Sets a new value for property {@link #getIconSize iconSize}.
      *
      * Defines the size of the icon.
@@ -3786,7 +3908,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `S`.
      *
-     * @experimental As of version 1.119.
+     * @since 1.119
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3797,9 +3919,28 @@ declare module "sap/f/cards/NumericHeader" {
       sIconSize?: AvatarSize | keyof typeof AvatarSize
     ): this;
     /**
+     * Sets a new value for property {@link #getIconSrc iconSrc}.
+     *
+     * Defines the icon source.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     * @since 1.118
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setIconSrc(
+      /**
+       * New value for property `iconSrc`
+       */
+      sIconSrc?: URI
+    ): this;
+    /**
      * Sets the aggregated {@link #getMicroChart microChart}.
      *
-     * @experimental As of version 1.124.
+     * @since 1.124
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3910,7 +4051,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `"Neutral"`.
      *
-     * @experimental As of version 1.64.
+     * @since 1.64
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3963,7 +4104,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `2`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -3998,7 +4139,7 @@ declare module "sap/f/cards/NumericHeader" {
      *
      * Default value is `3`.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4061,7 +4202,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Limits the number of lines for the title.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      */
     titleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -4073,7 +4214,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Limits the number of lines for the subtitle.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      */
     subtitleMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -4083,9 +4224,50 @@ declare module "sap/f/cards/NumericHeader" {
     statusText?: string | PropertyBindingInfo;
 
     /**
+     * Defines the shape of the icon.
+     *
+     * @since 1.118
+     */
+    iconDisplayShape?:
+      | (AvatarShape | keyof typeof AvatarShape)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the icon source.
+     *
+     * @since 1.118
+     */
+    iconSrc?: URI | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the initials of the icon.
+     *
+     * @since 1.118
+     */
+    iconInitials?: string | PropertyBindingInfo;
+
+    /**
+     * Defines an alt text for the avatar or icon.
+     *
+     * @since 1.118
+     */
+    iconAlt?: string | PropertyBindingInfo;
+
+    /**
+     * Defines a background color for the avatar or icon.
+     *
+     * @since 1.118
+     */
+    iconBackgroundColor?:
+      | (AvatarColor | keyof typeof AvatarColor)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * Defines the size of the icon.
      *
-     * @experimental As of version 1.119.
+     * @since 1.119
      */
     iconSize?:
       | (AvatarSize | keyof typeof AvatarSize)
@@ -4143,7 +4325,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * The semantic color which represents the state of the main number indicator.
      *
-     * @experimental As of version 1.64.
+     * @since 1.64
      */
     state?:
       | (ValueColor | keyof typeof ValueColor)
@@ -4158,7 +4340,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Limits the number of lines for the details.
      *
-     * @experimental As of version 1.101.
+     * @since 1.101
      */
     detailsMaxLines?: int | PropertyBindingInfo | `{${string}}`;
 
@@ -4186,7 +4368,7 @@ declare module "sap/f/cards/NumericHeader" {
     /**
      * Micro Chart
      *
-     * @experimental As of version 1.124.
+     * @since 1.124
      */
     microChart?: Control;
   }
@@ -4285,7 +4467,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
      *
      * Default value is `"None"`.
      *
-     * @experimental As of version 1.95.
+     * @since 1.95
      *
      * @returns Value of property `state`
      */
@@ -4329,7 +4511,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
      *
      * Default value is `"None"`.
      *
-     * @experimental As of version 1.95.
+     * @since 1.95
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -4386,7 +4568,7 @@ declare module "sap/f/cards/NumericSideIndicator" {
     /**
      * The semantic color which represents the state of the side indicator.
      *
-     * @experimental As of version 1.95.
+     * @since 1.95
      */
     state?:
       | (ValueColor | keyof typeof ValueColor)
@@ -13865,6 +14047,742 @@ declare module "sap/f/GridListItem" {
      * The content of this list item
      */
     content?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+  }
+}
+
+declare module "sap/f/HeroBanner" {
+  import {
+    default as WebComponent,
+    $WebComponentSettings,
+  } from "sap/ui/core/webc/WebComponent";
+
+  import Control from "sap/ui/core/Control";
+
+  import {
+    HeroBannerActionsPlacement,
+    HeroBannerColumnsRatio,
+    HeroBannerHeaderBlockPlacement,
+  } from "sap/f/library";
+
+  import { CSSSize } from "sap/ui/core/library";
+
+  import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * A flexible, full-width banner designed for placement at the top of a page.
+   *
+   * Overview: The `HeroBanner` provides a personalized greeting and quick access to key information or actions.
+   *
+   * Structure: The `HeroBanner` consists of the following building blocks:
+   * 	 - **Overline** (optional) - contextual text at the top, e.g. the current date or a status message.
+   *
+   * 	 - **Header** (optional) - the main greeting header below the overline, e.g. "Hello, John".
+   * 	 - **Actions** (optional) - buttons displayed in the header area.
+   * 	 - **Start Content** (optional) - customizable first content column.
+   * 	 - **End Content** (optional) - customizable second content column, shown alongside start content.
+   *
+   * Usage: Place the `HeroBanner` at the top of a page to welcome the user and surface relevant information
+   * or shortcuts at a glance.
+   *
+   * The hero banner itself is non-interactive. However, interactive elements such as buttons, cards, or search
+   * fields can be placed inside the content slots.
+   *
+   * Responsive Behavior: The `HeroBanner` adapts to different screen sizes:
+   * 	 - On smaller screens, split layouts collapse to a single stacked column.
+   * 	 - The heading text wraps to multiple lines as needed.
+   * 	 - On screens ≤1024px, the header text is wrapped to a maximum of 3 lines.
+   *
+   * @experimental As of version 1.152.
+   */
+  export default class HeroBanner extends WebComponent {
+    /**
+     * Constructor for a new `HeroBanner`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $HeroBannerSettings
+    );
+    /**
+     * Constructor for a new `HeroBanner`.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $HeroBannerSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.f.HeroBanner with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.webc.WebComponent.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, HeroBanner>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.f.HeroBanner.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): WebComponentMetadata;
+    /**
+     * Adds some action to the aggregation {@link #getActions actions}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAction(
+      /**
+       * The action to add; if empty, nothing is inserted
+       */
+      oAction: Control
+    ): this;
+    /**
+     * Adds some endContent to the aggregation {@link #getEndContent endContent}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addEndContent(
+      /**
+       * The endContent to add; if empty, nothing is inserted
+       */
+      oEndContent: Control
+    ): this;
+    /**
+     * Adds some startContent to the aggregation {@link #getStartContent startContent}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addStartContent(
+      /**
+       * The startContent to add; if empty, nothing is inserted
+       */
+      oStartContent: Control
+    ): this;
+    /**
+     * Destroys all the actions in the aggregation {@link #getActions actions}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyActions(): this;
+    /**
+     * Destroys all the endContent in the aggregation {@link #getEndContent endContent}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyEndContent(): this;
+    /**
+     * Destroys all the startContent in the aggregation {@link #getStartContent startContent}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyStartContent(): this;
+    /**
+     * Gets content of aggregation {@link #getActions actions}.
+     *
+     * Defines action buttons displayed in the header area of the hero banner.
+     *
+     * Can contain buttons, links, or other interactive elements that provide quick access to relevant actions
+     * directly from the hero banner header.
+     */
+    getActions(): Control[];
+    /**
+     * Gets current value of property {@link #getActionsPlacement actionsPlacement}.
+     *
+     * Defines the placement of the actions slot within the hero banner header.
+     *
+     * Allowed values:
+     * 	 - `TopEnd` (default) - Actions are displayed to the right of the header text, at the top of the header
+     *     row.
+     * 	 - `BottomStart` - Actions are displayed below the header text, left-aligned, regardless of `columnsRatio`
+     *     or slot usage.
+     *
+     * Default value is `"TopEnd"`.
+     *
+     *
+     * @returns Value of property `actionsPlacement`
+     */
+    getActionsPlacement(): HeroBannerActionsPlacement;
+    /**
+     * Gets current value of property {@link #getBackgroundImage backgroundImage}.
+     *
+     * Defines the background image of the hero banner.
+     *
+     * Accepts any valid CSS `background-image` value, e.g. `url("path/to/image.jpg")`.
+     *
+     *
+     * @returns Value of property `backgroundImage`
+     */
+    getBackgroundImage(): string;
+    /**
+     * Gets current value of property {@link #getColumnsRatio columnsRatio}.
+     *
+     * Defines the ratio between the two content columns inside the hero banner.
+     *
+     * Takes effect only when `endContent` is provided. When no `endContent` is present, the content spans the
+     * full width (single column).
+     *
+     * Allowed values:
+     * 	 - `Equal` - Two equal columns. Both content blocks share the available width equally. On smaller screens,
+     *     both slots stack vertically.
+     * 	 - `FirstWider` - Two unequal columns. The start content takes two-thirds of the width, the end content
+     *     one-third. On smaller screens, both slots stack vertically.
+     *
+     * Default value is `"FirstWider"`.
+     *
+     *
+     * @returns Value of property `columnsRatio`
+     */
+    getColumnsRatio(): HeroBannerColumnsRatio;
+    /**
+     * Gets content of aggregation {@link #getEndContent endContent}.
+     *
+     * Defines the second content block of the hero banner.
+     *
+     * Used alongside `startContent` when `columnsRatio` is set to `Equal` or `FirstWider`. Can contain cards,
+     * buttons, and other interactive elements.
+     */
+    getEndContent(): Control[];
+    /**
+     * Gets current value of property {@link #getHeaderBlockPlacement headerBlockPlacement}.
+     *
+     * Defines the vertical placement of the header block within the content area.
+     *
+     * Allowed values:
+     * 	 - `Top` (default) - Header block is placed at the top of the content area.
+     * 	 - `Bottom` - Header block is pushed to the bottom of column 1. Only takes effect when `columnsRatio`
+     *     is `Equal` or `FirstWider` and only `endContent` is provided. When `actionsPlacement` is also `BottomStart`,
+     *     the `endContent` slot spans the full height.
+     *
+     * Default value is `"Top"`.
+     *
+     *
+     * @returns Value of property `headerBlockPlacement`
+     */
+    getHeaderBlockPlacement(): HeroBannerHeaderBlockPlacement;
+    /**
+     * Gets current value of property {@link #getHeaderText headerText}.
+     *
+     * Defines the header text displayed in the hero banner.
+     *
+     * This is the main greeting header, typically a personalized message such as "Hello, John".
+     *
+     *
+     * @returns Value of property `headerText`
+     */
+    getHeaderText(): string;
+    /**
+     * Gets current value of property {@link #getHeight height}.
+     *
+     * Defines the height of the `HeroBanner`.
+     *
+     *
+     * @returns Value of property `height`
+     */
+    getHeight(): CSSSize;
+    /**
+     * Gets current value of property {@link #getOverlineText overlineText}.
+     *
+     * Defines text displayed above the heading as an overline.
+     *
+     * Can be used to show the current date, a status message, or any other relevant contextual information.
+     *
+     *
+     * @returns Value of property `overlineText`
+     */
+    getOverlineText(): string;
+    /**
+     * Gets content of aggregation {@link #getStartContent startContent}.
+     *
+     * Defines the first (default) content block of the hero banner.
+     *
+     * Content placed directly inside `HeroBanner` without a slot attribute lands here. Can contain KPI cards,
+     * search input fields, text, buttons, and more.
+     */
+    getStartContent(): Control[];
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the width of the `HeroBanner`.
+     *
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getActions actions}. and returns
+     * its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfAction(
+      /**
+       * The action whose index is looked for
+       */
+      oAction: Control
+    ): int;
+    /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getEndContent endContent}. and
+     * returns its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfEndContent(
+      /**
+       * The endContent whose index is looked for
+       */
+      oEndContent: Control
+    ): int;
+    /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getStartContent startContent}.
+     * and returns its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfStartContent(
+      /**
+       * The startContent whose index is looked for
+       */
+      oStartContent: Control
+    ): int;
+    /**
+     * Inserts a action into the aggregation {@link #getActions actions}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertAction(
+      /**
+       * The action to insert; if empty, nothing is inserted
+       */
+      oAction: Control,
+      /**
+       * The `0`-based index the action should be inserted at; for a negative value of `iIndex`, the action is
+       * inserted at position 0; for a value greater than the current size of the aggregation, the action is inserted
+       * at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Inserts a endContent into the aggregation {@link #getEndContent endContent}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertEndContent(
+      /**
+       * The endContent to insert; if empty, nothing is inserted
+       */
+      oEndContent: Control,
+      /**
+       * The `0`-based index the endContent should be inserted at; for a negative value of `iIndex`, the endContent
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the endContent
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Inserts a startContent into the aggregation {@link #getStartContent startContent}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertStartContent(
+      /**
+       * The startContent to insert; if empty, nothing is inserted
+       */
+      oStartContent: Control,
+      /**
+       * The `0`-based index the startContent should be inserted at; for a negative value of `iIndex`, the startContent
+       * is inserted at position 0; for a value greater than the current size of the aggregation, the startContent
+       * is inserted at the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes a action from the aggregation {@link #getActions actions}.
+     *
+     *
+     * @returns The removed action or `null`
+     */
+    removeAction(
+      /**
+       * The action to remove or its index or id
+       */
+      vAction: int | string | Control
+    ): Control | null;
+    /**
+     * Removes all the controls from the aggregation {@link #getActions actions}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllActions(): Control[];
+    /**
+     * Removes all the controls from the aggregation {@link #getEndContent endContent}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllEndContent(): Control[];
+    /**
+     * Removes all the controls from the aggregation {@link #getStartContent startContent}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllStartContent(): Control[];
+    /**
+     * Removes a endContent from the aggregation {@link #getEndContent endContent}.
+     *
+     *
+     * @returns The removed endContent or `null`
+     */
+    removeEndContent(
+      /**
+       * The endContent to remove or its index or id
+       */
+      vEndContent: int | string | Control
+    ): Control | null;
+    /**
+     * Removes a startContent from the aggregation {@link #getStartContent startContent}.
+     *
+     *
+     * @returns The removed startContent or `null`
+     */
+    removeStartContent(
+      /**
+       * The startContent to remove or its index or id
+       */
+      vStartContent: int | string | Control
+    ): Control | null;
+    /**
+     * Sets a new value for property {@link #getActionsPlacement actionsPlacement}.
+     *
+     * Defines the placement of the actions slot within the hero banner header.
+     *
+     * Allowed values:
+     * 	 - `TopEnd` (default) - Actions are displayed to the right of the header text, at the top of the header
+     *     row.
+     * 	 - `BottomStart` - Actions are displayed below the header text, left-aligned, regardless of `columnsRatio`
+     *     or slot usage.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"TopEnd"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setActionsPlacement(
+      /**
+       * New value for property `actionsPlacement`
+       */
+      sActionsPlacement?:
+        | HeroBannerActionsPlacement
+        | keyof typeof HeroBannerActionsPlacement
+    ): this;
+    /**
+     * Sets a new value for property {@link #getBackgroundImage backgroundImage}.
+     *
+     * Defines the background image of the hero banner.
+     *
+     * Accepts any valid CSS `background-image` value, e.g. `url("path/to/image.jpg")`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setBackgroundImage(
+      /**
+       * New value for property `backgroundImage`
+       */
+      sBackgroundImage: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getColumnsRatio columnsRatio}.
+     *
+     * Defines the ratio between the two content columns inside the hero banner.
+     *
+     * Takes effect only when `endContent` is provided. When no `endContent` is present, the content spans the
+     * full width (single column).
+     *
+     * Allowed values:
+     * 	 - `Equal` - Two equal columns. Both content blocks share the available width equally. On smaller screens,
+     *     both slots stack vertically.
+     * 	 - `FirstWider` - Two unequal columns. The start content takes two-thirds of the width, the end content
+     *     one-third. On smaller screens, both slots stack vertically.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"FirstWider"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setColumnsRatio(
+      /**
+       * New value for property `columnsRatio`
+       */
+      sColumnsRatio?:
+        | HeroBannerColumnsRatio
+        | keyof typeof HeroBannerColumnsRatio
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeaderBlockPlacement headerBlockPlacement}.
+     *
+     * Defines the vertical placement of the header block within the content area.
+     *
+     * Allowed values:
+     * 	 - `Top` (default) - Header block is placed at the top of the content area.
+     * 	 - `Bottom` - Header block is pushed to the bottom of column 1. Only takes effect when `columnsRatio`
+     *     is `Equal` or `FirstWider` and only `endContent` is provided. When `actionsPlacement` is also `BottomStart`,
+     *     the `endContent` slot spans the full height.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"Top"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderBlockPlacement(
+      /**
+       * New value for property `headerBlockPlacement`
+       */
+      sHeaderBlockPlacement?:
+        | HeroBannerHeaderBlockPlacement
+        | keyof typeof HeroBannerHeaderBlockPlacement
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeaderText headerText}.
+     *
+     * Defines the header text displayed in the hero banner.
+     *
+     * This is the main greeting header, typically a personalized message such as "Hello, John".
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeaderText(
+      /**
+       * New value for property `headerText`
+       */
+      sHeaderText: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getHeight height}.
+     *
+     * Defines the height of the `HeroBanner`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setHeight(
+      /**
+       * New value for property `height`
+       */
+      sHeight: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getOverlineText overlineText}.
+     *
+     * Defines text displayed above the heading as an overline.
+     *
+     * Can be used to show the current date, a status message, or any other relevant contextual information.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setOverlineText(
+      /**
+       * New value for property `overlineText`
+       */
+      sOverlineText: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the width of the `HeroBanner`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth: CSSSize
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the HeroBanner constructor.
+   *
+   * @experimental As of version 1.152.
+   */
+  export interface $HeroBannerSettings extends $WebComponentSettings {
+    /**
+     * Defines the background image of the hero banner.
+     *
+     * Accepts any valid CSS `background-image` value, e.g. `url("path/to/image.jpg")`.
+     */
+    backgroundImage?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the placement of the actions slot within the hero banner header.
+     *
+     * Allowed values:
+     * 	 - `TopEnd` (default) - Actions are displayed to the right of the header text, at the top of the header
+     *     row.
+     * 	 - `BottomStart` - Actions are displayed below the header text, left-aligned, regardless of `columnsRatio`
+     *     or slot usage.
+     */
+    actionsPlacement?:
+      | (HeroBannerActionsPlacement | keyof typeof HeroBannerActionsPlacement)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the ratio between the two content columns inside the hero banner.
+     *
+     * Takes effect only when `endContent` is provided. When no `endContent` is present, the content spans the
+     * full width (single column).
+     *
+     * Allowed values:
+     * 	 - `Equal` - Two equal columns. Both content blocks share the available width equally. On smaller screens,
+     *     both slots stack vertically.
+     * 	 - `FirstWider` - Two unequal columns. The start content takes two-thirds of the width, the end content
+     *     one-third. On smaller screens, both slots stack vertically.
+     */
+    columnsRatio?:
+      | (HeroBannerColumnsRatio | keyof typeof HeroBannerColumnsRatio)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the vertical placement of the header block within the content area.
+     *
+     * Allowed values:
+     * 	 - `Top` (default) - Header block is placed at the top of the content area.
+     * 	 - `Bottom` - Header block is pushed to the bottom of column 1. Only takes effect when `columnsRatio`
+     *     is `Equal` or `FirstWider` and only `endContent` is provided. When `actionsPlacement` is also `BottomStart`,
+     *     the `endContent` slot spans the full height.
+     */
+    headerBlockPlacement?:
+      | (
+          | HeroBannerHeaderBlockPlacement
+          | keyof typeof HeroBannerHeaderBlockPlacement
+        )
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the header text displayed in the hero banner.
+     *
+     * This is the main greeting header, typically a personalized message such as "Hello, John".
+     */
+    headerText?: string | PropertyBindingInfo;
+
+    /**
+     * Defines text displayed above the heading as an overline.
+     *
+     * Can be used to show the current date, a status message, or any other relevant contextual information.
+     */
+    overlineText?: string | PropertyBindingInfo;
+
+    /**
+     * Defines the width of the `HeroBanner`.
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the height of the `HeroBanner`.
+     */
+    height?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines action buttons displayed in the header area of the hero banner.
+     *
+     * Can contain buttons, links, or other interactive elements that provide quick access to relevant actions
+     * directly from the hero banner header.
+     */
+    actions?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the first (default) content block of the hero banner.
+     *
+     * Content placed directly inside `HeroBanner` without a slot attribute lands here. Can contain KPI cards,
+     * search input fields, text, buttons, and more.
+     */
+    startContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the second content block of the hero banner.
+     *
+     * Used alongside `startContent` when `columnsRatio` is set to `Equal` or `FirstWider`. Can contain cards,
+     * buttons, and other interactive elements.
+     */
+    endContent?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
   }
 }
 
@@ -23455,6 +24373,8 @@ declare namespace sap {
     "sap/f/GridList": undefined;
 
     "sap/f/GridListItem": undefined;
+
+    "sap/f/HeroBanner": undefined;
 
     "sap/f/IllustratedMessage": undefined;
 

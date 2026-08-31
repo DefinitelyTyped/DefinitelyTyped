@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.151.0
+// For Library Version: 1.152.0
 
 declare module "sap/base/assert" {
   /**
@@ -33321,6 +33321,30 @@ declare module "sap/ui/core/IconPool" {
       sMimeType: string
     ): string;
     /**
+     * Returns the HTML string for an icon URI.
+     *
+     * This method reuses the rendering logic from {@link sap.ui.core.RenderManager#icon} by calling it with
+     * a lightweight DOM-building interface that mirrors the RenderManager's semantic API.
+     *
+     * @since 1.152
+     *
+     * @returns The HTML string for the icon, or empty string if the URI is not a valid icon URI
+     */
+    getIconHTML(
+      /**
+       * The icon URI (e.g. "sap-icon://accept")
+       */
+      sURI: URI,
+      /**
+       * Additional CSS classes to add to the icon element
+       */
+      aClasses?: string[],
+      /**
+       * Additional HTML attributes as key-value pairs
+       */
+      mAttributes?: object
+    ): string;
+    /**
      * Returns an info object for the icon with the given `iconName` and `collectionName`.
      *
      * Instead of giving name and collection, a complete icon-URI can be provided as `iconName`. The method
@@ -42149,10 +42173,15 @@ declare module "sap/ui/core/RenderManager" {
        */
       aClasses?: any[] | string,
       /**
-       * Additional attributes that will be added to the rendered tag. Currently the attributes `class` and `style`
-       * are not allowed
+       * Additional attributes that will be added to the rendered tag. The attributes `class` and `style` are
+       * not allowed. Use the `mStyles` parameter to set inline styles.
        */
-      mAttributes?: object
+      mAttributes?: object,
+      /**
+       * A map of CSS property names and their values to be set as inline styles on the rendered tag. Example:
+       * `{width: "16px", height: "16px"}`. This parameter is available since version 1.152.
+       */
+      mStyles?: object
     ): this;
     /**
      * Ends an open tag started with `openStart`.
@@ -73681,6 +73710,8 @@ declare module "sap/ui/model/odata/v4/Context" {
     static getMetadata(): Metadata;
     /**
      * Collapses the group node that this context points to.
+     *
+     * **Note:** It is unsafe to keep a reference to a context instance which is not {@link #isKeepAlive kept alive}.
      * See:
      * 	#expand
      * 	#isExpanded
@@ -73744,7 +73775,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Such a deletion is not a pending change.
      *
      * When using data aggregation without `groupLevels`, single entities can be deleted (since 1.151.0, see
-     * {@link #isAggregated}). The same restrictions as for a recursive hierarchy apply.
+     * {@link #isAggregated}). The group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
      * See:
      * 	#hasPendingChanges
      * 	#resetChanges
@@ -73873,7 +73904,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * @returns The context's index within the binding's collection. It is `undefined` if
      * 	 it does not belong to a list binding,  it is {@link #isKeepAlive kept alive}, but not in the collection
-     * currently.
+     * currently. When collapsing a node's ancestor in a recursive hierarchy, the index becomes `undefined`.
+     * After expanding, the index is only determined again when that node comes into view, so to say. Use {@link sap.ui.model.odata.v4.ODataListBinding#getAllCurrentContexts }
+     * to try to determine the index again.
      */
     getIndex(): number | undefined;
     /**
@@ -74916,7 +74949,9 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      *  Since 1.151.0, if the operation returns an "Edm.Stream" and the group ID '$stream' is used, the promise
      * resolves with a partial `Response` object containing only:
      * 	 `body`: The response's `ReadableStream`  `headers`: The response's `Headers`  The promise
-     * rejects if '$stream' is used with a wrong return type.
+     * rejects with an `Error` instance if '$stream' is used with a wrong return type or the fetch request fails.
+     * In the latter case, the error contains the following properties:
+     * 	 `status`: {number} HTTP status code  `statusText`: {string} (optional) HTTP status text
      */
     invoke(
       /**
@@ -76969,7 +77004,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
       /**
        * Type-specific format options, since 1.81.0. The boolean format option "parseKeepsEmptyString" applies
        * to {@link sap.ui.model.odata.type.String} only and is ignored for all other types. All other format options
-       * are passed "as is".
+       * are passed "as is". Since 1.152.0, "parseKeepsEmptyString" is automatically set based on the model parameter
+       * of the same name unless you provide `parseKeepsEmptyString: false` in `mFormatOptions`.
        */
       mFormatOptions?: object
     ): ODataType;
@@ -77309,7 +77345,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
       /**
        * Type-specific format options, since 1.81.0. The boolean format option "parseKeepsEmptyString" applies
        * to {@link sap.ui.model.odata.type.String} only and is ignored for all other types. All other format options
-       * are passed "as is".
+       * are passed "as is". Since 1.152.0, "parseKeepsEmptyString" is automatically set based on the model parameter
+       * of the same name unless you provide `parseKeepsEmptyString: false` in `mFormatOptions`.
        */
       mFormatOptions?: object
     ): Promise<ODataType>;
@@ -77585,6 +77622,13 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * is called.
          */
         operationMode?: OperationMode | keyof typeof OperationMode;
+        /**
+         * Whether the format option `parseKeepsEmptyString` is set to `true` for all instances of {@link sap.ui.model.odata.type.String }
+         * that are created automatically during type detection; only the value `true` is allowed; see {@link #getParseKeepsEmptyString}.
+         *
+         * @since 1.152.0
+         */
+        parseKeepsEmptyString?: boolean;
         /**
          * Root URL of the service to request data from. The path part of the URL must end with a forward slash
          * according to OData V4 specification ABNF, rule "serviceRoot". You may append OData custom query options
@@ -78385,6 +78429,19 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     getOriginalProperty(): void;
     /**
+     * Returns whether the `parseKeepsEmptyString` format option is set to `true` for all instances of {@link sap.ui.model.odata.type.String }
+     * that are created automatically during {@link sap.ui.model.odata.v4.ODataMetaModel#requestUI5Type type detection }
+     * (as defined by the `parseKeepsEmptyString` model parameter, see {@link #constructor}). Use this model
+     * setting if your OData service cannot handle `null` values for string properties.
+     * See:
+     * 	#constructor
+     *
+     * @since 1.152.0
+     *
+     * @returns Whether the `parseKeepsEmptyString` model parameter is set
+     */
+    getParseKeepsEmptyString(): boolean;
+    /**
      * Method not supported
      * See:
      * 	sap.ui.model.Model#getProperty
@@ -78573,9 +78630,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * The handler is called with an `Error` having a property `retryAfter` of type `Date`, which is the earliest
      * point in time when the request should be repeated. The handler has to return a promise. With this promise,
      * you can control the repetition of all pending requests including the failed HTTP request. If the promise
-     * is resolved, the requests are repeated; if it is rejected, the requests are not repeated. If it is rejected
-     * with the same `Error` reason as previously passed to the handler, then this reason is reported to the
-     * message model.
+     * is resolved, the requests are repeated; if it is rejected, the requests are not repeated but fail with
+     * same reason as the promise. If the promise is rejected with the same `Error` reason as previously passed
+     * to the handler, this reason is reported to the message model.
      *
      * @since 1.134.0
      */
@@ -79254,6 +79311,110 @@ declare module "sap/ui/model/odata/v4/ODataUtils" {
        */
       sDateTimeOffset: string
     ): Date;
+    /**
+     * Parses a filter string to a syntax tree. In this tree:
+     * 	 Paths are leaves with `id="PATH"` and the path in `value`.  Literals are leaves with `id="VALUE"`
+     * and the literal (as parsed) in `value`.  Operations are nodes with the operator in `id`, the operator
+     * including the surrounding required space in `value`, and `left` and `right` containing syntax trees for
+     * the operands. `not` only uses `right`.  Functions are nodes with `id="FUNCTION"`, the name in `value`,
+     * and an array of `parameters`.  If the type is known (especially for logical operators and functions),
+     * it is given in `type`. If a function parameter may have different types (like Edm.Decimal or Edm.Double
+     * in `round`), it has the property `ambiguous: true`. `at` always contains the position where this token
+     * started (starting with 1).
+     *
+     * Example: `parseFilter("foo eq 'bar' and length(baz) ne 5")` results in
+     * ```javascript
+     *
+     * {
+     *     id : "and", value : " and ", type : "Edm.Boolean", at : 14,
+     *     left : {
+     *         id : "eq", value : " eq ", type : "Edm.Boolean", at : 5,
+     *         left : {id : "PATH", value : "foo", at : 1},
+     *         right : {id : "VALUE", value : "'bar'", at : 8}
+     *     },
+     *     right : {
+     *         id : "ne", value : " ne ", type : "Edm.Boolean", at : 30,
+     *         left : {
+     *             id : "FUNCTION", value : "length", type : "Edm.Int32", at : 18,
+     *             parameters : [{id : "PATH", value : "baz", at : 25}]
+     *         },
+     *         right : {id : "VALUE", value : "5", at : 33}
+     *     }
+     * }
+     * ```
+     *
+     *
+     * @since 1.152.0
+     *
+     * @returns The syntax tree
+     */
+    parseFilter(
+      /**
+       * The filter string
+       */
+      sFilter: string
+    ): object;
+    /**
+     * Parses a system query option "$select" or "$expand" into an object representation.
+     *
+     * The value for "$select" is an array of strings.
+     *
+     * The value for "$expand" is an object with the path as key and the options object as value. Each option
+     * itself becomes a property with the option name as key and the option value as value. If there are no
+     * options, the value for the path is `null`.
+     *
+     * If `bParseFilter` is set, the value for "$filter" is a syntax tree as described in {@link #.parseFilter};
+     * otherwise it is the string passed to it.
+     *
+     * The value for all other options is the string passed to them.
+     *
+     * **Example:**
+     *
+     *
+     * ```javascript
+     *
+     * sOption = "$expand=SO_2_BP,SO_2_SOITEM($expand=SOITEM_2_PRODUCT($expand=PRODUCT_2_BP"
+     *     + ";$select=ID,Name);$select=*;$count=true;$orderby=Name desc)"
+     * ```
+     *  is converted to
+     * ```javascript
+     *
+     * {
+     *     "$expand" : {
+     *         "SO_2_BP" : null,
+     *         "SO_2_SOITEM" : {
+     *             "$count" : "true",
+     *             "$expand" : {
+     *                 "SOITEM_2_PRODUCT" : {
+     *                     "$expand" : {
+     *                         "PRODUCT_2_BP" : null
+     *                     },
+     *                     "$select" : ["ID", "Name"]
+     *                 }
+     *             },
+     *             "$orderby" : "Name desc",
+     *             "$select" : ["*"]
+     *         }
+     *     }
+     * }
+     * ```
+     *
+     *
+     * @since 1.152.0
+     *
+     * @returns The option as an object with the option name as key and the parsed value as value
+     */
+    parseSystemQueryOption(
+      /**
+       * The option string
+       */
+      sOption: string,
+      /**
+       * Whether to parse the value of "$filter" into a syntax tree as described in {@link #.parseFilter}; by
+       * default, the value remains a string
+       */
+      bParseFilter?: boolean
+    ): object;
     /**
      * Parses an "Edm.TimeOfDay" value and returns the corresponding JavaScript `Date` value (UTC with a date
      * value of "1970-01-01").
@@ -91631,6 +91792,8 @@ declare namespace sap {
     "sap/ui/model/xml/XMLModel": undefined;
 
     "sap/ui/model/xml/XMLTreeBinding": undefined;
+
+    "sap/ui/performance/FetchInterceptor": undefined;
 
     "sap/ui/performance/Measurement": undefined;
 
