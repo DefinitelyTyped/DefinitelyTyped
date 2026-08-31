@@ -1164,6 +1164,10 @@
             "libraryName": "complex.js",
             "asOfVersion": "2.0.14"
         },
+        "component-emitter": {
+            "libraryName": "component-emitter",
+            "asOfVersion": "2.0.0"
+        },
         "composer-concerto": {
             "libraryName": "composer-concerto",
             "asOfVersion": "0.71.1"
