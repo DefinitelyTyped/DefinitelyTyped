@@ -1,12 +1,17 @@
 import {
+    CanBeInvalid,
     DateTime,
+    DefaultValidity,
     Duration,
     FixedOffsetZone,
     IANAZone,
+    IfValid,
     Info,
     Interval,
+    Invalid,
     Settings,
     SystemZone,
+    Valid,
     VERSION,
     Zone,
     ZoneOffsetFormat,
@@ -1096,4 +1101,18 @@ function Interval_isValidNarrowsFactoryResult() {
 
     interval; // $ExpectType Interval<false>
     interval.toISO(); // $ExpectType "Invalid Interval"
+}
+
+function Validity_helperTypes() {
+    const canBeInvalid: CanBeInvalid = true;
+    const valid = DateTime.now() as DateTime<Valid>;
+    const invalid = DateTime.fromISO("nope") as DateTime<Invalid>;
+    const maybeValid = DateTime.now() as DateTime<DefaultValidity>;
+    const start: IfValid<DateTime<Valid>, null, DefaultValidity> = Interval.fromISO("2016-05-25/2016-05-27").start;
+
+    canBeInvalid; // $ExpectType true
+    valid.toISO(); // $ExpectType string
+    invalid.toISO(); // $ExpectType null
+    maybeValid.toISO(); // $ExpectType string | null
+    start?.toISO(); // $ExpectType string | undefined
 }
