@@ -18,6 +18,7 @@ export class NamedNode<Iri extends string = string> implements RDF.NamedNode<Iri
     readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
+    hashCode(): number;
     static subclass(type: any): void;
 }
 
@@ -29,6 +30,7 @@ export class BlankNode implements RDF.BlankNode {
     readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
+    hashCode(): number;
     static subclass(type: any): void;
 }
 
@@ -39,6 +41,7 @@ export class Variable implements RDF.Variable {
     readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
+    hashCode(): number;
     static subclass(type: any): void;
 }
 
@@ -49,6 +52,7 @@ export class Literal implements RDF.Literal {
     readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
+    hashCode(): number;
     static subclass(type: any): void;
     readonly language: string;
     readonly datatype: NamedNode;
@@ -63,6 +67,7 @@ export class DefaultGraph implements RDF.DefaultGraph {
     readonly id: string;
     toJSON(): {};
     equals(other: RDF.Term): boolean;
+    hashCode(): number;
     static subclass(type: any): void;
 }
 
@@ -86,6 +91,7 @@ export class BaseQuad implements RDF.BaseQuad {
     readonly object: Term;
     readonly graph: Term;
     equals(other: RDF.BaseQuad): boolean;
+    hashCode(): number;
     toJSON(): string;
 }
 

@@ -638,5 +638,10 @@ function test_get_rules_from_dataset() {
     const rules: N3.Rule[] = N3.getRulesFromDataset(store);
 }
 
+function test_term_hash_code() {
+    const node: N3.NamedNode = N3.DataFactory.namedNode("http://example.org/");
+    const hash: number = node.hashCode();
+}
+
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
 export const df: RDF.DataFactory = N3.DataFactory;
