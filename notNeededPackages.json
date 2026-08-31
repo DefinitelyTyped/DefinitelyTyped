@@ -620,6 +620,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "bwip-js": {
+            "libraryName": "bwip-js",
+            "asOfVersion": "4.0.0"
+        },
         "cache-manager": {
             "libraryName": "cache-manager",
             "asOfVersion": "5.0.0"
