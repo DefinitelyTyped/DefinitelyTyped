@@ -4709,6 +4709,10 @@
             "libraryName": "murmurhash",
             "asOfVersion": "2.0.0"
         },
+        "n-readlines": {
+            "libraryName": "n-readlines",
+            "asOfVersion": "3.0.0"
+        },
         "naja": {
             "libraryName": "naja",
             "asOfVersion": "2.0.0"
