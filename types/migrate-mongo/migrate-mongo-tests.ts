@@ -9,6 +9,10 @@ const downPromisified: MigrationFunction = async (db: Db, client: MongoClient): 
     await db.collection("albums").updateOne({ artist: "The Doors" }, { $set: { stars: 0 } });
     await db.collection("albums").updateOne({ artist: "The Beatles" }, { $set: { blacklisted: false } });
 };
+// @ts-expect-error - callback-style migrations were removed in migrate-mongo@14.0.0
+const upWithCallback: MigrationFunction = (db: Db, next: (err?: Error) => void) => {
+    next();
+};
 const customMongoConnectionSetting: Partial<config.Config> = {
     mongodb: {
         url: "mongodb://localhost:27017",
@@ -22,6 +26,9 @@ const customMongoConnectionSetting: Partial<config.Config> = {
     changelogCollectionName: "changelog",
     migrationFileExtension: ".js",
     useFileHash: false,
+    lockCollectionName: "changelog_lock",
+    lockTtl: 0,
+    moduleSystem: "commonjs",
 };
 
 async function test() {
@@ -37,8 +44,8 @@ async function test() {
     const migratedDown = await down(db, client);
     migratedDown.forEach(fileName => console.log("Migrated Down:", fileName));
     const migrationStatus = await status(db);
-    migrationStatus.forEach(({ fileName, fileHash, appliedAt }) =>
-        console.log(fileName, fileHash !== undefined ? `(${fileHash})` : "", ":", appliedAt)
+    migrationStatus.forEach(({ fileName, fileHash, appliedAt, migrationBlock }) =>
+        console.log(fileName, fileHash !== undefined ? `(${fileHash})` : "", ":", appliedAt, migrationBlock)
     );
     await db.close();
 }
