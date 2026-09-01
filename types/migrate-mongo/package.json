@@ -19,10 +19,5 @@
     "devDependencies": {
         "@types/migrate-mongo": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Amit Beckenstein",
-            "githubUsername": "amitbeck"
-        }
-    ]
+    "owners": []
 }
