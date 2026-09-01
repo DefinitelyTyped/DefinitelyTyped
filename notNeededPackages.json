@@ -4605,6 +4605,10 @@
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
         },
+        "moc-better-sqlite3": {
+            "libraryName": "moc-better-sqlite3",
+            "asOfVersion": "7.0.2"
+        },
         "mock-property": {
             "libraryName": "mock-property",
             "asOfVersion": "1.1.0"
