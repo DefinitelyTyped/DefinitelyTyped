@@ -9,6 +9,10 @@ const downPromisified: MigrationFunction = async (db: Db, client: MongoClient): 
     await db.collection("albums").updateOne({ artist: "The Doors" }, { $set: { stars: 0 } });
     await db.collection("albums").updateOne({ artist: "The Beatles" }, { $set: { blacklisted: false } });
 };
+// @ts-expect-error - callback-style migrations were removed in migrate-mongo@14.0.0
+const upWithCallback: MigrationFunction = (db: Db, next: (err?: Error) => void) => {
+    next();
+};
 const customMongoConnectionSetting: Partial<config.Config> = {
     mongodb: {
         url: "mongodb://localhost:27017",
