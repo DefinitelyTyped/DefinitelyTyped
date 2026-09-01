@@ -275,6 +275,11 @@ export class StoreFactory
     dataset(quads?: RDF.BaseQuad[] | RDF.DatasetCore): Store;
 }
 
+export class EntityIndex {
+    constructor(options?: { factory?: RDF.DataFactory });
+    createBlankNode(suggestedName?: string): BlankNode;
+}
+
 export interface Rule {
     premise: RDF.Quad[];
     conclusion: RDF.Quad[];
@@ -376,6 +381,7 @@ export interface extractListOptions {
 
 export interface StoreOptions {
     factory?: RDF.DataFactory | undefined;
+    entityIndex?: EntityIndex | undefined;
 }
 
 export namespace Util {

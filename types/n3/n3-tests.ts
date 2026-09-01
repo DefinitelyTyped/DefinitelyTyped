@@ -638,5 +638,11 @@ function test_get_rules_from_dataset() {
     const rules: N3.Rule[] = N3.getRulesFromDataset(store);
 }
 
+function test_entity_index() {
+    const entityIndex = new N3.EntityIndex();
+    const bn: N3.BlankNode = entityIndex.createBlankNode("b1");
+    const store = new N3.Store([], { entityIndex });
+}
+
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
 export const df: RDF.DataFactory = N3.DataFactory;
