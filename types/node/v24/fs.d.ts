@@ -3026,7 +3026,9 @@ declare module "fs" {
     export interface ReadFileOptionsWithBufferEncoding extends ReadFileOptions {
         encoding?: null | undefined;
     }
-    export interface ReadFileOptionsWithBuffer<T extends NodeJS.ArrayBufferView> extends ReadFileOptionsWithBufferEncoding {
+    export interface ReadFileOptionsWithBuffer<T extends NodeJS.ArrayBufferView>
+        extends ReadFileOptionsWithBufferEncoding
+    {
         buffer: T | ((size: number) => T);
     }
     /**
