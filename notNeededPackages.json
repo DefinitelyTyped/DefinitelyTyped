@@ -4729,6 +4729,10 @@
             "libraryName": "nano",
             "asOfVersion": "7.0.0"
         },
+        "nanoassert": {
+            "libraryName": "nanoassert",
+            "asOfVersion": "3.0.0"
+        },
         "nanoevents": {
             "libraryName": "nanoevents",
             "asOfVersion": "3.0.0"
