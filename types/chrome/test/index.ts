@@ -8478,3 +8478,12 @@ function testWallpaper() {
     // @ts-expect-error
     chrome.wallpaper.setWallpaper(details, () => {}).then(() => {});
 }
+
+async function testBrowser() {
+    const _b: typeof browser = chrome;
+    const _c: typeof chrome = browser;
+
+    browser.tabs.create({ url: "https://example.test" }); // $ExpectType Promise<void>
+    window.browser.tabs.create({ url: "https://example.test" }); // $ExpectType Promise<void>
+    globalThis.browser.tabs.create({ url: "https://example.test" }); // $ExpectType Promise<void>
+}
