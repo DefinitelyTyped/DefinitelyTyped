@@ -3594,10 +3594,12 @@ declare module "fs" {
      */
     export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
     export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
+    export type WatchIgnorePredicate = string | RegExp | ((filename: string) => boolean);
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | "buffer" | undefined;
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
+        ignore?: WatchIgnorePredicate | readonly WatchIgnorePredicate[] | undefined;
     }
     export interface WatchOptionsWithBufferEncoding extends WatchOptions {
         encoding: "buffer";

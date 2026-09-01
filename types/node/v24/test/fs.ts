@@ -269,11 +269,20 @@ async function testPromisify() {
         persistent: true,
         encoding: "utf8",
         signal: new AbortSignal(),
+        ignore: ["**/node_modules/**", /\.log$/, (filename) => filename.startsWith(".")],
     }, (event, filename) => {
         console.log(event, filename);
     });
 
     fsWatcher.unref().ref().close();
+
+    fs.watch("/tmp/foo-", { ignore: "**/dist/**" });
+    fs.watch("/tmp/foo-", { ignore: /^\.git$/ });
+    fs.watch("/tmp/foo-", { ignore: (filename) => filename === "secret.txt" });
+
+    const ignorePatterns: fs.WatchIgnorePredicate[] = ["**/dist/**", /^\.git$/];
+    // $ExpectType FSWatcher
+    fs.watch("/tmp/foo-", { ignore: ignorePatterns });
 }
 
 {
@@ -1042,7 +1051,16 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     // $ExpectType AsyncIterator<FileChangeInfo<NonSharedBuffer>, undefined, any>
     watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() });
     // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
-    watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8", maxQueue: 2048, overflow: "ignore" });
+    watchAsync("test", {
+        persistent: true,
+        recursive: true,
+        encoding: "utf-8",
+        maxQueue: 2048,
+        overflow: "ignore",
+        ignore: ["**/node_modules/**", (filename) => filename.startsWith(".")],
+    });
+    // $ExpectType AsyncIterator<FileChangeInfo<NonSharedBuffer>, undefined, any>
+    watchAsync("test", { encoding: "buffer", ignore: /\.log$/ });
 }
 
 {
