@@ -60,6 +60,18 @@ export namespace config {
          * if the file should be run.  Requires that scripts are coded to be run multiple times.
          */
         useFileHash?: boolean | undefined;
+        /**
+         * The MongoDB collection where the lock will be created.
+         */
+        lockCollectionName?: string | undefined;
+        /**
+         * The value in seconds for the TTL index that will be used for the lock. Value of 0 will disable the feature.
+         */
+        lockTtl?: number | undefined;
+        /**
+         * The module system used by the config file and migration scripts.
+         */
+        moduleSystem?: "commonjs" | "esm" | undefined;
     }
 }
 
@@ -93,6 +105,10 @@ export interface MigrationStatus {
      * Either "PENDING" or a JSON date.
      */
     appliedAt: string;
+    /**
+     * Timestamp shared by migrations that were applied together in the same `up`/`down` run.
+     */
+    migrationBlock?: number | undefined;
 }
 
 /**

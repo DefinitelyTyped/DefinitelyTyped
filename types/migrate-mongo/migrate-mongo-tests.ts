@@ -22,6 +22,9 @@ const customMongoConnectionSetting: Partial<config.Config> = {
     changelogCollectionName: "changelog",
     migrationFileExtension: ".js",
     useFileHash: false,
+    lockCollectionName: "changelog_lock",
+    lockTtl: 0,
+    moduleSystem: "commonjs",
 };
 
 async function test() {
@@ -37,8 +40,8 @@ async function test() {
     const migratedDown = await down(db, client);
     migratedDown.forEach(fileName => console.log("Migrated Down:", fileName));
     const migrationStatus = await status(db);
-    migrationStatus.forEach(({ fileName, fileHash, appliedAt }) =>
-        console.log(fileName, fileHash !== undefined ? `(${fileHash})` : "", ":", appliedAt)
+    migrationStatus.forEach(({ fileName, fileHash, appliedAt, migrationBlock }) =>
+        console.log(fileName, fileHash !== undefined ? `(${fileHash})` : "", ":", appliedAt, migrationBlock)
     );
     await db.close();
 }
