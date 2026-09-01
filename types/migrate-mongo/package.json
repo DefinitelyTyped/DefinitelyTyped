@@ -2,6 +2,13 @@
     "private": true,
     "name": "@types/migrate-mongo",
     "version": "14.0.9999",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./index.d.ts",
+            "require": "./index.d.cts"
+        }
+    },
     "projects": [
         "https://github.com/seppevs/migrate-mongo#readme"
     ],
