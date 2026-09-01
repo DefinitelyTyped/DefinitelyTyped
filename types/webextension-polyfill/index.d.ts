@@ -43,6 +43,7 @@ import { Permissions as ImportedPermissions } from "./namespaces/permissions";
 import { Pkcs11 as ImportedPkcs11 } from "./namespaces/pkcs11";
 import { Privacy as ImportedPrivacy } from "./namespaces/privacy";
 import { Proxy as ImportedProxy } from "./namespaces/proxy";
+import { PublicSuffix as ImportedPublicSuffix } from "./namespaces/publicSuffix";
 import { Runtime as ImportedRuntime } from "./namespaces/runtime";
 import { Scripting as ImportedScripting } from "./namespaces/scripting";
 import { Search as ImportedSearch } from "./namespaces/search";
@@ -320,6 +321,13 @@ declare namespace Browser {
      * Permissions: "proxy"
      */
     const proxy: Proxy.Static;
+
+    /**
+     * API to obtain the registrable domain / eTLD+1 from a domain name.
+     *
+     * Permissions: "publicSuffix"
+     */
+    const publicSuffix: PublicSuffix.Static;
 
     /**
      * Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest,
@@ -688,6 +696,13 @@ declare namespace Browser {
         proxy: Proxy.Static;
 
         /**
+         * API to obtain the registrable domain / eTLD+1 from a domain name.
+         *
+         * Permissions: "publicSuffix"
+         */
+        publicSuffix: PublicSuffix.Static;
+
+        /**
          * Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest,
          * and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the
          * relative path of URLs to fully-qualified URLs.
@@ -834,6 +849,7 @@ declare namespace Browser {
     export import Pkcs11 = ImportedPkcs11;
     export import Privacy = ImportedPrivacy;
     export import Proxy = ImportedProxy;
+    export import PublicSuffix = ImportedPublicSuffix;
     export import Runtime = ImportedRuntime;
     export import Scripting = ImportedScripting;
     export import Search = ImportedSearch;

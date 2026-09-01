@@ -37,9 +37,10 @@ export namespace WebNavigation {
      */
     interface GetFrameDetailsType {
         /**
-         * The ID of the tab in which the frame is.
+         * The ID of the tab in which the frame is. Must be specified if documentId is not set.
+         * Optional.
          */
-        tabId: number;
+        tabId?: number;
 
         /**
          * The ID of the process runs the renderer for this tab.
@@ -48,9 +49,17 @@ export namespace WebNavigation {
         processId?: number;
 
         /**
-         * The ID of the frame in the given tab.
+         * The ID of the frame in the given tab. Must be specified if documentId is not set.
+         * Optional.
          */
-        frameId: number;
+        frameId?: number;
+
+        /**
+         * The UUID of the document. If provided, tabId and frameId are optional. If all are provided,
+         * the frame is only returned if all properties match.
+         * Optional.
+         */
+        documentId?: string;
     }
 
     /**
@@ -83,6 +92,17 @@ export namespace WebNavigation {
          * ID of frame that wraps the frame. Set to -1 of no parent frame exists.
          */
         parentFrameId: number;
+
+        /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
     }
 
     /**
@@ -118,6 +138,17 @@ export namespace WebNavigation {
         parentFrameId: number;
 
         /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * The URL currently associated with this frame.
          */
         url: string;
@@ -143,6 +174,12 @@ export namespace WebNavigation {
         parentFrameId: number;
 
         /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * The time when the browser was about to start the navigation, in milliseconds since the epoch.
          */
         timeStamp: number;
@@ -161,6 +198,17 @@ export namespace WebNavigation {
          * Frame IDs are unique within a tab.
          */
         frameId: number;
+
+        /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * Cause of the navigation.
@@ -193,6 +241,17 @@ export namespace WebNavigation {
         frameId: number;
 
         /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * The time when the page's DOM was fully constructed, in milliseconds since the epoch.
          */
         timeStamp: number;
@@ -213,6 +272,17 @@ export namespace WebNavigation {
         frameId: number;
 
         /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * The time when the document finished loading, in milliseconds since the epoch.
          */
         timeStamp: number;
@@ -231,6 +301,17 @@ export namespace WebNavigation {
          * Frame IDs are unique within a tab.
          */
         frameId: number;
+
+        /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * The time when the error occurred, in milliseconds since the epoch.
@@ -285,6 +366,17 @@ export namespace WebNavigation {
         frameId: number;
 
         /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * Cause of the navigation.
          */
         transitionType: TransitionType;
@@ -330,6 +422,17 @@ export namespace WebNavigation {
          * Frame IDs are unique within a tab.
          */
         frameId: number;
+
+        /**
+         * A UUID of the document loaded.
+         */
+        documentId: string;
+
+        /**
+         * A UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
 
         /**
          * Cause of the navigation.
@@ -472,7 +575,7 @@ export namespace WebNavigation {
     interface Static {
         /**
          * Retrieves information about the given frame. A frame refers to an &lt;iframe&gt; or a &lt;frame&gt; of a web page and is
-         * identified by a tab ID and a frame ID.
+         * identified by a tab ID and a frame ID, or by its document ID.
          *
          * @param details Information about the frame to retrieve information about.
          */

@@ -23,7 +23,6 @@ export namespace GeckoProfiler {
         | "nativeallocations"
         | "ipcmessages"
         | "audiocallbacktracing"
-        | "cpu"
         | "notimerresolutionchange"
         | "cpuallthreads"
         | "samplingallthreads"
