@@ -380,6 +380,10 @@
             "libraryName": "baconjs",
             "asOfVersion": "3.0.0"
         },
+        "bad-words": {
+            "libraryName": "bad-words",
+            "asOfVersion": "4.0.0"
+        },
         "badgen": {
             "libraryName": "badgen",
             "asOfVersion": "2.7.1"
@@ -1748,6 +1752,10 @@
         "dot-prop": {
             "libraryName": "dot-prop",
             "asOfVersion": "5.0.0"
+        },
+        "dot-prop-immutable": {
+            "libraryName": "dot-prop-immutable",
+            "asOfVersion": "2.0.0"
         },
         "dotenv": {
             "libraryName": "dotenv",
@@ -4708,6 +4716,10 @@
         "murmurhash": {
             "libraryName": "murmurhash",
             "asOfVersion": "2.0.0"
+        },
+        "n-readlines": {
+            "libraryName": "n-readlines",
+            "asOfVersion": "3.0.0"
         },
         "naja": {
             "libraryName": "naja",
@@ -7815,6 +7827,10 @@
             "libraryName": "tokenizr",
             "asOfVersion": "1.6.0"
         },
+        "totp-generator": {
+            "libraryName": "totp-generator",
+            "asOfVersion": "2.0.1"
+        },
         "transliteration": {
             "libraryName": "transliteration",
             "asOfVersion": "1.6.6"
@@ -8254,6 +8270,10 @@
         "which-pm": {
             "libraryName": "which-pm",
             "asOfVersion": "1.1.0"
+        },
+        "wif": {
+            "libraryName": "wif",
+            "asOfVersion": "5.0.0"
         },
         "wikidata-sdk": {
             "libraryName": "wikidata-sdk",
