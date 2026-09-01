@@ -14,10 +14,5 @@
     "devDependencies": {
         "@types/entropy__winston-elasticsearch-apm": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Michael Vasyliv",
-            "githubUsername": "michael-vasyliv"
-        }
-    ]
+    "owners": []
 }
