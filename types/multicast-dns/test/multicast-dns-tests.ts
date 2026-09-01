@@ -70,8 +70,9 @@ mdns.query(
         bytes; // $ExpectType number | undefined
     },
 );
-// @ts-expect-error
+// @ts-expect-error <7.0
 mdns.query(
+    // @ts-expect-error >=7.0
     {
         questions: [{ name: "brunhilde.local", type: "A" }],
     },

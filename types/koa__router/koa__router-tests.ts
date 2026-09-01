@@ -92,13 +92,13 @@ router3.get("/", (ctx) => {
     console.log(ctx.router.params);
     ctx.body = "Hello World!";
 });
-router3.get("/foo", (ctx: Router.RouterContext) => {
+router3.get("/foo", (ctx) => {
     ctx.body = "Yup";
 });
 new Koa()
     .use(async (ctx, next) => next())
     .use(router3.routes())
-    .use(router.allowedMethods())
+    .use(router3.allowedMethods())
     .listen(3001);
 
 // It's from https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31704#issuecomment-451075919,

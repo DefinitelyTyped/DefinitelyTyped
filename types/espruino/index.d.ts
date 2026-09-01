@@ -3967,13 +3967,6 @@ declare function clearTimeout(id: any): void;
 declare function changeInterval(id: any, time: number): void;
 
 /**
- * <p>A variable containing the arguments given to the function</p>
- *
- * @url http://www.espruino.com/Reference#l__global_arguments
- */
-declare var arguments: any;
-
-/**
  * <p>Evaluate a string containing JavaScript code</p>
  *
  * @param code
