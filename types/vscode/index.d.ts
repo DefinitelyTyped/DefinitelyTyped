@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.134 Extension API
+ * Type Definition for Visual Studio Code 1.136 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
@@ -5639,6 +5639,9 @@ declare module 'vscode' {
 
 		/**
 		 * The position of this hint.
+		 *
+		 * If multiple hints have the same position, they will be shown in the order
+		 * they appear in the results.
 		 */
 		position: Position;
 
