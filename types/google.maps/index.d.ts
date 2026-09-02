@@ -17156,6 +17156,10 @@ declare namespace google.maps.routes {
      * Options for customizing the style of a 3D polyline.
      */
     polylineOptions?: google.maps.maps3d.Polyline3DElementOptions | ((arg0: google.maps.maps3d.Polyline3DElementOptions, arg1: google.maps.routes.RoutePolylineDetails) => google.maps.maps3d.Polyline3DElementOptions);
+    /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     */
+    trafficPolylinesDisabled?: boolean;
   }
   /**
    * Details about a section of a route corresponding to a polyline that can be used to customize the polyline style.
