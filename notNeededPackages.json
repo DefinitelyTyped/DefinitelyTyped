@@ -3849,6 +3849,10 @@
             "libraryName": "koa-views",
             "asOfVersion": "7.0.0"
         },
+        "koa__router": {
+            "libraryName": "@koa/router",
+            "asOfVersion": "15.0.0"
+        },
         "ladda": {
             "libraryName": "ladda",
             "asOfVersion": "2.0.0"
