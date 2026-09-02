@@ -476,6 +476,7 @@ const version4Tests = async () => {
         },
     });
 
+    expectType<number | undefined>(sub.regId);
     console.log(sub.regId);
 
     const queue = await connection.getQueue("test", {
