@@ -11,16 +11,16 @@ declare namespace GorillaEngine.UI {
          * The text to display in the label. Updates at runtime.
          */
         text: string | number;
-          /** Format string applied to the displayed value. */
-          format: string;
-          /** Whether the label can display multiple lines of text. */
+        /** Format string applied to the displayed value. */
+        format: string;
+        /** Whether the label can display multiple lines of text. */
         multiLine: boolean;
-          /** Whether the text is scaled to fit the label's bounds. */
+        /** Whether the text is scaled to fit the label's bounds. */
         stretchText: boolean;
     }
 
     /**
-      * A read-only control for displaying text or formatted values.
+     * A read-only control for displaying text or formatted values.
      */
     class Label extends Component {
         constructor(options: Partial<LabelProps>);
