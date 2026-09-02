@@ -1136,14 +1136,14 @@ declare module "streams" {
 
     export {
         ByteLengthQueuingStrategy,
+        CompressionFormat,
+        CompressionStream,
         CountQueuingStrategy,
+        DecompressionStream,
         ReadableStream,
         ReadableStreamDefaultController,
         TransformStream,
         WritableStream,
-        CompressionStream,
-        DecompressionStream,
-        CompressionFormat,
     };
 }
 

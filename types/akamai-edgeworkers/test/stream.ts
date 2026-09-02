@@ -1,8 +1,8 @@
 import { createResponse } from "create-response";
-import { httpRequest } from "http-request";
-import { TextDecoderStream } from "text-encode-transform";
-import { CompressionStream, DecompressionStream } from 'streams';
 import { HtmlRewritingStream } from "html-rewriter";
+import { httpRequest } from "http-request";
+import { CompressionStream, DecompressionStream } from "streams";
+import { TextDecoderStream } from "text-encode-transform";
 
 const TEMPLATE_URL = "http://techjam.edgekey-staging.net/templates/index1MB.html";
 
@@ -19,7 +19,7 @@ export function responseProviderBufferedResponse(request: EW.ResponseProviderReq
 export function responseProviderCompressedResponse(request: EW.ResponseProviderRequest) {
     return httpRequest(TEMPLATE_URL).then(response => {
         let compressed = response.body.pipeThrough(new CompressionStream("gzip"));
-        return createResponse(response.status, {"content-encoding": "gzip"}, compressed);
+        return createResponse(response.status, { "content-encoding": "gzip" }, compressed);
     });
 }
 
@@ -39,7 +39,7 @@ export function responseProviderRewriteCompressed(request: EW.ResponseProviderRe
             stream = decompress ? stream.pipeThrough(new DecompressionStream("gzip")) : stream;
             stream = stream.pipeThrough(rewriter);
             stream = stream.pipeThrough(new CompressionStream("gzip"));
-            return createResponse(response.status, {"content-encoding": "gzip"}, stream);
+            return createResponse(response.status, { "content-encoding": "gzip" }, stream);
         } else {
             return createResponse(response.status, {}, stream);
         }
