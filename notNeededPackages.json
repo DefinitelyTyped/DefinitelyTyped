@@ -8279,6 +8279,10 @@
             "libraryName": "websequencediagrams",
             "asOfVersion": "2.0.0"
         },
+        "weighted": {
+            "libraryName": "weighted",
+            "asOfVersion": "1.0.0"
+        },
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
