@@ -8131,6 +8131,10 @@
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
         },
+        "viewport-mercator-project": {
+            "libraryName": "viewport-mercator-project",
+            "asOfVersion": "7.0.2"
+        },
         "vinyl-file": {
             "libraryName": "vinyl-file",
             "asOfVersion": "4.1.0"
