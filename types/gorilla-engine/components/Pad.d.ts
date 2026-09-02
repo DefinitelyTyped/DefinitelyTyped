@@ -5,7 +5,7 @@ declare namespace GorillaEngine.UI {
          */
         midiNote: number;
         /**
-         * The veloctiy of the pad when pressed and not controlled by midi
+         * The velocity sent when the pad is pressed without MIDI input.
          */
         velocity: number;
         /**

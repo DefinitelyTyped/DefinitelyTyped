@@ -17,3 +17,8 @@ const slider = new GorillaEngine.UI.Slider({ id: "slider", x: 0, y: 2 });
 const mappingEditor = new GorillaEngine.UI.MappingEditor({ id: "myNewMappingEditor", x: 3, y: 2 });
 
 const levelMeter = new GorillaEngine.UI.LevelMeter({ id: "myLevelMeter", x: 0, y: 2 });
+
+const instrument = GorillaEngine.createEmptyInstrument();
+
+GorillaEngine.loadBlob("/tmp/Test_part1.blob", "0123456789ABCDEF0123456789ABCDEF");
+GorillaEngine.setActiveInstrument(instrument, 2, true);

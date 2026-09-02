@@ -471,11 +471,17 @@ declare namespace GorillaEngine {
     function getManufacturerName(): string;
     function quitApplication(): void;
     /**
-     * Load blob at the specified path
-     * @param blobPath the load blob
-     * @throws if the blob could not be loaded e.g. it is not there or decryption failed
+     * Loads an instrument blob from the file system.
+     *
+     * The returned blob can be used to enumerate and load its instruments. Blob exports
+     * with separate headers must be loaded by passing the path to the first blob part.
+     *
+     * @param blobPath Absolute path to the blob file or the first part of a split blob.
+     * @param encryptionKey Encryption key used to decrypt the blob, when required.
+     * @returns The loaded blob.
+     * @throws If the file cannot be found or decrypted.
      */
-    function loadBlob(blobPath: string): Blob;
+    function loadBlob(blobPath: string, encryptionKey?: string): Blob;
     function getPluginNRTB(enable: boolean): void;
     /**
      * Method updates the list of the automatable parameters note it does not work for all DAWS
@@ -516,12 +522,20 @@ declare namespace GorillaEngine {
     function initialiseSpliceRTO(pluginName?: string): any;
     function disposeInstrument(instrument: Instrument): void;
     /**
-     * Activates an instrument, i.e. route MIDI to the instrument and send Audio from the isntrument to
-     * the DAW. Currently only one instrument can be active. If there was
-     * another instrument active before, it will get deativated.
-     * @param instrument the instrument activate
+     * Activates an instrument for MIDI input and audio output.
+     *
+     * Only one instrument can be active at a time. Activating an instrument deactivates
+     * the previously active instrument.
+     *
+     * @param instrument The instrument to activate.
+     * @param streamBufferSizeSeconds Streaming buffer size in seconds. Omit to keep the current size.
+     * @param waitUntilPreloaded Whether to wait for sample preloading to complete before returning.
      */
-    function setActiveInstrument(instrument: Instrument): void;
+    function setActiveInstrument(
+        instrument: Instrument,
+        streamBufferSizeSeconds?: number,
+        waitUntilPreloaded?: boolean,
+    ): void;
     /**
      * Create an empty dummy instrument. It can be modified with e.g. {@link Instrument.setModuleAtPath}
      * @returns the empty instrument.
@@ -534,8 +548,23 @@ declare namespace GorillaEngine {
      * @returns the instrument
      */
     function LoadInstrumentFromFile(instFilePath: string): Instrument;
-    function setSessionSaveCallback(callback: (state: string) => string, instance: any): void;
-    function setSessionLoadCallback(callback: (state: string) => string, instance: any): void;
+    /**
+     * Registers the callback used to serialize application state when the host saves its session.
+     *
+     * @param callback Called with additional state managed by Gorilla Engine. It must return the
+     * application state to store in the host session.
+     * @param instance Optional object used as `this` when the callback runs.
+     * @returns `true` when the callback was registered.
+     */
+    function setSessionSaveCallback(callback: (state: string) => string, instance?: object): boolean;
+    /**
+     * Registers the callback used to restore application state when the host loads its session.
+     *
+     * @param callback Called with the application state previously returned by the save callback.
+     * @param instance Optional object used as `this` when the callback runs.
+     * @returns `true` when the callback was registered.
+     */
+    function setSessionLoadCallback(callback: (state: string) => string, instance?: object): boolean;
     function setParametersDirty(dirty: boolean): void;
     function areParametersDirty(): boolean;
     /**
