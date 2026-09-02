@@ -976,12 +976,15 @@ declare module "http-request" {
      *  - `headers` Request headers to specify.
      *  - `body` The request payload.
      *  - `timeout` The request timeout, in milliseconds.
+     *  - `preserveEncoding` Whether to preserve the original encoding of the response body. Default is false and
+     *                       response bodies are decoded.
      */
     function httpRequest(url: string, options?: {
         method?: string | undefined;
         headers?: { [others: string]: string | string[] } | undefined;
         body?: RequestBody | undefined;
         timeout?: number | undefined;
+        preserveEncoding?: boolean | undefined;
     }): Promise<HttpResponse>;
 
     /**
@@ -1003,12 +1006,14 @@ declare module "http-request" {
         /**
          * Returns a Promise that resolves to a string containing the
          * response body. Note that the body is buffered in memory.
+         * Will automatically decode recognized content-encodings even if `preserveEncoding:true` was specified
          */
         text(): Promise<string>;
 
         /**
          * Parses the body of the response as JSON. The response is buffered
          * and `JSON.parse()` is run on the text.
+         * Will automatically decode recognized content-encodings even if `preserveEncoding:true` was specified
          */
         json(): Promise<any>;
     }
@@ -1020,7 +1025,7 @@ declare module "http-request" {
  * [WHATWG Streams Standard]: https://streams.spec.whatwg.org
  */
 declare module "streams" {
-    interface ReadableStream<R = any> extends EW.ReadableStreamEW {
+    interface ReadableStream<R = any> extends EW.ReadableStreamEW<R> {
     }
 
     const ReadableStream: {
@@ -1032,7 +1037,7 @@ declare module "streams" {
         new<R = any>(underlyingSource?: EW.UnderlyingSource<R>, strategy?: EW.QueuingStrategy<R>): ReadableStream<R>;
     };
 
-    interface WritableStream<R = any> extends EW.WritableStreamEW {
+    interface WritableStream<W = any> extends EW.WritableStreamEW<W> {
     }
 
     const WritableStream: {
@@ -1041,6 +1046,13 @@ declare module "streams" {
     };
 
     interface ReadableStreamDefaultController<R = any> extends EW.ReadableStreamDefaultControllerEW {
+    }
+
+    type BufferSource = ArrayBufferView | ArrayBuffer;
+
+    interface GenericTransformStream<R = any, W = any> {
+        readonly readable: ReadableStream<R>;
+        readonly writable: WritableStream<W>;
     }
 
     interface TransformStream<I = any, O = any> {
@@ -1104,6 +1116,24 @@ declare module "streams" {
         new(options: { highWaterMark: number }): ByteLengthQueuingStrategy;
     };
 
+    type CompressionFormat = "brotli" | "deflate" | "deflate-raw" | "gzip";
+
+    interface CompressionStream extends GenericTransformStream<Uint8Array, BufferSource> {
+    }
+
+    const CompressionStream: {
+        prototype: CompressionStream;
+        new(format: CompressionFormat): CompressionStream;
+    };
+
+    interface DecompressionStream extends GenericTransformStream<Uint8Array, BufferSource> {
+    }
+
+    const DecompressionStream: {
+        prototype: DecompressionStream;
+        new(format: CompressionFormat): DecompressionStream;
+    };
+
     export {
         ByteLengthQueuingStrategy,
         CountQueuingStrategy,
@@ -1111,6 +1141,9 @@ declare module "streams" {
         ReadableStreamDefaultController,
         TransformStream,
         WritableStream,
+        CompressionStream,
+        DecompressionStream,
+        CompressionFormat,
     };
 }
 

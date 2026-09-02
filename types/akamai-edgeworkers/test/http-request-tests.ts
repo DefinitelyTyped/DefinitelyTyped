@@ -9,6 +9,7 @@ httpRequest("url", {});
 httpRequest("url", { headers: { "Accept-Encoding": "zz" } });
 httpRequest("url", { method: "POST", body: "post payload" });
 httpRequest("url", { timeout: 9 });
+httpRequest("url", { preserveEncoding: true });
 httpRequest("url", {
     method: "POST",
     body: new ReadableStream({

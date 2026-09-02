@@ -13,7 +13,7 @@ export function onClientRequest(request: EW.IngressClientRequest) {
     testHeaders(request.getHeaders());
 
     // Exercise EW.ClientRequest.getVariable()
-    request.respondWith(505, [], "Missing get-variable-present");
+    request.getVariable("variableName");
 
     request.respondWith(505, { no: "bad" }, "Expected var to be missing");
 
