@@ -8743,6 +8743,10 @@
             "libraryName": "zookeeper",
             "asOfVersion": "4.6.0"
         },
+        "zoomist": {
+            "libraryName": "zoomist",
+            "asOfVersion": "2.0.1"
+        },
         "zrender": {
             "libraryName": "zrender",
             "asOfVersion": "5.0.0"
