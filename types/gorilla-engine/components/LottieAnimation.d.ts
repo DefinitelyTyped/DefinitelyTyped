@@ -1,4 +1,5 @@
 declare namespace GorillaEngine.UI {
+    /** Properties and playback methods for a Lottie animation. */
     interface LottieAnimationProps extends Common, Bounds {
         /**
          * The file path to the Lottie animation JSON file.
@@ -40,13 +41,15 @@ declare namespace GorillaEngine.UI {
          */
         setFrame(frame: number): void;
         /**
-         * TODO:: No idea what this does
-         * @param frame the target frame to set the animation to.
+         * Sets the target frame used by animated controls.
+         * @param frame Target frame between zero and the animation's last frame.
          */
         setTargetFrame(frame: number): void;
         /**
-         * TODO:: No idea what this does
-         * @param frame the target frame to set the animation to.
+         * Maps a value from the supplied range to the animation's frame range and displays that frame.
+         * @param value Value to map.
+         * @param min Lower bound of the value range.
+         * @param max Upper bound of the value range.
          */
         setFrameFromLinearTransform(value: number, min: number, max: number): void;
         setProperties(
@@ -66,6 +69,7 @@ declare namespace GorillaEngine.UI {
         ): void;
     }
 
+    /** A component that renders and controls a Lottie animation. */
     class LottieAnimation extends Component {
         constructor(options: Partial<LottieAnimationProps>);
     }

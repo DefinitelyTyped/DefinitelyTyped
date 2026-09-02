@@ -1,4 +1,7 @@
 declare namespace GorillaEngine.UI {
+    /**
+     * Properties for an editable or read-only text field.
+     */
     interface TextBoxProps extends Font, Clickable, Bounds, Background, Margin, Keyable {
         /**
          * The initial text value of the text box.
@@ -8,8 +11,8 @@ declare namespace GorillaEngine.UI {
          * The placeholder text of the text box.
          */
         placeholder: string;
-        /** TODO:: check if it works
-         * An additional suffix displayed in the textbox without alterting the text value.
+        /**
+         * A suffix displayed after the text without changing the text value.
          */
         unit: string;
         /**
@@ -41,8 +44,8 @@ declare namespace GorillaEngine.UI {
          */
         multiLine: boolean;
 
-        /** TODO:: what is even the point of this?
-         * If true, the text box will not allow user input and will be read-only.
+        /**
+         * Whether user input is disabled while the text remains selectable and readable.
          */
         readOnly: boolean;
         /**
@@ -58,10 +61,15 @@ declare namespace GorillaEngine.UI {
          * If acceptedDataType is numeric, this is the maximum value allowed in the text box.
          */
         maxValue: number;
+        /** Zero-based index of the first selected character. */
         highlightStart: number;
+        /** Zero-based index after the last selected character. */
         highlightEnd: number;
+        /** Name of the action invoked when a key is pressed while the text box has focus. */
         keyDownAction: string;
+        /** Name of the action invoked after the user changes the text. */
         textChangedAction: string;
+        /** Whether text changes are committed when the text box loses keyboard focus. */
         focusLostUpdate: boolean;
     }
 
@@ -69,6 +77,9 @@ declare namespace GorillaEngine.UI {
         grabKeyboardFocus(): void;
     }
 
+    /**
+     * A text field for displaying and editing string or numeric input.
+     */
     class TextBox extends Component {
         constructor(props: Partial<TextBoxProps>);
     }

@@ -1,4 +1,5 @@
 declare namespace GorillaEngine.UI {
+    /** Properties and scrolling methods for a viewport containing child components. */
     interface ScrollViewProps extends Common, Bounds, Scrollable {
         /**
          * The thickness of the scrollbar in pixels.
@@ -14,8 +15,8 @@ declare namespace GorillaEngine.UI {
          * @default false
          */
         hideHorizontalScrollbar: boolean;
-        /** TODO:: No idea if this is correct
-         * If true, the scroll view will ignore keypress events.
+        /**
+         * Whether the scroll view declines keyboard input instead of handling it for scrolling.
          * @default false
          */
         ignoreKeypressEvent: boolean;
@@ -32,6 +33,7 @@ declare namespace GorillaEngine.UI {
         setScrollPositionProportionately(xPos: number, yPos: number): void;
     }
 
+    /** A scrollable viewport for child components. */
     class ScrollView extends Component {
         constructor(options: Partial<ScrollViewProps>);
     }

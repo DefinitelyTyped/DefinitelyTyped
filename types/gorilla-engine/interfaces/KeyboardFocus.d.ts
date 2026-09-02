@@ -1,7 +1,6 @@
 declare namespace GorillaEngine.UI {
     /**
-     * KeyboardFocus interface for Gorilla Engine UI.
-     * Defines how a cotrol appears when it has the keyboard focus
+    * Defines how a control appears when it has keyboard focus.
      */
     interface KeyboardFocus {
         keyboardFocus: {
