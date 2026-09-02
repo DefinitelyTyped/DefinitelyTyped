@@ -5,6 +5,7 @@ import * as crypto from "node:crypto";
 import KeyGrip from "keygrip";
 import Provider from "oidc-provider";
 import * as oidc from "oidc-provider";
+import * as grantHelpers from "oidc-provider/lib/helpers/grants.js";
 
 oidc.errors.AccessDenied.name;
 
@@ -16,6 +17,320 @@ new Provider("https://op.example.com");
 new Provider("https://op.example.com", {
     cookies: {
         keys: new KeyGrip([]),
+    },
+});
+
+new Provider("https://op.example.com", {
+    cookies: {
+        long: {
+            // @ts-expect-error Cookie priority has a finite set of supported values.
+            priority: "urgent",
+        },
+    },
+});
+
+const getAttestationSignaturePublicKey: oidc.AttestationSignaturePublicKey = async () =>
+    crypto.generateKeyPairSync(
+        "ec",
+        { namedCurve: "P-256" },
+    ).publicKey;
+const issueCredential: oidc.OpenID4VCIIssueCredential = async () => ({ credentials: ["credential"] });
+const authorizationDetailsForGrantSource: oidc.AuthorizationDetailsForGrantSource = async () => undefined;
+const authorizationDetailsForAccessToken: oidc.AuthorizationDetailsForAccessToken = async () => undefined;
+const authorizationDetailsForIntrospection: oidc.AuthorizationDetailsForIntrospection = async () => undefined;
+const paymentAuthorizationDetail: oidc.RichAuthorizationRequestType = {
+    validate(_ctx: oidc.KoaContextWithOIDC, detail: oidc.AuthorizationDetail) {
+        detail.type.substring(0);
+    },
+};
+const optionalAuthorizationDetailTypes = undefined as
+    | Readonly<Record<string, oidc.RichAuthorizationRequestType>>
+    | undefined;
+const dynamicallyEnabled: boolean = true;
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: {
+            enabled: true,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+        ciba: {
+            enabled: true,
+            triggerAuthenticationDevice() {},
+            validateRequestContext() {},
+            verifyUserCode() {},
+        },
+        fapi: {
+            enabled: true,
+            profile: "2.0",
+        },
+        mTLS: {
+            enabled: true,
+            tlsClientAuth: true,
+            getCertificate: () => undefined,
+            certificateAuthorized: () => true,
+            certificateSubjectMatches: () => true,
+        },
+        openid4vci: {
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        introspection: { enabled: true },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: { payment: paymentAuthorizationDetail },
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+            authorizationDetailsForIntrospection,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: {
+            enabled: dynamicallyEnabled,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+        ciba: {
+            enabled: dynamicallyEnabled,
+            triggerAuthenticationDevice() {},
+            validateRequestContext() {},
+            verifyUserCode() {},
+        },
+        fapi: {
+            enabled: dynamicallyEnabled,
+            profile: () => undefined,
+        },
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            tlsClientAuth: dynamicallyEnabled,
+            getCertificate: () => undefined,
+            certificateAuthorized: () => true,
+            certificateSubjectMatches: () => true,
+        },
+        openid4vci: {
+            enabled: dynamicallyEnabled,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: {
+            enabled: true,
+            certificateBoundAccessTokens: true,
+            getCertificate: () => undefined,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: {},
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            certificateBoundAccessTokens: dynamicallyEnabled,
+            getCertificate: () => undefined,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: {},
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: optionalAuthorizationDetailTypes,
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled attestClientAuth requires its challenge secret and key resolver
+        attestClientAuth: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error the challenge secret does not make the attestation key resolver optional
+        attestClientAuth: { enabled: true, challengeSecret: Buffer.alloc(32) },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error active RAR with introspection requires an introspection projection policy
+        introspection: { enabled: true },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: { payment: paymentAuthorizationDetail },
+            authorizationDetailsForGrantSource,
+            authorizationDetailsForAccessToken,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            // @ts-expect-error OpenID4VCI activates an otherwise empty enabled RAR configuration
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: {
+                credential: { format: "example" },
+            },
+            issueCredential,
+        },
+        richAuthorizationRequests: {
+            enabled: true,
+            types: {},
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled CIBA requires its always-invoked application callbacks
+        ciba: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error verifyUserCode remains mandatory when the other CIBA callbacks are configured
+        ciba: {
+            enabled: true,
+            triggerAuthenticationDevice() {},
+            validateRequestContext() {},
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled FAPI requires a profile
+        fapi: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error enabled OpenID4VCI requires a nonce secret, configurations, and issuance callback
+        openid4vci: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        openid4vci: {
+            // @ts-expect-error issueCredential remains mandatory when the other OpenID4VCI values are configured
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: { credential: { format: "example" } },
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error certificate-bound access tokens require a certificate resolver
+        mTLS: { enabled: true, certificateBoundAccessTokens: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error self-signed TLS client authentication requires a certificate resolver
+        mTLS: { enabled: true, selfSignedTlsClientAuth: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error tls_client_auth requires all three certificate callbacks
+        mTLS: { enabled: true, tlsClientAuth: true, getCertificate: () => undefined },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error a dynamic certificate-bound flag still requires a certificate resolver
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            certificateBoundAccessTokens: dynamicallyEnabled,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error a dynamic tls_client_auth flag still requires all three certificate callbacks
+        mTLS: {
+            enabled: dynamicallyEnabled,
+            tlsClientAuth: dynamicallyEnabled,
+            getCertificate: () => undefined,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        // @ts-expect-error a non-empty RAR type map requires grant-source and access-token policies
+        richAuthorizationRequests: {
+            enabled: true,
+            types: { payment: paymentAuthorizationDetail },
+        },
     },
 });
 
@@ -41,11 +356,14 @@ new oidc.Provider("https://op.example.com", {
                 token.iat.toFixed();
                 parts.header = { foo: "bar" };
                 parts.payload.foo = "bar";
-                return parts;
             },
         },
     },
 });
+
+const findAccountRefreshToken = null as unknown as oidc.RefreshToken;
+const findAccountToken: Parameters<oidc.FindAccount>[2] = findAccountRefreshToken;
+findAccountToken?.iat.toFixed();
 
 new oidc.Provider("https://op.example.com", {
     pkce: {
@@ -205,6 +523,10 @@ const provider = new oidc.Provider("https://op.example.com", {
         acr: null,
         foo: null,
         bar: ["bar"],
+        address: {
+            formatted: null,
+            country: null,
+        },
     },
     clientBasedCORS(ctx: oidc.KoaContextWithOIDC, origin, client: oidc.Client) {
         ctx.oidc.issuer.substring(0);
@@ -229,14 +551,19 @@ const provider = new oidc.Provider("https://op.example.com", {
     cookies: {
         names: {
             session: "_foo",
+            // @ts-expect-error `state` is not a configurable cookie name.
+            state: "_state",
         },
         long: {
+            partitioned: true,
+            priority: "high",
             sameSite: "none",
             secure: true,
         },
         short: {
             httpOnly: true,
-            sameSite: "lax",
+            priority: "low",
+            sameSite: true,
         },
         keys: ["foo", Buffer.from("bar")],
     },
@@ -261,7 +588,6 @@ const provider = new oidc.Provider("https://op.example.com", {
                 token.iat.toFixed();
                 parts.header = { foo: "bar" };
                 parts.payload.foo = "bar";
-                return parts;
             },
         },
     },
@@ -357,8 +683,11 @@ const provider = new oidc.Provider("https://op.example.com", {
     },
     extraClientMetadata: {
         properties: ["foo", "bar"],
-        validator(ctx: oidc.KoaContextWithOIDC, key, value, metadata: oidc.ClientMetadata) {
+        validator(ctx, key, value, metadata: oidc.ClientMetadata) {
+            const optionalContext: oidc.KoaContextWithOIDC | undefined = ctx;
+            // @ts-expect-error The validator context may be undefined.
             ctx.oidc.issuer.substring(0);
+            optionalContext?.oidc.issuer.substring(0);
             metadata.client_id.substring(0);
             key.substring(0);
             metadata.foo = "bar";
@@ -623,15 +952,43 @@ const provider = new oidc.Provider("https://op.example.com", {
     },
 });
 
+const firstInteractionCheck = new oidc.interactionPolicy.Check("first", "first check", () => false);
+const secondInteractionCheck = new oidc.interactionPolicy.Check("second", "second check", () => false);
+const interactionPrompt = new oidc.interactionPolicy.Prompt(
+    { name: "step-up" },
+    () => ({ method: "webauthn" }),
+    firstInteractionCheck,
+);
+const selectAccountPrompt = new oidc.interactionPolicy.Prompt({ name: "select_account" });
+const configuredInteractionPolicy = oidc.interactionPolicy.base();
+const interactionPolicyContext = null as unknown as oidc.KoaContextWithOIDC;
+
+firstInteractionCheck.error?.substring(0);
+configuredInteractionPolicy.get("login")?.name.substring(0);
+configuredInteractionPolicy.remove("missing");
+configuredInteractionPolicy.add(interactionPrompt);
+configuredInteractionPolicy.clear();
+
+interactionPrompt.checks.get("first")?.description.substring(0);
+interactionPrompt.checks.remove("missing");
+interactionPrompt.checks.add(secondInteractionCheck);
+interactionPrompt.checks.clear();
+Promise.resolve(interactionPrompt.details(interactionPolicyContext)).then(details => details?.method);
+Promise.resolve(selectAccountPrompt.details(interactionPolicyContext)).then(details => details?.method);
+
+// @ts-expect-error policy collections only accept Prompt instances
+configuredInteractionPolicy.add(firstInteractionCheck);
+// @ts-expect-error check collections only accept Check instances
+interactionPrompt.checks.add(interactionPrompt);
+
 provider.on("access_token.saved", (accessToken: oidc.AccessToken) => {
     accessToken.jti.substring(0);
 });
 
 provider.registerGrantType(
     "urn:example",
-    async (ctx: oidc.KoaContextWithOIDC, next) => {
+    async (ctx: oidc.TokenEndpointGrantContext) => {
         ctx.oidc.route.substring(0);
-        return next();
     },
     ["foo", "bar"],
     ["foo"],
@@ -645,6 +1002,21 @@ provider.on("authorization.accepted", (ctx: oidc.KoaContextWithOIDC) => {
 
     ctx.oidc.cookies.set("key", "value", { signed: true, sameSite: "strict" });
 });
+
+const authorizationSuccessListener = (ctx: oidc.KoaContextWithOIDC, response?: oidc.UnknownObject) => {
+    ctx.oidc.route.substring(0);
+    response?.state;
+};
+
+provider.on("authorization.success", (ctx, response) => {
+    ctx.oidc.route.substring(0);
+    const optionalResponse: oidc.UnknownObject | undefined = response;
+    optionalResponse?.state;
+});
+provider.addListener("authorization.success", authorizationSuccessListener);
+provider.once("authorization.success", authorizationSuccessListener);
+provider.prependListener("authorization.success", authorizationSuccessListener);
+provider.prependOnceListener("authorization.success", authorizationSuccessListener);
 
 provider.on("interaction.started", (ctx: oidc.KoaContextWithOIDC, prompt: oidc.PromptDetail) => {
     ctx.oidc.route.substring(0);
@@ -715,7 +1087,12 @@ provider.OIDCContext.prototype.clientJwtAuthExpectedAudience = function clientJw
 
     new Provider("", {
         features: {
-            externalSigningSupport: { enabled: true, ack: "" },
+            externalSigningSupport: {
+                enabled: true,
+                ack: "",
+                // @ts-expect-error externalSigningSupport has a finite configuration schema.
+                custom: true,
+            },
         },
         jwks: {
             keys: [
@@ -868,6 +1245,23 @@ preAuthorizedCode.txCode?.substring(0);
 preAuthorizedCode.consume().then(console.log);
 provider.PreAuthorizedCode.revokeByGrantId("grant").then(console.log);
 
+const deviceCode = new provider.DeviceCode({
+    client: null as unknown as oidc.Client,
+    deviceInfo: {},
+    grantId: "grant",
+    params: {},
+    userCode: "ABCD-EFGH",
+    rar: [{ type: "payment", actions: ["initiate"] }],
+});
+deviceCode.rar?.[0].type.substring(0);
+
+const clientCredentials = new provider.ClientCredentials({
+    client: null as unknown as oidc.Client,
+    scope: "api:read",
+    rar: [{ type: "payment", actions: ["read"] }],
+});
+clientCredentials.rar?.[0].type.substring(0);
+
 const rarGrant = new provider.Grant({ clientId: "client", accountId: "account" });
 rarGrant.addRar({ type: "openid_credential", credential_configuration_id: "org.iso.18013.5.1.mDL" });
 
@@ -904,6 +1298,10 @@ const immutableConfiguration = {
     acrValues: ["urn:example:bronze"],
     claims: {
         profile: ["name", "family_name"],
+        address: {
+            formatted: null,
+            country: null,
+        },
     },
     clients: [
         {
@@ -1098,25 +1496,26 @@ new Provider("https://op.example.com", {
                     },
                 },
             },
-            rarForAuthorizationCode(ctx) {
-                return ctx.oidc.grant?.rar;
+            authorizationDetailsForGrantSource(ctx, source) {
+                ctx.oidc.issuer.substring(0);
+                if (source.kind === "DeviceCode") {
+                    source.userCode.substring(0);
+                } else {
+                    source.redirectUri?.substring(0);
+                }
+                return source.rar;
             },
-            rarForBackchannelResponse(ctx, resourceServer) {
-                resourceServer.identifier().substring(0);
-                resourceServer.scopes.has("api:read");
-                return ctx.oidc.grant?.rar;
-            },
-            rarForCodeResponse(ctx, resourceServer) {
-                resourceServer.identifier().substring(0);
-                return ctx.oidc.grant?.rar;
-            },
-            rarForIntrospectionResponse(ctx, token) {
+            authorizationDetailsForAccessToken(ctx, token, source, grantType) {
+                ctx.oidc.issuer.substring(0);
                 token.jti.substring(0);
-                return ctx.oidc.grant?.rar;
+                source?.jti.substring(0);
+                grantType.substring(0);
+                return token.rar;
             },
-            rarForRefreshTokenResponse(ctx, resourceServer) {
-                resourceServer.identifier().substring(0);
-                return ctx.oidc.grant?.rar;
+            authorizationDetailsForIntrospection(ctx, token) {
+                ctx.oidc.issuer.substring(0);
+                token.jti.substring(0);
+                return token.rar;
             },
         },
     },
@@ -1137,6 +1536,158 @@ provider.registerGrantType(
     },
     ["custom"] as const,
     new Set(["resource"]) as ReadonlySet<string>,
+);
+
+interface TokenExchangeParameters {
+    subject_token: string;
+    subject_token_type: string;
+    actor_token?: string | undefined;
+    actor_token_type?: string | undefined;
+    audience?: string | string[] | undefined;
+}
+
+provider.registerGrantType<TokenExchangeParameters>(
+    "urn:ietf:params:oauth:grant-type:token-exchange",
+    async ctx => {
+        ctx.oidc.provider.issuer.substring(0);
+        ctx.oidc.client.clientId.substring(0);
+        ctx.oidc.params.grant_type.substring(0);
+        ctx.oidc.params.subject_token.substring(0);
+        ctx.oidc.params.subject_token_type.substring(0);
+        ctx.oidc.params.actor_token?.substring(0);
+        ctx.oidc.params.audience?.valueOf();
+        Object.values(ctx.oidc.resourceServers).map(resource => resource.identifier());
+
+        const source = await grantHelpers.findGrantSource<oidc.AccessToken>(
+            provider,
+            ctx,
+            provider.AccessToken,
+            ctx.oidc.params.subject_token,
+            "subject token",
+        );
+        const clientBoundSource: grantHelpers.ClientBoundGrantSource = source;
+        clientBoundSource.clientId?.substring(0);
+        const sourceModel: grantHelpers.GrantSourceModel<oidc.AccessToken> = provider.AccessToken;
+        sourceModel.find("access-token", { ignoreExpiration: true }).then(found => found?.jti.substring(0));
+        const code = await grantHelpers.findGrantSource<oidc.AuthorizationCode>(
+            provider,
+            ctx,
+            provider.AuthorizationCode,
+            "authorization-code",
+            "authorization code",
+        );
+        const consumableSource: grantHelpers.ConsumableGrantSource = code;
+        consumableSource.grantId?.substring(0);
+        await grantHelpers.consumeGrantSource(provider, ctx, code, "authorization code");
+
+        const grant = await grantHelpers.validateGrant(provider, ctx, source.grantId);
+        const account = await grantHelpers.findAccount(provider, ctx, source.accountId, source);
+        account?.accountId.substring(0);
+
+        const scopes = grantHelpers.validateClientScope(provider, ctx);
+        grantHelpers.validateClientScope(provider, ctx, "api:read api:write");
+        grantHelpers.validateClientScope(provider, ctx, ["api:read"]);
+        const resources = await grantHelpers.resolveRequestedResources(provider, ctx);
+        resources.map(resource => resource.identifier());
+
+        const accessToken = new provider.AccessToken({
+            accountId: source.accountId,
+            client: ctx.oidc.client,
+            grantId: source.grantId,
+            gty: ctx.oidc.params.grant_type,
+        });
+        accessToken.setAudience("https://api.example.com");
+        accessToken.setAudience(["https://api.example.com"]);
+        accessToken.setThumbprint("jkt", "thumbprint");
+        accessToken.setThumbprint("x5t", "certificate");
+        accessToken.setThumbprint("x5t", new crypto.X509Certificate(Buffer.alloc(0)));
+
+        const resource = await grantHelpers.resolveAndApplyResource(
+            provider,
+            ctx,
+            source,
+            accessToken,
+            grant,
+            scopes,
+        );
+        resource?.substring(0);
+        const resourceSource: grantHelpers.ResourceGrantSource = source;
+        resourceSource.scopes.has("api:read");
+        const authorizationDetailsSource: grantHelpers.AuthorizationDetailsSource = source;
+        authorizationDetailsSource.rar?.[0].type.substring(0);
+
+        const constraints: grantHelpers.SenderConstraints = await grantHelpers.validateSenderConstraints(
+            provider,
+            ctx,
+            oidc.errors.InvalidGrant,
+        );
+        constraints.dPoP?.thumbprint.substring(0);
+        constraints.dPoP?.jti.substring(0);
+        constraints.dPoP?.iat.toFixed();
+        await grantHelpers.applySenderConstraints(provider, ctx, accessToken, constraints, oidc.errors.InvalidRequest);
+        await grantHelpers.applyAuthorizationDetails(provider, ctx, accessToken, source);
+
+        const refreshToken = new provider.RefreshToken({
+            accountId: source.accountId,
+            client: ctx.oidc.client,
+            grantId: source.grantId,
+            gty: ctx.oidc.params.grant_type,
+            scope: accessToken.scope || "",
+        });
+        if (await grantHelpers.shouldIssueRefreshToken(provider, ctx, source)) {
+            await grantHelpers.applyRefreshTokenBindings(provider, ctx, accessToken, refreshToken);
+        }
+
+        const responseInput: grantHelpers.TokenResponseInput<{ transaction_id: string }> = {
+            accessToken: "serialized-access-token",
+            expiresIn: accessToken.expiration,
+            issuedTokenType: "urn:ietf:params:oauth:token-type:access_token",
+            parameters: {
+                transaction_id: "transaction-id",
+            },
+            scope: accessToken.scope,
+            tokenType: accessToken.tokenType,
+        };
+        const response = grantHelpers.buildTokenResponse(provider, responseInput);
+        response.access_token.substring(0);
+        response.token_type.substring(0);
+        response.transaction_id.substring(0);
+        const standardResponse: grantHelpers.TokenResponse = response;
+        standardResponse.issued_token_type?.substring(0);
+        const reservedMember: grantHelpers.ReservedTokenResponseParameter = "access_token";
+        reservedMember.substring(0);
+
+        const clientCredentials = new provider.ClientCredentials({ client: ctx.oidc.client });
+        clientCredentials.setAudience("https://api.example.com");
+        clientCredentials.setThumbprint("jkt", "thumbprint");
+        await grantHelpers.applyAuthorizationDetails(provider, ctx, clientCredentials);
+
+        const errorConstructor: grantHelpers.OIDCProviderErrorConstructor = oidc.errors.InvalidGrant;
+        errorConstructor.name.substring(0);
+        const dpopResult: grantHelpers.DPoPValidationResult | undefined = constraints.dPoP;
+        dpopResult?.thumbprint.substring(0);
+
+        // @ts-expect-error The provider argument must be an oidc-provider instance.
+        grantHelpers.validateClientScope({}, ctx);
+        grantHelpers.buildTokenResponse(provider, {
+            accessToken: "serialized-access-token",
+            tokenType: "Bearer",
+            // @ts-expect-error Extension parameters cannot override reserved response members.
+            parameters: {
+                access_token: "replacement",
+            },
+        });
+        // @ts-expect-error tokenType is required.
+        grantHelpers.buildTokenResponse(provider, { accessToken: "serialized-access-token" });
+    },
+    [
+        "subject_token",
+        "subject_token_type",
+        "actor_token",
+        "actor_token_type",
+        "audience",
+    ],
+    ["audience"],
 );
 
 const resourceServer = new provider.ResourceServer("https://api.example.com", {
