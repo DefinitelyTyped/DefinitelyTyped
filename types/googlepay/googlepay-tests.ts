@@ -219,27 +219,36 @@ function getGooglePaymentDataConfiguration(): google.payments.api.PaymentDataReq
 }
 
 function getGoogleRecurringPaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
-    const recurringTransactionInfo: google.payments.api.RecurringTransactionInfo = {
-        currencyCode: "USD",
-        countryCode: "US",
-        immediateTotalPrice: "0.00",
-        recurrenceItems: [
-            {
-                label: "Monthly subscription",
-                priceStatus: "FINAL",
-                recurrencePeriod: "MONTH",
-                recurrencePeriodCount: 1,
-                price: "9.99",
-            },
-        ],
-        introductoryPeriodInfo: {
-            introductoryPeriodEndDateTime: "2026-09-30T23:59:59Z",
-            label: "Free trial",
-            totalPrice: "0.00",
-        },
-    };
+ const recurringTransactionInfo: google.payments.api.RecurringTransactionInfo = {
+ currencyCode: "USD",
+ countryCode: "US",
+ immediateTotalPrice: "0.00",
+ managementUrl: "https://example.com/account",
+ immediateDisplayItems: [
+ {
+ label: "Due today",
+ type: "LINE_ITEM",
+ price: "0.00",
+ status: "FINAL",
+ },
+ ],
+ recurrenceItems: [
+ {
+ label: "Monthly subscription",
+ priceStatus: "FINAL",
+ recurrencePeriod: "MONTH",
+ recurrencePeriodCount: 1,
+ price: "9.99",
+ },
+ ],
+ introductoryPeriodInfo: {
+ introductoryPeriodEndDateTime: "2026-09-30T23:59:59Z",
+ label: "Free trial",
+ totalPrice: "0.00",
+ },
+ };
 
-    return {
+ return {
         apiVersion: 2,
         apiVersionMinor: 0,
         allowedPaymentMethods,
@@ -252,17 +261,26 @@ function getGoogleRecurringPaymentDataConfiguration(): google.payments.api.Payme
 }
 
 function getGoogleDeferredPaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
-    const deferredTransactionInfo: google.payments.api.DeferredTransactionInfo = {
-        currencyCode: "USD",
-        countryCode: "US",
-        immediateTotalPrice: "0.00",
-        billingDateTime: "2026-09-30T23:59:59Z",
-        priceStatus: "FINAL",
-        label: "Pay later",
-        price: "49.99",
-    };
+ const deferredTransactionInfo: google.payments.api.DeferredTransactionInfo = {
+ currencyCode: "USD",
+ countryCode: "US",
+ immediateTotalPrice: "0.00",
+ managementUrl: "https://example.com/bookings",
+ immediateDisplayItems: [
+ {
+ label: "Due today",
+ type: "LINE_ITEM",
+ price: "0.00",
+ status: "FINAL",
+ },
+ ],
+ billingDateTime: "2026-09-30T23:59:59Z",
+ priceStatus: "FINAL",
+ label: "Pay later",
+ price: "49.99",
+ };
 
-    return {
+ return {
         apiVersion: 2,
         apiVersionMinor: 0,
         allowedPaymentMethods,
@@ -275,16 +293,25 @@ function getGoogleDeferredPaymentDataConfiguration(): google.payments.api.Paymen
 }
 
 function getGoogleAutomaticReloadPaymentDataConfiguration(): google.payments.api.PaymentDataRequest {
-    const automaticReloadTransactionInfo: google.payments.api.AutomaticReloadTransactionInfo = {
-        currencyCode: "USD",
-        countryCode: "US",
-        immediateTotalPrice: "10.00",
-        minimumBalanceAmount: "5.00",
-        reloadAmount: "25.00",
-        label: "Transit card reload",
-    };
+ const automaticReloadTransactionInfo: google.payments.api.AutomaticReloadTransactionInfo = {
+ currencyCode: "USD",
+ countryCode: "US",
+ immediateTotalPrice: "10.00",
+ managementUrl: "https://example.com/balance",
+ immediateDisplayItems: [
+ {
+ label: "Reload today",
+ type: "LINE_ITEM",
+ price: "10.00",
+ status: "FINAL",
+ },
+ ],
+ minimumBalanceAmount: "5.00",
+ reloadAmount: "25.00",
+ label: "Transit card reload",
+ };
 
-    return {
+ return {
         apiVersion: 2,
         apiVersionMinor: 0,
         allowedPaymentMethods,
