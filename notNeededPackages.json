@@ -7003,6 +7003,10 @@
             "libraryName": "safe-regex-test",
             "asOfVersion": "1.1.0"
         },
+        "sales-tax": {
+            "libraryName": "sales-tax",
+            "asOfVersion": "2.9.0"
+        },
         "samchon": {
             "libraryName": "samchon",
             "asOfVersion": "2.0.22"
