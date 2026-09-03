@@ -124,3 +124,14 @@ function browserUsableTests() {
     // @ts-expect-error -- the reason is a string or a zero-arg initializer, not an arbitrary value
     ReactDOM.browser(new Error("Only render this content in a browser"));
 }
+
+function browserBailoutTests() {
+    const onBrowserBailout = (error: unknown, errorInfo: ReactDOMClient.ErrorInfo) => {};
+
+    ReactDOMServer.renderToPipeableStream(React.createElement("div"), { onBrowserBailout });
+    ReactDOMServer.renderToReadableStream(React.createElement("div"), { onBrowserBailout });
+    ReactDOMServer.resume(React.createElement("div"), null as any, { onBrowserBailout });
+    ReactDOMServer.resumeToPipeableStream(React.createElement("div"), null as any, { onBrowserBailout });
+    ReactDOMStatic.prerender(React.createElement("div"), { onBrowserBailout });
+    ReactDOMStatic.resumeAndPrerender(React.createElement("div"), null, { onBrowserBailout });
+}
