@@ -135,7 +135,7 @@ export function prerenderToNodeStream(
 ): Promise<PrerenderToNodeStreamResult>;
 
 export interface ResumeOptions {
-    nonce?: NonceOption;
+    nonce?: NonceOption | undefined;
     signal?: AbortSignal;
     onError?: (error: unknown) => string | undefined | void;
 }

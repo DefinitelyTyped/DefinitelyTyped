@@ -34,9 +34,10 @@ export interface BootstrapScriptDescriptor {
 /**
  * The header content passed to `onHeaders` by `renderToPipeableStream`.
  * Other server rendering APIs pass a `Headers` instance instead.
+ * React passes an empty object when there are no resource hints to send.
  */
 export interface HeadersDescriptor {
-    Link?: string | undefined;
+    Link?: string;
 }
 
 /**
@@ -80,7 +81,7 @@ export interface ReactImportMap {
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
     namespaceURI?: string;
-    nonce?: NonceOption;
+    nonce?: NonceOption | undefined;
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
@@ -143,7 +144,7 @@ export interface RenderToReadableStreamOptions {
     identifierPrefix?: string;
     importMap?: ReactImportMap | undefined;
     namespaceURI?: string;
-    nonce?: NonceOption;
+    nonce?: NonceOption | undefined;
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
@@ -177,11 +178,11 @@ export function renderToReadableStream(
 export { ResumeOptions };
 
 export interface ResumeToPipeableStreamOptions {
-    nonce?: NonceOption;
-    onShellReady?: () => void;
-    onShellError?: (error: unknown) => void;
-    onAllReady?: () => void;
-    onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+    nonce?: NonceOption | undefined;
+    onShellReady?: (() => void) | undefined;
+    onShellError?: ((error: unknown) => void) | undefined;
+    onAllReady?: (() => void) | undefined;
+    onError?: ((error: unknown, errorInfo: ErrorInfo) => string | void) | undefined;
 }
 
 /**
