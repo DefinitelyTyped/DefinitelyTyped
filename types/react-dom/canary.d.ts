@@ -30,6 +30,7 @@
 
 import React = require("react");
 import ReactDOM = require(".");
+import { ErrorInfo } from "./client";
 
 export {};
 
@@ -48,6 +49,42 @@ declare module "." {
      * never observed.
      */
     function browser(reason?: string | (() => unknown)): BrowserUsable;
+}
+
+declare module "./server" {
+    interface RenderToPipeableStreamOptions {
+        /**
+         * A callback React calls when it recovers from `browser()` by leaving a
+         * Suspense fallback for the browser to replace.
+         */
+        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+    }
+
+    interface RenderToReadableStreamOptions {
+        /**
+         * A callback React calls when it recovers from `browser()` by leaving a
+         * Suspense fallback for the browser to replace.
+         */
+        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+    }
+}
+
+declare module "./static" {
+    interface PrerenderOptions {
+        /**
+         * A callback React calls when it recovers from `browser()` by leaving a
+         * Suspense fallback for the browser to replace.
+         */
+        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+    }
+
+    interface ResumeOptions {
+        /**
+         * A callback React calls when it recovers from `browser()` by leaving a
+         * Suspense fallback for the browser to replace.
+         */
+        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+    }
 }
 
 declare module "react" {
