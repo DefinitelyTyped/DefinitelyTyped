@@ -57,7 +57,7 @@ declare module "./server" {
          * A callback React calls when it recovers from `browser()` by leaving a
          * Suspense fallback for the browser to replace.
          */
-        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     }
 
     interface RenderToReadableStreamOptions {
@@ -65,7 +65,7 @@ declare module "./server" {
          * A callback React calls when it recovers from `browser()` by leaving a
          * Suspense fallback for the browser to replace.
          */
-        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     }
 }
 
@@ -75,7 +75,7 @@ declare module "./static" {
          * A callback React calls when it recovers from `browser()` by leaving a
          * Suspense fallback for the browser to replace.
          */
-        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     }
 
     interface ResumeOptions {
@@ -83,7 +83,7 @@ declare module "./static" {
          * A callback React calls when it recovers from `browser()` by leaving a
          * Suspense fallback for the browser to replace.
          */
-        onBrowserBailout?: (error: unknown, errorInfo: ErrorInfo) => void;
+        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     }
 }
 
