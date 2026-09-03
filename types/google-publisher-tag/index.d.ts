@@ -1873,7 +1873,7 @@ declare namespace googletag {
     /**
      * The size string where the ad container takes 100% width of its parent div and
      * then resizes its height to fit the creative content. Similar to how regular
-     * block elements on a page behave. Used for native ads (see
+     * block elements on a page behave. Used for native and banner ads (see
      * [related article](https://support.google.com/admanager/answer/6366845)).
      */
     type FluidSize = "fluid";
@@ -1885,7 +1885,7 @@ declare namespace googletag {
      *
      * - **fluid**: the ad container takes 100% width of its parent div and then
      *   resizes its height to fit the creative content. Similar to how regular block
-     *   elements on a page behave. Used for native ads (see
+     *   elements on a page behave. Used for native and banner ads (see
      *   [related article](https://support.google.com/admanager/answer/6366845)).
      *   Note that both `fluid` and `['fluid']` are acceptable forms to declare a
      *   slot size as fluid.
