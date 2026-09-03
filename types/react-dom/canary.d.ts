@@ -67,6 +67,14 @@ declare module "./server" {
          */
         onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     }
+
+    interface ResumeToPipeableStreamOptions {
+        /**
+         * A callback React calls when it recovers from `browser()` by leaving a
+         * Suspense fallback for the browser to replace.
+         */
+        onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
+    }
 }
 
 declare module "./static" {
