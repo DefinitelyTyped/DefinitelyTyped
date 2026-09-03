@@ -3173,6 +3173,10 @@
             "libraryName": "ink",
             "asOfVersion": "2.0.2"
         },
+        "ink-divider": {
+            "libraryName": "ink-divider",
+            "asOfVersion": "2.3.2"
+        },
         "instabug-reactnative": {
             "libraryName": "instabug-reactnative",
             "asOfVersion": "8.1.0"
