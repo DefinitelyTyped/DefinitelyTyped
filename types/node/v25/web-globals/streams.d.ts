@@ -19,6 +19,8 @@ type _ReadableStreamDefaultController<R = any> = typeof globalThis extends { onm
     : webstreams.ReadableStreamDefaultController<R>;
 type _ReadableStreamDefaultReader<R = any> = typeof globalThis extends { onmessage: any } ? {}
     : webstreams.ReadableStreamDefaultReader<R>;
+type _ReadableWritablePair<R = any, W = any> = typeof globalThis extends { onmessage: any } ? {}
+    : webstreams.ReadableWritablePair<R, W>;
 type _TextDecoderStream = typeof globalThis extends { onmessage: any } ? {} : webstreams.TextDecoderStream;
 type _TextEncoderStream = typeof globalThis extends { onmessage: any } ? {} : webstreams.TextEncoderStream;
 type _TransformStream<I = any, O = any> = typeof globalThis extends { onmessage: any } ? {}
@@ -81,6 +83,8 @@ declare global {
     var ReadableStreamDefaultReader: typeof globalThis extends { onmessage: any; ReadableStreamDefaultReader: infer T }
         ? T
         : typeof webstreams.ReadableStreamDefaultReader;
+
+    interface ReadableWritablePair<R = any, W = any> extends _ReadableWritablePair<R, W> {}
 
     interface TextDecoderStream extends _TextDecoderStream {}
     var TextDecoderStream: typeof globalThis extends { onmessage: any; TextDecoderStream: infer T } ? T

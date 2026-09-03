@@ -16,6 +16,8 @@ type _ReadableStreamDefaultController<R = any> = typeof globalThis extends { onm
     : import("stream/web").ReadableStreamDefaultController<R>;
 type _ReadableStreamDefaultReader<R = any> = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").ReadableStreamDefaultReader<R>;
+type _ReadableWritablePair<R = any, W = any> = typeof globalThis extends { onmessage: any } ? {}
+    : import("stream/web").ReadableWritablePair<R, W>;
 type _TextDecoderStream = typeof globalThis extends { onmessage: any } ? {}
     : import("stream/web").TextDecoderStream;
 type _TextEncoderStream = typeof globalThis extends { onmessage: any } ? {}
@@ -500,6 +502,8 @@ declare module "stream/web" {
         var ReadableStreamDefaultReader: typeof globalThis extends
             { onmessage: any; ReadableStreamDefaultReader: infer T } ? T
             : typeof import("stream/web").ReadableStreamDefaultReader;
+
+        interface ReadableWritablePair<R = any, W = any> extends _ReadableWritablePair<R, W> {}
 
         interface TextDecoderStream extends _TextDecoderStream {}
         /**
