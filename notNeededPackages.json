@@ -784,6 +784,10 @@
             "libraryName": "chordsheetjs",
             "asOfVersion": "6.2.0"
         },
+        "chownr": {
+            "libraryName": "chownr",
+            "asOfVersion": "3.0.0"
+        },
         "chunked-dc": {
             "libraryName": "chunked-dc",
             "asOfVersion": "0.2.2"
