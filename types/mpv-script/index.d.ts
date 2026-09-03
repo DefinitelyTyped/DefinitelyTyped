@@ -7606,9 +7606,9 @@ declare namespace mp {
       T extends "bool" | "number" | "string" | "native",
       P extends string,
     > = T extends "bool"
-      ? GetPropertyTypeOrElse<P, boolean | undefined>
+      ? GetCoercedPropertyTypeOrElse<P, boolean>
       : T extends "number"
-        ? GetPropertyTypeOrElse<P, number | undefined>
+        ? GetCoercedPropertyTypeOrElse<P, number>
         : T extends "string"
           ? GetStringPropertyReturnType<P, true>
           : T extends "native"
@@ -7634,8 +7634,12 @@ declare namespace mp {
      *
      * You always get an initial change notification. This is meant to initialize the user's state to the current value of the property.
      */
+     // NOTE: You might think we should first check if a property name can be of data type `T` or not,
+     // otherwise it shouldn't match the signature in the first place.
+     // That's technically possible, but to widen P for the unknown properties, we can't take this approach :|
+     // Currently any property type having no chance to be coerced to `T`, the `value` in the callback will always be just `undefined`
     function observe_property<
-        P extends PropertyName | (string & {}), // TODO: include only specific names depending on T
+        P extends PropertyName | (string & {}),
         T extends "bool" | "number" | "string" | "native",
     >(
         name: P,

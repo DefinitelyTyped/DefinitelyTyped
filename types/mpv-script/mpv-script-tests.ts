@@ -263,6 +263,19 @@ mp.observe_property("test", "bool", (name, value) => {
     // $ExpectType boolean | undefined
     value = value;
 });
+
+// "time-pos" is never a boolean
+mp.observe_property("time-pos", "bool", (name, value) => {
+    // $ExpectType undefined
+    value = value;
+});
+
+// "fullscreen" is never a number
+mp.observe_property("fullscreen", "number", (name, value) => {
+    // $ExpectType undefined
+    value = value;
+});
+
 mp.observe_property("fullscreen", "string", (name, value) => {
     // $ExpectType "yes" | "no"
     value = value;
