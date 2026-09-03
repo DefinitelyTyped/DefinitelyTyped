@@ -32,6 +32,24 @@ export interface BootstrapScriptDescriptor {
 }
 
 /**
+ * The header content passed to `onHeaders` by `renderToPipeableStream`.
+ * Other server rendering APIs pass a `Headers` instance instead.
+ */
+export interface HeadersDescriptor {
+    Link?: string | undefined;
+}
+
+/**
+ * A nonce string, or an object with separate nonces for scripts and styles.
+ */
+export type NonceOption =
+    | string
+    | {
+        script?: string | undefined;
+        style?: string | undefined;
+    };
+
+/**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap Import maps}
  */
 // TODO: Ideally TypeScripts standard library would include this type.
@@ -62,7 +80,7 @@ export interface ReactImportMap {
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
     namespaceURI?: string;
-    nonce?: string;
+    nonce?: NonceOption;
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
@@ -71,10 +89,10 @@ export interface RenderToPipeableStreamOptions {
      * Must be a positive integer if specified.
      * @default 2000
      */
-    headersLengthHint?: number | undefined;
+    maxHeadersLength?: number | undefined;
     importMap?: ReactImportMap | undefined;
     progressiveChunkSize?: number;
-    onHeaders?: ((headers: Headers) => void) | undefined;
+    onHeaders?: ((headers: HeadersDescriptor) => void) | undefined;
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
     onAllReady?: () => void;
@@ -125,7 +143,7 @@ export interface RenderToReadableStreamOptions {
     identifierPrefix?: string;
     importMap?: ReactImportMap | undefined;
     namespaceURI?: string;
-    nonce?: string;
+    nonce?: NonceOption;
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
@@ -134,7 +152,7 @@ export interface RenderToReadableStreamOptions {
      * Must be a positive integer if specified.
      * @default 2000
      */
-    headersLengthHint?: number | undefined;
+    maxHeadersLength?: number | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
@@ -158,6 +176,14 @@ export function renderToReadableStream(
 
 export { ResumeOptions };
 
+export interface ResumeToPipeableStreamOptions {
+    nonce?: NonceOption;
+    onShellReady?: () => void;
+    onShellError?: (error: unknown) => void;
+    onAllReady?: () => void;
+    onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
+}
+
 /**
  * @see {@link https://react.dev/reference/react-dom/server/resume `resume`` reference documentation}
  * @version 19.2
@@ -175,7 +201,7 @@ export function resume(
 export function resumeToPipeableStream(
     children: React.ReactNode,
     postponedState: PostponedState,
-    options?: ResumeOptions,
+    options?: ResumeToPipeableStreamOptions,
 ): Promise<PipeableStream>;
 
 export const version: string;

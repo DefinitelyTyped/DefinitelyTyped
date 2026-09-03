@@ -1,1 +1,1 @@
-export { renderToReadableStream, renderToStaticMarkup, renderToString } from "./server";
+export { renderToReadableStream, renderToStaticMarkup, renderToString, resume, version } from "./server";

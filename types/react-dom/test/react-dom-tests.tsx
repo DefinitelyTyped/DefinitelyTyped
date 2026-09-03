@@ -108,13 +108,36 @@ describe("ReactDOMStatic", () => {
             (await ReactDOMStatic.prerenderToNodeStream(React.createElement("div"))).prelude;
         ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), {
             bootstrapScripts: ["./my-script.js"],
-            headersLengthHint: 4000,
+            maxHeadersLength: 4000,
             importMap,
             onHeaders(headers) {
                 // $ExpectType Headers
                 headers;
             },
         });
+    });
+
+    it("resumeToPipeableStream", async () => {
+        const { postponed } = await ReactDOMStatic.prerenderToNodeStream(children);
+        if (postponed !== null) {
+            ReactDOMServer.resumeToPipeableStream(children, postponed, {
+                nonce: { script: "script-nonce", style: "style-nonce" },
+                onShellReady() {},
+                onShellError(error) {
+                    console.error(error);
+                },
+                onAllReady() {},
+                onError(error, errorInfo) {
+                    // $ExpectType ErrorInfo
+                    errorInfo;
+                    return (error as { digest?: string | undefined }).digest;
+                },
+            });
+            ReactDOMServer.resumeToPipeableStream(children, postponed, {
+                // @ts-expect-error The Node.js stream variant does not support an abort signal
+                signal: new AbortController().signal,
+            });
+        }
     });
 });
 
@@ -254,10 +277,10 @@ function pipeableStreamDocumentedExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream(<App />, {
         bootstrapScripts: ["/main.js"],
-        headersLengthHint: 4000,
+        maxHeadersLength: 4000,
         importMap,
         onHeaders(headers) {
-            // $ExpectType Headers
+            // $ExpectType HeadersDescriptor
             headers;
         },
         onShellReady() {
@@ -307,10 +330,10 @@ function pipeableStreamDocumentedStringExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream("app", {
         bootstrapScripts: ["/main.js"],
-        headersLengthHint: 4000,
+        maxHeadersLength: 4000,
         importMap,
         onHeaders(headers) {
-            // $ExpectType Headers
+            // $ExpectType HeadersDescriptor
             headers;
         },
         onShellReady() {
@@ -354,7 +377,7 @@ async function readableStreamDocumentedExample() {
                 <body>Success</body>
             </html>,
             {
-                headersLengthHint: 4000,
+                maxHeadersLength: 4000,
                 importMap,
                 signal: controller.signal,
                 onError(error) {
@@ -392,7 +415,7 @@ async function readableStreamDocumentedStringExample() {
         const stream = await ReactDOMServer.renderToReadableStream(
             "app",
             {
-                headersLengthHint: 4000,
+                maxHeadersLength: 4000,
                 importMap,
                 signal: controller.signal,
                 onError(error) {
