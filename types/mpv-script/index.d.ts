@@ -2658,10 +2658,10 @@ declare namespace mp {
         }
         | {
             name: "clipboard";
-            type: { text: string; "text-primary": string };
+            type: { text: string | undefined; "text-primary": string | undefined } | undefined;
             readonly: false;
         }
-        | __PropertyInfoFromType<"clipboard", { text: string; "text-primary": string }, false, false>
+        | __PropertyInfoFromType<"clipboard", { text: string; "text-primary": string }, false, true>
         | {
             name: "current-clipboard-backend";
             type: "win32" | "mac" | "x11" | "wayland" | "vo";
@@ -7634,10 +7634,10 @@ declare namespace mp {
      *
      * You always get an initial change notification. This is meant to initialize the user's state to the current value of the property.
      */
-     // NOTE: You might think we should first check if a property name can be of data type `T` or not,
-     // otherwise it shouldn't match the signature in the first place.
-     // That's technically possible, but to widen P for the unknown properties, we can't take this approach :|
-     // Currently any property type having no chance to be coerced to `T`, the `value` in the callback will always be just `undefined`
+    // NOTE: You might think we should first check if a property name can be of data type `T` or not,
+    // otherwise it shouldn't match the signature in the first place.
+    // That's technically possible, but to widen P for the unknown properties, we can't take this approach :|
+    // Currently any property type having no chance to be coerced to `T`, the `value` in the callback will always be just `undefined`
     function observe_property<
         P extends PropertyName | (string & {}),
         T extends "bool" | "number" | "string" | "native",
