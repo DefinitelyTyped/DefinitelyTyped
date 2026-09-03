@@ -1469,6 +1469,39 @@ declare namespace editorClient {
      * Widgets
      */
 
+    interface WidgetAutoCompleteOptions {
+        /**
+         * A function that is called when the input value changes that should
+         * return a list of possible completions. If `done` is used, it must be called.
+         * @param value The current value of the <input>
+         * @param done A callback function that will be called with the completions.
+         */
+        search:
+            | ((value: string) => Array<{ value: string; label: string | JQuery }>)
+            | ((value: string, done: (result?: Array<{ value: string; label: string | JQuery }>) => void) => void);
+    }
+
+    interface WidgetAutoComplete extends JQuery {
+        (options: WidgetAutoCompleteOptions): this;
+        /**
+         * Removes auto-complete functionality from the <input>.
+         */
+        (action: "destroy"): void;
+    }
+
+    interface WidgetCheckboxSetOptions {
+        parent?: JQuery;
+    }
+
+    interface WidgetCheckboxSet extends JQuery {
+        (options: WidgetCheckboxSetOptions): this;
+        (action: "addChild", child: JQuery): void;
+        (action: "disable"): void;
+        (action: "removeChild", child: JQuery): void;
+        (action: "state", state: boolean | null, supressEvent?: boolean, suppressParentUpdate?: boolean): void;
+        (action: "updateChild"): void;
+    }
+
     interface WidgetEditableListOptions<T> {
         /**
          * Determines whether a button is shown below the list that, when clicked, will add a new entry to the list.
@@ -1486,6 +1519,16 @@ declare namespace editorClient {
          * @param data - the data object for the row
          */
         addItem?: ((row: JQuery, index: number, data: T) => void) | undefined;
+        /**
+         * An array of button objects, that need to be added at the bottom of the editableList. 
+         */
+        buttons?: Array<{
+            click: (this: JQuery, event: JQuery.ClickEvent) => void;
+            icon?: string;
+            id?: string;
+            label?: string;
+            title?: string;
+        }>;
         /**
          * If the list is sortable, this option allows items to be dragged from this list to any other jQuery sortable list, such as another editableList.
          */
@@ -1575,74 +1618,335 @@ declare namespace editorClient {
          *
          * More info: https://nodered.org/docs/api/ui/editableList/
          */
-        <T>(opts: WidgetEditableListOptions<T>): this; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        <T>(options: WidgetEditableListOptions<T>): this; // eslint-disable-line @definitelytyped/no-unnecessary-generics
         /**
          * Adds an item to the end of the list.         *
-         * @param value - An object that will be associated with the item in the list.
+         * @param value An object that will be associated with the item in the list.
          */
         (action: "addItem", value: object): void;
         /**
          * Adds items contained in an array to the end of the list.
-         * @param value - An array of objects that will be associated with the item in the list.
+         * @param value An array of objects that will be associated with the item in the list.
          */
         (action: "addItems", value: object[]): void;
         /**
-         * Removes an item from the list.
-         * @param value - The object that identifies the item to be removed.
+         * Cancels the items move/reorder.
          */
-        (action: "removeItem", value: object): void; // tslint:disable-line:unified-signatures
-        /**
-         * Sets the width of the editableList. This must be used in place of the standard jQuery.width() function as it ensures the component resizes properly.
-         */
-        (action: "width", value: string | number): void;
-        /**
-         * Sets the height of the editableList. This must be used in place of the standard jQuery.height() function as it ensures the component resizes properly.
-         */
-        (action: "height", value: string | number): void; // tslint:disable-line:unified-signatures
-        /**
-         * Gets an Array of all list items. Each item is the jQuery DOM element for the item.
-         * Each element stores the original data for the item under property called data.
-         */
-        (action: "items"): JQuery;
+        (action: "cancel"): void;
         /**
          * Clears the list of all items. This does not trigger any callbacks.
          */
         (action: "empty"): void;
         /**
-         * Filters the list to show/hide items based on the active filter function and returns the number of visible items.
+         * Filters the list to show/hide items based on the active filter function and
+         * returns the number of visible items.
          * If filter is not provided, the list is filtered using the current active filter function.
          * If filter is null, the filter is removed.
          */
-        (action: "filter", value?: (data: object) => boolean): number;
+        (action: "filter", filter?: (data: object) => boolean): number;
         /**
-         * Scrolls the list to ensure the specific item is in view.
-         * @param value - An object associated with the item in the list.
+         * Gets the item data associated with the given item. Returns null if not found.
          */
-        (action: "show", value: object): void; // tslint:disable-line:unified-signatures
+        (action: "getItem", item: JQuery<HTMLLIElement>): object | null;
         /**
-         * Get item at index. Returns item dat or undefined.
-         * @param value - Item index: 0..length-1
+         * Gets item at index. Returns item data or undefined.
+         * @param value Item index: 0..length-1
          */
         (action: "getItemAt", value: number): object | undefined;
         /**
-         * Get index of item. Returns index or -1 if not found
-         * @param value - Item data
+         * Sets the height of the editableList. This must be used in place of the standard jQuery.height()
+         * function as it ensures the component resizes properly.
+         */
+        (action: "height", value: string | number): void;
+        /**
+         * Inserts an item at the specified index.
+         */
+        (action: "insertItemAt", value: object, index: number): void;
+        /**
+         * Gets an Array of all list items. Each item is the jQuery DOM element for the item.
+         * Each element stores the original data for the item under property called data.
+         */
+        (action: "items"): JQuery[];
+        /**
+         * Gets index of item. Returns index or -1 if not found.
+         * @param value Item data
          */
         (action: "indexOf", value: object): number;
         /**
+         * Gets the number of list items.
+         */
+        (action: "length"): number;
+        /**
+         * Removes an item from the list.
+         * @param value The object that identifies the item to be removed.
+         * @param detach Remove or detach the item
+         */
+        (action: "removeItem", value: object, detach?: boolean): void;
+        /**
+         * Scrolls the list to ensure the specific item is shown.
+         * @param value An item into the list.
+         */
+        (action: "show", value: object): void;
+        /**
          * Sorts the list using the active sort function.
-         *
-         * @param value - A callback function that gets called to compare two items in the list to determine their order.
-         *
+         * @param value A callback function that gets called to compare two items in the list to determine their order.
          * If the function returns a value less than 0, itemDataA comes before itemDataB.
          * If the function returns 0, the items are left unchanged.
          * If the function returns a value greater than 0, itemDataA comes after itemDataB.
          */
         (action: "sort", value: (itemDataA: object, itemDataB: object) => number): void;
+        
         /**
-         * Gets the number of list items.
+         * Sets the width of the editableList. This must be used in place of the standard jQuery.width()
+         * function as it ensures the component resizes properly.
          */
-        (action: "length"): number;
+        (action: "width", value: string | number): void;
+    }
+
+    interface WidgetSearchBoxOptions {
+        /**
+         * Delay, in ms, after a keystroke before firing change event
+         */
+        delay: number;
+        /**
+         * The minimum length of text before firing a change event
+         */
+        minimumLength: number;
+    }
+
+    interface WidgetSearchBox extends JQuery {
+        (options: WidgetSearchBoxOptions): this;
+        /**
+         * Triggers a change event on the search input.
+         */
+        (action: "change"): void;
+        /**
+         * Sets or clears a sub-label on the input. This can be used to provide
+         * a feedback on the number of matches, or number of available entries to search.
+         * The standard pattern to follow is:
+         *   - if the search box is empty, set it to the number of available items: "300"
+         *   - if the search box is not empty, set it to the number of matching items,
+         *     as well as the number of available items: "120 / 300"
+         * If value is `null`, `undefined` or `blank`, the count field is hidden.
+         */
+        (action: "count", value?: null | string): void;
+        /**
+         * Gets the current value of the search input.
+         */
+        (action: "value"): string;
+        /**
+         * Sets the current value of the search input.
+         */
+        (action: "value", value: string): void;
+    }
+
+    interface WidgetToggleButtonOptions {
+        /**
+         * The base css class to apply, default "red-ui-button" (alternative eg "red-ui-sidebar-header-button")
+         */
+        baseClass?: string;
+        /**
+         * Additional classes to apply to the button - eg "red-ui-button-small"
+         */
+        class?: string;
+        /**
+         * The icon for "enabled" state, default "fa-check-square-o"
+         */
+        enabledIcon?: string;
+        /**
+         * The label for "enabled" state, default "Enabled" ("editor:workspace.enabled")
+         */
+        enabledLabel?: string;
+        /**
+         * The icon for "disabled" state, default "fa-square-o"
+         */
+        disabledIcon?: string;
+        /**
+         * The label for "disabled" state, default "Disabled" ("editor:workspace.disabled")
+         */
+        disabledLabel?: string;
+        /**
+         * If true, the button will show "enabled" when the checkbox is not selected and vice versa.
+         */
+        invertState?: boolean;
+    }
+
+    interface WidgetToogleButton extends JQuery {
+        (options: WidgetToggleButtonOptions): this;
+    }
+
+    interface WidgetTreeListData {
+        /**
+         * Whether to display a checkbox for the item.
+         */
+        checkbox?: boolean;
+        /**
+         * Prevent a parent item from being collapsed. Default true.
+         */
+        collapsible?: boolean;
+        /**
+         * An array of child items, or a function that calls the `done` callback with an array of child items.
+         */
+        children?: WidgetTreeListData[] | ((done: (children: WidgetTreeListData[]) => void, item: WidgetTreeListData) => void);
+        /**
+         * Don't build any UI elements for the item's children until it is expanded by the user.
+         */
+        deferBuild?: boolean;
+        /**
+         * Custom DOM element to use for the item. Ignored if `label` is set.
+         */
+        element?: HTMLElement | JQuery;
+        /**
+         * Whether to show the child items by default.
+         */
+        expanded?: boolean;
+        /**
+         * Icon for the item.
+         */
+        icon?: string;
+        /**
+         * Label for the item.
+         */
+        label?: string;
+        /**
+         * Radio group name. If present, display radio box using group-name to set radio group.
+         */
+        radio?: string;
+        /**
+         * Whether the item is selected or not.
+         */
+        selected?: boolean;
+        /**
+         * A sub-label for the item.
+         */
+        sublabel?: string;
+    }
+
+    interface WidgetTreeListItem extends WidgetTreeListData {
+        /**
+         * The parent item in the tree, or undefined if this is a root item.
+         */
+        parent?: WidgetTreeListItem;
+        /**
+         * The depth of the item in the tree (0 == root).
+         */
+        depth: number;
+        /**
+         * TreeList-specific properties and methods.
+         */
+        treeList: {
+            /**
+             * The container element for this item.
+             */
+            container: HTMLElement | JQuery;
+            /**
+             * The label element for this item.
+             */
+            label: HTMLElement | JQuery;
+            /**
+             * The editableList instance this item is in.
+             */
+            parentList: JQuery;
+            /**
+             * Removes the item from the tree.
+             * @param detach If true, detaches the element to preserve event handlers.
+             */
+            remove(detach?: boolean): void;
+            /**
+             * Turns an element with children into a leaf node, removing UI decoration.
+             * @param detachChildElements If true, detaches children with custom elements to preserve event handlers.
+             */
+            makeLeaf(detachChildElements?: boolean): void;
+            /**
+             * Turns an element into a parent node, adding UI decoration.
+             * @param children Optional children to add as child nodes.
+             */
+            makeParent(children?: WidgetTreeListItem[]): void;
+            /**
+             * Adds a child item at the specified position.
+             * @param newItem The new child item to insert.
+             * @param position The position to insert at.
+             * @param select If true, selects the item after adding.
+             */
+            insertChildAt(newItem: WidgetTreeListItem, position: number, select?: boolean): void;
+            /**
+             * Appends a child item.
+             * @param newItem The new child item to add.
+             * @param select If true, selects the item after adding.
+             */
+            addChild(newItem: WidgetTreeListItem, select?: boolean): void;
+            /**
+             * Expands the parent item to show children.
+             * @param done Optional callback when expansion is complete.
+             */
+            expand(done?: () => void): void;
+            /**
+             * Collapses the parent item to hide children.
+             */
+            collapse(): void;
+            /**
+             * Sorts the children using the provided sort function.
+             * @param sortFunction The function to sort children.
+             */
+            sortChildren(sortFunction: (a: WidgetTreeListItem, b: WidgetTreeListItem) => number): void;
+            /**
+             * Replaces the custom element for the item.
+             * @param element The new element to use.
+             */
+            replaceElement(element: HTMLElement | JQuery): void;
+        };
+    }
+
+    interface WidgetTreeListOptions {
+        /**
+         * Automatically select items when navigating with keyboard.
+         * Default true. If the list has checkboxed items, you probably want to set this to false.
+         */
+        autoSelect?: boolean;
+        /**
+         * Initial items to display in tree
+         */
+        data: WidgetTreeListData[];
+        /**
+         * If true, .selected will return an array of results; otherwise, returns the first selected item.
+         */
+        multi?: boolean;
+        /**
+         * Whether individual items can be selected. Default true.
+         */
+        selectable?: boolean;
+        /**
+         * If 'sortable' is set, then setting this to false prevents items being sorted to the top level of the tree.
+         */
+        rootSortable?: boolean;
+        /**
+         * Enable sorting. Boolean or string. (TODO: see editableList)
+         */
+        sortable?: boolean | string;
+    }
+
+    interface WidgetTreeList extends JQuery {
+        (options: WidgetTreeListOptions): this;
+        (action: "clearSelection"): void;
+        /**
+         * Returns the data the treeList is displaying.
+         * If any items had the `selected` property set on them, its value will reflect the current checkbox state.
+         */
+        (action: "data"): WidgetTreeListData[];
+        /**
+         * Sets the data to be displayed by the list.
+         */
+        (action: "data", items: WidgetTreeListData[]): void;
+        /**
+         * Removes all items from the list.
+         */
+        (action: "empty"): void;
+        (action: "filter", filter: (item: WidgetTreeListItem) => boolean): number;
+        (action: "get", id: string): WidgetTreeListItem | null;
+        (action: "reveal", item: string | WidgetTreeListItem): void;
+        (action: "select", item: WidgetTreeListItem | WidgetTreeListItem[], triggerEvent?: boolean, deselectExisting?: boolean): void;
+        (action: "selected"): WidgetTreeListItem | WidgetTreeListItem[] | undefined;
+        (action: "show", item: string | WidgetTreeListItem, done?: () => void): void;
     }
 
     interface WidgetTypedInputOptions {
@@ -1673,18 +1977,36 @@ declare namespace editorClient {
         | "env";
 
     interface WidgetTypedInputTypeDefinition {
-        /** The identifier for the type */
-        value: string;
-        /** A label to display in the type menu */
-        label?: string | undefined;
-        /** An icon to display in the type menu */
-        icon?: string | undefined;
-        /** If the type has a fixed set of values, this is an array of string options for the value. For example, ["true","false"] for the boolean type. */
-        options?: string[] | Array<{ value: string; label: string }> | undefined;
+        /**
+         * If set, enable autoComplete on the input, using this function to get completion suggestions.
+         * This option cannot be used with {@link options}, {@link hasValue}=false or {@link valueLabel}.
+         */
+        autoComplete?:
+            | ((value: string) => Array<{ value: string; label: string | JQuery }>)
+            | ((value: string, done: (result?: Array<{ value: string; label: string | JQuery }>) => void) => void);
         /** Set to false if there is no value associated with the type. */
         hasValue?: boolean | undefined;
+        /** An icon to display in the type menu */
+        icon?: string | undefined;
+        /** A label to display in the type menu */
+        label?: string | undefined;
+        /** If {@link options} is set, this can enable multiple selection of them. */
+        multiple?: boolean;
+        /** If the type has a fixed set of values, this is an array of string options for the value. For example, ["true","false"] for the boolean type. */
+        options?: string[] | Array<{ value: string; label: string }> | undefined;
         /** A function to validate the value for the type. */
-        validate?: ((v: string) => boolean) | RegExp | undefined;
+        validate?:
+            | ((value: string) => boolean)
+            | ((value: string, options: {}) => string | boolean)
+            | RegExp;
+        /** The identifier for the type */
+        value: string;
+        /**
+         * A function that generates the label for a given value.
+         * @param container the DOM element the label should be constructed in
+         * @param value The value of the type
+         */
+        valueLabel?: (container: JQuery, value: string) => void;
     }
 
     interface WidgetTypedInput extends JQuery {
@@ -1694,26 +2016,49 @@ declare namespace editorClient {
          * chosen, including options for string, number and boolean types.
          * More info: https://nodered.org/docs/api/ui/typedInput/
          */
-        (opts: WidgetTypedInputOptions): this;
+        (options: WidgetTypedInputOptions): this;
+        /**
+         * Disables the typedInput.
+         */
+        (action: "disable", value?: boolean): void;
+        /**
+         * Gets the disabled state of the typedInput.
+         */
+        (action: "disabled"): boolean;
+        /**
+         * Enables the typedInput.
+         */
+        (action: "enable"): void;
+        /**
+         * Focuses the typedInput.
+         */
+        (action: "focus"): void;
+        /**
+         * Hides the typedInput.
+         */
         (action: "hide"): void;
-        (action: "show"): void; // tslint:disable-line:unified-signatures
+        /**
+         * Shows the typedInput.
+         */
+        (action: "show"): void;
         /**
          * Gets the selected type of the typedInput.
          */
-        (action: "type"): WidgetTypedInputType | string;
+        <T extends string = WidgetTypedInputType>(action: "type"): T; // eslint-disable-line @definitelytyped/no-unnecessary-generics
         /**
          * Sets the selected type of the typedInput.
          */
-        (action: "type", value: WidgetTypedInputType | string): void;
+        <T extends string = WidgetTypedInputType>(action: "type", value: T): void; // eslint-disable-line @definitelytyped/no-unnecessary-generics
         /**
          * Sets the list of types offered by the typedInput.
          */
         (action: "types", value: Array<WidgetTypedInputType | WidgetTypedInputTypeDefinition>): void;
         /**
-         * Triggers a revalidation of the typedInput’s type/value. This occurs automatically
-         * whenever the type or value change, but this method allows it to be run manually.
+         * Triggers manually a revalidation of the typedInput’s type/value.
+         * This occurs automatically whenever the type or value change.
          */
         (action: "validate"): boolean;
+        (action: "validate", options: { returnErrorMessage: boolean; }): string | boolean;
         /**
          * Gets the value of the typedInput.
          */
@@ -1732,7 +2077,12 @@ declare namespace editorClient {
 
 declare global {
     interface JQuery<TElement = HTMLElement> {
+        autoComplete: editorClient.WidgetAutoComplete;
+        checkboxSet: editorClient.WidgetCheckboxSet;
         editableList: editorClient.WidgetEditableList;
+        searchBox: editorClient.WidgetSearchBox;
+        toggleButton: editorClient.WidgetToogleButton;
+        treeList: editorClient.WidgetTreeList;
         typedInput: editorClient.WidgetTypedInput;
     }
 }
