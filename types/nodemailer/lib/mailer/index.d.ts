@@ -77,8 +77,6 @@ declare namespace Mail {
         method?: string | undefined;
         /** optional filename, defaults to ‘invite.ics’ */
         filename?: string | false | undefined;
-        /** is an alternative for content to load the calendar data from an URL */
-        href?: string | undefined;
         /** defines optional content encoding, eg. ‘base64’ or ‘hex’. This only applies if the content is a string. By default an unicode string is assumed. */
         encoding?: string | undefined;
     }
