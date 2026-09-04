@@ -4717,7 +4717,7 @@ declare namespace browser.runtime {
 declare namespace browser.scripting {
     /* scripting types */
     /** Details of a script injection */
-    interface ScriptInjection<Args extends any[] = any[]> {
+    interface ScriptInjection<Args extends any[] = any[], Result = any> {
         /**
          * The arguments to curry into a provided function. This is only valid if the `func` parameter is specified. These arguments must be JSON-serializable.
          */
@@ -4730,7 +4730,7 @@ declare namespace browser.scripting {
          * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` and `func` must be specified.
          */
         // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        func?: (...args: Args) => void | undefined;
+        func?: (...args: Args) => Result;
         /** Details specifying the target into which to inject the script. */
         target: InjectionTarget;
         world?: ExecutionWorld | undefined;
@@ -4741,11 +4741,11 @@ declare namespace browser.scripting {
     }
 
     /** Result of a script injection. */
-    interface InjectionResult {
+    interface InjectionResult<Result = any> {
         /** The frame ID associated with the injection. */
         frameId: number;
         /** The result of the script execution. */
-        result?: any;
+        result?: Result;
         /**
          * The error property is set when the script execution failed. The value is typically an (Error) object with a message property, but could be any value (including primitives and undefined) if the script threw or rejected with such a value.
          */
@@ -4839,7 +4839,7 @@ declare namespace browser.scripting {
      * @param injection The details of the script which to inject.
      */
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    function executeScript<T extends any[]>(injection: ScriptInjection<T>): Promise<InjectionResult[]>;
+    function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>): Promise<InjectionResult<Result>[]>;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
