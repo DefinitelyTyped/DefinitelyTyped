@@ -2902,20 +2902,59 @@ declare namespace chrome {
             injectedScript?: string | undefined;
         }
 
-        interface EvaluationExceptionInfo {
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            isError: boolean;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            code: string;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            description: string;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
-            details: any[];
-            /** Set if the evaluated code produces an unhandled exception. */
-            isException: boolean;
-            /** Set if the evaluated code produces an unhandled exception. */
-            value: string;
-        }
+        type EvaluationExceptionInfo =
+            | {
+                /**
+                 * Set if the error occurred on the DevTools side before the expression is evaluated.
+                 *
+                 * If `isError` is set to true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * See the docs on `isException` for more details on parsing this object.
+                 */
+                isError: true;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                code: string;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                description: string;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
+                details: any[];
+                /**
+                 * Set if the evaluated code produces an unhandled exception.
+                 *
+                 * If `isException` is non-null but not true, and `isError` is true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * If `isException` is set to true, a JavaScript error has occurred, and `value` is set to the string value of the thrown object.
+                 */
+                isException?: undefined;
+                /** Set if the evaluated code produces an unhandled exception. */
+                value?: undefined;
+            }
+            | {
+                /**
+                 * Set if the error occurred on the DevTools side before the expression is evaluated.
+                 *
+                 * If `isError` is set to true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * See the docs on `isException` for more details on parsing this object.
+                 */
+                isError?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                code?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                description?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
+                details?: undefined;
+                /**
+                 * Set if the evaluated code produces an unhandled exception.
+                 *
+                 * If `isException` is non-null but not true, and `isError` is true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * If `isException` is set to true, a JavaScript error has occurred, and `value` is set to the string value of the thrown object.
+                 */
+                isException: true;
+                /** Set if the evaluated code produces an unhandled exception. */
+                value: string;
+            };
 
         /** The ID of the tab being inspected. This ID may be used with {@link chrome.tabs} API. */
         const tabId: number;
@@ -2935,15 +2974,23 @@ declare namespace chrome {
         function eval<T = { [key: string]: unknown }>(
             expression: string,
             options?: EvalOptions,
-        ): Promise<{ result: T; exceptionInfo: EvaluationExceptionInfo }>;
+        ): Promise<T>;
         function eval<T = { [key: string]: unknown }>(
             expression: string,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            callback: (
+                ...args:
+                    | [result: T, exceptionInfo: undefined]
+                    | [result: undefined, exceptionInfo: EvaluationExceptionInfo]
+            ) => void,
         ): void;
         function eval<T = { [key: string]: unknown }>(
             expression: string,
             options: EvalOptions | undefined,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            callback: (
+                ...args:
+                    | [result: T, exceptionInfo: undefined]
+                    | [result: undefined, exceptionInfo: EvaluationExceptionInfo]
+            ) => void,
         ): void;
 
         /**

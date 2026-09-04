@@ -1988,7 +1988,7 @@ function testDevtoolsPanels() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/inspectedWindow
 function testDevtoolsInspectedWindow() {
-    const expression = "expression";
+    const expression = "typeof jQuery !== 'undefined'";
 
     const evalOptions: chrome.devtools.inspectedWindow.EvalOptions = {
         frameURL: "https://example.com",
@@ -1996,23 +1996,44 @@ function testDevtoolsInspectedWindow() {
         useContentScriptContext: true,
     };
 
-    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
-    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
+    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ [key: string]: unknown; }>
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ [key: string]: unknown; }>
     chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
-        result; // $ExpectType { [key: string]: unknown; }
+        result; // $ExpectType { [key: string]: unknown; } | undefined
+        exceptionInfo; // $ExpectType EvaluationExceptionInfo | undefined
 
-        exceptionInfo.code; // $ExpectType string
-        exceptionInfo.description; // $ExpectType string
-        exceptionInfo.details; // $ExpectType any[]
-        exceptionInfo.isError; // $ExpectType boolean
-        exceptionInfo.isException; // $ExpectType boolean
-        exceptionInfo.value; // $ExpectType string
+        if (result) {
+            exceptionInfo; // $ExpectType undefined
+        }
+
+        if (exceptionInfo) {
+            result; // $ExpectType undefined
+
+            if (exceptionInfo.isException) {
+                exceptionInfo.code; // $ExpectType undefined
+                exceptionInfo.description; // $ExpectType undefined
+                exceptionInfo.details; // $ExpectType undefined
+                exceptionInfo.isError; // $ExpectType undefined
+                exceptionInfo.isException; // $ExpectType true
+                exceptionInfo.value; // $ExpectType string
+            } else {
+                exceptionInfo.code; // $ExpectType string
+                exceptionInfo.description; // $ExpectType string
+                exceptionInfo.details; // $ExpectType any[]
+                exceptionInfo.isError; // $ExpectType true
+                exceptionInfo.isException; // $ExpectType undefined
+                exceptionInfo.value; // $ExpectType undefined
+            }
+        }
     });
     chrome.devtools.inspectedWindow.eval(expression, (result, exceptionInfo) => { // $ExpectType void
-        result; // $ExpectType { [key: string]: unknown; }
+        result; // $ExpectType { [key: string]: unknown; } | undefined
+        exceptionInfo; // $ExpectType EvaluationExceptionInfo | undefined
     });
-    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
-        result.title; // $ExpectType string
+    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result, _) => { // $ExpectType void
+        if (result) {
+            result.title; // $ExpectType string
+        }
     });
 
     chrome.devtools.inspectedWindow.getResources(); // $ExpectType Promise<Resource[]>
