@@ -4839,7 +4839,9 @@ declare namespace browser.scripting {
      * @param injection The details of the script which to inject.
      */
     // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-    function executeScript<Args extends any[], Result>(injection: ScriptInjection<Args, Result>): Promise<InjectionResult<Result>[]>;
+    function executeScript<Args extends any[], Result>(
+        injection: ScriptInjection<Args, Result>,
+    ): Promise<InjectionResult<Result>[]>;
 
     /**
      * Inserts a CSS stylesheet into a target context. If multiple frames are specified, unsuccessful injections are ignored.
