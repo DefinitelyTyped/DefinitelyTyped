@@ -2902,20 +2902,29 @@ declare namespace chrome {
             injectedScript?: string | undefined;
         }
 
-        interface EvaluationExceptionInfo {
+        interface PreEvaluationError {
             /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            isError: boolean;
+            isError: true;
+            /** Omitted if the error occured on the DevTools side before the expression is evaluated. */
+            isException?: undefined;
             /** Set if the error occurred on the DevTools side before the expression is evaluated. */
             code: string;
             /** Set if the error occurred on the DevTools side before the expression is evaluated. */
             description: string;
             /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
             details: any[];
+        }
+
+        interface EvaluationException {
+            /** Omitted if the evaluated code produces an unhandled exception. */
+            isError?: undefined;
             /** Set if the evaluated code produces an unhandled exception. */
-            isException: boolean;
+            isException?: true;
             /** Set if the evaluated code produces an unhandled exception. */
             value: string;
         }
+
+        type EvaluationExceptionInfo = PreEvaluationError | EvaluationException;
 
         /** The ID of the tab being inspected. This ID may be used with {@link chrome.tabs} API. */
         const tabId: number;
@@ -2932,18 +2941,18 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 151.
          */
-        function eval<T = { [key: string]: unknown }>(
+        function eval<T>(
             expression: string,
             options?: EvalOptions,
-        ): Promise<{ result: T; exceptionInfo: EvaluationExceptionInfo }>;
-        function eval<T = { [key: string]: unknown }>(
+        ): Promise<T>;
+        function eval<T>(
             expression: string,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            callback?: (result: T | undefined, exceptionInfo?: EvaluationExceptionInfo) => void,
         ): void;
-        function eval<T = { [key: string]: unknown }>(
+        function eval<T>(
             expression: string,
             options: EvalOptions | undefined,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            callback?: (result: T| undefined, exceptionInfo?: EvaluationExceptionInfo) => void,
         ): void;
 
         /**
