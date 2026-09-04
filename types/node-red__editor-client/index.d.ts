@@ -1481,6 +1481,7 @@ declare namespace editorClient {
             | ((value: string, done: (result?: Array<{ value: string; label: string | JQuery }>) => void) => void);
     }
 
+    /** @link https://nodered.org/docs/api/ui/autoComplete/ */
     interface WidgetAutoComplete extends JQuery {
         (options: WidgetAutoCompleteOptions): this;
         /**
@@ -1520,7 +1521,7 @@ declare namespace editorClient {
          */
         addItem?: ((row: JQuery, index: number, data: T) => void) | undefined;
         /**
-         * An array of button objects, that need to be added at the bottom of the editableList. 
+         * An array of button objects, that need to be added at the bottom of the editableList.
          */
         buttons?: Array<{
             click: (this: JQuery, event: JQuery.ClickEvent) => void;
@@ -1534,6 +1535,14 @@ declare namespace editorClient {
          */
         connectWith?: JQuery.Selector | undefined;
         /**
+         * A callback function that gets called to filter what items are visible in the list.
+         *
+         * @param data - the data object for the row
+         *
+         * The function should return true/false (boolean) to indicate whether the item should be visible.
+         */
+        filter?: ((data: T) => boolean) | undefined;
+        /**
          * Inserts the DOM/JQuery object as a header for the list.
          */
         header?: HTMLElement | JQuery | undefined;
@@ -1544,13 +1553,17 @@ declare namespace editorClient {
          */
         height?: number | "auto" | undefined;
         /**
-         * A callback function that gets called to filter what items are visible in the list.
-         *
-         * @param data - the data object for the row
-         *
-         * The function should return true/false (boolean) to indicate whether the item should be visible.
+         * If set to true, each row is displayed with a delete button on the right-hand side.
+         * Clicking the button will remove the row from the list and trigger the removeItem callback, if set.
          */
-        filter?: ((data: T) => boolean) | undefined;
+        removable?: boolean | undefined;
+        /**
+         * A function that is called when an item is removed from the list.
+         *
+         * @param data - the original data item for the item
+         * The remove can be triggered by either clicking an item’s remove button, or calling the remoteItem method.
+         */
+        removeItem?: ((data: T) => void) | undefined;
         /**
          * A function that gets called when the size of the list changes.
          */
@@ -1597,20 +1610,9 @@ declare namespace editorClient {
          * Each row element stores the original data for the item under property called data.
          */
         sortItems?: ((items: JQuery[]) => void) | undefined;
-        /**
-         * If set to true, each row is displayed with a delete button on the right-hand side.
-         * Clicking the button will remove the row from the list and trigger the removeItem callback, if set.
-         */
-        removable?: boolean | undefined;
-        /**
-         * A function that is called when an item is removed from the list.
-         *
-         * @param data - the original data item for the item
-         * The remove can be triggered by either clicking an item’s remove button, or calling the remoteItem method.
-         */
-        removeItem?: ((data: T) => void) | undefined;
     }
 
+    /** @link https://nodered.org/docs/api/ui/editableList/ */
     interface WidgetEditableList extends JQuery {
         /**
          * Inits EditableList
@@ -1695,7 +1697,7 @@ declare namespace editorClient {
          * If the function returns a value greater than 0, itemDataA comes after itemDataB.
          */
         (action: "sort", value: (itemDataA: object, itemDataB: object) => number): void;
-        
+
         /**
          * Sets the width of the editableList. This must be used in place of the standard jQuery.width()
          * function as it ensures the component resizes properly.
@@ -1714,6 +1716,7 @@ declare namespace editorClient {
         minimumLength: number;
     }
 
+    /** @link https://nodered.org/docs/api/ui/searchBox/ */
     interface WidgetSearchBox extends JQuery {
         (options: WidgetSearchBoxOptions): this;
         /**
@@ -1775,6 +1778,7 @@ declare namespace editorClient {
         (options: WidgetToggleButtonOptions): this;
     }
 
+    /** @link https://nodered.org/docs/api/ui/treeList/#options-data */
     interface WidgetTreeListData {
         /**
          * Whether to display a checkbox for the item.
@@ -1787,7 +1791,9 @@ declare namespace editorClient {
         /**
          * An array of child items, or a function that calls the `done` callback with an array of child items.
          */
-        children?: WidgetTreeListData[] | ((done: (children: WidgetTreeListData[]) => void, item: WidgetTreeListData) => void);
+        children?:
+            | WidgetTreeListData[]
+            | ((done: (children: WidgetTreeListData[]) => void, item: WidgetTreeListData) => void);
         /**
          * Don't build any UI elements for the item's children until it is expanded by the user.
          */
@@ -1897,6 +1903,7 @@ declare namespace editorClient {
         };
     }
 
+    /** @link https://nodered.org/docs/api/ui/treeList/#options */
     interface WidgetTreeListOptions {
         /**
          * Automatically select items when navigating with keyboard.
@@ -1925,6 +1932,7 @@ declare namespace editorClient {
         sortable?: boolean | string;
     }
 
+    /** @link https://nodered.org/docs/api/ui/treeList/ */
     interface WidgetTreeList extends JQuery {
         (options: WidgetTreeListOptions): this;
         (action: "clearSelection"): void;
@@ -1944,11 +1952,17 @@ declare namespace editorClient {
         (action: "filter", filter: (item: WidgetTreeListItem) => boolean): number;
         (action: "get", id: string): WidgetTreeListItem | null;
         (action: "reveal", item: string | WidgetTreeListItem): void;
-        (action: "select", item: WidgetTreeListItem | WidgetTreeListItem[], triggerEvent?: boolean, deselectExisting?: boolean): void;
+        (
+            action: "select",
+            item: WidgetTreeListItem | WidgetTreeListItem[],
+            triggerEvent?: boolean,
+            deselectExisting?: boolean,
+        ): void;
         (action: "selected"): WidgetTreeListItem | WidgetTreeListItem[] | undefined;
         (action: "show", item: string | WidgetTreeListItem, done?: () => void): void;
     }
 
+    /** @link https://nodered.org/docs/api/ui/typedInput/#options */
     interface WidgetTypedInputOptions {
         /** If defined, sets the default type of the input if typeField is not set. */
         default?: WidgetTypedInputType | string | undefined;
@@ -1962,6 +1976,7 @@ declare namespace editorClient {
         typeField?: JQuery.Selector | JQuery | undefined;
     }
 
+    /** @link https://nodered.org/docs/api/ui/typedInput/#types */
     type WidgetTypedInputType =
         | "msg"
         | "flow"
@@ -1974,8 +1989,12 @@ declare namespace editorClient {
         | "re"
         | "date"
         | "jsonata"
-        | "env";
+        | "env"
+        | "node"
+        | "cred"
+        | "conf-types";
 
+    /** @link https://nodered.org/docs/api/ui/typedInput/#types-typedefinition */
     interface WidgetTypedInputTypeDefinition {
         /**
          * If set, enable autoComplete on the input, using this function to get completion suggestions.
@@ -1984,10 +2003,14 @@ declare namespace editorClient {
         autoComplete?:
             | ((value: string) => Array<{ value: string; label: string | JQuery }>)
             | ((value: string, done: (result?: Array<{ value: string; label: string | JQuery }>) => void) => void);
+        /** A callback function that gets called when the input needs to be expanded */
+        expand?: (this: WidgetTypedInput) => void;
         /** Set to false if there is no value associated with the type. */
         hasValue?: boolean | undefined;
         /** An icon to display in the type menu */
         icon?: string | undefined;
+        /** The type of input. e.g. password,email... */
+        inputType?: string | undefined;
         /** A label to display in the type menu */
         label?: string | undefined;
         /** If {@link options} is set, this can enable multiple selection of them. */
@@ -2009,6 +2032,7 @@ declare namespace editorClient {
         valueLabel?: (container: JQuery, value: string) => void;
     }
 
+    /** @link https://nodered.org/docs/api/ui/typedInput/ */
     interface WidgetTypedInput extends JQuery {
         /**
          * Inits TypedInput
@@ -2058,7 +2082,8 @@ declare namespace editorClient {
          * This occurs automatically whenever the type or value change.
          */
         (action: "validate"): boolean;
-        (action: "validate", options: { returnErrorMessage: boolean; }): string | boolean;
+        /** @since v4.0.0 */
+        (action: "validate", options: { returnErrorMessage: boolean }): string | boolean;
         /**
          * Gets the value of the typedInput.
          */
