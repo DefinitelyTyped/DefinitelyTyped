@@ -1597,6 +1597,10 @@
             "libraryName": "decimal.js",
             "asOfVersion": "7.4.0"
         },
+        "decode-uri-component": {
+            "libraryName": "decode-uri-component",
+            "asOfVersion": "0.4.1"
+        },
         "decompress-response": {
             "libraryName": "decompress-response",
             "asOfVersion": "4.1.0"
