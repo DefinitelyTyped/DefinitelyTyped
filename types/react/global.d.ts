@@ -10,6 +10,7 @@ Warning: all of these interfaces are empty. If you want type definitions for var
 interface Event {}
 interface AnimationEvent extends Event {}
 interface ClipboardEvent extends Event {}
+interface CommandEvent extends Event {}
 interface CompositionEvent extends Event {}
 interface DragEvent extends Event {}
 interface FocusEvent extends Event {}
