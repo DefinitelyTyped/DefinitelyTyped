@@ -3153,6 +3153,10 @@
             "libraryName": "immutable",
             "asOfVersion": "3.8.7"
         },
+        "import-local": {
+            "libraryName": "import-local",
+            "asOfVersion": "3.2.0"
+        },
         "impress": {
             "libraryName": "impress",
             "asOfVersion": "2.0.13"
