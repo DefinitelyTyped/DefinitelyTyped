@@ -301,6 +301,7 @@ declare module "node:perf_hooks" {
     namespace constants {
         const NODE_PERFORMANCE_GC_MAJOR: number;
         const NODE_PERFORMANCE_GC_MINOR: number;
+        const NODE_PERFORMANCE_GC_MINOR_MARK_SWEEP: number;
         const NODE_PERFORMANCE_GC_INCREMENTAL: number;
         const NODE_PERFORMANCE_GC_WEAKCB: number;
         const NODE_PERFORMANCE_GC_FLAGS_NO: number;
