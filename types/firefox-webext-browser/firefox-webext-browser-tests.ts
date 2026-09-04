@@ -351,16 +351,30 @@ browser.scripting.executeScript({
 
 browser.scripting.executeScript({
     target: { tabId: 1 },
-    func: () => {return true;},
+    func: () => true,
 }).then(([resp]) => {
     resp.result; // $ExpectType boolean | undefined
 });
 
 browser.scripting.executeScript({
     target: { tabId: 1 },
-    func: () => {return 1;},
+    func: () => 1,
 }).then(([resp]) => {
     resp.result; // $ExpectType number | undefined
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: () => Math.random() > 0.5 ? true : 1,
+}).then(([resp]) => {
+    resp.result; // $ExpectType true  | 1 | undefined
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: (): number | boolean => Math.random() > 0.5 ? true : 1,
+}).then(([resp]) => {
+    resp.result; // $ExpectType number  | boolean | undefined
 });
 
 browser.scripting.executeScript({ target: { tabId: 0 }, world: "MAIN" });
