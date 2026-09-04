@@ -314,9 +314,14 @@ declare module "node:perf_hooks" {
     }
     interface EventLoopMonitorOptions {
         /**
-         * The sampling rate in milliseconds.
-         * Must be greater than zero.
-         * @default 10
+         * When `true`, samples are taken once per
+         * event loop iteration. **Default:** `false`.
+         */
+        samplePerIteration?: boolean | undefined;
+        /**
+         * The sampling rate in milliseconds for interval-based
+         * sampling. Must be greater than zero. This option is ignored when
+         * `samplePerIteration` is `true`. **Default:** `10`.
          */
         resolution?: number | undefined;
     }
@@ -400,21 +405,25 @@ declare module "node:perf_hooks" {
          */
         readonly stddev: number;
     }
-    interface IntervalHistogram extends Histogram {
+    /**
+     * A `Histogram` that records event loop delay, returned by
+     * `perf_hooks.monitorEventLoopDelay()`.
+     */
+    interface ELDHistogram extends Histogram {
         /**
-         * Enables the update interval timer. Returns `true` if the timer was
-         * started, `false` if it was already started.
-         * @since v11.10.0
-         */
-        enable(): boolean;
-        /**
-         * Disables the update interval timer. Returns `true` if the timer was
+         * Disables event loop delay sampling. Returns `true` if sampling was
          * stopped, `false` if it was already stopped.
          * @since v11.10.0
          */
         disable(): boolean;
         /**
-         * Disables the update interval timer when the histogram is disposed.
+         * Enables event loop delay sampling. Returns `true` if sampling was
+         * started, `false` if it was already started.
+         * @since v11.10.0
+         */
+        enable(): boolean;
+        /**
+         * Disables event loop delay sampling when the histogram is disposed.
          *
          * ```js
          * const { monitorEventLoopDelay } = require('node:perf_hooks');
@@ -509,14 +518,16 @@ declare module "node:perf_hooks" {
     /**
      * _This property is an extension by Node.js. It is not available in Web browsers._
      *
-     * Creates an `IntervalHistogram` object that samples and reports the event loop
-     * delay over time. The delays will be reported in nanoseconds.
+     * Creates a histogram object that samples and reports the event loop delay over
+     * time. The delays will be reported in nanoseconds.
      *
-     * Using a timer to detect approximate event loop delay works because the
-     * execution of timers is tied specifically to the lifecycle of the libuv
-     * event loop. That is, a delay in the loop will cause a delay in the execution
-     * of the timer, and those delays are specifically what this API is intended to
-     * detect.
+     * By default, the histogram is updated by a timer using the configured
+     * `resolution`. When `samplePerIteration` is `true`, samples are taken once per
+     * event loop iteration using `uv_prepare_t` and `uv_check_t` hooks. In that mode,
+     * the histogram does not keep the loop alive or force additional iterations when
+     * the application is idle.
+     * The two sampling modes produce significantly different results and should not
+     * be compared directly.
      *
      * ```js
      * import { monitorEventLoopDelay } from 'node:perf_hooks';
@@ -534,7 +545,7 @@ declare module "node:perf_hooks" {
      * ```
      * @since v11.10.0
      */
-    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): IntervalHistogram;
+    function monitorEventLoopDelay(options?: EventLoopMonitorOptions): ELDHistogram;
     interface TimerifyOptions {
         /**
          * A histogram object created using
