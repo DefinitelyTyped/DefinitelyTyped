@@ -1471,6 +1471,19 @@ declare namespace editorClient {
 
     interface WidgetAutoCompleteOptions {
         /**
+         * If provided instead of `search`, this will look for any plugins
+         * registered with the given type that implement the `getCompletions` function. This
+         * can be an async function that returns an array of string completions. It does not support
+         * the full options object as above.
+         */
+        completionPluginType?: string;
+        /** If `minLength` is 0, pressing down arrow will show the list */
+        minLength?: number;
+        /** If provided, this will be passed to the `getCompletions` function of the plugin
+         * to allow the plugin to provide context-aware completions.
+         */
+        node?: object;
+        /**
          * A function that is called when the input value changes that should
          * return a list of possible completions. If `done` is used, it must be called.
          * @param value The current value of the <input>
@@ -1481,7 +1494,10 @@ declare namespace editorClient {
             | ((value: string, done: (result?: Array<{ value: string; label: string | JQuery }>) => void) => void);
     }
 
-    /** @link https://nodered.org/docs/api/ui/autoComplete/ */
+    /**
+     * Attach to an <input type="text"> to provide auto-complete
+     * @link https://nodered.org/docs/api/ui/autoComplete/
+     */
     interface WidgetAutoComplete extends JQuery {
         (options: WidgetAutoCompleteOptions): this;
         /**
