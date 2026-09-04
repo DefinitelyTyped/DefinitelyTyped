@@ -198,7 +198,7 @@ mp.get_property_osd("playlist-pos");
 // an unknown property returns string | undefined
 // $ExpectType string | undefined
 mp.get_property_osd("foo");
-// $ExpectType string | undefined | 123
+// $ExpectType string | 123
 mp.get_property_osd("foo", 123);
 
 // $ExpectType boolean

@@ -7050,7 +7050,7 @@ declare namespace mp {
 
     /**
      * Convert boolean to "yes" | "no", number to `${number}`, object to string
-     * @template TWiden Whether to widen to any string and preserve completions when possible
+     * @template TWiden Whether to forcibly widen to any string and preserve completions when literal string case exists in the result
      */
     // dprint-ignore
     type ToStringType<T, TWiden extends boolean = false> =
@@ -7103,7 +7103,7 @@ declare namespace mp {
     // so I have to handle the conditional undefined case internally using a dedicated type parameter TUndefinable
     /**
      * @template N Property name
-     * @template TWiden Whether to widen to any string and preserve completions when possible
+     * @template TWiden Whether to forcibly widen to any string and preserve completions when literal string case exists in the result
      * @template TUndefinable Whether to include undefined case
      */
     // dprint-ignore
@@ -7134,7 +7134,7 @@ declare namespace mp {
     /**
      * Get property types returned from `mp.get_property_osd`
      * @template N Property name
-     * @template TWiden Whether to widen to any string and preserve completions when possible
+     * @template TWiden Whether to forcibly widen to any string and preserve completions when literal string case exists in the result
      * @template TUndefinable Whether to include undefined case
      */
     // dprint-ignore
@@ -7277,7 +7277,7 @@ declare namespace mp {
     function get_property_osd<P extends PropertyName | (string & {}), D>(
         name: P,
         def: D | GetOSDPropertyType<P, true>,
-    ): GetOSDPropertyType<P> | D; // success | fail
+    ): GetOSDPropertyType<P, false, false> | D; // success | fail
 
     /**
      * Similar to `mp.get_property`, but return the property value as Boolean.
