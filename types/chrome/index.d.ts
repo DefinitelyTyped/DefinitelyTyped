@@ -947,7 +947,7 @@ declare namespace chrome {
         interface TitleDetails {
             /** The string the browser action should display when moused over. */
             title: string;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | null | undefined;
         }
 
@@ -7980,6 +7980,7 @@ declare namespace chrome {
             title: string;
         }
 
+        /** @since Chrome 88 */
         interface TabDetails {
             /** The ID of the tab to query state for. */
             tabId: number;
