@@ -7639,6 +7639,10 @@
             "libraryName": "@survicate/react-native-survicate",
             "asOfVersion": "4.0.0"
         },
+        "svelte-range-slider-pips": {
+            "libraryName": "svelte-range-slider-pips",
+            "asOfVersion": "3.0.0"
+        },
         "svg-pan-zoom": {
             "libraryName": "svg-pan-zoom",
             "asOfVersion": "3.4.0"
