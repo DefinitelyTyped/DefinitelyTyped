@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
+import { ReadableStream, ReadableStreamTee, TransformStream, WritableStream } from "node:stream/web";
 import type { QueuingStrategySize } from "node:stream/web";
 
 async function readResultHasRequiredValueProperty() {
@@ -109,4 +109,19 @@ async function queuingStrategySizeReceivesTheChunk() {
             reason; // $ExpectType any
         },
     });
+}
+
+{
+    const stream = new ReadableStream<number>({
+        pull(controller) {
+            controller.enqueue(Math.random());
+        },
+    });
+
+    const [stream1, stream2] = ReadableStreamTee(stream);
+
+    stream1; // $ExpectType ReadableStream<number>
+    stream2; // $ExpectType ReadableStream<number>
+
+    ReadableStreamTee(stream, true);
 }
