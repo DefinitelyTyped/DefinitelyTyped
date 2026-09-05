@@ -5309,6 +5309,10 @@
             "libraryName": "pako",
             "asOfVersion": "3.0.0"
         },
+        "pangu": {
+            "libraryName": "pangu",
+            "asOfVersion": "5.1.1"
+        },
         "paper": {
             "libraryName": "paper",
             "asOfVersion": "0.12.3"
