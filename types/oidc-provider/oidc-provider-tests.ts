@@ -983,6 +983,7 @@ interactionPrompt.checks.add(interactionPrompt);
 
 provider.on("access_token.saved", (accessToken: oidc.AccessToken) => {
     accessToken.jti.substring(0);
+    accessToken.generateTokenId().substring(0);
 });
 
 provider.registerGrantType(
