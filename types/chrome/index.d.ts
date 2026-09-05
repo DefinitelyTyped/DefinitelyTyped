@@ -537,14 +537,14 @@ declare namespace chrome {
             /** The stable/persisted device id string when available. */
             stableDeviceId?: string;
             /** Stream type associated with this device. */
-            streamType: StreamType;
+            streamType: `${StreamType}`;
         }
 
         interface DeviceFilter {
             /** If set, only audio devices whose active state matches this value will satisfy the filter. */
             isActive?: boolean;
             /** If set, only audio devices whose stream type is included in this list will satisfy the filter. */
-            streamTypes?: StreamType[];
+            streamTypes?: `${StreamType}`[];
         }
 
         interface DeviceIdLists {
@@ -600,7 +600,7 @@ declare namespace chrome {
             /** Whether or not the stream is now muted. */
             isMuted: boolean;
             /** The type of the stream for which the mute value changed. The updated mute value applies to all devices with this stream type. */
-            streamType: StreamType;
+            streamType: `${StreamType}`;
         }
 
         /** Type of stream an audio device provides. */
@@ -611,14 +611,17 @@ declare namespace chrome {
 
         /**
          * Gets a list of audio devices filtered based on filter.
+         * @param filter Device properties by which to filter the list of returned audio devices. If the filter is not set or set to `{}`, returned device list will contain all available audio devices.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function getDevices(filter?: DeviceFilter): Promise<AudioDeviceInfo[]>;
-        function getDevices(filter: DeviceFilter, callback: (devices: AudioDeviceInfo[]) => void): void;
         function getDevices(callback: (devices: AudioDeviceInfo[]) => void): void;
+        function getDevices(filter: DeviceFilter | undefined, callback: (devices: AudioDeviceInfo[]) => void): void;
 
         /**
          * Gets the system-wide mute state for the specified stream type.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function getMute(streamType: `${StreamType}`): Promise<boolean>;
@@ -626,6 +629,7 @@ declare namespace chrome {
 
         /**
          * Sets lists of active input and/or output devices.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function setActiveDevices(ids: DeviceIdLists): Promise<void>;
@@ -633,6 +637,7 @@ declare namespace chrome {
 
         /**
          * Sets mute state for a stream type. The mute state will apply to all audio devices with the specified audio stream type.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function setMute(streamType: `${StreamType}`, isMuted: boolean): Promise<void>;
@@ -640,6 +645,7 @@ declare namespace chrome {
 
         /**
          * Sets the properties for the input or output device.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function setProperties(id: string, properties: DeviceProperties): Promise<void>;
@@ -648,18 +654,18 @@ declare namespace chrome {
         /**
          * Fired when audio devices change, either new devices being added, or existing devices being removed.
          */
-        const onDeviceListChanged: chrome.events.Event<(devices: AudioDeviceInfo[]) => void>;
+        const onDeviceListChanged: events.Event<(devices: AudioDeviceInfo[]) => void>;
 
         /**
          * Fired when sound level changes for an active audio device.
          */
-        const onLevelChanged: chrome.events.Event<(event: LevelChangedEvent) => void>;
+        const onLevelChanged: events.Event<(event: LevelChangedEvent) => void>;
 
         /**
          * Fired when the mute state of the audio input or output changes.
          * Note that mute state is system-wide and the new value applies to every audio device with specified stream type.
          */
-        const onMuteChanged: chrome.events.Event<(event: MuteChangedEvent) => void>;
+        const onMuteChanged: events.Event<(event: MuteChangedEvent) => void>;
     }
 
     ////////////////////
