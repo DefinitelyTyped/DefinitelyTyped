@@ -26601,7 +26601,7 @@ declare namespace Excel {
         referencedValues?: ReferencedValue[];
     }
     /**
-     * The Base64-encoded type and data of an image.
+     * The base64 encoding type and data of an image.
      *
      * @remarks
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -26609,7 +26609,7 @@ declare namespace Excel {
      */
     interface Base64EncodedImage {
         /**
-         * The file type of the Base64-encoded image.
+         * The file type of the encoded image.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -27062,7 +27062,7 @@ declare namespace Excel {
         errorSubType?: BlockedErrorCellValueSubType | "Unknown" | "DataTypeRestrictedDomain" | "DataTypePrivacySetting" | "DataTypeUnsupportedApp" | "ExternalLinksGeneric" | "RichDataLinkDisabled" | "SignInError" | "NoLicense" | "XlmDisabledInTrustCenter" | "XlmNotSupportedOnPlatform" | "ImageDownloadBlocked" | "ImageInvalidUrlNonHttps" | "ImageExceedsSizeLimit" | "ImageExceedsTotalSizeLimit" | "EnvironmentExceedsQuota" | "EnvironmentExceedsQuotaDaily" | "EnvironmentExceedsQuotaMonthly" | "EnvironmentExceedsTakerQuotaMonthly" | "WrongAccountType" | "EnvironmentExceedsComputeResourceEver" | "EnvironmentExceedsComputeResourceCountDaily" | "PythonUnsupportedOnThisPlatform" | "UnmetRequirements" | "PythonFunction" | "EnvironmentConnectionExceedQuota" | "UnsupportedEnvironment" | "UnsupportedInCalculationMode";
     }
     /**
-     * Represents the value of a cell containing a Boolean.
+     * Represents the value of a cell containing a boolean.
      *
      * @remarks
      * [Api set: ExcelApi 1.16]
@@ -32823,7 +32823,7 @@ declare namespace Excel {
          */
         Python_typeName: string;
         /**
-         * Represents the output of the `str()` function when used on this object.
+         * Represents the output of str() function when used on this object.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33021,8 +33021,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This interface isn't supported in Excel on the web.
      */
     interface LinkedEntityLoadServiceRequest {
         /**
@@ -33030,8 +33028,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         domainId: string;
         /**
@@ -33039,8 +33035,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         entities: LinkedEntityIdCulture[];
     }
@@ -33049,8 +33043,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This interface isn't supported in Excel on the web.
      */
     interface LinkedEntityLoadServiceResult {
         /**
@@ -33058,8 +33050,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         entities: LinkedEntityCellValue[];
     }
@@ -33104,8 +33094,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This interface isn't supported in Excel on the web.
      */
     interface LinkedEntityIdCulture {
         /**
@@ -33113,8 +33101,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         entityId: string;
         /**
@@ -33122,8 +33108,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         culture: string;
     }
@@ -33282,7 +33266,7 @@ declare namespace Excel {
         cachedUid: string;
     }
     /**
-     * Represents types of #N/A errors.
+     * Represents types of #N/A! errors.
      *
      * @remarks
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33290,7 +33274,7 @@ declare namespace Excel {
      */
     enum NotAvailableErrorCellValueSubType {
         /**
-         * An unknown type of error. Displays as error type #N/A in Excel.
+         * An unknown type of error. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33298,7 +33282,7 @@ declare namespace Excel {
          */
         unknown = "Unknown",
         /**
-         * An error caused by `VLOOKUP` not finding its `lookup_value` in the search range. Displays as error type #N/A in Excel.
+         * An error caused by `VLOOKUP` not finding its `lookup_value` in the search range. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33306,7 +33290,7 @@ declare namespace Excel {
          */
         vlookupValueNotFound = "VlookupValueNotFound",
         /**
-         * An error caused by `HLOOKUP` not finding its `lookup_value` in the search range. Displays as error type #N/A in Excel.
+         * An error caused by `HLOOKUP` not finding its `lookup_value` in the search range. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33314,7 +33298,7 @@ declare namespace Excel {
          */
         hlookupValueNotFound = "HlookupValueNotFound",
         /**
-         * An error caused by an invalid property argument to `STOCKHISTORY`. Displays as error type #N/A in Excel.
+         * An error caused by an invalid property argument to `STOCKHISTORY`. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33322,7 +33306,7 @@ declare namespace Excel {
          */
         stockHistoryInvalidProperty = "StockHistoryInvalidProperty",
         /**
-         * An error caused by no data being available for a `STOCKHISTORY` function. Displays as error type #N/A in Excel.
+         * An error caused by no data being available for a `STOCKHISTORY` function. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33330,7 +33314,7 @@ declare namespace Excel {
          */
         stockHistoryNoData = "StockHistoryNoData",
         /**
-         * An error caused by an external code service returning an unknown object. Displays as error type #N/A in Excel.
+         * An error caused by an external code service returning an unknown object. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33338,7 +33322,7 @@ declare namespace Excel {
          */
         pythonObjectUnknown = "PythonObjectUnknown",
         /**
-         * No match was found for the pattern in the text provided. Displays as error type #N/A in Excel.
+         * No match was found for the pattern in the text provided. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33346,7 +33330,7 @@ declare namespace Excel {
          */
         eRegexMatchNoResult = "ERegexMatchNoResult",
         /**
-         * Occurrence is greater than the total number of matches. Displays as error type #N/A in Excel.
+         * Occurrence is greater than the total number of matches. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33354,7 +33338,7 @@ declare namespace Excel {
          */
         eRegexReplaceOccurrenceNoResult = "ERegexReplaceOccurrenceNoResult",
         /**
-         * No capture groups were matched. Displays as error type #N/A in Excel.
+         * No capture groups were matched. Displays as error type #N/A! in Excel.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -33363,7 +33347,7 @@ declare namespace Excel {
         eRegexMatchNoCapture = "ERegexMatchNoCapture"
     }
     /**
-     * Represents the value of a cell containing a #N/A error.
+     * Represents the value of a cell containing a #N/A! error.
      *
      * @remarks
      * [Api set: ExcelApi 1.16]
@@ -33384,7 +33368,7 @@ declare namespace Excel {
          * @remarks
          * [Api set: ExcelApi 1.16]
          */
-        basicValue?: "#N/A" | string;
+        basicValue?: "#N/A!" | string;
         /**
          * Represents the value that would be returned by `Range.valueTypes` for a cell with this value.
          *
@@ -35713,7 +35697,7 @@ declare namespace Excel {
      */
     function run<T>(context: OfficeExtension.ClientRequestContext, batch: (context: Excel.RequestContext) => Promise<T>): Promise<T>;
     /**
-     * Represents the labeling capability status of the sensitivity label catalog.
+     * /// Indicates the labeling capability.
      *
      * @remarks
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -35721,28 +35705,28 @@ declare namespace Excel {
      */
     enum LabelingCapability {
         /**
-         * No valid license is available for sensitivity labeling.
+         * Represents there's no valid licenses.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
         noLicense = "NoLicense",
         /**
-         * Sensitivity labeling is disabled for the user or tenant.
+         * Represents labeling being disabled.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
         labelingDisabled = "LabelingDisabled",
         /**
-         * No labeling policy was found for the user.
+         * Represents labeling policy not found.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          */
         labelingPolicyNotFound = "LabelingPolicyNotFound",
         /**
-         * Sensitivity labeling is fully enabled.
+         * Represents labeling being enabled.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36643,6 +36627,15 @@ declare namespace Excel {
          * @beta
          */
         delete(): void;
+        /**
+         * Refreshes the query.
+                    This only starts the refresh.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        refresh(): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
@@ -39957,8 +39950,9 @@ declare namespace Excel {
         /**
          * Gets an array of `FormulaChangedEventDetail` objects, which contain the details about the all of the changed formulas.
                     
-                    If the number of changed formulas or the size of the changed formula text exceeds a size limit, `formulaDetails`
-                    returns undefined. This indicates that something on the sheet has changed, but the details cannot be reported.
+                     If the number of changed formulas or the size of the changed formula text exceeds a size limit, the formulaDetails
+                     will be undefined, which indicates that something on the sheet has changed, but the details cannot be reported due to
+                     these limits.
          *
          * @remarks
          * [Api set: ExcelApi 1.13]
@@ -40907,7 +40901,7 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         * Returns a `window` object that represents the active window (the window on top). Read-only.
+         * Returns a Window object that represents the active window (the window on top). Read-only.
          *
          * @remarks
          * [Api set: ExcelApiDesktop 1.1]
@@ -40945,7 +40939,6 @@ declare namespace Excel {
         readonly calculationEngineVersion: number;
         /**
          * Returns the calculation mode used in the workbook, as defined by the constants in `Excel.CalculationMode`. Possible values are: `Automatic`, where Excel controls recalculation; `AutomaticExceptTables`, where Excel controls recalculation but ignores changes in tables; `Manual`, where calculation is done when the user requests it.
-         * This is a runtime property. The `calculationMode` setting is not persisted in the workbook.
          *
          * @remarks
          * [Api set: ExcelApi 1.1 for get, 1.8 for set]
@@ -41061,7 +41054,7 @@ declare namespace Excel {
          * @param secondRange The second `Range` or `RangeAreas` object.
          * @param additionalRanges Optional. Additional `Range` or `RangeAreas` objects to include in the union, up to 28 more.
          */
-        union(firstRange: Range | RangeAreas, secondRange: Range | RangeAreas, ...additionalRanges: (Range | RangeAreas)[]): Excel.RangeAreas;
+        union(firstRange: Range | RangeAreas, secondRange: Range | RangeAreas, ...additionalRanges: Array<Range | RangeAreas>): Excel.RangeAreas;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
@@ -41155,7 +41148,7 @@ declare namespace Excel {
         toJSON(): Excel.Interfaces.IterativeCalculationData;
     }
     /**
-     * Specifies the type of autorun event.
+     * Specifies the target document for displaying document comparison differences.
      *
      * @remarks
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -41163,26 +41156,23 @@ declare namespace Excel {
      */
     enum AutorunEventType {
         /**
-         * The autorun event type is unknown.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          */
         unknown = "Unknown",
         /**
-         * The autorun event type is triggered when the document is saved.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          */
         onDocumentSave = "OnDocumentSave",
         /**
-         * The autorun event type is triggered when the document is saved as a new file.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          */
         onDocumentSaveAs = "OnDocumentSaveAs"
     }
     /**
-     * Specifies the options for completing an autorun event.
+     * Specifies the options to be included in a autorun event complete operation.
      *
      * @remarks
      * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -41190,7 +41180,7 @@ declare namespace Excel {
      */
     interface AutorunEventCompletedOptions {
         /**
-         * Specifies whether to allow the event to proceed. The default value is `false`.
+         * True for allowing the breaked event to continue running.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -41198,7 +41188,7 @@ declare namespace Excel {
          */
         allowEvent: boolean;
         /**
-         * Specifies the type of autorun event to be completed if allowed. The default value is `unknown`.
+         * Type of the autorun event to be completed.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -41206,7 +41196,7 @@ declare namespace Excel {
          */
         autorunEventType: Excel.AutorunEventType | "Unknown" | "OnDocumentSave" | "OnDocumentSaveAs";
         /**
-         * If provided, specifies an optional error message if the event isn't allowed to proceed. The default value is "" (empty string).
+         * The message to be shown to the user.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -41502,13 +41492,13 @@ declare namespace Excel {
         /** Sets multiple properties on the object at the same time, based on an existing loaded object. */
         set(properties: Excel.Workbook): void;
         /**
-         * Notifies the host application that the add-in's code has finished running in an autorun event.
+         * Notify the host that a autorun event is completed.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
          *
-         * @param AutorunEventCompletedOptions Required. Options for completing the autorun event.
+         * @param AutorunEventCompletedOptions Required. The options that specify the info and upcoming operations of the autorun event.
          */
         autorunEventCompleted(AutorunEventCompletedOptions: Excel.AutorunEventCompletedOptions): void;
         /**
@@ -41610,6 +41600,14 @@ declare namespace Excel {
          */
         getLinkedEntityCellValue(linkedEntityCellValueId: LinkedEntityId): OfficeExtension.ClientResult<LinkedEntityCellValue>;
         /**
+         * Returns information about whether preview mode is supported for the workbook and (if applicable) why preview mode is not supported for the workbook.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        getPreviewModeSupportInfo(): Excel.PreviewModeSupportInfo;
+        /**
          * Gets the currently selected single range from the workbook. If there are multiple ranges selected, this method will throw an error.
          *
          * @remarks
@@ -41624,7 +41622,7 @@ declare namespace Excel {
          */
         getSelectedRanges(): Excel.RangeAreas;
         /**
-         * Returns whether the workbook is currently in preview mode.
+         * Returns whether the workbook is currently in Preview Mode.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -41635,12 +41633,11 @@ declare namespace Excel {
          * Inserts the specified worksheets from a source workbook into the current workbook.
                     
                      The `extensionHardening` Windows registry key affects this API. The file extension defined by the `base64File` param must match the real file type of the inserted file. If `extensionHardening` is set to deny mismatches and the file extension does not match the real file type, this API throws the following error: "This operation is not allowed due to the extension hardening policy."
+                    
+                     **Note**: This API is currently only supported for Office on Windows, Mac, and the web.
          *
          * @remarks
          * [Api set: ExcelApi 1.13]
-         * 
-         * This API is currently only supported for Office on Windows, Mac, and the web.
-         * In Excel on the web, this API doesn't support inserting charts, comments, PivotTables, or slicers.
          *
          * @param base64File Required. The Base64-encoded string representing the source workbook file.
          * @param options Optional. The options that define which worksheets to insert and where in the workbook the new worksheets will be inserted. By default, all the worksheets from the source workbook are inserted at the end of the current workbook.
@@ -41705,6 +41702,16 @@ declare namespace Excel {
          */
         readonly onAutoSaveSettingChanged: OfficeExtension.EventHandlers<Excel.WorkbookAutoSaveSettingChangedEventArgs>;
         /**
+         * Occurs when the preview mode has been dirtied.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onPreviewDirtied: OfficeExtension.EventHandlers<Excel.WorkbookPreviewDirtiedEventArgs>;
+        /**
          * Occurs when the selection in the document is changed.
          *
          * @remarks
@@ -41713,6 +41720,16 @@ declare namespace Excel {
          * @eventproperty
          */
         readonly onSelectionChanged: OfficeExtension.EventHandlers<Excel.SelectionChangedEventArgs>;
+        /**
+         * Occurs when the WAC session has been silently reloaded.
+         *
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         *
+         * @eventproperty
+         * @beta
+         */
+        readonly onWacSessionSilentReload: OfficeExtension.EventHandlers<Excel.WorkbookWacSessionSilentReloadEventArgs>;
         /**
         * Overrides the JavaScript `toJSON()` method in order to provide more useful output when an API object is passed to `JSON.stringify()`. (`JSON.stringify`, in turn, calls the `toJSON` method of the object that's passed to it.)
         * Whereas the original `Excel.Workbook` object is an API object, the `toJSON` method returns a plain JavaScript object (typed as `Excel.Interfaces.WorkbookData`) that contains shallow copies of any loaded child properties from the original object.
@@ -42108,7 +42125,6 @@ declare namespace Excel {
         evaluate(name: string): OfficeExtension.ClientResult<any>;
         /**
          * Finds all occurrences of the given string based on the criteria specified and returns them as a `RangeAreas` object, comprising one or more rectangular ranges.
-         * Content in hidden worksheets is not returned.
          *
          * @remarks
          * [Api set: ExcelApi 1.9]
@@ -42120,7 +42136,6 @@ declare namespace Excel {
         findAll(text: string, criteria: Excel.WorksheetSearchCriteria): Excel.RangeAreas;
         /**
          * Finds all occurrences of the given string based on the criteria specified and returns them as a `RangeAreas` object, comprising one or more rectangular ranges.
-         * Content in hidden worksheets is not returned.
          *
          * @remarks
          * [Api set: ExcelApi 1.9]
@@ -42300,16 +42315,16 @@ declare namespace Excel {
         /**
          * Occurs when cells in the worksheet are being calculated asynchronously.
 
-                    This event is triggered at the end of a calculation cycle, similar to the `onCalculated` event.
-                    Ordinarily, when calculation completes for a cell, the `onCalculated` event is triggered.
-                    However, if the calculation places a transient pending value (such as "#BUSY!") in the
-                    cell, then `onCalculationBusy` is triggered instead to indicate that the cell's state has changed,
-                    although calculation of the final value is not yet complete. When a subsequent
-                    calculation cycle completes the calculation for that cell, the `onCalculated` event is
-                    then triggered.
+                     This event is triggered at the end of a calculation cycle, similar to the `onCalculated` event.
+                     Ordinarily, when calculation completes for a cell, the `onCalculated` event is triggered.
+                     However, if the calculation places a transient pending value (such as "#BUSY!") in the
+                     cell, then `onCalculationBusy` is triggered instead to indicate that the cell's state has changed,
+                     although calculation of the final value is not yet complete. When a subsequent
+                     calculation cycle completes the calculation for that cell, the `onCalculated` event is
+                     then triggered.
 
-                    Formula features such as JavaScript User-Defined Functions and =PY formulas
-                    may trigger this event.
+                     Formula features such as JavaScript User-Defined Functions and =PY formulas
+                     may trigger this event.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -42367,8 +42382,9 @@ declare namespace Excel {
         /**
          * Occurs when one or more formulas are changed in this worksheet. This event is for when the formula itself changes, not the data value resulting from the formula's calculation.
 
-                The event is only triggered when the cell already contains a formula.
-                The new cell value may not include a formula. This event is not triggered when a formula is entered into a cell that did not previously contain a formula.
+                     It is triggered precisely when the cell already contains a formula.
+
+                     The new cell value may be not a formula, and the event is not triggered when a formula is entered into a cell that did not previously contain a formula.
          *
          * @remarks
          * [Api set: ExcelApi 1.13]
@@ -42625,16 +42641,16 @@ declare namespace Excel {
         /**
          * Occurs when cells in the worksheet are being calculated asynchronously.
 
-                    This event is triggered at the end of a calculation cycle, similar to the `onCalculated` event.
-                    Ordinarily, when calculation completes for a cell, the `onCalculated` event is triggered.
-                    However, if the calculation places a transient pending value (such as "#BUSY!") in the
-                    cell, then `onCalculationBusy` is triggered instead to indicate that the cell's state has changed,
-                    although calculation of the final value is not yet complete. When a subsequent
-                    calculation cycle completes the calculation for that cell, the `onCalculated` event is
-                    then triggered.
+                     This event is triggered at the end of a calculation cycle, similar to the `onCalculated` event.
+                     Ordinarily, when calculation completes for a cell, the `onCalculated` event is triggered.
+                     However, if the calculation places a transient pending value (such as "#BUSY!") in the
+                     cell, then `onCalculationBusy` is triggered instead to indicate that the cell's state has changed,
+                     although calculation of the final value is not yet complete. When a subsequent
+                     calculation cycle completes the calculation for that cell, the `onCalculated` event is
+                     then triggered.
 
-                    Formula features such as JavaScript User-Defined Functions and =PY formulas
-                    may trigger this event.
+                     Formula features such as JavaScript User-Defined Functions and =PY formulas
+                     may trigger this event.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -43418,8 +43434,7 @@ declare namespace Excel {
         readonly valueTypes: Excel.RangeValueType[][];
         /**
          * Represents the raw values of the specified range. The data returned could be a string, number, or Boolean. Cells that contain an error will return the error string.
-                If the returned value starts with a plus ("+"), minus ("-"), or equal sign ("="), Excel interprets this value as a formula.
-                Locale-shaped strings (such as the date "19-8-2025" in nl-NL or fr-FR, format DD-MM-YYYY) are stored as text instead of as dates. To ensure dates are stored as dates, use a locale-aware API like `formulasLocal` or use a locale-neutral format like ISO (YYYY-MM-DD) or a numeric date serial.
+                    If the returned value starts with a plus ("+"), minus ("-"), or equal sign ("="), Excel interprets this value as a formula.
          *
          * @remarks
          * [Api set: ExcelApi 1.1]
@@ -44113,7 +44128,6 @@ declare namespace Excel {
         /**
          * Moves cell values, formatting, and formulas from current range to the destination range, replacing the old information in those cells.
                     The destination range will be expanded automatically if it is smaller than the current range. Any cells in the destination range that are outside of the original range's area are not changed.
-                    Note: When a range is moved to a new address using this API, the new range object should be retrieved using the new address.
          *
          * @remarks
          * [Api set: ExcelApi 1.11]
@@ -58234,8 +58248,6 @@ declare namespace Excel {
         }): Excel.CustomFunctionManager;
         /**
          * Create a new instance of the `Excel.CustomFunctionManager` object.
-         * @remarks
-         * [Api set: ExcelApi 1.20]
          */
         static newObject(context: OfficeExtension.ClientRequestContext): Excel.CustomFunctionManager;
         /**
@@ -62847,8 +62859,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This class isn't supported in Excel on the web.
      */
     class LinkedEntityDataDomain extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -62859,8 +62869,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly dataProvider: string;
         /**
@@ -62869,8 +62877,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly id: string;
         /**
@@ -62879,8 +62885,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly lastRefreshed: Date;
         /**
@@ -62890,8 +62894,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly loadFunctionId: string;
         /**
@@ -62900,8 +62902,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly name: string;
         /**
@@ -62910,8 +62910,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly periodicRefreshInterval: number;
         /**
@@ -62921,8 +62919,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         refreshMode: Excel.LinkedEntityDataDomainRefreshMode | "Unknown" | "Manual" | "OnLoad" | "Periodic";
         /**
@@ -62932,8 +62928,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly serviceId: number;
         /**
@@ -62942,8 +62936,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         readonly supportedRefreshModes: Excel.LinkedEntityDataDomainRefreshMode[];
         /**
@@ -62953,8 +62945,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          */
         delete(): void;
         /**
@@ -62963,8 +62953,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          */
         refresh(): void;
         /**
@@ -62999,8 +62987,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This interface isn't supported in Excel on the web.
      */
     interface LinkedEntityDataDomainAddedEventArgs {
         /**
@@ -63009,8 +62995,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         id?: string;
         /**
@@ -63018,8 +63002,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         serviceId: number;
         /**
@@ -63027,8 +63009,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
@@ -63036,8 +63016,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         type: "LinkedEntityDataDomainLinkedEntityDataDomainAdded";
     }
@@ -63047,8 +63025,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This class isn't supported in Excel on the web.
      */
     class LinkedEntityDataDomainCollection extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
@@ -63061,8 +63037,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          *
          * @param options Options that are used to create the linked entity data domain to be added.
          */
@@ -63072,8 +63046,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          */
         getCount(): OfficeExtension.ClientResult<number>;
         /**
@@ -63081,8 +63053,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          *
          * @param id The `id` of the `LinkedEntityDataDomain` object to be retrieved.
          * @returns The linked entity data domain with the given `id`. If there are multiple linked entity data domains with the same `id`, the one defined by this Office Add-in will be returned.
@@ -63093,8 +63063,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          *
          * @param index The index of the linked entity data domain in the collection.
          * @returns The linked entity data domain at the given index.
@@ -63105,8 +63073,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          *
          * @param name The `name` of the `LinkedEntityDataDomain` object to be retrieved.
          * @returns The linked entity data domain with the given `name`. If there are multiple linked entity data domains with the same `name`, the one defined by this Office Add-in will be returned.
@@ -63119,8 +63085,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          *
          * @param name The `name` of the `LinkedEntityDataDomain` object to be retrieved.
          * @returns The linked entity data domain with the given `name`. If there are multiple linked entity data domains with the same `name`, the one defined by this Office Add-in will be returned.
@@ -63133,8 +63097,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          *
          * @param id The `id` of the `LinkedEntityDataDomain` object to be retrieved.
          * @returns The linked entity data domain with the given `id`. If there are multiple linked entity data domains with the same `id`, the one defined by this Office Add-in will be returned.
@@ -63156,8 +63118,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This method isn't supported in Excel on the web.
          */
         refreshAll(): void;
         /**
@@ -63194,8 +63154,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This event isn't supported in Excel on the web.
          *
          * @eventproperty
          */
@@ -63205,8 +63163,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This event isn't supported in Excel on the web.
          *
          * @eventproperty
          */
@@ -63216,8 +63172,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This event isn't supported in Excel on the web.
          *
          * @eventproperty
          */
@@ -63233,8 +63187,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This interface isn't supported in Excel on the web.
      */
     interface LinkedEntityDataDomainCreateOptions {
         /**
@@ -63242,8 +63194,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         dataProvider: string;
         /**
@@ -63252,8 +63202,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         id: string;
         /**
@@ -63262,8 +63210,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         loadFunctionId: string;
         /**
@@ -63272,8 +63218,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         name: string;
         /**
@@ -63283,8 +63227,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         periodicRefreshInterval?: number;
         /**
@@ -63296,8 +63238,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         supportedRefreshModes?: Excel.LinkedEntityDataDomainRefreshMode[];
     }
@@ -63306,8 +63246,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This interface isn't supported in Excel on the web.
      */
     interface LinkedEntityDataDomainRefreshCompletedEventArgs {
         /**
@@ -63315,8 +63253,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         errors?: string[];
         /**
@@ -63325,8 +63261,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         id?: string;
         /**
@@ -63334,8 +63268,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         refreshed: boolean;
         /**
@@ -63343,8 +63275,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         serviceId: number;
         /**
@@ -63352,8 +63282,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
@@ -63361,8 +63289,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         type: "LinkedEntityDataDomainRefreshCompleted";
     }
@@ -63371,16 +63297,12 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This enum isn't supported in Excel on the web.
      */
     enum LinkedEntityDataDomainRefreshMode {
         /**
          * Refresh mode is unknown or unsupported.
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This field isn't supported in Excel on the web.
          */
         unknown = "Unknown",
         /**
@@ -63388,8 +63310,6 @@ declare namespace Excel {
                     Refresh is not triggered automatically.
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This field isn't supported in Excel on the web.
          */
         manual = "Manual",
         /**
@@ -63397,8 +63317,6 @@ declare namespace Excel {
                     Refresh on add-in load, applicable to linked entity data domains defined by Office Add-ins.
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This field isn't supported in Excel on the web.
          */
         onLoad = "OnLoad",
         /**
@@ -63407,8 +63325,6 @@ declare namespace Excel {
                     For linked entity data domains defined by Office Add-ins, this value also initiates a refresh each time the add-in loads.
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This field isn't supported in Excel on the web.
          */
         periodic = "Periodic"
     }
@@ -63417,8 +63333,6 @@ declare namespace Excel {
      *
      * @remarks
      * [Api set: ExcelApi 1.19]
-     * 
-     * This interface isn't supported in Excel on the web.
      */
     interface LinkedEntityDataDomainRefreshModeChangedEventArgs {
         /**
@@ -63427,8 +63341,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         id?: string;
         /**
@@ -63436,8 +63348,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         refreshMode: Excel.LinkedEntityDataDomainRefreshMode | "Unknown" | "Manual" | "OnLoad" | "Periodic";
         /**
@@ -63445,8 +63355,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         serviceId: number;
         /**
@@ -63454,8 +63362,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
@@ -63463,8 +63369,6 @@ declare namespace Excel {
          *
          * @remarks
          * [Api set: ExcelApi 1.19]
-         * 
-         * This property isn't supported in Excel on the web.
          */
         type: "LinkedEntityDataDomainRefreshModeChanged";
     }
@@ -64870,86 +64774,6 @@ declare namespace Excel {
          * [Api set: ExcelApi 1.9]
          */
         funnel = "Funnel",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        columnClusteredEx = "ColumnClusteredEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        columnStackedEx = "ColumnStackedEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        columnStacked100Ex = "ColumnStacked100Ex",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        lineEx = "LineEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        lineStackedEx = "LineStackedEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        lineStacked100Ex = "LineStacked100Ex",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        pieEx = "PieEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        doughnutEx = "DoughnutEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        barClusteredEx = "BarClusteredEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        barStackedEx = "BarStackedEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        barStacked100Ex = "BarStacked100Ex",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        areaEx = "AreaEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        areaStackedEx = "AreaStackedEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        areaStacked100Ex = "AreaStacked100Ex",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        xyscatterEx = "XYScatterEx",
-        /**
-         * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
-         */
-        bubbleEx = "BubbleEx"
     }
     /**
      * @remarks
@@ -67922,6 +67746,14 @@ declare namespace Excel {
          */
         workbookFormulaReferenceStyleChanged = "WorkbookFormulaReferenceStyleChanged",
         /**
+         * Deprecated
+                    VbaRecorderRecordingChanged represents the type of event registered when the VBA recording output changes.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        vbaRecorderRecordingChanged = "VbaRecorderRecordingChanged",
+        /**
          * RangeValuesPreviewDismissed represents the type of event registered when a RangeValuePreview is dismissed.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -67933,6 +67765,18 @@ declare namespace Excel {
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          */
         annotationAdded = "AnnotationAdded",
+        /**
+         * Workbook Action Recorded represents the type of event registered when the workbook records an action.
+         * @remarks
+         * [Api set: Recorder 1.1]
+         */
+        workbookActionRecorded = "WorkbookActionRecorded",
+        /**
+         * VbaRecorderRecordingChanged represents the type of event registered when the VBA recording output changes.
+         * @remarks
+         * [Api set: Recorder 1.1]
+         */
+        vbaRecorderRecordingChanged2 = "VbaRecorderRecordingChanged2",
         /**
          * LinkedEntityDataDomainAdded represents the type of event registered when a new linked entity data domain is added to the workbook.
          * @remarks
@@ -67966,7 +67810,13 @@ declare namespace Excel {
          */
         externalCodeServiceDiffResultReceived = "ExternalCodeServiceDiffResultReceived",
         /**
-         * AugmentationLoopUploadStatusChanged represents the type of event registered when the upload status of the augmentation loop changes.
+         * LinkedEntityCellValueLoaded represents the type of event registered when the `LinkedEntityCellValue` object requested by `LoadLinkedEntityCellValue` method is loaded.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        linkedEntityDataDomainLinkedEntityCellValueLoaded = "LinkedEntityDataDomainLinkedEntityCellValueLoaded",
+        /**
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          */
@@ -67979,11 +67829,27 @@ declare namespace Excel {
          */
         worksheetCalculationBusy = "WorksheetCalculationBusy",
         /**
-         * `WorkbookPreviewDirtied` represents the type of event registered when workbook preview mode has been dirtied.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          */
-        workbookPreviewDirtied = "WorkbookPreviewDirtied"
+        workbookPreviewDirtied = "WorkbookPreviewDirtied",
+        /**
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         */
+        workbookPreviewModeRevertibilityChanged = "WorkbookPreviewModeRevertibilityChanged",
+        /**
+         * ExternalCodeServiceHeadlessRequestCompleted represents the type of event registered when a headless execution request completes.
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        externalCodeServiceHeadlessRequestCompleted = "ExternalCodeServiceHeadlessRequestCompleted",
+        /**
+         * @remarks
+         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         */
+        workbookWacSessionSilentReload = "WorkbookWacSessionSilentReload",
     }
     /**
      * @remarks
@@ -70925,7 +70791,6 @@ declare namespace Excel {
         content: string;
         /**
          * Specifies the height of the note.
-         * Note: This property is not supported in Excel on the web.
          *
          * @remarks
          * [Api set: ExcelApi 1.18]
@@ -70933,7 +70798,6 @@ declare namespace Excel {
         height: number;
         /**
          * Specifies the visibility of the note. A value of `true` means the note is shown.
-         * Note: This property is not supported in Excel on the web.
          *
          * @remarks
          * [Api set: ExcelApi 1.18]
@@ -70941,7 +70805,6 @@ declare namespace Excel {
         visible: boolean;
         /**
          * Specifies the width of the note.
-         * Note: This property is not supported in Excel on the web.
          *
          * @remarks
          * [Api set: ExcelApi 1.18]
@@ -71006,21 +70869,21 @@ declare namespace Excel {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
         /**
-         * Specifies the active cell in the window.
+         * Gets the active cell in the window.
          *
          * @remarks
          * [Api set: ExcelApiDesktop 1.1]
          */
         readonly activeCell: Excel.Range;
         /**
-         * Specifies the active pane in the window.
+         * Gets the active pane in the window.
          *
          * @remarks
          * [Api set: ExcelApiDesktop 1.1]
          */
         readonly activePane: Excel.Pane;
         /**
-         * Specifies the active sheet in the window.
+         * Gets the active worksheet in the window.
          *
          * @remarks
          * [Api set: ExcelApiDesktop 1.1]
@@ -71252,14 +71115,14 @@ declare namespace Excel {
          */
         readonly type: Excel.WindowType | "chartAsWindow" | "chartInPlace" | "clipboard" | "workbook";
         /**
-         * Specifies the usable height of the window.
+         * Gets the usable height of the window.
          *
          * @remarks
          * [Api set: ExcelApiDesktop 1.1]
          */
         readonly usableHeight: number;
         /**
-         * Specifies the usable width of the window.
+         * Gets the usable width of the window.
          *
          * @remarks
          * [Api set: ExcelApiDesktop 1.1]
@@ -72711,7 +72574,7 @@ declare namespace Excel {
          *
          * @param dateText Is text that represents a date in a Microsoft Excel date format, between 1/1/1900 or 1/1/1904 (depending on the workbook's date system) and 12/31/9999.
          */
-        datevalue(dateText: string | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
+        datevalue(dateText: string | number | Excel.Range | Excel.RangeReference | Excel.FunctionResult<any>): FunctionResult<number>;
         /**
          * Returns the day of the month, a number from 1 to 31.
          *
@@ -75492,6 +75355,7 @@ declare namespace Excel {
         accessDenied = "AccessDenied",
         apiNotFound = "ApiNotFound",
         conflict = "Conflict",
+        dirtySupportingFormula = "DirtySupportingFormula",
         emptyChartSeries = "EmptyChartSeries",
         filteredRangeConflict = "FilteredRangeConflict",
         formulaLengthExceedsLimit = "FormulaLengthExceedsLimit",
@@ -75641,7 +75505,7 @@ declare namespace Excel {
         /** An interface for updating data on the `Application` object, for use in `application.set({ ... })`. */
         interface ApplicationUpdateData {
             /**
-            * Returns a `window` object that represents the active window (the window on top).
+            * Returns a Window object that represents the active window (the window on top).
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
@@ -75658,7 +75522,6 @@ declare namespace Excel {
             iterativeCalculation?: Excel.Interfaces.IterativeCalculationUpdateData;
             /**
              * Returns the calculation mode used in the workbook, as defined by the constants in `Excel.CalculationMode`. Possible values are: `Automatic`, where Excel controls recalculation; `AutomaticExceptTables`, where Excel controls recalculation but ignores changes in tables; `Manual`, where calculation is done when the user requests it.
-             * This is a runtime property. The `calculationMode` setting is not persisted in the workbook.
              *
              * @remarks
              * [Api set: ExcelApi 1.1 for get, 1.8 for set]
@@ -80889,8 +80752,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             refreshMode?: Excel.LinkedEntityDataDomainRefreshMode | "Unknown" | "Manual" | "OnLoad" | "Periodic";
         }
@@ -80928,7 +80789,6 @@ declare namespace Excel {
             content?: string;
             /**
              * Specifies the height of the note.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -80936,7 +80796,6 @@ declare namespace Excel {
             height?: number;
             /**
              * Specifies the visibility of the note. A value of `true` means the note is shown.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -80944,7 +80803,6 @@ declare namespace Excel {
             visible?: boolean;
             /**
              * Specifies the width of the note.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -80954,14 +80812,14 @@ declare namespace Excel {
         /** An interface for updating data on the `Window` object, for use in `window.set({ ... })`. */
         interface WindowUpdateData {
             /**
-            * Specifies the active cell in the window.
+            * Gets the active cell in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
             */
             activeCell?: Excel.Interfaces.RangeUpdateData;
             /**
-            * Specifies the active sheet in the window.
+            * Gets the active worksheet in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
@@ -81589,7 +81447,7 @@ declare namespace Excel {
         /** An interface describing the data returned by calling `application.toJSON()`. */
         interface ApplicationData {
             /**
-            * Returns a `window` object that represents the active window (the window on top). Read-only.
+            * Returns a Window object that represents the active window (the window on top). Read-only.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
@@ -81627,7 +81485,6 @@ declare namespace Excel {
             calculationEngineVersion?: number;
             /**
              * Returns the calculation mode used in the workbook, as defined by the constants in `Excel.CalculationMode`. Possible values are: `Automatic`, where Excel controls recalculation; `AutomaticExceptTables`, where Excel controls recalculation but ignores changes in tables; `Manual`, where calculation is done when the user requests it.
-             * This is a runtime property. The `calculationMode` setting is not persisted in the workbook.
              *
              * @remarks
              * [Api set: ExcelApi 1.1 for get, 1.8 for set]
@@ -88591,8 +88448,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             dataProvider?: string;
             /**
@@ -88601,8 +88456,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             id?: string;
             /**
@@ -88611,8 +88464,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             lastRefreshed?: Date;
             /**
@@ -88622,8 +88473,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             loadFunctionId?: string;
             /**
@@ -88632,8 +88481,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             name?: string;
             /**
@@ -88642,8 +88489,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             periodicRefreshInterval?: number;
             /**
@@ -88653,8 +88498,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             refreshMode?: Excel.LinkedEntityDataDomainRefreshMode | "Unknown" | "Manual" | "OnLoad" | "Periodic";
             /**
@@ -88664,8 +88507,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             serviceId?: number;
             /**
@@ -88674,8 +88515,6 @@ declare namespace Excel {
              *
              * @remarks
              * [Api set: ExcelApi 1.19]
-             * 
-             * This property isn't supported in Excel on the web.
              */
             supportedRefreshModes?: Excel.LinkedEntityDataDomainRefreshMode[];
         }
@@ -88720,7 +88559,6 @@ declare namespace Excel {
             content?: string;
             /**
              * Specifies the height of the note.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -88728,7 +88566,6 @@ declare namespace Excel {
             height?: number;
             /**
              * Specifies the visibility of the note. A value of `true` means the note is shown.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -88736,7 +88573,6 @@ declare namespace Excel {
             visible?: boolean;
             /**
              * Specifies the width of the note.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -88746,21 +88582,21 @@ declare namespace Excel {
         /** An interface describing the data returned by calling `window.toJSON()`. */
         interface WindowData {
             /**
-            * Specifies the active cell in the window.
+            * Gets the active cell in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
             */
             activeCell?: Excel.Interfaces.RangeData;
             /**
-            * Specifies the active pane in the window.
+            * Gets the active pane in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
             */
             activePane?: Excel.Interfaces.PaneData;
             /**
-            * Specifies the active sheet in the window.
+            * Gets the active worksheet in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
@@ -88992,14 +88828,14 @@ declare namespace Excel {
              */
             type?: Excel.WindowType | "chartAsWindow" | "chartInPlace" | "clipboard" | "workbook";
             /**
-             * Specifies the usable height of the window.
+             * Gets the usable height of the window.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
              */
             usableHeight?: number;
             /**
-             * Specifies the usable width of the window.
+             * Gets the usable width of the window.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
@@ -89020,7 +88856,7 @@ declare namespace Excel {
              */
             width?: number;
             /**
-             * Specifies the window number.
+             * Gets the window number.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
@@ -89956,7 +89792,7 @@ declare namespace Excel {
              */
             $all?: boolean;
             /**
-            * Returns a `window` object that represents the active window (the window on top).
+            * Returns a Window object that represents the active window (the window on top).
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
@@ -89987,7 +89823,6 @@ declare namespace Excel {
             calculationEngineVersion?: boolean;
             /**
              * Returns the calculation mode used in the workbook, as defined by the constants in `Excel.CalculationMode`. Possible values are: `Automatic`, where Excel controls recalculation; `AutomaticExceptTables`, where Excel controls recalculation but ignores changes in tables; `Manual`, where calculation is done when the user requests it.
-             * This is a runtime property. The `calculationMode` setting is not persisted in the workbook.
              *
              * @remarks
              * [Api set: ExcelApi 1.1 for get, 1.8 for set]
@@ -101684,7 +101519,6 @@ declare namespace Excel {
             content?: boolean;
             /**
              * For EACH ITEM in the collection: Specifies the height of the note.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -101692,7 +101526,6 @@ declare namespace Excel {
             height?: boolean;
             /**
              * For EACH ITEM in the collection: Specifies the visibility of the note. A value of `true` means the note is shown.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -101700,7 +101533,6 @@ declare namespace Excel {
             visible?: boolean;
             /**
              * For EACH ITEM in the collection: Specifies the width of the note.
-             * Note: This property is not supported in Excel on the web.
              *
              * @remarks
              * [Api set: ExcelApi 1.18]
@@ -101766,21 +101598,21 @@ declare namespace Excel {
              */
             $all?: boolean;
             /**
-            * Specifies the active cell in the window.
+            * Gets the active cell in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
             */
             activeCell?: Excel.Interfaces.RangeLoadOptions;
             /**
-            * Specifies the active pane in the window.
+            * Gets the active pane in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
             */
             activePane?: Excel.Interfaces.PaneLoadOptions;
             /**
-            * Specifies the active sheet in the window.
+            * Gets the active worksheet in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
@@ -102005,14 +101837,14 @@ declare namespace Excel {
              */
             type?: boolean;
             /**
-             * Specifies the usable height of the window.
+             * Gets the usable height of the window.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
              */
             usableHeight?: boolean;
             /**
-             * Specifies the usable width of the window.
+             * Gets the usable width of the window.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
@@ -102033,7 +101865,7 @@ declare namespace Excel {
              */
             width?: boolean;
             /**
-             * Specifies the window number.
+             * Gets the window number.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
@@ -102066,21 +101898,21 @@ declare namespace Excel {
              */
             $all?: boolean;
             /**
-            * For EACH ITEM in the collection: Specifies the active cell in the window.
+            * For EACH ITEM in the collection: Gets the active cell in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
             */
             activeCell?: Excel.Interfaces.RangeLoadOptions;
             /**
-            * For EACH ITEM in the collection: Specifies the active pane in the window.
+            * For EACH ITEM in the collection: Gets the active pane in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
             */
             activePane?: Excel.Interfaces.PaneLoadOptions;
             /**
-            * For EACH ITEM in the collection: Specifies the active sheet in the window.
+            * For EACH ITEM in the collection: Gets the active worksheet in the window.
             *
             * @remarks
             * [Api set: ExcelApiDesktop 1.1]
@@ -102305,14 +102137,14 @@ declare namespace Excel {
              */
             type?: boolean;
             /**
-             * For EACH ITEM in the collection: Specifies the usable height of the window.
+             * For EACH ITEM in the collection: Gets the usable height of the window.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
              */
             usableHeight?: boolean;
             /**
-             * For EACH ITEM in the collection: Specifies the usable width of the window.
+             * For EACH ITEM in the collection: Gets the usable width of the window.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
@@ -102333,7 +102165,7 @@ declare namespace Excel {
              */
             width?: boolean;
             /**
-             * For EACH ITEM in the collection: Specifies the window number.
+             * For EACH ITEM in the collection: Gets the window number.
              *
              * @remarks
              * [Api set: ExcelApiDesktop 1.1]
@@ -102420,7 +102252,6 @@ declare namespace Excel {
         }
     }
 }
-
 
 
 ////////////////////////////////////////////////////////////////
@@ -127123,6 +126954,24 @@ declare namespace Word {
          */
         contentControlAdded = "ContentControlAdded",
         /**
+         * AnnotationAdded represents the event an annotation has been added to the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationAdded = "AnnotationAdded",
+        /**
+         * AnnotationChanged represents the event an annotation has been updated in the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationChanged = "AnnotationChanged",
+        /**
+         * AnnotationDeleted represents the event an annotation has been deleted from the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationDeleted = "AnnotationDeleted",
+        /**
          * Represents that one or more comments were deleted.
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
@@ -127169,6 +127018,12 @@ declare namespace Word {
          * [Api set: WordApi 1.5]
          */
         contentControlExited = "ContentControlExited",
+        /**
+         * Represents that a word count has been changed.
+         * @remarks
+         * [Api set: WordApi Unknown Version, this API may or may not work on a client. This API may not be released to 3rd parties.]
+         */
+        documentWordCountChanged = "DocumentWordCountChanged",
         /**
          * Represents that one or more new paragraphs were added.
          * @remarks
@@ -127251,7 +127106,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -127280,7 +127135,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -127309,7 +127164,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -127338,7 +127193,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -127367,7 +127222,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -127482,7 +127337,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -127518,7 +127373,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -127547,7 +127402,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -127576,7 +127431,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -127624,7 +127479,7 @@ declare namespace Word {
          * [Api set: WordApi BETA (PREVIEW ONLY)]
          * @beta
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "CommentDeleted" | "CommentSelected" | "CommentDeselected" | "CommentChanged" | "CommentAdded" | "ContentControlEntered" | "ContentControlExited" | "DocumentWordCountChanged" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
     }
     /**
      * A structure for the ID and reply IDs of this comment.
@@ -150440,7 +150295,7 @@ declare namespace Word {
             */
             $top?: number;
             /**
-            * Specify the number of items in the collection that are to be skipped and not included in the result. If `top` is specified, the selection of result will start after skipping the specified number of items.
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
         }
@@ -194379,7 +194234,6 @@ declare namespace PowerPoint {
          * @param index Optional. Specifies the zero-based index where the new columns are added. Existing columns starting at the index location are shifted right. If the index value is undefined, null, -1, or greater than the number of columns in the table, the new columns are added at the end of the table.
          * @param count Optional. The number of columns to add. If the value is undefined or 0, only one column is added.
          */
-        // eslint-disable-next-line @definitelytyped/redundant-undefined
         add(index?: number | null | undefined, count?: number | undefined): void;
         /**
          * Deletes the specified columns from the collection.
@@ -194545,7 +194399,6 @@ declare namespace PowerPoint {
          * @param index Optional. Specifies the zero-based index where the new rows are added. Existing rows starting at the index location are shifted down. If the index value is undefined, null, -1, or greater than the number of rows in the table, the new rows are added at the end of the table.
          * @param count Optional. The number of rows to add. If the value is undefined or 0, only one row is added.
          */
-        // eslint-disable-next-line @definitelytyped/redundant-undefined
         add(index?: number | null | undefined, count?: number | undefined): void;
         /**
          * Deletes the specified rows from the collection.
@@ -199848,7 +199701,7 @@ declare namespace PowerPoint {
             */
             $top?: number;
             /**
-            * Specify the number of items in the collection that are to be skipped and not included in the result. If `top` is specified, the selection of result will start after skipping the specified number of items.
+            * Specify the number of items in the collection that are to be skipped and not included in the result. If top is specified, the selection of result will start after skipping the specified number of items.
             */
             $skip?: number;
         }
