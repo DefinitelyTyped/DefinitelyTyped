@@ -175,7 +175,7 @@ declare namespace chrome {
         interface PopupDetails {
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | undefined;
-            /** The html file to show in a popup. If set to the empty string (`''`), no popup is shown. */
+            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown. */
             popup: string;
         }
 
@@ -229,7 +229,7 @@ declare namespace chrome {
          * Disables the action for a tab.
          * @param tabId The ID of the tab for which you want to modify the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function disable(tabId?: number): Promise<void>;
         function disable(callback: () => void): void;
@@ -239,7 +239,7 @@ declare namespace chrome {
          * Enables the action for a tab. By default, actions are enabled.
          * @param tabId The ID of the tab for which you want to modify the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function enable(tabId?: number): Promise<void>;
         function enable(callback: () => void): void;
@@ -248,7 +248,7 @@ declare namespace chrome {
         /**
          * Gets the background color of the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getBadgeBackgroundColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
         function getBadgeBackgroundColor(
@@ -259,7 +259,7 @@ declare namespace chrome {
         /**
          * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermission declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getBadgeText(details: TabDetails): Promise<string>;
         function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
@@ -267,7 +267,7 @@ declare namespace chrome {
         /**
          * Gets the text color of the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 110
          */
         function getBadgeTextColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
@@ -279,7 +279,7 @@ declare namespace chrome {
         /**
          * Gets the html document set as the popup for this action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getPopup(details: TabDetails): Promise<string>;
         function getPopup(details: TabDetails, callback: (result: string) => void): void;
@@ -287,7 +287,7 @@ declare namespace chrome {
         /**
          * Gets the title of the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getTitle(details: TabDetails): Promise<string>;
         function getTitle(details: TabDetails, callback: (result: string) => void): void;
@@ -295,7 +295,7 @@ declare namespace chrome {
         /**
          * Returns the user-specified settings relating to an extension's action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 91
          */
         function getUserSettings(): Promise<UserSettings>;
@@ -303,8 +303,9 @@ declare namespace chrome {
 
         /**
          * Indicates whether the extension action is enabled for a tab (or globally if no `tabId` is provided). Actions enabled using only {@link declarativeContent} always return false.
+         * @param tabId The ID of the tab for which you want to check the enabled status.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 110
          */
         function isEnabled(tabId?: number): Promise<boolean>;
@@ -316,7 +317,7 @@ declare namespace chrome {
          *
          * @param options Specifies options for opening the popup.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 127
          */
         function openPopup(options?: OpenPopupOptions): Promise<void>;
@@ -326,7 +327,7 @@ declare namespace chrome {
         /**
          * Sets the background color for the badge.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setBadgeBackgroundColor(details: BadgeColorDetails): Promise<void>;
         function setBadgeBackgroundColor(details: BadgeColorDetails, callback: () => void): void;
@@ -334,7 +335,7 @@ declare namespace chrome {
         /**
          * Sets the badge text for the action. The badge is displayed on top of the icon.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setBadgeText(details: BadgeTextDetails): Promise<void>;
         function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
@@ -342,7 +343,7 @@ declare namespace chrome {
         /**
          * Sets the text color for the badge.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 110
          */
         function setBadgeTextColor(details: BadgeColorDetails): Promise<void>;
@@ -351,7 +352,7 @@ declare namespace chrome {
         /**
          * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function setIcon(details: TabIconDetails): Promise<void>;
         function setIcon(details: TabIconDetails, callback: () => void): void;
@@ -359,8 +360,7 @@ declare namespace chrome {
         /**
          * Sets the HTML document to be opened as a popup when the user clicks on the action's icon.
          *
-         * Can return its result via Promise.
-         * @since Chrome 96
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setPopup(details: PopupDetails): Promise<void>;
         function setPopup(details: PopupDetails, callback: () => void): void;
@@ -368,7 +368,7 @@ declare namespace chrome {
         /**
          * Sets the title of the action. This shows up in the tooltip.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setTitle(details: TitleDetails): Promise<void>;
         function setTitle(details: TitleDetails, callback: () => void): void;
