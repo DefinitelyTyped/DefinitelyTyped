@@ -1119,6 +1119,152 @@ if (listener) {
 // remove listener
 body = body.on("click", null); // check chaining return type by re-assigning
 
+// Utils --------------------------------------------
+
+let test_ExtractEventNames: [
+    // $ExpectType 'a'
+    d3Selection.Selection.ExtractEventNames<"a">,
+    // $ExpectType 'a'
+    d3Selection.Selection.ExtractEventNames<"a.1">,
+    // $ExpectType 'a' | 'b'
+    d3Selection.Selection.ExtractEventNames<"a b">,
+    // $ExpectType 'a' | 'b' | 'c'
+    d3Selection.Selection.ExtractEventNames<"a b c">,
+    // $ExpectType 'a' | 'b'
+    d3Selection.Selection.ExtractEventNames<"a.1 b">,
+    // $ExpectType 'a' | 'b'
+    d3Selection.Selection.ExtractEventNames<"a.1 b.2">,
+    // $ExpectType 'a' | 'b'
+    d3Selection.Selection.ExtractEventNames<"a b.2">,
+    // $ExpectType 'a'
+    d3Selection.Selection.ExtractEventNames<"a ">,
+    // $ExpectType 'a'
+    d3Selection.Selection.ExtractEventNames<" a">,
+    // $ExpectType 'a'
+    d3Selection.Selection.ExtractEventNames<" a ">,
+    // $ExpectType 'a' | 'b'
+    d3Selection.Selection.ExtractEventNames<" a   b ">,
+];
+
+let test_GetEventMapForElement: [
+    // $ExpectType HTMLElementEventMap
+    d3Selection.Selection.GetEventMapForElement<HTMLDivElement>,
+    // $ExpectType SVGElementEventMap
+    d3Selection.Selection.GetEventMapForElement<SVGGElement>,
+    // $ExpectType ElementEventMap & GlobalEventHandlersEventMap
+    d3Selection.Selection.GetEventMapForElement<Element>,
+    // $ExpectType GlobalEventHandlersEventMap
+    d3Selection.Selection.GetEventMapForElement<ParentNode>,
+    // $ExpectType GlobalEventHandlersEventMap
+    d3Selection.Selection.GetEventMapForElement<Node>,
+    // $ExpectType WindowEventMap
+    d3Selection.Selection.GetEventMapForElement<Window>,
+    // $ExpectType DocumentEventMap
+    d3Selection.Selection.GetEventMapForElement<Document>,
+    // $ExpectType never
+    d3Selection.Selection.GetEventMapForElement<never>,
+    // $ExpectType HTMLElementEventMap | GlobalEventHandlersEventMap | SVGElementEventMap | (ElementEventMap & GlobalEventHandlersEventMap) | WindowEventMap | DocumentEventMap
+    d3Selection.Selection.GetEventMapForElement<any>,
+    // $ExpectType GlobalEventHandlersEventMap
+    d3Selection.Selection.GetEventMapForElement<unknown>,
+];
+
+let test_EventNameToInterface: [
+    // $ExpectType MouseEvent
+    d3Selection.Selection.EventNameToInterface<"mousedown", HTMLDialogElement>,
+    // $ExpectType CustomEvent<any>
+    d3Selection.Selection.EventNameToInterface<"visibilitychange", HTMLDialogElement>,
+    // $ExpectType Event
+    d3Selection.Selection.EventNameToInterface<"visibilitychange", Document>,
+    // $ExpectType never
+    d3Selection.Selection.EventNameToInterface<never, never>,
+    // $ExpectType any
+    d3Selection.Selection.EventNameToInterface<any, any>,
+    // $ExpectType CustomEvent<any>
+    d3Selection.Selection.EventNameToInterface<string, unknown>,
+];
+
+// Events --------------------------------------------
+
+// inferred from a trivial typename
+body.on("drop", (event) => {
+    // $ExpectType DragEvent
+    event;
+});
+
+// inferred from a typename with a label
+body.on("drop.label", (event) => {
+    // $ExpectType DragEvent
+    event;
+});
+
+// inferred from multiple typenames with labels
+body.on("drop.label keydown mousedown.otherLabel", (event) => {
+    // $ExpectType DragEvent | KeyboardEvent | MouseEvent
+    event;
+});
+
+// invalid
+body.on("", (event) => {
+    // $ExpectType never
+    event;
+});
+
+// invalid value
+body.on("invalidddd", (event) => {
+    // $ExpectType CustomEvent<any>
+    event;
+});
+
+// generic string
+body.on("" as string, (event) => {
+    // $ExpectType any
+    event;
+});
+
+// type-annotations are still allowed (exactly correct)
+body.on("drop", (event: DragEvent) => {});
+
+// type-annotations are still allowed (exactly correct)
+body.on("drop keydown", (event: DragEvent | KeyboardEvent) => {});
+
+// type-annotations are still allowed (wider type)
+body.on("drop", (event: Event) => {});
+
+// type-annotations are still allowed (union with excessive members)
+body.on("drop", (event: DragEvent | KeyboardEvent) => {});
+
+// @ts-expect-error -- incorrect type-annotations are not allowed (missing union member)
+body.on("drop keydown", (event: DragEvent) => {});
+
+// @ts-expect-error -- incorrect type-annotations are not allowed (mismatch)
+body.on("mousedown", (event: DragEvent) => {});
+
+// a listener may be declared with a wider event type
+body.on("drop", (event: Event) => {});
+
+// fallbacks to CustomEvent for types that are not valid for this element
+// (visibilitychange only exists on `Document`, not `HTMLElement`)
+body.on("visibilitychange", (event) => {
+    // $ExpectType CustomEvent<any>
+    event;
+});
+
+// works with non-DOM events
+d3Selection.select(document).on("visibilitychange", (event) => {
+    // $ExpectType Event
+    event;
+});
+
+// event options
+body.on("click", () => {}, { capture: true, passive: true });
+body.on("click", () => {}, true);
+body.on("click", () => {}, {
+    once: true,
+    // @ts-expect-error -- invalid property
+    invalidddd: true,
+});
+
 // dispatch(...) -------------------------------------------------------------------------
 
 const fooEventParam: d3Selection.CustomEventParameters = {
@@ -1156,6 +1302,8 @@ body = body.on("click", (event) => {
     position = d3Selection.pointer(event, event.currentTarget);
     positions = d3Selection.pointers(event);
     positions = d3Selection.pointers(event, event.currentTarget);
+
+    event.buttons; // specific to PointerEvent
 });
 
 // ---------------------------------------------------------------------------------------
