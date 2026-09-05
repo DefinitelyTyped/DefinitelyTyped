@@ -729,7 +729,7 @@ declare namespace chrome {
             title: string;
             /** Indicates the reason why this node is unmodifiable. The `managed` value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default). */
             unmodifiable?: `${BookmarkTreeNodeUnmodifiable}`;
-            /* The URL navigated to when a user clicks the bookmark. Omitted for folders. */
+            /** The URL navigated to when a user clicks the bookmark. Omitted for folders. */
             url?: string;
         }
 
@@ -754,7 +754,6 @@ declare namespace chrome {
          * Indicates the type of folder.
          * @since Chrome 134
          */
-
         enum FolderType {
             /** The folder whose contents is displayed at the top of the browser window. */
             BOOKMARKS_BAR = "bookmarks-bar",
@@ -781,7 +780,7 @@ declare namespace chrome {
         /**
          * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
          *
-         * Can return its result via Promise since Chrome 90.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function create(bookmark: CreateDetails): Promise<BookmarkTreeNode>;
         function create(bookmark: CreateDetails, callback: (result: BookmarkTreeNode) => void): void;
@@ -790,7 +789,7 @@ declare namespace chrome {
          * Retrieves the specified BookmarkTreeNode(s).
          * @param idOrIdList A single string-valued id, or an array of string-valued ids
          *
-         * Can return its result via Promise since Chrome 90.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function get(idOrIdList: string | [string, ...string[]]): Promise<BookmarkTreeNode[]>;
         function get(
@@ -801,7 +800,7 @@ declare namespace chrome {
         /**
          * Retrieves the children of the specified BookmarkTreeNode id.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getChildren(id: string): Promise<BookmarkTreeNode[]>;
         function getChildren(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -810,7 +809,7 @@ declare namespace chrome {
          * Retrieves the recently added bookmarks.
          * @param numberOfItems The maximum number of items to return.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getRecent(numberOfItems: number): Promise<BookmarkTreeNode[]>;
         function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -819,7 +818,7 @@ declare namespace chrome {
          * Retrieves part of the Bookmarks hierarchy, starting at the specified node.
          * @param id The ID of the root of the subtree to retrieve.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getSubTree(id: string): Promise<BookmarkTreeNode[]>;
         function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -827,7 +826,7 @@ declare namespace chrome {
         /**
          * Retrieves the entire Bookmarks hierarchy.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getTree(): Promise<BookmarkTreeNode[]>;
         function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
@@ -840,7 +839,7 @@ declare namespace chrome {
         /**
          * Moves the specified BookmarkTreeNode to the provided location.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function move(id: string, destination: MoveDestination): Promise<BookmarkTreeNode>;
         function move(
@@ -852,7 +851,7 @@ declare namespace chrome {
         /**
          * Removes a bookmark or an empty bookmark folder.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function remove(id: string): Promise<void>;
         function remove(id: string, callback: () => void): void;
@@ -860,7 +859,7 @@ declare namespace chrome {
         /**
          * Recursively removes a bookmark folder.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function removeTree(id: string): Promise<void>;
         function removeTree(id: string, callback: () => void): void;
@@ -878,7 +877,7 @@ declare namespace chrome {
          * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
          * @param query Either a string of words and quoted phrases that are matched against bookmark URLs and titles, or an object. If an object, the properties `query`, `url`, and `title` may be specified and bookmarks matching all specified properties will be produced.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function search(query: string | SearchQuery): Promise<BookmarkTreeNode[]>;
         function search(query: string | SearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -891,7 +890,7 @@ declare namespace chrome {
         /**
          * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. **Note:** Currently, only 'title' and 'url' are supported.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function update(id: string, changes: UpdateChanges): Promise<BookmarkTreeNode>;
         function update(id: string, changes: UpdateChanges, callback: (result: BookmarkTreeNode) => void): void;
