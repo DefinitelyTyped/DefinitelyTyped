@@ -233,7 +233,7 @@ export interface CarouselProps<T> {
      */
     slideInterpolatedStyle?(
         index: number,
-        animatedValue: Animated.AnimatedValue,
+        animatedValue: Animated.Value,
         carouselProps: CarouselProps<any>,
     ): StyleProp<ViewStyle>;
     /**
