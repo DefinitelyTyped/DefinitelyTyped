@@ -980,6 +980,21 @@ function testRuntime() {
         details.id; // $ExpectType string | undefined
         details.previousVersion; // $ExpectType string | undefined
         details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+
+        if (details.reason === "update") {
+            details.previousVersion; // $ExpectType string
+            details.id; // $ExpectType undefined
+        }
+
+        if (details.reason === "shared_module_update") {
+            details.id; // $ExpectType string
+            details.previousVersion; // $ExpectType undefined
+        }
+
+        if (details.reason === "install" || details.reason === "chrome_update") {
+            details.id; // $ExpectType undefined
+            details.previousVersion; // $ExpectType undefined
+        }
     });
 
     checkChromeEvent(chrome.runtime.onMessage, (message, sender, sendResponse) => {
