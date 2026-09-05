@@ -58,12 +58,6 @@ export interface DPoPValidationResult {
 }
 
 /** @experimental Not covered by semantic versioning conventions. */
-export interface SenderConstraints {
-    certificate?: string | crypto.X509Certificate | undefined;
-    dPoP?: DPoPValidationResult | undefined;
-}
-
-/** @experimental Not covered by semantic versioning conventions. */
 export type OIDCProviderErrorConstructor = new(...args: any[]) => errors.OIDCProviderError;
 
 /** @experimental Not covered by semantic versioning conventions. */
@@ -137,18 +131,42 @@ export function findAccount(
 ): Promise<Account | undefined>;
 
 /** @experimental Not covered by semantic versioning conventions. */
-export function validateSenderConstraints(
+export function validateDpop(
+    provider: Provider,
+    ctx: TokenEndpointGrantContext,
+    accessToken?: string | undefined,
+): Promise<DPoPValidationResult | undefined>;
+
+/**
+ * @experimental Not covered by semantic versioning conventions.
+ * @param ErrorClass Defaults to errors.InvalidGrant.
+ */
+export function checkMtlsCert(
     provider: Provider,
     ctx: TokenEndpointGrantContext,
     ErrorClass?: OIDCProviderErrorConstructor,
-): Promise<SenderConstraints>;
+): string | crypto.X509Certificate | undefined;
 
-/** @experimental Not covered by semantic versioning conventions. */
-export function applySenderConstraints(
+/**
+ * @experimental Not covered by semantic versioning conventions.
+ * @param ErrorClass Defaults to errors.InvalidGrant.
+ */
+export function checkDpopRequired(
     provider: Provider,
     ctx: TokenEndpointGrantContext,
-    token: AccessToken | ClientCredentials,
-    constraints: SenderConstraints,
+    dPoP: DPoPValidationResult | undefined,
+    ErrorClass?: OIDCProviderErrorConstructor,
+): void;
+
+/**
+ * @experimental Not covered by semantic versioning conventions.
+ * @param ErrorClass Defaults to errors.InvalidGrant.
+ */
+export function checkDpopReplay(
+    provider: Provider,
+    ctx: TokenEndpointGrantContext,
+    dPoP: DPoPValidationResult | undefined,
+    clientId: string,
     ErrorClass?: OIDCProviderErrorConstructor,
 ): Promise<void>;
 
