@@ -489,6 +489,7 @@ declare namespace chrome {
 
         /**
          * Clears the alarm with the given name.
+         * @param name Optional name to identify this alarm. Defaults to the empty string.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
