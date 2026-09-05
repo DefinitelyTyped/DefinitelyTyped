@@ -1108,7 +1108,10 @@ declare namespace chrome {
             downloads?: boolean | undefined;
             /** The browser's cache. */
             cache?: boolean | undefined;
-            /** Cache storage. */
+            /**
+             * Cache storage.
+             * @since Chrome 72
+             */
             cacheStorage?: boolean | undefined;
             /**
              * Websites' appcaches.
@@ -1152,7 +1155,7 @@ declare namespace chrome {
          * Clears plugins' data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
-         * @deprecated since Chrome 88. Support for Flash has been removed. This function has no effect
+         * @deprecated since Chrome 88. Support for Flash has been removed. This function has no effect.
          */
         function removePluginData(options: RemovalOptions): Promise<void>;
         function removePluginData(options: RemovalOptions, callback: () => void): void;
