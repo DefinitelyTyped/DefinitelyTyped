@@ -2761,6 +2761,10 @@
             "libraryName": "@guardian/prosemirror-invisibles",
             "asOfVersion": "1.3.3"
         },
+        "gulp-cond": {
+            "libraryName": "gulp-cond",
+            "asOfVersion": "2.0.0"
+        },
         "gulp-pug": {
             "libraryName": "gulp-pug",
             "asOfVersion": "4.0.0"
