@@ -2828,10 +2828,17 @@ function testAudio() {
     chrome.audio.StreamType.INPUT === "INPUT";
     chrome.audio.StreamType.OUTPUT === "OUTPUT";
 
+    const filter: chrome.audio.DeviceFilter = {
+        isActive: true,
+        streamTypes: ["INPUT", "OUTPUT"],
+    };
+
     chrome.audio.getDevices(); // $ExpectType Promise<AudioDeviceInfo[]>
-    chrome.audio.getDevices({}); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices(undefined); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices(filter); // $ExpectType Promise<AudioDeviceInfo[]>
     chrome.audio.getDevices(devices => {}); // $ExpectType void
-    chrome.audio.getDevices({}, devices => {}); // $ExpectType void
+    chrome.audio.getDevices(undefined, devices => {}); // $ExpectType void
+    chrome.audio.getDevices(filter, devices => {}); // $ExpectType void
     // @ts-expect-error
     chrome.audio.getDevices(() => {}).then(devices => {});
 
