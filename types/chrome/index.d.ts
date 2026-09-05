@@ -2026,7 +2026,7 @@ declare namespace chrome {
         const ACTION_MENU_TOP_LEVEL_LIMIT: 6;
 
         /**
-         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link chrome.runtime.lastError}.
+         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link runtime.lastError}.
          * @return The ID of the newly created item.
          */
         function create(createProperties: CreateProperties, callback?: () => void): number | string;
@@ -9218,14 +9218,31 @@ declare namespace chrome {
             includeTlsChannelId?: boolean | undefined;
         }
 
-        interface InstalledDetails {
-            /** The reason that this event is being dispatched. */
-            reason: `${OnInstalledReason}`;
-            /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
-            previousVersion?: string;
-            /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
-            id?: string;
-        }
+        type InstalledDetails =
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: "update";
+                /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
+                previousVersion: string;
+                /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
+                id?: undefined;
+            }
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: "shared_module_update";
+                /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
+                previousVersion?: undefined;
+                /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
+                id: string;
+            }
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: "install" | "chrome_update";
+                /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
+                previousVersion?: undefined;
+                /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
+                id?: undefined;
+            };
 
         /**
          * A context hosting extension content.
@@ -9310,7 +9327,7 @@ declare namespace chrome {
             postMessage: (message: any) => void;
             /** Immediately disconnect the port. Calling `disconnect()` on an already-disconnected port has no effect. When a port is disconnected, no new events will be dispatched to this port. */
             disconnect: () => void;
-            /** This property will **only** be present on ports passed to {@link runtime.onConnect onConnect} / {@link runtime.onConnectExternal onConnectExternal} / {@link runtime.onConnectExternal onConnectNative} listeners. */
+            /** This property will **only** be present on ports passed to {@link runtime.onConnect onConnect} / {@link runtime.onConnectExternal onConnectExternal} / {@link runtime.onConnectNative onConnectNative} listeners. */
             sender?: MessageSender;
             /** Fired when the port is disconnected from the other end(s). {@link runtime.lastError} may be set if the port was disconnected by an error. If the port is closed via {@link Port.disconnect disconnect}, then this event is _only_ fired on the other end. This event is fired at most once (see also Port lifetime). */
             onDisconnect: events.Event<(port: Port) => void>;
@@ -9453,7 +9470,6 @@ declare namespace chrome {
             ManifestPermission,
             | "debugger"
             | "declarativeNetRequest"
-            | "devtools"
             | "experimental"
             | "fontSettings"
             | "geolocation"
@@ -9639,6 +9655,8 @@ declare namespace chrome {
             omnibox?: { keyword: string } | undefined;
             /** Specifies a path to an options.html file for the extension to use as an options page. */
             options_page?: string | undefined;
+            /** URL of the web app that replaces this extension. */
+            replacement_web_app?: string | undefined;
             /** Lists technologies required to use the extension. */
             requirements?: {
                 "3D"?: { features?: string[] | undefined } | undefined;
@@ -9781,6 +9799,11 @@ declare namespace chrome {
                 open_in_tab?: boolean | undefined;
             } | undefined;
             /**
+             * The message serialization format used to communicate with extension pages/content scripts/frames running in this extension. The default value is "json".
+             * @since Chrome 148
+             */
+            message_serialization?: "json" | "structured_clone" | undefined;
+            /**
              * Maps MIME types to the extension pages that render them. As of Chrome 151, `application/pdf` is the only MIME type available to public handlers. Declaring an unsupported MIME type causes an installation warning.
              * @since Chrome 151
              */
@@ -9800,6 +9823,8 @@ declare namespace chrome {
             permissions?: ManifestPermission[] | undefined;
             /** Identifies an HTML file to display in a sidePanel. */
             side_panel?: { default_path: string } | undefined;
+            /** Origin trial tokens declared by the extension. */
+            trial_tokens?: string[] | undefined;
             /** Defines files within the extension that can be accessed by web pages or other extensions. */
             web_accessible_resources?:
                 | Array<
@@ -9978,7 +10003,7 @@ declare namespace chrome {
          *
          * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
          *
-         * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set {@link runtime.lastError lastError} .
+         * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set {@link runtime.lastError lastError}.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99
          */
@@ -10033,13 +10058,13 @@ declare namespace chrome {
 
         /**
          * Fired when a connection is made from a user script from this extension.
-         * @since chrome 115 MV3
+         * @since Chrome 115, MV3
          */
         const onUserScriptConnect: events.Event<(port: Port) => void>;
 
         /**
          * Fired when a message is sent from a user script associated with the same extension.
-         * @since chrome 115, MV3
+         * @since Chrome 115, MV3
          */
         const onUserScriptMessage: events.Event<
             (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
