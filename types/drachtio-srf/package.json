@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/drachtio-srf",
+    "version": "5.0.9999",
+    "projects": [
+        "https://github.com/drachtio/drachtio-srf"
+    ],
+    "dependencies": {
+        "@types/node": "*"
+    },
+    "devDependencies": {
+        "@types/drachtio-srf": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Dan Virsén",
+            "githubUsername": "danvirsen"
+        }
+    ]
+}
