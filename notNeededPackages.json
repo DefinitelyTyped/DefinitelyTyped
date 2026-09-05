@@ -4413,6 +4413,10 @@
             "libraryName": "meow",
             "asOfVersion": "6.0.0"
         },
+        "mercadopago": {
+            "libraryName": "mercadopago",
+            "asOfVersion": "2.0.0"
+        },
         "merge-refs": {
             "libraryName": "merge-refs",
             "asOfVersion": "1.1.0"
