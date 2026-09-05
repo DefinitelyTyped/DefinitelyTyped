@@ -8457,3 +8457,9 @@ function testWallpaper() {
     // @ts-expect-error
     chrome.wallpaper.setWallpaper(details, () => {}).then(() => {});
 }
+
+async function testBrowser() {
+    browser.tabs.create({ url: "https://example.test" });
+    window.browser.tabs.create({ url: "https://example.test" });
+    globalThis.browser.tabs.create({ url: "https://example.test" });
+}

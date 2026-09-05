@@ -11,7 +11,11 @@ type SetPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 ////////////////////
 interface Window {
     chrome: typeof chrome;
+    browser: typeof chrome;
 }
+
+/** @since Chrome 148 (or 152 in a DevTools panel) */
+declare var browser: typeof chrome;
 
 declare namespace chrome {
     ////////////////////
