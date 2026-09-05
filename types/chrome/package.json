@@ -16,36 +16,8 @@
     },
     "owners": [
         {
-            "name": "Matthew Kimber",
-            "githubUsername": "matthewkimber"
-        },
-        {
-            "name": "otiai10",
-            "githubUsername": "otiai10"
-        },
-        {
-            "name": "sreimer15",
-            "githubUsername": "sreimer15"
-        },
-        {
             "name": "MatCarlson",
             "githubUsername": "MatCarlson"
-        },
-        {
-            "name": "ekinsol",
-            "githubUsername": "ekinsol"
-        },
-        {
-            "name": "Brian Wilson",
-            "githubUsername": "echoabstract"
-        },
-        {
-            "name": "Sebastiaan Pasma",
-            "githubUsername": "spasma"
-        },
-        {
-            "name": "bdbai",
-            "githubUsername": "bdbai"
         },
         {
             "name": "Jason Xian",
@@ -54,10 +26,6 @@
         {
             "name": "userTim",
             "githubUsername": "usertim"
-        },
-        {
-            "name": "Idan Zeierman",
-            "githubUsername": "idan315"
         },
         {
             "name": "Nicolas Rodriguez",
