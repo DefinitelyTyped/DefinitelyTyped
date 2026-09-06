@@ -240,7 +240,10 @@ function testBigQuery() {
     const dataset: GoogleAppsScript.BigQuery.Schema.Dataset = {
         access: [{
             condition: { expression: "resource.name.startsWith('projects/')" },
-            dataset: { dataset: { datasetId: "dataset", projectId: "project" }, targetTypes: ["VIEWS"] },
+            dataset: {
+                dataset: { datasetId: "dataset", projectId: "project" },
+                targetTypes: ["TARGET_TYPE_UNSPECIFIED"],
+            },
             domain: "example.com",
             groupByEmail: "group@example.com",
             iamMember: "member",
@@ -289,7 +292,10 @@ function testBigQuery() {
         parameterValue: { arrayValues: [{ value: "one" }], structValues: { field: { value: "one" } }, value: "one" },
     };
     const queryRequest: GoogleAppsScript.BigQuery.Schema.QueryRequest = {
-        arrowSerializationOptions: { bufferCompression: "ZSTD", picosTimestampPrecision: "PICOS" },
+        arrowSerializationOptions: {
+            bufferCompression: "ZSTD",
+            picosTimestampPrecision: "PICOS_TIMESTAMP_PRECISION_UNSPECIFIED",
+        },
         connectionProperties: [{ key: "time_zone", value: "UTC" }],
         continuous: false,
         createSession: true,
@@ -773,7 +779,10 @@ function testBigQuery() {
     datasets.list("project-id", { all: true, filter: "labels.env:test", maxResults: 10, pageToken: "token" });
     datasets.patch(dataset, "project-id", "dataset-id");
     datasets.patch(dataset, "project-id", "dataset-id", {});
-    datasets.patch(dataset, "project-id", "dataset-id", { accessPolicyVersion: 3, updateMode: "ACL" });
+    datasets.patch(dataset, "project-id", "dataset-id", {
+        accessPolicyVersion: 3,
+        updateMode: "UPDATE_MODE_UNSPECIFIED",
+    });
     datasets.remove("project-id", "dataset-id");
     datasets.remove("project-id", "dataset-id", {});
     datasets.remove("project-id", "dataset-id", { deleteContents: true });
@@ -781,7 +790,10 @@ function testBigQuery() {
     datasets.undelete({ deletionTime: "deletionTime" }, "project-id", "dataset-id");
     datasets.update(dataset, "project-id", "dataset-id");
     datasets.update(dataset, "project-id", "dataset-id", {});
-    datasets.update(dataset, "project-id", "dataset-id", { accessPolicyVersion: 3, updateMode: "METADATA" });
+    datasets.update(dataset, "project-id", "dataset-id", {
+        accessPolicyVersion: 3,
+        updateMode: "UPDATE_MODE_UNSPECIFIED",
+    });
 
     jobs.cancel("project-id", "job-id");
     jobs.cancel("project-id", "job-id", {});
@@ -800,7 +812,7 @@ function testBigQuery() {
         pageToken: "token",
         startIndex: "0",
         timeoutMs: 1000,
-        "formatOptions.timestampOutputFormat": " smeared",
+        "formatOptions.timestampOutputFormat": "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED",
         "formatOptions.useInt64Timestamp": true,
     });
     jobs.insert({}, "project-id");
@@ -814,8 +826,8 @@ function testBigQuery() {
         minCreationTime: "1",
         pageToken: "token",
         parentJobId: "parent",
-        projection: "FULL",
-        stateFilter: "DONE",
+        projection: "minimal",
+        stateFilter: "running",
     });
     jobs.query(queryRequest, "project-id");
 
@@ -838,7 +850,7 @@ function testBigQuery() {
     tabledata.list("project-id", "dataset-id", "table-id");
     tabledata.list("project-id", "dataset-id", "table-id", {});
     tabledata.list("project-id", "dataset-id", "table-id", {
-        "formatOptions.timestampOutputFormat": " smeared",
+        "formatOptions.timestampOutputFormat": "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED",
         "formatOptions.useInt64Timestamp": true,
         maxResults: 10,
         pageToken: "token",
@@ -867,7 +879,7 @@ function testBigQuery() {
                 auditLogConfigs: [
                     {
                         exemptedMembers: ["exemptedMembers"],
-                        logType: "logType",
+                        logType: "LOG_TYPE_UNSPECIFIED",
                     },
                 ],
             }],

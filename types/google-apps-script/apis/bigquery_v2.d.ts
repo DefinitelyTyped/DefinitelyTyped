@@ -22,8 +22,12 @@ declare namespace GoogleAppsScript {
                         accessPolicyVersion?: number | undefined;
                         /**
                          * Optional. Specifies the view that determines which dataset information is returned. By default, metadata and ACL information are returned.
+                         * - `DATASET_VIEW_UNSPECIFIED`: The default value. Default to the FULL view.
+                         * - `METADATA`: View metadata information for the dataset, such as friendlyName, description, labels, etc.
+                         * - `ACL`: View ACL information for the dataset, which defines dataset access for one or more entities.
+                         * - `FULL`: View both dataset metadata and ACL information.
                          */
-                        datasetView?: string | undefined;
+                        datasetView?: "DATASET_VIEW_UNSPECIFIED" | "METADATA" | "ACL" | "FULL" | undefined;
                     },
                 ): BigQuery.Schema.Dataset;
                 /**
@@ -89,8 +93,17 @@ declare namespace GoogleAppsScript {
                         accessPolicyVersion?: number | undefined;
                         /**
                          * Optional. Specifies the fields of dataset that update/patch operation is targeting By default, both metadata and ACL fields are updated.
+                         * - `UPDATE_MODE_UNSPECIFIED`: The default value. Default to the UPDATE_FULL.
+                         * - `UPDATE_METADATA`: Includes metadata information for the dataset, such as friendlyName, description, labels, etc.
+                         * - `UPDATE_ACL`: Includes ACL information for the dataset, which defines dataset access for one or more entities.
+                         * - `UPDATE_FULL`: Includes both dataset metadata and ACL information.
                          */
-                        updateMode?: string | undefined;
+                        updateMode?:
+                            | "UPDATE_MODE_UNSPECIFIED"
+                            | "UPDATE_METADATA"
+                            | "UPDATE_ACL"
+                            | "UPDATE_FULL"
+                            | undefined;
                     },
                 ): BigQuery.Schema.Dataset;
                 /**
@@ -146,8 +159,17 @@ declare namespace GoogleAppsScript {
                         accessPolicyVersion?: number | undefined;
                         /**
                          * Optional. Specifies the fields of dataset that update/patch operation is targeting By default, both metadata and ACL fields are updated.
+                         * - `UPDATE_MODE_UNSPECIFIED`: The default value. Default to the UPDATE_FULL.
+                         * - `UPDATE_METADATA`: Includes metadata information for the dataset, such as friendlyName, description, labels, etc.
+                         * - `UPDATE_ACL`: Includes ACL information for the dataset, which defines dataset access for one or more entities.
+                         * - `UPDATE_FULL`: Includes both dataset metadata and ACL information.
                          */
-                        updateMode?: string | undefined;
+                        updateMode?:
+                            | "UPDATE_MODE_UNSPECIFIED"
+                            | "UPDATE_METADATA"
+                            | "UPDATE_ACL"
+                            | "UPDATE_FULL"
+                            | undefined;
                     },
                 ): BigQuery.Schema.Dataset;
             }
@@ -205,8 +227,17 @@ declare namespace GoogleAppsScript {
                     args?: {
                         /**
                          * Optional. The API output format for a timestamp. This offers more explicit control over the timestamp output format as compared to the existing `use_int64_timestamp` option.
+                         * - `TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED`: Corresponds to default API output behavior, which is FLOAT64.
+                         * - `FLOAT64`: Timestamp is output as float64 seconds since Unix epoch.
+                         * - `INT64`: Timestamp is output as int64 microseconds since Unix epoch.
+                         * - `ISO8601_STRING`: Timestamp is output as ISO 8601 String ("YYYY-MM-DDTHH:MM:SS.FFFFFFFFFFFFZ").
                          */
-                        "formatOptions.timestampOutputFormat"?: string | undefined;
+                        "formatOptions.timestampOutputFormat"?:
+                            | "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED"
+                            | "FLOAT64"
+                            | "INT64"
+                            | "ISO8601_STRING"
+                            | undefined;
                         /**
                          * Optional. Output timestamp as usec int64. Default is false.
                          */
@@ -278,12 +309,17 @@ declare namespace GoogleAppsScript {
                         parentJobId?: string | undefined;
                         /**
                          * Restrict information returned to a set of selected fields
+                         * - `full`: Includes all job data
+                         * - `minimal`: Does not include the job configuration
                          */
-                        projection?: string | undefined;
+                        projection?: "full" | "minimal" | undefined;
                         /**
                          * Filter for job state
+                         * - `done`: Finished jobs
+                         * - `pending`: Pending jobs
+                         * - `running`: Running jobs
                          */
-                        stateFilter?: string | undefined;
+                        stateFilter?: "done" | "pending" | "running" | undefined;
                     },
                 ): BigQuery.Schema.JobList;
                 /**
@@ -747,8 +783,17 @@ declare namespace GoogleAppsScript {
                     args?: {
                         /**
                          * Optional. The API output format for a timestamp. This offers more explicit control over the timestamp output format as compared to the existing `use_int64_timestamp` option.
+                         * - `TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED`: Corresponds to default API output behavior, which is FLOAT64.
+                         * - `FLOAT64`: Timestamp is output as float64 seconds since Unix epoch.
+                         * - `INT64`: Timestamp is output as int64 microseconds since Unix epoch.
+                         * - `ISO8601_STRING`: Timestamp is output as ISO 8601 String ("YYYY-MM-DDTHH:MM:SS.FFFFFFFFFFFFZ").
                          */
-                        "formatOptions.timestampOutputFormat"?: string | undefined;
+                        "formatOptions.timestampOutputFormat"?:
+                            | "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED"
+                            | "FLOAT64"
+                            | "INT64"
+                            | "ISO8601_STRING"
+                            | undefined;
                         /**
                          * Optional. Output timestamp as usec int64. Default is false.
                          */
@@ -796,8 +841,12 @@ declare namespace GoogleAppsScript {
                         selectedFields?: string | undefined;
                         /**
                          * Optional. Specifies the view that determines which table information is returned. By default, basic table information and storage statistics (STORAGE_STATS) are returned.
+                         * - `TABLE_METADATA_VIEW_UNSPECIFIED`: The default value. Default to the STORAGE_STATS view.
+                         * - `BASIC`: Includes basic table information including schema and partitioning specification. This view does not include storage statistics such as numRows or numBytes. This view is significantly more efficient and should be used to support high query rates.
+                         * - `STORAGE_STATS`: Includes all information in the BASIC view as well as storage statistics (numBytes, numLongTermBytes, numRows and lastModifiedTime).
+                         * - `FULL`: Includes all table information, including storage statistics. It returns same information as STORAGE_STATS view, but may contain additional information in the future.
                          */
-                        view?: string | undefined;
+                        view?: "TABLE_METADATA_VIEW_UNSPECIFIED" | "BASIC" | "STORAGE_STATS" | "FULL" | undefined;
                     },
                 ): BigQuery.Schema.Table;
                 /**
@@ -934,6 +983,7 @@ declare namespace GoogleAppsScript {
                 ): BigQuery.Schema.Table;
             }
         }
+
         namespace Schema {
             /**
              * Aggregate metrics for classification/classifier models. For multi-class models, the metrics are either macro-averaged or micro-averaged. When macro-averaged, the metrics are calculated for each label and then an unweighted average is taken of those values. When micro-averaged, the metric is calculated globally by counting the total number of correctly predicted rows.
@@ -975,7 +1025,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. The privacy unit column(s) associated with this policy. For now, only one column per data source object (table, view) is allowed as a privacy unit column. Representing as a repeated field in metadata for extensibility to multiple columns in future. Duplicates and Repeated struct fields are not allowed. For nested fields, use dot notation ("outer.inner")
                  */
-                privacyUnitColumns?: string[] | undefined;
+                privacyUnitColumns?: Array<string> | undefined;
                 /**
                  * Optional. The threshold for the "aggregation threshold" policy.
                  */
@@ -987,8 +1037,19 @@ declare namespace GoogleAppsScript {
             interface Argument {
                 /**
                  * Optional. Defaults to FIXED_TYPE.
+                 * - `ARGUMENT_KIND_UNSPECIFIED`: Default value.
+                 * - `FIXED_TYPE`: The argument is a variable with fully specified type, which can be a struct or an array, but not a table.
+                 * - `ANY_TYPE`: The argument is any type, including struct or array, but not a table.
+                 * - `FIXED_TABLE`: The argument is a table with fully specified column names and types.
+                 * - `ANY_TABLE`: The argument is any table type.
                  */
-                argumentKind?: string | undefined;
+                argumentKind?:
+                    | "ARGUMENT_KIND_UNSPECIFIED"
+                    | "FIXED_TYPE"
+                    | "ANY_TYPE"
+                    | "FIXED_TABLE"
+                    | "ANY_TABLE"
+                    | undefined;
                 /**
                  * Set if argument_kind == FIXED_TYPE.
                  */
@@ -999,8 +1060,12 @@ declare namespace GoogleAppsScript {
                 isAggregate?: boolean | undefined;
                 /**
                  * Optional. Specifies whether the argument is input or output. Can be set for procedures only.
+                 * - `MODE_UNSPECIFIED`: Default value.
+                 * - `IN`: The argument is input-only.
+                 * - `OUT`: The argument is output-only.
+                 * - `INOUT`: The argument is both an input and an output.
                  */
-                mode?: string | undefined;
+                mode?: "MODE_UNSPECIFIED" | "IN" | "OUT" | "INOUT" | undefined;
                 /**
                  * Optional. The name of this argument. Can be absent for function return argument.
                  */
@@ -1017,7 +1082,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Auto-regressive coefficients, an array of double.
                  */
-                autoRegressiveCoefficients?: number[] | undefined;
+                autoRegressiveCoefficients?: Array<number> | undefined;
                 /**
                  * Intercept coefficient, just a double not an array.
                  */
@@ -1025,7 +1090,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Moving-average coefficients, an array of double.
                  */
-                movingAverageCoefficients?: number[] | undefined;
+                movingAverageCoefficients?: Array<number> | undefined;
             }
             /**
              * ARIMA model fitting metrics.
@@ -1063,7 +1128,7 @@ declare namespace GoogleAppsScript {
                  * Whether Arima model fitted with drift or not. It is always false when d is not 1.
                  * @deprecated
                  */
-                hasDrift?: boolean[] | undefined;
+                hasDrift?: Array<boolean> | undefined;
                 /**
                  * Non-seasonal order.
                  * @deprecated
@@ -1073,12 +1138,23 @@ declare namespace GoogleAppsScript {
                  * Seasonal periods. Repeated because multiple periods are supported for one time series.
                  * @deprecated
                  */
-                seasonalPeriods?: string[] | undefined;
+                seasonalPeriods?:
+                    | Array<
+                        | "SEASONAL_PERIOD_TYPE_UNSPECIFIED"
+                        | "NO_SEASONALITY"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "QUARTERLY"
+                        | "YEARLY"
+                        | "HOURLY"
+                    >
+                    | undefined;
                 /**
                  * Id to differentiate different time series for the large-scale case.
                  * @deprecated
                  */
-                timeSeriesId?: string[] | undefined;
+                timeSeriesId?: Array<string> | undefined;
             }
             /**
              * Arima model information.
@@ -1115,7 +1191,18 @@ declare namespace GoogleAppsScript {
                 /**
                  * Seasonal periods. Repeated because multiple periods are supported for one time series.
                  */
-                seasonalPeriods?: string[] | undefined;
+                seasonalPeriods?:
+                    | Array<
+                        | "SEASONAL_PERIOD_TYPE_UNSPECIFIED"
+                        | "NO_SEASONALITY"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "QUARTERLY"
+                        | "YEARLY"
+                        | "HOURLY"
+                    >
+                    | undefined;
                 /**
                  * The time_series_id value for this time series. It will be one of the unique values from the time_series_id_column specified during ARIMA model training. Only present when time_series_id_column training option was used.
                  */
@@ -1123,7 +1210,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * The tuple of time_series_ids identifying this time series. It will be one of the unique tuples of values present in the time_series_id_columns specified during ARIMA model training. Only present when time_series_id_columns training option was used and the order of values here are same as the order of time_series_id_columns.
                  */
-                timeSeriesIds?: string[] | undefined;
+                timeSeriesIds?: Array<string> | undefined;
             }
             /**
              * Arima order, can be used for both non-seasonal and seasonal parts.
@@ -1153,7 +1240,18 @@ declare namespace GoogleAppsScript {
                 /**
                  * Seasonal periods. Repeated because multiple periods are supported for one time series.
                  */
-                seasonalPeriods?: string[] | undefined;
+                seasonalPeriods?:
+                    | Array<
+                        | "SEASONAL_PERIOD_TYPE_UNSPECIFIED"
+                        | "NO_SEASONALITY"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "QUARTERLY"
+                        | "YEARLY"
+                        | "HOURLY"
+                    >
+                    | undefined;
             }
             /**
              * Model evaluation metrics for a single ARIMA forecasting model.
@@ -1186,7 +1284,18 @@ declare namespace GoogleAppsScript {
                 /**
                  * Seasonal periods. Repeated because multiple periods are supported for one time series.
                  */
-                seasonalPeriods?: string[] | undefined;
+                seasonalPeriods?:
+                    | Array<
+                        | "SEASONAL_PERIOD_TYPE_UNSPECIFIED"
+                        | "NO_SEASONALITY"
+                        | "DAILY"
+                        | "WEEKLY"
+                        | "MONTHLY"
+                        | "QUARTERLY"
+                        | "YEARLY"
+                        | "HOURLY"
+                    >
+                    | undefined;
                 /**
                  * The time_series_id value for this time series. It will be one of the unique values from the time_series_id_column specified during ARIMA model training. Only present when time_series_id_column training option was used.
                  */
@@ -1194,7 +1303,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * The tuple of time_series_ids identifying this time series. It will be one of the unique tuples of values present in the time_series_id_columns specified during ARIMA model training. Only present when time_series_id_columns training option was used and the order of values here are same as the order of time_series_id_columns.
                  */
-                timeSeriesIds?: string[] | undefined;
+                timeSeriesIds?: Array<string> | undefined;
             }
             /**
              * Arrow RecordBatch. This feature is not yet available.
@@ -1220,12 +1329,24 @@ declare namespace GoogleAppsScript {
             interface ArrowSerializationOptions {
                 /**
                  * The compression codec to use for Arrow buffers in serialized record batches.
+                 * - `COMPRESSION_UNSPECIFIED`: If unspecified no compression will be used.
+                 * - `LZ4_FRAME`: LZ4 Frame (https://github.com/lz4/lz4/blob/dev/doc/lz4_Frame_format.md)
+                 * - `ZSTD`: Zstandard compression.
                  */
-                bufferCompression?: string | undefined;
+                bufferCompression?: "COMPRESSION_UNSPECIFIED" | "LZ4_FRAME" | "ZSTD" | undefined;
                 /**
                  * Optional. Set timestamp precision option. If not set, the default precision is microseconds.
+                 * - `PICOS_TIMESTAMP_PRECISION_UNSPECIFIED`: Unspecified timestamp precision. The default precision is microseconds.
+                 * - `TIMESTAMP_PRECISION_MICROS`: Timestamp values returned in the results will be truncated to microsecond level precision. The value will be encoded as Arrow TIMESTAMP type in a 64 bit integer.
+                 * - `TIMESTAMP_PRECISION_NANOS`: Timestamp values returned in the results will be truncated to nanosecond level precision. The value will be encoded as Arrow TIMESTAMP type in a 64 bit integer.
+                 * - `TIMESTAMP_PRECISION_PICOS`: Timestamp values returned in the results will contain full precision picosecond value. The value will be encoded as a string which conforms to ISO 8601 format.
                  */
-                picosTimestampPrecision?: string | undefined;
+                picosTimestampPrecision?:
+                    | "PICOS_TIMESTAMP_PRECISION_UNSPECIFIED"
+                    | "TIMESTAMP_PRECISION_MICROS"
+                    | "TIMESTAMP_PRECISION_NANOS"
+                    | "TIMESTAMP_PRECISION_PICOS"
+                    | undefined;
             }
             /**
              * Specifies the audit configuration for a service. The configuration determines which permission types are logged, and what identities, if any, are exempted from logging. An AuditConfig must have one or more AuditLogConfigs. If there are AuditConfigs for both `allServices` and a specific service, the union of the two AuditConfigs is used for that service: the log_types specified in each AuditConfig are enabled, and the exempted_members in each AuditLogConfig are exempted. Example Policy with multiple AuditConfigs: { "audit_configs": [ { "service": "allServices", "audit_log_configs": [ { "log_type": "DATA_READ", "exempted_members": [ "user:jose@example.com" ] \}, { "log_type": "DATA_WRITE" \}, { "log_type": "ADMIN_READ" \} ] \}, { "service": "sampleservice.googleapis.com", "audit_log_configs": [ { "log_type": "DATA_READ" \}, { "log_type": "DATA_WRITE", "exempted_members": [ "user:aliya@example.com" ] \} ] \} ] \} For sampleservice, this policy enables DATA_READ, DATA_WRITE and ADMIN_READ logging. It also exempts `jose@example.com` from DATA_READ logging, and `aliya@example.com` from DATA_WRITE logging.
@@ -1247,11 +1368,15 @@ declare namespace GoogleAppsScript {
                 /**
                  * Specifies the identities that do not cause logging for this type of permission. Follows the same format of Binding.members.
                  */
-                exemptedMembers?: string[] | undefined;
+                exemptedMembers?: Array<string> | undefined;
                 /**
                  * The log type that this config enables.
+                 * - `LOG_TYPE_UNSPECIFIED`: Default case. Should never be this.
+                 * - `ADMIN_READ`: Admin reads. Example: CloudIAM getIamPolicy
+                 * - `DATA_WRITE`: Data writes. Example: CloudSQL Users create
+                 * - `DATA_READ`: Data reads. Example: CloudSQL Users list
                  */
-                logType?: string | undefined;
+                logType?: "LOG_TYPE_UNSPECIFIED" | "ADMIN_READ" | "DATA_WRITE" | "DATA_READ" | undefined;
             }
             /**
              * Options for external data sources.
@@ -1273,7 +1398,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Required. Policy IDs of the row access policies.
                  */
-                policyIds?: string[] | undefined;
+                policyIds?: Array<string> | undefined;
             }
             /**
              * Reason why BI Engine didn't accelerate the query (or sub-query).
@@ -1281,8 +1406,23 @@ declare namespace GoogleAppsScript {
             interface BiEngineReason {
                 /**
                  * Output only. High-level BI Engine reason for partial or disabled acceleration
+                 * - `CODE_UNSPECIFIED`: BiEngineReason not specified.
+                 * - `NO_RESERVATION`: No reservation available for BI Engine acceleration.
+                 * - `INSUFFICIENT_RESERVATION`: Not enough memory available for BI Engine acceleration.
+                 * - `UNSUPPORTED_SQL_TEXT`: This particular SQL text is not supported for acceleration by BI Engine.
+                 * - `INPUT_TOO_LARGE`: Input too large for acceleration by BI Engine.
+                 * - `OTHER_REASON`: Catch-all code for all other cases for partial or disabled acceleration.
+                 * - `TABLE_EXCLUDED`: One or more tables were not eligible for BI Engine acceleration.
                  */
-                code?: string | undefined;
+                code?:
+                    | "CODE_UNSPECIFIED"
+                    | "NO_RESERVATION"
+                    | "INSUFFICIENT_RESERVATION"
+                    | "UNSUPPORTED_SQL_TEXT"
+                    | "INPUT_TOO_LARGE"
+                    | "OTHER_REASON"
+                    | "TABLE_EXCLUDED"
+                    | undefined;
                 /**
                  * Output only. Free form human-readable reason for partial or disabled acceleration.
                  */
@@ -1294,12 +1434,27 @@ declare namespace GoogleAppsScript {
             interface BiEngineStatistics {
                 /**
                  * Output only. Specifies which mode of BI Engine acceleration was performed (if any).
+                 * - `BI_ENGINE_ACCELERATION_MODE_UNSPECIFIED`: BiEngineMode type not specified.
+                 * - `BI_ENGINE_DISABLED`: BI Engine acceleration was attempted but disabled. bi_engine_reasons specifies a more detailed reason.
+                 * - `PARTIAL_INPUT`: Some inputs were accelerated using BI Engine. See bi_engine_reasons for why parts of the query were not accelerated.
+                 * - `FULL_INPUT`: All of the query inputs were accelerated using BI Engine.
+                 * - `FULL_QUERY`: All of the query was accelerated using BI Engine.
                  */
-                accelerationMode?: string | undefined;
+                accelerationMode?:
+                    | "BI_ENGINE_ACCELERATION_MODE_UNSPECIFIED"
+                    | "BI_ENGINE_DISABLED"
+                    | "PARTIAL_INPUT"
+                    | "FULL_INPUT"
+                    | "FULL_QUERY"
+                    | undefined;
                 /**
                  * Output only. Specifies which mode of BI Engine acceleration was performed (if any).
+                 * - `ACCELERATION_MODE_UNSPECIFIED`: BiEngineMode type not specified.
+                 * - `DISABLED`: BI Engine disabled the acceleration. bi_engine_reasons specifies a more detailed reason.
+                 * - `PARTIAL`: Part of the query was accelerated using BI Engine. See bi_engine_reasons for why parts of the query were not accelerated.
+                 * - `FULL`: All of the query was accelerated using BI Engine.
                  */
-                biEngineMode?: string | undefined;
+                biEngineMode?: "ACCELERATION_MODE_UNSPECIFIED" | "DISABLED" | "PARTIAL" | "FULL" | undefined;
                 /**
                  * In case of DISABLED or PARTIAL bi_engine_mode, these contain the explanatory reasons as to why BI Engine could not accelerate. In case the full query was accelerated, this field is not populated.
                  */
@@ -1315,16 +1470,20 @@ declare namespace GoogleAppsScript {
                 connectionId?: string | undefined;
                 /**
                  * Optional. The file format the table data is stored in.
+                 * - `FILE_FORMAT_UNSPECIFIED`: Default Value.
+                 * - `PARQUET`: Apache Parquet format.
                  */
-                fileFormat?: string | undefined;
+                fileFormat?: "FILE_FORMAT_UNSPECIFIED" | "PARQUET" | undefined;
                 /**
                  * Optional. The fully qualified location prefix of the external folder where table data is stored. The '*' wildcard character is not allowed. The URI should be in the format `gs://bucket/path_to_table/`
                  */
                 storageUri?: string | undefined;
                 /**
                  * Optional. The table format the metadata only snapshots are stored in.
+                 * - `TABLE_FORMAT_UNSPECIFIED`: Default Value.
+                 * - `ICEBERG`: Apache Iceberg format.
                  */
-                tableFormat?: string | undefined;
+                tableFormat?: "TABLE_FORMAT_UNSPECIFIED" | "ICEBERG" | undefined;
             }
             interface BigQueryModelTraining {
                 /**
@@ -1505,7 +1664,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Specifies the principals requesting access for a Google Cloud resource. `members` can have the following values: * `allUsers`: A special identifier that represents anyone who is on the internet; with or without a Google account. * `allAuthenticatedUsers`: A special identifier that represents anyone who is authenticated with a Google account or a service account. Does not include identities that come from external identity providers (IdPs) through identity federation. * `user:{emailid\}`: An email address that represents a specific Google account. For example, `alice@example.com` . * `serviceAccount:{emailid\}`: An email address that represents a Google service account. For example, `my-other-app@appspot.gserviceaccount.com`. * `serviceAccount:{projectid\}.svc.id.goog[{namespace\}/{kubernetes-sa\}]`: An identifier for a [Kubernetes service account](https://cloud.google.com/kubernetes-engine/docs/how-to/kubernetes-service-accounts). For example, `my-project.svc.id.goog[my-namespace/my-kubernetes-sa]`. * `group:{emailid\}`: An email address that represents a Google group. For example, `admins@example.com`. * `domain:{domain\}`: The G Suite domain (primary) that represents all the users of that domain. For example, `google.com` or `example.com`. * `principal://iam.googleapis.com/locations/global/workforcePools/{pool_id\}/subject/{subject_attribute_value\}`: A single identity in a workforce identity pool. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id\}/group/{group_id\}`: All workforce identities in a group. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id\}/attribute.{attribute_name\}/{attribute_value\}`: All workforce identities with a specific attribute value. * `principalSet://iam.googleapis.com/locations/global/workforcePools/{pool_id\}/x`: All identities in a workforce identity pool. * `principal://iam.googleapis.com/projects/{project_number\}/locations/global/workloadIdentityPools/{pool_id\}/subject/{subject_attribute_value\}`: A single identity in a workload identity pool. * `principalSet://iam.googleapis.com/projects/{project_number\}/locations/global/workloadIdentityPools/{pool_id\}/group/{group_id\}`: A workload identity pool group. * `principalSet://iam.googleapis.com/projects/{project_number\}/locations/global/workloadIdentityPools/{pool_id\}/attribute.{attribute_name\}/{attribute_value\}`: All identities in a workload identity pool with a certain attribute. * `principalSet://iam.googleapis.com/projects/{project_number\}/locations/global/workloadIdentityPools/{pool_id\}/x`: All identities in a workload identity pool. * `deleted:user:{emailid\}?uid={uniqueid\}`: An email address (plus unique identifier) representing a user that has been recently deleted. For example, `alice@example.com?uid=123456789012345678901`. If the user is recovered, this value reverts to `user:{emailid\}` and the recovered user retains the role in the binding. * `deleted:serviceAccount:{emailid\}?uid={uniqueid\}`: An email address (plus unique identifier) representing a service account that has been recently deleted. For example, `my-other-app@appspot.gserviceaccount.com?uid=123456789012345678901`. If the service account is undeleted, this value reverts to `serviceAccount:{emailid\}` and the undeleted service account retains the role in the binding. * `deleted:group:{emailid\}?uid={uniqueid\}`: An email address (plus unique identifier) representing a Google group that has been recently deleted. For example, `admins@example.com?uid=123456789012345678901`. If the group is recovered, this value reverts to `group:{emailid\}` and the recovered group retains the role in the binding. * `deleted:principal://iam.googleapis.com/locations/global/workforcePools/{pool_id\}/subject/{subject_attribute_value\}`: Deleted single identity in a workforce identity pool. For example, `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.
                  */
-                members?: string[] | undefined;
+                members?: Array<string> | undefined;
                 /**
                  * Role that is assigned to the list of `members`, or principals. For example, `roles/viewer`, `roles/editor`, or `roles/owner`. For an overview of the IAM roles and permissions, see the [IAM documentation](https://cloud.google.com/iam/docs/roles-overview). For a list of the available pre-defined roles, see [here](https://cloud.google.com/iam/docs/understanding-roles).
                  */
@@ -1637,7 +1796,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * One or more fields on which data should be clustered. Only top-level, non-repeated, simple-type fields are supported. The ordering of the clustering fields should be prioritized from most to least important for filtering purposes. For additional information, see [Introduction to clustered tables](https://cloud.google.com/bigquery/docs/clustered-tables#limitations).
                  */
-                fields?: string[] | undefined;
+                fields?: Array<string> | undefined;
             }
             /**
              * Evaluation metrics for clustering models.
@@ -1709,7 +1868,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. A list of strings represented as SQL NULL value in a CSV file. null_marker and null_markers can't be set at the same time. If null_marker is set, null_markers has to be not set. If null_markers is set, null_marker has to be not set. If both null_marker and null_markers are set at the same time, a user error would be thrown. Any strings listed in null_markers, including empty string would be interpreted as SQL NULL. This applies to all column types.
                  */
-                nullMarkers?: string[] | undefined;
+                nullMarkers?: Array<string> | undefined;
                 /**
                  * Optional. Indicates if the embedded ASCII control characters (the first 32 characters in the ASCII-table, from '\x00' to '\x1F') are preserved.
                  */
@@ -1733,8 +1892,17 @@ declare namespace GoogleAppsScript {
             interface DataFormatOptions {
                 /**
                  * Optional. The API output format for a timestamp. This offers more explicit control over the timestamp output format as compared to the existing `use_int64_timestamp` option.
+                 * - `TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED`: Corresponds to default API output behavior, which is FLOAT64.
+                 * - `FLOAT64`: Timestamp is output as float64 seconds since Unix epoch.
+                 * - `INT64`: Timestamp is output as int64 microseconds since Unix epoch.
+                 * - `ISO8601_STRING`: Timestamp is output as ISO 8601 String ("YYYY-MM-DDTHH:MM:SS.FFFFFFFFFFFFZ").
                  */
-                timestampOutputFormat?: string | undefined;
+                timestampOutputFormat?:
+                    | "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED"
+                    | "FLOAT64"
+                    | "INT64"
+                    | "ISO8601_STRING"
+                    | undefined;
                 /**
                  * Optional. Output timestamp as usec int64. Default is false.
                  */
@@ -1844,8 +2012,15 @@ declare namespace GoogleAppsScript {
                 defaultPartitionExpirationMs?: string | undefined;
                 /**
                  * Optional. Defines the default rounding mode specification of new tables created within this dataset. During table creation, if this field is specified, the table within this dataset will inherit the default rounding mode of the dataset. Setting the default rounding mode on a table overrides this option. Existing tables in the dataset are unaffected. If columns are defined during that table creation, they will immediately inherit the table's default rounding mode, unless otherwise specified.
+                 * - `ROUNDING_MODE_UNSPECIFIED`: Unspecified will default to using ROUND_HALF_AWAY_FROM_ZERO.
+                 * - `ROUND_HALF_AWAY_FROM_ZERO`: ROUND_HALF_AWAY_FROM_ZERO rounds half values away from zero when applying precision and scale upon writing of NUMERIC and BIGNUMERIC values. For Scale: 0 1.1, 1.2, 1.3, 1.4 => 1 1.5, 1.6, 1.7, 1.8, 1.9 => 2
+                 * - `ROUND_HALF_EVEN`: ROUND_HALF_EVEN rounds half values to the nearest even value when applying precision and scale upon writing of NUMERIC and BIGNUMERIC values. For Scale: 0 1.1, 1.2, 1.3, 1.4 => 1 1.5 => 2 1.6, 1.7, 1.8, 1.9 => 2 2.5 => 2
                  */
-                defaultRoundingMode?: string | undefined;
+                defaultRoundingMode?:
+                    | "ROUNDING_MODE_UNSPECIFIED"
+                    | "ROUND_HALF_AWAY_FROM_ZERO"
+                    | "ROUND_HALF_EVEN"
+                    | undefined;
                 /**
                  * Optional. The default lifetime of all tables in the dataset, in milliseconds. The minimum lifetime value is 3600000 milliseconds (one hour). To clear an existing default expiration with a PATCH request, set to 0. Once this property is set, all newly-created tables in the dataset will have an expirationTime property set to the creation time plus the value in this property, and changing the value will only affect new tables, not existing ones. When the expirationTime for a given table is reached, that table will be deleted automatically. If a table's expirationTime is modified or removed before the table expires, or if you provide an explicit expirationTime when creating a table, that value takes precedence over the default expiration time indicated by this property.
                  */
@@ -1928,8 +2103,11 @@ declare namespace GoogleAppsScript {
                 selfLink?: string | undefined;
                 /**
                  * Optional. Updates storage_billing_model for the dataset.
+                 * - `STORAGE_BILLING_MODEL_UNSPECIFIED`: Value not set.
+                 * - `LOGICAL`: Billing for logical bytes.
+                 * - `PHYSICAL`: Billing for physical bytes.
                  */
-                storageBillingModel?: string | undefined;
+                storageBillingModel?: "STORAGE_BILLING_MODEL_UNSPECIFIED" | "LOGICAL" | "PHYSICAL" | undefined;
                 /**
                  * Output only. Tags for the dataset. To provide tags as inputs, use the `resourceTags` field.
                  * @deprecated
@@ -1962,7 +2140,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Which resources in the dataset this entry applies to. Currently, only views are supported, but additional target types may be added in the future.
                  */
-                targetTypes?: string[] | undefined;
+                targetTypes?: Array<"TARGET_TYPE_UNSPECIFIED" | "VIEWS" | "ROUTINES"> | undefined;
             }
             /**
              * Response format for a page of results when listing datasets.
@@ -2026,7 +2204,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * A list of skipped locations that were unreachable. For more information about BigQuery locations, see: https://cloud.google.com/bigquery/docs/locations. Example: "europe-west5"
                  */
-                unreachable?: string[] | undefined;
+                unreachable?: Array<string> | undefined;
             }
             /**
              * Identifier for a dataset.
@@ -2135,12 +2313,24 @@ declare namespace GoogleAppsScript {
                 deletedRowCount?: string | undefined;
                 /**
                  * Output only. DML mode used.
+                 * - `DML_MODE_UNSPECIFIED`: Default value. This value is unused.
+                 * - `COARSE_GRAINED_DML`: Coarse-grained DML was used.
+                 * - `FINE_GRAINED_DML`: Fine-grained DML was used.
                  */
-                dmlMode?: string | undefined;
+                dmlMode?: "DML_MODE_UNSPECIFIED" | "COARSE_GRAINED_DML" | "FINE_GRAINED_DML" | undefined;
                 /**
                  * Output only. Reason for disabling fine-grained DML if applicable.
+                 * - `FINE_GRAINED_DML_UNUSED_REASON_UNSPECIFIED`: Default value. This value is unused.
+                 * - `MAX_PARTITION_SIZE_EXCEEDED`: Max partition size threshold exceeded. [Fine-grained DML Limitations] (https://docs.cloud.google.com/bigquery/docs/data-manipulation-language#fine-grained-dml-limitations)
+                 * - `TABLE_NOT_ENROLLED`: The table is not enrolled for fine-grained DML.
+                 * - `DML_IN_MULTI_STATEMENT_TRANSACTION`: The DML statement is part of a multi-statement transaction.
                  */
-                fineGrainedDmlUnusedReason?: string | undefined;
+                fineGrainedDmlUnusedReason?:
+                    | "FINE_GRAINED_DML_UNUSED_REASON_UNSPECIFIED"
+                    | "MAX_PARTITION_SIZE_EXCEEDED"
+                    | "TABLE_NOT_ENROLLED"
+                    | "DML_IN_MULTI_STATEMENT_TRANSACTION"
+                    | undefined;
                 /**
                  * Output only. Number of inserted Rows. Populated by DML INSERT and MERGE statements
                  */
@@ -2157,7 +2347,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Candidates for the double parameter in increasing order.
                  */
-                candidates?: number[] | undefined;
+                candidates?: Array<number> | undefined;
             }
             /**
              * Search space for a double hyperparameter.
@@ -2273,8 +2463,11 @@ declare namespace GoogleAppsScript {
                 completedParallelInputs?: string | undefined;
                 /**
                  * Output only. Compute mode for this stage.
+                 * - `COMPUTE_MODE_UNSPECIFIED`: ComputeMode type not specified.
+                 * - `BIGQUERY`: This stage was processed using BigQuery slots.
+                 * - `BI_ENGINE`: This stage was processed using BI Engine compute.
                  */
-                computeMode?: string | undefined;
+                computeMode?: "COMPUTE_MODE_UNSPECIFIED" | "BIGQUERY" | "BI_ENGINE" | undefined;
                 /**
                  * Milliseconds the average shard spent on CPU-bound tasks.
                  */
@@ -2302,7 +2495,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * IDs for stages that are inputs to this stage.
                  */
-                inputStages?: string[] | undefined;
+                inputStages?: Array<string> | undefined;
                 /**
                  * Human-readable name for the stage.
                  */
@@ -2403,7 +2596,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Human-readable description of the step(s).
                  */
-                substeps?: string[] | undefined;
+                substeps?: Array<string> | undefined;
             }
             /**
              * Explanation for a single feature.
@@ -2518,11 +2711,18 @@ declare namespace GoogleAppsScript {
                 /**
                  * Defines the list of possible SQL data types to which the source decimal values are converted. This list and the precision and the scale parameters of the decimal field determine the target type. In the order of NUMERIC, BIGNUMERIC, and STRING, a type is picked if it is in the specified list and if it supports the precision and the scale. STRING supports all precision and scale values. If none of the listed types supports the precision and the scale, the type supporting the widest range in the specified list is picked, and if a value exceeds the supported range when reading the data, an error will be thrown. Example: Suppose the value of this field is ["NUMERIC", "BIGNUMERIC"]. If (precision,scale) is: * (38,9) -\> NUMERIC; * (39,9) -\> BIGNUMERIC (NUMERIC cannot hold 30 integer digits); * (38,10) -\> BIGNUMERIC (NUMERIC cannot hold 10 fractional digits); * (76,38) -\> BIGNUMERIC; * (77,38) -\> BIGNUMERIC (error if value exceeds supported range). This field cannot contain duplicate types. The order of the types in this field is ignored. For example, ["BIGNUMERIC", "NUMERIC"] is the same as ["NUMERIC", "BIGNUMERIC"] and NUMERIC always takes precedence over BIGNUMERIC. Defaults to ["NUMERIC", "STRING"] for ORC and ["NUMERIC"] for the other file formats.
                  */
-                decimalTargetTypes?: string[] | undefined;
+                decimalTargetTypes?:
+                    | Array<"DECIMAL_TARGET_TYPE_UNSPECIFIED" | "NUMERIC" | "BIGNUMERIC" | "STRING">
+                    | undefined;
                 /**
                  * Optional. Specifies how source URIs are interpreted for constructing the file set to load. By default source URIs are expanded against the underlying storage. Other options include specifying manifest files. Only applicable to object storage systems.
+                 * - `FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH`: This option expands source URIs by listing files from the object store. It is the default behavior if FileSetSpecType is not set.
+                 * - `FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST`: This option indicates that the provided URIs are newline-delimited manifest files, with one URI per line. Wildcard URIs are not supported.
                  */
-                fileSetSpecType?: string | undefined;
+                fileSetSpecType?:
+                    | "FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH"
+                    | "FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST"
+                    | undefined;
                 /**
                  * Optional. Additional options if sourceFormat is set to GOOGLE_SHEETS.
                  */
@@ -2537,8 +2737,10 @@ declare namespace GoogleAppsScript {
                 ignoreUnknownValues?: boolean | undefined;
                 /**
                  * Optional. Load option to be used together with source_format newline-delimited JSON to indicate that a variant of JSON is being loaded. To load newline-delimited GeoJSON, specify GEOJSON (and source_format must be set to NEWLINE_DELIMITED_JSON).
+                 * - `JSON_EXTENSION_UNSPECIFIED`: The default if provided value is not one included in the enum, or the value is not specified. The source format is parsed without any modification.
+                 * - `GEOJSON`: Use GeoJSON variant of JSON. See https://tools.ietf.org/html/rfc7946.
                  */
-                jsonExtension?: string | undefined;
+                jsonExtension?: "JSON_EXTENSION_UNSPECIFIED" | "GEOJSON" | undefined;
                 /**
                  * Optional. Additional properties to set if sourceFormat is set to JSON.
                  */
@@ -2549,12 +2751,18 @@ declare namespace GoogleAppsScript {
                 maxBadRecords?: number | undefined;
                 /**
                  * Optional. Metadata Cache Mode for the table. Set this to enable caching of metadata from external data source.
+                 * - `METADATA_CACHE_MODE_UNSPECIFIED`: Unspecified metadata cache mode.
+                 * - `AUTOMATIC`: Set this mode to trigger automatic background refresh of metadata cache from the external source. Queries will use the latest available cache version within the table's maxStaleness interval.
+                 * - `MANUAL`: Set this mode to enable triggering manual refresh of the metadata cache from external source. Queries will use the latest manually triggered cache version within the table's maxStaleness interval.
                  */
-                metadataCacheMode?: string | undefined;
+                metadataCacheMode?: "METADATA_CACHE_MODE_UNSPECIFIED" | "AUTOMATIC" | "MANUAL" | undefined;
                 /**
                  * Optional. ObjectMetadata is used to create Object Tables. Object Tables contain a listing of objects (with their metadata) found at the source_uris. If ObjectMetadata is set, source_format should be omitted. Currently SIMPLE is the only supported Object Metadata type.
+                 * - `OBJECT_METADATA_UNSPECIFIED`: Unspecified by default.
+                 * - `DIRECTORY`: A synonym for `SIMPLE`.
+                 * - `SIMPLE`: Directory listing of objects.
                  */
-                objectMetadata?: string | undefined;
+                objectMetadata?: "OBJECT_METADATA_UNSPECIFIED" | "DIRECTORY" | "SIMPLE" | undefined;
                 /**
                  * Optional. Additional properties to set if sourceFormat is set to PARQUET.
                  */
@@ -2574,7 +2782,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * [Required] The fully-qualified URIs that point to your data in Google Cloud. For Google Cloud Storage URIs: Each URI can contain one '*' wildcard character and it must come after the 'bucket' name. Size limits related to load jobs apply to external data sources. For Google Cloud Bigtable URIs: Exactly one URI can be specified and it has be a fully specified and valid HTTPS URL for a Google Cloud Bigtable table. For Google Cloud Datastore backups, exactly one URI can be specified. Also, the '*' wildcard character is not allowed.
                  */
-                sourceUris?: string[] | undefined;
+                sourceUris?: Array<string> | undefined;
                 /**
                  * Optional. Format used to parse TIME values. Supports C-style and SQL-style values.
                  */
@@ -2586,7 +2794,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Precisions (maximum number of total digits in base 10) for seconds of TIMESTAMP types that are allowed to the destination table for autodetection mode. Available for the formats: CSV, PARQUET, AVRO, and Iceberg External Table. Possible values include: Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP columns [6, 12]: timestamp(6) for all auto detected TIMESTAMP columns that have less than 6 digits of subseconds. timestamp(12) for all auto detected TIMESTAMP columns that have more than 6 digits of subseconds. [12]: timestamp(12) for all auto detected TIMESTAMP columns. The order of the elements in this array is ignored. Inputs that have higher precision than the highest target precision in this array will be truncated.
                  */
-                timestampTargetPrecision?: number[] | undefined;
+                timestampTargetPrecision?: Array<number> | undefined;
                 /**
                  * Optional. Time zone used when parsing timestamp values that do not have specific time zone information (e.g. 2024-04-20 12:34:56). The expected format is a IANA timezone string (e.g. America/Los_Angeles).
                  */
@@ -2686,8 +2894,10 @@ declare namespace GoogleAppsScript {
             interface ForeignTypeInfo {
                 /**
                  * Required. Specifies the system which defines the foreign data type.
+                 * - `TYPE_SYSTEM_UNSPECIFIED`: TypeSystem not specified.
+                 * - `HIVE`: Represents Hive data types.
                  */
-                typeSystem?: string | undefined;
+                typeSystem?: "TYPE_SYSTEM_UNSPECIFIED" | "HIVE" | undefined;
             }
             /**
              * A view can be represented in multiple ways. Each representation has its own dialect. This message stores the metadata required for these representations.
@@ -2709,7 +2919,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * A list of unique errors at query level (up to 5, truncated to 100 chars)
                  */
-                errors?: string[] | undefined;
+                errors?: Array<string> | undefined;
             }
             /**
              * Provides cache statistics for a GenAi function call.
@@ -2740,7 +2950,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * A list of unique errors at function level (up to 5, truncated to 100 chars).
                  */
-                errors?: string[] | undefined;
+                errors?: Array<string> | undefined;
                 /**
                  * Number of failed rows processed by the function
                  */
@@ -2798,8 +3008,11 @@ declare namespace GoogleAppsScript {
                 generatedExpressionInfo?: BigQuery.Schema.GeneratedExpressionInfo | undefined;
                 /**
                  * Optional. Dictates when system generated values are used to populate the field.
+                 * - `GENERATED_MODE_UNSPECIFIED`: Unspecified GeneratedMode will default to GENERATED_ALWAYS.
+                 * - `GENERATED_ALWAYS`: Field can only have system generated values. Users cannot manually insert values into the field.
+                 * - `GENERATED_BY_DEFAULT`: Use system generated values only if the user does not explicitly provide a value.
                  */
-                generatedMode?: string | undefined;
+                generatedMode?: "GENERATED_MODE_UNSPECIFIED" | "GENERATED_ALWAYS" | "GENERATED_BY_DEFAULT" | undefined;
             }
             /**
              * Definition of the expression used to generate the field.
@@ -2956,7 +3169,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Output only. For permanent external tables, this field is populated with the hive partition keys in the order they were inferred. The types of the partition keys can be deduced by checking the table schema (which will include the partition keys). Not every API will populate this field in the output. For example, Tables.Get will populate it, but Tables.List will not contain this field.
                  */
-                fields?: string[] | undefined;
+                fields?: Array<string> | undefined;
                 /**
                  * Optional. When set, what mode of hive partitioning to use when reading data. The following modes are supported: * AUTO: automatically infer partition key name(s) and type(s). * STRINGS: automatically infer partition key name(s). All types are strings. * CUSTOM: partition key schema is encoded in the source URI prefix. Not all storage formats support hive partitioning. Requesting hive partitioning on an unsupported format will lead to an error. Currently supported formats are: JSON, CSV, ORC, Avro and Parquet.
                  */
@@ -3097,8 +3310,23 @@ declare namespace GoogleAppsScript {
                 startTimeMs?: string | undefined;
                 /**
                  * The status of the trial.
+                 * - `TRIAL_STATUS_UNSPECIFIED`: Default value.
+                 * - `NOT_STARTED`: Scheduled but not started.
+                 * - `RUNNING`: Running state.
+                 * - `SUCCEEDED`: The trial succeeded.
+                 * - `FAILED`: The trial failed.
+                 * - `INFEASIBLE`: The trial is infeasible due to the invalid params.
+                 * - `STOPPED_EARLY`: Trial stopped early because it's not promising.
                  */
-                status?: string | undefined;
+                status?:
+                    | "TRIAL_STATUS_UNSPECIFIED"
+                    | "NOT_STARTED"
+                    | "RUNNING"
+                    | "SUCCEEDED"
+                    | "FAILED"
+                    | "INFEASIBLE"
+                    | "STOPPED_EARLY"
+                    | undefined;
                 /**
                  * Loss computed on the training data at the end of trial.
                  */
@@ -3114,8 +3342,11 @@ declare namespace GoogleAppsScript {
             interface IncrementalResultStats {
                 /**
                  * Output only. Reason why incremental query results are/were not written by the query.
+                 * - `DISABLED_REASON_UNSPECIFIED`: Disabled reason not specified.
+                 * - `OTHER`: Incremental results are/were disabled for reasons not covered by the other enum values, e.g. runtime issues.
+                 * - `UNSUPPORTED_OPERATOR`: Query includes an operation that is not supported.
                  */
-                disabledReason?: string | undefined;
+                disabledReason?: "DISABLED_REASON_UNSPECIFIED" | "OTHER" | "UNSUPPORTED_OPERATOR" | undefined;
                 /**
                  * Output only. Additional human-readable clarification, if available, for DisabledReason.
                  */
@@ -3172,8 +3403,53 @@ declare namespace GoogleAppsScript {
                 baseTable?: BigQuery.Schema.TableReference | undefined;
                 /**
                  * Specifies the high-level reason for the scenario when no search index was used.
+                 * - `CODE_UNSPECIFIED`: Code not specified.
+                 * - `INDEX_CONFIG_NOT_AVAILABLE`: Indicates the search index configuration has not been created.
+                 * - `PENDING_INDEX_CREATION`: Indicates the search index creation has not been completed.
+                 * - `BASE_TABLE_TRUNCATED`: Indicates the base table has been truncated (rows have been removed from table with TRUNCATE TABLE statement) since the last time the search index was refreshed.
+                 * - `INDEX_CONFIG_MODIFIED`: Indicates the search index configuration has been changed since the last time the search index was refreshed.
+                 * - `TIME_TRAVEL_QUERY`: Indicates the search query accesses data at a timestamp before the last time the search index was refreshed.
+                 * - `NO_PRUNING_POWER`: Indicates the usage of search index will not contribute to any pruning improvement for the search function, e.g. when the search predicate is in a disjunction with other non-search predicates.
+                 * - `UNINDEXED_SEARCH_FIELDS`: Indicates the search index does not cover all fields in the search function.
+                 * - `UNSUPPORTED_SEARCH_PATTERN`: Indicates the search index does not support the given search query pattern.
+                 * - `OPTIMIZED_WITH_MATERIALIZED_VIEW`: Indicates the query has been optimized by using a materialized view.
+                 * - `SECURED_BY_DATA_MASKING`: Indicates the query has been secured by data masking, and thus search indexes are not applicable.
+                 * - `MISMATCHED_TEXT_ANALYZER`: Indicates that the search index and the search function call do not have the same text analyzer.
+                 * - `BASE_TABLE_TOO_SMALL`: Indicates the base table is too small (below a certain threshold). The index does not provide noticeable search performance gains when the base table is too small.
+                 * - `BASE_TABLE_TOO_LARGE`: Indicates that the total size of indexed base tables in your organization exceeds your region's limit and the index is not used in the query. To index larger base tables, you can use your own reservation for index-management jobs.
+                 * - `ESTIMATED_PERFORMANCE_GAIN_TOO_LOW`: Indicates that the estimated performance gain from using the search index is too low for the given search query.
+                 * - `COLUMN_METADATA_INDEX_NOT_USED`: Indicates that the column metadata index (which the search index depends on) is not used. User can refer to the [column metadata index usage](https://cloud.google.com/bigquery/docs/metadata-indexing-managed-tables#view_column_metadata_index_usage) for more details on why it was not used.
+                 * - `NOT_SUPPORTED_IN_STANDARD_EDITION`: Indicates that search indexes can not be used for search query with STANDARD edition.
+                 * - `INDEX_SUPPRESSED_BY_FUNCTION_OPTION`: Indicates that an option in the search function that cannot make use of the index has been selected.
+                 * - `QUERY_CACHE_HIT`: Indicates that the query was cached, and thus the search index was not used.
+                 * - `STALE_INDEX`: The index cannot be used in the search query because it is stale.
+                 * - `INTERNAL_ERROR`: Indicates an internal error that causes the search index to be unused.
+                 * - `OTHER_REASON`: Indicates that the reason search indexes cannot be used in the query is not covered by any of the other IndexUnusedReason options.
                  */
-                code?: string | undefined;
+                code?:
+                    | "CODE_UNSPECIFIED"
+                    | "INDEX_CONFIG_NOT_AVAILABLE"
+                    | "PENDING_INDEX_CREATION"
+                    | "BASE_TABLE_TRUNCATED"
+                    | "INDEX_CONFIG_MODIFIED"
+                    | "TIME_TRAVEL_QUERY"
+                    | "NO_PRUNING_POWER"
+                    | "UNINDEXED_SEARCH_FIELDS"
+                    | "UNSUPPORTED_SEARCH_PATTERN"
+                    | "OPTIMIZED_WITH_MATERIALIZED_VIEW"
+                    | "SECURED_BY_DATA_MASKING"
+                    | "MISMATCHED_TEXT_ANALYZER"
+                    | "BASE_TABLE_TOO_SMALL"
+                    | "BASE_TABLE_TOO_LARGE"
+                    | "ESTIMATED_PERFORMANCE_GAIN_TOO_LOW"
+                    | "COLUMN_METADATA_INDEX_NOT_USED"
+                    | "NOT_SUPPORTED_IN_STANDARD_EDITION"
+                    | "INDEX_SUPPRESSED_BY_FUNCTION_OPTION"
+                    | "QUERY_CACHE_HIT"
+                    | "STALE_INDEX"
+                    | "INTERNAL_ERROR"
+                    | "OTHER_REASON"
+                    | undefined;
                 /**
                  * Specifies the name of the unused search index, if available.
                  */
@@ -3199,7 +3475,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Elements in the int array.
                  */
-                elements?: string[] | undefined;
+                elements?: Array<string> | undefined;
             }
             /**
              * Search space for int array.
@@ -3217,7 +3493,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Candidates for the int parameter in increasing order.
                  */
-                candidates?: string[] | undefined;
+                candidates?: Array<string> | undefined;
             }
             /**
              * Search space for an int hyperparameter.
@@ -3402,7 +3678,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * [Pick one] A list of fully-qualified Google Cloud Storage URIs where the extracted table should be written.
                  */
-                destinationUris?: string[] | undefined;
+                destinationUris?: Array<string> | undefined;
                 /**
                  * Optional. When extracting data in CSV format, this defines the delimiter to use between fields in the exported data. Default is ','. Not applicable when extracting models.
                  */
@@ -3450,8 +3726,12 @@ declare namespace GoogleAppsScript {
                 clustering?: BigQuery.Schema.Clustering | undefined;
                 /**
                  * Optional. Character map supported for column names in CSV/Parquet loads. Defaults to STRICT and can be overridden by Project Config Service. Using this option with unsupporting load formats will result in an error.
+                 * - `COLUMN_NAME_CHARACTER_MAP_UNSPECIFIED`: Unspecified column name character map.
+                 * - `STRICT`: Support flexible column name and reject invalid column names.
+                 * - `V1`: Support alphanumeric + underscore characters and names must start with a letter or underscore. Invalid column names will be normalized.
+                 * - `V2`: Support flexible column name. Invalid column names will be normalized.
                  */
-                columnNameCharacterMap?: string | undefined;
+                columnNameCharacterMap?: "COLUMN_NAME_CHARACTER_MAP_UNSPECIFIED" | "STRICT" | "V1" | "V2" | undefined;
                 /**
                  * Optional. Connection properties which can modify the load job behavior. Currently, only the 'session_id' connection property is supported, and is used to resolve _SESSION appearing as the dataset id.
                  */
@@ -3479,7 +3759,9 @@ declare namespace GoogleAppsScript {
                 /**
                  * Defines the list of possible SQL data types to which the source decimal values are converted. This list and the precision and the scale parameters of the decimal field determine the target type. In the order of NUMERIC, BIGNUMERIC, and STRING, a type is picked if it is in the specified list and if it supports the precision and the scale. STRING supports all precision and scale values. If none of the listed types supports the precision and the scale, the type supporting the widest range in the specified list is picked, and if a value exceeds the supported range when reading the data, an error will be thrown. Example: Suppose the value of this field is ["NUMERIC", "BIGNUMERIC"]. If (precision,scale) is: * (38,9) -\> NUMERIC; * (39,9) -\> BIGNUMERIC (NUMERIC cannot hold 30 integer digits); * (38,10) -\> BIGNUMERIC (NUMERIC cannot hold 10 fractional digits); * (76,38) -\> BIGNUMERIC; * (77,38) -\> BIGNUMERIC (error if value exceeds supported range). This field cannot contain duplicate types. The order of the types in this field is ignored. For example, ["BIGNUMERIC", "NUMERIC"] is the same as ["NUMERIC", "BIGNUMERIC"] and NUMERIC always takes precedence over BIGNUMERIC. Defaults to ["NUMERIC", "STRING"] for ORC and ["NUMERIC"] for the other file formats.
                  */
-                decimalTargetTypes?: string[] | undefined;
+                decimalTargetTypes?:
+                    | Array<"DECIMAL_TARGET_TYPE_UNSPECIFIED" | "NUMERIC" | "BIGNUMERIC" | "STRING">
+                    | undefined;
                 /**
                  * Custom encryption configuration (e.g., Cloud KMS keys)
                  */
@@ -3502,8 +3784,13 @@ declare namespace GoogleAppsScript {
                 fieldDelimiter?: string | undefined;
                 /**
                  * Optional. Specifies how source URIs are interpreted for constructing the file set to load. By default, source URIs are expanded against the underlying storage. You can also specify manifest files to control how the file set is constructed. This option is only applicable to object storage systems.
+                 * - `FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH`: This option expands source URIs by listing files from the object store. It is the default behavior if FileSetSpecType is not set.
+                 * - `FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST`: This option indicates that the provided URIs are newline-delimited manifest files, with one URI per line. Wildcard URIs are not supported.
                  */
-                fileSetSpecType?: string | undefined;
+                fileSetSpecType?:
+                    | "FILE_SET_SPEC_TYPE_FILE_SYSTEM_MATCH"
+                    | "FILE_SET_SPEC_TYPE_NEW_LINE_DELIMITED_MANIFEST"
+                    | undefined;
                 /**
                  * Optional. When set, configures hive partitioning support. Not all storage formats support hive partitioning -- requesting hive partitioning on an unsupported format will lead to an error, as will providing an invalid specification.
                  */
@@ -3514,8 +3801,10 @@ declare namespace GoogleAppsScript {
                 ignoreUnknownValues?: boolean | undefined;
                 /**
                  * Optional. Load option to be used together with source_format newline-delimited JSON to indicate that a variant of JSON is being loaded. To load newline-delimited GeoJSON, specify GEOJSON (and source_format must be set to NEWLINE_DELIMITED_JSON).
+                 * - `JSON_EXTENSION_UNSPECIFIED`: The default if provided value is not one included in the enum, or the value is not specified. The source format is parsed without any modification.
+                 * - `GEOJSON`: Use GeoJSON variant of JSON. See https://tools.ietf.org/html/rfc7946.
                  */
-                jsonExtension?: string | undefined;
+                jsonExtension?: "JSON_EXTENSION_UNSPECIFIED" | "GEOJSON" | undefined;
                 /**
                  * Optional. The maximum number of bad records that BigQuery can ignore when running the job. If the number of bad records exceeds this value, an invalid error is returned in the job result. The default value is 0, which requires that all records are valid. This is only supported for CSV and NEWLINE_DELIMITED_JSON file formats.
                  */
@@ -3527,7 +3816,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. A list of strings represented as SQL NULL value in a CSV file. null_marker and null_markers can't be set at the same time. If null_marker is set, null_markers has to be not set. If null_markers is set, null_marker has to be not set. If both null_marker and null_markers are set at the same time, a user error would be thrown. Any strings listed in null_markers, including empty string would be interpreted as SQL NULL. This applies to all column types.
                  */
-                nullMarkers?: string[] | undefined;
+                nullMarkers?: Array<string> | undefined;
                 /**
                  * Optional. Additional properties to set if sourceFormat is set to PARQUET.
                  */
@@ -3539,7 +3828,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * If sourceFormat is set to "DATASTORE_BACKUP", indicates which entity properties to load into BigQuery from a Cloud Datastore backup. Property names are case sensitive and must be top-level properties. If no properties are specified, BigQuery loads all properties. If any named property isn't found in the Cloud Datastore backup, an invalid error is returned in the job result.
                  */
-                projectionFields?: string[] | undefined;
+                projectionFields?: Array<string> | undefined;
                 /**
                  * Optional. The value that is used to quote data sections in a CSV file. BigQuery converts the string to ISO-8859-1 encoding, and then uses the first byte of the encoded string to split the data in its raw, binary state. The default value is a double-quote ('"'). If your data does not contain quoted sections, set the property value to an empty string. If your data contains quoted newline characters, you must also set the allowQuotedNewlines property to true. To include the specific quote character within a quoted value, precede it with an additional matching quote character. For example, if you want to escape the default character ' " ', use ' "" '. @default "
                  */
@@ -3567,15 +3856,18 @@ declare namespace GoogleAppsScript {
                 /**
                  * Allows the schema of the destination table to be updated as a side effect of the load job if a schema is autodetected or supplied in the job configuration. Schema update options are supported in three cases: when writeDisposition is WRITE_APPEND; when writeDisposition is WRITE_TRUNCATE_DATA; when writeDisposition is WRITE_TRUNCATE and the destination table is a partition of a table, specified by partition decorators. For normal tables, WRITE_TRUNCATE will always overwrite the schema. One or more of the following values are specified: * ALLOW_FIELD_ADDITION: allow adding a nullable field to the schema. * ALLOW_FIELD_RELAXATION: allow relaxing a required field in the original schema to nullable.
                  */
-                schemaUpdateOptions?: string[] | undefined;
+                schemaUpdateOptions?: Array<string> | undefined;
                 /**
                  * Optional. The number of rows at the top of a CSV file that BigQuery will skip when loading the data. The default value is 0. This property is useful if you have header rows in the file that should be skipped. When autodetect is on, the behavior is the following: * skipLeadingRows unspecified - Autodetect tries to detect headers in the first row. If they are not detected, the row is read as data. Otherwise data is read starting from the second row. * skipLeadingRows is 0 - Instructs autodetect that there are no headers and data should be read starting from the first row. * skipLeadingRows = N \> 0 - Autodetect skips N-1 rows and tries to detect headers in row N. If headers are not detected, row N is just skipped. Otherwise row N is used to extract column names for the detected schema.
                  */
                 skipLeadingRows?: number | undefined;
                 /**
                  * Optional. Controls the strategy used to match loaded columns to the schema. If not set, a sensible default is chosen based on how the schema is provided. If autodetect is used, then columns are matched by name. Otherwise, columns are matched by position. This is done to keep the behavior backward-compatible.
+                 * - `SOURCE_COLUMN_MATCH_UNSPECIFIED`: Uses sensible defaults based on how the schema is provided. If autodetect is used, then columns are matched by name. Otherwise, columns are matched by position. This is done to keep the behavior backward-compatible.
+                 * - `POSITION`: Matches by position. This assumes that the columns are ordered the same way as the schema.
+                 * - `NAME`: Matches by name. This reads the header row as column names and reorders columns to match the field names in the schema.
                  */
-                sourceColumnMatch?: string | undefined;
+                sourceColumnMatch?: "SOURCE_COLUMN_MATCH_UNSPECIFIED" | "POSITION" | "NAME" | undefined;
                 /**
                  * Optional. The format of the data files. For CSV files, specify "CSV". For datastore backups, specify "DATASTORE_BACKUP". For newline-delimited JSON, specify "NEWLINE_DELIMITED_JSON". For Avro, specify "AVRO". For parquet, specify "PARQUET". For orc, specify "ORC". The default value is CSV.
                  */
@@ -3583,7 +3875,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * [Required] The fully-qualified URIs that point to your data in Google Cloud. For Google Cloud Storage URIs: Each URI can contain one '*' wildcard character and it must come after the 'bucket' name. Size limits related to load jobs apply to external data sources. For Google Cloud Bigtable URIs: Exactly one URI can be specified and it has be a fully specified and valid HTTPS URL for a Google Cloud Bigtable table. For Google Cloud Datastore backups: Exactly one URI can be specified. Also, the '*' wildcard character is not allowed.
                  */
-                sourceUris?: string[] | undefined;
+                sourceUris?: Array<string> | undefined;
                 /**
                  * Optional. Date format used for parsing TIME values.
                  */
@@ -3599,7 +3891,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Precisions (maximum number of total digits in base 10) for seconds of TIMESTAMP types that are allowed to the destination table for autodetection mode. Available for the formats: CSV, PARQUET, AVRO, and Iceberg External Table. Possible values include: Not Specified, [], or [6]: timestamp(6) for all auto detected TIMESTAMP columns [6, 12]: timestamp(6) for all auto detected TIMESTAMP columns that have less than 6 digits of subseconds. timestamp(12) for all auto detected TIMESTAMP columns that have more than 6 digits of subseconds. [12]: timestamp(12) for all auto detected TIMESTAMP columns. The order of the elements in this array is ignored. Inputs that have higher precision than the highest target precision in this array will be truncated.
                  */
-                timestampTargetPrecision?: number[] | undefined;
+                timestampTargetPrecision?: Array<number> | undefined;
                 /**
                  * Optional. Default time zone that will apply when parsing timestamp values that have no specific time zone.
                  */
@@ -3692,7 +3984,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Allows the schema of the destination table to be updated as a side effect of the query job. Schema update options are supported in three cases: when writeDisposition is WRITE_APPEND; when writeDisposition is WRITE_TRUNCATE_DATA; when writeDisposition is WRITE_TRUNCATE and the destination table is a partition of a table, specified by partition decorators. For normal tables, WRITE_TRUNCATE will always overwrite the schema. One or more of the following values are specified: * ALLOW_FIELD_ADDITION: allow adding a nullable field to the schema. * ALLOW_FIELD_RELAXATION: allow relaxing a required field in the original schema to nullable.
                  */
-                schemaUpdateOptions?: string[] | undefined;
+                schemaUpdateOptions?: Array<string> | undefined;
                 /**
                  * Options controlling the execution of scripts.
                  */
@@ -3752,8 +4044,13 @@ declare namespace GoogleAppsScript {
                 destinationTable?: BigQuery.Schema.TableReference | undefined;
                 /**
                  * Optional. Supported operation types in table copy job.
+                 * - `OPERATION_TYPE_UNSPECIFIED`: Unspecified operation type.
+                 * - `COPY`: The source and destination table have the same table type.
+                 * - `SNAPSHOT`: The source table type is TABLE and the destination table type is SNAPSHOT.
+                 * - `RESTORE`: The source table type is SNAPSHOT and the destination table type is TABLE.
+                 * - `CLONE`: The source and destination table have the same table type, but only bill for unique data.
                  */
-                operationType?: string | undefined;
+                operationType?: "OPERATION_TYPE_UNSPECIFIED" | "COPY" | "SNAPSHOT" | "RESTORE" | "CLONE" | undefined;
                 /**
                  * [Pick one] Source table to copy.
                  */
@@ -3773,8 +4070,13 @@ declare namespace GoogleAppsScript {
             interface JobCreationReason {
                 /**
                  * Output only. Specifies the high level reason why a Job was created.
+                 * - `CODE_UNSPECIFIED`: Reason is not specified.
+                 * - `REQUESTED`: Job creation was requested.
+                 * - `LONG_RUNNING`: The query request ran beyond a system defined timeout specified by the [timeoutMs field in the QueryRequest](https://cloud.google.com/bigquery/docs/reference/rest/v2/jobs/query#queryrequest). As a result it was considered a long running operation for which a job was created.
+                 * - `LARGE_RESULTS`: The results from the query cannot fit in the response.
+                 * - `OTHER`: BigQuery has determined that the query needs to be executed as a Job.
                  */
-                code?: string | undefined;
+                code?: "CODE_UNSPECIFIED" | "REQUESTED" | "LONG_RUNNING" | "LARGE_RESULTS" | "OTHER" | undefined;
             }
             /**
              * JobList is the response format for a jobs.list call.
@@ -3842,7 +4144,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * A list of skipped locations that were unreachable. For more information about BigQuery locations, see: https://cloud.google.com/bigquery/docs/locations. Example: "europe-west5"
                  */
-                unreachable?: string[] | undefined;
+                unreachable?: Array<string> | undefined;
             }
             /**
              * A job reference is a fully qualified identifier for referring to a job.
@@ -3883,8 +4185,12 @@ declare namespace GoogleAppsScript {
                 dataMaskingStatistics?: BigQuery.Schema.DataMaskingStatistics | undefined;
                 /**
                  * Output only. Name of edition corresponding to the reservation for this job at the time of this update.
+                 * - `RESERVATION_EDITION_UNSPECIFIED`: Default value, which will be treated as ENTERPRISE.
+                 * - `STANDARD`: Standard edition.
+                 * - `ENTERPRISE`: Enterprise edition.
+                 * - `ENTERPRISE_PLUS`: Enterprise Plus edition.
                  */
-                edition?: string | undefined;
+                edition?: "RESERVATION_EDITION_UNSPECIFIED" | "STANDARD" | "ENTERPRISE" | "ENTERPRISE_PLUS" | undefined;
                 /**
                  * Output only. End time of this job, in milliseconds since the epoch. This field will be present whenever a job is in the DONE state.
                  */
@@ -3900,7 +4206,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Output only. Regions where the global query accesses data.
                  */
-                globalQueryRemoteRegions?: string[] | undefined;
+                globalQueryRemoteRegions?: Array<string> | undefined;
                 /**
                  * Output only. Statistics for a load job.
                  */
@@ -3924,11 +4230,11 @@ declare namespace GoogleAppsScript {
                 /**
                  * Output only. Quotas which delayed this job's start time.
                  */
-                quotaDeferments?: string[] | undefined;
+                quotaDeferments?: Array<string> | undefined;
                 /**
                  * Output only. The reservation group path of the reservation assigned to this job. This field has a limit of 10 nested reservation groups. This is to maintain consistency between reservatins info schema and jobs info schema. The first reservation group is the root reservation group and the last is the leaf or lowest level reservation group.
                  */
-                reservationGroupPath?: string[] | undefined;
+                reservationGroupPath?: Array<string> | undefined;
                 /**
                  * Output only. Job resource usage breakdown by reservation. This field reported misleading information and will no longer be populated.
                  * @deprecated
@@ -4227,7 +4533,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Output only. Number of files per destination URI or URI pattern specified in the extract configuration. These values will be in the same order as the URIs specified in the 'destinationUris' field.
                  */
-                destinationUriFileCounts?: string[] | undefined;
+                destinationUriFileCounts?: Array<string> | undefined;
                 /**
                  * Output only. Number of user bytes extracted into the result. This is the byte count as computed by BigQuery for billing purposes and doesn't have any relationship with the number of actual result bytes extracted in the desired format.
                  */
@@ -4275,11 +4581,22 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. The only columns that joins are allowed on. This field is must be specified for join_conditions JOIN_ANY and JOIN_ALL and it cannot be set for JOIN_BLOCKED.
                  */
-                joinAllowedColumns?: string[] | undefined;
+                joinAllowedColumns?: Array<string> | undefined;
                 /**
                  * Optional. Specifies if a join is required or not on queries for the view. Default is JOIN_CONDITION_UNSPECIFIED.
+                 * - `JOIN_CONDITION_UNSPECIFIED`: A join is neither required nor restricted on any column. Default value.
+                 * - `JOIN_ANY`: A join is required on at least one of the specified columns.
+                 * - `JOIN_ALL`: A join is required on all specified columns.
+                 * - `JOIN_NOT_REQUIRED`: A join is not required, but if present it is only permitted on 'join_allowed_columns'
+                 * - `JOIN_BLOCKED`: Joins are blocked for all queries.
                  */
-                joinCondition?: string | undefined;
+                joinCondition?:
+                    | "JOIN_CONDITION_UNSPECIFIED"
+                    | "JOIN_ANY"
+                    | "JOIN_ALL"
+                    | "JOIN_NOT_REQUIRED"
+                    | "JOIN_BLOCKED"
+                    | undefined;
             }
             /**
              * Represents a single JSON object.
@@ -4305,8 +4622,11 @@ declare namespace GoogleAppsScript {
             interface LinkedDatasetMetadata {
                 /**
                  * Output only. Specifies whether Linked Dataset is currently in a linked state or not.
+                 * - `LINK_STATE_UNSPECIFIED`: The default value. Default to the LINKED state.
+                 * - `LINKED`: Normal Linked Dataset state. Data is queryable via the Linked Dataset.
+                 * - `UNLINKED`: Data publisher or owner has unlinked this Linked Dataset. It means you can no longer query or see the data in the Linked Dataset.
                  */
-                linkState?: string | undefined;
+                linkState?: "LINK_STATE_UNSPECIFIED" | "LINKED" | "UNLINKED" | undefined;
             }
             /**
              * A dataset source type which refers to another BigQuery dataset.
@@ -4409,8 +4729,33 @@ declare namespace GoogleAppsScript {
                 estimatedBytesSaved?: string | undefined;
                 /**
                  * If present, specifies the reason why the materialized view was not chosen for the query.
+                 * - `REJECTED_REASON_UNSPECIFIED`: Default unspecified value.
+                 * - `NO_DATA`: View has no cached data because it has not refreshed yet.
+                 * - `COST`: The estimated cost of the view is more expensive than another view or the base table. Note: The estimate cost might not match the billed cost.
+                 * - `BASE_TABLE_TRUNCATED`: View has no cached data because a base table is truncated.
+                 * - `BASE_TABLE_DATA_CHANGE`: View is invalidated because of a data change in one or more base tables. It could be any recent change if the [`maxStaleness`](https://cloud.google.com/bigquery/docs/reference/rest/v2/tables#Table.FIELDS.max_staleness) option is not set for the view, or otherwise any change outside of the staleness window.
+                 * - `BASE_TABLE_PARTITION_EXPIRATION_CHANGE`: View is invalidated because a base table's partition expiration has changed.
+                 * - `BASE_TABLE_EXPIRED_PARTITION`: View is invalidated because a base table's partition has expired.
+                 * - `BASE_TABLE_INCOMPATIBLE_METADATA_CHANGE`: View is invalidated because a base table has an incompatible metadata change.
+                 * - `TIME_ZONE`: View is invalidated because it was refreshed with a time zone other than that of the current job.
+                 * - `OUT_OF_TIME_TRAVEL_WINDOW`: View is outside the time travel window.
+                 * - `BASE_TABLE_FINE_GRAINED_SECURITY_POLICY`: View is inaccessible to the user because of a fine-grained security policy on one of its base tables.
+                 * - `BASE_TABLE_TOO_STALE`: One of the view's base tables is too stale. For example, the cached metadata of a BigLake external table needs to be updated.
                  */
-                rejectedReason?: string | undefined;
+                rejectedReason?:
+                    | "REJECTED_REASON_UNSPECIFIED"
+                    | "NO_DATA"
+                    | "COST"
+                    | "BASE_TABLE_TRUNCATED"
+                    | "BASE_TABLE_DATA_CHANGE"
+                    | "BASE_TABLE_PARTITION_EXPIRATION_CHANGE"
+                    | "BASE_TABLE_EXPIRED_PARTITION"
+                    | "BASE_TABLE_INCOMPATIBLE_METADATA_CHANGE"
+                    | "TIME_ZONE"
+                    | "OUT_OF_TIME_TRAVEL_WINDOW"
+                    | "BASE_TABLE_FINE_GRAINED_SECURITY_POLICY"
+                    | "BASE_TABLE_TOO_STALE"
+                    | undefined;
                 /**
                  * The candidate materialized view.
                  */
@@ -4507,12 +4852,68 @@ declare namespace GoogleAppsScript {
                 maxIterations?: string | undefined;
                 /**
                  * Output only. The type of the model that is being trained.
+                 * - `MODEL_TYPE_UNSPECIFIED`: Default value.
+                 * - `LINEAR_REGRESSION`: Linear regression model.
+                 * - `LOGISTIC_REGRESSION`: Logistic regression based classification model.
+                 * - `KMEANS`: K-means clustering model.
+                 * - `MATRIX_FACTORIZATION`: Matrix factorization model.
+                 * - `DNN_CLASSIFIER`: DNN classifier model.
+                 * - `TENSORFLOW`: An imported TensorFlow model.
+                 * - `DNN_REGRESSOR`: DNN regressor model.
+                 * - `XGBOOST`: An imported XGBoost model.
+                 * - `BOOSTED_TREE_REGRESSOR`: Boosted tree regressor model.
+                 * - `BOOSTED_TREE_CLASSIFIER`: Boosted tree classifier model.
+                 * - `ARIMA`: ARIMA model.
+                 * - `AUTOML_REGRESSOR`: AutoML Tables regression model.
+                 * - `AUTOML_CLASSIFIER`: AutoML Tables classification model.
+                 * - `PCA`: Prinpical Component Analysis model.
+                 * - `DNN_LINEAR_COMBINED_CLASSIFIER`: Wide-and-deep classifier model.
+                 * - `DNN_LINEAR_COMBINED_REGRESSOR`: Wide-and-deep regressor model.
+                 * - `AUTOENCODER`: Autoencoder model.
+                 * - `ARIMA_PLUS`: New name for the ARIMA model.
+                 * - `ARIMA_PLUS_XREG`: ARIMA with external regressors.
+                 * - `RANDOM_FOREST_REGRESSOR`: Random forest regressor model.
+                 * - `RANDOM_FOREST_CLASSIFIER`: Random forest classifier model.
+                 * - `TENSORFLOW_LITE`: An imported TensorFlow Lite model.
+                 * - `ONNX`: An imported ONNX model.
+                 * - `TRANSFORM_ONLY`: Model to capture the columns and logic in the TRANSFORM clause along with statistics useful for ML analytic functions.
+                 * - `CONTRIBUTION_ANALYSIS`: The contribution analysis model.
                  */
-                modelType?: string | undefined;
+                modelType?:
+                    | "MODEL_TYPE_UNSPECIFIED"
+                    | "LINEAR_REGRESSION"
+                    | "LOGISTIC_REGRESSION"
+                    | "KMEANS"
+                    | "MATRIX_FACTORIZATION"
+                    | "DNN_CLASSIFIER"
+                    | "TENSORFLOW"
+                    | "DNN_REGRESSOR"
+                    | "XGBOOST"
+                    | "BOOSTED_TREE_REGRESSOR"
+                    | "BOOSTED_TREE_CLASSIFIER"
+                    | "ARIMA"
+                    | "AUTOML_REGRESSOR"
+                    | "AUTOML_CLASSIFIER"
+                    | "PCA"
+                    | "DNN_LINEAR_COMBINED_CLASSIFIER"
+                    | "DNN_LINEAR_COMBINED_REGRESSOR"
+                    | "AUTOENCODER"
+                    | "ARIMA_PLUS"
+                    | "ARIMA_PLUS_XREG"
+                    | "RANDOM_FOREST_REGRESSOR"
+                    | "RANDOM_FOREST_CLASSIFIER"
+                    | "TENSORFLOW_LITE"
+                    | "ONNX"
+                    | "TRANSFORM_ONLY"
+                    | "CONTRIBUTION_ANALYSIS"
+                    | undefined;
                 /**
                  * Output only. Training type of the job.
+                 * - `TRAINING_TYPE_UNSPECIFIED`: Unspecified training type.
+                 * - `SINGLE_TRAINING`: Single training with fixed parameter space.
+                 * - `HPARAM_TUNING`: [Hyperparameter tuning training](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview).
                  */
-                trainingType?: string | undefined;
+                trainingType?: "TRAINING_TYPE_UNSPECIFIED" | "SINGLE_TRAINING" | "HPARAM_TUNING" | undefined;
             }
             interface Model {
                 /**
@@ -4582,12 +4983,65 @@ declare namespace GoogleAppsScript {
                 modelReference?: BigQuery.Schema.ModelReference | undefined;
                 /**
                  * Output only. Type of the model resource.
+                 * - `MODEL_TYPE_UNSPECIFIED`: Default value.
+                 * - `LINEAR_REGRESSION`: Linear regression model.
+                 * - `LOGISTIC_REGRESSION`: Logistic regression based classification model.
+                 * - `KMEANS`: K-means clustering model.
+                 * - `MATRIX_FACTORIZATION`: Matrix factorization model.
+                 * - `DNN_CLASSIFIER`: DNN classifier model.
+                 * - `TENSORFLOW`: An imported TensorFlow model.
+                 * - `DNN_REGRESSOR`: DNN regressor model.
+                 * - `XGBOOST`: An imported XGBoost model.
+                 * - `BOOSTED_TREE_REGRESSOR`: Boosted tree regressor model.
+                 * - `BOOSTED_TREE_CLASSIFIER`: Boosted tree classifier model.
+                 * - `ARIMA`: ARIMA model.
+                 * - `AUTOML_REGRESSOR`: AutoML Tables regression model.
+                 * - `AUTOML_CLASSIFIER`: AutoML Tables classification model.
+                 * - `PCA`: Prinpical Component Analysis model.
+                 * - `DNN_LINEAR_COMBINED_CLASSIFIER`: Wide-and-deep classifier model.
+                 * - `DNN_LINEAR_COMBINED_REGRESSOR`: Wide-and-deep regressor model.
+                 * - `AUTOENCODER`: Autoencoder model.
+                 * - `ARIMA_PLUS`: New name for the ARIMA model.
+                 * - `ARIMA_PLUS_XREG`: ARIMA with external regressors.
+                 * - `RANDOM_FOREST_REGRESSOR`: Random forest regressor model.
+                 * - `RANDOM_FOREST_CLASSIFIER`: Random forest classifier model.
+                 * - `TENSORFLOW_LITE`: An imported TensorFlow Lite model.
+                 * - `ONNX`: An imported ONNX model.
+                 * - `TRANSFORM_ONLY`: Model to capture the columns and logic in the TRANSFORM clause along with statistics useful for ML analytic functions.
+                 * - `CONTRIBUTION_ANALYSIS`: The contribution analysis model.
                  */
-                modelType?: string | undefined;
+                modelType?:
+                    | "MODEL_TYPE_UNSPECIFIED"
+                    | "LINEAR_REGRESSION"
+                    | "LOGISTIC_REGRESSION"
+                    | "KMEANS"
+                    | "MATRIX_FACTORIZATION"
+                    | "DNN_CLASSIFIER"
+                    | "TENSORFLOW"
+                    | "DNN_REGRESSOR"
+                    | "XGBOOST"
+                    | "BOOSTED_TREE_REGRESSOR"
+                    | "BOOSTED_TREE_CLASSIFIER"
+                    | "ARIMA"
+                    | "AUTOML_REGRESSOR"
+                    | "AUTOML_CLASSIFIER"
+                    | "PCA"
+                    | "DNN_LINEAR_COMBINED_CLASSIFIER"
+                    | "DNN_LINEAR_COMBINED_REGRESSOR"
+                    | "AUTOENCODER"
+                    | "ARIMA_PLUS"
+                    | "ARIMA_PLUS_XREG"
+                    | "RANDOM_FOREST_REGRESSOR"
+                    | "RANDOM_FOREST_CLASSIFIER"
+                    | "TENSORFLOW_LITE"
+                    | "ONNX"
+                    | "TRANSFORM_ONLY"
+                    | "CONTRIBUTION_ANALYSIS"
+                    | undefined;
                 /**
                  * Output only. For single-objective [hyperparameter tuning](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview) models, it only contains the best trial. For multi-objective [hyperparameter tuning](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-hp-tuning-overview) models, it contains all Pareto optimal trials sorted by trial_id.
                  */
-                optimalTrialIds?: string[] | undefined;
+                optimalTrialIds?: Array<string> | undefined;
                 /**
                  * Output only. Remote model info
                  */
@@ -4605,9 +5059,11 @@ declare namespace GoogleAppsScript {
                 /**
                  * Deprecated.
                  */
-                modelOptions?:
-                    | { labels?: string[] | undefined; lossType?: string | undefined; modelType?: string | undefined }
-                    | undefined;
+                modelOptions?: {
+                    labels?: Array<string> | undefined;
+                    lossType?: string | undefined;
+                    modelType?: string | undefined;
+                } | undefined;
                 /**
                  * Deprecated.
                  */
@@ -4662,8 +5118,12 @@ declare namespace GoogleAppsScript {
                 cacheBytesRead?: string | undefined;
                 /**
                  * The cloud provider for this block of statistics.
+                 * - `CLOUD_PROVIDER_UNSPECIFIED`: Unspecified cloud provider.
+                 * - `GCP`: Google Cloud Platform.
+                 * - `AWS`: Amazon Web Services.
+                 * - `AZURE`: Microsoft Azure.
                  */
-                cloudProvider?: string | undefined;
+                cloudProvider?: "CLOUD_PROVIDER_UNSPECIFIED" | "GCP" | "AWS" | "AZURE" | undefined;
                 /**
                  * Total bytes read directly from the cloud provider's storage.
                  */
@@ -4683,8 +5143,10 @@ declare namespace GoogleAppsScript {
                 enumAsString?: boolean | undefined;
                 /**
                  * Optional. Indicates how to represent a Parquet map if present.
+                 * - `MAP_TARGET_TYPE_UNSPECIFIED`: In this mode, the map will have the following schema: struct map_field_name { repeated struct key_value { key value } }.
+                 * - `ARRAY_OF_STRUCT`: In this mode, the map will have the following schema: repeated struct map_field_name { key value }.
                  */
-                mapTargetType?: string | undefined;
+                mapTargetType?: "MAP_TARGET_TYPE_UNSPECIFIED" | "ARRAY_OF_STRUCT" | undefined;
             }
             /**
              * The partitioning column information.
@@ -4899,7 +5361,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. A list of Python package names along with versions to be installed. Example: ["pandas\>=2.1", "google-cloud-translate==3.11"]. For more information, see [Use third-party packages](https://cloud.google.com/bigquery/docs/user-defined-functions-python#third-party-packages).
                  */
-                packages?: string[] | undefined;
+                packages?: Array<string> | undefined;
             }
             /**
              * Query optimization information for a QUERY job.
@@ -5026,8 +5488,15 @@ declare namespace GoogleAppsScript {
                 formatOptions?: BigQuery.Schema.DataFormatOptions | undefined;
                 /**
                  * Optional. If not set, jobs are always required. If set, the query request will follow the behavior described JobCreationMode.
+                 * - `JOB_CREATION_MODE_UNSPECIFIED`: If unspecified JOB_CREATION_REQUIRED is the default.
+                 * - `JOB_CREATION_REQUIRED`: Default. Job creation is always required.
+                 * - `JOB_CREATION_OPTIONAL`: Job creation is optional. Returning immediate results is prioritized. BigQuery will automatically determine if a Job needs to be created. The conditions under which BigQuery can decide to not create a Job are subject to change. If Job creation is required, JOB_CREATION_REQUIRED mode should be used, which is the default.
                  */
-                jobCreationMode?: string | undefined;
+                jobCreationMode?:
+                    | "JOB_CREATION_MODE_UNSPECIFIED"
+                    | "JOB_CREATION_REQUIRED"
+                    | "JOB_CREATION_OPTIONAL"
+                    | undefined;
                 /**
                  * Optional. Job timeout in milliseconds. If this time limit is exceeded, BigQuery will attempt to stop a longer job, but may not always succeed in canceling it before the job completes. For example, a job that takes more than 60 seconds to complete has a better chance of being stopped than a job that takes 10 seconds to complete. This timeout applies to the query even if a job does not need to be created.
                  */
@@ -5075,8 +5544,11 @@ declare namespace GoogleAppsScript {
                 queryParameters?: BigQuery.Schema.QueryParameter[] | undefined;
                 /**
                  * Optional. The query results format. If the value is anything other than `STRUCT_ENCODING` or unspecified: * The schema of the results will be provided in `QueryResponse.results_schema` field. * The results of the first page will be provided in `QueryResponse.results` field. * The `QueryResponse.rows` will not be populated. * The `QueryResponse.schema` for `QueryResponse.rows` will also not be populated since it is the schema of the `QueryResponse.rows`. This feature is not yet available.
+                 * - `QUERY_RESULTS_FORMAT_UNSPECIFIED`: If unspecified it will default to struct `QueryResponse.rows` (`STRUCT_ENCODING`)
+                 * - `STRUCT_ENCODING`: Default encoding of results as struct in `QueryResponse.rows`
+                 * - `ARROW`: Arrow is a standard open source column-based message format. See https://arrow.apache.org/ for more details.
                  */
-                queryResultsFormat?: string | undefined;
+                queryResultsFormat?: "QUERY_RESULTS_FORMAT_UNSPECIFIED" | "STRUCT_ENCODING" | "ARROW" | undefined;
                 /**
                  * Optional. A unique user provided identifier to ensure idempotent behavior for queries. Note that this is different from the job_id. It has the following properties: 1. It is case-sensitive, limited to up to 36 ASCII characters. A UUID is recommended. 2. Read only queries can ignore this token since they are nullipotent by definition. 3. For the purposes of idempotency ensured by the request_id, a request is considered duplicate of another only if they have the same request_id and are actually duplicates. When determining whether a request is a duplicate of another request, all parameters in the request that may affect the result are considered. For example, query, connection_properties, query_parameters, use_legacy_sql are parameters that affect the result and are considered when determining whether a request is a duplicate, but properties like timeout_ms don't affect the result and are thus not considered. Dry run query requests are never considered duplicate of another request. 4. When a duplicate mutating query request is detected, it returns: a. the results of the mutation if it completes successfully within the timeout. b. the running operation if it is still in progress at the end of the timeout. 5. Its lifetime is limited to 15 minutes. In other words, if two requests are sent with the same request_id, but more than 15 minutes apart, idempotency is not guaranteed.
                  */
@@ -5362,8 +5834,19 @@ declare namespace GoogleAppsScript {
                 remoteModelVersion?: string | undefined;
                 /**
                  * Output only. The remote service type for remote model.
+                 * - `REMOTE_SERVICE_TYPE_UNSPECIFIED`: Unspecified remote service type.
+                 * - `CLOUD_AI_TRANSLATE_V3`: V3 Cloud AI Translation API. See more details at [Cloud Translation API] (https://cloud.google.com/translate/docs/reference/rest).
+                 * - `CLOUD_AI_VISION_V1`: V1 Cloud AI Vision API See more details at [Cloud Vision API] (https://cloud.google.com/vision/docs/reference/rest).
+                 * - `CLOUD_AI_NATURAL_LANGUAGE_V1`: V1 Cloud AI Natural Language API. See more details at [REST Resource: documents](https://cloud.google.com/natural-language/docs/reference/rest/v1/documents).
+                 * - `CLOUD_AI_SPEECH_TO_TEXT_V2`: V2 Speech-to-Text API. See more details at [Google Cloud Speech-to-Text V2 API](https://cloud.google.com/speech-to-text/v2/docs)
                  */
-                remoteServiceType?: string | undefined;
+                remoteServiceType?:
+                    | "REMOTE_SERVICE_TYPE_UNSPECIFIED"
+                    | "CLOUD_AI_TRANSLATE_V3"
+                    | "CLOUD_AI_VISION_V1"
+                    | "CLOUD_AI_NATURAL_LANGUAGE_V1"
+                    | "CLOUD_AI_SPEECH_TO_TEXT_V2"
+                    | undefined;
                 /**
                  * Output only. The name of the speech recognizer to use for speech recognition. The expected format is `projects/{project\}/locations/{location\}/recognizers/{recognizer\}`. Customers can specify this field at model creation. If not specified, a default recognizer `projects/{model project\}/locations/global/recognizers/_` will be used. See more details at [recognizers](https://cloud.google.com/speech-to-text/v2/docs/reference/rest/v2/projects.locations.recognizers)
                  */
@@ -5372,8 +5855,10 @@ declare namespace GoogleAppsScript {
             interface RestrictionConfig {
                 /**
                  * Output only. Specifies the type of dataset/table restriction.
+                 * - `RESTRICTION_TYPE_UNSPECIFIED`: Should never be used.
+                 * - `RESTRICTED_DATA_EGRESS`: Restrict data egress. See [Data egress](https://cloud.google.com/bigquery/docs/analytics-hub-introduction#data_egress) for more details.
                  */
-                type?: string | undefined;
+                type?: "RESTRICTION_TYPE_UNSPECIFIED" | "RESTRICTED_DATA_EGRESS" | undefined;
             }
             /**
              * A user-defined function or a stored procedure.
@@ -5393,8 +5878,10 @@ declare namespace GoogleAppsScript {
                 creationTime?: string | undefined;
                 /**
                  * Optional. If set to `DATA_MASKING`, the function is validated and made available as a masking function. For more information, see [Create custom masking routines](https://cloud.google.com/bigquery/docs/user-defined-functions#custom-mask).
+                 * - `DATA_GOVERNANCE_TYPE_UNSPECIFIED`: The data governance type is unspecified.
+                 * - `DATA_MASKING`: The data governance type is data masking.
                  */
-                dataGovernanceType?: string | undefined;
+                dataGovernanceType?: "DATA_GOVERNANCE_TYPE_UNSPECIFIED" | "DATA_MASKING" | undefined;
                 /**
                  * Required. The body of the routine. For functions, this is the expression in the AS clause. If `language = "SQL"`, it is the substring inside (but excluding) the parentheses. For example, for the function created with the following statement: `CREATE FUNCTION JoinLines(x string, y string) as (concat(x, "\n", y))` The definition_body is `concat(x, "\n", y)` (\n is not replaced with linebreak). If `language="JAVASCRIPT"`, it is the evaluated string in the AS clause. For example, for the function created with the following statement: `CREATE FUNCTION f() RETURNS STRING LANGUAGE js AS 'return "\n";\n'` The definition_body is `return "\n";\n` Note that both \n are replaced with linebreaks. If `definition_body` references another routine, then that routine must be fully qualified with its project ID.
                  */
@@ -5405,8 +5892,11 @@ declare namespace GoogleAppsScript {
                 description?: string | undefined;
                 /**
                  * Optional. The determinism level of the JavaScript UDF, if defined.
+                 * - `DETERMINISM_LEVEL_UNSPECIFIED`: The determinism of the UDF is unspecified.
+                 * - `DETERMINISTIC`: The UDF is deterministic, meaning that 2 function calls with the same inputs always produce the same result, even across 2 query runs.
+                 * - `NOT_DETERMINISTIC`: The UDF is not deterministic.
                  */
-                determinismLevel?: string | undefined;
+                determinismLevel?: "DETERMINISM_LEVEL_UNSPECIFIED" | "DETERMINISTIC" | "NOT_DETERMINISTIC" | undefined;
                 /**
                  * Output only. A hash of this resource.
                  */
@@ -5418,11 +5908,17 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. If language = "JAVASCRIPT", this field stores the path of the imported JAVASCRIPT libraries.
                  */
-                importedLibraries?: string[] | undefined;
+                importedLibraries?: Array<string> | undefined;
                 /**
                  * Optional. Defaults to "SQL" if remote_function_options field is absent, not set otherwise.
+                 * - `LANGUAGE_UNSPECIFIED`: Default value.
+                 * - `SQL`: SQL language.
+                 * - `JAVASCRIPT`: JavaScript language.
+                 * - `PYTHON`: Python language.
+                 * - `JAVA`: Java language.
+                 * - `SCALA`: Scala language.
                  */
-                language?: string | undefined;
+                language?: "LANGUAGE_UNSPECIFIED" | "SQL" | "JAVASCRIPT" | "PYTHON" | "JAVA" | "SCALA" | undefined;
                 /**
                  * Output only. The time when this routine was last modified, in milliseconds since the epoch.
                  */
@@ -5449,12 +5945,26 @@ declare namespace GoogleAppsScript {
                 routineReference?: BigQuery.Schema.RoutineReference | undefined;
                 /**
                  * Required. The type of routine.
+                 * - `ROUTINE_TYPE_UNSPECIFIED`: Default value.
+                 * - `SCALAR_FUNCTION`: Non-built-in persistent scalar function.
+                 * - `PROCEDURE`: Stored procedure.
+                 * - `TABLE_VALUED_FUNCTION`: Non-built-in persistent TVF.
+                 * - `AGGREGATE_FUNCTION`: Non-built-in persistent aggregate function.
                  */
-                routineType?: string | undefined;
+                routineType?:
+                    | "ROUTINE_TYPE_UNSPECIFIED"
+                    | "SCALAR_FUNCTION"
+                    | "PROCEDURE"
+                    | "TABLE_VALUED_FUNCTION"
+                    | "AGGREGATE_FUNCTION"
+                    | undefined;
                 /**
                  * Optional. The security mode of the routine, if defined. If not defined, the security mode is automatically determined from the routine's configuration.
+                 * - `SECURITY_MODE_UNSPECIFIED`: The security mode of the routine is unspecified.
+                 * - `DEFINER`: The routine is to be executed with the privileges of the user who defines it.
+                 * - `INVOKER`: The routine is to be executed with the privileges of the user who invokes it.
                  */
-                securityMode?: string | undefined;
+                securityMode?: "SECURITY_MODE_UNSPECIFIED" | "DEFINER" | "INVOKER" | undefined;
                 /**
                  * Optional. Spark specific options.
                  */
@@ -5474,8 +5984,12 @@ declare namespace GoogleAppsScript {
                 buildDuration?: string | undefined;
                 /**
                  * Output only. The current build state of the routine.
+                 * - `BUILD_STATE_UNSPECIFIED`: Default value.
+                 * - `IN_PROGRESS`: The build is in progress.
+                 * - `SUCCEEDED`: The build has succeeded.
+                 * - `FAILED`: The build has failed.
                  */
-                buildState?: string | undefined;
+                buildState?: "BUILD_STATE_UNSPECIFIED" | "IN_PROGRESS" | "SUCCEEDED" | "FAILED" | undefined;
                 /**
                  * Output only. The time when the build state was updated last.
                  */
@@ -5538,7 +6052,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. Input only. The optional list of iam_member users or groups that specifies the initial members that the row-level access policy should be created with. grantees types: - "user:alice@example.com": An email address that represents a specific Google account. - "serviceAccount:my-other-app@appspot.gserviceaccount.com": An email address that represents a service account. - "group:admins@example.com": An email address that represents a Google group. - "domain:example.com":The Google Workspace domain (primary) that represents all the users of that domain. - "allAuthenticatedUsers": A special identifier that represents all service accounts and all users on the internet who have authenticated with a Google Account. This identifier includes accounts that aren't connected to a Google Workspace or Cloud Identity domain, such as personal Gmail accounts. Users who aren't authenticated, such as anonymous visitors, aren't included. - "allUsers":A special identifier that represents anyone who is on the internet, including authenticated and unauthenticated users. Because BigQuery requires authentication before a user can access the service, allUsers includes only authenticated users.
                  */
-                grantees?: string[] | undefined;
+                grantees?: Array<string> | undefined;
                 /**
                  * Output only. The time when this row access policy was last modified, in milliseconds since the epoch.
                  */
@@ -5584,8 +6098,11 @@ declare namespace GoogleAppsScript {
             interface ScriptOptions {
                 /**
                  * Determines which statement in the script represents the "key result", used to populate the schema and query results of the script job. Default is LAST.
+                 * - `KEY_RESULT_STATEMENT_KIND_UNSPECIFIED`: Default value.
+                 * - `LAST`: The last result determines the key result.
+                 * - `FIRST_SELECT`: The first SELECT statement determines the key result.
                  */
-                keyResultStatement?: string | undefined;
+                keyResultStatement?: "KEY_RESULT_STATEMENT_KIND_UNSPECIFIED" | "LAST" | "FIRST_SELECT" | undefined;
                 /**
                  * Limit on the number of bytes billed per statement. Exceeding this budget results in an error.
                  */
@@ -5630,8 +6147,11 @@ declare namespace GoogleAppsScript {
             interface ScriptStatistics {
                 /**
                  * Whether this child job was a statement or expression.
+                 * - `EVALUATION_KIND_UNSPECIFIED`: Default value.
+                 * - `STATEMENT`: The statement appears directly in the script.
+                 * - `EXPRESSION`: The statement evaluates an expression that appears in the script.
                  */
-                evaluationKind?: string | undefined;
+                evaluationKind?: "EVALUATION_KIND_UNSPECIFIED" | "STATEMENT" | "EXPRESSION" | undefined;
                 /**
                  * Stack trace showing the line/column/procedure name of each frame on the stack at the point where the current evaluation happened. The leaf frame is first, the primary script is last. Never empty.
                  */
@@ -5651,8 +6171,17 @@ declare namespace GoogleAppsScript {
                 indexUnusedReasons?: BigQuery.Schema.IndexUnusedReason[] | undefined;
                 /**
                  * Specifies the index usage mode for the query.
+                 * - `INDEX_USAGE_MODE_UNSPECIFIED`: Index usage mode not specified.
+                 * - `UNUSED`: No search indexes were used in the search query. See [`indexUnusedReasons`] (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason) for detailed reasons.
+                 * - `PARTIALLY_USED`: Part of the search query used search indexes. See [`indexUnusedReasons`] (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason) for why other parts of the query did not use search indexes.
+                 * - `FULLY_USED`: The entire search query used search indexes.
                  */
-                indexUsageMode?: string | undefined;
+                indexUsageMode?:
+                    | "INDEX_USAGE_MODE_UNSPECIFIED"
+                    | "UNUSED"
+                    | "PARTIALLY_USED"
+                    | "FULLY_USED"
+                    | undefined;
             }
             /**
              * Serializer and deserializer information.
@@ -5747,7 +6276,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Archive files to be extracted into the working directory of each executor. For more information about Apache Spark, see [Apache Spark](https://spark.apache.org/docs/latest/index.html).
                  */
-                archiveUris?: string[] | undefined;
+                archiveUris?: Array<string> | undefined;
                 /**
                  * Fully qualified name of the user-provided Spark connection object. Format: ```"projects/{project_id\}/locations/{location_id\}/connections/{connection_id\}"```
                  */
@@ -5759,11 +6288,11 @@ declare namespace GoogleAppsScript {
                 /**
                  * Files to be placed in the working directory of each executor. For more information about Apache Spark, see [Apache Spark](https://spark.apache.org/docs/latest/index.html).
                  */
-                fileUris?: string[] | undefined;
+                fileUris?: Array<string> | undefined;
                 /**
                  * JARs to include on the driver and executor CLASSPATH. For more information about Apache Spark, see [Apache Spark](https://spark.apache.org/docs/latest/index.html).
                  */
-                jarUris?: string[] | undefined;
+                jarUris?: Array<string> | undefined;
                 /**
                  * The fully qualified name of a class in jar_uris, for example, com.example.wordcount. Exactly one of main_class and main_jar_uri field should be set for Java/Scala language type.
                  */
@@ -5779,7 +6308,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Python files to be placed on the PYTHONPATH for PySpark application. Supported file types: `.py`, `.egg`, and `.zip`. For more information about Apache Spark, see [Apache Spark](https://spark.apache.org/docs/latest/index.html).
                  */
-                pyFileUris?: string[] | undefined;
+                pyFileUris?: Array<string> | undefined;
                 /**
                  * Runtime version. If not specified, the default runtime version is used.
                  */
@@ -5874,8 +6403,45 @@ declare namespace GoogleAppsScript {
                 structType?: BigQuery.Schema.StandardSqlStructType | undefined;
                 /**
                  * Required. The top level type of this field. Can be any GoogleSQL data type (e.g., "INT64", "DATE", "ARRAY").
+                 * - `TYPE_KIND_UNSPECIFIED`: Invalid type.
+                 * - `INT64`: Encoded as a string in decimal format.
+                 * - `BOOL`: Encoded as a boolean "false" or "true".
+                 * - `FLOAT64`: Encoded as a number, or string "NaN", "Infinity" or "-Infinity".
+                 * - `STRING`: Encoded as a string value.
+                 * - `BYTES`: Encoded as a base64 string per RFC 4648, section 4.
+                 * - `TIMESTAMP`: Encoded as an RFC 3339 timestamp with mandatory "Z" time zone string: 1985-04-12T23:20:50.52Z
+                 * - `DATE`: Encoded as RFC 3339 full-date format string: 1985-04-12
+                 * - `TIME`: Encoded as RFC 3339 partial-time format string: 23:20:50.52
+                 * - `DATETIME`: Encoded as RFC 3339 full-date "T" partial-time: 1985-04-12T23:20:50.52
+                 * - `INTERVAL`: Encoded as fully qualified 3 part: 0-5 15 2:30:45.6
+                 * - `GEOGRAPHY`: Encoded as WKT
+                 * - `NUMERIC`: Encoded as a decimal string.
+                 * - `BIGNUMERIC`: Encoded as a decimal string.
+                 * - `JSON`: Encoded as a string.
+                 * - `ARRAY`: Encoded as a list with types matching Type.array_type.
+                 * - `STRUCT`: Encoded as a list with fields of type Type.struct_type[i]. List is used because a JSON object cannot have duplicate field names.
+                 * - `RANGE`: Encoded as a pair with types matching range_element_type. Pairs must begin with "[", end with ")", and be separated by ", ".
                  */
-                typeKind?: string | undefined;
+                typeKind?:
+                    | "TYPE_KIND_UNSPECIFIED"
+                    | "INT64"
+                    | "BOOL"
+                    | "FLOAT64"
+                    | "STRING"
+                    | "BYTES"
+                    | "TIMESTAMP"
+                    | "DATE"
+                    | "TIME"
+                    | "DATETIME"
+                    | "INTERVAL"
+                    | "GEOGRAPHY"
+                    | "NUMERIC"
+                    | "BIGNUMERIC"
+                    | "JSON"
+                    | "ARRAY"
+                    | "STRUCT"
+                    | "RANGE"
+                    | undefined;
             }
             /**
              * A field or a column.
@@ -5935,8 +6501,23 @@ declare namespace GoogleAppsScript {
             interface StoredColumnsUnusedReason {
                 /**
                  * Specifies the high-level reason for the unused scenario, each reason must have a code associated.
+                 * - `CODE_UNSPECIFIED`: Default value.
+                 * - `STORED_COLUMNS_COVER_INSUFFICIENT`: If stored columns do not fully cover the columns.
+                 * - `BASE_TABLE_HAS_RLS`: If the base table has RLS (Row Level Security).
+                 * - `BASE_TABLE_HAS_CLS`: If the base table has CLS (Column Level Security).
+                 * - `UNSUPPORTED_PREFILTER`: If the provided prefilter is not supported.
+                 * - `INTERNAL_ERROR`: If an internal error is preventing stored columns from being used.
+                 * - `OTHER_REASON`: Indicates that the reason stored columns cannot be used in the query is not covered by any of the other StoredColumnsUnusedReason options.
                  */
-                code?: string | undefined;
+                code?:
+                    | "CODE_UNSPECIFIED"
+                    | "STORED_COLUMNS_COVER_INSUFFICIENT"
+                    | "BASE_TABLE_HAS_RLS"
+                    | "BASE_TABLE_HAS_CLS"
+                    | "UNSUPPORTED_PREFILTER"
+                    | "INTERNAL_ERROR"
+                    | "OTHER_REASON"
+                    | undefined;
                 /**
                  * Specifies the detailed description for the scenario.
                  */
@@ -5944,7 +6525,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Specifies which columns were not covered by the stored columns for the specified code up to 20 columns. This is populated when the code is STORED_COLUMNS_COVER_INSUFFICIENT and BASE_TABLE_HAS_CLS.
                  */
-                uncoveredColumns?: string[] | undefined;
+                uncoveredColumns?: Array<string> | undefined;
             }
             /**
              * Indicates the stored columns usage in the query.
@@ -5984,7 +6565,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Canididates for the string or enum parameter in lower case.
                  */
-                candidates?: string[] | undefined;
+                candidates?: Array<string> | undefined;
             }
             /**
              * System variables given to a query.
@@ -6022,8 +6603,15 @@ declare namespace GoogleAppsScript {
                 defaultCollation?: string | undefined;
                 /**
                  * Optional. Defines the default rounding mode specification of new decimal fields (NUMERIC OR BIGNUMERIC) in the table. During table creation or update, if a decimal field is added to this table without an explicit rounding mode specified, then the field inherits the table default rounding mode. Changing this field doesn't affect existing fields.
+                 * - `ROUNDING_MODE_UNSPECIFIED`: Unspecified will default to using ROUND_HALF_AWAY_FROM_ZERO.
+                 * - `ROUND_HALF_AWAY_FROM_ZERO`: ROUND_HALF_AWAY_FROM_ZERO rounds half values away from zero when applying precision and scale upon writing of NUMERIC and BIGNUMERIC values. For Scale: 0 1.1, 1.2, 1.3, 1.4 => 1 1.5, 1.6, 1.7, 1.8, 1.9 => 2
+                 * - `ROUND_HALF_EVEN`: ROUND_HALF_EVEN rounds half values to the nearest even value when applying precision and scale upon writing of NUMERIC and BIGNUMERIC values. For Scale: 0 1.1, 1.2, 1.3, 1.4 => 1 1.5 => 2 1.6, 1.7, 1.8, 1.9 => 2 2.5 => 2
                  */
-                defaultRoundingMode?: string | undefined;
+                defaultRoundingMode?:
+                    | "ROUNDING_MODE_UNSPECIFIED"
+                    | "ROUND_HALF_AWAY_FROM_ZERO"
+                    | "ROUND_HALF_EVEN"
+                    | undefined;
                 /**
                  * Optional. A user-friendly description of this table.
                  */
@@ -6074,8 +6662,11 @@ declare namespace GoogleAppsScript {
                 location?: string | undefined;
                 /**
                  * Optional. If set, overrides the default managed table type configured in the dataset.
+                 * - `MANAGED_TABLE_TYPE_UNSPECIFIED`: No managed table type specified.
+                 * - `NATIVE`: The managed table is a native BigQuery table.
+                 * - `BIGLAKE`: The managed table is a BigLake table for Apache Iceberg in BigQuery.
                  */
-                managedTableType?: string | undefined;
+                managedTableType?: "MANAGED_TABLE_TYPE_UNSPECIFIED" | "NATIVE" | "BIGLAKE" | undefined;
                 /**
                  * Optional. The materialized view definition.
                  */
@@ -6271,7 +6862,7 @@ declare namespace GoogleAppsScript {
                     /**
                      * Required. The columns that are composed of the primary key constraint.
                      */
-                    columns?: string[] | undefined;
+                    columns?: Array<string> | undefined;
                 } | undefined;
             }
             /**
@@ -6368,7 +6959,7 @@ declare namespace GoogleAppsScript {
                     /**
                      * Deprecated.
                      */
-                    names?: string[] | undefined;
+                    names?: Array<string> | undefined;
                 } | undefined;
                 /**
                  * Optional. Field collation can be set only when the type of field is STRING. The following values are supported: * 'und:ci': undetermined locale, case insensitive. * '': empty string. Default to case-sensitive behavior.
@@ -6430,7 +7021,7 @@ declare namespace GoogleAppsScript {
                     /**
                      * A list of policy tag resource names. For example, "projects/1/locations/eu/taxonomies/2/policyTags/3". At most 1 policy tag is currently allowed.
                      */
-                    names?: string[] | undefined;
+                    names?: Array<string> | undefined;
                 } | undefined;
                 /**
                  * Optional. Precision (maximum number of total digits in base 10) and scale (maximum number of digits in the fractional part in base 10) constraints for values of this field for NUMERIC or BIGNUMERIC. It is invalid to set precision or scale if type ≠ "NUMERIC" and ≠ "BIGNUMERIC". If precision and scale are not specified, no value range constraint is imposed on this field insofar as values are permitted by the type. Values of this NUMERIC or BIGNUMERIC field must be in this range when: * Precision (P) and scale (S) are specified: [-10P-S + 10-S, 10P-S - 10-S] * Precision (P) is specified but not scale (and thus scale is interpreted to be equal to zero): [-10P + 1, 10P - 1]. Acceptable values for precision and scale if both are specified: * If type = "NUMERIC": 1 ≤ precision - scale ≤ 29 and 0 ≤ scale ≤ 9. * If type = "BIGNUMERIC": 1 ≤ precision - scale ≤ 38 and 0 ≤ scale ≤ 38. Acceptable values for precision if only precision is specified but not scale (and thus scale is interpreted to be equal to zero): * If type = "NUMERIC": 1 ≤ precision ≤ 29. * If type = "BIGNUMERIC": 1 ≤ precision ≤ 38. If scale is specified but not precision, then it is invalid.
@@ -6447,8 +7038,15 @@ declare namespace GoogleAppsScript {
                 } | undefined;
                 /**
                  * Optional. Specifies the rounding mode to be used when storing values of NUMERIC and BIGNUMERIC type.
+                 * - `ROUNDING_MODE_UNSPECIFIED`: Unspecified will default to using ROUND_HALF_AWAY_FROM_ZERO.
+                 * - `ROUND_HALF_AWAY_FROM_ZERO`: ROUND_HALF_AWAY_FROM_ZERO rounds half values away from zero when applying precision and scale upon writing of NUMERIC and BIGNUMERIC values. For Scale: 0 1.1, 1.2, 1.3, 1.4 => 1 1.5, 1.6, 1.7, 1.8, 1.9 => 2
+                 * - `ROUND_HALF_EVEN`: ROUND_HALF_EVEN rounds half values to the nearest even value when applying precision and scale upon writing of NUMERIC and BIGNUMERIC values. For Scale: 0 1.1, 1.2, 1.3, 1.4 => 1 1.5 => 2 1.6, 1.7, 1.8, 1.9 => 2 2.5 => 2
                  */
-                roundingMode?: string | undefined;
+                roundingMode?:
+                    | "ROUNDING_MODE_UNSPECIFIED"
+                    | "ROUND_HALF_AWAY_FROM_ZERO"
+                    | "ROUND_HALF_EVEN"
+                    | undefined;
                 /**
                  * Optional. See documentation for precision.
                  */
@@ -6577,8 +7175,17 @@ declare namespace GoogleAppsScript {
                 tableType?: string | undefined;
                 /**
                  * Reason for not using metadata caching for the table.
+                 * - `UNUSED_REASON_UNSPECIFIED`: Unused reasons not specified.
+                 * - `EXCEEDED_MAX_STALENESS`: Metadata cache was outside the table's maxStaleness.
+                 * - `METADATA_CACHING_NOT_ENABLED`: Metadata caching feature is not enabled. [Update BigLake tables] (/bigquery/docs/create-cloud-storage-table-biglake#update-biglake-tables) to enable the metadata caching.
+                 * - `OTHER_REASON`: Other unknown reason.
                  */
-                unusedReason?: string | undefined;
+                unusedReason?:
+                    | "UNUSED_REASON_UNSPECIFIED"
+                    | "EXCEEDED_MAX_STALENESS"
+                    | "METADATA_CACHING_NOT_ENABLED"
+                    | "OTHER_REASON"
+                    | undefined;
             }
             interface TableReference {
                 /**
@@ -6612,8 +7219,19 @@ declare namespace GoogleAppsScript {
                 replicationIntervalMs?: string | undefined;
                 /**
                  * Optional. Output only. Replication status of configured replication.
+                 * - `REPLICATION_STATUS_UNSPECIFIED`: Default value.
+                 * - `ACTIVE`: Replication is Active with no errors.
+                 * - `SOURCE_DELETED`: Source object is deleted.
+                 * - `PERMISSION_DENIED`: Source revoked replication permissions.
+                 * - `UNSUPPORTED_CONFIGURATION`: Source configuration doesn't allow replication.
                  */
-                replicationStatus?: string | undefined;
+                replicationStatus?:
+                    | "REPLICATION_STATUS_UNSPECIFIED"
+                    | "ACTIVE"
+                    | "SOURCE_DELETED"
+                    | "PERMISSION_DENIED"
+                    | "UNSUPPORTED_CONFIGURATION"
+                    | undefined;
                 /**
                  * Required. Source table reference that is replicated.
                  */
@@ -6645,7 +7263,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * The set of permissions to check for the `resource`. Permissions with wildcards (such as `*` or `storage.*`) are not allowed. For more information see [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
                  */
-                permissions?: string[] | undefined;
+                permissions?: Array<string> | undefined;
             }
             /**
              * Response message for `TestIamPermissions` method.
@@ -6654,7 +7272,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * A subset of `TestPermissionsRequest.permissions` that the caller is allowed.
                  */
-                permissions?: string[] | undefined;
+                permissions?: Array<string> | undefined;
             }
             interface TimePartitioning {
                 /**
@@ -6713,8 +7331,11 @@ declare namespace GoogleAppsScript {
                 batchSize?: string | undefined;
                 /**
                  * Booster type for boosted tree models.
+                 * - `BOOSTER_TYPE_UNSPECIFIED`: Unspecified booster type.
+                 * - `GBTREE`: Gbtree booster.
+                 * - `DART`: Dart booster.
                  */
-                boosterType?: string | undefined;
+                boosterType?: "BOOSTER_TYPE_UNSPECIFIED" | "GBTREE" | "DART" | undefined;
                 /**
                  * Budget in hours for AutoML training.
                  */
@@ -6725,16 +7346,31 @@ declare namespace GoogleAppsScript {
                 calculatePValues?: boolean | undefined;
                 /**
                  * Categorical feature encoding method.
+                 * - `ENCODING_METHOD_UNSPECIFIED`: Unspecified encoding method.
+                 * - `ONE_HOT_ENCODING`: Applies one-hot encoding.
+                 * - `LABEL_ENCODING`: Applies label encoding.
+                 * - `DUMMY_ENCODING`: Applies dummy encoding.
                  */
-                categoryEncodingMethod?: string | undefined;
+                categoryEncodingMethod?:
+                    | "ENCODING_METHOD_UNSPECIFIED"
+                    | "ONE_HOT_ENCODING"
+                    | "LABEL_ENCODING"
+                    | "DUMMY_ENCODING"
+                    | undefined;
                 /**
                  * If true, clean spikes and dips in the input time series.
                  */
                 cleanSpikesAndDips?: boolean | undefined;
                 /**
                  * Enums for color space, used for processing images in Object Table. See more details at https://www.tensorflow.org/io/tutorials/colorspace.
+                 * - `COLOR_SPACE_UNSPECIFIED`: Unspecified color space
+                 * - `RGB`: RGB
+                 * - `HSV`: HSV
+                 * - `YIQ`: YIQ
+                 * - `YUV`: YUV
+                 * - `GRAYSCALE`: GRAYSCALE
                  */
-                colorSpace?: string | undefined;
+                colorSpace?: "COLOR_SPACE_UNSPECIFIED" | "RGB" | "HSV" | "YIQ" | "YUV" | "GRAYSCALE" | undefined;
                 /**
                  * Subsample ratio of columns for each level for boosted tree models.
                  */
@@ -6753,12 +7389,34 @@ declare namespace GoogleAppsScript {
                 contributionMetric?: string | undefined;
                 /**
                  * Type of normalization algorithm for boosted tree models using dart booster.
+                 * - `DART_NORMALIZE_TYPE_UNSPECIFIED`: Unspecified dart normalize type.
+                 * - `TREE`: New trees have the same weight of each of dropped trees.
+                 * - `FOREST`: New trees have the same weight of sum of dropped trees.
                  */
-                dartNormalizeType?: string | undefined;
+                dartNormalizeType?: "DART_NORMALIZE_TYPE_UNSPECIFIED" | "TREE" | "FOREST" | undefined;
                 /**
                  * The data frequency of a time series.
+                 * - `DATA_FREQUENCY_UNSPECIFIED`: Default value.
+                 * - `AUTO_FREQUENCY`: Automatically inferred from timestamps.
+                 * - `YEARLY`: Yearly data.
+                 * - `QUARTERLY`: Quarterly data.
+                 * - `MONTHLY`: Monthly data.
+                 * - `WEEKLY`: Weekly data.
+                 * - `DAILY`: Daily data.
+                 * - `HOURLY`: Hourly data.
+                 * - `PER_MINUTE`: Per-minute data.
                  */
-                dataFrequency?: string | undefined;
+                dataFrequency?:
+                    | "DATA_FREQUENCY_UNSPECIFIED"
+                    | "AUTO_FREQUENCY"
+                    | "YEARLY"
+                    | "QUARTERLY"
+                    | "MONTHLY"
+                    | "WEEKLY"
+                    | "DAILY"
+                    | "HOURLY"
+                    | "PER_MINUTE"
+                    | undefined;
                 /**
                  * The column to split data with. This column won't be used as a feature. 1. When data_split_method is CUSTOM, the corresponding column should be boolean. The rows with true value tag are eval data, and the false are training data. 2. When data_split_method is SEQ, the first DATA_SPLIT_EVAL_FRACTION rows (from smallest to largest) in the corresponding column are used as training data, and the rest are eval data. It respects the order in Orderable data types: https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#data_type_properties
                  */
@@ -6769,8 +7427,21 @@ declare namespace GoogleAppsScript {
                 dataSplitEvalFraction?: number | undefined;
                 /**
                  * The data split type for training and evaluation, e.g. RANDOM.
+                 * - `DATA_SPLIT_METHOD_UNSPECIFIED`: Default value.
+                 * - `RANDOM`: Splits data randomly.
+                 * - `CUSTOM`: Splits data with the user provided tags.
+                 * - `SEQUENTIAL`: Splits data sequentially.
+                 * - `NO_SPLIT`: Data split will be skipped.
+                 * - `AUTO_SPLIT`: Splits data automatically: Uses NO_SPLIT if the data size is small. Otherwise uses RANDOM.
                  */
-                dataSplitMethod?: string | undefined;
+                dataSplitMethod?:
+                    | "DATA_SPLIT_METHOD_UNSPECIFIED"
+                    | "RANDOM"
+                    | "CUSTOM"
+                    | "SEQUENTIAL"
+                    | "NO_SPLIT"
+                    | "AUTO_SPLIT"
+                    | undefined;
                 /**
                  * If true, perform decompose time series and save the results.
                  */
@@ -6778,11 +7449,14 @@ declare namespace GoogleAppsScript {
                 /**
                  * Optional. Names of the columns to slice on. Applies to contribution analysis models.
                  */
-                dimensionIdColumns?: string[] | undefined;
+                dimensionIdColumns?: Array<string> | undefined;
                 /**
                  * Distance type for clustering models.
+                 * - `DISTANCE_TYPE_UNSPECIFIED`: Default value.
+                 * - `EUCLIDEAN`: Eculidean distance.
+                 * - `COSINE`: Cosine distance.
                  */
-                distanceType?: string | undefined;
+                distanceType?: "DISTANCE_TYPE_UNSPECIFIED" | "EUCLIDEAN" | "COSINE" | undefined;
                 /**
                  * Dropout probability for dnn models.
                  */
@@ -6801,8 +7475,11 @@ declare namespace GoogleAppsScript {
                 endpointIdleTtl?: string | undefined;
                 /**
                  * Feedback type that specifies which algorithm to run for matrix factorization.
+                 * - `FEEDBACK_TYPE_UNSPECIFIED`: Default value.
+                 * - `IMPLICIT`: Use weighted-als for implicit feedback problems.
+                 * - `EXPLICIT`: Use nonweighted-als for explicit feedback problems.
                  */
-                feedbackType?: string | undefined;
+                feedbackType?: "FEEDBACK_TYPE_UNSPECIFIED" | "IMPLICIT" | "EXPLICIT" | undefined;
                 /**
                  * Whether the model should include intercept during model training.
                  */
@@ -6818,15 +7495,226 @@ declare namespace GoogleAppsScript {
                 /**
                  * Hidden units for dnn models.
                  */
-                hiddenUnits?: string[] | undefined;
+                hiddenUnits?: Array<string> | undefined;
                 /**
                  * The geographical region based on which the holidays are considered in time series modeling. If a valid value is specified, then holiday effects modeling is enabled.
+                 * - `HOLIDAY_REGION_UNSPECIFIED`: Holiday region unspecified.
+                 * - `GLOBAL`: Global.
+                 * - `NA`: North America.
+                 * - `JAPAC`: Japan and Asia Pacific: Korea, Greater China, India, Australia, and New Zealand.
+                 * - `EMEA`: Europe, the Middle East and Africa.
+                 * - `LAC`: Latin America and the Caribbean.
+                 * - `AE`: United Arab Emirates
+                 * - `AR`: Argentina
+                 * - `AT`: Austria
+                 * - `AU`: Australia
+                 * - `BE`: Belgium
+                 * - `BR`: Brazil
+                 * - `CA`: Canada
+                 * - `CH`: Switzerland
+                 * - `CL`: Chile
+                 * - `CN`: China
+                 * - `CO`: Colombia
+                 * - `CS`: Czechoslovakia
+                 * - `CZ`: Czech Republic
+                 * - `DE`: Germany
+                 * - `DK`: Denmark
+                 * - `DZ`: Algeria
+                 * - `EC`: Ecuador
+                 * - `EE`: Estonia
+                 * - `EG`: Egypt
+                 * - `ES`: Spain
+                 * - `FI`: Finland
+                 * - `FR`: France
+                 * - `GB`: Great Britain (United Kingdom)
+                 * - `GR`: Greece
+                 * - `HK`: Hong Kong
+                 * - `HU`: Hungary
+                 * - `ID`: Indonesia
+                 * - `IE`: Ireland
+                 * - `IL`: Israel
+                 * - `IN`: India
+                 * - `IR`: Iran
+                 * - `IT`: Italy
+                 * - `JP`: Japan
+                 * - `KR`: Korea (South)
+                 * - `LV`: Latvia
+                 * - `MA`: Morocco
+                 * - `MX`: Mexico
+                 * - `MY`: Malaysia
+                 * - `NG`: Nigeria
+                 * - `NL`: Netherlands
+                 * - `NO`: Norway
+                 * - `NZ`: New Zealand
+                 * - `PE`: Peru
+                 * - `PH`: Philippines
+                 * - `PK`: Pakistan
+                 * - `PL`: Poland
+                 * - `PT`: Portugal
+                 * - `RO`: Romania
+                 * - `RS`: Serbia
+                 * - `RU`: Russian Federation
+                 * - `SA`: Saudi Arabia
+                 * - `SE`: Sweden
+                 * - `SG`: Singapore
+                 * - `SI`: Slovenia
+                 * - `SK`: Slovakia
+                 * - `TH`: Thailand
+                 * - `TR`: Turkey
+                 * - `TW`: Taiwan
+                 * - `UA`: Ukraine
+                 * - `US`: United States
+                 * - `VE`: Venezuela
+                 * - `VN`: Vietnam
+                 * - `ZA`: South Africa
                  */
-                holidayRegion?: string | undefined;
+                holidayRegion?:
+                    | "HOLIDAY_REGION_UNSPECIFIED"
+                    | "GLOBAL"
+                    | "NA"
+                    | "JAPAC"
+                    | "EMEA"
+                    | "LAC"
+                    | "AE"
+                    | "AR"
+                    | "AT"
+                    | "AU"
+                    | "BE"
+                    | "BR"
+                    | "CA"
+                    | "CH"
+                    | "CL"
+                    | "CN"
+                    | "CO"
+                    | "CS"
+                    | "CZ"
+                    | "DE"
+                    | "DK"
+                    | "DZ"
+                    | "EC"
+                    | "EE"
+                    | "EG"
+                    | "ES"
+                    | "FI"
+                    | "FR"
+                    | "GB"
+                    | "GR"
+                    | "HK"
+                    | "HU"
+                    | "ID"
+                    | "IE"
+                    | "IL"
+                    | "IN"
+                    | "IR"
+                    | "IT"
+                    | "JP"
+                    | "KR"
+                    | "LV"
+                    | "MA"
+                    | "MX"
+                    | "MY"
+                    | "NG"
+                    | "NL"
+                    | "NO"
+                    | "NZ"
+                    | "PE"
+                    | "PH"
+                    | "PK"
+                    | "PL"
+                    | "PT"
+                    | "RO"
+                    | "RS"
+                    | "RU"
+                    | "SA"
+                    | "SE"
+                    | "SG"
+                    | "SI"
+                    | "SK"
+                    | "TH"
+                    | "TR"
+                    | "TW"
+                    | "UA"
+                    | "US"
+                    | "VE"
+                    | "VN"
+                    | "ZA"
+                    | undefined;
                 /**
                  * A list of geographical regions that are used for time series modeling.
                  */
-                holidayRegions?: string[] | undefined;
+                holidayRegions?:
+                    | Array<
+                        | "HOLIDAY_REGION_UNSPECIFIED"
+                        | "GLOBAL"
+                        | "NA"
+                        | "JAPAC"
+                        | "EMEA"
+                        | "LAC"
+                        | "AE"
+                        | "AR"
+                        | "AT"
+                        | "AU"
+                        | "BE"
+                        | "BR"
+                        | "CA"
+                        | "CH"
+                        | "CL"
+                        | "CN"
+                        | "CO"
+                        | "CS"
+                        | "CZ"
+                        | "DE"
+                        | "DK"
+                        | "DZ"
+                        | "EC"
+                        | "EE"
+                        | "EG"
+                        | "ES"
+                        | "FI"
+                        | "FR"
+                        | "GB"
+                        | "GR"
+                        | "HK"
+                        | "HU"
+                        | "ID"
+                        | "IE"
+                        | "IL"
+                        | "IN"
+                        | "IR"
+                        | "IT"
+                        | "JP"
+                        | "KR"
+                        | "LV"
+                        | "MA"
+                        | "MX"
+                        | "MY"
+                        | "NG"
+                        | "NL"
+                        | "NO"
+                        | "NZ"
+                        | "PE"
+                        | "PH"
+                        | "PK"
+                        | "PL"
+                        | "PT"
+                        | "RO"
+                        | "RS"
+                        | "RU"
+                        | "SA"
+                        | "SE"
+                        | "SG"
+                        | "SI"
+                        | "SK"
+                        | "TH"
+                        | "TR"
+                        | "TW"
+                        | "UA"
+                        | "US"
+                        | "VE"
+                        | "VN"
+                        | "ZA"
+                    >
+                    | undefined;
                 /**
                  * The number of periods ahead that need to be forecasted.
                  */
@@ -6834,7 +7722,27 @@ declare namespace GoogleAppsScript {
                 /**
                  * The target evaluation metrics to optimize the hyperparameters for.
                  */
-                hparamTuningObjectives?: string[] | undefined;
+                hparamTuningObjectives?:
+                    | Array<
+                        | "HPARAM_TUNING_OBJECTIVE_UNSPECIFIED"
+                        | "MEAN_ABSOLUTE_ERROR"
+                        | "MEAN_SQUARED_ERROR"
+                        | "MEAN_SQUARED_LOG_ERROR"
+                        | "MEDIAN_ABSOLUTE_ERROR"
+                        | "R_SQUARED"
+                        | "EXPLAINED_VARIANCE"
+                        | "PRECISION"
+                        | "RECALL"
+                        | "ACCURACY"
+                        | "F1_SCORE"
+                        | "LOG_LOSS"
+                        | "ROC_AUC"
+                        | "DAVIES_BOULDIN_INDEX"
+                        | "MEAN_AVERAGE_PRECISION"
+                        | "NORMALIZED_DISCOUNTED_CUMULATIVE_GAIN"
+                        | "AVERAGE_RANK"
+                    >
+                    | undefined;
                 /**
                  * The id of a Hugging Face model. For example, `google/gemma-2-2b-it`.
                  */
@@ -6850,7 +7758,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * Name of input label columns in training data.
                  */
-                inputLabelColumns?: string[] | undefined;
+                inputLabelColumns?: Array<string> | undefined;
                 /**
                  * Name of the instance weight column for training data. This column isn't be used as a feature.
                  */
@@ -6873,8 +7781,17 @@ declare namespace GoogleAppsScript {
                 kmeansInitializationColumn?: string | undefined;
                 /**
                  * The method used to initialize the centroids for kmeans algorithm.
+                 * - `KMEANS_INITIALIZATION_METHOD_UNSPECIFIED`: Unspecified initialization method.
+                 * - `RANDOM`: Initializes the centroids randomly.
+                 * - `CUSTOM`: Initializes the centroids using data specified in kmeans_initialization_column.
+                 * - `KMEANS_PLUS_PLUS`: Initializes with kmeans++.
                  */
-                kmeansInitializationMethod?: string | undefined;
+                kmeansInitializationMethod?:
+                    | "KMEANS_INITIALIZATION_METHOD_UNSPECIFIED"
+                    | "RANDOM"
+                    | "CUSTOM"
+                    | "KMEANS_PLUS_PLUS"
+                    | undefined;
                 /**
                  * L1 regularization coefficient to activations.
                  */
@@ -6897,12 +7814,18 @@ declare namespace GoogleAppsScript {
                 learnRate?: number | undefined;
                 /**
                  * The strategy to determine learn rate for the current iteration.
+                 * - `LEARN_RATE_STRATEGY_UNSPECIFIED`: Default value.
+                 * - `LINE_SEARCH`: Use line search to determine learning rate.
+                 * - `CONSTANT`: Use a constant learning rate.
                  */
-                learnRateStrategy?: string | undefined;
+                learnRateStrategy?: "LEARN_RATE_STRATEGY_UNSPECIFIED" | "LINE_SEARCH" | "CONSTANT" | undefined;
                 /**
                  * Type of loss function used during training run.
+                 * - `LOSS_TYPE_UNSPECIFIED`: Default value.
+                 * - `MEAN_SQUARED_LOSS`: Mean squared loss, used for linear regression.
+                 * - `MEAN_LOG_LOSS`: Mean log loss, used for logistic regression.
                  */
-                lossType?: string | undefined;
+                lossType?: "LOSS_TYPE_UNSPECIFIED" | "MEAN_SQUARED_LOSS" | "MEAN_LOG_LOSS" | undefined;
                 /**
                  * The type of the machine used to deploy and serve the model.
                  */
@@ -6957,8 +7880,10 @@ declare namespace GoogleAppsScript {
                 modelGardenModelName?: string | undefined;
                 /**
                  * The model registry.
+                 * - `MODEL_REGISTRY_UNSPECIFIED`: Default value.
+                 * - `VERTEX_AI`: Vertex AI.
                  */
-                modelRegistry?: string | undefined;
+                modelRegistry?: "MODEL_REGISTRY_UNSPECIFIED" | "VERTEX_AI" | undefined;
                 /**
                  * Google Cloud Storage URI from which the model was imported. Only applicable for imported models.
                  */
@@ -6989,8 +7914,15 @@ declare namespace GoogleAppsScript {
                 numTrials?: string | undefined;
                 /**
                  * Optimization strategy for training linear regression models.
+                 * - `OPTIMIZATION_STRATEGY_UNSPECIFIED`: Default value.
+                 * - `BATCH_GRADIENT_DESCENT`: Uses an iterative batch gradient descent algorithm.
+                 * - `NORMAL_EQUATION`: Uses a normal equation to solve linear regression problem.
                  */
-                optimizationStrategy?: string | undefined;
+                optimizationStrategy?:
+                    | "OPTIMIZATION_STRATEGY_UNSPECIFIED"
+                    | "BATCH_GRADIENT_DESCENT"
+                    | "NORMAL_EQUATION"
+                    | undefined;
                 /**
                  * Optimizer used for training the neural nets.
                  */
@@ -7001,20 +7933,33 @@ declare namespace GoogleAppsScript {
                 pcaExplainedVarianceRatio?: number | undefined;
                 /**
                  * The solver for PCA.
+                 * - `UNSPECIFIED`: Default value.
+                 * - `FULL`: Full eigen-decoposition.
+                 * - `RANDOMIZED`: Randomized SVD.
+                 * - `AUTO`: Auto.
                  */
-                pcaSolver?: string | undefined;
+                pcaSolver?: "UNSPECIFIED" | "FULL" | "RANDOMIZED" | "AUTO" | undefined;
                 /**
                  * Corresponds to the label key of a reservation resource used by Vertex AI. To target a SPECIFIC_RESERVATION by name, use `compute.googleapis.com/reservation-name` as the key and specify the name of your reservation as its value.
                  */
                 reservationAffinityKey?: string | undefined;
                 /**
                  * Specifies the reservation affinity type used to configure a Vertex AI resource. The default value is `NO_RESERVATION`.
+                 * - `RESERVATION_AFFINITY_TYPE_UNSPECIFIED`: Default value.
+                 * - `NO_RESERVATION`: No reservation.
+                 * - `ANY_RESERVATION`: Any reservation.
+                 * - `SPECIFIC_RESERVATION`: Specific reservation.
                  */
-                reservationAffinityType?: string | undefined;
+                reservationAffinityType?:
+                    | "RESERVATION_AFFINITY_TYPE_UNSPECIFIED"
+                    | "NO_RESERVATION"
+                    | "ANY_RESERVATION"
+                    | "SPECIFIC_RESERVATION"
+                    | undefined;
                 /**
                  * Corresponds to the label values of a reservation resource used by Vertex AI. This must be the full resource name of the reservation or reservation block.
                  */
-                reservationAffinityValues?: string[] | undefined;
+                reservationAffinityValues?: Array<string> | undefined;
                 /**
                  * Number of paths for the sampled Shapley explain method.
                  */
@@ -7046,7 +7991,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * The time series id columns that were used during ARIMA model training.
                  */
-                timeSeriesIdColumns?: string[] | undefined;
+                timeSeriesIdColumns?: Array<string> | undefined;
                 /**
                  * The fraction of the interpolated length of the time series that's used to model the time series trend component. All of the time points of the time series are used to model the non-trend component. This training option accelerates modeling training without sacrificing much forecasting accuracy. You can use this option with `minTimeSeriesLength` but not with `maxTimeSeriesLength`.
                  */
@@ -7057,8 +8002,13 @@ declare namespace GoogleAppsScript {
                 timeSeriesTimestampColumn?: string | undefined;
                 /**
                  * Tree construction algorithm for boosted tree models.
+                 * - `TREE_METHOD_UNSPECIFIED`: Unspecified tree method.
+                 * - `AUTO`: Use heuristic to choose the fastest method.
+                 * - `EXACT`: Exact greedy algorithm.
+                 * - `APPROX`: Approximate greedy algorithm using quantile sketch and gradient histogram.
+                 * - `HIST`: Fast histogram optimized approximate greedy algorithm.
                  */
-                treeMethod?: string | undefined;
+                treeMethod?: "TREE_METHOD_UNSPECIFIED" | "AUTO" | "EXACT" | "APPROX" | "HIST" | undefined;
                 /**
                  * Smoothing window size for the trend component. When a positive value is specified, a center moving average smoothing is applied on the history trend. When the smoothing window is out of the boundary at the beginning or the end of the trend, the first element or the last element is padded to fill the smoothing window before the average is applied.
                  */
@@ -7070,7 +8020,7 @@ declare namespace GoogleAppsScript {
                 /**
                  * The version aliases to apply in Vertex AI model registry. Always overwrite if the version aliases exists in a existing model.
                  */
-                vertexAiModelVersionAliases?: string[] | undefined;
+                vertexAiModelVersionAliases?: Array<string> | undefined;
                 /**
                  * Hyperparameter for matrix factoration when implicit feedback type is specified.
                  */
@@ -7188,8 +8138,17 @@ declare namespace GoogleAppsScript {
                 indexUnusedReasons?: BigQuery.Schema.IndexUnusedReason[] | undefined;
                 /**
                  * Specifies the index usage mode for the query.
+                 * - `INDEX_USAGE_MODE_UNSPECIFIED`: Index usage mode not specified.
+                 * - `UNUSED`: No vector indexes were used in the vector search query. See [`indexUnusedReasons`] (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason) for detailed reasons.
+                 * - `PARTIALLY_USED`: Part of the vector search query used vector indexes. See [`indexUnusedReasons`] (/bigquery/docs/reference/rest/v2/Job#IndexUnusedReason) for why other parts of the query did not use vector indexes.
+                 * - `FULLY_USED`: The entire vector search query used vector indexes.
                  */
-                indexUsageMode?: string | undefined;
+                indexUsageMode?:
+                    | "INDEX_USAGE_MODE_UNSPECIFIED"
+                    | "UNUSED"
+                    | "PARTIALLY_USED"
+                    | "FULLY_USED"
+                    | undefined;
                 /**
                  * Specifies the usage of stored columns in the query when stored columns are used in the query.
                  */
@@ -7225,107 +8184,6 @@ declare namespace GoogleAppsScript {
                 userDefinedFunctionResources?: BigQuery.Schema.UserDefinedFunctionResource[] | undefined;
             }
         }
-    }
-    interface BigQuery {
-        Datasets: BigQuery.Collection.DatasetsCollection;
-        Jobs: BigQuery.Collection.JobsCollection;
-        Projects: BigQuery.Collection.ProjectsCollection;
-        Tabledata: BigQuery.Collection.TabledataCollection;
-        Tables: BigQuery.Collection.TablesCollection;
-        // Create a new instance of BigQueryModelTraining
-        newBigQueryModelTraining(): BigQuery.Schema.BigQueryModelTraining;
-        // Create a new instance of BigtableColumn
-        newBigtableColumn(): BigQuery.Schema.BigtableColumn;
-        // Create a new instance of BigtableColumnFamily
-        newBigtableColumnFamily(): BigQuery.Schema.BigtableColumnFamily;
-        // Create a new instance of BigtableOptions
-        newBigtableOptions(): BigQuery.Schema.BigtableOptions;
-        // Create a new instance of BqmlIterationResult
-        newBqmlIterationResult(): BigQuery.Schema.BqmlIterationResult;
-        // Create a new instance of BqmlTrainingRun
-        newBqmlTrainingRun(): BigQuery.Schema.BqmlTrainingRun;
-        // Create a new instance of Clustering
-        newClustering(): BigQuery.Schema.Clustering;
-        // Create a new instance of CsvOptions
-        newCsvOptions(): BigQuery.Schema.CsvOptions;
-        // Create a new instance of Dataset
-        newDataset(): BigQuery.Schema.Dataset;
-        // Create a new instance of DatasetReference
-        newDatasetReference(): BigQuery.Schema.DatasetReference;
-        // Create a new instance of DestinationTableProperties
-        newDestinationTableProperties(): BigQuery.Schema.DestinationTableProperties;
-        // Create a new instance of EncryptionConfiguration
-        newEncryptionConfiguration(): BigQuery.Schema.EncryptionConfiguration;
-        // Create a new instance of ErrorProto
-        newErrorProto(): BigQuery.Schema.ErrorProto;
-        // Create a new instance of ExplainQueryStage
-        newExplainQueryStage(): BigQuery.Schema.ExplainQueryStage;
-        // Create a new instance of ExplainQueryStep
-        newExplainQueryStep(): BigQuery.Schema.ExplainQueryStep;
-        // Create a new instance of ExternalDataConfiguration
-        newExternalDataConfiguration(): BigQuery.Schema.ExternalDataConfiguration;
-        // Create a new instance of GoogleSheetsOptions
-        newGoogleSheetsOptions(): BigQuery.Schema.GoogleSheetsOptions;
-        // Create a new instance of Job
-        newJob(): BigQuery.Schema.Job;
-        // Create a new instance of JobConfiguration
-        newJobConfiguration(): BigQuery.Schema.JobConfiguration;
-        // Create a new instance of JobConfigurationExtract
-        newJobConfigurationExtract(): BigQuery.Schema.JobConfigurationExtract;
-        // Create a new instance of JobConfigurationLoad
-        newJobConfigurationLoad(): BigQuery.Schema.JobConfigurationLoad;
-        // Create a new instance of JobConfigurationQuery
-        newJobConfigurationQuery(): BigQuery.Schema.JobConfigurationQuery;
-        // Create a new instance of JobConfigurationTableCopy
-        newJobConfigurationTableCopy(): BigQuery.Schema.JobConfigurationTableCopy;
-        // Create a new instance of JobReference
-        newJobReference(): BigQuery.Schema.JobReference;
-        // Create a new instance of JobStatistics
-        newJobStatistics(): BigQuery.Schema.JobStatistics;
-        // Create a new instance of JobStatistics2
-        newJobStatistics2(): BigQuery.Schema.JobStatistics2;
-        // Create a new instance of JobStatistics3
-        newJobStatistics3(): BigQuery.Schema.JobStatistics3;
-        // Create a new instance of JobStatistics4
-        newJobStatistics4(): BigQuery.Schema.JobStatistics4;
-        // Create a new instance of JobStatus
-        newJobStatus(): BigQuery.Schema.JobStatus;
-        // Create a new instance of MaterializedViewDefinition
-        newMaterializedViewDefinition(): BigQuery.Schema.MaterializedViewDefinition;
-        // Create a new instance of ModelDefinition
-        newModelDefinition(): BigQuery.Schema.ModelDefinition;
-        // Create a new instance of QueryParameter
-        newQueryParameter(): BigQuery.Schema.QueryParameter;
-        // Create a new instance of QueryParameterType
-        newQueryParameterType(): BigQuery.Schema.QueryParameterType;
-        // Create a new instance of QueryParameterValue
-        newQueryParameterValue(): BigQuery.Schema.QueryParameterValue;
-        // Create a new instance of QueryRequest
-        newQueryRequest(): BigQuery.Schema.QueryRequest;
-        // Create a new instance of QueryTimelineSample
-        newQueryTimelineSample(): BigQuery.Schema.QueryTimelineSample;
-        // Create a new instance of RangePartitioning
-        newRangePartitioning(): BigQuery.Schema.RangePartitioning;
-        // Create a new instance of RoutineReference
-        newRoutineReference(): BigQuery.Schema.RoutineReference;
-        // Create a new instance of Streamingbuffer
-        newStreamingbuffer(): BigQuery.Schema.Streamingbuffer;
-        // Create a new instance of Table
-        newTable(): BigQuery.Schema.Table;
-        // Create a new instance of TableDataInsertAllRequest
-        newTableDataInsertAllRequest(): BigQuery.Schema.TableDataInsertAllRequest;
-        // Create a new instance of TableFieldSchema
-        newTableFieldSchema(): BigQuery.Schema.TableFieldSchema;
-        // Create a new instance of TableReference
-        newTableReference(): BigQuery.Schema.TableReference;
-        // Create a new instance of TableSchema
-        newTableSchema(): BigQuery.Schema.TableSchema;
-        // Create a new instance of TimePartitioning
-        newTimePartitioning(): BigQuery.Schema.TimePartitioning;
-        // Create a new instance of UserDefinedFunctionResource
-        newUserDefinedFunctionResource(): BigQuery.Schema.UserDefinedFunctionResource;
-        // Create a new instance of ViewDefinition
-        newViewDefinition(): BigQuery.Schema.ViewDefinition;
     }
 }
 
@@ -7436,24 +8294,123 @@ declare namespace GoogleAppsScript {
     }
 
     interface BigQuery {
+        Datasets: BigQuery.Collection.DatasetsCollection;
+        Jobs: BigQuery.Collection.JobsCollection;
+        Projects: BigQuery.Collection.ProjectsCollection;
+        Tabledata: BigQuery.Collection.TabledataCollection;
+        Tables: BigQuery.Collection.TablesCollection;
+        // Create a new instance of BigQueryModelTraining
+        newBigQueryModelTraining(): BigQuery.Schema.BigQueryModelTraining;
+        // Create a new instance of BigtableColumn
+        newBigtableColumn(): BigQuery.Schema.BigtableColumn;
+        // Create a new instance of BigtableColumnFamily
+        newBigtableColumnFamily(): BigQuery.Schema.BigtableColumnFamily;
+        // Create a new instance of BigtableOptions
+        newBigtableOptions(): BigQuery.Schema.BigtableOptions;
+        // Create a new instance of BqmlIterationResult
+        newBqmlIterationResult(): BigQuery.Schema.BqmlIterationResult;
+        // Create a new instance of BqmlTrainingRun
+        newBqmlTrainingRun(): BigQuery.Schema.BqmlTrainingRun;
         // Create a new instance of BqmlTrainingRunTrainingOptions
         newBqmlTrainingRunTrainingOptions(): BigQuery.Schema.BqmlTrainingRunTrainingOptions;
+        // Create a new instance of Clustering
+        newClustering(): BigQuery.Schema.Clustering;
+        // Create a new instance of CsvOptions
+        newCsvOptions(): BigQuery.Schema.CsvOptions;
+        // Create a new instance of Dataset
+        newDataset(): BigQuery.Schema.Dataset;
         // Create a new instance of DatasetAccess
         newDatasetAccess(): BigQuery.Schema.DatasetAccess;
+        // Create a new instance of DatasetReference
+        newDatasetReference(): BigQuery.Schema.DatasetReference;
+        // Create a new instance of DestinationTableProperties
+        newDestinationTableProperties(): BigQuery.Schema.DestinationTableProperties;
+        // Create a new instance of EncryptionConfiguration
+        newEncryptionConfiguration(): BigQuery.Schema.EncryptionConfiguration;
+        // Create a new instance of ErrorProto
+        newErrorProto(): BigQuery.Schema.ErrorProto;
+        // Create a new instance of ExplainQueryStage
+        newExplainQueryStage(): BigQuery.Schema.ExplainQueryStage;
+        // Create a new instance of ExplainQueryStep
+        newExplainQueryStep(): BigQuery.Schema.ExplainQueryStep;
+        // Create a new instance of ExternalDataConfiguration
+        newExternalDataConfiguration(): BigQuery.Schema.ExternalDataConfiguration;
+        // Create a new instance of GoogleSheetsOptions
+        newGoogleSheetsOptions(): BigQuery.Schema.GoogleSheetsOptions;
+        // Create a new instance of Job
+        newJob(): BigQuery.Schema.Job;
+        // Create a new instance of JobConfiguration
+        newJobConfiguration(): BigQuery.Schema.JobConfiguration;
+        // Create a new instance of JobConfigurationExtract
+        newJobConfigurationExtract(): BigQuery.Schema.JobConfigurationExtract;
+        // Create a new instance of JobConfigurationLoad
+        newJobConfigurationLoad(): BigQuery.Schema.JobConfigurationLoad;
+        // Create a new instance of JobConfigurationQuery
+        newJobConfigurationQuery(): BigQuery.Schema.JobConfigurationQuery;
+        // Create a new instance of JobConfigurationTableCopy
+        newJobConfigurationTableCopy(): BigQuery.Schema.JobConfigurationTableCopy;
+        // Create a new instance of JobReference
+        newJobReference(): BigQuery.Schema.JobReference;
+        // Create a new instance of JobStatistics
+        newJobStatistics(): BigQuery.Schema.JobStatistics;
+        // Create a new instance of JobStatistics2
+        newJobStatistics2(): BigQuery.Schema.JobStatistics2;
         // Create a new instance of JobStatistics2ReservationUsage
         newJobStatistics2ReservationUsage(): BigQuery.Schema.JobStatistics2ReservationUsage;
+        // Create a new instance of JobStatistics3
+        newJobStatistics3(): BigQuery.Schema.JobStatistics3;
+        // Create a new instance of JobStatistics4
+        newJobStatistics4(): BigQuery.Schema.JobStatistics4;
         // Create a new instance of JobStatisticsReservationUsage
         newJobStatisticsReservationUsage(): BigQuery.Schema.JobStatisticsReservationUsage;
+        // Create a new instance of JobStatus
+        newJobStatus(): BigQuery.Schema.JobStatus;
+        // Create a new instance of MaterializedViewDefinition
+        newMaterializedViewDefinition(): BigQuery.Schema.MaterializedViewDefinition;
+        // Create a new instance of ModelDefinition
+        newModelDefinition(): BigQuery.Schema.ModelDefinition;
         // Create a new instance of ModelDefinitionModelOptions
         newModelDefinitionModelOptions(): BigQuery.Schema.ModelDefinitionModelOptions;
+        // Create a new instance of QueryParameter
+        newQueryParameter(): BigQuery.Schema.QueryParameter;
+        // Create a new instance of QueryParameterType
+        newQueryParameterType(): BigQuery.Schema.QueryParameterType;
         // Create a new instance of QueryParameterTypeStructTypes
         newQueryParameterTypeStructTypes(): BigQuery.Schema.QueryParameterTypeStructTypes;
+        // Create a new instance of QueryParameterValue
+        newQueryParameterValue(): BigQuery.Schema.QueryParameterValue;
+        // Create a new instance of QueryRequest
+        newQueryRequest(): BigQuery.Schema.QueryRequest;
+        // Create a new instance of QueryTimelineSample
+        newQueryTimelineSample(): BigQuery.Schema.QueryTimelineSample;
+        // Create a new instance of RangePartitioning
+        newRangePartitioning(): BigQuery.Schema.RangePartitioning;
         // Create a new instance of RangePartitioningRange
         newRangePartitioningRange(): BigQuery.Schema.RangePartitioningRange;
+        // Create a new instance of RoutineReference
+        newRoutineReference(): BigQuery.Schema.RoutineReference;
+        // Create a new instance of Streamingbuffer
+        newStreamingbuffer(): BigQuery.Schema.Streamingbuffer;
+        // Create a new instance of Table
+        newTable(): BigQuery.Schema.Table;
+        // Create a new instance of TableDataInsertAllRequest
+        newTableDataInsertAllRequest(): BigQuery.Schema.TableDataInsertAllRequest;
         // Create a new instance of TableDataInsertAllRequestRows
         newTableDataInsertAllRequestRows(): BigQuery.Schema.TableDataInsertAllRequestRows;
+        // Create a new instance of TableFieldSchema
+        newTableFieldSchema(): BigQuery.Schema.TableFieldSchema;
         // Create a new instance of TableFieldSchemaCategories
         newTableFieldSchemaCategories(): BigQuery.Schema.TableFieldSchemaCategories;
+        // Create a new instance of TableReference
+        newTableReference(): BigQuery.Schema.TableReference;
+        // Create a new instance of TableSchema
+        newTableSchema(): BigQuery.Schema.TableSchema;
+        // Create a new instance of TimePartitioning
+        newTimePartitioning(): BigQuery.Schema.TimePartitioning;
+        // Create a new instance of UserDefinedFunctionResource
+        newUserDefinedFunctionResource(): BigQuery.Schema.UserDefinedFunctionResource;
+        // Create a new instance of ViewDefinition
+        newViewDefinition(): BigQuery.Schema.ViewDefinition;
     }
 }
 
