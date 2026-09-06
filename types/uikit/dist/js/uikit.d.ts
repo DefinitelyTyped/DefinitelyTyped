@@ -325,7 +325,7 @@ export namespace UIkit {
         /** The icon to display. */
         icon?: string;
         /** The icon size ratio. */
-        ratio?: number;
+        ratio?: number | string;
     }
 
     interface UIkitIconElement extends UIkitElementBase {
