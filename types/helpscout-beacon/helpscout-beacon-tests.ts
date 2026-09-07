@@ -8,21 +8,21 @@ window.Beacon("init", {
     mode: "askFirst",
     display: {
         position: "left",
-        style: "iconAndText"
-    }
+        style: "iconAndText",
+    },
 });
 
 window.Beacon("identify", {
     name: "Baver Bozdağ",
     email: "hello@example.com",
     jobTitle: "Frontend Developer",
-    "Custom-Attribute": "Test"
+    "Custom-Attribute": "Test",
 });
 
 window.Beacon("suggest", ["article-1", "article-2"]);
 window.Beacon("suggest", [
     "article-1",
-    { text: "Help Scout", url: "https://www.helpscout.com" }
+    { text: "Help Scout", url: "https://www.helpscout.com" },
 ]);
 
 window.Beacon("on", "open", () => {

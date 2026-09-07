@@ -80,7 +80,7 @@ declare namespace Beacon {
         subject?: string;
         text?: string;
         fields?: Array<{ id: number; value: string | number }>;
-        attachments?: File[]; 
+        attachments?: File[];
     }
 
     type Event =
