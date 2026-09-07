@@ -456,6 +456,13 @@ declare module "node:test" {
                  */
                 column?: number;
                 /**
+                 * The path of the test file that was
+                 * executed as the entry point of the child process that emitted this event.
+                 * Only present when tests run with process isolation. May differ from
+                 * `file` when the test is defined in a module imported by the entry file.
+                 */
+                entryFile?: string;
+                /**
                  * The path of the test file, `undefined` if test was run through the REPL.
                  */
                 file?: string;
