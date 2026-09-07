@@ -529,10 +529,10 @@ declare module "node:diagnostics_channel" {
          * @param context Shared object to correlate trace events through
          * @param thisArg The receiver to be used for the function call
          * @param args Optional arguments to pass to the function
-         * @returns The return value of the given function, or the result of
-         * calling `.then(...)` on the return value if the tracing channel has active
-         * subscribers. If the return value is not a Promise or thenable, then
-         * it is returned as-is and a warning is emitted.
+         * @returns The return value of the given function. If the return value
+         * is a Promise or thenable, tracing events will be published when it settles.
+         * If the return value is not a Promise or thenable, it is returned as-is and
+         * a warning is emitted.
          */
         tracePromise<ThisArg = any, Args extends any[] = any[], Result extends PromiseLike<unknown> = any>(
             fn: (this: ThisArg, ...args: Args) => Result,
