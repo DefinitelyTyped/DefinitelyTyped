@@ -182,10 +182,11 @@ declare module "node:vfs" {
         setReadOnly(): void;
     }
     /**
-     * A provider that wraps a directory (i.e. one on the actual file system) and exposes its
-     * contents through the VFS API. All VFS paths are resolved relative to
-     * the root and verified to stay inside it; symbolic links resolving
-     * outside the root are rejected.
+     * A provider that wraps a directory (i.e. one on the actual file system) and
+     * exposes its contents through the VFS API. All VFS paths are resolved relative to
+     * the root and verified to stay inside it; symbolic links resolving outside the
+     * root are rejected. This path mapping is not a sandbox or access-control
+     * mechanism.
      * @since v26.4.0
      */
     class RealFSProvider extends VirtualProvider {
@@ -193,8 +194,8 @@ declare module "node:vfs" {
          * ```js
          * const vfs = require('node:vfs');
          *
-         * const realVfs = vfs.create(new vfs.RealFSProvider('/tmp/sandbox'));
-         * realVfs.writeFileSync('/file.txt', 'hello'); // writes /tmp/sandbox/file.txt
+         * const realVfs = vfs.create(new vfs.RealFSProvider('/tmp/vfs-root'));
+         * realVfs.writeFileSync('/file.txt', 'hello'); // writes /tmp/vfs-root/file.txt
          * ```
          * @since v26.4.0
          * @param rootPath The absolute file-system path to use as the root.

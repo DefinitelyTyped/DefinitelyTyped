@@ -225,7 +225,7 @@ declare module "node:http" {
          * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
          * after it has finished writing the last response, before a socket will be destroyed.
          * @see Server.keepAliveTimeout for more information.
-         * @default 5000
+         * @default 65000
          * @since v18.0.0
          */
         keepAliveTimeout?: number | undefined;
