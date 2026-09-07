@@ -4,7 +4,7 @@ declare module "node:quic" {
     import { FileHandle } from "node:fs/promises";
     import { BlockList, SocketAddress } from "node:net";
     import { Writer } from "node:stream/iter";
-    import { EphemeralKeyInfo } from "node:tls";
+    import { CertificateCompressionAlgorithm, EphemeralKeyInfo } from "node:tls";
     /**
      * @since v23.8.0
      */
@@ -277,6 +277,28 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         ca?: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView> | undefined;
+        /**
+         * Enables TLS certificate compression ([RFC 8879](https://www.rfc-editor.org/rfc/rfc8879)) for this session. When
+         * omitted, certificate compression is disabled.
+         *
+         * On the server side, the certificate chain is compressed using the first
+         * listed algorithm that the client advertises support for. On the client side,
+         * the listed algorithms are advertised to the server so that the server may
+         * compress its certificate. When client authentication is in use, the option
+         * also controls compression of the client's certificate.
+         *
+         * Compressing the certificate chain is especially useful for QUIC because it
+         * reduces the size of the server's first flight, which is bounded by the
+         * anti-amplification limit (see [Certificate size and handshake
+         * performance](https://nodejs.org/docs/latest-v26.x/api/quic.html#certificate-size-and-handshake-performance)). Certificate compression requires TLS 1.3, which QUIC always
+         * uses.
+         *
+         * At most three algorithms may be specified. The option is silently ignored if
+         * Node.js was built against a shared OpenSSL that lacks certificate compression
+         * support.
+         * @since v26.6.0
+         */
+        certificateCompression?: readonly CertificateCompressionAlgorithm[] | undefined;
         /**
          * Specifies the congestion control algorithm that will be used.
          * Must be set to one of either `'reno'`, `'cubic'`, or `'bbr'`.
