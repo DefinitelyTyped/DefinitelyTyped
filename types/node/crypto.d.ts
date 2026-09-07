@@ -1304,8 +1304,11 @@ declare module "node:crypto" {
         /**
          * Calculates the signature on all the data passed through using either `sign.update()` or `sign.write()`.
          *
-         * If `privateKey` is not a `KeyObject`, this function behaves as if `privateKey` had been passed to {@link createPrivateKey}. If it is an
-         * object, the following additional properties can be passed:
+         * If `privateKey` is not a `KeyObject`, this function behaves as if
+         * `privateKey` had been passed to `crypto.createPrivateKey()`. When
+         * `privateKey` is a string, `ArrayBuffer`, `Buffer`, `TypedArray`, or
+         * `DataView`, it must contain PEM-encoded key material. If it is an object, the
+         * following additional properties can be passed:
          *
          * If `outputEncoding` is provided a string is returned; otherwise a `Buffer` is returned.
          *
@@ -1375,8 +1378,11 @@ declare module "node:crypto" {
         /**
          * Verifies the provided data using the given `key` and `signature`.
          *
-         * If `key` is not a `KeyObject`, this function behaves as if `key` had been passed to {@link createPublicKey}. If it is an
-         * object, the following additional properties can be passed:
+         * If `key` is not a `KeyObject`, this function behaves as if
+         * `key` had been passed to `crypto.createPublicKey()`. When `key` is a string,
+         * `ArrayBuffer`, `Buffer`, `TypedArray`, or `DataView`, it must contain
+         * PEM-encoded key material. If it is an object, the following additional
+         * properties can be passed:
          *
          * The `signature` argument is the previously calculated signature for the data, in
          * the `signatureEncoding`.
@@ -2690,8 +2696,10 @@ declare module "node:crypto" {
      * ML-DSA.
      *
      * If `key` is not a `KeyObject`, this function behaves as if `key` had been
-     * passed to {@link createPrivateKey}. If it is an object, the following
-     * additional properties can be passed:
+     * passed to `crypto.createPrivateKey()`. When `key` is a string, `ArrayBuffer`,
+     * `Buffer`, `TypedArray`, or `DataView`, it must contain PEM-encoded key
+     * material. If it is an object, the following additional properties can be
+     * passed:
      *
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v12.0.0
@@ -2716,8 +2724,10 @@ declare module "node:crypto" {
      * ML-DSA.
      *
      * If `key` is not a `KeyObject`, this function behaves as if `key` had been
-     * passed to {@link createPublicKey}. If it is an object, the following
-     * additional properties can be passed:
+     * passed to `crypto.createPublicKey()`. When `key` is a string, `ArrayBuffer`,
+     * `Buffer`, `TypedArray`, or `DataView`, it must contain PEM-encoded key
+     * material. If it is an object, the following additional properties can be
+     * passed:
      *
      * The `signature` argument is the previously calculated signature for the `data`.
      *
