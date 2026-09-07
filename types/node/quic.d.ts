@@ -1461,6 +1461,22 @@ declare module "node:quic" {
             encoding?: BufferEncoding,
         ): Promise<bigint>;
         /**
+         * The SNI (Server Name Indication) host name associated with the session. This is
+         * `null` before the client hello is processed. Once the hello has been
+         * processed, this is either the host name string or `false` if the handshake
+         * had no SNI.
+         * @since v26.6.0
+         */
+        readonly servername: string | false | null;
+        /**
+         * The negotiated ALPN protocol. This is `null` before the client hello is
+         * processed. Once ALPN has been negotiated, this is the protocol string. ALPN
+         * is mandatory in QUIC so this is never `false` on successful connections,
+         * unlike `node:tls` where this is optional.
+         * @since v26.6.0
+         */
+        readonly alpnProtocol: string | null;
+        /**
          * The local certificate as a `crypto.X509Certificate` instance. Server
          * sessions return the certificate configured for the negotiated SNI host.
          * Client sessions return `undefined` unless a client certificate was sent.
