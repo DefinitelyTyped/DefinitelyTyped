@@ -1619,7 +1619,7 @@ declare namespace chrome {
             /**
              * Clear all content setting rules set by this extension.
              *
-             * Can return its result via Promise since Chrome 96.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
             clear(details: ContentSettingClearParams): Promise<void>;
             clear(details: ContentSettingClearParams, callback: () => void): void;
@@ -1627,19 +1627,19 @@ declare namespace chrome {
             /**
              * Gets the current content setting for a given pair of URLs.
              *
-             * Can return its result via Promise since Chrome 96.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
             get(details: ContentSettingGetParams): Promise<ContentSettingGetResult<T>>;
             get(details: ContentSettingGetParams, callback: (details: ContentSettingGetResult<T>) => void): void;
 
-            /** Can return its result via Promise since Chrome 96. */
+            /** Can return its result via Promise in Manifest V3 or later since Chrome 96. */
             getResourceIdentifiers(): Promise<ResourceIdentifier[] | undefined>;
             getResourceIdentifiers(callback: (resourceIdentifiers?: ResourceIdentifier[]) => void): void;
 
             /**
              * Applies a new content setting rule.
              *
-             * Can return its result via Promise since Chrome 96.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
             set(details: ContentSettingSetParams<T>): Promise<void>;
             set(details: ContentSettingSetParams<T>, callback: () => void): void;
@@ -1718,7 +1718,7 @@ declare namespace chrome {
             BLOCK = "block",
         }
 
-        /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
+        /** The only content type using resource identifiers is {@link contentSettings.plugins}. For more information, see Resource Identifiers. */
         interface ResourceIdentifier {
             /** A human readable description of the resource. */
             description?: string;
