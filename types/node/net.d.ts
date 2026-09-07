@@ -379,6 +379,12 @@ declare module "node:net" {
          */
         readonly remotePort: number | undefined;
         /**
+         * Reference to the server that accepted the socket. This is `null` for sockets
+         * that were not accepted by a server.
+         * @since v0.3.4
+         */
+        readonly server: Server | null;
+        /**
          * The socket timeout in milliseconds as set by `socket.setTimeout()`.
          * It is `undefined` if a timeout has not been set.
          * @since v10.7.0
