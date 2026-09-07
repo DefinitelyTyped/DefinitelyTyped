@@ -492,6 +492,11 @@ declare module "node:net" {
      * throw `ERR_SOCKET_HANDLE_ADOPTED`. A handle that is never adopted must be
      * closed to avoid leaking the socket.
      *
+     * When an adopted `BoundSocket` connects to a numeric IP literal, `connect(2)` is
+     * issued synchronously, so `socket.localAddress` is resolved once
+     * `socket.connect()` returns. Connection failures are still reported via a
+     * deferred `'error'` event.
+     *
      * ```js
      * import net from 'node:net';
      *
