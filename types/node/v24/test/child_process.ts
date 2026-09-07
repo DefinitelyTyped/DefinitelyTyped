@@ -494,6 +494,7 @@ import { promisify } from "node:util";
 
 {
     const forked = childProcess.fork("./", ["asd"] as readonly string[], {
+        windowsHide: true,
         windowsVerbatimArguments: true,
         silent: false,
         stdio: "inherit",
@@ -526,6 +527,8 @@ import { promisify } from "node:util";
 
 {
     const forked = childProcess.fork("./", {
+        windowsHide: true,
+        timeout: 123,
         windowsVerbatimArguments: true,
         silent: false,
         stdio: ["inherit"],
