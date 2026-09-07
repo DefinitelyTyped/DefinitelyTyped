@@ -1059,8 +1059,8 @@ declare module "node:quic" {
     interface CreateStreamOptions {
         /**
          * The outbound body source. See `stream.setBody()` for details on
-         * supported types. When omitted, the stream starts half-closed (writable
-         * side open, no body queued).
+         * supported types. When omitted, the stream's outgoing side remains
+         * writable with no body queued; no FIN is sent immediately.
          */
         body?: StreamBody | undefined;
         /**
@@ -1375,7 +1375,8 @@ declare module "node:quic" {
         onqlog: OnQlogCallback | undefined;
         /**
          * Open a new bidirectional stream. If the `body` option is not specified,
-         * the outgoing stream will be half-closed. The `priority` and `incremental`
+         * the stream's outgoing side remains writable and no FIN is sent
+         * immediately. The `priority` and `incremental`
          * options are only used when the session supports priority (e.g. HTTP/3).
          * The `headers`, `onheaders`, `ontrailers`, `oninfo`, and `onwanttrailers`
          * options are only used when the session supports headers (e.g. HTTP/3).
@@ -1384,7 +1385,8 @@ declare module "node:quic" {
         createBidirectionalStream(options?: CreateStreamOptions): Promise<QuicStream>;
         /**
          * Open a new unidirectional stream. If the `body` option is not specified,
-         * the outgoing stream will be closed. The `priority` and `incremental`
+         * the stream's outgoing side remains writable and no FIN is sent
+         * immediately. The `priority` and `incremental`
          * options are only used when the session supports priority (e.g. HTTP/3).
          * @since v23.8.0
          */
