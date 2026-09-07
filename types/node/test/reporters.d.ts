@@ -9,6 +9,7 @@ declare module "node:test/reporters" {
         | { type: "test:enqueue"; data: EventData.TestEnqueue }
         | { type: "test:fail"; data: EventData.TestFail }
         | { type: "test:interrupted"; data: EventData.TestInterrupted }
+        | { type: "test:log"; data: EventData.TestLog }
         | { type: "test:pass"; data: EventData.TestPass }
         | { type: "test:plan"; data: EventData.TestPlan }
         | { type: "test:start"; data: EventData.TestStart }
