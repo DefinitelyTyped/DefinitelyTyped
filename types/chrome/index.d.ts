@@ -1285,12 +1285,15 @@ declare namespace chrome {
     /**
      * Use this API to expose certificates to the platform which can use these certificates for TLS authentications.
      *
-     * Manifest: "certificateProvider"
+     * Permissions: "certificateProvider"
      * @platform ChromeOS only
      * @since Chrome 46
      */
     export namespace certificateProvider {
-        /** Types of supported cryptographic signature algorithms. */
+        /**
+         * Types of supported cryptographic signature algorithms.
+         * @since Chrome 86
+         */
         enum Algorithm {
             /**
              * Specifies the RSASSA PKCS#1 v1.5 signature algorithm with the MD5-SHA-1 hashing. The extension must not prepend a DigestInfo prefix but only add PKCS#1 padding.
@@ -1463,7 +1466,7 @@ declare namespace chrome {
          *
          * The extension must eventually call this function for every {@link onSignatureRequested} event; the API implementation will stop waiting for this call after some time and respond with a timeout error when this function is called.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 86
          */
         function reportSignature(details: ReportSignatureDetails): Promise<void>;
@@ -1472,7 +1475,7 @@ declare namespace chrome {
         /**
          * Requests the PIN from the user. Only one ongoing request at a time is allowed. The requests issued while another flow is ongoing are rejected. It's the extension's responsibility to try again later if another flow is in progress.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param details Contains the details about the requested dialog.
          * @since Chrome 57
          */
@@ -1487,7 +1490,7 @@ declare namespace chrome {
          *
          * The extension should call this function after initialization and on every change in the set of currently available certificates. The extension should also call this function in response to {@link onCertificatesUpdateRequested} every time this event is received.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param details The certificates to set. Invalid certificates will be ignored.
          * @since Chrome 86
          */
@@ -1497,7 +1500,7 @@ declare namespace chrome {
         /**
          * Stops the pin request started by the {@link requestPin} function.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param details Contains the details about the reason for stopping the request flow.
          * @since Chrome 57
          */
