@@ -70,8 +70,8 @@ declare namespace Beacon {
         jobTitle?: string;
         avatar?: string;
         signature?: string;
-        companyProperties?: Record<string, string | number | null>;
-        [key: string]: string | number | null | undefined | Record<string, string | number | null>;
+        companyProperties?: Record<string, string | number | boolean | null>;
+        [key: string]: string | number | boolean | null | undefined | Record<string, string | number | boolean | null>;
     }
 
     interface PrefillForm {
