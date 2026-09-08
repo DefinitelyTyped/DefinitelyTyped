@@ -2083,7 +2083,10 @@ declare namespace chrome {
      * Manifest: "host_permissions"
      */
     export namespace cookies {
-        /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. */
+        /**
+         * A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute.
+         * @since Chrome 51
+         */
         enum SameSiteStatus {
             NO_RESTRICTION = "no_restriction",
             LAX = "lax",
@@ -2236,7 +2239,7 @@ declare namespace chrome {
             documentId?: string | undefined;
             /** The unique identifier for the frame within the tab. */
             frameId?: number | undefined;
-            /* The unique identifier for the tab containing the frame. */
+            /** The unique identifier for the tab containing the frame. */
             tabId?: number | undefined;
         }
 
@@ -2274,7 +2277,7 @@ declare namespace chrome {
 
         /**
          * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first. This method only retrieves cookies for domains that the extension has host permissions to
-         * @param details Information to identify the cookie to remove.
+         * @param details Information to filter the cookies being retrieved.
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
