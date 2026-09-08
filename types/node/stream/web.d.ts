@@ -294,6 +294,26 @@ declare module "node:stream/web" {
         prototype: WritableStreamDefaultWriter;
         new<W = any>(stream: WritableStream<W>): WritableStreamDefaultWriter<W>;
     };
+    // Node.js extensions
+    /**
+     * Runs the WHATWG `ReadableStreamTee` abstract operation on `stream`.
+     *
+     * This differs from `readableStream.tee()` only when `cloneForBranch2` is
+     * `true`. The `tee()` method always passes `false`, while other web platform
+     * specifications, such as Fetch body cloning, pass `true` so that the second
+     * branch receives cloned chunks and consumption of one branch cannot mutate chunks
+     * seen by the other.
+     * @since v26.5.0
+     * @experimental
+     * @param cloneForBranch2 When `true`, chunks enqueued into the second
+     * branch are cloned from chunks enqueued into the first branch. **Default:**
+     * `false`.
+     * @returns Two `ReadableStream` branches.
+     */
+    function ReadableStreamTee<R>(
+        stream: ReadableStream<R>,
+        cloneForBranch2?: boolean,
+    ): [ReadableStream<R>, ReadableStream<R>];
 }
 declare module "stream/web" {
     export * from "node:stream/web";

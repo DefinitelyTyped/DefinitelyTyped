@@ -36,10 +36,10 @@ interface JBBasicValue {
 interface NSError extends JBBasicValue {
     code: number;
     domain: string;
-    userInfo: any;
+    userInfo: Record<string, any>;
     localizedDescription: string;
-    localizedFailureReason: string;
-    localizedRecoverySuggestion: string;
+    localizedFailureReason?: string;
+    localizedRecoverySuggestion?: string;
 }
 
 interface MASConstraintMaker extends JBBasicValue {
@@ -348,10 +348,10 @@ interface UIButtonView extends UIBaseView {
     symbol?: string;
     image?: UIImage;
     icon?: BBFileIcon;
-    type: number; // $btnType
+    type: (typeof $btnType)[keyof typeof $btnType];
     menu?: UIMenu;
-
-    enabled: boolean; // Not documented but actually exists; indicates whether it is enabled.
+    /** Not documented but actually exists. It indicates whether it is enabled */
+    enabled: boolean;
 
     // The following properties are not documented but actually exist; their purpose is unclear.
     touchInside: boolean;
@@ -362,13 +362,13 @@ interface UIButtonView extends UIBaseView {
 }
 
 interface UIInputView extends UIBaseView {
-    type: number; // $kbType
+    type: (typeof $kbType)[keyof typeof $kbType];
     darkKeyboard?: boolean;
     text: string;
     styledText?: UiTypes.StyledTextOptions;
     textColor: UIColor;
     font: UIFont;
-    align: number; // $align
+    align: (typeof $align)[keyof typeof $align];
     placeholder?: string;
     clearsOnBeginEditing: boolean;
     autoFontSize: boolean;
@@ -484,11 +484,11 @@ interface UITextView extends UIScrollView {
     text: string;
     styledText?: string | UiTypes.StyledTextOptions;
     html: string;
-    type: number; // $kbType
+    type: (typeof $kbType)[keyof typeof $kbType];
     darkKeyboard: boolean;
     font: UIFont;
     textColor: UIColor;
-    align: number; // $align
+    align: (typeof $align)[keyof typeof $align];
     placeholder: string;
     selectedRange: JBRange;
     editable: boolean;
@@ -540,11 +540,13 @@ interface UIScrollView extends UIBaseView {
     showsVerticalIndicator: boolean;
     // contentInset?: JBInsets; // BUG: it's documented but does not actually exist
     // indicatorInsets?: JBInsets; // BUG: it's documented but does not actually exist
-    keyboardDismissMode: number; // 0: none, 1: on-drag, 2: interactive
+    /** 0: none, 1: on-drag, 2: interactive */
+    keyboardDismissMode: 0 | 1 | 2;
 
     zoomEnabled: boolean;
     maxZoomScale: number;
-    zoomScale: number; // Not documented but actually exist.
+    /** Not documented but actually exists. */
+    zoomScale: number;
     doubleTapToZoom: boolean;
 
     tracking: boolean;
@@ -569,10 +571,10 @@ interface UIScrollView extends UIBaseView {
 
 interface UIStackView extends UIBaseView {
     stack: BBStackViewStack;
-    axis: number; // $stackViewAxis
-    distribution: number; // $stackViewDistribution
-    alignment: number; // $stackViewAlignment
-    spacing: number; // $stackViewSpacing
+    axis: (typeof $stackViewAxis)[keyof typeof $stackViewAxis];
+    distribution: (typeof $stackViewDistribution)[keyof typeof $stackViewDistribution];
+    alignment: (typeof $stackViewAlignment)[keyof typeof $stackViewAlignment];
+    spacing: (typeof $stackViewSpacing)[keyof typeof $stackViewSpacing];
     baselineRelative: boolean;
     layoutMarginsRelative: boolean;
 }
@@ -675,14 +677,15 @@ interface UIListView extends UIScrollView {
     crossSections: boolean;
     hasActiveAction: boolean;
     // actions // not readable
-
-    reload(): void; // not documneted but important
+    /** Not documented but actually exists and important. */
+    reload(): void;
     object(indexPath: NSIndexPath): any;
     insert(
         args:
             | {
                 indexPath: NSIndexPath;
-                value: any; // The value here must conform to the format of data
+                /** The value here must conform to the format of data */
+                value: any;
             }
             | {
                 index: number;
@@ -718,7 +721,8 @@ interface UIMatrixView extends UIScrollView {
         args:
             | {
                 indexPath: NSIndexPath;
-                value: any; // The value here must conform to the format of data
+                /** The value here must conform to the format of data */
+                value: any;
             }
             | {
                 index: number;
@@ -825,7 +829,8 @@ interface UIChartView extends UIWebView {
 }
 
 interface UICodeView extends UITextView {
-    theme: string; // Meaning changed; now refers to the editor theme.
+    /** Meaning changed. It now refers to the editor theme. */
+    theme: string;
     // language?: string; // not readable
     // adjustInsets?: boolean; // not readable
     // lineNumbers?: boolean; // not readable
@@ -916,8 +921,8 @@ interface UIColor extends JBBasicValue {
     __clsName: string;
 }
 
+/** @deprecated the interface is no longer maintained */
 interface JHChainableAnimator extends JBBasicValue {
-    // Very complex. But the feature itself has been deprecated, so the interface is no longer maintained.
     [propertyName: string]: any;
 }
 
@@ -950,7 +955,8 @@ interface UIImage extends JBBasicValue {
     averageColor: UIColor;
     scale: number;
     orientation: number;
-    alwaysTemplate: UIImage; // Returns a new image with the template rendering image
+    /** Returns a new image with the template rendering image */
+    alwaysTemplate: UIImage;
     jpg: (compression: number) => NSData;
     size: {
         width: number;
@@ -962,7 +968,8 @@ interface UIImage extends JBBasicValue {
             | JBInsets
             | {
                 insets: JBInsets;
-                mode: "tile" | "stretch"; // default stretch
+                /** default stretch */
+                mode: "tile" | "stretch";
             },
     ): UIImage;
     resized: (size: JBSize) => UIImage;

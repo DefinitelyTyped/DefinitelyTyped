@@ -127,8 +127,12 @@ declare module "node:sqlite" {
     }
     interface ApplyChangesetOptions {
         /**
-         * Skip changes that, when targeted table name is supplied to this function, return a truthy value.
-         * By default, all changes are attempted.
+         * for each table affected by at least
+         * one change in the changeset, the `filter` callback is invoked with the
+         * table name as the first argument. If the return value is falsy, then no
+         * attempt is made to apply any changes to the table.
+         * Otherwise, if the return value is truthy or no `filter` callback is provided,
+         * all changes related to the table are attempted.
          * @since v22.12.0
          */
         filter?: ((tableName: string) => boolean) | undefined;

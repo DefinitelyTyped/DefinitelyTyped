@@ -295,13 +295,23 @@ declare const $widgetFamily: {
     small: 0;
     medium: 1;
     large: 2;
-    xLarge: 3; // iPadOS 15
-
-    // iOS 16 lock screen sizes
-    // BUG: Up to version 2.32.0, $widget.family actually returns 6, 7, and 8
-    // for the circular, rectangular, and inline variants, respectively.
+    /** Available from iPadOS 15 */
+    xLarge: 3;
+    /**
+     * JSBox 2.32.0 exposes this legacy value as 5.
+     * On iOS 26 or later, $widget.family and ctx.family return 6
+     * because WidgetFamily raw values changed.
+     */
     accessoryCircular: 5;
+    /**
+     * JSBox 2.32.0 exposes this legacy value as 6.
+     * On iOS 26 or later, $widget.family and ctx.family return 7.
+     */
     accessoryRectangular: 6;
+    /**
+     * JSBox 2.32.0 exposes this legacy value as 7.
+     * On iOS 26 or later, $widget.family and ctx.family return 8.
+     */
     accessoryInline: 7;
 };
 

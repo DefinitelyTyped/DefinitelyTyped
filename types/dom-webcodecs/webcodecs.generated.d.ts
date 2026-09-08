@@ -10,7 +10,10 @@ interface AudioDataCopyToOptions {
 }
 
 interface AudioDataInit {
-    data: AllowSharedBufferSource;
+    // The WebCodecs spec declares this as a plain `BufferSource`, and so does lib.dom.d.ts.
+    // Chromium's IDL marks it `[AllowShared]`, but declaring it as `AllowSharedBufferSource`
+    // here conflicts with the lib.dom.d.ts declaration once SharedArrayBuffer is in scope.
+    data: BufferSource;
     format: AudioSampleFormat;
     numberOfChannels: number;
     numberOfFrames: number;

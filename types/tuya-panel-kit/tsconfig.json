@@ -13,14 +13,6 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "paths": {
-            "react": [
-                "../react/v17/index.d.ts"
-            ],
-            "react-native": [
-                "../react-native/v0.65/index.d.ts"
-            ]
-        },
         "esModuleInterop": true
     },
     "files": [

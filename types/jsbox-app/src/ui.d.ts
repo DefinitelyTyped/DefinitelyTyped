@@ -6,7 +6,7 @@ declare namespace UiTypes {
         font?: UIFont;
         color?: UIColor;
         markdown?: boolean;
-        // Markdown syntax is disable when styles is used; it can be turned on by specifying markdown: true.
+        /** Markdown syntax is disable when styles is used; it can be turned on by specifying markdown: true. */
         styles?: {
             range: JBRange;
             font?: UIFont;
@@ -45,23 +45,30 @@ declare namespace UiTypes {
         title?: string;
         symbol?: string;
         destructive?: boolean;
-        handler?: (sender: T, indexPath: NSIndexPath) => void; // sender is source view
+        /** sender is source view */
+        handler?: (sender: T, indexPath: NSIndexPath) => void;
         items?: ContextMenuSubItem<T>[];
         inline?: boolean;
     }
 
     interface BaseViewProps {
         id?: string;
-        height?: number; // Only applies to accessoryView, keyboardView, header, footer
-        selectable?: boolean; // Only applies to static cells in UIListView
+        /** Only applies to accessoryView, keyboardView, header, footer */
+        height?: number;
+        /** Only effective in header and footer of horizontal matrix view */
+        width?: number;
+        /** Only applies to static cells in UIListView */
+        selectable?: boolean;
 
         theme?: string;
         alpha?: number;
         bgcolor?: UIColor;
         cornerRadius?: number;
         smoothCorners?: boolean;
-        radius?: number; // deprecated
-        smoothRadius?: number; // deprecated
+        /** @deprecated */
+        radius?: number;
+        /** @deprecated */
+        smoothRadius?: number;
         frame?: JBRect;
         size?: JBSize;
         center?: JBPoint;
@@ -72,7 +79,7 @@ declare namespace UiTypes {
         clipsToBounds?: boolean;
         opaque?: boolean;
         hidden?: boolean;
-        contentMode?: number; // $contentMode
+        contentMode?: (typeof $contentMode)[keyof typeof $contentMode];
         tintColor?: UIColor;
         borderWidth?: number;
         borderColor?: UIColor;
@@ -90,8 +97,10 @@ declare namespace UiTypes {
         ready?: (sender: T) => void;
         tapped?: (sender: T) => void;
         pencilTapped?: (info: {
-            action: number; // 0: Ignore, 1: Switch Eraser, 2: Switch Previous, 3: Show Color Palette
-            enabled: boolean; // Whether the system reports double taps on Apple Pencil to your app
+            /** 0: Ignore, 1: Switch Eraser, 2: Switch Previous, 3: Show Color Palette */
+            action: 0 | 1 | 2 | 3;
+            /** Whether the system reports double taps on Apple Pencil to your app */
+            enabled: boolean;
         }) => void;
         hoverEntered?: (sender: T) => void;
         hoverExited?: (sender: T) => void;
@@ -103,7 +112,8 @@ declare namespace UiTypes {
         touchesEnded?: (sender: T, location: JBPoint, locations: JBPoint[]) => void;
         touchesCancelled?: (sender: T, location: JBPoint, locations: JBPoint[]) => void;
         layoutSubviews?: (sender: T) => void;
-        height?: (sender: T) => number; // Only applies to header and footer in UIMatrixView
+        /** Only applies to header and footer in UIMatrixView */
+        height?: (sender: T) => number;
     }
 
     interface BaseViewOptions {
@@ -126,7 +136,8 @@ declare namespace UiTypes {
         debugging?: boolean;
         navBarHidden?: boolean;
         statusBarHidden?: boolean;
-        statusBarStyle?: 0 | 1; // 0 for black, 1 for white
+        /** 0 for black, 1 for white */
+        statusBarStyle?: 0 | 1;
         fullScreen?: boolean;
         formSheet?: boolean;
         pageSheet?: boolean;
@@ -171,10 +182,11 @@ declare namespace UiTypes {
         font?: UIFont;
         textColor?: UIColor;
         shadowColor?: UIColor;
-        align?: number; // $align
+        align?: (typeof $align)[keyof typeof $align];
         lines?: number;
         autoFontSize?: boolean;
-        lineSpacing?: number; // not documented but actually exists
+        /** Not documented but actually exists. */
+        lineSpacing?: number;
         menu?: ContextMenuOptions<UILabelView>;
     }
 
@@ -198,11 +210,12 @@ declare namespace UiTypes {
         symbol?: string;
         image?: UIImage;
         icon?: BBFileIcon;
-        type?: number; // $btnType
+        type?: (typeof $btnType)[keyof typeof $btnType];
         contentEdgeInsets?: JBInsets;
         titleEdgeInsets?: JBInsets;
         imageEdgeInsets?: JBInsets;
-        enabled?: boolean; // not documented but actually exists
+        /** Not documented but actually exists. */
+        enabled?: boolean;
         menu?: ContextMenuOptions<UIButtonView>;
     }
 
@@ -214,13 +227,13 @@ declare namespace UiTypes {
     }
 
     interface InputProps extends BaseViewProps {
-        type?: number; // $kbType
+        type?: (typeof $kbType)[keyof typeof $kbType];
         darkKeyboard?: boolean;
         text?: string;
         styledText?: StyledTextOptions;
         textColor?: UIColor;
         font?: UIFont;
-        align?: number; // $align
+        align?: (typeof $align)[keyof typeof $align];
         placeholder?: string;
         clearsOnBeginEditing?: boolean;
         autoFontSize?: boolean;
@@ -288,7 +301,12 @@ declare namespace UiTypes {
     interface SpinnerProps extends BaseViewProps {
         loading?: boolean;
         color?: UIColor;
-        style?: number; // 0 ~ 2
+        /**
+         * 0: large, 1: medium, 2: medium, default 1
+         *
+         * Note: 1 and 2 have the same effect due to iOS API change.
+         */
+        style?: 0 | 1 | 2;
         menu?: ContextMenuOptions<UISpinnerView>;
     }
 
@@ -357,11 +375,11 @@ declare namespace UiTypes {
         text?: string;
         styledText?: string | StyledTextOptions;
         html?: string;
-        type?: number; // $kbType
+        type?: (typeof $kbType)[keyof typeof $kbType];
         darkKeyboard?: boolean;
         font?: UIFont;
         textColor?: UIColor;
-        align?: number; // $align
+        align?: (typeof $align)[keyof typeof $align];
         placeholder?: string;
         selectedRange?: JBRange;
         editable?: boolean;
@@ -434,7 +452,8 @@ declare namespace UiTypes {
         // tracking?: boolean;
         // dragging?: boolean;
         // decelerating?: boolean;
-        keyboardDismissMode?: number; // 0: none, 1: on-drag, 2: interactive
+        /** 0: none, 1: on-drag, 2: interactive */
+        keyboardDismissMode?: 0 | 1 | 2;
         zoomEnabled?: boolean;
         maxZoomScale?: number;
         doubleTapToZoom?: boolean;
@@ -464,14 +483,14 @@ declare namespace UiTypes {
 
     interface StackProps extends BaseViewProps {
         stack: { views: AllViewOptions[] };
-        axis?: number; // $stackViewAxis
-        distribution?: number; // $stackViewDistribution
-        alignment?: number; // $stackViewAlignment
-        spacing?: number; // $stackViewSpacing
+        axis?: (typeof $stackViewAxis)[keyof typeof $stackViewAxis];
+        distribution?: (typeof $stackViewDistribution)[keyof typeof $stackViewDistribution];
+        alignment?: (typeof $stackViewAlignment)[keyof typeof $stackViewAlignment];
+        spacing?: (typeof $stackViewSpacing)[keyof typeof $stackViewSpacing];
+        /** BUG: The property name in the documentation is incorrect; it is not `isBaselineRelative`. */
         baselineRelative?: boolean;
-        // BUG: The property name in the documentation is incorrect; it is not `isBaselineRelative`.
+        /** BUG: The property name in the documentation is incorrect; it is not `isLayoutMarginsRelative`. */
         layoutMarginsRelative?: boolean;
-        // BUG: The property name in the documentation is incorrect; it is not `isLayoutMarginsRelative`.
         menu?: ContextMenuOptions<UIStackView>;
     }
 
@@ -502,7 +521,8 @@ declare namespace UiTypes {
     interface MenuProps extends BaseViewProps {
         items?: string[];
         index?: number;
-        dynamicWidth?: boolean; // dynamic item width, default is false
+        /** dynamic item width, default is false */
+        dynamicWidth?: boolean;
         menu?: ContextMenuOptions<UIMenuView>;
     }
 
@@ -581,7 +601,8 @@ declare namespace UiTypes {
     }
 
     interface ListProps extends ScrollProps<UIListView> {
-        style?: number; // 0 ~ 2
+        /** 0: plain, 1: grouped, 2: insetGrouped */
+        style?: 0 | 1 | 2;
         data?: any;
         template?: {
             props?: BaseViewProps;
@@ -643,13 +664,19 @@ declare namespace UiTypes {
         columns?: number;
         itemHeight?: number;
         square?: boolean;
-        direction?: number; // $scrollDirection
+        direction?: (typeof $scrollDirection)[keyof typeof $scrollDirection];
         selectable?: boolean;
         waterfall?: boolean;
+        /**
+         * Although the header can be loaded dynamically, it seems meaningless because it
+         * won't be reloaded when the matrix reloads.
+         */
         header?: AllViewOptions | ((sender: UIMatrixView) => AllViewOptions);
+        /**
+         * Although the footer can be loaded dynamically, it seems meaningless because it
+         * won't be reloaded when the matrix reloads.
+         */
         footer?: AllViewOptions | ((sender: UIMatrixView) => AllViewOptions);
-        // BUG: Although the header and footer can be loaded dynamically,
-        // it seems meaningless, as them won't be reloaded when the matrix reloads.
         reorder?: boolean;
         menu?: ContextMenuOptions<UIMatrixView>;
     }
@@ -675,7 +702,7 @@ declare namespace UiTypes {
     }
 
     interface BlurProps extends BaseViewProps {
-        style?: number; // $blurStyle
+        style?: (typeof $blurStyle)[keyof typeof $blurStyle];
         menu?: ContextMenuOptions<UIBlurView>;
     }
 
@@ -705,7 +732,8 @@ declare namespace UiTypes {
         date?: Date;
         min?: Date;
         max?: Date;
-        mode?: number; // 0 ~ 4
+        /** 0: time, 1: date, 2: date and time, 3: year and month, 4: countdown timer */
+        mode?: 0 | 1 | 2 | 3 | 4;
         interval?: number;
         menu?: ContextMenuOptions<UIDatePickerView>;
     }
@@ -788,7 +816,8 @@ declare namespace UiTypes {
     }
 
     interface ChartProps extends WebProps<UIChartView> {
-        options?: any; // Please refer to the ECharts documentation.
+        /** Please refer to the ECharts documentation. */
+        options?: any;
         menu?: ContextMenuOptions<UIChartView>;
     }
 
@@ -812,7 +841,8 @@ declare namespace UiTypes {
         lineNumbers?: boolean;
         invisibles?: boolean;
         linePadding?: number;
-        keys?: string[]; // customize toolbar keys and conflicts with the accessoryView property.
+        /** customize toolbar keys and conflicts with the accessoryView property. */
+        keys?: string[];
         menu?: ContextMenuOptions<UICodeView>;
     }
 
@@ -824,7 +854,8 @@ declare namespace UiTypes {
     }
 
     interface RuntimeProps extends BaseViewProps {
-        view?: any; // view created by Runtime
+        /** view created by Runtime */
+        view?: any;
     }
 
     interface RuntimeOptions extends BaseViewOptions {
@@ -939,18 +970,32 @@ declare namespace UiTypes {
 
     interface UIPopoverSimpleOptions {
         sourceView: AllUIView;
-        sourceRect?: JBRect; // sender.bounds by default
-        directions?: number; // $popoverDirection.up by default
-        size?: JBSize; // fits content by default
+        /** sender.bounds by default */
+        sourceRect?: JBRect;
+        /**
+         * A bitmask value from `$popoverDirection`.
+         * Multiple subtype values can be combined using the bitwise OR operator (`|`).
+         * @default $popoverDirection.up
+         */
+        directions?: number;
+        /** fits content by default */
+        size?: JBSize;
         items: string[];
         dismissed?: () => void;
     }
 
     interface UIPopoverOptions {
         sourceView: AllUIView;
-        sourceRect?: JBRect; // sender.bounds by default
-        directions?: number; // $popoverDirection.any by default
-        size?: JBSize; // fits screen width by default
+        /** sender.bounds by default */
+        sourceRect?: JBRect;
+        /**
+         * A bitmask value from `$popoverDirection`.
+         * Multiple subtype values can be combined using the bitwise OR operator (`|`).
+         * @default $popoverDirection.any
+         */
+        directions?: number;
+        /** fits screen width by default */
+        size?: JBSize;
         views: AllViewOptions[];
         dismissed?: () => void;
     }
@@ -1026,7 +1071,8 @@ interface JBUi {
     create(options: UiTypes.ChartOptions): UIChartView;
     create(options: UiTypes.CodeOptions): UICodeView;
     create(options: UiTypes.RuntimeOptions): AllUIView;
-    window: UIView; // BUG: not match the documentation; it returns RootView instead of AppWindow.
+    /** Refers to RootView rather than AppWindow, contrary to the documentation. */
+    window: UIView;
     controller: BBRenderVC;
     title: string;
     selectIcon(): Promise<string>;

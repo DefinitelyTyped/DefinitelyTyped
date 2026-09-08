@@ -5,4 +5,5 @@ export {
     renderToString,
     resume,
     resumeToPipeableStream,
+    version,
 } from "./server";

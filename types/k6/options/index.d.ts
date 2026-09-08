@@ -50,6 +50,9 @@ export interface Options {
     /** Cloud options */
     cloud?: CloudOptions;
 
+    /** handleSummary() function timeout. */
+    handleSummaryTimeout?: string;
+
     /** Static hostname mapping. */
     hosts?: { [name: string]: string };
 

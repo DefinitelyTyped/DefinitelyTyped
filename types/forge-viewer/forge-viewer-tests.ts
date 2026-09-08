@@ -49,6 +49,7 @@ Autodesk.Viewing.Initializer(options, async () => {
     modelTests(model);
     modelStructurePanelTests(viewer);
     preferencesTests(viewer);
+    rayIntersectTests(viewer);
     showHideTests(viewer);
     worldUpTests(viewer);
     selectionTests(viewer);
@@ -568,6 +569,20 @@ async function visualClustersTests(viewer: Autodesk.Viewing.GuiViewer3D): Promis
 
     await ext.setLayoutActive(true);
     ext.reset();
+}
+
+function rayIntersectTests(viewer: Autodesk.Viewing.GuiViewer3D): void {
+    const ray = new THREE.Ray(new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, -1));
+
+    // $ExpectType HitTestResult | undefined
+    const result = viewer.impl.rayIntersect(ray, true, [2120], [viewer.model.id]);
+
+    if (result) {
+        // $ExpectType number
+        result.dbId;
+        // $ExpectType Vector3
+        result.point;
+    }
 }
 
 function worldUpTests(viewer: Autodesk.Viewing.GuiViewer3D): void {

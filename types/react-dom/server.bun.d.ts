@@ -1,1 +1,9 @@
-export { renderToReadableStream, renderToStaticMarkup, renderToString } from "./server";
+export {
+    renderToPipeableStream,
+    renderToReadableStream,
+    renderToStaticMarkup,
+    renderToString,
+    resume,
+    resumeToPipeableStream,
+    version,
+} from "./server";

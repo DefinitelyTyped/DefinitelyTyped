@@ -8,7 +8,7 @@ import {
     LocaleOptions,
     ToISOTimeOptions,
 } from "./datetime";
-import { Duration, DurationLike, DurationUnit } from "./duration";
+import { Duration, DurationLike, DurationMaybeValid, DurationUnit } from "./duration";
 
 export interface IntervalObject {
     start?: DateTime | undefined;
@@ -18,6 +18,13 @@ export interface IntervalObject {
 export type DateInput = DateTime | DateObjectUnits | Date;
 
 export type CountOptions = _UseLocaleWeekOption;
+
+/**
+ * An Interval whose validity is not known statically.
+ *
+ * Checking `isValid` narrows this to `Interval<true>` or `Interval<false>`.
+ */
+export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<Valid> | Interval<Invalid>) : Interval;
 
 /**
  * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}.
@@ -51,7 +58,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @param start
      * @param end
      */
-    static fromDateTimes(start: DateInput, end: DateInput): Interval;
+    static fromDateTimes(start: DateInput, end: DateInput): IntervalMaybeValid;
 
     /**
      * Create an Interval from a start DateTime and a Duration to extend to.
@@ -59,7 +66,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @param start
      * @param duration - the length of the Interval.
      */
-    static after(start: DateInput, duration: DurationLike): Interval;
+    static after(start: DateInput, duration: DurationLike): IntervalMaybeValid;
 
     /**
      * Create an Interval from an end DateTime and a Duration to extend backwards to.
@@ -67,7 +74,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @param end
      * @param duration - the length of the Interval.
      */
-    static before(end: DateInput, duration: DurationLike): Interval;
+    static before(end: DateInput, duration: DurationLike): IntervalMaybeValid;
 
     /**
      * Create an Interval from an ISO 8601 string.
@@ -77,7 +84,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @param text - the ISO string to parse
      * @param opts - options to pass {@link DateTime.fromISO} and optionally {@link Duration.fromISO}
      */
-    static fromISO(text: string, opts?: DateTimeOptions): Interval;
+    static fromISO(text: string, opts?: DateTimeOptions): IntervalMaybeValid;
 
     /**
      * Check if an object is an Interval. Works across context boundaries
@@ -175,7 +182,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @param values.start - the starting DateTime
      * @param values.end - the ending DateTime
      */
-    set(values?: IntervalObject): Interval;
+    set(values?: IntervalObject): IntervalMaybeValid;
 
     /**
      * Split this Interval at each of the specified DateTimes
@@ -235,23 +242,23 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * Return an Interval representing the union of this Interval and the specified Interval.
      * Specifically, the resulting Interval has the minimum start time and the maximum end time of the two Intervals.
      */
-    union(other: Interval): Interval;
+    union(other: Interval): IntervalMaybeValid;
 
     /**
      * Merge an array of Intervals into an equivalent minimal set of Intervals.
      * Combines overlapping and adjacent Intervals.
      */
-    static merge(intervals: Interval[]): Interval[];
+    static merge(intervals: Interval[]): IntervalMaybeValid[];
 
     /**
      * Return an array of Intervals representing the spans of time that only appear in one of the specified Intervals.
      */
-    static xor(intervals: Interval[]): Interval[];
+    static xor(intervals: Interval[]): IntervalMaybeValid[];
 
     /**
      * Return Intervals representing the spans of time in this Interval that not overlap with any of the specified Intervals.
      */
-    difference(...intervals: Interval[]): Interval[];
+    difference(...intervals: Interval[]): IntervalMaybeValid[];
 
     /**
      * Returns a string representation of this Interval appropriate for debugging.
@@ -347,7 +354,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @example
      * Interval.fromDateTimes(dt1, dt2).toDuration('seconds').toObject() //=> { seconds: 88489.257 }
      */
-    toDuration(unit?: DurationUnit | DurationUnit[], opts?: DiffOptions): Duration;
+    toDuration(unit?: DurationUnit | DurationUnit[], opts?: DiffOptions): DurationMaybeValid;
 
     /**
      * Run mapFn on the interval start and end, returning a new Interval from the resulting DateTimes
@@ -357,5 +364,5 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      * @example
      * Interval.fromDateTimes(dt1, dt2).mapEndpoints(endpoint => endpoint.plus({ hours: 2 }))
      */
-    mapEndpoints(mapFn: (d: DateTime) => DateTime): Interval;
+    mapEndpoints(mapFn: (d: DateTime) => DateTime): IntervalMaybeValid;
 }

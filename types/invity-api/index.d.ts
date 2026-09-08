@@ -369,6 +369,16 @@ export type BuyTradeFormResponse = FormResponse;
 export interface WatchBuyTradeResponse {
     status?: BuyTradeStatus | undefined; // state of trade after confirmTrade
     error?: string | undefined; // something went wrong after confirmTrade
+    /** Updated fiat amount from provider */
+    fiatStringAmount?: string;
+    /** Updated crypto receive amount from provider */
+    receiveStringAmount?: string;
+    /** Updated exchange rate from provider */
+    rate?: number;
+    /** Updated payment method from provider */
+    paymentMethod?: BuyCryptoPaymentMethod;
+    /** Updated payment method display name from provider */
+    paymentMethodName?: string;
 }
 
 // exchange types
@@ -527,6 +537,8 @@ export interface WatchExchangeTradeResponse extends Partial<TradeError> {
     receiveTxHash?: string | undefined;
     rate?: number | undefined;
     receiveStringAmount?: string | undefined; // "0.01"
+    /** Updated send amount from provider when it differs from the original quote */
+    sendStringAmount?: string;
 }
 
 // utilityTypes
@@ -757,6 +769,14 @@ export interface WatchSellTradeResponse {
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
     destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
     cryptoStringAmount?: string; // Crypto amount to send in case of change on provider's side (Banxa)
+    /** Updated fiat amount from provider */
+    fiatStringAmount?: string;
+    /** Updated exchange rate from provider */
+    rate?: number;
+    /** Updated payment method from provider */
+    paymentMethod?: SellCryptoPaymentMethod;
+    /** Updated payment method display name from provider */
+    paymentMethodName?: string;
 }
 
 export interface PaymentRequestOutput {

@@ -100,6 +100,19 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "node:f
     fs.readFile("testfile", { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
 
     fs.readFile("testfile", { flag: "r" }, (err, data) => buffer = data);
+
+    fs.readFile("testfile", { buffer: new Uint8Array(16) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBuffer>
+    });
+    fs.readFile("testfile", { buffer: new Uint8Array(new SharedArrayBuffer(16)) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<SharedArrayBuffer>
+    });
+    fs.readFile("testfile", { buffer }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    });
+    fs.readFile("testfile", { buffer: (size) => new Uint8Array(size) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBuffer>
+    });
 }
 
 {
@@ -1256,6 +1269,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     fd.readFile({ signal: new AbortSignal(), encoding: "utf-8" });
     // @ts-expect-error
     fd.readFile({ encoding: "utf-8", flag: "r" });
+
+    await fd.readFile({ buffer: new Uint8Array(256) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    await fd.readFile({ buffer: (size) => new Uint8Array(size) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
 });
 
 {

@@ -1903,40 +1903,76 @@ function testDevtoolsPanels() {
     const title = "title";
     const iconPath = "iconPath";
     const pagePath = "pagePath";
+    const expression = "expression";
+    const rootTitle = "rootTitle";
 
     chrome.devtools.panels.elements; // $ExpectType ElementsPanel
-    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType Promise<ExtensionSidebarPane>
     chrome.devtools.panels.elements.createSidebarPane(title, result => { // $ExpectType void
         result; // $ExpectType ExtensionSidebarPane
+
+        checkChromeEvent(result.onHidden, () => void 0);
+        checkChromeEvent(result.onShown, () => void 0);
+
+        result.setExpression(expression); // $ExpectType Promise<void>
+        // @ts-expect-error Uncaught DataCloneError: Failed to execute 'postMessage' on 'MessagePort'
+        result.setExpression(expression, () => void 0);
+        result.setExpression(expression, undefined, () => void 0); // $ExpectType void
+        result.setExpression(expression, rootTitle); // $ExpectType Promise<void>
+        result.setExpression(expression, rootTitle, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        result.setExpression(expression, rootTitle, () => {}).then(() => {});
+
+        result.setHeight("100px"); // $ExpectType void
+
+        result.setObject({}); // $ExpectType Promise<void>
+        // @ts-expect-error Uncaught DataCloneError: Failed to execute 'postMessage' on 'MessagePort'
+        result.setObject({}, () => void 0);
+        result.setObject({}, undefined, () => void 0); // $ExpectType void
+        result.setObject({}, rootTitle); // $ExpectType Promise<void>
+        result.setObject({}, rootTitle, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        result.setObject({}, rootTitle, () => {}).then(() => {});
+
+        result.setPage("path"); // $ExpectType void
     });
+    // @ts-expect-error
+    chrome.devtools.panels.elements.createSidebarPane(title, () => {}).then(() => {});
     checkChromeEvent(chrome.devtools.panels.elements.onSelectionChanged, () => void 0);
 
     chrome.devtools.panels.sources; // $ExpectType SourcesPanel
-    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType Promise<ExtensionSidebarPane>
     chrome.devtools.panels.sources.createSidebarPane(title, result => { // $ExpectType void
         result; // $ExpectType ExtensionSidebarPane
     });
+    // @ts-expect-error
+    chrome.devtools.panels.sources.createSidebarPane(title, () => {}).then(() => {});
     checkChromeEvent(chrome.devtools.panels.sources.onSelectionChanged, () => void 0);
 
     chrome.devtools.panels.themeName; // $ExpectType Theme
 
-    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
+    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType Promise<ExtensionPanel>
     chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
+        panel; // ExpectType ExtensionPanel
         checkChromeEvent(panel.onHidden, () => void 0);
         checkChromeEvent(panel.onSearch, () => void 0);
         checkChromeEvent(panel.onShown, () => void 0);
         panel.createStatusBarButton("iconPath", "tooltipText", true); // $ExpectType Button
         panel.show(); // $ExpectType void
     });
+    // @ts-expect-error
+    chrome.devtools.panels.create(title, iconPath, pagePath, () => {}).then(() => {});
 
     const url = "url";
     const lineNumber = 10;
     const columnNumber = 10;
 
-    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType void
-    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType Promise<void>
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType Promise<void>
     chrome.devtools.panels.openResource(url, lineNumber, columnNumber, () => void 0); // $ExpectType void
     chrome.devtools.panels.openResource(url, lineNumber, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.devtools.panels.openResource(url, lineNumber, () => {}).then(() => {});
 
     chrome.devtools.panels.setOpenResourceHandler(); // $ExpectType void
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
@@ -1952,7 +1988,7 @@ function testDevtoolsPanels() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/inspectedWindow
 function testDevtoolsInspectedWindow() {
-    const expression = "expression";
+    const expression = "typeof jQuery !== 'undefined'";
 
     const evalOptions: chrome.devtools.inspectedWindow.EvalOptions = {
         frameURL: "https://example.com",
@@ -1960,23 +1996,44 @@ function testDevtoolsInspectedWindow() {
         useContentScriptContext: true,
     };
 
-    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
-    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
+    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ [key: string]: unknown; }>
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ [key: string]: unknown; }>
     chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
-        result; // $ExpectType { [key: string]: unknown; }
+        result; // $ExpectType { [key: string]: unknown; } | undefined
+        exceptionInfo; // $ExpectType EvaluationExceptionInfo | undefined
 
-        exceptionInfo.code; // $ExpectType string
-        exceptionInfo.description; // $ExpectType string
-        exceptionInfo.details; // $ExpectType any[]
-        exceptionInfo.isError; // $ExpectType boolean
-        exceptionInfo.isException; // $ExpectType boolean
-        exceptionInfo.value; // $ExpectType string
+        if (result) {
+            exceptionInfo; // $ExpectType undefined
+        }
+
+        if (exceptionInfo) {
+            result; // $ExpectType undefined
+
+            if (exceptionInfo.isException) {
+                exceptionInfo.code; // $ExpectType undefined
+                exceptionInfo.description; // $ExpectType undefined
+                exceptionInfo.details; // $ExpectType undefined
+                exceptionInfo.isError; // $ExpectType undefined
+                exceptionInfo.isException; // $ExpectType true
+                exceptionInfo.value; // $ExpectType string
+            } else {
+                exceptionInfo.code; // $ExpectType string
+                exceptionInfo.description; // $ExpectType string
+                exceptionInfo.details; // $ExpectType any[]
+                exceptionInfo.isError; // $ExpectType true
+                exceptionInfo.isException; // $ExpectType undefined
+                exceptionInfo.value; // $ExpectType undefined
+            }
+        }
     });
     chrome.devtools.inspectedWindow.eval(expression, (result, exceptionInfo) => { // $ExpectType void
-        result; // $ExpectType { [key: string]: unknown; }
+        result; // $ExpectType { [key: string]: unknown; } | undefined
+        exceptionInfo; // $ExpectType EvaluationExceptionInfo | undefined
     });
-    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
-        result.title; // $ExpectType string
+    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result, _) => { // $ExpectType void
+        if (result) {
+            result.title; // $ExpectType string
+        }
     });
 
     chrome.devtools.inspectedWindow.getResources(); // $ExpectType Promise<Resource[]>
@@ -2708,6 +2765,8 @@ async function testAlarms() {
     chrome.alarms.create("name", { persistAcrossSessions: true }, () => {});
     // @ts-expect-error Cannot set both when and delayInMinutes.
     chrome.alarms.create("name", { when: 1, delayInMinutes: 1, periodInMinutes: 1 }, () => {});
+    // @ts-expect-error Cannot set alarm name in both separate argument and object form.
+    chrome.alarms.create("name", { delayInMinutes: 1, name: "name" }, () => {});
     // @ts-expect-error
     chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
 
@@ -3863,22 +3922,21 @@ async function testTabs() {
         zoomChangeInfo.zoomSettings; // $ExpectType ZoomSettings
     });
 
-    const details: chrome.extensionTypes.InjectDetails = {
+    const injectDetails: chrome.extensionTypes.InjectDetails = {
         allFrames: true,
         code: "alert('hello world');",
         cssOrigin: "author",
-        file: "file.js",
         frameId,
         matchAboutBlank: true,
         runAt: "document_idle",
     };
 
-    chrome.tabs.executeScript(details); // $ExpectType Promise<any[] | undefined>
-    chrome.tabs.executeScript(tabId, details); // $ExpectType Promise<any[] | undefined>
-    chrome.tabs.executeScript(details, (result) => { // $ExpectType void
+    chrome.tabs.executeScript(injectDetails); // $ExpectType Promise<any[] | undefined>
+    chrome.tabs.executeScript(tabId, injectDetails); // $ExpectType Promise<any[] | undefined>
+    chrome.tabs.executeScript(injectDetails, (result) => { // $ExpectType void
         result; // $ExpectType any[] | undefined
     });
-    chrome.tabs.executeScript(tabId, details, (result) => { // $ExpectType void
+    chrome.tabs.executeScript(tabId, injectDetails, (result) => { // $ExpectType void
         result; // $ExpectType any[] | undefined
     });
     // @ts-expect-error
@@ -3906,14 +3964,31 @@ async function testTabs() {
     // @ts-expect-error
     chrome.tabs.getSelected(() => {}).then(() => {});
 
-    chrome.tabs.insertCSS(details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(tabId, details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(undefined, details); // $ExpectType Promise<void>
-    chrome.tabs.insertCSS(details, () => {}); // $ExpectType void
-    chrome.tabs.insertCSS(tabId, details, () => {}); // $ExpectType void
-    chrome.tabs.insertCSS(undefined, details, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(injectDetails); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(tabId, injectDetails); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(undefined, injectDetails); // $ExpectType Promise<void>
+    chrome.tabs.insertCSS(injectDetails, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(tabId, injectDetails, () => {}); // $ExpectType void
+    chrome.tabs.insertCSS(undefined, injectDetails, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.tabs.insertCSS(() => {}).then(() => {});
+
+    const deleteInjectionDetails: chrome.extensionTypes.DeleteInjectionDetails = {
+        allFrames: true,
+        code: "body { background: red }",
+        cssOrigin: "author",
+        frameId,
+        matchAboutBlank: true,
+    };
+
+    chrome.tabs.removeCSS(deleteInjectionDetails); // $ExpectType Promise<void>
+    chrome.tabs.removeCSS(tabId, deleteInjectionDetails); // $ExpectType Promise<void>
+    chrome.tabs.removeCSS(undefined, deleteInjectionDetails); // $ExpectType Promise<void>
+    chrome.tabs.removeCSS(deleteInjectionDetails, () => {}); // $ExpectType void
+    chrome.tabs.removeCSS(tabId, deleteInjectionDetails, () => {}); // $ExpectType void
+    chrome.tabs.removeCSS(undefined, deleteInjectionDetails, () => {}); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.removeCSS(() => {}).then(() => {});
 
     const request = "Hello World!";
 

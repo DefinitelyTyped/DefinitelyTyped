@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/stegcloak": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Will Ockmore",
-            "githubUsername": "ktjd123"
-        }
-    ]
+    "owners": []
 }

@@ -355,7 +355,7 @@ interface Toastr {
     subscribe: (callback: (response: ToastrResponse) => void) => void;
 }
 
-declare var toastr: Toastr;
-declare module "toastr" {
-    export = toastr;
-}
+declare const toastr: Toastr;
+
+export = toastr;
+export as namespace toastr;

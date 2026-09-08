@@ -1,4 +1,4 @@
-// For Library Version: 1.151.0
+// For Library Version: 1.152.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -14756,7 +14756,7 @@ declare module "sap/ui/unified/DateTypeRange" {
     $DateRangeSettings,
   } from "sap/ui/unified/DateRange";
 
-  import { CSSColor } from "sap/ui/core/library";
+  import { aria, CSSColor } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -14833,6 +14833,24 @@ declare module "sap/ui/unified/DateTypeRange" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Gets current value of property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Defines the value of the `aria-haspopup` attribute of the day cell.
+     *
+     * **Note:** Use this property only when the cell is related to a popover/popup. The value should be equal
+     * to the main/root role of the popup.
+     *
+     * **Note:** Setting `type` to `sap.ui.unified.CalendarDayType.None` together with this property allows
+     * adding the attribute without any visual marking.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.152.0
+     *
+     * @returns Value of property `ariaHasPopup`
+     */
+    getAriaHasPopup(): aria.HasPopup;
+    /**
      * Gets current value of property {@link #getColor color}.
      *
      * Background color of the `Calendar` `specialDates` aggregation. If set, this color will override the default
@@ -14867,6 +14885,31 @@ declare module "sap/ui/unified/DateTypeRange" {
      * @returns Value of property `type`
      */
     getType(): CalendarDayType;
+    /**
+     * Sets a new value for property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Defines the value of the `aria-haspopup` attribute of the day cell.
+     *
+     * **Note:** Use this property only when the cell is related to a popover/popup. The value should be equal
+     * to the main/root role of the popup.
+     *
+     * **Note:** Setting `type` to `sap.ui.unified.CalendarDayType.None` together with this property allows
+     * adding the attribute without any visual marking.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.152.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAriaHasPopup(
+      /**
+       * New value for property `ariaHasPopup`
+       */
+      sAriaHasPopup?: aria.HasPopup | keyof typeof aria.HasPopup
+    ): this;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -14954,6 +14997,22 @@ declare module "sap/ui/unified/DateTypeRange" {
      * @since 1.76.0
      */
     color?: CSSColor | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the value of the `aria-haspopup` attribute of the day cell.
+     *
+     * **Note:** Use this property only when the cell is related to a popover/popup. The value should be equal
+     * to the main/root role of the popup.
+     *
+     * **Note:** Setting `type` to `sap.ui.unified.CalendarDayType.None` together with this property allows
+     * adding the attribute without any visual marking.
+     *
+     * @since 1.152.0
+     */
+    ariaHasPopup?:
+      | (aria.HasPopup | keyof typeof aria.HasPopup)
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 

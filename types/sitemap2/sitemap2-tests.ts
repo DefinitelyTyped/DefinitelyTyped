@@ -1,7 +1,7 @@
 import Sitemap = require("sitemap2");
 
 const sitemap = new Sitemap({
-    hostName: ("https://example.com/"),
+    hostName: "https://example.com/",
     fileName: "sitemap.xml",
     limit: 50000,
     cacheTime: 1000,

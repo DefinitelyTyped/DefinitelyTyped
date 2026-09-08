@@ -65,60 +65,72 @@ interface JBImageKit {
         options: { size: JBSize; color?: UIColor; scale?: number; opaque?: boolean },
         handler: (ctx: BBCanvasContext) => void,
     ): UIImage;
-    info(image: UIImage): ImagekitTypes.ImageInfo; // Get image information
-    grayscale(image: UIImage): UIImage; // Get grayscaled image
-    invert(image: UIImage): UIImage; // Invert colors
-    sepia(image: UIImage): UIImage; // Apply sepia filter
-    adjustEnhance(image: UIImage): UIImage; // Enhance image automatically
-    adjustRedEye(image: UIImage): UIImage; // Red-eye adjustment
+    /** Get image information */
+    info(image: UIImage): ImagekitTypes.ImageInfo;
+    /** Get grayscaled image */
+    grayscale(image: UIImage): UIImage;
+    /** Invert colors */
+    invert(image: UIImage): UIImage;
+    /** Apply sepia filter */
+    sepia(image: UIImage): UIImage;
+    /** Enhance image automatically */
+    adjustEnhance(image: UIImage): UIImage;
+    /** Red-eye adjustment */
+    adjustRedEye(image: UIImage): UIImage;
+    /** Adjust brightness, value range: (-255, 255) */
     adjustBrightness(image: UIImage, value: number): UIImage;
-    // Adjust brightness, value range: (-255, 255)
+    /** Adjust contrast, value range: (-255, 255) */
     adjustContrast(image: UIImage, value: number): UIImage;
-    // Adjust contrast, value range: (-255, 255)
+    /** Adjust gamma value, value range: (0.01, 8) */
     adjustGamma(image: UIImage, value: number): UIImage;
-    // Adjust gamma value, value range: (0.01, 8)
+    /** Adjust opacity, value range: (0, 1) */
     adjustOpacity(image: UIImage, value: number): UIImage;
-    // Adjust opacity, value range: (0, 1)
-    blur(image: UIImage, bias: number): UIImage; // Apply gaussian blur
-    emboss(image: UIImage, bias: number): UIImage; // Emboss effect
-    sharpen(image: UIImage, bias: number): UIImage; // Sharpen
-    unsharpen(image: UIImage, bias: number): UIImage; // Unsharpen
-    detectEdge(image: UIImage, bias: number): UIImage; // Edge detection
-    mask(image: UIImage, mask: UIImage): UIImage; // Crop an image with mask
+    /** Apply gaussian blur */
+    blur(image: UIImage, bias: number): UIImage;
+    /** Emboss effect */
+    emboss(image: UIImage, bias: number): UIImage;
+    /** Sharpen */
+    sharpen(image: UIImage, bias: number): UIImage;
+    /** Unsharpen */
+    unsharpen(image: UIImage, bias: number): UIImage;
+    /** Edge detection */
+    detectEdge(image: UIImage, bias: number): UIImage;
+    /** Crop an image with mask */
+    mask(image: UIImage, mask: UIImage): UIImage;
+    /** Create an up-down reflected image, from height position, change alpha value from fromAlpha to toAlpha */
     reflect(image: UIImage, height: number, fromAlpha: number, toAlpha: number): UIImage;
-    // Create an up-down reflected image, from height position, change alpha value from fromAlpha to toAlpha
+    /** Crop an image */
     cropTo(image: UIImage, size: JBSize, mode: number): UIImage;
-    // Crop an image
+    /** Resize an image with scale */
     scaleBy(image: UIImage, value: number): UIImage;
-    // Resize an image with scale
+    /** Resize an image to a specific size */
     scaleTo(image: UIImage, size: JBSize, mode: number): UIImage;
-    // Resize an image to a specific size
+    /** Resize an image using scaleFill mode */
     scaleFill(image: UIImage, size: JBSize): UIImage;
-    // Resize an image using scaleFill mode
+    /** Resize an image using scaleAspectFit mode */
     scaleAspectFit(image: UIImage, size: JBSize): UIImage;
-    // Resize an image using scaleAspectFit mode
+    /** Resize an image using scaleAspectFill mode */
     scaleAspectFill(image: UIImage, size: JBSize): UIImage;
-    // Resize an image using scaleAspectFill mode
+    /** Rotate an image (it may change the size) */
     rotate(image: UIImage, radians: number): UIImage;
-    // Rotate an image (it may change the size)
+    /** Rotate an image (keeps the image size, some contents might be clipped) */
     rotatePixels(image: UIImage, radians: number): UIImage;
-    // Rotate an image (keeps the image size, some contents might be clipped)
+    /** Flip an image */
     flip(image: UIImage, mode: number): UIImage;
-    // Flip an image
+    /** Concatenate images with space */
     concatenate(images: UIImage[], space: number, mode: number): UIImage;
-    // Concatenate images with space
+    /** Add mask directly on image */
     combine(image: UIImage, mask: UIImage, mode: number | JBPoint): UIImage;
-    // Add mask directly on image
+    /** Get an image with rounded corners */
     rounded(image: UIImage, radius: number): UIImage;
-    // Get an image with rounded corners
+    /** Get a circular image, it will be centered and clipped if the source image isn't a square */
     circular(image: UIImage): UIImage;
-    // Get a circular image, it will be centered and clipped if the source image isn't a square
+    /** Extract GIF data to frames */
     extractGIF(data: NSData): Promise<ImagekitTypes.GIFExtractResult>;
-    // Extract GIF data to frames
+    /** Make GIF with image array or video data */
     makeGIF(images: UIImage[], options: ImagekitTypes.GIFMakeOptions): Promise<NSData>;
-    // Make GIF with image array or video data
+    /** Make video with image array or GIF data */
     makeVideo(source: UIImage[], options: ImagekitTypes.VideoMakeOptions): Promise<NSData>;
-    // Make video with image array or GIF data
 }
 
 declare const $imagekit: JBImageKit;

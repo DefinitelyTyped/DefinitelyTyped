@@ -112,6 +112,18 @@ export namespace Proxy {
         parentFrameId: number;
 
         /**
+         * The UUID of the document making the request.
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
+         * The UUID of the parent document owning this frame. This is not set if there is no parent.
+         * Optional.
+         */
+        parentDocumentId?: string;
+
+        /**
          * True for private browsing requests.
          * Optional.
          */

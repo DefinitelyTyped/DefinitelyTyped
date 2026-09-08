@@ -180,6 +180,99 @@ export namespace UserScripts {
     }
 
     /**
+     * Details of a user script injection
+     */
+    interface UserScriptInjection {
+        /**
+         * Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that
+         * injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target.
+         * Optional.
+         */
+        injectImmediately?: boolean;
+
+        /**
+         * The list of ScriptSource objects defining sources of scripts to be injected into matching pages.
+         */
+        js: ScriptSource[];
+
+        /**
+         * Details specifying the target into which to inject the script.
+         */
+        target: InjectionTarget;
+
+        /**
+         * The JavaScript "world" to run the script in. The default is `USER_SCRIPT`.
+         * Optional.
+         */
+        world?: ExecutionWorld;
+
+        /**
+         * A specific user script world ID to execute in. Only valid if `world` is omitted or is `USER_SCRIPT`.
+         * If `worldId` is omitted, the default value is an empty string ("") and the script will execute in the default world.
+         * Optional.
+         */
+        worldId?: string;
+    }
+
+    /**
+     * Details specifying the target into which to inject the script.
+     */
+    interface InjectionTarget {
+        /**
+         * Whether the script should inject into all frames within the tab. Defaults to false.
+         * This must not be true if `frameIds` is specified.
+         * Optional.
+         */
+        allFrames?: boolean;
+
+        /**
+         * The IDs of specific documentIds to inject into. This must not be set if frameIds is set.
+         * Optional.
+         */
+        documentIds?: string[];
+
+        /**
+         * The IDs of specific frames to inject into.
+         * Optional.
+         */
+        frameIds?: number[];
+
+        /**
+         * The ID of the tab into which to inject.
+         */
+        tabId: number;
+    }
+
+    /**
+     * Result of a user script injection.
+     */
+    interface InjectionResult {
+        /**
+         * Document ID associated with the injection.
+         */
+        documentId: string;
+
+        /**
+         * Frame ID associated with the injection.
+         */
+        frameId: number;
+
+        /**
+         * Result of the script injection if any. This is mutually exclusive with error.
+         * Optional.
+         */
+        result?: unknown;
+
+        /**
+         * Error message if any. This is mutually exclusive with result. The value is typically an (Error)
+         * object with a message property, but could be any value (including primitives and undefined)
+         * if the user script threw or rejected with such a value.
+         * Optional.
+         */
+        error?: unknown;
+    }
+
+    /**
      * An object that represents a user script registered programmatically
      */
     interface RegisterCallbackLegacyRegisteredUserScriptType {
@@ -261,5 +354,14 @@ export namespace UserScripts {
          * Returns all registered USER_SCRIPT world configurations.
          */
         getWorldConfigurations(): Promise<WorldProperties[]>;
+
+        /**
+         * Executes one or more ephemeral user scripts into a specific tab.
+         *
+         * @param injection The details of the user script which to inject.
+         * @returns Invoked upon completion of the injection. The resulting array contains the result of execution for each frame
+         * where the injection succeeded.
+         */
+        execute(injection: UserScriptInjection): Promise<InjectionResult[]>;
     }
 }

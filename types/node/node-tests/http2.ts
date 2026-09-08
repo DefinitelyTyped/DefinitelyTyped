@@ -270,6 +270,7 @@ import { URL } from "node:url";
         maxDeflateDynamicTableSize: 0,
         maxSettings: 32,
         maxSessionMemory: 10,
+        maxOriginSetSize: 128,
         maxHeaderListPairs: 128,
         maxOutstandingPings: 10,
         maxSendHeaderBlockLength: 0,

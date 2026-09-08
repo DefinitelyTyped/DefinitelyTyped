@@ -86,6 +86,13 @@ export type DurationInput = Duration | number | DurationLikeObject;
  */
 export type DurationLike = Duration | DurationLikeObject | number;
 
+/**
+ * A Duration whose validity is not known statically.
+ *
+ * Checking `isValid` narrows this to `Duration<true>` or `Duration<false>`.
+ */
+export type DurationMaybeValid = CanBeInvalid extends true ? (Duration<Valid> | Duration<Invalid>) : Duration;
+
 export interface DurationFormatOptions {
     /**
      * Whether or not to floor numerical values.
@@ -174,7 +181,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @example
      * Duration.fromISO('P5Y3M').toObject() //=> { years: 5, months: 3 }
      */
-    static fromISO(text: string, opts?: DurationOptions): Duration;
+    static fromISO(text: string, opts?: DurationOptions): DurationMaybeValid;
 
     /**
      * Create a Duration from an ISO 8601 time string.
@@ -197,7 +204,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * @example
      * Duration.fromISOTime('T1100').toObject() //=> { hours: 11, minutes: 0, seconds: 0 }
      */
-    static fromISOTime(text: string, opts?: DurationOptions): Duration;
+    static fromISOTime(text: string, opts?: DurationOptions): DurationMaybeValid;
 
     /**
      * Create an invalid Duration.

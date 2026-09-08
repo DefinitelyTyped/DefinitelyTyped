@@ -153,6 +153,8 @@ instance.getEnvironment();
 
 instance.getVersion();
 
+const instanceGeneratedHash: number = instance.generateHash("test-string");
+
 instance.init("apiKey", config);
 instance.init("apiKey", config, "instance");
 
