@@ -1946,7 +1946,7 @@ declare namespace chrome {
             BROWSER_ACTION = "browser_action",
             PAGE_ACTION = "page_action",
             ACTION = "action",
-            /** @since Chrome 149 */
+            /** @since Chrome 150 */
             TAB = "tab",
         }
 
@@ -2032,7 +2032,7 @@ declare namespace chrome {
         const ACTION_MENU_TOP_LEVEL_LIMIT: 6;
 
         /**
-         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link chrome.runtime.lastError}.
+         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link runtime.lastError}.
          * @return The ID of the newly created item.
          */
         function create(createProperties: CreateProperties, callback?: () => void): number | string;
@@ -2041,7 +2041,7 @@ declare namespace chrome {
          * Removes a context menu item.
          * @param menuItemId The ID of the context menu item to remove.
          *
-         * Can return its result via Promise since Chrome 123.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 123.
          */
         function remove(menuItemId: string | number): Promise<void>;
         function remove(menuItemId: string | number, callback: () => void): void;
@@ -2049,7 +2049,7 @@ declare namespace chrome {
         /**
          * Removes all context menu items added by this extension.
          *
-         * Can return its result via Promise since Chrome 123.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 123.
          */
         function removeAll(): Promise<void>;
         function removeAll(callback: () => void): void;
@@ -2059,7 +2059,7 @@ declare namespace chrome {
          * @param id The ID of the item to update.
          * @param updateProperties The properties to update. Accepts the same values as the {@link contextMenus.create} function.
          *
-         * Can return its result via Promise since Chrome 123.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 123.
          */
         function update(id: string | number, updateProperties: Omit<CreateProperties, "id">): Promise<void>;
         function update(
