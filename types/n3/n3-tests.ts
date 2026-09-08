@@ -638,5 +638,10 @@ function test_get_rules_from_dataset() {
     const rules: N3.Rule[] = N3.getRulesFromDataset(store);
 }
 
+function test_writer_base_iri() {
+    const writer1 = new N3.Writer({ baseIRI: "http://example.org/" });
+    const writer2 = new N3.Writer({ baseIRI: "http://example.org/", writeBase: true });
+}
+
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
 export const df: RDF.DataFactory = N3.DataFactory;
