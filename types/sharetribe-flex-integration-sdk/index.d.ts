@@ -95,6 +95,9 @@ export interface TransactionRelationships {
     messages?: {
         data: ResourceReference[];
     };
+    protectedFileAttachments?: {
+        data: ResourceReference[];
+    };
 }
 
 /**
@@ -143,6 +146,9 @@ export interface UserRelationships {
     };
     stripeAccount?: {
         data?: ResourceReference;
+    };
+    privateFileAttachments?: {
+        data: ResourceReference[];
     };
 }
 
@@ -198,6 +204,9 @@ export interface ListingRelationships {
     images?: {
         data: ResourceReference[];
     };
+    protectedFileAttachments?: {
+        data: ResourceReference[];
+    };
 }
 
 /**
@@ -216,6 +225,7 @@ export interface Listing {
 export interface MessageAttributes {
     content: string;
     createdAt: string;
+    deleted?: boolean;
 }
 
 /**
@@ -227,6 +237,9 @@ export interface MessageRelationships {
     };
     sender: {
         data: ResourceReference;
+    };
+    publicFileAttachments?: {
+        data: ResourceReference[];
     };
 }
 
@@ -290,7 +303,8 @@ export interface File {
 }
 
 /**
- * File attachment relationships. The `message` relationship is only present when the file is attached to a message.
+ * File attachment relationships. Exactly one of `message`, `listing` or `transaction` is present,
+ * naming the resource the file is attached to.
  */
 export interface FileAttachmentRelationships {
     file: {
@@ -299,19 +313,77 @@ export interface FileAttachmentRelationships {
     message?: {
         data: ResourceReference;
     };
+    listing?: {
+        data: ResourceReference;
+    };
+    transaction?: {
+        data: ResourceReference;
+    };
 }
 
 /**
- * File attachment resource (links a file to a transaction message)
+ * Visibility of a file attachment. `protected` and `private` files are readable only by the
+ * resource owner and marketplace operators; `protected` ones can additionally be revealed to
+ * transaction parties by a transaction process action.
+ */
+export type FileAttachmentScope = "public" | "protected" | "private";
+
+/**
+ * File attachment resource (links a file to a message, listing or transaction)
  */
 export interface FileAttachment {
     id: UUID;
     type: "fileAttachment";
     attributes: {
-        scope: "public";
+        scope: FileAttachmentScope;
         deleted: boolean;
     };
     relationships: FileAttachmentRelationships;
+}
+
+/**
+ * A file to attach, as accepted by the `protectedFileAttachments` and `privateFileAttachments`
+ * body parameters
+ */
+export interface FileAttachmentParam {
+    fileId: UUID | string;
+}
+
+/**
+ * A presigned upload target returned by `integrationSdk.fileUploads.create()`
+ */
+export interface FileUpload {
+    id: UUID;
+    type: "fileUpload";
+    attributes: {
+        fileId: UUID;
+        url: string;
+        method: string;
+        headers: Record<string, string>;
+        expiresAt: string;
+    };
+}
+
+/**
+ * A short-lived download URL returned by `integrationSdk.fileDownloads.create()`
+ */
+export interface FileDownload {
+    id: UUID;
+    type: "fileDownload";
+    attributes: {
+        fileId: UUID;
+        url: string;
+        expiresAt: string;
+    };
+}
+
+/**
+ * File metadata extracted by `file.metadata()`, suitable for `integrationSdk.files.create()`
+ */
+export interface FileMetadata {
+    name: string;
+    mimeType: string;
+    size: number;
 }
 
 /**
@@ -581,6 +653,7 @@ export interface IntegrationSdk {
                 protectedData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
                 profileImageId?: UUID;
+                privateFileAttachments?: FileAttachmentParam[];
             },
             options?: PerRequestOptions,
         ) => Promise<MutationResponse<User>>;
@@ -645,6 +718,7 @@ export interface IntegrationSdk {
                 privateData?: Record<string, unknown>;
                 metadata?: Record<string, unknown>;
                 images?: Array<UUID | string>;
+                protectedFileAttachments?: FileAttachmentParam[];
             },
             options?: PerRequestOptions & { include?: string[] },
         ) => Promise<MutationResponse<Listing>>;
@@ -664,6 +738,7 @@ export interface IntegrationSdk {
                 privateData?: Record<string, unknown>;
                 metadata?: Record<string, unknown>;
                 images?: Array<UUID | string>;
+                protectedFileAttachments?: FileAttachmentParam[];
             },
             options?: PerRequestOptions,
         ) => Promise<MutationResponse<Listing>>;
@@ -854,6 +929,19 @@ export interface IntegrationSdk {
                 & PaginationParams
                 & BaseQueryParams,
         ) => Promise<QueryResponse<File>>;
+        /**
+         * Register a file with the Integration API (first step of the upload flow). The created
+         * file starts in the `pendingUpload` state.
+         */
+        create: (
+            params: {
+                ownerId: UUID | string;
+                name: string;
+                mimeType: string;
+                size: number;
+            },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<File>>;
     };
 
     fileAttachments: {
@@ -866,10 +954,32 @@ export interface IntegrationSdk {
                     ids?: Array<UUID | string>;
                     fileIds?: Array<UUID | string>;
                     messageId?: UUID | string;
+                    listingId?: UUID | string;
+                    transactionId?: UUID | string;
                 }
                 & PaginationParams
                 & BaseQueryParams,
         ) => Promise<QueryResponse<FileAttachment>>;
+    };
+
+    fileUploads: {
+        /**
+         * Request a presigned upload URL for a file in the `pendingUpload` state
+         */
+        create: (
+            params: { fileId: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileUpload>>;
+    };
+
+    fileDownloads: {
+        /**
+         * Request a short-lived download URL for a file
+         */
+        create: (
+            params: { fileId: UUID | string },
+            options?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileDownload>>;
     };
 
     /**
@@ -927,4 +1037,27 @@ export namespace util {
      * Production-ready command rate limiter configuration
      */
     const prodCommandLimiterConfig: unknown;
+}
+
+/**
+ * Helpers for the file upload flow
+ */
+export namespace file {
+    /**
+     * Extract the metadata needed for `integrationSdk.files.create()` from a `File` object.
+     * @param file - A `File` object, e.g. from an `<input type="file">` element
+     */
+    function metadata(file: unknown): FileMetadata;
+    /**
+     * Upload a file directly to cloud storage using a presigned URL obtained from
+     * `integrationSdk.fileUploads.create()`. This bypasses the SDK interceptor pipeline.
+     * @returns A promise that resolves when the upload is complete
+     */
+    function upload(params: {
+        url: string;
+        file: unknown;
+        method?: string;
+        headers?: Record<string, string>;
+        onUploadProgress?: (progressEvent: unknown) => void;
+    }): Promise<unknown>;
 }

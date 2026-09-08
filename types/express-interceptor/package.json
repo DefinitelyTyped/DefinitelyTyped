@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "name": "@types/express-interceptor",
+    "version": "1.2.9999",
+    "projects": [
+        "https://github.com/axiomzen/express-interceptor#readme"
+    ],
+    "dependencies": {
+        "@types/express": "*"
+    },
+    "devDependencies": {
+        "@types/express-interceptor": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Remco Haszing",
+            "githubUsername": "remcohaszing"
+        }
+    ]
+}

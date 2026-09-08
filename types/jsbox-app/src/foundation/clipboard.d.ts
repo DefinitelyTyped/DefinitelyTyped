@@ -17,7 +17,8 @@ declare namespace ClipboardTypes {
 
 interface JBClipboard {
     text?: string;
-    image?: NSData; // Note: The return value is binary data, not image.
+    /** Note: The return value is binary **DATA**, not image. */
+    image?: NSData;
     items: any[];
     phoneNumbers: string[];
     phoneNumber?: string;

@@ -145,12 +145,18 @@ sock.bind(8000, "192.0.2.1", () => undefined);
 sock.bind({}, () => undefined);
 sock.bind({ port: 8000, address: "192.0.2.1", exclusive: true });
 sock.bind({ fd: 7, exclusive: true });
+sock.bindSync(); // $ExpectType AddressInfo
+sock.bindSync({}); // $ExpectType AddressInfo
+sock.bindSync({ address: "192.0.2.1" }); // $ExpectType AddressInfo
+sock.bindSync({ address: "192.0.2.1", port: 8000 }); // $ExpectType AddressInfo
 sock.close();
 sock.close(() => undefined);
 sock.connect(8000);
 sock.connect(8000, "192.0.2.1");
 sock.connect(8000, () => undefined);
 sock.connect(8000, "192.0.2.1", () => undefined);
+sock.connectSync(8000);
+sock.connectSync(8000, "192.0.2.1");
 sock.disconnect();
 sock.dropMembership("233.252.0.0");
 sock.dropMembership("233.252.0.0", "192.0.2.1");

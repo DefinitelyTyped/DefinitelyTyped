@@ -353,7 +353,10 @@ const proxyHandlerv2WithJKTAuthorizer: APIGatewayProxyHandlerV2WithJWTAuthorizer
     authorizer.jwt.scopes;
     // All non-null or undefined types are converted to string.
     obj = authorizer.jwt.claims;
-    array = authorizer.jwt.scopes;
+    if (authorizer.jwt.scopes !== null) {
+        array = authorizer.jwt.scopes;
+    }
+    const nullableScopes: string[] | null = authorizer.jwt.scopes;
     // And these extra properties are added
     str = authorizer.principalId;
     num = authorizer.integrationLatency;

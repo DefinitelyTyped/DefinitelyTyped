@@ -80,6 +80,12 @@ export namespace Runtime {
         contextType: ContextType;
 
         /**
+         * An UUID for the document associated with this context, or undefined if it is not hosted in a document
+         * Optional.
+         */
+        documentId?: string;
+
+        /**
          * The origin of the document associated with this context, or undefined if it is not hosted in a document
          * Optional.
          */
@@ -163,6 +169,12 @@ export namespace Runtime {
          * Optional.
          */
         frameId?: number;
+
+        /**
+         * A UUID of the document that opened the connection.
+         * Optional.
+         */
+        documentId?: string;
 
         /**
          * The ID of the extension or app that opened the connection, if any.
@@ -426,9 +438,19 @@ export namespace Runtime {
         getURL(path: string): string;
 
         /**
+         * Get the documentId of any window global or frame element. Throws for invalid targets, such as unloaded frames.
+         *
+         * @param target A WindowProxy or a browsing context container Element (iframe, frame, embed, or object)
+         * for the target frame.
+         * @returns The documentId of the target document.
+         */
+        getDocumentId(target: unknown): string;
+
+        /**
          * Get the frameId of any window global or frame element.
          *
-         * @param target A WindowProxy or a Browsing Context container element (IFrame, Frame, Embed, Object) for the target frame.
+         * @param target A WindowProxy or a browsing context container Element (iframe, frame, embed, or object)
+         * for the target frame.
          * @returns The frameId of the target frame, or -1 if it doesn't exist.
          */
         getFrameId(target: unknown): number;

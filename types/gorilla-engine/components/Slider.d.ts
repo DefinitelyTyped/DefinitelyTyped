@@ -1,4 +1,7 @@
 declare namespace GorillaEngine.UI {
+    /**
+     * Properties for a numeric control with a handle that moves along a track.
+     */
     interface SliderProps extends KnobProps {
         /**
          * The direction of the slider.
@@ -9,20 +12,21 @@ declare namespace GorillaEngine.UI {
          */
         thumbImage: string;
 
-        /**
-         * TODO:: no idea what this does
-         */
+        /** Bounds of the slider track relative to the control. */
         sliderBounds: {
+            /** Horizontal offset of the track in pixels. */
             x: number;
+            /** Vertical offset of the track in pixels. */
             y: number;
+            /** Width of the track in pixels. */
             width: number;
+            /** Height of the track in pixels. */
             height: number;
         };
     }
 
     /**
-     * Use a slider to
-     * - enable users to control numeric values by dragging up/down or left/right
+     * A control for editing numeric values by dragging horizontally or vertically.
      */
     class Slider extends Component {
         constructor(options: Partial<SliderProps>);

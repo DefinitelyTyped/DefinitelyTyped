@@ -44,6 +44,7 @@ import "./node-tests/url";
 import "./node-tests/util_types";
 import "./node-tests/util";
 import "./node-tests/v8";
+import "./node-tests/vfs";
 import "./node-tests/vm";
 import "./node-tests/wasi";
 import "./node-tests/worker_threads";

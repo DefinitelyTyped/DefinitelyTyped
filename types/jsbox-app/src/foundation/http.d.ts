@@ -58,6 +58,17 @@ declare namespace HttpTypes {
         code: NSURLErrorDomain;
     }
 
+    type HttpFile =
+        & {
+            name: string;
+            filename?: string;
+            "content-type"?: string;
+        }
+        & (
+            | { image: UIImage; data?: never }
+            | { image?: never; data: NSData }
+        );
+
     interface HttpRequestOptions {
         method?: string;
         url: string;
@@ -65,13 +76,7 @@ declare namespace HttpTypes {
         body?: Record<string, any> | NSData;
         timeout?: number;
         form?: Record<string, any>;
-        files?: {
-            image?: UIImage;
-            data?: NSData;
-            name: string;
-            filename?: string;
-            "content-type"?: string;
-        }[];
+        files?: HttpFile[];
         proxy?: {
             HTTPEnable: boolean;
             HTTPProxy: string;
@@ -83,20 +88,7 @@ declare namespace HttpTypes {
         handler: (response: HttpResponse) => void;
     }
 
-    interface DownloadOptions {
-        url: string;
-        header?: Record<string, any>;
-        body?: Record<string, any> | NSData;
-        // timeout?: number; // Empirical testing shows that timeout is ineffective for $http.download
-        form?: Record<string, any>;
-        proxy?: {
-            HTTPEnable: boolean;
-            HTTPProxy: string;
-            HTTPPort: number;
-            HTTPSEnable: boolean;
-            HTTPSProxy: string;
-            HTTPSPort: number;
-        };
+    interface DownloadOptions extends Omit<HttpRequestOptions, "handler" | "timeout"> {
         showsProgress?: boolean;
         backgroundFetch?: boolean;
         progress?: (bytesWritten: number, totalBytes: number) => void;
@@ -160,8 +152,8 @@ interface JBHttp {
 
     startServer(options: { port: number; path: string; handler: (result: HttpTypes.ServerResult) => void }): void;
     stopServer(): void;
+    /** @deprecated */
     shorten(options: { url: string; handler: (url: string) => void }): void;
-    // shorten: deprecated
     lengthen(options: { url: string; handler: (url: string) => void }): void;
     lengthen(options: { url: string }): Promise<string>;
 }

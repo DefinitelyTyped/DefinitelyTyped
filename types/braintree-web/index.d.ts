@@ -1,6 +1,7 @@
 import { AmericanExpress, create as americanExpressCreate } from "./american-express";
 import {
     ApplePay,
+    ApplePayDeferred,
     ApplePayDetails,
     ApplePayLineItem,
     ApplePayLineItemType,
@@ -15,8 +16,13 @@ import {
 } from "./apple-pay";
 import { Client, create as clientCreate, CreditCardInfo } from "./client";
 import { BraintreeError, callback, VERSION } from "./core";
-import { create as dataCollectorCreate, DataCollector } from "./data-collector";
-import { create as googlePaymentCreate, GooglePayment, GooglePaymentTokenizePayload } from "./google-payment";
+import { create as dataCollectorCreate, DataCollector, DataCollectorDeferred } from "./data-collector";
+import {
+    create as googlePaymentCreate,
+    GooglePayment,
+    GooglePaymentDeferred,
+    GooglePaymentTokenizePayload,
+} from "./google-payment";
 import {
     create as hostedFieldsCreate,
     HostedFieldFieldOptions,
@@ -68,6 +74,7 @@ export const venmo: PaymentClient<typeof venmoCreate>;
 export {
     AmericanExpress,
     ApplePay,
+    ApplePayDeferred,
     ApplePayDetails,
     ApplePayLineItem,
     ApplePayLineItemType,
@@ -83,8 +90,10 @@ export {
     Client,
     CreditCardInfo,
     DataCollector,
+    DataCollectorDeferred,
     FetchPaymentMethodsPayload,
     GooglePayment,
+    GooglePaymentDeferred,
     GooglePaymentTokenizePayload,
     HostedFieldFieldOptions,
     HostedFields,

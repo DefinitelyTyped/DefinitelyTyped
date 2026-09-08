@@ -562,6 +562,7 @@ declare class NodeFile implements File {
     arrayBuffer(): Promise<ArrayBuffer>;
     bytes(): Promise<NodeJS.NonSharedUint8Array>;
     text(): Promise<string>;
+    textStream(): ReadableStream;
 }
 
 {

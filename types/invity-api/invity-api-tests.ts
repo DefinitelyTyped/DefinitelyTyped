@@ -84,6 +84,7 @@ const sfts: SellFiatTradeSigned = {
 
 const wstr: WatchSellTradeResponse = {
     cryptoStringAmount: "",
+    fiatStringAmount: "",
 };
 
 const wetrErr: WatchExchangeTradeResponse = {

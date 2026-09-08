@@ -1,4 +1,4 @@
-// For Library Version: 1.151.0
+// For Library Version: 1.152.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -30700,7 +30700,7 @@ declare module "sap/m/FeedListItem" {
    * 1.23 the new feature expand / collapse was introduced, which uses the property maxCharacters. Beginning
    * with release 1.44, sap.m.FormattedText was introduced which allows html formatted text to be displayed.
    * The `actions` aggregation must contain instances of {@link sap.m.FeedListItemAction} in order to display
-   * them in the action sheet.
+   * them in a menu.
    *
    * @since 1.12
    */
@@ -153171,6 +153171,8 @@ declare module "sap/m/TimePickerClocks" {
 declare module "sap/m/TimePickerInputs" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
+  import Event from "sap/ui/base/Event";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
   import UI5Date from "sap/ui/core/date/UI5Date";
@@ -153244,6 +153246,90 @@ declare module "sap/m/TimePickerInputs" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.m.TimePickerInputs`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.TimePickerInputs` itself.
+     *
+     * Fired when the user commits a time edit — via digit / arrow / backspace / delete keys or by selecting
+     * a different AM/PM. Consumers can use this to react to user interaction with the time inputs, since the
+     * inner Input controls do not fire their own change event (onkeydown is intercepted and values are written
+     * directly through setValue).
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.TimePickerInputs` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.m.TimePickerInputs`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.TimePickerInputs` itself.
+     *
+     * Fired when the user commits a time edit — via digit / arrow / backspace / delete keys or by selecting
+     * a different AM/PM. Consumers can use this to react to user interaction with the time inputs, since the
+     * inner Input controls do not fire their own change event (onkeydown is intercepted and values are written
+     * directly through setValue).
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.TimePickerInputs` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.m.TimePickerInputs`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
      * Gets the time values from the clocks, as a date object.
      *
      *
@@ -153266,7 +153352,28 @@ declare module "sap/m/TimePickerInputs" {
   /**
    * Describes the settings that can be provided to the TimePickerInputs constructor.
    */
-  export interface $TimePickerInputsSettings extends $ControlSettings {}
+  export interface $TimePickerInputsSettings extends $ControlSettings {
+    /**
+     * Fired when the user commits a time edit — via digit / arrow / backspace / delete keys or by selecting
+     * a different AM/PM. Consumers can use this to react to user interaction with the time inputs, since the
+     * inner Input controls do not fire their own change event (onkeydown is intercepted and values are written
+     * directly through setValue).
+     */
+    change?: (oEvent: Event) => void;
+  }
+
+  /**
+   * Parameters of the TimePickerInputs#change event.
+   */
+  export interface TimePickerInputs$ChangeEventParameters {}
+
+  /**
+   * Event object of the TimePickerInputs#change event.
+   */
+  export type TimePickerInputs$ChangeEvent = Event<
+    TimePickerInputs$ChangeEventParameters,
+    TimePickerInputs
+  >;
 }
 
 declare module "sap/m/TimePickerSliders" {
@@ -158749,6 +158856,9 @@ declare module "sap/m/upload/FilePreviewDialog" {
      *
      * Custom buttons, to be displayed in the preview dialog footer.
      * Control by default adds two buttons (download and close).
+     * **Note:** Buttons added using this aggregation cannot use `sap.m.ButtonType.Emphasized` since the Download
+     * button is already rendered as emphasized to comply with the SAP Fiori action placement guidelines. Adding
+     * another emphasized button violates the single-primary-action pattern.
      */
     getAdditionalFooterButtons(): Button[];
     /**
@@ -159056,6 +159166,9 @@ declare module "sap/m/upload/FilePreviewDialog" {
     /**
      * Custom buttons, to be displayed in the preview dialog footer.
      * Control by default adds two buttons (download and close).
+     * **Note:** Buttons added using this aggregation cannot use `sap.m.ButtonType.Emphasized` since the Download
+     * button is already rendered as emphasized to comply with the SAP Fiori action placement guidelines. Adding
+     * another emphasized button violates the single-primary-action pattern.
      */
     additionalFooterButtons?:
       | Button[]

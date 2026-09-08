@@ -177,6 +177,8 @@ process.env.TZ = "test";
 {
     process.permission.has("fs.read"); // $ExpectType boolean
     process.permission.has("fs.read", "./README.md"); // $ExpectType boolean
+    process.permission.drop("fs.read");
+    process.permission.drop("fs.read", "./README.md");
 }
 
 {

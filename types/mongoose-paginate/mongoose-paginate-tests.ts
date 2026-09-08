@@ -33,7 +33,7 @@ router.get("/users.json", function(req: Request, res: Response) {
     let descending: boolean = true;
     let options: PaginateOptions = {} as PaginateOptions;
     options.select = "email username";
-    options.sort = { "username": (descending ? -1 : 1) };
+    options.sort = { "username": descending ? -1 : 1 };
     options.populate = "";
     options.populate = {
         path: "",

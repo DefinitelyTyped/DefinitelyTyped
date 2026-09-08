@@ -13,7 +13,8 @@ declare namespace DeviceTypes {
             orientation: number;
         };
         battery: {
-            state: number; // 0: unknown, 1: uncharging, 2: charging, 3: full
+            /** 0: unknown, 1: uncharging, 2: charging, 3: full */
+            state: 0 | 1 | 2 | 3;
             level: number;
         };
     }

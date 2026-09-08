@@ -1,4 +1,4 @@
-// For Library Version: 1.151.0
+// For Library Version: 1.152.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -2758,6 +2758,31 @@ declare module "sap/ui/mdc/TableDelegate" {
        */
       oBindingInfo: AggregationBindingInfo
     ): void;
+    /**
+     * Validation hook that is invoked when the user confirms the personalization dialog.
+     *
+     * Applications can use this hook to validate the current personalization state, display their own messages,
+     * and prevent the dialog from closing by resolving to `false`.
+     *
+     * Providing accessible feedback (e.g. screen reader announcements) while the validation is ongoing or once
+     * it has completed is the responsibility of the implementation.
+     *
+     * @since 1.152
+     *
+     * @returns A promise that resolves to `false` (or the literal value `false`) to prevent the dialog from
+     * closing. Any other value allows the dialog to close.
+     */
+    validateP13nState(
+      /**
+       * Instance of the table
+       */
+      oTable: Table,
+      /**
+       * The theoretical (not yet applied) external state of the table's personalization. The format matches the
+       * one processed by {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
+       */
+      oState: object
+    ): Promise<boolean> | boolean;
   }
   const TableDelegate: TableDelegate;
   export default TableDelegate;

@@ -4,8 +4,8 @@ import * as streamBuffers from "stream-buffers";
 // https://github.com/samcday/node-stream-buffer
 
 const myWritableStreamBuffer = new streamBuffers.WritableStreamBuffer({
-    initialSize: (100 * 1024), // start at 100 kilobytes.
-    incrementAmount: (10 * 1024), // grow by 10 kilobytes each time buffer overflows.
+    initialSize: 100 * 1024, // start at 100 kilobytes.
+    incrementAmount: 10 * 1024, // grow by 10 kilobytes each time buffer overflows.
 });
 
 const a = streamBuffers.DEFAULT_INITIAL_SIZE; // (8 * 1024)

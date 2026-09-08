@@ -9,7 +9,7 @@
         "@types/geojson": "*",
         "@types/mapbox-gl": "<3.5",
         "@types/react": "*",
-        "@types/viewport-mercator-project": "*"
+        "viewport-mercator-project": "^7.0.2"
     },
     "devDependencies": {
         "@types/react-map-gl": "workspace:."

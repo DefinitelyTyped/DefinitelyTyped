@@ -1,4 +1,5 @@
 declare namespace GorillaEngine.UI {
+    /** Properties for a mono or stereo audio level meter. */
     interface LevelMeterProps extends Common, Bounds, Background, Skinnable {
         /**
          * If `true`, the level meter will display and hold the highest peak level reached
@@ -62,13 +63,9 @@ declare namespace GorillaEngine.UI {
          * The thickness of the level meter's indicator.
          */
         indicatorThickness: number;
-        /** TODO::
-         * I have no idea that this does
-         */
+        /** Start of the normalized meter range displayed by the control. */
         visibleSectionStart: number;
-        /** TODO::
-         * I have no idea that this does
-         */
+        /** End of the normalized meter range displayed by the control. */
         visibleSectionEnd: number;
         /**
          * The direction of the level meter. This can be "horizontal" or "vertical".
@@ -87,6 +84,7 @@ declare namespace GorillaEngine.UI {
     // tslint:disable-next-line:no-empty-interface
     interface LevelMeter extends LevelMeterProps {}
 
+    /** A component that displays the current audio signal level. */
     class LevelMeter extends Component {
         constructor(options: Partial<LevelMeterProps>);
     }

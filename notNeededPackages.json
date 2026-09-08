@@ -380,6 +380,10 @@
             "libraryName": "baconjs",
             "asOfVersion": "3.0.0"
         },
+        "bad-words": {
+            "libraryName": "bad-words",
+            "asOfVersion": "4.0.0"
+        },
         "badgen": {
             "libraryName": "badgen",
             "asOfVersion": "2.7.1"
@@ -616,6 +620,10 @@
             "libraryName": "burns",
             "asOfVersion": "2.1.0"
         },
+        "bwip-js": {
+            "libraryName": "bwip-js",
+            "asOfVersion": "4.0.0"
+        },
         "cache-manager": {
             "libraryName": "cache-manager",
             "asOfVersion": "5.0.0"
@@ -775,6 +783,10 @@
         "chordsheetjs": {
             "libraryName": "chordsheetjs",
             "asOfVersion": "6.2.0"
+        },
+        "chownr": {
+            "libraryName": "chownr",
+            "asOfVersion": "3.0.0"
         },
         "chunked-dc": {
             "libraryName": "chunked-dc",
@@ -1159,6 +1171,10 @@
         "complex.js": {
             "libraryName": "complex.js",
             "asOfVersion": "2.0.14"
+        },
+        "component-emitter": {
+            "libraryName": "component-emitter",
+            "asOfVersion": "2.0.0"
         },
         "composer-concerto": {
             "libraryName": "composer-concerto",
@@ -1581,6 +1597,10 @@
             "libraryName": "decimal.js",
             "asOfVersion": "7.4.0"
         },
+        "decode-uri-component": {
+            "libraryName": "decode-uri-component",
+            "asOfVersion": "0.4.1"
+        },
         "decompress-response": {
             "libraryName": "decompress-response",
             "asOfVersion": "4.1.0"
@@ -1748,6 +1768,10 @@
         "dot-prop": {
             "libraryName": "dot-prop",
             "asOfVersion": "5.0.0"
+        },
+        "dot-prop-immutable": {
+            "libraryName": "dot-prop-immutable",
+            "asOfVersion": "2.0.0"
         },
         "dotenv": {
             "libraryName": "dotenv",
@@ -2165,6 +2189,10 @@
             "libraryName": "extended-listbox",
             "asOfVersion": "4.0.1"
         },
+        "extenso": {
+            "libraryName": "extenso",
+            "asOfVersion": "2.1.0"
+        },
         "extract-colors": {
             "libraryName": "extract-colors",
             "asOfVersion": "3.0.0"
@@ -2564,6 +2592,10 @@
         "geolib": {
             "libraryName": "geolib",
             "asOfVersion": "2.0.23"
+        },
+        "gestalt-datepicker": {
+            "libraryName": "gestalt-datepicker",
+            "asOfVersion": "111.0.0"
         },
         "get-caller-file": {
             "libraryName": "get-caller-file",
@@ -2985,6 +3017,10 @@
             "libraryName": "html-void-elements",
             "asOfVersion": "2.0.0"
         },
+        "html-webpack-plugin": {
+            "libraryName": "html-webpack-plugin",
+            "asOfVersion": "4.0.0"
+        },
         "html-webpack-tags-plugin": {
             "libraryName": "html-webpack-tags-plugin",
             "asOfVersion": "2.0.16"
@@ -3121,6 +3157,10 @@
             "libraryName": "immutable",
             "asOfVersion": "3.8.7"
         },
+        "import-local": {
+            "libraryName": "import-local",
+            "asOfVersion": "3.2.0"
+        },
         "impress": {
             "libraryName": "impress",
             "asOfVersion": "2.0.13"
@@ -3144,6 +3184,10 @@
         "ink": {
             "libraryName": "ink",
             "asOfVersion": "2.0.2"
+        },
+        "ink-divider": {
+            "libraryName": "ink-divider",
+            "asOfVersion": "2.3.2"
         },
         "instabug-reactnative": {
             "libraryName": "instabug-reactnative",
@@ -3828,6 +3872,10 @@
         "koa-views": {
             "libraryName": "koa-views",
             "asOfVersion": "7.0.0"
+        },
+        "koa__router": {
+            "libraryName": "@koa/router",
+            "asOfVersion": "15.0.0"
         },
         "ladda": {
             "libraryName": "ladda",
@@ -4589,6 +4637,10 @@
             "libraryName": "mobx-task",
             "asOfVersion": "2.0.0"
         },
+        "moc-better-sqlite3": {
+            "libraryName": "moc-better-sqlite3",
+            "asOfVersion": "7.0.2"
+        },
         "mock-property": {
             "libraryName": "mock-property",
             "asOfVersion": "1.1.0"
@@ -4705,6 +4757,10 @@
             "libraryName": "murmurhash",
             "asOfVersion": "2.0.0"
         },
+        "n-readlines": {
+            "libraryName": "n-readlines",
+            "asOfVersion": "3.0.0"
+        },
         "naja": {
             "libraryName": "naja",
             "asOfVersion": "2.0.0"
@@ -4712,6 +4768,10 @@
         "nano": {
             "libraryName": "nano",
             "asOfVersion": "7.0.0"
+        },
+        "nanoassert": {
+            "libraryName": "nanoassert",
+            "asOfVersion": "3.0.0"
         },
         "nanoevents": {
             "libraryName": "nanoevents",
@@ -5435,6 +5495,10 @@
             "libraryName": "pino-std-serializers",
             "asOfVersion": "4.0.0"
         },
+        "pixelmatch": {
+            "libraryName": "pixelmatch",
+            "asOfVersion": "7.1.0"
+        },
         "pixi-spine": {
             "libraryName": "pixi-spine",
             "asOfVersion": "1.4.2"
@@ -5890,6 +5954,10 @@
         "raygun": {
             "libraryName": "raygun",
             "asOfVersion": "0.11.0"
+        },
+        "raygun4js": {
+            "libraryName": "raygun4js",
+            "asOfVersion": "3.1.0"
         },
         "rc-progress": {
             "libraryName": "rc-progress",
@@ -6527,6 +6595,10 @@
             "libraryName": "react-router-native",
             "asOfVersion": "6.4.0"
         },
+        "react-scroll-sync": {
+            "libraryName": "react-scroll-sync",
+            "asOfVersion": "1.0.0"
+        },
         "react-scrollbar-size": {
             "libraryName": "react-scrollbar-size",
             "asOfVersion": "3.0.0"
@@ -6958,6 +7030,10 @@
         "safe-regex-test": {
             "libraryName": "safe-regex-test",
             "asOfVersion": "1.1.0"
+        },
+        "sales-tax": {
+            "libraryName": "sales-tax",
+            "asOfVersion": "2.9.0"
         },
         "samchon": {
             "libraryName": "samchon",
@@ -7811,6 +7887,10 @@
             "libraryName": "tokenizr",
             "asOfVersion": "1.6.0"
         },
+        "totp-generator": {
+            "libraryName": "totp-generator",
+            "asOfVersion": "2.0.1"
+        },
         "transliteration": {
             "libraryName": "transliteration",
             "asOfVersion": "1.6.6"
@@ -8091,6 +8171,10 @@
             "libraryName": "viewerjs",
             "asOfVersion": "1.0.0"
         },
+        "viewport-mercator-project": {
+            "libraryName": "viewport-mercator-project",
+            "asOfVersion": "7.0.2"
+        },
         "vinyl-file": {
             "libraryName": "vinyl-file",
             "asOfVersion": "4.1.0"
@@ -8239,6 +8323,10 @@
             "libraryName": "websequencediagrams",
             "asOfVersion": "2.0.0"
         },
+        "weighted": {
+            "libraryName": "weighted",
+            "asOfVersion": "1.0.0"
+        },
         "whatwg-streams": {
             "libraryName": "typescript",
             "asOfVersion": "3.2.1"
@@ -8250,6 +8338,10 @@
         "which-pm": {
             "libraryName": "which-pm",
             "asOfVersion": "1.1.0"
+        },
+        "wif": {
+            "libraryName": "wif",
+            "asOfVersion": "5.0.0"
         },
         "wikidata-sdk": {
             "libraryName": "wikidata-sdk",
@@ -8698,6 +8790,10 @@
         "zookeeper": {
             "libraryName": "zookeeper",
             "asOfVersion": "4.6.0"
+        },
+        "zoomist": {
+            "libraryName": "zoomist",
+            "asOfVersion": "2.0.1"
         },
         "zrender": {
             "libraryName": "zrender",

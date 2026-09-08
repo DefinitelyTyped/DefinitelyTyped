@@ -42,5 +42,14 @@ export interface AmericanExpress {
     getExpressCheckoutProfile(options: { nonce: string }, callback: callback): void;
 }
 
-export function create(options: { client: Client }): Promise<AmericanExpress>;
-export function create(options: { client: Client }, callback: callback<AmericanExpress>): void;
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+}): Promise<AmericanExpress>;
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+    },
+    callback: callback<AmericanExpress>,
+): void;

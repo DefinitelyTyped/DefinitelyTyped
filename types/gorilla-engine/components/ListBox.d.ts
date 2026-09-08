@@ -9,7 +9,7 @@ declare namespace GorillaEngine.UI {
          */
         horizontalMargin?: number;
         /**
-         * The bakcground color of the items in the list box.
+         * The background color of the items in the list box.
          */
         cellColor?: string;
         /**

@@ -395,6 +395,11 @@ declare namespace chrome {
         type AlarmCreateInfo =
             & {
                 /**
+                 * Name of this alarm.
+                 * @since Chrome 152
+                 */
+                name?: string | undefined;
+                /**
                  * Whether the alarm should persist across sessions (browser restarts). In Chrome, this defaults to true to match historical behavior, but you should set this explicitly to maximize compatibility across browsers.
                  * @since Chrome 150
                  */
@@ -453,9 +458,18 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 111.
          */
         function create(alarmInfo: AlarmCreateInfo): Promise<void>;
-        function create(name: string | undefined, alarmInfo: AlarmCreateInfo): Promise<void>;
+        function create(name: undefined, alarmInfo: AlarmCreateInfo): Promise<void>;
+        function create<T extends AlarmCreateInfo>(
+            name: string,
+            alarmInfo: T & (T extends { name: string } ? never : unknown),
+        ): Promise<void>;
         function create(alarmInfo: AlarmCreateInfo, callback: () => void): void;
-        function create(name: string | undefined, alarmInfo: AlarmCreateInfo, callback: () => void): void;
+        function create(name: undefined, alarmInfo: AlarmCreateInfo, callback: () => void): void;
+        function create<T extends AlarmCreateInfo>(
+            name: string,
+            alarmInfo: T & (T extends { name: string } ? never : unknown),
+            callback: () => void,
+        ): void;
 
         /**
          * Gets an array of all the alarms.
@@ -2888,20 +2902,59 @@ declare namespace chrome {
             injectedScript?: string | undefined;
         }
 
-        interface EvaluationExceptionInfo {
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            isError: boolean;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            code: string;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            description: string;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
-            details: any[];
-            /** Set if the evaluated code produces an unhandled exception. */
-            isException: boolean;
-            /** Set if the evaluated code produces an unhandled exception. */
-            value: string;
-        }
+        type EvaluationExceptionInfo =
+            | {
+                /**
+                 * Set if the error occurred on the DevTools side before the expression is evaluated.
+                 *
+                 * If `isError` is set to true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * See the docs on `isException` for more details on parsing this object.
+                 */
+                isError: true;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                code: string;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                description: string;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
+                details: any[];
+                /**
+                 * Set if the evaluated code produces an unhandled exception.
+                 *
+                 * If `isException` is non-null but not true, and `isError` is true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * If `isException` is set to true, a JavaScript error has occurred, and `value` is set to the string value of the thrown object.
+                 */
+                isException?: undefined;
+                /** Set if the evaluated code produces an unhandled exception. */
+                value?: undefined;
+            }
+            | {
+                /**
+                 * Set if the error occurred on the DevTools side before the expression is evaluated.
+                 *
+                 * If `isError` is set to true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * See the docs on `isException` for more details on parsing this object.
+                 */
+                isError?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                code?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                description?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
+                details?: undefined;
+                /**
+                 * Set if the evaluated code produces an unhandled exception.
+                 *
+                 * If `isException` is non-null but not true, and `isError` is true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * If `isException` is set to true, a JavaScript error has occurred, and `value` is set to the string value of the thrown object.
+                 */
+                isException: true;
+                /** Set if the evaluated code produces an unhandled exception. */
+                value: string;
+            };
 
         /** The ID of the tab being inspected. This ID may be used with {@link chrome.tabs} API. */
         const tabId: number;
@@ -2921,15 +2974,23 @@ declare namespace chrome {
         function eval<T = { [key: string]: unknown }>(
             expression: string,
             options?: EvalOptions,
-        ): Promise<{ result: T; exceptionInfo: EvaluationExceptionInfo }>;
+        ): Promise<T>;
         function eval<T = { [key: string]: unknown }>(
             expression: string,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            callback: (
+                ...args:
+                    | [result: T, exceptionInfo: undefined]
+                    | [result: undefined, exceptionInfo: EvaluationExceptionInfo]
+            ) => void,
         ): void;
         function eval<T = { [key: string]: unknown }>(
             expression: string,
             options: EvalOptions | undefined,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            callback: (
+                ...args:
+                    | [result: T, exceptionInfo: undefined]
+                    | [result: undefined, exceptionInfo: EvaluationExceptionInfo]
+            ) => void,
         ): void;
 
         /**
@@ -3074,10 +3135,13 @@ declare namespace chrome {
             /**
              * Creates a pane within panel's sidebar.
              * @param title Text that is displayed in sidebar caption.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
+            createSidebarPane(title: string): Promise<ExtensionSidebarPane>;
             createSidebarPane(
                 title: string,
-                callback?: (
+                callback: (
                     /** An ExtensionSidebarPane object for created sidebar pane. */
                     result: ExtensionSidebarPane,
                 ) => void,
@@ -3091,10 +3155,13 @@ declare namespace chrome {
             /**
              * Creates a pane within panel's sidebar.
              * @param title Text that is displayed in sidebar caption.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
+            createSidebarPane(title: string): Promise<ExtensionSidebarPane>;
             createSidebarPane(
                 title: string,
-                callback?: (
+                callback: (
                     /** An ExtensionSidebarPane object for created sidebar pane. */
                     result: ExtensionSidebarPane,
                 ) => void,
@@ -3114,19 +3181,23 @@ declare namespace chrome {
              * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane.
              * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch.
              * @param rootTitle An optional title for the root of the expression tree.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
-            setExpression(expression: string, callback?: () => void): void;
-            setExpression(expression: string, rootTitle: string | undefined, callback?: () => void): void;
+            setExpression(expression: string, rootTitle?: string): Promise<void>;
+            setExpression(expression: string, rootTitle: string | undefined, callback: () => void): void;
             /**
              * Sets a JSON-compliant object to be displayed in the sidebar pane.
              * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
              * @param rootTitle An optional title for the root of the expression tree.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
-            setObject(jsonObject: { [key: string]: unknown }, callback?: () => void): void;
+            setObject(jsonObject: { [key: string]: unknown }, rootTitle?: string): Promise<void>;
             setObject(
                 jsonObject: { [key: string]: unknown },
                 rootTitle: string | undefined,
-                callback?: () => void,
+                callback: () => void,
             ): void;
             /**
              * Sets an HTML page to be displayed in the sidebar pane.
@@ -3156,12 +3227,15 @@ declare namespace chrome {
          * @param title Title that is displayed next to the extension icon in the Developer Tools toolbar.
          * @param iconPath Path of the panel's icon relative to the extension directory.
          * @param pagePath Path of the panel's HTML page relative to the extension directory.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 152.
          */
+        function create(title: string, iconPath: string, pagePath: string): Promise<ExtensionPanel>;
         function create(
             title: string,
             iconPath: string,
             pagePath: string,
-            callback?: (
+            callback: (
                 /** An ExtensionPanel object representing the created panel. */
                 panel: ExtensionPanel,
             ) => void,
@@ -3188,13 +3262,16 @@ declare namespace chrome {
          * @param url The URL of the resource to open.
          * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
          * @param columnNumber Specifies the column number to scroll to when the resource is loaded.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 152.
          */
-        function openResource(url: string, lineNumber: number, callback?: () => void): void;
+        function openResource(url: string, lineNumber: number, columnNumber?: number): Promise<void>;
+        function openResource(url: string, lineNumber: number, callback: () => void): void;
         function openResource(
             url: string,
             lineNumber: number,
             columnNumber: number | undefined,
-            callback?: () => void,
+            callback: () => void,
         ): void;
 
         /**
@@ -4741,6 +4818,25 @@ declare namespace chrome {
          * @since Chrome 66
          */
         type CSSOrigin = "author" | "user";
+
+        /**
+         * Details of the CSS to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         */
+        interface DeleteInjectionDetails {
+            /** If allFrames is `true`, implies that the CSS should be removed from all frames of current page. By default, it's `false` and is only removed from the top frame. If `true` and `frameId` is set, then the code is removed from the selected frame and all of its child frames. */
+            allFrames?: boolean;
+            /**  CSS code to remove. */
+            code?: string;
+            /** The origin of the CSS to remove. Defaults to `"author"`. */
+            cssOrigin?: CSSOrigin;
+            /** CSS file to remove. */
+            file?: string;
+            /** The frame from where the CSS should be removed. Defaults to 0 (the top-level frame). */
+            frameId?: number;
+            /** If matchAboutBlank is true, then the code is also removed from about:blank and about:srcdoc frames if your extension has access to its parent document. By default it is `false`. */
+            matchAboutBlank?: boolean;
+        }
 
         /**
          * The document lifecycle of the frame.
@@ -11890,7 +11986,7 @@ declare namespace chrome {
          * MV2 only
          * @param tabId The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
          * @param details Details of the CSS text to insert. Either the code or the file property must be set, but both may not be set at the same time.
-         * @deprecated since Chrome 99. Replaced by {@link scripting.insertCSS} in Manifest V3.
+         * @deprecated since Chrome 91. Replaced by {@link scripting.insertCSS} in Manifest V3.
          */
         function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
@@ -11898,6 +11994,26 @@ declare namespace chrome {
         function insertCSS(
             tabId: number | undefined,
             details: extensionTypes.InjectDetails,
+            callback: () => void,
+        ): void;
+
+        /**
+         * Removes from a page CSS that was previously injected by a call to {@link tabs.insertCSS}.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
+         *
+         * MV2 only
+         * @param tabId The ID of the tab from which to remove the CSS; defaults to the active tab of the current window.
+         * @param details Details of the CSS text to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         * @deprecated since Chrome 91. Replaced by {@link scripting.removeCSS} in Manifest V3.
+         */
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(tabId: number | undefined, details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails, callback: () => void): void;
+        function removeCSS(
+            tabId: number | undefined,
+            details: extensionTypes.DeleteInjectionDetails,
             callback: () => void,
         ): void;
 

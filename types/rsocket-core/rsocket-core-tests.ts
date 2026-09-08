@@ -36,7 +36,7 @@ new RSocketClient<Buffer, Buffer>({
     },
     // Transports default to sending/receiving strings:
     // Use BufferEncoders to enable binary
-    transport: (undefined as any),
+    transport: undefined as any,
 });
 
 const compositeMetadata = decodeCompositeMetadata(encodeCompositeMetadata([
