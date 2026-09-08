@@ -403,6 +403,28 @@ function testProxy() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/publicSuffix
+function testPublicSuffix() {
+    chrome.publicSuffix.DomainEncoding.DISPLAY === "display";
+    chrome.publicSuffix.DomainEncoding.PUNYCODE === "punycode";
+
+    const hostname = "developer.chrome.com";
+
+    const domainOptions: chrome.publicSuffix.DomainOptions = {
+        allowIPAddress: true,
+        allowPlainSuffix: true,
+        allowUnknownSuffix: true,
+        encoding: "display",
+    };
+
+    chrome.publicSuffix.getDomain(hostname); // $ExpectType string | null
+    chrome.publicSuffix.getDomain(hostname, domainOptions); // $ExpectType string | null
+
+    chrome.publicSuffix.getKnownSuffix(hostname); // $ExpectType string | null
+
+    chrome.publicSuffix.isKnownSuffix(hostname); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/notifications
 function testNotifications() {
     chrome.notifications.PermissionLevel.DENIED === "denied";
