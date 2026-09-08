@@ -62,7 +62,7 @@ export interface ReactNativeSideMenuProps {
     /**
      * Callback when menu animation has completed.
      */
-    onAnimationComplete?: ((event: Animated.EndCallback) => void) | undefined;
+    onAnimationComplete?: ((event: (result: { finished: boolean }) => void) => void) | undefined;
     /**
      * When true, content view will bounce back to openMenuOffset when dragged further
      * @default true
