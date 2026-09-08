@@ -1,8 +1,10 @@
 import {
     mx_aastep,
     mx_cell_noise_float,
+    mx_cell_noise_vec3,
     mx_contrast,
     mx_fractal_noise_float,
+    mx_fractal_noise_float_2d,
     mx_fractal_noise_vec2,
     mx_fractal_noise_vec3,
     mx_fractal_noise_vec4,
@@ -14,13 +16,17 @@ import {
     mx_ramptb,
     mx_rgbtohsv,
     mx_safepower,
+    mx_smoothstep,
     mx_splitlr,
     mx_splittb,
     mx_srgb_texture_to_lin_rec709,
     mx_transform_uv,
     mx_worley_noise_float,
+    mx_worley_noise_float_2d,
+    mx_worley_noise_float_3d,
     mx_worley_noise_vec2,
     mx_worley_noise_vec3,
+    mx_worley_noise_vec3_style,
     vec2,
     vec3,
 } from "three/tsl";
@@ -53,16 +59,29 @@ mx_noise_vec3(vec2(0), 1, 0);
 mx_noise_vec4();
 mx_noise_vec4(vec2(0), 1, 0);
 
+mx_smoothstep(0.5);
+mx_smoothstep(0.5, 0, 1);
+
 mx_worley_noise_float();
-mx_worley_noise_float(vec2(0), 1);
+mx_worley_noise_float(vec2(0), 1, 0);
+mx_worley_noise_float_2d();
+mx_worley_noise_float_2d(vec2(0), 1, 0);
+mx_worley_noise_float_3d();
+mx_worley_noise_float_3d(vec3(0), 1, 0);
 mx_worley_noise_vec2();
 mx_worley_noise_vec2(vec2(0), 1);
 mx_worley_noise_vec3();
-mx_worley_noise_vec3(vec2(0), 1);
+mx_worley_noise_vec3(vec2(0), 1, 1);
+mx_worley_noise_vec3_style();
+mx_worley_noise_vec3_style(vec3(0), 1, 0, 0);
 
 mx_cell_noise_float();
 mx_cell_noise_float(vec2(0));
+mx_cell_noise_vec3();
+mx_cell_noise_vec3(vec2(0));
 
+mx_fractal_noise_float_2d();
+mx_fractal_noise_float_2d(vec2(0), 3, 2, 0.5, 1);
 mx_fractal_noise_float();
 mx_fractal_noise_float(vec2(0), 3, 2, 0.5, 1);
 mx_fractal_noise_vec2();

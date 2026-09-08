@@ -36,11 +36,6 @@ export class PointLightHelper extends Mesh {
      */
     color: ColorRepresentation | undefined;
     /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
-    /**
      * Updates the helper to match the position of the
      * light being visualized.
      */

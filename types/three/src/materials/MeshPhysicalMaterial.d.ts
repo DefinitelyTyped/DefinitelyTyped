@@ -276,6 +276,16 @@ export interface MeshPhysicalMaterialProperties extends MeshStandardMaterialProp
      * @default 0
      */
     get dispersion(): number;
+    set retroreflectivity(value: number);
+    /**
+     * The strength of retroreflection, from `0.0` to `1.0`. A value of `1.0`
+     * evaluates the material's microfacet reflection with the view direction
+     * reflected about the surface normal, redirecting the specular lobe back
+     * toward the light source.
+     *
+     * @default 0
+     */
+    get retroreflectivity(): number;
     set sheen(value: number);
     /**
      * The intensity of the sheen layer, from `0.0` to `1.0`.
@@ -319,6 +329,8 @@ export interface MeshPhysicalMaterialParameters
  * transparent materials are less reflective. Physically-based transmission provides a more
  * realistic option for thin, transparent surfaces like glass.
  * - Advanced reflectivity: More flexible reflectivity for non-metallic materials.
+ * - Retroreflection: Redirects specular light back toward the light source for
+ * safety materials like road markings and reflective tape.
  * - Sheen: Can be used for representing cloth and fabric materials.
  *
  * As a result of these complex shading features, `MeshPhysicalMaterial` has a

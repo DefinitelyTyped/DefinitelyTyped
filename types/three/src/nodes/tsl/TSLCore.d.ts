@@ -19,7 +19,7 @@ export function addMethodChaining(name: string, nodeElement: unknown): void;
 
 declare module "../core/Node.js" {
     interface NodeElements {
-        assign: (sourceNode: Node | number) => this;
+        assign: (sourceNode: Node | number | boolean) => this;
         get: (value: string) => Node;
     }
 }
@@ -2275,7 +2275,7 @@ interface Mat3Function {
     // ConstNode
     (value: Matrix3): VarNode<"mat3", ConstNode<"mat3", Matrix3>>;
     // ConvertNode
-    (node: Node<"mat3">): VarNode<"mat3", ConvertNode<"mat3">>;
+    (node: Node<"mat3"> | Node<"mat4">): VarNode<"mat3", ConvertNode<"mat3">>;
 
     // The fall-through branch will be triggered if there is more than one parameter, and one of the parameters is an
     //   object
@@ -2414,20 +2414,6 @@ declare module "../core/ArrayNode.js" {
 declare module "../core/Node.js" {
     interface NodeElements {
         convert: (types: string) => Node;
-    }
-}
-
-/**
- * @deprecated append() has been renamed to Stack().
- */
-export const append: (node: Node) => Node;
-
-declare module "../core/Node.js" {
-    interface NodeElements {
-        /**
-         * @deprecated append() has been renamed to Stack().
-         */
-        append: () => Node;
     }
 }
 

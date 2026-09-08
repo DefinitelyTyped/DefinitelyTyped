@@ -25,9 +25,4 @@ export class GridHelper extends LineSegments<BufferGeometry, LineBasicMaterial> 
      * @param {number|Color|string} [color2=0x888888] - The color of the lines of the grid.
      */
     constructor(size?: number, divisions?: number, color1?: ColorRepresentation, color2?: ColorRepresentation);
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

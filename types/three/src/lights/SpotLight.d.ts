@@ -2,8 +2,7 @@ import { JSONMeta, Object3D } from "../core/Object3D.js";
 import { ColorRepresentation } from "../math/Color.js";
 import { Texture } from "../textures/Texture.js";
 import { Light, LightJSON } from "./Light.js";
-import { LightShadowJSON } from "./LightShadow.js";
-import { SpotLightShadow } from "./SpotLightShadow.js";
+import { SpotLightShadow, SpotLightShadowJSON } from "./SpotLightShadow.js";
 
 export interface SpotLightJSON extends LightJSON {
     distance: number;
@@ -14,7 +13,7 @@ export interface SpotLightJSON extends LightJSON {
     target: string;
     map?: string | undefined;
 
-    shadow: LightShadowJSON;
+    shadow: SpotLightShadowJSON;
 }
 
 /**

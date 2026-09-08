@@ -248,10 +248,11 @@ export class For {
 }
 
 export class While {
-    constructor(condition: Statement, body?: Statement[]);
+    constructor(condition: Statement, body?: Statement[], doWhile?: boolean);
 
     condition: Statement;
     body: Statement[];
+    doWhile: boolean;
 
     readonly isWhile: true;
 }

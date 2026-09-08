@@ -6,7 +6,6 @@ declare class SkyMesh extends Mesh<BoxGeometry, NodeMaterial> {
     mieCoefficient: UniformNode<"float", number>;
     mieDirectionalG: UniformNode<"float", number>;
     sunPosition: UniformNode<"vec3", Vector3>;
-    upUniform: UniformNode<"vec3", Vector3>;
     cloudScale: UniformNode<"float", number>;
     cloudSpeed: UniformNode<"float", number>;
     cloudCoverage: UniformNode<"float", number>;
