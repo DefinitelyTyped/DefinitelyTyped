@@ -232,6 +232,24 @@ function redTests(RED: editorClient.RED) {
             },
     };
 
+    interface ToggleNodeProperties extends editorClient.NodeProperties {
+        key: string;
+        enabled: boolean;
+    }
+
+    const invalidToggle: editorClient.NodeDef<ToggleNodeProperties> = {
+        category: "category",
+        defaults: {
+            key: { value: "" },
+            enabled: { value: false },
+        },
+        button: {
+            // @ts-expect-error The toggle property must reference a boolean node property.
+            toggle: "key",
+            onclick() {},
+        },
+    };
+
     const defWithReserved: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
         category: "category",
         defaults: {
@@ -454,9 +472,11 @@ function documentedApiTests(RED: editorClient.RED) {
     RED.hooks.has("viewAddNode.my-plugin");
     // $ExpectType Promise<unknown>
     RED.hooks.trigger("viewAddNode", {});
+    // @ts-expect-error Trigger only accepts hook identifiers declared by the upstream public JSDoc.
+    RED.hooks.trigger("customHook", {});
     // $ExpectType void
     RED.hooks.trigger("viewAddNode", {}, error => {
-        // $ExpectType string | boolean | Error | undefined
+        // $ExpectType Error | null | undefined
         error;
     });
 
@@ -480,27 +500,20 @@ function documentedApiTests(RED: editorClient.RED) {
     // $ExpectType void
     notification.close();
 
-    // The public API documents text messages and an options object only.
-    // @ts-expect-error
-    RED.notify($("<p>Hello</p>"));
-    // @ts-expect-error
-    RED.notify("Hello", "warning", true, 10000);
-    RED.notify("Hello", {
-        // @ts-expect-error
+    const persistentNotification = RED.notify($("<p>Hello</p>"), {
         id: "persistent-notification",
-    });
-    RED.notify("Hello", {
-        // @ts-expect-error
         width: 500,
-    });
-    RED.notify("Hello", {
         buttons: [{
-            // @ts-expect-error
             id: "confirm",
             text: "confirm",
             click() {},
         }],
     });
+    // $ExpectType void
+    persistentNotification.update($("<p>Updated</p>"), { type: "success" });
+
+    // $ExpectType Notification
+    RED.notify("Hello", "warning", true, 10000);
 
     // The public notification object only documents close and update.
     // @ts-expect-error
@@ -511,8 +524,6 @@ function documentedApiTests(RED: editorClient.RED) {
     notification.update("Updated");
     // @ts-expect-error
     notification.update("Updated", 10000);
-    // @ts-expect-error
-    notification.update($("<p>Updated</p>"), {});
 }
 
 function nodeRedUtilsTests(RED: editorClient.RED) {

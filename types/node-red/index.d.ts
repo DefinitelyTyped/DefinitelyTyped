@@ -3,6 +3,7 @@
 import { EventEmitter } from "events";
 import { Express } from "express";
 import { Server as HttpServer } from "http";
+import { Server as HttpsServer } from "https";
 
 import * as editorAPI from "@node-red/editor-api";
 import * as editorClient from "@node-red/editor-client";
@@ -21,7 +22,7 @@ declare namespace nodeRed {
          * @param httpServer - the HTTP server object to use
          * @param userSettings - an object containing the runtime settings
          */
-        init: (httpServer: HttpServer, userSettings: runtime.LocalSettings) => void;
+        init: (httpServer: HttpServer | HttpsServer, userSettings: runtime.LocalSettings) => void;
 
         /**
          * Start the Node-RED application.
@@ -87,7 +88,7 @@ declare namespace nodeRed {
         /**
          * The HTTP Server used by the runtime
          */
-        readonly server: HttpServer;
+        readonly server: HttpServer | HttpsServer;
 
         /**
          * The runtime api
@@ -98,6 +99,11 @@ declare namespace nodeRed {
          * The editor authentication api.
          */
         auth: editorAPI.Auth;
+
+        /**
+         * The diagnostics api.
+         */
+        readonly diagnostics: unknown;
     }
 
     /*******************************************************************

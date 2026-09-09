@@ -16,9 +16,6 @@ function i18nTests() {
 
     // $ExpectType string[]
     i18n.availableLanguages("editor");
-
-    // $ExpectType string
-    i18n.defaultLang;
 }
 
 function logTests() {
@@ -76,19 +73,25 @@ function utilTests(someNode: Node) {
     // $ExpectType string
     const msgKey = msgClone.key;
 
+    const text: string = "value";
+    // $ExpectType string
+    util.cloneMessage(text);
+
     // $ExpectType boolean
     util.compareObjects({}, {});
+    // $ExpectType boolean
+    util.compareObjects(1, "1");
 
     // $ExpectType PropertyExpression
     util.normalisePropertyExpression("a[\"b\"].c");
 
-    // $ExpectType PropertyExpression
+    // $ExpectType unknown[]
     util.normalisePropertyExpression("a[msg.foo]", msg);
 
     // $ExpectType string
     util.normalisePropertyExpression("a[msg.foo]", msg, true);
 
-    // $ExpectType PropertyExpression
+    // $ExpectType unknown[]
     util.normalisePropertyExpression("a[msg.foo]", msg, false);
     // $ExpectType string
     util.normalisePropertyExpression("a.b", undefined, true);
@@ -98,6 +101,8 @@ function utilTests(someNode: Node) {
 
     // $ExpectType any
     util.getObjectProperty({}, "key");
+    // $ExpectType any
+    util.getObjectProperty([1, 2, 3], "0");
 
     // $ExpectType boolean
     util.setMessageProperty({}, "key", { dataKey: "dataVal" });
@@ -108,6 +113,8 @@ function utilTests(someNode: Node) {
     util.setObjectProperty({}, "key", { dataKey: "dataVal" });
     // $ExpectType boolean
     util.setObjectProperty({}, "key", { dataKey: "dataVal" }, true);
+    // $ExpectType boolean
+    util.setObjectProperty([1, 2, 3], "0", 4);
 
     // $ExpectType string
     util.getSetting(someNode, "name");
@@ -186,7 +193,7 @@ function utilTests(someNode: Node) {
 
     // $ExpectType ExprNode
     const ast = jsonataExpr.ast();
-    // $ExpectType "string" | "number" | "error" | "function" | "binary" | "unary" | "partial" | "lambda" | "condition" | "transform" | "block" | "name" | "parent" | "value" | "wildcard" | "descendant" | "variable" | "regexp" | "operator"
+    // $ExpectType string
     ast.type;
     // $ExpectType any
     ast.value;

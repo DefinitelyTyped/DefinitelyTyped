@@ -1,5 +1,6 @@
 import { Express, RequestHandler } from "express";
 import { Server as HttpServer } from "http";
+import { Server as HttpsServer } from "https";
 
 import * as runtime from "@node-red/runtime";
 
@@ -21,7 +22,7 @@ declare namespace editorAPI {
          */
         init: (
             settings: runtime.LocalSettings,
-            _server: HttpServer,
+            _server: HttpServer | HttpsServer,
             storage: runtime.StorageModule,
             runtimeAPI: runtime.RuntimeModule,
         ) => void;

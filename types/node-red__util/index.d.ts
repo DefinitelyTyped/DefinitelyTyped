@@ -7,26 +7,7 @@ import * as runtime from "@node-red/runtime";
 // Preserve the JSONata contract used by Node-RED without depending on its runtime.
 declare namespace jsonata {
     interface ExprNode {
-        type:
-            | "binary"
-            | "unary"
-            | "function"
-            | "partial"
-            | "lambda"
-            | "condition"
-            | "transform"
-            | "block"
-            | "name"
-            | "parent"
-            | "string"
-            | "number"
-            | "value"
-            | "wildcard"
-            | "descendant"
-            | "variable"
-            | "regexp"
-            | "operator"
-            | "error";
+        type: string;
         value?: any;
         position?: number;
         arguments?: ExprNode[];
@@ -188,9 +169,6 @@ declare namespace util {
          * Gets a list of languages a given catalog is available in.
          */
         availableLanguages(namespace: string): string[];
-
-        /** The default language of the runtime. */
-        defaultLang: string;
     }
 
     type PropertyExpression = Array<string | number | PropertyExpression>;
@@ -253,11 +231,8 @@ declare namespace util {
          * @param toString - whether to convert the returned array to a string
          * @returns the normalised expression
          */
-        normalisePropertyExpression(
-            str: string,
-            msg?: registry.NodeMessage,
-            toString?: false,
-        ): PropertyExpression;
+        normalisePropertyExpression(str: string, msg?: undefined, toString?: false): PropertyExpression;
+        normalisePropertyExpression(str: string, msg: registry.NodeMessage, toString?: false): unknown[];
         normalisePropertyExpression(str: string, msg: registry.NodeMessage | undefined, toString: true): string;
         /**
          * Gets a property of a message object.

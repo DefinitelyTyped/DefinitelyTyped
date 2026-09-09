@@ -45,6 +45,12 @@ declare namespace editorClient {
         inputs?: 0 | 1 | undefined;
     }
 
+    type BooleanNodeProperty<TProps extends NodeProperties> =
+        & {
+            [K in keyof TProps]-?: Exclude<TProps[K], undefined> extends boolean ? K : never;
+        }[keyof TProps]
+        & string;
+
     /** Reserved name for properties that MUST NOT BE USED. */
     type NodeReservedProperties =
         | "changed"
@@ -193,7 +199,7 @@ declare namespace editorClient {
                 /** Called when the button is clicked */
                 onclick: (this: NodeInstance<TInstProps>) => void;
                 /** Boolean property in `defaults` whose value is toggled when the button is clicked. */
-                toggle?: keyof TProps & string | undefined;
+                toggle?: BooleanNodeProperty<TProps> | undefined;
                 /** Function to dynamically enable and disable the button based on the node’s current configuration. */
                 enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
                 /** Function to determine whether the button should be shown at all. */
@@ -556,9 +562,17 @@ declare namespace editorClient {
         } | undefined;
         mermaid?: {
             theme?: string | undefined;
-            [key: string]: unknown;
         } | undefined;
     }
+
+    type KnownHookId =
+        | "viewRemoveNode"
+        | "viewAddNode"
+        | "viewRemovePort"
+        | "viewAddPort"
+        | "viewRedrawNode"
+        | "debugPreProcessMessage"
+        | "debugPostProcessMessage";
 
     interface Hooks {
         /**
@@ -569,14 +583,14 @@ declare namespace editorClient {
         /**
          * Triggers the registered hooks in sequence and returns a Promise when no callback is supplied.
          */
-        trigger(id: string, payload: unknown): Promise<unknown>;
+        trigger(id: KnownHookId, payload: unknown): Promise<unknown>;
         /**
          * Triggers the registered hooks in sequence and invokes the callback on completion.
          */
         trigger(
-            id: string,
+            id: KnownHookId,
             payload: unknown,
-            done: (error?: Error | string | boolean) => void,
+            done: (error?: Error | null) => void,
         ): void;
     }
 
@@ -897,6 +911,7 @@ declare namespace editorClient {
     type NotificationType = "warning" | "compact" | "success" | "error";
 
     interface NotificationButton {
+        id?: string | undefined;
         class?: string | undefined;
         text: string;
         click: (event: JQuery.Event) => void;
@@ -906,18 +921,26 @@ declare namespace editorClient {
         type?: NotificationType | undefined;
         fixed?: boolean | undefined;
         timeout?: number | undefined;
+        id?: string | undefined;
         modal?: boolean | undefined;
+        width?: number | undefined;
         buttons?: NotificationButton[] | undefined;
     }
 
-    interface Notification {
+    interface Notification extends HTMLDivElement {
         close(): void;
-        update(message: string, options: NotificationOptions): void;
+        update(message: string | JQuery, options: NotificationOptions): void;
     }
 
     interface Notifications {
         init(): void;
-        notify(message: string, options?: NotificationOptions): Notification;
+        notify(message: string | JQuery, options?: NotificationOptions): Notification;
+        notify(
+            message: string | JQuery,
+            type?: NotificationType,
+            fixed?: boolean,
+            timeout?: number,
+        ): Notification;
     }
 
     interface PaletteEditor {

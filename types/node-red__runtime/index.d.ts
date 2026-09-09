@@ -70,13 +70,20 @@ declare namespace runtime {
 
     type AdminAuth = CredentialsAdminAuth | StrategyAdminAuth;
 
+    interface LoggingSettings {
+        level?: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off" | undefined;
+        metrics?: boolean | undefined;
+        audit?: boolean | undefined;
+        handler?: ((settings: object) => (message: object) => void) | undefined;
+    }
+
     interface EditorTheme {
         theme?: string | undefined;
         tours?: boolean | undefined;
         page?: {
             title?: string | undefined;
             favicon?: string | undefined;
-            css?: string | string[] | undefined;
+            css?: string | undefined;
             scripts?: string | string[] | undefined;
         } | undefined;
         header?: {
@@ -85,9 +92,9 @@ declare namespace runtime {
             url?: string | undefined;
         } | undefined;
         deployButton?: {
-            type: "simple";
-            label: string;
-            icon: string;
+            type?: "simple" | undefined;
+            label?: string | undefined;
+            icon?: string | null | undefined;
         } | undefined;
         menu?: {
             [id: string]: boolean | { label: string; url: string } | undefined;
@@ -114,7 +121,7 @@ declare namespace runtime {
                 | undefined;
         } | undefined;
         projects?: {
-            enabled: boolean;
+            enabled?: boolean | undefined;
             workflow?: {
                 mode?: "manual" | "auto" | undefined;
             } | undefined;
@@ -254,7 +261,7 @@ declare namespace runtime {
         httpAdminCookieOptions?: {
             path?: string | undefined;
             httpOnly?: boolean | undefined;
-            secure?: boolean | undefined;
+            secure?: boolean | "auto" | undefined;
             maxAge?: number | null | undefined;
             sameSite?: boolean | "lax" | "strict" | "none" | undefined;
             [key: string]: unknown;
@@ -515,7 +522,7 @@ declare namespace runtime {
             [key: string]:
                 | string
                 | {
-                    module: string;
+                    module: string | ((config: object) => object);
                     config?: object | undefined;
                 };
         } | undefined;
@@ -533,11 +540,7 @@ declare namespace runtime {
          * Configure the logging output
          */
         logging?: {
-            console?: {
-                level: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off";
-                metrics: boolean;
-                audit: boolean;
-            } | undefined;
+            [name: string]: LoggingSettings | undefined;
         } | undefined;
 
         /**
@@ -673,6 +676,10 @@ declare namespace runtime {
         nodes: object[];
     }
 
+    interface FlowState {
+        state: "start" | "stop";
+    }
+
     interface FlowsModule {
         /**
          * Gets the current flow configuration
@@ -689,8 +696,8 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          */
         setFlows: (opts: {
-            flows: { rev?: string | undefined; flows: object[]; credentials: object };
-            deploymentType: "full" | "nodes" | "flows" | "reload";
+            flows: { rev?: string | undefined; flows: object[]; credentials?: object | undefined };
+            deploymentType?: "full" | "nodes" | "flows" | "reload" | undefined;
             user?: User | undefined;
             req?: object | undefined;
         }) => Promise<{ rev: string }>;
@@ -743,12 +750,12 @@ declare namespace runtime {
         /**
          * Gets the current runtime flow state.
          */
-        getState: (opts: APIOptions) => Promise<{ state: string; started: boolean }>;
+        getState: (opts: APIOptions) => Promise<FlowState>;
 
         /**
          * Starts or stops the runtime flows.
          */
-        setState: (opts: APIOptions & { state: "start" | "stop" }) => Promise<Flow>;
+        setState: (opts: APIOptions & FlowState) => Promise<FlowState>;
     }
 
     interface LibraryModule {
@@ -893,7 +900,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the message catalogs
          */
-        getModuleCatalogs: (opts: APIOptions & { lang: string }) => Promise<object>;
+        getModuleCatalogs: (opts: APIOptions & { lang?: string }) => Promise<object>;
 
         /**
          * Gets a modules message catalog
@@ -903,7 +910,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns the message catalog
          */
-        getModuleCatalog: (opts: APIOptions & { module: string; lang: string }) => Promise<object>;
+        getModuleCatalog: (opts: APIOptions & { module: string; lang?: string }) => Promise<object>;
 
         /**
          * Gets the list of all icons available in the modules installed within the runtime
@@ -933,14 +940,56 @@ declare namespace runtime {
         getPlugin: (opts: APIOptions & { id: string }) => Promise<object>;
         getPluginInfo: (opts: APIOptions & { id: string }) => Promise<object>;
         getPluginsByType: (opts: APIOptions & { type: string }) => Promise<object[]>;
-        getPluginList: (opts: APIOptions) => Promise<object>;
-        getPluginConfigs: (opts: APIOptions & { lang: string }) => Promise<object>;
+        getPluginList: (opts: APIOptions) => Promise<object[]>;
+        getPluginConfigs: (opts: APIOptions & { lang: string }) => Promise<string>;
         getPluginConfig: (opts: APIOptions & { id: string; lang: string }) => Promise<string>;
-        getPluginCatalogs: (opts: APIOptions & { lang: string }) => Promise<object>;
+        getPluginCatalogs: (opts: APIOptions & { lang?: string }) => Promise<object>;
+    }
+
+    interface DiagnosticsReport {
+        report: "diagnostics";
+        scope: string;
+        time: {
+            utc: string;
+            local: string;
+        };
+        intl: {
+            locale: string;
+            timeZone: string;
+        };
+        nodejs: {
+            version: string;
+            arch: string;
+            platform: NodeJS.Platform;
+            memoryUsage: NodeJS.MemoryUsage;
+        };
+        os: {
+            containerised: boolean | string | undefined;
+            wsl: boolean;
+            totalmem: number;
+            freemem: number;
+            arch: string;
+            loadavg: number[];
+            platform: NodeJS.Platform;
+            release: string;
+            type: string;
+            uptime: number;
+            version: string;
+        };
+        runtime: {
+            version: string;
+            isStarted: boolean;
+            flows: {
+                state: FlowState["state"] | undefined;
+                started: boolean | undefined;
+            };
+            modules: Record<string, string>;
+            settings: Record<string, unknown>;
+        };
     }
 
     interface DiagnosticsModule {
-        get: (opts: { scope: string }) => Promise<object>;
+        get: (opts: { scope: string }) => Promise<DiagnosticsReport>;
     }
 
     interface ProjectUser {
@@ -1492,7 +1541,7 @@ declare namespace runtime {
         readonly adminApi: object;
         readonly adminApp: Express;
         readonly nodeApp: Express;
-        readonly server: HttpsServer;
+        readonly server: HttpServer | HttpsServer;
         isStarted(): boolean;
     }
 
@@ -1547,7 +1596,7 @@ declare namespace runtime {
 
         readonly httpNode: Express;
         readonly httpAdmin: Express;
-        readonly server: HttpsServer;
+        readonly server: HttpServer | HttpsServer;
 
         _: InternalRuntimeAPI;
     }

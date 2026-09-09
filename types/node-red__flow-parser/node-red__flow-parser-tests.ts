@@ -6,6 +6,9 @@ function flowParserTests() {
     FlowParser.types.Node;
 
     flow.walk(obj => {
+        // $ExpectType object
+        obj.export();
+
         switch (obj.TYPE) {
             case FlowParser.types.Flow:
                 // $ExpectType NRFlow
@@ -21,12 +24,19 @@ function flowParserTests() {
                 obj.instances;
                 obj.in;
                 obj.out;
+                // $ExpectType string | undefined
                 obj.category;
+                // $ExpectType string | undefined
                 obj.color;
+                // $ExpectType string | undefined
                 obj.icon;
+                // $ExpectType string[]
                 obj.inputLabels;
+                // $ExpectType string[]
                 obj.outputLabels;
+                // $ExpectType object
                 obj.env;
+                // $ExpectType object
                 obj.meta;
                 break;
             case FlowParser.types.Node:
@@ -40,6 +50,10 @@ function flowParserTests() {
                 obj.groupId;
                 // $ExpectType number | undefined
                 obj.w;
+                // $ExpectType number | undefined
+                obj.h;
+                // $ExpectType string | undefined
+                obj.icon;
                 obj.getNextNodes(true);
                 break;
             case FlowParser.types.ConfigNode:
@@ -50,6 +64,8 @@ function flowParserTests() {
             case FlowParser.types.Group:
                 // $ExpectType NRGroup
                 obj;
+                // $ExpectType string | undefined
+                obj.groupId;
                 obj.style;
                 break;
         }

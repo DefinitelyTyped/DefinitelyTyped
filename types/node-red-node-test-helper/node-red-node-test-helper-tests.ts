@@ -4,6 +4,8 @@ import * as helper from "node-red-node-test-helper";
 const anotherHelper = new helper.NodeTestHelper();
 
 function helperTests(testHelper: typeof anotherHelper) {
+    testHelper.init("node-red", { functionGlobalContext: {} });
+
     // $ExpectType Promise<void>
     testHelper.startServer(() => {});
     // $ExpectType Promise<void>
@@ -32,6 +34,8 @@ function helperTests(testHelper: typeof anotherHelper) {
     function withNodeInitializer(nodeInitializer: NodeInitializer) {
         // $ExpectType Promise<void>
         testHelper.load(nodeInitializer, flows, () => {});
+        // $ExpectType Promise<void>
+        testHelper.load(nodeInitializer, flows, {}, () => {});
     }
 
     // $ExpectType Promise<void>

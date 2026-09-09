@@ -1,4 +1,6 @@
 import registry = require("@node-red/registry");
+import { Server as HttpServer } from "http";
+import { Server as HttpsServer } from "https";
 
 interface CustomNode extends registry.Node {
     custom: boolean;
@@ -38,27 +40,48 @@ registry.init({});
 registry.load().then(() => {});
 registry.registerType({}, "my-node", function(_nodeDef: registry.NodeDef) {});
 registry.registerType({}, "custom-node", customConstructor);
-// $ExpectType (...args: any[]) => any
+// $ExpectType NodeConstructor<Node<{}>, NodeDef, {}> | RegisteredSubflow | null | undefined
 registry.get("my-node");
+// $ExpectType NodeInfo | null
 registry.getNodeInfo("my-node");
+// $ExpectType NodeInfo[]
 registry.getNodeList();
+// @ts-expect-error
+registry.getNodeList(node => node.enabled);
+// $ExpectType ModuleInfo | null
 registry.getModuleInfo("my-module");
+// $ExpectType Record<string, ModuleDefinition>
 registry.getModuleList();
+// $ExpectType string
 registry.getNodeConfigs();
+// $ExpectType string | null
 registry.getNodeConfig("my-module/my-node", "en-US");
+// $ExpectType string | null
 registry.getNodeIconPath("my-module", "icon.svg");
+// $ExpectType Record<string, string[]>
 registry.getNodeIcons();
+// $ExpectType Promise<NodeInfo>
 registry.enableNode("my-node");
+// $ExpectType Promise<NodeInfo>
 registry.disableNode("my-node");
+// $ExpectType Promise<ModuleInfo | null>
 registry.addModule("my-module");
+// $ExpectType Promise<NodeInfo[]>
 registry.removeModule("my-module");
+// $ExpectType Promise<unknown[]>
 registry.installModule("my-module", "1.0.0");
+// $ExpectType Promise<unknown[]>
 registry.installModule(Buffer.from([]));
+// $ExpectType Promise<(NodeInfo | PluginInfo)[]>
 registry.uninstallModule("my-module");
 registry.cleanModuleList();
+// $ExpectType boolean
 registry.installerEnabled();
+// $ExpectType Record<string, ExampleFlowDirectory> | null
 registry.getNodeExampleFlows();
+// $ExpectType string | null
 registry.getNodeExampleFlowPath("my-module", "example");
+// $ExpectType string | null
 registry.getModuleResource("my-module", "resource.txt");
 
 function registryTests() {
@@ -236,8 +259,8 @@ function registryTests() {
             RED.httpNode;
             // $ExpectType Express
             RED.httpAdmin;
-            // $ExpectType Server<typeof IncomingMessage, typeof ServerResponse>
-            RED.server;
+            const server: HttpServer | HttpsServer = RED.server;
+            void server;
 
             // $ExpectType string
             RED._("myNode.label");

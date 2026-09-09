@@ -39,7 +39,7 @@ async function runtimeTests() {
             httpsRefreshInterval: 12,
             requireHttps: true,
             httpAdminMiddleware: [(_req, _res, next) => next()],
-            httpAdminCookieOptions: { sameSite: "strict" },
+            httpAdminCookieOptions: { sameSite: "strict", secure: "auto" },
             httpNodeMiddleware: (_req, _res, next) => next(),
             httpStatic: [
                 {
@@ -61,6 +61,17 @@ async function runtimeTests() {
                     level: "debug",
                     metrics: false,
                     audit: false,
+                },
+                custom: {
+                    level: "info",
+                    handler: (_settings) => (_message) => {},
+                },
+            },
+            contextStorage: {
+                default: "memory",
+                custom: {
+                    module: (_config) => ({}),
+                    config: { option: true },
                 },
             },
             externalModules: {
@@ -86,6 +97,10 @@ async function runtimeTests() {
                     mermaid: { enabled: true },
                 },
                 multiplayer: { enabled: true },
+                deployButton: {
+                    label: "Save",
+                    icon: null,
+                },
             },
             fileWorkingDirectory: "/srv/node-red",
             globalFunctionTimeout: 30,
@@ -102,7 +117,7 @@ async function runtimeTests() {
     );
     runtime.init({ httpAdminRoot: false }, createHttpsServer(), editorApi);
 
-    const server: HttpsServer = runtime.server;
+    const server: HttpServer | HttpsServer = runtime.server;
     void server;
     await runtime.start();
     await runtime.stop();
@@ -113,14 +128,17 @@ async function runtimeTests() {
     // $ExpectType string
     await runtime.version({});
 
-    // $ExpectType { state: string; started: boolean; }
+    // $ExpectType FlowState
     await runtime.flows.getState({});
-    // $ExpectType Flow
+    // $ExpectType FlowState
     await runtime.flows.setState({ state: "stop" });
     // $ExpectType { rev: string; }
     await runtime.flows.setFlows({
-        flows: { rev: "abc-123", flows: [], credentials: {} },
-        deploymentType: "full",
+        flows: { rev: "abc-123", flows: [] },
+    });
+    await runtime.flows.setFlows({
+        flows: { flows: [], credentials: {} },
+        deploymentType: "reload",
     });
 
     await runtime.comms.receive({
@@ -148,10 +166,13 @@ async function runtimeTests() {
         },
     });
 
-    // $ExpectType object
+    // $ExpectType object[]
     await runtime.plugins.getPluginList({});
-    // $ExpectType object
+    // $ExpectType DiagnosticsReport
     await runtime.diagnostics.get({ scope: "basic" });
+    await runtime.nodes.getModuleCatalogs({});
+    await runtime.nodes.getModuleCatalog({ module: "node-red" });
+    await runtime.plugins.getPluginCatalogs({});
 
     await runtime.projects.setActiveProject({ id: "project", clearContext: true });
     await runtime.projects.resolveMerge({ id: "project", path: "flows.json", resolutions: "ours" });
