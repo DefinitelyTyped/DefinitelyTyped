@@ -5,13 +5,6 @@ function flowParserTests() {
     // $ExpectType typeof Node
     FlowParser.types.Node;
 
-    // $ExpectType undefined
-    flow.globals.id;
-    // $ExpectType undefined
-    flow.globals.z;
-    // $ExpectType undefined
-    flow.globals.type;
-
     flow.walk(obj => {
         switch (obj.TYPE) {
             case FlowParser.types.Flow:
@@ -30,6 +23,9 @@ function flowParserTests() {
                 obj.out;
                 obj.category;
                 obj.color;
+                obj.icon;
+                obj.inputLabels;
+                obj.outputLabels;
                 obj.env;
                 obj.meta;
                 break;
@@ -44,7 +40,6 @@ function flowParserTests() {
                 obj.groupId;
                 // $ExpectType number | undefined
                 obj.w;
-                obj.getNextNodes();
                 obj.getNextNodes(true);
                 break;
             case FlowParser.types.ConfigNode:
@@ -59,9 +54,6 @@ function flowParserTests() {
                 break;
         }
     });
+    // $ExpectType object[]
     flow.export();
-
-    // The package exports only parseFlow and types at runtime.
-    // @ts-expect-error
-    new FlowParser.NRNode({});
 }

@@ -1,13 +1,11 @@
 import { LocalSettings } from "@node-red/runtime";
 import { EventEmitter } from "events";
-import { Node, NodeDef, NodeInitializer } from "node-red";
+import { Node, NodeCredentials, NodeDef, NodeInitializer } from "node-red";
 import { SinonSpy } from "sinon";
 import supertest = require("supertest");
 
 declare class NodeTestHelper extends EventEmitter {
-    credentials: unknown;
-
-    init(nodeRedRuntime?: string, userSettings?: Partial<LocalSettings>): void;
+    init(nodeRedRuntime: string, userSettings?: Partial<LocalSettings>): void;
 
     /**
      * Loads a flow then starts the flow.
@@ -22,8 +20,13 @@ declare class NodeTestHelper extends EventEmitter {
     load(
         testNode: nodeRedNodeTestHelper.TestNodeInitializer,
         testFlows: nodeRedNodeTestHelper.TestFlows,
-        testCredentials?: nodeRedNodeTestHelper.TestCredentials | nodeRedNodeTestHelper.Callback,
-        cb?: nodeRedNodeTestHelper.Callback,
+        cb?: () => void,
+    ): Promise<void>;
+    load(
+        testNode: nodeRedNodeTestHelper.TestNodeInitializer,
+        testFlows: nodeRedNodeTestHelper.TestFlows,
+        testCredentials?: nodeRedNodeTestHelper.TestCredentials<{}>,
+        cb?: () => void,
     ): Promise<void>;
 
     /**
@@ -52,9 +55,9 @@ declare class NodeTestHelper extends EventEmitter {
      */
     setFlows(
         testFlows: nodeRedNodeTestHelper.TestFlows,
-        type?: nodeRedNodeTestHelper.DeployType,
-        testCredentials?: nodeRedNodeTestHelper.TestCredentials,
-        cb?: nodeRedNodeTestHelper.Callback,
+        type?: "full" | "flows" | "nodes",
+        testCredentials?: nodeRedNodeTestHelper.TestCredentials<{}>,
+        cb?: () => void,
     ): Promise<void>;
 
     /**
@@ -85,7 +88,7 @@ declare class NodeTestHelper extends EventEmitter {
      * @param userSettings - an object containing the runtime settings
      * @returns custom userSettings merged with default RED.settings
      */
-    settings(userSettings?: Partial<LocalSettings>): LocalSettings;
+    settings(userSettings: Partial<LocalSettings>): LocalSettings;
 
     /**
      * Starts a Node-RED server for testing nodes that depend on http or web sockets endpoints
@@ -97,7 +100,7 @@ declare class NodeTestHelper extends EventEmitter {
      * ```
      * @param done callback
      */
-    startServer(done?: nodeRedNodeTestHelper.Callback): Promise<void>;
+    startServer(done?: () => void): Promise<void>;
 
     /**
      * Stop server. Generally called after unload() complete. For example, to unload a flow then
@@ -111,7 +114,7 @@ declare class NodeTestHelper extends EventEmitter {
      * ```
      * @param done callback
      */
-    stopServer(done?: nodeRedNodeTestHelper.Callback): Promise<void>;
+    stopServer(done?: () => void): Promise<void>;
 
     /**
      * Return the URL of the helper server including the ephemeral port used when starting the server.
@@ -134,8 +137,6 @@ declare const nodeRedNodeTestHelper: NodeTestHelper & {
 };
 
 declare namespace nodeRedNodeTestHelper {
-    type Callback = (error?: Error) => void;
-    type DeployType = "full" | "flows" | "nodes";
     type TestNodeInitializer = NodeInitializer | NodeInitializer[];
     type TestFlowsItem<TNodeDef extends NodeDef = NodeDef> = Partial<TNodeDef> & {
         id: string;
@@ -143,7 +144,7 @@ declare namespace nodeRedNodeTestHelper {
         wires?: string[][] | undefined;
     };
     type TestFlows = TestFlowsItem[];
-    type TestCredentials<TCreds extends object = Record<string, unknown>> = Record<string, TCreds>;
+    type TestCredentials<TCred> = NodeCredentials<TCred>;
 }
 
 export = nodeRedNodeTestHelper;

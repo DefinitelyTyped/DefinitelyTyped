@@ -39,7 +39,7 @@ async function runtimeTests() {
             httpsRefreshInterval: 12,
             requireHttps: true,
             httpAdminMiddleware: [(_req, _res, next) => next()],
-            httpAdminCors: { origin: "https://example.com" },
+            httpAdminCookieOptions: { sameSite: "strict" },
             httpNodeMiddleware: (_req, _res, next) => next(),
             httpStatic: [
                 {
@@ -47,16 +47,20 @@ async function runtimeTests() {
                     root: "/public",
                     options: { maxAge: "1d" },
                     cors: { origin: "*" },
+                    middleware: (_req, _res, next) => next(),
                 },
             ],
             httpStaticCors: { origin: "*" },
+            proxyOptions: { mode: "legacy" },
+            lang: "en-US",
             diagnostics: { enabled: true, ui: true },
             runtimeState: { enabled: true, ui: true },
             telemetry: { enabled: false, updateNotification: false },
             logging: {
-                custom: {
+                console: {
                     level: "debug",
-                    handler: () => message => void message,
+                    metrics: false,
+                    audit: false,
                 },
             },
             externalModules: {
@@ -68,7 +72,6 @@ async function runtimeTests() {
                 theme: "dark",
                 tours: false,
                 palette: {
-                    upload: true,
                     categories: { order: ["common", "function"] },
                 },
                 projects: {
@@ -84,9 +87,10 @@ async function runtimeTests() {
                 },
                 multiplayer: { enabled: true },
             },
+            fileWorkingDirectory: "/srv/node-red",
             globalFunctionTimeout: 30,
             functionTimeout: 5,
-            nodeCloseTimeout: 20000,
+            debugStatusLength: 32,
             nodeDefaults: {
                 debug: {
                     complete: true,
@@ -96,39 +100,37 @@ async function runtimeTests() {
         httpServer,
         editorApi,
     );
-    runtime.init({ httpAdminRoot: false });
-    runtime.init({ httpAdminRoot: false }, null);
-    runtime.init({ httpAdminRoot: false }, createHttpsServer());
+    runtime.init({ httpAdminRoot: false }, createHttpsServer(), editorApi);
 
-    const server: HttpServer | HttpsServer | null = runtime.server;
-    const internalServer: HttpServer | HttpsServer | null = runtime._.server;
+    const server: HttpsServer = runtime.server;
     void server;
-    void internalServer;
     await runtime.start();
     await runtime.stop();
 
     // $ExpectType boolean
-    await runtime.isStarted();
+    await runtime.isStarted({});
 
     // $ExpectType string
-    await runtime.version();
+    await runtime.version({});
 
-    // $ExpectType { state: string; }
+    // $ExpectType { state: string; started: boolean; }
     await runtime.flows.getState({});
-    // $ExpectType { state: string; }
+    // $ExpectType Flow
     await runtime.flows.setState({ state: "stop" });
+    // $ExpectType { rev: string; }
+    await runtime.flows.setFlows({
+        flows: { rev: "abc-123", flows: [], credentials: {} },
+        deploymentType: "full",
+    });
 
     await runtime.comms.receive({
         client: {
             session: "session-id",
             user: { username: "admin", permissions: "*" },
-            send(topic, data) {
-                topic.toUpperCase();
-                void data;
-            },
+            send() {},
         },
         topic: "multiplayer/connect",
-        data: { session: "client-session" },
+        data: "client-session",
     });
 
     const resource: Buffer | null = await runtime.nodes.getModuleResource({
@@ -140,21 +142,18 @@ async function runtimeTests() {
     void icon;
     await runtime.nodes.addModule({
         tarball: {
-            file: "example.tgz",
+            name: "example.tgz",
             size: 10,
             buffer: Buffer.from("example"),
         },
     });
 
-    // $ExpectType object[]
+    // $ExpectType object
     await runtime.plugins.getPluginList({});
-    // $ExpectType DiagnosticsReport
+    // $ExpectType object
     await runtime.diagnostics.get({ scope: "basic" });
 
     await runtime.projects.setActiveProject({ id: "project", clearContext: true });
-    await runtime.projects.resolveMerge({ id: "project", path: "flows.json", resolution: "ours" });
-    await runtime.projects.pull({ id: "project", remote: "origin" });
-
-    // $ExpectType string
-    await runtime.storage.saveFlows({ flows: [], credentials: {} });
+    await runtime.projects.resolveMerge({ id: "project", path: "flows.json", resolutions: "ours" });
+    await runtime.projects.pull({ remote: "origin" });
 }

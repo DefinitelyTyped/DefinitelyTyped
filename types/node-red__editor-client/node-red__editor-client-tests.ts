@@ -6,6 +6,7 @@ function redTests(RED: editorClient.RED) {
     interface MyNodeProperties extends editorClient.NodeProperties {
         x: string;
         key: string;
+        enabled: boolean;
     }
     interface MyNodeCredentials {
         username: string;
@@ -52,6 +53,9 @@ function redTests(RED: editorClient.RED) {
                     return true;
                 },
             },
+            enabled: {
+                value: false,
+            },
             // @ts-expect-error
             instanceProp: {
                 value: "",
@@ -67,6 +71,7 @@ function redTests(RED: editorClient.RED) {
         },
         align: "right",
         button: {
+            toggle: "enabled",
             onclick() {
                 // $ExpectType string
                 this.key;
@@ -95,7 +100,7 @@ function redTests(RED: editorClient.RED) {
             },
         },
         color: "#3377CC",
-        icon: "icon.svg",
+        icon: true ? "icon.svg" : () => "icon.svg",
         inputLabels: true
             ? "label"
             : function() {
@@ -410,7 +415,6 @@ function widgetTypedInputTests() {
 
 function nodeRedPluginTests(RED: editorClient.RED) {
     const myPluginDef: editorClient.PluginDef = {
-        type: "node-red-test-plugin",
         onadd() {
             RED.sidebar.addTab({
                 id: "my-plugin",
@@ -422,12 +426,93 @@ function nodeRedPluginTests(RED: editorClient.RED) {
         },
     };
     RED.plugins.registerPlugin("my-plugin", myPluginDef);
-    // $ExpectType PluginDef | undefined
-    RED.plugins.getPlugin("my-plugin");
-    // $ExpectType PluginDef[]
-    RED.plugins.getPluginsByType("node-red-test-plugin");
-    // $ExpectType NodeModule | undefined
-    RED.plugins.getModule("my-module");
+
+    RED.plugins.registerPlugin("my-theme", {
+        type: "node-red-theme",
+        css: ["style.css", "components.css"],
+        scripts: "theme.js",
+        monacoOptions: {
+            theme: {
+                base: "vs-dark",
+                inherit: true,
+            },
+            fontSize: 14,
+            minimap: { enabled: false },
+        },
+        mermaid: {
+            theme: "dark",
+        },
+    });
+}
+
+function documentedApiTests(RED: editorClient.RED) {
+    RED.settings.set("editorTheme", {}, true);
+    // $ExpectType unknown
+    RED.settings.get("editorTheme");
+
+    // $ExpectType boolean
+    RED.hooks.has("viewAddNode.my-plugin");
+    // $ExpectType Promise<unknown>
+    RED.hooks.trigger("viewAddNode", {});
+    // $ExpectType void
+    RED.hooks.trigger("viewAddNode", {}, error => {
+        // $ExpectType string | boolean | Error | undefined
+        error;
+    });
+
+    const notification = RED.notify("Hello", {
+        type: "warning",
+        timeout: 10000,
+        fixed: true,
+        modal: true,
+        buttons: [
+            {
+                text: "okay",
+                class: "primary",
+                click() {
+                    notification.close();
+                },
+            },
+        ],
+    });
+    // $ExpectType void
+    notification.update("Updated", { type: "success" });
+    // $ExpectType void
+    notification.close();
+
+    // The public API documents text messages and an options object only.
+    // @ts-expect-error
+    RED.notify($("<p>Hello</p>"));
+    // @ts-expect-error
+    RED.notify("Hello", "warning", true, 10000);
+    RED.notify("Hello", {
+        // @ts-expect-error
+        id: "persistent-notification",
+    });
+    RED.notify("Hello", {
+        // @ts-expect-error
+        width: 500,
+    });
+    RED.notify("Hello", {
+        buttons: [{
+            // @ts-expect-error
+            id: "confirm",
+            text: "confirm",
+            click() {},
+        }],
+    });
+
+    // The public notification object only documents close and update.
+    // @ts-expect-error
+    notification.hideNotification();
+    // @ts-expect-error
+    notification.showNotification();
+    // @ts-expect-error
+    notification.update("Updated");
+    // @ts-expect-error
+    notification.update("Updated", 10000);
+    // @ts-expect-error
+    notification.update($("<p>Updated</p>"), {});
 }
 
 function nodeRedUtilsTests(RED: editorClient.RED) {
@@ -446,10 +531,15 @@ function nodeRedUtilsTests(RED: editorClient.RED) {
 }
 
 function nodeRedEditorTests(RED: editorClient.RED) {
-    // $ExpectType string | false
-    RED.editor.generateViewStateId("node", { id: "node-id" });
-    // $ExpectType object[]
-    RED.editor.getEditStack();
+    const codeEditor = RED.editor.createEditor({
+        id: "node-input-code",
+        mode: "ace/mode/javascript",
+        value: "return msg;",
+    });
+    // $ExpectType string
+    codeEditor.getValue();
+    // $ExpectType void
+    codeEditor.destroy();
 
     // $ExpectType void
     RED.editor.editSubflow({});
@@ -537,21 +627,6 @@ function nodeRedEditorTests(RED: editorClient.RED) {
         focus: true,
         complete: (value: any) => {},
     });
-
-    const codeEditor = RED.editor.createEditor({
-        id: "node-input-code",
-        mode: "ace/mode/javascript",
-        stateId: "node-id/code",
-        value: "return msg;",
-    });
-    // $ExpectType string
-    codeEditor.getValue();
-    // $ExpectType string
-    RED.editor.codeEditor.basic.type;
-    // $ExpectType readonly string[]
-    RED.editor.envVarList.DEFAULT_ENV_TYPE_LIST;
-    // $ExpectType Promise<unknown[]>
-    RED.editor.mermaid.render();
 }
 
 function nodeRedTrayTests(RED: editorClient.RED) {
@@ -583,126 +658,4 @@ function nodeRedTrayTests(RED: editorClient.RED) {
 
         focusElement: $("<div/>"),
     });
-}
-
-function nodeRedCoreApiTests(RED: editorClient.RED) {
-    RED.comms.on("connect", () => {});
-    RED.comms.off("connect", () => {});
-    RED.comms.send("topic", { value: 1 });
-
-    RED.events.on("nodes:add", node => {
-        // $ExpectType any
-        node;
-    });
-
-    RED.actions.add("test:action", (value: string) => {}, { label: "Test action" });
-    // $ExpectType (...args: any[]) => void
-    RED.actions.get("test:action");
-    // $ExpectType string
-    RED.actions.getLabel("test:action");
-    // $ExpectType ActionDefinition[]
-    RED.actions.list();
-
-    RED.hooks.add("viewAddNode.test", payload => payload !== undefined);
-    // $ExpectType boolean
-    RED.hooks.has("viewAddNode.test");
-    // $ExpectType Promise<unknown>
-    RED.hooks.trigger("viewAddNode", { node: {} });
-    RED.hooks.trigger("viewAddNode", { node: {} }, error => {
-        // $ExpectType string | boolean | Error | undefined
-        error;
-    });
-
-    // $ExpectType unknown
-    RED.settings.get("editor");
-    // $ExpectType true
-    RED.settings.get("editor.view.showGrid", true);
-    RED.settings.set("editor.view.showGrid", false, true);
-    RED.settings.setLocal("palette-state", "{}");
-    // $ExpectType string | null
-    RED.settings.getLocal("palette-state");
-
-    // $ExpectType string
-    RED.i18n.detectLanguage();
-    RED.i18n.loadNodeCatalog("my-node", () => {});
-    // $ExpectType boolean
-    RED.runtime.started;
-    RED.multiplayer.init();
-}
-
-function nodeRedNodesTests(RED: editorClient.RED) {
-    // $ExpectType NodeSet | undefined
-    RED.nodes.getNodeSet("node-red/common");
-    // $ExpectType NodeDef<NodeProperties, undefined, NodeProperties> | undefined
-    RED.nodes.getType("inject");
-    // $ExpectType NodeDef<NodeProperties, undefined, NodeProperties>[]
-    RED.nodes.registry.getNodeDefinitions({ configOnly: true });
-    // $ExpectType string | undefined
-    RED.nodes.getNodeHelp("inject");
-    // $ExpectType EditorLink[]
-    RED.nodes.getNodeLinks("node-id", 0);
-    // $ExpectType ImportConflicts
-    RED.nodes.identifyImportConflicts([{ id: "1", type: "inject" }]);
-    // $ExpectType ImportResult | undefined
-    RED.nodes.import("[]", {
-        generateIds: true,
-        addFlow: true,
-        applyNodeDefaults: true,
-        eventContext: { source: "test" },
-    });
-    // $ExpectType object[][]
-    RED.nodes.getNodeIslands([]);
-    RED.nodes.setWorkspaceOrder(["flow-1", "flow-2"]);
-}
-
-function nodeRedViewTests(RED: editorClient.RED) {
-    // $ExpectType number
-    RED.view.node_width;
-    // $ExpectType boolean
-    RED.view.snapGrid;
-    // $ExpectType ViewSelection
-    RED.view.selection();
-    RED.view.clearSelection();
-    // $ExpectType [number, number]
-    RED.view.scroll();
-    RED.view.scroll(10, 20);
-    // $ExpectType { width: number; height: number; }
-    RED.view.dimensions();
-    // $ExpectType [number, number]
-    RED.view.calculateNodeDimensions({ type: "inject" });
-    // $ExpectType { node: NodeInstance<NodeProperties>; historyEvent: HistoryEvent; }
-    RED.view.createNode("inject", 100, 200, "flow-1");
-    // $ExpectType { x: number; y: number; }
-    RED.view.tools.calculateGridSnapOffsets({ x: 10, y: 20, w: 100 });
-    // $ExpectType number
-    RED.view.zoomAnimator.calculateZoomDelta(1, -1, false);
-    // $ExpectType number
-    RED.view.zoomConstants.MAX_ZOOM;
-    RED.view.annotations.register("test", {
-        type: "badge",
-        element: () => document.createElementNS("http://www.w3.org/2000/svg", "g"),
-        show: node => node.valid !== false,
-    });
-    RED.view.annotations.unregister("test");
-}
-
-function nodeRedUiApiTests(RED: editorClient.RED) {
-    // $ExpectType boolean
-    RED.contextMenu.active();
-    RED.contextMenu.show({ type: "workspace", x: 10, y: 20 });
-    RED.diagnostics.init();
-    RED.envVar.init();
-    // $ExpectType Tour[]
-    RED.tourGuide.list();
-    RED.palette.registerCategory("custom", "Custom nodes");
-    // $ExpectType { count: number; core: { current: string; latest: string; } | null; palette: object[]; }
-    RED.palette.editor.getAvailableUpdates();
-    // $ExpectType boolean
-    RED.typeSearch.isVisible();
-    // $ExpectType boolean | undefined
-    RED.workspaces.isLocked();
-    RED.workspaces.lock();
-    RED.workspaces.unlock();
-    RED.statusBar.hide("status");
-    RED.statusBar.show("status");
 }

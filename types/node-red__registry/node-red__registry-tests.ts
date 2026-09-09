@@ -1,56 +1,65 @@
 import registry = require("@node-red/registry");
-import { InternalRuntimeAPI } from "@node-red/runtime";
 
-declare const runtime: InternalRuntimeAPI;
-declare const nodeInfo: registry.NodeInfo;
-declare const moduleInfo: registry.ModuleInfo;
-declare const pluginInfo: registry.PluginInfo;
-declare const subflow: registry.SubflowDef;
+interface CustomNode extends registry.Node {
+    custom: boolean;
+}
 
-registry.init(runtime);
+interface CustomNodeDef extends registry.NodeDef {
+    custom: boolean;
+}
+
+const customConstructor: registry.NodeConstructor<CustomNode, CustomNodeDef, {}> = function(_nodeDef) {};
+
+const subflow: registry.SubflowModuleDef = {
+    id: "example-subflow",
+    type: "subflow",
+    name: "Example Subflow",
+    info: "An example packaged subflow",
+    category: "common",
+    color: "#A6BBCF",
+    icon: "font-awesome/fa-space-shuttle",
+    in: [{ x: 120, y: 100, wires: [{ id: "node-1" }] }],
+    out: [{ x: 560, y: 100, wires: [{ id: "node-1", port: 0 }] }],
+    env: [{ name: "MODE", type: "str", value: "default", ui: { type: "input" } }],
+    meta: { type: "example-subflow" },
+    flow: [
+        {
+            id: "node-1",
+            type: "function",
+            name: "",
+            z: "example-subflow",
+            func: "return msg;",
+            wires: [[]],
+        },
+    ],
+};
+
+registry.init({});
 registry.load().then(() => {});
-registry.clear();
-registry.registerType("node-set", "my-node", function(_nodeDef: registry.NodeDef) {});
+registry.registerType({}, "my-node", function(_nodeDef: registry.NodeDef) {});
+registry.registerType({}, "custom-node", customConstructor);
+// $ExpectType (...args: any[]) => any
 registry.get("my-node");
-registry.registerSubflow("node-set", subflow);
 registry.getNodeInfo("my-node");
 registry.getNodeList();
-registry.getNodeList(node => node.enabled);
 registry.getModuleInfo("my-module");
 registry.getModuleList();
 registry.getNodeConfigs();
 registry.getNodeConfig("my-module/my-node", "en-US");
 registry.getNodeIconPath("my-module", "icon.svg");
 registry.getNodeIcons();
-registry.enableNode("my-node").then(info => info.enabled);
-registry.disableNode("my-node").then(info => info.enabled);
-registry.addModule("my-module").then(info => info?.nodes);
+registry.enableNode("my-node");
+registry.disableNode("my-node");
+registry.addModule("my-module");
 registry.removeModule("my-module");
-registry.installModule("my-module", "1.0.0").then(info => info.version);
-registry.installModule(Buffer.from([])).then(info => info.version);
+registry.installModule("my-module", "1.0.0");
+registry.installModule(Buffer.from([]));
 registry.uninstallModule("my-module");
 registry.cleanModuleList();
 registry.installerEnabled();
 registry.getNodeExampleFlows();
 registry.getNodeExampleFlowPath("my-module", "example");
 registry.getModuleResource("my-module", "resource.txt");
-registry.checkFlowDependencies([]);
-registry.registerPlugin("plugin-set", "my-plugin", { type: "my-plugin-type" });
-registry.getPlugin("my-plugin");
-registry.getPluginInfo("my-plugin");
-registry.getPluginsByType("my-plugin-type");
-registry.getPluginList();
-registry.getPluginConfigs("en-US");
-registry.getPluginConfig("my-module/my-plugin", "en-US");
-registry.exportPluginSettings({});
-registry.deprecated.get("irc in");
-
-const checkedNodeInfo: registry.NodeInfo = nodeInfo;
-const checkedModuleInfo: registry.ModuleInfo = moduleInfo;
-const checkedPluginInfo: registry.PluginInfo = pluginInfo;
-void checkedNodeInfo;
-void checkedModuleInfo;
-void checkedPluginInfo;
 
 function registryTests() {
     interface ExtendedNodeRedSettings extends registry.NodeAPISettingsWithData {
@@ -211,7 +220,7 @@ function registryTests() {
 
             this.receive({});
 
-            // $ExpectType Node<{}> | null
+            // $ExpectType Node<{}>
             RED.nodes.getNode("node-id");
 
             // RED.util covered in @node-red/util
@@ -222,12 +231,6 @@ function registryTests() {
             RED.hooks;
 
             RED.nodes.registerSubflow(subflow);
-
-            // $ExpectType Promise<any>
-            RED.import("node:path");
-
-            // $ExpectType LinkCallTarget[]
-            RED.nodes.linkcallTargets.getTargets("target");
 
             // $ExpectType Express
             RED.httpNode;

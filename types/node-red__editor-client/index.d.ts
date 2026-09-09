@@ -23,23 +23,9 @@ declare namespace editorClient {
         /** Whether the property is required. If set to true, the property will be invalid if its value is null or an empty string. */
         required?: boolean | undefined;
         /** A function that can be used to validate the value of the property. */
-        validate?:
-            | ((
-                this: NodeInstance<TInstProps>,
-                val: TVal | "",
-                options?: ValidationOptions,
-            ) => boolean | string | string[])
-            | undefined;
+        validate?: ((this: NodeInstance<TInstProps>, val: string) => boolean) | undefined;
         /** If this property is a pointer to a configuration node, this identifies the type of the node. */
         type?: string | undefined;
-        /** Optional label used in validation error messages. */
-        label?: string | undefined;
-        /** Optional input format used by content-editable fields. */
-        format?: string | undefined;
-    }
-
-    interface ValidationOptions {
-        label?: string | undefined;
     }
 
     /**
@@ -114,17 +100,7 @@ declare namespace editorClient {
             x: number;
             y: number;
             z: string;
-        }>
-        & {
-            changed?: boolean | undefined;
-            dirty?: boolean | undefined;
-            moved?: boolean | undefined;
-            selected?: boolean | undefined;
-            valid?: boolean | undefined;
-            validationErrors?: string[] | undefined;
-            wires?: string[][] | undefined;
-            _def?: NodeDef<NodeProperties> | undefined;
-        };
+        }>;
 
     type NodeCredentials<T> = {
         [K in keyof T]: NodeCredential;
@@ -188,7 +164,7 @@ declare namespace editorClient {
          * Optional label to add on hover to the input port of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
          */
-        inputLabels?: string | ((this: NodeInstance<TInstProps>, idx: number) => string | null | undefined) | undefined;
+        inputLabels?: string | ((this: NodeInstance<TInstProps>) => string) | undefined;
         /**
          * Optional labels to add on hover to the output ports of a node.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
@@ -196,13 +172,13 @@ declare namespace editorClient {
         outputLabels?:
             | string
             | string[]
-            | ((this: NodeInstance<TInstProps>, idx: number) => string | null | undefined)
+            | ((this: NodeInstance<TInstProps>, idx: number) => string | undefined)
             | undefined;
         /**
          * The icon to use.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#icon
          */
-        icon?: string | ((this: NodeInstance<TInstProps>) => string) | undefined;
+        icon?: string | (() => string) | undefined;
         /**
          * The alignment of the icon and label.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#alignment
@@ -216,6 +192,8 @@ declare namespace editorClient {
             | {
                 /** Called when the button is clicked */
                 onclick: (this: NodeInstance<TInstProps>) => void;
+                /** Boolean property in `defaults` whose value is toggled when the button is clicked. */
+                toggle?: keyof TProps & string | undefined;
                 /** Function to dynamically enable and disable the button based on the node’s current configuration. */
                 enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
                 /** Function to determine whether the button should be shown at all. */
@@ -231,12 +209,12 @@ declare namespace editorClient {
          * Called when the edit dialog is okayed.
          * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
          */
-        oneditsave?: ((this: NodeInstance<TInstProps>) => unknown) | undefined;
+        oneditsave?: ((this: NodeInstance<TInstProps>) => void) | undefined;
         /**
          * Called when the edit dialog is cancelled.
          * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
          */
-        oneditcancel?: ((this: NodeInstance<TInstProps>, isNew?: boolean) => void) | undefined;
+        oneditcancel?: ((this: NodeInstance<TInstProps>) => void) | undefined;
         /**
          * Called when the delete button in a configuration node’s edit dialog is pressed.
          * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
@@ -261,16 +239,6 @@ declare namespace editorClient {
          * Called when the node type is dragged into workspace.
          */
         onadd?: ((this: NodeInstance<TInstProps>) => void) | undefined;
-        /** Whether newly-added nodes should immediately open their edit dialog. */
-        autoedit?: boolean | undefined;
-        /** Whether the node label can be shown in the workspace. */
-        showLabel?: boolean | undefined;
-        /** Description shown for a custom palette category. */
-        categoryDescription?: string | undefined;
-        /** Whether an unused configuration node should be treated as unused. */
-        hasUsers?: boolean | undefined;
-        /** Whether each referencing node owns a distinct configuration node. */
-        exclusive?: boolean | undefined;
     }
 
     interface CommSubscriber {
@@ -280,9 +248,6 @@ declare namespace editorClient {
         connect(): void;
         subscribe(topic: string, callback: CommSubscriber): void;
         unsubscribe(topic: string, callback: CommSubscriber): void;
-        on(evt: string, callback: (...args: any[]) => void): void;
-        off(evt: string, callback: (...args: any[]) => void): void;
-        send(topic: string, message: unknown): void;
     }
 
     interface Events {
@@ -388,20 +353,14 @@ declare namespace editorClient {
         depth(): number;
         push(ev: HistoryEvent): void;
         pop(): void;
-        peek(): HistoryEvent | undefined;
-        replace(ev: HistoryEvent): void;
+        peek(): HistoryEvent;
         clear(): void;
         redo(): void;
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18n {
-        init(options: { apiRootUrl?: string | undefined }, done: () => void): void;
         lang(): string;
-        loadNodeCatalog(namespace: string, done: () => void): void;
-        loadNodeCatalogs(done: () => void): void;
-        loadPluginCatalogs(done: () => void): void;
-        detectLanguage(): string;
     }
 
     interface NodesFontAwesome {
@@ -411,19 +370,15 @@ declare namespace editorClient {
 
     interface NodesRegistry {
         setModulePendingUpdated(module: string, version: string): void;
-        getModule(module: string): NodeModule | undefined;
-        getNodeSetForType(nodeType: string): NodeSet | undefined;
-        getModuleList(): Record<string, NodeModule>;
-        getNodeList(): NodeSet[];
+        getModule(module: string): object;
+        getNodeSetForType(nodeType: string): object;
+        getModuleList(): object;
+        getNodeList(): object[];
         getNodeTypes(): string[];
-        getNodeDefinitions(options?: {
-            configOnly?: boolean | undefined;
-            filter?: ((definition: NodeDef<NodeProperties>) => boolean) | undefined;
-        }): Array<NodeDef<NodeProperties>>;
-        setNodeList(list: NodeSet[]): void;
-        addNodeSet(ns: NodeSet): void;
-        removeNodeSet(id: string): NodeSet | Record<string, never>;
-        getNodeSet(id: string): NodeSet | undefined;
+        setNodeList(list: object[]): void;
+        addNodeSet(ns: object): void;
+        removeNodeSet<T extends object>(ns: T): T;
+        getNodeSet(id: string): object;
         enableNodeSet(id: string): void;
         disableNodeSet(id: string): void;
         /**
@@ -440,96 +395,15 @@ declare namespace editorClient {
             def: NodeDef<TProps, TCreds, TInstProps>,
         ): void;
         removeNodeType(nt: string): void;
-        getNodeType(nt: string): NodeDef<NodeProperties> | undefined;
+        getNodeType(nt: string): NodeDef<NodeProperties>;
         setIconSets(sets: Record<string, string[]>): void;
         getIconSets(): Record<string, string[]>;
     }
-
-    interface NodeSet {
-        id: string;
-        module: string;
-        name: string;
-        version: string;
-        types: string[];
-        local?: boolean | undefined;
-        enabled?: boolean | undefined;
-        added?: boolean | undefined;
-        err?: string | undefined;
-        pending_version?: string | undefined;
-        [key: string]: unknown;
-    }
-
-    interface NodeModule {
-        name: string;
-        version: string;
-        local?: boolean | undefined;
-        pending_version?: string | undefined;
-        sets: Record<string, NodeSet | PluginModuleEntry>;
-        plugin?: boolean | undefined;
-        id?: string | undefined;
-    }
-
-    interface PluginModuleEntry {
-        id?: string | undefined;
-        module: string;
-        name: string;
-        version: string;
-        local?: boolean | undefined;
-        pending_version?: string | undefined;
-        [key: string]: unknown;
-    }
-
-    interface EditorLink {
-        source: NodeInstance;
-        target: NodeInstance;
-        sourcePort: number;
-        targetPort: number;
-        [key: string]: unknown;
-    }
-
-    interface ImportOptions {
-        generateIds?: boolean | undefined;
-        addFlow?: boolean | undefined;
-        markChanged?: boolean | undefined;
-        reimport?: boolean | undefined;
-        importMap?: Record<string, "import" | "copy" | "replace"> | undefined;
-        modules?: Record<string, string> | undefined;
-        applyNodeDefaults?: boolean | undefined;
-        eventContext?: unknown;
-    }
-
-    interface ImportResult {
-        nodes: NodeInstance[];
-        links: EditorLink[];
-        groups: object[];
-        junctions: object[];
-        workspaces: object[];
-        subflows: object[];
-        missingWorkspace: object | null;
-        removedNodes: NodeInstance[];
-        nodeMap: Record<string, NodeInstance>;
-    }
-
-    interface ImportConflicts {
-        tabs: Record<string, object>;
-        subflows: Record<string, object>;
-        groups: Record<string, object>;
-        junctions: Record<string, object>;
-        configs: Record<string, object>;
-        nodes: Record<string, object>;
-        all: object[];
-        conflicted: Record<string, object>;
-        zMap: Record<string, object[]>;
-    }
-
     interface Nodes {
         fontAwesome: NodesFontAwesome;
         registry: NodesRegistry;
-        init(): void;
         setNodeList: NodesRegistry["setNodeList"];
         getNodeList: NodesRegistry["getNodeList"];
-        getNodeSet: NodesRegistry["getNodeSet"];
-        addNodeSet: NodesRegistry["addNodeSet"];
         removeNodeSet: NodesRegistry["removeNodeSet"];
         enableNodeSet: NodesRegistry["enableNodeSet"];
         disableNodeSet: NodesRegistry["disableNodeSet"];
@@ -546,80 +420,53 @@ declare namespace editorClient {
          */
         registerType: NodesRegistry["registerNodeType"];
         getType: NodesRegistry["getNodeType"];
-        getNodeHelp(type: string): string | undefined;
         /**
          * Converts a node to an exportable JSON Object
          */
         convertNode(n: object, exportCreds: boolean): object;
 
-        add(n: object, options?: object): NodeInstance;
+        add(n: object): void;
         remove(id: string): { links: object[]; nodes: object[] };
         clear(): void;
-        detachNodes(nodes: object[]): { newLinks: EditorLink[]; removedLinks: EditorLink[] } | undefined;
-        moveNodesForwards(nodes: object[]): object[];
-        moveNodesBackwards(nodes: object[]): object[];
-        moveNodesToFront(nodes: object[]): object[];
-        moveNodesToBack(nodes: object[]): object[];
-        getNodeOrder(z: string): string[];
-        setNodeOrder(z: string, order: string[]): void;
 
         moveNodeToTab(node: object, z: string): void;
 
         addLink(l: object): void;
         removeLink(l: object): void;
-        getNodeLinks(id: string | { id: string }, portType: 0 | 1): EditorLink[];
 
         addWorkspace(ws: object, targetIndex?: number): void;
-        removeWorkspace(id: string): {
-            nodes: object[];
-            links: object[];
-            groups: object[];
-            junctions: object[];
-        };
+        removeWorkspace(id: string): { nodes: object[]; links: object[]; groups: object[] };
         getWorkspaceOrder(): object[];
-        setWorkspaceOrder(order: string[]): void;
-        workspace(id: string): object | undefined;
+        setWorkspaceOrder(): void;
+        workspace(): object;
 
         addSubflow(sf: object, createNewIds?: boolean): void;
         removeSubflow(sf: object): void;
-        subflow(id: string): object | undefined;
+        subflow(id: string): object;
         subflowContains(sfid: string, nodeid: string): boolean;
 
-        addGroup(group: object): object;
+        addGroup(group: object): void;
         removeGroup(group: object): void;
 
-        group(id: string): object | undefined;
-        groups(z: string): object[];
-        addJunction(junction: object): object;
-        removeJunction(junction: object): { links: EditorLink[] };
-        junction(id: string): object | undefined;
-        junctions(z: string): object[];
+        group(id: string): object;
+        groups(z: string): object;
 
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        eachNode(cb: (node: object) => boolean | void): void;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        eachLink(cb: (link: object) => boolean | void): void;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        eachConfig(cb: (configNode: object) => boolean | void): void;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        eachSubflow(cb: (subflow: object) => boolean | void): void;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        eachWorkspace(cb: (workspace: object) => boolean | void): void;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        eachGroup(cb: (group: object) => boolean | void): void;
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        eachJunction(cb: (junction: object) => boolean | void): void;
+        eachNode(cb: (n: object) => boolean): void;
+        eachLink(cb: (l: object) => boolean): void;
+        eachConfig(cb: (conf: object) => boolean): void;
+        eachSubflow(cb: (subf: object) => boolean): void;
+        eachWorkspace(cb: (w: object) => boolean): void;
 
         /**
          * @param id Node id
          * @returns node or config node, or null if no nodes with such id
          */
-        node(id: string): object | undefined;
+        node(id: string): object | null;
 
-        version(): string | null;
+        version(): string;
         version(version: string): void;
 
-        originalFlow(): object | undefined;
+        originalFlow(): object;
         originalFlow(flow: object): void;
 
         filterNodes(filter: object): object[];
@@ -628,14 +475,13 @@ declare namespace editorClient {
         /**
          * @returns [new_nodes,new_links,new_groups,new_workspaces,new_subflows,missingWorkspace]
          */
-        import(newNodesObj: string | object | object[], options?: ImportOptions): ImportResult | undefined;
-        identifyImportConflicts(importedNodes: object[]): ImportConflicts;
+        import(
+            newNodesObj: string | object | object[],
+            createNewIds?: boolean,
+            createMissingWorkspace?: boolean,
+        ): [object[], object[], object[], object[], object[], object];
 
         getAllFlowNodes(node: object): object[];
-        getAllUpstreamNodes(node: object): object[];
-        getAllDownstreamNodes(node: object): object[];
-        getDownstreamNodes(node: object): object[];
-        getNodeIslands(nodes: object[]): object[][];
         /**
          * Converts the current node selection to an exportable JSON Object
          */
@@ -661,16 +507,12 @@ declare namespace editorClient {
         ): void;
         load(done: () => void): void;
         loadUserSettings(done: () => void): void;
-        refreshSettings(done: (error: unknown, settings?: SettingsWithData) => void): void;
         set(key: string, value: unknown, flush?: boolean): void;
         get(key: string): unknown;
         get<T>(key: string, defaultIfUndefined: T): T;
 
         remove(key: string): void;
         theme<T>(property: string, defaultValue: T): T;
-        setLocal(key: string, value: string): void;
-        getLocal(key: string): string | null;
-        removeLocal(key: string): void;
     }
 
     interface SettingsWithData extends Settings, RuntimeLocalSettings {}
@@ -681,76 +523,61 @@ declare namespace editorClient {
         login(opts: { cancelable?: boolean | undefined; updateMenu?: boolean | undefined }, done: () => void): void;
         logout(): void;
         hasPermission(permission: string | object): boolean;
-        generateUserIcon(user: object): JQuery;
-    }
-
-    type Validator = (value: unknown, options?: ValidationOptions) => boolean | string;
-
-    interface TypedInputValidatorOptions {
-        type?: string | undefined;
-        typeField?: string | undefined;
-        isConfig?: boolean | undefined;
-        allowBlank?: boolean | undefined;
-        allowUndefined?: boolean | undefined;
     }
 
     interface Validators {
-        number(blankAllowed?: boolean, options?: ValidationOptions): Validator;
-        regex(re: RegExp, options?: ValidationOptions): Validator;
-        typedInput(
-            typeFieldOrOptions: string | TypedInputValidatorOptions,
-            isConfig?: boolean,
-            options?: ValidationOptions,
-        ): Validator;
+        number(blankAllowed?: boolean): (v: any) => boolean;
+        regex(re: RegExp): (v: any) => boolean;
+        typedInput(ptypeName: string, isConfig?: boolean): (v: any) => boolean;
     }
 
     interface Plugins {
-        registerPlugin(id: string, definition: PluginDef): void;
-        getPlugin(id: string): PluginDef | undefined;
-        getPluginsByType(type: string): PluginDef[];
-        setPluginList(list: PluginModuleEntry[]): void;
-        addPlugin(plugin: PluginModuleEntry): void;
-        getModule(module: string): NodeModule | undefined;
+        registerPlugin: PluginsRegistry["registerPluginType"];
+    }
+    interface PluginsRegistry {
+        /**
+         * Registers a plugin with the editor.     *
+         * @param pt The plugin type is used throughout the editor to identify the plugin. It must
+         * match the value used by the call to RED.plugins.registerPlugin in the corresponding runtime
+         * script.
+         * @param def The plugin definition contains all of the information about the plugin
+         * needed by the editor.
+         */
+        registerPluginType(pt: string, def: PluginDef): void;
     }
     interface PluginDef {
         onadd?: (() => void) | undefined;
-        onremove?: (() => void) | undefined;
-        type?: string | undefined;
-        module?: string | undefined;
-        _?: I18nTFunction | undefined;
-        [key: string]: unknown;
+        type?: "node-red-theme" | undefined;
+        css?: string | string[] | undefined;
+        scripts?: string | string[] | undefined;
+        monacoOptions?: {
+            theme?: string | object | undefined;
+            [key: string]: unknown;
+        } | undefined;
+        mermaid?: {
+            theme?: string | undefined;
+            [key: string]: unknown;
+        } | undefined;
     }
 
-    type KnownHookId =
-        | "viewRemoveNode"
-        | "viewAddNode"
-        | "viewRemovePort"
-        | "viewAddPort"
-        | "viewRedrawNode"
-        | "debugPreProcessMessage"
-        | "debugPostProcessMessage"
-        | "all";
-
-    type HookId = KnownHookId | (string & {});
-
-    type HookCallback = (payload: any, done?: (error?: Error | string | boolean) => void) =>
-        | boolean
-        | Promise<unknown>
-        // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        | void;
-
     interface Hooks {
-        has(hookId: HookId): boolean;
-        clear(): void;
-        add(hookId: HookId, callback: HookCallback): void;
-        remove(hookId: HookId): void;
-        trigger(id: HookId, payload: unknown): Promise<unknown>;
+        /**
+         * Checks whether a hook has been registered.
+         * A hook identifier may include a label, for example `viewAddNode.myPlugin`.
+         */
+        has(hookId: string): boolean;
+        /**
+         * Triggers the registered hooks in sequence and returns a Promise when no callback is supplied.
+         */
+        trigger(id: string, payload: unknown): Promise<unknown>;
+        /**
+         * Triggers the registered hooks in sequence and invokes the callback on completion.
+         */
         trigger(
-            id: HookId,
+            id: string,
             payload: unknown,
             done: (error?: Error | string | boolean) => void,
         ): void;
-        isKnownHook(hookId: HookId): boolean;
     }
 
     interface TextBidi {
@@ -824,26 +651,11 @@ declare namespace editorClient {
     }
 
     interface Actions {
-        add(name: string, handler: (...args: any[]) => void, options?: ActionOptions): void;
+        add(name: string, handler: () => void): void;
         remove(name: string): void;
-        get(name: string): (...args: any[]) => void;
-        getLabel(name: string): string;
-        invoke(name: string, ...args: any[]): void;
-        list(): ActionDefinition[];
-    }
-
-    interface ActionOptions {
-        label?: string | undefined;
-        [key: string]: unknown;
-    }
-
-    interface ActionDefinition {
-        id: string;
-        scope?: string | undefined;
-        key?: string | undefined;
-        user: boolean;
-        label: string;
-        options?: ActionOptions | undefined;
+        get(name: string): () => void;
+        invoke(name: string, ...args: any): void;
+        list(): Array<{ id: string; scope?: string | undefined; key?: string | undefined; user?: boolean | undefined }>;
     }
 
     interface Clipboard {
@@ -879,13 +691,7 @@ declare namespace editorClient {
     }
 
     interface Editor {
-        codeEditor: CodeEditorManager;
-        colorPicker: ColorPicker;
-        iconPicker: IconPicker;
-        envVarList: EnvVarList;
-        mermaid: Mermaid;
         init(): void;
-        generateViewStateId(source: string, thing?: object, suffix?: string): string | false;
         edit(node: object): void;
         /**
          * @param name - name of the property that holds this config node
@@ -894,7 +700,6 @@ declare namespace editorClient {
          * @param prefix - the input prefix of the parent property
          */
         editConfig(name: string, type: string, id: string, prefix: string): void;
-        editFlow(flow: object): void;
         editSubflow(subflow: object, defaultTab?: any): void;
         editGroup(group: object, defaultTab?: any): void;
         editJavaScript(options: JavaScriptTypeEditorShowOptions): void;
@@ -903,7 +708,6 @@ declare namespace editorClient {
         editMarkdown(options: MarkdownTypeEditorShowOptions): void;
         editText(options: TextTypeEditorShowOptions): void;
         editBuffer(options: BufferTypeEditorShowOptions): void;
-        getEditStack(): object[];
         buildEditForm(container: JQuery, formId: string, type: string, ns: string, node: unknown): JQuery;
         /**
          * Validate a node
@@ -946,115 +750,26 @@ declare namespace editorClient {
          * Create a editor ui component
          * @param options - the editor options
          */
-        createEditor(options: CodeEditorOptions): CodeEditor;
-        readonly customEditTypes: Record<string, TypeEditorDefinition>;
-        registerEditPane(
-            type: string,
-            definition: (node: NodeInstance) => EditPaneDefinition,
-            filter?: ((node: NodeInstance) => boolean) | undefined,
-        ): void;
-        prepareConfigNodeSelect(
-            node: NodeInstance,
-            property: string,
-            type: string,
-            prefix: string,
-            filter?: ((node: NodeInstance) => boolean) | undefined,
-            env?: object,
-        ): void;
-    }
-
-    interface CodeEditorOptions {
-        element?: JQuery | undefined;
-        id?: string | undefined;
-        mode?: string | undefined;
-        foldStyle?: string | undefined;
-        options?: object | undefined;
-        readOnly?: boolean | undefined;
-        value?: string | undefined;
-        globals?: object | undefined;
-        stateId?: string | false | undefined;
-        focus?: boolean | undefined;
-        cursor?: {
-            row?: number | undefined;
-            lineNumber?: number | undefined;
-            column?: number | undefined;
-            col?: number | undefined;
-        } | undefined;
-        expandable?: boolean | undefined;
+        createEditor(options: {
+            element?: JQuery | undefined;
+            id?: string | undefined;
+            mode?: string | undefined;
+            foldStyle?: string | undefined;
+            options?: object | undefined;
+            readOnly?: boolean | undefined;
+            value?: string | undefined;
+            globals?: object | undefined;
+        }): CodeEditor;
     }
 
     interface CodeEditor {
-        type: "ace" | "basic" | "monaco" | string;
-        focus(): void;
         getValue(): string;
-        setValue(value: string, cursorPosition?: number): void;
-        setMode(mode: string, options?: object, resetMode?: boolean): void;
-        getCursorPosition(): { row: number; column: number };
-        gotoLine(row: number, column?: number): void;
-        setTheme(theme: string): void;
-        setFontSize(size: number): void;
-        on(name: string, callback: (...args: any[]) => void): void;
-        getView(): unknown;
-        saveView(): unknown;
-        restoreView(state?: unknown): void;
-        destroy?(): void;
-        [key: string]: unknown;
-    }
-
-    interface CodeEditorImplementation {
-        readonly type: "ace" | "basic" | "monaco" | string;
-        readonly initialised: boolean;
-        init(): boolean;
-        create(options: CodeEditorOptions): CodeEditor;
-    }
-
-    interface CodeEditorManager {
-        readonly settings: { lib: string; options: object };
-        readonly editor: CodeEditorImplementation | null;
-        ace: CodeEditorImplementation;
-        basic: CodeEditorImplementation;
-        monaco: CodeEditorImplementation;
-        init(): void;
-        create(options: CodeEditorOptions): CodeEditor;
-    }
-
-    interface IconPicker {
-        show(
-            container: JQuery,
-            backgroundColor: string,
-            iconPath: object,
-            faOnly: boolean,
-            done: (result: string) => void,
-        ): void;
-    }
-
-    interface EnvVarList {
-        readonly DEFAULT_ENV_TYPE_LIST: readonly string[];
-        readonly DEFAULT_ENV_TYPE_LIST_INC_CRED: readonly string[];
-        create(container: JQuery, node: object): void;
-        setLocale(locale: string): void;
-        lookupLabel(labels: Record<string, string>, defaultLabel: string, locale: string): string;
-    }
-
-    interface Mermaid {
-        render(selector?: string | JQuery, root?: JQuery): Promise<unknown[]>;
-        setTheme(isDark: boolean): void;
-    }
-
-    interface EditPaneDefinition {
-        label: string;
-        name: string;
-        iconClass?: string | undefined;
-        create(container: JQuery): void;
-        resize?(size: { width: number; height: number }): void;
-        close?(): void;
-        apply?(editState: object): void;
+        destroy(): void;
     }
 
     interface TypeEditorDefinition {
         show(options: any): void;
-        buildToolbar?: (container: JQuery, editor: CodeEditor) => void;
-        postInit?: ((editor: CodeEditor, options: CodeEditorOptions) => void) | undefined;
+        buildToolbar?: (container: JQuery, editor: AceAjax.Editor) => void;
     }
 
     interface TypeEditorShowOptions {
@@ -1121,6 +836,7 @@ declare namespace editorClient {
 
     interface EventLog {
         init(): void;
+        show(): void;
         log(id: any, payload: object): void;
         startEvent(name: string): void;
     }
@@ -1132,34 +848,19 @@ declare namespace editorClient {
         ungroup(g: object): object[];
         addToGroup(group: object, nodes: object | object[]): void;
         removeFromGroup(group: object, nodes: object | object[], reparent?: boolean): void;
-        getNodes(group: object, recursive?: boolean, includeGroups?: boolean): object[];
+        getNodes(group: object, recursive: boolean): object[];
         contains(group: object, item: object): boolean;
         markDirty(group: object): void;
     }
 
     interface Keyboard {
         init(): void;
-        add(
-            scope: string,
-            key: string,
-            modifiers: object | string | ((event?: KeyboardEvent) => void),
-            ondown?: string | ((event?: KeyboardEvent) => void),
-        ): void;
+        add(scope: string, key: string, modifiers: object, ondown: string | (() => void)): void;
         remove(key: string, modifiers?: object): void;
-        getShortcut(actionName: string): KeyboardShortcut | undefined;
-        getUserShortcut(actionName: string): string | undefined;
+        getShortcut(actionName: string): object;
         revertToDefault(actionName: string): void;
         formatKey(key: string, plain?: boolean): string;
         validateKey(key: string): boolean;
-        disable(): void;
-        enable(): void;
-        handle(event: KeyboardEvent): void;
-    }
-
-    interface KeyboardShortcut {
-        scope: string;
-        key: string;
-        user?: boolean | undefined;
     }
 
     interface Library {
@@ -1179,7 +880,6 @@ declare namespace editorClient {
             ext?: string | undefined;
             fields: string[];
         }): void;
-        export(): void;
         createBrowser(options: {
             container: JQuery;
             onselect?: ((item: object) => void) | undefined;
@@ -1196,40 +896,33 @@ declare namespace editorClient {
 
     type NotificationType = "warning" | "compact" | "success" | "error";
 
+    interface NotificationButton {
+        class?: string | undefined;
+        text: string;
+        click: (event: JQuery.Event) => void;
+    }
+
+    interface NotificationOptions {
+        type?: NotificationType | undefined;
+        fixed?: boolean | undefined;
+        timeout?: number | undefined;
+        modal?: boolean | undefined;
+        buttons?: NotificationButton[] | undefined;
+    }
+
+    interface Notification {
+        close(): void;
+        update(message: string, options: NotificationOptions): void;
+    }
+
     interface Notifications {
-        hide?: boolean | undefined;
         init(): void;
-        notify(
-            msg: string | JQuery,
-            options: {
-                type?: NotificationType | undefined;
-                fixed?: boolean | undefined;
-                timeout?: number | undefined;
-                id?: string | undefined;
-                modal?: boolean | undefined;
-                width?: number | undefined;
-                buttons?:
-                    | Array<{
-                        id?: string | undefined;
-                        class?: string | undefined;
-                        text: string;
-                        click: (event: JQuery.Event) => void;
-                    }>
-                    | undefined;
-            },
-        ): HTMLDivElement;
-        notify(msg: string | JQuery, type?: NotificationType, fixed?: boolean, timeout?: number): HTMLDivElement;
-        shade(state: boolean): void;
+        notify(message: string, options?: NotificationOptions): Notification;
     }
 
     interface PaletteEditor {
         init(): void;
         install(entry: object, container: object, done: (ret: Error | object) => void): void;
-        getAvailableUpdates(): {
-            count: number;
-            core: { current: string; latest: string } | null;
-            palette: object[];
-        };
     }
 
     interface Palette {
@@ -1241,7 +934,6 @@ declare namespace editorClient {
         show(nt: string): void;
         refresh(): void;
         getCategories(): Array<{ id: string; label: string }>;
-        registerCategory(category: string, description: string): void;
     }
 
     interface Search {
@@ -1249,7 +941,6 @@ declare namespace editorClient {
         show(v: string): void;
         hide(): void;
         search(val: string): object[];
-        getSearchOptions(): object;
     }
 
     interface SidebarConfig {
@@ -1272,7 +963,7 @@ declare namespace editorClient {
     }
 
     interface SidebarInfoOutliner {
-        init(): void;
+        build(): void;
         search(val: string): void;
         select(node?: object): void;
         reveal(node: object): void;
@@ -1311,38 +1002,31 @@ declare namespace editorClient {
             iconClass?: string | undefined;
             visible?: boolean | undefined;
             action?: string;
-            target?: "primary" | "secondary" | undefined;
-            onremove?: (() => void) | undefined;
         }): void;
-        addTab(title: string, content: HTMLElement, closeable?: boolean, visible?: boolean): void;
         removeTab(id: string): void;
         show(id: string): void;
         containsTab(id: string): boolean;
-        toggleSidebar(sidebar: object, state: boolean): void;
+        toggleSidebar(state: boolean): void;
     }
 
     interface StatusBar {
         init(): void;
         add(options: { id: string; element: JQuery; align?: "left" | "right" | undefined }): void;
-        hide(id: string): void;
-        show(id: string): void;
     }
 
     interface Subflow {
         init(): void;
         createSubflow(): void;
         convertToSubflow(): void;
-        removeSubflow(
-            id: string,
-            keepInstanceNodes?: boolean,
-        ): { nodes: object[]; links: object[]; groups: object[]; junctions: object[]; subflows: object[] };
-        delete(id?: string): void;
+        removeSubflow(id: string): { nodes: object[]; links: object[]; subflows: object[] };
         refresh(markChange?: boolean): { instances: object[] } | undefined;
         removeInput(): { subflowInputs: object[]; links: object[] };
         removeOutput(removeSubflowOutputs?: object[]): { subflowOutputs: object[]; links: object[] };
         removeStatus(): { links: object[] };
 
         buildEditForm(type: string, node: object): void;
+        buildPropertiesForm(node: object): void;
+
         exportSubflowTemplateEnv(list: JQuery, all?: boolean): object[] | null;
         exportSubflowInstanceEnv(node: object): object[];
     }
@@ -1389,7 +1073,6 @@ declare namespace editorClient {
         show(opts: object): void;
         refresh(opts: object): void;
         hide(fast?: boolean): void;
-        isVisible(): boolean;
     }
 
     interface UserSettings {
@@ -1419,7 +1102,6 @@ declare namespace editorClient {
         getNodeIcon<TProps extends NodeProperties>(def: NodeDef<TProps>, node?: NodeInstance<TProps>): string;
         getNodeLabel(node: NodeInstance, defaultLabel?: string): string;
         getNodeColor(type: string, def: NodeDef<NodeProperties>): string;
-        getPaletteLabel(nodeType: string, def: NodeDef<NodeProperties>): string;
         clearNodeColorCache(): void;
         addSpinnerOverlay(container: JQuery, contain?: boolean): JQuery;
         decodeObject(payload: string, format: string): any;
@@ -1432,33 +1114,9 @@ declare namespace editorClient {
          */
         createIconElement(iconUrl: string, iconContainer: JQuery, isLarge?: boolean): void;
         sanitize(m: string): string;
-        truncateString(value: string, length?: number): string;
         renderMarkdown(txt: string): string;
-        createNodeIcon(node: NodeInstance, includeLabel?: boolean): JQuery;
+        createNodeIcon(node: NodeInstance): JQuery;
         getDarkerColor(c: string): string;
-        parseModuleList(moduleList?: string[]): Array<{
-            module: RegExp;
-            version?: string | undefined;
-            wildcardPos: number;
-        }>;
-        checkModuleAllowed(
-            moduleName: string,
-            version: string,
-            allowList?: Array<{ module: RegExp; version?: string | undefined; wildcardPos: number }>,
-            denyList?: Array<{ module: RegExp; version?: string | undefined; wildcardPos: number }>,
-        ): boolean;
-        getBrowserInfo(): {
-            ua?: string | undefined;
-            browser?: string | undefined;
-            os?: string | undefined;
-            touch?: boolean | undefined;
-            mobile?: string | number | undefined;
-            tablet?: boolean | undefined;
-            ie?: boolean | undefined;
-            android?: boolean | undefined;
-        };
-        validateTypedProperty(value: unknown, type: string, options?: ValidationOptions): boolean | string;
-        renderInfoText(text: string, target: JQuery, options?: { collapseSections?: boolean | undefined }): void;
     }
 
     interface ViewNavigator {
@@ -1480,117 +1138,11 @@ declare namespace editorClient {
          * @param dy
          */
         moveSelection(dx: number, dy: number): void;
-        calculateGridSnapOffsets(
-            node: { x: number; y: number; w: number },
-            options?: { align?: "nearest" | "left" | "right" | undefined },
-        ): { x: number; y: number };
-        isPointInNode(
-            node: { type: string; x: number; y: number; w?: number | undefined; h?: number | undefined },
-            point: [number, number],
-            marginX?: number,
-            marginY?: number,
-        ): boolean;
-    }
-
-    interface ViewAnnotations {
-        init(): void;
-        register(id: string, options: ViewAnnotationOptions): void;
-        unregister(id: string): void;
-    }
-
-    interface ViewAnnotationOptions {
-        type: "badge";
-        align?: "left" | "right" | undefined;
-        class?: string | undefined;
-        element(node: NodeInstance): SVGElement;
-        show?: boolean | string | ((node: NodeInstance) => boolean) | undefined;
-        refresh?: string | ((node: NodeInstance) => boolean) | undefined;
-        filter?: ((node: NodeInstance) => boolean) | undefined;
-        tooltip?: string | ((node: NodeInstance) => string) | undefined;
-        popover?: {
-            content(node: NodeInstance, popover: PopoverInstance): string | JQuery | HTMLElement;
-            direction?: "right" | "left" | "bottom" | "top" | undefined;
-            maxWidth?: number | undefined;
-            width?: number | string | undefined;
-            delay?: { show: number; hide: number } | undefined;
-        } | undefined;
-    }
-
-    interface ZoomGestureState {
-        active: boolean;
-        initialFocalPoint: [number, number] | null;
-        initialScale: number;
-        currentScale: number;
-        lastDistance: number;
-        scrollPosAtStart: [number, number] | null;
-        scaleFatorAtStart: number;
-    }
-
-    interface ViewZoomAnimator {
-        easeOut(progress: number): number;
-        easeToValuesRAF<T extends Record<string, number>>(options: {
-            fromValues: T;
-            toValues: T;
-            onStep(values: T): void;
-            duration?: number | undefined;
-            interpolateValue?: ((from: number, to: number, progress: number) => number) | undefined;
-            onStart?: (() => void) | undefined;
-            onEnd?: (() => void) | undefined;
-            onCancel?: (() => void) | undefined;
-        }): () => void;
-        calculateZoomDelta(currentScale: number, delta: number, isTrackpad: boolean): number;
-        gestureState: ZoomGestureState;
-        startGesture(
-            focalPoint: [number, number] | null,
-            scale: number,
-            scrollPosition?: [number, number],
-            currentScaleFactor?: number,
-        ): ZoomGestureState;
-        updateGesture(newScale: number): { scale: number; focalPoint: [number, number] | null; active: boolean } | null;
-        endGesture(): void;
-        isGestureActive(): boolean;
-        getGestureFocalPoint(
-            currentScrollPosition?: [number, number],
-            currentScaleFactor?: number,
-        ): [number, number] | null;
-    }
-
-    interface ViewZoomConstants {
-        MIN_ZOOM: number;
-        MAX_ZOOM: number;
-        ZOOM_STEP: number;
-        DEFAULT_ZOOM_DURATION: number;
-        PINCH_THRESHOLD: number;
-        FRICTION: number;
-        BOUNCE_DAMPING: number;
-    }
-
-    interface ViewImportOptions {
-        addFlow?: boolean | undefined;
-        touchImport?: boolean | undefined;
-        generateIds?: boolean | undefined;
-        generateDefaultNames?: boolean | undefined;
-        notify?: boolean | undefined;
-        applyNodeDefaults?: boolean | undefined;
-        eventContext?: unknown;
-    }
-
-    interface ViewImportResult {
-        nodeMap: Record<string, NodeInstance>;
-    }
-
-    interface ViewSelection {
-        nodes?: object[] | undefined;
-        links?: object[] | undefined;
-        link?: object | undefined;
     }
 
     interface View {
         navigator: ViewNavigator;
         tools: ViewTools;
-        annotations: ViewAnnotations;
-        zoomAnimator: ViewZoomAnimator;
-        zoomConstants: ViewZoomConstants;
         init(): void;
         state(): number;
         state(state: number): void;
@@ -1604,83 +1156,57 @@ declare namespace editorClient {
          *  - all "selected"
          *  - attached to mouse for placing - "IMPORT_DRAGGING"
          */
-        importNodes(newNodes: string | object | object[], options?: ViewImportOptions): ViewImportResult | undefined;
+        importNodes(newNodesStr: string, addNewFlow?: boolean, touchImport?: boolean): void;
         calculateTextWidth(str: string, className: string): number;
-        select(selection?: string | ViewSelection): void;
-        selection(): ViewSelection;
-        clearSelection(): void;
-        createNode(
-            type: string,
-            x?: number,
-            y?: number,
-            z?: string,
-        ): { node: NodeInstance; historyEvent: HistoryEvent };
+        select(selection?: string | object): void;
+        selection(): {
+            nodes: object[];
+            link?: object | undefined;
+        };
 
-        readonly node_width: number;
-        readonly node_height: number;
-        readonly snapGrid: boolean;
         scale(): number;
-        getLinksAtPoint(x: number, y: number): SVGElement[];
+        getLinksAtPoint(x: number, y: number): object[];
         getGroupAtPoint(x: number, y: number): object | null;
-        getActiveGroup(): null;
+        getActiveGroup(): object;
         reveal(id: string, triggerHighlight?: boolean): void;
         gridSize(): number;
         gridSize(v: number): void;
         getActiveNodes(): object[];
-        getSubflowPorts(): object[];
-        selectNodes(options: {
-            selected?: string[] | undefined;
-            single?: boolean | undefined;
-            prompt?: string | JQuery | undefined;
-            onselect?: ((nodes: object[]) => void) | undefined;
-            oncancel?: (() => void) | undefined;
-        }): void;
-        scroll(): [number, number];
+        selectNodes(options: object): void;
         scroll(x: number, y: number): void;
         clickNodeButton(n: object): void;
-        clipboard(): unknown;
-        redrawStatus(node: object): void;
-        showQuickAddDialog(options?: object): void;
-        calculateNodeDimensions(node: object): [number, number];
-        getElementPosition(element: Element): [number, number];
-        showTooltip(
-            x: number,
-            y: number,
-            content: string,
-            direction?: "right" | "left" | "bottom" | "top",
-        ): { remove(): void };
-        dimensions(): { width: number; height: number };
-        setSuggestedFlow(suggestion: object | null): void;
-        applySuggestedFlow(): ViewImportResult | undefined;
     }
 
     interface Workspaces {
         init(): void;
-        add(ws?: object | false, skipHistoryEntry?: boolean, targetIndex?: number): object;
-        remove(ws?: object): void;
-        delete(ws: object): void;
+        add(ws: object | false, skipHistoryEntry: boolean, targetIndex: number): object;
+        remove(ws: object): void;
         order(order: string[]): void;
-        edit(id?: string): void;
+        edit(id: string): void;
         contains(id: string): boolean;
         count(): number;
-        active(): string | undefined;
-        isLocked(id?: string): boolean | undefined;
+        active(): object;
         selection(): object[];
-        hide(id?: string): void;
-        show(id: string, skipStack?: boolean | null, unhideOnly?: boolean | null, flash?: boolean): void;
-        isHidden(id: string): boolean;
+        show(id: string): void;
         refresh(): void;
         resize(): void;
-        enable(id?: string): void;
-        disable(id?: string): void;
-        lock(id?: string): void;
-        unlock(id?: string): void;
+        enable(id: string): void;
+        disable(id: string): void;
+    }
+
+    interface TouchRadialMenu {
+        show(obj: HTMLElement, pos: number[], options: object): void;
+        active(): boolean;
+    }
+
+    interface Touch {
+        radialMenu: TouchRadialMenu;
     }
 
     interface ProjectsSettings {
         init(utils: object): void;
         show(initialTab?: string): void;
-        switchProject(name: string): void;
+        switchProject(): void;
     }
 
     interface ProjectsUserSettings {
@@ -1701,7 +1227,7 @@ declare namespace editorClient {
         createDefaultPackageFile(): void;
         refresh(done?: (activeProject: object | null) => void): void;
         editProject(): void;
-        getActiveProject(): object | undefined;
+        getActiveProject(): object;
     }
 
     interface ColorPicker {
@@ -1738,11 +1264,9 @@ declare namespace editorClient {
         isSelected(id: string): boolean;
         toggleSelected(id: string): void;
         setDisabled(id: string, state: boolean): void;
-        setVisible(id: string, state: boolean): void;
         addItem(id: string, opt: MenuItemOption | null): void;
         removeItem(id: string): void;
         setAction(id: string, action: string | ((...args: any[]) => void)): void;
-        refreshShortcuts(): void;
     }
 
     interface PanelsInstance {
@@ -1764,39 +1288,22 @@ declare namespace editorClient {
         setContent(content: string): PopoverInstance;
         open(instant?: boolean): PopoverInstance;
         close(instant?: boolean): PopoverInstance;
-        move(options: object): void;
     }
 
     interface Popover {
         create(options: {
             target: JQuery;
-            direction?: "right" | "left" | "bottom" | "top" | "inset" | undefined;
-            trigger?: "hover" | "click" | "modal" | "manual" | undefined;
+            direction?: "right" | "left" | "bottom" | "top" | undefined;
+            trigger?: "hover" | "click" | "modal" | undefined;
             interactive?: boolean | undefined;
             tooltip?: boolean | undefined;
-            content:
-                | string
-                | JQuery
-                | HTMLElement
-                | ((
-                    this: PopoverInstance,
-                    res: PopoverInstance,
-                ) => string | JQuery | HTMLElement | null | Promise<string | JQuery | HTMLElement | null>);
+            content: string | ((res: PopoverInstance) => void);
             delay?: { show: number; hide: number } | undefined;
             autoClose?: boolean | undefined;
-            width?: number | string | undefined;
-            maxWidth?: number | string | undefined;
+            width?: string | undefined;
             size?: string | undefined;
-            offset?: number | undefined;
-            class?: string | undefined;
-            closeOnOutsideClick?: boolean | undefined;
         }): PopoverInstance;
-        tooltip(
-            target: JQuery,
-            content: string | (() => string),
-            action?: string,
-            interactive?: boolean,
-        ): PopoverInstance;
+        tooltip(target: JQuery, content: string, action?: string): PopoverInstance;
         menu(options: {
             style?: "compact" | undefined;
             disposeOnClose?: boolean | undefined;
@@ -1826,24 +1333,10 @@ declare namespace editorClient {
             }): void;
             hide(dispose?: boolean): void;
         };
-        dialog(options: {
-            title?: string | undefined;
-            content: string;
-            closeButton?: boolean | undefined;
-            buttons?:
-                | Array<{
-                    text: string;
-                    class?: string | undefined;
-                    click?: (() => void) | undefined;
-                }>
-                | undefined;
-        }): { close(): void };
     }
 
     interface StackInstanceEntry {
         collapsible?: boolean | undefined;
-        expanded?: boolean | undefined;
-        onexpand?: (() => void) | undefined;
         container: JQuery<HTMLDivElement>;
         header: JQuery<HTMLDivElement>;
         contentWrap: JQuery<HTMLDivElement>;
@@ -1882,23 +1375,14 @@ declare namespace editorClient {
         ): void;
         removeTab(id: string): void;
         activateTab(link: string | JQuery): void;
-        firstTab(): void;
-        lastTab(): void;
         nextTab(): void;
         previousTab(): void;
         resize(): void;
         count(): number;
-        activeIndex(): number;
-        getTabIndex(id: string): number;
         contains(id: string): boolean;
-        showTab(id: string): void;
-        hideTab(id: string): void;
         renameTab(id: string, label: string): void;
-        listTabs(): string[];
-        selection(): object[];
-        clearSelection(): void;
+        selection(): string[];
         order(order: string[]): void;
-        container: JQuery;
     }
 
     interface Tabs {
@@ -1912,83 +1396,27 @@ declare namespace editorClient {
             scrollable?: boolean | undefined;
             collapsible?: boolean | undefined;
             menu?: boolean | undefined;
-            order?: string[] | undefined;
-            onselect?: ((selection: object[]) => void) | undefined;
+            onselect?: ((selection: string[]) => void) | undefined;
             onclick?: ((item: string) => void) | undefined;
             ondblclick?: ((item: string) => void) | undefined;
             onchange?: ((item: string) => void) | undefined;
-            onadd?: ((item: object) => void) | undefined;
             minimumActiveTabWidth?: number | undefined;
             onremove?: ((item: object) => void) | undefined;
         }): TabsInstance;
     }
 
-    interface Runtime {
-        init(): void;
-        readonly started: boolean;
-    }
-
-    interface Multiplayer {
-        init(): void;
-    }
-
-    interface Diagnostics {
-        init(): void;
-    }
-
-    interface EnvVar {
-        init(): void;
-    }
-
-    interface ContextMenu {
-        show(options: {
-            type?: string | undefined;
-            x?: number | undefined;
-            y?: number | undefined;
-            options?: MenuItemOption[] | undefined;
-            [key: string]: unknown;
-        }): void;
-        hide(): void;
-        active(): boolean;
-    }
-
-    interface Tour {
-        id: string;
-        label: string;
-        path: string;
-    }
-
-    interface TourGuide {
-        load(path: string, done: (error: Error | null, tour?: object) => void): void;
-        run(path: string, done?: ((error?: Error) => void) | undefined): void;
-        list(): Tour[];
-        reset(): void;
-    }
-
-    interface Loader {
-        init(): JQuery;
-        start(text?: string, percent?: number): void;
-        reportProgress(text: string, percent: number): void;
-        end(): void;
-    }
-
     interface RED {
-        init(options: object): void;
-        loader: Loader;
-
         // root
         comms: Comms;
         events: Events;
         history: History;
-        hooks: Hooks;
         i18n: I18n;
-        multiplayer: Multiplayer;
         nodes: Nodes;
-        runtime: Runtime;
         settings: SettingsWithData;
         user: User;
         validators: Validators;
         plugins: Plugins;
+        hooks: Hooks;
 
         // assigned in i18n.js (on init)
         _: I18nTFunction;
@@ -2000,12 +1428,9 @@ declare namespace editorClient {
         actionList: ActionList;
         actions: Actions;
         clipboard: Clipboard;
-        contextMenu: ContextMenu;
         deploy: Deploy;
-        diagnostics: Diagnostics;
         diff: Diff;
         editor: Editor;
-        envVar: EnvVar;
         eventLog: EventLog;
         group: Group;
         keyboard: Keyboard;
@@ -2033,8 +1458,8 @@ declare namespace editorClient {
         };
         statusBar: StatusBar;
         subflow: Subflow;
+        touch: Touch;
         tray: Tray;
-        tourGuide: TourGuide;
         typeSearch: TypeSearch;
         userSettings: UserSettings;
         utils: Utils;

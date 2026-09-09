@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/node-red__registry": "*",
         "@types/node-red__runtime": "*",
-        "i18next": "25.8.14"
+        "i18next": "^25.8.14"
     },
     "devDependencies": {
         "@types/node-red__util": "workspace:."

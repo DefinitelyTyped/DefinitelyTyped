@@ -5,16 +5,9 @@ const anotherHelper = new helper.NodeTestHelper();
 
 function helperTests(testHelper: typeof anotherHelper) {
     // $ExpectType Promise<void>
-    testHelper.startServer(error => {
-        // $ExpectType Error | undefined
-        error;
-    });
+    testHelper.startServer(() => {});
     // $ExpectType Promise<void>
     testHelper.stopServer(() => {});
-    testHelper.init();
-    testHelper.settings();
-    // $ExpectType unknown
-    testHelper.credentials;
 
     interface SomeNodeDef extends NodeDef {
         key: string;
@@ -38,12 +31,7 @@ function helperTests(testHelper: typeof anotherHelper) {
 
     function withNodeInitializer(nodeInitializer: NodeInitializer) {
         // $ExpectType Promise<void>
-        testHelper.load(nodeInitializer, flows, error => {
-            // $ExpectType Error | undefined
-            error;
-        });
-        // $ExpectType Promise<void>
-        testHelper.load(nodeInitializer, flows, { n1: { password: "secret" } }, () => {});
+        testHelper.load(nodeInitializer, flows, () => {});
     }
 
     // $ExpectType Promise<void>

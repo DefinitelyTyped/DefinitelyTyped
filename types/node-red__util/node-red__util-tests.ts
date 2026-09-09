@@ -8,24 +8,15 @@ utilModule.init({} as import("@node-red/runtime").LocalSettings);
 function i18nTests() {
     const i18n = utilModule.i18n;
 
-    // $ExpectType void
-    i18n.init({} as import("@node-red/runtime").LocalSettings);
-
     // $ExpectType string
     i18n._("my.key1");
 
     // $ExpectType string
     i18n._("my.key2", { dataKey: "dataVal" });
 
-    // $ExpectType string[] | undefined
+    // $ExpectType string[]
     i18n.availableLanguages("editor");
 
-    // $ExpectType Record<string, any> | null
-    i18n.catalog("editor");
-    // $ExpectType Promise<void>
-    i18n.registerMessageCatalog("editor", "locales", "messages.json");
-    // $ExpectType Promise<undefined[]>
-    i18n.registerMessageCatalogs([{ namespace: "editor", dir: "locales", file: "messages.json" }]);
     // $ExpectType i18n
     i18n.i;
     // $ExpectType string
@@ -34,9 +25,6 @@ function i18nTests() {
 
 function logTests() {
     const log = utilModule.log;
-
-    // $ExpectType void
-    log.init({} as import("@node-red/runtime").LocalSettings);
 
     // $ExpectType string
     log._("my.key1");
@@ -58,7 +46,6 @@ function logTests() {
     log.trace("log trace");
     log.debug("log debug");
     log.audit({ level: log.INFO, msg: "audit" });
-    log.audit({ event: "modules.install", module: "example", version: "1.0.0" });
 }
 
 function utilTests(someNode: Node) {
@@ -124,10 +111,8 @@ function utilTests(someNode: Node) {
     // $ExpectType boolean
     util.setObjectProperty({}, "key", { dataKey: "dataVal" }, true);
 
-    // $ExpectType string | undefined
+    // $ExpectType string
     util.getSetting(someNode, "name");
-    // $ExpectType string | undefined
-    util.getSetting(undefined, "PATH");
 
     // @ts-expect-error evaluateEnvProperty is not exported
     util.evaluateEnvProperty("name", someNode);
@@ -225,9 +210,6 @@ function utilTests(someNode: Node) {
     ast.procedure;
     // $ExpectType ExprNode | undefined
     ast.rhs;
-    // $ExpectType JsonataError[] | undefined
-    jsonataExpr.errors();
-
     // $ExpectType string
     util.normaliseNodeTypeName("a-random node type");
 
@@ -345,15 +327,6 @@ function hookTests() {
         done(new Error("Error"));
     });
     // #endregion
-
-    // $ExpectType boolean
-    hooks.has("onSend");
-    // $ExpectType void
-    hooks.clear();
-    // $ExpectType Promise<false | void>
-    hooks.trigger("onSend", []);
-    // $ExpectType void
-    hooks.trigger("onReceive", { msg: {}, destination: { id: "node-id", node: {} as Node } }, err => {});
 }
 
 function eventAndExecTests() {

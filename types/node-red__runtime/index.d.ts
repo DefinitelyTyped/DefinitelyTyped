@@ -16,76 +16,49 @@ declare namespace runtime {
     type Permission =
         | "*"
         | "read"
-        | "write"
-        | "*.read"
-        | "*.write"
-        | "flows.read"
-        | "flows.write"
-        | "nodes.read"
-        | "nodes.write"
-        | "context.read"
-        | "context.write"
-        | "settings.read"
-        | "settings.write"
-        | "plugins.read"
-        | "diagnostics.read"
-        | "projects.read"
-        | "projects.write"
-        | "library.read"
-        | "library.write"
-        | "credentials.read";
+        | `${string}.read`
+        | `${string}.write`;
 
     interface UsernamePermissions {
         username: string;
         permissions: Permission | Permission[];
-        image?: string | undefined;
-        token?: string | undefined;
     }
 
     interface AnonymousPermissions {
         anonymous: true;
         permissions: Permission | Permission[];
-        username?: string | undefined;
-        image?: string | undefined;
     }
 
     type User = UsernamePermissions | AnonymousPermissions;
 
     type Middleware = RequestHandler | RequestHandler[];
 
-    interface AdminAuthUser extends UsernamePermissions {
-        password?: string | undefined;
-    }
+    type AdminAuthUser = UsernamePermissions;
 
-    interface AdminAuthToken {
-        token: string;
-        user: string;
-        scope: Permission | Permission[];
+    interface AdminAuthCredentialsUser extends AdminAuthUser {
+        password: string;
     }
 
     interface AdminAuthBase {
-        module?: Record<string, unknown> | undefined;
-        users?: AdminAuthUser[] | AdminAuthUser | ((username: string) => Promise<AdminAuthUser | null>) | undefined;
         default?: { permissions: Permission | Permission[] } | (() => Promise<AnonymousPermissions | null>) | undefined;
-        tokens?: AdminAuthToken[] | ((token: string) => Promise<AdminAuthUser | null>) | undefined;
+        tokens?: ((token: string) => Promise<AdminAuthUser | null>) | undefined;
         tokenHeader?: string | undefined;
         sessionExpiryTime?: number | undefined;
-        exchangeCodeExpiryTime?: number | undefined;
     }
 
     interface CredentialsAdminAuth extends AdminAuthBase {
         type: "credentials";
+        users: AdminAuthCredentialsUser[] | ((username: string) => Promise<AdminAuthUser | null>);
         authenticate?: ((username: string, password: string) => Promise<AdminAuthUser | null>) | undefined;
     }
 
     interface StrategyAdminAuth extends AdminAuthBase {
         type: "strategy";
-        authenticate?: ((profile: object) => Promise<AdminAuthUser | null>) | undefined;
+        users: UsernamePermissions[] | ((username: string) => Promise<UsernamePermissions | null>);
         strategy: {
             name: string;
             label: string;
-            icon?: string | undefined;
-            image?: string | undefined;
+            icon: string;
             autoLogin?: boolean | undefined;
             strategy: new(options: object, verify: (...args: any[]) => void) => Strategy;
             options: {
@@ -100,11 +73,9 @@ declare namespace runtime {
     interface EditorTheme {
         theme?: string | undefined;
         tours?: boolean | undefined;
-        help?: boolean | undefined;
         page?: {
             title?: string | undefined;
             favicon?: string | undefined;
-            tabicon?: string | { icon: string; colour?: string | undefined } | undefined;
             css?: string | string[] | undefined;
             scripts?: string | string[] | undefined;
         } | undefined;
@@ -114,9 +85,9 @@ declare namespace runtime {
             url?: string | undefined;
         } | undefined;
         deployButton?: {
-            type?: "simple" | undefined;
-            label?: string | undefined;
-            icon?: string | undefined;
+            type: "simple";
+            label: string;
+            icon: string;
         } | undefined;
         menu?: {
             [id: string]: boolean | { label: string; url: string } | undefined;
@@ -124,27 +95,20 @@ declare namespace runtime {
         userMenu?: boolean | undefined;
         login?: {
             image?: string | undefined;
-            message?: string | undefined;
-            button?: {
-                label: string;
-                url: string;
-                icon?: string | undefined;
-            } | undefined;
         } | undefined;
         logout?: {
             redirect?: string | undefined;
         } | undefined;
         palette?: {
             editable?: boolean | undefined;
-            upload?: boolean | undefined;
             catalogues?: string[] | undefined;
             categories?: {
                 order?: string[] | undefined;
             } | undefined;
             theme?:
                 | Array<{
-                    category?: string | undefined;
-                    type?: string | undefined;
+                    category: string;
+                    type: string;
                     color: string;
                 }>
                 | undefined;
@@ -164,18 +128,19 @@ declare namespace runtime {
                 enabled?: boolean | undefined;
             } | undefined;
         } | undefined;
-        mermaid?: Record<string, unknown> | undefined;
+        mermaid?: {
+            theme?: string | undefined;
+        } | undefined;
         multiplayer?: {
             enabled?: boolean | undefined;
         } | undefined;
-        keymap?: string | undefined;
     }
 
     interface LocalSettings {
         /**
          * the tcp port that the Node-RED web server is listening on
          */
-        uiPort?: number | string | undefined;
+        uiPort?: number | undefined;
 
         /**
          * Interfaces Node-RED UI accepts connections on
@@ -287,10 +252,9 @@ declare namespace runtime {
          * Additional options for the session cookie used by admin authentication.
          */
         httpAdminCookieOptions?: {
-            name?: string | undefined;
             path?: string | undefined;
             httpOnly?: boolean | undefined;
-            secure?: boolean | "auto" | undefined;
+            secure?: boolean | undefined;
             maxAge?: number | null | undefined;
             sameSite?: boolean | "lax" | "strict" | "none" | undefined;
             [key: string]: unknown;
@@ -302,11 +266,6 @@ declare namespace runtime {
          * If set to false, this is disabled.
          */
         httpAdminRoot?: string | false | undefined;
-
-        /**
-         * Cross-origin resource sharing options for the editor and admin API.
-         */
-        httpAdminCors?: CorsOptions | undefined;
 
         /**
          * Some nodes, such as HTTP In, can be used to listen for incoming http requests.
@@ -336,6 +295,7 @@ declare namespace runtime {
                 root?: string | undefined;
                 options?: Record<string, unknown> | undefined;
                 cors?: CorsOptions | undefined;
+                middleware?: RequestHandler | undefined;
             }>
             | string
             | undefined;
@@ -393,7 +353,10 @@ declare namespace runtime {
         /**
          * HTTPS options
          */
-        https?: ServerOptions | (() => ServerOptions | Promise<ServerOptions>) | undefined;
+        https?:
+            | ServerOptions
+            | (() => ServerOptions | null | undefined | Promise<ServerOptions | null | undefined>)
+            | undefined;
 
         /**
          * How often, in hours, a function-valued HTTPS setting is refreshed.
@@ -431,7 +394,7 @@ declare namespace runtime {
         httpServerOptions?: object | undefined;
 
         proxyOptions?: {
-            mode?: "legacy" | "strict" | undefined;
+            mode?: "legacy" | undefined;
             [key: string]: unknown;
         } | undefined;
 
@@ -515,7 +478,6 @@ declare namespace runtime {
                 denyList?: string[] | undefined;
                 allowUpdateList?: string[] | undefined;
                 denyUpdateList?: string[] | undefined;
-                upload?: boolean | undefined;
             } | undefined;
 
             modules?: {
@@ -525,21 +487,6 @@ declare namespace runtime {
                 denyList?: string[] | undefined;
             } | undefined;
         } | undefined;
-
-        /**
-         * @deprecated Use externalModules.autoInstall instead.
-         */
-        autoInstallModules?: boolean | undefined;
-
-        /**
-         * @deprecated Use externalModules.autoInstallRetry instead.
-         */
-        autoInstallModulesRetry?: number | undefined;
-
-        /**
-         * Interval, in milliseconds, between runtime metric reports.
-         */
-        runtimeMetricInterval?: number | undefined;
 
         lang?: string | undefined;
 
@@ -568,7 +515,7 @@ declare namespace runtime {
             [key: string]:
                 | string
                 | {
-                    module: string | ((config: object) => object);
+                    module: string;
                     config?: object | undefined;
                 };
         } | undefined;
@@ -586,11 +533,10 @@ declare namespace runtime {
          * Configure the logging output
          */
         logging?: {
-            [name: string]: {
-                level?: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off" | undefined;
-                metrics?: boolean | undefined;
-                audit?: boolean | undefined;
-                handler?: ((settings: object) => (message: object) => void) | undefined;
+            console?: {
+                level: "fatal" | "error" | "warn" | "info" | "debug" | "trace" | "off";
+                metrics: boolean;
+                audit: boolean;
             } | undefined;
         } | undefined;
 
@@ -599,13 +545,8 @@ declare namespace runtime {
          */
         editorTheme?: EditorTheme | undefined;
 
-        storageModule?: string | CustomStorageModule | undefined;
         nodeDefaults?: Record<string, Record<string, unknown>> | undefined;
         debugStatusLength?: number | undefined;
-        nodeCloseTimeout?: number | undefined;
-        runtimeSyncDelivery?: boolean | undefined;
-        envVarExcludes?: string[] | undefined;
-        readOnly?: boolean | undefined;
 
         verbose?: boolean | undefined;
         safeMode?: boolean | undefined;
@@ -613,7 +554,7 @@ declare namespace runtime {
 
     interface PersistentSettings {
         init(settings: LocalSettings): void;
-        load(storage: StorageModule): Promise<void>;
+        load(storage: StorageModule): void;
         get(prop: string): any;
         set(prop: string, value: any): Promise<void>;
         delete(prop: string): Promise<void>;
@@ -629,8 +570,8 @@ declare namespace runtime {
 
     interface CommsConnection {
         session: string;
-        user: User;
-        send: (topic: string, data: unknown) => void;
+        user: object;
+        send: () => void;
     }
 
     interface APIOptions {
@@ -674,9 +615,7 @@ declare namespace runtime {
         /**
          * Receives a message from an editor comms connection.
          */
-        receive: (
-            opts: APIOptions & { client: CommsConnection; topic?: string | undefined; data?: unknown },
-        ) => Promise<void>;
+        receive: (opts: APIOptions & { client: CommsConnection; topic: string; data: string }) => Promise<void>;
     }
 
     interface ContextModule {
@@ -691,10 +630,10 @@ declare namespace runtime {
          */
         getValue: (opts: {
             scope: string;
-            id?: string | undefined;
-            store?: string | undefined;
-            key?: string | undefined;
-            keysOnly?: boolean | undefined;
+            id: string;
+            store: string;
+            key: string;
+            keysOnly: boolean;
             user?: User | undefined;
             req?: object | undefined;
         }) => Promise<object>;
@@ -710,9 +649,9 @@ declare namespace runtime {
          */
         delete: (opts: {
             scope: string;
-            id?: string | undefined;
-            store?: string | undefined;
-            key?: string | undefined;
+            id: string;
+            store: string;
+            key: string;
             user?: User | undefined;
             req?: object | undefined;
         }) => Promise<void>;
@@ -723,8 +662,6 @@ declare namespace runtime {
         rev: string;
         /** the flow configuration, an array of node configuration objects */
         flows: object[];
-        /** node credentials keyed by node id */
-        credentials: object;
     }
 
     interface Flow {
@@ -752,8 +689,8 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          */
         setFlows: (opts: {
-            flows: { flows: object[]; credentials: object; rev?: string | undefined };
-            deploymentType?: "full" | "nodes" | "flows" | "reload" | undefined;
+            flows: { rev?: string | undefined; flows: object[]; credentials: object };
+            deploymentType: "full" | "nodes" | "flows" | "reload";
             user?: User | undefined;
             req?: object | undefined;
         }) => Promise<{ rev: string }>;
@@ -806,12 +743,12 @@ declare namespace runtime {
         /**
          * Gets the current runtime flow state.
          */
-        getState: (opts: APIOptions) => Promise<{ state: string }>;
+        getState: (opts: APIOptions) => Promise<{ state: string; started: boolean }>;
 
         /**
          * Starts or stops the runtime flows.
          */
-        setState: (opts: APIOptions & { state: "start" | "stop" }) => Promise<{ state: string }>;
+        setState: (opts: APIOptions & { state: "start" | "stop" }) => Promise<Flow>;
     }
 
     interface LibraryModule {
@@ -912,7 +849,7 @@ declare namespace runtime {
             version?: string | undefined;
             url?: string | undefined;
             tarball?: {
-                file: string;
+                name: string;
                 size: number;
                 buffer: Buffer;
             } | undefined;
@@ -993,59 +930,17 @@ declare namespace runtime {
     }
 
     interface PluginsModule {
-        getPlugin: (opts: APIOptions & { id: string }) => Promise<object | undefined>;
+        getPlugin: (opts: APIOptions & { id: string }) => Promise<object>;
         getPluginInfo: (opts: APIOptions & { id: string }) => Promise<object>;
         getPluginsByType: (opts: APIOptions & { type: string }) => Promise<object[]>;
-        getPluginList: (opts: APIOptions) => Promise<object[]>;
-        getPluginConfigs: (opts: APIOptions & { lang: string }) => Promise<string>;
+        getPluginList: (opts: APIOptions) => Promise<object>;
+        getPluginConfigs: (opts: APIOptions & { lang: string }) => Promise<object>;
         getPluginConfig: (opts: APIOptions & { id: string; lang: string }) => Promise<string>;
-        getPluginCatalogs: (opts: APIOptions & { lang: string }) => Promise<Record<string, object>>;
-    }
-
-    interface DiagnosticsReport {
-        report: "diagnostics";
-        scope: string | undefined;
-        time: {
-            utc: string;
-            local: string;
-        };
-        intl: {
-            locale: string;
-            timeZone: string;
-        };
-        nodejs: {
-            version: string;
-            arch: string;
-            platform: NodeJS.Platform;
-            memoryUsage: NodeJS.MemoryUsage;
-        };
-        os: {
-            containerised: boolean | string | undefined;
-            wsl: boolean;
-            totalmem: number;
-            freemem: number;
-            arch: string;
-            loadavg: number[];
-            platform: NodeJS.Platform;
-            release: string;
-            type: string;
-            uptime: number;
-            version: string;
-        };
-        runtime: {
-            version: string;
-            isStarted: boolean;
-            flows: {
-                state: string | undefined;
-                started: boolean | undefined;
-            };
-            modules: Record<string, string>;
-            settings: Record<string, unknown>;
-        };
+        getPluginCatalogs: (opts: APIOptions & { lang: string }) => Promise<object>;
     }
 
     interface DiagnosticsModule {
-        get: (opts?: APIOptions & { scope?: string | undefined }) => Promise<DiagnosticsReport>;
+        get: (opts: { scope: string }) => Promise<object>;
     }
 
     interface ProjectUser {
@@ -1053,7 +948,7 @@ declare namespace runtime {
     }
 
     interface ProjectsModule {
-        available: (opts?: APIOptions) => Promise<boolean>;
+        available: () => Promise<boolean>;
 
         /**
          * List projects known to the runtime
@@ -1062,10 +957,7 @@ declare namespace runtime {
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
-        listProjects: (opts: { user?: ProjectUser | undefined; req?: object | undefined }) => Promise<{
-            projects: object[];
-            active?: string | undefined;
-        }>;
+        listProjects: (opts: { user?: ProjectUser | undefined; req?: object | undefined }) => Promise<object>;
 
         /**
          * Create a new project
@@ -1113,9 +1005,9 @@ declare namespace runtime {
         setActiveProject: (opts: {
             user?: ProjectUser | undefined;
             id: string;
-            clearContext?: boolean | undefined;
+            clearContext: boolean;
             req?: object | undefined;
-        }) => Promise<object | undefined>;
+        }) => Promise<object>;
         /**
          * Gets a projects metadata
          * @param opts
@@ -1275,8 +1167,8 @@ declare namespace runtime {
         getCommits: (opts: {
             user?: ProjectUser | undefined;
             id: string;
-            limit?: number | undefined;
-            before?: string | undefined;
+            limit: string;
+            before: string;
             req?: object | undefined;
         }) => Promise<object[]>;
         /**
@@ -1294,7 +1186,7 @@ declare namespace runtime {
          * @param opts.user - the user calling the api
          * @param opts.id - the id of the project
          * @param opts.path - the path of the file being merged
-         * @param opts.resolution - how to resolve the merge conflict
+         * @param opts.resolutions - how to resolve the merge conflict
          * @param opts.req - the request to log (optional)
          * @returns resolves when complete
          */
@@ -1302,7 +1194,7 @@ declare namespace runtime {
             user?: ProjectUser | undefined;
             id: string;
             path: string;
-            resolution: string;
+            resolutions: string;
             req?: object | undefined;
         }) => Promise<object>;
         /**
@@ -1328,7 +1220,7 @@ declare namespace runtime {
             user?: ProjectUser | undefined;
             id: string;
             path: string;
-            tree?: string | undefined;
+            tree: string;
             req?: object | undefined;
         }) => Promise<string>;
         /**
@@ -1458,7 +1350,6 @@ declare namespace runtime {
          */
         pull: (opts: {
             user?: ProjectUser | undefined;
-            id: string;
             remote: string;
             track?: boolean | undefined;
             allowUnrelatedHistories?: boolean | undefined;
@@ -1512,7 +1403,7 @@ declare namespace runtime {
             user?: User | undefined;
             settings: object;
             req?: object | undefined;
-        }) => Promise<void>;
+        }) => Promise<object>;
         /**
          * Gets a list of a user's ssh keys
          * @param opts
@@ -1560,52 +1451,25 @@ declare namespace runtime {
         removeUserKey: (opts: { user?: User | undefined; id: string; req?: object | undefined }) => Promise<void>;
     }
 
-    interface CustomStorageModule {
-        init(settings: LocalSettings, runtime: InternalRuntimeAPI): Promise<void> | void;
-        getFlows(): Promise<object[]>;
-        saveFlows(flows: object[], user?: User | undefined): Promise<void>;
-        getCredentials(): Promise<object>;
-        saveCredentials(credentials: object): Promise<void>;
-        getSettings?(): Promise<object | null>;
-        saveSettings?(settings: object): Promise<void>;
-        getSessions?(): Promise<object | null>;
-        saveSessions?(sessions: object): Promise<void>;
-        getLibraryEntry(type: string, path: string): Promise<string | string[] | object[]>;
-        saveLibraryEntry(type: string, path: string, meta: Record<string, string>, body: string): Promise<void>;
-        projects?: object | undefined;
-        sshkeys?: object | undefined;
-    }
-
     interface StorageModule {
-        init(runtime: InternalRuntimeAPI): Promise<void>;
+        init(runtime: InternalRuntimeAPI): void;
         getFlows(): Promise<{
             flows: object[];
             credentials: object;
             rev: string;
         }>;
-        saveFlows(
-            config: {
-                flows: object[];
-                credentials: object;
-                credentialsDirty?: boolean | undefined;
-            },
-            user?: User | undefined,
-        ): Promise<string>;
+        saveFlows(config: {
+            flows: object[];
+            credentials: object;
+            credentialsDirty?: boolean | undefined;
+        }): Promise<void>;
         saveCredentials(credentials: object): Promise<void>;
         getSettings(): Promise<object | null>;
         saveSettings(settings: object): Promise<void>;
         getSessions(): Promise<object | null>;
         saveSessions(sessions: object): Promise<void>;
-        getLibraryEntry(type: string, path: string): Promise<string | string[] | object[]>;
+        getLibraryEntry(type: string, path: string): Promise<string | string[]>;
         saveLibraryEntry(type: string, path: string, meta: Record<string, string>, body: string): Promise<void>;
-        /** @deprecated Use getLibraryEntry instead. */
-        getAllFlows(): Promise<object>;
-        /** @deprecated Use getLibraryEntry instead. */
-        getFlow(filename: string): Promise<unknown>;
-        /** @deprecated Use saveLibraryEntry instead. */
-        saveFlow(filename: string, data: string): Promise<void>;
-        projects?: object | undefined;
-        sshkeys?: object | undefined;
     }
 
     interface InternalNodesModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
@@ -1620,23 +1484,15 @@ declare namespace runtime {
         settings: PersistentSettings;
         storage: StorageModule;
         events: EventEmitter;
-        hooks: Hooks;
         nodes: InternalNodesModule;
         plugins: InternalPluginsModule;
-        flows: object;
         library: InternalLibraryModule;
         exec: InternalExecModule;
         util: Util;
-        telemetry: {
-            enable(): void;
-            disable(): void;
-            isEnabled(): boolean | undefined;
-            stop(): void;
-        };
         readonly adminApi: object;
         readonly adminApp: Express;
         readonly nodeApp: Express;
-        readonly server: HttpServer | HttpsServer | null;
+        readonly server: HttpsServer;
         isStarted(): boolean;
     }
 
@@ -1649,8 +1505,8 @@ declare namespace runtime {
          */
         init: (
             userSettings: LocalSettings,
-            httpServer?: HttpServer | HttpsServer | null,
-            _adminApi?: EditorAPIModule,
+            httpServer: HttpServer | HttpsServer,
+            _adminApi: EditorAPIModule,
         ) => void;
 
         /**
@@ -1678,12 +1534,12 @@ declare namespace runtime {
         /**
          * Returns whether the runtime is started
          */
-        isStarted: (opts?: APIOptions) => Promise<boolean>;
+        isStarted: (opts: APIOptions) => Promise<boolean>;
 
         /**
          * Returns version number of the runtime
          */
-        version: (opts?: APIOptions) => Promise<string>;
+        version: (opts: APIOptions) => Promise<string>;
 
         storage: StorageModule;
         events: EventEmitter;
@@ -1691,7 +1547,7 @@ declare namespace runtime {
 
         readonly httpNode: Express;
         readonly httpAdmin: Express;
-        readonly server: HttpServer | HttpsServer | null;
+        readonly server: HttpsServer;
 
         _: InternalRuntimeAPI;
     }

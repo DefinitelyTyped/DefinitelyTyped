@@ -1,4 +1,4 @@
-import { InternalRuntimeAPI, LocalSettings } from "@node-red/runtime";
+import { LocalSettings } from "@node-red/runtime";
 import * as util from "@node-red/util";
 import { EventEmitter } from "events";
 import { Express, NextFunction, Request, Response } from "express";
@@ -10,186 +10,30 @@ export = registry;
 
 declare namespace registry {
     interface RegistryModule {
-        init(runtime: InternalRuntimeAPI): void;
+        init(runtime: object): void;
         load(): Promise<void>;
-        clear(): void;
 
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
-            nodeSet: string,
-            type: string,
-            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-            opts?: NodeRegistrationOptions<TSets, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-        ): void;
-        get(type: string): NodeConstructor<Node, NodeDef, {}> | RegisteredSubflow | null | undefined;
-        registerSubflow(nodeSet: string, subflow: SubflowDef): RegisteredSubflow;
-
-        getNodeInfo(typeOrId: string): NodeInfo | null;
-        getNodeList(filter?: (node: NodeSetDefinition) => boolean): NodeInfo[];
-        getModuleInfo(module: string): ModuleInfo | null;
-        getModuleList(): Record<string, ModuleDefinition>;
+        registerType(nodeSet: object, type: string, constructor: (...args: any[]) => any): void;
+        get(type: string): (...args: any[]) => any;
+        getNodeInfo(typeOrId: string): object;
+        getNodeList(): object;
+        getModuleInfo(module: string): object;
+        getModuleList(): object;
         getNodeConfigs(lang?: string): string;
-        getNodeConfig(id: string, lang?: string): string | null;
-        getNodeIconPath(module: string, icon: string): string | null;
-        getNodeIcons(): Record<string, string[]>;
-
-        enableNode(typeOrId: string): Promise<NodeInfo>;
-        disableNode(typeOrId: string): Promise<NodeInfo>;
-        addModule(module: string): Promise<ModuleInfo | null>;
-        removeModule(module: string): NodeInfo[];
-        installModule(module: string | Buffer, version?: string, url?: string): Promise<ModuleInfo>;
-        uninstallModule(module: string): Promise<Array<NodeInfo | PluginInfo>>;
+        getNodeConfig(id: string, lang?: string): string;
+        getNodeIconPath(module: string, icon: string): string;
+        getNodeIcons(): string;
+        enableNode(typeOrId: string): Promise<unknown>;
+        disableNode(typeOrId: string): Promise<unknown>;
+        addModule(module: string): Promise<object>;
+        removeModule(module: string): Promise<unknown[]>;
+        installModule(module: string | Buffer, version?: string, url?: string): Promise<unknown[]>;
+        uninstallModule(module: string): Promise<unknown[]>;
         cleanModuleList(): void;
         installerEnabled(): boolean;
-
-        getNodeExampleFlows(): Record<string, ExampleFlowDirectory> | null;
-        getNodeExampleFlowPath(module: string, path: string): string | null;
-        getModuleResource(module: string, path: string): string | null;
-        checkFlowDependencies(flowConfig: object[]): Promise<void>;
-
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        registerPlugin<TPluginDef extends PluginDef = PluginDef>(
-            nodeSetId: string,
-            id: string,
-            definition: PluginDefinition<TPluginDef>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-        ): void;
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        getPlugin<TPluginDef extends PluginDef = PluginDef>(id: string): PluginDefinition<TPluginDef> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
-        getPluginInfo(typeOrId: string): PluginInfo | null;
-        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
-        getPluginsByType<TPluginDef extends PluginDef = PluginDef>(
-            type: string,
-        ): Array<PluginDefinition<TPluginDef>>; // eslint-disable-line @definitelytyped/no-unnecessary-generics
-        getPluginList(): PluginInfo[];
-        getPluginConfigs(lang?: string): string;
-        getPluginConfig(id: string, lang?: string): string;
-        exportPluginSettings<T extends object>(safeSettings: T): T;
-
-        deprecated: DeprecatedNodes;
-    }
-
-    interface NodeRegistrationOptions<TSets, TCreds extends {}> {
-        credentials?: NodeCredentials<TCreds> | undefined;
-        settings?: NodeSettings<TSets> | undefined;
-        dynamicModuleList?: string | undefined;
-    }
-
-    interface RegistryEntryInfo {
-        id: string;
-        name: string;
-        enabled: boolean;
-        local: boolean;
-        user: boolean;
-        module?: string | undefined;
-        err?: unknown;
-        plugins?: PluginSummary[] | undefined;
-        loaded?: boolean | undefined;
-        pending_version?: string | undefined;
-        version?: string | undefined;
-    }
-
-    interface NodeInfo extends RegistryEntryInfo {
-        types: string[];
-    }
-
-    interface PluginInfo extends RegistryEntryInfo {
-        types?: undefined;
-        editor: boolean;
-        runtime: boolean;
-    }
-
-    interface PluginSummary {
-        id: string;
-        type: string;
-        module: string;
-    }
-
-    interface ModuleInfo {
-        name: string;
-        version: string;
-        local?: boolean | undefined;
-        user?: boolean | undefined;
-        path?: string | undefined;
-        nodes: NodeInfo[];
-        plugins: PluginInfo[];
-        dependencies?: string[] | undefined;
-        pending_version?: string | undefined;
-    }
-
-    interface ModuleDefinition {
-        name: string;
-        version: string;
-        path?: string | undefined;
-        local?: boolean | undefined;
-        user?: boolean | undefined;
-        redVersion?: string | undefined;
-        dependencies?: string[] | undefined;
-        usedBy?: string[] | undefined;
-        pending_version?: string | undefined;
-        nodes: Record<string, NodeSetDefinition>;
-        plugins?: Record<string, PluginSetDefinition> | undefined;
-        resources?: ResourceDirectory | undefined;
-        examples?: ResourceDirectory | undefined;
-        icons?: IconDirectory[] | undefined;
-    }
-
-    interface NodeSetDefinition {
-        type: "node";
-        id: string;
-        module: string;
-        name: string;
-        file: string;
-        template: string;
-        enabled: boolean;
-        loaded: boolean;
-        version: string;
-        local: boolean;
-        user?: boolean | undefined;
-        types: string[];
-        config: string;
-        help: Record<string, string>;
-        err?: unknown;
-    }
-
-    interface PluginSetDefinition {
-        type: "plugin";
-        id: string;
-        module: string;
-        name: string;
-        file?: string | undefined;
-        template?: string | undefined;
-        enabled: boolean;
-        loaded: boolean;
-        version: string;
-        local: boolean;
-        user?: boolean | undefined;
-        plugins: PluginDefinition<PluginDef>[];
-        config: string;
-        help: Record<string, string>;
-        err?: unknown;
-    }
-
-    interface ResourceDirectory {
-        path: string;
-    }
-
-    interface IconDirectory extends ResourceDirectory {
-        icons: string[];
-    }
-
-    interface ExampleFlowDirectory {
-        f?: string[] | undefined;
-        d?: Record<string, ExampleFlowDirectory> | undefined;
-    }
-
-    interface RegisteredSubflow {
-        subflow: SubflowDef;
-        type: string;
-        config: string;
-    }
-
-    interface DeprecatedNodes {
-        get(id: string): { module: string } | undefined;
+        getNodeExampleFlows(): object;
+        getNodeExampleFlowPath(module: string, path: string): string;
+        getModuleResource(module: string, path: string): string;
     }
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
@@ -222,10 +66,13 @@ declare namespace registry {
         registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TSets, TCreds extends {}>(
             type: string,
             constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
-            opts?: NodeRegistrationOptions<TSets, TCreds>,
+            opts?: {
+                credentials?: NodeCredentials<TCreds> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+                settings?: NodeSettings<TSets> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
+            },
         ): void;
 
-        registerSubflow(subflow: SubflowDef): void;
+        registerSubflow(subflow: SubflowModuleDef): void;
 
         /**
          * Called from a Node's constructor function, invokes the super-class
@@ -235,9 +82,8 @@ declare namespace registry {
          */
         createNode(node: Node, def: NodeDef): void;
 
-        getNode(id: string): Node | null;
+        getNode(id: string): Node;
         eachNode(cb: (node: NodeDef) => void): void;
-        linkcallTargets: LinkCallTargets;
 
         /**
          * Adds a set of credentials for the given node id.
@@ -323,9 +169,7 @@ declare namespace registry {
         id?: string;
         type: string;
         module?: string;
-        path?: string;
         onadd?(): void;
-        onremove?(): void;
         _?: any;
         settings?: NodeSettings<TPluginDef> | undefined;
     }
@@ -343,9 +187,8 @@ declare namespace registry {
         events: EventEmitter;
         hooks: util.Hooks;
         util: util.Util;
-        version(): string;
+        version(): Promise<string>;
         require(id: string): any;
-        import(id: string): Promise<any>;
         comms: NodeAPIComms;
         library: NodeAPILibrary;
         auth: NodeAPIAuth;
@@ -354,24 +197,6 @@ declare namespace registry {
         readonly httpAdmin: Express;
         readonly server: HttpsServer;
         _: util.I18nTFunction;
-    }
-
-    interface LinkCallTarget {
-        id: string;
-        name: string;
-        flowId: string;
-        flowName: string;
-        isSubFlow: boolean;
-    }
-
-    interface LinkCallTargets {
-        getTargets(name: string, excludeSubflows?: boolean): LinkCallTarget[];
-        getTarget(name: string, flowId?: string): LinkCallTarget | undefined;
-        getTargetNode(sourceNode: Node, target: string, isDynamic?: boolean): Node;
-        getTargetById(nodeId: string): LinkCallTarget | undefined;
-        register(node: Node): LinkCallTarget;
-        remove(node: Node): void;
-        clear(): void;
     }
 
     /**
@@ -630,14 +455,17 @@ declare namespace registry {
         name: string;
         type: SubflowDefEnvType;
         value?: any;
+        [key: string]: unknown;
     }
 
     interface SubflowDefInOutWire {
         id: string;
+        [key: string]: unknown;
     }
 
     interface SubflowDefInOut {
         wires: SubflowDefInOutWire[];
+        [key: string]: unknown;
     }
 
     interface SubflowDef {
@@ -650,5 +478,15 @@ declare namespace registry {
         out?: SubflowDefInOut[];
         env?: SubflowDefEnv[];
         status?: any;
+    }
+
+    interface SubflowModuleNode extends NodeDef {
+        [key: string]: unknown;
+    }
+
+    interface SubflowModuleDef extends SubflowDef {
+        type: "subflow";
+        flow: SubflowModuleNode[];
+        [key: string]: unknown;
     }
 }
