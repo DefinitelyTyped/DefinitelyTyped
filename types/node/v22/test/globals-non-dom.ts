@@ -64,3 +64,9 @@
         }
     })();
 }
+
+{
+    const transform: ReadableWritablePair<string, string> = new TransformStream<string, string>();
+    const piped = new ReadableStream<string>().pipeThrough(transform); // $ExpectType ReadableStream<string>
+    void piped;
+}
