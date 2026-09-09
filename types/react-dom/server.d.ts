@@ -97,6 +97,11 @@ export interface RenderToPipeableStreamOptions {
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
     onAllReady?: () => void;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
     formState?: ReactFormState | null;
 }
@@ -156,6 +161,11 @@ export interface RenderToReadableStreamOptions {
     maxHeadersLength?: number | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
     onHeaders?: ((headers: Headers) => void) | undefined;
     formState?: ReactFormState | null;
@@ -182,6 +192,11 @@ export interface ResumeToPipeableStreamOptions {
     onShellReady?: (() => void) | undefined;
     onShellError?: ((error: unknown) => void) | undefined;
     onAllReady?: (() => void) | undefined;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: ((error: unknown, errorInfo: ErrorInfo) => string | void) | undefined;
 }
 
