@@ -2737,6 +2737,7 @@ declare namespace chrome {
 
         /** Adds a cookie to the request or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         interface AddRequestCookie {
+            /** Cookie to be added to the request. No field may be undefined. */
             cookie: RequestCookie;
         }
 
@@ -2783,6 +2784,7 @@ declare namespace chrome {
             url: string;
         }
 
+        /** Triggers the {@link declarativeWebRequest.onMessage} event. */
         interface SendMessageToExtension {
             /** The value that will be passed in the message attribute of the dictionary that is passed to the event handler. */
             message: string;
