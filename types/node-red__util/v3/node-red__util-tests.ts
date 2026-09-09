@@ -1,4 +1,4 @@
-import utilModule = require("@node-red/util");
+import utilModule = require("@node-red/util/v3");
 import { Node, NodeMessage } from "@node-red/registry";
 import { EventEmitter } from "events";
 
@@ -144,7 +144,7 @@ function utilTests(someNode: Node) {
     // $ExpectType Expression
     const jsonataExpr = util.prepareJSONataExpression("expr", someNode);
 
-    // @ts-expect-error
+    // $ExpectType any
     util.evaluateJSONataExpression(jsonataExpr, {});
     // $ExpectType void
     util.evaluateJSONataExpression(jsonataExpr, {}, (err: Error | null, res: any): void => {});
