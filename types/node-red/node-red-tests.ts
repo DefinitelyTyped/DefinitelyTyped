@@ -1,14 +1,20 @@
 import RED = require("node-red");
 import { LocalSettings } from "@node-red/runtime";
-import { createServer } from "http";
+import { Express } from "express";
+import { createServer as createHttpServer, Server as HttpServer } from "http";
+import { createServer as createHttpsServer, Server as HttpsServer } from "https";
 
 async function REDTests() {
-    const server = createServer();
+    const httpServer = createHttpServer();
+    const httpsServer = createHttpsServer();
     const settings: LocalSettings = {
         uiHost: "127.0.0.1",
         uiPort: 1880,
     };
-    RED.init(server, settings);
+    RED.init(settings);
+    RED.init(httpServer, settings);
+    RED.init(httpsServer, settings);
+    RED.init(null, settings);
 
     await RED.start();
     await RED.stop();
@@ -29,6 +35,11 @@ async function REDTests() {
     // $ExpectType Hooks
     RED.hooks;
 
+    const version: string = RED.version();
+    const httpAdmin: Express | null = RED.httpAdmin;
+    const httpNode: Express = RED.httpNode;
+    const server: HttpServer | HttpsServer | null = RED.server;
+
     // RED.runtime is covered in @node-red/runtime
     // just check the link
     // $ExpectType RuntimeModule
@@ -38,6 +49,11 @@ async function REDTests() {
     // just check the link
     // $ExpectType Auth
     RED.auth;
+
+    const diagnostics: undefined = RED.diagnostics;
+
+    // @ts-expect-error node-red 5.0.7 does not export the internal plugins module
+    RED.plugins;
 }
 
 // check the shortcuts

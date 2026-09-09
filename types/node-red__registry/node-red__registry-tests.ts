@@ -1,4 +1,56 @@
 import registry = require("@node-red/registry");
+import { InternalRuntimeAPI } from "@node-red/runtime";
+
+declare const runtime: InternalRuntimeAPI;
+declare const nodeInfo: registry.NodeInfo;
+declare const moduleInfo: registry.ModuleInfo;
+declare const pluginInfo: registry.PluginInfo;
+declare const subflow: registry.SubflowDef;
+
+registry.init(runtime);
+registry.load().then(() => {});
+registry.clear();
+registry.registerType("node-set", "my-node", function(_nodeDef: registry.NodeDef) {});
+registry.get("my-node");
+registry.registerSubflow("node-set", subflow);
+registry.getNodeInfo("my-node");
+registry.getNodeList();
+registry.getNodeList(node => node.enabled);
+registry.getModuleInfo("my-module");
+registry.getModuleList();
+registry.getNodeConfigs();
+registry.getNodeConfig("my-module/my-node", "en-US");
+registry.getNodeIconPath("my-module", "icon.svg");
+registry.getNodeIcons();
+registry.enableNode("my-node").then(info => info.enabled);
+registry.disableNode("my-node").then(info => info.enabled);
+registry.addModule("my-module").then(info => info?.nodes);
+registry.removeModule("my-module");
+registry.installModule("my-module", "1.0.0").then(info => info.version);
+registry.installModule(Buffer.from([])).then(info => info.version);
+registry.uninstallModule("my-module");
+registry.cleanModuleList();
+registry.installerEnabled();
+registry.getNodeExampleFlows();
+registry.getNodeExampleFlowPath("my-module", "example");
+registry.getModuleResource("my-module", "resource.txt");
+registry.checkFlowDependencies([]);
+registry.registerPlugin("plugin-set", "my-plugin", { type: "my-plugin-type" });
+registry.getPlugin("my-plugin");
+registry.getPluginInfo("my-plugin");
+registry.getPluginsByType("my-plugin-type");
+registry.getPluginList();
+registry.getPluginConfigs("en-US");
+registry.getPluginConfig("my-module/my-plugin", "en-US");
+registry.exportPluginSettings({});
+registry.deprecated.get("irc in");
+
+const checkedNodeInfo: registry.NodeInfo = nodeInfo;
+const checkedModuleInfo: registry.ModuleInfo = moduleInfo;
+const checkedPluginInfo: registry.PluginInfo = pluginInfo;
+void checkedNodeInfo;
+void checkedModuleInfo;
+void checkedPluginInfo;
 
 function registryTests() {
     interface ExtendedNodeRedSettings extends registry.NodeAPISettingsWithData {
@@ -159,7 +211,7 @@ function registryTests() {
 
             this.receive({});
 
-            // $ExpectType Node<{}>
+            // $ExpectType Node<{}> | null
             RED.nodes.getNode("node-id");
 
             // RED.util covered in @node-red/util
@@ -168,6 +220,14 @@ function registryTests() {
             RED.util;
             // $ExpectType Hooks
             RED.hooks;
+
+            RED.nodes.registerSubflow(subflow);
+
+            // $ExpectType Promise<any>
+            RED.import("node:path");
+
+            // $ExpectType LinkCallTarget[]
+            RED.nodes.linkcallTargets.getTargets("target");
 
             // $ExpectType Express
             RED.httpNode;

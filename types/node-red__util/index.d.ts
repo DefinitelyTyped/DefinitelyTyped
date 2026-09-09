@@ -1,13 +1,33 @@
+import { SpawnOptions } from "child_process";
 import { EventEmitter } from "events";
+import { i18n } from "i18next";
 
 import * as registry from "@node-red/registry";
 import * as runtime from "@node-red/runtime";
 
-// Preserve the existing jsonata 2.0.5 contract without depending on its runtime.
-// https://github.com/jsonata-js/jsonata/blob/v2.0.5/jsonata.d.ts
+// Preserve the JSONata contract used by Node-RED without depending on its runtime.
 declare namespace jsonata {
     interface ExprNode {
-        type: string;
+        type:
+            | "binary"
+            | "unary"
+            | "function"
+            | "partial"
+            | "lambda"
+            | "condition"
+            | "transform"
+            | "block"
+            | "name"
+            | "parent"
+            | "string"
+            | "number"
+            | "value"
+            | "wildcard"
+            | "descendant"
+            | "variable"
+            | "regexp"
+            | "operator"
+            | "error";
         value?: any;
         position?: number;
         arguments?: ExprNode[];
@@ -16,7 +36,7 @@ declare namespace jsonata {
         steps?: ExprNode[];
         expressions?: ExprNode[];
         stages?: ExprNode[];
-        lhs?: ExprNode[];
+        lhs?: ExprNode | ExprNode[];
         rhs?: ExprNode;
     }
 
@@ -27,8 +47,8 @@ declare namespace jsonata {
     }
 
     interface Environment {
-        bind(name: string, value: any): void;
-        lookup(name: string): any;
+        bind(name: string | symbol, value: any): void;
+        lookup(name: string | symbol): any;
         readonly timestamp: Date;
         readonly async: boolean;
     }
@@ -48,6 +68,7 @@ declare namespace jsonata {
         assign(name: string, value: any): void;
         registerFunction(name: string, implementation: (this: Focus, ...args: any[]) => any, signature?: string): void;
         ast(): ExprNode;
+        errors(): JsonataError[] | undefined;
     }
 }
 
@@ -57,11 +78,16 @@ export = util;
 
 declare namespace util {
     interface LogMessageObject {
+        [key: string]: any;
         level: number;
         msg?: LogMessage | undefined;
         type?: string | undefined;
         id?: string | undefined;
         name?: string | undefined;
+        timestamp?: number | undefined;
+        user?: unknown;
+        path?: string | undefined;
+        ip?: string | undefined;
     }
 
     type LogMessage = any;
@@ -88,6 +114,8 @@ declare namespace util {
          * Perform a message catalog lookup.
          */
         _: I18nTFunction;
+
+        init(settings: runtime.LocalSettings): void;
 
         /**
          * Add a log handler
@@ -129,7 +157,7 @@ declare namespace util {
         /**
          * Log an audit event.
          */
-        audit(msg: LogMessageObject, req?: object): void;
+        audit(msg: Omit<LogMessageObject, "level"> & { level?: number }, req?: object): void;
     }
 
     interface MessageCatalog {
@@ -140,7 +168,7 @@ declare namespace util {
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
     interface I18nTFunction {
-        (id: string, tplStrs?: Record<string, string | number>): string;
+        (id: string, ...args: any[]): string;
     }
 
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -150,10 +178,12 @@ declare namespace util {
          */
         _: I18nTFunction;
 
+        init(settings: runtime.LocalSettings): void;
+
         /**
          * Register multiple message catalogs with i18n.
          */
-        registerMessageCatalogs(catalogs: MessageCatalog[]): Promise<object[]>;
+        registerMessageCatalogs(catalogs: MessageCatalog[]): Promise<undefined[]>;
 
         /**
          * Register a message catalog with i18n.
@@ -163,13 +193,21 @@ declare namespace util {
         /**
          * Gets a message catalog.
          */
-        catalog(namespace: string, lang: string): MessageCatalog;
+        catalog(namespace: string, lang?: string): Record<string, any> | null;
 
         /**
          * Gets a list of languages a given catalog is available in.
          */
-        availableLanguages(namespace: string): string[];
+        availableLanguages(namespace: string): string[] | undefined;
+
+        /** The underlying i18next instance. */
+        i: i18n;
+
+        /** The default language of the runtime. */
+        defaultLang: string;
     }
+
+    type PropertyExpression = Array<string | number | PropertyExpression>;
 
     interface Util {
         /**
@@ -200,7 +238,7 @@ declare namespace util {
          * @param msg - the message object to clone
          * @returns the cloned message
          */
-        cloneMessage<TNodeMessage extends registry.NodeMessage>(msg: TNodeMessage): TNodeMessage;
+        cloneMessage<T>(msg: T): T;
         /**
          * Compares two objects, handling various JavaScript types.
          *
@@ -208,7 +246,7 @@ declare namespace util {
          * @param obj2
          * @returns whether the two objects are the same
          */
-        compareObjects(obj1: object, obj2: object): boolean;
+        compareObjects(obj1: any, obj2: any): boolean;
         /**
          * Parses a property expression, such as `msg.foo.bar[3]` to validate it
          * and convert it to a canonical version expressed as an Array of property
@@ -229,8 +267,12 @@ declare namespace util {
          * @param toString - whether to convert the returned array to a string
          * @returns the normalised expression
          */
-        normalisePropertyExpression(str: string, msg?: registry.NodeMessage, toString?: false): Array<string | number>;
-        normalisePropertyExpression(str: string, msg: registry.NodeMessage, toString: true): string;
+        normalisePropertyExpression(
+            str: string,
+            msg?: registry.NodeMessage,
+            toString?: false,
+        ): PropertyExpression;
+        normalisePropertyExpression(str: string, msg: registry.NodeMessage | undefined, toString: true): string;
         /**
          * Gets a property of a message object.
          *
@@ -249,7 +291,7 @@ declare namespace util {
          * @param expr - the property expression
          * @returns the object property, or undefined if it does not exist
          */
-        getObjectProperty(msg: registry.NodeMessage, expr: string): any;
+        getObjectProperty(msg: object, expr: string): any;
         /**
          * Sets a property of a message object.
          *
@@ -270,25 +312,14 @@ declare namespace util {
          * @param  value         - the value to set
          * @param  createMissing - whether to create missing parent properties
          */
-        setObjectProperty(msg: registry.NodeMessage, prop: string, value: any, createMissing?: boolean): boolean;
+        setObjectProperty(msg: object, prop: string, value: any, createMissing?: boolean): boolean;
         /**
          * Get value of environment variable.
          * @param node - accessing node
          * @param name - name of variable
          * @returns value of env var
          */
-        getSetting(node: registry.Node, name: string): string;
-        /**
-         * Checks if a String contains any Environment Variable specifiers and returns
-         * it with their values substituted in place.
-         *
-         * For example, if the env var `WHO` is set to `Joe`, the string `Hello ${WHO}!`
-         * will return `Hello Joe!`.
-         * @param value - the string to parse
-         * @param node - the node evaluating the property
-         * @returns The parsed string
-         */
-        evaluateEnvProperty(value: string, node: registry.Node): string;
+        getSetting(node: registry.Node | undefined, name: string): string | undefined;
         /**
          * Parses a context property string, as generated by the TypedInput, to extract
          * the store name if present.
@@ -364,6 +395,7 @@ declare namespace util {
 
     // Used `boolean` in PromiseLike instead of `false` because it caused problems with `async` functions
     type HandlerFunction<T> = (payload: T, callback: (err?: any) => void) => void | false | PromiseLike<void | boolean>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+    type HookId<T extends string> = T | `${T}.${string}`;
 
     interface Hooks {
         /**
@@ -380,7 +412,7 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: "onSend", hookHandler: HandlerFunction<SendEvent[]>): void;
+        add(hookName: HookId<"onSend">, hookHandler: HandlerFunction<SendEvent[]>): void;
 
         /**
          * A message is about to be routed to its destination.
@@ -395,7 +427,7 @@ declare namespace util {
          *
          * If the hook returns `false`, the message will not proceed any further.
          */
-        add(hookName: "preRoute", handlerFunction: HandlerFunction<SendEvent>): void;
+        add(hookName: HookId<"preRoute">, handlerFunction: HandlerFunction<SendEvent>): void;
 
         /**
          * A message is about to be delivered
@@ -407,14 +439,14 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: "preDeliver", handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: HookId<"preDeliver">, handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A message has been dispatched to its destination.
          *
          * The hook is passed a single `SendEvent`. The message is delivered asynchronously to the hooks execution.
          */
-        add(hookName: "postDeliver", handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: HookId<"postDeliver">, handlerFunction: HandlerFunction<SendEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A message is about to be received by a node.
@@ -423,21 +455,21 @@ declare namespace util {
          *
          * If the hook returns `false`, the messages will not proceed any further.
          */
-        add(hookName: "onReceive", handlerFunction: HandlerFunction<ReceiveEvent>): void;
+        add(hookName: HookId<"onReceive">, handlerFunction: HandlerFunction<ReceiveEvent>): void;
 
         /**
          * A message has been received by a node.
          *
          * The hook is passed `ReceiveEvent` when the message has been given to the node’s `input` handler.
          */
-        add(hookName: "postReceive", handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: HookId<"postReceive">, handlerFunction: HandlerFunction<ReceiveEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * A node has completed with a message or logged an error for it.
          *
          * The hook is passed a `CompleteEvent`.
          */
-        add(hookName: "onComplete", handlerFunction: HandlerFunction<CompleteEvent>): void;
+        add(hookName: HookId<"onComplete">, handlerFunction: HandlerFunction<CompleteEvent>): void;
 
         /**
          * Called before running `npm install` to install an npm module.
@@ -452,7 +484,7 @@ declare namespace util {
          *
          * If the hook throws an error, the install will be cleanly failed.
          */
-        add(hookName: "preInstall", handlerFunction: HandlerFunction<InstallEvent>): void;
+        add(hookName: HookId<"preInstall">, handlerFunction: HandlerFunction<InstallEvent>): void;
 
         /**
          * Called after `npm install` finishes installing an npm module.
@@ -465,7 +497,7 @@ declare namespace util {
          *
          * If the preceding `npm install` returned an error, this hook will not be invoked.
          */
-        add(hookName: "postInstall", handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
+        add(hookName: HookId<"postInstall">, handlerFunction: HandlerFunction<InstallEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * Called before running `npm remove` to uninstall an npm module.
@@ -480,7 +512,7 @@ declare namespace util {
          *
          * If the hook throws an error, the uninstall will be cleanly failed.
          */
-        add(hookName: "preUninstall", handlerFunction: HandlerFunction<UninstallEvent>): void;
+        add(hookName: HookId<"preUninstall">, handlerFunction: HandlerFunction<UninstallEvent>): void;
 
         /**
          * Called after `npm remove` finishes removing an npm module.
@@ -491,14 +523,7 @@ declare namespace util {
          *
          * If the hook throws an error, it will be logged, but the uninstall will complete cleanly as we cannot rollback an `npm remove` after it has completed.
          */
-        add(hookName: "postUninstall", handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
-
-        /**
-         * Register a new hook handler.
-         *
-         * @see https://nodered.org/docs/api/hooks/#methods-add
-         */
-        add(hookName: string, handlerFunction: HandlerFunction<any>): void;
+        add(hookName: HookId<"postUninstall">, handlerFunction: HandlerFunction<UninstallEvent>): void; // tslint:disable-line:unified-signatures
 
         /**
          * Remove a hook handler.
@@ -509,6 +534,28 @@ declare namespace util {
          */
         remove(hookName: string): void;
         has(hookName: string): boolean;
+        clear(): void;
+
+        trigger<K extends keyof HookPayloads>(hookName: K, payload: HookPayloads[K]): Promise<void | false>; // eslint-disable-line @typescript-eslint/no-invalid-void-type
+        trigger<K extends keyof HookPayloads>(
+            hookName: K,
+            payload: HookPayloads[K],
+            callback: (err?: any) => void,
+        ): void;
+    }
+
+    interface HookPayloads {
+        onSend: SendEvent[];
+        preRoute: SendEvent;
+        preDeliver: SendEvent;
+        postDeliver: SendEvent;
+        onReceive: ReceiveEvent;
+        postReceive: ReceiveEvent;
+        onComplete: CompleteEvent;
+        preInstall: InstallEvent;
+        postInstall: InstallEvent;
+        preUninstall: UninstallEvent;
+        postUninstall: UninstallEvent;
     }
 
     // #region Hook Event Objects
@@ -525,7 +572,7 @@ declare namespace util {
         destination: {
             /** node id */
             id: string;
-            node: undefined;
+            node: registry.Node | undefined;
         };
         cloneMessage: boolean;
     }
@@ -574,6 +621,16 @@ declare namespace util {
 
     // #endregion
 
+    interface ExecResult {
+        code: number | null;
+        stdout: string;
+        stderr: string;
+    }
+
+    interface Exec {
+        run(command: string, args: string[], options: SpawnOptions, emit?: boolean): Promise<ExecResult>;
+    }
+
     interface UtilModule {
         /**
          * Initialise the module with the runtime settings
@@ -595,6 +652,16 @@ declare namespace util {
          * General utilities
          */
         util: Util;
+
+        /**
+         * Runtime events
+         */
+        events: EventEmitter;
+
+        /**
+         * Run system commands with event-log integration
+         */
+        exec: Exec;
 
         /**
          * Runtime hooks engine

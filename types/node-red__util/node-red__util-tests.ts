@@ -2,8 +2,14 @@ import utilModule = require("@node-red/util");
 import { Node, NodeMessage } from "@node-red/registry";
 import { EventEmitter } from "events";
 
+// $ExpectType void
+utilModule.init({} as import("@node-red/runtime").LocalSettings);
+
 function i18nTests() {
     const i18n = utilModule.i18n;
+
+    // $ExpectType void
+    i18n.init({} as import("@node-red/runtime").LocalSettings);
 
     // $ExpectType string
     i18n._("my.key1");
@@ -11,12 +17,26 @@ function i18nTests() {
     // $ExpectType string
     i18n._("my.key2", { dataKey: "dataVal" });
 
-    // $ExpectType string[]
+    // $ExpectType string[] | undefined
     i18n.availableLanguages("editor");
+
+    // $ExpectType Record<string, any> | null
+    i18n.catalog("editor");
+    // $ExpectType Promise<void>
+    i18n.registerMessageCatalog("editor", "locales", "messages.json");
+    // $ExpectType Promise<undefined[]>
+    i18n.registerMessageCatalogs([{ namespace: "editor", dir: "locales", file: "messages.json" }]);
+    // $ExpectType i18n
+    i18n.i;
+    // $ExpectType string
+    i18n.defaultLang;
 }
 
 function logTests() {
     const log = utilModule.log;
+
+    // $ExpectType void
+    log.init({} as import("@node-red/runtime").LocalSettings);
 
     // $ExpectType string
     log._("my.key1");
@@ -38,6 +58,7 @@ function logTests() {
     log.trace("log trace");
     log.debug("log debug");
     log.audit({ level: log.INFO, msg: "audit" });
+    log.audit({ event: "modules.install", module: "example", version: "1.0.0" });
 }
 
 function utilTests(someNode: Node) {
@@ -73,17 +94,19 @@ function utilTests(someNode: Node) {
     // $ExpectType boolean
     util.compareObjects({}, {});
 
-    // $ExpectType (string | number)[]
+    // $ExpectType PropertyExpression
     util.normalisePropertyExpression("a[\"b\"].c");
 
-    // $ExpectType (string | number)[]
+    // $ExpectType PropertyExpression
     util.normalisePropertyExpression("a[msg.foo]", msg);
 
     // $ExpectType string
     util.normalisePropertyExpression("a[msg.foo]", msg, true);
 
-    // $ExpectType (string | number)[]
+    // $ExpectType PropertyExpression
     util.normalisePropertyExpression("a[msg.foo]", msg, false);
+    // $ExpectType string
+    util.normalisePropertyExpression("a.b", undefined, true);
 
     // $ExpectType any
     util.getMessageProperty({}, "key");
@@ -101,10 +124,12 @@ function utilTests(someNode: Node) {
     // $ExpectType boolean
     util.setObjectProperty({}, "key", { dataKey: "dataVal" }, true);
 
-    // $ExpectType string
+    // $ExpectType string | undefined
     util.getSetting(someNode, "name");
+    // $ExpectType string | undefined
+    util.getSetting(undefined, "PATH");
 
-    // $ExpectType string
+    // @ts-expect-error evaluateEnvProperty is not exported
     util.evaluateEnvProperty("name", someNode);
 
     // $ExpectType any
@@ -178,7 +203,7 @@ function utilTests(someNode: Node) {
 
     // $ExpectType ExprNode
     const ast = jsonataExpr.ast();
-    // $ExpectType string
+    // $ExpectType "string" | "number" | "error" | "function" | "binary" | "unary" | "partial" | "lambda" | "condition" | "transform" | "block" | "name" | "parent" | "value" | "wildcard" | "descendant" | "variable" | "regexp" | "operator"
     ast.type;
     // $ExpectType any
     ast.value;
@@ -194,12 +219,14 @@ function utilTests(someNode: Node) {
     ast.expressions;
     // $ExpectType ExprNode[] | undefined
     ast.stages;
-    // $ExpectType ExprNode[] | undefined
+    // $ExpectType ExprNode | ExprNode[] | undefined
     ast.lhs;
     // $ExpectType ExprNode | undefined
     ast.procedure;
     // $ExpectType ExprNode | undefined
     ast.rhs;
+    // $ExpectType JsonataError[] | undefined
+    jsonataExpr.errors();
 
     // $ExpectType string
     util.normaliseNodeTypeName("a-random node type");
@@ -270,15 +297,13 @@ function hookTests() {
         payload;
     });
 
-    hooks.add("customEvent", payload => {
-        // $ExpectType any
+    hooks.add("onSend.audit", payload => {
+        // $ExpectType SendEvent[]
         payload;
     });
 
-    hooks.add("customEvent", (payload: string) => {
-        // $ExpectType string
-        payload;
-    });
+    // @ts-expect-error custom hooks are rejected by the runtime
+    hooks.add("customEvent", payload => {});
     // #endregion
 
     // #region Hook handler finalization
@@ -320,4 +345,23 @@ function hookTests() {
         done(new Error("Error"));
     });
     // #endregion
+
+    // $ExpectType boolean
+    hooks.has("onSend");
+    // $ExpectType void
+    hooks.clear();
+    // $ExpectType Promise<false | void>
+    hooks.trigger("onSend", []);
+    // $ExpectType void
+    hooks.trigger("onReceive", { msg: {}, destination: { id: "node-id", node: {} as Node } }, err => {});
+}
+
+function eventAndExecTests() {
+    // $ExpectType EventEmitter<any>
+    utilModule.events;
+    // $ExpectType boolean
+    utilModule.events.emit("runtime-event", {});
+
+    // $ExpectType Promise<ExecResult>
+    utilModule.exec.run("node", ["--version"], {}, true);
 }

@@ -1,4 +1,5 @@
-import { Express, NextFunction, Request, Response } from "express";
+import { Express, RequestHandler } from "express";
+import { Server as HttpServer } from "http";
 import { Server as HttpsServer } from "https";
 
 import * as runtime from "@node-red/runtime";
@@ -9,7 +10,7 @@ export = editorAPI;
 
 declare namespace editorAPI {
     interface Auth {
-        needsPermission: (permission: string) => (req: Request, res: Response, next: NextFunction) => void;
+        needsPermission: (permission: string) => RequestHandler;
     }
     interface EditorAPIModule {
         /**
@@ -21,7 +22,7 @@ declare namespace editorAPI {
          */
         init: (
             settings: runtime.LocalSettings,
-            _server: HttpsServer,
+            _server: HttpServer | HttpsServer | null,
             storage: runtime.StorageModule,
             runtimeAPI: runtime.RuntimeModule,
         ) => void;
@@ -41,6 +42,6 @@ declare namespace editorAPI {
         /**
          * The Express app used to serve the Node-RED Editor
          */
-        readonly httpAdmin: Express;
+        readonly httpAdmin: Express | null;
     }
 }

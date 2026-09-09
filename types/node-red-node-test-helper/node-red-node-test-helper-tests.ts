@@ -4,8 +4,17 @@ import * as helper from "node-red-node-test-helper";
 const anotherHelper = new helper.NodeTestHelper();
 
 function helperTests(testHelper: typeof anotherHelper) {
-    testHelper.startServer(() => {});
+    // $ExpectType Promise<void>
+    testHelper.startServer(error => {
+        // $ExpectType Error | undefined
+        error;
+    });
+    // $ExpectType Promise<void>
     testHelper.stopServer(() => {});
+    testHelper.init();
+    testHelper.settings();
+    // $ExpectType unknown
+    testHelper.credentials;
 
     interface SomeNodeDef extends NodeDef {
         key: string;
@@ -29,11 +38,18 @@ function helperTests(testHelper: typeof anotherHelper) {
 
     function withNodeInitializer(nodeInitializer: NodeInitializer) {
         // $ExpectType Promise<void>
-        testHelper.load(nodeInitializer, flows, () => {});
+        testHelper.load(nodeInitializer, flows, error => {
+            // $ExpectType Error | undefined
+            error;
+        });
+        // $ExpectType Promise<void>
+        testHelper.load(nodeInitializer, flows, { n1: { password: "secret" } }, () => {});
     }
 
     // $ExpectType Promise<void>
     testHelper.setFlows(flows, "full", {}, () => {});
+    // $ExpectType Promise<void>
+    testHelper.setFlows(flows);
 
     // $ExpectType Promise<void>
     testHelper.unload();

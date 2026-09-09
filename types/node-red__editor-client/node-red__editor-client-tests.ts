@@ -410,6 +410,7 @@ function widgetTypedInputTests() {
 
 function nodeRedPluginTests(RED: editorClient.RED) {
     const myPluginDef: editorClient.PluginDef = {
+        type: "node-red-test-plugin",
         onadd() {
             RED.sidebar.addTab({
                 id: "my-plugin",
@@ -421,6 +422,12 @@ function nodeRedPluginTests(RED: editorClient.RED) {
         },
     };
     RED.plugins.registerPlugin("my-plugin", myPluginDef);
+    // $ExpectType PluginDef | undefined
+    RED.plugins.getPlugin("my-plugin");
+    // $ExpectType PluginDef[]
+    RED.plugins.getPluginsByType("node-red-test-plugin");
+    // $ExpectType NodeModule | undefined
+    RED.plugins.getModule("my-module");
 }
 
 function nodeRedUtilsTests(RED: editorClient.RED) {
@@ -439,6 +446,11 @@ function nodeRedUtilsTests(RED: editorClient.RED) {
 }
 
 function nodeRedEditorTests(RED: editorClient.RED) {
+    // $ExpectType string | false
+    RED.editor.generateViewStateId("node", { id: "node-id" });
+    // $ExpectType object[]
+    RED.editor.getEditStack();
+
     // $ExpectType void
     RED.editor.editSubflow({});
     // $ExpectType void
@@ -525,6 +537,21 @@ function nodeRedEditorTests(RED: editorClient.RED) {
         focus: true,
         complete: (value: any) => {},
     });
+
+    const codeEditor = RED.editor.createEditor({
+        id: "node-input-code",
+        mode: "ace/mode/javascript",
+        stateId: "node-id/code",
+        value: "return msg;",
+    });
+    // $ExpectType string
+    codeEditor.getValue();
+    // $ExpectType string
+    RED.editor.codeEditor.basic.type;
+    // $ExpectType readonly string[]
+    RED.editor.envVarList.DEFAULT_ENV_TYPE_LIST;
+    // $ExpectType Promise<unknown[]>
+    RED.editor.mermaid.render();
 }
 
 function nodeRedTrayTests(RED: editorClient.RED) {
@@ -556,4 +583,126 @@ function nodeRedTrayTests(RED: editorClient.RED) {
 
         focusElement: $("<div/>"),
     });
+}
+
+function nodeRedCoreApiTests(RED: editorClient.RED) {
+    RED.comms.on("connect", () => {});
+    RED.comms.off("connect", () => {});
+    RED.comms.send("topic", { value: 1 });
+
+    RED.events.on("nodes:add", node => {
+        // $ExpectType any
+        node;
+    });
+
+    RED.actions.add("test:action", (value: string) => {}, { label: "Test action" });
+    // $ExpectType (...args: any[]) => void
+    RED.actions.get("test:action");
+    // $ExpectType string
+    RED.actions.getLabel("test:action");
+    // $ExpectType ActionDefinition[]
+    RED.actions.list();
+
+    RED.hooks.add("viewAddNode.test", payload => payload !== undefined);
+    // $ExpectType boolean
+    RED.hooks.has("viewAddNode.test");
+    // $ExpectType Promise<unknown>
+    RED.hooks.trigger("viewAddNode", { node: {} });
+    RED.hooks.trigger("viewAddNode", { node: {} }, error => {
+        // $ExpectType string | boolean | Error | undefined
+        error;
+    });
+
+    // $ExpectType unknown
+    RED.settings.get("editor");
+    // $ExpectType true
+    RED.settings.get("editor.view.showGrid", true);
+    RED.settings.set("editor.view.showGrid", false, true);
+    RED.settings.setLocal("palette-state", "{}");
+    // $ExpectType string | null
+    RED.settings.getLocal("palette-state");
+
+    // $ExpectType string
+    RED.i18n.detectLanguage();
+    RED.i18n.loadNodeCatalog("my-node", () => {});
+    // $ExpectType boolean
+    RED.runtime.started;
+    RED.multiplayer.init();
+}
+
+function nodeRedNodesTests(RED: editorClient.RED) {
+    // $ExpectType NodeSet | undefined
+    RED.nodes.getNodeSet("node-red/common");
+    // $ExpectType NodeDef<NodeProperties, undefined, NodeProperties> | undefined
+    RED.nodes.getType("inject");
+    // $ExpectType NodeDef<NodeProperties, undefined, NodeProperties>[]
+    RED.nodes.registry.getNodeDefinitions({ configOnly: true });
+    // $ExpectType string | undefined
+    RED.nodes.getNodeHelp("inject");
+    // $ExpectType EditorLink[]
+    RED.nodes.getNodeLinks("node-id", 0);
+    // $ExpectType ImportConflicts
+    RED.nodes.identifyImportConflicts([{ id: "1", type: "inject" }]);
+    // $ExpectType ImportResult | undefined
+    RED.nodes.import("[]", {
+        generateIds: true,
+        addFlow: true,
+        applyNodeDefaults: true,
+        eventContext: { source: "test" },
+    });
+    // $ExpectType object[][]
+    RED.nodes.getNodeIslands([]);
+    RED.nodes.setWorkspaceOrder(["flow-1", "flow-2"]);
+}
+
+function nodeRedViewTests(RED: editorClient.RED) {
+    // $ExpectType number
+    RED.view.node_width;
+    // $ExpectType boolean
+    RED.view.snapGrid;
+    // $ExpectType ViewSelection
+    RED.view.selection();
+    RED.view.clearSelection();
+    // $ExpectType [number, number]
+    RED.view.scroll();
+    RED.view.scroll(10, 20);
+    // $ExpectType { width: number; height: number; }
+    RED.view.dimensions();
+    // $ExpectType [number, number]
+    RED.view.calculateNodeDimensions({ type: "inject" });
+    // $ExpectType { node: NodeInstance<NodeProperties>; historyEvent: HistoryEvent; }
+    RED.view.createNode("inject", 100, 200, "flow-1");
+    // $ExpectType { x: number; y: number; }
+    RED.view.tools.calculateGridSnapOffsets({ x: 10, y: 20, w: 100 });
+    // $ExpectType number
+    RED.view.zoomAnimator.calculateZoomDelta(1, -1, false);
+    // $ExpectType number
+    RED.view.zoomConstants.MAX_ZOOM;
+    RED.view.annotations.register("test", {
+        type: "badge",
+        element: () => document.createElementNS("http://www.w3.org/2000/svg", "g"),
+        show: node => node.valid !== false,
+    });
+    RED.view.annotations.unregister("test");
+}
+
+function nodeRedUiApiTests(RED: editorClient.RED) {
+    // $ExpectType boolean
+    RED.contextMenu.active();
+    RED.contextMenu.show({ type: "workspace", x: 10, y: 20 });
+    RED.diagnostics.init();
+    RED.envVar.init();
+    // $ExpectType Tour[]
+    RED.tourGuide.list();
+    RED.palette.registerCategory("custom", "Custom nodes");
+    // $ExpectType { count: number; core: { current: string; latest: string; } | null; palette: object[]; }
+    RED.palette.editor.getAvailableUpdates();
+    // $ExpectType boolean
+    RED.typeSearch.isVisible();
+    // $ExpectType boolean | undefined
+    RED.workspaces.isLocked();
+    RED.workspaces.lock();
+    RED.workspaces.unlock();
+    RED.statusBar.hide("status");
+    RED.statusBar.show("status");
 }
