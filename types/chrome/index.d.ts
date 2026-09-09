@@ -2491,7 +2491,7 @@ declare namespace chrome {
          * A declarative event action that sets the extension's toolbar {@link action} to an enabled state while the corresponding conditions are met. This action can be used without host permissions. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
          *
          * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
-         * @since MV3
+         * @since Chrome 97
          */
         class ShowAction {}
 
@@ -2499,8 +2499,7 @@ declare namespace chrome {
          * A declarative event action that sets the extension's {@link pageAction} to an enabled state while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page action. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
          *
          * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
-         *
-         * MV2 only
+         * @deprecated since Chrome 97. Please use {@link declarativeContent.ShowAction}.
          */
         class ShowPageAction {}
 
