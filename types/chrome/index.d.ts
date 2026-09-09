@@ -14092,7 +14092,10 @@ declare namespace chrome {
          */
         const MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: 50;
 
-        /** The maximum number of combined dynamic and session scoped rules an extension can add. */
+        /**
+         * The maximum number of combined dynamic and session scoped rules an extension can add.
+         * @deprecated There is no longer a combined limit. See {@link MAX_NUMBER_OF_DYNAMIC_RULES} and {@link MAX_NUMBER_OF_SESSION_RULES}.
+         */
         const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 5000;
 
         /**
@@ -14197,7 +14200,7 @@ declare namespace chrome {
         enum DomainType {
             /** The network request is first party to the frame in which it originated. */
             FIRST_PARTY = "firstParty",
-            /* The network request is third party to the frame in which it originated. */
+            /** The network request is third party to the frame in which it originated. */
             THIRD_PARTY = "thirdParty",
         }
 
@@ -14386,7 +14389,7 @@ declare namespace chrome {
              * - Use punycode encoding for internationalized domains.
              * - Sub-domains of the listed domains are also matched.
              * - For requests with no associated top-level frame (e.g. ServiceWorker initiated requests, the request initiator's domain is considered instead.
-             * @since Chrome 141
+             * @since Chrome 145
              */
             topDomains?: string[] | undefined;
 
@@ -14399,7 +14402,7 @@ declare namespace chrome {
              * - Use punycode encoding for internationalized domains.
              * - Sub-domains of the listed domains are also excluded.
              * - For requests with no associated top-level frame (e.g. ServiceWorker initiated requests, the request initiator's domain is considered instead.
-             * @since Chrome 141
+             * @since Chrome 145
              */
             excludedTopDomains?: string[] | undefined;
 
@@ -14624,7 +14627,10 @@ declare namespace chrome {
              * This preference is persisted across sessions.
              */
             displayActionCountAsBadgeText?: boolean | undefined;
-            /** Details of how the tab's action count should be adjusted. */
+            /**
+             * Details of how the tab's action count should be adjusted.
+             * @since Chrome 89
+             */
             tabUpdate?: TabActionCountUpdate | undefined;
         }
 
@@ -14839,7 +14845,7 @@ declare namespace chrome {
          * *   This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
          * *   These rules are persisted across browser sessions and across extension updates.
          * *   Static rules specified as part of the extension package can not be removed using this function.
-         * *   {@link MAX_NUMBER_OF_DYNAMIC_RULES} is the maximum number of dynamic rules an extension can add. The number of [unsafe rules](https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/#safe_rules) must not exceed {@link MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES}.
+         * *   {@link MAX_NUMBER_OF_DYNAMIC_RULES} is the maximum number of dynamic rules an extension can add. The number of [unsafe rules](https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest#safe_rules) must not exceed {@link MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES}.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
