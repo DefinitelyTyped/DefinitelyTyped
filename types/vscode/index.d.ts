@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 /**
- * Type Definition for Visual Studio Code 1.136 Extension API
+ * Type Definition for Visual Studio Code 1.137 Extension API
  * See https://code.visualstudio.com/api for more information
  */
 
