@@ -3483,9 +3483,9 @@ declare namespace chrome {
             WRONG_TYPE = "WRONG_TYPE",
             /** No more data is available. */
             EOF = "EOF",
-            /** The document feeder is jammed */
+            /** The document feeder is jammed. */
             ADF_JAMMED = "ADF_JAMMED",
-            /** The document feeder is empty */
+            /** The document feeder is empty. */
             ADF_EMPTY = "ADF_EMPTY",
             /** The flatbed cover is open. */
             COVER_OPEN = "COVER_OPEN",
@@ -3537,7 +3537,7 @@ declare namespace chrome {
         enum OptionType {
             /** The option's data type is `unknown`. The value property will be unset. */
             UNKNOWN = "UNKNOWN",
-            /** The `value` property will be one of `true` false. */
+            /** The `value` property will be one of `true` or `false`. */
             BOOL = "BOOL",
             /** A signed 32-bit integer. The `value` property will be long or long[], depending on whether the option takes more than one value. */
             INT = "INT",
@@ -3745,7 +3745,7 @@ declare namespace chrome {
         /**
          * Reads the next chunk of available image data from an active job handle, and returns a Promise that resolves with a {@link ReadScanDataResponse} object. If a callback is used, the object is passed to it instead.
          *
-         * **Note:**It is valid for a response result to be `SUCCESS` with a zero-length `data` member. This means the scanner is still working but does not yet have additional data ready. The caller should wait a short time and try again.
+         * **Note:** It is valid for a response result to be `SUCCESS` with a zero-length `data` member. This means the scanner is still working but does not yet have additional data ready. The caller should wait a short time and try again.
          *
          * When the scan job completes, the response will have the result value of `EOF`. This response may contain a final non-zero `data` member.
          * @param job Active job handle previously returned from {@link startScan}.
