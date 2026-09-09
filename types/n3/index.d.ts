@@ -201,10 +201,12 @@ export interface ParserOptions {
     baseIRI?: string | undefined;
     blankNodePrefix?: string | undefined;
     isImpliedBy?: boolean | undefined;
+    emptyFormulaAsTrue?: boolean | undefined;
 }
 
 export interface StreamParserOptions extends ParserOptions {
     options?: boolean | undefined;
+    comments?: boolean | undefined;
 }
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;

@@ -522,6 +522,16 @@ function test_parser_options() {
         format: "text/Turtle*",
         blankNodePrefix: "",
     });
+    const parser7 = new N3.Parser({
+        baseIRI: "http://example.org/",
+        factory: N3.DataFactory,
+        format: "text/n3",
+        blankNodePrefix: "",
+        emptyFormulaAsTrue: true,
+    });
+    const streamParser = new N3.StreamParser({
+        comments: true,
+    });
 }
 
 function test_term_to_and_from_id() {
