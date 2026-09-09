@@ -5655,6 +5655,10 @@
             "libraryName": "postcss-nested",
             "asOfVersion": "4.2.1"
         },
+        "postcss-prefix-selector": {
+            "libraryName": "postcss-prefix-selector",
+            "asOfVersion": "2.2.1"
+        },
         "postcss-preset-env": {
             "libraryName": "postcss-preset-env",
             "asOfVersion": "8.0.0"
