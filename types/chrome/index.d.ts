@@ -3805,9 +3805,9 @@ declare namespace chrome {
      */
     export namespace dom {
         /**
-         * @since Chrome 88
          * Requests chrome to return the open/closed shadow roots else return null.
          * @param element reference of HTMLElement.
+         * @since Chrome 88
          */
         function openOrClosedShadowRoot(element: HTMLElement): ShadowRoot | null;
     }
