@@ -17,8 +17,6 @@ function i18nTests() {
     // $ExpectType string[]
     i18n.availableLanguages("editor");
 
-    // $ExpectType i18n
-    i18n.i;
     // $ExpectType string
     i18n.defaultLang;
 }

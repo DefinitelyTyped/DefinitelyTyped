@@ -1,6 +1,5 @@
 import { SpawnOptions } from "child_process";
 import { EventEmitter } from "events";
-import { i18n } from "i18next";
 
 import * as registry from "@node-red/registry";
 import * as runtime from "@node-red/runtime";
@@ -189,9 +188,6 @@ declare namespace util {
          * Gets a list of languages a given catalog is available in.
          */
         availableLanguages(namespace: string): string[];
-
-        /** The underlying i18next instance. */
-        i: i18n;
 
         /** The default language of the runtime. */
         defaultLang: string;
