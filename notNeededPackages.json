@@ -4093,6 +4093,10 @@
             "libraryName": "loglevel",
             "asOfVersion": "1.6.2"
         },
+        "logrocket-react": {
+            "libraryName": "logrocket-react",
+            "asOfVersion": "7.0.0"
+        },
         "long": {
             "libraryName": "long",
             "asOfVersion": "5.0.0"
