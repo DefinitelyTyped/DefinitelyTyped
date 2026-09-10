@@ -375,6 +375,24 @@ declare namespace approuter {
         getSessionStore(): SessionStore;
 
         /**
+         * Resolves remote routing configuration from the HTML5 Application Repository for a given request.
+         * Derives the application key from the request URL and fetches the corresponding xs-app.json,
+         * destinations, and xsappname.
+         *
+         * **Note**: This method is exposed on the prototype but not documented in the official API reference.
+         *
+         * @param request - Node request object used to derive the application key from the URL
+         * @param callback - Called with the resolved configuration options, or null if no application key was found
+         */
+        getRemoteConfigurationOptions(
+            request: AppRouterIncomingMessage,
+            callback: (
+                error: Error | string | null,
+                options?: { xsappConfig: object; destinations: object | null; xsappname: string | null } | null,
+            ) => void,
+        ): void;
+
+        /**
          * Emitted when a new user session is created.
          *
          * @param event
