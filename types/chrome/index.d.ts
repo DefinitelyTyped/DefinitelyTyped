@@ -525,7 +525,7 @@ declare namespace chrome {
             /** Device name */
             deviceName: string;
             /** Type of the device */
-            deviceType: DeviceType;
+            deviceType: `${DeviceType}`;
             /** The user-friendly name (e.g. "USB Microphone"). */
             displayName: string;
             /** The unique identifier of the audio device. */

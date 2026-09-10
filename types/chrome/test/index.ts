@@ -2857,29 +2857,37 @@ function testAudio() {
     chrome.audio.getDevices(); // $ExpectType Promise<AudioDeviceInfo[]>
     chrome.audio.getDevices(undefined); // $ExpectType Promise<AudioDeviceInfo[]>
     chrome.audio.getDevices(filter); // $ExpectType Promise<AudioDeviceInfo[]>
-    chrome.audio.getDevices(devices => {}); // $ExpectType void
-    chrome.audio.getDevices(undefined, devices => {}); // $ExpectType void
-    chrome.audio.getDevices(filter, devices => {}); // $ExpectType void
+    chrome.audio.getDevices(devices => { // $ExpectType void
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.getDevices(undefined, devices => { // $ExpectType void
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.getDevices(filter, devices => { // $ExpectType void
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
     // @ts-expect-error
     chrome.audio.getDevices(() => {}).then(devices => {});
 
     chrome.audio.getMute("INPUT"); // $ExpectType Promise<boolean>
-    chrome.audio.getMute("INPUT", value => {}); // $ExpectType void
+    chrome.audio.getMute("INPUT", value => { // $ExpectType void
+        value; // $ExpectType boolean
+    });
     // @ts-expect-error
     chrome.audio.getMute("INPUT", value => {}).then(value => {});
 
     chrome.audio.setActiveDevices({}); // $ExpectType Promise<void>
-    chrome.audio.setActiveDevices({}, () => {}); // $ExpectType void
+    chrome.audio.setActiveDevices({}, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.audio.setActiveDevices(() => {}).then(() => {});
 
     chrome.audio.setMute("INPUT", true); // $ExpectType Promise<void>
-    chrome.audio.setMute("INPUT", true, () => {}); // $ExpectType void
+    chrome.audio.setMute("INPUT", true, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.audio.setMute("INPUT", true, () => {}).then(() => {});
 
     chrome.audio.setProperties("INPUT", {}); // $ExpectType Promise<void>
-    chrome.audio.setProperties("INPUT", {}, () => {}); // $ExpectType void
+    chrome.audio.setProperties("INPUT", {}, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.audio.setProperties("INPUT", {}, () => {}).then(() => {});
 
