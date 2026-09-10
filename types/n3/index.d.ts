@@ -239,6 +239,8 @@ export interface WriterOptions {
     format?: string | MimeFormat | undefined;
     prefixes?: Prefixes<RDF.NamedNode | string> | undefined;
     end?: boolean | undefined;
+    baseIRI?: string | undefined;
+    writeBase?: boolean | undefined;
 }
 
 export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
