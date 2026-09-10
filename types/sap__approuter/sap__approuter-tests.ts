@@ -176,6 +176,48 @@ function middlewareHandlerWithCustomProps(): MiddlewareHandler<RequestWithSessio
 
 ar.beforeRequestHandler.use("/my-ext", middlewareHandlerWithCustomProps);
 
+/*************** Example 13 - WebSocket extensions ***************/
+ar.firstWS.use("/ws", function wsMiddleware(req, res, next) {
+    next();
+});
+ar.beforeRequestHandlerWS.use(function wsGlobalMiddleware(req, res, next) {
+    next();
+});
+
+ar.start({
+    extensions: [
+        {
+            insertMiddleware: {
+                firstWS: [
+                    function logWsRequest(req, res, next) {
+                        console.log("Got WebSocket request %s %s", req.method, req.url);
+                    },
+                ],
+                beforeRequestHandlerWS: [
+                    {
+                        path: "/ws",
+                        handler: function wsMiddleware(req, res, next) {
+                            next();
+                        },
+                    },
+                ],
+            },
+        },
+    ],
+});
+
+/*************** Example 14 - getRemoteConfigurationOptions ***************/
+ar.getRemoteConfigurationOptions(
+    {} as import("@sap/approuter").AppRouterIncomingMessage,
+    (error, options) => {
+        if (error) {
+            console.error(error);
+        } else if (options) {
+            console.log(options.xsappConfig, options.destinations, options.xsappname);
+        }
+    },
+);
+
 /*************** start options ***************/
 
 const startOptions: StartOptions = {
