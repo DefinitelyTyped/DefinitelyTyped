@@ -4951,6 +4951,8 @@ declare namespace chrome {
      * Use the `chrome.fileSystemProvider` API to create file systems, that can be accessible from the file manager on Chrome OS.
      *
      * Permissions: "fileSystemProvider"
+     *
+     * Manifest: "fileSystemProvider"
      * @platform ChromeOS only
      */
     export namespace fileSystemProvider {
@@ -5257,7 +5259,7 @@ declare namespace chrome {
             filePath: string;
             /** Whether the file was opened for reading or writing. */
             mode: `${OpenFileMode}`;
-            /** A request ID to be be used by consecutive read/write and close requests. */
+            /** A request ID to be used by consecutive read/write and close requests. */
             openRequestId: number;
         }
 
@@ -5446,7 +5448,7 @@ declare namespace chrome {
          *
          * Note that if a parent directory is removed, then all descendant entries are also removed, and if they are watched, then the API must be notified about the fact. Also, if a directory is renamed, then all descendant entries are in fact removed, as there is no entry under their original paths anymore.
          *
-         * In case of an error, {@link runtime.lastError} will be set will a corresponding error code.
+         * In case of an error, {@link runtime.lastError} will be set with a corresponding error code.
          *
          * Can return its result via Promise since Chrome 96.
          * @since Chrome 45
@@ -5549,7 +5551,7 @@ declare namespace chrome {
         >;
 
         /**
-         * Raised when executing an action for a set of files or directories is\\ requested. After the action is completed, `successCallback` must be called. On error, `errorCallback` must be called.
+         * Raised when executing an action for a set of files or directories is requested. After the action is completed, `successCallback` must be called. On error, `errorCallback` must be called.
          * @since Chrome 48
          */
         const onExecuteActionRequested: events.Event<
