@@ -498,17 +498,7 @@ declare namespace mp {
         }
         | {
             name: "expand-path";
-            text:
-                | "~/"
-                | "~~/"
-                | "~~home/"
-                | "~~global/"
-                | "~~osxbundle/"
-                | "~~desktop/"
-                | "~~exe_dir/"
-                | "~~cache/"
-                | "~~state/"
-                | string & {};
+            text: string;
             __return: string;
         }
         | {
