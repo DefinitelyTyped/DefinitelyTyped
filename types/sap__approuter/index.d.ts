@@ -103,6 +103,10 @@ declare namespace approuter {
             beforeRequestHandler?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
             /** A MiddlewareSlot before the standard application router error handling */
             beforeErrorHandler?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
+            /** A MiddlewareSlot for WebSocket requests, before the first application router middleware. Requires HANDLE_WEBSOCKET_EXT environment variable to be enabled. */
+            firstWS?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
+            /** A MiddlewareSlot for WebSocket requests, before the standard request handling. Requires HANDLE_WEBSOCKET_EXT environment variable to be enabled. */
+            beforeRequestHandlerWS?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
         };
     }
 
@@ -286,6 +290,18 @@ declare namespace approuter {
          * A {@link MiddlewareSlot} before the standard application router error handling
          */
         beforeErrorHandler: MiddlewareSlot;
+
+        /**
+         * A {@link MiddlewareSlot} for WebSocket requests, before the first application router middleware.
+         * Requires the `HANDLE_WEBSOCKET_EXT` environment variable to be enabled.
+         */
+        firstWS: MiddlewareSlot;
+
+        /**
+         * A {@link MiddlewareSlot} for WebSocket requests, before the standard request handling.
+         * Requires the `HANDLE_WEBSOCKET_EXT` environment variable to be enabled.
+         */
+        beforeRequestHandlerWS: MiddlewareSlot;
 
         /**
          * **Note**: the cmdParser is currently not typed, feel free to create a pr and add the missing types
