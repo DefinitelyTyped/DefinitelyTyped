@@ -2022,8 +2022,8 @@ declare namespace googletag {
          */
         interface AutoRefreshConfig {
             /**
-             * Whether GPT will automatically refresh an ad slot when the page is restored
-             * from the back/forward cache. Defaults to `true`.
+             * Whether GPT will automatically refresh an actively viewed ad slot when the
+             * page is restored from the back/forward cache. Defaults to `true`.
              *
              * @example
              *   // Set the auto refresh configuration, disabling auto refresh on
