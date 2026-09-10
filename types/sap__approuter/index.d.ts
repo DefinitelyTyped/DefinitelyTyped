@@ -420,6 +420,12 @@ declare namespace approuter {
     }
 }
 
+/**
+ * Creates a new instance of the application router.
+ *
+ * **Note**: The underlying implementation also supports `new approuter()` (constructor invocation),
+ * but the factory function pattern is the documented API.
+ */
 declare function approuter(): approuter.Approuter;
 
 export = approuter;
