@@ -4283,7 +4283,7 @@ declare namespace chrome {
             /**
              * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed. Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
              *
-             * Only non-extractable keys can be generated. The only supported key type is RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048. up to 2048. Each key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely.
+             * Only non-extractable keys can be generated. The only supported key type is RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048. Each key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely.
              *
              * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              * @since Chrome 97
@@ -4430,6 +4430,8 @@ declare namespace chrome {
          * @param challenge A challenge as emitted by the Verified Access Web API.
          * @param registerKey If set, the current Enterprise User Key is registered with the `user` token and relinquishes the Enterprise User Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise User Key.
          * @param callback Called back with the challenge response.
+         *
+         * Can return its result via Promise since Chrome 131.
          * @since Chrome 50
          */
         function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean): Promise<ArrayBuffer>;
