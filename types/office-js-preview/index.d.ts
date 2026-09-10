@@ -199236,6 +199236,50 @@ declare namespace PowerPoint {
         userDefined = "UserDefined",
     }
     /**
+     * Represents the data type of an attribute-based access control (ABAC) attribute.
+     *
+     * @remarks
+     * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+     * @beta
+     */
+    enum SensitivityLabelAbacAttributeDataType {
+        /**
+         * Unknown data type.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        unknown = "Unknown",
+        /**
+         * The attribute value is a string.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        stringValue = "StringValue",
+        /**
+         * The attribute value is a boolean.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        booleanValue = "BooleanValue",
+        /**
+         * The attribute value is a number.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        numberValue = "NumberValue",
+        /**
+         * The attribute value is a date.
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        dateValue = "DateValue",
+    }
+    /**
      * Represents the properties of available sensitivity labels in PowerPoint.
      *
      * @remarks
@@ -199554,6 +199598,14 @@ declare namespace PowerPoint {
     class SensitivityLabelAbacAttribute extends OfficeExtension.ClientObject {
         /** The request context associated with the object. This connects the add-in's process to the Office host application's process. */
         context: RequestContext;
+        /**
+         * Gets the data type of this ABAC attribute.
+         *
+         * @remarks
+         * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+         * @beta
+         */
+        readonly dataType: PowerPoint.SensitivityLabelAbacAttributeDataType | "Unknown" | "StringValue" | "BooleanValue" | "NumberValue" | "DateValue";
         /**
          * Gets the display name of the ABAC attribute. Add-ins are responsible for presenting localized user-facing UI.
          *
@@ -202145,6 +202197,14 @@ declare namespace PowerPoint {
         }
         /** An interface describing the data returned by calling `sensitivityLabelAbacAttribute.toJSON()`. */
         interface SensitivityLabelAbacAttributeData {
+            /**
+             * Gets the data type of this ABAC attribute.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dataType?: PowerPoint.SensitivityLabelAbacAttributeDataType | "Unknown" | "StringValue" | "BooleanValue" | "NumberValue" | "DateValue";
             /**
              * Gets the display name of the ABAC attribute. Add-ins are responsible for presenting localized user-facing UI.
              *
@@ -204997,6 +205057,14 @@ declare namespace PowerPoint {
               Specifying `$all` for the load options loads all the scalar properties (such as `Range.address`) but not the navigational properties (such as `Range.format.fill.color`).
              */
             $all?: boolean;
+            /**
+             * Gets the data type of this ABAC attribute.
+             *
+             * @remarks
+             * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
+             * @beta
+             */
+            dataType?: boolean;
             /**
              * Gets the display name of the ABAC attribute. Add-ins are responsible for presenting localized user-facing UI.
              *
