@@ -4734,6 +4734,8 @@ declare namespace chrome {
 
         /**
          * Set for the lifetime of a callback if an asynchronous extension api has resulted in an error. If no error has occurred lastError will be `undefined`.
+         *
+         * MV2 only
          * @deprecated since Chrome 58. Please use {@link runtime.lastError}
          */
         const lastError: runtime.LastError | undefined;
@@ -4743,6 +4745,8 @@ declare namespace chrome {
 
         /**
          * Converts a relative path within an extension install directory to a fully-qualified URL.
+         *
+         * MV2 only
          * @param path A path to a resource within an extension expressed relative to its install directory.
          * @deprecated since Chrome 58. Please use {@link runtime.getURL}
          */
