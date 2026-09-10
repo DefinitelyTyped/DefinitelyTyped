@@ -4047,7 +4047,7 @@ declare namespace chrome {
             orderBy?: string[] | undefined;
             /** Limits results to {@link DownloadItem} whose `url` matches the given regular expression. */
             urlRegex?: string | undefined;
-            /** Limits results to {@link DownloadItem} that ended before the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that ended before the given ms in ISO 8601 format. */
             endedBefore?: string | undefined;
             /** Limits results to {@link DownloadItem} whose `totalBytes` is greater than the given integer. */
             totalBytesGreater?: number | undefined;
@@ -4077,13 +4077,13 @@ declare namespace chrome {
             id?: number | undefined;
             /** Number of bytes received so far from the host, without considering file compression. */
             bytesReceived?: number | undefined;
-            /** Limits results to {@link DownloadItem} that ended after the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that ended after the given ms in ISO 8601 format. */
             endedAfter?: string | undefined;
             /** Absolute local path. */
             filename?: string | undefined;
             /** Indicates whether the download is progressing, interrupted, or complete. */
             state?: `${State}` | undefined;
-            /** Limits results to {@link DownloadItem} that started after the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that started after the given ms in ISO 8601 format. */
             startedAfter?: string | undefined;
             /** The file's MIME type. */
             mime?: string | undefined;
@@ -4093,7 +4093,7 @@ declare namespace chrome {
             startTime?: string | undefined;
             /** The absolute URL that this download initiated from, before any redirects. */
             url?: string | undefined;
-            /** Limits results to {@link DownloadItem} that started before the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that started before the given ms in ISO 8601 format. */
             startedBefore?: string | undefined;
             /** The maximum number of matching {@link DownloadItem} returned. Defaults to 1000. Set to 0 in order to return all matching {@link DownloadItem}. See {@link search} for how to page through results. */
             limit?: number | undefined;
@@ -4231,9 +4231,10 @@ declare namespace chrome {
 
         /**
          * Change the download UI of every window associated with the current browser profile. As long as at least one extension has set {@link UiOptions.enabled} to false, the download UI will be hidden. Setting {@link UiOptions.enabled} to true while at least one other extension has disabled it will return an error through {@link runtime.lastError}. Requires the `"downloads.ui"` permission in addition to the `"downloads"` permission.
-         * @since Chrome 105
+         * @param options Encapsulate a change to the download UI.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 105.
+         * @since Chrome 105
          */
         function setUiOptions(options: UiOptions): Promise<void>;
         function setUiOptions(options: UiOptions, callback: () => void): void;
