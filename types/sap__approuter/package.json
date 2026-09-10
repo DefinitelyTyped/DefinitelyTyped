@@ -19,7 +19,6 @@
         }
     ],
     "dependencies": {
-        "@types/http-server": "*",
         "@types/node": "*"
     }
 }
