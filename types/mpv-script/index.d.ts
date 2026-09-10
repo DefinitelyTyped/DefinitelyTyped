@@ -7298,7 +7298,7 @@ declare namespace mp {
         name: P,
     ): GetStringPropertyReturnType<P, true>;
 
-    function get_property<P extends PropertyName | (string & {}), D>(
+    function get_property<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetStringPropertyType<P, true, true>, // def can be any type, this union helps to get completions for expected property type
     ): GetStringPropertyReturnType<P, false> | D; // success | fail
@@ -7323,7 +7323,7 @@ declare namespace mp {
      * Returns the string on success, or `def` on error. `def` is the second parameter provided to the function, and is an empty string if it's missing.
      * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
      */
-    function get_property_osd<P extends PropertyName | (string & {}), D>(
+    function get_property_osd<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetOSDPropertyType<P, true>,
     ): GetOSDPropertyType<P, false, false> | D; // success | fail
@@ -7340,7 +7340,7 @@ declare namespace mp {
      * Similar to `mp.get_property`, but return the property value as Boolean.
      * Returns a Boolean on success, or `def`
      */
-    function get_property_bool<P extends BooleanPropertyName | (string & {}), D>(
+    function get_property_bool<P extends BooleanPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, boolean, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, boolean>> & {} | D; // success | fail
@@ -7365,7 +7365,7 @@ declare namespace mp {
      * This function simply request a double float from mpv, and mpv will usually convert integer property values to float.
      * Returns a number on success, or `def`
      */
-    function get_property_number<P extends NumberPropertyName | (string & {}), D>(
+    function get_property_number<P extends NumberPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, number, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, number>> | D; // success | fail
@@ -7388,7 +7388,7 @@ declare namespace mp {
      * Some properties (for example `chapter-list`) are returned as list.
      * Returns a value on success, or `def`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
      */
-    function get_property_native<P extends PropertyName | (string & {}), D>(
+    function get_property_native<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetPropertyTypeOrElse<P, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetPropertyTypeOrElse<P, unknown>> | D; // success | fail
