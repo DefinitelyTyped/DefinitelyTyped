@@ -138,11 +138,11 @@ const infoResponse: InfoResponse = {
         btcSwapComposeTemplate: {
             extraOutputs: [
                 {
-                    type: 'opreturn',
-                    dataHex: '0123456789abcdef',
+                    type: "opreturn",
+                    dataHex: "0123456789abcdef",
                 },
-                { type: 'payment', amount: { kind: 'percent', value: 2 } },
-                { type: 'payment', amount: { kind: 'percent', value: 2 } },
+                { type: "payment", amount: { kind: "percent", value: 2 } },
+                { type: "payment", amount: { kind: "percent", value: 2 } },
             ],
         },
     },

@@ -593,23 +593,23 @@ export interface Platforms {
 
 export type BtcSwapComposeAmount =
     | {
-          kind: 'percent';
-          value: number;
-      }
+        kind: "percent";
+        value: number;
+    }
     | {
-          kind: 'sats';
-          value: string;
-      };
+        kind: "sats";
+        value: string;
+    };
 
 export type BtcSwapComposeOutput =
     | {
-          type: 'opreturn';
-          dataHex: string;
-      }
+        type: "opreturn";
+        dataHex: string;
+    }
     | {
-          type: 'payment';
-          amount: BtcSwapComposeAmount;
-      };
+        type: "payment";
+        amount: BtcSwapComposeAmount;
+    };
 
 export interface BtcSwapComposeTemplate {
     extraOutputs: BtcSwapComposeOutput[];
