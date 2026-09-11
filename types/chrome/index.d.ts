@@ -14952,13 +14952,13 @@ declare namespace chrome {
         /** @since Chrome 141 */
         type CloseOptions =
             | {
-                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided. */
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. If only the global side panel is open, the promise returned by the call to `close()` will reject with an error. This behavior was changed in Chrome 145, with prior versions falling back to closing the global panel. At least one of this or `windowId` must be provided. */
                 tabId: number;
                 /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
                 windowId?: number | undefined;
             }
             | {
-                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided. */
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. If only the global side panel is open, the promise returned by the call to `close()` will reject with an error. This behavior was changed in Chrome 145, with prior versions falling back to closing the global panel. At least one of this or `windowId` must be provided. */
                 tabId?: number | undefined;
                 /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
                 windowId: number;
@@ -15056,6 +15056,8 @@ declare namespace chrome {
         /**
          * Closes the extension's side panel. This is a no-op if the panel is already closed.
          * @param options Specifies the context in which to close the side panel.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 141
          */
         function close(options: CloseOptions): Promise<void>;
@@ -15063,6 +15065,8 @@ declare namespace chrome {
 
         /**
          * Returns the side panel's current layout.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 140
          */
         function getLayout(): Promise<PanelLayout>;
@@ -15071,7 +15075,7 @@ declare namespace chrome {
         /**
          * Returns the active panel configuration.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param options Specifies the context to return the configuration for.
          */
         function getOptions(options: GetPanelOptions): Promise<PanelOptions>;
@@ -15080,7 +15084,7 @@ declare namespace chrome {
         /**
          * Returns the extension's current side panel behavior.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getPanelBehavior(): Promise<PanelBehavior>;
         function getPanelBehavior(callback: (behavior: PanelBehavior) => void): void;
@@ -15088,7 +15092,7 @@ declare namespace chrome {
         /**
          * Opens the side panel for the extension. This may only be called in response to a user action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param options Specifies the context in which to open the side panel.
          * @since Chrome 116
          */
@@ -15098,7 +15102,7 @@ declare namespace chrome {
         /**
          * Configures the side panel.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param options The configuration options to apply to the panel.
          */
         function setOptions(options: PanelOptions): Promise<void>;
@@ -15107,7 +15111,7 @@ declare namespace chrome {
         /**
          * Configures the extension's side panel behavior. This is an upsert operation.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param behavior The new behavior to be set.
          */
         function setPanelBehavior(behavior: PanelBehavior): Promise<void>;
