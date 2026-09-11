@@ -7782,7 +7782,7 @@ declare namespace chrome {
          * Clears the specified notification.
          * @param notificationId The id of the notification to be cleared. This is returned by {@link notifications.create} method.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function clear(notificationId: string): Promise<boolean>;
         function clear(notificationId: string, callback: (wasCleared: boolean) => void): void;
@@ -7794,7 +7794,7 @@ declare namespace chrome {
          * The `notificationId` parameter is required before Chrome 42.
          * @param options Contents of the notification.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function create(notificationId: string, options: NotificationCreateOptions): Promise<string>;
         function create(options: NotificationCreateOptions): Promise<string>;
@@ -7808,7 +7808,7 @@ declare namespace chrome {
         /**
          * Retrieves all the notifications of this app or extension.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function getAll(): Promise<{ [key: string]: true }>;
         function getAll(callback: (notifications: { [key: string]: true }) => void): void;
@@ -7816,7 +7816,7 @@ declare namespace chrome {
         /**
          * Retrieves whether the user has enabled notifications from this app or extension.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function getPermissionLevel(): Promise<`${PermissionLevel}`>;
         function getPermissionLevel(callback: (level: `${PermissionLevel}`) => void): void;
@@ -7826,7 +7826,7 @@ declare namespace chrome {
          * @param notificationId The id of the notification to be updated. This is returned by {@link notifications.create} method.
          * @param options Contents of the notification to update to.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function update(notificationId: string, options: NotificationOptions): Promise<boolean>;
         function update(
