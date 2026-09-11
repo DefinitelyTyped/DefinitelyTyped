@@ -7398,7 +7398,7 @@ declare namespace chrome {
         }
 
         /**
-         * How the extension was installed
+         * How the extension was installed.
          * @since Chrome 44
          */
         enum ExtensionInstallType {
