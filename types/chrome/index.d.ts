@@ -8452,11 +8452,10 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the `chrome.printing` API to send print jobs to printers installed on Chromebook.
-
-    * Permissions: "printing"
-    * @platform ChromeOS only
-    * @since Chrome 81
-    */
+     * Permissions: "printing"
+     * @platform ChromeOS only
+     * @since Chrome 81
+     */
     export namespace printing {
         interface GetPrinterInfoResponse {
             /** Printer capabilities in [CDD format](https://developers.google.com/cloud-print/docs/cdd#cdd-example). The property may be missing. */
@@ -8575,6 +8574,8 @@ declare namespace chrome {
 
         /**
          * Returns the status of the print job. This call will fail with a runtime error if the print job with the given `jobId` doesn't exist. `jobId`: The id of the print job to return the status of. This should be the same id received in a {@link SubmitJobResponse}.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 135
          */
         function getJobStatus(jobId: string): Promise<`${JobStatus}`>;
