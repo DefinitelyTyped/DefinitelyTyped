@@ -7242,6 +7242,7 @@ declare namespace chrome {
             authorizedEntity: string;
             /**
              * Allows including a small number of string key/value pairs that will be associated with the token and may be used in processing the request.
+             * @since Chrome 46
              * @deprecated since Chrome 89. `options` are deprecated and will be ignored.
              */
             options?: { [key: string]: string };
@@ -7260,6 +7261,7 @@ declare namespace chrome {
         function getToken(getTokenParams: GetTokenParams): Promise<string>;
         function getToken(getTokenParams: GetTokenParams, callback: (token: string) => void): void;
 
+        /** Fired when all the granted tokens need to be refreshed. */
         const onTokenRefresh: events.Event<() => void>;
     }
 
