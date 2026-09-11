@@ -8319,7 +8319,7 @@ declare namespace chrome {
      */
     export namespace power {
         enum Level {
-            /** Prevents the display from being turned off or dimmed, or the system from sleeping in response to user inactivity */
+            /** Prevents the display from being turned off or dimmed, or the system from sleeping in response to user inactivity. */
             DISPLAY = "display",
             /** Prevents the system from sleeping in response to user inactivity. */
             SYSTEM = "system",
@@ -8333,6 +8333,7 @@ declare namespace chrome {
 
         /**
          * Reports a user activity in order to awake the screen from a dimmed or turned off state or from a screensaver. Exits the screensaver if it is currently active.
+         *
          * Can return its result via Promise in Manifest V3 or later.
          * @platform ChromeOS only
          * @since Chrome 113
