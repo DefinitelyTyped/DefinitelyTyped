@@ -8202,7 +8202,7 @@ declare namespace chrome {
     // Platform Keys
     ////////////////////
     /**
-     * Use the `chrome.platformKeys` API to access client certificates managed by the platform. If the user or policy grants the permission, an extension can use such a certificate in its custom authentication protocol. E.g. this allows usage of platform managed certificates in third party VPNs (see chrome.vpnProvider).
+     * Use the `chrome.platformKeys` API to access client certificates managed by the platform. If the user or policy grants the permission, an extension can use such a certificate in its custom authentication protocol. E.g. this allows usage of platform managed certificates in third party VPNs (see {@link chrome.vpnProvider}).
      *
      * Permissions: "platformKeys"
      * @platform ChromeOS only
@@ -8269,7 +8269,7 @@ declare namespace chrome {
         /**
          * Passes the key pair of `certificate` for usage with {@link platformKeys.subtleCrypto} to `callback`.
          * @param certificate The certificate of a {@link Match} returned by {@link selectClientCertificates}.
-         * @param parameters Determines signature/hash algorithm parameters additionally to the parameters fixed by the key itself. The same parameters are accepted as by WebCrypto's importKey function, e.g. `RsaHashedImportParams` for a RSASSA-PKCS1-v1_5 key and `EcKeyImportParams` for EC key. Additionally for RSASSA-PKCS1-v1_5 keys, hashing algorithm name parameter can be specified with one of the following values: "none", "SHA-1", "SHA-256", "SHA-384", or "SHA-512", e.g. `{"hash": { "name": "none" } }`. The sign function will then apply PKCS#1 v1.5 padding but not hash the given data.
+         * @param parameters Determines signature/hash algorithm parameters additionally to the parameters fixed by the key itself. The same parameters are accepted as by WebCrypto's [importKey](https://www.w3.org/TR/WebCryptoAPI/#SubtleCrypto-method-importKey) function, e.g. `RsaHashedImportParams` for a RSASSA-PKCS1-v1_5 key and `EcKeyImportParams` for EC key. Additionally for RSASSA-PKCS1-v1_5 keys, hashing algorithm name parameter can be specified with one of the following values: "none", "SHA-1", "SHA-256", "SHA-384", or "SHA-512", e.g. `{"hash": { "name": "none" } }`. The sign function will then apply PKCS#1 v1.5 padding but not hash the given data.
          *
          * Currently, this method only supports the "RSASSA-PKCS1-v1\_5" and "ECDSA" algorithms.
          */
