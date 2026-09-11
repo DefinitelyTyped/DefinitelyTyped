@@ -218,6 +218,65 @@ ar.getRemoteConfigurationOptions(
     },
 );
 
+/*************** xs-app.json schema (v23) ***************/
+import { ComSapXsappSchema_82, CorsConfig, ErrorPageEntry } from "@sap/approuter/xs-app.schema";
+
+const xsAppConfig: ComSapXsappSchema_82 = {
+    sessionTimeout: 15,
+    stateProtection: true,
+    welcomeFile: "index.html",
+    authenticationMethod: "route",
+    responseHeaders: [
+        { name: "X-Custom-Header", value: "custom-value" },
+    ],
+    routes: [
+        {
+            source: "/service",
+            destination: "backend",
+            authenticationType: "ias",
+            dynamicIdentityProvider: true,
+            preferLocal: true,
+            setBackendSessionCookies: true,
+        },
+        {
+            source: { path: "/api", matchCase: false },
+            authenticationType: "xsuaa",
+        },
+    ],
+    logout: {
+        logoutEndpoint: "/logout",
+        logoutPage: "/logged-out.html",
+        logoutMethod: "POST",
+        csrfProtection: true,
+        backChannelLogoutEndpoint: "/bc-logout",
+    },
+    compression: {
+        enabled: true,
+        minSize: 1024,
+        compressResponseMixedTypeContent: true,
+    },
+    cors: [
+        {
+            uriPattern: "^/api",
+            allowedOrigin: [{ host: "example.com", protocol: "https", port: 443 }],
+            allowedMethods: ["GET", "POST"],
+            allowedHeaders: ["Authorization"],
+            allowedCredentials: true,
+            exposeHeaders: ["X-Custom"],
+            maxAge: 3600,
+        },
+        {
+            uriPattern: "^/public",
+            hostPattern: "*.example.com",
+            allowedOrigin: [{ host: "*.example.com" }],
+        },
+    ],
+    errorPage: [
+        { status: 404, file: "/custom-404.html" },
+        { status: [500, 502, 503], path: "/error" },
+    ],
+};
+
 /*************** start options ***************/
 
 const startOptions: StartOptions = {
