@@ -8133,8 +8133,10 @@ declare namespace chrome {
         }
 
         /**
-         * Adds a host access request. Request will only be signaled to the user if extension can be granted access to the host in the request. Request will be reset on cross-origin navigation. When accepted, grants persistent access to the site’s top origin
-         * @since Chrome 133
+         * Adds a host access request. Request will only be signaled to the user if extension can be granted access to the host in the request. Request will be reset on cross-origin navigation. When accepted, grants persistent access to the site’s top origin.
+         *
+         * Can return its result via Promise.
+         * @since Chrome 133, MV3
          */
         function addHostAccessRequest(request: AddHostAccessRequest): Promise<void>;
         function addHostAccessRequest(request: AddHostAccessRequest, callback: () => void): void;
@@ -8182,7 +8184,9 @@ declare namespace chrome {
 
         /**
          * Removes a host access request, if existent.
-         * @since Chrome 133
+         *
+         * Can return its result via Promise.
+         * @since Chrome 133, MV3
          */
         function removeHostAccessRequest(request: RemoveHostAccessRequest): Promise<void>;
         function removeHostAccessRequest(request: RemoveHostAccessRequest, callback: () => void): void;
