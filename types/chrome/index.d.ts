@@ -6866,7 +6866,10 @@ declare namespace chrome {
             COMPOSITION = "composition",
         }
 
-        /** Type of assistive window. */
+        /**
+         * Type of assistive window.
+         * @since Chrome 85
+         */
         enum AssistiveWindowType {
             UNDO = "undo",
         }
@@ -7040,6 +7043,7 @@ declare namespace chrome {
          * Shows/Hides an assistive window with the given properties.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 111.
+         * @since Chrome 85
          */
         function setAssistiveWindowProperties(
             parameters: AssistiveWindowPropertiesParameters,
@@ -7053,6 +7057,7 @@ declare namespace chrome {
          * Highlights/Unhighlights a button in an assistive window.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 111.
+         * @since Chrome 86
          */
         function setAssistiveWindowButtonHighlighted(
             parameters: AssistiveWindowButtonHighlightedParameters,
