@@ -13,7 +13,9 @@ function redTests(RED: editorClient.RED) {
         password: string;
     }
 
-    function nodeInstanceTests(nodeInstance: editorClient.nodes.NodeInstance<MyNodeProperties, MyNodeCredentials>) {
+    function nodeInstanceTests(
+        nodeInstance: editorClient.nodes.NodeInstance<MyNodeProperties, MyNodeCredentials, "category">,
+    ) {
         // $ExpectType string
         nodeInstance.id;
         // $ExpectType number
@@ -34,7 +36,7 @@ function redTests(RED: editorClient.RED) {
     }
 
     function configNodeInstanceTests(
-        nodeInstance: editorClient.nodes.NodeInstance<MyConfigNodeProperties, MyNodeCredentials>,
+        nodeInstance: editorClient.nodes.NodeInstance<MyConfigNodeProperties, MyNodeCredentials, "config">,
     ) {
         // @ts-expect-error
         nodeInstance.x;
@@ -62,6 +64,10 @@ function redTests(RED: editorClient.RED) {
                     val;
                     // $ExpectType string
                     this.key;
+                    // $ExpectType number
+                    this.x;
+                    // $ExpectType number
+                    this.y;
                     // $ExpectType string
                     this.z;
                     // @ts-expect-error

@@ -1589,6 +1589,7 @@ declare namespace editorClient {
             TVal,
             TProps extends NodeProperties = NodeProperties,
             TCreds extends NodeCredentials = NodeCredentials,
+            TCategory extends string = "",
         > {
             /**
              * The credential label. Shown in the error badge/input popover.
@@ -1602,7 +1603,7 @@ declare namespace editorClient {
              * Whether the value must be non-empty
              */
             required?: boolean;
-            validate?: PropertyValidator<TProps, TCreds>;
+            validate?: PropertyValidator<TProps, TCreds, TCategory>;
             type: "text" | "password";
         }
 
@@ -1614,6 +1615,7 @@ declare namespace editorClient {
             TVal,
             TProps extends NodeProperties = NodeProperties,
             TCreds extends NodeCredentials = NodeCredentials,
+            TCategory extends string = "",
         > {
             /**
              * The property label. Shown in the error badge/input popover.
@@ -1627,7 +1629,7 @@ declare namespace editorClient {
              * Whether the value must be non-empty
              */
             required?: boolean;
-            validate?: PropertyValidator<TProps, TCreds>;
+            validate?: PropertyValidator<TProps, TCreds, TCategory>;
             /**
              * Selector to a config node type
              */
@@ -1646,23 +1648,37 @@ declare namespace editorClient {
         type PropertyValidator<
             TProps extends NodeProperties = NodeProperties,
             TCreds extends NodeCredentials = NodeCredentials,
+            TCategory extends string = "",
         > =
-            | ((this: NodeInstance<TProps, TCreds>, value: string, opt: { label?: string }) => boolean | string)
-            | ((this: NodeInstance<TProps, TCreds>, value: string) => boolean);
+            | ((
+                this: NodeInstance<TProps, TCreds, TCategory>,
+                value: string,
+                opt: { label?: string },
+            ) => boolean | string)
+            | ((this: NodeInstance<TProps, TCreds, TCategory>, value: string) => boolean);
 
         /**
          * Properties definitions (`defaults` object)
          * Read more: https://nodered.org/docs/creating-nodes/properties
          */
-        type PropertiesDefinition<TProps extends NodeProperties, TCreds extends NodeCredentials> = {
-            [K in keyof TProps]: K extends ReservedProperties ? never : PropertyDefinition<TProps[K], TProps, TCreds>;
+        type PropertiesDefinition<
+            TProps extends NodeProperties,
+            TCreds extends NodeCredentials,
+            TCategory extends string,
+        > = {
+            [K in keyof TProps]: K extends ReservedProperties ? never
+                : PropertyDefinition<TProps[K], TProps, TCreds, TCategory>;
         };
 
         /**
          * Credentials definitions (`credentials` object)
          */
-        type CredentialsDefinition<TProps extends NodeProperties, TCreds extends NodeCredentials> = {
-            [K in keyof TCreds]: K extends "_" ? never : CredentialDefinition<TCreds[K], TProps, TCreds>;
+        type CredentialsDefinition<
+            TProps extends NodeProperties,
+            TCreds extends NodeCredentials,
+            TCategory extends string,
+        > = {
+            [K in keyof TCreds]: K extends "_" ? never : CredentialDefinition<TCreds[K], TProps, TCreds, TCategory>;
         };
 
         /**
@@ -1672,19 +1688,20 @@ declare namespace editorClient {
         interface NodeDefinition<
             TProps extends NodeProperties = NodeProperties,
             TCreds extends NodeCredentials = NodeCredentials,
+            TCategory extends "config" | string = string,
         > {
             /** The palette category the node appears in. */
-            category: "config" | string;
+            category: TCategory;
             /**
              * The editable properties for the node.
              * Read more: https://nodered.org/docs/creating-nodes/properties
              */
-            defaults: PropertiesDefinition<TProps, TCreds>;
+            defaults: PropertiesDefinition<TProps, TCreds, TCategory>;
             /**
              * The credential properties for the node.
              * Read more: https://nodered.org/docs/creating-nodes/credentials
              */
-            credentials?: CredentialsDefinition<TProps, TCreds>;
+            credentials?: CredentialsDefinition<TProps, TCreds, TCategory>;
             /**
              * How many inputs the node has, either 0 or 1.
              */
@@ -1702,12 +1719,12 @@ declare namespace editorClient {
              * The label to use in the palette.
              * Read more: https://nodered.org/docs/creating-nodes/appearance#palette-label
              */
-            paletteLabel?: string | ((this: NodeInstance<TProps, TCreds>) => string);
+            paletteLabel?: string | ((this: NodeInstance<TProps, TCreds, TCategory>) => string);
             /**
              * The label to use in the workspace.
              * Read more: https://nodered.org/docs/creating-nodes/appearance#node-label
              */
-            label?: string | ((this: NodeInstance<TProps, TCreds>) => string);
+            label?: string | ((this: NodeInstance<TProps, TCreds, TCategory>) => string);
             /**
              * The style to apply to the label.
              * Read more: https://nodered.org/docs/creating-nodes/appearance#label-style
@@ -1716,12 +1733,12 @@ declare namespace editorClient {
                 | "node_label"
                 | "node_label_italic"
                 | string
-                | ((this: NodeInstance<TProps, TCreds>) => "node_label" | "node_label_italic" | string);
+                | ((this: NodeInstance<TProps, TCreds, TCategory>) => "node_label" | "node_label_italic" | string);
             /**
              * Optional label to add on hover to the input port of a node.
              * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
              */
-            inputLabels?: string | ((this: NodeInstance<TProps, TCreds>) => string);
+            inputLabels?: string | ((this: NodeInstance<TProps, TCreds, TCategory>) => string);
             /**
              * Optional labels to add on hover to the output ports of a node.
              * Read more: https://nodered.org/docs/creating-nodes/appearance#port-labels
@@ -1729,7 +1746,7 @@ declare namespace editorClient {
             outputLabels?:
                 | string
                 | string[]
-                | ((this: NodeInstance<TProps, TCreds>, idx: number) => string | undefined);
+                | ((this: NodeInstance<TProps, TCreds, TCategory>, idx: number) => string | undefined);
             /**
              * The icon to use.
              * Read more: https://nodered.org/docs/creating-nodes/appearance#icon
@@ -1746,51 +1763,54 @@ declare namespace editorClient {
              */
             button?: {
                 /** Called when the button is clicked */
-                onclick: (this: NodeInstance<TProps, TCreds>) => void;
+                onclick: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
                 /** Function to dynamically enable and disable the button based on the node’s current configuration. */
-                enabled?: (this: NodeInstance<TProps, TCreds>) => boolean;
+                enabled?: (this: NodeInstance<TProps, TCreds, TCategory>) => boolean;
                 /** Function to determine whether the button should be shown at all. */
-                visible?: (this: NodeInstance<TProps, TCreds>) => boolean;
+                visible?: (this: NodeInstance<TProps, TCreds, TCategory>) => boolean;
             };
             /**
              * Called when the edit dialog is being built.
              * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
              */
-            oneditprepare?: (this: NodeInstance<TProps, TCreds>) => void;
+            oneditprepare?: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
             /**
              * Called when the edit dialog is okayed.
              * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
              */
-            oneditsave?: (this: NodeInstance<TProps, TCreds>) => void;
+            oneditsave?: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
             /**
              * Called when the edit dialog is cancelled.
              * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
              */
-            oneditcancel?: (this: NodeInstance<TProps, TCreds>) => void;
+            oneditcancel?: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
             /**
              * Called when the delete button in a configuration node’s edit dialog is pressed.
              * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
              */
-            oneditdelete?: (this: NodeInstance<TProps, TCreds>) => void;
+            oneditdelete?: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
             /**
              * Called when the edit dialog is resized.
              * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
              */
-            oneditresize?: (this: NodeInstance<TProps, TCreds>, size: { width: number; height: number }) => void;
+            oneditresize?: (
+                this: NodeInstance<TProps, TCreds, TCategory>,
+                size: { width: number; height: number },
+            ) => void;
             /**
              * Called when the node type is added to the palette.
              * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
              */
-            onpaletteadd?: (this: NodeInstance<TProps, TCreds>) => void;
+            onpaletteadd?: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
             /**
              * Called when the node type is removed from the palette.
              * Read more: https://nodered.org/docs/creating-nodes/properties#custom-edit-behaviour
              */
-            onpaletteremove?: (this: NodeInstance<TProps, TCreds>) => void;
+            onpaletteremove?: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
             /**
              * Called when the node type is dragged into workspace.
              */
-            onadd?: (this: NodeInstance<TProps, TCreds>) => void;
+            onadd?: (this: NodeInstance<TProps, TCreds, TCategory>) => void;
         }
 
         interface GroupDefinition {
@@ -1813,12 +1833,12 @@ declare namespace editorClient {
             & (T extends { credentials: infer C } ? Omit<C, "_">
                 : {});
 
-        type NodeInstance<TProps extends NodeProperties, TCreds extends NodeCredentials> =
+        type NodeInstance<TProps extends NodeProperties, TCreds extends NodeCredentials, TCategory extends string> =
             & Omit<TProps, ReservedProperties>
             & (keyof TCreds extends never ? {} : Record<"credentials", Omit<TCreds, "_">>)
             // TODO: Make a selection of props
             // & Readonly<Omit<BaseNode, NotExportedProperties>>;
-            & Readonly<TProps extends { type: "config" } ? ConfigNode : Node>;
+            & Readonly<TCategory extends "config" ? ConfigNode : Node>;
 
         interface BaseNode {
             _: i18n.I18nT;
