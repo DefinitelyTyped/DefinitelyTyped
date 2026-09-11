@@ -6137,7 +6137,7 @@ declare namespace chrome {
         function register(senderIds: string[], callback: (registrationId: string) => void): void;
 
         /**
-         * Unregister the application from FCM.
+         * Unregisters the application from FCM.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
