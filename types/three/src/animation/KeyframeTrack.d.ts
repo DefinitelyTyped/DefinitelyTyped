@@ -5,12 +5,21 @@ import { CubicInterpolant } from "../math/interpolants/CubicInterpolant.js";
 import { DiscreteInterpolant } from "../math/interpolants/DiscreteInterpolant.js";
 import { LinearInterpolant } from "../math/interpolants/LinearInterpolant.js";
 
+export interface KeyframeTrackSettings {
+    inTangents: TypedArray | number[];
+    outTangents: TypedArray | number[];
+}
+
 export interface KeyframeTrackJSON {
     name: string;
     times: number[];
     values: number[];
     interpolation?: InterpolationModes;
     type: string;
+    settings?: {
+        inTangents: number[];
+        outTangents: number[];
+    };
 }
 
 /**
@@ -55,6 +64,11 @@ export class KeyframeTrack {
      * The keyframe values.
      */
     values: Float32Array;
+    /**
+     * The interpolation settings. Holds the Bezier tangent data which is
+     * required when using `InterpolateBezier` as the interpolation type.
+     */
+    settings?: KeyframeTrackSettings;
     /**
      * Factory method for creating a new discrete interpolant.
      *

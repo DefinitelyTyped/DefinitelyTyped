@@ -32,6 +32,13 @@ export function builtinShadowContext(shadowNode: Node, light: Light, node?: Node
 export function builtinAOContext(aoNode: Node, node?: Node | null): ContextNode<unknown>;
 
 /**
+ * TSL function for defining a built-in global illumination context for a given node. The AO node
+ * modulates the indirect lighting of the materials, the GI node is added to their irradiance
+ * without being modulated by the AO since it already accounts for occlusion.
+ */
+export function builtinGIContext(aoNode: Node, giNode: Node, node?: Node | null): ContextNode<unknown>;
+
+/**
  * @deprecated "label()" has been deprecated. Use "setName()" instead.
  */
 export function label<TNodeType>(node: Node<TNodeType>, label: string): Node<TNodeType>;
@@ -52,5 +59,7 @@ declare module "./Node.js" {
         builtinShadowContext: (shadowNode: Node, light: Light) => ContextNode<TNodeType>;
 
         builtinAOContext: (aoValue: Node) => ContextNode<TNodeType>;
+
+        builtinGIContext: (aoValue: Node, giValue: Node) => ContextNode<TNodeType>;
     }
 }

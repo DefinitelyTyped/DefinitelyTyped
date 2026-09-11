@@ -29,6 +29,14 @@ export const getScreenPosition: (
 ) => Node<"vec2">;
 
 /**
+ * Converts a clip-space position into a screen position expressed as uv coordinates.
+ *
+ * @param {vec4} clipPosition - The position in clip space.
+ * @return {vec2} The screen position expressed as uv coordinates.
+ */
+export const getScreenPositionFromClip: (clipPosition: Node) => Node<"vec2">;
+
+/**
  * Computes a normal vector based on depth data. Can be used as a fallback when no normal render target is available or
  * if flat surface normals are required.
  *

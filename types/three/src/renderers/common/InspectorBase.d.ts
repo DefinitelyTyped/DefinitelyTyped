@@ -9,12 +9,11 @@ import { Texture } from "../../textures/Texture.js";
 import Renderer from "./Renderer.js";
 
 export interface InspectorBaseEventMap {
+    dispose: {};
 }
 
 /**
  * InspectorBase is the base class for all inspectors.
- *
- * @class InspectorBase
  */
 declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorBaseEventMap>
     extends EventDispatcher<TEventMap>
@@ -25,6 +24,20 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
      * @type {Object}
      */
     currentFrame: unknown;
+    /**
+     * Indicates whether the inspector is running.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    isRunning: boolean;
+    /**
+     * Indicates whether the inspector is enabled.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    enabled: boolean;
     /**
      * Returns the node frame for the current renderer.
      *
@@ -44,10 +57,6 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
      * @return {WebGLRenderer} The associated renderer.
      */
     getRenderer(): Renderer;
-    /**
-     * Initializes the inspector.
-     */
-    init(): void;
     /**
      * Called when a frame begins.
      */
@@ -111,6 +120,10 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
      * @param {Texture} framebufferTexture - The texture associated with the framebuffer.
      */
     copyFramebufferToTexture(framebufferTexture: Texture): void;
+    /**
+     * Frees all internal resources of the inspector.
+     */
+    dispose(): void;
 }
 
 export default InspectorBase;

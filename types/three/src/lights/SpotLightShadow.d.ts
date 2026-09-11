@@ -1,5 +1,10 @@
 import { PerspectiveCamera } from "../cameras/PerspectiveCamera.js";
-import { LightShadow } from "./LightShadow.js";
+import { LightShadow, LightShadowJSON } from "./LightShadow.js";
+
+export interface SpotLightShadowJSON extends LightShadowJSON {
+    focus?: number;
+    aspect?: number;
+}
 
 /**
  * Represents the shadow configuration of directional lights.
@@ -29,4 +34,11 @@ export class SpotLightShadow extends LightShadow<PerspectiveCamera> {
      */
     aspect: number;
     copy(source: SpotLightShadow): this;
+    /**
+     * Serializes the light shadow into JSON.
+     *
+     * @return {Object} A JSON object representing the serialized light shadow.
+     * @see {@link ObjectLoader#parse}
+     */
+    toJSON(): SpotLightShadowJSON;
 }

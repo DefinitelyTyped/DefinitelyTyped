@@ -1,4 +1,4 @@
-import { JSONMeta, Object3D, Object3DEventMap, Object3DJSON } from "../core/Object3D.js";
+import { JSONMeta, Object3D, Object3DJSON } from "../core/Object3D.js";
 import { Color, ColorRepresentation } from "../math/Color.js";
 
 export interface LightJSON extends Object3DJSON {
@@ -6,15 +6,11 @@ export interface LightJSON extends Object3DJSON {
     intensity: number;
 }
 
-export interface LightEventMap extends Object3DEventMap {
-    dispose: {};
-}
-
 /**
  * Abstract base class for lights - all other light types inherit the
  * properties and methods described here.
  */
-export abstract class Light extends Object3D<LightEventMap> {
+export abstract class Light extends Object3D {
     /**
      * Constructs a new light.
      *
@@ -38,11 +34,6 @@ export abstract class Light extends Object3D<LightEventMap> {
      * @default 1
      */
     intensity: number;
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
     copy(source: Light, recursive?: boolean): this;
     toJSON(meta?: JSONMeta): LightJSON;
 }

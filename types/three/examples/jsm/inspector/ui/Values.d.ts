@@ -10,6 +10,9 @@ declare class Value<
     TEventMap extends ValueEventMap = ValueEventMap,
 > extends EventDispatcher<TEventMap> {
     onChange(callback: (value: T[K]) => void): this;
+    debounce(time: number): this;
+    show(): this;
+    hide(): this;
 }
 
 export interface ValueNumberParams {

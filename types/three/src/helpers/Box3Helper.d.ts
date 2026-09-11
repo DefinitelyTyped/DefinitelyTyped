@@ -25,9 +25,4 @@ export class Box3Helper extends LineSegments {
      * The box being visualized.
      */
     box: Box3;
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

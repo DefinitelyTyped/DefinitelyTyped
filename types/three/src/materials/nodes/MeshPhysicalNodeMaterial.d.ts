@@ -182,6 +182,17 @@ export interface MeshPhysicalNodeMaterialNodeProperties extends MeshStandardNode
      */
     dispersionNode: Node | null;
     /**
+     * The retroreflective strength of physical materials is by default inferred from the
+     * `retroreflectivity` property. This node property allows to overwrite the default
+     * and define the retroreflective strength with a node instead.
+     *
+     * If you don't want to overwrite the retroreflective strength but modify the existing
+     * value instead, use {@link materialRetroreflectivity}.
+     *
+     * @default null
+     */
+    retroreflectivityNode: Node | null;
+    /**
      * The anisotropy of physical materials is by default inferred from the
      * `anisotropy` property. This node property allows to overwrite the default
      * and define the anisotropy with a node instead.
@@ -249,6 +260,12 @@ declare class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
      * @default true
      */
     get useDispersion(): boolean;
+    /**
+     * Whether the lighting model should use retroreflection or not.
+     *
+     * @default true
+     */
+    get useRetroreflection(): boolean;
     /**
      * Setups the physical specific node variables.
      *

@@ -19,8 +19,8 @@ declare class SSGINode extends TempNode<"vec4"> {
 
     constructor(beautyNode: Node, depthNode: Node, normalNode: Node, camera: PerspectiveCamera);
 
-    getAONode(): TextureNode;
-    getGINode(): TextureNode;
+    getAONode(): TextureNode<"float">;
+    getGINode(): TextureNode<"vec3">;
 }
 
 export default SSGINode;

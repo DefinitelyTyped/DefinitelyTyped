@@ -15,12 +15,10 @@ export const instanceColor: VaryingNode<"vec3">;
  *
  * @tsl
  * @function
- * @param {number} count - The instance count.
  * @param {InstancedBufferAttribute|StorageInstancedBufferAttribute} matrices - The instanced transformation matrices.
  * @param {?InstancedBufferAttribute|StorageInstancedBufferAttribute} [colors=null] - The optional instanced colors.
  */
 export const instance: (
-    count: number,
     matrices: InstancedBufferAttribute | StorageInstancedBufferAttribute,
     colors?: InstancedBufferAttribute | StorageInstancedBufferAttribute | null,
 ) => void;
