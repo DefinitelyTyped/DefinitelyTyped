@@ -8795,7 +8795,7 @@ declare namespace chrome {
             /**
              * If enabled, Chrome offers to automatically fill in forms.
              * This preference's value is a boolean, defaulting to `true`.
-             * @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. This remains for backward compatibility in this release and will be removed in the future */
+             * @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. This remains for backward compatibility in this release and will be removed in the future. */
             autofillEnabled: chrome.types.ChromeSetting<boolean>;
 
             /**
@@ -8847,7 +8847,7 @@ declare namespace chrome {
             /**
              * Allow users to specify the media performance/privacy tradeoffs which impacts how WebRTC traffic will be routed and how much local address information is exposed.
              * This preference's value is of type IPHandlingPolicy, defaulting to `default`.
-             *  @since Chrome 48
+             * @since Chrome 48
              */
             webRTCIPHandlingPolicy: chrome.types.ChromeSetting<`${IPHandlingPolicy}`>;
         };
@@ -8904,7 +8904,11 @@ declare namespace chrome {
              */
             relatedWebsiteSetsEnabled: chrome.types.ChromeSetting<boolean>;
 
-            /** If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is `true`. Extensions may not enable this API in Incognito mode, where third-party cookies are blocked and can only be allowed at the site level. If you try setting this API to true in Incognito, it will throw an error. */
+            /**
+             * If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is `true`. Extensions may not enable this API in Incognito mode, where third-party cookies are blocked and can only be allowed at the site level. If you try setting this API to true in Incognito, it will throw an error.
+             *
+             * Note: Individual sites may still be able to access third-party cookies when this API returns `false`, if they have a valid exemption or they use the Storage Access API instead.
+             */
             thirdPartyCookiesAllowed: chrome.types.ChromeSetting<boolean>;
 
             /**
@@ -10241,7 +10245,10 @@ declare namespace chrome {
             & {
                 /** Details specifying the target into which to inject the script. */
                 target: InjectionTarget;
-                /** The JavaScript "world" to run the script in. Defaults to `ISOLATED`. */
+                /**
+                 * The JavaScript "world" to run the script in. Defaults to `ISOLATED`.
+                 * @since Chrome 95
+                 */
                 world?: `${ExecutionWorld}`;
                 /**
                  * Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target.
@@ -10251,20 +10258,32 @@ declare namespace chrome {
             }
             & (
                 | {
-                    /** A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified. */
+                    /**
+                     * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified.
+                     * @since Chrome 92
+                     */
                     func?: never | undefined;
                     /** The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of files or func must be specified. */
                     files: string[];
                 }
                 | ({
-                    /** A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified. */
+                    /**
+                     * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified.
+                     * @since Chrome 92
+                     */
                     func: () => Result;
                     /** The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of files or func must be specified. */
                     files?: never | undefined;
                 } | {
-                    /** The arguments to pass to the provided function. This is only valid if the `func` parameter is specified. These arguments must be JSON-serializable. */
+                    /**
+                     * The arguments to pass to the provided function. This is only valid if the `func` parameter is specified. These arguments must be JSON-serializable.
+                     * @since Chrome 92
+                     */
                     args: Args;
-                    /** A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified. */
+                    /**
+                     * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified.
+                     * @since Chrome 92
+                     */
                     func: (...args: Args) => Result;
                     /** The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of files or func must be specified. */
                     files?: never | undefined;
@@ -10293,7 +10312,10 @@ declare namespace chrome {
                 persistAcrossSessions?: boolean | undefined;
                 /** Specifies when JavaScript files are injected into the web page. The preferred and default value is `document_idle`. */
                 runAt?: extensionTypes.RunAt | undefined;
-                /** The JavaScript "world" to run the script in. Defaults to `ISOLATED`. */
+                /**
+                 * he JavaScript "world" to run the script in. Defaults to `ISOLATED`.
+                 * @since Chrome 102
+                 */
                 world?: `${ExecutionWorld}` | undefined;
             }
             & (
