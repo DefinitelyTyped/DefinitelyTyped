@@ -5786,17 +5786,17 @@ function testFontSettings() {
     chrome.fontSettings.ScriptCode.ZSYM === "Zsym";
     chrome.fontSettings.ScriptCode.ZYYY === "Zyyy";
 
-    chrome.fontSettings.clearDefaultFixedFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFontSize(() => void 0); // Expected void
-    chrome.fontSettings.clearDefaultFixedFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFixedFontSize({}, () => void 0); // Expected void
+    chrome.fontSettings.clearDefaultFixedFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize(() => void 0); // $Expected void
+    chrome.fontSettings.clearDefaultFixedFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFixedFontSize({}, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearDefaultFixedFontSize({}, () => {}).then(() => {});
 
-    chrome.fontSettings.clearDefaultFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFontSize(() => void 0); // Expected void
-    chrome.fontSettings.clearDefaultFontSize({}); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFontSize({}, () => void 0); // Expected void
+    chrome.fontSettings.clearDefaultFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize(() => void 0); // $Expected void
+    chrome.fontSettings.clearDefaultFontSize({}); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize({}, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearDefaultFontSize({}, () => {}).then(() => {});
 
@@ -5805,40 +5805,40 @@ function testFontSettings() {
         script: "Afak",
     };
 
-    chrome.fontSettings.clearFont(clearFontDetails); // Expected Promise<void>
-    chrome.fontSettings.clearFont(clearFontDetails, () => void 0); // Expected void
+    chrome.fontSettings.clearFont(clearFontDetails); // $Expected Promise<void>
+    chrome.fontSettings.clearFont(clearFontDetails, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearFont(clearFontDetails, () => {}).then(() => {});
 
-    chrome.fontSettings.clearMinimumFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearMinimumFontSize(() => void 0); // Expected void
-    chrome.fontSettings.clearMinimumFontSize({}); // Expected Promise<void>
-    chrome.fontSettings.clearMinimumFontSize({}, () => void 0); // Expected void
+    chrome.fontSettings.clearMinimumFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearMinimumFontSize(() => void 0); // $Expected void
+    chrome.fontSettings.clearMinimumFontSize({}); // $Expected Promise<void>
+    chrome.fontSettings.clearMinimumFontSize({}, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearMinimumFontSize(() => {}).then(() => {});
 
-    chrome.fontSettings.getDefaultFixedFontSize(); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFixedFontSize((details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFixedFontSize(); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFixedFontSize((details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
-    chrome.fontSettings.getDefaultFixedFontSize({}); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFixedFontSize({}); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getDefaultFixedFontSize(() => {}).then(() => {});
 
-    chrome.fontSettings.getDefaultFontSize(); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFontSize((details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFontSize(); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFontSize((details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
-    chrome.fontSettings.getDefaultFontSize({}); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFontSize({}, (details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFontSize({}); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFontSize({}, (details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getDefaultFontSize({}, () => {}).then(() => {});
@@ -5848,29 +5848,29 @@ function testFontSettings() {
         script: "Afak",
     };
 
-    chrome.fontSettings.getFont(getFontDetails); // Expected Promise<GetFontResult>
-    chrome.fontSettings.getFont(getFontDetails, (details) => { // Expected void
-        details.fontId; // Expected string
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getFont(getFontDetails); // $Expected Promise<GetFontResult>
+    chrome.fontSettings.getFont(getFontDetails, (details) => { // $Expected void
+        details.fontId; // $Expected string
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getFont({}, (details) => {});
 
-    chrome.fontSettings.getFontList(); // Expected Promise<FontName[]>
-    chrome.fontSettings.getFontList(([result]) => { // Expected void
-        result.fontId; // Expected string
-        result.displayName; // Expected string
+    chrome.fontSettings.getFontList(); // $Expected Promise<FontName[]>
+    chrome.fontSettings.getFontList(([result]) => { // $Expected void
+        result.fontId; // $Expected string
+        result.displayName; // $Expected string
     });
 
-    chrome.fontSettings.getMinimumFontSize(); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getMinimumFontSize((details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getMinimumFontSize(); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getMinimumFontSize((details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
-    chrome.fontSettings.getMinimumFontSize({}); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getMinimumFontSize({}, (details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getMinimumFontSize({}); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getMinimumFontSize({}, (details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getMinimumFontSize({}, () => {}).then(() => {});
@@ -5879,15 +5879,15 @@ function testFontSettings() {
         pixelSize: 12,
     };
 
-    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails); // Expected Promise<void>
-    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails, () => void 0); // Expected void
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails); // $Expected Promise<void>
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setDefaultFixedFontSize(() => {}).then(() => {});
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails, () => {}).then(() => {});
 
-    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails); // Expected Promise<void>
-    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails, () => void 0); // Expected void
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails); // $Expected Promise<void>
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setDefaultFontSize(() => {}).then(() => {});
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails, () => {}).then(() => {});
 
     const setFontDetails: chrome.fontSettings.SetFontDetails = {
         genericFamily: "standard",
@@ -5895,36 +5895,36 @@ function testFontSettings() {
         fontId: "fontId",
     };
 
-    chrome.fontSettings.setFont(setFontDetails); // Expected Promise<void>
-    chrome.fontSettings.setFont(setFontDetails, () => void 0); // Expected void
+    chrome.fontSettings.setFont(setFontDetails); // $Expected Promise<void>
+    chrome.fontSettings.setFont(setFontDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setFont(() => {}).then(() => {});
+    chrome.fontSettings.setFont(setFontDetails, () => {}).then(() => {});
 
-    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails); // Expected Promise<void>
-    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails, () => void 0); // Expected void
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails); // $Expected Promise<void>
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setMinimumFontSize(() => {}).then(() => {});
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails, () => {}).then(() => {});
 
     checkChromeEvent(chrome.fontSettings.onDefaultFixedFontSizeChanged, (details) => {
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
 
     checkChromeEvent(chrome.fontSettings.onDefaultFontSizeChanged, (details) => {
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
 
     checkChromeEvent(chrome.fontSettings.onFontChanged, (details) => {
-        details.fontId; // Expected string
-        details.genericFamily; // Expected GenericFamily
-        details.levelOfControl; // Expected LevelOfControl
-        details.script; // Expected ScriptCode | undefined
+        details.fontId; // $Expected string
+        details.genericFamily; // $Expected GenericFamily
+        details.levelOfControl; // $Expected LevelOfControl
+        details.script; // $Expected ScriptCode | undefined
     });
 
     checkChromeEvent(chrome.fontSettings.onMinimumFontSizeChanged, (details) => {
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
 }
 

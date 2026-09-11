@@ -5932,7 +5932,7 @@ declare namespace chrome {
             genericFamily: `${GenericFamily}`;
             /** The level of control this extension has over the setting. */
             levelOfControl: `${LevelOfControl}`;
-            /** Optional. The script code for which the font setting has changed. */
+            /** The script code for which the font setting has changed. */
             script?: `${ScriptCode}`;
             /** The font ID. See the description in {@link getFont}. */
             fontId: string;
