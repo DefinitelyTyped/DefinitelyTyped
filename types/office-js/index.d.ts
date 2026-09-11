@@ -7441,7 +7441,7 @@ declare namespace Office {
      */
     interface GetFileOptions {
         /**
-         * The size of the slices in bytes. The maximum (and the default) is 4194304 (4MB).
+         * The size of the slices in bytes. The maximum (and the default) is 4194304 (4 MB).
          */
         sliceSize?: number
         /**
@@ -95879,6 +95879,8 @@ declare namespace Word {
      *
      * @remarks
      * [Api set: WordApi 1.8]
+     *
+     * Word critique annotation cards display a maximum of three suggestions. If more than three suggestions are provided, the rest aren't displayed in the pop-up menu.
      */
     interface CritiquePopupOptions {
         /**
@@ -96662,12 +96664,14 @@ declare namespace Word {
          */
         insertContentControl(contentControlType?: Word.ContentControlType.richText | Word.ContentControlType.plainText | Word.ContentControlType.checkBox | Word.ContentControlType.dropDownList | Word.ContentControlType.comboBox | Word.ContentControlType.buildingBlockGallery | Word.ContentControlType.datePicker | Word.ContentControlType.repeatingSection | Word.ContentControlType.picture | Word.ContentControlType.group | "RichText" | "PlainText" | "CheckBox" | "DropDownList" | "ComboBox" | "BuildingBlockGallery" | "DatePicker" | "RepeatingSection" | "Picture" | "Group"): Word.ContentControl;
         /**
-         * Inserts a document into the body at the specified location.
+         * Inserts a document into the body at the specified location. The maximum size of the document being inserted is 4 MB.
          *
          * @remarks
          * [Api set: WordApi 1.1]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
          * @param insertLocation The value must be `replace`, `start`, or `end`.
@@ -100066,7 +100070,7 @@ declare namespace Word {
          */
         color: string;
         /**
-         * Gets an integer that represents the content control identifier.
+         * Gets an integer that represents the content control identifier. This number is unique for each content control and doesn't change.
          *
          * @remarks
          * [Api set: WordApi 1.1]
@@ -100108,7 +100112,7 @@ declare namespace Word {
          */
         readonly subtype: Word.ContentControlType | "Unknown" | "RichTextInline" | "RichTextParagraphs" | "RichTextTableCell" | "RichTextTableRow" | "RichTextTable" | "PlainTextInline" | "PlainTextParagraph" | "Picture" | "BuildingBlockGallery" | "CheckBox" | "ComboBox" | "DropDownList" | "DatePicker" | "RepeatingSection" | "RichText" | "PlainText" | "Group";
         /**
-         * Specifies a tag to identify a content control.
+         * Specifies a tag to identify a content control. The tag is different from the title in that it isn't displayed to the user. The tag can be used to identify a content control programmatically.
          *
          * @remarks
          * [Api set: WordApi 1.1]
@@ -100248,12 +100252,14 @@ declare namespace Word {
          */
         insertBreak(breakType: Word.BreakType | "Page" | "Next" | "SectionNext" | "SectionContinuous" | "SectionEven" | "SectionOdd" | "Line", insertLocation: Word.InsertLocation.start | Word.InsertLocation.end | Word.InsertLocation.before | Word.InsertLocation.after | "Start" | "End" | "Before" | "After"): void;
         /**
-         * Inserts a document into the content control at the specified location.
+         * Inserts a document into the content control at the specified location. The maximum size of the document being inserted is 4 MB.
          *
          * @remarks
          * [Api set: WordApi 1.1]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
          * @param insertLocation The value must be `replace`, `start`, or `end`. `replace` cannot be used with `richTextTable` and `richTextTableRow` content controls.
@@ -102592,22 +102598,22 @@ declare namespace Word {
          */
         closePrintPreview(): void;
         /**
-         * Displays revision marks that indicate where the specified document differs from another document.
+         * Displays revision marks that indicate where the current document differs from a specified document.
          *
          * @remarks
          * [Api set: WordApiDesktop 1.1]
          *
-         * @param filePath The path of the document with which the specified document is compared.
-         * @param documentCompareOptions Optional. The additional options that specifies the behavior of comparing document.
+         * @param filePath The path of the document with which the current document is compared.
+         * @param documentCompareOptions Optional. The additional options that specify the behavior when comparing the documents.
          */
         compare(filePath: string, documentCompareOptions?: Word.DocumentCompareOptions): void;
         /**
-         * Displays revision marks that indicate where the specified document differs from another document.
+         * Displays revision marks that indicate where the current document differs from a specified document.
          *
          * @remarks
          * [Api set: WordApiDesktop 1.2]
          *
-         * @param base64File The Base64-encoded content of the document with which the specified document is compared.
+         * @param base64File The Base64-encoded content of the document with which the current document is compared.
          * @param documentCompareOptions Optional. The additional options that specify the behavior for comparing the documents. Note that the `compareTarget` option isn't allowed to be `compareTargetSelected` in this API.
          */
         compareFromBase64(base64File: string, documentCompareOptions?: Word.DocumentCompareOptions): void;
@@ -102834,11 +102840,14 @@ declare namespace Word {
         /**
          * Inserts a document into the target document at a specific location with additional properties.
                     Headers, footers, watermarks, and other section properties are copied by default.
+                    The maximum size of the document being inserted is 4 MB.
          *
          * @remarks
          * [Api set: WordApi 1.5]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
          * @param insertLocation The value must be `replace`, `start`, or `end`.
@@ -103501,11 +103510,14 @@ declare namespace Word {
         /**
          * Inserts a document into the target document at a specific location with additional properties.
                     Headers, footers, watermarks, and other section properties are copied by default.
+                    The maximum size of the document being inserted is 4 MB.
          *
          * @remarks
          * [Api set: WordApiHiddenDocument 1.5]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
          * @param insertLocation The value must be `replace`, `start`, or `end`.
@@ -105207,12 +105219,14 @@ declare namespace Word {
          */
         insertContentControl(): Word.ContentControl;
         /**
-         * Inserts a document at the specified location.
+         * Inserts a document at the specified location. The maximum size of the document being inserted is 4 MB.
          *
          * @remarks
          * [Api set: WordApi 1.2]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
          * @param insertLocation The value must be `before` or `after`.
@@ -107514,6 +107528,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApi 1.6]
+         *
+         * This API requires an active Microsoft 365 subscription. It doesn't work with single-purchase licenses.
          */
         readonly uniqueLocalId: string;
         /**
@@ -107759,12 +107775,14 @@ declare namespace Word {
          */
         insertContentControl(contentControlType?: Word.ContentControlType.richText | Word.ContentControlType.plainText | Word.ContentControlType.checkBox | Word.ContentControlType.dropDownList | Word.ContentControlType.comboBox | Word.ContentControlType.buildingBlockGallery | Word.ContentControlType.datePicker | Word.ContentControlType.repeatingSection | Word.ContentControlType.picture | Word.ContentControlType.group | "RichText" | "PlainText" | "CheckBox" | "DropDownList" | "ComboBox" | "BuildingBlockGallery" | "DatePicker" | "RepeatingSection" | "Picture" | "Group"): Word.ContentControl;
         /**
-         * Inserts a document into the paragraph at the specified location.
+         * Inserts a document into the paragraph at the specified location. The maximum size of the document being inserted is 4 MB.
          *
          * @remarks
          * [Api set: WordApi 1.1]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
          * @param insertLocation The value must be `replace`, `start`, or `end`.
@@ -107873,7 +107891,7 @@ declare namespace Word {
          */
         insertTextBox(text?: string, insertShapeOptions?: Word.InsertShapeOptions): Word.Shape;
         /**
-         * Joins a list paragraph with the closest list above or below this paragraph.
+         * Joins a list paragraph with the closest list above or below this paragraph. This method only works with bulleted lists, not numbered lists.
          *
          * @remarks
          * [Api set: WordApiDesktop 1.4]
@@ -109178,12 +109196,14 @@ declare namespace Word {
          */
         insertField(insertLocation: Word.InsertLocation | "Replace" | "Start" | "End" | "Before" | "After", fieldType?: "Addin" | "AddressBlock" | "Advance" | "Ask" | "Author" | "AutoText" | "AutoTextList" | "BarCode" | "Bibliography" | "BidiOutline" | "Citation" | "Comments" | "Compare" | "CreateDate" | "Data" | "Database" | "Date" | "DisplayBarcode" | "DocProperty" | "DocVariable" | "EditTime" | "Embedded" | "EQ" | "Expression" | "FileName" | "FileSize" | "FillIn" | "FormCheckbox" | "FormDropdown" | "FormText" | "GotoButton" | "GreetingLine" | "Hyperlink" | "If" | "Import" | "Include" | "IncludePicture" | "IncludeText" | "Index" | "Info" | "Keywords" | "LastSavedBy" | "Link" | "ListNum" | "MacroButton" | "MergeBarcode" | "MergeField" | "MergeRec" | "MergeSeq" | "Next" | "NextIf" | "NoteRef" | "NumChars" | "NumPages" | "NumWords" | "OCX" | "Page" | "PageRef" | "Print" | "PrintDate" | "Private" | "Quote" | "RD" | "Ref" | "RevNum" | "SaveDate" | "Section" | "SectionPages" | "Seq" | "Set" | "Shape" | "SkipIf" | "StyleRef" | "Subject" | "Subscriber" | "Symbol" | "TA" | "TC" | "Template" | "Time" | "Title" | "TOA" | "TOC" | "UserAddress" | "UserInitials" | "UserName" | "XE" | "Empty" | "Others" | "Undefined", text?: string, removeFormatting?: boolean): Word.Field;
         /**
-         * Inserts a document at the specified location.
+         * Inserts a document at the specified location. The maximum size of the document being inserted is 4 MB.
          *
          * @remarks
          * [Api set: WordApi 1.1]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
          * @param insertLocation The value must be `replace`, `start`, `end`, `before`, or `after`.
@@ -141103,7 +141123,7 @@ declare namespace Word {
              */
             styleBuiltIn?: Word.BuiltInStyleName | "Other" | "Normal" | "Heading1" | "Heading2" | "Heading3" | "Heading4" | "Heading5" | "Heading6" | "Heading7" | "Heading8" | "Heading9" | "Toc1" | "Toc2" | "Toc3" | "Toc4" | "Toc5" | "Toc6" | "Toc7" | "Toc8" | "Toc9" | "FootnoteText" | "Header" | "Footer" | "Caption" | "FootnoteReference" | "EndnoteReference" | "EndnoteText" | "Title" | "Subtitle" | "Hyperlink" | "Strong" | "Emphasis" | "NoSpacing" | "ListParagraph" | "Quote" | "IntenseQuote" | "SubtleEmphasis" | "IntenseEmphasis" | "SubtleReference" | "IntenseReference" | "BookTitle" | "Bibliography" | "TocHeading" | "TableGrid" | "PlainTable1" | "PlainTable2" | "PlainTable3" | "PlainTable4" | "PlainTable5" | "TableGridLight" | "GridTable1Light" | "GridTable1Light_Accent1" | "GridTable1Light_Accent2" | "GridTable1Light_Accent3" | "GridTable1Light_Accent4" | "GridTable1Light_Accent5" | "GridTable1Light_Accent6" | "GridTable2" | "GridTable2_Accent1" | "GridTable2_Accent2" | "GridTable2_Accent3" | "GridTable2_Accent4" | "GridTable2_Accent5" | "GridTable2_Accent6" | "GridTable3" | "GridTable3_Accent1" | "GridTable3_Accent2" | "GridTable3_Accent3" | "GridTable3_Accent4" | "GridTable3_Accent5" | "GridTable3_Accent6" | "GridTable4" | "GridTable4_Accent1" | "GridTable4_Accent2" | "GridTable4_Accent3" | "GridTable4_Accent4" | "GridTable4_Accent5" | "GridTable4_Accent6" | "GridTable5Dark" | "GridTable5Dark_Accent1" | "GridTable5Dark_Accent2" | "GridTable5Dark_Accent3" | "GridTable5Dark_Accent4" | "GridTable5Dark_Accent5" | "GridTable5Dark_Accent6" | "GridTable6Colorful" | "GridTable6Colorful_Accent1" | "GridTable6Colorful_Accent2" | "GridTable6Colorful_Accent3" | "GridTable6Colorful_Accent4" | "GridTable6Colorful_Accent5" | "GridTable6Colorful_Accent6" | "GridTable7Colorful" | "GridTable7Colorful_Accent1" | "GridTable7Colorful_Accent2" | "GridTable7Colorful_Accent3" | "GridTable7Colorful_Accent4" | "GridTable7Colorful_Accent5" | "GridTable7Colorful_Accent6" | "ListTable1Light" | "ListTable1Light_Accent1" | "ListTable1Light_Accent2" | "ListTable1Light_Accent3" | "ListTable1Light_Accent4" | "ListTable1Light_Accent5" | "ListTable1Light_Accent6" | "ListTable2" | "ListTable2_Accent1" | "ListTable2_Accent2" | "ListTable2_Accent3" | "ListTable2_Accent4" | "ListTable2_Accent5" | "ListTable2_Accent6" | "ListTable3" | "ListTable3_Accent1" | "ListTable3_Accent2" | "ListTable3_Accent3" | "ListTable3_Accent4" | "ListTable3_Accent5" | "ListTable3_Accent6" | "ListTable4" | "ListTable4_Accent1" | "ListTable4_Accent2" | "ListTable4_Accent3" | "ListTable4_Accent4" | "ListTable4_Accent5" | "ListTable4_Accent6" | "ListTable5Dark" | "ListTable5Dark_Accent1" | "ListTable5Dark_Accent2" | "ListTable5Dark_Accent3" | "ListTable5Dark_Accent4" | "ListTable5Dark_Accent5" | "ListTable5Dark_Accent6" | "ListTable6Colorful" | "ListTable6Colorful_Accent1" | "ListTable6Colorful_Accent2" | "ListTable6Colorful_Accent3" | "ListTable6Colorful_Accent4" | "ListTable6Colorful_Accent5" | "ListTable6Colorful_Accent6" | "ListTable7Colorful" | "ListTable7Colorful_Accent1" | "ListTable7Colorful_Accent2" | "ListTable7Colorful_Accent3" | "ListTable7Colorful_Accent4" | "ListTable7Colorful_Accent5" | "ListTable7Colorful_Accent6";
             /**
-             * Specifies a tag to identify a content control.
+             * Specifies a tag to identify a content control. The tag is different from the title in that it isn't displayed to the user. The tag can be used to identify a content control programmatically.
              *
              * @remarks
              * [Api set: WordApi 1.1]
@@ -147486,7 +147506,7 @@ declare namespace Word {
              */
             color?: string;
             /**
-             * Gets an integer that represents the content control identifier.
+             * Gets an integer that represents the content control identifier. This number is unique for each content control and doesn't change.
              *
              * @remarks
              * [Api set: WordApi 1.1]
@@ -147528,7 +147548,7 @@ declare namespace Word {
              */
             subtype?: Word.ContentControlType | "Unknown" | "RichTextInline" | "RichTextParagraphs" | "RichTextTableCell" | "RichTextTableRow" | "RichTextTable" | "PlainTextInline" | "PlainTextParagraph" | "Picture" | "BuildingBlockGallery" | "CheckBox" | "ComboBox" | "DropDownList" | "DatePicker" | "RepeatingSection" | "RichText" | "PlainText" | "Group";
             /**
-             * Specifies a tag to identify a content control.
+             * Specifies a tag to identify a content control. The tag is different from the title in that it isn't displayed to the user. The tag can be used to identify a content control programmatically.
              *
              * @remarks
              * [Api set: WordApi 1.1]
@@ -150019,6 +150039,8 @@ declare namespace Word {
              *
              * @remarks
              * [Api set: WordApi 1.6]
+             *
+             * This API requires an active Microsoft 365 subscription. It doesn't work with single-purchase licenses.
              */
             uniqueLocalId?: string;
         }
@@ -156667,7 +156689,7 @@ declare namespace Word {
              */
             color?: boolean;
             /**
-             * Gets an integer that represents the content control identifier.
+             * Gets an integer that represents the content control identifier. This number is unique for each content control and doesn't change.
              *
              * @remarks
              * [Api set: WordApi 1.1]
@@ -156709,7 +156731,7 @@ declare namespace Word {
              */
             subtype?: boolean;
             /**
-             * Specifies a tag to identify a content control.
+             * Specifies a tag to identify a content control. The tag is different from the title in that it isn't displayed to the user. The tag can be used to identify a content control programmatically.
              *
              * @remarks
              * [Api set: WordApi 1.1]
@@ -156882,7 +156904,7 @@ declare namespace Word {
              */
             color?: boolean;
             /**
-             * For EACH ITEM in the collection: Gets an integer that represents the content control identifier.
+             * For EACH ITEM in the collection: Gets an integer that represents the content control identifier. This number is unique for each content control and doesn't change.
              *
              * @remarks
              * [Api set: WordApi 1.1]
@@ -156924,7 +156946,7 @@ declare namespace Word {
              */
             subtype?: boolean;
             /**
-             * For EACH ITEM in the collection: Specifies a tag to identify a content control.
+             * For EACH ITEM in the collection: Specifies a tag to identify a content control. The tag is different from the title in that it isn't displayed to the user. The tag can be used to identify a content control programmatically.
              *
              * @remarks
              * [Api set: WordApi 1.1]
@@ -160563,6 +160585,8 @@ declare namespace Word {
              *
              * @remarks
              * [Api set: WordApi 1.6]
+             *
+             * This API requires an active Microsoft 365 subscription. It doesn't work with single-purchase licenses.
              */
             uniqueLocalId?: boolean;
         }
@@ -160785,6 +160809,8 @@ declare namespace Word {
              *
              * @remarks
              * [Api set: WordApi 1.6]
+             *
+             * This API requires an active Microsoft 365 subscription. It doesn't work with single-purchase licenses.
              */
             uniqueLocalId?: boolean;
         }
