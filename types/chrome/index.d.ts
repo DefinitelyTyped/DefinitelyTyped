@@ -6570,7 +6570,7 @@ declare namespace chrome {
          * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
          * @param details WebAuth flow options.
          *
-         * Can return its result via Promise since Chrome 106
+         * Can return its result via Promise since Chrome 106.
          */
         function launchWebAuthFlow(details: WebAuthFlowDetails): Promise<string | undefined>;
         function launchWebAuthFlow(details: WebAuthFlowDetails, callback: (responseUrl?: string) => void): void;
