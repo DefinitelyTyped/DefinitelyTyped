@@ -7592,6 +7592,8 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the `chrome.mimeHandler` API to handle MIME type streams in third-party extensions.
+     *
+     * Manifest: "mime_types_handler"
      * @since Chrome 151, MV3
      */
     export namespace mimeHandler {
@@ -7618,7 +7620,7 @@ declare namespace chrome {
         /**
          * Aborts current stream handling and hands the content off to the user agent's native handler. After this call the extension frame will be torn down; callers should not expect further execution.
          *
-         * Can return its result via Promise
+         * Can return its result via Promise.
          */
         function abortAndFallbackToNativeHandler(): Promise<void>;
         function abortAndFallbackToNativeHandler(callback: () => void): void;
@@ -7627,12 +7629,16 @@ declare namespace chrome {
          * Reads the persisted options for a MIME type. Returns defaults (enabled=true) if none have been stored.
          * @param mimeType The MIME type whose options to read.
          *
-         * Can return its result via Promise
+         * Can return its result via Promise.
          */
         function getMimeHandlerOptions(mimeType: string): Promise<MimeHandlerOptions>;
         function getMimeHandlerOptions(mimeType: string, callback: (options: MimeHandlerOptions) => void): void;
 
-        /** Retrieves stream information for the current MIME handler context. Must be called from within a MIME handler extension page. */
+        /**
+         * Retrieves stream information for the current MIME handler context. Must be called from within a MIME handler extension page.
+         *
+         * Can return its result via Promise.
+         */
         function getStreamInfo(): Promise<StreamInfo>;
         function getStreamInfo(callback: (info: StreamInfo) => void): void;
 
@@ -7641,7 +7647,7 @@ declare namespace chrome {
          * @param mimeType The MIME type to configure.
          * @param options The new options to use.
          *
-         * Can return its result via Promise
+         * Can return its result via Promise.
          */
         function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions): Promise<void>;
         function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions, callback: () => void): void;
