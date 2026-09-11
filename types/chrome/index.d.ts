@@ -6195,7 +6195,7 @@ declare namespace chrome {
             /** The transition type for this visit from its referrer. */
             transition: `${TransitionType}`;
             /**
-             * True if the visit originated on this device. False if it was synced from a different device
+             * True if the visit originated on this device. False if it was synced from a different device.
              * @since Chrome 115
              */
             isLocal: boolean;
