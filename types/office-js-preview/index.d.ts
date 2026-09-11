@@ -199244,7 +199244,7 @@ declare namespace PowerPoint {
      */
     enum SensitivityLabelAbacAttributeDataType {
         /**
-         * Unknown data type.
+         * The data type is not recognized or specified.
          * @remarks
          * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
          * @beta
