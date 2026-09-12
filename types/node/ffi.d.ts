@@ -415,6 +415,20 @@ declare module "node:ffi" {
      * @since v26.1.0
      */
     function getRawPointer(source: ArrayBuffer | NodeJS.ArrayBufferView): bigint;
+    /**
+     * Returns the address of the current thread's `uv_loop_t` as a `bigint`.
+     *
+     * The returned address is for the current Node.js environment. In the main thread,
+     * this is the main thread event loop. In a worker thread, this is that worker's
+     * event loop.
+     *
+     * This is unsafe and dangerous. The returned pointer is only valid for the lifetime
+     * of the current environment. Using it after the environment exits, or from native
+     * code that assumes a different thread or lifetime, can crash the process or
+     * corrupt memory.
+     * @since v26.6.0
+     */
+    function getCurrentEventLoop(): bigint;
     type ReturnType = { [K in keyof DataTypeMap]: K }[keyof DataTypeMap];
     type ArgumentType = Exclude<ReturnType, "void">;
     interface DataTypeMap {
