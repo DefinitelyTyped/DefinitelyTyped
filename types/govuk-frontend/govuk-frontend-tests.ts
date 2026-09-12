@@ -1,4 +1,5 @@
 import { type Config, type ConfigKey } from "govuk-frontend";
+import { I18n } from "govuk-frontend/dist/govuk/i18n.js";
 import GOVUKFrontend = require("govuk-frontend");
 
 const {
@@ -24,6 +25,10 @@ const {
 } = GOVUKFrontend;
 
 const $root = document.createElement("div");
+
+const i18n = new I18n({ age: "I am %{age} years old" }, { locale: "en" });
+
+i18n.t("age", { age: 2000 });
 
 new Accordion($root);
 new Accordion($root, Accordion.defaults);
