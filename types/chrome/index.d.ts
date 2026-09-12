@@ -12529,7 +12529,10 @@ declare namespace chrome {
             voiceName?: string;
         }
 
-        /** @deprecated since Chrome 70. Gender is deprecated and is ignored. */
+        /**
+         * @since Chrome 54
+         * @deprecated since Chrome 70. Gender is deprecated and is ignored.
+         */
         enum VoiceGender {
             FEMALE = "female",
             MALE = "male",
@@ -12687,7 +12690,7 @@ declare namespace chrome {
 
         /**
          * @since Chrome 54
-         * @deprecated Gender is deprecated and will be ignored.
+         * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
         enum VoiceGender {
             MALE = "male",
@@ -12696,12 +12699,14 @@ declare namespace chrome {
 
         /**
          * Called by an engine when a language install is attempted, and when a language is uninstalled. Also called in response to a status request from a client. When a voice is installed or uninstalled, the engine should also call ttsEngine.updateVoices to register the voice.
+         * @param status The install status of the language.
          * @since Chrome 132
          */
         function updateLanguage(status: LanguageStatus): void;
 
         /**
          * Called by an engine to update its list of voices. This list overrides any voices declared in this extension's manifest.
+         * @param voices Array of {@link tts.TtsVoice} objects representing the available voices for speech synthesis.
          * @since Chrome 66
          */
         function updateVoices(voices: tts.TtsVoice[]): void;
@@ -12733,13 +12738,13 @@ declare namespace chrome {
          * Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. Differs from ttsEngine.onSpeak in that Chrome provides audio playback services and handles dispatching tts events.
          * @since Chrome 92
          */
-
         const onSpeakWithAudioStream: chrome.events.Event<
             (
                 utterance: string,
                 options: SpeakOptions,
                 audioStreamOptions: AudioStreamOptions,
                 sendTtsAudio: (audioBufferParams: AudioBuffer) => void,
+                /** @since Chrome 94 */
                 sendError: (errorMessage?: string) => void,
             ) => void
         >;
