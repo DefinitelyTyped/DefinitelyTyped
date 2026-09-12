@@ -45,8 +45,11 @@ const client = new Client({
 });
 // $ExpectType boolean
 client.pipeline;
-// @ts-expect-error – pipeline is readonly
 client.pipeline = false;
+// $ExpectType boolean
+client.isIdle();
+// $ExpectType Promise<void>
+client.waitForIdle();
 client.setTypeParser(20, val => Number(val));
 client.getTypeParser(20);
 
