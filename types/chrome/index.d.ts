@@ -10802,6 +10802,10 @@ declare namespace chrome {
      * Permissions: "system.display"
      */
     export namespace system.display {
+        /**
+         * Layout position, i.e. edge of parent that the display is attached to.
+         * @since 53
+         */
         enum LayoutPosition {
             TOP = "top",
             RIGHT = "right",
@@ -10911,7 +10915,7 @@ declare namespace chrome {
             offset: number;
         }
 
-        /** The pairs of point used to calibrate the display. */
+        /** @since Chrome 57 */
         interface TouchCalibrationPairQuad {
             /** First pair of touch and display point required for touch calibration. */
             pair1: TouchCalibrationPair;
@@ -10940,7 +10944,7 @@ declare namespace chrome {
              * This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties.
              * If set, no other property may be set.
              * @platform ChromeOS only
-             * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
+             * @deprecated since Chrome 68. Use {@link setMirrorMode} instead.
              */
             mirroringSourceId?: string | undefined;
             /**
@@ -11025,7 +11029,7 @@ declare namespace chrome {
             /** The user-friendly name (e.g. 'HP LCD monitor'). */
             name: string;
             /**
-             * @platform ChromeOS and Web UI only
+             * @platform ChromeOS only
              * @since Chrome 67
              */
             edid?: Edid;
@@ -11114,6 +11118,7 @@ declare namespace chrome {
             yearOfManufacture: number;
         }
 
+        /** @since Chrome 65 */
         interface MirrorModeInfo {
             /** The mirror mode that should be set. */
             mode: `${MirrorMode}`;
@@ -11125,6 +11130,7 @@ declare namespace chrome {
 
         /**
          * Requests the information for all attached display devices.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param flags Options affecting how the information is returned.
          */
@@ -11135,129 +11141,112 @@ declare namespace chrome {
 
         /**
          * Requests the layout info for all displays
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @platform ChromeOS and Web UI only
+         * @platform ChromeOS only
          * @since Chrome 53
          */
         function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
         function getDisplayLayout(): Promise<DisplayLayout[]>;
 
         /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description
-         * Updates the properties for the display specified by `id`,
-         * according to the information provided in `info`.
-         * On failure, `runtime.lastError` will be set.
-         * @platform ChromeOS and Web UI only
+         * Updates the properties for the display specified by `id`, according to the information provided in `info`. On failure, {@link runtime.lastError} will be set.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param id The display's unique identifier.
          * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in `info`.
+         * @platform ChromeOS only
          */
         function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
         function setDisplayProperties(id: string, info: DisplayProperties): Promise<void>;
 
         /**
-         * Set the layout for all displays.
-         * Any display not included will use the default layout.
-         * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
-         * After layout is resolved, an onDisplayChanged event will be triggered.
+         * Set the layout for all displays. display not included will use the default layout. If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout. After layout is resolved, an onDisplayChanged event will be triggered.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @platform ChromeOS and Web UI only
-         * @since Chrome 53
          * @param layouts The layout information, required for all displays except the primary display.
+         * @platform ChromeOS only
+         * @since Chrome 53
          */
         function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
         function setDisplayLayout(layouts: DisplayLayout[]): Promise<void>;
 
         /**
-         * Enables/disables the unified desktop feature.
-         * If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off.
-         * Otherwise, the desktop mode will switch to unified immediately.
-         * @since Chrome 46
-         * @platform ChromeOS and Web UI only
+         * Enables/disables the unified desktop feature. If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off. Otherwise, the desktop mode will switch to unified immediately.
          * @param enabled True if unified desktop should be enabled.
+         * @platform ChromeOS only
+         * @since Chrome 46
          */
         function enableUnifiedDesktop(enabled: boolean): void;
 
         /**
-         * Starts overscan calibration for a display.
-         * This will show an overlay on the screen indicating the current overscan insets.
-         * If overscan calibration for display `id` is in progress this will reset calibration.
-         * @since Chrome 53
+         * Starts overscan calibration for a display. This will show an overlay on the screen indicating the current overscan insets. If overscan calibration for display `id` is in progress this will reset calibration.
          * @param id The display's unique identifier.
+         * @platform ChromeOS only
+         * @since Chrome 53
          */
         function overscanCalibrationStart(id: string): void;
 
         /**
-         * Adjusts the current overscan insets for a display.
-         * Typically this should either move the display along an axis (e.g. left+right have the same value)
-         * or scale it along an axis (e.g. top+bottom have opposite values).
-         * Each Adjust call is cumulative with previous calls since Start.
-         * @since Chrome 53
+         * Adjusts the current overscan insets for a display. Typically this should either move the display along an axis (e.g. left+right have the same value) or scale it along an axis (e.g. top+bottom have opposite values). Each Adjust call is cumulative with previous calls since Start.
          * @param id The display's unique identifier.
          * @param delta The amount to change the overscan insets.
+         * @since Chrome 53
          */
         function overscanCalibrationAdjust(id: string, delta: Insets): void;
 
         /**
          * Resets the overscan insets for a display to the last saved value (i.e before Start was called).
-         * @since Chrome 53
          * @param id The display's unique identifier.
+         * @since Chrome 53
          */
         function overscanCalibrationReset(id: string): void;
 
         /**
          * Complete overscan adjustments for a display by saving the current values and hiding the overlay.
-         * @since Chrome 53
          * @param id The display's unique identifier.
+         * @since Chrome 53
          */
         function overscanCalibrationComplete(id: string): void;
 
         /**
-         * Displays the native touch calibration UX for the display with `id` as display id.
-         * This will show an overlay on the screen with required instructions on how to proceed.
-         * The callback will be invoked in case of successful calibration only.
-         * If the calibration fails, this will throw an error.
+         * Displays the native touch calibration UX for the display with `id` as display id. This will show an overlay on the screen with required instructions on how to proceed. The callback will be invoked in case of successful calibration only. If the calibration fails, this will throw an error.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @since Chrome 57
          * @param id The display's unique identifier.
+         * @since Chrome 57
          */
         function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
         function showNativeTouchCalibration(id: string): Promise<boolean>;
 
         /**
-         * Starts custom touch calibration for a display.
-         * This should be called when using a custom UX for collecting calibration data.
-         * If another touch calibration is already in progress this will throw an error.
-         * @since Chrome 57
+         * Starts custom touch calibration for a display. This should be called when using a custom UX for collecting calibration data. If another touch calibration is already in progress this will throw an error.
          * @param id The display's unique identifier.
+         * @since Chrome 57
          */
         function startCustomTouchCalibration(id: string): void;
 
         /**
-         * Sets the touch calibration pairs for a display.
-         * These `pairs` would be used to calibrate the touch screen for display with `id` called in startCustomTouchCalibration().
-         * Always call `startCustomTouchCalibration` before calling this method.
-         * If another touch calibration is already in progress this will throw an error.
-         * @since Chrome 57
+         * Sets the touch calibration pairs for a display. These `pairs` would be used to calibrate the touch screen for display with `id` called in startCustomTouchCalibration(). Always call `startCustomTouchCalibration` before calling this method. If another touch calibration is already in progress this will throw an error.
          * @param pairs The pairs of point used to calibrate the display.
          * @param bounds Bounds of the display when the touch calibration was performed. `bounds.left` and `bounds.top` values are ignored.
-         * @throws Error
+         * @since Chrome 57
          */
         function completeCustomTouchCalibration(pairs: TouchCalibrationPairQuad, bounds: Bounds): void;
 
         /**
          * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
-         * @since Chrome 57
          * @param id The display's unique identifier.
+         * @since Chrome 57
          */
         function clearTouchCalibration(id: string): void;
 
         /**
-         * Sets the display mode to the specified mirror mode.
-         * Each call resets the state from previous calls.
-         * Calling setDisplayProperties() will fail for the mirroring destination displays.
-         * @platform ChromeOS and Web UI only
+         * Sets the display mode to the specified mirror mode. Each call resets the state from previous calls. Calling {@link setDisplayProperties()} will fail for the mirroring destination displays.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param info The information of the mirror mode that should be applied to the display mode.
+         * @platform ChromeOS only
          * @since Chrome 65
          */
         function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
