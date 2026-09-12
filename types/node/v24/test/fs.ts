@@ -84,6 +84,11 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
 
     buffer = fs.readFileSync("testfile", { flag: "r" });
 
+    const syncBuf = fs.readFileSync("testfile", { buffer: new Uint8Array(16) });
+    syncBuf; // $ExpectType Buffer || Buffer<ArrayBuffer>
+    const syncBufFromFn = fs.readFileSync("testfile", { buffer: (size) => new Uint8Array(size) });
+    syncBufFromFn; // $ExpectType Buffer || Buffer<ArrayBuffer>
+
     fs.readFile("testfile", "utf8", (err, data) => content = data);
     // @ts-expect-error
     fs.readFile("testfile", "invalid encoding", (err, data) => content = data);
@@ -100,6 +105,19 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     fs.readFile("testfile", { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
 
     fs.readFile("testfile", { flag: "r" }, (err, data) => buffer = data);
+
+    fs.readFile("testfile", { buffer: new Uint8Array(16) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBuffer>
+    });
+    fs.readFile("testfile", { buffer: new Uint8Array(new SharedArrayBuffer(16)) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<SharedArrayBuffer>
+    });
+    fs.readFile("testfile", { buffer }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    });
+    fs.readFile("testfile", { buffer: (size) => new Uint8Array(size) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBuffer>
+    });
 }
 
 {
@@ -269,11 +287,20 @@ async function testPromisify() {
         persistent: true,
         encoding: "utf8",
         signal: new AbortSignal(),
+        ignore: ["**/node_modules/**", /\.log$/, (filename) => filename.startsWith(".")],
     }, (event, filename) => {
         console.log(event, filename);
     });
 
     fsWatcher.unref().ref().close();
+
+    fs.watch("/tmp/foo-", { ignore: "**/dist/**" });
+    fs.watch("/tmp/foo-", { ignore: /^\.git$/ });
+    fs.watch("/tmp/foo-", { ignore: (filename) => filename === "secret.txt" });
+
+    const ignorePatterns: fs.WatchIgnorePredicate[] = ["**/dist/**", /^\.git$/];
+    // $ExpectType FSWatcher
+    fs.watch("/tmp/foo-", { ignore: ignorePatterns });
 }
 
 {
@@ -812,8 +839,8 @@ async function testStat(
     path: string,
     fd: number,
     opts: fs.StatOptions,
-    bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
-    bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
+    bigintMaybeFalse: { bigint: false } | undefined,
+    bigIntMaybeTrue: { bigint: true } | undefined,
     maybe?: fs.StatOptions,
 ) {
     /* Need to test these variants:
@@ -863,7 +890,7 @@ async function testStat(
     fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
 
     fs.stat(path, bigIntMaybeTrue, (err, st) => {
-        st; // $ExpectType Stats | BigIntStats
+        st; // $ExpectType Stats | BigIntStats | undefined
     });
     fs.lstat(path, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
@@ -873,7 +900,7 @@ async function testStat(
     });
 
     fs.stat(path, opts, (err, st) => {
-        st; // $ExpectType Stats | BigIntStats
+        st; // $ExpectType Stats | BigIntStats | undefined
     });
 
     fs.lstat(path, opts, (err, st) => {
@@ -940,11 +967,11 @@ async function testStat(
     util.promisify(fs.lstat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     util.promisify(fs.fstat)(fd, { bigint: true }); // $ExpectType Promise<BigIntStats>
 
-    util.promisify(fs.stat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.stat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats | undefined>
     util.promisify(fs.lstat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.fstat)(fd, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
-    util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats | undefined>
     util.promisify(fs.lstat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.fstat)(fd, opts); // $ExpectType Promise<Stats | BigIntStats>
 
@@ -970,13 +997,23 @@ async function testStat(
     fs.promises.lstat(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     fh.stat({ bigint: true }); // $ExpectType Promise<BigIntStats>
 
-    fs.promises.stat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fs.promises.stat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats | undefined>
     fs.promises.lstat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
     fh.stat(bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
-    fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats | undefined>
     fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
+
+    fs.stat(path, { throwIfNoEntry: false }, (err, st) => {
+        st; // $ExpectType Stats | undefined
+    });
+    fs.stat(path, { bigint: true, throwIfNoEntry: false }, (err, st) => {
+        st; // $ExpectType BigIntStats | undefined
+    });
+
+    fs.promises.stat(path, { throwIfNoEntry: false }); // $ExpectType Promise<Stats | undefined>
+    fs.promises.stat(path, { bigint: true, throwIfNoEntry: false }); // $ExpectType Promise<BigIntStats | undefined>
 }
 
 const bigStats: fs.BigIntStats = fs.statSync(".", { bigint: true });
@@ -1032,7 +1069,9 @@ async function testStatfs(
 
 const bigStatFs: fs.BigIntStatsFs = fs.statfsSync(".", { bigint: true });
 const bigIntStatFs: bigint = bigStatFs.bfree;
+const bigIntStatFsFrsize: bigint = bigStatFs.frsize;
 const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Math.random() > 0.5 });
+const statFsFrsize: number = fs.statfsSync(".").frsize;
 
 {
     // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
@@ -1042,7 +1081,16 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     // $ExpectType AsyncIterator<FileChangeInfo<NonSharedBuffer>, undefined, any>
     watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() });
     // $ExpectType AsyncIterator<FileChangeInfo<string>, undefined, any>
-    watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8", maxQueue: 2048, overflow: "ignore" });
+    watchAsync("test", {
+        persistent: true,
+        recursive: true,
+        encoding: "utf-8",
+        maxQueue: 2048,
+        overflow: "ignore",
+        ignore: ["**/node_modules/**", (filename) => filename.startsWith(".")],
+    });
+    // $ExpectType AsyncIterator<FileChangeInfo<NonSharedBuffer>, undefined, any>
+    watchAsync("test", { encoding: "buffer", ignore: /\.log$/ });
 }
 
 {
@@ -1113,6 +1161,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     for await (const entry of globAsync("**/*.js", { withFileTypes: Math.random() > 0.5 })) {
         entry; // $ExpectType Dirent<string> | string
     }
+    for await (const entry of globAsync("**/*.js", { followSymlinks: true })) {
+        entry; // $ExpectType string
+    }
 
     for await (
         const entry of globAsync("**/*.js", {
@@ -1151,6 +1202,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
         matches; // $ExpectType string[]
     });
     glob("**/*.js", { cwd: new URL("") }, (err, matches) => {
+        matches; // $ExpectType string[]
+    });
+    glob("**/*.js", { cwd: new URL(""), followSymlinks: true }, (err, matches) => {
         matches; // $ExpectType string[]
     });
     glob("**/*.js", { withFileTypes: true }, (err, matches) => {
@@ -1204,6 +1258,7 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
 
     globSync("**/*.js"); // $ExpectType string[]
     globSync("**/*.js", { cwd: "/" }); // $ExpectType string[]
+    globSync("**/*.js", { cwd: "/", followSymlinks: true }); // $ExpectType string[]
     globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent<string>[]
     globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent<string>[]
 
@@ -1247,6 +1302,12 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     fd.readFile({ signal: new AbortSignal(), encoding: "utf-8" });
     // @ts-expect-error
     fd.readFile({ encoding: "utf-8", flag: "r" });
+
+    await fd.readFile({ buffer: new Uint8Array(256) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    await fd.readFile({ buffer: (size) => new Uint8Array(size) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
+
+    await fs.promises.readFile("/tmp/tmp.txt", { buffer: new Uint8Array(256) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    await fs.promises.readFile("/tmp/tmp.txt", { buffer: (size) => new Uint8Array(size) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
 });
 
 {

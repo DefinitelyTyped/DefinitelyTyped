@@ -19,7 +19,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/fs.js)
  */
 declare module "fs" {
-    import { NonSharedBuffer } from "node:buffer";
+    import { BufferView, NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
     import { URL } from "node:url";
@@ -147,6 +147,8 @@ declare module "fs" {
         bavail: T;
         /** Total file nodes in file system. */
         files: T;
+        /** Fundamental file system block size. */
+        frsize: T;
         /** Free file nodes in file system. */
         ffree: T;
     }
@@ -1180,6 +1182,7 @@ declare module "fs" {
         options:
             | (StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             })
             | undefined,
         callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
@@ -1188,32 +1191,80 @@ declare module "fs" {
         path: PathLike,
         options: StatOptions & {
             bigint: true;
+            throwIfNoEntry?: true | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
     ): void;
     export function stat(
         path: PathLike,
-        options: StatOptions | undefined,
+        options: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | undefined) => void,
+    ): void;
+    export function stat(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats | undefined) => void,
+    ): void;
+    export function stat(
+        path: PathLike,
+        options: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
         callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
     ): void;
+    export function stat(
+        path: PathLike,
+        options: StatOptions | undefined,
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats | undefined) => void,
+    ): void;
     export namespace stat {
+        // TODO: aliased promisify signatures
         /**
          * Asynchronous stat(2) - Get file status.
          * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
          */
+        function __promisify__(path: PathLike): Promise<Stats>;
         function __promisify__(
             path: PathLike,
             options?: StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<Stats>;
         function __promisify__(
             path: PathLike,
             options: StatOptions & {
                 bigint: true;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                bigint?: false | undefined;
+                throwIfNoEntry: false;
+            },
+        ): Promise<Stats | undefined>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                bigint: true;
+                throwIfNoEntry: false;
+            },
+        ): Promise<BigIntStats | undefined>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                throwIfNoEntry?: true | undefined;
+            },
+        ): Promise<Stats | BigIntStats>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats | undefined>;
     }
     export interface StatSyncFn extends Function {
         (path: PathLike, options?: undefined): Stats;
@@ -2965,6 +3016,21 @@ declare module "fs" {
      * If no `options` object is specified, it will default with the above values.
      */
     export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, opts?: ReadOptions): number;
+    export interface ReadFileOptions extends Abortable {
+        encoding?: BufferEncoding | null | undefined;
+        flag?: OpenMode | undefined;
+    }
+    export interface ReadFileOptionsWithStringEncoding extends ReadFileOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ReadFileOptionsWithBufferEncoding extends ReadFileOptions {
+        encoding?: null | undefined;
+    }
+    export interface ReadFileOptionsWithBuffer<T extends NodeJS.ArrayBufferView>
+        extends ReadFileOptionsWithBufferEncoding
+    {
+        buffer: T | ((size: number) => T);
+    }
     /**
      * Asynchronously reads the entire contents of a file.
      *
@@ -3031,15 +3097,14 @@ declare module "fs" {
      * @since v0.1.29
      * @param path filename or file descriptor
      */
+    export function readFile<T extends NodeJS.ArrayBufferView>(
+        path: PathOrFileDescriptor,
+        options: ReadFileOptionsWithBuffer<T>,
+        callback: (err: NodeJS.ErrnoException | null, data: BufferView<T>) => void,
+    ): void;
     export function readFile(
         path: PathOrFileDescriptor,
-        options:
-            | ({
-                encoding?: null | undefined;
-                flag?: string | undefined;
-            } & Abortable)
-            | undefined
-            | null,
+        options: ReadFileOptionsWithBufferEncoding | null | undefined,
         callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
     /**
@@ -3051,12 +3116,7 @@ declare module "fs" {
      */
     export function readFile(
         path: PathOrFileDescriptor,
-        options:
-            | ({
-                encoding: BufferEncoding;
-                flag?: string | undefined;
-            } & Abortable)
-            | BufferEncoding,
+        options: ReadFileOptionsWithStringEncoding | BufferEncoding,
         callback: (err: NodeJS.ErrnoException | null, data: string) => void,
     ): void;
     /**
@@ -3068,13 +3128,7 @@ declare module "fs" {
      */
     export function readFile(
         path: PathOrFileDescriptor,
-        options:
-            | (ObjectEncodingOptions & {
-                flag?: string | undefined;
-            } & Abortable)
-            | BufferEncoding
-            | undefined
-            | null,
+        options: ReadFileOptions | BufferEncoding | null | undefined,
         callback: (err: NodeJS.ErrnoException | null, data: string | NonSharedBuffer) => void,
     ): void;
     /**
@@ -3136,6 +3190,21 @@ declare module "fs" {
                 | null,
         ): Promise<string | NonSharedBuffer>;
     }
+    export interface ReadFileSyncOptions {
+        encoding?: BufferEncoding | null | undefined;
+        flag?: OpenMode | undefined;
+    }
+    export interface ReadFileSyncOptionsWithStringEncoding extends ReadFileSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ReadFileSyncOptionsWithBufferEncoding extends ReadFileSyncOptions {
+        encoding?: null | undefined;
+    }
+    export interface ReadFileSyncOptionsWithBuffer<T extends NodeJS.ArrayBufferView>
+        extends ReadFileSyncOptionsWithBufferEncoding
+    {
+        buffer: T | ((size: number) => T);
+    }
     /**
      * Returns the contents of the `path`.
      *
@@ -3160,12 +3229,13 @@ declare module "fs" {
      * @since v0.1.8
      * @param path filename or file descriptor
      */
+    export function readFileSync<T extends NodeJS.ArrayBufferView>(
+        path: PathOrFileDescriptor,
+        options: ReadFileSyncOptionsWithBuffer<T>,
+    ): BufferView<T>;
     export function readFileSync(
         path: PathOrFileDescriptor,
-        options?: {
-            encoding?: null | undefined;
-            flag?: string | undefined;
-        } | null,
+        options?: ReadFileSyncOptionsWithBufferEncoding | null,
     ): NonSharedBuffer;
     /**
      * Synchronously reads the entire contents of a file.
@@ -3176,12 +3246,7 @@ declare module "fs" {
      */
     export function readFileSync(
         path: PathOrFileDescriptor,
-        options:
-            | {
-                encoding: BufferEncoding;
-                flag?: string | undefined;
-            }
-            | BufferEncoding,
+        options: ReadFileSyncOptionsWithStringEncoding | BufferEncoding,
     ): string;
     /**
      * Synchronously reads the entire contents of a file.
@@ -3190,15 +3255,7 @@ declare module "fs" {
      * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
      * If a flag is not provided, it defaults to `'r'`.
      */
-    export function readFileSync(
-        path: PathOrFileDescriptor,
-        options?:
-            | (ObjectEncodingOptions & {
-                flag?: string | undefined;
-            })
-            | BufferEncoding
-            | null,
-    ): string | NonSharedBuffer;
+    export function readFileSync(path: PathOrFileDescriptor, options: ReadFileSyncOptions): string | NonSharedBuffer;
     export type WriteFileOptions =
         | (
             & ObjectEncodingOptions
@@ -3594,10 +3651,12 @@ declare module "fs" {
      */
     export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
     export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
+    export type WatchIgnorePredicate = string | RegExp | ((filename: string) => boolean);
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | "buffer" | undefined;
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
+        ignore?: WatchIgnorePredicate | readonly WatchIgnorePredicate[] | undefined;
     }
     export interface WatchOptionsWithBufferEncoding extends WatchOptions {
         encoding: "buffer";
@@ -4519,11 +4578,11 @@ declare module "fs" {
         bigint: true;
     }
     export interface StatOptions {
+        // TODO: add signal option once we sort its behavior out upstream
         bigint?: boolean | undefined;
-    }
-    export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
+    export interface StatSyncOptions extends StatOptions {}
     interface CopyOptionsBase {
         /**
          * Dereference symlinks
@@ -4636,6 +4695,12 @@ declare module "fs" {
          * @default undefined
          */
         exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
+        /**
+         * When `true`, symbolic links to directories are
+         * followed while expanding `**` patterns.
+         * @default false
+         */
+        followSymlinks?: boolean | undefined;
     }
     export interface GlobOptions extends _GlobOptions<Dirent | string> {}
     export interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {

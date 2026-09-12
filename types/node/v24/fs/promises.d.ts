@@ -9,7 +9,7 @@
  * @since v10.0.0
  */
 declare module "fs/promises" {
-    import { NonSharedBuffer } from "node:buffer";
+    import { BufferView, NonSharedBuffer } from "node:buffer";
     import { Abortable } from "node:events";
     import { Stream } from "node:stream";
     import { ReadableStream } from "node:stream/web";
@@ -31,6 +31,10 @@ declare module "fs/promises" {
         OpenDirOptions,
         OpenMode,
         PathLike,
+        ReadFileOptions,
+        ReadFileOptionsWithBuffer,
+        ReadFileOptionsWithBufferEncoding,
+        ReadFileOptionsWithStringEncoding,
         ReadOptions,
         ReadOptionsWithBuffer,
         ReadPosition,
@@ -290,30 +294,20 @@ declare module "fs/promises" {
          * @return Fulfills upon a successful read with the contents of the file. If no encoding is specified (using `options.encoding`), the data is returned as a {Buffer} object. Otherwise, the
          * data will be a string.
          */
-        readFile(
-            options?:
-                | ({ encoding?: null | undefined } & Abortable)
-                | null,
-        ): Promise<NonSharedBuffer>;
+        readFile<T extends NodeJS.ArrayBufferView>(
+            options: Omit<ReadFileOptionsWithBuffer<T>, "flag">,
+        ): Promise<BufferView<T>>;
+        readFile(options?: Omit<ReadFileOptionsWithBufferEncoding, "flag"> | null): Promise<NonSharedBuffer>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
          */
-        readFile(
-            options:
-                | ({ encoding: BufferEncoding } & Abortable)
-                | BufferEncoding,
-        ): Promise<string>;
+        readFile(options: Omit<ReadFileOptionsWithStringEncoding, "flag"> | BufferEncoding): Promise<string>;
         /**
          * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
          * The `FileHandle` must have been opened for reading.
          */
-        readFile(
-            options?:
-                | (ObjectEncodingOptions & Abortable)
-                | BufferEncoding
-                | null,
-        ): Promise<string | NonSharedBuffer>;
+        readFile(options: Omit<ReadFileOptions, "flag"> | BufferEncoding | null): Promise<string | NonSharedBuffer>;
         /**
          * Convenience method to create a `readline` interface and stream over the file.
          * See `filehandle.createReadStream()` for the options.
@@ -821,19 +815,42 @@ declare module "fs/promises" {
      * @since v10.0.0
      * @return Fulfills with the {fs.Stats} object for the given `path`.
      */
+    function stat(path: PathLike): Promise<Stats>;
     function stat(
         path: PathLike,
         opts?: StatOptions & {
             bigint?: false | undefined;
+            throwIfNoEntry?: true | undefined;
         },
     ): Promise<Stats>;
     function stat(
         path: PathLike,
         opts: StatOptions & {
             bigint: true;
+            throwIfNoEntry?: true | undefined;
         },
     ): Promise<BigIntStats>;
-    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            bigint?: false | undefined;
+            throwIfNoEntry: false;
+        },
+    ): Promise<Stats | undefined>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+    ): Promise<BigIntStats | undefined>;
+    function stat(
+        path: PathLike,
+        opts: StatOptions & {
+            throwIfNoEntry?: true | undefined;
+        },
+    ): Promise<Stats | BigIntStats>;
+    function stat(path: PathLike, opts?: StatOptions): Promise<Stats | BigIntStats | undefined>;
     /**
      * @since v19.6.0, v18.15.0
      * @return Fulfills with the {fs.StatFs} object for the given `path`.
@@ -1172,14 +1189,13 @@ declare module "fs/promises" {
      * @param path filename or `FileHandle`
      * @return Fulfills with the contents of the file.
      */
+    function readFile<T extends NodeJS.ArrayBufferView>(
+        path: PathLike | FileHandle,
+        options: ReadFileOptionsWithBuffer<T>,
+    ): Promise<BufferView<T>>;
     function readFile(
         path: PathLike | FileHandle,
-        options?:
-            | ({
-                encoding?: null | undefined;
-                flag?: OpenMode | undefined;
-            } & Abortable)
-            | null,
+        options?: ReadFileOptionsWithBufferEncoding | null,
     ): Promise<NonSharedBuffer>;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1190,12 +1206,7 @@ declare module "fs/promises" {
      */
     function readFile(
         path: PathLike | FileHandle,
-        options:
-            | ({
-                encoding: BufferEncoding;
-                flag?: OpenMode | undefined;
-            } & Abortable)
-            | BufferEncoding,
+        options: ReadFileOptionsWithStringEncoding | BufferEncoding,
     ): Promise<string>;
     /**
      * Asynchronously reads the entire contents of a file.
@@ -1206,16 +1217,7 @@ declare module "fs/promises" {
      */
     function readFile(
         path: PathLike | FileHandle,
-        options?:
-            | (
-                & ObjectEncodingOptions
-                & Abortable
-                & {
-                    flag?: OpenMode | undefined;
-                }
-            )
-            | BufferEncoding
-            | null,
+        options: ReadFileOptions | BufferEncoding | null,
     ): Promise<string | NonSharedBuffer>;
     /**
      * Asynchronously open a directory for iterative scanning. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for more detail.
