@@ -10,6 +10,10 @@
         ".": {
             "import": "./dist/govuk/all.d.mts",
             "require": "./dist/govuk/all.bundle.d.ts"
+        },
+        "./*": {
+            "require": "./*",
+            "import": "./*"
         }
     },
     "devDependencies": {
