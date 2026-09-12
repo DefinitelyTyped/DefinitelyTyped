@@ -35,6 +35,7 @@ const upload_with_limits = multer({
         fieldSize: 1048576,
         fields: 10,
         fieldNestingDepth: 2,
+        fieldArrayIndexLimit: 100,
         fileSize: Infinity,
         files: Infinity,
         parts: Infinity,
