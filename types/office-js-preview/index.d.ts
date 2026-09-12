@@ -13428,6 +13428,25 @@ declare namespace Office {
         type: "olkAppointmentTimeChanged";
     }
     /**
+     * Provides the identifiers of the attachments that raised the `OnAttachmentAction` event.
+     *
+     * @remarks
+     * [Api set: Mailbox preview]
+     *
+     * @beta
+     */
+    interface AttachmentActionEventArgs {
+        /**
+         * Gets the array of attachment identifiers.
+         *
+         * @remarks
+         * [Api set: Mailbox preview]
+         *
+         * @beta
+         */
+        attachmentIds: string[];
+    }
+    /**
      * Represents the content of an attachment on a message or appointment item.
      *
      * @remarks
