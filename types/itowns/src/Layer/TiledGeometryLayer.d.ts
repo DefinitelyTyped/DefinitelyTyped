@@ -30,6 +30,9 @@ declare class TiledGeometryLayer extends GeometryLayer {
     level0Nodes: any[];
     colorLayersOrder?: any[];
 
+    get hideSkirt(): boolean;
+    set hideSkirt(value: boolean);
+
     preUpdate(
         context: object,
         sources: Set</* GeometryLayer | TileMesh */ any>,
