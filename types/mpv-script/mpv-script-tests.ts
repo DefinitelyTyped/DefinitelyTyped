@@ -336,7 +336,7 @@ mp.add_key_binding("Ctrl+d", "uncomplex_non_repeatable2", () => {
 mp.add_key_binding(
     "Ctrl+e",
     "complex",
-    (table: mp.UserInputCommand) => {
+    (table: mp.KeyBindingContext) => {
         dump("complex");
         dump("   ", table);
     },
@@ -347,7 +347,7 @@ mp.add_key_binding(
 mp.add_key_binding(
     "Ctrl+f",
     "complex_nonsence",
-    (table: mp.UserInputCommand) => {
+    (table: mp.KeyBindingContext) => {
         dump("complex, nonsense");
         dump("   ", table);
     },
