@@ -194,7 +194,7 @@ declare namespace multer {
          * at https://github.com/mscdex/busboy#busboy-methods.
          */
         limits?: {
-            /** Maximum size of each form field name in bytes. (Default: 100) */
+            /** Maximum size of each form field name in bytes. (Default: Infinity) */
             fieldNameSize?: number | undefined;
             /** Maximum size of each form field value in bytes. (Default: 1048576) */
             fieldSize?: number | undefined;
