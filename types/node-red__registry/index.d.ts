@@ -2,6 +2,7 @@ import { LocalSettings } from "@node-red/runtime";
 import * as util from "@node-red/util";
 import { EventEmitter } from "events";
 import { Express, NextFunction, Request, Response } from "express";
+import { Server as HttpServer } from "http";
 import { Server as HttpsServer } from "https";
 
 declare const registry: registry.RegistryModule;
@@ -9,7 +10,152 @@ declare const registry: registry.RegistryModule;
 export = registry;
 
 declare namespace registry {
-    interface RegistryModule {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    interface RegistryModule {
+        init(runtime: object): void;
+        load(): Promise<void>;
+
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        registerType<TNode extends Node<TCreds>, TNodeDef extends NodeDef, TCreds extends {}>(
+            nodeSet: object,
+            type: string,
+            constructor: NodeConstructor<TNode, TNodeDef, TCreds>, // eslint-disable-line @definitelytyped/no-unnecessary-generics
+        ): void;
+        get(type: string): NodeConstructor<Node, NodeDef, {}> | RegisteredSubflow | null | undefined;
+        getNodeInfo(typeOrId: string): NodeInfo | null;
+        getNodeList(): NodeInfo[];
+        getModuleInfo(module: string): ModuleInfo | null;
+        getModuleList(): Record<string, ModuleDefinition>;
+        getNodeConfigs(lang?: string): string;
+        getNodeConfig(id: string, lang?: string): string | null;
+        getNodeIconPath(module: string, icon: string): string | null;
+        getNodeIcons(): Record<string, string[]>;
+        enableNode(typeOrId: string): Promise<NodeInfo>;
+        disableNode(typeOrId: string): Promise<NodeInfo>;
+        addModule(module: string): Promise<ModuleInfo | null>;
+        removeModule(module: string): Promise<NodeInfo[]>;
+        installModule(module: string, version?: string, url?: string): Promise<unknown[]>;
+        installModule(module: Buffer, version?: string, url?: string): Promise<unknown[]>;
+        uninstallModule(module: string): Promise<Array<NodeInfo | PluginInfo>>;
+        cleanModuleList(): void;
+        installerEnabled(): boolean;
+        getNodeExampleFlows(): Record<string, ExampleFlowDirectory> | null;
+        getNodeExampleFlowPath(module: string, path: string): string | null;
+        getModuleResource(module: string, path: string): string | null;
+    }
+
+    interface RegistryEntryInfo {
+        id: string;
+        name: string;
+        enabled: boolean;
+        local: boolean;
+        user: boolean;
+        module?: string | undefined;
+        err?: unknown;
+        plugins?: PluginSummary[] | undefined;
+        loaded?: boolean | undefined;
+        pending_version?: string | undefined;
+        version?: string | undefined;
+    }
+
+    interface NodeInfo extends RegistryEntryInfo {
+        types: string[];
+    }
+
+    interface PluginInfo extends RegistryEntryInfo {
+        types?: undefined;
+        editor: boolean;
+        runtime: boolean;
+    }
+
+    interface PluginSummary {
+        id: string;
+        type: string;
+        module: string;
+    }
+
+    interface ModuleInfo {
+        name: string;
+        version: string;
+        local?: boolean | undefined;
+        user?: boolean | undefined;
+        path?: string | undefined;
+        nodes: NodeInfo[];
+        plugins: PluginInfo[];
+        dependencies?: string[] | undefined;
+        pending_version?: string | undefined;
+    }
+
+    interface ModuleDefinition {
+        name: string;
+        version: string;
+        path?: string | undefined;
+        local?: boolean | undefined;
+        user?: boolean | undefined;
+        redVersion?: string | undefined;
+        dependencies?: string[] | undefined;
+        usedBy?: string[] | undefined;
+        pending_version?: string | undefined;
+        nodes: Record<string, NodeSetDefinition>;
+        plugins?: Record<string, PluginSetDefinition> | undefined;
+        resources?: ResourceDirectory | undefined;
+        examples?: ResourceDirectory | undefined;
+        icons?: IconDirectory[] | undefined;
+    }
+
+    interface NodeSetDefinition {
+        type: "node";
+        id: string;
+        module: string;
+        name: string;
+        file: string;
+        template: string;
+        enabled: boolean;
+        loaded: boolean;
+        version: string;
+        local: boolean;
+        user?: boolean | undefined;
+        types: string[];
+        config: string;
+        help: Record<string, string>;
+        err?: unknown;
+    }
+
+    interface PluginSetDefinition {
+        type: "plugin";
+        id: string;
+        module: string;
+        name: string;
+        file?: string | undefined;
+        template?: string | undefined;
+        enabled: boolean;
+        loaded: boolean;
+        version: string;
+        local: boolean;
+        user?: boolean | undefined;
+        plugins: PluginDefinition<PluginDef>[];
+        config: string;
+        help: Record<string, string>;
+        err?: unknown;
+    }
+
+    interface ResourceDirectory {
+        path: string;
+    }
+
+    interface IconDirectory extends ResourceDirectory {
+        icons: string[];
+    }
+
+    interface ExampleFlowDirectory {
+        f?: string[] | undefined;
+        d?: Record<string, ExampleFlowDirectory> | undefined;
+    }
+
+    interface RegisteredSubflow {
+        subflow: SubflowDef;
+        type: string;
+        config: string;
+    }
 
     interface NodeConstructor<TNode extends Node<TCred>, TNodeDef extends NodeDef, TCred extends {}> {
         (this: TNode, nodeDef: TNodeDef): void;
@@ -46,6 +192,8 @@ declare namespace registry {
                 settings?: NodeSettings<TSets> | undefined; // eslint-disable-line @definitelytyped/no-unnecessary-generics
             },
         ): void;
+
+        registerSubflow(subflow: SubflowModuleDef): void;
 
         /**
          * Called from a Node's constructor function, invokes the super-class
@@ -168,7 +316,7 @@ declare namespace registry {
         plugins: NodeAPIPlugins;
         readonly httpNode: Express;
         readonly httpAdmin: Express;
-        readonly server: HttpsServer;
+        readonly server: HttpServer | HttpsServer;
         _: util.I18nTFunction;
     }
 
@@ -428,14 +576,17 @@ declare namespace registry {
         name: string;
         type: SubflowDefEnvType;
         value?: any;
+        [key: string]: unknown;
     }
 
     interface SubflowDefInOutWire {
         id: string;
+        [key: string]: unknown;
     }
 
     interface SubflowDefInOut {
         wires: SubflowDefInOutWire[];
+        [key: string]: unknown;
     }
 
     interface SubflowDef {
@@ -448,5 +599,15 @@ declare namespace registry {
         out?: SubflowDefInOut[];
         env?: SubflowDefEnv[];
         status?: any;
+    }
+
+    interface SubflowModuleNode extends NodeDef {
+        [key: string]: unknown;
+    }
+
+    interface SubflowModuleDef extends SubflowDef {
+        type: "subflow";
+        flow: SubflowModuleNode[];
+        [key: string]: unknown;
     }
 }

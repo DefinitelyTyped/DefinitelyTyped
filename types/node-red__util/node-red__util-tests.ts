@@ -2,6 +2,9 @@ import utilModule = require("@node-red/util");
 import { Node, NodeMessage } from "@node-red/registry";
 import { EventEmitter } from "events";
 
+// $ExpectType void
+utilModule.init({} as import("@node-red/runtime").LocalSettings);
+
 function i18nTests() {
     const i18n = utilModule.i18n;
 
@@ -70,26 +73,36 @@ function utilTests(someNode: Node) {
     // $ExpectType string
     const msgKey = msgClone.key;
 
+    const text: string = "value";
+    // $ExpectType string
+    util.cloneMessage(text);
+
     // $ExpectType boolean
     util.compareObjects({}, {});
+    // $ExpectType boolean
+    util.compareObjects(1, "1");
 
-    // $ExpectType (string | number)[]
+    // $ExpectType PropertyExpression
     util.normalisePropertyExpression("a[\"b\"].c");
 
-    // $ExpectType (string | number)[]
+    // $ExpectType unknown[]
     util.normalisePropertyExpression("a[msg.foo]", msg);
 
     // $ExpectType string
     util.normalisePropertyExpression("a[msg.foo]", msg, true);
 
-    // $ExpectType (string | number)[]
+    // $ExpectType unknown[]
     util.normalisePropertyExpression("a[msg.foo]", msg, false);
+    // $ExpectType string
+    util.normalisePropertyExpression("a.b", undefined, true);
 
     // $ExpectType any
     util.getMessageProperty({}, "key");
 
     // $ExpectType any
     util.getObjectProperty({}, "key");
+    // $ExpectType any
+    util.getObjectProperty([1, 2, 3], "0");
 
     // $ExpectType boolean
     util.setMessageProperty({}, "key", { dataKey: "dataVal" });
@@ -100,11 +113,13 @@ function utilTests(someNode: Node) {
     util.setObjectProperty({}, "key", { dataKey: "dataVal" });
     // $ExpectType boolean
     util.setObjectProperty({}, "key", { dataKey: "dataVal" }, true);
+    // $ExpectType boolean
+    util.setObjectProperty([1, 2, 3], "0", 4);
 
     // $ExpectType string
     util.getSetting(someNode, "name");
 
-    // $ExpectType string
+    // @ts-expect-error evaluateEnvProperty is not exported
     util.evaluateEnvProperty("name", someNode);
 
     // $ExpectType any
@@ -126,6 +141,80 @@ function utilTests(someNode: Node) {
     // $ExpectType void
     util.evaluateJSONataExpression(jsonataExpr, {}, (err: Error | null, res: any): void => {});
 
+    // $ExpectType Promise<any>
+    jsonataExpr.evaluate({});
+    // $ExpectType Promise<any>
+    jsonataExpr.evaluate({}, { value: 123 });
+    // $ExpectType void
+    jsonataExpr.evaluate({}, undefined, (err, result) => {
+        // $ExpectType string
+        err.code;
+        // $ExpectType number
+        err.position;
+        // $ExpectType string
+        err.token;
+        // $ExpectType string
+        err.message;
+        // $ExpectType any
+        result;
+    });
+    // $ExpectType void
+    jsonataExpr.evaluate({}, { value: 123 }, (err, result) => {});
+    // $ExpectType void
+    jsonataExpr.assign("value", 123);
+    // $ExpectType void
+    jsonataExpr.registerFunction("double", function(value: number) {
+        // $ExpectType any
+        this.input;
+        // $ExpectType Date
+        this.environment.timestamp;
+        // $ExpectType boolean
+        this.environment.async;
+        // $ExpectType void
+        this.environment.bind("value", value);
+        // $ExpectType any
+        this.environment.lookup("value");
+        // @ts-expect-error
+        this.environment.timestamp = new Date();
+        // @ts-expect-error
+        this.environment.async = false;
+        // @ts-expect-error
+        this.input = {};
+        // @ts-expect-error
+        this.environment = this.environment;
+        return value * 2;
+    }, "<n:n>");
+    // $ExpectType void
+    jsonataExpr.registerFunction("constant", () => 123);
+    // @ts-expect-error
+    jsonataExpr.assign(123, "value");
+    // @ts-expect-error
+    jsonataExpr.registerFunction("invalid", () => 123, 123);
+
+    // $ExpectType ExprNode
+    const ast = jsonataExpr.ast();
+    // $ExpectType string
+    ast.type;
+    // $ExpectType any
+    ast.value;
+    // $ExpectType number | undefined
+    ast.position;
+    // $ExpectType string | undefined
+    ast.name;
+    // $ExpectType ExprNode[] | undefined
+    ast.arguments;
+    // $ExpectType ExprNode[] | undefined
+    ast.steps;
+    // $ExpectType ExprNode[] | undefined
+    ast.expressions;
+    // $ExpectType ExprNode[] | undefined
+    ast.stages;
+    // $ExpectType ExprNode | ExprNode[] | undefined
+    ast.lhs;
+    // $ExpectType ExprNode | undefined
+    ast.procedure;
+    // $ExpectType ExprNode | undefined
+    ast.rhs;
     // $ExpectType string
     util.normaliseNodeTypeName("a-random node type");
 
@@ -195,15 +284,13 @@ function hookTests() {
         payload;
     });
 
-    hooks.add("customEvent", payload => {
-        // $ExpectType any
+    hooks.add("onSend.audit", payload => {
+        // $ExpectType SendEvent[]
         payload;
     });
 
-    hooks.add("customEvent", (payload: string) => {
-        // $ExpectType string
-        payload;
-    });
+    // @ts-expect-error custom hooks are rejected by the runtime
+    hooks.add("customEvent", payload => {});
     // #endregion
 
     // #region Hook handler finalization
@@ -245,4 +332,14 @@ function hookTests() {
         done(new Error("Error"));
     });
     // #endregion
+}
+
+function eventAndExecTests() {
+    // $ExpectType EventEmitter<any>
+    utilModule.events;
+    // $ExpectType boolean
+    utilModule.events.emit("runtime-event", {});
+
+    // $ExpectType Promise<ExecResult>
+    utilModule.exec.run("node", ["--version"], {}, true);
 }

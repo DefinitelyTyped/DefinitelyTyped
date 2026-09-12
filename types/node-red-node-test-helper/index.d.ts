@@ -5,7 +5,7 @@ import { SinonSpy } from "sinon";
 import supertest = require("supertest");
 
 declare class NodeTestHelper extends EventEmitter {
-    init(nodeRedRuntime: string, userSettings?: LocalSettings): void;
+    init(nodeRedRuntime: string, userSettings?: Partial<LocalSettings>): void;
 
     /**
      * Loads a flow then starts the flow.
@@ -17,6 +17,11 @@ declare class NodeTestHelper extends EventEmitter {
      * @param testCredentials Optional node credentials.
      * @param cb Function to call back when testFlows has been started.
      */
+    load(
+        testNode: nodeRedNodeTestHelper.TestNodeInitializer,
+        testFlows: nodeRedNodeTestHelper.TestFlows,
+        cb?: () => void,
+    ): Promise<void>;
     load(
         testNode: nodeRedNodeTestHelper.TestNodeInitializer,
         testFlows: nodeRedNodeTestHelper.TestFlows,
@@ -50,7 +55,7 @@ declare class NodeTestHelper extends EventEmitter {
      */
     setFlows(
         testFlows: nodeRedNodeTestHelper.TestFlows,
-        type: "full" | "flows" | "nodes",
+        type?: "full" | "flows" | "nodes",
         testCredentials?: nodeRedNodeTestHelper.TestCredentials<{}>,
         cb?: () => void,
     ): Promise<void>;
@@ -95,7 +100,7 @@ declare class NodeTestHelper extends EventEmitter {
      * ```
      * @param done callback
      */
-    startServer(done?: () => void): void;
+    startServer(done?: () => void): Promise<void>;
 
     /**
      * Stop server. Generally called after unload() complete. For example, to unload a flow then
@@ -109,7 +114,7 @@ declare class NodeTestHelper extends EventEmitter {
      * ```
      * @param done callback
      */
-    stopServer(done?: () => void): void;
+    stopServer(done?: () => void): Promise<void>;
 
     /**
      * Return the URL of the helper server including the ephemeral port used when starting the server.

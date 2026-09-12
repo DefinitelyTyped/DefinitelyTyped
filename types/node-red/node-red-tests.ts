@@ -1,14 +1,22 @@
 import RED = require("node-red");
 import { LocalSettings } from "@node-red/runtime";
-import { createServer } from "http";
+import { createServer as createHttpServer, Server as HttpServer } from "http";
+import { createServer as createHttpsServer, Server as HttpsServer } from "https";
 
 async function REDTests() {
-    const server = createServer();
+    const httpServer = createHttpServer();
+    const httpsServer = createHttpsServer();
     const settings: LocalSettings = {
         uiHost: "127.0.0.1",
         uiPort: 1880,
     };
-    RED.init(server, settings);
+    RED.init(httpServer, settings);
+    RED.init(httpsServer, settings);
+
+    // @ts-expect-error The public API requires a server argument
+    RED.init(settings);
+    // @ts-expect-error The public API does not document a null server
+    RED.init(null, settings);
 
     await RED.start();
     await RED.stop();
@@ -29,6 +37,9 @@ async function REDTests() {
     // $ExpectType Hooks
     RED.hooks;
 
+    const version: string = RED.version();
+    const server: HttpServer | HttpsServer = RED.server;
+
     // RED.runtime is covered in @node-red/runtime
     // just check the link
     // $ExpectType RuntimeModule
@@ -38,6 +49,11 @@ async function REDTests() {
     // just check the link
     // $ExpectType Auth
     RED.auth;
+
+    const diagnostics: unknown = RED.diagnostics;
+
+    // @ts-expect-error node-red 5.0.7 does not export the internal plugins module
+    RED.plugins;
 }
 
 // check the shortcuts

@@ -6,6 +6,7 @@ function redTests(RED: editorClient.RED) {
     interface MyNodeProperties extends editorClient.NodeProperties {
         x: string;
         key: string;
+        enabled: boolean;
     }
     interface MyNodeCredentials {
         username: string;
@@ -52,6 +53,9 @@ function redTests(RED: editorClient.RED) {
                     return true;
                 },
             },
+            enabled: {
+                value: false,
+            },
             // @ts-expect-error
             instanceProp: {
                 value: "",
@@ -67,6 +71,7 @@ function redTests(RED: editorClient.RED) {
         },
         align: "right",
         button: {
+            toggle: "enabled",
             onclick() {
                 // $ExpectType string
                 this.key;
@@ -95,7 +100,7 @@ function redTests(RED: editorClient.RED) {
             },
         },
         color: "#3377CC",
-        icon: "icon.svg",
+        icon: true ? "icon.svg" : () => "icon.svg",
         inputLabels: true
             ? "label"
             : function() {
@@ -225,6 +230,24 @@ function redTests(RED: editorClient.RED) {
                 this.wrongKey;
                 return "label";
             },
+    };
+
+    interface ToggleNodeProperties extends editorClient.NodeProperties {
+        key: string;
+        enabled: boolean;
+    }
+
+    const invalidToggle: editorClient.NodeDef<ToggleNodeProperties> = {
+        category: "category",
+        defaults: {
+            key: { value: "" },
+            enabled: { value: false },
+        },
+        button: {
+            // @ts-expect-error The toggle property must reference a boolean node property.
+            toggle: "key",
+            onclick() {},
+        },
     };
 
     const defWithReserved: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
@@ -421,6 +444,86 @@ function nodeRedPluginTests(RED: editorClient.RED) {
         },
     };
     RED.plugins.registerPlugin("my-plugin", myPluginDef);
+
+    RED.plugins.registerPlugin("my-theme", {
+        type: "node-red-theme",
+        css: ["style.css", "components.css"],
+        scripts: "theme.js",
+        monacoOptions: {
+            theme: {
+                base: "vs-dark",
+                inherit: true,
+            },
+            fontSize: 14,
+            minimap: { enabled: false },
+        },
+        mermaid: {
+            theme: "dark",
+        },
+    });
+}
+
+function documentedApiTests(RED: editorClient.RED) {
+    RED.settings.set("editorTheme", {}, true);
+    // $ExpectType unknown
+    RED.settings.get("editorTheme");
+
+    // $ExpectType boolean
+    RED.hooks.has("viewAddNode.my-plugin");
+    // $ExpectType Promise<unknown>
+    RED.hooks.trigger("viewAddNode", {});
+    // @ts-expect-error Trigger only accepts hook identifiers declared by the upstream public JSDoc.
+    RED.hooks.trigger("customHook", {});
+    // $ExpectType void
+    RED.hooks.trigger("viewAddNode", {}, error => {
+        // $ExpectType Error | null | undefined
+        error;
+    });
+
+    const notification = RED.notify("Hello", {
+        type: "warning",
+        timeout: 10000,
+        fixed: true,
+        modal: true,
+        buttons: [
+            {
+                text: "okay",
+                class: "primary",
+                click() {
+                    notification.close();
+                },
+            },
+        ],
+    });
+    // $ExpectType void
+    notification.update("Updated", { type: "success" });
+    // $ExpectType void
+    notification.close();
+
+    const persistentNotification = RED.notify($("<p>Hello</p>"), {
+        id: "persistent-notification",
+        width: 500,
+        buttons: [{
+            id: "confirm",
+            text: "confirm",
+            click() {},
+        }],
+    });
+    // $ExpectType void
+    persistentNotification.update($("<p>Updated</p>"), { type: "success" });
+
+    // $ExpectType Notification
+    RED.notify("Hello", "warning", true, 10000);
+
+    // The public notification object only documents close and update.
+    // @ts-expect-error
+    notification.hideNotification();
+    // @ts-expect-error
+    notification.showNotification();
+    // @ts-expect-error
+    notification.update("Updated");
+    // @ts-expect-error
+    notification.update("Updated", 10000);
 }
 
 function nodeRedUtilsTests(RED: editorClient.RED) {
@@ -439,6 +542,16 @@ function nodeRedUtilsTests(RED: editorClient.RED) {
 }
 
 function nodeRedEditorTests(RED: editorClient.RED) {
+    const codeEditor = RED.editor.createEditor({
+        id: "node-input-code",
+        mode: "ace/mode/javascript",
+        value: "return msg;",
+    });
+    // $ExpectType string
+    codeEditor.getValue();
+    // $ExpectType void
+    codeEditor.destroy();
+
     // $ExpectType void
     RED.editor.editSubflow({});
     // $ExpectType void

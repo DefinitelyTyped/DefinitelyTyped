@@ -4,7 +4,11 @@ import * as helper from "node-red-node-test-helper";
 const anotherHelper = new helper.NodeTestHelper();
 
 function helperTests(testHelper: typeof anotherHelper) {
+    testHelper.init("node-red", { functionGlobalContext: {} });
+
+    // $ExpectType Promise<void>
     testHelper.startServer(() => {});
+    // $ExpectType Promise<void>
     testHelper.stopServer(() => {});
 
     interface SomeNodeDef extends NodeDef {
@@ -30,10 +34,14 @@ function helperTests(testHelper: typeof anotherHelper) {
     function withNodeInitializer(nodeInitializer: NodeInitializer) {
         // $ExpectType Promise<void>
         testHelper.load(nodeInitializer, flows, () => {});
+        // $ExpectType Promise<void>
+        testHelper.load(nodeInitializer, flows, {}, () => {});
     }
 
     // $ExpectType Promise<void>
     testHelper.setFlows(flows, "full", {}, () => {});
+    // $ExpectType Promise<void>
+    testHelper.setFlows(flows);
 
     // $ExpectType Promise<void>
     testHelper.unload();
