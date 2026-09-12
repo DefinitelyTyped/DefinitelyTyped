@@ -202,6 +202,8 @@ declare namespace multer {
             fields?: number | undefined;
             /** Maximum number of nesting levels for field names, e.g. `a[b][c]` has 2 levels. (Default: Infinity) */
             fieldNestingDepth?: number | undefined;
+            /** Maximum numeric array index accepted for field names. (Default: Infinity) */
+            fieldArrayIndexLimit?: number | undefined;
             /** Maximum size of each file in bytes. (Default: Infinity) */
             fileSize?: number | undefined;
             /** Maximum number of file fields. (Default: Infinity) */
