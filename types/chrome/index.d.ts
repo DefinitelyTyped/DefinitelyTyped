@@ -13426,7 +13426,7 @@ declare namespace chrome {
     /**
      * Use the `chrome.webRequest` API to observe and analyze traffic and to intercept, block, or modify requests in-flight.
      *
-     * Permissions: "webRequest"
+     * Permissions: "webRequest", "webRequestBlocking", "webRequestAuthProvider"
      *
      * Manifest: "host_permissions"
      */
@@ -13723,7 +13723,7 @@ declare namespace chrome {
             requestBody?: {
                 /** Errors when obtaining request body data. */
                 error?: string;
-                /** If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': \['value1', 'value2'\]}. */
+                /** If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}. */
                 formData?: { [key: string]: FormDataItem[] };
                 /** If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array. */
                 raw?: UploadData[];
@@ -13765,9 +13765,12 @@ declare namespace chrome {
              * @since Chrome 144
              */
             securityInfo?: SecurityInfo;
-            /** Standard HTTP status code returned by the server. */
+            /**
+             * Standard HTTP status code returned by the server.
+             * @since Chrome 43
+             */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line). */
             statusLine: string;
         }
 
@@ -13796,6 +13799,7 @@ declare namespace chrome {
         function handlerBehaviorChanged(): Promise<void>;
         function handlerBehaviorChanged(callback: () => void): void;
 
+        /** @since Chrome 70 */
         const onActionIgnored: events.Event<
             (details: {
                 /** The proposed action which was ignored. */
