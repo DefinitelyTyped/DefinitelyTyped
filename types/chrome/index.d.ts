@@ -11344,6 +11344,7 @@ declare namespace chrome {
          * Creates a stream ID to capture the target tab. Similar to chrome.tabCapture.capture() method, but returns a media stream ID, instead of a media stream, to the consumer tab.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+         * @since Chrome 71
          */
         function getMediaStreamId(options?: GetMediaStreamOptions): Promise<string>;
         function getMediaStreamId(callback: (streamId: string) => void): void;
