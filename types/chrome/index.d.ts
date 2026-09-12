@@ -13895,7 +13895,7 @@ declare namespace chrome {
             tabs?: chrome.tabs.Tab[] | undefined;
             /** The offset of the window from the top edge of the screen in pixels. In some circumstances a window may not be assigned a `top` property; for example, when querying closed windows from the {@link sessions} API. */
             top?: number | undefined;
-            /** The height of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `height` property, for example when querying closed windows from the {@link sessions} API. */
+            /** The height of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `height` property; for example, when querying closed windows from the {@link sessions} API. */
             height?: number | undefined;
             /** The width of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `width` property; for example, when querying closed windows from the {@link sessions} API. */
             width?: number | undefined;
@@ -13975,7 +13975,7 @@ declare namespace chrome {
 
         /**
          * Specifies what type of browser window to create.
-         * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
+         * 'panel' is deprecated and is available only to existing allowlisted extensions on Chrome OS.
          * @since Chrome 44
          */
         enum CreateType {
@@ -14024,7 +14024,7 @@ declare namespace chrome {
         /** The windowId value that represents the current window. */
         const WINDOW_ID_CURRENT: -2;
 
-        /** The windowId value that represents the absence of a Chrome browser window */
+        /** The windowId value that represents the absence of a Chrome browser window. */
         const WINDOW_ID_NONE: -1;
 
         /**
