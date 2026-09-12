@@ -2,7 +2,7 @@ import { BufferGeometry, Loader, LoadingManager, MeshBasicMaterial, Shape, Shape
 
 export interface SVGResult {
     paths: ShapePath[];
-    xml: XMLDocument;
+    xml: SVGSVGElement;
 }
 
 export interface StrokeStyle {
