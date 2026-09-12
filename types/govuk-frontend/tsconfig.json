@@ -42,8 +42,6 @@
         "dist/govuk/components/exit-this-page/exit-this-page.d.ts",
         "dist/govuk/components/file-upload/file-upload.d.mts",
         "dist/govuk/components/file-upload/file-upload.d.ts",
-        "dist/govuk/components/header/header.d.mts",
-        "dist/govuk/components/header/header.d.ts",
         "dist/govuk/components/notification-banner/notification-banner.d.mts",
         "dist/govuk/components/notification-banner/notification-banner.d.ts",
         "dist/govuk/components/password-input/password-input.d.mts",
