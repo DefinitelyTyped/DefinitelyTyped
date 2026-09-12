@@ -50,6 +50,8 @@
         "dist/govuk/components/password-input/password-input.d.ts",
         "dist/govuk/components/radios/radios.d.mts",
         "dist/govuk/components/radios/radios.d.ts",
+        "dist/govuk/components/service-navigation/service-navigation.d.mts",
+        "dist/govuk/components/service-navigation/service-navigation.d.ts",
         "dist/govuk/components/skip-link/skip-link.d.mts",
         "dist/govuk/components/skip-link/skip-link.d.ts",
         "dist/govuk/components/tabs/tabs.d.mts",
