@@ -13045,7 +13045,7 @@ declare namespace chrome {
         }
 
         /**
-         * Sets wallpaper to the image at url or wallpaperData with the specified layout
+         * Sets wallpaper to the image at url or wallpaperData with the specified layout.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
