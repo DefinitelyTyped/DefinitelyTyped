@@ -11373,7 +11373,7 @@ declare namespace chrome {
         interface MutedInfo {
             /** Whether the tab is muted (prevented from playing sound). The tab may be muted even if it has not played or is not currently playing sound. Equivalent to whether the 'muted' audio indicator is showing. */
             muted: boolean;
-            /* The reason the tab was muted or unmuted. Not set if the tab's mute state has never been changed. */
+            /** The reason the tab was muted or unmuted. Not set if the tab's mute state has never been changed. */
             reason?: `${MutedInfoReason}` | undefined;
             /** The ID of the extension that changed the muted state. Not set if an extension was not the reason the muted state last changed. */
             extensionId?: string | undefined;
@@ -11388,7 +11388,7 @@ declare namespace chrome {
             USER = "user",
             /** Tab capture was started, forcing a muted state change. */
             CAPTURE = "capture",
-            /** An extension set the muted state. */
+            /** An extension, identified by the extensionId field, set the muted state. */
             EXTENSION = "extension",
         }
 
@@ -11475,14 +11475,20 @@ declare namespace chrome {
             lastAccessed: number;
         }
 
-        /** The tab's loading status. */
+        /**
+         * The tab's loading status.
+         * @since Chrome 44
+         */
         enum TabStatus {
             UNLOADED = "unloaded",
             LOADING = "loading",
             COMPLETE = "complete",
         }
 
-        /** The type of window. */
+        /**
+         * The type of window.
+         * @since Chrome 44
+         */
         enum WindowType {
             NORMAL = "normal",
             POPUP = "popup",
@@ -11728,7 +11734,10 @@ declare namespace chrome {
         }
 
         interface OnUpdatedInfo {
-            /** The tab's new audible state. */
+            /**
+             * The tab's new audible state.
+             * @since Chrome 45
+             */
             audible?: boolean;
             /**
              * The tab's new auto-discardable state.
@@ -11830,7 +11839,7 @@ declare namespace chrome {
          * MV2 only
          * @param tabId The ID of the tab in which to run the script; defaults to the active tab of the current window.
          * @param details Details of the script to run. Either the code or the file property must be set, but both may not be set at the same time
-         * @deprecated since Chrome 99. Replaced by {@link scripting.executeScript} in Manifest V3.
+         * @deprecated since Chrome 91. Replaced by {@link scripting.executeScript} in Manifest V3.
          */
         function executeScript(details: extensionTypes.InjectDetails): Promise<any[] | undefined>;
         function executeScript(
@@ -11933,7 +11942,7 @@ declare namespace chrome {
         function remove(tabIds: number[], callback: () => void): void;
 
         /**
-         * Captures the visible area of the currently active tab in the specified window. In order to call this method, the extension must have either the [<all\_urls>](https://developer.chrome.com/extensions/develop/concepts/declare-permissions) permission or the [activeTab](https://developer.chrome.com/docs/extensions/develop/concepts/activeTab) permission. In addition to sites that extensions can normally access, this method allows extensions to capture sensitive sites that are otherwise restricted, including chrome:-scheme pages, other extensions' pages, and data: URLs. These sensitive sites can only be captured with the activeTab permission. File URLs may be captured only if the extension has been granted file access.
+         * Captures the visible area of the currently active tab in the specified window. In order to call this method, the extension must have either the [<all\_urls>](https://developer.chrome.com/docs/extensions/develop/concepts/declare-permissions) permission or the [activeTab](https://developer.chrome.com/docs/extensions/develop/concepts/activeTab) permission. In addition to sites that extensions can normally access, this method allows extensions to capture sensitive sites that are otherwise restricted, including chrome:-scheme pages, other extensions' pages, and data: URLs. These sensitive sites can only be captured with the activeTab permission. File URLs may be captured only if the extension has been granted file access.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          * @param windowId The target window. Defaults to the current window.
@@ -12030,7 +12039,7 @@ declare namespace chrome {
         function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
 
         /**
-         * Injects CSS into a page. Styles inserted with this method can be removed with {@link scripting.removeCSS}`. For details, see the programmatic injection section of the content scripts doc.
+         * Injects CSS into a page. Styles inserted with this method can be removed with {@link scripting.removeCSS}. For details, see the programmatic injection section of the content scripts doc.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          *
