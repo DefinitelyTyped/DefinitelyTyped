@@ -6940,9 +6940,11 @@ declare namespace mp {
 
     // dprint-ignore
     type CommandOptsUnion = __CommandInfoUnion extends infer U
-      ? U extends { name: infer Name, args: infer Opts }
-        ? { name: Name } & Opts
-        : never
+      ? U extends { name: infer N, args: infer TArgs }
+        ? { name: N } & TArgs
+        : U extends { name: infer N } // if the command has no arguments
+          ? { name: N }
+          : never
       : never;
 
     // dprint-ignore
@@ -6988,7 +6990,7 @@ declare namespace mp {
     >(
         opts: TOpts & CommandOptsBase,
         def: TDefault,
-    ): Exclude<GetCommandResult<TOpts>, undefined> | TDefault; // null if success, TDefault on error
+    ): Exclude<GetCommandResult<TOpts>, undefined> | TDefault;
 
     // NOTE: currently when named argument overload has mismatched shape it would fallback to array overload, producing confusing error message
     // NOTE: editor completion for the first element(command name) is broken, no idea why,
