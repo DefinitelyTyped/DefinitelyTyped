@@ -1477,6 +1477,10 @@
             "libraryName": "cuid",
             "asOfVersion": "2.0.1"
         },
+        "current-git-branch": {
+            "libraryName": "current-git-branch",
+            "asOfVersion": "2.0.0"
+        },
         "cuss": {
             "libraryName": "cuss",
             "asOfVersion": "2.0.0"
