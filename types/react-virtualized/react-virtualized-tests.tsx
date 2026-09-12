@@ -1810,3 +1810,11 @@ export class GridCellRangeRendererExample extends PureComponent<{}, any> {
         return renderedCells;
     }
 }
+
+// CellMeasurerCache.getHeight / getWidth: columnIndex is optional (the library
+// defaults it to 0), matching CellMeasurerCacheInterface. Common for single-column List/Table.
+const singleColumnMeasurerCache = new CellMeasurerCache({ fixedWidth: true });
+const measuredRowHeight: number = singleColumnMeasurerCache.getHeight(0);
+const measuredRowWidth: number = singleColumnMeasurerCache.getWidth(0);
+const measuredCellHeight: number = singleColumnMeasurerCache.getHeight(0, 1);
+const measuredCellWidth: number = singleColumnMeasurerCache.getWidth(0, 1);
