@@ -9,12 +9,24 @@ mp.command_native(["print-text", "test"], "def");
 
 // $ExpectType string
 mp.command_native(["normalize-path", "foo/bar"]);
+// $ExpectType string | 123
+mp.command_native(["normalize-path", "foo/bar"], 123);
+// command without args should match as well
+mp.command_native({
+    name: "playlist-shuffle",
+});
 
 // $ExpectType string
 mp.command_native({
     name: "normalize-path",
     filename: "foo/bar",
 });
+
+// $ExpectType string | 123
+mp.command_native({
+    name: "normalize-path",
+    filename: "foo/bar",
+}, 123);
 
 // $ExpectType string
 mp.command_native({
