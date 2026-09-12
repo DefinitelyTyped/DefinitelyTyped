@@ -8,6 +8,7 @@ import {
     DatabaseError,
     defaults,
     Pool,
+    PoolConfig,
     QueryArrayConfig,
     TypeOverrides as TypeOverridesNamed,
     types,
@@ -486,3 +487,31 @@ const poolWithVerify = new Pool({
 poolWithVerify.connect().then(client => {
     console.log("client connected");
 });
+
+const poolWithAsyncOnConnect = new Pool({
+    onConnect: async (client) => {
+        await client.query("SET search_path = app");
+        console.log("async onConnect callback is working!");
+    },
+});
+
+poolWithAsyncOnConnect.connect().then(client => {
+    console.log("client connected");
+});
+
+const poolWithPromiseOnConnect = new Pool({
+    onConnect: client => client.query("SET search_path = app").then(() => undefined),
+});
+
+poolWithPromiseOnConnect.connect().then(client => {
+    console.log("client connected");
+});
+
+declare const onConnectClient: ClientBase;
+const onConnectConfig: PoolConfig = {
+    onConnect: async client => {
+        await client.query("SET search_path = app");
+    },
+};
+// $ExpectType void | Promise<void>
+onConnectConfig.onConnect!(onConnectClient);
