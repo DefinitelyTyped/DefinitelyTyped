@@ -12538,7 +12538,7 @@ declare namespace chrome {
         /**
          * Gets an array of all available voices.
          *
-         * Can return its result via Promise since Chrome Chrome 101
+         * Can return its result via Promise in Manifest V3 or later since Chrome 101.
          */
         function getVoices(): Promise<TtsVoice[]>;
         function getVoices(callback: (voices: TtsVoice[]) => void): void;
@@ -12546,7 +12546,7 @@ declare namespace chrome {
         /**
          * Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome.
          *
-         * Can return its result via Promise since Chrome Chrome 101
+         * Can return its result via Promise in Manifest V3 or later since Chrome 101.
          */
         function isSpeaking(): Promise<boolean>;
         function isSpeaking(callback: (speaking: boolean) => void): void;
@@ -12560,9 +12560,9 @@ declare namespace chrome {
         /**
          * Speaks text using a text-to-speech engine.
          * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
-         * @param options Optional. The speech options.
-
-         * Can return its result via Promise since Chrome Chrome 101
+         * @param options The speech options.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 101.
          */
         function speak(utterance: string, options?: TtsOptions): Promise<void>;
         function speak(utterance: string, callback: () => void): void;
