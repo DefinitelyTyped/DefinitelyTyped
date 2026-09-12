@@ -40,6 +40,8 @@ declare namespace Mail {
         content?: string | Buffer | Readable | undefined;
         /** path to a file or an URL (data uris are allowed as well) if you want to stream the file instead of including it (better for larger attachments) */
         path?: string | Url | undefined;
+        /** URL to stream the attachment from instead of including it */
+        href?: string | undefined;
     }
 
     interface Attachment extends AttachmentLike {
@@ -62,8 +64,6 @@ declare namespace Mail {
     }
 
     interface AmpAttachment extends AttachmentLike {
-        /** is an alternative for content to load the AMP4EMAIL data from an URL */
-        href?: string | undefined;
         /** defines optional content encoding, eg. ‘base64’ or ‘hex’. This only applies if the content is a string. By default an unicode string is assumed. */
         encoding?: string | undefined;
         /** optional content type for the attachment, if not set will be derived from the filename property */
@@ -77,8 +77,6 @@ declare namespace Mail {
         method?: string | undefined;
         /** optional filename, defaults to ‘invite.ics’ */
         filename?: string | false | undefined;
-        /** is an alternative for content to load the calendar data from an URL */
-        href?: string | undefined;
         /** defines optional content encoding, eg. ‘base64’ or ‘hex’. This only applies if the content is a string. By default an unicode string is assumed. */
         encoding?: string | undefined;
     }
