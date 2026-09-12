@@ -334,8 +334,12 @@ declare namespace util {
          *
          * @param   expr     - the prepared JSONata expression
          * @param   msg      - the message object to evaluate against
-         * @param   callback - a callback with the result of the expression
+         * @param   callback - (optional) a callback with the result of the expression
          */
+        evaluateJSONataExpression(
+            expr: JsonataExpression,
+            msg: registry.NodeMessage,
+        ): any;
         evaluateJSONataExpression(
             expr: JsonataExpression,
             msg: registry.NodeMessage,
