@@ -15324,14 +15324,17 @@ declare namespace chrome {
          * Registers one or more user scripts for this extension.
          *
          * Can return its result via Promise.
-         * @param scripts - Contains a list of user scripts to be registered.
+         * @param scripts Contains a list of user scripts to be registered.
          */
         function register(scripts: RegisteredUserScript[]): Promise<void>;
         function register(scripts: RegisteredUserScript[], callback: () => void): void;
 
         /**
          * Resets the configuration for a user script world. Any scripts that inject into the world with the specified ID will use the default world configuration.
+         *
+         * Can return its result via Promise.
          * @param worldId The ID of the user script world to reset. If omitted, resets the default world's configuration.
+         * @since Chrome 133
          */
         function resetWorldConfiguration(worldId?: string): Promise<void>;
         function resetWorldConfiguration(callback: () => void): void;
