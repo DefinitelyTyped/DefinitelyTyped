@@ -123,17 +123,56 @@ declare namespace mp {
         | "sync";
 
     interface OSDOverlay {
+        /**
+         * Arbitrary integer that identifies the overlay.
+         * Multiple overlays can be added by calling `osd-overlay` command with different id parameters.
+         */
+        id: number;
+        /**
+         * String that gives the type of the overlay.
+         * - `ass-events`: The data parameter is a string. The string is split on the newline character. Every line is turned into the `Text` part of a Dialogue ASS event.
+         * - `none`: Special value that causes the overlay to be removed. Most parameters other than id and format are mostly ignored.
+         */
+        format: "ass-events" | "none";
+        /**
+         * String defining the overlay contents according to the format parameter.
+         */
         data: string;
+        /**
+         * Used if format is set to ass-events (see description there). Optional, defaults to 0.
+         */
         res_x: number;
+        /**
+         * Used if format is set to ass-events (see description there). Optional, defaults to 720.
+         */
         res_y: number;
+        /**
+         * The Z order of the overlay. Optional, defaults to 0.
+         */
         z: number;
+        /**
+         * Commit the OSD overlay to the screen, or in other words, run the osd-overlay command with the current fields of the overlay table.
+         * Returns the result of the osd-overlay command itself.
+         */
         update(): void;
+        /**
+         * Remove the overlay from the screen. A `update()` call will add it again.
+         */
         remove(): void;
     }
 
     interface OSDSize {
+        /**
+         * The width of the OSD in pixels.
+         */
         width?: number | undefined;
+        /**
+         * The height of the OSD in pixels.
+         */
         height?: number | undefined;
+        /**
+         * The display pixel aspect ratio.
+         */
         aspect?: number | undefined;
     }
 
@@ -6960,7 +6999,7 @@ declare namespace mp {
      * Nominal brand for return type of `mp.command_native_async`.
      * Just in case a random unknown is accidentally passed to `mp.abort_async_command`
      */
-    type __AsyncCommandReturn = unknown & { __brand: "command_native_async" };
+    type AsyncCommandId = number & { __brand: "command_native_async" };
 
     /**
    * @see https://mpv.io/manual/stable/#command-interface-subprocess
@@ -6984,7 +7023,7 @@ declare namespace mp {
     function command_native_async<TOpts extends CommandOptsUnion>(
         opts: TOpts & CommandOptsBase,
         fn?: (success: boolean, result: GetCommandResult<TOpts>, error: string) => void, // result is null on success, undefined on error
-    ): __AsyncCommandReturn | undefined;
+    ): AsyncCommandId | undefined;
 
     /**
      * Abort a `mp.command_native_async` call.
@@ -6996,7 +7035,7 @@ declare namespace mp {
      *
      * Does not return anything.
      */
-    function abort_async_command(t: __AsyncCommandReturn): void;
+    function abort_async_command(t: AsyncCommandId): void;
 
     /**
      * Delete the given property.
@@ -7249,7 +7288,7 @@ declare namespace mp {
         name: P,
     ): GetStringPropertyReturnType<P, true>;
 
-    function get_property<P extends PropertyName | (string & {}), D>(
+    function get_property<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetStringPropertyType<P, true, true>, // def can be any type, this union helps to get completions for expected property type
     ): GetStringPropertyReturnType<P, false> | D; // success | fail
@@ -7274,7 +7313,7 @@ declare namespace mp {
      * Returns the string on success, or `def` on error. `def` is the second parameter provided to the function, and is an empty string if it's missing.
      * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
      */
-    function get_property_osd<P extends PropertyName | (string & {}), D>(
+    function get_property_osd<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetOSDPropertyType<P, true>,
     ): GetOSDPropertyType<P, false, false> | D; // success | fail
@@ -7291,7 +7330,7 @@ declare namespace mp {
      * Similar to `mp.get_property`, but return the property value as Boolean.
      * Returns a Boolean on success, or `def`
      */
-    function get_property_bool<P extends BooleanPropertyName | (string & {}), D>(
+    function get_property_bool<P extends BooleanPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, boolean, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, boolean>> & {} | D; // success | fail
@@ -7316,7 +7355,7 @@ declare namespace mp {
      * This function simply request a double float from mpv, and mpv will usually convert integer property values to float.
      * Returns a number on success, or `def`
      */
-    function get_property_number<P extends NumberPropertyName | (string & {}), D>(
+    function get_property_number<P extends NumberPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, number, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, number>> | D; // success | fail
@@ -7339,7 +7378,7 @@ declare namespace mp {
      * Some properties (for example `chapter-list`) are returned as list.
      * Returns a value on success, or `def`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
      */
-    function get_property_native<P extends PropertyName | (string & {}), D>(
+    function get_property_native<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetPropertyTypeOrElse<P, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetPropertyTypeOrElse<P, unknown>> | D; // success | fail
@@ -7745,6 +7784,9 @@ declare namespace mp {
 
     interface HookState {
         defer(): void;
+        /**
+         * Continue the hook. Doesn't need to be called unless `defer()` was called.
+         */
         cont(): void;
     }
 
@@ -8072,6 +8114,10 @@ declare namespace mp {
          */
         function select(opts: SelectOpts): void;
     }
+
+    // nominal brand for setTimeout returns, in case a random number is passed to clearTimeout
+    type TimeoutId = number & { __brand: "setTimeout" };
+    type IntervalId = number & { __brand: "setInterval" };
 }
 
 /**
@@ -8090,10 +8136,6 @@ declare function dump(...msg: unknown[]): void;
  */
 declare function exit(): void;
 
-// nominal brand for setTimeout returns, in case a random number is passed to clearTimeout
-type __TimeoutId = number & { __brand: "setTimeout" };
-type __IntervalId = number & { __brand: "setInterval" };
-
 /**
  * @param fn callback for each interval
  * @param delay delay in millisecond
@@ -8104,19 +8146,19 @@ declare function setTimeout<TArgs extends any[]>(
     fn: (...args: TArgs) => void,
     delay?: number,
     ...args: TArgs
-): __TimeoutId;
+): mp.TimeoutId;
 
 /**
  * @param codeString javascript code
  * @param delay delay in millisecond
  * @returns id
  */
-declare function setTimeout(codeString: string, delay?: number): __TimeoutId;
+declare function setTimeout(codeString: string, delay?: number): mp.TimeoutId;
 
 /**
  * Cancels a scheduled timeout
  */
-declare function clearTimeout(id: __TimeoutId): void;
+declare function clearTimeout(id: mp.TimeoutId): void;
 
 /**
  * @param fn callback for each interval
@@ -8128,19 +8170,19 @@ declare function setInterval<TArgs extends any[]>(
     fn: (...args: TArgs) => void,
     delay?: number,
     ...args: TArgs
-): __IntervalId;
+): mp.IntervalId;
 
 /**
  * @param codeString javascript code
  * @param delay delay in millisecond
  * @returns id
  */
-declare function setInterval(codeString: string, delay?: number): __IntervalId;
+declare function setInterval(codeString: string, delay?: number): mp.IntervalId;
 
 /**
  * Stop a recurring timer
  */
-declare function clearInterval(id: __IntervalId): void;
+declare function clearInterval(id: mp.IntervalId): void;
 
 /**
  * note: compilerOptions.module in tsconfig/jsconfig should be set properly otherwise it might not resolve shape of the exports
