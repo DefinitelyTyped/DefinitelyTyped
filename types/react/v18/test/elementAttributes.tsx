@@ -115,6 +115,16 @@ const testCases = [
             <custom-element exportparts="nested" />
         </template>
     </>,
+    // Command API
+    <>
+        <div id="commandable-item" onCommand={() => {}} />
+        <button command="show-modal" commandfor="some-modal">Open…</button>
+        <button command="--custom" commandfor="commandable-item">Dispatch Command</button>
+        <button // @ts-expect-error custom commands must be a CSS custom property starting with "--"
+         command="invalid">
+            Bad Command
+        </button>
+    </>,
     <link rel="expect" href="#lead-content" blocking="render" />,
     <link rel="expect" href="#lead-content" blocking="render render" />,
     <style blocking="render" />,
