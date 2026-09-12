@@ -13,9 +13,8 @@ const {
     ErrorSummary,
     ExitThisPage,
     FileUpload,
-    Header,
-    isSupported,
     initAll,
+    isSupported,
     NotificationBanner,
     PasswordInput,
     Radios,
@@ -40,7 +39,6 @@ new CharacterCount($root);
 new CharacterCount($root, CharacterCount.defaults);
 
 new Checkboxes($root);
-new Header($root);
 
 new ErrorSummary($root);
 new ErrorSummary($root, ErrorSummary.defaults);
@@ -201,24 +199,6 @@ createAll(Checkboxes, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof Checkboxes;
-        context.config === undefined;
-    },
-});
-
-createAll(Header);
-createAll(Header, undefined);
-createAll(Header, undefined, null);
-createAll(Header, undefined, undefined);
-createAll(Header, undefined, document);
-createAll(Header, undefined, document.body);
-createAll(Header, undefined, console.error);
-createAll(Header, undefined, {
-    scope: document.body,
-    onError(error, context) {
-        error instanceof Error;
-        context.element;
-        context.component?.moduleName;
-        context.component instanceof Header;
         context.config === undefined;
     },
 });
