@@ -30,6 +30,7 @@ export interface Calendar {
     refetchResources(): Calendar;
     dateFromPoint(x: number, y: number): Calendar.DateClickInfo | null;
     getView(): Calendar.View;
+    gotoDate(date: Date | Calendar.isoDateString): Calendar;
     next(): Calendar;
     prev(): Calendar;
     unselect(): Calendar;
@@ -305,6 +306,7 @@ export namespace Calendar {
         end: Date;
         startStr: string;
         endStr: string;
+        timeZone: string;
     }
 
     type EventSourceFunc = (
@@ -423,7 +425,9 @@ export namespace Calendar {
         slotWidth?: number;
         snapDuration?: DurationInput;
         theme?: Theme | ((theme: Theme) => Theme);
+        timeZone?: string;
         titleFormat?: Intl.DateTimeFormatOptions | ((start: Date, end: Date) => Content);
+        type?: string;
         unselect?: (info: UnselectInfo) => void;
         unselectAuto?: boolean;
         unselectCancel?: string;
