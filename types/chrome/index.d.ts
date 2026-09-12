@@ -8838,8 +8838,8 @@ declare namespace chrome {
         /** Settings that influence Chrome's handling of network connections in general. */
         const network: {
             /**
-             * If enabled, Chrome attempts to speed up your web browsing experience by pre-resolving DNS entries and preemptively opening TCP and SSL connections to servers.
-             * This preference only affects actions taken by Chrome's internal prediction service. It does not affect webpage-initiated prefectches or preconnects.
+             * If enabled, Chrome attempts to speed up your web browsing experience by pre-resolving DNS entries, preemptively opening TCP and SSL connections to servers, and preloading pages.
+             * Disabling this preference overrides site owners' ability to speculatively load content (such as prefetching or prerendering via the Speculation Rules API). It does not affect webpage-initiated preconnects or DNS prefetches.
              * This preference's value is a boolean, defaulting to `true`.
              */
             networkPredictionEnabled: chrome.types.ChromeSetting<boolean>;
