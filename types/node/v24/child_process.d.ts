@@ -1253,7 +1253,7 @@ declare module "child_process" {
             stderr: string | NonSharedBuffer;
         }>;
     }
-    interface ForkOptions extends ProcessEnvOptions, MessagingOptions, Abortable {
+    interface ForkOptions extends CommonOptions, MessagingOptions, Abortable {
         execPath?: string | undefined;
         execArgv?: string[] | undefined;
         silent?: boolean | undefined;
