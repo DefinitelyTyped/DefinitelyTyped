@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "@types/cos-wx-sdk-v5",
+  "version": "1.8.9999",
+  "projects": [
+    "https://github.com/tencentyun/cos-wx-sdk-v5"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/cos-wx-sdk-v5": "workspace:."
+  },
+  "owners": [
+    {
+      "name": "15933111693",
+      "githubUsername": "15933111693"
+    }
+  ]
+}
