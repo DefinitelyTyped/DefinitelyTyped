@@ -327,9 +327,9 @@ cal.setOption("buttonText", () => {
 // define a custom view while inheriting options from a standard view
 cal.setOption("views", {
     resourceTimelineThreeDays: {
-        type: 'resourceTimelineDay',
-        duration: {days: 3}
-    }
+        type: "resourceTimelineDay",
+        duration: { days: 3 },
+    },
 });
 
 // check some invalid combinations for FooInput and Foo types
