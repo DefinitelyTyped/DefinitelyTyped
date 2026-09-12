@@ -10864,6 +10864,7 @@ declare namespace google.maps.marker {
     content?: Node | null;
     /**
      * Adds the given listener function to the given event name in the Maps Eventing system.
+     * @deprecated Use the standard DOM <code>addEventListener()</code> method instead.
      */
     addListener(eventName: string, handler: Function): google.maps.MapsEventListener;
     addEventListener<K extends keyof AdvancedMarkerElementEventMap>(type: K, listener: (this: AdvancedMarkerElement, ev: AdvancedMarkerElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -10873,6 +10874,9 @@ declare namespace google.maps.marker {
   }
   export interface AdvancedMarkerElementEventMap extends HTMLElementEventMap {
     "gmp-click": google.maps.marker.AdvancedMarkerClickEvent;
+    "gmp-drag": Event;
+    "gmp-dragend": Event;
+    "gmp-dragstart": Event;
   }
   /**
    * Options for constructing an {@link google.maps.marker.AdvancedMarkerElement}.
