@@ -25469,6 +25469,32 @@ declare namespace Office {
          */
         errorMessageMarkdown?: string;
         /**
+         * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler and set its `allowEvent` property to `false`,
+         * this property specifies the width of the task pane that opens from a button in the Smart Alerts dialog.
+         *
+         * For an example, see the
+         * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/smart-alerts-onmessagesend-walkthrough#customize-the-text-and-functionality-of-a-button-in-the-dialog-optional | Smart Alerts walkthrough}.
+         *
+         * @remarks
+         *
+         * [Api set: Mailbox preview]
+         *
+         * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/understanding-outlook-add-in-permissions | Minimum permission level (Outlook)}**: **restricted**
+         *
+         * **{@link https://learn.microsoft.com/office/dev/add-ins/outlook/outlook-add-ins-overview#extension-points | Applicable Outlook mode}**: Compose
+         *
+         * **Important**:
+         *
+         * - The `preferredWidth` property overrides the task pane width set by the user. The `preferredWidth` value isn't preserved when the task pane is reopened.
+         *
+         * - We recommend that the specified task pane width not exceed 40% of the Reading Pane surface.
+         *
+         * - If you specify a non-standard width, Outlook will automatically adjust the width to the nearest standard value.
+         *
+         * @beta
+         */
+        preferredWidth?: number;
+        /**
          * When you use the {@link https://learn.microsoft.com/javascript/api/outlook/office.mailboxevent#outlook-office-mailboxevent-completed-member(1) | completed method} to signal completion of an event handler
          * and set its `allowEvent` property to `false`, this property overrides the
          * {@link https://learn.microsoft.com/office/dev/add-ins/outlook/onmessagesend-onappointmentsend-events#available-send-mode-options | send mode option}
