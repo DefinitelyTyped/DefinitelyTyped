@@ -73,13 +73,23 @@ import { TextEncoder } from "node:util";
 }
 
 {
-    new DatabaseSync(":memory:", {
+    const db = new DatabaseSync(":memory:", {
         timeout: 10_000,
         readBigInts: true,
         returnArrays: true,
         allowBareNamedParameters: false,
         allowUnknownNamedParameters: true,
     });
+
+    const stmt = db.prepare("SELECT 1", {
+        readBigInts: true,
+        returnArrays: true,
+        allowBareNamedParameters: false,
+        allowUnknownNamedParameters: true,
+    });
+
+    // $ExpectType SQLOutputValue
+    stmt.get()![0];
 }
 
 {

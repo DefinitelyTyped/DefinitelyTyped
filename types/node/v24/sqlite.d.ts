@@ -228,6 +228,28 @@ declare module "node:sqlite" {
          */
         inverse?: ((accumulator: T, ...args: SQLOutputValue[]) => T) | undefined;
     }
+    interface PrepareOptions {
+        /**
+         * If `true`, integer fields are read as `BigInt`s.
+         * @since v24.14.0
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, results are returned as arrays.
+         * @since v24.14.0
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix character.
+         * @since v24.14.0
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored.
+         * @since v24.14.0
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
+    }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
      * exposed by this class execute synchronously.
@@ -422,9 +444,10 @@ declare module "node:sqlite" {
          * around [`sqlite3_prepare_v2()`](https://www.sqlite.org/c3ref/prepare.html).
          * @since v22.5.0
          * @param sql A SQL string to compile to a prepared statement.
+         * @param options Optional configuration for the prepared statement.
          * @return The prepared statement.
          */
-        prepare(sql: string): StatementSync;
+        prepare(sql: string, options?: PrepareOptions): StatementSync;
         /**
          * Creates a new {@link SQLTagStore}, which is a Least Recently Used (LRU) cache
          * for storing prepared statements. This allows for the efficient reuse of
