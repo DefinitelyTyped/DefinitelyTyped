@@ -6943,7 +6943,7 @@ function testPrinterProvider() {
 
     checkChromeEvent(chrome.printerProvider.onGetCapabilityRequested, (printerId, resultCallback) => {
         printerId; // $ExpectType string
-        resultCallback({ capabilities: {} }); // $ExpectType void
+        resultCallback({ version: "1.0", printer: { supported_content_type: [{ content_type: "application/pdf" }] } }); // $ExpectType void
     });
 
     checkChromeEvent(chrome.printerProvider.onGetPrintersRequested, (resultCallback) => {
