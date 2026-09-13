@@ -269,6 +269,7 @@ async function testPromisify() {
         persistent: true,
         encoding: "utf8",
         signal: new AbortSignal(),
+        ignore: (filename) => filename.startsWith("_"),
     }, (event, filename) => {
         console.log(event, filename);
     });
