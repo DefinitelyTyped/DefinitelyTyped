@@ -89,6 +89,7 @@ declare module "stream" {
                 streamReadable: Readable,
                 options?: {
                     strategy?: streamWeb.QueuingStrategy | undefined;
+                    type?: "bytes" | undefined;
                 },
             ): streamWeb.ReadableStream;
             /**
@@ -1122,7 +1123,7 @@ declare module "stream" {
              * A utility method for creating a web `ReadableStream` and `WritableStream` from a `Duplex`.
              * @since v17.0.0
              */
-            static toWeb(streamDuplex: Duplex): {
+            static toWeb(streamDuplex: Duplex, options?: { type?: "bytes" | undefined }): {
                 readable: streamWeb.ReadableStream;
                 writable: streamWeb.WritableStream;
             };
