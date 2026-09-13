@@ -4803,7 +4803,7 @@ declare module "crypto" {
         interface CShakeParams extends Algorithm {
             customization?: BufferSource;
             functionName?: BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface ContextParams extends Algorithm {
             context?: BufferSource;
@@ -4874,7 +4874,7 @@ declare module "crypto" {
         }
         interface KmacParams extends Algorithm {
             customization?: BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface Pbkdf2Params extends Algorithm {
             hash: HashAlgorithmIdentifier;
