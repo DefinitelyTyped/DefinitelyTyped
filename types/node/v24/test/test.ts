@@ -69,6 +69,9 @@ run({
     branchCoverage: 50,
     functionCoverage: 80,
     rerunFailuresFilePath: "/path/to/file.json",
+    env: {
+        MY_TEST_PATH: "/path/to/tests",
+    },
 });
 
 // TestsStream should be a NodeJS.ReadableStream

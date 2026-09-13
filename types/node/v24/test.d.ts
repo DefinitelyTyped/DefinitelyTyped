@@ -408,6 +408,13 @@ declare module "node:test" {
              * @default 0
              */
             functionCoverage?: number | undefined;
+            /**
+             * Specify environment variables to be passed along to the test process.
+             * This options is not compatible with `isolation='none'`. These variables will override
+             * those from the main process, and are not merged with `process.env`.
+             * @since v24.14.0
+             */
+            env?: NodeJS.ProcessEnv | undefined;
         }
         /**
          * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.
