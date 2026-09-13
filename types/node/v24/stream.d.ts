@@ -1123,7 +1123,7 @@ declare module "stream" {
              * A utility method for creating a web `ReadableStream` and `WritableStream` from a `Duplex`.
              * @since v17.0.0
              */
-            static toWeb(streamDuplex: Duplex, options?: { type?: "bytes" | undefined }): {
+            static toWeb(streamDuplex: Duplex, options?: { readableType?: "bytes" | undefined }): {
                 readable: streamWeb.ReadableStream;
                 writable: streamWeb.WritableStream;
             };

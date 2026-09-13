@@ -651,7 +651,7 @@ addAbortSignal(new AbortSignal(), new Readable());
     // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
     Duplex.toWeb(duplex);
     // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
-    Duplex.toWeb(duplex, { type: "bytes" });
+    Duplex.toWeb(duplex, { readableType: "bytes" });
 }
 
 {
