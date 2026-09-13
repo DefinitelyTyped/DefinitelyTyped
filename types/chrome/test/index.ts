@@ -7061,7 +7061,10 @@ function testPrinting() {
     chrome.printing.getJobStatus("", status => {}).then(status => {});
 
     chrome.printing.getPrinterInfo(""); // $ExpectType Promise<GetPrinterInfoResponse>
-    chrome.printing.getPrinterInfo("", response => {}); // $ExpectType void
+    chrome.printing.getPrinterInfo("", response => { // $ExpectType void
+        response.capabilities; // $ExpectType { [key: string]: unknown } | undefined
+        response.status; // $ExpectType "DOOR_OPEN" | "TRAY_MISSING" | "OUT_OF_INK" | "OUT_OF_PAPER" | "OUTPUT_FULL" | "PAPER_JAM" | "GENERIC_ISSUE" | "STOPPED" | "UNREACHABLE" | "EXPIRED_CERTIFICATE" | "AVAILABLE"
+    });
     // @ts-expect-error
     chrome.printing.getPrinterInfo("", response => {}).then(response => {});
 
@@ -7080,7 +7083,10 @@ function testPrinting() {
         },
     };
     chrome.printing.submitJob(submitJobRequest); // $ExpectType Promise<SubmitJobResponse>
-    chrome.printing.submitJob(submitJobRequest, response => {}); // $ExpectType void
+    chrome.printing.submitJob(submitJobRequest, response => { // $ExpectType void
+        response.jobId; // $ExpectType string | null
+        response.status; // $ExpectType "OK" | "USER_REJECTED"
+    });
     // @ts-expect-error
     chrome.printing.submitJob(submitJobRequest, response => {}).then(response => {});
 
@@ -7112,7 +7118,27 @@ function testPrintingMetrics() {
     chrome.printingMetrics.PrinterSource.USER === "USER";
 
     chrome.printingMetrics.getPrintJobs(); // $ExpectType Promise<PrintJobInfo[]>
-    chrome.printingMetrics.getPrintJobs(jobs => {}); // $ExpectType void
+    chrome.printingMetrics.getPrintJobs(([job]) => { // $ExpectType void
+        job.id; // $ExpectType string
+        job.completionTime; // $ExpectType number
+        job.creationTime; // $ExpectType number
+        job.id; // $ExpectType string
+        job.numberOfPages; // $ExpectType number
+        job.printer.name; // $ExpectType string
+        job.printer.source; // $ExpectType "USER" | "POLICY"
+        job.printer.uri; // $ExpectType string
+        job.printer_status; // $ExpectType "DOOR_OPEN" | "TRAY_MISSING" | "OUT_OF_INK" | "OUT_OF_PAPER" | "OUTPUT_FULL" | "PAPER_JAM" | "GENERIC_ISSUE" | "STOPPED" | "UNREACHABLE" | "EXPIRED_CERTIFICATE" | "AVAILABLE"
+        job.settings.color; // $ExpectType "BLACK_AND_WHITE" | "COLOR"
+        job.settings.copies; // $ExpectType number
+        job.settings.duplex; // $ExpectType "ONE_SIDED" | "TWO_SIDED_LONG_EDGE" | "TWO_SIDED_SHORT_EDGE"
+        job.settings.mediaSize.height; // $ExpectType number
+        job.settings.mediaSize.vendorId; // $ExpectType string
+        job.settings.mediaSize.width; // $ExpectType number
+        job.source; // $ExpectType "PRINT_PREVIEW" | "ANDROID_APP" | "EXTENSION" | "ISOLATED_WEB_APP"
+        job.sourceId; // $ExpectType string | null
+        job.status; // $ExpectType "FAILED" | "CANCELED" | "PRINTED"
+        job.title; // $ExpectType string
+    });
     // @ts-expect-error
     chrome.printingMetrics.getPrintJobs(jobs => {}).then(jobs => {});
 
