@@ -293,7 +293,7 @@ declare namespace SwaggerUI {
 
     type PluginLoadType = "legacy" | "chain";
 
-    type SupportedHTTPMethods = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
+    type SupportedHTTPMethods = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace" | "query";
 
     type SorterLike =
         | "alpha"
