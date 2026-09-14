@@ -3493,6 +3493,10 @@
             "libraryName": "it-pushable",
             "asOfVersion": "1.4.0"
         },
+        "itowns": {
+            "libraryName": "itowns",
+            "asOfVersion": "2.46.0"
+        },
         "jasmine-expect": {
             "libraryName": "jasmine-expect",
             "asOfVersion": "3.8.1"
