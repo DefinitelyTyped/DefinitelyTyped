@@ -519,6 +519,15 @@ function TestWebElement() {
             v.toUpperCase();
         }
     });
+    const maybeDomAttr: Promise<string | null> = element.getDomAttribute("class");
+    maybeDomAttr.then(v => {
+        if (v !== null) {
+            v.toUpperCase();
+        }
+    });
+    stringPromise = element.getProperty("value");
+    stringPromise = element.getAriaRole();
+    stringPromise = element.getAccessibleName();
     stringPromise = element.getCssValue("display");
     driver = element.getDriver();
     element.getLocation().then((location: webdriver.ILocation) => {});
