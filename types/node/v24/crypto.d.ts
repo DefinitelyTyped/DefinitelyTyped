@@ -3922,9 +3922,11 @@ declare module "crypto" {
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v13.9.0, v12.17.0
      */
-    function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): NonSharedBuffer;
     function diffieHellman(
-        options: { privateKey: KeyObject; publicKey: KeyObject },
+        options: { privateKey: KeyLike | PrivateKeyInput; publicKey: KeyLike | PublicKeyInput },
+    ): NonSharedBuffer;
+    function diffieHellman(
+        options: { privateKey: KeyLike | PrivateKeyInput; publicKey: KeyLike | PublicKeyInput },
         callback: (err: Error | null, secret: NonSharedBuffer) => void,
     ): void;
     /**
