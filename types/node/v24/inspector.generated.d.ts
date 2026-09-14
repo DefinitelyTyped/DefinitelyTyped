@@ -2035,6 +2035,9 @@ declare module "inspector" {
             autoAttach: boolean;
             waitForDebuggerOnStart: boolean;
         }
+        interface GetTargetsReturnType {
+            targetInfos: TargetInfo[];
+        }
         interface TargetCreatedEventDataType {
             targetInfo: TargetInfo;
         }
@@ -2042,6 +2045,75 @@ declare module "inspector" {
             sessionId: SessionID;
             targetInfo: TargetInfo;
             waitingForDebugger: boolean;
+        }
+    }
+    namespace DOMStorage {
+        type SerializedStorageKey = string;
+        /**
+         * DOM Storage identifier.
+         */
+        interface StorageId {
+            /**
+             * Security origin for the storage.
+             */
+            securityOrigin?: string | undefined;
+            /**
+             * Represents a key by which DOM Storage keys its CachedStorageAreas
+             */
+            storageKey?: SerializedStorageKey | undefined;
+            /**
+             * Whether the storage is local storage (not session storage).
+             */
+            isLocalStorage: boolean;
+        }
+        /**
+         * DOM Storage item.
+         */
+        type Item = string[];
+        interface ClearParameterType {
+            storageId: StorageId;
+        }
+        interface GetDOMStorageItemsParameterType {
+            storageId: StorageId;
+        }
+        interface RemoveDOMStorageItemParameterType {
+            storageId: StorageId;
+            key: string;
+        }
+        interface SetDOMStorageItemParameterType {
+            storageId: StorageId;
+            key: string;
+            value: string;
+        }
+        interface GetDOMStorageItemsReturnType {
+            entries: Item[];
+        }
+        interface DomStorageItemAddedEventDataType {
+            storageId: StorageId;
+            key: string;
+            newValue: string;
+        }
+        interface DomStorageItemRemovedEventDataType {
+            storageId: StorageId;
+            key: string;
+        }
+        interface DomStorageItemUpdatedEventDataType {
+            storageId: StorageId;
+            key: string;
+            oldValue: string;
+            newValue: string;
+        }
+        interface DomStorageItemsClearedEventDataType {
+            storageId: StorageId;
+        }
+    }
+    namespace Storage {
+        type SerializedStorageKey = string;
+        interface GetStorageKeyParameterType {
+            frameId?: string | undefined;
+        }
+        interface GetStorageKeyReturnType {
+            storageKey: SerializedStorageKey;
         }
     }
     interface Session {
@@ -2437,8 +2509,34 @@ declare module "inspector" {
          */
         post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType, callback?: (err: Error | null) => void): void;
         post(method: "NodeWorker.detach", callback?: (err: Error | null) => void): void;
+        post(method: "Target.getTargets", callback?: (err: Error | null, params: Target.GetTargetsReturnType) => void): void;
         post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType, callback?: (err: Error | null) => void): void;
         post(method: "Target.setAutoAttach", callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.clear", params?: DOMStorage.ClearParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.clear", callback?: (err: Error | null) => void): void;
+        /**
+         * Disables storage tracking, prevents storage events from being sent to the client.
+         */
+        post(method: "DOMStorage.disable", callback?: (err: Error | null) => void): void;
+        /**
+         * Enables storage tracking, storage events will now be delivered to the client.
+         */
+        post(method: "DOMStorage.enable", callback?: (err: Error | null) => void): void;
+        post(
+            method: "DOMStorage.getDOMStorageItems",
+            params?: DOMStorage.GetDOMStorageItemsParameterType,
+            callback?: (err: Error | null, params: DOMStorage.GetDOMStorageItemsReturnType) => void
+        ): void;
+        post(method: "DOMStorage.getDOMStorageItems", callback?: (err: Error | null, params: DOMStorage.GetDOMStorageItemsReturnType) => void): void;
+        post(method: "DOMStorage.removeDOMStorageItem", params?: DOMStorage.RemoveDOMStorageItemParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.removeDOMStorageItem", callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.setDOMStorageItem", params?: DOMStorage.SetDOMStorageItemParameterType, callback?: (err: Error | null) => void): void;
+        post(method: "DOMStorage.setDOMStorageItem", callback?: (err: Error | null) => void): void;
+        /**
+         * @experimental
+         */
+        post(method: "Storage.getStorageKey", params?: Storage.GetStorageKeyParameterType, callback?: (err: Error | null, params: Storage.GetStorageKeyReturnType) => void): void;
+        post(method: "Storage.getStorageKey", callback?: (err: Error | null, params: Storage.GetStorageKeyReturnType) => void): void;
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2574,6 +2672,10 @@ declare module "inspector" {
         addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         addListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         addListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "inspectorNotification", message: InspectorNotification<object>): boolean;
         emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
@@ -2613,6 +2715,10 @@ declare module "inspector" {
         emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: "Target.targetCreated", message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
         emit(event: "Target.attachedToTarget", message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemAdded", message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemRemoved", message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemUpdated", message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemsCleared", message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2748,6 +2854,10 @@ declare module "inspector" {
         on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         on(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         on(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -2883,6 +2993,10 @@ declare module "inspector" {
         once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         once(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         once(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3018,6 +3132,10 @@ declare module "inspector" {
         prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3153,6 +3271,10 @@ declare module "inspector" {
         prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependOnceListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependOnceListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
     }
 }
 declare module "inspector/promises" {
@@ -3169,6 +3291,8 @@ declare module "inspector/promises" {
         NodeTracing,
         NodeWorker,
         Target,
+        DOMStorage,
+        Storage,
     } from 'inspector';
 }
 declare module "inspector/promises" {
@@ -3186,6 +3310,8 @@ declare module "inspector/promises" {
         NodeTracing,
         NodeWorker,
         Target,
+        DOMStorage,
+        Storage,
     } from "inspector";
     /**
      * The `inspector.Session` is used for dispatching messages to the V8 inspector
@@ -3520,7 +3646,24 @@ declare module "inspector/promises" {
          * Detached from the worker with given sessionId.
          */
         post(method: "NodeWorker.detach", params?: NodeWorker.DetachParameterType): Promise<void>;
+        post(method: "Target.getTargets"): Promise<Target.GetTargetsReturnType>;
         post(method: "Target.setAutoAttach", params?: Target.SetAutoAttachParameterType): Promise<void>;
+        post(method: "DOMStorage.clear", params?: DOMStorage.ClearParameterType): Promise<void>;
+        /**
+         * Disables storage tracking, prevents storage events from being sent to the client.
+         */
+        post(method: "DOMStorage.disable"): Promise<void>;
+        /**
+         * Enables storage tracking, storage events will now be delivered to the client.
+         */
+        post(method: "DOMStorage.enable"): Promise<void>;
+        post(method: "DOMStorage.getDOMStorageItems", params?: DOMStorage.GetDOMStorageItemsParameterType): Promise<DOMStorage.GetDOMStorageItemsReturnType>;
+        post(method: "DOMStorage.removeDOMStorageItem", params?: DOMStorage.RemoveDOMStorageItemParameterType): Promise<void>;
+        post(method: "DOMStorage.setDOMStorageItem", params?: DOMStorage.SetDOMStorageItemParameterType): Promise<void>;
+        /**
+         * @experimental
+         */
+        post(method: "Storage.getStorageKey", params?: Storage.GetStorageKeyParameterType): Promise<Storage.GetStorageKeyReturnType>;
         addListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3656,6 +3799,10 @@ declare module "inspector/promises" {
         addListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         addListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         addListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        addListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "inspectorNotification", message: InspectorNotification<object>): boolean;
         emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
@@ -3695,6 +3842,10 @@ declare module "inspector/promises" {
         emit(event: "NodeWorker.receivedMessageFromWorker", message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>): boolean;
         emit(event: "Target.targetCreated", message: InspectorNotification<Target.TargetCreatedEventDataType>): boolean;
         emit(event: "Target.attachedToTarget", message: InspectorNotification<Target.AttachedToTargetEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemAdded", message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemRemoved", message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemUpdated", message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>): boolean;
+        emit(event: "DOMStorage.domStorageItemsCleared", message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>): boolean;
         on(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3830,6 +3981,10 @@ declare module "inspector/promises" {
         on(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         on(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         on(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        on(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -3965,6 +4120,10 @@ declare module "inspector/promises" {
         once(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         once(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         once(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        once(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -4100,6 +4259,10 @@ declare module "inspector/promises" {
         prependListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         /**
          * Emitted when any notification from the V8 Inspector is received.
@@ -4235,5 +4398,9 @@ declare module "inspector/promises" {
         prependOnceListener(event: "NodeWorker.receivedMessageFromWorker", listener: (message: InspectorNotification<NodeWorker.ReceivedMessageFromWorkerEventDataType>) => void): this;
         prependOnceListener(event: "Target.targetCreated", listener: (message: InspectorNotification<Target.TargetCreatedEventDataType>) => void): this;
         prependOnceListener(event: "Target.attachedToTarget", listener: (message: InspectorNotification<Target.AttachedToTargetEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemAdded", listener: (message: InspectorNotification<DOMStorage.DomStorageItemAddedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemRemoved", listener: (message: InspectorNotification<DOMStorage.DomStorageItemRemovedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemUpdated", listener: (message: InspectorNotification<DOMStorage.DomStorageItemUpdatedEventDataType>) => void): this;
+        prependOnceListener(event: "DOMStorage.domStorageItemsCleared", listener: (message: InspectorNotification<DOMStorage.DomStorageItemsClearedEventDataType>) => void): this;
     }
 }
