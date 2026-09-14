@@ -9,8 +9,7 @@ proj4.defs(
 );
 
 // Define geographic extent: CRS, min/max X, min/max Y
-const extent = new itowns.Extent(
-    "EPSG:3946",
+const extent = new itowns.Extent('EPSG:3946',
     1837816.94334,
     1847692.32501,
     5170036.4587,

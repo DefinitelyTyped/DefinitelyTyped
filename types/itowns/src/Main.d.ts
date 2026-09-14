@@ -16,10 +16,10 @@ export { default as StreetControls } from "./Controls/StreetControls";
 export { default as Feature2Mesh } from "./Converter/Feature2Mesh";
 export { MAIN_LOOP_EVENTS } from "./Core/MainLoop";
 export { default as Ellipsoid, ellipsoidSizes } from "./Core/Math/Ellipsoid";
-export { default as GlobeView, GLOBE_VIEW_EVENTS } from "./Core/Prefab/GlobeView";
-export { default as PlanarView } from "./Core/Prefab/PlanarView";
+export { default as GlobeView, GLOBE_VIEW_EVENTS, GlobeViewOptions } from "./Core/Prefab/GlobeView";
+export { default as PlanarView, PlanarViewOptions } from "./Core/Prefab/PlanarView";
 export { default as Capabilities } from "./Core/System/Capabilities";
-export { default as View } from "./Core/View";
+export { default as View, ViewOptions } from "./Core/View";
 export { VIEW_EVENTS } from "./Core/View";
 export { default as FeatureProcessing } from "./Process/FeatureProcessing";
 export {
@@ -36,6 +36,7 @@ export {
     PNTS_MODE,
     PNTS_SHAPE,
     PNTS_SIZE_MODE,
+    PointsMaterialOptions,
 } from "./Renderer/PointsMaterial";
 export { default as ShaderChunk } from "./Renderer/Shader/ShaderChunk";
 export { default as CameraUtils } from "./Utils/CameraUtils";
@@ -51,44 +52,44 @@ export { default as Style } from "./Core/Style";
 // Layers provided by default in iTowns
 // A custom layer should at least implements Layer
 // See http://www.itowns-project.org/itowns/docs/#api/Layer/Layer
-export { default as GlobeLayer } from "./Core/Prefab/Globe/GlobeLayer";
-export { default as PlanarLayer } from "./Core/Prefab/Planar/PlanarLayer";
+export { default as GlobeLayer, GlobeLayerOptions } from "./Core/Prefab/Globe/GlobeLayer";
+export { default as PlanarLayer, PlanarLayerOptions } from "./Core/Prefab/Planar/PlanarLayer";
 export { C3DTILES_LAYER_EVENTS, default as C3DTilesLayer } from "./Layer/C3DTilesLayer";
-export { default as ColorLayer } from "./Layer/ColorLayer";
-export { default as ElevationLayer } from "./Layer/ElevationLayer";
-export { default as EntwinePointTileLayer } from "./Layer/EntwinePointTileLayer";
-export { default as FeatureGeometryLayer } from "./Layer/FeatureGeometryLayer";
-export { default as GeoidLayer } from "./Layer/GeoidLayer";
-export { default as GeometryLayer } from "./Layer/GeometryLayer";
-export { default as LabelLayer } from "./Layer/LabelLayer";
-export { default as Layer, ImageryLayers } from "./Layer/Layer";
+export { default as ColorLayer, ColorLayerOptions } from "./Layer/ColorLayer";
+export { default as ElevationLayer, ElevationLayerOptions } from "./Layer/ElevationLayer";
+export { default as EntwinePointTileLayer, EntwinePointTileLayerOptions } from "./Layer/EntwinePointTileLayer";
+export { default as FeatureGeometryLayer, FeatureGeometryLayerOptions } from "./Layer/FeatureGeometryLayer";
+export { default as GeoidLayer, GeoidLayerOptions } from "./Layer/GeoidLayer";
+export { default as GeometryLayer, GeometryLayerOptions } from "./Layer/GeometryLayer";
+export { default as LabelLayer, LabelLayerOptions } from "./Layer/LabelLayer";
+export { default as Layer, ImageryLayers, LayerOptions } from "./Layer/Layer";
 export {
     STRATEGY_DICHOTOMY,
     STRATEGY_GROUP,
     STRATEGY_MIN_NETWORK_TRAFFIC,
     STRATEGY_PROGRESSIVE,
 } from "./Layer/LayerUpdateStrategy";
-export { default as OrientedImageLayer } from "./Layer/OrientedImageLayer";
-export { default as PointCloudLayer } from "./Layer/PointCloudLayer";
-export { default as PotreeLayer } from "./Layer/PotreeLayer";
-export { default as TiledGeometryLayer } from "./Layer/TiledGeometryLayer";
+export { default as OrientedImageLayer, OrientedImageLayerOptions } from "./Layer/OrientedImageLayer";
+export { default as PointCloudLayer, PointCloudLayerOptions } from "./Layer/PointCloudLayer";
+export { default as PotreeLayer, PotreeLayerOptions } from "./Layer/PotreeLayer";
+export { default as TiledGeometryLayer, TiledGeometryLayerOptions } from "./Layer/TiledGeometryLayer";
 export { default as ColorLayersOrdering } from "./Renderer/ColorLayersOrdering";
 
 // Sources provided by default in iTowns
 // A custom source should at least implements Source
 // See http://www.itowns-project.org/itowns/docs/#api/Source/Source
-export { default as C3DTilesIonSource } from "./Source/C3DTilesIonSource";
-export { default as C3DTilesSource } from "./Source/C3DTilesSource";
-export { default as EntwinePointTileSource } from "./Source/EntwinePointTileSource";
-export { default as FileSource } from "./Source/FileSource";
+export { default as C3DTilesIonSource, C3DTilesIonSourceOptions } from "./Source/C3DTilesIonSource";
+export { default as C3DTilesSource, C3DTilesSourceOptions } from "./Source/C3DTilesSource";
+export { default as EntwinePointTileSource, EntwinePointTileSourceOptions } from "./Source/EntwinePointTileSource";
+export { default as FileSource, FileSourceOptions } from "./Source/FileSource";
 export { default as OrientedImageSource } from "./Source/OrientedImageSource";
-export { default as PotreeSource } from "./Source/PotreeSource";
-export { default as Source } from "./Source/Source";
-export { default as TMSSource } from "./Source/TMSSource";
-export { default as VectorTilesSource } from "./Source/VectorTilesSource";
-export { default as WFSSource } from "./Source/WFSSource";
-export { default as WMSSource } from "./Source/WMSSource";
-export { default as WMTSSource } from "./Source/WMTSSource";
+export { default as PotreeSource, PotreeSourceOptions } from "./Source/PotreeSource";
+export { default as Source, SourceOptions } from "./Source/Source";
+export { default as TMSSource, TMSSourceOptions } from "./Source/TMSSource";
+export { default as VectorTilesSource, VectorTilesSourceOptions } from "./Source/VectorTilesSource";
+export { default as WFSSource, WFSSourceOptions } from "./Source/WFSSource";
+export { default as WMSSource, WMSSourceOptions } from "./Source/WMSSource";
+export { default as WMTSSource, WMTSSourceOptions } from "./Source/WMTSSource";
 
 // Parsers provided by default in iTowns
 // Custom parser can be implemented as wanted, as long as the main function

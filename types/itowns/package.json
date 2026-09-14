@@ -1,10 +1,11 @@
 {
     "private": true,
     "name": "@types/itowns",
-    "version": "2.42.9999",
+    "version": "2.43.9999",
     "projects": [
         "https://itowns.github.io/"
     ],
+    "type": "module",
     "dependencies": {
         "@types/three": "*"
     },

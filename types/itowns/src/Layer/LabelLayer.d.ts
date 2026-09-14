@@ -2,7 +2,7 @@ import Extent from "../Core/Geographic/Extent";
 import Label from "../Core/Label";
 import GeometryLayer from "./GeometryLayer";
 
-type LabelLayerOptions = any;
+export type LabelLayerOptions = any;
 
 // TODO: Define public API
 declare class LabelLayer extends GeometryLayer {

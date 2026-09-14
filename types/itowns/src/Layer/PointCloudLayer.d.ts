@@ -13,6 +13,11 @@ interface PointCloudLayer {
     mode: PNTS_MODE;
     minIntensityRange: number;
     maxIntensityRange: number;
+    minElevationRange?: number;
+    maxElevationRange?: number;
+    minAngleRange?: number;
+    maxAngleRange?: number;
+
 }
 
 export type PointCloudLayerOptions = Partial<PointCloudLayer> & GeometryLayerOptions; // TODO: check output type
