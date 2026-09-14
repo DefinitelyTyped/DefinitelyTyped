@@ -286,7 +286,6 @@ declare module "child_process" {
          * new process in a shell or with the use of the `shell` option of `ChildProcess`:
          *
          * ```js
-         * 'use strict';
          * import { spawn } from 'node:child_process';
          *
          * const subprocess = spawn(

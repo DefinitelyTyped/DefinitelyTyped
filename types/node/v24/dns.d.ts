@@ -539,7 +539,7 @@ declare module "dns" {
      *   regexp: '',
      *   replacement: '_sip._udp.example.com',
      *   order: 30,
-     *   preference: 100
+     *   preference: 100,
      * }
      * ```
      * @since v0.9.12
@@ -596,7 +596,7 @@ declare module "dns" {
      *   refresh: 10000,
      *   retry: 2400,
      *   expire: 604800,
-     *   minttl: 3600
+     *   minttl: 3600,
      * }
      * ```
      * @since v0.11.10
@@ -622,7 +622,7 @@ declare module "dns" {
      *   priority: 10,
      *   weight: 5,
      *   port: 21223,
-     *   name: 'service.example.com'
+     *   name: 'service.example.com',
      * }
      * ```
      * @since v0.1.27
@@ -649,7 +649,7 @@ declare module "dns" {
      *   certUsage: 3,
      *   selector: 1,
      *   match: 1,
-     *   data: [ArrayBuffer]
+     *   data: [ArrayBuffer],
      * }
      * ```
      * @since v23.9.0, v22.15.0
@@ -699,7 +699,7 @@ declare module "dns" {
      *     refresh: 900,
      *     retry: 900,
      *     expire: 1800,
-     *     minttl: 60 } ]
+     *     minttl: 60 } ];
      * ```
      *
      * DNS server operators may choose not to respond to `ANY` queries. It may be better to call individual methods like {@link resolve4}, {@link resolveMx}, and so on. For more details, see

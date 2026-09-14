@@ -1981,8 +1981,8 @@ declare module "http2" {
          *
          * Then `request.url` will be:
          *
-         * ```js
-         * '/status?name=ryan'
+         * ```json
+         * "/status?name=ryan"
          * ```
          *
          * To parse the url into its parts, `new URL()` can be used:
