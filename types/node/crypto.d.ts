@@ -3621,7 +3621,7 @@ declare module "node:crypto" {
             hash: HashAlgorithmIdentifier;
             length?: number;
         }
-        interface KangarooTwelveParams {
+        interface KangarooTwelveParams extends Algorithm {
             customization?: NodeJS.BufferSource;
             outputLength: number;
         }
@@ -3694,7 +3694,7 @@ declare module "node:crypto" {
         interface RsaPssParams extends Algorithm {
             saltLength: number;
         }
-        interface TurboShakeParams {
+        interface TurboShakeParams extends Algorithm {
             domainSeparation?: number;
             outputLength: number;
         }

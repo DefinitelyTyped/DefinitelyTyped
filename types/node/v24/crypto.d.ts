@@ -4851,6 +4851,10 @@ declare module "crypto" {
             hash: HashAlgorithmIdentifier;
             length?: number;
         }
+        interface KangarooTwelveParams extends Algorithm {
+            customization?: BufferSource;
+            outputLength: number;
+        }
         interface JsonWebKey {
             alg?: string;
             crv?: string;
@@ -4919,6 +4923,10 @@ declare module "crypto" {
         }
         interface RsaPssParams extends Algorithm {
             saltLength: number;
+        }
+        interface TurboShakeParams extends Algorithm {
+            domainSeparation?: number;
+            outputLength: number;
         }
         /**
          * Importing the `webcrypto` object (`import { webcrypto } from 'node:crypto'`) gives an instance of the `Crypto` class.
@@ -5151,7 +5159,10 @@ declare module "crypto" {
              * If `algorithm` is provided as an `<Object>`, it must have a `name` property whose value is one of the above.
              * @since v15.0.0
              */
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: BufferSource): Promise<ArrayBuffer>;
+            digest(
+                algorithm: AlgorithmIdentifier | CShakeParams | TurboShakeParams | KangarooTwelveParams,
+                data: BufferSource,
+            ): Promise<ArrayBuffer>;
             /**
              * Uses a message recipient's asymmetric public key to encrypt a temporary symmetric key.
              * This encrypted key is the "encapsulated key" represented as `EncapsulatedBits`.
