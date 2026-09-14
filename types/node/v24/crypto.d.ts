@@ -4697,7 +4697,6 @@ declare module "crypto" {
      * ```
      * @since v24.7.0
      * @param algorithm Variant of Argon2, one of `"argon2d"`, `"argon2i"` or `"argon2id"`.
-     * @experimental
      */
     function argon2(
         algorithm: Argon2Algorithm,
@@ -4737,7 +4736,6 @@ declare module "crypto" {
      * console.log(derivedKey.toString('hex'));  // 'af91dad...9520f15'
      * ```
      * @since v24.7.0
-     * @experimental
      */
     function argon2Sync(algorithm: Argon2Algorithm, parameters: Argon2Parameters): NonSharedBuffer;
     /**
