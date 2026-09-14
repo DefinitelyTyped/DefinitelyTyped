@@ -171,6 +171,8 @@ test(undefined, undefined, t => {
     t.mock;
     // $ExpectType number
     t.attempt;
+    // $ExpectType number | undefined
+    t.workerId;
 });
 
 // Test the subtest approach.
