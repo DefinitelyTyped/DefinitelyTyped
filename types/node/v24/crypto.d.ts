@@ -5063,7 +5063,7 @@ declare module "crypto" {
                 ciphertext: BufferSource,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method and parameters specified in `algorithm` and the keying material provided by `key`,
@@ -5199,7 +5199,7 @@ declare module "crypto" {
                 encapsulationKey: CryptoKey,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<EncapsulatedKey>;
             /**
              * Using the method and parameters specified by `algorithm` and the keying material provided by `key`,
