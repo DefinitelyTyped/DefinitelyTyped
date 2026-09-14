@@ -324,7 +324,7 @@ declare module "http" {
         requireHostHeader?: boolean | undefined;
         /**
          * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
-         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * similarly on what is done in `socket.setKeepAlive()`.
          * @default false
          * @since v16.5.0
          */

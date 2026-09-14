@@ -79,7 +79,9 @@ import * as net from "node:net";
     _socket = _socket.setTimeout(500);
 
     _socket = _socket.setNoDelay(true);
-    _socket = _socket.setKeepAlive(true, 10);
+    _socket = _socket.setKeepAlive(true);
+    _socket = _socket.setKeepAlive(true, 1000, 5000, 5);
+    _socket = _socket.setKeepAlive({ enable: true, initialDelay: 500 });
     _socket = _socket.setEncoding("utf8");
     _socket = _socket.resume();
     _socket = _socket.resetAndDestroy();
