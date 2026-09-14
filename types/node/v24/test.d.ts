@@ -782,6 +782,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
                  * The flattened lowercased tags declared on the test
                  * and its ancestor suites, in declaration order. Empty for untagged tests.
                  * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
@@ -816,6 +822,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
                  * The flattened lowercased tags declared on the test
                  * and its ancestor suites, in declaration order. Empty for untagged tests.
                  * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
@@ -842,6 +854,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
                 /**
                  * The flattened lowercased tags declared on the test
                  * and its ancestor suites, in declaration order. Empty for untagged tests.
@@ -893,6 +911,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
                 /**
                  * The flattened lowercased tags declared on the test
                  * and its ancestor suites, in declaration order. Empty for untagged tests.
@@ -961,6 +985,12 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
                  * The flattened lowercased tags declared on the test
                  * and its ancestor suites, in declaration order. Empty for untagged tests.
                  * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
@@ -1004,6 +1034,12 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
                 /**
                  * The flattened lowercased tags declared on the test
                  * and its ancestor suites, in declaration order. Empty for untagged tests.
