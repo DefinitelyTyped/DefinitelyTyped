@@ -430,6 +430,7 @@ declare module "node:test" {
             addListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             addListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             addListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            addListener(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             addListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             addListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             addListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -445,6 +446,7 @@ declare module "node:test" {
             emit(event: "test:diagnostic", data: EventData.TestDiagnostic): boolean;
             emit(event: "test:enqueue", data: EventData.TestEnqueue): boolean;
             emit(event: "test:fail", data: EventData.TestFail): boolean;
+            emit(event: "test:interrupted", data: EventData.TestInterrupted): boolean;
             emit(event: "test:pass", data: EventData.TestPass): boolean;
             emit(event: "test:plan", data: EventData.TestPlan): boolean;
             emit(event: "test:start", data: EventData.TestStart): boolean;
@@ -460,6 +462,7 @@ declare module "node:test" {
             on(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             on(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             on(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            on(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             on(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             on(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             on(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -475,6 +478,7 @@ declare module "node:test" {
             once(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             once(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             once(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            once(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             once(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             once(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             once(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -490,6 +494,7 @@ declare module "node:test" {
             prependListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             prependListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             prependListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            prependListener(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             prependListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             prependListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             prependListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -505,6 +510,7 @@ declare module "node:test" {
             prependOnceListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             prependOnceListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             prependOnceListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            prependOnceListener(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             prependOnceListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             prependOnceListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             prependOnceListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -835,6 +841,13 @@ declare module "node:test" {
                  * Present if `context.skip` is called.
                  */
                 skip?: string | boolean;
+            }
+            interface TestInterrupted {
+                /**
+                 * An array of objects containing information about the
+                 * interrupted tests.
+                 */
+                tests: TestStart[];
             }
             interface TestPass extends LocationInfo {
                 /**
@@ -2315,6 +2328,7 @@ declare module "node:test/reporters" {
         | { type: "test:diagnostic"; data: EventData.TestDiagnostic }
         | { type: "test:enqueue"; data: EventData.TestEnqueue }
         | { type: "test:fail"; data: EventData.TestFail }
+        | { type: "test:interrupted"; data: EventData.TestInterrupted }
         | { type: "test:pass"; data: EventData.TestPass }
         | { type: "test:plan"; data: EventData.TestPlan }
         | { type: "test:start"; data: EventData.TestStart }
