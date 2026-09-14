@@ -813,8 +813,8 @@ async function testStat(
     path: string,
     fd: number,
     opts: fs.StatOptions,
-    bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
-    bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
+    bigintMaybeFalse: { bigint: false } | undefined,
+    bigIntMaybeTrue: { bigint: true } | undefined,
     maybe?: fs.StatOptions,
 ) {
     /* Need to test these variants:
@@ -864,7 +864,7 @@ async function testStat(
     fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
 
     fs.stat(path, bigIntMaybeTrue, (err, st) => {
-        st; // $ExpectType Stats | BigIntStats
+        st; // $ExpectType Stats | BigIntStats | undefined
     });
     fs.lstat(path, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
@@ -874,7 +874,7 @@ async function testStat(
     });
 
     fs.stat(path, opts, (err, st) => {
-        st; // $ExpectType Stats | BigIntStats
+        st; // $ExpectType Stats | BigIntStats | undefined
     });
 
     fs.lstat(path, opts, (err, st) => {
@@ -941,11 +941,11 @@ async function testStat(
     util.promisify(fs.lstat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     util.promisify(fs.fstat)(fd, { bigint: true }); // $ExpectType Promise<BigIntStats>
 
-    util.promisify(fs.stat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.stat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats | undefined>
     util.promisify(fs.lstat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.fstat)(fd, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
-    util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats | undefined>
     util.promisify(fs.lstat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.fstat)(fd, opts); // $ExpectType Promise<Stats | BigIntStats>
 
@@ -973,11 +973,11 @@ async function testStat(
 
     fs.promises.stat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
     fs.promises.lstat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
-    fh.stat(bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats | undefined>
 
     fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
-    fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats | undefined>
 }
 
 const bigStats: fs.BigIntStats = fs.statSync(".", { bigint: true });

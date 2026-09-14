@@ -1180,6 +1180,7 @@ declare module "fs" {
         options:
             | (StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             })
             | undefined,
         callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
@@ -1188,13 +1189,32 @@ declare module "fs" {
         path: PathLike,
         options: StatOptions & {
             bigint: true;
+            throwIfNoEntry?: true | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
     ): void;
     export function stat(
         path: PathLike,
+        options:
+            | (StatOptions & {
+                bigint?: false | undefined;
+                throwIfNoEntry: false;
+            })
+            | undefined,
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | undefined) => void,
+    ): void;
+    export function stat(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats | undefined) => void,
+    ): void;
+    export function stat(
+        path: PathLike,
         options: StatOptions | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats | undefined) => void,
     ): void;
     export namespace stat {
         /**
@@ -1205,15 +1225,31 @@ declare module "fs" {
             path: PathLike,
             options?: StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<Stats>;
         function __promisify__(
             path: PathLike,
             options: StatOptions & {
                 bigint: true;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
+        function __promisify__(
+            path: PathLike,
+            options?: StatOptions & {
+                bigint?: false | undefined;
+                throwIfNoEntry: false;
+            },
+        ): Promise<Stats | undefined>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                bigint: true;
+                throwIfNoEntry: false;
+            },
+        ): Promise<BigIntStats | undefined>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats | undefined>;
     }
     export interface StatSyncFn extends Function {
         (path: PathLike, options?: undefined): Stats;
@@ -4522,10 +4558,9 @@ declare module "fs" {
     }
     export interface StatOptions {
         bigint?: boolean | undefined;
-    }
-    export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
+    export interface StatSyncOptions extends StatOptions {}
     interface CopyOptionsBase {
         /**
          * Dereference symlinks

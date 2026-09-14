@@ -11,7 +11,6 @@
 declare module "fs/promises" {
     import { NonSharedBuffer } from "node:buffer";
     import { Abortable } from "node:events";
-    import { Stream } from "node:stream";
     import { ReadableStream } from "node:stream/web";
     import {
         BigIntStats,
@@ -337,14 +336,28 @@ declare module "fs/promises" {
         stat(
             opts?: StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<Stats>;
         stat(
             opts: StatOptions & {
                 bigint: true;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<BigIntStats>;
-        stat(opts?: StatOptions): Promise<Stats | BigIntStats>;
+        stat(
+            opts?: StatOptions & {
+                bigint?: false | undefined;
+                throwIfNoEntry: false;
+            },
+        ): Promise<Stats | undefined>;
+        stat(
+            opts: StatOptions & {
+                bigint: true;
+                throwIfNoEntry: false;
+            },
+        ): Promise<BigIntStats | undefined>;
+        stat(opts?: StatOptions): Promise<Stats | BigIntStats | undefined>;
         /**
          * Truncates the file.
          *
