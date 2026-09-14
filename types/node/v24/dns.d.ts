@@ -81,7 +81,7 @@ declare module "dns" {
          */
         all?: boolean | undefined;
         /**
-         * When `verbatim`, the resolved addresses are return unsorted. When `ipv4first`, the resolved addresses are sorted
+         * When `verbatim`, the resolved addresses are returned unsorted. When `ipv4first`, the resolved addresses are sorted
          * by placing IPv4 addresses before IPv6 addresses. When `ipv6first`, the resolved addresses are sorted by placing IPv6
          * addresses before IPv4 addresses. Default value is configurable using
          * {@link setDefaultResultOrder} or [`--dns-result-order`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--dns-result-orderorder).
