@@ -42,6 +42,9 @@ import { TextEncoder } from "node:util";
         },
     );
 
+    database.deserialize(database.serialize());
+    database.deserialize(database.serialize("db"), { dbName: "db" });
+
     const insert = database.prepare("INSERT INTO types (key, int, double, text, buf) VALUES (?, ?, ?, ?, ?)");
     insert.setReadBigInts(true);
     insert.setAllowBareNamedParameters(true);
