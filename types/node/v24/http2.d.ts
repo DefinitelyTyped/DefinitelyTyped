@@ -558,7 +558,7 @@ declare module "http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
@@ -673,7 +673,7 @@ declare module "http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
