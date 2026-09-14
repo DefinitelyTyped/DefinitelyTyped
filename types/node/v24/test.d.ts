@@ -415,7 +415,7 @@ declare module "node:test" {
             functionCoverage?: number | undefined;
             /**
              * Specify environment variables to be passed along to the test process.
-             * This options is not compatible with `isolation='none'`. These variables will override
+             * This option is not compatible with `isolation='none'`. These variables will override
              * those from the main process, and are not merged with `process.env`.
              * @since v24.14.0
              * @default process.env
