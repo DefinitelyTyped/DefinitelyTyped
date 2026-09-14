@@ -1507,9 +1507,9 @@ declare module "crypto" {
         update(data: BinaryLike): Verify;
         update(data: string, inputEncoding: Encoding): Verify;
         /**
-         * Verifies the provided data using the given `object` and `signature`.
+         * Verifies the provided data using the given `key` and `signature`.
          *
-         * If `object` is not a `KeyObject`, this function behaves as if `object` had been passed to {@link createPublicKey}. If it is an
+         * If `key` is not a `KeyObject`, this function behaves as if `key` had been passed to {@link createPublicKey}. If it is an
          * object, the following additional properties can be passed:
          *
          * The `signature` argument is the previously calculated signature for the data, in
@@ -1526,7 +1526,7 @@ declare module "crypto" {
          * @since v0.1.92
          */
         verify(
-            object:
+            key:
                 | KeyLike
                 | VerifyKeyObjectInput
                 | VerifyPublicKeyInput
