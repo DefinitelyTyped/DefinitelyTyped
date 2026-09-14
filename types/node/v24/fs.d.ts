@@ -422,7 +422,8 @@ declare module "fs" {
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
     /**
-     * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
+     * Instances of `fs.ReadStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createReadStream()` function.
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
@@ -717,9 +718,8 @@ declare module "fs" {
         unpipe: (src: stream.Readable) => void;
     } & CustomEvents;
     /**
-     * * Extends `stream.Writable`
-     *
-     * Instances of `fs.WriteStream` are created and returned using the {@link createWriteStream} function.
+     * Instances of `fs.WriteStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createWriteStream()` function.
      * @since v0.1.93
      */
     export class WriteStream extends stream.Writable {
