@@ -9268,7 +9268,7 @@ declare namespace chrome {
         type InstalledDetails =
             | {
                 /** The reason that this event is being dispatched. */
-                reason: "update";
+                reason: `${OnInstalledReason.UPDATE}`;
                 /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
                 previousVersion: string;
                 /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
@@ -9276,7 +9276,7 @@ declare namespace chrome {
             }
             | {
                 /** The reason that this event is being dispatched. */
-                reason: "shared_module_update";
+                reason: `${OnInstalledReason.SHARED_MODULE_UPDATE}`;
                 /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
                 previousVersion?: undefined;
                 /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
@@ -9284,7 +9284,7 @@ declare namespace chrome {
             }
             | {
                 /** The reason that this event is being dispatched. */
-                reason: "install" | "chrome_update";
+                reason: `${OnInstalledReason.INSTALL}` | `${OnInstalledReason.CHROME_UPDATE}`;
                 /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
                 previousVersion?: undefined;
                 /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
