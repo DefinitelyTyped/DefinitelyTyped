@@ -48,7 +48,7 @@ function JUnitXmlReporterSpec_js() {
         filename: "text",
         failedExpectations: [],
         deprecationWarnings: [],
-        status: "text",
+        status: "passed",
         duration: null,
         properties: null,
     };
