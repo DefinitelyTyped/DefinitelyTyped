@@ -1,3 +1,4 @@
 export = isarray;
 
-declare function isarray(value: unknown): value is unknown[];
+// eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+declare function isarray<T>(value: unknown): value is T[];
