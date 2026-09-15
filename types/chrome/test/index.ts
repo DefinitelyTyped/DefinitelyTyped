@@ -1130,6 +1130,9 @@ function testGetManifest() {
         manifest.oauth2.scopes; // $ExpectType string[]
     }
 
+    manifest.replacement_web_app; // $ExpectType string | undefined
+    manifest.trial_tokens; // $ExpectType string[] | undefined
+
     if (manifest.sandbox) {
         manifest.sandbox.pages; // $ExpectType string[]
         manifest.sandbox.content_security_policy; // $ExpectType string | undefined
@@ -1191,6 +1194,8 @@ function testGetManifest() {
             extension_pages: "default-src 'self'",
             sandbox: "default-src 'self'",
         };
+
+        manifest.message_serialization; // $ExpectType "json" | "structured_clone" | undefined
 
         manifest.host_permissions; // $ExpectType string[] | undefined
         manifest.optional_permissions; // $ExpectType ManifestOptionalPermission[] | undefined

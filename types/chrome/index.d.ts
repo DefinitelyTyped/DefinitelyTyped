@@ -9719,6 +9719,12 @@ declare namespace chrome {
             short_name?: string | undefined;
             /** Declares a JSON schema for the managed storage area. */
             storage?: { managed_schema: string } | undefined;
+            /**
+             * An array of trial tokens to enable Origin Trial and Deprecation Trial features in extension contexts. You can browse and register for active trials on the active trials page.
+             *
+             * To participate in multiple trials simultaneously, include each token as a separate array entry.
+             */
+            trial_tokens?: string[] | undefined;
             /** Registers the extension as a text to speech engine. */
             tts_engine?: {
                 voices: Array<{
@@ -9870,12 +9876,6 @@ declare namespace chrome {
             permissions?: ManifestPermission[] | undefined;
             /** Identifies an HTML file to display in a sidePanel. */
             side_panel?: { default_path: string } | undefined;
-            /**
-             * An array of trial tokens to enable Origin Trial and Deprecation Trial features in extension contexts. You can browse and register for active trials on the active trials page.
-             *
-             * To participate in multiple trials simultaneously, include each token as a separate array entry.
-             */
-            trial_tokens?: string[] | undefined;
             /** Defines files within the extension that can be accessed by web pages or other extensions. */
             web_accessible_resources?:
                 | Array<
