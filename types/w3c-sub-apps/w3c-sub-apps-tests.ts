@@ -13,18 +13,18 @@ async function testSubAppsApi() {
         installedApps: { "/path": manifestId },
         failedApps: { "/path2": new DOMException() },
     };
-    // $ExpectType Record<string, string>
+    // $ExpectType Record<string, string> | undefined
     addResponse.installedApps;
-    // $ExpectType Record<string, DOMException>
+    // $ExpectType Record<string, DOMException> | undefined
     addResponse.failedApps;
 
     const removeResponse: SubAppsRemoveResponse = {
         removedApps: [manifestId],
         failedApps: { "/path2": new DOMException() },
     };
-    // $ExpectType string[]
+    // $ExpectType readonly string[] | undefined
     removeResponse.removedApps;
-    // $ExpectType Record<string, DOMException>
+    // $ExpectType Record<string, DOMException> | undefined
     removeResponse.failedApps;
 
     const listResult: SubAppsListResult = {
