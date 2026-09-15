@@ -152,6 +152,10 @@
             "libraryName": "angular-ui-router-uib-modal",
             "asOfVersion": "0.0.11"
         },
+        "animejs": {
+            "libraryName": "animejs",
+            "asOfVersion": "4.0.0"
+        },
         "ansi-colors": {
             "libraryName": "ansi-colors",
             "asOfVersion": "3.2.1"
