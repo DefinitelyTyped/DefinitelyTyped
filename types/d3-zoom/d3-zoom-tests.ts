@@ -9,7 +9,7 @@
 import { interpolate, interpolateArray, interpolateZoom, ZoomInterpolator, ZoomView } from "d3-interpolate";
 import { ScaleLinear, scaleLinear, ScaleTime, scaleTime } from "d3-scale";
 import { ArrayLike, select, Selection } from "d3-selection";
-import { Transition } from "d3-transition";
+import "d3-transition";
 import * as d3Zoom from "d3-zoom";
 
 // --------------------------------------------------------------------------
@@ -204,6 +204,9 @@ svgZoom = svgZoom.extent(function(d) {
     console.log("Overlay Rectangle width: ", this.width.baseVal.value); // this typing is SVGRectElement
     return [[0, 0], [d.width, d.height]]; // datum type is SVGDatum
 });
+
+// chainable with parameterless accessor function
+svgZoom = svgZoom.extent(() => [[0, 0], [200, 200]]);
 
 // scaleExtent()  ----------------------------------------------------------
 
