@@ -8219,6 +8219,10 @@
             "libraryName": "viewport-mercator-project",
             "asOfVersion": "7.0.2"
         },
+        "vimeo__player": {
+            "libraryName": "@vimeo/player",
+            "asOfVersion": "2.29.4"
+        },
         "vinyl-file": {
             "libraryName": "vinyl-file",
             "asOfVersion": "4.1.0"
