@@ -8972,6 +8972,43 @@ declare namespace chrome {
     }
 
     ////////////////////
+    // PublicSuffix
+    ////////////////////
+    /**
+     * Use the `chrome.publicSuffix` API to query the browser's Public Suffix List (PSL).
+     *
+     * Permissions: "publicSuffix"
+     * @since Chrome 153
+     */
+    export namespace publicSuffix {
+        /** The encoding to use for returned domains. */
+        enum DomainEncoding {
+            DISPLAY = "display",
+            PUNYCODE = "punycode",
+        }
+
+        interface DomainOptions {
+            /** Whether IP addresses may be returned as domains. Defaults to false. Note: When allowed, IP addresses are returned without being looked up in the Public Suffix List. */
+            allowIPAddress?: boolean | undefined;
+            /** Whether known public suffixes may be returned as domains. Defaults to false. */
+            allowPlainSuffix?: boolean | undefined;
+            /** Whether unknown TLDs should be considered as a public suffix. For example, for non-public hostnames like `printer.internal-network`. Defaults to false. */
+            allowUnknownSuffix?: boolean | undefined;
+            /** The encoding to use for the returned domain. Defaults to "punycode", but pass "display" if displaying the domain to the user. Generally, "display" will use Unicode, except in cases where that would be unsafe due to ["Unicode confusables"](https://www.unicode.org/reports/tr39/#Confusable_Detection). */
+            encoding?: `${DomainEncoding}` | undefined;
+        }
+
+        /** Gets the registrable domain for `hostname`, if any. */
+        function getDomain(hostname: string, options?: DomainOptions): string | null;
+
+        /** Gets the known public suffix for `hostname`, if any. */
+        function getKnownSuffix(hostname: string): string | null;
+
+        /** Determines whether `hostname` is itself a known public suffix. */
+        function isKnownSuffix(hostname: string): boolean;
+    }
+
+    ////////////////////
     // ReadingList
     ////////////////////
     /**
@@ -10001,7 +10038,7 @@ declare namespace chrome {
          * Send a single message to a native application. This method requires the `"nativeMessaging"` permission
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99.
-         * @param application The name of the native messaging host.
+         * @param application The name of the native messaging host, or target details.
          * @param message The message that will be passed to the native messaging host.
          */
         function sendNativeMessage(application: string, message: object): Promise<any>;
@@ -10964,7 +11001,7 @@ declare namespace chrome {
             /** The user-friendly name (e.g. 'HP LCD monitor'). */
             name: string;
             /**
-             * @platform ChromeOS and Web UI only
+             * @platform ChromeOS only
              * @since Chrome 67
              */
             edid?: Edid;
@@ -11075,7 +11112,7 @@ declare namespace chrome {
         /**
          * Requests the layout info for all displays
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @platform ChromeOS and Web UI only
+         * @platform ChromeOS only
          * @since Chrome 53
          */
         function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
@@ -11087,7 +11124,7 @@ declare namespace chrome {
          * Updates the properties for the display specified by `id`,
          * according to the information provided in `info`.
          * On failure, `runtime.lastError` will be set.
-         * @platform ChromeOS and Web UI only
+         * @platform ChromeOS only
          * @param id The display's unique identifier.
          * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in `info`.
          */
@@ -11100,7 +11137,7 @@ declare namespace chrome {
          * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
          * After layout is resolved, an onDisplayChanged event will be triggered.
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @platform ChromeOS and Web UI only
+         * @platform ChromeOS only
          * @since Chrome 53
          * @param layouts The layout information, required for all displays except the primary display.
          */
@@ -11111,8 +11148,8 @@ declare namespace chrome {
          * Enables/disables the unified desktop feature.
          * If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off.
          * Otherwise, the desktop mode will switch to unified immediately.
+         * @platform ChromeOS only
          * @since Chrome 46
-         * @platform ChromeOS and Web UI only
          * @param enabled True if unified desktop should be enabled.
          */
         function enableUnifiedDesktop(enabled: boolean): void;
@@ -11121,6 +11158,7 @@ declare namespace chrome {
          * Starts overscan calibration for a display.
          * This will show an overlay on the screen indicating the current overscan insets.
          * If overscan calibration for display `id` is in progress this will reset calibration.
+         * @platform ChromeOS only
          * @since Chrome 53
          * @param id The display's unique identifier.
          */
@@ -11131,6 +11169,7 @@ declare namespace chrome {
          * Typically this should either move the display along an axis (e.g. left+right have the same value)
          * or scale it along an axis (e.g. top+bottom have opposite values).
          * Each Adjust call is cumulative with previous calls since Start.
+         * @platform ChromeOS only
          * @since Chrome 53
          * @param id The display's unique identifier.
          * @param delta The amount to change the overscan insets.
@@ -11139,6 +11178,7 @@ declare namespace chrome {
 
         /**
          * Resets the overscan insets for a display to the last saved value (i.e before Start was called).
+         * @platform ChromeOS only
          * @since Chrome 53
          * @param id The display's unique identifier.
          */
@@ -11146,6 +11186,7 @@ declare namespace chrome {
 
         /**
          * Complete overscan adjustments for a display by saving the current values and hiding the overlay.
+         * @platform ChromeOS only
          * @since Chrome 53
          * @param id The display's unique identifier.
          */
@@ -11157,6 +11198,7 @@ declare namespace chrome {
          * The callback will be invoked in case of successful calibration only.
          * If the calibration fails, this will throw an error.
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
+         * @platform ChromeOS only
          * @since Chrome 57
          * @param id The display's unique identifier.
          */
@@ -11167,6 +11209,7 @@ declare namespace chrome {
          * Starts custom touch calibration for a display.
          * This should be called when using a custom UX for collecting calibration data.
          * If another touch calibration is already in progress this will throw an error.
+         * @platform ChromeOS only
          * @since Chrome 57
          * @param id The display's unique identifier.
          */
@@ -11177,6 +11220,7 @@ declare namespace chrome {
          * These `pairs` would be used to calibrate the touch screen for display with `id` called in startCustomTouchCalibration().
          * Always call `startCustomTouchCalibration` before calling this method.
          * If another touch calibration is already in progress this will throw an error.
+         * @platform ChromeOS only
          * @since Chrome 57
          * @param pairs The pairs of point used to calibrate the display.
          * @param bounds Bounds of the display when the touch calibration was performed. `bounds.left` and `bounds.top` values are ignored.
@@ -11186,6 +11230,7 @@ declare namespace chrome {
 
         /**
          * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
+         * @platform ChromeOS only
          * @since Chrome 57
          * @param id The display's unique identifier.
          */
@@ -11195,7 +11240,7 @@ declare namespace chrome {
          * Sets the display mode to the specified mirror mode.
          * Each call resets the state from previous calls.
          * Calling setDisplayProperties() will fail for the mirroring destination displays.
-         * @platform ChromeOS and Web UI only
+         * @platform ChromeOS only
          * @param info The information of the mirror mode that should be applied to the display mode.
          * @since Chrome 65
          */
