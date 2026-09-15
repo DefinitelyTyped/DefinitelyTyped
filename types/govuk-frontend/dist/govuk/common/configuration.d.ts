@@ -30,7 +30,6 @@ export function normaliseString(
  *
  * @internal
  * @template {Partial<Record<keyof ConfigurationType, unknown>>} ConfigurationType
- * @template {[keyof ConfigurationType, SchemaProperty | undefined][]} SchemaEntryType
  * @param {{ schema?: Schema<ConfigurationType>, moduleName: string }} Component - Component class
  * @param {DOMStringMap} dataset - HTML element dataset
  * @returns {ObjectNested} Normalised dataset
@@ -53,9 +52,7 @@ export function normaliseDataset<
  * @param {Config | CreateAllOptions<ComponentClass> | OnErrorCallback<ComponentClass> | Element | Document | null} [scopeOrOptions] - Scope of the document to search within, initialisation options or error callback function
  * @returns {CreateAllOptions<ComponentClass>} Normalised options
  */
-export function normaliseOptions<
-    ComponentClass extends CompatibleClass,
->(
+export function normaliseOptions<ComponentClass extends CompatibleClass>(
     scopeOrOptions?:
         | Config
         | CreateAllOptions<ComponentClass>
@@ -126,13 +123,11 @@ export const configOverride: unique symbol;
  *
  * Centralises the behaviours shared by our components
  *
- * @template {Partial<Record<keyof ConfigurationType, unknown>>} ConfigurationType
- * @template {Element & { dataset: DOMStringMap }} RootElementType
+ * @template {Partial<Record<keyof ConfigurationType, unknown>>} [ConfigurationType=ObjectNested]
+ * @template {Element & { dataset: DOMStringMap }} [RootElementType=HTMLElement]
  */
 export abstract class ConfigurableComponent<
-    ConfigurationType extends Partial<
-        Record<keyof ConfigurationType, unknown>
-    > = ObjectNested,
+    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>> = ObjectNested,
     RootElementType extends Element & {
         dataset: DOMStringMap;
     } = HTMLElement,
@@ -153,7 +148,6 @@ export abstract class ConfigurableComponent<
      */
     protected get config(): ConfigurationType;
 
-    /** */
     _config: ConfigurationType;
 
     /**
