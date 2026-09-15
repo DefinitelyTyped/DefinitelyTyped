@@ -259,6 +259,25 @@ declare module "stream/web" {
         prototype: ReadableStreamDefaultController;
         new(): ReadableStreamDefaultController;
     };
+    /**
+     * Runs the WHATWG `ReadableStreamTee` abstract operation on `stream`.
+     *
+     * This differs from `readableStream.tee()` only when `cloneForBranch2` is
+     * `true`. The `tee()` method always passes `false`, while other web platform
+     * specifications, such as Fetch body cloning, pass `true` so that the second
+     * branch receives cloned chunks and consumption of one branch cannot mutate chunks
+     * seen by the other.
+     * @since v24.19.0
+     * @experimental
+     * @param cloneForBranch2 When `true`, chunks enqueued into the second
+     * branch are cloned from chunks enqueued into the first branch. **Default:**
+     * `false`.
+     * @returns Two `ReadableStream` branches.
+     */
+    function ReadableStreamTee<R>(
+        stream: ReadableStream<R>,
+        cloneForBranch2?: boolean,
+    ): [ReadableStream<R>, ReadableStream<R>];
     interface Transformer<I = any, O = any> {
         flush?: TransformerFlushCallback<O>;
         readableType?: undefined;

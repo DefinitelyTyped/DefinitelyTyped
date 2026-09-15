@@ -220,6 +220,11 @@ declare module "child_process" {
         /**
          * The `subprocess.exitCode` property indicates the exit code of the child process.
          * If the child process is still running, the field will be `null`.
+         *
+         * When the child process is terminated by a signal, `subprocess.exitCode` will be
+         * `null` and `subprocess.signalCode` will be set. To get the corresponding
+         * POSIX exit code, use
+         * `util.convertProcessSignalToExitCode(subprocess.signalCode)`.
          */
         readonly exitCode: number | null;
         /**
@@ -281,7 +286,6 @@ declare module "child_process" {
          * new process in a shell or with the use of the `shell` option of `ChildProcess`:
          *
          * ```js
-         * 'use strict';
          * import { spawn } from 'node:child_process';
          *
          * const subprocess = spawn(

@@ -64,6 +64,7 @@ import * as net from "node:net";
         keepAliveInitialDelay: 1000,
         noDelay: false,
         blockList: new net.BlockList(),
+        typeOfService: 0b00000111,
     });
 
     let bool: boolean;
@@ -78,7 +79,9 @@ import * as net from "node:net";
     _socket = _socket.setTimeout(500);
 
     _socket = _socket.setNoDelay(true);
-    _socket = _socket.setKeepAlive(true, 10);
+    _socket = _socket.setKeepAlive(true);
+    _socket = _socket.setKeepAlive(true, 1000, 5000, 5);
+    _socket = _socket.setKeepAlive({ enable: true, initialDelay: 500 });
     _socket = _socket.setEncoding("utf8");
     _socket = _socket.resume();
     _socket = _socket.resetAndDestroy();
@@ -492,6 +495,16 @@ import * as net from "node:net";
 }
 
 {
+    const socket = new net.Socket();
+
+    // $ExpectType number
+    socket.getTypeOfService();
+
+    // $ExpectType Socket
+    socket.setTypeOfService(0b00000111);
+}
+
+{
     const sockAddr: net.SocketAddress = new net.SocketAddress({
         address: "123.123.123.123",
         family: "ipv4",
@@ -516,4 +529,17 @@ import * as net from "node:net";
     bl.fromJSON(bl.rules);
     bl.toJSON(); // $ExpectType readonly string[]
     net.BlockList.isBlockList(bl); // $ExpectType boolean
+}
+
+{
+    using boundSocket = new net.BoundSocket({
+        host: "1234:5678::1",
+        port: 8080,
+        ipv6Only: false,
+        reusePort: false,
+    });
+    boundSocket.address(); // $ExpectType AddressInfo
+    boundSocket.fd(); // $ExpectType number
+
+    new net.Socket({ handle: new net.BoundSocket() });
 }

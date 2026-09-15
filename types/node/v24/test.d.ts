@@ -79,7 +79,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/test.js)
  */
 declare module "node:test" {
-    import { AssertMethodNames } from "node:assert";
+    import { AssertMethodNames, AssertPredicate } from "node:assert";
     import { Readable } from "node:stream";
     import { URL } from "node:url";
     import TestFn = test.TestFn;
@@ -190,6 +190,16 @@ declare module "node:test" {
             function only(name?: string, fn?: SuiteFn): Promise<void>;
             function only(options?: TestOptions, fn?: SuiteFn): Promise<void>;
             function only(fn?: SuiteFn): Promise<void>;
+            /**
+             * This flips the pass/fail reporting for a specific test or suite: a flagged test
+             * case must throw in order to pass, and a flagged test case that does not throw
+             * fails.
+             * @since v24.15.0
+             */
+            function expectFailure(name?: string, options?: TestOptions, fn?: SuiteFn): Promise<void>;
+            function expectFailure(name?: string, fn?: SuiteFn): Promise<void>;
+            function expectFailure(options?: TestOptions, fn?: SuiteFn): Promise<void>;
+            function expectFailure(fn?: SuiteFn): Promise<void>;
         }
         /**
          * Shorthand for skipping a test. This is the same as calling {@link test} with `options.skip` set to `true`.
@@ -215,6 +225,11 @@ declare module "node:test" {
         function only(name?: string, fn?: TestFn): Promise<void>;
         function only(options?: TestOptions, fn?: TestFn): Promise<void>;
         function only(fn?: TestFn): Promise<void>;
+        // added in v25.5.0, undocumented
+        function expectFailure(name?: string, options?: TestOptions, fn?: TestFn): Promise<void>;
+        function expectFailure(name?: string, fn?: TestFn): Promise<void>;
+        function expectFailure(options?: TestOptions, fn?: TestFn): Promise<void>;
+        function expectFailure(fn?: TestFn): Promise<void>;
         /**
          * The type of a function passed to {@link test}. The first argument to this function is a {@link TestContext} object.
          * If the test uses callbacks, the callback function is passed as the second argument.
@@ -329,6 +344,15 @@ declare module "node:test" {
              */
             testSkipPatterns?: string | RegExp | ReadonlyArray<string | RegExp> | undefined;
             /**
+             * A tag name, or an array of tag names,
+             * used to filter tests by their declared tags. Tests must contain every
+             * listed tag to run. Equivalent to passing `--experimental-test-tag-filter`
+             * on the command line. See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+             * @default undefined
+             * @since v24.19.0
+             */
+            testTagFilters?: string | readonly string[] | undefined;
+            /**
              * The number of milliseconds after which the test execution will fail.
              * If unspecified, subtests inherit this value from their parent.
              * @default Infinity
@@ -344,6 +368,20 @@ declare module "node:test" {
              * @default undefined
              */
             shard?: TestShard | undefined;
+            /**
+             * Randomize execution order for test files and queued tests.
+             * This option is not supported with `watch: true`.
+             * @since v24.16.0
+             * @default false
+             */
+            randomize?: boolean | undefined;
+            /**
+             * Seed used when randomizing execution order. If this
+             * option is set, runs can replay the same randomized order deterministically,
+             * and setting this option also enables randomization. The value must be an
+             * integer between `0` and `4294967295`.
+             */
+            randomSeed?: number | undefined;
             /**
              * A file path where the test runner will
              * store the state of the tests to allow rerunning only the failed tests on a next run.
@@ -398,6 +436,14 @@ declare module "node:test" {
              * @default 0
              */
             functionCoverage?: number | undefined;
+            /**
+             * Specify environment variables to be passed along to the test process.
+             * This option is not compatible with `isolation='none'`. These variables will override
+             * those from the main process, and are not merged with `process.env`.
+             * @since v24.14.0
+             * @default process.env
+             */
+            env?: NodeJS.ProcessEnv | undefined;
         }
         /**
          * A successful call to `run()` will return a new `TestsStream` object, streaming a series of events representing the execution of the tests.
@@ -412,6 +458,7 @@ declare module "node:test" {
             addListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             addListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             addListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            addListener(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             addListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             addListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             addListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -427,6 +474,7 @@ declare module "node:test" {
             emit(event: "test:diagnostic", data: EventData.TestDiagnostic): boolean;
             emit(event: "test:enqueue", data: EventData.TestEnqueue): boolean;
             emit(event: "test:fail", data: EventData.TestFail): boolean;
+            emit(event: "test:interrupted", data: EventData.TestInterrupted): boolean;
             emit(event: "test:pass", data: EventData.TestPass): boolean;
             emit(event: "test:plan", data: EventData.TestPlan): boolean;
             emit(event: "test:start", data: EventData.TestStart): boolean;
@@ -442,6 +490,7 @@ declare module "node:test" {
             on(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             on(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             on(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            on(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             on(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             on(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             on(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -457,6 +506,7 @@ declare module "node:test" {
             once(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             once(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             once(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            once(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             once(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             once(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             once(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -472,6 +522,7 @@ declare module "node:test" {
             prependListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             prependListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             prependListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            prependListener(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             prependListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             prependListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             prependListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -487,6 +538,7 @@ declare module "node:test" {
             prependOnceListener(event: "test:diagnostic", listener: (data: EventData.TestDiagnostic) => void): this;
             prependOnceListener(event: "test:enqueue", listener: (data: EventData.TestEnqueue) => void): this;
             prependOnceListener(event: "test:fail", listener: (data: EventData.TestFail) => void): this;
+            prependOnceListener(event: "test:interrupted", listener: (data: EventData.TestInterrupted) => void): this;
             prependOnceListener(event: "test:pass", listener: (data: EventData.TestPass) => void): this;
             prependOnceListener(event: "test:plan", listener: (data: EventData.TestPlan) => void): this;
             prependOnceListener(event: "test:start", listener: (data: EventData.TestStart) => void): this;
@@ -730,6 +782,24 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The ordinal number of the test.
                  */
                 testNumber: number;
@@ -752,6 +822,24 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The test type. Either `'suite'` or `'test'`.
                  * @since v22.15.0
                  */
@@ -766,6 +854,24 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
                 /**
                  * The test type. Either `'suite'` or `'test'`.
                  * @since v22.15.0
@@ -806,6 +912,24 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The ordinal number of the test.
                  */
                 testNumber: number;
@@ -817,6 +941,13 @@ declare module "node:test" {
                  * Present if `context.skip` is called.
                  */
                 skip?: string | boolean;
+            }
+            interface TestInterrupted {
+                /**
+                 * An array of objects containing information about the
+                 * interrupted tests.
+                 */
+                tests: TestStart[];
             }
             interface TestPass extends LocationInfo {
                 /**
@@ -854,6 +985,24 @@ declare module "node:test" {
                  */
                 nesting: number;
                 /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
+                /**
                  * The ordinal number of the test.
                  */
                 testNumber: number;
@@ -885,6 +1034,24 @@ declare module "node:test" {
                  * The nesting level of the test.
                  */
                 nesting: number;
+                /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests. Lets custom reporters track lineage
+                 * when concurrent siblings at the same nesting level interleave.
+                 */
+                parentId: number | undefined;
+                /**
+                 * The flattened lowercased tags declared on the test
+                 * and its ancestor suites, in declaration order. Empty for untagged tests.
+                 * See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+                 */
+                tags: string[];
+                /**
+                 * A numeric identifier for this test instance, unique
+                 * within the test file's process. Consistent across all events for the same
+                 * test instance, enabling reliable correlation in custom reporters.
+                 */
+                testId: number;
             }
             interface TestStderr {
                 /**
@@ -959,6 +1126,39 @@ declare module "node:test" {
             }
         }
         /**
+         * Returns the {@link TestContext} or {@link SuiteContext} object associated with the
+         * currently executing test or suite, or `undefined` if called outside of a test or
+         * suite. This function can be used to access context information from within the
+         * test or suite function or any async operations within them.
+
+         * ```js
+         * import { getTestContext } from 'node:test';
+         *
+         * test('example test', async () => {
+         *   const ctx = getTestContext();
+         *   console.log(`Running test: ${ctx.name}`);
+         * });
+         *
+         * describe('example suite', () => {
+         *   const ctx = getTestContext();
+         *   console.log(`Running suite: ${ctx.name}`);
+         * });
+         * ```
+         *
+         * When called from a test, returns a `TestContext`.
+         * When called from a suite, returns a `SuiteContext`.
+         *
+         * If called from outside a test or suite (e.g., at the top level of a module or in
+         * a setTimeout callback after execution has completed), this function returns
+         * `undefined`.
+         *
+         * When called from within a hook (before, beforeEach, after, afterEach), this
+         * function returns the context of the test or suite that the hook is associated
+         * with.
+         * @since v24.19.0
+         */
+        function getTestContext(): TestContext | SuiteContext | undefined;
+        /**
          * An instance of `TestContext` is passed to each test function in order to
          * interact with the test runner. However, the `TestContext` constructor is not
          * exposed as part of the API.
@@ -989,6 +1189,41 @@ declare module "node:test" {
              */
             readonly assert: TestContextAssert;
             readonly attempt: number;
+            /**
+             * A frozen array of the test's flattened lowercased tags, in declaration
+             * order, including any tags inherited from ancestor suites. Empty when the
+             * test has no tags. See [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+             * @since v24.19.0
+             */
+            readonly tags: readonly string[];
+            /**
+             * The unique identifier of the worker running the current test file. This value is
+             * derived from the `NODE_TEST_WORKER_ID` environment variable. When running tests
+             * with `--test-isolation=process` (the default), each test file runs in a separate
+             * child process and is assigned a worker ID from 1 to N, where N is the number of
+             * concurrent workers. When running with `--test-isolation=none`, all tests run in
+             * the same process and the worker ID is always 1. This value is `undefined` when
+             * not running in a test context.
+             *
+             * This property is useful for splitting resources (like database connections or
+             * server ports) across concurrent test files:
+             *
+             * ```js
+             * import { test } from 'node:test';
+             * import { process } from 'node:process';
+             *
+             * test('database operations', async (t) => {
+             *   // Worker ID is available via context
+             *   console.log(`Running in worker ${t.workerId}`);
+             *
+             *   // Or via environment variable (available at import time)
+             *   const workerId = process.env.NODE_TEST_WORKER_ID;
+             *   // Use workerId to allocate separate resources per worker
+             * });
+             * ```
+             * @since v24.15.0
+             */
+            readonly workerId: number | undefined;
             /**
              * This function is used to create a hook running before subtest of the current test.
              * @param fn The hook function. The first argument to this function is a `TestContext` object.
@@ -1320,6 +1555,31 @@ declare module "node:test" {
              * @since v18.7.0, v16.17.0
              */
             readonly signal: AbortSignal;
+            /**
+             * Indicates whether the suite and all of its subtests have passed.
+             * @since v24.16.0
+             */
+            readonly passed: boolean;
+            /**
+             * The current attempt number of the suite. Used in conjunction with the
+             * `--test-rerun-failures` option to determine the attempt number of the current
+             * run.
+             * @since v24.16.0
+             */
+            readonly attempt: number;
+            /**
+             * Output a diagnostic message. This is typically used for logging information
+             * about the current suite or its tests.
+             *
+             * ```js
+             * test.describe('my suite', (suite) => {
+             *   suite.diagnostic('Suite diagnostic message');
+             * });
+             * ```
+             * @since v24.16.0
+             * @param message A diagnostic message to output.
+             */
+            diagnostic(message: string): void;
         }
         interface TestOptions {
             /**
@@ -1331,6 +1591,17 @@ declare module "node:test" {
              * @default false
              */
             concurrency?: number | boolean | undefined;
+            /**
+             * If truthy, the test is expected to fail. If a non-empty string is provided, that string is displayed
+             * in the test results as the reason why the test is expected to fail. If a
+             * `RegExp`, `Function`, `Object`, or `Error` is provided directly (without wrapping in `{ match: … }`), the test passes
+             * only if the thrown error matches, following the behavior of
+             * `assert.throws`. To provide both a reason and validation, pass an object
+             * with `label` (string) and `match` (RegExp, Function, Object, or Error).
+             * @since v24.15.0
+             * @default false
+             */
+            expectFailure?: boolean | string | AssertPredicate | undefined;
             /**
              * If truthy, and the test context is configured to run `only` tests, then this test will be
              * run. Otherwise, the test is skipped.
@@ -1348,6 +1619,15 @@ declare module "node:test" {
              * @default false
              */
             skip?: boolean | string | undefined;
+            /**
+             * An array of string labels associated with the test.
+             * Used together with `--experimental-test-tag-filter` to filter which
+             * tests run. Tags inherit from suites to nested tests by union. See
+             * [Test tags](https://nodejs.org/docs/latest-v24.x/api/test.html#test-tags).
+             * @default []
+             * @since v24.19.0
+             */
+            tags?: readonly string[] | undefined;
             /**
              * A number of milliseconds the test will fail after. If unspecified, subtests inherit this
              * value from their parent.
@@ -1494,19 +1774,40 @@ declare module "node:test" {
              */
             cache?: boolean | undefined;
             /**
-             * The value to use as the mocked module's default export.
-             *
-             * If this value is not provided, ESM mocks do not include a default export.
-             * If the mock is a CommonJS or builtin module, this setting is used as the value of `module.exports`.
-             * If this value is not provided, CJS and builtin mocks use an empty object as the value of `module.exports`.
+             * Optional mocked exports. The `default` property, if
+             * provided, is used as the mocked module's default export. All other own
+             * enumerable properties are used as named exports.
+             * **This option cannot be used with `defaultExport` or `namedExports`.**
+             * * If the mock is a CommonJS or builtin module, `exports.default` is used as
+             *   the value of `module.exports`.
+             * * If `exports.default` is not provided for a CommonJS or builtin mock,
+             *   `module.exports` defaults to an empty object.
+             * * If named exports are provided with a non-object default export, the mock
+             *   throws an exception when used as a CommonJS or builtin module.
+             */
+            exports?: object | undefined;
+            /**
+             * An optional value used as the mocked module's default
+             * export. If this value is not provided, ESM mocks do not include a default
+             * export. If the mock is a CommonJS or builtin module, this setting is used as
+             * the value of `module.exports`. If this value is not provided, CJS and builtin
+             * mocks use an empty object as the value of `module.exports`.
+             * **This option cannot be used with `options.exports`.**
+             * This option is deprecated and will be removed in a later version.
+             * Prefer `options.exports.default`.
+             * @deprecated
              */
             defaultExport?: any;
             /**
-             * An object whose keys and values are used to create the named exports of the mock module.
-             *
-             * If the mock is a CommonJS or builtin module, these values are copied onto `module.exports`.
-             * Therefore, if a mock is created with both named exports and a non-object default export,
-             * the mock will throw an exception when used as a CJS or builtin module.
+             * An optional object whose keys and values are used to
+             * create the named exports of the mock module. If the mock is a CommonJS or
+             * builtin module, these values are copied onto `module.exports`. Therefore, if a
+             * mock is created with both named exports and a non-object default export, the
+             * mock will throw an exception when used as a CJS or builtin module.
+             * **This option cannot be used with `options.exports`.**
+             * This option is deprecated and will be removed in a later version.
+             * Prefer `options.exports`.
+             * @deprecated
              */
             namedExports?: object | undefined;
         }
@@ -1681,14 +1982,19 @@ declare module "node:test" {
              * [`--experimental-test-module-mocks`](https://nodejs.org/docs/latest-v24.x/api/cli.html#--experimental-test-module-mocks)
              * command-line flag.
              *
+             * **Note**: [module customization hooks](https://nodejs.org/docs/latest-v24.x/api/module.html#customization-hooks) registered via the **synchronous** API effect resolution of
+             * the `specifier` provided to `mock.module`. Customization hooks registered via the **asynchronous**
+             * API are currently ignored (because the test runner's loader is synchronous, and node does not
+             * support multi-chain / cross-chain loading).
+             *
              * The following example demonstrates how a mock is created for a module.
              *
              * ```js
              * test('mocks a builtin module in both module systems', async (t) => {
-             *   // Create a mock of 'node:readline' with a named export named 'fn', which
+             *   // Create a mock of 'node:readline' with a named export named 'foo', which
              *   // does not exist in the original 'node:readline' module.
              *   const mock = t.mock.module('node:readline', {
-             *     namedExports: { fn() { return 42; } },
+             *     exports: { foo: () => 42 },
              *   });
              *
              *   let esmImpl = await import('node:readline');
@@ -2295,6 +2601,7 @@ declare module "node:test/reporters" {
         | { type: "test:diagnostic"; data: EventData.TestDiagnostic }
         | { type: "test:enqueue"; data: EventData.TestEnqueue }
         | { type: "test:fail"; data: EventData.TestFail }
+        | { type: "test:interrupted"; data: EventData.TestInterrupted }
         | { type: "test:pass"; data: EventData.TestPass }
         | { type: "test:plan"; data: EventData.TestPlan }
         | { type: "test:start"; data: EventData.TestStart }

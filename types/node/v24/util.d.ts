@@ -707,6 +707,28 @@ declare module "util" {
      * @legacy Use ES2015 class syntax and `extends` keyword instead.
      */
     export function inherits(constructor: unknown, superConstructor: unknown): void;
+    /**
+     * The `util.convertProcessSignalToExitCode()` method converts a signal name to its
+     * corresponding POSIX exit code. Following the POSIX standard, the exit code
+     * for a process terminated by a signal is calculated as `128 + signal number`.
+     *
+     * If `signal` is not a valid signal name, then an error will be thrown. See
+     * [`signal(7)`](https://man7.org/linux/man-pages/man7/signal.7.html) for a list of valid signals.
+     *
+     * ```js
+     * import { convertProcessSignalToExitCode } from 'node:util';
+     *
+     * console.log(convertProcessSignalToExitCode('SIGTERM')); // 143 (128 + 15)
+     * console.log(convertProcessSignalToExitCode('SIGKILL')); // 137 (128 + 9)
+     * ```
+     *
+     * This is particularly useful when working with processes to determine
+     * the exit code based on the signal that terminated the process.
+     * @since v24.14.0
+     * @param signal A signal name (e.g. `'SIGTERM'`)
+     * @returns The exit code corresponding to `signal`
+     */
+    export function convertProcessSignalToExitCode(signal: NodeJS.Signals): number;
     export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;
     export interface DebugLogger extends DebugLoggerFunction {
         /**
@@ -929,6 +951,8 @@ declare module "util" {
      * `reason`.
      *
      * ```js
+     * import util from 'node:util';
+     *
      * function fn() {
      *   return Promise.reject(null);
      * }
@@ -1256,8 +1280,23 @@ declare module "util" {
      *
      * The special format value `none` applies no additional styling to the text.
      *
+     * In addition to predefined color names, `util.styleText()` supports hex color
+     * strings using ANSI TrueColor (24-bit) escape sequences. Hex colors can be
+     * specified in either 3-digit (`#RGB`) or 6-digit (`#RRGGBB`) format:
+     *
+     * ```js
+     * import { styleText } from 'node:util';
+     *
+     * // 6-digit hex color
+     * console.log(styleText('#ff5733', 'Orange text'));
+     *
+     * // 3-digit hex color (shorthand)
+     * console.log(styleText('#f00', 'Red text'));
+     * ```
+     *
      * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v24.x/api/util.html#modifiers).
-     * @param format A text format or an Array of text formats defined in `util.inspect.colors`.
+     * @param format A text format or an Array of text formats defined in `util.inspect.colors`, or a hex color in `#RGB`
+     * or `#RRGGBB` form.
      * @param text The text to to be formatted.
      * @since v20.12.0
      */
@@ -1266,7 +1305,8 @@ declare module "util" {
             | ForegroundColors
             | BackgroundColors
             | Modifiers
-            | Array<ForegroundColors | BackgroundColors | Modifiers>,
+            | Array<ForegroundColors | BackgroundColors | Modifiers>
+            | `#${string}`,
         text: string,
         options?: StyleTextOptions,
     ): string;
