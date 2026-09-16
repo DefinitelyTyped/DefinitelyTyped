@@ -19,7 +19,8 @@ ReactReconciler<
     ReactTestHostConfig.TimeoutHandle,
     ReactTestHostConfig.NoTimeout,
     ReactTestHostConfig.TransitionStatus,
-    ReactTestHostConfig.SuspendedState
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
@@ -63,7 +64,8 @@ const TestReconciler = ReactReconciler<
     ReactTestHostConfig.TimeoutHandle,
     ReactTestHostConfig.NoTimeout,
     ReactTestHostConfig.TransitionStatus,
-    ReactTestHostConfig.SuspendedState
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig
 >(ReactTestHostConfig);
 
 const container: ReactTestHostConfig.Container = {
@@ -152,7 +154,8 @@ const hostConfig: ReactReconciler.HostConfig<
     ReactTestHostConfig.TimeoutHandle,
     ReactTestHostConfig.NoTimeout,
     ReactTestHostConfig.TransitionStatus,
-    ReactTestHostConfig.SuspendedState
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig
 > = ReactTestHostConfig;
 
 declare const instance: ReactTestHostConfig.Instance;
@@ -191,3 +194,31 @@ hostConfig.getChildHostContext(parentHostContext, "div", rootContainer);
 // getRootHostContext is unchanged and still receives the container.
 // $ExpectType HostContext | null
 hostConfig.getRootHostContext(rootContainer);
+
+// Test the renderer metadata that replaced the old injectIntoDevTools argument
+// $ExpectType string
+hostConfig.rendererVersion;
+
+// $ExpectType string
+hostConfig.rendererPackageName;
+
+// $ExpectType RendererInspectionConfig | null
+hostConfig.extraDevToolsConfig;
+
+// All three are required — a host config that omits them is not assignable.
+declare const metadata: Pick<
+    typeof hostConfig,
+    "rendererVersion" | "rendererPackageName" | "extraDevToolsConfig"
+>;
+
+// @ts-expect-error -- rendererPackageName is required
+const missingPackageName: typeof metadata = {
+    rendererVersion: "19.2.0",
+    extraDevToolsConfig: null,
+};
+
+// @ts-expect-error -- extraDevToolsConfig is nullable but not optional
+const missingExtraConfig: typeof metadata = {
+    rendererVersion: "19.2.0",
+    rendererPackageName: "react-test-renderer",
+};

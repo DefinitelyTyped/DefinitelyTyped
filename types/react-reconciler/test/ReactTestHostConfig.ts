@@ -65,7 +65,13 @@ export type OpaqueIDType =
         valueOf: () => string | void;
     };
 
-export type RendererInspectionConfig = Readonly<{}>;
+export interface RendererInspectionConfig {
+    kind: "RendererInspectionConfig";
+}
+
+export const rendererVersion = "19.2.0";
+export const rendererPackageName = "react-test-renderer";
+export const extraDevToolsConfig: RendererInspectionConfig | null = null;
 
 export * from "./ReactFiberHostConfigWithNoHydration";
 export * from "./ReactFiberHostConfigWithNoMicrotasks";

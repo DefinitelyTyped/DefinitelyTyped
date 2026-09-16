@@ -17,6 +17,7 @@ declare function ReactReconciler<
     NoTimeout,
     TransitionStatus,
     SuspendedState,
+    RendererInspectionConfig,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -34,7 +35,8 @@ declare function ReactReconciler<
         TimeoutHandle,
         NoTimeout,
         TransitionStatus,
-        SuspendedState
+        SuspendedState,
+        RendererInspectionConfig
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
@@ -55,6 +57,7 @@ declare namespace ReactReconciler {
         NoTimeout,
         TransitionStatus,
         SuspendedState,
+        RendererInspectionConfig,
     > {
         // -------------------
         //        Modes
@@ -96,6 +99,25 @@ declare namespace ReactReconciler {
          * If you're not sure which one you want, you likely need the mutation mode.
          */
         supportsPersistence: boolean;
+
+        // -------------------
+        //  Renderer metadata
+        // -------------------
+
+        /**
+         * The version of your renderer. React DevTools reports this alongside the reconciler version, which may differ for third-party renderers.
+         */
+        rendererVersion: string;
+
+        /**
+         * The npm package name of your renderer, reported to React DevTools.
+         */
+        rendererPackageName: string;
+
+        /**
+         * Extra renderer-specific configuration exposed to React DevTools as `rendererConfig`. Return `null` if you have nothing to expose.
+         */
+        extraDevToolsConfig: RendererInspectionConfig | null;
 
         // -------------------
         //    Core Methods
