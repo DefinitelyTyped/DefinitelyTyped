@@ -20,6 +20,8 @@ declare function ReactReconciler<
     SuspendedState,
     RendererInspectionConfig,
     FormStateMarkerInstance,
+    HoistableRoot,
+    Resource,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -40,7 +42,9 @@ declare function ReactReconciler<
         TransitionStatus,
         SuspendedState,
         RendererInspectionConfig,
-        FormStateMarkerInstance
+        FormStateMarkerInstance,
+        HoistableRoot,
+        Resource
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
@@ -64,6 +68,8 @@ declare namespace ReactReconciler {
         SuspendedState,
         RendererInspectionConfig,
         FormStateMarkerInstance,
+        HoistableRoot,
+        Resource,
     > {
         // -------------------
         //        Modes
@@ -641,6 +647,123 @@ declare namespace ReactReconciler {
          * This method is called when a commit is suspended, to record why. It is only called when the profiler is enabled, and the result is attached to the pending commit. Return `null` if there's nothing to report.
          */
         getSuspendedCommitReason(state: SuspendedState, rootContainer: Container): null | string;
+
+        // -------------------
+        //     Resources
+        //     (optional)
+        // -------------------
+        /**
+         * Set this to `true` if your renderer supports Resources, e.g. hoistable `<link>`/`<style>`/`<script>` tags that get deduplicated and hoisted regardless of where in the tree they are rendered. See the "Resources" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js) for the rest of the methods you need to implement.
+         */
+        supportsResources?: boolean;
+
+        isHostHoistableType?(type: Type, props: Props, hostContext: HostContext): boolean;
+
+        getHoistableRoot?(container: Container): HoistableRoot;
+
+        getResource?(
+            type: Type,
+            currentProps: Props | null,
+            pendingProps: Props,
+            currentResource: null | Resource,
+        ): null | Resource;
+
+        acquireResource?(hoistableRoot: HoistableRoot, resource: Resource, props: Props): null | Instance;
+
+        releaseResource?(resource: Resource): void;
+
+        hydrateHoistable?(
+            hoistableRoot: HoistableRoot,
+            type: Type,
+            props: Props,
+            internalInstanceHandle: OpaqueHandle,
+        ): Instance;
+
+        mountHoistable?(hoistableRoot: HoistableRoot, type: Type, instance: Instance): void;
+
+        unmountHoistable?(instance: Instance): void;
+
+        createHoistableInstance?(
+            type: Type,
+            props: Props,
+            rootContainerInstance: Container,
+            internalInstanceHandle: OpaqueHandle,
+        ): Instance;
+
+        prepareToCommitHoistables?(): void;
+
+        mayResourceSuspendCommit?(resource: Resource): boolean;
+
+        preloadResource?(resource: Resource): boolean;
+
+        suspendResource?(
+            state: SuspendedState,
+            hoistableRoot: HoistableRoot,
+            resource: Resource,
+            props: Props,
+        ): void;
+
+        // -------------------
+        //     Singletons
+        //     (optional)
+        // -------------------
+        /**
+         * Set this to `true` if your renderer supports Singletons, i.e. built-in host components that always exist as a single instance per root and are never created or removed, such as `<html>`, `<head>`, and `<body>` in React DOM.
+         */
+        supportsSingletons?: boolean;
+
+        resolveSingletonInstance?(
+            type: Type,
+            props: Props,
+            rootContainerInstance: Container,
+            hostContext: HostContext,
+            validateDOMNestingDev: boolean,
+        ): Instance;
+
+        acquireSingletonInstance?(
+            type: Type,
+            props: Props,
+            instance: Instance,
+            internalInstanceHandle: OpaqueHandle,
+        ): void;
+
+        releaseSingletonInstance?(instance: Instance): void;
+
+        isHostSingletonType?(type: Type): boolean;
+
+        isSingletonScope?(type: Type): boolean;
+
+        // -------------------
+        //   Test selectors
+        //     (optional)
+        // -------------------
+        /**
+         * Set this to `true` to support the Scheduler/Selector API used by `react-dom/test-utils`, e.g. `findAllNodes`/`findBoundingRects`/`focusWithin`/`observeVisibleRects` on the `Reconciler` instance.
+         */
+        supportsTestSelectors?: boolean;
+
+        findFiberRoot?(node: Instance): null | FiberRoot;
+
+        getBoundingRect?(node: Instance): BoundingRect;
+
+        getTextContent?(fiber: Fiber): string | null;
+
+        isHiddenSubtree?(fiber: Fiber): boolean;
+
+        matchAccessibilityRole?(node: Instance, role: string): boolean;
+
+        setFocusIfFocusable?(node: Instance): boolean;
+
+        setupIntersectionObserver?(
+            targets: Instance[],
+            callback: (intersections: Array<{ ratio: number; rect: BoundingRect }>) => void,
+            options?: IntersectionObserverOptions,
+        ): { disconnect: () => void };
+
+        /**
+         * Binds a `console` method call (as captured by React's replaying of Server console logs on the client) so it can be invoked later, optionally tagging it with an environment name badge.
+         */
+        bindToConsole(methodName: string, args: any[], badgeName: string): () => any;
     }
 
     interface Thenable<T> {

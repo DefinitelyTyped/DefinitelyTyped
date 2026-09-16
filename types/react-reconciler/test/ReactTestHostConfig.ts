@@ -73,6 +73,16 @@ export interface FormStateMarkerInstance {
     kind: "FormStateMarkerInstance";
 }
 
+// This host config doesn't support Resources (supportsResources is left
+// unset), so these are never actually produced, but the generic parameters
+// still need concrete stand-in types.
+export interface HoistableRoot {
+    kind: "HoistableRoot";
+}
+export interface Resource {
+    kind: "Resource";
+}
+
 export const rendererVersion = "19.2.0";
 export const rendererPackageName = "react-test-renderer";
 export const extraDevToolsConfig: RendererInspectionConfig | null = null;
@@ -398,6 +408,11 @@ export function suspendOnActiveViewTransition(state: SuspendedState, rootContain
 
 export function getSuspendedCommitReason(state: SuspendedState, rootContainer: Container): null | string {
     return null;
+}
+
+export function bindToConsole(methodName: string, args: any[], badgeName: string): () => any {
+    // noop — this test config doesn't replay Server console logs.
+    return () => undefined;
 }
 
 const REACT_CONTEXT_TYPE = Symbol.for("react.context");

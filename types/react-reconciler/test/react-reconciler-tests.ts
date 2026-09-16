@@ -22,7 +22,9 @@ ReactReconciler<
     ReactTestHostConfig.TransitionStatus,
     ReactTestHostConfig.SuspendedState,
     ReactTestHostConfig.RendererInspectionConfig,
-    ReactTestHostConfig.FormStateMarkerInstance
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
@@ -69,7 +71,9 @@ const TestReconciler = ReactReconciler<
     ReactTestHostConfig.TransitionStatus,
     ReactTestHostConfig.SuspendedState,
     ReactTestHostConfig.RendererInspectionConfig,
-    ReactTestHostConfig.FormStateMarkerInstance
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource
 >(ReactTestHostConfig);
 
 const container: ReactTestHostConfig.Container = {
@@ -156,7 +160,9 @@ const hostConfig: ReactReconciler.HostConfig<
     ReactTestHostConfig.TransitionStatus,
     ReactTestHostConfig.SuspendedState,
     ReactTestHostConfig.RendererInspectionConfig,
-    ReactTestHostConfig.FormStateMarkerInstance
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource
 > = ReactTestHostConfig;
 
 declare const instance: ReactTestHostConfig.Instance;
@@ -402,3 +408,113 @@ hostConfig.validateHydratableTextInstance!("text", hostContext);
 
 hostConfig.unhideDehydratedBoundary!(suspenseInstance);
 hostConfig.unhideDehydratedBoundary!(activityInstance);
+
+// -------------------
+//     Resources
+// -------------------
+// This test config doesn't opt in (supportsResources is left undefined), but
+// the members still need to type-check against the HoistableRoot/Resource
+// generics threaded through HostConfig.
+declare const hoistableRoot: ReactTestHostConfig.HoistableRoot;
+declare const resource: ReactTestHostConfig.Resource;
+
+// $ExpectType boolean | undefined
+hostConfig.supportsResources;
+
+// $ExpectType boolean
+hostConfig.isHostHoistableType!("link", props, hostContext);
+
+// $ExpectType HoistableRoot
+hostConfig.getHoistableRoot!(container);
+
+// $ExpectType Resource | null
+hostConfig.getResource!("link", props, props, null);
+
+// $ExpectType Instance | null
+hostConfig.acquireResource!(hoistableRoot, resource, props);
+
+hostConfig.releaseResource!(resource);
+
+// $ExpectType Instance
+hostConfig.hydrateHoistable!(hoistableRoot, "link", props, {});
+
+hostConfig.mountHoistable!(hoistableRoot, "link", instance);
+hostConfig.unmountHoistable!(instance);
+
+// $ExpectType Instance
+hostConfig.createHoistableInstance!("link", props, container, {});
+
+hostConfig.prepareToCommitHoistables!();
+
+// $ExpectType boolean
+hostConfig.mayResourceSuspendCommit!(resource);
+
+// $ExpectType boolean
+hostConfig.preloadResource!(resource);
+
+hostConfig.suspendResource!(suspendedState, hoistableRoot, resource, props);
+
+// @ts-expect-error -- getResource needs the type, current props, pending props, and current resource
+hostConfig.getResource!("link", props);
+
+// -------------------
+//     Singletons
+// -------------------
+// Also not opted into by this test config, but the members still need to
+// type-check.
+
+// $ExpectType boolean | undefined
+hostConfig.supportsSingletons;
+
+// $ExpectType Instance
+hostConfig.resolveSingletonInstance!("head", props, container, hostContext, false);
+
+hostConfig.acquireSingletonInstance!("head", props, instance, {});
+hostConfig.releaseSingletonInstance!(instance);
+
+// $ExpectType boolean
+hostConfig.isHostSingletonType!("head");
+// $ExpectType boolean
+hostConfig.isSingletonScope!("head");
+
+// @ts-expect-error -- resolveSingletonInstance needs validateDOMNestingDev too
+hostConfig.resolveSingletonInstance!("head", props, container, hostContext);
+
+// -------------------
+//   Test selectors
+// -------------------
+// react-test-renderer doesn't support test selectors either, so this pulls in
+// the same NoTestSelectors shims used by react-reconciler's own default fork.
+
+// $ExpectType boolean | undefined
+hostConfig.supportsTestSelectors;
+
+// $ExpectType any
+hostConfig.findFiberRoot!(instance);
+
+// $ExpectType BoundingRect
+hostConfig.getBoundingRect!(instance);
+
+// $ExpectType string | null
+hostConfig.getTextContent!(formFiber);
+
+// $ExpectType boolean
+hostConfig.isHiddenSubtree!(formFiber);
+
+// $ExpectType boolean
+hostConfig.matchAccessibilityRole!(instance, "button");
+
+// $ExpectType boolean
+hostConfig.setFocusIfFocusable!(instance);
+
+// $ExpectType { disconnect: () => void; }
+hostConfig.setupIntersectionObserver!([instance], intersections => {});
+
+// -------------------
+//     bindToConsole
+// -------------------
+// Required (not part of any optional feature group) — used to replay Server
+// console logs on the client.
+
+// $ExpectType () => any
+hostConfig.bindToConsole("error", ["oops"], "Server");
