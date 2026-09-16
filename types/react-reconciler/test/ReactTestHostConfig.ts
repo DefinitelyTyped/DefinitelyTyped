@@ -51,6 +51,9 @@ export type ChildSet = undefined; // Unused
 export type TimeoutHandle = TimeoutID;
 export type NoTimeout = -1;
 export type TransitionStatus = any;
+export interface SuspendedState {
+    kind: "SuspendedState";
+}
 export type EventResponder = any;
 export type OpaqueIDType =
     | string
@@ -323,11 +326,11 @@ export function shouldAttemptEagerTransition() {
     return false;
 }
 
-export function startSuspendingCommit() {
-    // noop
+export function startSuspendingCommit(): SuspendedState {
+    return { kind: "SuspendedState" };
 }
 
-export function suspendInstance() {
+export function suspendInstance(state: SuspendedState, instance: Instance, type: Type, props: Props): void {
     // noop
 }
 
@@ -335,7 +338,7 @@ export function trackSchedulerEvent() {
     // noop
 }
 
-export function waitForCommitToBeReady() {
+export function waitForCommitToBeReady(state: SuspendedState, timeoutOffset: number) {
     return null;
 }
 
@@ -371,7 +374,7 @@ export function maySuspendCommit() {
     return false;
 }
 
-export function preloadInstance() {
+export function preloadInstance(instance: Instance, type: Type, props: Props) {
     return true;
 }
 

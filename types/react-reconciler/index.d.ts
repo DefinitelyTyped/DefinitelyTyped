@@ -16,6 +16,7 @@ declare function ReactReconciler<
     TimeoutHandle,
     NoTimeout,
     TransitionStatus,
+    SuspendedState,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -32,7 +33,8 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout,
-        TransitionStatus
+        TransitionStatus,
+        SuspendedState
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
@@ -52,6 +54,7 @@ declare namespace ReactReconciler {
         TimeoutHandle,
         NoTimeout,
         TransitionStatus,
+        SuspendedState,
     > {
         // -------------------
         //        Modes
@@ -526,17 +529,17 @@ declare namespace ReactReconciler {
         /**
          * This method may be called during render if the Host Component type and props might suspend a commit. It can be used to initiate any work that might shorten the duration of a suspended commit.
          */
-        preloadInstance(type: Type, props: Props): boolean;
+        preloadInstance(instance: Instance, type: Type, props: Props): boolean;
 
         /**
          * This method is called just before the commit phase. Use it to set up any necessary state while any Host Components that might suspend this commit are evaluated to determine if the commit must be suspended.
          */
-        startSuspendingCommit(): void;
+        startSuspendingCommit(): SuspendedState;
 
         /**
          * This method is called after `startSuspendingCommit` for each Host Component that indicated it might suspend a commit.
          */
-        suspendInstance(type: Type, props: Props): void;
+        suspendInstance(state: SuspendedState, instance: Instance, type: Type, props: Props): void;
 
         /**
          * This method is called after all `suspendInstance` calls are complete.
@@ -545,7 +548,10 @@ declare namespace ReactReconciler {
          *
          * Return `(initiateCommit: Function) => Function` if the commit must be suspended. The argument to this callback will initiate the commit when called. The return value is a cancellation function that the Reconciler can use to abort the commit.
          */
-        waitForCommitToBeReady():
+        waitForCommitToBeReady(
+            state: SuspendedState,
+            timeoutOffset: number,
+        ):
             | ((initiateCommit: (...args: unknown[]) => unknown) => (...args: unknown[]) => unknown)
             | null;
     }

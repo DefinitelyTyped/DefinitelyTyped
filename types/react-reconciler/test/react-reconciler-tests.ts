@@ -18,7 +18,8 @@ ReactReconciler<
     ReactTestHostConfig.ChildSet,
     ReactTestHostConfig.TimeoutHandle,
     ReactTestHostConfig.NoTimeout,
-    ReactTestHostConfig.TransitionStatus
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
@@ -61,7 +62,8 @@ const TestReconciler = ReactReconciler<
     ReactTestHostConfig.ChildSet,
     ReactTestHostConfig.TimeoutHandle,
     ReactTestHostConfig.NoTimeout,
-    ReactTestHostConfig.TransitionStatus
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState
 >(ReactTestHostConfig);
 
 const container: ReactTestHostConfig.Container = {
@@ -133,3 +135,45 @@ ReactReconciler.defaultOnRecoverableError(new Error("test"));
 // Test injectIntoDevTools (no arguments as of react-reconciler 0.33)
 // $ExpectType boolean
 const foundDevTools = TestReconciler.injectIntoDevTools();
+
+// Test the suspensey-commit host config methods (react-reconciler 0.33 signatures)
+const hostConfig: ReactReconciler.HostConfig<
+    ReactTestHostConfig.Type,
+    ReactTestHostConfig.Props,
+    ReactTestHostConfig.Container,
+    ReactTestHostConfig.Instance,
+    ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.SuspenseInstance,
+    ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
+    ReactTestHostConfig.PublicInstance,
+    ReactTestHostConfig.HostContext,
+    ReactTestHostConfig.ChildSet,
+    ReactTestHostConfig.TimeoutHandle,
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState
+> = ReactTestHostConfig;
+
+declare const instance: ReactTestHostConfig.Instance;
+declare const props: ReactTestHostConfig.Props;
+
+// $ExpectType SuspendedState
+const suspendedState = hostConfig.startSuspendingCommit();
+
+// $ExpectType boolean
+hostConfig.preloadInstance(instance, "div", props);
+
+// $ExpectType void
+hostConfig.suspendInstance(suspendedState, instance, "div", props);
+
+// $ExpectType ((initiateCommit: (...args: unknown[]) => unknown) => (...args: unknown[]) => unknown) | null
+hostConfig.waitForCommitToBeReady(suspendedState, 0);
+
+// The pre-0.33 call shapes no longer type-check.
+// @ts-expect-error -- preloadInstance now takes the instance first
+hostConfig.preloadInstance("div", props);
+// @ts-expect-error -- suspendInstance now takes the suspended state and instance first
+hostConfig.suspendInstance("div", props);
+// @ts-expect-error -- waitForCommitToBeReady now requires the state and timeout offset
+hostConfig.waitForCommitToBeReady();
