@@ -196,6 +196,28 @@ hostConfig.getChildHostContext(parentHostContext, "div", rootContainer);
 // $ExpectType HostContext | null
 hostConfig.getRootHostContext(rootContainer);
 
+// Test the rest of the suspensey-commit family added alongside maySuspendCommit.
+// $ExpectType boolean
+hostConfig.maySuspendCommitOnUpdate("div", props, props);
+
+// $ExpectType boolean
+hostConfig.maySuspendCommitInSyncRender("div", props);
+
+// $ExpectType void
+hostConfig.suspendOnActiveViewTransition(suspendedState, rootContainer);
+
+// $ExpectType string | null
+hostConfig.getSuspendedCommitReason(suspendedState, rootContainer);
+
+// @ts-expect-error -- maySuspendCommitOnUpdate needs the old and new props
+hostConfig.maySuspendCommitOnUpdate("div", props);
+// @ts-expect-error -- maySuspendCommitInSyncRender takes the type and props, not the props alone
+hostConfig.maySuspendCommitInSyncRender(props);
+// @ts-expect-error -- suspendOnActiveViewTransition takes the suspended state and root container
+hostConfig.suspendOnActiveViewTransition(rootContainer);
+// @ts-expect-error -- getSuspendedCommitReason takes the suspended state and root container
+hostConfig.getSuspendedCommitReason(rootContainer);
+
 // Test the renderer metadata that replaced the old injectIntoDevTools argument
 // $ExpectType string
 hostConfig.rendererVersion;

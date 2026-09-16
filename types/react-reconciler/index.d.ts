@@ -594,6 +594,16 @@ declare namespace ReactReconciler {
         maySuspendCommit(type: Type, props: Props): boolean;
 
         /**
+         * Same as `maySuspendCommit`, but called for an update to an existing instance instead of its initial mount, so it receives both the old and new props.
+         */
+        maySuspendCommitOnUpdate(type: Type, oldProps: Props, newProps: Props): boolean;
+
+        /**
+         * This method is called during a sync render to determine if the Host Component type and props are still allowed to suspend the commit. Host configs that don't want to suspend sync commits should always return `false`.
+         */
+        maySuspendCommitInSyncRender(type: Type, props: Props): boolean;
+
+        /**
          * This method may be called during render if the Host Component type and props might suspend a commit. It can be used to initiate any work that might shorten the duration of a suspended commit.
          */
         preloadInstance(instance: Instance, type: Type, props: Props): boolean;
@@ -609,6 +619,11 @@ declare namespace ReactReconciler {
         suspendInstance(state: SuspendedState, instance: Instance, type: Type, props: Props): void;
 
         /**
+         * This method is called after `startSuspendingCommit` if there is a View Transition currently active on the root that the commit should wait to finish before proceeding.
+         */
+        suspendOnActiveViewTransition(state: SuspendedState, rootContainer: Container): void;
+
+        /**
          * This method is called after all `suspendInstance` calls are complete.
          *
          * Return `null` if the commit can happen immediately.
@@ -621,6 +636,11 @@ declare namespace ReactReconciler {
         ):
             | ((initiateCommit: (...args: unknown[]) => unknown) => (...args: unknown[]) => unknown)
             | null;
+
+        /**
+         * This method is called when a commit is suspended, to record why. It is only called when the profiler is enabled, and the result is attached to the pending commit. Return `null` if there's nothing to report.
+         */
+        getSuspendedCommitReason(state: SuspendedState, rootContainer: Container): null | string;
     }
 
     interface Thenable<T> {

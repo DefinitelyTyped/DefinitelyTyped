@@ -380,8 +380,24 @@ export function maySuspendCommit() {
     return false;
 }
 
+export function maySuspendCommitOnUpdate(type: Type, oldProps: Props, newProps: Props) {
+    return false;
+}
+
+export function maySuspendCommitInSyncRender(type: Type, props: Props) {
+    return false;
+}
+
 export function preloadInstance(instance: Instance, type: Type, props: Props) {
     return true;
+}
+
+export function suspendOnActiveViewTransition(state: SuspendedState, rootContainer: Container): void {
+    // noop
+}
+
+export function getSuspendedCommitReason(state: SuspendedState, rootContainer: Container): null | string {
+    return null;
 }
 
 const REACT_CONTEXT_TYPE = Symbol.for("react.context");
