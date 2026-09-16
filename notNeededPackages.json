@@ -1517,6 +1517,10 @@
             "libraryName": "cytoscape-popper",
             "asOfVersion": "4.0.0"
         },
+        "dailymotion__vast-client": {
+            "libraryName": "@dailymotion/vast-client",
+            "asOfVersion": "6.4.1"
+        },
         "dargs": {
             "libraryName": "dargs",
             "asOfVersion": "6.1.0"
