@@ -446,16 +446,25 @@ declare namespace ReactReconciler {
         // -------------------
         supportsHydration: boolean;
 
-        canHydrateInstance?(instance: HydratableInstance, type: Type, props: Props): null | Instance;
+        canHydrateInstance?(
+            instance: HydratableInstance,
+            type: Type,
+            props: Props,
+            inRootOrSingleton: boolean,
+        ): null | Instance;
 
-        canHydrateTextInstance?(instance: HydratableInstance, text: string): null | TextInstance;
+        canHydrateTextInstance?(
+            instance: HydratableInstance,
+            text: string,
+            inRootOrSingleton: boolean,
+        ): null | TextInstance;
 
         canHydrateActivityInstance?(
             instance: HydratableInstance,
             inRootOrSingleton: boolean,
         ): null | ActivityInstance;
 
-        canHydrateSuspenseInstance?(instance: HydratableInstance): null | SuspenseInstance;
+        canHydrateSuspenseInstance?(instance: HydratableInstance, inRootOrSingleton: boolean): null | SuspenseInstance;
 
         isSuspenseInstancePending?(instance: SuspenseInstance): boolean;
 
@@ -471,12 +480,16 @@ declare namespace ReactReconciler {
             instance: Instance,
             type: Type,
             props: Props,
-            rootContainerInstance: Container,
             hostContext: HostContext,
             internalInstanceHandle: any,
-        ): null | any[];
+        ): boolean;
 
-        hydrateTextInstance?(textInstance: TextInstance, text: string, internalInstanceHandle: any): boolean;
+        hydrateTextInstance?(
+            textInstance: TextInstance,
+            text: string,
+            internalInstanceHandle: any,
+            parentProps: null | Props,
+        ): boolean;
 
         hydrateActivityInstance?(activityInstance: ActivityInstance, internalInstanceHandle: any): void;
 
