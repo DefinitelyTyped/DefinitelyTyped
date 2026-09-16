@@ -1,6 +1,6 @@
 import * as geobuf from "geobuf";
 import { GeoJSON } from "geojson";
-import Pbf = require("pbf");
+import Pbf from "pbf";
 
 geobuf.decode(new Pbf(Uint8Array.from([]))); // $ExpectType GeoJSON || GeoJSON<Geometry, GeoJsonProperties>
 const geojson: GeoJSON = {
