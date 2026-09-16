@@ -177,3 +177,17 @@ hostConfig.preloadInstance("div", props);
 hostConfig.suspendInstance("div", props);
 // @ts-expect-error -- waitForCommitToBeReady now requires the state and timeout offset
 hostConfig.waitForCommitToBeReady();
+
+// Test getChildHostContext (the reconciler never passes a root container)
+declare const parentHostContext: ReactTestHostConfig.HostContext;
+declare const rootContainer: ReactTestHostConfig.Container;
+
+// $ExpectType HostContext
+hostConfig.getChildHostContext(parentHostContext, "div");
+
+// @ts-expect-error -- rootContainer is never passed by the reconciler
+hostConfig.getChildHostContext(parentHostContext, "div", rootContainer);
+
+// getRootHostContext is unchanged and still receives the container.
+// $ExpectType HostContext | null
+hostConfig.getRootHostContext(rootContainer);

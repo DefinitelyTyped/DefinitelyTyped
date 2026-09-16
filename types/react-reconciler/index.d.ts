@@ -183,7 +183,7 @@ declare namespace ReactReconciler {
          *
          * This method happens **in the render phase**. Do not mutate the tree from it.
          */
-        getChildHostContext(parentHostContext: HostContext, type: Type, rootContainer: Container): HostContext;
+        getChildHostContext(parentHostContext: HostContext, type: Type): HostContext;
 
         /**
          * Determines what object gets exposed as a ref. You'll likely want to return the `instance` itself. But in some cases it might make sense to only expose some part of it.
