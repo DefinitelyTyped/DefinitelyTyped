@@ -289,3 +289,24 @@ declare const formData: FormData;
 
 // $ExpectType void
 TestReconciler.startHostTransition(formFiber, null, null, formData);
+
+// These hydration dev-warning hooks were removed in React 19.2 and no longer
+// exist on the host config. Their replacements are the diffHydrated*ForDevWarnings
+// and describeHydratableInstanceForDevWarnings members.
+declare const removedHydrationHooks: Extract<
+    keyof typeof hostConfig,
+    | "didNotMatchHydratedContainerTextInstance"
+    | "didNotMatchHydratedTextInstance"
+    | "didNotHydrateContainerInstance"
+    | "didNotHydrateInstance"
+    | "didNotFindHydratableContainerInstance"
+    | "didNotFindHydratableContainerTextInstance"
+    | "didNotFindHydratableContainerSuspenseInstance"
+    | "didNotFindHydratableInstance"
+    | "didNotFindHydratableTextInstance"
+    | "didNotFindHydratableSuspenseInstance"
+    | "getParentSuspenseInstance"
+    | "errorHydratingContainer"
+>;
+// $ExpectType never
+removedHydrationHooks;

@@ -460,62 +460,9 @@ declare namespace ReactReconciler {
 
         getNextHydratableInstanceAfterSuspenseInstance?(suspenseInstance: SuspenseInstance): null | HydratableInstance;
 
-        // Returns the SuspenseInstance if this node is a direct child of a
-        // SuspenseInstance. I.e. if its previous sibling is a Comment with
-        // SUSPENSE_x_START_DATA. Otherwise, null.
-        getParentSuspenseInstance?(targetInstance: any): null | SuspenseInstance;
-
         commitHydratedContainer?(container: Container): void;
 
         commitHydratedSuspenseInstance?(suspenseInstance: SuspenseInstance): void;
-
-        didNotMatchHydratedContainerTextInstance?(
-            parentContainer: Container,
-            textInstance: TextInstance,
-            text: string,
-        ): void;
-
-        didNotMatchHydratedTextInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
-            textInstance: TextInstance,
-            text: string,
-        ): void;
-
-        didNotHydrateContainerInstance?(parentContainer: Container, instance: HydratableInstance): void;
-
-        didNotHydrateInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
-            instance: HydratableInstance,
-        ): void;
-
-        didNotFindHydratableContainerInstance?(parentContainer: Container, type: Type, props: Props): void;
-
-        didNotFindHydratableContainerTextInstance?(parentContainer: Container, text: string): void;
-
-        didNotFindHydratableContainerSuspenseInstance?(parentContainer: Container): void;
-
-        didNotFindHydratableInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
-            type: Type,
-            props: Props,
-        ): void;
-
-        didNotFindHydratableTextInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
-            text: string,
-        ): void;
-
-        didNotFindHydratableSuspenseInstance?(parentType: Type, parentProps: Props, parentInstance: Instance): void;
-
-        errorHydratingContainer?(parentContainer: Container): void;
 
         // Undocumented
         // https://github.com/facebook/react/pull/26722
