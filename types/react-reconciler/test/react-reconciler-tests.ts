@@ -20,7 +20,8 @@ ReactReconciler<
     ReactTestHostConfig.NoTimeout,
     ReactTestHostConfig.TransitionStatus,
     ReactTestHostConfig.SuspendedState,
-    ReactTestHostConfig.RendererInspectionConfig
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance
 >(ReactTestHostConfig);
 
 function isEqual(target: number, value: number): boolean {
@@ -65,7 +66,8 @@ const TestReconciler = ReactReconciler<
     ReactTestHostConfig.NoTimeout,
     ReactTestHostConfig.TransitionStatus,
     ReactTestHostConfig.SuspendedState,
-    ReactTestHostConfig.RendererInspectionConfig
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance
 >(ReactTestHostConfig);
 
 const container: ReactTestHostConfig.Container = {
@@ -150,7 +152,8 @@ const hostConfig: ReactReconciler.HostConfig<
     ReactTestHostConfig.NoTimeout,
     ReactTestHostConfig.TransitionStatus,
     ReactTestHostConfig.SuspendedState,
-    ReactTestHostConfig.RendererInspectionConfig
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance
 > = ReactTestHostConfig;
 
 declare const instance: ReactTestHostConfig.Instance;
@@ -310,3 +313,51 @@ declare const removedHydrationHooks: Extract<
 >;
 // $ExpectType never
 removedHydrationHooks;
+
+// The hydration members React 19.2 actually calls
+declare const suspenseInstance: ReactTestHostConfig.SuspenseInstance;
+declare const hydratableInstance: ReactTestHostConfig.HydratableInstance;
+declare const textInstance: ReactTestHostConfig.TextInstance;
+declare const hostContext: ReactTestHostConfig.HostContext;
+declare const formStateMarker: ReactTestHostConfig.FormStateMarkerInstance;
+
+hostConfig.clearSuspenseBoundary!(instance, suspenseInstance);
+hostConfig.clearSuspenseBoundaryFromContainer!(container, suspenseInstance);
+hostConfig.commitHydratedInstance!(instance, "div", props, {});
+hostConfig.flushHydrationEvents!();
+hostConfig.hideDehydratedBoundary!(suspenseInstance);
+hostConfig.unhideDehydratedBoundary!(suspenseInstance);
+
+// $ExpectType boolean
+hostConfig.finalizeHydratedChildren!(instance, "div", props, hostContext);
+// $ExpectType boolean
+hostConfig.shouldDeleteUnhydratedTailInstances!("div");
+
+// $ExpectType HydratableInstance | null
+hostConfig.getFirstHydratableChildWithinContainer!(container);
+// $ExpectType HydratableInstance | null
+hostConfig.getFirstHydratableChildWithinSuspenseInstance!(suspenseInstance);
+// $ExpectType HydratableInstance | null
+hostConfig.getFirstHydratableChildWithinSingleton!("div", instance, hydratableInstance);
+// $ExpectType HydratableInstance | null
+hostConfig.getNextHydratableSiblingAfterSingleton!("div", hydratableInstance);
+
+// $ExpectType SuspenseInstanceFallbackErrorDetails
+hostConfig.getSuspenseInstanceFallbackErrorDetails!(suspenseInstance);
+
+// $ExpectType FormStateMarkerInstance | null
+hostConfig.canHydrateFormStateMarker!(hydratableInstance, false);
+// $ExpectType boolean
+hostConfig.isFormStateMarkerMatching!(formStateMarker);
+
+// Replacements for the removed didNot* dev warnings.
+// $ExpectType Props | null
+hostConfig.diffHydratedPropsForDevWarnings!(instance, "div", props, hostContext);
+// $ExpectType string | null
+hostConfig.diffHydratedTextForDevWarnings!(textInstance, "text", null);
+// $ExpectType string | HydratableInstanceDescription
+hostConfig.describeHydratableInstanceForDevWarnings!(hydratableInstance);
+// $ExpectType boolean
+hostConfig.validateHydratableInstance!("div", props, hostContext);
+// $ExpectType boolean
+hostConfig.validateHydratableTextInstance!("text", hostContext);

@@ -18,6 +18,7 @@ declare function ReactReconciler<
     TransitionStatus,
     SuspendedState,
     RendererInspectionConfig,
+    FormStateMarkerInstance,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -36,7 +37,8 @@ declare function ReactReconciler<
         NoTimeout,
         TransitionStatus,
         SuspendedState,
-        RendererInspectionConfig
+        RendererInspectionConfig,
+        FormStateMarkerInstance
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
@@ -58,6 +60,7 @@ declare namespace ReactReconciler {
         TransitionStatus,
         SuspendedState,
         RendererInspectionConfig,
+        FormStateMarkerInstance,
     > {
         // -------------------
         //        Modes
@@ -461,6 +464,79 @@ declare namespace ReactReconciler {
         getNextHydratableInstanceAfterSuspenseInstance?(suspenseInstance: SuspenseInstance): null | HydratableInstance;
 
         commitHydratedContainer?(container: Container): void;
+
+        commitHydratedInstance?(instance: Instance, type: Type, props: Props, internalHandle: OpaqueHandle): void;
+
+        finalizeHydratedChildren?(
+            instance: Instance,
+            type: Type,
+            props: Props,
+            hostContext: HostContext,
+        ): boolean;
+
+        flushHydrationEvents?(): void;
+
+        clearSuspenseBoundary?(parentInstance: Instance, suspenseInstance: SuspenseInstance): void;
+
+        clearSuspenseBoundaryFromContainer?(container: Container, suspenseInstance: SuspenseInstance): void;
+
+        hideDehydratedBoundary?(suspenseInstance: SuspenseInstance): void;
+
+        unhideDehydratedBoundary?(dehydratedInstance: SuspenseInstance): void;
+
+        shouldDeleteUnhydratedTailInstances?(parentType: Type): boolean;
+
+        getFirstHydratableChildWithinContainer?(parentContainer: Container): HydratableInstance | null;
+
+        getFirstHydratableChildWithinSuspenseInstance?(
+            parentInstance: SuspenseInstance,
+        ): HydratableInstance | null;
+
+        getFirstHydratableChildWithinSingleton?(
+            type: Type,
+            singletonInstance: Instance,
+            currentHydratableInstance: HydratableInstance | null,
+        ): HydratableInstance | null;
+
+        getNextHydratableSiblingAfterSingleton?(
+            type: Type,
+            currentHydratableInstance: HydratableInstance | null,
+        ): HydratableInstance | null;
+
+        getSuspenseInstanceFallbackErrorDetails?(
+            instance: SuspenseInstance,
+        ): SuspenseInstanceFallbackErrorDetails;
+
+        canHydrateFormStateMarker?(
+            instance: HydratableInstance,
+            inRootOrSingleton: boolean,
+        ): FormStateMarkerInstance | null;
+
+        isFormStateMarkerMatching?(markerInstance: FormStateMarkerInstance): boolean;
+
+        /**
+         * Replaces the removed `didNotMatchHydrated*` / `didNotFindHydratable*` dev warnings.
+         */
+        diffHydratedPropsForDevWarnings?(
+            instance: Instance,
+            type: Type,
+            props: Props,
+            hostContext: HostContext,
+        ): Props | null;
+
+        diffHydratedTextForDevWarnings?(
+            textInstance: TextInstance,
+            text: string,
+            parentProps: Props | null,
+        ): string | null;
+
+        describeHydratableInstanceForDevWarnings?(
+            instance: HydratableInstance,
+        ): string | HydratableInstanceDescription;
+
+        validateHydratableInstance?(type: Type, props: Props, hostContext: HostContext): boolean;
+
+        validateHydratableTextInstance?(text: string, hostContext: HostContext): boolean;
 
         commitHydratedSuspenseInstance?(suspenseInstance: SuspenseInstance): void;
 
@@ -900,6 +976,18 @@ declare namespace ReactReconciler {
     }
 
     type IntersectionObserverOptions = any;
+
+    interface SuspenseInstanceFallbackErrorDetails {
+        digest: string | null | undefined;
+        message?: string;
+        stack?: string;
+        componentStack?: string;
+    }
+
+    interface HydratableInstanceDescription {
+        type: string;
+        props: Readonly<Record<string, unknown>>;
+    }
 
     interface BaseErrorInfo {
         componentStack?: string;

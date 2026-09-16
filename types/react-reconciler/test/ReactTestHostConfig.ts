@@ -69,6 +69,10 @@ export interface RendererInspectionConfig {
     kind: "RendererInspectionConfig";
 }
 
+export interface FormStateMarkerInstance {
+    kind: "FormStateMarkerInstance";
+}
+
 export const rendererVersion = "19.2.0";
 export const rendererPackageName = "react-test-renderer";
 export const extraDevToolsConfig: RendererInspectionConfig | null = null;
