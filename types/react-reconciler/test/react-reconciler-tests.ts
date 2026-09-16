@@ -74,7 +74,7 @@ const container: ReactTestHostConfig.Container = {
     tag: "CONTAINER",
 };
 
-// Test createContainer signature (10 arguments, no transitionCallbacks)
+// Test createContainer signature (11 arguments, including transitionCallbacks)
 // $ExpectType any
 const root = TestReconciler.createContainer(
     container,
@@ -87,6 +87,7 @@ const root = TestReconciler.createContainer(
     (error, info) => {}, // onCaughtError
     (error, info) => {}, // onRecoverableError
     () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
 );
 
 // Test createHydrationContainer signature (14 arguments including new error handlers and formState)
@@ -222,3 +223,39 @@ const missingExtraConfig: typeof metadata = {
     rendererVersion: "19.2.0",
     rendererPackageName: "react-test-renderer",
 };
+
+// Transition tracing can now be configured at root creation, matching createHydrationContainer.
+const transitionCallbacks: ReactReconciler.TransitionTracingCallbacks = {
+    onTransitionStart: (transitionName, startTime) => {},
+    onTransitionComplete: (transitionName, startTime, endTime) => {},
+};
+
+// $ExpectType any
+TestReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {}, // onUncaughtError
+    (error, info) => {}, // onCaughtError
+    (error, info) => {}, // onRecoverableError
+    () => {}, // onDefaultTransitionIndicator
+    transitionCallbacks,
+);
+
+// transitionCallbacks is required, as it is on createHydrationContainer.
+// @ts-expect-error -- missing transitionCallbacks
+TestReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {}, // onUncaughtError
+    (error, info) => {}, // onCaughtError
+    (error, info) => {}, // onRecoverableError
+    () => {}, // onDefaultTransitionIndicator
+);

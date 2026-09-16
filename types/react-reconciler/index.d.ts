@@ -970,6 +970,7 @@ declare namespace ReactReconciler {
             onCaughtError: (error: Error, info: BaseErrorInfo) => void,
             onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
             onDefaultTransitionIndicator: () => void,
+            transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 
         createPortal(
