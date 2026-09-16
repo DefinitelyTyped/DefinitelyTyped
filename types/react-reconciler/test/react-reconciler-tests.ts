@@ -10,6 +10,7 @@ ReactReconciler<
     ReactTestHostConfig.Container,
     ReactTestHostConfig.Instance,
     ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
     ReactTestHostConfig.SuspenseInstance,
     ReactTestHostConfig.HydratableInstance,
     ReactTestHostConfig.FormInstance,
@@ -56,6 +57,7 @@ const TestReconciler = ReactReconciler<
     ReactTestHostConfig.Container,
     ReactTestHostConfig.Instance,
     ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
     ReactTestHostConfig.SuspenseInstance,
     ReactTestHostConfig.HydratableInstance,
     ReactTestHostConfig.FormInstance,
@@ -142,6 +144,7 @@ const hostConfig: ReactReconciler.HostConfig<
     ReactTestHostConfig.Container,
     ReactTestHostConfig.Instance,
     ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
     ReactTestHostConfig.SuspenseInstance,
     ReactTestHostConfig.HydratableInstance,
     ReactTestHostConfig.FormInstance,
@@ -315,11 +318,24 @@ declare const removedHydrationHooks: Extract<
 removedHydrationHooks;
 
 // The hydration members React 19.2 actually calls
+declare const activityInstance: ReactTestHostConfig.ActivityInstance;
 declare const suspenseInstance: ReactTestHostConfig.SuspenseInstance;
 declare const hydratableInstance: ReactTestHostConfig.HydratableInstance;
 declare const textInstance: ReactTestHostConfig.TextInstance;
 declare const hostContext: ReactTestHostConfig.HostContext;
 declare const formStateMarker: ReactTestHostConfig.FormStateMarkerInstance;
+
+// The <Activity> boundary hydration members React 19.2 adds alongside Suspense.
+// $ExpectType ActivityInstance | null
+hostConfig.canHydrateActivityInstance!(hydratableInstance, false);
+hostConfig.hydrateActivityInstance!(activityInstance, {});
+// $ExpectType HydratableInstance | null
+hostConfig.getFirstHydratableChildWithinActivityInstance!(activityInstance);
+// $ExpectType HydratableInstance | null
+hostConfig.getNextHydratableInstanceAfterActivityInstance!(activityInstance);
+hostConfig.commitHydratedActivityInstance!(activityInstance);
+hostConfig.clearActivityBoundary!(instance, activityInstance);
+hostConfig.clearActivityBoundaryFromContainer!(container, activityInstance);
 
 hostConfig.clearSuspenseBoundary!(instance, suspenseInstance);
 hostConfig.clearSuspenseBoundaryFromContainer!(container, suspenseInstance);
@@ -361,3 +377,6 @@ hostConfig.describeHydratableInstanceForDevWarnings!(hydratableInstance);
 hostConfig.validateHydratableInstance!("div", props, hostContext);
 // $ExpectType boolean
 hostConfig.validateHydratableTextInstance!("text", hostContext);
+
+hostConfig.unhideDehydratedBoundary!(suspenseInstance);
+hostConfig.unhideDehydratedBoundary!(activityInstance);

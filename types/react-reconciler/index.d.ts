@@ -7,6 +7,7 @@ declare function ReactReconciler<
     Container,
     Instance,
     TextInstance,
+    ActivityInstance,
     SuspenseInstance,
     HydratableInstance,
     FormInstance,
@@ -27,6 +28,7 @@ declare function ReactReconciler<
         Container,
         Instance,
         TextInstance,
+        ActivityInstance,
         SuspenseInstance,
         HydratableInstance,
         FormInstance,
@@ -49,6 +51,7 @@ declare namespace ReactReconciler {
         Container,
         Instance,
         TextInstance,
+        ActivityInstance,
         SuspenseInstance,
         HydratableInstance,
         FormInstance,
@@ -436,6 +439,11 @@ declare namespace ReactReconciler {
 
         canHydrateTextInstance?(instance: HydratableInstance, text: string): null | TextInstance;
 
+        canHydrateActivityInstance?(
+            instance: HydratableInstance,
+            inRootOrSingleton: boolean,
+        ): null | ActivityInstance;
+
         canHydrateSuspenseInstance?(instance: HydratableInstance): null | SuspenseInstance;
 
         isSuspenseInstancePending?(instance: SuspenseInstance): boolean;
@@ -459,13 +467,19 @@ declare namespace ReactReconciler {
 
         hydrateTextInstance?(textInstance: TextInstance, text: string, internalInstanceHandle: any): boolean;
 
+        hydrateActivityInstance?(activityInstance: ActivityInstance, internalInstanceHandle: any): void;
+
         hydrateSuspenseInstance?(suspenseInstance: SuspenseInstance, internalInstanceHandle: any): void;
+
+        getNextHydratableInstanceAfterActivityInstance?(activityInstance: ActivityInstance): null | HydratableInstance;
 
         getNextHydratableInstanceAfterSuspenseInstance?(suspenseInstance: SuspenseInstance): null | HydratableInstance;
 
         commitHydratedContainer?(container: Container): void;
 
         commitHydratedInstance?(instance: Instance, type: Type, props: Props, internalHandle: OpaqueHandle): void;
+
+        commitHydratedActivityInstance?(activityInstance: ActivityInstance): void;
 
         finalizeHydratedChildren?(
             instance: Instance,
@@ -476,17 +490,25 @@ declare namespace ReactReconciler {
 
         flushHydrationEvents?(): void;
 
+        clearActivityBoundary?(parentInstance: Instance, activityInstance: ActivityInstance): void;
+
         clearSuspenseBoundary?(parentInstance: Instance, suspenseInstance: SuspenseInstance): void;
+
+        clearActivityBoundaryFromContainer?(container: Container, activityInstance: ActivityInstance): void;
 
         clearSuspenseBoundaryFromContainer?(container: Container, suspenseInstance: SuspenseInstance): void;
 
         hideDehydratedBoundary?(suspenseInstance: SuspenseInstance): void;
 
-        unhideDehydratedBoundary?(dehydratedInstance: SuspenseInstance): void;
+        unhideDehydratedBoundary?(dehydratedInstance: SuspenseInstance | ActivityInstance): void;
 
         shouldDeleteUnhydratedTailInstances?(parentType: Type): boolean;
 
         getFirstHydratableChildWithinContainer?(parentContainer: Container): HydratableInstance | null;
+
+        getFirstHydratableChildWithinActivityInstance?(
+            parentInstance: ActivityInstance,
+        ): HydratableInstance | null;
 
         getFirstHydratableChildWithinSuspenseInstance?(
             parentInstance: SuspenseInstance,
