@@ -129,3 +129,7 @@ ReactReconciler.defaultOnUncaughtError(new Error("test"));
 ReactReconciler.defaultOnCaughtError(new Error("test"));
 // $ExpectType void
 ReactReconciler.defaultOnRecoverableError(new Error("test"));
+
+// Test injectIntoDevTools (no arguments as of react-reconciler 0.33)
+// $ExpectType boolean
+const foundDevTools = TestReconciler.injectIntoDevTools();

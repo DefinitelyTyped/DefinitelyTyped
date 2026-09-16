@@ -1043,7 +1043,7 @@ declare namespace ReactReconciler {
 
         shouldSuspend(fiber: Fiber): boolean;
 
-        injectIntoDevTools(devToolsConfig: DevToolsConfig<Instance, TextInstance, any>): boolean;
+        injectIntoDevTools(): boolean;
     }
 
     function defaultOnUncaughtError(error: Error): void;
