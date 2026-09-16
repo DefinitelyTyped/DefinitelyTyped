@@ -6,7 +6,7 @@
         "https://aframe.io/"
     ],
     "dependencies": {
-        "@types/animejs": "*",
+        "@types/animejs": "<4",
         "@types/three": "*"
     },
     "devDependencies": {

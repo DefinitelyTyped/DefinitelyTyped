@@ -1,5 +1,5 @@
 import { CookieJar } from "k6/http";
-import { Blob, CompressionAlgorithm, EventName, WebSocket } from "k6/websockets";
+import { Blob, WebSocket } from "k6/websockets";
 
 let str: string;
 let ab: ArrayBuffer;
@@ -18,7 +18,7 @@ new WebSocket("wss://test-api.k6.io/ws/crocochat/1", null, {
     tags: { user: "zbt" },
 });
 new WebSocket("wss://test-api.k6.io/ws/crocochat/1", null, {
-    compression: CompressionAlgorithm.Deflate,
+    compression: "deflate",
 });
 new WebSocket("wss://test-api.k6.io/ws/crocochat/1", null, {
     jar: new CookieJar(),
@@ -84,7 +84,7 @@ ws.addEventListener();
 ws.addEventListener("open");
 // @ts-expect-error
 ws.addEventListener("open", 5);
-ws.addEventListener(EventName.Open, () => {}); // $ExpectType void
+ws.addEventListener("open", () => {}); // $ExpectType void
 
 //
 // WebSocket.close
@@ -154,3 +154,17 @@ ws.onping = () => {};
 // @ts-expect-error
 ws.onpong = "lorem";
 ws.onpong = () => {};
+
+//
+// WebSocket ready state constants
+//
+
+WebSocket.CONNECTING; // $ExpectType 0
+WebSocket.OPEN; // $ExpectType 1
+WebSocket.CLOSING; // $ExpectType 2
+WebSocket.CLOSED; // $ExpectType 3
+
+ws.CONNECTING; // $ExpectType 0
+ws.OPEN; // $ExpectType 1
+ws.CLOSING; // $ExpectType 2
+ws.CLOSED; // $ExpectType 3

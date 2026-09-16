@@ -886,6 +886,7 @@ declare module "node:vm" {
          * const module = new vm.SourceTextModule(
          *   'Object.getPrototypeOf(import.meta.prop).secret = secret;',
          *   {
+         *     context: contextifiedObject,
          *     initializeImportMeta(meta) {
          *       // Note: this object is created in the top context. As such,
          *       // Object.getPrototypeOf(import.meta.prop) points to the
@@ -904,7 +905,7 @@ declare module "node:vm" {
          * // To fix this problem, replace
          * //     meta.prop = {};
          * // above with
-         * //     meta.prop = vm.runInContext('{}', contextifiedObject);
+         * //     meta.prop = vm.runInContext('({})', contextifiedObject);
          * ```
          * @param code JavaScript Module code to parse
          */

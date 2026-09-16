@@ -214,6 +214,11 @@ function message_attachments_test() {
                 path: "https://raw.github.com/nodemailer/nodemailer/master/LICENSE",
             },
             {
+                // use href as an attachment URL
+                filename: "license.txt",
+                href: "https://raw.github.com/nodemailer/nodemailer/master/LICENSE",
+            },
+            {
                 // encoded string as an attachment
                 filename: "text1.txt",
                 content: "aGVsbG8gd29ybGQh",

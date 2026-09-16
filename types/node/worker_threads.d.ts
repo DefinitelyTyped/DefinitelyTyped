@@ -6,6 +6,7 @@ declare module "node:worker_threads" {
         NodeEventTarget,
     } from "node:events";
     import { FileHandle } from "node:fs/promises";
+    import { Server, Socket } from "node:net";
     import { Performance } from "node:perf_hooks";
     import { Readable, Writable } from "node:stream";
     import { ReadableStream, TransformStream, WritableStream } from "node:stream/web";
@@ -514,7 +515,9 @@ declare module "node:worker_threads" {
         | FileHandle
         | ReadableStream
         | WritableStream
-        | TransformStream;
+        | TransformStream
+        | Server
+        | Socket;
     interface LockGrantedCallback<T> {
         (lock: Lock | null): T;
     }

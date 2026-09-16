@@ -133,6 +133,10 @@ test(undefined, undefined, t => {
     // $ExpectType void
     t.diagnostic("tap diagnostic");
     // $ExpectType void
+    t.log("message");
+    // $ExpectType void
+    t.log("data", [1, 2, 3]);
+    // $ExpectType void
     t.runOnly(true);
     // $ExpectType void
     t.skip("skip reason");
@@ -530,6 +534,8 @@ suite("foo", (context) => {
     context.attempt;
 
     context.diagnostic("diagnostic");
+    context.log("message");
+    context.log("data", [1, 2, 3]);
 });
 
 suite("test tags", () => {
@@ -1013,6 +1019,14 @@ class TestReporter extends Transform {
                 callback(
                     null,
                     tests.map((test) => `${test.name}/${test.nesting}/${test.file}/${test.column}/${test.line}`),
+                );
+                break;
+            }
+            case "test:log": {
+                const { file, column, line, name, message, data } = event.data;
+                callback(
+                    null,
+                    `${name}/${file}/${column}/${line}/${message}/${data}`,
                 );
                 break;
             }

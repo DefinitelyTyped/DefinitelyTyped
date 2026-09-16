@@ -45,14 +45,14 @@ declare module "node:stream/iter" {
         [shareSyncProtocol](options: ShareSyncOptions): SyncShare;
     }
     // IDL dictionaries, enums, typedefs
-    type BackpressurePolicy = "strict" | "block" | "drop-oldest" | "drop-newest";
+    type BackpressurePolicy = "strict" | "unbounded" | "drop-oldest" | "drop-newest";
     type ByteReadableStream = AsyncIterable<Uint8Array[]>;
     type SyncByteReadableStream = Iterable<Uint8Array[]>;
     interface WriteOptions {
         signal?: AbortSignal;
     }
     interface PushStreamOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
         signal?: AbortSignal;
     }
@@ -85,21 +85,21 @@ declare module "node:stream/iter" {
         signal?: AbortSignal;
     }
     interface BroadcastOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
         signal?: AbortSignal;
     }
     interface ShareOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
         signal?: AbortSignal;
     }
     interface ShareSyncOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
     }
     interface DuplexDirectionOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
     }
     interface DuplexOptions {
@@ -142,7 +142,7 @@ declare module "node:stream/iter" {
         broadcast: Broadcast;
     }
     interface Writer extends Disposable, AsyncDisposable {
-        readonly desiredSize: number | null;
+        readonly canWrite: boolean | null;
         write(chunk: Uint8Array | string, options?: WriteOptions): Promise<void>;
         writev(chunks: Array<Uint8Array | string>, options?: WriteOptions): Promise<void>;
         writeSync(chunk: Uint8Array | string): boolean;
@@ -155,7 +155,7 @@ declare module "node:stream/iter" {
         write(chunk: Uint8Array | string, options?: WriteOptions): Promise<void>;
     }
     interface SyncWriter extends Disposable {
-        readonly desiredSize: number | null;
+        readonly canWrite: boolean | null;
         writeSync(chunk: Uint8Array | string): number;
         writevSync(chunks: Array<Uint8Array | string>): number;
         endSync(): number;
@@ -166,19 +166,16 @@ declare module "node:stream/iter" {
     }
     interface Broadcast extends Disposable {
         readonly consumerCount: number;
-        readonly bufferSize: number;
         push(...args: any[]): ByteReadableStream;
         cancel(reason?: any): void;
     }
     interface Share extends Disposable {
         readonly consumerCount: number;
-        readonly bufferSize: number;
         pull(...args: any[]): ByteReadableStream;
         cancel(reason?: any): void;
     }
     interface SyncShare extends Disposable {
         readonly consumerCount: number;
-        readonly bufferSize: number;
         pull(...args: any): SyncByteReadableStream;
         cancel(reason?: any): void;
     }
@@ -329,7 +326,7 @@ declare module "node:stream/iter" {
      * });
      *
      * await pipeTo(from('hello world'),
-     *              fromWritable(writable, { backpressure: 'block' }));
+     *              fromWritable(writable, { backpressure: 'unbounded' }));
      * ```
      * @since v26.1.0
      * @experimental
