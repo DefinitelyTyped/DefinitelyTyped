@@ -1042,9 +1042,6 @@ declare namespace ReactReconciler {
 
         discreteUpdates<A, B, C, D, R>(fn: (arg0: A, arg1: B, arg2: C, arg3: D) => R, a: A, b: B, c: C, d: D): R;
 
-        flushSync(): void;
-        flushSync<R>(fn: () => R): R;
-
         flushSyncFromReconciler(): void;
         flushSyncFromReconciler<R>(fn: () => R): R;
 
@@ -1073,18 +1070,18 @@ declare namespace ReactReconciler {
         shouldSuspend(fiber: Fiber): boolean;
 
         injectIntoDevTools(): boolean;
+
+        defaultOnUncaughtError(error: Error, errorInfo: BaseErrorInfo): void;
+        defaultOnCaughtError(error: Error, errorInfo: BaseErrorInfo & { errorBoundary?: Component }): void;
+        defaultOnRecoverableError(error: Error, errorInfo: BaseErrorInfo): void;
+
+        startHostTransition(
+            formFiber: Fiber,
+            pendingState: unknown,
+            action: ((formData: FormData) => void) | null,
+            formData: FormData,
+        ): void;
     }
-
-    function defaultOnUncaughtError(error: Error): void;
-    function defaultOnCaughtError(error: Error): void;
-    function defaultOnRecoverableError(error: Error): void;
-
-    function startHostTransition(
-        formFiber: Fiber,
-        pendingState: unknown,
-        action: ((formData: FormData) => void) | null,
-        formData: FormData,
-    ): void;
 }
 
 export = ReactReconciler;

@@ -127,13 +127,7 @@ TestReconciler.flushSyncFromReconciler(() => "test");
 // $ExpectType boolean
 TestReconciler.flushSyncWork();
 
-// Test default error handlers
-// $ExpectType void
-ReactReconciler.defaultOnUncaughtError(new Error("test"));
-// $ExpectType void
-ReactReconciler.defaultOnCaughtError(new Error("test"));
-// $ExpectType void
-ReactReconciler.defaultOnRecoverableError(new Error("test"));
+// Test default error handlers, which live on the reconciler instance
 
 // Test injectIntoDevTools (no arguments as of react-reconciler 0.33)
 // $ExpectType boolean
@@ -259,3 +253,39 @@ TestReconciler.createContainer(
     (error, info) => {}, // onRecoverableError
     () => {}, // onDefaultTransitionIndicator
 );
+
+// flushSync was removed from the reconciler in 0.33 — flushSyncFromReconciler and
+// flushSyncWork are what remain. See the export list in ReactFiberReconciler.js.
+// @ts-expect-error -- flushSync no longer exists on the reconciler
+TestReconciler.flushSync();
+
+// @ts-expect-error -- including the callback overload
+TestReconciler.flushSync(() => "test");
+
+// $ExpectType void
+TestReconciler.defaultOnUncaughtError(new Error("test"), { componentStack: "" });
+// $ExpectType void
+TestReconciler.defaultOnCaughtError(new Error("test"), { componentStack: "" });
+// $ExpectType void
+TestReconciler.defaultOnRecoverableError(new Error("test"), { componentStack: "" });
+
+// They exist to be handed straight to createContainer.
+TestReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    TestReconciler.defaultOnUncaughtError,
+    TestReconciler.defaultOnCaughtError,
+    TestReconciler.defaultOnRecoverableError,
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+);
+
+declare const formFiber: ReactReconciler.Fiber;
+declare const formData: FormData;
+
+// $ExpectType void
+TestReconciler.startHostTransition(formFiber, null, null, formData);
