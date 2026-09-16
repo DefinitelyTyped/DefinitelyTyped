@@ -507,7 +507,7 @@ hostConfig.matchAccessibilityRole!(instance, "button");
 // $ExpectType boolean
 hostConfig.setFocusIfFocusable!(instance);
 
-// $ExpectType { disconnect: () => void; }
+// $ExpectType { disconnect: () => void; observe: (instance: Instance) => void; unobserve: (instance: Instance) => void; }
 hostConfig.setupIntersectionObserver!([instance], intersections => {});
 
 // -------------------

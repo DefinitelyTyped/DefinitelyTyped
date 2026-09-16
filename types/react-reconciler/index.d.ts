@@ -131,6 +131,11 @@ declare namespace ReactReconciler {
          */
         extraDevToolsConfig: RendererInspectionConfig | null;
 
+        /**
+         * Binds a `console` method call (as captured by React's replaying of Server console logs on the client) so it can be invoked later, optionally tagging it with an environment name badge.
+         */
+        bindToConsole(methodName: string, args: any[], badgeName: string): () => any;
+
         // -------------------
         //    Core Methods
         // -------------------
@@ -738,7 +743,7 @@ declare namespace ReactReconciler {
         //     (optional)
         // -------------------
         /**
-         * Set this to `true` to support the Scheduler/Selector API used by `react-dom/test-utils`, e.g. `findAllNodes`/`findBoundingRects`/`focusWithin`/`observeVisibleRects` on the `Reconciler` instance.
+         * Set this to `true` to support the test selector API, i.e. `findAllNodes`/`findBoundingRects`/`focusWithin`/`observeVisibleRects` on the `Reconciler` instance.
          */
         supportsTestSelectors?: boolean;
 
@@ -752,18 +757,20 @@ declare namespace ReactReconciler {
 
         matchAccessibilityRole?(node: Instance, role: string): boolean;
 
+        /**
+         * The reconciler always calls this with just the node; host-specific focus options (such as the DOM's `FocusOptions`) are not passed through.
+         */
         setFocusIfFocusable?(node: Instance): boolean;
 
         setupIntersectionObserver?(
             targets: Instance[],
             callback: (intersections: Array<{ ratio: number; rect: BoundingRect }>) => void,
             options?: IntersectionObserverOptions,
-        ): { disconnect: () => void };
-
-        /**
-         * Binds a `console` method call (as captured by React's replaying of Server console logs on the client) so it can be invoked later, optionally tagging it with an environment name badge.
-         */
-        bindToConsole(methodName: string, args: any[], badgeName: string): () => any;
+        ): {
+            disconnect: () => void;
+            observe: (instance: Instance) => void;
+            unobserve: (instance: Instance) => void;
+        };
     }
 
     interface Thenable<T> {
