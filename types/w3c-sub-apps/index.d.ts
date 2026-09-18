@@ -3,12 +3,13 @@
  */
 
 /**
- * @description Unique identifier representing the sub-app web manifest ID.
+ * @description Unique identifier representing the sub-app web manifest ID. 
+ * See https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest/Reference/id.
  */
 export type ManifestId = string;
 
 /**
- * @description Response returned by `SubApps.add()` detailing installed and failed sub-apps.
+ * @description Response returned by `window.subApps.add()` detailing installed and failed sub-apps.
  */
 export interface SubAppsAddResponse {
     /** @description Record mapping install paths to successfully installed sub-app manifest IDs. */
@@ -18,7 +19,7 @@ export interface SubAppsAddResponse {
 }
 
 /**
- * @description Response returned by `SubApps.remove()` detailing removed and failed sub-apps.
+ * @description Response returned by `window.subApps.remove()` detailing removed and failed sub-apps.
  */
 export interface SubAppsRemoveResponse {
     /** @description List of manifest IDs for successfully uninstalled sub-apps. */
@@ -59,7 +60,7 @@ declare global {
          * @param installPaths Relative paths to the sub-apps entry pages.
          * @returns Promise resolving to installed and failed sub-app mappings.
          * @example
-         * const { installedApps } = await window.subApps.add(["/calc"]);
+         * const { installedApps } = await window.subApps.add(["/index.html"]);
          * console.log(installedApps);
          */
         add(installPaths: readonly string[]): Promise<SubAppsAddResponse>;
@@ -69,7 +70,7 @@ declare global {
          * @param manifestIds Manifest IDs of the sub-apps to remove.
          * @returns Promise resolving to removed IDs and failed removals.
          * @example
-         * const { removedApps } = await window.subApps.remove(["/calc"]);
+         * const { removedApps } = await window.subApps.remove(["/calc_manifest_id"]);
          * console.log(removedApps);
          */
         remove(manifestIds: readonly string[]): Promise<SubAppsRemoveResponse>;
