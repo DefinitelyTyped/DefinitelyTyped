@@ -1,4 +1,4 @@
-import { ParserOptions } from "htmlparser2";
+import type { ParserOptions } from "htmlparser2" with { "resolution-mode": "import" };
 
 export = sanitize;
 
