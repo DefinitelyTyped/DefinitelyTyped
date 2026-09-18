@@ -83,6 +83,11 @@ declare module "node:zlib" {
          */
         params?: { [key: number]: number | boolean } | undefined;
         /**
+         * Expected total size of the uncompressed input. Must match the input size
+         * when compression finishes. Only applicable to Zstd compressors.
+         */
+        pledgedSrcSize?: number | undefined;
+        /**
          * Limits output size when using
          * [convenience methods](https://nodejs.org/docs/latest-v25.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
