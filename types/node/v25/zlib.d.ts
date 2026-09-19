@@ -85,6 +85,7 @@ declare module "node:zlib" {
         /**
          * Expected total size of the uncompressed input. Must match the input size
          * when compression finishes. Only applicable to Zstd compressors.
+         * @since v22.15.0
          */
         pledgedSrcSize?: number | undefined;
         /**
