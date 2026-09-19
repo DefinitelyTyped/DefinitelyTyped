@@ -1494,19 +1494,40 @@ declare module "node:test" {
              */
             cache?: boolean | undefined;
             /**
-             * The value to use as the mocked module's default export.
-             *
-             * If this value is not provided, ESM mocks do not include a default export.
-             * If the mock is a CommonJS or builtin module, this setting is used as the value of `module.exports`.
-             * If this value is not provided, CJS and builtin mocks use an empty object as the value of `module.exports`.
+             * Optional mocked exports. The `default` property, if
+             * provided, is used as the mocked module's default export. All other own
+             * enumerable properties are used as named exports.
+             * **This option cannot be used with `defaultExport` or `namedExports`.**
+             * * If the mock is a CommonJS or builtin module, `exports.default` is used as
+             *   the value of `module.exports`.
+             * * If `exports.default` is not provided for a CommonJS or builtin mock,
+             *   `module.exports` defaults to an empty object.
+             * * If named exports are provided with a non-object default export, the mock
+             *   throws an exception when used as a CommonJS or builtin module.
+             */
+            exports?: object | undefined;
+            /**
+             * An optional value used as the mocked module's default
+             * export. If this value is not provided, ESM mocks do not include a default
+             * export. If the mock is a CommonJS or builtin module, this setting is used as
+             * the value of `module.exports`. If this value is not provided, CJS and builtin
+             * mocks use an empty object as the value of `module.exports`.
+             * **This option cannot be used with `options.exports`.**
+             * This option is deprecated and will be removed in a later version.
+             * Prefer `options.exports.default`.
+             * @deprecated
              */
             defaultExport?: any;
             /**
-             * An object whose keys and values are used to create the named exports of the mock module.
-             *
-             * If the mock is a CommonJS or builtin module, these values are copied onto `module.exports`.
-             * Therefore, if a mock is created with both named exports and a non-object default export,
-             * the mock will throw an exception when used as a CJS or builtin module.
+             * An optional object whose keys and values are used to
+             * create the named exports of the mock module. If the mock is a CommonJS or
+             * builtin module, these values are copied onto `module.exports`. Therefore, if a
+             * mock is created with both named exports and a non-object default export, the
+             * mock will throw an exception when used as a CJS or builtin module.
+             * **This option cannot be used with `options.exports`.**
+             * This option is deprecated and will be removed in a later version.
+             * Prefer `options.exports`.
+             * @deprecated
              */
             namedExports?: object | undefined;
         }
