@@ -1,4 +1,5 @@
 import { type Config, type ConfigKey } from "govuk-frontend";
+import { I18n } from "govuk-frontend/dist/govuk/i18n.js";
 import GOVUKFrontend = require("govuk-frontend");
 
 const {
@@ -12,9 +13,8 @@ const {
     ErrorSummary,
     ExitThisPage,
     FileUpload,
-    Header,
-    isSupported,
     initAll,
+    isSupported,
     NotificationBanner,
     PasswordInput,
     Radios,
@@ -24,6 +24,10 @@ const {
 } = GOVUKFrontend;
 
 const $root = document.createElement("div");
+
+const i18n = new I18n({ age: "I am %{age} years old" }, { locale: "en" });
+
+i18n.t("age", { age: 2000 });
 
 new Accordion($root);
 new Accordion($root, Accordion.defaults);
@@ -35,7 +39,6 @@ new CharacterCount($root);
 new CharacterCount($root, CharacterCount.defaults);
 
 new Checkboxes($root);
-new Header($root);
 
 new ErrorSummary($root);
 new ErrorSummary($root, ErrorSummary.defaults);
@@ -196,24 +199,6 @@ createAll(Checkboxes, undefined, {
         context.element;
         context.component?.moduleName;
         context.component instanceof Checkboxes;
-        context.config === undefined;
-    },
-});
-
-createAll(Header);
-createAll(Header, undefined);
-createAll(Header, undefined, null);
-createAll(Header, undefined, undefined);
-createAll(Header, undefined, document);
-createAll(Header, undefined, document.body);
-createAll(Header, undefined, console.error);
-createAll(Header, undefined, {
-    scope: document.body,
-    onError(error, context) {
-        error instanceof Error;
-        context.element;
-        context.component?.moduleName;
-        context.component instanceof Header;
         context.config === undefined;
     },
 });
