@@ -220,6 +220,13 @@ declare module "node:tls" {
          */
         authorized: boolean;
         /**
+         * The negotiated ALPN protocol. This is `null` before the handshake completes.
+         * Once the handshake completes, it settles as either the negotiated protocol
+         * name, or `false` if the peers did not negotiate an ALPN protocol.
+         * @since v6.0.0
+         */
+        alpnProtocol: string | false | null;
+        /**
          * Returns the reason why the peer's certificate was not been verified. This
          * property is set only when `tlsSocket.authorized === false`.
          * @since v0.11.4
@@ -230,16 +237,6 @@ declare module "node:tls" {
          * @since v0.11.4
          */
         encrypted: true;
-        /**
-         * String containing the selected ALPN protocol.
-         * Before a handshake has completed, this value is always null.
-         * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
-         */
-        alpnProtocol: string | false | null;
-        /**
-         * String containing the server name requested via SNI (Server Name Indication) TLS extension.
-         */
-        servername: string | false | null;
         /**
          * Returns an object representing the local certificate. The returned object has
          * some properties corresponding to the fields of the certificate.
@@ -402,6 +399,13 @@ declare module "node:tls" {
             },
             callback: (err: Error | null) => void,
         ): undefined | boolean;
+        /**
+         * The SNI (Server Name Indication) host name associated with the socket. This is
+         * `null` before the handshake completes. Once the handshake completes it settles
+         * as either the host name string, or `false` if SNI was not used.
+         * @since v0.11.3
+         */
+        servername: string | false | null;
         /**
          * The `tlsSocket.setKeyCert()` method sets the private key and certificate to use for the socket.
          * This is mainly useful if you wish to select a server certificate from a TLS server's `ALPNCallback`.

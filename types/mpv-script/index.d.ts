@@ -123,17 +123,56 @@ declare namespace mp {
         | "sync";
 
     interface OSDOverlay {
+        /**
+         * Arbitrary integer that identifies the overlay.
+         * Multiple overlays can be added by calling `osd-overlay` command with different id parameters.
+         */
+        id: number;
+        /**
+         * String that gives the type of the overlay.
+         * - `ass-events`: The data parameter is a string. The string is split on the newline character. Every line is turned into the `Text` part of a Dialogue ASS event.
+         * - `none`: Special value that causes the overlay to be removed. Most parameters other than id and format are mostly ignored.
+         */
+        format: "ass-events" | "none";
+        /**
+         * String defining the overlay contents according to the format parameter.
+         */
         data: string;
+        /**
+         * Used if format is set to ass-events (see description there). Optional, defaults to 0.
+         */
         res_x: number;
+        /**
+         * Used if format is set to ass-events (see description there). Optional, defaults to 720.
+         */
         res_y: number;
+        /**
+         * The Z order of the overlay. Optional, defaults to 0.
+         */
         z: number;
+        /**
+         * Commit the OSD overlay to the screen, or in other words, run the osd-overlay command with the current fields of the overlay table.
+         * Returns the result of the osd-overlay command itself.
+         */
         update(): void;
+        /**
+         * Remove the overlay from the screen. A `update()` call will add it again.
+         */
         remove(): void;
     }
 
     interface OSDSize {
+        /**
+         * The width of the OSD in pixels.
+         */
         width?: number | undefined;
+        /**
+         * The height of the OSD in pixels.
+         */
         height?: number | undefined;
+        /**
+         * The display pixel aspect ratio.
+         */
         aspect?: number | undefined;
     }
 
@@ -6840,22 +6879,65 @@ declare namespace mp {
     type SubprocessResultWithStd = SubprocessResultWithStdout & SubprocessResultWithStderr;
 
     interface UncomplexKeyBindingFlags {
+        /**
+         * If set to `true`, enables key repeat for this specific binding.
+         * This option only makes sense when `complex` is not set to `true`.
+         */
         repeatable?: boolean;
+        /**
+         * If set to `true`, then `fn` is called on key `down`, `repeat` and `up` events, with the first argument being a table.
+         */
         complex?: false;
     }
 
     interface ComplexKeyBindingFlags {
         // Setting `repeatable` to `true` when `complex` is `true` doesn't make sense
         // See also: https://github.com/mpv-player/mpv/pull/13452
+        /**
+         * If set to `true`, enables key repeat for this specific binding.
+         * This option only makes sense when `complex` is not set to `true`.
+         */
         repeatable?: false;
+        /**
+         * If set to `true`, enables key scaling for this specific binding.
+         * This option only makes sense when `complex` is set to `true`.
+         * Note that this has no effect if the key binding is invoked by `script-binding` command, where the scalability of the command takes precedence.
+         */
+        scalable?: boolean;
+        /**
+         * If set to `true`, then `fn` is called on key `down`, `repeat` and `up` events, with the first argument being a table.
+         */
         complex: true;
     }
 
-    interface UserInputCommand {
+    interface KeyBindingContext {
         event: "down" | "repeat" | "up" | "press";
+        /**
+         * Whether the event was caused by a mouse button.
+         */
         is_mouse: boolean;
-        key_name?: string | undefined;
-        key_text?: string | undefined;
+        /**
+         * Whether the event was canceled. Not all types of cancellations set this flag.
+         */
+        canceled?: boolean;
+        /**
+         * The name of they key that triggered this, or `undefined` if invoked artificially.
+         * If the key name is unknown, it's an empty string.
+         */
+        key_name?: string;
+        /**
+         * Text if triggered by a text key, otherwise `undefined`.
+         */
+        key_text?: string;
+        /**
+         * The scale of the key, such as the ones produced by `WHEEL_*` keys.
+         * The scale is 1 if the key is `nonscalable`.
+         */
+        scale?: number;
+        /**
+         * User-provided string in the `arg` argument in the `script-binding` command if the key binding is invoked by that command.
+         */
+        arg: string;
     }
 
     /**
@@ -6960,7 +7042,7 @@ declare namespace mp {
      * Nominal brand for return type of `mp.command_native_async`.
      * Just in case a random unknown is accidentally passed to `mp.abort_async_command`
      */
-    type __AsyncCommandReturn = unknown & { __brand: "command_native_async" };
+    type AsyncCommandId = number & { __brand: "command_native_async" };
 
     /**
    * @see https://mpv.io/manual/stable/#command-interface-subprocess
@@ -6984,7 +7066,7 @@ declare namespace mp {
     function command_native_async<TOpts extends CommandOptsUnion>(
         opts: TOpts & CommandOptsBase,
         fn?: (success: boolean, result: GetCommandResult<TOpts>, error: string) => void, // result is null on success, undefined on error
-    ): __AsyncCommandReturn | undefined;
+    ): AsyncCommandId | undefined;
 
     /**
      * Abort a `mp.command_native_async` call.
@@ -6996,7 +7078,7 @@ declare namespace mp {
      *
      * Does not return anything.
      */
-    function abort_async_command(t: __AsyncCommandReturn): void;
+    function abort_async_command(t: AsyncCommandId): void;
 
     /**
      * Delete the given property.
@@ -7249,7 +7331,7 @@ declare namespace mp {
         name: P,
     ): GetStringPropertyReturnType<P, true>;
 
-    function get_property<P extends PropertyName | (string & {}), D>(
+    function get_property<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetStringPropertyType<P, true, true>, // def can be any type, this union helps to get completions for expected property type
     ): GetStringPropertyReturnType<P, false> | D; // success | fail
@@ -7274,7 +7356,7 @@ declare namespace mp {
      * Returns the string on success, or `def` on error. `def` is the second parameter provided to the function, and is an empty string if it's missing.
      * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
      */
-    function get_property_osd<P extends PropertyName | (string & {}), D>(
+    function get_property_osd<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetOSDPropertyType<P, true>,
     ): GetOSDPropertyType<P, false, false> | D; // success | fail
@@ -7291,7 +7373,7 @@ declare namespace mp {
      * Similar to `mp.get_property`, but return the property value as Boolean.
      * Returns a Boolean on success, or `def`
      */
-    function get_property_bool<P extends BooleanPropertyName | (string & {}), D>(
+    function get_property_bool<P extends BooleanPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, boolean, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, boolean>> & {} | D; // success | fail
@@ -7316,7 +7398,7 @@ declare namespace mp {
      * This function simply request a double float from mpv, and mpv will usually convert integer property values to float.
      * Returns a number on success, or `def`
      */
-    function get_property_number<P extends NumberPropertyName | (string & {}), D>(
+    function get_property_number<P extends NumberPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, number, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, number>> | D; // success | fail
@@ -7339,7 +7421,7 @@ declare namespace mp {
      * Some properties (for example `chapter-list`) are returned as list.
      * Returns a value on success, or `def`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
      */
-    function get_property_native<P extends PropertyName | (string & {}), D>(
+    function get_property_native<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetPropertyTypeOrElse<P, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetPropertyTypeOrElse<P, unknown>> | D; // success | fail
@@ -7402,43 +7484,236 @@ declare namespace mp {
      */
     function get_time(): number;
 
-    /**
-     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
-     */
-    function add_key_binding(
-        key: string | undefined,
-        fn: () => void,
-        flags?: UncomplexKeyBindingFlags,
-    ): void;
+    // mpv --input-keylist
+    type SpecialInputKeyName =
+        | "SPACE"
+        | "SHARP"
+        | "IDEOGRAPHIC_SPACE"
+        | "ENTER"
+        | "TAB"
+        | "BS"
+        | "DEL"
+        | "INS"
+        | "HOME"
+        | "END"
+        | "PGUP"
+        | "PGDWN"
+        | "ESC"
+        | "PRINT"
+        | "RIGHT"
+        | "LEFT"
+        | "DOWN"
+        | "UP"
+        | "F1"
+        | "F2"
+        | "F3"
+        | "F4"
+        | "F5"
+        | "F6"
+        | "F7"
+        | "F8"
+        | "F9"
+        | "F10"
+        | "F11"
+        | "F12"
+        | "F13"
+        | "F14"
+        | "F15"
+        | "F16"
+        | "F17"
+        | "F18"
+        | "F19"
+        | "F20"
+        | "F21"
+        | "F22"
+        | "F23"
+        | "F24"
+        | "KP0"
+        | "KP1"
+        | "KP2"
+        | "KP3"
+        | "KP4"
+        | "KP5"
+        | "KP6"
+        | "KP7"
+        | "KP8"
+        | "KP9"
+        | "KP_DEL"
+        | "KP_DEC"
+        | "KP_INS"
+        | "KP_HOME"
+        | "KP_END"
+        | "KP_PGUP"
+        | "KP_PGDWN"
+        | "KP_RIGHT"
+        | "KP_BEGIN"
+        | "KP_LEFT"
+        | "KP_DOWN"
+        | "KP_UP"
+        | "KP_ENTER"
+        | "KP_ADD"
+        | "KP_SUBTRACT"
+        | "KP_MULTIPLY"
+        | "KP_DIVIDE"
+        | "MBTN_LEFT"
+        | "MBTN_MID"
+        | "MBTN_RIGHT"
+        | "WHEEL_UP"
+        | "WHEEL_DOWN"
+        | "WHEEL_LEFT"
+        | "WHEEL_RIGHT"
+        | "MBTN_BACK"
+        | "MBTN_FORWARD"
+        | "MBTN9"
+        | "MBTN10"
+        | "MBTN11"
+        | "MBTN12"
+        | "MBTN13"
+        | "MBTN14"
+        | "MBTN15"
+        | "MBTN16"
+        | "MBTN17"
+        | "MBTN18"
+        | "MBTN19"
+        | "MBTN_LEFT_DBL"
+        | "MBTN_MID_DBL"
+        | "MBTN_RIGHT_DBL"
+        | "TABLET_TOOL_TIP"
+        | "TABLET_TOOL_STYLUS_BTN1"
+        | "TABLET_TOOL_STYLUS_BTN2"
+        | "TABLET_TOOL_STYLUS_BTN3"
+        | "GAMEPAD_ACTION_DOWN"
+        | "GAMEPAD_ACTION_RIGHT"
+        | "GAMEPAD_ACTION_LEFT"
+        | "GAMEPAD_ACTION_UP"
+        | "GAMEPAD_BACK"
+        | "GAMEPAD_MENU"
+        | "GAMEPAD_START"
+        | "GAMEPAD_LEFT_SHOULDER"
+        | "GAMEPAD_RIGHT_SHOULDER"
+        | "GAMEPAD_LEFT_TRIGGER"
+        | "GAMEPAD_RIGHT_TRIGGER"
+        | "GAMEPAD_LEFT_STICK"
+        | "GAMEPAD_RIGHT_STICK"
+        | "GAMEPAD_DPAD_UP"
+        | "GAMEPAD_DPAD_DOWN"
+        | "GAMEPAD_DPAD_LEFT"
+        | "GAMEPAD_DPAD_RIGHT"
+        | "GAMEPAD_LEFT_STICK_UP"
+        | "GAMEPAD_LEFT_STICK_DOWN"
+        | "GAMEPAD_LEFT_STICK_LEFT"
+        | "GAMEPAD_LEFT_STICK_RIGHT"
+        | "GAMEPAD_RIGHT_STICK_UP"
+        | "GAMEPAD_RIGHT_STICK_DOWN"
+        | "GAMEPAD_RIGHT_STICK_LEFT"
+        | "GAMEPAD_RIGHT_STICK_RIGHT"
+        | "POWER"
+        | "MENU"
+        | "PLAY"
+        | "PAUSE"
+        | "PLAYPAUSE"
+        | "STOP"
+        | "FORWARD"
+        | "REWIND"
+        | "NEXT"
+        | "PREV"
+        | "VOLUME_UP"
+        | "VOLUME_DOWN"
+        | "MUTE"
+        | "HOMEPAGE"
+        | "WWW"
+        | "MAIL"
+        | "FAVORITES"
+        | "SEARCH"
+        | "SLEEP"
+        | "CANCEL"
+        | "RECORD"
+        | "CHANNEL_UP"
+        | "CHANNEL_DOWN"
+        | "PLAYONLY"
+        | "PAUSEONLY"
+        | "GO_BACK"
+        | "GO_FORWARD"
+        | "TOOLS"
+        | "ZOOMIN"
+        | "ZOOMOUT"
+        | "XF86_PAUSE"
+        | "XF86_STOP"
+        | "XF86_PREV"
+        | "XF86_NEXT"
+        | "MOUSE_BTN0"
+        | "MOUSE_BTN1"
+        | "MOUSE_BTN2"
+        | "MOUSE_BTN3"
+        | "MOUSE_BTN4"
+        | "MOUSE_BTN5"
+        | "MOUSE_BTN6"
+        | "MOUSE_BTN7"
+        | "MOUSE_BTN8"
+        | "MOUSE_BTN9"
+        | "MOUSE_BTN10"
+        | "MOUSE_BTN11"
+        | "MOUSE_BTN12"
+        | "MOUSE_BTN13"
+        | "MOUSE_BTN14"
+        | "MOUSE_BTN15"
+        | "MOUSE_BTN16"
+        | "MOUSE_BTN17"
+        | "MOUSE_BTN18"
+        | "MOUSE_BTN19"
+        | "MOUSE_BTN0_DBL"
+        | "MOUSE_BTN1_DBL"
+        | "MOUSE_BTN2_DBL"
+        | "AXIS_UP"
+        | "AXIS_DOWN"
+        | "AXIS_LEFT"
+        | "AXIS_RIGHT"
+        | "CLOSE_WIN"
+        | "MOUSE_MOVE"
+        | "MOUSE_LEAVE"
+        | "MOUSE_ENTER"
+        | "UNMAPPED"
+        | "ANY_UNICODE";
 
     /**
-     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     * Register callback to be run on a key binding.
+     * The binding will be mapped to the given key, which is a string describing the physical key.
+     * This uses the same key names as in `input.conf`, and also allows combinations (e.g. `ctrl+a`)
+     *
+     * If the `key` is empty or `undefined`, no physical key is registered, but the user still can create own bindings.
+     *
+     * The `name` argument should be a short symbolic string.
+     * It allows the user to remap the key binding via `input.conf` using the `script-message` command, and the name of the key binding.
+     * The `name` should be unique across other bindings in the same script - if not, the previous binding with the same name will be overwritten.
+     * You can omit the name, in which case a random name is generated internally.
+     *
+     * Key presses will cause the function `fn` to be called (unless the user remapped the key with another binding).
+     * However, if the key binding is canceled, the function will not be called, unless `complex` flag is set to `true`
+     * @param key a key name or combination e.g. `ctrl+a`
+     * @param name unique name of the binding
+     * @param fn callback to be called on binding triggered
+     * @param [flags] extra flags
      */
     function add_key_binding(
-        key: string | undefined,
-        fn: (table: UserInputCommand) => void,
-        flags: ComplexKeyBindingFlags,
-    ): void;
-
-    function add_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
         fn: () => void,
         flags?: UncomplexKeyBindingFlags,
     ): void;
 
+    // NOTE: `table` in the `fn` callback is only available when `flags.complex = true`
     function add_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
-        fn: (table: UserInputCommand) => void,
+        fn: (table: KeyBindingContext) => void,
         flags: ComplexKeyBindingFlags,
     ): void;
 
     /**
      * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
      */
-    function add_forced_key_binding(
-        key: string | undefined,
+    function add_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
         fn: () => void,
         flags?: UncomplexKeyBindingFlags,
     ): void;
@@ -7446,9 +7721,9 @@ declare namespace mp {
     /**
      * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
      */
-    function add_forced_key_binding(
-        key: string | undefined,
-        fn: (table: UserInputCommand) => void,
+    function add_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
+        fn: (table: KeyBindingContext) => void,
         flags: ComplexKeyBindingFlags,
     ): void;
 
@@ -7457,16 +7732,34 @@ declare namespace mp {
      * (`mp.add_key_binding` overwrites default key bindings only, but not those by the user's `input.conf`.)
      */
     function add_forced_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
         fn: () => void,
         flags?: UncomplexKeyBindingFlags,
     ): void;
 
     function add_forced_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
-        fn: (table: UserInputCommand) => void,
+        fn: (table: KeyBindingContext) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
+        fn: () => void,
+        flags?: UncomplexKeyBindingFlags,
+    ): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
+        fn: (table: KeyBindingContext) => void,
         flags: ComplexKeyBindingFlags,
     ): void;
 
@@ -7745,6 +8038,9 @@ declare namespace mp {
 
     interface HookState {
         defer(): void;
+        /**
+         * Continue the hook. Doesn't need to be called unless `defer()` was called.
+         */
         cont(): void;
     }
 
@@ -8072,6 +8368,10 @@ declare namespace mp {
          */
         function select(opts: SelectOpts): void;
     }
+
+    // nominal brand for setTimeout returns, in case a random number is passed to clearTimeout
+    type TimeoutId = number & { __brand: "setTimeout" };
+    type IntervalId = number & { __brand: "setInterval" };
 }
 
 /**
@@ -8090,10 +8390,6 @@ declare function dump(...msg: unknown[]): void;
  */
 declare function exit(): void;
 
-// nominal brand for setTimeout returns, in case a random number is passed to clearTimeout
-type __TimeoutId = number & { __brand: "setTimeout" };
-type __IntervalId = number & { __brand: "setInterval" };
-
 /**
  * @param fn callback for each interval
  * @param delay delay in millisecond
@@ -8104,19 +8400,19 @@ declare function setTimeout<TArgs extends any[]>(
     fn: (...args: TArgs) => void,
     delay?: number,
     ...args: TArgs
-): __TimeoutId;
+): mp.TimeoutId;
 
 /**
  * @param codeString javascript code
  * @param delay delay in millisecond
  * @returns id
  */
-declare function setTimeout(codeString: string, delay?: number): __TimeoutId;
+declare function setTimeout(codeString: string, delay?: number): mp.TimeoutId;
 
 /**
  * Cancels a scheduled timeout
  */
-declare function clearTimeout(id: __TimeoutId): void;
+declare function clearTimeout(id: mp.TimeoutId): void;
 
 /**
  * @param fn callback for each interval
@@ -8128,19 +8424,19 @@ declare function setInterval<TArgs extends any[]>(
     fn: (...args: TArgs) => void,
     delay?: number,
     ...args: TArgs
-): __IntervalId;
+): mp.IntervalId;
 
 /**
  * @param codeString javascript code
  * @param delay delay in millisecond
  * @returns id
  */
-declare function setInterval(codeString: string, delay?: number): __IntervalId;
+declare function setInterval(codeString: string, delay?: number): mp.IntervalId;
 
 /**
  * Stop a recurring timer
  */
-declare function clearInterval(id: __IntervalId): void;
+declare function clearInterval(id: mp.IntervalId): void;
 
 /**
  * note: compilerOptions.module in tsconfig/jsconfig should be set properly otherwise it might not resolve shape of the exports

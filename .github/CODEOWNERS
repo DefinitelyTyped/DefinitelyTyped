@@ -2992,7 +2992,6 @@
 /types/gulp-coffeelint/                                 @tkQubo
 /types/gulp-concat/                                     @k-kagurazaka
 /types/gulp-concat-css/                                 @snakeego
-/types/gulp-cond/                                       @martin-badin
 /types/gulp-connect/                                    @andrewiggins
 /types/gulp-connect-php/                                @MysteryBlokHed
 /types/gulp-copy/                                       @aravindarun
@@ -3159,6 +3158,7 @@
 /types/heic-decode/                                     @hieyou1
 /types/hellojs/                                         @PavelPZ @vuorinem @baywet @batuhanw
 /types/hellosign-embedded/                              @xt0rted @alizhdanov
+/types/helpscout-beacon/                                @bawerbozdag
 /types/hepburn/                                         @peterblazejewicz
 /types/heredatalens/                                    @denyo
 /types/heremaps/                                        @Josh-ES @denyo @fx88 @life777 @DaSchTour
@@ -4615,7 +4615,6 @@
 /types/lrc-parser/                                      @alexthemaster
 /types/lscache/                                         @c-py
 /types/lsofi/                                           @oof2win2
-/types/ltijs/                                           @paulschwoerer
 /types/ltx/                                             @BendingBender
 /types/lua-format/                                      @dnrovs
 /types/lua-json/                                        @bitomic
@@ -4792,7 +4791,6 @@
 /types/memorystorage/                                   @Zephyr-Blessed
 /types/memorystream/                                    @bangbang93 @geniou
 /types/memwatch-next/                                   @cyrilschumacher
-/types/mercadopago/                                     @danieldspx
 /types/merge-deep/                                      @forivall
 /types/merge-descriptors/                               @danny8002
 /types/merge-env/                                       @BendingBender
@@ -5490,7 +5488,6 @@
 /types/pager__jackrabbit/                               @dagams
 /types/paho-mqtt/                                       @amikhalev
 /types/palx/                                            @mikefowler
-/types/pangu/                                           @plantain-00 @AH-dark
 /types/pannellum/                                       @zhirzh @k-yle
 /types/papaparse/                                       @torpedro @rainshen49 @jfloff @johnnyreilly @albertorestifo @jliuhtonen @peterblazejewicz @emmanuelgautier @OpportunityLiu @matsuby
 /types/parallel-transform/                              @djcsdy
@@ -5706,7 +5703,6 @@
 /types/pipes-and-filters/                               @mrnkr @FdBn1999
 /types/piwik-react-router/                              @canserkanuren
 /types/piwik-tracker/                                   @lbguilherme
-/types/pixelmatch/                                      @iamolegga @peterblazejewicz @damianfrizzi
 /types/pixl-xml/                                        @evanshortiss
 /types/pixrem/                                          @MysteryBlokHed
 /types/pizzicato/                                       @mattsoulanille
@@ -5798,7 +5794,6 @@
 /types/postcss-page-break/                              @MysteryBlokHed
 /types/postcss-plugins/                                 @peterblazejewicz
 /types/postcss-prefix-keyframe/                         @nsaunders
-/types/postcss-prefix-selector/                         @robertmaier
 /types/postcss-prefixer/                                @nsaunders
 /types/postcss-pxtorem/                                 @bassettsj
 /types/postcss-reporter/                                @peterblazejewicz
@@ -7628,7 +7623,6 @@
 /types/supertest-as-promised/                           @tkrotoff
 /types/surma__rollup-plugin-off-main-thread/            @NotWoods
 /types/svelte-leafletjs/                                @k-yle
-/types/svelte-range-slider-pips/                        @i7N3
 /types/svg-arc-to-cubic-bezier/                         @fcaylus
 /types/svg-baker-runtime/                               @vagusX
 /types/svg-injector/                                    @poke
