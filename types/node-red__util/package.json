@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/node-red__registry": "*",
         "@types/node-red__runtime": "*",
-        "jsonata": "2.0.5"
+        "jsonata": "2.2.1"
     },
     "devDependencies": {
         "@types/node-red__util": "workspace:."
