@@ -2,16 +2,6 @@
 
 import stream = require("stream");
 
-// forward-compatible iterator type for TS <5.6
-export {}; // do not export StreamIterator
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface AsyncIteratorObject<T, TReturn, TNext> {}
-}
-interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObject<T, any, any> {
-    [Symbol.asyncIterator](): StreamIterator<T>;
-}
-
 export type Callback = (err?: Error | null) => any;
 
 // see https://github.com/mafintosh/tar-stream/blob/master/headers.js
@@ -51,12 +41,12 @@ export interface Pack extends stream.Readable {
     entry(headers: Headers, callback?: Callback): stream.Writable;
     entry(headers: Headers, buffer?: string | Buffer, callback?: Callback): stream.Writable;
     finalize(): void;
-    [Symbol.asyncIterator](): StreamIterator<Buffer>;
+    [Symbol.asyncIterator](): AsyncIteratorObject<Buffer, any, any>;
 }
 
 export interface Entry extends stream.Readable {
     header: Headers;
-    [Symbol.asyncIterator](): StreamIterator<Buffer>;
+    [Symbol.asyncIterator](): AsyncIteratorObject<Buffer, any, any>;
 }
 
 export interface Extract extends stream.Writable {
