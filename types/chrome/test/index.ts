@@ -7888,6 +7888,7 @@ function testAccessibilityFeatures() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/privacy
 function testPrivacy() {
+    chrome.privacy.AutofillBlockedType.ALL === "all";
     chrome.privacy.AutofillBlockedType.CONTACT_INFO === "contact_info";
     chrome.privacy.AutofillBlockedType.PAYMENTS === "payments";
     chrome.privacy.AutofillBlockedType.IDENTITY_DOCS === "identity_docs";
