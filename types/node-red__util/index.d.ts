@@ -1,8 +1,55 @@
 import { EventEmitter } from "events";
-import { Expression as JsonataExpression } from "jsonata";
 
 import * as registry from "@node-red/registry";
 import * as runtime from "@node-red/runtime";
+
+// Preserve the existing jsonata 2.0.5 contract without depending on its runtime.
+// https://github.com/jsonata-js/jsonata/blob/v2.0.5/jsonata.d.ts
+declare namespace jsonata {
+    interface ExprNode {
+        type: string;
+        value?: any;
+        position?: number;
+        arguments?: ExprNode[];
+        name?: string;
+        procedure?: ExprNode;
+        steps?: ExprNode[];
+        expressions?: ExprNode[];
+        stages?: ExprNode[];
+        lhs?: ExprNode[];
+        rhs?: ExprNode;
+    }
+
+    interface JsonataError extends Error {
+        code: string;
+        position: number;
+        token: string;
+    }
+
+    interface Environment {
+        bind(name: string, value: any): void;
+        lookup(name: string): any;
+        readonly timestamp: Date;
+        readonly async: boolean;
+    }
+
+    interface Focus {
+        readonly environment: Environment;
+        readonly input: any;
+    }
+
+    interface Expression {
+        evaluate(input: any, bindings?: Record<string, any>): Promise<any>;
+        evaluate(
+            input: any,
+            bindings: Record<string, any> | undefined,
+            callback: (err: JsonataError, resp: any) => void,
+        ): void;
+        assign(name: string, value: any): void;
+        registerFunction(name: string, implementation: (this: Focus, ...args: any[]) => any, signature?: string): void;
+        ast(): ExprNode;
+    }
+}
 
 declare const util: util.UtilModule;
 
@@ -278,7 +325,7 @@ declare namespace util {
          * @param node  - the node evaluating the property
          * @returns The JSONata expression that can be evaluated
          */
-        prepareJSONataExpression(value: string, node: registry.Node): JsonataExpression;
+        prepareJSONataExpression(value: string, node: registry.Node): jsonata.Expression;
         /**
          * Evaluates a JSONata expression.
          * The expression must have been prepared with `prepareJSONataExpression`
@@ -289,7 +336,7 @@ declare namespace util {
          * @param   callback - a callback with the result of the expression
          */
         evaluateJSONataExpression(
-            expr: JsonataExpression,
+            expr: jsonata.Expression,
             msg: registry.NodeMessage,
             callback: (error: Error | null, result: any) => void,
         ): void;
