@@ -258,6 +258,8 @@ declare namespace WebSocket {
         allowSynchronousEvents?: boolean | undefined;
         autoPong?: boolean | undefined;
         maxPayload?: number | undefined;
+        maxBufferedChunks?: number | undefined;
+        maxFragments?: number | undefined;
         skipUTF8Validation?: boolean | undefined;
         createConnection?: typeof createConnection | undefined;
         finishRequest?: FinishRequestCallback | undefined;
@@ -343,6 +345,8 @@ declare namespace WebSocket {
         clientTracking?: boolean | undefined;
         perMessageDeflate?: boolean | PerMessageDeflateOptions | undefined;
         maxPayload?: number | undefined;
+        maxBufferedChunks?: number | undefined;
+        maxFragments?: number | undefined;
         skipUTF8Validation?: boolean | undefined;
         WebSocket?: U | undefined;
     }
