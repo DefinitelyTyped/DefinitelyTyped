@@ -59,6 +59,7 @@ const scenarioExample: Options = {
 };
 
 const tlsOptions1: Options = {
+    tlsAIAFetch: true,
     tlsAuth: [
         {
             domains: ["example.com"],
@@ -70,6 +71,7 @@ const tlsOptions1: Options = {
 };
 
 const tlsOptions2: Options = {
+    tlsAIAFetch: false,
     tlsAuth: [
         {
             domains: ["example.com"],
@@ -80,6 +82,8 @@ const tlsOptions2: Options = {
 };
 
 const tlsOptions3: Options = {
+    // @ts-expect-error
+    tlsAIAFetch: "true",
     tlsAuth: [
         // @ts-expect-error
         {
