@@ -98,9 +98,9 @@ export interface AttachmentCommon {
     contentType: string;
     /**
      * Content disposition type for the attachment,
-     * most probably `'attachment'`.
+     * usually `"attachment"` or `"inline"`.
      */
-    contentDisposition: string;
+    contentDisposition?: string | undefined;
     /**
      * File name of the attachment.
      */
@@ -114,26 +114,29 @@ export interface AttachmentCommon {
      */
     headerLines: HeaderLines;
     /**
-     * A MD5 hash of the message content.
+     * MD5 hash of the attachment content (configurable via `checksumAlgo`)
      */
     checksum: string;
     /**
-     * Message size in bytes.
+     * Size in bytes.
      */
     size: number;
     /**
-     * The header value from `Content-ID`.
+     * Content-ID header value (with angle brackets).
      */
     contentId?: string | undefined;
     /**
-     * `contentId` without `<` and `>`.
+     * Content-ID without angle brackets, for matching `cid:` URLs.
      */
-    cid?: string | undefined; // e.g. '5.1321281380971@localhost'
+    cid?: string | undefined;
     /**
-     * If true then this attachment should not be offered for download
-     * (at least not in the main attachments list).
+     * `true` if the attachment is inline content (e.g., embedded image referenced in HTML).
      */
     related?: boolean | undefined;
+    /**
+     * Undocumented.
+     */
+    partId?: string | undefined;
 }
 
 /**
@@ -145,8 +148,7 @@ export interface Attachment extends AttachmentCommon {
      */
     content: Buffer;
     /**
-     * If true then this attachment should not be offered for download
-     * (at least not in the main attachments list).
+     * `true` if the attachment is inline content (e.g., embedded image referenced in HTML).
      */
     related: boolean;
 }
@@ -156,7 +158,7 @@ export interface Attachment extends AttachmentCommon {
  */
 export interface AttachmentStream extends AttachmentCommon {
     /**
-     * A Buffer that contains the attachment contents.
+     * A Readable Stream that contains the attachment contents.
      */
     content: Stream;
     /**
@@ -170,11 +172,11 @@ export interface AttachmentStream extends AttachmentCommon {
  */
 export interface ParsedMail {
     /**
-     * An array of attachments.
+     * An array of attachments (buffered in memory).
      */
     attachments: Attachment[];
     /**
-     * A Map object with lowercase header keys.
+     * A `Map` of lowercase header keys to their parsed values
      *
      * - All address headers are converted into address objects.
      * - `references` is a string if only a single reference-id exists or an
@@ -204,7 +206,7 @@ export interface ParsedMail {
      */
     textAsHtml?: string | undefined;
     /**
-     * The subject line.
+     * The subject line (shorthand for `headers.get('subject')`).
      */
     subject?: string | undefined;
     /**
@@ -289,7 +291,14 @@ export interface MessageText {
 export class MailParser extends StreamModule.Transform {
     constructor(options?: MailParserOptions);
     on(event: string, callback: (any: any) => void): this;
+    /**
+     * Emits a `Map` of parsed header keys to their values. Fired once when headers are fully parsed.
+     */
     on(event: "headers", callback: (headers: Headers) => void): this;
+    /**
+     * Emits an `Array` of objects with `key` and `line` properties containing the raw header data.
+     */
+    on(event: "headerLines", callback: (headerLines: HeaderLines) => void): this;
     on(event: "data" | "readable", callback: (data: AttachmentStream | MessageText) => void): this;
 }
 
@@ -302,14 +311,56 @@ export type Source = Buffer | Stream | string;
  * Options object for MailParser.
  */
 export interface MailParserOptions extends StreamModule.TransformOptions {
+    /**
+     * Do not generate `text` from HTML when no plain text part exists.
+     * @default false
+     */
     skipHtmlToText?: boolean | undefined;
+    /**
+     * Maximum HTML length (in characters of the decoded body) to convert to text.
+     * If exceeded, an `'error'` event is emitted (rejecting `simpleParser`) and the HTML part is dropped from the output.
+     * @default Infinity
+     */
     maxHtmlLengthToParse?: number | undefined;
+    /**
+     * Custom function to format Date objects as strings.
+     * @default undefined
+     */
     formatDateString?: ((d: Date) => string) | undefined;
+    /**
+     * Keep `cid:` image URLs as-is instead of converting to data URIs.
+     * @default false
+     */
     skipImageLinks?: boolean | undefined;
+    /**
+     * Do not generate `textAsHtml` from plain text.
+     * @default false
+     */
     skipTextToHtml?: boolean | undefined;
+    /**
+     * Do not auto-detect and linkify URLs in plain text.
+     * @default false
+     */
     skipTextLinks?: boolean | undefined;
+    /**
+     * Treat `message/delivery-status` parts as attachments instead of text.
+     * @default false
+     */
+    keepDeliveryStatus?: boolean | undefined;
+    /**
+     * Alternative iconv implementation for character set conversion.
+     * @default iconv-lite
+     */
     Iconv?: DecoderStream | undefined;
+    /**
+     * Hash algorithm for attachment checksums.
+     * @default 'md5'
+     */
     checksumAlgo?: string | undefined;
+    /**
+     * **simpleParser only** - Keep `cid:` URLs instead of converting them to data URIs (same as `skipImageLinks: true`).
+     * @default false
+     */
     keepCidLinks?: boolean | undefined;
 }
 
