@@ -2649,6 +2649,10 @@
             "libraryName": "get-urls",
             "asOfVersion": "9.1.0"
         },
+        "get-value": {
+            "libraryName": "get-value",
+            "asOfVersion": "4.0.1"
+        },
         "getopts": {
             "libraryName": "getopts",
             "asOfVersion": "2.1.0"
