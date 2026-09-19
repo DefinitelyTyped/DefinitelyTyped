@@ -26,7 +26,7 @@ interface MediaSession {
     setActionHandler(action: MediaSessionAction, listener: ((details: MediaSessionActionDetails) => void) | null): void;
 
     // Set/unset position state
-    setPositionState: SetPositionState;
+    setPositionState(playbackState?: MediaPositionState): void;
 
     // Set/unset active camera
     setCameraActive(active: boolean): void;
