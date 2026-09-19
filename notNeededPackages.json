@@ -1965,6 +1965,10 @@
             "libraryName": "empty-trash",
             "asOfVersion": "3.0.0"
         },
+        "encoding-japanese": {
+            "libraryName": "encoding-japanese",
+            "asOfVersion": "2.4.0"
+        },
         "engine.io-client": {
             "libraryName": "engine.io-client",
             "asOfVersion": "6.0.0"
