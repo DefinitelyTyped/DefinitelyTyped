@@ -19,7 +19,7 @@
  * @see [source](https://github.com/nodejs/node/blob/v24.x/lib/fs.js)
  */
 declare module "fs" {
-    import { NonSharedBuffer } from "node:buffer";
+    import { BufferView, NonSharedBuffer } from "node:buffer";
     import * as stream from "node:stream";
     import { Abortable, EventEmitter } from "node:events";
     import { URL } from "node:url";
@@ -147,6 +147,8 @@ declare module "fs" {
         bavail: T;
         /** Total file nodes in file system. */
         files: T;
+        /** Fundamental file system block size. */
+        frsize: T;
         /** Free file nodes in file system. */
         ffree: T;
     }
@@ -422,7 +424,8 @@ declare module "fs" {
         prependOnceListener(event: "error", listener: (error: Error) => void): this;
     }
     /**
-     * Instances of `fs.ReadStream` are created and returned using the {@link createReadStream} function.
+     * Instances of `fs.ReadStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createReadStream()` function.
      * @since v0.1.93
      */
     export class ReadStream extends stream.Readable {
@@ -717,9 +720,8 @@ declare module "fs" {
         unpipe: (src: stream.Readable) => void;
     } & CustomEvents;
     /**
-     * * Extends `stream.Writable`
-     *
-     * Instances of `fs.WriteStream` are created and returned using the {@link createWriteStream} function.
+     * Instances of `fs.WriteStream` cannot be constructed directly. They are created and
+     * returned using the `fs.createWriteStream()` function.
      * @since v0.1.93
      */
     export class WriteStream extends stream.Writable {
@@ -1180,6 +1182,7 @@ declare module "fs" {
         options:
             | (StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             })
             | undefined,
         callback: (err: NodeJS.ErrnoException | null, stats: Stats) => void,
@@ -1188,13 +1191,32 @@ declare module "fs" {
         path: PathLike,
         options: StatOptions & {
             bigint: true;
+            throwIfNoEntry?: true | undefined;
         },
         callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats) => void,
     ): void;
     export function stat(
         path: PathLike,
+        options:
+            | (StatOptions & {
+                bigint?: false | undefined;
+                throwIfNoEntry: false;
+            })
+            | undefined,
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | undefined) => void,
+    ): void;
+    export function stat(
+        path: PathLike,
+        options: StatOptions & {
+            bigint: true;
+            throwIfNoEntry: false;
+        },
+        callback: (err: NodeJS.ErrnoException | null, stats: BigIntStats | undefined) => void,
+    ): void;
+    export function stat(
+        path: PathLike,
         options: StatOptions | undefined,
-        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats) => void,
+        callback: (err: NodeJS.ErrnoException | null, stats: Stats | BigIntStats | undefined) => void,
     ): void;
     export namespace stat {
         /**
@@ -1205,15 +1227,31 @@ declare module "fs" {
             path: PathLike,
             options?: StatOptions & {
                 bigint?: false | undefined;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<Stats>;
         function __promisify__(
             path: PathLike,
             options: StatOptions & {
                 bigint: true;
+                throwIfNoEntry?: true | undefined;
             },
         ): Promise<BigIntStats>;
-        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats>;
+        function __promisify__(
+            path: PathLike,
+            options?: StatOptions & {
+                bigint?: false | undefined;
+                throwIfNoEntry: false;
+            },
+        ): Promise<Stats | undefined>;
+        function __promisify__(
+            path: PathLike,
+            options: StatOptions & {
+                bigint: true;
+                throwIfNoEntry: false;
+            },
+        ): Promise<BigIntStats | undefined>;
+        function __promisify__(path: PathLike, options?: StatOptions): Promise<Stats | BigIntStats | undefined>;
     }
     export interface StatSyncFn extends Function {
         (path: PathLike, options?: undefined): Stats;
@@ -2965,6 +3003,21 @@ declare module "fs" {
      * If no `options` object is specified, it will default with the above values.
      */
     export function readSync(fd: number, buffer: NodeJS.ArrayBufferView, opts?: ReadOptions): number;
+    export interface ReadFileOptions extends Abortable {
+        encoding?: BufferEncoding | null | undefined;
+        flag?: OpenMode | undefined;
+    }
+    export interface ReadFileOptionsWithStringEncoding extends ReadFileOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ReadFileOptionsWithBufferEncoding extends ReadFileOptions {
+        encoding?: null | undefined;
+    }
+    export interface ReadFileOptionsWithBuffer<T extends NodeJS.ArrayBufferView>
+        extends ReadFileOptionsWithBufferEncoding
+    {
+        buffer: T | ((size: number) => T);
+    }
     /**
      * Asynchronously reads the entire contents of a file.
      *
@@ -2982,6 +3035,11 @@ declare module "fs" {
      *
      * If no encoding is specified, then the raw buffer is returned.
      *
+     * If `buffer` is provided and no encoding is specified, the returned `Buffer` is
+     * a view over the supplied buffer containing only the bytes read. If the
+     * supplied buffer is too small to contain the entire file, the callback is
+     * called with an error.
+     *
      * If `options` is a string, then it specifies the encoding:
      *
      * ```js
@@ -2990,7 +3048,8 @@ declare module "fs" {
      * readFile('/etc/passwd', 'utf8', callback);
      * ```
      *
-     * When the path is a directory, the behavior of `fs.readFile()` and {@link readFileSync} is platform-specific. On macOS, Linux, and Windows, an
+     * When the path is a directory, the behavior of `fs.readFile()` and
+     * `fs.readFileSync()` is platform-specific. On macOS, Linux, and Windows, an
      * error will be returned. On FreeBSD, a representation of the directory's contents
      * will be returned.
      *
@@ -3028,60 +3087,56 @@ declare module "fs" {
      *
      * Aborting an ongoing request does not abort individual operating
      * system requests but rather the internal buffering `fs.readFile` performs.
+     *
+     * An example using the `buffer` option with a pre-allocated buffer:
+     *
+     * ```js
+     * import { Buffer } from 'node:buffer';
+     * import { readFile } from 'node:fs';
+     *
+     * const buf = Buffer.alloc(16384);
+     * readFile('/path/to/file', { buffer: buf }, (err, data) => {
+     *   if (err) throw err;
+     *   console.log(data); // A view over `buf` containing only the bytes read
+     * });
+     * ```
+     *
+     * An example using the `buffer` option with a function returning a buffer:
+     *
+     * ```js
+     * import { Buffer } from 'node:buffer';
+     * import { readFile } from 'node:fs';
+     *
+     * readFile('/path/to/file', {
+     *   buffer: (size) => Buffer.alloc(size),
+     * }, (err, data) => {
+     *   if (err) throw err;
+     *   console.log(data);
+     * });
+     * ```
      * @since v0.1.29
      * @param path filename or file descriptor
      */
+    export function readFile<T extends NodeJS.ArrayBufferView>(
+        path: PathOrFileDescriptor,
+        options: ReadFileOptionsWithBuffer<T>,
+        callback: (err: NodeJS.ErrnoException | null, data: BufferView<T>) => void,
+    ): void;
     export function readFile(
         path: PathOrFileDescriptor,
-        options:
-            | ({
-                encoding?: null | undefined;
-                flag?: string | undefined;
-            } & Abortable)
-            | undefined
-            | null,
+        options: ReadFileOptionsWithBufferEncoding | null | undefined,
         callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
     ): void;
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
     export function readFile(
         path: PathOrFileDescriptor,
-        options:
-            | ({
-                encoding: BufferEncoding;
-                flag?: string | undefined;
-            } & Abortable)
-            | BufferEncoding,
+        options: ReadFileOptionsWithStringEncoding | BufferEncoding,
         callback: (err: NodeJS.ErrnoException | null, data: string) => void,
     ): void;
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
     export function readFile(
         path: PathOrFileDescriptor,
-        options:
-            | (ObjectEncodingOptions & {
-                flag?: string | undefined;
-            } & Abortable)
-            | BufferEncoding
-            | undefined
-            | null,
+        options: ReadFileOptions | BufferEncoding | null | undefined,
         callback: (err: NodeJS.ErrnoException | null, data: string | NonSharedBuffer) => void,
     ): void;
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     */
     export function readFile(
         path: PathOrFileDescriptor,
         callback: (err: NodeJS.ErrnoException | null, data: NonSharedBuffer) => void,
@@ -3136,16 +3191,37 @@ declare module "fs" {
                 | null,
         ): Promise<string | NonSharedBuffer>;
     }
+    export interface ReadFileSyncOptions {
+        encoding?: BufferEncoding | null | undefined;
+        flag?: OpenMode | undefined;
+    }
+    export interface ReadFileSyncOptionsWithStringEncoding extends ReadFileSyncOptions {
+        encoding: BufferEncoding;
+    }
+    export interface ReadFileSyncOptionsWithBufferEncoding extends ReadFileSyncOptions {
+        encoding?: null | undefined;
+    }
+    export interface ReadFileSyncOptionsWithBuffer<T extends NodeJS.ArrayBufferView>
+        extends ReadFileSyncOptionsWithBufferEncoding
+    {
+        buffer: T | ((size: number) => T);
+    }
     /**
      * Returns the contents of the `path`.
      *
      * For detailed information, see the documentation of the asynchronous version of
-     * this API: {@link readFile}.
+     * this API: `fs.readFile()`.
      *
      * If the `encoding` option is specified then this function returns a
      * string. Otherwise it returns a buffer.
      *
-     * Similar to {@link readFile}, when the path is a directory, the behavior of `fs.readFileSync()` is platform-specific.
+     * If `buffer` is provided and no encoding is specified, the returned {Buffer} is
+     * a view over the supplied buffer containing only the bytes read. If the
+     * supplied buffer is too small to contain the entire file, an error will be
+     * thrown.
+     *
+     * Similar to `fs.readFile()`, when the path is a directory, the behavior of
+     * `fs.readFileSync()` is platform-specific.
      *
      * ```js
      * import { readFileSync } from 'node:fs';
@@ -3160,45 +3236,19 @@ declare module "fs" {
      * @since v0.1.8
      * @param path filename or file descriptor
      */
+    export function readFileSync<T extends NodeJS.ArrayBufferView>(
+        path: PathOrFileDescriptor,
+        options: ReadFileSyncOptionsWithBuffer<T>,
+    ): BufferView<T>;
     export function readFileSync(
         path: PathOrFileDescriptor,
-        options?: {
-            encoding?: null | undefined;
-            flag?: string | undefined;
-        } | null,
+        options?: ReadFileSyncOptionsWithBufferEncoding | null,
     ): NonSharedBuffer;
-    /**
-     * Synchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
     export function readFileSync(
         path: PathOrFileDescriptor,
-        options:
-            | {
-                encoding: BufferEncoding;
-                flag?: string | undefined;
-            }
-            | BufferEncoding,
+        options: ReadFileSyncOptionsWithStringEncoding | BufferEncoding,
     ): string;
-    /**
-     * Synchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
-     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
-    export function readFileSync(
-        path: PathOrFileDescriptor,
-        options?:
-            | (ObjectEncodingOptions & {
-                flag?: string | undefined;
-            })
-            | BufferEncoding
-            | null,
-    ): string | NonSharedBuffer;
+    export function readFileSync(path: PathOrFileDescriptor, options: ReadFileSyncOptions): string | NonSharedBuffer;
     export type WriteFileOptions =
         | (
             & ObjectEncodingOptions
@@ -3594,10 +3644,12 @@ declare module "fs" {
      */
     export function unwatchFile(filename: PathLike, listener?: StatsListener): void;
     export function unwatchFile(filename: PathLike, listener?: BigIntStatsListener): void;
+    type WatchIgnorePredicate = string | RegExp | ((filename: string) => boolean);
     export interface WatchOptions extends Abortable {
         encoding?: BufferEncoding | "buffer" | undefined;
         persistent?: boolean | undefined;
         recursive?: boolean | undefined;
+        ignore?: WatchIgnorePredicate | readonly WatchIgnorePredicate[] | undefined;
     }
     export interface WatchOptionsWithBufferEncoding extends WatchOptions {
         encoding: "buffer";
@@ -4520,10 +4572,9 @@ declare module "fs" {
     }
     export interface StatOptions {
         bigint?: boolean | undefined;
-    }
-    export interface StatSyncOptions extends StatOptions {
         throwIfNoEntry?: boolean | undefined;
     }
+    export interface StatSyncOptions extends StatOptions {}
     interface CopyOptionsBase {
         /**
          * Dereference symlinks
@@ -4621,12 +4672,6 @@ declare module "fs" {
          */
         cwd?: string | URL | undefined;
         /**
-         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
-         * @default false
-         * @since v22.2.0
-         */
-        withFileTypes?: boolean | undefined;
-        /**
          * Function to filter out files/directories or a
          * list of glob patterns to be excluded. If a function is provided, return
          * `true` to exclude the item, `false` to include it.
@@ -4636,6 +4681,18 @@ declare module "fs" {
          * @default undefined
          */
         exclude?: ((fileName: T) => boolean) | readonly string[] | undefined;
+        /**
+         * When `true`, symbolic links to directories are
+         * followed while expanding `**` patterns.
+         * @default false
+         */
+        followSymlinks?: boolean | undefined;
+        /**
+         * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
+         * @default false
+         * @since v22.2.0
+         */
+        withFileTypes?: boolean | undefined;
     }
     export interface GlobOptions extends _GlobOptions<Dirent | string> {}
     export interface GlobOptionsWithFileTypes extends _GlobOptions<Dirent> {
@@ -4647,6 +4704,9 @@ declare module "fs" {
 
     /**
      * Retrieves the files matching the specified pattern.
+     *
+     * When `followSymlinks` is enabled, detected symbolic link cycles are not
+     * traversed recursively.
      *
      * ```js
      * import { glob } from 'node:fs';
@@ -4687,6 +4747,9 @@ declare module "fs" {
         ) => void,
     ): void;
     /**
+     * When `followSymlinks` is enabled, detected symbolic link cycles are not
+     * traversed recursively.
+     *
      * ```js
      * import { globSync } from 'node:fs';
      *
