@@ -45,6 +45,12 @@ declare namespace editorClient {
         inputs?: 0 | 1 | undefined;
     }
 
+    type BooleanNodeProperty<TProps extends NodeProperties> =
+        & {
+            [K in keyof TProps]-?: Exclude<TProps[K], undefined> extends boolean ? K : never;
+        }[keyof TProps]
+        & string;
+
     /** Reserved name for properties that MUST NOT BE USED. */
     type NodeReservedProperties =
         | "changed"
@@ -178,7 +184,7 @@ declare namespace editorClient {
          * The icon to use.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#icon
          */
-        icon?: string | undefined;
+        icon?: string | (() => string) | undefined;
         /**
          * The alignment of the icon and label.
          * Read more: https://nodered.org/docs/creating-nodes/appearance#alignment
@@ -192,6 +198,8 @@ declare namespace editorClient {
             | {
                 /** Called when the button is clicked */
                 onclick: (this: NodeInstance<TInstProps>) => void;
+                /** Boolean property in `defaults` whose value is toggled when the button is clicked. */
+                toggle?: BooleanNodeProperty<TProps> | undefined;
                 /** Function to dynamically enable and disable the button based on the node’s current configuration. */
                 enabled?: ((this: NodeInstance<TInstProps>) => boolean) | undefined;
                 /** Function to determine whether the button should be shown at all. */
@@ -505,7 +513,8 @@ declare namespace editorClient {
         ): void;
         load(done: () => void): void;
         loadUserSettings(done: () => void): void;
-        set(key: string, value: unknown): void;
+        set(key: string, value: unknown, flush?: boolean): void;
+        get(key: string): unknown;
         get<T>(key: string, defaultIfUndefined: T): T;
 
         remove(key: string): void;
@@ -544,6 +553,45 @@ declare namespace editorClient {
     }
     interface PluginDef {
         onadd?: (() => void) | undefined;
+        type?: "node-red-theme" | undefined;
+        css?: string | string[] | undefined;
+        scripts?: string | string[] | undefined;
+        monacoOptions?: {
+            theme?: string | object | undefined;
+            [key: string]: unknown;
+        } | undefined;
+        mermaid?: {
+            theme?: string | undefined;
+        } | undefined;
+    }
+
+    type KnownHookId =
+        | "viewRemoveNode"
+        | "viewAddNode"
+        | "viewRemovePort"
+        | "viewAddPort"
+        | "viewRedrawNode"
+        | "debugPreProcessMessage"
+        | "debugPostProcessMessage";
+
+    interface Hooks {
+        /**
+         * Checks whether a hook has been registered.
+         * A hook identifier may include a label, for example `viewAddNode.myPlugin`.
+         */
+        has(hookId: string): boolean;
+        /**
+         * Triggers the registered hooks in sequence and returns a Promise when no callback is supplied.
+         */
+        trigger(id: KnownHookId, payload: unknown): Promise<unknown>;
+        /**
+         * Triggers the registered hooks in sequence and invokes the callback on completion.
+         */
+        trigger(
+            id: KnownHookId,
+            payload: unknown,
+            done: (error?: Error | null) => void,
+        ): void;
     }
 
     interface TextBidi {
@@ -725,7 +773,12 @@ declare namespace editorClient {
             readOnly?: boolean | undefined;
             value?: string | undefined;
             globals?: object | undefined;
-        }): AceAjax.Editor;
+        }): CodeEditor;
+    }
+
+    interface CodeEditor {
+        getValue(): string;
+        destroy(): void;
     }
 
     interface TypeEditorDefinition {
@@ -857,28 +910,37 @@ declare namespace editorClient {
 
     type NotificationType = "warning" | "compact" | "success" | "error";
 
+    interface NotificationButton {
+        id?: string | undefined;
+        class?: string | undefined;
+        text: string;
+        click: (event: JQuery.Event) => void;
+    }
+
+    interface NotificationOptions {
+        type?: NotificationType | undefined;
+        fixed?: boolean | undefined;
+        timeout?: number | undefined;
+        id?: string | undefined;
+        modal?: boolean | undefined;
+        width?: number | undefined;
+        buttons?: NotificationButton[] | undefined;
+    }
+
+    interface Notification extends HTMLDivElement {
+        close(): void;
+        update(message: string | JQuery, options: NotificationOptions): void;
+    }
+
     interface Notifications {
         init(): void;
+        notify(message: string | JQuery, options?: NotificationOptions): Notification;
         notify(
-            msg: string | JQuery,
-            options: {
-                type?: NotificationType | undefined;
-                fixed?: boolean | undefined;
-                timeout?: number | undefined;
-                id?: string | undefined;
-                modal?: boolean | undefined;
-                width?: number | undefined;
-                buttons?:
-                    | Array<{
-                        id?: string | undefined;
-                        class?: string | undefined;
-                        text: string;
-                        click: (event: JQuery.Event) => void;
-                    }>
-                    | undefined;
-            },
-        ): HTMLDivElement;
-        notify(msg: string | JQuery, type?: NotificationType, fixed?: boolean, timeout?: number): HTMLDivElement;
+            message: string | JQuery,
+            type?: NotificationType,
+            fixed?: boolean,
+            timeout?: number,
+        ): Notification;
     }
 
     interface PaletteEditor {
@@ -1377,6 +1439,7 @@ declare namespace editorClient {
         user: User;
         validators: Validators;
         plugins: Plugins;
+        hooks: Hooks;
 
         // assigned in i18n.js (on init)
         _: I18nTFunction;
