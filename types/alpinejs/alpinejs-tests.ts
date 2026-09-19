@@ -56,6 +56,24 @@ import Alpine, {
 }
 
 {
+    // Alpine.transaction
+    // introduced in 3.16.0
+
+    const data = Alpine.reactive({ count: 1 });
+
+    // $ExpectType Promise<void>
+    Alpine.transaction(() => {
+        data.count = 2;
+        data.count = 3;
+    });
+
+    // $ExpectType Promise<void>
+    Alpine.transaction(async () => {
+        await Promise.resolve();
+    });
+}
+
+{
     // Alpine.version
     // $ExpectType string
     Alpine.version;
@@ -83,6 +101,21 @@ import Alpine, {
         effect: (cb) => 1,
         release: (id: number) => undefined,
         raw: (val) => val,
+    });
+}
+
+{
+    // Alpine.setErrorHandler
+    // introduced in 3.16.0
+
+    // $ExpectType void
+    Alpine.setErrorHandler((error, el, expression) => {
+        // $ExpectType Error
+        error;
+        // $ExpectType ElementWithXAttributes<HTMLElement>
+        el;
+        // $ExpectType string | undefined
+        expression;
     });
 }
 
@@ -164,6 +197,21 @@ import Alpine, {
 }
 
 {
+    // Alpine.deferInit
+    // introduced in 3.17.0
+
+    const el = document.body;
+    const prerequisite = Promise.resolve();
+
+    // $ExpectType void
+    Alpine.deferInit(el, prerequisite);
+
+    // any value is accepted, it is passed through `Promise.resolve`
+    // $ExpectType void
+    Alpine.deferInit(el, "not a promise");
+}
+
+{
     // Alpine.mapAttributes
     // inspired by
     // https://github.com/alpinejs/alpine/blob/8d4f1266b25a550d9bd777b8aeb632a6857e89d1/packages/alpinejs/src/directives/x-bind.js
@@ -212,6 +260,51 @@ import Alpine, {
         resultCallback(typeof expression === "function" ? expression() : Alpine.evaluate<T>(el, expression ?? ""));
 
     Alpine.setEvaluator(justExpressionEvaluator);
+}
+
+{
+    // Alpine.setRawEvaluator
+    // introduced in 3.16.0
+
+    // $ExpectType void
+    Alpine.setRawEvaluator((el, expression) => Alpine.evaluate(el, expression));
+}
+
+{
+    // Alpine.evaluateRaw
+    // introduced in 3.16.0
+
+    const el = document.body;
+
+    // $ExpectType number
+    Alpine.evaluateRaw<number>(el, "1 + 1");
+
+    // $ExpectType unknown
+    Alpine.evaluateRaw(el, "1 + 1", { scope: { two: 2 } });
+}
+
+{
+    // Alpine.initInterceptors
+    // exposed on the Alpine object since 3.16.0
+
+    const data: Record<string, unknown> = {};
+
+    // $ExpectType void
+    Alpine.initInterceptors(data);
+
+    // $ExpectType void
+    Alpine.initInterceptors(data, (callback) => callback);
+}
+
+{
+    // Alpine.injectMagics
+    // exposed on the Alpine object since 3.16.0
+
+    const el = document.body;
+    const scope: Record<string, unknown> = {};
+
+    // $ExpectType Record<string, unknown>
+    Alpine.injectMagics(scope, el);
 }
 
 {
@@ -292,6 +385,18 @@ import Alpine, {
             };
         },
     );
+
+    // the interceptor callback receives a cleanup registrar since 3.16.0
+    Alpine.interceptor<string>((initialValue, getter, setter, path, key, cleanup) => {
+        // $ExpectType string
+        path;
+        // $ExpectType string
+        key;
+        // $ExpectType (callback: () => void) => void
+        cleanup;
+        cleanup(() => storage.removeItem(`_x_${path}`));
+        return initialValue;
+    });
 }
 
 {
@@ -426,6 +531,28 @@ import Alpine, {
 
     // $ExpectType unknown
     const data = Alpine.evaluate(el, expression, { scope: dataProviderContext });
+}
+
+{
+    // Alpine.watch
+    // available on the Alpine object since 3.13
+
+    const data = Alpine.reactive({ count: 1 });
+
+    // $ExpectType () => void
+    Alpine.watch(
+        () => data.count,
+        (
+            // $ExpectType number
+            newValue,
+            // $ExpectType number
+            oldValue,
+        ) => {},
+    );
+
+    const stopWatching = Alpine.watch(() => data.count, () => {});
+    // $ExpectType () => void
+    stopWatching;
 }
 
 {
