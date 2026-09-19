@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node-red__util",
-    "version": "5.0.9999",
+    "version": "3.1.9999",
     "projects": [
         "https://github.com/node-red/node-red/tree/master/packages/node_modules/%40node-red/util",
         "https://nodered.org/"
@@ -9,7 +9,7 @@
     "dependencies": {
         "@types/node-red__registry": "*",
         "@types/node-red__runtime": "*",
-        "jsonata": "2.2.2"
+        "jsonata": "1.8.6"
     },
     "devDependencies": {
         "@types/node-red__util": "workspace:."
@@ -22,10 +22,6 @@
         {
             "name": "Tadeusz Wyrzykowski",
             "githubUsername": "Shaquu"
-        },
-        {
-            "name": "Gauthier Dandele",
-            "githubUsername": "GogoVega"
         }
     ]
 }
