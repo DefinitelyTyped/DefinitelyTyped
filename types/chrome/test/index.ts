@@ -4637,8 +4637,10 @@ function testContextMenus() {
     };
 
     chrome.contextMenus.create(creationOptions); // $ExpectType string | number
-    // @ts-expect-error Error at property 'contexts': Invalid type: expected array, found string.
-    chrome.contextMenus.create({ ...creationOptions, contexts: "page_action" });
+    // @ts-expect-error All menu items except for separators must have a title
+    chrome.contextMenus.create({ id: "title-required" });
+    // @ts-expect-error All menu items except for separators must have a title
+    chrome.contextMenus.create({ id: "title-required", type: chrome.contextMenus.ItemType.CHECKBOX });
 
     chrome.contextMenus.remove(1); // $ExpectType Promise<void>
     chrome.contextMenus.remove("1"); // $ExpectType Promise<void>
