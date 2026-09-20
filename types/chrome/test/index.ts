@@ -5434,8 +5434,12 @@ function testDownloads() {
     };
 
     chrome.downloads.getFileIcon(downloadId); // $ExpectType Promise<string | undefined>
+    chrome.downloads.getFileIcon(downloadId, undefined); // $ExpectType Promise<string | undefined>
     chrome.downloads.getFileIcon(downloadId, getFileIconOptions); // $ExpectType Promise<string | undefined>
     chrome.downloads.getFileIcon(downloadId, (iconURL) => { // $ExpectType void
+        iconURL; // $ExpectType string | undefined
+    });
+    chrome.downloads.getFileIcon(downloadId, undefined, (iconURL) => { // $ExpectType void
         iconURL; // $ExpectType string | undefined
     });
     chrome.downloads.getFileIcon(downloadId, getFileIconOptions, (iconURL) => { // $ExpectType void
@@ -5487,6 +5491,8 @@ function testDownloads() {
         result.state; // $ExpectType "complete" | "in_progress" | "interrupted"
         result.url; // $ExpectType string
     });
+    // @ts-expect-error Invalid orderBy field
+    chrome.downloads.search({ orderBy: ["error"] });
     // @ts-expect-error
     chrome.downloads.search(downloadQuery, () => {}).then(() => {});
 
