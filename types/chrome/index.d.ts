@@ -4050,9 +4050,25 @@ declare namespace chrome {
             size?: 16 | 32 | undefined;
         }
 
+        type DownloadSortableKey = keyof Pick<
+            DownloadItem,
+            | "url"
+            | "bytesReceived"
+            | "danger"
+            | "finalUrl"
+            | "totalBytes"
+            | "filename"
+            | "paused"
+            | "state"
+            | "mime"
+            | "startTime"
+            | "endTime"
+            | "exists"
+        >;
+
         interface DownloadQuery {
             /** Set elements of this array to {@link DownloadItem} properties in order to sort search results. For example, setting `orderBy=['startTime']` sorts the {@link DownloadItem} by their start time in ascending order. To specify descending order, prefix with a hyphen: '-startTime'. */
-            orderBy?: string[] | undefined;
+            orderBy?: Array<DownloadSortableKey | `-${DownloadSortableKey}`> | undefined;
             /** Limits results to {@link DownloadItem} whose `url` matches the given regular expression. */
             urlRegex?: string | undefined;
             /** Limits results to {@link DownloadItem} that ended before the time in ISO 8601 format. */
@@ -4071,12 +4087,12 @@ declare namespace chrome {
              * The absolute URL that this download is being made from, after all redirects.
              * @since Chrome 54
              */
-            finalUrl?: string;
+            finalUrl?: string | undefined;
             /**
              * Limits results to {@link DownloadItem} whose `finalUrl` matches the given regular expression.
              * @since Chrome 54
              */
-            finalUrlRegex?: string;
+            finalUrlRegex?: string | undefined;
             /** This array of search terms limits results to {@link DownloadItem} whose `filename` or `url` or `finalUrl` contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash. */
             query?: string[] | undefined;
             /** Limits results to {@link DownloadItem} whose `totalBytes` is less than the given integer. */
@@ -4153,7 +4169,7 @@ declare namespace chrome {
         function getFileIcon(downloadId: number, callback: (iconURL?: string) => void): void;
         function getFileIcon(
             downloadId: number,
-            options: GetFileIconOptions,
+            options: GetFileIconOptions | undefined,
             callback: (iconURL?: string) => void,
         ): void;
 
