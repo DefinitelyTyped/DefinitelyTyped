@@ -3026,7 +3026,7 @@ declare module "node:crypto" {
      * suitable for use as a database key with time-based sorting. The embedded
      * timestamp relies on a non-monotonic clock and is not guaranteed to be strictly
      * increasing.
-     * @since v26.1.0
+     * @since v26.1.0, v24.16.0
      */
     function randomUUIDv7(options?: RandomUUIDV7Options): UUID;
     interface X509CheckOptions {
