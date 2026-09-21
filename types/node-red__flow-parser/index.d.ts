@@ -25,7 +25,7 @@ export class NRFlowSet {
      *
      * @return {Array} an array of node-red objects
      */
-    export(): unknown[]; // TODO: FIX THIS
+    export(): object[];
     /**
      * Call the provided callback function for every object in the flow.
      * The objects are recursively visited in the following order:
@@ -69,9 +69,9 @@ export class NRObject {
     setParent(parent: NRFlow | NRSubflow): void;
     /**
      * export - Exports this object as an Object that can be included in a flow
-     * @return {unknown} the exported object
+     * @return {object} the exported object
      */
-    export(): unknown;
+    export(): object;
     walk(callback: WalkFunction): void;
     walkContents(callback: WalkFunction): void;
 }
@@ -141,8 +141,15 @@ export class NRSubflow extends NRContainer {
      */
     addGroup(group: NRGroup): void;
     instances: Map<string, NRSubflowInstance>;
+    category?: string;
+    color?: string;
+    icon?: string;
+    inputLabels: string[];
+    outputLabels: string[];
     in?: Array<{ x: number; y: number; wires: Array<{ id: string }> }>;
     out?: Array<{ x: number; y: number; wires: Array<{ id: string; port: number }> }>;
+    env: object;
+    meta: object;
     _ownProperties: string[];
     /**
      * addInstance - Description
@@ -173,12 +180,12 @@ export class NRNode extends NRObject {
     x: number;
     y: number;
     groupId?: string;
-    w: number;
-    h: number;
+    w?: number;
+    h?: number;
     showLabel: boolean;
     inputLabels: string[];
     outputLabels: string[];
-    icon: string;
+    icon?: string;
     wires: string[][];
     outputCount: number;
     info: string;
@@ -290,7 +297,7 @@ export class NRGroup extends NRContainer {
     TYPE: ObjectTypes["Group"];
     w: number;
     h: number;
-    groupId: string;
+    groupId?: string;
     style: Record<string, unknown>;
     info: string;
     _nodes: Array<NRSubflowInstance | NRNode>;
@@ -310,23 +317,23 @@ export interface ObjectTypes {
     /**
      * - A flow node
      */
-    Node: "NRNode";
+    readonly Node: unique symbol;
     /**
      * - A Configuration node
      */
-    ConfigNode: "NRConfigNode";
+    readonly ConfigNode: unique symbol;
     /**
      * - A Group
      */
-    Group: "NRGroup";
+    readonly Group: unique symbol;
     /**
      * - A Flow
      */
-    Flow: "NRFlow";
+    readonly Flow: unique symbol;
     /**
      * - A Subflow
      */
-    Subflow: "NRSubflow";
+    readonly Subflow: unique symbol;
 }
 
 export const types: ObjectTypes;
