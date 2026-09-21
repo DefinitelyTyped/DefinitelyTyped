@@ -24,8 +24,8 @@ queue.push([
 // $ExpectType number
 queue.push(["trackPageView"]);
 
-const path: HubSpotTrackingCode.Path = "/about-us";
-queue.push(["setPath", path]);
+declare const pathname: string;
+queue.push(["setPath", pathname]);
 queue.push(["setPath", "/about-us"], ["trackPageView"]);
 
 const listener: HubSpotTrackingCode.PrivacyConsentListener = (consent) => {
@@ -52,8 +52,6 @@ window._hsq = [];
 queue.push(["trackEvent", { id: "legacy" }]);
 // @ts-expect-error -- setPath takes a string
 queue.push(["setPath", 404]);
-// @ts-expect-error -- the path must start with a forward slash
-queue.push(["setPath", "about-us"]);
 // @ts-expect-error -- trackPageView takes no arguments
 queue.push(["trackPageView", "/about-us"]);
 // @ts-expect-error -- a trailing command must not relax the one before it

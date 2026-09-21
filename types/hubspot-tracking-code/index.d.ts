@@ -1,7 +1,4 @@
 declare namespace HubSpotTrackingCode {
-    /** Page path, which must start with a forward slash. */
-    type Path = `/${string}`;
-
     /** Internal event name, in the form `pe{HubID}_{name}`. */
     type CustomBehavioralEventName = `pe${bigint}_${string}`;
 
@@ -39,7 +36,7 @@ declare namespace HubSpotTrackingCode {
         trackPageView: [];
         /** Overrides the path recorded by the next `trackPageView`. */
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
-        setPath: [path: Path];
+        setPath: [path: string];
         // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
         addPrivacyConsentListener: [listener: PrivacyConsentListener];
         revokeCookieConsent: [];
