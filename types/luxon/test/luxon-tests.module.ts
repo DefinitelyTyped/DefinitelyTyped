@@ -8,10 +8,8 @@ import {
     IfValid,
     Info,
     Interval,
-    Invalid,
     Settings,
     SystemZone,
-    Valid,
     VERSION,
     Zone,
     ZoneOffsetFormat,
@@ -1105,11 +1103,11 @@ function Interval_isValidNarrowsFactoryResult() {
 
 function Validity_helperTypes(
     canBeInvalid: CanBeInvalid,
-    valid: DateTime<Valid>,
-    invalid: DateTime<Invalid>,
+    valid: DateTime<true>,
+    invalid: DateTime<false>,
     maybeValid: DateTime<DefaultValidity>,
 ) {
-    const start: IfValid<DateTime<Valid>, null, DefaultValidity> = Interval.fromISO("2016-05-25/2016-05-27").start;
+    const start: IfValid<DateTime<true>, null, DefaultValidity> = Interval.fromISO("2016-05-25/2016-05-27").start;
 
     canBeInvalid; // $ExpectType true
     valid.toISO(); // $ExpectType string
