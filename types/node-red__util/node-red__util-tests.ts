@@ -142,12 +142,92 @@ function utilTests(someNode: Node) {
     parsedStore.key;
 
     // $ExpectType Expression
-    const jsonataExpr = util.prepareJSONataExpression("expr", someNode);
+    const jsonataExpr: utilModule.JsonataExpression = util.prepareJSONataExpression("expr", someNode);
 
     // @ts-expect-error
     util.evaluateJSONataExpression(jsonataExpr, {});
     // $ExpectType void
     util.evaluateJSONataExpression(jsonataExpr, {}, (err: Error | null, res: any): void => {});
+
+    // $ExpectType Promise<any>
+    jsonataExpr.evaluate({});
+    // $ExpectType Promise<any>
+    jsonataExpr.evaluate({}, { value: 123 });
+    // $ExpectType void
+    jsonataExpr.evaluate({}, undefined, (err, result) => {
+        // $ExpectType string
+        err.code;
+        // $ExpectType number
+        err.position;
+        // $ExpectType string
+        err.token;
+        // $ExpectType string
+        err.message;
+        // $ExpectType any
+        result;
+    });
+    // $ExpectType void
+    jsonataExpr.evaluate({}, { value: 123 }, (err, result) => {});
+    // $ExpectType void
+    jsonataExpr.assign("value", 123);
+    // $ExpectType void
+    jsonataExpr.registerFunction("double", function(value: number) {
+        // $ExpectType any
+        this.input;
+        // $ExpectType Date
+        this.environment.timestamp;
+        // $ExpectType boolean
+        this.environment.async;
+        // $ExpectType void
+        this.environment.bind("value", value);
+        // $ExpectType any
+        this.environment.lookup("value");
+        const key = Symbol();
+        // $ExpectType void
+        this.environment.bind(key, value);
+        // $ExpectType any
+        this.environment.lookup(key);
+        // @ts-expect-error
+        this.environment.timestamp = new Date();
+        // @ts-expect-error
+        this.environment.async = false;
+        // @ts-expect-error
+        this.input = {};
+        // @ts-expect-error
+        this.environment = this.environment;
+        return value * 2;
+    }, "<n:n>");
+    // $ExpectType void
+    jsonataExpr.registerFunction("constant", () => 123);
+    // @ts-expect-error
+    jsonataExpr.assign(123, "value");
+    // @ts-expect-error
+    jsonataExpr.registerFunction("invalid", () => 123, 123);
+
+    // $ExpectType ExprNode
+    const ast = jsonataExpr.ast();
+    // $ExpectType "string" | "number" | "error" | "function" | "binary" | "unary" | "partial" | "lambda" | "condition" | "transform" | "block" | "name" | "parent" | "value" | "wildcard" | "descendant" | "variable" | "regexp" | "operator"
+    ast.type;
+    // $ExpectType any
+    ast.value;
+    // $ExpectType number | undefined
+    ast.position;
+    // $ExpectType string | undefined
+    ast.name;
+    // $ExpectType ExprNode[] | undefined
+    ast.arguments;
+    // $ExpectType ExprNode[] | undefined
+    ast.steps;
+    // $ExpectType ExprNode[] | undefined
+    ast.expressions;
+    // $ExpectType ExprNode[] | undefined
+    ast.stages;
+    // $ExpectType ExprNode | ExprNode[] | [ExprNode, ExprNode][] | undefined
+    ast.lhs;
+    // $ExpectType ExprNode | undefined
+    ast.procedure;
+    // $ExpectType ExprNode | undefined
+    ast.rhs;
 
     // $ExpectType string
     util.normaliseNodeTypeName("a-random node type");
