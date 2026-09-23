@@ -1536,6 +1536,10 @@ export interface PlotData {
     x: Datum[] | Datum[][] | TypedArray;
     y: Datum[] | Datum[][] | TypedArray;
     z: Datum[] | Datum[][] | Datum[][][] | TypedArray;
+    x0: string | number;
+    y0: string | number;
+    dx: number;
+    dy: number;
     i: TypedArray;
     j: TypedArray;
     k: TypedArray;
