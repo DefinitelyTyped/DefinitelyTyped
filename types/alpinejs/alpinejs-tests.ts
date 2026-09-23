@@ -303,8 +303,19 @@ import Alpine, {
     const el = document.body;
     const scope: Record<string, unknown> = {};
 
-    // $ExpectType Record<string, unknown>
+    // $ExpectType Record<string, unknown> & Magics<Record<string, unknown>>
     Alpine.injectMagics(scope, el);
+
+    const data = { count: 0 };
+
+    // $ExpectType { count: number; } & Magics<{ count: number; }>
+    Alpine.injectMagics(data, el);
+
+    // $ExpectType string
+    Alpine.injectMagics(data, el).$el.tagName;
+
+    // $ExpectType number
+    Alpine.injectMagics(data, el).count;
 }
 
 {

@@ -213,9 +213,12 @@ declare namespace Alpine {
          *
          * @param obj to define the magics on
          * @param el the magics will be bound to
-         * @returns the same object
+         * @returns the same object, augmented with the magics
          */
-        injectMagics<T extends Record<string, unknown>>(obj: T, el: Alpine.ElementWithXAttributes): T;
+        injectMagics<T extends Record<string, unknown>>(
+            obj: T,
+            el: Alpine.ElementWithXAttributes,
+        ): T & Alpine.Magics<T>;
         /**
          * Registers an evaluator to be used
          * Used internally by Alpine CSP to use a CSP safe evaluator
