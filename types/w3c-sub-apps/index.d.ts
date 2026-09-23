@@ -3,7 +3,7 @@
  */
 
 /**
- * @description Unique identifier representing the sub-app web manifest ID. 
+ * @description Unique identifier representing the sub-app web manifest ID.
  * See https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest/Reference/id.
  */
 export type ManifestId = string;
