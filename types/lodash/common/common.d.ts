@@ -6,10 +6,6 @@ declare module "../index" {
     type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
     type PartialObject<T> = GlobalPartial<T>;
     type Many<T> = T | readonly T[];
-    type NullOrUndefinedOnly<T> =
-        [T] extends [null] ? ([null] extends [T] ? true : false) :
-        [T] extends [undefined] ? ([undefined] extends [T] ? true : false) :
-        false;
     type ImpChain<T> =
         T extends { __trapAny: any } ? Collection<any> & Function<any> & Object<any> & Primitive<any> & String :
         T extends null | undefined ? never :
@@ -19,14 +15,17 @@ declare module "../index" {
         T extends object | null | undefined ? Object<T> :
         Primitive<T>;
     type ExpChain<T> =
-        [T] extends [{ __trapAny: any }] ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
-        NullOrUndefinedOnly<T> extends true ? never :
-        [T] extends [string] ? StringChain<T> :
-        [NonNullable<T>] extends [string] ? StringNullableChain :
-        [T] extends [(...args: any) => any] ? FunctionChain<T> :
-        [NonNullable<T>] extends [List<infer U>] ? CollectionChain<undefined extends T ? U | undefined : U> :
-        [NonNullable<T>] extends [object] ? ObjectChain<T>:
-        PrimitiveChain<T>;
+        [T] extends [never] ? never :
+        [Exclude<T, null | undefined>] extends [never] ? PrimitiveChain<T> :
+        DistributedExpChain<T, 0 extends 1 & T ? never : Extract<T, null | undefined>>;
+    type DistributedExpChain<T, TNullish> =
+        T extends { __trapAny: any } ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
+        T extends null | undefined ? never :
+        T extends string ? ([TNullish] extends [never] ? StringChain<T> : StringNullableChain) :
+        T extends (...args: any) => any ? ([TNullish] extends [never] ? FunctionChain<T> : ObjectChain<T | TNullish>) :
+        T extends List<infer U> ? CollectionChain<U> :
+        T extends object ? ObjectChain<T | TNullish> :
+        PrimitiveChain<T | TNullish>;
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps value to enable implicit method chain sequences.

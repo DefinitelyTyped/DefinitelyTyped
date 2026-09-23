@@ -5009,12 +5009,12 @@ fp.now(); // $ExpectType number
 
     _.max([1, 2]); // $ExpectType number
     _([1, 2]).max(); // $ExpectType number | undefined
-    _.chain([1, 2]).max(); // $ExpectType PrimitiveChain<number>
+    _.chain([1, 2]).max(); // $ExpectType PrimitiveChain<number | undefined>
     fp.max([1, 2]); // $ExpectType number
 
     _.min([1, 2]); // $ExpectType number
     _([1, 2]).min(); // $ExpectType number | undefined
-    _.chain([1, 2]).min(); // $ExpectType PrimitiveChain<number>
+    _.chain([1, 2]).min(); // $ExpectType PrimitiveChain<number | undefined>
     fp.min([1, 2]); // $ExpectType number
 }
 
@@ -5638,31 +5638,31 @@ fp.now(); // $ExpectType number
     _(objectWithOptionalField).get("a", undefined); // $ExpectType boolean | undefined
 
     _.chain("abc").get(1); // $ExpectType StringChain<string>
-    _.chain({ a: false }).get("a"); // $ExpectType PrimitiveChain<boolean>
+    _.chain({ a: false }).get("a"); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain(objectWithOptionalField).get("a" as string); // $ExpectType LoDashExplicitWrapper<any>
     _.chain({ a: arrayOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<number>
     _.chain({ a: arrayOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<number>
     _.chain({ a: arrayOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType PrimitiveChain<number>
     _.chain({ a: tupleOfNumbers }).get('a.0'); // $ExpectType PrimitiveChain<1>
     _.chain({ a: tupleOfNumbers }).get('a[0]'); // $ExpectType PrimitiveChain<1>
-    _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType never
+    _.chain({ a: tupleOfNumbers }).get('a[1]'); // $ExpectType PrimitiveChain<undefined>
     _.chain({ a: tupleOfNumbers }).get(`a[${anyNumber}]`); // $ExpectType PrimitiveChain<1>
     _.chain({ a: dictionary }).get('a.b'); // $ExpectType StringChain<string>
     _.chain("abc").get([0], "_");
     _.chain([42]).get(0, -1); // ExpectType PrimitiveChain<number>
     _.chain({ a: { b: true } }).get("a"); // $ExpectType ObjectChain<{ b: boolean; }>
     _.chain({ a: { b: true } }).get(["a"]); // $ExpectType ObjectChain<{ b: boolean; }>
-    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType PrimitiveChain<boolean>
+    _.chain({ a: { b: true } }).get(["a", "b"]); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b"]); // $ExpectType ObjectChain<{ c: { d: boolean; }; }>
-    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d"]); // $ExpectType PrimitiveChain<boolean
+    _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d"]); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: { b: { c: { d: true } } } }).get(["a", "b", "c", "d2"]); // $ExpectType LoDashExplicitWrapper<any>
-    _.chain({ a: undefined }).get("a"); // $ExpectType never
-    _.chain({ a: value }).get("a", defaultValue); // $ExpectType PrimitiveChain<string | boolean>
-    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<boolean>
+    _.chain({ a: undefined }).get("a"); // $ExpectType PrimitiveChain<undefined>
+    _.chain({ a: value }).get("a", defaultValue); // $ExpectType StringChain<string> | PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({ a: undefined }).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
     _.chain({ a: [1] }).get("a", []).map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
     _.chain({ a: [{ b: { c: [3] } }] }).get("a[0].b.c").map((val) => val.toFixed()); // $ExpectType CollectionChain<string>
-    _.chain(objectWithOptionalField).get("a", defaultValue); // $ExpectType PrimitiveChain<boolean>
-    _.chain({}).get("a", defaultValue); // $ExpectType PrimitiveChain<boolean>
+    _.chain(objectWithOptionalField).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
+    _.chain({}).get("a", defaultValue); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
     fp.get(Symbol.iterator, []); // $ExpectType any || () => IterableIterator<never> || () => ArrayIterator<never>
     fp.get(Symbol.iterator)([]); // $ExpectType any || () => IterableIterator<never> || () => ArrayIterator<never>
@@ -6242,7 +6242,7 @@ fp.now(); // $ExpectType number
     _.chain("abc").result<string>("0", () => "_"); // $ExpectType StringChain<string>
     _.chain("abc").result<string>(["0"]); // $ExpectType StringChain<string>
     _.chain("abc").result<string>([0], () => "_"); // $ExpectType StringChain<string>
-    _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType PrimitiveChain<boolean>
+    _.chain({ a: () => true }).result<boolean>("a"); // $ExpectType PrimitiveChain<false> | PrimitiveChain<true>
 
     fp.result<string>("0", "abc"); // $ExpectType string
     fp.result("0")<string>("abc"); // $ExpectType string
@@ -6534,6 +6534,32 @@ fp.now(); // $ExpectType number
     _.chain(42); // $ExpectType PrimitiveChain<number>
     _.chain([""]); // $ExpectType CollectionChain<string>
     _.chain({ a: 42 }); // $ExpectType ObjectChain<{ a: number; }>
+}
+
+// explicit chains preserve null and undefined
+{
+    _.chain(listParam).first().value(); // $ExpectType AbcObject | undefined
+    _.chain([""]).first().value(); // $ExpectType string | undefined
+    _.chain([42]).first().value(); // $ExpectType number | undefined
+
+    const found = _.chain(listParam).find(valueIterator);
+    found; // $ExpectType ObjectChain<AbcObject | undefined>
+    found.get("a"); // $ExpectType PrimitiveChain<number | undefined>
+    found.get("a").value(); // $ExpectType number | undefined
+    found.get("a", 0); // $ExpectType PrimitiveChain<number>
+    found.get(["a"]); // $ExpectType LoDashExplicitWrapper<any>
+    found.thru((value) => value?.b); // $ExpectType StringNullableChain
+    found.isNil(); // $ExpectType PrimitiveChain<boolean>
+
+    _.chain(anything).thru((): string | number[] => anything); // $ExpectType StringChain<string> | CollectionChain<number>
+    _.chain(anything).thru((): string | number[] | undefined => anything); // $ExpectType StringNullableChain | CollectionChain<number>
+    _.chain(anything).thru((): AbcObject | null => anything); // $ExpectType ObjectChain<AbcObject | null>
+    _.chain(anything).thru((): number | null | undefined => anything); // $ExpectType PrimitiveChain<number | null | undefined>
+    _.chain(anything).thru((): boolean | undefined => anything); // $ExpectType PrimitiveChain<false | undefined> | PrimitiveChain<true | undefined>
+    _.chain(anything).thru((): (() => void) | undefined => anything); // $ExpectType ObjectChain<(() => void) | undefined>
+    _.chain(anything).thru((): null | undefined => anything); // $ExpectType PrimitiveChain<null | undefined>
+    _.chain(anything).thru((): undefined => anything); // $ExpectType PrimitiveChain<undefined>
+    _.chain(anything).thru((): unknown => anything); // $ExpectType PrimitiveChain<unknown>
 }
 
 // _.tap
@@ -7152,7 +7178,7 @@ fp.now(); // $ExpectType number
     result = _(func).attempt<AbcObject>();
     result = _(func).attempt<AbcObject>("foo", "bar", "baz");
 
-    let explicitResult: _.ObjectChain<Error | AbcObject>;
+    let explicitResult: _.ObjectChain<Error> | _.ObjectChain<AbcObject>;
     explicitResult = _.chain(func).attempt<AbcObject>();
     explicitResult = _.chain(func).attempt<AbcObject>("foo", "bar", "baz");
 
