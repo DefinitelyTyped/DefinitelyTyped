@@ -6,7 +6,7 @@ declare namespace HubSpotTrackingCode {
         email?: string | undefined;
         firstname?: string | undefined;
         lastname?: string | undefined;
-        [property: string]: string | number | boolean | undefined;
+        [property: string]: unknown;
     }
 
     interface CustomBehavioralEvent {
