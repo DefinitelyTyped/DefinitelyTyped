@@ -153,7 +153,8 @@ export interface PayPal {
     /**
      * Cleanly tear down anything set up by `create`.
      */
-    teardown(callback?: () => void): void;
+    teardown(callback: () => void): void;
+    teardown(): Promise<void>;
 }
 
 /**
