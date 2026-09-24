@@ -851,7 +851,7 @@ declare namespace googletag {
          *
          * @see [About publisher provided identifiers](https://support.google.com/admanager/answer/2880055)
          * @param ppid An alphanumeric ID provided by the publisher. Must be between
-         *     32 and 150 characters.
+         *     22 and 150 characters.
          * @return The service object on which the method was called.
          */
         setPublisherProvidedId(ppid: string): PubAdsService;
