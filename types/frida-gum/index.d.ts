@@ -5734,6 +5734,11 @@ declare class X86Writer {
     putNop(): void;
 
     /**
+     * Puts an ENDBR instruction.
+     */
+    putEndbr(): void;
+
+    /**
      * Puts an OS/architecture-specific breakpoint instruction.
      */
     putBreakpoint(): void;
@@ -7146,6 +7151,19 @@ declare class Arm64Writer {
     putBrRegNoAuth(reg: Arm64Register): void;
 
     /**
+     * Puts code needed for jumping to the address in `reg`, emitting RET
+     * rather than BR so a BTI-guarded target needs no landing pad. Emits
+     * BR on arm64e, which doesn't guard pages this way.
+     */
+    putJmpReg(reg: Arm64Register): void;
+
+    /**
+     * Like `putJmpReg()`, but expecting a raw pointer without any
+     * authentication bits.
+     */
+    putJmpRegNoAuth(reg: Arm64Register): void;
+
+    /**
      * Puts a BLR instruction.
      */
     putBlrReg(reg: Arm64Register): void;
@@ -7441,9 +7459,19 @@ declare class Arm64Writer {
     putPaciaRegReg(dstReg: Arm64Register, modReg: Arm64Register): void;
 
     /**
+     * Puts a SVC instruction.
+     */
+    putSvcImm(imm: number): void;
+
+    /**
      * Puts a NOP instruction.
      */
     putNop(): void;
+
+    /**
+     * Puts a BTI instruction.
+     */
+    putBti(): void;
 
     /**
      * Puts a BRK instruction.
@@ -7541,6 +7569,31 @@ declare class Arm64Relocator {
      * property is now `true`.
      */
     readOne(): number;
+
+    /**
+     * Sets the register that exits from the relocated code may use when
+     * it is still untouched by the relocated instructions.
+     */
+    setScratchReg(reg: Arm64Register): void;
+
+    /**
+     * Sets the range of code that register liveness analysis may look
+     * at. Branches leaving it are assumed to clobber X16 and X17.
+     */
+    setCodeRange(range: MemoryRange): void;
+
+    /**
+     * Reads further until a scratch register is available for jumping
+     * back to the input code, or the end of input is reached. Returns
+     * `false` if neither happens.
+     */
+    readUntilResumable(scenario: RelocationScenario): boolean;
+
+    /**
+     * Picks a register that an exit branching to `target` may use, or
+     * `null` if none is known to be free.
+     */
+    pickExitReg(target: NativePointerValue): Arm64Register | null;
 
     /**
      * Peeks at the next `Instruction` to be written or skipped.
@@ -7756,6 +7809,8 @@ type Arm64ConditionCode =
     | "nv";
 
 type Arm64IndexMode = "post-adjust" | "signed-offset" | "pre-adjust";
+
+type RelocationScenario = "offline" | "online";
 
 /**
  * Generates machine code for mips.

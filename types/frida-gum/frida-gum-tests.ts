@@ -564,9 +564,19 @@ x86Writer.putVextracti64x4RegOffsetPtrZmm("rax", 0, 0, 1);
 x86Writer.putVinserti64x4ZmmRegOffsetPtr(0, "rax", 0, 1);
 x86Writer.putKmovqRegOffsetPtrKreg("rax", 0, 0);
 x86Writer.putKmovqKregRegOffsetPtr(0, "rax", 0);
+// $ExpectType void
+x86Writer.putEndbr();
 x86Writer.flush();
 
 const arm64Writer = new Arm64Writer(Memory.alloc(Process.pageSize));
 arm64Writer.putMovkRegImm("x0", 0x1234, 16);
 arm64Writer.putPaciaRegReg("x0", "x1");
+// $ExpectType void
+arm64Writer.putSvcImm(0x80);
 arm64Writer.flush();
+
+const arm64Relocator = new Arm64Relocator(ptr("0x1234"), arm64Writer);
+// $ExpectType boolean
+arm64Relocator.readUntilResumable("online");
+// $ExpectType Arm64Register | null
+arm64Relocator.pickExitReg(ptr("0x1234"));
