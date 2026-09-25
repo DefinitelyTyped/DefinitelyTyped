@@ -24,6 +24,7 @@ export default function configure () {
     format: true,
     inputType: 'text',
     tabIndex: '1',
+    coBadgeSelector: true,
     style: {
       invalid: {
         fontSize: '16px'
@@ -48,6 +49,7 @@ export default function configure () {
         selector: 'my-card-element-selector',
         inputType: 'mobileSelect',
         displayIcon: true,
+        coBadgeSelector: true,
         style: {
           fontSize: '1em',
           placeholder: {
