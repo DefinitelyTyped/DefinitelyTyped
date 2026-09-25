@@ -18,6 +18,7 @@ declare let bool: boolean;
 declare let boolOrUndefined: boolean | undefined;
 declare let boolOrNumOrStr: boolean | number | string;
 declare let numOrUndefined: number | undefined;
+declare let numOrUndefinedOrNull: number | undefined | null;
 declare let strArrayOrUndefined: string[] | undefined;
 declare let nullOrUndefined: null | undefined;
 declare let objectOrUndefined: {} | undefined;
@@ -149,7 +150,7 @@ const untypedCallbackHandler: AWSLambda.Handler = (event, context, cb) => {
 
 /* In node8.10 runtime, handlers may return a promise for the result value, so existing async
  * handlers that return Promise<void> before calling the callback will now have a `null` result.
- * Be safe and make that badly typed with a major verson bump to 8.10 so users expect the breaking change,
+ * Be safe and make that badly typed with a major version bump to 8.10 so users expect the breaking change,
  * since the upgrade effort should be pretty low in most cases, and it points them at a nicer solution.
  */
 
