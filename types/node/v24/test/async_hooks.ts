@@ -16,6 +16,7 @@ import {
         after() {},
         destroy() {},
         promiseResolve() {},
+        trackPromises: true,
     };
 
     const asyncHook = createHook(hooks);
