@@ -1,6 +1,6 @@
 import Prism = require("prismjs");
 import * as components from "prismjs/components";
-import loadLanguages = require("prismjs/components/");
+import loadLanguages = require("prismjs/components/index");
 
 const myGrammar: Prism.Grammar = {
     "my-sub-grammar": {

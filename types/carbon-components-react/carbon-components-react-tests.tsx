@@ -1239,12 +1239,13 @@ const dataTableSkeletonBasic = <DataTableSkeleton />;
     );
 
     const dialogCustomCompT2 = (
-        // @ts-expect-error
+        // @ts-expect-error <7.0
         <Dialog
             as={TestComp2}
             aria-labelledby="test"
             onDismiss={() => {}}
             someProp={5}
+            // @ts-expect-error >=7.0
             unknownProp="a"
             data-testid="test"
         >

@@ -2,6 +2,14 @@
     "private": true,
     "name": "@types/maxmsp",
     "version": "1.0.9999",
+    "types": "index",
+    "typesVersions": {
+        "<=6.0": {
+            "*": [
+                "ts6.0/*"
+            ]
+        }
+    },
     "nonNpm": true,
     "nonNpmDescription": "maxmsp",
     "projects": [
