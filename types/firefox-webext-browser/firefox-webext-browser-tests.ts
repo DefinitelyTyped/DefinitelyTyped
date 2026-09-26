@@ -341,6 +341,42 @@ browser.scripting.executeScript({
     args: [0, "", false, [], {}],
     func: (_n: number, _s: string, _b: boolean, _a: [], _o: {}) => {},
 });
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: () => {},
+}).then(([resp]) => {
+    resp.result; // $ExpectType void | undefined
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: () => true,
+}).then(([resp]) => {
+    resp.result; // $ExpectType boolean | undefined
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: () => 1,
+}).then(([resp]) => {
+    resp.result; // $ExpectType number | undefined
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: () => Math.random() > 0.5 ? true : 1,
+}).then(([resp]) => {
+    resp.result; // $ExpectType true  | 1 | undefined
+});
+
+browser.scripting.executeScript({
+    target: { tabId: 1 },
+    func: (): number | boolean => Math.random() > 0.5 ? true : 1,
+}).then(([resp]) => {
+    resp.result; // $ExpectType number  | boolean | undefined
+});
+
 browser.scripting.executeScript({ target: { tabId: 0 }, world: "MAIN" });
 browser.scripting.registerContentScripts([{ id: "scriptId", matchOriginAsFallback: true, world: "MAIN" }]);
 browser.scripting.updateContentScripts([{ id: "scriptId", persistAcrossSessions: true, world: "MAIN" }]);
