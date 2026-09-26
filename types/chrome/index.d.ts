@@ -1966,37 +1966,48 @@ declare namespace chrome {
          * Properties of the new context menu item.
          * @since Chrome 123
          */
-        interface CreateProperties {
-            /** The initial state of a checkbox or radio button: `true` for selected, `false` for unselected. Only one radio button can be selected at a time in a given group. */
-            checked?: boolean;
-            /** List of contexts this menu item will appear in. Defaults to `['page']`. */
-            contexts?: [`${ContextType}`, ...`${ContextType}`[]];
-            /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns. */
-            documentUrlPatterns?: string[];
-            /** Whether this context menu item is enabled or disabled. Defaults to `true`. */
-            enabled?: boolean;
-            /** The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension. */
-            id?: string;
-            /** The ID of a parent menu item; this makes the item a child of a previously added item. */
-            parentId?: number | string;
-            /** Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
-            targetUrlPatterns?: string[];
-            /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
-            title?: string;
-            /** The type of menu item. Defaults to `normal`. */
-            type?: `${ItemType}`;
-            /** Whether the item is visible in the menu. */
-            visible?: boolean;
-            /**
-             * A function that is called back when the menu item is clicked. This is not available inside of a service worker; instead, you should register a listener for {@link contextMenus.onClicked}.
-             * @param info Information about the item clicked and the context where the click happened.
-             * @param tab The details of the tab where the click took place. This parameter is not present for platform apps.
-             */
-            onclick?: (
-                info: OnClickData,
-                tab: tabs.Tab,
-            ) => void;
-        }
+        type CreateProperties =
+            & ({
+                /** The initial state of a checkbox or radio button: `true` for selected, `false` for unselected. Only one radio button can be selected at a time in a given group. */
+                checked?: boolean;
+                /** List of contexts this menu item will appear in. Defaults to `['page']`. */
+                contexts?: [`${ContextType}`, ...`${ContextType}`[]];
+                /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns. */
+                documentUrlPatterns?: string[];
+                /** Whether this context menu item is enabled or disabled. Defaults to `true`. */
+                enabled?: boolean;
+                /** The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension. */
+                id?: string;
+                /** The ID of a parent menu item; this makes the item a child of a previously added item. */
+                parentId?: number | string;
+                /** Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
+                targetUrlPatterns?: string[];
+                /** Whether the item is visible in the menu. */
+                visible?: boolean;
+                /**
+                 * A function that is called back when the menu item is clicked. This is not available inside of a service worker; instead, you should register a listener for {@link contextMenus.onClicked}.
+                 * @param info Information about the item clicked and the context where the click happened.
+                 * @param tab The details of the tab where the click took place. This parameter is not present for platform apps.
+                 */
+                onclick?: (
+                    info: OnClickData,
+                    tab: tabs.Tab,
+                ) => void;
+            })
+            & (
+                | {
+                    /** The type of menu item. Defaults to `normal`. */
+                    type: `${ItemType.SEPARATOR}`;
+                    /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
+                    title?: string;
+                }
+                | {
+                    /** The type of menu item. Defaults to `normal`. */
+                    type?: `${Exclude<ItemType, ItemType.SEPARATOR>}`;
+                    /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
+                    title: string;
+                }
+            );
 
         /**
          * The type of menu item.
