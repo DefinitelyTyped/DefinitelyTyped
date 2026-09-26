@@ -1,7 +1,7 @@
 /**
  * [x, y]
  */
-export type DataPoint = [number, number];
+export type DataPoint = readonly [number, number];
 
 export interface Options {
     /**
