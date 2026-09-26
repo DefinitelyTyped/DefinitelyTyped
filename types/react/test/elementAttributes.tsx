@@ -28,6 +28,28 @@ const testCases = [
     <span id="s" />,
     <span lang="art-x-tokipona" />,
     <input placeholder="placeholder" />,
+    <input
+        onInput={event => {
+            // $ExpectType SyntheticEvent<HTMLInputElement, Event>
+            event;
+            // @ts-expect-error -- React input events do not expose beforeinput data.
+            event.data;
+        }}
+        onInputCapture={event => {
+            // $ExpectType SyntheticEvent<HTMLInputElement, Event>
+            event;
+        }}
+        onBeforeInput={event => {
+            // $ExpectType string
+            event.data;
+            // $ExpectType Event
+            event.nativeEvent;
+        }}
+        onBeforeInputCapture={event => {
+            // $ExpectType InputEvent<HTMLInputElement>
+            event;
+        }}
+    />,
     <span slot="my-text" />,
     <svg slot="my-svg" />,
     <span spellCheck />,
@@ -99,6 +121,14 @@ const testCases = [
             // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
             event;
         }}
+        onCancelCapture={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
+        onCloseCapture={event => {
+            // $ExpectType SyntheticEvent<HTMLDialogElement, Event>
+            event;
+        }}
         open
     />,
     <link nonce="8IBTHwOdqNKAWeKl7plt8g==" />,
@@ -148,6 +178,14 @@ const testCases = [
                 event.newState;
                 // $ExpectType 'open' | 'closed'
                 event.oldState;
+            }}
+            onBeforeToggleCapture={event => {
+                // $ExpectType ToggleEvent<HTMLDivElement>
+                event;
+            }}
+            onToggleCapture={event => {
+                // $ExpectType ToggleEvent<HTMLDivElement>
+                event;
             }}
         >
         </div>
