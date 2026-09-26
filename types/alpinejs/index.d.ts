@@ -32,6 +32,15 @@ declare namespace Alpine {
          * @returns raw object
          */
         readonly raw: <T>(obj: T) => T;
+        /**
+         * Batches all reactive updates triggered inside the callback
+         * Effects are queued but not flushed until the callback (and any
+         * promise it returns) has settled
+         *
+         * @param callback to run inside the transaction
+         * @returns a promise that resolves once the transaction is committed
+         */
+        readonly transaction: (callback: () => unknown) => Promise<void>;
         version: string;
         /**
          * Handles all deferred mutation entries
@@ -68,9 +77,16 @@ declare namespace Alpine {
         setReactivityEngine: <E>(engine: {
             reactive: <T>(obj: T) => T;
             release: (effect: E) => void;
-            effect: (fn: () => any) => E;
+            effect: (fn: () => any, options?: { scheduler?: (task: () => void) => void }) => E;
             raw: <T>(obj: T) => T;
         }) => void;
+        /**
+         * Registers a handler that is called whenever an Alpine expression throws
+         * Replaces the default handler, which warns and rethrows out of band
+         *
+         * @param handler to handle the error, el and expression may be undefined
+         */
+        setErrorHandler(handler: (error: Error, el: Alpine.ElementWithXAttributes, expression?: string) => void): void;
         /**
          * Registers a listener for when a specific attribute is removed from an element
          * @param el
@@ -141,6 +157,16 @@ declare namespace Alpine {
          */
         deferMutations(): void;
         /**
+         * Suspends initialization of the tree rooted at the element
+         * until the given promise settles
+         * Directives inside the tree do not evaluate, added nodes wait and
+         * attribute changes are replayed once every registered promise has settled
+         *
+         * @param el root of the tree to suspend
+         * @param promise to await before initializing the tree
+         */
+        deferInit(el: Alpine.ElementWithXAttributes, promise: unknown): void;
+        /**
          * Registers a callback to preprocess attributes/directives before they are evaluated
          * Allows transforming custom syntaxes into known directives
          *
@@ -164,6 +190,7 @@ declare namespace Alpine {
             extras?: {
                 scope?: object;
                 params?: unknown[];
+                context?: unknown;
             },
         ) => void;
         /**
@@ -172,6 +199,26 @@ declare namespace Alpine {
          * @param callback
          */
         interceptInit(callback: Alpine.WalkerCallback): void;
+        /**
+         * Walks a data object and initializes every interceptor it contains
+         * Interceptors are replaced in place by their initialized value
+         *
+         * @param data object to initialize interceptors on
+         * @param cleanup registers a callback to run when the owning element is destroyed
+         */
+        initInterceptors(data: Record<string, unknown>, cleanup?: (callback: () => void) => void): void;
+        /**
+         * Defines every registered magic (`$name`) onto the provided object,
+         * bound to the given element
+         *
+         * @param obj to define the magics on
+         * @param el the magics will be bound to
+         * @returns the same object, augmented with the magics
+         */
+        injectMagics<T extends Record<string, unknown>>(
+            obj: T,
+            el: Alpine.ElementWithXAttributes,
+        ): T & Alpine.Magics<T>;
         /**
          * Registers an evaluator to be used
          * Used internally by Alpine CSP to use a CSP safe evaluator
@@ -186,8 +233,26 @@ declare namespace Alpine {
                 extras?: {
                     scope?: object;
                     params?: unknown[];
+                    context?: unknown;
                 },
             ) => void,
+        ) => void;
+        /**
+         * Registers the evaluator used by {@link Alpine.evaluateRaw}
+         * The raw evaluator is synchronous and returns the value directly
+         *
+         * @param newEvaluator
+         */
+        setRawEvaluator: (
+            newEvaluator: (
+                el: Alpine.ElementWithXAttributes,
+                expression: string,
+                extras?: {
+                    scope?: object;
+                    params?: unknown[];
+                    context?: unknown;
+                },
+            ) => unknown,
         ) => void;
         /**
          * "Flattens" an array of objects into a single Proxy object
@@ -348,7 +413,43 @@ declare namespace Alpine {
          * @param extras additional values to expose to the expression
          * @returns whatever the expression returns
          */
-        evaluate<T_9>(el: Node, expression: string | (() => T_9), extras?: {}): T_9;
+        evaluate<T_9>(
+            el: Node,
+            expression: string | (() => T_9),
+            extras?: {
+                scope?: object;
+                params?: unknown[];
+                context?: unknown;
+            },
+        ): T_9;
+        /**
+         * Evaluates a string expression synchronously, without going through
+         * the standard (async) evaluator, and returns the value directly
+         *
+         * @param el element in Alpine Context
+         * @param expression string expression
+         * @param extras additional values to expose to the expression
+         * @returns whatever the expression returns
+         */
+        // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+        evaluateRaw<T>(
+            el: Alpine.ElementWithXAttributes,
+            expression: string,
+            extras?: {
+                scope?: object;
+                params?: unknown[];
+                context?: unknown;
+            },
+        ): T;
+        /**
+         * Watches a reactive getter and runs the callback whenever its value changes
+         * Objects and arrays are watched deeply
+         *
+         * @param getter returning the value to watch
+         * @param callback to run with the new and the previous value
+         * @returns a function that stops watching
+         */
+        watch<T>(getter: () => T, callback: (newValue: T, oldValue: T) => void): () => void;
         /**
          * Initializes the Alpine tree rooted at a particular element
          * Used internally in {@link Alpine.start} and to initialize cloned templates
@@ -500,13 +601,45 @@ declare namespace Alpine {
         _x_refs_proxy: Record<string, unknown>;
         _x_refs: unknown;
         _x_keyExpression: string;
-        _x_prevKeys: string[];
+        /**
+         * Marker dispensed when the element is initialized
+         * Used to tell whether a node has already been initialized,
+         * so moved or re-inserted nodes are not initialized twice
+         *
+         * @since 3.14
+         */
+        _x_marker: number;
+        /**
+         * Set while the tree rooted at this element is suspended by
+         * {@link Alpine.deferInit}
+         *
+         * @since 3.17.0
+         */
+        _x_deferInit: {
+            pending: number;
+            ownsIgnore: boolean;
+            queuedAttributes: Map<Alpine.ElementWithXAttributes, { marker: number; names: Set<string> }>;
+        };
         _x_forScope: Record<string, unknown>;
-        _x_lookup: Record<string, ElementWithXAttributes>;
+        _x_lookup: Map<string | number, ElementWithXAttributes>;
+        /**
+         * The element most recently rendered by `x-if` or `x-for`
+         * Lets morph skip past the rendered output instead of diffing it
+         *
+         * @since 3.16.0
+         */
+        _x_lastRenderedEl: ElementWithXAttributes;
         _x_currentIfEl: ElementWithXAttributes;
         _x_undoIf: () => void;
         _x_removeModelListeners: Record<string, () => void>;
         _x_model: GetterSetter<unknown>;
+        /**
+         * Model sync callbacks deferred until the form is submitted
+         * Used by `x-model` on inputs inside a form with a pending submit
+         *
+         * @since 3.16.0
+         */
+        _x_pendingModelUpdates: Array<() => void>;
         _x_forceModelUpdate: (value: unknown) => void;
         _x_forwardEvents: string[];
         _x_doHide: () => void;
@@ -572,12 +705,24 @@ declare namespace Alpine {
         original: string;
     }
 
-    type InterceptorCallback<T> = (initial: T, get: () => T, set: (val: T) => void, path: string, key: string) => T;
+    type InterceptorCallback<T> = (
+        initial: T,
+        get: () => T,
+        set: (val: T) => void,
+        path: string,
+        key: string,
+        cleanup: (callback: () => void) => void,
+    ) => T;
 
     interface InterceptorObject<T> {
         initialValue: T;
         _x_interceptor: true;
-        initialize: (data: Record<string, unknown>, path: string, key: string) => T;
+        initialize: (
+            data: Record<string, unknown>,
+            path: string,
+            key: string,
+            cleanup?: (callback: () => void) => void,
+        ) => T;
     }
 
     /**
@@ -708,11 +853,28 @@ declare namespace Alpine {
         id: number;
         active: boolean;
         raw: () => T;
+        /**
+         * Marks the effect as structural so it is flushed before other effects,
+         * ordered by the depth of its element in the tree
+         *
+         * @since 3.16
+         */
+        _x_schedulerPriority?: {
+            el: ElementWithXAttributes;
+            order: number;
+        };
     }
 
     interface GetterSetter<T> {
         get(): T;
         set(value: T): void;
+        /**
+         * Setter that also applies the modifiers (`.debounce`, `.throttle`)
+         * declared on the `x-model` directive
+         *
+         * @since 3.16.0
+         */
+        setWithModifiers?: (value: T) => void;
     }
 }
 
