@@ -44,7 +44,11 @@ const client = new pg.Client({
     password: "secretpassword!!",
     application_name: "DefinitelyTyped",
     keepAlive: true,
+    pipeline: true,
 });
+client.pipeline = false;
+client.isIdle();
+client.waitForIdle();
 client.setTypeParser(20, val => Number(val));
 client.getTypeParser(20);
 
