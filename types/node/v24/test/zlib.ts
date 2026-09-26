@@ -158,13 +158,19 @@ brotliDecompress(
 // zstd
 createZstdCompress(); // $ExpectType ZstdCompress
 createZstdCompress({ chunkSize: 1024 }); // $ExpectType ZstdCompress
+createZstdCompress({ pledgedSrcSize: compressMe.byteLength }); // $ExpectType ZstdCompress
+createZstdCompress({ pledgedSrcSize: undefined }); // $ExpectType ZstdCompress
+// @ts-expect-error
+createZstdCompress({ pledgedSrcSize: "10" });
 createZstdDecompress(); // $ExpectType ZstdDecompress
 createZstdDecompress({ chunkSize: 1024 }); // $ExpectType ZstdDecompress
 
 zstdCompress(compressMe, (err: Error | null, result: Buffer) => result);
 zstdCompress(compressMe, { finishFlush: constants.ZSTD_e_end }, (err: Error | null, result: Buffer) => result);
+zstdCompress(compressMe, { pledgedSrcSize: compressMe.byteLength }, (err: Error | null, result: Buffer) => result);
 zstdCompressSync(compressMe); // $ExpectType NonSharedBuffer
 zstdCompressSync(compressMe, { finishFlush: constants.ZSTD_e_end }); // $ExpectType NonSharedBuffer
+zstdCompressSync(compressMe, { pledgedSrcSize: compressMe.byteLength }); // $ExpectType NonSharedBuffer
 
 zstdDecompress(compressMe, (err: Error | null, result: Buffer) => result);
 zstdDecompress(
@@ -220,6 +226,7 @@ zstdDecompressSync(compressMe, { params: { [constants.ZSTD_d_windowLogMax]: 100 
         await pUnzip(Buffer.from("buf"), { flush: constants.Z_NO_FLUSH }); // $ExpectType NonSharedBuffer
         await pZstdCompress(Buffer.from("buf")); // $ExpectType NonSharedBuffer
         await pZstdCompress(Buffer.from("buf"), { flush: constants.ZSTD_e_flush }); // $ExpectType NonSharedBuffer
+        await pZstdCompress(compressMe, { pledgedSrcSize: compressMe.byteLength }); // $ExpectType NonSharedBuffer
         await pZstdDecompress(Buffer.from("buf")); // $ExpectType NonSharedBuffer
         await pZstdDecompress(Buffer.from("buf"), { flush: constants.ZSTD_e_flush }); // $ExpectType NonSharedBuffer
     })();
