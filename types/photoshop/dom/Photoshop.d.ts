@@ -110,10 +110,10 @@ export declare class Photoshop {
     get displayDialogs(): Constants.DialogModes;
     set displayDialogs(mode: Constants.DialogModes);
     /**
-     * The current document that has the application's focus.
+     * The current document that has the application's focus, or `null` if no document is open.
      * @minVersion 23.0
      */
-    get activeDocument(): Document;
+    get activeDocument(): Document | null;
     /**
      * Set the current active document to the provided Document.
      * @minVersion 23.0
