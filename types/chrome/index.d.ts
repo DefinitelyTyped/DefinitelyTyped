@@ -8391,11 +8391,6 @@ declare namespace chrome {
             INVALID_DATA = "INVALID_DATA",
         }
 
-        interface PrinterCapabilities {
-            /** Device capabilities in CDD format. */
-            capabilities: { [key: string]: unknown };
-        }
-
         interface PrintJob {
             /** ID of the printer which should handle the job. */
             printerId: string;
@@ -8456,7 +8451,13 @@ declare namespace chrome {
 
         /** Event fired when print manager requests printer capabilities. */
         const onGetCapabilityRequested: events.Event<
-            (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void
+            (
+                printerId: string,
+                resultCallback: (
+                    /** Device capabilities in CDD format. */
+                    capabilities: { [key: string]: unknown },
+                ) => void,
+            ) => void
         >;
 
         /** Event fired when print manager requests printing. */
