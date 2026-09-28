@@ -759,11 +759,18 @@ function rand() {
     // Options with null dimensions
     Plotly.toImage(graphDiv, { format: "png", width: null, height: null, scale: 2 });
     // Full option
-    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600, scale: 2, imageDataOnly: false, setBackground: "opaque" }).then(dataUrl => {
+    Plotly.toImage(graphDiv, {
+        format: "png",
+        width: 800,
+        height: 600,
+        scale: 2,
+        imageDataOnly: false,
+        setBackground: "opaque",
+    }).then(dataUrl => {
         // dataUrl.startsWith("data:image/png;base64,"); // use the dataUrl
     });
     // Option for JSON export
-    Plotly.toImage(graphDiv, { format: 'full-json', imageDataOnly: true }).then(dataUrl => {
+    Plotly.toImage(graphDiv, { format: "full-json", imageDataOnly: true }).then(dataUrl => {
         // JSON.parse(dataUrl); // use the dataUrl
     });
 })();
@@ -793,7 +800,14 @@ function rand() {
     // Option with null dimensions
     Plotly.downloadImage(graphDiv, { format: "png", width: null, height: null, filename: "newplot" });
     // Full option
-    Plotly.downloadImage(graphDiv, { format: "png", width: 800, height: 600, filename: "newplot", scale: 2, setBackground: "opaque" });
+    Plotly.downloadImage(graphDiv, {
+        format: "png",
+        width: 800,
+        height: 600,
+        filename: "newplot",
+        scale: 2,
+        setBackground: "opaque",
+    });
     // Option for JSON export
     Plotly.downloadImage(graphDiv, { format: "full-json" });
 })();
