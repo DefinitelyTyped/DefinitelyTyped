@@ -1,5 +1,5 @@
-import * as Constants from "../Constants";
 import { PreferencesBase } from "./PreferencesBase";
+import * as Constants from "../Constants";
 /**
  * Options for size and style of tool cursors.
  *

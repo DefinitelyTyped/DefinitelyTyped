@@ -1,6 +1,8 @@
 import * as Constants from "../Constants";
 import { Layer } from "../Layer";
 import { SolidColor } from "../objects/SolidColor";
+import { Bounds } from "../objects/Bounds";
+import { Position } from "./GeneralTypes";
 interface LayerCreateOptionsBase {
     /**
      * Name of the newly created layer. If no value is provided,
@@ -68,12 +70,39 @@ export interface PixelLayerCreateOptions extends LayerCreateOptionsBase {
 }
 /**
  * An object literal can be constructed with any of the following properties
- * and passed to [[Document.createLayer]].
+ * and passed to [[Document.createTextLayer]].
  * As a type, `TextLayerCreateOptions` can be used in Typescript development.
  *
+ * Note: When using the `position` option, keep in mind that the top-left corner
+ * of the text layer will vary based on the properties.
+ * When using the Text Tool, the click sets the bottom-left corner of the layer.
+ * The `position` option here uses that bottom-left corner.
+ * A value of `{x: 0, y: 0`}` will likely result in the new layer not appearing "on the canvas"
+ * since it landed just above at y of 0.
+ * For this reason, the default position is the center of the document.
+ *
+ * When using the `bounds` option, a paragraph (block) text layer will be created
+ * instead of a point text layer. The `position` and `bounds` options are mutually
+ * exclusive.
+ *
  * ```javascript
- * const options = { name: "myTextLayer", contents: "Hello, World!", fontSize: 24, position: {x: 200, y: 300} };
- * await require('photoshop').app.activeDocument.createLayer(options);
+ * // Create a point text layer
+ * const options = {
+ *   name: "myTextLayer",
+ *   contents: "Hello, World!",
+ *   fontSize: 24,
+ *   position: {x: 200, y: 300}
+ * };
+ * await require('photoshop').app.activeDocument.createTextLayer(options);
+ *
+ * // Create a paragraph text layer
+ * const paragraphOptions = {
+ *   name: "myParagraphText",
+ *   contents: "If I don't put enough words here, the text will not wrap within the specified bounds.",
+ *   fontSize: 12,
+ *   bounds: {left: 100, top: 100, right: 400, bottom: 300}
+ * };
+ * await require('photoshop').app.activeDocument.createTextLayer(paragraphOptions);
  * ```
  *
  * @targetfolder objects/createoptions
@@ -88,14 +117,20 @@ export interface TextLayerCreateOptions extends LayerCreateOptionsBase {
      */
     contents?: string;
     /**
-     * Insertion coordinates of the newly created text layer, in pixels
-     * @default document center.
+     * Anchor point in pixels for the bottom left corner of a point text layer.
+     * Mutually exclusive with `bounds`.
+     * @default document center
      * @minVersion 24.2
      */
-    position?: {
-        x: number;
-        y: number;
-    };
+    position?: Position;
+    /**
+     * Anchor point for the upper left corner of a paragraph text layer.
+     * `bounds` must be provided to create paragraph text.
+     * Mutually exclusive with `position`.
+     * @default N/A
+     * @minVersion 27.4
+     */
+    bounds?: Bounds;
     /**
      * Text color of the newly created text layer.
      * @default black
@@ -148,5 +183,5 @@ export interface GroupLayerCreateOptions extends LayerCreateOptionsBase {
  * - GroupLayerCreateOptions
  * @minVersion 22.5
  */
-export declare type LayerCreateOptions = PixelLayerCreateOptions | GroupLayerCreateOptions;
+export declare type LayerCreateOptions = PixelLayerCreateOptions | GroupLayerCreateOptions | TextLayerCreateOptions;
 export {};

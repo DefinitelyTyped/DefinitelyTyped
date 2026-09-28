@@ -1,5 +1,5 @@
-import * as Constants from "./Constants";
 import { Document } from "./Document";
+import * as Constants from "./Constants";
 import { SolidColor } from "./objects/SolidColor";
 /**
  * Represents a channel in a Photoshop document.
@@ -92,4 +92,44 @@ export declare abstract class Channel {
      * @minVersion 23.0
      */
     abstract merge(): Promise<void>;
+}
+/**
+ * @ignore
+ */
+export declare class ComponentChannel extends Channel {
+    private readonly _enumValue;
+    /**
+     * The class name of the referenced object: *"ComponentChannel"*.
+     * @minVersion 24.5
+     */
+    get typename(): "ComponentChannel";
+    get name(): string;
+    set name(name: string);
+    get histogram(): number[];
+    get color(): SolidColor;
+    set color(color: SolidColor);
+    get opacity(): number;
+    set opacity(opacity: number);
+    remove(): Promise<void>;
+    merge(): Promise<void>;
+}
+/**
+ * @ignore
+ */
+export declare class AlphaChannel extends Channel {
+    private readonly _id;
+    /**
+     * The class name of the referenced object: *"AlphaChannel"*.
+     * @minVersion 24.5
+     */
+    get typename(): "AlphaChannel";
+    get name(): string;
+    set name(name: string);
+    get histogram(): number[];
+    get color(): SolidColor;
+    set color(color: SolidColor);
+    get opacity(): number;
+    set opacity(opacity: number);
+    remove(): Promise<void>;
+    merge(): Promise<void>;
 }

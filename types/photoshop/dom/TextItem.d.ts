@@ -1,8 +1,9 @@
-import * as Constants from "./Constants";
+import { Bounds } from "./objects/Bounds";
 import { Layer } from "./Layer";
 import { CharacterStyle } from "./text/CharacterStyle";
 import { ParagraphStyle } from "./text/ParagraphStyle";
 import { WarpStyle } from "./text/WarpStyle";
+import * as Constants from "./Constants";
 /**
  * The Class that groups all Type related properties of a Text Layer in Photoshop.
  *
@@ -112,10 +113,23 @@ export declare class TextItem {
      */
     get isParagraphText(): boolean;
     /**
-     * Convert a Text Layer from Point Text to Paragraph Text
-     * @minVersion 24.1
+     * The bounding box for paragraph text, in pixels.
+     * Returns the frame dimensions set for the text box (not the visual rendering extent).
+     * Only available for paragraph text; returns null for point text.
+     *
+     * The bounds are absolute coordinates on the canvas. For relative dimensions,
+     * use `bounds.right - bounds.left` for width and `bounds.bottom - bounds.top` for height.
+     *
+     * @minVersion 27.4
      */
-    convertToParagraphText(): Promise<TextItem>;
+    get bounds(): Bounds | null;
+    /**
+     * Convert a Text Layer from Point Text to Paragraph Text
+     * @param bounds Optional bounding box for the paragraph text, in pixels.
+     *               If not provided, uses the current text bounds.
+     * @minVersion 27.4
+     */
+    convertToParagraphText(bounds?: Bounds): Promise<TextItem>;
     /**
      * Convert a Text Layer from Paragraph Text to Point Text
      * @minVersion 24.1

@@ -1,7 +1,1 @@
-export {
-    BMPSaveOptions,
-    GIFSaveOptions,
-    JPEGSaveOptions,
-    PhotoshopSaveOptions,
-    PNGSaveOptions,
-} from "./objects/SaveOptions";
+export { GIFSaveOptions, BMPSaveOptions, JPEGSaveOptions, PhotoshopSaveOptions, PNGSaveOptions } from './objects/SaveOptions';

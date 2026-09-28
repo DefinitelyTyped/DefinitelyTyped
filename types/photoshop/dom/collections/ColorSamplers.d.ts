@@ -16,6 +16,7 @@ import { ColorSampler } from "../ColorSampler";
  * unpacks its `color` and `position` properties via a destructuring assignment to get
  * the sampled color as a [[SolidColor]] object and its current position as an `{x, y}` object:
  *
+ *
  * ```javascript
  * const cs = app.activeDocument.colorSamplers[0];
  * const { color, position } = cs; // destructuring assignment
@@ -34,7 +35,7 @@ import { ColorSampler } from "../ColorSampler";
  *
  * @minVersion 24.0
  */
-export declare class ColorSamplers extends Array<ColorSampler> {
+export declare class ColorSamplers {
     /**
      * @ignore
      */

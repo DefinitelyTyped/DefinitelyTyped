@@ -3,13 +3,7 @@
  *
  * On DOM level, [[SolidColor]] is used for all representations of a color.
  */
-export declare type ColorDescriptor =
-    | RGBColorDescriptor
-    | HSBColorDescriptor
-    | CMYKColorDescriptor
-    | LabColorDescriptor
-    | GrayscaleColorDescriptor
-    | RGB32ColorDescriptor;
+export declare type ColorDescriptor = RGBColorDescriptor | HSBColorDescriptor | CMYKColorDescriptor | LabColorDescriptor | GrayscaleColorDescriptor | RGB32ColorDescriptor;
 export interface RGBColorDescriptor {
     _obj: "RGBColor";
     red: number;
@@ -57,5 +51,5 @@ export declare enum ColorConversionModel {
     "CMYK" = 5,
     "Lab" = 6,
     "RGB" = 15,
-    "Gray" = 16,
+    "Gray" = 16
 }

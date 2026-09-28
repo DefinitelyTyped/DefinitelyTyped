@@ -1,24 +1,24 @@
-import { Action, ActionSet } from "./Actions";
-import { Documents } from "./collections/Documents";
-import { TextFonts } from "./collections/TextFonts";
-import { ColorSampler } from "./ColorSampler";
 import * as Constants from "./Constants";
 import { Document } from "./Document";
-import { Guide } from "./Guide";
 import { Layer } from "./Layer";
-import { LayerComp } from "./LayerComp";
-import { PathPointInfo } from "./objects/PathPointInfo";
-import { SolidColor } from "./objects/SolidColor";
-import { SubPathInfo } from "./objects/SubPathInfo";
-import { Tool } from "./objects/Tool";
-import { Preferences } from "./preferences/Preferences";
+import { ActionSet, Action } from "./Actions";
+import { ColorSampler } from "./ColorSampler";
 import { Selection } from "./Selection";
+import { Documents } from "./collections/Documents";
+import { TextFonts } from "./collections/TextFonts";
+import { Preferences } from "./preferences/Preferences";
+import { Guide } from "./Guide";
+import { LayerComp } from "./LayerComp";
 import { DocumentCreateOptions } from "./types/DocumentTypes";
+import { SolidColor } from "./objects/SolidColor";
+import { Tool } from "./objects/Tool";
+import { PathPointInfo } from "./objects/PathPointInfo";
+import { SubPathInfo } from "./objects/SubPathInfo";
 /**
  * The top level application object, root of the Photoshop DOM
  *
  * ```javascript
- * const app = require('photoshop').app
+ * const {app} = require('photoshop');
  * ```
  *
  * From here you can access open documents, tools, UI elements and run commands or menu items.
@@ -193,7 +193,7 @@ export declare class Photoshop {
      * without updating the UI. This API is subject to change and may be accessible in other ways in the future.
      * @minVersion 23.0
      */
-    batchPlay(commands: any, options: any): Promise<Array<import("./CoreModules").ActionDescriptor>>;
+    batchPlay(commands: any, options: any): Promise<import("./CoreModules").ActionDescriptor[]>;
     /**
      * Brings application to focus, useful when your script ends, or requires an input.
      * @minVersion 23.0
@@ -229,27 +229,56 @@ export declare class Photoshop {
      *
      * An object with one or more parameters can also be supplied. Any parameter
      * missing will be set to the default of: width 2100 pixels, height 1500 pixels,
-     * resolution 300 pixels per inch, mode: @RGBColorMode and a fill of white with
+     * resolution 300 pixels per inch, mode:
+     * [RGB](../../modules/constants/#newdocumentmode), and a fill of white with
      * no transparency.
      *
      * ```javascript
      * // "Default Photoshop Size" 7x5 inches at 300ppi
-     * let newDoc1 = await app.documents.add();
-     * let newDoc2 = await app.documents.add({
-     *    width: 800,
-     *    height: 600,
-     *    resolution: 300,
-     *    mode: "RGBColorMode",
-     *    fill: "transparent"
+     * let defaultDoc = await app.createDocument({
+     *   preset: "Default Photoshop Size"
      * });
-     * let newDoc3 = await app.documents.add({preset: "My Default Size 1"});
+     *
+     * let transparentDoc = await app.createDocument({
+     *   width: 800,
+     *   height: 600,
+     *   resolution: 300,
+     *   mode: "RGBColorMode",
+     *   fill: "transparent"
+     * });
+     *
+     * const redColor = new SolidColor();
+     * redColor.rgb.green = 0;
+     * redColor.rgb.blue = 0;
+     * let fillColorDoc = await app.createDocument({
+     *   mode: "RGBColorMode",
+     *   fillColor: redColor
+     * });
      * ```
      *
-     * @param options @DocumentCreateOptions
+     * Updates: [(26.9)](/ps_reference/changelog/#photoshop-269-july-2025)
+     *
+     * @param options An object literal containing the option values.
      * @async
      * @minVersion 23.0
      */
     createDocument(options?: DocumentCreateOptions): Promise<Document | null>;
+    /**
+     * Force an update to the following panels: Layers, Channels, and Paths.
+     * The primary use case is within the handler function of a slider control.
+     * Normally, the panels will not update until after the handle is released.
+     * Note: this function will have no apparent effect outside of a tracking context like a slider handle.
+     * Inside a plain loop (encapsulated in `executeAsModal`),
+     * a slight pause can be used to demonstrate the need to refresh.
+     * ```javascript
+     *     // Inside slider handler function.
+     *     await app.activeDocument.createPixelLayer();
+     *     await app.updateUI();
+     * ```
+     * @async
+     * @minVersion 26.0
+     */
+    updateUI(): Promise<void>;
 }
 /** @ignore */
 declare const app: Photoshop;

@@ -13,7 +13,7 @@ import { LayerCompCreateOptions } from "../types/LayerCompTypes";
  *
  * @minVersion 24.0
  */
-export declare class LayerComps extends Array<LayerComp> {
+export declare class LayerComps {
     /**
      * @ignore
      */

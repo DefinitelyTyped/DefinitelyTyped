@@ -1,5 +1,9 @@
-import * as Constants from "./Constants";
 import { Document } from "./Document";
+import * as Constants from "./Constants";
+/**
+ * @ignore
+ */
+export declare function PSGuide(id: number, docId: number): Guide;
 /**
  * Represents a single guide in the document.
  * @minVersion 23.0
@@ -54,6 +58,7 @@ export declare class Guide {
      *
      * ***Fixes in Photoshop 24.0:***
      * - *Sets correct value when resolution is not 72 PPI*
+     *
      */
     set coordinate(coordinate: number);
     /**

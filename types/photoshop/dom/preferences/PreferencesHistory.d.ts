@@ -1,5 +1,5 @@
-import * as Constants from "../Constants";
 import { PreferencesBase } from "./PreferencesBase";
+import * as Constants from "../Constants";
 /**
  * All preferences related to history logging
  *

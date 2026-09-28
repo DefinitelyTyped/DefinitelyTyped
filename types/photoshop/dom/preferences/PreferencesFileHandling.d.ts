@@ -1,5 +1,5 @@
-import * as Constants from "../Constants";
 import { PreferencesBase } from "./PreferencesBase";
+import * as Constants from "../Constants";
 /**
  * File handling preferences. Mostly about file saving options, file compatibility and recent files
  *

@@ -1,13 +1,14 @@
-import { PathItem } from "../PathItem";
 import { SubPathItem } from "../SubPathItem";
+import { PathItem } from "../PathItem";
 /**
  * A collection of [[SubPathItem]] objects that make up a [[PathItem]]. Access this object in the
  * [[PathItem.subPathItems]] collection property.
  *
  *  - Use [[SubPathInfo]] to create subpaths; the properties are writeable.
  *  - Use the [[SubPathItem]] object to retrieve information about existing subpaths. The properties are read-only.
+ *
  */
-export declare class SubPathItems extends Array<SubPathItem> {
+export declare class SubPathItems {
     /**
      * @ignore
      */
