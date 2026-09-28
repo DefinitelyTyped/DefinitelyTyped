@@ -358,8 +358,8 @@ const proxyHandlerv2WithJKTAuthorizer: APIGatewayProxyHandlerV2WithJWTAuthorizer
     }
     const nullableScopes: string[] | null = authorizer.jwt.scopes;
     // And these extra properties are added
-    str = authorizer.principalId;
-    num = authorizer.integrationLatency;
+    strOrUndefinedOrNull = authorizer.principalId;
+    numOrUndefinedOrNull = authorizer.integrationLatency;
 
     const result = createProxyResult();
 
