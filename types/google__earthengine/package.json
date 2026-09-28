@@ -1,0 +1,18 @@
+{
+    "private": true,
+    "name": "@types/google__earthengine",
+    "version": "1.7.9999",
+    "projects": [
+        "https://developers.google.com/earth-engine/",
+        "https://github.com/google/earthengine-api"
+    ],
+    "devDependencies": {
+        "@types/google__earthengine": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bruce Pedro Gomes",
+            "githubUsername": "brucePedroGomes"
+        }
+    ]
+}
