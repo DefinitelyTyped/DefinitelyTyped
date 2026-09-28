@@ -13,9 +13,9 @@ export type ManifestId = string;
  */
 export interface SubAppsAddResponse {
     /** @description Record mapping install paths to successfully installed sub-app manifest IDs. */
-    installedApps?: Record<string, ManifestId> | undefined;
+    installedApps: Record<string, ManifestId>;
     /** @description Record mapping install paths to DOMExceptions explaining failure reasons. */
-    failedApps?: Record<string, DOMException> | undefined;
+    failedApps: Record<string, DOMException>;
 }
 
 /**
@@ -23,9 +23,9 @@ export interface SubAppsAddResponse {
  */
 export interface SubAppsRemoveResponse {
     /** @description List of manifest IDs for successfully uninstalled sub-apps. */
-    removedApps?: readonly ManifestId[] | undefined;
+    removedApps: ManifestId[];
     /** @description Record mapping manifest IDs to DOMExceptions explaining failure reasons. */
-    failedApps?: Record<ManifestId, DOMException> | undefined;
+    failedApps: Record<ManifestId, DOMException>;
 }
 
 /**
@@ -39,7 +39,7 @@ export interface SubAppsListResult {
 declare global {
     interface Window {
         /**
-         * @description SubApps API entry point for managing sub-apps.
+         * @description Entry point for the Sub Apps API. Only available in Isolated Web Apps.
          * @since Chrome 152
          * @requires Permissions-Policy: sub-apps
          * @requires SecureContext
@@ -73,7 +73,7 @@ declare global {
          * const { removedApps } = await window.subApps.remove(["/calc_manifest_id"]);
          * console.log(removedApps);
          */
-        remove(manifestIds: readonly string[]): Promise<SubAppsRemoveResponse>;
+        remove(manifestIds: readonly ManifestId[]): Promise<SubAppsRemoveResponse>;
 
         /**
          * @description Retrieves all currently installed sub-apps for the parent app.
@@ -82,6 +82,6 @@ declare global {
          * const apps = await window.subApps.list();
          * console.log(apps);
          */
-        list(): Promise<Record<string, SubAppsListResult>>;
+        list(): Promise<Record<ManifestId, SubAppsListResult>>;
     }
 }
