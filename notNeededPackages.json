@@ -2037,6 +2037,10 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
+        "eslint-plugin-mobx": {
+            "libraryName": "eslint-plugin-mobx",
+            "asOfVersion": "0.1.0"
+        },
         "eslint-plugin-mocha": {
             "libraryName": "eslint-plugin-mocha",
             "asOfVersion": "11.1.0"
