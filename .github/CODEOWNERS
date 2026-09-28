@@ -5201,7 +5201,8 @@
 /types/node-red__editor-client/                         @alexk111 @Shaquu
 /types/node-red__registry/                              @alexk111 @Shaquu
 /types/node-red__runtime/                               @alexk111 @Shaquu
-/types/node-red__util/                                  @alexk111 @Shaquu
+/types/node-red__util/                                  @alexk111 @Shaquu @GogoVega
+/types/node-red__util/v3/                               @alexk111 @Shaquu
 /types/node-redis-pubsub/                               @renekeijzer
 /types/node-redmine/                                    @grptx
 /types/node-replicate/                                  @Ankan002
