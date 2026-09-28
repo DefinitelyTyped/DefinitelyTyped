@@ -6,7 +6,7 @@
         "https://github.com/punkave/sanitize-html"
     ],
     "dependencies": {
-        "htmlparser2": "^10.1"
+        "htmlparser2": "^12.0"
     },
     "devDependencies": {
         "@types/sanitize-html": "workspace:."
