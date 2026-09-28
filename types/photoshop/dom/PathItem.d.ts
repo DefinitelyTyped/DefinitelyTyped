@@ -1,7 +1,7 @@
+import { SubPathItems } from "./collections/SubPathItems";
+import * as Constants from "./Constants";
 import { Document } from "./Document";
 import { Layer } from "./Layer";
-import * as Constants from "./Constants";
-import { SubPathItems } from "./collections/SubPathItems";
 import { SolidColor } from "./objects/SolidColor";
 /**
  * @ignore
@@ -87,7 +87,15 @@ export declare class PathItem {
      * If `wholePath` is true, all subpaths are used when doing the fill.
      * @minVersion 23.3
      */
-    fillPath(fillColor?: SolidColor, mode?: Constants.ColorBlendMode, opacity?: number, preserveTransparency?: boolean, feather?: number, wholePath?: boolean, antiAlias?: boolean): Promise<void>;
+    fillPath(
+        fillColor?: SolidColor,
+        mode?: Constants.ColorBlendMode,
+        opacity?: number,
+        preserveTransparency?: boolean,
+        feather?: number,
+        wholePath?: boolean,
+        antiAlias?: boolean,
+    ): Promise<void>;
     /**
      * Makes this the clipping path for this document.
      *

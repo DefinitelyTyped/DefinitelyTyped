@@ -1,10 +1,10 @@
+import * as Unit from "../util/unit";
+import { Layers } from "./collections/Layers";
 import * as Constants from "./Constants";
 import { Document } from "./Document";
-import { Layers } from "./collections/Layers";
 import { Bounds } from "./objects/Bounds";
 import { TextItem } from "./TextItem";
 import { ApplyImageOptions } from "./types/ApplyImageTypes";
-import * as Unit from "../util/unit";
 /** @ignore */
 export declare enum PSLayerKind {
     any = 0,
@@ -20,7 +20,7 @@ export declare enum PSLayerKind {
     pattern = 10,
     solidColor = 11,
     background = 12,
-    groupEnd = 13
+    groupEnd = 13,
 }
 /**
  * @ignore
@@ -353,7 +353,13 @@ export declare class Layer {
      * @param displacementMapFile Path to the distortion image map.
      * @async
      */
-    applyDisplace(horizontalScale: number, verticalScale: number, displacementType: Constants.DisplacementMapType, undefinedAreas: Constants.UndefinedAreas, displacementMapFile: File): Promise<void>;
+    applyDisplace(
+        horizontalScale: number,
+        verticalScale: number,
+        displacementType: Constants.DisplacementMapType,
+        undefinedAreas: Constants.UndefinedAreas,
+        displacementMapFile: File,
+    ): Promise<void>;
     /**
      * Applies the Dust & Scratches filter.
      *
@@ -390,7 +396,14 @@ export declare class Layer {
      * @param textureFile Mapping for glass distortion (optional).
      * @async
      */
-    applyGlassEffect(distortion: number, smoothness: number, scaling: number, invert?: boolean, texture?: Constants.TextureType, textureFile?: File): Promise<void>;
+    applyGlassEffect(
+        distortion: number,
+        smoothness: number,
+        scaling: number,
+        invert?: boolean,
+        texture?: Constants.TextureType,
+        textureFile?: File,
+    ): Promise<void>;
     /**
      * Applies the High Pass filter.
      *
@@ -421,7 +434,20 @@ export declare class Layer {
      * @param monochromatic True if the noise is monochromatic (default: `false`)
      * @async
      */
-    applyLensBlur(source?: Constants.DepthMapSource, focalDistance?: number, invertDepthMask?: boolean, shape?: Constants.Geometry, radius?: number, bladeCurvature?: number, rotation?: number, brightness?: number, threshold?: number, amount?: number, distribution?: Constants.NoiseDistribution, monochromatic?: boolean): Promise<void>;
+    applyLensBlur(
+        source?: Constants.DepthMapSource,
+        focalDistance?: number,
+        invertDepthMask?: boolean,
+        shape?: Constants.Geometry,
+        radius?: number,
+        bladeCurvature?: number,
+        rotation?: number,
+        brightness?: number,
+        threshold?: number,
+        amount?: number,
+        distribution?: Constants.NoiseDistribution,
+        monochromatic?: boolean,
+    ): Promise<void>;
     /**
      * Applies the Lens Flare filter.
      *
@@ -632,7 +658,12 @@ export declare class Layer {
      * @async
      * @minVersion 24.0
      */
-    applySmartBlur(radius: number, threshold: number, blurQuality: Constants.SmartBlurQuality, mode: Constants.SmartBlurMode): Promise<void>;
+    applySmartBlur(
+        radius: number,
+        threshold: number,
+        blurQuality: Constants.SmartBlurQuality,
+        mode: Constants.SmartBlurMode,
+    ): Promise<void>;
     /**
      * Applies the Spherize filter.
      *
@@ -674,7 +705,18 @@ export declare class Layer {
      * @async
      * @minVersion 24.0
      */
-    applyWave(generatorNumber: number, minimumWavelength: number, maximumWavelength: number, minimumAmplitude: number, maximumAmplitude: number, horizontalScale: number, verticalScale: number, waveType?: Constants.WaveType, undefinedAreas?: Constants.UndefinedAreas, randomSeed?: number): Promise<void>;
+    applyWave(
+        generatorNumber: number,
+        minimumWavelength: number,
+        maximumWavelength: number,
+        minimumAmplitude: number,
+        maximumAmplitude: number,
+        horizontalScale: number,
+        verticalScale: number,
+        waveType?: Constants.WaveType,
+        undefinedAreas?: Constants.UndefinedAreas,
+        randomSeed?: number,
+    ): Promise<void>;
     /**
      * Applies the ZigZag filter.
      *
@@ -724,7 +766,11 @@ export declare class Layer {
      * @async
      * @minVersion 23.0
      */
-    duplicate(relativeObject?: Document | Layer, insertionLocation?: Constants.ElementPlacement, name?: string): Promise<Layer | null>;
+    duplicate(
+        relativeObject?: Document | Layer,
+        insertionLocation?: Constants.ElementPlacement,
+        name?: string,
+    ): Promise<Layer | null>;
     /**
      * Creates a link between this layer and the target layer if not already linked,
      * and returns a list of layers linked to this layer.
@@ -789,7 +835,10 @@ export declare class Layer {
      * @async
      * @minVersion 23.0
      */
-    translate(horizontal: number | Unit.PercentValue | Unit.PixelValue, vertical: number | Unit.PercentValue | Unit.PixelValue): Promise<void>;
+    translate(
+        horizontal: number | Unit.PercentValue | Unit.PixelValue,
+        vertical: number | Unit.PercentValue | Unit.PixelValue,
+    ): Promise<void>;
     /**
      * Flips the layer on one or both axis.
      *
@@ -825,9 +874,14 @@ export declare class Layer {
      * @async
      * @minVersion 23.0
      */
-    scale(width: number | Unit.PercentValue, height: number | Unit.PercentValue, anchor?: Constants.AnchorPosition, options?: {
-        interpolation?: Constants.InterpolationMethod;
-    }): Promise<void>;
+    scale(
+        width: number | Unit.PercentValue,
+        height: number | Unit.PercentValue,
+        anchor?: Constants.AnchorPosition,
+        options?: {
+            interpolation?: Constants.InterpolationMethod;
+        },
+    ): Promise<void>;
     /**
      * Rotates the layer.
      *

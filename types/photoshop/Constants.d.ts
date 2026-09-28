@@ -1,2 +1,2 @@
-import * as Constants from './dom/Constants';
+import * as Constants from "./dom/Constants";
 export default Constants;

@@ -1,19 +1,19 @@
-import * as Constants from "./Constants";
-import { Document } from "./Document";
-import { Layer } from "./Layer";
-import { ActionSet, Action } from "./Actions";
-import { ColorSampler } from "./ColorSampler";
-import { Selection } from "./Selection";
+import { Action, ActionSet } from "./Actions";
 import { Documents } from "./collections/Documents";
 import { TextFonts } from "./collections/TextFonts";
-import { Preferences } from "./preferences/Preferences";
+import { ColorSampler } from "./ColorSampler";
+import * as Constants from "./Constants";
+import { Document } from "./Document";
 import { Guide } from "./Guide";
+import { Layer } from "./Layer";
 import { LayerComp } from "./LayerComp";
-import { DocumentCreateOptions } from "./types/DocumentTypes";
-import { SolidColor } from "./objects/SolidColor";
-import { Tool } from "./objects/Tool";
 import { PathPointInfo } from "./objects/PathPointInfo";
+import { SolidColor } from "./objects/SolidColor";
 import { SubPathInfo } from "./objects/SubPathInfo";
+import { Tool } from "./objects/Tool";
+import { Preferences } from "./preferences/Preferences";
+import { Selection } from "./Selection";
+import { DocumentCreateOptions } from "./types/DocumentTypes";
 /**
  * The top level application object, root of the Photoshop DOM
  *

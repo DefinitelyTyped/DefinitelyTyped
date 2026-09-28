@@ -1,16 +1,16 @@
-import { PreferencesGeneral } from "./PreferencesGeneral";
 import { PreferencesCursors } from "./PreferencesCursors";
+import { PreferencesEnhancedControls } from "./PreferencesEnhancedControls";
 import { PreferencesFileHandling } from "./PreferencesFileHandling";
+import { PreferencesGeneral } from "./PreferencesGeneral";
 import { PreferencesGuidesGridsAndSlices } from "./PreferencesGuidesGridsAndSlices";
 import { PreferencesHistory } from "./PreferencesHistory";
 import { PreferencesInterface } from "./PreferencesInterface";
+import { PreferencesNotifications } from "./PreferencesNotifications";
 import { PreferencesPerformance } from "./PreferencesPerformance";
 import { PreferencesTools } from "./PreferencesTools";
 import { PreferencesTransparencyAndGamut } from "./PreferencesTransparencyAndGamut";
 import { PreferencesType } from "./PreferencesType";
 import { PreferencesUnitsAndRulers } from "./PreferencesUnitsAndRulers";
-import { PreferencesNotifications } from "./PreferencesNotifications";
-import { PreferencesEnhancedControls } from "./PreferencesEnhancedControls";
 /**
  * Contains Photoshop preferences grouped into several categories similar to preferences in user interface.
  *

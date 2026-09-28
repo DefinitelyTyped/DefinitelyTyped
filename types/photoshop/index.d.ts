@@ -1,5 +1,5 @@
-import { photoshopAction, photoshopCore } from "./dom/CoreModules";
 import * as photoshopConstants from "./dom/Constants";
+import { photoshopAction, photoshopCore } from "./dom/CoreModules";
 import { imaging as photoshopImaging } from "./dom/ImagingModule";
 /**
  * Root of the DOM, the `app` object where you can access application settings,

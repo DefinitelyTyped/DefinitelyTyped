@@ -1,5 +1,5 @@
-import { Document } from "./Document";
 import * as Constants from "./Constants";
+import { Document } from "./Document";
 import { SolidColor } from "./objects/SolidColor";
 /**
  * Represents a channel in a Photoshop document.

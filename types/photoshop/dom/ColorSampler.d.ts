@@ -1,6 +1,6 @@
 import { Document } from "./Document";
-import { SolidColor } from "./objects/SolidColor";
 import { NoColor } from "./objects/Colors";
+import { SolidColor } from "./objects/SolidColor";
 /**
  * Represents a ColorSampler object in the Photoshop DOM.
  *

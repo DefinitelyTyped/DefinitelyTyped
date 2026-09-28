@@ -1,4 +1,13 @@
-import { CMYKColorDescriptor, ColorConversionModel, ColorDescriptor, GrayscaleColorDescriptor, HSBColorDescriptor, LabColorDescriptor, RGB32ColorDescriptor, RGBColorDescriptor } from "../util/colorTypes";
+import {
+    CMYKColorDescriptor,
+    ColorConversionModel,
+    ColorDescriptor,
+    GrayscaleColorDescriptor,
+    HSBColorDescriptor,
+    LabColorDescriptor,
+    RGB32ColorDescriptor,
+    RGBColorDescriptor,
+} from "../util/colorTypes";
 import { Dimensions, SimpleBounds } from "./types/GeneralTypes";
 /** @ignore */
 declare type NotificationListener = (eventName: string, descriptor: ActionDescriptor) => void;
@@ -20,11 +29,11 @@ export interface BatchPlayCommandOptions {
     /**
      * @minVersion 23.0
      */
-    commandEnablement?: 'normal' | 'never' | 'always';
+    commandEnablement?: "normal" | "never" | "always";
     /**
      * @minVersion 23.0
      */
-    dialogOptions?: 'silent' | 'dontDisplay' | 'display';
+    dialogOptions?: "silent" | "dontDisplay" | "display";
     /**
      * @minVersion 23.0
      */
@@ -36,7 +45,7 @@ export interface BatchPlayCommandOptions {
     /**
      * @minVersion 23.0
      */
-    modalBehavior?: 'wait' | 'execute' | 'fail';
+    modalBehavior?: "wait" | "execute" | "fail";
     /**
      * @minVersion 23.0
      */
@@ -72,7 +81,7 @@ export interface CPUInfo {
     /**
      * @minVersion 23.0
      */
-    emulationMode?: 'rosetta2';
+    emulationMode?: "rosetta2";
 }
 /**
  * Return object.
@@ -265,7 +274,10 @@ export declare namespace photoshopAction {
      * ```
      * @minVersion 23.0
      */
-    export function batchPlay(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Promise<Array<ActionDescriptor>>;
+    export function batchPlay(
+        commands: ActionDescriptor[],
+        options?: BatchPlayCommandOptions,
+    ): Promise<Array<ActionDescriptor>>;
     /**
      * Performs a batchPlay call with the provided commands. Equivalent
      * to an `executeAction` in ExtendScript.
@@ -276,7 +288,10 @@ export declare namespace photoshopAction {
      * ```
      * @minVersion 23.1
      */
-    export function batchPlaySync(commands: ActionDescriptor[], options?: BatchPlayCommandOptions): Array<ActionDescriptor>;
+    export function batchPlaySync(
+        commands: ActionDescriptor[],
+        options?: BatchPlayCommandOptions,
+    ): Array<ActionDescriptor>;
     /**
      * Attach a callback function to one or more Photoshop events.
      * The callback has the form `(eventName: string, descriptor: ActionDescriptor) => void`.
@@ -410,13 +425,17 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function calculateDialogSize(preferredSize: {
-        width: number;
-        height: number;
-    }, identifier?: string, minimumSize?: {
-        width: number;
-        height: number;
-    }): Promise<{
+    function calculateDialogSize(
+        preferredSize: {
+            width: number;
+            height: number;
+        },
+        identifier?: string,
+        minimumSize?: {
+            width: number;
+            height: number;
+        },
+    ): Promise<{
         width: number;
         height: number;
     }>;
@@ -466,7 +485,10 @@ export declare namespace photoshopCore {
      * based on embedded color profiles.
      * @minVersion 23.0
      */
-    function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.RGB): RGBColorDescriptor | RGB32ColorDescriptor;
+    function convertColor(
+        sourceColor: ColorDescriptor,
+        targetModel: ColorConversionModel.RGB,
+    ): RGBColorDescriptor | RGB32ColorDescriptor;
     /**
      * Convert to Lab
      * @minVersion 23.0
@@ -481,7 +503,10 @@ export declare namespace photoshopCore {
      * Convert to Grayscale
      * @minVersion 23.0
      */
-    function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.Gray): GrayscaleColorDescriptor;
+    function convertColor(
+        sourceColor: ColorDescriptor,
+        targetModel: ColorConversionModel.Gray,
+    ): GrayscaleColorDescriptor;
     /**
      * Convert to CMYK
      * @minVersion 23.0
@@ -536,7 +561,10 @@ export declare namespace photoshopCore {
      * @minVersion 22.5
      * @async
      */
-    function executeAsModal(targetFunction: (executionContext: ExecutionContext, descriptor?: object) => Promise<any>, options: ExecuteAsModalOptions): Promise<void>;
+    function executeAsModal(
+        targetFunction: (executionContext: ExecutionContext, descriptor?: object) => Promise<any>,
+        options: ExecuteAsModalOptions,
+    ): Promise<void>;
     /**
      * Returns information about the active Photoshop tool.
      * ```javascript

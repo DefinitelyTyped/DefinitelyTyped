@@ -1,6 +1,5 @@
 import { PreferencesBase } from "./PreferencesBase";
 /**
- *
  * @targetfolder classes/preferences
  * @ignore
  */

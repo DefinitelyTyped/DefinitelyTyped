@@ -15,7 +15,17 @@ export declare const pt: any;
 export declare const millimeters: any;
 export declare const mm: any;
 export declare const distance: any;
-export declare type UnitTypeEnum = "angleUnit" | "densityUnit" | "distanceUnit" | "percentUnit" | "pixelsUnit" | "pointsUnit" | "millimetersUnit" | "centimetersUnit" | "inchesUnit" | "picasUnit";
+export declare type UnitTypeEnum =
+    | "angleUnit"
+    | "densityUnit"
+    | "distanceUnit"
+    | "percentUnit"
+    | "pixelsUnit"
+    | "pointsUnit"
+    | "millimetersUnit"
+    | "centimetersUnit"
+    | "inchesUnit"
+    | "picasUnit";
 export interface UnitValue {
     _unit: UnitTypeEnum;
     _value: number;

@@ -1,7 +1,7 @@
 import * as Constants from "../Constants";
 import { Layer } from "../Layer";
-import { SolidColor } from "../objects/SolidColor";
 import { Bounds } from "../objects/Bounds";
+import { SolidColor } from "../objects/SolidColor";
 import { Position } from "./GeneralTypes";
 interface LayerCreateOptionsBase {
     /**
