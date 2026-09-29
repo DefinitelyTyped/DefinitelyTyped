@@ -8788,6 +8788,7 @@ declare namespace chrome {
          * @since Chrome 151
          */
         enum AutofillBlockedType {
+            ALL = "all",
             CONTACT_INFO = "contact_info",
             PAYMENTS = "payments",
             IDENTITY_DOCS = "identity_docs",
@@ -8936,6 +8937,7 @@ declare namespace chrome {
              * The value of this preference is of type boolean, and the default value is `true`.
              * Extensions may only disable this API by setting the value to `false`. If you try setting this API to `true`, it will throw an error.
              * @since Chrome 121
+             * @deprecated since Chrome 144. Will be removed around Chrome 153.
              */
             relatedWebsiteSetsEnabled: chrome.types.ChromeSetting<boolean>;
 
