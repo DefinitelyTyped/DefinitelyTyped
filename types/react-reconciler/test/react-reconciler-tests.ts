@@ -697,10 +697,6 @@ ctx.Consumer._context;
 // @ts-expect-error -- Consumer is no longer a context
 ctx.Consumer._currentValue;
 
-// -------------------
-//   Flow sync (0.33)
-// -------------------
-
 // finalizeInitialChildren receives the host context as its 4th argument.
 // $ExpectType [instance: Instance, type: string, props: Props, hostContext: HostContext]
 type FinalizeInitialChildrenParams = Parameters<TestHostConfig["finalizeInitialChildren"]>;
@@ -862,3 +858,27 @@ vtConfig.createViewTransitionInstance!("hero");
 // The default config (no VT generics) leaves the renderer types as unknown.
 // $ExpectType unknown
 hostConfig.measureInstance!(instance);
+
+// blockedCallback and finishedAnimation are only passed in profiling builds.
+const vtStartConfig: Pick<typeof vtConfig, "startViewTransition"> = {
+    startViewTransition(
+        suspendedState,
+        rootContainer,
+        transitionTypes,
+        mutationCallback,
+        layoutCallback,
+        afterMutationCallback,
+        spawnedWorkCallback,
+        passiveCallback,
+        errorCallback,
+        blockedCallback,
+        finishedAnimation,
+    ) {
+        // $ExpectType ((reason: string) => void) | null
+        blockedCallback;
+        // @ts-expect-error -- finishedAnimation may be null outside profiling builds
+        finishedAnimation();
+        finishedAnimation?.();
+        return null;
+    },
+};

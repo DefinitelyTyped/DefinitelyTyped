@@ -793,8 +793,10 @@ declare namespace ReactReconciler {
             spawnedWorkCallback: () => void,
             passiveCallback: () => unknown,
             errorCallback: (error: unknown) => void,
-            blockedCallback: (reason: string) => void,
-            finishedAnimation: () => void,
+            /** Only passed in profiling builds; `null` otherwise. */
+            blockedCallback: ((reason: string) => void) | null,
+            /** Only passed in profiling builds; `null` otherwise. */
+            finishedAnimation: (() => void) | null,
         ): RunningViewTransition | null;
 
         stopViewTransition?(transition: RunningViewTransition): void;
