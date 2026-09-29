@@ -1,4 +1,4 @@
-// For Library Version: 1.152.0
+// For Library Version: 1.153.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -2185,6 +2185,179 @@ declare module "sap/ui/mdc/LinkDelegate" {
   export default LinkDelegate;
 }
 
+declare module "sap/ui/mdc/ListDelegate" {
+  import AggregationBaseDelegate from "sap/ui/mdc/AggregationBaseDelegate";
+
+  import Context from "sap/ui/model/Context";
+
+  import { FilterDelegateObject } from "sap/ui/mdc/library";
+
+  import Sorter from "sap/ui/model/Sorter";
+
+  import Control from "sap/ui/core/Control";
+
+  import { AggregationBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import ListBinding from "sap/ui/model/ListBinding";
+
+  /**
+   * Base delegate for {@link sap.ui.mdc.List}. Extend this object in your project to use all functionalities
+   * of the list.
+   *
+   * @since 1.151
+   */
+  interface ListDelegate extends AggregationBaseDelegate {
+    /**
+     * Returns the export capabilities for the given list.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns A promise that resolves with the export capabilities
+     */
+    fetchExportCapabilities(
+      /**
+       * Instance of the list
+       */
+      oList: /* was: sap.ui.mdc.List */ any
+    ): Promise<object>;
+    /**
+     * Formats the title text of a group header row of the list.
+     *
+     * Override this method in a concrete delegate to provide a custom group header label.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The group header title
+     */
+    formatGroupHeader(
+      /**
+       * Instance of the list
+       */
+      oList: /* was: sap.ui.mdc.List */ any,
+      /**
+       * Binding context
+       */
+      oContext: Context,
+      /**
+       * Key of the grouped property
+       */
+      sPropertyKey: string
+    ): string;
+    /**
+     * Returns the filter delegate of the list that provides basic filter functionality, such as adding filter
+     * fields.
+     *
+     * Application delegates must override this method and return an object with a working `addItem` implementation
+     * to enable the inbuilt filter personalization panel. The default implementation returns `null` from `addItem`,
+     * which means the filter panel is available but no filter fields are created unless overridden.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Object for the list's filter personalization
+     */
+    getFilterDelegate(): FilterDelegateObject;
+    /**
+     * Returns group-level sorters to be applied when updating the list's binding based on the group conditions
+     * of the list.
+     *
+     * Override this method in a concrete delegate to customize group sorter construction.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Array of group sorters
+     */
+    getGroupSorters(
+      /**
+       * Instance of the list
+       */
+      oList: /* was: sap.ui.mdc.List */ any
+    ): Sorter[];
+    /**
+     * Returns the item template to be used for list items.
+     *
+     * Override this method in a concrete delegate to provide a custom template. Return `null` to use the template
+     * from the list's `itemTemplate` aggregation instead.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns The item template, or `null` to fall back to the aggregation template
+     */
+    getItemTemplate(
+      /**
+       * Instance of the list
+       */
+      oList: /* was: sap.ui.mdc.List */ any,
+      /**
+       * The current binding info
+       */
+      oBindingInfo: object
+    ): Control | null;
+    /**
+     * Returns sorters to be applied when updating the list's binding based on the sort conditions of the list.
+     *
+     * Override this method in a concrete delegate to customize sort sorter construction.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Array of sorters
+     */
+    getSorters(
+      /**
+       * Instance of the list
+       */
+      oList: /* was: sap.ui.mdc.List */ any
+    ): Sorter[];
+    /**
+     * Rebinds the list with the binding info object returned from {@link module:sap/ui/mdc/ListDelegate.updateBindingInfo updateBindingInfo}.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    rebind(
+      /**
+       * Instance of the list
+       */
+      oList: /* was: sap.ui.mdc.List */ any,
+      /**
+       * The binding info object used to bind the list
+       */
+      oBindingInfo: AggregationBindingInfo
+    ): void;
+    /**
+     * Updates the items binding of the list.
+     *
+     * The default implementation rebinds the list. Model-specific subclasses may call dedicated binding methods
+     * to update the binding instead of triggering a full rebind.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     */
+    updateBinding(
+      /**
+       * Instance of the list
+       */
+      oList: /* was: sap.ui.mdc.List */ any,
+      /**
+       * The binding info object used to bind the list items
+       */
+      oBindingInfo: AggregationBindingInfo,
+      /**
+       * The current binding instance, if one exists
+       */
+      oBinding?: ListBinding,
+      /**
+       * Additional settings
+       */
+      mSettings?: {
+        /**
+         * Indicates that the binding must be refreshed even if `oBindingInfo` has not changed
+         */
+        forceRefresh?: boolean;
+      }
+    ): void;
+  }
+  const ListDelegate: ListDelegate;
+  export default ListDelegate;
+}
+
 declare module "sap/ui/mdc/odata/TypeMap" {
   import DefaultTypeMap from "sap/ui/mdc/DefaultTypeMap";
 
@@ -2390,6 +2563,18 @@ declare module "sap/ui/mdc/odata/v4/TableDelegate" {
      * The configuration that is applied if data aggregation is enabled in the delegate.
      */
     aggregationConfiguration?: {
+      /**
+       * You can override the automatic detection of whether data aggregation is enabled in the delegate. If set
+       * to `true`, data aggregation is enabled if supported by the table type. If set to `false`, data aggregation
+       * is disabled. Group and aggregate conditions, as well as the `p13nMode` `Group` and `Aggregate`, are ignored,
+       * and the corresponding personalization is not offered. If not set, the automatic detection applies (see
+       * {@link module:sap/ui/mdc/odata/v4/TableDelegate}). This setting only takes effect for table types that
+       * support it. Currently, this is the {@link sap.ui.mdc.table.GridTableType GridTable}. Additional table
+       * types might support this setting in the future.
+       *
+       * @since 1.153
+       */
+      enabled?: boolean;
       /**
        * Determines whether aggregation on the leaf level is enabled. If it is enabled, every column change affects
        * the data in the table.
@@ -2767,10 +2952,14 @@ declare module "sap/ui/mdc/TableDelegate" {
      * Providing accessible feedback (e.g. screen reader announcements) while the validation is ongoing or once
      * it has completed is the responsibility of the implementation.
      *
-     * @since 1.152
+     * By default, this method returns a `Promise` that resolves to `true`, which allows the dialog to close.
+     * When overriding this method, consider calling the `validateP13nState` method of the `TableDelegate` base
+     * class, as it may provide additional validation in future versions.
      *
-     * @returns A promise that resolves to `false` (or the literal value `false`) to prevent the dialog from
-     * closing. Any other value allows the dialog to close.
+     * @since 1.152
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns A promise that resolves to `true` if the dialog may close, or `false` to prevent it from closing.
      */
     validateP13nState(
       /**
@@ -2782,7 +2971,7 @@ declare module "sap/ui/mdc/TableDelegate" {
        * one processed by {@link sap.ui.mdc.p13n.StateUtil StateUtil}.
        */
       oState: object
-    ): Promise<boolean> | boolean;
+    ): Promise<boolean>;
   }
   const TableDelegate: TableDelegate;
   export default TableDelegate;
@@ -3214,6 +3403,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
   import {
     default as ValueHelp,
     ItemForValueConfiguration,
+    ConnectConfig,
   } from "sap/ui/mdc/ValueHelp";
 
   import ListBinding from "sap/ui/model/ListBinding";
@@ -3654,7 +3844,7 @@ declare module "sap/ui/mdc/ValueHelpDelegate" {
       /**
        * Connect configuration object
        */
-      oConfig?: /* was: sap.ui.mdc.valuehelp.base.ConnectConfig */ any
+      oConfig?: ConnectConfig
     ): void;
     /**
      * Determines if a value help container is to be opened on user interaction, navigation, or configuration
@@ -16815,6 +17005,214 @@ declare module "sap/ui/mdc/link/LinkItem" {
   }
 }
 
+declare module "sap/ui/mdc/list/DragDropConfig" {
+  import {
+    default as DragDropConfigBase,
+    $DragDropConfigBaseSettings,
+    DragDropConfigBase$DragEnterEventParameters,
+    DragDropConfigBase$DragOverEventParameters,
+    DragDropConfigBase$DropEventParameters,
+  } from "sap/ui/mdc/util/DragDropConfigBase";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import Context from "sap/ui/model/Context";
+
+  import UI5Element from "sap/ui/core/Element";
+
+  import { dnd } from "sap/ui/core/library";
+
+  import Event from "sap/ui/base/Event";
+
+  /**
+   * Provides the configuration for the drag-and-drop operations of the items of the list.
+   *
+   * @since 1.153
+   */
+  export default class DragDropConfig extends DragDropConfigBase {
+    /**
+     * Constructor for a new DragDropConfig.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.mdc.util.DragDropConfigBase#constructor sap.ui.mdc.util.DragDropConfigBase }
+     * can be used.
+     */
+    constructor(
+      /**
+       * Initial settings for the new DragDropConfig
+       */
+      mSettings?: $DragDropConfigSettings
+    );
+    /**
+     * Constructor for a new DragDropConfig.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     *
+     * This class does not have its own settings, but all settings applicable to the base type {@link sap.ui.mdc.util.DragDropConfigBase#constructor sap.ui.mdc.util.DragDropConfigBase }
+     * can be used.
+     */
+    constructor(
+      /**
+       * ID for the new DragDropConfig, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new DragDropConfig
+       */
+      mSettings?: $DragDropConfigSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.list.DragDropConfig with name `sClassName` and enriches it
+     * with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.mdc.util.DragDropConfigBase.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DragDropConfig>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.list.DragDropConfig.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+  }
+
+  export type DragSource = Context | UI5Element;
+
+  /**
+   * Describes the settings that can be provided to the DragDropConfig constructor.
+   */
+  export interface $DragDropConfigSettings extends $DragDropConfigBaseSettings {}
+
+  /**
+   * Parameters of the DragDropConfig#dragEnter event.
+   */
+  export interface DragDropConfig$DragEnterEventParameters extends DragDropConfigBase$DragEnterEventParameters {
+    /**
+     * The binding context of the item on which the dragged element will be dropped
+     */
+    bindingContext?: Context;
+
+    /**
+     * The binding context of the dragged item or the dragged control itself
+     */
+    dragSource?: DragSource;
+
+    /**
+     * The calculated position of the drop action relative to the item being dropped
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
+  }
+
+  /**
+   * Event object of the DragDropConfig#dragEnter event.
+   */
+  export type DragDropConfig$DragEnterEvent = Event<
+    DragDropConfig$DragEnterEventParameters,
+    DragDropConfig
+  >;
+
+  /**
+   * Parameters of the DragDropConfig#dragOver event.
+   */
+  export interface DragDropConfig$DragOverEventParameters extends DragDropConfigBase$DragOverEventParameters {
+    /**
+     * The binding context of the item on which the dragged element will be dropped
+     */
+    bindingContext?: Context;
+
+    /**
+     * The binding context of the dragged item or the dragged control itself
+     */
+    dragSource?: DragSource;
+
+    /**
+     * The calculated position of the drop action relative to the item being dropped
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
+  }
+
+  /**
+   * Event object of the DragDropConfig#dragOver event.
+   */
+  export type DragDropConfig$DragOverEvent = Event<
+    DragDropConfig$DragOverEventParameters,
+    DragDropConfig
+  >;
+
+  /**
+   * Parameters of the DragDropConfig#drop event.
+   */
+  export interface DragDropConfig$DropEventParameters extends DragDropConfigBase$DropEventParameters {
+    /**
+     * The binding context of the item on which the dragged element is dropped
+     */
+    bindingContext?: Context;
+
+    /**
+     * The binding context of the dragged item or the dragged control itself
+     */
+    dragSource?: DragSource;
+
+    /**
+     * The calculated position of the drop action relative to the dropped item
+     */
+    dropPosition?:
+      | dnd.RelativeDropPosition
+      | keyof typeof dnd.RelativeDropPosition;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
+  }
+
+  /**
+   * Event object of the DragDropConfig#drop event.
+   */
+  export type DragDropConfig$DropEvent = Event<
+    DragDropConfig$DropEventParameters,
+    DragDropConfig
+  >;
+}
+
 declare module "sap/ui/mdc/MultiValueField" {
   import {
     default as FieldBase,
@@ -20866,840 +21264,11 @@ declare module "sap/ui/mdc/table/ColumnSettings" {
 }
 
 declare module "sap/ui/mdc/table/DragDropConfig" {
-  import {
-    default as DragDropBase,
-    $DragDropBaseSettings,
-  } from "sap/ui/core/dnd/DragDropBase";
-
-  import { dnd } from "sap/ui/core/library";
-
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
-
   import Context from "sap/ui/model/Context";
 
   import UI5Element from "sap/ui/core/Element";
 
-  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
-
-  import Event from "sap/ui/base/Event";
-
-  /**
-   * Provides the configuration for the drag-and-drop operations of the rows of the table.
-   *
-   * @since 1.119
-   */
-  export default class DragDropConfig extends DragDropBase {
-    /**
-     * Constructor for a new DragDropConfig.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * Initial settings for the new DragDropConfig
-       */
-      mSettings?: $DragDropConfigSettings
-    );
-    /**
-     * Constructor for a new DragDropConfig.
-     *
-     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
-     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
-     * of the syntax of the settings object.
-     */
-    constructor(
-      /**
-       * ID for the new DragDropConfig, generated automatically if no ID is given
-       */
-      sId?: string,
-      /**
-       * Initial settings for the new DragDropConfig
-       */
-      mSettings?: $DragDropConfigSettings
-    );
-
-    /**
-     * Creates a new subclass of class sap.ui.mdc.table.DragDropConfig with name `sClassName` and enriches it
-     * with the information contained in `oClassInfo`.
-     *
-     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.dnd.DragDropBase.extend}.
-     *
-     *
-     * @returns Created class / constructor function
-     */
-    static extend<T extends Record<string, unknown>>(
-      /**
-       * Name of the class being created
-       */
-      sClassName: string,
-      /**
-       * Object literal with information about the class
-       */
-      oClassInfo?: sap.ClassInfo<T, DragDropConfig>,
-      /**
-       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
-       * used by this class
-       */
-      FNMetaImpl?: Function
-    ): Function;
-    /**
-     * Returns a metadata object for class sap.ui.mdc.table.DragDropConfig.
-     *
-     *
-     * @returns Metadata object describing this class
-     */
-    static getMetadata(): ElementMetadata;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when the row drag operation is ended, if the `draggable` property is set to true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragEnd(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragEndEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when the row drag operation is ended, if the `draggable` property is set to true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragEnd(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragEndEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when a dragged element enters a table row, if the `droppable` property is set to
-     * true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragEnter(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragEnterEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when a dragged element enters a table row, if the `droppable` property is set to
-     * true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragEnter(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragEnterEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when an element is being dragged over a table row, if the `droppable` property is
-     * set to true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragOver(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragOverEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when an element is being dragged over a table row, if the `droppable` property is
-     * set to true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragOver(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragOverEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when the user starts dragging a table row, if the `draggable` property is set to
-     * true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragStart(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragStartEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when the user starts dragging a table row, if the `draggable` property is set to
-     * true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDragStart(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragStartEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when an element is dropped on a table row, if the `droppable` property is set to
-     * true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDrop(
-      /**
-       * An application-specific payload object that will be passed to the event handler along with the event
-       * object when firing the event
-       */
-      oData: object,
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DropEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
-     * otherwise it will be bound to this `sap.ui.mdc.table.DragDropConfig` itself.
-     *
-     * This event is fired when an element is dropped on a table row, if the `droppable` property is set to
-     * true.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    attachDrop(
-      /**
-       * The function to be called when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DropEvent) => void,
-      /**
-       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.table.DragDropConfig` itself
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachDragEnd(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragEndEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachDragEnter(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragEnterEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachDragOver(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragOverEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachDragStart(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DragStartEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Detaches event handler `fnFunction` from the {@link #event:drop drop} event of this `sap.ui.mdc.table.DragDropConfig`.
-     *
-     * The passed function and listener object must match the ones used for event registration.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    detachDrop(
-      /**
-       * The function to be called, when the event occurs
-       */
-      fnFunction: (p1: DragDropConfig$DropEvent) => void,
-      /**
-       * Context object on which the given function had to be called
-       */
-      oListener?: object
-    ): this;
-    /**
-     * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    fireDragEnd(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: DragDropConfig$DragEndEventParameters
-    ): this;
-    /**
-     * Fires event {@link #event:dragEnter dragEnter} to attached listeners.
-     *
-     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
-     * event object. The return value of this method indicates whether the default action should be executed.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Whether or not to prevent the default action
-     */
-    fireDragEnter(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: DragDropConfig$DragEnterEventParameters
-    ): boolean;
-    /**
-     * Fires event {@link #event:dragOver dragOver} to attached listeners.
-     *
-     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
-     * event object. The return value of this method indicates whether the default action should be executed.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Whether or not to prevent the default action
-     */
-    fireDragOver(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: DragDropConfig$DragOverEventParameters
-    ): boolean;
-    /**
-     * Fires event {@link #event:dragStart dragStart} to attached listeners.
-     *
-     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
-     * event object. The return value of this method indicates whether the default action should be executed.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Whether or not to prevent the default action
-     */
-    fireDragStart(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: DragDropConfig$DragStartEventParameters
-    ): boolean;
-    /**
-     * Fires event {@link #event:drop drop} to attached listeners.
-     *
-     * @ui5-protected Do not call from applications (only from related classes in the framework)
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    fireDrop(
-      /**
-       * Parameters to pass along with the event
-       */
-      mParameters?: DragDropConfig$DropEventParameters
-    ): this;
-    /**
-     * Gets current value of property {@link #getDraggable draggable}.
-     *
-     * Determines whether the rows of the table are draggable.
-     *
-     * **Note:** Setting this property to `true` may expose the rows of the table in other `DropInfo` event
-     * parameters. In this case, only the binding context of the row is allowed to be used. Internal controls
-     * and their types are subject to change without notice.
-     *
-     * Default value is `false`.
-     *
-     *
-     * @returns Value of property `draggable`
-     */
-    getDraggable(): boolean;
-    /**
-     * Gets current value of property {@link #getDropEffect dropEffect}.
-     *
-     * Defines the visual drop effect.
-     *
-     * Default value is `"Move"`.
-     *
-     *
-     * @returns Value of property `dropEffect`
-     */
-    getDropEffect(): dnd.DropEffect;
-    /**
-     * Gets current value of property {@link #getDroppable droppable}.
-     *
-     * Determines whether the rows of the table are droppable.
-     *
-     * Default value is `false`.
-     *
-     *
-     * @returns Value of property `droppable`
-     */
-    getDroppable(): boolean;
-    /**
-     * Gets current value of property {@link #getDropPosition dropPosition}.
-     *
-     * Defines the position for the drop action, visualized by a rectangle.
-     *
-     * Default value is `"On"`.
-     *
-     *
-     * @returns Value of property `dropPosition`
-     */
-    getDropPosition(): dnd.DropPosition;
-    /**
-     * Sets a new value for property {@link #getDraggable draggable}.
-     *
-     * Determines whether the rows of the table are draggable.
-     *
-     * **Note:** Setting this property to `true` may expose the rows of the table in other `DropInfo` event
-     * parameters. In this case, only the binding context of the row is allowed to be used. Internal controls
-     * and their types are subject to change without notice.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDraggable(
-      /**
-       * New value for property `draggable`
-       */
-      bDraggable?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getDropEffect dropEffect}.
-     *
-     * Defines the visual drop effect.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `"Move"`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDropEffect(
-      /**
-       * New value for property `dropEffect`
-       */
-      sDropEffect?: dnd.DropEffect | keyof typeof dnd.DropEffect
-    ): this;
-    /**
-     * Sets a new value for property {@link #getDroppable droppable}.
-     *
-     * Determines whether the rows of the table are droppable.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `false`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDroppable(
-      /**
-       * New value for property `droppable`
-       */
-      bDroppable?: boolean
-    ): this;
-    /**
-     * Sets a new value for property {@link #getDropPosition dropPosition}.
-     *
-     * Defines the position for the drop action, visualized by a rectangle.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     * Default value is `"On"`.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDropPosition(
-      /**
-       * New value for property `dropPosition`
-       */
-      sDropPosition?: dnd.DropPosition | keyof typeof dnd.DropPosition
-    ): this;
-  }
-
   export type DragSource = Context | UI5Element;
-
-  /**
-   * Describes the settings that can be provided to the DragDropConfig constructor.
-   */
-  export interface $DragDropConfigSettings extends $DragDropBaseSettings {
-    /**
-     * Determines whether the rows of the table are draggable.
-     *
-     * **Note:** Setting this property to `true` may expose the rows of the table in other `DropInfo` event
-     * parameters. In this case, only the binding context of the row is allowed to be used. Internal controls
-     * and their types are subject to change without notice.
-     */
-    draggable?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Determines whether the rows of the table are droppable.
-     */
-    droppable?: boolean | PropertyBindingInfo | `{${string}}`;
-
-    /**
-     * Defines the visual drop effect.
-     */
-    dropEffect?:
-      | (dnd.DropEffect | keyof typeof dnd.DropEffect)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * Defines the position for the drop action, visualized by a rectangle.
-     */
-    dropPosition?:
-      | (dnd.DropPosition | keyof typeof dnd.DropPosition)
-      | PropertyBindingInfo
-      | `{${string}}`;
-
-    /**
-     * This event is fired when the user starts dragging a table row, if the `draggable` property is set to
-     * true.
-     */
-    dragStart?: (oEvent: DragDropConfig$DragStartEvent) => void;
-
-    /**
-     * This event is fired when the row drag operation is ended, if the `draggable` property is set to true.
-     */
-    dragEnd?: (oEvent: DragDropConfig$DragEndEvent) => void;
-
-    /**
-     * This event is fired when a dragged element enters a table row, if the `droppable` property is set to
-     * true.
-     */
-    dragEnter?: (oEvent: DragDropConfig$DragEnterEvent) => void;
-
-    /**
-     * This event is fired when an element is being dragged over a table row, if the `droppable` property is
-     * set to true.
-     */
-    dragOver?: (oEvent: DragDropConfig$DragOverEvent) => void;
-
-    /**
-     * This event is fired when an element is dropped on a table row, if the `droppable` property is set to
-     * true.
-     */
-    drop?: (oEvent: DragDropConfig$DropEvent) => void;
-  }
-
-  /**
-   * Parameters of the DragDropConfig#dragEnd event.
-   */
-  export interface DragDropConfig$DragEndEventParameters {
-    /**
-     * The binding context of the dragged row
-     */
-    bindingContext?: Context;
-
-    /**
-     * The underlying browser event
-     */
-    browserEvent?: DragEvent;
-  }
-
-  /**
-   * Event object of the DragDropConfig#dragEnd event.
-   */
-  export type DragDropConfig$DragEndEvent = Event<
-    DragDropConfig$DragEndEventParameters,
-    DragDropConfig
-  >;
-
-  /**
-   * Parameters of the DragDropConfig#dragEnter event.
-   */
-  export interface DragDropConfig$DragEnterEventParameters {
-    /**
-     * The binding context of the row on which the dragged element will be dropped
-     */
-    bindingContext?: Context;
-
-    /**
-     * The binding context of the dragged row or the dragged control itself
-     */
-    dragSource?: DragSource;
-
-    /**
-     * The calculated position of the drop action relative to the row being dropped
-     */
-    dropPosition?:
-      | dnd.RelativeDropPosition
-      | keyof typeof dnd.RelativeDropPosition;
-
-    /**
-     * The underlying browser event
-     */
-    browserEvent?: DragEvent;
-  }
-
-  /**
-   * Event object of the DragDropConfig#dragEnter event.
-   */
-  export type DragDropConfig$DragEnterEvent = Event<
-    DragDropConfig$DragEnterEventParameters,
-    DragDropConfig
-  >;
-
-  /**
-   * Parameters of the DragDropConfig#dragOver event.
-   */
-  export interface DragDropConfig$DragOverEventParameters {
-    /**
-     * The binding context of the row on which the dragged element will be dropped
-     */
-    bindingContext?: Context;
-
-    /**
-     * The binding context of the dragged row or the dragged control itself
-     */
-    dragSource?: DragSource;
-
-    /**
-     * The calculated position of the drop action relative to the row being dropped
-     */
-    dropPosition?:
-      | dnd.RelativeDropPosition
-      | keyof typeof dnd.RelativeDropPosition;
-
-    /**
-     * The underlying browser event
-     */
-    browserEvent?: DragEvent;
-  }
-
-  /**
-   * Event object of the DragDropConfig#dragOver event.
-   */
-  export type DragDropConfig$DragOverEvent = Event<
-    DragDropConfig$DragOverEventParameters,
-    DragDropConfig
-  >;
-
-  /**
-   * Parameters of the DragDropConfig#dragStart event.
-   */
-  export interface DragDropConfig$DragStartEventParameters {
-    /**
-     * The binding context of the dragged row
-     */
-    bindingContext?: Context;
-
-    /**
-     * The underlying browser event
-     */
-    browserEvent?: DragEvent;
-  }
-
-  /**
-   * Event object of the DragDropConfig#dragStart event.
-   */
-  export type DragDropConfig$DragStartEvent = Event<
-    DragDropConfig$DragStartEventParameters,
-    DragDropConfig
-  >;
-
-  /**
-   * Parameters of the DragDropConfig#drop event.
-   */
-  export interface DragDropConfig$DropEventParameters {
-    /**
-     * The binding context of the row on which the dragged element is dropped
-     */
-    bindingContext?: Context;
-
-    /**
-     * The binding context of the dragged row or the dragged control itself
-     */
-    dragSource?: DragSource;
-
-    /**
-     * The calculated position of the drop action relative to the dropped row
-     */
-    dropPosition?:
-      | dnd.RelativeDropPosition
-      | keyof typeof dnd.RelativeDropPosition;
-
-    /**
-     * The underlying browser event
-     */
-    browserEvent?: DragEvent;
-  }
-
-  /**
-   * Event object of the DragDropConfig#drop event.
-   */
-  export type DragDropConfig$DropEvent = Event<
-    DragDropConfig$DropEventParameters,
-    DragDropConfig
-  >;
 }
 
 declare module "sap/ui/mdc/table/GridTableType" {
@@ -23671,14 +23240,802 @@ declare module "sap/ui/mdc/util/PropertyHelper" {
   };
 }
 
+declare module "sap/ui/mdc/util/DragDropConfigBase" {
+  import {
+    default as DragDropBase,
+    $DragDropBaseSettings,
+  } from "sap/ui/core/dnd/DragDropBase";
+
+  import Event from "sap/ui/base/Event";
+
+  import { dnd } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Context from "sap/ui/model/Context";
+
+  /**
+   * Abstract base class for drag-and-drop configuration of MDC controls that wrap an inner control behind
+   * a hidden `_content` aggregation.
+   *
+   * Subclasses must implement {@link #_getItemsAggregationName} and {@link #_getDragSource}.
+   *
+   * @since 1.153
+   */
+  export default abstract class DragDropConfigBase extends DragDropBase {
+    /**
+     * Constructor for a new `DragDropConfigBase`.
+     *
+     * Provides the shared drag-and-drop infrastructure for `sap.ui.mdc.list.DragDropConfig` and `sap.ui.mdc.table.DragDropConfig`.
+     * Not intended for direct use by applications.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new object
+       */
+      mSettings?: $DragDropConfigBaseSettings
+    );
+    /**
+     * Constructor for a new `DragDropConfigBase`.
+     *
+     * Provides the shared drag-and-drop infrastructure for `sap.ui.mdc.list.DragDropConfig` and `sap.ui.mdc.table.DragDropConfig`.
+     * Not intended for direct use by applications.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new object, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new object
+       */
+      mSettings?: $DragDropConfigBaseSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.ui.mdc.util.DragDropConfigBase with name `sClassName` and enriches
+     * it with the information contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.dnd.DragDropBase.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, DragDropConfigBase>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.mdc.util.DragDropConfigBase.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when the drag operation is ended, if the `draggable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnd(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfigBase$DragEndEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when the drag operation is ended, if the `draggable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnd(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfigBase$DragEndEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when a dragged element enters an item, if the `droppable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnter(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when a dragged element enters an item, if the `droppable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragEnter(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when an element is being dragged over an item, if the `droppable` property is set
+     * to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragOver(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when an element is being dragged over an item, if the `droppable` property is set
+     * to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragOver(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when the user starts dragging an item, if the `draggable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragStart(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfigBase$DragStartEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when the user starts dragging an item, if the `draggable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDragStart(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: DragDropConfigBase$DragStartEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when an element is dropped on an item, if the `droppable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDrop(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:drop drop} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.util.DragDropConfigBase` itself.
+     *
+     * This event is fired when an element is dropped on an item, if the `droppable` property is set to `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDrop(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.util.DragDropConfigBase`
+       * itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragEnd dragEnd} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragEnd(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DragDropConfigBase$DragEndEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragEnter dragEnter} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragEnter(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragOver dragOver} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragOver(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:dragStart dragStart} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDragStart(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: DragDropConfigBase$DragStartEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:drop drop} event of this `sap.ui.mdc.util.DragDropConfigBase`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDrop(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:dragEnd dragEnd} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireDragEnd(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DragDropConfigBase$DragEndEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:dragEnter dragEnter} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireDragEnter(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): boolean;
+    /**
+     * Fires event {@link #event:dragOver dragOver} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireDragOver(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): boolean;
+    /**
+     * Fires event {@link #event:dragStart dragStart} to attached listeners.
+     *
+     * Listeners may prevent the default action of this event by calling the `preventDefault` method on the
+     * event object. The return value of this method indicates whether the default action should be executed.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Whether or not to prevent the default action
+     */
+    fireDragStart(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: DragDropConfigBase$DragStartEventParameters
+    ): boolean;
+    /**
+     * Fires event {@link #event:drop drop} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireDrop(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Gets current value of property {@link #getDraggable draggable}.
+     *
+     * Determines whether the items are draggable.
+     *
+     * **Note:** Setting this property to `true` may expose the items in other `DropInfo` event parameters.
+     * In this case, only the binding context of the item is allowed to be used. Internal controls and their
+     * types are subject to change without notice.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `draggable`
+     */
+    getDraggable(): boolean;
+    /**
+     * Gets current value of property {@link #getDropEffect dropEffect}.
+     *
+     * Defines the visual drop effect.
+     *
+     * Default value is `"Move"`.
+     *
+     *
+     * @returns Value of property `dropEffect`
+     */
+    getDropEffect(): dnd.DropEffect;
+    /**
+     * Gets current value of property {@link #getDroppable droppable}.
+     *
+     * Determines whether the items are droppable.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `droppable`
+     */
+    getDroppable(): boolean;
+    /**
+     * Gets current value of property {@link #getDropPosition dropPosition}.
+     *
+     * Defines the position for the drop action, visualized by a rectangle.
+     *
+     * Default value is `"On"`.
+     *
+     *
+     * @returns Value of property `dropPosition`
+     */
+    getDropPosition(): dnd.DropPosition;
+    /**
+     * Sets a new value for property {@link #getDraggable draggable}.
+     *
+     * Determines whether the items are draggable.
+     *
+     * **Note:** Setting this property to `true` may expose the items in other `DropInfo` event parameters.
+     * In this case, only the binding context of the item is allowed to be used. Internal controls and their
+     * types are subject to change without notice.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDraggable(
+      /**
+       * New value for property `draggable`
+       */
+      bDraggable?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDropEffect dropEffect}.
+     *
+     * Defines the visual drop effect.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"Move"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDropEffect(
+      /**
+       * New value for property `dropEffect`
+       */
+      sDropEffect?: dnd.DropEffect | keyof typeof dnd.DropEffect
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDroppable droppable}.
+     *
+     * Determines whether the items are droppable.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDroppable(
+      /**
+       * New value for property `droppable`
+       */
+      bDroppable?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDropPosition dropPosition}.
+     *
+     * Defines the position for the drop action, visualized by a rectangle.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `"On"`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDropPosition(
+      /**
+       * New value for property `dropPosition`
+       */
+      sDropPosition?: dnd.DropPosition | keyof typeof dnd.DropPosition
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the DragDropConfigBase constructor.
+   */
+  export interface $DragDropConfigBaseSettings extends $DragDropBaseSettings {
+    /**
+     * Determines whether the items are draggable.
+     *
+     * **Note:** Setting this property to `true` may expose the items in other `DropInfo` event parameters.
+     * In this case, only the binding context of the item is allowed to be used. Internal controls and their
+     * types are subject to change without notice.
+     */
+    draggable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the items are droppable.
+     */
+    droppable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the visual drop effect.
+     */
+    dropEffect?:
+      | (dnd.DropEffect | keyof typeof dnd.DropEffect)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the position for the drop action, visualized by a rectangle.
+     */
+    dropPosition?:
+      | (dnd.DropPosition | keyof typeof dnd.DropPosition)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * This event is fired when the user starts dragging an item, if the `draggable` property is set to `true`.
+     */
+    dragStart?: (oEvent: DragDropConfigBase$DragStartEvent) => void;
+
+    /**
+     * This event is fired when the drag operation is ended, if the `draggable` property is set to `true`.
+     */
+    dragEnd?: (oEvent: DragDropConfigBase$DragEndEvent) => void;
+
+    /**
+     * This event is fired when a dragged element enters an item, if the `droppable` property is set to `true`.
+     */
+    dragEnter?: (oEvent: Event) => void;
+
+    /**
+     * This event is fired when an element is being dragged over an item, if the `droppable` property is set
+     * to `true`.
+     */
+    dragOver?: (oEvent: Event) => void;
+
+    /**
+     * This event is fired when an element is dropped on an item, if the `droppable` property is set to `true`.
+     */
+    drop?: (oEvent: Event) => void;
+  }
+
+  /**
+   * Parameters of the DragDropConfigBase#dragEnd event.
+   */
+  export interface DragDropConfigBase$DragEndEventParameters {
+    /**
+     * The binding context of the dragged item
+     */
+    bindingContext?: Context;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
+  }
+
+  /**
+   * Event object of the DragDropConfigBase#dragEnd event.
+   */
+  export type DragDropConfigBase$DragEndEvent = Event<
+    DragDropConfigBase$DragEndEventParameters,
+    DragDropConfigBase
+  >;
+
+  /**
+   * Parameters of the DragDropConfigBase#dragEnter event.
+   */
+  export interface DragDropConfigBase$DragEnterEventParameters {}
+
+  /**
+   * Event object of the DragDropConfigBase#dragEnter event.
+   */
+  export type DragDropConfigBase$DragEnterEvent = Event<
+    DragDropConfigBase$DragEnterEventParameters,
+    DragDropConfigBase
+  >;
+
+  /**
+   * Parameters of the DragDropConfigBase#dragOver event.
+   */
+  export interface DragDropConfigBase$DragOverEventParameters {}
+
+  /**
+   * Event object of the DragDropConfigBase#dragOver event.
+   */
+  export type DragDropConfigBase$DragOverEvent = Event<
+    DragDropConfigBase$DragOverEventParameters,
+    DragDropConfigBase
+  >;
+
+  /**
+   * Parameters of the DragDropConfigBase#dragStart event.
+   */
+  export interface DragDropConfigBase$DragStartEventParameters {
+    /**
+     * The binding context of the dragged item
+     */
+    bindingContext?: Context;
+
+    /**
+     * The underlying browser event
+     */
+    browserEvent?: DragEvent;
+  }
+
+  /**
+   * Event object of the DragDropConfigBase#dragStart event.
+   */
+  export type DragDropConfigBase$DragStartEvent = Event<
+    DragDropConfigBase$DragStartEventParameters,
+    DragDropConfigBase
+  >;
+
+  /**
+   * Parameters of the DragDropConfigBase#drop event.
+   */
+  export interface DragDropConfigBase$DropEventParameters {}
+
+  /**
+   * Event object of the DragDropConfigBase#drop event.
+   */
+  export type DragDropConfigBase$DropEvent = Event<
+    DragDropConfigBase$DropEventParameters,
+    DragDropConfigBase
+  >;
+}
+
 declare module "sap/ui/mdc/ValueHelp" {
   import { default as Element1, $ElementSettings } from "sap/ui/mdc/Element";
 
   import Event from "sap/ui/base/Event";
 
+  import Control from "sap/ui/core/Control";
+
   import { valuehelp } from "sap/ui/mdc/library";
 
+  import FormatException from "sap/ui/model/FormatException";
+
+  import ParseException from "sap/ui/model/ParseException";
+
   import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import RequestShowContainerReason from "sap/ui/mdc/enums/RequestShowContainerReason";
+
+  import Type from "sap/ui/model/Type";
+
+  import FieldDisplay from "sap/ui/mdc/enums/FieldDisplay";
 
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
@@ -23803,6 +24160,112 @@ declare module "sap/ui/mdc/ValueHelp" {
       oListener?: object
     ): this;
     /**
+     * Attaches event handler `fnFunction` to the {@link #event:disconnect disconnect} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired when the `ValueHelp` element is disconnected from a control.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDisconnect(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:disconnect disconnect} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired when the `ValueHelp` element is disconnected from a control.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachDisconnect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:navigated navigated} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired after the user navigated, using the arrow keys, in the value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachNavigated(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$NavigatedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:navigated navigated} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired after the user navigated, using the arrow keys, in the value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachNavigated(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$NavigatedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
      * Attaches event handler `fnFunction` to the {@link #event:open open} event of this `sap.ui.mdc.ValueHelp`.
      *
      * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
@@ -23895,6 +24358,271 @@ declare module "sap/ui/mdc/ValueHelp" {
        * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
        */
       oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired when a value is selected in the value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachSelect(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$SelectEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:select select} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired when a value is selected in the value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachSelect(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$SelectEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:switchToValueHelp switchToValueHelp} event of
+     * this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired if the user wants to switch from typeahead to value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachSwitchToValueHelp(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:switchToValueHelp switchToValueHelp} event of
+     * this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired if the user wants to switch from typeahead to value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachSwitchToValueHelp(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:typeaheadSuggested typeaheadSuggested} event
+     * of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired after a suggested item has been found for a type-ahead.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * @since 1.120.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachTypeaheadSuggested(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$TypeaheadSuggestedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:typeaheadSuggested typeaheadSuggested} event
+     * of this `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired after a suggested item has been found for a type-ahead.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * @since 1.120.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachTypeaheadSuggested(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$TypeaheadSuggestedEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:visualFocusSet visualFocusSet} event of this
+     * `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired if the visual focus is set to the value help.
+     *
+     * In this case the visual focus needs to be removed from the opening field, but the real focus must stay
+     * there.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * @since 1.127.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachVisualFocusSet(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:visualFocusSet visualFocusSet} event of this
+     * `sap.ui.mdc.ValueHelp`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.ui.mdc.ValueHelp` itself.
+     *
+     * This event is fired if the visual focus is set to the value help.
+     *
+     * In this case the visual focus needs to be removed from the opening field, but the real focus must stay
+     * there.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * @since 1.127.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachVisualFocusSet(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.ui.mdc.ValueHelp` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * closes the value help.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     */
+    close(
+      /**
+       * If set, closing must not restore the focus on the field
+       */
+      bDoNotRestoreFocus: boolean
+    ): void;
+    /**
+     * Connects the `ValueHelp` element to a control.
+     *
+     * If the `ValueHelp` element is used as an association to multiple controls, it has to know the currently
+     * active control to open and interact.
+     *
+     * If the `ValueHelp` element is connected to a control, the `disconnected` event is fired to inform the
+     * previously connected control.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    connect(
+      /**
+       * Control to which the `ValueHelp` element is connected to
+       */
+      oControl: Control,
+      /**
+       * Configuration object that holds required data of the connected control
+       */
+      oConfig?: ConnectConfig
     ): this;
     /**
      * Destroys the dialog in the aggregation {@link #getDialog dialog}.
@@ -23923,6 +24651,42 @@ declare module "sap/ui/mdc/ValueHelp" {
        * The function to be called, when the event occurs
        */
       fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:disconnect disconnect} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachDisconnect(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:navigated navigated} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachNavigated(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$NavigatedEvent) => void,
       /**
        * Context object on which the given function had to be called
        */
@@ -23965,6 +24729,83 @@ declare module "sap/ui/mdc/ValueHelp" {
       oListener?: object
     ): this;
     /**
+     * Detaches event handler `fnFunction` from the {@link #event:select select} event of this `sap.ui.mdc.ValueHelp`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachSelect(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$SelectEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:switchToValueHelp switchToValueHelp} event
+     * of this `sap.ui.mdc.ValueHelp`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachSwitchToValueHelp(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:typeaheadSuggested typeaheadSuggested} event
+     * of this `sap.ui.mdc.ValueHelp`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.120.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachTypeaheadSuggested(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: ValueHelp$TypeaheadSuggestedEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:visualFocusSet visualFocusSet} event of this
+     * `sap.ui.mdc.ValueHelp`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     * @since 1.127.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachVisualFocusSet(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: Event) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
      * Fires event {@link #event:closed closed} to attached listeners.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -23976,6 +24817,32 @@ declare module "sap/ui/mdc/ValueHelp" {
        * Parameters to pass along with the event
        */
       mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:disconnect disconnect} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireDisconnect(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:navigated navigated} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireNavigated(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: ValueHelp$NavigatedEventParameters
     ): this;
     /**
      * Fires event {@link #event:open open} to attached listeners.
@@ -24003,6 +24870,88 @@ declare module "sap/ui/mdc/ValueHelp" {
        */
       mParameters?: ValueHelp$OpenedEventParameters
     ): this;
+    /**
+     * Fires event {@link #event:select select} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireSelect(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: ValueHelp$SelectEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:switchToValueHelp switchToValueHelp} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireSwitchToValueHelp(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Fires event {@link #event:typeaheadSuggested typeaheadSuggested} to attached listeners.
+     *
+     * @since 1.120.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireTypeaheadSuggested(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: ValueHelp$TypeaheadSuggestedEventParameters
+    ): this;
+    /**
+     * Fires event {@link #event:visualFocusSet visualFocusSet} to attached listeners.
+     *
+     * @since 1.127.0
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireVisualFocusSet(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: object
+    ): this;
+    /**
+     * Gets current value of property {@link #getConditions conditions}.
+     *
+     * The conditions of the selected items.
+     *
+     * **Note:** This property must only be set by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * **Note:** A condition must have the structure of {@link sap.ui.mdc.condition.ConditionObject ConditionObject}.
+     *
+     * **Note:** Always set the conditions from outside the value help only as long the value help is closed.
+     *
+     * Default value is `[]`.
+     *
+     *
+     * @returns Value of property `conditions`
+     */
+    getConditions(): object[];
+    /**
+     * Returns the control the value help is connected to.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     *
+     *
+     * @returns Control to which the `ValueHelp` element is connected to
+     */
+    getControl(): Control;
     /**
      * Gets current value of property {@link #getDelegate delegate}.
      *
@@ -24034,6 +24983,47 @@ declare module "sap/ui/mdc/ValueHelp" {
      */
     getDialog(): valuehelp.base.IDialogContainer;
     /**
+     * Gets current value of property {@link #getFilterValue filterValue}.
+     *
+     * The value by which the help is filtered. Here the field provides the typed value to allow the value help
+     * to filter for it.
+     *
+     * **Note:** This only takes effect if the `ValueHelp` elements content supports filtering.
+     *
+     * **Note:** This property must only be set by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Value of property `filterValue`
+     */
+    getFilterValue(): string;
+    /**
+     * Determines the icon for the value help.
+     *
+     *
+     * @returns Name of the icon. If `null` no value help icon will be shown and it is used only as typeahead.
+     */
+    getIcon(): null | string;
+    /**
+     * Determines the item (key and description) for a given value.
+     *
+     * The value help checks if there is an item with a key or description that fits this value.
+     *
+     * **Note:** This function must only be called by the control the `ValuedHelp` element belongs to, not by
+     * the application.
+     *
+     *
+     * @returns Promise returning object containing description, key and payload.
+     */
+    getItemForValue(
+      /**
+       * Configuration
+       */
+      oConfig: ItemForValueConfiguration
+    ): Promise<ValueHelpItem>;
+    /**
      * Gets content of aggregation {@link #getTypeahead typeahead}.
      *
      * Container that is used and opened in typeahead
@@ -24058,6 +25048,156 @@ declare module "sap/ui/mdc/ValueHelp" {
      * @returns Value of property `validateInput`
      */
     getValidateInput(): boolean;
+    /**
+     * Determines if the focus is set in the value help or stays in the calling control.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     *
+     *
+     * @returns if true, focus goes to the value help, if false it stays in the calling control.
+     */
+    isFocusInHelp(): boolean;
+    /**
+     * Determines if navigation via arrow keys should be possible.
+     *
+     * In ComboBox-like case keyboard-navigation should be anabled if closed and if open. If only typeahead
+     * is used (and maybe an value help dialog) keyboard-navigation schould be enabled only if typeahed is open.
+     *
+     * As not all rowas might be loaded navigation with home, end, page up or dowm might be disabled, depending
+     * of the used content.
+     *
+     *
+     * @returns If `true`, the navigation should be enabled if value help is closed
+     */
+    isNavigationEnabled(
+      /**
+       * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+       */
+      iStep: int
+    ): boolean;
+    /**
+     * Determines if the value help is open.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     *
+     *
+     * @returns true if open or opening
+     */
+    isOpen(): boolean;
+    /**
+     * If set, the connected field must not allow other values than the items of the `FixedList`. Free text
+     * must be prevented.
+     *
+     * @since 1.138
+     *
+     * @returns If set, only fixed values are allowed
+     */
+    isRestrictedToFixedValues(): boolean;
+    /**
+     * Defines if the value help can be used for input validation.
+     *
+     *
+     * @returns True if value help can be used for input validation
+     */
+    isValidationSupported(): boolean;
+    /**
+     * Triggers navigation in the value help.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     */
+    navigate(
+      /**
+       * Number of steps for navigation (e.g. 1 means next item, -1 means previous item)
+       */
+      iStep: int
+    ): void;
+    /**
+     * Triggers some logic that must be executed in `ValueHelp` element if a `Change` event on the connected
+     * control is fired.
+     *
+     * This is done if the corresponding control value is changed (not during navigation).
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     */
+    onControlChange(): void;
+    /**
+     * Opens the value help for the control to which the `ValueHelp` element is connected.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     */
+    open(
+      /**
+       * Flag that determines whether value help is opened for type-ahead or for complex help
+       */
+      bTypeahead: boolean
+    ): void;
+    /**
+     * The focus visualization of the field help needs to be removed as the user starts typing into the field.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     */
+    removeVisualFocus(): void;
+    /**
+     * Determines if the value help typeahead is to be opened on user interaction, navigation, or configuration
+     * changes.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     *
+     * @since 1.136
+     *
+     * @returns `true` if the value help container is shown
+     */
+    requestShowTypeahead(
+      /**
+       * Interaction event possibly triggering the opening of the value help
+       */
+      sReason:
+        | RequestShowContainerReason
+        | keyof typeof RequestShowContainerReason
+    ): Promise<boolean>;
+    /**
+     * Determines if the value help is to be opened with a dialog or typeahead in value help mode.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     *
+     * @since 1.136
+     *
+     * @returns `true` if the value help container is to be shown
+     */
+    requestShowValueHelp(): Promise<boolean>;
+    /**
+     * Sets a new value for property {@link #getConditions conditions}.
+     *
+     * The conditions of the selected items.
+     *
+     * **Note:** This property must only be set by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * **Note:** A condition must have the structure of {@link sap.ui.mdc.condition.ConditionObject ConditionObject}.
+     *
+     * **Note:** Always set the conditions from outside the value help only as long the value help is closed.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `[]`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setConditions(
+      /**
+       * New value for property `conditions`
+       */
+      sConditions?: object[]
+    ): this;
     /**
      * Sets a new value for property {@link #getDelegate delegate}.
      *
@@ -24102,6 +25242,42 @@ declare module "sap/ui/mdc/ValueHelp" {
       oDialog: valuehelp.base.IDialogContainer
     ): this;
     /**
+     * Sets a new value for property {@link #getFilterValue filterValue}.
+     *
+     * The value by which the help is filtered. Here the field provides the typed value to allow the value help
+     * to filter for it.
+     *
+     * **Note:** This only takes effect if the `ValueHelp` elements content supports filtering.
+     *
+     * **Note:** This property must only be set by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `empty string`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFilterValue(
+      /**
+       * New value for property `filterValue`
+       */
+      sFilterValue?: string
+    ): this;
+    /**
+     * Temporarily highlights a typeahead item identified by it's id. Navigation events or other updates may
+     * lead to the item no longer being highlighted.
+     *
+     * @since 1.123.0
+     */
+    setHighlightId(
+      /**
+       * control id of the item to be highlighted
+       */
+      sHighlightId: string
+    ): void;
+    /**
      * Sets the aggregated {@link #getTypeahead typeahead}.
      *
      *
@@ -24139,7 +25315,52 @@ declare module "sap/ui/mdc/ValueHelp" {
        */
       bValidateInput?: boolean
     ): this;
+    /**
+     * The focus visualization of the field help needs to be set as the user starts naigation into the value
+     * help items.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     *
+     * @since 1.127.0
+     */
+    setVisualFocus(): void;
+    /**
+     * Skips the opening of the value help if it is pending because of loading content.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     */
+    skipOpening(): void;
+    /**
+     * Toggles the open state of the value help.
+     *
+     * **Note:** This function must only be called by the control the `ValueHelp` element belongs to, not by
+     * the application.
+     */
+    toggleOpen(
+      /**
+       * Flag that determines whether value help is opened for type-ahead or for complex help
+       */
+      bTypeahead: boolean
+    ): void;
   }
+  /**
+   * Configuration object to be provided when connecting with a control.
+   */
+  export type ConnectConfig = (
+    maxConditions?: int,
+    dataType?: Type,
+    additionalDataType?: Type,
+    operators?: string[],
+    display?: FieldDisplay | keyof typeof FieldDisplay,
+    delegate?: object,
+    delegateName?: object,
+    payload?: object,
+    defaultOperatorName?: string,
+    emptyAllowed?: boolean
+  ) => object;
+
   /**
    * Configuration object type to determine a `ValueHelpItem` for a given value.
    */
@@ -24169,6 +25390,18 @@ declare module "sap/ui/mdc/ValueHelp" {
    */
   export interface $ValueHelpSettings extends $ElementSettings {
     /**
+     * The conditions of the selected items.
+     *
+     * **Note:** This property must only be set by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * **Note:** A condition must have the structure of {@link sap.ui.mdc.condition.ConditionObject ConditionObject}.
+     *
+     * **Note:** Always set the conditions from outside the value help only as long the value help is closed.
+     */
+    conditions?: object[] | PropertyBindingInfo | `{${string}}`;
+
+    /**
      * Object related to the `Delegate` module that provides the required APIs to execute model-specific logic.
      *  The object has the following properties:
      * 	 - `name` defines the path to the `Delegate` module. The used delegate module must inherit from {@link module:sap/ui/mdc/ValueHelpDelegate ValueHelpDelegate }
@@ -24185,6 +25418,17 @@ declare module "sap/ui/mdc/ValueHelp" {
      *  Do not bind or modify the module. This property can only be configured during control initialization.
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * The value by which the help is filtered. Here the field provides the typed value to allow the value help
+     * to filter for it.
+     *
+     * **Note:** This only takes effect if the `ValueHelp` elements content supports filtering.
+     *
+     * **Note:** This property must only be set by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     */
+    filterValue?: string | PropertyBindingInfo;
 
     /**
      * If this property is set, the user input of the corresponding field is validated against the value help.
@@ -24210,6 +25454,22 @@ declare module "sap/ui/mdc/ValueHelp" {
     typeahead?: valuehelp.base.ITypeaheadContainer;
 
     /**
+     * This event is fired when a value is selected in the value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     */
+    select?: (oEvent: ValueHelp$SelectEvent) => void;
+
+    /**
+     * This event is fired when the `ValueHelp` element is disconnected from a control.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     */
+    disconnect?: (oEvent: Event) => void;
+
+    /**
      * This event is fired after the value help has been closed.
      */
     closed?: (oEvent: Event) => void;
@@ -24223,6 +25483,45 @@ declare module "sap/ui/mdc/ValueHelp" {
      * This event is fired as the value help is fully open.
      */
     opened?: (oEvent: ValueHelp$OpenedEvent) => void;
+
+    /**
+     * This event is fired after the user navigated, using the arrow keys, in the value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     */
+    navigated?: (oEvent: ValueHelp$NavigatedEvent) => void;
+
+    /**
+     * This event is fired if the user wants to switch from typeahead to value help.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     */
+    switchToValueHelp?: (oEvent: Event) => void;
+
+    /**
+     * This event is fired after a suggested item has been found for a type-ahead.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * @since 1.120.0
+     */
+    typeaheadSuggested?: (oEvent: ValueHelp$TypeaheadSuggestedEvent) => void;
+
+    /**
+     * This event is fired if the visual focus is set to the value help.
+     *
+     * In this case the visual focus needs to be removed from the opening field, but the real focus must stay
+     * there.
+     *
+     * **Note:** This event must only be handled by the control the `ValueHelp` element belongs to, not by the
+     * application.
+     *
+     * @since 1.127.0
+     */
+    visualFocusSet?: (oEvent: Event) => void;
   }
 
   /**
@@ -28461,6 +29760,16 @@ declare namespace sap {
 
     "sap/ui/mdc/enums/LinkType": undefined;
 
+    "sap/ui/mdc/enums/ListActionType": undefined;
+
+    "sap/ui/mdc/enums/ListGrowingMode": undefined;
+
+    "sap/ui/mdc/enums/ListP13nMode": undefined;
+
+    "sap/ui/mdc/enums/ListSelectionMode": undefined;
+
+    "sap/ui/mdc/enums/ListType": undefined;
+
     "sap/ui/mdc/enums/OperatorName": undefined;
 
     "sap/ui/mdc/enums/OperatorOverwrite": undefined;
@@ -28579,6 +29888,22 @@ declare namespace sap {
 
     "sap/ui/mdc/LinkDelegate": undefined;
 
+    "sap/ui/mdc/List": undefined;
+
+    "sap/ui/mdc/list/DragDropConfig": undefined;
+
+    "sap/ui/mdc/list/GridListType": undefined;
+
+    "sap/ui/mdc/list/ItemActionItem": undefined;
+
+    "sap/ui/mdc/list/ItemSettings": undefined;
+
+    "sap/ui/mdc/list/ListType": undefined;
+
+    "sap/ui/mdc/list/ListTypeBase": undefined;
+
+    "sap/ui/mdc/ListDelegate": undefined;
+
     "sap/ui/mdc/mixin/ActionToolbarMixin": undefined;
 
     "sap/ui/mdc/mixin/AdaptationMixin": undefined;
@@ -28643,13 +29968,21 @@ declare namespace sap {
 
     "sap/ui/mdc/TableDelegate": undefined;
 
+    "sap/ui/mdc/util/Common": undefined;
+
     "sap/ui/mdc/util/DateUtil": undefined;
 
     "sap/ui/mdc/util/DensityHelper": undefined;
 
+    "sap/ui/mdc/util/DragDropConfigBase": undefined;
+
+    "sap/ui/mdc/util/ExportUtils": undefined;
+
     "sap/ui/mdc/util/FilterUtil": undefined;
 
     "sap/ui/mdc/util/InfoBar": undefined;
+
+    "sap/ui/mdc/util/P13nUtils": undefined;
 
     "sap/ui/mdc/util/PromiseCache": undefined;
 

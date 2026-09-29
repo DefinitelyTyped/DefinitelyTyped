@@ -1,4 +1,4 @@
-// For Library Version: 1.152.0
+// For Library Version: 1.153.0
 
 declare module "sap/ui/rta/api/startAdaptation" {
   import Control from "sap/ui/core/Control";
@@ -199,6 +199,8 @@ declare module "sap/ui/rta/plugin/annotations/AnnotationChangeDialog" {
 
 declare namespace sap {
   interface IUI5DefineDependencyNames {
+    "sap/ui/rta/api/FrontendActionsAPI": undefined;
+
     "sap/ui/rta/api/startAdaptation": undefined;
 
     "sap/ui/rta/api/startKeyUserAdaptation": undefined;
@@ -220,6 +222,12 @@ declare namespace sap {
     "sap/ui/rta/service/Property": undefined;
 
     "sap/ui/rta/service/Selection": undefined;
+
+    "sap/ui/rta/util/ai/AIVisualization": undefined;
+
+    "sap/ui/rta/util/ai/FrontendActionError": undefined;
+
+    "sap/ui/rta/util/ai/FrontendActionResult": undefined;
 
     "sap/ui/rta/util/ReloadManager": undefined;
   }
