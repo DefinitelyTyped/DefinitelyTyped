@@ -7,6 +7,7 @@ declare function ReactReconciler<
     Container,
     Instance,
     TextInstance,
+    ActivityInstance,
     SuspenseInstance,
     HydratableInstance,
     FormInstance,
@@ -16,6 +17,11 @@ declare function ReactReconciler<
     TimeoutHandle,
     NoTimeout,
     TransitionStatus,
+    SuspendedState,
+    RendererInspectionConfig,
+    FormStateMarkerInstance,
+    HoistableRoot,
+    Resource,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -24,6 +30,7 @@ declare function ReactReconciler<
         Container,
         Instance,
         TextInstance,
+        ActivityInstance,
         SuspenseInstance,
         HydratableInstance,
         FormInstance,
@@ -32,7 +39,12 @@ declare function ReactReconciler<
         ChildSet,
         TimeoutHandle,
         NoTimeout,
-        TransitionStatus
+        TransitionStatus,
+        SuspendedState,
+        RendererInspectionConfig,
+        FormStateMarkerInstance,
+        HoistableRoot,
+        Resource
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
@@ -43,6 +55,7 @@ declare namespace ReactReconciler {
         Container,
         Instance,
         TextInstance,
+        ActivityInstance,
         SuspenseInstance,
         HydratableInstance,
         FormInstance,
@@ -52,6 +65,11 @@ declare namespace ReactReconciler {
         TimeoutHandle,
         NoTimeout,
         TransitionStatus,
+        SuspendedState,
+        RendererInspectionConfig,
+        FormStateMarkerInstance,
+        HoistableRoot,
+        Resource,
     > {
         // -------------------
         //        Modes
@@ -93,6 +111,30 @@ declare namespace ReactReconciler {
          * If you're not sure which one you want, you likely need the mutation mode.
          */
         supportsPersistence: boolean;
+
+        // -------------------
+        //  Renderer metadata
+        // -------------------
+
+        /**
+         * The version of your renderer. React DevTools reports this alongside the reconciler version, which may differ for third-party renderers.
+         */
+        rendererVersion: string;
+
+        /**
+         * The npm package name of your renderer, reported to React DevTools.
+         */
+        rendererPackageName: string;
+
+        /**
+         * Extra renderer-specific configuration exposed to React DevTools as `rendererConfig`. Return `null` if you have nothing to expose.
+         */
+        extraDevToolsConfig: RendererInspectionConfig | null;
+
+        /**
+         * Binds a `console` method call (as captured by React's replaying of Server console logs on the client) so it can be invoked later, optionally tagging it with an environment name badge.
+         */
+        bindToConsole(methodName: string, args: any[], badgeName: string): () => any;
 
         // -------------------
         //    Core Methods
@@ -180,7 +222,7 @@ declare namespace ReactReconciler {
          *
          * This method happens **in the render phase**. Do not mutate the tree from it.
          */
-        getChildHostContext(parentHostContext: HostContext, type: Type, rootContainer: Container): HostContext;
+        getChildHostContext(parentHostContext: HostContext, type: Type): HostContext;
 
         /**
          * Determines what object gets exposed as a ref. You'll likely want to return the `instance` itself. But in some cases it might make sense to only expose some part of it.
@@ -404,11 +446,25 @@ declare namespace ReactReconciler {
         // -------------------
         supportsHydration: boolean;
 
-        canHydrateInstance?(instance: HydratableInstance, type: Type, props: Props): null | Instance;
+        canHydrateInstance?(
+            instance: HydratableInstance,
+            type: Type,
+            props: Props,
+            inRootOrSingleton: boolean,
+        ): null | Instance;
 
-        canHydrateTextInstance?(instance: HydratableInstance, text: string): null | TextInstance;
+        canHydrateTextInstance?(
+            instance: HydratableInstance,
+            text: string,
+            inRootOrSingleton: boolean,
+        ): null | TextInstance;
 
-        canHydrateSuspenseInstance?(instance: HydratableInstance): null | SuspenseInstance;
+        canHydrateActivityInstance?(
+            instance: HydratableInstance,
+            inRootOrSingleton: boolean,
+        ): null | ActivityInstance;
+
+        canHydrateSuspenseInstance?(instance: HydratableInstance, inRootOrSingleton: boolean): null | SuspenseInstance;
 
         isSuspenseInstancePending?(instance: SuspenseInstance): boolean;
 
@@ -424,73 +480,111 @@ declare namespace ReactReconciler {
             instance: Instance,
             type: Type,
             props: Props,
-            rootContainerInstance: Container,
             hostContext: HostContext,
             internalInstanceHandle: any,
-        ): null | any[];
+        ): boolean;
 
-        hydrateTextInstance?(textInstance: TextInstance, text: string, internalInstanceHandle: any): boolean;
+        hydrateTextInstance?(
+            textInstance: TextInstance,
+            text: string,
+            internalInstanceHandle: any,
+            parentProps: null | Props,
+        ): boolean;
+
+        hydrateActivityInstance?(activityInstance: ActivityInstance, internalInstanceHandle: any): void;
 
         hydrateSuspenseInstance?(suspenseInstance: SuspenseInstance, internalInstanceHandle: any): void;
 
-        getNextHydratableInstanceAfterSuspenseInstance?(suspenseInstance: SuspenseInstance): null | HydratableInstance;
+        getNextHydratableInstanceAfterActivityInstance?(activityInstance: ActivityInstance): null | HydratableInstance;
 
-        // Returns the SuspenseInstance if this node is a direct child of a
-        // SuspenseInstance. I.e. if its previous sibling is a Comment with
-        // SUSPENSE_x_START_DATA. Otherwise, null.
-        getParentSuspenseInstance?(targetInstance: any): null | SuspenseInstance;
+        getNextHydratableInstanceAfterSuspenseInstance?(suspenseInstance: SuspenseInstance): null | HydratableInstance;
 
         commitHydratedContainer?(container: Container): void;
 
-        commitHydratedSuspenseInstance?(suspenseInstance: SuspenseInstance): void;
+        commitHydratedInstance?(instance: Instance, type: Type, props: Props, internalHandle: OpaqueHandle): void;
 
-        didNotMatchHydratedContainerTextInstance?(
-            parentContainer: Container,
-            textInstance: TextInstance,
-            text: string,
-        ): void;
+        commitHydratedActivityInstance?(activityInstance: ActivityInstance): void;
 
-        didNotMatchHydratedTextInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
-            textInstance: TextInstance,
-            text: string,
-        ): void;
-
-        didNotHydrateContainerInstance?(parentContainer: Container, instance: HydratableInstance): void;
-
-        didNotHydrateInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
-            instance: HydratableInstance,
-        ): void;
-
-        didNotFindHydratableContainerInstance?(parentContainer: Container, type: Type, props: Props): void;
-
-        didNotFindHydratableContainerTextInstance?(parentContainer: Container, text: string): void;
-
-        didNotFindHydratableContainerSuspenseInstance?(parentContainer: Container): void;
-
-        didNotFindHydratableInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
+        finalizeHydratedChildren?(
+            instance: Instance,
             type: Type,
             props: Props,
-        ): void;
+            hostContext: HostContext,
+        ): boolean;
 
-        didNotFindHydratableTextInstance?(
-            parentType: Type,
-            parentProps: Props,
-            parentInstance: Instance,
+        flushHydrationEvents?(): void;
+
+        clearActivityBoundary?(parentInstance: Instance, activityInstance: ActivityInstance): void;
+
+        clearSuspenseBoundary?(parentInstance: Instance, suspenseInstance: SuspenseInstance): void;
+
+        clearActivityBoundaryFromContainer?(container: Container, activityInstance: ActivityInstance): void;
+
+        clearSuspenseBoundaryFromContainer?(container: Container, suspenseInstance: SuspenseInstance): void;
+
+        hideDehydratedBoundary?(suspenseInstance: SuspenseInstance): void;
+
+        unhideDehydratedBoundary?(dehydratedInstance: SuspenseInstance | ActivityInstance): void;
+
+        shouldDeleteUnhydratedTailInstances?(parentType: Type): boolean;
+
+        getFirstHydratableChildWithinContainer?(parentContainer: Container): HydratableInstance | null;
+
+        getFirstHydratableChildWithinActivityInstance?(
+            parentInstance: ActivityInstance,
+        ): HydratableInstance | null;
+
+        getFirstHydratableChildWithinSuspenseInstance?(
+            parentInstance: SuspenseInstance,
+        ): HydratableInstance | null;
+
+        getFirstHydratableChildWithinSingleton?(
+            type: Type,
+            singletonInstance: Instance,
+            currentHydratableInstance: HydratableInstance | null,
+        ): HydratableInstance | null;
+
+        getNextHydratableSiblingAfterSingleton?(
+            type: Type,
+            currentHydratableInstance: HydratableInstance | null,
+        ): HydratableInstance | null;
+
+        getSuspenseInstanceFallbackErrorDetails?(
+            instance: SuspenseInstance,
+        ): SuspenseInstanceFallbackErrorDetails;
+
+        canHydrateFormStateMarker?(
+            instance: HydratableInstance,
+            inRootOrSingleton: boolean,
+        ): FormStateMarkerInstance | null;
+
+        isFormStateMarkerMatching?(markerInstance: FormStateMarkerInstance): boolean;
+
+        /**
+         * Replaces the removed `didNotMatchHydrated*` / `didNotFindHydratable*` dev warnings.
+         */
+        diffHydratedPropsForDevWarnings?(
+            instance: Instance,
+            type: Type,
+            props: Props,
+            hostContext: HostContext,
+        ): Props | null;
+
+        diffHydratedTextForDevWarnings?(
+            textInstance: TextInstance,
             text: string,
-        ): void;
+            parentProps: Props | null,
+        ): string | null;
 
-        didNotFindHydratableSuspenseInstance?(parentType: Type, parentProps: Props, parentInstance: Instance): void;
+        describeHydratableInstanceForDevWarnings?(
+            instance: HydratableInstance,
+        ): string | HydratableInstanceDescription;
 
-        errorHydratingContainer?(parentContainer: Container): void;
+        validateHydratableInstance?(type: Type, props: Props, hostContext: HostContext): boolean;
+
+        validateHydratableTextInstance?(text: string, hostContext: HostContext): boolean;
+
+        commitHydratedSuspenseInstance?(suspenseInstance: SuspenseInstance): void;
 
         // Undocumented
         // https://github.com/facebook/react/pull/26722
@@ -524,19 +618,34 @@ declare namespace ReactReconciler {
         maySuspendCommit(type: Type, props: Props): boolean;
 
         /**
+         * Same as `maySuspendCommit`, but called for an update to an existing instance instead of its initial mount, so it receives both the old and new props.
+         */
+        maySuspendCommitOnUpdate(type: Type, oldProps: Props, newProps: Props): boolean;
+
+        /**
+         * This method is called during a sync render to determine if the Host Component type and props are still allowed to suspend the commit. Host configs that don't want to suspend sync commits should always return `false`.
+         */
+        maySuspendCommitInSyncRender(type: Type, props: Props): boolean;
+
+        /**
          * This method may be called during render if the Host Component type and props might suspend a commit. It can be used to initiate any work that might shorten the duration of a suspended commit.
          */
-        preloadInstance(type: Type, props: Props): boolean;
+        preloadInstance(instance: Instance, type: Type, props: Props): boolean;
 
         /**
          * This method is called just before the commit phase. Use it to set up any necessary state while any Host Components that might suspend this commit are evaluated to determine if the commit must be suspended.
          */
-        startSuspendingCommit(): void;
+        startSuspendingCommit(): SuspendedState;
 
         /**
          * This method is called after `startSuspendingCommit` for each Host Component that indicated it might suspend a commit.
          */
-        suspendInstance(type: Type, props: Props): void;
+        suspendInstance(state: SuspendedState, instance: Instance, type: Type, props: Props): void;
+
+        /**
+         * This method is called after `startSuspendingCommit` if there is a View Transition currently active on the root that the commit should wait to finish before proceeding.
+         */
+        suspendOnActiveViewTransition(state: SuspendedState, rootContainer: Container): void;
 
         /**
          * This method is called after all `suspendInstance` calls are complete.
@@ -545,9 +654,136 @@ declare namespace ReactReconciler {
          *
          * Return `(initiateCommit: Function) => Function` if the commit must be suspended. The argument to this callback will initiate the commit when called. The return value is a cancellation function that the Reconciler can use to abort the commit.
          */
-        waitForCommitToBeReady():
+        waitForCommitToBeReady(
+            state: SuspendedState,
+            timeoutOffset: number,
+        ):
             | ((initiateCommit: (...args: unknown[]) => unknown) => (...args: unknown[]) => unknown)
             | null;
+
+        /**
+         * This method is called when a commit is suspended, to record why. It is only called when the profiler is enabled, and the result is attached to the pending commit. Return `null` if there's nothing to report.
+         */
+        getSuspendedCommitReason(state: SuspendedState, rootContainer: Container): null | string;
+
+        // -------------------
+        //     Resources
+        //     (optional)
+        // -------------------
+        /**
+         * Set this to `true` if your renderer supports Resources, e.g. hoistable `<link>`/`<style>`/`<script>` tags that get deduplicated and hoisted regardless of where in the tree they are rendered. See the "Resources" section [listed in this file](https://github.com/facebook/react/blob/master/packages/react-reconciler/src/forks/ReactFiberConfig.custom.js) for the rest of the methods you need to implement.
+         */
+        supportsResources?: boolean;
+
+        isHostHoistableType?(type: Type, props: Props, hostContext: HostContext): boolean;
+
+        getHoistableRoot?(container: Container): HoistableRoot;
+
+        getResource?(
+            type: Type,
+            currentProps: Props | null,
+            pendingProps: Props,
+            currentResource: null | Resource,
+        ): null | Resource;
+
+        acquireResource?(hoistableRoot: HoistableRoot, resource: Resource, props: Props): null | Instance;
+
+        releaseResource?(resource: Resource): void;
+
+        hydrateHoistable?(
+            hoistableRoot: HoistableRoot,
+            type: Type,
+            props: Props,
+            internalInstanceHandle: OpaqueHandle,
+        ): Instance;
+
+        mountHoistable?(hoistableRoot: HoistableRoot, type: Type, instance: Instance): void;
+
+        unmountHoistable?(instance: Instance): void;
+
+        createHoistableInstance?(
+            type: Type,
+            props: Props,
+            rootContainerInstance: Container,
+            internalInstanceHandle: OpaqueHandle,
+        ): Instance;
+
+        prepareToCommitHoistables?(): void;
+
+        mayResourceSuspendCommit?(resource: Resource): boolean;
+
+        preloadResource?(resource: Resource): boolean;
+
+        suspendResource?(
+            state: SuspendedState,
+            hoistableRoot: HoistableRoot,
+            resource: Resource,
+            props: Props,
+        ): void;
+
+        // -------------------
+        //     Singletons
+        //     (optional)
+        // -------------------
+        /**
+         * Set this to `true` if your renderer supports Singletons, i.e. built-in host components that always exist as a single instance per root and are never created or removed, such as `<html>`, `<head>`, and `<body>` in React DOM.
+         */
+        supportsSingletons?: boolean;
+
+        resolveSingletonInstance?(
+            type: Type,
+            props: Props,
+            rootContainerInstance: Container,
+            hostContext: HostContext,
+            validateDOMNestingDev: boolean,
+        ): Instance;
+
+        acquireSingletonInstance?(
+            type: Type,
+            props: Props,
+            instance: Instance,
+            internalInstanceHandle: OpaqueHandle,
+        ): void;
+
+        releaseSingletonInstance?(instance: Instance): void;
+
+        isHostSingletonType?(type: Type): boolean;
+
+        isSingletonScope?(type: Type): boolean;
+
+        // -------------------
+        //   Test selectors
+        //     (optional)
+        // -------------------
+        /**
+         * Set this to `true` to support the test selector API, i.e. `findAllNodes`/`findBoundingRects`/`focusWithin`/`observeVisibleRects` on the `Reconciler` instance.
+         */
+        supportsTestSelectors?: boolean;
+
+        findFiberRoot?(node: Instance): null | FiberRoot;
+
+        getBoundingRect?(node: Instance): BoundingRect;
+
+        getTextContent?(fiber: Fiber): string | null;
+
+        isHiddenSubtree?(fiber: Fiber): boolean;
+
+        matchAccessibilityRole?(node: Instance, role: string): boolean;
+
+        /**
+         * The reconciler always calls this with just the node; host-specific focus options (such as the DOM's `FocusOptions`) are not passed through.
+         */
+        setFocusIfFocusable?(node: Instance): boolean;
+
+        setupIntersectionObserver?(
+            targets: Instance[],
+            callback: (intersections: Array<{ ratio: number; rect: BoundingRect }>) => void,
+            options?: IntersectionObserverOptions,
+        ): {
+            disconnect: () => void;
+            observe: (instance: Instance) => void;
+            unobserve: (instance: Instance) => void;
+        };
     }
 
     interface Thenable<T> {
@@ -926,6 +1162,18 @@ declare namespace ReactReconciler {
 
     type IntersectionObserverOptions = any;
 
+    interface SuspenseInstanceFallbackErrorDetails {
+        digest: string | null | undefined;
+        message?: string;
+        stack?: string;
+        componentStack?: string;
+    }
+
+    interface HydratableInstanceDescription {
+        type: string;
+        props: Readonly<Record<string, unknown>>;
+    }
+
     interface BaseErrorInfo {
         componentStack?: string;
     }
@@ -942,6 +1190,7 @@ declare namespace ReactReconciler {
             onCaughtError: (error: Error, info: BaseErrorInfo) => void,
             onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
             onDefaultTransitionIndicator: () => void,
+            transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 
         createPortal(
@@ -1013,9 +1262,6 @@ declare namespace ReactReconciler {
 
         discreteUpdates<A, B, C, D, R>(fn: (arg0: A, arg1: B, arg2: C, arg3: D) => R, a: A, b: B, c: C, d: D): R;
 
-        flushSync(): void;
-        flushSync<R>(fn: () => R): R;
-
         flushSyncFromReconciler(): void;
         flushSyncFromReconciler<R>(fn: () => R): R;
 
@@ -1043,19 +1289,19 @@ declare namespace ReactReconciler {
 
         shouldSuspend(fiber: Fiber): boolean;
 
-        injectIntoDevTools(devToolsConfig: DevToolsConfig<Instance, TextInstance, any>): boolean;
+        injectIntoDevTools(): boolean;
+
+        defaultOnUncaughtError(error: Error, errorInfo: BaseErrorInfo): void;
+        defaultOnCaughtError(error: Error, errorInfo: BaseErrorInfo & { errorBoundary?: Component }): void;
+        defaultOnRecoverableError(error: Error, errorInfo: BaseErrorInfo): void;
+
+        startHostTransition(
+            formFiber: Fiber,
+            pendingState: unknown,
+            action: ((formData: FormData) => void) | null,
+            formData: FormData,
+        ): void;
     }
-
-    function defaultOnUncaughtError(error: Error): void;
-    function defaultOnCaughtError(error: Error): void;
-    function defaultOnRecoverableError(error: Error): void;
-
-    function startHostTransition(
-        formFiber: Fiber,
-        pendingState: unknown,
-        action: ((formData: FormData) => void) | null,
-        formData: FormData,
-    ): void;
 }
 
 export = ReactReconciler;
