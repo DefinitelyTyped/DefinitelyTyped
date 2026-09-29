@@ -41,9 +41,4 @@ export class SkeletonHelper extends LineSegments {
      * @return {SkeletonHelper} A reference to this helper.
      */
     setColors(color1: Color, color2: Color): SkeletonHelper;
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

@@ -924,7 +924,7 @@ export type TokenEndpointGrantContext<Params extends object = UnknownObject> = K
 
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 // BEGIN GENERATED OIDC-PROVIDER CONTRACTS
-// oidc-provider types artifact "9.12.0"; schema 1; sha256 781afaad6598727ec6dbbfea7486752924eb51914dd4cac579f9244a84041e9a
+// oidc-provider types artifact "9.12.2"; schema 1; sha256 11025a446176381071882466ac96dbe5438f648e8e372303501ea1c1c923abd2
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,

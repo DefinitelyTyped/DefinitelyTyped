@@ -1616,15 +1616,30 @@ provider.registerGrantType<TokenExchangeParameters>(
         const authorizationDetailsSource: grantHelpers.AuthorizationDetailsSource = source;
         authorizationDetailsSource.rar?.[0].type.substring(0);
 
-        const constraints: grantHelpers.SenderConstraints = await grantHelpers.validateSenderConstraints(
+        const dPoP = await grantHelpers.validateDpop(provider, ctx);
+        await grantHelpers.validateDpop(provider, ctx, "access-token");
+        dPoP?.thumbprint.substring(0);
+        dPoP?.jti.substring(0);
+        dPoP?.iat.toFixed();
+        const certificate = grantHelpers.checkMtlsCert(provider, ctx);
+        grantHelpers.checkMtlsCert(provider, ctx, oidc.errors.InvalidRequest);
+        if (typeof certificate === "string") {
+            certificate.substring(0);
+        } else {
+            certificate?.fingerprint256.substring(0);
+        }
+        grantHelpers.checkDpopRequired(provider, ctx, dPoP);
+        grantHelpers.checkDpopRequired(provider, ctx, undefined, oidc.errors.InvalidRequest);
+        await grantHelpers.checkDpopReplay(provider, ctx, dPoP, ctx.oidc.client.clientId);
+        await grantHelpers.checkDpopReplay(
             provider,
             ctx,
-            oidc.errors.InvalidGrant,
+            undefined,
+            ctx.oidc.client.clientId,
+            oidc.errors.InvalidRequest,
         );
-        constraints.dPoP?.thumbprint.substring(0);
-        constraints.dPoP?.jti.substring(0);
-        constraints.dPoP?.iat.toFixed();
-        await grantHelpers.applySenderConstraints(provider, ctx, accessToken, constraints, oidc.errors.InvalidRequest);
+        if (certificate) accessToken.setThumbprint("x5t", certificate);
+        if (dPoP) accessToken.setThumbprint("jkt", dPoP.thumbprint);
         await grantHelpers.applyAuthorizationDetails(provider, ctx, accessToken, source);
 
         const refreshToken = new provider.RefreshToken({
@@ -1664,7 +1679,7 @@ provider.registerGrantType<TokenExchangeParameters>(
 
         const errorConstructor: grantHelpers.OIDCProviderErrorConstructor = oidc.errors.InvalidGrant;
         errorConstructor.name.substring(0);
-        const dpopResult: grantHelpers.DPoPValidationResult | undefined = constraints.dPoP;
+        const dpopResult: grantHelpers.DPoPValidationResult | undefined = dPoP;
         dpopResult?.thumbprint.substring(0);
 
         // @ts-expect-error The provider argument must be an oidc-provider instance.

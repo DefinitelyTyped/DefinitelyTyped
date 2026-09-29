@@ -122,6 +122,16 @@ export class WebSocket {
      * https://grafana.com/docs/k6/latest/javascript-api/k6-websockets/websocket/websocket-onpong/
      */
     onpong: () => void;
+
+    static readonly CONNECTING: 0;
+    static readonly OPEN: 1;
+    static readonly CLOSING: 2;
+    static readonly CLOSED: 3;
+
+    readonly CONNECTING: 0;
+    readonly OPEN: 1;
+    readonly CLOSING: 2;
+    readonly CLOSED: 3;
 }
 
 export type BlobPart = ArrayBuffer | ArrayBufferView | Blob | string;
@@ -171,72 +181,19 @@ export interface Params {
 /**
  * ReadyState describes the possible states of a WebSocket connection.
  */
-export enum ReadyState {
-    /**
-     * Socket has been created. The connection is not yet open.
-     */
-    Connecting = 0,
-
-    /**
-     * The connection is open and ready to communicate.
-     */
-    Open = 1,
-
-    /**
-     * The connection is in the process of closing.
-     */
-    Closing = 2,
-
-    /**
-     * The connection is closed or couldn't be opened.
-     */
-    Closed = 3,
-}
+export type ReadyState = 0 | 1 | 2 | 3;
 
 /**
  * BinaryType describes the possible types of binary data that can be
  * transmitted over a Websocket connection.
  */
-export enum BinaryType {
-    Blob = "blob",
-    ArrayBuffer = "arraybuffer",
-}
+export type BinaryType = "blob" | "arraybuffer";
 
 /**
  * EventName describes the possible events that can be emitted
  * by a Websocket connection.
  */
-export enum EventName {
-    /**
-     * Event fired when the connection is opened and ready to communicate.
-     */
-    Open = "open",
-
-    /**
-     * Event fired when the connection has been closed.
-     */
-    Close = "close",
-
-    /**
-     * Event fired when a connection has been closed due to an error.
-     */
-    Error = "error",
-
-    /**
-     * Event fired when a message has been received from the server.
-     */
-    Message = "message",
-
-    /**
-     * Event fired when a ping message has been received from the server.
-     */
-    Ping = "ping",
-
-    /**
-     * Event fired when a pong message has been received from the server.
-     */
-    Pong = "pong",
-}
+export type EventName = "open" | "close" | "error" | "message" | "ping" | "pong";
 
 /**
  * MessageEvent is a simple interface that holds the data of a message received from the server.
@@ -250,46 +207,12 @@ export interface MessageEvent {
     /**
      * the type of the event.
      */
-    type: MessageType;
+    type: EventName;
 
     /**
      * The read-only property that returns the time (in milliseconds) at which the event was created.
      */
     timestamp: number;
-}
-
-/**
- * WebSocket message types, as defined in RFC 6455, section 11.8.
- */
-export enum MessageType {
-    /**
-     * The message is a text message. The text message payload is
-     * interpreted as UTF-8 encodedtext data.
-     */
-    Text = 1,
-
-    /**
-     * The message is a binary message.
-     */
-    Binary = 2,
-
-    /**
-     * The message is a close control message. The optional message
-     * payload contains a numeric code and a text reason.
-     */
-    Close = 8,
-
-    /**
-     * The message is a ping control message. The optional message
-     * payload is UTF-8 encoded text.
-     */
-    PingMessage = 9,
-
-    /**
-     * The message is a pong control message. The optional message
-     * payload is UTF-8 encoded text.
-     */
-    PongMessage = 10,
 }
 
 /**
@@ -299,7 +222,7 @@ export interface ErrorEvent {
     /**
      * the type of the event.
      */
-    type: MessageType;
+    type: EventName;
 
     /**
      * The read-only property that returns the error message.
@@ -315,10 +238,4 @@ export interface ErrorEvent {
 /**
  * CompressionAlgorithm describes the possible compression algorithms.
  */
-export enum CompressionAlgorithm {
-    /**
-     * Deflate compression algorithm.
-     * k6 supports only this compression algorithm.
-     */
-    Deflate = "deflate",
-}
+export type CompressionAlgorithm = "deflate";

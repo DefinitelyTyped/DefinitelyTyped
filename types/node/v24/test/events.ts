@@ -24,7 +24,8 @@ declare const any: any;
     let result: number;
 
     result = events.EventEmitter.defaultMaxListeners;
-    result = events.EventEmitter.listenerCount(emitter, event); // deprecated
+    result = events.EventEmitter.listenerCount(emitter, event);
+    result = events.listenerCount(new EventTarget(), "event");
 
     const promise: Promise<any[]> = events.once(new events.EventEmitter(), "error");
 

@@ -26,6 +26,13 @@ declare class Sensor extends EventTarget {
         useCapture?: boolean,
     ): void;
     addEventListener(type: "error", listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
+
+    removeEventListener(
+        type: "reading" | "activate",
+        listener: (this: this, ev: Event) => any,
+        useCapture?: boolean,
+    ): void;
+    removeEventListener(type: "error", listener: (this: this, ev: SensorErrorEvent) => any, useCapture?: boolean): void;
 }
 
 interface SensorOptions {

@@ -204,6 +204,13 @@ declare module "buffer" {
          * @since v16.7.0
          */
         stream(): WebReadableStream;
+        /**
+         * Returns a new `ReadableStream` that allows the content of the `Blob` to be read
+         * as a stream of UTF-8 decoded strings. It is equivalent to piping
+         * `blob.stream()` through a `TextDecoderStream` set up with UTF-8.
+         * @since v24.19.0
+         */
+        textStream(): WebReadableStream<string>;
     }
     export interface FileOptions {
         /**

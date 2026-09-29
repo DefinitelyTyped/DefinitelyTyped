@@ -1,6 +1,7 @@
 import { TypedArray, TypedArrayConstructor } from "../core/BufferAttribute.js";
 import { isTypedArray } from "../utils.js";
 import { AnimationClip } from "./AnimationClip.js";
+import { KeyframeTrackSettings } from "./KeyframeTrack.js";
 
 /**
  * Converts an array to a specific type.
@@ -10,6 +11,13 @@ import { AnimationClip } from "./AnimationClip.js";
  * @return {TypedArray} The converted array.
  */
 export function convertArray(array: TypedArray | number[], type: TypedArrayConstructor): TypedArray;
+/**
+ * Returns `true` if the given keyframe track settings hold Bezier tangent data.
+ *
+ * @param {?Object} settings - The settings of a keyframe track.
+ * @return {boolean} Whether both tangent arrays are defined or not.
+ */
+export function hasTangents(settings?: Partial<KeyframeTrackSettings> | null): boolean;
 /**
  * Returns an array by which times and values can be sorted.
  *
@@ -95,6 +103,14 @@ export class AnimationUtils {
      * @return {boolean} Whether the given object is a typed array.
      */
     static isTypedArray(object: unknown): boolean;
+    /**
+     * Returns `true` if the given keyframe track settings hold Bezier tangent data.
+     *
+     * @static
+     * @param {?Object} settings - The settings of a keyframe track.
+     * @return {boolean} Whether both tangent arrays are defined or not.
+     */
+    static hasTangents(settings?: Partial<KeyframeTrackSettings> | null): boolean;
     /**
      * Returns an array by which times and values can be sorted.
      *

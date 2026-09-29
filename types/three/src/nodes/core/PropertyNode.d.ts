@@ -62,4 +62,5 @@ export const thickness: PropertyNode<"float">;
 export const attenuationDistance: PropertyNode<"float">;
 export const attenuationColor: PropertyNode<"color">;
 export const dispersion: PropertyNode<"float">;
+export const retroreflectivity: PropertyNode<"float">;
 export const ambientOcclusion: PropertyNode<"float">;

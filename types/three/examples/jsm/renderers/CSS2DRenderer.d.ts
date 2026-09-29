@@ -3,6 +3,7 @@ import { Camera, Object3D, Scene, Vector2 } from "three";
 declare class CSS2DObject extends Object3D {
     element: HTMLElement;
     center: Vector2;
+    rotation2D: number;
 
     constructor(element: HTMLElement);
 

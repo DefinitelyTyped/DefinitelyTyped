@@ -21,6 +21,7 @@ export interface XRManagerEventMap {
 
 export interface LayerAttributes {
     stencil?: boolean | undefined;
+    samples?: number | undefined;
 }
 
 interface XRGPUBinding {}
@@ -178,9 +179,9 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
      * Browser-side `XRWebGLBinding.foveateBoundTexture()` failures are treated as
      * non-fatal so they do not interrupt rendering.
      *
-     * @param {RenderTarget} renderTarget - The internal render target.
+     * @param {?RenderTarget} renderTarget - The internal render target.
      */
-    foveateBoundTexture(renderTarget: RenderTarget): void;
+    foveateBoundTexture(renderTarget: RenderTarget | null): void;
     /**
      * Returns the current XR WebGPU binding.
      *
@@ -215,6 +216,7 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
      * @param {Function} rendercall - A callback function that renders the layer. Similar to code in
      * the default animation loop, this method can be used to update/transform 3D object in the layer's scene.
      * @param {Object} [attributes={}] - Allows to configure the layer's render target.
+     * @param {number} [attributes.samples] - The scene MSAA sample count. Defaults to the renderer's sample count.
      * @return {Mesh} A mesh representing the quadratic XR layer. This mesh should be added to the XR scene.
      */
     createQuadLayer(
@@ -241,6 +243,7 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
      * @param {Function} rendercall - A callback function that renders the layer. Similar to code in
      * the default animation loop, this method can be used to update/transform 3D object in the layer's scene.
      * @param {Object} [attributes={}] - Allows to configure the layer's render target.
+     * @param {number} [attributes.samples] - The scene MSAA sample count. Defaults to the renderer's sample count.
      * @return {Mesh} A mesh representing the cylindrical XR layer. This mesh should be added to the XR scene.
      */
     createCylinderLayer(

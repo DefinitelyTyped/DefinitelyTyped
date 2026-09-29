@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/video-name-parser": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Kira Oakley",
-            "githubUsername": "hackergrrl"
-        }
-    ]
+    "owners": []
 }

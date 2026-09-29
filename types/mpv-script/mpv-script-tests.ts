@@ -9,12 +9,24 @@ mp.command_native(["print-text", "test"], "def");
 
 // $ExpectType string
 mp.command_native(["normalize-path", "foo/bar"]);
+// $ExpectType string | 123
+mp.command_native(["normalize-path", "foo/bar"], 123);
+// command without args should match as well
+mp.command_native({
+    name: "playlist-shuffle",
+});
 
 // $ExpectType string
 mp.command_native({
     name: "normalize-path",
     filename: "foo/bar",
 });
+
+// $ExpectType string | 123
+mp.command_native({
+    name: "normalize-path",
+    filename: "foo/bar",
+}, 123);
 
 // $ExpectType string
 mp.command_native({
@@ -336,7 +348,7 @@ mp.add_key_binding("Ctrl+d", "uncomplex_non_repeatable2", () => {
 mp.add_key_binding(
     "Ctrl+e",
     "complex",
-    (table: mp.UserInputCommand) => {
+    (table: mp.KeyBindingContext) => {
         dump("complex");
         dump("   ", table);
     },
@@ -347,7 +359,7 @@ mp.add_key_binding(
 mp.add_key_binding(
     "Ctrl+f",
     "complex_nonsence",
-    (table: mp.UserInputCommand) => {
+    (table: mp.KeyBindingContext) => {
         dump("complex, nonsense");
         dump("   ", table);
     },
@@ -365,7 +377,7 @@ if (osd_size) {
     osd_size.aspect;
 }
 
-// $ExpectType __IntervalId
+// $ExpectType IntervalId
 const interval_id = setInterval(
     function(foo, bar) {
         // $ExpectType string
@@ -381,7 +393,7 @@ const interval_id = setInterval(
 // @ts-expect-error
 clearInterval(100);
 
-// $ExpectType __TimeoutId
+// $ExpectType TimeoutId
 const timeout_id = setTimeout(
     function(foo, bar) {
         // $ExpectType string

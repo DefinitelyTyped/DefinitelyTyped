@@ -3,6 +3,7 @@ export * from "./Three.Core.js";
 export * from "./materials/nodes/NodeMaterials.js";
 export type { default as Backend } from "./renderers/common/Backend.js";
 export { default as BundleGroup } from "./renderers/common/BundleGroup.js";
+export { default as DirectRenderPipeline } from "./renderers/common/DirectRenderPipeline.js";
 export { default as PMREMGenerator } from "./renderers/common/extras/PMREMGenerator.js";
 export { default as Lighting } from "./renderers/common/Lighting.js";
 export { default as PostProcessing } from "./renderers/common/PostProcessing.js";

@@ -353,10 +353,11 @@ declare module "node:net" {
         /**
          * This property represents the state of the connection as a string.
          *
-         * * If the stream is connecting `socket.readyState` is `opening`.
-         * * If the stream is readable and writable, it is `open`.
-         * * If the stream is readable and not writable, it is `readOnly`.
-         * * If the stream is not readable and writable, it is `writeOnly`.
+         * * If the socket is connecting, `socket.readyState` is `opening`.
+         * * If the socket is readable and writable, it is `open`.
+         * * If the socket is readable and not writable, it is `readOnly`.
+         * * If the socket is not readable and writable, it is `writeOnly`.
+         * * Otherwise, it is `closed`.
          * @since v0.5.0
          */
         readonly readyState: SocketReadyState;
@@ -378,6 +379,12 @@ declare module "node:net" {
          * @since v0.5.10
          */
         readonly remotePort: number | undefined;
+        /**
+         * Reference to the server that accepted the socket. This is `null` for sockets
+         * that were not accepted by a server.
+         * @since v0.3.4
+         */
+        readonly server: Server | null;
         /**
          * The socket timeout in milliseconds as set by `socket.setTimeout()`.
          * It is `undefined` if a timeout has not been set.
@@ -485,6 +492,11 @@ declare module "node:net" {
      * Adoption transfers ownership of the socket; afterwards `address()` and `close()`
      * throw `ERR_SOCKET_HANDLE_ADOPTED`. A handle that is never adopted must be
      * closed to avoid leaking the socket.
+     *
+     * When an adopted `BoundSocket` connects to a numeric IP literal, `connect(2)` is
+     * issued synchronously, so `socket.localAddress` is resolved once
+     * `socket.connect()` returns. Connection failures are still reported via a
+     * deferred `'error'` event.
      *
      * ```js
      * import net from 'node:net';

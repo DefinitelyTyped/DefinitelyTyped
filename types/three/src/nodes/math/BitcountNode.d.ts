@@ -11,9 +11,9 @@ declare class BitcountNode extends MathNode {
 
     constructor(method: BitcountNodeMethod, aNode: Node);
 
-    static COUNT_TRAILING_ZEROS: "countTrailingZeros";
-    static COUNT_LEADING_ZEROS: "countLeadingZeros";
-    static COUNT_ONE_BITS: "countOneBits";
+    static get COUNT_TRAILING_ZEROS(): "countTrailingZeros";
+    static get COUNT_LEADING_ZEROS(): "countLeadingZeros";
+    static get COUNT_ONE_BITS(): "countOneBits";
 }
 
 export default BitcountNode;

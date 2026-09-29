@@ -34,9 +34,4 @@ export class PolarGridHelper extends LineSegments {
         color1?: ColorRepresentation,
         color2?: ColorRepresentation,
     );
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

@@ -1,14 +1,5 @@
 import * as React from "react";
-import {
-    ColorValue,
-    NativeSyntheticEvent,
-    StyleProp,
-    TextInputChangeEventData,
-    TextInputFocusEventData,
-    TextInputProps,
-    TextStyle,
-    ViewStyle,
-} from "react-native";
+import { ColorValue, NativeSyntheticEvent, StyleProp, TextInputProps, TextStyle, ViewStyle } from "react-native";
 
 export interface ContentInset {
     top?: number | undefined;

@@ -851,7 +851,7 @@ declare namespace googletag {
          *
          * @see [About publisher provided identifiers](https://support.google.com/admanager/answer/2880055)
          * @param ppid An alphanumeric ID provided by the publisher. Must be between
-         *     32 and 150 characters.
+         *     22 and 150 characters.
          * @return The service object on which the method was called.
          */
         setPublisherProvidedId(ppid: string): PubAdsService;
@@ -2022,8 +2022,8 @@ declare namespace googletag {
          */
         interface AutoRefreshConfig {
             /**
-             * Whether GPT will automatically refresh an ad slot when the page is restored
-             * from the back/forward cache. Defaults to `true`.
+             * Whether GPT will automatically refresh an actively viewed ad slot when the
+             * page is restored from the back/forward cache. Defaults to `true`.
              *
              * @example
              *   // Set the auto refresh configuration, disabling auto refresh on

@@ -91,6 +91,17 @@ export interface WebGLDebug {
     checkShaderErrors: boolean;
 
     /**
+     * Diagnostics configuration for the shader generation. Only relevant for TSL.
+     */
+    diagnostics: {
+        /**
+         * Whether declaration names that collide with reserved keywords of the shading language should be renamed or
+         * not.
+         */
+        keywords: boolean;
+    };
+
+    /**
      * A callback function that can be used for custom error reporting. The callback receives the WebGL context, an
      * instance of WebGLProgram as well two instances of WebGLShader representing the vertex and fragment shader.
      * Assigning a custom function disables the default error reporting.

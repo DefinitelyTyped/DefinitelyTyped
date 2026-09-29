@@ -284,7 +284,7 @@ declare module "node:dgram" {
          * and the `'connect'` event is emitted on the next tick. Trying to call
          * `connectSync()` on an already connected socket throws an
          * `ERR_SOCKET_DGRAM_IS_CONNECTED` exception, and calling it while an
-         * asynchronous [`socket.bind()`][] is still in progress throws an
+         * asynchronous `socket.bind()` is still in progress throws an
          * `ERR_SOCKET_ALREADY_BOUND` exception.
          *
          * `address` must be a numeric IP literal; `connectSync()` never performs DNS

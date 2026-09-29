@@ -32,6 +32,7 @@ import * as url from "node:url";
     server = http.createServer({ ServerResponse: MyServerResponse }, reqListener);
     // TODO: add test for all remaining options
     server = http.createServer({
+        httpValidation: "insecure",
         insecureHTTPParser: true,
         keepAlive: true,
         keepAliveInitialDelay: 1000,
@@ -224,6 +225,8 @@ import * as url from "node:url";
     incoming.pause();
     incoming.resume();
 
+    incoming.signal; // $ExpectType AbortSignal
+
     // response
     const res: http.ServerResponse = new http.ServerResponse(incoming);
 
@@ -273,6 +276,12 @@ import * as url from "node:url";
     res.writeHead(200, { "Transfer-Encoding": "chunked" });
     res.writeHead(200, ["Transfer-Encoding", "chunked"]);
     res.writeHead(200);
+
+    // writeInformation
+    res.writeInformation(110);
+    res.writeInformation(110, () => {});
+    res.writeInformation(110, { "X-Progress": "50%" });
+    res.writeInformation(110, { "X-Progress": "50%" }, () => {});
 
     // writeProcessing
     res.writeProcessing();
@@ -740,6 +749,11 @@ import * as url from "node:url";
     http.validateHeaderValue("Location", "/");
 
     http.setMaxIdleHTTPParsers(1337);
+
+    // $ExpectType () => void
+    http.setGlobalProxyFromEnv();
+    // $ExpectType () => void
+    http.setGlobalProxyFromEnv(process.env);
 }
 
 {

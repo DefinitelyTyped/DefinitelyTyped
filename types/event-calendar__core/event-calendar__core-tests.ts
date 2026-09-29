@@ -61,6 +61,7 @@ const dateFormat: Intl.DateTimeFormatOptions = {
     day: "numeric",
 };
 
+// exact details of theme aren't checked by typescript, but at least test with realistic theme data
 const defaultTheme = {
     allDay: "ec-all-day",
     active: "ec-active",
@@ -80,6 +81,7 @@ const defaultTheme = {
     daySide: "ec-day-side",
     draggable: "ec-draggable",
     dragging: "ec-dragging",
+    endClipped: "ec-end-clipped",
     event: "ec-event",
     eventBody: "ec-event-body",
     eventTag: "ec-event-tag",
@@ -109,6 +111,7 @@ const defaultTheme = {
     selecting: "ec-selecting",
     sidebar: "ec-sidebar",
     sidebarTitle: "ec-sidebar-title",
+    startClipped: "ec-start-clipped",
     today: "ec-today",
     time: "ec-time",
     times: "ec-times",
@@ -247,6 +250,7 @@ cal = createCalendar(target, plugins, {
     slotWidth: 100,
     snapDuration: 200,
     theme: defaultTheme,
+    timeZone: "+02:00",
     titleFormat: dateFormat,
     unselect: (_info: Calendar.UnselectInfo) => {},
     unselectAuto: true,
@@ -313,11 +317,20 @@ cal.setOption("buttonText", () => {
         }
         return result;
     })
+    .setOption("timeZone", "UTC")
     .setOption("titleFormat", (_s: Date, _e: Date) => "content")
     .setOption("views", { resourceTimeGrid: { selectMinDistance: 300 } })
     .setOption("buttonText", (text: Calendar.ButtonTextMapping) => {
         return { ...text, foo: "bar" };
     });
+
+// define a custom view while inheriting options from a standard view
+cal.setOption("views", {
+    resourceTimelineThreeDays: {
+        type: "resourceTimelineDay",
+        duration: { days: 3 },
+    },
+});
 
 // check some invalid combinations for FooInput and Foo types
 // @ts-expect-error

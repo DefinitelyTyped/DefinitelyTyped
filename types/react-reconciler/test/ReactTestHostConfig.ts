@@ -51,6 +51,9 @@ export type ChildSet = undefined; // Unused
 export type TimeoutHandle = TimeoutID;
 export type NoTimeout = -1;
 export type TransitionStatus = any;
+export interface SuspendedState {
+    kind: "SuspendedState";
+}
 export type EventResponder = any;
 export type OpaqueIDType =
     | string
@@ -62,7 +65,27 @@ export type OpaqueIDType =
         valueOf: () => string | void;
     };
 
-export type RendererInspectionConfig = Readonly<{}>;
+export interface RendererInspectionConfig {
+    kind: "RendererInspectionConfig";
+}
+
+export interface FormStateMarkerInstance {
+    kind: "FormStateMarkerInstance";
+}
+
+// This host config doesn't support Resources (supportsResources is left
+// unset), so these are never actually produced, but the generic parameters
+// still need concrete stand-in types.
+export interface HoistableRoot {
+    kind: "HoistableRoot";
+}
+export interface Resource {
+    kind: "Resource";
+}
+
+export const rendererVersion = "19.2.0";
+export const rendererPackageName = "react-test-renderer";
+export const extraDevToolsConfig: RendererInspectionConfig | null = null;
 
 export * from "./ReactFiberHostConfigWithNoHydration";
 export * from "./ReactFiberHostConfigWithNoMicrotasks";
@@ -126,11 +149,7 @@ export function getRootHostContext(rootContainerInstance: Container): HostContex
     return NO_CONTEXT;
 }
 
-export function getChildHostContext(
-    parentHostContext: HostContext,
-    type: string,
-    rootContainerInstance: Container,
-): HostContext {
+export function getChildHostContext(parentHostContext: HostContext, type: string): HostContext {
     return NO_CONTEXT;
 }
 
@@ -323,11 +342,11 @@ export function shouldAttemptEagerTransition() {
     return false;
 }
 
-export function startSuspendingCommit() {
-    // noop
+export function startSuspendingCommit(): SuspendedState {
+    return { kind: "SuspendedState" };
 }
 
-export function suspendInstance() {
+export function suspendInstance(state: SuspendedState, instance: Instance, type: Type, props: Props): void {
     // noop
 }
 
@@ -335,7 +354,7 @@ export function trackSchedulerEvent() {
     // noop
 }
 
-export function waitForCommitToBeReady() {
+export function waitForCommitToBeReady(state: SuspendedState, timeoutOffset: number) {
     return null;
 }
 
@@ -371,8 +390,29 @@ export function maySuspendCommit() {
     return false;
 }
 
-export function preloadInstance() {
+export function maySuspendCommitOnUpdate(type: Type, oldProps: Props, newProps: Props) {
+    return false;
+}
+
+export function maySuspendCommitInSyncRender(type: Type, props: Props) {
+    return false;
+}
+
+export function preloadInstance(instance: Instance, type: Type, props: Props) {
     return true;
+}
+
+export function suspendOnActiveViewTransition(state: SuspendedState, rootContainer: Container): void {
+    // noop
+}
+
+export function getSuspendedCommitReason(state: SuspendedState, rootContainer: Container): null | string {
+    return null;
+}
+
+export function bindToConsole(methodName: string, args: any[], badgeName: string): () => any {
+    // noop — this test config doesn't replay Server console logs.
+    return () => undefined;
 }
 
 const REACT_CONTEXT_TYPE = Symbol.for("react.context");

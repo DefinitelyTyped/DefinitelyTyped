@@ -2,14 +2,13 @@ import * as React from "react";
 import {
     Image,
     ImageBackground,
-    ImageErrorEventData,
-    ImageLoadEventData,
-    ImageProgressEventDataIOS,
+    ImageErrorEvent,
+    ImageLoadEvent,
+    ImageProgressEventIOS,
     ImageResizeMode,
     ImageSourcePropType,
     ImageStyle,
     ImageURISource,
-    NativeSyntheticEvent,
     StyleProp,
 } from "react-native";
 
@@ -32,13 +31,13 @@ export interface ResponsiveImageProps {
     /**
      * Invoked on load error with {nativeEvent: {error}}
      */
-    onError?: ((error: NativeSyntheticEvent<ImageErrorEventData>) => void) | undefined;
+    onError?: ((error: ImageErrorEvent) => void) | undefined;
 
     /**
      * Invoked when load completes successfully
      * { source: { url, height, width } }.
      */
-    onLoad?: ((event: NativeSyntheticEvent<ImageLoadEventData>) => void) | undefined;
+    onLoad?: ((event: ImageLoadEvent) => void) | undefined;
 
     /**
      * Invoked when load either succeeds or fails
@@ -55,7 +54,7 @@ export interface ResponsiveImageProps {
     /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
-    onProgress?: ((event: NativeSyntheticEvent<ImageProgressEventDataIOS>) => void) | undefined;
+    onProgress?: ((event: ImageProgressEventIOS) => void) | undefined;
 
     /**
      * The image source (either a remote URL or a local file resource).

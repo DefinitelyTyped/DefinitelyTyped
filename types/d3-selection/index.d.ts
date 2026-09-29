@@ -161,6 +161,37 @@ export function selectAll<GElement extends BaseType, OldDatum>(
     nodes: GElement[] | ArrayLike<GElement> | Iterable<GElement>,
 ): Selection<GElement, OldDatum, null, undefined>;
 
+export namespace Selection {
+    /** (helper) given a string like `a.1 b c.2`, it returns a union like `'a' | 'b' | 'c'` */
+    type ExtractEventNames<Input extends string> = Input extends "" ? never
+        : Input extends `${infer A} ${infer B}` // multiple events
+            ? ExtractEventNames<A> | ExtractEventNames<B>
+        : Input extends `${infer A}.${string}` // single event with a name
+            ? A
+        : Input; // single event with no name
+
+    /** (helper) given a `select`able element, returns the EventMap for that element */
+    type GetEventMapForElement<GElement> = GElement extends Window ? WindowEventMap
+        : GElement extends Document ? DocumentEventMap
+        : GElement extends SVGElement ? SVGElementEventMap
+        : GElement extends HTMLElement ? HTMLElementEventMap
+        : GElement extends Element ? ElementEventMap & GlobalEventHandlersEventMap
+        : GlobalEventHandlersEventMap;
+
+    /** (helper) converts an event name to the event class (e.g. `'mouseup'` -> `MouseEvent`) */
+    type EventNameToInterface<Name extends string, GElement> = Name extends keyof GetEventMapForElement<GElement>
+        ? GetEventMapForElement<GElement>[Name]
+        : CustomEvent<any>;
+
+    /**
+     * (helper) given a typenames like `mouseup.a mousedown.b`, this helper will:
+     *  1. extract the types from the string (`mouseup` | `mousedown`)
+     *  2. convert the names to type (`MouseEvent` | `MouseEvent`)
+     */
+    type EventOf<Source extends string, GElement> = string extends Source ? any
+        : EventNameToInterface<ExtractEventNames<Source>, GElement>;
+}
+
 /**
  * A D3 Selection of elements.
  *
@@ -843,7 +874,9 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * to receive events of the same type, such as click.foo and click.bar. To specify multiple typenames, separate typenames with spaces,
      * such as "input change"" or "click.foo click.bar".
      */
-    on(typenames: string): ((this: GElement, event: any, d: Datum) => void) | undefined;
+    on<Source extends string>(
+        typenames: Source,
+    ): ((this: GElement, event: Selection.EventOf<Source, GElement>, d: Datum) => void) | undefined;
     /**
      * Remove a listener for the specified event type names. To remove all listeners for a given name,
      * pass null as the listener and ".foo" as the typename, where foo is the name; to remove all listeners with no name, specify "." as the typename.
@@ -870,9 +903,13 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * Listeners always see the latest datum for their element.
      * Note: while you can use event.pageX and event.pageY directly,
      * it is often convenient to transform the event position to the local coordinate system of that element that received the event using d3.pointer.
-     * @param options An optional options object may specify characteristics about the event listener, such as wehether it is captures or passive; see element.addEventListener.
+     * @param options An optional options object may specify characteristics about the event listener, such as wehether it is captures or passive; see {@link AddEventListenerOptions}.
      */
-    on(typenames: string, listener: (this: GElement, event: any, d: Datum) => void, options?: any): this;
+    on<Source extends string>(
+        typenames: Source,
+        listener: (this: GElement, event: Selection.EventOf<Source, GElement>, d: Datum) => void,
+        options?: boolean | AddEventListenerOptions,
+    ): this;
 
     /**
      * Dispatches a custom event of the specified type to each selected element, in order.

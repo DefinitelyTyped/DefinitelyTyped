@@ -30,9 +30,4 @@ export class PlaneHelper extends Line {
      * @default 1
      */
     size: number;
-    /**
-     * Updates the helper to match the position and direction of the
-     * light being visualized.
-     */
-    dispose(): void;
 }

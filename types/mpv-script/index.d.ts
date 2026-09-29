@@ -26,84 +26,7 @@ declare namespace mp {
         | "on_before_start_file"
         | "on_after_end_file";
 
-    // NOTE: this isn't ready to change to __CommandInfoUnion['name']
-    // because __CommandInfoUnion doesn't include commands without named arguments support
-    // type __NotHandledCommandName = Exclude<CommandName, __CommandInfoUnion['name']>
-    type CommandName =
-        // Playback Control
-        | "seek"
-        | "revert-seek"
-        | "sub-seek"
-        | "frame-step"
-        | "frame-back-step"
-        | "stop"
-        // Property Manipulation
-        | "set"
-        | "del"
-        | "add"
-        | "multiply"
-        | "cycle"
-        | "cycle-values"
-        | "change-list"
-        // Playlist Manipulation
-        | `playlist-${"next" | "prev"}`
-        | `playlist-${"next" | "prev"}-playlist`
-        | "playlist-play-index"
-        | "loadfile"
-        | "loadlist"
-        | `playlist-${"clear" | "remove" | "move" | "shuffle" | "unshuffle"}`
-        // Track Manipulation
-        | `sub-${"add" | "remove" | "reload" | "step"}`
-        | `audio-${"add" | "remove" | "reload"}`
-        | `video-${"add" | "remove" | "reload"}`
-        | "rescan-external-files"
-        // Text Manipulation
-        | "print-text"
-        | `expand-${"text" | "path"}`
-        | "normalize-path"
-        | "escape-ass"
-        // Configuration Commands
-        | "apply-profile"
-        | "load-config-file"
-        | "write-watch-later-config"
-        | "delete-watch-later-config"
-        // OSD Commands
-        | `show-${"text" | "progress"}`
-        | `overlay-${"add" | "remove"}`
-        | "osd-overlay"
-        // Input and Keybind Commands
-        | "mouse"
-        | "keypress"
-        | `key${"down" | "up"}`
-        | "keybind"
-        | `${"enable" | "disable" | "define"}-section`
-        | "load-input-conf"
-        // Execution Commands
-        | "run"
-        | "subprocess"
-        | "quit"
-        | "quit-watch-later"
-        // Scripting Commands
-        | "script-message"
-        | "script-message-to"
-        | "script-binding"
-        | "load-script"
-        // Screenshot Commands
-        | "screenshot"
-        | "screenshot-to-file"
-        | "screenshot-raw"
-        // Filter Commands
-        | "af"
-        | "vf"
-        | `${"af" | "vf"}-command`
-        // Miscellaneous Commands
-        | "ignore"
-        | "drop-buffers"
-        | "dump-cache"
-        | "ab-loop"
-        | `ab-loop-${"dump" | "align"}-cache`
-        | "begin-vo-dragging"
-        | "context-menu";
+    type CommandName = __CommandInfoUnion["name"];
 
     /**
      * @see https://mpv.io/manual/stable/#input-command-prefixes
@@ -123,17 +46,56 @@ declare namespace mp {
         | "sync";
 
     interface OSDOverlay {
+        /**
+         * Arbitrary integer that identifies the overlay.
+         * Multiple overlays can be added by calling `osd-overlay` command with different id parameters.
+         */
+        id: number;
+        /**
+         * String that gives the type of the overlay.
+         * - `ass-events`: The data parameter is a string. The string is split on the newline character. Every line is turned into the `Text` part of a Dialogue ASS event.
+         * - `none`: Special value that causes the overlay to be removed. Most parameters other than id and format are mostly ignored.
+         */
+        format: "ass-events" | "none";
+        /**
+         * String defining the overlay contents according to the format parameter.
+         */
         data: string;
+        /**
+         * Used if format is set to ass-events (see description there). Optional, defaults to 0.
+         */
         res_x: number;
+        /**
+         * Used if format is set to ass-events (see description there). Optional, defaults to 720.
+         */
         res_y: number;
+        /**
+         * The Z order of the overlay. Optional, defaults to 0.
+         */
         z: number;
+        /**
+         * Commit the OSD overlay to the screen, or in other words, run the osd-overlay command with the current fields of the overlay table.
+         * Returns the result of the osd-overlay command itself.
+         */
         update(): void;
+        /**
+         * Remove the overlay from the screen. A `update()` call will add it again.
+         */
         remove(): void;
     }
 
     interface OSDSize {
+        /**
+         * The width of the OSD in pixels.
+         */
         width?: number | undefined;
+        /**
+         * The height of the OSD in pixels.
+         */
         height?: number | undefined;
+        /**
+         * The display pixel aspect ratio.
+         */
         aspect?: number | undefined;
     }
 
@@ -176,71 +138,77 @@ declare namespace mp {
     }
 
     /**
-     * NOTE:
-     * Commands have their own dedicated arguments as object properties(namely Named Arguments in the doc)
-     * `__return` field is a helper field to represent exceptional return type of the command, it has nothing to do with mpv
-     */
-    /**
      * @see https://mpv.io/manual/stable/#list-of-input-commands
      * run `mpv --input-cmdlist` to get full list of input commands
      */
     // TODO: change `name` to `_name`
-    // TODO: move current shape to dedicated `opts` field for command opts, add other properties like `type`, `invocableBy`(to indicate if it support named arguments etc)
     type __CommandInfoUnion =
         | {
             name: "seek";
-            /**
-             * certain unit(depending on `flags` property) of number to seek
-             */
-            target: number;
-            /**
-             * Multiple flags can be combined, e.g.: `absolute+keyframes`.
-             *
-             * By default, `keyframes` is used for `relative`, `relative-percent`, and `absolute-percent` seeks, while `exact` is used for `absolute` seeks.
-             *
-             * Before mpv 0.9, the `keyframes` and `exact` flags had to be passed as 3rd parameter (essentially using a space instead of `+`).
-             * The 3rd parameter is still parsed, but is considered deprecated.
-             */
-            flags?:
-                | "relative"
-                | "absolute"
-                | "absolute-percent"
-                | "relative-percent"
-                | "keyframes"
-                | "exact"
-                | (string & {});
+            args: {
+                /**
+                 * certain unit(depending on `flags` property) of number to seek
+                 */
+                target: number;
+                /**
+                 * Multiple flags can be combined, e.g.: `absolute+keyframes`.
+                 *
+                 * By default, `keyframes` is used for `relative`, `relative-percent`, and `absolute-percent` seeks, while `exact` is used for `absolute` seeks.
+                 *
+                 * Before mpv 0.9, the `keyframes` and `exact` flags had to be passed as 3rd parameter (essentially using a space instead of `+`).
+                 * The 3rd parameter is still parsed, but is considered deprecated.
+                 */
+                flags?:
+                    | "relative"
+                    | "absolute"
+                    | "absolute-percent"
+                    | "relative-percent"
+                    | "keyframes"
+                    | "exact"
+                    | (string & {});
+            };
         }
         | {
             name: "revert-seek";
-            flags?: "mark" | "mark-permanent";
+            args: {
+                flags?: "mark" | "mark-permanent";
+            };
         }
         | {
             name: "sub-seek";
-            /**
-             * For example `1` skips to the next subtitle, `-1` skips to the previous subtitles, and `0` seeks to the beginning of the current subtitle.
-             */
-            skip: number;
-            flags?: "primary" | "secondary";
+            args: {
+                /**
+                 * For example `1` skips to the next subtitle, `-1` skips to the previous subtitles, and `0` seeks to the beginning of the current subtitle.
+                 */
+                skip: number;
+                flags?: "primary" | "secondary";
+            };
         }
         | {
             name: "frame-step";
-            /**
-             *  If `frames` is omitted, the value is assumed to be 1.
-             */
-            frames?: number;
-            flags?: "play" | "seek" | "mute";
+            args: {
+                /**
+                 *  If `frames` is omitted, the value is assumed to be 1.
+                 */
+                frames?: number;
+                flags?: "play" | "seek" | "mute";
+            };
         }
         | { name: "frame-back-step" }
         | {
             name: "stop";
-            flags?: "keep-playlist";
+            args: {
+                flags?: "keep-playlist";
+            };
         }
         | {
             name: "set";
-            // <name> conflicts with default base opt `name`, `_name` will be added it future version of mpv to replace `name`
-            // TODO: uncomment when `_name` is released
-            // name: SetPropertyName
-            value: unknown;
+            args: {
+                // <name> conflicts with default base opt `name`, `_name` will be added it future version of mpv to replace `name`
+                // TODO: uncomment when `_name` is released
+                // name: SetPropertyName
+                value: unknown;
+            };
         }
         | {
             name: "del";
@@ -249,367 +217,455 @@ declare namespace mp {
         }
         | {
             name: "add";
-            // TODO: uncomment when `_name` is released
-            // name: SetPropertyName
-            value?: number;
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: SetPropertyName
+                value?: number;
+            };
         }
         | {
             name: "multiply";
-            // TODO: uncomment when `_name` is released
-            // name: SetPropertyName
-            value: number;
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: SetPropertyName
+                value: number;
+            };
+        }
+        | {
+            name: "cycle-values";
+            vararg: true;
         }
         | {
             name: "cycle";
-            // TODO: uncomment when `_name` is released
-            // name: SetPropertyName
-            value?: "up" | "down";
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: SetPropertyName
+                value?: "up" | "down";
+            };
         }
         | {
             name: "change-list";
-            // TODO: uncomment when `_name` is released
-            // name: string // TODO: not sure about the names of list options
-            /**
-             * different type of list option may support different set of operations
-             *
-             * this ts target type is only for the convenience of getting code completions
-             *
-             * see https://mpv.io/manual/stable/#list-options before appling
-             */
-            operation:
-                | "set"
-                | "append"
-                | "add"
-                | "pre"
-                | "clr"
-                | "del"
-                | "remove"
-                | "toggle"
-                | "help"
-                | (string & {});
-            value: string;
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: string // TODO: not sure about the names of list options
+                /**
+                 * different type of list option may support different set of operations
+                 *
+                 * this ts target type is only for the convenience of getting code completions
+                 *
+                 * see https://mpv.io/manual/stable/#list-options before appling
+                 */
+                operation:
+                    | "set"
+                    | "append"
+                    | "add"
+                    | "pre"
+                    | "clr"
+                    | "del"
+                    | "remove"
+                    | "toggle"
+                    | "help"
+                    | (string & {});
+                value: string;
+            };
         }
         | {
             name: "playlist-next";
-            flags?: "weak" | "force";
+            args: {
+                flags?: "weak" | "force";
+            };
         }
         | {
             name: "playlist-prev";
-            flags?: "weak" | "force";
+            args: {
+                flags?: "weak" | "force";
+            };
         }
         | { name: "playlist-next-playlist" }
         | { name: "playlist-prev-playlist" }
         | {
             name: "playlist-play-index";
             /** @see https://mpv.io/manual/stable/#command-interface-playlist-play-index */
-            index: number | "current" | "none";
+            args: {
+                index: number | "current" | "none";
+            };
         }
         | {
             name: "loadfile";
-            /**
-             * file url to load
-             */
-            url: string;
-            flags?:
-                | "replace"
-                | "append"
-                | "append-play"
-                | "insert-next"
-                | "insert-next-play"
-                | "insert-at"
-                | "insert-at-play";
-            /**
-             * insertion index, used only by the `insert-at` and `insert-at-play` actions.
-             */
-            index?: number;
-            /**
-             * A list of options and values which should be set while the file is playing.
-             *
-             * It is of the form `opt1=value1,opt2=value2,...`
-             *
-             * When using the client API, this can be a `MPV_FORMAT_NODE_MAP` (or a Lua table), however the values themselves must be strings currently.
-             */
-            options?: string;
+            args: {
+                /**
+                 * file url to load
+                 */
+                url: string;
+                flags?:
+                    | "replace"
+                    | "append"
+                    | "append-play"
+                    | "insert-next"
+                    | "insert-next-play"
+                    | "insert-at"
+                    | "insert-at-play";
+                /**
+                 * insertion index, used only by the `insert-at` and `insert-at-play` actions.
+                 */
+                index?: number;
+                /**
+                 * A list of options and values which should be set while the file is playing.
+                 *
+                 * It is of the form `opt1=value1,opt2=value2,...`
+                 *
+                 * When using the client API, this can be a `MPV_FORMAT_NODE_MAP` (or a Lua table), however the values themselves must be strings currently.
+                 */
+                options?: string;
+            };
         }
         | {
             name: "loadlist";
-            /**
-             * playlist url to load
-             */
-            url: string;
-            flags?:
-                | "replace"
-                | "append"
-                | "append-play"
-                | "insert-next"
-                | "insert-next-play"
-                | "insert-at"
-                | "insert-at-play";
+            args: {
+                /**
+                 * playlist url to load
+                 */
+                url: string;
+                flags?:
+                    | "replace"
+                    | "append"
+                    | "append-play"
+                    | "insert-next"
+                    | "insert-next-play"
+                    | "insert-at"
+                    | "insert-at-play";
 
-            /**
-             *  An insertion index, used only by the `insert-at` and `insert-at-play` actions.
-             *
-             *  When used with those actions, the new playlist will be inserted at the index position in the internal playlist,
-             *  or appended to the end if index is less than 0 or greater than the size of the internal playlist.
-             */
-            index?: number;
+                /**
+                 *  An insertion index, used only by the `insert-at` and `insert-at-play` actions.
+                 *
+                 *  When used with those actions, the new playlist will be inserted at the index position in the internal playlist,
+                 *  or appended to the end if index is less than 0 or greater than the size of the internal playlist.
+                 */
+                index?: number;
+            };
         }
         | {
             name: "playlist-remove";
-            index: number;
+            args: {
+                index: number;
+            };
         }
         | { name: "playlist-clear" }
         | {
             name: "playlist-move";
-            /**
-             * index move playlist from
-             */
-            index1: number;
-            /**
-             * index move playlist to
-             */
-            index2: number;
+            args: {
+                /**
+                 * index move playlist from
+                 */
+                index1: number;
+                /**
+                 * index move playlist to
+                 */
+                index2: number;
+            };
         }
         | { name: "playlist-shuffle" }
         | { name: "playlist-unshuffle" }
         | {
             name: "sub-add";
-            // url of subtitle
-            url: string;
-            /**
-             * @see https://mpv.io/manual/stable/#command-interface-sub-add[<lang>]]%5d
-             */
-            flags?: "select" | "auto" | "cached" | (string & {});
-            /**
-             * track language
-             */
-            lang?: string;
+            args: {
+                // url of subtitle
+                url: string;
+                /**
+                 * @see https://mpv.io/manual/stable/#command-interface-sub-add[<lang>]]%5d
+                 */
+                flags?: "select" | "auto" | "cached" | (string & {});
+                /**
+                 * track language
+                 */
+                lang?: string;
+            };
         }
         | {
             name: "sub-remove";
-            id?: number;
+            args: {
+                id?: number;
+            };
         }
         | {
             name: "sub-reload";
-            id?: number;
+            args: {
+                id?: number;
+            };
         }
         | {
             name: "sub-step";
-            skip: number;
-            flags?: "primary" | "secondary";
+            args: {
+                skip: number;
+                flags?: "primary" | "secondary";
+            };
         }
         | {
             name: "audio-add";
-            /**
-             * url of audio
-             */
-            url: string;
-            /**
-             * see flags for `sub-add`
-             */
-            flags?: "select" | "auto" | "cached" | (string & {});
-            title?: string;
-            lang?: string;
+            args: {
+                /**
+                 * url of audio
+                 */
+                url: string;
+                /**
+                 * see flags for `sub-add`
+                 */
+                flags?: "select" | "auto" | "cached" | (string & {});
+                title?: string;
+                lang?: string;
+            };
         }
         | {
             name: "audio-remove";
-            id?: number;
+            args: {
+                id?: number;
+            };
         }
         | {
             name: "audio-reload";
-            id?: number;
+            args: {
+                id?: number;
+            };
         }
         | {
             name: "video-add";
-            /**
-             * url of video
-             */
-            url: string;
-            /**
-             * see flags for `sub-add`
-             */
-            flags?: "select" | "auto" | "cached" | (string & {});
-            title?: string;
-            lang?: string;
-            /**
-             * If enabled, mpv will load the given video as album art.
-             */
-            albumart?: boolean;
+            args: {
+                /**
+                 * url of video
+                 */
+                url: string;
+                /**
+                 * see flags for `sub-add`
+                 */
+                flags?: "select" | "auto" | "cached" | (string & {});
+                title?: string;
+                lang?: string;
+                /**
+                 * If enabled, mpv will load the given video as album art.
+                 */
+                albumart?: boolean;
+            };
         }
         | {
             name: "video-remove";
-            id?: number;
+            args: {
+                id?: number;
+            };
         }
         | {
             name: "video-reload";
-            id?: number;
+            args: {
+                id?: number;
+            };
         }
         | {
             name: "rescan-external-files";
-            mode?: "reselect" | "keep-selection";
+            args: {
+                mode?: "reselect" | "keep-selection";
+            };
         }
         | {
             name: "print-text";
-            text: string;
+            args: {
+                text: string;
+            };
         }
         | {
             name: "expand-text";
-            text: string;
-            __return: string;
+            args: {
+                text: string;
+            };
+            return: string;
         }
         | {
             name: "expand-path";
-            text: string;
-            __return: string;
+            args: {
+                text:
+                    | "~/"
+                    | "~~/"
+                    | "~~home/"
+                    | "~~global/"
+                    | "~~osxbundle/"
+                    | "~~desktop/"
+                    | "~~exe_dir/"
+                    | "~~cache/"
+                    | "~~state/"
+                    | string & {};
+            };
+            return: string;
         }
         | {
             name: "normalize-path";
-            filename: string;
-            __return: string;
+            args: {
+                filename: string;
+            };
+            return: string;
         }
         | {
             name: "escape-ass";
-            text: string;
-            __return: string;
+            args: {
+                text: string;
+            };
+            return: string;
         }
         | {
             name: "apply-profile";
-            // TODO: uncomment when `_name` is released
-            // name: string
-            mode?: "apply" | "restore";
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: string
+                mode?: "apply" | "restore";
+            };
         }
         | {
             name: "load-config-file";
-            filename: string;
+            args: {
+                filename: string;
+            };
         }
         | { name: "write-watch-later-config" }
         | {
             name: "delete-watch-later-config";
-            filename?: string;
+            args: {
+                filename?: string;
+            };
         }
         | {
             name: "show-text";
-            text: string;
-            /**
-             * The time in ms to show the message for. By default, it uses the same value as `--osd-duration`.
-             */
-            duration?: number;
-            /**
-             * The minimum OSD level to show the text at (see `--osd-level`).
-             * @see https://mpv.io/manual/stable/#options-osd-level
-             */
-            level?: 0 | 1 | 2 | 3;
+            args: {
+                text: string;
+                /**
+                 * The time in ms to show the message for. By default, it uses the same value as `--osd-duration`.
+                 */
+                duration?: number;
+                /**
+                 * The minimum OSD level to show the text at (see `--osd-level`).
+                 * @see https://mpv.io/manual/stable/#options-osd-level
+                 */
+                level?: 0 | 1 | 2 | 3;
+            };
         }
         | { name: "show-progress" }
+        | { name: "script-message"; vararg: true }
+        | { name: "script-message-to"; vararg: true }
         | {
             name: "overlay-add";
-            /**
-             * an integer between 0 and 63 identifying the overlay element
-             * The ID can be used to add multiple overlay parts, update a part by using this command with an already existing ID,
-             * or to remove a part with overlay-remove. Using a previously unused ID will add a new overlay, while reusing an ID will update it.
-             */
-            id: number;
-            x: number;
-            y: number;
-            /**
-             * specifies the file the raw image data is read from.
-             *
-             * It can be either a numeric UNIX file descriptor prefixed with @ (e.g. @4), or a filename.
-             * The file will be mapped into memory with mmap(), copied, and unmapped before the command returns (changed in mpv 0.18.1).
-             */
-            file: string;
-            /**
-             * the byte offset of the first pixel in the source file.
-             *
-             * (The current implementation always mmap's the whole file from position 0 to the end of the image, so large offsets should be avoided. Before mpv 0.8.0, the offset was actually passed directly to mmap, but it was changed to make using it easier.)
-             */
-            offset: number;
-            /**
-             * a string identifying the image format. Currently, only bgra is defined.
-             */
-            fmt: "bgra" | (string & {});
-            /**
-             * visible width of overlay
-             */
-            w: number;
-            /**
-             * visible height of overlay
-             */
-            h: number;
-            /**
-             * the width in bytes in memory
-             */
-            stride: number;
-            dw?: number;
-            dh?: number;
+            args: {
+                /**
+                 * an integer between 0 and 63 identifying the overlay element
+                 * The ID can be used to add multiple overlay parts, update a part by using this command with an already existing ID,
+                 * or to remove a part with overlay-remove. Using a previously unused ID will add a new overlay, while reusing an ID will update it.
+                 */
+                id: number;
+                x: number;
+                y: number;
+                /**
+                 * specifies the file the raw image data is read from.
+                 *
+                 * It can be either a numeric UNIX file descriptor prefixed with @ (e.g. @4), or a filename.
+                 * The file will be mapped into memory with mmap(), copied, and unmapped before the command returns (changed in mpv 0.18.1).
+                 */
+                file: string;
+                /**
+                 * the byte offset of the first pixel in the source file.
+                 *
+                 * (The current implementation always mmap's the whole file from position 0 to the end of the image, so large offsets should be avoided. Before mpv 0.8.0, the offset was actually passed directly to mmap, but it was changed to make using it easier.)
+                 */
+                offset: number;
+                /**
+                 * a string identifying the image format. Currently, only bgra is defined.
+                 */
+                fmt: "bgra" | (string & {});
+                /**
+                 * visible width of overlay
+                 */
+                w: number;
+                /**
+                 * visible height of overlay
+                 */
+                h: number;
+                /**
+                 * the width in bytes in memory
+                 */
+                stride: number;
+                dw?: number;
+                dh?: number;
+            };
         }
         | {
             name: "overlay-remove";
-            id: number;
+            args: {
+                id: number;
+            };
         }
         | {
             name: "osd-overlay";
-            /**
-             * Arbitrary integer that identifies the overlay.
-             * Multiple overlays can be added by calling this command with different `id` parameters.
-             * Calling this command with the same id replaces the previously set overlay.
-             *
-             * There is a separate namespace for each libmpv client (i.e. IPC connection, script),
-             * so IDs can be made up and assigned by the API user without conflicting with other API users.
-             *
-             * If the libmpv client is destroyed, all overlays associated with it are also deleted.
-             * In particular, connecting via `--input-ipc-server`, adding an overlay, and disconnecting will remove the overlay immediately again.
-             */
-            id: number;
+            args: {
+                /**
+                 * Arbitrary integer that identifies the overlay.
+                 * Multiple overlays can be added by calling this command with different `id` parameters.
+                 * Calling this command with the same id replaces the previously set overlay.
+                 *
+                 * There is a separate namespace for each libmpv client (i.e. IPC connection, script),
+                 * so IDs can be made up and assigned by the API user without conflicting with other API users.
+                 *
+                 * If the libmpv client is destroyed, all overlays associated with it are also deleted.
+                 * In particular, connecting via `--input-ipc-server`, adding an overlay, and disconnecting will remove the overlay immediately again.
+                 */
+                id: number;
 
-            /**
-             * String that gives the type of the overlay.
-             * @see https://mpv.io/manual/stable/#command-interface-format
-             */
-            format: "ass-events" | "none";
-            /**
-             * String defining the overlay contents according to the `format` parameter.
-             */
-            data: string;
-            /**
-             * Used if `format` is set to `ass-events` (see description there). Optional, defaults to 0
-             */
-            res_x?: number;
-            /**
-             * Used if `format` is set to `ass-events` (see description there). Optional, defaults to 720
-             */
-            res_y?: number;
-            /**
-             * The Z order of the overlay. Optional, defaults to 0.
-             */
-            z?: number;
-            /**
-             * If set to true, do not display this (default: false).
-             */
-            hidden?: boolean;
-            /**
-             * If set to true, attempt to determine bounds and write them to the command's result value as x0, x1, y0, y1 rectangle
-             */
-            compute_bounds?: boolean;
+                /**
+                 * String that gives the type of the overlay.
+                 * @see https://mpv.io/manual/stable/#command-interface-format
+                 */
+                format: "ass-events" | "none";
+                /**
+                 * String defining the overlay contents according to the `format` parameter.
+                 */
+                data: string;
+                /**
+                 * Used if `format` is set to `ass-events` (see description there). Optional, defaults to 0
+                 */
+                res_x?: number;
+                /**
+                 * Used if `format` is set to `ass-events` (see description there). Optional, defaults to 720
+                 */
+                res_y?: number;
+                /**
+                 * The Z order of the overlay. Optional, defaults to 0.
+                 */
+                z?: number;
+                /**
+                 * If set to true, do not display this (default: false).
+                 */
+                hidden?: boolean;
+                /**
+                 * If set to true, attempt to determine bounds and write them to the command's result value as x0, x1, y0, y1 rectangle
+                 */
+                compute_bounds?: boolean;
+            };
         }
         | {
             name: "mouse";
-            x: number;
-            y: number;
-            /**
-             * The button number of clicked mouse button. This should be one of 0-19. If `button` is omitted, only the position will be updated.
-             */
-            button?: number;
-            /**
-             * default: single
-             */
-            mode?: "single" | "double";
+            args: {
+                x: number;
+                y: number;
+                /**
+                 * The button number of clicked mouse button. This should be one of 0-19. If `button` is omitted, only the position will be updated.
+                 */
+                button?: number;
+                /**
+                 * default: single
+                 */
+                mode?: "single" | "double";
+            };
         }
         | {
             name: "keypress";
-            // TODO: uncomment when `_name` is released
-            // name: string
-            scale?: number;
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: string
+                scale?: number;
+            };
         }
         | {
             name: "keydown";
@@ -623,180 +679,214 @@ declare namespace mp {
         }
         | {
             name: "keybind";
-            // TODO: uncomment when `_name` is released
-            // name: string
-            cmd: string;
-            comment?: string;
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: string
+                cmd: string;
+                comment?: string;
+            };
         }
         | {
             name: "load-input-conf";
-            filename: string;
+            args: {
+                filename: string;
+            };
         }
         | {
             name: "quit";
-            /**
-             * Exit the player. If an argument is given, it's used as process exit code.
-             */
-            code?: number;
+            args: {
+                /**
+                 * Exit the player. If an argument is given, it's used as process exit code.
+                 */
+                code?: number;
+            };
         }
         | {
             name: "quit-watch-later";
-            /**
-             * Exit player, and store current playback position.
-             *
-             * Playing that file later will seek to the previous position on start.
-             *
-             * The (optional) argument is exactly as in the `quit` command.
-             */
-            code?: number;
+            args: {
+                /**
+                 * Exit player, and store current playback position.
+                 *
+                 * Playing that file later will seek to the previous position on start.
+                 *
+                 * The (optional) argument is exactly as in the `quit` command.
+                 */
+                code?: number;
+            };
         }
         | {
             name: "script-binding";
-            // TODO: uncomment when `_name` is released
-            // name: string
-            arg: string;
+            args: {
+                // TODO: uncomment when `_name` is released
+                // name: string
+                arg: string;
+            };
         }
         | {
             name: "load-script";
-            filename: string;
+            args: {
+                filename: string;
+            };
         }
         | {
             name: "screenshot";
-            /**
-             * can be combined with `+`, such as `video+each-frame`
-             * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
-             */
-            flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+            args: {
+                /**
+                 * can be combined with `+`, such as `video+each-frame`
+                 * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
+                 */
+                flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+            };
         }
         | {
             name: "screenshot-to-file";
-            /**
-             * Take a screenshot and save it to a given file.
-             * The format of the file will be guessed by the extension (and `--screenshot-format` is ignored - the behavior when the extension is missing or unknown is arbitrary).
-             * If the file already exists, it's overwritten.
-             */
-            filename: string;
-            /**
-             * can be combined with `+`, such as `video+each-frame`
-             * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
-             */
-            flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+            args: {
+                /**
+                 * Take a screenshot and save it to a given file.
+                 * The format of the file will be guessed by the extension (and `--screenshot-format` is ignored - the behavior when the extension is missing or unknown is arbitrary).
+                 * If the file already exists, it's overwritten.
+                 */
+                filename: string;
+                /**
+                 * can be combined with `+`, such as `video+each-frame`
+                 * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
+                 */
+                flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+            };
         }
         | {
             name: "screenshot-raw";
-            /**
-             * can be combined with `+`, such as `video+each-frame`
-             * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
-             */
-            flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
-            format?: "bgr0" | "bgra" | "rgba" | "rgba64";
+            args: {
+                /**
+                 * can be combined with `+`, such as `video+each-frame`
+                 * @see https://mpv.io/manual/stable/#command-interface-screenshot-[<flags>%5d
+                 */
+                flags?: "video" | "scaled" | "subtitles" | "osd" | "window" | "each-frame" | (string & {});
+                format?: "bgr0" | "bgra" | "rgba" | "rgba64";
+            };
         }
         | {
             name: "vf";
-            /**
-             * @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e
-             * @see https://mpv.io/manual/stable/#video-filters
-             */
-            operation: "set" | "add" | "toggle" | "remove" | "clr" | (string & {});
-            value: unknown;
+            args: {
+                /**
+                 * @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e
+                 * @see https://mpv.io/manual/stable/#video-filters
+                 */
+                operation: "set" | "add" | "toggle" | "remove" | "clr" | (string & {});
+                value: unknown;
+            };
         }
         | {
             name: "af";
-            /** @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e */
-            operation: "set" | "add" | "toggle";
-            value: unknown;
+            args: {
+                /** @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e */
+                operation: "set" | "add" | "toggle";
+                value: unknown;
+            };
         }
         | {
             name: "vf-command";
-            lable: string;
-            command: string;
-            argument: string;
-            target?: string;
+            args: {
+                lable: string;
+                command: string;
+                argument: string;
+                target?: string;
+            };
         }
+        // | { name: 'ao-reload' } // experimental
         | {
             name: "af-command";
-            lable: string;
-            command: string;
-            argument: string;
-            target?: string;
+            args: {
+                lable: string;
+                command: string;
+                argument: string;
+                target?: string;
+            };
         }
         | { name: "ignore" }
         | { name: "drop-buffers" }
         | {
             name: "dump-cache";
-            start: number;
-            end: number;
-            filename: string;
+            args: {
+                start: number;
+                end: number;
+                filename: string;
+            };
         }
         | { name: "ab-loop" }
         | {
             name: "ab-loop-dump-cache";
-            filename: string;
+            args: {
+                filename: string;
+            };
         }
         | { name: "ab-loop-align-cache" }
         | { name: "begin-vo-dragging" }
         | { name: "context-menu" }
+        | { name: "run"; vararg: true }
         | {
             name: "subprocess";
-            /**
-             * Array of strings with the command as first argument, and subsequent command line arguments following.
-             *
-             * This is just like the `run` command argument list.
-             *
-             * The first array entry is either an absolute path to the executable, or a filename with no path components, in which case the executable is searched in the directories in the PATH environment variable.
-             *
-             * On Unix, this is equivalent to posix_spawnp and execvp behavior.
-             */
-            args: string[];
+            args: {
+                /**
+                 * Array of strings with the command as first argument, and subsequent command line arguments following.
+                 *
+                 * This is just like the `run` command argument list.
+                 *
+                 * The first array entry is either an absolute path to the executable, or a filename with no path components, in which case the executable is searched in the directories in the PATH environment variable.
+                 *
+                 * On Unix, this is equivalent to posix_spawnp and execvp behavior.
+                 */
+                args: string[];
 
-            /**
-             * Boolean indicating whether the process should be killed when playback of the current playlist entry terminates (optional, default: true).
-             *
-             * If enabled, stopping playback will automatically kill the process, and you can't start it outside of playback.
-             */
-            playback_only?: boolean;
+                /**
+                 * Boolean indicating whether the process should be killed when playback of the current playlist entry terminates (optional, default: true).
+                 *
+                 * If enabled, stopping playback will automatically kill the process, and you can't start it outside of playback.
+                 */
+                playback_only?: boolean;
 
-            /**
-             * Integer setting the **maximum number of stdout plus stderr bytes** that can be captured (optional, default: 64MB).
-             * If the **number of bytes** exceeds this, capturing is stopped. The limit is per captured stream.
-             */
-            capture_size?: number;
+                /**
+                 * Integer setting the **maximum number of stdout plus stderr bytes** that can be captured (optional, default: 64MB).
+                 * If the **number of bytes** exceeds this, capturing is stopped. The limit is per captured stream.
+                 */
+                capture_size?: number;
 
-            /**
-             * Capture all data the process outputs to stdout and return it once the process ends (optional, default: no).
-             */
-            capture_stdout?: boolean;
-            /**
-             * Capture all data the process outputs to stderr and return it once the process ends (optional, default: no).
-             */
-            capture_stderr?: boolean;
-            /**
-             * Whether to run the process in detached mode (optional, default: no).
-             *
-             * In this mode, the process is run in a new process session, and the command does not wait for the process to terminate.
-             *
-             * If neither `capture_stdout` nor `capture_stderr` have been set to true, the command returns immediately after the new process has been started, otherwise the command will read as long as the pipes are open.
-             */
-            detach?: boolean;
-            /**
-             * Set a list of environment variables for the new process (default: empty).
-             *
-             * If an empty list is passed, the environment of the mpv process is used instead. (Unlike the underlying OS mechanisms, the mpv command cannot start a process with empty environment. Fortunately, that is completely useless.)
-             * The format of the list is as in the `execle()` syscall. Each string item defines an environment variable as in `NAME=VALUE`.
-             */
-            env?: `${string}=${string}`[];
-            /**
-             * Feed the given string to the new process' stdin. Since this is a string, you cannot pass arbitrary binary data.
-             *
-             * If the process terminates or closes the pipe before all data is written, the remaining data is silently discarded.
-             *
-             * Probably does not work on win32.
-             */
-            stdin_data?: string;
-            /**
-             * If enabled, wire the new process' stdin to mpv's stdin (default: no).
-             */
-            passthrough_stdin?: boolean;
+                /**
+                 * Capture all data the process outputs to stdout and return it once the process ends (optional, default: no).
+                 */
+                capture_stdout?: boolean;
+                /**
+                 * Capture all data the process outputs to stderr and return it once the process ends (optional, default: no).
+                 */
+                capture_stderr?: boolean;
+                /**
+                 * Whether to run the process in detached mode (optional, default: no).
+                 *
+                 * In this mode, the process is run in a new process session, and the command does not wait for the process to terminate.
+                 *
+                 * If neither `capture_stdout` nor `capture_stderr` have been set to true, the command returns immediately after the new process has been started, otherwise the command will read as long as the pipes are open.
+                 */
+                detach?: boolean;
+                /**
+                 * Set a list of environment variables for the new process (default: empty).
+                 *
+                 * If an empty list is passed, the environment of the mpv process is used instead. (Unlike the underlying OS mechanisms, the mpv command cannot start a process with empty environment. Fortunately, that is completely useless.)
+                 * The format of the list is as in the `execle()` syscall. Each string item defines an environment variable as in `NAME=VALUE`.
+                 */
+                env?: `${string}=${string}`[];
+                /**
+                 * Feed the given string to the new process' stdin. Since this is a string, you cannot pass arbitrary binary data.
+                 *
+                 * If the process terminates or closes the pipe before all data is written, the remaining data is silently discarded.
+                 *
+                 * Probably does not work on win32.
+                 */
+                stdin_data?: string;
+                /**
+                 * If enabled, wire the new process' stdin to mpv's stdin (default: no).
+                 */
+                passthrough_stdin?: boolean;
+            };
         };
     // *-section commands are deprecated, so not types for them
     // run: { } // `run` command requires variable number of arguments, doesn't support named arguments
@@ -6840,32 +6930,75 @@ declare namespace mp {
     type SubprocessResultWithStd = SubprocessResultWithStdout & SubprocessResultWithStderr;
 
     interface UncomplexKeyBindingFlags {
+        /**
+         * If set to `true`, enables key repeat for this specific binding.
+         * This option only makes sense when `complex` is not set to `true`.
+         */
         repeatable?: boolean;
+        /**
+         * If set to `true`, then `fn` is called on key `down`, `repeat` and `up` events, with the first argument being a table.
+         */
         complex?: false;
     }
 
     interface ComplexKeyBindingFlags {
         // Setting `repeatable` to `true` when `complex` is `true` doesn't make sense
         // See also: https://github.com/mpv-player/mpv/pull/13452
+        /**
+         * If set to `true`, enables key repeat for this specific binding.
+         * This option only makes sense when `complex` is not set to `true`.
+         */
         repeatable?: false;
+        /**
+         * If set to `true`, enables key scaling for this specific binding.
+         * This option only makes sense when `complex` is set to `true`.
+         * Note that this has no effect if the key binding is invoked by `script-binding` command, where the scalability of the command takes precedence.
+         */
+        scalable?: boolean;
+        /**
+         * If set to `true`, then `fn` is called on key `down`, `repeat` and `up` events, with the first argument being a table.
+         */
         complex: true;
     }
 
-    interface UserInputCommand {
+    interface KeyBindingContext {
         event: "down" | "repeat" | "up" | "press";
+        /**
+         * Whether the event was caused by a mouse button.
+         */
         is_mouse: boolean;
-        key_name?: string | undefined;
-        key_text?: string | undefined;
+        /**
+         * Whether the event was canceled. Not all types of cancellations set this flag.
+         */
+        canceled?: boolean;
+        /**
+         * The name of they key that triggered this, or `undefined` if invoked artificially.
+         * If the key name is unknown, it's an empty string.
+         */
+        key_name?: string;
+        /**
+         * Text if triggered by a text key, otherwise `undefined`.
+         */
+        key_text?: string;
+        /**
+         * The scale of the key, such as the ones produced by `WHEEL_*` keys.
+         * The scale is 1 if the key is `nonscalable`.
+         */
+        scale?: number;
+        /**
+         * User-provided string in the `arg` argument in the `script-binding` command if the key binding is invoked by that command.
+         */
+        arg: string;
     }
 
     /**
      * Commands that can only be invoked by Named Arguments
      */
-    type NamedArgumentsOnlyCommand = "subprocess"; // TODO: add helper property in __CommandInfoUnion instead, don't do explicit listing
+    type NamedArgumentsOnlyCommand = "subprocess";
     /**
      * Commands that can only be invoked by mpv command syntax
      */
-    type SyntaxOnlyCommand = "run" | "script-message" | "script-message-to" | "cycle-values"; // TODO: add helper property in __CommandInfoUnion instead, don't do explicit listing
+    type SyntaxOnlyCommand = Extract<__CommandInfoUnion, { vararg: true }>["name"];
 
     function command(command: string): true | undefined;
 
@@ -6889,15 +7022,17 @@ declare namespace mp {
 
     // dprint-ignore
     type CommandOptsUnion = __CommandInfoUnion extends infer U
-      ? U extends { __return: any }
-        ? Omit<U, "__return">
-        : U
+      ? U extends { name: infer N, args: infer TArgs }
+        ? { name: N } & TArgs
+        : U extends { name: infer N } // if the command has no arguments
+          ? { name: N }
+          : never
       : never;
 
     // dprint-ignore
     type GetCommonCommandResult<TOpts extends { name: string }> =
       Extract<__CommandInfoUnion, { name: TOpts["name"] }> extends {
-        __return: infer R;
+        return: infer R;
       }
         ? R
         : null | undefined; // null on success, undefined on error
@@ -6931,10 +7066,13 @@ declare namespace mp {
         opts: TOpts & CommandOptsBase,
     ): GetCommandResult<TOpts>;
 
-    function command_native<TDefault>(
-        opts: CommandOptsUnion & CommandOptsBase,
+    function command_native<
+        TOpts extends CommandOptsUnion,
+        TDefault,
+    >(
+        opts: TOpts & CommandOptsBase,
         def: TDefault,
-    ): null | TDefault; // null if success, TDefault on error
+    ): Exclude<GetCommandResult<TOpts>, undefined> | TDefault;
 
     // NOTE: currently when named argument overload has mismatched shape it would fallback to array overload, producing confusing error message
     // NOTE: editor completion for the first element(command name) is broken, no idea why,
@@ -6951,16 +7089,19 @@ declare namespace mp {
     /**
      * Returns `null` on success, `T` on error
      */
-    function command_native<T>(
-        list: [Exclude<CommandName, NamedArgumentsOnlyCommand> | (string & {}), ...unknown[]],
-        def: T,
-    ): null | T;
+    function command_native<
+        TArgs extends [Exclude<CommandName, NamedArgumentsOnlyCommand>, ...unknown[]],
+        TDefault,
+    >(
+        list: TArgs,
+        def: TDefault,
+    ): Exclude<GetCommandResult<{ name: TArgs[0] }>, undefined> | TDefault;
 
     /**
      * Nominal brand for return type of `mp.command_native_async`.
      * Just in case a random unknown is accidentally passed to `mp.abort_async_command`
      */
-    type __AsyncCommandReturn = unknown & { __brand: "command_native_async" };
+    type AsyncCommandId = number & { __brand: "command_native_async" };
 
     /**
    * @see https://mpv.io/manual/stable/#command-interface-subprocess
@@ -6984,7 +7125,7 @@ declare namespace mp {
     function command_native_async<TOpts extends CommandOptsUnion>(
         opts: TOpts & CommandOptsBase,
         fn?: (success: boolean, result: GetCommandResult<TOpts>, error: string) => void, // result is null on success, undefined on error
-    ): __AsyncCommandReturn | undefined;
+    ): AsyncCommandId | undefined;
 
     /**
      * Abort a `mp.command_native_async` call.
@@ -6996,7 +7137,7 @@ declare namespace mp {
      *
      * Does not return anything.
      */
-    function abort_async_command(t: __AsyncCommandReturn): void;
+    function abort_async_command(t: AsyncCommandId): void;
 
     /**
      * Delete the given property.
@@ -7249,7 +7390,7 @@ declare namespace mp {
         name: P,
     ): GetStringPropertyReturnType<P, true>;
 
-    function get_property<P extends PropertyName | (string & {}), D>(
+    function get_property<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetStringPropertyType<P, true, true>, // def can be any type, this union helps to get completions for expected property type
     ): GetStringPropertyReturnType<P, false> | D; // success | fail
@@ -7274,7 +7415,7 @@ declare namespace mp {
      * Returns the string on success, or `def` on error. `def` is the second parameter provided to the function, and is an empty string if it's missing.
      * Unlike `get_property()`, assigning the return value to a variable will always result in a string.
      */
-    function get_property_osd<P extends PropertyName | (string & {}), D>(
+    function get_property_osd<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetOSDPropertyType<P, true>,
     ): GetOSDPropertyType<P, false, false> | D; // success | fail
@@ -7291,7 +7432,7 @@ declare namespace mp {
      * Similar to `mp.get_property`, but return the property value as Boolean.
      * Returns a Boolean on success, or `def`
      */
-    function get_property_bool<P extends BooleanPropertyName | (string & {}), D>(
+    function get_property_bool<P extends BooleanPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, boolean, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, boolean>> & {} | D; // success | fail
@@ -7316,7 +7457,7 @@ declare namespace mp {
      * This function simply request a double float from mpv, and mpv will usually convert integer property values to float.
      * Returns a number on success, or `def`
      */
-    function get_property_number<P extends NumberPropertyName | (string & {}), D>(
+    function get_property_number<P extends NumberPropertyName | (string & {}), const D>(
         name: P,
         def: D | GetCoercedPropertyTypeOrElse<P, number, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetCoercedPropertyTypeOrElse<P, number>> | D; // success | fail
@@ -7339,7 +7480,7 @@ declare namespace mp {
      * Some properties (for example `chapter-list`) are returned as list.
      * Returns a value on success, or `def`, error on error. Note that `undefined` might be a possible, valid value too in some corner cases.
      */
-    function get_property_native<P extends PropertyName | (string & {}), D>(
+    function get_property_native<P extends PropertyName | (string & {}), const D>(
         name: P,
         def: D | GetPropertyTypeOrElse<P, D>, // def can be any type, this union helps to get completions for expected property type
     ): NonNullable<GetPropertyTypeOrElse<P, unknown>> | D; // success | fail
@@ -7402,43 +7543,236 @@ declare namespace mp {
      */
     function get_time(): number;
 
-    /**
-     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
-     */
-    function add_key_binding(
-        key: string | undefined,
-        fn: () => void,
-        flags?: UncomplexKeyBindingFlags,
-    ): void;
+    // mpv --input-keylist
+    type SpecialInputKeyName =
+        | "SPACE"
+        | "SHARP"
+        | "IDEOGRAPHIC_SPACE"
+        | "ENTER"
+        | "TAB"
+        | "BS"
+        | "DEL"
+        | "INS"
+        | "HOME"
+        | "END"
+        | "PGUP"
+        | "PGDWN"
+        | "ESC"
+        | "PRINT"
+        | "RIGHT"
+        | "LEFT"
+        | "DOWN"
+        | "UP"
+        | "F1"
+        | "F2"
+        | "F3"
+        | "F4"
+        | "F5"
+        | "F6"
+        | "F7"
+        | "F8"
+        | "F9"
+        | "F10"
+        | "F11"
+        | "F12"
+        | "F13"
+        | "F14"
+        | "F15"
+        | "F16"
+        | "F17"
+        | "F18"
+        | "F19"
+        | "F20"
+        | "F21"
+        | "F22"
+        | "F23"
+        | "F24"
+        | "KP0"
+        | "KP1"
+        | "KP2"
+        | "KP3"
+        | "KP4"
+        | "KP5"
+        | "KP6"
+        | "KP7"
+        | "KP8"
+        | "KP9"
+        | "KP_DEL"
+        | "KP_DEC"
+        | "KP_INS"
+        | "KP_HOME"
+        | "KP_END"
+        | "KP_PGUP"
+        | "KP_PGDWN"
+        | "KP_RIGHT"
+        | "KP_BEGIN"
+        | "KP_LEFT"
+        | "KP_DOWN"
+        | "KP_UP"
+        | "KP_ENTER"
+        | "KP_ADD"
+        | "KP_SUBTRACT"
+        | "KP_MULTIPLY"
+        | "KP_DIVIDE"
+        | "MBTN_LEFT"
+        | "MBTN_MID"
+        | "MBTN_RIGHT"
+        | "WHEEL_UP"
+        | "WHEEL_DOWN"
+        | "WHEEL_LEFT"
+        | "WHEEL_RIGHT"
+        | "MBTN_BACK"
+        | "MBTN_FORWARD"
+        | "MBTN9"
+        | "MBTN10"
+        | "MBTN11"
+        | "MBTN12"
+        | "MBTN13"
+        | "MBTN14"
+        | "MBTN15"
+        | "MBTN16"
+        | "MBTN17"
+        | "MBTN18"
+        | "MBTN19"
+        | "MBTN_LEFT_DBL"
+        | "MBTN_MID_DBL"
+        | "MBTN_RIGHT_DBL"
+        | "TABLET_TOOL_TIP"
+        | "TABLET_TOOL_STYLUS_BTN1"
+        | "TABLET_TOOL_STYLUS_BTN2"
+        | "TABLET_TOOL_STYLUS_BTN3"
+        | "GAMEPAD_ACTION_DOWN"
+        | "GAMEPAD_ACTION_RIGHT"
+        | "GAMEPAD_ACTION_LEFT"
+        | "GAMEPAD_ACTION_UP"
+        | "GAMEPAD_BACK"
+        | "GAMEPAD_MENU"
+        | "GAMEPAD_START"
+        | "GAMEPAD_LEFT_SHOULDER"
+        | "GAMEPAD_RIGHT_SHOULDER"
+        | "GAMEPAD_LEFT_TRIGGER"
+        | "GAMEPAD_RIGHT_TRIGGER"
+        | "GAMEPAD_LEFT_STICK"
+        | "GAMEPAD_RIGHT_STICK"
+        | "GAMEPAD_DPAD_UP"
+        | "GAMEPAD_DPAD_DOWN"
+        | "GAMEPAD_DPAD_LEFT"
+        | "GAMEPAD_DPAD_RIGHT"
+        | "GAMEPAD_LEFT_STICK_UP"
+        | "GAMEPAD_LEFT_STICK_DOWN"
+        | "GAMEPAD_LEFT_STICK_LEFT"
+        | "GAMEPAD_LEFT_STICK_RIGHT"
+        | "GAMEPAD_RIGHT_STICK_UP"
+        | "GAMEPAD_RIGHT_STICK_DOWN"
+        | "GAMEPAD_RIGHT_STICK_LEFT"
+        | "GAMEPAD_RIGHT_STICK_RIGHT"
+        | "POWER"
+        | "MENU"
+        | "PLAY"
+        | "PAUSE"
+        | "PLAYPAUSE"
+        | "STOP"
+        | "FORWARD"
+        | "REWIND"
+        | "NEXT"
+        | "PREV"
+        | "VOLUME_UP"
+        | "VOLUME_DOWN"
+        | "MUTE"
+        | "HOMEPAGE"
+        | "WWW"
+        | "MAIL"
+        | "FAVORITES"
+        | "SEARCH"
+        | "SLEEP"
+        | "CANCEL"
+        | "RECORD"
+        | "CHANNEL_UP"
+        | "CHANNEL_DOWN"
+        | "PLAYONLY"
+        | "PAUSEONLY"
+        | "GO_BACK"
+        | "GO_FORWARD"
+        | "TOOLS"
+        | "ZOOMIN"
+        | "ZOOMOUT"
+        | "XF86_PAUSE"
+        | "XF86_STOP"
+        | "XF86_PREV"
+        | "XF86_NEXT"
+        | "MOUSE_BTN0"
+        | "MOUSE_BTN1"
+        | "MOUSE_BTN2"
+        | "MOUSE_BTN3"
+        | "MOUSE_BTN4"
+        | "MOUSE_BTN5"
+        | "MOUSE_BTN6"
+        | "MOUSE_BTN7"
+        | "MOUSE_BTN8"
+        | "MOUSE_BTN9"
+        | "MOUSE_BTN10"
+        | "MOUSE_BTN11"
+        | "MOUSE_BTN12"
+        | "MOUSE_BTN13"
+        | "MOUSE_BTN14"
+        | "MOUSE_BTN15"
+        | "MOUSE_BTN16"
+        | "MOUSE_BTN17"
+        | "MOUSE_BTN18"
+        | "MOUSE_BTN19"
+        | "MOUSE_BTN0_DBL"
+        | "MOUSE_BTN1_DBL"
+        | "MOUSE_BTN2_DBL"
+        | "AXIS_UP"
+        | "AXIS_DOWN"
+        | "AXIS_LEFT"
+        | "AXIS_RIGHT"
+        | "CLOSE_WIN"
+        | "MOUSE_MOVE"
+        | "MOUSE_LEAVE"
+        | "MOUSE_ENTER"
+        | "UNMAPPED"
+        | "ANY_UNICODE";
 
     /**
-     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     * Register callback to be run on a key binding.
+     * The binding will be mapped to the given key, which is a string describing the physical key.
+     * This uses the same key names as in `input.conf`, and also allows combinations (e.g. `ctrl+a`)
+     *
+     * If the `key` is empty or `undefined`, no physical key is registered, but the user still can create own bindings.
+     *
+     * The `name` argument should be a short symbolic string.
+     * It allows the user to remap the key binding via `input.conf` using the `script-message` command, and the name of the key binding.
+     * The `name` should be unique across other bindings in the same script - if not, the previous binding with the same name will be overwritten.
+     * You can omit the name, in which case a random name is generated internally.
+     *
+     * Key presses will cause the function `fn` to be called (unless the user remapped the key with another binding).
+     * However, if the key binding is canceled, the function will not be called, unless `complex` flag is set to `true`
+     * @param key a key name or combination e.g. `ctrl+a`
+     * @param name unique name of the binding
+     * @param fn callback to be called on binding triggered
+     * @param [flags] extra flags
      */
     function add_key_binding(
-        key: string | undefined,
-        fn: (table: UserInputCommand) => void,
-        flags: ComplexKeyBindingFlags,
-    ): void;
-
-    function add_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
         fn: () => void,
         flags?: UncomplexKeyBindingFlags,
     ): void;
 
+    // NOTE: `table` in the `fn` callback is only available when `flags.complex = true`
     function add_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
-        fn: (table: UserInputCommand) => void,
+        fn: (table: KeyBindingContext) => void,
         flags: ComplexKeyBindingFlags,
     ): void;
 
     /**
      * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
      */
-    function add_forced_key_binding(
-        key: string | undefined,
+    function add_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
         fn: () => void,
         flags?: UncomplexKeyBindingFlags,
     ): void;
@@ -7446,9 +7780,9 @@ declare namespace mp {
     /**
      * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
      */
-    function add_forced_key_binding(
-        key: string | undefined,
-        fn: (table: UserInputCommand) => void,
+    function add_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
+        fn: (table: KeyBindingContext) => void,
         flags: ComplexKeyBindingFlags,
     ): void;
 
@@ -7457,16 +7791,34 @@ declare namespace mp {
      * (`mp.add_key_binding` overwrites default key bindings only, but not those by the user's `input.conf`.)
      */
     function add_forced_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
         fn: () => void,
         flags?: UncomplexKeyBindingFlags,
     ): void;
 
     function add_forced_key_binding(
-        key: string | undefined,
+        key: SpecialInputKeyName | string & {} | undefined,
         name: string | undefined,
-        fn: (table: UserInputCommand) => void,
+        fn: (table: KeyBindingContext) => void,
+        flags: ComplexKeyBindingFlags,
+    ): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
+        fn: () => void,
+        flags?: UncomplexKeyBindingFlags,
+    ): void;
+
+    /**
+     * @deprecated Passing the `fn` argument in place of the `name` is not recommended and is handled for compatibility only
+     */
+    function add_forced_key_binding(
+        key: SpecialInputKeyName | string & {} | undefined,
+        fn: (table: KeyBindingContext) => void,
         flags: ComplexKeyBindingFlags,
     ): void;
 
@@ -7745,6 +8097,9 @@ declare namespace mp {
 
     interface HookState {
         defer(): void;
+        /**
+         * Continue the hook. Doesn't need to be called unless `defer()` was called.
+         */
         cont(): void;
     }
 
@@ -8072,6 +8427,10 @@ declare namespace mp {
          */
         function select(opts: SelectOpts): void;
     }
+
+    // nominal brand for setTimeout returns, in case a random number is passed to clearTimeout
+    type TimeoutId = number & { __brand: "setTimeout" };
+    type IntervalId = number & { __brand: "setInterval" };
 }
 
 /**
@@ -8090,10 +8449,6 @@ declare function dump(...msg: unknown[]): void;
  */
 declare function exit(): void;
 
-// nominal brand for setTimeout returns, in case a random number is passed to clearTimeout
-type __TimeoutId = number & { __brand: "setTimeout" };
-type __IntervalId = number & { __brand: "setInterval" };
-
 /**
  * @param fn callback for each interval
  * @param delay delay in millisecond
@@ -8104,19 +8459,19 @@ declare function setTimeout<TArgs extends any[]>(
     fn: (...args: TArgs) => void,
     delay?: number,
     ...args: TArgs
-): __TimeoutId;
+): mp.TimeoutId;
 
 /**
  * @param codeString javascript code
  * @param delay delay in millisecond
  * @returns id
  */
-declare function setTimeout(codeString: string, delay?: number): __TimeoutId;
+declare function setTimeout(codeString: string, delay?: number): mp.TimeoutId;
 
 /**
  * Cancels a scheduled timeout
  */
-declare function clearTimeout(id: __TimeoutId): void;
+declare function clearTimeout(id: mp.TimeoutId): void;
 
 /**
  * @param fn callback for each interval
@@ -8128,19 +8483,19 @@ declare function setInterval<TArgs extends any[]>(
     fn: (...args: TArgs) => void,
     delay?: number,
     ...args: TArgs
-): __IntervalId;
+): mp.IntervalId;
 
 /**
  * @param codeString javascript code
  * @param delay delay in millisecond
  * @returns id
  */
-declare function setInterval(codeString: string, delay?: number): __IntervalId;
+declare function setInterval(codeString: string, delay?: number): mp.IntervalId;
 
 /**
  * Stop a recurring timer
  */
-declare function clearInterval(id: __IntervalId): void;
+declare function clearInterval(id: mp.IntervalId): void;
 
 /**
  * note: compilerOptions.module in tsconfig/jsconfig should be set properly otherwise it might not resolve shape of the exports

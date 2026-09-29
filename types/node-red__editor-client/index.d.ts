@@ -4341,6 +4341,31 @@ declare namespace editorClient {
     /** @deprecated Use {@link plugins.PluginDefinition} instead */
     interface PluginDef extends plugins.PluginDefinition {} // eslint-disable-line @typescript-eslint/no-empty-interface
 
+    /** @deprecated Use {@link widgets.AutoCompleteOptions} instead */
+    interface WidgetAutoCompleteOptions extends widgets.AutoCompleteOptions {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.AutoComplete} instead */
+    interface WidgetAutoComplete extends widgets.AutoComplete {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.CheckboxSetOptions} instead */
+    interface WidgetCheckboxSetOptions extends widgets.CheckboxSetOptions {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.CheckboxSet} instead */
+    interface WidgetCheckboxSet extends widgets.CheckboxSet {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.SearchBoxOptions} instead */
+    interface WidgetSearchBoxOptions extends widgets.SearchBoxOptions {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.SearchBox} instead */
+    interface WidgetSearchBox extends widgets.SearchBox {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.ToggleButtonOptions} instead */
+    interface WidgetToggleButtonOptions extends widgets.ToggleButtonOptions {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.ToggleButton} instead */
+    interface WidgetToogleButton extends widgets.ToogleButton {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.TreeListData} instead */
+    interface WidgetTreeListData extends widgets.TreeListData {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.TreeListItem} instead */
+    interface WidgetTreeListItem extends widgets.TreeListItem {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.TreeListOptions} instead */
+    interface WidgetTreeListOptions extends widgets.TreeListOptions {} // eslint-disable-line @typescript-eslint/no-empty-interface
+    /** @deprecated Use {@link widgets.TreeList} instead */
+    interface WidgetTreeList extends widgets.TreeList {} // eslint-disable-line @typescript-eslint/no-empty-interface
+
     /** @deprecated Use {@link widgets.EditableListOptions} instead */
     interface WidgetEditableListOptions<T> extends widgets.EditableListOptions<T> {} // eslint-disable-line @typescript-eslint/no-empty-interface
     /** @deprecated Use {@link widgets.EditableList} instead */

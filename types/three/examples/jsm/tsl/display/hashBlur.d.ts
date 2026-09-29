@@ -1,8 +1,7 @@
 import { Node } from "three/webgpu";
 
 interface HashBlurOptions {
-    size?: Node | undefined;
-    mask?: Node | null | undefined;
+    repeats?: Node | number | undefined;
     premultipliedAlpha?: boolean | undefined;
 }
 

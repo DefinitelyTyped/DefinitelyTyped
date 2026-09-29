@@ -22,6 +22,13 @@ declare class ClippingContext {
      */
     constructor(parentContext?: ClippingContext | null);
     /**
+     * The id of the clipping context.
+     *
+     * @type {number}
+     * @readonly
+     */
+    readonly id: number;
+    /**
      * The clipping context's version.
      *
      * @type {number}

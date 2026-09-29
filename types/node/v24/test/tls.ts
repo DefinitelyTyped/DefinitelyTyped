@@ -11,6 +11,7 @@ import {
     DEFAULT_MIN_VERSION,
     EphemeralKeyInfo,
     getCACertificates,
+    getCertificateCompressionAlgorithms,
     getCiphers,
     PeerCertificate,
     rootCertificates,
@@ -41,6 +42,7 @@ import {
             };
         },
         requestOCSP: true,
+        certificateCompression: ["zlib"],
     };
     const tlsSocket = connect(connOpts);
 
@@ -65,6 +67,7 @@ import {
 
     const caCertificates: string[] = getCACertificates("default");
     const ciphers: string[] = getCiphers();
+    const certificateCompressionAlgorithms: string[] = getCertificateCompressionAlgorithms();
     const curve: string = DEFAULT_ECDH_CURVE;
     const maxVersion: string = DEFAULT_MAX_VERSION;
     const minVersion: string = DEFAULT_MIN_VERSION;

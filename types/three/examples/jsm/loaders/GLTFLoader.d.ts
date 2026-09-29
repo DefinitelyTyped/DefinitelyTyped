@@ -64,13 +64,14 @@ export class GLTFLoader extends Loader<GLTF> {
     parseAsync(data: ArrayBuffer | string, path: string): Promise<GLTF>;
 }
 
-export type GLTFReferenceType = "materials" | "nodes" | "textures" | "meshes";
+export type GLTFReferenceType = "materials" | "nodes" | "textures" | "meshes" | "primitives";
 
 export interface GLTFReference {
     materials?: number;
     nodes?: number;
     textures?: number;
     meshes?: number;
+    primitives?: number;
 }
 
 export class GLTFParser {

@@ -37,11 +37,6 @@ export class HemisphereLightHelper extends Object3D {
     color: ColorRepresentation | undefined;
     material: MeshBasicMaterial;
     /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
-    /**
      * Updates the helper to match the position and direction of the
      * light being visualized.
      */

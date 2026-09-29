@@ -20,10 +20,6 @@ export interface InstancedMeshJSON extends MeshJSONObject {
     object: InstancedMeshJSONObject;
 }
 
-export interface InstancedMeshEventMap extends Object3DEventMap {
-    dispose: {};
-}
-
 /**
  * A special version of {@link THREE.Mesh | Mesh} with instanced rendering support
  * @remarks
@@ -39,7 +35,7 @@ export interface InstancedMeshEventMap extends Object3DEventMap {
 export class InstancedMesh<
     TGeometry extends BufferGeometry = BufferGeometry,
     TMaterial extends Material | Material[] = Material | Material[],
-    TEventMap extends InstancedMeshEventMap = InstancedMeshEventMap,
+    TEventMap extends Object3DEventMap = Object3DEventMap,
 > extends Mesh<TGeometry, TMaterial, TEventMap> {
     /**
      * Read-only flag to check if a given object is of type {@link InstancedMesh}.

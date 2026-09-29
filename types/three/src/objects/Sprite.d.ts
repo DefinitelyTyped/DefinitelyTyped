@@ -1,6 +1,8 @@
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 import { SpriteMaterial } from "../materials/Materials.js";
+import { Frustum } from "../math/Frustum.js";
+import { FrustumArray } from "../math/FrustumArray.js";
 import { Vector2 } from "../math/Vector2.js";
 
 /**
@@ -70,4 +72,11 @@ export class Sprite<TEventMap extends Object3DEventMap = Object3DEventMap> exten
      * @default 1
      */
     count: number;
+
+    /**
+     * Returns `true` if this sprite intersects the given frustum.
+     * @param frustum The frustum to test.
+     * @returns Whether this sprite intersects the given frustum or not.
+     */
+    intersectsFrustum(frustum: Frustum | FrustumArray): boolean;
 }

@@ -9,7 +9,6 @@ import { Checkboxes } from "./components/checkboxes/checkboxes.js";
 import { ErrorSummary } from "./components/error-summary/error-summary.js";
 import { ExitThisPage } from "./components/exit-this-page/exit-this-page.js";
 import { FileUpload } from "./components/file-upload/file-upload.js";
-import { Header } from "./components/header/header.js";
 import { NotificationBanner } from "./components/notification-banner/notification-banner.js";
 import { PasswordInput } from "./components/password-input/password-input.js";
 import { Radios } from "./components/radios/radios.js";
@@ -33,7 +32,6 @@ declare const GOVUKFrontend: {
     ErrorSummary: typeof ErrorSummary;
     ExitThisPage: typeof ExitThisPage;
     FileUpload: typeof FileUpload;
-    Header: typeof Header;
     NotificationBanner: typeof NotificationBanner;
     PasswordInput: typeof PasswordInput;
     Radios: typeof Radios;

@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/node",
-    "version": "26.5.9999",
+    "version": "26.6.9999",
     "nonNpm": "conflict",
     "nonNpmDescription": "Node.js",
     "projects": [
@@ -61,20 +61,12 @@
             "githubUsername": "WilcoBakker"
         },
         {
-            "name": "Marcin Kopacz",
-            "githubUsername": "chyzwar"
-        },
-        {
             "name": "Trivikram Kamat",
             "githubUsername": "trivikr"
         },
         {
             "name": "Junxiao Shi",
             "githubUsername": "yoursunny"
-        },
-        {
-            "name": "Ilia Baryshnikov",
-            "githubUsername": "qwelias"
         },
         {
             "name": "ExE Boss",
@@ -87,10 +79,6 @@
         {
             "name": "Anna Henningsen",
             "githubUsername": "addaleax"
-        },
-        {
-            "name": "Victor Perin",
-            "githubUsername": "victorperin"
         },
         {
             "name": "NodeJS Contributors",

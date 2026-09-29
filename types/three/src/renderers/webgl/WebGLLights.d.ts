@@ -6,12 +6,14 @@ export interface WebGLLightsState {
     version: number;
 
     hash: {
+        sunLength: number;
         directionalLength: number;
         pointLength: number;
         spotLength: number;
         rectAreaLength: number;
         hemiLength: number;
 
+        numSunShadows: number;
         numDirectionalShadows: number;
         numPointShadows: number;
         numSpotShadows: number;
@@ -22,6 +24,11 @@ export interface WebGLLightsState {
 
     ambient: number[];
     probe: unknown[];
+    sun: unknown[];
+    sunShadow: unknown[];
+    sunShadowMap: unknown[];
+    sunShadowMatrix: unknown[];
+    sunShadowCascade: unknown[];
     directional: unknown[];
     directionalShadow: unknown[];
     directionalShadowMap: unknown[];

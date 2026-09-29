@@ -305,21 +305,24 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
     /**
      * Returns the update type of {@link Node#update}.
      *
+     * @param {NodeFrame} [frame] - The current node frame.
      * @return {NodeUpdateType} The update type.
      */
-    getUpdateType(): NodeUpdateType;
+    getUpdateType(frame?: NodeFrame): NodeUpdateType;
     /**
      * Returns the update type of {@link Node#updateBefore}.
      *
+     * @param {NodeFrame} [frame] - The current node frame.
      * @return {NodeUpdateType} The update type.
      */
-    getUpdateBeforeType(): NodeUpdateType;
+    getUpdateBeforeType(frame?: NodeFrame): NodeUpdateType;
     /**
      * Returns the update type of {@link Node#updateAfter}.
      *
+     * @param {NodeFrame} [frame] - The current node frame.
      * @return {NodeUpdateType} The update type.
      */
-    getUpdateAfterType(): NodeUpdateType;
+    getUpdateAfterType(frame?: NodeFrame): NodeUpdateType;
     /**
      * Certain types are composed of multiple elements. For example a `vec3`
      * is composed of three `float` values. This method returns the type of

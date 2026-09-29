@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Animated, TouchableWithoutFeedback, ViewProps } from "react-native";
+import { Animated, TouchableWithoutFeedbackProps, ViewProps } from "react-native";
 
 export type RippleProps =
-    & TouchableWithoutFeedback["props"]
+    & TouchableWithoutFeedbackProps
     & Animated.AnimatedProps<ViewProps>
     & {
         rippleColor?: string | undefined;

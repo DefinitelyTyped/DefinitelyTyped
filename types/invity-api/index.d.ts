@@ -591,16 +591,35 @@ export interface Platforms {
     [key: string]: PlatformsInfo;
 }
 
+export type BtcSwapComposeAmount =
+    | {
+        kind: "percent";
+        value: number;
+    }
+    | {
+        kind: "sats";
+        value: string;
+    };
+
+export type BtcSwapComposeOutput =
+    | {
+        type: "opreturn";
+        dataHex: string;
+    }
+    | {
+        type: "payment";
+        amount: BtcSwapComposeAmount;
+    };
+
+export interface BtcSwapComposeTemplate {
+    extraOutputs: BtcSwapComposeOutput[];
+}
+
 export interface InfoResponse {
     platforms: Platforms;
     coins: Coins;
     config: {
-        btcSwapDummyData?: {
-            opreturn: {
-                dataHex: string;
-            };
-            feePercentage: number;
-        };
+        btcSwapComposeTemplate: BtcSwapComposeTemplate;
     };
 }
 

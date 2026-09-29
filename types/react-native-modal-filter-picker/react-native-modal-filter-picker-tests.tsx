@@ -34,7 +34,7 @@ const renderPicker = () => (
         noResultsText="No matches"
         visible
         showFilter
-        modal={{ animated: true }}
+        modal={{ animationType: "slide" }}
         selectedOption="some-option-key"
         flatListProps={{ accessible: true }}
         renderOption={(option, isSelected) => (

@@ -13,6 +13,8 @@ interface UniformArrayNodeInterface<TNodeType> {
 
     getPaddedType(): string;
 
+    updateBuffer(): void;
+
     element: (indexNode: Node | number) => UniformArrayElementNode<TNodeType>;
 }
 

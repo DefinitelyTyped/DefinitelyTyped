@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 const imageLoader = new THREE.ImageLoader();
 imageLoader.load("/path/to/image.png", image => {
-    const source = new THREE.Source(image);
+    const source = new THREE.TextureSource(image);
 
     const material = new THREE.MeshBasicMaterial();
     material.map = new THREE.Texture();

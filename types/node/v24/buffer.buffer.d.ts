@@ -316,11 +316,11 @@ declare module "buffer" {
              * such `Buffer` instances with zeroes.
              *
              * When using `Buffer.allocUnsafe()` to allocate new `Buffer` instances,
-             * allocations under 4 KiB are sliced from a single pre-allocated `Buffer`. This
-             * allows applications to avoid the garbage collection overhead of creating many
-             * individually allocated `Buffer` instances. This approach improves both
-             * performance and memory usage by eliminating the need to track and clean up as
-             * many individual `ArrayBuffer` objects.
+             * allocations less than `Buffer.poolSize >>> 1` (32KiB when default poolSize is used) are sliced
+             * from a single pre-allocated `Buffer`. This allows applications to avoid the
+             * garbage collection overhead of creating many individually allocated `Buffer`
+             * instances. This approach improves both performance and memory usage by
+             * eliminating the need to track and clean up as many individual `ArrayBuffer` objects.
              *
              * However, in the case where a developer may need to retain a small chunk of
              * memory from a pool for an indeterminate amount of time, it may be appropriate
@@ -469,4 +469,9 @@ declare module "buffer" {
         new(size: number): Buffer<ArrayBuffer>;
         prototype: Buffer;
     };
+    /**
+     * @deprecated This is intended for internal use, and will be removed once `@types/node` no longer supports
+     * TypeScript versions earlier than 5.7.
+     */
+    type BufferView<T extends NodeJS.ArrayBufferView> = T extends NodeJS.ArrayBufferView<infer B> ? Buffer<B> : never;
 }

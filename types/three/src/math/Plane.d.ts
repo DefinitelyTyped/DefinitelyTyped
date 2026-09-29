@@ -44,4 +44,12 @@ export class Plane {
      * @deprecated Use {@link Plane#intersectsLine .intersectsLine()} instead.
      */
     isIntersectionLine(l: any): any;
+
+    toJSON(): PlaneJSON;
+    fromJSON(json: PlaneJSON): this;
+}
+
+export interface PlaneJSON {
+    normal: number[];
+    constant: number;
 }

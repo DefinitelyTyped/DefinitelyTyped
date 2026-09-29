@@ -79,6 +79,25 @@ export const UniformsLib: {
     lights: {
         ambientLightColor: IUniform<unknown[]>;
         lightProbe: IUniform<unknown[]>;
+        sunLights: {
+            value: unknown[];
+            properties: {
+                direction: {};
+                color: {};
+            };
+        };
+        sunLightShadows: {
+            value: unknown[];
+            properties: {
+                shadowIntensity: number;
+                shadowBias: {};
+                shadowNormalBias: {};
+                shadowRadius: {};
+                shadowMapSize: {};
+            };
+        };
+        sunShadowMatrix: IUniform<unknown[]>;
+        sunShadowCascade: IUniform<unknown[]>;
         directionalLights: {
             value: unknown[];
             properties: {

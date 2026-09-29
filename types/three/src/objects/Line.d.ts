@@ -1,6 +1,8 @@
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
+import { Frustum } from "../math/Frustum.js";
+import { FrustumArray } from "../math/FrustumArray.js";
 
 /**
  * A continuous line.
@@ -84,4 +86,11 @@ export class Line<
      * Resets the {@link morphTargetInfluences | .morphTargetInfluences} and {@link morphTargetDictionary | .morphTargetDictionary} properties.
      */
     updateMorphTargets(): void;
+
+    /**
+     * Returns `true` if this line intersects the given frustum.
+     * @param frustum The frustum to test.
+     * @returns Whether this line intersects the given frustum or not.
+     */
+    intersectsFrustum(frustum: Frustum | FrustumArray): boolean;
 }

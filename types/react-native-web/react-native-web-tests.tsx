@@ -1,18 +1,6 @@
 import {
+    // web-extended versions of react-native's types
     AccessibilityProps,
-    ImageStyle,
-    PressableProps,
-    PressableStateCallbackType,
-    ScrollViewProps,
-    TextInputProps,
-    TextProps,
-    TextStyle,
-    UIManager,
-    ViewProps,
-    ViewStyle,
-} from "react-native";
-
-import {
     // components
     ActivityIndicator,
     Button,
@@ -24,24 +12,32 @@ import {
     Image,
     ImageBackground,
     ImageProps,
+    ImageStyle,
     KeyboardAvoidingView,
     KeyboardProps,
     Modal,
     Picker,
     Pressable,
+    PressableProps,
+    PressableStateCallbackType,
     ProgressBar,
     RefreshControl,
     SafeAreaView,
     ScrollView,
+    ScrollViewProps,
     SectionList,
     StatusBar,
     Switch,
     Text,
     TextInput,
+    TextInputProps,
+    TextProps,
+    TextStyle,
     TouchableHighlight,
     TouchableNativeFeedback,
     TouchableOpacity,
     TouchableWithoutFeedback,
+    UIManager,
     // unstable APIs
     unstable_createElement,
     // hooks
@@ -49,6 +45,8 @@ import {
     useLocaleContext,
     useWindowDimensions,
     View,
+    ViewProps,
+    ViewStyle,
     VirtualizedList,
     YellowBox,
 } from "react-native-web";
@@ -100,6 +98,7 @@ const scrollViewProps: ScrollViewProps = {
 };
 
 const pressableProps: PressableProps = {
+    children: null,
     delayPressIn: 1,
     delayPressOut: 1,
     onPressMove: (event) => {
@@ -379,6 +378,8 @@ const virtualizedList = (
             console.log(item);
             return "key";
         }}
+        getItem={(data, index) => data[index]}
+        getItemCount={(data) => data.length}
     />
 );
 const yellowBox = <YellowBox />;
