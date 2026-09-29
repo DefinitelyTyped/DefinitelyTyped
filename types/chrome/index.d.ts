@@ -8507,7 +8507,7 @@ declare namespace chrome {
             /** Printer capabilities in [CDD format](https://developers.google.com/cloud-print/docs/cdd#cdd-example). The property may be missing. */
             capabilities?: { [key: string]: unknown };
             /** The status of the printer. */
-            status: PrinterStatus;
+            status: `${PrinterStatus}`;
         }
 
         /** Status of the print job. */
@@ -8594,7 +8594,7 @@ declare namespace chrome {
             /** The id of created print job. This is a unique identifier among all print jobs on the device. If status is not OK, jobId will be null. */
             jobId: string | null;
             /** The status of the request. */
-            status: SubmitJobStatus;
+            status: `${SubmitJobStatus}`;
         }
 
         /** The status of submitJob request. */
@@ -8699,7 +8699,7 @@ declare namespace chrome {
             /** Displayed name of the printer. */
             name: string;
             /** The source of the printer. */
-            source: PrinterSource;
+            source: `${PrinterSource}`;
             /** The full path for the printer. Contains protocol, hostname, port, and queue. */
             uri: string;
         }
@@ -8727,15 +8727,15 @@ declare namespace chrome {
              * The status of the printer.
              * @since Chrome 85
              */
-            printer_status: chrome.printing.PrinterStatus;
+            printer_status: `${printing.PrinterStatus}`;
             /** The settings of the print job. */
             settings: PrintSettings;
             /** Source showing who initiated the print job. */
-            source: PrintJobSource;
+            source: `${PrintJobSource}`;
             /** ID of source. Null if source is PRINT_PREVIEW or ANDROID_APP. */
             sourceId: string | null;
             /** The final status of the job. */
-            status: PrintJobStatus;
+            status: `${PrintJobStatus}`;
             /** The title of the document which was printed. */
             title: string;
         }
@@ -8764,11 +8764,11 @@ declare namespace chrome {
 
         interface PrintSettings {
             /** The requested color mode. */
-            color: ColorMode;
+            color: `${ColorMode}`;
             /** The requested number of copies. */
             copies: number;
             /** The requested duplex mode. */
-            duplex: DuplexMode;
+            duplex: `${DuplexMode}`;
             /** The requested media size. */
             mediaSize: MediaSize;
         }
