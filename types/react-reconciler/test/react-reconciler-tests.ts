@@ -198,9 +198,41 @@ hostConfig.getChildHostContext(parentHostContext, "div");
 // @ts-expect-error -- rootContainer is never passed by the reconciler
 hostConfig.getChildHostContext(parentHostContext, "div", rootContainer);
 
-// getRootHostContext is unchanged and still receives the container.
-// $ExpectType HostContext | null
+// getRootHostContext returns a non-nullable HostContext.
+// $ExpectType HostContext
 hostConfig.getRootHostContext(rootContainer);
+
+// Returning null only works when the renderer's HostContext includes null.
+const nullRootContextConfig: Pick<typeof hostConfig, "getRootHostContext"> = {
+    // @ts-expect-error -- HostContext here is an object type, so null isn't assignable
+    getRootHostContext: () => null,
+};
+
+// Renderers that don't use host context opt in by setting HostContext to null.
+declare const noContextConfig: ReactReconciler.HostConfig<
+    string,
+    {},
+    "container",
+    "instance",
+    "text",
+    "activity",
+    "suspense",
+    unknown,
+    unknown,
+    unknown,
+    null, // HostContext
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown
+>;
+// $ExpectType null
+noContextConfig.getRootHostContext("container");
 
 // Test the rest of the suspensey-commit family added alongside maySuspendCommit.
 // $ExpectType boolean
@@ -470,7 +502,7 @@ hostConfig.supportsSingletons;
 hostConfig.resolveSingletonInstance!("head", props, container, hostContext, false);
 
 hostConfig.acquireSingletonInstance!("head", props, instance, {});
-hostConfig.releaseSingletonInstance!(instance);
+hostConfig.releaseSingletonInstance!(instance, "head", props);
 
 // $ExpectType boolean
 hostConfig.isHostSingletonType!("head");
@@ -729,3 +761,104 @@ const unknownTag: ReactReconciler.WorkTag = 32;
 const effectEventHook: ReactReconciler.HookType = "useEffectEvent";
 // @ts-expect-error -- removed in React 18
 const mutableSourceHook: ReactReconciler.HookType = "useMutableSource";
+
+// releaseSingletonInstance gets the fiber's type and memoized props (react-reconciler 0.34).
+hostConfig.releaseSingletonInstance!(instance, "html", props);
+
+// @ts-expect-error -- releaseSingletonInstance now takes the type and props too
+hostConfig.releaseSingletonInstance!(instance);
+
+// A config written against the 0.34 signature
+const releasingConfig: Pick<TestHostConfig, "releaseSingletonInstance"> = {
+    releaseSingletonInstance(instance, type, props) {
+        // $ExpectType Instance
+        instance;
+        // $ExpectType string
+        type;
+        // $ExpectType Props
+        props;
+    },
+};
+releasingConfig.releaseSingletonInstance?.(instance, "html", props);
+
+// A pre-0.34 one-parameter implementation is still assignable
+const legacyReleasingConfig: Pick<TestHostConfig, "releaseSingletonInstance"> = {
+    releaseSingletonInstance(instance) {},
+};
+
+// View transitions (react-reconciler 0.34): InstanceMeasurement and RunningViewTransition
+// are renderer-chosen and threaded between host config calls.
+interface Measurement {
+    x: number;
+    y: number;
+}
+interface RunningTransition {
+    finished: Promise<void>;
+}
+
+declare const vtConfig: ReactReconciler.HostConfig<
+    ReactTestHostConfig.Type,
+    ReactTestHostConfig.Props,
+    ReactTestHostConfig.Container,
+    ReactTestHostConfig.Instance,
+    ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
+    ReactTestHostConfig.SuspenseInstance,
+    ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
+    ReactTestHostConfig.PublicInstance,
+    ReactTestHostConfig.HostContext,
+    ReactTestHostConfig.ChildSet,
+    ReactTestHostConfig.TimeoutHandle,
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource,
+    Measurement,
+    RunningTransition
+>;
+
+const measurement = vtConfig.measureInstance!(instance);
+// $ExpectType Measurement
+measurement;
+// $ExpectType boolean
+vtConfig.hasInstanceChanged!(measurement, vtConfig.measureClonedInstance!(instance));
+// $ExpectType boolean
+vtConfig.wasInstanceInViewport!(measurement);
+// @ts-expect-error -- measurements must be the renderer's InstanceMeasurement
+vtConfig.hasInstanceAffectedParent!(measurement, { x: "0" });
+
+const running = vtConfig.startViewTransition!(
+    suspendedState,
+    container,
+    ["nav"],
+    () => {},
+    () => {},
+    () => {},
+    () => {},
+    () => {},
+    error => {},
+    reason => {},
+    () => {},
+);
+// $ExpectType RunningTransition | null
+running;
+if (running) {
+    vtConfig.addViewTransitionFinishedListener!(running, () => {});
+    vtConfig.stopViewTransition!(running);
+}
+
+vtConfig.applyViewTransitionName!(instance, "hero", null);
+vtConfig.restoreViewTransitionName!(instance, props);
+vtConfig.cancelViewTransitionName!(instance, "hero", props);
+// $ExpectType Instance
+vtConfig.cloneRootViewTransitionContainer!(container);
+// $ExpectType { name: string; } | null
+vtConfig.createViewTransitionInstance!("hero");
+
+// The default config (no VT generics) leaves the renderer types as unknown.
+// $ExpectType unknown
+hostConfig.measureInstance!(instance);

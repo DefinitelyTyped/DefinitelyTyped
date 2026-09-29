@@ -22,6 +22,8 @@ declare function ReactReconciler<
     FormStateMarkerInstance,
     HoistableRoot,
     Resource,
+    InstanceMeasurement = unknown,
+    RunningViewTransition = unknown,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -44,7 +46,9 @@ declare function ReactReconciler<
         RendererInspectionConfig,
         FormStateMarkerInstance,
         HoistableRoot,
-        Resource
+        Resource,
+        InstanceMeasurement,
+        RunningViewTransition
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
@@ -70,6 +74,8 @@ declare namespace ReactReconciler {
         FormStateMarkerInstance,
         HoistableRoot,
         Resource,
+        InstanceMeasurement = unknown,
+        RunningViewTransition = unknown,
     > {
         // -------------------
         //        Modes
@@ -201,11 +207,11 @@ declare namespace ReactReconciler {
         /**
          * This method lets you return the initial host context from the root of the tree. See `getChildHostContext` for the explanation of host context.
          *
-         * If you don't intend to use host context, you can return `null`.
+         * If you don't intend to use host context, you can return `null` by including `null` in your `HostContext` type.
          *
          * This method happens **in the render phase**. Do not mutate the tree from it.
          */
-        getRootHostContext(rootContainer: Container): HostContext | null;
+        getRootHostContext(rootContainer: Container): HostContext;
 
         /**
          * Host context lets you track some information about where you are in the tree so that it's available inside `createInstance` as the `hostContext` parameter. For example, the DOM renderer uses it to track whether it's inside an HTML or an SVG tree, because `createInstance` implementation needs to be different for them.
@@ -737,11 +743,65 @@ declare namespace ReactReconciler {
             internalInstanceHandle: OpaqueHandle,
         ): void;
 
-        releaseSingletonInstance?(instance: Instance): void;
+        releaseSingletonInstance?(instance: Instance, type: Type, props: Props): void;
 
         isHostSingletonType?(type: Type): boolean;
 
         isSingletonScope?(type: Type): boolean;
+
+        // -------------------
+        //  View Transitions
+        //     (optional)
+        // -------------------
+        applyViewTransitionName?(instance: Instance, name: string, className: string | null | undefined): void;
+
+        restoreViewTransitionName?(instance: Instance, props: Props): void;
+
+        cancelViewTransitionName?(instance: Instance, name: string, props: Props): void;
+
+        cancelRootViewTransitionName?(rootContainer: Container): void;
+
+        restoreRootViewTransitionName?(rootContainer: Container): void;
+
+        cloneRootViewTransitionContainer?(rootContainer: Container): Instance;
+
+        removeRootViewTransitionClone?(rootContainer: Container, clone: Instance): void;
+
+        /**
+         * Measures a host instance. The returned value is passed back to `wasInstanceInViewport`, `hasInstanceChanged` and `hasInstanceAffectedParent`.
+         */
+        measureInstance?(instance: Instance): InstanceMeasurement;
+
+        measureClonedInstance?(instance: Instance): InstanceMeasurement;
+
+        wasInstanceInViewport?(measurement: InstanceMeasurement): boolean;
+
+        hasInstanceChanged?(oldMeasurement: InstanceMeasurement, newMeasurement: InstanceMeasurement): boolean;
+
+        hasInstanceAffectedParent?(oldMeasurement: InstanceMeasurement, newMeasurement: InstanceMeasurement): boolean;
+
+        /**
+         * Starts a view transition for a commit. The returned value is passed back to `stopViewTransition` and `addViewTransitionFinishedListener`.
+         */
+        startViewTransition?(
+            suspendedState: SuspendedState | null,
+            rootContainer: Container,
+            transitionTypes: string[] | null,
+            mutationCallback: () => void,
+            layoutCallback: () => void,
+            afterMutationCallback: () => void,
+            spawnedWorkCallback: () => void,
+            passiveCallback: () => unknown,
+            errorCallback: (error: unknown) => void,
+            blockedCallback: (reason: string) => void,
+            finishedAnimation: () => void,
+        ): RunningViewTransition | null;
+
+        stopViewTransition?(transition: RunningViewTransition): void;
+
+        addViewTransitionFinishedListener?(transition: RunningViewTransition, callback: () => void): void;
+
+        createViewTransitionInstance?(name: string): { name: string } | null;
 
         // -------------------
         //   Test selectors
