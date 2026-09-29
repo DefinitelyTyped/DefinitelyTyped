@@ -24,6 +24,7 @@ declare function ReactReconciler<
     Resource,
     InstanceMeasurement = unknown,
     RunningViewTransition = unknown,
+    FragmentInstance = unknown,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -48,7 +49,8 @@ declare function ReactReconciler<
         HoistableRoot,
         Resource,
         InstanceMeasurement,
-        RunningViewTransition
+        RunningViewTransition,
+        FragmentInstance
     >,
 ): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
 
@@ -76,6 +78,7 @@ declare namespace ReactReconciler {
         Resource,
         InstanceMeasurement = unknown,
         RunningViewTransition = unknown,
+        FragmentInstance = unknown,
     > {
         // -------------------
         //        Modes
@@ -804,6 +807,20 @@ declare namespace ReactReconciler {
         addViewTransitionFinishedListener?(transition: RunningViewTransition, callback: () => void): void;
 
         createViewTransitionInstance?(name: string): { name: string } | null;
+
+        // -------------------
+        //   Fragment refs
+        //     (optional)
+        // -------------------
+        // Called once a ref is attached to a <Fragment>.
+
+        createFragmentInstance?(fragmentFiber: Fiber): FragmentInstance;
+
+        updateFragmentInstanceFiber?(fragmentFiber: Fiber, instance: FragmentInstance): void;
+
+        commitNewChildToFragmentInstance?(child: Instance | TextInstance, fragmentInstance: FragmentInstance): void;
+
+        deleteChildFromFragmentInstance?(child: Instance | TextInstance, fragmentInstance: FragmentInstance): void;
 
         // -------------------
         //   Test selectors

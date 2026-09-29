@@ -663,6 +663,95 @@ const vtStartConfig: Pick<typeof vtConfig, "startViewTransition"> = {
 };
 
 // -------------------
+//   Fragment refs
+// -------------------
+// Called when a ref is attached to a <Fragment>. FragmentInstance is renderer-chosen
+// and threaded between host config calls.
+
+interface FragmentHandle {
+    children: Set<ReactTestHostConfig.Instance | ReactTestHostConfig.TextInstance>;
+}
+
+declare const fragmentConfig: ReactReconciler.HostConfig<
+    ReactTestHostConfig.Type,
+    ReactTestHostConfig.Props,
+    ReactTestHostConfig.Container,
+    ReactTestHostConfig.Instance,
+    ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
+    ReactTestHostConfig.SuspenseInstance,
+    ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
+    ReactTestHostConfig.PublicInstance,
+    ReactTestHostConfig.HostContext,
+    ReactTestHostConfig.ChildSet,
+    ReactTestHostConfig.TimeoutHandle,
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource,
+    unknown,
+    unknown,
+    FragmentHandle
+>;
+declare const fragmentFiber: ReactReconciler.Fiber;
+
+const fragmentInstance = fragmentConfig.createFragmentInstance!(fragmentFiber);
+// $ExpectType FragmentHandle
+fragmentInstance;
+// $ExpectType void
+fragmentConfig.updateFragmentInstanceFiber!(fragmentFiber, fragmentInstance);
+// $ExpectType void
+fragmentConfig.commitNewChildToFragmentInstance!(instance, fragmentInstance);
+// Text children are passed too.
+fragmentConfig.commitNewChildToFragmentInstance!(textInstance, fragmentInstance);
+// $ExpectType void
+fragmentConfig.deleteChildFromFragmentInstance!(instance, fragmentInstance);
+fragmentConfig.deleteChildFromFragmentInstance!(textInstance, fragmentInstance);
+
+// @ts-expect-error -- fragment instances must be the renderer's FragmentInstance
+fragmentConfig.updateFragmentInstanceFiber!(fragmentFiber, { children: [] });
+// @ts-expect-error -- only host instances are committed to a fragment
+fragmentConfig.commitNewChildToFragmentInstance!(container, fragmentInstance);
+
+const fragmentImpl: Pick<
+    typeof fragmentConfig,
+    | "createFragmentInstance"
+    | "updateFragmentInstanceFiber"
+    | "commitNewChildToFragmentInstance"
+    | "deleteChildFromFragmentInstance"
+> = {
+    createFragmentInstance(fiber) {
+        // $ExpectType Fiber
+        fiber;
+        return { children: new Set() };
+    },
+    updateFragmentInstanceFiber(fiber, handle) {
+        // $ExpectType FragmentHandle
+        handle;
+    },
+    commitNewChildToFragmentInstance(child, handle) {
+        // $ExpectType Instance | TextInstance
+        child;
+        handle.children.add(child);
+    },
+    deleteChildFromFragmentInstance(child, handle) {
+        handle.children.delete(child);
+    },
+};
+
+// Renderers without fragment refs can leave them out or return null.
+const noFragmentRefs: Pick<LiteralHostConfig, "createFragmentInstance"> = {
+    createFragmentInstance: () => null,
+};
+// The default config (no FragmentInstance generic) leaves it as unknown.
+// $ExpectType unknown
+hostConfig.createFragmentInstance!(fragmentFiber);
+
+// -------------------
 //   Test selectors
 // -------------------
 // react-test-renderer doesn't support test selectors either, so this pulls in
