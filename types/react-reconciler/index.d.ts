@@ -326,7 +326,7 @@ declare namespace ReactReconciler {
         insertBefore?(
             parentInstance: Instance,
             child: Instance | TextInstance,
-            beforeChild: Instance | TextInstance | SuspenseInstance,
+            beforeChild: Instance | TextInstance | SuspenseInstance | ActivityInstance,
         ): void;
 
         /**
@@ -335,7 +335,7 @@ declare namespace ReactReconciler {
         insertInContainerBefore?(
             container: Container,
             child: Instance | TextInstance,
-            beforeChild: Instance | TextInstance | SuspenseInstance,
+            beforeChild: Instance | TextInstance | SuspenseInstance | ActivityInstance,
         ): void;
 
         /**
@@ -343,12 +343,18 @@ declare namespace ReactReconciler {
          *
          * React will only call it for the top-level node that is being removed. It is expected that garbage collection would take care of the whole subtree. You are not expected to traverse the child tree in it.
          */
-        removeChild?(parentInstance: Instance, child: Instance | TextInstance | SuspenseInstance): void;
+        removeChild?(
+            parentInstance: Instance,
+            child: Instance | TextInstance | SuspenseInstance | ActivityInstance,
+        ): void;
 
         /**
          * Same as `removeChild`, but for when a node is detached from the root container. This is useful if attaching to the root has a slightly different implementation, or if the root container nodes are of a different type than the rest of the tree.
          */
-        removeChildFromContainer?(container: Container, child: Instance | TextInstance | SuspenseInstance): void;
+        removeChildFromContainer?(
+            container: Container,
+            child: Instance | TextInstance | SuspenseInstance | ActivityInstance,
+        ): void;
 
         /**
          * If you returned `true` from `shouldSetTextContent` for the previous props, but returned `false` from `shouldSetTextContent` for the next props, React will call this method so that you can clear the text content you were managing manually. For example, in the DOM you could set `node.textContent = ''`.

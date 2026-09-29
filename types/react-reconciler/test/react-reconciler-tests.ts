@@ -413,6 +413,11 @@ hostConfig.getNextHydratableInstanceAfterActivityInstance!(activityInstance);
 hostConfig.commitHydratedActivityInstance!(activityInstance);
 hostConfig.clearActivityBoundary!(instance, activityInstance);
 hostConfig.clearActivityBoundaryFromContainer!(container, activityInstance);
+// Dehydrated Activity boundaries can be insertion anchors and can be removed.
+hostConfig.insertBefore!(instance, instance, activityInstance);
+hostConfig.insertInContainerBefore!(container, instance, activityInstance);
+hostConfig.removeChild!(instance, activityInstance);
+hostConfig.removeChildFromContainer!(container, activityInstance);
 
 hostConfig.clearSuspenseBoundary!(instance, suspenseInstance);
 hostConfig.clearSuspenseBoundaryFromContainer!(container, suspenseInstance);
