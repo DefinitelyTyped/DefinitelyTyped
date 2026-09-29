@@ -1,10 +1,9 @@
-import { Channel } from "./Channel";
+import { AlphaChannel, ComponentChannel } from "./Channel";
 import * as Constants from "./Constants";
 import { Document } from "./Document";
 import { Layer } from "./Layer";
 import { Bounds } from "./objects/Bounds";
 import { PathItem } from "./PathItem";
-import { Bounds as SelectionBounds } from "./types/SharedTypes";
 /**
  * Represents a selected area or areas in the document.  If there is no active selection,
  * the `bounds` will return `null`.  The selection is pixel-based, though 8-bit transparency is possible.
@@ -26,7 +25,7 @@ import { Bounds as SelectionBounds } from "./types/SharedTypes";
  *     {top: 50, left: 70, bottom: 140, right: 100},
  *     constants.SelectionType.EXTEND
  * );
- * doc.selection.bounds; // {{top: 50, left: 50, bottom: 140, right: 100}
+ * doc.selection.bounds; // {top: 50, left: 50, bottom: 140, right: 100}
  * doc.selection.solid;  // false
  *
  * ```
@@ -63,7 +62,7 @@ export declare class Selection {
      */
     get parent(): Document;
     /**
-     * The bounding rectangle of the entire selection. It can be exeed the bounds of the canvas.
+     * The bounding rectangle of the entire selection. It can exceed the bounds of the canvas.
      *
      * @minVersion 25.0
      */
@@ -83,17 +82,25 @@ export declare class Selection {
      * selected area will disappear entirely.  If there are no other active selected areas,
      * then there will be no active selection altogether.
      *
+     * ```javascript
+     * await doc.selection.contract(8);
+     * ```
+     *
      * UI Location: Select > Modify > Contract
      *
      * @param by The amount to contract the selection (integer in the range 1..500).
-     * @param applyEffectAtCanvasBounds If true and the selection is outside of canvas,
-     * the effect is not limited by canvas bounds.
+     * @param applyEffectAtCanvasBounds By default this is false, meaning that any part of the
+     * selection that touches the bounds of the canvas will not be affected by the contraction.
      * @async
      * @minVersion 25.0
      */
     contract(by: number, applyEffectAtCanvasBounds?: boolean): Promise<void>;
     /**
      * Cancel the current selection. The `bounds` value will then be `null`.
+     *
+     * ```javascript
+     * await doc.selection.deselect();
+     * ```
      *
      * UI Location: Select > Deselect
      *
@@ -102,12 +109,17 @@ export declare class Selection {
      */
     deselect(): Promise<void>;
     /**
-     * Expand the selection by the specified amount.
+     * Expand the selection outward by the specified number of pixels.
+     *
+     * ```javascript
+     * await doc.selection.expand(42);
+     * ```
      *
      * UI Location: Select > Modify > Expand
      *
      * @param by The amount to expand the selection (integer in the range 1..500).
-     * @param applyEffectAtCanvasBounds If true, the selection can expand beyond the canvas bounds.
+     * @param applyEffectAtCanvasBounds By default this is false, meaning that any part of the
+     * selection that touches the bounds of the canvas will not be affected by the expansion.
      * @async
      * @minVersion 25.0
      */
@@ -117,10 +129,15 @@ export declare class Selection {
      * of the selection strength is best viewed as a channel via Quick Mask Mode.
      * Large values might make the selection disappear entirely (`.bounds` would return `null`).
      *
+     * ```javascript
+     * await doc.selection.feather(16);
+     * ```
+     *
      * UI Location: Select > Modify > Feather
      *
      * @param by The amount to feather the selection with (integer in the range 0.1..1000).
-     * @param applyEffectAtCanvasBounds If true, the feathered selection can expand beyond the canvas bounds.
+     * @param applyEffectAtCanvasBounds By default this is false, meaning that any part of the
+     * selection that touches the bounds of the canvas will not be affected by the feathering.
      * @async
      * @minVersion 25.0
      */
@@ -128,6 +145,10 @@ export declare class Selection {
     /**
      * Grow the selection to include all adjacent pixels falling
      * within the specified tolerance range.
+     *
+     * ```javascript
+     * await doc.selection.grow(32);
+     * ```
      *
      * Unsupported modes: Bitmap, RGB 32 bits, Grayscale 32 bits
      *
@@ -145,6 +166,10 @@ export declare class Selection {
      * If the canvas area is fully selected, `inverse` will result in no active selection.
      * Note also that Artboard bounds are not respected.
      *
+     * ```javascript
+     * await doc.selection.inverse();
+     * ```
+     *
      * UI Location: Select > Inverse
      *
      * @async
@@ -154,6 +179,10 @@ export declare class Selection {
     /**
      * Load the selection from the specified [[Channel]] or [[Layer]].  A Layer's pixels' transparency
      * will be used as the selection values.  Full opaque pixels yield fully selected pixels.
+     *
+     * ```javascript
+     * await doc.selection.load(doc.channels[3]); // first alpha channel in RGB document
+     * ```
      *
      * UI Locations:
      * - Select > Load Selection...
@@ -168,9 +197,17 @@ export declare class Selection {
      * @async
      * @minVersion 25.0
      */
-    load(from: Channel | Layer, mode?: Constants.SelectionType, invert?: boolean): Promise<void>;
+    load(
+        from: ComponentChannel | AlphaChannel | Layer,
+        mode?: Constants.SelectionType,
+        invert?: boolean,
+    ): Promise<void>;
     /**
      * Create a work path from the active selection.
+     *
+     * ```javascript
+     * await doc.selection.makeWorkPath();
+     * ```
      *
      * UI Location: Paths panel > Make work path icon
      *
@@ -192,6 +229,10 @@ export declare class Selection {
      * If no artboard is active, all artboards will be selected in the same manner.
      * (The resulting selection might be smaller than the canvas bounds.)
      *
+     * ```javascript
+     * await doc.selection.selectAll();
+     * ```
+     *
      * UI Location: Select > All
      *
      * @async
@@ -202,8 +243,8 @@ export declare class Selection {
      * Make a rectangluar selection.
      *
      * ```javascript
-     * doc.selection.selectRectangle(
-     *     {top: 0, left: 0, bottom: 100, right: 100}
+     * await doc.selection.selectRectangle(
+     *     {top: 0, left: 0, bottom: 100, right: 100},
      *     Constants.SelectionType.REPLACE,
      *     10
      * );
@@ -219,7 +260,7 @@ export declare class Selection {
      * @minVersion 25.0
      */
     selectRectangle(
-        bounds: SelectionBounds,
+        bounds: Bounds,
         mode?: Constants.SelectionType,
         feather?: number,
         antiAlias?: boolean,
@@ -228,8 +269,7 @@ export declare class Selection {
      * Make an elliptical selection.
      *
      * ```javascript
-     * const doc = app.activeDocument;
-     * doc.selection.selectEllipse({top: 0, left: 0, bottom: 100, right: 100});
+     * await doc.selection.selectEllipse({top: 0, left: 0, bottom: 100, right: 100});
      * ```
      *
      * UI Location: Toolbar > Elliptical Marquee Tool
@@ -241,17 +281,12 @@ export declare class Selection {
      * @async
      * @minVersion 25.0
      */
-    selectEllipse(
-        bounds: SelectionBounds,
-        mode?: Constants.SelectionType,
-        feather?: number,
-        antiAlias?: boolean,
-    ): Promise<void>;
+    selectEllipse(bounds: Bounds, mode?: Constants.SelectionType, feather?: number, antiAlias?: boolean): Promise<void>;
     /**
      * Make a polygonal selection.
      *
      * ```javascript
-     * doc.selection.selectPolygon([
+     * await doc.selection.selectPolygon([
      *     {x: 50, y: 10},
      *     {x: 100, y: 90},
      *     {x: 10, y: 40}
@@ -280,7 +315,7 @@ export declare class Selection {
      * Select a single row of pixels.
      *
      * ```javascript
-     * doc.selection.selectRow(10);
+     * await doc.selection.selectRow(10);
      * ```
      *
      * UI Location: Toolbar > Single Row Marquee Tool
@@ -296,7 +331,7 @@ export declare class Selection {
      * Select a single column of pixels.
      *
      * ```javascript
-     * doc.selection.selectColumn(90);
+     * await doc.selection.selectColumn(90);
      * ```
      *
      * UI Location: Toolbar > Single Column Marquee Tool
@@ -312,7 +347,7 @@ export declare class Selection {
      * Save the selection in a new Alpha Channel.
      *
      * ```javascript
-     * doc.selection.save("My Selection");
+     * await doc.selection.save("My Selection");
      * ```
      *
      * UI Location: Select > Save Selection...
@@ -326,22 +361,26 @@ export declare class Selection {
      * Save the selection in an existing Alpha Channel (Component Channels are not supported targets).
      *
      * ```javascript
-     * // Stores the current selection into an existing alpha channel
-     * doc.selection.saveTo(doc.channels[3]);
+     * // Stores the current selection into an existing alpha channel in RGB document
+     * await doc.selection.saveTo(doc.channels[3]);
      *
-     * // Performing an intersection operation on the alpha channel
-     * doc.selection.saveTo(doc.channels[3], SelectionType.INTERSECT);
+     * // Performing an intersection operation on an alpha channel in RGB document
+     * await doc.selection.saveTo(doc.channels[3], SelectionType.INTERSECT);
      * ```
      *
      * @param channel The targeted Alpha channel for the save operation.
      * @param mode The selection behavior when a selection already exists. Default: SelectionType.REPLACE
      * @minVersion 25.0
      */
-    saveTo(channel: Channel, mode?: Constants.SelectionType): Promise<void>;
+    saveTo(channel: AlphaChannel, mode?: Constants.SelectionType): Promise<void>;
     /**
      * Create a new selection based on the border of the active selection. The new selection will be an area
      * equivalent to a stroke of that border by the given width in pixels.
      * The result is not limited by canvas bounds.
+     *
+     * ```javascript
+     * await doc.selection.selectBorder(10);
+     * ```
      *
      * UI Location: Select > Modify > Border...
      *
@@ -358,10 +397,15 @@ export declare class Selection {
      *
      * Large values might make the selection disappear entirely (`.bounds` would return `null`).
      *
+     * ```javascript
+     * await doc.selection.smooth(32);
+     * ```
+     *
      * UI Location: Select > Modify > Smooth...
      *
      * @param radius The sample radius in pixels (integer in the range 1..500)
-     * @param applyEffectAtCanvasBounds If false, the selection will be trimmed to fit inside canvas bounds
+     * @param applyEffectAtCanvasBounds By default this is false, meaning that any part of the
+     * selection that touches the bounds of the canvas will not be affected by the smoothing.
      *
      * @minVersion 25.0
      * @async
@@ -369,6 +413,10 @@ export declare class Selection {
     smooth(radius: number, applyEffectAtCanvasBounds?: boolean): Promise<void>;
     /**
      * Move the selection itself relative to its current position. Does not affect the active layer.
+     *
+     * ```javascript
+     * await doc.selection.translateBoundary(100, 600);
+     * ```
      *
      * UI Location: Select > Transform Selection
      *
@@ -381,6 +429,10 @@ export declare class Selection {
     translateBoundary(deltaX: number, deltaY: number): Promise<void>;
     /**
      * Scale the selection itself in percent. Does not affect the active layer.
+     *
+     * ```javascript
+     * await doc.selection.resizeBoundary(50, 50);
+     * ```
      *
      * UI Location: Select > Transform Selection
      *
@@ -400,6 +452,10 @@ export declare class Selection {
     ): Promise<void>;
     /**
      * Rotate the selection itself clockwise around the given anchor position. Does not affect the active layer.
+     *
+     * ```javascript
+     * await doc.selection.rotateBoundary(90, constants.AnchorPosition.MIDDLECENTER)
+     * ```
      *
      * UI Location: Select > Transform Selection
      *

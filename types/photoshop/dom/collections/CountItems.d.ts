@@ -4,7 +4,7 @@ import { SolidColor } from "../objects/SolidColor";
 /**
  * A collections class allowing access to the document's CountItem.
  */
-export declare class CountItems extends Array<CountItem> {
+export declare class CountItems {
     /**
      * @ignore
      */

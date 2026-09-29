@@ -1,4 +1,4 @@
-import { Channel } from "../Channel";
+import { AlphaChannel, ComponentChannel } from "../Channel";
 import { CalculationsBlendMode, CalculationsChannel, CalculationsLayer, CalculationsResult } from "../Constants";
 import { Document } from "../Document";
 import { Layer } from "../Layer";
@@ -16,7 +16,8 @@ declare type CalculationsLayerType = Layer | CalculationsLayer.MERGED;
  * @minVersion 24.5
  */
 export declare type CalculationsChannelType =
-    | Channel
+    | ComponentChannel
+    | AlphaChannel
     | CalculationsChannel.GRAY
     | CalculationsChannel.TRANSPARENCY
     | CalculationsChannel.SELECTION;

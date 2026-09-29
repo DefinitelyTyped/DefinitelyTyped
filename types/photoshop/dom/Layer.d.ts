@@ -23,6 +23,14 @@ export declare enum PSLayerKind {
     groupEnd = 13,
 }
 /**
+ * @ignore
+ */
+export declare function validateLayer(l: Layer): void;
+/**
+ * @ignore
+ */
+export declare function PSLayer(id: number, docId: number, layerKind?: number): Layer;
+/**
  * An object within a document that contains visual elements of the image, equivalent to a layer in Photoshop.
  *
  * You can access layers in a document using [[Document.layers]] collection.
@@ -149,6 +157,7 @@ export declare class Layer {
     set vectorMaskFeather(feather: number);
     /**
      * Whether the layer is being used as a clipping mask.
+     * Releasing a clipping mask will also release the layers above.
      * @minVersion 23.0
      */
     get isClippingMask(): boolean;
@@ -178,8 +187,8 @@ export declare class Layer {
      */
     get name(): string;
     /**
-     * @ignore
      * Set the name of the layer
+     * @minVersion 22.5
      */
     set name(name: string);
     /**
@@ -563,6 +572,23 @@ export declare class Layer {
      */
     applyPolarCoordinates(conversion: Constants.PolarConversionType): Promise<void>;
     /**
+     * Applies the radial blur filter.
+     *
+     * Unsupported color modes: Bitmap, Indexed Color
+     *
+     * *Added in Photoshop ?*
+     * @param amount The amount of blur. [1,100]
+     * @param blurMethod Radial blur comes in two flavors: spin and zoom.
+     * Spin provides the effect of pinning the image at the designated center and rotating it.
+     * Zoom provides the effect of motion towards the designated center point.
+     * @param blurQuality The smoothness or graininess of the blurred image (default: RadialBlurQuality.BEST).
+     * @param blurCenterX The pixel position of blur center in horizontal direction.
+     * By default in the center of the canvas (optional).
+     * @param blurCenterY The pixel position of blur center in vertical direction.
+     * By default in the center of the canvas (optional).
+     * @async
+     */
+    /**
      * Applies the Ripple filter.
      *
      * Unsupported color modes: Indexed Color, Bitmap
@@ -615,13 +641,10 @@ export declare class Layer {
      * @param undefinedArea The treatment of areas left blank by the distortion.
      * @async
      */
-    applyShear(
-        curve: Array<{
-            x: number;
-            y: number;
-        }>,
-        undefinedArea: Constants.UndefinedAreas,
-    ): Promise<void>;
+    applyShear(curve: {
+        x: number;
+        y: number;
+    }[], undefinedArea: Constants.UndefinedAreas): Promise<void>;
     /**
      * Applies the Smart Blur filter.
      *
@@ -821,7 +844,7 @@ export declare class Layer {
      *
      * ```javascript
      * // flip horizontally
-     * await layer.flip.horizontal()
+     * await layer.flip('horizontal');
      * ```
      * @param axis Which axis (or both) to flip the layer on.
      *             - "horizontal": flip layer on horizontal axis

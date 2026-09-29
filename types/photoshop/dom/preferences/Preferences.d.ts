@@ -1,9 +1,11 @@
 import { PreferencesCursors } from "./PreferencesCursors";
+import { PreferencesEnhancedControls } from "./PreferencesEnhancedControls";
 import { PreferencesFileHandling } from "./PreferencesFileHandling";
 import { PreferencesGeneral } from "./PreferencesGeneral";
 import { PreferencesGuidesGridsAndSlices } from "./PreferencesGuidesGridsAndSlices";
 import { PreferencesHistory } from "./PreferencesHistory";
 import { PreferencesInterface } from "./PreferencesInterface";
+import { PreferencesNotifications } from "./PreferencesNotifications";
 import { PreferencesPerformance } from "./PreferencesPerformance";
 import { PreferencesTools } from "./PreferencesTools";
 import { PreferencesTransparencyAndGamut } from "./PreferencesTransparencyAndGamut";
@@ -90,6 +92,21 @@ export declare class Preferences {
      * @minVersion 24.0
      */
     get type(): PreferencesType;
+    /**
+     * Notifications preferences.
+     *
+     * Note: Some notifications preferences will be locked when Quiet Mode is enabled.
+     * Attempts to modify locked preferences will throw errors while Quiet Mode is active.
+     *
+     * @minVersion 26.11
+     */
+    get notifications(): PreferencesNotifications;
+    /**
+     * Enhanced Controls preferences. On Windows this hosts the pointer-haptics option.
+     *
+     * @minVersion 27.11
+     */
+    get enhancedControls(): PreferencesEnhancedControls;
 }
 /** @ignore */
 export declare const preferences: Preferences;
