@@ -664,3 +664,68 @@ ctx.Consumer._context;
 
 // @ts-expect-error -- Consumer is no longer a context
 ctx.Consumer._currentValue;
+
+// -------------------
+//   Flow sync (0.33)
+// -------------------
+
+// finalizeInitialChildren receives the host context as its 4th argument.
+// $ExpectType [instance: Instance, type: string, props: Props, hostContext: HostContext]
+type FinalizeInitialChildrenParams = Parameters<TestHostConfig["finalizeInitialChildren"]>;
+
+// cloneInstance's last argument is the new child set, not a recyclable instance.
+// $ExpectType [instance: Instance, type: string, oldProps: Props, newProps: Props, keepChildren: boolean, newChildSet?: null | undefined]
+type CloneInstanceParams = Parameters<NonNullable<TestHostConfig["cloneInstance"]>>;
+
+// Dehydrated Activity boundaries go through the same clear/hide methods as Suspense ones.
+declare const activityOrSuspenseConfig: Pick<
+    ReactReconciler.HostConfig<
+        string,
+        {},
+        "container",
+        "instance",
+        "text",
+        "activity",
+        "suspense",
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown,
+        unknown
+    >,
+    "clearSuspenseBoundary" | "clearSuspenseBoundaryFromContainer" | "hideDehydratedBoundary"
+>;
+activityOrSuspenseConfig.clearSuspenseBoundary!("instance", "activity");
+activityOrSuspenseConfig.clearSuspenseBoundaryFromContainer!("container", "activity");
+activityOrSuspenseConfig.hideDehydratedBoundary!("activity");
+activityOrSuspenseConfig.hideDehydratedBoundary!("suspense");
+
+// $ExpectType boolean | null | undefined
+TestReconciler.shouldError(root.current);
+
+// startHostTransition is generic over the renderer's form data.
+declare const transitionFiber: ReactReconciler.Fiber;
+TestReconciler.startHostTransition(transitionFiber, null, (data: { name: string }) => {}, { name: "x" });
+// @ts-expect-error -- action and form data must agree
+TestReconciler.startHostTransition(transitionFiber, null, (data: { name: string }) => {}, { id: 1 });
+
+const concurrentRootTag: ReactReconciler.RootTag = 1;
+// @ts-expect-error -- React only has legacy (0) and concurrent (1) roots
+const blockingRootTag: ReactReconciler.RootTag = 2;
+
+// Newer work tags (e.g. HostHoistable = 26) are valid.
+const hoistableTag: ReactReconciler.WorkTag = 26;
+// @ts-expect-error -- React has no work tag 32
+const unknownTag: ReactReconciler.WorkTag = 32;
+
+const effectEventHook: ReactReconciler.HookType = "useEffectEvent";
+// @ts-expect-error -- removed in React 18
+const mutableSourceHook: ReactReconciler.HookType = "useMutableSource";

@@ -185,13 +185,7 @@ declare namespace ReactReconciler {
          *
          * If you don't want to do anything here, you should return `false`.
          */
-        finalizeInitialChildren(
-            instance: Instance,
-            type: Type,
-            props: Props,
-            rootContainer: Container,
-            hostContext: HostContext,
-        ): boolean;
+        finalizeInitialChildren(instance: Instance, type: Type, props: Props, hostContext: HostContext): boolean;
 
         /**
          * Some target platforms support setting an instance's text content without manually creating a text node. For example, in the DOM, you can set `node.textContent` instead of creating a text node and appending it.
@@ -423,7 +417,7 @@ declare namespace ReactReconciler {
             oldProps: Props,
             newProps: Props,
             keepChildren: boolean,
-            recyclableInstance: null | Instance,
+            newChildSet?: ChildSet | null,
         ): Instance;
         createContainerChildSet?(): ChildSet;
         appendChildToContainerChildSet?(childSet: ChildSet, child: Instance | TextInstance): void;
@@ -511,13 +505,16 @@ declare namespace ReactReconciler {
 
         clearActivityBoundary?(parentInstance: Instance, activityInstance: ActivityInstance): void;
 
-        clearSuspenseBoundary?(parentInstance: Instance, suspenseInstance: SuspenseInstance): void;
+        clearSuspenseBoundary?(parentInstance: Instance, suspenseInstance: SuspenseInstance | ActivityInstance): void;
 
         clearActivityBoundaryFromContainer?(container: Container, activityInstance: ActivityInstance): void;
 
-        clearSuspenseBoundaryFromContainer?(container: Container, suspenseInstance: SuspenseInstance): void;
+        clearSuspenseBoundaryFromContainer?(
+            container: Container,
+            suspenseInstance: SuspenseInstance | ActivityInstance,
+        ): void;
 
-        hideDehydratedBoundary?(suspenseInstance: SuspenseInstance): void;
+        hideDehydratedBoundary?(dehydratedInstance: SuspenseInstance | ActivityInstance): void;
 
         unhideDehydratedBoundary?(dehydratedInstance: SuspenseInstance | ActivityInstance): void;
 
@@ -785,7 +782,7 @@ declare namespace ReactReconciler {
         then(resolve: () => T, reject?: () => T): T;
     }
 
-    type RootTag = 0 | 1 | 2;
+    type RootTag = 0 | 1;
 
     type WorkTag =
         | 0
@@ -812,7 +809,14 @@ declare namespace ReactReconciler {
         | 21
         | 22
         | 23
-        | 24;
+        | 24
+        | 25
+        | 26
+        | 27
+        | 28
+        | 29
+        | 30
+        | 31;
 
     type HookType =
         | "useState"
@@ -820,6 +824,8 @@ declare namespace ReactReconciler {
         | "useContext"
         | "useRef"
         | "useEffect"
+        | "useEffectEvent"
+        | "useInsertionEffect"
         | "useLayoutEffect"
         | "useCallback"
         | "useMemo"
@@ -827,9 +833,12 @@ declare namespace ReactReconciler {
         | "useDebugValue"
         | "useDeferredValue"
         | "useTransition"
-        | "useMutableSource"
-        | "useOpaqueIdentifier"
-        | "useCacheRefresh";
+        | "useSyncExternalStore"
+        | "useId"
+        | "useCacheRefresh"
+        | "useOptimistic"
+        | "useFormState"
+        | "useActionState";
 
     interface Source {
         fileName: string;
@@ -1293,7 +1302,7 @@ declare namespace ReactReconciler {
 
         findHostInstanceWithNoPortals(fiber: Fiber): PublicInstance | null;
 
-        shouldError(fiber: Fiber): boolean | undefined;
+        shouldError(fiber: Fiber): boolean | null | undefined;
 
         shouldSuspend(fiber: Fiber): boolean;
 
@@ -1303,11 +1312,11 @@ declare namespace ReactReconciler {
         defaultOnCaughtError(error: unknown, errorInfo: CaughtErrorInfo): void;
         defaultOnRecoverableError(error: unknown, errorInfo: BaseErrorInfo): void;
 
-        startHostTransition(
+        startHostTransition<F>(
             formFiber: Fiber,
             pendingState: unknown,
-            action: ((formData: FormData) => void) | null,
-            formData: FormData,
+            action: ((formData: F) => unknown) | null,
+            formData: F,
         ): void;
     }
 }
