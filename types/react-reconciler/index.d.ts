@@ -425,17 +425,12 @@ declare namespace ReactReconciler {
             keepChildren: boolean,
             recyclableInstance: null | Instance,
         ): Instance;
-        createContainerChildSet?(container: Container): ChildSet;
+        createContainerChildSet?(): ChildSet;
         appendChildToContainerChildSet?(childSet: ChildSet, child: Instance | TextInstance): void;
         finalizeContainerChildren?(container: Container, newChildren: ChildSet): void;
         replaceContainerChildren?(container: Container, newChildren: ChildSet): void;
-        cloneHiddenInstance?(
-            instance: Instance,
-            type: Type,
-            props: Props,
-            internalInstanceHandle: OpaqueHandle,
-        ): Instance;
-        cloneHiddenTextInstance?(instance: Instance, text: Type, internalInstanceHandle: OpaqueHandle): TextInstance;
+        cloneHiddenInstance?(instance: Instance, type: Type, props: Props): Instance;
+        cloneHiddenTextInstance?(instance: TextInstance, text: string): TextInstance;
 
         // -------------------
         // Hydration Methods
@@ -857,7 +852,7 @@ declare namespace ReactReconciler {
 
     interface ReactProvider<T> {
         $$typeof: symbol | number;
-        type: ReactProviderType<T>;
+        type: ReactContext<T>;
         key: null | string;
         ref: null;
         props: {
@@ -866,14 +861,20 @@ declare namespace ReactReconciler {
         };
     }
 
+    /** @deprecated Since React 19 the context is its own Provider. Use `ReactContext<T>` instead. */
     interface ReactProviderType<T> {
+        $$typeof: symbol | number;
+        _context: ReactContext<T>;
+    }
+
+    interface ReactConsumerType<T> {
         $$typeof: symbol | number;
         _context: ReactContext<T>;
     }
 
     interface ReactConsumer<T> {
         $$typeof: symbol | number;
-        type: ReactContext<T>;
+        type: ReactConsumerType<T>;
         key: null | string;
         ref: null;
         props: {
@@ -884,8 +885,9 @@ declare namespace ReactReconciler {
 
     interface ReactContext<T> {
         $$typeof: symbol | number;
-        Consumer: ReactContext<T>;
-        Provider: ReactProviderType<T>;
+        Consumer: ReactConsumerType<T>;
+        // Since React 19 the context is its own Provider.
+        Provider: ReactContext<T>;
         _currentValue: T;
         _currentValue2: T;
         _threadCount: number;
@@ -1062,7 +1064,7 @@ declare namespace ReactReconciler {
     type MutableSource = any;
 
     type OpaqueHandle = any;
-    type OpaqueRoot = any;
+    type OpaqueRoot = FiberRoot;
 
     // 0 is PROD, 1 is DEV.
     // Might add PROFILE later.
@@ -1175,7 +1177,11 @@ declare namespace ReactReconciler {
     }
 
     interface BaseErrorInfo {
-        componentStack?: string;
+        componentStack?: string | null;
+    }
+
+    interface CaughtErrorInfo extends BaseErrorInfo {
+        errorBoundary?: Component<any, any> | null;
     }
 
     interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
@@ -1186,10 +1192,11 @@ declare namespace ReactReconciler {
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
-            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
-            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
-            onDefaultTransitionIndicator: () => void,
+            onUncaughtError: (error: unknown, info: BaseErrorInfo) => void,
+            onCaughtError: (error: unknown, info: CaughtErrorInfo) => void,
+            onRecoverableError: (error: unknown, info: BaseErrorInfo) => void,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- the indicator may return a cleanup
+            onDefaultTransitionIndicator: () => void | (() => void),
             transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 
@@ -1234,10 +1241,11 @@ declare namespace ReactReconciler {
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
-            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
-            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
-            onDefaultTransitionIndicator: () => void,
+            onUncaughtError: (error: unknown, info: BaseErrorInfo) => void,
+            onCaughtError: (error: unknown, info: CaughtErrorInfo) => void,
+            onRecoverableError: (error: unknown, info: BaseErrorInfo) => void,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- the indicator may return a cleanup
+            onDefaultTransitionIndicator: () => void | (() => void),
             transitionCallbacks: null | TransitionTracingCallbacks,
             formState: unknown,
         ): OpaqueRoot;
@@ -1291,9 +1299,9 @@ declare namespace ReactReconciler {
 
         injectIntoDevTools(): boolean;
 
-        defaultOnUncaughtError(error: Error, errorInfo: BaseErrorInfo): void;
-        defaultOnCaughtError(error: Error, errorInfo: BaseErrorInfo & { errorBoundary?: Component }): void;
-        defaultOnRecoverableError(error: Error, errorInfo: BaseErrorInfo): void;
+        defaultOnUncaughtError(error: unknown, errorInfo: BaseErrorInfo): void;
+        defaultOnCaughtError(error: unknown, errorInfo: CaughtErrorInfo): void;
+        defaultOnRecoverableError(error: unknown, errorInfo: BaseErrorInfo): void;
 
         startHostTransition(
             formFiber: Fiber,

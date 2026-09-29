@@ -518,3 +518,149 @@ hostConfig.setupIntersectionObserver!([instance], intersections => {});
 
 // $ExpectType () => any
 hostConfig.bindToConsole("error", ["oops"], "Server");
+
+// -------------------
+//   Error callbacks
+// -------------------
+// React passes whatever was thrown, which is not necessarily an Error.
+
+TestReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {
+        // $ExpectType unknown
+        error;
+        // @ts-expect-error -- thrown values are not necessarily Errors
+        error.message;
+        if (error instanceof Error) error.message;
+        // $ExpectType string | null | undefined
+        info.componentStack;
+    },
+    (error, info) => {
+        // $ExpectType unknown
+        error;
+    },
+    (error, info) => {
+        // $ExpectType unknown
+        error;
+    },
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+);
+
+// Anything can be thrown, not just Errors.
+TestReconciler.defaultOnUncaughtError("thrown string", { componentStack: "" });
+TestReconciler.defaultOnCaughtError(null, { componentStack: "" });
+TestReconciler.defaultOnRecoverableError({ code: 1 }, { componentStack: "" });
+
+// Only caught errors carry the error boundary.
+TestReconciler.createHydrationContainer(
+    null, // initialChildren
+    null, // callback
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {
+        // @ts-expect-error -- only caught errors have a boundary
+        info.errorBoundary;
+    },
+    (error, info) => {
+        // $ExpectType Component<any, any, any> | null | undefined
+        info.errorBoundary;
+    },
+    (error, info) => {},
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+    null, // formState
+);
+
+TestReconciler.defaultOnCaughtError(new Error("test"), { componentStack: "", errorBoundary: null });
+TestReconciler.defaultOnRecoverableError(new Error("test"), { componentStack: null });
+
+// -------------------
+//  Transition indicator
+// -------------------
+// The indicator may return a cleanup, called when the transition ends.
+
+declare function showSpinner(): void;
+declare function hideSpinner(): void;
+
+type DefaultTransitionIndicator = Parameters<typeof TestReconciler.createContainer>[9];
+// $ExpectType void | (() => void)
+type DefaultTransitionIndicatorResult = ReturnType<DefaultTransitionIndicator>;
+
+TestReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {},
+    (error, info) => {},
+    (error, info) => {},
+    () => {
+        showSpinner();
+        return () => hideSpinner();
+    },
+    null, // transitionCallbacks
+);
+
+// -------------------
+//     Persistence
+// -------------------
+
+type TestHostConfig = typeof hostConfig;
+
+// React calls createContainerChildSet() with no arguments.
+// $ExpectType []
+type CreateContainerChildSetParams = Parameters<NonNullable<TestHostConfig["createContainerChildSet"]>>;
+
+const persistentConfig: Pick<TestHostConfig, "createContainerChildSet"> = {
+    createContainerChildSet: () => undefined,
+};
+
+const brokenPersistentConfig: Pick<TestHostConfig, "createContainerChildSet"> = {
+    // @ts-expect-error -- container is never passed
+    createContainerChildSet: (container: ReactTestHostConfig.Container) => undefined,
+};
+
+// React never passes internalInstanceHandle to these.
+// $ExpectType [instance: Instance, type: string, props: Props]
+type CloneHiddenInstanceParams = Parameters<NonNullable<TestHostConfig["cloneHiddenInstance"]>>;
+// $ExpectType [instance: TextInstance, text: string]
+type CloneHiddenTextInstanceParams = Parameters<NonNullable<TestHostConfig["cloneHiddenTextInstance"]>>;
+
+const brokenHiddenConfig: Pick<TestHostConfig, "cloneHiddenInstance"> = {
+    // @ts-expect-error -- internalInstanceHandle is never passed
+    cloneHiddenInstance: (
+        instance: ReactTestHostConfig.Instance,
+        type: string,
+        props: ReactTestHostConfig.Props,
+        internalInstanceHandle: object,
+    ) => instance,
+};
+
+// -------------------
+//    ReactContext
+// -------------------
+
+declare const ctx: ReactReconciler.ReactContext<string>;
+
+// React 19: the context is its own Provider.
+// $ExpectType ReactContext<string>
+ctx.Provider;
+// $ExpectType ReactConsumerType<string>
+ctx.Consumer;
+// $ExpectType ReactContext<string>
+ctx.Consumer._context;
+
+// @ts-expect-error -- Consumer is no longer a context
+ctx.Consumer._currentValue;
