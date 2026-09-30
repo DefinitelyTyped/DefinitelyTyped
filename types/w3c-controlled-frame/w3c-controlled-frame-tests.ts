@@ -1,23 +1,3 @@
-import {
-    ClearDataOptions,
-    ClearDataTypeSet,
-    ContentScriptDetails,
-    ContextMenusCreateProperties,
-    DialogType,
-    ImageDetails,
-    InjectDetails,
-    PermissionType,
-    RequestedHeaders,
-    ResourceType,
-    RunAt,
-    URLPattern,
-    WebRequestAuthCredentials,
-    WebRequestAuthOptions,
-    WebRequestInterceptorOptions,
-    WindowOpenDisposition,
-    ZoomMode,
-} from "w3c-controlled-frame";
-
 const dummyControlledFrame: HTMLControlledFrameElement = {} as HTMLControlledFrameElement;
 const dummyDialog: DialogController = {} as DialogController;
 const dummyPermController: PermissionRequestControllerBase = {} as PermissionRequestControllerBase;

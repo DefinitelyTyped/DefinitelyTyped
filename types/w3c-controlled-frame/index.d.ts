@@ -3,11 +3,9 @@
  * @see https://wicg.github.io/urlpattern
  */
 
-export type URLPatternInput = string | URLPatternInit;
+type URLPatternCompatible = string | URLPatternInit | URLPattern;
 
-export type URLPatternCompatible = string | URLPatternInit | URLPattern;
-
-export type URLPatternComponent =
+type URLPatternComponent =
     | "protocol"
     | "username"
     | "password"
@@ -17,29 +15,89 @@ export type URLPatternComponent =
     | "search"
     | "hash";
 
-export class URLPattern {
-    constructor(input: URLPatternInput, baseURL: string | URL, options?: URLPatternOptions);
-    constructor(input?: URLPatternInput, options?: URLPatternOptions);
-    test(input?: URLPatternInput, baseURL?: string): boolean;
-    exec(input?: URLPatternInput, baseURL?: string): URLPatternResult | null;
+interface URLPattern {
+    /**
+     * Tests whether the given input matches the URL pattern.
+     * @param input The URL pattern input string or dictionary to test against.
+     * @param baseURL The base URL string used to resolve relative inputs.
+     * @return True if the input matches the pattern, false otherwise.
+     * @throws {TypeError} If the input or base URL cannot be parsed.
+     */
+    test(input?: string | URLPatternInit, baseURL?: string): boolean;
+    /**
+     * Executes the URL pattern against the given input, returning detailed match
+     * results and capture groups.
+     * @param input The URL pattern input string or dictionary to execute against.
+     * @param baseURL The base URL string used to resolve relative inputs.
+     * @return A match result object containing capture groups for each component,
+     *   or null if there is no match.
+     * @throws {TypeError} If the input or base URL cannot be parsed.
+     */
+    exec(input?: string | URLPatternInit, baseURL?: string): URLPatternResult | null;
+    /**
+     * Generates a string for the specified component using the provided group
+     * values.
+     * @param component The URL pattern component to generate.
+     * @param groups A record of group names and values to substitute into the
+     *   pattern.
+     * @return A string representing the generated component value.
+     * @throws {TypeError} If the component is invalid or required groups are
+     *   missing.
+     */
     generate(component: URLPatternComponent, groups: Record<string, string>): string;
+    /** A string representing the protocol component pattern. */
     readonly protocol: string;
+    /** A string representing the username component pattern. */
     readonly username: string;
+    /** A string representing the password component pattern. */
     readonly password: string;
+    /** A string representing the hostname component pattern. */
     readonly hostname: string;
+    /** A string representing the port component pattern. */
     readonly port: string;
+    /** A string representing the pathname component pattern. */
     readonly pathname: string;
+    /** A string representing the search component pattern. */
     readonly search: string;
+    /** A string representing the hash component pattern. */
     readonly hash: string;
+    /**
+     * Boolean attribute indicating whether the pattern contains regular expression
+     * groups.
+     */
     readonly hasRegExpGroups: boolean;
 }
 
-export interface URLPatternComponentResult {
-    input?: string;
-    groups?: Record<string, any>;
+declare var URLPattern: {
+    prototype: URLPattern;
+    /**
+     * Creates a new URLPattern object from the provided input, base URL, and
+     * options.
+     * @param input The URL pattern input string or dictionary.
+     * @param baseURL The base URL string or URL object used to resolve relative
+     *   inputs.
+     * @param options Configuration options for pattern matching, such as case
+     *   sensitivity.
+     * @throws {TypeError} If the pattern parsing fails or inputs are invalid.
+     */
+    new(input: string | URLPatternInit, baseURL: string | URL, options?: URLPatternOptions): URLPattern;
+    /**
+     * Creates a new URLPattern object from the provided input, base URL, and
+     * options.
+     * @param input The URL pattern input string or dictionary.
+     * @param options Configuration options for pattern matching, such as case
+     *   sensitivity.
+     * @throws {TypeError} If the pattern parsing fails or inputs are invalid.
+     */
+    new(input?: string | URLPatternInit, options?: URLPatternOptions): URLPattern;
+};
+
+interface URLPatternComponentResult {
+    input: string;
+    groups: Record<string, string | undefined>;
 }
 
-export interface URLPatternInit {
+interface URLPatternInit {
     protocol?: string;
     username?: string;
     password?: string;
@@ -51,24 +109,24 @@ export interface URLPatternInit {
     baseURL?: string;
 }
 
-export interface URLPatternOptions {
+interface URLPatternOptions {
     /** @default false */
     ignoreCase?: boolean;
 }
 
-export interface URLPatternResult {
-    inputs?: URLPatternInput[];
-    protocol?: URLPatternComponentResult;
-    username?: URLPatternComponentResult;
-    password?: URLPatternComponentResult;
-    hostname?: URLPatternComponentResult;
-    port?: URLPatternComponentResult;
-    pathname?: URLPatternComponentResult;
-    search?: URLPatternComponentResult;
-    hash?: URLPatternComponentResult;
+interface URLPatternResult {
+    inputs: (string | URLPatternInit)[];
+    protocol: URLPatternComponentResult;
+    username: URLPatternComponentResult;
+    password: URLPatternComponentResult;
+    hostname: URLPatternComponentResult;
+    port: URLPatternComponentResult;
+    pathname: URLPatternComponentResult;
+    search: URLPatternComponentResult;
+    hash: URLPatternComponentResult;
 }
 
-export interface HTMLControlledFrameElementEventMap extends HTMLElementEventMap {
+interface HTMLControlledFrameElementEventMap extends HTMLElementEventMap {
     "consolemessage": ConsoleMessageEvent;
     "contentload": ContentLoadEvent;
     "dialog": DialogEvent;
@@ -81,169 +139,353 @@ export interface HTMLControlledFrameElementEventMap extends HTMLElementEventMap 
     "zoomchange": ZoomChangeEvent;
 }
 
-declare global {
-    class HTMLControlledFrameElement extends HTMLElement {
-        constructor();
-        src: string;
-        partition: string;
-        readonly contentWindow: WindowProxy | null;
-        readonly contextMenus: ContextMenus;
-        readonly request: WebRequest;
-        back(): Promise<boolean>;
-        canGoBack(): Promise<boolean>;
-        forward(): Promise<boolean>;
-        canGoForward(): Promise<boolean>;
-        go(relativeIndex: number): Promise<boolean>;
-        reload(): void;
-        stop(): void;
-        addContentScripts(contentScriptList: ContentScriptDetails[]): Promise<void>;
-        executeScript(details?: InjectDetails): Promise<any>;
-        insertCSS(details?: InjectDetails): Promise<void>;
-        removeContentScripts(scriptNameList?: string[]): Promise<void>;
-        clearData(options?: ClearDataOptions, types?: ClearDataTypeSet): Promise<void>;
-        getAudioState(): Promise<boolean>;
-        getZoom(): Promise<number>;
-        getZoomMode(): Promise<string>;
-        isAudioMuted(): Promise<boolean>;
-        setAudioMuted(mute: boolean): void;
-        setZoom(zoomFactor: number): Promise<void>;
-        setZoomMode(zoomMode: string): Promise<void>;
-        captureVisibleRegion(options?: ImageDetails): Promise<void>;
-        print(): void;
-        onconsolemessage: ((this: this, ev: ConsoleMessageEvent) => any) | null;
-        oncontentload: ((this: this, ev: ContentLoadEvent) => any) | null;
-        ondialog: ((this: this, ev: DialogEvent) => any) | null;
-        onloadabort: ((this: this, ev: LoadAbortEvent) => any) | null;
-        onloadcommit: ((this: this, ev: LoadCommitEvent) => any) | null;
-        onloadstop: ((this: this, ev: LoadStopEvent) => any) | null;
-        onnewwindow: ((this: this, ev: NewWindowEvent) => any) | null;
-        onpermissionrequest: ((this: this, ev: PermissionRequestEvent) => any) | null;
-        onsizechanged: ((this: this, ev: SizeChangedEvent) => any) | null;
-        onzoomchange: ((this: this, ev: ZoomChangeEvent) => any) | null;
+declare class HTMLControlledFrameElement extends HTMLElement {
+    /**
+     * Creates a new HTMLControlledFrameElement instance with a new WebRequest and
+     * ContextMenus instance.
+     */
+    constructor();
+    /**
+     * Content source URL to embed. Reflects the embedded navigable's current
+     * session history entry URL.
+     */
+    src: string;
+    /**
+     * Partition name to hold data related to this content. Specifies where data
+     * related to the Controlled Frame's instance should be stored.
+     */
+    partition: string;
+    /** WindowProxy of the embedded navigable document or null. */
+    readonly contentWindow: WindowProxy | null;
+    /** ContextMenus instance associated with this controlled frame. */
+    readonly contextMenus: ContextMenus;
+    /** WebRequest instance associated with this controlled frame. */
+    readonly request: WebRequest;
+    /**
+     * Goes back one step in the overall session history entries list for the
+     * traversable navigable in the Controlled Frame.
+     * @return A promise that resolves to true if the page was successfully
+     *   navigated back, or false if the navigation failed or there was no previous
+     *   step.
+     */
+    back(): Promise<boolean>;
+    /**
+     * Returns a promise that resolves to true if the current session history entry
+     * is not the first one in the embedded navigable's session history entries.
+     */
+    canGoBack(): Promise<boolean>;
+    /**
+     * Goes forward one step in the overall session history entries list for the
+     * traversable navigable in the Controlled Frame.
+     * @return A promise that resolves to true if the page was successfully
+     *   navigated forward, or false if the navigation failed or there was no next
+     *   step.
+     */
+    forward(): Promise<boolean>;
+    /**
+     * Returns a promise that resolves to true if the current session history entry
+     * is not the last one in the embedded navigable's session history entries.
+     */
+    canGoForward(): Promise<boolean>;
+    /**
+     * Goes back or forward relativeIndex number of steps in the overall session
+     * history entries list for the current traversable navigable. A zero relative
+     * index will reload the current page.
+     * @param relativeIndex Number of steps to navigate in session history.
+     * @return A promise that resolves to true if the page was successfully
+     *   navigated, or false if the navigation failed or the provided relative
+     *   index was out of range.
+     */
+    go(relativeIndex: number): Promise<boolean>;
+    /** Reloads the current page. */
+    reload(): void;
+    /** Cancels the document load. */
+    stop(): void;
+    /**
+     * Adds content scripts to the controlled frame's content script map.
+     * @param contentScriptList Sequence of ContentScriptDetails specifying the
+     *   content scripts to add.
+     * @return A promise that resolves when the content scripts are successfully
+     *   added.
+     * @throws {TypeError} If contentScriptList is empty or validation fails.
+     */
+    addContentScripts(contentScriptList: ContentScriptDetails[]): Promise<void>;
+    /**
+     * Executes script in the embedded document's environment.
+     * @param details Optional InjectDetails specifying code or file to execute.
+     * @return A promise that resolves with the completion value of the script
+     *   execution.
+     * @throws {TypeError} If the embedded navigable is null, or both code and file
+     *   are defined or undefined.
+     */
+    executeScript(details?: InjectDetails): Promise<any>;
+    /**
+     * Inserts CSS into the embedded document.
+     * @param details Optional InjectDetails specifying CSS code or file to insert.
+     * @return A promise that resolves when the stylesheet has been successfully
+     *   injected.
+     * @throws {TypeError} If the embedded navigable is null, or both code and file
+     *   are defined or undefined.
+     */
+    insertCSS(details?: InjectDetails): Promise<void>;
+    /**
+     * Removes registered content scripts.
+     * @param scriptNameList Optional sequence of script names to remove. If
+     *   undefined, all content scripts are cleared.
+     * @return A promise that resolves when the content scripts are successfully
+     *   removed.
+     */
+    removeContentScripts(scriptNameList?: string[]): Promise<void>;
+    /**
+     * Clears data stored by the controlled frame within its storage partition.
+     * @param options Optional ClearDataOptions specifying a timestamp limit.
+     * @param types Optional ClearDataTypeSet specifying which storage types to
+     *   clear.
+     * @return A promise that resolves when data clearing is complete.
+     */
+    clearData(options?: ClearDataOptions, types?: ClearDataTypeSet): Promise<void>;
+    /**
+     * Gets whether audio is currently playing within the embedded content.
+     * @return A promise that resolves to true if any content within the embedded
+     *   navigable is currently playing audio, false otherwise.
+     * @throws {TypeError} If the embedded navigable is null.
+     */
+    getAudioState(): Promise<boolean>;
+    /**
+     * Gets the current zoom factor of the controlled frame.
+     * @return A promise that resolves to the current zoom factor.
+     * @throws {TypeError} If the embedded navigable is null.
+     */
+    getZoom(): Promise<number>;
+    /**
+     * Gets the current zoom mode of the controlled frame.
+     * @return A promise that resolves to the ZoomMode string.
+     */
+    getZoomMode(): Promise<string>;
+    /**
+     * Gets whether audio is muted for the embedded navigable.
+     * @return A promise that resolves to true if the muted flag is set, false
+     *   otherwise.
+     * @throws {TypeError} If the embedded navigable is null.
+     */
+    isAudioMuted(): Promise<boolean>;
+    /**
+     * Sets whether audio is muted for the embedded navigable.
+     * @param mute Boolean indicating whether to mute audio streams.
+     * @throws {TypeError} If the embedded navigable is null.
+     */
+    setAudioMuted(mute: boolean): void;
+    /**
+     * Sets the zoom factor of the controlled frame.
+     * @param zoomFactor The zoom factor to apply.
+     * @return A promise that resolves when the zoom factor has been set.
+     * @throws {TypeError} If the embedded navigable is null or zoom mode is
+     *   disabled.
+     */
+    setZoom(zoomFactor: number): Promise<void>;
+    /**
+     * Sets the zoom mode of the controlled frame.
+     * @param zoomMode The ZoomMode to set.
+     * @return A promise that resolves when the zoom mode is updated.
+     */
+    setZoomMode(zoomMode: string): Promise<void>;
+    /**
+     * Captures an image showing the visible region of the embedded content.
+     * @param options Optional ImageDetails specifying format and quality.
+     * @return A promise that resolves to a data: URL containing the captured image
+     *   data.
+     * @throws {TypeError} If the embedded navigable is null or options are
+     *   invalid.
+     */
+    captureVisibleRegion(options?: ImageDetails): Promise<void>;
+    /**
+     * Initiates the browser print page feature for embedded content.
+     * @throws {TypeError} If the embedded navigable is null.
+     */
+    print(): void;
+    /** Event handler for consolemessage events. */
+    onconsolemessage: ((this: this, ev: ConsoleMessageEvent) => any) | null;
+    /** Event handler for contentload events. */
+    oncontentload: ((this: this, ev: ContentLoadEvent) => any) | null;
+    /** Event handler for dialog events. */
+    ondialog: ((this: this, ev: DialogEvent) => any) | null;
+    /** Event handler for loadabort events. */
+    onloadabort: ((this: this, ev: LoadAbortEvent) => any) | null;
+    /** Event handler for loadcommit events. */
+    onloadcommit: ((this: this, ev: LoadCommitEvent) => any) | null;
+    /** Event handler for loadstop events. */
+    onloadstop: ((this: this, ev: LoadStopEvent) => any) | null;
+    /** Event handler for newwindow events. */
+    onnewwindow: ((this: this, ev: NewWindowEvent) => any) | null;
+    /** Event handler for permissionrequest events. */
+    onpermissionrequest: ((this: this, ev: PermissionRequestEvent) => any) | null;
+    /** Event handler for sizechanged events. */
+    onsizechanged: ((this: this, ev: SizeChangedEvent) => any) | null;
+    /** Event handler for zoomchange events. */
+    onzoomchange: ((this: this, ev: ZoomChangeEvent) => any) | null;
 
-        addEventListener<K extends keyof HTMLControlledFrameElementEventMap>(
-            type: K,
-            listener: (this: this, ev: HTMLControlledFrameElementEventMap[K]) => any,
-            options?: boolean | AddEventListenerOptions,
-        ): void;
-        addEventListener(
-            type: string,
-            listener: EventListenerOrEventListenerObject,
-            options?: boolean | AddEventListenerOptions,
-        ): void;
-        removeEventListener<K extends keyof HTMLControlledFrameElementEventMap>(
-            type: K,
-            listener: (this: this, ev: HTMLControlledFrameElementEventMap[K]) => any,
-            options?: boolean | EventListenerOptions,
-        ): void;
-        removeEventListener(
-            type: string,
-            listener: EventListenerOrEventListenerObject,
-            options?: boolean | EventListenerOptions,
-        ): void;
-    }
+    addEventListener<K extends keyof HTMLControlledFrameElementEventMap>(
+        type: K,
+        listener: (this: this, ev: HTMLControlledFrameElementEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof HTMLControlledFrameElementEventMap>(
+        type: K,
+        listener: (this: this, ev: HTMLControlledFrameElementEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
-export interface InjectDetails {
+interface InjectDetails {
+    /** JavaScript or CSS code string to inject. */
     code?: string;
+    /** URL string of a file containing the script or CSS to inject. */
     file?: string;
 }
 
-export interface InjectionItems {
+interface InjectionItems {
+    /** Code string for injection. */
     code?: string;
+    /** Sequence of USVString file URL paths. */
     files?: string[];
 }
 
-export type RunAt =
+type RunAt =
     | "document-start"
     | "document-end"
     | "document-idle";
 
-export interface ContentScriptDetails {
+interface ContentScriptDetails {
+    /** Unique name of the content script. */
     name: string;
+    /** JavaScript injection items. */
     js?: InjectionItems;
+    /** CSS injection items. */
     css?: InjectionItems;
-    urlPatterns: (URLPattern | URLPatternInput)[];
-    excludeURLPatterns?: (URLPattern | URLPatternInput)[];
+    /** Sequence of URL patterns defining which pages the content script applies to. */
+    urlPatterns: (URLPattern | string | URLPatternInit)[];
+    /**
+     * Sequence of URL patterns defining which pages are excluded from content
+     * script injection.
+     */
+    excludeURLPatterns?: (URLPattern | string | URLPatternInit)[];
+    /**
+     * Boolean indicating whether content should be injected into all frames or
+     * just the top-level frame.
+     */
     allFrames?: boolean;
+    /**
+     * Boolean indicating whether content should be injected into about:blank
+     * pages.
+     */
     matchAboutBlank?: boolean;
+    /** RunAt phase indicating when JavaScript content should be executed. */
     runAt?: RunAt;
 }
 
-export interface ClearDataOptions {
+interface ClearDataOptions {
+    /**
+     * Timestamp in milliseconds since epoch representing the cutoff time for data
+     * removal.
+     */
     since?: number;
 }
 
-export interface ClearDataTypeSet {
+interface ClearDataTypeSet {
+    /** Boolean indicating whether to clear cache. */
     cache?: boolean;
+    /** Boolean indicating whether to clear cookies. */
     cookies?: boolean;
+    /** Boolean indicating whether to clear file systems. */
     fileSystems?: boolean;
+    /** Boolean indicating whether to clear indexedDB. */
     indexedDB?: boolean;
+    /** Boolean indicating whether to clear localStorage. */
     localStorage?: boolean;
+    /** Boolean indicating whether to clear persistent cookies. */
     persistentCookies?: boolean;
+    /** Boolean indicating whether to clear session cookies. */
     sessionCookies?: boolean;
 }
 
-export type ZoomMode =
+type ZoomMode =
     | "per-origin"
     | "per-view"
     | "disabled";
 
-export interface ImageDetails {
+interface ImageDetails {
+    /** Image format string such as JPEG or PNG. */
     format?: string;
+    /** Image quality string or value between 0 and 100. */
     quality?: string;
 }
 
-declare global {
-    interface ConsoleMessage {
-        readonly level: number;
-        readonly message: string;
-    }
+interface ConsoleMessage {
+    /** Log level integer of the console message. */
+    readonly level: number;
+    /** Text message of the console event. */
+    readonly message: string;
 }
 
-declare global {
-    class ConsoleMessageEvent extends Event {
-        constructor(type: string, eventInitDict?: ConsoleMessageEventInit);
-        readonly consoleMessage: ConsoleMessage;
-    }
+declare class ConsoleMessageEvent extends Event {
+    /** Creates a new ConsoleMessageEvent instance. */
+    constructor(type: string, eventInitDict?: ConsoleMessageEventInit);
+    /** ConsoleMessage object associated with the event. */
+    readonly consoleMessage: ConsoleMessage;
 }
 
-export interface ConsoleMessageEventInit extends EventInit {
+interface ConsoleMessageEventInit extends EventInit {
+    /** Optional ConsoleMessage object. */
     consoleMessage?: ConsoleMessage | null;
 }
 
-export type DialogType =
+type DialogType =
     | "alert"
     | "confirm"
     | "prompt";
 
-declare global {
-    interface DialogController {
-        okay(response?: string): void;
-        cancel(): void;
-    }
+interface DialogController {
+    /**
+     * Accepts the dialog with an optional response string.
+     * @param response Optional response string for prompt dialogs.
+     */
+    okay(response?: string): void;
+    /** Cancels the dialog. */
+    cancel(): void;
 }
 
-declare global {
-    interface DialogMessage {
-        readonly messageType: DialogType;
-        readonly messageText: string;
-        readonly dialog: DialogController;
-    }
+interface DialogMessage {
+    /** DialogType of the message. */
+    readonly messageType: DialogType;
+    /** Text content of the dialog message. */
+    readonly messageText: string;
+    /** DialogController instance for managing the dialog response. */
+    readonly dialog: DialogController;
 }
 
-declare global {
-    class DialogEvent extends Event {
-        constructor(type: string, eventInitDict?: DialogEventInit);
-        readonly dialogMessage: DialogMessage;
-    }
+declare class DialogEvent extends Event {
+    /** Creates a new DialogEvent instance. */
+    constructor(type: string, eventInitDict?: DialogEventInit);
+    /** DialogMessage object associated with the event. */
+    readonly dialogMessage: DialogMessage;
 }
 
-export interface DialogEventInit extends EventInit {
+interface DialogEventInit extends EventInit {
+    /** Optional DialogMessage object. */
     dialogMessage?: DialogMessage | null;
 }
 
-export type WindowOpenDisposition =
+type WindowOpenDisposition =
     | "ignore"
     | "save_to_disk"
     | "current_tab"
@@ -252,34 +494,41 @@ export type WindowOpenDisposition =
     | "new_window"
     | "new_popup";
 
-declare global {
-    interface NewWindowController {
-        attach(newControlledFrame: HTMLControlledFrameElement): void;
-        discard(): void;
-    }
+interface NewWindowController {
+    /**
+     * Attaches the target navigable to a new controlled frame element.
+     * @param newControlledFrame The HTMLControlledFrameElement to attach the
+     *   navigable to.
+     */
+    attach(newControlledFrame: HTMLControlledFrameElement): void;
+    /** Discards the target navigable. */
+    discard(): void;
 }
 
-declare global {
-    interface NewWindow {
-        readonly window: NewWindowController;
-        readonly targetUrl: string;
-        readonly name: string;
-        readonly windowOpenDisposition: WindowOpenDisposition;
-    }
+interface NewWindow {
+    /** NewWindowController instance. */
+    readonly window: NewWindowController;
+    /** Target URL of the new window request. */
+    readonly targetUrl: string;
+    /** Name attribute of the new window. */
+    readonly name: string;
+    /** WindowOpenDisposition of the request. */
+    readonly windowOpenDisposition: WindowOpenDisposition;
 }
 
-declare global {
-    class NewWindowEvent extends Event {
-        constructor(type: string, eventInitDict?: NewWindowEventInit);
-        readonly newWindow: NewWindow;
-    }
+declare class NewWindowEvent extends Event {
+    /** Creates a new NewWindowEvent instance. */
+    constructor(type: string, eventInitDict?: NewWindowEventInit);
+    /** NewWindow object associated with the event. */
+    readonly newWindow: NewWindow;
 }
 
-export interface NewWindowEventInit extends EventInit {
+interface NewWindowEventInit extends EventInit {
+    /** Optional NewWindow object. */
     newWindow?: NewWindow | null;
 }
 
-export type PermissionType =
+type PermissionType =
     | "media"
     | "geolocation"
     | "pointerLock"
@@ -288,184 +537,187 @@ export type PermissionType =
     | "fullscreen"
     | "hid";
 
-declare global {
-    interface PermissionRequestControllerBase {
-        allow(): void;
-        cancel(): void;
-    }
+interface PermissionRequestControllerBase {
+    /** Allows the permission request. */
+    allow(): void;
+    /** Cancels or denies the permission request. */
+    cancel(): void;
 }
 
-declare global {
-    interface MediaPermissionRequestController extends PermissionRequestControllerBase {
-        readonly url: string;
-    }
+interface MediaPermissionRequestController extends PermissionRequestControllerBase {
+    /** URL requesting media permission. */
+    readonly url: string;
 }
 
-declare global {
-    interface GeolocationPermissionRequestController extends PermissionRequestControllerBase {
-        readonly url: string;
-    }
+interface GeolocationPermissionRequestController extends PermissionRequestControllerBase {
+    /** URL requesting geolocation permission. */
+    readonly url: string;
 }
 
-declare global {
-    interface PointerLockPermissionRequestController extends PermissionRequestControllerBase {
-        readonly lastUnlockedBySelf: boolean;
-        readonly userGesture: boolean;
-        readonly url: string;
-    }
+interface PointerLockPermissionRequestController extends PermissionRequestControllerBase {
+    /** Boolean indicating whether last unlocked by self. */
+    readonly lastUnlockedBySelf: boolean;
+    /** Boolean indicating whether a user gesture was present. */
+    readonly userGesture: boolean;
+    /** URL requesting pointer lock permission. */
+    readonly url: string;
 }
 
-declare global {
-    interface DownloadPermissionRequestController extends PermissionRequestControllerBase {
-        readonly requestMethod: string;
-        readonly url: string;
-    }
+interface DownloadPermissionRequestController extends PermissionRequestControllerBase {
+    /** HTTP request method of the download. */
+    readonly requestMethod: string;
+    /** URL requesting download permission. */
+    readonly url: string;
 }
 
-declare global {
-    interface FileSystemPermissionRequestController extends PermissionRequestControllerBase {
-        readonly url: string;
-    }
+interface FileSystemPermissionRequestController extends PermissionRequestControllerBase {
+    /** URL requesting file system permission. */
+    readonly url: string;
 }
 
-declare global {
-    interface FullscreenPermissionRequestController extends PermissionRequestControllerBase {
-        readonly origin: string;
-    }
+interface FullscreenPermissionRequestController extends PermissionRequestControllerBase {
+    /** Origin requesting fullscreen permission. */
+    readonly origin: string;
 }
 
-declare global {
-    interface HidPermissionRequestController extends PermissionRequestControllerBase {
-        readonly url: string;
-    }
+interface HidPermissionRequestController extends PermissionRequestControllerBase {
+    /** URL requesting HID permission. */
+    readonly url: string;
 }
 
-declare global {
-    interface PermissionRequest {
-        readonly permission: PermissionType;
-        readonly request: PermissionRequestControllerBase;
-    }
+interface PermissionRequest {
+    /** PermissionType of the request. */
+    readonly permission: PermissionType;
+    /** Base controller object for the permission request. */
+    readonly request: PermissionRequestControllerBase;
 }
 
-declare global {
-    class PermissionRequestEvent extends Event {
-        constructor(type: string, eventInitDict?: PermissionRequestEventInit);
-        readonly permissionRequest: PermissionRequest;
-    }
+declare class PermissionRequestEvent extends Event {
+    /** Creates a new PermissionRequestEvent instance. */
+    constructor(type: string, eventInitDict?: PermissionRequestEventInit);
+    /** PermissionRequest object associated with the event. */
+    readonly permissionRequest: PermissionRequest;
 }
 
-export interface PermissionRequestEventInit extends EventInit {
+interface PermissionRequestEventInit extends EventInit {
+    /** Optional PermissionRequest object. */
     permissionRequest?: PermissionRequest | null;
 }
 
-declare global {
-    interface SizeChange {
-        readonly oldWidth: number;
-        readonly oldHeight: number;
-        readonly newWidth: number;
-        readonly newHeight: number;
-    }
+interface SizeChange {
+    /** Previous width in pixels. */
+    readonly oldWidth: number;
+    /** Previous height in pixels. */
+    readonly oldHeight: number;
+    /** New width in pixels. */
+    readonly newWidth: number;
+    /** New height in pixels. */
+    readonly newHeight: number;
 }
 
-declare global {
-    class SizeChangedEvent extends Event {
-        constructor(type: string, eventInitDict?: SizeChangedEventInit);
-        readonly sizeChange: SizeChange;
-    }
+declare class SizeChangedEvent extends Event {
+    /** Creates a new SizeChangedEvent instance. */
+    constructor(type: string, eventInitDict?: SizeChangedEventInit);
+    /** SizeChange object associated with the event. */
+    readonly sizeChange: SizeChange;
 }
 
-export interface SizeChangedEventInit extends EventInit {
+interface SizeChangedEventInit extends EventInit {
+    /** Optional SizeChange object. */
     sizeChange?: SizeChange | null;
 }
 
-declare global {
-    interface ZoomChange {
-        readonly oldZoomFactor: number;
-        readonly newZoomFactor: number;
-    }
+interface ZoomChange {
+    /** Previous zoom factor float. */
+    readonly oldZoomFactor: number;
+    /** New zoom factor float. */
+    readonly newZoomFactor: number;
 }
 
-declare global {
-    class ZoomChangeEvent extends Event {
-        constructor(type: string, eventInitDict?: ZoomChangeEventInit);
-        readonly zoomChange: ZoomChange;
-    }
+declare class ZoomChangeEvent extends Event {
+    /** Creates a new ZoomChangeEvent instance. */
+    constructor(type: string, eventInitDict?: ZoomChangeEventInit);
+    /** ZoomChange object associated with the event. */
+    readonly zoomChange: ZoomChange;
 }
 
-export interface ZoomChangeEventInit extends EventInit {
+interface ZoomChangeEventInit extends EventInit {
+    /** Optional ZoomChange object. */
     zoomChange?: ZoomChange | null;
 }
 
-declare global {
-    class ContentLoadEvent extends Event {
-        constructor(type: string, eventInitDict?: EventInit);
-    }
+declare class ContentLoadEvent extends Event {
+    /** Creates a new ContentLoadEvent instance. */
+    constructor(type: string, eventInitDict?: EventInit);
 }
 
-declare global {
-    interface LoadInfo {
-        readonly url: string;
-        readonly isTopLevel: boolean;
-    }
+interface LoadInfo {
+    /** URL of the load. */
+    readonly url: string;
+    /** Boolean indicating whether the load is top-level. */
+    readonly isTopLevel: boolean;
 }
 
-declare global {
-    interface LoadAbortInfo extends LoadInfo {
-        readonly code: number;
-        readonly reason: string;
-    }
+interface LoadAbortInfo extends LoadInfo {
+    /** Error code of the abort. */
+    readonly code: number;
+    /** String reason for the abort. */
+    readonly reason: string;
 }
 
-declare global {
-    interface LoadRedirectInfo {
-        readonly oldUrl: string;
-        readonly newUrl: string;
-        readonly isTopLevel: boolean;
-    }
+interface LoadRedirectInfo {
+    /** Previous URL before redirection. */
+    readonly oldUrl: string;
+    /** New URL after redirection. */
+    readonly newUrl: string;
+    /** Boolean indicating whether the redirection is top-level. */
+    readonly isTopLevel: boolean;
 }
 
-declare global {
-    class LoadAbortEvent extends Event {
-        constructor(type: string, eventInitDict?: LoadAbortEventInit);
-        readonly loadAbortInfo: LoadAbortInfo;
-    }
+declare class LoadAbortEvent extends Event {
+    /** Creates a new LoadAbortEvent instance. */
+    constructor(type: string, eventInitDict?: LoadAbortEventInit);
+    /** LoadAbortInfo object associated with the event. */
+    readonly loadAbortInfo: LoadAbortInfo;
 }
 
-export interface LoadAbortEventInit extends EventInit {
+interface LoadAbortEventInit extends EventInit {
+    /** Optional LoadAbortInfo object. */
     loadAbortInfo?: LoadAbortInfo | null;
 }
 
-declare global {
-    class LoadCommitEvent extends Event {
-        constructor(type: string, eventInitDict?: LoadCommitEventInit);
-        readonly loadInfo: LoadInfo;
-    }
+declare class LoadCommitEvent extends Event {
+    /** Creates a new LoadCommitEvent instance. */
+    constructor(type: string, eventInitDict?: LoadCommitEventInit);
+    /** LoadInfo object associated with the event. */
+    readonly loadInfo: LoadInfo;
 }
 
-export interface LoadCommitEventInit extends EventInit {
+interface LoadCommitEventInit extends EventInit {
+    /** Optional LoadInfo object. */
     loadInfo?: LoadInfo | null;
 }
 
-declare global {
-    class LoadStopEvent extends Event {
-        constructor(type: string, eventInitDict?: LoadStopEventInit);
-    }
+declare class LoadStopEvent extends Event {
+    /** Creates a new LoadStopEvent instance. */
+    constructor(type: string, eventInitDict?: LoadStopEventInit);
 }
 
-export type LoadStopEventInit = EventInit;
+type LoadStopEventInit = EventInit;
 
-declare global {
-    class LoadRedirectEvent extends Event {
-        constructor(type: string, eventInitDict?: LoadRedirectEventInit);
-        readonly loadRedirectInfo: LoadRedirectInfo;
-    }
+declare class LoadRedirectEvent extends Event {
+    /** Creates a new LoadRedirectEvent instance. */
+    constructor(type: string, eventInitDict?: LoadRedirectEventInit);
+    /** LoadRedirectInfo object associated with the event. */
+    readonly loadRedirectInfo: LoadRedirectInfo;
 }
 
-export interface LoadRedirectEventInit extends EventInit {
+interface LoadRedirectEventInit extends EventInit {
+    /** Optional LoadRedirectInfo object. */
     loadRedirectInfo?: LoadRedirectInfo | null;
 }
 
-export type ResourceType =
+type ResourceType =
     | "main-frame"
     | "sub-frame"
     | "stylesheet"
@@ -480,30 +732,46 @@ export type ResourceType =
     | "websocket"
     | "other";
 
-export type RequestedHeaders =
+type RequestedHeaders =
     | "none"
     | "cors"
     | "all";
 
-export interface WebRequestInterceptorOptions {
-    urlPatterns: (URLPattern | URLPatternInput)[];
-    /** @default [] */
+interface WebRequestInterceptorOptions {
+    /** Sequence of URL patterns to intercept. */
+    urlPatterns: (URLPattern | string | URLPatternInit)[];
+    /**
+     * Sequence of ResourceTypes to intercept.
+     * @default []
+     */
     resourceTypes?: ResourceType[];
-    /** @default false */
+    /**
+     * Boolean indicating whether the interceptor is blocking.
+     * @default false
+     */
     blocking?: boolean;
-    /** @default false */
+    /**
+     * Boolean indicating whether to include request body data.
+     * @default false
+     */
     includeRequestBody?: boolean;
-    /** @default "none" */
+    /**
+     * RequestedHeaders inclusion mode.
+     * @default "none"
+     */
     includeHeaders?: RequestedHeaders;
 }
 
-declare global {
-    interface WebRequest {
-        createWebRequestInterceptor(options: WebRequestInterceptorOptions): WebRequestInterceptor;
-    }
+interface WebRequest {
+    /**
+     * Creates a new WebRequestInterceptor with the specified options.
+     * @param options WebRequestInterceptorOptions configuration.
+     * @return The created WebRequestInterceptor instance.
+     */
+    createWebRequestInterceptor(options: WebRequestInterceptorOptions): WebRequestInterceptor;
 }
 
-export interface WebRequestInterceptorEventMap {
+interface WebRequestInterceptorEventMap {
     "authrequired": Event;
     "beforeredirect": Event;
     "beforerequest": Event;
@@ -515,182 +783,221 @@ export interface WebRequestInterceptorEventMap {
     "responsestarted": Event;
 }
 
-declare global {
-    interface WebRequestInterceptor extends EventTarget {
-        onauthrequired: ((this: this, ev: Event) => any) | null;
-        onbeforeredirect: ((this: this, ev: Event) => any) | null;
-        onbeforerequest: ((this: this, ev: Event) => any) | null;
-        onbeforesendheaders: ((this: this, ev: Event) => any) | null;
-        oncompleted: ((this: this, ev: Event) => any) | null;
-        onerroroccurred: ((this: this, ev: Event) => any) | null;
-        onheadersreceived: ((this: this, ev: Event) => any) | null;
-        onsendheaders: ((this: this, ev: Event) => any) | null;
-        onresponsestarted: ((this: this, ev: Event) => any) | null;
+interface WebRequestInterceptor extends EventTarget {
+    /** Event handler for authrequired events. */
+    onauthrequired: ((this: this, ev: Event) => any) | null;
+    /** Event handler for beforeredirect events. */
+    onbeforeredirect: ((this: this, ev: Event) => any) | null;
+    /** Event handler for beforerequest events. */
+    onbeforerequest: ((this: this, ev: Event) => any) | null;
+    /** Event handler for beforesendheaders events. */
+    onbeforesendheaders: ((this: this, ev: Event) => any) | null;
+    /** Event handler for completed events. */
+    oncompleted: ((this: this, ev: Event) => any) | null;
+    /** Event handler for erroroccurred events. */
+    onerroroccurred: ((this: this, ev: Event) => any) | null;
+    /** Event handler for headersreceived events. */
+    onheadersreceived: ((this: this, ev: Event) => any) | null;
+    /** Event handler for sendheaders events. */
+    onsendheaders: ((this: this, ev: Event) => any) | null;
+    /** Event handler for responsestarted events. */
+    onresponsestarted: ((this: this, ev: Event) => any) | null;
 
-        addEventListener<K extends keyof WebRequestInterceptorEventMap>(
-            type: K,
-            listener: (this: this, ev: WebRequestInterceptorEventMap[K]) => any,
-            options?: boolean | AddEventListenerOptions,
-        ): void;
-        addEventListener(
-            type: string,
-            listener: EventListenerOrEventListenerObject,
-            options?: boolean | AddEventListenerOptions,
-        ): void;
-        removeEventListener<K extends keyof WebRequestInterceptorEventMap>(
-            type: K,
-            listener: (this: this, ev: WebRequestInterceptorEventMap[K]) => any,
-            options?: boolean | EventListenerOptions,
-        ): void;
-        removeEventListener(
-            type: string,
-            listener: EventListenerOrEventListenerObject,
-            options?: boolean | EventListenerOptions,
-        ): void;
-    }
+    addEventListener<K extends keyof WebRequestInterceptorEventMap>(
+        type: K,
+        listener: (this: this, ev: WebRequestInterceptorEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof WebRequestInterceptorEventMap>(
+        type: K,
+        listener: (this: this, ev: WebRequestInterceptorEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
-export type DocumentLifecycle =
+type DocumentLifecycle =
     | "prerender"
     | "active"
     | "cached"
     | "pending-deletion";
 
-export type FrameType =
+type FrameType =
     | "outermost-frame"
     | "fenced-frame"
     | "sub-frame";
 
-declare global {
-    interface UploadData {
-        readonly bytes: ArrayBuffer | null;
-        readonly file: string | null;
-    }
+interface UploadData {
+    /** ArrayBuffer of raw upload bytes or null. */
+    readonly bytes: ArrayBuffer | null;
+    /** File name string or null. */
+    readonly file: string | null;
 }
 
-declare global {
-    interface RequestBody {
-        readonly error: string | null;
-        readonly formData: any;
-        readonly raw: readonly UploadData[] | null;
-    }
+interface RequestBody {
+    /** Error string or null. */
+    readonly error: string | null;
+    /** Form data object or null. */
+    readonly formData: any;
+    /** FrozenArray of UploadData objects or null. */
+    readonly raw: readonly UploadData[] | null;
 }
 
-declare global {
-    interface WebRequestRequest {
-        readonly method: string;
-        readonly id: string;
-        readonly type: ResourceType;
-        readonly url: string;
-        readonly initiator: string | null;
-        readonly headers: Headers | null;
-        readonly body: RequestBody | null;
-    }
+interface WebRequestRequest {
+    /** HTTP method string. */
+    readonly method: string;
+    /** Request identifier string. */
+    readonly id: string;
+    /** ResourceType of the request. */
+    readonly type: ResourceType;
+    /** URL string of the request. */
+    readonly url: string;
+    /** Initiator origin string or null. */
+    readonly initiator: string | null;
+    /** Headers object or null. */
+    readonly headers: Headers | null;
+    /** RequestBody object or null. */
+    readonly body: RequestBody | null;
 }
 
-declare global {
-    interface AuthChallenger {
-        readonly host: string;
-        readonly port: number;
-    }
+interface AuthChallenger {
+    /** Host string. */
+    readonly host: string;
+    /** Port number. */
+    readonly port: number;
 }
 
-declare global {
-    interface WebRequestAuthDetails {
-        readonly challenger: AuthChallenger;
-        readonly isProxy: boolean;
-        readonly scheme: string;
-        readonly realm: string | null;
-    }
+interface WebRequestAuthDetails {
+    /** AuthChallenger object. */
+    readonly challenger: AuthChallenger;
+    /** Boolean indicating whether authentication is via proxy. */
+    readonly isProxy: boolean;
+    /** Authentication scheme string. */
+    readonly scheme: string;
+    /** Authentication realm string or null. */
+    readonly realm: string | null;
 }
 
-declare global {
-    interface WebRequestResponse {
-        readonly statusCode: number;
-        readonly statusLine: string;
-        readonly fromCache: boolean;
-        readonly headers: Headers | null;
-        readonly ip: string | null;
-        readonly redirectURL: string | null;
-        readonly auth: WebRequestAuthDetails | null;
-    }
+interface WebRequestResponse {
+    /** HTTP status code. */
+    readonly statusCode: number;
+    /** HTTP status line string. */
+    readonly statusLine: string;
+    /** Boolean indicating whether the response was served from cache. */
+    readonly fromCache: boolean;
+    /** Headers object or null. */
+    readonly headers: Headers | null;
+    /** Server IP address string or null. */
+    readonly ip: string | null;
+    /** Redirect URL string or null. */
+    readonly redirectURL: string | null;
+    /** WebRequestAuthDetails object or null. */
+    readonly auth: WebRequestAuthDetails | null;
 }
 
-declare global {
-    interface WebRequestEvent extends Event {
-        readonly request: WebRequestRequest;
-        readonly frameId: number;
-        readonly frameType: FrameType | null;
-        readonly documentId: string | null;
-        readonly documentLifecycle: DocumentLifecycle | null;
-        readonly parentDocumentId: string | null;
-        readonly parentFrameId: number | null;
-    }
+interface WebRequestEvent extends Event {
+    /** WebRequestRequest object. */
+    readonly request: WebRequestRequest;
+    /** Frame ID number. */
+    readonly frameId: number;
+    /** FrameType or null. */
+    readonly frameType: FrameType | null;
+    /** Document ID string or null. */
+    readonly documentId: string | null;
+    /** DocumentLifecycle state or null. */
+    readonly documentLifecycle: DocumentLifecycle | null;
+    /** Parent document ID string or null. */
+    readonly parentDocumentId: string | null;
+    /** Parent frame ID number or null. */
+    readonly parentFrameId: number | null;
 }
 
-export interface WebRequestAuthCredentials {
+interface WebRequestAuthCredentials {
+    /** Username string. */
     username: string;
+    /** Password string. */
     password: string;
 }
 
-export interface WebRequestAuthOptions {
+interface WebRequestAuthOptions {
+    /** AbortSignal to cancel the authentication. */
     signal?: AbortSignal;
 }
 
-declare global {
-    interface WebRequestAuthRequiredEvent extends WebRequestEvent {
-        readonly response: WebRequestResponse;
-        setCredentials(credentials: Promise<WebRequestAuthCredentials>, options?: WebRequestAuthOptions): void;
-    }
+interface WebRequestAuthRequiredEvent extends WebRequestEvent {
+    /** WebRequestResponse object. */
+    readonly response: WebRequestResponse;
+    /**
+     * Sets authentication credentials for the request.
+     * @param credentials Promise resolving to WebRequestAuthCredentials.
+     * @param options Optional WebRequestAuthOptions.
+     */
+    setCredentials(credentials: Promise<WebRequestAuthCredentials>, options?: WebRequestAuthOptions): void;
 }
 
-declare global {
-    interface WebRequestBeforeRedirectEvent extends WebRequestEvent {
-        readonly response: WebRequestResponse;
-    }
+interface WebRequestBeforeRedirectEvent extends WebRequestEvent {
+    /** WebRequestResponse object. */
+    readonly response: WebRequestResponse;
 }
 
-declare global {
-    interface WebRequestBeforeRequestEvent extends WebRequestEvent {
-        redirect(redirectURL: string): void;
-    }
+interface WebRequestBeforeRequestEvent extends WebRequestEvent {
+    /**
+     * Redirects the request to the specified URL.
+     * @param redirectURL USVString target URL.
+     */
+    redirect(redirectURL: string): void;
 }
 
-declare global {
-    interface WebRequestBeforeSendHeadersEvent extends WebRequestEvent {
-        setRequestHeaders(requestHeaders: Headers | HeadersInit): void;
-    }
+interface WebRequestBeforeSendHeadersEvent extends WebRequestEvent {
+    /**
+     * Sets the request headers.
+     * @param requestHeaders Headers or HeadersInit object.
+     */
+    setRequestHeaders(requestHeaders: Headers | HeadersInit): void;
 }
 
-declare global {
-    interface WebRequestCompletedEvent extends WebRequestEvent {
-        readonly response: WebRequestResponse;
-    }
+interface WebRequestCompletedEvent extends WebRequestEvent {
+    /** WebRequestResponse object. */
+    readonly response: WebRequestResponse;
 }
 
-declare global {
-    interface WebRequestErrorOccurredEvent extends WebRequestEvent {
-        readonly error: string;
-    }
+interface WebRequestErrorOccurredEvent extends WebRequestEvent {
+    /** Error message string. */
+    readonly error: string;
 }
 
-declare global {
-    interface WebRequestHeadersReceivedEvent extends WebRequestEvent {
-        readonly response: WebRequestResponse;
-        redirect(redirectURL: string): void;
-        setResponseHeaders(responseHeaders: Headers | HeadersInit): void;
-    }
+interface WebRequestHeadersReceivedEvent extends WebRequestEvent {
+    /** WebRequestResponse object. */
+    readonly response: WebRequestResponse;
+    /**
+     * Redirects the request to the specified URL.
+     * @param redirectURL USVString target URL.
+     */
+    redirect(redirectURL: string): void;
+    /**
+     * Sets the response headers.
+     * @param responseHeaders Headers or HeadersInit object.
+     */
+    setResponseHeaders(responseHeaders: Headers | HeadersInit): void;
 }
 
-declare global {
-    interface WebRequestResponseStartedEvent extends WebRequestEvent {
-        readonly response: WebRequestResponse;
-    }
+interface WebRequestResponseStartedEvent extends WebRequestEvent {
+    /** WebRequestResponse object. */
+    readonly response: WebRequestResponse;
 }
 
-export type WebRequestSendHeadersEvent = WebRequestEvent;
+type WebRequestSendHeadersEvent = WebRequestEvent;
 
-export type ContextType =
+type ContextType =
     | "all"
     | "page"
     | "frame"
@@ -701,89 +1008,127 @@ export type ContextType =
     | "video"
     | "audio";
 
-export type ItemType =
+type ItemType =
     | "normal"
     | "checkbox"
     | "radio"
     | "separator";
 
-export interface ContextMenusProperties {
+interface ContextMenusProperties {
+    /** Boolean indicating whether the item is checked. */
     checked?: boolean;
+    /** Sequence of ContextTypes where the item should appear. */
     contexts?: ContextType[];
-    documentURLPatterns?: (URLPattern | URLPatternInput)[];
+    /** Sequence of URL patterns for document URLs. */
+    documentURLPatterns?: (URLPattern | string | URLPatternInit)[];
+    /** Boolean indicating whether the item is enabled. */
     enabled?: boolean;
+    /** Parent menu item ID string. */
     parentId?: string;
-    targetURLPatterns?: (URLPattern | URLPatternInput)[];
+    /** Sequence of URL patterns for target URLs. */
+    targetURLPatterns?: (URLPattern | string | URLPatternInit)[];
+    /** Title string of the menu item. */
     title?: string;
+    /** ItemType of the menu item. */
     type?: ItemType;
 }
 
-export interface ContextMenusCreateProperties extends ContextMenusProperties {
+interface ContextMenusCreateProperties extends ContextMenusProperties {
+    /** Required unique ID string for the menu item. */
     id: string;
 }
 
-export interface ContextMenusEventMap {
+interface ContextMenusEventMap {
     "click": ContextMenusClickEvent;
     "show": Event;
 }
 
-declare global {
-    interface ContextMenus extends EventTarget {
-        create(properties: ContextMenusCreateProperties): Promise<void>;
-        remove(id: string): Promise<void>;
-        removeAll(): Promise<void>;
-        update(id: string, properties?: ContextMenusProperties): Promise<void>;
-        onclick: ((this: this, ev: ContextMenusClickEvent) => any) | null;
-        onshow: ((this: this, ev: Event) => any) | null;
+interface ContextMenus extends EventTarget {
+    /**
+     * Creates a new context menu item.
+     * @param properties ContextMenusCreateProperties defining the item.
+     * @return A promise that resolves when the item is created.
+     * @throws {TypeError} If an item with the same ID already exists.
+     */
+    create(properties: ContextMenusCreateProperties): Promise<void>;
+    /**
+     * Removes a context menu item by ID.
+     * @param id ID string of the menu item to remove.
+     * @return A promise that resolves when the item is removed.
+     */
+    remove(id: string): Promise<void>;
+    /**
+     * Removes all context menu items.
+     * @return A promise that resolves when all items are cleared.
+     */
+    removeAll(): Promise<void>;
+    /**
+     * Updates an existing context menu item.
+     * @param id ID string of the menu item to update.
+     * @param properties Optional ContextMenusProperties to update.
+     * @return A promise that resolves when the item is updated.
+     * @throws {TypeError} If the menu item ID does not exist.
+     */
+    update(id: string, properties?: ContextMenusProperties): Promise<void>;
+    /** Event handler for click events on context menus. */
+    onclick: ((this: this, ev: ContextMenusClickEvent) => any) | null;
+    /** Event handler for show events on context menus. */
+    onshow: ((this: this, ev: Event) => any) | null;
 
-        addEventListener<K extends keyof ContextMenusEventMap>(
-            type: K,
-            listener: (this: this, ev: ContextMenusEventMap[K]) => any,
-            options?: boolean | AddEventListenerOptions,
-        ): void;
-        addEventListener(
-            type: string,
-            listener: EventListenerOrEventListenerObject,
-            options?: boolean | AddEventListenerOptions,
-        ): void;
-        removeEventListener<K extends keyof ContextMenusEventMap>(
-            type: K,
-            listener: (this: this, ev: ContextMenusEventMap[K]) => any,
-            options?: boolean | EventListenerOptions,
-        ): void;
-        removeEventListener(
-            type: string,
-            listener: EventListenerOrEventListenerObject,
-            options?: boolean | EventListenerOptions,
-        ): void;
-    }
+    addEventListener<K extends keyof ContextMenusEventMap>(
+        type: K,
+        listener: (this: this, ev: ContextMenusEventMap[K]) => any,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    addEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions,
+    ): void;
+    removeEventListener<K extends keyof ContextMenusEventMap>(
+        type: K,
+        listener: (this: this, ev: ContextMenusEventMap[K]) => any,
+        options?: boolean | EventListenerOptions,
+    ): void;
+    removeEventListener(
+        type: string,
+        listener: EventListenerOrEventListenerObject,
+        options?: boolean | EventListenerOptions,
+    ): void;
 }
 
-declare global {
-    interface MenuItemDetails {
-        readonly id: string;
-        readonly parentMenuId: string | null;
-        readonly checked: boolean | null;
-        readonly wasChecked: boolean | null;
-    }
+interface MenuItemDetails {
+    /** ID string of the menu item. */
+    readonly id: string;
+    /** Parent menu ID string or null. */
+    readonly parentMenuId: string | null;
+    /** Boolean checked state or null. */
+    readonly checked: boolean | null;
+    /** Boolean previous checked state or null. */
+    readonly wasChecked: boolean | null;
 }
 
-declare global {
-    interface ContextMenusClickEvent extends Event {
-        readonly menuItem: MenuItemDetails;
-        readonly frameId: number;
-        readonly frameURL: string;
-        readonly pageURL: string;
-        readonly editable: boolean;
-        readonly linkURL: string | null;
-        readonly mediaType: string | null;
-        readonly selectionText: string | null;
-        readonly srcURL: string | null;
-    }
+interface ContextMenusClickEvent extends Event {
+    /** MenuItemDetails object. */
+    readonly menuItem: MenuItemDetails;
+    /** Frame ID number where the context menu was opened. */
+    readonly frameId: number;
+    /** Frame URL string. */
+    readonly frameURL: string;
+    /** Page URL string. */
+    readonly pageURL: string;
+    /** Boolean indicating whether the target element is editable. */
+    readonly editable: boolean;
+    /** Link URL string or null. */
+    readonly linkURL: string | null;
+    /** Media type string or null. */
+    readonly mediaType: string | null;
+    /** Selected text string or null. */
+    readonly selectionText: string | null;
+    /** Source URL string or null. */
+    readonly srcURL: string | null;
 }
 
-declare global {
-    interface HTMLElementTagNameMap {
-        "controlledframe": HTMLControlledFrameElement;
-    }
+interface HTMLElementTagNameMap {
+    "controlledframe": HTMLControlledFrameElement;
 }
