@@ -1,14 +1,3 @@
-import {
-    SocketDnsQueryType,
-    TCPServerSocketOpenInfo,
-    TCPServerSocketOptions,
-    TCPSocketOpenInfo,
-    TCPSocketOptions,
-    UDPMessage,
-    UDPSocketOpenInfo,
-    UDPSocketOptions,
-} from "w3c-direct-sockets";
-
 async function testDirectSockets() {
     const remoteAddress = "192.168.1.1";
     const localAddress = "0.0.0.0";
@@ -162,13 +151,32 @@ async function testDirectSockets() {
     // --------------------------------------------------------------------------------
 
     const multicastController = {} as MulticastController;
+    const multicastGroupOptions: MulticastGroupOptions = {
+        sourceAddress: localAddress,
+    };
+    const multicastMembership: MulticastMembership = {
+        groupAddress: remoteAddress,
+        sourceAddress: localAddress,
+    };
 
-    // $ExpectType readonly string[]
+    // $ExpectType string
+    multicastMembership.groupAddress;
+
+    // $ExpectType string | undefined
+    multicastMembership.sourceAddress;
+
+    // $ExpectType readonly (string | MulticastMembership)[]
     multicastController.joinedGroups;
 
     // $ExpectType Promise<void>
     multicastController.joinGroup(remoteAddress);
 
     // $ExpectType Promise<void>
+    multicastController.joinGroup(remoteAddress, multicastGroupOptions);
+
+    // $ExpectType Promise<void>
     multicastController.leaveGroup(remoteAddress);
+
+    // $ExpectType Promise<void>
+    multicastController.leaveGroup(remoteAddress, multicastGroupOptions);
 }
