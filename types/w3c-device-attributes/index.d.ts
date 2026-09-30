@@ -46,12 +46,6 @@ interface NavigatorManagedData extends EventTarget {
      *   ID, or null if not set.
      * @throws {NotAllowedError} If the API is not called by a managed web
      *   application with permission to access device attributes.
-     * @example
-     * ```typescript
-     * function ReportSalesData() {
-     *   navigator.managed.getAnnotatedAssetId().then(reportCallback);
-     * }
-     * ```
      */
     getAnnotatedAssetId(): Promise<string | null>;
     /**
@@ -61,23 +55,6 @@ interface NavigatorManagedData extends EventTarget {
      *   location, or null/undefined if not set.
      * @throws {NotAllowedError} If the API is not called by a managed web
      *   application with permission to access device attributes.
-     * @example
-     * ```typescript
-     * function successCallback(location) {
-     *   const tariff = backend.requestTariff(location);
-     *   console.log(tariff);
-     * }
-     *
-     * function failureCallback(error) {
-     *   backend.reportFailure(error);
-     *   console.error(error.message);
-     * }
-     *
-     * function PrepareTariff() {
-     *   navigator.managed.getAnnotatedLocation()
-     *     .then(successCallback, failureCallback);
-     * }
-     * ```
      */
     getAnnotatedLocation(): Promise<string | null>;
 }
