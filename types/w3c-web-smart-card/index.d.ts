@@ -2,13 +2,19 @@
  * @see https://wicg.github.io/web-smart-card
  */
 
-declare global {
-    interface SmartCardResourceManager {
-        establishContext(): Promise<SmartCardContext>;
-    }
+interface SmartCardResourceManager {
+    /**
+     * Requests a PC/SC context from the platform's PC/SC stack.
+     * @return A Promise that resolves to a SmartCardContext instance.
+     * @throws {SecurityError} If the associated document is not allowed to use the
+     *   "smart-card" permissions policy-controlled feature.
+     * @throws {SmartCardError} If the platform PC/SC resource manager fails to
+     *   establish a context.
+     */
+    establishContext(): Promise<SmartCardContext>;
 }
 
-export type SmartCardResponseCode =
+type SmartCardResponseCode =
     | "no-service"
     | "no-smartcard"
     | "not-ready"
@@ -26,101 +32,194 @@ export type SmartCardResponseCode =
     | "unsupported-card"
     | "unsupported-feature";
 
-export interface SmartCardErrorOptions {
+interface SmartCardErrorOptions {
+    /** The value for SmartCardError's responseCode attribute. */
     responseCode: SmartCardResponseCode;
 }
 
-declare global {
-    class SmartCardError extends DOMException {
-        constructor(message: string, options: SmartCardErrorOptions);
-        readonly responseCode: SmartCardResponseCode;
-    }
+declare class SmartCardError extends DOMException {
+    /**
+     * Creates a new SmartCardError instance with an optional message and response
+     * code options.
+     * @param message Optional human-readable error message.
+     * @param options Configuration options containing the responseCode.
+     */
+    constructor(message: string, options: SmartCardErrorOptions);
+    /** The error or warning response code returned by the related PC/SC method. */
+    readonly responseCode: SmartCardResponseCode;
 }
 
-export interface SmartCardReaderStateIn {
+interface SmartCardReaderStateIn {
+    /** Name of the smart card reader. */
     readerName: string;
+    /** The current state of that smart card reader as known by the application. */
     currentState: SmartCardReaderStateFlagsIn;
+    /**
+     * The current number of card insertion and removal events in this reader, as
+     * known by the application.
+     */
     currentCount?: number;
 }
 
-export interface SmartCardReaderStateOut {
+interface SmartCardReaderStateOut {
+    /** Name of the smart card reader. */
     readerName: string;
+    /** The actual state of that smart card reader. */
     eventState: SmartCardReaderStateFlagsOut;
+    /** The actual number of card insertion and removal events in this reader. */
     eventCount: number;
+    /** The inserted card's Answer To Reset (ATR), if applicable. */
     answerToReset: ArrayBuffer;
 }
 
-export interface SmartCardReaderStateFlags {
-    /** @default false */
+interface SmartCardReaderStateFlags {
+    /**
+     * Whether the application is not interested in this reader, and it should not
+     * be considered during monitoring operations.
+     * @default false
+     */
     ignore?: boolean;
-    /** @default false */
+    /**
+     * Whether the application believes that this reader is not available for use.
+     * @default false
+     */
     unavailable?: boolean;
-    /** @default false */
+    /**
+     * Whether the application believes that there is not a card in the reader.
+     * @default false
+     */
     empty?: boolean;
-    /** @default false */
+    /**
+     * Whether the application believes that there is a card in the reader.
+     * @default false
+     */
     present?: boolean;
-    /** @default false */
+    /**
+     * Whether the application believes that the card in the reader is allocated
+     * for exclusive use by another application.
+     * @default false
+     */
     exclusive?: boolean;
-    /** @default false */
+    /**
+     * Whether the application believes that the card in the reader is in use by
+     * one or more other applications, but may be connected to in shared mode.
+     * @default false
+     */
     inuse?: boolean;
-    /** @default false */
+    /**
+     * Whether the application believes that there is an unresponsive card in the
+     * reader.
+     * @default false
+     */
     mute?: boolean;
-    /** @default false */
+    /**
+     * Whether the application believes that the card in the reader has not been
+     * powered up.
+     * @default false
+     */
     unpowered?: boolean;
 }
 
-export interface SmartCardReaderStateFlagsIn extends SmartCardReaderStateFlags {
-    /** @default false */
+interface SmartCardReaderStateFlagsIn extends SmartCardReaderStateFlags {
+    /**
+     * The application is unaware of the current state, and would like to know.
+     * @default false
+     */
     unaware?: boolean;
 }
 
-export interface SmartCardReaderStateFlagsOut extends SmartCardReaderStateFlags {
-    /** @default false */
+interface SmartCardReaderStateFlagsOut extends SmartCardReaderStateFlags {
+    /**
+     * There is a difference between the state input by the calling application,
+     * and the actual state.
+     * @default false
+     */
     changed?: boolean;
-    /** @default false */
+    /**
+     * The reader name given by the application is not known.
+     * @default false
+     */
     unknown?: boolean;
 }
 
-export type SmartCardProtocol =
+type SmartCardProtocol =
     | "raw"
     | "t0"
     | "t1";
 
-export interface SmartCardConnectResult {
+interface SmartCardConnectResult {
+    /** An interface to the connection created. */
     connection: SmartCardConnection;
+    /** The communication protocol actually in use by the connection. */
     activeProtocol?: SmartCardProtocol;
 }
 
-export type SmartCardAccessMode =
+type SmartCardAccessMode =
     | "shared"
     | "exclusive"
     | "direct";
 
-export interface SmartCardGetStatusChangeOptions {
+interface SmartCardGetStatusChangeOptions {
+    /**
+     * Timeout parameter in milliseconds for the GetStatusChange method. If not
+     * specified, a system-dependent infinite timeout is used.
+     */
     timeout?: DOMHighResTimeStamp;
+    /** AbortSignal to cancel the outstanding GetStatusChange operation. */
     signal?: AbortSignal;
 }
 
-export interface SmartCardConnectOptions {
+interface SmartCardConnectOptions {
+    /** Preferred card communication protocols that may be used. */
     preferredProtocols?: SmartCardProtocol[];
 }
 
-declare global {
-    interface SmartCardContext {
-        listReaders(): Promise<string[]>;
-        getStatusChange(
-            readerStates: SmartCardReaderStateIn[],
-            options?: SmartCardGetStatusChangeOptions,
-        ): Promise<SmartCardReaderStateOut[]>;
-        connect(
-            readerName: string,
-            accessMode: SmartCardAccessMode,
-            options?: SmartCardConnectOptions,
-        ): Promise<SmartCardConnectResult>;
-    }
+interface SmartCardContext {
+    /**
+     * Returns a list of available smart card readers connected to the system.
+     * @return A Promise that resolves to an array of strings representing reader
+     *   names.
+     * @throws {InvalidStateError} If another operation is already in progress in
+     *   this context.
+     * @throws {SmartCardError} If querying the readers fails.
+     */
+    listReaders(): Promise<string[]>;
+    /**
+     * Monitors changes in the status of specified smart card readers.
+     * @param readerStates An array of SmartCardReaderStateIn objects specifying
+     *   the readers to monitor and their current states.
+     * @param options Optional parameters including timeout and abort signal.
+     * @return A Promise that resolves to an array of SmartCardReaderStateOut
+     *   objects containing the updated reader states.
+     * @throws {InvalidStateError} If another operation is already in progress in
+     *   this context.
+     * @throws {SmartCardError} If monitoring fails.
+     */
+    getStatusChange(
+        readerStates: SmartCardReaderStateIn[],
+        options?: SmartCardGetStatusChangeOptions,
+    ): Promise<SmartCardReaderStateOut[]>;
+    /**
+     * Establishes a connection to a smart card in the specified reader.
+     * @param readerName The name of the smart card reader to connect to.
+     * @param accessMode The access mode indicating shared, exclusive, or direct
+     *   access.
+     * @param options Optional configuration for connection preferred protocols.
+     * @return A Promise that resolves to a SmartCardConnectResult object
+     *   containing the active connection and protocol.
+     * @throws {InvalidStateError} If an operation is in progress or an active
+     *   reader transaction exists.
+     * @throws {SecurityError} If user consent is denied or not granted.
+     * @throws {SmartCardError} If the connection attempt fails.
+     */
+    connect(
+        readerName: string,
+        accessMode: SmartCardAccessMode,
+        options?: SmartCardConnectOptions,
+    ): Promise<SmartCardConnectResult>;
 }
 
-export type SmartCardConnectionState =
+type SmartCardConnectionState =
     | "absent"
     | "present"
     | "swallowed"
@@ -130,45 +229,113 @@ export type SmartCardConnectionState =
     | "t1"
     | "raw";
 
-export interface SmartCardConnectionStatus {
+interface SmartCardConnectionStatus {
+    /** Name of the connected reader. */
     readerName: string;
+    /** Current state of the connection. */
     state: SmartCardConnectionState;
+    /** The answer to reset (ATR) string from the card, if applicable. */
     answerToReset?: ArrayBuffer;
 }
 
-export type SmartCardDisposition =
+type SmartCardDisposition =
     | "leave"
     | "reset"
     | "unpower"
     | "eject";
 
-export interface SmartCardTransactionOptions {
+interface SmartCardTransactionOptions {
+    /** AbortSignal to cancel the transaction start operation. */
     signal?: AbortSignal;
 }
 
-export interface SmartCardTransmitOptions {
+interface SmartCardTransmitOptions {
+    /** The protocol to be used in the transmission. */
     protocol?: SmartCardProtocol;
 }
 
-export type SmartCardTransactionCallback = () => Promise<SmartCardDisposition | null>;
+type SmartCardTransactionCallback = () => Promise<SmartCardDisposition | null>;
 
-declare global {
-    interface SmartCardConnection {
-        disconnect(disposition?: SmartCardDisposition): Promise<void>;
-        transmit(sendBuffer: BufferSource, options?: SmartCardTransmitOptions): Promise<ArrayBuffer>;
-        status(): Promise<SmartCardConnectionStatus>;
-        control(controlCode: number, data: BufferSource): Promise<ArrayBuffer>;
-        getAttribute(tag: number): Promise<ArrayBuffer>;
-        setAttribute(tag: number, value: BufferSource): Promise<void>;
-        startTransaction(
-            transaction: SmartCardTransactionCallback,
-            options?: SmartCardTransactionOptions,
-        ): Promise<void>;
-    }
+interface SmartCardConnection {
+    /**
+     * Disconnects from the smart card reader.
+     * @param disposition The action to take on the card upon disconnection (e.g.,
+     *   leave, reset, unpower, eject).
+     * @return A Promise that resolves when the disconnection is complete.
+     * @throws {InvalidStateError} If an operation is in progress, an active
+     *   transaction exists on another connection, or the connection is already
+     *   closed.
+     * @throws {SmartCardError} If the disconnection fails.
+     */
+    disconnect(disposition?: SmartCardDisposition): Promise<void>;
+    /**
+     * Transmits an APDU command to the smart card and receives the response.
+     * @param sendBuffer The buffer containing the data to transmit.
+     * @param options Optional transmission parameters including protocol.
+     * @return A Promise that resolves to an ArrayBuffer containing the response
+     *   bytes.
+     * @throws {InvalidStateError} If an operation is in progress, an active
+     *   transaction exists on another connection, or the connection is closed.
+     * @throws {SmartCardError} If the transmission fails.
+     */
+    transmit(sendBuffer: BufferSource, options?: SmartCardTransmitOptions): Promise<ArrayBuffer>;
+    /**
+     * Retrieves the current status of the smart card connection.
+     * @return A Promise that resolves to a SmartCardConnectionStatus object.
+     * @throws {InvalidStateError} If an operation is in progress, an active
+     *   transaction exists on another connection, or the connection is closed.
+     * @throws {UnknownError} If the connection state cannot be determined.
+     * @throws {SmartCardError} If retrieving the status fails.
+     */
+    status(): Promise<SmartCardConnectionStatus>;
+    /**
+     * Sends a direct control command to the smart card reader.
+     * @param controlCode The control code specific to the reader.
+     * @param data Buffer source containing the control data.
+     * @return A Promise that resolves to an ArrayBuffer containing the response.
+     * @throws {InvalidStateError} If an operation is in progress, an active
+     *   transaction exists on another connection, or the connection is closed.
+     * @throws {SmartCardError} If the control operation fails.
+     */
+    control(controlCode: number, data: BufferSource): Promise<ArrayBuffer>;
+    /**
+     * Retrieves an attribute from the smart card reader.
+     * @param tag The attribute tag to retrieve.
+     * @return A Promise that resolves to an ArrayBuffer containing the attribute
+     *   value.
+     * @throws {InvalidStateError} If an operation is in progress, an active
+     *   transaction exists on another connection, or the connection is closed.
+     * @throws {SmartCardError} If retrieving the attribute fails.
+     */
+    getAttribute(tag: number): Promise<ArrayBuffer>;
+    /**
+     * Sets an attribute on the smart card reader.
+     * @param tag The attribute tag to set.
+     * @param value Buffer source containing the new attribute value.
+     * @return A Promise that resolves when the attribute has been set.
+     * @throws {InvalidStateError} If an operation is in progress, an active
+     *   transaction exists on another connection, or the connection is closed.
+     * @throws {SmartCardError} If setting the attribute fails.
+     */
+    setAttribute(tag: number, value: BufferSource): Promise<void>;
+    /**
+     * Starts a transaction on the smart card connection.
+     * @param transaction A callback function that performs operations within the
+     *   transaction.
+     * @param options Optional configuration including an abort signal.
+     * @return A Promise that resolves when the transaction completes.
+     * @throws {InvalidStateError} If an operation is in progress, an active
+     *   transaction already exists, or the connection is closed.
+     * @throws {SmartCardError} If starting the transaction fails.
+     */
+    startTransaction(transaction: SmartCardTransactionCallback, options?: SmartCardTransactionOptions): Promise<void>;
 }
 
-declare global {
-    interface Navigator {
-        readonly smartCard: SmartCardResourceManager;
-    }
+interface Navigator {
+    /**
+     * Returns the SmartCardResourceManager instance for interacting with smart
+     * card readers.
+     * Always returns the same instance.
+     */
+    readonly smartCard: SmartCardResourceManager;
 }
