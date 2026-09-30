@@ -176,6 +176,107 @@ function middlewareHandlerWithCustomProps(): MiddlewareHandler<RequestWithSessio
 
 ar.beforeRequestHandler.use("/my-ext", middlewareHandlerWithCustomProps);
 
+/*************** Example 13 - WebSocket extensions ***************/
+ar.firstWS.use("/ws", function wsMiddleware(req, res, next) {
+    next();
+});
+ar.beforeRequestHandlerWS.use(function wsGlobalMiddleware(req, res, next) {
+    next();
+});
+
+ar.start({
+    extensions: [
+        {
+            insertMiddleware: {
+                firstWS: [
+                    function logWsRequest(req, res, next) {
+                        console.log("Got WebSocket request %s %s", req.method, req.url);
+                    },
+                ],
+                beforeRequestHandlerWS: [
+                    {
+                        path: "/ws",
+                        handler: function wsMiddleware(req, res, next) {
+                            next();
+                        },
+                    },
+                ],
+            },
+        },
+    ],
+});
+
+/*************** Example 14 - getRemoteConfigurationOptions ***************/
+ar.getRemoteConfigurationOptions(
+    {} as import("@sap/approuter").AppRouterIncomingMessage,
+    (error, options) => {
+        if (error) {
+            console.error(error);
+        } else if (options) {
+            console.log(options.xsappConfig, options.destinations, options.xsappname);
+        }
+    },
+);
+
+/*************** xs-app.json schema (v23) ***************/
+import { ComSapXsappSchema_82, CorsConfig, ErrorPageEntry } from "@sap/approuter/xs-app.schema";
+
+const xsAppConfig: ComSapXsappSchema_82 = {
+    sessionTimeout: 15,
+    stateProtection: true,
+    welcomeFile: "index.html",
+    authenticationMethod: "route",
+    responseHeaders: [
+        { name: "X-Custom-Header", value: "custom-value" },
+    ],
+    routes: [
+        {
+            source: "/service",
+            destination: "backend",
+            authenticationType: "ias",
+            dynamicIdentityProvider: true,
+            preferLocal: true,
+            setBackendSessionCookies: true,
+        },
+        {
+            source: { path: "/api", matchCase: false },
+            authenticationType: "xsuaa",
+        },
+    ],
+    logout: {
+        logoutEndpoint: "/logout",
+        logoutPage: "/logged-out.html",
+        logoutMethod: "POST",
+        csrfProtection: true,
+        backChannelLogoutEndpoint: "/bc-logout",
+    },
+    compression: {
+        enabled: true,
+        minSize: 1024,
+        compressResponseMixedTypeContent: true,
+    },
+    cors: [
+        {
+            uriPattern: "^/api",
+            allowedOrigin: [{ host: "example.com", protocol: "https", port: 443 }],
+            allowedMethods: ["GET", "POST"],
+            allowedHeaders: ["Authorization"],
+            allowedCredentials: true,
+            exposeHeaders: ["X-Custom"],
+            maxAge: 3600,
+        },
+        {
+            uriPattern: "^/public",
+            hostPattern: "*.example.com",
+            allowedOrigin: [{ host: "*.example.com" }],
+        },
+    ],
+    errorPage: [
+        { status: 404, file: "/custom-404.html" },
+        { status: [500, 502, 503], path: "/error" },
+    ],
+};
+
 /*************** start options ***************/
 
 const startOptions: StartOptions = {

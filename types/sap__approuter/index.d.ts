@@ -103,6 +103,10 @@ declare namespace approuter {
             beforeRequestHandler?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
             /** A MiddlewareSlot before the standard application router error handling */
             beforeErrorHandler?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
+            /** A MiddlewareSlot for WebSocket requests, before the first application router middleware. Requires HANDLE_WEBSOCKET_EXT environment variable to be enabled. */
+            firstWS?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
+            /** A MiddlewareSlot for WebSocket requests, before the standard request handling. Requires HANDLE_WEBSOCKET_EXT environment variable to be enabled. */
+            beforeRequestHandlerWS?: Array<MiddlewareHandler | { path: string; handler: MiddlewareHandler }>;
         };
     }
 
@@ -288,6 +292,18 @@ declare namespace approuter {
         beforeErrorHandler: MiddlewareSlot;
 
         /**
+         * A {@link MiddlewareSlot} for WebSocket requests, before the first application router middleware.
+         * Requires the `HANDLE_WEBSOCKET_EXT` environment variable to be enabled.
+         */
+        firstWS: MiddlewareSlot;
+
+        /**
+         * A {@link MiddlewareSlot} for WebSocket requests, before the standard request handling.
+         * Requires the `HANDLE_WEBSOCKET_EXT` environment variable to be enabled.
+         */
+        beforeRequestHandlerWS: MiddlewareSlot;
+
+        /**
          * **Note**: the cmdParser is currently not typed, feel free to create a pr and add the missing types
          *
          * By default the application router handles its command line parameters, but you can customize that too.
@@ -359,6 +375,24 @@ declare namespace approuter {
         getSessionStore(): SessionStore;
 
         /**
+         * Resolves remote routing configuration from the HTML5 Application Repository for a given request.
+         * Derives the application key from the request URL and fetches the corresponding xs-app.json,
+         * destinations, and xsappname.
+         *
+         * **Note**: This method is exposed on the prototype but not documented in the official API reference.
+         *
+         * @param request - Node request object used to derive the application key from the URL
+         * @param callback - Called with the resolved configuration options, or null if no application key was found
+         */
+        getRemoteConfigurationOptions(
+            request: AppRouterIncomingMessage,
+            callback: (
+                error: Error | string | null,
+                options?: { xsappConfig: object; destinations: object | null; xsappname: string | null } | null,
+            ) => void,
+        ): void;
+
+        /**
          * Emitted when a new user session is created.
          *
          * @param event
@@ -386,6 +420,12 @@ declare namespace approuter {
     }
 }
 
+/**
+ * Creates a new instance of the application router.
+ *
+ * **Note**: The underlying implementation also supports `new approuter()` (constructor invocation),
+ * but the factory function pattern is the documented API.
+ */
 declare function approuter(): approuter.Approuter;
 
 export = approuter;

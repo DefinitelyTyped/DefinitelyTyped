@@ -29,28 +29,49 @@ export type ScopesSchema =
     };
 export type ScopeTemplate = string | [string, ...string[]];
 
+export type HttpMethod = "DELETE" | "GET" | "HEAD" | "OPTIONS" | "POST" | "PUT" | "TRACE" | "PATCH";
+
+export type ErrorPageEntry =
+    | { status: number | [number, ...number[]]; file: string; path?: never }
+    | { status: number | [number, ...number[]]; path: string; file?: never };
+
+export interface CorsConfig {
+    uriPattern: SourceSchema;
+    hostPattern?: string;
+    allowedOrigin: Array<{ host: string; protocol?: string; port?: number }>;
+    allowedMethods?: HttpMethod[];
+    allowedHeaders?: string[];
+    allowedCredentials?: boolean;
+    exposeHeaders?: string[];
+    maxAge?: number;
+}
+
 /**
  * Application Router Configuration Schema
  */
 export interface ComSapXsappSchema_82 {
     welcomeFile?: string;
     authenticationMethod?: "none" | "route";
+    stateProtection?: boolean;
     sessionTimeout?: number;
     pluginMetadataEndpoint?: string;
     routes?: Array<{
         source: SourceSchema;
         httpMethods?: [
-            "DELETE" | "GET" | "HEAD" | "OPTIONS" | "POST" | "PUT" | "TRACE" | "PATCH",
-            ...Array<"DELETE" | "GET" | "HEAD" | "OPTIONS" | "POST" | "PUT" | "TRACE" | "PATCH">,
+            HttpMethod,
+            ...HttpMethod[],
         ];
         target?: string;
         destination?: string;
+        setBackendSessionCookies?: boolean;
         localDir?: string;
         csrfProtection?: boolean;
+        preferLocal?: boolean;
         service?: string;
         endpoint?: string;
-        authenticationType?: "xsuaa" | "basic" | "none";
+        authenticationType?: "xsuaa" | "ias" | "basic" | "none";
         identityProvider?: string;
+        dynamicIdentityProvider?: boolean;
         scope?: ScopesSchema;
         replace?: {
             pathSuffixes: string[];
@@ -60,6 +81,10 @@ export interface ComSapXsappSchema_82 {
             };
         };
         cacheControl?: string;
+    }>;
+    responseHeaders?: Array<{
+        name: string;
+        value: string;
     }>;
     destinations?: {
         [k: string]: {
@@ -75,8 +100,11 @@ export interface ComSapXsappSchema_82 {
         };
     };
     logout?: {
+        backChannelLogoutEndpoint?: string;
         logoutEndpoint?: string;
         logoutPage?: string;
+        logoutMethod?: "POST" | "GET";
+        csrfProtection?: boolean;
     };
     login?: {
         callbackEndpoint: string;
@@ -87,14 +115,11 @@ export interface ComSapXsappSchema_82 {
     compression?: {
         enabled?: boolean;
         minSize?: number;
+        compressResponseMixedTypeContent?: boolean;
     };
     websockets?: {
         enabled: boolean;
     };
-    errorPage?: Array<{
-        status: number | [number, ...number[]];
-        file: string;
-        [k: string]: unknown;
-    }>;
-    [k: string]: unknown;
+    errorPage?: ErrorPageEntry[];
+    cors?: CorsConfig[];
 }

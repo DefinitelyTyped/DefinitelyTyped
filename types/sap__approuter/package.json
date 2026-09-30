@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/sap__approuter",
-    "version": "16.6.9999",
+    "version": "23.0.9999",
     "projects": [
         "https://www.npmjs.com/package/@sap/approuter"
     ],
@@ -16,10 +16,13 @@
         {
             "name": "Laurens von Assel",
             "githubUsername": "biolauri"
+        },
+        {
+            "name": "StenCalDabran",
+            "githubUsername": "StenCalDabran"
         }
     ],
     "dependencies": {
-        "@types/http-server": "*",
         "@types/node": "*"
     }
 }

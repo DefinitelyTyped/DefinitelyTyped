@@ -32,9 +32,3 @@ export function checkToken(req: IncomingMessage): checkTokenResult;
  * @param cb function cb(err, token)
  */
 export function getToken<T = void>(req: IncomingMessage, cb: (error: Error | null, xsrfToken?: string) => T): T;
-
-export function hasTokenFetchHeader(req: IncomingMessage): boolean;
-
-export function isGetRequest(req: IncomingMessage): boolean;
-
-export function isHeadRequest(req: IncomingMessage): boolean;
