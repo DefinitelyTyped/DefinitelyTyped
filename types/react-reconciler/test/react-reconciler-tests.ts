@@ -634,8 +634,11 @@ if (running) {
 vtConfig.applyViewTransitionName!(instance, "hero", null);
 vtConfig.restoreViewTransitionName!(instance, props);
 vtConfig.cancelViewTransitionName!(instance, "hero", props);
+vtConfig.cancelRootViewTransitionName!(container);
+vtConfig.restoreRootViewTransitionName!(container);
 // $ExpectType Instance
-vtConfig.cloneRootViewTransitionContainer!(container);
+const rootClone = vtConfig.cloneRootViewTransitionContainer!(container);
+vtConfig.removeRootViewTransitionClone!(container, rootClone);
 // $ExpectType { name: string; } | null
 vtConfig.createViewTransitionInstance!("hero");
 
