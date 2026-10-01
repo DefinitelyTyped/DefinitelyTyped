@@ -999,3 +999,17 @@ fiber.refCleanup;
 if (fiber.refCleanup !== null) {
     fiber.refCleanup();
 }
+
+// -------------------
+//  Context dependencies
+// -------------------
+
+declare const contextDependency: ReactReconciler.ContextDependency<string>;
+
+// memoizedValue is the context value read during render, used to detect changes.
+// $ExpectType string
+contextDependency.memoizedValue;
+// @ts-expect-error -- observedBits was removed along with calculateChangedBits
+contextDependency.observedBits;
+// $ExpectType ReactContext<string>
+contextDependency.context;

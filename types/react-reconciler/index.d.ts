@@ -1012,7 +1012,7 @@ declare namespace ReactReconciler {
 
     interface ContextDependency<T> {
         context: ReactContext<T>;
-        observedBits: number;
+        memoizedValue: T;
         next: ContextDependency<unknown> | null;
     }
 
