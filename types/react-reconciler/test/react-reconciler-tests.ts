@@ -991,3 +991,11 @@ fiber.subtreeFlags;
 fiber.deletions;
 // $ExpectType Fiber | null | undefined
 fiber._debugOwner;
+
+// refCleanup holds the cleanup function a callback ref returned (React 19).
+// It's a real, non-DEV field, so it's required rather than optional.
+// $ExpectType (() => void) | null
+fiber.refCleanup;
+if (fiber.refCleanup !== null) {
+    fiber.refCleanup();
+}
