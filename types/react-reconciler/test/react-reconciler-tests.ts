@@ -958,3 +958,36 @@ const unknownTag: ReactReconciler.WorkTag = 32;
 const effectEventHook: ReactReconciler.HookType = "useEffectEvent";
 // @ts-expect-error -- removed in React 18
 const mutableSourceHook: ReactReconciler.HookType = "useMutableSource";
+
+// -------------------
+//  Fiber fields
+// -------------------
+
+declare const fiber: ReactReconciler.Fiber;
+
+// The effect list (nextEffect/firstEffect/lastEffect) was removed in React 17.
+// Code that walks it type-checks but does nothing at runtime.
+// @ts-expect-error -- nextEffect no longer exists; walk child/sibling and check flags instead
+fiber.nextEffect;
+// @ts-expect-error -- firstEffect no longer exists
+fiber.firstEffect;
+// @ts-expect-error -- lastEffect no longer exists
+fiber.lastEffect;
+
+// Removed DEV-only fields
+// @ts-expect-error -- _debugID was removed
+fiber._debugID;
+// @ts-expect-error -- _debugSource was removed
+fiber._debugSource;
+// @ts-expect-error -- _debugIsCurrentlyTiming was removed
+fiber._debugIsCurrentlyTiming;
+
+// What replaced the effect list still works
+// $ExpectType number
+fiber.flags;
+// $ExpectType number
+fiber.subtreeFlags;
+// $ExpectType Fiber[] | null
+fiber.deletions;
+// $ExpectType Fiber | null | undefined
+fiber._debugOwner;

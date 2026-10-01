@@ -1100,15 +1100,6 @@ declare namespace ReactReconciler {
         subtreeFlags: Flags;
         deletions: Fiber[] | null;
 
-        // Singly linked list fast path to the next fiber with side-effects.
-        nextEffect: Fiber | null;
-
-        // The first and last fiber with side-effect within this subtree. This allows
-        // us to reuse a slice of the linked list when we reuse the work done within
-        // this fiber.
-        firstEffect: Fiber | null;
-        lastEffect: Fiber | null;
-
         lanes: Lanes;
         childLanes: Lanes;
 
@@ -1142,10 +1133,7 @@ declare namespace ReactReconciler {
         // workInProgress : Fiber ->  alternate The alternate used for reuse happens
         // to be the same as work in progress.
         // __DEV__ only
-        _debugID?: number;
-        _debugSource?: Source | null;
         _debugOwner?: Fiber | null;
-        _debugIsCurrentlyTiming?: boolean;
         _debugNeedsRemount?: boolean;
 
         // Used to verify that the order of hooks does not change between renders.
