@@ -965,7 +965,7 @@ const mutableSourceHook: ReactReconciler.HookType = "useMutableSource";
 
 declare const fiber: ReactReconciler.Fiber;
 
-// The effect list (nextEffect/firstEffect/lastEffect) was removed in React 17.
+// The effect list (nextEffect/firstEffect/lastEffect) was removed in React 18.
 // Code that walks it type-checks but does nothing at runtime.
 // @ts-expect-error -- nextEffect no longer exists; walk child/sibling and check flags instead
 fiber.nextEffect;

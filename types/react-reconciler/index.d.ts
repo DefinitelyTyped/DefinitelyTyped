@@ -1173,8 +1173,8 @@ declare namespace ReactReconciler {
     }
 
     interface SuspenseHydrationCallbacks<SuspenseInstance, ActivityInstance = never> {
-        onHydrated?: (suspenseInstance: SuspenseInstance | ActivityInstance) => void;
-        onDeleted?: (suspenseInstance: SuspenseInstance | ActivityInstance) => void;
+        onHydrated?: (hydrationBoundary: SuspenseInstance | ActivityInstance) => void;
+        onDeleted?: (hydrationBoundary: SuspenseInstance | ActivityInstance) => void;
     }
 
     interface TransitionTracingCallbacks {
