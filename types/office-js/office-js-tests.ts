@@ -108,6 +108,17 @@ function test_excel() {
     }).catch(console.log);
 }
 
+function test_excel_recent_apis(functions: Excel.Functions) {
+    const dateValueResult: Excel.FunctionResult<number> = functions.datevalue(1);
+
+    const linkedEntityEventType: Excel.EventType = Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+    const linkedEntityEventTypeValue: "LinkedEntityDataDomainLinkedEntityCellValueLoaded" =
+        Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+
+    const dirtySupportingFormulaErrorCode: Excel.ErrorCodes = Excel.ErrorCodes.dirtySupportingFormula;
+    const dirtySupportingFormulaErrorCodeValue: "DirtySupportingFormula" = Excel.ErrorCodes.dirtySupportingFormula;
+}
+
 function test_word() {
 
     // Search
