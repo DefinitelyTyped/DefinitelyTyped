@@ -52,7 +52,15 @@ declare function ReactReconciler<
         RunningViewTransition,
         FragmentInstance
     >,
-): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
+): ReactReconciler.Reconciler<
+    Container,
+    Instance,
+    TextInstance,
+    SuspenseInstance,
+    FormInstance,
+    PublicInstance,
+    ActivityInstance
+>;
 
 declare namespace ReactReconciler {
     interface HostConfig<
@@ -1164,9 +1172,9 @@ declare namespace ReactReconciler {
         rendererConfig?: RendererInspectionConfig;
     }
 
-    interface SuspenseHydrationCallbacks<SuspenseInstance> {
-        onHydrated?: (suspenseInstance: SuspenseInstance) => void;
-        onDeleted?: (suspenseInstance: SuspenseInstance) => void;
+    interface SuspenseHydrationCallbacks<SuspenseInstance, ActivityInstance = never> {
+        onHydrated?: (suspenseInstance: SuspenseInstance | ActivityInstance) => void;
+        onDeleted?: (suspenseInstance: SuspenseInstance | ActivityInstance) => void;
     }
 
     interface TransitionTracingCallbacks {
@@ -1268,11 +1276,19 @@ declare namespace ReactReconciler {
         errorBoundary?: Component<any, any> | null;
     }
 
-    interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
+    interface Reconciler<
+        Container,
+        Instance,
+        TextInstance,
+        SuspenseInstance,
+        FormInstance,
+        PublicInstance,
+        ActivityInstance = never,
+    > {
         createContainer(
             containerInfo: Container,
             tag: RootTag,
-            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance>,
+            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance, ActivityInstance>,
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
@@ -1321,7 +1337,7 @@ declare namespace ReactReconciler {
             callback: (() => void) | null | undefined,
             containerInfo: Container,
             tag: RootTag,
-            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance>,
+            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance, ActivityInstance>,
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,

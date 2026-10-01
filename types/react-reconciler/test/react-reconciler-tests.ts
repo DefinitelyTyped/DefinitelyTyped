@@ -3,7 +3,7 @@ import ReactReconcilerConstants = require("react-reconciler/constants");
 import * as Constants from "./ReactReconcilerPriorityConstant";
 import * as ReactTestHostConfig from "./ReactTestHostConfig";
 
-// $ExpectType Reconciler<Container, Instance, TextInstance, any, Instance, PublicInstance>
+// $ExpectType Reconciler<Container, Instance, TextInstance, any, Instance, PublicInstance, ActivityInstance>
 ReactReconciler<
     ReactTestHostConfig.Type,
     ReactTestHostConfig.Props,
@@ -1013,3 +1013,84 @@ contextDependency.memoizedValue;
 contextDependency.observedBits;
 // $ExpectType ReactContext<string>
 contextDependency.context;
+
+// -------------------
+//  Suspense hydration callbacks
+// -------------------
+
+// The test host config uses `any` for SuspenseInstance, which would hide the union,
+// so this reconciler uses a distinct SuspenseInstance type.
+interface HydrationSuspenseInstance {
+    kind: "SuspenseInstance";
+}
+
+declare const hydrationHostConfig: any;
+const HydrationReconciler = ReactReconciler<
+    ReactTestHostConfig.Type,
+    ReactTestHostConfig.Props,
+    ReactTestHostConfig.Container,
+    ReactTestHostConfig.Instance,
+    ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
+    HydrationSuspenseInstance,
+    ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
+    ReactTestHostConfig.PublicInstance,
+    ReactTestHostConfig.HostContext,
+    ReactTestHostConfig.ChildSet,
+    ReactTestHostConfig.TimeoutHandle,
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource
+>(hydrationHostConfig);
+
+// Hydration callbacks fire for both Suspense and Activity boundaries.
+HydrationReconciler.createHydrationContainer(
+    null, // initialChildren
+    null, // callback
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    {
+        onHydrated: boundary => {
+            // $ExpectType HydrationSuspenseInstance | ActivityInstance
+            boundary;
+        },
+        onDeleted: boundary => {
+            // $ExpectType HydrationSuspenseInstance | ActivityInstance
+            boundary;
+        },
+    }, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {}, // onUncaughtError
+    (error, info) => {}, // onCaughtError
+    (error, info) => {}, // onRecoverableError
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+    null, // formState
+);
+
+// createContainer takes the same callbacks.
+HydrationReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    {
+        onHydrated: boundary => {
+            // $ExpectType HydrationSuspenseInstance | ActivityInstance
+            boundary;
+        },
+    }, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {}, // onUncaughtError
+    (error, info) => {}, // onCaughtError
+    (error, info) => {}, // onRecoverableError
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+);
