@@ -4671,7 +4671,7 @@ declare namespace chrome {
             /** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number. */
             urlSuffix?: string | undefined;
             /** Matches if the port of the URL is contained in any of the specified port lists. For example `[80, 443, [1000, 1200]]` matches all requests on port 80, 443 and in the range 1000-1200. */
-            ports?: Array<number | number[]> | undefined;
+            ports?: Array<number | [number, number]> | undefined;
             /** Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. */
             originAndPathMatches?: string | undefined;
         }
