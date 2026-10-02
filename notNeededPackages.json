@@ -4441,6 +4441,10 @@
             "libraryName": "@mdx-js/react",
             "asOfVersion": "2.0.0"
         },
+        "megajs": {
+            "libraryName": "megajs",
+            "asOfVersion": "1.0.0"
+        },
         "mem": {
             "libraryName": "mem",
             "asOfVersion": "4.2.0"
