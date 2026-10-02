@@ -8271,6 +8271,10 @@
             "libraryName": "vuejs",
             "asOfVersion": "2.0.0"
         },
+        "vue-color": {
+            "libraryName": "vue-color",
+            "asOfVersion": "3.0.0"
+        },
         "vue-i18n": {
             "libraryName": "vue-i18n",
             "asOfVersion": "7.0.0"
