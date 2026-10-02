@@ -9,6 +9,7 @@ import * as PropTypes from "prop-types";
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
+type NativeCommandEvent = CommandEvent;
 type NativeCompositionEvent = CompositionEvent;
 type NativeDragEvent = DragEvent;
 type NativeFocusEvent = FocusEvent;
@@ -2213,6 +2214,11 @@ declare namespace React {
         clipboardData: DataTransfer;
     }
 
+    interface CommandEvent<T = Element> extends SyntheticEvent<T, NativeCommandEvent> {
+        source: Element | null;
+        command: string;
+    }
+
     interface CompositionEvent<T = Element> extends SyntheticEvent<T, NativeCompositionEvent> {
         data: string;
     }
@@ -2364,6 +2370,7 @@ declare namespace React {
     type ReactEventHandler<T = Element> = EventHandler<SyntheticEvent<T>>;
 
     type ClipboardEventHandler<T = Element> = EventHandler<ClipboardEvent<T>>;
+    type CommandEventHandler<T = Element> = EventHandler<CommandEvent<T>>;
     type CompositionEventHandler<T = Element> = EventHandler<CompositionEvent<T>>;
     type DragEventHandler<T = Element> = EventHandler<DragEvent<T>>;
     type FocusEventHandler<T = Element> = EventHandler<FocusEvent<T>>;
@@ -2409,6 +2416,9 @@ declare namespace React {
         onCutCapture?: ClipboardEventHandler<T> | undefined;
         onPaste?: ClipboardEventHandler<T> | undefined;
         onPasteCapture?: ClipboardEventHandler<T> | undefined;
+
+        // Command Event
+        onCommand?: CommandEventHandler<T> | undefined;
 
         // Composition Events
         onCompositionEnd?: CompositionEventHandler<T> | undefined;
@@ -3158,6 +3168,16 @@ declare namespace React {
     }
 
     interface ButtonHTMLAttributes<T> extends HTMLAttributes<T> {
+        command?:
+            | "show-modal"
+            | "close"
+            | "request-close"
+            | "show-popover"
+            | "hide-popover"
+            | "toggle-popover"
+            | `--${string}`
+            | undefined;
+        commandfor?: string | undefined;
         disabled?: boolean | undefined;
         form?: string | undefined;
         formAction?:
