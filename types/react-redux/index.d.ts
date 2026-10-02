@@ -212,6 +212,10 @@ export interface Connect<DefaultState = DefaultRootState> {
     (): InferableComponentEnhancer<DispatchProp>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+    ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp, TOwnProps>;
+
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
     ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp, TOwnProps>;
 
@@ -229,9 +233,22 @@ export interface Connect<DefaultState = DefaultRootState> {
     >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+    ): InferableComponentEnhancerWithProps<
+        TStateProps & ResolveThunks<TDispatchProps>,
+        TOwnProps
+    >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
