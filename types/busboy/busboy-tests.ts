@@ -56,6 +56,7 @@ bb.on("file", (name, stream, info) => {
     name; // $ExpectType string
     stream; // $ExpectType Readable & { truncated?: boolean | undefined; }
     info; // $ExpectType FileInfo
+    info.filename; // $ExpectType string | undefined
 });
 bb.on("field", (name, value, info) => {
     name; // $ExpectType string

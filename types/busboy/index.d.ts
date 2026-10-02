@@ -132,7 +132,11 @@ declare namespace busboy {
     }
 
     interface FileInfo extends Info {
-        filename: string;
+        /**
+         * The file's filename, if supplied. `undefined` when the part is treated as a file only because its
+         * content type is `application/octet-stream`.
+         */
+        filename: string | undefined;
     }
 
     interface FieldInfo extends Info {
