@@ -33,3 +33,20 @@ Alpine.plugin(persistPlugin);
         },
     }));
 }
+
+{
+    // 3.17 treats an undefined getItem result as "no value", and clears undefined
+    // values through storage.removeItem?.()
+    const optionalStorage = {
+        getItem: () => undefined,
+        setItem: () => {},
+        removeItem: () => {},
+    };
+
+    // $ExpectType persistInterceptor<string>
+    Alpine.$persist("foo").using(optionalStorage);
+
+    // storage has a default value of localStorage, so it can be omitted
+    Alpine.persist("key", { get: () => 0, set: () => {} });
+    Alpine.persist("key", { get: () => 0, set: () => {} }, sessionStorage);
+}
