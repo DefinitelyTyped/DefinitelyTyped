@@ -17,6 +17,19 @@ createReadStream({
             // $ExpectType "node" | "way" | "relation"
             item.type;
 
+            if (item.type === "way") {
+                // $ExpectType string
+                item.centroid.lat;
+                // $ExpectType string
+                item.bounds.n;
+                // $ExpectType string
+                item.nodes[0].lat;
+            }
+            if (item.type === "node") {
+                // $ExpectType number
+                item.lat;
+            }
+
             next();
 
             if (item.type === "node") return;

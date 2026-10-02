@@ -9,7 +9,12 @@ export interface Coordinate {
     lat: number;
     lon: number;
 }
-export interface Centroid extends Coordinate {
+
+export interface CoordinateString {
+    lat: string;
+    lon: string;
+}
+export interface Centroid extends CoordinateString {
     type: "entrance" | undefined;
 }
 
@@ -24,12 +29,12 @@ export interface Way {
     tags: Tags;
     centroid: Centroid;
     bounds: {
-        n: number;
-        s: number;
-        e: number;
-        w: number;
+        n: string;
+        s: string;
+        e: string;
+        w: string;
     };
-    nodes: Coordinate[];
+    nodes: CoordinateString[];
 }
 export interface Relation {
     id: number;
@@ -37,10 +42,10 @@ export interface Relation {
     tags: Tags;
     centroid: Centroid;
     bounds: {
-        n: number;
-        s: number;
-        e: number;
-        w: number;
+        n: string;
+        s: string;
+        e: string;
+        w: string;
     };
 }
 
