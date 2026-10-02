@@ -196,19 +196,19 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
 
     let d!: unknown;
     assert.strictEqual(d, "test");
-    d; // $ExpectType "test"
+    d; // $ExpectType unknown
 
     let e!: unknown;
     strict.equal(e, "test");
-    e; // $ExpectType "test"
+    e; // $ExpectType unknown
 
     let f!: unknown;
     assert.deepStrictEqual(f, { n: 2 as const });
-    f; // $ExpectType { n: 2; }
+    f; // $ExpectType unknown
 
     let g!: unknown;
     strict.deepEqual(g, { n: 2 as const });
-    g; // $ExpectType { n: 2; }
+    g; // $ExpectType unknown
 }
 
 {
@@ -228,6 +228,7 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
         skipPrototype: true,
     });
     strictCustomAssert.equal(n, 1);
+    // @ts-expect-error strict assert.equal is not an assert predicate
     _1 = n;
 
     // @ts-expect-error legacy Assert instances should not be assignable to AssertStrict

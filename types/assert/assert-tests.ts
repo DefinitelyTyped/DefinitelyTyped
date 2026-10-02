@@ -47,25 +47,25 @@ assert["fail"](true, true, "works like a charm");
 {
     const a = "test" as any;
     assert.strictEqual(a, "test");
-    a; // $ExpectType string || "test"
+    a; // $ExpectType any
 }
 
 {
     const a = "test" as any;
     assert.strict.equal(a, "test");
-    a; // $ExpectType string || "test"
+    a; // $ExpectType any
 }
 
 {
     const a = { b: 2 } as any;
     assert.deepStrictEqual(a, { b: 2 });
-    a; // $ExpectType { b: number; }
+    a; // $ExpectType any
 }
 
 {
     const a = { b: 2 } as any;
     assert.strict.deepEqual(a, { b: 2 });
-    a; // $ExpectType { b: number; }
+    a; // $ExpectType any
 }
 
 assert.fail(); // $ExpectType never
