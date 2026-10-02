@@ -22,6 +22,9 @@ declare function ReactReconciler<
     FormStateMarkerInstance,
     HoistableRoot,
     Resource,
+    InstanceMeasurement = unknown,
+    RunningViewTransition = unknown,
+    FragmentInstance = unknown,
 >(
     /* eslint-enable @definitelytyped/no-unnecessary-generics */
     config: ReactReconciler.HostConfig<
@@ -44,9 +47,20 @@ declare function ReactReconciler<
         RendererInspectionConfig,
         FormStateMarkerInstance,
         HoistableRoot,
-        Resource
+        Resource,
+        InstanceMeasurement,
+        RunningViewTransition,
+        FragmentInstance
     >,
-): ReactReconciler.Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance>;
+): ReactReconciler.Reconciler<
+    Container,
+    Instance,
+    TextInstance,
+    SuspenseInstance,
+    FormInstance,
+    PublicInstance,
+    ActivityInstance
+>;
 
 declare namespace ReactReconciler {
     interface HostConfig<
@@ -70,6 +84,9 @@ declare namespace ReactReconciler {
         FormStateMarkerInstance,
         HoistableRoot,
         Resource,
+        InstanceMeasurement = unknown,
+        RunningViewTransition = unknown,
+        FragmentInstance = unknown,
     > {
         // -------------------
         //        Modes
@@ -185,13 +202,7 @@ declare namespace ReactReconciler {
          *
          * If you don't want to do anything here, you should return `false`.
          */
-        finalizeInitialChildren(
-            instance: Instance,
-            type: Type,
-            props: Props,
-            rootContainer: Container,
-            hostContext: HostContext,
-        ): boolean;
+        finalizeInitialChildren(instance: Instance, type: Type, props: Props, hostContext: HostContext): boolean;
 
         /**
          * Some target platforms support setting an instance's text content without manually creating a text node. For example, in the DOM, you can set `node.textContent` instead of creating a text node and appending it.
@@ -207,11 +218,11 @@ declare namespace ReactReconciler {
         /**
          * This method lets you return the initial host context from the root of the tree. See `getChildHostContext` for the explanation of host context.
          *
-         * If you don't intend to use host context, you can return `null`.
+         * If you don't intend to use host context, you can return `null` by including `null` in your `HostContext` type.
          *
          * This method happens **in the render phase**. Do not mutate the tree from it.
          */
-        getRootHostContext(rootContainer: Container): HostContext | null;
+        getRootHostContext(rootContainer: Container): HostContext;
 
         /**
          * Host context lets you track some information about where you are in the tree so that it's available inside `createInstance` as the `hostContext` parameter. For example, the DOM renderer uses it to track whether it's inside an HTML or an SVG tree, because `createInstance` implementation needs to be different for them.
@@ -323,7 +334,7 @@ declare namespace ReactReconciler {
         insertBefore?(
             parentInstance: Instance,
             child: Instance | TextInstance,
-            beforeChild: Instance | TextInstance | SuspenseInstance,
+            beforeChild: Instance | TextInstance | SuspenseInstance | ActivityInstance,
         ): void;
 
         /**
@@ -332,7 +343,7 @@ declare namespace ReactReconciler {
         insertInContainerBefore?(
             container: Container,
             child: Instance | TextInstance,
-            beforeChild: Instance | TextInstance | SuspenseInstance,
+            beforeChild: Instance | TextInstance | SuspenseInstance | ActivityInstance,
         ): void;
 
         /**
@@ -340,12 +351,18 @@ declare namespace ReactReconciler {
          *
          * React will only call it for the top-level node that is being removed. It is expected that garbage collection would take care of the whole subtree. You are not expected to traverse the child tree in it.
          */
-        removeChild?(parentInstance: Instance, child: Instance | TextInstance | SuspenseInstance): void;
+        removeChild?(
+            parentInstance: Instance,
+            child: Instance | TextInstance | SuspenseInstance | ActivityInstance,
+        ): void;
 
         /**
          * Same as `removeChild`, but for when a node is detached from the root container. This is useful if attaching to the root has a slightly different implementation, or if the root container nodes are of a different type than the rest of the tree.
          */
-        removeChildFromContainer?(container: Container, child: Instance | TextInstance | SuspenseInstance): void;
+        removeChildFromContainer?(
+            container: Container,
+            child: Instance | TextInstance | SuspenseInstance | ActivityInstance,
+        ): void;
 
         /**
          * If you returned `true` from `shouldSetTextContent` for the previous props, but returned `false` from `shouldSetTextContent` for the next props, React will call this method so that you can clear the text content you were managing manually. For example, in the DOM you could set `node.textContent = ''`.
@@ -423,19 +440,14 @@ declare namespace ReactReconciler {
             oldProps: Props,
             newProps: Props,
             keepChildren: boolean,
-            recyclableInstance: null | Instance,
+            newChildSet?: ChildSet | null,
         ): Instance;
-        createContainerChildSet?(container: Container): ChildSet;
+        createContainerChildSet?(): ChildSet;
         appendChildToContainerChildSet?(childSet: ChildSet, child: Instance | TextInstance): void;
         finalizeContainerChildren?(container: Container, newChildren: ChildSet): void;
         replaceContainerChildren?(container: Container, newChildren: ChildSet): void;
-        cloneHiddenInstance?(
-            instance: Instance,
-            type: Type,
-            props: Props,
-            internalInstanceHandle: OpaqueHandle,
-        ): Instance;
-        cloneHiddenTextInstance?(instance: Instance, text: Type, internalInstanceHandle: OpaqueHandle): TextInstance;
+        cloneHiddenInstance?(instance: Instance, type: Type, props: Props): Instance;
+        cloneHiddenTextInstance?(instance: TextInstance, text: string): TextInstance;
 
         // -------------------
         // Hydration Methods
@@ -516,13 +528,16 @@ declare namespace ReactReconciler {
 
         clearActivityBoundary?(parentInstance: Instance, activityInstance: ActivityInstance): void;
 
-        clearSuspenseBoundary?(parentInstance: Instance, suspenseInstance: SuspenseInstance): void;
+        clearSuspenseBoundary?(parentInstance: Instance, suspenseInstance: SuspenseInstance | ActivityInstance): void;
 
         clearActivityBoundaryFromContainer?(container: Container, activityInstance: ActivityInstance): void;
 
-        clearSuspenseBoundaryFromContainer?(container: Container, suspenseInstance: SuspenseInstance): void;
+        clearSuspenseBoundaryFromContainer?(
+            container: Container,
+            suspenseInstance: SuspenseInstance | ActivityInstance,
+        ): void;
 
-        hideDehydratedBoundary?(suspenseInstance: SuspenseInstance): void;
+        hideDehydratedBoundary?(dehydratedInstance: SuspenseInstance | ActivityInstance): void;
 
         unhideDehydratedBoundary?(dehydratedInstance: SuspenseInstance | ActivityInstance): void;
 
@@ -745,11 +760,81 @@ declare namespace ReactReconciler {
             internalInstanceHandle: OpaqueHandle,
         ): void;
 
-        releaseSingletonInstance?(instance: Instance): void;
+        releaseSingletonInstance?(instance: Instance, type: Type, props: Props): void;
 
         isHostSingletonType?(type: Type): boolean;
 
         isSingletonScope?(type: Type): boolean;
+
+        // -------------------
+        //  View Transitions
+        //     (optional)
+        // -------------------
+        applyViewTransitionName?(instance: Instance, name: string, className: string | null | undefined): void;
+
+        restoreViewTransitionName?(instance: Instance, props: Props): void;
+
+        cancelViewTransitionName?(instance: Instance, name: string, props: Props): void;
+
+        cancelRootViewTransitionName?(rootContainer: Container): void;
+
+        restoreRootViewTransitionName?(rootContainer: Container): void;
+
+        cloneRootViewTransitionContainer?(rootContainer: Container): Instance;
+
+        removeRootViewTransitionClone?(rootContainer: Container, clone: Instance): void;
+
+        /**
+         * Measures a host instance. The returned value is passed back to `wasInstanceInViewport`, `hasInstanceChanged` and `hasInstanceAffectedParent`.
+         */
+        measureInstance?(instance: Instance): InstanceMeasurement;
+
+        measureClonedInstance?(instance: Instance): InstanceMeasurement;
+
+        wasInstanceInViewport?(measurement: InstanceMeasurement): boolean;
+
+        hasInstanceChanged?(oldMeasurement: InstanceMeasurement, newMeasurement: InstanceMeasurement): boolean;
+
+        hasInstanceAffectedParent?(oldMeasurement: InstanceMeasurement, newMeasurement: InstanceMeasurement): boolean;
+
+        /**
+         * Starts a view transition for a commit. The returned value is passed back to `stopViewTransition` and `addViewTransitionFinishedListener`.
+         */
+        startViewTransition?(
+            suspendedState: SuspendedState | null,
+            rootContainer: Container,
+            transitionTypes: string[] | null,
+            mutationCallback: () => void,
+            layoutCallback: () => void,
+            afterMutationCallback: () => void,
+            spawnedWorkCallback: () => void,
+            passiveCallback: () => unknown,
+            errorCallback: (error: unknown) => void,
+            /** Only passed in profiling builds; `null` otherwise. */
+            blockedCallback: ((reason: string) => void) | null,
+            /** Only passed in profiling builds; `null` otherwise. */
+            finishedAnimation: (() => void) | null,
+        ): RunningViewTransition | null;
+
+        stopViewTransition?(transition: RunningViewTransition): void;
+
+        addViewTransitionFinishedListener?(transition: RunningViewTransition, callback: () => void): void;
+
+        createViewTransitionInstance?(name: string): { name: string } | null;
+
+        // -------------------
+        //   Fragment refs
+        //     (optional)
+        // -------------------
+        // Called once a ref is attached to a <Fragment>.
+
+        createFragmentInstance?(fragmentFiber: Fiber): FragmentInstance;
+
+        updateFragmentInstanceFiber?(fragmentFiber: Fiber, instance: FragmentInstance): void;
+
+        commitNewChildToFragmentInstance?(child: Instance | TextInstance, fragmentInstance: FragmentInstance): void;
+
+        deleteChildFromFragmentInstance?(child: Instance | TextInstance, fragmentInstance: FragmentInstance): void;
 
         // -------------------
         //   Test selectors
@@ -790,7 +875,7 @@ declare namespace ReactReconciler {
         then(resolve: () => T, reject?: () => T): T;
     }
 
-    type RootTag = 0 | 1 | 2;
+    type RootTag = 0 | 1;
 
     type WorkTag =
         | 0
@@ -817,7 +902,14 @@ declare namespace ReactReconciler {
         | 21
         | 22
         | 23
-        | 24;
+        | 24
+        | 25
+        | 26
+        | 27
+        | 28
+        | 29
+        | 30
+        | 31;
 
     type HookType =
         | "useState"
@@ -825,6 +917,8 @@ declare namespace ReactReconciler {
         | "useContext"
         | "useRef"
         | "useEffect"
+        | "useEffectEvent"
+        | "useInsertionEffect"
         | "useLayoutEffect"
         | "useCallback"
         | "useMemo"
@@ -832,9 +926,12 @@ declare namespace ReactReconciler {
         | "useDebugValue"
         | "useDeferredValue"
         | "useTransition"
-        | "useMutableSource"
-        | "useOpaqueIdentifier"
-        | "useCacheRefresh";
+        | "useSyncExternalStore"
+        | "useId"
+        | "useCacheRefresh"
+        | "useOptimistic"
+        | "useFormState"
+        | "useActionState";
 
     interface Source {
         fileName: string;
@@ -857,7 +954,7 @@ declare namespace ReactReconciler {
 
     interface ReactProvider<T> {
         $$typeof: symbol | number;
-        type: ReactProviderType<T>;
+        type: ReactContext<T>;
         key: null | string;
         ref: null;
         props: {
@@ -866,14 +963,20 @@ declare namespace ReactReconciler {
         };
     }
 
+    /** @deprecated Since React 19 the context is its own Provider. Use `ReactContext<T>` instead. */
     interface ReactProviderType<T> {
+        $$typeof: symbol | number;
+        _context: ReactContext<T>;
+    }
+
+    interface ReactConsumerType<T> {
         $$typeof: symbol | number;
         _context: ReactContext<T>;
     }
 
     interface ReactConsumer<T> {
         $$typeof: symbol | number;
-        type: ReactContext<T>;
+        type: ReactConsumerType<T>;
         key: null | string;
         ref: null;
         props: {
@@ -884,8 +987,9 @@ declare namespace ReactReconciler {
 
     interface ReactContext<T> {
         $$typeof: symbol | number;
-        Consumer: ReactContext<T>;
-        Provider: ReactProviderType<T>;
+        Consumer: ReactConsumerType<T>;
+        // Since React 19 the context is its own Provider.
+        Provider: ReactContext<T>;
         _currentValue: T;
         _currentValue2: T;
         _threadCount: number;
@@ -916,7 +1020,7 @@ declare namespace ReactReconciler {
 
     interface ContextDependency<T> {
         context: ReactContext<T>;
-        observedBits: number;
+        memoizedValue: T;
         next: ContextDependency<unknown> | null;
     }
 
@@ -978,6 +1082,8 @@ declare namespace ReactReconciler {
             })
             | RefObject;
 
+        refCleanup: null | (() => void);
+
         // Input is the data coming into process this fiber. Arguments. Props.
         pendingProps: any; // This type will be more specific once we overload the tag.
         memoizedProps: any; // The props used to create the output.
@@ -1003,15 +1109,6 @@ declare namespace ReactReconciler {
         flags: Flags;
         subtreeFlags: Flags;
         deletions: Fiber[] | null;
-
-        // Singly linked list fast path to the next fiber with side-effects.
-        nextEffect: Fiber | null;
-
-        // The first and last fiber with side-effect within this subtree. This allows
-        // us to reuse a slice of the linked list when we reuse the work done within
-        // this fiber.
-        firstEffect: Fiber | null;
-        lastEffect: Fiber | null;
 
         lanes: Lanes;
         childLanes: Lanes;
@@ -1046,10 +1143,7 @@ declare namespace ReactReconciler {
         // workInProgress : Fiber ->  alternate The alternate used for reuse happens
         // to be the same as work in progress.
         // __DEV__ only
-        _debugID?: number;
-        _debugSource?: Source | null;
         _debugOwner?: Fiber | null;
-        _debugIsCurrentlyTiming?: boolean;
         _debugNeedsRemount?: boolean;
 
         // Used to verify that the order of hooks does not change between renders.
@@ -1062,7 +1156,7 @@ declare namespace ReactReconciler {
     type MutableSource = any;
 
     type OpaqueHandle = any;
-    type OpaqueRoot = any;
+    type OpaqueRoot = FiberRoot;
 
     // 0 is PROD, 1 is DEV.
     // Might add PROFILE later.
@@ -1078,9 +1172,9 @@ declare namespace ReactReconciler {
         rendererConfig?: RendererInspectionConfig;
     }
 
-    interface SuspenseHydrationCallbacks<SuspenseInstance> {
-        onHydrated?: (suspenseInstance: SuspenseInstance) => void;
-        onDeleted?: (suspenseInstance: SuspenseInstance) => void;
+    interface SuspenseHydrationCallbacks<SuspenseInstance, ActivityInstance = never> {
+        onHydrated?: (hydrationBoundary: SuspenseInstance | ActivityInstance) => void;
+        onDeleted?: (hydrationBoundary: SuspenseInstance | ActivityInstance) => void;
     }
 
     interface TransitionTracingCallbacks {
@@ -1175,21 +1269,34 @@ declare namespace ReactReconciler {
     }
 
     interface BaseErrorInfo {
-        componentStack?: string;
+        componentStack?: string | null;
     }
 
-    interface Reconciler<Container, Instance, TextInstance, SuspenseInstance, FormInstance, PublicInstance> {
+    interface CaughtErrorInfo extends BaseErrorInfo {
+        errorBoundary?: Component<any, any> | null;
+    }
+
+    interface Reconciler<
+        Container,
+        Instance,
+        TextInstance,
+        SuspenseInstance,
+        FormInstance,
+        PublicInstance,
+        ActivityInstance = never,
+    > {
         createContainer(
             containerInfo: Container,
             tag: RootTag,
-            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance>,
+            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance, ActivityInstance>,
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
-            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
-            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
-            onDefaultTransitionIndicator: () => void,
+            onUncaughtError: (error: unknown, info: BaseErrorInfo) => void,
+            onCaughtError: (error: unknown, info: CaughtErrorInfo) => void,
+            onRecoverableError: (error: unknown, info: BaseErrorInfo) => void,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- the indicator may return a cleanup
+            onDefaultTransitionIndicator: () => void | (() => void),
             transitionCallbacks: null | TransitionTracingCallbacks,
         ): OpaqueRoot;
 
@@ -1230,14 +1337,15 @@ declare namespace ReactReconciler {
             callback: (() => void) | null | undefined,
             containerInfo: Container,
             tag: RootTag,
-            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance>,
+            hydrationCallbacks: null | SuspenseHydrationCallbacks<SuspenseInstance, ActivityInstance>,
             isStrictMode: boolean,
             concurrentUpdatesByDefaultOverride: null | boolean,
             identifierPrefix: string,
-            onUncaughtError: (error: Error, info: BaseErrorInfo & { errorBoundary?: Component }) => void,
-            onCaughtError: (error: Error, info: BaseErrorInfo) => void,
-            onRecoverableError: (error: Error, info: BaseErrorInfo) => void,
-            onDefaultTransitionIndicator: () => void,
+            onUncaughtError: (error: unknown, info: BaseErrorInfo) => void,
+            onCaughtError: (error: unknown, info: CaughtErrorInfo) => void,
+            onRecoverableError: (error: unknown, info: BaseErrorInfo) => void,
+            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- the indicator may return a cleanup
+            onDefaultTransitionIndicator: () => void | (() => void),
             transitionCallbacks: null | TransitionTracingCallbacks,
             formState: unknown,
         ): OpaqueRoot;
@@ -1285,21 +1393,21 @@ declare namespace ReactReconciler {
 
         findHostInstanceWithNoPortals(fiber: Fiber): PublicInstance | null;
 
-        shouldError(fiber: Fiber): boolean | undefined;
+        shouldError(fiber: Fiber): boolean | null | undefined;
 
         shouldSuspend(fiber: Fiber): boolean;
 
         injectIntoDevTools(): boolean;
 
-        defaultOnUncaughtError(error: Error, errorInfo: BaseErrorInfo): void;
-        defaultOnCaughtError(error: Error, errorInfo: BaseErrorInfo & { errorBoundary?: Component }): void;
-        defaultOnRecoverableError(error: Error, errorInfo: BaseErrorInfo): void;
+        defaultOnUncaughtError(error: unknown, errorInfo: BaseErrorInfo): void;
+        defaultOnCaughtError(error: unknown, errorInfo: CaughtErrorInfo): void;
+        defaultOnRecoverableError(error: unknown, errorInfo: BaseErrorInfo): void;
 
-        startHostTransition(
+        startHostTransition<F>(
             formFiber: Fiber,
             pendingState: unknown,
-            action: ((formData: FormData) => void) | null,
-            formData: FormData,
+            action: ((formData: F) => unknown) | null,
+            formData: F,
         ): void;
     }
 }
