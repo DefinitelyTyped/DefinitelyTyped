@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/koa-ratelimit",
-    "version": "5.0.9999",
+    "version": "6.0.9999",
     "projects": [
         "https://github.com/koajs/ratelimit#readme"
     ],
     "dependencies": {
-        "@types/ioredis": "^4.28.10",
+        "ioredis": "^5.6.1",
         "@types/koa": "*",
         "@types/node": "*"
     },

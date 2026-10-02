@@ -30,6 +30,7 @@ app.use(rateLimit({
     namespace: "limit:middleware2",
     blacklist: async (context) => Promise.resolve(true),
     whitelist: (context) => false,
+    onLimited: (context) => {}
 }));
 
 app.use(async context => {
