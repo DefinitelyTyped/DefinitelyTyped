@@ -90,6 +90,23 @@ export function post<RT extends ResponseType | undefined>(
 ): RefinedResponse<RT>;
 
 /**
+ * Make QUERY request (RFC 10008).
+ * https://grafana.com/docs/k6/latest/javascript-api/k6-http/query/
+ * @param url - Request URL.
+ * @param body - Request body. Object form encoded.
+ * @param params - Request parameters.
+ * @returns Resulting response.
+ * @example
+ * let headers = { 'Content-Type': 'application/json' };
+ * http.query(url, JSON.stringify({ filter: 'all' }), { headers: headers });
+ */
+export function query<RT extends ResponseType | undefined>(
+    url: string | HttpURL,
+    body?: RequestBody | null,
+    params?: RefinedParams<RT> | null,
+): RefinedResponse<RT>;
+
+/**
  * Make PUT request.
  * https://grafana.com/docs/k6/latest/javascript-api/k6-http/put/
  * @param url - Request URL.
