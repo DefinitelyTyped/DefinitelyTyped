@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/hubspot-tracking-code",
+    "version": "0.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "HubSpot Tracking Code API",
+    "projects": [
+        "https://developers.hubspot.com/docs/api-reference/latest/account/settings/tracking-code/overview"
+    ],
+    "devDependencies": {
+        "@types/hubspot-tracking-code": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Bilal Vural",
+            "githubUsername": "bilalvur"
+        }
+    ]
+}
