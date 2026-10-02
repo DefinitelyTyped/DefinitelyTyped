@@ -72,7 +72,7 @@ const swaggerUI = SwaggerUI({
     requestInterceptor: a => a,
     responseInterceptor: a => a,
     showMutatedRequest: true,
-    supportedSubmitMethods: ["get", "put", "post", "delete", "options", "patch", "trace"],
+    supportedSubmitMethods: ["get", "put", "post", "delete", "options", "patch", "trace", "query"],
     validatorUrl: "http://www.example.com",
     withCredentials: true,
 
