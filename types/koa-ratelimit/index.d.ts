@@ -87,6 +87,11 @@ declare namespace KoaRatelimit {
          * If function returns true, 403 error is thrown
          */
         blacklist?: ((context: Context) => boolean | Promise<boolean>) | undefined;
+
+        /**
+         * Callback executed when visitor has been rate limited
+         */
+        onLimited?: ((context: Context) => void) | undefined;
     }
 }
 
