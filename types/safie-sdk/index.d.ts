@@ -1090,9 +1090,9 @@ declare namespace Safie {
             get playTime(): number | null;
             /**
              * イベント凡例に表示するイベント種別を指定します。
-             * @param value 詳細は{@link TimelineConfig.filterEventTypes}を参照。
+             * @param values 詳細は{@link TimelineConfig.filterEventTypes}を参照。
              */
-            set filterEventTypes(value: string[] | null);
+            set filterEventTypes(values: string[] | null);
             /**
              * イベント凡例に表示するイベント種別の設定値を返します。
              */
