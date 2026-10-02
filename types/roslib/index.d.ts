@@ -336,6 +336,127 @@ declare namespace ROSLIB {
         ): void;
     }
 
+    export class Action<TActionGoal = any, TActionFeedback = any, TActionResult = any> {
+        /**
+         * A ROS action client.
+         *
+         * @param {Object} options
+         * @param {Ros} options.ros - The ROSLIB.Ros connection handle.
+         * @param {string} options.name - The action name, like '/fibonacci'.
+         * @param {string} options.actionType - The action type, like 'example_interfaces/Fibonacci'.
+         */
+        constructor(data: { ros: Ros; name: string; actionType: string });
+
+        // getter
+        public name: string;
+        // getter
+        public actionType: string;
+
+        /**
+         * Sends an action goal. Returns the feedback in the feedback callback while the action is running
+         * and the result in the result callback when the action is completed.
+         * Does nothing if this action is currently advertised.
+         *
+         * @param {TActionGoal} goal - The ROSLIB.ActionGoal to send.
+         * @param {function} resultCallback - The callback function when the action is completed with params:
+         * @param {TActionResult} resultCallback.result - The result from the action.
+         * @param {function} [feedbackCallback] - The callback function when the action publishes feedback with params:
+         * @param {TActionFeedback} feedbackCallback.feedback - The feedback from the action.
+         * @param {function} [failedCallback] - The callback function when the action failed with params:
+         * @param {string} failedCallback.error - The error message reported by ROS.
+         */
+        sendGoal(
+            goal: TActionGoal,
+            resultCallback: (id: string, response: TActionResult) => void,
+            feedbackCallback?: (id: string, feedback: TActionFeedback) => void,
+            failedCallback?: (id: string) => void,
+        ): void;
+
+        /**
+         * Cancels an action goal
+         *
+         * @param {string} goal - The ID of the action goal to cancel.
+         */
+        cancelGoal(
+            id: string,
+        ): void;
+
+        /**
+         * Advertise the action. This turns the Action object from a client
+         * into a server. The callback will be called with every goal sent to this action.
+         *
+         * @param {function} callback - This works similarly to the callback for a C++ action and should take the following params:
+         * @param {TActionGoal} callback.goal - The action goal.
+         *     It should return true if the action has finished successfully,
+         *     i.e., without any fatal errors.
+         * @param {string} id - The action goal ID.
+         */
+        advertise(callback: (goal: TActionGoal, id: string) => void): void;
+
+        /**
+         * Unadvertise a previously advertised action.
+         */
+        unadvertise(): void;
+
+        /**
+         * Helper function to send action feedback inside an action handler.
+         *
+         * @param {string} id - The action goal ID.
+         * @param {TActionFeedback} feedback - The feedback to send.
+         */
+        sendFeedback(
+            id: string,
+            feedback: TActionFeedback,
+        ): void;
+
+        /**
+         * Helper function to set an action as succeeded.
+         *
+         * @param {string} id - The action goal ID.
+         * @param {TActionResult} result - The result to set.
+         */
+        setSucceeded(
+            id: string,
+            result: TActionResult,
+        ): void;
+
+        /**
+         * Helper function to set an action as failed.
+         *
+         * @param {string} id - The action goal ID.
+         */
+        setFailed(
+            id: string,
+        ): void;
+    }
+
+    export class ActionFeedback {
+        /**
+         * An ActionFeedback is periodically returned during an in-progress ROS 2 action.
+         *
+         * @param {any} values - Object matching the fields defined in the .action definition file.
+         */
+        constructor(values: any);
+    }
+
+    export class ActionGoal {
+        /**
+         * An ActionGoal is passed into a ROS 2 action goal request.
+         *
+         * @param {any} values - Object matching the fields defined in the .action definition file.
+         */
+        constructor(values: any);
+    }
+
+    export class ActionResult {
+        /**
+         * An ActionResult is returned from sending a ROS 2 action goal.
+         *
+         * @param {any} values - Object matching the fields defined in the .action definition file.
+         */
+        constructor(values: any);
+    }
+
     export class Message {
         /**
          * Message objects are used for publishing and subscribing to and from topics.
