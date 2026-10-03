@@ -1292,11 +1292,14 @@ declare module "util" {
      *
      * // 3-digit hex color (shorthand)
      * console.log(styleText('#f00', 'Red text'));
+     *
+     * // Hex color combined with other modifiers
+     * console.log(styleText(['#00f', 'bold'], 'Bold blue text'));
      * ```
      *
      * The full list of formats can be found in [modifiers](https://nodejs.org/docs/latest-v24.x/api/util.html#modifiers).
-     * @param format A text format or an Array of text formats defined in `util.inspect.colors`, or a hex color in `#RGB`
-     * or `#RRGGBB` form.
+     * @param format A text format defined in `util.inspect.colors`, a hex color in `#RGB` or `#RRGGBB` form,
+     * or an Array of text formats and/or hex colors.
      * @param text The text to to be formatted.
      * @since v20.12.0
      */
@@ -1305,8 +1308,8 @@ declare module "util" {
             | ForegroundColors
             | BackgroundColors
             | Modifiers
-            | Array<ForegroundColors | BackgroundColors | Modifiers>
-            | `#${string}`,
+            | `#${string}`
+            | Array<ForegroundColors | BackgroundColors | Modifiers | `#${string}`>,
         text: string,
         options?: StyleTextOptions,
     ): string;
