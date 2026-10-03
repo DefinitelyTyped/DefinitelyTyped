@@ -108,7 +108,7 @@ console.log(util.styleText("#ff5733", "Orange text"));
 // 3-digit hex color (shorthand)
 console.log(util.styleText("#f00", "Red text"));
 // Hex color combined with other modifiers
-console.log(util.styleText(['#00f', 'bold'], 'Bold blue text'));
+console.log(util.styleText(["#00f", "bold"], "Bold blue text"));
 
 // util.callbackify
 class callbackifyTest {
