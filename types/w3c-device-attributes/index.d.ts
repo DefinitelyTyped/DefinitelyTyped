@@ -3,6 +3,11 @@
  */
 
 interface Navigator {
+    /**
+     * Provides entry point access to managed device attributes on
+     * enterprise-managed devices.
+     * Requires a secure context.
+     */
     readonly managed: NavigatorManagedData;
 }
 
@@ -52,9 +57,14 @@ interface NavigatorManagedData extends EventTarget {
      * Retrieves the administrator-defined value which uniquely identifies a
      * location within an organization.
      * @return A Promise that resolves to a string representing the annotated
-     *   location, or null/undefined if not set.
+     *   location, or null if not set.
      * @throws {NotAllowedError} If the API is not called by a managed web
      *   application with permission to access device attributes.
      */
     getAnnotatedLocation(): Promise<string | null>;
 }
+
+declare var NavigatorManagedData: {
+    prototype: NavigatorManagedData;
+    new(): NavigatorManagedData;
+};

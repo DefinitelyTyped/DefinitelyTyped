@@ -2,10 +2,13 @@ async function testDeviceAttributesApi() {
     // --------------------------------------------------------------------------------
     // NavigatorManagedData (Navigator Augmentation)
     // --------------------------------------------------------------------------------
-    if (navigator.managed) {
+    if (navigator.managed instanceof NavigatorManagedData) {
         const managed = navigator.managed;
         // $ExpectType NavigatorManagedData
         managed;
+
+        // $ExpectType NavigatorManagedData
+        NavigatorManagedData.prototype;
 
         // NavigatorManagedData extends EventTarget
         const eventTarget: EventTarget = managed;
