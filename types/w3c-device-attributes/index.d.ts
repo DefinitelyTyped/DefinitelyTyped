@@ -1,0 +1,70 @@
+/**
+ * @see https://wicg.github.io/WebApiDevice/device_attributes
+ */
+
+interface Navigator {
+    /**
+     * Provides entry point access to managed device attributes on
+     * enterprise-managed devices.
+     * Requires a secure context.
+     */
+    readonly managed: NavigatorManagedData;
+}
+
+/**
+ * Provides access to device attributes managed by an external device
+ * administrator on managed devices.
+ * Requires a secure context and is exposed to the Window context.
+ */
+interface NavigatorManagedData extends EventTarget {
+    /**
+     * Retrieves the inventory management system-defined value which uniquely
+     * identifies a device within an organization.
+     * @return A Promise that resolves to a string representing the directory ID,
+     *   or null if not provided by the management infrastructure.
+     * @throws {NotAllowedError} If the API is not called by a managed web
+     *   application with permission to access device attributes.
+     */
+    getDirectoryId(): Promise<string | null>;
+    /**
+     * Retrieves the administrator-defined value used as the device hostname during
+     * DHCP requests.
+     * @return A Promise that resolves to a string representing the device
+     *   hostname, or null if not set.
+     * @throws {NotAllowedError} If the API is not called by a managed web
+     *   application with permission to access device attributes.
+     */
+    getHostname(): Promise<string | null>;
+    /**
+     * Retrieves the manufacturer-defined value which uniquely identifies a device
+     * among those produced by that manufacturer.
+     * @return A Promise that resolves to a string representing the device serial
+     *   number, or null if not available.
+     * @throws {NotAllowedError} If the API is not called by a managed web
+     *   application with permission to access device attributes.
+     */
+    getSerialNumber(): Promise<string | null>;
+    /**
+     * Retrieves the administrator-defined value which uniquely identifies a device
+     * within an organization.
+     * @return A Promise that resolves to a string representing the annotated asset
+     *   ID, or null if not set.
+     * @throws {NotAllowedError} If the API is not called by a managed web
+     *   application with permission to access device attributes.
+     */
+    getAnnotatedAssetId(): Promise<string | null>;
+    /**
+     * Retrieves the administrator-defined value which uniquely identifies a
+     * location within an organization.
+     * @return A Promise that resolves to a string representing the annotated
+     *   location, or null if not set.
+     * @throws {NotAllowedError} If the API is not called by a managed web
+     *   application with permission to access device attributes.
+     */
+    getAnnotatedLocation(): Promise<string | null>;
+}
+
+declare var NavigatorManagedData: {
+    prototype: NavigatorManagedData;
+    new(): NavigatorManagedData;
+};
