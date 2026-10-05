@@ -1,6 +1,459 @@
 // Safie SDK APIの型レベル利用例
 // グローバル名前空間Safieの各APIをすべて参照することで、index.d.tsの型整合性を検証する
 
+async function testAIApp(): Promise<void> {
+    // AI-Appアプリケーション一覧取得（v1.10で追加）
+    const applications: Safie.AIApp.QueryApplicationsResult = await Safie.AIApp.queryApplications({
+        deviceId: "device",
+    });
+    applications.list.forEach((application: Safie.AIApp.Application) => {
+        const applicationId: number = application.applicationId;
+        const applicationName: string = application.name;
+        const features: Safie.AIApp.ApplicationFeature[] = application.features;
+        console.log(applicationId, applicationName, features);
+    });
+
+    // AI-Appアプリケーション利用可能デバイス一覧取得（v1.10で追加）
+    const devices: Safie.AIApp.QueryDevicesResult = await Safie.AIApp.queryDevices();
+    await Safie.AIApp.queryDevices({ limit: 30, offset: 10, applicationId: 1 });
+    const count: number = devices.count;
+    const offset: number = devices.offset;
+    const total: number = devices.total;
+    const hasNext: boolean = devices.hasNext;
+    console.log(count, offset, total, hasNext);
+    devices.list.forEach((device: Safie.AIApp.ApplicationDevice) => {
+        const id: string = device.deviceId;
+        const serial: string = device.serial;
+        const name: string = device.setting.name;
+        const modelName: string = device.model.description;
+        const streaming: boolean = device.status.videoStreaming;
+        const connected: boolean = device.status.serverConnecting;
+        const capabilities: string[] = device.capabilities;
+        console.log(id, serial, name, modelName, streaming, connected, capabilities);
+
+        device.applications.forEach((application: Safie.AIApp.ApplicationInfo) => {
+            const applicationId: number | null = application.applicationId;
+            const applicationName: string | null = application.applicationName;
+            console.log(applicationId, applicationName);
+        });
+    });
+
+    // ジオメトリ設定一覧取得（v1.10で追加）
+    const geometryConfigs: Safie.AIApp.QueryGeometryConfigsResult = await Safie.AIApp.queryGeometryConfigs({
+        deviceId: "device",
+        applicationId: 1,
+    });
+    geometryConfigs.list.forEach((geometryConfig: Safie.AIApp.GeometryConfig) => {
+        const geometryConfigId: number = geometryConfig.geometryConfigId;
+        const geometryConfigName: string | null = geometryConfig.name;
+        const geometryConfigType: Safie.AIApp.GeometryConfigType = geometryConfig.type;
+        const tags: string[] = geometryConfig.tags;
+        const duration: number | null = geometryConfig.duration;
+        const thresholdHigh: number | null = geometryConfig.thresholdHigh;
+        const thresholdLow: number | null = geometryConfig.thresholdLow;
+        const color: string | null = geometryConfig.color;
+        console.log(
+            geometryConfigId,
+            geometryConfigName,
+            geometryConfigType,
+            tags,
+            duration,
+            thresholdHigh,
+            thresholdLow,
+            color,
+        );
+
+        geometryConfig.points.forEach((point: Safie.AIApp.Point) => {
+            const x: number = point.x;
+            const y: number = point.y;
+            console.log(x, y);
+        });
+    });
+
+    // ジオメトリ設定作成（v1.10で追加）
+    const createdGeometryConfig: Safie.AIApp.CreateGeometryConfigResult = await Safie.AIApp.createGeometryConfig({
+        deviceId: "device",
+        applicationId: 1,
+        name: "area-1",
+        type: Safie.AIApp.GeometryConfigType.Polygon,
+        points: [
+            { x: 0.1, y: 0.1 },
+            { x: 0.9, y: 0.1 },
+            { x: 0.9, y: 0.9 },
+        ],
+        tags: ["entrance"],
+        duration: 500,
+        thresholdHigh: 0.9,
+        thresholdLow: 0.1,
+        color: "#FF0000",
+    });
+    const createdGeometryConfigId: number = createdGeometryConfig.geometryConfigId;
+    console.log(createdGeometryConfigId);
+
+    // ジオメトリ設定更新（v1.10で追加）
+    await Safie.AIApp.updateGeometryConfig({ deviceId: "device", applicationId: 1, geometryConfigId: 1 });
+    await Safie.AIApp.updateGeometryConfig({
+        deviceId: "device",
+        applicationId: 1,
+        geometryConfigId: 1,
+        name: "area-2",
+        type: Safie.AIApp.GeometryConfigType.LineIO,
+        points: [
+            { x: 0.1, y: 0.1 },
+            { x: 0.9, y: 0.9 },
+        ],
+        tags: [],
+        duration: 0,
+        thresholdHigh: null,
+        thresholdLow: null,
+        color: null,
+    });
+
+    // ジオメトリ設定削除（v1.10で追加）
+    await Safie.AIApp.deleteGeometryConfig({ deviceId: "device", applicationId: 1, geometryConfigId: 1 });
+
+    // 通知設定一覧取得（v1.10で追加）
+    const notificationConfigs: Safie.AIApp.QueryNotificationConfigsResult = await Safie.AIApp.queryNotificationConfigs({
+        deviceId: "device",
+        applicationId: 1,
+    });
+    notificationConfigs.list.forEach((notificationConfig: Safie.AIApp.NotificationConfig) => {
+        const notificationConfigId: number = notificationConfig.notificationConfigId;
+        const targetType: string | null = notificationConfig.targetType;
+        const configName: string | null = notificationConfig.name;
+        const description: string | null = notificationConfig.description;
+        const tags: string[] = notificationConfig.tags;
+        const method: Safie.AIApp.NotificationMethod = notificationConfig.method;
+        const options: Safie.AIApp.NotificationConfigOptions = notificationConfig.options;
+        const targetDaysOfWeek: Safie.AIApp.DayOfWeek[] = notificationConfig.targetDaysOfWeek;
+        const daysOfWeekTimezone: string | null = notificationConfig.daysOfWeekTimezone;
+        console.log(notificationConfigId, targetType, configName, description, tags);
+        console.log(method, options, targetDaysOfWeek, daysOfWeekTimezone);
+
+        notificationConfig.targetTimesUtc.forEach((targetTime: Safie.AIApp.NotificationTimeRange) => {
+            const start: string = targetTime.start;
+            const end: string = targetTime.end;
+            console.log(start, end);
+        });
+    });
+
+    // 通知設定作成（v1.10で追加）
+    const createdNotificationConfig: Safie.AIApp.CreateNotificationConfigResult = await Safie.AIApp
+        .createNotificationConfig({
+            deviceId: "device",
+            applicationId: 1,
+            method: Safie.AIApp.NotificationMethod.Webhook,
+            options: { url: "https://example.com/webhook", token: "token" },
+            targetType: "detect.*",
+            name: "webhook-1",
+            description: "description",
+            tags: ["entrance"],
+            targetTimesUtc: [{ start: "10:00:00", end: "11:00:00" }],
+            targetDaysOfWeek: [Safie.AIApp.DayOfWeek.Monday, Safie.AIApp.DayOfWeek.Tuesday],
+            daysOfWeekTimezone: "Asia/Tokyo",
+            createSubscription: true,
+        });
+    console.log(createdNotificationConfig.notificationConfigId);
+
+    // 通知設定更新（v1.10で追加）
+    await Safie.AIApp.updateNotificationConfig({ deviceId: "device", applicationId: 1, notificationConfigId: 1 });
+    await Safie.AIApp.updateNotificationConfig({
+        deviceId: "device",
+        applicationId: 1,
+        notificationConfigId: 1,
+        method: Safie.AIApp.NotificationMethod.Mail,
+        // 空文字・空配列・空オブジェクトは設定値の削除を表す
+        options: {},
+        targetType: "",
+        name: "",
+        description: "",
+        tags: [],
+        targetTimesUtc: [],
+        targetDaysOfWeek: [],
+        daysOfWeekTimezone: "UTC",
+        updateSubscription: false,
+    });
+
+    // 通知設定削除（v1.10で追加）
+    await Safie.AIApp.deleteNotificationConfig({ deviceId: "device", applicationId: 1, notificationConfigId: 1 });
+    await Safie.AIApp.deleteNotificationConfig({
+        deviceId: "device",
+        applicationId: 1,
+        notificationConfigId: 1,
+        deleteSubscription: true,
+    });
+
+    // 通知受信設定の取得・更新（v1.10で追加）
+    const notificationSubscription: Safie.AIApp.QueryNotificationSubscriptionResult = await Safie.AIApp
+        .queryNotificationSubscription({ deviceId: "device", applicationId: 1 });
+    const subscribesMail: boolean = notificationSubscription.mail;
+    const subscribesMobilePush: boolean = notificationSubscription.mobilePush;
+    const subscribesWebPush: boolean = notificationSubscription.webPush;
+    console.log(subscribesMail, subscribesMobilePush, subscribesWebPush);
+    await Safie.AIApp.updateNotificationSubscription({
+        deviceId: "device",
+        applicationId: 1,
+        mail: true,
+        mobilePush: false,
+        webPush: true,
+    });
+
+    // ユーザー設定の取得・更新（v1.10で追加）
+    const userConfigResult: Safie.AIApp.QueryUserConfigResult = await Safie.AIApp.queryUserConfig({
+        deviceId: "device",
+        applicationId: 1,
+    });
+    const userConfig: Safie.AIApp.UserConfig | null = userConfigResult.userConfig;
+    const snapshotIntervalSec: number | null = userConfigResult.snapshotIntervalSec;
+    console.log(userConfig?.analyzer, snapshotIntervalSec);
+    await Safie.AIApp.updateUserConfig({ deviceId: "device", applicationId: 1 });
+    await Safie.AIApp.updateUserConfig({
+        deviceId: "device",
+        applicationId: 1,
+        userConfig: { analyzer: { threshold: 0.5 } },
+        snapshotIntervalSec: 60,
+    });
+
+    // オブジェクト一覧取得（v1.10で追加）
+    const objects: Safie.AIApp.QueryObjectsResult = await Safie.AIApp.queryObjects({
+        deviceId: "device",
+        applicationId: 1,
+    });
+    await Safie.AIApp.queryObjects({
+        deviceId: "device",
+        applicationId: 1,
+        start: 1704034800000,
+        end: 1704121200000,
+        scoreGte: 0.1,
+        scoreLt: 0.9,
+        type: "person",
+        geometryConfigIds: [1, 2],
+        geometryConfigTags: ["entrance"],
+        labels: ["hat"],
+        sortOrder: Safie.AIApp.ObjectSortOrder.StartTimestampAsc,
+        offset: 10,
+        limit: 30,
+    });
+    console.log(objects.count, objects.offset, objects.total, objects.hasNext);
+    objects.list.forEach((detectedObject: Safie.AIApp.DetectedObject) => {
+        const objectId: string = detectedObject.objectId;
+        const start: number = detectedObject.start;
+        const end: number | null = detectedObject.end;
+        const objectType: string = detectedObject.type;
+        const labels: string[] = detectedObject.labels;
+        const score: number | null = detectedObject.score;
+        const pictureLabels: string[] = detectedObject.pictureLabels;
+        const geometryConfigIds: number[] = detectedObject.geometryConfigIds;
+        console.log(objectId, start, end, objectType, labels, score, pictureLabels, geometryConfigIds);
+    });
+
+    // オブジェクト詳細取得（v1.10で追加）
+    const objectDetail: Safie.AIApp.QueryObjectDetailResult = await Safie.AIApp.queryObjectDetail({
+        deviceId: "device",
+        applicationId: 1,
+        objectId: "object",
+    });
+    const objectDuration: number | null = objectDetail.duration;
+    const objectData: Record<string, unknown> | null = objectDetail.data;
+    const hasExtraData: boolean = objectDetail.hasExtraData;
+    console.log(objectDuration, objectData, hasExtraData);
+
+    // オブジェクト画像取得・付与データ取得（v1.10で追加）
+    const objectPicture: Blob = await Safie.AIApp.queryObjectPicture({
+        deviceId: "device",
+        applicationId: 1,
+        objectId: "object",
+        pictureLabel: "face",
+    });
+    const extraData: Blob = await Safie.AIApp.queryObjectData({
+        deviceId: "device",
+        applicationId: 1,
+        objectId: "object",
+    });
+    console.log(objectPicture.size, extraData.size);
+
+    // イベント一覧取得（v1.10で追加）
+    const events: Safie.AIApp.QueryEventsResult = await Safie.AIApp.queryEvents({
+        deviceId: "device",
+        applicationId: 1,
+    });
+    await Safie.AIApp.queryEvents({
+        deviceId: "device",
+        applicationId: 1,
+        start: 1704034800000,
+        end: 1704121200000,
+        scoreGte: 0.1,
+        scoreLt: 0.9,
+        type: "motion",
+        geometryConfigIds: [1, 2],
+        geometryConfigTags: ["entrance"],
+        labels: ["car"],
+        offset: 10,
+        limit: 30,
+    });
+    console.log(events.count, events.offset, events.total, events.hasNext);
+    events.list.forEach((detectedEvent: Safie.AIApp.DetectedEvent) => {
+        const eventId: string = detectedEvent.eventId;
+        const timestamp: number = detectedEvent.timestamp;
+        const eventType: string = detectedEvent.type;
+        const score: number | null = detectedEvent.score;
+        const labels: string[] = detectedEvent.labels;
+        const hasPicture: boolean = detectedEvent.hasPicture;
+        const geometryConfigIds: number[] = detectedEvent.geometryConfigIds;
+        console.log(eventId, timestamp, eventType, score, labels, hasPicture, geometryConfigIds);
+    });
+
+    // イベント詳細取得・画像取得（v1.10で追加）
+    const eventDetail: Safie.AIApp.QueryEventDetailResult = await Safie.AIApp.queryEventDetail({
+        deviceId: "device",
+        applicationId: 1,
+        eventId: "event",
+    });
+    const eventData: Record<string, unknown> | null = eventDetail.data;
+    const eventPicture: Blob = await Safie.AIApp.queryEventPicture({
+        deviceId: "device",
+        applicationId: 1,
+        eventId: "event",
+    });
+    console.log(eventData, eventPicture.size);
+
+    // メトリクス一覧取得（v1.10で追加）
+    const metrics: Safie.AIApp.QueryMetricsResult = await Safie.AIApp.queryMetrics({
+        deviceId: "device",
+        applicationId: 1,
+        unit: Safie.AIApp.MetricUnit.FiveMinutes,
+    });
+    await Safie.AIApp.queryMetrics({
+        deviceId: "device",
+        applicationId: 1,
+        unit: Safie.AIApp.MetricUnit.Daily,
+        start: 1704034800000,
+        end: 1704121200000,
+        labels: ["car"],
+        stats: [Safie.AIApp.MetricStat.Sum],
+        offset: 10,
+        limit: 500,
+    });
+    console.log(metrics.count, metrics.offset, metrics.total, metrics.hasNext);
+    metrics.list.forEach((metric: Safie.AIApp.Metric) => {
+        const metricTimestamp: number = metric.timestamp;
+        const label: string = metric.label;
+        const metricCount: number | null = metric.count;
+        const sum: number | null = metric.sum;
+        const avg: number | null = metric.avg;
+        const avg0: number | null = metric.avg0;
+        const min: number | null = metric.min;
+        const max: number | null = metric.max;
+        console.log(metricTimestamp, label, metricCount, sum, avg, avg0, min, max);
+    });
+
+    // デバイスステータス一覧取得（v1.10で追加）
+    const deviceStatuses: Safie.AIApp.QueryDeviceStatusesResult = await Safie.AIApp.queryDeviceStatuses({
+        deviceId: "device",
+        applicationId: 1,
+    });
+    await Safie.AIApp.queryDeviceStatuses({
+        deviceId: "device",
+        applicationId: 1,
+        label: "temperature",
+        geometryConfigIds: [1, 2],
+        statusUpdatedOnGte: 1704034800000,
+    });
+    console.log(deviceStatuses.total);
+    deviceStatuses.list.forEach((deviceStatus: Safie.AIApp.DeviceStatus) => {
+        const deviceStatusId: number = deviceStatus.deviceStatusId;
+        const statusLabel: string = deviceStatus.label;
+        const status: string = deviceStatus.status;
+        const statusScore: number | null = deviceStatus.score;
+        const geometryConfigIds: number[] = deviceStatus.geometryConfigIds;
+        const updatedOn: number = deviceStatus.updatedOn;
+        console.log(deviceStatusId, statusLabel, status, statusScore, geometryConfigIds, updatedOn);
+    });
+
+    // 通知イベント一覧取得（v1.10で追加）
+    const notificationEvents: Safie.AIApp.QueryNotificationEventsResult = await Safie.AIApp.queryNotificationEvents({
+        deviceId: "device",
+        applicationId: 1,
+    });
+    await Safie.AIApp.queryNotificationEvents({
+        deviceId: "device",
+        applicationId: 1,
+        start: 1704034800000,
+        end: 1704121200000,
+        type: "detect",
+        notificationMethods: [Safie.AIApp.NotificationMethod.Mail],
+        offset: 10,
+        limit: 30,
+    });
+    console.log(notificationEvents.offset, notificationEvents.total);
+    notificationEvents.list.forEach((notificationEvent: Safie.AIApp.NotificationEvent) => {
+        const notificationEventId: number = notificationEvent.notificationEventId;
+        const eventDeviceId: string = notificationEvent.deviceId;
+        const objectId: string | null = notificationEvent.objectId;
+        const eventId: string | null = notificationEvent.eventId;
+        const eventType: string | null = notificationEvent.type;
+        const methods: Safie.AIApp.NotificationMethod[] = notificationEvent.methods;
+        const score: number | null = notificationEvent.score;
+        const eventTimestamp: number = notificationEvent.timestamp;
+        console.log(notificationEventId, eventDeviceId, objectId, eventId, eventType, methods, score, eventTimestamp);
+
+        notificationEvent.geometryConfigs.forEach((geometryConfig: Safie.AIApp.NotificationEventGeometryConfig) => {
+            const geometryConfigId: number = geometryConfig.geometryConfigId;
+            const geometryConfigName: string | null = geometryConfig.geometryConfigName;
+            console.log(geometryConfigId, geometryConfigName);
+        });
+    });
+
+    // enum値の網羅
+    const applicationFeatures: Safie.AIApp.ApplicationFeature[] = [
+        Safie.AIApp.ApplicationFeature.Event,
+        Safie.AIApp.ApplicationFeature.Object,
+        Safie.AIApp.ApplicationFeature.DeviceStatus,
+        Safie.AIApp.ApplicationFeature.Metrics,
+        Safie.AIApp.ApplicationFeature.GeometryConfig,
+    ];
+    const geometryConfigTypes: Safie.AIApp.GeometryConfigType[] = [
+        Safie.AIApp.GeometryConfigType.All,
+        Safie.AIApp.GeometryConfigType.Line,
+        Safie.AIApp.GeometryConfigType.LineIO,
+        Safie.AIApp.GeometryConfigType.Polygon,
+    ];
+    const metricUnits: Safie.AIApp.MetricUnit[] = [
+        Safie.AIApp.MetricUnit.FiveMinutes,
+        Safie.AIApp.MetricUnit.Hourly,
+        Safie.AIApp.MetricUnit.Daily,
+    ];
+    const metricStats: Safie.AIApp.MetricStat[] = [
+        Safie.AIApp.MetricStat.Count,
+        Safie.AIApp.MetricStat.Sum,
+        Safie.AIApp.MetricStat.Avg,
+        Safie.AIApp.MetricStat.Avg0,
+        Safie.AIApp.MetricStat.Min,
+        Safie.AIApp.MetricStat.Max,
+    ];
+    const notificationMethods: Safie.AIApp.NotificationMethod[] = [
+        Safie.AIApp.NotificationMethod.Mail,
+        Safie.AIApp.NotificationMethod.Webhook,
+        Safie.AIApp.NotificationMethod.MobilePush,
+        Safie.AIApp.NotificationMethod.WebPush,
+    ];
+    const daysOfWeek: Safie.AIApp.DayOfWeek[] = [
+        Safie.AIApp.DayOfWeek.Monday,
+        Safie.AIApp.DayOfWeek.Tuesday,
+        Safie.AIApp.DayOfWeek.Wednesday,
+        Safie.AIApp.DayOfWeek.Thursday,
+        Safie.AIApp.DayOfWeek.Friday,
+        Safie.AIApp.DayOfWeek.Saturday,
+        Safie.AIApp.DayOfWeek.Sunday,
+    ];
+    const objectSortOrders: Safie.AIApp.ObjectSortOrder[] = [
+        Safie.AIApp.ObjectSortOrder.StartTimestampDesc,
+        Safie.AIApp.ObjectSortOrder.StartTimestampAsc,
+    ];
+    console.log(applicationFeatures, geometryConfigTypes, metricUnits, metricStats);
+    console.log(notificationMethods, daysOfWeek, objectSortOrders);
+}
+
 async function testAuth(): Promise<void> {
     const initResult: Safie.Auth.InitializeResult = await Safie.Auth.initialize();
     const tokenType: Safie.Auth.TokenType = initResult.tokenType;
@@ -303,6 +756,7 @@ function testErrorHandling(error: Safie.ErrorDetail): void {
 }
 
 // 全テスト関数を参照することで未使用警告を抑止する
+testAIApp();
 testAuth();
 testConfig();
 testDevices();
