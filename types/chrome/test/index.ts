@@ -998,6 +998,8 @@ function testRuntime() {
         port.postMessage(""); // $ExpectType void
     });
 
+    checkChromeEvent(chrome.runtime.onEnabled, () => void 0);
+
     checkChromeEvent(chrome.runtime.onInstalled, (details) => {
         details.id; // $ExpectType string | undefined
         details.previousVersion; // $ExpectType string | undefined
@@ -3608,9 +3610,10 @@ async function testTabs() {
     chrome.tabs.ZoomSettingsScope.PER_ORIGIN === "per-origin";
     chrome.tabs.ZoomSettingsScope.PER_TAB === "per-tab";
 
-    const tabId = 0;
-    const windowId = 0;
-    const groupId = 0;
+    const tabId = 1234567890;
+    const windowId = 1234567890;
+    const groupId = 123456789;
+    const splitViewId = 1234567890;
     const frameId = 0;
     const documentId = "id";
 
@@ -3652,6 +3655,7 @@ async function testTabs() {
         active: true,
         index: 0,
         openerTabId: tabId,
+        splitWithTabId: splitViewId,
         pinned: true,
         selected: true,
         url: "url",
@@ -3664,6 +3668,15 @@ async function testTabs() {
     });
     // @ts-expect-error
     chrome.tabs.create(() => {}).then(() => {});
+
+    const tabIds: [number, number] = [1234567890, 9876543210];
+
+    chrome.tabs.createSplit(tabIds); // $ExpectType Promise<number>
+    chrome.tabs.createSplit(tabIds, (splitViewId) => { // $ExpectType void
+        splitViewId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.tabs.createSplit(() => {}).then(() => {});
 
     chrome.tabs.detectLanguage(); // $ExpectType Promise<string>
     chrome.tabs.detectLanguage(tabId); // $ExpectType Promise<string>
@@ -3899,6 +3912,11 @@ async function testTabs() {
         pinned: true,
         url: "url",
     };
+
+    chrome.tabs.unsplit(splitViewId); // $ExpectType Promise<void>
+    chrome.tabs.unsplit(splitViewId, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.unsplit(() => {}).then(() => {});
 
     chrome.tabs.update(updateProperties); // $ExpectType Promise<Tab | undefined>
     chrome.tabs.update(tabId, updateProperties); // $ExpectType Promise<Tab | undefined>
@@ -8374,28 +8392,6 @@ function testPrivacy() {
     chrome.privacy.websites.referrersEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
 
     checkChromeEvent(chrome.privacy.websites.referrersEnabled.onChange, (details) => {
-        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
-    });
-
-    // relatedWebsiteSetsEnabled
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.get({ incognito: false }, (details) => { // $ExpectType void
-        details; // $ExpectType ChromeSettingGetResult<boolean>
-    });
-    // @ts-expect-error
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.get({}, () => {}).then(() => {});
-
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
-    // @ts-expect-error
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
-
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
-    // @ts-expect-error
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
-
-    checkChromeEvent(chrome.privacy.websites.relatedWebsiteSetsEnabled.onChange, (details) => {
         details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
     });
 
