@@ -90,7 +90,8 @@ export interface Client {
      * });
      * @returns Returns a promise if no callback is provided.
      */
-    teardown(callback: callback<void>): Promise<void>;
+    teardown(callback: callback<void>): void;
+    teardown(): Promise<void>;
 }
 
 /**

@@ -76,7 +76,6 @@
 /types/adobe__ccweb-add-on-sdk/                         @vamshich13 @xerxovksi
 /types/adobe__es-modules-middleware/                    @peterblazejewicz
 /types/aes-js/                                          @federicobond
-/types/af-utils__react-table/                           @huner2
 /types/af-utils__react-virtual-headless/                @huner2
 /types/af-utils__react-virtual-list/                    @huner2
 /types/aframe/                                          @devpaul @bertoritger @twastvedt
@@ -866,7 +865,6 @@
 /types/chrome-har-capturer/                             @NicolasNewman
 /types/chrome-location/                                 @IngyuTae
 /types/chrome-remote-interface/                         @kazarmy @westy92
-/types/chrome-webstore-upload/                          @Granga
 /types/chromecast-api/                                  @SteffoSpieler @daniel0611
 /types/chromecast-caf-receiver/                         @joeyparrish @juliandomingo @theodab @Serabe @brandonrisell @marcoreni
 /types/chromecast-caf-sender/                           @joeyparrish @juliandomingo @theodab @samuelmaddock
@@ -1785,7 +1783,6 @@
 /types/enamdict/                                        @peterblazejewicz
 /types/encodeurl/                                       @BendingBender @bjohansebas
 /types/encoding-down/                                   @MeirionHughes @danwbyrne
-/types/encoding-japanese/                               @rhysd @peterblazejewicz
 /types/end-of-stream/                                   @strax
 /types/engine-check/                                    @jgeth
 /types/engine.io/                                       @KentarouTakeda
@@ -1841,7 +1838,6 @@
 /types/eslint-plugin-github/                            @Simbiat
 /types/eslint-plugin-jsx-a11y/                          @eagerestwolf @ljharb
 /types/eslint-plugin-markdown/                          @JounQin
-/types/eslint-plugin-mobx/                              @MysteryBlokHed
 /types/eslint-plugin-no-constructor-bind/               @Simbiat
 /types/eslint-plugin-no-unsanitized/                    @Simbiat
 /types/eslint-plugin-pii/                               @Simbiat
@@ -2795,7 +2791,6 @@
 /types/get-res/                                         @satyarohith
 /types/get-size/                                        @leonsilicon
 /types/get-ssl-certificate/                             @peterblazejewicz
-/types/get-value/                                       @DanielRosenwasser
 /types/getenv/                                          @impankratov
 /types/getos/                                           @BendingBender
 /types/getpass/                                         @claasahl
@@ -2906,6 +2901,7 @@
 /types/google.picker/                                   @jpoehnelt @sqrrrl @PierrickVoulet @vinay-google
 /types/google.script.client-side/                       @clomie
 /types/google.visualization/                            @danludwig @gmoore-sjcorg @danmana @mlcheng @IvanBisultanov @glebm @shrujalshah28 @dckorben @martin-badin
+/types/google__earthengine/                             @brucePedroGomes
 /types/google__maps/                                    @indrimuska
 /types/google_interactive_media_ads_types/              @Kiro705
 /types/googlefc/                                        @johngeorgewright
@@ -3455,7 +3451,6 @@
 /types/is-glob/                                         @mrmlnc
 /types/is-gzip/                                         @PopeFelix
 /types/is-hotkey/                                       @lynxtaa
-/types/is-html/                                         @smenigat
 /types/is-http-url/                                     @BendingBender
 /types/is-integer/                                      @djcsdy
 /types/is-iterable/                                     @BendingBender
@@ -6635,7 +6630,7 @@
 /types/react-vertical-timeline-component/               @stephane-monnot @lukaselmer
 /types/react-video-recorder/                            @GabrielCartier
 /types/react-virtual-keyboard/                          @bsurai
-/types/react-virtualized/                               @kaoDev @guntherjh @wasd171 @Stevearzh @brandonhall @azmenak
+/types/react-virtualized/                               @kaoDev @guntherjh @wasd171 @Stevearzh @brandonhall @azmenak @Viktor-Kolyshkin
 /types/react-virtualized-select/                        @seansfkelley
 /types/react-vis/                                       @Domino987
 /types/react-wait/                                      @ifiokjr
@@ -7002,7 +6997,7 @@
 /types/sane-email-validation/                           @ForbesLindesay
 /types/sanitize-html/                                   @rogierschouten @afshin @biermeester @johandavidson @YuJianrong @paambaati @dsyncerek @peterblazejewicz @1pete @alex-rantos @dylanarmstrong
 /types/sanitize-s3-objectkey/                           @rad182
-/types/sap__approuter/                                  @nbblum @biolauri
+/types/sap__approuter/                                  @nbblum @biolauri @StenCalDabran
 /types/sap__logging/                                    @anselm94
 /types/sap__xsenv/                                      @mad-mike @Antiavanti
 /types/sarif/                                           @jeffersonking
@@ -7906,7 +7901,6 @@
 /types/trtc-calling-js/                                 @wkl007
 /types/trtc-js-sdk/                                     @yokots @wkl007
 /types/truffle-privatekey-provider/                     @miguelmota
-/types/truncate-middle/                                 @garyking
 /types/truncate-utf8-bytes/                             @blimmer
 /types/trunk8/                                          @niemyjski
 /types/trust__keyto/                                    @BendingBender
@@ -8165,7 +8159,6 @@
 /types/viewporter/                                      @borisyankov
 /types/vigour-ua/                                       @ffflorian
 /types/vimeo/                                           @mattleff
-/types/vimeo__player/                                   @denisyilmaz @timc13 @terrymun @kou029w @mikeamarkey
 /types/vimeo__vimeo/                                    @MysteryBlokHed
 /types/vinyl/                                           @vvakame @thorn0
 /types/vinyl/v0/                                        @vvakame

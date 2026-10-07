@@ -2521,6 +2521,10 @@
             "libraryName": "force-graph",
             "asOfVersion": "1.26.0"
         },
+        "foreground-child": {
+            "libraryName": "foreground-child",
+            "asOfVersion": "4.0.3"
+        },
         "forest-express-mongoose": {
             "libraryName": "forest-express-mongoose",
             "asOfVersion": "7.9.0"
