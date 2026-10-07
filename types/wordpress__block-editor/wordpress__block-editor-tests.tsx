@@ -377,6 +377,11 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 // plain-text
 //
 <be.PlainText value="Hello World" onChange={v => console.log(v.toUpperCase())} />;
+<be.PlainText
+    ref={useRef<HTMLTextAreaElement>(null)}
+    value="Hello World"
+    onChange={v => console.log(v.toUpperCase())}
+/>;
 
 //
 // rich-text
