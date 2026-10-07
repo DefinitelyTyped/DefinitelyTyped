@@ -27,15 +27,15 @@ const d = new ActiveStorage.DirectUpload(
 
 console.log(d.delegate);
 
-d.create((error: Error | null) => {
+d.create((error: string | null) => {
     if (error) {
-        console.log(error.message);
+        console.log(error);
     }
 });
 
-d.create((error: Error | null, blob?: ActiveStorage.Blob) => {
+d.create((error: string | null, blob?: ActiveStorage.Blob) => {
     if (error) {
-        console.log(error.message);
+        console.log(error);
     } else if (blob) {
         const { byte_size, checksum, content_type, filename, signed_id } = blob;
         console.log({ byte_size, checksum, content_type, filename, signed_id });
