@@ -1,7 +1,7 @@
 export namespace UIkit {
     const util: {
         /** Sets up a function that will be called whenever the specified event is delivered to the target. */
-        on(element: UIkitElement, type: string, listener: (e: Event) => void): void;
+        on(element: UIkitElement, type: string, listener: (e: Event) => void): () => void;
         /** Removes an event listener previously registered with on. */
         off(element: UIkitElement, type: string, listener: (e: Event) => void): void;
         [key: string]: any;
@@ -17,7 +17,8 @@ export namespace UIkit {
 
     function use(plugin: Plugin): typeof UIkit;
 
-    type UIkitElement = object | HTMLElement | string;
+    // UIkitElement with null type will not throw type error on Vue templateRef's.
+    type UIkitElement = object | HTMLElement | string | null;
     type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
     type UIkitNode = Node;
 

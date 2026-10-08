@@ -470,7 +470,11 @@ function testUse() {
 
 function testUtils() {
     const handler = (e: Event) => console.log(e.target);
-    UIkit.util.on(document.body, "show", handler);
+
+    const off = UIkit.util.on(document.body, "show", handler);
+    off();
+
+    UIkit.util.on(null, "show", handler);
     UIkit.util.off(document.body, "show", handler);
 }
 
