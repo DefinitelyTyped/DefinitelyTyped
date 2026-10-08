@@ -38,6 +38,9 @@ function testAccordion() {
 
 function testAlert() {
     UIkit.alert(element).$destroy();
+    UIkit.alert(element, true).$destroy();
+    UIkit.alert(element, "Hello").$destroy();
+
     const component = UIkit.alert(element, {
         animation: true,
         duration: 300,
@@ -62,6 +65,8 @@ function testCountdown() {
 
 function testCover() {
     UIkit.cover(element).$destroy();
+    UIkit.cover(element, true);
+
     const component = UIkit.cover(element, {
         automute: true,
         width: 1,
@@ -73,6 +78,8 @@ function testCover() {
 
 function testDrop() {
     UIkit.drop(element).$destroy();
+    UIkit.drop(element, "top-left");
+
     const component = UIkit.drop(element, {
         toggle: ">",
     });
@@ -110,6 +117,8 @@ function testDropnav() {
 
 function testFilter() {
     UIkit.filter(element).$destroy();
+    UIkit.filter(element, ".filter");
+
     const component = UIkit.filter(element, {
         target: ">",
         selActive: "active",
@@ -122,6 +131,8 @@ function testFilter() {
 
 function testForm() {
     UIkit.formCustom(element).$destroy();
+    UIkit.formCustom(element, "input");
+
     const component = UIkit.formCustom(element, {
         target: ">",
     });
@@ -140,6 +151,8 @@ function testGrid() {
 
 function testHeightMatch() {
     UIkit.heightMatch(element).$destroy();
+    UIkit.heightMatch(element, ".item");
+
     const component = UIkit.heightMatch(element, {
         row: true,
     });
@@ -149,6 +162,8 @@ function testHeightMatch() {
 
 function testHeightPlaceholder() {
     UIkit.heightPlaceholder(element).$destroy();
+    UIkit.heightPlaceholder(element, ".item");
+
     const component = UIkit.heightPlaceholder(element, {});
 
     component.$destroy();
@@ -165,6 +180,11 @@ function testHeightViewport() {
 
 async function testIcon() {
     UIkit.icon(element).$destroy();
+    UIkit.icon(
+        element,
+        Promise.resolve(document.createElementNS("http://www.w3.org/2000/svg", "svg")),
+    );
+
     const component = UIkit.icon(element, { icon: "facebook" });
 
     await component.svg.then(() => console.log("Loaded"));
@@ -173,6 +193,8 @@ async function testIcon() {
 
 function testImage() {
     UIkit.img(element).$destroy();
+    UIkit.img(element, "image.jpg");
+
     const component = UIkit.img(element, { dataSrc: "" });
 
     component.$destroy();
@@ -244,7 +266,7 @@ async function testModal() {
     await prompt.then((v) => console.log("Success", v)).catch(() => console.log("Cancelled"));
     prompt.dialog.$destroy();
 
-    // Confirm
+    // Dialog
     const dialog = UIkit.modal.dialog("<p>UIkit dialog!</p>");
     await dialog.then(() => console.log("Success")).catch(() => console.log("Cancelled"));
     dialog.dialog.$destroy();
@@ -297,6 +319,8 @@ function testNotification() {
 
 function testOffCanvas() {
     UIkit.offcanvas(element).$destroy();
+    UIkit.offcanvas(element, "push");
+
     const component = UIkit.offcanvas(element, {
         mode: "push",
     });
@@ -326,7 +350,7 @@ function testScroll() {
 
 function testScrollspy() {
     UIkit.scrollspy(element).$destroy();
-    const component = UIkit.scrollspy(element, { cls: "active" });
+    UIkit.scrollspy(element, ".target");
 
     UIkit.scrollspyNav(element).$destroy();
     const nav = UIkit.scrollspyNav(element, { target: ">" });
@@ -378,6 +402,8 @@ function testSticky() {
 
 async function testSvg() {
     UIkit.svg(element).$destroy();
+    UIkit.svg(element, "icon.svg");
+
     const component = UIkit.svg(element, {
         src: "",
         strokeAnimation: true,
@@ -389,6 +415,8 @@ async function testSvg() {
 
 function testSwitcher() {
     UIkit.switcher(element).$destroy();
+    UIkit.switcher(element, ".tab");
+
     const component = UIkit.switcher(element, {
         connect: ">",
     });
@@ -398,8 +426,15 @@ function testSwitcher() {
     component.$destroy();
 }
 
+function testTab() {
+    UIkit.tab(element).$destroy();
+    UIkit.tab(element, ".tab");
+}
+
 function testToggle() {
     UIkit.toggle(element).$destroy();
+    UIkit.toggle(element, document.createElement("button"));
+
     const component = UIkit.toggle(element, {
         mode: "click",
     });
@@ -437,6 +472,12 @@ function testUtils() {
     const handler = (e: Event) => console.log(e.target);
     UIkit.util.on(document.body, "show", handler);
     UIkit.util.off(document.body, "show", handler);
+}
+
+function testVideo() {
+    UIkit.video(element).$destroy();
+    UIkit.video(element, true);
+    UIkit.video(element, "video.mp4");
 }
 
 import Icons from "uikit/dist/js/uikit-icons";
