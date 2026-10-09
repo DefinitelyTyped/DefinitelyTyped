@@ -41,6 +41,14 @@ export namespace UIkit {
         | "right-bottom";
     type UIkitStretch = "x" | "y" | boolean;
 
+    // component $emit types
+    type UIkitUpdateType =
+        | 'update'
+        | 'resize'
+        | 'scroll'
+        | 'resizeViewport'
+        | 'computed'
+
     // Base classes
 
     interface Plugin {
@@ -49,6 +57,12 @@ export namespace UIkit {
     }
 
     interface UIkitElementBase {
+        /**
+         * Update the component.
+         * @param type Omitting the type will trigger an update event.
+         */
+        $emit(type?: UIkitUpdateType): void;
+
         /**
          * Destroys the component.
          * @param removeEl If true, also removes the element from the DOM.

@@ -9,6 +9,14 @@ function testUIkitElementBase() {
         selClose: ">",
     });
 
+    // $emit
+    component.$emit();
+    component.$emit("update");
+    component.$emit("resize");
+    component.$emit("scroll");
+    component.$emit("resizeViewport");
+    component.$emit("computed");
+
     // $ExpectError - Doesn't seem to be working...
     // component.$el = undefined;
 
