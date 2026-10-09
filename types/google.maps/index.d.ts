@@ -3122,7 +3122,7 @@ declare namespace google.maps {
 
     GestureHandling: typeof google.maps.maps3d.GestureHandling;
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      */
     Label3DElement: typeof google.maps.maps3d.Label3DElement;
 
@@ -9393,7 +9393,7 @@ declare namespace google.maps.maps3d {
   }
   export type GestureHandlingString = `${google.maps.maps3d.GestureHandling}`;
   /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Represents a text label associated with a 3D marker on a map, allowing independent configuration of properties such as collision behavior.
    * Access by calling `const {Label3DElement} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -9429,7 +9429,7 @@ declare namespace google.maps.maps3d {
   export interface Label3DElementEventMap extends HTMLElementEventMap {
   }
   /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Label3DElementOptions object used to define the properties that can be set on a Label3DElement.
    */
   export interface Label3DElementOptions {
@@ -9508,6 +9508,18 @@ declare namespace google.maps.maps3d {
      * The center of the map given as a LatLngAltitude, where altitude is in meters above the mean sea level. Note that this is not necessarily where the camera is located, as the <code>range</code> field affects the camera&#39;s distance from the map center. If not set, defaults to <code>{lat: 0, lng: 0, altitude: 63710000}</code>. 63710000 meters is a maximum allowed altitude (Earth radius multiplied by 10).
      */
     set center(value: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null | undefined);
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Specifies the color scheme for the map. If not set, defaults to {@link google.maps.ColorScheme.FOLLOW_SYSTEM}.
+     * @defaultValue {@link google.maps.ColorScheme.FOLLOW_SYSTEM}
+     */
+    get colorScheme(): google.maps.ColorSchemeString | null;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Specifies the color scheme for the map. If not set, defaults to {@link google.maps.ColorScheme.FOLLOW_SYSTEM}.
+     * @defaultValue {@link google.maps.ColorScheme.FOLLOW_SYSTEM}
+     */
+    set colorScheme(value: google.maps.ColorSchemeString | null | undefined);
     /**
      * When <code>true</code>, all default UI buttons are hidden.
      * @defaultValue <code>false</code>
@@ -9745,6 +9757,11 @@ declare namespace google.maps.maps3d {
      */
     center?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * See {@link google.maps.maps3d.Map3DElement.colorScheme}.
+     */
+    colorScheme?: google.maps.ColorSchemeString | null;
+    /**
      * See {@link google.maps.maps3d.Map3DElement.defaultUIHidden}.
      */
     defaultUIHidden?: boolean | null;
@@ -9847,7 +9864,7 @@ declare namespace google.maps.maps3d {
      */
     HYBRID = 'HYBRID',
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * This map mode displays a normal street map.
      */
     ROADMAP = 'ROADMAP',
