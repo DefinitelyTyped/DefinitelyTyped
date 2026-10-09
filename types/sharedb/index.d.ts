@@ -330,6 +330,7 @@ declare namespace sharedb {
             receive: ReceiveContext;
             receivePresence: PresenceContext;
             reply: ReplyContext;
+            retry: SubmitContext;
             sendPresence: PresenceContext;
             submit: SubmitContext;
         }
