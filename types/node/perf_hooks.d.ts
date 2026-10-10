@@ -356,7 +356,6 @@ declare module "node:perf_hooks" {
         resolution?: number | undefined;
     }
     interface Histogram {
-    interface Histogram {
         /**
          * Returns the SLO burn rate: `ewmaErrorRate / (1 - sloTarget)`. A burn rate
          * of 1 means the error budget will be exactly exhausted over the SLO window.
