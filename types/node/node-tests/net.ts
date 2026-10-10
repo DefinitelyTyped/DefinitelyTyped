@@ -452,6 +452,9 @@ import { Worker } from "node:worker_threads";
         // $ExpectType number
         count;
     });
+
+    _server.dropMaxConnection; // $ExpectType boolean | undefined
+    _server.dropMaxConnection = true;
 }
 
 {
@@ -489,6 +492,22 @@ import { Worker } from "node:worker_threads";
     bl.fromJSON(bl.rules);
     bl.toJSON(); // $ExpectType readonly string[]
     net.BlockList.isBlockList(bl); // $ExpectType boolean
+    bl.addAddresses(["127.0.0.1", "127.0.0.2"], "ipv4");
+    bl.addAddresses([sockAddr]);
+    bl.addCIDR("10.0.0.0/8");
+    bl.addCIDRs(net.BlockList.PRIVATE_RANGES);
+    net.BlockList.PRIVATE_RANGES; // $ExpectType readonly string[]
+    bl.removeAddress("127.0.0.1", "ipv4");
+    bl.removeAddress(sockAddr);
+    bl.removeRange("127.0.0.1", "127.0.0.255", "ipv4");
+    bl.removeRange(sockAddr, sockAddr);
+    bl.removeSubnet("127.0.0.1", 26, "ipv4");
+    bl.removeSubnet(sockAddr, 12);
+    bl.removeCIDR("10.0.0.0/8");
+    bl.size; // $ExpectType number
+    // @ts-expect-error
+    bl.size = 1;
+    bl.clear(); // $ExpectType void
 }
 
 {
@@ -500,6 +519,9 @@ import { Worker } from "node:worker_threads";
     });
     boundSocket.address(); // $ExpectType AddressInfo
     boundSocket.fd(); // $ExpectType number
+    boundSocket.isPipe; // $ExpectType boolean
+    // @ts-expect-error
+    boundSocket.isPipe = true;
 
     new net.Socket({ handle: new net.BoundSocket() });
 }

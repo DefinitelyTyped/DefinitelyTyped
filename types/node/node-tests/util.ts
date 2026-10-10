@@ -561,3 +561,67 @@ util.setTraceSigInt(true);
     // @ts-expect-error
     util.convertProcessSignalToExitCode("INVALID");
 }
+
+{
+    const debounced = util.debounce((a: number, b: string) => `${a}${b}`, 50);
+    debounced; // $ExpectType DebouncedFunction<[a: number, b: string], string>
+    debounced(1, "a"); // $ExpectType Promise<string>
+    // @ts-expect-error
+    debounced("a", 1);
+    debounced.pending; // $ExpectType Promise<string> | null
+    debounced.pendingCount; // $ExpectType number
+    // @ts-expect-error
+    debounced.pendingCount = 1;
+    debounced.cancel(); // $ExpectType void
+    debounced.cancel(new Error("reason"));
+    debounced.flush(); // $ExpectType void
+    debounced.ref().unref(); // $ExpectType DebouncedFunction<[a: number, b: string], string>
+
+    util.debounce(async (value: number) => value, 50, {
+        leading: true,
+        rejectOnCancel: true,
+        signal: new AbortController().signal,
+    })(1); // $ExpectType Promise<number>
+
+    util.debounce(function() {
+        this; // $ExpectType DebouncedFunction<[], void>
+    }, 50);
+}
+
+{
+    const throttled = util.throttle(async (id: number) => id.toString(), 2, 1_000);
+    throttled; // $ExpectType ThrottledFunction<[id: number], Promise<string>>
+    throttled(1); // $ExpectType Promise<string>
+    // @ts-expect-error
+    throttled("1");
+    throttled.pending; // $ExpectType Promise<string> | null
+    throttled.pendingCount; // $ExpectType number
+    throttled.activeCount; // $ExpectType number
+    // @ts-expect-error
+    throttled.activeCount = 1;
+    throttled.hasImmediateCapacity(); // $ExpectType boolean
+    throttled.cancel(); // $ExpectType void
+    throttled.cancel("reason");
+    throttled.ref().unref(); // $ExpectType ThrottledFunction<[id: number], Promise<string>>
+
+    util.throttle(() => {}, 1, 100, {
+        concurrency: Infinity,
+        maxPending: 10,
+        overflow: "drop",
+        signal: new AbortController().signal,
+        strict: true,
+    });
+    // @ts-expect-error
+    util.throttle(() => {}, 1, 100, { overflow: "discard" });
+}
+
+{
+    util.markPromiseAsHandled(Promise.reject(new Error())); // $ExpectType void
+    // @ts-expect-error
+    util.markPromiseAsHandled(1);
+}
+
+{
+    util.MIMEType.parse("text/plain"); // $ExpectType MIMEType | null
+    new util.MIMEType("text/plain").toJSON(); // $ExpectType string
+}

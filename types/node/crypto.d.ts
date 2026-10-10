@@ -390,6 +390,129 @@ declare module "node:crypto" {
         digest(): NonSharedBuffer;
         digest(encoding: BufferEncoding): string;
     }
+    interface MacOptions extends TransformOptions {
+        /**
+         * The digest used by a MAC such as HMAC.
+         */
+        digest?: string | undefined;
+        /**
+         * The cipher used by a MAC such as CMAC or GMAC.
+         */
+        cipher?: string | undefined;
+        /**
+         * The initialization vector for a MAC such as GMAC.
+         */
+        iv?: ArrayBuffer | NodeJS.ArrayBufferView | undefined;
+        /**
+         * A customization byte string for MACs that support it, such as KMAC.
+         */
+        customization?: ArrayBuffer | NodeJS.ArrayBufferView | undefined;
+        /**
+         * A salt byte string for MACs that support it, such as BLAKE2 MACs.
+         */
+        salt?: ArrayBuffer | NodeJS.ArrayBufferView | undefined;
+        /**
+         * The requested provider output size in bytes. Must be
+         * an unsigned 32-bit integer. Provider-specific restrictions also apply.
+         */
+        outputLength?: number | undefined;
+    }
+    /**
+     * `algorithm` must be a non-empty provider MAC name. The MAC-specific properties
+     * listed above are extensions to the standard `stream.transform` options and
+     * are passed only when the selected provider implementation advertises the
+     * corresponding parameter with the expected type. A supplied MAC-specific option
+     * that the selected implementation does not support causes an error.
+     *
+     * The `key` must contain bytes or be a `KeyObject` of type `secret`. Key
+     * length and other key requirements are determined by the selected provider
+     * implementation.
+     *
+     * Available algorithms and their accepted parameters depend on the OpenSSL
+     * version, loaded providers, and active default property query. Use
+     * {@link getMacs} to list fetchable MAC names. A listed name can still
+     * require options or a key with provider-specific properties.
+     * @since v26.9.0
+     * @experimental
+     * @param algorithm The name of the MAC algorithm.
+     * @param options `stream.transform` options
+     */
+    function createMac(
+        algorithm: string,
+        key: ArrayBuffer | NodeJS.ArrayBufferView | KeyObject,
+        options?: MacOptions,
+    ): Mac;
+    /**
+     * The `Mac` class computes message authentication codes using MAC
+     * implementations supplied by OpenSSL providers. It can be used in one of two
+     * ways:
+     *
+     * * As a `stream` that is both readable and writable, where data is written and
+     * one authentication tag is produced on the readable side when the writable
+     * side ends; or
+     * * By calling `mac.update()` one or more times followed by `mac.final()`.
+     *
+     * Instances of `Mac` are created using {@link createMac}. The `Mac` class
+     * is not exported directly by the `node:crypto` module.
+     *
+     * Calling `mac.end()` without first writing data computes the authentication tag
+     * for an empty message. If the selected MAC produces a zero-byte tag, such as
+     * when a provider accepts `outputLength: 0`, the readable side ends without
+     * emitting a data chunk because Node.js streams do not emit zero-length chunks.
+     * When using `mac.final()` instead, it returns a zero-length `Buffer` or an
+     * empty encoded string.
+     *
+     * `mac.end()` and `mac.final()` are alternative terminal operations and must not
+     * both be called on the same object. A `Mac` object cannot be used again after
+     * either operation attempts finalization or after an underlying MAC update fails.
+     *
+     * Example: Using `mac.update()` and `mac.final()`:
+     *
+     * ```js
+     * const { createMac, randomBytes } = await import('node:crypto');
+     *
+     * const key = randomBytes(16);
+     * const mac = createMac('CMAC', key, {
+     *   cipher: 'AES-128-CBC',
+     * });
+     *
+     * mac.update('some data to authenticate');
+     * console.log(mac.final('hex'));
+     * ```
+     * @since v26.9.0
+     */
+    interface Mac extends Transform {
+        /**
+         * Updates the MAC with `data` and returns the `Mac` object so that calls can be
+         * chained. When `data` is a string, `inputEncoding` defaults to `'utf8'`. When
+         * `data` is a `Buffer`, `TypedArray`, or `DataView`, `inputEncoding` is
+         * ignored.
+         *
+         * This method can be called multiple times before finalization. If an underlying
+         * MAC update fails, the `Mac` object cannot be used again. Calling this method
+         * after a previous underlying MAC update failure or after finalization throws
+         * `ERR_CRYPTO_MAC_FINALIZED`.
+         * @since v26.9.0
+         * @param inputEncoding The `encoding` of the `data` string.
+         */
+        update(data: string | NodeJS.ArrayBufferView, inputEncoding?: BufferEncoding): Mac;
+        /**
+         * Completes the MAC computation and returns the authentication tag. If
+         * `outputEncoding` is omitted or is `'buffer'`, a `Buffer` is returned.
+         * Otherwise, a string is returned.
+         *
+         * To verify an authentication tag, compare equal-length `Buffer` values using
+         * {@link timingSafeEqual}.
+         *
+         * The `Mac` object cannot be used again after finalization is attempted,
+         * including when finalization fails. Later calls to `mac.update()` or
+         * `mac.final()` throw `ERR_CRYPTO_MAC_FINALIZED`.
+         * @since v26.9.0
+         * @param outputEncoding The `encoding` of the return value.
+         */
+        final(outputEncoding?: "buffer"): NonSharedBuffer;
+        final(outputEncoding: BufferEncoding): string;
+    }
     type KeyFormat = "pem" | "der" | "jwk" | "raw-public" | "raw-private" | "raw-seed";
     type KeyObjectType = "secret" | "public" | "private";
     type PublicKeyExportType = "pkcs1" | "spki";
@@ -2193,6 +2316,35 @@ declare module "node:crypto" {
      * @return An array of the names of the supported hash algorithms, such as `'RSA-SHA256'`. Hash algorithms are also called "digest" algorithms.
      */
     function getHashes(): string[];
+    /**
+     * Returns MAC names exposed by loaded OpenSSL providers that match the active
+     * default property query. Duplicate names and numeric OID aliases are omitted.
+     * On builds without OpenSSL `EVP_MAC` support, this function returns an empty
+     * array.
+     *
+     * The returned names describe implementations that OpenSSL can fetch. They do not
+     * guarantee that {@link createMac} can initialize the MAC without
+     * additional options. A provider can require additional parameters or a key with
+     * algorithm-specific properties, and it can expose parameters that this API does
+     * not support.
+     *
+     * After a successful FIPS mode change made with {@link setFips}, subsequent
+     * calls reflect the new mode, and newly created `Mac` objects use it. Existing
+     * `Mac` objects continue using the provider implementation selected when they
+     * were created.
+     *
+     * ```js
+     * const { getMacs } = await import('node:crypto');
+     *
+     * console.log(getMacs());
+     * // ['blake2bmac', 'blake2smac', 'cmac', 'gmac', 'hmac', ...]
+     * ```
+     * @since v26.9.0
+     * @experimental
+     * @return A fresh array containing the sorted, lowercase names
+     * and aliases of fetchable MAC implementations.
+     */
+    function getMacs(): string[];
     type ECDHKeyFormat = "compressed" | "uncompressed" | "hybrid";
     /**
      * The `ECDH` class is a utility for creating Elliptic Curve Diffie-Hellman (ECDH)

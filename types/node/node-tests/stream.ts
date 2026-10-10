@@ -5,6 +5,7 @@ import {
     Duplex,
     duplexPair,
     finished,
+    isDestroyed,
     isErrored,
     isReadable,
     isWritable,
@@ -553,6 +554,14 @@ addAbortSignal(new AbortSignal(), new Readable());
     Readable.isDisturbed(readable); // $ExpectType boolean
     const readableDidRead: boolean = readable.readableDidRead;
     const readableAborted: boolean = readable.readableAborted;
+}
+
+{
+    isDestroyed(new Readable()); // $ExpectType boolean | null
+    isDestroyed(new Writable()); // $ExpectType boolean | null
+    isDestroyed(new Duplex()); // $ExpectType boolean | null
+    // @ts-expect-error
+    isDestroyed(new ReadableStream());
 }
 
 {

@@ -1297,6 +1297,17 @@ declare module "node:http2" {
     interface Http2ServerCommon {
         setTimeout(msec?: number, callback?: () => void): this;
         /**
+         * The number of milliseconds of inactivity before a socket is presumed
+         * to have timed out.
+         *
+         * A value of `0` will disable the timeout behavior on incoming connections.
+         *
+         * The socket timeout logic is set up on connection, so changing this
+         * value only affects new connections to the server, not any existing connections.
+         * @since v8.4.0
+         */
+        timeout: number;
+        /**
          * Throws ERR_HTTP2_INVALID_SETTING_VALUE for invalid settings values.
          * Throws ERR_INVALID_ARG_TYPE for invalid settings argument.
          */
@@ -2055,6 +2066,26 @@ declare module "node:http2" {
          */
         writeEarlyHints(hints: Record<string, string | string[]>): void;
         /**
+         * Sends an arbitrary HTTP 1xx informational response, equivalent in HTTP/2 to a
+         * `HEADERS` frame whose `:status` pseudo-header is a 1xx code. May be called
+         * multiple times before the final response. After the final response headers
+         * have been sent, this method is a no-op and returns `false`.
+         *
+         * This is the generic equivalent of `response.writeContinue()` and
+         * `response.writeEarlyHints()`.
+         *
+         * ```js
+         * response.writeInformation(110, { 'X-Progress': '50%' });
+         * ```
+         * @since v26.2.0
+         * @param statusCode An HTTP 1xx informational status code, between `100`
+         * and `199` inclusive, excluding `101` (Switching Protocols) which is not
+         * allowed in HTTP/2.
+         * @param headers An optional object of headers to send with the
+         * informational response.
+         */
+        writeInformation(statusCode: number, headers?: OutgoingHttpHeaders): boolean;
+        /**
          * Sends a response header to the request. The status code is a 3-digit HTTP
          * status code, like `404`. The last argument, `headers`, are the response headers.
          *
@@ -2171,6 +2202,7 @@ declare module "node:http2" {
         const HTTP2_HEADER_AUTHORITY: string;
         const HTTP2_HEADER_SCHEME: string;
         const HTTP2_HEADER_PATH: string;
+        const HTTP2_HEADER_PROTOCOL: string;
         const HTTP2_HEADER_ACCEPT_CHARSET: string;
         const HTTP2_HEADER_ACCEPT_ENCODING: string;
         const HTTP2_HEADER_ACCEPT_LANGUAGE: string;
@@ -2232,6 +2264,25 @@ declare module "node:http2" {
         const HTTP2_HEADER_HTTP2_SETTINGS: string;
         const HTTP2_HEADER_KEEP_ALIVE: string;
         const HTTP2_HEADER_PROXY_CONNECTION: string;
+        const HTTP2_HEADER_ALT_SVC: string;
+        const HTTP2_HEADER_ORIGIN: string;
+        const HTTP2_HEADER_TRAILER: string;
+        const HTTP2_HEADER_FORWARDED: string;
+        const HTTP2_HEADER_PRIORITY: string;
+        const HTTP2_HEADER_ACCESS_CONTROL_MAX_AGE: string;
+        const HTTP2_HEADER_CONTENT_SECURITY_POLICY: string;
+        const HTTP2_HEADER_TIMING_ALLOW_ORIGIN: string;
+        const HTTP2_HEADER_UPGRADE_INSECURE_REQUESTS: string;
+        const HTTP2_HEADER_EARLY_DATA: string;
+        const HTTP2_HEADER_X_CONTENT_TYPE_OPTIONS: string;
+        const HTTP2_HEADER_X_FORWARDED_FOR: string;
+        const HTTP2_HEADER_X_FRAME_OPTIONS: string;
+        const HTTP2_HEADER_X_XSS_PROTECTION: string;
+        const HTTP2_HEADER_DNT: string;
+        const HTTP2_HEADER_EXPECT_CT: string;
+        const HTTP2_HEADER_PURPOSE: string;
+        const HTTP2_HEADER_TK: string;
+        const HTTP2_HEADER_WARNING: string;
         const HTTP2_METHOD_ACL: string;
         const HTTP2_METHOD_BASELINE_CONTROL: string;
         const HTTP2_METHOD_BIND: string;

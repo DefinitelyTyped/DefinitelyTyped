@@ -234,6 +234,10 @@ Module.Module === Module;
         },
     });
     moduleHooks.deregister();
+    moduleHooks[Symbol.dispose](); // $ExpectType void
+    {
+        using disposableHooks = Module.registerHooks({});
+    }
 
     // @ts-expect-error asynchronous hooks should be rejected by the synchronous API
     Module.registerHooks({ load, resolve });
