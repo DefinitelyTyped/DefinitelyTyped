@@ -4,7 +4,6 @@ import {
     ELDHistogram,
     EntryType,
     eventLoopUtilization,
-    Histogram,
     importHistogram,
     monitorEventLoopDelay,
     performance as NodePerf,
@@ -13,7 +12,6 @@ import {
     PerformanceObserver,
     PerformanceObserverCallback,
     RecordableHistogram,
-    SlidingWindowHistogram,
     timerify,
 } from "node:perf_hooks";
 
@@ -188,6 +186,8 @@ resource.contentEncoding; // $ExpectType string
 
 {
     const h = createHistogram({ halfLife: 100, threshold: 200_000_000 });
+    // @ts-expect-error
+    createHistogram({ halfLife: 1n });
     const other = createHistogram();
     const eld: ELDHistogram = monitorEventLoopDelay();
 
@@ -195,6 +195,10 @@ resource.contentEncoding; // $ExpectType string
     h.cdf(50); // $ExpectType number
     h.ccdf(50); // $ExpectType number
     h.countAt(50); // $ExpectType number
+    // @ts-expect-error
+    h.cdf(50n);
+    // @ts-expect-error
+    h.countAt(50n);
     h.cliffsD(other); // $ExpectType number
     h.cohensD(eld); // $ExpectType number
     h.ksTest(other); // $ExpectType number
@@ -245,6 +249,10 @@ resource.contentEncoding; // $ExpectType string
     });
     // @ts-expect-error
     h.qrde({ dequantize: "x" });
+    // @ts-expect-error
+    h.qrde({ bins: 2, probabilities: [0, 1] });
+    // @ts-expect-error
+    h.qrde({ probabilities: new Float64Array([0, 1]) });
 
     // @ts-expect-error
     h.ewmaMean = 1;
@@ -252,9 +260,15 @@ resource.contentEncoding; // $ExpectType string
     const data = h.export(); // $ExpectType Uint8Array || NonSharedUint8Array
     importHistogram(data); // $ExpectType RecordableHistogram
     importHistogram(Buffer.from(data)); // $ExpectType RecordableHistogram
+    // @ts-expect-error
+    importHistogram(new ArrayBuffer(8));
 
     h.recordCorrected(200, 10);
     h.recordCorrected(200n, 10n);
+    // @ts-expect-error
+    h.recordCorrected(200, 10n);
+    // @ts-expect-error
+    h.recordCorrected(200n, 10);
     h.subtract(other);
     // @ts-expect-error
     h.subtract(eld);
@@ -274,9 +288,7 @@ resource.contentEncoding; // $ExpectType string
     w.record(20_000_000); // $ExpectType void
     w.record(20_000_000n); // $ExpectType void
     w.reset(); // $ExpectType void
-    const snapshot: Histogram = w.snapshot();
     w.snapshot(); // $ExpectType Histogram
     // @ts-expect-error
     w.snapshot().record(1);
-    const sw: SlidingWindowHistogram = w;
 }

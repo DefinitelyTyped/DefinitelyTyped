@@ -40,7 +40,7 @@ declare module "node:fs/promises" {
         WriteStream,
         WriteVResult,
     } from "node:fs";
-    import { ByteReadableStream, SyncByteReadableStream, SyncTransform, Transform, Writer } from "node:stream/iter";
+    import { ByteReadableStream, Transform, Writer } from "node:stream/iter";
     import { ReadableStream } from "node:stream/web";
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
@@ -104,29 +104,6 @@ declare module "node:fs/promises" {
          * Maximum number of bytes to read before ending the
          * iterator. Reads stop when `limit` bytes have been delivered or EOF is
          * reached, whichever comes first.
-         */
-        limit?: number | undefined;
-        /**
-         * Size in bytes of the buffer allocated for each
-         * read operation.
-         * @default 131072
-         */
-        chunkSize?: number | undefined;
-    }
-    interface PullSyncOptions {
-        /**
-         * Close the file handle when the stream ends.
-         * @default false
-         */
-        autoClose?: boolean | undefined;
-        /**
-         * Byte offset to begin reading from. When specified,
-         * reads use explicit positioning.
-         */
-        start?: number | undefined;
-        /**
-         * Maximum number of bytes to read before ending the
-         * iterator.
          */
         limit?: number | undefined;
         /**
@@ -319,38 +296,6 @@ declare module "node:fs/promises" {
          */
         pull(...transforms: Transform[]): ByteReadableStream;
         pull(...args: [...transforms: Transform[], options: PullOptions]): ByteReadableStream;
-        /**
-         * Synchronous counterpart of [`filehandle.pull()`](https://nodejs.org/docs/latest-v26.x/api/fs.html#filehandlepulltransforms-options). Returns a sync iterable
-         * that reads the file using synchronous I/O on the main thread. Reads are
-         * performed in `chunkSize`-byte chunks (default 128 KB).
-         *
-         * The file handle is locked while the iterable is being consumed. Unlike the
-         * async `pull()`, this method does not support `AbortSignal` since all
-         * operations are synchronous.
-         *
-         * This function is only available when the `--experimental-stream-iter` flag is
-         * enabled.
-         *
-         * ```js
-         * import { open } from 'node:fs/promises';
-         * import { textSync, pipeToSync } from 'node:stream/iter';
-         * import { compressGzipSync, decompressGzipSync } from 'node:zlib/iter';
-         *
-         * const fh = await open('input.txt', 'r');
-         *
-         * // Read as text (sync)
-         * console.log(textSync(fh.pullSync({ autoClose: true })));
-         *
-         * // Sync compress pipeline: file -> gzip -> file
-         * const src = await open('input.txt', 'r');
-         * const dst = await open('output.gz', 'w');
-         * pipeToSync(src.pullSync(compressGzipSync(), { autoClose: true }), dst.writer({ autoClose: true }));
-         * ```
-         * @since v25.9.0
-         * @experimental
-         */
-        pullSync(...transforms: SyncTransform[]): SyncByteReadableStream;
-        pullSync(...args: [...transforms: SyncTransform[], options: PullSyncOptions]): SyncByteReadableStream;
         /**
          * Request that all data for the open file descriptor is flushed to the storage
          * device. The specific implementation is operating system and device specific.

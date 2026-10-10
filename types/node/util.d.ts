@@ -774,7 +774,6 @@ declare module "node:util" {
         signal?: AbortSignal | undefined;
     }
     /**
-     * The function returned by `util.debounce()`.
      * @since v26.10.0
      */
     export interface DebouncedFunction<Args extends any[], Result> {
@@ -904,7 +903,6 @@ declare module "node:util" {
         strict?: boolean | undefined;
     }
     /**
-     * The function returned by `util.throttle()`.
      * @since v26.10.0
      */
     export interface ThrottledFunction<Args extends any[], Result> {

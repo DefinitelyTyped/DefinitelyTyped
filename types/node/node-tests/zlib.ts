@@ -324,6 +324,7 @@ zstdDecompressSync(compressMe, { params: { [constants.ZSTD_d_windowLogMax]: 100 
         yield entry;
     })());
     zipFiles([["/tmp/a.txt", "a.txt"]]); // $ExpectType Readable
+    zipFiles([["/tmp/a.txt", "a.txt"]] as const); // $ExpectType Readable
     zipFiles(new Map([["/tmp/a.txt", "a.txt"]]), "comment"); // $ExpectType Readable
     // $ExpectType Readable
     zipFiles(Object.entries({ "/tmp/a.txt": "a.txt" }), { followSymlinks: false, comment: "c", baseOffset: 0 });
@@ -331,11 +332,14 @@ zstdDecompressSync(compressMe, { params: { [constants.ZSTD_d_windowLogMax]: 100 
     // getMaxZipContentSize / setMaxZipContentSize
     getMaxZipContentSize(); // $ExpectType number
     setMaxZipContentSize(1024); // $ExpectType void
+    // @ts-expect-error
+    setMaxZipContentSize("1024");
 
     // ZipBuffer
     const archive = Buffer.concat([...createZipArchiveSync([entry])]);
-    new ZipBuffer(new DataView(archive.buffer, archive.byteOffset, archive.byteLength));
-    new ZipBuffer(new ArrayBuffer(0));
+    new ZipBuffer(new DataView(archive.buffer, archive.byteOffset, archive.byteLength)); // $ExpectType ZipBuffer
+    new ZipBuffer(new ArrayBuffer(0)); // $ExpectType ZipBuffer
+    ZipEntry.read(archive); // $ExpectType Iterator<ZipEntry, undefined, any>
     const zb = new ZipBuffer(archive);
     zb.comment; // $ExpectType string
     zb.size; // $ExpectType number
@@ -369,6 +373,8 @@ zstdDecompressSync(compressMe, { params: { [constants.ZSTD_d_windowLogMax]: 100 
     // @ts-expect-error
     new ZipFile();
     const zf = await ZipFile.open("archive.zip", { writable: true }); // $ExpectType ZipFile
+    // @ts-expect-error
+    ZipFile.open(new URL("file:///archive.zip"));
     ZipFile.openSync("archive.zip"); // $ExpectType ZipFile
     zf.comment; // $ExpectType string
     zf.size; // $ExpectType number

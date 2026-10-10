@@ -494,6 +494,10 @@ import { Worker } from "node:worker_threads";
     net.BlockList.isBlockList(bl); // $ExpectType boolean
     bl.addAddresses(["127.0.0.1", "127.0.0.2"], "ipv4");
     bl.addAddresses([sockAddr]);
+    bl.addAddresses(["127.0.0.3", sockAddr]);
+    bl.addAddresses(["127.0.0.4"] as string[] | net.SocketAddress[]);
+    // @ts-expect-error
+    bl.addAddresses([1]);
     bl.addCIDR("10.0.0.0/8");
     bl.addCIDRs(net.BlockList.PRIVATE_RANGES);
     net.BlockList.PRIVATE_RANGES; // $ExpectType readonly string[]
@@ -524,6 +528,7 @@ import { Worker } from "node:worker_threads";
     boundSocket.isPipe = true;
 
     new net.Socket({ handle: new net.BoundSocket() });
+    new net.BoundSocket({ path: "/tmp/node.sock" }).isPipe; // $ExpectType boolean
 }
 
 {

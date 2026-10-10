@@ -1016,7 +1016,23 @@ declare module "node:sqlite" {
          * Builds linked against an older SQLite with `--shared-sqlite` do not expose them,
          * and passing either name throws `ERR_INVALID_ARG_VALUE`.
          * @since v26.8.0
-         * @param counter The name of the counter to read.
+         * @param counter The name of the counter to read. One of:
+         * * `'fullscanStep'` The number of times SQLite has stepped forward in a table
+         *   as part of a full table scan.
+         * * `'sort'` The number of sort operations that have occurred.
+         * * `'autoindex'` The number of rows inserted into transient indices that were
+         *   created automatically to help joins run faster.
+         * * `'vmStep'` The number of virtual machine operations executed by the
+         *   prepared statement.
+         * * `'reprepare'` The number of times the statement has been automatically
+         *   reprepared due to schema changes or changes to bound parameters.
+         * * `'run'` The number of execution cycles started by the prepared statement.
+         * * `'filterMiss'` The number of times the Bloom filter returned a result that
+         *   required the join step to be processed as normal.
+         * * `'filterHit'` The number of times a join step was bypassed because a Bloom
+         *   filter returned not-found.
+         * * `'memused'` The approximate number of bytes of heap memory used to store
+         *   the prepared statement.
          * @returns The current value of the requested counter.
          */
         stat(

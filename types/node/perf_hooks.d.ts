@@ -768,7 +768,8 @@ declare module "node:perf_hooks" {
          * @param val The value to record.
          * @param expectedInterval The expected recording interval.
          */
-        recordCorrected(val: number | bigint, expectedInterval: number | bigint): void;
+        recordCorrected(val: number, expectedInterval: number): void;
+        recordCorrected(val: bigint, expectedInterval: bigint): void;
         /**
          * Adds the values from `other` to this histogram.
          * @since v17.4.0, v16.14.0
@@ -891,19 +892,7 @@ declare module "node:perf_hooks" {
             upper: number;
         };
     }
-    interface HistogramQRDEOptions {
-        /**
-         * The number of equal-probability density bins to return.
-         * Must be between 1 and 1000. Cannot be used with `probabilities`.
-         * @default 100
-         */
-        bins?: number | undefined;
-        /**
-         * Custom probability boundaries. The array must
-         * contain between 2 and 1001 strictly increasing values, start with `0`, and
-         * end with `1`. Cannot be used with `bins`.
-         */
-        probabilities?: readonly number[] | undefined;
+    interface HistogramQRDEBaseOptions {
         /**
          * Controls whether repeated bucket values are spread
          * deterministically over their equivalent-value ranges.
@@ -918,6 +907,25 @@ declare module "node:perf_hooks" {
          */
         cache?: boolean | undefined;
     }
+    interface HistogramQRDEBinsOptions extends HistogramQRDEBaseOptions {
+        /**
+         * The number of equal-probability density bins to return.
+         * Must be between 1 and 1000. Cannot be used with `probabilities`.
+         * @default 100
+         */
+        bins?: number | undefined;
+        probabilities?: undefined;
+    }
+    interface HistogramQRDEProbabilitiesOptions extends HistogramQRDEBaseOptions {
+        bins?: undefined;
+        /**
+         * Custom probability boundaries. The array must
+         * contain between 2 and 1001 strictly increasing values, start with `0`, and
+         * end with `1`. Cannot be used with `bins`.
+         */
+        probabilities: readonly number[];
+    }
+    type HistogramQRDEOptions = HistogramQRDEBinsOptions | HistogramQRDEProbabilitiesOptions;
     interface HistogramQRDEResult {
         /**
          * The probability boundaries used by the
@@ -1166,12 +1174,6 @@ declare module "node:perf_hooks" {
          */
         recordsPerChunk: number;
     }
-    /**
-     * Options for `perf_hooks.createSlidingWindowHistogram()`.
-     *
-     * Typing quirk: modeled as a union so that exactly one of `chunkDuration` and
-     * `recordsPerChunk` is accepted, as required by the documentation.
-     */
     type CreateSlidingWindowHistogramOptions =
         | CreateTimeBasedSlidingWindowHistogramOptions
         | CreateCountBasedSlidingWindowHistogramOptions;

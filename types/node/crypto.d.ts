@@ -419,7 +419,7 @@ declare module "node:crypto" {
     }
     /**
      * `algorithm` must be a non-empty provider MAC name. The MAC-specific properties
-     * listed above are extensions to the standard `stream.transform` options and
+     * listed above (see `MacOptions`) are extensions to the standard `stream.transform` options and
      * are passed only when the selected provider implementation advertises the
      * corresponding parameter with the expected type. A supplied MAC-specific option
      * that the selected implementation does not support causes an error.

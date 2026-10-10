@@ -590,6 +590,10 @@ util.setTraceSigInt(true);
 
 {
     const throttled = util.throttle(async (id: number) => id.toString(), 2, 1_000);
+
+    util.throttle(function() {
+        this; // $ExpectType ThrottledFunction<[], void>
+    }, 1, 100);
     throttled; // $ExpectType ThrottledFunction<[id: number], Promise<string>>
     throttled(1); // $ExpectType Promise<string>
     // @ts-expect-error

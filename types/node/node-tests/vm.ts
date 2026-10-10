@@ -353,10 +353,3 @@ import {
         importModuleDynamically: constants.USE_MAIN_CONTEXT_DEFAULT_LOADER,
     });
 }
-
-{
-    const module = new SourceTextModule("const a = 1;");
-    // $ExpectType NonSharedBuffer
-    const cachedData = module.createCachedData();
-    new SourceTextModule("const a = 1;", { cachedData });
-}

@@ -482,6 +482,14 @@ declare module "node:net" {
          * platform-dependent. **Default:** `false`.
          */
         reusePort?: boolean | undefined;
+        /**
+         * Binds a Unix domain socket (or Windows named pipe) at the
+         * given path instead of a TCP endpoint. A leading `'\0'` selects the Linux
+         * abstract namespace. Mutually exclusive with `host`, `port`, `ipv6Only`, and
+         * `reusePort`; combining them throws `ERR_INVALID_ARG_VALUE`.
+         * @since v26.7.0
+         */
+        path?: string | undefined;
     }
     /**
      * Allows for the synchronous creation of a pre-bound socket, that can be passed
@@ -796,8 +804,7 @@ declare module "node:net" {
          * @param addresses An array of IPv4 or IPv6 addresses.
          * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
          */
-        addAddresses(addresses: readonly string[], type?: IPVersion): void;
-        addAddresses(addresses: readonly SocketAddress[]): void;
+        addAddresses(addresses: ReadonlyArray<string | SocketAddress>, type?: IPVersion): void;
         /**
          * Adds a subnet rule using CIDR notation. The address family is automatically
          * detected from the address (IPv6 if the address contains `':'`, IPv4

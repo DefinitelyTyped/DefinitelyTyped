@@ -215,7 +215,7 @@ declare module "node:zlib" {
         modified?: Date | undefined;
         /**
          * One of `'deflate'`, `'store'`, or `'zstd'`.
-         * @default 'deflate'
+         * @default 'deflate', except for directories and empty content, which are always stored
          */
         method?: "deflate" | "store" | "zstd" | undefined;
     }
@@ -389,7 +389,7 @@ declare module "node:zlib" {
         delete(name: string): boolean;
         /**
          * @since v26.8.0
-         * @returns of `[name, entry]` pairs, where `entry` is a `ZipEntry`.
+         * @returns Iterator of `[name, entry]` pairs, where `entry` is a `ZipEntry`.
          */
         entries(): NodeJS.Iterator<[string, ZipEntry]>;
         /**
@@ -408,7 +408,7 @@ declare module "node:zlib" {
         has(name: string): boolean;
         /**
          * @since v26.8.0
-         * @returns of entry names.
+         * @returns Iterator of entry names.
          */
         keys(): NodeJS.Iterator<string>;
         /**
@@ -430,7 +430,7 @@ declare module "node:zlib" {
         toBufferSync(options?: string | ZipArchiveOptions): NonSharedBuffer;
         /**
          * @since v26.8.0
-         * @returns of `ZipEntry`.
+         * @returns Iterator of `ZipEntry`.
          */
         values(): NodeJS.Iterator<ZipEntry>;
         [Symbol.iterator](): NodeJS.Iterator<[string, ZipEntry]>;
@@ -535,7 +535,7 @@ declare module "node:zlib" {
          * not mutate or reuse `buffer` while any of them is still in use.
          * @since v26.8.0
          * @param buffer A complete ZIP archive.
-         * @returns of `ZipEntry`.
+         * @returns Iterator of `ZipEntry`.
          */
         static read(buffer: NodeJS.ArrayBufferView | ArrayBuffer): NodeJS.Iterator<ZipEntry>;
         /**
@@ -696,7 +696,7 @@ declare module "node:zlib" {
          * `zipEntry.content()`, which verifies before returning anything) rather than
          * processing chunks as they arrive.
          * @since v26.8.0
-         * @returns of `Buffer` chunks of the entry's decompressed content.
+         * @returns AsyncIterator of `Buffer` chunks of the entry's decompressed content.
          */
         contentIterator(options?: ZipEntryContentOptions): NodeJS.AsyncIterator<Buffer>;
         [Symbol.dispose](): void;
@@ -894,14 +894,14 @@ declare module "node:zlib" {
         deleteSync(name: string): boolean;
         /**
          * @since v26.8.0
-         * @returns of `[name, entry]` pairs, where `entry` is a
+         * @returns Iterator of `[name, entry]` pairs, where `entry` is a
          * `Promise` fulfilled with a `ZipEntry`.
          */
         entries(): NodeJS.Iterator<[string, Promise<ZipEntry>]>;
         /**
          * The synchronous version of `zipFile.entries()`.
          * @since v26.8.0
-         * @returns of `[name, entry]` pairs, where `entry` is a resolved
+         * @returns Iterator of `[name, entry]` pairs, where `entry` is a resolved
          * `ZipEntry` (not a `Promise`).
          */
         entriesSync(): NodeJS.Iterator<[string, ZipEntry]>;
@@ -943,7 +943,7 @@ declare module "node:zlib" {
         has(name: string): boolean;
         /**
          * @since v26.8.0
-         * @returns of entry names.
+         * @returns Iterator of entry names.
          */
         keys(): NodeJS.Iterator<string>;
         /**
@@ -959,13 +959,13 @@ declare module "node:zlib" {
         stream(name: string, options?: ZipEntryContentOptions): Promise<stream.Readable>;
         /**
          * @since v26.8.0
-         * @returns of `Promise` objects, each fulfilled with a `ZipEntry`.
+         * @returns Iterator of `Promise` objects, each fulfilled with a `ZipEntry`.
          */
         values(): NodeJS.Iterator<Promise<ZipEntry>>;
         /**
          * The synchronous version of `zipFile.values()`.
          * @since v26.8.0
-         * @returns of resolved `ZipEntry` values (not `Promise`s).
+         * @returns Iterator of resolved `ZipEntry` values (not `Promise`s).
          */
         valuesSync(): NodeJS.Iterator<ZipEntry>;
     }
@@ -1090,7 +1090,7 @@ declare module "node:zlib" {
      * ```
      * @since v26.8.0
      * @experimental
-     * @param entries of `ZipEntry`.
+     * @param entries Iterable or AsyncIterable of `ZipEntry`.
      * @param options An archive comment, as a shorthand for `{ comment: options }`.
      * @returns A byte stream of the serialized archive.
      */
@@ -1114,9 +1114,9 @@ declare module "node:zlib" {
      * queued behind it are disposed, releasing any sources they hold.
      * @since v26.8.0
      * @experimental
-     * @param entries of `ZipEntry`.
+     * @param entries Iterable of `ZipEntry`.
      * @param options See `zlib.createZipArchive()`.
-     * @returns of `Buffer` chunks making up the serialized archive.
+     * @returns Iterator of `Buffer` chunks making up the serialized archive.
      */
     function createZipArchiveSync(
         entries: Iterable<ZipEntry>,
@@ -1150,12 +1150,12 @@ declare module "node:zlib" {
      * ```
      * @since v26.8.0
      * @experimental
-     * @param files of `[sourcePath, entryName]` string pairs. Any iterable
+     * @param files Iterable of `[sourcePath, entryName]` string pairs. Any iterable
      * works — an array, a `Map`, the result of `Object.entries()`, a generator.
      * @param options A string `options` is shorthand for `{ comment: options }`.
-     * @returns of `Buffer` chunks making up the serialized archive.
+     * @returns `stream.Readable` of `Buffer` chunks making up the serialized archive.
      */
-    function zipFiles(files: Iterable<[string, string]>, options?: string | ZipFilesOptions): stream.Readable;
+    function zipFiles(files: Iterable<readonly [string, string]>, options?: string | ZipFilesOptions): stream.Readable;
     /**
      * Creates and returns a new `ZstdCompress` object.
      * @since v22.15.0

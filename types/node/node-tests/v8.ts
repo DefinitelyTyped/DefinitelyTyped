@@ -116,6 +116,8 @@ v8.isStringOneByteRepresentation("你好"); // $ExpectType boolean
 v8.setHeapProfileNearHeapLimit(1); // $ExpectType void
 // @ts-expect-error limit is required
 v8.setHeapProfileNearHeapLimit();
+// @ts-expect-error
+v8.setHeapProfileNearHeapLimit("1");
 
 {
     const serializer = new v8.Serializer();

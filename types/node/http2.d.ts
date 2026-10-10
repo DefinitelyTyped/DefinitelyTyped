@@ -1305,6 +1305,7 @@ declare module "node:http2" {
          * The socket timeout logic is set up on connection, so changing this
          * value only affects new connections to the server, not any existing connections.
          * @since v8.4.0
+         * @default 0
          */
         timeout: number;
         /**
