@@ -580,3 +580,17 @@ const arm64Relocator = new Arm64Relocator(ptr("0x1234"), arm64Writer);
 arm64Relocator.readUntilResumable("online");
 // $ExpectType Arm64Register | null
 arm64Relocator.pickExitReg(ptr("0x1234"));
+
+const record = Memory.alloc(16);
+// $ExpectType number
+record.readU32(4);
+// $ExpectType NativePointer
+record.writeU32(1337, 4);
+// $ExpectType ArrayBuffer | null
+record.readByteArray(4, 8);
+// $ExpectType string | null
+record.readUtf8String(-1, 8);
+// $ExpectType NativePointer
+record.writeUtf8String("abc", 8);
+// $ExpectType ArrayBuffer | null
+record.readVolatile(2, 9);

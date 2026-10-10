@@ -1,7 +1,7 @@
 export namespace UIkit {
     const util: {
         /** Sets up a function that will be called whenever the specified event is delivered to the target. */
-        on(element: UIkitElement, type: string, listener: (e: Event) => void): void;
+        on(element: UIkitElement, type: string, listener: (e: Event) => void): () => void;
         /** Removes an event listener previously registered with on. */
         off(element: UIkitElement, type: string, listener: (e: Event) => void): void;
         [key: string]: any;
@@ -17,7 +17,8 @@ export namespace UIkit {
 
     function use(plugin: Plugin): typeof UIkit;
 
-    type UIkitElement = object | HTMLElement | string;
+    // UIkitElement with null type will not throw type error on Vue templateRef's.
+    type UIkitElement = object | HTMLElement | string | null;
     type UIkitNodes = NodeList | HTMLCollection | UIkitNode;
     type UIkitNode = Node;
 
@@ -40,6 +41,14 @@ export namespace UIkit {
         | "right-bottom";
     type UIkitStretch = "x" | "y" | boolean;
 
+    // component $emit types
+    type UIkitUpdateType =
+        | "update"
+        | "resize"
+        | "scroll"
+        | "resizeViewport"
+        | "computed";
+
     // Base classes
 
     interface Plugin {
@@ -48,6 +57,12 @@ export namespace UIkit {
     }
 
     interface UIkitElementBase {
+        /**
+         * Update the component.
+         * @param type Omitting the type will trigger an update event.
+         */
+        $emit(type?: UIkitUpdateType): void;
+
         /**
          * Destroys the component.
          * @param removeEl If true, also removes the element from the DOM.
@@ -59,9 +74,13 @@ export namespace UIkit {
     }
 
     /** A helper type that represents a UIkit initialization function. */
-    type UIkitFunction<TOptions extends {}, TElement extends UIkitElementBase = UIkitElementBase> = (
+    type UIkitFunction<
+        TOptions extends {},
+        TElement extends UIkitElementBase = UIkitElementBase,
+        TPrimaryOption = never,
+    > = (
         element: UIkitElement,
-        options?: TOptions,
+        options?: TOptions | TPrimaryOption,
     ) => TElement;
 
     // Core elements
@@ -122,7 +141,7 @@ export namespace UIkit {
         close(): void;
     }
 
-    type Alert = UIkitFunction<UIkitAlertOptions, UIkitAlertElement>;
+    type Alert = UIkitFunction<UIkitAlertOptions, UIkitAlertElement, boolean | string>;
 
     // Cover
 
@@ -135,7 +154,7 @@ export namespace UIkit {
         height?: number;
     }
 
-    type Cover = UIkitFunction<UIkitCoverOptions>;
+    type Cover = UIkitFunction<UIkitCoverOptions, UIkitElementBase, boolean>;
 
     // Drop, Dropdown & Dropnav base options
 
@@ -204,7 +223,7 @@ export namespace UIkit {
         hide(delay?: boolean): void;
     }
 
-    type Drop = UIkitFunction<UIkitDropOptions, UIkitDropElement>;
+    type Drop = UIkitFunction<UIkitDropOptions, UIkitDropElement, UIkitPosition>;
 
     // Dropdown
 
@@ -261,7 +280,7 @@ export namespace UIkit {
         target?: UIkitCssSelector | boolean;
     }
 
-    type FormCustom = UIkitFunction<UIkitFormOptions>;
+    type FormCustom = UIkitFunction<UIkitFormOptions, UIkitElementBase, UIkitCssSelector | boolean>;
 
     // Grid
 
@@ -296,11 +315,16 @@ export namespace UIkit {
         row?: boolean;
     }
 
-    type HeightMatch = UIkitFunction<UIkitHeightMatchOptions>;
+    type HeightMatch = UIkitFunction<UIkitHeightMatchOptions, UIkitElementBase, string>;
 
     // Placeholder height
 
-    type HeightPlaceholder = UIkitFunction<{}>;
+    interface UIkitHeightPlaceholderOptions {
+        /** Elements that should match. */
+        target?: string;
+    }
+
+    type HeightPlaceholder = UIkitFunction<UIkitHeightPlaceholderOptions, UIkitElementBase, string>;
 
     // Height viewport
 
@@ -333,7 +357,7 @@ export namespace UIkit {
         svg: Promise<SVGElement>;
     }
 
-    type Icon = UIkitFunction<UIkitIconOptions, UIkitIconElement> & {
+    type Icon = UIkitFunction<UIkitIconOptions, UIkitIconElement, Promise<SVGElement>> & {
         /** Adds an icon to the library. */
         add(name: string, svg: string): void;
         /** Adds a set of icons to the library. */
@@ -367,7 +391,7 @@ export namespace UIkit {
         target?: string | boolean;
     }
 
-    type Img = UIkitFunction<UIkitImageOptions>;
+    type Img = UIkitFunction<UIkitImageOptions, UIkitElementBase, string>;
 
     // Inverse
 
@@ -546,9 +570,11 @@ export namespace UIkit {
 
     // Ofcanvas
 
+    type UIkitOffcanvasMode = "slide" | "reveal" | "push" | "none";
+
     interface UIkitOffcanvasOptions {
         /** Off-canvas animation mode (slide, reveal, push or none). */
-        mode?: "slide" | "reveal" | "push" | "none";
+        mode?: UIkitOffcanvasMode;
         /** Flip off-canvas to the right side. */
         flip?: boolean;
         /** Display the off-canvas together with an overlay. */
@@ -568,7 +594,7 @@ export namespace UIkit {
         hide(): void;
     }
 
-    type Offcanvas = UIkitFunction<UIkitOffcanvasOptions, UIkitOffcanvasElement>;
+    type Offcanvas = UIkitFunction<UIkitOffcanvasOptions, UIkitOffcanvasElement, UIkitOffcanvasMode>;
 
     // Scroll
     interface UIkitScrollOptions {
@@ -621,7 +647,7 @@ export namespace UIkit {
         overflow?: boolean;
     }
 
-    type Scrollspy = UIkitFunction<UIkitScrollspyOptions>;
+    type Scrollspy = UIkitFunction<UIkitScrollspyOptions, UIkitElementBase, string>;
     type ScrollspyNav = UIkitFunction<UIkitScrollspyNavOptions>;
 
     // Sticky
@@ -686,7 +712,7 @@ export namespace UIkit {
         svg: Promise<SVGElement>;
     }
 
-    type Svg = UIkitFunction<UIkitSvgOptions, UIkitSvgElement>;
+    type Svg = UIkitFunction<UIkitSvgOptions, UIkitSvgElement, string>;
 
     // Switcher
 
@@ -717,7 +743,7 @@ export namespace UIkit {
         show(index: string | number | UIkitNode): void;
     }
 
-    type Switcher = UIkitFunction<UIkitSwitcherOptions, UIkitSwitcherElement>;
+    type Switcher = UIkitFunction<UIkitSwitcherOptions, UIkitSwitcherElement, UIkitCssSelector>;
 
     // Tab
     interface UIkitTabOptions {
@@ -745,7 +771,7 @@ export namespace UIkit {
         show(index: string | number | UIkitNode): void;
     }
 
-    type Tab = UIkitFunction<UIkitTabOptions, UIkitTabElement>;
+    type Tab = UIkitFunction<UIkitTabOptions, UIkitTabElement, UIkitCssSelector>;
 
     // Toggle
 
@@ -771,7 +797,7 @@ export namespace UIkit {
         toggle(): void;
     }
 
-    type Toggle = UIkitFunction<UIkitToggleOptions, UIkitToggleElement>;
+    type Toggle = UIkitFunction<UIkitToggleOptions, UIkitToggleElement, UIkitElement>;
 
     // Video
 
@@ -782,7 +808,7 @@ export namespace UIkit {
         automute?: boolean;
     }
 
-    type Video = UIkitFunction<UIkitVideoOptions>;
+    type Video = UIkitFunction<UIkitVideoOptions, UIkitElementBase, boolean | string>;
 
     // Components
 
@@ -817,7 +843,7 @@ export namespace UIkit {
         duration?: number;
     }
 
-    type Filter = UIkitFunction<UIkitFilterOptions>;
+    type Filter = UIkitFunction<UIkitFilterOptions, UIkitElementBase, string>;
 
     // Lightbox and panel options
 

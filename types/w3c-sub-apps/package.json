@@ -5,7 +5,7 @@
     "name": "@types/w3c-sub-apps",
     "version": "0.0.9999",
     "projects": [
-        "https://wicg.github.io/sub-apps/"
+        "https://github.com/WICG/sub-apps/blob/main/README.md"
     ],
     "devDependencies": {
         "@types/web": "*",

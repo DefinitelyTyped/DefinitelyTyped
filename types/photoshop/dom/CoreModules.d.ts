@@ -8,8 +8,9 @@ import {
     RGB32ColorDescriptor,
     RGBColorDescriptor,
 } from "../util/colorTypes";
+import { Dimensions, SimpleBounds } from "./types/GeneralTypes";
 /** @ignore */
-declare type NotificationListener = (name: string, descriptor: ActionDescriptor) => void;
+declare type NotificationListener = (eventName: string, descriptor: ActionDescriptor) => void;
 /** @ignore */
 export interface ActionReference {
     [index: string]: number | string;
@@ -18,15 +19,6 @@ export interface ActionReference {
 export interface ActionDescriptor {
     _obj: string;
     [prop: string]: any;
-}
-/**
- * @targetfolder objects/returnobjects
- * @minVersion 22.5
- */
-interface Scheduling {
-    playLevel?: number;
-    eventLevel?: number;
-    timeOut?: number;
 }
 /**
  * @optionobject
@@ -62,22 +54,18 @@ export interface BatchPlayCommandOptions {
      * @minVersion 23.0
      */
     suppressPlayLevelIncrease?: boolean;
-    /**
-     * Do not stop a batchPlay when a descriptor fails and continue with remaining descriptors in batch.
-     * @minVersion 24.5
-     */
-    continueOnError?: boolean;
 }
-export declare type CPUVendorKind = "Intel" | "AMD" | "ARM" | "Unknown";
 /**
+ * Return object.
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
 export interface CPUInfo {
     /**
+     * One of 'Intel', 'AMD', 'ARM', or 'Unknown'
      * @minVersion 23.0
      */
-    vendor: CPUVendorKind;
+    vendor: string;
     /**
      * @minVersion 23.0
      */
@@ -96,6 +84,7 @@ export interface CPUInfo {
     emulationMode?: "rosetta2";
 }
 /**
+ * Return object.
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -130,6 +119,7 @@ export interface OpenGLDeviceInfo {
     glDriver: string;
 }
 /**
+ * Return object.
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -176,6 +166,7 @@ export interface OpenCLDeviceInfo {
     clPlatformVersion: string;
 }
 /**
+ * Return object.
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -190,6 +181,56 @@ export interface GPUInfo {
     clgpuInfoList?: OpenCLDeviceInfo[];
 }
 /**
+ * @optionobject
+ * @targetfolder objects/options
+ * @minVersion 23.0
+ */
+export interface DisplayConfigurationOptions {
+    /**
+     * @minVersion 23.0
+     */
+    physicalResolution?: true;
+}
+/**
+ * This object literal contains information about the properties of the connected display.
+ *
+ * Further discussion of the units may be found on [Display Units](../../media/displayunits)
+ * Return object.
+ * @targetfolder objects/returnobjects
+ * @minVersion 23.0
+ */
+export interface DisplayConfiguration {
+    /**
+     * @minVersion 23.0
+     */
+    globalBounds: SimpleBounds;
+    /**
+     * @minVersion 23.0
+     */
+    globalWorkingBounds: SimpleBounds;
+    /**
+     * @minVersion 23.0
+     */
+    isPrimary: boolean;
+    /**
+     * @minVersion 26.5
+     */
+    maximumExtendedDynamicRangeColorComponent: number;
+    /**
+     * @minVersion 23.0
+     */
+    physicalResolution?: Dimensions;
+    /**
+     * @minVersion 23.0
+     */
+    scaleFactor: number;
+    /**
+     * @minVersion 26.3
+     */
+    screensHaveSeparateSpaces: boolean;
+}
+/**
+ * Return object.
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -217,7 +258,7 @@ interface LayerTreeInfo {
  * or attach listeners using this module.
  *
  * ```javascript
- * var PhotoshopAction = require('photoshop').action;
+ * const {action} = require('photoshop');
  * ```
  *
  * @targetfolder media
@@ -227,34 +268,52 @@ export declare namespace photoshopAction {
      * Performs a batchPlay call with the provided commands. Equivalent
      * to an `executeAction` in ExtendScript.
      * ```javascript
-     * var target = { _ref: 'layer', _enum: 'ordinal', _value: 'targetEnum'}
-     * var commands = [{ _obj: 'hide', _target: target }]
-     * await PhotoshopAction.batchPlay(commands)
+     * const target = { _ref: 'layer', _enum: 'ordinal', _value: 'targetEnum' };
+     * const commands = [{ _obj: 'hide', _target: target }];
+     * await action.batchPlay(commands);
      * ```
      * @minVersion 23.0
      */
-    function batchPlay(
+    export function batchPlay(
         commands: ActionDescriptor[],
         options?: BatchPlayCommandOptions,
-    ): Promise<ActionDescriptor[]>;
+    ): Promise<Array<ActionDescriptor>>;
     /**
-     * Attach a listener to a Photoshop event. A callback in the form
-     * of `(eventName: string, descriptor: Descriptor) => void` will be performed.
+     * Performs a batchPlay call with the provided commands. Equivalent
+     * to an `executeAction` in ExtendScript.
      * ```javascript
-     * await PhotoshopAction.addNotificationListener(['open'], onOpenNewDocument)
+     * const target = { _ref: 'layer', _enum: 'ordinal', _value: 'targetEnum' };
+     * const commands = [{ _obj: 'hide', _target: target }];
+     * await action.batchPlay(commands);
      * ```
+     * @minVersion 23.1
+     */
+    export function batchPlaySync(
+        commands: ActionDescriptor[],
+        options?: BatchPlayCommandOptions,
+    ): Array<ActionDescriptor>;
+    /**
+     * Attach a callback function to one or more Photoshop events.
+     * The callback has the form `(eventName: string, descriptor: ActionDescriptor) => void`.
+     * ```javascript
+     * await action.addNotificationListener(['open'], onOpenDocumentHandler);
+     * ```
+     * A [table of events is available](./eventcodes#action-events) or
+     * the [introspection methods described under `batchPlay`](./batchplay) may be employed.
+     *
+     * @async
      * @minVersion 23.0
      */
-    function addNotificationListener(events: string[], notifier: NotificationListener): Promise<void>;
+    export function addNotificationListener(events: string[], callback: NotificationListener): Promise<void>;
     /**
      * Detaches a listener from a Photoshop event.
-     * See [addNotificationListener](#addNotificationListener)
+     * See [addNotificationListener](#addnotificationlistener)
      * ```javascript
-     * await PhotoshopAction.removeNotificationListener(['open'], onOpenNewDocument)
+     * await action.removeNotificationListener(['open'], onOpenNewDocument);
      * ```
      * @minVersion 23.0
      */
-    function removeNotificationListener(events: string[], notifier: NotificationListener): Promise<void>;
+    export function removeNotificationListener(events: string[], listener: NotificationListener): Promise<void>;
     /**
      * Synchronously validates the given action reference, returning true if it still
      * exists. For example, calling this with a closed document would return false.
@@ -278,21 +337,54 @@ export declare namespace photoshopAction {
      *
      * @minVersion 23.1
      */
-    function validateReference(ref: ActionReference | ActionReference[]): boolean;
+    export function validateReference(ref: ActionReference | ActionReference[]): boolean;
+    interface RecordActionOptions {
+        /**
+         * User visible string for the Actions panel.
+         */
+        name: string;
+        /**
+         * Name of top level JavaScript function callback.
+         */
+        methodName: string;
+    }
+    /**
+     * Records this plugin's action to an active Action recording.
+     * See [Action Recording](./action-recording/) for usage and manifest requirements.
+     *
+     * ```javascript
+     * await action.recordAction({ name: 'My Command', methodName: 'actionHandler'}, {prop: value} );
+     * ```
+     * When the action is invoked, the following top level JavaScript function will be invoked:
+     * ```javascript
+     * async function actionHandler(executionContext, info) {
+     *     let propValue = info['prop'];
+     * }
+     * ```
+     * @param options
+     * @param info Object with action specific information. See [Action Recording](./action-recording/).
+     * @minVersion 25.0
+     */
+    export function recordAction(options: RecordActionOptions, info: ActionDescriptor): Promise<void>;
     /**
      * Return the identifier number assigned to an action string value.
      * If the string is not already registered, a new ID will be created and returned.
      * @minVersion 24.0
      */
-    function getIDFromString(value: string): number;
+    export function getIDFromString(value: string): number;
+    export {};
 }
 /**
- * The module that allows access to specialized commands
- * within the application. Various application state can be
+ * The `core` module allows access to specialized commands
+ * within the application. Various application state properties can be
  * modified or queried here.
  *
+ * Some of these commands can be considered experimental.  Some will be integrated
+ * into the DOM at a later date. The use of which will then be easier, for example,
+ * removing the need to specify the document ID as an argument.
+ *
  * ```javascript
- * var PhotoshopCore = require('photoshop').core;
+ * const {core} = require('photoshop');
  * ```
  *
  * @targetfolder media
@@ -307,168 +399,79 @@ export declare namespace photoshopCore {
      */
     let apiVersion: number;
     /**
-     * Returns true if the plugin is currently in a modal state using [[executeAsModal]]
-     * @minVersion 23.1
-     */
-    function isModal(): boolean;
-    /**
-     * Given a Photoshop ZString (of format `"$$$/slash/separated/key=english default value"`),
-     * will return the translated string for the current UI language
-     * @minVersion 22.5
-     */
-    function translateUIString(zstring: string): string;
-    /**
-     * Invokes the menu command via its `commandID`. Returns false
-     * on failure, or if the command is not available.
-     * ```javascript
-     * // select all
-     * await PhotoshopCore.performMenuCommand({ commandID: 1017 })
-     * ```
-     * @minVersion 22.5
-     * @async
-     */
-    function performMenuCommand(options: MenuCommandOptions): Promise<PerformMenuCommandResult>;
-    /**
-     * Returns whether a command menu item is available for invoking.
-     * ```javascript
-     * // can a Fill be performed?
-     * var canFill = await PhotoshopCore.getMenuCommandState({ commandID: 1042 })
-     * ```
-     * @minVersion 22.5
-     * @async
-     */
-    function getMenuCommandState(options: MenuCommandOptions): Promise<[boolean]>;
-    /**
-     * Returns the localized menu title of the menu command item.
-     * ```javascript
-     * var renameLayerStr = await PhotoshopCore.getMenuCommandTitle({ commandID: 2983 })
-     * ```
-     * @minVersion 22.5
-     * @async
-     */
-    function getMenuCommandTitle(options: MenuCommandMenuIDOptions): any;
-    function getMenuCommandTitle(options: MenuCommandOptions): any;
-    /**
-     * Returns information about the active Photoshop tool.
-     * ```javascript
-     * { title } = await PhotoshopCore.getActiveTool()
-     * ```
-     * @minVersion 22.5
-     * @async
-     */
-    function getActiveTool(): Promise<GetActiveToolResult>;
-    /**
-     * Returns information about the host CPU.
-     * ```javascript
-     * { logicalCores, frequencyMhz, vendor } = PhotoshopCore.getCPUInfo()
-     * var isAMD = vendor === "AMD"
-     * var isARM = vendor === "ARM"
-     * ```
-     * @minVersion 23.1
-     */
-    function getCPUInfo(): CPUInfo;
-    /**
-     * Returns OpenGL and OpenCL information about the available graphics processor.
-     * ```javascript
-     * { gpuInfoList, clgpuInfoList } = PhotoshopCore.getGPUInfo()
-     * console.log(JSON.stringify(gpuInfoList))
-     * // > [{"version":"2.1 ATI-4.5.14","memoryMB":8192,"name":"16915464", ...}]
-     * console.log(JSON.stringify(clgpuInfoList))
-     * // > [{"version":"OpenCL 1.2 ","memoryMB":8589,"name":"AMD Radeon Pro 580X Compute Engine", ...}]
-     * ```
-     * @minVersion 23.1
-     */
-    function getGPUInfo(): GPUInfo;
-    /**
-     * End the current modal tool editing state.
-     * ```javascript
-     * // close the modal dialog, cancelling changes
-     * await PhotoshopCore.endModalToolState(false)
-     * ```
-     * @minVersion 22.5
-     * @async
-     */
-    function endModalToolState(commit: boolean): Promise<void>;
-    /**
-     * Request that Photoshop redraws (updates) a document immediately.
-     * This method can be used to ensure that the document is updated
-     * immediately while a user is interacting with a UI element (such as a slider).
-     * This can provide a more responsive interaction.
-     * Updating a document can be time consuming, and will often happen at a lower frequency
-     * than UI events are received.
-     * Plugins may therefore want to implement a throttle between UI events and calls to
-     * redrawDocument.
-     * A throttle could be implemented by using a timer, or by avoiding to call redrawDocument
-     * for a small amount of time after a previous request completes.
-     * redrawDocument returns the time that it took Photoshop to update the target document
-     * in seconds. This number can be used to refine the throttle.
-     * redrawDocument is only available to a plugin that is using apiVersion 2 or higher.
-     * ```javascript
-     * await PhotoshopCore.redrawDocument({ documentID: 123})
-     * ```
+     * Attach a listener to a Photoshop core event. A callback in the form
+     * of `(eventName: string, descriptor: ActionDescriptor) => void` will be performed.
      *
-     * Note: This is not available if DOM API version is set to `1`.
+     * A [table of events is available](./eventcodes#core-events).
      *
-     * @minVersion 24.1
-     * @async
-     */
-    function redrawDocument(options: RedrawDocumentOptions): Promise<number>;
-    /**
-     * Show a generic alert box to the user. 'OK' to dismiss.
+     * For example: using group '`UI`' and event '`userIdle`'
+     *
+     * - Invoked after the Photoshop user idles for a specified number of seconds. See [[setUserIdleTime]].
+     * - Invoked a second time with the descriptor `{idleEnd: true}` if the user is no longer idle. This signal can
+     * be used to finish up tasks being performed during the idle time.
      * ```javascript
-     * // script has completed.
-     * await PhotoshopCore.showAlert({ message: 'Operation successful'})
+     * await core.addNotificationListener('UI', ['userIdle'], onUserIdle);
      * ```
-     * @minVersion 22.5
+     * @minVersion 23.3
      * @async
      */
-    function showAlert(
-        options: string | {
-            message: string;
-        },
-    ): Promise<void>;
+    function addNotificationListener(group: string, events: string[], callback: NotificationListener): Promise<void>;
     /**
      * Returns the effective size of a dialog.
      * ```javascript
-     * var idealSize = { width: 200, height: 500 }
-     * { width, height} = await PhotoshopCore.calculateDialogSize(idealSize)
+     * const idealSize = { width: 200, height: 500 };
+     * const { width, height } = await core.calculateDialogSize(idealSize);
      * ```
      * @minVersion 22.5
      * @async
      */
-    function calculateDialogSize(options: {
+    function calculateDialogSize(
         preferredSize: {
             width: number;
             height: number;
-        };
-        identifier?: string;
+        },
+        identifier?: string,
         minimumSize?: {
             width: number;
             height: number;
-        };
-    }): Promise<{
+        },
+    ): Promise<{
         width: number;
         height: number;
     }>;
     /**
-     * ExecuteAsModal is needed when a plugin wants to make modifications to the Photoshop state.
-     * This includes scenarios where the plugin wants to create or modify documents,
-     * or the plugin wants to update UI or preference state.
+     * Given the (x,y) coordinates of a position in global (display) space, we convert to coordinates
+     * with the origin based at the top left corner of the given panel.
+     * A plugin can only make calls against panels that are defined in its manifest,
+     * so the given `target` must be defined there.
      *
-     * ExecuteAsModal is only available to plugin that is using apiVersion 2 or higher.
+     * In the example manifest on the documentation page for
+     * [UXP manifest v5](https://developer.adobe.com/photoshop/uxp/2022/guides/uxp_guide/uxp-misc/manifest-v5/),
+     * the identifier is "panelName".
      *
-     * See [Modal Execution](../executeasmodal) for details
+     * Note: global coordinates differ between macOS and Windows. On macOS global coordinates are expressed as
+     * points while on Windows the unit is pixels. See [[getDisplayConfiguration]] for more information
+     * on global coordinates.
      *
-     * ***Fixes in Photoshop 24.0:***
-     * - *Returned values can now be instances of classes and contain functions*
+     * ```javascript
+     * const target = 'panelName';
+     * const location = { x: 200, y: 500 };
+     * const { x, y } = await core.convertGlobalToLocal(target, location);
+     * ```
      *
-     * @minVersion 22.5
+     * @param target The `id` of the panel to use as the origin.
+     * @param location Point coordinates in the form {x, y}.
+     *
+     * @minVersion 26.0
      * @async
      */
-    function executeAsModal<T>(
-        targetFunction: (executionContext: ExecutionContext, descriptor?: object) => Promise<T>,
-        options: ExecuteAsModalOptions,
-    ): Promise<T>;
+    function convertGlobalToLocal(target: string, location: {
+        x: number;
+        y: number;
+    }): Promise<{
+        x: number;
+        y: number;
+    }>;
     /**
      * Converts the given color (in descriptor form) to RGB,
      * returning the color descriptor.
@@ -510,24 +513,191 @@ export declare namespace photoshopCore {
      */
     function convertColor(sourceColor: ColorDescriptor, targetModel: ColorConversionModel.CMYK): CMYKColorDescriptor;
     /**
-     * The execution mode can be used while debugging a plugin. It is only available
-     * when the developer mode is enabled.
+     * Create a temporary duplicate document for background processing.  This document does not appear in the UI,
+     * and there are limitations with some editing features.
      *
-     * The following example illustrate how to enable stacktraces for batchPlay commands
-     * that fail. When stacktraces are enabled, then an error result descriptor from a
-     * batchPlay request will include a stacktrace property. The property can be used when
-     * reporting bugs to Adobe.
      * ```javascript
-     * await PhotoshopCore.setExecutionMode({ enableErrorStacktraces: true })
+     * await core.createTemporaryDocument({ documentID: 123 });
      * ```
-     * The following illustrates how to enable console warnings when a promise is rejected:
+     *
+     * @param options Object containing the id the document to duplicate under property `documentID`.
+     * @minVersion 23.0
+     */
+    function createTemporaryDocument(options: {
+        documentID: number;
+    }): {
+        documentID: number;
+    };
+    /**
+     * Remove a temporary document.
+     *
      * ```javascript
-     * await PhotoshopCore.setExecutionMode({ logRejections: true })
+     * await core.deleteTemporaryDocument({ documentID: 146 });
      * ```
-     * @minVersion 23.2
+     * @param options Object containing key of `documentID` for the document to delete.
+     * @minVersion 23.0
+     */
+    function deleteTemporaryDocument(options: {
+        documentID: number;
+    }): void;
+    /**
+     * End the current modal tool editing state.
+     * ```javascript
+     * // close the modal dialog, cancelling changes
+     * await core.endModalToolState(false);
+     * ```
+     * @minVersion 22.5
      * @async
      */
-    function setExecutionMode(options: SetExecutionModeOptions): Promise<void>;
+    function endModalToolState(commit: boolean): Promise<void>;
+    /**
+     * ExecuteAsModal is needed when a plugin wants to make modifications to the Photoshop state.
+     * This includes scenarios where the plugin wants to create or modify documents,
+     * or the plugin wants to update UI or preference state.
+     *
+     * ExecuteAsModal is only available to plugin that is using apiVersion 2 or higher.
+     *
+     * See [Modal Execution](../executeasmodal) for details
+     * @minVersion 22.5
+     * @async
+     */
+    function executeAsModal(
+        targetFunction: (executionContext: ExecutionContext, descriptor?: object) => Promise<any>,
+        options: ExecuteAsModalOptions,
+    ): Promise<void>;
+    /**
+     * Returns information about the active Photoshop tool.
+     * ```javascript
+     * const { title } = await core.getActiveTool();
+     * ```
+     * @minVersion 22.5
+     * @async
+     */
+    function getActiveTool(): Promise<{
+        title: string;
+        isModal: boolean;
+        key: string;
+        classID: string;
+    }>;
+    /**
+     * Returns information about the host CPU.
+     * ```javascript
+     * const { logicalCores, frequencyMhz, vendor } = core.getCPUInfo();
+     * const isAMD = vendor === 'AMD';
+     * const isARM = vendor === 'ARM';
+     * ```
+     * @minVersion 23.1
+     */
+    function getCPUInfo(): CPUInfo;
+    /**
+     * Returns the current display configuration as an array with an entry for each display.
+     *
+     * Note: returned units differ by platform.
+     *  - Mac uses logical units, points.
+     *  - Windows uses physical units, pixels.
+     * Further discussion of the units may be found on [Display Units](../../media/displayunits)
+     *
+     * ```javascript
+     * core.getDisplayConfiguration({ physicalResolution: true });
+     * ```
+     *
+     * @param options Additional properties to include, e.g., `physicalResolution`.
+     * @minVersion 23.0
+     */
+    function getDisplayConfiguration(options?: DisplayConfigurationOptions): Promise<[DisplayConfiguration]>;
+    /**
+     * Returns OpenGL and OpenCL information about the available graphics processor.
+     * ```javascript
+     * const { gpuInfoList, clgpuInfoList } = core.getGPUInfo();
+     * console.log(JSON.stringify(gpuInfoList));
+     * // > [{"version":"2.1 ATI-4.5.14","memoryMB":8192,"name":"16915464", ...}]
+     * console.log(JSON.stringify(clgpuInfoList));
+     * // > [{"version":"OpenCL 1.2 ","memoryMB":8589,"name":"AMD Radeon Pro 580X Compute Engine", ...}]
+     * ```
+     * @minVersion 23.1
+     */
+    function getGPUInfo(): GPUInfo;
+    /**
+     * Returns a list of the layers contained by the specified layer group.
+     *
+     * ```javascript
+     * await core.getLayerGroupContents({ documentID: 123, layerID: 9 });
+     * ```
+     * @minVersion 23.1
+     */
+    function getLayerGroupContents(options: {
+        documentID: number;
+        layerID: number;
+    }): Promise<{
+        list: LayerTreeInfo[];
+    }>;
+    /**
+     * Returns a list of the layers contained by the specified layer group.
+     *
+     * ```javascript
+     * core.getLayerGroupContentsSync({ documentID: 123, layerID: 9 });
+     * ```
+     * @minVersion 23.1
+     */
+    function getLayerGroupContentsSync(options: {
+        documentID: number;
+        layerID: number;
+    }): {
+        list: LayerTreeInfo[];
+    };
+    /**
+     * Returns the full hierarchy of the layer stack in nested "lists".
+     * ```javascript
+     * await core.getLayerTree({ documentID: 123 });
+     * ```
+     *
+     * @async
+     * @param options Object containing key of `documentID` for the target document.
+     * @minVersion 23.1
+     */
+    function getLayerTree(options: {
+        documentID: number;
+    }): Promise<{
+        list: LayerTreeInfo[];
+    }>;
+    /**
+     * Returns the full hierarchy of the layer stack in nested "lists".
+     * ```javascript
+     * core.getLayerTreeSync({ documentID: 123 });
+     * ```
+     *
+     * @param options Object containing key of `documentID` for the target document.
+     * @minVersion 23.1
+     */
+    function getLayerTreeSync(options: {
+        documentID: number;
+    }): {
+        list: LayerTreeInfo[];
+    };
+    /**
+     * Returns whether a command menu item is available for invoking.
+     * ```javascript
+     * // can a Fill be performed?
+     * const canFill = await core.getMenuCommandState({ commandID: 1042 });
+     * ```
+     * @async
+     * @minVersion 22.5
+     */
+    function getMenuCommandState(options: {
+        commandID: number;
+    }): Promise<boolean>;
+    /**
+     * Returns the localized menu title of the menu command item.
+     * ```javascript
+     * const renameLayerStr = await core.getMenuCommandTitle({ commandID: 2983 });
+     * ```
+     * @minVersion 22.5
+     * @async
+     */
+    function getMenuCommandTitle(options: {
+        commandID?: number;
+        menuID?: number;
+    }): Promise<string>;
     /**
      * Return information about the execution of the plugin.
      * This method is intended for developing plugins.
@@ -547,219 +717,162 @@ export declare namespace photoshopCore {
      * when loading plugins through the UXP Developer Tool.
      *
      * ```javascript
-     * await PhotoshopCore.getPluginInfo()
+     * await core.getPluginInfo();
      * ```
      * @minVersion 23.2
      * @async
      */
-    function getPluginInfo(): Promise<GetPluginInfoResult>;
+    function getPluginInfo(): Promise<ActionDescriptor>;
     /**
-     * Attach a listener to a Photoshop core event. A callback in the form
-     * of `(eventName: string, descriptor: Descriptor) => void` will be performed.
-     * The event(s) below are supported:
+     * Return the current number of seconds for user idle time. See also: [[setUserIdleTime]]
      *
-     * group: '`UI`', event: '`userIdle`'
-     *
-     * - Invoked after the Photoshop user idles for a specified number of seconds. See [[setUserIdleTime]].
-     * - Invoked a second time with the descriptor `{idleEnd: true}` if the user is no longer idle. This signal can
-     * be used to finish up tasks being performed during the idle time.
      * ```javascript
-     * await PhotoshopCore.addNotificationListener('UI', ['userIdle'], onUserIdle)
+     * await core.getUserIdleTime();
      * ```
      * @minVersion 23.3
+     */
+    function getUserIdleTime(): Promise<void>;
+    /**
+     * Returns true if the history is in a suspended state.  See [[Document.suspendHistory]].
+     * ```javascript
+     * await core.historySuspended( {documentID: 123} );
+     * ```
+     *
+     * @param options Object containing key of `documentID` for the target document.
+     * @minVersion 23.1
+     */
+    function historySuspended(options: {
+        documentID: number;
+    }): Promise<boolean>;
+    /**
+     * Returns true if the plugin is currently in a modal state using [[executeAsModal]].
+     * @minVersion 23.1
+     */
+    function isModal(): boolean;
+    /**
+     * Invokes the menu command via its `commandID`. Returns false
+     * on failure, or if the command is not available.
+     * Record Action Notifications via the Plugins > Development menu can be used to capture the command IDs.
+     * ```javascript
+     * // menu item Select > All
+     * await core.performMenuCommand({ commandID: 1017 });
+     * ```
+     * @minVersion 22.5
+     * @param options Object containing key of `commandID` for the menu item.
      * @async
      */
-    function addNotificationListener(group: string, events: string[], notifier: NotificationListener): Promise<void>;
+    function performMenuCommand(options: {
+        commandID: number;
+    }): Promise<boolean>;
+    /**
+     * Request that Photoshop redraws (updates) a document immediately.
+     * This method can be used to ensure that the document is updated
+     * immediately while a user is interacting with a UI element (such as a slider).
+     * This can provide a more responsive interaction.
+     * Updating a document can be time consuming, and will often happen at a lower frequency
+     * than UI events are received.
+     * Plugins may therefore want to implement a throttle between UI events and calls to
+     * redrawDocument.
+     * A throttle could be implemented by using a timer, or by avoiding to call redrawDocument
+     * for a small amount of time after a previous request completes.
+     * redrawDocument returns the time that it took Photoshop to update the target document
+     * in seconds. This number can be used to refine the throttle.
+     * redrawDocument is only available to a plugin that is using apiVersion 2 or higher.
+     * ```javascript
+     * await core.redrawDocument({ documentID: 123 });
+     * ```
+     * @minVersion 24.1
+     * @async
+     */
+    function redrawDocument(options: {
+        documentID: number;
+    }): Promise<number>;
+    /**
+     * Detaches a listener from a Photoshop event.
+     * See [addNotificationListener](#addnotificationlistener)
+     * ```javascript
+     * await core.addNotificationListener('UI', ['userIdle'], onUserIdle);
+     * ```
+     *
+     * @param group Notification group.
+     * @param events Array of event names.
+     * @param callback The Notification Listener to change.
+     * @minVersion 23.0
+     */
+    function removeNotificationListener(group: string, events: string[], listener: NotificationListener): Promise<void>;
+    /**
+     * The execution mode can be used while debugging a plugin. It is only available
+     * when the developer mode is enabled.
+     *
+     * The following example illustrate how to enable stacktraces for batchPlay commands
+     * that fail. When stacktraces are enabled, then an error result descriptor from a
+     * batchPlay request will include a stacktrace property. The property can be used when
+     * reporting bugs to Adobe.
+     * ```javascript
+     * await core.setExecutionMode({ enableErrorStacktraces: true });
+     * ```
+     * The following illustrates how to enable console warnings when a promise is rejected:
+     * ```javascript
+     * await core.setExecutionMode({ logRejections: true });
+     * ```
+     * @minVersion 23.2
+     * @async
+     */
+    function setExecutionMode(options: {
+        enableErrorStacktraces?: boolean;
+        logRejections?: boolean;
+    }): Promise<void>;
     /**
      * Specifies the number of seconds a user must be idle on Photoshop before invoking the
      * userIdle event handler defined with [[addNotificationListener]]. An idleTime of 0
      * turns off idle notifications.
      *
      * ```javascript
-     * await PhotoshopCore.setUserIdleTime(3)
+     * await core.setUserIdleTime(3);
      * ```
+     *
+     * @async
      * @minVersion 23.3
      */
     function setUserIdleTime(idleTime: number): Promise<void>;
     /**
-     * Changes visibility of resize gripper in bottom right corner of panel. This can be useful when resize gripper
-     * is obstructing the view o panel content.
+     * Show a generic alert box to the user. 'OK' to dismiss.
+     * ```javascript
+     * // script has completed.
+     * await core.showAlert({ message: 'Operation successful' });
+     * ```
+     *
+     * @async
+     * @minVersion 22.5
      */
-    function suppressResizeGripper(options: SuppressResizeGripperOptions): Promise<void>;
+    function showAlert(options: {
+        message: string;
+    }): Promise<void>;
     /**
-     * Returns display configuration with information about each display
+     * The "resize gripper", a small square in the botton-right corner of a panel, may be hidden
+     * by this function. This square will appear above the contents the panel itself including
+     * scrollbars. While many panels over the years have simply left space at the bottom to
+     * accomodate the gripper, this option removes it.
+     *
+     * ```javascript
+     * await core.suppressResizeGripper({ type: 'panel', target: 'panel's ID', value: true });
+     * ```
+     *
+     * The value for `target` above will be the id attached to the panel's entry under `entrypoints` in the plugin manifest.
+     *
+     * @param options Object containing type, target, and value.
+     * @minVersion 23.1
      */
-    function getDisplayConfiguration(options: DisplayConfigurationOptions): Promise<DisplayConfiguration[]>;
+    function suppressResizeGripper(options: any): Promise<void>;
     /**
-     * Gets the number of seconds a user must be idle on Photoshop before invoking the
-     * userIdle event handler defined with [[addNotificationListener]]. An idleTime of 0
-     * means turned off idle notifications.
+     * Given a Photoshop ZString (of format `"$$$/slash/separated/key=english default value"`),
+     * will return the translated string for the current UI language
+     * @minVersion 22.5
      */
-    function getUserIdleTime(): Promise<number>;
+    function translateUIString(zstring: string): string;
 }
 /**
- * @targetfolder objects/returnobjects
- */
-export interface GetPluginInfoResult {
-    _obj: "pluginInfo";
-    batchPlayCount: number;
-    isFirstParty: boolean;
-    launchTimeImpact: number;
-    mainThreadTimeOutCount: number;
-    mainThreadUnhandledExceptionCount: number;
-    name?: string;
-    numberOfPendingMainThreadTasks: number;
-    path?: string;
-    pendingDeferralCount: number;
-    pluginLoadTime: number;
-    usedMainThreadTime: number;
-    v8HeapSize: number;
-    version?: string;
-}
-/**
- * @targetfolder objects/returnobjects
- */
-export interface LayerTreeList {
-    list: LayerTreeInfo[];
-}
-/**
- * @optionobject
- * @targetfolder objects/options
- */
-export declare type GetLayerGroupContentsOptions = GetLayerParentOptions;
-/**
- * @optionobject
- * @targetfolder objects/options
- */
-export declare type HistorySuspendedOptions = DocumentCoreOptions;
-/**
- * @optionobject
- * @targetfolder objects/options
- */
-export declare type GetLayerTreeOptions = DocumentCoreOptions;
-interface DocumentCoreOptions {
-    documentID: number;
-}
-interface GetLayerParentOptions {
-    documentID: number;
-    layerID: number;
-}
-/**
- * @targetfolder objects/returnobjects
- */
-export declare type GetLayerParentResult = {} | {
-    index: number;
-    layerID: number;
-    layerKind: number;
-    name: string;
-};
-export interface DisplayConfigurationOptions {
-    physicalResolution?: boolean;
-}
-/**
- * @targetfolder objects/returnobjects
- */
-export interface PerformMenuCommandResult {
-    /** If true then the menu command was available and was executed. If false, then Photoshop was in a state where the requested command was not available. */
-    available: boolean;
-    /** If the menu command was executed (if available is true), then this value is true if the user cancelled the request. */
-    userCancelled: boolean;
-}
-/**
- * @targetfolder objects/returnobjects
- */
-export interface DisplayConfiguration {
-    isPrimary: boolean;
-    scaleFactor: number;
-    globalBounds: DisplayConfigurationBounds;
-    globalWorkingBounds: DisplayConfigurationBounds;
-    physicalResolution: DisplayConfigurationPhysical;
-}
-/**
- * @targetfolder objects/returnobjects
- */
-export interface DisplayConfigurationBounds {
-    bottom: number;
-    left: number;
-    right: number;
-    top: number;
-}
-/**
- * @targetfolder objects/returnobjects
- */
-export interface GetActiveToolResult {
-    title: string;
-    isModal: boolean;
-    key: string;
-    classId: string;
-}
-/**
- * @targetfolder objects/returnobjects
- */
-export interface DisplayConfigurationPhysical {
-    horizontal: number;
-    vertical: number;
-}
-/**
- * @optionobject
- * @targetfolder objects/options
- */
-export interface SetExecutionModeOptions {
-    enableErrorStacktraces?: boolean;
-    logRejections?: boolean;
-}
-/**
- * @optionobject
- * @targetfolder objects/options
- */
-export declare type RedrawDocumentOptions = DocumentCoreOptions;
-/**
- * @optionobject
- * @targetfolder objects/options
- */
-export declare type DeleteTemporaryDocumentOptions = DocumentCoreOptions;
-/**
- * @optionobject
- * @targetfolder objects/options
- */
-export declare type CreateTemporaryDocumentOptions = DocumentCoreOptions;
-/**
- * @targetfolder objects/returnobjects
- */
-export declare type CreateTemporaryDocumentResult = DocumentCoreOptions;
-/**
- * Object to be passed as argument into `suppressResizeGripper()`. `type` and `target` arguments should match
- * witch some entrypoint specified in manifest file.
- * @optionobject
- * @targetfolder objects/options
- */
-export interface SuppressResizeGripperOptions {
-    /** Type of entrypoint e.g. `panel`*/
-    type: string;
-    /** Id of entrypoint in manifest file */
-    target: string;
-    /** Set true to hide resize gripper */
-    value: boolean;
-}
-/**
- * Object to be passed as argument into `getMenuCommandTitle()`, `performMenuCommand()` and `getMenuCommandState()`
- * @optionobject
- * @targetfolder objects/options
- */
-export interface MenuCommandOptions {
-    commandID: number;
-    scheduling?: Scheduling;
-}
-/**
- * Object to be passed as argument into `getMenuCommandTitle()`
- * @optionobject
- * @targetfolder objects/options
- */
-export interface MenuCommandMenuIDOptions {
-    menuID: number;
-    scheduling?: Scheduling;
-}
-/**
+ * Return object.
  * @targetfolder objects/returnobjects
  */
 export interface ExecuteAsModalOptions {
@@ -780,6 +893,11 @@ export interface ExecuteAsModalOptions {
      * @minVersion 23.3
      */
     interactive?: boolean;
+    /**
+     * If an existing modal state is encountered at execution, this request will retry until this duration of seconds has passed.
+     * @minVersion 25.10
+     */
+    timeOut?: number;
 }
 /**
  * Options for the history state that [[Document.suspendHistory]] will create.
@@ -788,7 +906,7 @@ export interface ExecuteAsModalOptions {
  */
 export interface HistoryStateInfo {
     /**
-     * Name of the history state to be shown in History panel
+     * Name of the history state to be shown in the History panel.
      * @minVersion 23.0
      */
     name: string;
@@ -801,6 +919,7 @@ export interface HistoryStateInfo {
 /**
  * This object is provided by the `suspendHistory` API when a document's history state is suspended, and is
  * needed to `resumeHistory`.
+ * Return object.
  * @targetfolder objects/returnobjects
  * @minVersion 23.0
  */
@@ -840,12 +959,12 @@ export interface ExecutionContext {
      * If assigned a method, it will be called when user cancels the modal interaction.
      * @minVersion 23.0
      */
-    onCancel: undefined | ((e?: OnCancelCbArgument) => void);
+    onCancel: void;
     /**
      * Call this to customize the progress bar.
      * @minVersion 23.0
      */
-    reportProgress: (params: ReportProgressOptions) => void;
+    reportProgress: void;
     /**
      * Use the methods in here to control Photoshop state.
      * @minVersion 23.0
@@ -863,35 +982,6 @@ export interface ExecutionContext {
          * @minVersion 23.0
          */
         resumeHistory: (params: ResumeHistorySuspensionOptions, commit?: boolean) => Promise<void>;
-        /**
-         * Register a document to be closed when the modal scope exits.
-         * @param documentID
-         */
-        registerAutoCloseDocument: (documentID: number) => Promise<void>;
-        /**
-         * Unregister a document from being closed when the modal scope exits.
-         * @param documentID
-         */
-        unregisterAutoCloseDocument: (documentID: number) => Promise<void>;
     };
-}
-export interface OnCancelCbArgument {
-    reason: string;
-}
-/**
- * Object to be passed as an argument into `reportProgress()`
- *
- * @optionobject
- * @targetfolder objects/options
- */
-export interface ReportProgressOptions {
-    /**
-     * Value in range [0,1] where 0 is 0% and 1 is 100%
-     */
-    value?: number;
-    /**
-     * Text shown in progress bar dialog. Usually explaining the current progress
-     */
-    commandName?: string;
 }
 export {};

@@ -92,9 +92,22 @@ export declare enum ResampleMethod {
     /**
      * Changes image resolution value without affecting document dimension
      *
-     * Currently unsupported**
+     * **Currently unsupported**
      */
     NONE = "none",
+}
+/**
+ * The generative upscale model to use for AI-powered upscaling.
+ *
+ * Pass to [[Document.generativeUpscale]]()
+ *
+ * @minVersion 25.0
+ */
+export declare enum GenerativeUpscaleModel {
+    /**
+     * Adobe Firefly generative upscale model
+     */
+    FIREFLY = "firefly",
 }
 /**
  * The type of save operation.
@@ -135,7 +148,7 @@ export declare enum SaveOptions {
 /**
  * Number of bits per channel (also called pixel depth or color depth).
  *
- * The number selected indicates the exponent of 2.
+ * The number selected indicates the exponent of 2. With 8 bits per channel, we have 256 possible colors.
  * @minVersion 22.5
  */
 export declare enum BMPDepthType {
@@ -293,15 +306,15 @@ export declare enum AnchorPosition {
  */
 export declare enum TrimType {
     /**
-     * Bottom right pixel color.
+     * The color of the pixel in the bottom right corner of the image.
      */
     BOTTOMRIGHT = "bottom-right",
     /**
-     * Top left pixel color.
+     * The color of the pixel in the top left right corner of the image.
      */
     TOPLEFT = "top-left",
     /**
-     * Transparent pixels.
+     * Fully transparent pixels.
      */
     TRANSPARENT = "transparent",
 }
@@ -513,31 +526,33 @@ export declare enum DocumentFill {
  * @minVersion 22.5
  */
 export declare enum LayerKind {
+    NORMAL = "pixel",
+    GROUP = "group",
+    SMARTOBJECT = "smartObject",
+    GRADIENTFILL = "gradientFill",
+    PATTERNFILL = "pattern",
+    SOLIDFILL = "solidColor",
+    TEXT = "text",
+    LAYER3D = "threeD",
+    VIDEO = "video",
     BLACKANDWHITE = "blackAndWhite",
     BRIGHTNESSCONTRAST = "brightnessContrast",
     CHANNELMIXER = "channelMixer",
     COLORBALANCE = "colorBalance",
+    COLORLOOKUP = "colorLookup",
     CURVES = "curves",
     EXPOSURE = "exposure",
-    GRADIENTFILL = "gradientFill",
     GRADIENTMAP = "gradientMap",
     HUESATURATION = "hueSaturation",
     INVERSION = "inversion",
     LEVELS = "levels",
-    NORMAL = "pixel",
-    PATTERNFILL = "pattern",
     PHOTOFILTER = "photoFilter",
     POSTERIZE = "posterize",
     SELECTIVECOLOR = "selectiveColor",
-    SMARTOBJECT = "smartObject",
-    SOLIDFILL = "solidColor",
-    TEXT = "text",
     THRESHOLD = "threshold",
-    LAYER3D = "threeD",
     VIBRANCE = "vibrance",
-    VIDEO = "video",
-    GROUP = "group",
-    COLORLOOKUP = "colorLookup",
+    CLARITY = "clarity",
+    GRAIN = "grainAdjustment",
 }
 /**
  * Placement modes for Layer.move method

@@ -245,36 +245,22 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      */
     extent(): (this: ZoomRefElement, datum: Datum) => [[number, number], [number, number]];
     /**
-     * Set the viewport extent to the specified array of points [[x0, y0], [x1, y1]],
-     * where [x0, y0] is the top-left corner of the viewport and [x1, y1] is the bottom-right corner of the viewport,
-     * and return this zoom behavior.
+     * Sets how the viewport extent is determined.
      *
-     * The viewport extent affects several functions: the center of the viewport remains fixed during changes by zoom.scaleBy and zoom.scaleTo;
-     * the viewport center and dimensions affect the path chosen by d3.interpolateZoom; and the viewport extent is needed to enforce the optional translate extent.
-     *
-     * @param extent An extent specified as an array of two coordinates.
-     */
-    extent(extent: [[number, number], [number, number]]): this;
-    /**
-     * Set the viewport extent to the array of points [[x0, y0], [x1, y1]] returned by the
-     * extent accessor function, and return this zoom behavior.
-     * The extent accessor function is evaluated for each element.
-     *
+     * Pass either a fixed extent or a function that computes the extent for each selected element.
      * [x0, y0] is the top-left corner of the viewport and [x1, y1] is the bottom-right corner of the viewport.
      *
      * The viewport extent affects several functions: the center of the viewport remains fixed during changes by zoom.scaleBy and zoom.scaleTo;
      * the viewport center and dimensions affect the path chosen by d3.interpolateZoom; and the viewport extent is needed to enforce the optional translate extent.
      *
-     * The default is [[0, 0], [width, height]] where width is the client width of the element and height is its client height;
-     * for SVG elements, the nearest ancestor SVG element’s width and height is used.
-     * In this case, the owner SVG element must have defined width and height attributes rather than (for example) relying on CSS properties or the viewBox attribute;
-     * SVG provides no programmatic method for retrieving the initial viewport size. Alternatively, consider using element.getBoundingClientRect.
-     * (In Firefox, element.clientWidth and element.clientHeight is zero for SVG elements!)
-     *
-     * @param extent An extent accessor function which is evaluated for each selected element, being passed the current datum d, with the this context as the current DOM element.
-     * The function returns the extent array.
+     * @param extent A fixed extent or a function that computes the extent for each selected element. The function receives the current datum d,
+     * with the this context as the current DOM element.
      */
-    extent(extent: (this: ZoomRefElement, datum: Datum) => [[number, number], [number, number]]): this;
+    extent(
+        extent:
+            | [[number, number], [number, number]]
+            | ((this: ZoomRefElement, datum: Datum) => [[number, number], [number, number]]),
+    ): this;
 
     /**
      * Return the current scale extent.

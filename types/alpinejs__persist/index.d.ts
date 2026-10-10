@@ -6,7 +6,8 @@ export default persistPlugin;
 
 interface SimpleStorage {
     setItem(key: string, value: string): void;
-    getItem(key: string): string | null;
+    getItem(key: string): string | null | undefined;
+    removeItem?(key: string): void;
 }
 
 interface persistInterceptor<T> extends InterceptorObject<T> {
@@ -18,7 +19,7 @@ interface $persist {
     <T>(value: T): persistInterceptor<T>;
 }
 
-type persist = <T>(key: string, { get, set }: { get(): T; set(val: T): void }, storage: SimpleStorage) => void;
+type persist = <T>(key: string, { get, set }: { get(): T; set(val: T): void }, storage?: SimpleStorage) => void;
 
 declare module "alpinejs" {
     interface Alpine {

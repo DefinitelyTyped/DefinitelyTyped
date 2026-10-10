@@ -25,15 +25,6 @@ declare var StreamToAsyncStreamable: Exclude<
 >;
 type NoToAsyncStreamable = typeof StreamToAsyncStreamable extends never ? {} : { [StreamToAsyncStreamable]: never };
 
-// forward-compatible iterator type for TS <5.6
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface AsyncIteratorObject<T, TReturn, TNext> {}
-}
-interface StreamIterator<T> extends AsyncIterator<T, any, any>, AsyncIteratorObject<T, any, any> {
-    [Symbol.asyncIterator](): StreamIterator<T>;
-}
-
 // @types/node's `EventEmitter.listeners()` returns true functions in >=v25, but `Function` objects
 // in <=v24. To maintain assignability to @types/node streams, use whichever variant is present.
 type EventListenerArray = ReturnType<NodeJS.EventEmitter["listeners"]>;
@@ -74,7 +65,7 @@ interface _IReadable extends _IEventEmitter {
     unshift(chunk: any): void;
     wrap(oldStream: _Readable.Readable): this;
     push(chunk: any, encoding?: string): boolean;
-    iterator(options?: { destroyOnReturn?: boolean }): StreamIterator<any>;
+    iterator(options?: { destroyOnReturn?: boolean }): AsyncIteratorObject<any, any, any>;
     map(fn: (data: any, options?: SignalOption) => any, options?: ArrayOptions): _Readable.Readable;
     filter(
         fn: (data: any, options?: SignalOption) => boolean | Promise<boolean>,
@@ -239,8 +230,8 @@ declare class _Readable implements _IReadable {
     listenerCount(eventName: string | symbol): number;
     eventNames(): (string | symbol)[];
 
-    iterator(options?: { destroyOnReturn?: boolean }): StreamIterator<any>;
-    [Symbol.asyncIterator](): StreamIterator<any>;
+    iterator(options?: { destroyOnReturn?: boolean }): AsyncIteratorObject<any, any, any>;
+    [Symbol.asyncIterator](): AsyncIteratorObject<any, any, any>;
 
     // static ReadableState: _Readable.ReadableState;
     _readableState: _Readable.ReadableState;
@@ -382,8 +373,8 @@ declare namespace _Readable {
         on(ev: string | symbol, fn: (...args: any[]) => void): this;
 
         _undestroy(): void;
-        iterator(options?: { destroyOnReturn?: boolean }): StreamIterator<any>;
-        [Symbol.asyncIterator](): StreamIterator<any>;
+        iterator(options?: { destroyOnReturn?: boolean }): AsyncIteratorObject<any, any, any>;
+        [Symbol.asyncIterator](): AsyncIteratorObject<any, any, any>;
         // end-Readable
 
         constructor(options?: DuplexOptions);

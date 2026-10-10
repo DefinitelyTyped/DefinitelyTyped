@@ -1,5 +1,3 @@
-import { DisplayMediaStreamOptions, MediaTrackConstraintSet } from "w3c-screen-capture";
-
 function testCaptureController() {
     const controller = new CaptureController();
 

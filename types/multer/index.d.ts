@@ -194,7 +194,7 @@ declare namespace multer {
          * at https://github.com/mscdex/busboy#busboy-methods.
          */
         limits?: {
-            /** Maximum size of each form field name in bytes. (Default: 100) */
+            /** Maximum size of each form field name in bytes. (Default: Infinity) */
             fieldNameSize?: number | undefined;
             /** Maximum size of each form field value in bytes. (Default: 1048576) */
             fieldSize?: number | undefined;
@@ -202,6 +202,8 @@ declare namespace multer {
             fields?: number | undefined;
             /** Maximum number of nesting levels for field names, e.g. `a[b][c]` has 2 levels. (Default: Infinity) */
             fieldNestingDepth?: number | undefined;
+            /** Maximum numeric array index accepted for field names. (Default: Infinity) */
+            fieldArrayIndexLimit?: number | undefined;
             /** Maximum size of each file in bytes. (Default: Infinity) */
             fileSize?: number | undefined;
             /** Maximum number of file fields. (Default: Infinity) */

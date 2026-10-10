@@ -1,4 +1,4 @@
-// For Library Version: 1.152.0
+// For Library Version: 1.153.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -348,13 +348,11 @@ declare module "sap/m/p13n/Engine" {
     controller: Record<string, SelectionController>;
   };
 
-  export type State = {
-    /**
-     * A map of arbitrary keys that contain a controller instance as value. The key must be unique and needs
-     * to be provided for later access when using `Engine` functionality specific for one controller type.
-     */
-    controller: Record<string, Object[]>;
-  };
+  /**
+   * A flat map whose keys are the controller keys registered with the `Engine` (see {@link sap.m.p13n.EngineRegistrationConfig})
+   * and whose values are arrays of state items understood by the corresponding controller.
+   */
+  export type State = Record<string, Object[]>;
 }
 
 declare module "sap/m/library" {
@@ -1762,6 +1760,24 @@ declare module "sap/m/library" {
     readonly?: boolean | null;
   };
 
+  /**
+   * Defines the alignment of the `description` within the description wrapper of the {@link sap.m.Input }
+   * control.
+   *
+   * This enum is part of the 'sap/m/library' module export and must be accessed by the property 'InputDescriptionAlign'.
+   *
+   * @since 1.153
+   */
+  export enum InputDescriptionAlign {
+    /**
+     * The description is aligned to the far end of the input wrapper container, away from the input field.
+     */
+    End = "End",
+    /**
+     * The description is aligned next to the input field.
+     */
+    Start = "Start",
+  }
   /**
    * Defines the available content sizes for the `InputListItem` control.
    *
@@ -19657,6 +19673,33 @@ declare module "sap/m/DatePicker" {
    * app level), the {@link sap.ui.core.format.DateFormat} makes an attempt to parse it based on the locale
    * settings. For more information, see the respective documentation in the API Reference.
    *
+   * Relative date input:
+   *
+   * Besides a formatted date string, the input field also accepts locale-aware **relative date values** sourced
+   * from {@link https://unicode.org/reports/tr35/tr35-dates.html#Calendar_Fields CLDR calendar fields}. These
+   * allow the user to type natural-language expressions like `today`, `yesterday`, or `next week` instead
+   * of an explicit date.
+   *
+   * The accepted values depend on the current locale. In English (en), the following values are recognized
+   * (case-insensitive):
+   * 	 - **Day:** `today`, `yesterday`, `tomorrow`, `in N days`, `N days ago`
+   * 	 - **Week:** `this week`, `last week`, `next week`, `in N weeks`, `N weeks ago`
+   * 	 - **Month:** `this month`, `last month`, `next month`, `in N months`, `N months ago`
+   * 	 - **Year:** `this year`, `last year`, `next year`, `in N years`, `N years ago`
+   *
+   * **Note:** The relative expressions are locale-specific. In other locales, the equivalent CLDR terms are
+   * used (for example, `heute`, `gestern`, `morgen` in German). Week-, month-, and year-based expressions
+   * resolve to a date offset from today (for example, `next week` = today + 7 days). To retrieve the full
+   * list of accepted relative expressions for a given locale programmatically, use {@link sap.ui.core.LocaleData#getRelativePatterns LocaleData#getRelativePatterns}:
+   *
+   * ```javascript
+   *
+   * // LocaleData imported from sap/ui/core/LocaleData, Locale from sap/ui/core/Locale
+   * LocaleData.getInstance(new Locale("en"))
+   *     .getRelativePatterns(["day", "week", "month", "year"]);
+   * ```
+   *
+   *
    * Responsive behavior:
    *
    * The `DatePicker` is smaller in compact mode and provides a touch-friendly size in cozy mode.
@@ -20830,6 +20873,9 @@ declare module "sap/m/DateRangeSelection" {
    * **Note:** If the string does NOT match the `displayFormat` (from user input) or the `valueFormat` (on
    * app level), the {@link sap.ui.core.format.DateFormat} makes an attempt to parse it based on the locale
    * settings. For more information, see the respective documentation in the API Reference.
+   *
+   * **Note:** Unlike `DatePicker`, relative date input (for example, `today`, `next week`) is not supported
+   * in `DateRangeSelection`. Both dates in the range must be entered as explicit formatted values.
    *
    * Responsive behavior:
    *
@@ -43376,7 +43422,8 @@ declare module "sap/m/ImageContent" {
     /**
      * Gets current value of property {@link #getDescription description}.
      *
-     * Description of image. This text is used to provide ScreenReader information.
+     * Description of image. This text is used to provide ScreenReader information when the control is interactive
+     * (has a press handler).
      *
      *
      * @returns Value of property `description`
@@ -43392,22 +43439,6 @@ declare module "sap/m/ImageContent" {
      * @returns Value of property `src`
      */
     getSrc(): URI;
-    /**
-     * Sets a new value for property {@link #getDescription description}.
-     *
-     * Description of image. This text is used to provide ScreenReader information.
-     *
-     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
-     *
-     *
-     * @returns Reference to `this` in order to allow method chaining
-     */
-    setDescription(
-      /**
-       * New value for property `description`
-       */
-      sDescription?: string
-    ): this;
     /**
      * Sets a new value for property {@link #getSrc src}.
      *
@@ -43437,7 +43468,8 @@ declare module "sap/m/ImageContent" {
     src?: URI | PropertyBindingInfo | `{${string}}`;
 
     /**
-     * Description of image. This text is used to provide ScreenReader information.
+     * Description of image. This text is used to provide ScreenReader information when the control is interactive
+     * (has a press handler).
      */
     description?: string | PropertyBindingInfo;
 
@@ -43476,7 +43508,12 @@ declare module "sap/m/Input" {
 
   import Item from "sap/ui/core/Item";
 
-  import { ITableItem, InputTextFormatMode, InputType } from "sap/m/library";
+  import {
+    ITableItem,
+    InputDescriptionAlign,
+    InputTextFormatMode,
+    InputType,
+  } from "sap/m/library";
 
   import {
     AggregationBindingInfo,
@@ -44210,6 +44247,25 @@ declare module "sap/m/Input" {
      */
     getDescription(): string;
     /**
+     * Gets current value of property {@link #getDescriptionAlign descriptionAlign}.
+     *
+     * Defines the alignment of the `description` within the description wrapper container.
+     *
+     * This property only takes effect if the `description` property is set. When set to `Start`, the description
+     * is displayed next to the input field. When set to `End`, the description is aligned to the far end of
+     * the input wrapper container, away from the input field.
+     *
+     * **Note:** The `descriptionAlign` property should be used mainly when the input is rendered in a table
+     * cell.
+     *
+     * Default value is `Start`.
+     *
+     * @since 1.153
+     *
+     * @returns Value of property `descriptionAlign`
+     */
+    getDescriptionAlign(): InputDescriptionAlign;
+    /**
      * Gets the inner input DOM value.
      *
      * @ui5-protected Do not call from applications (only from related classes in the framework)
@@ -44459,8 +44515,10 @@ declare module "sap/m/Input" {
      *
      * The suggestionColumns and suggestionRows are for tabular input suggestions. This aggregation allows for
      * binding the table cells. The items of this aggregation are to be bound directly or to set in the suggest
-     * event method. **Note:** If `suggestionItems` & `suggestionRows` are set in parallel, the last aggeragtion
-     * to come would overwrite the previous ones.
+     * event method. **Note:** Applications should only use `sap.m.Label` or `sap.m.Text` controls as rows content
+     * in order to preserve the intended functionality. Usage of other controls would require applications to
+     * use `setRowResultFunction` to provide a custom text extractor. **Note:** If `suggestionItems` & `suggestionRows`
+     * are set in parallel, the last aggeragtion to come would overwrite the previous ones.
      *
      * @since 1.21.1
      */
@@ -44917,6 +44975,34 @@ declare module "sap/m/Input" {
        * New value for property `description`
        */
       sDescription?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDescriptionAlign descriptionAlign}.
+     *
+     * Defines the alignment of the `description` within the description wrapper container.
+     *
+     * This property only takes effect if the `description` property is set. When set to `Start`, the description
+     * is displayed next to the input field. When set to `End`, the description is aligned to the far end of
+     * the input wrapper container, away from the input field.
+     *
+     * **Note:** The `descriptionAlign` property should be used mainly when the input is rendered in a table
+     * cell.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Start`.
+     *
+     * @since 1.153
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDescriptionAlign(
+      /**
+       * New value for property `descriptionAlign`
+       */
+      sDescriptionAlign?:
+        | InputDescriptionAlign
+        | keyof typeof InputDescriptionAlign
     ): this;
     /**
      * Sets the inner input DOM value.
@@ -45629,6 +45715,23 @@ declare module "sap/m/Input" {
     description?: string | PropertyBindingInfo;
 
     /**
+     * Defines the alignment of the `description` within the description wrapper container.
+     *
+     * This property only takes effect if the `description` property is set. When set to `Start`, the description
+     * is displayed next to the input field. When set to `End`, the description is aligned to the far end of
+     * the input wrapper container, away from the input field.
+     *
+     * **Note:** The `descriptionAlign` property should be used mainly when the input is rendered in a table
+     * cell.
+     *
+     * @since 1.153
+     */
+    descriptionAlign?:
+      | (InputDescriptionAlign | keyof typeof InputDescriptionAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
      * This property only takes effect if the description property is set. It controls the distribution of space
      * between the input field and the description text. The default value is 50% leaving the other 50% for
      * the description.
@@ -45754,8 +45857,10 @@ declare module "sap/m/Input" {
     /**
      * The suggestionColumns and suggestionRows are for tabular input suggestions. This aggregation allows for
      * binding the table cells. The items of this aggregation are to be bound directly or to set in the suggest
-     * event method. **Note:** If `suggestionItems` & `suggestionRows` are set in parallel, the last aggeragtion
-     * to come would overwrite the previous ones.
+     * event method. **Note:** Applications should only use `sap.m.Label` or `sap.m.Text` controls as rows content
+     * in order to preserve the intended functionality. Usage of other controls would require applications to
+     * use `setRowResultFunction` to provide a custom text extractor. **Note:** If `suggestionItems` & `suggestionRows`
+     * are set in parallel, the last aggeragtion to come would overwrite the previous ones.
      *
      * @since 1.21.1
      */
@@ -67498,7 +67603,16 @@ declare module "sap/m/NotificationList" {
   /**
    * The NotificationList control provides a container for `NotificationListGroup` and `NotificationListItem`.
    *
+   * **Note:** `sap.m.NotificationList` will no longer be aligned with future design updates. Use the UI5
+   * Web Components' notifications instead, which are UXC-compliant and are the successors going forward.
+   * They can be integrated seamlessly using ui5-tooling-modules. See {@link https://ui5.sap.com/#/topic/1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
+   *
    * @since 1.90
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export default class NotificationList extends ListBase {
     /**
@@ -67572,6 +67686,11 @@ declare module "sap/m/NotificationList" {
   }
   /**
    * Describes the settings that can be provided to the NotificationList constructor.
+   *
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export interface $NotificationListSettings extends $ListBaseSettings {}
 }
@@ -67615,7 +67734,16 @@ declare module "sap/m/NotificationListBase" {
    * Note: There are several properties, that are inherited from `ListItemBase` and have no visual representation
    * in the Notifications - `counter`, `highlight`, `highlightText`, `navigated`, `selected`, `type`
    *
+   * **Note:** `sap.m.NotificationListBase` and its subclasses will no longer be aligned with future design
+   * updates. Use the UI5 Web Components' notifications instead, which are UXC-compliant and are the successors
+   * going forward. They can be integrated seamlessly using ui5-tooling-modules. See {@link https://ui5.sap.com/#/topic/1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
+   *
    * @since 1.38
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export default abstract class NotificationListBase extends ListItemBase {
     /**
@@ -68053,6 +68181,11 @@ declare module "sap/m/NotificationListBase" {
   }
   /**
    * Describes the settings that can be provided to the NotificationListBase constructor.
+   *
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export interface $NotificationListBaseSettings extends $ListItemBaseSettings {
     /**
@@ -68154,7 +68287,16 @@ declare module "sap/m/NotificationListGroup" {
    *     displayed.
    * 	 - `showEmptyGroup` - determines if the header/footer of an empty group is displayed.
    *
+   * **Note:** `sap.m.NotificationListGroup` will no longer be aligned with future design updates. Use the
+   * UI5 Web Components' notifications instead, which are UXC-compliant and are the successors going forward.
+   * They can be integrated seamlessly using ui5-tooling-modules. See {@link https://ui5.sap.com/#/topic/1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
+   *
    * @since 1.34
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export default class NotificationListGroup extends NotificationListBase {
     /**
@@ -68623,6 +68765,11 @@ declare module "sap/m/NotificationListGroup" {
   }
   /**
    * Describes the settings that can be provided to the NotificationListGroup constructor.
+   *
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export interface $NotificationListGroupSettings extends $NotificationListBaseSettings {
     /**
@@ -68739,7 +68886,16 @@ declare module "sap/m/NotificationListItem" {
    *     on mobile devices).  For each item you can set some additional status information about the item
    *     processing by adding a {@link sap.m.MessageStrip} to the `processingMessage` aggregation.
    *
+   * **Note:** `sap.m.NotificationListItem` will no longer be aligned with future design updates. Use the
+   * UI5 Web Components' notifications instead, which are UXC-compliant and are the successors going forward.
+   * They can be integrated seamlessly using ui5-tooling-modules. See {@link https://ui5.sap.com/#/topic/1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
+   *
    * @since 1.34
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export default class NotificationListItem extends NotificationListBase {
     /**
@@ -69065,6 +69221,11 @@ declare module "sap/m/NotificationListItem" {
   }
   /**
    * Describes the settings that can be provided to the NotificationListItem constructor.
+   *
+   * @deprecated As of version 1.153. Will no longer be aligned with future design updates. Replaced by the
+   * UI5 Web Components' notifications, which are UXC-compliant. The UI5 Web Components can be integrated
+   * seamlessly using ui5-tooling-modules. See {@link topic:1c80793df5bb424091954697fc0b2828 Using Web Components }
+   * and the {@link https://github.com/SAP-samples/uxc-integration UXC integration sample}.
    */
   export interface $NotificationListItemSettings extends $NotificationListBaseSettings {
     /**
@@ -106690,6 +106851,20 @@ declare module "sap/m/RadioButtonGroup" {
      */
     getEnabled(): boolean;
     /**
+     * Gets current value of property {@link #getRequired required}.
+     *
+     * Indicates whether the selection of a radio button is required.
+     *
+     * A `selectedIndex` less than 0 means that no radio button is selected.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.153
+     *
+     * @returns Value of property `required`
+     */
+    getRequired(): boolean;
+    /**
      * Returns the selected radio button.
      *
      *
@@ -106885,6 +107060,27 @@ declare module "sap/m/RadioButtonGroup" {
       bEnabled: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getRequired required}.
+     *
+     * Indicates whether the selection of a radio button is required.
+     *
+     * A `selectedIndex` less than 0 means that no radio button is selected.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.153
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRequired(
+      /**
+       * New value for property `required`
+       */
+      bRequired?: boolean
+    ): this;
+    /**
      * Sets the selected sap.m.RadioButton using sap.m.RadioButton.
      *
      *
@@ -107030,6 +107226,15 @@ declare module "sap/m/RadioButtonGroup" {
       | (TextDirection | keyof typeof TextDirection)
       | PropertyBindingInfo
       | `{${string}}`;
+
+    /**
+     * Indicates whether the selection of a radio button is required.
+     *
+     * A `selectedIndex` less than 0 means that no radio button is selected.
+     *
+     * @since 1.153
+     */
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Returns a list of the RadioButtons in a RadioButtonGroup
@@ -113598,6 +113803,8 @@ declare module "sap/m/Select" {
 
   import Item from "sap/ui/core/Item";
 
+  import SeparatorItem from "sap/ui/core/SeparatorItem";
+
   import Event from "sap/ui/base/Event";
 
   import {
@@ -113717,6 +113924,30 @@ declare module "sap/m/Select" {
        */
       oItem: Item
     ): this;
+    /**
+     * Creates a `sap.ui.core.SeparatorItem` group header and adds it to the `items` aggregation, allowing the
+     * dropdown to display items organized in named groups (consistent with `sap.m.ComboBox` / `sap.m.MultiComboBox`).
+     *
+     * This method is also called by the framework when a data binding with a `group: true` sorter is used.
+     *
+     * @since 1.153
+     *
+     * @returns The group header item that was added.
+     */
+    addItemGroup(
+      /**
+       * The group data object; `oGroup.text` or `oGroup.key` is used as the header label.
+       */
+      oGroup: object,
+      /**
+       * An optional pre-created `SeparatorItem`; if omitted, a new one is created from `oGroup`.
+       */
+      oHeader?: SeparatorItem,
+      /**
+       * If `true`, the control is not invalidated.
+       */
+      bSuppressInvalidate?: boolean
+    ): SeparatorItem;
     /**
      * Attaches event handler `fnFunction` to the {@link #event:beforeOpen beforeOpen} event of this `sap.m.Select`.
      *

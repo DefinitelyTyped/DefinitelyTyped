@@ -1,4 +1,4 @@
-// For Library Version: 1.152.0
+// For Library Version: 1.153.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -161,6 +161,27 @@ declare module "sap/ui/table/library" {
      * The element id of the Vertical Scroll Bar of the sap.ui.table.Table.
      */
     VerticalScrollBar = "vsb",
+  }
+  /**
+   * Whether the scroll handle is shown during vertical scrolling.
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'ShowScrollHandle'.
+   *
+   * @since 1.153
+   */
+  export enum ShowScrollHandle {
+    /**
+     * The default behavior. The scroll handle is shown only on touch scrolling.
+     */
+    Default = "Default",
+    /**
+     * The scroll handle is not shown.
+     */
+    Off = "Off",
+    /**
+     * The scroll handle is shown when the user scrolls the table vertically.
+     */
+    On = "On",
   }
   /**
    * Sort order of a column
@@ -6276,6 +6297,7 @@ declare module "sap/ui/table/Table" {
     NavigationMode,
     SelectionBehavior,
     SelectionMode,
+    ShowScrollHandle,
     VisibleRowCountMode,
   } from "sap/ui/table/library";
 
@@ -8697,6 +8719,18 @@ declare module "sap/ui/table/Table" {
      */
     getShowOverlay(): boolean;
     /**
+     * Gets current value of property {@link #getShowScrollHandle showScrollHandle}.
+     *
+     * Defines whether the scroll handle is shown during vertical scrolling.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.153
+     *
+     * @returns Value of property `showScrollHandle`
+     */
+    getShowScrollHandle(): ShowScrollHandle;
+    /**
      * Gets the sorted columns in the order in which sorting was performed through the {@link sap.ui.table.Table#sort }
      * method and menus. Does not reflect sorting at binding level or the columns sort visualization set with
      * {@link sap.ui.table.Column#setSortOrder}.
@@ -9718,6 +9752,25 @@ declare module "sap/ui/table/Table" {
       bShowOverlay?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getShowScrollHandle showScrollHandle}.
+     *
+     * Defines whether the scroll handle is shown during vertical scrolling.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.153
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowScrollHandle(
+      /**
+       * New value for property `showScrollHandle`
+       */
+      sShowScrollHandle?: ShowScrollHandle | keyof typeof ShowScrollHandle
+    ): this;
+    /**
      * Sets the threshold value, which will be added to all data requests in case the Table is bound against
      * an OData service.
      *
@@ -10027,6 +10080,16 @@ declare module "sap/ui/table/Table" {
      * @since 1.128
      */
     scrollThreshold?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines whether the scroll handle is shown during vertical scrolling.
+     *
+     * @since 1.153
+     */
+    showScrollHandle?:
+      | (ShowScrollHandle | keyof typeof ShowScrollHandle)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Flag to enable or disable column reordering

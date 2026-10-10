@@ -41,7 +41,7 @@ export declare class Channels extends Array<Channel> {
      * - *Non-English locales return correctly for component channels.
      * @minVersion 23.0
      */
-    getByName(name: string): Channel;
+    getByName(name: string): Channel | null;
     /**
      * Remove all Alpha channels in the parent document.
      * @minVersion 23.0

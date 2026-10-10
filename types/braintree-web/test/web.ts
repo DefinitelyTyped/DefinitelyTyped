@@ -720,6 +720,14 @@ braintree.client.create(
                         button.removeAttribute("disabled");
                     }
                 });
+
+                // $ExpectType Promise<void>
+                paypalInstance.teardown();
+
+                // $ExpectType void
+                paypalInstance.teardown(() => {
+                    // teardown with callback
+                });
             },
         );
 
@@ -988,9 +996,13 @@ braintree.client.create(
                 });
         });
 
+        // $ExpectType void
         clientInstance.teardown(err => {
-            // implementation
+            // teardown with callback
         });
+
+        // $ExpectType Promise<void>
+        clientInstance.teardown();
 
         // Local Payment
         braintree.localPayment.create(

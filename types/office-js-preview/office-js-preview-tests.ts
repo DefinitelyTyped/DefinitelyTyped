@@ -108,6 +108,107 @@ function test_excel() {
     }).catch(console.log);
 }
 
+function test_excel_recent_apis(
+    functions: Excel.Functions,
+    sensitivityLabelDetails: Excel.SensitivityLabelDetails,
+    sensitivityLabelsCatalog: Excel.SensitivityLabelsCatalog,
+    abacAttribute: Excel.SensitivityLabelAbacAttribute,
+    abacAttributeValue: Excel.SensitivityLabelAbacAttributeValue,
+) {
+    const busyErrorWithoutPreviousValue: Excel.BusyErrorCellValue = {
+        type: Excel.CellValueType.error,
+    };
+    const busyErrorWithPreviousValue: Excel.BusyErrorCellValue = {
+        type: Excel.CellValueType.error,
+        previousValue: {
+            type: Excel.CellValueType.string,
+            basicValue: "Previous value",
+        },
+    };
+    const previousValue: Excel.CellValue | undefined = busyErrorWithPreviousValue.previousValue;
+
+    const pythonErrorWithoutInitializationState: Excel.PythonErrorCellValue = {
+        type: Excel.CellValueType.error,
+    };
+    const pythonErrorDuringInitialization: Excel.PythonErrorCellValue = {
+        type: Excel.CellValueType.error,
+        duringInitialization: true,
+    };
+    const duringInitialization: boolean | undefined = pythonErrorDuringInitialization.duringInitialization;
+
+    const abacAttributeDataType: Excel.SensitivityLabelAbacAttributeDataType =
+        Excel.SensitivityLabelAbacAttributeDataType.stringValue;
+    const abacAttributeDataTypeValue: "StringValue" = Excel.SensitivityLabelAbacAttributeDataType.stringValue;
+    const abacAttributeClass: Excel.SensitivityLabelAbacAttribute = abacAttribute;
+    const abacAttributeValueClass: Excel.SensitivityLabelAbacAttributeValue = abacAttributeValue;
+
+    const abacAttributeValues: Excel.SensitivityLabelAbacAttributeValue[] = sensitivityLabelDetails.abacAttributeValues;
+    const isAbacAttributesRequired: boolean = sensitivityLabelDetails.isAbacAttributesRequired;
+    const isAbacEnabled: boolean = sensitivityLabelDetails.isAbacEnabled;
+
+    const attributesResult: OfficeExtension.ClientResult<Excel.SensitivityLabelAbacAttribute[]> =
+        sensitivityLabelsCatalog.getAttributes();
+
+    const unsupportedAbac: Excel.SensitivityLabelUpdateResult = Excel.SensitivityLabelUpdateResult.unsupportedAbac;
+    const unsupportedAbacValue: "UnsupportedAbac" = Excel.SensitivityLabelUpdateResult.unsupportedAbac;
+    const abacAttributesRequired: Excel.SensitivityLabelUpdateResult =
+        Excel.SensitivityLabelUpdateResult.abacAttributesRequired;
+    const abacAttributesRequiredValue: "AbacAttributesRequired" =
+        Excel.SensitivityLabelUpdateResult.abacAttributesRequired;
+    const removingLabelNotSupported: Excel.SensitivityLabelUpdateResult =
+        Excel.SensitivityLabelUpdateResult.removingLabelNotSupported;
+    const removingLabelNotSupportedValue: "RemovingLabelNotSupported" =
+        Excel.SensitivityLabelUpdateResult.removingLabelNotSupported;
+
+    const abacAttributeData: Excel.Interfaces.SensitivityLabelAbacAttributeData = {
+        dataType: Excel.SensitivityLabelAbacAttributeDataType.stringValue,
+        displayName: "Department",
+        displayOrder: 1,
+        isActive: true,
+        isMultiValued: false,
+        values: [abacAttributeValue],
+    };
+    const abacAttributeValueData: Excel.Interfaces.SensitivityLabelAbacAttributeValueData = {
+        displayName: "Engineering",
+        displayOrder: 1,
+        id: "engineering",
+        isActive: true,
+    };
+    const abacAttributeLoadOptions: Excel.Interfaces.SensitivityLabelAbacAttributeLoadOptions = {
+        dataType: true,
+        displayName: true,
+        displayOrder: true,
+        isActive: true,
+        isMultiValued: true,
+        values: true,
+    };
+    const abacAttributeValueLoadOptions: Excel.Interfaces.SensitivityLabelAbacAttributeValueLoadOptions = {
+        displayName: true,
+        displayOrder: true,
+        id: true,
+        isActive: true,
+    };
+    const sensitivityLabelDetailsData: Excel.Interfaces.SensitivityLabelDetailsData = {
+        abacAttributeValues: [abacAttributeValue],
+        isAbacAttributesRequired: true,
+        isAbacEnabled: true,
+    };
+    const sensitivityLabelDetailsLoadOptions: Excel.Interfaces.SensitivityLabelDetailsLoadOptions = {
+        abacAttributeValues: true,
+        isAbacAttributesRequired: true,
+        isAbacEnabled: true,
+    };
+
+    const dateValueResult: Excel.FunctionResult<number> = functions.datevalue(1);
+
+    const linkedEntityEventType: Excel.EventType = Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+    const linkedEntityEventTypeValue: "LinkedEntityDataDomainLinkedEntityCellValueLoaded" =
+        Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+
+    const dirtySupportingFormulaErrorCode: Excel.ErrorCodes = Excel.ErrorCodes.dirtySupportingFormula;
+    const dirtySupportingFormulaErrorCodeValue: "DirtySupportingFormula" = Excel.ErrorCodes.dirtySupportingFormula;
+}
+
 function test_word() {
 
     // Search
