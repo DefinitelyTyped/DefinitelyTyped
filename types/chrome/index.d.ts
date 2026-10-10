@@ -2319,8 +2319,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
-        function set(details: SetDetails): Promise<Cookie | null>;
-        function set(details: SetDetails, callback: (cookie: Cookie | null) => void): void;
+        function set(details: SetDetails): Promise<Cookie | undefined>;
+        function set(details: SetDetails, callback: (cookie?: Cookie) => void): void;
 
         /**
          * Deletes a cookie by name.
@@ -2328,15 +2328,15 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later.
          */
         function remove(details: CookieDetails): Promise<CookieDetails>;
-        function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
+        function remove(details: CookieDetails, callback: (details: CookieDetails) => void): void;
 
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
-        function get(details: CookieDetails): Promise<Cookie | null>;
-        function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
+        function get(details: CookieDetails): Promise<Cookie | null | undefined>;
+        function get(details: CookieDetails, callback: (cookie?: Cookie | null) => void): void;
 
         /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
         const onChanged: events.Event<(changeInfo: CookieChangeInfo) => void>;
