@@ -43,7 +43,7 @@ declare namespace GoogleAppsScript {
              */
             payload?: Payload | undefined;
             /**
-             * Deprecated. This instructs fetch to resolve the specified URL within the intranet linked to your
+             * @deprecated This instructs fetch to resolve the specified URL within the intranet linked to your
              * domain through (deprecated) SDC
              */
             useIntranet?: boolean | undefined;
