@@ -275,12 +275,12 @@ export namespace UIkit {
 
     // Form
 
-    interface UIkitFormOptions {
+    interface UIkitFormCustomOptions {
         /** Value display target. */
         target?: UIkitCssSelector | boolean;
     }
 
-    type FormCustom = UIkitFunction<UIkitFormOptions, UIkitElementBase, UIkitCssSelector | boolean>;
+    type FormCustom = UIkitFunction<UIkitFormCustomOptions, UIkitElementBase, UIkitCssSelector | boolean>;
 
     // Grid
 
@@ -366,7 +366,7 @@ export namespace UIkit {
 
     // Image
 
-    interface UIkitImageOptions {
+    interface UIkitImgOptions {
         /**	The image's src attribute. */
         dataSrc?: string;
         /** Undocumented. */
@@ -391,7 +391,7 @@ export namespace UIkit {
         target?: string | boolean;
     }
 
-    type Img = UIkitFunction<UIkitImageOptions, UIkitElementBase, string>;
+    type Img = UIkitFunction<UIkitImgOptions, UIkitElementBase, string>;
 
     // Inverse
 

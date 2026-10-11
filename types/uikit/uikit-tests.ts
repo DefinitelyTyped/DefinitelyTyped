@@ -137,7 +137,7 @@ function testFilter() {
     component.$destroy();
 }
 
-function testForm() {
+function testFormCustom() {
     UIkit.formCustom(element).$destroy();
     UIkit.formCustom(element, "input");
 
@@ -199,7 +199,7 @@ async function testIcon() {
     component.$destroy();
 }
 
-function testImage() {
+function testImg() {
     UIkit.img(element).$destroy();
     UIkit.img(element, "image.jpg");
 
