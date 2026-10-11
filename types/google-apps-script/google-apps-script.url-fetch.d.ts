@@ -66,6 +66,10 @@ declare namespace GoogleAppsScript {
              * if this is set to false, reserved characters in the URL will not be escaped (default: true)
              */
             escaping?: boolean | undefined;
+            /**
+             * the maximum time in seconds to wait for the request to complete (default: 360)
+             */
+            timeoutSeconds?: number | undefined;
         }
         /**
          * Fetch resources and communicate with other hosts over the Internet.
