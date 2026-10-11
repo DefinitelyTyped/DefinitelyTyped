@@ -4581,7 +4581,12 @@ async function testDeclarativeNetRequest() {
     const rule: chrome.declarativeNetRequest.Rule = {
         id: 1,
         priority: 1,
-        action: { type: "allow", requestHeaders: [], responseHeaders: [] },
+        action: {
+            type: "allow",
+            requestHeaders: [],
+            responseHeaders: [],
+            redirect: { transform: { scheme: "chrome-extension" } },
+        },
         condition: {
             domainType: "firstParty",
             excludedResourceTypes: [chrome.declarativeNetRequest.ResourceType.IMAGE, "object"],
