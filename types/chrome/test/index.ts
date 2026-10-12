@@ -2977,9 +2977,9 @@ async function testCookies() {
         storeId: "storeId1",
     };
 
-    chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null | undefined>
     chrome.cookies.get(cookieDetails, (cookie) => { // $ExpectType void
-        cookie; // $ExpectType Cookie | null
+        cookie; // $ExpectType Cookie | null | undefined
     });
     // @ts-expect-error
     chrome.cookies.get(cookieDetails, () => {}).then(() => {});
@@ -3046,9 +3046,9 @@ async function testCookies() {
         value: "value1",
     };
 
-    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | undefined>
     chrome.cookies.set(cookieDetailsSet, (cookie) => { // $ExpectType void
-        cookie; // $ExpectType Cookie | null
+        cookie; // $ExpectType Cookie | undefined
     });
     // @ts-expect-error
     chrome.cookies.set(cookieDetailsSet, () => {}).then(() => {});
