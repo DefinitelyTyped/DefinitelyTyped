@@ -13,14 +13,24 @@ export interface Centroid extends Coordinate {
     type: "entrance" | undefined;
 }
 
+export interface Metadata {
+    version?: number;
+    timestamp?: string;
+    user?: string;
+    uid?: number;
+    changeset?: number;
+}
+
 export interface Node extends Coordinate {
     id: number;
     type: "node";
+    meta?: Metadata;
     tags: Tags;
 }
 export interface Way {
     id: number;
     type: "way";
+    meta?: Metadata;
     tags: Tags;
     centroid: Centroid;
     bounds: {
@@ -34,6 +44,7 @@ export interface Way {
 export interface Relation {
     id: number;
     type: "relation";
+    meta?: Metadata;
     tags: Tags;
     centroid: Centroid;
     bounds: {
@@ -54,6 +65,9 @@ export interface Options {
     /** Path to store temp files */
     leveldb?: string | undefined;
     waynodes?: string | undefined;
+    options?: {
+        metadata?: boolean;
+    };
 }
 
 export interface Decoder extends stream.Transform {
