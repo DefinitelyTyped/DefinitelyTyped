@@ -1861,6 +1861,10 @@
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
         },
+        "dotenv-load": {
+            "libraryName": "dotenv-load",
+            "asOfVersion": "3.0.0"
+        },
         "double-metaphone": {
             "libraryName": "double-metaphone",
             "asOfVersion": "2.0.0"
