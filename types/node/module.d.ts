@@ -248,6 +248,10 @@ declare module "node:module" {
              * Deregister the hook instance.
              */
             deregister(): void;
+            /**
+             * The same as `deregister`.
+             */
+            [Symbol.dispose](): void;
         }
         /**
          * Register [hooks](https://nodejs.org/docs/latest-v26.x/api/module.html#customization-hooks)

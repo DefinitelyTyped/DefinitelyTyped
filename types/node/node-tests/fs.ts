@@ -537,6 +537,23 @@ async function testPromisify() {
             type: "text/ecmascript",
         });
     });
+    // $ExpectType Blob
+    fs.openAsBlobSync("the.file.txt");
+    // $ExpectType Blob
+    fs.openAsBlobSync(Buffer.from("the.file.txt"), { type: "text/plain" });
+    // @ts-expect-error
+    fs.openAsBlobSync("the.file.txt", { type: 1 });
+}
+
+{
+    // $ExpectType number
+    fs.constants.UV_FS_O_TEMPORARY;
+    // $ExpectType number
+    fs.constants.UV_FS_O_SHORT_LIVED;
+    // $ExpectType number
+    fs.constants.UV_FS_O_SEQUENTIAL;
+    // $ExpectType number
+    fs.constants.UV_FS_O_RANDOM;
 }
 
 {

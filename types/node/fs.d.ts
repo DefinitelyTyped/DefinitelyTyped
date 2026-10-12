@@ -3990,6 +3990,30 @@ declare module "node:fs" {
          * this flag is ignored.
          */
         const UV_FS_O_FILEMAP: number;
+        /**
+         * When set, the file is deleted automatically when the last handle to it
+         * is closed. This flag is available on Windows operating systems only. On
+         * other operating systems, this flag is ignored.
+         */
+        const UV_FS_O_TEMPORARY: number;
+        /**
+         * Hint that the file is short-lived, so the system avoids flushing it to
+         * disk when possible. This flag is available on Windows operating systems
+         * only. On other operating systems, this flag is ignored.
+         */
+        const UV_FS_O_SHORT_LIVED: number;
+        /**
+         * Hint that the file is accessed sequentially from beginning to end, to
+         * optimize caching. This flag is available on Windows operating systems only.
+         * On other operating systems, this flag is ignored.
+         */
+        const UV_FS_O_SEQUENTIAL: number;
+        /**
+         * Hint that the file is accessed randomly, to optimize caching. This flag
+         * is available on Windows operating systems only. On other operating systems,
+         * this flag is ignored.
+         */
+        const UV_FS_O_RANDOM: number;
     }
     /**
      * Tests a user's permissions for the file or directory specified by `path`.
@@ -4536,6 +4560,12 @@ declare module "node:fs" {
      * @since v19.8.0
      */
     function openAsBlob(path: PathLike, options?: OpenAsBlobOptions): Promise<Blob>;
+    /**
+     * For detailed information, see the documentation of the Promise-returning
+     * version of this API: {@link openAsBlob}.
+     * @since v26.10.0
+     */
+    function openAsBlobSync(path: PathLike, options?: OpenAsBlobOptions): Blob;
 
     interface OpenDirOptions {
         /**

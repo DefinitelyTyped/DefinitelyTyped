@@ -1481,6 +1481,32 @@ declare module "node:process" {
                  */
                 setgroups?: (groups: ReadonlyArray<string | number>) => void;
                 /**
+                 * The `process.initgroups()` method reads the `/etc/group` file and initializes
+                 * the group access list, using all groups of which the user is a member. This is
+                 * a privileged operation that requires that the Node.js process either have `root`
+                 * access or the `CAP_SETGID` capability.
+                 *
+                 * Use care when dropping privileges:
+                 *
+                 * ```js
+                 * import { getgroups, initgroups, setgid } from 'node:process';
+                 *
+                 * console.log(getgroups());         // [ 0 ]
+                 * initgroups('nodeuser', 1000);     // switch user
+                 * console.log(getgroups());         // [ 27, 30, 46, 1000, 0 ]
+                 * setgid(1000);                     // drop root gid
+                 * console.log(getgroups());         // [ 27, 30, 46, 1000 ]
+                 * ```
+                 *
+                 * This function is only available on POSIX platforms (i.e. not Windows or
+                 * Android).
+                 * This feature is not available in `Worker` threads.
+                 * @since v0.9.4
+                 * @param user The user name or numeric identifier.
+                 * @param extraGroup A group name or numeric identifier.
+                 */
+                initgroups?: (user: string | number, extraGroup: string | number) => void;
+                /**
                  * The `process.setUncaughtExceptionCaptureCallback()` function sets a function
                  * that will be invoked when an uncaught exception occurs, which will receive the
                  * exception value itself as its first argument.

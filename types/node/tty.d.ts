@@ -40,6 +40,13 @@ declare module "node:tty" {
          */
         setRawMode(mode: boolean): this;
         /**
+         * The current raw mode for the `tty.ReadStream`. This is `false` when the stream
+         * is in its default mode, `'raw'` when raw input mode is enabled, and `'io'` when
+         * binary-safe I/O mode is enabled.
+         * @since v26.8.0
+         */
+        rawMode: false | "raw" | "io";
+        /**
          * A `boolean` that is always `true` for `tty.ReadStream` instances.
          * @since v0.5.8
          */
