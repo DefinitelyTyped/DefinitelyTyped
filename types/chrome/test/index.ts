@@ -880,7 +880,11 @@ function testRuntime() {
 
     chrome.runtime.getPackageDirectoryEntry(); // $ExpectType Promise<FileSystemDirectoryEntry>
     chrome.runtime.getPackageDirectoryEntry((directoryEntry) => { // $ExpectType void
-        directoryEntry; // $ExpectType FileSystemDirectoryEntry
+        directoryEntry.filesystem; // $ExpectType FileSystem
+        directoryEntry.fullPath; // $ExpectType string
+        directoryEntry.isDirectory; // $ExpectType boolean
+        directoryEntry.isFile; // $ExpectType boolean
+        directoryEntry.name; // $ExpectType string
     });
     // @ts-expect-error
     chrome.runtime.getPackageDirectoryEntry(() => {}).then(() => {});
@@ -6313,7 +6317,7 @@ function testFileBrowserHandler() {
     checkChromeEvent(chrome.fileBrowserHandler.onExecute, (id, details) => {
         id; // $ExpectType string
         details; // $ExpectType FileHandlerExecuteEventDetails
-        details.entries; // $ExpectType any[]
+        details.entries; // $ExpectType FileSystemFileEntry[]
         details.tab_id; // $ExpectType number | undefined
     });
 }
