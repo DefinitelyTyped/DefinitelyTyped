@@ -1809,6 +1809,10 @@
             "libraryName": "disqusjs",
             "asOfVersion": "3.0.0"
         },
+        "diva.js": {
+            "libraryName": "diva.js",
+            "asOfVersion": "7.5.2"
+        },
         "docker-file-parser": {
             "libraryName": "docker-file-parser",
             "asOfVersion": "1.0.3"
