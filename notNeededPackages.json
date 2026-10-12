@@ -3845,6 +3845,10 @@
             "libraryName": "jsonp-body",
             "asOfVersion": "1.1.0"
         },
+        "jsonpointer": {
+            "libraryName": "jsonpointer",
+            "asOfVersion": "5.0.0"
+        },
         "jsonschema": {
             "libraryName": "jsonschema",
             "asOfVersion": "1.1.1"
