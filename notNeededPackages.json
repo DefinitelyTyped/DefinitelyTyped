@@ -1444,6 +1444,10 @@
             "libraryName": "country-emoji",
             "asOfVersion": "1.5.6"
         },
+        "country-list-js": {
+            "libraryName": "country-list-js",
+            "asOfVersion": "4.0.0"
+        },
         "countup.js": {
             "libraryName": "countup.js",
             "asOfVersion": "2.0.3"
