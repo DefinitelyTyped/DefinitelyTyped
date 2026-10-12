@@ -1697,6 +1697,10 @@
             "libraryName": "define-lazy-prop",
             "asOfVersion": "2.0.0"
         },
+        "degit": {
+            "libraryName": "degit",
+            "asOfVersion": "3.10.0"
+        },
         "del": {
             "libraryName": "del",
             "asOfVersion": "4.0.0"
