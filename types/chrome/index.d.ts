@@ -496,8 +496,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
-        function clearAll(): Promise<boolean>;
-        function clearAll(callback: (wasCleared: boolean) => void): void;
+        function clearAll(): Promise<boolean | undefined>;
+        function clearAll(callback: (wasCleared?: boolean) => void): void;
 
         /**
          * Clears the alarm with the given name.
@@ -1961,10 +1961,16 @@ declare namespace chrome {
             VIDEO = "video",
             AUDIO = "audio",
             LAUNCHER = "launcher",
+            /** MV2 only */
             BROWSER_ACTION = "browser_action",
+            /** MV2 only */
             PAGE_ACTION = "page_action",
+            /** Applies to the context menu of the extension's action (its toolbar icon). */
             ACTION = "action",
-            /** @since Chrome 150 */
+            /**
+             * Applies to the context menu of a tab in the tab strip.
+             * @since Chrome 150
+             */
             TAB = "tab",
         }
 
@@ -4067,7 +4073,7 @@ declare namespace chrome {
         }
 
         interface GetFileIconOptions {
-            /** The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size. */
+            /** The size of the returned icon in density-independent pixels (DIPs). Must be either 16 or 32 (defaults to 32). On high-DPI displays, the returned image scales with the device scale factor (e.g., 64x64 px for size 32 on a 2x display). Calls from background service workers default to 1x scale. */
             size?: 16 | 32 | undefined;
         }
 
@@ -4181,7 +4187,7 @@ declare namespace chrome {
         function pause(downloadId: number, callback: () => void): void;
 
         /**
-         * Retrieve an icon for the specified download. For new downloads, file icons are available after the {@link onCreated} event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, {@link runtime.lastError} will contain an error message.
+         * Retrieve an icon for the specified download. For new downloads, file icons are available after the download's target filename has been determined (for example, when {@link onChanged} fires with a `filename` change). Attempting to retrieve the icon before the filename is determined will result in an error through {@link runtime.lastError}. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, {@link runtime.lastError} will contain an error message.
          * @param downloadId The identifier for the download.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
@@ -13491,7 +13497,7 @@ declare namespace chrome {
         }
 
         interface WebNavigationEventFilter {
-            /** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
+            /** Conditions that the URL being navigated to must satisfy. */
             url: chrome.events.UrlFilter[];
         }
 

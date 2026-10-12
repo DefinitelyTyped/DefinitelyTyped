@@ -2830,9 +2830,9 @@ async function testAlarms() {
     // @ts-expect-error
     chrome.alarms.getAll(() => {}).then(() => {});
 
-    chrome.alarms.clearAll(); // $ExpectType Promise<boolean>
+    chrome.alarms.clearAll(); // $ExpectType Promise<boolean | undefined>
     chrome.alarms.clearAll((wasCleared) => { // $ExpectType void
-        wasCleared; // $ExpectType boolean
+        wasCleared; // $ExpectType boolean | undefined
     });
     // @ts-expect-error
     chrome.alarms.clearAll(() => {}).then(() => {});
