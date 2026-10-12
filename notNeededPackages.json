@@ -1228,6 +1228,10 @@
             "libraryName": "commons-validator-js",
             "asOfVersion": "1.0.1266"
         },
+        "compact-encoding": {
+            "libraryName": "compact-encoding",
+            "asOfVersion": "3.5.2"
+        },
         "compare-versions": {
             "libraryName": "compare-versions",
             "asOfVersion": "3.3.0"
