@@ -2,11 +2,12 @@ export as namespace ReduxDefine;
 
 export type SubActionProps<
     SubAction extends string, // This is necessary to force narrowing of the subaction type, as described here https://github.com/microsoft/TypeScript/issues/30680
-    SubActions extends SubAction[],
+    SubActions extends string[],
     Namespace extends string | undefined,
     OwnAction extends string,
 > = {
-    [k in SubActions[number]]: `${Namespace extends string ? `${Namespace}/` : ""}${OwnAction}_${k}`;
+    [k in Extract<SubActions[number], SubAction>]: `${Namespace extends string ? `${Namespace}/`
+        : ""}${OwnAction}_${k}`;
 };
 
 export type NamespaceString<Namespace extends Action | string> = Namespace extends Action ? Namespace["ACTION"]
@@ -27,8 +28,10 @@ export type Action<
     SubAction extends string | undefined = undefined,
     Namespace extends string | undefined = undefined,
     SubActions extends SubAction[] = SubAction[],
-> = SubAction extends string
-    ? PlainAction<OwnAction, Namespace> & SubActionProps<SubAction, SubActions, Namespace, OwnAction>
+> // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type -- Prevent conditional distribution.
+ = [SubAction] extends [string] ?
+        & PlainAction<OwnAction, Namespace>
+        & SubActionProps<SubAction & string, Extract<SubActions, string[]>, Namespace, OwnAction>
     : PlainAction<OwnAction, Namespace>;
 
 export function defineAction<OwnAction extends string>(actionType: OwnAction): Action<OwnAction>;

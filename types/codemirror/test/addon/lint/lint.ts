@@ -58,8 +58,9 @@ const promiseLintedCm: CodeMirror.Editor = CodeMirror(document.body, {
 });
 
 const syncLintedCm3: CodeMirror.Editor = CodeMirror(document.body, {
-    // @ts-expect-error
+    // @ts-expect-error <7.0
     lint: {
+        // @ts-expect-error >=7.0
         getAnnotations(content: string, options: any, cm: CodeMirror.Editor) {
             return null;
         },
