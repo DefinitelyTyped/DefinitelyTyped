@@ -1458,17 +1458,64 @@ function testDebugger() {
         sessionId: "123",
     };
 
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<object | undefined>
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, (result) => { // $ExpectType void
-        result; // $ExpectType object | undefined
+    interface EvaluateRequest {
+        expression: string;
+        objectGroup?: string;
+        includeCommandLineAPI?: boolean;
+        silent?: boolean;
+        contextId?: number;
+        returnByValue?: boolean;
+        userGesture?: boolean;
+        awaitPromise?: boolean;
+    }
+
+    interface EvaluateResponse {
+        result: {
+            type: "object" | "function" | "undefined" | "string" | "number" | "boolean" | "symbol" | "bigint";
+            value?: any;
+        };
+        exceptionDetails?: {
+            exceptionId: number;
+            text: string;
+            lineNumber: number;
+            columnNumber: number;
+        };
+    }
+
+    const sendCommandRuntimeEvaluateParams: EvaluateRequest = {
+        expression: "document.title",
+        returnByValue: true,
+    };
+
+    chrome.debugger.sendCommand(debuggerSession, "Runtime.evaluate", sendCommandRuntimeEvaluateParams); // $ExpectType Promise<{ [key: string]: unknown } | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Runtime.evaluate", sendCommandRuntimeEvaluateParams, (result) => { // $ExpectType void
+        result; // $ExpectType { [key: string]: unknown } | undefined
     });
+    chrome.debugger.sendCommand(debuggerSession, "Page.enable"); // $ExpectType Promise<{ [key: string]: unknown } | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Page.enable", undefined, (result) => { // $ExpectType void
+        result; // $ExpectType { [key: string]: unknown } | undefined
+    });
+
+    chrome.debugger.sendCommand<EvaluateRequest, EvaluateResponse>( // $ExpectType Promise<EvaluateResponse | undefined>
+        debuggerSession,
+        "Runtime.evaluate",
+        sendCommandRuntimeEvaluateParams,
+    );
+    chrome.debugger.sendCommand<EvaluateRequest, EvaluateResponse>( // $ExpectType void
+        debuggerSession,
+        "Runtime.evaluate",
+        sendCommandRuntimeEvaluateParams,
+        (result) => {
+            result; // $ExpectType EvaluateResponse | undefined
+        },
+    );
     // @ts-expect-error
     chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, () => {}).then(() => {});
 
     checkChromeEvent(chrome.debugger.onEvent, (source, methodName, params) => {
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType object | undefined
+        params; // $ExpectType { [key: string]: unknown } | undefined
     });
 
     checkChromeEvent(chrome.debugger.onDetach, (source, reason) => {
