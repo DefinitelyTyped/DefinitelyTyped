@@ -129,7 +129,7 @@ export namespace UIkit {
 
     interface UIkitAlertOptions {
         /** Fade out or hide directly. */
-        animation?: boolean | string;
+        animation?: boolean;
         /** Animation duration in milliseconds. */
         duration?: number;
         /** The close trigger element. */

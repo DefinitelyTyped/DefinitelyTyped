@@ -47,6 +47,7 @@ function testAccordion() {
 function testAlert() {
     UIkit.alert(element).$destroy();
     UIkit.alert(element, true).$destroy();
+    UIkit.alert(element, false).$destroy();
     UIkit.alert(element, "Hello").$destroy();
 
     const component = UIkit.alert(element, {
