@@ -1196,6 +1196,10 @@
             "libraryName": "color-convert",
             "asOfVersion": "3.0.1"
         },
+        "color-string": {
+            "libraryName": "color-string",
+            "asOfVersion": "2.1.4"
+        },
         "colorbrewer": {
             "libraryName": "colorbrewer",
             "asOfVersion": "1.6.0"
