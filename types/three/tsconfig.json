@@ -33,6 +33,7 @@
         "test/unit/examples/jsm/libs/lil-gui.ts",
         "test/unit/examples/jsm/libs/tween.ts",
         "test/unit/examples/jsm/lines/LineMaterial.ts",
+        "test/unit/examples/jsm/loaders/SVGLoader.ts",
         "test/unit/examples/jsm/postprocessing/EffectComposer.ts",
         "test/unit/examples/jsm/postprocessing/SavePass.ts",
         "test/unit/examples/jsm/shaders/ACESFilmicToneMappingShader.ts",
