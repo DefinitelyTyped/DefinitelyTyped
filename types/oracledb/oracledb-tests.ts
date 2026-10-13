@@ -1,4 +1,5 @@
 import * as oracledb from "oracledb";
+import "oracledb/plugins/token/endUserSecurityProvider";
 
 import assert from "assert";
 import defaultOracledb from "oracledb";
@@ -1006,12 +1007,13 @@ export const version7Tests = async (): Promise<void> => {
     new oracledb.EndUserSecurityContext({
         endUserToken: "end-user-token",
     });
-    // @ts-expect-error must specify either endUserToken or endUserName + key
+    // valid: direct application logon
     new oracledb.EndUserSecurityContext({
         databaseAccessToken: "db-access-token",
+        dataRoles: ["APP_ROLE"],
+        attributes: { application: "payroll", regions: ["us", "uk"] },
     });
 
-    // @ts-expect-error key is required when endUserName is set
     new oracledb.EndUserSecurityContext({
         databaseAccessToken: "db-access-token",
         endUserName: "APP_USER",
@@ -1072,4 +1074,37 @@ export const version7Tests = async (): Promise<void> => {
     connection.runPipeline(pipeline, true, (...args) => {
         expectType<[oracledb.DBError] | [null, oracledb.PipelineOperationResult[]]>(args);
     });
+};
+
+export const version26SecurityTests = async (connection: oracledb.Connection): Promise<void> => {
+    const provider = oracledb.getSecurityContextProvider();
+    expectType<oracledb.SecurityContextMetadata | null>(provider.getCurrentContext());
+    expectType<number>(provider.runWithContext({ endUserName: "APP_USER" }, (value: number) => value, 42));
+    // @ts-expect-error callback arguments must match the callback parameter types
+    provider.runWithContext({}, (value: number) => value, "42");
+    const row = await provider.runWithContext({ endUserToken: "user-token", dataRoles: ["READER"] }, () =>
+        connection.execute<{ ID: number }>("select id from test_table")
+    );
+    expectType<oracledb.Result<{ ID: number }>>(row);
+    provider.runWithContext({ endUserName: "APP_USER", key: "request-1" }, () => connection.commit());
+    provider.runWithContext({ dataRoles: ["APP_ROLE"] }, () => connection.commit());
+    // @ts-expect-error end-user token and name cannot be combined
+    provider.runWithContext({ endUserToken: "token", endUserName: "APP_USER" }, () => connection.commit());
+
+    await oracledb.createPool({
+        endUserSecParams: {
+            spiType: "azure",
+            authFlow: "onBehalfOf",
+            contextResolution: "operation",
+            clientId: "client-id",
+            clientSecret: "secret",
+            authority: "https://login.microsoftonline.com/tenant",
+            scopes: ["database/.default"],
+        },
+    });
+    await oracledb.getConnection({
+        endUserSecParams: { spiType: "oci", authFlow: "app", authType: "resourcePrincipal" },
+    });
+    await oracledb.getConnection({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
+    await oracledb.createPool({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
 };

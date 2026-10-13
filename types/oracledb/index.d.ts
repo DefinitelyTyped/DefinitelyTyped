@@ -1064,7 +1064,8 @@ declare namespace OracleDB {
     /**
      * Configuration options used to create an EndUserSecurityContext object.
      *
-     * Use either endUserToken, or the endUserName/key combination.
+     * Use an end-user token, a local end-user name with an optional key,
+     * or omit both identities for direct application logon.
      *
      * @since 7.0
      */
@@ -1116,10 +1117,59 @@ declare namespace OracleDB {
             endUserName: string;
             /**
              * The lookup identifier that the database maps to stored context attributes.
-             * This is required when `endUserName` is set.
+             * This may be used with `endUserName`.
              */
-            key: string;
+            key?: string | undefined;
+        })
+        | (BaseEndUserSecurityContextOptions & {
+            /** Direct application logon uses the identity in databaseAccessToken. */
+            endUserToken?: never;
+            endUserName?: never;
+            key?: never;
         });
+
+    /** Request metadata used by the end-user security provider plugin. @since 26.0 */
+    type SecurityContextMetadata = {
+        dataRoles?: string[] | undefined;
+        attributes?: Record<string, unknown> | undefined;
+    } & (
+        | { endUserToken: string; endUserName?: never; key?: never }
+        | { endUserToken?: never; endUserName?: string | undefined; key?: string | undefined }
+    );
+
+    /** Configuration for the end-user security provider plugin. @since 26.0 */
+    type EndUserSecurityParameters = SecurityContextMetadata & {
+        authType?: string | undefined;
+        spiType?: "oci" | "azure" | undefined;
+        authFlow?: "onBehalfOf" | "obo" | "app" | undefined;
+        contextResolution?: "connection" | "operation" | undefined;
+        cacheOptions?: { enabled?: boolean | undefined } | undefined;
+        authority?: string | undefined;
+        clientId?: string | undefined;
+        clientSecret?: string | undefined;
+        scopes?: string | string[] | undefined;
+        proxy?: object | undefined;
+        profile?: string | undefined;
+        configFileLocation?: string | undefined;
+        fingerprint?: string | undefined;
+        passphrase?: string | undefined;
+        privateKeyLocation?: string | undefined;
+        scope?: string | undefined;
+        tenancy?: string | undefined;
+        user?: string | undefined;
+        regionId?: string | undefined;
+    };
+
+    /** Scopes metadata to database operations started by the callback. @since 26.0 */
+    interface SecurityContextProvider {
+        runWithContext<T, A extends unknown[]>(
+            metadata: SecurityContextMetadata,
+            callback: (...args: A) => T,
+            ...args: A
+        ): T;
+        /** Metadata for the current asynchronous scope, or null outside a scope. */
+        getCurrentContext(): SecurityContextMetadata | null;
+    }
 
     /**
      * Defines end user security context information for an end user.
@@ -2218,6 +2268,28 @@ declare namespace OracleDB {
         profile: string;
         configFileLocation: string;
     }
+    /** Configuration consumed by the OCI token authentication plugin. */
+    interface TokenAuthConfigOci {
+        authType:
+            | "configFileBasedAuthentication"
+            | "simpleAuthentication"
+            | "instancePrincipal"
+            | "resourcePrincipal"
+            | "clientcredentials";
+        profile?: string | undefined;
+        configFileLocation?: string | undefined;
+        tenancy?: string | undefined;
+        user?: string | undefined;
+        fingerprint?: string | undefined;
+        passphrase?: string | undefined;
+        privateKeyLocation?: string | undefined;
+        regionId?: string | undefined;
+        scope?: string | undefined;
+        authority?: string | undefined;
+        clientId?: string | undefined;
+        clientSecret?: string | undefined;
+        scopes?: string | undefined;
+    }
     /**
      * A key-value entry used by connection.appContext().
      * Each entry should represent one context attribute assignment.
@@ -2232,6 +2304,10 @@ declare namespace OracleDB {
      * Provides connection credentials and connection-specific configuration properties.
      */
     interface ConnectionAttributes {
+        /** OCI token authentication configuration, including resource principals. */
+        tokenAuthConfigOci?: TokenAuthConfigOci | undefined;
+        /** Configuration for the end-user security provider plugin. @since 26.0 */
+        endUserSecParams?: EndUserSecurityParameters | undefined;
         /**
          * For Microsoft Azure Active Directory OAuth 2.0 token-based authentication, accessToken can be:
          *      a callback function returning the token as a string
@@ -3537,6 +3613,10 @@ declare namespace OracleDB {
      * If an attribute is not set, or is null, the value of the related Oracledb property will be used.
      */
     interface PoolAttributes {
+        /** OCI token authentication configuration, including resource principals. */
+        tokenAuthConfigOci?: TokenAuthConfigOci | undefined;
+        /** Configuration for the end-user security provider plugin. @since 26.0 */
+        endUserSecParams?: EndUserSecurityParameters | undefined;
         /**
          * For Microsoft Azure Active Directory OAuth 2.0 token-based authentication, accessToken can be:
          *      a callback function returning the token as a string
@@ -5649,6 +5729,9 @@ declare namespace OracleDB {
         connectionAttributes: ConnectionAttributes,
         callback: ResultCallback<Connection>,
     ): void;
+
+    /** Get the helper registered by the end-user security provider plugin. @since 26.0 */
+    function getSecurityContextProvider(): SecurityContextProvider;
 
     /**
      * A special object that contains properties which control the behavior of node-oracledb, allowing use of new features.
