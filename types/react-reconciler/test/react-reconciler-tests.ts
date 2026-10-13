@@ -30,7 +30,9 @@ ReactReconciler<
 
 ReactReconciler({
     ...ReactTestHostConfig,
-    HostTransitionContext: createContext<ReactTestHostConfig.TransitionStatus>(ReactTestHostConfig.NotPendingTransition),
+    HostTransitionContext: createContext<ReactTestHostConfig.TransitionStatus>(
+        ReactTestHostConfig.NotPendingTransition,
+    ),
 });
 
 function isEqual(target: number, value: number): boolean {
