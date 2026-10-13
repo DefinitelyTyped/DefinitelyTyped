@@ -15,12 +15,32 @@ declare namespace OracleDB {
     /** Constant for the query result outFormat option. */
     const OUT_FORMAT_OBJECT: number;
 
-    /** Transaction priority values supported by Oracle AI Database 26ai. @since 26.0 */
+    /**
+     * Resets transaction priority to the database default.
+     *
+     * @since 26.0.0
+     */
     const TXN_PRIORITY_DEFAULT: "";
+    /**
+     * Sets high transaction priority.
+     *
+     * @since 26.0.0
+     */
     const TXN_PRIORITY_HIGH: "HIGH";
+    /**
+     * Sets medium transaction priority.
+     *
+     * @since 26.0.0
+     */
     const TXN_PRIORITY_MEDIUM: "MEDIUM";
+    /**
+     * Sets low transaction priority.
+     *
+     * @since 26.0.0
+     */
     const TXN_PRIORITY_LOW: "LOW";
 
+    /** Supported values for connection.txnPriority and connection/pool creation options. */
     type TransactionPriority =
         | typeof TXN_PRIORITY_DEFAULT
         | typeof TXN_PRIORITY_HIGH
@@ -681,7 +701,9 @@ declare namespace OracleDB {
         | { type: DbType; converter?: typeof converter }
         | { type?: DbType; converter: typeof converter };
     /**
-     * This property is a function that allows applications to examine and modify queried column data before it is returned to the user. This function is called once for each column that is being fetched with a single object argument containing the following attributes:
+     * A callback that controls how queried column data is returned. It is called for each fetched column
+     * with that column's metadata and the read-only metadata array for all fetched columns.
+     * The rowsetMetaData array must not be modified. The first argument contains the following attributes:
      * annotations: The object representing the annotations.
      * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
      * dbType: The database type, that is, one of the Oracle Database Type Objects.
@@ -702,6 +724,8 @@ declare namespace OracleDB {
      * or both the type and converter attributes
      * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
      * This property can be overridden by the fetchTypeHandler option in execute().
+     *
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.fetchTypeHandler
      */
     function fetchTypeHandler(
         metadata: Metadata<any>,
@@ -1087,15 +1111,19 @@ declare namespace OracleDB {
     interface BaseEndUserSecurityContextOptions {
         /**
          * A security token issued by an external Identity and Access Management (IAM)
-         * system that authorizes access to Oracle Database.
+         * system that authorizes an application to access Oracle Database.
+         * An OBO token requires endUserToken. A client-credentials token may be used
+         * with either end-user identity form, or by itself for direct application logon.
          */
         databaseAccessToken: string;
         /**
-         * The names of data roles granted to the application or local database user.
+         * The names of data roles granted to the application identity.
          */
         dataRoles?: string[] | undefined;
         /**
-         * The attribute-value pairs provided by the application.
+         * Attribute-value pairs for END USER CONTEXT definitions in the database.
+         * Keys use fully qualified schema.context names; values must conform to the
+         * corresponding context's JSON schema.
          */
         attributes?: Record<string, any> | undefined;
     }
@@ -1103,11 +1131,11 @@ declare namespace OracleDB {
     type EndUserSecurityContextOptions =
         | (BaseEndUserSecurityContextOptions & {
             /**
-             * The unique identification of an end user managed by an external IAM system.
+             * A token issued by an external IAM system after end-user authentication.
              */
             endUserToken: string;
             /**
-             * The unique identification of an end user managed by Oracle Database.
+             * A local database user name with the CREATE END USER SECURITY CONTEXT privilege.
              *
              * This attribute should not be set when `endUserToken` is specified.
              */
@@ -1121,18 +1149,19 @@ declare namespace OracleDB {
         })
         | (BaseEndUserSecurityContextOptions & {
             /**
-             * The unique identification of an end user managed by an external IAM system.
+             * An external IAM end-user token.
              *
              * This attribute should not be set when `endUserName` is specified.
              */
             endUserToken?: never;
             /**
-             * The unique identification of an end user managed by Oracle Database.
+             * A local database user name with the CREATE END USER SECURITY CONTEXT privilege.
              */
             endUserName: string;
             /**
              * The lookup identifier that the database maps to stored context attributes.
              * This may be used with `endUserName`.
+             * Optional since node-oracledb 7.0.1.
              */
             key?: string | undefined;
         })
@@ -1143,51 +1172,114 @@ declare namespace OracleDB {
             key?: never;
         });
 
-    /** Request metadata used by the end-user security provider plugin. @since 26.0 */
+    /**
+     * Request metadata for the end-user security provider plugin. Values supplied to
+     * runWithContext() override defaults configured in endUserSecParams.
+     * A token cannot be combined with a user name or key. A key is used with an
+     * end-user name, which may come from the configured defaults.
+     *
+     * @since 26.0.0
+     */
     type SecurityContextMetadata = {
+        /** Data roles to include in the security context. */
         dataRoles?: string[] | undefined;
+        /** JSON-serializable application attributes to include in the security context. */
         attributes?: Record<string, unknown> | undefined;
     } & (
         | { endUserToken: string; endUserName?: never; key?: never }
         | { endUserToken?: never; endUserName?: string | undefined; key?: string | undefined }
     );
 
-    /** Configuration for the end-user security provider plugin. @since 26.0 */
+    /**
+     * Static identity-provider configuration and optional default end-user metadata.
+     * Used by the endUserSecurityProvider plugin in Thin mode. Token-provider fields
+     * are forwarded to the selected Azure or OCI provider.
+     *
+     * @since 26.0.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#endusersecurityproviderplugin
+     */
     type EndUserSecurityParameters = SecurityContextMetadata & {
+        /** Token-provider authentication type; Microsoft Entra ID uses azureServicePrincipal. */
         authType?: string | undefined;
+        /** Identity provider: oci (the default), or azure for Microsoft Entra ID. */
         spiType?: "oci" | "azure" | undefined;
+        /**
+         * Authentication flow, fixed when the pool or standalone connection is created.
+         * onBehalfOf (also accepted as obo) is the default and requires Azure and an end-user token.
+         * app uses an application token. Request metadata cannot change this setting.
+         */
         authFlow?: "onBehalfOf" | "obo" | "app" | undefined;
+        /**
+         * connection (the default) resolves the context on the first database operation
+         * and keeps it until the connection is closed or released. operation resolves
+         * the current context for each database operation and clears it afterward.
+         */
         contextResolution?: "connection" | "operation" | undefined;
+        /** Azure OBO token-cache options. Set enabled to false to disable that cache. */
         cacheOptions?: { enabled?: boolean | undefined } | undefined;
+        /** Identity-provider authority URL for Azure or OCI client-credentials authentication. */
         authority?: string | undefined;
+        /** Application client ID for Azure or OCI client-credentials authentication. */
         clientId?: string | undefined;
+        /** Application client secret for Azure or OCI client-credentials authentication. */
         clientSecret?: string | undefined;
+        /** Azure scopes as a string or array; OCI client-credentials scopes as a string. */
         scopes?: string | string[] | undefined;
+        /** Azure token-provider proxy/network-client configuration. */
         proxy?: object | undefined;
+        /** OCI configuration profile; defaults to DEFAULT for configuration-file authentication. */
         profile?: string | undefined;
+        /** OCI configuration-file path; defaults to ~/.oci/config. */
         configFileLocation?: string | undefined;
+        /** Public-key fingerprint for OCI simple authentication. */
         fingerprint?: string | undefined;
+        /** Passphrase for an encrypted OCI private key. */
         passphrase?: string | undefined;
+        /** Private-key file path for OCI simple authentication. */
         privateKeyLocation?: string | undefined;
+        /** OCI IAM database-token scope; defaults to urn:oracle:db::id::*. */
         scope?: string | undefined;
+        /** Tenancy OCID for OCI simple authentication. */
         tenancy?: string | undefined;
+        /** User OCID for OCI simple authentication. */
         user?: string | undefined;
+        /** OCI region ID for simple authentication, for example us-ashburn-1. */
         regionId?: string | undefined;
     };
 
-    /** Scopes metadata to database operations started by the callback. @since 26.0 */
+    /**
+     * Associates request metadata with asynchronous application work for the
+     * endUserSecurityProvider plugin. Obtained with oracledb.getSecurityContextProvider().
+     *
+     * @since 26.0.0
+     */
     interface SecurityContextProvider {
+        /**
+         * Runs callback in an asynchronous scope associated with metadata, forwarding args.
+         * Returns the callback's result, including its Promise when it returns one.
+         * Supplied metadata overrides configured defaults and cannot change authFlow.
+         * Treat metadata and its nested values as immutable until the callback and all
+         * database operations started by it have completed.
+         *
+         * @since 26.0.0
+         */
         runWithContext<T, A extends unknown[]>(
             metadata: SecurityContextMetadata,
             callback: (...args: A) => T,
             ...args: A
         ): T;
-        /** Metadata for the current asynchronous scope, or null outside a scope. */
+        /**
+         * Returns the metadata object for the current asynchronous scope, or null
+         * when no context is active. Useful for framework integration.
+         *
+         * @since 26.0.0
+         */
         getCurrentContext(): SecurityContextMetadata | null;
     }
 
     /**
-     * Defines end user security context information for an end user.
+     * Defines Deep Data Security context information for an end user or for
+     * the application identity encoded in a database-access token.
      *
      * In this release, Deep Data Security is only supported in node-oracledb Thin mode.
      *
@@ -1198,9 +1290,22 @@ declare namespace OracleDB {
     }
 
     interface Connection {
-        /** Controls database OpenTelemetry tracing in Thin mode. @since 26.0 */
+        /**
+         * Requests Oracle Database server-side OpenTelemetry tracing. Supported only
+         * in Thin mode with Oracle AI Database 26ai (23.26.2) or later. The database
+         * must also have OpenTelemetry configured and enabled. Updates are sent on
+         * a subsequent round-trip.
+         *
+         * @since 26.0.0
+         */
         databaseOpenTelemetryTracing?: boolean | undefined;
-        /** Transaction priority associated with this connection. @since 26.0 */
+        /**
+         * Transaction priority associated with the connection. Use the TXN_PRIORITY_* constants.
+         * Initially reports the value returned by the database. A new setting is sent
+         * on the next round-trip; until then, reads return the current database value.
+         *
+         * @since 26.0.0
+         */
         txnPriority?: TransactionPriority | undefined;
         /**
          * The action attribute for end-to-end application tracing.
@@ -1318,7 +1423,7 @@ declare namespace OracleDB {
         /**
          * This write-only property is a string that sets the execution context identifier.
          * The value is available in the ECID column of the V$SESSION view. It is also shown in audit logs.
-         * Supported in Thin and Thick modes.
+         * Supported in Thick mode and, since node-oracledb 26.0.0, in Thin mode.
          *
          * @since 5.3
          */
@@ -1907,13 +2012,14 @@ declare namespace OracleDB {
          * Query metadata is available via a metadata event.
          * The end event indicates the end of the query results.
          *
-         * The connection must remain open until the stream is completely read.
+         * Call destroy() after end, and release the connection in the close event.
+         * The connection must remain open until the stream closes and returned LOBs are processed.
          *
-         * For tuning, adjust the value of oracledb.fetchArraySize or the option fetchArraySize (see execute()).
+         * For tuning, adjust fetchArraySize and prefetchRows (see execute()).
          *
          * @param sql The SQL statement that is executed. The statement may contain bind parameters.
          * @param bindParams This function parameter is needed if there are bind parameters in the SQL statement.
-         * @param options This is an optional parameter to execute() that may be used to control statement execution.
+         * @param options Execution options plus rowsPerDataEvent (added in 26.0.0), which defaults to 1.
          *
          * @since 1.8
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#streamingresults
@@ -2130,7 +2236,7 @@ declare namespace OracleDB {
     }
 
     /**
-     * Result of connection.subscribe() for Continous Query Notification (CQN) subscriptions.
+     * Result of connection.subscribe() for Continuous Query Notification (CQN) subscriptions.
      *
      * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/cqn.html#cqn
      * @since 4.0
@@ -2138,6 +2244,8 @@ declare namespace OracleDB {
     interface Subscription {
         /**
          * Value of REGID in the database view USER_CHANGE_NOTIFICATION_REGS or the value of REG_ID in USER_SUBSCR_REGISTRATIONS.
+         * Returned as a JavaScript number.
+         * The notification callback's message.regId is a bigint.
          *
          * For advanced queue SUBSCR_NAMESPACE_AQ subscriptions, regId is undefined.
          */
@@ -2153,9 +2261,11 @@ declare namespace OracleDB {
         /** The notification callback that will be called whenever notifications are sent by the database. */
         callback: (message: SubscriptionMessage) => void;
         /**
-         * Enables CQN “client initiated” connections which internally use the same approach as normal connections to the database,
+         * Enables CQN and AQ “client initiated” connections which internally use the same approach as normal connections to the database,
          * and do not require the database to be able to connect back to the application. Since client initiated connections
          * do not need additional network configuration, they have ease-of-use and security advantages.
+         * Must be true in Thin mode, which supports notifications from node-oracledb 26.0.0.
+         * Requires Oracle Database 19.4 or later; Thick mode also requires Oracle Client 19.4 or later.
          *
          * @default false
          * @since 4.2
@@ -2210,19 +2320,43 @@ declare namespace OracleDB {
      * Information about a subscription's notification.
      */
     interface SubscriptionMessage {
-        /** Consumer name for AQ notifications. @since 26.0 */
+        /**
+         * Consumer name for AQ notifications; undefined for CQN.
+         *
+         * @since 26.0.0
+         */
         consumerName?: string | undefined;
-        /** AQ message identifier. @since 26.0 */
+        /**
+         * AQ message identifier; undefined for CQN.
+         *
+         * @since 26.0.0
+         */
         msgId?: Buffer | undefined;
-        /** Original AQ message identifier, if supplied by the database. @since 26.0 */
+        /**
+         * Original AQ message identifier, if supplied by the database; undefined for CQN.
+         *
+         * @since 26.0.0
+         */
         originalMsgId?: Buffer | undefined;
-        /** AQ sender agent address, available in Thin mode. @since 26.0 */
+        /**
+         * AQ sender agent address, if supplied by the database. Thin mode only; undefined for CQN.
+         *
+         * @since 26.0.0
+         */
         senderAgentAddress?: string | undefined;
-        /** AQ sender agent name, available in Thin mode. @since 26.0 */
+        /**
+         * AQ sender agent name, if supplied by the database. Thin mode only; undefined for CQN.
+         *
+         * @since 26.0.0
+         */
         senderAgentName?: string | undefined;
-        /** AQ sender agent protocol, available in Thin mode. @since 26.0 */
+        /**
+         * AQ sender agent protocol, if supplied by the database. Thin mode only; undefined for CQN.
+         *
+         * @since 26.0.0
+         */
         senderAgentProtocol?: number | undefined;
-        /** Name of the database which sent the notification. */
+        /** Database that sent a CQN notification; undefined for AQ and deregistration notifications. */
         dbName?: string | undefined;
         /**
          * Name of the Advanced Queue. Undefined for CQN.
@@ -2230,26 +2364,39 @@ declare namespace OracleDB {
          * @since 4.0
          */
         queueName?: string | undefined;
-        /** Array of objects specifying the queries which were affected by the Query Change notification. */
+        /** Queries affected by a SUBSCR_EVENT_TYPE_QUERY_CHANGE notification. */
         queries?:
             | Array<{
-                /** Query identifier, available in Thin mode. @since 26.0 */
+                /**
+                 * Query identifier returned by Thin mode notifications.
+                 *
+                 * @since 26.0.0
+                 */
                 id?: bigint | undefined;
-                /** Query operation mask, available in Thin mode. @since 26.0 */
+                /**
+                 * Query operation mask returned by Thin mode notifications.
+                 *
+                 * @since 26.0.0
+                 */
                 operation?: number | undefined;
                 /** Array of objects specifying the tables which were affected by the notification. */
                 tables?: SubscriptionTable[];
             }>
             | undefined;
-        /** Indicates whether the subscription is registered with the database. */
+        /** False for deregistration notifications or when SUBSCR_QOS_DEREG_NFY was set. */
         registered: boolean;
 
-        /** Tables affected by an object-level change notification. */
+        /** Tables affected by a SUBSCR_EVENT_TYPE_OBJ_CHANGE notification. */
         tables?: SubscriptionTable[] | undefined;
 
-        /** Buffer containing the identifier of the transaction which spawned the notification. */
+        /** Transaction identifier for a CQN change notification; absent for AQ or deregistration. */
         txId?: Buffer | undefined;
-        /** Registration ID of affected registration. */
+        /**
+         * Registration identifier as a JavaScript bigint. The corresponding subscribe()
+         * result uses a number; the values agree when that number can represent the identifier.
+         *
+         * @since 6.7
+         */
         regId: bigint;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
         type: number;
@@ -2262,7 +2409,7 @@ declare namespace OracleDB {
         /** Name of the table which was modified in some way. */
         name: string;
         /**
-         * One of the CQN_OPCODE_* constants.
+         * An integer mask containing one or more CQN_OPCODE_* constants.
          */
         operation: number;
         /**
@@ -2308,26 +2455,46 @@ declare namespace OracleDB {
         configFileLocation: string;
     }
 
-    /** Configuration consumed by the OCI token authentication plugin. */
+    /**
+     * Configuration for the extensionOci token authentication plugin.
+     * The resourcePrincipal authentication mode was added in node-oracledb 26.0.0.
+     *
+     * @since 6.8
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#tokenauthconfigociproperties
+     */
     interface TokenAuthConfigOci {
+        /** OCI authentication method; clientcredentials selects the OAuth client-credentials flow. */
         authType:
             | "configFileBasedAuthentication"
             | "simpleAuthentication"
             | "instancePrincipal"
             | "resourcePrincipal"
             | "clientcredentials";
+        /** Configuration profile for configFileBasedAuthentication; defaults to DEFAULT. */
         profile?: string | undefined;
+        /** Configuration-file path for configFileBasedAuthentication; defaults to ~/.oci/config. */
         configFileLocation?: string | undefined;
+        /** Tenancy OCID; required for simpleAuthentication. */
         tenancy?: string | undefined;
+        /** User OCID; required for simpleAuthentication. */
         user?: string | undefined;
+        /** Public-key fingerprint; required for simpleAuthentication. */
         fingerprint?: string | undefined;
+        /** Passphrase for an encrypted private key used with simpleAuthentication. */
         passphrase?: string | undefined;
+        /** Private-key file path; required for simpleAuthentication. */
         privateKeyLocation?: string | undefined;
+        /** OCI region ID; required for simpleAuthentication. */
         regionId?: string | undefined;
+        /** OCI IAM database-token scope; defaults to urn:oracle:db::id::*. */
         scope?: string | undefined;
+        /** Token endpoint URL; required for clientcredentials. */
         authority?: string | undefined;
+        /** Application client ID; required for clientcredentials. */
         clientId?: string | undefined;
+        /** Application client secret; required for clientcredentials. */
         clientSecret?: string | undefined;
+        /** Optional OAuth scopes for clientcredentials. */
         scopes?: string | undefined;
     }
     /**
@@ -2344,11 +2511,27 @@ declare namespace OracleDB {
      * Provides connection credentials and connection-specific configuration properties.
      */
     interface ConnectionAttributes {
-        /** Transaction priority for a standalone connection. @since 26.0 */
+        /**
+         * Transaction priority for a standalone connection in Thin or Thick mode.
+         * Use the TXN_PRIORITY_* constants. If omitted, the database default is used.
+         *
+         * @since 26.0.0
+         */
         txnPriority?: TransactionPriority | undefined;
-        /** OCI token authentication configuration, including resource principals. */
+        /**
+         * Configuration used by the extensionOci plugin for OCI token authentication.
+         * Resource-principal authentication is supported from node-oracledb 26.0.0.
+         *
+         * @since 6.8
+         */
         tokenAuthConfigOci?: TokenAuthConfigOci | undefined;
-        /** Configuration for the end-user security provider plugin. @since 26.0 */
+        /**
+         * Static identity-provider configuration and optional default metadata for the
+         * endUserSecurityProvider plugin. Thin mode only, for Oracle Deep Data Security.
+         * Request metadata can be supplied with securityContextProvider.runWithContext().
+         *
+         * @since 26.0.0
+         */
         endUserSecParams?: EndUserSecurityParameters | undefined;
         /**
          * For Microsoft Azure Active Directory OAuth 2.0 token-based authentication, accessToken can be:
@@ -3048,6 +3231,7 @@ declare namespace OracleDB {
             | undefined;
         /**
          * Overrides oracledb.fetchTypeHandler.
+         * Receives the column's metadata and the read-only metadata array for all fetched columns.
          *
          * @since 6.0
          */
@@ -3127,9 +3311,15 @@ declare namespace OracleDB {
         suspendOnSuccess?: boolean;
     }
 
-    /** Options specific to connection.queryStream(). @since 26.0 */
+    /** Execution options and stream batching controls for connection.queryStream(). */
     interface QueryStreamOptions extends ExecuteOptions {
-        /** Maximum rows per data event; values greater than one produce arrays of rows. */
+        /**
+         * Maximum rows returned in each data event. A value of 1 returns the row itself;
+         * larger values return an array of up to that many rows.
+         *
+         * @default 1
+         * @since 26.0.0
+         */
         rowsPerDataEvent?: number | undefined;
     }
 
@@ -3663,11 +3853,27 @@ declare namespace OracleDB {
      * If an attribute is not set, or is null, the value of the related Oracledb property will be used.
      */
     interface PoolAttributes {
-        /** Transaction priority for connections created in a Thin mode pool. @since 26.0 */
+        /**
+         * Transaction priority for connections created in a Thin mode pool.
+         * Use the TXN_PRIORITY_* constants. If omitted, the database default is used.
+         *
+         * @since 26.0.0
+         */
         txnPriority?: TransactionPriority | undefined;
-        /** OCI token authentication configuration, including resource principals. */
+        /**
+         * Configuration used by the extensionOci plugin for OCI token authentication.
+         * Resource-principal authentication is supported from node-oracledb 26.0.0.
+         *
+         * @since 6.8
+         */
         tokenAuthConfigOci?: TokenAuthConfigOci | undefined;
-        /** Configuration for the end-user security provider plugin. @since 26.0 */
+        /**
+         * Static identity-provider configuration and optional default metadata for the
+         * endUserSecurityProvider plugin. Thin mode only, for Oracle Deep Data Security.
+         * Request metadata can be supplied with securityContextProvider.runWithContext().
+         *
+         * @since 26.0.0
+         */
         endUserSecParams?: EndUserSecurityParameters | undefined;
         /**
          * For Microsoft Azure Active Directory OAuth 2.0 token-based authentication, accessToken can be:
@@ -4371,9 +4577,12 @@ declare namespace OracleDB {
         delay: number;
         /** Delivery mode the messages was enqueued with. */
         deliveryMode: number;
-        /** A readonly JavaScript Date object with a precision of seconds containing
-         * the timestamp of when the message was enqueued.
+        /**
+         * Read-only enqueue timestamp with seconds precision and zero fractional seconds.
          * Undefined when the enqueue time is unavailable.
+         * Thin mode uses undefined as the default from node-oracledb 26.0.0.
+         *
+         * @since 6.9
          */
         readonly enqTime: Date | undefined;
         /** Name of the exception queue defined when the message was enqueued. */
@@ -4647,7 +4856,10 @@ declare namespace OracleDB {
          *
          * To change the behavior of toQueryStream(), such as setting the query output Format or the internal
          * buffer size for performance, adjust global attributes such as oracledb.outFormat and oracledb.fetchArraySize
-         * before calling execute().
+         * and oracledb.prefetchRows before calling execute().
+         *
+         * @param options Added in 26.0.0. rowsPerDataEvent defaults to 1, returning each row itself.
+         * Values greater than 1 return arrays of up to that many rows per data event.
          *
          * @since 1.9
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#streamingresults
@@ -5783,7 +5995,13 @@ declare namespace OracleDB {
         callback: ResultCallback<Connection>,
     ): void;
 
-    /** Get the helper registered by the end-user security provider plugin. @since 26.0 */
+    /**
+     * Returns the security context provider helper used with the endUserSecurityProvider
+     * plugin to scope request metadata to database operations.
+     *
+     * @since 26.0.0
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.getSecurityContextProvider
+     */
     function getSecurityContextProvider(): SecurityContextProvider;
 
     /**
