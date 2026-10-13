@@ -1122,3 +1122,16 @@ export const version26TransactionPriorityTests = async (connection: oracledb.Con
     // @ts-expect-error unsupported transaction priority
     await oracledb.getConnection({ txnPriority: "URGENT" });
 };
+
+export const version26TracingTests = async (connection: oracledb.Connection): Promise<void> => {
+    connection.databaseOpenTelemetryTracing = true;
+    expectType<boolean | undefined>(connection.databaseOpenTelemetryTracing);
+    connection.ecid = "request-123";
+
+    await connection.execute("select id from test_table", [], {
+        fetchTypeHandler(metadata, rowsetMetaData) {
+            expectType<ReadonlyArray<oracledb.Metadata<any>>>(rowsetMetaData);
+            return metadata.name === "ID" ? { type: oracledb.STRING } : undefined;
+        },
+    });
+};

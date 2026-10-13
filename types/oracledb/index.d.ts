@@ -703,7 +703,10 @@ declare namespace OracleDB {
      * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
      * This property can be overridden by the fetchTypeHandler option in execute().
      */
-    function fetchTypeHandler(metadata: Metadata<any>): FetchTypeResponse | undefined;
+    function fetchTypeHandler(
+        metadata: Metadata<any>,
+        rowsetMetaData: ReadonlyArray<Metadata<any>>,
+    ): FetchTypeResponse | undefined;
     /**
      * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
      * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
@@ -1195,6 +1198,8 @@ declare namespace OracleDB {
     }
 
     interface Connection {
+        /** Controls database OpenTelemetry tracing in Thin mode. @since 26.0 */
+        databaseOpenTelemetryTracing?: boolean | undefined;
         /** Transaction priority associated with this connection. @since 26.0 */
         txnPriority?: TransactionPriority | undefined;
         /**
@@ -1313,7 +1318,7 @@ declare namespace OracleDB {
         /**
          * This write-only property is a string that sets the execution context identifier.
          * The value is available in the ECID column of the V$SESSION view. It is also shown in audit logs.
-         * Note: This property can only be used in the node-oracledb Thick mode. See Enabling node-oracledb Thick Mode.
+         * Supported in Thin and Thick modes.
          *
          * @since 5.3
          */
@@ -3025,7 +3030,9 @@ declare namespace OracleDB {
          *
          * @since 6.0
          */
-        fetchTypeHandler?: (metadata: Metadata<any>) => FetchTypeResponse | undefined;
+        fetchTypeHandler?:
+            | ((metadata: Metadata<any>, rowsetMetaData: ReadonlyArray<Metadata<any>>) => FetchTypeResponse | undefined)
+            | undefined;
         /**
          * The maximum number of rows that are fetched by a query with connection.execute() when not using a ResultSet.
          * Rows beyond this limit are not fetched from the database. A value of 0 means there is no limit.
