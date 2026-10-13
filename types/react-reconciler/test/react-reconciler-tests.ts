@@ -1,3 +1,4 @@
+import { createContext, type ReactNode, type ReactPortal } from "react";
 import ReactReconciler = require("react-reconciler");
 import ReactReconcilerConstants = require("react-reconciler/constants");
 import * as Constants from "./ReactReconcilerPriorityConstant";
@@ -26,6 +27,11 @@ ReactReconciler<
     ReactTestHostConfig.HoistableRoot,
     ReactTestHostConfig.Resource
 >(ReactTestHostConfig);
+
+ReactReconciler({
+    ...ReactTestHostConfig,
+    HostTransitionContext: createContext<ReactTestHostConfig.TransitionStatus>(ReactTestHostConfig.NotPendingTransition),
+});
 
 function isEqual(target: number, value: number): boolean {
     return target === value;
@@ -1097,3 +1103,19 @@ HydrationReconciler.createContainer(
     () => {}, // onDefaultTransitionIndicator
     null, // transitionCallbacks
 );
+
+const portal = TestReconciler.createPortal(null, null, null);
+const publicPortal: ReactPortal = portal;
+const internalPortal: ReactReconciler.ReactPortal = portal;
+const portalNode: ReactNode = portal;
+const portalTag: symbol | number = portal.$$typeof;
+void [publicPortal, internalPortal, portalNode, portalTag, portal.containerInfo, portal.implementation];
+
+const internalPortalShape: ReactReconciler.ReactPortal = {
+    $$typeof: Symbol.for("react.portal"),
+    key: null,
+    children: null,
+    containerInfo: null,
+    implementation: null,
+};
+void internalPortalShape;
