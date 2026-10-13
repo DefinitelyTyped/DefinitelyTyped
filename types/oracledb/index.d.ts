@@ -1903,7 +1903,8 @@ declare namespace OracleDB {
          * This function provides query streaming support. The parameters are the same as execute() except
          * a callback is not used. Instead this function returns a stream used to fetch data.
          *
-         * Each row is returned as a data event. Query metadata is available via a metadata event.
+         * Each data event contains a row, or an array of rows when rowsPerDataEvent is greater than one.
+         * Query metadata is available via a metadata event.
          * The end event indicates the end of the query results.
          *
          * The connection must remain open until the stream is completely read.
@@ -1917,7 +1918,7 @@ declare namespace OracleDB {
          * @since 1.8
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#streamingresults
          */
-        queryStream<T>(sql: string, bindParams: BindParameters, options: ExecuteOptions): QueryStream<T>;
+        queryStream<T>(sql: string, bindParams: BindParameters, options: QueryStreamOptions): QueryStream<T>;
         queryStream<T>(sql: string, bindParams: BindParameters): QueryStream<T>;
         queryStream<T>(sql: string): QueryStream<T>;
 
@@ -2076,9 +2077,9 @@ declare namespace OracleDB {
          * Register a JavaScript callback method to be invoked when data is changed in the database by any committed transaction,
          * or when there are Advanced Queuing messages to be dequeued.
          *
-         * For notifications to work, the connection must be created with events mode true, which is the default.
-         * The database must be able to connect to the node-oracledb machine for notifications to be received.
-         * Typically this means that the machine running node-oracledb needs a fixed IP address.
+         * In Thin mode, clientInitiated must be true. In Thick mode, the connection must be
+         * created with events set to true. Server-initiated notifications require the database
+         * to be able to connect back to the application.
          *
          * If there is any problem sending a notification, then the callback method will not be invoked.
          * The connection.subscribe() method may be called multiple times with the same name, as long as the same connection is used.
@@ -2196,8 +2197,8 @@ declare namespace OracleDB {
         port?: number | undefined;
         /** An integer mask containing one or more of the quality of service SUBSCR_QOS_* constants. */
         qos?: number | undefined;
-        /** The SQL query string to use for notifications. */
-        sql: string;
+        /** The SQL query string to use for CQN notifications. Not used for AQ notifications. */
+        sql?: string | undefined;
         /**
          * The number of seconds the subscription should remain active. Once this length of time has been reached,
          * the subscription is automatically unregistered and a deregistration notification is sent.
@@ -2209,6 +2210,18 @@ declare namespace OracleDB {
      * Information about a subscription's notification.
      */
     interface SubscriptionMessage {
+        /** Consumer name for AQ notifications. @since 26.0 */
+        consumerName?: string | undefined;
+        /** AQ message identifier. @since 26.0 */
+        msgId?: Buffer | undefined;
+        /** Original AQ message identifier, if supplied by the database. @since 26.0 */
+        originalMsgId?: Buffer | undefined;
+        /** AQ sender agent address, available in Thin mode. @since 26.0 */
+        senderAgentAddress?: string | undefined;
+        /** AQ sender agent name, available in Thin mode. @since 26.0 */
+        senderAgentName?: string | undefined;
+        /** AQ sender agent protocol, available in Thin mode. @since 26.0 */
+        senderAgentProtocol?: number | undefined;
         /** Name of the database which sent the notification. */
         dbName?: string | undefined;
         /**
@@ -2220,6 +2233,10 @@ declare namespace OracleDB {
         /** Array of objects specifying the queries which were affected by the Query Change notification. */
         queries?:
             | Array<{
+                /** Query identifier, available in Thin mode. @since 26.0 */
+                id?: bigint | undefined;
+                /** Query operation mask, available in Thin mode. @since 26.0 */
+                operation?: number | undefined;
                 /** Array of objects specifying the tables which were affected by the notification. */
                 tables?: SubscriptionTable[];
             }>
@@ -2227,8 +2244,11 @@ declare namespace OracleDB {
         /** Indicates whether the subscription is registered with the database. */
         registered: boolean;
 
+        /** Tables affected by an object-level change notification. */
+        tables?: SubscriptionTable[] | undefined;
+
         /** Buffer containing the identifier of the transaction which spawned the notification. */
-        txId: Buffer;
+        txId?: Buffer | undefined;
         /** Registration ID of affected registration. */
         regId: bigint;
         /** Type of notification sent. One of the Subscribe Event Type Constants. */
@@ -2287,6 +2307,7 @@ declare namespace OracleDB {
         profile: string;
         configFileLocation: string;
     }
+
     /** Configuration consumed by the OCI token authentication plugin. */
     interface TokenAuthConfigOci {
         authType:
@@ -3104,6 +3125,12 @@ declare namespace OracleDB {
          * @since 6.9
          */
         suspendOnSuccess?: boolean;
+    }
+
+    /** Options specific to connection.queryStream(). @since 26.0 */
+    interface QueryStreamOptions extends ExecuteOptions {
+        /** Maximum rows per data event; values greater than one produce arrays of rows. */
+        rowsPerDataEvent?: number | undefined;
     }
 
     /**
@@ -4346,8 +4373,9 @@ declare namespace OracleDB {
         deliveryMode: number;
         /** A readonly JavaScript Date object with a precision of seconds containing
          * the timestamp of when the message was enqueued.
+         * Undefined when the enqueue time is unavailable.
          */
-        readonly enqTime: Date;
+        readonly enqTime: Date | undefined;
         /** Name of the exception queue defined when the message was enqueued. */
         exceptionQueue: string;
         /** Number of seconds until expiration defined when the message was enqueued. */
@@ -4624,7 +4652,7 @@ declare namespace OracleDB {
          * @since 1.9
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#streamingresults
          */
-        toQueryStream(): Readable;
+        toQueryStream(options?: { rowsPerDataEvent?: number | undefined }): Readable;
     }
 
     /**

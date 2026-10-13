@@ -1135,3 +1135,38 @@ export const version26TracingTests = async (connection: oracledb.Connection): Pr
         },
     });
 };
+
+export const version26StreamingAndNotificationTests = async (
+    connection: oracledb.Connection,
+    resultSet: oracledb.ResultSet<{ ID: number }>,
+): Promise<void> => {
+    connection.queryStream<{ ID: number }>("select id from test_table", [], { rowsPerDataEvent: 10 });
+    resultSet.toQueryStream({ rowsPerDataEvent: 10 });
+    // @ts-expect-error rowsPerDataEvent must be numeric
+    resultSet.toQueryStream({ rowsPerDataEvent: "10" });
+
+    await connection.subscribe("TEST_QUEUE", {
+        namespace: oracledb.SUBSCR_NAMESPACE_AQ,
+        clientInitiated: true,
+        callback(message) {
+            expectType<oracledb.SubscriptionTable[] | undefined>(message.tables);
+            message.queries?.forEach(query => {
+                expectType<bigint | undefined>(query.id);
+                expectType<number | undefined>(query.operation);
+            });
+            expectType<string | undefined>(message.consumerName);
+            expectType<Buffer | undefined>(message.msgId);
+            expectType<Buffer | undefined>(message.originalMsgId);
+            expectType<string | undefined>(message.senderAgentAddress);
+            expectType<string | undefined>(message.senderAgentName);
+            expectType<number | undefined>(message.senderAgentProtocol);
+            expectType<bigint>(message.regId);
+        },
+    });
+
+    const queue = await connection.getQueue<Buffer>("TEST_QUEUE");
+    const message = await queue.deqOne();
+    if (message) {
+        expectType<Date | undefined>(message.enqTime);
+    }
+};
