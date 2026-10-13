@@ -1180,15 +1180,17 @@ declare namespace OracleDB {
      *
      * @since 26.0.0
      */
-    type SecurityContextMetadata = {
-        /** Data roles to include in the security context. */
-        dataRoles?: string[] | undefined;
-        /** JSON-serializable application attributes to include in the security context. */
-        attributes?: Record<string, unknown> | undefined;
-    } & (
-        | { endUserToken: string; endUserName?: never; key?: never }
-        | { endUserToken?: never; endUserName?: string | undefined; key?: string | undefined }
-    );
+    type SecurityContextMetadata =
+        & {
+            /** Data roles to include in the security context. */
+            dataRoles?: string[] | undefined;
+            /** JSON-serializable application attributes to include in the security context. */
+            attributes?: Record<string, unknown> | undefined;
+        }
+        & (
+            | { endUserToken: string; endUserName?: never; key?: never }
+            | { endUserToken?: never; endUserName?: string | undefined; key?: string | undefined }
+        );
 
     /**
      * Static identity-provider configuration and optional default end-user metadata.

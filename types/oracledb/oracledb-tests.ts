@@ -1082,8 +1082,9 @@ export const version26SecurityTests = async (connection: oracledb.Connection): P
     expectType<number>(provider.runWithContext({ endUserName: "APP_USER" }, (value: number) => value, 42));
     // @ts-expect-error callback arguments must match the callback parameter types
     provider.runWithContext({}, (value: number) => value, "42");
-    const row = await provider.runWithContext({ endUserToken: "user-token", dataRoles: ["READER"] }, () =>
-        connection.execute<{ ID: number }>("select id from test_table")
+    const row = await provider.runWithContext(
+        { endUserToken: "user-token", dataRoles: ["READER"] },
+        () => connection.execute<{ ID: number }>("select id from test_table"),
     );
     expectType<oracledb.Result<{ ID: number }>>(row);
     provider.runWithContext({ endUserName: "APP_USER", key: "request-1" }, () => connection.commit());
