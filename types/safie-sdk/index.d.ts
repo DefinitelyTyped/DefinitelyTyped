@@ -343,6 +343,7 @@ declare namespace Safie {
              * 通知対象を絞り込むジオメトリ設定のタグリスト
              *
              * 指定されたタグが付与されているジオメトリと関連するオブジェクトの検知のみが通知対象となります。
+             * 複数指定した場合はOR条件となります。
              */
             tags: string[];
             /**
@@ -923,8 +924,8 @@ declare namespace Safie {
          * #### 必要なデバイスオプション:
          * - OAuth2.0認証アプリケーション、またはAPIキー認証アプリケーション毎に必要となるAPIオプション
          * @param options オプション
-         * @param options.offset 返却するリストのオフセット (規定値: 0)
-         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最大値: 100)
+         * @param options.offset 返却するリストのオフセット (規定値: 0, 最大値: 10000)
+         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最小値: 1, 最大値: 100)
          * @param options.applicationId AI-Appアプリケーションを利用可能なデバイスによる絞り込み
          * @returns
          * @throws {@link ErrorDetail}
@@ -1031,10 +1032,6 @@ declare namespace Safie {
          * - 指定しなかったフィールドは更新されません
          * - typeとpointsは同時に変更する必要があります
          * - 座標は映像の左上を原点（0, 0）、右下を（1, 1）とする正規化座標で指定します
-         * #### 設定値の削除:
-         * - tagsに空配列を指定すると既存のタグが全て削除されます（一部のタグのみの追加・削除はできません）
-         * - durationに0を指定すると設定値が削除されます
-         * - color・thresholdHigh・thresholdLowにnullを指定すると設定値が削除されます
          * #### 必要な権限:
          * - 映像解析設定の変更
          * #### 必要なOAuth2.0 scope:
@@ -1048,11 +1045,11 @@ declare namespace Safie {
          * @param options.name ジオメトリ設定の名称 (最大文字数: 255)
          * @param options.type ジオメトリ設定の種別
          * @param options.points ジオメトリ設定の座標リスト (最大: 30点)。line・line_ioは2点、polygonは3点以上を指定。allの場合は空配列を指定
-         * @param options.tags ジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)
-         * @param options.duration ジオメトリと関連付けられた時間に対するしきい値（ミリ秒） (最大値: 10000)
-         * @param options.thresholdHigh ジオメトリと関連のあるイベント発生判定に利用されるしきい値（上限）
-         * @param options.thresholdLow ジオメトリと関連のあるイベント発生判定に利用されるしきい値（下限）
-         * @param options.color フロントで表示する際の色を表すカラーコード（#と16進数6桁の表記）
+         * @param options.tags ジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。空配列を指定すると既存のタグが全て削除される（一部のタグのみの追加・削除はできない）
+         * @param options.duration ジオメトリと関連付けられた時間に対するしきい値（ミリ秒） (最大値: 10000)。0を指定すると設定値が削除される
+         * @param options.thresholdHigh ジオメトリと関連のあるイベント発生判定に利用されるしきい値（上限）。nullを指定すると設定値が削除される
+         * @param options.thresholdLow ジオメトリと関連のあるイベント発生判定に利用されるしきい値（下限）。nullを指定すると設定値が削除される
+         * @param options.color フロントで表示する際の色を表すカラーコード（#と16進数6桁の表記）。nullを指定すると設定値が削除される
          * @returns
          * @throws {@link ErrorDetail}
          * @example
@@ -1133,7 +1130,6 @@ declare namespace Safie {
          * - 通知設定を作成します
          * - 通知手段がmail・mobile_push・web_pushの場合、createSubscriptionがtrueであれば、デバイスのオーナーに対する通知受信設定を同時に作成します（既に存在する場合は何もしません）
          * #### 詳細:
-         * - 通知手段に応じた設定値をoptionsに指定します。webhookの場合は通知先のURLと認証情報、mail・mobile_push・web_pushの場合は空オブジェクトを指定します
          * - targetType・tags・targetTimesUtc・targetDaysOfWeekで通知対象を絞り込みます。いずれも未指定の場合は絞り込みを行いません
          * #### 制限:
          * - 1デバイスあたり最大16個まで作成可能です
@@ -1147,13 +1143,13 @@ declare namespace Safie {
          * @param options.deviceId デバイスID
          * @param options.applicationId AI-AppアプリケーションID
          * @param options.method 通知手段
-         * @param options.options 通知手段固有の設定値。mail・mobile_push・web_pushの場合は空オブジェクトを指定
-         * @param options.targetType 通知対象とするオブジェクト・イベントのtype (最大文字数: 32)。wildcard指定が可能（例: detect.*）
+         * @param options.options 通知手段固有の設定値。webhookの場合は通知先のURLと認証情報、mail・mobile_push・web_pushの場合は空オブジェクトを指定
+         * @param options.targetType 通知対象とするオブジェクト・イベントのtype (最大文字数: 32)。wildcard指定が可能（例: detect.*）。未指定またはnullの場合は全typeが通知対象となる
          * @param options.name 通知設定の名称 (最大文字数: 255)
          * @param options.description 通知設定の説明 (最大文字数: 255)
-         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)
+         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。複数指定した場合はOR条件となる
          * @param options.targetTimesUtc 通知対象とする時間帯のリスト (最大: 16個)
-         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト (最大: 7個)。重複した曜日は指定不可
+         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト。同じ曜日を重複して指定するとエラーになる
          * @param options.daysOfWeekTimezone targetDaysOfWeekの曜日判定に使用するタイムゾーン（IANA形式のタイムゾーン名。例: Asia/Tokyo） (規定値: UTC)
          * @param options.createSubscription 通知手段がmail・mobile_push・web_pushの場合に、デバイスのオーナーに対する通知受信設定を同時に作成するかどうか (規定値: true)。通知受信設定APIで受信設定を管理する場合はfalseを指定。通知手段がそれ以外の場合や、デバイスがSafie Managerの企業に所属している場合は、本パラメータの値に関わらず通知受信設定は作成されない
          * @returns
@@ -1192,7 +1188,7 @@ declare namespace Safie {
             applicationId: number;
             method: NotificationMethod;
             options: NotificationConfigOptions;
-            targetType?: string;
+            targetType?: string | null;
             name?: string;
             description?: string;
             tags?: string[];
@@ -1209,12 +1205,6 @@ declare namespace Safie {
          * #### 詳細:
          * - 指定しなかったフィールドは更新されません
          * - methodとoptionsは同時に変更する必要があります
-         * #### 設定値の削除:
-         * - targetTypeに空文字を指定すると全typeで通知が有効になります
-         * - name・descriptionに空文字を指定すると設定値が削除されます
-         * - tagsに空配列を指定すると既存のタグが全て削除されます（一部のタグのみの追加・削除はできません）
-         * - optionsに空オブジェクトを指定すると設定値が削除されます
-         * - targetTimesUtc・targetDaysOfWeekに空配列を指定すると全時間帯・全曜日が有効になります
          * #### 必要な権限:
          * - 映像解析設定の変更
          * #### 必要なOAuth2.0 scope:
@@ -1225,14 +1215,14 @@ declare namespace Safie {
          * @param options.deviceId デバイスID
          * @param options.applicationId AI-AppアプリケーションID
          * @param options.notificationConfigId 通知設定ID
-         * @param options.method 通知手段。optionsと同時に指定する
-         * @param options.options 通知手段固有の設定値。methodと同時に指定する
-         * @param options.targetType 通知対象とするオブジェクト・イベントのtype (最大文字数: 32)。wildcard指定が可能（例: detect.*）
-         * @param options.name 通知設定の名称 (最大文字数: 255)
-         * @param options.description 通知設定の説明 (最大文字数: 255)
-         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)
-         * @param options.targetTimesUtc 通知対象とする時間帯のリスト (最大: 16個)
-         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト (最大: 7個)。重複した曜日は指定不可
+         * @param options.method 通知手段。optionsと同時に指定
+         * @param options.options 通知手段固有の設定値。methodと同時に指定。空オブジェクトを指定すると設定値が削除される
+         * @param options.targetType 通知対象とするオブジェクト・イベントのtype (最大文字数: 32)。wildcard指定が可能（例: detect.*）。空文字を指定すると全typeが通知対象となる
+         * @param options.name 通知設定の名称 (最大文字数: 255)。空文字を指定すると設定されている名称が削除される
+         * @param options.description 通知設定の説明 (最大文字数: 255)。空文字を指定すると設定されている説明が削除される
+         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。複数指定した場合はOR条件となる。空配列を指定すると既存のタグが全て削除される（一部のタグのみの追加・削除はできない）
+         * @param options.targetTimesUtc 通知対象とする時間帯のリスト (最大: 16個)。空配列を指定すると全時間帯が通知対象となる
+         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト。同じ曜日を重複して指定するとエラーになる。空配列を指定すると全曜日が通知対象となる
          * @param options.daysOfWeekTimezone targetDaysOfWeekの曜日判定に使用するタイムゾーン（IANA形式のタイムゾーン名。例: Asia/Tokyo）
          * @param options.updateSubscription 通知手段がmail・mobile_push・web_pushの場合に、デバイスのオーナーに対する通知受信設定を同時に作成・削除するかどうか (規定値: true)。通知受信設定APIで受信設定を管理する場合はfalseを指定。通知手段がそれ以外の場合や、デバイスがSafie Managerの企業に所属している場合は、本パラメータの値に関わらず通知受信設定は更新されない
          * @returns
@@ -1406,8 +1396,8 @@ declare namespace Safie {
          * - 指定したデバイスで利用可能なAI-Appアプリケーションのユーザー設定を更新します
          * #### 詳細:
          * - 指定しなかったフィールドは更新されません
-         * #### 設定値の削除:
-         * - userConfigに空オブジェクトを指定すると設定された値が削除されます
+         * #### 制限:
+         * - userConfigに指定できるキーはanalyzerのみです
          * #### 必要な権限:
          * - 映像解析設定の変更
          * #### 必要なOAuth2.0 scope:
@@ -1417,7 +1407,7 @@ declare namespace Safie {
          * @param options オプション
          * @param options.deviceId デバイスID
          * @param options.applicationId AI-AppアプリケーションID
-         * @param options.userConfig ユーザー設定
+         * @param options.userConfig ユーザー設定。空オブジェクトを指定すると設定された値が削除される
          * @param options.snapshotIntervalSec クラウド静止画解析の解析インターバル（秒）。5秒以上3600秒以下の値を指定可能。0を指定した場合は静止画解析が停止される。動画解析のAI-Appアプリケーションの場合はこの設定は無視される
          * @returns
          * @throws {@link ErrorDetail}
@@ -1470,7 +1460,7 @@ declare namespace Safie {
          * @param options.labels オブジェクトのラベルによる絞り込み (1ラベルあたりの最大文字数: 16)。複数指定した場合はAND条件となる。完全一致で判定
          * @param options.sortOrder ソート順 (規定値: start_timestamp_desc)
          * @param options.offset 返却するリストのオフセット (規定値: 0)
-         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最大値: 100)
+         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最小値: 1, 最大値: 100)
          * @returns
          * @throws {@link ErrorDetail}
          * @example
@@ -1615,7 +1605,7 @@ declare namespace Safie {
          * @param options.geometryConfigTags ジオメトリ設定のタグによる絞り込み。複数指定した場合はAND条件となる。部分一致で判定
          * @param options.labels イベントのラベルによる絞り込み (1ラベルあたりの最大文字数: 16)。複数指定した場合はAND条件となる。完全一致で判定
          * @param options.offset 返却するリストのオフセット (規定値: 0)
-         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最大値: 100)
+         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最小値: 1, 最大値: 100)
          * @returns
          * @throws {@link ErrorDetail}
          * @example
@@ -1722,10 +1712,10 @@ declare namespace Safie {
          * @param options.unit メトリクスの集計単位
          * @param options.start 検索の開始時刻（UNIX時間、ミリ秒単位）。集計された時間帯の開始時刻に対して検索される（開始時刻を含む）
          * @param options.end 検索の終了時刻（UNIX時間、ミリ秒単位）。集計された時間帯の開始時刻に対して検索される（終了時刻は含まない）
-         * @param options.labels メトリクスのラベルによる絞り込み (1ラベルあたりの最大文字数: 16)。複数指定可能
-         * @param options.stats 取得する統計情報の種類。指定しない場合は全ての統計情報が取得される
+         * @param options.labels メトリクスのラベルによる絞り込み (1ラベルあたりの最大文字数: 16)。複数指定した場合はOR条件となる
+         * @param options.stats 取得する統計情報の種類。複数指定可能。指定しない場合は全ての統計情報が取得される
          * @param options.offset 返却するリストのオフセット (規定値: 0)
-         * @param options.limit 返却するリストの最大件数 (規定値: 100, 最大値: 1000)
+         * @param options.limit 返却するリストの最大件数 (規定値: 100, 最小値: 1, 最大値: 1000)
          * @returns
          * @throws {@link ErrorDetail}
          * @example
@@ -1825,7 +1815,7 @@ declare namespace Safie {
          * @param options.type 通知が発火されたオブジェクト、またはイベントのタイプによる絞り込み。前方一致で判定
          * @param options.notificationMethods 通知方法による絞り込み。指定した通知方法が含まれる通知イベントのみが取得される
          * @param options.offset 返却するリストのオフセット (規定値: 0)
-         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最大値: 100)
+         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最小値: 1, 最大値: 100)
          * @returns
          * @throws {@link ErrorDetail}
          * @example
@@ -2314,8 +2304,8 @@ declare namespace Safie {
          * #### 必要なデバイスオプション:
          * - APIまたはSDKの任意のオプション
          * @param options オプション
-         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最大値: 100)
-         * @param options.offset 返却するリストのオフセット (規定値: 0)
+         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最小値: 1, 最大値: 100)
+         * @param options.offset 返却するリストのオフセット (規定値: 0, 最大値: 10000)
          * @param options.itemId デバイスに設定されているオプションによる絞り込み
          * @param options.deviceIds デバイスIDによる絞り込み
          * @returns
@@ -2499,8 +2489,8 @@ declare namespace Safie {
          * @param options.start 取得範囲の開始時間 (UNIX時間ミリ秒)
          * @param options.end 取得範囲の終了時間 (UNIX時間ミリ秒)
          * @param options.types イベント種別
-         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最大値: 100)
-         * @param options.offset 返却するリストのオフセット (規定値: 0)
+         * @param options.limit 返却するリストの最大件数 (規定値: 20, 最小値: 1, 最大値: 100)
+         * @param options.offset 返却するリストのオフセット (規定値: 0, 最大値: 10000)
          * @param options.sort {@inheritDoc EventSort}
          * @returns
          * @throws {@link ErrorDetail}
