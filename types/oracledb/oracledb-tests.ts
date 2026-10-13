@@ -1108,3 +1108,17 @@ export const version26SecurityTests = async (connection: oracledb.Connection): P
     await oracledb.getConnection({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
     await oracledb.createPool({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
 };
+
+export const version26TransactionPriorityTests = async (connection: oracledb.Connection): Promise<void> => {
+    expectType<"HIGH">(oracledb.TXN_PRIORITY_HIGH);
+    expectType<"MEDIUM">(oracledb.TXN_PRIORITY_MEDIUM);
+    expectType<"LOW">(oracledb.TXN_PRIORITY_LOW);
+    expectType<"">(oracledb.TXN_PRIORITY_DEFAULT);
+
+    connection.txnPriority = oracledb.TXN_PRIORITY_HIGH;
+    expectType<oracledb.TransactionPriority>(connection.txnPriority);
+    await oracledb.getConnection({ txnPriority: oracledb.TXN_PRIORITY_LOW });
+    await oracledb.createPool({ txnPriority: oracledb.TXN_PRIORITY_MEDIUM });
+    // @ts-expect-error unsupported transaction priority
+    await oracledb.getConnection({ txnPriority: "URGENT" });
+};

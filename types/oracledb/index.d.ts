@@ -15,6 +15,18 @@ declare namespace OracleDB {
     /** Constant for the query result outFormat option. */
     const OUT_FORMAT_OBJECT: number;
 
+    /** Transaction priority values supported by Oracle AI Database 26ai. @since 26.0 */
+    const TXN_PRIORITY_DEFAULT: "";
+    const TXN_PRIORITY_HIGH: "HIGH";
+    const TXN_PRIORITY_MEDIUM: "MEDIUM";
+    const TXN_PRIORITY_LOW: "LOW";
+
+    type TransactionPriority =
+        | typeof TXN_PRIORITY_DEFAULT
+        | typeof TXN_PRIORITY_HIGH
+        | typeof TXN_PRIORITY_MEDIUM
+        | typeof TXN_PRIORITY_LOW;
+
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
     const BLOB: typeof DB_TYPE_BLOB;
     /** Constant for execute() bind parameter type property, for the createLob() type parameter, for the Lob type property, for fetchAsBuffer, for fetchAsString and fetchInfo, and for extended metadata. */
@@ -1183,6 +1195,8 @@ declare namespace OracleDB {
     }
 
     interface Connection {
+        /** Transaction priority associated with this connection. @since 26.0 */
+        txnPriority?: TransactionPriority | undefined;
         /**
          * The action attribute for end-to-end application tracing.
          * This is a write-only property. Displaying a Connection object will show a value of null for this attribute.
@@ -2304,6 +2318,8 @@ declare namespace OracleDB {
      * Provides connection credentials and connection-specific configuration properties.
      */
     interface ConnectionAttributes {
+        /** Transaction priority for a standalone connection. @since 26.0 */
+        txnPriority?: TransactionPriority | undefined;
         /** OCI token authentication configuration, including resource principals. */
         tokenAuthConfigOci?: TokenAuthConfigOci | undefined;
         /** Configuration for the end-user security provider plugin. @since 26.0 */
@@ -3613,6 +3629,8 @@ declare namespace OracleDB {
      * If an attribute is not set, or is null, the value of the related Oracledb property will be used.
      */
     interface PoolAttributes {
+        /** Transaction priority for connections created in a Thin mode pool. @since 26.0 */
+        txnPriority?: TransactionPriority | undefined;
         /** OCI token authentication configuration, including resource principals. */
         tokenAuthConfigOci?: TokenAuthConfigOci | undefined;
         /** Configuration for the end-user security provider plugin. @since 26.0 */
