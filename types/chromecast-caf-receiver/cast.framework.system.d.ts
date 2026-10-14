@@ -214,6 +214,57 @@ export enum DeviceCapabilities {
 }
 
 /**
+ * Describes the object returned by {@link framework.CastReceiverContext#getDeviceCapabilities}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceCapabilitiesObj
+ */
+export interface DeviceCapabilitiesObj {
+    audio_assistant?: boolean | undefined;
+    bluetooth_supported?: boolean | undefined;
+    display_supported?: boolean | undefined;
+    hi_res_audio_supported?: boolean | undefined;
+    is_dv_supported?: boolean | undefined;
+    is_hdr_supported?: boolean | undefined;
+    cast_lite_only?: boolean | undefined;
+    dpad_input_supported?: boolean | undefined;
+    touch_input_supported?: boolean | undefined;
+    is_group?: boolean | undefined;
+    remote_control_overlay_supported?: boolean | undefined;
+    sleep_timer_overlay_supported?: boolean | undefined;
+    app_foreground?: boolean | undefined;
+    is_device_registered?: boolean | undefined;
+    is_cbcs_supported?: boolean | undefined;
+    is_dolby_atmos_supported?: boolean | undefined;
+}
+
+/**
+ * Constants for the valid keys in {@link DeviceInformationObj}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceInformation
+ */
+export enum DeviceInformation {
+    MODEL_NAME = "model-name",
+    BRAND_NAME = "brand-name",
+    OS_NAME = "os-name",
+    OS_VERSION = "os-version",
+    ENVIRONMENT = "environment",
+    DEVICE_ID = "device-id",
+    METADATA_FROM_FIRMWARE = "metadata-from-firmware",
+}
+
+/**
+ * Describes the object returned by {@link framework.CastReceiverContext#getDeviceInformation}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceInformationObj
+ */
+export interface DeviceInformationObj {
+    "model-name": string;
+    "brand-name": string;
+    "os-name": string;
+    "os-version": string;
+    environment: string;
+    "device-id": string;
+    "metadata-from-firmware": boolean;
+}
+
+/**
  * Represents the current visibility state reported by the platform.
  * It may be UNKNOWN if the cast platform was unable to determine the state yet.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
@@ -229,7 +280,7 @@ export enum VisibilityState {
  * of the application changes (HDMI input change; TV is turned off).
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.VisibilityChangedEvent
  */
-export class VisibilityChangedEvent {
+export class VisibilityChangedEvent extends Event {
     constructor(isVisible: boolean);
 
     /**
