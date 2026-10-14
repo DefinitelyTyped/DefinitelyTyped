@@ -76,7 +76,7 @@ declare namespace GorillaEngine.UI {
          */
         value: any;
         /**
-         * Select which channel to show.
+         * Zero-based index of the first channel displayed by the level meter.
          */
         channelOffset: number;
     }
