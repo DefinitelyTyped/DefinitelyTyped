@@ -979,7 +979,7 @@ export class NetworkRequestInfo {
     /**
      * An object containing properties that you would like to send in the header.
      */
-    headers: any;
+    headers: Record<string, string>;
 
     /**
      * The URL requested.
@@ -1172,6 +1172,14 @@ export class CastReceiverContext {
     /**
      * Add listener to cast system events.
      */
+    addEventListener(
+        type: system.EventType.VISIBILITY_CHANGED | system.EventType.VISIBILITY_CHANGED[],
+        handler: (event: system.VisibilityChangedEvent) => void,
+    ): void;
+    addEventListener(
+        type: system.EventType.STANDBY_CHANGED | system.EventType.STANDBY_CHANGED[],
+        handler: (event: system.StandbyChangedEvent) => void,
+    ): void;
     addEventListener(type: system.EventType | system.EventType[], handler: SystemEventHandler): void;
 
     /**
@@ -1201,7 +1209,16 @@ export class CastReceiverContext {
      * @returns The device capabilities information (key/value pairs). It will be null if the system is not ready yet.
      *     It may be an empty object if the platform does not expose any device capabilities information.
      */
-    getDeviceCapabilities(): any;
+    getDeviceCapabilities(): system.DeviceCapabilitiesObj | null;
+
+    /**
+     * Provides non-capability-related identifying device information once the system
+     * is ready, otherwise it will be null.
+     *
+     * @returns The device information (key/value pairs). It will be null if the system is not ready yet.
+     *     It may be an empty object if the platform does not expose this information.
+     */
+    getDeviceInformation(): system.DeviceInformationObj | null;
 
     /**
      * Get Player instance that can control and monitor media playback.
@@ -1261,7 +1278,7 @@ export class CastReceiverContext {
      * @param listener
      * @throws Error If system is not ready or the namespace is not supported by this application.
      */
-    removeCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
+    removeCustomMessageListener(namespace: string, listener: CustomMessageHandler): void;
 
     /**
      * Remove listener to cast system events.
