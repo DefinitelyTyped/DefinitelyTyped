@@ -1198,7 +1198,7 @@ declare namespace OracleDB {
      * are forwarded to the selected Azure or OCI provider.
      *
      * @since 26.0.0
-     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#endusersecurityproviderplugin
+     * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/connection_handling.html#endusersecuritycontextcreationplugin
      */
     type EndUserSecurityParameters = SecurityContextMetadata & {
         /** Token-provider authentication type; Microsoft Entra ID uses `azureServicePrincipal`. */
@@ -2500,6 +2500,26 @@ declare namespace OracleDB {
         scopes?: string | undefined;
     }
     /**
+     * Configuration for the `extensionAzure` token authentication plugin.
+     *
+     * @since 6.8
+     * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#tokenauthconfigazureproperties
+     */
+    interface TokenAuthConfigAzure {
+        /** Authentication method for Microsoft Entra ID service-principal tokens. */
+        authType: "azureServicePrincipal";
+        /** Identity-provider authority URL containing the tenant ID. */
+        authority: string;
+        /** Application client ID. */
+        clientId: string;
+        /** Application client secret. */
+        clientSecret: string;
+        /** Token scopes for a single resource. Arrays are also accepted in node-oracledb 26.0.0. */
+        scopes: string | string[];
+        /** Optional token-provider proxy/network-client configuration. */
+        proxy?: object | undefined;
+    }
+    /**
      * A key-value entry used by connection.appContext().
      * Each entry should represent one context attribute assignment.
      */
@@ -2513,6 +2533,12 @@ declare namespace OracleDB {
      * Provides connection credentials and connection-specific configuration properties.
      */
     interface ConnectionAttributes {
+        /**
+         * Configuration used by the `extensionAzure` plugin for Microsoft Entra ID token authentication.
+         *
+         * @since 6.8
+         */
+        tokenAuthConfigAzure?: TokenAuthConfigAzure | undefined;
         /**
          * Transaction priority for a standalone connection in Thin or Thick mode.
          * Use the `TXN_PRIORITY_*` constants. If omitted, the database default is used.
@@ -3855,6 +3881,12 @@ declare namespace OracleDB {
      * If an attribute is not set, or is null, the value of the related Oracledb property will be used.
      */
     interface PoolAttributes {
+        /**
+         * Configuration used by the `extensionAzure` plugin for Microsoft Entra ID token authentication.
+         *
+         * @since 6.8
+         */
+        tokenAuthConfigAzure?: TokenAuthConfigAzure | undefined;
         /**
          * Transaction priority for connections created in a Thin mode pool.
          * Use the `TXN_PRIORITY_*` constants. If omitted, the database default is used.

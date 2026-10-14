@@ -1108,6 +1108,20 @@ export const version26SecurityTests = async (connection: oracledb.Connection): P
     });
     await oracledb.getConnection({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
     await oracledb.createPool({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
+    const azureConfig: oracledb.TokenAuthConfigAzure = {
+        authType: "azureServicePrincipal",
+        authority: "https://login.microsoftonline.com/tenant",
+        clientId: "client-id",
+        clientSecret: "secret",
+        scopes: ["database/.default"],
+    };
+    await oracledb.getConnection({ externalAuth: true, tokenAuthConfigAzure: azureConfig });
+    await oracledb.createPool({
+        externalAuth: true,
+        tokenAuthConfigAzure: { ...azureConfig, scopes: "database/.default" },
+    });
+    // @ts-expect-error Azure scopes must be a string or array of strings
+    azureConfig.scopes = [42];
 };
 
 export const version26TransactionPriorityTests = async (connection: oracledb.Connection): Promise<void> => {
