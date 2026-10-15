@@ -780,6 +780,12 @@ declare namespace Desmos {
         secret?: boolean;
 
         /**
+         * Determines whether the expression can be edited or deleted by a student. Display properties and, where relevant, direct manipulation of plotted expressions or objects (e.g. sliders and clickable and movable objects) remain enabled and editable. See {@link https://www.desmos.com/api/v1.8/docs/examples/readonly-expressions.html example}.
+         * @default false
+         */
+        readonly?: boolean;
+
+        /**
          * Sets bounds of slider expressions. If `step` is omitted, `''`, or `undefined`, the slider will be continuously adjustable.
          */
         sliderBounds?: {
@@ -869,7 +875,7 @@ declare namespace Desmos {
              * @default false
              */
             hidden?: boolean;
-
+        
             /**
              * Determines whether points are plotted.
              */
@@ -924,6 +930,12 @@ declare namespace Desmos {
          * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
          */
         id?: string;
+
+        /**
+         * Determines whether the expression can be edited or deleted by a student. Display properties and, where relevant, direct manipulation of plotted expressions or objects (e.g. sliders and clickable and movable objects) remain enabled and editable. See {@link https://www.desmos.com/api/v1.8/docs/examples/readonly-expressions.html example}.
+         * @default false
+         */
+        readonly?: boolean;
     }
 
     interface Note {
@@ -939,6 +951,12 @@ declare namespace Desmos {
          * Should be a valid property name for a JavaScript object (letters, numbers, and `_`).
          */
         id?: string;
+
+        /**
+         * Determines whether the expression can be edited or deleted by a student. Display properties and, where relevant, direct manipulation of plotted expressions or objects (e.g. sliders and clickable and movable objects) remain enabled and editable. See {@link https://www.desmos.com/api/v1.8/docs/examples/readonly-expressions.html example}.
+         * @default false
+         */
+        readonly?: boolean;
     }
 
     type ExpressionState = Expression | Table | Note;
