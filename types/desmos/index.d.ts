@@ -875,7 +875,7 @@ declare namespace Desmos {
              * @default false
              */
             hidden?: boolean;
-        
+
             /**
              * Determines whether points are plotted.
              */
