@@ -9,7 +9,12 @@ calculator.setExpression({ id: "graph1", type: "expression", latex: "y=x^2" });
 // Set note
 calculator.setExpression({ id: "graph2", type: "text", text: "Desmos is cool!" });
 // Set table
-calculator.setExpression({ id: "graph3", type: "table", columns: [] });
+calculator.setExpression({ id: "graph3", type: "table", columns: [] })
+
+// Readonly expressions
+calculator.setExpression({ id: "readonly1", readonly: true, type: "expression", latex: "y=x^2" });
+calculator.setExpression({ id: "readonly2", readonly: true, type: "text", text: "Desmos is cool!" });
+calculator.setExpression({ id: "readonly3", readonly: true, type: "table", columns: [] });
 
 // Save the current state of a calculator instance
 const state = calculator.getState();
