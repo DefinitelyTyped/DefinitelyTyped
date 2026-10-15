@@ -112,6 +112,7 @@ function test_excel_recent_apis(
     functions: Excel.Functions,
     sensitivityLabel: Excel.SensitivityLabel,
     sensitivityLabelDetails: Excel.SensitivityLabelDetails,
+    sensitivityLabelDetailsCollection: Excel.SensitivityLabelDetailsCollection,
     sensitivityLabelsCatalog: Excel.SensitivityLabelsCatalog,
     abacAttribute: Excel.SensitivityLabelAbacAttribute,
     abacAttributeValue: Excel.SensitivityLabelAbacAttributeValue,
@@ -216,6 +217,23 @@ function test_excel_recent_apis(
         isAbacAttributesRequired: true,
         isAbacEnabled: true,
     };
+    const sensitivityLabelDetailsCollectionLoadOptions: Excel.Interfaces.SensitivityLabelDetailsCollectionLoadOptions = {
+        abacAttributeValues: true,
+        isAbacAttributesRequired: true,
+        isAbacEnabled: false,
+    };
+    const loadedSensitivityLabelDetailsCollection: Excel.SensitivityLabelDetailsCollection =
+        sensitivityLabelDetailsCollection.load(sensitivityLabelDetailsCollectionLoadOptions);
+    sensitivityLabelDetailsCollection.load({});
+    sensitivityLabelDetailsCollection.load({ abacAttributeValues: true });
+    sensitivityLabelDetailsCollection.load({ isAbacAttributesRequired: false });
+    sensitivityLabelDetailsCollection.load({ isAbacEnabled: true });
+    // @ts-expect-error Load flags must be booleans.
+    sensitivityLabelDetailsCollection.load({ abacAttributeValues: "true" });
+    // @ts-expect-error Load flags must be booleans.
+    sensitivityLabelDetailsCollection.load({ isAbacAttributesRequired: "true" });
+    // @ts-expect-error Load flags must be booleans.
+    sensitivityLabelDetailsCollection.load({ isAbacEnabled: "true" });
 
     const dateValueResult: Excel.FunctionResult<number> = functions.datevalue(1);
 
@@ -240,6 +258,8 @@ function test_removed_excel_preview_apis(
     worksheet: Excel.Worksheet,
     worksheetCollection: Excel.WorksheetCollection,
 ) {
+    // @ts-expect-error Removed from the beta CDN.
+    const queryUpdateData: Excel.Interfaces.QueryUpdateData = {};
     // @ts-expect-error Removed from the beta CDN.
     const worksheetCalculationBusyEventArgs: Excel.WorksheetCalculationBusyEventArgs = {};
     // @ts-expect-error Removed from the beta CDN.
