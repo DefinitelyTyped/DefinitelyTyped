@@ -9,7 +9,7 @@ calculator.setExpression({ id: "graph1", type: "expression", latex: "y=x^2" });
 // Set note
 calculator.setExpression({ id: "graph2", type: "text", text: "Desmos is cool!" });
 // Set table
-calculator.setExpression({ id: "graph3", type: "table", columns: [] })
+calculator.setExpression({ id: "graph3", type: "table", columns: [] });
 
 // Readonly expressions
 calculator.setExpression({ id: "readonly1", readonly: true, type: "expression", latex: "y=x^2" });
