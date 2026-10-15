@@ -61,11 +61,11 @@ declare namespace Safie {
             /**
              * AI-AppアプリケーションID
              */
-            applicationId: number | null;
+            applicationId: number;
             /**
              * AI-Appアプリケーション名称
              */
-            applicationName: string | null;
+            applicationName: string;
         }
         /**
          * AI-Appアプリケーションを利用可能なデバイスの情報
@@ -82,8 +82,10 @@ declare namespace Safie {
             setting: {
                 /**
                  * デバイス名
+                 *
+                 * 設定されていない場合、このキーは含まれません。
                  */
-                name: string;
+                name?: string;
             };
             model: {
                 /**
@@ -289,33 +291,62 @@ declare namespace Safie {
         /**
          * 通知手段固有の設定値
          *
-         * 通知手段が`webhook`の場合に通知先の情報を指定します。`mail`・`mobile_push`・`web_push`の場合は空オブジェクト`{}`を指定します。
+         * 通知手段が`webhook`の場合は通知先の情報が、`mail`・`mobile_push`・`web_push`の場合は空オブジェクト`{}`が返ります。
+         * 使用していない認証情報のプロパティは含まれません。
          */
         interface NotificationConfigOptions {
+            /**
+             * 通知先のURL
+             */
+            url?: string;
+            /**
+             * 認証に利用するBearerトークン
+             */
+            token?: string;
+            /**
+             * Basic認証のユーザー名
+             */
+            username?: string;
+            /**
+             * Basic認証のパスワード
+             */
+            password?: string;
+        }
+        /**
+         * 通知設定の作成・更新で指定する通知手段固有の設定値
+         *
+         * 通知手段が`webhook`の場合に通知先の情報を指定します。`mail`・`mobile_push`・`web_push`の場合は空オブジェクト`{}`を指定します。
+         * 認証情報は`token`（Bearer認証）または`username`・`password`（Basic認証）のいずれか一方を指定します。
+         * 使用しない認証情報は、プロパティを省略するか`null`を指定してください。
+         */
+        interface NotificationConfigOptionsInput {
             /**
              * 通知先のURL (最大文字数: 2048)
              *
              * schemeはhttpまたはhttpsが必須です。通知手段が`webhook`の場合は指定必須です。
              */
-            url?: string;
+            url?: string | null;
             /**
              * 認証に利用するBearerトークン (最大文字数: 2048)
              *
              * 指定した値は`Authorization: Bearer <token>`の形式でリクエストヘッダーに付与されます。
+             * `null`を指定した場合はプロパティの省略と同じ扱いになります。
              */
-            token?: string;
+            token?: string | null;
             /**
              * Basic認証のユーザー名 (最大文字数: 2048)
              *
-             * tokenを指定した場合は指定できません。
+             * passwordを指定した場合は指定必須です。tokenを指定した場合は指定できません。
+             * `null`を指定した場合はプロパティの省略と同じ扱いになります。
              */
-            username?: string;
+            username?: string | null;
             /**
              * Basic認証のパスワード (最大文字数: 2048)
              *
              * usernameを指定した場合は指定必須です。tokenを指定した場合は指定できません。
+             * `null`を指定した場合はプロパティの省略と同じ扱いになります。
              */
-            password?: string;
+            password?: string | null;
         }
         /**
          * 通知設定情報
@@ -343,9 +374,9 @@ declare namespace Safie {
              * 通知対象を絞り込むジオメトリ設定のタグリスト
              *
              * 指定されたタグが付与されているジオメトリと関連するオブジェクトの検知のみが通知対象となります。
-             * 複数指定した場合はOR条件となります。
+             * 複数指定した場合はOR条件となります。未設定の場合はnullとなります。
              */
-            tags: string[];
+            tags: string[] | null;
             /**
              * 通知手段
              */
@@ -357,15 +388,15 @@ declare namespace Safie {
             /**
              * 通知対象とする時間帯のリスト
              *
-             * 空配列の場合は全時間帯が通知対象となります。
+             * 空配列またはnullの場合は全時間帯が通知対象となります。
              */
-            targetTimesUtc: NotificationTimeRange[];
+            targetTimesUtc: NotificationTimeRange[] | null;
             /**
              * 通知対象とする曜日のリスト
              *
-             * 空配列の場合は全曜日が通知対象となります。
+             * 空配列またはnullの場合は全曜日が通知対象となります。
              */
-            targetDaysOfWeek: DayOfWeek[];
+            targetDaysOfWeek: DayOfWeek[] | null;
             /**
              * targetDaysOfWeekの曜日判定に使用するタイムゾーン（IANA形式のタイムゾーン名）
              */
@@ -414,8 +445,9 @@ declare namespace Safie {
              * クラウド解析に対する設定
              *
              * 指定できるサイズ上限はJSONシリアライズ後で5KBまでです。設定できる内容はAI-Appアプリケーションごとに異なります。
+             * 取得時、未設定の場合はこのキーが含まれません。
              */
-            analyzer: {
+            analyzer?: {
                 [key: string]: unknown;
             } | null;
         }
@@ -425,14 +457,17 @@ declare namespace Safie {
         interface QueryUserConfigResult {
             /**
              * ユーザー設定
+             *
+             * 未設定の場合、このキーは含まれません。
              */
-            userConfig: UserConfig | null;
+            userConfig?: UserConfig;
             /**
              * クラウド静止画解析の解析インターバル（秒）
              *
              * 動画解析のAI-Appアプリケーションの場合はこの設定は無視されます。
+             * 未設定の場合、このキーは含まれません。
              */
-            snapshotIntervalSec: number | null;
+            snapshotIntervalSec?: number;
         }
         /**
          * オブジェクト一覧のソート順
@@ -462,31 +497,38 @@ declare namespace Safie {
             /**
              * オブジェクトの検知終了時刻（UNIX時間、ミリ秒単位）
              *
-             * 検知終了時刻がまだ確定していない場合はnullとなります。
+             * 検知終了時刻がまだ確定していない場合、このキーは含まれません。
              */
-            end: number | null;
+            end?: number;
             /**
              * オブジェクトの種類
              */
             type: string;
             /**
              * オブジェクトに付与されたラベルの一覧
+             *
+             * ラベルが付与されていない場合、このキーは含まれません。
              */
-            labels: string[];
+            labels?: string[];
             /**
              * オブジェクトに付与された数値データ
+             *
+             * 値が付与されていない場合、このキーは含まれません。
              */
-            score: number | null;
+            score?: number;
             /**
              * オブジェクトに付与された画像ラベルの一覧
              *
              * ここに含まれるラベルを{@link queryObjectPicture オブジェクト画像取得API}に指定すると画像を取得できます。
+             * 画像ラベルが付与されていない場合、このキーは含まれません。
              */
-            pictureLabels: string[];
+            pictureLabels?: string[];
             /**
              * オブジェクトに関連するジオメトリ設定IDの一覧
+             *
+             * 関連するジオメトリ設定が無い場合、このキーは含まれません。
              */
-            geometryConfigIds: number[];
+            geometryConfigIds?: number[];
         }
         /**
          * オブジェクト一覧取得の結果
@@ -528,35 +570,44 @@ declare namespace Safie {
             /**
              * オブジェクトの検知終了時刻（UNIX時間、ミリ秒単位）
              *
-             * 検知終了時刻がまだ確定していない場合はnullとなります。
+             * 検知終了時刻がまだ確定していない場合、このキーは含まれません。
              */
-            end: number | null;
+            end?: number;
             /**
              * オブジェクトの検知期間（ミリ秒単位）
+             *
+             * 検知終了時刻がまだ確定していない場合、このキーは含まれません。
              */
-            duration: number | null;
+            duration?: number;
             /**
              * オブジェクトの種類
              */
             type: string;
             /**
              * オブジェクトに付与されたラベルの一覧
+             *
+             * ラベルが付与されていない場合、このキーは含まれません。
              */
-            labels: string[];
+            labels?: string[];
             /**
              * オブジェクトに付与された数値データ
+             *
+             * 値が付与されていない場合、このキーは含まれません。
              */
-            score: number | null;
+            score?: number;
             /**
              * オブジェクトに付与された辞書型データ
+             *
+             * データが付与されていない場合、このキーは含まれません。
              */
-            data: Record<string, unknown> | null;
+            data?: Record<string, unknown>;
             /**
              * オブジェクトに付与された画像ラベルの一覧
              *
              * ここに含まれるラベルを{@link queryObjectPicture オブジェクト画像取得API}に指定すると画像を取得できます。
+             * 画像ラベルが付与されていない場合、このキーは含まれません。
              */
-            pictureLabels: string[];
+            pictureLabels?: string[];
             /**
              * オブジェクトに付与された追加データがあるか否か
              *
@@ -565,8 +616,10 @@ declare namespace Safie {
             hasExtraData: boolean;
             /**
              * オブジェクトに関連するジオメトリ設定IDの一覧
+             *
+             * 関連するジオメトリ設定が無い場合、このキーは含まれません。
              */
-            geometryConfigIds: number[];
+            geometryConfigIds?: number[];
         }
         /**
          * AI-Appアプリケーションが出力したイベントの情報
@@ -590,8 +643,10 @@ declare namespace Safie {
             score: number | null;
             /**
              * イベントに付与されたラベルの一覧
+             *
+             * ラベルが付与されていない場合はnullとなります。
              */
-            labels: string[];
+            labels: string[] | null;
             /**
              * イベントに付与された画像があるか否か
              *
@@ -600,8 +655,10 @@ declare namespace Safie {
             hasPicture: boolean;
             /**
              * イベントに関連するジオメトリ設定IDの一覧
+             *
+             * 関連するジオメトリ設定が無い場合はnullとなります。
              */
-            geometryConfigIds: number[];
+            geometryConfigIds: number[] | null;
         }
         /**
          * イベント一覧取得の結果
@@ -650,8 +707,10 @@ declare namespace Safie {
             score: number | null;
             /**
              * イベントに付与されたラベルの一覧
+             *
+             * ラベルが付与されていない場合はnullとなります。
              */
-            labels: string[];
+            labels: string[] | null;
             /**
              * イベントに付与された画像があるか否か
              *
@@ -660,8 +719,10 @@ declare namespace Safie {
             hasPicture: boolean;
             /**
              * イベントに関連するジオメトリ設定IDの一覧
+             *
+             * 関連するジオメトリ設定が無い場合はnullとなります。
              */
-            geometryConfigIds: number[];
+            geometryConfigIds: number[] | null;
             /**
              * イベントに付与された辞書型データ
              */
@@ -729,28 +790,40 @@ declare namespace Safie {
             label: string;
             /**
              * 集計された値の件数（null値を含まない）
+             *
+             * statsで取得対象としなかった場合、および集計値が存在しない場合、このキーは含まれません。
              */
-            count: number | null;
+            count?: number;
             /**
              * 合計値
+             *
+             * statsで取得対象としなかった場合、および集計値が存在しない場合、このキーは含まれません。
              */
-            sum: number | null;
+            sum?: number;
             /**
              * 平均値
+             *
+             * statsで取得対象としなかった場合、および集計値が存在しない場合、このキーは含まれません。
              */
-            avg: number | null;
+            avg?: number;
             /**
              * null値を0として扱った平均値
+             *
+             * statsで取得対象としなかった場合、および集計値が存在しない場合、このキーは含まれません。
              */
-            avg0: number | null;
+            avg0?: number;
             /**
              * 最小値
+             *
+             * statsで取得対象としなかった場合、および集計値が存在しない場合、このキーは含まれません。
              */
-            min: number | null;
+            min?: number;
             /**
              * 最大値
+             *
+             * statsで取得対象としなかった場合、および集計値が存在しない場合、このキーは含まれません。
              */
-            max: number | null;
+            max?: number;
         }
         /**
          * メトリクス一覧取得の結果
@@ -864,8 +937,10 @@ declare namespace Safie {
             methods: NotificationMethod[];
             /**
              * 通知イベントに関連するジオメトリ設定の一覧
+             *
+             * 関連するジオメトリ設定が無い場合はnullとなります。
              */
-            geometryConfigs: NotificationEventGeometryConfig[];
+            geometryConfigs: NotificationEventGeometryConfig[] | null;
             /**
              * 通知が発火されたオブジェクト、またはイベントのスコア
              */
@@ -995,10 +1070,10 @@ declare namespace Safie {
          * @param options.type ジオメトリ設定の種別
          * @param options.points ジオメトリ設定の座標リスト (最大: 30点)。line・line_ioは2点、polygonは3点以上を指定。allの場合は指定不要
          * @param options.tags ジオメトリ設定に付与するタグのリスト (最大: 10個、1タグあたりの最大文字数: 32)
-         * @param options.duration ジオメトリと関連付けられた時間に対するしきい値（ミリ秒） (最大値: 10000)
-         * @param options.thresholdHigh ジオメトリと関連のあるイベント発生判定に利用されるしきい値（上限）
-         * @param options.thresholdLow ジオメトリと関連のあるイベント発生判定に利用されるしきい値（下限）
-         * @param options.color フロントで表示する際の色を表すカラーコード（#と16進数6桁の表記）
+         * @param options.duration ジオメトリと関連付けられた時間に対するしきい値（ミリ秒） (最大値: 10000)。nullは未指定として扱われる
+         * @param options.thresholdHigh ジオメトリと関連のあるイベント発生判定に利用されるしきい値（上限）。nullは未指定として扱われる
+         * @param options.thresholdLow ジオメトリと関連のあるイベント発生判定に利用されるしきい値（下限）。nullは未指定として扱われる
+         * @param options.color フロントで表示する際の色を表すカラーコード（#と16進数6桁の表記）。nullは未指定として扱われる
          * @returns
          * @throws {@link ErrorDetail}
          * @example
@@ -1019,10 +1094,10 @@ declare namespace Safie {
             type: GeometryConfigType;
             points?: Point[];
             tags?: string[];
-            duration?: number;
-            thresholdHigh?: number;
-            thresholdLow?: number;
-            color?: string;
+            duration?: number | null;
+            thresholdHigh?: number | null;
+            thresholdLow?: number | null;
+            color?: string | null;
         }): Promise<CreateGeometryConfigResult>;
         /**
          * ジオメトリ設定更新
@@ -1045,8 +1120,8 @@ declare namespace Safie {
          * @param options.name ジオメトリ設定の名称 (最大文字数: 255)
          * @param options.type ジオメトリ設定の種別
          * @param options.points ジオメトリ設定の座標リスト (最大: 30点)。line・line_ioは2点、polygonは3点以上を指定。allの場合は空配列を指定
-         * @param options.tags ジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。空配列を指定すると既存のタグが全て削除される（一部のタグのみの追加・削除はできない）
-         * @param options.duration ジオメトリと関連付けられた時間に対するしきい値（ミリ秒） (最大値: 10000)。0を指定すると設定値が削除される
+         * @param options.tags ジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。空配列またはnullを指定すると既存のタグが全て削除される（一部のタグのみの追加・削除はできない）
+         * @param options.duration ジオメトリと関連付けられた時間に対するしきい値（ミリ秒） (最大値: 10000)。0またはnullを指定すると設定値が削除される
          * @param options.thresholdHigh ジオメトリと関連のあるイベント発生判定に利用されるしきい値（上限）。nullを指定すると設定値が削除される
          * @param options.thresholdLow ジオメトリと関連のあるイベント発生判定に利用されるしきい値（下限）。nullを指定すると設定値が削除される
          * @param options.color フロントで表示する際の色を表すカラーコード（#と16進数6桁の表記）。nullを指定すると設定値が削除される
@@ -1068,8 +1143,8 @@ declare namespace Safie {
             name?: string;
             type?: GeometryConfigType;
             points?: Point[];
-            tags?: string[];
-            duration?: number;
+            tags?: string[] | null;
+            duration?: number | null;
             thresholdHigh?: number | null;
             thresholdLow?: number | null;
             color?: string | null;
@@ -1145,11 +1220,11 @@ declare namespace Safie {
          * @param options.method 通知手段
          * @param options.options 通知手段固有の設定値。webhookの場合は通知先のURLと認証情報、mail・mobile_push・web_pushの場合は空オブジェクトを指定
          * @param options.targetType 通知対象とするオブジェクト・イベントのtype (最大文字数: 32)。wildcard指定が可能（例: detect.*）。未指定またはnullの場合は全typeが通知対象となる
-         * @param options.name 通知設定の名称 (最大文字数: 255)
-         * @param options.description 通知設定の説明 (最大文字数: 255)
-         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。複数指定した場合はOR条件となる
-         * @param options.targetTimesUtc 通知対象とする時間帯のリスト (最大: 16個)
-         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト。同じ曜日を重複して指定するとエラーになる
+         * @param options.name 通知設定の名称 (最大文字数: 255)。nullは未指定として扱われる
+         * @param options.description 通知設定の説明 (最大文字数: 255)。nullは未指定として扱われる
+         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。複数指定した場合はOR条件となる。nullは未指定として扱われる
+         * @param options.targetTimesUtc 通知対象とする時間帯のリスト (最大: 16個)。nullは未指定として扱われる
+         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト。同じ曜日を重複して指定するとエラーになる。nullは未指定として扱われる
          * @param options.daysOfWeekTimezone targetDaysOfWeekの曜日判定に使用するタイムゾーン（IANA形式のタイムゾーン名。例: Asia/Tokyo） (規定値: UTC)
          * @param options.createSubscription 通知手段がmail・mobile_push・web_pushの場合に、デバイスのオーナーに対する通知受信設定を同時に作成するかどうか (規定値: true)。通知受信設定APIで受信設定を管理する場合はfalseを指定。通知手段がそれ以外の場合や、デバイスがSafie Managerの企業に所属している場合は、本パラメータの値に関わらず通知受信設定は作成されない
          * @returns
@@ -1187,13 +1262,13 @@ declare namespace Safie {
             deviceId: string;
             applicationId: number;
             method: NotificationMethod;
-            options: NotificationConfigOptions;
+            options: NotificationConfigOptionsInput;
             targetType?: string | null;
-            name?: string;
-            description?: string;
-            tags?: string[];
-            targetTimesUtc?: NotificationTimeRange[];
-            targetDaysOfWeek?: DayOfWeek[];
+            name?: string | null;
+            description?: string | null;
+            tags?: string[] | null;
+            targetTimesUtc?: NotificationTimeRange[] | null;
+            targetDaysOfWeek?: DayOfWeek[] | null;
             daysOfWeekTimezone?: string;
             createSubscription?: boolean;
         }): Promise<CreateNotificationConfigResult>;
@@ -1216,13 +1291,13 @@ declare namespace Safie {
          * @param options.applicationId AI-AppアプリケーションID
          * @param options.notificationConfigId 通知設定ID
          * @param options.method 通知手段。optionsと同時に指定
-         * @param options.options 通知手段固有の設定値。methodと同時に指定。空オブジェクトを指定すると設定値が削除される
-         * @param options.targetType 通知対象とするオブジェクト・イベントのtype (最大文字数: 32)。wildcard指定が可能（例: detect.*）。空文字を指定すると全typeが通知対象となる
-         * @param options.name 通知設定の名称 (最大文字数: 255)。空文字を指定すると設定されている名称が削除される
-         * @param options.description 通知設定の説明 (最大文字数: 255)。空文字を指定すると設定されている説明が削除される
-         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。複数指定した場合はOR条件となる。空配列を指定すると既存のタグが全て削除される（一部のタグのみの追加・削除はできない）
-         * @param options.targetTimesUtc 通知対象とする時間帯のリスト (最大: 16個)。空配列を指定すると全時間帯が通知対象となる
-         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト。同じ曜日を重複して指定するとエラーになる。空配列を指定すると全曜日が通知対象となる
+         * @param options.options 通知手段固有の設定値。methodと同時に指定。空オブジェクトまたはnullを指定すると設定値が削除される（通知手段がwebhookの場合はurlが必須のため指定不可）
+         * @param options.targetType 通知対象とするオブジェクト・イベントのtype (最大文字数: 32)。wildcard指定が可能（例: detect.*）。空文字またはnullを指定すると全typeが通知対象となる
+         * @param options.name 通知設定の名称 (最大文字数: 255)。空文字またはnullを指定すると設定されている名称が削除される
+         * @param options.description 通知設定の説明 (最大文字数: 255)。空文字またはnullを指定すると設定されている説明が削除される
+         * @param options.tags 通知対象を絞り込むジオメトリ設定のタグリスト (最大: 10個、1タグあたりの最大文字数: 32)。複数指定した場合はOR条件となる。空配列またはnullを指定すると既存のタグが全て削除される（一部のタグのみの追加・削除はできない）
+         * @param options.targetTimesUtc 通知対象とする時間帯のリスト (最大: 16個)。空配列またはnullを指定すると全時間帯が通知対象となる
+         * @param options.targetDaysOfWeek 通知対象とする曜日のリスト。同じ曜日を重複して指定するとエラーになる。空配列またはnullを指定すると全曜日が通知対象となる
          * @param options.daysOfWeekTimezone targetDaysOfWeekの曜日判定に使用するタイムゾーン（IANA形式のタイムゾーン名。例: Asia/Tokyo）
          * @param options.updateSubscription 通知手段がmail・mobile_push・web_pushの場合に、デバイスのオーナーに対する通知受信設定を同時に作成・削除するかどうか (規定値: true)。通知受信設定APIで受信設定を管理する場合はfalseを指定。通知手段がそれ以外の場合や、デバイスがSafie Managerの企業に所属している場合は、本パラメータの値に関わらず通知受信設定は更新されない
          * @returns
@@ -1233,7 +1308,7 @@ declare namespace Safie {
          * await Safie.AIApp.updateNotificationConfig({ deviceId, applicationId, notificationConfigId, name: 'exit' });
          *
          * //名称の設定値を削除する
-         * await Safie.AIApp.updateNotificationConfig({ deviceId, applicationId, notificationConfigId, name: '' });
+         * await Safie.AIApp.updateNotificationConfig({ deviceId, applicationId, notificationConfigId, name: null });
          *
          * //通知手段をWebhookへ変更する
          * await Safie.AIApp.updateNotificationConfig({
@@ -1250,13 +1325,13 @@ declare namespace Safie {
             applicationId: number;
             notificationConfigId: number;
             method?: NotificationMethod;
-            options?: NotificationConfigOptions;
-            targetType?: string;
-            name?: string;
-            description?: string;
-            tags?: string[];
-            targetTimesUtc?: NotificationTimeRange[];
-            targetDaysOfWeek?: DayOfWeek[];
+            options?: NotificationConfigOptionsInput | null;
+            targetType?: string | null;
+            name?: string | null;
+            description?: string | null;
+            tags?: string[] | null;
+            targetTimesUtc?: NotificationTimeRange[] | null;
+            targetDaysOfWeek?: DayOfWeek[] | null;
             daysOfWeekTimezone?: string;
             updateSubscription?: boolean;
         }): Promise<void>;
@@ -1407,7 +1482,7 @@ declare namespace Safie {
          * @param options オプション
          * @param options.deviceId デバイスID
          * @param options.applicationId AI-AppアプリケーションID
-         * @param options.userConfig ユーザー設定。空オブジェクトを指定すると設定された値が削除される
+         * @param options.userConfig ユーザー設定。空オブジェクトまたはnullを指定すると設定された値が削除される
          * @param options.snapshotIntervalSec クラウド静止画解析の解析インターバル（秒）。5秒以上3600秒以下の値を指定可能。0を指定した場合は静止画解析が停止される。動画解析のAI-Appアプリケーションの場合はこの設定は無視される
          * @returns
          * @throws {@link ErrorDetail}
@@ -1424,13 +1499,13 @@ declare namespace Safie {
          * });
          *
          * //クラウド解析に対する設定を削除する
-         * await Safie.AIApp.updateUserConfig({ deviceId, applicationId, userConfig: {} });
+         * await Safie.AIApp.updateUserConfig({ deviceId, applicationId, userConfig: null });
          * ```
          */
         function updateUserConfig(options: {
             deviceId: string;
             applicationId: number;
-            userConfig?: Partial<UserConfig>;
+            userConfig?: Partial<UserConfig> | null;
             snapshotIntervalSec?: number;
         }): Promise<void>;
         /**

@@ -24,7 +24,7 @@ async function testAIApp(): Promise<void> {
     devices.list.forEach((device: Safie.AIApp.ApplicationDevice) => {
         const id: string = device.deviceId;
         const serial: string = device.serial;
-        const name: string = device.setting.name;
+        const name: string | undefined = device.setting.name;
         const modelName: string = device.model.description;
         const streaming: boolean = device.status.videoStreaming;
         const connected: boolean = device.status.serverConnecting;
@@ -32,8 +32,8 @@ async function testAIApp(): Promise<void> {
         console.log(id, serial, name, modelName, streaming, connected, capabilities);
 
         device.applications.forEach((application: Safie.AIApp.ApplicationInfo) => {
-            const applicationId: number | null = application.applicationId;
-            const applicationName: string | null = application.applicationName;
+            const applicationId: number = application.applicationId;
+            const applicationName: string = application.applicationName;
             console.log(applicationId, applicationName);
         });
     });
@@ -122,15 +122,15 @@ async function testAIApp(): Promise<void> {
         const targetType: string | null = notificationConfig.targetType;
         const configName: string | null = notificationConfig.name;
         const description: string | null = notificationConfig.description;
-        const tags: string[] = notificationConfig.tags;
+        const tags: string[] | null = notificationConfig.tags;
         const method: Safie.AIApp.NotificationMethod = notificationConfig.method;
         const options: Safie.AIApp.NotificationConfigOptions = notificationConfig.options;
-        const targetDaysOfWeek: Safie.AIApp.DayOfWeek[] = notificationConfig.targetDaysOfWeek;
+        const targetDaysOfWeek: Safie.AIApp.DayOfWeek[] | null = notificationConfig.targetDaysOfWeek;
         const daysOfWeekTimezone: string | null = notificationConfig.daysOfWeekTimezone;
         console.log(notificationConfigId, targetType, configName, description, tags);
         console.log(method, options, targetDaysOfWeek, daysOfWeekTimezone);
 
-        notificationConfig.targetTimesUtc.forEach((targetTime: Safie.AIApp.NotificationTimeRange) => {
+        notificationConfig.targetTimesUtc?.forEach((targetTime: Safie.AIApp.NotificationTimeRange) => {
             const start: string = targetTime.start;
             const end: string = targetTime.end;
             console.log(start, end);
@@ -203,8 +203,8 @@ async function testAIApp(): Promise<void> {
         deviceId: "device",
         applicationId: 1,
     });
-    const userConfig: Safie.AIApp.UserConfig | null = userConfigResult.userConfig;
-    const snapshotIntervalSec: number | null = userConfigResult.snapshotIntervalSec;
+    const userConfig: Safie.AIApp.UserConfig | undefined = userConfigResult.userConfig;
+    const snapshotIntervalSec: number | undefined = userConfigResult.snapshotIntervalSec;
     console.log(userConfig?.analyzer, snapshotIntervalSec);
     await Safie.AIApp.updateUserConfig({ deviceId: "device", applicationId: 1 });
     await Safie.AIApp.updateUserConfig({
@@ -238,12 +238,12 @@ async function testAIApp(): Promise<void> {
     objects.list.forEach((detectedObject: Safie.AIApp.DetectedObject) => {
         const objectId: string = detectedObject.objectId;
         const start: number = detectedObject.start;
-        const end: number | null = detectedObject.end;
+        const end: number | undefined = detectedObject.end;
         const objectType: string = detectedObject.type;
-        const labels: string[] = detectedObject.labels;
-        const score: number | null = detectedObject.score;
-        const pictureLabels: string[] = detectedObject.pictureLabels;
-        const geometryConfigIds: number[] = detectedObject.geometryConfigIds;
+        const labels: string[] | undefined = detectedObject.labels;
+        const score: number | undefined = detectedObject.score;
+        const pictureLabels: string[] | undefined = detectedObject.pictureLabels;
+        const geometryConfigIds: number[] | undefined = detectedObject.geometryConfigIds;
         console.log(objectId, start, end, objectType, labels, score, pictureLabels, geometryConfigIds);
     });
 
@@ -253,8 +253,8 @@ async function testAIApp(): Promise<void> {
         applicationId: 1,
         objectId: "object",
     });
-    const objectDuration: number | null = objectDetail.duration;
-    const objectData: Record<string, unknown> | null = objectDetail.data;
+    const objectDuration: number | undefined = objectDetail.duration;
+    const objectData: Record<string, unknown> | undefined = objectDetail.data;
     const hasExtraData: boolean = objectDetail.hasExtraData;
     console.log(objectDuration, objectData, hasExtraData);
 
@@ -297,9 +297,9 @@ async function testAIApp(): Promise<void> {
         const timestamp: number = detectedEvent.timestamp;
         const eventType: string = detectedEvent.type;
         const score: number | null = detectedEvent.score;
-        const labels: string[] = detectedEvent.labels;
+        const labels: string[] | null = detectedEvent.labels;
         const hasPicture: boolean = detectedEvent.hasPicture;
-        const geometryConfigIds: number[] = detectedEvent.geometryConfigIds;
+        const geometryConfigIds: number[] | null = detectedEvent.geometryConfigIds;
         console.log(eventId, timestamp, eventType, score, labels, hasPicture, geometryConfigIds);
     });
 
@@ -338,12 +338,12 @@ async function testAIApp(): Promise<void> {
     metrics.list.forEach((metric: Safie.AIApp.Metric) => {
         const metricTimestamp: number = metric.timestamp;
         const label: string = metric.label;
-        const metricCount: number | null = metric.count;
-        const sum: number | null = metric.sum;
-        const avg: number | null = metric.avg;
-        const avg0: number | null = metric.avg0;
-        const min: number | null = metric.min;
-        const max: number | null = metric.max;
+        const metricCount: number | undefined = metric.count;
+        const sum: number | undefined = metric.sum;
+        const avg: number | undefined = metric.avg;
+        const avg0: number | undefined = metric.avg0;
+        const min: number | undefined = metric.min;
+        const max: number | undefined = metric.max;
         console.log(metricTimestamp, label, metricCount, sum, avg, avg0, min, max);
     });
 
@@ -397,7 +397,7 @@ async function testAIApp(): Promise<void> {
         const eventTimestamp: number = notificationEvent.timestamp;
         console.log(notificationEventId, eventDeviceId, objectId, eventId, eventType, methods, score, eventTimestamp);
 
-        notificationEvent.geometryConfigs.forEach((geometryConfig: Safie.AIApp.NotificationEventGeometryConfig) => {
+        notificationEvent.geometryConfigs?.forEach((geometryConfig: Safie.AIApp.NotificationEventGeometryConfig) => {
             const geometryConfigId: number = geometryConfig.geometryConfigId;
             const geometryConfigName: string | null = geometryConfig.geometryConfigName;
             console.log(geometryConfigId, geometryConfigName);
@@ -457,7 +457,23 @@ async function testAIApp(): Promise<void> {
 async function testAuth(): Promise<void> {
     const initResult: Safie.Auth.InitializeResult = await Safie.Auth.initialize();
     const tokenType: Safie.Auth.TokenType = initResult.tokenType;
-    console.log(tokenType);
+    const idToken: string | undefined = initResult.idToken;
+    console.log(tokenType, idToken);
+
+    // Public Client(PKCE)としての認可（v1.10で追加）
+    const initializeOptions: Safie.Auth.InitializeOptions = { clientId: "client" };
+    await Safie.Auth.initialize(initializeOptions);
+    await Safie.Auth.initialize({});
+
+    const authorizeOptions: Safie.Auth.AuthorizeOptions = {
+        clientId: "client",
+        redirectUri: "https://example.com/",
+        scope: "safie-api openid",
+        rememberMe: true,
+        enableTokenRefresh: true,
+    };
+    await Safie.Auth.authorize(authorizeOptions);
+    await Safie.Auth.authorize({ clientId: "client", redirectUri: "https://example.com/", scope: "safie-api" });
 
     await Safie.Auth.setToken("token", Safie.Auth.TokenType.APIKey);
     await Safie.Auth.setToken("token", Safie.Auth.TokenType.AccessToken, true);
@@ -742,16 +758,18 @@ function testErrorHandling(error: Safie.ErrorDetail): void {
     const message: string = error.message;
     console.log(type, message);
 
-    // ErrorTypeリテラルの網羅
-    const errorTypes: Safie.ErrorType[] = [
-        "invalid_params",
-        "unauthorized",
-        "forbidden",
-        "too_many_requests",
-        "service_unavailable",
-        "network_error",
-        "resource_exhausted",
-    ];
+    // ErrorTypeリテラルの網羅（Recordで網羅性を強制し、種別の追加漏れをコンパイルエラーで検出する）
+    const errorTypes: Record<Safie.ErrorType, true> = {
+        invalid_params: true,
+        unauthorized: true,
+        authorization_required: true,
+        authorization_failed: true,
+        forbidden: true,
+        too_many_requests: true,
+        service_unavailable: true,
+        network_error: true,
+        resource_exhausted: true,
+    };
     console.log(errorTypes);
 }
 
