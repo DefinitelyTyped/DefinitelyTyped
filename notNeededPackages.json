@@ -7347,6 +7347,10 @@
             "libraryName": "serialport",
             "asOfVersion": "10.2.0"
         },
+        "set-cookie-parser": {
+            "libraryName": "set-cookie-parser",
+            "asOfVersion": "3.1.0"
+        },
         "set-interval-async": {
             "libraryName": "set-interval-async",
             "asOfVersion": "3.0.1"
