@@ -703,27 +703,27 @@ declare namespace OracleDB {
     /**
      * A callback that controls how queried column data is returned. It is called for each fetched column
      * with that column's metadata and the read-only metadata array for all fetched columns.
-     * The `rowsetMetaData` array must not be modified. The first argument contains the following attributes:
-     * `annotations`: The object representing the annotations.
-     * `byteSize`: The maximum size in bytes. This is only set if `dbType` is `oracledb.DB_TYPE_VARCHAR`, `oracledb.DB_TYPE_CHAR`, or `oracledb.DB_TYPE_RAW`.
-     * `dbType`: The database type, that is, one of the Oracle Database Type Objects.
-     * `dbColumnName`: The actual database column name. This is to distinguish from the `name` attribute as the duplicate columns in the query will have the same value for this attribute.
-     * `dbTypeName`: The name of the database type, such as `NUMBER` or `VARCHAR2`.
-     * `dbTypeClass`: The class associated with the database type. This is only set if `dbType` is `oracledb.DB_TYPE_OBJECT`.
-     * `domainName`: The name of the SQL domain.
-     * `domainSchema`: The schema name of the SQL domain.
-     * `isJson`: Indicates if the column is known to contain JSON data.
-     * `name`: The name of the column.
-     * `nullable`: Indicates whether NULL values are permitted for this column.
-     * `precision`: Set only when the `dbType` is `oracledb.DB_TYPE_NUMBER`.
-     * `scale`: Set only when the `dbType` is `oracledb.DB_TYPE_NUMBER`.
-     * By default, this property is `undefined`, that is, it is not set.
+     * The rowsetMetaData array must not be modified. The first argument contains the following attributes:
+     * annotations: The object representing the annotations.
+     * byteSize: The maximum size in bytes. This is only set if dbType is oracledb.DB_TYPE_VARCHAR, oracledb.DB_TYPE_CHAR, or oracledb.DB_TYPE_RAW.
+     * dbType: The database type, that is, one of the Oracle Database Type Objects.
+     * dbColumnName: The actual database column name. This is to distinguish from the name attribute as the duplicate columns in the query will have the same value for this attribute.
+     * dbTypeName: The name of the database type, such as “NUMBER” or “VARCHAR2”.
+     * dbTypeClass: The class associated with the database type. This is only set if dbType is oracledb.DB_TYPE_OBJECT.
+     * domainName: The name of the SQL domain.
+     * domainSchema: The schema name of the SQL domain.
+     * isJson: Indicates if the column is known to contain JSON data.
+     * name: The name of the column.
+     * nullable: Indicates whether NULL values are permitted for this column.
+     * precision: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * scale: Set only when the dbType is oracledb.DB_TYPE_NUMBER.
+     * By default, this property is “undefined”, that is, it is not set.
      * The function is expected to return either nothing or an object containing:
-     * the `type` attribute
-     * or the `converter` attribute
-     * or both the `type` and `converter` attributes
-     * The `converter` function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by `connection.execute()` for a particular row and column and returns the value that will actually be returned by `connection.execute()`.
-     * This property can be overridden by the `fetchTypeHandler` option in `execute()`.
+     * the type attribute
+     * or the converter attribute
+     * or both the type and converter attributes
+     * The converter function is a function which can be used with fetch type handlers to change the returned data. This function accepts the value that will be returned by connection.execute() for a particular row and column and returns the value that will actually be returned by connection.execute().
+     * This property can be overridden by the fetchTypeHandler option in execute().
      *
      * @see https://node-oracledb.readthedocs.io/en/latest/api_manual/oracledb.html#oracledb.fetchTypeHandler
      */
@@ -1101,7 +1101,7 @@ declare namespace OracleDB {
     }
 
     /**
-     * Configuration options used to create an `EndUserSecurityContext` object.
+     * Configuration options used to create an EndUserSecurityContext object.
      *
      * Use an end-user token, a local end-user name with an optional key,
      * or omit both identities for direct application logon.
@@ -1112,7 +1112,7 @@ declare namespace OracleDB {
         /**
          * A security token issued by an external Identity and Access Management (IAM)
          * system that authorizes an application to access Oracle Database.
-         * An OBO token requires `endUserToken`. A client-credentials token may be used
+         * An OBO token requires endUserToken. A client-credentials token may be used
          * with either end-user identity form, or by itself for direct application logon.
          */
         databaseAccessToken: string;
@@ -1121,8 +1121,8 @@ declare namespace OracleDB {
          */
         dataRoles?: string[] | undefined;
         /**
-         * Attribute-value pairs for `END USER CONTEXT` definitions in the database.
-         * Keys use fully qualified `schema.context` names; values must conform to the
+         * Attribute-value pairs for END USER CONTEXT definitions in the database.
+         * Keys use fully qualified schema.context names; values must conform to the
          * corresponding context's JSON schema.
          */
         attributes?: Record<string, any> | undefined;
@@ -1135,7 +1135,7 @@ declare namespace OracleDB {
              */
             endUserToken: string;
             /**
-             * A local database user name with the `CREATE END USER SECURITY CONTEXT` privilege.
+             * A local database user name with the CREATE END USER SECURITY CONTEXT privilege.
              *
              * This attribute should not be set when `endUserToken` is specified.
              */
@@ -1155,7 +1155,7 @@ declare namespace OracleDB {
              */
             endUserToken?: never;
             /**
-             * A local database user name with the `CREATE END USER SECURITY CONTEXT` privilege.
+             * A local database user name with the CREATE END USER SECURITY CONTEXT privilege.
              */
             endUserName: string;
             /**
@@ -1424,7 +1424,7 @@ declare namespace OracleDB {
         readonly dbUniqueName?: string | undefined;
         /**
          * This write-only property is a string that sets the execution context identifier.
-         * The value is available in the `ECID` column of the `V$SESSION` view. It is also shown in audit logs.
+         * The value is available in the ECID column of the V$SESSION view. It is also shown in audit logs.
          * Supported in Thick mode and, since node-oracledb 26.0.0, in Thin mode.
          *
          * @since 5.3
@@ -2007,21 +2007,21 @@ declare namespace OracleDB {
         ping(callback: (error: DBError | null) => void): void;
 
         /**
-         * This function provides query streaming support. The parameters are the same as `execute()` except
+         * This function provides query streaming support. The parameters are the same as execute() except
          * a callback is not used. Instead this function returns a stream used to fetch data.
          *
-         * Each `data` event contains a row, or an array of rows when `rowsPerDataEvent` is greater than one.
-         * Query metadata is available via a `metadata` event.
-         * The `end` event indicates the end of the query results.
+         * Each data event contains a row, or an array of rows when rowsPerDataEvent is greater than one.
+         * Query metadata is available via a metadata event.
+         * The end event indicates the end of the query results.
          *
-         * Call `destroy()` after `end`, and release the connection in the `close` event.
+         * Call destroy() after end, and release the connection in the close event.
          * The connection must remain open until the stream closes and returned LOBs are processed.
          *
-         * For tuning, adjust `fetchArraySize` and `prefetchRows` (see `execute()`).
+         * For tuning, adjust fetchArraySize and prefetchRows (see execute()).
          *
          * @param sql The SQL statement that is executed. The statement may contain bind parameters.
          * @param bindParams This function parameter is needed if there are bind parameters in the SQL statement.
-         * @param options Execution options plus `rowsPerDataEvent` (added in 26.0.0), which defaults to `1`.
+         * @param options Execution options plus rowsPerDataEvent (added in 26.0.0), which defaults to 1.
          *
          * @since 1.8
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#streamingresults
@@ -2185,13 +2185,13 @@ declare namespace OracleDB {
          * Register a JavaScript callback method to be invoked when data is changed in the database by any committed transaction,
          * or when there are Advanced Queuing messages to be dequeued.
          *
-         * In Thin mode, `clientInitiated` must be `true`. In Thick mode, the connection must be
-         * created with `events` set to `true`. Server-initiated notifications require the database
+         * In Thin mode, clientInitiated must be true. In Thick mode, the connection must be
+         * created with events set to true. Server-initiated notifications require the database
          * to be able to connect back to the application.
          *
          * If there is any problem sending a notification, then the callback method will not be invoked.
-         * The `connection.subscribe()` method may be called multiple times with the same name, as long as the same connection is used.
-         * In this case, the second and subsequent invocations ignore all options properties other than `sql` and `binds`.
+         * The connection.subscribe() method may be called multiple times with the same name, as long as the same connection is used.
+         * In this case, the second and subsequent invocations ignore all options properties other than sql and binds.
          * Instead, the new SQL statement is registered to the same subscription, and the same JavaScript notification callback is used.
          * For performance reasons this can be preferable to creating a new subscription for each query.
          *
@@ -2238,18 +2238,18 @@ declare namespace OracleDB {
     }
 
     /**
-     * Result of `connection.subscribe()` for Continuous Query Notification (CQN) subscriptions.
+     * Result of connection.subscribe() for Continuous Query Notification (CQN) subscriptions.
      *
      * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/cqn.html#cqn
      * @since 4.0
      */
     interface Subscription {
         /**
-         * Value of `REGID` in the database view `USER_CHANGE_NOTIFICATION_REGS` or the value of `REG_ID` in `USER_SUBSCR_REGISTRATIONS`.
-         * Returned as a JavaScript `number`.
-         * The notification callback's `message.regId` is a `bigint`.
+         * Value of REGID in the database view USER_CHANGE_NOTIFICATION_REGS or the value of REG_ID in USER_SUBSCR_REGISTRATIONS.
+         * Returned as a JavaScript number.
+         * The notification callback's message.regId is a bigint.
          *
-         * For advanced queue `SUBSCR_NAMESPACE_AQ` subscriptions, `regId` is `undefined`.
+         * For advanced queue SUBSCR_NAMESPACE_AQ subscriptions, regId is undefined.
          */
         regId?: number | undefined;
     }
@@ -2266,7 +2266,7 @@ declare namespace OracleDB {
          * Enables CQN and AQ “client initiated” connections which internally use the same approach as normal connections to the database,
          * and do not require the database to be able to connect back to the application. Since client initiated connections
          * do not need additional network configuration, they have ease-of-use and security advantages.
-         * Must be `true` in Thin mode, which supports notifications from node-oracledb 26.0.0.
+         * Must be true in Thin mode, which supports notifications from node-oracledb 26.0.0.
          * Requires Oracle Database 19.4 or later; Thick mode also requires Oracle Client 19.4 or later.
          *
          * @default false
@@ -2358,7 +2358,7 @@ declare namespace OracleDB {
          * @since 26.0.0
          */
         senderAgentProtocol?: number | undefined;
-        /** Database that sent a CQN notification; `undefined` for AQ and deregistration notifications. */
+        /** Database that sent a CQN notification; undefined for AQ and deregistration notifications. */
         dbName?: string | undefined;
         /**
          * Name of the Advanced Queue. Undefined for CQN.
@@ -2366,7 +2366,7 @@ declare namespace OracleDB {
          * @since 4.0
          */
         queueName?: string | undefined;
-        /** Queries affected by a `SUBSCR_EVENT_TYPE_QUERY_CHANGE` notification. */
+        /** Queries affected by a SUBSCR_EVENT_TYPE_QUERY_CHANGE notification. */
         queries?:
             | Array<{
                 /**
@@ -2385,7 +2385,7 @@ declare namespace OracleDB {
                 tables?: SubscriptionTable[];
             }>
             | undefined;
-        /** `false` for deregistration notifications or when `SUBSCR_QOS_DEREG_NFY` was set. */
+        /** False for deregistration notifications or when SUBSCR_QOS_DEREG_NFY was set. */
         registered: boolean;
 
         /** Tables affected by a `SUBSCR_EVENT_TYPE_OBJ_CHANGE` notification. */
@@ -2394,8 +2394,8 @@ declare namespace OracleDB {
         /** Transaction identifier for a CQN change notification; absent for AQ or deregistration. */
         txId?: Buffer | undefined;
         /**
-         * Registration identifier as a JavaScript `bigint`. The corresponding `subscribe()`
-         * result uses a `number`; the values agree when that number can represent the identifier.
+         * Registration identifier as a JavaScript bigint. The corresponding subscribe()
+         * result uses a number; the values agree when that number can represent the identifier.
          *
          * @since 6.7
          */
@@ -2411,7 +2411,7 @@ declare namespace OracleDB {
         /** Name of the table which was modified in some way. */
         name: string;
         /**
-         * An integer mask containing one or more `CQN_OPCODE_*` constants.
+         * An integer mask containing one or more CQN_OPCODE_* constants.
          */
         operation: number;
         /**
@@ -3258,7 +3258,7 @@ declare namespace OracleDB {
             >
             | undefined;
         /**
-         * Overrides `oracledb.fetchTypeHandler`.
+         * Overrides oracledb.fetchTypeHandler.
          * Receives the column's metadata and the read-only metadata array for all fetched columns.
          *
          * @since 6.0
@@ -3562,7 +3562,7 @@ declare namespace OracleDB {
          */
         annotations?: any;
         /**
-         * The actual database column name. This is to distinguish from the `name` attribute as the duplicate columns in the query will have the same value for this attribute.
+         * The actual database column name. This is to distinguish from the name attribute as the duplicate columns in the query will have the same value for this attribute.
          *
          * @since 6.10
          */
@@ -4613,8 +4613,8 @@ declare namespace OracleDB {
         deliveryMode: number;
         /**
          * Read-only enqueue timestamp with seconds precision and zero fractional seconds.
-         * `undefined` when the enqueue time is unavailable.
-         * Thin mode uses `undefined` as the default from node-oracledb 26.0.0.
+         * Undefined when the enqueue time is unavailable.
+         * Thin mode uses undefined as the default from node-oracledb 26.0.0.
          *
          * @since 6.9
          */
@@ -4886,14 +4886,14 @@ declare namespace OracleDB {
          * This synchronous method converts a ResultSet into a stream.
          *
          * It can be used to make ResultSets from top-level queries or from REF CURSOR bind variables streamable.
-         * To make top-level queries streamable, the alternative `connection.queryStream()` method may be easier to use.
+         * To make top-level queries streamable, the alternative connection.queryStream() method may be easier to use.
          *
-         * To change the behavior of `toQueryStream()`, such as setting the query output Format or the internal
-         * buffer size for performance, adjust global attributes such as `oracledb.outFormat` and `oracledb.fetchArraySize`
-         * and `oracledb.prefetchRows` before calling `execute()`.
+         * To change the behavior of toQueryStream(), such as setting the query output Format or the internal
+         * buffer size for performance, adjust global attributes such as oracledb.outFormat and oracledb.fetchArraySize
+         * and oracledb.prefetchRows before calling execute().
          *
-         * @param options Added in 26.0.0. `rowsPerDataEvent` defaults to `1`, returning each row itself.
-         * Values greater than `1` return arrays of up to that many rows per `data` event.
+         * @param options Added in 26.0.0. rowsPerDataEvent defaults to 1, returning each row itself.
+         * Values greater than 1 return arrays of up to that many rows per data event.
          *
          * @since 1.9
          * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/sql_execution.html#streamingresults
