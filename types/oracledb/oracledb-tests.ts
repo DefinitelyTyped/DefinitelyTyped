@@ -1014,6 +1014,7 @@ export const version7Tests = async (): Promise<void> => {
         attributes: { application: "payroll", regions: ["us", "uk"] },
     });
 
+    // valid: database local user mode without a key (optional since 7.0.1)
     new oracledb.EndUserSecurityContext({
         databaseAccessToken: "db-access-token",
         endUserName: "APP_USER",
@@ -1076,10 +1077,13 @@ export const version7Tests = async (): Promise<void> => {
     });
 };
 
-export const version26SecurityTests = async (connection: oracledb.Connection): Promise<void> => {
+export const version26SecurityTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
     const provider = oracledb.getSecurityContextProvider();
+    expectType<oracledb.SecurityContextProvider>(provider);
     expectType<oracledb.SecurityContextMetadata | null>(provider.getCurrentContext());
     expectType<number>(provider.runWithContext({ endUserName: "APP_USER" }, (value: number) => value, 42));
+    expectType<Promise<number>>(provider.runWithContext({}, async (value: number) => value, 42));
     // @ts-expect-error callback arguments must match the callback parameter types
     provider.runWithContext({}, (value: number) => value, "42");
     const row = await provider.runWithContext(
@@ -1091,6 +1095,8 @@ export const version26SecurityTests = async (connection: oracledb.Connection): P
     provider.runWithContext({ dataRoles: ["APP_ROLE"] }, () => connection.commit());
     // @ts-expect-error end-user token and name cannot be combined
     provider.runWithContext({ endUserToken: "token", endUserName: "APP_USER" }, () => connection.commit());
+    // @ts-expect-error key cannot be combined with an end-user token
+    provider.runWithContext({ endUserToken: "token", key: "request-1" }, () => connection.commit());
 
     await oracledb.createPool({
         endUserSecParams: {
@@ -1124,7 +1130,8 @@ export const version26SecurityTests = async (connection: oracledb.Connection): P
     azureConfig.scopes = [42];
 };
 
-export const version26TransactionPriorityTests = async (connection: oracledb.Connection): Promise<void> => {
+export const version26TransactionPriorityTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
     expectType<"HIGH">(oracledb.TXN_PRIORITY_HIGH);
     expectType<"MEDIUM">(oracledb.TXN_PRIORITY_MEDIUM);
     expectType<"LOW">(oracledb.TXN_PRIORITY_LOW);
@@ -1138,7 +1145,8 @@ export const version26TransactionPriorityTests = async (connection: oracledb.Con
     await oracledb.getConnection({ txnPriority: "URGENT" });
 };
 
-export const version26TracingTests = async (connection: oracledb.Connection): Promise<void> => {
+export const version26TracingTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
     connection.databaseOpenTelemetryTracing = true;
     expectType<boolean | undefined>(connection.databaseOpenTelemetryTracing);
     connection.ecid = "request-123";
@@ -1146,15 +1154,17 @@ export const version26TracingTests = async (connection: oracledb.Connection): Pr
     await connection.execute("select id from test_table", [], {
         fetchTypeHandler(metadata, rowsetMetaData) {
             expectType<ReadonlyArray<oracledb.Metadata<any>>>(rowsetMetaData);
+            // @ts-expect-error rowsetMetaData must not be modified
+            rowsetMetaData.push(metadata);
             return metadata.name === "ID" ? { type: oracledb.STRING } : undefined;
         },
     });
 };
 
-export const version26StreamingAndNotificationTests = async (
-    connection: oracledb.Connection,
-    resultSet: oracledb.ResultSet<{ ID: number }>,
-): Promise<void> => {
+export const version26StreamingAndNotificationTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
+    const result = await connection.execute<{ ID: number }>("select id from test_table", [], { resultSet: true });
+    const resultSet = result.resultSet!;
     connection.queryStream<{ ID: number }>("select id from test_table", [], { rowsPerDataEvent: 10 });
     resultSet.toQueryStream({ rowsPerDataEvent: 10 });
     // @ts-expect-error rowsPerDataEvent must be numeric
