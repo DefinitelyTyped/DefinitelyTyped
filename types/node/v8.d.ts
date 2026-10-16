@@ -619,13 +619,37 @@ declare module "node:v8" {
          * For use inside of a custom `serializer._writeHostObject()`.
          */
         writeRawBytes(buffer: NodeJS.ArrayBufferView): void;
+        /**
+         * This method is called to generate error objects that will be thrown when an
+         * object can not be cloned.
+         *
+         * This method defaults to the `Error` constructor and can be overridden on
+         * subclasses.
+         */
+        _getDataCloneError(message: string): Error;
+        /**
+         * Indicate whether to treat `TypedArray` and `DataView` objects as
+         * host objects, i.e. pass them to `serializer._writeHostObject()`.
+         * @param [flag=false]
+         */
+        _setTreatArrayBufferViewsAsHostObjects(flag?: boolean): void;
     }
     /**
      * A subclass of `Serializer` that serializes `TypedArray`(in particular `Buffer`) and `DataView` objects as host objects, and only
      * stores the part of their underlying `ArrayBuffer`s that they are referring to.
      * @since v8.0.0
      */
-    class DefaultSerializer extends Serializer {}
+    class DefaultSerializer extends Serializer {
+        /**
+         * This method is called to write some kind of host object, i.e. an object created
+         * by native C++ bindings. If it is not possible to serialize `object`, a suitable
+         * exception should be thrown.
+         *
+         * This method is not present on the `Serializer` class itself but can be provided
+         * by subclasses.
+         */
+        _writeHostObject(object: object): void;
+    }
     /**
      * @since v8.0.0
      */
@@ -680,7 +704,17 @@ declare module "node:v8" {
      * A subclass of `Deserializer` corresponding to the format written by `DefaultSerializer`.
      * @since v8.0.0
      */
-    class DefaultDeserializer extends Deserializer {}
+    class DefaultDeserializer extends Deserializer {
+        /**
+         * This method is called to read some kind of host object, i.e. an object that is
+         * created by native C++ bindings. If it is not possible to deserialize the data,
+         * a suitable exception should be thrown.
+         *
+         * This method is not present on the `Deserializer` class itself but can be
+         * provided by subclasses.
+         */
+        _readHostObject(): any;
+    }
     /**
      * Uses a `DefaultSerializer` to serialize `value` into a buffer.
      *
@@ -721,6 +755,33 @@ declare module "node:v8" {
      * @since v18.10.0, v16.18.0
      */
     function setHeapSnapshotNearHeapLimit(limit: number): void;
+    /**
+     * Writes the active sampling heap profile as a `.heapprofile` file when V8 is
+     * near the heap limit, up to `limit` times. Files are written to the directory
+     * configured by `--diagnostic-dir` (or to the current working directory if the
+     * option is unset), using the
+     * `Heap.${yyyymmdd}.${hhmmss}.${pid}.${tid}.${seq}.heapprofile` naming
+     * convention.
+     *
+     * `v8.startHeapProfile()` must be called before this API can capture a
+     * profile. If no sampling heap profile is active when V8 reaches the heap
+     * limit, the callback is uninstalled and V8 continues its normal
+     * out-of-memory behavior.
+     *
+     * This API can be used together with {@link setHeapSnapshotNearHeapLimit}.
+     * Each API maintains its own `limit`.
+     *
+     * Writing is best-effort. Materializing the sampled call tree can allocate V8
+     * and native memory, so the profile might not be completed if the process has
+     * insufficient memory available. The serialized profile is written by native code
+     * and is not exposed to JavaScript.
+     *
+     * Calling `setHeapProfileNearHeapLimit()` more than once is a no-op. `limit`
+     * must be a positive integer.
+     * @since v26.9.0
+     * @experimental
+     */
+    function setHeapProfileNearHeapLimit(limit: number): void;
     /**
      * This API collects GC data in current thread.
      * @since v19.6.0, v18.15.0

@@ -226,6 +226,14 @@ process.env.TZ = "test";
     process.setgroups([1]);
     // $ExpectType void | undefined
     process.setgroups?.([1]);
+    // @ts-expect-error
+    process.initgroups("nodeuser", 1000);
+    // $ExpectType void | undefined
+    process.initgroups?.("nodeuser", 1000);
+    // $ExpectType void | undefined
+    process.initgroups?.(1000, "staff");
+    // @ts-expect-error
+    process.initgroups?.("nodeuser");
 
     if (process.getuid) {
         // $ExpectType number

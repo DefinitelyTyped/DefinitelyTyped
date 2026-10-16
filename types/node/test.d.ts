@@ -989,6 +989,12 @@ declare module "node:test" {
             }
             interface TestStderr {
                 /**
+                 * The path of the test file that was
+                 * executed as the entry point of the child process that emitted this event.
+                 * Only present when tests run with process isolation.
+                 */
+                entryFile?: string;
+                /**
                  * The path of the test file.
                  */
                 file: string;
@@ -998,6 +1004,12 @@ declare module "node:test" {
                 message: string;
             }
             interface TestStdout {
+                /**
+                 * The path of the test file that was
+                 * executed as the entry point of the child process that emitted this event.
+                 * Only present when tests run with process isolation.
+                 */
+                entryFile?: string;
                 /**
                  * The path of the test file.
                  */
@@ -1016,6 +1028,10 @@ declare module "node:test" {
                      * The total number of cancelled tests.
                      */
                     cancelled: number;
+                    /**
+                     * The total number of failed tests.
+                     */
+                    failed: number;
                     /**
                      * The total number of passed tests.
                      */
