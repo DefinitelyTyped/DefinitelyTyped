@@ -68,7 +68,7 @@ const Button = styled.button`
 
 const elementWithoutProp = React.createElement(Button);
 const elementWithCorrectProp = React.createElement(Button, { kind: "secondary" });
-// @ts-expect-error >=5.6
+// @ts-expect-error >=5.6 <7.0
 const element = React.createElement(Button, { kind: "wrong variant" });
 // @ts-expect-error
 <Button kind="wrong variant" />;
