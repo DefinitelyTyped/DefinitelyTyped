@@ -1,4 +1,4 @@
-import { createReadStream, Item } from "pbf2json";
+import { createReadStream, Item, Node } from "pbf2json";
 import * as through from "through2";
 
 createReadStream({
@@ -6,10 +6,18 @@ createReadStream({
     tags: ["addr:housenumber+addr:street,name"],
     leveldb: "/tmp",
     waynodes: "",
+    options: { metadata: true },
 })
     .pipe(
         through.obj((item: Item, _e, next) => {
             const { name } = item.tags;
+
+            // $ExpectType Metadata | undefined
+            item.meta;
+            // $ExpectType string | undefined
+            item.meta?.timestamp;
+            // $ExpectType number | undefined
+            item.meta?.changeset;
 
             // $ExpectType string | undefined
             name;
@@ -28,3 +36,22 @@ createReadStream({
         }),
     )
     .on("finish", console.log);
+
+const node: Node = {
+    type: "node",
+    id: 1,
+    meta: {
+        timestamp: "2019-05-16T16:57:38Z",
+        changeset: 123,
+        uid: 10123456,
+        user: "redactedddd",
+        version: 2,
+    },
+    tags: {
+        "addr:housenumber": "1",
+        "addr:street": "Marine Parade",
+        "addr:suburb": "Devonport",
+    },
+    lat: -36,
+    lon: 174,
+};
