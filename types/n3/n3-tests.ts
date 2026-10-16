@@ -655,3 +655,119 @@ function test_writer_base_iri() {
 
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");
 export const df: RDF.DataFactory = N3.DataFactory;
+
+function test_writer_blank_list_and_callbacks() {
+    const writer: N3.Writer = new N3.Writer();
+    const knows = N3.DataFactory.namedNode("http://xmlns.com/foaf/0.1/knows");
+    const name = N3.DataFactory.namedNode("http://xmlns.com/foaf/0.1/name");
+    const tom = N3.DataFactory.namedNode("http://example.org/cartoons#Tom");
+    const jerry = N3.DataFactory.literal("Jerry");
+
+    writer.blank(); // $ExpectType BlankNode
+    writer.blank(knows, writer.blank(name, jerry)); // $ExpectType BlankNode
+    writer.blank([{ predicate: name, object: writer.blank() }]); // $ExpectType BlankNode
+    writer.blank({ predicate: name, object: jerry }); // $ExpectType BlankNode
+    writer.blank([N3.DataFactory.quad(tom, name, jerry)]); // $ExpectType BlankNode
+    const inlineQuad: RDF.Quad = {
+        termType: "Quad",
+        value: "",
+        subject: tom,
+        predicate: name,
+        object: jerry,
+        graph: N3.DataFactory.defaultGraph(),
+        equals: () => false,
+    };
+    writer.blank([inlineQuad]); // $ExpectType BlankNode
+    writer.list([tom, jerry]); // $ExpectType BlankNode
+    writer.list([writer.blank(), writer.list([])]); // $ExpectType BlankNode
+    writer.list(); // $ExpectType BlankNode
+    writer.list(null); // $ExpectType BlankNode
+
+    writer.addQuad(writer.blank(knows, tom), knows, writer.list([tom])); // $ExpectType void
+    writer.addQuad(tom, knows, jerry, (error) => {
+        error; // $ExpectType Error | null | undefined
+    });
+    writer.addQuad(tom, knows, jerry, N3.DataFactory.defaultGraph(), () => {});
+    writer.addQuad(N3.DataFactory.quad(tom, knows, jerry), (error) => {});
+    writer.addQuad(tom, knows, jerry, N3.DataFactory.defaultGraph(), (error?: Error) => {});
+    writer.addQuad(tom, knows, jerry, (error?: Error) => {});
+
+    // @ts-expect-error
+    const notAnArray: N3.Quad_Object[] = writer.list([tom]);
+    // @ts-expect-error
+    writer.addQuad(tom, knows, [tom]);
+    // @ts-expect-error
+    writer.blank(N3.DataFactory.quad(tom, name, jerry));
+    // @ts-expect-error
+    writer.blank(inlineQuad);
+
+    writer.end((error, result) => {
+        error; // $ExpectType Error | null | undefined
+        result; // $ExpectType string | undefined
+    });
+    writer.end((error, result: string) => {});
+    writer.end();
+    // @ts-expect-error
+    writer.end(() => {}, "result");
+}
+
+function test_store_optional_pattern_terms() {
+    const store = new N3.Store();
+    const tom = N3.DataFactory.namedNode("http://example.org/cartoons#Tom");
+
+    store.getQuads(); // $ExpectType Quad[]
+    store.getQuads(tom, undefined, null); // $ExpectType Quad[]
+    store.readQuads(); // $ExpectType Iterable<Quad>
+    store.countQuads(); // $ExpectType number
+    store.has(); // $ExpectType boolean
+    store.has(tom); // $ExpectType boolean
+    store.has(null, undefined, null); // $ExpectType boolean
+    store.has(N3.DataFactory.quad(tom, tom, tom)); // $ExpectType boolean
+    store.getSubjects(); // $ExpectType Quad_Subject[]
+    store.getPredicates(tom); // $ExpectType Quad_Predicate[]
+    store.getObjects(tom); // $ExpectType Quad_Object[]
+    store.getGraphs(); // $ExpectType Quad_Graph[]
+    store.forEach((quad, dataset) => {
+        quad; // $ExpectType Quad
+        const store: N3.Store = dataset;
+    }, tom);
+    store.every((quad, dataset) => dataset.has(quad), null, undefined); // $ExpectType boolean
+    store.some((quad, dataset) => dataset.has(quad), tom); // $ExpectType boolean
+    store.forSubjects((subject) => {});
+    store.forPredicates((predicate) => {});
+    store.forObjects((object) => {}, tom);
+    store.forGraphs((graph) => {});
+
+    // @ts-expect-error
+    store.getQuads(42);
+    // @ts-expect-error
+    store.countQuads(42);
+    // @ts-expect-error
+    store.readQuads(42);
+    // @ts-expect-error
+    store.has(42);
+    // @ts-expect-error
+    store.has(N3.DataFactory.quad(tom, tom, tom), tom);
+    // @ts-expect-error
+    store.getSubjects(42);
+    // @ts-expect-error
+    store.getPredicates(42);
+    // @ts-expect-error
+    store.getObjects(42);
+    // @ts-expect-error
+    store.getGraphs(42);
+    // @ts-expect-error
+    store.forEach(() => {}, 42);
+    // @ts-expect-error
+    store.every(() => true, 42);
+    // @ts-expect-error
+    store.some(() => true, 42);
+    // @ts-expect-error
+    store.forSubjects(() => {}, 42);
+    // @ts-expect-error
+    store.forPredicates(() => {}, 42);
+    // @ts-expect-error
+    store.forObjects(() => {}, 42);
+    // @ts-expect-error
+    store.forGraphs(() => {}, 42);
+}
