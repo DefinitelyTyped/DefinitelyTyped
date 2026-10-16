@@ -130,7 +130,6 @@
         "gregorian-calendar",
         "guacamole-common-js",
         "gulp-imagemin",
-        "gun",
         "has-ansi",
         "has-package-exports",
         "hellosign-embedded",
