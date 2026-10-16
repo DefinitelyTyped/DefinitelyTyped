@@ -1881,6 +1881,10 @@
             "libraryName": "earcut",
             "asOfVersion": "3.2.4"
         },
+        "easy-soap-request": {
+            "libraryName": "easy-soap-request",
+            "asOfVersion": "5.21.0"
+        },
         "easy-speech": {
             "libraryName": "easy-speech",
             "asOfVersion": "2.1.1"
