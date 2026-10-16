@@ -2305,6 +2305,10 @@
             "libraryName": "extract-colors",
             "asOfVersion": "3.0.0"
         },
+        "extract-domain": {
+            "libraryName": "extract-domain",
+            "asOfVersion": "5.0.2"
+        },
         "extract-stack": {
             "libraryName": "extract-stack",
             "asOfVersion": "2.0.0"
