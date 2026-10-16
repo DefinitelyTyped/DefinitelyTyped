@@ -4329,6 +4329,22 @@
             "libraryName": "makerjs",
             "asOfVersion": "0.9.34"
         },
+        "makeup-expander": {
+            "libraryName": "makeup-expander",
+            "asOfVersion": "0.11.10"
+        },
+        "makeup-keyboard-trap": {
+            "libraryName": "makeup-keyboard-trap",
+            "asOfVersion": "0.5.8"
+        },
+        "makeup-prevent-scroll-keys": {
+            "libraryName": "makeup-prevent-scroll-keys",
+            "asOfVersion": "0.3.5"
+        },
+        "makeup-screenreader-trap": {
+            "libraryName": "makeup-screenreader-trap",
+            "asOfVersion": "0.5.7"
+        },
         "mali": {
             "libraryName": "mali",
             "asOfVersion": "0.9.2"
