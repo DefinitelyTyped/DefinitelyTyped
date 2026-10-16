@@ -240,6 +240,12 @@ doc.circle(100, 50, 50)
     })
     .stroke();
 
+doc.moveTo(0, 20).lineTo(100, 20).dash(5).stroke();
+doc.moveTo(0, 40).lineTo(100, 40).dash([4, 3, 1, 3]).stroke();
+doc.moveTo(0, 60).lineTo(100, 60).dash([8, 3, 1, 3], { phase: 2 }).stroke();
+// @ts-expect-error `space` only applies to a single dash length
+doc.moveTo(0, 80).lineTo(100, 80).dash([4, 3], { space: 2 }).stroke();
+
 var rgrad = doc.radialGradient(300, 50, 0, 300, 50, 50);
 rgrad.stop(0, "orange", 0).stop(1, "orange", 1);
 doc.circle(300, 50, 50).fill(rgrad);
