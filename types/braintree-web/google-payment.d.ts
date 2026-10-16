@@ -11,7 +11,7 @@ export type GooglePaymentTokenizeValues = "Yes" | "No" | "Unknown";
 export interface GooglePaymentDetails {
     cardType: string;
     lastFour: string;
-    lastTow: string;
+    lastTwo: string;
     isNetworkTokenized: boolean;
     bin: string;
 }
