@@ -1512,6 +1512,10 @@
             "libraryName": "css-minimizer-webpack-plugin",
             "asOfVersion": "3.2.0"
         },
+        "css-to-react-native": {
+            "libraryName": "css-to-react-native",
+            "asOfVersion": "3.2.0"
+        },
         "cssnano": {
             "libraryName": "cssnano",
             "asOfVersion": "5.1.0"
