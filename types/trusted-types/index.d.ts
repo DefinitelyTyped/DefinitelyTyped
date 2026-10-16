@@ -12,15 +12,19 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
     interface TrustedTypePolicy extends lib.TrustedTypePolicy {}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
-    interface TrustedTypePolicyFactory extends lib.TrustedTypePolicyFactory {}
+    interface TrustedTypePolicyFactory extends lib.TrustedTypePolicyFactory {
+        createPolicy<Options extends TrustedTypePolicyOptions>(
+            policyName: string,
+            policyOptions?: Options,
+        ): Pick<lib.TrustedTypePolicy<Options>, "name" | Extract<keyof Options, lib.FnNames>>;
+    }
 
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
     interface TrustedTypePolicyOptions extends lib.TrustedTypePolicyOptions {}
 
     // Attach the relevant Trusted Types properties to the Window object.
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
-    interface Window extends lib.TrustedTypesWindow {}
+    interface Window extends Omit<lib.TrustedTypesWindow, keyof WindowOrWorkerGlobalScope> {}
 }
 
 // These are the available exports when using the polyfill as npm package (e.g. in nodejs)
@@ -50,4 +54,5 @@ declare class TrustedTypeConfig {
     );
 }
 
-export { TrustedTypeConfig, TrustedTypePolicy, TrustedTypePolicyFactory, trustedTypes, TrustedTypesEnforcer };
+export type { TrustedTypePolicy, TrustedTypePolicyFactory } from "./lib";
+export { TrustedTypeConfig, trustedTypes, TrustedTypesEnforcer };

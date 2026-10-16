@@ -8,16 +8,22 @@ export type Args<Options extends TrustedTypePolicyOptions, K extends FnNames> = 
 export class TrustedHTML {
     private constructor(); // To prevent instantiting with 'new'.
     private brand: true; // To prevent structural typing.
+    toJSON(): string;
+    toString(): string;
 }
 
 export class TrustedScript {
     private constructor(); // To prevent instantiting with 'new'.
     private brand: true; // To prevent structural typing.
+    toJSON(): string;
+    toString(): string;
 }
 
 export class TrustedScriptURL {
     private constructor(); // To prevent instantiting with 'new'.
     private brand: true; // To prevent structural typing.
+    toJSON(): string;
+    toString(): string;
 }
 
 export abstract class TrustedTypePolicyFactory {
@@ -30,8 +36,13 @@ export abstract class TrustedTypePolicyFactory {
     isScriptURL(value: unknown): value is TrustedScriptURL;
     readonly emptyHTML: TrustedHTML;
     readonly emptyScript: TrustedScript;
-    getAttributeType(tagName: string, attribute: string, elementNs?: string, attrNs?: string): string | null;
-    getPropertyType(tagName: string, property: string, elementNs?: string): string | null;
+    getAttributeType(
+        tagName: string,
+        attribute: string,
+        elementNs?: string | null,
+        attrNs?: string | null,
+    ): string | null;
+    getPropertyType(tagName: string, property: string, elementNs?: string | null): string | null;
     readonly defaultPolicy: TrustedTypePolicy | null;
 }
 
@@ -43,9 +54,9 @@ export abstract class TrustedTypePolicy<Options extends TrustedTypePolicyOptions
 }
 
 export interface TrustedTypePolicyOptions {
-    createHTML?: ((input: string, ...arguments: any[]) => string) | undefined;
-    createScript?: ((input: string, ...arguments: any[]) => string) | undefined;
-    createScriptURL?: ((input: string, ...arguments: any[]) => string) | undefined;
+    createHTML?: ((input: string, ...arguments: any[]) => string | null) | undefined;
+    createScript?: ((input: string, ...arguments: any[]) => string | null) | undefined;
+    createScriptURL?: ((input: string, ...arguments: any[]) => string | null) | undefined;
 }
 
 // The Window object is augmented with the following properties in browsers that
