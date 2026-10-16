@@ -2443,16 +2443,22 @@ declare namespace chrome {
          *
          * Can return its result via Promise since Chrome 96.
          */
-        function sendCommand(
+        function sendCommand<
+            T extends object = { [key: string]: any },
+            U extends object = { [key: string]: unknown },
+        >(
             target: DebuggerSession,
             method: string,
-            commandParams?: { [key: string]: unknown },
-        ): Promise<object | undefined>;
-        function sendCommand(
+            commandParams?: T,
+        ): Promise<U | undefined>;
+        function sendCommand<
+            T extends object = { [key: string]: any },
+            U extends object = { [key: string]: unknown },
+        >(
             target: DebuggerSession,
             method: string,
-            commandParams?: { [key: string]: unknown },
-            callback?: (result?: object) => void,
+            commandParams: T | undefined,
+            callback: (result?: U) => void,
         ): void;
 
         /**
@@ -2464,9 +2470,11 @@ declare namespace chrome {
         function getTargets(callback: (result: TargetInfo[]) => void): void;
 
         /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
-        const onDetach: chrome.events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
+        const onDetach: events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
         /** Fired whenever debugging target issues instrumentation event. */
-        const onEvent: chrome.events.Event<(source: DebuggerSession, method: string, params?: object) => void>;
+        const onEvent: events.Event<
+            (source: DebuggerSession, method: string, params?: { [key: string]: unknown }) => void
+        >;
     }
 
     export { _debugger as debugger };
