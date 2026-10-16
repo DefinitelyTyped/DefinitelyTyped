@@ -86,3 +86,5 @@ export interface TrustedTypesWindow {
     TrustedTypePolicyFactory: typeof TrustedTypePolicyFactory;
     TrustedTypePolicy: typeof TrustedTypePolicy;
 }
+
+export {};
