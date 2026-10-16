@@ -8,7 +8,6 @@
         "https://developer.chrome.com/docs/extensions"
     ],
     "dependencies": {
-        "@types/filesystem": "*",
         "@types/har-format": "*"
     },
     "devDependencies": {

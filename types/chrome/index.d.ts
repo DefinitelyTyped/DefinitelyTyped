@@ -1,4 +1,3 @@
-/// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
 
@@ -4982,7 +4981,7 @@ declare namespace chrome {
             /** The ID of the tab that raised this event. Tab IDs are unique within a browser session. */
             tab_id?: number;
             /** Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser). */
-            entries: any[];
+            entries: FileSystemFileEntry[];
         }
 
         /** Fired when file system action is executed from ChromeOS file browser. */
@@ -10058,8 +10057,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 122.
          */
-        function getPackageDirectoryEntry(): Promise<DirectoryEntry>;
-        function getPackageDirectoryEntry(callback: (directoryEntry: DirectoryEntry) => void): void;
+        function getPackageDirectoryEntry(): Promise<FileSystemDirectoryEntry>;
+        function getPackageDirectoryEntry(callback: (directoryEntry: FileSystemDirectoryEntry) => void): void;
 
         /**
          * Returns information about the current platform.
