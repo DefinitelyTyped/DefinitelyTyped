@@ -5,26 +5,39 @@
 export type FnNames = keyof TrustedTypePolicyOptions;
 export type Args<Options extends TrustedTypePolicyOptions, K extends FnNames> = Parameters<NonNullable<Options[K]>>;
 
-export class TrustedHTML {
-    private constructor(); // To prevent instantiting with 'new'.
-    private brand: true; // To prevent structural typing.
-    toJSON(): string;
-    toString(): string;
+declare namespace internal {
+    class TrustedHTML {
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
+        toJSON(): string;
+        toString(): string;
+    }
+
+    class TrustedScript {
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
+        toJSON(): string;
+        toString(): string;
+    }
+
+    class TrustedScriptURL {
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
+        toJSON(): string;
+        toString(): string;
+    }
 }
 
-export class TrustedScript {
-    private constructor(); // To prevent instantiting with 'new'.
-    private brand: true; // To prevent structural typing.
-    toJSON(): string;
-    toString(): string;
-}
+type IfGlobal<K extends string, T> = typeof globalThis extends Record<K, { prototype: infer U }> ? U : T;
 
-export class TrustedScriptURL {
-    private constructor(); // To prevent instantiting with 'new'.
-    private brand: true; // To prevent structural typing.
-    toJSON(): string;
-    toString(): string;
-}
+export type TrustedHTML = IfGlobal<"TrustedHTML", internal.TrustedHTML>;
+export const TrustedHTML: typeof internal.TrustedHTML;
+
+export type TrustedScript = IfGlobal<"TrustedScript", internal.TrustedScript>;
+export const TrustedScript: typeof internal.TrustedScript;
+
+export type TrustedScriptURL = IfGlobal<"TrustedScriptURL", internal.TrustedScriptURL>;
+export const TrustedScriptURL: typeof internal.TrustedScriptURL;
 
 export abstract class TrustedTypePolicyFactory {
     createPolicy<Options extends TrustedTypePolicyOptions>(

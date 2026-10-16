@@ -1,13 +1,17 @@
 import * as lib from "./lib";
 
+type InstanceOf<T extends { prototype: unknown }> = T["prototype"];
+type BaseType<K extends string, T> = K extends keyof typeof globalThis ? Pick<T, keyof T> : T;
+type BaseWindow<T> = "trustedTypes" extends keyof typeof globalThis ? Omit<T, "trustedTypes"> : T;
+
 // Re-export the type definitions globally.
 declare global {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
-    interface TrustedHTML extends lib.TrustedHTML {}
+    interface TrustedHTML extends BaseType<"TrustedHTML", InstanceOf<typeof lib.TrustedHTML>> {}
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
-    interface TrustedScript extends lib.TrustedScript {}
+    interface TrustedScript extends BaseType<"TrustedScript", InstanceOf<typeof lib.TrustedScript>> {}
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
-    interface TrustedScriptURL extends lib.TrustedScriptURL {}
+    interface TrustedScriptURL extends BaseType<"TrustedScriptURL", InstanceOf<typeof lib.TrustedScriptURL>> {}
 
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
     interface TrustedTypePolicy extends lib.TrustedTypePolicy {}
@@ -24,7 +28,7 @@ declare global {
 
     // Attach the relevant Trusted Types properties to the Window object.
     // eslint-disable-next-line @typescript-eslint/no-empty-interface -- interface to allow module augmentation
-    interface Window extends Omit<lib.TrustedTypesWindow, keyof WindowOrWorkerGlobalScope> {}
+    interface Window extends BaseWindow<lib.TrustedTypesWindow> {}
 }
 
 // These are the available exports when using the polyfill as npm package (e.g. in nodejs)
