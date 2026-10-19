@@ -1,6 +1,8 @@
 import { Document } from "./Document";
-import { Layer } from "./Layer";
-import { LayerCompRecaptureOptions } from "./types/LayerCompTypes";
+/**
+ * @ignore
+ */
+export declare function PSLayerComp(id: number, docId: number): LayerComp;
 /**
  * Represents a single layer comp in the document.
  *
@@ -100,20 +102,15 @@ export declare class LayerComp {
     /**
      * Updates the recorded states of the layers for this layer comp.
      *
-     * Applies to all layers and all properties supported by this layer comp.
+     * With no arguments, the update applies to all layers and all properties supported by this layer comp.
+     * ```javascript
+     * app.activeDocument.layerComps[0].recapture();
+     * ```
      *
      * @async
      * @minVersion 24.0
      */
     recapture(): Promise<void>;
-    /**
-     * Updates the recorded states of the layers for this layer comp.
-     *
-     * @async
-     * @param argument what properties to recapture.
-     * @param layers if this argument is passed then only specified layers will be recaptured.
-     */
-    recapture(arg: LayerCompRecaptureOptions, layers?: Layer[]): Promise<void>;
     /**
      * Deletes this object from document.
      *

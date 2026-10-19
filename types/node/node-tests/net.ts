@@ -1,6 +1,6 @@
-import { Socket } from "node:dgram";
 import { LookupAddress, LookupOptions } from "node:dns";
 import * as net from "node:net";
+import { Worker } from "node:worker_threads";
 
 {
     const abort = new AbortController();
@@ -79,7 +79,9 @@ import * as net from "node:net";
     _socket = _socket.setTimeout(500);
 
     _socket = _socket.setNoDelay(true);
-    _socket = _socket.setKeepAlive(true, 10);
+    _socket = _socket.setKeepAlive(true);
+    _socket = _socket.setKeepAlive(true, 1000, 5000, 5);
+    _socket = _socket.setKeepAlive({ enable: true, initialDelay: 500 });
     _socket = _socket.setEncoding("utf8");
     _socket = _socket.resume();
     _socket = _socket.resetAndDestroy();
@@ -487,4 +489,28 @@ import * as net from "node:net";
     bl.fromJSON(bl.rules);
     bl.toJSON(); // $ExpectType readonly string[]
     net.BlockList.isBlockList(bl); // $ExpectType boolean
+}
+
+{
+    using boundSocket = new net.BoundSocket({
+        host: "1234:5678::1",
+        port: 8080,
+        ipv6Only: false,
+        reusePort: false,
+    });
+    boundSocket.address(); // $ExpectType AddressInfo
+    boundSocket.fd(); // $ExpectType number
+
+    new net.Socket({ handle: new net.BoundSocket() });
+}
+
+{
+    // worker.js receives `{ socket }` messages and handles each connection.
+    const worker = new Worker("./worker.js");
+
+    const server = net.createServer((socket) => {
+        // Hand the freshly accepted connection off to the worker thread.
+        worker.postMessage({ socket }, [socket]);
+    });
+    server.listen(8000);
 }

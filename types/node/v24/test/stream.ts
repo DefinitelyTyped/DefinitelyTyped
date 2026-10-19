@@ -510,6 +510,8 @@ async function testConsumers() {
     await consumers.blob(consumable);
     // $ExpectType NonSharedBuffer
     await consumers.buffer(consumable);
+    // $ExpectType NonSharedUint8Array
+    await consumers.bytes(consumable);
     // $ExpectType unknown
     await consumers.json(consumable);
     // $ExpectType string
@@ -603,6 +605,9 @@ addAbortSignal(new AbortSignal(), new Readable());
             },
         },
     });
+
+    // $ExpectType ReadableStream<any>
+    Readable.toWeb(readable, { type: "bytes" });
 }
 
 {
@@ -645,6 +650,8 @@ addAbortSignal(new AbortSignal(), new Readable());
     const duplex = new Duplex();
     // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
     Duplex.toWeb(duplex);
+    // $ExpectType { readable: ReadableStream<any>; writable: WritableStream<any>; }
+    Duplex.toWeb(duplex, { readableType: "bytes" });
 }
 
 {

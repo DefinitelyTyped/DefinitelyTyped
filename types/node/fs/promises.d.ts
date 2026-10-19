@@ -1,5 +1,5 @@
 declare module "node:fs/promises" {
-    import { NonSharedBuffer } from "node:buffer";
+    import { BufferView, NonSharedBuffer } from "node:buffer";
     import { Abortable } from "node:events";
     import { Interface as ReadlineInterface } from "node:readline";
     import {
@@ -20,6 +20,10 @@ declare module "node:fs/promises" {
         OpenDirOptions,
         OpenMode,
         PathLike,
+        ReadFileOptions,
+        ReadFileOptionsWithBuffer,
+        ReadFileOptionsWithBufferEncoding,
+        ReadFileOptionsWithStringEncoding,
         ReadOptions,
         ReadOptionsWithBuffer,
         ReadPosition,
@@ -36,7 +40,6 @@ declare module "node:fs/promises" {
         WriteStream,
         WriteVResult,
     } from "node:fs";
-    import { Stream } from "node:stream";
     import { ByteReadableStream, Transform, Writer } from "node:stream/iter";
     import { ReadableStream } from "node:stream/web";
     interface FileChangeInfo<T extends string | Buffer> {
@@ -357,39 +360,61 @@ declare module "node:fs/promises" {
          *
          * If `options` is a string, then it specifies the `encoding`.
          *
+         * If `buffer` is provided and no encoding is specified, the returned {Buffer} is
+         * a view over the supplied buffer containing only the bytes read. If the
+         * supplied buffer is too small to contain the entire file, the operation will
+         * fail.
+         *
          * The `FileHandle` has to support reading.
          *
-         * If one or more `filehandle.read()` calls are made on a file handle and then a `filehandle.readFile()` call is made, the data will be read from the current
+         * If one or more `filehandle.read()` calls are made on a file handle and then a
+         * `filehandle.readFile()` call is made, the data will be read from the current
          * position till the end of the file. It doesn't always read from the beginning
          * of the file.
+         *
+         * An example using the `buffer` option with a pre-allocated buffer:
+         *
+         * ```js
+         * import { Buffer } from 'node:buffer';
+         * import { open } from 'node:fs/promises';
+         *
+         * const file = await open('./some/file/to/read');
+         * try {
+         *   const buf = Buffer.alloc(16384);
+         *   const contents = await file.readFile({ buffer: buf });
+         *   console.log(contents); // A view over `buf` containing only the bytes read
+         * } finally {
+         *   await file.close();
+         * }
+         * ```
+         *
+         * An example using the `buffer` option with a function returning a buffer:
+         *
+         * ```js
+         * import { Buffer } from 'node:buffer';
+         * import { open } from 'node:fs/promises';
+         *
+         * const file = await open('./some/file/to/read');
+         * try {
+         *   const contents = await file.readFile({
+         *     buffer: (size) => Buffer.alloc(size),
+         *   });
+         *   console.log(contents);
+         * } finally {
+         *   await file.close();
+         * }
+         * ```
          * @since v10.0.0
-         * @return Fulfills upon a successful read with the contents of the file. If no encoding is specified (using `options.encoding`), the data is returned as a {Buffer} object. Otherwise, the
-         * data will be a string.
+         * @returns Fulfills upon a successful read with the contents of the
+         * file. If no encoding is specified (using `options.encoding`), the data is
+         * returned as a `Buffer` object. Otherwise, the data will be a string.
          */
-        readFile(
-            options?:
-                | ({ encoding?: null | undefined } & Abortable)
-                | null,
-        ): Promise<NonSharedBuffer>;
-        /**
-         * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
-         * The `FileHandle` must have been opened for reading.
-         */
-        readFile(
-            options:
-                | ({ encoding: BufferEncoding } & Abortable)
-                | BufferEncoding,
-        ): Promise<string>;
-        /**
-         * Asynchronously reads the entire contents of a file. The underlying file will _not_ be closed automatically.
-         * The `FileHandle` must have been opened for reading.
-         */
-        readFile(
-            options?:
-                | (ObjectEncodingOptions & Abortable)
-                | BufferEncoding
-                | null,
-        ): Promise<string | NonSharedBuffer>;
+        readFile<T extends NodeJS.ArrayBufferView>(
+            options: Omit<ReadFileOptionsWithBuffer<T>, "flag">,
+        ): Promise<BufferView<T>>;
+        readFile(options?: Omit<ReadFileOptionsWithBufferEncoding, "flag"> | null): Promise<NonSharedBuffer>;
+        readFile(options: Omit<ReadFileOptionsWithStringEncoding, "flag"> | BufferEncoding): Promise<string>;
+        readFile(options: Omit<ReadFileOptions, "flag"> | BufferEncoding | null): Promise<string | NonSharedBuffer>;
         /**
          * Convenience method to create a `readline` interface and stream over the file.
          * See `filehandle.createReadStream()` for the options.
@@ -1310,50 +1335,21 @@ declare module "node:fs/promises" {
      * @param path filename or `FileHandle`
      * @return Fulfills with the contents of the file.
      */
+    function readFile<T extends NodeJS.ArrayBufferView>(
+        path: PathLike | FileHandle,
+        options: ReadFileOptionsWithBuffer<T>,
+    ): Promise<BufferView<T>>;
     function readFile(
         path: PathLike | FileHandle,
-        options?:
-            | ({
-                encoding?: null | undefined;
-                flag?: OpenMode | undefined;
-            } & Abortable)
-            | null,
+        options?: ReadFileOptionsWithBufferEncoding | null,
     ): Promise<NonSharedBuffer>;
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a `FileHandle` is provided, the underlying file will _not_ be closed automatically.
-     * @param options An object that may contain an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
     function readFile(
         path: PathLike | FileHandle,
-        options:
-            | ({
-                encoding: BufferEncoding;
-                flag?: OpenMode | undefined;
-            } & Abortable)
-            | BufferEncoding,
+        options: ReadFileOptionsWithStringEncoding | BufferEncoding,
     ): Promise<string>;
-    /**
-     * Asynchronously reads the entire contents of a file.
-     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
-     * If a `FileHandle` is provided, the underlying file will _not_ be closed automatically.
-     * @param options An object that may contain an optional flag.
-     * If a flag is not provided, it defaults to `'r'`.
-     */
     function readFile(
         path: PathLike | FileHandle,
-        options?:
-            | (
-                & ObjectEncodingOptions
-                & Abortable
-                & {
-                    flag?: OpenMode | undefined;
-                }
-            )
-            | BufferEncoding
-            | null,
+        options: ReadFileOptions | BufferEncoding | null,
     ): Promise<string | NonSharedBuffer>;
     /**
      * Asynchronously open a directory for iterative scanning. See the POSIX [`opendir(3)`](http://man7.org/linux/man-pages/man3/opendir.3.html) documentation for more detail.

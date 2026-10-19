@@ -228,38 +228,6 @@ function testYouTube() {
     const list = videos.list("snippet");
 }
 
-function testAnalytics() {
-    if (!Analytics) return;
-    // $ExpectType Analytics
-    const analytics = Analytics;
-    // $ExpectType ManagementCollection
-    const management = analytics.Management;
-    // $ExpectType AccountsCollection
-    const accounts = management.Accounts;
-    // $ExpectType Accounts
-    const list = accounts.list();
-}
-
-function testAnalyticsReporting() {
-    if (!AnalyticsReporting) return;
-    // $ExpectType AnalyticsReporting
-    const analyticsreporting = AnalyticsReporting;
-    // $ExpectType ReportsCollection
-    const reports = analyticsreporting.Reports;
-    // $ExpectType GetReportsResponse
-    const batchGet = reports.batchGet({});
-}
-
-function testAppsactivity() {
-    if (!Appsactivity) return;
-    // $ExpectType Appsactivity
-    const appsactivity = Appsactivity;
-    // $ExpectType ActivitiesCollection
-    const activities = appsactivity.Activities;
-    // $ExpectType ListActivitiesResponse
-    const list = activities.list();
-}
-
 function testBigQuery() {
     if (!BigQuery) return;
     // $ExpectType BigQuery
@@ -338,16 +306,6 @@ function testAdminLicenseManager() {
     const licenseAssignments = adminLicenseManager.LicenseAssignments;
     // $ExpectType LicenseAssignmentList
     const list = licenseAssignments.listForProduct("productId", "customerId");
-}
-
-function testMirror() {
-    if (!Mirror) return;
-    // $ExpectType Mirror
-    const mirror = Mirror;
-    // $ExpectType TimelineCollection
-    const timeline = mirror.Timeline;
-    // $ExpectType TimelineListResponse
-    const list = timeline.list();
 }
 
 function testPeopleApi() {

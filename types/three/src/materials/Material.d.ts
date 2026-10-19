@@ -6,6 +6,7 @@ import {
     BlendingSrcFactor,
     Combine,
     DepthModes,
+    DepthPackingStrategies,
     NormalMapTypes,
     Side,
     StencilFunc,
@@ -16,14 +17,14 @@ import { EventDispatcher } from "../core/EventDispatcher.js";
 import { JSONMeta, Object3D } from "../core/Object3D.js";
 import { Color, ColorRepresentation } from "../math/Color.js";
 import { EulerTuple } from "../math/Euler.js";
-import { Plane } from "../math/Plane.js";
+import { Plane, PlaneJSON } from "../math/Plane.js";
 import { Vector2Tuple } from "../math/Vector2.js";
 import { Group } from "../objects/Group.js";
 import { WebGLProgramParametersWithUniforms } from "../renderers/webgl/WebGLPrograms.js";
 import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
 import { Scene } from "../scenes/Scene.js";
-import { SourceJSON } from "../textures/Source.js";
 import { Texture, TextureJSON } from "../textures/Texture.js";
+import { TextureSourceJSON } from "../textures/TextureSource.js";
 
 export interface MaterialProperties {
     /**
@@ -472,6 +473,10 @@ export interface MaterialJSON {
     depthWrite?: boolean;
     colorWrite?: boolean;
 
+    clippingPlanes?: PlaneJSON[];
+    clipIntersection?: boolean;
+    clipShadows?: boolean;
+
     stencilWriteMask?: number;
     stencilFunc?: StencilFunc;
     stencilRef?: number;
@@ -483,11 +488,15 @@ export interface MaterialJSON {
 
     rotation?: number;
 
+    depthPacking?: DepthPackingStrategies;
+
     polygonOffset?: boolean;
     polygonOffsetFactor?: number;
     polygonOffsetUnits?: number;
 
     linewidth?: number;
+    linecap?: string;
+    linejoin?: string;
     dashSize?: number;
     gapSize?: number;
     scale?: number;
@@ -516,7 +525,7 @@ export interface MaterialJSON {
     userData?: Record<string, unknown>;
 
     textures?: Array<Omit<TextureJSON, "metadata">>;
-    images?: SourceJSON[];
+    images?: TextureSourceJSON[];
 }
 
 export interface MaterialEventMap {

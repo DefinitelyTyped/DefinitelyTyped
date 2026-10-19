@@ -1,19 +1,3 @@
-import {
-    SmartCardAccessMode,
-    SmartCardConnectionStatus,
-    SmartCardConnectOptions,
-    SmartCardDisposition,
-    SmartCardErrorOptions,
-    SmartCardGetStatusChangeOptions,
-    SmartCardProtocol,
-    SmartCardReaderStateFlagsIn,
-    SmartCardReaderStateIn,
-    SmartCardResponseCode,
-    SmartCardTransactionCallback,
-    SmartCardTransactionOptions,
-    SmartCardTransmitOptions,
-} from "w3c-web-smart-card";
-
 const bufferSource: BufferSource = new ArrayBuffer(10);
 const controlCode = 1234;
 const tag = 0x80;

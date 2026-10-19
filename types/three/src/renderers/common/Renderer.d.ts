@@ -14,6 +14,7 @@ import { Vector4 } from "../../math/Vector4.js";
 import ContextNode from "../../nodes/core/ContextNode.js";
 import MRTNode from "../../nodes/core/MRTNode.js";
 import Node from "../../nodes/core/Node.js";
+import NodeBuilder from "../../nodes/core/NodeBuilder.js";
 import ComputeNode from "../../nodes/gpgpu/ComputeNode.js";
 import LightsNode from "../../nodes/lighting/LightsNode.js";
 import { Scene } from "../../scenes/Scene.js";
@@ -263,15 +264,6 @@ declare class Renderer {
      */
     onError: (errorMessage: string) => void;
     /**
-     * When an override material is in use, this property points to the current
-     * source material during the rendering of a render object.
-     *
-     * @private
-     * @type {?Material}
-     * @default null
-     */
-    private _currentSourceMaterial;
-    /**
      * Whether the renderer should render transparent render objects or not.
      *
      * @type {boolean}
@@ -326,6 +318,9 @@ declare class Renderer {
      * Debug configuration.
      * @typedef {Object} DebugConfig
      * @property {boolean} checkShaderErrors - Whether shader errors should be checked or not.
+     * @property {Object} diagnostics - Diagnostics configuration for the shader generation.
+     * @property {boolean} diagnostics.keywords - Whether declaration names that collide with reserved keywords should be renamed or not.
+     * @property {?Function} onNodeBuilderCreated - A callback function that is executed after a node builder has been created and before it is built.
      * @property {?Function} onShaderError - A callback function that is executed when a shader error happens. Only supported with WebGL 2 right now.
      * @property {Function} getShaderAsync - Allows the get the raw shader code for the given scene, camera and 3D object.
      */
@@ -339,6 +334,16 @@ declare class Renderer {
          * - Whether shader errors should be checked or not.
          */
         checkShaderErrors: boolean;
+        /**
+         * - Diagnostics configuration for the shader generation.
+         */
+        diagnostics: {
+            keywords: boolean;
+        };
+        /**
+         * - A callback function that is executed after a node builder has been created and before it is built.
+         */
+        onNodeBuilderCreated: ((nodeBuilder: NodeBuilder, object: unknown) => void) | null;
         /**
          * - A callback function that is executed when a shader error happens. Only supported with WebGL 2 right now.
          */
@@ -395,9 +400,29 @@ declare class Renderer {
      * @param {Object3D} scene - The scene or 3D object to precompile.
      * @param {Camera} camera - The camera that is used to render the scene.
      * @param {?Scene} targetScene - If the first argument is a 3D object, this parameter must represent the scene the 3D object is going to be added.
+     * @param {onProgressCallback} [onProgress] - Executed while the compilation is in progress.
      * @return {Promise} A Promise that resolves when the compile has been finished.
      */
-    compileAsync(scene: Object3D, camera: Camera, targetScene?: Scene | null): Promise<void>;
+    compileAsync(
+        scene: Object3D,
+        camera: Camera,
+        targetScene?: Scene | null,
+        onProgress?: ((event: ProgressEvent) => void) | null,
+    ): Promise<void>;
+    /**
+     * Compile compute programs. This can be useful to avoid a
+     * phenomenon which is called "shader compilation stutter", which occurs when
+     * rendering an object with a new shader for the first time.
+     *
+     * @async
+     * @param {Node|Array<Node>} computeNodes - The compute node(s).
+     * @param {onProgressCallback} [onProgress] - Executed while the compilation is in progress.
+     * @return {Promise} A Promise that resolves when the compile has been finished.
+     */
+    compileComputeAsync(
+        computeNodes: ComputeNode | ComputeNode[],
+        onProgress?: ((event: ProgressEvent) => void) | null,
+    ): Promise<void>;
     /**
      * Renders the scene in an async fashion.
      *
@@ -648,6 +673,11 @@ declare class Renderer {
      */
     setScissorTest(boolean: boolean): void;
     /**
+     * Resets the backend's internal state cache. Useful when the rendering context is shared with
+     * other libraries that change the state. A no-op for the WebGPU backend.
+     */
+    resetState(): void;
+    /**
      * Returns the viewport definition.
      *
      * @param {Vector4} target - The method writes the result in this target object.
@@ -786,6 +816,8 @@ declare class Renderer {
     /**
      * Returns `true` if a framebuffer target is needed to perform tone mapping or color space conversion.
      * If this is the case, the renderer allocates an internal render target for that purpose.
+     *
+     * @type {boolean}
      */
     get needsFrameBufferTarget(): boolean;
     /**
@@ -799,8 +831,8 @@ declare class Renderer {
      * The current number of samples used for multi-sample anti-aliasing (MSAA).
      *
      * When rendering to a custom render target, the number of samples of that render target is used.
-     * If the renderer needs an internal framebuffer target for tone mapping or color space conversion,
-     * the number of samples is set to 0.
+     * The number of samples is set to 0 when the renderer needs an internal framebuffer target for
+     * tone mapping or color space conversion, or when rendering a fullscreen quad to screen.
      *
      * @type {number}
      */
@@ -829,7 +861,7 @@ declare class Renderer {
      * Frees all internal resources of the renderer. Call this method if the renderer
      * is no longer in use by your app.
      */
-    dispose(): void;
+    dispose(): Promise<void>;
     /**
      * Sets the given render target. Calling this method means the renderer does not
      * target the default framebuffer (meaning the canvas) anymore but a custom framebuffer.
@@ -1043,7 +1075,7 @@ declare class Renderer {
      * @param {number} width - The width of the copy region.
      * @param {number} height - The height of the copy region.
      * @param {number} [textureIndex=0] - The texture index of a MRT render target.
-     * @param {number} [faceIndex=0] - The active cube face index.
+     * @param {number} [faceIndex=0] - The cube face, depth slice or array layer index.
      * @return {Promise<TypedArray>} A Promise that resolves when the read has been finished. The resolve provides the read data as a typed array.
      */
     readRenderTargetPixelsAsync(
@@ -1094,9 +1126,15 @@ declare class Renderer {
      * @param {Object3D} scene - The scene or 3D object to precompile.
      * @param {Camera} camera - The camera that is used to render the scene.
      * @param {Scene} targetScene - If the first argument is a 3D object, this parameter must represent the scene the 3D object is going to be added.
-     * @return {function(Object3D, Camera, ?Scene): Promise|undefined} A Promise that resolves when the compile has been finished.
+     * @param {onProgressCallback} [onProgress] - Executed while the compilation is in progress.
+     * @return {function(Object3D, Camera, ?Scene, ?onProgressCallback): Promise|undefined} A Promise that resolves when the compile has been finished.
      */
-    get compile(): (scene: Object3D, camera: Camera, targetScene?: Scene | null) => Promise<void>;
+    get compile(): (
+        scene: Object3D,
+        camera: Camera,
+        targetScene?: Scene | null,
+        onProgress?: ((event: ProgressEvent) => void) | null,
+    ) => Promise<void>;
 }
 
 export default Renderer;

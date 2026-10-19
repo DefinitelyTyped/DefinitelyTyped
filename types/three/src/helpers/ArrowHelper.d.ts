@@ -69,9 +69,4 @@ export class ArrowHelper extends Object3D {
      */
     setColor(color: ColorRepresentation): void;
     copy(source: ArrowHelper): this;
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

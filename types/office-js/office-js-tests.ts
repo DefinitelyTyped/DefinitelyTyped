@@ -108,7 +108,43 @@ function test_excel() {
     }).catch(console.log);
 }
 
+function test_excel_recent_apis(functions: Excel.Functions) {
+    const dateValueResult: Excel.FunctionResult<number> = functions.datevalue(1);
+
+    const linkedEntityEventType: Excel.EventType = Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+    const linkedEntityEventTypeValue: "LinkedEntityDataDomainLinkedEntityCellValueLoaded" =
+        Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+
+    const dirtySupportingFormulaErrorCode: Excel.ErrorCodes = Excel.ErrorCodes.dirtySupportingFormula;
+    const dirtySupportingFormulaErrorCodeValue: "DirtySupportingFormula" = Excel.ErrorCodes.dirtySupportingFormula;
+
+    const blockedError: Excel.BlockedErrorCellValue = {
+        type: "Error",
+        errorSubType: "PythonUnsupportedOnThisPlatform",
+    };
+    const busyError: Excel.BusyErrorCellValue = { type: "Error", errorSubType: "PlaceholderInFormula" };
+    const calcError: Excel.CalcErrorCellValue = { type: "Error", errorSubType: "UnexpectedReturnValue" };
+    const connectError: Excel.ConnectErrorCellValue = {
+        type: "Error",
+        errorSubType: "ExternalCodeServiceRuntimeNotFound",
+    };
+    const refError: Excel.RefErrorCellValue = { type: "Error", errorSubType: "CorruptCellRef" };
+    const valueError: Excel.ValueErrorCellValue = { type: "Error", errorSubType: "TranslateUnsupportedTargetLanguage" };
+}
+
 function test_word() {
+    const annotationAddedEventType: Word.EventType = Word.EventType.annotationAdded;
+    const annotationAddedEventTypeValue: "AnnotationAdded" = Word.EventType.annotationAdded;
+    const annotationChangedEventType: Word.EventType = Word.EventType.annotationChanged;
+    const annotationChangedEventTypeValue: "AnnotationChanged" = Word.EventType.annotationChanged;
+    const annotationDeletedEventType: Word.EventType = Word.EventType.annotationDeleted;
+    const annotationDeletedEventTypeValue: "AnnotationDeleted" = Word.EventType.annotationDeleted;
+
+    const annotationEventArgs: Word.ContentControlAddedEventArgs = {
+        eventType: "AnnotationAdded",
+        ids: [],
+        source: "Local",
+    };
 
     // Search
     Word.run(function (context) {

@@ -16,7 +16,7 @@ import { Matrix3 } from "../math/Matrix3.js";
 import { Vector2 } from "../math/Vector2.js";
 import { CompressedTextureMipmap } from "./CompressedTexture.js";
 import { CubeTexture } from "./CubeTexture.js";
-import { Source } from "./Source.js";
+import { TextureSource } from "./TextureSource.js";
 
 // NOTE: DOM upload fields are not implemented where parameters are accepted.
 export interface TextureParameters {
@@ -182,7 +182,7 @@ export class Texture<TImage = unknown, TEventMap extends TextureEventMap = Textu
      * This is often useful in context of spritesheets where multiple textures render the same data
      * but with different {@link Texture} transformations.
      */
-    source: Source<TImage>;
+    source: TextureSource<TImage>;
 
     /**
      * The width of the texture in pixels.

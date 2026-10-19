@@ -16,4 +16,24 @@ const slider = new GorillaEngine.UI.Slider({ id: "slider", x: 0, y: 2 });
 
 const mappingEditor = new GorillaEngine.UI.MappingEditor({ id: "myNewMappingEditor", x: 3, y: 2 });
 
-const levelMeter = new GorillaEngine.UI.LevelMeter({ id: "myLevelMeter", x: 0, y: 2 });
+const levelMeter = new GorillaEngine.UI.LevelMeter({
+    id: "myLevelMeter",
+    x: 0,
+    y: 2,
+    channelOffset: 1,
+});
+
+const dragContainerWithText = new GorillaEngine.UI.DragContainer({
+    id: "myDragContainerWithText",
+    externallyDraggedText: "some dragged text",
+});
+
+const instrument = GorillaEngine.createEmptyInstrument();
+
+const parameter = instrument.addParameter(0);
+parameter.text = "some parameter text";
+// $ExpectType string
+parameter.text;
+
+GorillaEngine.loadBlob("/tmp/Test_part1.blob", "0123456789ABCDEF0123456789ABCDEF");
+GorillaEngine.setActiveInstrument(instrument, 2, true);

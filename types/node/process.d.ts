@@ -110,6 +110,7 @@ declare module "node:process" {
         "node:util/types": typeof import("node:util/types");
         "v8": typeof import("v8");
         "node:v8": typeof import("node:v8");
+        "node:vfs": typeof import("node:vfs");
         "vm": typeof import("vm");
         "node:vm": typeof import("node:vm");
         "wasi": typeof import("wasi");

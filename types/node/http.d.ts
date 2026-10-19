@@ -225,7 +225,7 @@ declare module "node:http" {
          * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
          * after it has finished writing the last response, before a socket will be destroyed.
          * @see Server.keepAliveTimeout for more information.
-         * @default 5000
+         * @default 65000
          * @since v18.0.0
          */
         keepAliveTimeout?: number | undefined;
@@ -299,7 +299,7 @@ declare module "node:http" {
         requireHostHeader?: boolean | undefined;
         /**
          * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
-         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * similarly on what is done in `socket.setKeepAlive()`.
          * @default false
          * @since v16.5.0
          */

@@ -6,9 +6,48 @@ export as namespace ReactDOM;
 
 import { Key, ReactNode, ReactPortal } from "react";
 
+export {};
+
 declare module "react" {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     interface CacheSignal extends AbortSignal {}
+
+    interface RendererUsable<T> {
+        "react-dom/browser": BrowserUsable;
+    }
+
+    interface ViewTransitionPseudoElement extends Animatable {
+        getComputedStyle: () => CSSStyleDeclaration;
+    }
+
+    interface ViewTransitionInstance {
+        group: ViewTransitionPseudoElement;
+        imagePair: ViewTransitionPseudoElement;
+        old: ViewTransitionPseudoElement;
+        new: ViewTransitionPseudoElement;
+    }
+
+    interface FragmentInstance {
+        blur: () => void;
+        focus: (focusOptions?: FocusOptions | undefined) => void;
+        focusLast: (focusOptions?: FocusOptions | undefined) => void;
+        observeUsing(observer: IntersectionObserver | ResizeObserver): void;
+        unobserveUsing(observer: IntersectionObserver | ResizeObserver): void;
+        getClientRects(): Array<DOMRect>;
+        getRootNode(getRootNodeOptions?: GetRootNodeOptions | undefined): Document | ShadowRoot | FragmentInstance;
+        addEventListener(
+            type: string,
+            listener: EventListener,
+            optionsOrUseCapture?: Parameters<Element["addEventListener"]>[2],
+        ): void;
+        removeEventListener(
+            type: string,
+            listener: EventListener,
+            optionsOrUseCapture?: Parameters<Element["removeEventListener"]>[2],
+        ): void;
+        dispatchEvent(event: Event): boolean;
+        scrollIntoView(alignToTop?: boolean): void;
+    }
 }
 
 export function createPortal(
@@ -131,3 +170,20 @@ export interface PreinitModuleOptions {
 export function preinitModule(href: string, options?: PreinitModuleOptions): void;
 
 export function requestFormReset(form: HTMLFormElement): void;
+
+declare const browserUsable: unique symbol;
+
+export interface BrowserUsable {
+    readonly [browserUsable]: never;
+}
+
+/**
+ * Creates an opaque Usable that opts a subtree into browser-only rendering.
+ * `reason` is diagnostic metadata: an SSR renderer uses it as the `cause` of
+ * the recoverable error it reports when deferring the subtree to the browser.
+ * A function is called lazily by that renderer; in the browser the reason is
+ * never observed.
+ *
+ * @version 19.3.0
+ */
+export function browser(reason?: string | (() => unknown)): BrowserUsable;

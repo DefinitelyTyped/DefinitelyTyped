@@ -1,3 +1,4 @@
+import "autosuggest-highlight";
 import match = require("autosuggest-highlight/match");
 import parse = require("autosuggest-highlight/parse");
 

@@ -71,6 +71,14 @@ declare class UniformNodeClass<TValue> extends InputNode<unknown, TValue> {
      * @return {string} The uniform hash.
      */
     getUniformHash(builder: NodeBuilder): string;
+    /**
+     * Uniform nodes with the same hash share a single uniform. This method returns the node
+     * the shared uniform refers to which is the first node registered for the hash.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @return {UniformNode} The node the shared uniform refers to.
+     */
+    getSharedNode(builder: NodeBuilder): UniformNode<unknown, TValue>;
     onUpdate(
         callback: (this: this, frame: NodeFrame, self: this) => TValue | undefined,
         updateType: NodeUpdateType,

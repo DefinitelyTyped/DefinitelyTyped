@@ -1,4 +1,4 @@
-import { Color, Material, Mesh, MeshStandardNodeMaterial, Node } from "three/webgpu";
+import { Color, Material, Mesh, MeshStandardNodeMaterial, Node, Vector3 } from "three/webgpu";
 
 export interface TreeGeneratorParameters {
     seed: number;
@@ -7,6 +7,8 @@ export interface TreeGeneratorParameters {
     branchAngle: number[];
     angleVariance: number;
     lengthRatio: number;
+    lengthVariance: number;
+    branchLengthFalloff: number;
     trunkLength: number;
     trunkRadius: number;
     taper: number;
@@ -27,7 +29,7 @@ export interface TreeGeneratorParameters {
 
 /**
  * Grows a procedural tree skeleton — trunk, branches and twigs, each swept as a tapered
- * tube — and bakes it into one non-indexed {@link BufferGeometry} (position and normal
+ * tube — and bakes it into one indexed {@link BufferGeometry} (position and normal
  * only), ready to instance into a forest. It produces *branches only*; add foliage as a
  * separate layer.
  *
@@ -65,6 +67,8 @@ export class TreeGenerator {
     setBranchAngle: (branchAngle: number[]) => this;
     setAngleVariance: (angleVariance: number) => this;
     setLengthRatio: (lengthRatio: number) => this;
+    setLengthVariance: (lengthVariance: number) => this;
+    setBranchLengthFalloff: (branchLengthFalloff: number) => this;
     setTrunkLength: (trunkLength: number) => this;
     setTrunkRadius: (trunkRadius: number) => this;
     setTaper: (taper: number) => this;
@@ -85,13 +89,14 @@ export class TreeGenerator {
 
 export interface TreeMaterialParameters {
     barkColor?: Color | number | Node<"color"> | undefined;
+    barkScale?: Vector3 | undefined;
 }
 
 /**
  * A simple bark material for a {@link TreeGenerator} mesh: a low-saturation brown with a
  * faint, vertically-stretched grain, so trunks read near-black against bright fog.
  *
- * @param {Object} [parameters] - `barkColor` ( a hex, THREE.Color or TSL node ).
+ * @param {Object} [parameters] - `barkColor` ( a hex, THREE.Color or TSL node ) and `barkScale` ( a THREE.Vector3 ).
  * @return {MeshStandardNodeMaterial}
  */
 export function createTreeMaterial(parameters?: TreeMaterialParameters): MeshStandardNodeMaterial;

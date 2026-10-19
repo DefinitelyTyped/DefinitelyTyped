@@ -108,13 +108,36 @@ describe("ReactDOMStatic", () => {
             (await ReactDOMStatic.prerenderToNodeStream(React.createElement("div"))).prelude;
         ReactDOMStatic.prerenderToNodeStream(React.createElement("div"), {
             bootstrapScripts: ["./my-script.js"],
-            headersLengthHint: 4000,
+            maxHeadersLength: 4000,
             importMap,
             onHeaders(headers) {
                 // $ExpectType Headers
                 headers;
             },
         });
+    });
+
+    it("resumeToPipeableStream", async () => {
+        const { postponed } = await ReactDOMStatic.prerenderToNodeStream(children);
+        if (postponed !== null) {
+            ReactDOMServer.resumeToPipeableStream(children, postponed, {
+                nonce: { script: "script-nonce", style: "style-nonce" },
+                onShellReady() {},
+                onShellError(error) {
+                    console.error(error);
+                },
+                onAllReady() {},
+                onError(error, errorInfo) {
+                    // $ExpectType ErrorInfo
+                    errorInfo;
+                    return (error as { digest?: string | undefined }).digest;
+                },
+            });
+            ReactDOMServer.resumeToPipeableStream(children, postponed, {
+                // @ts-expect-error The Node.js stream variant does not support an abort signal
+                signal: new AbortController().signal,
+            });
+        }
     });
 });
 
@@ -254,10 +277,10 @@ function pipeableStreamDocumentedExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream(<App />, {
         bootstrapScripts: ["/main.js"],
-        headersLengthHint: 4000,
+        maxHeadersLength: 4000,
         importMap,
         onHeaders(headers) {
-            // $ExpectType Headers
+            // $ExpectType HeadersDescriptor
             headers;
         },
         onShellReady() {
@@ -307,10 +330,10 @@ function pipeableStreamDocumentedStringExample() {
     const response: Response = {} as any;
     const { pipe, abort } = ReactDOMServer.renderToPipeableStream("app", {
         bootstrapScripts: ["/main.js"],
-        headersLengthHint: 4000,
+        maxHeadersLength: 4000,
         importMap,
         onHeaders(headers) {
-            // $ExpectType Headers
+            // $ExpectType HeadersDescriptor
             headers;
         },
         onShellReady() {
@@ -354,7 +377,7 @@ async function readableStreamDocumentedExample() {
                 <body>Success</body>
             </html>,
             {
-                headersLengthHint: 4000,
+                maxHeadersLength: 4000,
                 importMap,
                 signal: controller.signal,
                 onError(error) {
@@ -392,7 +415,7 @@ async function readableStreamDocumentedStringExample() {
         const stream = await ReactDOMServer.renderToReadableStream(
             "app",
             {
-                headersLengthHint: 4000,
+                maxHeadersLength: 4000,
                 importMap,
                 signal: controller.signal,
                 onError(error) {
@@ -756,10 +779,130 @@ function formrelatedEventTests() {
 
     <form
         onSubmit={event => {
-            // Only passes because program includes React Canary types
+            // $ExpectType HTMLElement | null
             event.submitter;
             // $ExpectType EventTarget & HTMLFormElement
             event.target;
         }}
     />;
+}
+
+function browserUsableTests() {
+    // browser() returns an opaque, renderer-specific Usable that React.use accepts
+    // $ExpectType unknown
+    React.use(ReactDOM.browser());
+
+    // The reason can be a string or a lazy initializer whose return value an
+    // SSR renderer uses as the cause of the recoverable error.
+    // $ExpectType BrowserUsable
+    ReactDOM.browser("Only render this content in a browser");
+    // $ExpectType BrowserUsable
+    ReactDOM.browser(() => new Error("Only render this content in a browser"));
+
+    // @ts-expect-error -- the reason is a string or a zero-arg initializer, not an arbitrary value
+    ReactDOM.browser(new Error("Only render this content in a browser"));
+}
+
+function browserBailoutTests() {
+    const onBrowserBailout = (error: unknown, errorInfo: ReactDOMClient.ErrorInfo) => {};
+
+    ReactDOMServer.renderToPipeableStream(React.createElement("div"), { onBrowserBailout });
+    ReactDOMServer.renderToReadableStream(React.createElement("div"), { onBrowserBailout });
+    ReactDOMServer.resume(React.createElement("div"), null as any, { onBrowserBailout });
+    ReactDOMServer.resumeToPipeableStream(React.createElement("div"), null as any, { onBrowserBailout });
+    ReactDOMStatic.prerender(React.createElement("div"), { onBrowserBailout });
+    ReactDOMStatic.resumeAndPrerender(React.createElement("div"), null, { onBrowserBailout });
+}
+
+function viewTransitionTests() {
+    const ViewTransition = React.ViewTransition;
+
+    <ViewTransition
+        ref={current => {
+            if (current !== null) {
+                // $ExpectType string
+                current.name;
+
+                // $ExpectType ViewTransitionPseudoElement
+                current.group;
+                // $ExpectType ViewTransitionPseudoElement
+                current.imagePair;
+                // $ExpectType ViewTransitionPseudoElement
+                current.old;
+                // $ExpectType ViewTransitionPseudoElement
+                current.new;
+
+                // $ExpectType CSSStyleDeclaration
+                current.old.getComputedStyle();
+                // @ts-expect-error -- Implemented on the pseudo elements.
+                current.getComputedStyle();
+            }
+        }}
+    >
+        <div />
+    </ViewTransition>;
+}
+
+function fragmentRefTest() {
+    <React.Fragment
+        ref={maybeInstance => {
+            // $ExpectType FragmentInstance | null
+            maybeInstance;
+
+            // See https://github.com/DefinitelyTyped/DefinitelyTyped/pull/69022/commits/57825689c7abb50a79395d1266226cfa1b31a4e1
+            const instance = maybeInstance!;
+
+            instance.focus();
+            instance.blur();
+            instance.focusLast();
+            instance.observeUsing(new IntersectionObserver(() => {}));
+            instance.unobserveUsing(new IntersectionObserver(() => {}));
+            instance.observeUsing(new ResizeObserver(() => {}));
+            instance.unobserveUsing(new ResizeObserver(() => {}));
+            instance.getClientRects();
+            instance.getRootNode();
+            instance.getRootNode({ composed: true });
+            instance.addEventListener("click", () => {});
+            instance.addEventListener("click", () => {}, true);
+            instance.addEventListener("click", () => {}, { capture: true });
+            instance.addEventListener("click", () => {}, true);
+            instance.removeEventListener("click", () => {});
+            instance.removeEventListener("click", () => {}, { capture: true });
+            instance.removeEventListener("click", () => {}, true);
+            instance.addEventListener("click", () => {}, { passive: true });
+            instance.addEventListener("click", () => {}, { once: true });
+            instance.addEventListener("click", () => {}, { signal: new AbortController().signal });
+            instance.addEventListener("click", () => {}, { signal: new AbortSignal() });
+            instance.addEventListener("click", () => {}, { signal: new AbortSignal(), once: true });
+            instance.addEventListener("click", () => {}, { signal: new AbortSignal(), passive: true });
+            instance.addEventListener("click", () => {}, { signal: new AbortSignal(), capture: true });
+            instance.addEventListener("click", () => {}, { signal: new AbortSignal(), capture: true, once: true });
+            instance.addEventListener("click", () => {}, { signal: new AbortSignal(), capture: true, passive: true });
+            instance.addEventListener("click", () => {}, { signal: new AbortSignal(), once: true, passive: true });
+            instance.addEventListener("click", () => {}, {
+                signal: new AbortSignal(),
+                capture: true,
+                once: true,
+                passive: true,
+            });
+            instance.removeEventListener("click", () => {}, { capture: true });
+            instance.removeEventListener("click", () => {}, true);
+            instance.removeEventListener("click", () => {}, {
+                // @ts-expect-error -- Not the same options as addEventListener
+                passive: true,
+            });
+            instance.scrollIntoView(false);
+            instance.scrollIntoView(true);
+            instance.scrollIntoView(undefined);
+
+            instance.scrollIntoView(
+                // @ts-expect-error -- options are not supported yet
+                {},
+            );
+            return () => {};
+        }}
+    >
+        <div />
+        <div />
+    </React.Fragment>;
 }

@@ -278,23 +278,17 @@ declare module "events" {
             options?: StaticEventEmitterIteratorOptions,
         ): NodeJS.AsyncIterator<any[]>;
         /**
-         * A class method that returns the number of listeners for the given `eventName` registered on the given `emitter`.
+         * Returns the number of registered listeners for the event named `eventName`.
          *
-         * ```js
-         * import { EventEmitter, listenerCount } from 'node:events';
+         * For `EventEmitter`s this behaves exactly the same as calling `.listenerCount`
+         * on the emitter.
          *
-         * const myEmitter = new EventEmitter();
-         * myEmitter.on('event', () => {});
-         * myEmitter.on('event', () => {});
-         * console.log(listenerCount(myEmitter, 'event'));
-         * // Prints: 2
-         * ```
+         * For `EventTarget`s this is the only way to obtain the listener count. This can
+         * be useful for debugging and diagnostic purposes.
          * @since v0.9.12
-         * @deprecated Since v3.2.0 - Use `listenerCount` instead.
-         * @param emitter The emitter to query
-         * @param eventName The event name
          */
-        static listenerCount(emitter: NodeJS.EventEmitter, eventName: string | symbol): number;
+        static listenerCount(emitter: EventEmitter, eventName: string | symbol): number;
+        static listenerCount(emitter: EventTarget, eventName: string): number;
         /**
          * Returns a copy of the array of listeners for the event named `eventName`.
          *
@@ -386,15 +380,12 @@ declare module "events" {
          * import { addAbortListener } from 'node:events';
          *
          * function example(signal) {
-         *   let disposable;
-         *   try {
-         *     signal.addEventListener('abort', (e) => e.stopImmediatePropagation());
-         *     disposable = addAbortListener(signal, (e) => {
-         *       // Do something when signal is aborted.
-         *     });
-         *   } finally {
-         *     disposable?.[Symbol.dispose]();
-         *   }
+         *   signal.addEventListener('abort', (e) => e.stopImmediatePropagation());
+         *   // addAbortListener() returns a disposable, so the `using` keyword ensures
+         *   // the abort listener is automatically removed when this scope exits.
+         *   using _ = addAbortListener(signal, (e) => {
+         *     // Do something when signal is aborted.
+         *   });
          * }
          * ```
          * @since v20.5.0

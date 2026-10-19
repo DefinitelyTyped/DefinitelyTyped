@@ -686,9 +686,9 @@ declare module "../core/Node.js" {
 
 interface Mix {
     (a: FloatOrNumber, b: FloatOrNumber, t: FloatOrNumber): Node<"float">;
-    (a: Vec2OrFloat, b: Vec2OrFloat, t: FloatOrNumber): Node<"vec2">;
-    (a: Vec3OrFloat, b: Vec3OrFloat, t: FloatOrNumber): Node<"vec3">;
-    (a: Vec4OrFloat | Vec3, b: Vec4OrFloat | Vec3, t: FloatOrNumber): Node<"vec4">;
+    (a: Vec2OrFloat, b: Vec2OrFloat, t: Vec2OrFloat): Node<"vec2">;
+    (a: Vec3OrFloat, b: Vec3OrFloat, t: Vec3OrFloat): Node<"vec3">;
+    (a: Vec4OrFloat | Vec3, b: Vec4OrFloat | Vec3, t: Vec4OrFloat | Vec3): Node<"vec4">;
 }
 export const mix: Mix;
 

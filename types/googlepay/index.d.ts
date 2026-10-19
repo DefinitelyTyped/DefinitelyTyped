@@ -78,9 +78,53 @@ declare namespace google.payments.api {
         /**
          * Detailed information about the transaction.
          *
-         * This field is required.
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
          */
-        transactionInfo: TransactionInfo;
+        transactionInfo?: TransactionInfo | undefined;
+
+        /**
+         * Details about enrollment for a recurring transaction.
+         *
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
+         *
+         * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#RecurringTransactionInfo RecurringTransactionInfo}
+         */
+        recurringTransactionInfo?: RecurringTransactionInfo | undefined;
+
+        /**
+         * Details about enrollment for a deferred transaction.
+         *
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
+         *
+         * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#DeferredTransactionInfo DeferredTransactionInfo}
+         */
+        deferredTransactionInfo?: DeferredTransactionInfo | undefined;
+
+        /**
+         * Details about enrollment for automatic reload of a stored balance
+         * account.
+         *
+         * Exactly one of [[PaymentDataRequest.transactionInfo]],
+         * [[PaymentDataRequest.recurringTransactionInfo]],
+         * [[PaymentDataRequest.deferredTransactionInfo]], or
+         * [[PaymentDataRequest.automaticReloadTransactionInfo]] must be
+         * present.
+         *
+         * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#AutomaticReloadTransactionInfo AutomaticReloadTransactionInfo}
+         */
+        automaticReloadTransactionInfo?: AutomaticReloadTransactionInfo | undefined;
 
         /**
          * Offers available for redemption that can be used with the current
@@ -1091,6 +1135,514 @@ declare namespace google.payments.api {
     }
 
     /**
+     * Details about enrollment for a recurring transaction.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#RecurringTransactionInfo RecurringTransactionInfo}
+     */
+    interface RecurringTransactionInfo {
+        /**
+         * ISO 4217 alphabetic currency code.
+         *
+         * This is a required field.
+         */
+        currencyCode: string;
+
+        /**
+         * ISO 3166-1 alpha-2 country code where the transaction is processed.
+         *
+         * Merchants must specify the acquirer bank country code.
+         *
+         * This is a required field.
+         */
+        countryCode: string;
+
+        /**
+         * Correlation ID to refer to this transaction.
+         *
+         * A unique ID that identifies a facilitation attempt. Merchants can use
+         * an existing ID or generate a specific one for Google Pay facilitation
+         * attempts.
+         *
+         * This field is optional, but highly encouraged for troubleshooting.
+         */
+        transactionId?: string | undefined;
+
+        /**
+         * A merchant or Payment Service Provider (PSP) URL to which token
+         * lifecycle updates are sent.
+         *
+         * It must be an HTTPS endpoint with no trailing slash, no parameters
+         * and no URL fragments.
+         *
+         * This field is optional.
+         */
+        tokenUpdateUrl?: string | undefined;
+
+        /**
+         * A merchant URL where the user can manage their subscription in the
+         * future.
+         *
+         * It must be an HTTPS endpoint with no trailing slash, no parameters
+         * and no URL fragments.
+         *
+         * This field is optional.
+         */
+        managementUrl?: string | undefined;
+
+        /**
+         * A localized billing agreement of cancellation terms and information
+         * on how to manage the recurring transaction.
+         *
+         * Limited to 300 characters.
+         *
+         * This field is optional.
+         */
+        billingAgreement?: string | undefined;
+
+        /**
+         * Total price of the transaction due today.
+         *
+         * It must be non-negative numeric with optional precision of two
+         * decimal places. It includes any one-time items and any recurring
+         * transaction that is charged immediately. It can be `"0.00"` for
+         * transactions where the user is not charged immediately, such as a
+         * free trial.
+         *
+         * This is a required field.
+         */
+        immediateTotalPrice: string;
+
+        /**
+         * A breakdown of one-time items that are immediately charged, such as
+         * service setup fees.
+         *
+         * Must not include regular recurring charges or an introductory
+         * period.
+         *
+         * This field is optional.
+         */
+        immediateDisplayItems?: DisplayItem[] | undefined;
+
+        /**
+         * An introductory period for the recurring transaction.
+         *
+         * A time bound period with no recurrence. Pricing can be free or a
+         * single flat fee.
+         *
+         * This field is optional.
+         */
+        introductoryPeriodInfo?: IntroductoryPeriodInfo | undefined;
+
+        /**
+         * Recurrence periods that detail billing frequency and pricing.
+         *
+         * This is a required field.
+         */
+        recurrenceItems: RecurrencePeriodItem[];
+    }
+
+    /**
+     * An introductory period for a recurring transaction.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#IntroductoryPeriodInfo IntroductoryPeriodInfo}
+     */
+    interface IntroductoryPeriodInfo {
+        /**
+         * Start time of the introductory service period in RFC 3339 format.
+         *
+         * Optional for introductory periods that start immediately. This
+         * property represents the service period for the introductory period
+         * and not necessarily the billing time for the recurring transaction.
+         *
+         * If specified, the time must be greater than the current time and
+         * before
+         * [[IntroductoryPeriodInfo.introductoryPeriodEndDateTime|`introductoryPeriodEndDateTime`]].
+         *
+         * This field is optional.
+         */
+        introductoryPeriodStartDateTime?: string | undefined;
+
+        /**
+         * End time of the introductory service period in RFC 3339 format.
+         *
+         * This property represents the service period for the introductory
+         * period and not necessarily the billing time for the recurring
+         * transaction.
+         *
+         * This is a required field.
+         */
+        introductoryPeriodEndDateTime: string;
+
+        /**
+         * Short label for the introductory period.
+         *
+         * For example, `"7 Day Free Trial"`. Limited to 100 characters.
+         *
+         * This is a required field.
+         */
+        label: string;
+
+        /**
+         * Price of the introductory period.
+         *
+         * Must be non-negative numeric with optional precision of two decimal
+         * places. It can be `"0.00"` for a free period.
+         *
+         * This is a required field.
+         */
+        totalPrice: string;
+
+        /**
+         * Line items that compose the introductory period.
+         *
+         * This field is optional.
+         */
+        displayItems?: DisplayItem[] | undefined;
+    }
+
+    /**
+     * A recurrence period for a recurring transaction.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#RecurrencePeriodItem RecurrencePeriodItem}
+     */
+    interface RecurrencePeriodItem {
+        /**
+         * First billing time for the recurring transaction period in RFC 3339
+         * format.
+         *
+         * Optional for billing that starts immediately. This property
+         * represents the billing time and not necessarily the service period.
+         *
+         * If an [[RecurringTransactionInfo.introductoryPeriodInfo|`introductoryPeriodInfo`]]
+         * is specified in the parent
+         * [[RecurringTransactionInfo|`RecurringTransactionInfo`]], this
+         * `billingInitialDateTime` must be specified and equal to or after the
+         * [[IntroductoryPeriodInfo.introductoryPeriodEndDateTime|`introductoryPeriodEndDateTime`]]
+         * of the [[IntroductoryPeriodInfo|`IntroductoryPeriodInfo`]].
+         *
+         * This field is optional.
+         */
+        billingInitialDateTime?: string | undefined;
+
+        /**
+         * Final billing time for the recurring transaction period in RFC 3339
+         * format.
+         *
+         * Must be `null` for a perpetual recurring transaction. This property
+         * represents the billing time and not necessarily the service period.
+         *
+         * This field is optional.
+         */
+        billingFinalDateTime?: string | null | undefined;
+
+        /**
+         * Short label for the recurring transaction period.
+         *
+         * For example, `"Premium Streaming Monthly Plan"`. Limited to 100
+         * characters.
+         *
+         * This is a required field.
+         */
+        label: string;
+
+        /**
+         * Status of the price.
+         *
+         * This is a required field.
+         */
+        priceStatus: TotalPriceStatus;
+
+        /**
+         * Period of the recurrence.
+         *
+         * This is a required field.
+         */
+        recurrencePeriod: RecurrencePeriod;
+
+        /**
+         * Number of periods between billing cycles.
+         *
+         * For example, a monthly recurring transaction would be `1` with a
+         * [[RecurrencePeriodItem.recurrencePeriod|`recurrencePeriod`]] of
+         * [[RecurrencePeriod|`MONTH`]].
+         *
+         * Must be a positive integer.
+         *
+         * This is a required field.
+         */
+        recurrencePeriodCount: number;
+
+        /**
+         * Price of the recurring transaction period.
+         *
+         * Must be present if [[RecurrencePeriodItem.priceStatus]] is
+         * [[TotalPriceStatus|`FINAL`]] or [[TotalPriceStatus|`ESTIMATED`]].
+         * Must be null if [[RecurrencePeriodItem.priceStatus]] is
+         * [[TotalPriceStatus|`NOT_CURRENTLY_KNOWN`]].
+         */
+        price?: string | null | undefined;
+
+        /**
+         * Line items that compose the recurring transaction.
+         *
+         * Example situations include a recurring transaction that can be
+         * broken down into the base fee and taxes.
+         *
+         * This field is optional.
+         */
+        displayItems?: DisplayItem[] | undefined;
+    }
+
+    /**
+     * Details about enrollment for a deferred transaction.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#DeferredTransactionInfo DeferredTransactionInfo}
+     */
+    interface DeferredTransactionInfo {
+        /**
+         * ISO 4217 alphabetic currency code.
+         *
+         * This is a required field.
+         */
+        currencyCode: string;
+
+        /**
+         * ISO 3166-1 alpha-2 country code where the transaction is processed.
+         *
+         * Merchants must specify the acquirer bank country code.
+         *
+         * This is a required field.
+         */
+        countryCode: string;
+
+        /**
+         * Correlation ID to refer to this transaction.
+         *
+         * A unique ID that identifies a facilitation attempt. Merchants can use
+         * an existing ID or generate a specific one for Google Pay facilitation
+         * attempts.
+         *
+         * This field is optional.
+         */
+        transactionId?: string | undefined;
+
+        /**
+         * A merchant or Payment Service Provider (PSP) URL to which token
+         * lifecycle updates are sent.
+         *
+         * It must be an HTTPS endpoint with no trailing slash, no parameters
+         * and no URL fragments.
+         *
+         * This field is optional.
+         */
+        tokenUpdateUrl?: string | undefined;
+
+        /**
+         * A merchant URL where the user can manage their transaction in the
+         * future.
+         *
+         * It must be an HTTPS endpoint with no trailing slash, no parameters
+         * and no URL fragments.
+         *
+         * This field is optional.
+         */
+        managementUrl?: string | undefined;
+
+        /**
+         * A localized billing agreement of cancellation terms and information
+         * on how to manage the deferred transaction.
+         *
+         * Limited to 300 characters.
+         *
+         * This field is optional.
+         */
+        billingAgreement?: string | undefined;
+
+        /**
+         * Total price of the transaction due today.
+         *
+         * Includes any one-time items, such as a reservation deposit. It can
+         * be `"0.00"` for transactions where the user is not charged
+         * immediately. Must be non-negative numeric with optional precision of
+         * two decimal places.
+         *
+         * This is a required field.
+         */
+        immediateTotalPrice: string;
+
+        /**
+         * A breakdown of one-time items that are immediately charged.
+         *
+         * This field is optional.
+         */
+        immediateDisplayItems?: DisplayItem[] | undefined;
+
+        /**
+         * Time at which the transaction is processed in RFC 3339 format.
+         *
+         * Must be greater than the current time.
+         *
+         * This is a required field.
+         */
+        billingDateTime: string;
+
+        /**
+         * Status of the price.
+         *
+         * This is a required field.
+         */
+        priceStatus: TotalPriceStatus;
+
+        /**
+         * Short label for the transaction.
+         *
+         * For example, `"Hotel Room Reservation"`. Limited to 100
+         * characters.
+         *
+         * This is a required field.
+         */
+        label: string;
+
+        /**
+         * Price of the transaction charged in the future, if known.
+         *
+         * Must be present if [[DeferredTransactionInfo.priceStatus]] is
+         * [[TotalPriceStatus|`FINAL`]] or [[TotalPriceStatus|`ESTIMATED`]].
+         * Must be null if [[DeferredTransactionInfo.priceStatus]] is
+         * [[TotalPriceStatus|`NOT_CURRENTLY_KNOWN`]].
+         */
+        price?: string | null | undefined;
+
+        /**
+         * Line items that compose the deferred transaction.
+         *
+         * Example situations include a transaction that can be broken down into
+         * the base fee and taxes.
+         *
+         * This field is optional.
+         */
+        displayItems?: DisplayItem[] | undefined;
+    }
+
+    /**
+     * Details about enrollment for automatic reload of a stored balance
+     * account.
+     *
+     * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#AutomaticReloadTransactionInfo AutomaticReloadTransactionInfo}
+     */
+    interface AutomaticReloadTransactionInfo {
+        /**
+         * ISO 4217 alphabetic currency code.
+         *
+         * This is a required field.
+         */
+        currencyCode: string;
+
+        /**
+         * ISO 3166-1 alpha-2 country code where the transaction is processed.
+         *
+         * Merchants must specify the acquirer bank country code.
+         *
+         * This is a required field.
+         */
+        countryCode: string;
+
+        /**
+         * Correlation ID to refer to this transaction.
+         *
+         * A unique ID that identifies a facilitation attempt. Merchants can use
+         * an existing ID or generate a specific one for Google Pay facilitation
+         * attempts.
+         *
+         * This field is optional.
+         */
+        transactionId?: string | undefined;
+
+        /**
+         * A merchant or Payment Service Provider (PSP) URL to which token
+         * lifecycle updates are sent.
+         *
+         * It must be an HTTPS endpoint with no trailing slash, no parameters
+         * and no URL fragments.
+         *
+         * This field is optional.
+         */
+        tokenUpdateUrl?: string | undefined;
+
+        /**
+         * A merchant URL where the user can manage their transaction in the
+         * future.
+         *
+         * It must be an HTTPS endpoint with no trailing slash, no parameters
+         * and no URL fragments.
+         *
+         * This field is optional.
+         */
+        managementUrl?: string | undefined;
+
+        /**
+         * A localized billing agreement of cancellation terms and information
+         * on how to manage the automatic reload transaction.
+         *
+         * Limited to 300 characters.
+         *
+         * This field is optional.
+         */
+        billingAgreement?: string | undefined;
+
+        /**
+         * Total price of the transaction due today.
+         *
+         * Includes any one-time items. For example, the customer is performing
+         * an initial reload along with setting up the automatic reload. It can
+         * be `"0.00"` for transactions where the user is not charged
+         * immediately. Must be non-negative numeric with optional precision of
+         * two decimal places.
+         *
+         * This is a required field.
+         */
+        immediateTotalPrice: string;
+
+        /**
+         * One-time items that are immediately charged, such as service setup
+         * fees.
+         *
+         * This field is optional.
+         */
+        immediateDisplayItems?: DisplayItem[] | undefined;
+
+        /**
+         * Minimum balance limit at which the automatic reload is triggered.
+         *
+         * Must be non-negative numeric with optional precision of two decimal
+         * places. It can be `"0.00"`.
+         *
+         * This is a required field.
+         */
+        minimumBalanceAmount: string;
+
+        /**
+         * Amount the user's payment credential is charged when the automatic
+         * reload is triggered.
+         *
+         * Must be non-zero and non-negative numeric with optional precision of
+         * two decimal places.
+         *
+         * This is a required field.
+         */
+        reloadAmount: string;
+
+        /**
+         * Short label for the transaction.
+         *
+         * For example, `"Gift Card Reload"`. Limited to 100 characters.
+         *
+         * This is a required field.
+         */
+        label: string;
+    }
+
+    /**
      * Data for a payment method.
      */
     interface PaymentMethodData {
@@ -1673,6 +2225,11 @@ declare namespace google.payments.api {
      *   not change based on selections made by the buyer.
      */
     type TotalPriceStatus = "NOT_CURRENTLY_KNOWN" | "ESTIMATED" | "FINAL";
+
+    /**
+     * Period of a recurring transaction.
+     */
+    type RecurrencePeriod = "YEAR" | "MONTH" | "WEEK" | "DAY";
 
     /**
      * The options for checkout.

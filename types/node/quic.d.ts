@@ -1,10 +1,10 @@
 declare module "node:quic" {
     import { NonSharedBuffer } from "node:buffer";
-    import { KeyObject } from "node:crypto";
+    import { KeyObject, X509Certificate } from "node:crypto";
     import { FileHandle } from "node:fs/promises";
     import { BlockList, SocketAddress } from "node:net";
     import { Writer } from "node:stream/iter";
-    import { EphemeralKeyInfo, PeerCertificate } from "node:tls";
+    import { CertificateCompressionAlgorithm, EphemeralKeyInfo } from "node:tls";
     /**
      * @since v23.8.0
      */
@@ -25,6 +25,10 @@ declare module "node:quic" {
         id: bigint,
         status: "acknowledged" | "lost" | "abandoned",
     ) => void;
+    /**
+     * @since v23.8.0
+     */
+    type OnApplicationCallback = (this: QuicSession, applicationoptions: SessionApplicationOptions) => void;
     /**
      * @since v23.8.0
      */
@@ -235,6 +239,7 @@ declare module "node:quic" {
          */
         enableDatagrams?: boolean | undefined;
     }
+    type SessionApplicationOptions = { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
     /**
      * @since v23.8.0
      */
@@ -272,6 +277,28 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         ca?: ArrayBuffer | NodeJS.ArrayBufferView | ReadonlyArray<ArrayBuffer | NodeJS.ArrayBufferView> | undefined;
+        /**
+         * Enables TLS certificate compression ([RFC 8879](https://www.rfc-editor.org/rfc/rfc8879)) for this session. When
+         * omitted, certificate compression is disabled.
+         *
+         * On the server side, the certificate chain is compressed using the first
+         * listed algorithm that the client advertises support for. On the client side,
+         * the listed algorithms are advertised to the server so that the server may
+         * compress its certificate. When client authentication is in use, the option
+         * also controls compression of the client's certificate.
+         *
+         * Compressing the certificate chain is especially useful for QUIC because it
+         * reduces the size of the server's first flight, which is bounded by the
+         * anti-amplification limit (see [Certificate size and handshake
+         * performance](https://nodejs.org/docs/latest-v26.x/api/quic.html#certificate-size-and-handshake-performance)). Certificate compression requires TLS 1.3, which QUIC always
+         * uses.
+         *
+         * At most three algorithms may be specified. The option is silently ignored if
+         * Node.js was built against a shared OpenSSL that lacks certificate compression
+         * support.
+         * @since v26.6.0
+         */
+        certificateCompression?: readonly CertificateCompressionAlgorithm[] | undefined;
         /**
          * Specifies the congestion control algorithm that will be used.
          * Must be set to one of either `'reno'`, `'cubic'`, or `'bbr'`.
@@ -539,6 +566,7 @@ declare module "node:quic" {
         ongoaway?: QuicSession["ongoaway"] | undefined;
         onkeylog?: QuicSession["onkeylog"] | undefined;
         onqlog?: QuicSession["onqlog"] | undefined;
+        onapplication?: QuicSession["onapplication"] | undefined;
         onheaders?: QuicStream["onheaders"] | undefined;
         ontrailers?: QuicStream["ontrailers"] | undefined;
         oninfo?: QuicStream["oninfo"] | undefined;
@@ -608,6 +636,20 @@ declare module "node:quic" {
      * @since v23.8.0
      */
     function listen(onsession: OnSessionCallback, options?: SessionOptions): Promise<QuicEndpoint>;
+    interface ListEndpointsOptions {
+        /**
+         * If `true` (the default), only returns endpoints that are
+         * active (not destroyed, not closing, and not busy). If `false` returns all
+         * endpoints.
+         */
+        active?: boolean | undefined;
+    }
+    /**
+     * Returns the list of all `QuicEndpoint` instances. By default, only active
+     * endpoints are returned.
+     * @since v26.4.0
+     */
+    function listEndpoints(options?: ListEndpointsOptions): QuicEndpoint[];
     /**
      * The endpoint configuration options passed when constructing a new `QuicEndpoint` instance.
      * @since v23.8.0
@@ -1039,8 +1081,8 @@ declare module "node:quic" {
     interface CreateStreamOptions {
         /**
          * The outbound body source. See `stream.setBody()` for details on
-         * supported types. When omitted, the stream starts half-closed (writable
-         * side open, no body queued).
+         * supported types. When omitted, the stream's outgoing side remains
+         * writable with no body queued; no FIN is sent immediately.
          */
         body?: StreamBody | undefined;
         /**
@@ -1172,7 +1214,7 @@ declare module "node:quic" {
          * be negotiated separately from the transport parameters. Read only.
          * @since v26.3.0
          */
-        readonly applicationOptions: { [K in keyof ApplicationOptions]-?: ApplicationOptions[K] & (bigint | boolean) };
+        readonly applicationOptions: SessionApplicationOptions;
         /**
          * Initiate a graceful close of the session. Existing streams will be allowed
          * to complete but no new streams will be opened. Once all streams have closed,
@@ -1226,6 +1268,11 @@ declare module "node:quic" {
          * @since v23.8.0
          */
         readonly endpoint: QuicEndpoint | null;
+        /**
+         * The callback to invoke when new application options, e.g. HTTP/3 settings arrived.
+         * @since v26.4
+         */
+        onapplication: OnApplicationCallback | undefined;
         /**
          * An optional callback invoked when the session is destroyed with an error.
          * This includes errors caused by user callbacks that throw or reject (see
@@ -1350,7 +1397,8 @@ declare module "node:quic" {
         onqlog: OnQlogCallback | undefined;
         /**
          * Open a new bidirectional stream. If the `body` option is not specified,
-         * the outgoing stream will be half-closed. The `priority` and `incremental`
+         * the stream's outgoing side remains writable and no FIN is sent
+         * immediately. The `priority` and `incremental`
          * options are only used when the session supports priority (e.g. HTTP/3).
          * The `headers`, `onheaders`, `ontrailers`, `oninfo`, and `onwanttrailers`
          * options are only used when the session supports headers (e.g. HTTP/3).
@@ -1359,7 +1407,8 @@ declare module "node:quic" {
         createBidirectionalStream(options?: CreateStreamOptions): Promise<QuicStream>;
         /**
          * Open a new unidirectional stream. If the `body` option is not specified,
-         * the outgoing stream will be closed. The `priority` and `incremental`
+         * the stream's outgoing side remains writable and no FIN is sent
+         * immediately. The `priority` and `incremental`
          * options are only used when the session supports priority (e.g. HTTP/3).
          * @since v23.8.0
          */
@@ -1412,19 +1461,36 @@ declare module "node:quic" {
             encoding?: BufferEncoding,
         ): Promise<bigint>;
         /**
-         * The local certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or no certificate is available.
-         * @since v26.2.0
+         * The SNI (Server Name Indication) host name associated with the session. This is
+         * `null` before the client hello is processed. Once the hello has been
+         * processed, this is either the host name string or `false` if the handshake
+         * had no SNI.
+         * @since v26.6.0
          */
-        readonly certificate: PeerCertificate | undefined;
+        readonly servername: string | false | null;
         /**
-         * The peer's certificate as an object with properties such as `subject`,
-         * `issuer`, `valid_from`, `valid_to`, `fingerprint`, etc. Returns `undefined`
-         * if the session is destroyed or the peer did not present a certificate.
+         * The negotiated ALPN protocol. This is `null` before the client hello is
+         * processed. Once ALPN has been negotiated, this is the protocol string. ALPN
+         * is mandatory in QUIC so this is never `false` on successful connections,
+         * unlike `node:tls` where this is optional.
+         * @since v26.6.0
+         */
+        readonly alpnProtocol: string | null;
+        /**
+         * The local certificate as a `crypto.X509Certificate` instance. Server
+         * sessions return the certificate configured for the negotiated SNI host.
+         * Client sessions return `undefined` unless a client certificate was sent.
+         * Returns `undefined` if the session is destroyed.
          * @since v26.2.0
          */
-        readonly peerCertificate: PeerCertificate | undefined;
+        readonly certificate: X509Certificate | undefined;
+        /**
+         * The peer's certificate as a `crypto.X509Certificate` instance. Returns
+         * `undefined` if the peer did not present a certificate or the session is
+         * destroyed.
+         * @since v26.2.0
+         */
+        readonly peerCertificate: X509Certificate | undefined;
         /**
          * The ephemeral key information for the session, with properties such as
          * `type`, `name`, and `size`. Only available on client sessions. Returns

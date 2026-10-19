@@ -2071,7 +2071,7 @@ declare namespace OracleDB {
          *
          * For advanced queue SUBSCR_NAMESPACE_AQ subscriptions, regId is undefined.
          */
-        regId?: string | undefined;
+        regId?: number | undefined;
     }
 
     /**

@@ -1,4 +1,4 @@
-import { Node, TempNode, TextureNode, UniformNode } from "three/webgpu";
+import { Node, TempNode, TextureNode, UniformNode, Vector3 } from "three/webgpu";
 
 declare class BloomNode extends TempNode<"vec4"> {
     inputNode: Node<"vec4">;
@@ -7,6 +7,8 @@ declare class BloomNode extends TempNode<"vec4"> {
     threshold: UniformNode<"float", number>;
 
     smoothWidth: UniformNode<"float", number>;
+
+    bloomTintColors: Vector3[];
 
     highPassFn: (
         params: {

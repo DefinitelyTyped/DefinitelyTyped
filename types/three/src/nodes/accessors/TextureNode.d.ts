@@ -44,6 +44,8 @@ interface TextureNodeInterface {
 
     gather(gatherNode?: Node<"int"> | number): this;
 
+    isSampleCompare(): boolean;
+
     depth(depthNode: Node): this;
 
     offset(offsetNode: Node<"ivec2">): this;
@@ -64,12 +66,21 @@ type TextureNode<TNodeType = "vec4"> = TextureNodeInterface & UniformNode<TNodeT
 
 export default TextureNode;
 
-export const texture: (
-    value?: Texture | TextureNode,
-    uvNode?: Node | null,
-    levelNode?: Node | number | null,
-    biasNode?: Node | null,
-) => TextureNode;
+export const texture: {
+    (
+        value?: Texture | TextureNode,
+        uvNode?: Node | null,
+        levelNode?: Node | number | null,
+        biasNode?: Node | null,
+    ): TextureNode;
+    // eslint-disable-next-line @definitelytyped/no-unnecessary-generics
+    <TNodeType>(
+        value?: Texture | TextureNode,
+        uvNode?: Node | null,
+        levelNode?: Node | number | null,
+        biasNode?: Node | null,
+    ): TextureNode<TNodeType>;
+};
 
 export const uniformTexture: (
     value?: Texture,

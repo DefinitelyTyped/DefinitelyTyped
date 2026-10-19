@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260810
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/26932c7b5ab336ac4a8242fa6bf76cd1743953d8
+// Tests for Google Publisher Tag 1.20260921
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/dd8c4273f415959c61a8eab7761b16f85fbabf32
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -801,6 +801,16 @@ function test_googletag_config_adExpansionConfig() {
     googletag.setConfig({
         adExpansion: { enabled: true },
     });
+}
+
+// Test for googletag.config.AutoRefreshConfig.backForwardCache
+function test_googletag_config_autoRefreshConfig_backForwardCache() {
+    // Set the auto refresh configuration, disabling auto refresh on
+    // back/forward cache restore.
+    googletag.setConfig({ autoRefresh: { backForwardCache: false } });
+
+    // Clear the auto refresh configuration, restoring to default behavior.
+    googletag.setConfig({ autoRefresh: null });
 }
 
 // Test for googletag.config.AutoRefreshConfig.heavyAds

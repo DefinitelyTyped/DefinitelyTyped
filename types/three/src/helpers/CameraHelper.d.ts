@@ -51,9 +51,4 @@ export class CameraHelper extends LineSegments {
      * Updates the helper based on the projection matrix of the camera.
      */
     update(): void;
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

@@ -458,6 +458,14 @@ docker.createNetwork({
 
 docker.createVolume();
 
+// The promise resolves with the same Volume instance the callback receives.
+// $ExpectType Promise<Volume>
+docker.createVolume({ Name: "volumeName" });
+
+docker.createVolume({ Name: "volumeName" }).then(volume => {
+    volume.remove();
+});
+
 docker.createVolume({ Name: "volumeName", abortSignal: new AbortController().signal });
 
 docker.createVolume({

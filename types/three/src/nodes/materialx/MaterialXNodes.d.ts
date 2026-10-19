@@ -1,7 +1,8 @@
 import Node from "../core/Node.js";
 import MathNode from "../math/MathNode.js";
-import { mx_hsvtorgb, mx_rgbtohsv } from "./lib/mx_hsv.js";
-import { mx_srgb_texture_to_lin_rec709 } from "./lib/mx_transform_color.js";
+import { mx_hsvtorgb, mx_rgbtohsv } from "./MaterialXColor.js";
+import { mx_srgb_texture_to_lin_rec709 } from "./MaterialXColorTransform.js";
+import { mx_rotate2d, mx_rotate3d } from "./MaterialXCore.js";
 
 export const mx_aastep: (threshold: Node | number, value: Node | number) => MathNode;
 
@@ -11,8 +12,8 @@ export const mx_ramplr: (
     texcoord?: Node,
 ) => MathNode;
 export const mx_ramptb: (
-    valuet: Node | number,
     valueb: Node | number,
+    valuet: Node | number,
     texcoord?: Node,
 ) => MathNode;
 
@@ -31,8 +32,8 @@ export const mx_splitlr: (
     texcoord?: Node,
 ) => MathNode;
 export const mx_splittb: (
-    valuet: Node | number,
     valueb: Node | number,
+    valuet: Node | number,
     center: Node | number,
     texcoord?: Node,
 ) => MathNode;
@@ -67,6 +68,25 @@ export const mx_noise_vec4: (
     pivot?: Node | number,
 ) => Node<"vec4">;
 
+export const mx_smoothstep: (
+    inNode: Node | number,
+    low?: Node | number,
+    high?: Node | number,
+) => MathNode;
+
+export function mx_cell_noise_vec3(texcoord?: Node): Node<"vec3">;
+
+export function mx_worley_noise_float_2d(
+    texcoord?: Node,
+    jitter?: Node | number,
+    style?: Node | number,
+): Node<"float">;
+export function mx_worley_noise_float_3d(
+    texcoord?: Node,
+    jitter?: Node | number,
+    style?: Node | number,
+): Node<"float">;
+
 export const mx_unifiednoise2d: (
     noiseType: Node,
     texcoord?: Node,
@@ -79,7 +99,8 @@ export const mx_unifiednoise2d: (
     octaves?: Node | number,
     lacunarity?: Node | number,
     diminish?: Node | number,
-) => Node;
+    style?: Node | number,
+) => Node<"float">;
 export const mx_unifiednoise3d: (
     noiseType: Node,
     texcoord?: Node,
@@ -92,11 +113,13 @@ export const mx_unifiednoise3d: (
     octaves?: Node | number,
     lacunarity?: Node | number,
     diminish?: Node | number,
-) => Node;
+    style?: Node | number,
+) => Node<"float">;
 
 export function mx_worley_noise_float(
     texcoord?: Node,
     jitter?: Node | number,
+    style?: Node | number,
 ): Node<"float">;
 export function mx_worley_noise_vec2(
     texcoord?: Node,
@@ -105,10 +128,24 @@ export function mx_worley_noise_vec2(
 export function mx_worley_noise_vec3(
     texcoord?: Node,
     jitter?: Node | number,
+    metric?: Node | number,
+): Node<"vec3">;
+export function mx_worley_noise_vec3_style(
+    texcoord?: Node,
+    jitter?: Node | number,
+    style?: Node | number,
+    metric?: Node | number,
 ): Node<"vec3">;
 
 export function mx_cell_noise_float(texcoord?: Node): Node<"float">;
 
+export function mx_fractal_noise_float_2d(
+    texcoord?: Node,
+    octaves?: Node | number,
+    lacunarity?: Node | number,
+    diminish?: Node | number,
+    amplitude?: Node | number,
+): Node<"float">;
 export function mx_fractal_noise_float(
     position?: Node,
     octaves?: Node | number,
@@ -138,6 +175,7 @@ export function mx_fractal_noise_vec4(
     amplitude?: Node | number,
 ): Node<"vec4">;
 
+export { mx_rotate2d, mx_rotate3d };
 export { mx_hsvtorgb, mx_rgbtohsv, mx_srgb_texture_to_lin_rec709 };
 
 export const mx_add: (in1: Node, in2?: Node) => Node;
@@ -162,10 +200,7 @@ export const mx_place2d: (
     scale?: Node,
     rotate?: Node,
     offset?: Node,
+    operationorder?: Node | number,
 ) => Node;
 
-export const mx_rotate2d: (input: Node, amount: Node) => Node;
-
-export const mx_rotate3d: (input: Node, amount: Node, axis: Node) => Node;
-
-export const mx_heighttonormal: (input: Node, scale: Node) => Node;
+export const mx_heighttonormal: (input: Node, scale?: Node | number, texcoord?: Node) => Node;

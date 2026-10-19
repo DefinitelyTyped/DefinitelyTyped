@@ -22,6 +22,13 @@ declare module "stream/consumers" {
      */
     function buffer(stream: WebReadableStream | NodeJS.ReadableStream | AsyncIterable<any>): Promise<NonSharedBuffer>;
     /**
+     * @since v24.14.0
+     * @returns Fulfills with a `Uint8Array` containing the full contents of the stream.
+     */
+    function bytes(
+        stream: WebReadableStream | NodeJS.ReadableStream | AsyncIterable<any>,
+    ): Promise<NodeJS.NonSharedUint8Array>;
+    /**
      * @since v16.7.0
      * @returns Fulfills with the contents of the stream parsed as a
      * UTF-8 encoded string that is then passed through `JSON.parse()`.

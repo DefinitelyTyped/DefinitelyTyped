@@ -4,7 +4,7 @@ declare global {
     /**
      * Represents the dictionary for hash algorithm and value.
      */
-    interface CrossOriginStorageRequestFileHandleHash {
+    interface CrossOriginStorageGetFileHandleHash {
         value: string;
         algorithm: string;
     }
@@ -12,19 +12,37 @@ declare global {
     /**
      * Represents the options for requesting a file handle.
      */
-    interface CrossOriginStorageRequestFileHandleOptions {
+    interface CrossOriginStorageGetFileHandleOptions {
         create?: boolean | undefined;
         origins?: string[] | string | undefined;
     }
+
+    /**
+     * @deprecated Use `CrossOriginStorageGetFileHandleHash` instead.
+     */
+    type CrossOriginStorageRequestFileHandleHash = CrossOriginStorageGetFileHandleHash;
+
+    /**
+     * @deprecated Use `CrossOriginStorageGetFileHandleOptions` instead.
+     */
+    type CrossOriginStorageRequestFileHandleOptions = CrossOriginStorageGetFileHandleOptions;
 
     /**
      * The CrossOriginStorageManager interface.
      * [SecureContext]
      */
     interface CrossOriginStorageManager {
+        getFileHandle(
+            hash: CrossOriginStorageGetFileHandleHash,
+            options?: CrossOriginStorageGetFileHandleOptions,
+        ): Promise<FileSystemFileHandle>;
+
+        /**
+         * @deprecated Use `getFileHandle()` instead.
+         */
         requestFileHandle(
-            hash: CrossOriginStorageRequestFileHandleHash,
-            options?: CrossOriginStorageRequestFileHandleOptions,
+            hash: CrossOriginStorageGetFileHandleHash,
+            options?: CrossOriginStorageGetFileHandleOptions,
         ): Promise<FileSystemFileHandle>;
     }
 

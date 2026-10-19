@@ -1,6 +1,8 @@
 import { BufferGeometry } from "../core/BufferGeometry.js";
 import { JSONMeta, Object3D, Object3DEventMap, Object3DJSON, Object3DJSONObject } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
+import { Frustum } from "../math/Frustum.js";
+import { FrustumArray } from "../math/FrustumArray.js";
 import { Vector3 } from "../math/Vector3.js";
 
 export interface MeshJSONObject extends Object3DJSONObject {
@@ -97,6 +99,13 @@ export class Mesh<
      * @param target
      */
     getVertexPosition(index: number, target: Vector3): Vector3;
+
+    /**
+     * Returns `true` if this mesh intersects the given frustum.
+     * @param frustum The frustum to test.
+     * @returns Whether this mesh intersects the given frustum or not.
+     */
+    intersectsFrustum(frustum: Frustum | FrustumArray): boolean;
 
     toJSON(meta?: JSONMeta): MeshJSON;
 }

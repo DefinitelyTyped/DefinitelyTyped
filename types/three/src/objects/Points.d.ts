@@ -1,6 +1,8 @@
 import { BufferGeometry, NormalOrGLBufferAttributes } from "../core/BufferGeometry.js";
 import { Object3D, Object3DEventMap } from "../core/Object3D.js";
 import { Material } from "../materials/Material.js";
+import { Frustum } from "../math/Frustum.js";
+import { FrustumArray } from "../math/FrustumArray.js";
 
 /**
  * A class for displaying {@link Points}
@@ -63,4 +65,11 @@ export class Points<
      * @remarks Resets the {@link morphTargetInfluences} and {@link morphTargetDictionary} properties.
      */
     updateMorphTargets(): void;
+
+    /**
+     * Returns `true` if this point cloud intersects the given frustum.
+     * @param frustum The frustum to test.
+     * @returns Whether this point cloud intersects the given frustum or not.
+     */
+    intersectsFrustum(frustum: Frustum | FrustumArray): boolean;
 }

@@ -851,7 +851,7 @@ declare namespace googletag {
          *
          * @see [About publisher provided identifiers](https://support.google.com/admanager/answer/2880055)
          * @param ppid An alphanumeric ID provided by the publisher. Must be between
-         *     32 and 150 characters.
+         *     22 and 150 characters.
          * @return The service object on which the method was called.
          */
         setPublisherProvidedId(ppid: string): PubAdsService;
@@ -1873,7 +1873,7 @@ declare namespace googletag {
     /**
      * The size string where the ad container takes 100% width of its parent div and
      * then resizes its height to fit the creative content. Similar to how regular
-     * block elements on a page behave. Used for native ads (see
+     * block elements on a page behave. Used for native and banner ads (see
      * [related article](https://support.google.com/admanager/answer/6366845)).
      */
     type FluidSize = "fluid";
@@ -1885,7 +1885,7 @@ declare namespace googletag {
      *
      * - **fluid**: the ad container takes 100% width of its parent div and then
      *   resizes its height to fit the creative content. Similar to how regular block
-     *   elements on a page behave. Used for native ads (see
+     *   elements on a page behave. Used for native and banner ads (see
      *   [related article](https://support.google.com/admanager/answer/6366845)).
      *   Note that both `fluid` and `['fluid']` are acceptable forms to declare a
      *   slot size as fluid.
@@ -2021,6 +2021,22 @@ declare namespace googletag {
          * Auto refresh configuration settings.
          */
         interface AutoRefreshConfig {
+            /**
+             * Whether GPT will automatically refresh an actively viewed ad slot when the
+             * page is restored from the back/forward cache. Defaults to `true`.
+             *
+             * @example
+             *   // Set the auto refresh configuration, disabling auto refresh on
+             *   // back/forward cache restore.
+             *   googletag.setConfig({autoRefresh: {backForwardCache: false}});
+             *
+             *   // Clear the auto refresh configuration, restoring to default behavior.
+             *   googletag.setConfig({autoRefresh: null});
+             *
+             * @see [Back/forward cache](https://web.dev/articles/bfcache)
+             */
+            backForwardCache?: boolean;
+
             /**
              * Whether GPT will automatically refresh an ad slot if Chrome's Heavy Ad
              * Intervention triggers on the slot's ad iframe. Defaults to `true`.

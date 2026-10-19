@@ -128,6 +128,7 @@ export const materialLineWidth: MaterialNode<"float">;
 export const materialLineDashOffset: MaterialNode<"float">;
 export const materialPointSize: MaterialNode<"float">;
 export const materialDispersion: MaterialNode<"float">;
+export const materialRetroreflectivity: MaterialNode<"float">;
 export const materialLightMap: MaterialNode<"vec3">;
 export const materialAO: MaterialNode<"float">;
 export const materialAnisotropyVector: Node<"vec2">;

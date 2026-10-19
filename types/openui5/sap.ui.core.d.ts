@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.151.0
+// For Library Version: 1.153.0
 
 declare module "sap/base/assert" {
   /**
@@ -29696,11 +29696,11 @@ declare module "sap/ui/core/ExtensionPoint" {
 }
 
 declare module "sap/ui/core/format/DateFormat" {
+  import Locale from "sap/ui/core/Locale";
+
   import CalendarWeekNumbering from "sap/base/i18n/date/CalendarWeekNumbering";
 
   import CalendarType from "sap/base/i18n/date/CalendarType";
-
-  import Locale from "sap/ui/core/Locale";
 
   import UI5Date from "sap/ui/core/date/UI5Date";
 
@@ -29735,94 +29735,7 @@ declare module "sap/ui/core/format/DateFormat" {
       /**
        * Object which defines the format options
        */
-      oFormatOptions?: {
-        /**
-         * since 1.108.0 specifies the calendar week numbering. If specified, this overwrites `oFormatOptions.firstDayOfWeek`
-         * and `oFormatOptions.minimalDaysInFirstWeek`.
-         */
-        calendarWeekNumbering?:
-          | CalendarWeekNumbering
-          | keyof typeof CalendarWeekNumbering;
-        /**
-         * since 1.105.0 specifies the first day of the week starting with `0` (which is Sunday); if not defined,
-         * the value taken from the locale is used
-         */
-        firstDayOfWeek?: int;
-        /**
-         * since 1.105.0 minimal days at the beginning of the year which define the first calendar week; if not
-         * defined, the value taken from the locale is used
-         */
-        minimalDaysInFirstWeek?: int;
-        /**
-         * since 1.34.0 contains pattern symbols (e.g. "yMMMd" or "Hms") which will be converted into the pattern
-         * in the used locale, which matches the wanted symbols best. The symbols must be in canonical order, that
-         * is: Era (G), Year (y/Y), Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J),
-         * Minute (m), Second (s), Timezone (z/Z/v/V/O/X/x) See {@link https://unicode.org/reports/tr35/tr35-dates.html#availableFormats_appendItems Unicode Locale Data Markup Language (LDML): Elements availableFormats, appendItems}.
-         */
-        format?: string;
-        /**
-         * a data pattern in LDML format. It is not verified whether the pattern represents only a date.
-         */
-        pattern?: string;
-        /**
-         * can be either 'short, 'medium', 'long' or 'full'. If no pattern is given, a locale dependent default
-         * date pattern of that style is used from the LocaleData class.
-         */
-        style?: string;
-        /**
-         * if true, by parsing it is checked if the value is a valid date
-         */
-        strictParsing?: boolean;
-        /**
-         * if true, the date is formatted relatively to todays date if it is within the given day range, e.g. "today",
-         * "1 day ago", "in 5 days"
-         */
-        relative?: boolean;
-        /**
-         * the day range used for relative formatting. If `oFormatOptions.relativeScale` is set to default value
-         * 'day', the relativeRange is by default [-6, 6], which means only the last 6 days, today and the next
-         * 6 days are formatted relatively. Otherwise when `oFormatOptions.relativeScale` is set to 'auto', all
-         * dates are formatted relatively.
-         */
-        relativeRange?: int[];
-        /**
-         * if 'auto' is set, new relative time format is switched on for all Date/Time Instances. The relative scale
-         * is chosen depending on the difference between the given date and now.
-         */
-        relativeScale?: string;
-        /**
-         * since 1.32.10, 1.34.4 the style of the relative format. The valid values are "wide", "short", "narrow"
-         */
-        relativeStyle?: string;
-        /**
-         * since 1.48.0 if true, the {@link sap.ui.core.format.DateFormat#format format} method expects an array
-         * with two dates as the first argument and formats them as interval. Further interval "Jan 10, 2008 - Jan
-         * 12, 2008" will be formatted as "Jan 10-12, 2008" if the 'format' option is set with necessary symbols.
-         * Otherwise the two given dates are formatted separately and concatenated with local dependent pattern.
-         */
-        interval?: boolean;
-        /**
-         * Since 1.113.0, a delimiter for intervals. With a given interval delimiter a specific interval format
-         * is created. **Example:** If `oFormatOptions.intervalDelimiter` is set to "...", an interval would be
-         * given as "Jan 10, 2008...Feb 12, 2008". **Note:** If this format option is set, the locale-specific interval
-         * notation is overruled, for example "Jan 10 – Feb 12, 2008" becomes "Jan 10, 2008...Feb 12, 2008".
-         */
-        intervalDelimiter?: string;
-        /**
-         * Only relevant if oFormatOptions.interval is set to 'true'. This allows to pass an array with only one
-         * date object to the {@link sap.ui.core.format.DateFormat#format format} method.
-         */
-        singleIntervalValue?: boolean;
-        /**
-         * if true, the date is formatted and parsed as UTC instead of the local timezone
-         */
-        UTC?: boolean;
-        /**
-         * The calender type which is used to format and parse the date. This value is by default either set in
-         * configuration or calculated based on current locale.
-         */
-        calendarType?: CalendarType | keyof typeof CalendarType;
-      },
+      oFormatOptions?: DateFormatOptions,
       /**
        * Locale to ask for locale specific texts/settings
        */
@@ -30234,6 +30147,21 @@ declare module "sap/ui/core/format/DateFormat" {
     ): Date | Date[] | UI5Date | UI5Date[];
   }
   /**
+   * The format options type for date formats.
+   */
+  export type DateFormatOptions = IntervalFormatOptions & {
+    /**
+     * A date pattern in {@link https://unicode.org/reports/tr35/tr35-dates.html#table-date-field-symbol-table LDML format}.
+     * It is not verified whether the pattern represents only a date.
+     */
+    pattern?: string;
+    /**
+     * The locale-dependent formatting style for the date, used if no `pattern` is provided.
+     */
+    style?: "short" | "medium" | "long" | "full";
+  };
+
+  /**
    * Interface for a timezone-specific DateFormat, which is able to format and parse a date based on a given
    * timezone. The timezone is used to convert the given date, and also for timezone-related pattern symbols.
    * The timezone is an IANA timezone ID, e.g. "America/New_York".
@@ -30303,6 +30231,136 @@ declare module "sap/ui/core/format/DateFormat" {
         ]
       | null;
   }
+
+  /**
+   * The base format options for date formats.
+   */
+  export type FormatOptions = {
+    /**
+     * The calendar type used to format and parse the date. By default, this value is taken from the configuration
+     * (see {@link module:sap/base/i18n/Formatting.setCalendarType Formatting.setCalendarType}), or - if not
+     * set - calculated based on the current locale, see {@link module:sap/base/i18n/Formatting.getCalendarType Formatting.getCalendarType}.
+     */
+    calendarType?: CalendarType | keyof typeof CalendarType;
+    /**
+     * Specifies the calendar week numbering. If specified, this overwrites `firstDayOfWeek` and `minimalDaysInFirstWeek`.
+     *
+     * @since 1.108.0
+     */
+    calendarWeekNumbering?:
+      | CalendarWeekNumbering
+      | keyof typeof CalendarWeekNumbering;
+    /**
+     * Specifies the first day of the week starting with `0` (which is Sunday). If not defined, the value is
+     * taken from the locale, see {@link sap.ui.core.LocaleData.getFirstDayOfWeek LocaleData.getFirstDayOfWeek}.
+     *
+     * @since 1.105.0
+     */
+    firstDayOfWeek?: int;
+    /**
+     * Contains pattern symbols (for example, "yMMMd" or "Hms") that are converted into the pattern in the used
+     * locale which matches the wanted symbols best. The symbols must be in canonical order: Era (G), Year (y/Y),
+     * Quarter (q/Q), Month (M/L), Week (w), Day-Of-Week (E/e/c), Day (d), Hour (h/H/k/K/j/J), Minute (m), Second
+     * (s), Timezone (z/Z/v/V/O/X/x) See {@link https://unicode.org/reports/tr35/tr35-dates.html#availableFormats_appendItems Unicode Locale Data Markup Language (LDML): Elements availableFormats, appendItems}.
+     *
+     * @since 1.34.0
+     */
+    format?: string;
+    /**
+     * Minimal days at the beginning of the year that define the first calendar week. If not defined, the value
+     * is taken from the locale, see {@link sap.ui.core.LocaleData.getMinimalDaysInFirstWeek LocaleData.getMinimalDaysInFirstWeek}.
+     *
+     * @since 1.105.0
+     */
+    minimalDaysInFirstWeek?: int;
+    /**
+     * If `true`, the date is formatted relatively to today's date if it is within the given `relativeRange`.
+     *  **Example:**
+     * 	 - Today is the **2026-01-05**
+     * 	 - `relative` is set to `true`
+     * 	 - `relativeRange` is set to `[-2, 2]`
+     * 	 - This means that only dates two days prior or after **2026-01-05** are formatted in the relative format
+     *
+     * 	 - For example, date **2026-01-07** would be formatted to `"in 2 days"` for the English locale
+     * 	 - Whereas, the **2026-01-08** would be formatted in the non-relative format as it is out of the `relativeRange`
+     */
+    relative?: boolean;
+    /**
+     * The date range in which the relative formatting is applied. It depends on the `relativeScale`. For example,
+     * `relativeScale="day"` and `relativeRange=[-2, 2]` means only dates that are 2 **days** before or 2 **days**
+     * after today's date are formatted relatively. If no range given, the range is determined depending on
+     * the `relativeScale`. This is the list of defaults depending on the `relativeScale`:
+     * 	 - `relativeScale="second"`, `relativeRange=[-60, 60]`
+     * 	 - `relativeScale="minute"`, `relativeRange=[-60, 60]`
+     * 	 - `relativeScale="hour"`, `relativeRange=[-24, 24]`
+     * 	 - `relativeScale="day"`, `relativeRange=[-6, 6]`
+     * 	 - `relativeScale="week"`, `relativeRange=[-4, 4]`
+     * 	 - `relativeScale="month"`, `relativeRange=[-12, 12]`
+     * 	 - `relativeScale="year"`, `relativeRange=[-10, 10]`  Otherwise, when `relativeScale` is set to
+     *     `auto`, all dates are formatted relatively.
+     */
+    relativeRange?: int[];
+    /**
+     * If `auto` is set, a new relative time format is switched on for all Date/Time instances. The relative
+     * scale is chosen depending on the difference between the given date and now.
+     */
+    relativeScale?:
+      | "auto"
+      | "year"
+      | "month"
+      | "week"
+      | "day"
+      | "hour"
+      | "minute"
+      | "second";
+    /**
+     * The style of the relative format.
+     *
+     * @since 1.34.4
+     */
+    relativeStyle?: "narrow" | "short" | "wide";
+    /**
+     * If `true`, parsing validates that the value is a valid date. For example, the parsing of an overflowing
+     * value like **2026-01-32** returns `null` instead of **2026-02-01**.
+     */
+    strictParsing?: boolean;
+    /**
+     * If `true`, the date is formatted and parsed as UTC instead of the local timezone.
+     */
+    UTC?: boolean;
+  };
+
+  /**
+   * Extends the format options for a single date, time, or date and time to include interval-related settings.
+   */
+  export type IntervalFormatOptions = FormatOptions & {
+    /**
+     * If `true`, the {@link sap.ui.core.format.DateFormat#format format} method expects an array with two dates
+     * as the first argument and formats them as an interval. For example, the interval "Jan 10, 2008 - Jan
+     * 12, 2008" is formatted as "Jan 10-12, 2008" if the `format` option is set to `"yMMMd"`. If no `format`
+     * is set, the two dates are formatted separately and concatenated with a locale-dependent pattern.
+     *
+     * @since 1.48.0
+     */
+    interval?: boolean;
+    /**
+     * A delimiter for intervals. A specific interval format is created with a given delimiter.
+     *  **Example:** If `oFormatOptions.intervalDelimiter` is set to "...", the formatted result would be "Jan
+     * 10, 2008...Feb 12, 2008". **Note:** If this format option is set, the locale-specific interval notation
+     * is overridden. For example, "Jan 10 – Feb 12, 2008" becomes "Jan 10, 2008...Feb 12, 2008".
+     *
+     * @since 1.113.0
+     */
+    intervalDelimiter?: string;
+    /**
+     * Only relevant if `interval` is set to `true`. This allows you to pass an array with only one date object
+     * to the {@link sap.ui.core.format.DateFormat#format format} method, which is then formatted as a single
+     * value. For example, the value `[UI5Date.getInstance("2026-01-20")]` is formatted to `"Jan 20, 2026"`
+     * in the English locale. If the `pattern` format option is set to an interval pattern, the formatted result
+     * displays the value as an interval, but the dates of this interval are the same.
+     */
+    singleIntervalValue?: boolean;
+  };
 }
 
 declare module "sap/ui/core/format/DateFormatTimezoneDisplay" {
@@ -30951,7 +31009,7 @@ declare module "sap/ui/core/format/NumberFormat" {
     currencyCode?: boolean;
     /**
      * Can be set either to 'standard' (the default value) or to 'accounting' for an accounting-specific currency
-     * display
+     * display.
      */
     currencyContext?:
       | "standard"
@@ -31012,18 +31070,17 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     preserveDecimals?: boolean;
     /**
-     * Defines whether the currency code/symbol is shown in the formatted string, e.g. true: "1.00 EUR", false:
-     * "1.00" for locale "en" If both `showMeasure` and `showNumber` are false, an empty string is returned
+     * Defines whether the currency code/symbol is shown in the formatted string, for example, `1 EUR` for locale
+     * `"en"`. `NumberFormat.getCurrencyInstance({showMeasure: true}).format(1, "EUR"); // "1.00 EUR"` `NumberFormat.getCurrencyInstance({showMeasure:
+     * false}).format(1, "EUR"); // "1.00"` If both `showMeasure` and `showNumber` are false, an empty string
+     * is returned.
      */
     showMeasure?: boolean;
     /**
-     * Defines whether the number is shown as part of the result string, e.g. 1 EUR for locale "en"
-     * ```javascript
-     * `NumberFormat.getCurrencyInstance({showNumber: true}).format(1, "EUR"); // "1.00 EUR"````
-     *
-     * ```javascript
-     * `NumberFormat.getCurrencyInstance({showNumber: false}).format(1, "EUR"); // "EUR"````
-     *  If both `showMeasure` and `showNumber` are false, an empty string is returned
+     * Defines whether the number is shown as part of the result string, for example, `1 EUR` for locale `"en"`.
+     * `NumberFormat.getCurrencyInstance({showNumber: true}).format(1, "EUR"); // "1.00 EUR"` `NumberFormat.getCurrencyInstance({showNumber:
+     * false}).format(1, "EUR"); // "EUR"` If both `showMeasure` and `showNumber` are false, an empty string
+     * is returned.
      */
     showNumber?: boolean;
     /**
@@ -31303,6 +31360,7 @@ declare module "sap/ui/core/format/NumberFormat" {
     /**
      * Defines a set of custom units, for example:
      * ```javascript
+     *
      * {"electric-inductance": {
      *      "displayName": "henry",
      *      "unitPattern-count-one": "{0} H",
@@ -31311,7 +31369,8 @@ declare module "sap/ui/core/format/NumberFormat" {
      *      "decimals": 2,
      *      "precision": 4
      *   }
-     * }```
+     * }
+     * ```
      */
     customUnits?: Record<string, object>;
     /**
@@ -31359,29 +31418,17 @@ declare module "sap/ui/core/format/NumberFormat" {
      */
     preserveDecimals?: boolean;
     /**
-     * Defines whether the unit of measure is shown in the formatted string, for example 1 day for locale "en"
-     *
-     * ```javascript
-     * NumberFormat.getUnitInstance({showMeasure: true})
-     *     .format(1, "duration-day"); // "1 day"```
-     *
-     * ```javascript
-     * NumberFormat.getUnitInstance({showMeasure: false})
-     *     .format(1, "duration-day"); // "1"```
-     *  If both `showMeasure` and `showNumber` are set to false, an empty string is returned.
+     * Defines whether the unit of measure is shown in the formatted string, for example, `1 day` for locale
+     * `"en"`. `NumberFormat.getUnitInstance({showMeasure: true}).format(1, "duration-day"); // "1 day"` `NumberFormat.getUnitInstance({showMeasure:
+     * false}).format(1, "duration-day"); // "1"` If both `showMeasure` and `showNumber` are set to false, an
+     * empty string is returned.
      */
     showMeasure?: boolean;
     /**
-     * Defines whether the number is shown as part of the formatted string, for example 1 day for locale "en"
-     *
-     * ```javascript
-     * NumberFormat.getUnitInstance({showNumber: true})
-     *     .format(1, "duration-day"); // "1 day"```
-     *
-     * ```javascript
-     * NumberFormat.getUnitInstance({showNumber: false})
-     *     .format(1, "duration-day"); // "day"```
-     *  If both `showMeasure` and `showNumber` are false, an empty string is returned
+     * Defines whether the number is shown as part of the formatted string, for example, `1 day` for locale
+     * `"en"`. `NumberFormat.getUnitInstance({showNumber: true}).format(1, "duration-day"); // "1 day"` `NumberFormat.getUnitInstance({showNumber:
+     * false}).format(1, "duration-day"); // "day"` If both `showMeasure` and `showNumber` are false, an empty
+     * string is returned.
      */
     showNumber?: boolean;
     /**
@@ -33319,6 +33366,30 @@ declare module "sap/ui/core/IconPool" {
        * the mime type of a file (e.g. "application/zip")
        */
       sMimeType: string
+    ): string;
+    /**
+     * Returns the HTML string for an icon URI.
+     *
+     * This method reuses the rendering logic from {@link sap.ui.core.RenderManager#icon} by calling it with
+     * a lightweight DOM-building interface that mirrors the RenderManager's semantic API.
+     *
+     * @since 1.152
+     *
+     * @returns The HTML string for the icon, or empty string if the URI is not a valid icon URI
+     */
+    getIconHTML(
+      /**
+       * The icon URI (e.g. "sap-icon://accept")
+       */
+      sURI: URI,
+      /**
+       * Additional CSS classes to add to the icon element
+       */
+      aClasses?: string[],
+      /**
+       * Additional HTML attributes as key-value pairs
+       */
+      mAttributes?: object
     ): string;
     /**
      * Returns an info object for the icon with the given `iconName` and `collectionName`.
@@ -42149,10 +42220,15 @@ declare module "sap/ui/core/RenderManager" {
        */
       aClasses?: any[] | string,
       /**
-       * Additional attributes that will be added to the rendered tag. Currently the attributes `class` and `style`
-       * are not allowed
+       * Additional attributes that will be added to the rendered tag. The attributes `class` and `style` are
+       * not allowed. Use the `mStyles` parameter to set inline styles.
        */
-      mAttributes?: object
+      mAttributes?: object,
+      /**
+       * A map of CSS property names and their values to be set as inline styles on the rendered tag. Example:
+       * `{width: "16px", height: "16px"}`. This parameter is available since version 1.152.
+       */
+      mStyles?: object
     ): this;
     /**
      * Ends an open tag started with `openStart`.
@@ -68305,6 +68381,8 @@ declare module "sap/ui/model/odata/type/Currency" {
 declare module "sap/ui/model/odata/type/Date" {
   import ODataType from "sap/ui/model/odata/type/ODataType";
 
+  import { DateFormatOptions } from "sap/ui/core/format/DateFormat";
+
   import UI5Date from "sap/ui/core/date/UI5Date";
 
   import FormatException from "sap/ui/model/FormatException";
@@ -68333,9 +68411,9 @@ declare module "sap/ui/model/odata/type/Date" {
      */
     constructor(
       /**
-       * Format options as defined in {@link sap.ui.core.format.DateFormat.getDateInstance}
+       * The format options
        */
-      oFormatOptions?: object,
+      oFormatOptions?: DateFormatOptions,
       /**
        * constraints; {@link #validateValue validateValue} throws an error if any constraint is violated
        */
@@ -73681,6 +73759,8 @@ declare module "sap/ui/model/odata/v4/Context" {
     static getMetadata(): Metadata;
     /**
      * Collapses the group node that this context points to.
+     *
+     * **Note:** It is unsafe to keep a reference to a context instance which is not {@link #isKeepAlive kept alive}.
      * See:
      * 	#expand
      * 	#isExpanded
@@ -73744,7 +73824,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Such a deletion is not a pending change.
      *
      * When using data aggregation without `groupLevels`, single entities can be deleted (since 1.151.0, see
-     * {@link #isAggregated}). The same restrictions as for a recursive hierarchy apply.
+     * {@link #isAggregated}). The group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
      * See:
      * 	#hasPendingChanges
      * 	#resetChanges
@@ -73873,7 +73953,9 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * @returns The context's index within the binding's collection. It is `undefined` if
      * 	 it does not belong to a list binding,  it is {@link #isKeepAlive kept alive}, but not in the collection
-     * currently.
+     * currently. When collapsing a node's ancestor in a recursive hierarchy, the index becomes `undefined`.
+     * After expanding, the index is only determined again when that node comes into view, so to say. Use {@link sap.ui.model.odata.v4.ODataListBinding#getAllCurrentContexts }
+     * to try to determine the index again.
      */
     getIndex(): number | undefined;
     /**
@@ -74916,7 +74998,9 @@ declare module "sap/ui/model/odata/v4/ODataContextBinding" {
      *  Since 1.151.0, if the operation returns an "Edm.Stream" and the group ID '$stream' is used, the promise
      * resolves with a partial `Response` object containing only:
      * 	 `body`: The response's `ReadableStream`  `headers`: The response's `Headers`  The promise
-     * rejects if '$stream' is used with a wrong return type.
+     * rejects with an `Error` instance if '$stream' is used with a wrong return type or the fetch request fails.
+     * In the latter case, the error contains the following properties:
+     * 	 `status`: {number} HTTP status code  `statusText`: {string} (optional) HTTP status text
      */
     invoke(
       /**
@@ -76969,7 +77053,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
       /**
        * Type-specific format options, since 1.81.0. The boolean format option "parseKeepsEmptyString" applies
        * to {@link sap.ui.model.odata.type.String} only and is ignored for all other types. All other format options
-       * are passed "as is".
+       * are passed "as is". Since 1.152.0, "parseKeepsEmptyString" is automatically set based on the model parameter
+       * of the same name unless you provide `parseKeepsEmptyString: false` in `mFormatOptions`.
        */
       mFormatOptions?: object
     ): ODataType;
@@ -77309,7 +77394,8 @@ declare module "sap/ui/model/odata/v4/ODataMetaModel" {
       /**
        * Type-specific format options, since 1.81.0. The boolean format option "parseKeepsEmptyString" applies
        * to {@link sap.ui.model.odata.type.String} only and is ignored for all other types. All other format options
-       * are passed "as is".
+       * are passed "as is". Since 1.152.0, "parseKeepsEmptyString" is automatically set based on the model parameter
+       * of the same name unless you provide `parseKeepsEmptyString: false` in `mFormatOptions`.
        */
       mFormatOptions?: object
     ): Promise<ODataType>;
@@ -77585,6 +77671,13 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * is called.
          */
         operationMode?: OperationMode | keyof typeof OperationMode;
+        /**
+         * Whether the format option `parseKeepsEmptyString` is set to `true` for all instances of {@link sap.ui.model.odata.type.String }
+         * that are created automatically during type detection; only the value `true` is allowed; see {@link #getParseKeepsEmptyString}.
+         *
+         * @since 1.152.0
+         */
+        parseKeepsEmptyString?: boolean;
         /**
          * Root URL of the service to request data from. The path part of the URL must end with a forward slash
          * according to OData V4 specification ABNF, rule "serviceRoot". You may append OData custom query options
@@ -78385,6 +78478,19 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      */
     getOriginalProperty(): void;
     /**
+     * Returns whether the `parseKeepsEmptyString` format option is set to `true` for all instances of {@link sap.ui.model.odata.type.String }
+     * that are created automatically during {@link sap.ui.model.odata.v4.ODataMetaModel#requestUI5Type type detection }
+     * (as defined by the `parseKeepsEmptyString` model parameter, see {@link #constructor}). Use this model
+     * setting if your OData service cannot handle `null` values for string properties.
+     * See:
+     * 	#constructor
+     *
+     * @since 1.152.0
+     *
+     * @returns Whether the `parseKeepsEmptyString` model parameter is set
+     */
+    getParseKeepsEmptyString(): boolean;
+    /**
      * Method not supported
      * See:
      * 	sap.ui.model.Model#getProperty
@@ -78573,9 +78679,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
      * The handler is called with an `Error` having a property `retryAfter` of type `Date`, which is the earliest
      * point in time when the request should be repeated. The handler has to return a promise. With this promise,
      * you can control the repetition of all pending requests including the failed HTTP request. If the promise
-     * is resolved, the requests are repeated; if it is rejected, the requests are not repeated. If it is rejected
-     * with the same `Error` reason as previously passed to the handler, then this reason is reported to the
-     * message model.
+     * is resolved, the requests are repeated; if it is rejected, the requests are not repeated but fail with
+     * same reason as the promise. If the promise is rejected with the same `Error` reason as previously passed
+     * to the handler, this reason is reported to the message model.
      *
      * @since 1.134.0
      */
@@ -79254,6 +79360,110 @@ declare module "sap/ui/model/odata/v4/ODataUtils" {
        */
       sDateTimeOffset: string
     ): Date;
+    /**
+     * Parses a filter string to a syntax tree. In this tree:
+     * 	 Paths are leaves with `id="PATH"` and the path in `value`.  Literals are leaves with `id="VALUE"`
+     * and the literal (as parsed) in `value`.  Operations are nodes with the operator in `id`, the operator
+     * including the surrounding required space in `value`, and `left` and `right` containing syntax trees for
+     * the operands. `not` only uses `right`.  Functions are nodes with `id="FUNCTION"`, the name in `value`,
+     * and an array of `parameters`.  If the type is known (especially for logical operators and functions),
+     * it is given in `type`. If a function parameter may have different types (like Edm.Decimal or Edm.Double
+     * in `round`), it has the property `ambiguous: true`. `at` always contains the position where this token
+     * started (starting with 1).
+     *
+     * Example: `parseFilter("foo eq 'bar' and length(baz) ne 5")` results in
+     * ```javascript
+     *
+     * {
+     *     id : "and", value : " and ", type : "Edm.Boolean", at : 14,
+     *     left : {
+     *         id : "eq", value : " eq ", type : "Edm.Boolean", at : 5,
+     *         left : {id : "PATH", value : "foo", at : 1},
+     *         right : {id : "VALUE", value : "'bar'", at : 8}
+     *     },
+     *     right : {
+     *         id : "ne", value : " ne ", type : "Edm.Boolean", at : 30,
+     *         left : {
+     *             id : "FUNCTION", value : "length", type : "Edm.Int32", at : 18,
+     *             parameters : [{id : "PATH", value : "baz", at : 25}]
+     *         },
+     *         right : {id : "VALUE", value : "5", at : 33}
+     *     }
+     * }
+     * ```
+     *
+     *
+     * @since 1.152.0
+     *
+     * @returns The syntax tree
+     */
+    parseFilter(
+      /**
+       * The filter string
+       */
+      sFilter: string
+    ): object;
+    /**
+     * Parses a system query option "$select" or "$expand" into an object representation.
+     *
+     * The value for "$select" is an array of strings.
+     *
+     * The value for "$expand" is an object with the path as key and the options object as value. Each option
+     * itself becomes a property with the option name as key and the option value as value. If there are no
+     * options, the value for the path is `null`.
+     *
+     * If `bParseFilter` is set, the value for "$filter" is a syntax tree as described in {@link #.parseFilter};
+     * otherwise it is the string passed to it.
+     *
+     * The value for all other options is the string passed to them.
+     *
+     * **Example:**
+     *
+     *
+     * ```javascript
+     *
+     * sOption = "$expand=SO_2_BP,SO_2_SOITEM($expand=SOITEM_2_PRODUCT($expand=PRODUCT_2_BP"
+     *     + ";$select=ID,Name);$select=*;$count=true;$orderby=Name desc)"
+     * ```
+     *  is converted to
+     * ```javascript
+     *
+     * {
+     *     "$expand" : {
+     *         "SO_2_BP" : null,
+     *         "SO_2_SOITEM" : {
+     *             "$count" : "true",
+     *             "$expand" : {
+     *                 "SOITEM_2_PRODUCT" : {
+     *                     "$expand" : {
+     *                         "PRODUCT_2_BP" : null
+     *                     },
+     *                     "$select" : ["ID", "Name"]
+     *                 }
+     *             },
+     *             "$orderby" : "Name desc",
+     *             "$select" : ["*"]
+     *         }
+     *     }
+     * }
+     * ```
+     *
+     *
+     * @since 1.152.0
+     *
+     * @returns The option as an object with the option name as key and the parsed value as value
+     */
+    parseSystemQueryOption(
+      /**
+       * The option string
+       */
+      sOption: string,
+      /**
+       * Whether to parse the value of "$filter" into a syntax tree as described in {@link #.parseFilter}; by
+       * default, the value remains a string
+       */
+      bParseFilter?: boolean
+    ): object;
     /**
      * Parses an "Edm.TimeOfDay" value and returns the corresponding JavaScript `Date` value (UTC with a date
      * value of "1970-01-01").
@@ -81237,6 +81447,8 @@ declare module "sap/ui/model/type/Date" {
 
   import UI5Date from "sap/ui/core/date/UI5Date";
 
+  import { DateFormatOptions } from "sap/ui/core/format/DateFormat";
+
   /**
    * This class represents date simple types.
    */
@@ -81246,20 +81458,9 @@ declare module "sap/ui/model/type/Date" {
      */
     constructor(
       /**
-       * Formatting options. For a list of all available options, see {@link sap.ui.core.format.DateFormat.getDateInstance DateFormat}.
+       * The format options
        */
-      oFormatOptions?: {
-        /**
-         * Additional set of options used to create a second `DateFormat` object for conversions between string
-         * values in the data source (e.g. model) and `Date`. This second format object is used to convert from
-         * a model `string` to `Date` before converting the `Date` to `string` with the primary format object. Vice
-         * versa, this 'source' format is also used to format an already parsed external value (e.g. user input)
-         * into the string format that is expected by the data source. For a list of all available options, see
-         * {@link sap.ui.core.format.DateFormat.getDateInstance DateFormat}. In case an empty object is given, the
-         * default is the ISO date notation (yyyy-MM-dd).
-         */
-        source?: object;
-      },
+      oFormatOptions?: DateTypeFormatOptions,
       /**
        * Value constraints
        */
@@ -81339,6 +81540,22 @@ declare module "sap/ui/model/type/Date" {
       oMaximum?: UI5Date
     ): string | undefined;
   }
+  /**
+   * The format options for the `sap.ui.model.type.Date`.
+   */
+  export type DateTypeFormatOptions = DateFormatOptions & {
+    /**
+     * Additional set of format options for a second `DateFormat` object. This object handles conversions between
+     * string values in the data source (for example, model) and `Date` objects. These source options are used
+     * for two-way data binding:
+     * 	 - **Model to View:** Converts a string from the model to a `Date` object. Afterwards the main format
+     *     options are used to convert that `Date` object to a string for display.
+     * 	 - **View to Model:** Converts a parsed external value, for example, user input, into the string format
+     *     that the data source requires.  If an empty object is provided, the default format is the ISO date
+     *     notation (yyyy-MM-dd).
+     */
+    source?: DateFormatOptions;
+  };
 }
 
 declare module "sap/ui/model/type/DateInterval" {
@@ -88154,6 +88371,12 @@ declare namespace sap {
                * @since 1.37.0
                */
               waitFor?: Promise<any> | Array<Promise<any>>;
+              /**
+               * a marker to indicate that the Component is a launcher, e.g. the fiori launchpad (experimental setting)
+               *
+               * @since 1.153.0
+               */
+              isLauncher?: boolean;
             };
             /**
              * Controls when and from where to load the manifest for the Component. When set to any truthy value, the
@@ -91176,6 +91399,12 @@ declare namespace sap {
 
     "sap/ui/core/Placeholder": undefined;
 
+    "sap/ui/core/popover/PopoverFlipMode": undefined;
+
+    "sap/ui/core/popover/PopoverPhysicalSide": undefined;
+
+    "sap/ui/core/popover/Positioning": undefined;
+
     "sap/ui/core/Popup": undefined;
 
     "sap/ui/core/postmessage/Bus": undefined;
@@ -91631,6 +91860,8 @@ declare namespace sap {
     "sap/ui/model/xml/XMLModel": undefined;
 
     "sap/ui/model/xml/XMLTreeBinding": undefined;
+
+    "sap/ui/performance/FetchInterceptor": undefined;
 
     "sap/ui/performance/Measurement": undefined;
 

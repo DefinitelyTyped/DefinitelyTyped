@@ -1,7 +1,7 @@
-import { InstancedMesh, ShaderMaterial, SphereGeometry } from "three";
+import { InstancedMesh, NodeMaterial, SphereGeometry } from "three/webgpu";
 import { LightProbeGrid } from "../lighting/LightProbeGrid.js";
 
-declare class LightProbeGridHelper extends InstancedMesh<SphereGeometry, ShaderMaterial> {
+declare class LightProbeGridHelper extends InstancedMesh<SphereGeometry, NodeMaterial> {
     probes: LightProbeGrid;
 
     constructor(probes: LightProbeGrid, sphereSize?: number);

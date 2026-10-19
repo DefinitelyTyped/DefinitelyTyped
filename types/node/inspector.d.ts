@@ -43,7 +43,8 @@ declare module "node:inspector" {
      */
     function open(port?: number, host?: string, wait?: boolean): Disposable;
     /**
-     * Deactivate the inspector. Blocks until there are no active connections.
+     * Deactivates the inspector. If there are active connections, they are forcibly
+     * terminated. Blocks until the inspector server has fully stopped.
      */
     function close(): void;
     /**

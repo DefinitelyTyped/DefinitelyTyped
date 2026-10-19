@@ -433,7 +433,7 @@ declare module "node:http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
@@ -548,7 +548,7 @@ declare module "node:http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
@@ -685,10 +685,11 @@ declare module "node:http2" {
          * Returns a `Proxy` object that acts as a `net.Socket` (or `tls.TLSSocket`) but
          * limits available methods to ones safe to use with HTTP/2.
          *
-         * `destroy`, `emit`, `end`, `pause`, `read`, `resume`, and `write` will throw
+         * `emit`, `end`, `pause`, `read`, `resume`, and `write` will throw
          * an error with code `ERR_HTTP2_NO_SOCKET_MANIPULATION`. See `Http2Session and Sockets` for more information.
          *
-         * `setTimeout` method will be called on this `Http2Session`.
+         * `destroy`, `setTimeout`, `ref`, and `unref` methods will be called on this
+         * `Http2Session`.
          *
          * All other interactions will be routed directly to the socket.
          * @since v8.4.0

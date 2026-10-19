@@ -48,11 +48,6 @@ export class DirectionalLightHelper extends Object3D {
      */
     targetLine: Line;
     /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
-    /**
      * Updates the helper to match the position and direction of the
      * light being visualized.
      */

@@ -142,3 +142,5 @@ app.SecondaryButton.setParams({
 app.requestChat("req_id", (success) => {
     success; // $ExpectType boolean
 });
+
+app.initDataUnsafe.chat_join_request_query_id; // $ExpectType string | undefined

@@ -522,6 +522,16 @@ function test_parser_options() {
         format: "text/Turtle*",
         blankNodePrefix: "",
     });
+    const parser7 = new N3.Parser({
+        baseIRI: "http://example.org/",
+        factory: N3.DataFactory,
+        format: "text/n3",
+        blankNodePrefix: "",
+        emptyFormulaAsTrue: true,
+    });
+    const streamParser = new N3.StreamParser({
+        comments: true,
+    });
 }
 
 function test_term_to_and_from_id() {
@@ -626,6 +636,21 @@ function test_base_iri_constructor() {
 
     // Test converting absolute IRIs to relative
     const relative1: string = baseIri.toRelative("http://example.org/path/resource");
+}
+
+function test_term_from_id_optional_factory() {
+    // factory defaults to N3's own DataFactory
+    const t1: N3.Term = N3.termFromId("http://example.org/");
+}
+
+function test_get_rules_from_dataset() {
+    const store = new N3.Store();
+    const rules: N3.Rule[] = N3.getRulesFromDataset(store);
+}
+
+function test_writer_base_iri() {
+    const writer1 = new N3.Writer({ baseIRI: "http://example.org/" });
+    const writer2 = new N3.Writer({ baseIRI: "http://example.org/", writeBase: true });
 }
 
 export const namedNode: ReturnType<RDF.DataFactory["namedNode"]> = N3.DataFactory.namedNode("hello world");

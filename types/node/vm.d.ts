@@ -741,7 +741,7 @@ declare module "node:vm" {
          */
         status: ModuleStatus;
         /**
-         * Evaluate the module and its depenendencies. Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of
+         * Evaluate the module and its dependencies. Corresponds to the [Evaluate() concrete method](https://tc39.es/ecma262/#sec-moduleevaluation) field of
          * [Cyclic Module Record](https://tc39.es/ecma262/#sec-cyclic-module-records)s in the ECMAScript specification.
          *
          * If the module is a `vm.SourceTextModule`, `evaluate()` must be called after the module has been instantiated;
@@ -886,6 +886,7 @@ declare module "node:vm" {
          * const module = new vm.SourceTextModule(
          *   'Object.getPrototypeOf(import.meta.prop).secret = secret;',
          *   {
+         *     context: contextifiedObject,
          *     initializeImportMeta(meta) {
          *       // Note: this object is created in the top context. As such,
          *       // Object.getPrototypeOf(import.meta.prop) points to the
@@ -904,7 +905,7 @@ declare module "node:vm" {
          * // To fix this problem, replace
          * //     meta.prop = {};
          * // above with
-         * //     meta.prop = vm.runInContext('{}', contextifiedObject);
+         * //     meta.prop = vm.runInContext('({})', contextifiedObject);
          * ```
          * @param code JavaScript Module code to parse
          */

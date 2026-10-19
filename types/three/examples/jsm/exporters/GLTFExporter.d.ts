@@ -45,6 +45,11 @@ export interface GLTFExporterOptions {
      * Export custom glTF extensions defined on an object's userData.gltfExtensions property. Default is false.
      */
     includeCustomExtensions?: boolean;
+
+    /**
+     * Export with a copyright notice embedded in the glTF. Default is null.
+     */
+    copyright?: string;
 }
 
 type TextureUtils = {

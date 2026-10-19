@@ -403,6 +403,28 @@ function testProxy() {
     });
 }
 
+// https://developer.chrome.com/docs/extensions/reference/api/publicSuffix
+function testPublicSuffix() {
+    chrome.publicSuffix.DomainEncoding.DISPLAY === "display";
+    chrome.publicSuffix.DomainEncoding.PUNYCODE === "punycode";
+
+    const hostname = "developer.chrome.com";
+
+    const domainOptions: chrome.publicSuffix.DomainOptions = {
+        allowIPAddress: true,
+        allowPlainSuffix: true,
+        allowUnknownSuffix: true,
+        encoding: "display",
+    };
+
+    chrome.publicSuffix.getDomain(hostname); // $ExpectType string | null
+    chrome.publicSuffix.getDomain(hostname, domainOptions); // $ExpectType string | null
+
+    chrome.publicSuffix.getKnownSuffix(hostname); // $ExpectType string | null
+
+    chrome.publicSuffix.isKnownSuffix(hostname); // $ExpectType boolean
+}
+
 // https://developer.chrome.com/docs/extensions/reference/api/notifications
 function testNotifications() {
     chrome.notifications.PermissionLevel.DENIED === "denied";
@@ -976,10 +998,27 @@ function testRuntime() {
         port.postMessage(""); // $ExpectType void
     });
 
+    checkChromeEvent(chrome.runtime.onEnabled, () => void 0);
+
     checkChromeEvent(chrome.runtime.onInstalled, (details) => {
         details.id; // $ExpectType string | undefined
         details.previousVersion; // $ExpectType string | undefined
         details.reason; // $ExpectType "install" | "update" | "chrome_update" | "shared_module_update"
+
+        if (details.reason === "update") {
+            details.previousVersion; // $ExpectType string
+            details.id; // $ExpectType undefined
+        }
+
+        if (details.reason === "shared_module_update") {
+            details.id; // $ExpectType string
+            details.previousVersion; // $ExpectType undefined
+        }
+
+        if (details.reason === "install" || details.reason === "chrome_update") {
+            details.id; // $ExpectType undefined
+            details.previousVersion; // $ExpectType undefined
+        }
     });
 
     checkChromeEvent(chrome.runtime.onMessage, (message, sender, sendResponse) => {
@@ -1115,6 +1154,9 @@ function testGetManifest() {
         manifest.oauth2.scopes; // $ExpectType string[]
     }
 
+    manifest.replacement_web_app; // $ExpectType string | undefined
+    manifest.trial_tokens; // $ExpectType string[] | undefined
+
     if (manifest.sandbox) {
         manifest.sandbox.pages; // $ExpectType string[]
         manifest.sandbox.content_security_policy; // $ExpectType string | undefined
@@ -1176,6 +1218,8 @@ function testGetManifest() {
             extension_pages: "default-src 'self'",
             sandbox: "default-src 'self'",
         };
+
+        manifest.message_serialization; // $ExpectType "json" | "structured_clone" | undefined
 
         manifest.host_permissions; // $ExpectType string[] | undefined
         manifest.optional_permissions; // $ExpectType ManifestOptionalPermission[] | undefined
@@ -1464,6 +1508,12 @@ function testDeclarativeContent() {
     };
 
     const condition = new chrome.declarativeContent.PageStateMatcher(pageStateMatcherProperties); // $ExpectType PageStateMatcher
+    // @ts-expect-error Invalid port ranges in UrlFilter.
+    new chrome.declarativeContent.PageStateMatcher({ pageUrl: { ports: [80, []] } });
+    // @ts-expect-error Invalid port ranges in UrlFilter.
+    new chrome.declarativeContent.PageStateMatcher({ pageUrl: { ports: [80, [1000]] } });
+    // @ts-expect-error Invalid port ranges in UrlFilter.
+    new chrome.declarativeContent.PageStateMatcher({ pageUrl: { ports: [80, [1000, 1500, 2000]] } });
 
     const requestContentScriptProperties: chrome.declarativeContent.RequestContentScriptProperties = {
         allFrames: true,
@@ -1903,40 +1953,76 @@ function testDevtoolsPanels() {
     const title = "title";
     const iconPath = "iconPath";
     const pagePath = "pagePath";
+    const expression = "expression";
+    const rootTitle = "rootTitle";
 
     chrome.devtools.panels.elements; // $ExpectType ElementsPanel
-    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.elements.createSidebarPane(title); // $ExpectType Promise<ExtensionSidebarPane>
     chrome.devtools.panels.elements.createSidebarPane(title, result => { // $ExpectType void
         result; // $ExpectType ExtensionSidebarPane
+
+        checkChromeEvent(result.onHidden, () => void 0);
+        checkChromeEvent(result.onShown, () => void 0);
+
+        result.setExpression(expression); // $ExpectType Promise<void>
+        // @ts-expect-error Uncaught DataCloneError: Failed to execute 'postMessage' on 'MessagePort'
+        result.setExpression(expression, () => void 0);
+        result.setExpression(expression, undefined, () => void 0); // $ExpectType void
+        result.setExpression(expression, rootTitle); // $ExpectType Promise<void>
+        result.setExpression(expression, rootTitle, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        result.setExpression(expression, rootTitle, () => {}).then(() => {});
+
+        result.setHeight("100px"); // $ExpectType void
+
+        result.setObject({}); // $ExpectType Promise<void>
+        // @ts-expect-error Uncaught DataCloneError: Failed to execute 'postMessage' on 'MessagePort'
+        result.setObject({}, () => void 0);
+        result.setObject({}, undefined, () => void 0); // $ExpectType void
+        result.setObject({}, rootTitle); // $ExpectType Promise<void>
+        result.setObject({}, rootTitle, () => void 0); // $ExpectType void
+        // @ts-expect-error
+        result.setObject({}, rootTitle, () => {}).then(() => {});
+
+        result.setPage("path"); // $ExpectType void
     });
+    // @ts-expect-error
+    chrome.devtools.panels.elements.createSidebarPane(title, () => {}).then(() => {});
     checkChromeEvent(chrome.devtools.panels.elements.onSelectionChanged, () => void 0);
 
     chrome.devtools.panels.sources; // $ExpectType SourcesPanel
-    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType void
+    chrome.devtools.panels.sources.createSidebarPane(title); // $ExpectType Promise<ExtensionSidebarPane>
     chrome.devtools.panels.sources.createSidebarPane(title, result => { // $ExpectType void
         result; // $ExpectType ExtensionSidebarPane
     });
+    // @ts-expect-error
+    chrome.devtools.panels.sources.createSidebarPane(title, () => {}).then(() => {});
     checkChromeEvent(chrome.devtools.panels.sources.onSelectionChanged, () => void 0);
 
     chrome.devtools.panels.themeName; // $ExpectType Theme
 
-    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType void
+    chrome.devtools.panels.create(title, iconPath, pagePath); // $ExpectType Promise<ExtensionPanel>
     chrome.devtools.panels.create(title, iconPath, pagePath, panel => { // $ExpectType void
+        panel; // ExpectType ExtensionPanel
         checkChromeEvent(panel.onHidden, () => void 0);
         checkChromeEvent(panel.onSearch, () => void 0);
         checkChromeEvent(panel.onShown, () => void 0);
         panel.createStatusBarButton("iconPath", "tooltipText", true); // $ExpectType Button
         panel.show(); // $ExpectType void
     });
+    // @ts-expect-error
+    chrome.devtools.panels.create(title, iconPath, pagePath, () => {}).then(() => {});
 
     const url = "url";
     const lineNumber = 10;
     const columnNumber = 10;
 
-    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType void
-    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType void
+    chrome.devtools.panels.openResource(url, lineNumber); // $ExpectType Promise<void>
+    chrome.devtools.panels.openResource(url, lineNumber, columnNumber); // $ExpectType Promise<void>
     chrome.devtools.panels.openResource(url, lineNumber, columnNumber, () => void 0); // $ExpectType void
     chrome.devtools.panels.openResource(url, lineNumber, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.devtools.panels.openResource(url, lineNumber, () => {}).then(() => {});
 
     chrome.devtools.panels.setOpenResourceHandler(); // $ExpectType void
     chrome.devtools.panels.setOpenResourceHandler((resource, lineNumber) => { // $ExpectType void
@@ -1952,7 +2038,7 @@ function testDevtoolsPanels() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/devtools/inspectedWindow
 function testDevtoolsInspectedWindow() {
-    const expression = "expression";
+    const expression = "typeof jQuery !== 'undefined'";
 
     const evalOptions: chrome.devtools.inspectedWindow.EvalOptions = {
         frameURL: "https://example.com",
@@ -1960,23 +2046,44 @@ function testDevtoolsInspectedWindow() {
         useContentScriptContext: true,
     };
 
-    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
-    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ result: { [key: string]: unknown; }; exceptionInfo: EvaluationExceptionInfo}>
+    chrome.devtools.inspectedWindow.eval(expression); // $ExpectType Promise<{ [key: string]: unknown; }>
+    chrome.devtools.inspectedWindow.eval(expression, evalOptions); // $ExpectType Promise<{ [key: string]: unknown; }>
     chrome.devtools.inspectedWindow.eval(expression, evalOptions, (result, exceptionInfo) => { // $ExpectType void
-        result; // $ExpectType { [key: string]: unknown; }
+        result; // $ExpectType { [key: string]: unknown; } | undefined
+        exceptionInfo; // $ExpectType EvaluationExceptionInfo | undefined
 
-        exceptionInfo.code; // $ExpectType string
-        exceptionInfo.description; // $ExpectType string
-        exceptionInfo.details; // $ExpectType any[]
-        exceptionInfo.isError; // $ExpectType boolean
-        exceptionInfo.isException; // $ExpectType boolean
-        exceptionInfo.value; // $ExpectType string
+        if (result) {
+            exceptionInfo; // $ExpectType undefined
+        }
+
+        if (exceptionInfo) {
+            result; // $ExpectType undefined
+
+            if (exceptionInfo.isException) {
+                exceptionInfo.code; // $ExpectType undefined
+                exceptionInfo.description; // $ExpectType undefined
+                exceptionInfo.details; // $ExpectType undefined
+                exceptionInfo.isError; // $ExpectType undefined
+                exceptionInfo.isException; // $ExpectType true
+                exceptionInfo.value; // $ExpectType string
+            } else {
+                exceptionInfo.code; // $ExpectType string
+                exceptionInfo.description; // $ExpectType string
+                exceptionInfo.details; // $ExpectType any[]
+                exceptionInfo.isError; // $ExpectType true
+                exceptionInfo.isException; // $ExpectType undefined
+                exceptionInfo.value; // $ExpectType undefined
+            }
+        }
     });
     chrome.devtools.inspectedWindow.eval(expression, (result, exceptionInfo) => { // $ExpectType void
-        result; // $ExpectType { [key: string]: unknown; }
+        result; // $ExpectType { [key: string]: unknown; } | undefined
+        exceptionInfo; // $ExpectType EvaluationExceptionInfo | undefined
     });
-    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result) => { // $ExpectType void
-        result.title; // $ExpectType string
+    chrome.devtools.inspectedWindow.eval<{ title: string }>(expression, evalOptions, (result, _) => { // $ExpectType void
+        if (result) {
+            result.title; // $ExpectType string
+        }
     });
 
     chrome.devtools.inspectedWindow.getResources(); // $ExpectType Promise<Resource[]>
@@ -2708,6 +2815,8 @@ async function testAlarms() {
     chrome.alarms.create("name", { persistAcrossSessions: true }, () => {});
     // @ts-expect-error Cannot set both when and delayInMinutes.
     chrome.alarms.create("name", { when: 1, delayInMinutes: 1, periodInMinutes: 1 }, () => {});
+    // @ts-expect-error Cannot set alarm name in both separate argument and object form.
+    chrome.alarms.create("name", { delayInMinutes: 1, name: "name" }, () => {});
     // @ts-expect-error
     chrome.alarms.create("name", alarmCreateInfo, () => {}).then(() => {});
 
@@ -2790,30 +2899,45 @@ function testAudio() {
     chrome.audio.StreamType.INPUT === "INPUT";
     chrome.audio.StreamType.OUTPUT === "OUTPUT";
 
+    const filter: chrome.audio.DeviceFilter = {
+        isActive: true,
+        streamTypes: ["INPUT", "OUTPUT"],
+    };
+
     chrome.audio.getDevices(); // $ExpectType Promise<AudioDeviceInfo[]>
-    chrome.audio.getDevices({}); // $ExpectType Promise<AudioDeviceInfo[]>
-    chrome.audio.getDevices(devices => {}); // $ExpectType void
-    chrome.audio.getDevices({}, devices => {}); // $ExpectType void
+    chrome.audio.getDevices(undefined); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices(filter); // $ExpectType Promise<AudioDeviceInfo[]>
+    chrome.audio.getDevices(devices => { // $ExpectType void
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.getDevices(undefined, devices => { // $ExpectType void
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
+    chrome.audio.getDevices(filter, devices => { // $ExpectType void
+        devices; // $ExpectType AudioDeviceInfo[]
+    });
     // @ts-expect-error
     chrome.audio.getDevices(() => {}).then(devices => {});
 
     chrome.audio.getMute("INPUT"); // $ExpectType Promise<boolean>
-    chrome.audio.getMute("INPUT", value => {}); // $ExpectType void
+    chrome.audio.getMute("INPUT", value => { // $ExpectType void
+        value; // $ExpectType boolean
+    });
     // @ts-expect-error
     chrome.audio.getMute("INPUT", value => {}).then(value => {});
 
     chrome.audio.setActiveDevices({}); // $ExpectType Promise<void>
-    chrome.audio.setActiveDevices({}, () => {}); // $ExpectType void
+    chrome.audio.setActiveDevices({}, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.audio.setActiveDevices(() => {}).then(() => {});
 
     chrome.audio.setMute("INPUT", true); // $ExpectType Promise<void>
-    chrome.audio.setMute("INPUT", true, () => {}); // $ExpectType void
+    chrome.audio.setMute("INPUT", true, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.audio.setMute("INPUT", true, () => {}).then(() => {});
 
     chrome.audio.setProperties("INPUT", {}); // $ExpectType Promise<void>
-    chrome.audio.setProperties("INPUT", {}, () => {}); // $ExpectType void
+    chrome.audio.setProperties("INPUT", {}, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.audio.setProperties("INPUT", {}, () => {}).then(() => {});
 
@@ -3492,9 +3616,10 @@ async function testTabs() {
     chrome.tabs.ZoomSettingsScope.PER_ORIGIN === "per-origin";
     chrome.tabs.ZoomSettingsScope.PER_TAB === "per-tab";
 
-    const tabId = 0;
-    const windowId = 0;
-    const groupId = 0;
+    const tabId = 1234567890;
+    const windowId = 1234567890;
+    const groupId = 123456789;
+    const splitViewId = 1234567890;
     const frameId = 0;
     const documentId = "id";
 
@@ -3536,6 +3661,7 @@ async function testTabs() {
         active: true,
         index: 0,
         openerTabId: tabId,
+        splitWithTabId: splitViewId,
         pinned: true,
         selected: true,
         url: "url",
@@ -3548,6 +3674,15 @@ async function testTabs() {
     });
     // @ts-expect-error
     chrome.tabs.create(() => {}).then(() => {});
+
+    const tabIds: [number, number] = [1234567890, 9876543210];
+
+    chrome.tabs.createSplit(tabIds); // $ExpectType Promise<number>
+    chrome.tabs.createSplit(tabIds, (splitViewId) => { // $ExpectType void
+        splitViewId; // $ExpectType number
+    });
+    // @ts-expect-error
+    chrome.tabs.createSplit(() => {}).then(() => {});
 
     chrome.tabs.detectLanguage(); // $ExpectType Promise<string>
     chrome.tabs.detectLanguage(tabId); // $ExpectType Promise<string>
@@ -3783,6 +3918,11 @@ async function testTabs() {
         pinned: true,
         url: "url",
     };
+
+    chrome.tabs.unsplit(splitViewId); // $ExpectType Promise<void>
+    chrome.tabs.unsplit(splitViewId, () => void 0); // $ExpectType void
+    // @ts-expect-error
+    chrome.tabs.unsplit(() => {}).then(() => {});
 
     chrome.tabs.update(updateProperties); // $ExpectType Promise<Tab | undefined>
     chrome.tabs.update(tabId, updateProperties); // $ExpectType Promise<Tab | undefined>
@@ -4563,8 +4703,10 @@ function testContextMenus() {
     };
 
     chrome.contextMenus.create(creationOptions); // $ExpectType string | number
-    // @ts-expect-error Error at property 'contexts': Invalid type: expected array, found string.
-    chrome.contextMenus.create({ ...creationOptions, contexts: "page_action" });
+    // @ts-expect-error All menu items except for separators must have a title
+    chrome.contextMenus.create({ id: "title-required" });
+    // @ts-expect-error All menu items except for separators must have a title
+    chrome.contextMenus.create({ id: "title-required", type: chrome.contextMenus.ItemType.CHECKBOX });
 
     chrome.contextMenus.remove(1); // $ExpectType Promise<void>
     chrome.contextMenus.remove("1"); // $ExpectType Promise<void>
@@ -5360,8 +5502,12 @@ function testDownloads() {
     };
 
     chrome.downloads.getFileIcon(downloadId); // $ExpectType Promise<string | undefined>
+    chrome.downloads.getFileIcon(downloadId, undefined); // $ExpectType Promise<string | undefined>
     chrome.downloads.getFileIcon(downloadId, getFileIconOptions); // $ExpectType Promise<string | undefined>
     chrome.downloads.getFileIcon(downloadId, (iconURL) => { // $ExpectType void
+        iconURL; // $ExpectType string | undefined
+    });
+    chrome.downloads.getFileIcon(downloadId, undefined, (iconURL) => { // $ExpectType void
         iconURL; // $ExpectType string | undefined
     });
     chrome.downloads.getFileIcon(downloadId, getFileIconOptions, (iconURL) => { // $ExpectType void
@@ -5413,6 +5559,8 @@ function testDownloads() {
         result.state; // $ExpectType "complete" | "in_progress" | "interrupted"
         result.url; // $ExpectType string
     });
+    // @ts-expect-error Invalid orderBy field
+    chrome.downloads.search({ orderBy: ["error"] });
     // @ts-expect-error
     chrome.downloads.search(downloadQuery, () => {}).then(() => {});
 
@@ -5727,17 +5875,17 @@ function testFontSettings() {
     chrome.fontSettings.ScriptCode.ZSYM === "Zsym";
     chrome.fontSettings.ScriptCode.ZYYY === "Zyyy";
 
-    chrome.fontSettings.clearDefaultFixedFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFontSize(() => void 0); // Expected void
-    chrome.fontSettings.clearDefaultFixedFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFixedFontSize({}, () => void 0); // Expected void
+    chrome.fontSettings.clearDefaultFixedFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize(() => void 0); // $Expected void
+    chrome.fontSettings.clearDefaultFixedFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFixedFontSize({}, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearDefaultFixedFontSize({}, () => {}).then(() => {});
 
-    chrome.fontSettings.clearDefaultFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFontSize(() => void 0); // Expected void
-    chrome.fontSettings.clearDefaultFontSize({}); // Expected Promise<void>
-    chrome.fontSettings.clearDefaultFontSize({}, () => void 0); // Expected void
+    chrome.fontSettings.clearDefaultFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize(() => void 0); // $Expected void
+    chrome.fontSettings.clearDefaultFontSize({}); // $Expected Promise<void>
+    chrome.fontSettings.clearDefaultFontSize({}, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearDefaultFontSize({}, () => {}).then(() => {});
 
@@ -5746,40 +5894,40 @@ function testFontSettings() {
         script: "Afak",
     };
 
-    chrome.fontSettings.clearFont(clearFontDetails); // Expected Promise<void>
-    chrome.fontSettings.clearFont(clearFontDetails, () => void 0); // Expected void
+    chrome.fontSettings.clearFont(clearFontDetails); // $Expected Promise<void>
+    chrome.fontSettings.clearFont(clearFontDetails, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearFont(clearFontDetails, () => {}).then(() => {});
 
-    chrome.fontSettings.clearMinimumFontSize(); // Expected Promise<void>
-    chrome.fontSettings.clearMinimumFontSize(() => void 0); // Expected void
-    chrome.fontSettings.clearMinimumFontSize({}); // Expected Promise<void>
-    chrome.fontSettings.clearMinimumFontSize({}, () => void 0); // Expected void
+    chrome.fontSettings.clearMinimumFontSize(); // $Expected Promise<void>
+    chrome.fontSettings.clearMinimumFontSize(() => void 0); // $Expected void
+    chrome.fontSettings.clearMinimumFontSize({}); // $Expected Promise<void>
+    chrome.fontSettings.clearMinimumFontSize({}, () => void 0); // $Expected void
     // @ts-expect-error
     chrome.fontSettings.clearMinimumFontSize(() => {}).then(() => {});
 
-    chrome.fontSettings.getDefaultFixedFontSize(); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFixedFontSize((details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFixedFontSize(); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFixedFontSize((details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
-    chrome.fontSettings.getDefaultFixedFontSize({}); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFixedFontSize({}); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFixedFontSize({}, (details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getDefaultFixedFontSize(() => {}).then(() => {});
 
-    chrome.fontSettings.getDefaultFontSize(); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFontSize((details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFontSize(); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFontSize((details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
-    chrome.fontSettings.getDefaultFontSize({}); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getDefaultFontSize({}, (details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getDefaultFontSize({}); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getDefaultFontSize({}, (details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getDefaultFontSize({}, () => {}).then(() => {});
@@ -5789,29 +5937,29 @@ function testFontSettings() {
         script: "Afak",
     };
 
-    chrome.fontSettings.getFont(getFontDetails); // Expected Promise<GetFontResult>
-    chrome.fontSettings.getFont(getFontDetails, (details) => { // Expected void
-        details.fontId; // Expected string
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getFont(getFontDetails); // $Expected Promise<GetFontResult>
+    chrome.fontSettings.getFont(getFontDetails, (details) => { // $Expected void
+        details.fontId; // $Expected string
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getFont({}, (details) => {});
 
-    chrome.fontSettings.getFontList(); // Expected Promise<FontName[]>
-    chrome.fontSettings.getFontList(([result]) => { // Expected void
-        result.fontId; // Expected string
-        result.displayName; // Expected string
+    chrome.fontSettings.getFontList(); // $Expected Promise<FontName[]>
+    chrome.fontSettings.getFontList(([result]) => { // $Expected void
+        result.fontId; // $Expected string
+        result.displayName; // $Expected string
     });
 
-    chrome.fontSettings.getMinimumFontSize(); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getMinimumFontSize((details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getMinimumFontSize(); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getMinimumFontSize((details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
-    chrome.fontSettings.getMinimumFontSize({}); // Expected Promise<FontSizeResult>
-    chrome.fontSettings.getMinimumFontSize({}, (details) => { // Expected void
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+    chrome.fontSettings.getMinimumFontSize({}); // $Expected Promise<FontSizeResult>
+    chrome.fontSettings.getMinimumFontSize({}, (details) => { // $Expected void
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
     // @ts-expect-error
     chrome.fontSettings.getMinimumFontSize({}, () => {}).then(() => {});
@@ -5820,15 +5968,15 @@ function testFontSettings() {
         pixelSize: 12,
     };
 
-    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails); // Expected Promise<void>
-    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails, () => void 0); // Expected void
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails); // $Expected Promise<void>
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setDefaultFixedFontSize(() => {}).then(() => {});
+    chrome.fontSettings.setDefaultFixedFontSize(setFontSizeDetails, () => {}).then(() => {});
 
-    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails); // Expected Promise<void>
-    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails, () => void 0); // Expected void
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails); // $Expected Promise<void>
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setDefaultFontSize(() => {}).then(() => {});
+    chrome.fontSettings.setDefaultFontSize(setFontSizeDetails, () => {}).then(() => {});
 
     const setFontDetails: chrome.fontSettings.SetFontDetails = {
         genericFamily: "standard",
@@ -5836,36 +5984,36 @@ function testFontSettings() {
         fontId: "fontId",
     };
 
-    chrome.fontSettings.setFont(setFontDetails); // Expected Promise<void>
-    chrome.fontSettings.setFont(setFontDetails, () => void 0); // Expected void
+    chrome.fontSettings.setFont(setFontDetails); // $Expected Promise<void>
+    chrome.fontSettings.setFont(setFontDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setFont(() => {}).then(() => {});
+    chrome.fontSettings.setFont(setFontDetails, () => {}).then(() => {});
 
-    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails); // Expected Promise<void>
-    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails, () => void 0); // Expected void
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails); // $Expected Promise<void>
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails, () => void 0); // $Expected void
     // @ts-expect-error
-    chrome.fontSettings.setMinimumFontSize(() => {}).then(() => {});
+    chrome.fontSettings.setMinimumFontSize(setFontSizeDetails, () => {}).then(() => {});
 
     checkChromeEvent(chrome.fontSettings.onDefaultFixedFontSizeChanged, (details) => {
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
 
     checkChromeEvent(chrome.fontSettings.onDefaultFontSizeChanged, (details) => {
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
 
     checkChromeEvent(chrome.fontSettings.onFontChanged, (details) => {
-        details.fontId; // Expected string
-        details.genericFamily; // Expected GenericFamily
-        details.levelOfControl; // Expected LevelOfControl
-        details.script; // Expected ScriptCode | undefined
+        details.fontId; // $Expected string
+        details.genericFamily; // $Expected GenericFamily
+        details.levelOfControl; // $Expected LevelOfControl
+        details.script; // $Expected ScriptCode | undefined
     });
 
     checkChromeEvent(chrome.fontSettings.onMinimumFontSizeChanged, (details) => {
-        details.pixelSize; // Expected number
-        details.levelOfControl; // Expected LevelOfControl
+        details.pixelSize; // $Expected number
+        details.levelOfControl; // $Expected LevelOfControl
     });
 }
 
@@ -6884,7 +7032,7 @@ function testPrinterProvider() {
 
     checkChromeEvent(chrome.printerProvider.onGetCapabilityRequested, (printerId, resultCallback) => {
         printerId; // $ExpectType string
-        resultCallback({ capabilities: {} }); // $ExpectType void
+        resultCallback({ version: "1.0", printer: { supported_content_type: [{ content_type: "application/pdf" }] } }); // $ExpectType void
     });
 
     checkChromeEvent(chrome.printerProvider.onGetPrintersRequested, (resultCallback) => {
@@ -7002,7 +7150,10 @@ function testPrinting() {
     chrome.printing.getJobStatus("", status => {}).then(status => {});
 
     chrome.printing.getPrinterInfo(""); // $ExpectType Promise<GetPrinterInfoResponse>
-    chrome.printing.getPrinterInfo("", response => {}); // $ExpectType void
+    chrome.printing.getPrinterInfo("", response => { // $ExpectType void
+        response.capabilities; // $ExpectType { [key: string]: unknown } | undefined
+        response.status; // $ExpectType "DOOR_OPEN" | "TRAY_MISSING" | "OUT_OF_INK" | "OUT_OF_PAPER" | "OUTPUT_FULL" | "PAPER_JAM" | "GENERIC_ISSUE" | "STOPPED" | "UNREACHABLE" | "EXPIRED_CERTIFICATE" | "AVAILABLE"
+    });
     // @ts-expect-error
     chrome.printing.getPrinterInfo("", response => {}).then(response => {});
 
@@ -7021,7 +7172,10 @@ function testPrinting() {
         },
     };
     chrome.printing.submitJob(submitJobRequest); // $ExpectType Promise<SubmitJobResponse>
-    chrome.printing.submitJob(submitJobRequest, response => {}); // $ExpectType void
+    chrome.printing.submitJob(submitJobRequest, response => { // $ExpectType void
+        response.jobId; // $ExpectType string | null
+        response.status; // $ExpectType "OK" | "USER_REJECTED"
+    });
     // @ts-expect-error
     chrome.printing.submitJob(submitJobRequest, response => {}).then(response => {});
 
@@ -7053,7 +7207,27 @@ function testPrintingMetrics() {
     chrome.printingMetrics.PrinterSource.USER === "USER";
 
     chrome.printingMetrics.getPrintJobs(); // $ExpectType Promise<PrintJobInfo[]>
-    chrome.printingMetrics.getPrintJobs(jobs => {}); // $ExpectType void
+    chrome.printingMetrics.getPrintJobs(([job]) => { // $ExpectType void
+        job.id; // $ExpectType string
+        job.completionTime; // $ExpectType number
+        job.creationTime; // $ExpectType number
+        job.id; // $ExpectType string
+        job.numberOfPages; // $ExpectType number
+        job.printer.name; // $ExpectType string
+        job.printer.source; // $ExpectType "USER" | "POLICY"
+        job.printer.uri; // $ExpectType string
+        job.printer_status; // $ExpectType "DOOR_OPEN" | "TRAY_MISSING" | "OUT_OF_INK" | "OUT_OF_PAPER" | "OUTPUT_FULL" | "PAPER_JAM" | "GENERIC_ISSUE" | "STOPPED" | "UNREACHABLE" | "EXPIRED_CERTIFICATE" | "AVAILABLE"
+        job.settings.color; // $ExpectType "BLACK_AND_WHITE" | "COLOR"
+        job.settings.copies; // $ExpectType number
+        job.settings.duplex; // $ExpectType "ONE_SIDED" | "TWO_SIDED_LONG_EDGE" | "TWO_SIDED_SHORT_EDGE"
+        job.settings.mediaSize.height; // $ExpectType number
+        job.settings.mediaSize.vendorId; // $ExpectType string
+        job.settings.mediaSize.width; // $ExpectType number
+        job.source; // $ExpectType "PRINT_PREVIEW" | "ANDROID_APP" | "EXTENSION" | "ISOLATED_WEB_APP"
+        job.sourceId; // $ExpectType string | null
+        job.status; // $ExpectType "FAILED" | "CANCELED" | "PRINTED"
+        job.title; // $ExpectType string
+    });
     // @ts-expect-error
     chrome.printingMetrics.getPrintJobs(jobs => {}).then(jobs => {});
 
@@ -7814,6 +7988,7 @@ function testAccessibilityFeatures() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/privacy
 function testPrivacy() {
+    chrome.privacy.AutofillBlockedType.ALL === "all";
     chrome.privacy.AutofillBlockedType.CONTACT_INFO === "contact_info";
     chrome.privacy.AutofillBlockedType.PAYMENTS === "payments";
     chrome.privacy.AutofillBlockedType.IDENTITY_DOCS === "identity_docs";
@@ -8226,28 +8401,6 @@ function testPrivacy() {
         details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
     });
 
-    // relatedWebsiteSetsEnabled
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.get({ incognito: false }, (details) => { // $ExpectType void
-        details; // $ExpectType ChromeSettingGetResult<boolean>
-    });
-    // @ts-expect-error
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.get({}, () => {}).then(() => {});
-
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.set({ value: true, scope: "regular" }); // $ExpectType Promise<void>
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.set({ value: true, scope: "regular" }, () => {}); // $ExpectType void
-    // @ts-expect-error
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.set({ value: true, scope: "regular" }, () => {}).then(() => {});
-
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.clear({ scope: "regular" }); // $ExpectType Promise<void>
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.clear({ scope: "regular" }, () => {}); // $ExpectType void
-    // @ts-expect-error
-    chrome.privacy.websites.relatedWebsiteSetsEnabled.clear({ scope: "regular" }, () => {}).then(() => {});
-
-    checkChromeEvent(chrome.privacy.websites.relatedWebsiteSetsEnabled.onChange, (details) => {
-        details; // $ExpectType ChromeSettingOnChangeDetails<boolean>
-    });
-
     // thirdPartyCookiesAllowed
     chrome.privacy.websites.thirdPartyCookiesAllowed.get({ incognito: false }); // $ExpectType Promise<ChromeSettingGetResult<boolean>>
     chrome.privacy.websites.thirdPartyCookiesAllowed.get({ incognito: false }, (details) => { // $ExpectType void
@@ -8418,4 +8571,13 @@ function testWallpaper() {
     });
     // @ts-expect-error
     chrome.wallpaper.setWallpaper(details, () => {}).then(() => {});
+}
+
+async function testBrowser() {
+    const _b: typeof browser = chrome;
+    const _c: typeof chrome = browser;
+
+    browser.tabs.create({ url: "https://example.test" }); // $ExpectType Promise<void>
+    window.browser.tabs.create({ url: "https://example.test" }); // $ExpectType Promise<void>
+    globalThis.browser.tabs.create({ url: "https://example.test" }); // $ExpectType Promise<void>
 }

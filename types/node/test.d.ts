@@ -375,6 +375,7 @@ declare module "node:test" {
             "test:enqueue": [data: EventData.TestEnqueue];
             "test:fail": [data: EventData.TestFail];
             "test:interrupted": [data: EventData.TestInterrupted];
+            "test:log": [data: EventData.TestLog];
             "test:pass": [data: EventData.TestPass];
             "test:plan": [data: EventData.TestPlan];
             "test:start": [data: EventData.TestStart];
@@ -455,6 +456,13 @@ declare module "node:test" {
                  * `undefined` if the test was run through the REPL.
                  */
                 column?: number;
+                /**
+                 * The path of the test file that was
+                 * executed as the entry point of the child process that emitted this event.
+                 * Only present when tests run with process isolation. May differ from
+                 * `file` when the test is defined in a module imported by the entry file.
+                 */
+                entryFile?: string;
                 /**
                  * The path of the test file, `undefined` if test was run through the REPL.
                  */
@@ -845,6 +853,36 @@ declare module "node:test" {
                  */
                 tests: TestStart[];
             }
+            interface TestLog extends LocationInfo {
+                /**
+                 * The structured payload passed to `context.log`, or
+                 * `undefined` if none was provided. The test runner does not interpret this
+                 * value.
+                 */
+                data: unknown;
+                /**
+                 * The log message.
+                 */
+                message: string;
+                /**
+                 * The test name.
+                 */
+                name: string;
+                /**
+                 * The nesting level of the test.
+                 */
+                nesting: number;
+                /**
+                 * The `testId` of the enclosing test, or
+                 * `undefined` for top-level tests.
+                 */
+                parentId: number | undefined;
+                /**
+                 * A numeric identifier for the test instance that emitted
+                 * the log message.
+                 */
+                testId: number;
+            }
             interface TestPass extends LocationInfo {
                 /**
                  * Additional execution metadata.
@@ -1130,6 +1168,25 @@ declare module "node:test" {
              * @param message Message to be reported.
              */
             diagnostic(message: string): void;
+            /**
+             * This function is used to write a log message to the output. Unlike
+             * `context.diagnostic`, the resulting `'test:log'` event is emitted
+             * immediately, in the order that the tests execute, rather than being buffered
+             * until the test reports its results. This function does not return a value.
+             *
+             * ```js
+             * test('top level test', (t) => {
+             *   t.log('fetched user', { userId: 42 });
+             *   t.log('retrying flaky endpoint', { attempt: 3 });
+             * });
+             * ```
+             * @since v26.6.0
+             * @param message Message to be reported.
+             * @param data Optional structured payload attached to the message. The test
+             * runner passes it through untouched. When tests run with process isolation,
+             * this value must be compatible with the [HTML structured clone algorithm](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm).
+             */
+            log(message: string, data?: unknown): void;
             /**
              * The absolute path of the test file that created the current test. If a test file imports
              * additional modules that generate tests, the imported tests will return the path of the root test file.
@@ -1492,6 +1549,21 @@ declare module "node:test" {
              * @param message A diagnostic message to output.
              */
             diagnostic(message: string): void;
+            /**
+             * Write a log message to the output. The resulting `'test:log'` event is
+             * emitted immediately, in the order that the tests execute.
+             *
+             * ```js
+             * test.describe('my suite', (suite) => {
+             *   suite.log('Suite log message');
+             * });
+             * ```
+             * @since v26.6.0
+             * @param message Message to be reported.
+             * @param data Optional structured payload attached to the message. The test
+             * runner passes it through untouched.
+             */
+            log(message: string, data?: unknown): void;
         }
         interface TestOptions {
             /**

@@ -9,6 +9,6 @@ declare namespace MarkdownItContainer {
     }
 }
 
-declare function MarkdownItContainer(md: MarkdownIt, name: string, opts: MarkdownItContainer.ContainerOpts): void;
+declare function MarkdownItContainer(md: MarkdownIt, name: string, opts?: MarkdownItContainer.ContainerOpts): void;
 
 export = MarkdownItContainer;

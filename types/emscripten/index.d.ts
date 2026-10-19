@@ -167,11 +167,13 @@ declare namespace FS {
         contents?: any;
         id: number;
         name: string;
+        // Next node in the nameTable bucket
+        name_next?: FSNode;
         mode: number;
-        rdev: number;
+        rdev: number | undefined;
         readMode: number;
         writeMode: number;
-        constructor(parent: FSNode, name: string, mode: number, rdev: number);
+        constructor(parent: FSNode | null, name: string, mode: number, rdev?: number);
         read: boolean;
         write: boolean;
         readonly isFolder: boolean;
@@ -254,6 +256,14 @@ declare namespace FS {
     //
     // nodes
     //
+    let nameTable: Array<FSNode | undefined>;
+    function hashName(parentid: number, name: string): number;
+    function hashAddNode(node: FSNode): void;
+    function hashRemoveNode(node: FSNode): void;
+    function lookupNode(parent: FSNode, name: string): FSNode;
+    function createNode(parent: FSNode | null, name: string, mode: number, rdev?: number): FSNode;
+    function destroyNode(node: FSNode): void;
+
     function isFile(mode: number): boolean;
     function isDir(mode: number): boolean;
     function isLink(mode: number): boolean;

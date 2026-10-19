@@ -201,10 +201,12 @@ export interface ParserOptions {
     baseIRI?: string | undefined;
     blankNodePrefix?: string | undefined;
     isImpliedBy?: boolean | undefined;
+    emptyFormulaAsTrue?: boolean | undefined;
 }
 
 export interface StreamParserOptions extends ParserOptions {
     options?: boolean | undefined;
+    comments?: boolean | undefined;
 }
 
 export type ParseCallback<Q extends BaseQuad = Quad> = (error: Error, quad: Q, prefixes: Prefixes) => void;
@@ -237,6 +239,8 @@ export interface WriterOptions {
     format?: string | MimeFormat | undefined;
     prefixes?: Prefixes<RDF.NamedNode | string> | undefined;
     end?: boolean | undefined;
+    baseIRI?: string | undefined;
+    writeBase?: boolean | undefined;
 }
 
 export class Writer<Q extends RDF.BaseQuad = RDF.Quad> {
@@ -394,4 +398,5 @@ export namespace Util {
 }
 
 export function termToId(term: Term): string;
-export function termFromId(id: string, factory: RDF.DataFactory): Term;
+export function termFromId(id: string, factory?: RDF.DataFactory): Term;
+export function getRulesFromDataset(dataset: RDF.DatasetCore<RDF.Quad>): Rule[];

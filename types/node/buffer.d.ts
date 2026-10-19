@@ -1776,6 +1776,7 @@ declare module "node:buffer" {
         slice(start?: number, end?: number, contentType?: string): Blob;
         stream(): ReadableStream<NodeJS.NonSharedUint8Array>;
         text(): Promise<string>;
+        textStream(): ReadableStream<string>;
     }
     export var Blob: {
         prototype: Blob;

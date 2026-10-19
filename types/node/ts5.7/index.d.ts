@@ -110,6 +110,7 @@
 /// <reference path="../util.d.ts" />
 /// <reference path="../util/types.d.ts" />
 /// <reference path="../v8.d.ts" />
+/// <reference path="../vfs.d.ts" />
 /// <reference path="../vm.d.ts" />
 /// <reference path="../wasi.d.ts" />
 /// <reference path="../worker_threads.d.ts" />

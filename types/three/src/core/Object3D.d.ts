@@ -3,6 +3,8 @@ import { Camera } from "../cameras/Camera.js";
 import { ShapeJSON } from "../extras/core/Shape.js";
 import { Material, MaterialJSON } from "../materials/Material.js";
 import { Euler } from "../math/Euler.js";
+import { Frustum } from "../math/Frustum.js";
+import { FrustumArray } from "../math/FrustumArray.js";
 import { Matrix3 } from "../math/Matrix3.js";
 import { Matrix4, Matrix4Tuple } from "../math/Matrix4.js";
 import { Quaternion } from "../math/Quaternion.js";
@@ -11,8 +13,8 @@ import { Group } from "../objects/Group.js";
 import { SkeletonJSON } from "../objects/Skeleton.js";
 import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
 import { Scene } from "../scenes/Scene.js";
-import { SourceJSON } from "../textures/Source.js";
 import { TextureJSON } from "../textures/Texture.js";
+import { TextureSourceJSON } from "../textures/TextureSource.js";
 import { BufferGeometry, BufferGeometryJSON } from "./BufferGeometry.js";
 import { EventDispatcher } from "./EventDispatcher.js";
 import { Layers } from "./Layers.js";
@@ -55,7 +57,7 @@ export interface JSONMeta {
     geometries: Record<string, BufferGeometryJSON>;
     materials: Record<string, MaterialJSON>;
     textures: Record<string, TextureJSON>;
-    images: Record<string, SourceJSON>;
+    images: Record<string, TextureSourceJSON>;
     shapes: Record<string, ShapeJSON>;
     skeletons: Record<string, SkeletonJSON>;
     animations: Record<string, AnimationClipJSON>;
@@ -82,6 +84,11 @@ export interface Object3DEventMap {
      * Fires when a new child object has been removed.
      */
     childremoved: { child: Object3D };
+
+    /**
+     * Fires when the 3D object has been disposed of.
+     */
+    dispose: {};
 }
 
 /**
@@ -634,6 +641,15 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 
     /**
+     * Abstract method to test whether this 3D object intersects the given frustum.
+     * @remarks Renderable 3D objects such as {@link THREE.Mesh | Mesh}, {@link THREE.Line | Line} or {@link THREE.Points | Points} implement this method in order to use frustum culling.
+     * @param frustum The frustum to test.
+     * @returns Whether this 3D object intersects the given frustum or not.
+     * @defaultValue `() => {}`
+     */
+    intersectsFrustum(frustum: Frustum | FrustumArray): boolean | undefined;
+
+    /**
      * Executes the callback on this object and all descendants.
      * @remarks Note: Modifying the scene graph inside the callback is discouraged.
      * @param callback A function with as first argument an {@link Object3D} object.
@@ -699,4 +715,11 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
      * `false`, descendants are left unchanged. Default is `true`.
      */
     copy(object: Object3D, recursive?: boolean): this;
+
+    /**
+     * Frees the GPU-related resources allocated by this instance.
+     * @remarks Call this method whenever this instance is no longer used in your app.
+     * Geometries, materials and textures are potentially shared with other 3D objects and must be disposed of separately.
+     */
+    dispose(): void;
 }

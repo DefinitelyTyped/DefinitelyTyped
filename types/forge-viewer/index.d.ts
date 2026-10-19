@@ -2304,7 +2304,7 @@ declare namespace Autodesk {
                     modelId?: number[],
                     intersections?: any[],
                     options?: any,
-                ): HitTestResult;
+                ): HitTestResult | undefined;
                 getRenderProxy(model: Model, fragId: number): any;
                 sceneUpdated(param: boolean): void;
                 setDoNotCut(model: Model, doNotCut: boolean): void;

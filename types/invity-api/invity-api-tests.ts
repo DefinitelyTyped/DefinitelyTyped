@@ -135,11 +135,15 @@ const infoResponse: InfoResponse = {
         },
     },
     config: {
-        btcSwapDummyData: {
-            opreturn: {
-                dataHex: "abcd1234",
-            },
-            feePercentage: 2,
+        btcSwapComposeTemplate: {
+            extraOutputs: [
+                {
+                    type: "opreturn",
+                    dataHex: "0123456789abcdef",
+                },
+                { type: "payment", amount: { kind: "percent", value: 2 } },
+                { type: "payment", amount: { kind: "percent", value: 2 } },
+            ],
         },
     },
 };

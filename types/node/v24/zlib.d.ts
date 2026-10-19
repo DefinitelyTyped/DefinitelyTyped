@@ -125,6 +125,13 @@ declare module "zlib" {
          * @default buffer.kMaxLength
          */
         maxOutputLength?: number | undefined;
+        /**
+         * If `true`, decompression fails when
+         * trailing input is detected after the end of the compressed stream. This
+         * includes unreadable bytes and, when decompressing gzip, additional gzip
+         * members following the first member. **Default:** `false`
+         */
+        rejectGarbageAfterEnd?: boolean | undefined;
     }
     interface BrotliOptions {
         /**
@@ -156,6 +163,11 @@ declare module "zlib" {
          * If `true`, returns an object with `buffer` and `engine`.
          */
         info?: boolean | undefined;
+        /**
+         * If `true`, decompression fails when
+         * input remains after the first complete compressed stream. **Default:** `false`
+         */
+        rejectGarbageAfterEnd?: boolean | undefined;
     }
     interface ZstdOptions {
         /**
@@ -176,6 +188,12 @@ declare module "zlib" {
          */
         params?: { [key: number]: number | boolean } | undefined;
         /**
+         * Expected total size of the uncompressed input. Must match the input size
+         * when compression finishes. Only applicable to Zstd compressors.
+         * @since v22.15.0
+         */
+        pledgedSrcSize?: number | undefined;
+        /**
          * Limits output size when using
          * [convenience methods](https://nodejs.org/docs/latest-v24.x/api/zlib.html#convenience-methods).
          * @default buffer.kMaxLength
@@ -191,6 +209,11 @@ declare module "zlib" {
          * @since v24.6.0
          */
         dictionary?: NodeJS.ArrayBufferView | undefined;
+        /**
+         * If `true`, decompression fails when
+         * input remains after the first complete compressed stream. **Default:** `false`
+         */
+        rejectGarbageAfterEnd?: boolean | undefined;
     }
     interface Zlib {
         readonly bytesWritten: number;

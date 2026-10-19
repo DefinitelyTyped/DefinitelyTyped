@@ -1,3 +1,13 @@
+/** @ignore */
+export declare function validateActionSet(actionSet: ActionSet): void;
+/**
+ * @ignore
+ */
+export declare function PSActionSet(id: number): ActionSet;
+/**
+ * @ignore
+ */
+export declare function PSAction(id: number): Action;
 /**
  * Photoshop Actions
  *

@@ -14,6 +14,7 @@ export interface LightShadowJSON {
     bias?: number;
     normalBias?: number;
     radius?: number;
+    blurSamples?: number;
     mapSize?: Vector2Tuple;
 
     camera: Omit<Object3DJSONObject, "matrix">;
@@ -140,6 +141,13 @@ export abstract class LightShadow<TCamera extends Camera = Camera> {
      * @return {number} The viewport count.
      */
     getViewportCount(): number;
+    /**
+     * Used internally by the renderer to get the camera that renders the given viewport.
+     *
+     * @param {number} [viewportIndex=0] - The viewport index.
+     * @return {Camera} The shadow camera.
+     */
+    getCamera(viewportIndex?: number): TCamera;
     /**
      * Gets the shadow cameras frustum. Used internally by the renderer to cull objects.
      *

@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/helpscout-beacon",
+    "version": "2.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Help Scout Beacon v2 JavaScript API (Browser Script)",
+    "projects": [
+        "https://developer.helpscout.com/beacon-2/web/javascript-api/"
+    ],
+    "devDependencies": {
+        "@types/helpscout-beacon": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Baver Bozdağ",
+            "githubUsername": "bawerbozdag"
+        }
+    ]
+}

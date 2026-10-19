@@ -25,15 +25,15 @@ declare const AtomicFunctionNode: {
         valueNode: Node | null,
     ): AtomicFunctionNode<TNodeType>;
 
-    ATOMIC_LOAD: "atomicLoad";
-    ATOMIC_STORE: "atomicStore";
-    ATOMIC_ADD: "atomicAdd";
-    ATOMIC_SUB: "atomicSub";
-    ATOMIC_MAX: "atomicMax";
-    ATOMIC_MIN: "atomicMin";
-    ATOMIC_AND: "atomicAnd";
-    ATOMIC_OR: "atomicOr";
-    ATOMIC_XOR: "atomicXor";
+    readonly ATOMIC_LOAD: "atomicLoad";
+    readonly ATOMIC_STORE: "atomicStore";
+    readonly ATOMIC_ADD: "atomicAdd";
+    readonly ATOMIC_SUB: "atomicSub";
+    readonly ATOMIC_MAX: "atomicMax";
+    readonly ATOMIC_MIN: "atomicMin";
+    readonly ATOMIC_AND: "atomicAnd";
+    readonly ATOMIC_OR: "atomicOr";
+    readonly ATOMIC_XOR: "atomicXor";
 };
 
 export type AtomicFunctionNode<TNodeType> = Node<TNodeType> & AtomicFunctionNodeInterface;
