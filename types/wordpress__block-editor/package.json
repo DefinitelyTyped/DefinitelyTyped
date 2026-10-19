@@ -12,8 +12,7 @@
         "@wordpress/data": "^10.36.0",
         "@wordpress/element": "^6.36.0",
         "@wordpress/global-styles-engine": "^1.4.0",
-        "@wordpress/keycodes": "^4.36.0",
-        "react-autosize-textarea": "^7.1.0"
+        "@wordpress/keycodes": "^4.36.0"
     },
     "devDependencies": {
         "@types/wordpress__block-editor": "workspace:."

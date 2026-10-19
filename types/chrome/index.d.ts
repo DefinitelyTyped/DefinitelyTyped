@@ -4671,7 +4671,7 @@ declare namespace chrome {
             /** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number. */
             urlSuffix?: string | undefined;
             /** Matches if the port of the URL is contained in any of the specified port lists. For example `[80, 443, [1000, 1200]]` matches all requests on port 80, 443 and in the range 1000-1200. */
-            ports?: Array<number | number[]> | undefined;
+            ports?: Array<number | [number, number]> | undefined;
             /** Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. */
             originAndPathMatches?: string | undefined;
         }
@@ -8944,15 +8944,6 @@ declare namespace chrome {
             referrersEnabled: chrome.types.ChromeSetting<boolean>;
 
             /**
-             * If disabled, Related Website Sets is deactivated.
-             * The value of this preference is of type boolean, and the default value is `true`.
-             * Extensions may only disable this API by setting the value to `false`. If you try setting this API to `true`, it will throw an error.
-             * @since Chrome 121
-             * @deprecated since Chrome 144. Will be removed around Chrome 153.
-             */
-            relatedWebsiteSetsEnabled: chrome.types.ChromeSetting<boolean>;
-
-            /**
              * If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is `true`. Extensions may not enable this API in Incognito mode, where third-party cookies are blocked and can only be allowed at the site level. If you try setting this API to true in Incognito, it will throw an error.
              *
              * Note: Individual sites may still be able to access third-party cookies when this API returns `false`, if they have a valid exemption or they use the Storage Access API instead.
@@ -10200,6 +10191,12 @@ declare namespace chrome {
          * @since Chrome 76
          */
         const onConnectNative: events.Event<(port: Port) => void>;
+
+        /**
+         * Fired when an extension goes from being in a disabled state to an enabled state.
+         * @since Chrome 155
+         */
+        const onEnabled: events.Event<() => void>;
 
         /** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
         const onSuspend: events.Event<() => void>;
@@ -11697,6 +11694,15 @@ declare namespace chrome {
              * @deprecated since Chrome 33. Please use {@link CreateProperties.active active}.
              */
             selected?: boolean | undefined;
+            /**
+             * The ID of an existing tab to create a split view with. If specified, the split-with tab must meet the following conditions:
+             * *   It must not be an already split tab.
+             * *   It must be in the same window as the newly created tab.
+             * *   If `windowId` is specified, it must be the same as the split-with tab's window ID.
+             * *   If `index` is specified, it must be an index adjacent to the split-with tab and will affect the relative positioning of the newly created tab.
+             * @since Chrome 155
+             */
+            splitWithTabId?: number | undefined;
         }
 
         interface MoveProperties {
@@ -12022,6 +12028,22 @@ declare namespace chrome {
          */
         function create(createProperties: CreateProperties): Promise<Tab>;
         function create(createProperties: CreateProperties, callback: (tab: Tab) => void): void;
+
+        /**
+         * Splits two existing tabs into a Split View.
+         * @param tabIds An array of exactly two tab IDs to pair into a Split View. All tabs must meet the following conditions: They must be adjacent. They must not already be in a split view. They must have matching `windowId`, `pinned`, and `groupId` states.
+         * @since Chrome 155
+         */
+        function createSplit(tabIds: [number, number]): Promise<number>;
+        function createSplit(tabIds: [number, number], callback: (splitViewId: number) => void): void;
+
+        /**
+         * Separates the tabs in a Split View into independent tabs.
+         * @param splitViewId The ID of the Split View to separate.
+         * @since Chrome 155
+         */
+        function unsplit(splitViewId: number): Promise<void>;
+        function unsplit(splitViewId: number, callback: () => void): void;
 
         /**
          * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.

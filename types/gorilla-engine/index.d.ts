@@ -90,7 +90,10 @@ declare namespace GorillaEngine {
         readonly name: string;
         readonly category: string;
         readonly label: string;
-        readonly text: string;
+        /**
+         *  The parameter's text representation. Assigning text updates the parameter value
+         */
+        text: string;
         readonly unit: string;
         /**
          * Its steps if it's a stepped paramter

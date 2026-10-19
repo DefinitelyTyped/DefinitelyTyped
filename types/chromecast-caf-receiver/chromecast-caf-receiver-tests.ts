@@ -9,7 +9,14 @@ import {
     StreamType,
     TrackType,
 } from "chromecast-caf-receiver/cast.framework.messages";
-import { ApplicationData, LaunchedFrom } from "chromecast-caf-receiver/cast.framework.system";
+import {
+    ApplicationData,
+    DeviceCapabilitiesObj,
+    DeviceInformation,
+    DeviceInformationObj,
+    LaunchedFrom,
+    Message,
+} from "chromecast-caf-receiver/cast.framework.system";
 import { ControlsButton, ControlsSlot, State } from "chromecast-caf-receiver/cast.framework.ui";
 
 // Enums must remain non-const to avoid breaking projects that compile
@@ -25,6 +32,7 @@ const _messageHlsSegmentFormat = HlsSegmentFormat;
 const _eventsEventType = EventType;
 const _eventsDetailedErrorCode = DetailedErrorCode;
 const _systemLaunchedFrom = LaunchedFrom;
+const _systemDeviceInformation = DeviceInformation;
 const _frameworkContentProtection = ContentProtection;
 const _frameworkLoggerLevel = LoggerLevel;
 const _uiState = State;
@@ -130,6 +138,10 @@ const data = readyEvent.data;
 const standbyChangedEvent = new cast.framework.system.StandbyChangedEvent(false);
 const sceData = standbyChangedEvent.isStandby;
 
+const visibilityChangedEvent = new cast.framework.system.VisibilityChangedEvent(true);
+const vceData = visibilityChangedEvent.isVisible;
+visibilityChangedEvent.type;
+
 const pData = new cast.framework.ui.PlayerData();
 pData.breakPercentagePositions = [1];
 pData.currentBreakClipNumber = 2;
@@ -179,10 +191,41 @@ cast.framework.CastReceiverContext.getInstance().addEventListener(
     () => "¡hola!",
 );
 
+cast.framework.CastReceiverContext.getInstance().addEventListener(
+    cast.framework.system.EventType.VISIBILITY_CHANGED,
+    (event) => `${event.isVisible} ${event.type}`,
+);
+
+cast.framework.CastReceiverContext.getInstance().addEventListener(
+    cast.framework.system.EventType.STANDBY_CHANGED,
+    (event) => `${event.isStandby} ${event.type}`,
+);
+
+const customMessageListener = (event: Message) => [event.data, event.type, event.senderId];
 cast.framework.CastReceiverContext.getInstance().addCustomMessageListener(
     "urn:x-cast:com.custom.app",
-    (event) => [event.data, event.type, event.senderId],
+    customMessageListener,
 );
+cast.framework.CastReceiverContext.getInstance().removeCustomMessageListener(
+    "urn:x-cast:com.custom.app",
+    customMessageListener,
+);
+
+const deviceCapabilities: DeviceCapabilitiesObj | null = cast.framework.CastReceiverContext.getInstance()
+    .getDeviceCapabilities();
+const deviceInformation: DeviceInformationObj | null = cast.framework.CastReceiverContext.getInstance()
+    .getDeviceInformation();
+if (deviceCapabilities) {
+    deviceCapabilities.display_supported;
+}
+if (deviceInformation) {
+    deviceInformation[DeviceInformation.MODEL_NAME];
+    deviceInformation.environment;
+}
+
+const networkRequestInfo = new cast.framework.NetworkRequestInfo();
+networkRequestInfo.headers = { Authorization: "Bearer token" };
+delete networkRequestInfo.headers["Authorization"];
 
 // send custom message to specific sender
 cast.framework.CastReceiverContext.getInstance().sendCustomMessage("custom-namespace", "sender-id", {});

@@ -2110,6 +2110,7 @@ declare namespace google.maps {
   }
   /**
    * Contains details of the author of a KML document or feature.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlAuthor {
     /**
@@ -2127,6 +2128,7 @@ declare namespace google.maps {
   }
   /**
    * Data for a single KML feature in JSON format, returned when a KML feature is clicked. The data contained in this object mirrors that associated with the feature in the KML or GeoRSS markup in which it is declared.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlFeatureData {
     /**
@@ -2156,7 +2158,7 @@ declare namespace google.maps {
   }
   /**
    * Access by calling `const {KmlLayer} = await google.maps.importLibrary("maps");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   * @deprecated As of version 3.65, google.maps.KmlLayer is deprecated. For alternative methods of displaying KML data on the map, see <a href="https://developers.devsite.corp.google.com/maps/deprecations#kml_layer_deprecated_as_of_april_30_2026">https://developers.devsite.corp.google.com/maps/deprecations#kml_layer_deprecated_as_of_april_30_2026</a>
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export class KmlLayer extends google.maps.MVCObject {
     /**
@@ -2205,6 +2207,7 @@ declare namespace google.maps {
   }
   /**
    * Metadata for a single KML layer, in JSON format.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlLayerMetadata {
     /**
@@ -2230,6 +2233,7 @@ declare namespace google.maps {
   }
   /**
    * This object defines the properties that can be set on a <code>KmlLayer</code> object.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlLayerOptions {
     /**
@@ -2268,6 +2272,7 @@ declare namespace google.maps {
    * The status returned by <code>KmlLayer</code> on the completion of loading a document. Specify these by value, or by using the constant&#39;s name. For example, <code>'OK'</code> or <code>google.maps.KmlLayerStatus.OK</code>.
    *
    * Access by calling `const {KmlLayerStatus} = await google.maps.importLibrary("maps");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export enum KmlLayerStatus {
     /**
@@ -2310,6 +2315,7 @@ declare namespace google.maps {
   export type KmlLayerStatusString = `${google.maps.KmlLayerStatus}`;
   /**
    * The properties of a click event on a KML/KMZ or GeoRSS document.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlMouseEvent {
     /**
@@ -3122,7 +3128,7 @@ declare namespace google.maps {
 
     GestureHandling: typeof google.maps.maps3d.GestureHandling;
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      */
     Label3DElement: typeof google.maps.maps3d.Label3DElement;
 
@@ -4124,6 +4130,10 @@ declare namespace google.maps {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      */
+    AdvancedPlaceItemElement: typeof google.maps.places.AdvancedPlaceItemElement;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     */
     AdvancedPlaceListElement: typeof google.maps.places.AdvancedPlaceListElement;
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -4240,6 +4250,10 @@ declare namespace google.maps {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      */
+    PlaceItemElement: typeof google.maps.places.PlaceItemElement;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     */
     PlaceLinkElement: typeof google.maps.places.PlaceLinkElement;
 
     PlaceMediaElement: typeof google.maps.places.PlaceMediaElement;
@@ -4255,6 +4269,14 @@ declare namespace google.maps {
     PlaceOpenNowStatusElement: typeof google.maps.places.PlaceOpenNowStatusElement;
 
     PlacePhoneNumberElement: typeof google.maps.places.PlacePhoneNumberElement;
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     */
+    PlacePinElement: typeof google.maps.places.PlacePinElement;
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     */
+    PlacePinIcon: typeof google.maps.places.PlacePinIcon;
 
     PlacePlusCodeElement: typeof google.maps.places.PlacePlusCodeElement;
 
@@ -9393,7 +9415,7 @@ declare namespace google.maps.maps3d {
   }
   export type GestureHandlingString = `${google.maps.maps3d.GestureHandling}`;
   /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Represents a text label associated with a 3D marker on a map, allowing independent configuration of properties such as collision behavior.
    * Access by calling `const {Label3DElement} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -9429,7 +9451,7 @@ declare namespace google.maps.maps3d {
   export interface Label3DElementEventMap extends HTMLElementEventMap {
   }
   /**
-   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Label3DElementOptions object used to define the properties that can be set on a Label3DElement.
    */
   export interface Label3DElementOptions {
@@ -9508,6 +9530,18 @@ declare namespace google.maps.maps3d {
      * The center of the map given as a LatLngAltitude, where altitude is in meters above the mean sea level. Note that this is not necessarily where the camera is located, as the <code>range</code> field affects the camera&#39;s distance from the map center. If not set, defaults to <code>{lat: 0, lng: 0, altitude: 63710000}</code>. 63710000 meters is a maximum allowed altitude (Earth radius multiplied by 10).
      */
     set center(value: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null | undefined);
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Specifies the color scheme for the map. If not set, defaults to {@link google.maps.ColorScheme.FOLLOW_SYSTEM}.
+     * @defaultValue {@link google.maps.ColorScheme.FOLLOW_SYSTEM}
+     */
+    get colorScheme(): google.maps.ColorSchemeString | null;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Specifies the color scheme for the map. If not set, defaults to {@link google.maps.ColorScheme.FOLLOW_SYSTEM}.
+     * @defaultValue {@link google.maps.ColorScheme.FOLLOW_SYSTEM}
+     */
+    set colorScheme(value: google.maps.ColorSchemeString | null | undefined);
     /**
      * When <code>true</code>, all default UI buttons are hidden.
      * @defaultValue <code>false</code>
@@ -9745,6 +9779,11 @@ declare namespace google.maps.maps3d {
      */
     center?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null;
     /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * See {@link google.maps.maps3d.Map3DElement.colorScheme}.
+     */
+    colorScheme?: google.maps.ColorSchemeString | null;
+    /**
      * See {@link google.maps.maps3d.Map3DElement.defaultUIHidden}.
      */
     defaultUIHidden?: boolean | null;
@@ -9847,7 +9886,7 @@ declare namespace google.maps.maps3d {
      */
     HYBRID = 'HYBRID',
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * This map mode displays a normal street map.
      */
     ROADMAP = 'ROADMAP',
@@ -11274,6 +11313,25 @@ declare namespace google.maps.places {
      * Identifiers used to attribute calls to specific packages or OSS libraries.
      */
     internalUsageAttributionIds?: Iterable<string> | null;
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Public web component wrapper (<code>&lt;gmp-advanced-place-item&gt;</code>) for advanced place list items. The <code>&lt;gmp-advanced-place-item&gt;</code> custom element renders an individual rich place result card inside an advanced search or collection container, such as <code>&lt;gmp-advanced-place-search&gt;</code> or <code>&lt;gmp-advanced-place-list&gt;</code>. Each <code>&lt;gmp-advanced-place-item&gt;</code> presents rich place details, media collages, editorial summaries, and interactive action buttons composed of child visual components from the Places UI Kit.
+   * Access by calling `const {AdvancedPlaceItemElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AdvancedPlaceItemElement extends google.maps.places.PlaceItemElement implements google.maps.places.AdvancedPlaceItemElementOptions {
+    addEventListener<K extends keyof AdvancedPlaceItemElementEventMap>(type: K, listener: (this: AdvancedPlaceItemElement, ev: AdvancedPlaceItemElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AdvancedPlaceItemElementEventMap>(type: K, listener: (this: AdvancedPlaceItemElement, ev: AdvancedPlaceItemElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface AdvancedPlaceItemElementEventMap extends google.maps.places.PlaceItemElementEventMap {
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Options for <code>AdvancedPlaceItemElement</code>.
+   */
+  export interface AdvancedPlaceItemElementOptions extends google.maps.places.PlaceItemElementOptions {
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
@@ -13854,6 +13912,25 @@ declare namespace google.maps.places {
   }
   /**
    * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Public web component wrapper (<code>&lt;gmp-place-item&gt;</code>) for place list items. The <code>&lt;gmp-place-item&gt;</code> custom element renders an individual place result card inside <code>&lt;gmp-place-search&gt;</code>. Each <code>&lt;gmp-place-item&gt;</code> displays place information composed of child visual components from the Places UI Kit.
+   * Access by calling `const {PlaceItemElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceItemElement extends HTMLElement implements google.maps.places.PlaceItemElementOptions {
+    addEventListener<K extends keyof PlaceItemElementEventMap>(type: K, listener: (this: PlaceItemElement, ev: PlaceItemElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceItemElementEventMap>(type: K, listener: (this: PlaceItemElement, ev: PlaceItemElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlaceItemElementEventMap extends HTMLElementEventMap {
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+   * Options for <code>PlaceItemElement</code>.
+   */
+  export interface PlaceItemElementOptions {
+  }
+  /**
+   * Available only in the v=beta channel: https://goo.gle/3oAthT3.
    * Displays a link slotted into either the <code>action-main</code> slot or the <code>action-corner</code> slot. By default the link will be shown in the <code>action-main</code> slot. Use the <code>action</code> attribute to specify the behavior of the link. Several action types are available to use listed in {@link google.maps.places.ActionLinkType}. For a custom link, specify the <code>custom</code> action type and set the <code>href</code> and <code>label</code> attributes.
    * Access by calling `const {PlaceLinkElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -14285,6 +14362,89 @@ declare namespace google.maps.places {
      */
     getUrl(opts?: google.maps.places.PhotoOptions): string;
   }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Displays a map pin for a place, using the place&#39;s category icon or photo. Append a {@link google.maps.places.PlaceDetailsPlaceRequestElement} or {@link google.maps.places.PlaceDetailsLocationRequestElement} to specify the place. Use the pin as the content of an {@link google.maps.marker.AdvancedMarkerElement}. Not supported in 3D maps. <br><br> Example: <pre><code> &lt;gmp-advanced-marker&gt;<br> &nbsp;&nbsp;&lt;gmp-place-pin&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-details-place-request<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place="<var>PLACE_ID</var>"<br> &nbsp;&nbsp;&nbsp;&nbsp;&gt;&lt;/gmp-place-details-place-request&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-rating&gt;&lt;/gmp-place-rating&gt;<br> &nbsp;&nbsp;&lt;/gmp-place-pin&gt;<br> &lt;/gmp-advanced-marker&gt; </code></pre> <br> To use this element, enable the <a href="https://console.cloud.google.com/marketplace/product/google/placewidgets.googleapis.com" >Places UI Kit API</a> for your project in the Google Cloud console.
+   * Access by calling `const {PlacePinElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlacePinElement extends HTMLElement implements google.maps.places.PlacePinElementOptions {
+    /**
+     * 
+     * @param options
+     */
+    constructor(options?: google.maps.places.PlacePinElementOptions);
+    /**
+     * The icon shown inside the pin. See {@link google.maps.places.PlacePinIcon}.
+     * @defaultValue <code>PlacePinIcon.TYPE</code>
+     */
+    get icon(): google.maps.places.PlacePinIconString;
+    /**
+     * The icon shown inside the pin. See {@link google.maps.places.PlacePinIcon}.
+     * @defaultValue <code>PlacePinIcon.TYPE</code>
+     */
+    set icon(value: google.maps.places.PlacePinIconString | null | undefined);
+    /**
+     * Read only. True if the pin is showing the place&#39;s photo. Always false if <code>icon</code> isn&#39;t <code>PHOTO</code>. If <code>icon</code> is <code>PHOTO</code> but the place has no photo, or the photo failed to load, this is false and the pin shows the place type icon instead. Set before <code>gmp-load</code> fires.
+     */
+    get photoRendered(): boolean;
+    /**
+     * Read only. Place object containing the ID, location, and viewport of the currently rendered place. <code>undefined</code> if the place hasn&#39;t loaded yet or failed to load.
+     */
+    get place(): google.maps.places.Place | undefined;
+    /**
+     * Size multiplier for the pin.
+     * @defaultValue <code>1</code>
+     */
+    get scale(): number;
+    /**
+     * Size multiplier for the pin.
+     * @defaultValue <code>1</code>
+     */
+    set scale(value: number | null | undefined);
+    addEventListener<K extends keyof PlacePinElementEventMap>(type: K, listener: (this: PlacePinElement, ev: PlacePinElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlacePinElementEventMap>(type: K, listener: (this: PlacePinElement, ev: PlacePinElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlacePinElementEventMap extends HTMLElementEventMap {
+    "gmp-error": Event;
+    "gmp-load": Event;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Options for constructing a {@link google.maps.places.PlacePinElement}.
+   */
+  export interface PlacePinElementOptions {
+    /**
+     * See {@link google.maps.places.PlacePinElement.icon}.
+     */
+    icon?: google.maps.places.PlacePinIconString | null;
+    /**
+     * See {@link google.maps.places.PlacePinElement.scale}.
+     */
+    scale?: number | null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Icon options for {@link google.maps.places.PlacePinElement}. <code>TYPE</code> is the default. If the data needed for the selected icon is missing, the pin falls back to <code>TYPE</code>. If the data needed for <code>TYPE</code> is missing, a generic icon is shown instead.
+   *
+   * Access by calling `const {PlacePinIcon} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum PlacePinIcon {
+    /**
+     * Shows no icon, only the slotted content. Falls back to <code>TYPE</code> if there&#39;s no slotted content.
+     */
+    NONE = 'NONE',
+    /**
+     * Shows the place&#39;s photo in a circle. Falls back to <code>TYPE</code> if the place has no photo.
+     */
+    PHOTO = 'PHOTO',
+    /**
+     * Shows the place&#39;s category icon.
+     */
+    TYPE = 'TYPE',
+  }
+  export type PlacePinIconString = `${google.maps.places.PlacePinIcon}`;
   /**
    * Defines Open Location Codes or &quot;<a href="https://plus.codes/">plus codes</a>&quot; for a Place. Plus codes can be used as a replacement for street addresses in places where they do not exist (where buildings are not numbered or streets are not named).
    */
@@ -17666,12 +17826,16 @@ declare namespace google.maps.visualization {
 }
 declare namespace google.maps {
   export interface CSSProperties {
+    "--gmp-background"?: string;
+    "--gmp-border-radius"?: string;
     "--gmp-button-border-color"?: string;
     "--gmp-button-border-radius"?: string;
     "--gmp-button-border-width"?: string;
     "--gmp-card-border-radius"?: string;
     "--gmp-collage-border-radius-outer"?: string;
     "--gmp-dialog-border-radius"?: string;
+    "--gmp-glyph-background"?: string;
+    "--gmp-glyph-color"?: string;
     "--gmp-mat-color-disabled-surface"?: string;
     "--gmp-mat-color-info"?: string;
     "--gmp-mat-color-negative"?: string;
@@ -17715,6 +17879,7 @@ declare namespace google.maps {
     "gmp-advanced-marker": google.maps.marker.AdvancedMarkerElementEventMap;
     "gmp-advanced-place-details": google.maps.places.AdvancedPlaceDetailsElementEventMap;
     "gmp-advanced-place-details-compact": google.maps.places.AdvancedPlaceDetailsCompactElementEventMap;
+    "gmp-advanced-place-item": google.maps.places.AdvancedPlaceItemElementEventMap;
     "gmp-advanced-place-list": google.maps.places.AdvancedPlaceListElementEventMap;
     "gmp-advanced-place-search": google.maps.places.AdvancedPlaceSearchElementEventMap;
     "gmp-air-quality-meter": google.maps.airQuality.AirQualityMeterElementEventMap;
@@ -17744,6 +17909,7 @@ declare namespace google.maps {
     "gmp-place-details-location-request": google.maps.places.PlaceDetailsLocationRequestElementEventMap;
     "gmp-place-details-place-request": google.maps.places.PlaceDetailsPlaceRequestElementEventMap;
     "gmp-place-feature-list": google.maps.places.PlaceFeatureListElementEventMap;
+    "gmp-place-item": google.maps.places.PlaceItemElementEventMap;
     "gmp-place-link": google.maps.places.PlaceLinkElementEventMap;
     "gmp-place-media": google.maps.places.PlaceMediaElementEventMap;
     "gmp-place-name": google.maps.places.PlaceNameElementEventMap;
@@ -17751,6 +17917,7 @@ declare namespace google.maps {
     "gmp-place-open-now-status": google.maps.places.PlaceOpenNowStatusElementEventMap;
     "gmp-place-opening-hours": google.maps.places.PlaceOpeningHoursElementEventMap;
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElementEventMap;
+    "gmp-place-pin": google.maps.places.PlacePinElementEventMap;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElementEventMap;
     "gmp-place-price": google.maps.places.PlacePriceElementEventMap;
     "gmp-place-rating": google.maps.places.PlaceRatingElementEventMap;
@@ -17776,6 +17943,7 @@ declare namespace google.maps {
     "gmp-advanced-marker": google.maps.marker.AdvancedMarkerElementOptions;
     "gmp-advanced-place-details": google.maps.places.AdvancedPlaceDetailsElementOptions;
     "gmp-advanced-place-details-compact": google.maps.places.AdvancedPlaceDetailsCompactElementOptions;
+    "gmp-advanced-place-item": google.maps.places.AdvancedPlaceItemElementOptions;
     "gmp-advanced-place-list": google.maps.places.AdvancedPlaceListElementOptions;
     "gmp-advanced-place-search": google.maps.places.AdvancedPlaceSearchElementOptions;
     "gmp-air-quality-meter": google.maps.airQuality.AirQualityMeterElementOptions;
@@ -17805,6 +17973,7 @@ declare namespace google.maps {
     "gmp-place-details-location-request": google.maps.places.PlaceDetailsLocationRequestElementOptions;
     "gmp-place-details-place-request": google.maps.places.PlaceDetailsPlaceRequestElementOptions;
     "gmp-place-feature-list": google.maps.places.PlaceFeatureListElementOptions;
+    "gmp-place-item": google.maps.places.PlaceItemElementOptions;
     "gmp-place-link": google.maps.places.PlaceLinkElementOptions;
     "gmp-place-media": google.maps.places.PlaceMediaElementOptions;
     "gmp-place-name": google.maps.places.PlaceNameElementOptions;
@@ -17812,6 +17981,7 @@ declare namespace google.maps {
     "gmp-place-open-now-status": google.maps.places.PlaceOpenNowStatusElementOptions;
     "gmp-place-opening-hours": google.maps.places.PlaceOpeningHoursElementOptions;
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElementOptions;
+    "gmp-place-pin": google.maps.places.PlacePinElementOptions;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElementOptions;
     "gmp-place-price": google.maps.places.PlacePriceElementOptions;
     "gmp-place-rating": google.maps.places.PlaceRatingElementOptions;
@@ -17837,6 +18007,7 @@ declare namespace google.maps {
     "gmp-advanced-marker": google.maps.marker.AdvancedMarkerElement;
     "gmp-advanced-place-details": google.maps.places.AdvancedPlaceDetailsElement;
     "gmp-advanced-place-details-compact": google.maps.places.AdvancedPlaceDetailsCompactElement;
+    "gmp-advanced-place-item": google.maps.places.AdvancedPlaceItemElement;
     "gmp-advanced-place-list": google.maps.places.AdvancedPlaceListElement;
     "gmp-advanced-place-search": google.maps.places.AdvancedPlaceSearchElement;
     "gmp-air-quality-meter": google.maps.airQuality.AirQualityMeterElement;
@@ -17866,6 +18037,7 @@ declare namespace google.maps {
     "gmp-place-details-location-request": google.maps.places.PlaceDetailsLocationRequestElement;
     "gmp-place-details-place-request": google.maps.places.PlaceDetailsPlaceRequestElement;
     "gmp-place-feature-list": google.maps.places.PlaceFeatureListElement;
+    "gmp-place-item": google.maps.places.PlaceItemElement;
     "gmp-place-link": google.maps.places.PlaceLinkElement;
     "gmp-place-media": google.maps.places.PlaceMediaElement;
     "gmp-place-name": google.maps.places.PlaceNameElement;
@@ -17873,6 +18045,7 @@ declare namespace google.maps {
     "gmp-place-open-now-status": google.maps.places.PlaceOpenNowStatusElement;
     "gmp-place-opening-hours": google.maps.places.PlaceOpeningHoursElement;
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElement;
+    "gmp-place-pin": google.maps.places.PlacePinElement;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElement;
     "gmp-place-price": google.maps.places.PlacePriceElement;
     "gmp-place-rating": google.maps.places.PlaceRatingElement;

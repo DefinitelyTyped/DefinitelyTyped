@@ -3,7 +3,7 @@ import ReactReconcilerConstants = require("react-reconciler/constants");
 import * as Constants from "./ReactReconcilerPriorityConstant";
 import * as ReactTestHostConfig from "./ReactTestHostConfig";
 
-// $ExpectType Reconciler<Container, Instance, TextInstance, any, Instance, PublicInstance>
+// $ExpectType Reconciler<Container, Instance, TextInstance, any, Instance, PublicInstance, ActivityInstance>
 ReactReconciler<
     ReactTestHostConfig.Type,
     ReactTestHostConfig.Props,
@@ -165,6 +165,32 @@ const hostConfig: ReactReconciler.HostConfig<
     ReactTestHostConfig.Resource
 > = ReactTestHostConfig;
 
+type TestHostConfig = typeof hostConfig;
+
+// A host config over literal types, for checks that don't need the test renderer's types.
+type LiteralHostConfig<HostContext = unknown> = ReactReconciler.HostConfig<
+    string,
+    {},
+    "container",
+    "instance",
+    "text",
+    "activity",
+    "suspense",
+    unknown,
+    unknown,
+    unknown,
+    HostContext,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown,
+    unknown
+>;
+
 declare const instance: ReactTestHostConfig.Instance;
 declare const props: ReactTestHostConfig.Props;
 
@@ -198,9 +224,24 @@ hostConfig.getChildHostContext(parentHostContext, "div");
 // @ts-expect-error -- rootContainer is never passed by the reconciler
 hostConfig.getChildHostContext(parentHostContext, "div", rootContainer);
 
-// getRootHostContext is unchanged and still receives the container.
-// $ExpectType HostContext | null
+// getRootHostContext returns a non-nullable HostContext.
+// $ExpectType HostContext
 hostConfig.getRootHostContext(rootContainer);
+
+// Returning null only works when the renderer's HostContext includes null.
+const nullRootContextConfig: Pick<typeof hostConfig, "getRootHostContext"> = {
+    // @ts-expect-error -- HostContext here is an object type, so null isn't assignable
+    getRootHostContext: () => null,
+};
+
+// Renderers that don't use host context opt in by setting HostContext to null.
+declare const noContextConfig: LiteralHostConfig<null>;
+// $ExpectType null
+noContextConfig.getRootHostContext("container");
+
+// finalizeInitialChildren receives the host context as its 4th argument.
+// $ExpectType [instance: Instance, type: string, props: Props, hostContext: HostContext]
+type FinalizeInitialChildrenParams = Parameters<TestHostConfig["finalizeInitialChildren"]>;
 
 // Test the rest of the suspensey-commit family added alongside maySuspendCommit.
 // $ExpectType boolean
@@ -296,6 +337,9 @@ TestReconciler.flushSync();
 // @ts-expect-error -- including the callback overload
 TestReconciler.flushSync(() => "test");
 
+// $ExpectType boolean | null | undefined
+TestReconciler.shouldError(root.current);
+
 // $ExpectType void
 TestReconciler.defaultOnUncaughtError(new Error("test"), { componentStack: "" });
 // $ExpectType void
@@ -323,6 +367,11 @@ declare const formData: FormData;
 
 // $ExpectType void
 TestReconciler.startHostTransition(formFiber, null, null, formData);
+
+// startHostTransition is generic over the renderer's form data.
+TestReconciler.startHostTransition(formFiber, null, (data: { name: string }) => {}, { name: "x" });
+// @ts-expect-error -- action and form data must agree
+TestReconciler.startHostTransition(formFiber, null, (data: { name: string }) => {}, { id: 1 });
 
 // These hydration dev-warning hooks were removed in React 19.2 and no longer
 // exist on the host config. Their replacements are the diffHydrated*ForDevWarnings
@@ -364,6 +413,11 @@ hostConfig.getNextHydratableInstanceAfterActivityInstance!(activityInstance);
 hostConfig.commitHydratedActivityInstance!(activityInstance);
 hostConfig.clearActivityBoundary!(instance, activityInstance);
 hostConfig.clearActivityBoundaryFromContainer!(container, activityInstance);
+// Dehydrated Activity boundaries can be insertion anchors and can be removed.
+hostConfig.insertBefore!(instance, instance, activityInstance);
+hostConfig.insertInContainerBefore!(container, instance, activityInstance);
+hostConfig.removeChild!(instance, activityInstance);
+hostConfig.removeChildFromContainer!(container, activityInstance);
 
 hostConfig.clearSuspenseBoundary!(instance, suspenseInstance);
 hostConfig.clearSuspenseBoundaryFromContainer!(container, suspenseInstance);
@@ -408,6 +462,16 @@ hostConfig.validateHydratableTextInstance!("text", hostContext);
 
 hostConfig.unhideDehydratedBoundary!(suspenseInstance);
 hostConfig.unhideDehydratedBoundary!(activityInstance);
+
+// Dehydrated Activity boundaries go through the same clear/hide methods as Suspense ones.
+declare const activityOrSuspenseConfig: Pick<
+    LiteralHostConfig,
+    "clearSuspenseBoundary" | "clearSuspenseBoundaryFromContainer" | "hideDehydratedBoundary"
+>;
+activityOrSuspenseConfig.clearSuspenseBoundary!("instance", "activity");
+activityOrSuspenseConfig.clearSuspenseBoundaryFromContainer!("container", "activity");
+activityOrSuspenseConfig.hideDehydratedBoundary!("activity");
+activityOrSuspenseConfig.hideDehydratedBoundary!("suspense");
 
 // -------------------
 //     Resources
@@ -470,7 +534,25 @@ hostConfig.supportsSingletons;
 hostConfig.resolveSingletonInstance!("head", props, container, hostContext, false);
 
 hostConfig.acquireSingletonInstance!("head", props, instance, {});
+hostConfig.releaseSingletonInstance!(instance, "head", props);
+// @ts-expect-error -- releaseSingletonInstance takes the type and props too
 hostConfig.releaseSingletonInstance!(instance);
+
+const releasingConfig: Pick<TestHostConfig, "releaseSingletonInstance"> = {
+    releaseSingletonInstance(instance, type, props) {
+        // $ExpectType Instance
+        instance;
+        // $ExpectType string
+        type;
+        // $ExpectType Props
+        props;
+    },
+};
+
+// A one-parameter implementation is still assignable.
+const legacyReleasingConfig: Pick<TestHostConfig, "releaseSingletonInstance"> = {
+    releaseSingletonInstance(instance) {},
+};
 
 // $ExpectType boolean
 hostConfig.isHostSingletonType!("head");
@@ -479,6 +561,203 @@ hostConfig.isSingletonScope!("head");
 
 // @ts-expect-error -- resolveSingletonInstance needs validateDOMNestingDev too
 hostConfig.resolveSingletonInstance!("head", props, container, hostContext);
+
+// -------------------
+//  View Transitions
+// -------------------
+// InstanceMeasurement and RunningViewTransition are renderer-chosen and threaded
+// between host config calls.
+
+interface Measurement {
+    x: number;
+    y: number;
+}
+interface RunningTransition {
+    finished: Promise<void>;
+}
+
+declare const vtConfig: ReactReconciler.HostConfig<
+    ReactTestHostConfig.Type,
+    ReactTestHostConfig.Props,
+    ReactTestHostConfig.Container,
+    ReactTestHostConfig.Instance,
+    ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
+    ReactTestHostConfig.SuspenseInstance,
+    ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
+    ReactTestHostConfig.PublicInstance,
+    ReactTestHostConfig.HostContext,
+    ReactTestHostConfig.ChildSet,
+    ReactTestHostConfig.TimeoutHandle,
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource,
+    Measurement,
+    RunningTransition
+>;
+
+const measurement = vtConfig.measureInstance!(instance);
+// $ExpectType Measurement
+measurement;
+// $ExpectType boolean
+vtConfig.hasInstanceChanged!(measurement, vtConfig.measureClonedInstance!(instance));
+// $ExpectType boolean
+vtConfig.wasInstanceInViewport!(measurement);
+// @ts-expect-error -- measurements must be the renderer's InstanceMeasurement
+vtConfig.hasInstanceAffectedParent!(measurement, { x: "0" });
+
+const running = vtConfig.startViewTransition!(
+    suspendedState,
+    container,
+    ["nav"],
+    () => {},
+    () => {},
+    () => {},
+    () => {},
+    () => {},
+    error => {},
+    reason => {},
+    () => {},
+);
+// $ExpectType RunningTransition | null
+running;
+if (running) {
+    vtConfig.addViewTransitionFinishedListener!(running, () => {});
+    vtConfig.stopViewTransition!(running);
+}
+
+vtConfig.applyViewTransitionName!(instance, "hero", null);
+vtConfig.restoreViewTransitionName!(instance, props);
+vtConfig.cancelViewTransitionName!(instance, "hero", props);
+vtConfig.cancelRootViewTransitionName!(container);
+vtConfig.restoreRootViewTransitionName!(container);
+// $ExpectType Instance
+const rootClone = vtConfig.cloneRootViewTransitionContainer!(container);
+vtConfig.removeRootViewTransitionClone!(container, rootClone);
+// $ExpectType { name: string; } | null
+vtConfig.createViewTransitionInstance!("hero");
+
+// The default config (no VT generics) leaves the renderer types as unknown.
+// $ExpectType unknown
+hostConfig.measureInstance!(instance);
+
+// blockedCallback and finishedAnimation are only passed in profiling builds.
+const vtStartConfig: Pick<typeof vtConfig, "startViewTransition"> = {
+    startViewTransition(
+        suspendedState,
+        rootContainer,
+        transitionTypes,
+        mutationCallback,
+        layoutCallback,
+        afterMutationCallback,
+        spawnedWorkCallback,
+        passiveCallback,
+        errorCallback,
+        blockedCallback,
+        finishedAnimation,
+    ) {
+        // $ExpectType ((reason: string) => void) | null
+        blockedCallback;
+        // @ts-expect-error -- finishedAnimation may be null outside profiling builds
+        finishedAnimation();
+        finishedAnimation?.();
+        return null;
+    },
+};
+
+// -------------------
+//   Fragment refs
+// -------------------
+// Called when a ref is attached to a <Fragment>. FragmentInstance is renderer-chosen
+// and threaded between host config calls.
+
+interface FragmentHandle {
+    children: Set<ReactTestHostConfig.Instance | ReactTestHostConfig.TextInstance>;
+}
+
+declare const fragmentConfig: ReactReconciler.HostConfig<
+    ReactTestHostConfig.Type,
+    ReactTestHostConfig.Props,
+    ReactTestHostConfig.Container,
+    ReactTestHostConfig.Instance,
+    ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
+    ReactTestHostConfig.SuspenseInstance,
+    ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
+    ReactTestHostConfig.PublicInstance,
+    ReactTestHostConfig.HostContext,
+    ReactTestHostConfig.ChildSet,
+    ReactTestHostConfig.TimeoutHandle,
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource,
+    unknown,
+    unknown,
+    FragmentHandle
+>;
+declare const fragmentFiber: ReactReconciler.Fiber;
+
+const fragmentInstance = fragmentConfig.createFragmentInstance!(fragmentFiber);
+// $ExpectType FragmentHandle
+fragmentInstance;
+// $ExpectType void
+fragmentConfig.updateFragmentInstanceFiber!(fragmentFiber, fragmentInstance);
+// $ExpectType void
+fragmentConfig.commitNewChildToFragmentInstance!(instance, fragmentInstance);
+// Text children are passed too.
+fragmentConfig.commitNewChildToFragmentInstance!(textInstance, fragmentInstance);
+// $ExpectType void
+fragmentConfig.deleteChildFromFragmentInstance!(instance, fragmentInstance);
+fragmentConfig.deleteChildFromFragmentInstance!(textInstance, fragmentInstance);
+
+// @ts-expect-error -- fragment instances must be the renderer's FragmentInstance
+fragmentConfig.updateFragmentInstanceFiber!(fragmentFiber, { children: [] });
+// @ts-expect-error -- only host instances are committed to a fragment
+fragmentConfig.commitNewChildToFragmentInstance!(container, fragmentInstance);
+
+const fragmentImpl: Pick<
+    typeof fragmentConfig,
+    | "createFragmentInstance"
+    | "updateFragmentInstanceFiber"
+    | "commitNewChildToFragmentInstance"
+    | "deleteChildFromFragmentInstance"
+> = {
+    createFragmentInstance(fiber) {
+        // $ExpectType Fiber
+        fiber;
+        return { children: new Set() };
+    },
+    updateFragmentInstanceFiber(fiber, handle) {
+        // $ExpectType FragmentHandle
+        handle;
+    },
+    commitNewChildToFragmentInstance(child, handle) {
+        // $ExpectType Instance | TextInstance
+        child;
+        handle.children.add(child);
+    },
+    deleteChildFromFragmentInstance(child, handle) {
+        handle.children.delete(child);
+    },
+};
+
+// Renderers without fragment refs can leave them out or return null.
+const noFragmentRefs: Pick<LiteralHostConfig, "createFragmentInstance"> = {
+    createFragmentInstance: () => null,
+};
+// The default config (no FragmentInstance generic) leaves it as unknown.
+// $ExpectType unknown
+hostConfig.createFragmentInstance!(fragmentFiber);
 
 // -------------------
 //   Test selectors
@@ -518,3 +797,303 @@ hostConfig.setupIntersectionObserver!([instance], intersections => {});
 
 // $ExpectType () => any
 hostConfig.bindToConsole("error", ["oops"], "Server");
+
+// -------------------
+//   Error callbacks
+// -------------------
+// React passes whatever was thrown, which is not necessarily an Error.
+
+TestReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {
+        // $ExpectType unknown
+        error;
+        // @ts-expect-error -- thrown values are not necessarily Errors
+        error.message;
+        if (error instanceof Error) error.message;
+        // $ExpectType string | null | undefined
+        info.componentStack;
+    },
+    (error, info) => {
+        // $ExpectType unknown
+        error;
+    },
+    (error, info) => {
+        // $ExpectType unknown
+        error;
+    },
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+);
+
+// Anything can be thrown, not just Errors.
+TestReconciler.defaultOnUncaughtError("thrown string", { componentStack: "" });
+TestReconciler.defaultOnCaughtError(null, { componentStack: "" });
+TestReconciler.defaultOnRecoverableError({ code: 1 }, { componentStack: "" });
+TestReconciler.defaultOnCaughtError(new Error("test"), { componentStack: "", errorBoundary: null });
+TestReconciler.defaultOnRecoverableError(new Error("test"), { componentStack: null });
+
+// Only caught errors carry the error boundary.
+TestReconciler.createHydrationContainer(
+    null, // initialChildren
+    null, // callback
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {
+        // @ts-expect-error -- only caught errors have a boundary
+        info.errorBoundary;
+    },
+    (error, info) => {
+        // $ExpectType Component<any, any, any> | null | undefined
+        info.errorBoundary;
+    },
+    (error, info) => {},
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+    null, // formState
+);
+
+// -------------------
+//  Transition indicator
+// -------------------
+// The indicator may return a cleanup, called when the transition ends.
+
+declare function showSpinner(): void;
+declare function hideSpinner(): void;
+
+type DefaultTransitionIndicator = Parameters<typeof TestReconciler.createContainer>[9];
+// $ExpectType void | (() => void)
+type DefaultTransitionIndicatorResult = ReturnType<DefaultTransitionIndicator>;
+
+TestReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    null, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {},
+    (error, info) => {},
+    (error, info) => {},
+    () => {
+        showSpinner();
+        return () => hideSpinner();
+    },
+    null, // transitionCallbacks
+);
+
+// -------------------
+//     Persistence
+// -------------------
+
+// React calls createContainerChildSet() with no arguments.
+// $ExpectType []
+type CreateContainerChildSetParams = Parameters<NonNullable<TestHostConfig["createContainerChildSet"]>>;
+
+const persistentConfig: Pick<TestHostConfig, "createContainerChildSet"> = {
+    createContainerChildSet: () => undefined,
+};
+
+const brokenPersistentConfig: Pick<TestHostConfig, "createContainerChildSet"> = {
+    // @ts-expect-error -- container is never passed
+    createContainerChildSet: (container: ReactTestHostConfig.Container) => undefined,
+};
+
+// React never passes internalInstanceHandle to these.
+// $ExpectType [instance: Instance, type: string, props: Props]
+type CloneHiddenInstanceParams = Parameters<NonNullable<TestHostConfig["cloneHiddenInstance"]>>;
+// $ExpectType [instance: TextInstance, text: string]
+type CloneHiddenTextInstanceParams = Parameters<NonNullable<TestHostConfig["cloneHiddenTextInstance"]>>;
+
+const brokenHiddenConfig: Pick<TestHostConfig, "cloneHiddenInstance"> = {
+    // @ts-expect-error -- internalInstanceHandle is never passed
+    cloneHiddenInstance: (
+        instance: ReactTestHostConfig.Instance,
+        type: string,
+        props: ReactTestHostConfig.Props,
+        internalInstanceHandle: object,
+    ) => instance,
+};
+
+// cloneInstance's last argument is the new child set, not a recyclable instance.
+// $ExpectType [instance: Instance, type: string, oldProps: Props, newProps: Props, keepChildren: boolean, newChildSet?: null | undefined]
+type CloneInstanceParams = Parameters<NonNullable<TestHostConfig["cloneInstance"]>>;
+
+// -------------------
+//    ReactContext
+// -------------------
+
+declare const ctx: ReactReconciler.ReactContext<string>;
+
+// React 19: the context is its own Provider.
+// $ExpectType ReactContext<string>
+ctx.Provider;
+// $ExpectType ReactConsumerType<string>
+ctx.Consumer;
+// $ExpectType ReactContext<string>
+ctx.Consumer._context;
+
+// @ts-expect-error -- Consumer is no longer a context
+ctx.Consumer._currentValue;
+
+// -------------------
+//  Tags and hook types
+// -------------------
+
+const concurrentRootTag: ReactReconciler.RootTag = 1;
+// @ts-expect-error -- React only has legacy (0) and concurrent (1) roots
+const blockingRootTag: ReactReconciler.RootTag = 2;
+
+// Newer work tags (e.g. HostHoistable = 26) are valid.
+const hoistableTag: ReactReconciler.WorkTag = 26;
+// @ts-expect-error -- React has no work tag 32
+const unknownTag: ReactReconciler.WorkTag = 32;
+
+const effectEventHook: ReactReconciler.HookType = "useEffectEvent";
+// @ts-expect-error -- removed in React 18
+const mutableSourceHook: ReactReconciler.HookType = "useMutableSource";
+
+// -------------------
+//  Fiber fields
+// -------------------
+
+declare const fiber: ReactReconciler.Fiber;
+
+// The effect list (nextEffect/firstEffect/lastEffect) was removed in React 18.
+// Code that walks it type-checks but does nothing at runtime.
+// @ts-expect-error -- nextEffect no longer exists; walk child/sibling and check flags instead
+fiber.nextEffect;
+// @ts-expect-error -- firstEffect no longer exists
+fiber.firstEffect;
+// @ts-expect-error -- lastEffect no longer exists
+fiber.lastEffect;
+
+// Removed DEV-only fields
+// @ts-expect-error -- _debugID was removed
+fiber._debugID;
+// @ts-expect-error -- _debugSource was removed
+fiber._debugSource;
+// @ts-expect-error -- _debugIsCurrentlyTiming was removed
+fiber._debugIsCurrentlyTiming;
+
+// What replaced the effect list still works
+// $ExpectType number
+fiber.flags;
+// $ExpectType number
+fiber.subtreeFlags;
+// $ExpectType Fiber[] | null
+fiber.deletions;
+// $ExpectType Fiber | null | undefined
+fiber._debugOwner;
+
+// refCleanup holds the cleanup function a callback ref returned (React 19).
+// It's a real, non-DEV field, so it's required rather than optional.
+// $ExpectType (() => void) | null
+fiber.refCleanup;
+if (fiber.refCleanup !== null) {
+    fiber.refCleanup();
+}
+
+// -------------------
+//  Context dependencies
+// -------------------
+
+declare const contextDependency: ReactReconciler.ContextDependency<string>;
+
+// memoizedValue is the context value read during render, used to detect changes.
+// $ExpectType string
+contextDependency.memoizedValue;
+// @ts-expect-error -- observedBits was removed along with calculateChangedBits
+contextDependency.observedBits;
+// $ExpectType ReactContext<string>
+contextDependency.context;
+
+// -------------------
+//  Suspense hydration callbacks
+// -------------------
+
+// The test host config uses `any` for SuspenseInstance, which would hide the union,
+// so this reconciler uses a distinct SuspenseInstance type.
+interface HydrationSuspenseInstance {
+    kind: "SuspenseInstance";
+}
+
+declare const hydrationHostConfig: any;
+const HydrationReconciler = ReactReconciler<
+    ReactTestHostConfig.Type,
+    ReactTestHostConfig.Props,
+    ReactTestHostConfig.Container,
+    ReactTestHostConfig.Instance,
+    ReactTestHostConfig.TextInstance,
+    ReactTestHostConfig.ActivityInstance,
+    HydrationSuspenseInstance,
+    ReactTestHostConfig.HydratableInstance,
+    ReactTestHostConfig.FormInstance,
+    ReactTestHostConfig.PublicInstance,
+    ReactTestHostConfig.HostContext,
+    ReactTestHostConfig.ChildSet,
+    ReactTestHostConfig.TimeoutHandle,
+    ReactTestHostConfig.NoTimeout,
+    ReactTestHostConfig.TransitionStatus,
+    ReactTestHostConfig.SuspendedState,
+    ReactTestHostConfig.RendererInspectionConfig,
+    ReactTestHostConfig.FormStateMarkerInstance,
+    ReactTestHostConfig.HoistableRoot,
+    ReactTestHostConfig.Resource
+>(hydrationHostConfig);
+
+// Hydration callbacks fire for both Suspense and Activity boundaries.
+HydrationReconciler.createHydrationContainer(
+    null, // initialChildren
+    null, // callback
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    {
+        onHydrated: boundary => {
+            // $ExpectType HydrationSuspenseInstance | ActivityInstance
+            boundary;
+        },
+        onDeleted: boundary => {
+            // $ExpectType HydrationSuspenseInstance | ActivityInstance
+            boundary;
+        },
+    }, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {}, // onUncaughtError
+    (error, info) => {}, // onCaughtError
+    (error, info) => {}, // onRecoverableError
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+    null, // formState
+);
+
+// createContainer takes the same callbacks.
+HydrationReconciler.createContainer(
+    container,
+    ReactReconcilerConstants.ConcurrentRoot,
+    {
+        onHydrated: boundary => {
+            // $ExpectType HydrationSuspenseInstance | ActivityInstance
+            boundary;
+        },
+    }, // hydrationCallbacks
+    false, // isStrictMode
+    null, // concurrentUpdatesByDefaultOverride
+    "", // identifierPrefix
+    (error, info) => {}, // onUncaughtError
+    (error, info) => {}, // onCaughtError
+    (error, info) => {}, // onRecoverableError
+    () => {}, // onDefaultTransitionIndicator
+    null, // transitionCallbacks
+);
