@@ -1,6 +1,14 @@
-import { Callback, Handler } from "../handler";
+import { AsyncHandler, Callback, Handler } from "../handler";
 
+/**
+ * {@link FirehoseTransformationAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type FirehoseTransformationHandler = Handler<FirehoseTransformationEvent, FirehoseTransformationResult>;
+export type FirehoseTransformationAsyncHandler = AsyncHandler<
+    FirehoseTransformationEvent,
+    FirehoseTransformationResult
+>;
 export type FirehoseTransformationCallback = Callback<FirehoseTransformationResult>;
 
 // Kinesis Data Firehose Event
