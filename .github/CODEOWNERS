@@ -2038,7 +2038,6 @@
 /types/ffbinaries/                                      @andrewbranch
 /types/ffi/                                             @loyd @waitingsong
 /types/ffi-napi/                                        @keerthi16 @KiranNiranjan
-/types/ffmpeg/                                          @Buzzertech
 /types/ffmpeg.js/                                       @maxbogus
 /types/ffmpeg__libav-core/                              @jeromewu
 /types/fg-loadcss/                                      @ncovercash
