@@ -531,7 +531,7 @@ declare namespace Office {
      * It's also supported in
      * {@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new Outlook on Windows}.
      *
-     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermission 1.1}
+     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermissionService 1.1}
      */
     enum DevicePermissionType {
         /**
@@ -5515,7 +5515,7 @@ declare namespace Office {
      * It's also supported in
      * {@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new Outlook on Windows}.
      *
-     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermission 1.1}
+     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermissionService 1.1}
      */
     interface DevicePermission {
         /**
