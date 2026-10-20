@@ -2004,3 +2004,78 @@ CardService.newTextInput().setInputMode(CardService.TextInputMode.PLAIN_TEXT); /
 CardService.newTextParagraph().setMaxLines(1); // $ExpectType TextParagraph
 CardService.UpdateDraftBodyType.INSERT_AT_START; // $ExpectType UpdateDraftBodyType.INSERT_AT_START
 CardService.UpdateDraftBodyType.INSERT_AT_END; // $ExpectType UpdateDraftBodyType.INSERT_AT_END
+
+// AddOns Response Service: https://developers.google.com/apps-script/reference/add-ons-response-service/add-ons-response-service
+const addOnsCard = CardService.newCardBuilder().build();
+AddOnsResponseService.newActionResponseBuilder().setNavigation(AddOnsResponseService.newNavigation()).build(); // $ExpectType ActionResponse
+AddOnsResponseService.newActionResponseBuilder().build().printJson(); // $ExpectType string
+// $ExpectType ActionResponseBuilder
+AddOnsResponseService.newActionResponseBuilder().setNotification(
+    AddOnsResponseService.newNotification().setText("Done"),
+);
+// $ExpectType ActionResponseBuilder
+AddOnsResponseService.newActionResponseBuilder().setOpenLink(AddOnsResponseService.newOpenLink()).setStateChanged(true);
+// $ExpectType ActionResponseBuilder
+AddOnsResponseService.newActionResponseBuilder().setLinkPreview(
+    AddOnsResponseService.newLinkPreview().setTitle("Smart chip title"),
+);
+// $ExpectType OpenLink
+AddOnsResponseService.newOpenLink().setOpenAs(AddOnsResponseService.OpenAs.FULL_SIZE).setOnClose(
+    AddOnsResponseService.OnClose.NOTHING,
+);
+AddOnsResponseService.newLinkPreview().setPreviewCard(addOnsCard).setLinkPreviewTitle("Link preview title"); // $ExpectType LinkPreview
+AddOnsResponseService.newNavigation().pushCard(addOnsCard).updateCard(addOnsCard).popToRoot(); // $ExpectType Navigation
+AddOnsResponseService.newNavigation().setEndNavigation(AddOnsResponseService.EndNavigation.CLOSE_DIALOG); // $ExpectType Navigation
+AddOnsResponseService.newAccessoryWidget().addWidget(CardService.newButtonSet()); // $ExpectType AccessoryWidget
+AddOnsResponseService.newAction().addNavigation(AddOnsResponseService.newNavigation()); // $ExpectType Action
+AddOnsResponseService.newRenderActionBuilder().setAction(AddOnsResponseService.newAction()).build(); // $ExpectType RenderAction
+AddOnsResponseService.newChatMessage().setText("Example text").addCardWithId(CardService.newCardWithId()); // $ExpectType ChatMessage
+AddOnsResponseService.newCreateMessageAction().setMessage(AddOnsResponseService.newChatMessage()); // $ExpectType CreateMessageAction
+AddOnsResponseService.newUpdateMessageAction().setMessage(AddOnsResponseService.newChatMessage()); // $ExpectType UpdateMessageAction
+AddOnsResponseService.newUpdateInlinePreviewAction().addCardWithId(CardService.newCardWithId()); // $ExpectType UpdateInlinePreviewAction
+// $ExpectType DataActionsResponse
+AddOnsResponseService.newChatDataActionBuilder().setCreateChatMessageAction(
+    AddOnsResponseService.newCreateMessageAction(),
+).build();
+// $ExpectType AddonComposeUiActionResponse
+AddOnsResponseService.newAddonComposeUiActionResponseBuilder().setType(
+    AddOnsResponseService.AddonComposeUiActionType.DISMISS,
+).build();
+// $ExpectType Attachment
+AddOnsResponseService.newAttachment().setResourceUrl("https://example.com").setTitle("Title").setMimeType("text/html")
+    .setIconUrl("https://example.com/i.png");
+AddOnsResponseService.newCalendarEventActionResponseBuilder().addAttendees(["user1@example.com"]).build(); // $ExpectType CalendarEventActionResponse
+// $ExpectType ComposeActionResponse
+AddOnsResponseService.newComposeActionResponseBuilder().setGmailDraft(
+    GmailApp.createDraft("recipient", "subject", "body"),
+).build();
+// $ExpectType EditorFileScopeActionResponse
+AddOnsResponseService.newEditorFileScopeActionResponseBuilder().requestFileScopeForActiveDocument().build();
+// $ExpectType DriveItemsSelectedActionResponse
+AddOnsResponseService.newDriveItemsSelectedActionResponseBuilder().requestFileScope("item-id").build();
+// $ExpectType UniversalActionResponse
+AddOnsResponseService.newUniversalActionResponseBuilder().displayAddOnCards([addOnsCard]).build();
+// $ExpectType UpdateDraftActionResponse
+AddOnsResponseService.newUpdateDraftActionResponseBuilder().setSendStatus(AddOnsResponseService.SendStatus.NOT_SEND)
+    .build();
+// $ExpectType UpdateDraftToRecipientsAction
+AddOnsResponseService.newUpdateDraftToRecipientsAction().addUpdateToRecipients(["joe@example.com"]);
+// $ExpectType UpdateDraftCcRecipientsAction
+AddOnsResponseService.newUpdateDraftCcRecipientsAction().addUpdateCcRecipients(["joe@example.com"]);
+// $ExpectType UpdateDraftBccRecipientsAction
+AddOnsResponseService.newUpdateDraftBccRecipientsAction().addUpdateBccRecipients(["joe@example.com"]);
+AddOnsResponseService.newUpdateDraftSubjectAction().addUpdateSubject("example subject"); // $ExpectType UpdateDraftSubjectAction
+// $ExpectType UpdateDraftBodyAction
+AddOnsResponseService.newUpdateDraftBodyAction().addUpdateContent(
+    "<b>hi</b>",
+    AddOnsResponseService.ContentType.MUTABLE_HTML,
+);
+// $ExpectType UpdateDraftBodyAction
+AddOnsResponseService.newUpdateDraftBodyAction().setUpdateType(
+    AddOnsResponseService.UpdateDraftBodyType.IN_PLACE_INSERT,
+);
+// $ExpectType UpdateDraftActionResponseBuilder
+AddOnsResponseService.newUpdateDraftActionResponseBuilder().setUpdateDraftBodyAction(
+    AddOnsResponseService.newUpdateDraftBodyAction(),
+);
+AddOnsResponseService.ComposedEmailType.REPLY_AS_DRAFT; // $ExpectType ComposedEmailType.REPLY_AS_DRAFT

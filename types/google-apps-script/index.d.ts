@@ -19,6 +19,7 @@
 /// <reference path="google-apps-script.spreadsheet.d.ts"/>
 
 // Script Services (Other *App / *Service)
+/// <reference path="google-apps-script.add-ons-response-service.d.ts"/>
 /// <reference path="google-apps-script.card-service.d.ts"/>
 /// <reference path="google-apps-script.charts.d.ts"/>
 /// <reference path="google-apps-script.content.d.ts"/>
