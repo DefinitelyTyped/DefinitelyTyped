@@ -1994,3 +1994,13 @@ CardService.newChatActionResponse().setResponseType(CardService.ResponseType.DIA
 );
 CardService.newChatActionResponse().setUpdatedWidget(CardService.newUpdatedWidget()).setUrl("https://example.com"); // $ExpectType ChatActionResponse
 CardService.newUpdatedWidget().addItem("title", "value", false, "uri", "bottom text"); // $ExpectType UpdatedWidget
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/text-button
+CardService.newImageButton().setImageButtonStyle(CardService.ImageButtonStyle.BORDERLESS); // $ExpectType ImageButton
+CardService.newTextButton().setIcon(CardService.Icon.STAR); // $ExpectType TextButton
+CardService.newTextButton().setIconUrl("https://example.com/icon.png"); // $ExpectType TextButton
+CardService.newTextButton().setMaterialIcon(CardService.newMaterialIcon().setName("search")); // $ExpectType TextButton
+CardService.newTextInput().setInputMode(CardService.TextInputMode.PLAIN_TEXT); // $ExpectType TextInput
+CardService.newTextParagraph().setMaxLines(1); // $ExpectType TextParagraph
+CardService.UpdateDraftBodyType.INSERT_AT_START; // $ExpectType UpdateDraftBodyType.INSERT_AT_START
+CardService.UpdateDraftBodyType.INSERT_AT_END; // $ExpectType UpdateDraftBodyType.INSERT_AT_END

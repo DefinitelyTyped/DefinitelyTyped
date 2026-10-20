@@ -503,6 +503,18 @@ declare namespace GoogleAppsScript {
             setWorkflowDataSource(workflowDataSource: WorkflowDataSource): HostAppDataSource;
         }
         /**
+         * An enum that specifies the style for ImageButton.
+         *
+         * BORDERLESS is the default; it renders a simple image button with no border. FILLED
+         * buttons have a background color you can set with ImageButton.
+         */
+        enum ImageButtonStyle {
+            BORDERLESS,
+            OUTLINED,
+            FILLED,
+            FILLED_TONAL,
+        }
+        /**
          * An enum type that specifies what to do in response to an interaction with a user,
          * such as a user clicking a button in a card message.
          */
@@ -765,6 +777,7 @@ declare namespace GoogleAppsScript {
             HorizontalAlignment: typeof HorizontalAlignment;
             HorizontalSizeStyle: typeof HorizontalSizeStyle;
             Icon: typeof Icon;
+            ImageButtonStyle: typeof ImageButtonStyle;
             ImageCropType: typeof ImageCropType;
             ImageStyle: typeof ImageStyle;
             LoadIndicator: typeof LoadIndicator;
@@ -775,6 +788,7 @@ declare namespace GoogleAppsScript {
             Status: typeof Status;
             SwitchControlType: typeof SwitchControlType;
             TextButtonStyle: typeof TextButtonStyle;
+            TextInputMode: typeof TextInputMode;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
             InputType: typeof InputType;
             Interaction: typeof Interaction;
@@ -1004,6 +1018,7 @@ declare namespace GoogleAppsScript {
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): ImageButton;
             setIcon(icon: Icon): ImageButton;
             setIconUrl(url: string): ImageButton;
+            setImageButtonStyle(imageButtonStyle: ImageButtonStyle): ImageButton;
             setMaterialIcon(icon: MaterialIcon): ImageButton;
             setOnClickAction(action: Action): ImageButton;
             setOnClickOpenLinkAction(action: Action): ImageButton;
@@ -1457,6 +1472,9 @@ declare namespace GoogleAppsScript {
             setBackgroundColor(backgroundColor: string): TextButton;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;
             setDisabled(disabled: boolean): TextButton;
+            setIcon(icon: Icon): TextButton;
+            setIconUrl(url: string): TextButton;
+            setMaterialIcon(icon: MaterialIcon): TextButton;
             setOnClickAction(action: Action): TextButton;
             setOnClickOpenLinkAction(action: Action): TextButton;
             setOpenLink(openLink: OpenLink): TextButton;
@@ -1495,6 +1513,7 @@ declare namespace GoogleAppsScript {
             setHint(hint: string): TextInput;
             setHostAppDataSource(hostAppDataSource: HostAppDataSource): TextInput;
             setId(id: string): Widget;
+            setInputMode(inputMode: TextInputMode): TextInput;
             setMultiline(multiline: boolean): TextInput;
             setOnChangeAction(action: Action): TextInput;
             setSuggestions(suggestions: Suggestions): TextInput;
@@ -1505,6 +1524,13 @@ declare namespace GoogleAppsScript {
             setVisibility(visibility: Visibility): Widget;
         }
         /**
+         * An enum that defines the what type of input is allowed for the text input field.
+         */
+        enum TextInputMode {
+            PLAIN_TEXT,
+            RICH_TEXT,
+        }
+        /**
          * A widget that displays text and supports basic HTML formatting.
          *
          *     var textParagraph = CardService.newTextParagraph()
@@ -1513,6 +1539,7 @@ declare namespace GoogleAppsScript {
         interface TextParagraph {
             addEventAction(eventAction: EventAction): Widget;
             setId(id: string): Widget;
+            setMaxLines(maxLines: Integer): TextParagraph;
             setText(text: string): TextParagraph;
             setVisibility(visibility: Visibility): Widget;
         }
@@ -2050,6 +2077,8 @@ declare namespace GoogleAppsScript {
          */
         enum UpdateDraftBodyType {
             IN_PLACE_INSERT,
+            INSERT_AT_START,
+            INSERT_AT_END,
         }
         /**
          * An enum that represents the size of the variable picker button.
