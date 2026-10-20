@@ -217,6 +217,7 @@ declare namespace GoogleAppsScript {
             addToThread(thread: GmailThread): GmailLabel;
             addToThreads(threads: GmailThread[]): GmailLabel;
             deleteLabel(): void;
+            getId(): string;
             getName(): string;
             getThreads(): GmailThread[];
             getThreads(start: Integer, max: Integer): GmailThread[];

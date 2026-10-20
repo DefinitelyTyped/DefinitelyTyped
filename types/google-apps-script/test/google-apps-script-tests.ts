@@ -1589,3 +1589,6 @@ function testSheetsV4ColorStyle() {
 
     const textFormat: GoogleAppsScript.Sheets.Schema.TextFormat = { foregroundColorStyle: style };
 }
+
+// Gmail: https://developers.google.com/apps-script/reference/gmail/gmail-label
+GmailApp.getUserLabelByName("MyLabel").getId(); // $ExpectType string
