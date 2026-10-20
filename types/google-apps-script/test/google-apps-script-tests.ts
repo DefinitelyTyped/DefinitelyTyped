@@ -1657,3 +1657,16 @@ SlidesApp.AutofitType.TEXT_AUTOFIT; // $ExpectType AutofitType.TEXT_AUTOFIT
 slidesElement.asImage().getParentPlaceholder(); // $ExpectType PageElement | null
 slidesElement.asImage().getPlaceholderIndex(); // $ExpectType number | null
 slidesElement.asImage().getPlaceholderType(); // $ExpectType PlaceholderType
+
+// Forms: https://developers.google.com/apps-script/reference/forms/form
+const formsForm = FormApp.openById("1234567890abcdefghijklmnopqrstuvwxyz");
+formsForm.addPublishedReader("responder@uni.edu"); // $ExpectType Form
+formsForm.addPublishedReader(Session.getActiveUser()); // $ExpectType Form
+formsForm.addPublishedReaders(["responder1@uni.edu", "responder2@uni.edu"]); // $ExpectType Form
+formsForm.getPublishedReaders(); // $ExpectType User[]
+formsForm.removePublishedReader("responder1@uni.edu"); // $ExpectType Form
+formsForm.removePublishedReader(Session.getActiveUser()); // $ExpectType Form
+formsForm.setPublished(true); // $ExpectType Form
+formsForm.isPublished(); // $ExpectType boolean
+formsForm.supportsAdvancedResponderPermissions(); // $ExpectType boolean
+FormApp.create("Form Name", true); // $ExpectType Form

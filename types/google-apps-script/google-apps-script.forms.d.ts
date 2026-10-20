@@ -356,6 +356,9 @@ declare namespace GoogleAppsScript {
             addMultipleChoiceItem(): MultipleChoiceItem;
             addPageBreakItem(): PageBreakItem;
             addParagraphTextItem(): ParagraphTextItem;
+            addPublishedReader(emailAddress: string): Form;
+            addPublishedReader(user: Base.User): Form;
+            addPublishedReaders(emailAddresses: string[]): Form;
             addScaleItem(): ScaleItem;
             addSectionHeaderItem(): SectionHeaderItem;
             addTextItem(): TextItem;
@@ -379,6 +382,7 @@ declare namespace GoogleAppsScript {
             getItemById(id: Integer): Item;
             getItems(): Item[];
             getItems(itemType: ItemType): Item[];
+            getPublishedReaders(): Base.User[];
             getPublishedUrl(): string;
             getResponse(responseId: string): FormResponse;
             getResponses(): FormResponse[];
@@ -390,6 +394,7 @@ declare namespace GoogleAppsScript {
             hasProgressBar(): boolean;
             hasRespondAgainLink(): boolean;
             isAcceptingResponses(): boolean;
+            isPublished(): boolean;
             isPublishingSummary(): boolean;
             isQuiz(): boolean;
             moveItem(from: Integer, to: Integer): Item;
@@ -397,6 +402,8 @@ declare namespace GoogleAppsScript {
             removeDestination(): Form;
             removeEditor(emailAddress: string): Form;
             removeEditor(user: Base.User): Form;
+            removePublishedReader(emailAddress: string): Form;
+            removePublishedReader(user: Base.User): Form;
             requiresLogin(): boolean;
             setAcceptingResponses(enabled: boolean): Form;
             setAllowResponseEdits(enabled: boolean): Form;
@@ -408,6 +415,7 @@ declare namespace GoogleAppsScript {
             setIsQuiz(enabled: boolean): Form;
             setLimitOneResponsePerUser(enabled: boolean): Form;
             setProgressBar(enabled: boolean): Form;
+            setPublished(enabled: boolean): Form;
             setPublishingSummary(enabled: boolean): Form;
             setRequireLogin(requireLogin: boolean): Form;
             setShowLinkToRespondAgain(enabled: boolean): Form;
@@ -415,6 +423,7 @@ declare namespace GoogleAppsScript {
             setTitle(title: string): Form;
             shortenFormUrl(url: string): string;
             submitGrades(responses: FormResponse[]): Form;
+            supportsAdvancedResponderPermissions(): boolean;
         }
         /**
          * Allows a script to open an existing Form or create a new one.
@@ -432,6 +441,7 @@ declare namespace GoogleAppsScript {
             ItemType: typeof ItemType;
             PageNavigationType: typeof PageNavigationType;
             create(title: string): Form;
+            create(title: string, isPublished: boolean): Form;
             createCheckboxGridValidation(): CheckboxGridValidationBuilder;
             createCheckboxValidation(): CheckboxValidationBuilder;
             createFeedback(): QuizFeedbackBuilder;
