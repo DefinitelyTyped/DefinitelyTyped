@@ -1595,3 +1595,7 @@ GmailApp.getUserLabelByName("MyLabel").getId(); // $ExpectType string
 
 // Groups: https://developers.google.com/apps-script/reference/groups/role
 GroupsApp.Role.BANNED; // $ExpectType Role.BANNED
+
+// Calendar: https://developers.google.com/apps-script/reference/calendar/calendar-event-series
+CalendarApp.getEventSeriesById("abc123456").getTransparency(); // $ExpectType EventTransparency
+CalendarApp.getEventSeriesById("abc123456").setTransparency(CalendarApp.EventTransparency.OPAQUE); // $ExpectType CalendarEventSeries
