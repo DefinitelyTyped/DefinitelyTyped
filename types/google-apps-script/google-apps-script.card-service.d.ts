@@ -57,6 +57,31 @@ declare namespace GoogleAppsScript {
             addWidget(widget: Widget): CarouselCard;
         }
         /**
+         * For a SelectionInput widget that uses a multiselect menu, a data source from Google Chat.
+         * The data source populates selection items for the multiselect menu. For example, a user
+         * can select Google Chat spaces that they're a member of.
+         *
+         *     const chatSpaceDataSource =
+         *         CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true);
+         *
+         *     const chatClientDataSource =
+         *         CardService.newChatClientDataSource().setSpaceDataSource(
+         *             chatSpaceDataSource);
+         */
+        interface ChatClientDataSource {
+            setSpaceDataSource(spaceDataSource: ChatSpaceDataSource): ChatClientDataSource;
+        }
+        /**
+         * A data source that populates Google Chat spaces as selection items for a multiselect
+         * menu. Only populates spaces that the user is a member of.
+         *
+         *     const chatSpaceDataSource =
+         *         CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true);
+         */
+        interface ChatSpaceDataSource {
+            setDefaultToCurrentSpace(defaultToCurrentSpace: boolean): ChatSpaceDataSource;
+        }
+        /**
          * A Chip with an icon and text label. You can deactivate the chip when needed.
          *
          *     const chip = CardService.newChip()
@@ -186,6 +211,14 @@ declare namespace GoogleAppsScript {
             setWrapStyle(wrapStyle: WrapStyle): Columns;
         }
         /**
+         * A data source shared by all Google Workspace applications.
+         */
+        enum CommonDataSource {
+            UNKNOWN,
+            USER,
+            DRIVE,
+        }
+        /**
          * Defines actions that don't involve evaluations, such as updating widget visibility. For
          * example, can reveal or hide widgets based on the value of an input as part of CEL
          * validation.
@@ -206,6 +239,45 @@ declare namespace GoogleAppsScript {
         interface Condition {
             setActionRuleId(actionRuleId: string): Condition;
             setExpressionDataCondition(expressionDataCondition: ExpressionDataCondition): Condition;
+        }
+        /**
+         * A configuration object that helps configure the data sources for a widget.
+         *
+         * Sample usage:
+         *
+         *     const dataSourceConfig = CardService.newDataSourceConfig()
+         *          .setPlatformDataSource(CardService.newPlatformDataSource()
+         *          .setWorkflowDataSource(CardService.WorkflowDataSourceType.USER));
+         */
+        interface DataSourceConfig {
+            setMaxCharactersToDisable(maxCharactersToDisable: Integer): DataSourceConfig;
+            setMaxResults(maxResults: Integer): DataSourceConfig;
+            setMinCharactersToTrigger(minCharactersToTrigger: Integer): DataSourceConfig;
+            setPlatformDataSource(platformDataSource: PlatformDataSource): DataSourceConfig;
+            setRemoteDataSource(action: Action): DataSourceConfig;
+        }
+        /**
+         * Holds a set of DriveItemType objects that are displayed in a row.
+         *
+         *     const driveDataSourceSpec =
+         *         CardService.newDriveDataSourceSpec()
+         *          .addItemType(CardService.DriveItemType.DOCUMENTS)
+         *          .addItemType(CardService.DriveItemType.FORMS);
+         */
+        interface DriveDataSourceSpec {
+            addItemType(driveItemType: DriveItemType): DriveDataSourceSpec;
+        }
+        /**
+         * An enum define the file type for a drive item.
+         */
+        enum DriveItemType {
+            DRIVE_ITEM_TYPE_UNSPECIFIED,
+            DOCUMENTS,
+            SPREADSHEETS,
+            PRESENTATIONS,
+            PDFS,
+            FORMS,
+            FOLDERS,
         }
         /**
          * An EventAction to run when a CEL expression validation condition is met.
@@ -278,6 +350,25 @@ declare namespace GoogleAppsScript {
         enum HorizontalSizeStyle {
             FILL_AVAILABLE_SPACE,
             FILL_MINIMUM_SPACE,
+        }
+        /**
+         * For a SelectionInput widget that uses a multiselect menu, a data source from a Google
+         * Workspace application. The data source populates selection items for the multiselect
+         * menu.
+         *
+         *     const chatSpaceDataSource =
+         *         CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true);
+         *
+         *     const chatClientDataSource =
+         *         CardService.newChatClientDataSource().setSpaceDataSource(
+         *             chatSpaceDataSource);
+         *
+         *     const hostAppDataSource =
+         *         CardService.newHostAppDataSource().setChatDataSource(chatClientDataSource);
+         */
+        interface HostAppDataSource {
+            setChatDataSource(chatClientDataSource: ChatClientDataSource): HostAppDataSource;
+            setWorkflowDataSource(workflowDataSource: WorkflowDataSource): HostAppDataSource;
         }
         /**
          * An enum type that specifies what to do in response to an interaction with a user,
@@ -531,9 +622,11 @@ declare namespace GoogleAppsScript {
         interface CardService {
             BorderType: typeof BorderType;
             ChipListLayout: typeof ChipListLayout;
+            CommonDataSource: typeof CommonDataSource;
             ComposedEmailType: typeof ComposedEmailType;
             ContentType: typeof ContentType;
             DisplayStyle: typeof DisplayStyle;
+            DriveItemType: typeof DriveItemType;
             ExpressionDataActionType: typeof ExpressionDataActionType;
             ExpressionDataConditionType: typeof ExpressionDataConditionType;
             GridItemLayout: typeof GridItemLayout;
@@ -551,8 +644,10 @@ declare namespace GoogleAppsScript {
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
             InputType: typeof InputType;
             Interaction: typeof Interaction;
+            VariableButtonSize: typeof VariableButtonSize;
             VerticalAlignment: typeof VerticalAlignment;
             Visibility: typeof Visibility;
+            WorkflowDataSourceType: typeof WorkflowDataSourceType;
             WrapStyle: typeof WrapStyle;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
@@ -571,6 +666,8 @@ declare namespace GoogleAppsScript {
             newCardSection(): CardSection;
             newCarousel(): Carousel;
             newCarouselCard(): CarouselCard;
+            newChatClientDataSource(): ChatClientDataSource;
+            newChatSpaceDataSource(): ChatSpaceDataSource;
             newChip(): Chip;
             newChipList(): ChipList;
             newCollapseControl(): CollapseControl;
@@ -579,10 +676,12 @@ declare namespace GoogleAppsScript {
             newCommonWidgetAction(): CommonWidgetAction;
             newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
             newCondition(): Condition;
+            newDataSourceConfig(): DataSourceConfig;
             newDatePicker(): DatePicker;
             newDateTimePicker(): DateTimePicker;
             newDecoratedText(): DecoratedText;
             newDivider(): Divider;
+            newDriveDataSourceSpec(): DriveDataSourceSpec;
             newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
             /**
              * Creates a new EditorFileScopeActionResponseBuilder.
@@ -593,6 +692,7 @@ declare namespace GoogleAppsScript {
             newExpressionDataAction(): ExpressionDataAction;
             newExpressionDataCondition(): ExpressionDataCondition;
             newFixedFooter(): FixedFooter;
+            newHostAppDataSource(): HostAppDataSource;
             newIconImage(): IconImage;
             /**
              * Creates a new Grid
@@ -620,6 +720,7 @@ declare namespace GoogleAppsScript {
             newOpenLink(): OpenLink;
             newOverflowMenu(): OverflowMenu;
             newOverflowMenuItem(): OverflowMenuItem;
+            newPlatformDataSource(): PlatformDataSource;
             newSelectionInput(): SelectionInput;
             newSuggestions(): Suggestions;
             newSuggestionsResponseBuilder(): SuggestionsResponseBuilder;
@@ -638,6 +739,7 @@ declare namespace GoogleAppsScript {
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
             newUpdateVisibilityAction(): UpdateVisibilityAction;
             newValidation(): Validation;
+            newWorkflowDataSource(): WorkflowDataSource;
         }
         /**
          * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -984,6 +1086,28 @@ declare namespace GoogleAppsScript {
             setText(text: string): OverflowMenuItem;
         }
         /**
+         * For a SelectionInput widget that uses a multiselect menu, a data source from Google
+         * Workspace. Used to populate items in a multiselect menu.
+         *
+         *     const platformDataSource =
+         *         CardService.newPlatformDataSource().setCommonDataSource(
+         *             CardService.CommonDataSource.USER,
+         *         );
+         *
+         *     const multiSelect = CardService.newSelectionInput()
+         *                             .setType(CardService.SelectionInputType.MULTI_SELECT)
+         *                             .setFieldName('contacts')
+         *                             .setTitle('Selected contacts')
+         *                             .setMultiSelectMaxSelectedItems(5)
+         *                             .setMultiSelectMinQueryLength(1)
+         *                             .setPlatformDataSource(platformDataSource);
+         */
+        interface PlatformDataSource {
+            setCommonDataSource(commonDataSource: CommonDataSource): PlatformDataSource;
+            setDriveDataSourceSpec(driveDataSourceSpec: DriveDataSourceSpec): PlatformDataSource;
+            setHostAppDataSource(hostAppDataSource: HostAppDataSource): PlatformDataSource;
+        }
+        /**
          * An input field that allows choosing between a set of predefined options.
          *
          *  const checkboxGroup =
@@ -1052,6 +1176,7 @@ declare namespace GoogleAppsScript {
          *          .setMultiSelectMinQueryLength(1);
          */
         interface SelectionInput {
+            addDataSourceConfig(dataSourceConfig: DataSourceConfig): SelectionInput;
             addEventAction(eventAction: EventAction): Widget;
             addItem(text: any, value: any, selected: boolean): SelectionInput;
             addMultiSelectItem(
@@ -1067,6 +1192,7 @@ declare namespace GoogleAppsScript {
             setMultiSelectMaxSelectedItems(maxSelectedItems: Integer): SelectionInput;
             setMultiSelectMinQueryLength(queryLength: Integer): SelectionInput;
             setOnChangeAction(action: Action): SelectionInput;
+            setPlatformDataSource(platformDataSource: PlatformDataSource): SelectionInput;
             setTitle(title: string): SelectionInput;
             setType(type: SelectionInputType): SelectionInput;
             setVisibility(visibility: Visibility): Widget;
@@ -1192,6 +1318,7 @@ declare namespace GoogleAppsScript {
             addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): TextInput;
             setHint(hint: string): TextInput;
+            setHostAppDataSource(hostAppDataSource: HostAppDataSource): TextInput;
             setId(id: string): Widget;
             setMultiline(multiline: boolean): TextInput;
             setOnChangeAction(action: Action): TextInput;
@@ -1457,6 +1584,7 @@ declare namespace GoogleAppsScript {
         interface DateTimePicker {
             addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): DateTimePicker;
+            setHostAppDataSource(hostAppDataSource: HostAppDataSource): DateTimePicker;
             setId(id: string): Widget;
             setOnChangeAction(action: Action): DateTimePicker;
             setTimeZoneOffsetInMins(timeZoneOffsetMins: Integer): DateTimePicker;
@@ -1726,6 +1854,14 @@ declare namespace GoogleAppsScript {
             IN_PLACE_INSERT,
         }
         /**
+         * An enum that represents the size of the variable picker button.
+         */
+        enum VariableButtonSize {
+            UNSPECIFIED,
+            COMPACT,
+            FULL_SIZE,
+        }
+        /**
          * An enum that sets the vertical alignment of widgets in a column.
          */
         enum VerticalAlignment {
@@ -1756,6 +1892,31 @@ declare namespace GoogleAppsScript {
             addEventAction(eventAction: EventAction): Widget;
             setId(id: string): Widget;
             setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * For a SelectionInput,DateTimePicker\` or TextInput widget, a data source used in Google
+         * Workspace Studio. The data source populates available options for a widget.
+         *
+         *     const workflowDataSource = CardService.newWorkflowDataSource().setIncludeVariables(true)
+         *     .setType(CardService.WorkflowDataSourceType.USER);
+         */
+        interface WorkflowDataSource {
+            setIncludeVariables(includeVariables: boolean): WorkflowDataSource;
+            setType(type: WorkflowDataSourceType): WorkflowDataSource;
+            setVariableButtonLabel(variableButtonLabel: string): WorkflowDataSource;
+            setVariableButtonSize(variableButtonSize: VariableButtonSize): WorkflowDataSource;
+        }
+        /**
+         * An enum that represents the type of the workflow data source.
+         *
+         *     const workflowDataSource = CardService.newWorkflowDataSource().setIncludeVariables(true)
+         *     .setType(CardService.WorkflowDataSourceType.USER);
+         */
+        enum WorkflowDataSourceType {
+            UNKNOWN,
+            USER,
+            SPACE,
+            USER_WITH_FREE_FORM,
         }
         /**
          * An enum that sets the wrapping style for content within a column.

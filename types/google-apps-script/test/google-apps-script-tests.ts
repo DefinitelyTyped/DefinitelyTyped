@@ -1953,3 +1953,28 @@ CardService.newCollapseControl().setExpandButton(CardService.newTextButton()).se
     CardService.newTextButton(),
 );
 CardService.newCardSection().setCollapseControl(CardService.newCollapseControl()); // $ExpectType CardSection
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/platform-data-source
+CardService.newPlatformDataSource().setCommonDataSource(CardService.CommonDataSource.USER); // $ExpectType PlatformDataSource
+CardService.newPlatformDataSource().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType PlatformDataSource
+CardService.newPlatformDataSource().setDriveDataSourceSpec(CardService.newDriveDataSourceSpec()); // $ExpectType PlatformDataSource
+CardService.newDriveDataSourceSpec().addItemType(CardService.DriveItemType.DOCUMENTS); // $ExpectType DriveDataSourceSpec
+// newChatSpaceDataSource/newChatClientDataSource are used by Google's samples but missing from the CardService tables
+CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true); // $ExpectType ChatSpaceDataSource
+CardService.newChatClientDataSource().setSpaceDataSource(CardService.newChatSpaceDataSource()); // $ExpectType ChatClientDataSource
+CardService.newHostAppDataSource().setChatDataSource(CardService.newChatClientDataSource()); // $ExpectType HostAppDataSource
+CardService.newHostAppDataSource().setWorkflowDataSource(CardService.newWorkflowDataSource()); // $ExpectType HostAppDataSource
+CardService.newWorkflowDataSource().setIncludeVariables(true).setType(CardService.WorkflowDataSourceType.USER); // $ExpectType WorkflowDataSource
+// $ExpectType WorkflowDataSource
+CardService.newWorkflowDataSource().setVariableButtonLabel("Add").setVariableButtonSize(
+    CardService.VariableButtonSize.COMPACT,
+);
+// $ExpectType DataSourceConfig
+CardService.newDataSourceConfig().setPlatformDataSource(CardService.newPlatformDataSource()).setRemoteDataSource(
+    CardService.newAction(),
+);
+CardService.newDataSourceConfig().setMinCharactersToTrigger(2).setMaxCharactersToDisable(20).setMaxResults(10); // $ExpectType DataSourceConfig
+CardService.newSelectionInput().addDataSourceConfig(CardService.newDataSourceConfig()); // $ExpectType SelectionInput
+CardService.newSelectionInput().setPlatformDataSource(CardService.newPlatformDataSource()); // $ExpectType SelectionInput
+CardService.newTextInput().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType TextInput
+CardService.newDateTimePicker().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType DateTimePicker
