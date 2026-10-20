@@ -1679,3 +1679,61 @@ formsForm.addRatingItem().getRatingIcon(); // $ExpectType RatingIconType
 formsForm.addRatingItem().getRatingScaleLevel(); // $ExpectType number
 formsForm.addRatingItem().getGeneralFeedback(); // $ExpectType QuizFeedback | null
 FormApp.ItemType.UNSUPPORTED; // $ExpectType ItemType.UNSUPPORTED
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/banding
+const ssColor = SpreadsheetApp.newColor().setRgbColor("#185ABC").build();
+const ssBanding = SpreadsheetApp.getActiveRange().getBandings()[0];
+ssBanding.getHeaderRowColorObject(); // $ExpectType Color | null
+ssBanding.getFirstRowColorObject(); // $ExpectType Color | null
+ssBanding.getSecondRowColorObject(); // $ExpectType Color | null
+ssBanding.getFooterRowColorObject(); // $ExpectType Color | null
+ssBanding.getHeaderColumnColorObject(); // $ExpectType Color | null
+ssBanding.getFirstColumnColorObject(); // $ExpectType Color | null
+ssBanding.getSecondColumnColorObject(); // $ExpectType Color | null
+ssBanding.getFooterColumnColorObject(); // $ExpectType Color | null
+ssBanding.setHeaderRowColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFirstRowColorObject(ssColor); // $ExpectType Banding
+ssBanding.setSecondRowColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFooterRowColorObject(null); // $ExpectType Banding
+ssBanding.setHeaderColumnColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFirstColumnColorObject(ssColor); // $ExpectType Banding
+ssBanding.setSecondColumnColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFooterColumnColorObject(null); // $ExpectType Banding
+const ssRule = SpreadsheetApp.getActiveSheet().getConditionalFormatRules()[0];
+ssRule.getBooleanCondition()!.getBackgroundObject(); // $ExpectType Color | null
+ssRule.getBooleanCondition()!.getFontColorObject(); // $ExpectType Color | null
+ssRule.getGradientCondition()!.getMinColorObject(); // $ExpectType Color | null
+ssRule.getGradientCondition()!.getMidColorObject(); // $ExpectType Color | null
+ssRule.getGradientCondition()!.getMaxColorObject(); // $ExpectType Color | null
+SpreadsheetApp.newConditionalFormatRule().setBackgroundObject(ssColor); // $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setFontColorObject(null); // $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMinpointObject(ssColor); // $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMaxpointObject(ssColor); // $ExpectType ConditionalFormatRuleBuilder
+// $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMinpointObjectWithValue(
+    ssColor,
+    SpreadsheetApp.InterpolationType.NUMBER,
+    "0",
+);
+// $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMidpointObjectWithValue(
+    ssColor,
+    SpreadsheetApp.InterpolationType.NUMBER,
+    "50",
+);
+// $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMaxpointObjectWithValue(
+    ssColor,
+    SpreadsheetApp.InterpolationType.NUMBER,
+    "100",
+);
+SpreadsheetApp.newFilterCriteria().setVisibleBackgroundColor(ssColor); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().setVisibleForegroundColor(ssColor); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().getVisibleBackgroundColor(); // $ExpectType Color | null
+SpreadsheetApp.newFilterCriteria().getVisibleForegroundColor(); // $ExpectType Color | null
+SpreadsheetApp.newFilterCriteria().build().getVisibleBackgroundColor(); // $ExpectType Color | null
+SpreadsheetApp.newFilterCriteria().build().getVisibleForegroundColor(); // $ExpectType Color | null
+SpreadsheetApp.getActiveSheet().getTabColorObject(); // $ExpectType Color | null
+SpreadsheetApp.getActiveSheet().setTabColorObject(null); // $ExpectType Sheet
+SpreadsheetApp.getActiveSheet().getSlicers()[0].getBackgroundColorObject(); // $ExpectType Color | null
+SpreadsheetApp.getActiveSheet().getSlicers()[0].setBackgroundColorObject(ssColor); // $ExpectType Slicer

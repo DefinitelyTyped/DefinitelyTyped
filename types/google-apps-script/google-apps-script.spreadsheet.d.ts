@@ -20,24 +20,40 @@ declare namespace GoogleAppsScript {
         interface Banding {
             copyTo(range: Range): Banding;
             getFirstColumnColor(): string | null;
+            getFirstColumnColorObject(): Color | null;
             getFirstRowColor(): string | null;
+            getFirstRowColorObject(): Color | null;
             getFooterColumnColor(): string | null;
+            getFooterColumnColorObject(): Color | null;
             getFooterRowColor(): string | null;
+            getFooterRowColorObject(): Color | null;
             getHeaderColumnColor(): string | null;
+            getHeaderColumnColorObject(): Color | null;
             getHeaderRowColor(): string | null;
+            getHeaderRowColorObject(): Color | null;
             getRange(): Range;
             getSecondColumnColor(): string | null;
+            getSecondColumnColorObject(): Color | null;
             getSecondRowColor(): string | null;
+            getSecondRowColorObject(): Color | null;
             remove(): void;
             setFirstColumnColor(color: string | null): Banding;
+            setFirstColumnColorObject(color: Color | null): Banding;
             setFirstRowColor(color: string | null): Banding;
+            setFirstRowColorObject(color: Color | null): Banding;
             setFooterColumnColor(color: string | null): Banding;
+            setFooterColumnColorObject(color: Color | null): Banding;
             setFooterRowColor(color: string | null): Banding;
+            setFooterRowColorObject(color: Color | null): Banding;
             setHeaderColumnColor(color: string | null): Banding;
+            setHeaderColumnColorObject(color: Color | null): Banding;
             setHeaderRowColor(color: string | null): Banding;
+            setHeaderRowColorObject(color: Color | null): Banding;
             setRange(range: Range): Banding;
             setSecondColumnColor(color: string | null): Banding;
+            setSecondColumnColorObject(color: Color | null): Banding;
             setSecondRowColor(color: string | null): Banding;
+            setSecondRowColorObject(color: Color | null): Banding;
         }
         /**
          * An enumeration of banding themes. Each theme consists of several complementary colors that are
@@ -93,10 +109,12 @@ declare namespace GoogleAppsScript {
          */
         interface BooleanCondition {
             getBackground(): string | null;
+            getBackgroundObject(): Color | null;
             getBold(): boolean | null;
             getCriteriaType(): BooleanCriteria;
             getCriteriaValues(): any[];
             getFontColor(): string | null;
+            getFontColorObject(): Color | null;
             getItalic(): boolean | null;
             getStrikethrough(): boolean | null;
             getUnderline(): boolean | null;
@@ -221,11 +239,24 @@ declare namespace GoogleAppsScript {
             getGradientCondition(): GradientCondition | null;
             getRanges(): Range[];
             setBackground(color: string | null): ConditionalFormatRuleBuilder;
+            setBackgroundObject(color: Color | null): ConditionalFormatRuleBuilder;
             setBold(bold: boolean | null): ConditionalFormatRuleBuilder;
             setFontColor(color: string | null): ConditionalFormatRuleBuilder;
+            setFontColorObject(color: Color | null): ConditionalFormatRuleBuilder;
             setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
+            setGradientMaxpointObject(color: Color): ConditionalFormatRuleBuilder;
+            setGradientMaxpointObjectWithValue(
+                color: Color,
+                type: InterpolationType,
+                value: string,
+            ): ConditionalFormatRuleBuilder;
             setGradientMaxpointWithValue(
                 color: string,
+                type: InterpolationType,
+                value: string,
+            ): ConditionalFormatRuleBuilder;
+            setGradientMidpointObjectWithValue(
+                color: Color,
                 type: InterpolationType,
                 value: string,
             ): ConditionalFormatRuleBuilder;
@@ -235,6 +266,12 @@ declare namespace GoogleAppsScript {
                 value: string,
             ): ConditionalFormatRuleBuilder;
             setGradientMinpoint(color: string): ConditionalFormatRuleBuilder;
+            setGradientMinpointObject(color: Color): ConditionalFormatRuleBuilder;
+            setGradientMinpointObjectWithValue(
+                color: Color,
+                type: InterpolationType,
+                value: string,
+            ): ConditionalFormatRuleBuilder;
             setGradientMinpointWithValue(
                 color: string,
                 type: InterpolationType,
@@ -1299,6 +1336,8 @@ declare namespace GoogleAppsScript {
             getCriteriaType(): BooleanCriteria;
             getCriteriaValues(): any[];
             getHiddenValues(): string[];
+            getVisibleBackgroundColor(): Color | null;
+            getVisibleForegroundColor(): Color | null;
             getVisibleValues(): string[];
         }
         /**
@@ -1310,8 +1349,12 @@ declare namespace GoogleAppsScript {
             getCriteriaType(): BooleanCriteria;
             getCriteriaValues(): any[];
             getHiddenValues(): string[];
+            getVisibleBackgroundColor(): Color | null;
+            getVisibleForegroundColor(): Color | null;
             getVisibleValues(): string[];
             setHiddenValues(values: string[]): FilterCriteriaBuilder;
+            setVisibleBackgroundColor(visibleBackgroundColor: Color): FilterCriteriaBuilder;
+            setVisibleForegroundColor(visibleForegroundColor: Color): FilterCriteriaBuilder;
             setVisibleValues(values: string[]): FilterCriteriaBuilder;
             whenCellEmpty(): FilterCriteriaBuilder;
             whenCellNotEmpty(): FilterCriteriaBuilder;
@@ -1361,12 +1404,15 @@ declare namespace GoogleAppsScript {
          */
         interface GradientCondition {
             getMaxColor(): string;
+            getMaxColorObject(): Color | null;
             getMaxType(): InterpolationType | null;
             getMaxValue(): string;
             getMidColor(): string;
+            getMidColorObject(): Color | null;
             getMidType(): InterpolationType | null;
             getMidValue(): string;
             getMinColor(): string;
+            getMinColorObject(): Color | null;
             getMinType(): InterpolationType | null;
             getMinValue(): string;
         }
@@ -2126,6 +2172,7 @@ declare namespace GoogleAppsScript {
             getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
             getSlicers(): Slicer[];
             getTabColor(): string | null;
+            getTabColorObject(): Color | null;
             getType(): SheetType;
             hasHiddenGridlines(): boolean;
             hideColumn(column: Range): void;
@@ -2195,6 +2242,7 @@ declare namespace GoogleAppsScript {
             setRowHeights(startRow: Integer, numRows: Integer, height: Integer): Sheet;
             setRowHeightsForced(startRow: Integer, numRows: Integer, height: Integer): Sheet;
             setTabColor(color: string | null): Sheet;
+            setTabColorObject(color: Color | null): Sheet;
             showColumns(columnIndex: Integer): void;
             showColumns(columnIndex: Integer, numColumns: Integer): void;
             showRows(rowIndex: Integer): void;
@@ -2222,6 +2270,7 @@ declare namespace GoogleAppsScript {
          */
         interface Slicer {
             getBackgroundColor(): string | null;
+            getBackgroundColorObject(): Color | null;
             getColumnPosition(): Integer | null;
             getContainerInfo(): ContainerInfo;
             getFilterCriteria(): FilterCriteria | null;
@@ -2233,6 +2282,7 @@ declare namespace GoogleAppsScript {
             remove(): void;
             setApplyToPivotTables(applyToPivotTables: boolean): Slicer;
             setBackgroundColor(color: string | null): Slicer;
+            setBackgroundColorObject(color: Color | null): Slicer;
             setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria | null): Slicer;
             setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): Slicer;
             setRange(rangeApi: Range): Slicer;
