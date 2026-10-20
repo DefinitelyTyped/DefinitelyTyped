@@ -1933,3 +1933,23 @@ CardService.newOverflowMenu().addMenuItem(CardService.newOverflowMenuItem()); //
 CardService.newTextButton().setOverflowMenu(CardService.newOverflowMenu()); // $ExpectType TextButton
 CardService.newImageButton().setOverflowMenu(CardService.newOverflowMenu()); // $ExpectType ImageButton
 CardService.SelectionInputType.OVERFLOW_MENU; // $ExpectType SelectionInputType.OVERFLOW_MENU
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/columns
+CardService.newChip().setLabel("Open Link").setOpenLink(CardService.newOpenLink()).setDisabled(false); // $ExpectType Chip
+CardService.newChipList().setLayout(CardService.ChipListLayout.WRAPPED).addChip(CardService.newChip()); // $ExpectType ChipList
+CardService.newChipList().setId("chips"); // $ExpectType Widget
+CardService.newCarousel().addCarouselCard(CardService.newCarouselCard()); // $ExpectType Carousel
+// $ExpectType CarouselCard
+CardService.newCarouselCard().addWidget(CardService.newTextParagraph()).addFooterWidget(CardService.newTextParagraph());
+CardService.newColumn().setHorizontalSizeStyle(CardService.HorizontalSizeStyle.FILL_AVAILABLE_SPACE); // $ExpectType Column
+// $ExpectType Column
+CardService.newColumn().setVerticalAlignment(CardService.VerticalAlignment.CENTER).addWidget(
+    CardService.newTextParagraph(),
+);
+CardService.newColumns().addColumn(CardService.newColumn()).setWrapStyle(CardService.WrapStyle.WRAP); // $ExpectType Columns
+CardService.newCollapseControl().setHorizontalAlign(CardService.HorizontalAlignment.END); // $ExpectType CollapseControl
+// $ExpectType CollapseControl
+CardService.newCollapseControl().setExpandButton(CardService.newTextButton()).setCollapseButton(
+    CardService.newTextButton(),
+);
+CardService.newCardSection().setCollapseControl(CardService.newCollapseControl()); // $ExpectType CardSection

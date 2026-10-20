@@ -25,6 +25,167 @@ declare namespace GoogleAppsScript {
         }
 
         /**
+         * Carousel, also known as slider, rotates and displays a list of widgets in a slideshow
+         * format, with buttons navigating to the previous or next widget.
+         *
+         *     const carousel =
+         *         CardService.newCarousel()
+         *             .addCarouselCard(CardService.newCarouselCard().addWidget(
+         *                 CardService.newTextParagraph().setText('The first text paragraph in carousel')))
+         *             .addCarouselCard(CardService.newCarouselCard().addWidget(
+         *                 CardService.newTextParagraph().setText('The second text paragraph in carousel')))
+         *             .addCarouselCard(CardService.newCarouselCard().addWidget(
+         *                 CardService.newTextParagraph().setText('The third text paragraph in carousel')))
+         */
+        interface Carousel {
+            addCarouselCard(card: CarouselCard): Carousel;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * A card that can be displayed as a carousel item.
+         *
+         *     const carouselCard = CardService.newCarouselCard()
+         *         .addWidget(
+         *             CardService.newTextParagraph().setText('a text paragraph in the carousel card'))
+         *         .addFooterWidget(
+         *             CardService.newTextParagraph().setText('a text paragraph in the carousel card footer'));
+         */
+        interface CarouselCard {
+            addFooterWidget(widget: Widget): CarouselCard;
+            addWidget(widget: Widget): CarouselCard;
+        }
+        /**
+         * A Chip with an icon and text label. You can deactivate the chip when needed.
+         *
+         *     const chip = CardService.newChip()
+         *                      .setLabel('Open Link')
+         *                      .setOpenLink(CardService.newOpenLink().setUrl(
+         *                          'https://www.google.com'));
+         */
+        interface Chip {
+            setAltText(altText: string): Chip;
+            setAuthorizationAction(action: AuthorizationAction): Chip;
+            setComposeAction(action: Action, composedEmailType: ComposedEmailType): Chip;
+            setDisabled(disabled: boolean): Chip;
+            setIcon(icon: IconImage): Chip;
+            setLabel(label: string): Chip;
+            setOnClickAction(action: Action): Chip;
+            setOnClickOpenLinkAction(action: Action): Chip;
+            setOpenLink(openLink: OpenLink): Chip;
+        }
+        /**
+         * Holds a set of Chip objects that are displayed in a row, wrapping to the next line to
+         * horizontal scrollable.
+         *
+         *     const chip = CardService.newChip();
+         *     // Finish building the text chip...
+         *
+         *     const chipList = CardService.newChipList()
+         *                          .setLayout(CardService.ChipListLayout.WRAPPED)
+         *                          .addChip(chip);
+         */
+        interface ChipList {
+            addChip(chip: Chip): ChipList;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setLayout(layout: ChipListLayout): ChipList;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * An enum that specifies the layout for ChipList.
+         *
+         * WRAPPED is the default; chips wrap to the next line if there isn't enough horizontal
+         * space. HORIZONTAL_SCROLLABLE chips scroll horizontally if they don't fit in the available
+         * space.
+         */
+        enum ChipListLayout {
+            WRAPPED,
+            HORIZONTAL_SCROLLABLE,
+        }
+        /**
+         * A customizable collapse and expand control.
+         *
+         *     const collapseButton =
+         *         CardService.newTextButton()
+         *             .setTextButtonStyle(CardService.TextButtonStyle.BORDERLESS)
+         *             .setText('Collapse');
+         *
+         *     const expandButton =
+         *         CardService.newImageButton()
+         *             .setImageButtonStyle(CardService.ImageButtonStyle.FILLED);
+         *
+         *     const collapseControl =
+         *         CardService.newCollapseControl()
+         *             .setHorizontalAlign(CardService.HorizontalAlignment.END)
+         *             .setExpandButton(expandButton)
+         *             .setCollapseButton(collapseButton);
+         */
+        interface CollapseControl {
+            setCollapseButton(button: Button): CollapseControl;
+            setExpandButton(button: Button): CollapseControl;
+            setHorizontalAlign(horizontalAlignment: HorizontalAlignment): CollapseControl;
+        }
+        /**
+         * A column.
+         *
+         *     const columnWidget = CardService.newTextParagraph();
+         *     const column =
+         *         CardService.newColumn()
+         *             .setHorizontalSizeStyle(
+         *                 CardService.HorizontalSizeStyle.FILL_AVAILABLE_SPACE)
+         *             .setHorizontalAlignment(CardService.HorizontalAlignment.CENTER)
+         *             .setVerticalAlignment(CardService.VerticalAlignment.CENTER)
+         *             .addWidget(columnWidget);
+         */
+        interface Column {
+            addWidget(widget: Widget): Column;
+            setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): Column;
+            setHorizontalSizeStyle(horizontalSizeStyle: HorizontalSizeStyle): Column;
+            setVerticalAlignment(verticalAlignment: VerticalAlignment): Column;
+        }
+        /**
+         * The Columns widget displays up to 2 columns in a card or dialog. You can add widgets to
+         * each Column; the widgets appear in the order that they are specified. For an example in
+         * Google Chat apps, see Columns.
+         *
+         * The height of each column is determined by the taller column. For example, if the first
+         * column is taller than the second column, both columns have the height of the first
+         * column. Because each column can contain a different number of widgets, you can't define
+         * rows or align widgets between the columns.
+         *
+         * Columns are displayed side-by-side. You can customize the width of each column using the
+         * HorizontalSizeStyle field. If the user's screen width is too narrow, the second column
+         * wraps below the first:
+         *
+         * - On web, the second column wraps if the screen width is less than or equal to 480
+         *   pixels.
+         * - On iOS devices, the second column wraps if the screen width is less than or equal to
+         *   300 pt.
+         * - On Android devices, the second column wraps if the screen width is less than or equal
+         *   to 320 dp.
+         *
+         *   Google Calendar event.
+         *
+         *     // Build a column that is aligned in the center and fills the space:
+         *     const column =
+         *         CardService.newColumn()
+         *             .setHorizontalSizeStyle(
+         *                 CardService.HorizontalSizeStyle.FILL_AVAILABLE_SPACE)
+         *             .setHorizontalAlignment(CardService.HorizontalAlignment.CENTER)
+         *             .setVerticalAlignment(CardService.VerticalAlignment.CENTER);
+         *     const columns = CardService.newColumns().addColumn(column).setWrapStyle(
+         *         CardService.WrapStyle.WRAP);
+         */
+        interface Columns {
+            addColumn(column: Column): Columns;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
+            setWrapStyle(wrapStyle: WrapStyle): Columns;
+        }
+        /**
          * Defines actions that don't involve evaluations, such as updating widget visibility. For
          * example, can reveal or hide widgets based on the value of an input as part of CEL
          * validation.
@@ -110,6 +271,13 @@ declare namespace GoogleAppsScript {
             CONDITION_TYPE_UNSPECIFIED,
             EXPRESSION_EVALUATION_SUCCESS,
             EXPRESSION_EVALUATION_FAILURE,
+        }
+        /**
+         * An enum that sets how widgets fill the space of a column.
+         */
+        enum HorizontalSizeStyle {
+            FILL_AVAILABLE_SPACE,
+            FILL_MINIMUM_SPACE,
         }
         /**
          * An enum type that specifies what to do in response to an interaction with a user,
@@ -310,6 +478,7 @@ declare namespace GoogleAppsScript {
          */
         interface CardSection {
             addWidget(widget: Widget): CardSection;
+            setCollapseControl(collapseControl: CollapseControl): CardSection;
             setCollapsible(collapsible: boolean): CardSection;
             setHeader(header: string): CardSection;
             setId(id: string): CardSection;
@@ -361,6 +530,7 @@ declare namespace GoogleAppsScript {
          */
         interface CardService {
             BorderType: typeof BorderType;
+            ChipListLayout: typeof ChipListLayout;
             ComposedEmailType: typeof ComposedEmailType;
             ContentType: typeof ContentType;
             DisplayStyle: typeof DisplayStyle;
@@ -368,6 +538,7 @@ declare namespace GoogleAppsScript {
             ExpressionDataConditionType: typeof ExpressionDataConditionType;
             GridItemLayout: typeof GridItemLayout;
             HorizontalAlignment: typeof HorizontalAlignment;
+            HorizontalSizeStyle: typeof HorizontalSizeStyle;
             Icon: typeof Icon;
             ImageCropType: typeof ImageCropType;
             ImageStyle: typeof ImageStyle;
@@ -380,7 +551,9 @@ declare namespace GoogleAppsScript {
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
             InputType: typeof InputType;
             Interaction: typeof Interaction;
+            VerticalAlignment: typeof VerticalAlignment;
             Visibility: typeof Visibility;
+            WrapStyle: typeof WrapStyle;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
             newAttachment(): Attachment;
@@ -396,6 +569,13 @@ declare namespace GoogleAppsScript {
             newCardBuilder(): CardBuilder;
             newCardHeader(): CardHeader;
             newCardSection(): CardSection;
+            newCarousel(): Carousel;
+            newCarouselCard(): CarouselCard;
+            newChip(): Chip;
+            newChipList(): ChipList;
+            newCollapseControl(): CollapseControl;
+            newColumn(): Column;
+            newColumns(): Columns;
             newCommonWidgetAction(): CommonWidgetAction;
             newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
             newCondition(): Condition;
@@ -1546,6 +1726,14 @@ declare namespace GoogleAppsScript {
             IN_PLACE_INSERT,
         }
         /**
+         * An enum that sets the vertical alignment of widgets in a column.
+         */
+        enum VerticalAlignment {
+            CENTER,
+            TOP,
+            BOTTOM,
+        }
+        /**
          * An enum that represents the visibility state of the widgets.
          *
          * Visibility.VISIBLE means that the widget is being displayed and is visible.
@@ -1568,6 +1756,13 @@ declare namespace GoogleAppsScript {
             addEventAction(eventAction: EventAction): Widget;
             setId(id: string): Widget;
             setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * An enum that sets the wrapping style for content within a column.
+         */
+        enum WrapStyle {
+            NOWRAP,
+            WRAP,
         }
     }
 }
