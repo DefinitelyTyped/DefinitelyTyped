@@ -394,7 +394,7 @@ declare namespace GoogleAppsScript {
             BODY_SECTION,
             COMMENT_SECTION,
             DATE,
-            DOCUMENT,
+            /** @deprecated DO NOT USE */ DOCUMENT,
             EQUATION,
             EQUATION_FUNCTION,
             EQUATION_FUNCTION_ARGUMENT_SEPARATOR,
