@@ -349,6 +349,7 @@ declare namespace GoogleAppsScript {
             NONE,
             TIME_OUT,
             TOO_MANY_ROWS,
+            TOO_MANY_COLUMNS,
             TOO_MANY_CELLS,
             ENGINE,
             PARAMETER_INVALID,
@@ -357,6 +358,8 @@ declare namespace GoogleAppsScript {
             INTERRUPTED,
             OTHER,
             TOO_MANY_CHARS_PER_CELL,
+            DATA_NOT_FOUND,
+            PERMISSION_DENIED,
         }
         /**
          * An enumeration of data execution states.
@@ -375,6 +378,7 @@ declare namespace GoogleAppsScript {
             getErrorCode(): DataExecutionErrorCode;
             getErrorMessage(): string;
             getExecutionState(): DataExecutionState;
+            getLastExecutionTime(): Base.Date | null;
             getLastRefreshedTime(): Base.Date | null;
             isTruncated(): boolean;
         }
@@ -383,8 +387,32 @@ declare namespace GoogleAppsScript {
          * DataSourceTable.
          */
         interface DataSource {
+            cancelAllLinkedDataSourceObjectRefreshes(): void;
+            createCalculatedColumn(name: string, formula: string): DataSourceColumn;
+            createDataSourcePivotTableOnNewSheet(): DataSourcePivotTable;
+            createDataSourceTableOnNewSheet(): DataSourceTable;
+            getCalculatedColumnByName(columnName: string): DataSourceColumn | null;
+            getCalculatedColumns(): DataSourceColumn[];
+            getColumns(): DataSourceColumn[];
+            getDataSourceSheets(): DataSourceSheet[];
             getSpec(): DataSourceSpec;
+            refreshAllLinkedDataSourceObjects(): void;
             updateSpec(spec: DataSourceSpec): DataSource;
+            updateSpec(spec: DataSourceSpec, refreshAllLinkedObjects: boolean): DataSource;
+            waitForAllDataExecutionsCompletion(timeoutInSeconds: Integer): void;
+        }
+        /**
+         * Access and modify an existing data source chart.
+         *
+         * Only use this class with data that's connected to a BigQuery database.
+         */
+        interface DataSourceChart {
+            cancelDataRefresh(): DataSourceChart;
+            forceRefreshData(): DataSourceChart;
+            getDataSource(): DataSource;
+            getStatus(): DataExecutionStatus;
+            refreshData(): DataSourceChart;
+            waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
         }
         /**
          * Access and modify a data source column.
@@ -405,6 +433,7 @@ declare namespace GoogleAppsScript {
          * Access and modify existing data source formulas.
          */
         interface DataSourceFormula {
+            cancelDataRefresh(): DataSourceFormula;
             forceRefreshData(): DataSourceFormula;
             getAnchorCell(): Range;
             getDataSource(): DataSource;
@@ -438,13 +467,50 @@ declare namespace GoogleAppsScript {
             addColumnGroup(columnName: string): PivotGroup;
             addFilter(columnName: string, filterCriteria: FilterCriteria): PivotFilter;
             addPivotValue(columnName: string, summarizeFunction: PivotTableSummarizeFunction): PivotValue;
+            addPivotValue(columnName: string): PivotValue;
             addRowGroup(columnName: string): PivotGroup;
             asPivotTable(): PivotTable;
+            cancelDataRefresh(): DataSourcePivotTable;
             forceRefreshData(): DataSourcePivotTable;
             getDataSource(): DataSource;
             getStatus(): DataExecutionStatus;
             refreshData(): DataSourcePivotTable;
             waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
+        }
+        /**
+         * Access and modify an existing refresh schedule. To get all refresh schedules, see
+         * Spreadsheet.getDataSourceRefreshSchedules().
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceRefreshSchedule {
+            getFrequency(): DataSourceRefreshScheduleFrequency;
+            getScope(): DataSourceRefreshScope;
+            getTimeIntervalOfNextRun(): any;
+            isEnabled(): boolean;
+        }
+        /**
+         * Access a refresh schedule's frequency, which specifies how often and when to refresh.
+         *
+         * Only use this class with data that's connected to a database.
+         *
+         * To see the next time this refresh schedule is scheduled to run, use
+         * DataSourceRefreshSchedule.getTimeIntervalOfNextRun().
+         *
+         * To update, use DataSourceRefreshSchedule.setFrequency(newFrequency).
+         */
+        interface DataSourceRefreshScheduleFrequency {
+            getDaysOfTheMonth(): Integer[];
+            getDaysOfTheWeek(): Base.Weekday[];
+            getFrequencyType(): FrequencyType;
+            getStartHour(): Integer;
+        }
+        /**
+         * An enumeration of scopes for refreshes.
+         */
+        enum DataSourceRefreshScope {
+            DATA_SOURCE_REFRESH_SCOPE_UNSUPPORTED,
+            ALL_DATA_SOURCES,
         }
         /**
          * Access and modify existing data source sheet. To create a new data source sheet, use Spreadsheet.insertDataSourceSheet(spec).
@@ -456,6 +522,7 @@ declare namespace GoogleAppsScript {
             asSheet(): Sheet;
             autoResizeColumn(columnName: string): DataSourceSheet;
             autoResizeColumns(columnNames: string[]): DataSourceSheet;
+            cancelDataRefresh(): DataSourceSheet;
             forceRefreshData(): DataSourceSheet;
             getColumnWidth(columnName: string): number;
             getDataSource(): DataSource;
@@ -469,6 +536,7 @@ declare namespace GoogleAppsScript {
             setColumnWidth(columnName: string, width: number): DataSourceSheet;
             setColumnWidths(columnNames: string[], width: number): DataSourceSheet;
             setSortSpec(columnName: string, ascending: boolean): DataSourceSheet;
+            setSortSpec(columnName: string, sortOrder: SortOrder): DataSourceSheet;
             waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
         }
         /**
@@ -574,12 +642,49 @@ declare namespace GoogleAppsScript {
          *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
          */
         interface DataSourceTable {
+            addColumns(columnNames: string[]): DataSourceTable;
+            addFilter(columnName: string, filterCriteria: FilterCriteria): DataSourceTable;
+            addSortSpec(columnName: string, ascending: boolean): DataSourceTable;
+            addSortSpec(columnName: string, sortOrder: SortOrder): DataSourceTable;
+            cancelDataRefresh(): DataSourceTable;
             forceRefreshData(): DataSourceTable;
+            getColumns(): DataSourceTableColumn[];
             getDataSource(): DataSource;
+            getFilters(): DataSourceTableFilter[];
             getRange(): Range;
+            getRowLimit(): Integer | null;
+            getSortSpecs(): SortSpec[];
             getStatus(): DataExecutionStatus;
+            isSyncingAllColumns(): boolean;
             refreshData(): DataSourceTable;
+            removeAllColumns(): DataSourceTable;
+            removeAllSortSpecs(): DataSourceTable;
+            setRowLimit(rowLimit: Integer): DataSourceTable;
+            syncAllColumns(): DataSourceTable;
             waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+        }
+        /**
+         * Access and modify an existing column in a DataSourceTable. To add columns to a data
+         * source table, use DataSourceTable.addColumns(columnNames).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceTableColumn {
+            getDataSourceColumn(): DataSourceColumn;
+            remove(): void;
+        }
+        /**
+         * Access and modify an existing data source table filter. To create a new data source table
+         * filter, use DataSourceTable.addFilter(columnName, filterCriteria).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceTableFilter {
+            getDataSourceColumn(): DataSourceColumn;
+            getDataSourceTable(): DataSourceTable;
+            getFilterCriteria(): FilterCriteria;
+            remove(): void;
+            setFilterCriteria(filterCriteria: FilterCriteria): DataSourceTableFilter;
         }
         /**
          * An enumeration of data source types.
@@ -974,6 +1079,7 @@ declare namespace GoogleAppsScript {
          *     }
          */
         interface EmbeddedChart {
+            asDataSourceChart(): DataSourceChart | null;
             getAs(contentType: string): Base.Blob;
             getBlob(): Base.Blob;
             getChartId(): Integer | null;
@@ -1437,6 +1543,15 @@ declare namespace GoogleAppsScript {
             whenTextNotEqualToAny(texts: string[]): FilterCriteriaBuilder;
             whenTextStartsWith(text: string): FilterCriteriaBuilder;
             withCriteria(criteria: BooleanCriteria, args: any[]): FilterCriteriaBuilder;
+        }
+        /**
+         * An enumeration of frequency types.
+         */
+        enum FrequencyType {
+            FREQUENCY_TYPE_UNSUPPORTED,
+            DAILY,
+            WEEKLY,
+            MONTHLY,
         }
         /**
          * Access gradient (color) conditions in ConditionalFormatRuleApis.
@@ -2268,6 +2383,8 @@ declare namespace GoogleAppsScript {
             getConditionalFormatRules(): ConditionalFormatRule[];
             getCurrentCell(): Range | null;
             getDataRange(): Range;
+            getDataSourceFormulas(): DataSourceFormula[];
+            getDataSourcePivotTables(): DataSourcePivotTable[];
             getDataSourceTables(): DataSourceTable[];
             getDeveloperMetadata(): DeveloperMetadata[];
             getDrawings(): Drawing[];
@@ -2391,6 +2508,7 @@ declare namespace GoogleAppsScript {
         enum SheetType {
             GRID,
             OBJECT,
+            DATASOURCE,
         }
         /**
          * Represents a slicer, which is used
@@ -2457,7 +2575,12 @@ declare namespace GoogleAppsScript {
             getColumnWidth(columnPosition: Integer): Integer;
             getCurrentCell(): Range | null;
             getDataRange(): Range;
+            getDataSourceFormulas(): DataSourceFormula[];
+            getDataSourcePivotTables(): DataSourcePivotTable[];
+            getDataSourceRefreshSchedules(): DataSourceRefreshSchedule[];
+            getDataSourceSheets(): DataSourceSheet[];
             getDataSourceTables(): DataSourceTable[];
+            getDataSources(): DataSource[];
             getDeveloperMetadata(): DeveloperMetadata[];
             getEditors(): Base.User[];
             getFormUrl(): string | null;
@@ -2498,6 +2621,7 @@ declare namespace GoogleAppsScript {
             insertColumnBefore(beforePosition: Integer): Sheet;
             insertColumnsAfter(afterPosition: Integer, howMany: Integer): Sheet;
             insertColumnsBefore(beforePosition: Integer, howMany: Integer): Sheet;
+            insertDataSourceSheet(spec: DataSourceSpec): DataSourceSheet;
             insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): OverGridImage;
             insertImage(
                 blobSource: Base.BlobSource,
@@ -2527,6 +2651,7 @@ declare namespace GoogleAppsScript {
             isRowHiddenByUser(rowPosition: Integer): boolean;
             moveActiveSheet(pos: Integer): void;
             moveChartToObjectSheet(chart: EmbeddedChart): Sheet;
+            refreshAllDataSources(): void;
             removeEditor(emailAddress: string): Spreadsheet;
             removeEditor(user: Base.User): Spreadsheet;
             removeMenu(name: string): void;
@@ -2572,6 +2697,7 @@ declare namespace GoogleAppsScript {
                 anonymousWriteAllowed: boolean,
             ): void;
             /** @deprecated DO NOT USE */ setSheetProtection(permissions: PageProtection): void;
+            waitForAllDataExecutionsCompletion(timeoutInSeconds: Integer): void;
         }
         /**
          * Access and create Google Sheets files. This class is the parent class for the Spreadsheet service.
@@ -2586,6 +2712,7 @@ declare namespace GoogleAppsScript {
             DataExecutionErrorCode: typeof DataExecutionErrorCode;
             DataExecutionState: typeof DataExecutionState;
             DataSourceParameterType: typeof DataSourceParameterType;
+            DataSourceRefreshScope: typeof DataSourceRefreshScope;
             DataSourceType: typeof DataSourceType;
             DataValidationCriteria: typeof DataValidationCriteria;
             DateTimeGroupingRuleType: typeof DateTimeGroupingRuleType;
@@ -2593,6 +2720,7 @@ declare namespace GoogleAppsScript {
             DeveloperMetadataVisibility: typeof DeveloperMetadataVisibility;
             Dimension: typeof Dimension;
             Direction: typeof Direction;
+            FrequencyType: typeof FrequencyType;
             GroupControlTogglePosition: typeof GroupControlTogglePosition;
             InterpolationType: typeof InterpolationType;
             PivotTableSummarizeFunction: typeof PivotTableSummarizeFunction;
@@ -2601,6 +2729,7 @@ declare namespace GoogleAppsScript {
             RecalculationInterval: typeof RecalculationInterval;
             RelativeDate: typeof RelativeDate;
             SheetType: typeof SheetType;
+            SortOrder: typeof SortOrder;
             TextDirection: typeof TextDirection;
             TextToColumnsDelimiter: typeof TextToColumnsDelimiter;
             ThemeColorType: typeof ThemeColorType;

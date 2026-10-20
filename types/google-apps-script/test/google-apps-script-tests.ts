@@ -1802,3 +1802,61 @@ ssBigQuery.getTableProjectId(); // $ExpectType string
 ssBigQuery.build().asBigQuery().getDatasetId(); // $ExpectType string
 ssBigQuery.build().asBigQuery().getTableId(); // $ExpectType string
 ssBigQuery.build().asBigQuery().getTableProjectId(); // $ExpectType string
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/data-source
+const ssSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+ssSpreadsheet.getDataSources(); // $ExpectType DataSource[]
+ssSpreadsheet.getDataSourceSheets(); // $ExpectType DataSourceSheet[]
+ssSpreadsheet.getDataSourceFormulas(); // $ExpectType DataSourceFormula[]
+ssSpreadsheet.getDataSourcePivotTables(); // $ExpectType DataSourcePivotTable[]
+ssSpreadsheet.getDataSourceRefreshSchedules(); // $ExpectType DataSourceRefreshSchedule[]
+ssSpreadsheet.insertDataSourceSheet(SpreadsheetApp.newDataSourceSpec().asBigQuery().build()); // $ExpectType DataSourceSheet
+ssSpreadsheet.refreshAllDataSources(); // $ExpectType void
+ssSpreadsheet.waitForAllDataExecutionsCompletion(60); // $ExpectType void
+SpreadsheetApp.getActiveSheet().getDataSourceFormulas(); // $ExpectType DataSourceFormula[]
+SpreadsheetApp.getActiveSheet().getDataSourcePivotTables(); // $ExpectType DataSourcePivotTable[]
+const ssDataSource = ssSpreadsheet.getDataSources()[0];
+ssDataSource.cancelAllLinkedDataSourceObjectRefreshes(); // $ExpectType void
+ssDataSource.refreshAllLinkedDataSourceObjects(); // $ExpectType void
+ssDataSource.waitForAllDataExecutionsCompletion(60); // $ExpectType void
+ssDataSource.createCalculatedColumn("total", "=price*quantity"); // $ExpectType DataSourceColumn
+ssDataSource.getCalculatedColumnByName("total"); // $ExpectType DataSourceColumn | null
+ssDataSource.getCalculatedColumns(); // $ExpectType DataSourceColumn[]
+ssDataSource.getColumns(); // $ExpectType DataSourceColumn[]
+ssDataSource.getDataSourceSheets(); // $ExpectType DataSourceSheet[]
+ssDataSource.updateSpec(ssDataSource.getSpec(), true); // $ExpectType DataSource
+ssDataSource.createDataSourcePivotTableOnNewSheet(); // $ExpectType DataSourcePivotTable
+ssDataSource.createDataSourcePivotTableOnNewSheet().addPivotValue("price"); // $ExpectType PivotValue
+ssDataSource.createDataSourcePivotTableOnNewSheet().cancelDataRefresh(); // $ExpectType DataSourcePivotTable
+ssSpreadsheet.getDataSourceFormulas()[0].cancelDataRefresh(); // $ExpectType DataSourceFormula
+ssSpreadsheet.getDataSourceSheets()[0].cancelDataRefresh(); // $ExpectType DataSourceSheet
+ssSpreadsheet.getDataSourceSheets()[0].setSortSpec("price", SpreadsheetApp.SortOrder.DESCENDING); // $ExpectType DataSourceSheet
+const ssTable = ssDataSource.createDataSourceTableOnNewSheet(); // $ExpectType DataSourceTable
+ssTable.addColumns(["name", "price"]).addFilter("price", SpreadsheetApp.newFilterCriteria().build()); // $ExpectType DataSourceTable
+ssTable.addSortSpec("name", true).addSortSpec("price", SpreadsheetApp.SortOrder.ASCENDING); // $ExpectType DataSourceTable
+ssTable.setRowLimit(100).removeAllColumns().removeAllSortSpecs().syncAllColumns().cancelDataRefresh(); // $ExpectType DataSourceTable
+ssTable.getRowLimit(); // $ExpectType number | null
+ssTable.getSortSpecs(); // $ExpectType SortSpec[]
+ssTable.isSyncingAllColumns(); // $ExpectType boolean
+ssTable.getColumns()[0].getDataSourceColumn(); // $ExpectType DataSourceColumn
+ssTable.getColumns()[0].remove(); // $ExpectType void
+ssTable.getFilters()[0].getDataSourceTable(); // $ExpectType DataSourceTable
+ssTable.getFilters()[0].setFilterCriteria(SpreadsheetApp.newFilterCriteria().build()); // $ExpectType DataSourceTableFilter
+ssTable.getStatus().getLastExecutionTime(); // $ExpectType Date | null
+const ssSchedule = ssSpreadsheet.getDataSourceRefreshSchedules()[0];
+ssSchedule.getFrequency().getFrequencyType(); // $ExpectType FrequencyType
+ssSchedule.getFrequency().getDaysOfTheWeek(); // $ExpectType Weekday[]
+ssSchedule.getFrequency().getDaysOfTheMonth(); // $ExpectType number[]
+ssSchedule.getFrequency().getStartHour(); // $ExpectType number
+ssSchedule.getScope(); // $ExpectType DataSourceRefreshScope
+ssSchedule.isEnabled(); // $ExpectType boolean
+ssSchedule.getTimeIntervalOfNextRun(); // $ExpectType any
+SpreadsheetApp.getActiveSheet().getCharts()[0].asDataSourceChart(); // $ExpectType DataSourceChart | null
+SpreadsheetApp.getActiveSheet().getCharts()[0].asDataSourceChart()!.refreshData(); // $ExpectType DataSourceChart
+SpreadsheetApp.SheetType.DATASOURCE; // $ExpectType SheetType.DATASOURCE
+SpreadsheetApp.DataExecutionErrorCode.TOO_MANY_COLUMNS; // $ExpectType DataExecutionErrorCode.TOO_MANY_COLUMNS
+SpreadsheetApp.DataExecutionErrorCode.DATA_NOT_FOUND; // $ExpectType DataExecutionErrorCode.DATA_NOT_FOUND
+SpreadsheetApp.DataExecutionErrorCode.PERMISSION_DENIED; // $ExpectType DataExecutionErrorCode.PERMISSION_DENIED
+SpreadsheetApp.FrequencyType.DAILY; // $ExpectType FrequencyType.DAILY
+SpreadsheetApp.DataSourceRefreshScope.ALL_DATA_SOURCES; // $ExpectType DataSourceRefreshScope.ALL_DATA_SOURCES
+SpreadsheetApp.SortOrder.ASCENDING; // $ExpectType SortOrder.ASCENDING
