@@ -1602,3 +1602,9 @@ CalendarApp.getEventSeriesById("abc123456").setTransparency(CalendarApp.EventTra
 
 // Charts: https://developers.google.com/apps-script/reference/charts/chart-options
 Charts.newBarChart().build().getOptions().getOrDefault("title"); // $ExpectType any
+
+// Data Studio: https://developers.google.com/apps-script/reference/data-studio/auth-type
+DataStudioApp.createCommunityConnector().AuthType.PATH_USER_PASS; // $ExpectType AuthType.PATH_USER_PASS
+DataStudioApp.createCommunityConnector().AuthType.PATH_KEY; // $ExpectType AuthType.PATH_KEY
+DataStudioApp.createCommunityConnector().FieldType.YEAR_MONTH_DAY_MINUTE; // $ExpectType FieldType.YEAR_MONTH_DAY_MINUTE
+DataStudioApp.createCommunityConnector().FieldType.CURRENCY_NGN; // $ExpectType FieldType.CURRENCY_NGN
