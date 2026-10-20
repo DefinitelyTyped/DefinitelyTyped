@@ -1621,3 +1621,22 @@ ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL).getAuthorizedScopes(); /
 Maps.setAuthenticationByApiKey("apiKey"); // $ExpectType void
 Maps.setAuthenticationByApiKey("apiKey", "signingKey"); // $ExpectType void
 Maps.resetAuthenticationApiKey(); // $ExpectType void
+
+// JDBC: https://developers.google.com/apps-script/reference/jdbc/jdbc-statement
+const jdbcConn = Jdbc.getCloudSqlConnection("jdbc:google:mysql://...");
+jdbcConn.createStatement().execute("sql", 1); // $ExpectType boolean
+jdbcConn.createStatement().execute("sql", [1]); // $ExpectType boolean
+jdbcConn.createStatement().executeUpdate("sql", 1); // $ExpectType number
+jdbcConn.createStatement().executeUpdate("sql", [1]); // $ExpectType number
+jdbcConn.prepareStatement("sql").execute("sql", 1); // $ExpectType boolean
+jdbcConn.prepareStatement("sql").execute("sql", [1]); // $ExpectType boolean
+jdbcConn.prepareStatement("sql").executeUpdate("sql", 1); // $ExpectType number
+jdbcConn.prepareStatement("sql").executeUpdate("sql", [1]); // $ExpectType number
+jdbcConn.prepareStatement("sql").executeBatch([["John Doe", 30]]); // $ExpectType number[]
+jdbcConn.prepareCall("sql").execute("sql", 1); // $ExpectType boolean
+jdbcConn.prepareCall("sql").execute("sql", [1]); // $ExpectType boolean
+jdbcConn.prepareCall("sql").executeUpdate("sql", 1); // $ExpectType number
+jdbcConn.prepareCall("sql").executeUpdate("sql", [1]); // $ExpectType number
+jdbcConn.prepareCall("sql").executeBatch([["John Doe", 30]]); // $ExpectType number[]
+jdbcConn.createStatement().executeQuery("sql").getRows("getString(1)"); // $ExpectType any[][]
+jdbcConn.createStatement().executeQuery("sql").getRows("getString(1)", 100); // $ExpectType any[][]
