@@ -1599,3 +1599,6 @@ GroupsApp.Role.BANNED; // $ExpectType Role.BANNED
 // Calendar: https://developers.google.com/apps-script/reference/calendar/calendar-event-series
 CalendarApp.getEventSeriesById("abc123456").getTransparency(); // $ExpectType EventTransparency
 CalendarApp.getEventSeriesById("abc123456").setTransparency(CalendarApp.EventTransparency.OPAQUE); // $ExpectType CalendarEventSeries
+
+// Charts: https://developers.google.com/apps-script/reference/charts/chart-options
+Charts.newBarChart().build().getOptions().getOrDefault("title"); // $ExpectType any
