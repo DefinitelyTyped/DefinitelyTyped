@@ -1780,3 +1780,15 @@ SpreadsheetApp.getActiveRange().protect().getTargetAudiences(); // $ExpectType a
 // Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/range
 SpreadsheetApp.getActiveRange().isDataValid(); // $ExpectType boolean
 SpreadsheetApp.getActiveRange().isDataValidForAll(); // $ExpectType boolean[][]
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/looker-data-source-spec-builder
+SpreadsheetApp.enableLookerExecution(); // $ExpectType void
+const ssLooker = SpreadsheetApp.newDataSourceSpec().asLooker(); // $ExpectType LookerDataSourceSpecBuilder
+ssLooker.setExploreName("explore").setInstanceUrl("url").setModelName("model"); // $ExpectType LookerDataSourceSpecBuilder
+ssLooker.setParameterFromCell("param", "A1").removeParameter("param").removeAllParameters(); // $ExpectType LookerDataSourceSpecBuilder
+ssLooker.build(); // $ExpectType DataSourceSpec
+ssLooker.build().asLooker(); // $ExpectType LookerDataSourceSpec
+ssLooker.build().asLooker().getExploreName(); // $ExpectType string
+ssLooker.build().asLooker().getInstanceUrl(); // $ExpectType string
+ssLooker.build().asLooker().getModelName(); // $ExpectType string
+SpreadsheetApp.DataSourceType.LOOKER; // $ExpectType DataSourceType.LOOKER

@@ -491,6 +491,7 @@ declare namespace GoogleAppsScript {
          */
         interface DataSourceSpec {
             asBigQuery(): BigQueryDataSourceSpec;
+            asLooker(): LookerDataSourceSpec;
             copy(): DataSourceSpecBuilder;
             getParameters(): DataSourceParameter[];
             getType(): DataSourceType;
@@ -510,6 +511,7 @@ declare namespace GoogleAppsScript {
          */
         interface DataSourceSpecBuilder {
             asBigQuery(): BigQueryDataSourceSpecBuilder;
+            asLooker(): LookerDataSourceSpecBuilder;
             build(): DataSourceSpec;
             copy(): DataSourceSpecBuilder;
             getParameters(): DataSourceParameter[];
@@ -576,6 +578,7 @@ declare namespace GoogleAppsScript {
         enum DataSourceType {
             DATA_SOURCE_TYPE_UNSUPPORTED,
             BIGQUERY,
+            LOOKER,
         }
         /**
          * Access data validation rules. To create a new rule, use SpreadsheetApp.newDataValidation() and DataValidationBuilder. You can use
@@ -1501,6 +1504,52 @@ declare namespace GoogleAppsScript {
             PERCENTILE,
             MIN,
             MAX,
+        }
+        /**
+         * A DataSourceSpec which is used to access specifically the existing Looker data source
+         * specifications. To create a new data source specification, use
+         * SpreadsheetApp.newDataSourceSpec().
+         *
+         * This example shows how you can get the Looker data source spec from a sheet which has
+         * just one Looker connection.
+         *
+         *     // TODO(developer): Replace the URL with your own.
+         *     const ss = SpreadsheetApp.openByUrl(
+         *         'https://docs.google.com/spreadsheets/d/abc123456/edit',
+         *     );
+         *
+         *     const lookerDataSourceSpec = ss.getDataSources()[0].getSpec().asLooker();
+         */
+        interface LookerDataSourceSpec {
+            copy(): DataSourceSpecBuilder;
+            getExploreName(): string;
+            getInstanceUrl(): string;
+            getModelName(): string;
+            getParameters(): DataSourceParameter[];
+            getType(): DataSourceType;
+        }
+        /**
+         * The builder for LookerDataSourceSpecBuilder.
+         *
+         * This example shows how to create a new Looker Data Source Spec builder.
+         *
+         *     const lookerDataSourceSpecBuilder =
+         *         SpreadsheetApp.newDataSourceSpec().asLooker();
+         */
+        interface LookerDataSourceSpecBuilder {
+            build(): DataSourceSpec;
+            copy(): DataSourceSpecBuilder;
+            getExploreName(): string;
+            getInstanceUrl(): string;
+            getModelName(): string;
+            getParameters(): DataSourceParameter[];
+            getType(): DataSourceType;
+            removeAllParameters(): LookerDataSourceSpecBuilder;
+            removeParameter(parameterName: string): LookerDataSourceSpecBuilder;
+            setExploreName(exploreName: string): LookerDataSourceSpecBuilder;
+            setInstanceUrl(instanceUrl: string): LookerDataSourceSpecBuilder;
+            setModelName(modelName: string): LookerDataSourceSpecBuilder;
+            setParameterFromCell(parameterName: string, sourceCell: string): LookerDataSourceSpecBuilder;
         }
         /**
          * Create, access and modify named ranges in a spreadsheet. Named ranges are ranges that have
@@ -2552,6 +2601,7 @@ declare namespace GoogleAppsScript {
             create(name: string, rows: Integer, columns: Integer): Spreadsheet;
             enableAllDataSourcesExecution(): void;
             enableBigQueryExecution(): void;
+            enableLookerExecution(): void;
             flush(): void;
             getActive(): Spreadsheet;
             getActiveRange(): Range;
