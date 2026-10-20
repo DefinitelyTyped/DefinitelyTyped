@@ -200,7 +200,12 @@ declare namespace GoogleAppsScript {
         interface Geocoder {
             geocode(address: string): any;
             reverseGeocode(latitude: number, longitude: number): any;
-            reverseGeocode(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): any;
+            /** @deprecated DO NOT USE */ reverseGeocode(
+                swLatitude: number,
+                swLongitude: number,
+                neLatitude: number,
+                neLongitude: number,
+            ): any;
             setBounds(swLatitude: number, swLongitude: number, neLatitude: number, neLongitude: number): Geocoder;
             setLanguage(language: string): Geocoder;
             setRegion(region: string): Geocoder;
