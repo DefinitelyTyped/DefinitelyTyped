@@ -1640,3 +1640,20 @@ jdbcConn.prepareCall("sql").executeUpdate("sql", [1]); // $ExpectType number
 jdbcConn.prepareCall("sql").executeBatch([["John Doe", 30]]); // $ExpectType number[]
 jdbcConn.createStatement().executeQuery("sql").getRows("getString(1)"); // $ExpectType any[][]
 jdbcConn.createStatement().executeQuery("sql").getRows("getString(1)", 100); // $ExpectType any[][]
+
+// Slides: https://developers.google.com/apps-script/reference/slides/speaker-spotlight
+const slidesElement = SlidesApp.getActivePresentation().getSlides()[0].getPageElements()[0];
+slidesElement.asSpeakerSpotlight(); // $ExpectType SpeakerSpotlight
+slidesElement.asSpeakerSpotlight().getMaskShapeType(); // $ExpectType ShapeType | null
+slidesElement.asSpeakerSpotlight().getHeight(); // $ExpectType number | null
+slidesElement.asSpeakerSpotlight().setTitle("title").setDescription("description"); // $ExpectType SpeakerSpotlight
+SlidesApp.PageElementType.SPEAKER_SPOTLIGHT; // $ExpectType PageElementType.SPEAKER_SPOTLIGHT
+slidesElement.asShape().getAutofit(); // $ExpectType Autofit | null
+slidesElement.asShape().getAutofit()!.getAutofitType(); // $ExpectType AutofitType
+slidesElement.asShape().getAutofit()!.getFontScale(); // $ExpectType number
+slidesElement.asShape().getAutofit()!.getLineSpacingReduction(); // $ExpectType number
+slidesElement.asShape().getAutofit()!.disableAutofit(); // $ExpectType Autofit
+SlidesApp.AutofitType.TEXT_AUTOFIT; // $ExpectType AutofitType.TEXT_AUTOFIT
+slidesElement.asImage().getParentPlaceholder(); // $ExpectType PageElement | null
+slidesElement.asImage().getPlaceholderIndex(); // $ExpectType number | null
+slidesElement.asImage().getPlaceholderType(); // $ExpectType PlaceholderType
