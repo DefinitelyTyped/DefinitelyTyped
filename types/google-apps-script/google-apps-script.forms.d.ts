@@ -147,10 +147,8 @@ declare namespace GoogleAppsScript {
          *       .build();
          *     checkBoxItem.setValidation(checkBoxValidation);
          */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface CheckboxValidation {
-            requireSelectAtLeast(number: Integer): CheckboxValidation;
-            requireSelectAtMost(number: Integer): CheckboxValidation;
-            requireSelectExactly(number: Integer): CheckboxValidation;
         }
         /**
          * A DataValidationBuilder for a CheckboxValidation.
