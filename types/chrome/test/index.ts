@@ -3399,7 +3399,7 @@ async function testSystemCpu() {
     chrome.system.cpu.getInfo(); // $ExpectType Promise<CpuInfo>
     chrome.system.cpu.getInfo((info) => { // $ExpectType void
         info.archName; // $ExpectType string
-        info.features; // $ExpectType string[]
+        info.features; // $ExpectType ("mmx" | "sse" | "sse2" | "sse3" | "ssse3" | "sse4_1" | "sse4_2" | "avx")[]
         info.modelName; // $ExpectType string
         info.numOfProcessors; // $ExpectType number
         info.processors; // $ExpectType ProcessorInfo[]
