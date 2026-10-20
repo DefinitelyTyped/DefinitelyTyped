@@ -1920,6 +1920,8 @@ declare namespace GoogleAppsScript {
             insertCheckboxes(checkedValue: any, uncheckedValue: any): Range;
             isBlank(): boolean;
             isChecked(): boolean | null;
+            isDataValid(): boolean;
+            isDataValidForAll(): boolean[][];
             isEndColumnBounded(): boolean;
             isEndRowBounded(): boolean;
             isPartOfMerge(): boolean;

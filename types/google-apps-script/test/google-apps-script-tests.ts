@@ -1776,3 +1776,7 @@ ssPivot.getPivotValues()[0].remove(); // $ExpectType void
 SpreadsheetApp.getActiveRange().protect().addTargetAudience("audience-id"); // $ExpectType Protection
 SpreadsheetApp.getActiveRange().protect().removeTargetAudience("audience-id"); // $ExpectType Protection
 SpreadsheetApp.getActiveRange().protect().getTargetAudiences(); // $ExpectType any[]
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/range
+SpreadsheetApp.getActiveRange().isDataValid(); // $ExpectType boolean
+SpreadsheetApp.getActiveRange().isDataValidForAll(); // $ExpectType boolean[][]
