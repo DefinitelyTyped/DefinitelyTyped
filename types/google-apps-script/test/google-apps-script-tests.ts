@@ -1612,3 +1612,7 @@ DataStudioApp.createCommunityConnector().FieldType.CURRENCY_NGN; // $ExpectType 
 // Drive: https://developers.google.com/apps-script/reference/drive/drive-app
 DriveApp.enforceSingleParent(true); // $ExpectType void
 DriveApp.Permission.FILE_ORGANIZER; // $ExpectType Permission.FILE_ORGANIZER
+
+// Script: https://developers.google.com/apps-script/reference/script/script-app
+ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL, ["https://www.googleapis.com/auth/documents"]); // $ExpectType AuthorizationInfo
+ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL).getAuthorizedScopes(); // $ExpectType string[] | null
