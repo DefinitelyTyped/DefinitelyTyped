@@ -1592,3 +1592,6 @@ function testSheetsV4ColorStyle() {
 
 // Gmail: https://developers.google.com/apps-script/reference/gmail/gmail-label
 GmailApp.getUserLabelByName("MyLabel").getId(); // $ExpectType string
+
+// Groups: https://developers.google.com/apps-script/reference/groups/role
+GroupsApp.Role.BANNED; // $ExpectType Role.BANNED
