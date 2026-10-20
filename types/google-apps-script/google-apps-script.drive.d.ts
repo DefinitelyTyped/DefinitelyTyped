@@ -79,6 +79,7 @@ declare namespace GoogleAppsScript {
              * link.
              */
             createShortcutForTargetIdAndResourceKey(targetId: string, targetResourceKey: string): File;
+            enforceSingleParent(value: boolean): void;
             /**
              * Gets the file with the given ID.
              * Throws a scripting exception if the file does not exist or
@@ -363,6 +364,7 @@ declare namespace GoogleAppsScript {
             COMMENT,
             OWNER,
             ORGANIZER,
+            FILE_ORGANIZER,
             NONE,
         }
         /**

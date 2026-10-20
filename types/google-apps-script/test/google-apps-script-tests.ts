@@ -1608,3 +1608,7 @@ DataStudioApp.createCommunityConnector().AuthType.PATH_USER_PASS; // $ExpectType
 DataStudioApp.createCommunityConnector().AuthType.PATH_KEY; // $ExpectType AuthType.PATH_KEY
 DataStudioApp.createCommunityConnector().FieldType.YEAR_MONTH_DAY_MINUTE; // $ExpectType FieldType.YEAR_MONTH_DAY_MINUTE
 DataStudioApp.createCommunityConnector().FieldType.CURRENCY_NGN; // $ExpectType FieldType.CURRENCY_NGN
+
+// Drive: https://developers.google.com/apps-script/reference/drive/drive-app
+DriveApp.enforceSingleParent(true); // $ExpectType void
+DriveApp.Permission.FILE_ORGANIZER; // $ExpectType Permission.FILE_ORGANIZER
