@@ -129,6 +129,7 @@ declare namespace GoogleAppsScript {
             DATE_AFTER,
             DATE_BEFORE,
             DATE_EQUAL_TO,
+            DATE_NOT_EQUAL_TO,
             DATE_AFTER_RELATIVE,
             DATE_BEFORE_RELATIVE,
             DATE_EQUAL_TO_RELATIVE,
@@ -143,6 +144,7 @@ declare namespace GoogleAppsScript {
             TEXT_CONTAINS,
             TEXT_DOES_NOT_CONTAIN,
             TEXT_EQUAL_TO,
+            TEXT_NOT_EQUAL_TO,
             TEXT_STARTS_WITH,
             TEXT_ENDS_WITH,
             CUSTOM_FORMULA,
@@ -701,6 +703,9 @@ declare namespace GoogleAppsScript {
             VALUE_IN_RANGE,
             CUSTOM_FORMULA,
             CHECKBOX,
+            DATE_AFTER_RELATIVE,
+            DATE_BEFORE_RELATIVE,
+            DATE_EQUAL_TO_RELATIVE,
         }
         /**
          * Access and modify developer metadata. To create new developer metadata use Range.addDeveloperMetadata(key), Sheet.addDeveloperMetadata(key), or Spreadsheet.addDeveloperMetadata(key).
@@ -1364,19 +1369,27 @@ declare namespace GoogleAppsScript {
             whenDateBefore(date: RelativeDate): FilterCriteriaBuilder;
             whenDateEqualTo(date: Base.Date): FilterCriteriaBuilder;
             whenDateEqualTo(date: RelativeDate): FilterCriteriaBuilder;
+            whenDateEqualToAny(dates: Base.Date[]): FilterCriteriaBuilder;
+            whenDateNotEqualTo(date: Base.Date): FilterCriteriaBuilder;
+            whenDateNotEqualToAny(dates: Base.Date[]): FilterCriteriaBuilder;
             whenFormulaSatisfied(formula: string): FilterCriteriaBuilder;
             whenNumberBetween(start: number, end: number): FilterCriteriaBuilder;
             whenNumberEqualTo(number: number): FilterCriteriaBuilder;
+            whenNumberEqualToAny(numbers: number[]): FilterCriteriaBuilder;
             whenNumberGreaterThan(number: number): FilterCriteriaBuilder;
             whenNumberGreaterThanOrEqualTo(number: number): FilterCriteriaBuilder;
             whenNumberLessThan(number: number): FilterCriteriaBuilder;
             whenNumberLessThanOrEqualTo(number: number): FilterCriteriaBuilder;
             whenNumberNotBetween(start: number, end: number): FilterCriteriaBuilder;
             whenNumberNotEqualTo(number: number): FilterCriteriaBuilder;
+            whenNumberNotEqualToAny(numbers: number[]): FilterCriteriaBuilder;
             whenTextContains(text: string): FilterCriteriaBuilder;
             whenTextDoesNotContain(text: string): FilterCriteriaBuilder;
             whenTextEndsWith(text: string): FilterCriteriaBuilder;
             whenTextEqualTo(text: string): FilterCriteriaBuilder;
+            whenTextEqualToAny(texts: string[]): FilterCriteriaBuilder;
+            whenTextNotEqualTo(text: string): FilterCriteriaBuilder;
+            whenTextNotEqualToAny(texts: string[]): FilterCriteriaBuilder;
             whenTextStartsWith(text: string): FilterCriteriaBuilder;
             withCriteria(criteria: BooleanCriteria, args: any[]): FilterCriteriaBuilder;
         }

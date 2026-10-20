@@ -1737,3 +1737,18 @@ SpreadsheetApp.getActiveSheet().getTabColorObject(); // $ExpectType Color | null
 SpreadsheetApp.getActiveSheet().setTabColorObject(null); // $ExpectType Sheet
 SpreadsheetApp.getActiveSheet().getSlicers()[0].getBackgroundColorObject(); // $ExpectType Color | null
 SpreadsheetApp.getActiveSheet().getSlicers()[0].setBackgroundColorObject(ssColor); // $ExpectType Slicer
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/filter-criteria-builder
+SpreadsheetApp.newFilterCriteria().whenDateEqualToAny([new Date()]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenDateNotEqualTo(new Date()); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenDateNotEqualToAny([new Date()]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenNumberEqualToAny([10, 20, 30]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenNumberNotEqualToAny([10, 20, 30]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenTextEqualToAny(["tech", "business"]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenTextNotEqualTo("tech"); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenTextNotEqualToAny(["tech", "business"]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.BooleanCriteria.DATE_NOT_EQUAL_TO; // $ExpectType BooleanCriteria.DATE_NOT_EQUAL_TO
+SpreadsheetApp.BooleanCriteria.TEXT_NOT_EQUAL_TO; // $ExpectType BooleanCriteria.TEXT_NOT_EQUAL_TO
+SpreadsheetApp.DataValidationCriteria.DATE_AFTER_RELATIVE; // $ExpectType DataValidationCriteria.DATE_AFTER_RELATIVE
+SpreadsheetApp.DataValidationCriteria.DATE_BEFORE_RELATIVE; // $ExpectType DataValidationCriteria.DATE_BEFORE_RELATIVE
+SpreadsheetApp.DataValidationCriteria.DATE_EQUAL_TO_RELATIVE; // $ExpectType DataValidationCriteria.DATE_EQUAL_TO_RELATIVE
