@@ -1922,3 +1922,14 @@ CardService.newGrid().addEventAction(cardEventAction); // $ExpectType Widget
 CardService.newImage().addEventAction(cardEventAction); // $ExpectType Widget
 CardService.newKeyValue().addEventAction(cardEventAction); // $ExpectType Widget
 CardService.newButtonSet().addEventAction(cardEventAction); // $ExpectType Widget
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/overflow-menu-item
+// $ExpectType OverflowMenuItem
+CardService.newOverflowMenuItem().setText("Open Link").setStartIcon(CardService.newIconImage()).setOpenLink(
+    CardService.newOpenLink(),
+);
+CardService.newOverflowMenuItem().setDisabled(false).setOnClickAction(CardService.newAction()); // $ExpectType OverflowMenuItem
+CardService.newOverflowMenu().addMenuItem(CardService.newOverflowMenuItem()); // $ExpectType OverflowMenu
+CardService.newTextButton().setOverflowMenu(CardService.newOverflowMenu()); // $ExpectType TextButton
+CardService.newImageButton().setOverflowMenu(CardService.newOverflowMenu()); // $ExpectType ImageButton
+CardService.SelectionInputType.OVERFLOW_MENU; // $ExpectType SelectionInputType.OVERFLOW_MENU

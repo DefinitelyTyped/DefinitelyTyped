@@ -203,6 +203,7 @@ declare namespace GoogleAppsScript {
             setOnClickAction(action: Action): Button;
             setOnClickOpenLinkAction(action: Action): Button;
             setOpenLink(openLink: OpenLink): Button;
+            setOverflowMenu(menu: OverflowMenu): Button;
         }
         /**
          * Holds a set of Button objects that are displayed in a row.
@@ -437,6 +438,8 @@ declare namespace GoogleAppsScript {
             newNavigation(): Navigation;
             newNotification(): Notification;
             newOpenLink(): OpenLink;
+            newOverflowMenu(): OverflowMenu;
+            newOverflowMenuItem(): OverflowMenuItem;
             newSelectionInput(): SelectionInput;
             newSuggestions(): Suggestions;
             newSuggestionsResponseBuilder(): SuggestionsResponseBuilder;
@@ -582,6 +585,7 @@ declare namespace GoogleAppsScript {
             setOnClickAction(action: Action): ImageButton;
             setOnClickOpenLinkAction(action: Action): ImageButton;
             setOpenLink(openLink: OpenLink): ImageButton;
+            setOverflowMenu(menu: OverflowMenu): ImageButton;
         }
         /**
          * An enum that defines an image cropping style.
@@ -763,6 +767,43 @@ declare namespace GoogleAppsScript {
             setUrl(url: string): OpenLink;
         }
         /**
+         * Holds a list of OverflowMenuItem objects that are displayed in a pop-up menu.
+         *
+         *     const overflowMenuItem = CardService.newOverflowMenuItem();
+         *     // Finish building the overflow menu item...
+         *
+         *     const overflowMenu =
+         *         CardService.newOverflowMenu().addMenuItem(overflowMenuItem);
+         */
+        interface OverflowMenu {
+            addMenuItem(menuItem: OverflowMenuItem): OverflowMenu;
+        }
+        /**
+         * An OverflowMenuItem with an icon and text label. You can deactivate the menu item when
+         * needed.
+         *
+         *     const overflowMenuItem =
+         *         CardService.newOverflowMenuItem()
+         *             .setStartIcon(
+         *                 CardService.newIconImage().setIconUrl(
+         *                     'https://www.google.com/images/branding/googleg/1x/googleg_standard_color_64dp.png',
+         *                     ),
+         *                 )
+         *             .setText('Open Link')
+         *             .setOpenLink(
+         *                 CardService.newOpenLink().setUrl('https://www.google.com'));
+         */
+        interface OverflowMenuItem {
+            setAuthorizationAction(action: AuthorizationAction): OverflowMenuItem;
+            setComposeAction(action: Action, composedEmailType: ComposedEmailType): OverflowMenuItem;
+            setDisabled(disabled: boolean): OverflowMenuItem;
+            setOnClickAction(action: Action): OverflowMenuItem;
+            setOnClickOpenLinkAction(action: Action): OverflowMenuItem;
+            setOpenLink(openLink: OpenLink): OverflowMenuItem;
+            setStartIcon(icon: IconImage): OverflowMenuItem;
+            setText(text: string): OverflowMenuItem;
+        }
+        /**
          * An input field that allows choosing between a set of predefined options.
          *
          *  const checkboxGroup =
@@ -859,6 +900,7 @@ declare namespace GoogleAppsScript {
             DROPDOWN,
             SWITCH,
             MULTI_SELECT,
+            OVERFLOW_MENU,
         }
         /**
          * Autocomplete suggestions to supplement a TextInput widget.
@@ -937,6 +979,7 @@ declare namespace GoogleAppsScript {
             setOnClickAction(action: Action): TextButton;
             setOnClickOpenLinkAction(action: Action): TextButton;
             setOpenLink(openLink: OpenLink): TextButton;
+            setOverflowMenu(menu: OverflowMenu): TextButton;
             setText(text: string): TextButton;
             setTextButtonStyle(textButtonStyle: TextButtonStyle): TextButton;
         }
