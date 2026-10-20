@@ -1860,3 +1860,65 @@ SpreadsheetApp.DataExecutionErrorCode.PERMISSION_DENIED; // $ExpectType DataExec
 SpreadsheetApp.FrequencyType.DAILY; // $ExpectType FrequencyType.DAILY
 SpreadsheetApp.DataSourceRefreshScope.ALL_DATA_SOURCES; // $ExpectType DataSourceRefreshScope.ALL_DATA_SOURCES
 SpreadsheetApp.SortOrder.ASCENDING; // $ExpectType SortOrder.ASCENDING
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/event-action
+const cardEventAction = CardService.newEventAction(); // $ExpectType EventAction
+cardEventAction.setActionRuleId("rule").addPostEventTrigger(CardService.newTrigger().setActionRuleId("trigger")); // $ExpectType EventAction
+cardEventAction.setExpressionDataAction(CardService.newExpressionDataAction()); // $ExpectType EventAction
+cardEventAction.setCommonWidgetAction(CardService.newCommonWidgetAction()); // $ExpectType EventAction
+// $ExpectType ExpressionDataAction
+CardService.newExpressionDataAction().setActionType(CardService.ExpressionDataActionType.START_EXPRESSION_EVALUATION);
+// $ExpectType ExpressionDataCondition
+CardService.newExpressionDataCondition().setConditionType(
+    CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS,
+);
+CardService.newCondition().setActionRuleId("rule").setExpressionDataCondition(CardService.newExpressionDataCondition()); // $ExpectType Condition
+// $ExpectType ExpressionData
+CardService.newExpressionData().setId("id").setExpression("x > 3").addCondition(CardService.newCondition())
+    .addEventAction(cardEventAction);
+CardService.newUpdateVisibilityAction().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType UpdateVisibilityAction
+CardService.newCommonWidgetAction().setUpdateVisibilityAction(CardService.newUpdateVisibilityAction()); // $ExpectType CommonWidgetAction
+CardService.newCardBuilder().addExpressionData(CardService.newExpressionData()); // $ExpectType CardBuilder
+CardService.newCardSection().setId("section"); // $ExpectType CardSection
+CardService.newTextParagraph().setVisibility(CardService.Visibility.VISIBLE); // $ExpectType Widget
+CardService.newTextParagraph().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTextParagraph().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTextInput().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDecoratedText().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+// $ExpectType Widget
+CardService.newSelectionInput().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(
+    cardEventAction,
+);
+CardService.newDatePicker().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+// $ExpectType Widget
+CardService.newDateTimePicker().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(
+    cardEventAction,
+);
+CardService.newTimePicker().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDivider().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newGrid().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newImage().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newKeyValue().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newButtonSet().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTextInput().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDecoratedText().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newSelectionInput().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDatePicker().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDateTimePicker().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newTimePicker().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDivider().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newGrid().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newImage().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newKeyValue().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newButtonSet().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newTextInput().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDecoratedText().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newSelectionInput().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDatePicker().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDateTimePicker().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTimePicker().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDivider().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newGrid().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newImage().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newKeyValue().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newButtonSet().addEventAction(cardEventAction); // $ExpectType Widget

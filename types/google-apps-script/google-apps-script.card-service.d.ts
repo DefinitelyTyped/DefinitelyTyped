@@ -25,6 +25,93 @@ declare namespace GoogleAppsScript {
         }
 
         /**
+         * Defines actions that don't involve evaluations, such as updating widget visibility. For
+         * example, can reveal or hide widgets based on the value of an input as part of CEL
+         * validation.
+         *
+         *     const commonWidgetAction = CardService.newCommonWidgetAction()
+         *     .setUpdateVisibilityAction(CardService.Visibility.VISIBLE);
+         */
+        interface CommonWidgetAction {
+            setUpdateVisibilityAction(updateVisibilityAction: UpdateVisibilityAction): CommonWidgetAction;
+        }
+        /**
+         * A condition used to run an event action as part of CEL expression validation.
+         *
+         *     const condition = CardService.newCondition().setActionRuleId("CEL_TEXTBOX_SUCCESS_RULE_ID")
+         *     .setExpressionDataCondition(CardService.newExpressionDataCondition()
+         *     .setConditionType(CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS));
+         */
+        interface Condition {
+            setActionRuleId(actionRuleId: string): Condition;
+            setExpressionDataCondition(expressionDataCondition: ExpressionDataCondition): Condition;
+        }
+        /**
+         * An EventAction to run when a CEL expression validation condition is met.
+         *
+         *     const eventAction = CardService.newEventAction().setActionRuleId("CEL_TEXTBOX_EVALUATION_RULE_ID")
+         *     .setExpressionDataAction(expressionDataAction)
+         *     .addPostEventTrigger(trigger_success)
+         *     .addPostEventTrigger(trigger_failure);
+         */
+        interface EventAction {
+            addPostEventTrigger(trigger: Trigger): EventAction;
+            setActionRuleId(actionRuleId: string): EventAction;
+            setCommonWidgetAction(commonWidgetAction: CommonWidgetAction): EventAction;
+            setExpressionDataAction(expressionDataAction: ExpressionDataAction): EventAction;
+        }
+        /**
+         * The expression data that is used to evaluate an expression.
+         *
+         *     const expressionData = CardService.newExpressionData();
+         */
+        interface ExpressionData {
+            addCondition(condition: Condition): ExpressionData;
+            addEventAction(eventAction: EventAction): ExpressionData;
+            setExpression(expression: string): ExpressionData;
+            setId(id: string): ExpressionData;
+        }
+        /**
+         * Actions for CEL expression validation . Use START_EXPRESSION_EVALUATION for CEL
+         * validation.
+         *
+         *     const expressionDataAction = CardService.newExpressionDataAction()
+         *     .setActionType(CardService.ExpressionDataActionType.START_EXPRESSION_EVALUATION);
+         */
+        interface ExpressionDataAction {
+            setActionType(type: ExpressionDataActionType): ExpressionDataAction;
+        }
+        /**
+         * An enum that represents the type of the expression data action.
+         *
+         *     const expressionDataAction = CardService.newExpressionDataAction()
+         *     .setActionType(CardService.ExpressionDataActionType.START_EXPRESSION_EVALUATION);
+         */
+        enum ExpressionDataActionType {
+            ACTION_TYPE_UNSPECIFIED,
+            START_EXPRESSION_EVALUATION,
+        }
+        /**
+         * Represents a CEL expression validation result.
+         *
+         *     const expressionDataCondition = CardService.newExpressionDataCondition()
+         *     .setConditionType(CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS);
+         */
+        interface ExpressionDataCondition {
+            setConditionType(type: ExpressionDataConditionType): ExpressionDataCondition;
+        }
+        /**
+         * Represents whether the CEL expression evaluated successfully.
+         *
+         *     const expressionDataCondition = CardService.newExpressionDataCondition()
+         *     .setConditionType(CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS);
+         */
+        enum ExpressionDataConditionType {
+            CONDITION_TYPE_UNSPECIFIED,
+            EXPRESSION_EVALUATION_SUCCESS,
+            EXPRESSION_EVALUATION_FAILURE,
+        }
+        /**
          * An enum type that specifies what to do in response to an interaction with a user,
          * such as a user clicking a button in a card message.
          */
@@ -132,6 +219,9 @@ declare namespace GoogleAppsScript {
          */
         interface ButtonSet {
             addButton(button: Button): ButtonSet;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * A context card that represents a single view in the
@@ -179,6 +269,7 @@ declare namespace GoogleAppsScript {
          */
         interface CardBuilder {
             addCardAction(cardAction: CardAction): CardBuilder;
+            addExpressionData(expressionData: ExpressionData): CardBuilder;
             addSection(section: CardSection): CardBuilder;
             build(): Card;
             setHeader(cardHeader: CardHeader): CardBuilder;
@@ -220,6 +311,7 @@ declare namespace GoogleAppsScript {
             addWidget(widget: Widget): CardSection;
             setCollapsible(collapsible: boolean): CardSection;
             setHeader(header: string): CardSection;
+            setId(id: string): CardSection;
             setNumUncollapsibleWidgets(numUncollapsibleWidgets: Integer): CardSection;
         }
         /**
@@ -271,6 +363,8 @@ declare namespace GoogleAppsScript {
             ComposedEmailType: typeof ComposedEmailType;
             ContentType: typeof ContentType;
             DisplayStyle: typeof DisplayStyle;
+            ExpressionDataActionType: typeof ExpressionDataActionType;
+            ExpressionDataConditionType: typeof ExpressionDataConditionType;
             GridItemLayout: typeof GridItemLayout;
             HorizontalAlignment: typeof HorizontalAlignment;
             Icon: typeof Icon;
@@ -285,6 +379,7 @@ declare namespace GoogleAppsScript {
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
             InputType: typeof InputType;
             Interaction: typeof Interaction;
+            Visibility: typeof Visibility;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
             newAttachment(): Attachment;
@@ -300,7 +395,9 @@ declare namespace GoogleAppsScript {
             newCardBuilder(): CardBuilder;
             newCardHeader(): CardHeader;
             newCardSection(): CardSection;
+            newCommonWidgetAction(): CommonWidgetAction;
             newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
+            newCondition(): Condition;
             newDatePicker(): DatePicker;
             newDateTimePicker(): DateTimePicker;
             newDecoratedText(): DecoratedText;
@@ -310,6 +407,10 @@ declare namespace GoogleAppsScript {
              * Creates a new EditorFileScopeActionResponseBuilder.
              */
             newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
+            newEventAction(): EventAction;
+            newExpressionData(): ExpressionData;
+            newExpressionDataAction(): ExpressionDataAction;
+            newExpressionDataCondition(): ExpressionDataCondition;
             newFixedFooter(): FixedFooter;
             newIconImage(): IconImage;
             /**
@@ -344,6 +445,7 @@ declare namespace GoogleAppsScript {
             newTextInput(): TextInput;
             newTextParagraph(): TextParagraph;
             newTimePicker(): TimePicker;
+            newTrigger(): Trigger;
             newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
             newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
             newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
@@ -351,6 +453,7 @@ declare namespace GoogleAppsScript {
             newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
             newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
+            newUpdateVisibilityAction(): UpdateVisibilityAction;
             newValidation(): Validation;
         }
         /**
@@ -449,13 +552,16 @@ declare namespace GoogleAppsScript {
          *     var image = CardService.newImage().setAltText("A nice image").setImageUrl("https://image.png");
          */
         interface Image {
+            addEventAction(eventAction: EventAction): Widget;
             setAltText(altText: string): Image;
             setAuthorizationAction(action: AuthorizationAction): Image;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): Image;
+            setId(id: string): Widget;
             setImageUrl(url: string): Image;
             setOnClickAction(action: Action): Image;
             setOnClickOpenLinkAction(action: Action): Image;
             setOpenLink(openLink: OpenLink): Image;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * A ImageButton with an image displayed on it.
@@ -505,6 +611,7 @@ declare namespace GoogleAppsScript {
          *         .setBottomLabel("Bottom label - single line");
          */
         interface KeyValue {
+            addEventAction(eventAction: EventAction): Widget;
             setAuthorizationAction(action: AuthorizationAction): KeyValue;
             setBottomLabel(text: string): KeyValue;
             setButton(button: Button): KeyValue;
@@ -513,12 +620,14 @@ declare namespace GoogleAppsScript {
             setIcon(icon: Icon): KeyValue;
             setIconAltText(altText: string): KeyValue;
             setIconUrl(url: string): KeyValue;
+            setId(id: string): Widget;
             setMultiline(multiline: boolean): KeyValue;
             setOnClickAction(action: Action): KeyValue;
             setOnClickOpenLinkAction(action: Action): KeyValue;
             setOpenLink(openLink: OpenLink): KeyValue;
             setSwitch(switchToSet: Switch): KeyValue;
             setTopLabel(text: string): KeyValue;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -722,6 +831,7 @@ declare namespace GoogleAppsScript {
          *          .setMultiSelectMinQueryLength(1);
          */
         interface SelectionInput {
+            addEventAction(eventAction: EventAction): Widget;
             addItem(text: any, value: any, selected: boolean): SelectionInput;
             addMultiSelectItem(
                 text: string,
@@ -732,11 +842,13 @@ declare namespace GoogleAppsScript {
             ): SelectionInput;
             setExternalDataSource(action: Action): SelectionInput;
             setFieldName(fieldName: string): SelectionInput;
+            setId(id: string): Widget;
             setMultiSelectMaxSelectedItems(maxSelectedItems: Integer): SelectionInput;
             setMultiSelectMinQueryLength(queryLength: Integer): SelectionInput;
             setOnChangeAction(action: Action): SelectionInput;
             setTitle(title: string): SelectionInput;
             setType(type: SelectionInputType): SelectionInput;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * Type of selection input.
@@ -854,8 +966,10 @@ declare namespace GoogleAppsScript {
          *         .setHint("Text input hint");
          */
         interface TextInput {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): TextInput;
             setHint(hint: string): TextInput;
+            setId(id: string): Widget;
             setMultiline(multiline: boolean): TextInput;
             setOnChangeAction(action: Action): TextInput;
             setSuggestions(suggestions: Suggestions): TextInput;
@@ -863,6 +977,7 @@ declare namespace GoogleAppsScript {
             setTitle(title: string): TextInput;
             setValidation(validation: Validation): TextInput;
             setValue(value: string): TextInput;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * A widget that displays text and supports basic HTML formatting.
@@ -871,7 +986,30 @@ declare namespace GoogleAppsScript {
          *         .setText("This is a text paragraph widget. Multiple lines are allowed if needed.");
          */
         interface TextParagraph {
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
             setText(text: string): TextParagraph;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * A trigger that runs CEL expression validation widget event actions according to the
+         * action rule ID.
+         *
+         *     // Define Triggers for each Condition respectively
+         *     const trigger_success = CardService.newTrigger()
+         *       .setActionRuleId("CEL_TEXTINPUT_SUCCESS_RULE_ID");
+         *
+         *     const trigger_failure = CardService.newTrigger()
+         *       .setActionRuleId("CEL_TEXTINPUT_FAILURE_RULE_ID");
+         *
+         *     const eventAction = CardService.newEventAction()
+         *       .setActionRuleId("CEL_TEXTINPUT_EVALUATION_RULE_ID")
+         *       .setExpressionDataAction(expressionDataAction)
+         *       .addPostEventTrigger(trigger_success)
+         *       .addPostEventTrigger(trigger_failure);
+         */
+        interface Trigger {
+            setActionRuleId(actionRuleId: string): Trigger;
         }
         /**
          * The response object that may be returned from a method that creates universal action.
@@ -909,11 +1047,14 @@ declare namespace GoogleAppsScript {
          *             .setFunctionName("handleTimeChange"));
          */
         interface TimePicker {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): TimePicker;
             setHours(hours: number): TimePicker;
+            setId(id: string): Widget;
             setMinutes(hours: number): TimePicker;
             setOnChangeAction(action: Action): TimePicker;
             setTitle(title: string): TimePicker;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * A builder for the UniversalActionResponse objects.
@@ -1018,6 +1159,15 @@ declare namespace GoogleAppsScript {
         }
 
         /**
+         * Updates the visibility of a card widget to make it display or to hide it.
+         *
+         *     const updateVisibilityAction = CardService.newUpdateVisibilityAction()
+         *     .setVisibility(CardService.Visibility.VISIBLE);
+         */
+        interface UpdateVisibilityAction {
+            setVisibility(visibility: Visibility): UpdateVisibilityAction;
+        }
+        /**
          * An object that defines the validation rule for the widget that it is attached to.
          *
          * const validation = CardService.newValidation()
@@ -1068,23 +1218,29 @@ declare namespace GoogleAppsScript {
          * An input field that allows inputing a date.
          */
         interface DatePicker {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): DatePicker;
+            setId(id: string): Widget;
             setOnChangeAction(action: Action): DatePicker;
             setTitle(title: string): DatePicker;
             setValueInMsSinceEpoch(valueMsEpoch: number): DatePicker;
             setValueInMsSinceEpoch(valueMsEpoch: string): DatePicker;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
          * An input field that allows inputing a date.
          */
         interface DateTimePicker {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): DateTimePicker;
+            setId(id: string): Widget;
             setOnChangeAction(action: Action): DateTimePicker;
             setTimeZoneOffsetInMins(timeZoneOffsetMins: Integer): DateTimePicker;
             setTitle(title: string): DateTimePicker;
             setValueInMsSinceEpoch(valueMsEpoch: number): DateTimePicker;
             setValueInMsSinceEpoch(valueMsEpoch: string): DateTimePicker;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -1094,6 +1250,7 @@ declare namespace GoogleAppsScript {
          * This class is intended to replace KeyValue.
          */
         interface DecoratedText {
+            addEventAction(eventAction: EventAction): Widget;
             setAuthorizationAction(action: AuthorizationAction): DecoratedText;
             setBottomLabel(text: string): DecoratedText;
             setButton(button: Button): DecoratedText;
@@ -1102,6 +1259,7 @@ declare namespace GoogleAppsScript {
             setIcon(icon: Icon): DecoratedText;
             setIconAltText(altText: string): DecoratedText;
             setIconUrl(url: string): DecoratedText;
+            setId(id: string): Widget;
             setOnClickAction(action: Action): DecoratedText;
             setOnClickOpenLinkAction(action: Action): DecoratedText;
             setOpenLink(openLink: OpenLink): DecoratedText;
@@ -1109,6 +1267,7 @@ declare namespace GoogleAppsScript {
             setSwitchControl(switchToSet: Switch): DecoratedText;
             setText(text: string): DecoratedText;
             setTopLabel(text: string): DecoratedText;
+            setVisibility(visibility: Visibility): Widget;
             setWrapText(wrapText: boolean): DecoratedText;
         }
 
@@ -1117,6 +1276,9 @@ declare namespace GoogleAppsScript {
          */
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Divider {
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -1255,6 +1417,7 @@ declare namespace GoogleAppsScript {
          * An organized grid to display a collection of grid items.
          */
         interface Grid {
+            addEventAction(eventAction: EventAction): Widget;
             /**
              * Adds a new grid item to the grid.
              */
@@ -1271,6 +1434,7 @@ declare namespace GoogleAppsScript {
              * Sets an action that composes a draft email when the object is clicked.
              */
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): Grid;
+            setId(id: string): Widget;
             /**
              * The number of columns to display in the grid.
              */
@@ -1291,6 +1455,7 @@ declare namespace GoogleAppsScript {
              * Sets the title text of the grid.
              */
             setTitle(title: string): Grid;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -1338,10 +1503,28 @@ declare namespace GoogleAppsScript {
             IN_PLACE_INSERT,
         }
         /**
+         * An enum that represents the visibility state of the widgets.
+         *
+         * Visibility.VISIBLE means that the widget is being displayed and is visible.
+         *
+         * Visibility.HIDDEN means that the widget is not displayed and is invisible.
+         *
+         * To call an enum, call its parent class, name, and property. For example,
+         * CardService.Visibility.VISIBLE.
+         */
+        enum Visibility {
+            VISIBLE,
+            HIDDEN,
+            VISIBILITY_UNSPECIFIED,
+        }
+        /**
          * Base class for all widgets that can be added to a Card.
          */
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Widget {
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
         }
     }
 }
