@@ -1978,3 +1978,19 @@ CardService.newSelectionInput().addDataSourceConfig(CardService.newDataSourceCon
 CardService.newSelectionInput().setPlatformDataSource(CardService.newPlatformDataSource()); // $ExpectType SelectionInput
 CardService.newTextInput().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType TextInput
 CardService.newDateTimePicker().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType DateTimePicker
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/chat-response-builder
+// CardService.Status, CardService.ResponseType and newUpdatedWidget() exist at runtime but are missing from the CardService tables
+CardService.newCardWithId().setCardId("card_id").setCard(CardService.newCardBuilder().build()); // $ExpectType CardWithId
+CardService.newChatResponseBuilder().addCardsV2(CardService.newCardWithId()).setText("Example text"); // $ExpectType ChatResponseBuilder
+CardService.newChatResponseBuilder().setActionResponse(CardService.newChatActionResponse()); // $ExpectType ChatResponseBuilder
+CardService.newChatResponseBuilder().build().printJson(); // $ExpectType string
+CardService.newDialog().setBody(CardService.newCardBuilder().build()); // $ExpectType Dialog
+CardService.newDialogAction().setDialog(CardService.newDialog()).setActionStatus(CardService.newActionStatus()); // $ExpectType DialogAction
+CardService.newActionStatus().setStatusCode(CardService.Status.OK).setUserFacingMessage("Success"); // $ExpectType ActionStatus
+// $ExpectType ChatActionResponse
+CardService.newChatActionResponse().setResponseType(CardService.ResponseType.DIALOG).setDialogAction(
+    CardService.newDialogAction(),
+);
+CardService.newChatActionResponse().setUpdatedWidget(CardService.newUpdatedWidget()).setUrl("https://example.com"); // $ExpectType ChatActionResponse
+CardService.newUpdatedWidget().addItem("title", "value", false, "uri", "bottom text"); // $ExpectType UpdatedWidget

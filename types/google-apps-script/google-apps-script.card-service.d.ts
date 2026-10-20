@@ -25,6 +25,38 @@ declare namespace GoogleAppsScript {
         }
 
         /**
+         * A class that represents the status for a request to either invoke or submit a dialog.
+         *
+         *     const actionStatus = CardService.newActionStatus()
+         *                              .setStatusCode(CardService.Status.OK)
+         *                              .setUserFacingMessage('Success');
+         */
+        interface ActionStatus {
+            setStatusCode(statusCode: Status): ActionStatus;
+            setUserFacingMessage(message: string): ActionStatus;
+        }
+        /**
+         * A builder for CardWithId objects. This class is a unique identifier for a card in a
+         * message when sending multiple cards.
+         *
+         *     const cardSection = CardService.newCardSection();
+         *     cardSection.addWidget(
+         *         CardService.newTextParagraph().setText('This is a text paragraph widget.'),
+         *     );
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .addSection(cardSection)
+         *                      .build();
+         *
+         *     const cardWithId =
+         *         CardService.newCardWithId().setCardId('card_id').setCard(card);
+         */
+        interface CardWithId {
+            setCard(card: Card): CardWithId;
+            setCardId(id: string): CardWithId;
+        }
+        /**
          * Carousel, also known as slider, rotates and displays a list of widgets in a slideshow
          * format, with buttons navigating to the previous or next widget.
          *
@@ -57,6 +89,27 @@ declare namespace GoogleAppsScript {
             addWidget(widget: Widget): CarouselCard;
         }
         /**
+         * A class that represents the parameters that a Chat app can use to configure how its
+         * response is posted.
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .build();
+         *     const dialog = CardService.newDialog().setBody(card);
+         *
+         *     const dialogAction = CardService.newDialogAction().setDialog(dialog);
+         *
+         *     const chatActionResponse = CardService.newChatActionResponse()
+         *                                    .setResponseType(CardService.Type.DIALOG)
+         *                                    .setDialogAction(dialogAction);
+         */
+        interface ChatActionResponse {
+            setDialogAction(dialogAction: DialogAction): ChatActionResponse;
+            setResponseType(responseType: ResponseType): ChatActionResponse;
+            setUpdatedWidget(updatedWidget: UpdatedWidget): ChatActionResponse;
+            setUrl(url: string): ChatActionResponse;
+        }
+        /**
          * For a SelectionInput widget that uses a multiselect menu, a data source from Google Chat.
          * The data source populates selection items for the multiselect menu. For example, a user
          * can select Google Chat spaces that they're a member of.
@@ -70,6 +123,56 @@ declare namespace GoogleAppsScript {
          */
         interface ChatClientDataSource {
             setSpaceDataSource(spaceDataSource: ChatSpaceDataSource): ChatClientDataSource;
+        }
+        /**
+         * The response object for a card message in Google Chat.
+         *
+         *     // Creates a card message in Chat.
+         *     const cardHeader = CardService.newCardHeader()
+         *                            .setTitle('Card Header Title')
+         *                            .setSubtitle('Card Header Subtitle');
+         *
+         *     const card = CardService.newCardBuilder().setHeader(cardHeader).build();
+         *
+         *     const chatResponse =
+         *         CardService.newChatResponseBuilder()
+         *             .setText('Example text')
+         *             .addCardsV2(
+         *                 CardService.newCardWithId().setCardId('card_id').setCard(card))
+         *             .build();
+         *
+         *     console.log(chatResponse.printJson());
+         */
+        interface ChatResponse {
+            printJson(): string;
+        }
+        /**
+         * A builder for ChatResponse objects.
+         *
+         *     const cardSection = CardService.newCardSection();
+         *     cardSection.addWidget(
+         *         CardService.newTextParagraph().setText('This is a text paragraph widget.'),
+         *     );
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setName('Card name')
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .addSection(cardSection)
+         *                      .build();
+         *
+         *     const cardWithId =
+         *         CardService.newCardWithId().setCardId('card_id').setCard(card);
+         *
+         *     const chatResponse = CardService.newChatResponseBuilder()
+         *                              .addCardsV2(cardWithId)
+         *                              .setText('Example text')
+         *                              .build();
+         */
+        interface ChatResponseBuilder {
+            addCardsV2(cardWithId: CardWithId): ChatResponseBuilder;
+            build(): ChatResponse;
+            setActionResponse(actionResponse: ChatActionResponse): ChatResponseBuilder;
+            setText(text: string): ChatResponseBuilder;
         }
         /**
          * A data source that populates Google Chat spaces as selection items for a multiselect
@@ -255,6 +358,35 @@ declare namespace GoogleAppsScript {
             setMinCharactersToTrigger(minCharactersToTrigger: Integer): DataSourceConfig;
             setPlatformDataSource(platformDataSource: PlatformDataSource): DataSourceConfig;
             setRemoteDataSource(action: Action): DataSourceConfig;
+        }
+        /**
+         * For details, see Open interactive dialogs in the Google Chat documentation.
+         *
+         * A builder for Dialog objects.
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .build();
+         *
+         *     // Sets the card of the dialog.
+         *     const dialog = CardService.newDialog().setBody(card);
+         */
+        interface Dialog {
+            setBody(card: Card): Dialog;
+        }
+        /**
+         * A builder for DialogAction objects.
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .build();
+         *     const dialog = CardService.newDialog().setBody(card);
+         *
+         *     const dialogAction = CardService.newDialogAction().setDialog(dialog);
+         */
+        interface DialogAction {
+            setActionStatus(actionStatus: ActionStatus): DialogAction;
+            setDialog(dialog: Dialog): DialogAction;
         }
         /**
          * Holds a set of DriveItemType objects that are displayed in a row.
@@ -638,7 +770,9 @@ declare namespace GoogleAppsScript {
             LoadIndicator: typeof LoadIndicator;
             OnClose: typeof OnClose;
             OpenAs: typeof OpenAs;
+            ResponseType: typeof ResponseType;
             SelectionInputType: typeof SelectionInputType;
+            Status: typeof Status;
             SwitchControlType: typeof SwitchControlType;
             TextButtonStyle: typeof TextButtonStyle;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
@@ -651,6 +785,7 @@ declare namespace GoogleAppsScript {
             WrapStyle: typeof WrapStyle;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
+            newActionStatus(): ActionStatus;
             newAttachment(): Attachment;
             newAuthorizationAction(): AuthorizationAction;
             newAuthorizationException(): AuthorizationException;
@@ -664,9 +799,12 @@ declare namespace GoogleAppsScript {
             newCardBuilder(): CardBuilder;
             newCardHeader(): CardHeader;
             newCardSection(): CardSection;
+            newCardWithId(): CardWithId;
             newCarousel(): Carousel;
             newCarouselCard(): CarouselCard;
+            newChatActionResponse(): ChatActionResponse;
             newChatClientDataSource(): ChatClientDataSource;
+            newChatResponseBuilder(): ChatResponseBuilder;
             newChatSpaceDataSource(): ChatSpaceDataSource;
             newChip(): Chip;
             newChipList(): ChipList;
@@ -680,6 +818,8 @@ declare namespace GoogleAppsScript {
             newDatePicker(): DatePicker;
             newDateTimePicker(): DateTimePicker;
             newDecoratedText(): DecoratedText;
+            newDialog(): Dialog;
+            newDialogAction(): DialogAction;
             newDivider(): Divider;
             newDriveDataSourceSpec(): DriveDataSourceSpec;
             newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
@@ -738,6 +878,7 @@ declare namespace GoogleAppsScript {
             newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
             newUpdateVisibilityAction(): UpdateVisibilityAction;
+            newUpdatedWidget(): UpdatedWidget;
             newValidation(): Validation;
             newWorkflowDataSource(): WorkflowDataSource;
         }
@@ -1108,6 +1249,18 @@ declare namespace GoogleAppsScript {
             setHostAppDataSource(hostAppDataSource: HostAppDataSource): PlatformDataSource;
         }
         /**
+         * An enum that represents the type of Chat app response.
+         */
+        enum ResponseType {
+            TYPE_UNSPECIFIED,
+            NEW_MESSAGE,
+            UPDATE_MESSAGE,
+            UPDATE_USER_MESSAGE_CARDS,
+            REQUEST_CONFIG,
+            DIALOG,
+            UPDATE_WIDGET,
+        }
+        /**
          * An input field that allows choosing between a set of predefined options.
          *
          *  const checkboxGroup =
@@ -1207,6 +1360,28 @@ declare namespace GoogleAppsScript {
             SWITCH,
             MULTI_SELECT,
             OVERFLOW_MENU,
+        }
+        /**
+         * An enum that represents the status code.
+         */
+        enum Status {
+            OK,
+            CANCELLED,
+            UNKNOWN,
+            INVALID_ARGUMENT,
+            DEADLINE_EXCEEDED,
+            NOT_FOUND,
+            ALREADY_EXISTS,
+            PERMISSION_DENIED,
+            UNAUTHENTICATED,
+            RESOURCE_EXHAUSTED,
+            FAILED_PRECONDITION,
+            ABORTED,
+            OUT_OF_RANGE,
+            UNIMPLEMENTED,
+            INTERNAL,
+            UNAVAILABLE,
+            DATA_LOSS,
         }
         /**
          * Autocomplete suggestions to supplement a TextInput widget.
@@ -1516,6 +1691,29 @@ declare namespace GoogleAppsScript {
          */
         interface UpdateVisibilityAction {
             setVisibility(visibility: Visibility): UpdateVisibilityAction;
+        }
+        /**
+         * The response of the updated widget. Used to provide autocomplete options for multiselect
+         * menu in SelectionInput.
+         *
+         *     const updatedWidget = CardService.newUpdatedWidget()
+         *                               .addItem(
+         *                                   'item_one_title',
+         *                                   'item_one_value',
+         *                                   false,
+         *                                   'item_one_uri',
+         *                                   'item_one_bottom_text',
+         *                                   )
+         *                               .addItem(
+         *                                   'item_two_title',
+         *                                   'item_two_value',
+         *                                   false,
+         *                                   'item_two_uri',
+         *                                   'item_two_bottom_text',
+         *                               );
+         */
+        interface UpdatedWidget {
+            addItem(text: any, value: any, selected: boolean, startIconUri: any, bottomText: any): UpdatedWidget;
         }
         /**
          * An object that defines the validation rule for the widget that it is attached to.
