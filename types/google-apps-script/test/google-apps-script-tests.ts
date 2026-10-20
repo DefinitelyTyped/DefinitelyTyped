@@ -1670,3 +1670,12 @@ formsForm.setPublished(true); // $ExpectType Form
 formsForm.isPublished(); // $ExpectType boolean
 formsForm.supportsAdvancedResponderPermissions(); // $ExpectType boolean
 FormApp.create("Form Name", true); // $ExpectType Form
+
+// Forms: https://developers.google.com/apps-script/reference/forms/rating-item
+formsForm.addRatingItem(); // $ExpectType RatingItem
+formsForm.getItems(FormApp.ItemType.RATING)[0].asRatingItem(); // $ExpectType RatingItem
+formsForm.addRatingItem().setRatingScaleLevel(7).setRatingIcon(FormApp.RatingIconType.HEART); // $ExpectType RatingItem
+formsForm.addRatingItem().getRatingIcon(); // $ExpectType RatingIconType
+formsForm.addRatingItem().getRatingScaleLevel(); // $ExpectType number
+formsForm.addRatingItem().getGeneralFeedback(); // $ExpectType QuizFeedback | null
+FormApp.ItemType.UNSUPPORTED; // $ExpectType ItemType.UNSUPPORTED

@@ -359,6 +359,7 @@ declare namespace GoogleAppsScript {
             addPublishedReader(emailAddress: string): Form;
             addPublishedReader(user: Base.User): Form;
             addPublishedReaders(emailAddresses: string[]): Form;
+            addRatingItem(): RatingItem;
             addScaleItem(): ScaleItem;
             addSectionHeaderItem(): SectionHeaderItem;
             addTextItem(): TextItem;
@@ -440,6 +441,7 @@ declare namespace GoogleAppsScript {
             FeedbackType: typeof FeedbackType;
             ItemType: typeof ItemType;
             PageNavigationType: typeof PageNavigationType;
+            RatingIconType: typeof RatingIconType;
             create(title: string): Form;
             create(title: string, isPublished: boolean): Form;
             createCheckboxGridValidation(): CheckboxGridValidationBuilder;
@@ -619,6 +621,7 @@ declare namespace GoogleAppsScript {
             asMultipleChoiceItem(): MultipleChoiceItem;
             asPageBreakItem(): PageBreakItem;
             asParagraphTextItem(): ParagraphTextItem;
+            asRatingItem(): RatingItem;
             asScaleItem(): ScaleItem;
             asSectionHeaderItem(): SectionHeaderItem;
             asTextItem(): TextItem;
@@ -684,12 +687,14 @@ declare namespace GoogleAppsScript {
             MULTIPLE_CHOICE,
             PAGE_BREAK,
             PARAGRAPH_TEXT,
+            RATING,
             SCALE,
             SECTION_HEADER,
             TEXT,
             TIME,
             VIDEO,
             FILE_UPLOAD,
+            UNSUPPORTED,
         }
         /**
          * A question item that allows the respondent to select one choice from a drop-down list. Items can
@@ -933,6 +938,53 @@ declare namespace GoogleAppsScript {
             build(): QuizFeedback;
             copy(): QuizFeedbackBuilder;
             setText(text: string): QuizFeedbackBuilder;
+        }
+        /**
+         * An enum representing the supported types of rating icons.
+         */
+        enum RatingIconType {
+            STAR,
+            HEART,
+            THUMB_UP,
+        }
+        /**
+         * A question item that allows the respondent to give a rating. Items can be accessed or created
+         * from a Form. When used in a quiz, these items are graded.
+         *
+         *     // Open a form by ID
+         *     const form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+         *
+         *     // Get an existing rating item and access its properties.
+         *     const existingRatingItem = form.getItems(FormApp.ItemType.RATING)[0].asRatingItem();
+         *     const ratingScaleLevel = existingRatingItem.getRatingScaleLevel();
+         *     const ratingIcon = existingRatingItem.getRatingIcon();
+         *
+         *     // Create a new rating item.
+         *     const ratingItem = form.addRatingItem();
+         *
+         *     // Update the rating item's properties via chaining.
+         *     ratingItem.setRatingScaleLevel(7).setRatingIcon(FormApp.RatingIconType.HEART);
+         */
+        interface RatingItem {
+            createResponse(response: Integer): ItemResponse;
+            duplicate(): RatingItem;
+            getGeneralFeedback(): QuizFeedback | null;
+            getHelpText(): string;
+            getId(): Integer;
+            getIndex(): Integer;
+            getPoints(): Integer;
+            getRatingIcon(): RatingIconType;
+            getRatingScaleLevel(): Integer;
+            getTitle(): string;
+            getType(): ItemType;
+            isRequired(): boolean;
+            setGeneralFeedback(feedback: QuizFeedback): RatingItem;
+            setHelpText(text: string): RatingItem;
+            setPoints(points: Integer): RatingItem;
+            setRatingIcon(ratingIcon: RatingIconType): RatingItem;
+            setRatingScaleLevel(ratingScaleLevel: Integer): RatingItem;
+            setRequired(enabled: boolean): RatingItem;
+            setTitle(title: string): RatingItem;
         }
         /**
          * A question item that allows the respondent to choose one option from a numbered sequence of radio
