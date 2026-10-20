@@ -1752,3 +1752,22 @@ SpreadsheetApp.BooleanCriteria.TEXT_NOT_EQUAL_TO; // $ExpectType BooleanCriteria
 SpreadsheetApp.DataValidationCriteria.DATE_AFTER_RELATIVE; // $ExpectType DataValidationCriteria.DATE_AFTER_RELATIVE
 SpreadsheetApp.DataValidationCriteria.DATE_BEFORE_RELATIVE; // $ExpectType DataValidationCriteria.DATE_BEFORE_RELATIVE
 SpreadsheetApp.DataValidationCriteria.DATE_EQUAL_TO_RELATIVE; // $ExpectType DataValidationCriteria.DATE_EQUAL_TO_RELATIVE
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/pivot-group
+const ssPivot = SpreadsheetApp.getActiveSheet().getPivotTables()[0];
+const ssPivotGroup = ssPivot.getRowGroups()[0];
+ssPivot.getSourceDataRange(); // $ExpectType Range
+ssPivot.asDataSourcePivotTable(); // $ExpectType DataSourcePivotTable | null
+ssPivotGroup.setDateTimeGroupingRule(SpreadsheetApp.DateTimeGroupingRuleType.YEAR_MONTH); // $ExpectType PivotGroup
+ssPivotGroup.getDateTimeGroupingRule(); // $ExpectType DateTimeGroupingRule | null
+ssPivotGroup.getDateTimeGroupingRule()!.getRuleType(); // $ExpectType DateTimeGroupingRuleType
+ssPivotGroup.setGroupLimit(10); // $ExpectType PivotGroup
+ssPivotGroup.getGroupLimit(); // $ExpectType PivotGroupLimit | null
+ssPivotGroup.getGroupLimit()!.setCountLimit(5).getPivotGroup(); // $ExpectType PivotGroup
+ssPivotGroup.getGroupLimit()!.getCountLimit(); // $ExpectType number
+ssPivotGroup.getGroupLimit()!.remove(); // $ExpectType void
+ssPivotGroup.getSourceDataSourceColumn(); // $ExpectType DataSourceColumn | null
+ssPivot.getFilters()[0].getSourceDataSourceColumn(); // $ExpectType DataSourceColumn | null
+ssPivot.getPivotValues()[0].getSourceDataColumn(); // $ExpectType number
+ssPivot.getPivotValues()[0].getSourceDataSourceColumn(); // $ExpectType DataSourceColumn | null
+ssPivot.getPivotValues()[0].remove(); // $ExpectType void

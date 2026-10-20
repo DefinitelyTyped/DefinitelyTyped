@@ -708,6 +708,39 @@ declare namespace GoogleAppsScript {
             DATE_EQUAL_TO_RELATIVE,
         }
         /**
+         * Access an existing date-time grouping rule.
+         *
+         * To set a rule on PivotGroup, use
+         * PivotGroup.setDateTimeGroupingRule(dateTimeGroupingRuleType).
+         */
+        interface DateTimeGroupingRule {
+            getRuleType(): DateTimeGroupingRuleType;
+        }
+        /**
+         * The types of date-time grouping rule.
+         *
+         * The examples below assume the spreadsheet locale is "en-US", grouping bucket may be
+         * translated based on the spreadsheet locale.
+         */
+        enum DateTimeGroupingRuleType {
+            UNSUPPORTED,
+            SECOND,
+            MINUTE,
+            HOUR,
+            HOUR_MINUTE,
+            HOUR_MINUTE_AMPM,
+            DAY_OF_WEEK,
+            DAY_OF_YEAR,
+            DAY_OF_MONTH,
+            DAY_MONTH,
+            MONTH,
+            QUARTER,
+            YEAR,
+            YEAR_MONTH,
+            YEAR_QUARTER,
+            YEAR_MONTH_DAY,
+        }
+        /**
          * Access and modify developer metadata. To create new developer metadata use Range.addDeveloperMetadata(key), Sheet.addDeveloperMetadata(key), or Spreadsheet.addDeveloperMetadata(key).
          */
         interface DeveloperMetadata {
@@ -1530,6 +1563,7 @@ declare namespace GoogleAppsScript {
             getFilterCriteria(): FilterCriteria;
             getPivotTable(): PivotTable;
             getSourceDataColumn(): Integer;
+            getSourceDataSourceColumn(): DataSourceColumn | null;
             remove(): void;
             setFilterCriteria(filterCriteria: FilterCriteria): PivotFilter;
         }
@@ -1541,17 +1575,22 @@ declare namespace GoogleAppsScript {
             areLabelsRepeated(): boolean;
             clearGroupingRule(): PivotGroup;
             clearSort(): PivotGroup;
+            getDateTimeGroupingRule(): DateTimeGroupingRule | null;
             getDimension(): Dimension;
+            getGroupLimit(): PivotGroupLimit | null;
             getIndex(): Integer;
             getPivotTable(): PivotTable;
             getSourceDataColumn(): Integer;
+            getSourceDataSourceColumn(): DataSourceColumn | null;
             hideRepeatedLabels(): PivotGroup;
             isSortAscending(): boolean;
             moveToIndex(index: Integer): PivotGroup;
             remove(): void;
             removeManualGroupingRule(groupName: string): PivotGroup;
             resetDisplayName(): PivotGroup;
+            setDateTimeGroupingRule(dateTimeGroupingRuleType: DateTimeGroupingRuleType): PivotGroup;
             setDisplayName(name: string): PivotGroup;
+            setGroupLimit(countLimit: Integer): PivotGroup;
             setHistogramGroupingRule(minValue: Integer, maxValue: Integer, intervalSize: Integer): PivotGroup;
             showRepeatedLabels(): PivotGroup;
             showTotals(showTotals: boolean): PivotGroup;
@@ -1559,6 +1598,15 @@ declare namespace GoogleAppsScript {
             sortBy(value: PivotValue, oppositeGroupValues: any[]): PivotGroup;
             sortDescending(): PivotGroup;
             totalsAreShown(): boolean;
+        }
+        /**
+         * Access and modify pivot table group limit.
+         */
+        interface PivotGroupLimit {
+            getCountLimit(): Integer;
+            getPivotGroup(): PivotGroup;
+            remove(): void;
+            setCountLimit(countLimit: Integer): PivotGroupLimit;
         }
         /**
          * Access and modify pivot tables.
@@ -1569,11 +1617,13 @@ declare namespace GoogleAppsScript {
             addFilter(sourceDataColumn: Integer, filterCriteria: FilterCriteria): PivotFilter;
             addPivotValue(sourceDataColumn: Integer, summarizeFunction: PivotTableSummarizeFunction): PivotValue;
             addRowGroup(sourceDataColumn: Integer): PivotGroup;
+            asDataSourcePivotTable(): DataSourcePivotTable | null;
             getAnchorCell(): Range;
             getColumnGroups(): PivotGroup[];
             getFilters(): PivotFilter[];
             getPivotValues(): PivotValue[];
             getRowGroups(): PivotGroup[];
+            getSourceDataRange(): Range;
             getValuesDisplayOrientation(): Dimension;
             remove(): void;
             setValuesDisplayOrientation(dimension: Dimension): PivotTable;
@@ -1604,7 +1654,10 @@ declare namespace GoogleAppsScript {
             getDisplayType(): PivotValueDisplayType;
             getFormula(): string | null;
             getPivotTable(): PivotTable;
+            getSourceDataColumn(): Integer;
+            getSourceDataSourceColumn(): DataSourceColumn | null;
             getSummarizedBy(): PivotTableSummarizeFunction;
+            remove(): void;
             setDisplayName(name: string): PivotValue;
             setFormula(formula: string): PivotValue;
             showAs(displayType: PivotValueDisplayType): PivotValue;
@@ -2472,6 +2525,7 @@ declare namespace GoogleAppsScript {
             DataSourceParameterType: typeof DataSourceParameterType;
             DataSourceType: typeof DataSourceType;
             DataValidationCriteria: typeof DataValidationCriteria;
+            DateTimeGroupingRuleType: typeof DateTimeGroupingRuleType;
             DeveloperMetadataLocationType: typeof DeveloperMetadataLocationType;
             DeveloperMetadataVisibility: typeof DeveloperMetadataVisibility;
             Dimension: typeof Dimension;
