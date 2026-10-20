@@ -1,5 +1,143 @@
 /// <reference types="mapbox__mapbox-gl-draw" />
 
+declare namespace woosmap.map.marker {
+    /**
+     * Shows a position on a map. `AdvancedMarkerElement` is a custom element
+     * (`<gmp-advanced-marker>` / `<wmp-advanced-marker>`) that extends `HTMLElement`,
+     * mirroring Google Maps. Provide content with the `content` property or by
+     * appending child nodes; with neither it shows a default `PinElement`. Attach it
+     * by setting `map`, passing `map` to the constructor, or appending it into a
+     * `<wmp-map>`/`<gmp-map>`.
+     */
+    class AdvancedMarkerElement extends HTMLElement {
+        /**
+         * Signed CSS length offsetting the content horizontally from the position,
+         * applied as written. Defaults to `-50%` (horizontally centred).
+         */
+        anchorLeft?: string | null;
+        /**
+         * Signed CSS length offsetting the content vertically from the position,
+         * applied as written. Defaults to `-100%` (content sits above the position).
+         */
+        anchorTop?: string | null;
+        /**
+         * Collision behavior against other markers; see `CollisionBehavior`.
+         * Priority arbitration across overlay types is not yet enforced.
+         */
+        collisionBehavior?: "OPTIONAL_AND_HIDES_LOWER_PRIORITY" | "REQUIRED" | "REQUIRED_AND_HIDES_OPTIONAL" | null;
+        /**
+         * The DOM element backing the marker's visual.
+         */
+        content?: HTMLElement | null;
+        /**
+         * Whether the marker fires click events / is keyboard-accessible.
+         */
+        gmpClickable: boolean;
+        /**
+         * Whether the marker can be dragged.
+         */
+        gmpDraggable: boolean;
+        /**
+         * The map on which the marker is displayed.
+         */
+        map: woosmap.map.Map | null;
+        /**
+         * The marker's geographical position.
+         */
+        position?: woosmap.map.LatLng | null;
+        /**
+         * Rollover text, also exposed to assistive technology.
+         */
+        title: string;
+        /**
+         * Stacking order.
+         */
+        zIndex?: number | null;
+        constructor(options?: woosmap.map.marker.AdvancedMarkerElementOptions);
+
+        /**
+         * Google-compat eventing: register a listener for the internal event system
+         * (`click`, `drag`, `dragstart`, `dragend`, `gmp-click`, …).
+         */
+        addListener(eventName: string, handler: (...args: any[]) => any): woosmap.map.MapEventListener;
+
+        /**
+         * Sets the map on which to display the marker (or `null` to remove it).
+         */
+        setMap(map?: woosmap.map.Map | null): void;
+
+        /**
+         * Returns the map the marker is attached to.
+         */
+        getMap(): woosmap.map.Map | null;
+
+        setPosition(
+            position:
+                | woosmap.map.LatLng
+                | woosmap.map.LatLngLiteral
+                | woosmap.map.LatLngAltitude
+                | woosmap.map.LatLngAltitudeLiteral
+                | string,
+        ): void;
+
+        /**
+         * Returns the marker's geographical position.
+         */
+        getPosition(): woosmap.map.LatLng | null;
+    }
+}
+declare namespace woosmap.map.marker {
+    /**
+     * A `PinElement` is a DOM element made of a teardrop shape and a glyph, suitable
+     * as the `content` of an `AdvancedMarkerElement`.
+     * `background`, `borderColor`, `glyph`, `glyphColor`, `glyphText`, `glyphSrc` and
+     * `scale` are reactive: assigning a new value rebuilds the element.
+     */
+    class PinElement extends HTMLElement {
+        /**
+         * Fill color of the pin shape. Reassigning rebuilds the element.
+         */
+        background: string;
+        /**
+         * Border color of the pin shape. Reassigning rebuilds the element.
+         */
+        borderColor: string;
+        /**
+         * The pin's DOM element. A `PinElement` is itself an `HTMLElement`, so this
+         * returns the pin and exists only for backward compatibility with the
+         * deprecated Google Maps `PinElement.element` accessor — append the
+         * `PinElement` directly instead.
+         */
+        element: HTMLElement;
+        /**
+         * A glyph element, image URL, or text rendered in the center of the pin. Reassigning rebuilds the element.
+         */
+        glyph?: string | HTMLElement | URL | null;
+        /**
+         * Color of the default/text glyph. Reassigning rebuilds the element.
+         */
+        glyphColor: string;
+        /**
+         * Image URL rendered as the glyph. Reassigning rebuilds the element.
+         */
+        glyphSrc?: string | URL | null;
+        /**
+         * Text rendered as the glyph. Reassigning rebuilds the element.
+         */
+        glyphText?: string | null;
+        /**
+         * Uniform scale factor applied to the pin. Reassigning rebuilds the element.
+         */
+        scale: number;
+        constructor(options?: woosmap.map.marker.PinElementOptions);
+
+        /**
+         * Returns the pin's DOM element. A `PinElement` is itself an `HTMLElement`,
+         * so this returns the pin; kept for the deprecated Google Maps accessor.
+         */
+        getElement(): HTMLElement;
+    }
+}
 declare namespace woosmap.map {
     /**
      * Add drawing capabilities to Woosmap Map. You can call methods of a Drawing instance and add custom modes as you would
@@ -28,6 +166,13 @@ declare namespace woosmap.map {
 declare namespace woosmap.map {
     class Map extends woosmap.map.MVCObject {
         /**
+         * Custom controls to add to the map, indexed by `ControlPosition`. Push a DOM
+         * element into `controls[position]` to register it. Rendering of the controls
+         * pane is not yet implemented; the array exists so registering a control does
+         * not throw.
+         */
+        controls: Array<woosmap.map.MVCArray<HTMLElement>>;
+        /**
          * An instance of `Data`, bound to the map.
          * Add features to this `Data` object to conveniently display them on this map.
          */
@@ -42,7 +187,11 @@ declare namespace woosmap.map {
         constructor(mapDiv: HTMLElement | string, options?: woosmap.map.MapOptions);
 
         /**
-         * Clean up and release all internal resources associated with this map.This includes DOM elements, event bindings, web workers, and WebGL resources.Use this method when you are done using the map and wish to ensure that it no longer consumes browser resources. Afterwards, you must not call any other methods on the map.
+         * Clean up and release all internal resources associated with this map.
+         *
+         * This includes DOM elements, event bindings, web workers, and WebGL resources.
+         *
+         * Use this method when you are done using the map and wish to ensure that it no longer consumes browser resources. Afterwards, you must not call any other methods on the map.
          */
         remove(): void;
 
@@ -101,6 +250,15 @@ declare namespace woosmap.map {
         flyTo(options: woosmap.map.FlyToOptions): void;
 
         /**
+         * Instantly moves the camera to any combination of center, zoom, heading and
+         * tilt — no animation; omitted fields are left unchanged. Fires the usual
+         * camera-change events (`center_changed`, `zoom_changed`, …) so listeners stay
+         * consistent. For an animated move use `flyTo`; for a bounded fit use
+         * `fitBounds`.
+         */
+        moveCamera(cameraOptions: woosmap.map.CameraOptions): void;
+
+        /**
          * Pans the map by the minimum amount necessary to contain the given LatLngBounds.
          * It makes no guarantee where on the map the bounds will be,
          * except that the map will be panned to show as much of the bounds as possible inside
@@ -108,7 +266,7 @@ declare namespace woosmap.map {
          */
         panToBounds(
             latLngBounds: woosmap.map.LatLngBounds | woosmap.map.LatLngBoundsLiteral,
-            padding: number | woosmap.map.Padding,
+            padding?: number | woosmap.map.Padding,
         ): void;
 
         /**
@@ -126,9 +284,24 @@ declare namespace woosmap.map {
         setZoom(zoom: number): void;
 
         /**
+         * Returns the `Projection` for this map: world coordinates via
+         * `fromLatLngToPoint`/`fromPointToLatLng`, and the container/div pixel
+         * conversions used by overlays.
+         */
+        getProjection(): woosmap.map.Projection;
+
+        /**
          * Returns the current map type id.
          */
         getMapTypeId(): string;
+
+        /**
+         * Reports the capabilities currently available to the map, mirroring Google
+         * Maps. `AdvancedMarkerElement` ships as the on-demand `marker` library, so
+         * `isAdvancedMarkersAvailable` reflects whether that library is loaded; the
+         * other capabilities are not yet supported.
+         */
+        getMapCapabilities(): woosmap.map.MapCapabilities;
 
         /**
          * Sets the map type id.
@@ -141,9 +314,36 @@ declare namespace woosmap.map {
         constructor(options: woosmap.map.InfoWindowOptions);
 
         /**
-         * Opens the info window.
+         * Opens the info window on the given map, optionally anchored to a Marker,
+         * AdvancedMarkerElement, or bare position. Also accepts Google's
+         * `{map, anchor}` options-object form as the first argument, in which case
+         * the second argument is ignored.
          */
-        open(map: woosmap.map.Map, anchor: woosmap.map.Marker | woosmap.map.LatLng | woosmap.map.LatLngLiteral): void;
+        open(
+            optionsOrMap?: woosmap.map.Map | woosmap.map.InfoWindowOpenOptions,
+            openAnchor?:
+                | woosmap.map.Marker
+                | woosmap.map.marker.AdvancedMarkerElement
+                | woosmap.map.LatLng
+                | woosmap.map.LatLngLiteral,
+        ): void;
+
+        /**
+         * Injects the content, keeping it reachable by page CSS like Google's
+         * InfoWindow. On a classic light-DOM map the content goes straight into the
+         * content element. When the map lives inside a shadow root (e.g. `<wmp-map>`),
+         * the bubble sits in that shadow tree where page CSS can't reach — so the
+         * content is parked in the host's light DOM and projected into the bubble
+         * through a named `<slot>`. The name matters: the map's marker overlay uses
+         * an unnamed default slot that would otherwise capture the content.
+         */
+        _renderContent(): void;
+
+        /**
+         * The shadow host of the map's container when the map lives inside a shadow
+         * root (e.g. `<wmp-map>`), else null for a classic light-DOM map.
+         */
+        _shadowHost(): Element | null;
 
         /**
          * Closes this InfoWindow by removing it from the DOM structure.
@@ -158,7 +358,13 @@ declare namespace woosmap.map {
         /**
          * Sets the anchor
          */
-        setPosition(positionOrMarker: woosmap.map.Marker | woosmap.map.LatLng | woosmap.map.LatLngLiteral): void;
+        setPosition(
+            positionOrMarker:
+                | woosmap.map.Marker
+                | woosmap.map.marker.AdvancedMarkerElement
+                | woosmap.map.LatLng
+                | woosmap.map.LatLngLiteral,
+        ): void;
 
         /**
          * Sets the offset
@@ -206,7 +412,9 @@ declare namespace woosmap.map {
         getOpacity(): number;
 
         /**
-         * Get the marker's geographical location.The longitude of the result may differ by a multiple of 360 degrees from the longitude previously
+         * Get the marker's geographical location.
+         *
+         * The longitude of the result may differ by a multiple of 360 degrees from the longitude previously
          * set by `setLngLat` because `Marker` wraps the anchor longitude across copies of the world to keep
          * the marker on screen.
          */
@@ -335,7 +543,7 @@ declare namespace woosmap.map {
          * Retrieves the map canvas `Projection` object associated with this `OverlayView`.
          * The projection is not initialized until `onAdd` is called by the API.
          */
-        getProjection(): woosmap.map.Projection | null;
+        getProjection(): woosmap.map.MapCanvasProjection | null;
 
         /**
          * This method should be implemented to initialize the overlay DOM elements.
@@ -382,12 +590,12 @@ declare namespace woosmap.map {
         /**
          * Adds the feature passed as parameter.
          */
-        add(feature: woosmap.map.data.Feature | woosmap.map.FeatureData): void;
+        add(feature: woosmap.map.Data.Feature | woosmap.map.Data.FeatureOptions): void;
 
         /**
          * Remove the feature passed as parameter.
          */
-        remove(feature: woosmap.map.data.Feature): void;
+        remove(feature: woosmap.map.Data.Feature): void;
 
         /**
          * Adds GeoJSON features to the collection. Give this method a parsed JSON.
@@ -406,18 +614,18 @@ declare namespace woosmap.map {
         /**
          * Checks whether the given feature is in the collection.
          */
-        contains(feature: woosmap.map.data.Feature): boolean;
+        contains(feature: woosmap.map.Data.Feature): boolean;
 
         /**
          * Repeatedly invokes the given function, passing a feature in the collection to the function on each invocation.
          * The order of iteration through the features is undefined.
          */
-        forEach(callback: (feature: woosmap.map.data.Feature) => void): void;
+        forEach(callback: (feature: woosmap.map.Data.Feature) => void): void;
 
         /**
          * Returns the feature matching the id.
          */
-        getFeatureById(id: string): woosmap.map.data.Feature | null;
+        getFeatureById(id: string): woosmap.map.Data.Feature | null;
 
         /**
          * Returns the map on which the features are displayed.
@@ -435,26 +643,26 @@ declare namespace woosmap.map {
          * Pass either an object with the desired style options, or a function that computes the style for each feature.
          * The function will be called every time a feature's properties are updated.
          */
-        setStyle(style: woosmap.map.StyleFunction | woosmap.map.StyleOptions): void;
+        setStyle(style: woosmap.map.Data.StylingFunction | woosmap.map.Data.StyleOptions): void;
 
         /**
          * Gets the style for all features in the collection.
          */
-        getStyle(): woosmap.map.StyleFunction | woosmap.map.StyleOptions;
+        getStyle(): woosmap.map.Data.StylingFunction | woosmap.map.Data.StyleOptions;
 
         /**
          * Changes the style of a feature.
          * These changes are applied on top of the style specified by `setStyle()`.
          * Style properties set to null revert to the value specified via `setStyle()`.
          */
-        overrideStyle(feature: woosmap.map.data.Feature, style: woosmap.map.StyleOptions): void;
+        overrideStyle(feature: woosmap.map.Data.Feature, style: woosmap.map.Data.StyleOptions): void;
 
         /**
          * Removes the effect of previous `overrideStyle()` calls.
          * The style of the given feature reverts to the style specified by `setStyle()`.
          * If no feature is given, all features have their style reverted.
          */
-        revertStyle(feature?: woosmap.map.data.Feature | null): void;
+        revertStyle(feature?: woosmap.map.Data.Feature | null): void;
 
         /**
          * Loads GeoJSON features to the collection from an url. If a callback is provided
@@ -463,16 +671,16 @@ declare namespace woosmap.map {
         loadGeoJson(
             url: string,
             options?: { idPropertyName: string },
-            callback?: (data: woosmap.map.data.Feature[]) => void,
+            callback?: (data: woosmap.map.Data.Feature[]) => void,
         ): void;
     }
 }
-declare namespace woosmap.map.data {
+declare namespace woosmap.map.Data {
     class Feature {
         /**
          * Constructs a new Data.Feature
          */
-        constructor(featureData: woosmap.map.FeatureData | woosmap.map.GeoJSONFeature);
+        constructor(featureData: woosmap.map.Data.FeatureOptions | woosmap.map.GeoJSONFeature);
 
         /**
          * Returns the feature geometry.
@@ -492,7 +700,7 @@ declare namespace woosmap.map.data {
         /**
          * Returns the feature property
          */
-        getProperty(name: string): any;
+        getProperty(name: string): unknown;
 
         /**
          * Removes property
@@ -502,7 +710,7 @@ declare namespace woosmap.map.data {
         /**
          * Sets the value of the specified property. If newValue is undefined this is equivalent to calling removeProperty.
          */
-        setProperty(name: string, newValue: any): void;
+        setProperty(name: string, newValue: unknown): void;
 
         /**
          * Exports the feature to a GeoJSON object.
@@ -932,6 +1140,58 @@ declare namespace woosmap.map {
         toJSON(): woosmap.map.LatLngLiteral;
 
         toString(): string;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * A `LatLngAltitude` is a 3-dimensional geographical point: a `lat`/`lng` on the
+     * ground plus an `altitude` in metres above the surface. `lat`, `lng` and
+     * `altitude` are exposed as read-only number properties, mirroring
+     * `google.maps.LatLngAltitude` (which implements `LatLngAltitudeLiteral`) — note
+     * this differs from `LatLng`, whose `lat()`/`lng()` are methods.
+     */
+    class LatLngAltitude {
+        /**
+         * Altitude in metres above the ground surface.
+         */
+        altitude: number;
+        /**
+         * Latitude in degrees.
+         */
+        lat: number;
+        /**
+         * Longitude in degrees.
+         */
+        lng: number;
+        /**
+         * Creates a `LatLngAltitude`.
+         */
+        constructor(
+            value:
+                | woosmap.map.LatLngAltitude
+                | woosmap.map.LatLngAltitudeLiteral
+                | woosmap.map.LatLng
+                | woosmap.map.LatLngLiteral,
+            noClampNoWrap?: boolean,
+        );
+
+        /**
+         * Returns `true` when the coordinates of both points are within `1e-9` of
+         * each other, mirroring `google.maps.LatLngAltitude.equals`.
+         */
+        equals(
+            other:
+                | woosmap.map.LatLngAltitude
+                | woosmap.map.LatLngAltitudeLiteral
+                | woosmap.map.LatLng
+                | woosmap.map.LatLngLiteral
+                | null,
+        ): boolean;
+
+        /**
+         * Converts to a plain `LatLngAltitudeLiteral`, for use via `JSON.stringify`.
+         */
+        toJSON(key?: string): woosmap.map.LatLngAltitudeLiteral;
     }
 }
 declare namespace woosmap.map {
@@ -1410,7 +1670,200 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    /**
+     * The canonical Woosmap map web component, registered as `<wmp-map>`. Mounts a
+     * Woosmap `Map` inside a shadow root (by default) and mirrors the Google Maps
+     * Platform attribute/property surface so consumers can swap providers without
+     * HTML changes. Named after Google's core `google.maps.MapElement` (the
+     * `<gmp-map>` tag in the Maps JavaScript API) for migration familiarity.
+     */
+    class MapElement extends HTMLElement {
+        /**
+         * The map center, mirrored from the `center` attribute.
+         */
+        center: woosmap.map.LatLng;
+        /**
+         * The camera heading in degrees, mirrored from the `heading` attribute.
+         */
+        heading: number;
+        /**
+         * Whether rotation gestures are disabled, mirrored from the
+         * `heading-interaction-disabled` attribute. Woosmap couples tilt and
+         * rotation, so setting either this or [MapElement#tiltInteractionDisabled](#woosmap.map.MapElement__tiltInteractionDisabled)
+         * disables both; the flag must be set before the map mounts.
+         */
+        headingInteractionDisabled: boolean;
+        /**
+         * Escape hatch to the underlying Woosmap `Map` for full-API interop.
+         */
+        innerMap: woosmap.map.Map;
+        /**
+         * The map identifier, mirrored from the `map-id` attribute.
+         */
+        mapId: string;
+        /**
+         * The map type identifier, mirrored from the `map-type-id` attribute.
+         */
+        mapTypeId: string;
+        /**
+         * The rendering type. Woosmap renders vector tiles only, so this is a
+         * read-only `"VECTOR"`; the setter accepts the GMP property for migration
+         * compatibility but is a no-op (any value is silently ignored — passing
+         * `"RASTER"` will not switch rendering, but neither does it throw).
+         */
+        renderingType: "VECTOR";
+        /**
+         * The camera tilt in degrees, mirrored from the `tilt` attribute.
+         */
+        tilt: number;
+        /**
+         * Whether tilt gestures are disabled, mirrored from the
+         * `tilt-interaction-disabled` attribute. Woosmap couples tilt and rotation,
+         * so setting either this or [MapElement#headingInteractionDisabled](#woosmap.map.MapElement__headingInteractionDisabled) disables
+         * both; the flag must be set before the map mounts.
+         */
+        tiltInteractionDisabled: boolean;
+        /**
+         * The zoom level, mirrored from the `zoom` attribute.
+         */
+        zoom: number;
+        /**
+         * The canonical Woosmap map web component, registered as `<wmp-map>`. Mounts a
+         * Woosmap `Map` inside a shadow root (by default) and mirrors the Google Maps
+         * Platform attribute/property surface so consumers can swap providers without
+         * HTML changes. Named after Google's core `google.maps.MapElement` (the
+         * `<gmp-map>` tag in the Maps JavaScript API) for migration familiarity.
+         */
+        constructor();
+    }
+}
+declare namespace woosmap.map.marker {
+    /**
+     * One of the `CollisionBehavior` values.
+     */
+    type CollisionBehaviorType = "OPTIONAL_AND_HIDES_LOWER_PRIORITY" | "REQUIRED" | "REQUIRED_AND_HIDES_OPTIONAL";
+}
+declare namespace woosmap.map.marker {
+    /**
+     * Options for constructing an `AdvancedMarkerElement`.
+     */
+    interface AdvancedMarkerElementOptions {
+        /**
+         * Signed CSS length offsetting the content horizontally from the position,
+         * applied as written. Defaults to `-50%` (horizontally centred over the
+         * position).
+         */
+        anchorLeft?: string;
+        /**
+         * Signed CSS length offsetting the content vertically from the position,
+         * applied as written. Defaults to `-100%` (content sits above the position).
+         */
+        anchorTop?: string;
+        /**
+         * Collision behavior against other markers; see `CollisionBehavior`.
+         */
+        collisionBehavior?: "OPTIONAL_AND_HIDES_LOWER_PRIORITY" | "REQUIRED" | "REQUIRED_AND_HIDES_OPTIONAL";
+        /**
+         * DOM element used as the marker's content. Defaults to a `PinElement`. Not cloned.
+         */
+        content?: HTMLElement;
+        /**
+         * When `true`, the marker fires click events and is interactive for
+         * accessibility (focusable, activated by Enter/Space). Defaults to `false`.
+         */
+        gmpClickable?: boolean;
+        /**
+         * When `true`, the marker can be dragged to a new position. Defaults to `false`.
+         */
+        gmpDraggable?: boolean;
+        /**
+         * Map on which to display the marker.
+         */
+        map?: woosmap.map.Map;
+        /**
+         * Geographical location of the marker. Required for the marker to display.
+         * Accepts an `altitude` (metres above ground); it displaces the marker
+         * vertically on a tilted map and is ignored when the map is top-down. The
+         * declarative `position="lat,lng"` attribute is parsed at runtime — the typed
+         * property mirrors Google and takes objects, not a string.
+         */
+        position?:
+            | woosmap.map.LatLng
+            | woosmap.map.LatLngLiteral
+            | woosmap.map.LatLngAltitude
+            | woosmap.map.LatLngAltitudeLiteral
+            | null;
+        /**
+         * Rollover text, also exposed to assistive technology.
+         */
+        title?: string;
+        /**
+         * Stacking order; markers with higher values render in front.
+         */
+        zIndex?: number;
+    }
+}
+declare namespace woosmap.map.marker {
+    /**
+     * Options for constructing a `PinElement`.
+     */
+    interface PinElementOptions {
+        /**
+         * Fill color of the pin shape. Defaults to Google's red (`#EA4335`).
+         */
+        background?: string;
+        /**
+         * Border color of the pin shape. Defaults to `#B31412`.
+         */
+        borderColor?: string;
+        /**
+         * A glyph element, image URL, or text rendered in the center of the pin.
+         */
+        glyph?: string | HTMLElement | URL;
+        /**
+         * Color of the default/text glyph. Defaults to `#FFFFFF`.
+         */
+        glyphColor?: string;
+        /**
+         * Image URL rendered as the glyph.
+         */
+        glyphSrc?: string | URL;
+        /**
+         * Text rendered as the glyph.
+         */
+        glyphText?: string;
+        /**
+         * Uniform scale factor applied to the pin. Defaults to `1`.
+         */
+        scale?: number;
+    }
+}
+declare namespace woosmap.map {
     type ControlPositionType = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+}
+declare namespace woosmap.map {
+    /**
+     * Options for an instant (non-animated) camera move via `moveCamera`. Any
+     * combination of the fields may be given; omitted fields are left unchanged.
+     */
+    interface CameraOptions {
+        /**
+         * The new center.
+         */
+        center?: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * The new heading, in degrees clockwise from north.
+         */
+        heading?: number;
+        /**
+         * The new tilt (angle towards the horizon), in degrees.
+         */
+        tilt?: number;
+        /**
+         * The new zoom level.
+         */
+        zoom?: number;
+    }
 }
 declare namespace woosmap.map {
     interface FlyToOptions {
@@ -1463,28 +1916,62 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
-     * This object is made available to the OverlayView from within the draw method.
+     * The pixel conversions made available to an `OverlayView` from within its
+     * `draw` method. `Map.getProjection()` returns an object that satisfies this as
+     * well as `Projection`, and `OverlayView.getProjection()` hands back that same
+     * object, so either set of conversions is reachable from either.
      */
-    interface Projection {
+    interface MapCanvasProjection {
         /**
          * Converts a geographical location to pixel coordinates within the map's container element.
          */
-        fromLatLngToContainerPixel(latlng: woosmap.map.LatLng): woosmap.map.Point;
+        fromLatLngToContainerPixel(
+            latLng: woosmap.map.LatLng | woosmap.map.LatLngLiteral | null,
+        ): woosmap.map.Point | null;
 
         /**
          * Converts pixel coordinates within the map's container element to a geographical location.
          */
-        fromContainerPixelToLatLng(point: woosmap.map.Point): woosmap.map.LatLng;
+        fromContainerPixelToLatLng(pixel: woosmap.map.Point | null, noClampNoWrap?: boolean): woosmap.map.LatLng | null;
 
         /**
          * Converts a geographical location to pixel coordinates within the DOM element that holds the draggable map.
          */
-        fromLatLngToDivPixel(latlng: woosmap.map.LatLng): woosmap.map.Point;
+        fromLatLngToDivPixel(latLng: woosmap.map.LatLng | woosmap.map.LatLngLiteral | null): woosmap.map.Point | null;
 
         /**
          * Converts pixel coordinates within the DOM element that holds the draggable map to a geographical location.
          */
-        fromDivPixelToLatLng(point: woosmap.map.Point): woosmap.map.LatLng;
+        fromDivPixelToLatLng(pixel: woosmap.map.Point | null, noClampNoWrap?: boolean): woosmap.map.LatLng | null;
+
+        /**
+         * The width of the world in pixels at the current zoom level.
+         */
+        getWorldWidth(): number;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * This object is made available to the OverlayView from within the draw method.
+     */
+    interface Projection extends MapCanvasProjection {
+        /**
+         * Converts a geographical location to a world coordinate: a point in a
+         * 256x256 square where (0, 0) is the north-west corner and (256, 256) the
+         * south-east, independent of the current zoom. Pass `point` to write the
+         * result into an existing `Point` rather than allocating one.
+         */
+        fromLatLngToPoint(
+            latLng: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+            point?: woosmap.map.Point,
+        ): woosmap.map.Point;
+
+        /**
+         * Converts a world coordinate back to a geographical location. By default the
+         * result is wrapped to a longitude in [-180, 180] and a latitude clamped to
+         * the Mercator limits; pass `noClampNoWrap` to keep it as computed.
+         */
+        fromPointToLatLng(pixel: woosmap.map.Point, noClampNoWrap?: boolean): woosmap.map.LatLng;
     }
 }
 declare namespace woosmap.map {
@@ -1516,6 +2003,26 @@ declare namespace woosmap.map {
          * This pane contains elements that receive DOM events. (Pane 3).
          */
         overlayMouseTarget: Element;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * The capabilities available to a `Map`, as reported by `getMapCapabilities`.
+     * Mirrors Google Maps.
+     */
+    interface MapCapabilities {
+        /**
+         * Whether `AdvancedMarkerElement` can be used (the `marker` library is loaded).
+         */
+        isAdvancedMarkersAvailable: boolean;
+        /**
+         * Whether data-driven styling is available. Not yet supported.
+         */
+        isDataDrivenStylingAvailable: boolean;
+        /**
+         * Whether `WebGLOverlayView` is available. Not yet supported.
+         */
+        isWebGLOverlayViewAvailable: boolean;
     }
 }
 declare namespace woosmap.map {
@@ -1552,6 +2059,7 @@ declare namespace woosmap.map {
          * Depending on the value when gesture on the map is detected (scroll on desktop, one finger pan on mobile)
          * an overlay asking the user to use Cmd or Ctrl while scrolling or use two finger gesture to pan on mobile will be
          * shown.
+         *
          * -  `cooperative`: Shows the overlay only if the page is scrollable.
          * -  `greedy`: Never shows the overlay.
          * -  `none`: Disables gesture handling. The map cannot be zoomed or paned using gestures.
@@ -1706,6 +2214,26 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    /**
+     * Options for [woosmap.map.InfoWindow#open](#woosmap.map.InfoWindow__open).
+     */
+    interface InfoWindowOpenOptions {
+        /**
+         * The anchor to which this InfoWindow will be positioned.
+         */
+        anchor?:
+            | woosmap.map.Marker
+            | woosmap.map.marker.AdvancedMarkerElement
+            | woosmap.map.LatLng
+            | woosmap.map.LatLngLiteral
+            | null;
+        /**
+         * The map on which to render this InfoWindow.
+         */
+        map?: woosmap.map.Map | null;
+    }
+}
+declare namespace woosmap.map {
     interface MarkerLabelOptions {
         /**
          * A custom className property to be applied to the label's element.
@@ -1759,8 +2287,10 @@ declare namespace woosmap.map {
         /**
          * The icon to display.
          * When icon is a string it is treated as Icon with the string as `url` property.
+         * A `MarkerSymbol` (with a `path`) renders a vector icon.
+         * When omitted (or set to `null`), the marker renders a built-in drop-pin.
          */
-        icon?: string | woosmap.map.Icon;
+        icon?: string | woosmap.map.Icon | woosmap.map.MarkerSymbol;
         /**
          * Adds a letter or number label inside a marker.
          */
@@ -1791,6 +2321,25 @@ declare namespace woosmap.map {
         scaledSize?: woosmap.map.Size | woosmap.map.SizeLiteral;
         size?: woosmap.map.Size | woosmap.map.SizeLiteral;
         url: string;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * A vector-path marker icon, mirroring Google Maps' `Symbol`. The `path` is an
+     * SVG path string; `anchor`/`labelOrigin` are expressed in the path's own
+     * coordinate space.
+     */
+    interface MarkerSymbol {
+        anchor?: woosmap.map.Point | woosmap.map.PointLiteral;
+        fillColor?: string;
+        fillOpacity?: number;
+        labelOrigin?: woosmap.map.Point | woosmap.map.PointLiteral;
+        path: string;
+        rotation?: number;
+        scale?: number;
+        strokeColor?: string;
+        strokeOpacity?: number;
+        strokeWeight?: number;
     }
 }
 declare namespace woosmap.map {
@@ -2002,10 +2551,19 @@ declare namespace woosmap.map {
         value: number;
     }
 }
-declare namespace woosmap.map {
-    interface FeatureData {
-        geometry?: woosmap.map.GeometryClasses | woosmap.map.LatLng | woosmap.map.LatLngLiteral;
-        id?: any;
+declare namespace woosmap.map.Data {
+    interface FeatureOptions {
+        /**
+         * The feature's geometry. `null` leaves the feature without one.
+         */
+        geometry?: woosmap.map.GeometryClasses | woosmap.map.LatLng | woosmap.map.LatLngLiteral | null;
+        /**
+         * Feature id. Optional, but when present must be a string or a number.
+         */
+        id?: string | number;
+        /**
+         * Arbitrary properties carried by the feature.
+         */
         properties?: object;
     }
 }
@@ -2075,7 +2633,7 @@ declare namespace woosmap.map {
         text: string;
     }
 }
-declare namespace woosmap.map {
+declare namespace woosmap.map.Data {
     interface StyleOptions {
         animation?: Animation;
         clickable?: boolean;
@@ -2097,8 +2655,8 @@ declare namespace woosmap.map {
         zIndex?: number;
     }
 }
-declare namespace woosmap.map {
-    type StyleFunction = (feature: woosmap.map.data.Feature) => woosmap.map.StyleOptions;
+declare namespace woosmap.map.Data {
+    type StylingFunction = (feature: woosmap.map.Data.Feature) => woosmap.map.Data.StyleOptions;
 }
 declare namespace woosmap.map {
     type GeoJSONPosition = [number, number];
@@ -2251,6 +2809,22 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    /**
+     * Object literal representing a circle, where `center` and `radius` are
+     * required. Accepted anywhere a `Circle` is, e.g. `geometry.spherical.computeArea`.
+     */
+    interface CircleLiteral extends woosmap.map.CircleOptions {
+        /**
+         * The center of the circle.
+         */
+        center: woosmap.map.LatLng | woosmap.map.LatLngLiteral;
+        /**
+         * The radius of the circle, in metres.
+         */
+        radius: number;
+    }
+}
+declare namespace woosmap.map {
     type Coordinates = [number, number];
 }
 declare namespace woosmap.map {
@@ -2267,6 +2841,26 @@ declare namespace woosmap.map {
          * Values outside the range [-180, 180] will be wrapped so that they fall within the range.
          * For example, a value of -190 will be converted to 170. A value of 190 will be converted to -170.
          * This reflects the fact that longitudes wrap around the globe.
+         */
+        lng: number;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * A `LatLngLiteral` with an optional `altitude` in metres above the ground.
+     */
+    interface LatLngAltitudeLiteral {
+        /**
+         * Distance in metres above the ground surface. Negative values are below the
+         * surface. Defaults to `0`.
+         */
+        altitude?: number;
+        /**
+         * Latitude in degrees. Clamped to [-90, 90].
+         */
+        lat: number;
+        /**
+         * Longitude in degrees. Wrapped to [-180, 180].
          */
         lng: number;
     }
@@ -2567,6 +3161,7 @@ declare namespace woosmap.map.distance {
         duration: woosmap.map.Duration;
         /**
          * Status returned for Distance Matrix Element.
+         *
          * -  `OK` indicates the response contains a valid result.
          * -  `NOT_FOUND` indicates that the origin and/or destination of this pairing could not be matched to the network.
          * -  `ZERO_RESULTS` indicates no route could be found between the origin and destination.
@@ -3957,13 +4552,46 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
-     * Identifiers for common map types.
-     * Specify these by value, or by using the constant's name.
-     * For example, `'roadmap'` or `woosmap.map.MapTypeId.ROADMAP`.
+     * How an `AdvancedMarkerElement` behaves when it collides with another marker.
      */
-    enum MapTypeId {
-        HYBRID = "HYBRID",
-        ROADMAP = "ROADMAP",
+    enum CollisionBehavior {
+        OPTIONAL_AND_HIDES_LOWER_PRIORITY = "OPTIONAL_AND_HIDES_LOWER_PRIORITY",
+        REQUIRED = "REQUIRED",
+        REQUIRED_AND_HIDES_OPTIONAL = "REQUIRED_AND_HIDES_OPTIONAL",
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Identifiers for the placement of controls on the map. The numeric values match
+     * the well-known control-position constants, so code comparing against them keeps
+     * working. Woosmap does not render its own built-in controls, so these exist for
+     * API compatibility (e.g. indexing `map.controls`) rather than to move controls.
+     */
+    enum ControlPosition {
+        BLOCK_END_INLINE_CENTER = 24,
+        BLOCK_END_INLINE_END = 25,
+        BLOCK_END_INLINE_START = 23,
+        BLOCK_START_INLINE_CENTER = 15,
+        BLOCK_START_INLINE_END = 16,
+        BLOCK_START_INLINE_START = 14,
+        BOTTOM_CENTER = 11,
+        BOTTOM_LEFT = 10,
+        BOTTOM_RIGHT = 12,
+        INLINE_END_BLOCK_CENTER = 21,
+        INLINE_END_BLOCK_END = 22,
+        INLINE_END_BLOCK_START = 20,
+        INLINE_START_BLOCK_CENTER = 17,
+        INLINE_START_BLOCK_END = 19,
+        INLINE_START_BLOCK_START = 18,
+        LEFT_BOTTOM = 6,
+        LEFT_CENTER = 4,
+        LEFT_TOP = 5,
+        RIGHT_BOTTOM = 9,
+        RIGHT_CENTER = 8,
+        RIGHT_TOP = 7,
+        TOP_CENTER = 2,
+        TOP_LEFT = 1,
+        TOP_RIGHT = 3,
     }
 }
 declare namespace woosmap.map {
@@ -3980,9 +4608,9 @@ declare namespace woosmap.map {
      * `woosmap.map.TravelMode.WALKING`
      */
     enum TravelMode {
-        BICYCLING = "BICYCLING",
-        DRIVING = "DRIVING",
-        WALKING = "WALKING",
+        BICYCLING = "cycling",
+        DRIVING = "driving",
+        WALKING = "walking",
     }
 }
 declare namespace woosmap.map {
@@ -3991,8 +4619,8 @@ declare namespace woosmap.map {
      * `DistanceMatrixRequest` or `DistanceIsochroneRequest`.
      */
     enum UnitSystem {
-        IMPERIAL = "IMPERIAL",
-        METRIC = "METRIC",
+        IMPERIAL = "imperial",
+        METRIC = "metric",
     }
 }
 declare namespace woosmap.map.distance {
@@ -4026,11 +4654,31 @@ declare namespace woosmap.map.query {
      * Represents Query operators.
      */
     enum Operators {
-        gt = "gt",
-        gte = "gte",
-        lt = "lt",
-        lte = "lte",
+        gt = ">",
+        gte = ">=",
+        lt = "<",
+        lte = "<=",
     }
+}
+declare namespace woosmap.map {
+    /**
+     * Identifiers for common map types.
+     * Specify these by value, or by using the constant's name.
+     * For example, `'roadmap'` or `woosmap.map.MapTypeId.ROADMAP`.
+     */
+    enum MapTypeId {
+        HYBRID = "hybrid",
+        ROADMAP = "roadmap",
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Asynchronously loads a library and resolves with its exports. A library shipped
+     * as a separate bundle (`marker`, `drawing`) is fetched on first request; the
+     * core libraries (`core`, `maps`, `geometry`) are already available and resolve
+     * immediately.
+     */
+    function importLibrary(name: string): Promise<object>;
 }
 declare namespace woosmap.map.event {
     /**
@@ -4068,8 +4716,12 @@ declare namespace woosmap.map.event {
      * Triggers the given event. All arguments after eventName are passed as arguments to the listeners.
      */
     function trigger(instance: object, eventName: string, eventArgs?: any[] | null): void;
+    /**
+     * Whether the given instance has any listener registered for the given event.
+     */
+    function hasListeners(instance: object, eventName: string): boolean;
 }
-declare namespace woosmap.map.geometry {
+declare namespace woosmap.map.geometry.poly {
     /**
      * Computes whether the given point lies inside the specified polygon.
      */
@@ -4085,9 +4737,111 @@ declare namespace woosmap.map.geometry {
      */
     function isLocationOnEdge(
         point: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
-        poly: woosmap.map.Polygon,
+        poly: woosmap.map.Polygon | woosmap.map.Polyline,
         tolerance?: number,
     ): boolean;
+}
+declare namespace woosmap.map.geometry.encoding {
+    /**
+     * Decodes an encoded path string into a sequence of `LatLng`s.
+     */
+    function decodePath(encodedPath: string): woosmap.map.LatLng[];
+    /**
+     * Encodes a sequence of `LatLng`s into an encoded path string.
+     */
+    function encodePath(
+        path:
+            | Array<woosmap.map.LatLng | woosmap.map.LatLngLiteral>
+            | woosmap.map.MVCArray<woosmap.map.LatLng | woosmap.map.LatLngLiteral>,
+    ): string;
+}
+declare namespace woosmap.map.geometry.spherical {
+    /**
+     * Returns the distance, in metres, between two `LatLng`s. The radius defaults to
+     * the Earth's radius.
+     */
+    function computeDistanceBetween(
+        from: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+        to: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+        radius?: number,
+    ): number;
+    /**
+     * Returns the heading from one `LatLng` to another, in degrees clockwise from
+     * north, within the range [-180, 180).
+     */
+    function computeHeading(
+        from: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+        to: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+    ): number;
+    /**
+     * Returns the `LatLng` resulting from moving `distance` metres from `from` along
+     * `heading` (degrees clockwise from north).
+     */
+    function computeOffset(
+        from: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+        distance: number,
+        heading: number,
+        radius?: number,
+    ): woosmap.map.LatLng;
+    /**
+     * Returns the origin you would have started from to arrive at `to` after
+     * travelling `distance` metres along `heading`. Returns `null` when no solution
+     * exists (the destination is unreachable on that heading).
+     */
+    function computeOffsetOrigin(
+        to: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+        distance: number,
+        heading: number,
+        radius?: number,
+    ): woosmap.map.LatLng | null;
+    /**
+     * Returns the length of the given path, in metres.
+     */
+    function computeLength(
+        path:
+            | Array<woosmap.map.LatLng | woosmap.map.LatLngLiteral>
+            | woosmap.map.MVCArray<woosmap.map.LatLng | woosmap.map.LatLngLiteral>,
+        radius?: number,
+    ): number;
+    /**
+     * Returns the signed area of a closed path, counterclockwise positive, in the
+     * range [-2×pi×radius², 2×pi×radius²].
+     *
+     * Computed by parallel transport rather than triangulation, so it is stable
+     * except where an edge spans 180 degrees.
+     */
+    function computeSignedArea(
+        loop:
+            | Array<woosmap.map.LatLng | woosmap.map.LatLngLiteral>
+            | woosmap.map.MVCArray<woosmap.map.LatLng | woosmap.map.LatLngLiteral>,
+        radius?: number,
+    ): number;
+    /**
+     * Returns the unsigned area of a closed path, in the range [0, 2×pi×radius²],
+     * in the radius' units squared (square metres by default).
+     *
+     * Also accepts a `Circle` (which needs a non-negative `radius` and must not
+     * cover more than the whole sphere) or a `LatLngBounds`.
+     */
+    function computeArea(
+        path:
+            | Array<woosmap.map.LatLng | woosmap.map.LatLngLiteral>
+            | woosmap.map.MVCArray<woosmap.map.LatLng | woosmap.map.LatLngLiteral>
+            | woosmap.map.Circle
+            | woosmap.map.CircleLiteral
+            | woosmap.map.LatLngBounds
+            | woosmap.map.LatLngBoundsLiteral,
+        radiusOfSphere?: number,
+    ): number;
+    /**
+     * Returns the `LatLng` lying the given fraction of the way between two points,
+     * along the great circle joining them.
+     */
+    function interpolate(
+        from: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+        to: woosmap.map.LatLng | woosmap.map.LatLngLiteral,
+        fraction: number,
+    ): woosmap.map.LatLng;
 }
 declare namespace woosmap.map.query {
     /**
@@ -4614,6 +5368,7 @@ declare namespace woosmap.map {
         /**
          * Customise the appearance of the indoor polyline/route.
          * Acceptable values for custom colors are in in hexadecimal or RGB format.
+         *
          * -  `color`: Define color of the polyline path.
          * -  `highlightColor`: Set a custom color to highlight a step of a polyline.
          * -  `strokeColor`:  Specify a custom color for the polyline stroke.
