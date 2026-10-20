@@ -1616,3 +1616,8 @@ DriveApp.Permission.FILE_ORGANIZER; // $ExpectType Permission.FILE_ORGANIZER
 // Script: https://developers.google.com/apps-script/reference/script/script-app
 ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL, ["https://www.googleapis.com/auth/documents"]); // $ExpectType AuthorizationInfo
 ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL).getAuthorizedScopes(); // $ExpectType string[] | null
+
+// Maps: https://developers.google.com/apps-script/reference/maps/maps
+Maps.setAuthenticationByApiKey("apiKey"); // $ExpectType void
+Maps.setAuthenticationByApiKey("apiKey", "signingKey"); // $ExpectType void
+Maps.resetAuthenticationApiKey(); // $ExpectType void

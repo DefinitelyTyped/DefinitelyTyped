@@ -218,7 +218,10 @@ declare namespace GoogleAppsScript {
             newElevationSampler(): ElevationSampler;
             newGeocoder(): Geocoder;
             newStaticMap(): StaticMap;
+            resetAuthenticationApiKey(): void;
             setAuthentication(clientId: string, signingKey: string): void;
+            setAuthenticationByApiKey(apiKey: string): void;
+            setAuthenticationByApiKey(apiKey: string, signingKey: string): void;
         }
         /**
          * An enum representing the size of a marker added to a map.
