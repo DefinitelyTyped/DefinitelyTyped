@@ -20,15 +20,12 @@ declare namespace GoogleAppsScript {
          * An enum for mime types that can be served from a script.
          */
         enum MimeType {
-            ATOM,
             CSV,
             ICAL,
             JAVASCRIPT,
             JSON,
-            RSS,
             TEXT,
             VCARD,
-            XML,
         }
         /**
          * A TextOutput object that can be served from a script.
