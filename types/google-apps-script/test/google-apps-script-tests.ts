@@ -2079,3 +2079,80 @@ AddOnsResponseService.newUpdateDraftActionResponseBuilder().setUpdateDraftBodyAc
     AddOnsResponseService.newUpdateDraftBodyAction(),
 );
 AddOnsResponseService.ComposedEmailType.REPLY_AS_DRAFT; // $ExpectType ComposedEmailType.REPLY_AS_DRAFT
+
+// AddOns Response Service: factories and enums used by Google's class samples but missing from the AddOnsResponseService tables
+// https://developers.google.com/apps-script/reference/add-ons-response-service/resource-retrieved-action
+AddOnsResponseService.newColor().setRed(0.1).setGreen(0.1).setBlue(0.3).setAlpha(0.78); // $ExpectType Color
+AddOnsResponseService.newDataType().setBasicDataType(AddOnsResponseService.BasicDataType.STRING); // $ExpectType DataType
+AddOnsResponseService.newValueMetadata().addEnumValue("001").setDefaultValue("001"); // $ExpectType ValueMetadata
+AddOnsResponseService.newResourceType().setWorkflowResourceDefinitionId("sample_resource_type_1"); // $ExpectType ResourceType
+// $ExpectType ResourceField
+AddOnsResponseService.newResourceField().setSelector("question_1").setDisplayText("Question 1").setDataType(
+    AddOnsResponseService.newDataType(),
+);
+// $ExpectType DynamicResourceDefinition
+AddOnsResponseService.newDynamicResourceDefinition().setResourceId("resource_definition_1").addResourceField(
+    AddOnsResponseService.newResourceField(),
+);
+// $ExpectType ResourceFieldsDefinitionRetrievedAction
+AddOnsResponseService.newResourceFieldsDefinitionRetrievedAction().addDynamicResourceDefinition(
+    AddOnsResponseService.newDynamicResourceDefinition(),
+);
+AddOnsResponseService.newVariableData().addStringValue("value_1"); // $ExpectType VariableData
+AddOnsResponseService.newTimeStamp().setSeconds(10086).setNanos(123); // $ExpectType TimeStamp
+// $ExpectType ResourceData
+AddOnsResponseService.newResourceData().addVariableData("field_1", AddOnsResponseService.newVariableData());
+// $ExpectType ResourceRetrievedAction
+AddOnsResponseService.newResourceRetrievedAction().setResourceData(AddOnsResponseService.newResourceData());
+// $ExpectType ReturnOutputVariablesAction
+AddOnsResponseService.newReturnOutputVariablesAction().setVariableDataMap({
+    result: AddOnsResponseService.newVariableData(),
+});
+// $ExpectType ReturnElementErrorAction
+AddOnsResponseService.newReturnElementErrorAction().setErrorActionability(
+    AddOnsResponseService.ErrorActionability.NOT_ACTIONABLE,
+);
+// $ExpectType ReturnElementErrorAction
+AddOnsResponseService.newReturnElementErrorAction().setErrorRetryability(
+    AddOnsResponseService.ErrorRetryability.NOT_RETRYABLE,
+);
+// $ExpectType WorkflowValidationErrorAction
+AddOnsResponseService.newWorkflowValidationErrorAction().setSeverity(
+    AddOnsResponseService.ValidationErrorSeverity.CRITICAL,
+);
+AddOnsResponseService.newHostAppAction().setWorkflowAction(AddOnsResponseService.newSaveWorkflowAction()); // $ExpectType HostAppAction
+AddOnsResponseService.newHostAppAction().setWorkflowAction(AddOnsResponseService.newWorkflowAction()); // $ExpectType HostAppAction
+// $ExpectType WorkflowTextFormat
+AddOnsResponseService.newWorkflowTextFormat().addTextFormatElement(
+    AddOnsResponseService.newTextFormatElement().setText("text"),
+);
+// $ExpectType StyledText
+AddOnsResponseService.newStyledText().addStyle(AddOnsResponseService.TextStyle.ITALIC).setFontWeight(
+    AddOnsResponseService.FontWeight.BOLD,
+);
+// $ExpectType TextFormatChip
+AddOnsResponseService.newTextFormatChip().setLabel("Label!").setTextFormatIcon(
+    AddOnsResponseService.newTextFormatIcon(),
+);
+AddOnsResponseService.newTextFormatIcon().setMaterialIconName("check_box"); // $ExpectType TextFormatIcon
+// $ExpectType ListContainer
+AddOnsResponseService.newListContainer().setListType(AddOnsResponseService.ListType.UNORDERED).addListItem(
+    AddOnsResponseService.newListItem(),
+);
+AddOnsResponseService.newListItem().addTextFormatElement(AddOnsResponseService.newTextFormatElement()); // $ExpectType ListItem
+AddOnsResponseService.newHyperlink().setText("Hyperlink_text").setLink("https://www.google.com"); // $ExpectType Hyperlink
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setInsertSection(
+    AddOnsResponseService.newInsertSection().insertBelowSection("sample_id"),
+);
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setInsertWidget(
+    AddOnsResponseService.newInsertWidget().insertAboveWidget("sample_id"),
+);
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setRemoveSection(
+    AddOnsResponseService.newRemoveSection().setSectionId("sample_id"),
+);
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setRemoveWidget(AddOnsResponseService.newRemoveWidget().setWidgetId("sample_id"));
+AddOnsResponseService.newLink().setUrl("https://www.google.com").setTitle("Google"); // $ExpectType Link

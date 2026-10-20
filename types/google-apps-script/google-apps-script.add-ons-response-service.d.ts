@@ -120,13 +120,20 @@ declare namespace GoogleAppsScript {
          */
         interface AddOnsResponseService {
             AddonComposeUiActionType: typeof AddonComposeUiActionType;
+            BasicDataType: typeof BasicDataType;
             ComposedEmailType: typeof ComposedEmailType;
             ContentType: typeof ContentType;
             EndNavigation: typeof EndNavigation;
+            ErrorActionability: typeof ErrorActionability;
+            ErrorRetryability: typeof ErrorRetryability;
+            FontWeight: typeof FontWeight;
+            ListType: typeof ListType;
             OnClose: typeof OnClose;
             OpenAs: typeof OpenAs;
             SendStatus: typeof SendStatus;
+            TextStyle: typeof TextStyle;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
+            ValidationErrorSeverity: typeof ValidationErrorSeverity;
             newAccessoryWidget(): AccessoryWidget;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
@@ -135,15 +142,41 @@ declare namespace GoogleAppsScript {
             newCalendarEventActionResponseBuilder(): CalendarEventActionResponseBuilder;
             newChatDataActionBuilder(): ChatDataActionsResponseBuilder;
             newChatMessage(): ChatMessage;
+            newColor(): Color;
             newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
             newCreateMessageAction(): CreateMessageAction;
+            newDataType(): DataType;
             newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
+            newDynamicResourceDefinition(): DynamicResourceDefinition;
             newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
+            newHostAppAction(): HostAppAction;
+            newHyperlink(): Hyperlink;
+            newInsertSection(): InsertSection;
+            newInsertWidget(): InsertWidget;
+            newLink(): Link;
             newLinkPreview(): LinkPreview;
+            newListContainer(): ListContainer;
+            newListItem(): ListItem;
+            newModifyCard(): ModifyCard;
             newNavigation(): Navigation;
             newNotification(): Notification;
             newOpenLink(): OpenLink;
+            newRemoveSection(): RemoveSection;
+            newRemoveWidget(): RemoveWidget;
             newRenderActionBuilder(): RenderActionBuilder;
+            newResourceData(): ResourceData;
+            newResourceField(): ResourceField;
+            newResourceFieldsDefinitionRetrievedAction(): ResourceFieldsDefinitionRetrievedAction;
+            newResourceRetrievedAction(): ResourceRetrievedAction;
+            newResourceType(): ResourceType;
+            newReturnElementErrorAction(): ReturnElementErrorAction;
+            newReturnOutputVariablesAction(): ReturnOutputVariablesAction;
+            newSaveWorkflowAction(): SaveWorkflowAction;
+            newStyledText(): StyledText;
+            newTextFormatChip(): TextFormatChip;
+            newTextFormatElement(): TextFormatElement;
+            newTextFormatIcon(): TextFormatIcon;
+            newTimeStamp(): TimeStamp;
             newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
             newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
             newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
@@ -153,6 +186,11 @@ declare namespace GoogleAppsScript {
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
             newUpdateInlinePreviewAction(): UpdateInlinePreviewAction;
             newUpdateMessageAction(): UpdateMessageAction;
+            newValueMetadata(): ValueMetadata;
+            newVariableData(): VariableData;
+            newWorkflowAction(): WorkflowAction;
+            newWorkflowTextFormat(): WorkflowTextFormat;
+            newWorkflowValidationErrorAction(): WorkflowValidationErrorAction;
         }
         /**
          * Represents an action on the addon compose ui.
