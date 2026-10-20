@@ -1719,6 +1719,7 @@ declare namespace GoogleAppsScript {
             addEditor(emailAddress: string): Protection;
             addEditor(user: Base.User): Protection;
             addEditors(emailAddresses: string[]): Protection;
+            addTargetAudience(audienceId: string): Protection;
             canDomainEdit(): boolean;
             canEdit(): boolean;
             getDescription(): string;
@@ -1726,6 +1727,7 @@ declare namespace GoogleAppsScript {
             getProtectionType(): ProtectionType;
             getRange(): Range;
             getRangeName(): string | null;
+            getTargetAudiences(): any[];
             getUnprotectedRanges(): Range[];
             isWarningOnly(): boolean;
             remove(): void;
@@ -1733,6 +1735,7 @@ declare namespace GoogleAppsScript {
             removeEditor(user: Base.User): Protection;
             removeEditors(emailAddresses: string[]): Protection;
             removeEditors(users: Base.User[]): Protection;
+            removeTargetAudience(audienceId: string): Protection;
             setDescription(description: string): Protection;
             setDomainEdit(editable: boolean): Protection;
             setNamedRange(namedRange: NamedRange): Protection;

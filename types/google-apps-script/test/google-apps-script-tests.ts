@@ -1771,3 +1771,8 @@ ssPivot.getFilters()[0].getSourceDataSourceColumn(); // $ExpectType DataSourceCo
 ssPivot.getPivotValues()[0].getSourceDataColumn(); // $ExpectType number
 ssPivot.getPivotValues()[0].getSourceDataSourceColumn(); // $ExpectType DataSourceColumn | null
 ssPivot.getPivotValues()[0].remove(); // $ExpectType void
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/protection
+SpreadsheetApp.getActiveRange().protect().addTargetAudience("audience-id"); // $ExpectType Protection
+SpreadsheetApp.getActiveRange().protect().removeTargetAudience("audience-id"); // $ExpectType Protection
+SpreadsheetApp.getActiveRange().protect().getTargetAudiences(); // $ExpectType any[]
