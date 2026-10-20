@@ -1832,9 +1832,9 @@ declare namespace GoogleAppsScript {
             setButton(button: Button): DecoratedText;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
             setEndIcon(endIcon: IconImage): DecoratedText;
-            setIcon(icon: Icon): DecoratedText;
-            setIconAltText(altText: string): DecoratedText;
-            setIconUrl(url: string): DecoratedText;
+            /** @deprecated DO NOT USE */ setIcon(icon: Icon): DecoratedText;
+            /** @deprecated DO NOT USE */ setIconAltText(altText: string): DecoratedText;
+            /** @deprecated DO NOT USE */ setIconUrl(url: string): DecoratedText;
             setId(id: string): Widget;
             setOnClickAction(action: Action): DecoratedText;
             setOnClickOpenLinkAction(action: Action): DecoratedText;
