@@ -106,7 +106,7 @@ export interface DataFactoryInterface<Q_In extends RDF.BaseQuad = RDF.Quad, Q_Ou
 {
     namedNode<Iri extends string = string>(value: Iri): NamedNode<Iri>;
     blankNode(value?: string): BlankNode;
-    literal(value: string | number, languageOrDatatype?: string | RDF.NamedNode): Literal;
+    literal(value: string | number | boolean | Date, languageOrDatatype?: string | RDF.NamedNode): Literal;
     variable(value: string): Variable;
     defaultGraph(): DefaultGraph;
     quad(

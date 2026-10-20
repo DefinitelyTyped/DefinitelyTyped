@@ -48,6 +48,18 @@ function test_serialize() {
     });
 }
 
+function test_literal_auto_datatypes() {
+    const fromNumber: N3.Literal = N3.DataFactory.literal(12);
+    const fromBoolean: N3.Literal = N3.DataFactory.literal(true);
+    const fromDate: N3.Literal = N3.DataFactory.literal(new Date("2017-04-27T14:39:48.901Z"));
+    const typedBoolean: N3.Literal = N3.DataFactory.literal(
+        false,
+        N3.DataFactory.namedNode("http://www.w3.org/2001/XMLSchema#boolean"),
+    );
+    // @ts-expect-error
+    N3.DataFactory.literal({});
+}
+
 /*
 The following tests are taken from ...
 https://github.com/RubenVerborgh/N3.js/blob/master/README.md
