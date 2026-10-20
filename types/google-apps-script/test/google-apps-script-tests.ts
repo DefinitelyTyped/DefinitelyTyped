@@ -1792,3 +1792,13 @@ ssLooker.build().asLooker().getExploreName(); // $ExpectType string
 ssLooker.build().asLooker().getInstanceUrl(); // $ExpectType string
 ssLooker.build().asLooker().getModelName(); // $ExpectType string
 SpreadsheetApp.DataSourceType.LOOKER; // $ExpectType DataSourceType.LOOKER
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/big-query-data-source-spec-builder
+const ssBigQuery = SpreadsheetApp.newDataSourceSpec().asBigQuery();
+ssBigQuery.setDatasetId("dataset").setTableId("table").setTableProjectId("project"); // $ExpectType BigQueryDataSourceSpecBuilder
+ssBigQuery.getDatasetId(); // $ExpectType string
+ssBigQuery.getTableId(); // $ExpectType string
+ssBigQuery.getTableProjectId(); // $ExpectType string
+ssBigQuery.build().asBigQuery().getDatasetId(); // $ExpectType string
+ssBigQuery.build().asBigQuery().getTableId(); // $ExpectType string
+ssBigQuery.build().asBigQuery().getTableProjectId(); // $ExpectType string

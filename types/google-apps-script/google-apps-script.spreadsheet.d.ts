@@ -79,9 +79,12 @@ declare namespace GoogleAppsScript {
          */
         interface BigQueryDataSourceSpec {
             copy(): DataSourceSpecBuilder;
+            getDatasetId(): string;
             getParameters(): DataSourceParameter[];
             getProjectId(): string;
             getRawQuery(): string;
+            getTableId(): string;
+            getTableProjectId(): string;
             getType(): DataSourceType;
         }
         /**
@@ -90,15 +93,21 @@ declare namespace GoogleAppsScript {
         interface BigQueryDataSourceSpecBuilder {
             build(): DataSourceSpec;
             copy(): DataSourceSpecBuilder;
+            getDatasetId(): string;
             getParameters(): DataSourceParameter[];
             getProjectId(): string;
             getRawQuery(): string;
+            getTableId(): string;
+            getTableProjectId(): string;
             getType(): DataSourceType;
             removeAllParameters(): BigQueryDataSourceSpecBuilder;
             removeParameter(parameterName: string): BigQueryDataSourceSpecBuilder;
+            setDatasetId(datasetId: string): BigQueryDataSourceSpecBuilder;
             setParameterFromCell(parameterName: string, sourceCell: string): BigQueryDataSourceSpecBuilder;
             setProjectId(projectId: string): BigQueryDataSourceSpecBuilder;
             setRawQuery(rawQuery: string): BigQueryDataSourceSpecBuilder;
+            setTableId(tableId: string): BigQueryDataSourceSpecBuilder;
+            setTableProjectId(projectId: string): BigQueryDataSourceSpecBuilder;
         }
         /**
          * Access boolean conditions in ConditionalFormatRules. Each
