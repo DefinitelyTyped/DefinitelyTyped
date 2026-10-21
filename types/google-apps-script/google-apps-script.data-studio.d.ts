@@ -13,7 +13,7 @@ declare namespace GoogleAppsScript {
             MIN,
             SUM,
             AUTO,
-            NO_AGGREGATION,
+            /** @deprecated DO NOT USE */ NO_AGGREGATION,
         }
         /**
          * An enum that defines the authentication types that can be set for a connector.
