@@ -403,7 +403,7 @@ declare namespace GoogleAppsScript {
             removeEditor(user: Base.User): Form;
             removePublishedReader(emailAddress: string): Form;
             removePublishedReader(user: Base.User): Form;
-            requiresLogin(): boolean;
+            /** @deprecated DO NOT USE */ requiresLogin(): boolean;
             setAcceptingResponses(enabled: boolean): Form;
             setAllowResponseEdits(enabled: boolean): Form;
             setCollectEmail(collect: boolean): Form;
@@ -416,7 +416,7 @@ declare namespace GoogleAppsScript {
             setProgressBar(enabled: boolean): Form;
             setPublished(enabled: boolean): Form;
             setPublishingSummary(enabled: boolean): Form;
-            setRequireLogin(requireLogin: boolean): Form;
+            /** @deprecated DO NOT USE */ setRequireLogin(requireLogin: boolean): Form;
             setShowLinkToRespondAgain(enabled: boolean): Form;
             setShuffleQuestions(shuffle: boolean): Form;
             setTitle(title: string): Form;
