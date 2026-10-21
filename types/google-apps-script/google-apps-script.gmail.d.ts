@@ -12,8 +12,8 @@ declare namespace GoogleAppsScript {
             createLabel(name: string): GmailLabel;
             deleteLabel(label: GmailLabel): GmailApp;
             getAliases(): string[];
-            getChatThreads(): GmailThread[];
-            getChatThreads(start: Integer, max: Integer): GmailThread[];
+            /** @deprecated DO NOT USE */ getChatThreads(): GmailThread[];
+            /** @deprecated DO NOT USE */ getChatThreads(start: Integer, max: Integer): GmailThread[];
             getDraft(draftId: string): GmailDraft;
             getDraftMessages(): GmailMessage[];
             getDrafts(): GmailDraft[];
