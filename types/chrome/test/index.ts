@@ -880,7 +880,11 @@ function testRuntime() {
 
     chrome.runtime.getPackageDirectoryEntry(); // $ExpectType Promise<FileSystemDirectoryEntry>
     chrome.runtime.getPackageDirectoryEntry((directoryEntry) => { // $ExpectType void
-        directoryEntry; // $ExpectType FileSystemDirectoryEntry
+        directoryEntry.filesystem; // $ExpectType FileSystem
+        directoryEntry.fullPath; // $ExpectType string
+        directoryEntry.isDirectory; // $ExpectType boolean
+        directoryEntry.isFile; // $ExpectType boolean
+        directoryEntry.name; // $ExpectType string
     });
     // @ts-expect-error
     chrome.runtime.getPackageDirectoryEntry(() => {}).then(() => {});
@@ -1458,17 +1462,64 @@ function testDebugger() {
         sessionId: "123",
     };
 
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<object | undefined>
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, (result) => { // $ExpectType void
-        result; // $ExpectType object | undefined
+    interface EvaluateRequest {
+        expression: string;
+        objectGroup?: string;
+        includeCommandLineAPI?: boolean;
+        silent?: boolean;
+        contextId?: number;
+        returnByValue?: boolean;
+        userGesture?: boolean;
+        awaitPromise?: boolean;
+    }
+
+    interface EvaluateResponse {
+        result: {
+            type: "object" | "function" | "undefined" | "string" | "number" | "boolean" | "symbol" | "bigint";
+            value?: any;
+        };
+        exceptionDetails?: {
+            exceptionId: number;
+            text: string;
+            lineNumber: number;
+            columnNumber: number;
+        };
+    }
+
+    const sendCommandRuntimeEvaluateParams: EvaluateRequest = {
+        expression: "document.title",
+        returnByValue: true,
+    };
+
+    chrome.debugger.sendCommand(debuggerSession, "Runtime.evaluate", sendCommandRuntimeEvaluateParams); // $ExpectType Promise<{ [key: string]: unknown } | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Runtime.evaluate", sendCommandRuntimeEvaluateParams, (result) => { // $ExpectType void
+        result; // $ExpectType { [key: string]: unknown } | undefined
     });
+    chrome.debugger.sendCommand(debuggerSession, "Page.enable"); // $ExpectType Promise<{ [key: string]: unknown } | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Page.enable", undefined, (result) => { // $ExpectType void
+        result; // $ExpectType { [key: string]: unknown } | undefined
+    });
+
+    chrome.debugger.sendCommand<EvaluateRequest, EvaluateResponse>( // $ExpectType Promise<EvaluateResponse | undefined>
+        debuggerSession,
+        "Runtime.evaluate",
+        sendCommandRuntimeEvaluateParams,
+    );
+    chrome.debugger.sendCommand<EvaluateRequest, EvaluateResponse>( // $ExpectType void
+        debuggerSession,
+        "Runtime.evaluate",
+        sendCommandRuntimeEvaluateParams,
+        (result) => {
+            result; // $ExpectType EvaluateResponse | undefined
+        },
+    );
     // @ts-expect-error
     chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, () => {}).then(() => {});
 
     checkChromeEvent(chrome.debugger.onEvent, (source, methodName, params) => {
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType object | undefined
+        params; // $ExpectType { [key: string]: unknown } | undefined
     });
 
     checkChromeEvent(chrome.debugger.onDetach, (source, reason) => {
@@ -2830,9 +2881,9 @@ async function testAlarms() {
     // @ts-expect-error
     chrome.alarms.getAll(() => {}).then(() => {});
 
-    chrome.alarms.clearAll(); // $ExpectType Promise<boolean>
+    chrome.alarms.clearAll(); // $ExpectType Promise<boolean | undefined>
     chrome.alarms.clearAll((wasCleared) => { // $ExpectType void
-        wasCleared; // $ExpectType boolean
+        wasCleared; // $ExpectType boolean | undefined
     });
     // @ts-expect-error
     chrome.alarms.clearAll(() => {}).then(() => {});
@@ -2977,9 +3028,9 @@ async function testCookies() {
         storeId: "storeId1",
     };
 
-    chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null | undefined>
     chrome.cookies.get(cookieDetails, (cookie) => { // $ExpectType void
-        cookie; // $ExpectType Cookie | null
+        cookie; // $ExpectType Cookie | null | undefined
     });
     // @ts-expect-error
     chrome.cookies.get(cookieDetails, () => {}).then(() => {});
@@ -3046,9 +3097,9 @@ async function testCookies() {
         value: "value1",
     };
 
-    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | undefined>
     chrome.cookies.set(cookieDetailsSet, (cookie) => { // $ExpectType void
-        cookie; // $ExpectType Cookie | null
+        cookie; // $ExpectType Cookie | undefined
     });
     // @ts-expect-error
     chrome.cookies.set(cookieDetailsSet, () => {}).then(() => {});
@@ -3399,7 +3450,7 @@ async function testSystemCpu() {
     chrome.system.cpu.getInfo(); // $ExpectType Promise<CpuInfo>
     chrome.system.cpu.getInfo((info) => { // $ExpectType void
         info.archName; // $ExpectType string
-        info.features; // $ExpectType string[]
+        info.features; // $ExpectType ("mmx" | "sse" | "sse2" | "sse3" | "ssse3" | "sse4_1" | "sse4_2" | "avx")[]
         info.modelName; // $ExpectType string
         info.numOfProcessors; // $ExpectType number
         info.processors; // $ExpectType ProcessorInfo[]
@@ -4581,7 +4632,12 @@ async function testDeclarativeNetRequest() {
     const rule: chrome.declarativeNetRequest.Rule = {
         id: 1,
         priority: 1,
-        action: { type: "allow", requestHeaders: [], responseHeaders: [] },
+        action: {
+            type: "allow",
+            requestHeaders: [],
+            responseHeaders: [],
+            redirect: { transform: { scheme: "chrome-extension" } },
+        },
         condition: {
             domainType: "firstParty",
             excludedResourceTypes: [chrome.declarativeNetRequest.ResourceType.IMAGE, "object"],
@@ -6053,14 +6109,14 @@ function testGcm() {
 
     checkChromeEvent(chrome.gcm.onMessage, (message) => {
         message.collapseKey; // $ExpectType string | undefined
-        message.data; // $ExpectType { [key: string]: unknown; }
+        message.data; // $ExpectType { [key: string]: string; }
         message.from; // $ExpectType string | undefined
     });
 
     checkChromeEvent(chrome.gcm.onMessagesDeleted, () => void 0);
 
     checkChromeEvent(chrome.gcm.onSendError, (error) => {
-        error.details; // $ExpectType { [key: string]: unknown; }
+        error.details; // $ExpectType { [key: string]: string; }
         error.errorMessage; // $ExpectType string
         error.messageId; // $ExpectType string | undefined
     });
@@ -6187,6 +6243,10 @@ function testIdentity() {
     chrome.identity.getAuthToken(() => {}).then(() => {});
 
     chrome.identity.getProfileUserInfo(); // $ExpectType Promise<ProfileUserInfo>
+    chrome.identity.getProfileUserInfo(undefined, userInfo => { // $ExpectType void
+        userInfo.email; // $ExpectType string
+        userInfo.id; // $ExpectType string
+    });
     chrome.identity.getProfileUserInfo(userInfo => { // $ExpectType void
         userInfo.email; // $ExpectType string
         userInfo.id; // $ExpectType string
@@ -6313,7 +6373,7 @@ function testFileBrowserHandler() {
     checkChromeEvent(chrome.fileBrowserHandler.onExecute, (id, details) => {
         id; // $ExpectType string
         details; // $ExpectType FileHandlerExecuteEventDetails
-        details.entries; // $ExpectType any[]
+        details.entries; // $ExpectType FileSystemFileEntry[]
         details.tab_id; // $ExpectType number | undefined
     });
 }

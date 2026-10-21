@@ -1196,6 +1196,10 @@
             "libraryName": "color-convert",
             "asOfVersion": "3.0.1"
         },
+        "color-string": {
+            "libraryName": "color-string",
+            "asOfVersion": "2.1.4"
+        },
         "colorbrewer": {
             "libraryName": "colorbrewer",
             "asOfVersion": "1.6.0"
@@ -1227,6 +1231,10 @@
         "commons-validator-js": {
             "libraryName": "commons-validator-js",
             "asOfVersion": "1.0.1266"
+        },
+        "compact-encoding": {
+            "libraryName": "compact-encoding",
+            "asOfVersion": "3.5.2"
         },
         "compare-versions": {
             "libraryName": "compare-versions",
@@ -1880,6 +1888,10 @@
         "earcut": {
             "libraryName": "earcut",
             "asOfVersion": "3.2.4"
+        },
+        "easy-soap-request": {
+            "libraryName": "easy-soap-request",
+            "asOfVersion": "5.21.0"
         },
         "easy-speech": {
             "libraryName": "easy-speech",
@@ -2709,6 +2721,10 @@
             "libraryName": "fullname",
             "asOfVersion": "4.0.0"
         },
+        "function.prototype.name": {
+            "libraryName": "function.prototype.name",
+            "asOfVersion": "1.2.0"
+        },
         "fuse": {
             "libraryName": "fuse",
             "asOfVersion": "2.6.0"
@@ -2876,6 +2892,10 @@
         "google__markerclustererplus": {
             "libraryName": "@google/markerclustererplus",
             "asOfVersion": "3.0.3"
+        },
+        "gopd": {
+            "libraryName": "gopd",
+            "asOfVersion": "1.2.0"
         },
         "graphene-pk11": {
             "libraryName": "graphene-pk11",
@@ -3849,6 +3869,10 @@
             "libraryName": "jsonp-body",
             "asOfVersion": "1.1.0"
         },
+        "jsonpointer": {
+            "libraryName": "jsonpointer",
+            "asOfVersion": "5.0.0"
+        },
         "jsonschema": {
             "libraryName": "jsonschema",
             "asOfVersion": "1.1.1"
@@ -4229,6 +4253,10 @@
             "libraryName": "lock-system",
             "asOfVersion": "2.0.0"
         },
+        "lockfile-info": {
+            "libraryName": "lockfile-info",
+            "asOfVersion": "1.1.0"
+        },
         "lodash-decorators": {
             "libraryName": "lodash-decorators",
             "asOfVersion": "4.0.0"
@@ -4332,6 +4360,22 @@
         "maker.js": {
             "libraryName": "makerjs",
             "asOfVersion": "0.9.34"
+        },
+        "makeup-expander": {
+            "libraryName": "makeup-expander",
+            "asOfVersion": "0.11.10"
+        },
+        "makeup-keyboard-trap": {
+            "libraryName": "makeup-keyboard-trap",
+            "asOfVersion": "0.5.8"
+        },
+        "makeup-prevent-scroll-keys": {
+            "libraryName": "makeup-prevent-scroll-keys",
+            "asOfVersion": "0.3.5"
+        },
+        "makeup-screenreader-trap": {
+            "libraryName": "makeup-screenreader-trap",
+            "asOfVersion": "0.5.7"
         },
         "mali": {
             "libraryName": "mali",
@@ -7351,6 +7395,10 @@
             "libraryName": "serialport",
             "asOfVersion": "10.2.0"
         },
+        "set-cookie-parser": {
+            "libraryName": "set-cookie-parser",
+            "asOfVersion": "3.1.0"
+        },
         "set-interval-async": {
             "libraryName": "set-interval-async",
             "asOfVersion": "3.0.1"
@@ -8026,6 +8074,10 @@
         "testing-library__vue": {
             "libraryName": "@testing-library/vue",
             "asOfVersion": "5.3.0"
+        },
+        "testingbot-api": {
+            "libraryName": "testingbot-api",
+            "asOfVersion": "1.1.0"
         },
         "text-clipper": {
             "libraryName": "text-clipper",
