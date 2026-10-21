@@ -19,22 +19,22 @@ declare namespace GoogleAppsScript {
          */
         interface Banding {
             copyTo(range: Range): Banding;
-            getFirstColumnColor(): string | null;
+            /** @deprecated DO NOT USE */ getFirstColumnColor(): string | null;
             getFirstColumnColorObject(): Color | null;
-            getFirstRowColor(): string | null;
+            /** @deprecated DO NOT USE */ getFirstRowColor(): string | null;
             getFirstRowColorObject(): Color | null;
-            getFooterColumnColor(): string | null;
+            /** @deprecated DO NOT USE */ getFooterColumnColor(): string | null;
             getFooterColumnColorObject(): Color | null;
-            getFooterRowColor(): string | null;
+            /** @deprecated DO NOT USE */ getFooterRowColor(): string | null;
             getFooterRowColorObject(): Color | null;
-            getHeaderColumnColor(): string | null;
+            /** @deprecated DO NOT USE */ getHeaderColumnColor(): string | null;
             getHeaderColumnColorObject(): Color | null;
-            getHeaderRowColor(): string | null;
+            /** @deprecated DO NOT USE */ getHeaderRowColor(): string | null;
             getHeaderRowColorObject(): Color | null;
             getRange(): Range;
-            getSecondColumnColor(): string | null;
+            /** @deprecated DO NOT USE */ getSecondColumnColor(): string | null;
             getSecondColumnColorObject(): Color | null;
-            getSecondRowColor(): string | null;
+            /** @deprecated DO NOT USE */ getSecondRowColor(): string | null;
             getSecondRowColorObject(): Color | null;
             remove(): void;
             setFirstColumnColor(color: string | null): Banding;
@@ -117,12 +117,12 @@ declare namespace GoogleAppsScript {
          * criteria evaluates to true, the condition's formatting settings are applied to the cell.
          */
         interface BooleanCondition {
-            getBackground(): string | null;
+            /** @deprecated DO NOT USE */ getBackground(): string | null;
             getBackgroundObject(): Color | null;
             getBold(): boolean | null;
             getCriteriaType(): BooleanCriteria;
             getCriteriaValues(): any[];
-            getFontColor(): string | null;
+            /** @deprecated DO NOT USE */ getFontColor(): string | null;
             getFontColorObject(): Color | null;
             getItalic(): boolean | null;
             getStrikethrough(): boolean | null;
@@ -179,7 +179,7 @@ declare namespace GoogleAppsScript {
             getAltTextDescription(): string;
             getAltTextTitle(): string;
             getContentUrl(): string;
-            getUrl(): string | null;
+            /** @deprecated DO NOT USE */ getUrl(): string | null;
             toBuilder(): CellImageBuilder;
         }
         /**
@@ -191,7 +191,7 @@ declare namespace GoogleAppsScript {
             getAltTextDescription(): string;
             getAltTextTitle(): string;
             getContentUrl(): string;
-            getUrl(): string | null;
+            /** @deprecated DO NOT USE */ getUrl(): string | null;
             setAltTextDescription(description: string): CellImageBuilder;
             setAltTextTitle(title: string): CellImageBuilder;
             setSourceUrl(url: string): CellImageBuilder;
@@ -1576,15 +1576,15 @@ declare namespace GoogleAppsScript {
          *     }
          */
         interface GradientCondition {
-            getMaxColor(): string;
+            /** @deprecated DO NOT USE */ getMaxColor(): string;
             getMaxColorObject(): Color | null;
             getMaxType(): InterpolationType | null;
             getMaxValue(): string;
-            getMidColor(): string;
+            /** @deprecated DO NOT USE */ getMidColor(): string;
             getMidColorObject(): Color | null;
             getMidType(): InterpolationType | null;
             getMidValue(): string;
-            getMinColor(): string;
+            /** @deprecated DO NOT USE */ getMinColor(): string;
             getMinColorObject(): Color | null;
             getMinType(): InterpolationType | null;
             getMinValue(): string;
@@ -1702,7 +1702,7 @@ declare namespace GoogleAppsScript {
             getInherentWidth(): Integer;
             getScript(): string;
             getSheet(): Sheet;
-            getUrl(): string | null;
+            /** @deprecated DO NOT USE */ getUrl(): string | null;
             getWidth(): Integer;
             remove(): void;
             replace(blob: Base.BlobSource): OverGridImage;
@@ -1721,6 +1721,7 @@ declare namespace GoogleAppsScript {
          *     Protection class instead. Although this class is deprecated, it remains available
          *     for compatibility with the older version of Sheets.
          * Access and modify protected sheets in the older version of Google Sheets.
+         * @deprecated DO NOT USE
          */
         interface PageProtection {
             /** @deprecated DO NOT USE */ addUser(email: string): void;
@@ -2417,7 +2418,7 @@ declare namespace GoogleAppsScript {
             getSheetName(): string;
             getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
             getSlicers(): Slicer[];
-            getTabColor(): string | null;
+            /** @deprecated DO NOT USE */ getTabColor(): string | null;
             getTabColorObject(): Color | null;
             getType(): SheetType;
             hasHiddenGridlines(): boolean;
@@ -2516,7 +2517,7 @@ declare namespace GoogleAppsScript {
          * methods to access and modify existing slicers. To create a new slicer, use Sheet.insertSlicer(range, anchorRowPos, anchorColPos).
          */
         interface Slicer {
-            getBackgroundColor(): string | null;
+            /** @deprecated DO NOT USE */ getBackgroundColor(): string | null;
             getBackgroundColorObject(): Color | null;
             getColumnPosition(): Integer | null;
             getContainerInfo(): ContainerInfo;
@@ -2843,7 +2844,7 @@ declare namespace GoogleAppsScript {
             copy(): TextStyleBuilder;
             getFontFamily(): string | null;
             getFontSize(): Integer | null;
-            getForegroundColor(): string | null;
+            /** @deprecated DO NOT USE */ getForegroundColor(): string | null;
             getForegroundColorObject(): Color | null;
             isBold(): boolean | null;
             isItalic(): boolean | null;
