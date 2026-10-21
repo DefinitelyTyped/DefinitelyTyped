@@ -6038,10 +6038,10 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function getDefaultFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
-        function getDefaultFontSize(callback: (options: FontSizeResult) => void): void;
+        function getDefaultFontSize(callback: (details: FontSizeResult) => void): void;
         function getDefaultFontSize(
             details: { [key: string]: unknown } | undefined,
-            callback: (options: FontSizeResult) => void,
+            callback: (details: FontSizeResult) => void,
         ): void;
 
         /**
@@ -6051,10 +6051,10 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function getMinimumFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
-        function getMinimumFontSize(callback: (options: FontSizeResult) => void): void;
+        function getMinimumFontSize(callback: (details: FontSizeResult) => void): void;
         function getMinimumFontSize(
             details: { [key: string]: unknown } | undefined,
-            callback: (options: FontSizeResult) => void,
+            callback: (details: FontSizeResult) => void,
         ): void;
 
         /**
@@ -10007,7 +10007,7 @@ declare namespace chrome {
             /** Enables use of particular extension APIs. */
             permissions?: ManifestPermission[] | undefined;
             /** Identifies an HTML file to display in a sidePanel. */
-            side_panel?: { default_path: string } | undefined;
+            side_panel?: sidePanel.SidePanel | undefined;
             /** Defines files within the extension that can be accessed by web pages or other extensions. */
             web_accessible_resources?:
                 | Array<
@@ -10328,7 +10328,7 @@ declare namespace chrome {
                      */
                     documentIds?: never | undefined;
                     /** The IDs of specific frames to inject into. */
-                    frameIds: number[] | undefined;
+                    frameIds?: number[] | undefined;
                 }
                 | {
                     /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
@@ -10413,8 +10413,6 @@ declare namespace chrome {
                     files?: never | undefined;
                 })
             );
-
-        type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
         /** @since Chrome 96 */
         type RegisteredContentScript =
@@ -10794,7 +10792,7 @@ declare namespace chrome {
              * A set of feature codes indicating some of the processor's capabilities.
              * The currently supported codes are "mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", and "avx".
              */
-            features: string[];
+            features: Array<"mmx" | "sse" | "sse2" | "sse3" | "ssse3" | "sse4_1" | "sse4_2" | "avx">;
             /** Information about each logical processor. */
             processors: ProcessorInfo[];
             /**
@@ -15361,25 +15359,25 @@ declare namespace chrome {
             }
             & (
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: boolean | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: never;
                     /** The IDs of specific frames to inject into. */
                     frameIds?: never;
                 }
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: false | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: never;
                     /** The IDs of specific frames to inject into. */
-                    frameIds: number[] | undefined;
+                    frameIds?: number[] | undefined;
                 }
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: false | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: string[] | undefined;
                     /** The IDs of specific frames to inject into. */
                     frameIds?: never;
