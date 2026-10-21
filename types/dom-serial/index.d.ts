@@ -10,48 +10,10 @@ interface SerialPortInfoBase {
     product: string;
 }
 
-interface SerialPortFilter {
-    usbVendorId: number;
-    usbProductId?: number | undefined;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface -- Augments the Web Serial interface added in TypeScript 7.1.
+interface SerialPortInfo extends Partial<SerialPortInfoBase> {}
 
-interface SerialPortInfo extends SerialPortInfoBase, SerialPortFilter {} // mix spec and Chromium implementation
-
-type ParityType = "none" | "even" | "odd" | "mark" | "space";
-
-type FlowControlType = "none" | "hardware";
-
-interface SerialOptions {
-    baudRate: number;
-    dataBits?: number | undefined;
-    stopBits?: number | undefined;
-    parity?: ParityType | undefined;
-    bufferSize?: number | undefined;
-    flowControl?: FlowControlType | undefined;
-}
-
-interface SerialPort extends EventTarget {
+interface Serial {
     onconnect: EventHandler;
     ondisconnect: EventHandler;
-    readonly readable: ReadableStream; // Chromium implementation (spec: in)
-    readonly writable: WritableStream; // Chromium implementation (spec: out)
-    open(options: SerialOptions): Promise<void>;
-    close(): Promise<void>;
-    getInfo(): Partial<SerialPortInfo>;
-    forget(): Promise<void>;
-}
-
-interface SerialPortRequestOptions {
-    filters: SerialPortFilter[];
-}
-
-interface Serial extends EventTarget {
-    onconnect: EventHandler;
-    ondisconnect: EventHandler;
-    getPorts(): Promise<SerialPort[]>;
-    requestPort(options?: SerialPortRequestOptions): Promise<SerialPort>; // Chromium implementation (spec: SerialOptions)
-}
-
-interface Navigator {
-    readonly serial: Serial;
 }
