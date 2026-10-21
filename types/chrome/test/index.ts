@@ -6243,6 +6243,10 @@ function testIdentity() {
     chrome.identity.getAuthToken(() => {}).then(() => {});
 
     chrome.identity.getProfileUserInfo(); // $ExpectType Promise<ProfileUserInfo>
+    chrome.identity.getProfileUserInfo(undefined, userInfo => { // $ExpectType void
+        userInfo.email; // $ExpectType string
+        userInfo.id; // $ExpectType string
+    });
     chrome.identity.getProfileUserInfo(userInfo => { // $ExpectType void
         userInfo.email; // $ExpectType string
         userInfo.id; // $ExpectType string

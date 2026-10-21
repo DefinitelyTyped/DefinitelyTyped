@@ -6604,7 +6604,7 @@ declare namespace chrome {
          */
         function getProfileUserInfo(details?: ProfileDetails): Promise<ProfileUserInfo>;
         function getProfileUserInfo(
-            details: ProfileDetails,
+            details: ProfileDetails | undefined,
             callback: (userInfo: ProfileUserInfo) => void,
         ): void;
         function getProfileUserInfo(callback: (userInfo: ProfileUserInfo) => void): void;
@@ -6642,7 +6642,7 @@ declare namespace chrome {
         function getRedirectURL(path?: string): string;
 
         /** Fired when signin state changes for an account on the user's profile. */
-        const onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
+        const onSignInChanged: events.Event<(account: AccountInfo, signedIn: boolean) => void>;
     }
 
     ////////////////////
