@@ -14626,6 +14626,7 @@ declare namespace chrome {
              * List of HTTP request methods which the rule can match. An empty list is not allowed.
              *
              * Note: Specifying a `requestMethods` rule condition will also exclude non-HTTP(s) requests, whereas specifying `excludedRequestMethods` will not.
+             * @since Chrome 91
              */
             requestMethods?: `${RequestMethod}`[] | undefined;
 
@@ -14792,7 +14793,7 @@ declare namespace chrome {
             /** Add, remove or replace query key-value pairs. */
             queryTransform?: QueryTransform | undefined;
             /** The new scheme for the request. Allowed values are "http", "https", "ftp" and "chrome-extension". */
-            scheme?: string | undefined;
+            scheme?: "http" | "https" | "ftp" | "chrome-extension" | undefined;
             /** The new username for the request. */
             username?: string | undefined;
         }
@@ -15083,7 +15084,7 @@ declare namespace chrome {
          * @since Chrome 111
          */
         function updateStaticRules(options: UpdateStaticRulesOptions): Promise<void>;
-        function updateStaticRules(options: UpdateStaticRulesOptions, callback?: () => void): void;
+        function updateStaticRules(options: UpdateStaticRulesOptions, callback: () => void): void;
 
         /** Fired when a rule is matched with a request. Only available for unpacked extensions with the `declarativeNetRequestFeedback` permission as this is intended to be used for debugging purposes only. */
         const onRuleMatchedDebug: events.Event<(info: MatchedRuleInfoDebug) => void>;
