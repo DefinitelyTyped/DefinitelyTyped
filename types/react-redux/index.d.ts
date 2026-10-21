@@ -265,6 +265,12 @@ export interface Connect<DefaultState = DefaultRootState> {
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: null | undefined,
+        mergeProps: MergeProps<TStateProps, DispatchProp, TOwnProps, TMergedProps>,
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
+
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: null | undefined,
         mergeProps: MergeProps<TStateProps, DispatchProp, TOwnProps, TMergedProps>,
@@ -275,6 +281,13 @@ export interface Connect<DefaultState = DefaultRootState> {
         mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
         mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
     ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
+
+    <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: null | undefined,
+        mergeProps: null | undefined,
+        options: Options<State, TStateProps, TOwnProps>,
+    ): InferableComponentEnhancerWithProps<DispatchProp & TStateProps, TOwnProps>;
 
     <TStateProps = {}, no_dispatch = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
@@ -301,11 +314,28 @@ export interface Connect<DefaultState = DefaultRootState> {
     >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
+        mergeProps: null | undefined,
+        options: Options<State, TStateProps, TOwnProps>,
+    ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
         mapDispatchToProps: MapDispatchToPropsNonObject<TDispatchProps, TOwnProps>,
         mergeProps: null | undefined,
         options: Options<State, TStateProps, TOwnProps>,
     ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: null | undefined,
+        options: Options<State, TStateProps, TOwnProps>,
+    ): InferableComponentEnhancerWithProps<
+        TStateProps & ResolveThunks<TDispatchProps>,
+        TOwnProps
+    >;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
@@ -316,6 +346,13 @@ export interface Connect<DefaultState = DefaultRootState> {
         TStateProps & ResolveThunks<TDispatchProps>,
         TOwnProps
     >;
+
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
+        mapStateToProps: MapStateToPropsFactory<TStateProps, TOwnProps, State>,
+        mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
+        mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
+        options?: Options<State, TStateProps, TOwnProps, TMergedProps>,
+    ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
     <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}, State = DefaultState>(
         mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
