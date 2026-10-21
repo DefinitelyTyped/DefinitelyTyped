@@ -1,7 +1,20 @@
 import * as ESTree from "estree";
 
+interface CustomNode extends ESTree.BaseNode {
+    type: "CustomNode";
+}
+
+declare module "estree" {
+    interface ProgramBodyMap {
+        CustomNode: CustomNode;
+    }
+}
+
 declare var node: ESTree.Node;
 declare var program: ESTree.Program;
+declare var programBodyMap: ESTree.ProgramBodyMap;
+declare var programBody: ESTree.ProgramBody;
+declare var customNode: CustomNode;
 declare var functionAst: ESTree.Function;
 declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
@@ -112,7 +125,15 @@ declare var never: never;
 
 // Program
 string = program.type;
-toplevelStatement = program.body[0];
+programBody = programBodyMap.Directive;
+programBody = programBodyMap.Statement;
+programBody = programBodyMap.ModuleDeclaration;
+programBody = program.body[0];
+programBody = customNode;
+
+if (program.body[0].type !== "CustomNode") {
+    toplevelStatement = program.body[0];
+}
 
 // Location
 number = program.loc!.start.line;
