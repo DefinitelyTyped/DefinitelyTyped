@@ -5322,6 +5322,12 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
+     * Array of lat, lon coordinates.
+     */
+    type PolylineCoords = GeoJSONPosition[];
+}
+declare namespace woosmap.map {
+    /**
      * Options to configure the Indoor Renderer.
      */
     interface IndoorRendererOptions {
@@ -5399,12 +5405,6 @@ declare namespace woosmap.map {
          */
         venue?: string;
     }
-}
-declare namespace woosmap.map {
-    /**
-     * Array of lat, lon coordinates.
-     */
-    type PolylineCoords = GeoJSONPosition[];
 }
 declare namespace woosmap.map {
     /**
