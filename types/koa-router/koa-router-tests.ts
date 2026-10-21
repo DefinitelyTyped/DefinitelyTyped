@@ -97,7 +97,7 @@ router3.get("/foo", (ctx: Router.IRouterContext) => {
 new Koa()
     .use(async (ctx, next) => next())
     .use(router3.routes())
-    .use(router.allowedMethods())
+    .use(router3.allowedMethods())
     .listen(3001);
 
 // It's from https://github.com/DefinitelyTyped/DefinitelyTyped/pull/31704#issuecomment-451075919,
