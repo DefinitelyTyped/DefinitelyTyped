@@ -2721,6 +2721,10 @@
             "libraryName": "fullname",
             "asOfVersion": "4.0.0"
         },
+        "function.prototype.name": {
+            "libraryName": "function.prototype.name",
+            "asOfVersion": "1.2.0"
+        },
         "fuse": {
             "libraryName": "fuse",
             "asOfVersion": "2.6.0"
