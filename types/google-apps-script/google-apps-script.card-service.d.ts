@@ -1051,24 +1051,25 @@ declare namespace GoogleAppsScript {
          *         .setContent("Content can be multiple lines")
          *         .setMultiline(true)
          *         .setBottomLabel("Bottom label - single line");
+         * @deprecated DO NOT USE
          */
         interface KeyValue {
             addEventAction(eventAction: EventAction): Widget;
             setAuthorizationAction(action: AuthorizationAction): KeyValue;
-            setBottomLabel(text: string): KeyValue;
-            setButton(button: Button): KeyValue;
+            /** @deprecated DO NOT USE */ setBottomLabel(text: string): KeyValue;
+            /** @deprecated DO NOT USE */ setButton(button: Button): KeyValue;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): KeyValue;
-            setContent(text: string): KeyValue;
-            setIcon(icon: Icon): KeyValue;
-            setIconAltText(altText: string): KeyValue;
-            setIconUrl(url: string): KeyValue;
+            /** @deprecated DO NOT USE */ setContent(text: string): KeyValue;
+            /** @deprecated DO NOT USE */ setIcon(icon: Icon): KeyValue;
+            /** @deprecated DO NOT USE */ setIconAltText(altText: string): KeyValue;
+            /** @deprecated DO NOT USE */ setIconUrl(url: string): KeyValue;
             setId(id: string): Widget;
-            setMultiline(multiline: boolean): KeyValue;
+            /** @deprecated DO NOT USE */ setMultiline(multiline: boolean): KeyValue;
             setOnClickAction(action: Action): KeyValue;
             setOnClickOpenLinkAction(action: Action): KeyValue;
             setOpenLink(openLink: OpenLink): KeyValue;
-            setSwitch(switchToSet: Switch): KeyValue;
-            setTopLabel(text: string): KeyValue;
+            /** @deprecated DO NOT USE */ setSwitch(switchToSet: Switch): KeyValue;
+            /** @deprecated DO NOT USE */ setTopLabel(text: string): KeyValue;
             setVisibility(visibility: Visibility): Widget;
         }
 
@@ -1162,7 +1163,7 @@ declare namespace GoogleAppsScript {
         enum OnClose {
             NOTHING,
             RELOAD,
-            RELOAD_ADD_ON,
+            /** @deprecated DO NOT USE */ RELOAD_ADD_ON,
         }
         /**
          * An enum that specifies how to open a URL.
