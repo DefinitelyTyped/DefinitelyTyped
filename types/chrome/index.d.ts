@@ -12633,7 +12633,7 @@ declare namespace chrome {
          */
         interface TtsOptions {
             /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-            desiredEventTypes?: string[];
+            desiredEventTypes?: `${EventType}`[];
             /** If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance. */
             enqueue?: boolean;
             /** The extension ID of the speech engine to use, if known. */
@@ -12650,7 +12650,7 @@ declare namespace chrome {
             /** Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0. */
             rate?: number;
             /** The TTS event types the voice must support. */
-            requiredEventTypes?: string[];
+            requiredEventTypes?: `${EventType}`[];
             /** The name of the voice to use for synthesis. If empty, uses any available voice. */
             voiceName?: string;
             /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
@@ -12723,7 +12723,7 @@ declare namespace chrome {
          */
         function speak(utterance: string, options?: TtsOptions): Promise<void>;
         function speak(utterance: string, callback: () => void): void;
-        function speak(utterance: string, options: TtsOptions, callback: () => void): void;
+        function speak(utterance: string, options: TtsOptions | undefined, callback: () => void): void;
 
         /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
         function stop(): void;
@@ -12732,7 +12732,7 @@ declare namespace chrome {
          * Called when the list of {@link TtsVoice} that would be returned by getVoices has changed.
          * @since Chrome 124
          */
-        const onVoicesChanged: chrome.events.Event<() => void>;
+        const onVoicesChanged: events.Event<() => void>;
     }
 
     ////////////////////

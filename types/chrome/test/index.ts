@@ -1806,11 +1806,15 @@ function testTts() {
 
     const ttsOptions: chrome.tts.TtsOptions = {
         lang: "en",
+        requiredEventTypes: ["start"],
+        desiredEventTypes: [chrome.tts.EventType.END],
     };
 
     chrome.tts.speak("Hello, World!"); // $ExpectType Promise<void>
+    chrome.tts.speak("Hello, World!", undefined); // $ExpectType Promise<void>
     chrome.tts.speak("Hello, World!", ttsOptions); // $ExpectType Promise<void>
     chrome.tts.speak("Hello, World!", () => {}); // $ExpectType void
+    chrome.tts.speak("Hello, World!", undefined, () => {}); // $ExpectType void
     chrome.tts.speak("Hello, World!", ttsOptions, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.tts.speak("Hello, World!", () => {}).then(() => {});
