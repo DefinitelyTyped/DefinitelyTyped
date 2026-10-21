@@ -1,13 +1,13 @@
 {
     "private": true,
     "name": "@types/mjml",
-    "version": "5.0.9999",
+    "version": "5.4.9999",
     "projects": [
         "https://github.com/mjmlio/mjml",
         "https://mjml.io"
     ],
     "dependencies": {
-        "@types/mjml-core": "*"
+        "@types/mjml-core": "~5.4"
     },
     "devDependencies": {
         "@types/mjml": "workspace:."
