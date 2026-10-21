@@ -1,4 +1,4 @@
-import { Component, ReactNode } from "react";
+import { Component, Context, ReactNode, ReactPortal as PublicReactPortal } from "react";
 
 /* eslint-disable @definitelytyped/no-unnecessary-generics */
 declare function ReactReconciler<
@@ -604,7 +604,7 @@ declare namespace ReactReconciler {
         // Undocumented
         // https://github.com/facebook/react/pull/26722
         NotPendingTransition: TransitionStatus | null;
-        HostTransitionContext: ReactContext<TransitionStatus>;
+        HostTransitionContext: ReactContext<TransitionStatus> | Context<TransitionStatus>;
 
         // https://github.com/facebook/react/pull/28751
         setCurrentUpdatePriority(newPriority: EventPriority): void;
@@ -1305,7 +1305,7 @@ declare namespace ReactReconciler {
             containerInfo: any, // TODO: figure out the API for cross-renderer implementation.
             implementation: any,
             key?: string | null,
-        ): ReactPortal;
+        ): PublicReactPortal & ReactPortal;
 
         createComponentSelector(component: React$AbstractComponent<never, unknown>): ComponentSelector;
 
