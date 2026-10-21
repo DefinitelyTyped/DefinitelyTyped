@@ -2,9 +2,9 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es2022"
+            "es6",
+            "es2018.asynciterable"
         ],
-        "target": "es2022",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictFunctionTypes": true,

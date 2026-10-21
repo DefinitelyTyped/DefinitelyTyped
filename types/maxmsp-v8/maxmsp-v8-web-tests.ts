@@ -68,9 +68,7 @@ xhr.onprogress = function(ev) {
 };
 xhr.send();
 const h = new Headers({ a: "b" });
-for (const [k, v] of h) {
-    post(k, v);
-}
+Array.from(h).forEach(([k, v]) => post(k, v));
 // @ts-expect-error Headers.forEach is documented but missing in Max 9.2.0
 h.forEach(() => {});
 
@@ -79,6 +77,5 @@ const view: IOBuffer = IOBuffer.from([1, 2, 3]).subarray(0, 2);
 
 // IOBuffer is also available as a global
 const globalBuf: IOBuffer = IOBuffer.from("abc");
-for (const [key, value] of new URLSearchParams("a=1&b=2")) {
-    post(key, value);
-}
+// $ExpectType [string, string][]
+Array.from(new URLSearchParams("a=1&b=2"));
