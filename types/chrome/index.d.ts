@@ -11256,10 +11256,9 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param flags Options affecting how the information is returned.
          */
+        function getInfo(flags?: GetInfoFlags): Promise<DisplayUnitInfo[]>;
         function getInfo(callback: (displayInfo: DisplayUnitInfo[]) => void): void;
-        function getInfo(flags: GetInfoFlags, callback: (displayInfo: DisplayUnitInfo[]) => void): void;
-        function getInfo(): Promise<DisplayUnitInfo[]>;
-        function getInfo(flags: GetInfoFlags): Promise<DisplayUnitInfo[]>;
+        function getInfo(flags: GetInfoFlags | undefined, callback: (displayInfo: DisplayUnitInfo[]) => void): void;
 
         /**
          * Requests the layout info for all displays
@@ -11268,8 +11267,8 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 53
          */
-        function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
         function getDisplayLayout(): Promise<DisplayLayout[]>;
+        function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
         /**
          * Updates the properties for the display specified by `id`, according to the information provided in `info`. On failure, {@link runtime.lastError} will be set.
@@ -11279,8 +11278,8 @@ declare namespace chrome {
          * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in `info`.
          * @platform ChromeOS only
          */
-        function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
         function setDisplayProperties(id: string, info: DisplayProperties): Promise<void>;
+        function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
 
         /**
          * Set the layout for all displays. display not included will use the default layout. If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout. After layout is resolved, an onDisplayChanged event will be triggered.
@@ -11290,8 +11289,8 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 53
          */
-        function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
         function setDisplayLayout(layouts: DisplayLayout[]): Promise<void>;
+        function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
 
         /**
          * Enables/disables the unified desktop feature. If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off. Otherwise, the desktop mode will switch to unified immediately.
@@ -11342,8 +11341,8 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 57
          */
-        function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
         function showNativeTouchCalibration(id: string): Promise<boolean>;
+        function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
 
         /**
          * Starts custom touch calibration for a display. This should be called when using a custom UX for collecting calibration data. If another touch calibration is already in progress this will throw an error.
@@ -11378,11 +11377,11 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 65
          */
-        function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
         function setMirrorMode(info: MirrorModeInfo): Promise<void>;
+        function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
 
         /** Fired when anything changes to the display configuration. */
-        const onDisplayChanged: chrome.events.Event<() => void>;
+        const onDisplayChanged: events.Event<() => void>;
     }
 
     ////////////////////
