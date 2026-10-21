@@ -4233,6 +4233,10 @@
             "libraryName": "lock-system",
             "asOfVersion": "2.0.0"
         },
+        "lockfile-info": {
+            "libraryName": "lockfile-info",
+            "asOfVersion": "1.1.0"
+        },
         "lodash-decorators": {
             "libraryName": "lodash-decorators",
             "asOfVersion": "4.0.0"
