@@ -75,10 +75,18 @@ export interface Position {
     column: number;
 }
 
+export interface ProgramBodyMap {
+    Directive: Directive;
+    ModuleDeclaration: ModuleDeclaration;
+    Statement: Statement;
+}
+
+export type ProgramBody = ProgramBodyMap[keyof ProgramBodyMap];
+
 export interface Program extends BaseNode {
     type: "Program";
     sourceType: "script" | "module";
-    body: Array<Directive | Statement | ModuleDeclaration>;
+    body: ProgramBody[];
     comments?: Comment[] | undefined;
 }
 
