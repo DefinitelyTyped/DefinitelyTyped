@@ -84,3 +84,17 @@ declare const myActionWithSubactionsAndNamespace: MyActionWithSubActionsAndNames
 myActionWithSubactionsAndNamespace.toString(); // $ExpectType "FOO/TEST"
 myActionWithSubactionsAndNamespace.A; // $ExpectType "FOO/TEST_A"
 myActionWithSubactionsAndNamespace.B; // $ExpectType "FOO/TEST_B"
+
+function getSubAction<SubAction extends string, SubActions extends SubAction[]>(
+    action: reduxDefine.Action<"TEST", SubAction, undefined, SubActions>,
+    key: SubActions[number],
+) {
+    return action[key];
+}
+
+declare const neverAction: reduxDefine.Action<"TEST", never>;
+const stillNever: never = neverAction;
+
+type MaybeSubAction = reduxDefine.Action<"TEST", "A" | undefined>;
+declare const withSubAction: Extract<MaybeSubAction, { A: unknown }>;
+withSubAction.A; // $ExpectType "TEST_A"
