@@ -2,6 +2,14 @@
     "private": true,
     "name": "@types/dom-close-watcher",
     "version": "1.0.9999",
+    "types": "index",
+    "typesVersions": {
+        "<=7.0": {
+            "*": [
+                "ts7.0/*"
+            ]
+        }
+    },
     "nonNpm": true,
     "nonNpmDescription": "dom-close-watcher-browser",
     "projects": [
