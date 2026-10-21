@@ -6179,7 +6179,7 @@ declare namespace chrome {
             /** Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The default value of time-to-live is 86,400 seconds (1 day) and the maximum value is 2,419,200 seconds (28 days). */
             timeToLive?: number | undefined;
             /** Message data to send to the server. Case-insensitive `goog.` and `google`, as well as case-sensitive `collapse_key` are disallowed as key prefixes. Sum of all key/value pairs should not exceed {@link gcm.MAX_MESSAGE_SIZE}. */
-            data: { [key: string]: unknown };
+            data: { [key: string]: string };
         }
 
         /** The maximum size (in bytes) of all key/value pairs in a message. */
@@ -6217,7 +6217,7 @@ declare namespace chrome {
                 /** The collapse key of a message. See the Non-collapsible and collapsible messages for details. */
                 collapseKey?: string;
                 /** The message data. */
-                data: { [key: string]: unknown };
+                data: { [key: string]: string };
                 /** The sender who issued the message. */
                 from?: string;
             }) => void
@@ -6230,7 +6230,7 @@ declare namespace chrome {
         const onSendError: events.Event<
             (error: {
                 /** Additional details related to the error, when available. */
-                details: { [key: string]: unknown };
+                details: { [key: string]: string };
                 /** The error message describing the problem. */
                 errorMessage: string;
                 /** The ID of the message with this error, if error is related to a specific message. */

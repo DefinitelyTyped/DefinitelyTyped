@@ -6109,14 +6109,14 @@ function testGcm() {
 
     checkChromeEvent(chrome.gcm.onMessage, (message) => {
         message.collapseKey; // $ExpectType string | undefined
-        message.data; // $ExpectType { [key: string]: unknown; }
+        message.data; // $ExpectType { [key: string]: string; }
         message.from; // $ExpectType string | undefined
     });
 
     checkChromeEvent(chrome.gcm.onMessagesDeleted, () => void 0);
 
     checkChromeEvent(chrome.gcm.onSendError, (error) => {
-        error.details; // $ExpectType { [key: string]: unknown; }
+        error.details; // $ExpectType { [key: string]: string; }
         error.errorMessage; // $ExpectType string
         error.messageId; // $ExpectType string | undefined
     });
