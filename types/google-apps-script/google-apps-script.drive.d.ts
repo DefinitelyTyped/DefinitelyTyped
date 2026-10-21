@@ -37,13 +37,13 @@ declare namespace GoogleAppsScript {
              * This method does not move the file out of its existing parent folder;
              * a file can have more than one parent simultaneously.
              */
-            addFile(child: File): Folder;
+            /** @deprecated DO NOT USE */ addFile(child: File): Folder;
             /**
              * Adds the given folder to the root of the user's Drive.
              * This method does not move the folder out of its existing parent folder;
              * a folder can have more than one parent simultaneously.
              */
-            addFolder(child: Folder): Folder;
+            /** @deprecated DO NOT USE */ addFolder(child: Folder): Folder;
             /**
              * Resumes a file iteration using a continuation token from a previous iterator.
              * This method is useful if processing an iterator in one execution would exceed
@@ -134,14 +134,14 @@ declare namespace GoogleAppsScript {
              * of its parents, it cannot be seen in Drive except by searching for it
              * or using the "All items" view.
              */
-            removeFile(child: File): Folder;
+            /** @deprecated DO NOT USE */ removeFile(child: File): Folder;
             /**
              * Removes the given folder from the root of the user's Drive.
              * This method does not delete the folder or its contents, but if a folder
              * is removed from all of its parents, it cannot be seen in Drive except
              * by searching for it or using the "All items" view.
              */
-            removeFolder(child: Folder): Folder;
+            /** @deprecated DO NOT USE */ removeFolder(child: Folder): Folder;
             /**
              * Gets a collection of all files in the user's Drive that match the given search criteria.
              * The search criteria are detailed the Google Drive SDK documentation.
@@ -274,8 +274,8 @@ declare namespace GoogleAppsScript {
             addEditor(emailAddress: string): Folder;
             addEditor(user: Base.User): Folder;
             addEditors(emailAddresses: string[]): Folder;
-            addFile(child: File): Folder;
-            addFolder(child: Folder): Folder;
+            /** @deprecated DO NOT USE */ addFile(child: File): Folder;
+            /** @deprecated DO NOT USE */ addFolder(child: Folder): Folder;
             addViewer(emailAddress: string): Folder;
             addViewer(user: Base.User): Folder;
             addViewers(emailAddresses: string[]): Folder;
@@ -314,8 +314,8 @@ declare namespace GoogleAppsScript {
             moveTo(destination: Folder): Folder;
             removeEditor(emailAddress: string): Folder;
             removeEditor(user: Base.User): Folder;
-            removeFile(child: File): Folder;
-            removeFolder(child: Folder): Folder;
+            /** @deprecated DO NOT USE */ removeFile(child: File): Folder;
+            /** @deprecated DO NOT USE */ removeFolder(child: Folder): Folder;
             removeViewer(emailAddress: string): Folder;
             removeViewer(user: Base.User): Folder;
             revokePermissions(user: string): Folder;
