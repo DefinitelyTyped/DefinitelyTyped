@@ -1881,6 +1881,10 @@
             "libraryName": "earcut",
             "asOfVersion": "3.2.4"
         },
+        "easy-rbac": {
+            "libraryName": "easy-rbac",
+            "asOfVersion": "4.0.0"
+        },
         "easy-speech": {
             "libraryName": "easy-speech",
             "asOfVersion": "2.1.1"
