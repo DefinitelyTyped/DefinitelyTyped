@@ -224,7 +224,7 @@ declare namespace GoogleAppsScript {
             newGeocoder(): Geocoder;
             newStaticMap(): StaticMap;
             resetAuthenticationApiKey(): void;
-            setAuthentication(clientId: string, signingKey: string): void;
+            /** @deprecated DO NOT USE */ setAuthentication(clientId: string, signingKey: string): void;
             setAuthenticationByApiKey(apiKey: string): void;
             setAuthenticationByApiKey(apiKey: string, signingKey: string): void;
         }
