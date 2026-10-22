@@ -19,9 +19,11 @@ resolutionMode: highest
 # Do not delay installing things; we need to check the latest state.
 minimumReleaseAge: 0
 
-# Prevent pnpm from hoisting eslint/prettier-ish packages.
-# The first two are the defaults, but we don't want to also hoist packages
-# like @types/eslint-scope (which exist in the types dir).
+# Keep undeclared dependencies from resolving through a shared hidden hoist.
+hoist: false
+
+# Expose eslint/prettier tooling at the root, but not workspace types
+# like @types/eslint-scope.
 publicHoistPattern:
   - '*eslint*'
   - '*prettier*'
