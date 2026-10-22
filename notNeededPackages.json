@@ -7527,6 +7527,10 @@
             "libraryName": "slonik",
             "asOfVersion": "23.0.0"
         },
+        "smallwei__avue": {
+            "libraryName": "@smallwei/avue",
+            "asOfVersion": "3.8.2"
+        },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
             "asOfVersion": "8.2.5"
