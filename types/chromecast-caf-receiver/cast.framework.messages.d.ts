@@ -1,4 +1,4 @@
-import { DetailedErrorCode, Event } from "./cast.framework.events";
+import { DetailedErrorCode, ErrorSeverity, Event } from "./cast.framework.events";
 
 export as namespace messages;
 
@@ -42,6 +42,10 @@ export const Command: {
     readonly FOLLOW: 65536;
     readonly UNFOLLOW: 131072;
     readonly STREAM_TRANSFER: 262144;
+    /**
+     * Lyrics commands.
+     */
+    readonly LYRICS: 524288;
 };
 /**
  * Commands supported by {@link framework.messages.MediaStatus.supportedMediaCommands}.
@@ -93,6 +97,10 @@ export const ErrorReason: {
     readonly INVALID_MEDIA_SESSION_ID: "INVALID_MEDIA_SESSION_ID";
     readonly INVALID_PARAMS: "INVALID_PARAMS";
     readonly INVALID_REQUEST: "INVALID_REQUEST";
+    /**
+     * Returned when the requestId is invalid.
+     */
+    readonly INVALID_REQUEST_ID: "INVALID_REQUEST_ID";
     readonly LANGUAGE_NOT_SUPPORTED: "LANGUAGE_NOT_SUPPORTED";
     readonly NOT_AVAILABLE_IN_REGION: "NOT_AVAILABLE_IN_REGION";
     readonly NOT_SUPPORTED: "NOT_SUPPORTED";
@@ -558,6 +566,10 @@ export const UserAction: {
     readonly FLAG: "FLAG";
     readonly FOLLOW: "FOLLOW";
     readonly LIKE: "LIKE";
+    /**
+     * User wants to display lyrics for the currently playing song.
+     */
+    readonly LYRICS: "LYRICS";
     readonly SKIP_AD: "SKIP_AD";
     readonly UNFOLLOW: "UNFOLLOW";
 };
@@ -995,6 +1007,12 @@ export class SetCredentialsRequestData extends RequestData {
     forRequestId?: number | undefined;
 
     /**
+     * If the user placing a query matches a known user who has enrolled in
+     * voice match and is linked to a 3P account through Assistant settings.
+     */
+    isLikely3pAccountLinkedUser?: boolean | undefined;
+
+    /**
      * Optional request source. It contain the assistent query that initiate the
      * request.
      */
@@ -1118,9 +1136,35 @@ export class RequestData {
     requestId: number;
 
     /**
+     * A number to synchronize all queue commands. If provided for a queue
+     * command, the SDK will verify the queue latest sequence number match the
+     * request. Current sequenceNumber is provided as part of outgoing queue
+     * changed messages.
+     */
+    sequenceNumber?: number | undefined;
+
+    /**
      * Message type.
      */
     type: MessageType;
+}
+
+/**
+ * Provides time range data.
+ * Returned by {@link framework.PlayerManager.getRawSeekableRange}.
+ */
+export class Range {
+    constructor(start: number, end: number);
+
+    /**
+     * Time range end in seconds.
+     */
+    end: number;
+
+    /**
+     * Time range start in seconds.
+     */
+    start: number;
 }
 
 /**
@@ -1469,6 +1513,12 @@ export class QueueIds {
     requestId?: number | undefined;
 
     /**
+     * The latest queue change sequence ID. Used to coordinate state
+     * synchronization between various senders and the receiver.
+     */
+    sequenceNumber?: number | undefined;
+
+    /**
      * Message type.
      */
     type: MessageType;
@@ -1611,6 +1661,13 @@ export class QueueChange {
      * List of changed itemIds.
      */
     itemIds?: number[] | undefined;
+
+    /**
+     * The list of reordered item IDs. This is only used as a response for a
+     * `QUEUE_REORDER` request. The `changeType` becomes `UPDATE`, and `itemIds`
+     * contain the full list of queue items.
+     */
+    reorderItemIds?: number[] | undefined;
 
     /**
      * The corresponding request id.
@@ -1789,6 +1846,12 @@ export class MusicTrackMediaMetadata {
     releaseDate?: string | undefined;
 
     /**
+     * A secondary image, for example, station logo for currently-playing
+     * media.
+     */
+    secondaryImage?: Image | undefined;
+
+    /**
      * @deprecated use releaseDate instead
      */
     releaseYear?: string | undefined;
@@ -1860,6 +1923,28 @@ export class MovieMediaMetadata {
  */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MediaStatusCustomData {
+}
+
+/**
+ * A message that wraps a MediaStatus object for sending it over the media
+ * channel. This structure exists for backward-compatibility reasons.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.messages.MediaStatusMessage
+ */
+export class MediaStatusMessage {
+    constructor();
+
+    /**
+     * The corresponding request ID.
+     */
+    requestId?: number | undefined;
+
+    /**
+     * An array of MediaStatus objects. In practice, this array never contains
+     * more than one object.
+     */
+    status: MediaStatus[];
+
+    type: MessageType;
 }
 
 /**
@@ -2294,6 +2379,12 @@ export class ItemsInfo {
     requestId?: number | undefined;
 
     /**
+     * The latest queue change sequence ID. Used to coordinate state sync
+     * between various senders and the receiver.
+     */
+    sequenceNumber?: number | undefined;
+
+    /**
      * Message type.
      */
     type: MessageType;
@@ -2477,6 +2568,17 @@ export class ErrorData {
     detailedErrorCode?: DetailedErrorCode | undefined;
 
     /**
+     * An itemId of a queue item for errors that were related to a particular
+     * queue item. For example, when loading a queue item failed.
+     */
+    itemId?: number | undefined;
+
+    /**
+     * A more specific error code directly from the player.
+     */
+    playerErrorCode?: number | undefined;
+
+    /**
      * The error reason.
      */
     reason?: ErrorReason | undefined;
@@ -2485,6 +2587,11 @@ export class ErrorData {
      * Id of the request; used to correlate request/response.
      */
     requestId?: number | undefined;
+
+    /**
+     * The error severity level.
+     */
+    severity?: ErrorSeverity | undefined;
 
     type: ErrorType;
 }
@@ -2623,6 +2730,11 @@ export class BreakStatus {
     currentBreakTime?: number | undefined;
 
     /**
+     * A dynamically-generated break as a result of a user seeking over a break.
+     */
+    seekBreak?: Break | undefined;
+
+    /**
      * The time in sec when this break clip becomes skippable.
      * 5 means that end user can skip this break clip after 5 seconds.
      * If this field is not defined; it means that current break clip is not skippable.
@@ -2678,6 +2790,11 @@ export class BreakClip {
      * The format of the HLS media segment.
      */
     hlsSegmentFormat?: HlsSegmentFormat | undefined;
+    /**
+     * The format of the HLS Video media segment. Only required for HLS content
+     * playback using MPL.
+     */
+    hlsVideoSegmentFormat?: HlsVideoSegmentFormat | undefined;
     /**
      * Unique id of break clip.
      */

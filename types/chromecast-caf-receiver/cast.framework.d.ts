@@ -1,6 +1,7 @@
 import * as breaks from "./cast.framework.breaks";
 import * as events from "./cast.framework.events";
 import * as messages from "./cast.framework.messages";
+import * as stats from "./cast.framework.stats";
 import * as system from "./cast.framework.system";
 import * as ui from "./cast.framework.ui";
 
@@ -9,6 +10,7 @@ export import events = events;
 export import ui = ui;
 export import system = system;
 export import messages = messages;
+export import stats = stats;
 
 export as namespace framework;
 export const LoggerLevel: {
@@ -216,6 +218,16 @@ export class QueueBase {
     onItemsRemoved(itemIds: number[]): void;
 
     /**
+     * A callback that indicates that the following items have been reordered.
+     * Optional: CAF only calls this if the queue implements it.
+     * @param items The items that were reordered.
+     * @param insertBefore ID of the item that is located immediately after the
+     *     reordered list. If `insertBefore` is not provided, the reordered list
+     *     will be appended to the end of the queue.
+     */
+    onItemsReordered?(items: messages.QueueItem[], insertBefore?: number): void;
+
+    /**
      * Returns previous items before the reference item; often at the beginning of the queue; called by the receiver MediaManager.
      */
     prevItems(itemId?: number): messages.QueueItem[] | Promise<messages.QueueItem[]>;
@@ -234,6 +246,22 @@ export class QueueBase {
 
 // So we can have some auxiliary private types.
 export {};
+
+/**
+ * An XML node, in Shaka Player's shaka.extern.xml.Node format.
+ * Not part of the CAF API; used by {@link DashTimedMetadata.eventNode}.
+ * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.xml.Node
+ */
+interface ShakaXmlNode {
+    /** The name of the element. */
+    tagName: string;
+    /** The attributes of the element. */
+    attributes: { [key: string]: string };
+    /** The child nodes or string body of the element. */
+    children: Array<ShakaXmlNode | string>;
+    /** The parent of the current element. */
+    parent: ShakaXmlNode | null;
+}
 
 /**
  * Event types whose listeners receive a {@link MediaElementEventHandler}.
@@ -319,7 +347,9 @@ type RequestEventType =
     | typeof events.EventType.REQUEST_QUEUE_REORDER
     | typeof events.EventType.REQUEST_QUEUE_GET_ITEM_RANGE
     | typeof events.EventType.REQUEST_QUEUE_GET_ITEMS
-    | typeof events.EventType.REQUEST_QUEUE_GET_ITEM_IDS;
+    | typeof events.EventType.REQUEST_QUEUE_GET_ITEM_IDS
+    | typeof events.EventType.REQUEST_GET_STATUS
+    | typeof events.EventType.REQUEST_PRELOAD;
 
 /**
  * Event types whose listeners receive a {@link LiveStatusEventHandler}.
@@ -514,6 +544,33 @@ export class PlayerManager {
     ): void;
 
     /**
+     * Adds an event listener for the time drifted player event. Fired when
+     * there is a mismatch between the current time reported by the player and
+     * the estimated current time based on player state and playback rate.
+     */
+    addEventListener(
+        eventType: typeof events.EventType.TIME_DRIFTED,
+        eventListener: (event: events.TimeDriftedEvent) => void,
+    ): void;
+
+    /**
+     * Adds an event listener for the tracks changed player event.
+     */
+    addEventListener(
+        eventType: typeof events.EventType.TRACKS_CHANGED,
+        eventListener: (event: events.TracksChangedEvent) => void,
+    ): void;
+
+    /**
+     * Adds an event listener for the session data player event. Fired for HLS
+     * EXT-X-SESSION-DATA tags when Shaka Player is used.
+     */
+    addEventListener(
+        eventType: typeof events.EventType.SESSION_DATA,
+        eventListener: (event: events.SessionDataEvent) => void,
+    ): void;
+
+    /**
      * Adds an event listener for player events that get the base @see{@link events.Event} in the callback.
      * Includes ALL and CLIP_STARTED
      */
@@ -625,6 +682,24 @@ export class PlayerManager {
     getQueueManager(): QueueManager | null;
 
     /**
+     * Gets the elapsed play time of the current media, without subtracting the
+     * ad break time.
+     * @returns The elapsed time, in seconds. This will be `0` if no media is
+     *     playing.
+     */
+    getRawCurrentTimeSec(): number;
+
+    /**
+     * Returns the current media seekable range.
+     *
+     * NOTE: This matches the units of `getRawCurrentTimeSec()`, but not
+     * `seek()`! This does not account for ads or any other media offsets.
+     * Unless you are sure you need the raw values, you should be using
+     * `getLiveSeekableRange()` instead.
+     */
+    getRawSeekableRange(): messages.Range | null;
+
+    /**
      * Gets media start time in absolute time for live.
      */
     getStartAbsoluteTime(): number | null;
@@ -633,7 +708,7 @@ export class PlayerManager {
      * Returns stats about playback. Stats are aggregated over the entire playback
      * session where appropriate.
      */
-    getStats(): Stats;
+    getStats(): stats.Stats;
 
     getTextTracksManager(): TextTracksManager;
 
@@ -884,9 +959,17 @@ export class PlaybackConfig {
 
     /**
      * Handler to process manifest data. The handler is passed the manifest,
-     * and returns the modified manifest.
+     * and returns the modified manifest. The last parameter is the original
+     * Shaka Player request (shaka.extern.Request) which gave rise to this
+     * response, and is undefined if Shaka Player is not being used.
      */
-    manifestHandler?: ((manifest: string) => string | Promise<string>) | undefined;
+    manifestHandler?:
+        | ((
+            manifest: string,
+            responseInfo: NetworkResponseInfo,
+            request?: { [key: string]: any },
+        ) => string | Promise<string>)
+        | undefined;
 
     /**
      * A function to customize request to get a manifest.
@@ -936,6 +1019,25 @@ export class NetworkRequestInfo {
     headers: Record<string, string>;
 
     /**
+     * Defines contextual data about a request, directly based on Shaka Player's
+     * shaka.extern.RequestContext.
+     * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.RequestContext
+     */
+    shakaRequestContext?: { [key: string]: any } | null | undefined;
+
+    /**
+     * Shaka-specific request information directly based on Shaka Player's
+     * shaka.extern.Request.
+     * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.Request
+     */
+    shakaRequestInfo?: { [key: string]: any } | null | undefined;
+
+    /**
+     * The network request timeout, in milliseconds.
+     */
+    timeoutInterval?: number | null | undefined;
+
+    /**
      * The URL requested.
      */
     url: string | null;
@@ -944,6 +1046,17 @@ export class NetworkRequestInfo {
      * Indicates whether CORS Access-Control requests should be made using credentials such as cookies or authorization headers.
      */
     withCredentials: boolean;
+}
+
+/**
+ * HTTP(s) Response information.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.NetworkResponseInfo
+ */
+export class NetworkResponseInfo {
+    /**
+     * An object containing properties that were sent in the response headers.
+     */
+    headers: Record<string, string> | null;
 }
 
 /**
@@ -974,6 +1087,14 @@ export type ShakaVariant = (typeof ShakaVariant)[keyof typeof ShakaVariant];
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.CastReceiverOptions
  */
 export class CastReceiverOptions {
+    /**
+     * How far in advance we should preload the contents of an individual ad
+     * break, in seconds. This allows you to avoid preloading an ad break too
+     * far in advance, and thus confuse your ad metrics. If not provided, a
+     * default of 5 seconds is used.
+     */
+    adBreakPreloadTime?: number | undefined;
+
     /**
      * Optional map of custom messages namespaces to initialize and their types.
      * Custom messages namespaces need to be initiated before the application started;
@@ -1392,8 +1513,17 @@ export class DashTimedMetadata {
 
     /**
      * The XML element that defines the Event.
+     * @deprecated No longer provided natively by Shaka Player v5+, and computed
+     *     for backward compatibility. Use eventNode instead, which is cheaper.
      */
     eventElement?: Element;
+
+    /**
+     * The XML element that defines the Event, in Shaka Player's
+     * shaka.extern.xml.Node format.
+     * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.xml.Node
+     */
+    eventNode?: ShakaXmlNode | undefined;
 
     /**
      * Identifies the message scheme.
@@ -1485,53 +1615,8 @@ export class HlsTimedMetadata {
 }
 
 /**
- * Represents playback statistics. Statistics attribtues are aggregated over the
- * entire receiver session (including multiple items in a queue) where indicated.
- * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.Stats
+ * Represents playback statistics.
+ * @deprecated Use {@link stats.Stats}, where the docs now describe this type.
+ *     This name is kept for compatibility.
  */
-export interface Stats {
-    /**
-     * The total time spent in a buffering state, in seconds. This is aggregated
-     * over all media items in the current receiver session.
-     */
-    bufferingTime?: number | undefined;
-
-    /**
-     * The total number of frames decoded. This is aggregated over all media items
-     * in the current receiver session.
-     */
-    decodedFrames?: number | undefined;
-
-    /**
-     * The total number of frames dropped. This is aggregated over all media items
-     * in the current receiver session.
-     */
-    droppedFrames?: number | undefined;
-
-    /**
-     * The estimated bandwidth. This is currently only supported while using Shaka.
-     */
-    estimatedBandwidth?: number | undefined;
-
-    /**
-     * The height of the current video track. Undefined if no video is playing.
-     */
-    height?: number | undefined;
-
-    /**
-     * The total time spent in a non-buffering state, in seconds. This is aggregated
-     * over all media items in the current receiver session.
-     */
-    playTime?: number | undefined;
-
-    /**
-     * The bandwidth required for the current streams (total, in bit/sec). Undefined
-     * if no streams are currently active.
-     */
-    streamBandwidth?: number | undefined;
-
-    /**
-     * The width of the current video track. Undefined if no video is playing.
-     */
-    width?: number | undefined;
-}
+export type Stats = stats.Stats;

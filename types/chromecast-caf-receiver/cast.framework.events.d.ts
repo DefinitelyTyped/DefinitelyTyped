@@ -89,12 +89,33 @@ export const EventType: {
     readonly REQUEST_QUEUE_GET_ITEMS: "REQUEST_QUEUE_GET_ITEMS";
     readonly REQUEST_QUEUE_GET_ITEM_IDS: "REQUEST_QUEUE_GET_ITEM_IDS";
     readonly REQUEST_PRECACHE: "REQUEST_PRECACHE";
+    /**
+     * Fired when a `GET_STATUS` message is received. Event is a
+     * {@link RequestEvent}.
+     */
+    readonly REQUEST_GET_STATUS: "REQUEST_GET_STATUS";
+    /**
+     * Fired when a `PRELOAD` message is received. Event is a
+     * {@link RequestEvent}.
+     */
+    readonly REQUEST_PRELOAD: "REQUEST_PRELOAD";
     readonly TIMED_METADATA_CHANGED: "TIMED_METADATA_CHANGED";
     readonly TIMED_METADATA_ENTER: "TIMED_METADATA_ENTER";
     readonly TIMED_METADATA_EXIT: "TIMED_METADATA_EXIT";
     readonly LIVE_IS_MOVING_WINDOW_CHANGED: "LIVE_IS_MOVING_WINDOW_CHANGED";
     readonly LIVE_ENDED: "LIVE_ENDED";
     readonly TRACKS_CHANGED: "TRACKS_CHANGED";
+    /**
+     * Fired when there is a mismatch between the current time reported by the
+     * player and the estimated current time based on player state and playback
+     * rate. Event is a {@link TimeDriftedEvent}.
+     */
+    readonly TIME_DRIFTED: "TIME_DRIFTED";
+    /**
+     * Fired for HLS EXT-X-SESSION-DATA tags when Shaka Player is used. Event is
+     * a {@link SessionDataEvent}.
+     */
+    readonly SESSION_DATA: "SESSION_DATA";
 };
 /**
  * Player event types for @see{@link framework.PlayerManager}.
@@ -151,6 +172,10 @@ export type DetailedErrorCode = (typeof DetailedErrorCode)[keyof typeof Detailed
  * https://developers.google.com/cast/docs/reference/caf_receiver/cast.framework.events#.EventType
  */
 export const ErrorSeverity: {
+    /**
+     * Unknown error severity.
+     */
+    readonly UNKNOWN: 0;
     readonly RECOVERABLE: 1;
     readonly CRITICAL: 2;
 };
@@ -160,7 +185,76 @@ export const ErrorSeverity: {
  */
 export type ErrorSeverity = (typeof ErrorSeverity)[keyof typeof ErrorSeverity];
 
-export type EndedReason = "END_OF_STREAM" | "ERROR" | "STOPPED" | "INTERRUPTED" | "SKIPPED" | "BREAK_SWITCH";
+/**
+ * Reasons for how playback ends.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events#.EndedReason
+ */
+export const EndedReason: {
+    /**
+     * Playback ended because we reach the end of current stream.
+     */
+    readonly END_OF_STREAM: "END_OF_STREAM";
+    /**
+     * Playback ended because we encountered an error.
+     */
+    readonly ERROR: "ERROR";
+    /**
+     * Playback ended because an operation forces us to stop the current stream.
+     */
+    readonly STOPPED: "STOPPED";
+    /**
+     * Playback ended because of a new loaded item.
+     */
+    readonly INTERRUPTED: "INTERRUPTED";
+    /**
+     * Playback ended because of a skip ad operation.
+     */
+    readonly SKIPPED: "SKIPPED";
+    /**
+     * Playback ended because of switching stitched break.
+     */
+    readonly BREAK_SWITCH: "BREAK_SWITCH";
+    /**
+     * Playback ended because an existing preload player was interrupted or
+     * superseded. This distinguishes preloading cancellations from active
+     * player cancellations (STOPPED).
+     */
+    readonly PRELOAD_INTERRUPTED: "PRELOAD_INTERRUPTED";
+    /**
+     * Playback ended because a concurrent load request was cancelled before
+     * completion. This distinguishes pending load aborts from active stream
+     * interruptions (INTERRUPTED).
+     */
+    readonly LOAD_CANCELLED: "LOAD_CANCELLED";
+    /**
+     * Playback ended specifically because the sender issued an explicit STOP
+     * request. This provides more granularity than the generic STOPPED reason.
+     */
+    readonly SENDER_STOPPED: "SENDER_STOPPED";
+    /**
+     * Playback ended specifically because a new media load interrupted the
+     * active player. This provides more granularity than the generic
+     * INTERRUPTED reason for active streams.
+     */
+    readonly LOAD_INTERRUPTED: "LOAD_INTERRUPTED";
+    /**
+     * Playback ended because a break player was interrupted (e.g., jumping over
+     * an ad break via a seek). This distinguishes ad break interruptions from
+     * standard media interruptions (INTERRUPTED).
+     */
+    readonly BREAK_INTERRUPTED: "BREAK_INTERRUPTED";
+    /**
+     * Playback ended because a break player successfully completed resolving
+     * the main content duration. This differentiates from generic ad boundary
+     * switches (BREAK_SWITCH).
+     */
+    readonly BREAK_RESOLVED: "BREAK_RESOLVED";
+};
+/**
+ * Reasons for how playback ends.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events#.EndedReason
+ */
+export type EndedReason = (typeof EndedReason)[keyof typeof EndedReason];
 
 /**
  * Event data for @see{@link EventType.SEGMENT_DOWNLOADED} event.
@@ -281,7 +375,18 @@ export class InbandTrackAddedEvent {
 
 /** Event data for @see{@link EventType.ID3} event. */
 export class Id3Event extends Event {
-    constructor(segmentData: Uint8Array, timestamp: number);
+    constructor(segmentData: Uint8Array, timestamp: number, frameDescription?: Uint8Array, frameType?: string);
+
+    /**
+     * The ID3 frame's description.
+     */
+    frameDescription?: Uint8Array | undefined;
+
+    /**
+     * The ID3 frame tag. A full list of possible tags are listed in
+     * https://exiftool.org/TagNames/ID3.html.
+     */
+    frameType?: string | undefined;
 
     /**
      * The segment data.
@@ -467,7 +572,13 @@ export class BitrateChangedEvent extends Event {
  * Event data for @see{@link EventType.ERROR} event.
  */
 export class ErrorEvent extends Event {
-    constructor(detailedErrorCode?: DetailedErrorCode, error?: any, reason?: ErrorReason, severity?: ErrorSeverity);
+    constructor(
+        detailedErrorCode?: DetailedErrorCode,
+        error?: any,
+        reason?: ErrorReason,
+        severity?: ErrorSeverity,
+        triggeredByEventType?: EventType,
+    );
 
     /**
      * An error code representing the cause of the error.
@@ -488,6 +599,14 @@ export class ErrorEvent extends Event {
      * Optional error severity.
      */
     severity?: ErrorSeverity | undefined;
+
+    /**
+     * The CAF event type that triggered this error, if this error event was
+     * thrown because of an error occurring within the event handler for that
+     * event. Undefined if this error event was not triggered by a CAF event
+     * handler implemented by the cast receiver application.
+     */
+    triggeredByEventType?: EventType | undefined;
 }
 
 /**
@@ -530,4 +649,64 @@ export class TimedMetadataEvent extends Event {
      * The timed metadata.
      */
     timedMetadataInfo: TimedMetadata;
+}
+
+/**
+ * Event data for the @see{@link EventType.TIME_DRIFTED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.TimeDriftedEvent
+ */
+export class TimeDriftedEvent extends Event {
+    constructor(currentMediaTime: number);
+
+    /**
+     * The actual time in media (in seconds).
+     */
+    currentMediaTime: number;
+}
+
+/**
+ * Event data for the @see{@link EventType.TRACKS_CHANGED} event.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.TracksChangedEvent
+ */
+export class TracksChangedEvent extends Event {
+    constructor();
+}
+
+/**
+ * Event data for the @see{@link EventType.SESSION_DATA} event. Fired for HLS
+ * EXT-X-SESSION-DATA tags, and only when Shaka Player is used.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.events.SessionDataEvent
+ */
+export class SessionDataEvent extends Event {
+    constructor(id: string, uri: string, language: string, value: string);
+
+    /**
+     * The ID of the session data, representing the "DATA-ID" attribute. This
+     * should conform to a reverse DNS naming convention, such as
+     * "com.example.movie.title"; however, there is no central registration
+     * authority, so playlist authors should take care to choose a value that is
+     * unlikely to collide with others.
+     */
+    id: string;
+
+    /**
+     * The language of the session data, representing the "LANGUAGE"
+     * attribute. It contains an RFC 5646 language tag that identifies the
+     * language of "VALUE".
+     */
+    language: string;
+
+    /**
+     * The URI of the session data, representing the "URI" attribute. It
+     * carries a resource relevant to this session data.
+     */
+    uri: string;
+
+    /**
+     * The value of the session data, representing the "VALUE" attribute. It
+     * contains the data identified by "DATA-ID". If the language is specified,
+     * "VALUE" should contain a human-readable string written in the specified
+     * language.
+     */
+    value: string;
 }

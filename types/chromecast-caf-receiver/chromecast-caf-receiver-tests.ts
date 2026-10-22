@@ -97,6 +97,7 @@ const breakManager: BreakManager = {
     getBreakClipById: () => breakClip,
     getBreakClips: () => [breakClip],
     getBreaks: () => [adBreak],
+    getCreativeInfoByClipId: () => null,
     getPlayWatchedBreak: () => true,
     removeBreakById: () => true,
     setBreakClipLoadInterceptor: () => {},
@@ -464,3 +465,60 @@ playerManager.addEventListener([EventType.PAUSE], (event) => {
 // The event group types are not part of the CAF API, so they are not exported.
 // @ts-expect-error
 type PrivateGroupType = import("chromecast-caf-receiver/cast.framework").BreakEventType;
+
+// Newer API additions.
+
+// Playback stats, in the cast.framework.stats namespace.
+const playbackStats = playerManager.getStats();
+// $ExpectType StateChange[] | undefined
+const stateHistory = playbackStats.stateHistory;
+const legacyStats: import("chromecast-caf-receiver/cast.framework").Stats = playbackStats;
+
+// Raw time and seekable range, without ad break adjustments.
+const rawTime: number = playerManager.getRawCurrentTimeSec();
+const rawRangeStart: number | undefined = playerManager.getRawSeekableRange()?.start;
+
+// New event types and their specific event classes.
+playerManager.addEventListener(EventType.SESSION_DATA, (event) => {
+    // $ExpectType string
+    const sessionDataId = event.id;
+});
+playerManager.addEventListener(EventType.TIME_DRIFTED, (event) => {
+    // $ExpectType number
+    const driftedTime = event.currentMediaTime;
+});
+playerManager.addEventListener(cast.framework.events.EventType.MEDIA_FINISHED, (event) => {
+    if (event.endedReason === cast.framework.events.EndedReason.SENDER_STOPPED) {
+        // $ExpectType "SENDER_STOPPED"
+        const senderStopped = event.endedReason;
+    }
+});
+
+// Response handlers receive response information.
+const responsePlaybackConfig = new cast.framework.PlaybackConfig();
+responsePlaybackConfig.manifestHandler = (manifest, responseInfo) => {
+    // $ExpectType Record<string, string> | null
+    const responseHeaders = responseInfo.headers;
+    return manifest;
+};
+// Handlers that ignore the new parameters still work.
+responsePlaybackConfig.segmentHandler = (data) => data;
+
+// Error data details.
+const detailedErrorData = new cast.framework.messages.ErrorData(cast.framework.messages.ErrorType.LOAD_FAILED);
+detailedErrorData.severity = cast.framework.events.ErrorSeverity.UNKNOWN;
+detailedErrorData.itemId = 1;
+
+// Secondary images.
+cast.framework.ui.UiManager.getInstance().setSecondaryImage(
+    cast.framework.ui.SecondaryImagePosition.TOP_RIGHT_VIDEO_OVERLAY,
+    "https://www.foo.bar/logo.png",
+);
+
+// Creative information for break clips.
+const creativeInfo = playerManager.getBreakManager().getCreativeInfoByClipId("clip-id");
+const creativeId: string | undefined = creativeInfo?.creativeId;
+
+// Custom queues may omit onItemsReordered, which CAF only calls if present.
+// $ExpectType ((items: QueueItem[], insertBefore?: number | undefined) => void) | undefined
+const reorderCallback = qBase.onItemsReordered;
