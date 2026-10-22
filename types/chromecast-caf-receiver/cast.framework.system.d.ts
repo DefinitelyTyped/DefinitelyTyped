@@ -156,6 +156,35 @@ export const DisconnectReason: {
      *  crashes or if the sender OS closes the socket.
      */
     readonly UNKNOWN: "unknown";
+    /**
+     * The receiver application stopped itself.
+     */
+    readonly APPLICATION_STOP: "application_stop";
+    /**
+     * The platform closed the application while senders were still connected.
+     */
+    readonly ABRUPT_SHUTDOWN: "abrupt_shutdown";
+    /**
+     * The application closed when no senders were connected.
+     */
+    readonly NO_SENDERS: "no_senders";
+    /**
+     * The underlying SSL socket was closed by the sender without a graceful
+     * virtual connection close.
+     */
+    readonly TRANSPORT_CLOSED: "transport_closed";
+    /**
+     * The underlying SSL socket was aborted by the peer.
+     */
+    readonly TRANSPORT_ABORTED: "transport_aborted";
+    /**
+     * The underlying SSL socket was closed because of heartbeat failure.
+     */
+    readonly TRANSPORT_TOO_LONG_INACTIVE: "transport_too_long_inactive";
+    /**
+     * The connection was gracefully closed by the Cast receiver.
+     */
+    readonly CLOSED_BY_SELF: "closed_by_self";
 };
 /**
  * Represents the disconnect reason.
@@ -206,10 +235,19 @@ export const DeviceCapabilities: {
      */
     readonly BLUETOOTH_SUPPORTED: "bluetooth_supported";
     /**
+     * Whether this device is running on an audio-only platform. Some APIs may
+     * not be fully supported on such platforms.
+     */
+    readonly CAST_LITE_ONLY: "cast_lite_only";
+    /**
      * Display output support. For example, Chromecast and Cast TVs have display
      * support, Chromecast Audio and Google Home have not.
      */
     readonly DISPLAY_SUPPORTED: "display_supported";
+    /**
+     * Whether this device supports an input mechanism, such as an unlocking DPAD.
+     */
+    readonly DPAD_INPUT_SUPPORTED: "dpad_input_supported";
     /**
      * Hi-res audio (up to 24-bit / 96KHz) support.
      */

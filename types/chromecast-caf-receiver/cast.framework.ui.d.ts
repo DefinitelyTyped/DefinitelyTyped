@@ -62,6 +62,10 @@ export const PlayerDataEventType: {
     readonly MEDIA_SESSION_ID_CHANGED: "mediaSessionIdChanged";
     readonly MEDIA_START_ABSOLUTE_TIME_CHANGED: "mediaStartAbsoluteTimeChanged";
     readonly METADATA_CHANGED: "metadataChanged";
+    /**
+     * nextMetadata field changed.
+     */
+    readonly NEXT_METADATA_CHANGED: "nextMetadataChanged";
     readonly NEXT_SUBTITLE_CHANGED: "nextSubtitleChanged";
     readonly NEXT_THUMBNAIL_URL_CHANGED: "nextThumbnailUrlChanged";
     readonly NEXT_TITLE_CHANGED: "nextTitleChanged";
@@ -70,6 +74,10 @@ export const PlayerDataEventType: {
     readonly PRELOADING_NEXT_CHANGED: "preloadingNextChanged";
     readonly PRESENTATION_CHANGED: "presentationChanged";
     readonly QUEUE_DATA_CHANGED: "queueDataChanged";
+    /**
+     * secondaryImageUrl field changed.
+     */
+    readonly SECONDARY_IMAGE_URL_CHANGED: "secondaryImageUrlChanged";
     readonly SECTION_DURATION_CHANGED: "sectionDurationChanged";
     readonly SECTION_START_TIME_IN_MEDIA_CHANGED: "sectionStartTimeInMediaChanged";
     readonly STATE_CHANGED: "stateChanged";
@@ -90,7 +98,13 @@ export type PlayerDataEventType = (typeof PlayerDataEventType)[keyof typeof Play
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.ApplicationData
  */
 export class ApplicationData {
-    constructor(name: string, iconUrl: string, groupName?: string, isRemoteControl?: boolean);
+    constructor(
+        name: string,
+        iconUrl: string,
+        groupName?: string,
+        isRemoteControl?: boolean,
+        isActiveGroupPlayback?: boolean,
+    );
 
     /**
      * Name of audio group for running app.
@@ -227,6 +241,12 @@ export class PlayerData {
     isAtLiveEdge: boolean;
 
     /**
+     * Indicate that the receiver is playing an expanded break. This is only
+     * relevant for dynamic breaks.
+     */
+    isBreakExpanded?: boolean | undefined;
+
+    /**
      * Indicate break clip can be skipped.
      */
     isBreakSkippable: boolean;
@@ -337,6 +357,11 @@ export class PlayerData {
     queueData?: QueueData | undefined;
 
     /**
+     * Content secondary image url.
+     */
+    secondaryImageUrl?: string | undefined;
+
+    /**
      * Indicate the section duration in seconds.
      */
     sectionDuration?: number | undefined;
@@ -409,6 +434,15 @@ export class Controls {
     getSafeAreaHeight(): number;
 
     /**
+     * Signals whether the media controls overlay will be rendered during
+     * playback on top of the application UI.
+     *
+     * @returns a promise that resolves to `true` if the media controls will be
+     *     rendered and to `false` otherwise.
+     */
+    hasMediaControlsOverlay(): Promise<boolean>;
+
+    /**
      * Set Media Browse content for users to discover more
      * contents from your receiver.
      *
@@ -416,6 +450,38 @@ export class Controls {
      */
     setBrowseContent(browseContent: BrowseContent | null): void;
 }
+
+/**
+ * Provides an interface for managing the UI.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui.UiManager
+ */
+export class UiManager {
+    static getInstance(): UiManager;
+
+    /**
+     * Sets secondary image.
+     *
+     * @param position The position where the secondary UI should be rendered.
+     * @param url The URL where the secondary image is hosted.
+     */
+    setSecondaryImage(position: SecondaryImagePosition, url: string): void;
+}
+
+/**
+ * Position of the secondary image.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.SecondaryImagePosition
+ */
+export const SecondaryImagePosition: {
+    /**
+     * Sets secondary logo at top right on the overlay.
+     */
+    readonly TOP_RIGHT_VIDEO_OVERLAY: "TOP_RIGHT_VIDEO_OVERLAY";
+};
+/**
+ * Position of the secondary image.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.SecondaryImagePosition
+ */
+export type SecondaryImagePosition = (typeof SecondaryImagePosition)[keyof typeof SecondaryImagePosition];
 
 /**
  * Content for the media browse carousel. This content should be used for both
@@ -680,6 +746,16 @@ export const ControlsButton: {
      * Like button.
      */
     readonly LIKE: "like";
+
+    /**
+     * Like toggle button with a heart icon style.
+     */
+    readonly LIKE_HEART: "like-heart";
+
+    /**
+     * Lyrics toggle button.
+     */
+    readonly LYRICS: "lyrics";
 
     /**
      * Clear slot from any buttons.
