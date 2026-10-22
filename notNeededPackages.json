@@ -5073,6 +5073,10 @@
             "libraryName": "net-keepalive",
             "asOfVersion": "1.0.0"
         },
+        "neverbounce": {
+            "libraryName": "neverbounce",
+            "asOfVersion": "5.0.1"
+        },
         "new-github-issue-url": {
             "libraryName": "new-github-issue-url",
             "asOfVersion": "0.2.1"
