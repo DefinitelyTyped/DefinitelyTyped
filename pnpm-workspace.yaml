@@ -2,13 +2,9 @@ packages:
   - 'scripts'
   - 'types/**'
 
-packageConfigs:
-  '@types/express-brute-mongo':
-    overrides:
-      '@types/node': workspace:*
-  '@types/marked-terminal':
-    overrides:
-      marked: 6.0.0
+overrides:
+  '@types/mongodb@2.1.28>@types/node': workspace:*
+  '@types/marked-terminal>marked': 6.0.0
 
 lockfile: false
 
@@ -59,6 +55,4 @@ dedupeDirectDeps: false
 # Don't allow every package to see every other package.
 hoistWorkspacePackages: false
 
-# Remove once https://github.com/pnpm/pnpm/issues/6457 is fixed
-# and we can set a hoisting limit of "workspaces" like in Yarn.
-sharedWorkspaceLockfile: false
+sharedWorkspaceLockfile: true
