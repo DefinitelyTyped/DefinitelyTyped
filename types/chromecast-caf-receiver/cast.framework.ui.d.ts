@@ -20,60 +20,70 @@ export type ContentType = "video" | "audio" | "image";
  * UI state of receiver application.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.State
  */
-export enum State {
-    LAUNCHING = "launching",
-    IDLE = "idle",
-    LOADING = "loading",
-    BUFFERING = "buffering",
-    PAUSED = "paused",
-    PLAYING = "playing",
-}
+export const State: {
+    readonly LAUNCHING: "launching";
+    readonly IDLE: "idle";
+    readonly LOADING: "loading";
+    readonly BUFFERING: "buffering";
+    readonly PAUSED: "paused";
+    readonly PLAYING: "playing";
+};
+/**
+ * UI state of receiver application.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.State
+ */
+export type State = (typeof State)[keyof typeof State];
 
 /**
  * Player data changed event types.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.PlayerDataEventType
  */
-export enum PlayerDataEventType {
-    ACTIVE_TRACK_IDS_CHANGED = "activeTrackIdsChanged",
-    ANY_CHANGE = "*",
-    APPLICATION_DATA_CHANGED = "applicationDataChanged",
-    BREAK_PERCENTAGE_POSITIONS_CHANGED = "breakPercentagePositionsChanged",
-    BREAK_TITLE_CHANGED = "breakTitleChanged",
-    CONTENT_TYPE_CHANGED = "contentTypeChanged",
-    CURRENT_BREAK_CLIP_NUMBER_CHANGED = "currentBreakClipNumberChanged",
-    CURRENT_TIME_CHANGED = "currentTimeChanged",
-    CUSTOM_STATE_CHANGED = "customStateChanged",
-    DISPLAY_STATUS_CHANGED = "displayStatusChanged",
-    DISPLAY_TYPE_CHANGED = "displayTypeChanged",
-    DURATION_CHANGED = "durationChanged",
-    IS_AT_LIVE_EDGE_CHANGED = "isAtLiveEdgeChanged",
-    IS_BREAK_SKIPPABLE_CHANGED = "isBreakSkippableChanged",
-    IS_LIVE_CHANGED = "isLiveChanged",
-    IS_PLAYING_BREAK_CHANGED = "isPlayingBreakChanged",
-    IS_SEEKING_CHANGED = "isSeekingChanged",
-    LIVE_SEEKABLE_RANGE_CHANGED = "liveSeekableRangeChanged",
-    MEDIA_CATEGORY_CHANGED = "mediaCategoryChanged",
-    MEDIA_CHANGED = "mediaChanged",
-    MEDIA_SESSION_ID_CHANGED = "mediaSessionIdChanged",
-    MEDIA_START_ABSOLUTE_TIME_CHANGED = "mediaStartAbsoluteTimeChanged",
-    METADATA_CHANGED = "metadataChanged",
-    NEXT_SUBTITLE_CHANGED = "nextSubtitleChanged",
-    NEXT_THUMBNAIL_URL_CHANGED = "nextThumbnailUrlChanged",
-    NEXT_TITLE_CHANGED = "nextTitleChanged",
-    NUMBER_BREAK_CLIPS_CHANGED = "numberBreakClipsChanged",
-    PLAYBACK_RATE_CHANGED = "playbackRateChanged",
-    PRELOADING_NEXT_CHANGED = "preloadingNextChanged",
-    PRESENTATION_CHANGED = "presentationChanged",
-    QUEUE_DATA_CHANGED = "queueDataChanged",
-    SECTION_DURATION_CHANGED = "sectionDurationChanged",
-    SECTION_START_TIME_IN_MEDIA_CHANGED = "sectionStartTimeInMediaChanged",
-    STATE_CHANGED = "stateChanged",
-    SUBTITLE_CHANGED = "subtitleChanged",
-    SUPPORTED_MEDIA_COMMANDS_CHANGED = "supportedMediaCommandsChanged",
-    THUMBNAIL_URL_CHANGED = "thumbnailUrlChanged",
-    TITLE_CHANGED = "titleChanged",
-    WHEN_SKIPPABLE_CHANGED = "whenSkippableChanged",
-}
+export const PlayerDataEventType: {
+    readonly ACTIVE_TRACK_IDS_CHANGED: "activeTrackIdsChanged";
+    readonly ANY_CHANGE: "*";
+    readonly APPLICATION_DATA_CHANGED: "applicationDataChanged";
+    readonly BREAK_PERCENTAGE_POSITIONS_CHANGED: "breakPercentagePositionsChanged";
+    readonly BREAK_TITLE_CHANGED: "breakTitleChanged";
+    readonly CONTENT_TYPE_CHANGED: "contentTypeChanged";
+    readonly CURRENT_BREAK_CLIP_NUMBER_CHANGED: "currentBreakClipNumberChanged";
+    readonly CURRENT_TIME_CHANGED: "currentTimeChanged";
+    readonly CUSTOM_STATE_CHANGED: "customStateChanged";
+    readonly DISPLAY_STATUS_CHANGED: "displayStatusChanged";
+    readonly DISPLAY_TYPE_CHANGED: "displayTypeChanged";
+    readonly DURATION_CHANGED: "durationChanged";
+    readonly IS_AT_LIVE_EDGE_CHANGED: "isAtLiveEdgeChanged";
+    readonly IS_BREAK_SKIPPABLE_CHANGED: "isBreakSkippableChanged";
+    readonly IS_LIVE_CHANGED: "isLiveChanged";
+    readonly IS_PLAYING_BREAK_CHANGED: "isPlayingBreakChanged";
+    readonly IS_SEEKING_CHANGED: "isSeekingChanged";
+    readonly LIVE_SEEKABLE_RANGE_CHANGED: "liveSeekableRangeChanged";
+    readonly MEDIA_CATEGORY_CHANGED: "mediaCategoryChanged";
+    readonly MEDIA_CHANGED: "mediaChanged";
+    readonly MEDIA_SESSION_ID_CHANGED: "mediaSessionIdChanged";
+    readonly MEDIA_START_ABSOLUTE_TIME_CHANGED: "mediaStartAbsoluteTimeChanged";
+    readonly METADATA_CHANGED: "metadataChanged";
+    readonly NEXT_SUBTITLE_CHANGED: "nextSubtitleChanged";
+    readonly NEXT_THUMBNAIL_URL_CHANGED: "nextThumbnailUrlChanged";
+    readonly NEXT_TITLE_CHANGED: "nextTitleChanged";
+    readonly NUMBER_BREAK_CLIPS_CHANGED: "numberBreakClipsChanged";
+    readonly PLAYBACK_RATE_CHANGED: "playbackRateChanged";
+    readonly PRELOADING_NEXT_CHANGED: "preloadingNextChanged";
+    readonly PRESENTATION_CHANGED: "presentationChanged";
+    readonly QUEUE_DATA_CHANGED: "queueDataChanged";
+    readonly SECTION_DURATION_CHANGED: "sectionDurationChanged";
+    readonly SECTION_START_TIME_IN_MEDIA_CHANGED: "sectionStartTimeInMediaChanged";
+    readonly STATE_CHANGED: "stateChanged";
+    readonly SUBTITLE_CHANGED: "subtitleChanged";
+    readonly SUPPORTED_MEDIA_COMMANDS_CHANGED: "supportedMediaCommandsChanged";
+    readonly THUMBNAIL_URL_CHANGED: "thumbnailUrlChanged";
+    readonly TITLE_CHANGED: "titleChanged";
+    readonly WHEN_SKIPPABLE_CHANGED: "whenSkippableChanged";
+};
+/**
+ * Player data changed event types.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.PlayerDataEventType
+ */
+export type PlayerDataEventType = (typeof PlayerDataEventType)[keyof typeof PlayerDataEventType];
 
 /**
  * Data about running application or remote controlled application.
@@ -517,264 +527,295 @@ export class UiConfig {
  * Aspect ratio of all images in the media browse carousel.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageAspectRatio
  */
-export enum BrowseImageAspectRatio {
+export const BrowseImageAspectRatio: {
     /**
      * Square images.
      */
-    SQUARE_1_TO_1 = "SQUARE_1_TO_1",
+    readonly SQUARE_1_TO_1: "SQUARE_1_TO_1";
 
     /**
      * Portrait orientation images with 2:3 aspect ratio. UI
      * for portrait orientation is not final and is a subject
      * to change.
      */
-    PORTRAIT_2_TO_3 = "PORTRAIT_2_TO_3",
+    readonly PORTRAIT_2_TO_3: "PORTRAIT_2_TO_3";
 
     /**
      * Landscape orientation images with 16:9 aspect ratio.
      */
-    LANDSCAPE_16_TO_9 = "LANDSCAPE_16_TO_9",
-}
+    readonly LANDSCAPE_16_TO_9: "LANDSCAPE_16_TO_9";
+};
+/**
+ * Aspect ratio of all images in the media browse carousel.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageAspectRatio
+ */
+export type BrowseImageAspectRatio = (typeof BrowseImageAspectRatio)[keyof typeof BrowseImageAspectRatio];
 
 /**
  * Type of placeholder that will be used if image is not
  * available for the browse item.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageType
  */
-export enum BrowseImageType {
+export const BrowseImageType: {
     /**
      * A playlist that consists of songs by a specific
      * music artist or band, or radio seeded by an artist
      * or band.
      */
-    ARTIST = "ARTIST",
+    readonly ARTIST: "ARTIST";
 
     /**
      * An audio book.
      */
-    AUDIO_BOOK = "AUDIO_BOOK",
+    readonly AUDIO_BOOK: "AUDIO_BOOK";
 
     /**
      * Episode of a TV show.
      */
-    EPISODE = "EPISODE",
+    readonly EPISODE: "EPISODE";
 
     /**
      * A movie.
      */
-    MOVIE = "MOVIE",
+    readonly MOVIE: "MOVIE";
 
     /**
      * A playlist that consists of songs from a specific
      * music album or radio seeded by album.
      */
-    MUSIC_ALBUM = "MUSIC_ALBUM",
+    readonly MUSIC_ALBUM: "MUSIC_ALBUM";
 
     /**
      * A music genre.
      */
-    MUSIC_GENRE = "MUSIC_GENRE",
+    readonly MUSIC_GENRE: "MUSIC_GENRE";
 
     /**
      * A music mix seeded by genre.
      */
-    MUSIC_MIX = "MUSIC_MIX",
+    readonly MUSIC_MIX: "MUSIC_MIX";
 
     /**
      * A song track or radio seeded by the track.
      */
-    MUSIC_TRACK = "MUSIC_TRACK",
+    readonly MUSIC_TRACK: "MUSIC_TRACK";
 
     /**
      * News audio or video.
      */
-    NEWS = "NEWS",
+    readonly NEWS: "NEWS";
 
     /**
      * An image.
      */
-    PHOTO = "PHOTO",
+    readonly PHOTO: "PHOTO";
 
     /**
      * A playlist publicly available or radio seeded by playlist.
      * Playlists always contain a finite and defined set of songs.
      */
-    PLAYLIST = "PLAYLIST",
+    readonly PLAYLIST: "PLAYLIST";
 
     /**
      * A podcast series.
      */
-    PODCAST = "PODCAST",
+    readonly PODCAST: "PODCAST";
 
     /**
      * A radio station. This could be a terrestrial or an internet
      * radio station.
      */
-    RADIO_STATION = "RADIO_STATION",
+    readonly RADIO_STATION: "RADIO_STATION";
 
     /**
      * A TV show.
      */
-    TV_SHOW = "TV_SHOW",
+    readonly TV_SHOW: "TV_SHOW";
 
     /**
      * A single video.
      */
-    VIDEO = "VIDEO",
-}
+    readonly VIDEO: "VIDEO";
+};
+/**
+ * Type of placeholder that will be used if image is not
+ * available for the browse item.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseImageType
+ */
+export type BrowseImageType = (typeof BrowseImageType)[keyof typeof BrowseImageType];
 
 /**
  * Badge that will be displayed on top of the browse item image.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseMediaBadge
  */
-export enum BrowseMediaBadge {
+export const BrowseMediaBadge: {
     /**
      * LIVE indicator badge. Should be used if stream is a live
      * content.
      */
-    LIVE = "LIVE",
-}
+    readonly LIVE: "LIVE";
+};
+/**
+ * Badge that will be displayed on top of the browse item image.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.BrowseMediaBadge
+ */
+export type BrowseMediaBadge = (typeof BrowseMediaBadge)[keyof typeof BrowseMediaBadge];
 
 /**
  * Predefined buttons for the Media Controls overlay
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsButton
  */
-export enum ControlsButton {
+export const ControlsButton: {
     /**
      * Turn on/off closed captions.
      */
-    CAPTIONS = "captions",
+    readonly CAPTIONS: "captions";
 
     /**
      * Dislike butoon.
      */
-    DISLIKE = "dislike",
+    readonly DISLIKE: "dislike";
 
     /**
      * Like button.
      */
-    LIKE = "like",
+    readonly LIKE: "like";
 
     /**
      * Clear slot from any buttons.
      */
-    NO_BUTTON = "no-button",
+    readonly NO_BUTTON: "no-button";
 
     /**
      * Go to the next item in queue.
      */
-    QUEUE_NEXT = "queue-next",
+    readonly QUEUE_NEXT: "queue-next";
 
     /**
      * Go to the previous item in queue.
      */
-    QUEUE_PREV = "queue-prev",
+    readonly QUEUE_PREV: "queue-prev";
 
     /**
      * Toggle repeat mode.
      */
-    REPEAT = "repeat",
+    readonly REPEAT: "repeat";
 
     /**
      * Seek 10 seconds backward.
      */
-    SEEK_BACKWARD_10 = "seek-backward-10",
+    readonly SEEK_BACKWARD_10: "seek-backward-10";
 
     /**
      * Seek 15 seconds backward.
      */
-    SEEK_BACKWARD_15 = "seek-backward-15",
+    readonly SEEK_BACKWARD_15: "seek-backward-15";
 
     /**
      * Seek 30 seconds backward.
      */
-    SEEK_BACKWARD_30 = "seek-backward-30",
+    readonly SEEK_BACKWARD_30: "seek-backward-30";
 
     /**
      * Seek 10 seconds forward.
      */
-    SEEK_FORWARD_10 = "seek-forward-10",
+    readonly SEEK_FORWARD_10: "seek-forward-10";
 
     /**
      * Seek 15 seconds forward.
      */
-    SEEK_FORWARD_15 = "seek-forward-15",
+    readonly SEEK_FORWARD_15: "seek-forward-15";
 
     /**
      * Seek 30 seconds forward.
      */
-    SEEK_FORWARD_30 = "seek-forward-30",
+    readonly SEEK_FORWARD_30: "seek-forward-30";
 
     /**
      * Toggle shuffle mode.
      */
-    SHUFFLE = "shuffle",
+    readonly SHUFFLE: "shuffle";
 
     /**
      * Undocumented
      */
-    SLEEP_TIMER = "sleep-timer",
-}
+    readonly SLEEP_TIMER: "sleep-timer";
+};
+/**
+ * Predefined buttons for the Media Controls overlay
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsButton
+ */
+export type ControlsButton = (typeof ControlsButton)[keyof typeof ControlsButton];
 
 /**
  * Touch Controls interface.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsSlot
  */
-export enum ControlsSlot {
+export const ControlsSlot: {
     /**
      * Side left slot. Deprecated, use SLOT_SECONDARY_1 instead.
      *
      * @deprecated
      */
-    SLOT_1 = "slot-1",
+    readonly SLOT_1: "slot-1";
 
     /**
      * Center left slot. Deprecated, use SLOT_PRIMARY_1 instead.
      *
      * @deprecated
      */
-    SLOT_2 = "slot-2",
+    readonly SLOT_2: "slot-2";
 
     /**
      * Center right slot. Deprecated, use SLOT_PRIMARY_2 instead.
      *
      * @deprecated
      */
-    SLOT_3 = "slot-3",
+    readonly SLOT_3: "slot-3";
 
     /**
      * Side right slot. Deprecated, use SLOT_SECONDARY_2 instead.
      *
      * @deprecated
      */
-    SLOT_4 = "slot-4",
+    readonly SLOT_4: "slot-4";
 
     /**
      * Center left slot. Placed to the left of the play/pause button.
      */
-    SLOT_PRIMARY_1 = "slot-primary-1",
+    readonly SLOT_PRIMARY_1: "slot-primary-1";
 
     /**
      * Center right slot. Placed to the right of the play/pause button.
      */
-    SLOT_PRIMARY_2 = "slot-primary-2",
+    readonly SLOT_PRIMARY_2: "slot-primary-2";
 
     /**
      * Side left slot. Aligned to the left edge of the screen.
      */
-    SLOT_SECONDARY_1 = "slot-secondary-1",
+    readonly SLOT_SECONDARY_1: "slot-secondary-1";
 
     /**
      * Side right slot. Aligned to the right edge of the screen.
      */
-    SLOT_SECONDARY_2 = "slot-secondary-2",
-}
+    readonly SLOT_SECONDARY_2: "slot-secondary-2";
+};
+/**
+ * Touch Controls interface.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.ControlsSlot
+ */
+export type ControlsSlot = (typeof ControlsSlot)[keyof typeof ControlsSlot];
 
 /**
  * Device display type.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.DisplayType
  */
-export enum DisplayType {
-    TV = "tv",
-    TOUCH = "touch",
-}
+export const DisplayType: {
+    readonly TV: "tv";
+    readonly TOUCH: "touch";
+};
+/**
+ * Device display type.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.ui#.DisplayType
+ */
+export type DisplayType = (typeof DisplayType)[keyof typeof DisplayType];
