@@ -29,10 +29,5 @@
             "name": "Bryan Kendall",
             "githubUsername": "bkendall"
         }
-    ],
-    "pnpm": {
-        "overrides": {
-            "marked": "6.0.0"
-        }
-    }
+    ]
 }
