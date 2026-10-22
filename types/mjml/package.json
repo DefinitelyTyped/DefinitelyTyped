@@ -7,7 +7,7 @@
         "https://mjml.io"
     ],
     "dependencies": {
-        "@types/mjml-core": "~5.4"
+        "@types/mjml-core": "^5.0.0"
     },
     "devDependencies": {
         "@types/mjml": "workspace:."
