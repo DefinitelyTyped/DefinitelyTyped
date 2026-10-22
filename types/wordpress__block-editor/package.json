@@ -9,7 +9,7 @@
         "@types/react": "^18",
         "@wordpress/blocks": "^15.17.0",
         "@wordpress/components": "^30.9.0",
-        "@wordpress/data": "^10.36.0",
+        "@wordpress/data": "^10.36.0 || ^11.0.0",
         "@wordpress/element": "^6.36.0",
         "@wordpress/global-styles-engine": "^1.4.0",
         "@wordpress/keycodes": "^4.36.0"
