@@ -1250,6 +1250,11 @@ const any: any = null;
 
     result = validator.isPassportNumber("sample", "US");
 
+    const passportNumberLocale: PassportNumberLocale = "US";
+    result = validator.isPassportNumber("sample", passportNumberLocale);
+    // @ts-expect-error
+    const invalidPassportNumberLocale: PassportNumberLocale = "XX";
+
     result = validator.isPort("sample");
 
     result = validator.isPostalCode("sample", "AD");
