@@ -60561,42 +60561,42 @@ declare namespace Excel {
      * Provides information about the `LinkedEntityCellValue` that was requested given a specified `LinkedEntityId`.
      *
      * @remarks
-     * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+     * [Api set: ExcelApi 1.21]
      */
     interface LinkedEntityCellValueLoadedEventArgs {
         /**
          * Any error encountered during the request to load the `LinkedEntityCellValue`.
          *
          * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.21]
          */
         error?: string;
         /**
          * Gets the `LinkedEntityId` of the requested `LinkedEntityCellValue`.
          *
          * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.21]
          */
         id: LinkedEntityId;
         /**
          * Gets the `LinkedEntityCellValue` of the requested `LinkedEntityId`. If the load operation failed, this property is `null`.
          *
          * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.21]
          */
         linkedEntityCellValue?: LinkedEntityCellValue;
         /**
          * Gets the source of the event. See `Excel.EventSource` for details.
          *
          * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.21]
          */
         source: Excel.EventSource | "Local" | "Remote";
         /**
          * Gets the type of the event. See `Excel.EventType` for details.
          *
          * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.21]
          */
         type: "LinkedEntityDataDomainLinkedEntityCellValueLoaded";
     }
@@ -60905,7 +60905,7 @@ declare namespace Excel {
                     If found, the `LinkedEntityCellValue` object will be returned through the `LinkedEntityCellValueLoaded` event.
          *
          * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.21]
          *
          * @param id A specific `LinkedEntityId`
          */
@@ -60942,7 +60942,7 @@ declare namespace Excel {
          * Occurs when the request to load a `LinkedEntityCellValue` is completed.
          *
          * @remarks
-         * [Api set: ExcelApi BETA (PREVIEW ONLY)]
+         * [Api set: ExcelApi 1.21]
          *
          * This event isn't supported in Excel on the web.
          *
