@@ -1837,6 +1837,10 @@
             "libraryName": "dom-loaded",
             "asOfVersion": "1.1.0"
         },
+        "dom-parser": {
+            "libraryName": "dom-parser",
+            "asOfVersion": "1.1.5"
+        },
         "domelementtype": {
             "libraryName": "domelementtype",
             "asOfVersion": "2.0.1"
