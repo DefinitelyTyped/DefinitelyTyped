@@ -2029,6 +2029,10 @@
             "libraryName": "email-addresses",
             "asOfVersion": "3.0.0"
         },
+        "email-reply-parser": {
+            "libraryName": "email-reply-parser",
+            "asOfVersion": "2.3.9"
+        },
         "email-validator": {
             "libraryName": "email-validator",
             "asOfVersion": "1.0.6"
