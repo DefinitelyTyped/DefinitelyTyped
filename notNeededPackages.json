@@ -2333,6 +2333,10 @@
             "libraryName": "falcor-json-graph",
             "asOfVersion": "3.2.1"
         },
+        "fast-astar": {
+            "libraryName": "fast-astar",
+            "asOfVersion": "2.0.2"
+        },
         "fast-diff": {
             "libraryName": "fast-diff",
             "asOfVersion": "1.2.0"
