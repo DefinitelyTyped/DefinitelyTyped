@@ -8,7 +8,7 @@
     "devDependencies": {
         "@types/expect-cookies": "workspace:.",
         "@types/express": "^5.0.9999",
-        "@types/supertest": "^6.0.9999"
+        "@types/supertest": "^6.0.0"
     },
     "owners": [
         {

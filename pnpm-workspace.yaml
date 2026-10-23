@@ -2,7 +2,18 @@ packages:
   - 'scripts'
   - 'types/**'
 
+packageConfigs:
+  '@types/express-brute-mongo':
+    overrides:
+      '@types/node': workspace:*
+  '@types/marked-terminal':
+    overrides:
+      marked: 6.0.0
+
 lockfile: false
+
+# Always resolve again so repeat installs pick up newly published versions.
+optimisticRepeatInstall: false
 
 # As of pnpm v8, the default is "lowest", selecting the minimum version
 # available in the package graph. But, on DT, we want to test the latest of
@@ -30,6 +41,9 @@ resolvePeersFromWorkspaceRoot: false
 dedupePeerDependents: false
 
 ignoreScripts: true
+
+# Do not expand filtered installs when running scripts or binaries.
+verifyDepsBeforeRun: false
 
 # Ensure that @types packages are resolved to this repo's packages where
 # available.
