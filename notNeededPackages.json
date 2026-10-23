@@ -2861,6 +2861,10 @@
             "libraryName": "globby",
             "asOfVersion": "9.1.0"
         },
+        "glur": {
+            "libraryName": "glur",
+            "asOfVersion": "2.0.0"
+        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
