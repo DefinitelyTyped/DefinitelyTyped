@@ -2761,6 +2761,10 @@
             "libraryName": "geolite2",
             "asOfVersion": "4.0.1"
         },
+        "geometric": {
+            "libraryName": "geometric",
+            "asOfVersion": "3.0.9"
+        },
         "gestalt-datepicker": {
             "libraryName": "gestalt-datepicker",
             "asOfVersion": "111.0.0"
