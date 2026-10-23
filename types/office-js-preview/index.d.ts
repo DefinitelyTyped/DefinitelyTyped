@@ -36256,7 +36256,7 @@ declare namespace Excel {
          */
         readonly getLabelingCapability: Excel.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled" | "AttributeBasedAccessControlEnabled";
         /**
-         * Gets the attribute-based access control (ABAC) attribute catalog metadata for ABAC-enabled labels. Callers must first verify the host's labeling capabilities include `attributeBasedAccessControlEnabled`; otherwise this method fails with an error.
+         * Gets the attribute-based access control (ABAC) attribute catalog metadata for ABAC-enabled labels. Verify that the host's labeling capabilities include `attributeBasedAccessControlEnabled`; otherwise this method fails with an error.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
