@@ -1,6 +1,8 @@
 import * as util from "node:util";
 import assert = require("node:assert");
 import { access, readFile } from "node:fs";
+import { Readable, Stream, Writable } from "node:stream";
+import { EventEmitter } from "node:events";
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
@@ -95,6 +97,24 @@ console.log(util.styleText("#ff5733", "Orange text"));
 console.log(util.styleText("#f00", "Red text"));
 // Hex color combined with other modifiers
 console.log(util.styleText(["#00f", "bold"], "Bold blue text"));
+console.log(
+    util.styleText("magenta", "text", { stream: new Writable() }),
+);
+console.log(
+    util.styleText("cyan", "text", { stream: new Readable() }),
+);
+console.log(
+    util.styleText("gray", "text", { stream: new Stream() }),
+);
+class ValidCustomStream extends Stream {}
+console.log(
+    util.styleText("dim", "text", { stream: new ValidCustomStream() }),
+);
+class InvalidCustomStream extends EventEmitter {}
+console.log(
+    // @ts-expect-error
+    util.styleText("dim", "text", { stream: new InvalidCustomStream() }),
+);
 
 // util.callbackify
 class callbackifyTest {
