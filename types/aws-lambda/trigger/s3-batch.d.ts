@@ -1,10 +1,13 @@
-import { Callback, Handler } from "../handler";
+import { AsyncHandler, Callback, Handler } from "../handler";
 
 /**
+ * {@link S3BatchAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * S3 Batch Operations event
  * https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-invoke-lambda.html
  */
 export type S3BatchHandler = Handler<S3BatchEvent, S3BatchResult>;
+export type S3BatchAsyncHandler = AsyncHandler<S3BatchEvent, S3BatchResult>;
 export type S3BatchCallback = Callback<S3BatchResult>;
 
 export interface S3BatchEvent {
