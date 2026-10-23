@@ -42,6 +42,7 @@ declare namespace GoogleAppsScript {
          * Deprecated. This class is deprecated and should not be used in new scripts.
          * Script Properties are key-value pairs stored by a script in a persistent store. Script Properties
          * are scoped per script, regardless of which user runs the script.
+         * @deprecated DO NOT USE
          */
         interface ScriptProperties {
             /** @deprecated DO NOT USE */ deleteAllProperties(): ScriptProperties;
@@ -60,6 +61,7 @@ declare namespace GoogleAppsScript {
          * Deprecated. This class is deprecated and should not be used in new scripts.
          * User Properties are key-value pairs unique to a user. User Properties are scoped per user; any
          * script running under the identity of a user can access User Properties for that user only.
+         * @deprecated DO NOT USE
          */
         interface UserProperties {
             /** @deprecated DO NOT USE */ deleteAllProperties(): UserProperties;

@@ -1589,3 +1589,570 @@ function testSheetsV4ColorStyle() {
 
     const textFormat: GoogleAppsScript.Sheets.Schema.TextFormat = { foregroundColorStyle: style };
 }
+
+// Gmail: https://developers.google.com/apps-script/reference/gmail/gmail-label
+GmailApp.getUserLabelByName("MyLabel").getId(); // $ExpectType string
+
+// Groups: https://developers.google.com/apps-script/reference/groups/role
+GroupsApp.Role.BANNED; // $ExpectType Role.BANNED
+
+// Calendar: https://developers.google.com/apps-script/reference/calendar/calendar-event-series
+CalendarApp.getEventSeriesById("abc123456").getTransparency(); // $ExpectType EventTransparency
+CalendarApp.getEventSeriesById("abc123456").setTransparency(CalendarApp.EventTransparency.OPAQUE); // $ExpectType CalendarEventSeries
+
+// Charts: https://developers.google.com/apps-script/reference/charts/chart-options
+Charts.newBarChart().build().getOptions().getOrDefault("title"); // $ExpectType any
+
+// Data Studio: https://developers.google.com/apps-script/reference/data-studio/auth-type
+DataStudioApp.createCommunityConnector().AuthType.PATH_USER_PASS; // $ExpectType AuthType.PATH_USER_PASS
+DataStudioApp.createCommunityConnector().AuthType.PATH_KEY; // $ExpectType AuthType.PATH_KEY
+DataStudioApp.createCommunityConnector().FieldType.YEAR_MONTH_DAY_MINUTE; // $ExpectType FieldType.YEAR_MONTH_DAY_MINUTE
+DataStudioApp.createCommunityConnector().FieldType.CURRENCY_NGN; // $ExpectType FieldType.CURRENCY_NGN
+
+// Drive: https://developers.google.com/apps-script/reference/drive/drive-app
+DriveApp.enforceSingleParent(true); // $ExpectType void
+DriveApp.Permission.FILE_ORGANIZER; // $ExpectType Permission.FILE_ORGANIZER
+
+// Script: https://developers.google.com/apps-script/reference/script/script-app
+ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL, ["https://www.googleapis.com/auth/documents"]); // $ExpectType AuthorizationInfo
+ScriptApp.getAuthorizationInfo(ScriptApp.AuthMode.FULL).getAuthorizedScopes(); // $ExpectType string[] | null
+
+// Maps: https://developers.google.com/apps-script/reference/maps/maps
+Maps.setAuthenticationByApiKey("apiKey"); // $ExpectType void
+Maps.setAuthenticationByApiKey("apiKey", "signingKey"); // $ExpectType void
+Maps.resetAuthenticationApiKey(); // $ExpectType void
+
+// JDBC: https://developers.google.com/apps-script/reference/jdbc/jdbc-statement
+const jdbcConn = Jdbc.getCloudSqlConnection("jdbc:google:mysql://...");
+jdbcConn.createStatement().execute("sql", 1); // $ExpectType boolean
+jdbcConn.createStatement().execute("sql", [1]); // $ExpectType boolean
+jdbcConn.createStatement().executeUpdate("sql", 1); // $ExpectType number
+jdbcConn.createStatement().executeUpdate("sql", [1]); // $ExpectType number
+jdbcConn.prepareStatement("sql").execute("sql", 1); // $ExpectType boolean
+jdbcConn.prepareStatement("sql").execute("sql", [1]); // $ExpectType boolean
+jdbcConn.prepareStatement("sql").executeUpdate("sql", 1); // $ExpectType number
+jdbcConn.prepareStatement("sql").executeUpdate("sql", [1]); // $ExpectType number
+jdbcConn.prepareStatement("sql").executeBatch([["John Doe", 30]]); // $ExpectType number[]
+jdbcConn.prepareCall("sql").execute("sql", 1); // $ExpectType boolean
+jdbcConn.prepareCall("sql").execute("sql", [1]); // $ExpectType boolean
+jdbcConn.prepareCall("sql").executeUpdate("sql", 1); // $ExpectType number
+jdbcConn.prepareCall("sql").executeUpdate("sql", [1]); // $ExpectType number
+jdbcConn.prepareCall("sql").executeBatch([["John Doe", 30]]); // $ExpectType number[]
+jdbcConn.createStatement().executeQuery("sql").getRows("getString(1)"); // $ExpectType any[][]
+jdbcConn.createStatement().executeQuery("sql").getRows("getString(1)", 100); // $ExpectType any[][]
+
+// Slides: https://developers.google.com/apps-script/reference/slides/speaker-spotlight
+const slidesElement = SlidesApp.getActivePresentation().getSlides()[0].getPageElements()[0];
+slidesElement.asSpeakerSpotlight(); // $ExpectType SpeakerSpotlight
+slidesElement.asSpeakerSpotlight().getMaskShapeType(); // $ExpectType ShapeType | null
+slidesElement.asSpeakerSpotlight().getHeight(); // $ExpectType number | null
+slidesElement.asSpeakerSpotlight().setTitle("title").setDescription("description"); // $ExpectType SpeakerSpotlight
+SlidesApp.PageElementType.SPEAKER_SPOTLIGHT; // $ExpectType PageElementType.SPEAKER_SPOTLIGHT
+slidesElement.asShape().getAutofit(); // $ExpectType Autofit | null
+slidesElement.asShape().getAutofit()!.getAutofitType(); // $ExpectType AutofitType
+slidesElement.asShape().getAutofit()!.getFontScale(); // $ExpectType number
+slidesElement.asShape().getAutofit()!.getLineSpacingReduction(); // $ExpectType number
+slidesElement.asShape().getAutofit()!.disableAutofit(); // $ExpectType Autofit
+SlidesApp.AutofitType.TEXT_AUTOFIT; // $ExpectType AutofitType.TEXT_AUTOFIT
+slidesElement.asImage().getParentPlaceholder(); // $ExpectType PageElement | null
+slidesElement.asImage().getPlaceholderIndex(); // $ExpectType number | null
+slidesElement.asImage().getPlaceholderType(); // $ExpectType PlaceholderType
+
+// Forms: https://developers.google.com/apps-script/reference/forms/form
+const formsForm = FormApp.openById("1234567890abcdefghijklmnopqrstuvwxyz");
+formsForm.addPublishedReader("responder@uni.edu"); // $ExpectType Form
+formsForm.addPublishedReader(Session.getActiveUser()); // $ExpectType Form
+formsForm.addPublishedReaders(["responder1@uni.edu", "responder2@uni.edu"]); // $ExpectType Form
+formsForm.getPublishedReaders(); // $ExpectType User[]
+formsForm.removePublishedReader("responder1@uni.edu"); // $ExpectType Form
+formsForm.removePublishedReader(Session.getActiveUser()); // $ExpectType Form
+formsForm.setPublished(true); // $ExpectType Form
+formsForm.isPublished(); // $ExpectType boolean
+formsForm.supportsAdvancedResponderPermissions(); // $ExpectType boolean
+FormApp.create("Form Name", true); // $ExpectType Form
+
+// Forms: https://developers.google.com/apps-script/reference/forms/rating-item
+formsForm.addRatingItem(); // $ExpectType RatingItem
+formsForm.getItems(FormApp.ItemType.RATING)[0].asRatingItem(); // $ExpectType RatingItem
+formsForm.addRatingItem().setRatingScaleLevel(7).setRatingIcon(FormApp.RatingIconType.HEART); // $ExpectType RatingItem
+formsForm.addRatingItem().getRatingIcon(); // $ExpectType RatingIconType
+formsForm.addRatingItem().getRatingScaleLevel(); // $ExpectType number
+formsForm.addRatingItem().getGeneralFeedback(); // $ExpectType QuizFeedback | null
+FormApp.ItemType.UNSUPPORTED; // $ExpectType ItemType.UNSUPPORTED
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/banding
+const ssColor = SpreadsheetApp.newColor().setRgbColor("#185ABC").build();
+const ssBanding = SpreadsheetApp.getActiveRange().getBandings()[0];
+ssBanding.getHeaderRowColorObject(); // $ExpectType Color | null
+ssBanding.getFirstRowColorObject(); // $ExpectType Color | null
+ssBanding.getSecondRowColorObject(); // $ExpectType Color | null
+ssBanding.getFooterRowColorObject(); // $ExpectType Color | null
+ssBanding.getHeaderColumnColorObject(); // $ExpectType Color | null
+ssBanding.getFirstColumnColorObject(); // $ExpectType Color | null
+ssBanding.getSecondColumnColorObject(); // $ExpectType Color | null
+ssBanding.getFooterColumnColorObject(); // $ExpectType Color | null
+ssBanding.setHeaderRowColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFirstRowColorObject(ssColor); // $ExpectType Banding
+ssBanding.setSecondRowColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFooterRowColorObject(null); // $ExpectType Banding
+ssBanding.setHeaderColumnColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFirstColumnColorObject(ssColor); // $ExpectType Banding
+ssBanding.setSecondColumnColorObject(ssColor); // $ExpectType Banding
+ssBanding.setFooterColumnColorObject(null); // $ExpectType Banding
+const ssRule = SpreadsheetApp.getActiveSheet().getConditionalFormatRules()[0];
+ssRule.getBooleanCondition()!.getBackgroundObject(); // $ExpectType Color | null
+ssRule.getBooleanCondition()!.getFontColorObject(); // $ExpectType Color | null
+ssRule.getGradientCondition()!.getMinColorObject(); // $ExpectType Color | null
+ssRule.getGradientCondition()!.getMidColorObject(); // $ExpectType Color | null
+ssRule.getGradientCondition()!.getMaxColorObject(); // $ExpectType Color | null
+SpreadsheetApp.newConditionalFormatRule().setBackgroundObject(ssColor); // $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setFontColorObject(null); // $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMinpointObject(ssColor); // $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMaxpointObject(ssColor); // $ExpectType ConditionalFormatRuleBuilder
+// $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMinpointObjectWithValue(
+    ssColor,
+    SpreadsheetApp.InterpolationType.NUMBER,
+    "0",
+);
+// $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMidpointObjectWithValue(
+    ssColor,
+    SpreadsheetApp.InterpolationType.NUMBER,
+    "50",
+);
+// $ExpectType ConditionalFormatRuleBuilder
+SpreadsheetApp.newConditionalFormatRule().setGradientMaxpointObjectWithValue(
+    ssColor,
+    SpreadsheetApp.InterpolationType.NUMBER,
+    "100",
+);
+SpreadsheetApp.newFilterCriteria().setVisibleBackgroundColor(ssColor); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().setVisibleForegroundColor(ssColor); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().getVisibleBackgroundColor(); // $ExpectType Color | null
+SpreadsheetApp.newFilterCriteria().getVisibleForegroundColor(); // $ExpectType Color | null
+SpreadsheetApp.newFilterCriteria().build().getVisibleBackgroundColor(); // $ExpectType Color | null
+SpreadsheetApp.newFilterCriteria().build().getVisibleForegroundColor(); // $ExpectType Color | null
+SpreadsheetApp.getActiveSheet().getTabColorObject(); // $ExpectType Color | null
+SpreadsheetApp.getActiveSheet().setTabColorObject(null); // $ExpectType Sheet
+SpreadsheetApp.getActiveSheet().getSlicers()[0].getBackgroundColorObject(); // $ExpectType Color | null
+SpreadsheetApp.getActiveSheet().getSlicers()[0].setBackgroundColorObject(ssColor); // $ExpectType Slicer
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/filter-criteria-builder
+SpreadsheetApp.newFilterCriteria().whenDateEqualToAny([new Date()]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenDateNotEqualTo(new Date()); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenDateNotEqualToAny([new Date()]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenNumberEqualToAny([10, 20, 30]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenNumberNotEqualToAny([10, 20, 30]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenTextEqualToAny(["tech", "business"]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenTextNotEqualTo("tech"); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.newFilterCriteria().whenTextNotEqualToAny(["tech", "business"]); // $ExpectType FilterCriteriaBuilder
+SpreadsheetApp.BooleanCriteria.DATE_NOT_EQUAL_TO; // $ExpectType BooleanCriteria.DATE_NOT_EQUAL_TO
+SpreadsheetApp.BooleanCriteria.TEXT_NOT_EQUAL_TO; // $ExpectType BooleanCriteria.TEXT_NOT_EQUAL_TO
+SpreadsheetApp.DataValidationCriteria.DATE_AFTER_RELATIVE; // $ExpectType DataValidationCriteria.DATE_AFTER_RELATIVE
+SpreadsheetApp.DataValidationCriteria.DATE_BEFORE_RELATIVE; // $ExpectType DataValidationCriteria.DATE_BEFORE_RELATIVE
+SpreadsheetApp.DataValidationCriteria.DATE_EQUAL_TO_RELATIVE; // $ExpectType DataValidationCriteria.DATE_EQUAL_TO_RELATIVE
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/pivot-group
+const ssPivot = SpreadsheetApp.getActiveSheet().getPivotTables()[0];
+const ssPivotGroup = ssPivot.getRowGroups()[0];
+ssPivot.getSourceDataRange(); // $ExpectType Range
+ssPivot.asDataSourcePivotTable(); // $ExpectType DataSourcePivotTable | null
+ssPivotGroup.setDateTimeGroupingRule(SpreadsheetApp.DateTimeGroupingRuleType.YEAR_MONTH); // $ExpectType PivotGroup
+ssPivotGroup.getDateTimeGroupingRule(); // $ExpectType DateTimeGroupingRule | null
+ssPivotGroup.getDateTimeGroupingRule()!.getRuleType(); // $ExpectType DateTimeGroupingRuleType
+ssPivotGroup.setGroupLimit(10); // $ExpectType PivotGroup
+ssPivotGroup.getGroupLimit(); // $ExpectType PivotGroupLimit | null
+ssPivotGroup.getGroupLimit()!.setCountLimit(5).getPivotGroup(); // $ExpectType PivotGroup
+ssPivotGroup.getGroupLimit()!.getCountLimit(); // $ExpectType number
+ssPivotGroup.getGroupLimit()!.remove(); // $ExpectType void
+ssPivotGroup.getSourceDataSourceColumn(); // $ExpectType DataSourceColumn | null
+ssPivot.getFilters()[0].getSourceDataSourceColumn(); // $ExpectType DataSourceColumn | null
+ssPivot.getPivotValues()[0].getSourceDataColumn(); // $ExpectType number
+ssPivot.getPivotValues()[0].getSourceDataSourceColumn(); // $ExpectType DataSourceColumn | null
+ssPivot.getPivotValues()[0].remove(); // $ExpectType void
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/protection
+SpreadsheetApp.getActiveRange().protect().addTargetAudience("audience-id"); // $ExpectType Protection
+SpreadsheetApp.getActiveRange().protect().removeTargetAudience("audience-id"); // $ExpectType Protection
+SpreadsheetApp.getActiveRange().protect().getTargetAudiences(); // $ExpectType any[]
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/range
+SpreadsheetApp.getActiveRange().isDataValid(); // $ExpectType boolean
+SpreadsheetApp.getActiveRange().isDataValidForAll(); // $ExpectType boolean[][]
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/looker-data-source-spec-builder
+SpreadsheetApp.enableLookerExecution(); // $ExpectType void
+const ssLooker = SpreadsheetApp.newDataSourceSpec().asLooker(); // $ExpectType LookerDataSourceSpecBuilder
+ssLooker.setExploreName("explore").setInstanceUrl("url").setModelName("model"); // $ExpectType LookerDataSourceSpecBuilder
+ssLooker.setParameterFromCell("param", "A1").removeParameter("param").removeAllParameters(); // $ExpectType LookerDataSourceSpecBuilder
+ssLooker.build(); // $ExpectType DataSourceSpec
+ssLooker.build().asLooker(); // $ExpectType LookerDataSourceSpec
+ssLooker.build().asLooker().getExploreName(); // $ExpectType string
+ssLooker.build().asLooker().getInstanceUrl(); // $ExpectType string
+ssLooker.build().asLooker().getModelName(); // $ExpectType string
+SpreadsheetApp.DataSourceType.LOOKER; // $ExpectType DataSourceType.LOOKER
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/big-query-data-source-spec-builder
+const ssBigQuery = SpreadsheetApp.newDataSourceSpec().asBigQuery();
+ssBigQuery.setDatasetId("dataset").setTableId("table").setTableProjectId("project"); // $ExpectType BigQueryDataSourceSpecBuilder
+ssBigQuery.getDatasetId(); // $ExpectType string
+ssBigQuery.getTableId(); // $ExpectType string
+ssBigQuery.getTableProjectId(); // $ExpectType string
+ssBigQuery.build().asBigQuery().getDatasetId(); // $ExpectType string
+ssBigQuery.build().asBigQuery().getTableId(); // $ExpectType string
+ssBigQuery.build().asBigQuery().getTableProjectId(); // $ExpectType string
+
+// Spreadsheet: https://developers.google.com/apps-script/reference/spreadsheet/data-source
+const ssSpreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+ssSpreadsheet.getDataSources(); // $ExpectType DataSource[]
+ssSpreadsheet.getDataSourceSheets(); // $ExpectType DataSourceSheet[]
+ssSpreadsheet.getDataSourceFormulas(); // $ExpectType DataSourceFormula[]
+ssSpreadsheet.getDataSourcePivotTables(); // $ExpectType DataSourcePivotTable[]
+ssSpreadsheet.getDataSourceRefreshSchedules(); // $ExpectType DataSourceRefreshSchedule[]
+ssSpreadsheet.insertDataSourceSheet(SpreadsheetApp.newDataSourceSpec().asBigQuery().build()); // $ExpectType DataSourceSheet
+ssSpreadsheet.refreshAllDataSources(); // $ExpectType void
+ssSpreadsheet.waitForAllDataExecutionsCompletion(60); // $ExpectType void
+SpreadsheetApp.getActiveSheet().getDataSourceFormulas(); // $ExpectType DataSourceFormula[]
+SpreadsheetApp.getActiveSheet().getDataSourcePivotTables(); // $ExpectType DataSourcePivotTable[]
+const ssDataSource = ssSpreadsheet.getDataSources()[0];
+ssDataSource.cancelAllLinkedDataSourceObjectRefreshes(); // $ExpectType void
+ssDataSource.refreshAllLinkedDataSourceObjects(); // $ExpectType void
+ssDataSource.waitForAllDataExecutionsCompletion(60); // $ExpectType void
+ssDataSource.createCalculatedColumn("total", "=price*quantity"); // $ExpectType DataSourceColumn
+ssDataSource.getCalculatedColumnByName("total"); // $ExpectType DataSourceColumn | null
+ssDataSource.getCalculatedColumns(); // $ExpectType DataSourceColumn[]
+ssDataSource.getColumns(); // $ExpectType DataSourceColumn[]
+ssDataSource.getDataSourceSheets(); // $ExpectType DataSourceSheet[]
+ssDataSource.updateSpec(ssDataSource.getSpec(), true); // $ExpectType DataSource
+ssDataSource.createDataSourcePivotTableOnNewSheet(); // $ExpectType DataSourcePivotTable
+ssDataSource.createDataSourcePivotTableOnNewSheet().addPivotValue("price"); // $ExpectType PivotValue
+ssDataSource.createDataSourcePivotTableOnNewSheet().cancelDataRefresh(); // $ExpectType DataSourcePivotTable
+ssSpreadsheet.getDataSourceFormulas()[0].cancelDataRefresh(); // $ExpectType DataSourceFormula
+ssSpreadsheet.getDataSourceSheets()[0].cancelDataRefresh(); // $ExpectType DataSourceSheet
+ssSpreadsheet.getDataSourceSheets()[0].setSortSpec("price", SpreadsheetApp.SortOrder.DESCENDING); // $ExpectType DataSourceSheet
+const ssTable = ssDataSource.createDataSourceTableOnNewSheet(); // $ExpectType DataSourceTable
+ssTable.addColumns(["name", "price"]).addFilter("price", SpreadsheetApp.newFilterCriteria().build()); // $ExpectType DataSourceTable
+ssTable.addSortSpec("name", true).addSortSpec("price", SpreadsheetApp.SortOrder.ASCENDING); // $ExpectType DataSourceTable
+ssTable.setRowLimit(100).removeAllColumns().removeAllSortSpecs().syncAllColumns().cancelDataRefresh(); // $ExpectType DataSourceTable
+ssTable.getRowLimit(); // $ExpectType number | null
+ssTable.getSortSpecs(); // $ExpectType SortSpec[]
+ssTable.isSyncingAllColumns(); // $ExpectType boolean
+ssTable.getColumns()[0].getDataSourceColumn(); // $ExpectType DataSourceColumn
+ssTable.getColumns()[0].remove(); // $ExpectType void
+ssTable.getFilters()[0].getDataSourceTable(); // $ExpectType DataSourceTable
+ssTable.getFilters()[0].setFilterCriteria(SpreadsheetApp.newFilterCriteria().build()); // $ExpectType DataSourceTableFilter
+ssTable.getStatus().getLastExecutionTime(); // $ExpectType Date | null
+const ssSchedule = ssSpreadsheet.getDataSourceRefreshSchedules()[0];
+ssSchedule.getFrequency().getFrequencyType(); // $ExpectType FrequencyType
+ssSchedule.getFrequency().getDaysOfTheWeek(); // $ExpectType Weekday[]
+ssSchedule.getFrequency().getDaysOfTheMonth(); // $ExpectType number[]
+ssSchedule.getFrequency().getStartHour(); // $ExpectType number
+ssSchedule.getScope(); // $ExpectType DataSourceRefreshScope
+ssSchedule.isEnabled(); // $ExpectType boolean
+ssSchedule.getTimeIntervalOfNextRun(); // $ExpectType any
+SpreadsheetApp.getActiveSheet().getCharts()[0].asDataSourceChart(); // $ExpectType DataSourceChart | null
+SpreadsheetApp.getActiveSheet().getCharts()[0].asDataSourceChart()!.refreshData(); // $ExpectType DataSourceChart
+SpreadsheetApp.SheetType.DATASOURCE; // $ExpectType SheetType.DATASOURCE
+SpreadsheetApp.DataExecutionErrorCode.TOO_MANY_COLUMNS; // $ExpectType DataExecutionErrorCode.TOO_MANY_COLUMNS
+SpreadsheetApp.DataExecutionErrorCode.DATA_NOT_FOUND; // $ExpectType DataExecutionErrorCode.DATA_NOT_FOUND
+SpreadsheetApp.DataExecutionErrorCode.PERMISSION_DENIED; // $ExpectType DataExecutionErrorCode.PERMISSION_DENIED
+SpreadsheetApp.FrequencyType.DAILY; // $ExpectType FrequencyType.DAILY
+SpreadsheetApp.DataSourceRefreshScope.ALL_DATA_SOURCES; // $ExpectType DataSourceRefreshScope.ALL_DATA_SOURCES
+SpreadsheetApp.SortOrder.ASCENDING; // $ExpectType SortOrder.ASCENDING
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/event-action
+const cardEventAction = CardService.newEventAction(); // $ExpectType EventAction
+cardEventAction.setActionRuleId("rule").addPostEventTrigger(CardService.newTrigger().setActionRuleId("trigger")); // $ExpectType EventAction
+cardEventAction.setExpressionDataAction(CardService.newExpressionDataAction()); // $ExpectType EventAction
+cardEventAction.setCommonWidgetAction(CardService.newCommonWidgetAction()); // $ExpectType EventAction
+// $ExpectType ExpressionDataAction
+CardService.newExpressionDataAction().setActionType(CardService.ExpressionDataActionType.START_EXPRESSION_EVALUATION);
+// $ExpectType ExpressionDataCondition
+CardService.newExpressionDataCondition().setConditionType(
+    CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS,
+);
+CardService.newCondition().setActionRuleId("rule").setExpressionDataCondition(CardService.newExpressionDataCondition()); // $ExpectType Condition
+// $ExpectType ExpressionData
+CardService.newExpressionData().setId("id").setExpression("x > 3").addCondition(CardService.newCondition())
+    .addEventAction(cardEventAction);
+CardService.newUpdateVisibilityAction().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType UpdateVisibilityAction
+CardService.newCommonWidgetAction().setUpdateVisibilityAction(CardService.newUpdateVisibilityAction()); // $ExpectType CommonWidgetAction
+CardService.newCardBuilder().addExpressionData(CardService.newExpressionData()); // $ExpectType CardBuilder
+CardService.newCardSection().setId("section"); // $ExpectType CardSection
+CardService.newTextParagraph().setVisibility(CardService.Visibility.VISIBLE); // $ExpectType Widget
+CardService.newTextParagraph().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTextParagraph().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTextInput().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDecoratedText().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+// $ExpectType Widget
+CardService.newSelectionInput().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(
+    cardEventAction,
+);
+CardService.newDatePicker().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+// $ExpectType Widget
+CardService.newDateTimePicker().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(
+    cardEventAction,
+);
+CardService.newTimePicker().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDivider().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newGrid().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newImage().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newKeyValue().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newButtonSet().setId("id").setVisibility(CardService.Visibility.HIDDEN).addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTextInput().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDecoratedText().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newSelectionInput().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDatePicker().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDateTimePicker().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newTimePicker().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newDivider().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newGrid().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newImage().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newKeyValue().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newButtonSet().setVisibility(CardService.Visibility.HIDDEN); // $ExpectType Widget
+CardService.newTextInput().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDecoratedText().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newSelectionInput().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDatePicker().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDateTimePicker().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newTimePicker().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newDivider().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newGrid().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newImage().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newKeyValue().addEventAction(cardEventAction); // $ExpectType Widget
+CardService.newButtonSet().addEventAction(cardEventAction); // $ExpectType Widget
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/overflow-menu-item
+// $ExpectType OverflowMenuItem
+CardService.newOverflowMenuItem().setText("Open Link").setStartIcon(CardService.newIconImage()).setOpenLink(
+    CardService.newOpenLink(),
+);
+CardService.newOverflowMenuItem().setDisabled(false).setOnClickAction(CardService.newAction()); // $ExpectType OverflowMenuItem
+CardService.newOverflowMenu().addMenuItem(CardService.newOverflowMenuItem()); // $ExpectType OverflowMenu
+CardService.newTextButton().setOverflowMenu(CardService.newOverflowMenu()); // $ExpectType TextButton
+CardService.newImageButton().setOverflowMenu(CardService.newOverflowMenu()); // $ExpectType ImageButton
+CardService.SelectionInputType.OVERFLOW_MENU; // $ExpectType SelectionInputType.OVERFLOW_MENU
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/columns
+CardService.newChip().setLabel("Open Link").setOpenLink(CardService.newOpenLink()).setDisabled(false); // $ExpectType Chip
+CardService.newChipList().setLayout(CardService.ChipListLayout.WRAPPED).addChip(CardService.newChip()); // $ExpectType ChipList
+CardService.newChipList().setId("chips"); // $ExpectType Widget
+CardService.newCarousel().addCarouselCard(CardService.newCarouselCard()); // $ExpectType Carousel
+// $ExpectType CarouselCard
+CardService.newCarouselCard().addWidget(CardService.newTextParagraph()).addFooterWidget(CardService.newTextParagraph());
+CardService.newColumn().setHorizontalSizeStyle(CardService.HorizontalSizeStyle.FILL_AVAILABLE_SPACE); // $ExpectType Column
+// $ExpectType Column
+CardService.newColumn().setVerticalAlignment(CardService.VerticalAlignment.CENTER).addWidget(
+    CardService.newTextParagraph(),
+);
+CardService.newColumns().addColumn(CardService.newColumn()).setWrapStyle(CardService.WrapStyle.WRAP); // $ExpectType Columns
+CardService.newCollapseControl().setHorizontalAlign(CardService.HorizontalAlignment.END); // $ExpectType CollapseControl
+// $ExpectType CollapseControl
+CardService.newCollapseControl().setExpandButton(CardService.newTextButton()).setCollapseButton(
+    CardService.newTextButton(),
+);
+CardService.newCardSection().setCollapseControl(CardService.newCollapseControl()); // $ExpectType CardSection
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/platform-data-source
+CardService.newPlatformDataSource().setCommonDataSource(CardService.CommonDataSource.USER); // $ExpectType PlatformDataSource
+CardService.newPlatformDataSource().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType PlatformDataSource
+CardService.newPlatformDataSource().setDriveDataSourceSpec(CardService.newDriveDataSourceSpec()); // $ExpectType PlatformDataSource
+CardService.newDriveDataSourceSpec().addItemType(CardService.DriveItemType.DOCUMENTS); // $ExpectType DriveDataSourceSpec
+// newChatSpaceDataSource/newChatClientDataSource are used by Google's samples but missing from the CardService tables
+CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true); // $ExpectType ChatSpaceDataSource
+CardService.newChatClientDataSource().setSpaceDataSource(CardService.newChatSpaceDataSource()); // $ExpectType ChatClientDataSource
+CardService.newHostAppDataSource().setChatDataSource(CardService.newChatClientDataSource()); // $ExpectType HostAppDataSource
+CardService.newHostAppDataSource().setWorkflowDataSource(CardService.newWorkflowDataSource()); // $ExpectType HostAppDataSource
+CardService.newWorkflowDataSource().setIncludeVariables(true).setType(CardService.WorkflowDataSourceType.USER); // $ExpectType WorkflowDataSource
+// $ExpectType WorkflowDataSource
+CardService.newWorkflowDataSource().setVariableButtonLabel("Add").setVariableButtonSize(
+    CardService.VariableButtonSize.COMPACT,
+);
+// $ExpectType DataSourceConfig
+CardService.newDataSourceConfig().setPlatformDataSource(CardService.newPlatformDataSource()).setRemoteDataSource(
+    CardService.newAction(),
+);
+CardService.newDataSourceConfig().setMinCharactersToTrigger(2).setMaxCharactersToDisable(20).setMaxResults(10); // $ExpectType DataSourceConfig
+CardService.newSelectionInput().addDataSourceConfig(CardService.newDataSourceConfig()); // $ExpectType SelectionInput
+CardService.newSelectionInput().setPlatformDataSource(CardService.newPlatformDataSource()); // $ExpectType SelectionInput
+CardService.newTextInput().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType TextInput
+CardService.newDateTimePicker().setHostAppDataSource(CardService.newHostAppDataSource()); // $ExpectType DateTimePicker
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/chat-response-builder
+// CardService.Status, CardService.ResponseType and newUpdatedWidget() exist at runtime but are missing from the CardService tables
+CardService.newCardWithId().setCardId("card_id").setCard(CardService.newCardBuilder().build()); // $ExpectType CardWithId
+CardService.newChatResponseBuilder().addCardsV2(CardService.newCardWithId()).setText("Example text"); // $ExpectType ChatResponseBuilder
+CardService.newChatResponseBuilder().setActionResponse(CardService.newChatActionResponse()); // $ExpectType ChatResponseBuilder
+CardService.newChatResponseBuilder().build().printJson(); // $ExpectType string
+CardService.newDialog().setBody(CardService.newCardBuilder().build()); // $ExpectType Dialog
+CardService.newDialogAction().setDialog(CardService.newDialog()).setActionStatus(CardService.newActionStatus()); // $ExpectType DialogAction
+CardService.newActionStatus().setStatusCode(CardService.Status.OK).setUserFacingMessage("Success"); // $ExpectType ActionStatus
+// $ExpectType ChatActionResponse
+CardService.newChatActionResponse().setResponseType(CardService.ResponseType.DIALOG).setDialogAction(
+    CardService.newDialogAction(),
+);
+CardService.newChatActionResponse().setUpdatedWidget(CardService.newUpdatedWidget()).setUrl("https://example.com"); // $ExpectType ChatActionResponse
+CardService.newUpdatedWidget().addItem("title", "value", false, "uri", "bottom text"); // $ExpectType UpdatedWidget
+
+// Card Service: https://developers.google.com/apps-script/reference/card-service/text-button
+CardService.newImageButton().setImageButtonStyle(CardService.ImageButtonStyle.BORDERLESS); // $ExpectType ImageButton
+CardService.newTextButton().setIcon(CardService.Icon.STAR); // $ExpectType TextButton
+CardService.newTextButton().setIconUrl("https://example.com/icon.png"); // $ExpectType TextButton
+CardService.newTextButton().setMaterialIcon(CardService.newMaterialIcon().setName("search")); // $ExpectType TextButton
+CardService.newTextInput().setInputMode(CardService.TextInputMode.PLAIN_TEXT); // $ExpectType TextInput
+CardService.newTextParagraph().setMaxLines(1); // $ExpectType TextParagraph
+CardService.UpdateDraftBodyType.INSERT_AT_START; // $ExpectType UpdateDraftBodyType.INSERT_AT_START
+CardService.UpdateDraftBodyType.INSERT_AT_END; // $ExpectType UpdateDraftBodyType.INSERT_AT_END
+
+// AddOns Response Service: https://developers.google.com/apps-script/reference/add-ons-response-service/add-ons-response-service
+const addOnsCard = CardService.newCardBuilder().build();
+AddOnsResponseService.newActionResponseBuilder().setNavigation(AddOnsResponseService.newNavigation()).build(); // $ExpectType ActionResponse
+AddOnsResponseService.newActionResponseBuilder().build().printJson(); // $ExpectType string
+// $ExpectType ActionResponseBuilder
+AddOnsResponseService.newActionResponseBuilder().setNotification(
+    AddOnsResponseService.newNotification().setText("Done"),
+);
+// $ExpectType ActionResponseBuilder
+AddOnsResponseService.newActionResponseBuilder().setOpenLink(AddOnsResponseService.newOpenLink()).setStateChanged(true);
+// $ExpectType ActionResponseBuilder
+AddOnsResponseService.newActionResponseBuilder().setLinkPreview(
+    AddOnsResponseService.newLinkPreview().setTitle("Smart chip title"),
+);
+// $ExpectType OpenLink
+AddOnsResponseService.newOpenLink().setOpenAs(AddOnsResponseService.OpenAs.FULL_SIZE).setOnClose(
+    AddOnsResponseService.OnClose.NOTHING,
+);
+AddOnsResponseService.newLinkPreview().setPreviewCard(addOnsCard).setLinkPreviewTitle("Link preview title"); // $ExpectType LinkPreview
+AddOnsResponseService.newNavigation().pushCard(addOnsCard).updateCard(addOnsCard).popToRoot(); // $ExpectType Navigation
+AddOnsResponseService.newNavigation().setEndNavigation(AddOnsResponseService.EndNavigation.CLOSE_DIALOG); // $ExpectType Navigation
+AddOnsResponseService.newAccessoryWidget().addWidget(CardService.newButtonSet()); // $ExpectType AccessoryWidget
+AddOnsResponseService.newAction().addNavigation(AddOnsResponseService.newNavigation()); // $ExpectType Action
+AddOnsResponseService.newRenderActionBuilder().setAction(AddOnsResponseService.newAction()).build(); // $ExpectType RenderAction
+AddOnsResponseService.newChatMessage().setText("Example text").addCardWithId(CardService.newCardWithId()); // $ExpectType ChatMessage
+AddOnsResponseService.newCreateMessageAction().setMessage(AddOnsResponseService.newChatMessage()); // $ExpectType CreateMessageAction
+AddOnsResponseService.newUpdateMessageAction().setMessage(AddOnsResponseService.newChatMessage()); // $ExpectType UpdateMessageAction
+AddOnsResponseService.newUpdateInlinePreviewAction().addCardWithId(CardService.newCardWithId()); // $ExpectType UpdateInlinePreviewAction
+// $ExpectType DataActionsResponse
+AddOnsResponseService.newChatDataActionBuilder().setCreateChatMessageAction(
+    AddOnsResponseService.newCreateMessageAction(),
+).build();
+// $ExpectType AddonComposeUiActionResponse
+AddOnsResponseService.newAddonComposeUiActionResponseBuilder().setType(
+    AddOnsResponseService.AddonComposeUiActionType.DISMISS,
+).build();
+// $ExpectType Attachment
+AddOnsResponseService.newAttachment().setResourceUrl("https://example.com").setTitle("Title").setMimeType("text/html")
+    .setIconUrl("https://example.com/i.png");
+AddOnsResponseService.newCalendarEventActionResponseBuilder().addAttendees(["user1@example.com"]).build(); // $ExpectType CalendarEventActionResponse
+// $ExpectType ComposeActionResponse
+AddOnsResponseService.newComposeActionResponseBuilder().setGmailDraft(
+    GmailApp.createDraft("recipient", "subject", "body"),
+).build();
+// $ExpectType EditorFileScopeActionResponse
+AddOnsResponseService.newEditorFileScopeActionResponseBuilder().requestFileScopeForActiveDocument().build();
+// $ExpectType DriveItemsSelectedActionResponse
+AddOnsResponseService.newDriveItemsSelectedActionResponseBuilder().requestFileScope("item-id").build();
+// $ExpectType UniversalActionResponse
+AddOnsResponseService.newUniversalActionResponseBuilder().displayAddOnCards([addOnsCard]).build();
+// $ExpectType UpdateDraftActionResponse
+AddOnsResponseService.newUpdateDraftActionResponseBuilder().setSendStatus(AddOnsResponseService.SendStatus.NOT_SEND)
+    .build();
+// $ExpectType UpdateDraftToRecipientsAction
+AddOnsResponseService.newUpdateDraftToRecipientsAction().addUpdateToRecipients(["joe@example.com"]);
+// $ExpectType UpdateDraftCcRecipientsAction
+AddOnsResponseService.newUpdateDraftCcRecipientsAction().addUpdateCcRecipients(["joe@example.com"]);
+// $ExpectType UpdateDraftBccRecipientsAction
+AddOnsResponseService.newUpdateDraftBccRecipientsAction().addUpdateBccRecipients(["joe@example.com"]);
+AddOnsResponseService.newUpdateDraftSubjectAction().addUpdateSubject("example subject"); // $ExpectType UpdateDraftSubjectAction
+// $ExpectType UpdateDraftBodyAction
+AddOnsResponseService.newUpdateDraftBodyAction().addUpdateContent(
+    "<b>hi</b>",
+    AddOnsResponseService.ContentType.MUTABLE_HTML,
+);
+// $ExpectType UpdateDraftBodyAction
+AddOnsResponseService.newUpdateDraftBodyAction().setUpdateType(
+    AddOnsResponseService.UpdateDraftBodyType.IN_PLACE_INSERT,
+);
+// $ExpectType UpdateDraftActionResponseBuilder
+AddOnsResponseService.newUpdateDraftActionResponseBuilder().setUpdateDraftBodyAction(
+    AddOnsResponseService.newUpdateDraftBodyAction(),
+);
+AddOnsResponseService.ComposedEmailType.REPLY_AS_DRAFT; // $ExpectType ComposedEmailType.REPLY_AS_DRAFT
+
+// AddOns Response Service: factories and enums used by Google's class samples but missing from the AddOnsResponseService tables
+// https://developers.google.com/apps-script/reference/add-ons-response-service/resource-retrieved-action
+AddOnsResponseService.newColor().setRed(0.1).setGreen(0.1).setBlue(0.3).setAlpha(0.78); // $ExpectType Color
+AddOnsResponseService.newDataType().setBasicDataType(AddOnsResponseService.BasicDataType.STRING); // $ExpectType DataType
+AddOnsResponseService.newValueMetadata().addEnumValue("001").setDefaultValue("001"); // $ExpectType ValueMetadata
+AddOnsResponseService.newResourceType().setWorkflowResourceDefinitionId("sample_resource_type_1"); // $ExpectType ResourceType
+// $ExpectType ResourceField
+AddOnsResponseService.newResourceField().setSelector("question_1").setDisplayText("Question 1").setDataType(
+    AddOnsResponseService.newDataType(),
+);
+// $ExpectType DynamicResourceDefinition
+AddOnsResponseService.newDynamicResourceDefinition().setResourceId("resource_definition_1").addResourceField(
+    AddOnsResponseService.newResourceField(),
+);
+// $ExpectType ResourceFieldsDefinitionRetrievedAction
+AddOnsResponseService.newResourceFieldsDefinitionRetrievedAction().addDynamicResourceDefinition(
+    AddOnsResponseService.newDynamicResourceDefinition(),
+);
+AddOnsResponseService.newVariableData().addStringValue("value_1"); // $ExpectType VariableData
+AddOnsResponseService.newTimeStamp().setSeconds(10086).setNanos(123); // $ExpectType TimeStamp
+// $ExpectType ResourceData
+AddOnsResponseService.newResourceData().addVariableData("field_1", AddOnsResponseService.newVariableData());
+// $ExpectType ResourceRetrievedAction
+AddOnsResponseService.newResourceRetrievedAction().setResourceData(AddOnsResponseService.newResourceData());
+// $ExpectType ReturnOutputVariablesAction
+AddOnsResponseService.newReturnOutputVariablesAction().setVariableDataMap({
+    result: AddOnsResponseService.newVariableData(),
+});
+// $ExpectType ReturnElementErrorAction
+AddOnsResponseService.newReturnElementErrorAction().setErrorActionability(
+    AddOnsResponseService.ErrorActionability.NOT_ACTIONABLE,
+);
+// $ExpectType ReturnElementErrorAction
+AddOnsResponseService.newReturnElementErrorAction().setErrorRetryability(
+    AddOnsResponseService.ErrorRetryability.NOT_RETRYABLE,
+);
+// $ExpectType WorkflowValidationErrorAction
+AddOnsResponseService.newWorkflowValidationErrorAction().setSeverity(
+    AddOnsResponseService.ValidationErrorSeverity.CRITICAL,
+);
+AddOnsResponseService.newHostAppAction().setWorkflowAction(AddOnsResponseService.newSaveWorkflowAction()); // $ExpectType HostAppAction
+AddOnsResponseService.newHostAppAction().setWorkflowAction(AddOnsResponseService.newWorkflowAction()); // $ExpectType HostAppAction
+// $ExpectType WorkflowTextFormat
+AddOnsResponseService.newWorkflowTextFormat().addTextFormatElement(
+    AddOnsResponseService.newTextFormatElement().setText("text"),
+);
+// $ExpectType StyledText
+AddOnsResponseService.newStyledText().addStyle(AddOnsResponseService.TextStyle.ITALIC).setFontWeight(
+    AddOnsResponseService.FontWeight.BOLD,
+);
+// $ExpectType TextFormatChip
+AddOnsResponseService.newTextFormatChip().setLabel("Label!").setTextFormatIcon(
+    AddOnsResponseService.newTextFormatIcon(),
+);
+AddOnsResponseService.newTextFormatIcon().setMaterialIconName("check_box"); // $ExpectType TextFormatIcon
+// $ExpectType ListContainer
+AddOnsResponseService.newListContainer().setListType(AddOnsResponseService.ListType.UNORDERED).addListItem(
+    AddOnsResponseService.newListItem(),
+);
+AddOnsResponseService.newListItem().addTextFormatElement(AddOnsResponseService.newTextFormatElement()); // $ExpectType ListItem
+AddOnsResponseService.newHyperlink().setText("Hyperlink_text").setLink("https://www.google.com"); // $ExpectType Hyperlink
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setInsertSection(
+    AddOnsResponseService.newInsertSection().insertBelowSection("sample_id"),
+);
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setInsertWidget(
+    AddOnsResponseService.newInsertWidget().insertAboveWidget("sample_id"),
+);
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setRemoveSection(
+    AddOnsResponseService.newRemoveSection().setSectionId("sample_id"),
+);
+// $ExpectType ModifyCard
+AddOnsResponseService.newModifyCard().setRemoveWidget(AddOnsResponseService.newRemoveWidget().setWidgetId("sample_id"));
+AddOnsResponseService.newLink().setUrl("https://www.google.com").setTitle("Google"); // $ExpectType Link

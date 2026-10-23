@@ -59,6 +59,7 @@ declare namespace GoogleAppsScript {
             MEMBER,
             INVITED,
             PENDING,
+            BANNED,
         }
     }
 }
