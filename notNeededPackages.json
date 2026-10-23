@@ -1272,6 +1272,10 @@
             "libraryName": "config",
             "asOfVersion": "4.4.0"
         },
+        "configstore": {
+            "libraryName": "configstore",
+            "asOfVersion": "8.0.0"
+        },
         "confirmdialog": {
             "libraryName": "confirmdialog",
             "asOfVersion": "1.0.0"
