@@ -2969,6 +2969,10 @@
             "libraryName": "gulp-typescript",
             "asOfVersion": "2.13.0"
         },
+        "gun": {
+            "libraryName": "gun",
+            "asOfVersion": "0.2020.1241"
+        },
         "gzip-size": {
             "libraryName": "gzip-size",
             "asOfVersion": "5.1.0"
