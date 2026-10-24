@@ -17,6 +17,7 @@
     "files": [
         "index.d.mts",
         "index.d.ts",
-        "sinon-tests.ts"
+        "sinon-tests.ts",
+        "sinon-tests.mts"
     ]
 }
