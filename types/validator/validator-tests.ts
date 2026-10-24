@@ -75,7 +75,10 @@ import isMongoIdFunc from "validator/lib/isMongoId";
 import isMultibyteFunc from "validator/lib/isMultibyte";
 import isNumericFunc from "validator/lib/isNumeric";
 import isOctalFunc from "validator/lib/isOctal";
-import isPassportNumberFunc from "validator/lib/isPassportNumber";
+import isPassportNumberFunc, {
+    locales as isPassportNumberLocales,
+    PassportNumberLocale,
+} from "validator/lib/isPassportNumber";
 import isPortFunc from "validator/lib/isPort";
 import isPostalCodeFunc, { locales as isPostalCodeLocales } from "validator/lib/isPostalCode";
 import isRgbColorFunc, { IsRgbColorOptions } from "validator/lib/isRgbColor";
@@ -327,6 +330,8 @@ import whitelistFunc from "validator/lib/whitelist";
 
     let _isPassportNumber = validator.isPassportNumber;
     _isPassportNumber = isPassportNumberFunc;
+    validator.passportNumberLocales; // $ExpectType PassportNumberLocale[]
+    isPassportNumberLocales; // $ExpectType PassportNumberLocale[]
 
     let _isPort = validator.isPort;
     _isPort = isPortFunc;
@@ -485,7 +490,10 @@ import isMongoIdFuncEs from "validator/es/lib/isMongoId";
 import isMultibyteFuncEs from "validator/es/lib/isMultibyte";
 import isNumericFuncEs from "validator/es/lib/isNumeric";
 import isOctalFuncEs from "validator/es/lib/isOctal";
-import isPassportNumberFuncEs from "validator/es/lib/isPassportNumber";
+import isPassportNumberFuncEs, {
+    locales as isPassportNumberLocalesEs,
+    PassportNumberLocale as PassportNumberLocaleEs,
+} from "validator/es/lib/isPassportNumber";
 import isPortFuncEs from "validator/es/lib/isPort";
 import isPostalCodeFuncEs, { locales as isPostalCodeLocalesEs } from "validator/es/lib/isPostalCode";
 import isRgbColorFuncEs, { IsRgbColorOptions as IsRgbColorOptionsEs } from "validator/es/lib/isRgbColor";
@@ -1241,6 +1249,11 @@ const any: any = null;
     result = validator.isOctal("076543210");
 
     result = validator.isPassportNumber("sample", "US");
+
+    const passportNumberLocale: PassportNumberLocale = "US";
+    result = validator.isPassportNumber("sample", passportNumberLocale);
+    // @ts-expect-error
+    const invalidPassportNumberLocale: PassportNumberLocale = "XX";
 
     result = validator.isPort("sample");
 
