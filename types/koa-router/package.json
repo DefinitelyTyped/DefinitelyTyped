@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "@types/koa-compose": "*",
-        "@types/koa-etag": "*",
+        "@types/koa-etag": "<5",
         "@types/koa-router": "workspace:."
     },
     "owners": [
