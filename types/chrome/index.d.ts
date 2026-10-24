@@ -13603,7 +13603,7 @@ declare namespace chrome {
             /** Value of the HTTP header if it can be represented by UTF-8. */
             value?: string | undefined;
             /** Value of the HTTP header if it cannot be represented by UTF-8, stored as individual byte values (0..255). */
-            binaryValue?: ArrayBuffer | undefined;
+            binaryValue?: number[] | undefined;
         }
 
         /** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
