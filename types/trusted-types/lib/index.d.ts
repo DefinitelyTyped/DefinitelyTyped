@@ -5,20 +5,39 @@
 export type FnNames = keyof TrustedTypePolicyOptions;
 export type Args<Options extends TrustedTypePolicyOptions, K extends FnNames> = Parameters<NonNullable<Options[K]>>;
 
-export class TrustedHTML {
-    private constructor(); // To prevent instantiting with 'new'.
-    private brand: true; // To prevent structural typing.
+declare namespace internal {
+    class TrustedHTML {
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
+        toJSON(): string;
+        toString(): string;
+    }
+
+    class TrustedScript {
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
+        toJSON(): string;
+        toString(): string;
+    }
+
+    class TrustedScriptURL {
+        private constructor(); // To prevent instantiting with 'new'.
+        private brand: true; // To prevent structural typing.
+        toJSON(): string;
+        toString(): string;
+    }
 }
 
-export class TrustedScript {
-    private constructor(); // To prevent instantiting with 'new'.
-    private brand: true; // To prevent structural typing.
-}
+type IfGlobal<K extends string, T> = typeof globalThis extends Record<K, { prototype: infer U }> ? U : T;
 
-export class TrustedScriptURL {
-    private constructor(); // To prevent instantiting with 'new'.
-    private brand: true; // To prevent structural typing.
-}
+export type TrustedHTML = IfGlobal<"TrustedHTML", internal.TrustedHTML>;
+export const TrustedHTML: typeof internal.TrustedHTML;
+
+export type TrustedScript = IfGlobal<"TrustedScript", internal.TrustedScript>;
+export const TrustedScript: typeof internal.TrustedScript;
+
+export type TrustedScriptURL = IfGlobal<"TrustedScriptURL", internal.TrustedScriptURL>;
+export const TrustedScriptURL: typeof internal.TrustedScriptURL;
 
 export abstract class TrustedTypePolicyFactory {
     createPolicy<Options extends TrustedTypePolicyOptions>(
@@ -30,8 +49,13 @@ export abstract class TrustedTypePolicyFactory {
     isScriptURL(value: unknown): value is TrustedScriptURL;
     readonly emptyHTML: TrustedHTML;
     readonly emptyScript: TrustedScript;
-    getAttributeType(tagName: string, attribute: string, elementNs?: string, attrNs?: string): string | null;
-    getPropertyType(tagName: string, property: string, elementNs?: string): string | null;
+    getAttributeType(
+        tagName: string,
+        attribute: string,
+        elementNs?: string | null,
+        attrNs?: string | null,
+    ): string | null;
+    getPropertyType(tagName: string, property: string, elementNs?: string | null): string | null;
     readonly defaultPolicy: TrustedTypePolicy | null;
 }
 
@@ -43,9 +67,9 @@ export abstract class TrustedTypePolicy<Options extends TrustedTypePolicyOptions
 }
 
 export interface TrustedTypePolicyOptions {
-    createHTML?: ((input: string, ...arguments: any[]) => string) | undefined;
-    createScript?: ((input: string, ...arguments: any[]) => string) | undefined;
-    createScriptURL?: ((input: string, ...arguments: any[]) => string) | undefined;
+    createHTML?: ((input: string, ...arguments: any[]) => string | null) | undefined;
+    createScript?: ((input: string, ...arguments: any[]) => string | null) | undefined;
+    createScriptURL?: ((input: string, ...arguments: any[]) => string | null) | undefined;
 }
 
 // The Window object is augmented with the following properties in browsers that
@@ -62,3 +86,5 @@ export interface TrustedTypesWindow {
     TrustedTypePolicyFactory: typeof TrustedTypePolicyFactory;
     TrustedTypePolicy: typeof TrustedTypePolicy;
 }
+
+export {};
