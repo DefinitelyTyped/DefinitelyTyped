@@ -10,6 +10,8 @@ import {
     crc32,
     createBrotliCompress,
     createBrotliDecompress,
+    createZipArchive,
+    createZipArchiveSync,
     createZstdCompress,
     createZstdDecompress,
     deflate,
@@ -17,6 +19,7 @@ import {
     deflateRaw,
     deflateRawSync,
     deflateSync,
+    getMaxZipContentSize,
     gunzip,
     gunzipSync,
     gzip,
@@ -25,8 +28,13 @@ import {
     inflateRaw,
     inflateRawSync,
     inflateSync,
+    setMaxZipContentSize,
     unzip,
     unzipSync,
+    ZipBuffer,
+    ZipEntry,
+    ZipFile,
+    zipFiles,
     ZlibOptions,
     zstdCompress,
     zstdCompressSync,
@@ -247,3 +255,158 @@ zstdDecompressSync(compressMe, { params: { [constants.ZSTD_d_windowLogMax]: 100 
     crc = crc32(Buffer.from("hello", "utf16le")); // $ExpectType number
     crc = crc32(Buffer.from("world", "utf16le"), crc); // $ExpectType number
 }
+
+// ZIP archive API
+
+(async () => {
+    const data = Buffer.from("hello");
+
+    // ZipEntry
+    // @ts-expect-error
+    new ZipEntry();
+    const entry = await ZipEntry.create("a.txt", data); // $ExpectType ZipEntry
+    // $ExpectType ZipEntry
+    await ZipEntry.create("b.txt", new Uint8Array(1), {
+        comment: "c",
+        mode: 0o600,
+        modified: new Date(),
+        method: "store",
+    });
+    // @ts-expect-error
+    await ZipEntry.create("c.txt", data, { method: "brotli" });
+    ZipEntry.createSync("d/", new ArrayBuffer(0), { method: "zstd" }); // $ExpectType ZipEntry
+    // $ExpectType ZipEntry
+    ZipEntry.createSymlink("link", "a.txt", { mode: 0o777, modified: new Date(), comment: "c" });
+    // @ts-expect-error
+    ZipEntry.createSymlink("link", "a.txt", { method: "store" });
+    // $ExpectType ZipEntry
+    const streaming = ZipEntry.createStream("s.bin", (async function*() {
+        yield new Uint8Array([1]);
+    })(), { method: "deflate" });
+    streaming[Symbol.dispose](); // $ExpectType void
+    await streaming[Symbol.asyncDispose](); // $ExpectType void
+
+    entry.comment; // $ExpectType string
+    entry.compressed; // $ExpectType boolean
+    entry.compressedSize; // $ExpectType number
+    entry.crc32; // $ExpectType number
+    entry.flags; // $ExpectType number
+    entry.isDirectory; // $ExpectType boolean
+    entry.isFile; // $ExpectType boolean
+    entry.isSymlink; // $ExpectType boolean
+    entry.mode; // $ExpectType number
+    entry.modified; // $ExpectType Date
+    entry.method; // $ExpectType number
+    entry.name; // $ExpectType string
+    entry.nameBuffer; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    entry.rawContent; // $ExpectType Buffer | null || Buffer<ArrayBufferLike> | null
+    entry.size; // $ExpectType number
+    // @ts-expect-error
+    entry.name = "x";
+    await entry.content(); // $ExpectType NonSharedBuffer
+    await entry.content({ verify: false, maxSize: 1024 }); // $ExpectType NonSharedBuffer
+    entry.contentSync({ maxSize: 1024 }); // $ExpectType NonSharedBuffer
+    for await (const chunk of entry.contentIterator({ verify: true, maxSize: 1024 })) {
+        chunk; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    }
+
+    // createZipArchive / createZipArchiveSync / zipFiles
+    createZipArchive([entry]); // $ExpectType Readable
+    createZipArchive([entry], "comment"); // $ExpectType Readable
+    // $ExpectType Readable
+    createZipArchive((async function*() {
+        yield entry;
+    })(), { comment: "c", baseOffset: 3 });
+    // $ExpectType Iterator<Buffer, undefined, any> || Iterator<Buffer<ArrayBufferLike>, undefined, any>
+    createZipArchiveSync([entry], { baseOffset: 0 });
+    // @ts-expect-error
+    createZipArchiveSync((async function*() {
+        yield entry;
+    })());
+    zipFiles([["/tmp/a.txt", "a.txt"]]); // $ExpectType Readable
+    zipFiles([["/tmp/a.txt", "a.txt"]] as const); // $ExpectType Readable
+    zipFiles(new Map([["/tmp/a.txt", "a.txt"]]), "comment"); // $ExpectType Readable
+    // $ExpectType Readable
+    zipFiles(Object.entries({ "/tmp/a.txt": "a.txt" }), { followSymlinks: false, comment: "c", baseOffset: 0 });
+
+    // getMaxZipContentSize / setMaxZipContentSize
+    getMaxZipContentSize(); // $ExpectType number
+    setMaxZipContentSize(1024); // $ExpectType void
+    // @ts-expect-error
+    setMaxZipContentSize("1024");
+
+    // ZipBuffer
+    const archive = Buffer.concat([...createZipArchiveSync([entry])]);
+    new ZipBuffer(new DataView(archive.buffer, archive.byteOffset, archive.byteLength)); // $ExpectType ZipBuffer
+    new ZipBuffer(new ArrayBuffer(0)); // $ExpectType ZipBuffer
+    ZipEntry.read(archive); // $ExpectType Iterator<ZipEntry, undefined, any>
+    const zb = new ZipBuffer(archive);
+    zb.comment; // $ExpectType string
+    zb.size; // $ExpectType number
+    zb.writable; // $ExpectType boolean
+    // @ts-expect-error
+    zb.comment = "x";
+    await zb.add("b.txt", data, { method: "store" }); // $ExpectType ZipEntry
+    zb.addSync("c.txt", new Uint8Array(1)); // $ExpectType ZipEntry
+    zb.addEntry(entry); // $ExpectType ZipEntry
+    zb.delete("c.txt"); // $ExpectType boolean
+    zb.entries(); // $ExpectType Iterator<[string, ZipEntry], undefined, any>
+    zb.forEach(function(entry, name, zipBuffer) {
+        entry; // $ExpectType ZipEntry
+        name; // $ExpectType string
+        zipBuffer; // $ExpectType ZipBuffer
+    }, {});
+    zb.get("a.txt"); // $ExpectType ZipEntry
+    zb.has("a.txt"); // $ExpectType boolean
+    zb.keys(); // $ExpectType Iterator<string, undefined, any>
+    zb.values(); // $ExpectType Iterator<ZipEntry, undefined, any>
+    await zb.toBuffer(); // $ExpectType NonSharedBuffer
+    await zb.toBuffer("comment"); // $ExpectType NonSharedBuffer
+    zb.toBufferSync({ comment: "c", baseOffset: 0 }); // $ExpectType NonSharedBuffer
+    for (const [name, e] of zb) {
+        name; // $ExpectType string
+        e; // $ExpectType ZipEntry
+    }
+    zb.clear(); // $ExpectType void
+
+    // ZipFile
+    // @ts-expect-error
+    new ZipFile();
+    const zf = await ZipFile.open("archive.zip", { writable: true }); // $ExpectType ZipFile
+    // @ts-expect-error
+    ZipFile.open(new URL("file:///archive.zip"));
+    ZipFile.openSync("archive.zip"); // $ExpectType ZipFile
+    zf.comment; // $ExpectType string
+    zf.size; // $ExpectType number
+    zf.writable; // $ExpectType boolean
+    await zf.add("b.txt", data, { method: "store" }); // $ExpectType ZipEntry
+    zf.addSync("c.txt", new ArrayBuffer(1)); // $ExpectType ZipEntry
+    await zf.addEntry(streaming); // $ExpectType ZipEntry
+    zf.addEntrySync(entry); // $ExpectType ZipEntry
+    zf.compact(); // $ExpectType Readable
+    zf.compact("comment"); // $ExpectType Readable
+    zf.compactSync(); // $ExpectType NonSharedBuffer
+    await zf.delete("b.txt"); // $ExpectType boolean
+    zf.deleteSync("c.txt"); // $ExpectType boolean
+    zf.entries(); // $ExpectType Iterator<[string, Promise<ZipEntry>], undefined, any>
+    zf.entriesSync(); // $ExpectType Iterator<[string, ZipEntry], undefined, any>
+    zf.forEach((entry, name, zipFile) => {
+        entry; // $ExpectType Promise<ZipEntry>
+        name; // $ExpectType string
+        zipFile; // $ExpectType ZipFile
+    });
+    zf.forEachSync((entry, name, zipFile) => {
+        entry; // $ExpectType ZipEntry
+        name; // $ExpectType string
+        zipFile; // $ExpectType ZipFile
+    }, {});
+    await zf.get("a.txt"); // $ExpectType ZipEntry
+    zf.getSync("a.txt"); // $ExpectType ZipEntry
+    zf.has("a.txt"); // $ExpectType boolean
+    zf.keys(); // $ExpectType Iterator<string, undefined, any>
+    await zf.stream("a.txt", { verify: true, maxSize: 1024 }); // $ExpectType Readable
+    zf.values(); // $ExpectType Iterator<Promise<ZipEntry>, undefined, any>
+    zf.valuesSync(); // $ExpectType Iterator<ZipEntry, undefined, any>
+    await zf.close(); // $ExpectType void
+    zf.closeSync(); // $ExpectType void
+})();

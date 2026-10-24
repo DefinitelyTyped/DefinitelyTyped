@@ -6,6 +6,9 @@ const ws: tty.WriteStream = new tty.WriteStream(1);
 
 const rsIsRaw: boolean = rs.isRaw;
 const rawRs: tty.ReadStream = rs.setRawMode(true);
+rs.rawMode; // $ExpectType false | "raw" | "io"
+// @ts-expect-error
+rs.rawMode = true;
 
 const wsColumns: number = ws.columns;
 const wsRows: number = ws.rows;

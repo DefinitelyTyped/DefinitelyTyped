@@ -86,6 +86,34 @@ import { promisify } from "node:util";
 }
 
 {
+    // crypto.createMac / crypto.getMacs
+    crypto.getMacs(); // $ExpectType string[]
+    const key = crypto.randomBytes(16);
+    const mac = crypto.createMac("CMAC", key, { cipher: "AES-128-CBC" }); // $ExpectType Mac
+    const transform: import("node:stream").Transform = mac;
+    mac.update("data"); // $ExpectType Mac
+    mac.update("ZGF0YQ==", "base64").update(new Uint8Array(4)).update(new DataView(new ArrayBuffer(4)));
+    mac.final(); // $ExpectType NonSharedBuffer
+    mac.final("buffer"); // $ExpectType NonSharedBuffer
+    mac.final("hex"); // $ExpectType string
+
+    crypto.createMac("HMAC", crypto.createSecretKey(key), { digest: "sha256", highWaterMark: 1024 });
+    crypto.createMac("GMAC", new ArrayBuffer(16), { cipher: "AES-128-GCM", iv: new ArrayBuffer(12) });
+    crypto.createMac("KMAC128", new DataView(new ArrayBuffer(16)), {
+        customization: Buffer.from("c"),
+        outputLength: 32,
+    });
+    crypto.createMac("BLAKE2BMAC", key, { salt: new Uint8Array(16), customization: new ArrayBuffer(4) });
+
+    // @ts-expect-error - string keys are rejected at runtime
+    crypto.createMac("HMAC", "secret", { digest: "sha256" });
+    // @ts-expect-error - ArrayBuffer data is rejected at runtime
+    mac.update(new ArrayBuffer(4));
+    // @ts-expect-error - Mac is not exported at runtime
+    crypto.Mac;
+}
+
+{
     // crypto_cipheriv_decipheriv_aad_ccm_test
     const key: string | null = "keykeykeykeykeykeykeykey";
     const nonce = crypto.randomBytes(12);

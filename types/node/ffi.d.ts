@@ -132,6 +132,10 @@ declare module "node:ffi" {
          */
         readonly path: string;
         /**
+         * An object containing previously resolved function wrappers.
+         */
+        readonly functions: { [symbol: string]: WrappedFunction };
+        /**
          * An object containing previously resolved symbol addresses as `bigint` values.
          */
         readonly symbols: { [symbol: string]: bigint };
@@ -453,8 +457,10 @@ declare module "node:ffi" {
         uint64: "bigint";
         float: "number";
         f32: "number";
+        float32: "number";
         double: "number";
         f64: "number";
+        float64: "number";
         pointer: "pointer";
         ptr: "pointer";
         function: "pointer";

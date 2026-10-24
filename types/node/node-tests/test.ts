@@ -1050,13 +1050,17 @@ class TestReporter extends Transform {
                 break;
             }
             case "test:stderr": {
-                const { file, message } = event.data;
-                callback(null, `${message}/${file}`);
+                const { entryFile, file, message } = event.data;
+                // $ExpectType string | undefined
+                entryFile;
+                callback(null, `${message}/${file}/${entryFile}`);
                 break;
             }
             case "test:stdout": {
-                const { file, message } = event.data;
-                callback(null, `${message}/${file}`);
+                const { entryFile, file, message } = event.data;
+                // $ExpectType string | undefined
+                entryFile;
+                callback(null, `${message}/${file}/${entryFile}`);
                 break;
             }
             case "test:summary": {
@@ -1066,6 +1070,8 @@ class TestReporter extends Transform {
                     `${file ?? "<multiple>"}/${success}/${duration_ms}/
                     ${counts.topLevel}/${counts.tests}/${counts.passed}`,
                 );
+                // $ExpectType number
+                counts.failed;
                 break;
             }
             case "test:watch:drained":

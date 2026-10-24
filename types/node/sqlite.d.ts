@@ -873,6 +873,17 @@ declare module "node:sqlite" {
             ...anonymousParameters: SQLInputValue[]
         ): Record<string, SQLOutputValue>[];
         /**
+         * Finalizes the prepared statement. An exception is thrown if the statement is
+         * already finalized. An `ERR_INVALID_STATE` error is thrown if this statement
+         * is currently executing, which happens when the method is called from a callback
+         * that the statement itself triggered, such as a user-defined function, an
+         * aggregate function, or a `'sqlite.db.query'` subscriber. Idle statements
+         * on the same connection can be finalized from such a callback. This method is a
+         * wrapper around [`sqlite3_finalize()`](https://www.sqlite.org/c3ref/finalize.html).
+         * @since v26.8.0
+         */
+        close(): void;
+        /**
          * This method is used to retrieve information about the columns returned by the
          * prepared statement.
          * @since v23.11.0
@@ -922,6 +933,15 @@ declare module "node:sqlite" {
             namedParameters: Record<string, SQLInputValue>,
             ...anonymousParameters: SQLInputValue[]
         ): NodeJS.Iterator<Record<string, SQLOutputValue>>;
+        /**
+         * Resets every counter reported by `statement.stat()` back to zero, except
+         * `memused`, which reports current memory usage and cannot be reset. This
+         * method is a wrapper around [`sqlite3_stmt_status()`](https://www.sqlite.org/c3ref/stmt_status.html) and is useful for
+         * measuring a specific workload without the counts accumulated by earlier
+         * executions of the same prepared statement.
+         * @since v26.8.0
+         */
+        resetStats(): void;
         /**
          * This method executes a prepared statement and returns an object summarizing the
          * resulting changes. The prepared statement [parameters are bound](https://www.sqlite.org/c3ref/bind_blob.html) using the
@@ -985,6 +1005,56 @@ declare module "node:sqlite" {
          * @since v22.5.0
          */
         readonly sourceSQL: string;
+        /**
+         * Returns one of the runtime counters that SQLite tracks for this prepared
+         * statement. This method is a wrapper around [`sqlite3_stmt_status()`](https://www.sqlite.org/c3ref/stmt_status.html) and does
+         * not reset the counter. Asserting that a statement does not perform a full table
+         * scan (`statement.stat('fullscanStep') === 0`) is a useful check to guard
+         * against degenerate performance.
+         *
+         * The `'filterMiss'` and `'filterHit'` counters require SQLite 3.38.0 or later.
+         * Builds linked against an older SQLite with `--shared-sqlite` do not expose them,
+         * and passing either name throws `ERR_INVALID_ARG_VALUE`.
+         * @since v26.8.0
+         * @param counter The name of the counter to read. One of:
+         * * `'fullscanStep'` The number of times SQLite has stepped forward in a table
+         *   as part of a full table scan.
+         * * `'sort'` The number of sort operations that have occurred.
+         * * `'autoindex'` The number of rows inserted into transient indices that were
+         *   created automatically to help joins run faster.
+         * * `'vmStep'` The number of virtual machine operations executed by the
+         *   prepared statement.
+         * * `'reprepare'` The number of times the statement has been automatically
+         *   reprepared due to schema changes or changes to bound parameters.
+         * * `'run'` The number of execution cycles started by the prepared statement.
+         * * `'filterMiss'` The number of times the Bloom filter returned a result that
+         *   required the join step to be processed as normal.
+         * * `'filterHit'` The number of times a join step was bypassed because a Bloom
+         *   filter returned not-found.
+         * * `'memused'` The approximate number of bytes of heap memory used to store
+         *   the prepared statement.
+         * @returns The current value of the requested counter.
+         */
+        stat(
+            counter:
+                | "fullscanStep"
+                | "sort"
+                | "autoindex"
+                | "vmStep"
+                | "reprepare"
+                | "run"
+                | "filterMiss"
+                | "filterHit"
+                | "memused",
+        ): number;
+        /**
+         * Finalizes the prepared statement. If the prepared statement is already
+         * finalized, then this is a no-op. An `ERR_INVALID_STATE` error is thrown if
+         * this statement is currently executing, under the same conditions as
+         * `statement.close()`.
+         * @since v26.8.0
+         */
+        [Symbol.dispose](): void;
     }
     interface BackupOptions {
         /**
