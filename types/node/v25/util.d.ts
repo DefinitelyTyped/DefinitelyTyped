@@ -1217,7 +1217,7 @@ declare module "node:util" {
          * A stream that will be validated if it can be colored.
          * @default process.stdout
          */
-        stream?: Stream | undefined;
+        stream?: Stream | NodeJS.ReadableStream | NodeJS.WritableStream | undefined;
     }
     /**
      * This function returns a formatted text considering the `format` passed

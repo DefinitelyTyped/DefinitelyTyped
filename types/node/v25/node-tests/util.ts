@@ -1,8 +1,8 @@
 import * as util from "node:util";
 import assert = require("node:assert");
+import { EventEmitter } from "node:events";
 import { access, readFile } from "node:fs";
 import { Readable, Stream, Writable } from "node:stream";
-import { EventEmitter } from "node:events";
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
