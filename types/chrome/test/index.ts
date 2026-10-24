@@ -3680,8 +3680,10 @@ async function testTabs() {
     };
 
     chrome.tabs.captureVisibleTab(); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(undefined); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowId); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowCaptureOptions); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(undefined, windowCaptureOptions); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab((dataUrl) => { // $ExpectType void
         dataUrl; // $ExpectType string
@@ -3695,6 +3697,12 @@ async function testTabs() {
     chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions, (dataUrl) => { // $ExpectType void
         dataUrl; // $ExpectType string
     });
+    chrome.tabs.captureVisibleTab(undefined, (dataUrl) => { // $ExpectType void
+        dataUrl; // $ExpectType string
+    });
+    chrome.tabs.captureVisibleTab(undefined, windowCaptureOptions, (dataUrl) => { // $ExpectType void
+        dataUrl; // $ExpectType string
+    });
     // @ts-expect-error
     chrome.tabs.captureVisibleTab(windowCaptureOptions, windowId);
     // @ts-expect-error
@@ -3703,6 +3711,7 @@ async function testTabs() {
     const connectInfo: chrome.tabs.ConnectInfo = {
         name: "name",
         frameId,
+        documentId,
     };
 
     chrome.tabs.connect(tabId); // $ExpectType Port
@@ -3824,6 +3833,8 @@ async function testTabs() {
     chrome.tabs.group(groupOptions, (groupId) => { // $ExpectType void
         groupId; // $ExpectType number
     });
+    // @ts-expect-error Missing required property 'tabIds'.
+    chrome.tabs.group({});
     // @ts-expect-error Value did not match any choice.
     chrome.tabs.group({ tabIds: [] });
     // @ts-expect-error
@@ -3890,8 +3901,10 @@ async function testTabs() {
     };
 
     chrome.tabs.reload(); // $ExpectType Promise<void>
+    chrome.tabs.reload(undefined); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId); // $ExpectType Promise<void>
     chrome.tabs.reload(reloadProperties); // $ExpectType Promise<void>
+    chrome.tabs.reload(undefined, reloadProperties); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId, reloadProperties); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId, () => {}); // $ExpectType void
     chrome.tabs.reload(reloadProperties, () => {}); // $ExpectType void

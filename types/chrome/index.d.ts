@@ -11673,7 +11673,7 @@ declare namespace chrome {
          * An ID that represents the absence of a split tab.
          * @since Chrome 140
          */
-        const SPLIT_VIEW_ID_NONE: -1;
+        const SPLIT_VIEW_ID_NONE = -1;
 
         /**
          * An ID that represents the absence of a browser tab.
@@ -11765,7 +11765,7 @@ declare namespace chrome {
              * Open a port to a specific document identified by `documentId` instead of all frames in the tab.
              * @since Chrome 106
              */
-            documentId?: string;
+            documentId?: string | undefined;
         }
 
         interface MessageSendOptions {
@@ -11775,7 +11775,7 @@ declare namespace chrome {
              * Send a message to a specific document identified by `documentId` instead of all frames in the tab.
              * @since Chrome 106
              */
-            documentId?: string;
+            documentId?: string | undefined;
         }
 
         interface GroupOptions {
@@ -11787,7 +11787,7 @@ declare namespace chrome {
             /** The ID of the group to add the tabs to. If not specified, a new group will be created. */
             groupId?: number | undefined;
             /** The tab ID or list of tab IDs to add to the specified group. */
-            tabIds?: number | [number, ...number[]] | undefined;
+            tabIds: number | [number, ...number[]];
         }
 
         interface HighlightInfo {
@@ -12101,18 +12101,17 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          * @param windowId The target window. Defaults to the current window.
          */
-        function captureVisibleTab(): Promise<string>;
-        function captureVisibleTab(windowId: number): Promise<string>;
+        function captureVisibleTab(windowId?: number): Promise<string>;
         function captureVisibleTab(options: extensionTypes.ImageDetails): Promise<string>;
-        function captureVisibleTab(windowId: number, options: extensionTypes.ImageDetails): Promise<string>;
+        function captureVisibleTab(windowId: number | undefined, options: extensionTypes.ImageDetails): Promise<string>;
         function captureVisibleTab(callback: (dataUrl: string) => void): void;
-        function captureVisibleTab(windowId: number, callback: (dataUrl: string) => void): void;
+        function captureVisibleTab(windowId: number | undefined, callback: (dataUrl: string) => void): void;
         function captureVisibleTab(
             options: extensionTypes.ImageDetails,
             callback: (dataUrl: string) => void,
         ): void;
         function captureVisibleTab(
-            windowId: number,
+            windowId: number | undefined,
             options: extensionTypes.ImageDetails,
             callback: (dataUrl: string) => void,
         ): void;
@@ -12123,10 +12122,9 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
          */
-        function reload(): Promise<void>;
-        function reload(tabId: number): Promise<void>;
+        function reload(tabId?: number): Promise<void>;
         function reload(reloadProperties: ReloadProperties): Promise<void>;
-        function reload(tabId: number, reloadProperties: ReloadProperties): Promise<void>;
+        function reload(tabId: number | undefined, reloadProperties: ReloadProperties): Promise<void>;
         function reload(callback: () => void): void;
         function reload(tabId: number | undefined, callback: () => void): void;
         function reload(reloadProperties: ReloadProperties | undefined, callback: () => void): void;
