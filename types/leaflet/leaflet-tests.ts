@@ -242,6 +242,77 @@ map.on("zoomanim", e => {
     e; // $ExpectType ZoomAnimEvent
 });
 
+const testMarker = L.marker([0, 0]);
+
+map.on("pointermove", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+    testMarker.setLatLng(e.latlng);
+    // @ts-expect-error
+    e.nonExistentProperty;
+});
+
+map.on("pointerdown", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on("pointerup", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on("pointercancel", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on("pointerenter", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on("pointerleave", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on("pointerover", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on("pointerout", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on("pointerrawupdate", e => {
+    e; // $ExpectType LeafletMouseEvent
+    e.latlng; // $ExpectType LatLng
+});
+
+map.on({
+    pointermove: e => {
+        e; // $ExpectType LeafletMouseEvent
+        testMarker.setLatLng(e.latlng);
+    },
+    pointerdown: e => {
+        e; // $ExpectType LeafletMouseEvent
+    },
+    pointerup: e => {
+        e; // $ExpectType LeafletMouseEvent
+    },
+});
+
+map.off("pointermove", e => {
+    e; // $ExpectType LeafletMouseEvent
+});
+
+map.off("pointerdown", e => {
+    e; // $ExpectType LeafletMouseEvent
+});
+
 map.once({
     dragend: (_e: L.DragEndEvent) => {},
     locationfound: (_e: L.LocationEvent) => {},

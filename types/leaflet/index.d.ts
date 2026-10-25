@@ -350,6 +350,15 @@ export interface LeafletEventHandlerFnMap {
     mouseover?: LeafletMouseEventHandlerFn | undefined;
     mouseout?: LeafletMouseEventHandlerFn | undefined;
     mousemove?: LeafletMouseEventHandlerFn | undefined;
+    pointercancel?: LeafletMouseEventHandlerFn | undefined;
+    pointerdown?: LeafletMouseEventHandlerFn | undefined;
+    pointerenter?: LeafletMouseEventHandlerFn | undefined;
+    pointerleave?: LeafletMouseEventHandlerFn | undefined;
+    pointermove?: LeafletMouseEventHandlerFn | undefined;
+    pointerout?: LeafletMouseEventHandlerFn | undefined;
+    pointerover?: LeafletMouseEventHandlerFn | undefined;
+    pointerrawupdate?: LeafletMouseEventHandlerFn | undefined;
+    pointerup?: LeafletMouseEventHandlerFn | undefined;
     contextmenu?: LeafletMouseEventHandlerFn | undefined;
     preclick?: LeafletMouseEventHandlerFn | undefined;
 
@@ -428,6 +437,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -498,6 +516,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn?: LeafletMouseEventHandlerFn,
@@ -573,6 +600,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick"
             | "keypress"
@@ -640,6 +676,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -712,6 +757,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -794,6 +848,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -872,6 +935,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn?: LeafletMouseEventHandlerFn,
@@ -958,6 +1030,15 @@ declare class Events {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -1062,6 +1143,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -1132,6 +1222,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn?: LeafletMouseEventHandlerFn,
@@ -1207,6 +1306,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick"
             | "keypress"
@@ -1274,6 +1382,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -1346,6 +1463,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -1428,6 +1554,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
@@ -1506,6 +1641,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn?: LeafletMouseEventHandlerFn,
@@ -1592,6 +1736,15 @@ export abstract class Evented extends Class {
             | "mouseover"
             | "mouseout"
             | "mousemove"
+            | "pointercancel"
+            | "pointerdown"
+            | "pointerenter"
+            | "pointerleave"
+            | "pointermove"
+            | "pointerout"
+            | "pointerover"
+            | "pointerrawupdate"
+            | "pointerup"
             | "contextmenu"
             | "preclick",
         fn: LeafletMouseEventHandlerFn,
