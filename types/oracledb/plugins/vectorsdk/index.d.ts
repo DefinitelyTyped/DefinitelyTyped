@@ -1,8 +1,8 @@
-import { Connection, Pool, SparseVector } from "oracledb";
+import { Connection, Pool, SparseVector } from "../..";
 
 export type DenseVector = Float32Array | Float64Array | Int8Array | Uint8Array;
 export type Vector = DenseVector | SparseVector<Float32Array | Float64Array | Int8Array>;
-export type VectorInput = number[] | DenseVector | SparseVector<DenseVector>;
+export type VectorInput = ReadonlyArray<number> | DenseVector | SparseVector<DenseVector>;
 export type TableName = string | { schema: string; name: string };
 export type ColumnDefinition = string | { name?: string | undefined; annotation?: string | undefined };
 export type DatabaseSource = Connection | Pool | (() => Connection | Pool | Promise<Connection | Pool>);
@@ -71,7 +71,7 @@ export interface Document {
 
 export interface AddOptions {
     /** External document IDs, in input order. UUIDs are generated when omitted. */
-    ids?: string[] | undefined;
+    ids?: ReadonlyArray<string> | undefined;
     /** Update rows with matching IDs. Defaults to false. */
     upsert?: boolean | undefined;
     /** Must be true; omitted or false values are rejected before executing SQL. */
@@ -91,24 +91,27 @@ export interface InsertWithEmbeddingsOptions {
 export type FilterScalar = string | number | boolean | null;
 
 export interface FilterComparison {
-    $between?: [number, number] | [string, string] | undefined;
+    $between?: readonly [number, number] | readonly [string, string] | undefined;
     $eq?: FilterScalar | undefined;
     $exists?: boolean | undefined;
     $gt?: string | number | undefined;
     $gte?: string | number | undefined;
-    $in?: FilterScalar[] | undefined;
+    $in?: ReadonlyArray<FilterScalar> | undefined;
     $like?: string | undefined;
     $lt?: string | number | undefined;
     $lte?: string | number | undefined;
     $ne?: FilterScalar | undefined;
-    $nin?: FilterScalar[] | undefined;
+    $nin?: ReadonlyArray<FilterScalar> | undefined;
 }
 
 /** Field comparisons or a logical node containing exactly one of `$and` and `$or`. */
 export type MetadataFilter =
-    | ({ [field: string]: FilterScalar | FilterScalar[] | FilterComparison } & { $and?: never; $or?: never })
-    | { $and: MetadataFilter[]; $or?: never }
-    | { $or: MetadataFilter[]; $and?: never };
+    | ({ [field: string]: FilterScalar | ReadonlyArray<FilterScalar> | FilterComparison } & {
+        $and?: never;
+        $or?: never;
+    })
+    | { $and: ReadonlyArray<MetadataFilter>; $or?: never }
+    | { $or: ReadonlyArray<MetadataFilter>; $and?: never };
 
 export interface SearchOptions {
     /** Supply exactly one query representation. Text searches require `modelParams`. */
@@ -143,12 +146,12 @@ export interface CreateVectorIndexOptions {
     accuracy?: number | undefined;
     /** Positive parallel creation degree. Defaults to 1. */
     parallel?: number | undefined;
-    includeColumns?: string[] | undefined;
+    includeColumns?: ReadonlyArray<string> | undefined;
 }
 
 export interface DeleteOptions {
     /** External document IDs to delete. A non-empty array cannot be combined with `deleteAll: true`. */
-    ids?: string[] | undefined;
+    ids?: ReadonlyArray<string> | undefined;
     /** Truncate the table. This implicitly commits and cannot be rolled back. */
     deleteAll?: boolean | undefined;
     autoCommit?: boolean | undefined;
@@ -176,13 +179,17 @@ export class OracleVecDB {
     /** Generate embeddings from a source table and return the inserted row count. Requires `modelParams`. */
     insertWithEmbeddings(options: InsertWithEmbeddingsOptions): Promise<number>;
     /** Store vectors and documents, returning supplied or generated IDs in input order. */
-    addVectors(vectors: VectorInput[], documents: Document[], options: AddOptions): Promise<string[]>;
+    addVectors(
+        vectors: ReadonlyArray<VectorInput>,
+        documents: ReadonlyArray<Document>,
+        options: AddOptions,
+    ): Promise<string[]>;
     /** Generate and store document embeddings, returning IDs in input order. Requires `modelParams`. */
-    addDocuments(documents: Document[], options: AddOptions): Promise<string[]>;
+    addDocuments(documents: ReadonlyArray<Document>, options: AddOptions): Promise<string[]>;
     /** Return matching documents in ascending distance order. */
     search(options: SearchOptions): Promise<SearchResult[]>;
     /** Generate one embedding per input string, preserving input order. Requires `modelParams`. */
-    generateEmbeddings(texts: string[]): Promise<Vector[]>;
+    generateEmbeddings(texts: ReadonlyArray<string>): Promise<Vector[]>;
     /** Delete by ID or truncate the table. Returns undefined when neither action is requested. */
     delete(options: DeleteOptions): Promise<DeleteResult | undefined>;
 }

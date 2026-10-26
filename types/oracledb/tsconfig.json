@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
+        "plugins/vectorsdk/index.d.ts",
         "oracledb-tests.ts",
         "vectorsdk-tests.ts",
         "vectorsdk-example.ts"

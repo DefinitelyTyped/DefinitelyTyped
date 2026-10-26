@@ -63,6 +63,24 @@ export async function testVectorSdkDocuments() {
         modelParams: { provider: "database", model: "EMBED_MODEL" },
     });
     const documents = [{ content: "Document text", metadata: { category: "database", year: 2026 } }];
+    const readonlyDocuments = [{ content: "Document text", metadata: { category: "database" } }] as const;
+    const readonlyVectors = [[1, 0, 0]] as const;
+    const readonlyIds = ["readonly-document"] as const;
+    expectType<string[]>(
+        await store.addVectors(readonlyVectors, readonlyDocuments, { ids: readonlyIds, autoCommit: true }),
+    );
+    expectType<string[]>(await store.addDocuments(readonlyDocuments, { ids: readonlyIds, autoCommit: true }));
+    expectType<vectorSdk.Vector[]>(await store.generateEmbeddings(["Document text"] as const));
+    await store.search({
+        queryBy: { vector: readonlyVectors[0] },
+        filter: {
+            $and: [
+                { category: ["database"] as const },
+                { year: { $between: [2020, 2026] as const, $in: [2026] as const, $nin: [2019] as const } },
+            ] as const,
+        },
+    });
+    await store.delete({ ids: readonlyIds, autoCommit: true });
     expectType<string>(await store.createVectorTable());
     expectType<string[]>(await store.addVectors([[1, 0, 0]], documents, { autoCommit: true }));
     expectType<string[]>(
@@ -213,6 +231,11 @@ export async function testVectorSdkIndexes() {
         includeColumns: ["external_id"],
     }));
     await store.createVectorIndex({ indexName: "DOC_IVF_INDEX", type: "IVF", parameters: { partitions: 16 } });
+    await store.createVectorIndex({
+        indexName: "DOC_INCLUDED_INDEX",
+        parameters: {},
+        includeColumns: ["external_id"] as const,
+    });
     expectType<Record<string, unknown>>(await vectorSdk.getIndexBuildStatus(connection, "DOCUMENTS"));
 
     // @ts-expect-error Index parameters are required.
