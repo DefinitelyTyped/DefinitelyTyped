@@ -1,12 +1,19 @@
 import * as ESTree from "estree";
 
-interface CustomNode extends ESTree.BaseNode {
-    type: "CustomNode";
+interface MDXParagraph extends ESTree.BaseNode {
+    type: "MDXParagraph";
+    children: ESTree.Node[];
+}
+
+interface MDXTable extends ESTree.BaseNode {
+    type: "MDXTable";
+    children: ESTree.Node[];
 }
 
 declare module "estree" {
     interface ProgramBodyMap {
-        CustomNode: CustomNode;
+        MDXParagraph: MDXParagraph;
+        MDXTable: MDXTable;
     }
 }
 
@@ -14,7 +21,8 @@ declare var node: ESTree.Node;
 declare var program: ESTree.Program;
 declare var programBodyMap: ESTree.ProgramBodyMap;
 declare var programBody: ESTree.ProgramBody;
-declare var customNode: CustomNode;
+declare var mdxParagraph: MDXParagraph;
+declare var mdxTable: MDXTable;
 declare var functionAst: ESTree.Function;
 declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
@@ -129,9 +137,13 @@ programBody = programBodyMap.Directive;
 programBody = programBodyMap.Statement;
 programBody = programBodyMap.ModuleDeclaration;
 programBody = program.body[0];
-programBody = customNode;
+programBody = mdxParagraph;
+programBody = mdxTable;
 
-if (program.body[0].type !== "CustomNode") {
+if (
+    program.body[0].type !== "MDXParagraph"
+    && program.body[0].type !== "MDXTable"
+) {
     toplevelStatement = program.body[0];
 }
 
