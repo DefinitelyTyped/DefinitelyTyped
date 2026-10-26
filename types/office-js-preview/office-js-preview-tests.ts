@@ -108,6 +108,24 @@ function test_excel() {
     }).catch(console.log);
 }
 
+function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: Excel.Range) {
+    // $ExpectType void
+    series.setValues(range);
+    // $ExpectType void
+    series.setValues("=Sheet1!$B$2:$B$4");
+    // $ExpectType void
+    series.setXAxisValues(range);
+    // $ExpectType void
+    series.setXAxisValues("=Sheet1!$A$2:$A$4");
+    series.setXAxisValues("");
+    series.setXAxisValues("=");
+
+    // @ts-expect-error
+    series.setValues(42);
+    // @ts-expect-error
+    series.setXAxisValues(["A", "B"]);
+}
+
 function test_excel_recent_apis(
     functions: Excel.Functions,
     sensitivityLabel: Excel.SensitivityLabel,
@@ -141,9 +159,6 @@ function test_excel_recent_apis(
     const abacAttributeDataType: Excel.SensitivityLabelAbacAttributeDataType =
         Excel.SensitivityLabelAbacAttributeDataType.stringValue;
     const abacAttributeDataTypeValue: "StringValue" = Excel.SensitivityLabelAbacAttributeDataType.stringValue;
-    const abacAttributeClass: Excel.SensitivityLabelAbacAttribute = abacAttribute;
-    const abacAttributeValueClass: Excel.SensitivityLabelAbacAttributeValue = abacAttributeValue;
-
     const abacAttributeValues: Excel.SensitivityLabelAbacAttributeValue[] = sensitivityLabelDetails.abacAttributeValues;
     const isAbacAttributesRequired: boolean = sensitivityLabelDetails.isAbacAttributesRequired;
     const isAbacEnabled: boolean = sensitivityLabelDetails.isAbacEnabled;
@@ -159,6 +174,9 @@ function test_excel_recent_apis(
     };
     const updateResult: OfficeExtension.ClientResult<Excel.SensitivityLabelUpdateResult> =
         sensitivityLabel.tryToUpdate("label-id", updateOptions);
+    const updateStatus: Excel.SensitivityLabelUpdateResult["status"] = updateResult.value.status;
+    sensitivityLabel.tryToUpdate("label-id");
+    sensitivityLabel.tryToUpdate("label-id", {});
     const sensitivityLabelsCatalogLoadOptions: Excel.Interfaces.SensitivityLabelsCatalogLoadOptions = {
         getLabelingCapabilities: true,
         getLabelingCapability: true,
@@ -168,18 +186,51 @@ function test_excel_recent_apis(
         getLabelingCapability: "AttributeBasedAccessControlEnabled",
     };
 
-    const unsupportedAbac: Excel.SensitivityLabelUpdateResult = Excel.SensitivityLabelUpdateResult.unsupportedAbac;
-    const unsupportedAbacValue: "UnsupportedAbac" = Excel.SensitivityLabelUpdateResult.unsupportedAbac;
-    const abacAttributesRequired: Excel.SensitivityLabelUpdateResult =
-        Excel.SensitivityLabelUpdateResult.abacAttributesRequired;
+    const unsupportedAbac: Excel.SensitivityLabelUpdateStatus = Excel.SensitivityLabelUpdateStatus.unsupportedAbac;
+    const unsupportedAbacValue: "UnsupportedAbac" = Excel.SensitivityLabelUpdateStatus.unsupportedAbac;
+    const abacAttributesRequired: Excel.SensitivityLabelUpdateStatus =
+        Excel.SensitivityLabelUpdateStatus.abacAttributesRequired;
     const abacAttributesRequiredValue: "AbacAttributesRequired" =
-        Excel.SensitivityLabelUpdateResult.abacAttributesRequired;
-    const removingLabelNotSupported: Excel.SensitivityLabelUpdateResult =
-        Excel.SensitivityLabelUpdateResult.removingLabelNotSupported;
+        Excel.SensitivityLabelUpdateStatus.abacAttributesRequired;
+    const removingLabelNotSupported: Excel.SensitivityLabelUpdateStatus =
+        Excel.SensitivityLabelUpdateStatus.removingLabelNotSupported;
     const removingLabelNotSupportedValue: "RemovingLabelNotSupported" =
-        Excel.SensitivityLabelUpdateResult.removingLabelNotSupported;
+        Excel.SensitivityLabelUpdateStatus.removingLabelNotSupported;
+    const abacAttributesNotAllowed: Excel.SensitivityLabelUpdateStatus =
+        Excel.SensitivityLabelUpdateStatus.abacAttributesNotAllowed;
+    const abacAttributesNotAllowedValue: "AbacAttributesNotAllowed" =
+        Excel.SensitivityLabelUpdateStatus.abacAttributesNotAllowed;
+    const labelDisabled: Excel.SensitivityLabelUpdateStatus = Excel.SensitivityLabelUpdateStatus.labelDisabled;
+    const labelDisabledValue: "LabelDisabled" = Excel.SensitivityLabelUpdateStatus.labelDisabled;
+    const updateResults: Record<Excel.SensitivityLabelUpdateStatus, Excel.SensitivityLabelUpdateResult> = {
+        [Excel.SensitivityLabelUpdateStatus.success]: { status: "Success" },
+        [Excel.SensitivityLabelUpdateStatus.unspecifiedFailure]: { status: "UnspecifiedFailure" },
+        [Excel.SensitivityLabelUpdateStatus.labelNotFound]: { status: "LabelNotFound" },
+        [Excel.SensitivityLabelUpdateStatus.documentReadOnly]: { status: "DocumentReadOnly" },
+        [Excel.SensitivityLabelUpdateStatus.insufficientPermission]: { status: "InsufficientPermission" },
+        [Excel.SensitivityLabelUpdateStatus.unsupportedDoubleKeyEncryption]: { status: "UnsupportedDoubleKeyEncryption" },
+        [Excel.SensitivityLabelUpdateStatus.labelingDisabled]: { status: "LabelingDisabled" },
+        [Excel.SensitivityLabelUpdateStatus.userNotFound]: { status: "UserNotFound" },
+        [Excel.SensitivityLabelUpdateStatus.unsupportedUdp]: { status: "UnsupportedUdp" },
+        [Excel.SensitivityLabelUpdateStatus.parentLabelNotSupported]: { status: "ParentLabelNotSupported" },
+        [Excel.SensitivityLabelUpdateStatus.crossTenant]: { status: "CrossTenant" },
+        [Excel.SensitivityLabelUpdateStatus.abacAttributesNotAllowed]: { status: "AbacAttributesNotAllowed" },
+        [Excel.SensitivityLabelUpdateStatus.abacAttributesRequired]: { status: "AbacAttributesRequired" },
+        [Excel.SensitivityLabelUpdateStatus.unsupportedAbac]: { status: "UnsupportedAbac" },
+        [Excel.SensitivityLabelUpdateStatus.labelDisabled]: { status: "LabelDisabled" },
+        [Excel.SensitivityLabelUpdateStatus.removingLabelNotSupported]: { status: "RemovingLabelNotSupported" },
+    };
+    const enumUpdateResult: Excel.SensitivityLabelUpdateResult = {
+        status: Excel.SensitivityLabelUpdateStatus.success,
+    };
+    // @ts-expect-error Update results require a status.
+    const missingUpdateStatus: Excel.SensitivityLabelUpdateResult = {};
+    // @ts-expect-error Unknown statuses are not accepted.
+    const invalidUpdateStatus: Excel.SensitivityLabelUpdateResult = { status: "Unknown" };
+    // @ts-expect-error Status values moved to SensitivityLabelUpdateStatus.
+    Excel.SensitivityLabelUpdateResult.success;
 
-    const abacAttributeData: Excel.Interfaces.SensitivityLabelAbacAttributeData = {
+    const abacAttributeObject: Excel.SensitivityLabelAbacAttribute = {
         dataType: Excel.SensitivityLabelAbacAttributeDataType.stringValue,
         displayName: "Department",
         displayOrder: 1,
@@ -187,31 +238,51 @@ function test_excel_recent_apis(
         isMultiValued: false,
         values: [abacAttributeValue],
     };
-    const abacAttributeValueData: Excel.Interfaces.SensitivityLabelAbacAttributeValueData = {
+    const abacAttributeValueObject: Excel.SensitivityLabelAbacAttributeValue = {
         displayName: "Engineering",
         displayOrder: 1,
         id: "engineering",
         isActive: true,
     };
-    const abacAttributeLoadOptions: Excel.Interfaces.SensitivityLabelAbacAttributeLoadOptions = {
-        dataType: true,
-        displayName: true,
-        displayOrder: true,
-        isActive: true,
-        isMultiValued: true,
-        values: true,
-    };
-    const abacAttributeValueLoadOptions: Excel.Interfaces.SensitivityLabelAbacAttributeValueLoadOptions = {
-        displayName: true,
-        displayOrder: true,
-        id: true,
-        isActive: true,
-    };
+    abacAttributeObject.displayName = "Department";
+    abacAttributeObject.values = [abacAttributeValueObject];
+    abacAttributeValueObject.isActive = false;
+    const selectedAttributeValue: Excel.SensitivityLabelAbacAttributeValue = attributesResult.value[0].values[0];
+    const selectedAttributeValueId: string = selectedAttributeValue.id;
+    sensitivityLabel.tryToUpdate("label-id", { abacAttributes: [abacAttributeObject] });
+    // @ts-expect-error ABAC attributes are plain data, not client objects.
+    abacAttributeObject.load();
+    // @ts-expect-error ABAC attribute values are plain data, not client objects.
+    abacAttributeValueObject.load();
+    // @ts-expect-error ABAC attributes no longer have generated serialization methods.
+    abacAttributeObject.toJSON();
+    // @ts-expect-error ABAC attribute values no longer have generated serialization methods.
+    abacAttributeValueObject.toJSON();
+    // @ts-expect-error ABAC attributes no longer have a separate serialized-data interface.
+    const removedAbacAttributeData: Excel.Interfaces.SensitivityLabelAbacAttributeData = {};
+    // @ts-expect-error ABAC attribute values no longer have a separate serialized-data interface.
+    const removedAbacAttributeValueData: Excel.Interfaces.SensitivityLabelAbacAttributeValueData = {};
+    // @ts-expect-error Plain ABAC attributes cannot be loaded.
+    const removedAbacAttributeLoadOptions: Excel.Interfaces.SensitivityLabelAbacAttributeLoadOptions = {};
+    // @ts-expect-error Plain ABAC attribute values cannot be loaded.
+    const removedAbacAttributeValueLoadOptions: Excel.Interfaces.SensitivityLabelAbacAttributeValueLoadOptions = {};
+    const firstSensitivityLabel: Excel.SensitivityLabelDetails =
+        sensitivityLabelDetailsCollection.getFirstOrNullObject();
+    const firstLabelIsNull: boolean = firstSensitivityLabel.isNullObject;
+    firstSensitivityLabel.load({ id: true });
+    const sublabels: Excel.SensitivityLabelDetailsCollection = sensitivityLabelDetails.children;
+    const firstSublabel: Excel.SensitivityLabelDetails = sublabels.getFirst();
+    const emptySensitivityLabelDetailsData: Excel.Interfaces.SensitivityLabelDetailsData = {};
     const sensitivityLabelDetailsData: Excel.Interfaces.SensitivityLabelDetailsData = {
+        children: [{ id: "child-label-id", children: [] }],
         abacAttributeValues: [abacAttributeValue],
         isAbacAttributesRequired: true,
         isAbacEnabled: true,
     };
+    const serializedSensitivityLabelDetails: Excel.Interfaces.SensitivityLabelDetailsData =
+        sensitivityLabelDetails.toJSON();
+    const serializedSublabels: Excel.Interfaces.SensitivityLabelDetailsData[] | undefined =
+        serializedSensitivityLabelDetails.children;
     const sensitivityLabelDetailsLoadOptions: Excel.Interfaces.SensitivityLabelDetailsLoadOptions = {
         abacAttributeValues: true,
         isAbacAttributesRequired: true,
@@ -228,6 +299,10 @@ function test_excel_recent_apis(
     sensitivityLabelDetailsCollection.load({ abacAttributeValues: true });
     sensitivityLabelDetailsCollection.load({ isAbacAttributesRequired: false });
     sensitivityLabelDetailsCollection.load({ isAbacEnabled: true });
+    // @ts-expect-error Sublabels are navigation objects, not scalar load flags.
+    sensitivityLabelDetails.load({ children: true });
+    // @ts-expect-error Sublabels are navigation objects, not scalar load flags.
+    sensitivityLabelDetailsCollection.load({ children: true });
     // @ts-expect-error Load flags must be booleans.
     sensitivityLabelDetailsCollection.load({ abacAttributeValues: "true" });
     // @ts-expect-error Load flags must be booleans.
@@ -586,6 +661,94 @@ function test_powerpoint_recent_apis(
     };
     const updateResult: OfficeExtension.ClientResult<PowerPoint.SensitivityLabelUpdateResult> =
         sensitivityLabel.tryToUpdate("label-id", updateOptions);
+    const updateStatus: PowerPoint.SensitivityLabelUpdateResult["status"] = updateResult.value.status;
+    const abacAttributesNotAllowed: PowerPoint.SensitivityLabelUpdateStatus =
+        PowerPoint.SensitivityLabelUpdateStatus.abacAttributesNotAllowed;
+    const abacAttributesNotAllowedValue: "AbacAttributesNotAllowed" =
+        PowerPoint.SensitivityLabelUpdateStatus.abacAttributesNotAllowed;
+    const abacAttributesRequired: PowerPoint.SensitivityLabelUpdateStatus =
+        PowerPoint.SensitivityLabelUpdateStatus.abacAttributesRequired;
+    const abacAttributesRequiredValue: "AbacAttributesRequired" =
+        PowerPoint.SensitivityLabelUpdateStatus.abacAttributesRequired;
+    const unsupportedAbac: PowerPoint.SensitivityLabelUpdateStatus =
+        PowerPoint.SensitivityLabelUpdateStatus.unsupportedAbac;
+    const unsupportedAbacValue: "UnsupportedAbac" = PowerPoint.SensitivityLabelUpdateStatus.unsupportedAbac;
+    const labelDisabled: PowerPoint.SensitivityLabelUpdateStatus =
+        PowerPoint.SensitivityLabelUpdateStatus.labelDisabled;
+    const labelDisabledValue: "LabelDisabled" = PowerPoint.SensitivityLabelUpdateStatus.labelDisabled;
+    const updateResults: Record<PowerPoint.SensitivityLabelUpdateStatus, PowerPoint.SensitivityLabelUpdateResult> = {
+        [PowerPoint.SensitivityLabelUpdateStatus.success]: { status: "Success" },
+        [PowerPoint.SensitivityLabelUpdateStatus.unspecifiedFailure]: { status: "UnspecifiedFailure" },
+        [PowerPoint.SensitivityLabelUpdateStatus.labelNotFound]: { status: "LabelNotFound" },
+        [PowerPoint.SensitivityLabelUpdateStatus.documentReadOnly]: { status: "DocumentReadOnly" },
+        [PowerPoint.SensitivityLabelUpdateStatus.insufficientPermission]: { status: "InsufficientPermission" },
+        [PowerPoint.SensitivityLabelUpdateStatus.unsupportedDoubleKeyEncryption]: {
+            status: "UnsupportedDoubleKeyEncryption",
+        },
+        [PowerPoint.SensitivityLabelUpdateStatus.labelingDisabled]: { status: "LabelingDisabled" },
+        [PowerPoint.SensitivityLabelUpdateStatus.userNotFound]: { status: "UserNotFound" },
+        [PowerPoint.SensitivityLabelUpdateStatus.unsupportedUdp]: { status: "UnsupportedUdp" },
+        [PowerPoint.SensitivityLabelUpdateStatus.parentLabelNotSupported]: { status: "ParentLabelNotSupported" },
+        [PowerPoint.SensitivityLabelUpdateStatus.crossTenant]: { status: "CrossTenant" },
+        [PowerPoint.SensitivityLabelUpdateStatus.abacAttributesNotAllowed]: { status: "AbacAttributesNotAllowed" },
+        [PowerPoint.SensitivityLabelUpdateStatus.abacAttributesRequired]: { status: "AbacAttributesRequired" },
+        [PowerPoint.SensitivityLabelUpdateStatus.unsupportedAbac]: { status: "UnsupportedAbac" },
+        [PowerPoint.SensitivityLabelUpdateStatus.labelDisabled]: { status: "LabelDisabled" },
+        [PowerPoint.SensitivityLabelUpdateStatus.removingLabelNotSupported]: { status: "RemovingLabelNotSupported" },
+    };
+    const enumUpdateResult: PowerPoint.SensitivityLabelUpdateResult = {
+        status: PowerPoint.SensitivityLabelUpdateStatus.success,
+    };
+    // @ts-expect-error Update results require a status.
+    const missingUpdateStatus: PowerPoint.SensitivityLabelUpdateResult = {};
+    // @ts-expect-error The old status string was replaced by UnsupportedAbac.
+    const oldAbacStatus: PowerPoint.SensitivityLabelUpdateResult = { status: "AbacNotSupported" };
+    // @ts-expect-error The old status string was replaced by AbacAttributesRequired.
+    const oldRequiredStatus: PowerPoint.SensitivityLabelUpdateResult = { status: "MissingRequiredAttributes" };
+    // @ts-expect-error Status values moved to SensitivityLabelUpdateStatus.
+    PowerPoint.SensitivityLabelUpdateResult.success;
+
+    const attributeValue: PowerPoint.SensitivityLabelAbacAttributeValue = {
+        displayName: "Engineering",
+        displayOrder: 1,
+        id: "engineering",
+        isActive: true,
+    };
+    const attribute: PowerPoint.SensitivityLabelAbacAttribute = {
+        dataType: PowerPoint.SensitivityLabelAbacAttributeDataType.stringValue,
+        displayName: "Department",
+        displayOrder: 1,
+        isActive: true,
+        isMultiValued: false,
+        values: [attributeValue],
+    };
+    attribute.displayName = "Department";
+    attribute.values = [attributeValue];
+    attributeValue.isActive = false;
+    const attributes: OfficeExtension.ClientResult<PowerPoint.SensitivityLabelAbacAttribute[]> =
+        sensitivityLabelsCatalog.getAttributes();
+    const selectedAttributeValue: PowerPoint.SensitivityLabelAbacAttributeValue = attributes.value[0].values[0];
+    const selectedAttributeValueId: string = selectedAttributeValue.id;
+    sensitivityLabel.tryToUpdate("label-id");
+    sensitivityLabel.tryToUpdate("label-id", {});
+    sensitivityLabel.tryToUpdate("label-id", { abacAttributes: [] });
+    sensitivityLabel.tryToUpdate("label-id", { abacAttributes: [attribute] });
+    // @ts-expect-error ABAC attributes are plain data, not client objects.
+    attribute.load();
+    // @ts-expect-error ABAC attribute values are plain data, not client objects.
+    attributeValue.load();
+    // @ts-expect-error ABAC attributes no longer have generated serialization methods.
+    attribute.toJSON();
+    // @ts-expect-error ABAC attribute values no longer have generated serialization methods.
+    attributeValue.toJSON();
+    // @ts-expect-error ABAC attributes no longer have a separate serialized-data interface.
+    const removedAttributeData: PowerPoint.Interfaces.SensitivityLabelAbacAttributeData = {};
+    // @ts-expect-error ABAC attribute values no longer have a separate serialized-data interface.
+    const removedAttributeValueData: PowerPoint.Interfaces.SensitivityLabelAbacAttributeValueData = {};
+    // @ts-expect-error Plain ABAC attributes cannot be loaded.
+    const removedAttributeLoadOptions: PowerPoint.Interfaces.SensitivityLabelAbacAttributeLoadOptions = {};
+    // @ts-expect-error Plain ABAC attribute values cannot be loaded.
+    const removedAttributeValueLoadOptions: PowerPoint.Interfaces.SensitivityLabelAbacAttributeValueLoadOptions = {};
     const catalogData: PowerPoint.Interfaces.SensitivityLabelsCatalogData = {
         getLabelingCapabilities: [PowerPoint.LabelingCapability.attributeBasedAccessControlEnabled],
         getLabelingCapability: "AttributeBasedAccessControlEnabled",
