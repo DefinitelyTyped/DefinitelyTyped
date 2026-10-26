@@ -34,6 +34,8 @@ export async function testVectorSdkConfiguration() {
     new OracleVecDB({ ...options, dbSource: async () => pool });
     new OracleVecDB({ ...options, dbSource: () => connection });
     new OracleVecDB({ ...options, vector: { dimensions: 8, storageFormat: "BINARY" } });
+    new OracleVecDB({ ...options, vector: { dimensions: 8, storageFormat: "BINARY", storageType: "DENSE" } });
+    new OracleVecDB({ ...options, vector: { dimensions: 384, storageType: "SPARSE" } });
     new OracleVecDB({ ...options, vector: { dimensions: 384, storageFormat: "*", storageType: "SPARSE" } });
 
     // @ts-expect-error A database source is required.
@@ -48,6 +50,8 @@ export async function testVectorSdkConfiguration() {
     new OracleVecDB({ ...options, vector: { dimensions: 3, storageFormat: "FLOAT16" } });
     // @ts-expect-error Unsupported distance metric.
     new OracleVecDB({ ...options, vectorDistanceType: "L1" });
+    // @ts-expect-error BINARY vectors cannot use SPARSE storage.
+    new OracleVecDB({ ...options, vector: { dimensions: 8, storageFormat: "BINARY", storageType: "SPARSE" } });
 }
 
 export async function testVectorSdkDocuments() {
@@ -120,6 +124,13 @@ export async function testVectorSdkSparseAndBinaryVectors() {
         values: new Float32Array([1]),
     });
     await sparseStore.addVectors([sparse], documents, { autoCommit: true });
+    const unsignedSparse = new oracledb.SparseVector<Uint8Array>({
+        numDimensions: 3,
+        indices: [0],
+        values: new Uint8Array([1]),
+    });
+    await sparseStore.addVectors([unsignedSparse], documents, { autoCommit: true });
+    await sparseStore.search({ queryBy: { vector: unsignedSparse } });
     await sparseStore.addVectors([[1, 0, 0]], documents, { autoCommit: true });
     await sparseStore.search({ queryBy: { vector: sparse } });
 
@@ -176,6 +187,17 @@ export async function testVectorSdkSearch() {
     await store.search({ queryBy: { text: "Document text" }, filter: { year: { $between: [2020, "2026"] } } });
     // @ts-expect-error Unsupported comparison operator.
     await store.search({ queryBy: { text: "Document text" }, filter: { category: { $regex: "Oracle" } } });
+    // @ts-expect-error $and requires an array of filter objects.
+    await store.search({ queryBy: { vector: [1, 0, 0] }, filter: { $and: "invalid" } });
+    // @ts-expect-error Logical filter children must be filter objects, not strings.
+    await store.search({ queryBy: { vector: [1, 0, 0] }, filter: { $or: ["invalid"] } });
+    // @ts-expect-error Logical filter children must be filter objects, not numbers.
+    await store.search({ queryBy: { vector: [1, 0, 0] }, filter: { $and: [1, 2] } });
+    await store.search({
+        queryBy: { vector: [1, 0, 0] },
+        // @ts-expect-error A logical filter node cannot contain both $and and $or.
+        filter: { $and: [{ category: "a" }], $or: [{ category: "b" }] },
+    });
 }
 
 export async function testVectorSdkIndexes() {

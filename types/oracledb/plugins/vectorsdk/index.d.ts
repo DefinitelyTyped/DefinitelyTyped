@@ -2,7 +2,7 @@ import { Connection, Pool, SparseVector } from "oracledb";
 
 export type DenseVector = Float32Array | Float64Array | Int8Array | Uint8Array;
 export type Vector = DenseVector | SparseVector<Float32Array | Float64Array | Int8Array>;
-export type VectorInput = number[] | Vector;
+export type VectorInput = number[] | DenseVector | SparseVector<DenseVector>;
 export type TableName = string | { schema: string; name: string };
 export type ColumnDefinition = string | { name?: string | undefined; annotation?: string | undefined };
 export type DatabaseSource = Connection | Pool | (() => Connection | Pool | Promise<Connection | Pool>);
@@ -16,16 +16,26 @@ export type VectorDistanceType =
     | "HAMMING"
     | "JACCARD";
 
-export interface VectorDefinition {
-    /** Positive dimension count; a multiple of eight for BINARY vectors. */
-    dimensions: number;
-    /** Vector column name and optional comment. Defaults to `embedding`. */
-    column?: ColumnDefinition | undefined;
-    /** Defaults to `FLOAT32`. Values for `*` columns are converted to `FLOAT64`. */
-    storageFormat?: "FLOAT32" | "FLOAT64" | "INT8" | "BINARY" | "*" | undefined;
-    /** Defaults to `DENSE`. BINARY vectors cannot use `SPARSE` storage. */
-    storageType?: "DENSE" | "SPARSE" | undefined;
-}
+export type VectorDefinition =
+    & {
+        /** Positive dimension count; a multiple of eight for BINARY vectors. */
+        dimensions: number;
+        /** Vector column name and optional comment. Defaults to `embedding`. */
+        column?: ColumnDefinition | undefined;
+    }
+    & (
+        | {
+            /** Defaults to `FLOAT32`. Values for `*` columns are converted to `FLOAT64`. */
+            storageFormat?: "FLOAT32" | "FLOAT64" | "INT8" | "*" | undefined;
+            /** Defaults to `DENSE`. */
+            storageType?: "DENSE" | "SPARSE" | undefined;
+        }
+        | {
+            storageFormat: "BINARY";
+            /** BINARY vectors support only `DENSE` storage. */
+            storageType?: "DENSE" | undefined;
+        }
+    );
 
 export interface ColumnDefinitions {
     /** Internal primary key column. Defaults to `id`. */
@@ -96,7 +106,7 @@ export interface FilterComparison {
 
 /** Field comparisons or a logical node containing exactly one of `$and` and `$or`. */
 export type MetadataFilter =
-    | { [field: string]: FilterScalar | FilterScalar[] | FilterComparison }
+    | ({ [field: string]: FilterScalar | FilterScalar[] | FilterComparison } & { $and?: never; $or?: never })
     | { $and: MetadataFilter[]; $or?: never }
     | { $or: MetadataFilter[]; $and?: never };
 
