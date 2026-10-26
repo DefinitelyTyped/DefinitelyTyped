@@ -137,7 +137,7 @@ export interface CreateVectorIndexOptions {
 }
 
 export interface DeleteOptions {
-    /** External document IDs to delete. Cannot be combined with `deleteAll: true`. */
+    /** External document IDs to delete. A non-empty array cannot be combined with `deleteAll: true`. */
     ids?: string[] | undefined;
     /** Truncate the table. This implicitly commits and cannot be rolled back. */
     deleteAll?: boolean | undefined;
@@ -151,7 +151,7 @@ export interface DeleteResult {
 /**
  * Vector store for Oracle AI Vector Search. Requires Oracle Database 23.4 or later.
  *
- * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/extensions.html#vectorsdk
+ * @see https://node-oracledb.readthedocs.io/en/latest/user_guide/extensions.html#vectorsdkplugin
  * @since 26.0
  */
 export class OracleVecDB {
