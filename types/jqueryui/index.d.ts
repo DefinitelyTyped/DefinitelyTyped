@@ -659,12 +659,24 @@ declare namespace JQueryUI {
     }
 
     interface SelectableEvents {
-        selected?(event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, ui: { selected?: Element | undefined }): void;
-        selecting?(event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, ui: { selecting?: Element | undefined }): void;
+        selected?(
+            event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>,
+            ui: { selected?: Element | undefined },
+        ): void;
+        selecting?(
+            event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>,
+            ui: { selecting?: Element | undefined },
+        ): void;
         start?(event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, ui: any): void;
         stop?(event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, ui: any): void;
-        unselected?(event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, ui: { unselected: Element }): void;
-        unselecting?(event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, ui: { unselecting: Element }): void;
+        unselected?(
+            event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>,
+            ui: { unselected: Element },
+        ): void;
+        unselecting?(
+            event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>,
+            ui: { unselecting: Element },
+        ): void;
     }
 
     interface Selectable extends Widget, SelectableOptions {
@@ -777,7 +789,10 @@ declare namespace JQueryUI {
         forceHelperSize?: boolean | undefined;
         forcePlaceholderSize?: boolean | undefined;
         grid?: number[] | undefined;
-        helper?: string | ((event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, element: Sortable) => Element) | undefined;
+        helper?:
+            | string
+            | ((event: JQuery.TriggeredEvent<HTMLElement, any, HTMLElement, HTMLElement>, element: Sortable) => Element)
+            | undefined;
         handle?: any; // Selector or Element
         items?: any; // Selector
         opacity?: number | undefined;
