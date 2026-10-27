@@ -2058,29 +2058,52 @@ function test_easing() {
 }
 
 function test_event_types() {
+    // Contextual inference tests without explicit callback annotations
     jQuery("#accordion").accordion({
-        activate: (event: JQuery.TriggeredEvent, ui: JQueryUI.AccordionUIParams) => {
-            const target: any = event.target;
-            const currentTarget: any = event.currentTarget;
-            const delegateTarget: any = event.delegateTarget;
+        activate: (event, ui) => {
+            const target: HTMLElement = event.target;
+            const targetElement: Element = event.target;
+            const currentTarget: HTMLElement = event.currentTarget;
+            const delegateTarget: HTMLElement = event.delegateTarget;
             const originalEvent: Event | undefined = event.originalEvent;
             const isDefaultPrevented: boolean = event.isDefaultPrevented();
             const timeStamp: number | undefined = event.timeStamp;
+            const newPanel: JQuery = ui.newPanel;
+            const oldPanel: JQuery = ui.oldPanel;
         },
     });
     jQuery("#dialog").dialog({
-        open: (event: JQuery.TriggeredEvent, ui: JQueryUI.DialogUIParams) => {
-            const target: any = event.target;
+        open: (event, ui) => {
+            const target: HTMLElement = event.target;
+            const currentTarget: HTMLElement = event.currentTarget;
+            const delegateTarget: HTMLElement = event.delegateTarget;
             const originalEvent: Event | undefined = event.originalEvent;
             event.preventDefault();
             event.stopPropagation();
         },
+        buttons: [
+            {
+                text: "Ok",
+                click: event => {
+                    const target: HTMLElement = event.target;
+                    const currentTarget: HTMLElement = event.currentTarget;
+                },
+            },
+        ],
     });
     jQuery("#slider").slider({
-        slide: (event: JQuery.TriggeredEvent, ui: JQueryUI.SliderUIParams) => {
-            const target: any = event.target;
+        slide: (event, ui) => {
+            const target: HTMLElement = event.target;
             const isPropagationStopped: boolean = event.isPropagationStopped();
             const type: string = event.type;
+            const value: number | undefined = ui.value;
+        },
+    });
+    jQuery("#selectable").selectable({
+        selected: (event, ui) => {
+            const target: HTMLElement = event.target;
+            const currentTarget: HTMLElement = event.currentTarget;
+            const selected: Element | undefined = ui.selected;
         },
     });
     // Verify caller-supplied event arguments accept JQuery.Event
