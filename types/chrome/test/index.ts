@@ -7496,7 +7496,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.scheme; // $ExpectType string
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
@@ -7524,7 +7524,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7568,7 +7568,7 @@ function testWebRequest() {
             details.parentFrameId; // $ExpectType number
             details.requestHeaders?.[0].name; // $ExpectType string | undefined
             details.requestHeaders?.[0].value; // $ExpectType string | undefined
-            details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+            details.requestHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
             details.requestId; // $ExpectType string
             details.tabId; // $ExpectType number
             details.timeStamp; // $ExpectType number
@@ -7594,7 +7594,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7634,7 +7634,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.securityInfo; // $ExpectType SecurityInfo | undefined
         details.securityInfo!.certificates![0].fingerprint.sha256; // $ExpectType string
         details.securityInfo!.certificates![0].rawDER; // $ExpectType ArrayBuffer | undefined
@@ -7663,7 +7663,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7683,7 +7683,7 @@ function testWebRequest() {
         details.parentFrameId; // $ExpectType number
         details.requestHeaders?.[0].name; // $ExpectType string | undefined
         details.requestHeaders?.[0].value; // $ExpectType string | undefined
-        details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.requestHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.requestId; // $ExpectType string
         details.tabId; // $ExpectType number
         details.timeStamp; // $ExpectType number
