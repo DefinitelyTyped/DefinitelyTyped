@@ -2050,25 +2050,34 @@ declare class PolyBuffer {
  * To access the Task from within its function, use `arguments.callee.task`.
  * @see https://docs.cycling74.com/apiref/js/task/
  */
-declare class Task {
+declare class Task<A extends any[] = any[]> {
     /**
-     * In [v8] `fn` receives the arguments as a single array, not spread: `new Task(fn, this, [1, 2])` calls `fn([1, 2])`,
-     * and `fn` is called with no argument when `args` is omitted (verified in Max 9.2.0).
+     * In [v8] `fn` receives the arguments as a single array, not spread: `new Task(fn, this, [1, 2])` calls `fn([1, 2])`.
+     * With a non-empty `args` array, `fn` is guaranteed to receive it, so its parameter can be required (verified in Max 9.2.0).
+     * `obj` must be an object here: passing `undefined` shifts it into the arguments, so `fn` receives `[0, 1]` instead of `[1]`.
+     * @param fn the function to execute
+     * @param obj the `this` during the execution of the function
+     * @param args the arguments to pass to `fn`, as one non-empty array
+     */
+    constructor(fn: (args: A) => any, obj: object, args: A & [any, ...any[]]);
+    /**
+     * `fn` is called with no argument at all when `args` is omitted or is an empty array (verified in Max 9.2.0),
+     * so its parameter must be optional. For an array that may be empty, declare it as `(args: number[] = [])`.
      * @param fn the function to execute
      * @param obj the `this` during the execution of the function
      * @param args the arguments to pass to `fn`, as one array
      */
-    constructor(fn: (args?: any[]) => any, obj?: object, args?: any[]);
+    constructor(fn: (args?: A) => any, obj?: object, args?: A);
 
     /**
      * The arguments passed to the task's executing function
      */
-    arguments: any[];
+    arguments: A;
 
     /**
      * The function executed in the Task. You can change this within the task function itself.
      */
-    function: (args?: any[]) => any;
+    function: (args?: A) => any;
 
     /**
      * The time in milliseconds between repeats of the task function. The default interval is 500 ms.
@@ -2661,10 +2670,13 @@ declare class MGraphics {
     set_source(pattern: Pattern): void;
 
     /**
-     * Sets the provided surface as the source for drawing routines.
-     * TODO: Surface type?
+     * Sets an image to use as a drawing source. The optional `dx` and `dy` translate the source, so that `set_source_surface(image, 2, 1)`
+     * places the image's top-left pixel at (2, 1) (verified in Max 9.2.0). Anything other than an Image is silently accepted and paints black.
+     * @param image Image to draw
+     * @param dx translation in x
+     * @param dy translation in y
      */
-    set_source_surface(surface: any): void;
+    set_source_surface(image: Image, dx?: number, dy?: number): void;
 
     /**
      * Create a transform for the color and alpha channels using scale amounts to determine a color multiplier (either positive or negative). Note: One of the set_source_* routines must be called to
@@ -2850,9 +2862,9 @@ declare class Pattern {
     get_matrix(): number[];
 
     /**
-     * Returns the type of pattern that was created.
+     * Returns the type of pattern that was created. The reference documents 0-3, but Max 9.2 returns these names.
      */
-    get_type(): string;
+    get_type(): "solid" | "surface" | "linear" | "radial";
 
     /**
      * Revert the user space transform matrix to its default (normal) orientation.
@@ -3846,9 +3858,9 @@ declare class JitterMatrix extends JitterObject {
     read(filename: string): void;
 
     /**
-     * Sets all cells to the value specified by value(s).
+     * Sets all cells to the value specified by value(s). A single number fills every plane; an array gives one value per plane (verified in Max 9.2.0).
      */
-    setall(values: number[]): void;
+    setall(values: number | number[]): void;
 
     /**
      * Sets the cell specified by position to the value specified by value.

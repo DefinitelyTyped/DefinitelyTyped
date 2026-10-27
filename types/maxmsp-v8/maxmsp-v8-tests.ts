@@ -464,6 +464,10 @@ myMGraphics.set_source_rgba(255, 0, 0, 1);
 myMGraphics.set_source_rgb([255, 0, 0]);
 myMGraphics.set_source_rgb(255, 0, 0);
 myMGraphics.set_source(myPattern);
+myMGraphics.set_source_surface(myImage);
+myMGraphics.set_source_surface(myImage, 10);
+myMGraphics.set_source_surface(myImage, 10, 20);
+// @ts-expect-error the source must be an Image; a string is silently accepted at runtime and paints black
 myMGraphics.set_source_surface("example");
 myMGraphics.scale_source_rgba(2, 2, 2, 1);
 myMGraphics.translate_source_rgba(10, 10, 10, 1);
@@ -502,7 +506,7 @@ const patternInstance: Pattern = {
     add_color_stop_rgba: () => {},
     get_extend: () => "",
     get_matrix: () => [],
-    get_type: () => "",
+    get_type: () => "linear",
     identity_matrix: () => {},
     rotate: () => {},
     scale: () => {},
@@ -659,6 +663,7 @@ jitterMatrixInstance.jit_gl_texture("testtexture");
 jitterMatrixInstance.op("+", 0, 1);
 jitterMatrixInstance.read("testfile.jxf");
 jitterMatrixInstance.setall([32767, 32767]);
+jitterMatrixInstance.setall(1);
 jitterMatrixInstance.setcell([10, 20], 1, 127, 23, [23, 93]);
 jitterMatrixInstance.setcell1d(50, 257);
 jitterMatrixInstance.setcell2d(10, 20, 32767);
@@ -834,6 +839,21 @@ valueListener.getvalue();
 const v8Task = new Task((args?: any[]) => post(args), this, [1, 2]);
 // @ts-expect-error the arguments are not spread into separate parameters
 new Task((a: number, b: number) => post(a + b), this, [1, 2]);
+// With a non-empty array the function is guaranteed to receive it, so the parameter can be required
+const requiredArgsTask = new Task((args: number[]) => post(args.length), {}, [1, 2]);
+// $ExpectType number[]
+requiredArgsTask.arguments;
+new Task((args: [number, string]) => post(args[1].toUpperCase()), this, [1, "a"]);
+// @ts-expect-error the element types must match
+new Task((args: string[]) => post(args.length), this, [1, 2]);
+// @ts-expect-error without args the function is called with no argument, so the parameter must be optional
+new Task((args: number[]) => post(args.length), this);
+// @ts-expect-error an empty array also calls the function with no argument
+new Task((args: number[]) => post(args.length), this, []);
+// @ts-expect-error obj must be an object when args are supplied: undefined is shifted into the arguments
+new Task((args: number[]) => post(args.length), undefined, [1, 2]);
+const maybeEmpty: number[] = [];
+new Task((args: number[] = []) => post(args.length), this, maybeEmpty);
 v8Task.interval = 100;
 v8Task.repeat(4);
 post(v8Task.valid);
