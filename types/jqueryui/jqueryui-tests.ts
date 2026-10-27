@@ -2060,17 +2060,20 @@ function test_easing() {
 function test_event_types() {
     jQuery("#accordion").accordion({
         activate: (event: JQuery.Event, ui: JQueryUI.AccordionUIParams) => {
-            const originalEvent: Event | undefined = event.originalEvent;
+            const isDefaultPrevented: boolean = event.isDefaultPrevented();
+            const timeStamp: number | undefined = event.timeStamp;
         },
     });
     jQuery("#dialog").dialog({
         open: (event: JQuery.Event, ui: JQueryUI.DialogUIParams) => {
-            const isDefaultPrevented: boolean = event.isDefaultPrevented();
+            event.preventDefault();
+            event.stopPropagation();
         },
     });
     jQuery("#slider").slider({
         slide: (event: JQuery.Event, ui: JQueryUI.SliderUIParams) => {
-            const target: EventTarget | null = event.target;
+            const isPropagationStopped: boolean = event.isPropagationStopped();
+            const type: string = event.type;
         },
     });
 }
