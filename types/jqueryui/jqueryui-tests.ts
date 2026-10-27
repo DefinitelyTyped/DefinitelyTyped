@@ -2059,21 +2059,31 @@ function test_easing() {
 
 function test_event_types() {
     jQuery("#accordion").accordion({
-        activate: (event: JQuery.Event, ui: JQueryUI.AccordionUIParams) => {
+        activate: (event: JQuery.TriggeredEvent, ui: JQueryUI.AccordionUIParams) => {
+            const target: any = event.target;
+            const currentTarget: any = event.currentTarget;
+            const delegateTarget: any = event.delegateTarget;
+            const originalEvent: Event | undefined = event.originalEvent;
             const isDefaultPrevented: boolean = event.isDefaultPrevented();
             const timeStamp: number | undefined = event.timeStamp;
         },
     });
     jQuery("#dialog").dialog({
-        open: (event: JQuery.Event, ui: JQueryUI.DialogUIParams) => {
+        open: (event: JQuery.TriggeredEvent, ui: JQueryUI.DialogUIParams) => {
+            const target: any = event.target;
+            const originalEvent: Event | undefined = event.originalEvent;
             event.preventDefault();
             event.stopPropagation();
         },
     });
     jQuery("#slider").slider({
-        slide: (event: JQuery.Event, ui: JQueryUI.SliderUIParams) => {
+        slide: (event: JQuery.TriggeredEvent, ui: JQueryUI.SliderUIParams) => {
+            const target: any = event.target;
             const isPropagationStopped: boolean = event.isPropagationStopped();
             const type: string = event.type;
         },
     });
+    // Verify caller-supplied event arguments accept JQuery.Event
+    const baseEvent: JQuery.Event = jQuery.Event("click");
+    jQuery("#menu").menu("collapse", baseEvent);
 }
