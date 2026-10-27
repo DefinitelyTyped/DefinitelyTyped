@@ -2056,3 +2056,21 @@ function test_easing() {
     test_easing_function("easeOutBounce", easing.easeOutBounce);
     test_easing_function("easeInOutBounce", easing.easeInOutBounce);
 }
+
+function test_event_types() {
+    jQuery("#accordion").accordion({
+        activate: (event: JQuery.Event, ui: JQueryUI.AccordionUIParams) => {
+            const originalEvent: Event | undefined = event.originalEvent;
+        },
+    });
+    jQuery("#dialog").dialog({
+        open: (event: JQuery.Event, ui: JQueryUI.DialogUIParams) => {
+            const isDefaultPrevented: boolean = event.isDefaultPrevented();
+        },
+    });
+    jQuery("#slider").slider({
+        slide: (event: JQuery.Event, ui: JQueryUI.SliderUIParams) => {
+            const target: EventTarget | null = event.target;
+        },
+    });
+}
