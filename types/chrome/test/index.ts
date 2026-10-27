@@ -3552,13 +3552,17 @@ async function testSystemDisplay() {
     // @ts-expect-error
     chrome.system.display.getDisplayLayout(() => {}).then(() => {});
 
-    const flags = { singleUnified: true };
+    const flags: chrome.system.display.GetInfoFlags = { singleUnified: true };
     chrome.system.display.getInfo(); // $ExpectType Promise<DisplayUnitInfo[]>
     chrome.system.display.getInfo((displayInfo) => { // $ExpectType void
         displayInfo; // $ExpectType DisplayUnitInfo[]
     });
     chrome.system.display.getInfo(flags); // $ExpectType Promise<DisplayUnitInfo[]>
     chrome.system.display.getInfo(flags, (displayInfo) => { // $ExpectType void
+        displayInfo; // $ExpectType DisplayUnitInfo[]
+    });
+    chrome.system.display.getInfo(undefined); // $ExpectType Promise<DisplayUnitInfo[]>
+    chrome.system.display.getInfo(undefined, (displayInfo) => { // $ExpectType void
         displayInfo; // $ExpectType DisplayUnitInfo[]
     });
     // @ts-expect-error
