@@ -1520,6 +1520,10 @@
             "libraryName": "crypto-random-string",
             "asOfVersion": "2.0.0"
         },
+        "cryptr": {
+            "libraryName": "cryptr",
+            "asOfVersion": "6.4.0"
+        },
         "cson-parser": {
             "libraryName": "cson-parser",
             "asOfVersion": "4.0.3"
