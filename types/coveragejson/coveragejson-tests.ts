@@ -206,7 +206,7 @@ const coverageCollection: CoverageJSON.CoverageCollection = {
         {
             coordinates: ["z"],
             system: {
-                type: "VerticalCRS"
+                type: "VerticalCRS",
             },
         },
         {
