@@ -2197,8 +2197,9 @@ declare class Task<A extends any[] = any[]> {
 
     /**
      * The function executed in the Task. You can change this within the task function itself.
+     * Accepts the same functions as the constructor: the parameter may be required or optional.
      */
-    function: (args?: A) => any;
+    function: (args: A) => any;
 
     /**
      * The time in milliseconds between repeats of the task function. The default interval is 500 ms.

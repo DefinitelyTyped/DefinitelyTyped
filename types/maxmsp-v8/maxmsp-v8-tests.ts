@@ -876,6 +876,12 @@ new Task((args: number[]) => post(args.length), this, []);
 new Task((args: number[]) => post(args.length), undefined, [1, 2]);
 const maybeEmpty: number[] = [];
 new Task((args: number[] = []) => post(args.length), this, maybeEmpty);
+// `function` accepts the same functions as the constructor, whether the parameter is required or optional
+const requiredArgsFn = (args: number[]) => post(args.length);
+requiredArgsTask.function = requiredArgsFn;
+requiredArgsTask.function = (args?: number[]) => post(args);
+// @ts-expect-error the element types must match
+requiredArgsTask.function = (args: string[]) => post(args.length);
 v8Task.interval = 100;
 v8Task.repeat(4);
 post(v8Task.valid);
