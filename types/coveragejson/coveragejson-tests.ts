@@ -11,19 +11,6 @@ let referencing: CoverageJSON.ReferenceSystemConnection[] = [
         coordinates: ["z"],
         system: {
             type: "VerticalCRS",
-            cs: {
-                csAxes: [
-                    {
-                        name: {
-                            en: "Pressure",
-                        },
-                        direction: "down",
-                        unit: {
-                            symbol: "Pa",
-                        },
-                    },
-                ],
-            },
         },
     },
     {
@@ -82,19 +69,6 @@ const verticalProfileCoverage: CoverageJSON.Coverage = {
                 coordinates: ["z"],
                 system: {
                     type: "VerticalCRS",
-                    cs: {
-                        csAxes: [
-                            {
-                                name: {
-                                    en: "Pressure",
-                                },
-                                direction: "down",
-                                unit: {
-                                    symbol: "Pa",
-                                },
-                            },
-                        ],
-                    },
                 },
             },
             {
@@ -232,20 +206,7 @@ const coverageCollection: CoverageJSON.CoverageCollection = {
         {
             coordinates: ["z"],
             system: {
-                type: "VerticalCRS",
-                cs: {
-                    csAxes: [
-                        {
-                            name: {
-                                en: "Pressure",
-                            },
-                            direction: "down",
-                            unit: {
-                                symbol: "Pa",
-                            },
-                        },
-                    ],
-                },
+                type: "VerticalCRS"
             },
         },
         {

@@ -20,6 +20,10 @@ export type PrimitiveValue =
     | null
     | object
     | undefined; // undefined ensures that interface does not reject other members
+/**
+ * The Coverage,Parameter, ObservedProperty and ReferenceSystemObject allow additional members;
+ * But allowing these properties may lead to unwanted behaviour when paired with Utility types
+ */
 export type Value = PrimitiveValue | PrimitiveValue[];
 /**
  * Common Domains
@@ -51,7 +55,6 @@ export interface I18N {
  * https://docs.ogc.org/cs/21-069r2/21-069r2.html#_d5c16418-1a20-4dbf-bf7a-8e685062df97:~:text=9%2E3%2E%C2%A0%20Parameter%20Objects,-Parameter
  */
 export interface Parameter {
-    [key: string]: Value;
     type: "Parameter";
     /**
      * Common ID for the parameter
@@ -122,7 +125,6 @@ export type UnitSymbol =
  */
 export type ParameterGroup =
     & {
-        [key: string]: Value;
         type: "ParameterGroup";
 
         label?: I18N;
@@ -157,7 +159,6 @@ export type ReferenceSystemObject =
     | TemporalReferenceSystem;
 
 export interface SpatialReferenceSystem {
-    [key: string]: Value;
     type: "GeographicCRS" | "ProjectedCRS" | "VerticalCRS";
     /**
      * A common ID for the system and should be omitted if unclear in which case meaning is derived from the "type"
@@ -341,7 +342,6 @@ export interface TileSet {
  * https://docs.ogc.org/cs/21-069r2/21-069r2.html#_d5c16418-1a20-4dbf-bf7a-8e685062df97:~:text=9%2E6%2E4%2E%C2%A0%20Coverage%20Objects,-A
  */
 export interface Coverage<D extends Domain | string = Domain | string> {
-    [key: string]: Value;
     type: "Coverage";
     /**
      * Common ID for the Coverage
