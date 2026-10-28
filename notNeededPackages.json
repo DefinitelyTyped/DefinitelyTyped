@@ -1929,6 +1929,10 @@
             "libraryName": "drivelist",
             "asOfVersion": "12.0.2"
         },
+        "drupal-attribute": {
+            "libraryName": "drupal-attribute",
+            "asOfVersion": "1.2.1"
+        },
         "dsinjs__binary-tree": {
             "libraryName": "@dsinjs/binary-tree",
             "asOfVersion": "2.0.1"
