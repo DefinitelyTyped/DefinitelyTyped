@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/debessmann": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Vladislavs Korehovs",
-            "githubUsername": "vkorehov"
-        }
-    ]
+    "owners": []
 }

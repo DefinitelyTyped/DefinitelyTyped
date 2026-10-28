@@ -8,480 +8,6 @@ declare namespace webvis {
         version: string;
         pkg: string;
     }
-    interface JoinSessionRequestContent {
-        scenarioUri?: string;
-        name?: string;
-        roleHints?: string | Array<string>;
-        confidence?: number;
-        deviceTags?: Array<string>;
-        spaceDomain?: string;
-        settings?: object;
-        token?: string;
-        forwardURL?: string;
-        role?: MemberRole;
-        offeredMemberActions?: MemberAction[];
-        profile?: MemberProfile;
-        spaceAccessToken?: string;
-    }
-    interface JoinSessionResponseContent extends SessionMemberData {
-        memberToken: string;
-        authorization?: string;
-        restrictedJoin: boolean;
-        restrictedAccess: boolean;
-        protocolMajor: number;
-        protocolMinor: number;
-        protocolPatch: number;
-    }
-    interface LoadScenarioRequestContent {
-        scenario: string;
-    }
-    interface LoadSessionRequestContent {
-        sessionID?: string;
-        sessionStore: SessionStore;
-    }
-    type PublishStreamRequestContent = SessionStreamData;
-    interface RemoveStreamRequestContent {
-        streamID: number;
-    }
-    interface ChangeSessionParameterRequestContent {
-        sessionParameter: string;
-        value?: any;
-        memberID?: number;
-        declare?: boolean;
-        interest?: boolean;
-    }
-    interface ReadSessionParameterRequestContent {
-        sessionParameter?: string;
-        memberID?: number;
-    }
-    interface PublishStreamResponseContent {
-        streamId: number;
-        location?: string;
-    }
-    type SendStreamSignalRequestContent = StreamStateData;
-    interface AnswerMemberRequestRequestContent {
-        transactionCode: string;
-        data: any;
-    }
-    interface AnswerCredentialsRequestRequestContent {
-        requesterID: number;
-        providerID: number;
-        accept: boolean;
-    }
-    interface AddRequestContent {
-        parentId?: number;
-        parentPath?: [number[], number];
-        dataUri: string;
-        label?: string;
-        initialProperties?: {
-            [key: string]: any;
-        };
-        mimeType?: string;
-        usage?: string;
-    }
-    interface AddResponseContent {
-        nodeId: number;
-        transactionId: number;
-    }
-    interface AddCustomNodeRequestContent {
-        customType: string;
-        attachmentId: number;
-    }
-    interface AddCustomNodeResponseContent {
-        nodeId: number;
-        transactionId: number;
-    }
-    interface RemoveRequestContent {
-        nodeId?: number[];
-        nodePaths?: [number[], number][];
-    }
-    interface RemoveResponseContent {
-        transactionId: number;
-    }
-    interface SetPropertyRequestContent {
-        nodeId?: number[];
-        nodePaths?: [number[], number][];
-        property: string;
-        value: any;
-    }
-    interface SetPropertyResponseContent {
-        transactionId: number;
-    }
-    interface SetParentRequestContent {
-        nodePath: [number[], number];
-        parentPath: [number[], number];
-    }
-    interface SetParentResponseContent {
-        transactionId: number;
-    }
-    interface ResetPropertiesRequestContent {
-        nodeId?: number;
-        nodePath?: [number[], number];
-        properties: Array<string>;
-        recursive: boolean;
-    }
-    interface ResetPropertiesResponseContent {
-        transactionId: number;
-    }
-    interface SetEnabledLayersRequestContent {
-        name: string;
-        enabled: boolean;
-    }
-    interface SetEnabledLayersResponseContent {
-        transactionId: number;
-    }
-    interface CreateClipPlaneRequestContent {
-        properties: ClipPlaneProperties & {
-            clippedNodePathes?: [number[], number][];
-            excludedNodePathes?: [number[], number][];
-        };
-    }
-    interface CreateClipPlaneResponseContent {
-        clipPlaneId: number;
-        transactionId: number;
-    }
-    interface ChangeClipPlaneRequestContent {
-        clipPlaneId: number;
-        changelist: ClipPlaneProperties & {
-            clippedNodePathes?: [number[], number][];
-            excludedNodePathes?: [number[], number][];
-        };
-    }
-    interface ChangeClipPlaneResponseContent {
-        transactionId: number;
-    }
-    interface RemoveClipPlaneRequestContent {
-        clipPlaneId: number;
-    }
-    interface RemoveClipPlaneResponseContent {
-        transactionId: number;
-    }
-    interface CreateClippingRoomRequestContent {
-        properties: ClipRoomProperties;
-    }
-    interface CreateClippingRoomResponseContent {
-        transactionId: number;
-    }
-    interface ChangeClippingRoomRequestContent {
-        changelist: ClipRoomProperties;
-    }
-    interface ChangeClippingRoomResponseContent {
-        transactionId: number;
-    }
-    interface RemoveClippingRoomResponseContent {
-        transactionId: number;
-    }
-    interface CreateDrawingResponseContent {
-        drawingId: number;
-        transactionId: number;
-    }
-    interface CreateDrawingRequestContent {
-        attachment: number;
-        properties: DrawingProperties;
-    }
-    interface ChangeDrawingResponseContent {
-        transactionId: number;
-    }
-    interface ChangeDrawingRequestContent {
-        drawingId: number;
-        properties: DrawingProperties;
-    }
-    interface RemoveDrawingResponseContent {
-        transactionId: number;
-    }
-    interface RemoveDrawingRequestContent {
-        drawingId: number;
-    }
-    interface CreateDrawingPlaneResponseContent {
-        drawingPlaneId: number;
-        transactionId: number;
-    }
-    interface CreateDrawingPlaneRequestContent {
-        properties: DrawingPlaneProperties;
-    }
-    interface ChangeDrawingPlaneResponseContent {
-        transactionId: number;
-    }
-    interface ChangeDrawingPlaneRequestContent {
-        drawingPlaneId: number;
-        properties: DrawingPlaneProperties;
-    }
-    interface RemoveDrawingPlaneResponseContent {
-        transactionId: number;
-    }
-    interface RemoveDrawingPlaneRequestContent {
-        drawingPlaneId: number;
-    }
-    interface CreateAnnotationRequestContent {
-        properties: AnnotationProperties & {
-            connectedNodePath?: [number[], number];
-        };
-    }
-    interface CreateAnnotationResponseContent {
-        annotationId: number;
-        transactionId: number;
-    }
-    interface ChangeAnnotationRequestContent {
-        annotationId: number;
-        properties: AnnotationProperties & {
-            connectedNodePath?: [number[], number];
-        };
-    }
-    interface ChangeAnnotationResponseContent {
-        transactionId: number;
-    }
-    interface RemoveAnnotationRequestContent {
-        annotationId: number;
-    }
-    interface RemoveAnnotationResponseContent {
-        transactionId: number;
-    }
-    interface CreateMeasurementRequestContent {
-        properties: MeasurementProperties;
-    }
-    interface CreateMeasurementResponseContent {
-        measurementId: number;
-        transactionId: number;
-    }
-    interface RemoveMeasurementRequestContent {
-        measurementId: number;
-    }
-    interface RemoveMeasurementResponseContent {
-        measurementId: number;
-        transactionId: number;
-    }
-    interface CreateMaterialRequestContent {
-        properties: MaterialProperties;
-    }
-    interface CreateMaterialResponseContent {
-        materialId: number;
-        transactionId: number;
-    }
-    interface ChangeMaterialRequestContent {
-        materialId: number;
-        properties: MaterialProperties;
-    }
-    interface ChangeMaterialResponseContent {
-        transactionId: number;
-    }
-    interface RemoveMaterialRequestContent {
-        materialId: number;
-    }
-    interface RemoveMaterialResponseContent {
-        transactionId: number;
-    }
-    interface CreateAppearancePatternRequestContent {
-        properties: AppearancePatternProperties;
-    }
-    interface CreateAppearancePatternResponseContent {
-        patternId: number;
-        transactionId: number;
-    }
-    interface ChangeAppearancePatternRequestContent {
-        patternId: number;
-        properties: AppearancePatternProperties;
-    }
-    interface ChangeAppearancePatternResponseContent {
-        transactionId: number;
-    }
-    interface RemoveAppearancePatternRequestContent {
-        patternId: number;
-    }
-    interface RemoveAppearancePatternResponseContent {
-        transactionId: number;
-    }
-    interface CreateSnapshotRequestContent {
-        name: string;
-        attachmentID: number;
-        cameraStore: {
-            viewMatrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ];
-            centerOfRotation: [number, number, number];
-            viewPointDiameter: number;
-            viewPlaneDistance: number;
-            cameraType: number;
-        };
-    }
-    interface CreateSnapshotResponseContent {
-        snapshotId: number;
-        transactionId: number;
-    }
-    interface ChangeSnapshotRequestContent {
-        snapshotId: number;
-        properties: SnapshotProperties;
-    }
-    interface ChangeSnapshotResponseContent {
-        transactionId: number;
-    }
-    interface RestoreSnapshotRequestContent {
-        snapshotId: number;
-        settings: SnapshotRestoreOptions;
-    }
-    interface RestoreSnapshotResponseContent {
-        transactionId: number;
-    }
-    interface RemoveSnapshotRequestContent {
-        snapshotId: number;
-    }
-    interface RemoveSnapshotResponseContent {
-        snapshotId: number;
-        transactionId: number;
-    }
-    interface RemoveMemberRequestContent {
-        memberID: number;
-    }
-    interface KickMemberRequestContent {
-        memberId: number;
-    }
-    interface PromoteMemberRequestContent {
-        memberID: number;
-        role?: MemberRole;
-        spaceAccessToken?: string;
-    }
-    interface DemoteMemberRequestContent {
-        memberID: number;
-        role?: MemberRole;
-        spaceAccessToken?: string;
-    }
-    interface SetMemberNameRequestContent {
-        memberId: number;
-        name: string;
-    }
-    interface SetMemberProfileEntryRequestContent {
-        memberId: number;
-        key: string;
-        value: Serializable;
-    }
-    interface DeleteMemberProfileEntryRequestContent {
-        memberId: number;
-        key: string;
-    }
-    interface AddOfferedMemberActionRequestContent {
-        memberId: number;
-        offeredMemberAction: MemberAction;
-    }
-    interface RemoveOfferedMemberActionRequestContent {
-        memberId: number;
-        offeredMemberAction: MemberAction;
-    }
-    interface AddToSelectionRequestContent {
-        nodeID?: number[];
-        nodePaths?: [number[], number][];
-    }
-    interface AddToSelectionResponseContent {
-        transactionId: number;
-    }
-    interface RemoveFromSelectionRequestContent {
-        nodeID?: number[];
-        nodePaths?: [number[], number][];
-    }
-    interface RemoveFromSelectionResponseContent {
-        transactionId: number;
-    }
-    interface SetSelectionRequestContent {
-        nodeID?: number[];
-        nodePaths?: [number[], number][];
-    }
-    interface SetSelectionResponseContent {
-        transactionId: number;
-    }
-    interface ClearSelectionResponseContent {
-        transactionId: number;
-    }
-    interface InvertSelectionResponseContent {
-        transactionId: number;
-    }
-    interface GetL3DInfoRequestContent {
-        nodeId?: number;
-        objectId?: number;
-        instanceId?: number;
-        nodeIds?: Array<number>;
-        objectIds?: Array<number>;
-        instanceIds?: Array<number>;
-        recursive?: boolean;
-    }
-    interface SimpleL3DInfo {
-        path: number[];
-        remoteID: number;
-        remoteIDOffset: number;
-        remoteShapeIDOffset: number;
-        remoteNodeCount: number;
-        remoteShapeCount: number;
-    }
-    interface GetSimpleL3DInfoRequestContent {
-        nodeIDs?: number[];
-        pathes?: number[][];
-        shapeIDs?: number[];
-    }
-    type GetSimpleL3DInfoResponseContent = SimpleL3DInfo[] | [];
-    interface RegisterCustomPropertyRequestContent {
-        name: string;
-        recursive: boolean;
-        defaultValue: any;
-    }
-    interface RegisterCustomPropertyResponseContent {
-        transactionId: number;
-    }
-    interface CreateAnimationFramesRequestContent {
-        name: string;
-        frames: Array<AnimationFrame>;
-    }
-    interface CreateAnimationFramesResponseContent {
-        transactionId: number;
-    }
-    interface RemoveAnimationFramesRequestContent {
-        name: string;
-    }
-    interface RemoveAnimationFramesResponseContent {
-        transactionId: number;
-    }
-    interface CreateAttachmentRequestContent {
-        type: string;
-    }
-    interface CreateAttachmentResponseContent {
-        attachmentId: number;
-        transactionId: number;
-    }
-    interface SetAttachmentDataRequestContent {
-        attachmentId: number;
-        attachmentData: any;
-    }
-    interface SetAttachmentDataResponseContent {
-        transactionId: number;
-    }
-    interface RemoveAttachmentRequestContent {
-        attachmentId: number;
-    }
-    interface RemoveAttachmentResponseContent {
-        transactionId: number;
-    }
-    interface TransferSessionRequestContent {
-        sessionID: string;
-    }
-    interface SetVariantEnabledRequestContent {
-        variantPath: [number[], number];
-        variant: number;
-        enabled: boolean;
-    }
-    interface SetVariantEnabledResponseContent {
-        transactionId: number;
-    }
     /**
      * The XR Edge compare properties
      *
@@ -703,18 +229,14 @@ declare namespace webvis {
          */
         PARTIAL = 2,
     }
-    interface UserGeoResourceData {
-        resourceType: any;
-        data: number[];
-    }
     interface UserGeometryData {
         identifier?: string;
-        matrix?: Array<number>;
-        volume?: Array<number>;
+        matrix?: number[];
+        volume?: number[];
         appearance?: {
-            diffuse?: Array<number>;
-            emissive?: Array<number>;
-            specular?: Array<number>;
+            diffuse?: number[];
+            emissive?: number[];
+            specular?: number[];
         };
         selector?: string;
         enabled?: boolean;
@@ -731,6 +253,10 @@ declare namespace webvis {
         };
         shader?: any;
         pointSize?: number;
+    }
+    interface UserGeoResourceData {
+        resourceType: any;
+        data: number[];
     }
     interface UserGeoBufferData {
         buffer: UserGeoResourceData;
@@ -869,24 +395,7 @@ declare namespace webvis {
          * Specifies the transform matrix of the Polyline.
          * @default identity
          */
-        transform?: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ];
+        transform?: Matrix4x4;
         /**
          * Specifies the width of the Polyline.
          * If {@link useWorldUnits} is set to true, the value is interpreted in world space (meters), otherwise in screen space (pixels).
@@ -952,6 +461,26 @@ declare namespace webvis {
         removePolyline(polylineId: number): void;
     }
     /**
+     * Defines an individual Point of Interest (POI).
+     */
+    interface PointOfInterest {
+        /**
+         * The unique identifier for the POI.
+         * Automatically assigned if not specified.
+         * @default undefined
+         */
+        id?: number;
+        /**
+         * The 3D position of a POI.
+         */
+        position: Vector3;
+        /**
+         * Text to display next to the POI.
+         * @default undefined
+         */
+        label?: string;
+    }
+    /**
      * Defines the visual appearance of a set of {@link PointOfInterest}s.
      */
     interface POIStyleProperties {
@@ -1014,36 +543,16 @@ declare namespace webvis {
         /**
          * The color of the POI labels in the set as [R, G, B], each value in the range 0-1.
          */
-        labelColor?: [number, number, number];
+        labelColor?: Vector3;
         /**
          * The outline color of the labels in the set as [R, G, B], each value in the range 0-1.
          */
-        labelOutlineColor?: [number, number, number];
+        labelOutlineColor?: Vector3;
         /**
          * Optional. Name of the POS set.
          * @default undefined
          */
         name?: string;
-    }
-    /**
-     * Defines an individual Point of Interest (POI).
-     */
-    interface PointOfInterest {
-        /**
-         * The unique identifier for the POI.
-         * Automatically assigned if not specified.
-         * @default undefined
-         */
-        id?: number;
-        /**
-         * The 3D position of a POI.
-         */
-        position: [number, number, number];
-        /**
-         * Text to display next to the POI.
-         * @default undefined
-         */
-        label?: string;
     }
     /**
      * This interface serves as control point for the creation, management and visualization state of
@@ -1490,7 +999,7 @@ declare namespace webvis {
         /**
          * The 3D position of the point specified by an XYZ array.
          */
-        position: [number, number, number];
+        position: Vector3;
         /**
          * The color of the point specified by an RGBA array, where each channel's value ranges from 0 to 1.
          */
@@ -1775,11 +1284,11 @@ declare namespace webvis {
         /**
          * The 3D position at the current pointer coordinates.
          */
-        position: [number, number, number];
+        position: Vector3;
         /**
          * The 3D normal vector at the current pointer coordinates.
          */
-        normal: [number, number, number];
+        normal: Vector3;
         /**
          * The current node ID of the pointer action depending on the expanded state of the node structure.
          *
@@ -2188,7 +1697,7 @@ declare namespace webvis {
         color?: [number, number, number, number] | Float32Array;
         clipHighlight?: boolean;
         facesHighlightOnTop?: boolean;
-        exclusiveClipplanes?: Array<number>;
+        exclusiveClipplanes?: number[];
     }
     interface ViewerHighlightAPI {
         /**
@@ -2201,19 +1710,16 @@ declare namespace webvis {
          */
         highlightEntity(handle: TopologyHandle, highlightParameters?: ViewerHighlightParameters): Promise<number>;
         highlightArc(
-            pickedPt1: [number, number, number] | Float32Array,
-            pickedPt3: [number, number, number] | Float32Array,
-            center: [number, number, number] | Float32Array,
-            axis: [number, number, number] | Float32Array,
+            pickedPt1: Vector3 | Float32Array,
+            pickedPt3: Vector3 | Float32Array,
+            center: Vector3 | Float32Array,
+            axis: Vector3 | Float32Array,
             angle: number,
             measurementID: number,
         ): number;
         highlightCircularArc(circularArcDescriptor: TopologyCircularArcDescriptor): number;
-        highlightBBox(
-            center: [number, number, number] | Float32Array,
-            size: [number, number, number] | Float32Array,
-        ): number;
-        highlightPoint(position: [number, number, number] | Float32Array, markerIndex: number): void;
+        highlightBBox(center: Vector3 | Float32Array, size: Vector3 | Float32Array): number;
+        highlightPoint(position: Vector3 | Float32Array, markerIndex: number): void;
         highlightLine(values: number[], scale: number, markerIndex: number): void;
         /**
          * Disable highlighting for the handle
@@ -2243,24 +1749,7 @@ declare namespace webvis {
          * Model matrix, can be used to match geometry transformations.
          * @default [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
          */
-        transform?: Float32Array | [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ];
+        transform?: Float32Array | Matrix4x4;
         /**
          * Whether this dataset should be included in the density calculation.
          * @default true
@@ -2348,11 +1837,7 @@ declare namespace webvis {
      * @see {link ViewerHeatmapAPI}
      * @see {link HeatmapConfig}
      */
-    type CustomHeatmapColorScheme = string[] | [
-        number,
-        number,
-        number,
-    ][] | [
+    type CustomHeatmapColorScheme = string[] | Vector3[] | [
         number,
         number,
         number,
@@ -2362,7 +1847,7 @@ declare namespace webvis {
         string,
     ][] | [
         number,
-        [number, number, number],
+        Vector3,
     ][] | [
         number,
         [number, number, number, number],
@@ -2727,29 +2212,12 @@ declare namespace webvis {
          * The size of the BoxGizmo
          * @default [1, 1, 1]
          */
-        size?: [number, number, number];
+        size?: Vector3;
         /**
          * The transform of the BoxGizmo
          * @default [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
          */
-        transform?: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ];
+        transform?: Matrix4x4;
         /**
          * The volume of the BoxGizmo
          * @default [-0.5, -0.5, -0.5, 0.5, 0.5, 0.5]
@@ -2761,27 +2229,7 @@ declare namespace webvis {
         getAvailableGizmoTransformationModes(): number;
         setGizmoTransformationMode(mode: GizmoTransformationMode): void;
         getGizmoTransformationMode(): GizmoTransformationMode;
-        showSelectionBoxGizmo(
-            size?: [number, number, number] | Float32Array,
-            transform?: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array,
-        ): void;
+        showSelectionBoxGizmo(size?: Vector3 | Float32Array, transform?: Matrix4x4 | Float32Array): void;
         showSelectionBoxGizmoFromVolume(volume?: BoxVolume): void;
         showSelectionTransformationGizmo(nodeIds: number[]): void;
         showClippingBoxGizmo(clipRoomID: number): void;
@@ -2789,28 +2237,21 @@ declare namespace webvis {
          * Hides the currently visible Gizmo
          */
         hideGizmo(): void;
+        /**
+         * @deprecated The {@link CollectionAPI} is deprecated and will be removed in a future release.
+         * Use {@link ContextAPI.requestNodeIdsByBoxVolume} instead:
+         *
+         * ```javascript
+         * const ctx = webvis.getContext();
+         * const boxGizmoProps = ctx.getViewer().getBoxGizmoProperties();
+         * const nodeIds = await ctx.requestNodeIdsByBoxVolume(boxGizmoProps.volume, includeOverlappingNodes);
+         * ```
+         */
         createCollectionFromGizmo(includeOverlappingNodes: boolean): Promise<number>;
-        getGizmoSize(): [number, number, number] | Float32Array;
-        getGizmoTransform(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        getGizmoSize(): Vector3 | Float32Array;
+        getGizmoTransform(): Matrix4x4 | Float32Array;
         setCORGizmoVisible(flag: boolean): void;
-        showPointMarker(position: [number, number, number] | Float32Array, index?: number): void;
+        showPointMarker(position: Vector3 | Float32Array, index?: number): void;
         showAxisMarker(
             values: [number, number, number, number, number, number] | Float32Array,
             scale?: number,
@@ -3373,11 +2814,7 @@ declare namespace webvis {
          * @param transitionTime Defines the transition time for the camera movement in milliseconds. Default: 100.
          * @returns A promise that resolves when the camera movement is finished.
          */
-        fitView(
-            view?: [number, number, number] | Float32Array,
-            up?: [number, number, number] | Float32Array,
-            transitionTime?: number,
-        ): Promise<void>;
+        fitView(view?: Vector3 | Float32Array, up?: Vector3 | Float32Array, transitionTime?: number): Promise<void>;
         /**
          * Positions the camera such that the bounding box of the node with the `nodeID` is fitting into the view.
          * The optional `view` and `up` parameter allow to define a viewing direction and roll for the resulting camera
@@ -3391,8 +2828,8 @@ declare namespace webvis {
          */
         fitViewToNode(
             nodeID: number,
-            view?: [number, number, number] | Float32Array,
-            up?: [number, number, number] | Float32Array,
+            view?: Vector3 | Float32Array,
+            up?: Vector3 | Float32Array,
             transitionTime?: number,
         ): Promise<void>;
         /**
@@ -3425,8 +2862,8 @@ declare namespace webvis {
          */
         fitViewToVolume(
             volume: BoxVolume,
-            view?: [number, number, number] | Float32Array,
-            up?: [number, number, number] | Float32Array,
+            view?: Vector3 | Float32Array,
+            up?: Vector3 | Float32Array,
             transitionTime?: number,
         ): Promise<void>;
         /**
@@ -3480,7 +2917,7 @@ declare namespace webvis {
          *
          * @returns A 3D vector representing the center of rotation
          */
-        getCenterOfRotation(): [number, number, number] | Float32Array;
+        getCenterOfRotation(): Vector3 | Float32Array;
         /**
          * Sets the center of rotation being the point around which the inspection camera rotates. If no
          * center parameter is supplied the center of rotation is set to the center of all currently loaded
@@ -3489,7 +2926,7 @@ declare namespace webvis {
          * @param center The new center of rotation represented by a 3D vector
          * @returns A promise that resolves when the center of rotation is set
          */
-        setCenterOfRotation(center?: [number, number, number] | Float32Array): Promise<void>;
+        setCenterOfRotation(center?: Vector3 | Float32Array): Promise<void>;
         /**
          * Sets the camera to the initial position specified in the {@link ViewerSettingStrings.INIT_VIEW} setting.
          * If the setting is not defined or empty, there will be no effect.
@@ -3508,9 +2945,9 @@ declare namespace webvis {
          * @returns A promise that resolves when the camera movement is finished.
          */
         setView(
-            position: [number, number, number] | Float32Array,
-            target: [number, number, number] | Float32Array,
-            upVector?: [number, number, number] | Float32Array,
+            position: Vector3 | Float32Array,
+            target: Vector3 | Float32Array,
+            upVector?: Vector3 | Float32Array,
             transitionTime?: number,
         ): Promise<void>;
         /**
@@ -3520,27 +2957,7 @@ declare namespace webvis {
          * @param transitionTime Defines the transition time for the camera movement in milliseconds. Default: 0.
          * @returns A promise that resolves when the camera movement is finished.
          */
-        setViewMatrix(
-            matrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array,
-            transitionTime?: number,
-        ): Promise<void>;
+        setViewMatrix(matrix: Matrix4x4 | Float32Array, transitionTime?: number): Promise<void>;
         /**
          * Animates to the specified view matrix.
          * The optional `transitionTime` parameter allows for controlling animation speed.
@@ -3549,33 +2966,13 @@ declare namespace webvis {
          * @param transitionTime Defines the transition time for the camera movement in milliseconds. Default: 600.
          * @returns A promise that resolves when the camera movement is finished.
          */
-        animateViewToViewmatrix(
-            matrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array,
-            transitionTime?: number,
-        ): Promise<void>;
+        animateViewToViewmatrix(matrix: Matrix4x4 | Float32Array, transitionTime?: number): Promise<void>;
         /**
          * Returns the current camera position as a 3D vector.
          *
          * @returns The current camera position.
          */
-        getCameraPosition(): [number, number, number] | Float32Array;
+        getCameraPosition(): Vector3 | Float32Array;
         /**
          * Returns the current {@link CameraProjectionType} of the camera.
          *
@@ -3592,24 +2989,7 @@ declare namespace webvis {
          *
          * @returns The toCoordinateSystem matrix
          */
-        getToCoordinateSystemMatrix(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        getToCoordinateSystemMatrix(): Matrix4x4 | Float32Array;
         /**
          * Returns the current view matrix. The 4x4 transformation matrix is represented as a flat 16-element array in
          * column-major order.
@@ -3618,24 +2998,7 @@ declare namespace webvis {
          *
          * @see {@link ViewerAPI.setViewMatrix}
          */
-        getViewMatrix(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ];
+        getViewMatrix(): Matrix4x4;
         /**
          * Sets the current projection matrix. The 4x4 transformation matrix must be represented as a flat 16-element array
          * in column-major order.
@@ -3644,26 +3007,7 @@ declare namespace webvis {
          *
          * @see {@link ViewerAPI.getProjectionMatrix}
          */
-        setProjectionMatrix(
-            matrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array,
-        ): void;
+        setProjectionMatrix(matrix: Matrix4x4 | Float32Array): void;
         /**
          * Returns the current projection matrix. The 4x4 transformation matrix is represented as a flat 16-element array
          * in column-major order.
@@ -3672,24 +3016,7 @@ declare namespace webvis {
          *
          * @see {@link ViewerAPI.setProjectionMatrix}
          */
-        getProjectionMatrix(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        getProjectionMatrix(): Matrix4x4 | Float32Array;
         /**
          * Flips specific elements in the auxiliary geometry (like text or specific polygons)
          * with respect to the current view.
@@ -4028,6 +3355,24 @@ declare namespace webvis {
         constructor();
     }
     /**
+     * A list of available predefined lighting environments in a viewer.
+     */
+    enum ViewerLightingEnvironment {
+        /**
+         * The default lighting environment: A dynamic light source which follows the camera.
+         */
+        HEADLIGHT = 0,
+        /**
+         * Multiple colored static light sources.
+         */
+        FOUR_POINT_LIGHTING = 1,
+        /**
+         * A combination of static and dynamic light sources.
+         * Optimized to reduce strong highlights on flat objects.
+         */
+        FIVE_POINT_LIGHTING = 2,
+    }
+    /**
      * Represents the two different view perspectives available in the viewer.
      * They determine the definition of left and right in the viewer.
      *
@@ -4056,24 +3401,6 @@ declare namespace webvis {
          * outside of the object.
          */
         OUTSIDE = "outsideView",
-    }
-    /**
-     * A list of available predefined lighting environments in a viewer.
-     */
-    enum ViewerLightingEnvironment {
-        /**
-         * The default lighting environment: A dynamic light source which follows the camera.
-         */
-        HEADLIGHT = 0,
-        /**
-         * Multiple colored static light sources.
-         */
-        FOUR_POINT_LIGHTING = 1,
-        /**
-         * A combination of static and dynamic light sources.
-         * Optimized to reduce strong highlights on flat objects.
-         */
-        FIVE_POINT_LIGHTING = 2,
     }
     /**
      * A list of predefined view directions that are understood by the viewer
@@ -4253,32 +3580,14 @@ declare namespace webvis {
          */
         constructor(variant: number, enabled: boolean);
     }
-    /**
-     * The INTERNAL_VARIANT_CHANGED event occurs if the selected variant change.
-     *
-     * @event
-     * @hideconstructor
-     * @ignore
-     */
-    class InternalVariantChangedEvent extends WebVisEvent {
-        variant: number;
-        variantPath: [number[], number];
-        enabled: boolean;
-        /**
-         * @param variant The id of the changed variant.
-         * @param variantPath The internal path of the changed variant.
-         * @param enabled The new enabled state of the changed variant.
-         */
-        constructor(variant: number, variantPath: [number[], number], enabled: boolean);
-    }
     interface UtilityAPI {
         /**
          * Creates a new BoxVolume object.
-         * @param {[number, number, number]} min -
-         * @param {[number, number, number]} max -
+         * @param {Vector3} min -
+         * @param {Vector3} max -
          * @returns {BoxVolume} A new Box Volume
          */
-        createBoxVolume(min?: [number, number, number], max?: [number, number, number]): BoxVolume;
+        createBoxVolume(min?: Vector3, max?: Vector3): BoxVolume;
     }
     /**
      * Describes a topological torus entity.
@@ -4294,11 +3603,11 @@ declare namespace webvis {
         /**
          * The axis of the torus.
          */
-        axis: [number, number, number];
+        axis: Vector3;
         /**
          * The center point of the torus.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The minor radius of the torus.
          */
@@ -4322,7 +3631,7 @@ declare namespace webvis {
         /**
          * The center point of the sphere.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The radius of the sphere.
          */
@@ -4362,7 +3671,7 @@ declare namespace webvis {
         /**
          * The point.
          */
-        point: [number, number, number];
+        point: Vector3;
     }
     /**
      * Describes a topological planar face entity.
@@ -4395,7 +3704,7 @@ declare namespace webvis {
         /**
          * The center point of the loop.
          */
-        center: [number, number, number];
+        center: Vector3;
     }
     /**
      * Describes a topological line segment entity.
@@ -4411,15 +3720,15 @@ declare namespace webvis {
         /**
          * The direction of the line segment.
          */
-        direction: [number, number, number];
+        direction: Vector3;
         /**
          * The end point of the line segment.
          */
-        end: [number, number, number];
+        end: Vector3;
         /**
          * The start point of the line segment.
          */
-        start: [number, number, number];
+        start: Vector3;
     }
     /**
      * A handle for a topological entity, which can be used with the
@@ -4464,11 +3773,11 @@ declare namespace webvis {
         /**
          * The axis of the ellipse.
          */
-        axis: [number, number, number];
+        axis: Vector3;
         /**
          * The center point of the ellipse.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The circumference of the ellipse.
          */
@@ -4560,7 +3869,7 @@ declare namespace webvis {
         /**
          * The center point of the cylinder.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The radius of the cylinder.
          */
@@ -4572,7 +3881,7 @@ declare namespace webvis {
         /**
          * The axis of the cylinder.
          */
-        axis: [number, number, number];
+        axis: Vector3;
     }
     /**
      * Describes a topological curve entity.
@@ -4588,11 +3897,11 @@ declare namespace webvis {
         /**
          * The start point of the curve.
          */
-        start: [number, number, number];
+        start: Vector3;
         /**
          * The end point of the curve.
          */
-        end: [number, number, number];
+        end: Vector3;
     }
     /**
      * Describes a topological cone entity.
@@ -4608,11 +3917,11 @@ declare namespace webvis {
         /**
          * The axis of the cone.
          */
-        axis: [number, number, number];
+        axis: Vector3;
         /**
          * The center point of the cone.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The radius of the cone.
          */
@@ -4640,11 +3949,11 @@ declare namespace webvis {
         /**
          * The axis of the circular arc.
          */
-        axis: [number, number, number];
+        axis: Vector3;
         /**
          * The center point of the circular arc.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The length of the circular arc.
          */
@@ -4656,11 +3965,11 @@ declare namespace webvis {
         /**
          * The end point of the circular arc.
          */
-        end: [number, number, number];
+        end: Vector3;
         /**
          * The start point of the circular arc.
          */
-        start: [number, number, number];
+        start: Vector3;
     }
     /**
      * Describes a topological circle entity.
@@ -4676,11 +3985,11 @@ declare namespace webvis {
         /**
          * The center point of the circle.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The axis of the circle.
          */
-        axis: [number, number, number];
+        axis: Vector3;
         /**
          * The circumference of the circle.
          */
@@ -4696,11 +4005,11 @@ declare namespace webvis {
         /**
          * The center point of the box.
          */
-        center: [number, number, number];
+        center: Vector3;
         /**
          * The dimension of the box.
          */
-        dimension: [number, number, number];
+        dimension: Vector3;
         /**
          * The volume of the box
          */
@@ -4830,16 +4139,16 @@ declare namespace webvis {
          * @returns A circular arc descriptor.
          */
         createCircularArcDescriptor(
-            point0: [number, number, number],
-            point1: [number, number, number],
-            point2: [number, number, number],
+            point0: Vector3,
+            point1: Vector3,
+            point2: Vector3,
         ): TopologyDescriptor<TopologySubType.CIRCULAR_ARC>;
         /**
          * Creates a point descriptor for the specified point.
          * @param point The point.
          * @returns A point descriptor.
          */
-        createPointDescriptor(point: [number, number, number]): TopologyDescriptor<TopologySubType.POINT>;
+        createPointDescriptor(point: Vector3): TopologyDescriptor<TopologySubType.POINT>;
         /**
          * Returns all selected topological entities.
          *
@@ -4848,7 +4157,7 @@ declare namespace webvis {
          *
          * @returns All selected topological entities.
          */
-        getSelectedTopologyHandles(): Array<TopologyHandle>;
+        getSelectedTopologyHandles(): TopologyHandle[];
         /**
          * Returns the type of the given topological entity.
          * @param handle The topology handle.
@@ -4885,7 +4194,7 @@ declare namespace webvis {
         mapOriginalToInternalTopologyHandles(
             nodeID: number,
             handles: OriginalTopologyHandle[],
-        ): Promise<Array<TopologyHandle | undefined>>;
+        ): Promise<(TopologyHandle | undefined)[]>;
         /**
          * Maps the given webvis topology handles to the corresponding original topology
          * handles.
@@ -4897,7 +4206,7 @@ declare namespace webvis {
          */
         mapInternalToOriginalTopologyHandles(
             handles: TopologyHandle[],
-        ): Promise<Array<OriginalTopologyHandle | undefined>>;
+        ): Promise<(OriginalTopologyHandle | undefined)[]>;
         /**
          * Removes one or more topological entities from the current selection.
          *
@@ -5199,12 +4508,6 @@ declare namespace webvis {
         roleKeys?: MemberRoleToKey;
     }
     /**
-     * Maps each {@link MemberRole} to its corresponding {@link SpaceAPI | space} access token.
-     */
-    type MemberRoleToSpaceAccessToken = {
-        [K in MemberRole]: string;
-    };
-    /**
      * Maps each {@link MemberRole} to its corresponding {@link SpaceAPI | space} key.
      * @ignore
      */
@@ -5363,17 +4666,6 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @returns A promise that resolves to the space handle.
          */
         requestSpaceHandle(role?: Exclude<MemberRole, MemberRole.UNKNOWN>): Promise<SpaceHandle>;
-    }
-    /**
-     * Event that is fired when a {@link SpaceAPI | 3D space} is opened.
-     *
-     * @event
-     * @hideconstructor
-     *
-     * @see {@link EventType.SPACE_OPENED}
-     */
-    class SpaceOpenedEvent extends WebVisEvent {
-        constructor();
     }
     /**
      * Event that is fired when the user switched to a new {@link SpaceAPI | 3D space} or when the current
@@ -7218,13 +6510,13 @@ To enable this, members can exchange space handles, which are shareable referenc
         drawings: {
             [key: number]: any;
         };
-        attachments: Array<any>;
-        customProperties: Array<any>;
-        propertyKeys: Array<string>;
+        attachments: any[];
+        customProperties: any[];
+        propertyKeys: string[];
         activeSnapshotID: number;
         tags: [];
         animationFrames: {
-            [key: string]: Array<AnimationFrame>;
+            [key: string]: AnimationFrame[];
         };
         about: {
             [key: string]: string;
@@ -7386,7 +6678,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns An array of snapshot IDs.
          */
-        getSnapshots(): Array<number>;
+        getSnapshots(): number[];
         /**
          * Requests the data of the specified snapshot.
          *
@@ -7405,29 +6697,6 @@ To enable this, members can exchange space handles, which are shareable referenc
             attachmentID: number;
             order: number;
         } | undefined;
-    }
-    /**
-     * Event that is fired when the restoration of a snapshot starts.
-     *
-     * This event is triggered at the beginning of the snapshot restoration process.
-     * It provides the ID of the snapshot being restored, allowing listeners to react to the start of the restoration.
-     *
-     * ### Use Case
-     * Use this event to track the start of a snapshot restoration process. This can be useful for displaying loading indicators,
-     * preparing the application for the restoration workflow, or logging restoration attempts.
-     *
-     * @event
-     * @hideconstructor
-     *
-     * @see {@link SessionStorageAPI}
-     * @see {@link EventType.SNAPSHOT_RESTORE_STARTED}
-     */
-    class SnapshotRestoreStartedEvent extends WebVisEvent {
-        snapshotID: number;
-        /**
-         * @param snapshotID The ID of the snapshot that is being restored.
-         */
-        constructor(snapshotID: number);
     }
     /**
      * Event that is fired when a snapshot has been restored.
@@ -7454,6 +6723,29 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param settings The settings used during the snapshot restoration process.
          */
         constructor(snapshotID: number, settings: SnapshotRestoreOptions);
+    }
+    /**
+     * Event that is fired when the restoration of a snapshot starts.
+     *
+     * This event is triggered at the beginning of the snapshot restoration process.
+     * It provides the ID of the snapshot being restored, allowing listeners to react to the start of the restoration.
+     *
+     * ### Use Case
+     * Use this event to track the start of a snapshot restoration process. This can be useful for displaying loading indicators,
+     * preparing the application for the restoration workflow, or logging restoration attempts.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link SessionStorageAPI}
+     * @see {@link EventType.SNAPSHOT_RESTORE_STARTED}
+     */
+    class SnapshotRestoreStartedEvent extends WebVisEvent {
+        snapshotID: number;
+        /**
+         * @param snapshotID The ID of the snapshot that is being restored.
+         */
+        constructor(snapshotID: number);
     }
     /**
      * Event that is fired when a snapshot has been removed.
@@ -7580,95 +6872,6 @@ To enable this, members can exchange space handles, which are shareable referenc
         get text(): string;
     }
     /**
-     * Event that is fired when an internal snapshot is created.
-     *
-     * This event is primarily used internally to handle snapshot creation processes. It provides detailed information
-     * about the created snapshot, including its ID, name, camera state, and additional synchronization data.
-     *
-     * @event
-     * @hideconstructor
-     * @ignore
-     *
-     * @see {@link SessionStorageAPI}
-     */
-    class InternalSnapshotCreatedEvent extends WebVisEvent {
-        snapshotID: number;
-        name?: string;
-        attachmentID?: number;
-        cameraStore?: {
-            viewMatrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ];
-            centerOfRotation: [number, number, number];
-            viewPointDiameter: number;
-            viewPlaneDistance: number;
-            cameraType: number;
-        };
-        snapshotStore?: any;
-        instanceStores?: {
-            [key: number]: any;
-        };
-        sessionSyncData?: any;
-        /**
-         * @param snapshotID The ID of the created snapshot.
-         * @param name The name of the snapshot.
-         * @param attachmentID The ID of the attachment associated with the snapshot.
-         * @param cameraStore The camera state at the time of snapshot creation.
-         * @param snapshotStore The snapshot store (only for navis).
-         * @param instanceStores A map of instance stores (only for navis).
-         * @param sessionSyncData The session synchronization data (only for navis).
-         */
-        constructor(
-            snapshotID: number,
-            name?: string,
-            attachmentID?: number,
-            cameraStore?: {
-                viewMatrix: [
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                    number,
-                ];
-                centerOfRotation: [number, number, number];
-                viewPointDiameter: number;
-                viewPlaneDistance: number;
-                cameraType: number;
-            },
-            snapshotStore?: any,
-            instanceStores?: {
-                [key: number]: any;
-            },
-            sessionSyncData?: any,
-        );
-    }
-    /**
      * Describes the availability and integrity status of a snapshot's referenced data.
      *
      * @see {@link SessionStorageAPI}
@@ -7687,412 +6890,6 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @see {@link SnapshotProperties}
          */
         INCONSISTENT = 1,
-    }
-    /**
-     * @ignore
-     */
-    interface StreamTransMissionHints {
-        frameSkipThreshold?: number;
-    }
-    /**
-     * @ignore
-     */
-    interface StreamStateData {
-        streamId: number;
-        subscriberCount?: number;
-        interest?: boolean;
-        available?: boolean;
-        location?: string;
-        signal?: StreamSignal;
-    }
-    /**
-     * @ignore
-     */
-    interface StreamSignal {
-        [key: string]: any;
-    }
-    interface SessionSyncDataMap {
-        nodeIDs: {
-            [key: number]: number;
-        };
-        attachmentIDs: {
-            [key: number]: number;
-        };
-        drawingIDs: {
-            [key: number]: number;
-        };
-        clipPlaneIDs: {
-            [key: number]: number;
-        };
-        clipRoomIDs: {
-            [key: number]: number;
-        };
-        annotationIDs: {
-            [key: number]: number;
-        };
-        drawingPlaneIDs: {
-            [key: number]: number;
-        };
-        measurementIDs: {
-            [key: number]: number;
-        };
-        materialIDs: {
-            [key: number]: number;
-        };
-        patternIDs: {
-            [key: number]: number;
-        };
-    }
-    interface SessionSyncData {
-        annotationIDs: number[];
-        patternIDs: number[];
-        attachmentsIDs: number[];
-        clipPlaneIDs: number[];
-        drawingIDs: number[];
-        drawingPlaneIDs: number[];
-        materialIDs: number[];
-        measurementIDs: number[];
-        snapshotIDs: number[];
-    }
-    /**
-     * @ignore
-     */
-    type SessionStreamStateChangedCallback = (connectionData: StreamStateData) => void;
-    /**
-     * @ignore
-     */
-    type SessionStreamMessageCallback = (message: string | ArrayBufferLike | ArrayBufferView | Serializable) => void;
-    /**
-     * @ignore
-     */
-    interface SessionStreamData {
-        streamId?: number;
-        name: string;
-        content: string;
-        contentType: "ascii" | "binary";
-        connectionType: "hosted" | "peer";
-        location?: string;
-        memberId: number;
-        metadata?: any;
-        space?: string;
-        transmissionHints?: StreamTransMissionHints;
-    }
-    /**
-     * @ignore
-     */
-    interface SessionStreamCondition {
-        streamId?: number;
-        name?: string;
-        content?: string;
-        contentType?: string;
-        connectionType?: string;
-        location?: string;
-        memberId?: number;
-        metadata?: any;
-        [key: number]: any;
-    }
-    /**
-     * The information about a Session.
-     */
-    interface SessionStateData extends SessionMemberData {
-        state?: SessionConnectionState;
-        sessionId?: string;
-        sessionUri?: string;
-        hidden?: boolean;
-    }
-    /**
-     * The information about a SessionMember.
-     */
-    interface SessionMemberData {
-        name?: string;
-        deviceTags?: Array<string>;
-        assignedRoles?: Array<string>;
-        assignedDirectives?: Array<string>;
-        memberId?: number;
-        roleHints?: Array<string>;
-        spaceDomain?: string;
-        settings?: {
-            [key: string]: any;
-        };
-        privileges?: Array<MemberPrivileges>;
-    }
-    /**
-     * The SessionAPI allows to share the state of the InstanceGraph between multiple user in a collaborative setting.
-     */
-    interface SessionAPI {
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * Connects to a Session. If the ID does not exist, a new Session will be created.
-         * @param sessionID The ID of the Session.
-         * @param name The ID of the Session.
-         */
-        connectToSession(sessionID?: string, name?: string): Promise<SessionStateData>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * Disconnects from a Session.
-         */
-        disconnectFromSession(): void;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * Shuts down a Session and disconnects all joined SessionMembers.
-         */
-        shutdownSession(): Promise<void>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * Removes a SessionMember from a Session.
-         * @param memberID The ID of the SessionMember.
-         */
-        removeSessionMember(memberID: number): void;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * Promotes a SessionMember to the Role of the Moderator.
-         * @param memberID The ID of the SessionMember.
-         */
-        promoteSessionMember(memberID: number): void;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @return The ID of the SessionMember.
-         */
-        getSessionMemberID(): number;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @return The IDs of all SessionMembers.
-         */
-        getSessionMembers(): Promise<Array<SessionMemberData>>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @return Information about the Session.
-         */
-        getSessionStateData(): SessionStateData;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        getSessionStreams(conditions?: SessionStreamCondition): Promise<Array<SessionStreamData>>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        awaitStream(conditions: SessionStreamCondition): Promise<SessionStreamData>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        subscribeStream(streamID: number, callback?: SessionStreamMessageCallback): Promise<void>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        unsubscribeStream(streamID: number, callback: SessionStreamMessageCallback): void;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        publishStream(data: SessionStreamData): Promise<number | undefined>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        removeStream(streamID: number): void;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        onStreamStateChange(streamID: number, callback: SessionStreamStateChangedCallback): void;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        sendToStream(streamID: number, message: string | ArrayBuffer): void;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        readSessionParameter(sessionParameter: string, flags: {
-            [key: string]: any;
-        }): Promise<any>;
-        /**
-         * @deprecated The whole SessionAPI is under consolidation and will be replaced in a future release.
-         *
-         * @ignore
-         */
-        changeSessionParameter(sessionParameter: string, value?: any, flags?: {
-            [key: string]: any;
-        }): void;
-    }
-    /**
-     * This event occurs if the state of a Stream has changed.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class StreamStateChangedEvent extends WebVisEvent {
-        streamStateData: StreamStateData;
-        /**
-         * @param streamStateData The changed StreamStateData.
-         */
-        constructor(streamStateData: StreamStateData);
-    }
-    /**
-     * The STATE_SYNC event is fired to sync new members of a session.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class StateSyncEvent extends WebVisEvent {
-        isEmpty: boolean;
-        sessionStore?: SessionStore;
-        members?: (MemberProperties & {
-            memberId: number;
-        })[];
-        offeredMemberActions?: Record<number, MemberAction[]>;
-        sessionSyncData?: SessionSyncData | SessionSyncDataMap;
-        /**
-         * @param isEmpty Hints that the state is empty. Depending on this, the client might want to replace the session state with its own.
-         * @param sessionStore The SessionStore we have to load if the state is not empty.
-         * @param sessionSyncData Additional data we need for synchronization.
-         */
-        constructor(
-            isEmpty: boolean,
-            sessionStore?: SessionStore,
-            members?: (MemberProperties & {
-                memberId: number;
-            })[],
-            offeredMemberActions?: Record<number, MemberAction[]>,
-            sessionSyncData?: SessionSyncData | SessionSyncDataMap,
-        );
-    }
-    /**
-     * This event signals a that the session is transferring.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class SessionTransferEvent extends WebVisEvent {
-        sessionID: string;
-        /**
-         * @param sessionID The id of the new session.
-         */
-        constructor(sessionID: string);
-    }
-    /**
-     * This event occurs if the state of a Session has changed.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class SessionStateChangedEvent extends WebVisEvent {
-        sessionStateData: SessionStateData;
-        /**
-         * @param sessionStateData The changed SessionStateData.
-         */
-        constructor(sessionStateData: SessionStateData);
-    }
-    /**
-     * The SESSION_PARAMETER_CHANGED event is fired when a session parameter has been changed.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class SessionParameterChangedEvent extends WebVisEvent {
-        sessionParameter: string;
-        memberID?: number;
-        available?: boolean;
-        interest?: boolean;
-        /**
-         * @param sessionParameter The key of the changed session parameter.
-         * @param memberID The (optional) memberID for which a member session parameter was changed.
-         * @param available The (optional) availability state of the session parameter.
-         * @param interest The (optional) interest state of the session parameter.
-         */
-        constructor(sessionParameter: string, memberID?: number, available?: boolean, interest?: boolean);
-    }
-    /**
-     * This event occurs if the data of a SessionMember has changed.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class MemberUpdatedEvent extends WebVisEvent {
-        memberData: SessionMemberData;
-        /**
-         * @param memberData The updated information about the SessionMember.
-         */
-        constructor(memberData: SessionMemberData);
-    }
-    /**
-     * This event occurs if a SessionMember has left.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class MemberLeftEvent extends WebVisEvent {
-        memberID: number;
-        /**
-         * @param memberID The ID of the SessionMember.
-         */
-        constructor(memberID: number);
-    }
-    /**
-     * This event occurs if a new SessionMember has joined.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class MemberJoinedEvent extends WebVisEvent {
-        memberData: SessionMemberData;
-        /**
-         * @param memberData Information about the joined member.
-         */
-        constructor(memberData: SessionMemberData);
-    }
-    /**
-     * This event signals new or failed credentials acquisition.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class CredentialsAquisitionUpdateEvent extends WebVisEvent {
-        accepted: boolean;
-        credentials: string;
-        /**
-         * @param accepted Is true when credentials were found.
-         * @param credentials The credential data.
-         */
-        constructor(accepted: boolean, credentials: string);
-    }
-    interface SharedSessionData {
-        wsEndpoint: string;
-        initPose: Float32Array;
-        sessionID: string;
-        resetURL: string;
-        debugURL: string;
-        paramsURL: string;
-    }
-    enum SessionConnectionState {
-        INIT = 0,
-        CONNECTING = 1,
-        CONNECTED = 2,
-    }
-    enum MemberPrivileges {
-        Moderator = "moderator",
     }
     /**
      * Represents the result of a change selection operation.
@@ -8117,7 +6914,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * An array containing the IDs of all currently selected nodes.
          */
-        selectedNodes: Array<number>;
+        selectedNodes: number[];
     }
     /**
      * ## SelectionAPI
@@ -8172,13 +6969,13 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @return An array which contains the IDs of all nodes in the current selection.
          */
-        getSelection(): Promise<Array<number>>;
+        getSelection(): Promise<number[]>;
         /**
          * Returns a list of all selected leaf nodes.
          *
          * @return An array which contains the IDs of all leaf nodes in the current selection.
          */
-        getSelectedLeafNodes(): Array<number>;
+        getSelectedLeafNodes(): number[];
         /**
          * Returns a list of all selected nodes.
          * When a whole subtree is selected, only the parent node will be included in the returned array.
@@ -8186,7 +6983,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns An array which contains the IDs of all nodes in the current selection.
          */
-        getSelectedNodes(): Array<number>;
+        getSelectedNodes(): number[];
         /**
          * @deprecated selectCollection is deprecated, please use {@link setSelection} instead.
          *
@@ -8244,7 +7041,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param silent If set to true, no event will be emitted. Default: false
          * @returns The result of the selection change.
          */
-        addToSelection(nodeID: number | Array<number>, silent?: boolean): Promise<ChangeSelectionResult>;
+        addToSelection(nodeID: number | number[], silent?: boolean): Promise<ChangeSelectionResult>;
         /**
          * Removes the specified nodes from the current selection.
          *
@@ -8254,7 +7051,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param silent If set to true, no event will be emitted. Default: false
          * @returns The result of the selection change.
          */
-        removeFromSelection(nodeID: number | Array<number>, silent?: boolean): Promise<ChangeSelectionResult>;
+        removeFromSelection(nodeID: number | number[], silent?: boolean): Promise<ChangeSelectionResult>;
         /**
          * Checks if the specified node is part of the selection.
          *
@@ -8271,7 +7068,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param silent If set to true, no event will be emitted. Default: false
          * @returns The result of the selection change.
          */
-        setSelection(nodeID: number | Array<number>, silent?: boolean): Promise<ChangeSelectionResult>;
+        setSelection(nodeID: number | number[], silent?: boolean): Promise<ChangeSelectionResult>;
     }
     /**
      * This event occurs if the selection has changed.
@@ -8286,7 +7083,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         targetNodeID: number;
         oldSelectionCount: number;
         newSelectionCount: number;
-        selectedNodes: Array<number>;
+        selectedNodes: number[];
         /**
          * @param targetNodeID The ID of the node whose selection has changed. For further information see {@link ChangeSelectionResult.targetNodeID}.
          * @param oldSelectionCount The number of previous selected Nodes.
@@ -8297,7 +7094,7 @@ To enable this, members can exchange space handles, which are shareable referenc
             targetNodeID: number,
             oldSelectionCount: number,
             newSelectionCount: number,
-            selectedNodes: Array<number>,
+            selectedNodes: number[],
         );
     }
     /**
@@ -8354,45 +7151,11 @@ To enable this, members can exchange space handles, which are shareable referenc
             /**
              * The view matrix at which the scan was shot.
              */
-            viewMatrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array;
+            viewMatrix: Matrix4x4 | Float32Array;
             /**
              * The projection matrix of the camera with which the scan has been made.
              */
-            projectionMatrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array;
+            projectionMatrix: Matrix4x4 | Float32Array;
         };
         /**
          * Represents the scanshot as point cloud.
@@ -8619,24 +7382,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * included in the offset transform, unexpected results may occur.
          * Default value is the identity matrix.
          */
-        xrAnchorOffsetTransform?: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        xrAnchorOffsetTransform?: Matrix4x4 | Float32Array;
     }
     /**
      * ## AR and webvis: The RealityAPI
@@ -8790,7 +7536,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns {Array<XRCapability>} Returns an Array<{@link XRCapability}> containing the XR system's capabilities.
          */
-        getXRCapabilities(): Array<XRCapability>;
+        getXRCapabilities(): XRCapability[];
         /**
          * Get the runtime state of the XR system.
          *
@@ -8989,32 +7735,6 @@ To enable this, members can exchange space handles, which are shareable referenc
         constructor(xrState: Partial<XRState>);
     }
     /**
-     * Event that is fired when an XR spectation is stopped.
-     *
-     * @event
-     * @hideconstructor
-     *
-     * @see {@link RealityAPI.stopXRSpectate}
-     */
-    class XRSpectateStoppedEvent extends WebVisEvent {
-        constructor();
-    }
-    /**
-     * Event that is fired when an XR spectation is started.
-     *
-     * @event XR_SPECTATE_STARTED
-     * @hideconstructor
-     *
-     * @see {@link RealityAPI.startXRSpectate}
-     */
-    class XRSpectateStartedEvent extends WebVisEvent {
-        xrMemberId: number;
-        /**
-         * @param xrMemberId The ID of the session member that is being spectated.
-         */
-        constructor(xrMemberId: number);
-    }
-    /**
      * Event that is fired when the {@link XRPlaybackState} changes.
      *
      * @event
@@ -9057,34 +7777,6 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param img The edge image stored in a {@link XRImage} object.
          */
         constructor(img: XRImage);
-    }
-    /**
-     * Event that is fired when a session member which was publishing XR images stops publishing.
-     * The event contains the id of the session member that stopped publishing XR images.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class XRMemberRemovedEvent extends WebVisEvent {
-        xrMemberId: number;
-        /**
-         * @param xrMemberId The id of the session member that stopped publishing XR images.
-         */
-        constructor(xrMemberId: number);
-    }
-    /**
-     * Event that is fired when a new session member starts publishing XR images.
-     * The event contains the id of the session member that started publishing XR images.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class XRMemberAddedEvent extends WebVisEvent {
-        xrMemberId: number;
-        /**
-         * @param xrMemberId The id of the session member that started publishing XR images.
-         */
-        constructor(xrMemberId: number);
     }
     /**
      * Describes the quality of the current world mapping state.
@@ -9278,8 +7970,8 @@ To enable this, members can exchange space handles, which are shareable referenc
      * @see {@link QueryAPI}
      */
     interface QueryResult {
-        data: Array<any>;
-        errors: Array<any>;
+        data: any[];
+        errors: any[];
     }
     /**
      * A condition of a {@link Query}. For an explanation of the available conditions, see the {@link QueryAPI}.
@@ -9289,13 +7981,13 @@ To enable this, members can exchange space handles, which are shareable referenc
     interface QueryCondition {
         nodeId?: number;
         originalFaceID?: number;
-        ancestors?: Array<QueryCondition>;
+        ancestors?: QueryCondition[];
         extFaceLink?: string;
         nodeType?: "structure" | "aux";
         metadata?: string;
         property?: string;
-        equals?: Query | string | number;
-        equalsAny?: Array<string | number>;
+        equals?: Query | string | number | boolean;
+        equalsAny?: (string | number)[];
         contains?: string;
         lessThan?: number;
         lessOrEqualThan?: number;
@@ -9305,9 +7997,9 @@ To enable this, members can exchange space handles, which are shareable referenc
         pointsTo?: number;
         linkDepth?: number;
         faceHandle?: TopologyHandle;
-        not?: Array<QueryCondition>;
-        and?: Array<QueryCondition>;
-        or?: Array<QueryCondition>;
+        not?: QueryCondition[];
+        and?: QueryCondition[];
+        or?: QueryCondition[];
     }
     /**
      * A query for metadata of structure or aux nodes that can be used in the {@link QueryAPI}.
@@ -9320,8 +8012,8 @@ To enable this, members can exchange space handles, which are shareable referenc
      * @see {@link QueryAPI}
      */
     interface Query {
-        select: Array<QuerySelect>;
-        conditions: Array<QueryCondition>;
+        select: QuerySelect[];
+        conditions: QueryCondition[];
         linkDepth?: number;
     }
     /**
@@ -9398,9 +8090,9 @@ To enable this, members can exchange space handles, which are shareable referenc
      * - **Experimental** `{property: <property name>, <operator>: <value>}`: Nodes with a matching property value.
      *   The available property names are the string values of the {@link Property} enum. This condition does not
      *   support properties which are matrices or objects. This condition only operates on nodes which are loaded
-     *   in the client.
-     *   Note: this condition is experimental and may be changed in future releases. Mixing of `property` and
-     *   `metadata` conditions in logical condition groups is not yet supported.
+     *   in the client. The supported operators are the same as for metadata conditions. Here the equals operator
+     *   also supports boolean values. Note: this condition is experimental and may be changed in future releases.
+     *   Mixing of `property` and `metadata` conditions in logical condition groups is not yet supported.
      *
      * #### Aux Node Conditions
      *
@@ -9749,14 +8441,14 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param scope {number} [scope=0] nodeID specifying the scope as starting point for the paths
          * @return {Promise<NodePathHandleMap>} The resulting object mapping paths to handles
          */
-        requestNodePathHandleMap(paths: Array<string>, scope?: number): Promise<NodePathHandleMap>;
+        requestNodePathHandleMap(paths: string[], scope?: number): Promise<NodePathHandleMap>;
         /**
          * createNodePathHandles Creates and returns handles for the target node ids or topology selectors.
          *
          * @param targets {Array<number>} Array of target node ids to create the handles for
          * @return {Promise<Array<NodePathHandle>>} The array of handles
          */
-        createNodePathHandles(targets: Array<number>): Promise<Array<NodePathHandle>>;
+        createNodePathHandles(targets: number[]): Promise<NodePathHandle[]>;
         /**
          * requestNodePathStrings Returns string representations for the respective node path handles.
          *
@@ -9766,10 +8458,10 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @return {Promise<Array<string>>} String representation of the node path for the respective scope.
          */
         requestNodePathStrings(
-            handles: Array<NodePathHandle>,
+            handles: NodePathHandle[],
             scope?: number,
-            typePriorities?: Array<NodePathFragmentType>,
-        ): Promise<Array<string>>;
+            typePriorities?: NodePathFragmentType[],
+        ): Promise<string[]>;
     }
     enum NodePathFragmentType {
         LOCAL_ID = 0,
@@ -10154,29 +8846,6 @@ To enable this, members can exchange space handles, which are shareable referenc
         constructor(memberId: number, memberProperties: Partial<MemberProperties>);
     }
     /**
-     * Event that is fired when a member action is performed.
-     *
-     * @event
-     * @hideconstructor
-     *
-     * @ignore Out of scope for public API, but required for session handler
-     *
-     * @see {@link EventType.MEMBER_ACTION_USED}
-     */
-    class MemberActionUsedEvent extends WebVisEvent {
-        sourceMemberId: number;
-        targetMemberId: number;
-        memberAction: MemberAction;
-        details?: any;
-        /**
-         * @param sourceMemberId The memberId of the member that initiated the action
-         * @param targetMemberId The memberId of the member that is the target of the action
-         * @param memberAction The action that was performed
-         * @param details Additional details about the action. The content depends on the action.
-         */
-        constructor(sourceMemberId: number, targetMemberId: number, memberAction: MemberAction, details?: any);
-    }
-    /**
      * Event that is fired when a member action is removed from a member.
      *
      * @event
@@ -10293,7 +8962,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * The two 3D points used to calculate the thickness.
          */
-        points: [[number, number, number], [number, number, number]];
+        points: [Vector3, Vector3];
     }
     /**
      * The result of a tangent measurement.
@@ -10304,11 +8973,11 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * The calculated tangent vector.
          */
-        tangent: [number, number, number];
+        tangent: Vector3;
         /**
          * The point on the topological edge used for the tangent calculation.
          */
-        point: [number, number, number];
+        point: Vector3;
     }
     /**
      * The result of a measurement of the normal of a face at a specific point.
@@ -10319,11 +8988,11 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * The calculated normal vector.
          */
-        normal: [number, number, number];
+        normal: Vector3;
         /**
          * The point on the face used for the normal calculation.
          */
-        point: [number, number, number];
+        point: Vector3;
     }
     /**
      * Helper to map {@link MeasurementType}s to corresponding input types.
@@ -10391,7 +9060,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * Value type for {@link MeasurementTargetClass.POINT}.
          */
-        [MeasurementTargetClass.POINT]: [number, number, number];
+        [MeasurementTargetClass.POINT]: Vector3;
         /**
          * Value type for {@link MeasurementTargetClass.PLANE}.
          */
@@ -10411,11 +9080,11 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * Value type for {@link MeasurementTargetClass.LINE_SEGMENT}.
          */
-        [MeasurementTargetClass.LINE_SEGMENT]: [[number, number, number], [number, number, number]];
+        [MeasurementTargetClass.LINE_SEGMENT]: [Vector3, Vector3];
         /**
          * Value type for {@link MeasurementTargetClass.CURVE}.
          */
-        [MeasurementTargetClass.CURVE]: [[number, number, number], [number, number, number]][];
+        [MeasurementTargetClass.CURVE]: [Vector3, Vector3][];
     }
     /**
      * Represents a 3D object that can be used for measurements via the {@link MeasurementAPI}. A measurement target
@@ -10456,7 +9125,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * defines the position of the measurement annotation.
          * @default [0,0,0]
          */
-        anchorPosition?: [number, number, number] | Float32Array;
+        anchorPosition?: Vector3 | Float32Array;
         /**
          * The IDs of nodes that are represented by or related to the {@link targets} of the measurement.
          */
@@ -10465,7 +9134,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * The offset of the measurement annotation from its {@link anchorPosition}.
          * @default [0,0,0]
          */
-        contentOffset?: [number, number, number] | Float32Array;
+        contentOffset?: Vector3 | Float32Array;
         /**
          * Defines whether the measurement annotation is visible.
          * @default true
@@ -10505,12 +9174,12 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * The point that matches the distance constraint.
          */
-        point: [number, number, number];
+        point: Vector3;
         /**
          * The corresponding point on the target from which the distance
          * was measured.
          */
-        pointOnDistanceTarget: [number, number, number];
+        pointOnDistanceTarget: Vector3;
     }
     /**
      * The result of a distance and angle measurement between two {@link MeasurementTarget}s.
@@ -10534,7 +9203,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * - If the two measurement targets intersect the two points are equal.
          * - If the two measurement targets intersect and both are from the class {@link MeasurementTargetClass.PLANE} the two points are used to describe the intersection line.
          */
-        points: [[number, number, number], [number, number, number]];
+        points: [Vector3, Vector3];
         /**
          * The intersection of the two measurement targets, if existent. Note
          * that the intersection is not available for all {@link MeasurementTargetClass}
@@ -10694,7 +9363,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns The IDs of all measurement entities.
          */
-        getMeasurements(): Array<number>;
+        getMeasurements(): number[];
         /**
          * Removes the measurement entity with the specified ID from the webvis context and all related snapshots.
          *
@@ -10963,12 +9632,12 @@ To enable this, members can exchange space handles, which are shareable referenc
          * The base color of the material specified by an RGB array, where each channel's value ranges from 0 to 1.
          * @default [1,1,1]
          */
-        baseColor?: [number, number, number];
+        baseColor?: Vector3;
         /**
          * The emissive color of the material specified by an RGB array, where each channel's value ranges from 0 to 1.
          * @default [0,0,0]
          */
-        emissiveColor?: [number, number, number];
+        emissiveColor?: Vector3;
         /**
          * The opacity of the material specified in the range from 0 to 1.
          * @default 1.0
@@ -11270,7 +9939,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @return An array of strings representing the names of the enabled layer filters.
          */
-        getEnabledLayerFilters(): Array<string>;
+        getEnabledLayerFilters(): string[];
         /**
          * Sets the enabled state of a single layer filter.
          *
@@ -11417,7 +10086,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @see {@link isColorComparisonActive}
          */
-        setInteractionMode(mode: string | Array<string>, keepColorCompareActive?: boolean): void;
+        setInteractionMode(mode: string | string[], keepColorCompareActive?: boolean): void;
         /**
          * Set the current interaction mode.
          *
@@ -11602,47 +10271,13 @@ To enable this, members can exchange space handles, which are shareable referenc
     : T extends "depth" ? number
     : T extends "enabled" ? EnabledState | boolean
     : T extends "ghosted" ? boolean
-    : T extends "globalTransform" ? [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array
+    : T extends "globalTransform" ? Matrix4x4 | Float32Array
     : T extends "globalVolume" ? BoxVolume
     : T extends "hasAuxStructure" ? boolean
     : T extends "hidden" ? boolean
     : T extends "infoState" ? NodeInfoState
     : T extends "label" ? string
-    : T extends "localTransform" ? [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array
+    : T extends "localTransform" ? Matrix4x4 | Float32Array
     : T extends "localVolume" ? BoxVolume
     : T extends "modelViews" ? number[]
     : T extends "names" ? string[]
@@ -11708,24 +10343,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @see {@link Property.LOCAL_TRANSFORM}
          */
-        localTransform?: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ];
+        localTransform?: Matrix4x4;
         /**
          * Specifies the initial pickable state of the added node.
          *
@@ -11977,7 +10595,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @see {@link SessionStorageAPI}
          */
-        remove(nodeID?: number | Array<number>, safe?: boolean): Promise<RemoveState>;
+        remove(nodeID?: number | number[], safe?: boolean): Promise<RemoveState>;
         /**
          * Sets the specified property to the given value on the node(s) with the specified ID(s).
          *
@@ -11990,7 +10608,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param silent    The silent flag indicates that no NODE_CHANGED event is fired. Default: false
          */
         setProperty<T extends Property | string>(
-            nodeID: number | Array<number>,
+            nodeID: number | number[],
             property: T,
             value: PropertyType<T>,
             silent?: boolean,
@@ -12012,10 +10630,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns           The retrieved values of the node's properties.
          */
-        getProperties<T extends Property | string>(
-            nodeID: number,
-            properties: Array<T>,
-        ): Promise<Array<PropertyType<T>>>;
+        getProperties<T extends Property | string>(nodeID: number, properties: T[]): Promise<PropertyType<T>[]>;
         /**
          * Returns the full volume of the current scene. It is the smallest volume that contains all nodes of the scene,
          * regardless of their {@link Property.ENABLED} state.
@@ -12089,7 +10704,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns A list of AUX root node IDs.
          */
-        requestAuxRootNodeIds(scopeNodeId?: number): Promise<Array<number>>;
+        requestAuxRootNodeIds(scopeNodeId?: number): Promise<number[]>;
         /**
          * Returns the L3D information of the specified node.
          *
@@ -12106,7 +10721,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns A list of root node IDs.
          */
-        requestRootNodeIds(scopeNodeId?: number, recursive?: boolean): Promise<Array<number>>;
+        requestRootNodeIds(scopeNodeId?: number, recursive?: boolean): Promise<number[]>;
         /**
          * Returns a list of all existing runtime node IDs of a specified type.
          *
@@ -12115,7 +10730,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns A list of runtime node IDs of the specified type.
          */
-        collectRuntimeNodesOfType(nodeType: NodeType, subType?: string): Array<number>;
+        collectRuntimeNodesOfType(nodeType: NodeType, subType?: string): number[];
         /**
          * Sets a new parent for a given node ID.
          *
@@ -12170,7 +10785,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns An Array of all enabled aux node IDs
          */
-        getEnabledAuxNodes(nodeID: number): Promise<Array<number>>;
+        getEnabledAuxNodes(nodeID: number): Promise<number[]>;
         /**
          * Returns the root node ID of the given node or topology element.
          *
@@ -12208,7 +10823,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns true if the new BoxVolume is valid, false otherwise
          */
-        fromArray(array: Float32Array | Array<number>): boolean;
+        fromArray(array: Float32Array | number[]): boolean;
         /**
          * Resets the BoxVolume to its initial state.
          */
@@ -12221,24 +10836,21 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns the new BoxVolume
          */
-        setFromCenterSize(
-            center: [number, number, number] | Float32Array,
-            size: [number, number, number] | Float32Array,
-        ): BoxVolume;
+        setFromCenterSize(center: Vector3 | Float32Array, size: Vector3 | Float32Array): BoxVolume;
         /**
          * Sets the minimum corner of the BoxVolume.
          * The point is specified as a single array with the format `[x, y, z]`.
          *
          * @param min the minimum corner of the BoxVolume
          */
-        setMin(min: [number, number, number] | Float32Array): void;
+        setMin(min: Vector3 | Float32Array): void;
         /**
          * Sets the maximum corner of the BoxVolume.
          * The point is specified as a single array with the format `[x, y, z]`.
          *
          * @param max the maximum corner of the BoxVolume
          */
-        setMax(max: [number, number, number] | Float32Array): void;
+        setMax(max: Vector3 | Float32Array): void;
         /**
          * Extends the BoxVolume to include the given point.
          * If the point is already inside the BoxVolume, nothing is done.
@@ -12255,7 +10867,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param newMin The potential new minimum corner of the box in the format `[x, y, z]`.
          * @param newMax The potential new maximum corner of the box in the format `[x, y, z]`.
          */
-        extend(newMin: [number, number, number] | Float32Array, newMax: [number, number, number] | Float32Array): void;
+        extend(newMin: Vector3 | Float32Array, newMax: Vector3 | Float32Array): void;
         /**
          * Extends a BoxVolume by another BoxVolume.
          * The resulting BoxVolume will span over the other BoxVolume, too. If the other BoxVolume is already inside
@@ -12270,27 +10882,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param other the BoxVolume to extend by
          * @param transform the transformation matrix to apply to the `other` BoxVolume
          */
-        extendByTransformedVolume(
-            other: BoxVolume,
-            transform?: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array,
-        ): void;
+        extendByTransformedVolume(other: BoxVolume, transform?: Matrix4x4 | Float32Array): void;
         /**
          * Gets the minimum point of the BoxVolume.
          * The point is specified as a single array with the format `[x, y, z]`.
@@ -12346,27 +10938,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns the new BoxVolume
          */
-        transformFrom(
-            matrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array,
-            other: BoxVolume,
-        ): BoxVolume;
+        transformFrom(matrix: Matrix4x4 | Float32Array, other: BoxVolume): BoxVolume;
         /**
          * Creates a new BoxVolume from a given BoxVolume, defined by an array, which is then transformed by a matrix.
          *
@@ -12375,27 +10947,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns the new BoxVolume
          */
-        transformFromArray(
-            matrix: [
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-                number,
-            ] | Float32Array,
-            otherVolume: number[],
-        ): BoxVolume;
+        transformFromArray(matrix: Matrix4x4 | Float32Array, otherVolume: number[]): BoxVolume;
         /**
          * Checks if two BoxVolumes are overlapping.
          *
@@ -12424,7 +10976,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @returns An array of eight Float32Array objects. Each Float32Array represents a corner
          *          point of the bounding box in 3D space, with the fourth component set to 1.
          */
-        getCornerPoints(): Array<Float32Array>;
+        getCornerPoints(): Float32Array[];
     }
     /**
      * The NODE_REMOVED event occurs if a node has been removed.
@@ -12455,14 +11007,14 @@ To enable this, members can exchange space handles, which are shareable referenc
      */
     class NodePropertiesResetEvent extends WebVisEvent {
         targetNodeID: number;
-        properties: Array<string>;
+        properties: string[];
         recursive: boolean;
         /**
          * @param targetNodeID The ID of the target node.
          * @param properties The properties that have been reset.
          * @param recursive If set to true, the properties are reset recursively.
          */
-        constructor(targetNodeID: number, properties: Array<string>, recursive: boolean);
+        constructor(targetNodeID: number, properties: string[], recursive: boolean);
     }
     /**
      * This event occurs if a node goes into an error state.
@@ -12540,10 +11092,10 @@ To enable this, members can exchange space handles, which are shareable referenc
         label: string;
         properties?: {
             [key: string]: any;
-        };
-        usage?: UsageString;
-        subType?: string;
-        contentType?: string;
+        } | undefined;
+        usage?: UsageString | undefined;
+        subType?: string | undefined;
+        contentType?: string | undefined;
         /**
          * @param targetNodeID The ID of the target node.
          * @param parentNodeID The ID of the parent node.
@@ -12572,64 +11124,6 @@ To enable this, members can exchange space handles, which are shareable referenc
         );
     }
     /**
-     * @ignore
-     *
-     * @event
-     * @hideconstructor
-     */
-    class InternalParentChangedEvent extends WebVisEvent {
-        nodePath: [number[], number];
-        parentPath: [number[], number];
-        /**
-         * @param nodePath The path of the node which should be moved.
-         * @param parentPath The path of the new parent node.
-         */
-        constructor(nodePath: [number[], number], parentPath: [number[], number]);
-    }
-    /**
-     * @ignore
-     *
-     * The INTERNAL_NODES_REMOVED event occurs if one or more of the Nodes have been removed.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class InternalNodesRemovedEvent extends WebVisEvent {
-        targetNodeIDs: Array<number>;
-        targetNodePaths: [number[], number][];
-        /**
-         * @param targetNodeIDs The IDs of the target Nodes.
-         * @param targetNodePaths The paths of the target Nodes.
-         */
-        constructor(targetNodeIDs: Array<number>, targetNodePaths: [number[], number][]);
-    }
-    /**
-     * @ignore
-     *
-     * The INTERNAL_NODES_CHANGED event occurs if multiple Nodes have been changed.
-     *
-     * @event
-     * @hideconstructor
-     */
-    class InternalNodesChangedEvent extends WebVisEvent {
-        targetNodeIDs: Array<number>;
-        targetNodePaths: [number[], number][];
-        propertyName: string;
-        propertyValue: any;
-        /**
-         * @param targetNodeIDs The IDs of the changed Nodes.
-         * @param targetNodePaths The paths of the changed Nodes.
-         * @param propertyName  The name of the changed Property.
-         * @param propertyValue The new value of the Property.
-         */
-        constructor(
-            targetNodeIDs: Array<number>,
-            targetNodePaths: [number[], number][],
-            propertyName: string,
-            propertyValue: any,
-        );
-    }
-    /**
      * This event is fired when a custom property has been registered.
      *
      * @event
@@ -12648,24 +11142,6 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param defaultValue specifies the property default value
          */
         constructor(customPropName: string, recursive: boolean, defaultValue: any);
-    }
-    /**
-     * The CUSTOM_NODE_ADDED event occurs if a custom Node has been added.
-     *
-     * @event
-     * @hideconstructor
-     * @deprecated This event is not used anymore. It has been replaced by the {@link NodeAddedEvent}.
-     */
-    class CustomNodeAddedEvent extends WebVisEvent {
-        targetNodeID: number;
-        customType: string;
-        attachmentID: number;
-        /**
-         * @param targetNodeID The ID of the target Node.
-         * @param customType The custom type of the target Node.
-         * @param attachmentID The ID of the attachment.
-         */
-        constructor(targetNodeID: number, customType: string, attachmentID: number);
     }
     /**
      * This event occurs if the active scene volume has been changed.
@@ -13286,7 +11762,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @example ["model/x3d+xml", "model/x3d"]
          */
-        mimeTypes?: Array<string>;
+        mimeTypes?: string[];
         /**
          * The specification of a contentType.
          *
@@ -13298,7 +11774,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @example ["x3d", "x3dz", "x3z"]
          */
-        suffixes?: Array<string>;
+        suffixes?: string[];
         /**
          * The version of the contentType.
          */
@@ -13341,7 +11817,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns {Promise<Array<ContentType>>} Returns a Promise which contains the list of all supported data formats.
          */
-        requestSupportedContentTypes(): Promise<Array<ContentType>>;
+        requestSupportedContentTypes(): Promise<ContentType[]>;
         /**
          * Request all supported render setups if one or more are available.
          * The render setup is a key value pair where the key is the name of the render setup and the value could be
@@ -13349,12 +11825,10 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns {Promise<Array<{name:string, value:string}>>} Returns a Promise which contains the list of supported render setups.
          */
-        requestSupportedRenderSetups(): Promise<
-            Array<{
-                name: string;
-                value: string;
-            }>
-        >;
+        requestSupportedRenderSetups(): Promise<{
+            name: string;
+            value: string;
+        }[]>;
         /**
          * Requests all available services of the backend and their current state.
          *
@@ -13841,7 +12315,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          */
         // eslint-disable-next-line @definitelytyped/no-unnecessary-generics -- To maintain backwards compatibility with customer code, we must retain the unnecessary generic.
         registerListener<T extends WebVisEvent = WebVisEvent>(
-            eventTypes: Array<EventType>,
+            eventTypes: EventType[],
             listener: IEventListener<T>,
             nodeID?: number,
             observeSubTree?: boolean,
@@ -14480,17 +12954,17 @@ To enable this, members can exchange space handles, which are shareable referenc
          * The normal vector of the DrawingPlane.
          * @default [0, 1, 0]
          */
-        normal?: [number, number, number];
+        normal?: Vector3;
         /**
          * The position of the DrawingPlane.
          * @default [0,0,0]
          */
-        position?: [number, number, number];
+        position?: Vector3;
         /**
          * The tangent vector of the DrawingPlane.
          * @default [1, 0, 0]
          */
-        tangent?: [number, number, number];
+        tangent?: Vector3;
     }
     interface DrawingPlaneAPI {
         /**
@@ -14636,15 +13110,6 @@ To enable this, members can exchange space handles, which are shareable referenc
         requestDrawingData(drawingId: number): Promise<DrawingData>;
     }
     /**
-     * @ignore
-     */
-    class InternalDrawingCreatedEvent extends WebVisEvent {
-        drawingId: number;
-        attachmentId: number;
-        properties: DrawingProperties;
-        constructor(drawingId: number, attachmentId: number, properties: DrawingProperties);
-    }
-    /**
      * This event is fired when a drawing has been removed.
      *
      * @event
@@ -14767,42 +13232,25 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns The 4x4 coordinate system matrix
          */
-        getCoordinateSystemMatrix(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        getCoordinateSystemMatrix(): Matrix4x4 | Float32Array;
         /**
          * Returns the right vector of the current coordinate system.
          *
          * @returns The right vector of the current coordinate system.
          */
-        getCoordinateSystemRightVector(): [number, number, number] | Float32Array;
+        getCoordinateSystemRightVector(): Vector3 | Float32Array;
         /**
          * Returns the up vector of the current coordinate system.
          *
          * @returns The up vector of the current coordinate system.
          */
-        getCoordinateSystemUpVector(): [number, number, number] | Float32Array;
+        getCoordinateSystemUpVector(): Vector3 | Float32Array;
         /**
          * Returns the forward vector of the current coordinate system.
          *
          * @returns The forward vector of the current coordinate system.
          */
-        getCoordinateSystemForwardVector(): [number, number, number] | Float32Array;
+        getCoordinateSystemForwardVector(): Vector3 | Float32Array;
     }
     /**
      * Defines all possible definitions of the front plane axis in a right-handed coordinate system.
@@ -14926,7 +13374,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         condition: (nodeID: number, pointerInfo: PointerInfo) => boolean;
         command?: (nodeID: number, pointerInfo: PointerInfo) => void;
         highlight?: (nodeID: number, pointerInfo: PointerInfo) => void;
-        subEntries?: Array<ContextMenuEntry>;
+        subEntries?: ContextMenuEntry[];
     }
     /**
      * Defines the properties of a requested context menu.
@@ -14939,7 +13387,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         topPos: number;
         targetID?: number;
         clickResult?: PointerInfo;
-        contents?: Array<ContextMenuEntry>;
+        contents?: ContextMenuEntry[];
         onCloseCallback?: () => void;
     }
     /**
@@ -14957,6 +13405,12 @@ To enable this, members can exchange space handles, which are shareable referenc
          */
         constructor(provider: any, menuData: ContextMenuData);
     }
+    /**
+     * A three-component vector given as 3 numbers.
+     *
+     * Wherever a **Vector3** is accepted, a Float32Array of the same length can be used as well.
+     */
+    type Vector3 = [number, number, number];
     type UnserializableValue = bigint | symbol | {
         (...args: never): unknown;
     };
@@ -14972,6 +13426,29 @@ To enable this, members can exchange space handles, which are shareable referenc
                 : T[P] extends UnserializableValue ? never
                 : Serializable<T[P]>;
         };
+    /**
+     * A 4x4 transformation matrix given as 16 numbers in column-major order.
+     *
+     * Wherever a **Matrix4x4** is accepted, a Float32Array of the same length can be used as well.
+     */
+    type Matrix4x4 = [
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+    ];
     /**
      * The ContextAPI combines all functionality which can be applied on the WebvisContext.
      */
@@ -15039,7 +13516,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * @return An array of all viewer elements.
          */
-        getViewers(): Array<ViewerAPI>;
+        getViewers(): ViewerAPI[];
         /**
          * @param id The id of the viewer.
          * @return The viewer element by the given id.
@@ -15067,12 +13544,6 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param hard If true, the reset is a hard reset, otherwise it is a soft reset.
          */
         constructor(hard: boolean);
-    }
-    /**
-     * @ignore
-     */
-    class InternalContextClearedEvent extends WebVisEvent {
-        constructor();
     }
     // eslint-disable-next-line @typescript-eslint/naming-convention -- To maintain backwards compatibility with customer code, we have to deviate from the naming convention here.
     interface ICollection {
@@ -15119,7 +13590,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @return           The id of the newly created node collection.
          */
-        createCollection(nodeIDlist?: Array<number>): number;
+        createCollection(nodeIDlist?: number[]): number;
         /**
          * @deprecated createCollection is deprecated and will be removed in future versions. Please use a simple array of node IDs instead.
          *
@@ -15192,7 +13663,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @return              Array of node IDs representing the node collection
          */
-        getCollectionElements(collectionID: number): Promise<Array<number>>;
+        getCollectionElements(collectionID: number): Promise<number[]>;
         /**
          * @deprecated getCollectionNodeCount is deprecated and will be removed in future versions.
          *
@@ -15262,7 +13733,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @default [1, 1, 1]
          */
-        size?: [number, number, number] | Float32Array;
+        size?: Vector3 | Float32Array;
         /**
          * The transformation matrix of the clip room.
          *
@@ -15293,24 +13764,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @default [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
          */
-        transform?: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        transform?: Matrix4x4 | Float32Array;
     }
     /**
      * Configuration properties for clip planes.
@@ -15456,7 +13910,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @default [0, 1, 0]
          */
-        normal?: [number, number, number] | Float32Array;
+        normal?: Vector3 | Float32Array;
         /**
          * The position of the clip plane in 3D space.
          *
@@ -15464,7 +13918,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @default [0, 0, 0]
          */
-        position?: [number, number, number] | Float32Array;
+        position?: Vector3 | Float32Array;
         /**
          * The tangent vector of the clip plane.
          *
@@ -15474,7 +13928,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @default [1, 0, 0]
          */
-        tangent?: [number, number, number] | Float32Array;
+        tangent?: Vector3 | Float32Array;
         /**
          * The thickness of the clip plane's non-clipping volume.
          *
@@ -15495,24 +13949,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @default [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
          */
-        transform?: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        transform?: Matrix4x4 | Float32Array;
     }
     /**
      * ## ClipPlaneAPI
@@ -15624,11 +14061,11 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @returns The ID of the newly created clip plane
          */
         createClipPlane(
-            normal?: Float32Array | Array<number>,
-            point?: Float32Array | Array<number>,
+            normal?: Float32Array | number[],
+            point?: Float32Array | number[],
             name?: string,
             thickness?: number,
-            tangent?: Float32Array | Array<number>,
+            tangent?: Float32Array | number[],
             disabled?: boolean,
             invisible?: boolean,
             exclusive?: boolean,
@@ -15684,11 +14121,11 @@ To enable this, members can exchange space handles, which are shareable referenc
          */
         changeClipPlane(
             clipPlaneID: number,
-            normal?: Float32Array | Array<number>,
-            point?: Float32Array | Array<number>,
+            normal?: Float32Array | number[],
+            point?: Float32Array | number[],
             name?: string,
             thickness?: number,
-            tangent?: Float32Array | Array<number>,
+            tangent?: Float32Array | number[],
             disabled?: boolean,
             invisible?: boolean,
             exclusive?: boolean,
@@ -15715,7 +14152,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @returns An array of clip plane IDs. Empty array if no clip planes exist.
          */
-        getClipPlanes(): Array<number>;
+        getClipPlanes(): number[];
         /**
          * Retrieves the properties of a specific clip plane.
          *
@@ -15833,8 +14270,8 @@ To enable this, members can exchange space handles, which are shareable referenc
          */
         createClippingRoom(
             name?: string,
-            size?: Float32Array | Array<number>,
-            transformation?: Float32Array | Array<number>,
+            size?: Float32Array | number[],
+            transformation?: Float32Array | number[],
             disabled?: boolean,
             invisible?: boolean,
         ): void;
@@ -15891,8 +14328,8 @@ To enable this, members can exchange space handles, which are shareable referenc
          */
         changeClippingRoom(
             name?: string,
-            size?: Float32Array | Array<number>,
-            transformation?: Float32Array | Array<number>,
+            size?: Float32Array | number[],
+            transformation?: Float32Array | number[],
             disabled?: boolean,
             invisible?: boolean,
         ): ClipRoomProperties;
@@ -16017,7 +14454,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @param target ID or array of IDs of the nodes to create a clip room around
          */
-        clipOtherParts(target: number | Array<number>): void;
+        clipOtherParts(target: number | number[]): void;
         /**
          * Generates capping geometry for the surface that is cut by a clip plane.
          *
@@ -16145,231 +14582,6 @@ To enable this, members can exchange space handles, which are shareable referenc
         removeCapping(clipPlaneId: number): Promise<void>;
     }
     /**
-     * Event that is fired when a clip plane is removed from the scene.
-     * Contains the ID of the clip plane that was removed.
-     *
-     * @event
-     * @hideconstructor
-     *
-     * @see {@link ClipPlaneAPI}
-     * @see {@link EventType.CLIPPLANE_REMOVED}
-     */
-    class ClipPlaneRemovedEvent extends WebVisEvent {
-        clipPlaneID: number;
-        /**
-         * @param clipPlaneID The ID of the clip plane that was removed
-         */
-        constructor(clipPlaneID: number);
-    }
-    /**
-     * Event that is fired when a clip plane is created in the scene.
-     * Contains the clip plane ID and an object with all the initial properties of the clip plane.
-     *
-     * @event
-     * @hideconstructor
-     *
-     * @see {@link ClipPlaneAPI}
-     * @see {@link EventType.CLIPPLANE_CREATED}
-     */
-    class ClipPlaneCreatedEvent extends WebVisEvent {
-        clipPlaneID: number;
-        properties: ClipPlaneProperties;
-        /**
-         * @param clipPlaneID The ID of the clip plane that was created
-         * @param properties An object containing all properties of the created clip plane
-         */
-        constructor(clipPlaneID: number, properties: ClipPlaneProperties);
-        /**
-         * @deprecated The disabled getter is deprecated. Please use {@link ClipPlaneProperties.enabled} instead (note that disabled = !enabled).
-         *
-         * Returns whether the clip plane is disabled. This is the inverse of the enabled property
-         * in the properties object.
-         *
-         * @see {@link ClipPlaneProperties.enabled}
-         */
-        get disabled(): boolean;
-        /**
-         * @deprecated The invisible getter is deprecated. Please use {@link ClipPlaneProperties.invisible} instead.
-         *
-         * Returns whether the clip plane is visually hidden. When true, the clip plane's
-         * wireframe outline will not be displayed, though the clipping effect remains active.
-         *
-         * @see {@link ClipPlaneProperties.invisible}
-         */
-        get invisible(): boolean;
-        /**
-         * @deprecated The localTransform getter is deprecated. Please use {@link ClipPlaneProperties.transform} instead.
-         *
-         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
-         * of the clip plane in world space.
-         *
-         * @see {@link ClipPlaneProperties.transform}
-         */
-        get localTransform(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
-        /**
-         * @deprecated The name getter is deprecated. Please use {@link ClipPlaneProperties.name} instead.
-         *
-         * Returns the display name of the clip plane, which can be used for identification
-         * in user interfaces or for debugging purposes.
-         *
-         * @see {@link ClipPlaneProperties.name}
-         */
-        get name(): string;
-        /**
-         * @deprecated The normal getter is deprecated. Please use {@link ClipPlaneProperties.normal} instead.
-         *
-         * Returns the normal vector of the clip plane, which defines its orientation in space.
-         *
-         * @see {@link ClipPlaneProperties.normal}
-         */
-        get normal(): [number, number, number] | Float32Array;
-        /**
-         * @deprecated The position getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
-         *
-         * Returns the position of the clip plane in world space.
-         *
-         * @see {@link ClipPlaneProperties.position}
-         */
-        get position(): [number, number, number] | Float32Array;
-        /**
-         * @deprecated The point getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
-         *
-         * Returns the position of the clip plane in world space.
-         *
-         * @see {@link ClipPlaneProperties.position}
-         */
-        get point(): [number, number, number] | Float32Array;
-        /**
-         * @deprecated The thickness getter is deprecated. Please use {@link ClipPlaneProperties.thickness} instead.
-         *
-         * Returns the visual thickness of the clip plane representation in the scene.
-         *
-         * @see {@link ClipPlaneProperties.thickness}
-         */
-        get thickness(): number;
-    }
-    /**
-     * Event that is fired when properties of a clip plane are changed.
-     * Contains the clip plane ID and an object with only the properties that were actually changed.
-     *
-     * @event
-     * @hideconstructor
-     *
-     * @see {@link ClipPlaneAPI}
-     * @see {@link EventType.CLIPPLANE_CHANGED}
-     */
-    class ClipPlaneChangedEvent extends WebVisEvent {
-        clipPlaneID: number;
-        properties: ClipPlaneProperties;
-        /**
-         * @param clipPlaneID The ID of the clip plane that was changed
-         * @param properties An object containing only the properties that were changed
-         */
-        constructor(clipPlaneID: number, properties: ClipPlaneProperties);
-        /**
-         * @deprecated The disabled getter is deprecated. Please use {@link ClipPlaneProperties.enabled} instead (note that disabled = !enabled).
-         *
-         * Returns whether the clip plane is disabled. This is the inverse of the enabled property
-         * in the properties object.
-         *
-         * @see {@link ClipPlaneProperties.enabled}
-         */
-        get disabled(): boolean;
-        /**
-         * @deprecated The invisible getter is deprecated. Please use {@link ClipPlaneProperties.invisible} instead.
-         *
-         * Returns whether the clip plane is visually hidden. When true, the clip plane's
-         * wireframe outline will not be displayed, though the clipping effect remains active.
-         *
-         * @see {@link ClipPlaneProperties.invisible}
-         */
-        get invisible(): boolean;
-        /**
-         * @deprecated The localTransform getter is deprecated. Please use {@link ClipPlaneProperties.transform} instead.
-         *
-         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
-         * of the clip plane in world space.
-         *
-         * @see {@link ClipPlaneProperties.transform}
-         */
-        get localTransform(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
-        /**
-         * @deprecated The name getter is deprecated. Please use {@link ClipPlaneProperties.name} instead.
-         *
-         * Returns the display name of the clip plane, which can be used for identification
-         * in user interfaces or for debugging purposes.
-         *
-         * @see {@link ClipPlaneProperties.name}
-         */
-        get name(): string;
-        /**
-         * @deprecated The normal getter is deprecated. Please use {@link ClipPlaneProperties.normal} instead.
-         *
-         * Returns the normal vector of the clip plane, which defines its orientation in space.
-         *
-         * @see {@link ClipPlaneProperties.normal}
-         */
-        get normal(): [number, number, number] | Float32Array;
-        /**
-         * @deprecated The position getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
-         *
-         * Returns the position of the clip plane in world space.
-         *
-         * @see {@link ClipPlaneProperties.position}
-         */
-        get position(): [number, number, number] | Float32Array;
-        /**
-         * @deprecated The point getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
-         *
-         * Returns the position of the clip plane in world space.
-         *
-         * @see {@link ClipPlaneProperties.position}
-         */
-        get point(): [number, number, number] | Float32Array;
-        /**
-         * @deprecated The thickness getter is deprecated. Please use {@link ClipPlaneProperties.thickness} instead.
-         *
-         * Returns the visual thickness of the clip plane representation in the scene.
-         *
-         * @see {@link ClipPlaneProperties.thickness}
-         */
-        get thickness(): number;
-    }
-    /**
      * Event that is fired when a clip room is removed from the scene.
      * Contains the ID of the clip room that was removed.
      *
@@ -16439,7 +14651,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @see {@link ClipRoomProperties.size}
          */
-        get size(): [number, number, number] | Float32Array;
+        get size(): Vector3 | Float32Array;
         /**
          * @deprecated The transformation getter is deprecated. Please use {@link ClipRoomProperties.transform} instead.
          *
@@ -16448,24 +14660,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @see {@link ClipRoomProperties.transform}
          */
-        get transformation(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        get transformation(): Matrix4x4 | Float32Array;
     }
     /**
      * Event that is fired when properties of a clip room are changed.
@@ -16520,7 +14715,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @see {@link ClipRoomProperties.size}
          */
-        get size(): [number, number, number] | Float32Array;
+        get size(): Vector3 | Float32Array;
         /**
          * @deprecated The transformation getter is deprecated. Please use {@link ClipRoomProperties.transform} instead.
          *
@@ -16529,24 +14724,198 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @see {@link ClipRoomProperties.transform}
          */
-        get transformation(): [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        get transformation(): Matrix4x4 | Float32Array;
+    }
+    /**
+     * Event that is fired when a clip plane is removed from the scene.
+     * Contains the ID of the clip plane that was removed.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPLANE_REMOVED}
+     */
+    class ClipPlaneRemovedEvent extends WebVisEvent {
+        clipPlaneID: number;
+        /**
+         * @param clipPlaneID The ID of the clip plane that was removed
+         */
+        constructor(clipPlaneID: number);
+    }
+    /**
+     * Event that is fired when a clip plane is created in the scene.
+     * Contains the clip plane ID and an object with all the initial properties of the clip plane.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPLANE_CREATED}
+     */
+    class ClipPlaneCreatedEvent extends WebVisEvent {
+        clipPlaneID: number;
+        properties: ClipPlaneProperties;
+        /**
+         * @param clipPlaneID The ID of the clip plane that was created
+         * @param properties An object containing all properties of the created clip plane
+         */
+        constructor(clipPlaneID: number, properties: ClipPlaneProperties);
+        /**
+         * @deprecated The disabled getter is deprecated. Please use {@link ClipPlaneProperties.enabled} instead (note that disabled = !enabled).
+         *
+         * Returns whether the clip plane is disabled. This is the inverse of the enabled property
+         * in the properties object.
+         *
+         * @see {@link ClipPlaneProperties.enabled}
+         */
+        get disabled(): boolean;
+        /**
+         * @deprecated The invisible getter is deprecated. Please use {@link ClipPlaneProperties.invisible} instead.
+         *
+         * Returns whether the clip plane is visually hidden. When true, the clip plane's
+         * wireframe outline will not be displayed, though the clipping effect remains active.
+         *
+         * @see {@link ClipPlaneProperties.invisible}
+         */
+        get invisible(): boolean;
+        /**
+         * @deprecated The localTransform getter is deprecated. Please use {@link ClipPlaneProperties.transform} instead.
+         *
+         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
+         * of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.transform}
+         */
+        get localTransform(): Matrix4x4 | Float32Array;
+        /**
+         * @deprecated The name getter is deprecated. Please use {@link ClipPlaneProperties.name} instead.
+         *
+         * Returns the display name of the clip plane, which can be used for identification
+         * in user interfaces or for debugging purposes.
+         *
+         * @see {@link ClipPlaneProperties.name}
+         */
+        get name(): string;
+        /**
+         * @deprecated The normal getter is deprecated. Please use {@link ClipPlaneProperties.normal} instead.
+         *
+         * Returns the normal vector of the clip plane, which defines its orientation in space.
+         *
+         * @see {@link ClipPlaneProperties.normal}
+         */
+        get normal(): Vector3 | Float32Array;
+        /**
+         * @deprecated The position getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
+         */
+        get position(): Vector3 | Float32Array;
+        /**
+         * @deprecated The point getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
+         */
+        get point(): Vector3 | Float32Array;
+        /**
+         * @deprecated The thickness getter is deprecated. Please use {@link ClipPlaneProperties.thickness} instead.
+         *
+         * Returns the visual thickness of the clip plane representation in the scene.
+         *
+         * @see {@link ClipPlaneProperties.thickness}
+         */
+        get thickness(): number;
+    }
+    /**
+     * Event that is fired when properties of a clip plane are changed.
+     * Contains the clip plane ID and an object with only the properties that were actually changed.
+     *
+     * @event
+     * @hideconstructor
+     *
+     * @see {@link ClipPlaneAPI}
+     * @see {@link EventType.CLIPPLANE_CHANGED}
+     */
+    class ClipPlaneChangedEvent extends WebVisEvent {
+        clipPlaneID: number;
+        properties: ClipPlaneProperties;
+        /**
+         * @param clipPlaneID The ID of the clip plane that was changed
+         * @param properties An object containing only the properties that were changed
+         */
+        constructor(clipPlaneID: number, properties: ClipPlaneProperties);
+        /**
+         * @deprecated The disabled getter is deprecated. Please use {@link ClipPlaneProperties.enabled} instead (note that disabled = !enabled).
+         *
+         * Returns whether the clip plane is disabled. This is the inverse of the enabled property
+         * in the properties object.
+         *
+         * @see {@link ClipPlaneProperties.enabled}
+         */
+        get disabled(): boolean;
+        /**
+         * @deprecated The invisible getter is deprecated. Please use {@link ClipPlaneProperties.invisible} instead.
+         *
+         * Returns whether the clip plane is visually hidden. When true, the clip plane's
+         * wireframe outline will not be displayed, though the clipping effect remains active.
+         *
+         * @see {@link ClipPlaneProperties.invisible}
+         */
+        get invisible(): boolean;
+        /**
+         * @deprecated The localTransform getter is deprecated. Please use {@link ClipPlaneProperties.transform} instead.
+         *
+         * Returns the 4x4 transformation matrix that defines the position, rotation, and scale
+         * of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.transform}
+         */
+        get localTransform(): Matrix4x4 | Float32Array;
+        /**
+         * @deprecated The name getter is deprecated. Please use {@link ClipPlaneProperties.name} instead.
+         *
+         * Returns the display name of the clip plane, which can be used for identification
+         * in user interfaces or for debugging purposes.
+         *
+         * @see {@link ClipPlaneProperties.name}
+         */
+        get name(): string;
+        /**
+         * @deprecated The normal getter is deprecated. Please use {@link ClipPlaneProperties.normal} instead.
+         *
+         * Returns the normal vector of the clip plane, which defines its orientation in space.
+         *
+         * @see {@link ClipPlaneProperties.normal}
+         */
+        get normal(): Vector3 | Float32Array;
+        /**
+         * @deprecated The position getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
+         */
+        get position(): Vector3 | Float32Array;
+        /**
+         * @deprecated The point getter is deprecated. Please use {@link ClipPlaneProperties.position} instead.
+         *
+         * Returns the position of the clip plane in world space.
+         *
+         * @see {@link ClipPlaneProperties.position}
+         */
+        get point(): Vector3 | Float32Array;
+        /**
+         * @deprecated The thickness getter is deprecated. Please use {@link ClipPlaneProperties.thickness} instead.
+         *
+         * Returns the visual thickness of the clip plane representation in the scene.
+         *
+         * @see {@link ClipPlaneProperties.thickness}
+         */
+        get thickness(): number;
     }
     /**
      * ## webvis: The AttachmentAPI
@@ -16978,7 +15347,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * The anchor position of the annotation.
          * @default [0,0,0]
          */
-        anchorPosition?: [number, number, number] | Float32Array;
+        anchorPosition?: Vector3 | Float32Array;
         /**
          * The connected Node ID of the annotation.
          * @default null
@@ -16993,7 +15362,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * The content offset of the annotation.
          * @default [1,0,1]
          */
-        contentOffset?: [number, number, number] | Float32Array;
+        contentOffset?: Vector3 | Float32Array;
         /**
          * The enabled state of the annotation.
          * @default false
@@ -17043,34 +15412,17 @@ To enable this, members can exchange space handles, which are shareable referenc
          *
          * @example [0, 1, 0]
          */
-        anchorPosition: [number, number, number] | Float32Array;
+        anchorPosition: Vector3 | Float32Array;
         /**
          * Determines the annotation's label position.
          *
          * @example [0, 2, 0]
          */
-        labelPosition: [number, number, number] | Float32Array;
+        labelPosition: Vector3 | Float32Array;
         /**
          * Provides the transform of the annotation.
          */
-        transform: [
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-            number,
-        ] | Float32Array;
+        transform: Matrix4x4 | Float32Array;
         /**
          * Determines whether the annotation source is trusted or not.
          */
@@ -17160,8 +15512,8 @@ To enable this, members can exchange space handles, which are shareable referenc
             nodeID: number,
             label: string,
             visible?: boolean,
-            anchorPosition?: Float32Array | Array<number>,
-            labelOffset?: Float32Array | Array<number>,
+            anchorPosition?: Float32Array | number[],
+            labelOffset?: Float32Array | number[],
         ): number;
         /**
          * Changes one or more properties of an Annotation with the specified ID and triggers an {@link AnnotationChangedEvent}.
@@ -17186,10 +15538,10 @@ To enable this, members can exchange space handles, which are shareable referenc
             annotationID: number,
             label?: string,
             visible?: boolean,
-            anchorPosition?: Float32Array | Array<number>,
-            labelPosition?: Float32Array | Array<number>,
+            anchorPosition?: Float32Array | number[],
+            labelPosition?: Float32Array | number[],
             active?: boolean,
-            transform?: Float32Array | Array<number>,
+            transform?: Float32Array | number[],
         ): void;
         /**
          * Removes the Annotation from the scene and all related Snapshots and triggers an {@link AnnotationRemovedEvent}.
@@ -17214,7 +15566,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * @returns {Array<number>} The IDs of all available Annotations.
          */
-        getAnnotations(): Array<number>;
+        getAnnotations(): number[];
     }
     /**
      * Event that is fired when an annotation has been removed.
@@ -17252,7 +15604,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * @deprecated anchorPosition is deprecated, please use properties.anchorPosition instead.
          */
-        get anchorPosition(): Float32Array | Array<number>;
+        get anchorPosition(): Float32Array | number[];
         /**
          * @deprecated label is deprecated, please use properties.content instead.
          */
@@ -17260,7 +15612,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * @deprecated labelPosition is deprecated, please use properties.contentOffset instead.
          */
-        get labelPosition(): Float32Array | Array<number>;
+        get labelPosition(): Float32Array | number[];
         /**
          * @deprecated nodeID is deprecated, please use properties.connectedNodeId instead.
          */
@@ -17268,7 +15620,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * @deprecated transform is deprecated.
          */
-        get transform(): Float32Array | Array<number>;
+        get transform(): Float32Array | number[];
         /**
          * @deprecated trustedSource is deprecated, please use properties.trustedSource instead.
          */
@@ -17295,11 +15647,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param annotationID The ID of the annotation.
          * @param properties An object with the properties to be changed.
          */
-        constructor(
-            annotationID: number,
-            properties: AnnotationProperties,
-            _labelPosition: Float32Array | Array<number>,
-        );
+        constructor(annotationID: number, properties: AnnotationProperties, _labelPosition: Float32Array | number[]);
         /**
          * @deprecated active is deprecated.
          */
@@ -17307,7 +15655,7 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * @deprecated anchorPosition is deprecated, please use properties.anchorPosition instead.
          */
-        get anchorPosition(): Float32Array | Array<number>;
+        get anchorPosition(): Float32Array | number[];
         /**
          * @deprecated label is deprecated, please use properties.content instead.
          */
@@ -17315,11 +15663,11 @@ To enable this, members can exchange space handles, which are shareable referenc
         /**
          * @deprecated labelPosition is deprecated, please use properties.contentOffset instead.
          */
-        get labelPosition(): Float32Array | Array<number>;
+        get labelPosition(): Float32Array | number[];
         /**
          * @deprecated transform is deprecated.
          */
-        get transform(): Float32Array | Array<number>;
+        get transform(): Float32Array | number[];
         /**
          * @deprecated trustedSource is deprecated, please use properties.trustedSource instead.
          */
@@ -17381,27 +15729,27 @@ To enable this, members can exchange space handles, which are shareable referenc
          * The center point which is used for all rotation and scale interpolations.
          * @default [0, 0, 0]
          */
-        center?: [number, number, number];
+        center?: Vector3;
         /**
          * The color as [r,g,b], [r,g,b,a], string (hexadecimal value or HTML Color Code). Use null to reset.
          * @default null
          */
-        color?: [number, number, number] | [number, number, number, number] | string | null;
+        color?: Vector3 | [number, number, number, number] | string | null;
         /**
          * The rotation as Euler angles [x,y,z] or Quaternion [C,xS,yS,zS].
          * @default [0, 0, 0]
          */
-        rotation?: [number, number, number] | [number, number, number, number];
+        rotation?: Vector3 | [number, number, number, number];
         /**
          * The scale as [x,y,z].
          * @default [1, 1, 1]
          */
-        scale?: [number, number, number];
+        scale?: Vector3;
         /**
          * The translation as [x,y,z].
          * @default [0, 0, 0]
          */
-        translation?: [number, number, number];
+        translation?: Vector3;
         /**
          * The opacity between 0 and 1.
          * @default 1
@@ -17468,7 +15816,7 @@ To enable this, members can exchange space handles, which are shareable referenc
          * @param name The name of the animation sequence.
          * @param frames The keyframes of the animation sequence.
          */
-        createAnimationFrames(name: string, frames: Array<AnimationFrame>): void;
+        createAnimationFrames(name: string, frames: AnimationFrame[]): void;
         /**
          * Removes an existing animation sequence.
          * @param name Specifies the name of the animation frames.
@@ -17565,12 +15913,12 @@ To enable this, members can exchange space handles, which are shareable referenc
      */
     class AnimationFramesCreatedEvent extends WebVisEvent {
         name: string;
-        frames: Array<AnimationFrame>;
+        frames: AnimationFrame[];
         /**
          * @param name The name of the generated animation frames.
          * @param frames The list of created animation frames.
          */
-        constructor(name: string, frames: Array<AnimationFrame>);
+        constructor(name: string, frames: AnimationFrame[]);
     }
     /**
      * Event that is fired when an animation has ended.
