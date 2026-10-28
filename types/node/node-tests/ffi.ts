@@ -39,6 +39,21 @@ import { dlopen, DynamicLibrary, getInt32, setInt32, toString, types } from "nod
     // $ExpectType bigint
     add.pointer;
 
+    // $ExpectType bigint
+    lib.functions.add_i32.pointer;
+    lib.functions.add_i32(20, 22);
+    // @ts-expect-error
+    lib.functions = {};
+
+    const fabs = lib.getFunction("fabs", { arguments: ["float64"], return: "float64" });
+    // $ExpectType number
+    fabs(-1.5);
+    const fabsf = lib.getFunction("fabsf", { arguments: [types.FLOAT_32], return: types.FLOAT_32 });
+    // $ExpectType number
+    fabsf(-2.5);
+    // @ts-expect-error
+    fabsf(1n);
+
     let callback: bigint;
     callback = lib.registerCallback(
         { arguments: ["i32"], return: "i32" },

@@ -253,6 +253,8 @@ import { URL } from "node:url";
         server.on("request", (request: Http2ServerRequest, response: Http2ServerResponse) => {});
         server.on("timeout", () => {});
         server.setTimeout().setTimeout(5).setTimeout(5, () => {});
+        server.timeout; // $ExpectType number
+        server.timeout = 0;
         server.updateSettings({
             enableConnectProtocol: true,
         });
@@ -347,6 +349,11 @@ import { URL } from "node:url";
             link: earlyHintsLinks,
             "x-trace-id": "id for diagnostics",
         });
+
+        response.writeInformation(110); // $ExpectType boolean
+        response.writeInformation(110, { "x-progress": "50%" }); // $ExpectType boolean
+        // @ts-expect-error
+        response.writeInformation("110");
 
         response.writeHead(200).end().end();
         response.writeHead(200, outgoingHeaders);
@@ -700,6 +707,7 @@ import { URL } from "node:url";
     str = consts.HTTP2_HEADER_AUTHORITY;
     str = consts.HTTP2_HEADER_SCHEME;
     str = consts.HTTP2_HEADER_PATH;
+    str = consts.HTTP2_HEADER_PROTOCOL;
     str = consts.HTTP2_HEADER_ACCEPT_CHARSET;
     str = consts.HTTP2_HEADER_ACCEPT_ENCODING;
     str = consts.HTTP2_HEADER_ACCEPT_LANGUAGE;
@@ -761,6 +769,25 @@ import { URL } from "node:url";
     str = consts.HTTP2_HEADER_HTTP2_SETTINGS;
     str = consts.HTTP2_HEADER_KEEP_ALIVE;
     str = consts.HTTP2_HEADER_PROXY_CONNECTION;
+    str = consts.HTTP2_HEADER_ALT_SVC;
+    str = consts.HTTP2_HEADER_ORIGIN;
+    str = consts.HTTP2_HEADER_TRAILER;
+    str = consts.HTTP2_HEADER_FORWARDED;
+    str = consts.HTTP2_HEADER_PRIORITY;
+    str = consts.HTTP2_HEADER_ACCESS_CONTROL_MAX_AGE;
+    str = consts.HTTP2_HEADER_CONTENT_SECURITY_POLICY;
+    str = consts.HTTP2_HEADER_TIMING_ALLOW_ORIGIN;
+    str = consts.HTTP2_HEADER_UPGRADE_INSECURE_REQUESTS;
+    str = consts.HTTP2_HEADER_EARLY_DATA;
+    str = consts.HTTP2_HEADER_X_CONTENT_TYPE_OPTIONS;
+    str = consts.HTTP2_HEADER_X_FORWARDED_FOR;
+    str = consts.HTTP2_HEADER_X_FRAME_OPTIONS;
+    str = consts.HTTP2_HEADER_X_XSS_PROTECTION;
+    str = consts.HTTP2_HEADER_DNT;
+    str = consts.HTTP2_HEADER_EXPECT_CT;
+    str = consts.HTTP2_HEADER_PURPOSE;
+    str = consts.HTTP2_HEADER_TK;
+    str = consts.HTTP2_HEADER_WARNING;
     str = consts.HTTP2_METHOD_ACL;
     str = consts.HTTP2_METHOD_BASELINE_CONTROL;
     str = consts.HTTP2_METHOD_BIND;

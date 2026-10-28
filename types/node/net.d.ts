@@ -482,6 +482,14 @@ declare module "node:net" {
          * platform-dependent. **Default:** `false`.
          */
         reusePort?: boolean | undefined;
+        /**
+         * Binds a Unix domain socket (or Windows named pipe) at the
+         * given path instead of a TCP endpoint. A leading `'\0'` selects the Linux
+         * abstract namespace. Mutually exclusive with `host`, `port`, `ipv6Only`, and
+         * `reusePort`; combining them throws `ERR_INVALID_ARG_VALUE`.
+         * @since v26.7.0
+         */
+        path?: string | undefined;
     }
     /**
      * Allows for the synchronous creation of a pre-bound socket, that can be passed
@@ -523,6 +531,14 @@ declare module "node:net" {
          * as `server.address()` returns.
          */
         address(): AddressInfo;
+        /**
+         * `true` when the socket was bound with a `path` (a Unix domain socket or Windows
+         * named pipe), `false` for a TCP bind. The getter's presence on
+         * `net.BoundSocket.prototype` also serves as a capability probe for `path`
+         * support.
+         * @since v26.7.0
+         */
+        readonly isPipe: boolean;
         /**
          * Returns the file descriptor of the bound socket. Ownership remains with the
          * `BoundSocket`, so the descriptor must not be closed by the caller. The
@@ -745,6 +761,11 @@ declare module "node:net" {
          * @since v0.2.0
          */
         maxConnections: number;
+        /**
+         * Set this property to `true` to begin closing connections once the number of connections reaches the `server.maxConnections` threshold. This setting is only effective in cluster mode.
+         * @since v23.1.0, v22.12.0
+         */
+        dropMaxConnection?: boolean | undefined;
         connections: number;
         /**
          * Indicates whether or not the server is listening for connections.
@@ -774,6 +795,33 @@ declare module "node:net" {
          */
         addAddress(address: string, type?: IPVersion): void;
         addAddress(address: SocketAddress): void;
+        /**
+         * Adds multiple address rules to the block list in a single operation.
+         * This is more efficient than calling `blockList.addAddress()` repeatedly
+         * when adding a large number of individual addresses, as the addresses
+         * are inserted under a single internal lock acquisition.
+         * @since v26.8.0
+         * @param addresses An array of IPv4 or IPv6 addresses.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
+         */
+        addAddresses(addresses: ReadonlyArray<string | SocketAddress>, type?: IPVersion): void;
+        /**
+         * Adds a subnet rule using CIDR notation. The address family is automatically
+         * detected from the address (IPv6 if the address contains `':'`, IPv4
+         * otherwise). This is equivalent to calling `blockList.addSubnet()` with
+         * the parsed network address, prefix length, and family.
+         * @since v26.8.0
+         * @param cidr An IPv4 or IPv6 subnet in CIDR notation (e.g. `'10.0.0.0/8'` or `'2001:db8::/32'`).
+         */
+        addCIDR(cidr: string): void;
+        /**
+         * Adds multiple subnet rules using CIDR notation in a single call. The address
+         * family for each entry is automatically detected. This is equivalent to
+         * calling `blockList.addCIDR()` for each element of the array.
+         * @since v26.8.0
+         * @param cidrs An array of IPv4 or IPv6 subnets in CIDR notation.
+         */
+        addCIDRs(cidrs: readonly string[]): void;
         /**
          * Adds a rule to block a range of IP addresses from `start` (inclusive) to`end` (inclusive).
          * @since v15.0.0, v14.18.0
@@ -816,10 +864,89 @@ declare module "node:net" {
         check(address: SocketAddress): boolean;
         check(address: string, type?: IPVersion): boolean;
         /**
+         * Clears all rules from the `BlockList`.
+         * @since v26.8.0
+         */
+        clear(): void;
+        /**
+         * Removes a rule that was previously added with `blockList.addAddress()`. The
+         * address must match exactly the value used when the rule was added. If the
+         * specified address does not exist, this is a no-op.
+         * @since v26.8.0
+         * @param address An IPv4 or IPv6 address.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
+         */
+        removeAddress(address: string, type?: IPVersion): void;
+        removeAddress(address: SocketAddress): void;
+        /**
+         * Removes a subnet rule using CIDR notation. The address family is automatically
+         * detected from the address. This is equivalent to calling
+         * `blockList.removeSubnet()` with the parsed network address, prefix length,
+         * and family. If the specified subnet does not exist, this is a no-op.
+         * @since v26.8.0
+         * @param cidr An IPv4 or IPv6 subnet in CIDR notation (e.g. `'10.0.0.0/8'` or `'2001:db8::/32'`).
+         */
+        removeCIDR(cidr: string): void;
+        /**
+         * Removes a rule that was previously added with `blockList.addRange()`. The `start`
+         * and `end` addresses must match exactly the values used when the rule was added.
+         * If the specified range does not exist, this is a no-op.
+         * @since v26.8.0
+         * @param start The starting IPv4 or IPv6 address in the range.
+         * @param end The ending IPv4 or IPv6 address in the range.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
+         */
+        removeRange(start: string, end: string, type?: IPVersion): void;
+        removeRange(start: SocketAddress, end: SocketAddress): void;
+        /**
+         * Removes a rule that was previously added with `blockList.addSubnet()`. The
+         * network address and prefix must match exactly the values used when the rule was
+         * added. If the specified subnet does not exist, this is a no-op.
+         * @since v26.8.0
+         * @param net The network IPv4 or IPv6 address.
+         * @param prefix The number of CIDR prefix bits. For IPv4, this must be a value between `0` and `32`. For IPv6, this must be between `0` and `128`.
+         * @param [type='ipv4'] Either `'ipv4'` or `'ipv6'`.
+         */
+        removeSubnet(net: SocketAddress, prefix: number): void;
+        removeSubnet(net: string, prefix: number, type?: IPVersion): void;
+        /**
          * The list of rules added to the blocklist.
          * @since v15.0.0, v14.18.0
          */
         rules: readonly string[];
+        /**
+         * The number of rules in the blocklist. This is equivalent to
+         * `blockList.rules.length` but does not allocate the rules array.
+         * @since v26.8.0
+         */
+        readonly size: number;
+        /**
+         * A frozen array of CIDR strings representing private, loopback, and link-local
+         * IP address ranges. This can be passed to `blockList.addCIDRs()` to quickly
+         * populate a blocklist with all non-routable address ranges.
+         *
+         * The included ranges are:
+         *
+         * * `10.0.0.0/8` — RFC 1918 private IPv4
+         * * `172.16.0.0/12` — RFC 1918 private IPv4
+         * * `192.168.0.0/16` — RFC 1918 private IPv4
+         * * `127.0.0.0/8` — IPv4 loopback
+         * * `::1/128` — IPv6 loopback
+         * * `169.254.0.0/16` — IPv4 link-local
+         * * `fe80::/10` — IPv6 link-local
+         * * `fc00::/7` — IPv6 unique local (ULA)
+         *
+         * ```js
+         * const blockList = new net.BlockList();
+         * blockList.addCIDRs(net.BlockList.PRIVATE_RANGES);
+         *
+         * console.log(blockList.check('10.0.0.1'));      // Prints: true
+         * console.log(blockList.check('127.0.0.1'));     // Prints: true
+         * console.log(blockList.check('8.8.8.8'));       // Prints: false
+         * ```
+         * @since v26.8.0
+         */
+        static PRIVATE_RANGES: readonly string[];
         /**
          * Returns `true` if the `value` is a `net.BlockList`.
          * @since v22.13.0

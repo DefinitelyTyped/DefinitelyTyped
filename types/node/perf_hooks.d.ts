@@ -176,16 +176,46 @@ declare module "node:perf_hooks" {
     interface PerformanceResourceTiming extends PerformanceEntry {
         readonly connectEnd: number;
         readonly connectStart: number;
+        /**
+         * The content encoding of the fetched resource, such as `'gzip'` or `'br'`.
+         * @since v26.9.0
+         */
+        readonly contentEncoding: string;
+        /**
+         * The minimized MIME type of the content of the fetched resource, or an empty
+         * string if it cannot be determined.
+         * @since v26.9.0
+         */
+        readonly contentType: string;
         readonly decodedBodySize: number;
         readonly domainLookupEnd: number;
         readonly domainLookupStart: number;
         readonly encodedBodySize: number;
         readonly entryType: "resource";
         readonly fetchStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately
+         * after Node.js receives the first byte of the final response,
+         * as opposed to an interim response.
+         * @since v26.9.0
+         */
+        readonly finalResponseHeadersStart: number;
+        /**
+         * The high resolution millisecond timestamp representing the time immediately
+         * after Node.js receives the first byte of the first interim response, such as
+         * a `103 Early Hints` response.
+         * @since v26.9.0
+         */
+        readonly firstInterimResponseStart: number;
         readonly initiatorType: string;
         readonly nextHopProtocol: string;
         readonly redirectEnd: number;
         readonly redirectStart: number;
+        /**
+         * The render blocking status of the resource. It is either `'blocking'` or `'non-blocking'`.
+         * @since v26.9.0
+         */
+        readonly renderBlockingStatus: "blocking" | "non-blocking";
         readonly requestStart: number;
         readonly responseEnd: number;
         readonly responseStart: number;
@@ -327,6 +357,73 @@ declare module "node:perf_hooks" {
     }
     interface Histogram {
         /**
+         * Returns the SLO burn rate: `ewmaErrorRate / (1 - sloTarget)`. A burn rate
+         * of 1 means the error budget will be exactly exhausted over the SLO window.
+         * A burn rate greater than 1 means it is being consumed faster than allowed.
+         * Requires the histogram to have been created with both `halfLife` and
+         * `threshold` options.
+         *
+         * ```js
+         * const { createHistogram } = require('node:perf_hooks');
+         *
+         * // Track latency with a 200ms SLO threshold, half-life of 100 samples
+         * const h = createHistogram({ halfLife: 100, threshold: 200_000_000 });
+         *
+         * // ... record latency values ...
+         *
+         * // Check burn rate against a 99.9% SLO
+         * const rate = h.burnRate(0.999);
+         * if (rate > 1) {
+         *   console.log(`SLO burn rate: ${rate.toFixed(2)}x — error budget depleting`);
+         * }
+         * ```
+         * @since v26.8.0
+         * @param sloTarget The SLO target as a fraction between 0 and 1
+         * (exclusive). For example, `0.999` for a 99.9% SLO.
+         */
+        burnRate(sloTarget: number): number;
+        /**
+         * Returns the complementary cumulative distribution function (CCDF) value
+         * for the given value, representing the probability that a recorded value
+         * will exceed `value`. Equivalent to `1 - histogram.cdf(value)`.
+         * @since v26.8.0
+         * @param value The value to query.
+         * @returns A probability between 0.0 and 1.0.
+         */
+        ccdf(value: number): number;
+        /**
+         * Returns the cumulative distribution function (CDF) value for the given
+         * value, representing the probability that a recorded value will be less
+         * than or equal to `value`. This is the inverse operation of
+         * `histogram.percentile()`.
+         * @since v26.8.0
+         * @param value The value to query.
+         * @returns A probability between 0.0 and 1.0.
+         */
+        cdf(value: number): number;
+        /**
+         * Computes [Cliff's delta](https://en.wikipedia.org/wiki/Effect_size#Cliff's_delta), a non-parametric effect size measure. Returns
+         * the probability that a random value from this histogram exceeds a random
+         * value from `other`, minus the reverse probability. A value of 1 means every
+         * value in this histogram exceeds every value in `other`; -1 means the
+         * opposite; 0 means no tendency in either direction.
+         * @since v26.8.0
+         * @param other The histogram to compare against.
+         * @returns A value between -1.0 and 1.0.
+         */
+        cliffsD(other: Histogram): number;
+        /**
+         * Computes [Cohen's d](https://en.wikipedia.org/wiki/Effect_size#Cohen's_d) effect size, the standardized difference between the
+         * means of this histogram and `other`, using the pooled standard deviation.
+         * Positive values indicate this histogram has a higher mean. By convention,
+         * |d| < 0.2 is a small effect, 0.5 is medium, and 0.8 or greater is large.
+         * Both histograms must have at least 2 recorded values; otherwise returns 0.
+         * @since v26.8.0
+         * @param other The histogram to compare against.
+         * @returns The effect size.
+         */
+        cohensD(other: Histogram): number;
+        /**
          * The number of samples recorded by the histogram.
          * @since v17.4.0, v16.14.0
          */
@@ -336,6 +433,35 @@ declare module "node:perf_hooks" {
          * v17.4.0, v16.14.0
          */
         readonly countBigInt: bigint;
+        /**
+         * Returns the number of recorded values that fall within the equivalent
+         * value range of the given value.
+         * @since v26.8.0
+         * @param value The value to query.
+         */
+        countAt(value: number): number;
+        /**
+         * The EWMA-smoothed probability of a recorded value exceeding the configured
+         * `threshold`. Only active when the histogram was created with both `halfLife`
+         * and `threshold` options. Returns `0` when not enabled or no values have been
+         * recorded.
+         * @since v26.8.0
+         */
+        readonly ewmaErrorRate: number;
+        /**
+         * The exponentially weighted moving average of recorded values. Only active
+         * when the histogram was created with a `halfLife` option greater than 0.
+         * Returns `0` when EWMA is disabled or no values have been recorded.
+         * @since v26.8.0
+         */
+        readonly ewmaMean: number;
+        /**
+         * The exponentially weighted moving standard deviation. Only active when the
+         * histogram was created with a `halfLife` option greater than 0. Returns `0`
+         * when EWMA is disabled or no values have been recorded.
+         * @since v26.8.0
+         */
+        readonly ewmaStddev: number;
         /**
          * The number of times the event loop delay exceeded the maximum 1 hour event
          * loop delay threshold.
@@ -347,6 +473,84 @@ declare module "node:perf_hooks" {
          * @since v17.4.0, v16.14.0
          */
         readonly exceedsBigInt: bigint;
+        /**
+         * Serializes the histogram to a [CBOR](https://www.rfc-editor.org/rfc/rfc8949)-encoded (RFC 8949) `Uint8Array`
+         * suitable for transmission or persistent storage. The encoding uses a
+         * delta-encoded sparse representation of the bucket counts, so the output size
+         * scales with the number of distinct recorded values rather than the total
+         * bucket count.
+         *
+         * The output includes all histogram configuration, bucket data, and EWMA
+         * state (when enabled). It can be reconstructed into a new histogram using
+         * `perf_hooks.importHistogram()`.
+         *
+         * The CBOR payload is a map with integer keys:
+         *
+         * | Key | Type    | Field                                         |
+         * | --- | ------- | --------------------------------------------- |
+         * | 0   | uint    | Format version (currently 1)                  |
+         * | 1   | uint    | Lowest discernible value                      |
+         * | 2   | uint    | Highest trackable value                       |
+         * | 3   | uint    | Significant figures                           |
+         * | 4   | uint    | Total count                                   |
+         * | 5   | uint    | Min value                                     |
+         * | 6   | uint    | Max value                                     |
+         * | 7   | uint    | Normalizing index offset                      |
+         * | 8   | float64 | Conversion ratio                              |
+         * | 9   | uint    | Counts array length                           |
+         * | 10  | array   | Delta-encoded sparse counts `[delta, c, ...]` |
+         * | 11  | map     | EWMA state (omitted when disabled)            |
+         *
+         * Any standard CBOR decoder can parse the output.
+         * @since v26.9.0
+         */
+        export(): NodeJS.NonSharedUint8Array;
+        /**
+         * Computes the Kolmogorov-Smirnov test statistic comparing this histogram's
+         * distribution to `other`. A value of 0 indicates identical distributions;
+         * values close to 1 indicate completely disjoint distributions. Useful for
+         * detecting performance regressions by comparing before/after histograms.
+         * @since v26.8.0
+         * @param other The histogram to compare against.
+         * @returns The KS D-statistic, between 0.0 and 1.0.
+         */
+        ksTest(other: Histogram): number;
+        /**
+         * The excess kurtosis of the recorded values. Measures the heaviness of the
+         * distribution's tails relative to a normal distribution. Positive values
+         * indicate heavier tails (more extreme outliers); negative values indicate
+         * lighter tails.
+         * @since v26.8.0
+         */
+        readonly kurtosis: number;
+        /**
+         * Returns the histogram data rebucketed into linearly-spaced intervals
+         * of `stepSize`. Useful for visualization and export.
+         * @since v26.8.0
+         * @param stepSize The width of each linear bucket.
+         * @returns A map of bucket boundary values to counts.
+         */
+        linearBuckets(stepSize: number): Map<number, number>;
+        /**
+         * Returns the histogram data rebucketed into logarithmically-spaced
+         * intervals, where each bucket's width is multiplied by `base`.
+         * Useful for visualization and export.
+         * @since v26.8.0
+         * @param firstBucket The value of the first bucket boundary.
+         * @param base The logarithmic base for bucket width growth. Must be > 1.
+         * @returns A map of bucket boundary values to counts.
+         */
+        logBuckets(firstBucket: number, base: number): Map<number, number>;
+        /**
+         * Performs a [Mann-Whitney U test](https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test) comparing whether this histogram tends to
+         * produce larger or smaller values than `other`. Unlike `welchTest()`, this is a
+         * non-parametric test that makes no assumptions about the shape of the
+         * distributions. Uses the normal approximation with tie correction for the
+         * p-value.
+         * @since v26.8.0
+         * @param other The histogram to compare against.
+         */
+        mannWhitneyTest(other: Histogram): HistogramMannWhitneyTestResult;
         /**
          * The maximum recorded event loop delay.
          * @since v11.10.0
@@ -362,6 +566,30 @@ declare module "node:perf_hooks" {
          * @since v11.10.0
          */
         readonly mean: number;
+        /**
+         * Returns a two-sided confidence interval for the mean using Student's
+         * t-distribution and the sample standard error. A higher confidence level
+         * produces a wider interval. This interval assumes that samples are independent
+         * and approximately normally distributed, although the approximation is robust
+         * for sufficiently large samples.
+         *
+         * The result reflects the histogram's configured precision and is calculated
+         * from the values represented by its buckets. With fewer than two recorded
+         * values, `lower` and `upper` are `NaN`. When all recorded values are equal,
+         * `lower` and `upper` equal `mean`.
+         *
+         * ```js
+         * const { createHistogram } = require('node:perf_hooks');
+         *
+         * const h = createHistogram();
+         * for (let i = 1; i <= 100; i++) h.record(i);
+         *
+         * const { mean, lower, upper } = h.meanCI();
+         * console.log(`mean=${mean}, 95% CI=[${lower}, ${upper}]`);
+         * ```
+         * @since v26.9.0
+         */
+        meanCI(options?: HistogramConfidenceOptions): HistogramMeanCI;
         /**
          * The minimum recorded event loop delay.
          * @since v11.10.0
@@ -385,25 +613,106 @@ declare module "node:perf_hooks" {
          */
         percentileBigInt(percentile: number): bigint;
         /**
+         * Returns a confidence interval for the given percentile using the exact
+         * binomial method. With fewer samples, the interval will be wider, reflecting
+         * the greater uncertainty in the percentile estimate. Requires at least 2
+         * recorded values; with fewer than 2, `lower` and `upper` will equal `value`.
+         *
+         * ```js
+         * const { createHistogram } = require('node:perf_hooks');
+         *
+         * const h = createHistogram();
+         * for (let i = 0; i < 1000; i++) {
+         *   h.record(Math.floor(Math.random() * 100));
+         * }
+         *
+         * const ci = h.percentileCI(99);
+         * console.log(ci.value);  // The p99 point estimate
+         * console.log(ci.lower);  // The lower bound (95% confidence)
+         * console.log(ci.upper);  // The upper bound (95% confidence)
+         * ```
+         * @since v26.8.0
+         * @param percentile A percentile value in the range (0, 100].
+         */
+        percentileCI(percentile: number, options?: HistogramConfidenceOptions): HistogramPercentileCI;
+        /**
          * Returns a `Map` object detailing the accumulated percentile distribution.
          * @since v11.10.0
          */
         readonly percentiles: Map<number, number>;
+        /**
+         * Returns the values at the specified percentiles, computed in a single
+         * efficient pass over the histogram data. More efficient than calling
+         * `histogram.percentile()` multiple times.
+         * @since v26.8.0
+         * @param percentiles An array of percentile values in the range (0, 100].
+         * @returns A map of percentile values to their corresponding histogram
+         * values.
+         */
+        percentilesAt(percentiles: readonly number[]): Map<number, number>;
         /**
          * Returns a `Map` object detailing the accumulated percentile distribution.
          * @since v17.4.0, v16.14.0
          */
         readonly percentilesBigInt: Map<bigint, bigint>;
         /**
+         * Returns a quantile-respectful density estimate based on the Harrell-Davis
+         * quantile estimator. By default, `bins` generates equal probability boundaries.
+         * The `probabilities` option can instead focus the estimate on regions such as
+         * p90, p99, p99.9, and p99.99. The density for interval `i` contains probability
+         * mass `probabilities[i + 1] - probabilities[i]`. The histogram is snapshotted
+         * when the method is called. Snapshot expansion and the estimate are calculated
+         * in the libuv thread pool. Highly concentrated beta weights use a second-order
+         * asymptotic approximation to avoid numerical convergence loss at large sample
+         * counts.
+         *
+         * Setting `cache` to `true` avoids repeating snapshot capture and expansion when
+         * several estimates are requested from an unchanged histogram. The retained
+         * snapshot uses memory proportional to the number of occupied HDR buckets and is
+         * released when the histogram is next modified.
+         *
+         * HDR histograms aggregate observations into equivalent-value buckets. The
+         * `'hdr'` dequantization mode models repeated values in buckets wider than one
+         * unit as a continuous uniform distribution over the bucket resolution. This
+         * reduces density artifacts introduced by HDR quantization while preserving
+         * repeated unit-resolution values as point masses. The `'all'` mode also
+         * dequantizes repeated unit-resolution values. Use `'none'` to calculate the
+         * grouped Harrell-Davis estimator using bucket midpoints directly.
+         *
+         * An empty histogram returns the requested `probabilities` but produces empty
+         * `quantiles` and `densities` arrays. A non-dequantized interval whose quantile
+         * boundaries are equal has an infinite density.
+         * @since v26.10.0
+         */
+        qrde(options?: HistogramQRDEOptions): Promise<HistogramQRDEResult>;
+        /**
          * Resets the collected histogram data.
          * @since v11.10.0
          */
         reset(): void;
         /**
+         * The skewness of the recorded values. Measures the asymmetry of the
+         * distribution. A positive value indicates a right-skewed distribution
+         * (longer right tail, common for latency data); a negative value
+         * indicates a left-skewed distribution.
+         * @since v26.8.0
+         */
+        readonly skewness: number;
+        /**
          * The standard deviation of the recorded event loop delays.
          * @since v11.10.0
          */
         readonly stddev: number;
+        /**
+         * Performs [Welch's t-test](https://en.wikipedia.org/wiki/Welch%27s_t-test) comparing the means of this histogram and `other`.
+         * The p-value indicates the probability of observing a difference at least this
+         * extreme under the null hypothesis that the two distributions have the same
+         * mean. Both histograms must have at least 2 recorded values; otherwise the
+         * result has `pValue` 1 and `tStatistic` 0.
+         * @since v26.8.0
+         * @param other The histogram to compare against.
+         */
+        welchTest(other: Histogram, options?: HistogramConfidenceOptions): HistogramWelchTestResult;
     }
     /**
      * A `Histogram` that records event loop delay, returned by
@@ -450,10 +759,204 @@ declare module "node:perf_hooks" {
          */
         recordDelta(): void;
         /**
+         * Records a value with coordinated omission correction. When a system stall
+         * prevents timely recording, this method backfills intermediate values at
+         * `expectedInterval` steps between the previously recorded value and `val`.
+         * This compensates for measurement gaps that would otherwise underrepresent
+         * latency.
+         * @since v26.8.0
+         * @param val The value to record.
+         * @param expectedInterval The expected recording interval.
+         */
+        recordCorrected(val: number, expectedInterval: number): void;
+        recordCorrected(val: bigint, expectedInterval: bigint): void;
+        /**
          * Adds the values from `other` to this histogram.
          * @since v17.4.0, v16.14.0
          */
         add(other: RecordableHistogram): void;
+        /**
+         * Subtracts the values of `other` from this histogram. Both histograms should
+         * have compatible configurations. Bucket counts that would become negative
+         * are clamped to zero.
+         * @since v26.8.0
+         */
+        subtract(other: RecordableHistogram): void;
+    }
+    /**
+     * Records values into a lazily rotated ring of histogram chunks. Instances are
+     * created using `perf_hooks.createSlidingWindowHistogram()` and cannot be
+     * constructed directly. A `SlidingWindowHistogram` does not extend `Histogram`;
+     * call `snapshot()` to materialize the current window as a `Histogram`.
+     *
+     * `SlidingWindowHistogram` instances cannot be cloned or transferred through a
+     * `MessagePort`.
+     * @since v26.10.0
+     */
+    interface SlidingWindowHistogram {
+        /**
+         * Records `val` in the current chunk. For a count-based window, every call that
+         * reaches the native histogram counts toward rotation, including values which
+         * exceed the configured `highest` value.
+         * @since v26.10.0
+         * @param val The amount to record.
+         */
+        record(val: number | bigint): void;
+        /**
+         * Invalidates all chunks in the current window. Allocated chunks are reset
+         * lazily when reused.
+         * @since v26.10.0
+         */
+        reset(): void;
+        /**
+         * Materializes the current window as a new, independent `Histogram`. Values
+         * recorded or expired after this method returns do not change the returned
+         * histogram. Materialization allocates one histogram and merges every retained
+         * chunk.
+         * @since v26.10.0
+         */
+        snapshot(): Histogram;
+    }
+    interface HistogramConfidenceOptions {
+        /**
+         * The confidence level for the interval, between
+         * 0 and 1 (exclusive).
+         * @default 0.95
+         */
+        confidence?: number | undefined;
+    }
+    interface HistogramMeanCI {
+        /**
+         * The mean estimate, equivalent to `histogram.mean`.
+         */
+        mean: number;
+        /**
+         * The lower bound of the confidence interval.
+         */
+        lower: number;
+        /**
+         * The upper bound of the confidence interval.
+         */
+        upper: number;
+    }
+    interface HistogramPercentileCI {
+        /**
+         * The point estimate (same as `histogram.percentile()`).
+         */
+        value: number;
+        /**
+         * The lower bound of the confidence interval.
+         */
+        lower: number;
+        /**
+         * The upper bound of the confidence interval.
+         */
+        upper: number;
+    }
+    interface HistogramMannWhitneyTestResult {
+        /**
+         * The Mann-Whitney U statistic.
+         */
+        uStatistic: number;
+        /**
+         * The z-score (normal approximation).
+         */
+        zScore: number;
+        /**
+         * Two-tailed p-value.
+         */
+        pValue: number;
+    }
+    interface HistogramWelchTestResult {
+        /**
+         * The Welch t-statistic.
+         */
+        tStatistic: number;
+        /**
+         * Welch-Satterthwaite degrees of freedom.
+         */
+        degreesOfFreedom: number;
+        /**
+         * Two-tailed p-value.
+         */
+        pValue: number;
+        confidenceInterval: {
+            /**
+             * Lower bound of the confidence interval on the
+             * difference of means.
+             */
+            lower: number;
+            /**
+             * Upper bound.
+             */
+            upper: number;
+        };
+    }
+    interface HistogramQRDEBaseOptions {
+        /**
+         * Controls whether repeated bucket values are spread
+         * deterministically over their equivalent-value ranges.
+         * @default 'hdr'
+         */
+        dequantize?: "none" | "hdr" | "all" | undefined;
+        /**
+         * When `true`, retains the expanded histogram snapshot for
+         * reuse by subsequent calls with `cache: true`. The snapshot is invalidated
+         * when the histogram is modified.
+         * @default false
+         */
+        cache?: boolean | undefined;
+    }
+    interface HistogramQRDEBinsOptions extends HistogramQRDEBaseOptions {
+        /**
+         * The number of equal-probability density bins to return.
+         * Must be between 1 and 1000. Cannot be used with `probabilities`.
+         * @default 100
+         */
+        bins?: number | undefined;
+        probabilities?: undefined;
+    }
+    interface HistogramQRDEProbabilitiesOptions extends HistogramQRDEBaseOptions {
+        bins?: undefined;
+        /**
+         * Custom probability boundaries. The array must
+         * contain between 2 and 1001 strictly increasing values, start with `0`, and
+         * end with `1`. Cannot be used with `bins`.
+         */
+        probabilities: readonly number[];
+    }
+    type HistogramQRDEOptions = HistogramQRDEBinsOptions | HistogramQRDEProbabilitiesOptions;
+    interface HistogramQRDEResult {
+        /**
+         * The probability boundaries used by the
+         * estimate.
+         */
+        probabilities: NodeJS.NonSharedFloat64Array;
+        /**
+         * The quantiles at the probability boundaries.
+         */
+        quantiles: NodeJS.NonSharedFloat64Array;
+        /**
+         * The density within each quantile interval.
+         */
+        densities: NodeJS.NonSharedFloat64Array;
+        /**
+         * The number of values in the histogram snapshot.
+         */
+        count: bigint;
+        /**
+         * The number of occupied HDR buckets.
+         */
+        bucketCount: number;
+        /**
+         * The number of non-monotonic floating-point results
+         * that were clamped to the preceding quantile.
+         */
+        corrections: number;
+        /**
+         * The selected dequantization mode.
+         */
+        dequantize: "none" | "hdr" | "all";
     }
     interface EventLoopUtilization {
         idle: number;
@@ -605,12 +1108,132 @@ declare module "node:perf_hooks" {
          * @default 3
          */
         figures?: number | undefined;
+        /**
+         * The EWMA half-life in number of samples. When set to
+         * a value greater than 0, the histogram tracks an exponentially weighted
+         * moving average and standard deviation, accessible via
+         * `histogram.ewmaMean` and `histogram.ewmaStddev`. After `halfLife`
+         * recordings, a value's influence has decayed to 50%.
+         * @default 0
+         */
+        halfLife?: number | undefined;
+        /**
+         * An SLO threshold value. When set together with
+         * `halfLife`, the histogram tracks a smoothed error rate for values
+         * exceeding this threshold, accessible via `histogram.ewmaErrorRate` and
+         * `histogram.burnRate()`.
+         * @default 0
+         */
+        threshold?: number | undefined;
     }
     /**
      * Returns a `RecordableHistogram`.
      * @since v15.9.0, v14.18.0
      */
     function createHistogram(options?: CreateHistogramOptions): RecordableHistogram;
+    interface CreateSlidingWindowHistogramBaseOptions {
+        /**
+         * The number of histogram chunks retained. Must be an
+         * integer between `1` and `1024`.
+         */
+        chunks: number;
+        /**
+         * The lowest discernible value. Must be an integer
+         * value greater than `0`.
+         * @default 1
+         */
+        lowest?: number | bigint | undefined;
+        /**
+         * The highest recordable value. Must be an integer
+         * value that is equal to or greater than two times `lowest`.
+         * @default Number.MAX_SAFE_INTEGER
+         */
+        highest?: number | bigint | undefined;
+        /**
+         * The number of accuracy digits. Must be an integer between
+         * `1` and `5`.
+         * @default 3
+         */
+        figures?: number | undefined;
+    }
+    interface CreateTimeBasedSlidingWindowHistogramOptions extends CreateSlidingWindowHistogramBaseOptions {
+        /**
+         * The duration of each chunk in milliseconds. Must
+         * be an integer between `1` and `18_446_744_073_709`. Exactly one of
+         * `chunkDuration` and `recordsPerChunk` must be specified.
+         */
+        chunkDuration: number;
+        recordsPerChunk?: undefined;
+    }
+    interface CreateCountBasedSlidingWindowHistogramOptions extends CreateSlidingWindowHistogramBaseOptions {
+        chunkDuration?: undefined;
+        /**
+         * The number of calls to `record()` assigned to
+         * each chunk. Must be an integer between `1` and `Number.MAX_SAFE_INTEGER`.
+         * Exactly one of `chunkDuration` and `recordsPerChunk` must be specified.
+         */
+        recordsPerChunk: number;
+    }
+    type CreateSlidingWindowHistogramOptions =
+        | CreateTimeBasedSlidingWindowHistogramOptions
+        | CreateCountBasedSlidingWindowHistogramOptions;
+    /**
+     * Creates a `SlidingWindowHistogram` that retains the latest `chunks` histogram
+     * chunks. Rotation is lazy and does not create a timer. Time-based rotation is
+     * evaluated when `record()` or `snapshot()` is called. Count-based rotation is
+     * evaluated when `record()` is called.
+     *
+     * One histogram chunk is allocated during construction. Additional chunks are
+     * allocated lazily. The maximum native memory used by the window scales with
+     * `chunks` and with the `lowest`, `highest`, and `figures` histogram options.
+     *
+     * The window boundary has chunk-level precision. With `N` chunks of duration
+     * `D`, a recorded value is retained for between `(N - 1) * D` and `N * D`
+     * milliseconds. Once a count-based window is populated, it retains between
+     * `(N - 1) * C + 1` and `N * C` recording attempts, where `C` is
+     * `recordsPerChunk`. Recording attempts which exceed `highest` are included when
+     * determining count-based rotation.
+     *
+     * ```js
+     * const { createSlidingWindowHistogram } = require('node:perf_hooks');
+     *
+     * const window = createSlidingWindowHistogram({
+     *   chunks: 6,
+     *   chunkDuration: 10_000,
+     * });
+     *
+     * window.record(20_000_000);
+     *
+     * // Materialize the current window as an independent Histogram.
+     * const snapshot = window.snapshot();
+     * console.log(snapshot.percentile(99));
+     * ```
+     * @since v26.10.0
+     */
+    function createSlidingWindowHistogram(options: CreateSlidingWindowHistogramOptions): SlidingWindowHistogram;
+    /**
+     * Reconstructs a histogram from a CBOR-encoded `Uint8Array`. The returned
+     * histogram is a full `RecordableHistogram` with all bucket data, configuration,
+     * and EWMA state restored. New values can be recorded into it.
+     *
+     * ```js
+     * const { createHistogram, importHistogram } = require('node:perf_hooks');
+     *
+     * const h = createHistogram();
+     * for (let i = 1; i <= 1000; i++) h.record(i);
+     *
+     * // Serialize and reconstruct
+     * const data = h.export();
+     * const h2 = importHistogram(data);
+     *
+     * console.log(h2.count);          // 1000
+     * console.log(h2.percentile(99)); // Same as h.percentile(99)
+     * ```
+     * @since v26.9.0
+     * @param data A CBOR-encoded histogram previously produced by
+     * `histogram.export()`.
+     */
+    function importHistogram(data: Uint8Array): RecordableHistogram;
 }
 declare module "perf_hooks" {
     export * from "node:perf_hooks";

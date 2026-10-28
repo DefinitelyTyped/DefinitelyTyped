@@ -1747,6 +1747,12 @@ declare module "node:stream" {
         ): Duplex;
         /* eslint-enable @definitelytyped/no-unnecessary-generics */
         /**
+         * Returns whether the stream has been destroyed.
+         * @since v19.9.0, v18.17.0
+         * @returns Only returns `null` if `stream` is not a valid `Readable`, `Writable` or `Duplex`.
+         */
+        function isDestroyed(stream: NodeJS.ReadableStream | NodeJS.WritableStream): boolean | null;
+        /**
          * Returns whether the stream has encountered an error.
          * @since v17.3.0, v16.14.0
          */

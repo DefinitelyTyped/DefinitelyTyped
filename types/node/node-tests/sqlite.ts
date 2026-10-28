@@ -111,6 +111,18 @@ import { TextEncoder } from "node:util";
     let statement!: StatementSync;
     statement.expandedSQL; // $ExpectType string
     statement.sourceSQL; // $ExpectType string
+    statement.stat("fullscanStep"); // $ExpectType number
+    statement.stat("memused"); // $ExpectType number
+    // @ts-expect-error
+    statement.stat("unknown");
+    statement.resetStats(); // $ExpectType void
+    statement.close(); // $ExpectType void
+    statement[Symbol.dispose](); // $ExpectType void
+}
+
+{
+    const database = new DatabaseSync(":memory:");
+    using statement = database.prepare("SELECT 1");
 }
 
 {

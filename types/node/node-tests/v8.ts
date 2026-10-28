@@ -112,3 +112,41 @@ v8.isStringOneByteRepresentation("你好"); // $ExpectType boolean
         forceGC: true,
     });
 }
+
+v8.setHeapProfileNearHeapLimit(1); // $ExpectType void
+// @ts-expect-error limit is required
+v8.setHeapProfileNearHeapLimit();
+// @ts-expect-error
+v8.setHeapProfileNearHeapLimit("1");
+
+{
+    const serializer = new v8.Serializer();
+    serializer._getDataCloneError("message"); // $ExpectType Error
+    serializer._setTreatArrayBufferViewsAsHostObjects(true); // $ExpectType void
+    serializer._setTreatArrayBufferViewsAsHostObjects(); // $ExpectType void
+
+    new v8.DefaultSerializer()._writeHostObject(new Uint8Array(1)); // $ExpectType void
+    new v8.DefaultDeserializer(v8.serialize(Buffer.from("a")))._readHostObject(); // $ExpectType any
+
+    class CustomSerializer extends v8.Serializer {
+        _writeHostObject(object: object): void {}
+        _getDataCloneError(message: string): Error {
+            return new TypeError(message);
+        }
+    }
+    class CustomDefaultSerializer extends v8.DefaultSerializer {
+        _writeHostObject(object: NodeJS.ArrayBufferView): void {
+            super._writeHostObject(object);
+        }
+    }
+    class CustomDeserializer extends v8.Deserializer {
+        _readHostObject(): object {
+            return {};
+        }
+    }
+    class CustomDefaultDeserializer extends v8.DefaultDeserializer {
+        _readHostObject(): NodeJS.ArrayBufferView {
+            return super._readHostObject();
+        }
+    }
+}

@@ -751,6 +751,276 @@ declare module "node:util" {
      * @returns The exit code corresponding to `signal`
      */
     export function convertProcessSignalToExitCode(signal: NodeJS.Signals): number;
+    /**
+     * @since v26.10.0
+     */
+    export interface DebounceOptions {
+        /**
+         * When `true`, invokes `fn` immediately when a new
+         * debounce window begins.
+         * @default false
+         */
+        leading?: boolean | undefined;
+        /**
+         * When `true`, a call superseded by a later call
+         * rejects with an `AbortError`.
+         * @default false
+         */
+        rejectOnCancel?: boolean | undefined;
+        /**
+         * An `AbortSignal` that cancels pending calls and
+         * prevents future calls when aborted.
+         */
+        signal?: AbortSignal | undefined;
+    }
+    /**
+     * @since v26.10.0
+     */
+    export interface DebouncedFunction<Args extends any[], Result> {
+        (...args: Args): Promise<Awaited<Result>>;
+        /**
+         * Cancels the current debounce window. Its pending promises
+         * reject with an `AbortError`. If provided, `reason` is set as the error's
+         * `cause`.
+         */
+        cancel(reason?: any): void;
+        /**
+         * Cancels the delay and invokes `fn` immediately. It has no effect if
+         * no invocation is pending.
+         */
+        flush(): void;
+        /**
+         * The promise returned by the most recent call in
+         * the current debounce window, or `null` if no invocation is pending.
+         */
+        readonly pending: Promise<Awaited<Result>> | null;
+        /**
+         * The number of calls awaiting the invocation in
+         * the current debounce window.
+         */
+        readonly pendingCount: number;
+        /**
+         * Makes the pending and future timeout keep the Node.js event loop
+         * active. Returns the debounced function.
+         */
+        ref(): this;
+        /**
+         * Allows the event loop to exit while a timeout is pending. This also
+         * applies to future timeouts. Returns the debounced function.
+         */
+        unref(): this;
+    }
+    /**
+     * Creates a function that delays calling `fn` until `wait` milliseconds have
+     * elapsed since the most recent invocation. The debounced function returns a
+     * `Promise` for the value returned by `fn`. If `fn` throws or returns a rejected
+     * promise, the returned promise is rejected with the same reason.
+     *
+     * When the debounced function is called more than once before the delay expires,
+     * `fn` receives the arguments from the most recent call. By default, the promises
+     * from all calls resolve or reject with the result of that invocation. If
+     * `options.rejectOnCancel` is `true`, the promises from superseded calls reject
+     * with an `AbortError` instead.
+     *
+     * When `options.leading` is `true`, the first call in a debounce window invokes
+     * `fn` immediately. Calls made during that window are delayed until `wait`
+     * milliseconds have elapsed since the most recent call. A trailing invocation
+     * only occurs if the debounced function was called again during the window.
+     * The window begins before `fn` is invoked, so recursive calls and calls made
+     * while an asynchronous `fn` is pending are part of the same window if they occur
+     * before the delay expires. This also applies to calls made after a synchronous
+     * `fn` returns but before the delay expires.
+     *
+     * If `options.signal` is aborted, pending and future calls reject with an
+     * `AbortError`, with the signal's reason set as the error's `cause`, and `fn` is
+     * not invoked by those calls. If the signal is already aborted, `debounce()`
+     * throws an `AbortError`.
+     *
+     * When invoked, `fn` has the debounced function as its `this` value. After a
+     * trailing invocation, a new debounce window can begin even if a promise returned
+     * by `fn` is still pending. The debounced function preserves the `name` and
+     * `length` of `fn`.
+     *
+     * ```js
+     * import { setTimeout as wait } from 'node:timers/promises';
+     * import { debounce } from 'node:util';
+     *
+     * const fn = debounce(async (value) => {
+     *   await wait(100);
+     *   return value;
+     * }, 50);
+     *
+     * const first = fn(1);
+     * const second = fn(2);
+     *
+     * console.log(await first);  // 2
+     * console.log(await second); // 2
+     * ```
+     * @since v26.10.0
+     * @param fn The function to debounce.
+     * @param wait The number of milliseconds to delay `fn`.
+     * @returns The debounced function.
+     */
+    export function debounce<Args extends any[], Result>(
+        fn: (this: DebouncedFunction<Args, Result>, ...args: Args) => Result,
+        wait: number,
+        options?: DebounceOptions,
+    ): DebouncedFunction<Args, Result>;
+    /**
+     * @since v26.10.0
+     */
+    export interface ThrottleOptions {
+        /**
+         * The maximum number of invocations of `fn` whose
+         * return values may be unsettled at once. Must be a positive integer or
+         * `Infinity`.
+         * @default Infinity
+         */
+        concurrency?: number | undefined;
+        /**
+         * The maximum number of calls that may be queued when
+         * `overflow` is `'queue'`. Must be a non-negative integer or `Infinity`.
+         * @default Infinity
+         */
+        maxPending?: number | undefined;
+        /**
+         * Determines how calls exceeding the limit are handled.
+         * * `'queue'`: Queue calls in the order received.
+         * * `'drop'`: Reject calls immediately without queueing them.
+         * @default 'queue'
+         */
+        overflow?: "queue" | "drop" | undefined;
+        /**
+         * An `AbortSignal` that cancels pending calls and
+         * prevents future calls when aborted.
+         */
+        signal?: AbortSignal | undefined;
+        /**
+         * When `true`, ensures that `limit` is not exceeded during
+         * any rolling interval.
+         * @default false
+         */
+        strict?: boolean | undefined;
+    }
+    /**
+     * @since v26.10.0
+     */
+    export interface ThrottledFunction<Args extends any[], Result> {
+        (...args: Args): Promise<Awaited<Result>>;
+        /**
+         * Cancels all queued calls and resets the current throttle
+         * window. The queued promises reject with an `AbortError`. If provided,
+         * `reason` is set as the error's `cause`. Does not cancel invocations that have
+         * already started.
+         */
+        cancel(reason?: any): void;
+        /**
+         * Returns `true` if a call made at that moment could
+         * invoke `fn` without being queued or rejected. The check does not reserve
+         * capacity, and the throttled function always checks again when called. It
+         * returns `false` while calls are queued to preserve their order. Callers can
+         * avoid creating a timeout by only calling the throttled function when this
+         * method returns `true`.
+         */
+        hasImmediateCapacity(): boolean;
+        /**
+         * The promise returned by the most recently queued
+         * call, or `null` if no invocation is queued.
+         */
+        readonly pending: Promise<Awaited<Result>> | null;
+        /**
+         * The number of calls awaiting invocation.
+         */
+        readonly pendingCount: number;
+        /**
+         * The number of invocations whose return values have
+         * not settled.
+         */
+        readonly activeCount: number;
+        /**
+         * Makes the pending and future timeout keep the Node.js event loop
+         * active. Returns the throttled function.
+         */
+        ref(): this;
+        /**
+         * Allows the event loop to exit while a timeout is pending. This also
+         * applies to future timeouts. Returns the throttled function.
+         */
+        unref(): this;
+    }
+    /**
+     * Creates a function that limits how often `fn` is invoked. By default, calls that
+     * exceed the limit are queued in the order received rather than discarded. The
+     * throttled function returns a `Promise` for the value returned by `fn`. If `fn`
+     * throws or returns a rejected promise, the returned promise is rejected with the
+     * same reason.
+     *
+     * An invocation starts only when both rate and concurrency capacity are
+     * available. Rate capacity is consumed when `fn` starts, not when a call enters
+     * the queue. Concurrency capacity is released when the value returned by `fn`
+     * settles. Non-promise values settle during the next microtask.
+     *
+     * When `options.overflow` is `'drop'`, calls made without available rate or
+     * concurrency capacity are rejected immediately. When `options.overflow` is
+     * `'queue'` and `options.maxPending` calls are already queued, additional calls
+     * are also rejected immediately. `maxPending` has no effect when `overflow` is
+     * `'drop'`.
+     *
+     * In both cases, rejected calls return a promise rejected with an
+     * `ERR_THROTTLED` error. The rejected promise is marked as handled, so ignoring it
+     * does not emit an `'unhandledRejection'` event. Awaiting or explicitly handling
+     * the promise still observes the rejection. Rejected calls do not consume rate
+     * or concurrency capacity, enter the queue, or schedule a timeout.
+     *
+     * By default, the interval begins when the first call in a new window invokes
+     * `fn`. Up to `limit` calls can invoke `fn` during that window. Queued calls are
+     * processed in groups of up to `limit` as each subsequent window begins. This
+     * windowed behavior can result in calls occurring close together at a window
+     * boundary.
+     *
+     * When `options.strict` is `true`, invocation times are tracked individually.
+     * This ensures that no more than `limit` calls begin during any rolling interval,
+     * at the cost of additional bookkeeping.
+     *
+     * If `options.signal` is aborted, pending and future calls reject with an
+     * `AbortError`, with the signal's reason set as the error's `cause`, and `fn` is
+     * not invoked by those calls. If the signal is already aborted, `throttle()`
+     * throws an `AbortError`.
+     *
+     * Calls that have already invoked `fn` are not affected by `cancel()` or by an
+     * aborted signal. When invoked, `fn` has the throttled function as its `this`
+     * value. The throttled function preserves the `name` and `length` of `fn`.
+     *
+     * ```js
+     * import { throttle } from 'node:util';
+     *
+     * const request = throttle(async (id) => {
+     *   const response = await fetch(`https://example.com/items/${id}`);
+     *   return response.json();
+     * }, 2, 1_000);
+     *
+     * // At most two requests begin during each one-second interval. All other calls
+     * // remain queued and retain their original arguments.
+     * const results = await Promise.all([
+     *   request(1),
+     *   request(2),
+     *   request(3),
+     *   request(4),
+     * ]);
+     * ```
+     * @since v26.10.0
+     * @param fn The function to throttle.
+     * @param limit The maximum number of times to invoke `fn` during an
+     * interval. Must be greater than `0`.
+     * @param interval The length of each interval in milliseconds.
+     * @returns The throttled function.
+     */
+    export function throttle<Args extends any[], Result>(
+        fn: (this: ThrottledFunction<Args, Result>, ...args: Args) => Result,
+        limit: number,
+        interval: number,
+        options?: ThrottleOptions,
+    ): ThrottledFunction<Args, Result>;
     export type DebugLoggerFunction = (msg: string, ...param: unknown[]) => void;
     export interface DebugLogger extends DebugLoggerFunction {
         /**
@@ -927,6 +1197,13 @@ declare module "node:util" {
      * @since v9.0.0
      */
     export function isDeepStrictEqual(val1: unknown, val2: unknown, options?: IsDeepStrictEqualOptions): boolean;
+    /**
+     * Marks a promise as handled so that unhandled rejections are ignored and are not
+     * reported to the `'unhandledrejection'` event.
+     * @since v26.10.0
+     * @param promise The promise to mark as handled
+     */
+    export function markPromiseAsHandled(promise: Promise<unknown>): void;
     /**
      * Returns `str` with any ANSI escape codes removed.
      *
@@ -1572,6 +1849,31 @@ declare module "node:util" {
          * to customize the serialization process of the MIME.
          */
         toString(): string;
+        /**
+         * Alias for `mime.toString()`.
+         *
+         * This method is automatically called when an `MIMEType` object is serialized
+         * with `JSON.stringify()`.
+         *
+         * ```js
+         * import { MIMEType } from 'node:util';
+         *
+         * const myMIMES = [
+         *   new MIMEType('image/png'),
+         *   new MIMEType('image/gif'),
+         * ];
+         * console.log(JSON.stringify(myMIMES));
+         * // Prints: ["image/png", "image/gif"]
+         * ```
+         */
+        toJSON(): string;
+        /**
+         * Attempts to parse the given `string` as a MIMEType. If the string cannot be
+         * parsed, `null` is returned.
+         * @since v26.8.0
+         * @param string The input MIME to parse
+         */
+        static parse(string: string): MIMEType | null;
     }
     /**
      * The `MIMEParams` API provides read and write access to the parameters of a `MIMEType`.
