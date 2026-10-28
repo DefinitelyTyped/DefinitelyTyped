@@ -1464,6 +1464,10 @@
             "libraryName": "country-emoji",
             "asOfVersion": "1.5.6"
         },
+        "country-flag-icons": {
+            "libraryName": "country-flag-icons",
+            "asOfVersion": "1.6.20"
+        },
         "country-list-js": {
             "libraryName": "country-list-js",
             "asOfVersion": "4.0.0"
