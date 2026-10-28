@@ -3829,6 +3829,10 @@
             "libraryName": "jest-each",
             "asOfVersion": "24.3.0"
         },
+        "jest-environment-puppeteer": {
+            "libraryName": "jest-environment-puppeteer",
+            "asOfVersion": "8.0.2"
+        },
         "jest-expect-message": {
             "libraryName": "jest-expect-message",
             "asOfVersion": "1.1.0"
