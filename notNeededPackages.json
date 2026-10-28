@@ -1741,6 +1741,10 @@
             "libraryName": "del",
             "asOfVersion": "4.0.0"
         },
+        "delaunator": {
+            "libraryName": "delaunator",
+            "asOfVersion": "5.1.0"
+        },
         "delay": {
             "libraryName": "delay",
             "asOfVersion": "3.1.0"
