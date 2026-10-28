@@ -7,8 +7,6 @@ autowatch = 1;
 jsarguments.push(1, 2, 3);
 error("This is a test error.\n");
 error("This is a", "multiple string", "error\n");
-cpost("This is cpost.\n");
-cpost("This is a", "multiple string", "cpost\n");
 post("This is a post.\n");
 post("This is a", "multiple string", "post\n");
 // Catcher must be bound to a global object, so use an [r]
@@ -190,14 +188,14 @@ testmax.preempt(1);
 testmax.pupdate(100, 200);
 testmax.quit();
 testmax.refresh();
-// testmax.refreshrate(30); // Uncomment this line for Macintosh
+// testmax.refreshrate = 30; // a number property in Max 9.2.0 // Uncomment this line for Macintosh
 testmax.runtime(1, "my_message");
 testmax.sendapppath("my_receiver");
-testmax.seteventinterval(5);
-testmax.setpollthrottle(10);
-testmax.setqueuethrottle(3);
-testmax.setslop(50);
-testmax.setsysqelemthrottle(2);
+testmax.seteventinterval = 5; // a number property in Max 9.2.0
+testmax.setpollthrottle = 10; // a number property in Max 9.2.0
+testmax.setqueuethrottle = 3; // a number property in Max 9.2.0
+testmax.setslop = 50; // a number property in Max 9.2.0
+testmax.setsysqelemthrottle = 2; // a number property in Max 9.2.0
 testmax.showcursor();
 testmax.showmenubar();
 testmax.size();
@@ -347,7 +345,7 @@ myTask.cancel();
 
 // ------------- Wind usage examples -------------
 
-const myWind = new Wind();
+const myWind: Wind = patcher.wind;
 
 post(myWind.assoc);
 post(myWind.assocclass);
@@ -403,7 +401,9 @@ let height = 0;
 myMGraphics.init();
 myMGraphics.redraw();
 [width, height] = myMGraphics.size;
-myMGraphics.copy_path();
+const savedPath = myMGraphics.copy_path();
+myMGraphics.append_path(savedPath);
+// @ts-expect-error append_path takes the handle returned by copy_path
 myMGraphics.append_path("pathToAppend");
 myMGraphics.close_path();
 myMGraphics.path_roundcorners(10);
@@ -458,6 +458,8 @@ myMGraphics.push_group();
 const myGroupPattern: Pattern = myMGraphics.pop_group();
 const myImage = new Image(myMGraphics);
 
+myMGraphics.set_source_rgba([255, 0, 0, 1]);
+// @ts-expect-error a 3-element array paints black at runtime; use the (rgb, alpha) form
 myMGraphics.set_source_rgba([255, 0, 0]);
 myMGraphics.set_source_rgba([255, 0, 0], 1);
 myMGraphics.set_source_rgba(255, 0, 0, 1);
@@ -504,8 +506,8 @@ post("fillExtent:" + fillExtent);
 // Create a dummy Pattern instance
 const patternInstance: Pattern = {
     add_color_stop_rgba: () => {},
-    get_extend: () => "",
-    get_matrix: () => [],
+    get_extend: () => "pad",
+    get_matrix: () => [1, 0, 0, 1, 0, 0],
     get_type: () => "linear",
     identity_matrix: () => {},
     rotate: () => {},
@@ -556,14 +558,18 @@ sketchInstance.text("Hello, World!");
 
 // Get and set pixels
 const pixelColor = sketchInstance.getpixel(10, 10);
-sketchInstance.setpixel(10, 10, pixelColor[0], pixelColor[1], pixelColor[2], pixelColor[3]);
+if (pixelColor) {
+    sketchInstance.setpixel(10, 10, pixelColor[0], pixelColor[1], pixelColor[2], pixelColor[3]);
+}
 
 // Test transformation methods
 sketchInstance.screentoworld(10, 10);
 sketchInstance.worldtoscreen(10, 10, 10);
 
 // Test gl methods - only a few methods are demonstrated
-sketchInstance.glbegin(["LINES"]);
+sketchInstance.glbegin("lines");
+// @ts-expect-error the primitive is a string, not an array
+sketchInstance.glbegin(["lines"]);
 sketchInstance.glvertex(20, 20);
 sketchInstance.glvertex(100, 100);
 sketchInstance.glend();
@@ -588,8 +594,11 @@ imageInstance.blendpixels(imageInstance, 0.5, 10, 20, 30, 40, 50, 60);
 imageInstance.clear();
 imageInstance.clear(0.1, 0.2, 0.3, 0.4);
 imageInstance.clearchannel("alpha", 1);
+imageInstance.copychannel(imageInstance, "red", "green");
+imageInstance.copypixels(imageInstance, 10, 20, 30, 40, 50, 60);
+imageInstance.copypixels(sketchInstance, 10, 20);
+// @ts-expect-error the source is an Image or Sketch, not a name
 imageInstance.copychannel("source_object", "red", "green");
-imageInstance.copypixels("source_object", 10, 20, 30, 40, 50, 60);
 imageInstance.flip(1, 0);
 imageInstance.freepeer();
 imageInstance.fromnamedmatrix("matrixname");
@@ -695,26 +704,31 @@ jitterListenerInstance.subjectname = jitterObjectInstance.getregisteredname();
 // JitterGUIUtils
 JitterGUIUtils.init("destination");
 const tracker: JitterGUITracker = JitterGUIUtils.add_tracker("destination");
-JitterGUIUtils.add_client("destination", {});
+const guiElement = new JitterGUIElement(this);
+JitterGUIUtils.add_client("destination", guiElement);
 JitterGUIUtils.delete_bogus_clients("destination");
 
 // JitterGUITracker
 const jitterGUITracker = new JitterGUITracker("destination");
-jitterGUITracker.add_client({});
+jitterGUITracker.add_client(guiElement);
+const trackerClients: JitterGUIElement[] = jitterGUITracker.clients;
+const trackerSketch: JitterObject = jitterGUITracker.sketch;
 jitterGUITracker.delete_bogus_clients();
 jitterGUITracker.make_listener();
 
 // JitterEvent
 const jitterEvent = new JitterEvent();
-jitterEvent.args = ["arg1", "arg2"];
+// @ts-expect-error read-only at runtime (assignment is ignored)
 jitterEvent.eventname = "mousedown";
-jitterEvent.subjectname = "subject-object-name";
+post(jitterEvent.args, jitterEvent.eventname, jitterEvent.subjectname);
 
 // JitterGUIElement
 const maxObj: Maxobj = this.patcher.newobject("toggle");
 const jitterGUIElement = new JitterGUIElement(maxObj);
 jitterGUIElement.drawto("destination");
-jitterGUIElement.set_attr_args("something", "something else");
+jitterGUIElement.set_attr_args(["@val", 1]);
+// @ts-expect-error one array argument, not spread
+jitterGUIElement.set_attr_args("@val", 1);
 jitterGUIElement.set_unique_index(0);
 jitterGUIElement.handle_event(jitterEvent);
 jitterGUIElement.free();
@@ -817,7 +831,15 @@ max.setcolor("live_control_bg", 0.1, 0.2, 0.3, 1);
 max.getrefdict("cycle~");
 
 // Handlers can be typed with the jsthis interface
-const v8Handlers: jsthis = {
+function v8Bang(this: jsthis) {
+    this.outlet(0, this.inlet, this.jsarguments.length, this.box.maxclass, this.patcher.count);
+    this.setinletassist(0, "in");
+    this.inlets = 2;
+    this.outlets = 3;
+    this.outlettypes = ["int", null, "bang"];
+    this.autowatch = 1;
+}
+const v8Handlers: Partial<jsthis> = {
     msg_dictionary(value: object) {
         post(JSON.stringify(value));
     },
@@ -944,3 +966,137 @@ offscreen.fsaa = 1;
 offscreen.restorecontext();
 new Image(4, 4).premultiply();
 post(this.patcher.wind.hasclose);
+
+// ------------- docs-vs-runtime review (verified in Max 9.2.0) -------------
+
+// 0/1 flags are numbers at runtime; assigning a boolean is coerced
+// $ExpectType number
+myV8Maxobj.hidden;
+myV8Maxobj.hidden = true;
+myV8Maxobj.hidden = 1;
+// $ExpectType number
+this.patcher.wind.visible;
+// $ExpectType number
+new Folder("spike").end;
+// @ts-expect-error canhilite is read-only
+myV8Maxobj.canhilite = 1;
+
+// Nullable results
+// $ExpectType Patcher | null
+this.patcher.parentpatcher;
+// $ExpectType Maxobj | null
+this.patcher.getnamed("missing");
+// $ExpectType Patcher | null
+max.frontpatcher;
+// $ExpectType Wind | null
+this.patcher.wind.next;
+// $ExpectType Color
+this.patcher.bgcolor;
+// $ExpectType Dict
+this.patcher.bgfillcolor;
+this.patcher.wind.setlocation(100, 100, 740, 440); // left, top, right, bottom
+this.patcher.connect(myV8Maxobj, 0, myMaxobj, 0);
+// @ts-expect-error connect takes Maxobj arguments, not varnames
+this.patcher.connect("a", 0, "b", 0);
+this.patcher.apply((obj: Maxobj) => post(obj.maxclass));
+
+// File / Folder / LiveAPI
+const reviewFile = new File("review.txt", "read");
+// $ExpectType "read" | "write" | "readwrite"
+reviewFile.access;
+// @ts-expect-error isopen is read-only (assigning it crashes Max 9.2.0)
+reviewFile.isopen = 1;
+new LiveAPI(this.patcher, () => {}, "live_set");
+// $ExpectType Patcher
+new LiveAPI(() => {}, "live_set").patcher;
+
+// MGraphics
+// $ExpectType [number, number]
+myMGraphics.get_current_point();
+// $ExpectType Matrix2D
+myMGraphics.get_matrix();
+myMGraphics.transform([1, 0, 0, 1, 2, 1]);
+myMGraphics.set_matrix([1, 0, 0, 1, 2, 1]);
+myMGraphics.scale_source_rgba([1, 0, 0, 1]);
+myMGraphics.translate_source_rgba([0, 0, -1, 0]);
+myMGraphics.image_surface_draw(myImage);
+myMGraphics.image_surface_draw(myImage, [2, 1, 1, 1]);
+myMGraphics.image_surface_draw(myImage, 2, 1, 1, 1);
+// $ExpectType 0 | 1
+myMGraphics.in_fill([1, 1]);
+myMGraphics.in_fill(1, 1);
+// $ExpectType [number, number]
+myMGraphics.user_to_device([1, 1]);
+// @ts-expect-error size is a 2-tuple
+myMGraphics.size = [1, 2, 3];
+
+// Sketch (optional arguments and array overloads)
+sketchInstance.circle(0.5);
+sketchInstance.sphere(0.5);
+sketchInstance.cube(0.5);
+sketchInstance.plane(0.5);
+sketchInstance.torus(0.5, 0.2);
+sketchInstance.shapeprim("tri_strip");
+// @ts-expect-error not a drawing primitive
+sketchInstance.shapeprim("bogus");
+sketchInstance.glenable("blend");
+sketchInstance.glbindtexture(imageInstance);
+sketchInstance.glcolor(1, 0, 0);
+sketchInstance.glcolor([0, 1, 0]);
+sketchInstance.glpolygonmode("front_and_back", "line");
+sketchInstance.gllight("light0", "position", 0, 0, 1, 0);
+sketchInstance.glrotate([90, 0, 0, 1]);
+sketchInstance.gltranslate([0.5, 0, 0]);
+sketchInstance.glvertex([1, 0, 0]);
+sketchInstance.copypixels(imageInstance, 0, 0);
+// $ExpectType [number, number, number]
+sketchInstance.screentoworld(8, 8, 0.5);
+new Sketch(20);
+
+// Image
+imageInstance.clear(1, 0, 0);
+imageInstance.clearchannel("alpha");
+imageInstance.alphachroma(0, 1, 0);
+// $ExpectType [number, number, number, number]
+imageInstance.getpixel(0, 0);
+
+// JitterMatrix
+new JitterMatrix();
+new JitterMatrix(1, "char", 5);
+new JitterMatrix(2, "long", [3, 4]);
+new JitterMatrix("named", 1, "float32", 2, 2, 2);
+const reviewMatrix = new JitterMatrix(2, "char", 2, 2);
+reviewMatrix.exprfill("7");
+reviewMatrix.op("+", 3, 4);
+reviewMatrix.setcell2d(1, 1, 5, 6);
+reviewMatrix.setplane2d(0, 0, 1, 9);
+// $ExpectType number[]
+reviewMatrix.getcell(0, 0);
+reviewMatrix.exportimage("out.png");
+reviewMatrix.setinfo(2, "float32", 3, 3);
+reviewMatrix.frommatrix(new JitterMatrix());
+// $ExpectType number[]
+reviewMatrix.planemap;
+const noiseObj = new JitterObject("jit.noise");
+noiseObj.dim = [3, 3];
+noiseObj.matrixcalc(reviewMatrix, reviewMatrix);
+noiseObj.freepeer();
+
+// Jitter helper globals are instances, not classes
+include("Jitter3DUtils.js");
+const vsum: number[] = [];
+Jitter3DUtils.vadd([1, 2, 3], [4, 5, 6], vsum);
+include("JitterGUIUtils.js");
+JitterGUIUtils.trackers["ctx"];
+
+// Task
+// $ExpectType object
+new Task(() => {}, this).object;
+
+// web
+// $ExpectType number
+XMLHttpRequest.DONE;
+// $ExpectType number
+EventSource.OPEN;
+// $ExpectType AbortSignal | null
+new Request("http://127.0.0.1/").signal;

@@ -9,6 +9,12 @@
 // where it is documented (Buffer, MaxArray, Task, JitterObject, JitterListener). It is present on: Max, Patcher,
 // Maxobj, Wind, File, Folder, PolyBuffer, SQLite, SQLResult, MGraphics, Pattern, MaxobjListener, LiveAPI, MaxString,
 // MGraphicsSVG, ParameterInfoProvider, ParameterListener, Rx256, SnapshotAPI.
+//
+// Runtime note (Max 9.2.0): native methods declared `void` below return `null`, not `undefined` (verified across ~400
+// methods of every class by the spike's method sweep). They are kept as `void` because the value carries no meaning;
+// do not test the result of such a call against `undefined`.
+//
+// [v8.codebox] exposes the same globals as [v8] (verified in Max 9.2.0: mgraphics, sketch, editfontsize and multitouch are undefined there too).
 
 /**
  * Whether automatic file reloading is on. Set in global code.
@@ -17,16 +23,17 @@
 declare var autowatch: number | boolean;
 
 /**
- * The current object's box
+ * The current object's box. Read-only at runtime: assigning it is ignored (verified in Max 9.2.0).
  * @see https://docs.cycling74.com/apiref/js/jsthis/
  */
 declare var box: Maxobj;
 
 /**
- * Size of the font shown in the text editing window
+ * Size of the font shown in the text editing window.
+ * @deprecated Not present in Max 9.2.0: reads as undefined in both [v8] and [v8ui] (verified).
  * @see https://docs.cycling74.com/apiref/js/jsthis/
  */
-declare var editfontsize: number;
+declare var editfontsize: number | undefined;
 
 /**
  * The inlet number which received the message triggering the currently executing function (0 in global code)
@@ -53,13 +60,15 @@ declare var jsarguments: any[];
 declare var max: Max;
 
 /**
- * Name of the message to the js object that invoked the method currently running
+ * Name of the message to the js object that invoked the method currently running. The docs say it is nil in global code;
+ * in Max 9.2.0 it is an empty string.
  * @see https://docs.cycling74.com/apiref/js/jsthis/
  */
 declare var messagename: string;
 
 /**
  * Whether multitouch event handling is enabled (v8ui only, Windows only). Must be set in global code.
+ * Reads as 0 in [v8ui] and undefined in [v8] on macOS (verified in Max 9.2.0).
  * @see https://docs.cycling74.com/apiref/js/jsthis/
  */
 declare var multitouch: number | boolean;
@@ -77,7 +86,7 @@ declare var outlets: number;
 declare var outlettypes: Array<"int" | "float" | "bang" | "jit_matrix" | "jit_gl_texture" | null>;
 
 /**
- * The Patcher object that contains the v8 object
+ * The Patcher object that contains the v8 object. Read-only at runtime: assigning it is ignored (verified in Max 9.2.0).
  * @see https://docs.cycling74.com/apiref/js/jsthis/
  */
 declare var patcher: Patcher;
@@ -100,12 +109,6 @@ declare function include(filename: string): void;
  * @see https://docs.cycling74.com/apiref/js/global-post/
  */
 declare function post(...args: any[]): void;
-
-/**
- * Prints a message to the system console window
- * @see https://docs.cycling74.com/apiref/js/global-cpost/
- */
-declare function cpost(...args: any[]): void;
 
 /**
  * Prints a message to the Max console with a red tint
@@ -148,6 +151,7 @@ interface AttributeOptions {
     enumindex?: string[];
     enumvals?: string[];
     /** The getter function name. */
+    /** Name of a global function that returns the value; without getter and setter the attribute is backed by a global variable of the attribute's name (verified in Max 9.2.0) */
     getter?: string;
     /** Whether the attribute is invisible. */
     invisible?: number | boolean;
@@ -268,11 +272,45 @@ interface PointerEvent {
 }
 
 /**
- * The "this" object in the context of JavaScript in Max, describing the handler functions a script may implement.
- * Use it to type handlers, e.g. `function bang(this: jsthis) {}` or `const handlers: jsthis = { bang() {} }`.
+ * The "this" object in the context of JavaScript in Max: the globals (box, patcher, outlet, ...) plus the handler functions a
+ * script may implement. Use it to type handlers, e.g. `function bang(this: jsthis) { this.outlet(0, this.inlet); }`; for a plain
+ * object of handlers use `Partial<jsthis>`.
  * @see https://docs.cycling74.com/apiref/js/jsthis/
  */
 interface jsthis {
+    // Properties and methods of `this` (verified in Max 9.2.0: `this` is the global object, so `this.box` etc. work).
+    // At runtime only box and patcher ignore assignment; every other member, the methods included, is an ordinary
+    // writable global (spike_v8_review.js A6-A11, A20). The methods are marked readonly anyway so that
+    // `this.outlet = ...` is rejected the same way TS rejects assigning to the `declare function` globals above.
+    // editfontsize and multitouch are undefined in [v8] (they belong to [v8ui]).
+    autowatch: typeof autowatch;
+    readonly box: typeof box;
+    editfontsize: typeof editfontsize;
+    inlet: typeof inlet;
+    inlets: typeof inlets;
+    jsarguments: typeof jsarguments;
+    max: typeof max;
+    messagename: typeof messagename;
+    multitouch: typeof multitouch;
+    outlets: typeof outlets;
+    outlettypes: typeof outlettypes;
+    readonly patcher: typeof patcher;
+    readonly arrayfromargs: typeof arrayfromargs;
+    readonly assist: typeof assist;
+    readonly declareattribute: typeof declareattribute;
+    readonly embedmessage: typeof embedmessage;
+    readonly notifyclients: typeof notifyclients;
+    readonly outlet: typeof outlet;
+    readonly outlet_array: typeof outlet_array;
+    readonly outlet_dictionary: typeof outlet_dictionary;
+    readonly outlet_string: typeof outlet_string;
+    readonly refresh: typeof refresh;
+    readonly setcursor: typeof setcursor;
+    readonly setgrow: typeof setgrow;
+    readonly setinletassist: typeof setinletassist;
+    readonly setoutletassist: typeof setoutletassist;
+
+    // Handler functions a script may implement
     anything?(...args: any[]): void;
     bang?(): void;
     getvalueof?(): any;
@@ -281,13 +319,23 @@ interface jsthis {
     loadbang?(): void;
     /** Receives the name of a Max array (v8 only) */
     array?(name: string): void;
-    /** Receives a native copy of a Max array (v8 only) */
+    /**
+     * Receives a copy of a Max array as a JS Array (v8 only). In Max 9.2.0 the first element is the array's name followed by its
+     * contents (an [array spike_arr] holding 5 6 arrives as ["spike_arr", 5, 6]; verified). Only called when no `array` handler is
+     * defined; with both defined, `array(name)` wins (verified).
+     */
     msg_array?(value: any[]): void;
-    /** Receives a native copy of a Max dictionary (v8 only) */
+    /**
+     * Receives a plain-object copy of a Max dictionary (v8 only). Not a Dict: `value.constructor` is Object (verified in Max 9.2.0).
+     * Only called when no `dictionary` handler is defined; with both defined, `dictionary(name)` wins (verified).
+     */
     msg_dictionary?(value: object): void;
+    /** Receives the name of a Max dictionary when msg_dictionary is not defined (verified in Max 9.2.0) */
+    dictionary?(name: string): void;
     msg_float?(value: number): void;
     msg_int?(value: number): void;
     /** Receives a native copy of a Max string (v8 only) */
+    /** Only called when no `string` handler is defined; with both defined, `string(name)` wins for a `string ...` message (verified in Max 9.2.0) */
     msg_string?(value: string): void;
     notifydeleted?(): void;
     onblur?(): void;
@@ -391,6 +439,23 @@ type Color = [number, number, number, number];
 type Rect = [number, number, number, number];
 type Position = [number, number];
 type Size = [number, number];
+/** An opaque path handle returned by MGraphics.copy_path() (an MGraphicsPath object at runtime) */
+type MGraphicsPathHandle = object;
+type Matrix2D = [number, number, number, number, number, number];
+type JitterMatrixType = "char" | "long" | "float32" | "float64";
+type DrawingPrimitiveType =
+    | "lines"
+    | "line_loop"
+    | "line_strip"
+    | "points"
+    | "polygon"
+    | "quads"
+    | "quad_grid"
+    | "quad_strip"
+    | "triangles"
+    | "tri_grid"
+    | "tri_fan"
+    | "tri_strip";
 
 type MaxMessage =
     | "buildcollective"
@@ -493,6 +558,7 @@ declare class Buffer {
      * @param duration duration of the buffer in milliseconds. If no duration is provided the buffer is created empty.
      * @param channelcount number of channels in the buffer. If no channelcount is provided the buffer is created with 1 channel.
      */
+    /** Calling create() with no arguments crashes Max 9.2.0 (segmentation fault; verified). Always pass at least a name. */
     create(name?: string, filename?: string, duration?: number, channelcount?: number): void;
 
     /**
@@ -533,12 +599,14 @@ declare class Buffer {
      * Write samples into the buffer~ object at `channel` (indexed from 1) and `frame` (indexed from 0).
      * It is more efficient to call this function once with an array, than to call it multiple times, each time with a single sample.
      */
-    poke(channel: number, frame: number, samples: number | number[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    poke(channel: number, frame: number, samples: number | number[]): number;
 
     /**
      * Send a message to the buffer~. Can send any message that buffer~ understands.
      */
-    send(message: string, ...args: any[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    send(message: string, ...args: any[]): number;
 
     /**
      * Set the value of the named attribute.
@@ -573,7 +641,8 @@ declare class Dict {
     /**
      * Suppresses many errors or warnings if set to true
      */
-    quiet: boolean;
+    get quiet(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set quiet(value: number | boolean);
 
     /**
      * Add values to the end of an array associated with the specified key.
@@ -603,6 +672,7 @@ declare class Dict {
 
     /**
      * Write a file in the YAML format.
+     * In Max 9.2.0 no file was written for names ending in .yaml or .yml, and a name without an extension produced `name.json` holding JSON (verified).
      */
     export_yaml(filename: string): void;
 
@@ -645,6 +715,7 @@ declare class Dict {
 
     /**
      * Read a file in the YAML format.
+     * In Max 9.2.0 the dictionary stayed empty after import_yaml() and after readany() of a YAML file (verified).
      */
     import_yaml(filename: string): void;
 
@@ -733,12 +804,12 @@ declare class File {
     /**
      * File access permissions: "read", "write", or "readwrite". By default, this value is "read".
      */
-    access: string;
+    access: "read" | "write" | "readwrite"; // other values are rejected (verified in Max 9.2.0)
 
     /**
      * The assumed file byteorder (endianness): "big", "little", or "native". By default, this value is "native".
      */
-    byteorder: string;
+    byteorder: "big" | "little" | "native";
 
     /**
      * The location of the end of file, in bytes.
@@ -759,17 +830,17 @@ declare class File {
     /**
      * The absolute path to parent folder.
      */
-    foldername: string;
+    readonly foldername: string; // assigning it crashes Max 9.2.0
 
     /**
      * Return a true/false indicating if the File constructor is successful in finding and opening the file.
      */
-    isopen: boolean;
+    readonly isopen: number; // 0 or 1; assigning it crashes Max 9.2.0
 
     /**
      * The line break convention to use when writing lines: "dos", "mac", "unix", or "native". By default, this value is "native".
      */
-    linebreak: string;
+    linebreak: "dos" | "mac" | "unix" | "native";
 
     /**
      * The current file position, in bytes.
@@ -789,13 +860,14 @@ declare class File {
     /**
      * Closes the currently open file.
      */
-    close(): void; // TODO: Docs say string [symbol] ???
+    close(): void;
 
     /**
      * Writes the characters contained in the string argument as characters to the file, starting at the current file position,
      * and inserts a line break appropriate to the linebreak property. The file position is updated accordingly.
      */
-    writeline(characters: string): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writeline(characters: string): number;
 
     /**
      * Reads and returns a string containing up to maximum_count characters or up to the first line break as read from the file,
@@ -807,7 +879,8 @@ declare class File {
      * Writes the characters contained in the string argument as characters to the file, starting at the current file position.
      * Unlike writeline(), no line break is inserted. The file position is updated accordingly.
      */
-    writestring(characters: string): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writestring(characters: string): number;
 
     /**
      * Reads and returns a string containing up to char_count characters as read from the file, starting at the current file position.
@@ -819,7 +892,8 @@ declare class File {
      * Writes the numbers contained in the byte_array argument as bytes to the file, starting at the current file position.
      * The file position is updated accordingly.
      */
-    writebytes(byte_array: number[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writebytes(byte_array: number[]): number;
 
     /**
      * Reads and returns an array containing up to byte_count numbers, read as bytes from the file, starting at the current file position.
@@ -831,7 +905,8 @@ declare class File {
      * Writes the single character strings contained in the char_array argument as characters to the file, starting at the current file position.
      * The file position is updated accordingly.
      */
-    writechars(char_array: string[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writechars(char_array: string[]): number;
 
     /**
      * Reads and returns an array containing the single character strings, read as characters from the file, starting at the current file position.
@@ -843,7 +918,8 @@ declare class File {
      * Writes the numbers contained in the int16_array argument as signed 16-bit integers to the file, starting at the current file position.
      * The byteorder property is taken into account when writing these values. The file position is updated accordingly.
      */
-    writeint16(int16_array: number[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writeint16(int16_array: number[]): number;
 
     /**
      * Reads and returns an array containing the numbers read as signed 16-bit integers from the file starting at the current file position.
@@ -855,7 +931,8 @@ declare class File {
      * Writes the numbers contained in the int32_array argument as signed 32-bit integers to the file, starting at the current file position.
      * The byteorder property is taken into account when writing these values. The file position is updated accordingly.
      */
-    writeint32(int32_array: number[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writeint32(int32_array: number[]): number;
 
     /**
      * Reads and returns an array containing the numbers read as signed 32-bit integers from the file starting at the current file position.
@@ -867,7 +944,8 @@ declare class File {
      * Writes the numbers contained in the float32_array argument as 32-bit floating point numbers to the file, starting at the current file position.
      * The byteorder property is taken into account when writing these values. The file position is updated accordingly.
      */
-    writefloat32(int32_array: number[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writefloat32(int32_array: number[]): number;
 
     /**
      * Reads and returns an array containing the numbers read as 32-bit floating point numbers from the file starting at the current file position.
@@ -879,7 +957,8 @@ declare class File {
      * Writes the numbers contained in the float64_array argument as 64-bit floating point numbers to the file, starting at the current file position.
      * The byteorder property is taken into account when writing these values. The file position is updated accordingly.
      */
-    writefloat64(int64_array: number[]): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    writefloat64(int64_array: number[]): number;
 
     /**
      * Reads and returns an array containing the numbers read as 64-bit floating point numbers from the file starting at the current file position.
@@ -904,17 +983,17 @@ declare class Folder {
     /**
      * Non-zero (true) if there are no more files to examine in the folder, or if the pathname argument to the Folder object didn’t find a folder.
      */
-    end: boolean;
+    readonly end: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * The total number of files of the specified type(s) contained in the folder.
      */
-    count: number;
+    readonly count: number;
 
     /**
      * The full pathname of the folder
      */
-    pathname: string;
+    readonly pathname: string;
 
     /**
      * The list of file types that will be used to find files in the folder. To search for all files (the default), set the typelist property to an empty array.
@@ -924,7 +1003,7 @@ declare class Folder {
     /**
      * The name of the current file.
      */
-    filename: string;
+    readonly filename: string;
 
     /**
      * An array containing the values year, month, day, hour, minute, and second with the last modified date of the current file.
@@ -935,18 +1014,18 @@ declare class Folder {
     /**
      * The four-character code associated with the current file's filetype. These codes are listed in the file max-fileformats.txt,
      * which is located at /Library/Application Support/Cycling ’74 on Macintosh and C:\Program Files\Common Files\Cycling ’74 on Windows.
-     * If there is no mapping for the file's extension, a nil value is returned.
+     * If there is no mapping for the file's extension, the docs say a nil value is returned; Max 9.2.0 returns "".
      */
-    filetype: string;
+    readonly filetype: string;
 
     /**
-     * The extension of the current file's name, including the period. If there are no characters after the period, a nil value is returned.
+     * The extension of the current file's name, including the period. If there is no extension the docs say a nil value is returned;
+     * Max 9.2.0 returns "" (and "." for a name that ends in a period).
      */
-    extension: string;
+    readonly extension: string;
 
     /**
-     * [reset description]
-     * Documentation is faulty, this has been reported.
+     * Start iterating at the beginning of the list of files. Re-opens the folder if it was previously closed with the close() function.
      */
     reset(): void;
 
@@ -1013,6 +1092,8 @@ declare class LiveAPI {
      * this.patcher property as the first argument. For backward-compatibility, this first argument is still supported, but is no longer necessary.
      */
     constructor(callback?: (...args: any[]) => void, path?: string);
+    /** Legacy form with the jsthis patcher first (still accepted in Max 9.2.0) */
+    constructor(patcher: Patcher, callback?: (...args: any[]) => void, path?: string);
 
     /**
      * Whether the LiveAPI object refers to a valid Live object
@@ -1054,12 +1135,12 @@ declare class LiveAPI {
     /**
      * The type of the object at the current path. Please see the Live API Overview and Live Object Model documents for more information.
      */
-    type: string;
+    readonly type: string;
 
     /**
      * A description of the object at the current path, including id, type, children, properties and functions.
      */
-    info: string;
+    readonly info: string;
 
     /**
      * The observed property, child or child-list of the object at the current path, if desired. For instance, if the LiveAPI object refers to "live_set tracks 1", setting the property to "mute" would
@@ -1070,12 +1151,12 @@ declare class LiveAPI {
     /**
      * The type of the currently observed property or child. The types of the properties and children are given in the Live Object Model.
      */
-    proptype: string;
+    readonly proptype: string;
 
     /**
-     * The patcher of the LiveAPI object, as passed into the Constructor.
+     * The patcher of the LiveAPI object (the containing patcher when the legacy patcher argument is omitted).
      */
-    patcher: any;
+    patcher: Patcher;
 
     /**
      * The count of children of the object at the current path, as specified by the child argument.
@@ -1112,7 +1193,7 @@ declare class LiveAPI {
  * The Max object can be accessed as a property of a jsthis object. Any message you can send to the max object using the semicolon notation in a message box can be invoked within Javascript using
  * Javascript syntax. http://max-javascript-reference.tim-schenk.de/symbols/max.html
  */
-declare class Max {
+interface Max {
     /**
      * The pathname of the Max application
      */
@@ -1134,9 +1215,9 @@ declare class Max {
     readonly ctrlkeydown: number;
 
     /**
-     * The Patcher object of the frontmost patcher window, or a nil value if no patcher window is visible.
+     * The Patcher object of the frontmost patcher window, or null if no patcher window is visible (null during loadbang in Max 9.2.0).
      */
-    readonly frontpatcher: Patcher;
+    readonly frontpatcher: Patcher | null;
 
     /**
      * 1 if the js object is within a plug-in; note that this would be 1 if the js object was within a plug-in loaded into the vst~ object in Max.
@@ -1230,6 +1311,7 @@ declare class Max {
     /**
      * The word getcolor followed by string color name returns a Color type.
      */
+    /** In Max 9.2.0 every name tried, including "bgcolor" and a nonexistent one, returned an array of 4 uninitialized numbers (verified); treat as unusable */
     getcolor(name: string): Color;
 
     /**
@@ -1421,7 +1503,8 @@ declare class Max {
      * is refreshed is unrelated to the rate at which you change its contents. Better visual performance can be achieved - at the cost of a slight performance decrease in Jitter, and little or no
      * performance decrease for audio processing - by specifying a higher frame rate. When enabled using the enablerefresh 1 message, the default rate is 28.57 FPS. Refresh enable is off by default.
      */
-    refreshrate(fps: number): void;
+    /** A number property in Max 9.2.0, not a method (verified): read it to get the value, assign to set it. */
+    refreshrate: number;
 
     /**
      * The word runtime, followed by a zero or one and a message, executes the message if the current version of Max is a runtime version (1) or non-runtime (0).
@@ -1447,31 +1530,36 @@ declare class Max {
      * The word seteventinterval, followed by an integer value, sets the time between invocations of the event-level timer (The default value is 2 milliseconds). The event-level timer handles low
      * priority tasks like drawing user interface updates and playing movies.
      */
-    seteventinterval(interval: number): void;
+    /** A number property in Max 9.2.0, not a method (verified): read it to get the value, assign to set it. */
+    seteventinterval: number;
 
     /**
      * The word setpollthrottle, followed by an integer, sets the maximum number of events the scheduler executes each time it is called (The default value is 20). Setting this value lower may
      * decrease accuracy of timing at the expense of efficiency.
      */
-    setpollthrottle(event_count: number): void;
+    /** A number property in Max 9.2.0, not a method (verified): read it to get the value, assign to set it. */
+    setpollthrottle: number;
 
     /**
      * The word setqueuethrottle, followed by an integer value, sets the maximum number of events handled at low-priority each time the low-priority queue handler is called (The default value is 2).
      * Changing this value may affect the responsiveness of the user interface.
      */
-    setqueuethrottle(event_count: number): void;
+    /** A number property in Max 9.2.0, not a method (verified): read it to get the value, assign to set it. */
+    setqueuethrottle: number;
 
     /**
      * The word setslop, followed by a floating-point value, sets the scheduler slop value - the amount of time a scheduled event can be earlier than the current time before the time of the event is
      * adjusted to match the current time. The default value is 25 milliseconds.
      */
-    setslop(slop_value: number): void;
+    /** A number property in Max 9.2.0, not a method (verified): read it to get the value, assign to set it. */
+    setslop: number;
 
     /**
      * The word setsysqelemthrottle, followed by a number, sets the maximum number of patcher UI update events to process at a time. Lower values can lead to more processing power available to other
      * low-priority Max processes, and higher values make the user interface more responsive (especially when using many bpatchers).
      */
-    setsysqelemthrottle(event_count: number): void;
+    /** A number property in Max 9.2.0, not a method (verified): read it to get the value, assign to set it. */
+    setsysqelemthrottle: number;
 
     /**
      * Shows the cursor if it is hidden.
@@ -1502,7 +1590,7 @@ declare class Max {
     useslowbutcompletesearching(enable: 0 | 1): void;
 }
 
-declare class MaxobjConnection {
+interface MaxobjConnection {
     readonly srcobject: Maxobj;
     readonly dstobject: Maxobj;
     readonly srcoutlet: number;
@@ -1514,8 +1602,9 @@ declare class MaxobjConnection {
  * a Maxobj is that it could eventually refer to an object that no longer exists if the underlying Max object is freed. The valid property can be used to test for this condition.
  * @see https://docs.cycling74.com/apiref/js/maxobj/
  */
-declare class Maxobj {
-    protected constructor();
+interface Maxobj {
+    // Not a constructor at runtime: `typeof Maxobj` is undefined in Max 9.2.0 (verified), so `instanceof Maxobj` would throw.
+    // Instances come from Patcher (getnamed, newdefault, firstobject, ...) and from `box`.
 
     /**
      * The location of an object in a patcher. When the object's rectangle is changed, it will move on screen if it is visible. The coordinates are stored in the following order: left, top, right,
@@ -1526,7 +1615,7 @@ declare class Maxobj {
     /**
      * The Max class (as opposed to the Javascript class, which is "Maxobj" and accessed via the standard class property) of the object.
      */
-    maxclass: string;
+    readonly maxclass: string;
 
     /**
      * The Patcher object that contains the Maxobj
@@ -1536,12 +1625,14 @@ declare class Maxobj {
     /**
      * Is the object set to be hidden in a locked patcher
      */
-    hidden: boolean;
+    get hidden(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set hidden(value: number | boolean);
 
     /**
-     * If the object is set to use one of the standard 16 colors, this property is the index of the color
+     * If the object is set to use one of the standard 16 colors, this property is the index of the color.
+     * @deprecated The 16-color palette is a legacy feature; use the object's color attribute instead. Returns undefined in Max 9.2.0.
      */
-    colorindex: number;
+    readonly colorindex: number | undefined;
 
     /**
      * If there is another object after this one in the Patcher's list of objects, this property returns it, otherwise it returns a nil value
@@ -1556,22 +1647,25 @@ declare class Maxobj {
     /**
      * Whether the object can be selected for text entry (a number box would be an example of an object whose canhilite property returns true)
      */
-    canhilite: boolean;
+    readonly canhilite: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * Whether the object is in the Patcher's background layer
      */
-    background: boolean;
+    get background(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set background(value: number | boolean);
 
     /**
      * Whether the object ignores clicks
      */
-    ignoreclick: boolean;
+    get ignoreclick(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set ignoreclick(value: number | boolean);
 
     /**
      * Whether the object is selected in an unlocked patcher window.
      */
-    selected: boolean;
+    get selected(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set selected(value: number | boolean);
 
     /**
      * The text contained in the object box, if present (v8 only)
@@ -1585,12 +1679,12 @@ declare class Maxobj {
      * These have the properties 'srcobject', 'dstobject', 'srcoutlet' and 'dstinlet'
      * which can be used to walk the graph from JS.
      */
-    patchcords: { inputs: MaxobjConnection[]; outputs: MaxobjConnection[] };
+    readonly patchcords: { inputs: MaxobjConnection[]; outputs: MaxobjConnection[] };
 
     /**
      * Returns whether the Maxobj refers to a valid Max object
      */
-    valid: boolean;
+    readonly valid: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * Sends the object the message specified by the string, followed by any additional arguments provided. This is useful for sending messages to object which dynamically dispatch messages with the
@@ -1608,14 +1702,15 @@ declare class Maxobj {
      * The optional index is used for specifying an instance number, which only applies to poly~ objects.
      * If the object does not contain a subpatcher, a nil value is returned.
      */
-    subpatcher(index?: number): Patcher | undefined;
+    /** null when the box is not a patcher (verified in Max 9.2.0 on a toggle) */
+    subpatcher(index?: number): Patcher | null;
 
     /**
      * Returns a Boolean value if the object has an entry in its message list for the message specified by the string. If the entry is not a message that can be sent by a user within Max (i.e., it's a
      * C-level “untyped” message), false is returned. This doesn’t work for messages which are dynamically dispatched with the “anything” message, as is the case for instances of js, jsui, lcd, and
      * others.
      */
-    understands(message: string): boolean;
+    understands(message: string): number; // non-zero when understood (verified in Max 9.2.0)
 
     /**
      * Returns an Array value containing the current value(s) of the (UI) object.
@@ -1631,12 +1726,12 @@ declare class Maxobj {
     /**
      * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
      */
-    getattr(attrname: string): number | number[] | string;
+    getattr(attrname: string): number | number[] | string | null; // null when the attribute does not exist (verified in Max 9.2.0)
 
     /**
      * Gets the value of an attribute's attribute (v8 only)
      */
-    getattrattr(attrname: string, attrAttrName: string): number | number[] | string;
+    getattrattr(attrname: string, attrAttrName: string): number | number[] | string | null; // null when the attribute does not exist (verified in Max 9.2.0)
 
     /**
      * Sets the value of the attribute specified by attribute_name.
@@ -1662,7 +1757,7 @@ declare class Maxobj {
     /**
      * Get the value of the object's box attribute's attribute (v8 only)
      */
-    getboxattrattr(attrName: string, attrAttrName: string): number | number[] | string;
+    getboxattrattr(attrName: string, attrAttrName: string): number | number[] | string | null; // null when the attribute does not exist (verified in Max 9.2.0)
 
     /**
      * Get the attribute name corresponding to a style mapping name
@@ -1681,8 +1776,9 @@ declare class Maxobj {
 
     /**
      * Set the value of the object, if supported
+     * Returns a status code in Max 9.2.0: -2 when called with no arguments; other values are undocumented (verified).
      */
-    setvalueof(...args: any[]): void;
+    setvalueof(...args: any[]): number;
 }
 
 /**
@@ -1704,7 +1800,7 @@ declare class MaxobjListener {
     /**
      * The Maxobj to observe.
      */
-    maxobject: Maxobj;
+    readonly maxobject: Maxobj;
 
     /**
      * An attribute to observe for changes, if desired.
@@ -1738,7 +1834,7 @@ declare class MaxobjListener {
 /**
  * The MaxobjListenerData object is the argument to your MaxobjListener's function
  */
-declare class MaxobjListenerData<Tvalue = number | number[] | string> {
+interface MaxobjListenerData<Tvalue = number | number[] | string> {
     /**
      * The MaxobjListener which called the function.
      */
@@ -1776,24 +1872,24 @@ declare class Patcher {
     constructor(left: number, top: number, bottom: number, right: number);
 
     /**
-     * If the patcher is a subpatcher, the box property returns the Maxobj that contains it.
+     * If the patcher is a subpatcher, the box property returns the Maxobj that contains it; null for a top-level patcher.
      */
-    box: Maxobj;
+    readonly box: Maxobj | null;
 
     /**
      * Number of objects in the patcher
      */
-    count: number;
+    readonly count: number;
 
     /**
      * The patcher’s file path on disk
      */
-    filepath: string;
+    readonly filepath: string;
 
     /**
      * If the patcher contains objects, this is the first one in its list. You can iterate through all objects in a patcher using the nextobject property of a Maxobj.
      */
-    firstobject: Maxobj;
+    readonly firstobject: Maxobj | null;
 
     /**
      * The patcher's name (its window title, without any brackets that appear for subpatchers)
@@ -1803,39 +1899,63 @@ declare class Patcher {
     /**
      * The patcher's locked state. This property is read-only in the runtime version of Max.
      */
-    locked: boolean;
+    get locked(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set locked(value: number | boolean);
 
     /**
-     * Returns "patcher"
+     * Returns "jpatcher" in Max 9.2.0 (the docs say "patcher")
      */
-    maxclass: string;
+    readonly maxclass: string;
 
     /**
-     * Returns the Max class name of the parent object if this is a subpatcher, or a nil value if this is a top-level patcher.
+     * Returns the Max class name of the parent object if this is a subpatcher, or "" if this is a top-level patcher (the docs say nil).
      */
-    parentclass: string;
+    readonly parentclass: string;
 
     /**
-     * If the patcher is a subpatcher, this returns the parent patcher. Otherwise it returns a nil value.
+     * If the patcher is a subpatcher, this returns the parent patcher. Otherwise it returns null.
      */
-    parentpatcher: Patcher;
+    readonly parentpatcher: Patcher | null;
 
     /**
      * A Javascript representation of the window associated with the patcher. For more information, see the Wind Object.
      */
-    wind: Wind;
+    readonly wind: Wind;
+
+    // Style colours of the patcher (documented as read-only; present in Max 9.2.0)
+    readonly accentcolor: Color;
+    readonly bgcolor: Color;
+    readonly bgfillcolor: Dict;
+    readonly bubble_bgcolor: Color;
+    readonly bubble_outlinecolor: Color;
+    readonly clearcolor: Color;
+    readonly color: Color;
+    readonly darkcolor: Color;
+    readonly editing_bgcolor: Color;
+    readonly elementcolor: Color;
+    readonly lightcolor: Color;
+    readonly locked_bgcolor: Color;
+    readonly patchlinecolor: Color;
+    readonly selectioncolor: Color;
+    readonly stripecolor: Color;
+    readonly syntax_attrargcolor: Color;
+    readonly syntax_attributecolor: Color;
+    readonly syntax_objargcolor: Color;
+    readonly syntax_objectcolor: Color;
+    readonly textcolor: Color;
+    readonly textcolor_inverse: Color;
 
     /**
      * Returns the value of the attribute specified by attribute_name. Lists are returned as JS Array objects.
      * C74 docs say that this is a string[] but that is definitely incorrect!
      */
-    getattr(attrname: string): number | number[] | string;
+    getattr(attrname: string): number | number[] | string | null; // null when the attribute does not exist (verified in Max 9.2.0)
 
     /**
      * Get the value of a specified patcher attribute's attribute
      * V8 ONLY!
      */
-    getattrattr(attrname: string, attrAttrName: string): number | number[] | string;
+    getattrattr(attrname: string, attrAttrName: string): number | number[] | string | null; // null when the attribute does not exist (verified in Max 9.2.0)
 
     /**
      * Sets the value of the attribute specified by attribute_name.
@@ -1864,51 +1984,51 @@ declare class Patcher {
     /**
      * Connects two objects (of type Maxobj) in a patcher. Indices for the outlet and inlet arguments start at 0 for the leftmost inlet or outlet.
      */
-    connect(from_object: any, outlet: number, to_object: any, inlet: number): void;
+    connect(from_object: Maxobj, outlet: number, to_object: Maxobj, inlet: number): void;
 
     /**
      * Connects two objects (of type Maxobj) in a patcher with a hidden patch cord. Arguments are the same as for the connect message above.
      */
-    hiddenconnect(from_object: any, outlet: number, to_object: any, inlet: number): void;
+    hiddenconnect(from_object: Maxobj, outlet: number, to_object: Maxobj, inlet: number): void;
 
     /**
      * Disconnects an existing connection between two objects (of type Maxobj) in a patcher. Indices for the outlet and inlet arguments start at 0 for the leftmost inlet or outlet.
      */
-    disconnect(from_object: any, outlet: number, to_object: any, inlet: number): void;
+    disconnect(from_object: Maxobj, outlet: number, to_object: Maxobj, inlet: number): void;
 
     /**
      * For all objects in a patcher, calls the function with the each object's Maxobj as an argument. Does not recurse into subpatchers.
      */
-    apply(func: any): void;
+    apply(func: (obj: Maxobj) => void): void;
 
     /**
      * For all objects in a patcher, calls the function with the each object's Maxobj as an argument.
      * Same as apply() except that applydeep() recurses into subpatchers (depth first).
      */
-    applydeep(func: any): void;
+    applydeep(func: (obj: Maxobj) => void): void;
 
     /**
      * For all objects in a patcher, run the test_function for each object's Maxobj as an argument. If the test_function returns true, the action_function is executed with the Maxobj as an argument.
      * Does not recurse into subpatchers.
      */
-    applyif(action_function: any, test_function: any): void;
+    applyif(action_function: (obj: Maxobj) => void, test_function: (obj: Maxobj) => boolean | number): void;
 
     /**
      * For all objects in a patcher, run the test_function for each object's Maxobj as an argument. If the test_function returns true, the action_function is executed with the Maxobj as an argument.
      * Same as applyif() except that applydeepif() recurses into subpatchers
      */
-    applydeepif(action_function: any, test_function: any): void;
+    applydeepif(action_function: (obj: Maxobj) => void, test_function: (obj: Maxobj) => boolean | number): void;
 
     /**
      * Removes the object (a Maxobj passed as an argument) from a patcher
      */
-    remove(obj: any): void;
+    remove(obj: Maxobj): void;
 
     /**
      * Returns the first object found in a patcher with the given name. The name is a local name as specified by the Name... dialog in a patcher, not the name of a send or receive object. You can also
      * set an object's name using the varname property of a Maxobj.
      */
-    getnamed(name: string): Maxobj;
+    getnamed(name: string): Maxobj | null;
 
     /**
      * Collect all objects in a patcher which, when passed to a test function, cause that function to return true.
@@ -1929,12 +2049,12 @@ declare class Patcher {
     /**
      * Moves the object to the front of the current layer to which it is assigned (either background or foreground). You can change the layer by setting the background property of a Maxobj.
      */
-    bringtofront(obj: any): void;
+    bringtofront(obj: Maxobj): void;
 
     /**
      * Moves the object to the back of the current layer to which it is assigned (either background or foreground). You can change the layer by setting the background property of a Maxobj.
      */
-    sendtoback(obj: any): void;
+    sendtoback(obj: Maxobj): void;
 
     // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
     // funtest
@@ -1990,9 +2110,10 @@ declare class PolyBuffer {
     clear(): void;
 
     /**
-     * Get info about a `polybuffer~`: an array containing the index, name, path, duration, channel, and sample rate of `buffer~`s in the `polybuffer~`
+     * Get info about a `polybuffer~`: a flat array with six entries per `buffer~` (index, name, path, duration, channels, sample rate);
+     * the path is the string "(undefined)" for an empty buffer (verified in Max 9.2.0)
      */
-    dump(): [number, string, string, number, number, number];
+    dump(): Array<number | string>;
 
     /**
      * Get the names of `buffer~`s in the `polybuffer~`
@@ -2070,9 +2191,9 @@ declare class Task<A extends any[] = any[]> {
     constructor(fn: (args?: A) => any, obj?: object, args?: A);
 
     /**
-     * The arguments passed to the task's executing function
+     * The arguments passed to the task's executing function; undefined when the Task was created without args (verified in Max 9.2.0)
      */
-    arguments: A;
+    arguments: A | undefined;
 
     /**
      * The function executed in the Task. You can change this within the task function itself.
@@ -2093,17 +2214,17 @@ declare class Task<A extends any[] = any[]> {
     /**
      * The object assigned to be the `this` in the task function. Most often this will be your `jsthis` object, so you can, for example, access the `outlet()` method.
      */
-    object: any;
+    object: object;
 
     /**
      * Whether the Task is running or not. Within a function executing within a task, this will always be true.
      */
-    readonly running: boolean;
+    readonly running: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * Whether the Task object has been invalidated and is awaiting garbage collection. An invalid object will no longer respond to the execute() or schedule() methods.
      */
-    readonly valid: boolean;
+    readonly valid: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * If a task is scheduled or repeating, cancel any future executions. This method can be used within a task function for a self-cancelling Task.
@@ -2140,62 +2261,67 @@ declare class Task<A extends any[] = any[]> {
  * The Wind object is a property of a Patcher that represents its window. You cannot create a new Wind or access other types of windows such as that of a Max table object.
  * https://docs.cycling74.com/max8/vignettes/jswindobj
  */
-declare class Wind {
+interface Wind {
+    // Not a constructor at runtime: `typeof Wind` is undefined in Max 9.2.0 (verified). Instances come from Patcher.wind and Wind.next.
     /**
      * The Patcher object associated with the window.
      */
-    assoc: Patcher;
+    readonly assoc: Patcher;
 
     /**
      * The Max class of the object associated with the window.
      */
-    assocclass: string;
+    readonly assocclass: string;
 
     /**
      * Has the window’s contents been modified? This property is read-only in the runtime version of Max.
      */
-    dirty: boolean;
+    get dirty(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set dirty(value: number | boolean);
 
     /**
      * Does the window have a grow area?
      */
-    hasgrow: boolean;
+    get hasgrow(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set hasgrow(value: number | boolean);
 
     /**
      * Does the window have a horizontal scroll bar?
      */
-    hashorizscroll: boolean;
+    readonly hashorizscroll: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * Does the window have a vertical scroll bar?
      */
-    hasvertscroll: boolean;
+    readonly hasvertscroll: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * Does the window have a zoom box?
      */
-    haszoom: boolean;
+    get haszoom(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set haszoom(value: number | boolean);
 
     /**
      * Does the window have a window title bar?
      */
-    hastitlebar: boolean;
+    get hastitlebar(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set hastitlebar(value: number | boolean);
 
     /**
      * An array of four coordinates (left, top, right, bottom) representing the window’s location in global coordinates.
      */
-    location: number[];
+    location: [number, number, number, number];
 
     /**
      * The Wind object of the next patcher visible in the application’s list of windows The first Wind object can be accessed using the frontpatcher property of the Max object (as
-     * max.frontpatcher.wind).
+     * max.frontpatcher.wind). Null for the last window (verified in Max 9.2.0).
      */
-    next: Wind;
+    readonly next: Wind | null;
 
     /**
      * An array of two coordinates (width, height) representing the window’s size.
      */
-    size: number[];
+    size: [number, number];
 
     /**
      * The window’s title.
@@ -2205,7 +2331,8 @@ declare class Wind {
     /**
      * Can you see the window?
      */
-    visible: boolean;
+    get visible(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set visible(value: number | boolean);
 
     /**
      * Move the window in front of all other windows.
@@ -2223,14 +2350,16 @@ declare class Wind {
     sendtoback(): void;
 
     /**
-     * Set the global location of the window according to the coordinates passed in as arguments.
+     * Set the global location of the window according to the coordinates passed in as arguments. The docs list the order as
+     * left, top, bottom, right, but Max 9.2.0 takes left, top, right, bottom (the same order as the location property).
      */
-    setlocation(left: number, top: number, bottom: number, right: number): void;
+    setlocation(left: number, top: number, right: number, bottom: number): void;
 
     /**
      * Whether the window has a close button
      */
-    hasclose: boolean;
+    get hasclose(): number; // 0 or 1 at runtime (verified in Max 9.2.0); assigning a boolean is coerced
+    set hasclose(value: number | boolean);
 }
 
 /**
@@ -2246,12 +2375,14 @@ declare class SQLite {
     /**
      * Close a previously opened SQLite database
      */
-    close(): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    close(): number;
 
     /**
      * Complete a transaction and flush all database writes to the file
      */
-    endtransaction(): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    endtransaction(): number;
 
     /**
      * Perform an SQL command on the database. This command must be in standard SQL language syntax, limited to the operations that SQLite supports.
@@ -2259,6 +2390,7 @@ declare class SQLite {
      * @param result SQLResult object to populate with transaction results
      * @returns an error code if unsuccessful or zero if the call results in a completed operation
      */
+    /** Returns 0 on success and 1 on an SQL error (verified in Max 9.2.0) */
     exec(command: string, result: SQLResult): number;
 
     /**
@@ -2274,13 +2406,15 @@ declare class SQLite {
      * @param must_exist If non-zero, requires the file to exist to be opened, otherwise, a file will be created if one does not exist.
      * @returns an error code if unsuccessful or zero if the call results in an opened database
      */
+    /** Returns 0 on success; -2 when must_exist is set and the file is missing (verified in Max 9.2.0) */
     open(filename: string, on_disk?: number, must_exist?: number): number;
 
     /**
      * Start an SQL transaction on the database. This allows you to batch database updates and to roll back sets of changes if they do not all complete. When you are done with batch updates, a call
      * to SQLite.endtransaction() should be executed.
      */
-    starttransaction(): void;
+    /** Returns a status code: 0 on every successful call observed in Max 9.2.0; other values are undocumented (verified) */
+    starttransaction(): number;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2299,6 +2433,7 @@ declare class SQLResult {
     /**
      * Get the fieldname of a column at a given index
      */
+    /** "" when the index is out of range (verified in Max 9.2.0) */
     fieldname(index: number): string;
 
     /**
@@ -2314,7 +2449,8 @@ declare class SQLResult {
     /**
      * Get the value of a record at a column index and record number
      */
-    value(index: number, record_no: number): number | string;
+    /** Always a string in Max 9.2.0, numbers included (verified: an INTEGER column reads back as "1"); "" when out of range. */
+    value(index: number, record_no: number): string;
 }
 
 /*
@@ -2366,14 +2502,14 @@ declare class MGraphics {
     redraw(): void;
 
     /**
-     * Returns a copy of the current path to be stored and reused at a later time.
+     * Returns a copy of the current path to be stored and reused at a later time (verified in Max 9.2.0: an MGraphicsPath object).
      */
-    copy_path(): void;
+    copy_path(): MGraphicsPathHandle;
 
     /**
      * Appends a stored path to the current path at the current end point.
      */
-    append_path(path: any): void;
+    append_path(path: MGraphicsPathHandle): void;
 
     /**
      * Create a line that connects the current path point to the origin of the path, thereby closing the path into a fill-able shape.
@@ -2388,7 +2524,7 @@ declare class MGraphics {
     /**
      * Returns an array with the current X and Y coordinates of the path ending position.
      */
-    get_current_point(): number[];
+    get_current_point(): [number, number];
 
     /**
      * Add a circular, clockwise, arc to the current path.
@@ -2531,7 +2667,7 @@ declare class MGraphics {
     /**
      * Returns an array with three values: ascent, descent and height.
      */
-    font_extents(): number[];
+    font_extents(): [number, number, number];
 
     /**
      * Returns an array with two values: width and height. This is the measurement of the provided text using the current font and size.
@@ -2586,16 +2722,18 @@ declare class MGraphics {
      * location offset.
      */
     transform(xx: number, xy: number, yx: number, yy: number, x0: number, y0: number): void;
+    transform(matrix: Matrix2D): void;
 
     /**
      * Directly set the tranform matrix for the current drawing context.
      */
     set_matrix(xx: number, xy: number, yx: number, yy: number, x0: number, y0: number): void;
+    set_matrix(matrix: Matrix2D): void;
 
     /**
-     * Retrieve the current transform matrix for the current drawing context.
+     * Retrieve the current transform matrix for the current drawing context (six numbers; the docs call it an opaque handle).
      */
-    get_matrix(): number[];
+    get_matrix(): Matrix2D;
 
     /**
      * Revert the transform matrix to default (normal) values.
@@ -2605,12 +2743,12 @@ declare class MGraphics {
     /**
      * Given a user location (such as from get_current_point()), returns the device location. This helps find one’s position even with transform matrices in place.
      */
-    user_to_device(pos: number[]): number[];
+    user_to_device(pos: [number, number]): [number, number];
 
     /**
      * Given a device position, returns the user space location. This will determine a location despite user space deformation (using matrix transforms).
      */
-    device_to_user(pos: number[]): number[];
+    device_to_user(pos: [number, number]): [number, number];
 
     /**
      * Save the current Mgraphics state for later restoration. This is particularly useful when doing multiple transformations or matrix manipulation of the user space.
@@ -2641,13 +2779,13 @@ declare class MGraphics {
      * Set the color and alpha channels to be used for drawing routines.
      */
     // tslint:disable-next-line: unified-signatures
-    set_source_rgba(rgba: number[]): void;
+    set_source_rgba(rgba: Color): void; // a 3-element array paints black (verified in Max 9.2.0); use the (rgb, alpha) form instead
 
     /**
      * Set the color and alpha channels to be used for drawing routines.
      */
     // tslint:disable-next-line: unified-signatures
-    set_source_rgba(rgb: number[], alpha: number): void;
+    set_source_rgba(rgb: [number, number, number], alpha: number): void;
 
     /**
      * Set the color and alpha channels to be used for drawing routines.
@@ -2657,7 +2795,7 @@ declare class MGraphics {
     /**
      * Set the color channels to be used for drawing routines. Since the alpha channel is not provide, it is defaulted to completely opaque.
      */
-    set_source_rgb(rgb: number[]): void;
+    set_source_rgb(rgb: [number, number, number]): void;
 
     /**
      * Set the color channels to be used for drawing routines. Since the alpha channel is not provide, it is defaulted to completely opaque.
@@ -2683,12 +2821,14 @@ declare class MGraphics {
      * apply this transform to an actual color.
      */
     scale_source_rgba(red: number, green: number, blue: number, alpha: number): void;
+    scale_source_rgba(colors: Color): void;
 
     /**
      * Create a transform for the color and alpha channels by absolute delta amounts to determine a color offset (either positive or negative). Note: One of the set_source_* routines must be called to
      * apply this transform to an actual color.
      */
     translate_source_rgba(red: number, green: number, blue: number, alpha: number): void;
+    translate_source_rgba(colors: Color): void;
 
     /**
      * Set the appearance of the end-point of a drawn line. The options are butt, round, or square.
@@ -2744,13 +2884,13 @@ declare class MGraphics {
      * Place an image (typically stored as an Image object) into the current surface. The drawing is placed at the top-left of the drawing context, changeable using a transform matrix or translate
      * function. You can also choose the section of the image to draw using four optional arguments that describe a rectangle taken from the image.
      */
-    // image_surface_draw(myImage: Image): void;
+    image_surface_draw(image: Image, source_rect?: Rect): void;
     image_surface_draw(
-        myImage: Image,
-        source_top?: number,
-        source_left?: number,
-        source_width?: number,
-        source_height?: number,
+        image: Image,
+        source_x: number,
+        source_y: number,
+        source_width: number,
+        source_height: number,
     ): void;
 
     /**
@@ -2768,7 +2908,8 @@ declare class MGraphics {
     /**
      * Given a fillable path, determine if a point is within the fill zone. Returns 0 (false) or 1 (true).
      */
-    in_fill(...args: any[]): number;
+    in_fill(position: [number, number]): 0 | 1;
+    in_fill(x: number, y: number): 0 | 1;
 
     /**
      * Determine the enclosing rectangle for the current fill area. Returns an array that contains the top/left and bottom/right points of the fill area.
@@ -2845,7 +2986,8 @@ declare class MGraphics {
  * No Constructor. Object created by different MGraphics functions.
  * http://max-javascript-reference.tim-schenk.de/symbols/Pattern.html
  */
-declare class Pattern {
+interface Pattern {
+    // Not a constructor at runtime: `typeof Pattern` is undefined in Max 9.2.0 (verified). Instances come from MGraphics.pattern_create_*().
     /**
      * A function called on a previously created pattern, the add_color_stop_rgba will define a color value for one of the influence points of the pattern.
      */
@@ -2853,13 +2995,14 @@ declare class Pattern {
 
     /**
      * Returns the extend value of the pattern.
+     * @deprecated The docs say extend is not implemented; in Max 9.2.0 the value round-trips but has no effect on drawing.
      */
-    get_extend(): string;
+    get_extend(): "none" | "reflect" | "repeat" | "pad";
 
     /**
      * Returns the current transform matrix for the pattern
      */
-    get_matrix(): number[];
+    get_matrix(): Matrix2D;
 
     /**
      * Returns the type of pattern that was created. The reference documents 0-3, but Max 9.2 returns these names.
@@ -2883,11 +3026,12 @@ declare class Pattern {
 
     /**
      * Determines how the pattern will be created when there is more space than available information.
+     * @deprecated The docs say extend is not implemented; in Max 9.2.0 the value round-trips but has no effect on drawing.
      */
-    set_extend(extend_type: string): void;
+    set_extend(extend_type: "none" | "reflect" | "repeat" | "pad"): void;
 
     /**
-     * set_matrix(xx, xy, yx, yy, x0, y0)
+     * Set the transform matrix for the pattern
      */
     set_matrix(xx: number, xy: number, yx: number, yy: number, x0: number, y0: number): void;
 
@@ -2909,9 +3053,11 @@ declare class Sketch {
     constructor();
 
     /**
-     * create a new instance of sketch with specified width and height
+     * create a new instance of sketch with specified width and height (height is optional: verified in Max 9.2.0).
+     * Note: in Max 9.2.0 a GL call on an offscreen Sketch crashes Max unless something in the session has already created a
+     * Jitter GL context (a jit.world, or a v8ui that has drawn into its `sketch`); the global `sketch` is always safe.
      */
-    constructor(width: number, height: number);
+    constructor(width: number, height?: number);
 
     /**
      * Moves the drawing position to the location specified by the sum of the current drawing position and the delta x, y, and z arguments.
@@ -3022,58 +3168,64 @@ declare class Sketch {
      * Draws a filled circle with radius specified by the radius argument. If theta_start and theta_end are specified, then an arc will be drawn instead of a full circle. The theta_start and theta_end
      * arguments are in terms of degrees(0-360). The current shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    circle(radius: number, theta_start: number, theta_end: number): void;
+    circle(radius: number, theta_start?: number, theta_end?: number): void;
 
     /**
      * Draws a cube with width 2*scale_x, height 2*scale_y, depth 2*scale_z, and center point at the current drawing position. If the scale_y and scale_z arguments are not specified, they will assume
      * the same value as scale_x. The current shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    cube(scale_x: number, scale_y: number, scale_z?: number): void;
+    cube(scale_x: number, scale_y?: number, scale_z?: number): void;
 
     /**
      * Draws a cylinder with top radius specified by the radius1 argument, bottom radius specified by the radius2 argument, length specified by the mag argument, and center point at the current
      * drawing position. If the theta_start and theta_end arguments are specified, then a patch will be drawn instead of a full cylinder. The theta_start and theta_end arguments are in terms of
      * degrees(0-360). The current shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    cylinder(radius1: number, radius2: number, mag: number, theta_start: number, theta_end: number): void;
+    cylinder(radius1: number, radius2: number, mag: number, theta_start?: number, theta_end?: number): void;
 
     /**
      * Draws a filled ellipse with radii specified by the radius1 and radius2 arguments. If theta_start and theta_end are specified, then an arc will be drawn instead of a full ellipse. The
      * theta_start and theta_end arguments are in terms of degrees(0-360). The current shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    ellipse(radius1: number, radius2: number, theta_start: number, theta_end: number): void;
+    ellipse(radius1: number, radius2: number, theta_start?: number, theta_end?: number): void;
 
     /**
      * Draws a framed circle with radius specified by the radius argument. If theta_start and theta_end are specified, then an arc will be drawn instead of a full circle. The theta_start and theta_end
      * arguments are in terms of degrees(0-360). The current shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    framecircle(radius: number, theta_start: number, theta_end: number): void;
+    framecircle(radius: number, theta_start?: number, theta_end?: number): void;
 
     /**
      * Draws a framed ellipse with radii specified by the radius1 and radius2 arguments. If theta_start and theta_end are specified, then an arc will be drawn instead of a full ellipse. The
      * theta_start and theta_end arguments are in terms of degrees(0-360). The current shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    frameellipse(radius1: number, radius2: number, theta_start: number, theta_end: number): void;
+    frameellipse(radius1: number, radius2: number, theta_start?: number, theta_end?: number): void;
 
     /**
      * Draws a plane with top width 2*scale_x1, left height 2*scale_y1, bottom width 2*scale_x2, right height 2*scale_y2, and center point at the current drawing position. If scale_y1 is not
      * specified, it will assume the same value as scale_x1. If scale_x2 and scale_y2 are not specified, they will assume the same values as scale_x1 and scale_y1 respectively. The current
      * shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    plane(scale_x1: number, scale_y1: number, scale_x2: number, scale_y2: number): void;
+    plane(scale_x1: number, scale_y1?: number, scale_x2?: number, scale_y2?: number): void;
 
     /**
      * Draws a rounded plane with width 2*scale_x, and height 2*scale_y and center point at the current drawing position. The size of the rounded portion of the plane is determined by the round_amount
      * argument. If scale_y is not specified, it will assume the same value as scale_x. The current shapeorient, shapeslice, and shapeprim values will also affect the drawing.
      */
-    roundedplane(round_amount: number, scale_x: number, scale_y: number): void;
+    roundedplane(round_amount: number, scale_x: number, scale_y?: number): void;
 
     /**
      * Draws a sphere with radius specified by the radius argument and center point at the current drawing position. If the theta1_start, theta1_end, theta2_start, and theta2_end arguments are
      * specified, then a patch will be drawn instead of a full sphere. The theta1_start, theta1_end, theta2_start, and theta2_end arguments are in terms of degrees(0-360). The current shapeorient,
      * shapeslice, and shapeprim values will also affect the drawing.
      */
-    sphere(radius: number, theta1_start: number, theta1_end: number, theta2_start: number, theta2_end: number): void;
+    sphere(
+        radius: number,
+        theta1_start?: number,
+        theta1_end?: number,
+        theta2_start?: number,
+        theta2_end?: number,
+    ): void;
 
     /**
      * Draws a torus with major radius specified by the radius1 argument, minor radius specified by the radius2 argument, and center point at the current drawing position. If theta1_start, theta1_end,
@@ -3083,10 +3235,10 @@ declare class Sketch {
     torus(
         radius1: number,
         radius2: number,
-        theta1_start: number,
-        theta1_end: number,
-        theta2_start: number,
-        theta2_end: number,
+        theta1_start?: number,
+        theta1_end?: number,
+        theta2_start?: number,
+        theta2_end?: number,
     ): void;
 
     /**
@@ -3105,7 +3257,7 @@ declare class Sketch {
      * Sets the OpenGL drawing primitive to use within any of the "shape" drawing methods. Acceptable values for the draw_prim argument are the following strings: lines, line_loop, line_strip, points,
      * polygon, quads, quad_grid, quad_strip, triangles, tri_grid, tri_fan, tri_strip.
      */
-    shapeprim(draw_prim: string): void;
+    shapeprim(draw_prim: DrawingPrimitiveType): void; // unknown names are ignored silently (verified in Max 9.2.0)
 
     /**
      * Sets the current font to the fontname specified by the fontname argument.
@@ -3120,7 +3272,7 @@ declare class Sketch {
     /**
      * Returns an array containing the width and height of the given string in absolute screen coordinates, taking into account the current font and fontsize.
      */
-    gettextinfo(str: string): number[];
+    gettextinfo(str: string): [number, number];
 
     /**
      * Draws the text specified by the string argument at the current drawing position, taking into account the current font, fontsize, and text alignment. Text is strictly 2D, and does not take into
@@ -3134,7 +3286,7 @@ declare class Sketch {
      * Sets the alignment of text to be drawn with respect to the current drawing position. Acceptable values for the x axis alignment are: "left", "right", or "center". Acceptable values for the y
      * axis alignment are: "bottom", "top", or "center". The default alignment is "left", "bottom".
      */
-    textalign(align_x: string, align_y: string): void;
+    textalign(align_x: "left" | "center" | "right", align_y: "top" | "center" | "bottom"): void;
 
     /**
      * Copies pixels from the source object to the location specified by the destination_x and destination_y arguments. The initial x and y offset into the source and size of the rectangle copied can
@@ -3144,13 +3296,13 @@ declare class Sketch {
      * drawing images when scaling and rotation is not required.
      */
     copypixels(
-        source_object: string,
+        source_object: Image | Sketch,
         destination_x: number,
         destination_y: number,
-        source_x: number,
-        source_y: number,
-        width: number,
-        height: number,
+        source_x?: number,
+        source_y?: number,
+        width?: number,
+        height?: number,
     ): void;
 
     /**
@@ -3166,9 +3318,10 @@ declare class Sketch {
 
     /**
      * Returns an array containing the pixel value at the specified location. This array is ordered RGBA, i.e. array element 0 is red, 1, green, 2, blue, 3 alpha. Color values are floating point
-     * numbers in the range 0.-1.
+     * numbers in the range 0.-1. In Max 9.2.0 it returns null even after drawing (in the legacy jsui engine too); read pixels through
+     * `new Image(sketch).getpixel()` instead. `depthatpixel()` does work.
      */
-    getpixel(x: number, y: number): number[];
+    getpixel(x: number, y: number): [number, number, number, number] | null;
 
     /**
      * Sets the pixel value at the specified location. Color values are floating point numbers in the range 0.-1.
@@ -3181,13 +3334,13 @@ declare class Sketch {
      * plane. The worldtoscreen method can be used to determine the depth value of a given world coordinate. The depthatpixel method can be used to determine the depth value associated with the
      * currently rendered pixel at a given absolute screen coordinate.
      */
-    screentoworld(x: number, y: number): number[];
+    screentoworld(x: number, y: number, depth?: number): [number, number, number];
 
     /**
      * Returns an array containing the x, y, and depth screen coordinates associated with a given world coordinate. The depth value is typically specified in the range 0.-1. where 0 is the near
      * clipping plane, and 1. is the far clipping plane.
      */
-    worldtoscreen(x: number, y: number, z?: number): number[];
+    worldtoscreen(x: number, y: number, z?: number): [number, number, number];
 
     /**
      * Begin definition of a stroked path of the style specified by the stroke_style argument. Currently supported stroke styles are "basic2d" and "line".
@@ -3203,7 +3356,10 @@ declare class Sketch {
      * Set the current value of the parameter specified by the parameter_name argument to be the value specified by parameter_values argument(s). Some parameters are global for the extent of a stroked
      * path definition, while others may vary on a point by point basis.
      */
-    strokeparam(parameter_name: string, ...args: any[]): void;
+    strokeparam(
+        parameter_name: "alpha" | "color" | "order" | "outline" | "outcolor" | "scale" | "slices",
+        ...values: number[]
+    ): void; // unknown names are ignored silently
 
     /**
      * Defines an anchor point at the location specified by the x, y, and z arguments. Some stroke styles such as "basic2d" will ignore the z coordinate.
@@ -3228,60 +3384,68 @@ declare class Sketch {
      */
     ortho3d(): void;
 
-    glbegin(draw_prim: any[]): void;
-    glbindtexture(image_object: string): void;
+    glbegin(draw_prim: DrawingPrimitiveType): void;
+    glbindtexture(image: Image): void;
     glblendfunc(src_function: string, dst_function: string): void;
     glclear(): void;
-    glclearcolor(color: Color): void;
-    glclearcolor(red: number, green: number, blue: number, alpha: number): void;
+    glclearcolor(color: number[]): void;
+    glclearcolor(red: number, green: number, blue: number, alpha?: number): void;
     glcleardepth(depth: number): void;
     glclipplane(plane: number, coeff1: number, coeff2: number, coeff3: number, coeff4: number): void;
-    glcolor(color: Color): void;
-    glcolor(red: number, green: number, blue: number, alpha: number): void;
-    glcolormask(color: Color): void;
-    glcolormask(red: number, green: number, blue: number, alpha: number): void;
-    glcolormaterial(face: number, mode: any[]): void;
+    glclipplane(values: number[]): void;
+    glcolor(color: number[]): void;
+    glcolor(red: number, green: number, blue: number, alpha?: number): void;
+    glcolormask(color: number[]): void;
+    glcolormask(red: number, green: number, blue: number, alpha?: number): void;
+    glcolormaterial(face: string | number, mode: string | number): void;
     glcullface(face: number): void;
     gldepthmask(on: number): void;
     gldepthrange(near: number, far: number): void;
-    gldisable(capability: number): void;
+    gldisable(capability: string): void;
     gledgeflag(on: number): void;
-    glenable(capability: number): void;
+    glenable(capability: string): void;
     glend(): void;
     glfinish(): void;
     glflush(): void;
-    glfog(parameter_name: string, value: number): void;
+    glfog(parameter_name: string, ...values: Array<number | string>): void;
     glfrustum(left: number, right: number, bottom: number, top: number, near: number, far: number): void;
+    glfrustum(values: number[]): void;
     glhint(target: string, mode: number): void;
-    gllight(light: string, parameter_name: string, value: number): void;
-    gllightmodel(parameter_name: string, value: number): void;
-    gllinestipple(factor: any[], bit_pattern: any[]): void;
+    gllight(light: string, parameter_name: string, ...values: number[]): void;
+    gllightmodel(parameter_name: string, value: number | string): void;
+    gllinestipple(factor: number, bit_pattern: number): void;
     gllinewidth(width: number): void;
     glloadidentity(): void;
     glloadmatrix(matrix_array: number[]): void;
-    gllogicop(opcode: any[]): void;
+    gllogicop(opcode: string | number): void;
     glmaterial(): void;
     glmatrixmode(mode: string): void;
-    glmultmatrix(matrix_array: any[]): void;
+    glmultmatrix(matrix_array: number[]): void;
     glnormal(x: number, y: number, z?: number): void;
     glortho(left: number, right: number, bottom: number, top: number, near: number, far: number): void;
+    glortho(values: number[]): void;
     glpointsize(size: number): void;
-    glpolygonmode(): void;
-    glpolygonoffset(): void;
+    glpolygonmode(face: string | number, mode: string | number): void;
+    glpolygonoffset(factor: number, units: number): void;
     glpopattrib(): void;
     glpopmatrix(): void;
     glpushattrib(): void;
     glpushmatrix(): void;
     glrect(x1: number, y1: number, x2: number, y2: number): void;
+    glrect(values: number[]): void;
     glrotate(angle: number, x: number, y: number, z?: number): void;
+    glrotate(values: number[]): void;
     glscale(x_scale: number, y_scale: number, z_scale?: number): void;
+    glscale(values: number[]): void;
     glscissor(x: number, y: number, width: number, height: number): void;
-    glshademodel(mode: any[]): void;
-    gltexcoord(s: number[], t: number[]): void;
-    gltexenv(parameter_name: string, val1: string, val2: string, val3: string, val4: string): void;
-    gltexgen(coord: number[], parameter_name: string, val1: string, val2: string, val3: string, val4: string): void;
-    gltexparameter(parameter_name: string, val1: string, val2: string, val3: string, val4: string): void;
+    glscissor(values: number[]): void;
+    glshademodel(mode: string | number): void;
+    gltexcoord(s: number, t: number): void;
+    gltexenv(parameter_name: string, ...values: Array<number | string>): void;
+    gltexgen(coord: string, parameter_name: string, ...values: Array<number | string>): void;
+    gltexparameter(parameter_name: string, ...values: Array<number | string>): void;
     gltranslate(delta_x: number, delta_y: number, delta_z?: number): void;
+    gltranslate(values: number[]): void;
     glulookat(
         eye_x: number,
         eye_y: number,
@@ -3294,10 +3458,15 @@ declare class Sketch {
         up_z: number,
     ): void;
     glulookat(eye_x: number, eye_y: number, center_x: number, center_y: number, up_x: number, up_y: number): void;
+    glulookat(values: number[]): void;
     gluortho2d(left: number, right: number, bottom: number, top: number): void;
+    gluortho2d(values: number[]): void;
     gluperspective(fovy: number, aspect: number, near: number, far: number): void;
+    gluperspective(values: number[]): void;
     glvertex(x: number, y: number, z?: number): void;
+    glvertex(values: number[]): void;
     glviewport(x: number, y: number, width: number, height: number): void;
+    glviewport(values: number[]): void;
 
     /**
      * Enable or disable the depth buffer
@@ -3358,7 +3527,7 @@ declare class Image {
     /**
      * Access or set the size of an image. size[0] is width size[1] is height.
      */
-    size: number[];
+    size: [number, number];
 
     /**
      * Adjusts all channel values in the image channel specified by the channel argument, by multiplying the channel value by the value specified by the scale argument and then adding the value
@@ -3374,9 +3543,9 @@ declare class Image {
         red: number,
         green: number,
         blue: number,
-        tolerance: number,
-        fade: number,
-        minkey: number,
+        tolerance?: number,
+        fade?: number,
+        minkey?: number,
         maxkey?: number,
     ): void;
 
@@ -3386,7 +3555,7 @@ declare class Image {
      * arguments are the strings: "red", "green", "blue", or "alpha".
      */
     blendchannel(
-        source_object: any,
+        source_object: Image,
         alpha: number,
         source_channel: "red" | "green" | "blue" | "alpha",
         destination_channel: "red" | "green" | "blue" | "alpha",
@@ -3397,11 +3566,11 @@ declare class Image {
      * alpha channel at each pixel. Instances of Sketch do not contain an alpha channel, which is assumed to be all on. The source object can either be an instance of Image, or Sketch.
      */
     blendpixels(
-        source_object: any,
+        source_object: Image | Sketch,
         alpha: number,
         dest_x: number,
         dest_y: number,
-        rc_x: number,
+        src_x: number,
         src_y: number,
         width: number,
         height: number,
@@ -3413,15 +3582,15 @@ declare class Image {
     clear(): void;
 
     /**
-     * Sets all pixels in the image to be the value specified by the red, green, blue, and alpha arguments. If no arguments are specified, these values are assumed to be (0, 0, 0, 1) respectively.
+     * Sets all pixels in the image to be the value specified by the red, green, blue, and alpha arguments. Omitted arguments default to (0, 0, 0, 1) respectively.
      */
-    clear(red: number, green: number, blue: number, alpha: number): void;
+    clear(red: number, green?: number, blue?: number, alpha?: number): void;
 
     /**
-     * Sets all channel values in the image channel specified by the channel argument to be the value specified by the value argument. If no value argument is specified, it is assumed to be 0.
-     * Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
+     * Sets all channel values in the image channel specified by the channel argument to be the value specified by the value argument. If no value argument is specified, it defaults to 1
+     * (verified in Max 9.2.0). Acceptable values for the channel argument are the strings: "red", "green", "blue", or "alpha".
      */
-    clearchannel(channel: "red" | "green" | "blue" | "alpha", value: number): void;
+    clearchannel(channel: "red" | "green" | "blue" | "alpha", value?: number): void;
 
     /**
      * Copies the channel values from the source object's channel specified by the source_channel argument to the destination object's channel specified by the destination_channel argument. The source
@@ -3429,7 +3598,7 @@ declare class Image {
      * the rectangle of values which will be copied. Acceptable values for the channel arguments are the strings: "red", "green", "blue", or "alpha".
      */
     copychannel(
-        source_object: string,
+        source_object: Image,
         source_channel: "red" | "green" | "blue" | "alpha",
         destination_channel: "red" | "green" | "blue" | "alpha",
     ): void;
@@ -3440,13 +3609,13 @@ declare class Image {
      * pixels is supported. The source object can either be an instance of Image, or Sketch.
      */
     copypixels(
-        source_object: string,
+        source_object: Image | Sketch,
         dest_x: number,
         dest_y: number,
-        src_x: number,
-        src_y: number,
-        width: number,
-        height: number,
+        src_x?: number,
+        src_y?: number,
+        width?: number,
+        height?: number,
     ): void;
 
     /**
@@ -3469,7 +3638,7 @@ declare class Image {
      * Returns an array containing the pixel value at the specified location. This array is ordered RGBA, i.e. array element 0 is red, 1, green, 2, blue, 3 alpha. Color values are floating point
      * numbers in the range 0.-1.
      */
-    getpixel(x: number, y: number): number[];
+    getpixel(x: number, y: number): [number, number, number, number];
 
     /**
      * Sets the pixel value at the specified location. Color values are floating point numbers in the range 0.-1.
@@ -3551,6 +3720,10 @@ declare class MaxCanvas {
     //      post("missing or wrong argument for MaxCanvas, call \"new MaxCanvas(this);\"\n");
     //      return;
     // }
+    /**
+     * @deprecated Throws "js is not defined" in Max 9.2.0's v8 engine: CanvasExtension.js checks `jsui instanceof js`, a legacy class that no
+     * longer exists. Construct the context directly instead: `new CanvasRenderingContext2D(this)` (verified).
+     */
     constructor(jsui: object);
     getContext(type: "max-2d"): CanvasRenderingContext2D;
 }
@@ -3563,7 +3736,43 @@ declare class MaxCanvas {
  * Not available by default in [v8]: load it with `include("CanvasExtension.js")` first (verified in Max 9.2.0).
  */
 declare class CanvasRenderingContext2D {
-    constructor(maxCanvas: MaxCanvas);
+    /** Takes the jsthis of a [v8ui] (it reads `box.rect` and `mgraphics`); `new CanvasRenderingContext2D(this)` works in Max 9.2.0 (verified). */
+    constructor(jsui: object);
+    // State properties set by CanvasExtension.js (undocumented; present with these types in Max 9.2.0, verified)
+    /** Box width in pixels */
+    width: number;
+    /** Box height in pixels */
+    height: number;
+    /** width / height */
+    aspect: number;
+    /** A CSS-style colour string (default "rgba(0,0,0,1.0)"), or a gradient / pattern from createLinearGradient() etc. */
+    fillStyle: string | CanvasGradient | CanvasPattern;
+    /** A CSS-style colour string (default "rgba(0,0,0,1.0)"), or a gradient / pattern */
+    strokeStyle: string | CanvasGradient | CanvasPattern;
+    /** 0 to 1, default 1 */
+    globalAlpha: number;
+    /** Default 1 */
+    lineWidth: number;
+    /** Default "butt" */
+    lineCap: "butt" | "round" | "square";
+    /** Default "miter" */
+    lineJoin: "round" | "bevel" | "miter";
+    /** Default "rgba(0,0,0,1.0)"; shadowBlur is not supported */
+    shadowColor: string;
+    shadowOffsetX: number;
+    shadowOffsetY: number;
+    /** e.g. "10px Arial" (the default). Generic families such as sans-serif are not supported; use an installed font name */
+    font: string;
+    /** Default "start" ("start" == "left", "end" == "right") */
+    textAlign: "start" | "end" | "left" | "right" | "center";
+    /** Default "alphabetic" ("top" == "hanging", "bottom" == "ideographic") */
+    textBaseline: "top" | "hanging" | "middle" | "alphabetic" | "bottom" | "ideographic";
+    /** The MGraphics the context draws with (the [v8ui]'s `mgraphics`) */
+    mg: MGraphics;
+    /** States pushed by save() and popped by restore() */
+    stateStack: any[];
+    /** Installed font names */
+    fontlist: string[];
     save(): void;
     restore(): void;
     scale(x: number, y: number): void;
@@ -3589,9 +3798,15 @@ declare class CanvasRenderingContext2D {
     fill(): void;
     stroke(): void;
     isPointInPath(x: number, y: number): boolean;
+    /** Throws outside paint() in Max 9.2.0 because MGraphics.text_measure() returns null there (verified) */
     fillText(text: string, x: number, y: number, maxWidth: number): void;
+    /** Throws outside paint() in Max 9.2.0 because MGraphics.text_measure() returns null there (verified) */
     strokeText(text: string, x: number, y: number, maxWidth: number): void;
-    measureText(text: string): number;
+    /**
+     * Returns the text width. Throws outside paint() in Max 9.2.0 because MGraphics.text_measure() returns null there (verified);
+     * returns undefined for an empty string.
+     */
+    measureText(text: string): number | undefined;
     drawImage(image: Image, dx: number, dy: number): void;
     drawImage(image: Image, dx: number, dy: number, dw: number, dh: number): void;
     drawImage(
@@ -3607,7 +3822,8 @@ declare class CanvasRenderingContext2D {
     ): void;
     createImageData(sw: number, sh: number): ImageData;
     createImageData(imagedata: ImageData): ImageData;
-    // getImageData(): ... not yet implemented in CanvasExtension.js
+    /** Not implemented in CanvasExtension.js: the method exists but returns undefined (verified in Max 9.2.0) */
+    getImageData(): undefined;
     putImageData(
         imagedata: ImageData,
         dx: number,
@@ -3621,11 +3837,17 @@ declare class CanvasRenderingContext2D {
     paint(): void;
     roundedRect(x: number, y: number, w: number, h: number, ow: number, oh: number): void;
     setTimeout(expression: object, timeout: number): Task;
+    /** Undocumented; present in Max 9.2.0 (verified). Cancels a Task returned by setTimeout() */
+    clearTimeout(task: Task): void;
+    /** Undocumented; present in Max 9.2.0 (verified). Like setTimeout() but repeating */
+    setInterval(expression: object, interval: number): Task;
     clearInterval(task: Task): void;
     setSource(style: CanvasPattern | CanvasGradient | string): void;
     parseFontString(font: string): any[];
     getTextAlign(textString: string): number;
     getTextBaseline(): number;
+    /** Undocumented; present in Max 9.2.0 (verified). maxWidth / text width when the text is wider, else 1. Throws outside paint() like measureText() */
+    getTextScale(maxWidth: number, text: string): number;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3636,8 +3858,13 @@ declare class CanvasRenderingContext2D {
  * Not available by default in [v8]: load it with `include("CanvasExtension.js")` first (verified in Max 9.2.0).
  */
 declare class CanvasGradient {
-    constructor(patternObj: Pattern, radiHelper: any); // TODO: radiHelper: any ?
-    addColorStop(offset: number, color: any): void; // TODO: color: any ?
+    constructor(patternObj: Pattern, radiHelper: number);
+    /** The underlying MGraphics pattern (undocumented; verified in Max 9.2.0) */
+    pattern: Pattern;
+    /** 0 for a linear gradient; the inner-circle ratio for a radial one (undocumented; verified in Max 9.2.0) */
+    radialHelper: number;
+    /** color is a CSS-style colour string parsed with RGBAColor */
+    addColorStop(offset: number, color: string): void;
 }
 
 /**
@@ -3648,7 +3875,11 @@ declare class CanvasGradient {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // tslint:disable-next-line: no-unnecessary-class
 declare class CanvasPattern {
-    constructor(pat: any, rep: any); // TODO: any?
+    constructor(pat: Pattern, rep: string);
+    /** The underlying MGraphics pattern (undocumented; verified in Max 9.2.0) */
+    pattern: Pattern;
+    /** The repetition passed to createPattern() (undocumented; verified in Max 9.2.0) */
+    repetition: string;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3659,7 +3890,13 @@ declare class CanvasPattern {
  * Not available by default in [v8]: load it with `include("CanvasExtension.js")` first (verified in Max 9.2.0).
  */
 declare class ImageData {
-    constructor(sketchimage: any); // TODO: any?
+    constructor(sketchimage: Image);
+    width: number;
+    height: number;
+    /** Always empty in Max 9.2.0: CanvasExtension.js never fills it (it calls `push[...]` instead of `push(...)`) */
+    data: number[];
+    /** The Image the data was taken from (undocumented; verified in Max 9.2.0) */
+    source: Image;
     set(index: number, value: number): void;
 }
 
@@ -3671,9 +3908,9 @@ declare class ImageData {
  * Not available by default in [v8]: load it with `include("CanvasExtension.js")` first (verified in Max 9.2.0).
  */
 declare class CanvasPixelArray {
-    readonly length: number;
-    array(index: number): number;
-    array(index: number, value: number): void;
+    length: number;
+    /** A plain array, not an accessor method (verified in Max 9.2.0: CanvasExtension.js sets `this.array = []`) */
+    array: number[];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3710,6 +3947,12 @@ declare class JitterObject {
     constructor(object_name: string, ...params: any[]);
 
     /**
+     * The attributes and methods of the wrapped Jitter object are exposed directly (e.g. `jo.dim = [3, 3]`, `jo.matrixcalc(inMatrix, outMatrix)`);
+     * they are not enumerable, so they cannot be listed (verified in Max 9.2.0).
+     */
+    [attributeOrMethod: string]: any;
+
+    /**
      * Deletes the JitterObject
      */
     freepeer(): void;
@@ -3725,36 +3968,39 @@ declare class JitterObject {
  * http://max-javascript-reference.tim-schenk.de/symbols/JitterMatrix.html
  */
 declare class JitterMatrix extends JitterObject {
-    constructor(...args: any[]); // TODO:
-    // From JitterReposUtils.js:
-    // var s = new JitterMatrix(2, "long", x, y);
+    /** Default: 4 planes, "char", dim [1, 1] (verified in Max 9.2.0) */
+    constructor();
+    /** planecount, type and one number per dimension, e.g. `new JitterMatrix(4, "char", 320, 240)` */
+    constructor(planecount: number, type: JitterMatrixType, ...dims: number[]);
+    /** planecount, type and a dimension array, e.g. `new JitterMatrix(2, "long", [x, y])` */
+    constructor(planecount: number, type: JitterMatrixType, dims: number[]);
+    /** A named matrix (verified in Max 9.2.0) */
+    constructor(name: string, planecount: number, type: JitterMatrixType, ...dims: number[]);
 
     /**
      * Matrix adaptation flag.
      */
     adapt: number;
 
-    // TODO: Probably number[] for this and the following {any}.
-
     /**
      * The dimensions of matrix data.
      */
-    dim: any;
+    dim: number | number[]; // a plain number for a 1D matrix, otherwise one entry per dimension (verified in Max 9.2.0)
 
     /**
      * The byte stride per dimension.
      */
-    dimstride: any;
+    dimstride: number[];
 
     /**
      * The destination dimension end position.
      */
-    dstdimend: any;
+    dstdimend: number[];
 
     /**
      * The destination dimension start position.
      */
-    dstdimstart: any;
+    dstdimstart: number[];
 
     /**
      * Matrix interpolation flag.
@@ -3774,7 +4020,7 @@ declare class JitterMatrix extends JitterObject {
     /**
      * Maps input places to output planes.
      */
-    planemap: any;
+    planemap: number[];
 
     /**
      * Total byte size of matrix.
@@ -3784,17 +4030,17 @@ declare class JitterMatrix extends JitterObject {
     /**
      * The source dimension end position.
      */
-    srcdimend: any;
+    srcdimend: number[];
 
     /**
      * The source dimension start position.
      */
-    srcdimstart: any;
+    srcdimstart: number[];
 
     /**
      * The matrix data type.
      */
-    type: string;
+    type: JitterMatrixType; // an unknown name falls back to "char" (verified in Max 9.2.0)
 
     /**
      * Destdim use flag.
@@ -3814,17 +4060,27 @@ declare class JitterMatrix extends JitterObject {
     /**
      * Export the current frame as an image file with the name specified by the first argument.
      */
-    exportimage(filename: string, file_type: string, use_dialog: 0 | 1): void;
+    /** Returns [filename, status] like jit.matrix's outlet message: status 1 on success, -1 when the file is missing (verified in Max 9.2.0) */
+    exportimage(filename: string, file_type?: string, use_dialog?: 0 | 1): [string, number];
 
     /**
      * Exports a matrix as a QuickTime movie.
      */
-    exportmovie(filename: string, FPS: number, codec: string, quality: string, timescale: number): void;
+    /** Returns [filename, status] like jit.matrix's outlet message: status 1 on success, -1 when the file is missing (verified in Max 9.2.0) */
+    exportmovie(
+        filename?: string,
+        FPS?: number,
+        codec?: string,
+        quality?: string,
+        timescale?: number,
+    ): [string, number];
 
     /**
      * exprfill(plane, expression)
      */
     exprfill(plane: number, expression: string): void;
+    /** Applies the expression to every plane (verified in Max 9.2.0) */
+    exprfill(expression: string): void;
 
     /**
      * The word fillplane, followed by an integer that specifies a plane number and a value, will fill the specified plane with the single value.
@@ -3834,12 +4090,14 @@ declare class JitterMatrix extends JitterObject {
     /**
      * Sends the value(s) in the cell specified by position out the right outlet of the object as a list in the form cell cell-position0.
      */
-    getcell(position: number[]): void;
+    getcell(position: number[]): number[];
+    getcell(...position: number[]): number[];
 
     /**
      * Imports a QuickTime movie into the matrix.
      */
-    importmovie(filename: string, time_offset: number): void;
+    /** Returns [filename, status] like jit.matrix's outlet message: status 1 on success, -1 when the file is missing (verified in Max 9.2.0) */
+    importmovie(filename?: string, time_offset?: number): [string, number];
 
     /**
      * Copies the texture specified by texture-name to the matrix.
@@ -3850,12 +4108,13 @@ declare class JitterMatrix extends JitterObject {
      * The word op, followed by the name of a jit.op object operator and a set of values, is equivalent to including a jit.op object with the specified operator set as an attribute and this jit.matrix
      * object specified as the output matrix.
      */
-    op(...params: any[]): void;
+    op(operator: string, ...args: any[]): void;
 
     /**
      * Reads Jitter binary data files (.jxf) into a matrix set.
      */
-    read(filename: string): void;
+    /** Returns [filename, status] like jit.matrix's outlet message: status 1 on success, -1 when the file is missing (verified in Max 9.2.0) */
+    read(filename?: string): [string, number];
 
     /**
      * Sets all cells to the value specified by value(s). A single number fills every plane; an array gives one value per plane (verified in Max 9.2.0).
@@ -3881,42 +4140,50 @@ declare class JitterMatrix extends JitterObject {
      * The word setcell1d, followed by a number specifying an x coordinate and a list of values, is similar to the setcell message but without the need to use a
      * "val" token to separate the coordinates from the value since the dimension count (1) is fixed.
      */
-    setcell1d(...params: number[]): void;
+    setcell1d(x: number, ...values: number[]): void;
 
     /**
      * The word setcell2d, followed by a pair of numbers specifying x and y coordinates and a list of values, is similar to the setcell message but without the need to use a
      * "val" token to separate the coordinates from the value since the dimension count (2) is fixed.
      */
-    setcell2d(...params: number[]): void;
+    setcell2d(x: number, y: number, ...values: number[]): void;
 
     /**
      * The word setcell3d, followed by three numbers specifying x, y, and z coordinates and a list of values, is similar to the setcell message but without the need to use a
      * "val" token to separate the coordinates from the value since the dimension count (3) is fixed.
      */
-    setcell3d(...params: number[]): void;
+    setcell3d(x: number, y: number, z: number, ...values: number[]): void;
 
     /**
      * The word setplane1d, followed by a number specifying an x coordinate, a number specifying a plane, and a value, is similar to the setcell message but without the need to use a
      * "val" token to separate the coordinates from the value since the dimension count (1) is fixed, or use the "plane" token to specify which plane to set.
      */
-    setplane1d(...params: number[]): void;
+    setplane1d(x: number, plane: number, value: number): void;
 
     /**
      * The word setplane2d, followed by a pair of numbers specifying x and y coordinates, a number specifying a plane, and a value, is similar to the setcell message but without the need to use a
      * "val" token to separate the coordinates from the value since the dimension count (2) is fixed, or use the "plane" token to specify which plane to set.
      */
-    setplane2d(...params: number[]): void;
+    setplane2d(x: number, y: number, plane: number, value: number): void;
 
     /**
      * The word setplane3d, followed by three numbers specifying x, y, and z coordinates, a number specifying a plane, and a value, is similar to the setcell message but without the need to use a
      * "val" token to separate the coordinates from the value since the dimension count (1) is fixed, or use the "plane" token to specify which plane to set.
      */
-    setplane3d(...params: number[]): void;
+    setplane3d(x: number, y: number, z: number, plane: number, value: number): void;
 
     /**
      * Writes matrix set as a Jitter binary data file (.jxf).
      */
-    write(filename: string): void;
+    /** Returns [filename, status] like jit.matrix's outlet message: status 1 on success, -1 when the file is missing (verified in Max 9.2.0) */
+    write(filename?: string): [string, number];
+
+    // Present in Max 9.2.0 and used by Cycling '74's JitterReposUtils.js, but undocumented:
+    /** Copies the contents (and, with adapt set, the layout) of another matrix into this one */
+    frommatrix(source: JitterMatrix): void;
+    /** Sets the planecount, type and dimensions of the matrix */
+    setinfo(planecount: number, type: JitterMatrixType, ...dims: number[]): void;
+    setinfo(other: JitterMatrix): void;
 }
 
 /**
@@ -3924,16 +4191,15 @@ declare class JitterMatrix extends JitterObject {
  * http://max-javascript-reference.tim-schenk.de/symbols/JitterReposUtils.html
  * Not available by default in [v8]: load it with `include("JitterReposUtils.js")` first (verified in Max 9.2.0).
  */
-// tslint:disable-next-line: no-unnecessary-class
-declare class JitterReposUtils {
-    static interpbits: number;
+declare class JitterReposUtilsInterface {
+    interpbits: number;
 
-    static cartopolmatrix2dfloat32(impulse: JitterMatrix, xs: number, ys: number, issigned: boolean): JitterMatrix;
-    static genkernel2dfloat32(): JitterMatrix;
-    static makemap_cartopol(x: number, y: number, xscale: number, yscale: number): JitterMatrix;
-    static makemap_multi(x: number, y: number, xscale: number, yscale: number): JitterMatrix;
-    static makemap_normal(x: number, y: number): JitterMatrix;
-    static makemap_pinch(
+    cartopolmatrix2dfloat32(impulse: JitterMatrix, xs: number, ys: number, issigned: boolean): JitterMatrix;
+    genkernel2dfloat32(): JitterMatrix;
+    makemap_cartopol(x: number, y: number, xscale: number, yscale: number): JitterMatrix;
+    makemap_multi(x: number, y: number, xscale: number, yscale: number): JitterMatrix;
+    makemap_normal(x: number, y: number): JitterMatrix;
+    makemap_pinch(
         x: number,
         y: number,
         kx: number,
@@ -3944,8 +4210,8 @@ declare class JitterReposUtils {
         yamp: number,
         power: number,
     ): JitterMatrix;
-    static pack2plane(uno: JitterMatrix, dos: JitterMatrix): JitterMatrix;
-    static pinch2dfloat32(
+    pack2plane(uno: JitterMatrix, dos: JitterMatrix): JitterMatrix;
+    pinch2dfloat32(
         impulse: JitterMatrix,
         xpinch: number,
         ypinch: number,
@@ -3953,11 +4219,13 @@ declare class JitterReposUtils {
         yamp: number,
         power: number,
     ): JitterMatrix;
-    static rel2abs(rela: JitterMatrix): JitterMatrix;
-    static unpack2plane(cero: JitterMatrix, uno: JitterMatrix, dos: JitterMatrix): void;
-    static upsample1d(inmat: JitterMatrix, l: number): JitterMatrix;
-    static upsample2d(inmat: JitterMatrix, x: number, y: number): JitterMatrix;
+    rel2abs(rela: JitterMatrix): JitterMatrix;
+    unpack2plane(cero: JitterMatrix, uno: JitterMatrix, dos: JitterMatrix): void;
+    upsample1d(inmat: JitterMatrix, l: number): JitterMatrix;
+    upsample2d(inmat: JitterMatrix, x: number, y: number): JitterMatrix;
 }
+/** The JitterReposUtils global is an instance of JitterReposUtilsInterface (JitterReposUtils.js) */
+declare var JitterReposUtils: JitterReposUtilsInterface;
 
 /**
  * JitterListener
@@ -3986,9 +4254,9 @@ declare class JitterListener {
     function: (event: any) => void;
 
     /**
-     * The object to listen to.
+     * The object to listen to. null right after construction from a registered name (verified in Max 9.2.0).
      */
-    object: JitterObject;
+    object: JitterObject | null;
 
     /**
      * Unknown
@@ -4002,14 +4270,16 @@ declare class JitterListener {
  * http://max-javascript-reference.tim-schenk.de/symbols/JitterGUIUtils.html
  * Not available by default in [v8]: load it with `include("JitterGUIUtils.js")` first (verified in Max 9.2.0).
  */
-// tslint:disable-next-line: no-unnecessary-class
-declare class JitterGUIUtils {
-    static trackers: JitterGUITracker[];
-    static add_client(dest: any, newclient: any): any;
-    static add_tracker(dest: any): any;
-    static delete_bogus_clients(dest: any): any;
-    static init(dest: any): any;
+declare class JitterGUIUtilsInterface {
+    /** An array that is also used as a map keyed by destination name */
+    trackers: JitterGUITracker[] & Record<string, JitterGUITracker>;
+    add_client(dest: any, newclient: any): any;
+    add_tracker(dest: any): any;
+    delete_bogus_clients(dest: any): any;
+    init(dest: any): any;
 }
+/** The JitterGUIUtils global is an instance of JitterGUIUtilsInterface (JitterGUIUtils.js) */
+declare var JitterGUIUtils: JitterGUIUtilsInterface;
 
 /**
  * JitterGUITracker
@@ -4019,10 +4289,18 @@ declare class JitterGUIUtils {
  */
 declare class JitterGUITracker {
     constructor(dest: any);
-    add_client(newclient: any): any;
-    delete_bogus_clients(): any;
-    delete_duplicate_clients(newclient: any): any;
-    make_listener(): any;
+    /** The JitterGUIElements registered with add_client() (undocumented; verified in Max 9.2.0) */
+    clients: JitterGUIElement[];
+    /** The render context name (undocumented; verified in Max 9.2.0) */
+    destination: string;
+    /** Created by make_listener() (undocumented; verified in Max 9.2.0) */
+    listener?: JitterListener;
+    /** A jit.gl.sketch used for coordinate translation (undocumented; verified in Max 9.2.0) */
+    sketch: JitterObject;
+    add_client(newclient: JitterGUIElement): void;
+    delete_bogus_clients(): void;
+    delete_duplicate_clients(newclient: JitterGUIElement): void;
+    make_listener(): void;
 }
 
 /**
@@ -4033,12 +4311,12 @@ declare class JitterEvent {
     /**
      * depends on event type
      */
-    args: any;
+    readonly args: any;
 
     /**
      * Name of the event to be handled
      */
-    eventname: string;
+    readonly eventname: string;
 
     /**
      * The name of the object to listen to.
@@ -4054,48 +4332,50 @@ declare class JitterEvent {
  */
 declare class JitterGUIElement {
     constructor(mobj: any);
-    delete_me: any;
-    destination: any;
-    frontmost: any;
-    highlight: any;
-    intersect: any;
+    delete_me: number | boolean; // 0 after init(), true after free() (verified in Max 9.2.0)
+    destination: string; // the render context name passed to init() (verified in Max 9.2.0)
+    frontmost: number; // 0 or 1 at runtime (verified in Max 9.2.0)
+    highlight: number; // 0 or 1 at runtime (verified in Max 9.2.0)
+    intersect: number; // 0 or 1 at runtime (verified in Max 9.2.0)
     jitterobj: JitterObject;
     localint: number[];
     maxobj: Maxobj;
-    stilldown: any;
+    stilldown: number; // 0 or 1 at runtime (verified in Max 9.2.0)
 
     /**
      * set true to get events even if we are behind another object
      */
-    unblockable: boolean;
-    unique_index: any;
+    unblockable: number; // 0 or 1 at runtime (verified in Max 9.2.0)
+    unique_index?: any; // absent until set_unique_index() is called (verified in Max 9.2.0)
     val: number;
-    was_frontmost: any;
+    was_frontmost: number; // 0 or 1 at runtime (verified in Max 9.2.0)
     worldint: number[];
-    drawto(destination: any): void;
-    free(): any;
+    drawto(destination: string): void;
+    free(): void;
 
     /**
      * return the intersection of the unit quad in world space with the line defined by raystart and rayend.
      */
-    get_intersect(raystart: any, rayend: any, p1: any): any;
-    handle_event(event: JitterEvent): any;
+    /** Needs `include("Jitter3DUtils.js")` first: JitterGUIUtils.js calls Jitter3DUtils without including it (verified in Max 9.2.0) */
+    get_intersect(raystart: number[], rayend: number[], p1: number[]): boolean;
+    /** Needs `include("Jitter3DUtils.js")` first (see get_intersect) */
+    handle_event(event: JitterEvent): void;
 
     /**
      * set the drawing destination.
      */
-    init(destination: any): any;
+    init(destination: string): void;
 
     /**
      * parse jitter-style js arguments.
      */
-    set_attr_args(...args: any[]): void;
+    set_attr_args(args: any[]): void; // one array, e.g. ["@val", 3] (verified in Max 9.2.0)
 
     /**
      * adding the unique_index property allows one js instance to own multiple JitterGUIElements
      */
-    set_unique_index(k: any): any;
-    update(): any;
+    set_unique_index(k: any): void;
+    update(): void;
 }
 
 /**
@@ -4104,32 +4384,31 @@ declare class JitterGUIElement {
  * Max folder/jsextensions/jitter/Jitter3DUtils.js
  * Not available by default in [v8]: load it with `include("Jitter3DUtils.js")` first (verified in Max 9.2.0).
  */
-// tslint:disable-next-line: no-unnecessary-class
-declare class Jitter3DUtils {
+declare class Jitter3dUtilsInterface {
     /**
      * add quats
      */
-    static add_quats(q1: number[], q2: number[], q3: number[]): void;
+    add_quats(q1: number[], q2: number[], q3: number[]): void;
 
     /**
      * convert angle/axis rotation to quaternion.
      */
-    static axis_to_quat(axis: number[], quat: number[]): void;
+    axis_to_quat(axis: number[], quat: number[]): void;
 
     /**
      * build rotation matrix m for the quaternion q.
      */
-    static build_rotmatrix(m: number[], q: number[]): void;
+    build_rotmatrix(m: number[], q: number[]): void;
 
     /**
      * set p1 to the point on sphere closest to line segment.
      */
-    static closest_line_sphere(line_a: number[], line_b: number[], center: number[], r: number, p1: number[]): void;
+    closest_line_sphere(line_a: number[], line_b: number[], center: number[], r: number, p1: number[]): void;
 
     /**
      * return true if the ray defined by the line's two points intersects the quad.
      */
-    static intersect_line_quad(
+    intersect_line_quad(
         line_a: number[],
         line_b: number[],
         pos: number[],
@@ -4142,7 +4421,7 @@ declare class Jitter3DUtils {
     /**
      * if the ray defined by the line's two points intersects the sphere, set p1 to the closest point of intersection.
      */
-    static intersect_line_sphere(
+    intersect_line_sphere(
         line_a: number[],
         line_b: number[],
         center: number[],
@@ -4153,88 +4432,90 @@ declare class Jitter3DUtils {
     /**
      * [normalize_quat description]
      */
-    static normalize_quat(q: number[]): void;
+    normalize_quat(q: number[]): void;
 
     /**
      * convert quaternion to angle/axis rotation.
      */
-    static quat_to_axis(quat: number[], axis: number[]): void;
+    quat_to_axis(quat: number[], axis: number[]): void;
 
     /**
      * [transform_point description]
      */
-    static transform_point(p_in: number[], m: number[]): void;
+    transform_point(p_in: number[], m: number[]): void;
 
     /**
      * add src1 and src2, save the result in dst
      */
-    static vadd(src1: number[], src2: number[], dst: number[]): void;
+    vadd(src1: number[], src2: number[], dst: number[]): void;
 
     /**
      * copy the three indicies from v1 to v2
      */
-    static vcopy(v1: number[], v2: number[]): void;
+    vcopy(v1: number[], v2: number[]): void;
 
     /**
      * create the cross product of v1 and v2?
      */
-    static vcross(v1: number[], v2: number[], cross: number[]): void;
+    vcross(v1: number[], v2: number[], cross: number[]): void;
 
     /**
      * divide src1 and src2, save the result in dst
      */
-    static vdiv(src1: number[], src2: number[], dst: number[]): void;
+    vdiv(src1: number[], src2: number[], dst: number[]): void;
 
     /**
      * [vdot description]
      */
-    static vdot(v1: number[], v2: number[]): number;
+    vdot(v1: number[], v2: number[]): number;
 
     /**
-     * distance-squared function
+     * vector length (the docs say squared, but Jitter3DUtils.js returns the square root; verified: vlength([3, 4, 0]) is 5)
      */
-    static vlength(v: number[]): number;
+    vlength(v: number[]): number;
 
     /**
      * cheaper distance-squared function
      */
-    static vlength2(v: number[]): number;
+    vlength2(v: number[]): number;
 
     /**
      * multiply src1 and src2, save the result in dst
      */
-    static vmul(src1: number[], src2: number[], dst: number[]): void;
+    vmul(src1: number[], src2: number[], dst: number[]): void;
 
     /**
      * [vnormal description]
      */
-    static vnormal(v: number[]): void;
+    vnormal(v: number[]): void;
 
     /**
      * scale the vector
      */
-    static vscale(v: number[], div: number): void;
+    vscale(v: number[], div: number): void;
 
     /**
      * set all three indicies of v to x, y, z
      */
-    static vset(v: number[], x: number, y: number, z: number): void;
+    vset(v: number[], x: number, y: number, z: number): void;
 
     /**
      * subtract src1 and src2, save the result in dst
      */
-    static vsub(src1: number[], src2: number[], dst: number[]): void;
+    vsub(src1: number[], src2: number[], dst: number[]): void;
 
     /**
      * set all three indicies of v to 0.0
      */
-    static vzero(v: number[]): void;
+    vzero(v: number[]): void;
 
     /**
      * convert rotation in Euler angles (xyz) to angle/axis rotation.
      */
-    static xyz_to_axis(xyz: number[], axis: number[]): void;
+    xyz_to_axis(xyz: number[], axis: number[]): void;
 }
+/** The Jitter3DUtils global is an instance of Jitter3dUtilsInterface (`var Jitter3DUtils = new Jitter3dUtilsInterface()` in Jitter3DUtils.js) */
+declare var Jitter3DUtils: Jitter3dUtilsInterface;
 
 /*
  * Classes added in Max 9
@@ -4615,6 +4896,7 @@ declare class MaxFFT2D {
      * @param higher When true (the default), snap each dimension to the nearest fast size at or above it; when false, at or below.
      * @returns The snapped pair as a two-element `[rows, cols]` array.
      */
+    /** Returns [rows, cols] (verified in Max 9.2.0: nearestFastSize(5, 5) is [16, 32]) */
     static nearestFastSize(rows: number, cols: number, type?: "real" | "complex", higher?: boolean): [number, number];
 
     /**
@@ -4778,6 +5060,10 @@ interface ParameterListenerData {
      * The current value of the parameter
      */
     readonly value: number | number[] | string;
+    /** The value mapped to 0..1 (undocumented; verified in Max 9.2.0) */
+    readonly value_normalized: number;
+    /** The parameter's object (undocumented; verified in Max 9.2.0) */
+    readonly maxobject: Maxobj;
 }
 
 /**
@@ -4894,6 +5180,7 @@ declare class SnapshotAPI {
      * Query the 'embed' state of a snapshot
      * @returns 1 if the snapshot at the index is embedded, 0 if not
      */
+    /** 0 when the index is out of range (verified in Max 9.2.0) */
     getembedsnapshot(index: number): number;
 
     /**
@@ -4904,6 +5191,7 @@ declare class SnapshotAPI {
     /**
      * Get the name of the snapshot at a given index
      */
+    /** "" when the index is out of range (verified in Max 9.2.0) */
     getsnapshotname(index: number): string;
 
     /**

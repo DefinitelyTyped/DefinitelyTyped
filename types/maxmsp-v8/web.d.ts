@@ -165,8 +165,11 @@ declare class AbortSignal {
     /** Removes a previously registered listener. */
     removeEventListener(type: string, listener: (...args: any[]) => void): void;
 
-    // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
-    // onabort
+    /**
+     * Handler called when the signal aborts, with `this` set to the signal and an event whose `type` is "abort"
+     * (undocumented; verified in Max 9.2.0). `null` until set.
+     */
+    onabort: ((this: AbortSignal, event: { type: string }) => void) | null;
 }
 
 /**
@@ -379,9 +382,8 @@ declare class Headers {
     /** Sets a header, replacing any existing value. */
     set(name: string, value: string): void;
     /** Iterates header values. */
-
-    // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
-    // toJSON
+    /** Returns the headers as a plain name/value object (undocumented; verified in Max 9.2.0). */
+    toJSON(): Record<string, string>;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -439,9 +441,8 @@ declare class ReadableStream {
     tee(): [ReadableStream, ReadableStream];
     /** Returns an async iterator over the stream's chunks. */
     values(): AsyncIterableIterator<import("buffer").IOBuffer>;
-
-    // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
-    // locked
+    /** Whether a reader currently holds the stream's lock (undocumented; verified in Max 9.2.0). */
+    readonly locked: boolean;
 }
 
 /**
@@ -479,9 +480,8 @@ declare class WritableStream {
     /** Closes the stream. */
     /** Acquires a writer and locks the stream. */
     getWriter(): WritableStreamDefaultWriter;
-
-    // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
-    // locked
+    /** Whether a writer currently holds the stream's lock (undocumented; verified in Max 9.2.0). */
+    readonly locked: boolean;
 }
 
 /**
@@ -574,16 +574,16 @@ declare class Request {
     readonly bodyUsed: boolean;
     /** The credentials mode. */
     readonly credentials: RequestCredentials;
-    /** The duplex mode for streamed bodies. */
-    readonly duplex: string;
+    /** The duplex mode for streamed bodies; undefined when the request has no streamed body (verified in Max 9.2.0). */
+    readonly duplex: string | undefined;
     /** The request headers. */
     readonly headers: Headers;
     /** The HTTP method. */
     readonly method: string;
     /** The redirect mode. */
     readonly redirect: RequestRedirect;
-    /** The associated abort signal, if any. */
-    readonly signal: AbortSignal;
+    /** The associated abort signal, or null when none was given (verified in Max 9.2.0). */
+    readonly signal: AbortSignal | null;
     /** The request URL. */
     readonly url: string;
     /** Reads the body as an `ArrayBuffer`. */
@@ -638,9 +638,8 @@ declare class Response {
     json(): Promise<any>;
     /** Reads the body as a UTF-8 string. */
     text(): Promise<string>;
-
-    // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
-    // formData
+    /** Reads the body as form data (undocumented; verified in Max 9.2.0 with an application/x-www-form-urlencoded body). */
+    formData(): Promise<FormData>;
 }
 
 /**
@@ -688,11 +687,17 @@ declare class EventSource {
      * @param options `withCredentials` controls cross-origin cookie use.
      */
     constructor(url: string, options?: { withCredentials?: boolean });
-    /** Closed state constant. */
+    /** Closed state constant (2). */
+    static readonly CLOSED: number;
+    /** Connecting state constant (0). */
+    static readonly CONNECTING: number;
+    /** Open state constant (1). */
+    static readonly OPEN: number;
+    /** Closed state constant (2). */
     readonly CLOSED: number;
-    /** Connecting state constant. */
+    /** Connecting state constant (0). */
     readonly CONNECTING: number;
-    /** Open state constant. */
+    /** Open state constant (1). */
     readonly OPEN: number;
     /** Called on error (before an automatic reconnect). */
     onerror: ((event: { type: string }) => void) | null;
@@ -724,9 +729,13 @@ declare class EventSource {
  */
 interface WebSocketCloseEvent {
     /** The close code. */
-    code: number;
+    /** Absent in Max 9.2.0: a close event carries only `type` and `target` (verified with close(1000, "bye")). */
+    code?: number;
     /** The close reason. */
-    reason: string;
+    /** Absent in Max 9.2.0 (see `code`). */
+    reason?: string;
+    /** The socket the event belongs to (verified in Max 9.2.0) */
+    target: WebSocket | WebSocketConnection;
     type: string;
 }
 
@@ -747,6 +756,8 @@ interface WebSocketErrorEvent {
  */
 interface WebSocketMessageEvent {
     data: string | import("buffer").IOBuffer;
+    /** The socket the event belongs to (verified in Max 9.2.0) */
+    target: WebSocket | WebSocketConnection;
     type: string;
 }
 
@@ -802,12 +813,34 @@ interface WebSocketConnection {
     readonly bufferedAmount: number;
     /** The negotiated subprotocol, or `""`. */
     readonly protocol: string;
+    /** Same values as WebSocket.readyState (undocumented; verified in Max 9.2.0). */
+    readonly readyState: number;
+    /** Handler slots, null until set (undocumented; verified in Max 9.2.0). */
+    onclose: ((event: WebSocketCloseEvent) => void) | null;
+    ondrain: ((event: { type: string }) => void) | null;
+    onerror: ((event: WebSocketErrorEvent) => void) | null;
+    onmessage: ((event: WebSocketMessageEvent) => void) | null;
+    /** Undocumented; verified present in Max 9.2.0. */
+    addEventListener(type: string, listener: (...args: any[]) => void): void;
+    /** Undocumented; verified present in Max 9.2.0. */
+    off(type: string, listener: (...args: any[]) => void): this;
+    /** Undocumented; verified present in Max 9.2.0. */
+    once(type: string, listener: (...args: any[]) => void): this;
+    /** Undocumented; verified present in Max 9.2.0. */
+    removeEventListener(type: string, listener: (...args: any[]) => void): void;
     /** Closes the connection. */
     close(code?: number, reason?: string): void;
     /** Registers an event listener (`message`, `close`, `error`, `drain`). */
+    /**
+     * The "message" listener receives ONE argument, the same `WebSocketMessageEvent` object as `onmessage` (`{ type, data, target }`),
+     * not Node's `(data, isBinary)` pair (verified in Max 9.2.0).
+     */
     on(type: string, listener: (...args: any[]) => void): this;
     /** Sends data. See `WebSocket.send()`. */
     send(value: string | import("buffer").IOBuffer | ArrayBuffer | ArrayBufferView): boolean;
+
+    // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+    // emit
 }
 
 /**
@@ -892,6 +925,16 @@ interface XMLHttpRequestUpload {
  */
 declare class XMLHttpRequest {
     /** State constant: open() has not been called (0). */
+    static readonly UNSENT: number;
+    /** State constant: open() has been called (1). */
+    static readonly OPENED: number;
+    /** State constant: headers and status are available (2). */
+    static readonly HEADERS_RECEIVED: number;
+    /** State constant: response body is downloading (3). */
+    static readonly LOADING: number;
+    /** State constant: the operation is complete (4). */
+    static readonly DONE: number;
+    /** State constant: open() has not been called (0). */
     readonly UNSENT: number;
     /** State constant: open() has been called (1). */
     readonly OPENED: number;
@@ -950,7 +993,8 @@ declare class XMLHttpRequest {
     /** Gets all response headers as a single string (omits `set-cookie` in v8). */
     getAllResponseHeaders(): string;
     /** Gets the value of a specific response header, or an empty string if not found. */
-    getResponseHeader(name: string): string;
+    /** null before a response has arrived or when the header is absent (verified in Max 9.2.0) */
+    getResponseHeader(name: string): string | null;
     /** Initializes a request. The v8 engine throws if `async` is `false`. */
     open(method: string, url: string, async?: boolean, username?: string, password?: string): void;
     /** Overrides the MIME type of the response. Must be called before `send()`. */
@@ -1108,6 +1152,8 @@ declare module "http" {
         path?: string;
         port?: number;
         protocol?: string;
+        /** Accept a certificate that fails verification, e.g. self-signed (undocumented; verified in Max 9.2.0 with https.get). */
+        rejectUnauthorized?: boolean;
         /** An `AbortSignal` that aborts the request. */
         signal?: AbortSignal;
         /** Abort the request after this many milliseconds. */
@@ -1117,6 +1163,10 @@ declare module "http" {
     /** A keep-alive connection pool for client requests. */
     class Agent {
         constructor(options?: { keepAlive?: boolean; keepAliveMsecs?: number });
+        /** Whether the agent keeps connections alive; default false (undocumented; verified in Max 9.2.0). */
+        keepAlive: boolean;
+        /** Keep-alive interval in milliseconds; default 1000 (undocumented; verified in Max 9.2.0). */
+        keepAliveMsecs: number;
         /** Closes pooled connections. */
         destroy(): void;
     }
@@ -1126,32 +1176,50 @@ declare module "http" {
      * Events: `response`, `drain`, `close`, `error`, `timeout`.
      */
     class ClientRequest {
+        /** Whether the request has been destroyed (undocumented; verified in Max 9.2.0). */
+        readonly destroyed: boolean;
+        /** The request method, e.g. "GET" (undocumented; verified in Max 9.2.0). */
+        method: string;
+        /** The request target. Holds the full URL in Max 9.2.0, e.g. "http://127.0.0.1:1/" (undocumented). */
+        path: string;
+        /** Whether end() has been called (undocumented; verified in Max 9.2.0). */
+        readonly writableEnded: boolean;
         /** Aborts the request. */
         abort(): void;
         /** Destroys the request, optionally with an error. */
         destroy(error?: Error): void;
         /** Writes an optional final chunk and finishes the request. */
-        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): void;
+        /** Returns the request (verified in Max 9.2.0) */
+        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): this;
         /** Returns a previously set header value. */
         getHeader(name: string): string | string[] | undefined;
         off(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /** Removes a previously set header. */
-        removeHeader(name: string): void;
+        /** Returns the request (verified in Max 9.2.0) */
+        removeHeader(name: string): this;
         /** Sets a request header. Array values emit repeated header lines. */
-        setHeader(name: string, value: string | string[]): void;
+        /** Returns the request (verified in Max 9.2.0) */
+        setHeader(name: string, value: string | string[]): this;
         /** Sets a per-request timeout. */
         setTimeout(timeout: number, callback?: () => void): this;
         /** Writes a body chunk. Returns `false` once queued outbound bytes exceed the high-water mark. */
         write(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): boolean;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit, hasListener
     }
 
     /**
      * The response delivered to an `http.request()` / `http.get()` callback.
      * Events: `data`, `end`, `close`, `error`.
+     * Not exported by the module at runtime (verified in Max 9.2.0: `http.ClientResponse` is undefined, and the object passed
+     * to the callback is a `ClientIncomingMessage`, not an `http.IncomingMessage`), so it is only usable as a type.
      */
-    class ClientResponse {
+    interface ClientResponse {
+        /** Whether the response has been destroyed (undocumented; present in Max 9.2.0). */
+        readonly destroyed: boolean;
         readonly complete: boolean;
         /** Merged, lowercased headers. */
         readonly headers: Headers;
@@ -1166,9 +1234,14 @@ declare module "http" {
         off(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
-        pause(): void;
-        resume(): void;
+        /** Returns the message (verified in Max 9.2.0) */
+        pause(): this;
+        /** Returns the message (verified in Max 9.2.0) */
+        resume(): this;
         text(): Promise<string>;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit, hasListener
     }
 
     /**
@@ -1201,11 +1274,16 @@ declare module "http" {
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /** Pauses `data` event flow. */
-        pause(): void;
+        /** Returns the message (verified in Max 9.2.0) */
+        pause(): this;
         /** Resumes `data` event flow. */
-        resume(): void;
+        /** Returns the message (verified in Max 9.2.0) */
+        resume(): this;
         /** Buffers the full body as a UTF-8 string. */
         text(): Promise<string>;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit, hasListener
     }
 
     /**
@@ -1218,16 +1296,19 @@ declare module "http" {
         statusMessage: string;
         readonly writableEnded: boolean;
         /** Writes an optional final chunk and ends the response. */
-        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): void;
+        /** Returns the response (verified in Max 9.2.0) */
+        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): this;
         /** Returns a previously set header value. */
         getHeader(name: string): string | string[] | undefined;
         off(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
         /** Removes a previously set header. */
-        removeHeader(name: string): void;
+        /** Returns the response (verified in Max 9.2.0) */
+        removeHeader(name: string): this;
         /** Sets a response header. Array values emit repeated header lines. */
-        setHeader(name: string, value: string | string[]): void;
+        /** Returns the response (verified in Max 9.2.0) */
+        setHeader(name: string, value: string | string[]): this;
         /** Writes a body chunk. Returns `false` once queued outbound bytes exceed the high-water mark. */
         write(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): boolean;
         /** Writes the status line and headers. */
@@ -1236,6 +1317,9 @@ declare module "http" {
             statusMessageOrHeaders?: string | Record<string, string | string[]>,
             headers?: Record<string, string | string[]>,
         ): this;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit, hasListener
     }
 
     /**
@@ -1243,17 +1327,23 @@ declare module "http" {
      * Events: `listening`, `request`, `upgrade`, `close`, `error`.
      */
     class Server {
-        address(): AddressInfo;
+        /** Whether the server is currently listening (present in Max 9.2.0 on http.Server, undocumented) */
+        readonly listening: boolean;
+        /** Returns the bound local endpoint after `listening`; null before that (verified in Max 9.2.0 for net.Server). */
+        address(): AddressInfo | null;
         close(callback?: () => void): this;
         listen(port: number, host?: string, callback?: () => void): this;
         listen(options: { port?: number; host?: string }, callback?: () => void): this;
         off(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit, hasListener, and onclose / onerror / onlistening / onrequest / onupgrade (null until set)
     }
 
-    /** The shared default `http.Agent`. */
-    const globalAgent: Agent;
+    /** The shared default `http.Agent` (a writable property at runtime). */
+    let globalAgent: Agent;
 
     /** Creates an HTTP `http.Server`. */
     function createServer(requestListener?: RequestListener): Server;
@@ -1282,7 +1372,7 @@ declare module "https" {
     import * as http from "http";
 
     /** The shared default agent for HTTPS requests. */
-    const globalAgent: http.Agent;
+    let globalAgent: http.Agent;
 
     /**
      * Creates a TLS-backed HTTP/1.1 server. `options.key` and `options.cert` are required PEM strings or `IOBuffer` values.
@@ -1346,23 +1436,30 @@ declare module "net" {
     class Socket {
         /** Whether the socket has been destroyed. */
         readonly destroyed: boolean;
-        readonly localAddress: string;
-        readonly localPort: number;
-        readonly remoteAddress: string;
-        readonly remotePort: number;
+        /** undefined until the socket is connected (verified in Max 9.2.0) */
+        readonly localAddress: string | undefined;
+        /** undefined until the socket is connected (verified in Max 9.2.0) */
+        readonly localPort: number | undefined;
+        /** undefined until the socket is connected (verified in Max 9.2.0) */
+        readonly remoteAddress: string | undefined;
+        /** undefined until the socket is connected (verified in Max 9.2.0) */
+        readonly remotePort: number | undefined;
         /** Returns the local endpoint once connected. */
-        address(): AddressInfo;
+        /** null while the socket is not connected (verified in Max 9.2.0) */
+        address(): AddressInfo | null;
         /** Connects to a TCP host/port. */
         connect(port: number, host?: string, callback?: () => void): this;
         /** Connects using an options object (TCP host/port or IPC `path`). */
         connect(options: ConnectOptions, callback?: () => void): this;
         /** Destroys the socket. */
-        destroy(): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        destroy(): this;
         /**
          * Sends an optional final chunk and half-closes the writable side. (Windows named pipes have no half-close; the peer
          * sees EOF only on `destroy()`.)
          */
-        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): this;
         /** Removes an event listener. */
         off(event: string, listener: (...args: any[]) => void): this;
         /** Registers an event listener. */
@@ -1370,11 +1467,16 @@ declare module "net" {
         /** Registers a one-shot event listener. */
         once(event: string, listener: (...args: any[]) => void): this;
         /** Pauses delivery of `data` events (single pending chunk). */
-        pause(): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        pause(): this;
         /** Resumes delivery of `data` events. */
-        resume(): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        resume(): this;
         /** Queues data to send. Returns `false` once queued bytes exceed the high-water mark. */
         write(chunk: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): boolean;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit
     }
 
     /**
@@ -1384,8 +1486,8 @@ declare module "net" {
     class Server {
         /** Whether the server is currently listening. */
         readonly listening: boolean;
-        /** Returns the bound local endpoint after `listening`. */
-        address(): AddressInfo;
+        /** Returns the bound local endpoint after `listening`; null before that (verified in Max 9.2.0). */
+        address(): AddressInfo | null;
         /** Stops the server. */
         close(callback?: () => void): this;
         /** Begins listening on a TCP host/port. */
@@ -1398,6 +1500,9 @@ declare module "net" {
         on(event: string, listener: (...args: any[]) => void): this;
         /** Registers a one-shot event listener. */
         once(event: string, listener: (...args: any[]) => void): this;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit
     }
 
     /** Creates a `net.Socket` and connects to a TCP host/port. */
@@ -1458,7 +1563,8 @@ declare module "tls" {
      */
     class TLSSocket {
         /** The verification error message, when not authorized. */
-        readonly authorizationError: string;
+        /** Why the peer was not authorized, e.g. "self signed certificate"; undefined on a server-side socket (verified in Max 9.2.0). */
+        readonly authorizationError: string | undefined;
         /** Whether the peer certificate was verified. */
         readonly authorized: boolean;
         readonly destroyed: boolean;
@@ -1477,9 +1583,11 @@ declare module "tls" {
             callback?: () => void,
         ): this;
         /** Destroys the socket. */
-        destroy(): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        destroy(): this;
         /** Sends an optional final chunk and half-closes the socket. */
-        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        end(chunk?: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): this;
         /** Returns a summary of the peer certificate, when available. */
         getPeerCertificate(): PeerCertificate | undefined;
         /** Removes an event listener. */
@@ -1489,11 +1597,16 @@ declare module "tls" {
         /** Registers a one-shot event listener. */
         once(event: string, listener: (...args: any[]) => void): this;
         /** Pauses delivery of `data` events (single pending chunk). */
-        pause(): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        pause(): this;
         /** Resumes delivery of `data` events. */
-        resume(): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        resume(): this;
         /** Queues data to send. Returns `false` under backpressure. */
         write(chunk: string | IOBuffer | ArrayBufferView, encoding?: string, callback?: () => void): boolean;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit
     }
 
     /**
@@ -1501,13 +1614,19 @@ declare module "tls" {
      * Events: `listening`, `secureConnection`, `close`, `error`.
      */
     class Server {
-        address(): AddressInfo;
+        /** Whether the server is currently listening (present in Max 9.2.0 on http.Server, undocumented) */
+        readonly listening: boolean;
+        /** Returns the bound local endpoint after `listening`; null before that (verified in Max 9.2.0 for net.Server). */
+        address(): AddressInfo | null;
         close(callback?: () => void): this;
         listen(port: number, host?: string, callback?: () => void): this;
         listen(options: { port?: number; host?: string }, callback?: () => void): this;
         off(event: string, listener: (...args: any[]) => void): this;
         on(event: string, listener: (...args: any[]) => void): this;
         once(event: string, listener: (...args: any[]) => void): this;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit
     }
 
     /** Creates a `tls.TLSSocket` and connects. */
@@ -1543,7 +1662,8 @@ declare module "dgram" {
         /** The socket protocol, `"udp4"` or `"udp6"`. */
         readonly type: string;
         /** Joins a multicast group. */
-        addMembership(multicastAddress: string, interfaceAddress?: string): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        addMembership(multicastAddress: string, interfaceAddress?: string): this;
         /** Returns the bound local endpoint. */
         address(): AddressInfo;
         /** Binds the socket to a local port/address. */
@@ -1551,7 +1671,8 @@ declare module "dgram" {
         /** Closes the socket. */
         close(): void;
         /** Leaves a multicast group. */
-        dropMembership(multicastAddress: string, interfaceAddress?: string): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        dropMembership(multicastAddress: string, interfaceAddress?: string): this;
         /** Removes an event listener. */
         off(event: string, listener: (...args: any[]) => void): this;
         /** Registers an event listener. */
@@ -1564,17 +1685,25 @@ declare module "dgram" {
             port: number,
             address?: string,
             callback?: (error?: Error) => void,
-        ): void;
+        ): this; // returns the socket (verified in Max 9.2.0)
         /** Enables or disables broadcast. */
-        setBroadcast(flag: boolean): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        setBroadcast(flag: boolean): this;
         /** Selects the outgoing multicast interface (IPv4 dotted-quad only). */
-        setMulticastInterface(iface: string): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        setMulticastInterface(iface: string): this;
         /** Enables or disables multicast loopback. */
-        setMulticastLoopback(flag: boolean): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        setMulticastLoopback(flag: boolean): this;
         /** Sets the multicast time-to-live. */
-        setMulticastTTL(ttl: number): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        setMulticastTTL(ttl: number): this;
         /** Sets the unicast time-to-live. */
-        setTTL(ttl: number): void;
+        /** Returns the socket (verified in Max 9.2.0) */
+        setTTL(ttl: number): this;
+
+        // Also present in Max 9.2.0 but undocumented, so not declared (signatures unknown):
+        // emit
     }
 
     /** Creates a UDP `dgram.Socket`. */
