@@ -2361,6 +2361,10 @@
             "libraryName": "fast-memory-cache",
             "asOfVersion": "3.0.0"
         },
+        "fast-ratelimit": {
+            "libraryName": "fast-ratelimit",
+            "asOfVersion": "4.0.0"
+        },
         "fast-shuffle": {
             "libraryName": "fast-shuffle",
             "asOfVersion": "6.1.0"
