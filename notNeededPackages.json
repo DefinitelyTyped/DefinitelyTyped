@@ -4261,6 +4261,10 @@
             "libraryName": "lockfile-info",
             "asOfVersion": "1.1.0"
         },
+        "locomotive-scroll": {
+            "libraryName": "locomotive-scroll",
+            "asOfVersion": "5.0.1"
+        },
         "lodash-decorators": {
             "libraryName": "lodash-decorators",
             "asOfVersion": "4.0.0"
