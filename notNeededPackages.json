@@ -716,6 +716,10 @@
             "libraryName": "caniuse-api",
             "asOfVersion": "4.0.0"
         },
+        "canvas-txt": {
+            "libraryName": "canvas-txt",
+            "asOfVersion": "5.0.2"
+        },
         "canvaskit-wasm": {
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
