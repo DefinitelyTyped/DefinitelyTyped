@@ -1925,6 +1925,10 @@
             "libraryName": "dragselect",
             "asOfVersion": "2.1.2"
         },
+        "drivelist": {
+            "libraryName": "drivelist",
+            "asOfVersion": "12.0.2"
+        },
         "dsinjs__binary-tree": {
             "libraryName": "@dsinjs/binary-tree",
             "asOfVersion": "2.0.1"
