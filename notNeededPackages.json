@@ -804,6 +804,10 @@
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
         },
+        "changelog-parser": {
+            "libraryName": "changelog-parser",
+            "asOfVersion": "4.1.0"
+        },
         "chardet": {
             "libraryName": "chardet",
             "asOfVersion": "1.0.0"
