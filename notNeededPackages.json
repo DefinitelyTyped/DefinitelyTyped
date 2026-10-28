@@ -2633,6 +2633,10 @@
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
         },
+        "fontmin": {
+            "libraryName": "fontmin",
+            "asOfVersion": "1.1.1"
+        },
         "for-each": {
             "libraryName": "for-each",
             "asOfVersion": "0.3.5"
