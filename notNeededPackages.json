@@ -6535,6 +6535,10 @@
             "libraryName": "react-images",
             "asOfVersion": "1.1.0"
         },
+        "react-immutable-proptypes": {
+            "libraryName": "react-immutable-proptypes",
+            "asOfVersion": "2.2.0"
+        },
         "react-infinite-scroll-component": {
             "libraryName": "react-infinite-scroll-component",
             "asOfVersion": "5.0.0"
