@@ -1504,6 +1504,10 @@
             "libraryName": "cron-converter",
             "asOfVersion": "2.0.0"
         },
+        "cronitor": {
+            "libraryName": "cronitor",
+            "asOfVersion": "2.6.1"
+        },
         "cropperjs": {
             "libraryName": "cropperjs",
             "asOfVersion": "1.3.0"
