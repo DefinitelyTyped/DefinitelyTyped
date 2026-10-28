@@ -28,6 +28,10 @@
             "libraryName": "accessibility",
             "asOfVersion": "4.5.4"
         },
+        "ace-diff": {
+            "libraryName": "ace-diff",
+            "asOfVersion": "4.0.0"
+        },
         "acme-client": {
             "libraryName": "acme-client",
             "asOfVersion": "3.3.0"
@@ -47,6 +51,10 @@
         "adhan": {
             "libraryName": "adhan",
             "asOfVersion": "4.0.0"
+        },
+        "adm-zip": {
+            "libraryName": "adm-zip",
+            "asOfVersion": "0.6.0"
         },
         "adobe__node-fetch-retry": {
             "libraryName": "@adobe/node-fetch-retry",
@@ -155,6 +163,10 @@
         "animejs": {
             "libraryName": "animejs",
             "asOfVersion": "4.0.0"
+        },
+        "annyang": {
+            "libraryName": "annyang",
+            "asOfVersion": "3.0.0"
         },
         "ansi-colors": {
             "libraryName": "ansi-colors",
@@ -312,6 +324,10 @@
             "libraryName": "@atlaskit/tree",
             "asOfVersion": "7.0.0"
         },
+        "atmosphere.js": {
+            "libraryName": "atmosphere.js",
+            "asOfVersion": "5.0.47"
+        },
         "aurelia-knockout": {
             "libraryName": "aurelia-knockout",
             "asOfVersion": "2.1.0"
@@ -364,6 +380,10 @@
             "libraryName": "azure-mobile-apps",
             "asOfVersion": "3.0.0"
         },
+        "b4a": {
+            "libraryName": "b4a",
+            "asOfVersion": "1.9.0"
+        },
         "babel-plugin-tester": {
             "libraryName": "babel-plugin-tester",
             "asOfVersion": "11.0.0"
@@ -391,6 +411,10 @@
         "badgen": {
             "libraryName": "badgen",
             "asOfVersion": "2.7.1"
+        },
+        "balanced-match": {
+            "libraryName": "balanced-match",
+            "asOfVersion": "4.0.4"
         },
         "barnard59": {
             "libraryName": "barnard59",
@@ -512,6 +536,10 @@
             "libraryName": "bingmaps",
             "asOfVersion": "2.0.15"
         },
+        "bip21": {
+            "libraryName": "bip21",
+            "asOfVersion": "3.0.0"
+        },
         "bip32": {
             "libraryName": "bip32",
             "asOfVersion": "2.0.0"
@@ -568,6 +596,10 @@
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
         },
+        "browser-bunyan": {
+            "libraryName": "browser-bunyan",
+            "asOfVersion": "1.8.0"
+        },
         "browser-image-compression": {
             "libraryName": "browser-image-compression",
             "asOfVersion": "1.0.7"
@@ -584,9 +616,17 @@
             "libraryName": "bs58check",
             "asOfVersion": "3.0.1"
         },
+        "bs58grscheck": {
+            "libraryName": "bs58grscheck",
+            "asOfVersion": "3.0.1"
+        },
         "bson": {
             "libraryName": "bson",
             "asOfVersion": "4.2.0"
+        },
+        "buffer-crc32": {
+            "libraryName": "buffer-crc32",
+            "asOfVersion": "1.0.0"
         },
         "bugsnag": {
             "libraryName": "bugsnag-js",
@@ -672,6 +712,14 @@
             "libraryName": "camljs",
             "asOfVersion": "2.8.1"
         },
+        "caniuse-api": {
+            "libraryName": "caniuse-api",
+            "asOfVersion": "4.0.0"
+        },
+        "canvas-txt": {
+            "libraryName": "canvas-txt",
+            "asOfVersion": "5.0.2"
+        },
         "canvaskit-wasm": {
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
@@ -720,6 +768,10 @@
             "libraryName": "cbor",
             "asOfVersion": "6.0.0"
         },
+        "ccapture.js": {
+            "libraryName": "ccapture.js",
+            "asOfVersion": "2.0.0"
+        },
         "ceddl__ceddl-polyfill": {
             "libraryName": "@ceddl/ceddl-polyfill",
             "asOfVersion": "0.9.9"
@@ -752,6 +804,10 @@
             "libraryName": "change-case",
             "asOfVersion": "2.3.1"
         },
+        "changelog-parser": {
+            "libraryName": "changelog-parser",
+            "asOfVersion": "4.1.0"
+        },
         "chardet": {
             "libraryName": "chardet",
             "asOfVersion": "1.0.0"
@@ -779,6 +835,10 @@
         "chenfengyuan__vue-qrcode": {
             "libraryName": "@chenfengyuan/vue-qrcode",
             "asOfVersion": "2.0.0"
+        },
+        "chess.js": {
+            "libraryName": "chess.js",
+            "asOfVersion": "1.4.0"
         },
         "chokidar": {
             "libraryName": "chokidar",
@@ -1060,6 +1120,10 @@
             "libraryName": "@ckeditor/ckeditor5-word-count",
             "asOfVersion": "37.0.0"
         },
+        "classificator": {
+            "libraryName": "classificator",
+            "asOfVersion": "1.0.1"
+        },
         "classify-poetry": {
             "libraryName": "classify-poetry",
             "asOfVersion": "1.0.1"
@@ -1140,6 +1204,10 @@
             "libraryName": "color-convert",
             "asOfVersion": "3.0.1"
         },
+        "color-string": {
+            "libraryName": "color-string",
+            "asOfVersion": "2.1.4"
+        },
         "colorbrewer": {
             "libraryName": "colorbrewer",
             "asOfVersion": "1.6.0"
@@ -1171,6 +1239,10 @@
         "commons-validator-js": {
             "libraryName": "commons-validator-js",
             "asOfVersion": "1.0.1266"
+        },
+        "compact-encoding": {
+            "libraryName": "compact-encoding",
+            "asOfVersion": "3.5.2"
         },
         "compare-versions": {
             "libraryName": "compare-versions",
@@ -1207,6 +1279,10 @@
         "config": {
             "libraryName": "config",
             "asOfVersion": "4.4.0"
+        },
+        "configstore": {
+            "libraryName": "configstore",
+            "asOfVersion": "8.0.0"
         },
         "confirmdialog": {
             "libraryName": "confirmdialog",
@@ -1388,6 +1464,10 @@
             "libraryName": "country-emoji",
             "asOfVersion": "1.5.6"
         },
+        "country-list-js": {
+            "libraryName": "country-list-js",
+            "asOfVersion": "4.0.0"
+        },
         "countup.js": {
             "libraryName": "countup.js",
             "asOfVersion": "2.0.3"
@@ -1428,6 +1508,10 @@
             "libraryName": "cron-converter",
             "asOfVersion": "2.0.0"
         },
+        "cronitor": {
+            "libraryName": "cronitor",
+            "asOfVersion": "2.6.1"
+        },
         "cropperjs": {
             "libraryName": "cropperjs",
             "asOfVersion": "1.3.0"
@@ -1444,6 +1528,10 @@
             "libraryName": "crypto-random-string",
             "asOfVersion": "2.0.0"
         },
+        "cryptr": {
+            "libraryName": "cryptr",
+            "asOfVersion": "6.4.0"
+        },
         "cson-parser": {
             "libraryName": "cson-parser",
             "asOfVersion": "4.0.3"
@@ -1454,6 +1542,10 @@
         },
         "css-minimizer-webpack-plugin": {
             "libraryName": "css-minimizer-webpack-plugin",
+            "asOfVersion": "3.2.0"
+        },
+        "css-to-react-native": {
+            "libraryName": "css-to-react-native",
             "asOfVersion": "3.2.0"
         },
         "cssnano": {
@@ -1520,6 +1612,10 @@
         "cytoscape-popper": {
             "libraryName": "cytoscape-popper",
             "asOfVersion": "4.0.0"
+        },
+        "d3-3d": {
+            "libraryName": "d3-3d",
+            "asOfVersion": "2.0.2"
         },
         "dailymotion__vast-client": {
             "libraryName": "@dailymotion/vast-client",
@@ -1621,6 +1717,10 @@
             "libraryName": "decompress-response",
             "asOfVersion": "4.1.0"
         },
+        "dedent": {
+            "libraryName": "dedent",
+            "asOfVersion": "1.7.2"
+        },
         "deep-freeze-es6": {
             "libraryName": "deep-freeze-es6",
             "asOfVersion": "1.1.0"
@@ -1633,9 +1733,17 @@
             "libraryName": "define-lazy-prop",
             "asOfVersion": "2.0.0"
         },
+        "degit": {
+            "libraryName": "degit",
+            "asOfVersion": "3.10.0"
+        },
         "del": {
             "libraryName": "del",
             "asOfVersion": "4.0.0"
+        },
+        "delaunator": {
+            "libraryName": "delaunator",
+            "asOfVersion": "5.1.0"
         },
         "delay": {
             "libraryName": "delay",
@@ -1693,6 +1801,10 @@
             "libraryName": "devextreme",
             "asOfVersion": "16.2.1"
         },
+        "device-uuid": {
+            "libraryName": "device-uuid",
+            "asOfVersion": "3.0.6"
+        },
         "devtools-detect": {
             "libraryName": "devtools-detect",
             "asOfVersion": "3.0.0"
@@ -1741,6 +1853,10 @@
             "libraryName": "disqusjs",
             "asOfVersion": "3.0.0"
         },
+        "diva.js": {
+            "libraryName": "diva.js",
+            "asOfVersion": "7.5.2"
+        },
         "docker-file-parser": {
             "libraryName": "docker-file-parser",
             "asOfVersion": "1.0.3"
@@ -1760,6 +1876,10 @@
         "dom-loaded": {
             "libraryName": "dom-loaded",
             "asOfVersion": "1.1.0"
+        },
+        "dom-parser": {
+            "libraryName": "dom-parser",
+            "asOfVersion": "1.1.5"
         },
         "domelementtype": {
             "libraryName": "domelementtype",
@@ -1793,6 +1913,10 @@
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
         },
+        "dotenv-flow": {
+            "libraryName": "dotenv-flow",
+            "asOfVersion": "4.1.0"
+        },
         "double-metaphone": {
             "libraryName": "double-metaphone",
             "asOfVersion": "2.0.0"
@@ -1800,6 +1924,10 @@
         "dragselect": {
             "libraryName": "dragselect",
             "asOfVersion": "2.1.2"
+        },
+        "drivelist": {
+            "libraryName": "drivelist",
+            "asOfVersion": "12.0.2"
         },
         "drupal-attribute": {
             "libraryName": "drupal-attribute",
@@ -1812,6 +1940,14 @@
         "dva": {
             "libraryName": "dva",
             "asOfVersion": "1.1.0"
+        },
+        "earcut": {
+            "libraryName": "earcut",
+            "asOfVersion": "3.2.4"
+        },
+        "easy-soap-request": {
+            "libraryName": "easy-soap-request",
+            "asOfVersion": "5.21.0"
         },
         "easy-speech": {
             "libraryName": "easy-speech",
@@ -1901,6 +2037,10 @@
             "libraryName": "electron-devtools-installer",
             "asOfVersion": "4.0.0"
         },
+        "electron-installer-dmg": {
+            "libraryName": "electron-installer-dmg",
+            "asOfVersion": "5.0.1"
+        },
         "electron-is-dev": {
             "libraryName": "electron-is-dev",
             "asOfVersion": "1.1.0"
@@ -1945,6 +2085,10 @@
             "libraryName": "email-addresses",
             "asOfVersion": "3.0.0"
         },
+        "email-reply-parser": {
+            "libraryName": "email-reply-parser",
+            "asOfVersion": "2.3.9"
+        },
         "email-validator": {
             "libraryName": "email-validator",
             "asOfVersion": "1.0.6"
@@ -1984,6 +2128,10 @@
         "enhanced-resolve": {
             "libraryName": "enhanced-resolve",
             "asOfVersion": "5.0.0"
+        },
+        "enigma.js": {
+            "libraryName": "enigma.js",
+            "asOfVersion": "2.15.0"
         },
         "ensure-error": {
             "libraryName": "ensure-error",
@@ -2229,6 +2377,10 @@
             "libraryName": "extract-colors",
             "asOfVersion": "3.0.0"
         },
+        "extract-domain": {
+            "libraryName": "extract-domain",
+            "asOfVersion": "5.0.2"
+        },
         "extract-stack": {
             "libraryName": "extract-stack",
             "asOfVersion": "2.0.0"
@@ -2241,6 +2393,14 @@
             "libraryName": "faker",
             "asOfVersion": "6.6.6"
         },
+        "falcor-json-graph": {
+            "libraryName": "falcor-json-graph",
+            "asOfVersion": "3.2.1"
+        },
+        "fast-astar": {
+            "libraryName": "fast-astar",
+            "asOfVersion": "2.0.2"
+        },
         "fast-diff": {
             "libraryName": "fast-diff",
             "asOfVersion": "1.2.0"
@@ -2252,6 +2412,14 @@
         "fast-json-stable-stringify": {
             "libraryName": "fast-json-stable-stringify",
             "asOfVersion": "2.1.0"
+        },
+        "fast-memory-cache": {
+            "libraryName": "fast-memory-cache",
+            "asOfVersion": "3.0.0"
+        },
+        "fast-ratelimit": {
+            "libraryName": "fast-ratelimit",
+            "asOfVersion": "4.0.0"
         },
         "fast-shuffle": {
             "libraryName": "fast-shuffle",
@@ -2381,6 +2549,10 @@
             "libraryName": "fetch-mock",
             "asOfVersion": "9.2.2"
         },
+        "ffmpeg": {
+            "libraryName": "ffmpeg",
+            "asOfVersion": "1.1.3"
+        },
         "ffmpeg-installer__ffmpeg": {
             "libraryName": "@ffmpeg-installer/ffmpeg",
             "asOfVersion": "1.1.0"
@@ -2392,6 +2564,10 @@
         "fhir-kit-client": {
             "libraryName": "fhir-kit-client",
             "asOfVersion": "1.6.7"
+        },
+        "figlet": {
+            "libraryName": "figlet",
+            "asOfVersion": "1.12.0"
         },
         "figures": {
             "libraryName": "figures",
@@ -2420,6 +2596,10 @@
         "filesize": {
             "libraryName": "filesize",
             "asOfVersion": "5.0.0"
+        },
+        "filestack-react": {
+            "libraryName": "filestack-react",
+            "asOfVersion": "7.0.1"
         },
         "filter-console": {
             "libraryName": "filter-console",
@@ -2468,6 +2648,14 @@
         "fkill": {
             "libraryName": "fkill",
             "asOfVersion": "6.0.0"
+        },
+        "flat": {
+            "libraryName": "flat",
+            "asOfVersion": "6.0.1"
+        },
+        "flat-cache": {
+            "libraryName": "flat-cache",
+            "asOfVersion": "6.1.23"
         },
         "flatbuffers": {
             "libraryName": "flatbuffers",
@@ -2521,9 +2709,21 @@
             "libraryName": "flux-standard-action",
             "asOfVersion": "1.1.0"
         },
+        "fontmin": {
+            "libraryName": "fontmin",
+            "asOfVersion": "1.1.1"
+        },
+        "for-each": {
+            "libraryName": "for-each",
+            "asOfVersion": "0.3.5"
+        },
         "force-graph": {
             "libraryName": "force-graph",
             "asOfVersion": "1.26.0"
+        },
+        "foreground-child": {
+            "libraryName": "foreground-child",
+            "asOfVersion": "4.0.3"
         },
         "forest-express-mongoose": {
             "libraryName": "forest-express-mongoose",
@@ -2549,13 +2749,25 @@
             "libraryName": "form-urlencoded",
             "asOfVersion": "4.4.0"
         },
+        "format-duration": {
+            "libraryName": "format-duration",
+            "asOfVersion": "4.0.0"
+        },
         "format-number": {
             "libraryName": "format-number",
             "asOfVersion": "3.0.0"
         },
+        "fossil-delta": {
+            "libraryName": "fossil-delta",
+            "asOfVersion": "2.0.0"
+        },
         "foundation-sites": {
             "libraryName": "foundation-sites",
             "asOfVersion": "6.4.3"
+        },
+        "fparser": {
+            "libraryName": "fparser",
+            "asOfVersion": "4.2.0"
         },
         "framebus": {
             "libraryName": "framebus",
@@ -2593,6 +2805,10 @@
             "libraryName": "fullname",
             "asOfVersion": "4.0.0"
         },
+        "function.prototype.name": {
+            "libraryName": "function.prototype.name",
+            "asOfVersion": "1.2.0"
+        },
         "fuse": {
             "libraryName": "fuse",
             "asOfVersion": "2.6.0"
@@ -2624,6 +2840,14 @@
         "geolib": {
             "libraryName": "geolib",
             "asOfVersion": "2.0.23"
+        },
+        "geolite2": {
+            "libraryName": "geolite2",
+            "asOfVersion": "4.0.1"
+        },
+        "geometric": {
+            "libraryName": "geometric",
+            "asOfVersion": "3.0.9"
         },
         "gestalt-datepicker": {
             "libraryName": "gestalt-datepicker",
@@ -2725,6 +2949,10 @@
             "libraryName": "globby",
             "asOfVersion": "9.1.0"
         },
+        "glur": {
+            "libraryName": "glur",
+            "asOfVersion": "2.0.0"
+        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
@@ -2756,6 +2984,10 @@
         "google__markerclustererplus": {
             "libraryName": "@google/markerclustererplus",
             "asOfVersion": "3.0.3"
+        },
+        "gopd": {
+            "libraryName": "gopd",
+            "asOfVersion": "1.2.0"
         },
         "graphene-pk11": {
             "libraryName": "graphene-pk11",
@@ -2828,6 +3060,10 @@
         "gulp-typescript": {
             "libraryName": "gulp-typescript",
             "asOfVersion": "2.13.0"
+        },
+        "gun": {
+            "libraryName": "gun",
+            "asOfVersion": "0.2020.1241"
         },
         "gzip-size": {
             "libraryName": "gzip-size",
@@ -3108,6 +3344,10 @@
         "httpsnippet": {
             "libraryName": "httpsnippet",
             "asOfVersion": "3.0.1"
+        },
+        "human-interval": {
+            "libraryName": "human-interval",
+            "asOfVersion": "2.0.1"
         },
         "human-object-diff": {
             "libraryName": "human-object-diff",
@@ -3725,6 +3965,10 @@
             "libraryName": "jsonp-body",
             "asOfVersion": "1.1.0"
         },
+        "jsonpointer": {
+            "libraryName": "jsonpointer",
+            "asOfVersion": "5.0.0"
+        },
         "jsonschema": {
             "libraryName": "jsonschema",
             "asOfVersion": "1.1.1"
@@ -3892,6 +4136,10 @@
         "known": {
             "libraryName": "known",
             "asOfVersion": "3.0.0"
+        },
+        "koa-etag": {
+            "libraryName": "koa-etag",
+            "asOfVersion": "5.0.0"
         },
         "koa-graphql": {
             "libraryName": "koa-graphql",
@@ -4105,6 +4353,14 @@
             "libraryName": "lock-system",
             "asOfVersion": "2.0.0"
         },
+        "lockfile-info": {
+            "libraryName": "lockfile-info",
+            "asOfVersion": "1.1.0"
+        },
+        "locomotive-scroll": {
+            "libraryName": "locomotive-scroll",
+            "asOfVersion": "5.0.1"
+        },
         "lodash-decorators": {
             "libraryName": "lodash-decorators",
             "asOfVersion": "4.0.0"
@@ -4208,6 +4464,22 @@
         "maker.js": {
             "libraryName": "makerjs",
             "asOfVersion": "0.9.34"
+        },
+        "makeup-expander": {
+            "libraryName": "makeup-expander",
+            "asOfVersion": "0.11.10"
+        },
+        "makeup-keyboard-trap": {
+            "libraryName": "makeup-keyboard-trap",
+            "asOfVersion": "0.5.8"
+        },
+        "makeup-prevent-scroll-keys": {
+            "libraryName": "makeup-prevent-scroll-keys",
+            "asOfVersion": "0.3.5"
+        },
+        "makeup-screenreader-trap": {
+            "libraryName": "makeup-screenreader-trap",
+            "asOfVersion": "0.5.7"
         },
         "mali": {
             "libraryName": "mali",
@@ -4444,6 +4716,10 @@
         "mdx-js__react": {
             "libraryName": "@mdx-js/react",
             "asOfVersion": "2.0.0"
+        },
+        "megajs": {
+            "libraryName": "megajs",
+            "asOfVersion": "1.0.0"
         },
         "mem": {
             "libraryName": "mem",
@@ -4900,6 +5176,10 @@
         "net-keepalive": {
             "libraryName": "net-keepalive",
             "asOfVersion": "1.0.0"
+        },
+        "neverbounce": {
+            "libraryName": "neverbounce",
+            "asOfVersion": "5.0.1"
         },
         "new-github-issue-url": {
             "libraryName": "new-github-issue-url",
@@ -5546,6 +5826,10 @@
         "pigpio": {
             "libraryName": "pigpio",
             "asOfVersion": "3.1.0"
+        },
+        "ping": {
+            "libraryName": "ping",
+            "asOfVersion": "1.0.0"
         },
         "pino": {
             "libraryName": "pino",
@@ -7219,6 +7503,10 @@
             "libraryName": "serialport",
             "asOfVersion": "10.2.0"
         },
+        "set-cookie-parser": {
+            "libraryName": "set-cookie-parser",
+            "asOfVersion": "3.1.0"
+        },
         "set-interval-async": {
             "libraryName": "set-interval-async",
             "asOfVersion": "3.0.1"
@@ -7347,6 +7635,10 @@
             "libraryName": "slonik",
             "asOfVersion": "23.0.0"
         },
+        "smallwei__avue": {
+            "libraryName": "@smallwei/avue",
+            "asOfVersion": "3.8.2"
+        },
         "smooth-scrollbar": {
             "libraryName": "smooth-scrollbar",
             "asOfVersion": "8.2.5"
@@ -7374,6 +7666,10 @@
         "snowboy": {
             "libraryName": "snowboy",
             "asOfVersion": "1.3.1"
+        },
+        "snowflake-sdk": {
+            "libraryName": "snowflake-sdk",
+            "asOfVersion": "1.11.0"
         },
         "soap": {
             "libraryName": "soap",
@@ -7891,6 +8187,10 @@
             "libraryName": "@testing-library/vue",
             "asOfVersion": "5.3.0"
         },
+        "testingbot-api": {
+            "libraryName": "testingbot-api",
+            "asOfVersion": "1.1.0"
+        },
         "text-clipper": {
             "libraryName": "text-clipper",
             "asOfVersion": "1.3.0"
@@ -8274,6 +8574,10 @@
         "vue": {
             "libraryName": "vuejs",
             "asOfVersion": "2.0.0"
+        },
+        "vue-color": {
+            "libraryName": "vue-color",
+            "asOfVersion": "3.0.0"
         },
         "vue-i18n": {
             "libraryName": "vue-i18n",

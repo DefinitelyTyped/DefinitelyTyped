@@ -16,6 +16,7 @@ import http, {
     patch,
     post,
     put,
+    query,
     RefinedResponse,
     request,
     Response,
@@ -153,6 +154,26 @@ post(address, {}, 5);
 responseNone = post(address, null, { responseType: "none" });
 // @ts-expect-error
 post(address, {}, {}, 5);
+
+// query
+// @ts-expect-error
+query();
+// @ts-expect-error
+query(5);
+query(addressFromHttpURL);
+responseDefault = query(address);
+// @ts-expect-error
+query(address, 5);
+responseDefault = query(address, "{\"filter\": \"all\"}");
+responseDefault = query(address, {});
+responseDefault = query(address, { filter: "all" });
+responseDefault = query(address, new ArrayBuffer(8));
+// @ts-expect-error
+query(address, {}, 5);
+responseBinary = query(address, {}, { responseType: "binary" });
+// @ts-expect-error
+query(address, {}, {}, 5);
+responseDefault = http.query(address, "{}", { headers: { "Content-Type": "application/json" } });
 
 // put
 // @ts-expect-error

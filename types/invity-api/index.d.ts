@@ -130,8 +130,16 @@ export interface BuySellProviderMetadata extends ProviderMetadata {
     disabledSubdivisions?: Subdivisions;
 }
 
+export interface TradeRates {
+    sendUsd: number;
+    receiveUsd: number;
+    sendBtc: number;
+    receiveBtc: number;
+}
+
 export interface TradeCommon {
     statusUrl?: string | null; // URL with ID assigned to the trade by the provider to check status; if null, do not show any status url
+    rates?: TradeRates | undefined; // USD/BTC rates snapshot for send/receive legs; refreshed when amounts change
 }
 
 export type DomainEntity =
@@ -162,6 +170,7 @@ export const ERROR_CODES: readonly [
     "trade_expired",
     "trade_failed",
     "trade_refunded",
+    "trade_is_not_possible",
     "unknown",
 ];
 export type ErrorCode = (typeof ERROR_CODES)[number];
@@ -180,7 +189,7 @@ export type TradeErrorDetailsMap = {
         : C extends "no_response" ? { code: C }
         : C extends "trade_not_found" ? { code: C; id?: string }
         : C extends "trade_expired" | "trade_failed" | "trade_refunded" ? { code: C; orderId?: string }
-        : { code: C }; // unknown
+        : { code: C };
 };
 export interface TradeErrorDetailsBase {
     origin: ErrorOrigin; // who trade error conceptually belongs to
@@ -266,7 +275,8 @@ export type BuyCryptoPaymentMethod =
     | "venmo"
     | "multibanco"
     | "klarna"
-    | "blik";
+    | "blik"
+    | "vietqr";
 
 export type BuyTradeTag =
     | "renewed"
@@ -369,16 +379,12 @@ export type BuyTradeFormResponse = FormResponse;
 export interface WatchBuyTradeResponse {
     status?: BuyTradeStatus | undefined; // state of trade after confirmTrade
     error?: string | undefined; // something went wrong after confirmTrade
-    /** Updated fiat amount from provider */
-    fiatStringAmount?: string;
-    /** Updated crypto receive amount from provider */
-    receiveStringAmount?: string;
-    /** Updated exchange rate from provider */
-    rate?: number;
-    /** Updated payment method from provider */
-    paymentMethod?: BuyCryptoPaymentMethod;
-    /** Updated payment method display name from provider */
-    paymentMethodName?: string;
+    fiatStringAmount?: string | undefined; // updated fiat amount from provider
+    fiatCurrency?: string | undefined; // updated fiat currency from provider
+    receiveStringAmount?: string | undefined; // updated crypto receive amount from provider
+    rate?: number | undefined; // updated exchange rate from provider
+    paymentMethod?: BuyCryptoPaymentMethod | undefined; // updated payment method from provider
+    paymentMethodName?: string | undefined; // updated payment method display name from provider
 }
 
 // exchange types
@@ -433,6 +439,19 @@ export type DexApprovalType =
     | "ZERO" // resets approval
     | "PRESET"; // PRESET takes value from approvalStringAmount
 
+export type TxKind = "simpleTransfer" | "transferWithMemo" | "contractCall";
+
+export interface PartialFill {
+    receive: CryptoId;
+    receiveStringAmount: string;
+}
+
+export interface NetworkFee {
+    amount: string; // estimated fee in send chain native coin (e.g. "0.00042")
+    gasLimit?: string; // suggested gas limit in gas units (EVM only)
+    gasPrice?: string; // gas price in wei (EVM only)
+}
+
 export type ExchangeTrade = TradeCommon & Partial<TradeError> & {
     send?: CryptoId | undefined; // bitcoin
 
@@ -465,29 +484,33 @@ export type ExchangeTrade = TradeCommon & Partial<TradeError> & {
     tags?: ExchangeTradeTag[] | undefined;
     id?: string | undefined; // internal DB id
     infoNote?: string | undefined;
+    txKind?: TxKind | undefined; // transaction kind (e.g. whether it is just a simple transfer or a contract call)
+    provider?: string | undefined; // name of the sub-provider of aggregators like SwapKit
+    quoteSignature?: string | undefined; // server signature of the quote data, verified on trade confirmation
 
     // DEX extra fields
     isDex?: boolean | undefined;
-    approvalGasEstimate?: number | undefined; // gas estimate of the approval transaction
+    approvalNetworkFee?: NetworkFee | undefined; // estimated network fee for the approval transaction
     approvalType?: DexApprovalType | undefined;
     preapprovedStringAmount?: string | undefined; //  amount that was already approved
     approvalStringAmount?: string | undefined; //  amount to approve
     approvalSendTxHash?: string | undefined; // txid of approval transaction
-    swapGasEstimate?: number | undefined; // gas estimate of the swap transaction
+    swapNetworkFee?: NetworkFee | undefined; // estimated network fee of the swap transaction
     swapSlippage?: string | undefined; // swap slippage in percent, for example "1.5"
     dexTx?:
         | {
             // tx data for approval or swap transaction
             from: string;
             to: string;
-            data: string;
             value: string;
+            data?: string;
         }
         | undefined;
     signData?: {
         type: "eip712-typed-data";
         data: object;
     };
+    partialFill?: PartialFill | undefined; // indicator if the trade was partially filled
     // locally used fields
     offerType?: "bestRate" | "favorite" | undefined;
     tradeForm?: FormResponse;
@@ -532,13 +555,14 @@ export interface ConfirmExchangeTradeRequest {
 
 export interface WatchExchangeTradeResponse extends Partial<TradeError> {
     status?: ExchangeTradeStatus | undefined; // state of trade after confirmTrade
-    sendAddress?: string; // exchange address for send tx
-    partnerPaymentExtraId?: string; // Extra ID for payments to exchange for networks that require it (destinationTag)
+    sendAddress?: string | undefined; // exchange address for send tx
+    partnerPaymentExtraId?: string | undefined; // extra ID for payments to exchange for networks that require it (destinationTag)
     receiveTxHash?: string | undefined;
     rate?: number | undefined;
     receiveStringAmount?: string | undefined; // "0.01"
-    /** Updated send amount from provider when it differs from the original quote */
-    sendStringAmount?: string;
+    sendStringAmount?: string | undefined; // updated send amount from provider when it differs from the original quote
+    partialFill?: PartialFill | undefined; // indicator if the trade was partially filled
+    quoteSignature?: string | undefined; // server signature of the updated quote data
 }
 
 // utilityTypes
@@ -670,7 +694,6 @@ export type SellCryptoPaymentMethod =
     | "ach"
     | "skrill"
     | "neteller"
-    | "payid"
     | "dcinterac"
     | "fasterPayment"
     | "pix";
@@ -786,16 +809,13 @@ export interface WatchSellTradeResponse {
     status?: SellTradeStatus | undefined; // new state of trade
     error?: string | undefined; // something went wrong
     destinationAddress?: string | undefined; // crypto address to which sent crypto currency to sell
-    destinationPaymentExtraId?: string | undefined; // Extra ID for payments to exchange for networks that require it (destinationTag)
-    cryptoStringAmount?: string; // Crypto amount to send in case of change on provider's side (Banxa)
-    /** Updated fiat amount from provider */
-    fiatStringAmount?: string;
-    /** Updated exchange rate from provider */
-    rate?: number;
-    /** Updated payment method from provider */
-    paymentMethod?: SellCryptoPaymentMethod;
-    /** Updated payment method display name from provider */
-    paymentMethodName?: string;
+    destinationPaymentExtraId?: string | undefined; // extra ID for payments to exchange for networks that require it (destinationTag)
+    cryptoStringAmount?: string | undefined; // crypto amount to send in case of change on provider's side (Banxa)
+    fiatStringAmount?: string | undefined; // updated fiat amount from provider
+    fiatCurrency?: string | undefined; // updated fiat currency from provider
+    rate?: number | undefined; // updated exchange rate from provider
+    paymentMethod?: SellCryptoPaymentMethod | undefined; // updated payment method from provider
+    paymentMethodName?: string | undefined; // updated payment method display name from provider
 }
 
 export interface PaymentRequestOutput {

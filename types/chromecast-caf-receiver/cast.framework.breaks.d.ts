@@ -39,6 +39,30 @@ export class BreakClipLoadInterceptorContext {
 }
 
 /**
+ * Represents creative information that is associated with VAST XMLs.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.breaks.CreativeInformation
+ */
+export class CreativeInformation {
+    constructor();
+
+    /**
+     * Used to provide the ad server's unique identifier for the creative.
+     */
+    creativeAdId?: string | undefined;
+
+    /**
+     * The string used to identify the ad server that provides the creative.
+     */
+    creativeId?: string | undefined;
+
+    /**
+     * Used to provide a unique creative identifier that is maintained across
+     * systems. Used for the purpose of tracking ad creative.
+     */
+    universalAdIds?: Array<{ [key: string]: any } | null> | undefined;
+}
+
+/**
  * Interface to manage breaks
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.breaks.BreakManager
  */
@@ -82,6 +106,12 @@ export interface BreakManager {
 
     /** Get current media breaks. */
     getBreaks(): Break[];
+
+    /**
+     * Gets creative information associated with breakclip by id.
+     * @param breakClipId Clip id.
+     */
+    getCreativeInfoByClipId(breakClipId: string): CreativeInformation | null;
 
     /** Returns true if watched breaks should be played. */
     getPlayWatchedBreak(): boolean;

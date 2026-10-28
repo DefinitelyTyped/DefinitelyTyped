@@ -1610,29 +1610,31 @@ export default class Dygraph {
     static dateTicker: dygraphs.Ticker;
 
     // Tick granularities (passed to ticker).
-    static SECONDLY: number;
-    static TWO_SECONDLY: number;
-    static FIVE_SECONDLY: number;
-    static TEN_SECONDLY: number;
-    static THIRTY_SECONDLY: number;
-    static MINUTELY: number;
-    static TWO_MINUTELY: number;
-    static FIVE_MINUTELY: number;
-    static TEN_MINUTELY: number;
-    static THIRTY_MINUTELY: number;
-    static HOURLY: number;
-    static TWO_HOURLY: number;
-    static SIX_HOURLY: number;
-    static DAILY: number;
-    static TWO_DAILY: number;
-    static WEEKLY: number;
-    static MONTHLY: number;
-    static QUARTERLY: number;
-    static BIANNUAL: number;
-    static ANNUAL: number;
-    static DECADAL: number;
-    static CENTENNIAL: number;
-    static NUM_GRANULARITIES: number;
+    static Granularity: {
+        SECONDLY: number;
+        TWO_SECONDLY: number;
+        FIVE_SECONDLY: number;
+        TEN_SECONDLY: number;
+        THIRTY_SECONDLY: number;
+        MINUTELY: number;
+        TWO_MINUTELY: number;
+        FIVE_MINUTELY: number;
+        TEN_MINUTELY: number;
+        THIRTY_MINUTELY: number;
+        HOURLY: number;
+        TWO_HOURLY: number;
+        SIX_HOURLY: number;
+        DAILY: number;
+        TWO_DAILY: number;
+        WEEKLY: number;
+        MONTHLY: number;
+        QUARTERLY: number;
+        BIANNUAL: number;
+        ANNUAL: number;
+        DECADAL: number;
+        CENTENNIAL: number;
+        NUM_GRANULARITIES: number;
+    };
 
     static defaultInteractionModel: any;
 

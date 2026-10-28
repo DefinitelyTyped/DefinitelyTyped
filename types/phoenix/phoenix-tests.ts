@@ -17,6 +17,13 @@ class InMemoryStorage {
     }
 }
 
+function test_socket_auth_token_function() {
+    let token = "first-token";
+    const socket = new Socket("/ws", { authToken: () => token });
+    socket.connect();
+    token = "refreshed-token";
+}
+
 function test_socket() {
     const socket = new Socket("/ws", {
         authToken: "my-secret-token",

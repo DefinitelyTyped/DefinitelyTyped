@@ -25,8 +25,8 @@ async function connect() {
 
     const info = port.getInfo();
     const vendor = info.vendor;
-    port.writable.getWriter();
-    port.readable.getReader();
+    port.writable?.getWriter();
+    port.readable?.getReader();
 
     await port.close();
 

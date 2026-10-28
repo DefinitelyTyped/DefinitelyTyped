@@ -21,6 +21,15 @@ new Provider("https://op.example.com", {
 });
 
 new Provider("https://op.example.com", {
+    clientAuthMethods: ["attest_jwt_client_auth", "attest_jwt_client_auth_dpop"],
+    clients: [{
+        client_id: "attested-dpop-client",
+        token_endpoint_auth_method: "attest_jwt_client_auth_dpop",
+        redirect_uris: ["https://client.example.com/cb"],
+    }],
+});
+
+new Provider("https://op.example.com", {
     cookies: {
         long: {
             // @ts-expect-error Cookie priority has a finite set of supported values.
@@ -46,7 +55,7 @@ const paymentAuthorizationDetail: oidc.RichAuthorizationRequestType = {
 const optionalAuthorizationDetailTypes = undefined as
     | Readonly<Record<string, oidc.RichAuthorizationRequestType>>
     | undefined;
-const dynamicallyEnabled: boolean = true;
+const dynamicallyEnabled: boolean = Math.random() < 0.5;
 
 new Provider("https://op.example.com", {
     features: {
@@ -54,6 +63,10 @@ new Provider("https://op.example.com", {
             enabled: true,
             challengeSecret: Buffer.alloc(32),
             getAttestationSignaturePublicKey,
+        },
+        dPoP: {
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
         },
         ciba: {
             enabled: true,
@@ -97,6 +110,10 @@ new Provider("https://op.example.com", {
             enabled: dynamicallyEnabled,
             challengeSecret: Buffer.alloc(32),
             getAttestationSignaturePublicKey,
+        },
+        dPoP: {
+            enabled: dynamicallyEnabled,
+            nonceSecret: Buffer.alloc(32),
         },
         ciba: {
             enabled: dynamicallyEnabled,
@@ -196,6 +213,7 @@ new Provider("https://op.example.com", {
 
 new Provider("https://op.example.com", {
     features: {
+        dPoP: { nonceSecret: Buffer.alloc(32) },
         // @ts-expect-error enabled attestClientAuth requires its challenge secret and key resolver
         attestClientAuth: { enabled: true },
     },
@@ -203,8 +221,68 @@ new Provider("https://op.example.com", {
 
 new Provider("https://op.example.com", {
     features: {
+        dPoP: { nonceSecret: Buffer.alloc(32) },
         // @ts-expect-error the challenge secret does not make the attestation key resolver optional
         attestClientAuth: { enabled: true, challengeSecret: Buffer.alloc(32) },
+    },
+});
+
+new Provider("https://op.example.com", {
+    // @ts-expect-error DPoP is enabled by default and attestation requires a DPoP nonce secret
+    features: {
+        attestClientAuth: {
+            enabled: true,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: {
+            enabled: true,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+        // @ts-expect-error enabling both features requires a DPoP nonce secret
+        dPoP: { enabled: true },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: {
+            enabled: dynamicallyEnabled,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+        // @ts-expect-error dynamic DPoP enablement with attestation requires a DPoP nonce secret
+        dPoP: { enabled: dynamicallyEnabled },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: {
+            enabled: true,
+            challengeSecret: Buffer.alloc(32),
+            getAttestationSignaturePublicKey,
+        },
+        dPoP: { enabled: false },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        attestClientAuth: { enabled: false },
+        dPoP: { enabled: dynamicallyEnabled },
+    },
+});
+
+new Provider("https://op.example.com", {
+    features: {
+        dPoP: { enabled: true },
     },
 });
 
@@ -1143,7 +1221,7 @@ new Provider("https://op.example.com", {
         },
         attestClientAuth: {
             enabled: true,
-            ack: "draft-10",
+            ack: "draft-12",
             additionalSecuritySignal: "optional",
             challengeSecret: Buffer.alloc(32),
             getAttestationSignaturePublicKey(ctx, header, payload, client) {
@@ -1155,10 +1233,17 @@ new Provider("https://op.example.com", {
             },
             assertAttestationJwtAndPop(ctx, attestation, pop, client) {
                 ctx.oidc.issuer.substring(0);
+                const method = ctx.oidc.clientAttestation?.method;
+                // $ExpectType "attestation_pop_jwt" | "dpop_combined" | undefined
+                method;
                 JSON.stringify(attestation.protectedHeader);
+                JSON.stringify(pop.protectedHeader);
                 JSON.stringify(pop.payload);
                 client.clientId.substring(0);
             },
+        },
+        dPoP: {
+            nonceSecret: Buffer.alloc(32),
         },
         openid4vci: {
             enabled: true,
@@ -1213,7 +1298,7 @@ new Provider("https://op.example.com", {
             },
             getKeyAttestationSignaturePublicKey(ctx, issuer, header, client) {
                 ctx.oidc.issuer.substring(0);
-                issuer.substring(0);
+                issuer?.substring(0);
                 JSON.stringify(header);
                 client.clientId.substring(0);
                 return crypto.generateKeyPairSync("ed25519").publicKey;
@@ -1616,30 +1701,17 @@ provider.registerGrantType<TokenExchangeParameters>(
         const authorizationDetailsSource: grantHelpers.AuthorizationDetailsSource = source;
         authorizationDetailsSource.rar?.[0].type.substring(0);
 
-        const dPoP = await grantHelpers.validateDpop(provider, ctx);
-        await grantHelpers.validateDpop(provider, ctx, "access-token");
+        const dPoP: grantHelpers.DPoPValidationResult | undefined = await grantHelpers.validateDpop(
+            provider,
+            ctx,
+            "access-token",
+        );
         dPoP?.thumbprint.substring(0);
         dPoP?.jti.substring(0);
         dPoP?.iat.toFixed();
-        const certificate = grantHelpers.checkMtlsCert(provider, ctx);
-        grantHelpers.checkMtlsCert(provider, ctx, oidc.errors.InvalidRequest);
-        if (typeof certificate === "string") {
-            certificate.substring(0);
-        } else {
-            certificate?.fingerprint256.substring(0);
-        }
-        grantHelpers.checkDpopRequired(provider, ctx, dPoP);
-        grantHelpers.checkDpopRequired(provider, ctx, undefined, oidc.errors.InvalidRequest);
-        await grantHelpers.checkDpopReplay(provider, ctx, dPoP, ctx.oidc.client.clientId);
-        await grantHelpers.checkDpopReplay(
-            provider,
-            ctx,
-            undefined,
-            ctx.oidc.client.clientId,
-            oidc.errors.InvalidRequest,
-        );
-        if (certificate) accessToken.setThumbprint("x5t", certificate);
-        if (dPoP) accessToken.setThumbprint("jkt", dPoP.thumbprint);
+        grantHelpers.checkMtlsCert(provider, ctx, oidc.errors.InvalidGrant);
+        grantHelpers.checkDpopRequired(provider, ctx, dPoP, oidc.errors.InvalidGrant);
+        await grantHelpers.checkDpopReplay(provider, ctx, dPoP, ctx.oidc.client.clientId, oidc.errors.InvalidRequest);
         await grantHelpers.applyAuthorizationDetails(provider, ctx, accessToken, source);
 
         const refreshToken = new provider.RefreshToken({

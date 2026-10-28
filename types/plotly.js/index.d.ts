@@ -447,30 +447,15 @@ export interface PlotlyHTMLElement extends HTMLElement {
     layout: Layout;
 }
 
-export interface ToImgopts {
-    format: "jpeg" | "png" | "webp" | "svg";
-    /**
-     * If null, uses current graph width
-     */
-    width: number | null;
-    /**
-     * If null, uses current graph height
-     */
-    height: number | null;
-    scale?: number | undefined;
+export type SetBackground = "opaque" | "transparent" | ((gd: PlotlyHTMLElement, bgColor: string) => void);
+
+export interface ToImgopts extends Omit<ToImageButtonOptions, "filename"> {
+    setBackground?: SetBackground;
+    imageDataOnly?: boolean;
 }
 
-export interface DownloadImgopts {
-    format: "jpeg" | "png" | "webp" | "svg";
-    /**
-     * If null, uses current graph width
-     */
-    width: number | null;
-    /**
-     * If null, uses current graph height
-     */
-    height: number | null;
-    filename: string;
+export interface DownloadImgopts extends Omit<ToImgopts, "imageDataOnly"> {
+    filename?: string;
 }
 
 export interface AnimationFrameOpts {
@@ -547,7 +532,7 @@ export function prependTraces(
     indices: number | number[],
 ): Promise<PlotlyHTMLElement>;
 export function toImage(root: RootOrData, opts?: ToImgopts): Promise<string>;
-export function downloadImage(root: RootOrData, opts: DownloadImgopts): Promise<string>;
+export function downloadImage(root: RootOrData, opts?: DownloadImgopts): Promise<string>;
 export function react(
     root: Root,
     data: Data[],
@@ -1531,6 +1516,8 @@ export type Color =
 export type ColorScale = string | string[] | Array<[number, string]>;
 export type ScatterData = PlotData;
 
+export type ToImageFormat = "png" | "jpeg" | "webp" | "svg" | "full-json";
+
 export interface PlotData {
     type: PlotType;
     x: Datum[] | Datum[][] | TypedArray;
@@ -2253,6 +2240,14 @@ export interface Edits {
     titleText: boolean;
 }
 
+export interface ToImageButtonOptions {
+    filename?: string;
+    format?: ToImageFormat;
+    height?: number | null;
+    width?: number | null;
+    scale?: number;
+}
+
 export interface Config {
     /**
      * Determines whether the graphs are interactive or not.
@@ -2451,13 +2446,7 @@ export interface Config {
      * allowed keys are format, filename, width, height, scale
      * @default {}
      */
-    toImageButtonOptions: Partial<{
-        filename: string;
-        scale: number;
-        format: "png" | "svg" | "jpeg" | "webp";
-        height: number;
-        width: number;
-    }>;
+    toImageButtonOptions: ToImageButtonOptions;
 
     /**
      * Determines whether or not the plotly logo is displayed on the end of the mode bar.
@@ -2483,7 +2472,7 @@ export interface Config {
      * Alternatively, set to string *opaque* to ensure there is white behind it.
      * @default "transparent"
      */
-    setBackground: ((gd: PlotlyHTMLElement, bgColor: string) => void) | "opaque" | "transparent";
+    setBackground: SetBackground;
 
     /**
      * Set the URL to topojson used in geo charts.
