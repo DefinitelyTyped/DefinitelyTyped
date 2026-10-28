@@ -36,13 +36,10 @@ export function normaliseString(
  */
 export function normaliseDataset<
     ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
->(
-    Component: {
-        schema?: Schema<ConfigurationType>;
-        moduleName: string;
-    },
-    dataset: DOMStringMap,
-): ObjectNested;
+>(Component: {
+    schema?: Schema<ConfigurationType>;
+    moduleName: string;
+}, dataset: DOMStringMap): ObjectNested;
 
 /**
  * Normalise options passed to `initAll` or `createAll`
@@ -61,6 +58,7 @@ export function normaliseOptions<ComponentClass extends CompatibleClass>(
         | Document
         | null,
 ): CreateAllOptions<ComponentClass>;
+
 /**
  * Config merging function
  *
@@ -93,9 +91,10 @@ export function mergeConfigs(
  * @param {ConfigurationType} config - Component config
  * @returns {string[]} List of validation errors
  */
-export function validateConfig<
-    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
->(schema: Schema<ConfigurationType>, config: ConfigurationType): string[];
+export function validateConfig<ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>>(
+    schema: Schema<ConfigurationType>,
+    config: ConfigurationType,
+): string[];
 
 /**
  * Extracts keys starting with a particular namespace from dataset ('data-*')
@@ -108,9 +107,7 @@ export function validateConfig<
  * @param {keyof ConfigurationType} namespace - The namespace to filter keys with
  * @returns {ObjectNested | undefined} Nested object with dot-separated key namespace removed
  */
-export function extractConfigByNamespace<
-    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
->(
+export function extractConfigByNamespace<ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>>(
     schema: Schema<ConfigurationType>,
     dataset: DOMStringMap,
     namespace: keyof ConfigurationType,
@@ -123,8 +120,8 @@ export const configOverride: unique symbol;
  *
  * Centralises the behaviours shared by our components
  *
- * @template {Partial<Record<keyof ConfigurationType, unknown>>} [ConfigurationType=ObjectNested]
- * @template {Element & { dataset: DOMStringMap }} [RootElementType=HTMLElement]
+ * @template {Partial<Record<keyof ConfigurationType, unknown>>} ConfigurationType
+ * @template {Element & { dataset: DOMStringMap }} RootElementType
  */
 export abstract class ConfigurableComponent<
     ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>> = ObjectNested,
@@ -165,9 +162,7 @@ export abstract class ConfigurableComponent<
      * @param {Partial<ConfigurationType>} [param] - Configuration object
      * @returns {Partial<ConfigurationType>} return - Configuration object
      */
-    [configOverride](
-        param?: Partial<ConfigurationType>,
-    ): Partial<ConfigurationType>;
+    [configOverride](param?: Partial<ConfigurationType>): Partial<ConfigurationType>;
 }
 
 export type NestedKey = keyof ObjectNested;
@@ -179,9 +174,7 @@ export interface ObjectNested {
 /**
  * Schema for component config
  */
-export interface Schema<
-    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
-> {
+export interface Schema<ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>> {
     /**
      * - Schema properties
      */
@@ -206,9 +199,7 @@ export interface SchemaProperty {
 /**
  * Schema condition for component config
  */
-export interface SchemaCondition<
-    ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>,
-> {
+export interface SchemaCondition<ConfigurationType extends Partial<Record<keyof ConfigurationType, unknown>>> {
     /**
      * - List of required config fields
      */
