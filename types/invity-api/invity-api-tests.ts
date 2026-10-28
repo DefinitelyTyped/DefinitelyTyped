@@ -19,6 +19,8 @@ import {
     SellFiatTradeSigned,
     SellListResponse,
     SellProviderInfo,
+    TxKind,
+    WatchBuyTradeResponse,
     WatchExchangeTradeResponse,
     WatchSellTradeResponse,
 } from "invity-api";
@@ -67,6 +69,39 @@ const ets: ExchangeTradeSigned = {
     tradeSignature: "signature",
 };
 
+const txKind: TxKind = "simpleTransfer";
+
+const dexEt: ExchangeTrade = {
+    send: "ethereum" as CryptoId,
+    receive: "bitcoin" as CryptoId,
+    status: "CONFIRM",
+    isDex: true,
+    txKind: "contractCall",
+    provider: "THORCHAIN",
+    quoteSignature: "quoteSignature",
+    approvalNetworkFee: { amount: "0.0001" },
+    swapNetworkFee: {
+        amount: "0.00042",
+        gasLimit: "21000",
+        gasPrice: "20000000000",
+    },
+    dexTx: {
+        from: "0xfrom",
+        to: "0xto",
+        value: "0x",
+    },
+    partialFill: {
+        receive: "bitcoin" as CryptoId,
+        receiveStringAmount: "0.001",
+    },
+    rates: {
+        sendUsd: 1,
+        receiveUsd: 1,
+        sendBtc: 1,
+        receiveBtc: 1,
+    },
+};
+
 const sft: SellFiatTrade = {
     paymentMethodName: "Test",
     destinationPaymentExtraIdDescription: {
@@ -85,6 +120,28 @@ const sfts: SellFiatTradeSigned = {
 const wstr: WatchSellTradeResponse = {
     cryptoStringAmount: "",
     fiatStringAmount: "",
+    fiatCurrency: "EUR",
+};
+
+const wbtr: WatchBuyTradeResponse = {
+    status: "SUBMITTED",
+    fiatStringAmount: "100",
+    fiatCurrency: "EUR",
+    receiveStringAmount: "0.001",
+    rate: 100000,
+    paymentMethod: "vietqr",
+    paymentMethodName: "VietQR",
+};
+
+const wetr: WatchExchangeTradeResponse = {
+    status: "CONVERTING",
+    sendStringAmount: "0.1",
+    receiveStringAmount: "0.2",
+    quoteSignature: "quoteSignature",
+    partialFill: {
+        receive: "bitcoin" as CryptoId,
+        receiveStringAmount: "0.001",
+    },
 };
 
 const wetrErr: WatchExchangeTradeResponse = {

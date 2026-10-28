@@ -7,7 +7,6 @@ declare var inlets: number;
 declare var outlets: number;
 declare var autowatch: number;
 declare var jsarguments: any[];
-declare var arguments: IArguments;
 declare var box: Maxobj;
 declare var editfontsize: number;
 declare var inlet: number;

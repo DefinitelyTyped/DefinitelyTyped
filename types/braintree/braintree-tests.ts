@@ -404,3 +404,18 @@ braintree.MerchantAccount.FundingDestination.Email;
 
 // $ExpectType "mobile_phone"
 braintree.MerchantAccount.FundingDestination.MobilePhone;
+
+(async () => {
+    const result = await gateway.paymentMethod.create({
+        customerId: "123456",
+        paymentMethodNonce: "fake-valid-nonce",
+        options: { verifyCard: true },
+    });
+    if (!result.success && result.verification) {
+        result.verification.processorResponseCode; // $ExpectType string
+        result.verification.processorResponseText; // $ExpectType string
+        result.verification.processorResponseType; // $ExpectType string
+        result.verification.gatewayRejectionReason; // $ExpectType string | undefined
+    }
+    result.verification; // $ExpectType CreditCardVerification | undefined
+})();

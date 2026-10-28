@@ -3,6 +3,7 @@
 /// <reference path="./cast.framework.breaks.d.ts" />
 /// <reference path="./cast.framework.events.d.ts" />
 /// <reference path="./cast.framework.messages.d.ts" />
+/// <reference path="./cast.framework.stats.d.ts" />
 /// <reference path="./cast.framework.system.d.ts" />
 /// <reference path="./cast.framework.ui.d.ts" />
 
@@ -72,5 +73,15 @@ declare global {
     type TimedMetadataEventHandler = (event: TimedMetadataEvent) => void;
     type PlayerDataChangedEventHandler = (event: PlayerDataChangedEvent) => void;
     type RequestHandler = (request: framework.NetworkRequestInfo) => void;
-    type BinaryHandler = (data: Uint8Array) => Uint8Array | Promise<Uint8Array>;
+    /**
+     * Processes response data, such as a segment or a license, and returns the
+     * modified data. The last parameter is the original Shaka Player request
+     * (shaka.extern.Request) which gave rise to this response, and is undefined
+     * if Shaka Player is not being used.
+     */
+    type BinaryHandler = (
+        data: Uint8Array,
+        responseInfo: framework.NetworkResponseInfo,
+        request?: { [key: string]: any },
+    ) => Uint8Array | Promise<Uint8Array>;
 }
