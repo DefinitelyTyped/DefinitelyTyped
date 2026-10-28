@@ -813,8 +813,8 @@ myV8Maxobj.message("set", "max msp ruined my life");
 post(myV8Maxobj.boxtext);
 myV8Maxobj.setattrdefault("bgcolor");
 myV8Maxobj.setboxattrdefault("patching_rect");
-// $ExpectType string | number | number[]
-myV8Maxobj.getboxattrattr("patching_rect", "label");
+// $ExpectType string | number | number[] | null
+myV8Maxobj.getboxattrattr("patching_rect", "label"); // null when the attribute does not exist (verified in Max 9.2.0)
 
 outlettypes = ["int", null];
 outlet_array(0, [1, 2, "three"]);
@@ -863,8 +863,8 @@ const v8Task = new Task((args?: any[]) => post(args), this, [1, 2]);
 new Task((a: number, b: number) => post(a + b), this, [1, 2]);
 // With a non-empty array the function is guaranteed to receive it, so the parameter can be required
 const requiredArgsTask = new Task((args: number[]) => post(args.length), {}, [1, 2]);
-// $ExpectType number[]
-requiredArgsTask.arguments;
+// $ExpectType number[] | undefined
+requiredArgsTask.arguments; // undefined when the Task was created without args (verified in Max 9.2.0)
 new Task((args: [number, string]) => post(args[1].toUpperCase()), this, [1, "a"]);
 // @ts-expect-error the element types must match
 new Task((args: string[]) => post(args.length), this, [1, 2]);
