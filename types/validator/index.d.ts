@@ -1202,7 +1202,6 @@ declare namespace validator {
 
     export const isPassportNumber: typeof _isPassportNumber.default;
     export const passportNumberLocales: typeof _isPassportNumber.locales;
-    export type PassportNumberLocale = _isPassportNumber.PassportNumberLocale;
 
     /**
      * Check if the string is a valid port number.

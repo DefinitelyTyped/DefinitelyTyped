@@ -1,3 +1,3 @@
-import isPassportNumber, { locales, PassportNumberLocale } from "../../lib/isPassportNumber";
+import isPassportNumber, { locales } from "../../lib/isPassportNumber";
 export default isPassportNumber;
-export { locales, PassportNumberLocale };
+export { locales };
