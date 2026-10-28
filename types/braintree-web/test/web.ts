@@ -101,6 +101,7 @@ braintree.client.create(
                             return googlePayInstance.parseResponse(paymentData);
                         })
                         .then((result: braintree.GooglePaymentTokenizePayload) => {
+                            const lastTwo: string = result.details.lastTwo;
                             console.log("nonce", result.nonce);
                         })
                         .catch(err => {
@@ -720,6 +721,14 @@ braintree.client.create(
                         button.removeAttribute("disabled");
                     }
                 });
+
+                // $ExpectType Promise<void>
+                paypalInstance.teardown();
+
+                // $ExpectType void
+                paypalInstance.teardown(() => {
+                    // teardown with callback
+                });
             },
         );
 
@@ -988,9 +997,13 @@ braintree.client.create(
                 });
         });
 
+        // $ExpectType void
         clientInstance.teardown(err => {
-            // implementation
+            // teardown with callback
         });
+
+        // $ExpectType Promise<void>
+        clientInstance.teardown();
 
         // Local Payment
         braintree.localPayment.create(

@@ -145,6 +145,7 @@ export type ResponseType =
     | "none";
 export type CIBADeliveryMode = "poll" | "ping";
 export type SubjectTypes = "public" | "pairwise";
+// BEGIN GENERATED OIDC-PROVIDER CLIENT AUTH METHODS
 export type ClientAuthMethod =
     | "client_secret_basic"
     | "client_secret_post"
@@ -153,7 +154,9 @@ export type ClientAuthMethod =
     | "tls_client_auth"
     | "self_signed_tls_client_auth"
     | "attest_jwt_client_auth"
+    | "attest_jwt_client_auth_dpop"
     | "none";
+// END GENERATED OIDC-PROVIDER CLIENT AUTH METHODS
 
 export interface ClaimsParameterMember {
     essential?: boolean | undefined;
@@ -828,6 +831,7 @@ export type {
     Session,
 };
 
+// BEGIN GENERATED OIDC-PROVIDER OIDC CONTEXT
 declare class OIDCContext {
     constructor(ctx: Koa.Context);
     readonly route: string;
@@ -863,6 +867,14 @@ declare class OIDCContext {
     readonly provider: Provider;
     readonly resourceServers?: { [key: string]: ResourceServerInstance } | undefined;
     readonly fapiProfile?: FapiProfile | undefined;
+    readonly clientAttestation?:
+        | {
+            method: "attestation_pop_jwt" | "dpop_combined";
+            signal: boolean;
+            attestation: JWTVerificationResult;
+            pop: JWTVerificationResult;
+        }
+        | undefined;
 
     entity(key: string, value: any): void;
 
@@ -897,6 +909,7 @@ declare class OIDCContext {
 
     clientJwtAuthExpectedAudience(): Set<string>;
 }
+// END GENERATED OIDC-PROVIDER OIDC CONTEXT
 
 export type KoaContextWithOIDC = Koa.ParameterizedContext<
     Koa.DefaultState,
@@ -924,7 +937,7 @@ export type TokenEndpointGrantContext<Params extends object = UnknownObject> = K
 
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 // BEGIN GENERATED OIDC-PROVIDER CONTRACTS
-// oidc-provider types artifact "9.12.2"; schema 1; sha256 11025a446176381071882466ac96dbe5438f648e8e372303501ea1c1c923abd2
+// oidc-provider types artifact "9.13.1"; schema 3; sha256 204be9334c416a047dc12c1aa1fb78d8ceb586b69f666477d6fec77a7f2300f3
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,
@@ -1895,8 +1908,9 @@ export interface AttestClientAuthConfigurationBase {
     /**
      * Specifies whether Client Attestation shall be accepted or required as an additional security signal alongside
      * regular client authentication. Use `optional` to validate the signal when it is present, or `required` to require
-     * the OAuth-Client-Attestation and OAuth-Client-Attestation-PoP headers after the client is identified. This uses
-     * the `attestation_pop_jwt` method and does not enable DPoP combined mode.
+     * the OAuth-Client-Attestation header and a proof of possession after the client is identified. The proof uses the
+     * `attestation_pop_jwt` method, or `dpop_combined` when `features.dPoP` is enabled. When both proof headers are
+     * present, the Client Attestation PoP JWT is validated and the DPoP proof is handled independently.
      */
     additionalSecuritySignal?: false | "optional" | "required" | undefined;
     /**
@@ -1921,8 +1935,11 @@ export interface AttestClientAuthConfigurationBase {
     getAttestationSignaturePublicKey?: AttestationSignaturePublicKey | undefined;
     /**
      * Specifies a helper function that shall be invoked to perform additional validation of the Client Attestation JWT
-     * and Client Attestation Proof-of-Possession JWT beyond the specification requirements. This enables enforcement of
-     * extension profiles, deployment-specific policies, or additional security constraints.
+     * and its proof of possession beyond the specification requirements. This enables enforcement of extension
+     * profiles, deployment-specific policies, or additional security constraints.
+     *
+     * The `pop` argument is the verified Client Attestation PoP JWT, or the verified DPoP proof in combined mode. Both
+     * expose `protectedHeader`, `payload`, and `key`.
      *
      * At the point of invocation, both JWTs have undergone signature verification and standard validity claim
      * validation. The function may throw errors to reject non-compliant attestations or return successfully to indicate
@@ -1970,6 +1987,17 @@ export type AttestClientAuthConfiguration =
     | AttestClientAuthDisabledConfiguration
     | AttestClientAuthEnabledConfiguration;
 
+type ConditionalAttestationFeatures =
+    | {
+        attestClientAuth?: AttestClientAuthDisabledConfiguration | undefined;
+    }
+    | {
+        dPoP: { enabled: false };
+    }
+    | {
+        dPoP: { nonceSecret: Buffer };
+    };
+
 export type OpenID4VCIIssueCredential = (
     ctx: KoaContextWithOIDC,
     details: OpenID4VCIIssueCredentialContext,
@@ -1977,7 +2005,7 @@ export type OpenID4VCIIssueCredential = (
 
 export type OpenID4VCIKeyAttestationSignaturePublicKey = (
     ctx: KoaContextWithOIDC,
-    issuer: string,
+    issuer: string | undefined,
     header: UnknownObject,
     client: Client,
 ) => CanBePromise<crypto.KeyObject | crypto.webcrypto.CryptoKey | JWK>;
@@ -2081,9 +2109,11 @@ export interface OpenID4VCIConfigurationBase {
      * The default helper implementation is a placeholder and MUST be replaced by a deployment before use.
      *
      * Specifies a helper function used to resolve the public key for verifying Key Attestation JWT (typ
-     * `key-attestation+jwt`) signatures when the `attestation` proof type is used. At the point of invocation the JWT
-     * format and `iss` claim presence have been validated; no cryptographic or further claims verification has occurred
-     * yet.
+     * `key-attestation+jwt`) signatures in the `jwt` proof type's `key_attestation` header or the `attestation` proof
+     * type. At the point of invocation the JWT format and the type of the optional `iss` claim have been validated; no
+     * cryptographic or further claims verification has occurred yet. The `iss` argument is undefined when the
+     * attestation omits that claim; deployments can use the JOSE header's certificate or key identifier to resolve a
+     * trusted verification key instead.
      *
      * An unsupported or invalid key causes the credential endpoint to respond with `invalid_proof`.
      */
@@ -3278,7 +3308,8 @@ export interface Configuration {
                     /**
                      * Specifies the cryptographic secret value used for generating server-provided DPoP nonces. When
                      * provided, this value MUST be a 32-byte Buffer instance to ensure sufficient entropy for secure
-                     * nonce generation. Nonces are derived from this secret rather than stored; the same value MUST be
+                     * nonce generation. This value is required when `features.attestClientAuth` and `features.dPoP` are
+                     * both enabled. Nonces are derived from this secret rather than stored; the same value MUST be
                      * configured on all instances of a deployment and kept stable across restarts.
                      */
                     nonceSecret?: Buffer | undefined;
@@ -3286,6 +3317,7 @@ export interface Configuration {
                      * Specifies a function that determines whether a DPoP nonce shall be required for
                      * proof-of-possession validation in the current request context. This function is invoked during
                      * DPoP proof validation to enforce nonce requirements based on authorization server policy.
+                     * Combined Client Attestation mode always requires a nonce, regardless of this callback's result.
                      */
                     requireNonce?: ((ctx: KoaContextWithOIDC) => boolean) | undefined;
                     /**
@@ -3660,7 +3692,7 @@ export interface Configuration {
             } | undefined;
 
             /**
-             * [draft-ietf-oauth-attestation-based-client-auth-10](https://www.ietf.org/archive/id/draft-ietf-oauth-attestation-based-client-auth-10.html)
+             * [draft-ietf-oauth-attestation-based-client-auth-12](https://www.ietf.org/archive/id/draft-ietf-oauth-attestation-based-client-auth-12.html)
              * - OAuth 2.0 Attestation-Based Client Authentication
              *
              * This is an experimental feature.
@@ -3677,10 +3709,16 @@ export interface Configuration {
              * a Client Attestation JWT issued by a trusted Client Attester and a corresponding Client Attestation
              * Proof-of-Possession JWT generated by the Client Instance. It can also enable Client Attestation as an
              * additional security signal alongside existing Client Authentication methods using the
-             * `attestation_pop_jwt` Proof-of-Possession method.
+             * `attestation_pop_jwt` Proof-of-Possession method. When `features.dPoP` is enabled, the server also
+             * supports the `attest_jwt_client_auth_dpop` authentication method and the `dpop_combined`
+             * Proof-of-Possession method. In combined mode, the DPoP proof demonstrates possession of the Client
+             * Instance Key and always requires a DPoP nonce, regardless of `features.dPoP.requireNonce`. Enabling both
+             * features requires configuring `features.dPoP.nonceSecret`.
              */
             attestClientAuth?: AttestClientAuthConfiguration | undefined;
-        } & ConditionalRichAuthorizationRequestFeatures
+        }
+            & ConditionalRichAuthorizationRequestFeatures
+            & ConditionalAttestationFeatures
         | undefined;
 
     /**

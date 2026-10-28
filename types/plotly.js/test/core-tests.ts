@@ -801,30 +801,28 @@ function rand() {
 (() => {
     // Plotly.toImage will turn the plot in the given div into a data URL string
     // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600 }).then(dataUrl => {
-        // use the dataUrl
+    // No option
+    Plotly.toImage(graphDiv);
+    // Empty option
+    Plotly.toImage(graphDiv, {});
+    // Option with format, width, and height
+    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600 });
+    // Options with null dimensions
+    Plotly.toImage(graphDiv, { format: "png", width: null, height: null, scale: 2 });
+    // Full option
+    Plotly.toImage(graphDiv, {
+        format: "png",
+        width: 800,
+        height: 600,
+        scale: 2,
+        imageDataOnly: false,
+        setBackground: "opaque",
+    }).then(dataUrl => {
+        // dataUrl.startsWith("data:image/png;base64,"); // use the dataUrl
     });
-})();
-//////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////
-// Plotly.toImage with null dimensions
-(() => {
-    // Plotly.toImage will turn the plot in the given div into a data URL string
-    // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: "png", width: null, height: null, scale: 2 }).then(dataUrl => {
-        // use the dataUrl
-    });
-})();
-//////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////
-// Plotly.toImage + scale parameter
-(() => {
-    // Plotly.toImage will turn the plot in the given div into a data URL string
-    // toImage takes the div as the first argument and an object specifying image properties as the other
-    Plotly.toImage(graphDiv, { format: "png", width: 800, height: 600, scale: 2 }).then(dataUrl => {
-        // use the dataUrl
+    // Option for JSON export
+    Plotly.toImage(graphDiv, { format: "full-json", imageDataOnly: true }).then(dataUrl => {
+        // JSON.parse(dataUrl); // use the dataUrl
     });
 })();
 //////////////////////////////////////////////////////////////////////
@@ -844,15 +842,25 @@ function rand() {
 // Plotly.downloadImage
 (() => {
     // downloadImage will accept the div as the first argument and an object specifying image properties as the other
+    // No option
+    Plotly.downloadImage(graphDiv);
+    // Empty option
+    Plotly.downloadImage(graphDiv, {});
+    // Option with format, width, height, and filename
     Plotly.downloadImage(graphDiv, { format: "png", width: 800, height: 600, filename: "newplot" });
-})();
-//////////////////////////////////////////////////////////////////////
-
-//////////////////////////////////////////////////////////////////////
-// Plotly.downloadImage with null dimensions
-(() => {
-    // downloadImage will accept the div as the first argument and an object specifying image properties as the other
+    // Option with null dimensions
     Plotly.downloadImage(graphDiv, { format: "png", width: null, height: null, filename: "newplot" });
+    // Full option
+    Plotly.downloadImage(graphDiv, {
+        format: "png",
+        width: 800,
+        height: 600,
+        filename: "newplot",
+        scale: 2,
+        setBackground: "opaque",
+    });
+    // Option for JSON export
+    Plotly.downloadImage(graphDiv, { format: "full-json" });
 })();
 //////////////////////////////////////////////////////////////////////
 

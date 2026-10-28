@@ -149,6 +149,7 @@ const secureElementsConfig: payu.Configuration = {
     buyer: { email: "buyer@example.com" },
     clickToPay: {
         dpaName: "My Shop",
+        recognitionToken: "RECOGNITION_TOKEN",
         mastercard: { dpaId: "MC_DPA_ID" },
         visa: { dpaId: "VISA_DPA_ID", acquirerBIN: "12345", acquirerMerchantId: "MERCHANT_ID" },
     },
@@ -212,3 +213,8 @@ secureElements.on("change");
 secureElements.render("#container", { configuration: { elements: ["unknown"], posId: "POS_ID" }, customization: {} });
 // @ts-expect-error missing required posId in Configuration
 secureElements.render("#container", { configuration: { elements: ["cards"] }, customization: {} });
+secureElements.render("#container", {
+    // @ts-expect-error recognitionToken must be a string
+    configuration: { elements: ["cards"], posId: "POS_ID", clickToPay: { recognitionToken: 123 } },
+    customization: {},
+});

@@ -531,7 +531,7 @@ declare namespace Office {
      * It's also supported in
      * {@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new Outlook on Windows}.
      *
-     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermission 1.1}
+     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermissionService 1.1}
      */
     enum DevicePermissionType {
         /**
@@ -5515,7 +5515,7 @@ declare namespace Office {
      * It's also supported in
      * {@link https://support.microsoft.com/office/656bb8d9-5a60-49b2-a98b-ba7822bc7627 | new Outlook on Windows}.
      *
-     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermission 1.1}
+     * **Requirement set**: {@link https://learn.microsoft.com/javascript/api/requirement-sets/common/device-permission-service-requirement-sets | DevicePermissionService 1.1}
      */
     interface DevicePermission {
         /**
@@ -26309,7 +26309,7 @@ declare namespace Excel {
          * @remarks
          * [Api set: ExcelApi 1.16]
          */
-        errorSubType?: BlockedErrorCellValueSubType | "Unknown" | "DataTypeRestrictedDomain" | "DataTypePrivacySetting" | "DataTypeUnsupportedApp" | "ExternalLinksGeneric" | "RichDataLinkDisabled" | "SignInError" | "NoLicense";
+        errorSubType?: BlockedErrorCellValueSubType | "Unknown" | "DataTypeRestrictedDomain" | "DataTypePrivacySetting" | "DataTypeUnsupportedApp" | "ExternalLinksGeneric" | "RichDataLinkDisabled" | "SignInError" | "NoLicense" | "XlmDisabledInTrustCenter" | "XlmNotSupportedOnPlatform" | "ImageDownloadBlocked" | "ImageInvalidUrlNonHttps" | "ImageExceedsSizeLimit" | "ImageExceedsTotalSizeLimit" | "EnvironmentExceedsQuota" | "EnvironmentExceedsQuotaDaily" | "EnvironmentExceedsQuotaMonthly" | "EnvironmentExceedsTakerQuotaMonthly" | "WrongAccountType" | "EnvironmentExceedsComputeResourceEver" | "EnvironmentExceedsComputeResourceCountDaily" | "PythonUnsupportedOnThisPlatform" | "UnmetRequirements" | "PythonFunction" | "EnvironmentConnectionExceedQuota" | "UnsupportedEnvironment" | "UnsupportedInCalculationMode";
     }
     /**
      * Represents the value of a cell containing a Boolean.
@@ -26443,7 +26443,7 @@ declare namespace Excel {
          * @remarks
          * [Api set: ExcelApi 1.16]
          */
-        errorSubType?: BusyErrorCellValueSubType | "Unknown" | "ExternalLinksGeneric" | "LoadingImage";
+        errorSubType?: BusyErrorCellValueSubType | "Unknown" | "ExternalLinksGeneric" | "LoadingImage" | "PlaceholderInFormula";
     }
     /**
      * Represents types of #CALC! errors.
@@ -26569,7 +26569,7 @@ declare namespace Excel {
          * @remarks
          * [Api set: ExcelApi 1.16]
          */
-        errorSubType?: CalcErrorCellValueSubType | "Unknown" | "ArrayOfArrays" | "ArrayOfRanges" | "EmptyArray" | "UnsupportedLifting" | "DataTableReferencedPendingFormula" | "TooManyCells" | "LambdaInCell" | "TooDeeplyNested" | "TextOverflow";
+        errorSubType?: CalcErrorCellValueSubType | "Unknown" | "ArrayOfArrays" | "ArrayOfRanges" | "EmptyArray" | "UnsupportedLifting" | "DataTableReferencedPendingFormula" | "TooManyCells" | "LambdaInCell" | "TooDeeplyNested" | "TextOverflow" | "RequestTooLarge" | "PythonGridQuery" | "PythonPowerQueryDataUploadEtagChanged" | "PythonPowerQueryDataUploadSizeLimitExceeded" | "InvalidPythonObject" | "QueryInCell" | "UninitializedPythonObject" | "ExternalQueryRef" | "ERegexReplaceCharLimit" | "UnexpectedReturnValue" | "FunctionInCell" | "ImageExceedsSizeLimit";
         /**
          * Represents the name of the function causing the error.
          *
@@ -31302,7 +31302,7 @@ declare namespace Excel {
          * @remarks
          * [Api set: ExcelApi 1.16]
          */
-        errorSubType?: ConnectErrorCellValueSubType | "Unknown" | "ServiceError" | "ExternalLinks" | "ExternalLinksNonCloudLocation" | "DataTypeNoConnection" | "DataTypeServiceError" | "MissingContent" | "RequestThrottle" | "ExternalLinksFailedToRefresh" | "ExternalLinksAccessFailed" | "ExternalLinksServerError" | "ExternalLinksInvalidRequest" | "ExternalLinksUnAuthenticated" | "ExternalLinksThrottledByHost" | "ExternalLinksFileTooLarge" | "OutdatedLinkedEntity" | "GenericServerError";
+        errorSubType?: ConnectErrorCellValueSubType | "Unknown" | "ServiceError" | "ExternalLinks" | "ExternalLinksNonCloudLocation" | "DataTypeNoConnection" | "DataTypeServiceError" | "MissingContent" | "RequestThrottle" | "ExternalLinksFailedToRefresh" | "ExternalLinksAccessFailed" | "ExternalLinksServerError" | "ExternalLinksInvalidRequest" | "ExternalLinksUnAuthenticated" | "ExternalLinksThrottledByHost" | "ExternalLinksFileTooLarge" | "OutdatedLinkedEntity" | "GenericServerError" | "ImageUnableToRetrieve" | "ExternalCodeServiceEnvironmentNotFound" | "ExternalCodeServiceRuntimeNotFound" | "ExternalCodeServiceEnvironmentBadState" | "ExternalCodeServiceRuntimeBadState" | "ExternalCodeServiceComputeResourceNotAvailable" | "PythonPowerQueryDataUploadHasNotStarted" | "ExcelClientMisconfigurationError";
     }
     /**
      * Represents the value of a cell containing a #DIV/0! error.
@@ -32369,7 +32369,7 @@ declare namespace Excel {
          * @remarks
          * [Api set: ExcelApi 1.16]
          */
-        errorSubType?: RefErrorCellValueSubType | "Unknown" | "ExternalLinksStructuredRef" | "ExternalLinksCalculatedRef";
+        errorSubType?: RefErrorCellValueSubType | "Unknown" | "ExternalLinksStructuredRef" | "ExternalLinksCalculatedRef" | "CorruptCellRef";
     }
     /**
      * Represents types of #SPILL! errors.
@@ -32738,7 +32738,7 @@ declare namespace Excel {
          * @remarks
          * [Api set: ExcelApi 1.16]
          */
-        errorSubType?: ValueErrorCellValueSubType | "Unknown" | "VlookupColumnIndexLessThanOne" | "VlookupResultNotFound" | "HlookupRowIndexLessThanOne" | "HlookupResultNotFound" | "CoerceStringToNumberInvalid" | "CoerceStringToBoolInvalid" | "CoerceStringToInvalidType" | "SubArrayStartRowMissingEndRowNot" | "SubArrayStartColumnMissingEndColumnNot" | "InvalidImageUrl" | "StockHistoryNonTradingDays" | "StockHistoryNotAStock" | "StockHistoryInvalidDate" | "StockHistoryEndBeforeStart" | "StockHistoryStartInFuture" | "StockHistoryInvalidEnum" | "StockHistoryOnlyDateRequested" | "StockHistoryNotFound" | "LambdaWrongParamCount";
+        errorSubType?: ValueErrorCellValueSubType | "Unknown" | "VlookupColumnIndexLessThanOne" | "VlookupResultNotFound" | "HlookupRowIndexLessThanOne" | "HlookupResultNotFound" | "CoerceStringToNumberInvalid" | "CoerceStringToBoolInvalid" | "CoerceStringToInvalidType" | "SubArrayStartRowMissingEndRowNot" | "SubArrayStartColumnMissingEndColumnNot" | "InvalidImageUrl" | "StockHistoryNonTradingDays" | "StockHistoryNotAStock" | "StockHistoryInvalidDate" | "StockHistoryEndBeforeStart" | "StockHistoryStartInFuture" | "StockHistoryInvalidEnum" | "StockHistoryOnlyDateRequested" | "StockHistoryNotFound" | "LambdaWrongParamCount" | "ImageFormulaTooManyArgs" | "ImageFormulaInvalidImageFormat" | "ImageFormulaInvalidSource" | "ImageFormulaInvalidAltText" | "ImageFormulaInvalidSizing" | "ImageFormulaNotEnoughArgs" | "ImageFormulaInvalidHeight" | "ImageFormulaInvalidWidth" | "InvalidCellValueTypeCoercion" | "CRegexErrorGeneric" | "CRegexEndBackslash" | "CRegexEndBackslashC" | "CRegexUnknownEscape" | "CRegexQuantifierOutOfOrder" | "CRegexQuantifierTooBig" | "CRegexMissingSquareBracket" | "CRegexEscapeInvalidInClass" | "CRegexQuantifierInvalid" | "CRegexInvalidAfterParensQuery" | "CRegexPosixClassNotInClass" | "CRegexPosixNoSupportCollating" | "CRegexMissingClosingParenthesis" | "CRegexBadSubpatternReference" | "CRegexMissingCommentClosing" | "CRegexParenthesesNestTooDeep" | "CRegexPatternTooLarge" | "CRegexUnmatchedClosingParenthesis" | "CRegexMissingConditionClosing" | "CRegexLookbehindNotFixedLength" | "CRegexZeroRelativeReference" | "CRegexTooManyConditionBranches" | "CRegexBadRelativeReference" | "CRegexUnknownPosixClass" | "CRegexCodePointTooBig" | "CRegexLookbehindTooComplicated" | "CRegexUnsupportedEscapeSequence" | "CRegexCalloutNumberTooBig" | "CRegexMissingCalloutClosing" | "CRegexEscapeInvalidInVerb" | "CRegexUnrecognizedAfterQueryP" | "CRegexMissingNameTerminator" | "CRegexDuplicateSubpatternName" | "CRegexInvalidSubpatternName" | "CRegexUnicodePropertiesUnavailable" | "CRegexMalformedUnicodeProperty" | "CRegexUnknownUnicodeProperty" | "CRegexSubpatternNameTooLong" | "CRegexTooManyNamedSubpatterns" | "CRegexClassInvalidRange" | "CRegexDefineTooManyBranches" | "CRegexBackslashOMissingBrace" | "CRegexBackslashGSyntax" | "CRegexParensQueryRMissingClosing" | "CRegexVerbUnknown" | "CRegexSubpatternNumberTooBig" | "CRegexSubpatternNameExpected" | "CRegexInvalidOctal" | "CRegexSubpatternNamesMismatch" | "CRegexMarkMissingArgument" | "CRegexInvalidHexadecimal" | "CRegexBackslashCSyntax" | "CRegexBackslashNInClass" | "CRegexCalloutStringTooLong" | "CRegexUnicodeDisallowedCodePoint" | "CRegexVerbNameTooLong" | "CRegexBackslashUCodePointTooBig" | "CRegexMissingOctalOrHexDigits" | "CRegexVersionConditionSyntax" | "CRegexCalloutNoStringDelimiter" | "CRegexCalloutBadStringDelimiter" | "CRegexQueryBarjxNestTooDeep" | "CRegexPatternTooComplicated" | "CRegexLookbehindTooLong" | "CRegexPatternStringTooLong" | "CRegexInvalidHyphenInOptions" | "CRegexAlphaAssertionUnknown" | "CRegexTooManyCaptures" | "CRegexConditionAtomicAssertionExpected" | "CRegexBackslashKInLookaround" | "MRegexErrorGeneric" | "MRegexBadReplacement" | "MRegexMatchLimit" | "MRegexNoSubstring" | "MRegexDepthLimit" | "MRegexBadReplacementEscape" | "MRegexReplacementMissingBrace" | "MRegexBadSubstitution" | "MRegexRecursiveLoop" | "ERegexErrorGeneric" | "ERegexNoCaptureGroups" | "TranslateStringTooLong" | "TranslateUnsupportedSrcLanguage" | "TranslateUnsupportedTargetLanguage";
     }
     /**
      * Represents the value of a cell containing a type of value which cannot be serialized.
@@ -44472,20 +44472,22 @@ declare namespace Excel {
          * Sets the values for a chart series. For scatter charts, it refers to y-axis values.
          *
          * @remarks
-         * [Api set: ExcelApi 1.7]
+         * [Api set: ExcelApi 1.7 for the Range overload; 1.21 for the formula string overload.]
          *
-         * @param sourceData The `Range` object corresponding to the source data.
+         * @param sourceData A `Range` or, in ApiSet 1.21, a string in en-US chart data-reference syntax. The string can contain a cell or table reference,
+         * a defined name, or a literal value or array. An empty string or `=` is invalid.
          */
-        setValues(sourceData: Range): void;
+        setValues(sourceData: Range | string): void;
         /**
          * Sets the values of the x-axis for a chart series.
          *
          * @remarks
-         * [Api set: ExcelApi 1.7]
+         * [Api set: ExcelApi 1.7 for the Range overload; 1.21 for the formula string overload.]
          *
-         * @param sourceData The `Range` object corresponding to the source data.
+         * @param sourceData A `Range` or, in ApiSet 1.21, a string in en-US chart data-reference syntax. The string can contain a cell or table reference,
+         * a defined name, or a literal value or array. An empty string or `=` clears the categories.
          */
-        setXAxisValues(sourceData: Range): void;
+        setXAxisValues(sourceData: Range | string): void;
         /**
          * Queues up a command to load the specified properties of the object. You must call `context.sync()` before reading the properties.
          *
@@ -96682,6 +96684,8 @@ declare namespace Word {
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
          *
+         * Insertion isn't supported if the document being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
+         *
          * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
@@ -96713,6 +96717,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApi 1.1]
+         *
+         * Insertion isn't supported if the content being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
          *
          * @param ooxml The OOXML to be inserted.
          * @param insertLocation The value must be `replace`, `start`, or `end`.
@@ -100270,6 +100276,8 @@ declare namespace Word {
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
          *
+         * Insertion isn't supported if the document being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
+         *
          * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
@@ -100301,6 +100309,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApi 1.1]
+         *
+         * Insertion isn't supported if the content being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
          *
          * @param ooxml The OOXML to be inserted in to the content control.
          * @param insertLocation The value must be `replace`, `start`, or `end`. `replace` cannot be used with `richTextTable` and `richTextTableRow` content controls.
@@ -102858,6 +102868,8 @@ declare namespace Word {
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
          *
+         * Insertion isn't supported if the document being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
+         *
          * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
@@ -103527,6 +103539,8 @@ declare namespace Word {
          * [Api set: WordApiHiddenDocument 1.5]
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
+         *
+         * Insertion isn't supported if the document being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
          *
          * Document settings aren't preserved when inserting a document.
          *
@@ -105237,6 +105251,8 @@ declare namespace Word {
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
          *
+         * Insertion isn't supported if the document being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
+         *
          * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
@@ -105268,6 +105284,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApi 1.2]
+         *
+         * Insertion isn't supported if the content being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
          *
          * @param ooxml The OOXML to be inserted.
          * @param insertLocation The value must be `before` or `after`.
@@ -107793,6 +107811,8 @@ declare namespace Word {
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
          *
+         * Insertion isn't supported if the document being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
+         *
          * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
@@ -107844,6 +107864,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApi 1.1]
+         *
+         * Insertion isn't supported if the content being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
          *
          * @param ooxml The OOXML to be inserted in the paragraph.
          * @param insertLocation The value must be `replace`, `start`, or `end`.
@@ -109214,6 +109236,8 @@ declare namespace Word {
          *
          * Insertion isn't supported if the document being inserted contains an ActiveX control (likely in a form field). Consider replacing such a form field with a content control or other option appropriate for your scenario.
          *
+         * Insertion isn't supported if the document being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
+         *
          * Document settings aren't preserved when inserting a document.
          *
          * @param base64File The Base64-encoded content of a .docx file.
@@ -109274,6 +109298,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApi 1.1]
+         *
+         * Insertion isn't supported if the content being inserted contains linked or external content. If it does, this method returns an `InvalidArgument` error.
          *
          * @param ooxml The OOXML to be inserted.
          * @param insertLocation The value must be `replace`, `start`, `end`, `before`, or `after`.
@@ -115012,6 +115038,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.2]
+         *
+         * Important: If the shape doesn't already contain text, getting this property creates a text story on the shape. This modifies the document, marks it as having unsaved changes, and adds an entry to the undo stack. To determine whether a shape contains text without modifying the document, get the `hasText` property of {@link Word.TextFrame} instead.
          */
         readonly body: Word.Body;
         /**
@@ -115733,6 +115761,8 @@ declare namespace Word {
          *
          * @remarks
          * [Api set: WordApiDesktop 1.2]
+         *
+         * Note: Getting this property doesn't modify the document. Unlike the `body` property of {@link Word.Shape}, it doesn't create a text story on a shape that doesn't already contain text.
          */
         readonly hasText: boolean;
         /**
@@ -118939,6 +118969,24 @@ declare namespace Word {
          */
         contentControlAdded = "ContentControlAdded",
         /**
+         * AnnotationAdded represents the event an annotation has been added to the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationAdded = "AnnotationAdded",
+        /**
+         * AnnotationChanged represents the event an annotation has been updated in the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationChanged = "AnnotationChanged",
+        /**
+         * AnnotationDeleted represents the event an annotation has been deleted from the document.
+         * @remarks
+         * [Api set: WordApiOnline 1.1]
+         */
+        annotationDeleted = "AnnotationDeleted",
+        /**
          * Represents that a content control has been entered.
          * @remarks
          * [Api set: WordApi 1.5]
@@ -119032,7 +119080,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119061,7 +119109,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119090,7 +119138,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119119,7 +119167,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119148,7 +119196,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119263,7 +119311,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.5]
          */
-        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        eventType: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the content control IDs.
          *
@@ -119299,7 +119347,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -119328,7 +119376,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -119357,7 +119405,7 @@ declare namespace Word {
          * @remarks
          * [Api set: WordApi 1.6]
          */
-        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
+        type: Word.EventType | "ContentControlDeleted" | "ContentControlSelectionChanged" | "ContentControlDataChanged" | "ContentControlAdded" | "AnnotationAdded" | "AnnotationChanged" | "AnnotationDeleted" | "ContentControlEntered" | "ContentControlExited" | "ParagraphAdded" | "ParagraphChanged" | "ParagraphDeleted" | "AnnotationClicked" | "AnnotationHovered" | "AnnotationInserted" | "AnnotationRemoved" | "AnnotationPopupAction";
         /**
          * Gets the unique IDs of the involved paragraphs. IDs are in standard 8-4-4-4-12 GUID format without curly braces and differ across sessions and coauthors.
          *
@@ -144389,6 +144437,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.2]
+            *
+            * Important: If the shape doesn't already contain text, getting this property creates a text story on the shape. This modifies the document, marks it as having unsaved changes, and adds an entry to the undo stack. To determine whether a shape contains text without modifying the document, get the `hasText` property of {@link Word.TextFrame} instead.
             */
             body?: Word.Interfaces.BodyUpdateData;
             /**
@@ -152175,6 +152225,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.2]
+            *
+            * Important: If the shape doesn't already contain text, getting this property creates a text story on the shape. This modifies the document, marks it as having unsaved changes, and adds an entry to the undo stack. To determine whether a shape contains text without modifying the document, get the `hasText` property of {@link Word.TextFrame} instead.
             */
             body?: Word.Interfaces.BodyData;
             /**
@@ -152485,6 +152537,8 @@ declare namespace Word {
              *
              * @remarks
              * [Api set: WordApiDesktop 1.2]
+             *
+             * Note: Getting this property doesn't modify the document. Unlike the `body` property of {@link Word.Shape}, it doesn't create a text story on a shape that doesn't already contain text.
              */
             hasText?: boolean;
             /**
@@ -164739,6 +164793,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.2]
+            *
+            * Important: If the shape doesn't already contain text, getting this property creates a text story on the shape. This modifies the document, marks it as having unsaved changes, and adds an entry to the undo stack. To determine whether a shape contains text without modifying the document, get the `hasText` property of {@link Word.TextFrame} instead.
             */
             body?: Word.Interfaces.BodyLoadOptions;
             /**
@@ -165013,6 +165069,8 @@ declare namespace Word {
             *
             * @remarks
             * [Api set: WordApiDesktop 1.2]
+            *
+            * Important: If the shape doesn't already contain text, getting this property creates a text story on the shape. This modifies the document, marks it as having unsaved changes, and adds an entry to the undo stack. To determine whether a shape contains text without modifying the document, get the `hasText` property of {@link Word.TextFrame} instead.
             */
             body?: Word.Interfaces.BodyLoadOptions;
             /**
@@ -165289,6 +165347,8 @@ declare namespace Word {
              *
              * @remarks
              * [Api set: WordApiDesktop 1.2]
+             *
+             * Note: Getting this property doesn't modify the document. Unlike the `body` property of {@link Word.Shape}, it doesn't create a text story on a shape that doesn't already contain text.
              */
             hasText?: boolean;
             /**

@@ -198,7 +198,6 @@ export function finalizeInitialChildren(
     testElement: Instance,
     type: string,
     props: Props,
-    rootContainerInstance: Container,
     hostContext: {
         [key: string]: any;
     },
