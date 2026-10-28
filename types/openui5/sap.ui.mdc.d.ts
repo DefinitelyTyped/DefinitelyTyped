@@ -1,4 +1,4 @@
-// For Library Version: 1.153.0
+// For Library Version: 1.154.0
 
 declare module "sap/ui/mdc/AggregationBaseDelegate" {
   import BaseDelegate from "sap/ui/mdc/BaseDelegate";
@@ -1727,7 +1727,7 @@ declare module "sap/ui/mdc/GeomapDelegate" {
    *  This class provides method calls, that are called by the `geomap` for specific operations and overwrite
    * the internal behavior.
    *
-   * @experimental As of version 1.142.
+   * @since 1.154
    */
   interface GeomapDelegate extends AggregationBaseDelegate {
     /**
@@ -1996,7 +1996,7 @@ declare module "sap/ui/mdc/GeomapDelegate" {
   /**
    * Geomap `GeomapTypeObject` type.
    *
-   * @experimental As of version 1.142.
+   * @since 1.154
    */
   export type GeomapTypeObject = {
     /**
@@ -2020,7 +2020,7 @@ declare module "sap/ui/mdc/GeomapDelegate" {
   /**
    * geomap `ZoomState` type.
    *
-   * @experimental As of version 1.142.
+   * @since 1.154
    */
   export type ZoomState = {
     /**
@@ -8693,7 +8693,7 @@ declare module "sap/ui/mdc/enums/GeomapControlPosition" {
   /**
    * Enumeration of the `position` property of the Geomap controls
    *
-   * @experimental As of version 1.142.
+   * @since 1.154
    */
   enum GeomapControlPosition {}
   export default GeomapControlPosition;
@@ -15451,7 +15451,7 @@ declare module "sap/ui/mdc/Geomap" {
    * The `Geomap` control creates a geomap based on metadata and the configuration specified.
    *  **Note:** The geomap needs to be created inside the `GeomapDelegate`.
    *
-   * @experimental As of version 1.142.
+   * @since 1.154
    */
   export default class Geomap
     extends Control
@@ -15647,7 +15647,7 @@ declare module "sap/ui/mdc/Geomap" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental As of version 1.142.
+     * @since 1.154
      *
      * @returns Value of property `delegate`
      */
@@ -15850,7 +15850,7 @@ declare module "sap/ui/mdc/Geomap" {
      *
      * Default value is `...see text or source`.
      *
-     * @experimental As of version 1.142.
+     * @since 1.154
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16034,7 +16034,7 @@ declare module "sap/ui/mdc/Geomap" {
    * 	 - `formatOptions`
    * 	 - `constraints`
    *
-   * @experimental As of version 1.142.
+   * @since 1.154
    */
   export type PropertyInfo = PropertyInfo1 & {
     /**
@@ -16069,8 +16069,6 @@ declare module "sap/ui/mdc/Geomap" {
 
   /**
    * Describes the settings that can be provided to the Geomap constructor.
-   *
-   * @experimental As of version 1.142.
    */
   export interface $GeomapSettings extends $ControlSettings {
     /**
@@ -16143,7 +16141,7 @@ declare module "sap/ui/mdc/Geomap" {
      * that).
      *  Do not bind or modify the module. This property can only be configured during control initialization.
      *
-     * @experimental As of version 1.142.
+     * @since 1.154
      */
     delegate?: object | PropertyBindingInfo | `{${string}}`;
 
@@ -16197,7 +16195,7 @@ declare module "sap/ui/mdc/geomap/Item" {
   /**
    * The `Item` element for the geomap/property metadata used within MDC Geomap.
    *
-   * @experimental As of version 1.142.
+   * @since 1.154
    */
   export default class Item extends UI5Element {
     /**
@@ -16277,7 +16275,7 @@ declare module "sap/ui/mdc/geomap/Item" {
      *
      * The unique identifier of the geomap item that reflects the name of property in the PropertyInfo.
      *
-     * @since 1.142
+     * @since 1.154
      *
      * @returns Value of property `propertyKey`
      */
@@ -16306,7 +16304,7 @@ declare module "sap/ui/mdc/geomap/Item" {
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
-     * @since 1.142
+     * @since 1.154
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -16319,14 +16317,12 @@ declare module "sap/ui/mdc/geomap/Item" {
   }
   /**
    * Describes the settings that can be provided to the Item constructor.
-   *
-   * @experimental As of version 1.142.
    */
   export interface $ItemSettings extends $ElementSettings {
     /**
      * The unique identifier of the geomap item that reflects the name of property in the PropertyInfo.
      *
-     * @since 1.142
+     * @since 1.154
      */
     propertyKey?: string | PropertyBindingInfo;
 
@@ -18372,6 +18368,14 @@ declare module "sap/ui/mdc/Table" {
      */
     destroyDefaultExportSettings(): this;
     /**
+     * Destroys the footer in the aggregation {@link #getFooter footer}.
+     *
+     * @since 1.154
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyFooter(): this;
+    /**
      * Destroys the noData in the aggregation {@link #getNoData noData}.
      *
      * @since 1.106
@@ -18800,6 +18804,19 @@ declare module "sap/ui/mdc/Table" {
      * ID of the element which is the current target of the association {@link #getFilter filter}, or `null`.
      */
     getFilter(): ID | null;
+    /**
+     * Gets content of aggregation {@link #getFooter footer}.
+     *
+     * Defines the footer control displayed below the table.
+     *
+     * **Note:** Setting a footer has no effect if the {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTableType }
+     * is used. The footer is retained and applied automatically if the table type is switched to a type that
+     * supports a footer. More table types might support a footer in the future and will then automatically
+     * display it.
+     *
+     * @since 1.154
+     */
+    getFooter(): Control1;
     /**
      * Gets current value of property {@link #getHeader header}.
      *
@@ -19418,6 +19435,19 @@ declare module "sap/ui/mdc/Table" {
        * may be given
        */
       oFilter: ID | IFilter
+    ): this;
+    /**
+     * Sets the aggregated {@link #getFooter footer}.
+     *
+     * @since 1.154
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFooter(
+      /**
+       * The footer to set
+       */
+      oFooter: Control1
     ): this;
     /**
      * Sets a new value for property {@link #getHeader header}.
@@ -20328,6 +20358,18 @@ declare module "sap/ui/mdc/Table" {
      * @since 1.118
      */
     contextMenu?: IContextMenu;
+
+    /**
+     * Defines the footer control displayed below the table.
+     *
+     * **Note:** Setting a footer has no effect if the {@link sap.ui.mdc.table.ResponsiveTableType ResponsiveTableType }
+     * is used. The footer is retained and applied automatically if the table type is switched to a type that
+     * supports a footer. More table types might support a footer in the future and will then automatically
+     * display it.
+     *
+     * @since 1.154
+     */
+    footer?: Control1;
 
     /**
      * Defines an aggregation for the `CellSelector` plugin that provides cell selection capabilities.
@@ -22992,6 +23034,12 @@ declare module "sap/ui/mdc/table/TableTypeBase" {
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
+  import { IContextMenu } from "sap/ui/core/library";
+
+  import Control from "sap/ui/core/Control";
+
+  import IllustratedMessage from "sap/m/IllustratedMessage";
+
   /**
    * The table type info base class for the metadata-driven table. Base class with no implementation.
    *
@@ -23067,6 +23115,27 @@ declare module "sap/ui/mdc/table/TableTypeBase" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): ElementMetadata;
+
+    setContextMenu(
+      /**
+       * The context menu @private
+       */
+      oContextMenu: IContextMenu
+    ): void;
+
+    setFooter(
+      /**
+       * The footer control @private
+       */
+      oFooter: Control
+    ): void;
+
+    setNoData(
+      /**
+       * The no-data content @private
+       */
+      vNoData: IllustratedMessage | string
+    ): void;
   }
   /**
    * Describes the settings that can be provided to the TableTypeBase constructor.
@@ -29907,6 +29976,8 @@ declare namespace sap {
     "sap/ui/mdc/mixin/ActionToolbarMixin": undefined;
 
     "sap/ui/mdc/mixin/AdaptationMixin": undefined;
+
+    "sap/ui/mdc/mixin/DeferredAggregationForwardMixin": undefined;
 
     "sap/ui/mdc/mixin/DelegateMixin": undefined;
 
