@@ -2957,6 +2957,10 @@
             "libraryName": "globby",
             "asOfVersion": "9.1.0"
         },
+        "globjoin": {
+            "libraryName": "globjoin",
+            "asOfVersion": "1.0.1"
+        },
         "glur": {
             "libraryName": "glur",
             "asOfVersion": "2.0.0"
