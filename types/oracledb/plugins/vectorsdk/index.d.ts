@@ -2,7 +2,7 @@ import { Connection, Pool, SparseVector } from "../..";
 
 export type DenseVector = Float32Array | Float64Array | Int8Array | Uint8Array;
 export type Vector = DenseVector | SparseVector<Float32Array | Float64Array | Int8Array>;
-export type VectorInput = ReadonlyArray<number> | DenseVector | SparseVector<DenseVector>;
+export type VectorInput = ReadonlyArray<number> | Vector;
 export type TableName = string | { schema: string; name: string };
 export type ColumnDefinition = string | { name?: string | undefined; annotation?: string | undefined };
 export type DatabaseSource = Connection | Pool | (() => Connection | Pool | Promise<Connection | Pool>);
@@ -90,7 +90,7 @@ export interface InsertWithEmbeddingsOptions {
 
 export type FilterScalar = string | number | boolean | null;
 
-export interface FilterComparison {
+export interface FilterComparisonOperators {
     $between?: readonly [number, number] | readonly [string, string] | undefined;
     $eq?: FilterScalar | undefined;
     $exists?: boolean | undefined;
@@ -103,6 +103,11 @@ export interface FilterComparison {
     $ne?: FilterScalar | undefined;
     $nin?: ReadonlyArray<FilterScalar> | undefined;
 }
+
+/** One or more comparison operators for a metadata field. */
+export type FilterComparison = {
+    [K in keyof FilterComparisonOperators]-?: Required<Pick<FilterComparisonOperators, K>> & FilterComparisonOperators;
+}[keyof FilterComparisonOperators];
 
 /** Field comparisons or a logical node containing exactly one of `$and` and `$or`. */
 export type MetadataFilter =
@@ -131,7 +136,7 @@ export interface SearchResult {
     /** May be null, for example when `insertWithEmbeddings()` omits `metadataColumn`. */
     metadata: Record<string, unknown> | null;
     distance: number | null;
-    vector?: Vector | null | undefined;
+    vector?: Vector | string | null | undefined;
 }
 
 export interface CreateVectorIndexOptions {

@@ -142,13 +142,6 @@ export async function testVectorSdkSparseAndBinaryVectors() {
         values: new Float32Array([1]),
     });
     await sparseStore.addVectors([sparse], documents, { autoCommit: true });
-    const unsignedSparse = new oracledb.SparseVector<Uint8Array>({
-        numDimensions: 3,
-        indices: [0],
-        values: new Uint8Array([1]),
-    });
-    await sparseStore.addVectors([unsignedSparse], documents, { autoCommit: true });
-    await sparseStore.search({ queryBy: { vector: unsignedSparse } });
     await sparseStore.addVectors([[1, 0, 0]], documents, { autoCommit: true });
     await sparseStore.search({ queryBy: { vector: sparse } });
 
@@ -190,9 +183,15 @@ export async function testVectorSdkSearch() {
     expectType<string | null>(results[0].content);
     expectType<Record<string, unknown> | null>(results[0].metadata);
     expectType<number | null>(results[0].distance);
-    expectType<vectorSdk.Vector | null | undefined>(results[0].vector);
+    expectType<vectorSdk.Vector | string | null | undefined>(results[0].vector);
     expectType<vectorSdk.SearchResult[]>(await store.search({ queryBy: { text: "Oracle vector search" } }));
+    await store.search({ queryBy: { vector: [1, 0, 0] }, filter: {} });
+    await store.search({ queryBy: { vector: [1, 0, 0] }, filter: { price: { $gte: 100, $lte: 500 } } });
+    const conditions: vectorSdk.MetadataFilter[] = [{ price: { $gte: 100 } }];
+    await store.search({ queryBy: { vector: [1, 0, 0] }, filter: { $and: conditions } });
 
+    // @ts-expect-error A field comparison must contain at least one operator.
+    await store.search({ queryBy: { vector: [1, 0, 0] }, filter: { price: {} } });
     // @ts-expect-error Supply exactly one query representation.
     await store.search({ queryBy: { vector: [1, 0, 0], text: "Document text" } });
     // @ts-expect-error A query representation is required.
