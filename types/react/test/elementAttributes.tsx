@@ -169,6 +169,9 @@ const testCases = [
         >
             Hide
         </button>
+        <button commandFor="my-dialog" command="show-modal">Open</button>
+        <button commandfor="my-dialog" command="close">Close</button>
+        <button commandFor="custom-target" command="--my-custom-command">Custom</button>
     </>,
     <>
         <template>
