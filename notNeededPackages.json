@@ -1917,6 +1917,10 @@
             "libraryName": "dotenv-flow",
             "asOfVersion": "4.1.0"
         },
+        "dotenv-load": {
+            "libraryName": "dotenv-load",
+            "asOfVersion": "3.0.0"
+        },
         "double-metaphone": {
             "libraryName": "double-metaphone",
             "asOfVersion": "2.0.0"
