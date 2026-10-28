@@ -87,6 +87,20 @@ namespace MapStateFactory {
     )(TestComponent);
 
     const verify = <Test foo="bar" />;
+
+    const WithMerge = connect(
+        mapStateToProps,
+        null,
+        (stateProps, _dispatchProps, ownProps: OwnProps) => ({ ...stateProps, ...ownProps }),
+    )(TestComponent);
+    const verifyMerge = <WithMerge foo="bar" />;
+
+    const WithOptions = connect(mapStateToProps, null, null, {
+        areStatePropsEqual: (next, current) => next.bar === current.bar,
+    })(TestComponent);
+    const verifyOptions = <WithOptions foo="bar" />;
+    // @ts-expect-error
+    const missingOwnProps = <WithOptions />;
 }
 
 namespace MapDispatch {
@@ -236,6 +250,31 @@ namespace MapStateFactoryAndDispatch {
     )(TestComponent);
 
     const verify = <Test foo="bar" />;
+
+    const WithMerge = connect(
+        mapStateToPropsFactory,
+        mapDispatchToProps,
+        (stateProps, dispatchProps, ownProps: OwnProps) => ({ ...stateProps, ...dispatchProps, ...ownProps }),
+    )(TestComponent);
+    const verifyMerge = <WithMerge foo="bar" />;
+
+    const WithMergeAndOptions = connect(
+        mapStateToPropsFactory,
+        mapDispatchToProps,
+        (stateProps, dispatchProps, ownProps: OwnProps) => ({ ...stateProps, ...dispatchProps, ...ownProps }),
+        { areMergedPropsEqual: (next, current) => next.bar === current.bar },
+    )(TestComponent);
+    const verifyMergeAndOptions = <WithMergeAndOptions foo="bar" />;
+
+    const WithOptions = connect(mapStateToPropsFactory, mapDispatchToProps, null, {
+        areStatePropsEqual: (next, current) => next.bar === current.bar,
+    })(TestComponent);
+    const verifyOptions = <WithOptions foo="bar" />;
+
+    const WithObjectOptions = connect(mapStateToPropsFactory, { onClick: () => {} }, null, {
+        areStatePropsEqual: (next, current) => next.bar === current.bar,
+    })(TestComponent);
+    const verifyObjectOptions = <WithObjectOptions foo="bar" />;
 }
 
 namespace MapStateFactoryAndDispatchFactory {

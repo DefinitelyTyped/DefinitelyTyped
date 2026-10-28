@@ -2239,7 +2239,7 @@ declare class Dockerode {
 
     createVolume(options: Dockerode.VolumeCreateOptions, callback: Callback<Dockerode.Volume>): void;
     createVolume(callback: Callback<Dockerode.Volume>): void;
-    createVolume(options?: Dockerode.VolumeCreateOptions): Promise<Dockerode.VolumeCreateResponse>;
+    createVolume(options?: Dockerode.VolumeCreateOptions): Promise<Dockerode.Volume>;
 
     createService(options: Dockerode.CreateServiceOptions, callback: Callback<Dockerode.Service>): void;
     createService(options: Dockerode.CreateServiceOptions): Promise<Dockerode.Service>;

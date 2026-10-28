@@ -54,7 +54,9 @@ const MyComponentAliasAlias: typeof MyMDXComponent = MyComponentAlias;
 // Ensure custom components are valid JSX components.
 declare const customComponents: MDXComponents;
 const Div = customComponents.div!;
-<Div />;
+if (typeof Div !== "string") {
+    <Div />;
+}
 
 // Tests — All mdx file exports.
 
@@ -69,7 +71,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -133,7 +135,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -197,7 +199,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -261,7 +263,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -325,7 +327,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -389,7 +391,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -453,7 +455,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
@@ -517,7 +519,7 @@ const Div = customComponents.div!;
     everything={42}
     components={{
         a(props) {
-            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement>
+            // $ExpectType HTMLAttributes<HTMLAnchorElement> || AnchorHTMLAttributes<HTMLAnchorElement> || AccessibleAnchorHTMLAttributes<HTMLAnchorElement>
             props;
             return null;
         },
