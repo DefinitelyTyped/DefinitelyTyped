@@ -1,4 +1,3 @@
-/// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
 
@@ -496,8 +495,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
-        function clearAll(): Promise<boolean>;
-        function clearAll(callback: (wasCleared: boolean) => void): void;
+        function clearAll(): Promise<boolean | undefined>;
+        function clearAll(callback: (wasCleared?: boolean) => void): void;
 
         /**
          * Clears the alarm with the given name.
@@ -1961,10 +1960,16 @@ declare namespace chrome {
             VIDEO = "video",
             AUDIO = "audio",
             LAUNCHER = "launcher",
+            /** MV2 only */
             BROWSER_ACTION = "browser_action",
+            /** MV2 only */
             PAGE_ACTION = "page_action",
+            /** Applies to the context menu of the extension's action (its toolbar icon). */
             ACTION = "action",
-            /** @since Chrome 150 */
+            /**
+             * Applies to the context menu of a tab in the tab strip.
+             * @since Chrome 150
+             */
             TAB = "tab",
         }
 
@@ -2319,8 +2324,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
-        function set(details: SetDetails): Promise<Cookie | null>;
-        function set(details: SetDetails, callback: (cookie: Cookie | null) => void): void;
+        function set(details: SetDetails): Promise<Cookie | undefined>;
+        function set(details: SetDetails, callback: (cookie?: Cookie) => void): void;
 
         /**
          * Deletes a cookie by name.
@@ -2328,15 +2333,15 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later.
          */
         function remove(details: CookieDetails): Promise<CookieDetails>;
-        function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
+        function remove(details: CookieDetails, callback: (details: CookieDetails) => void): void;
 
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
-        function get(details: CookieDetails): Promise<Cookie | null>;
-        function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
+        function get(details: CookieDetails): Promise<Cookie | null | undefined>;
+        function get(details: CookieDetails, callback: (cookie?: Cookie | null) => void): void;
 
         /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
         const onChanged: events.Event<(changeInfo: CookieChangeInfo) => void>;
@@ -2443,16 +2448,22 @@ declare namespace chrome {
          *
          * Can return its result via Promise since Chrome 96.
          */
-        function sendCommand(
+        function sendCommand<
+            T extends object = { [key: string]: any },
+            U extends object = { [key: string]: unknown },
+        >(
             target: DebuggerSession,
             method: string,
-            commandParams?: { [key: string]: unknown },
-        ): Promise<object | undefined>;
-        function sendCommand(
+            commandParams?: T,
+        ): Promise<U | undefined>;
+        function sendCommand<
+            T extends object = { [key: string]: any },
+            U extends object = { [key: string]: unknown },
+        >(
             target: DebuggerSession,
             method: string,
-            commandParams?: { [key: string]: unknown },
-            callback?: (result?: object) => void,
+            commandParams: T | undefined,
+            callback: (result?: U) => void,
         ): void;
 
         /**
@@ -2464,9 +2475,11 @@ declare namespace chrome {
         function getTargets(callback: (result: TargetInfo[]) => void): void;
 
         /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
-        const onDetach: chrome.events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
+        const onDetach: events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
         /** Fired whenever debugging target issues instrumentation event. */
-        const onEvent: chrome.events.Event<(source: DebuggerSession, method: string, params?: object) => void>;
+        const onEvent: events.Event<
+            (source: DebuggerSession, method: string, params?: { [key: string]: unknown }) => void
+        >;
     }
 
     export { _debugger as debugger };
@@ -4067,7 +4080,7 @@ declare namespace chrome {
         }
 
         interface GetFileIconOptions {
-            /** The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size. */
+            /** The size of the returned icon in density-independent pixels (DIPs). Must be either 16 or 32 (defaults to 32). On high-DPI displays, the returned image scales with the device scale factor (e.g., 64x64 px for size 32 on a 2x display). Calls from background service workers default to 1x scale. */
             size?: 16 | 32 | undefined;
         }
 
@@ -4181,7 +4194,7 @@ declare namespace chrome {
         function pause(downloadId: number, callback: () => void): void;
 
         /**
-         * Retrieve an icon for the specified download. For new downloads, file icons are available after the {@link onCreated} event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, {@link runtime.lastError} will contain an error message.
+         * Retrieve an icon for the specified download. For new downloads, file icons are available after the download's target filename has been determined (for example, when {@link onChanged} fires with a `filename` change). Attempting to retrieve the icon before the filename is determined will result in an error through {@link runtime.lastError}. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, {@link runtime.lastError} will contain an error message.
          * @param downloadId The identifier for the download.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
@@ -4982,7 +4995,7 @@ declare namespace chrome {
             /** The ID of the tab that raised this event. Tab IDs are unique within a browser session. */
             tab_id?: number;
             /** Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser). */
-            entries: any[];
+            entries: FileSystemFileEntry[];
         }
 
         /** Fired when file system action is executed from ChromeOS file browser. */
@@ -6025,10 +6038,10 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function getDefaultFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
-        function getDefaultFontSize(callback: (options: FontSizeResult) => void): void;
+        function getDefaultFontSize(callback: (details: FontSizeResult) => void): void;
         function getDefaultFontSize(
             details: { [key: string]: unknown } | undefined,
-            callback: (options: FontSizeResult) => void,
+            callback: (details: FontSizeResult) => void,
         ): void;
 
         /**
@@ -6038,10 +6051,10 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function getMinimumFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
-        function getMinimumFontSize(callback: (options: FontSizeResult) => void): void;
+        function getMinimumFontSize(callback: (details: FontSizeResult) => void): void;
         function getMinimumFontSize(
             details: { [key: string]: unknown } | undefined,
-            callback: (options: FontSizeResult) => void,
+            callback: (details: FontSizeResult) => void,
         ): void;
 
         /**
@@ -6166,7 +6179,7 @@ declare namespace chrome {
             /** Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The default value of time-to-live is 86,400 seconds (1 day) and the maximum value is 2,419,200 seconds (28 days). */
             timeToLive?: number | undefined;
             /** Message data to send to the server. Case-insensitive `goog.` and `google`, as well as case-sensitive `collapse_key` are disallowed as key prefixes. Sum of all key/value pairs should not exceed {@link gcm.MAX_MESSAGE_SIZE}. */
-            data: { [key: string]: unknown };
+            data: { [key: string]: string };
         }
 
         /** The maximum size (in bytes) of all key/value pairs in a message. */
@@ -6204,7 +6217,7 @@ declare namespace chrome {
                 /** The collapse key of a message. See the Non-collapsible and collapsible messages for details. */
                 collapseKey?: string;
                 /** The message data. */
-                data: { [key: string]: unknown };
+                data: { [key: string]: string };
                 /** The sender who issued the message. */
                 from?: string;
             }) => void
@@ -6217,7 +6230,7 @@ declare namespace chrome {
         const onSendError: events.Event<
             (error: {
                 /** Additional details related to the error, when available. */
-                details: { [key: string]: unknown };
+                details: { [key: string]: string };
                 /** The error message describing the problem. */
                 errorMessage: string;
                 /** The ID of the message with this error, if error is related to a specific message. */
@@ -6591,7 +6604,7 @@ declare namespace chrome {
          */
         function getProfileUserInfo(details?: ProfileDetails): Promise<ProfileUserInfo>;
         function getProfileUserInfo(
-            details: ProfileDetails,
+            details: ProfileDetails | undefined,
             callback: (userInfo: ProfileUserInfo) => void,
         ): void;
         function getProfileUserInfo(callback: (userInfo: ProfileUserInfo) => void): void;
@@ -6629,7 +6642,7 @@ declare namespace chrome {
         function getRedirectURL(path?: string): string;
 
         /** Fired when signin state changes for an account on the user's profile. */
-        const onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
+        const onSignInChanged: events.Event<(account: AccountInfo, signedIn: boolean) => void>;
     }
 
     ////////////////////
@@ -9994,7 +10007,7 @@ declare namespace chrome {
             /** Enables use of particular extension APIs. */
             permissions?: ManifestPermission[] | undefined;
             /** Identifies an HTML file to display in a sidePanel. */
-            side_panel?: { default_path: string } | undefined;
+            side_panel?: sidePanel.SidePanel | undefined;
             /** Defines files within the extension that can be accessed by web pages or other extensions. */
             web_accessible_resources?:
                 | Array<
@@ -10058,8 +10071,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 122.
          */
-        function getPackageDirectoryEntry(): Promise<DirectoryEntry>;
-        function getPackageDirectoryEntry(callback: (directoryEntry: DirectoryEntry) => void): void;
+        function getPackageDirectoryEntry(): Promise<FileSystemDirectoryEntry>;
+        function getPackageDirectoryEntry(callback: (directoryEntry: FileSystemDirectoryEntry) => void): void;
 
         /**
          * Returns information about the current platform.
@@ -10315,7 +10328,7 @@ declare namespace chrome {
                      */
                     documentIds?: never | undefined;
                     /** The IDs of specific frames to inject into. */
-                    frameIds: number[] | undefined;
+                    frameIds?: number[] | undefined;
                 }
                 | {
                     /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
@@ -10400,8 +10413,6 @@ declare namespace chrome {
                     files?: never | undefined;
                 })
             );
-
-        type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
         /** @since Chrome 96 */
         type RegisteredContentScript =
@@ -10781,7 +10792,7 @@ declare namespace chrome {
              * A set of feature codes indicating some of the processor's capabilities.
              * The currently supported codes are "mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", and "avx".
              */
-            features: string[];
+            features: Array<"mmx" | "sse" | "sse2" | "sse3" | "ssse3" | "sse4_1" | "sse4_2" | "avx">;
             /** Information about each logical processor. */
             processors: ProcessorInfo[];
             /**
@@ -11245,10 +11256,9 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param flags Options affecting how the information is returned.
          */
+        function getInfo(flags?: GetInfoFlags): Promise<DisplayUnitInfo[]>;
         function getInfo(callback: (displayInfo: DisplayUnitInfo[]) => void): void;
-        function getInfo(flags: GetInfoFlags, callback: (displayInfo: DisplayUnitInfo[]) => void): void;
-        function getInfo(): Promise<DisplayUnitInfo[]>;
-        function getInfo(flags: GetInfoFlags): Promise<DisplayUnitInfo[]>;
+        function getInfo(flags: GetInfoFlags | undefined, callback: (displayInfo: DisplayUnitInfo[]) => void): void;
 
         /**
          * Requests the layout info for all displays
@@ -11257,8 +11267,8 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 53
          */
-        function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
         function getDisplayLayout(): Promise<DisplayLayout[]>;
+        function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
         /**
          * Updates the properties for the display specified by `id`, according to the information provided in `info`. On failure, {@link runtime.lastError} will be set.
@@ -11268,8 +11278,8 @@ declare namespace chrome {
          * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in `info`.
          * @platform ChromeOS only
          */
-        function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
         function setDisplayProperties(id: string, info: DisplayProperties): Promise<void>;
+        function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
 
         /**
          * Set the layout for all displays. display not included will use the default layout. If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout. After layout is resolved, an onDisplayChanged event will be triggered.
@@ -11279,8 +11289,8 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 53
          */
-        function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
         function setDisplayLayout(layouts: DisplayLayout[]): Promise<void>;
+        function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
 
         /**
          * Enables/disables the unified desktop feature. If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off. Otherwise, the desktop mode will switch to unified immediately.
@@ -11331,8 +11341,8 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 57
          */
-        function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
         function showNativeTouchCalibration(id: string): Promise<boolean>;
+        function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
 
         /**
          * Starts custom touch calibration for a display. This should be called when using a custom UX for collecting calibration data. If another touch calibration is already in progress this will throw an error.
@@ -11367,11 +11377,11 @@ declare namespace chrome {
          * @platform ChromeOS only
          * @since Chrome 65
          */
-        function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
         function setMirrorMode(info: MirrorModeInfo): Promise<void>;
+        function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
 
         /** Fired when anything changes to the display configuration. */
-        const onDisplayChanged: chrome.events.Event<() => void>;
+        const onDisplayChanged: events.Event<() => void>;
     }
 
     ////////////////////
@@ -11662,7 +11672,7 @@ declare namespace chrome {
          * An ID that represents the absence of a split tab.
          * @since Chrome 140
          */
-        const SPLIT_VIEW_ID_NONE: -1;
+        const SPLIT_VIEW_ID_NONE = -1;
 
         /**
          * An ID that represents the absence of a browser tab.
@@ -11754,7 +11764,7 @@ declare namespace chrome {
              * Open a port to a specific document identified by `documentId` instead of all frames in the tab.
              * @since Chrome 106
              */
-            documentId?: string;
+            documentId?: string | undefined;
         }
 
         interface MessageSendOptions {
@@ -11764,7 +11774,7 @@ declare namespace chrome {
              * Send a message to a specific document identified by `documentId` instead of all frames in the tab.
              * @since Chrome 106
              */
-            documentId?: string;
+            documentId?: string | undefined;
         }
 
         interface GroupOptions {
@@ -11776,7 +11786,7 @@ declare namespace chrome {
             /** The ID of the group to add the tabs to. If not specified, a new group will be created. */
             groupId?: number | undefined;
             /** The tab ID or list of tab IDs to add to the specified group. */
-            tabIds?: number | [number, ...number[]] | undefined;
+            tabIds: number | [number, ...number[]];
         }
 
         interface HighlightInfo {
@@ -12090,18 +12100,17 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          * @param windowId The target window. Defaults to the current window.
          */
-        function captureVisibleTab(): Promise<string>;
-        function captureVisibleTab(windowId: number): Promise<string>;
+        function captureVisibleTab(windowId?: number): Promise<string>;
         function captureVisibleTab(options: extensionTypes.ImageDetails): Promise<string>;
-        function captureVisibleTab(windowId: number, options: extensionTypes.ImageDetails): Promise<string>;
+        function captureVisibleTab(windowId: number | undefined, options: extensionTypes.ImageDetails): Promise<string>;
         function captureVisibleTab(callback: (dataUrl: string) => void): void;
-        function captureVisibleTab(windowId: number, callback: (dataUrl: string) => void): void;
+        function captureVisibleTab(windowId: number | undefined, callback: (dataUrl: string) => void): void;
         function captureVisibleTab(
             options: extensionTypes.ImageDetails,
             callback: (dataUrl: string) => void,
         ): void;
         function captureVisibleTab(
-            windowId: number,
+            windowId: number | undefined,
             options: extensionTypes.ImageDetails,
             callback: (dataUrl: string) => void,
         ): void;
@@ -12112,10 +12121,9 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
          */
-        function reload(): Promise<void>;
-        function reload(tabId: number): Promise<void>;
+        function reload(tabId?: number): Promise<void>;
         function reload(reloadProperties: ReloadProperties): Promise<void>;
-        function reload(tabId: number, reloadProperties: ReloadProperties): Promise<void>;
+        function reload(tabId: number | undefined, reloadProperties: ReloadProperties): Promise<void>;
         function reload(callback: () => void): void;
         function reload(tabId: number | undefined, callback: () => void): void;
         function reload(reloadProperties: ReloadProperties | undefined, callback: () => void): void;
@@ -12622,7 +12630,7 @@ declare namespace chrome {
          */
         interface TtsOptions {
             /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-            desiredEventTypes?: string[];
+            desiredEventTypes?: `${EventType}`[];
             /** If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance. */
             enqueue?: boolean;
             /** The extension ID of the speech engine to use, if known. */
@@ -12639,7 +12647,7 @@ declare namespace chrome {
             /** Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0. */
             rate?: number;
             /** The TTS event types the voice must support. */
-            requiredEventTypes?: string[];
+            requiredEventTypes?: `${EventType}`[];
             /** The name of the voice to use for synthesis. If empty, uses any available voice. */
             voiceName?: string;
             /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
@@ -12712,7 +12720,7 @@ declare namespace chrome {
          */
         function speak(utterance: string, options?: TtsOptions): Promise<void>;
         function speak(utterance: string, callback: () => void): void;
-        function speak(utterance: string, options: TtsOptions, callback: () => void): void;
+        function speak(utterance: string, options: TtsOptions | undefined, callback: () => void): void;
 
         /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
         function stop(): void;
@@ -12721,7 +12729,7 @@ declare namespace chrome {
          * Called when the list of {@link TtsVoice} that would be returned by getVoices has changed.
          * @since Chrome 124
          */
-        const onVoicesChanged: chrome.events.Event<() => void>;
+        const onVoicesChanged: events.Event<() => void>;
     }
 
     ////////////////////
@@ -13491,7 +13499,7 @@ declare namespace chrome {
         }
 
         interface WebNavigationEventFilter {
-            /** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
+            /** Conditions that the URL being navigated to must satisfy. */
             url: chrome.events.UrlFilter[];
         }
 
@@ -13592,7 +13600,7 @@ declare namespace chrome {
             /** Value of the HTTP header if it can be represented by UTF-8. */
             value?: string | undefined;
             /** Value of the HTTP header if it cannot be represented by UTF-8, stored as individual byte values (0..255). */
-            binaryValue?: ArrayBuffer | undefined;
+            binaryValue?: number[] | undefined;
         }
 
         /** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
@@ -14627,6 +14635,7 @@ declare namespace chrome {
              * List of HTTP request methods which the rule can match. An empty list is not allowed.
              *
              * Note: Specifying a `requestMethods` rule condition will also exclude non-HTTP(s) requests, whereas specifying `excludedRequestMethods` will not.
+             * @since Chrome 91
              */
             requestMethods?: `${RequestMethod}`[] | undefined;
 
@@ -14793,7 +14802,7 @@ declare namespace chrome {
             /** Add, remove or replace query key-value pairs. */
             queryTransform?: QueryTransform | undefined;
             /** The new scheme for the request. Allowed values are "http", "https", "ftp" and "chrome-extension". */
-            scheme?: string | undefined;
+            scheme?: "http" | "https" | "ftp" | "chrome-extension" | undefined;
             /** The new username for the request. */
             username?: string | undefined;
         }
@@ -15084,7 +15093,7 @@ declare namespace chrome {
          * @since Chrome 111
          */
         function updateStaticRules(options: UpdateStaticRulesOptions): Promise<void>;
-        function updateStaticRules(options: UpdateStaticRulesOptions, callback?: () => void): void;
+        function updateStaticRules(options: UpdateStaticRulesOptions, callback: () => void): void;
 
         /** Fired when a rule is matched with a request. Only available for unpacked extensions with the `declarativeNetRequestFeedback` permission as this is intended to be used for debugging purposes only. */
         const onRuleMatchedDebug: events.Event<(info: MatchedRuleInfoDebug) => void>;
@@ -15347,25 +15356,25 @@ declare namespace chrome {
             }
             & (
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: boolean | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: never;
                     /** The IDs of specific frames to inject into. */
                     frameIds?: never;
                 }
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: false | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: never;
                     /** The IDs of specific frames to inject into. */
-                    frameIds: number[] | undefined;
+                    frameIds?: number[] | undefined;
                 }
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: false | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: string[] | undefined;
                     /** The IDs of specific frames to inject into. */
                     frameIds?: never;

@@ -1162,6 +1162,42 @@ declare namespace googletag {
          * @return The service object on which the function was called.
          */
         setPrivacySettings(privacySettings: PrivacySettingsConfig): PubAdsService;
+
+        /**
+         * Registers a hook to be executed in parallel with other registered hooks
+         * prior to each ad request on the page within a global timeout.
+         *
+         * @experimental
+         * @example
+         *   // Register a request hook.
+         *   const unregister = googletag.pubads().registerRequestHook(async ({slots}) => {
+         *     const someAsynchronousAction = Promise.resolve();
+         *     await someAsynchronousAction;
+         *     for (const slot of slots) {
+         *       slot.setConfig({targeting: {hookApplied: 'true'}});
+         *     }
+         *   }, 'my-hook');
+         *
+         *   // Unregister the hook.
+         *   unregister();
+         *
+         * @param hook A function that takes an object containing the list of
+         *     requested slots and returns a promise that resolves once all
+         *     asynchronous actions are complete.
+         * @param hookId An ID to label the hook for improved diagnostics.
+         * @return A function to unregister the hook.
+         */
+        registerRequestHook(hook: RequestHook, hookId: string): () => void;
+    }
+
+    /**
+     * Callback function invoked prior to each ad request when registered via
+     * {@link PubAdsService.registerRequestHook}.
+     *
+     * @experimental
+     */
+    interface RequestHook {
+        (input: { slots: Slot[] }): Promise<void>;
     }
 
     /**
@@ -2521,6 +2557,32 @@ declare namespace googletag {
              *   googletag.setConfig({autoRefresh: null});
              */
             autoRefresh?: AutoRefreshConfig | null;
+
+            /**
+             * Setting to control the maximum time GPT will wait for all registered
+             * request hooks to complete before proceeding with an ad request.
+             *
+             * All registered request hooks are executed in parallel. This timeout
+             * defines the upper limit on how long the ad request process will pause
+             * while waiting for those parallel executions to complete.
+             *
+             * Supported values:
+             *  - Positive number in milliseconds: The customized waiting period.
+             *  - `'auto'`: GPT uses a Google-optimized timeout.
+             *  - `null`: Disable timeouts (GPT waits indefinitely for hooks to complete).
+             *
+             * @experimental
+             * @example
+             *   // Set a 1000ms timeout for request hooks.
+             *   googletag.setConfig({requestHookTimeoutMs: 1000});
+             *
+             *   // Use a Google-optimized timeout for request hooks.
+             *   googletag.setConfig({requestHookTimeoutMs: 'auto'});
+             *
+             *   // Clear the timeout.
+             *   googletag.setConfig({requestHookTimeoutMs: null});
+             */
+            requestHookTimeoutMs?: number | "auto" | null;
         }
 
         /**

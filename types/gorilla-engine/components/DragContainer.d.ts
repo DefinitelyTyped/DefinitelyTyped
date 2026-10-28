@@ -13,6 +13,8 @@ declare namespace GorillaEngine.UI {
         destinationCanMoveDraggedFiles: boolean;
         /** File paths supplied to an external drag operation. */
         externallyDraggedFiles: any;
+        /** Text supplied to an external drag operation when no files are supplied. */
+        externallyDraggedText: string;
         /** Name of the action invoked while a drag operation is in progress. */
         onDragging: string;
         /** Name of the action invoked when an external drag starts. */
