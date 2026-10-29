@@ -7,9 +7,8 @@ import type * as GeoJSONTypes from "geojson";
  *
  * @since 5.79.0
  */
-declare abstract class AbstractLookAround extends EventTarget {
+export abstract class AbstractLookAround extends EventTarget {
     #private;
-
     /**
      * A static property that allows you to access the Look Around ready state enumeration.
      *
@@ -18,7 +17,6 @@ declare abstract class AbstractLookAround extends EventTarget {
      * @since 5.79.0
      */
     static ReadyStates: typeof LookAroundReadyState;
-
     /**
      * A property that represents the Look Around view's containing Document Object Model (DOM) element.
      *
@@ -27,7 +25,6 @@ declare abstract class AbstractLookAround extends EventTarget {
      * @since 5.79.0
      */
     get element(): HTMLDivElement;
-
     /**
      * The Look Around scene the framework is displaying.
      *
@@ -81,7 +78,6 @@ declare abstract class AbstractLookAround extends EventTarget {
      */
     get isScrollEnabled(): boolean;
     set isScrollEnabled(value: boolean);
-
     /**
      * A Boolean value that indicates whether the Look Around view shows road labels.
      *
@@ -91,7 +87,6 @@ declare abstract class AbstractLookAround extends EventTarget {
      */
     get showsRoadLabels(): boolean;
     set showsRoadLabels(value: boolean);
-
     /**
      * A Boolean value that indicates whether the Look Around view shows points of interest (POIs).
      *
@@ -101,7 +96,6 @@ declare abstract class AbstractLookAround extends EventTarget {
      */
     get showsPointsOfInterest(): boolean;
     set showsPointsOfInterest(value: boolean);
-
     /**
      * The padding options for the Look Around view.
      *
@@ -179,7 +173,8 @@ export const AddressCategory: Readonly<{
     readonly PostalCode: "PostalCode";
 }>;
 
-export type AddressCategory = (typeof AddressCategory)[keyof typeof AddressCategory];
+export type AddressCategory =
+    (typeof AddressCategory)[keyof typeof AddressCategory];
 
 /**
  * An object that filters which address options to include or exclude in search results.
@@ -218,7 +213,7 @@ export class AddressFilter {
      *
      * @since 5.78.1
      */
-    static includingAllCategories: () => AddressFilter;
+    static includingAllCategories: AddressFilter;
     /**
      * A value that excludes all address categories.
      *
@@ -226,7 +221,7 @@ export class AddressFilter {
      *
      * @since 5.78.1
      */
-    static excludingAllCategories: () => AddressFilter;
+    static excludingAllCategories: AddressFilter;
     /**
      * A list of categories to include in a search.
      *
@@ -278,14 +273,13 @@ export class Annotation extends EventTarget {
         ) => HTMLElement,
         options?: AnnotationConstructorOptions,
     );
-
     /**
      * A static property that allows you to access the available display priority enumeration values.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/annotation/displaypriority-data.var)
      *
      * @since 5.0.0
-     * @deprecated Please use mapkit.AnnotationDisplayPriority instead.
+     * @deprecated Please use {@linkcode mapkit.AnnotationDisplayPriority|mapkit.AnnotationDisplayPriority} instead.
      */
     static get DisplayPriority(): typeof AnnotationDisplayPriority;
     /**
@@ -294,7 +288,7 @@ export class Annotation extends EventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/annotation/collisionmode-data.var)
      *
      * @since 5.0.0
-     * @deprecated Please use mapkit.AnnotationCollisionMode instead.
+     * @deprecated Please use {@linkcode mapkit.AnnotationCollisionMode|mapkit.AnnotationCollisionMode} instead.
      */
     static get CollisionMode(): typeof AnnotationCollisionMode;
     /**
@@ -640,7 +634,7 @@ export interface AnnotationCalloutDelegate {
  *
  * @since 5.0.0
  */
-declare const AnnotationCollisionMode: Readonly<{
+export const AnnotationCollisionMode: Readonly<{
     /**
      * A constant indicating that the map should use a full collision rectangle for detecting collisions.
      *
@@ -667,7 +661,8 @@ declare const AnnotationCollisionMode: Readonly<{
     readonly None: "none";
 }>;
 
-type AnnotationCollisionMode = (typeof AnnotationCollisionMode)[keyof typeof AnnotationCollisionMode];
+export type AnnotationCollisionMode =
+    (typeof AnnotationCollisionMode)[keyof typeof AnnotationCollisionMode];
 
 /**
  * An object that contains options for creating annotation features.
@@ -894,7 +889,7 @@ export interface AnnotationConstructorOptions {
  *
  * @since 5.0.0
  */
-declare const AnnotationDisplayPriority: Readonly<{
+export const AnnotationDisplayPriority: Readonly<{
     /**
      * A low display priority, with a preset value of 250 out of 1000.
      *
@@ -921,7 +916,8 @@ declare const AnnotationDisplayPriority: Readonly<{
     readonly Required: 1000;
 }>;
 
-type AnnotationDisplayPriority = (typeof AnnotationDisplayPriority)[keyof typeof AnnotationDisplayPriority];
+export type AnnotationDisplayPriority =
+    (typeof AnnotationDisplayPriority)[keyof typeof AnnotationDisplayPriority];
 
 /**
  * An event that occurs when someone drags an annotation.
@@ -1038,7 +1034,7 @@ export class BoundingRegion {
  *
  * @since 5.23.0
  */
-interface CameraBoundaryDescription {
+export interface CameraBoundaryDescription {
     /**
      * A rectangular area on a map, defined by coordinates of the rectangle's northeast and southwest corners.
      *
@@ -1065,6 +1061,7 @@ interface CameraBoundaryDescription {
  * @since 5.23.0
  */
 export class CameraZoomRange implements CameraZoomRangeData {
+    #private;
     /**
      * Constructs an instance of a camera zoom range object with no minimum or maximum camera distance.
      *
@@ -1199,7 +1196,7 @@ export class CircleOverlay extends Overlay {
  *
  * @since 5.0.0
  */
-declare class ClusterAnnotation extends MarkerAnnotation {
+export class ClusterAnnotation extends MarkerAnnotation {
     /**
      * An array of annotations that the framework grouped together in a cluster.
      *
@@ -1217,7 +1214,7 @@ declare class ClusterAnnotation extends MarkerAnnotation {
  *
  * @since 5.13.0
  */
-declare const ColorScheme: Readonly<{
+export const ColorScheme: Readonly<{
     /**
      * A constant indicating a dark color scheme.
      *
@@ -1244,7 +1241,7 @@ declare const ColorScheme: Readonly<{
     readonly Adaptive: "adaptive";
 }>;
 
-type ColorScheme = (typeof ColorScheme)[keyof typeof ColorScheme];
+export type ColorScheme = (typeof ColorScheme)[keyof typeof ColorScheme];
 
 /**
  * Options that control the behavior of Look Around views.
@@ -1294,7 +1291,6 @@ export interface CommonLookAroundOptions {
      * @since 5.79.0
      */
     showsRoadLabels?: boolean;
-
     /**
      * A Boolean value that indicates whether the Look Around view display points of interest (POIs).
      *
@@ -1320,7 +1316,7 @@ export interface CommonLookAroundOptions {
  *
  * @since 5.0.0
  */
-declare const ConfigurationChangeStatus: Readonly<{
+export const ConfigurationChangeStatus: Readonly<{
     /**
      * A status value that indicates the initialization of the configuration is successful.
      *
@@ -1339,7 +1335,8 @@ declare const ConfigurationChangeStatus: Readonly<{
     readonly Refreshed: "Refreshed";
 }>;
 
-type ConfigurationChangeStatus = (typeof ConfigurationChangeStatus)[keyof typeof ConfigurationChangeStatus];
+export type ConfigurationChangeStatus =
+    (typeof ConfigurationChangeStatus)[keyof typeof ConfigurationChangeStatus];
 
 /**
  * A value that represents the status of a configuration or request error.
@@ -1348,7 +1345,7 @@ type ConfigurationChangeStatus = (typeof ConfigurationChangeStatus)[keyof typeof
  *
  * @since 5.0.0
  */
-declare const ConfigurationErrorStatus: Readonly<{
+export const ConfigurationErrorStatus: Readonly<{
     /**
      * An error status value that indicates the service returned a bad request response when initializing.
      *
@@ -1407,7 +1404,8 @@ declare const ConfigurationErrorStatus: Readonly<{
     readonly Unknown: "Unknown";
 }>;
 
-type ConfigurationErrorStatus = (typeof ConfigurationErrorStatus)[keyof typeof ConfigurationErrorStatus];
+export type ConfigurationErrorStatus =
+    (typeof ConfigurationErrorStatus)[keyof typeof ConfigurationErrorStatus];
 
 /**
  * An object representing the latitude and longitude for a point on the Earth's surface.
@@ -1607,11 +1605,12 @@ export class CoordinateRegion implements CoordinateRegionData {
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/coordinateregion/tomaprect)
      *
-     * @deprecated This conversion is mathematically imprecise. Use MapRect directly to avoid inaccuracies.
+     * @deprecated This conversion is mathematically imprecise. Use {@link MapRect} directly to avoid inaccuracies.
      *
      * @returns A {@link MapRect} that corresponds to the calling {@link CoordinateRegion}.
      *
      * @since 5.0.0
+     *
      */
     toMapRect(): MapRect;
     /**
@@ -1826,7 +1825,7 @@ export class Directions extends Service {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/directions/transport)
      *
      * @since 5.0.0
-     * @deprecated Please use mapkit.TransportType instead.
+     * @deprecated Please use {@linkcode mapkit.TransportType|mapkit.TransportType} instead.
      */
     static get Transport(): typeof TransportType;
 }
@@ -1964,7 +1963,7 @@ export interface DirectionsResponse {
  *
  * @since 5.13.0
  */
-declare const DistanceUnitSystem: Readonly<{
+export const DistanceUnitSystem: Readonly<{
     /**
      * A constant indicating the measurement system is adaptive, and determined based on the map's language.
      *
@@ -1994,7 +1993,8 @@ declare const DistanceUnitSystem: Readonly<{
 /**
  * @since 5.13.0
  */
-type DistanceUnitSystem = (typeof DistanceUnitSystem)[keyof typeof DistanceUnitSystem];
+export type DistanceUnitSystem =
+    (typeof DistanceUnitSystem)[keyof typeof DistanceUnitSystem];
 
 /**
  * The options you may provide for requesting estimated arrival times.
@@ -2164,7 +2164,8 @@ export const FeatureVisibility: Readonly<{
     readonly Visible: "visible";
 }>;
 
-export type FeatureVisibility = (typeof FeatureVisibility)[keyof typeof FeatureVisibility];
+export type FeatureVisibility =
+    (typeof FeatureVisibility)[keyof typeof FeatureVisibility];
 
 /**
  * A geocoder that converts human-readable addresses to geographic coordinates, and vice versa.
@@ -2233,7 +2234,7 @@ export class Geocoder extends Service {
      * @since 6.0.0
      */
     reverseLookup(
-        coordinate: Coordinate,
+        coordinate: CoordinateData,
         options?: GeocoderReverseLookupOptions,
     ): Promise<GeocoderResponse>;
     /**
@@ -2293,7 +2294,7 @@ export interface GeocoderLookupOptions {
      */
     coordinate?: CoordinateData;
     /**
-     * A list of countries for constraining the lookup results.
+     * A list of countries or regions for constraining the lookup results.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/geocoderlookupoptions/limittocountries)
      *
@@ -2549,7 +2550,7 @@ export interface GeoJSONDelegate {
  *
  * @since 5.0.0
  */
-type GeoJSONImporterCallback = (
+export type GeoJSONImporterCallback = (
     ...args:
         | [GeoJSONImportError, GeoJSONTypes.GeoJSON | undefined]
         | [null, ItemCollection]
@@ -2562,7 +2563,7 @@ type GeoJSONImporterCallback = (
  *
  * @since 5.0.0
  */
-declare class GeoJSONImportError extends Error {}
+export class GeoJSONImportError extends Error {}
 
 /**
  * A customized annotation with image resources that you provide.
@@ -2578,7 +2579,7 @@ export class ImageAnnotation extends Annotation {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotation/imageannotationconstructor)
      *
      * @param location The coordinate where this annotation appears.
-     * @param options A hash of properties that initialize the annotation. The `options` hash needs to include {@link ImageAnnotationConstructorOptions.image} or {@link ImageAnnotationConstructorOptions.url}. MapKit JS displays an optional `title` and `subtitle` in a callout if they're present.
+     * @param options A hash of properties that initialize the annotation. The `options` hash needs to include {@link ImageAnnotationConstructorOptions.image} or {@link ImageAnnotationConstructorOptions.url}. MapKit JS displays an optional {@link AnnotationConstructorOptions.title} and {@link AnnotationConstructorOptions.subtitle} in a callout if they're present.
      *
      * @since 5.0.0
      */
@@ -2610,9 +2611,10 @@ export class ImageAnnotation extends Annotation {
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotation/url)
      *
-     * @deprecated Use `image` instead.
+     * @deprecated Use {@link ImageAnnotation.image} instead.
      *
      * @since 5.0.0
+     *
      */
     get url():
         | ImageDelegate
@@ -2635,7 +2637,8 @@ export class ImageAnnotation extends Annotation {
  *
  * @since 5.0.0
  */
-export interface ImageAnnotationConstructorOptions extends AnnotationConstructorOptions {
+export interface ImageAnnotationConstructorOptions
+    extends AnnotationConstructorOptions {
     /**
      * The image for the annotation.
      *
@@ -2653,9 +2656,10 @@ export interface ImageAnnotationConstructorOptions extends AnnotationConstructor
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/imageannotationconstructoroptions/url)
      *
-     * @deprecated Use `image` instead.
+     * @deprecated Use {@link ImageAnnotationConstructorOptions.image} instead.
      *
      * @since 5.0.0
+     *
      */
     url?: ImageDelegate | ImageHashObject | ImageSource | Promise<ImageSource>;
 }
@@ -2688,9 +2692,10 @@ export interface ImageDelegate {
      * @param callback A callback function to receive the image URL.
      * @returns void
      *
-     * @deprecated Use getImage() instead, which supports both URLs and ImageSource objects.
+     * @deprecated Use {@link ImageDelegate.getImage} instead, which supports both URLs and {@link ImageSource} objects.
      *
      * @since 5.74.0
+     *
      */
     getImageUrl?(ratio: number, callback: (url: string | null) => void): void;
 }
@@ -2702,7 +2707,7 @@ export interface ImageDelegate {
  *
  * @since 5.0.0
  */
-type ImageHashObject = Record<string, string | undefined> & {};
+export type ImageHashObject = Record<string, string | undefined> & {};
 
 /**
  * A union type representing image sources that can be used for annotations and tile overlays.
@@ -2711,7 +2716,7 @@ type ImageHashObject = Record<string, string | undefined> & {};
  *
  * @since 6.0.0
  */
-type ImageSource =
+export type ImageSource =
     | HTMLImageElement
     | HTMLCanvasElement
     | ImageBitmap
@@ -2724,7 +2729,7 @@ type ImageSource =
  *
  * @since 5.0.0
  */
-type Item = Annotation | Overlay | ItemCollection;
+export type Item = Annotation | Overlay | ItemCollection;
 
 /**
  * A tree structure containing annotations, overlays, and nested item collection objects.
@@ -2841,22 +2846,14 @@ export class LookAround extends AbstractLookAround {
         location?: CoordinateData | Place | LookAroundScene,
         options?: LookAroundOptions,
     );
-
     /**
      * A static property that allows you to access the Look Around ready state.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/lookaround/readystates)
      *
-     * Ready States
-     *   * `loading`: the view is loading the requested look around imagery.
-     *   * `complete`: the view has loaded completed.
-     *   * `error`: the view encountered a recoverable error, either because of an invalid location or the loading has failed.
-     *   * `destroyed`: the view was destroyed, either manually or because an unrecoverable error was encountered.
-     *
      * @since 5.79.0
      */
     static ReadyStates: typeof LookAroundReadyState;
-
     /**
      * A Boolean value that indicates whether the Look Around view displays shows a control that allow someone to expand the Look Around view.
      *
@@ -2884,7 +2881,7 @@ export class LookAround extends AbstractLookAround {
  *
  * @since 5.79.0
  */
-declare const LookAroundBadgePosition: Readonly<{
+export const LookAroundBadgePosition: Readonly<{
     /**
      * Places the badge on the top leading corner of the Look Around preview.
      *
@@ -2911,7 +2908,8 @@ declare const LookAroundBadgePosition: Readonly<{
     readonly BottomTrailing: "bottomTrailing";
 }>;
 
-type LookAroundBadgePosition = (typeof LookAroundBadgePosition)[keyof typeof LookAroundBadgePosition];
+export type LookAroundBadgePosition =
+    (typeof LookAroundBadgePosition)[keyof typeof LookAroundBadgePosition];
 
 /**
  * A custom event object that contains information about the error when starting a Look Around view.
@@ -2967,7 +2965,8 @@ export const LookAroundErrorType: Readonly<{
     readonly UnknownError: "unknown-error";
 }>;
 
-export type LookAroundErrorType = (typeof LookAroundErrorType)[keyof typeof LookAroundErrorType];
+export type LookAroundErrorType =
+    (typeof LookAroundErrorType)[keyof typeof LookAroundErrorType];
 
 /**
  * Options for initializing a LookAround view.
@@ -3016,22 +3015,14 @@ export class LookAroundPreview extends AbstractLookAround {
         location?: CoordinateData | Place | LookAroundScene,
         options?: LookAroundPreviewOptions,
     );
-
     /**
      * A static property that allows you to access to access the look around ready state enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/lookaroundpreview/readystates)
      *
-     * Ready States
-     *   * `loading`: the view is loading the requested look around imagery.
-     *   * `complete`: the view has loaded completed.
-     *   * `error`: the view encountered a recoverable error, either because of an invalid location or the loading has failed.
-     *   * `destroyed`: the view was destroyed, either manually or because an unrecoverable error was encountered.
-     *
      * @since 5.79.0
      */
     static ReadyStates: typeof LookAroundReadyState;
-
     /**
      * A static property that allows you to access the Look Around ready state enumeration.
      *
@@ -3082,7 +3073,7 @@ export interface LookAroundPreviewOptions extends CommonLookAroundOptions {
  *
  * @since 5.79.0
  */
-declare const LookAroundReadyState: Readonly<{
+export const LookAroundReadyState: Readonly<{
     /**
      * A value that indicates the Look Around view is loading.
      *
@@ -3117,7 +3108,8 @@ declare const LookAroundReadyState: Readonly<{
     readonly Destroyed: "destroyed";
 }>;
 
-type LookAroundReadyState = (typeof LookAroundReadyState)[keyof typeof LookAroundReadyState];
+export type LookAroundReadyState =
+    (typeof LookAroundReadyState)[keyof typeof LookAroundReadyState];
 
 /**
  * Object that represents the current location of the view.
@@ -3128,7 +3120,6 @@ type LookAroundReadyState = (typeof LookAroundReadyState)[keyof typeof LookAroun
  */
 export class LookAroundScene {
     #private;
-
     /**
      * Returns a copy of the Look Around scene object.
      *
@@ -3163,14 +3154,13 @@ declare class Map extends EventTarget {
         parent?: string | HTMLElement | null,
         options?: MapConstructorOptions,
     );
-
     /**
      * A static property that allows you to access the map type enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/maptypes)
      *
      * @since 5.0.0
-     * @deprecated  Please use mapkit.MapType instead.
+     * @deprecated  Please use {@linkcode mapkit.MapType|mapkit.MapType} instead.
      */
     static get MapTypes(): typeof MapType;
     /**
@@ -3179,7 +3169,7 @@ declare class Map extends EventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/colorschemes)
      *
      * @since 5.13.0
-     * @deprecated Please use mapkit.ColorScheme instead.
+     * @deprecated Please use {@linkcode mapkit.ColorScheme|mapkit.ColorScheme} instead.
      */
     static get ColorSchemes(): typeof ColorScheme;
     /**
@@ -3188,7 +3178,7 @@ declare class Map extends EventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/distances-data.var)
      *
      * @since 5.13.0
-     * @deprecated Please use mapkit.DistanceUnitSystem instead.
+     * @deprecated Please use {@linkcode mapkit.DistanceUnitSystem|mapkit.DistanceUnitSystem} instead.
      */
     static get Distances(): typeof DistanceUnitSystem;
     /**
@@ -3197,7 +3187,7 @@ declare class Map extends EventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/loadpriorities)
      *
      * @since 5.73.0
-     * @deprecated Please use mapkit.MapLoadPriority instead.
+     * @deprecated Please use {@linkcode mapkit.MapLoadPriority|mapkit.MapLoadPriority} instead.
      */
     static get LoadPriorities(): typeof MapLoadPriority;
     /**
@@ -3272,7 +3262,6 @@ declare class Map extends EventTarget {
      */
     get distances(): DistanceUnitSystem;
     set distances(distances: DistanceUnitSystem);
-
     /**
      * A value MapKit JS uses for prioritizing the visibility of specific map features before the underlaying map tiles.
      *
@@ -3722,31 +3711,31 @@ declare class Map extends EventTarget {
      * @since 5.0.0
      */
     showItems(
-        items: (Overlay | Annotation)[],
+        items: Item | Item[],
         options?: MapShowItemsOptions,
-    ): (Annotation | Overlay)[];
+    ): Item | Item[];
     /**
      * Adds a collection of annotations, overlays, or other item collections to the map.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/additems)
      *
-     * @param items An array of annotations, overlays, or the data returned from {@link mapkit.importGeoJSON} to display on the map.
+     * @param items An array of annotations, overlays, or the data returned from {@linkcode mapkit.importGeoJSON|mapkit.importGeoJSON} to display on the map.
      * @returns The array of items that were added to the map.
      *
      * @since 5.0.0
      */
-    addItems(items: (Overlay | Annotation)[]): (Annotation | Overlay)[];
+    addItems(items: Item | Item[]): Item | Item[];
     /**
      * Removes a collection of annotations, overlays, or other item collections from the map.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/map/removeitems)
      *
-     * @param items An array of annotations, overlays, or the data returned from {@link mapkit.importGeoJSON} to display on the map.
+     * @param items An array of annotations, overlays, or the data returned from {@linkcode mapkit.importGeoJSON|mapkit.importGeoJSON} to display on the map.
      * @returns The array of items that were removed from the map.
      *
      * @since 5.0.0
      */
-    removeItems(items: (Overlay | Annotation)[]): (Annotation | Overlay)[];
+    removeItems(items: Item | Item[]): Item | Item[];
     /**
      * Returns the list of annotation objects within the specified map rectangle.
      *
@@ -3867,14 +3856,14 @@ declare class Map extends EventTarget {
      */
     get annotationForMapFeature():
         | ((
-            mapFeatureAnnotation: MapFeatureAnnotation,
-        ) => Annotation | undefined)
+              mapFeatureAnnotation: MapFeatureAnnotation,
+          ) => Annotation | undefined)
         | undefined;
     set annotationForMapFeature(
         value:
             | ((
-                mapFeatureAnnotation: MapFeatureAnnotation,
-            ) => Annotation | undefined)
+                  mapFeatureAnnotation: MapFeatureAnnotation,
+              ) => Annotation | undefined)
             | undefined,
     );
 }
@@ -3940,7 +3929,6 @@ export interface MapConstructorOptions {
      * @since 5.73.0
      */
     loadPriority?: MapLoadPriority;
-
     /**
      * The type of data that the map view displays.
      *
@@ -3957,7 +3945,6 @@ export interface MapConstructorOptions {
      * @since 5.13.0
      */
     colorScheme?: ColorScheme;
-
     /**
      * An accessory for displaying place information when a person selects a map feature.
      *
@@ -3998,7 +3985,6 @@ export interface MapConstructorOptions {
      * @since 5.74.1
      */
     selectableMapFeatures?: MapFeatureType[];
-
     /**
      * The filter that determines the points of interest that display on the map.
      *
@@ -4015,7 +4001,6 @@ export interface MapConstructorOptions {
      * @since 5.0.0
      */
     showsPointsOfInterest?: boolean;
-
     /**
      * A Boolean value that determines whether to display a control for zooming in and zooming out on a map.
      *
@@ -4261,12 +4246,13 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapfeatureannotation/fetchplace)
      *
-     * @param callback Required. The framework invokes appropriate methods on {@link FetchDelegate}, or the callback function with two arguments, `error` and `data,` on success or failure:
+     * @param callback Required. The framework invokes appropriate methods on `FetchDelegate`, or the callback function with two arguments, `error` and `data,` on success or failure:
      * @returns The request ID that can be used to cancel the request.
      *
-     * @deprecated Use {@link PlaceLookup.getPlace | PlaceLookup.getPlace(annotation)} instead.
+     * @deprecated Use {@linkcode PlaceLookup.getPlace|PlaceLookup.getPlace(annotation)} instead.
      *
      * @since 5.74.1
+     *
      */
     fetchPlace(
         callback: (error: Error | null, result: Place | null) => void,
@@ -4344,7 +4330,8 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
  *
  * @since 5.74.1
  */
-declare class MapFeatureAnnotationGlyphImage implements ImageDelegate {
+export class MapFeatureAnnotationGlyphImage implements ImageDelegate {
+    #private;
     /**
      * Returns the image URL of the map feature.
      *
@@ -4395,7 +4382,8 @@ export const MapFeatureType: Readonly<{
     readonly PhysicalFeature: "PhysicalFeature";
 }>;
 
-export type MapFeatureType = (typeof MapFeatureType)[keyof typeof MapFeatureType];
+export type MapFeatureType =
+    (typeof MapFeatureType)[keyof typeof MapFeatureType];
 
 /**
  * The JavaScript API for embedding Apple Maps on your website.
@@ -4440,7 +4428,6 @@ export class MapKit extends EventTarget {
      */
     get language(): string;
     set language(language: string);
-
     /**
      * The list of available libraries.
      *
@@ -4474,7 +4461,7 @@ export class MapKit extends EventTarget {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/importgeojson)
      *
      * @param data The original GeoJSON data, either a URL to a GeoJSON file, or a GeoJSON object.
-     * @param callback If the provided data is a GeoJSON object (not a URL), `mapkit.importGeoJSON()` can return the result directly. In this case, if a callback is still provided, it will be used. For GeoJSON file imports, a callback must be provided. The callback can also be a delegate object
+     * @param callback If the provided data is a GeoJSON object (not a URL), {@linkcode mapkit.importGeoJSON|mapkit.importGeoJSON(data, callback)} can return the result directly. In this case, if a callback is still provided, it will be used. For GeoJSON file imports, a callback must be provided. The callback can also be a delegate object
      * @returns An ItemCollection containing the imported GeoJSON data as MapKit JS items, or undefined if data is a URL or import fails.
      *
      * @since 5.0.0
@@ -4484,11 +4471,11 @@ export class MapKit extends EventTarget {
         callback?: GeoJSONDelegate | GeoJSONImporterCallback,
     ):
         | ItemCollection<
-            GeoJSONTypes.GeoJSON<
-                GeoJSONTypes.Geometry,
-                GeoJSONTypes.GeoJsonProperties
-            >
-        >
+              GeoJSONTypes.GeoJSON<
+                  GeoJSONTypes.Geometry,
+                  GeoJSONTypes.GeoJsonProperties
+              >
+          >
         | undefined;
     /**
      * The getter to use to access the feature visibility enumeration.
@@ -4803,7 +4790,7 @@ export class MapKit extends EventTarget {
      */
     get AddressFilter(): typeof AddressFilter;
     /**
-     * Getter to access the RegionPriorty enumenration.
+     * Getter to access the RegionPriority enumeration.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkit/regionpriority)
      *
@@ -4978,7 +4965,6 @@ export interface MapKitInitializationOptions {
      * @since 5.0.0
      */
     language?: string | null;
-
     /**
      * An array of libraries to load at initialization.
      *
@@ -4990,7 +4976,7 @@ export interface MapKitInitializationOptions {
 }
 
 /**
- * An event that occurs when the MapKit JS library is loaded or fails loading.
+ * An event that occurs when requested libraries finish loading or fail to load.
  *
  * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitlibraryloadevent)
  *
@@ -4998,7 +4984,7 @@ export interface MapKitInitializationOptions {
  */
 export class MapKitLibraryLoadEvent extends Event {
     /**
-     * The libraries that the framework loaded or failed to load.
+     * The libraries requested in the load that triggered this event.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/mapkitlibraryloadevent/libraries)
      *
@@ -5014,7 +5000,7 @@ export class MapKitLibraryLoadEvent extends Event {
  *
  * @since 5.0.0
  */
-declare const MapLoadPriority: Readonly<{
+export const MapLoadPriority: Readonly<{
     /**
      * Prioritizes loading of the map land cover and borders, without POIs or labels.
      *
@@ -5044,7 +5030,8 @@ declare const MapLoadPriority: Readonly<{
 /**
  * @since 5.0.0
  */
-type MapLoadPriority = (typeof MapLoadPriority)[keyof typeof MapLoadPriority];
+export type MapLoadPriority =
+    (typeof MapLoadPriority)[keyof typeof MapLoadPriority];
 
 /**
  * An event object that the map view dispatches when someone selects or deselects an overlay.
@@ -5508,7 +5495,7 @@ export interface MapSizeData {
  *
  * @since 5.0.0
  */
-declare const MapType: Readonly<{
+export const MapType: Readonly<{
     /**
      * A satellite image of the area.
      *
@@ -5543,7 +5530,7 @@ declare const MapType: Readonly<{
     readonly Standard: "standard";
 }>;
 
-type MapType = (typeof MapType)[keyof typeof MapType];
+export type MapType = (typeof MapType)[keyof typeof MapType];
 
 /**
  * An event that represents a change in a person's location.
@@ -5732,7 +5719,8 @@ export class MarkerAnnotation extends Annotation {
  *
  * @since 5.0.0
  */
-export interface MarkerAnnotationConstructorOptions extends AnnotationConstructorOptions {
+export interface MarkerAnnotationConstructorOptions
+    extends AnnotationConstructorOptions {
     /**
      * The background color of the balloon.
      *
@@ -5818,7 +5806,6 @@ export abstract class Overlay extends EventTarget {
      */
     get style(): Style;
     set style(style: Style);
-
     /**
      * The map you add the overlay to.
      *
@@ -6131,7 +6118,6 @@ export class Place {
      * @since 5.78.1
      */
     alternateIds: string[] | null;
-
     /**
      * The category of the place.
      *
@@ -6148,7 +6134,6 @@ export class Place {
      * @since 5.0.0
      */
     name: string | null;
-
     /**
      * The geographic region associated with the place.
      *
@@ -6181,7 +6166,6 @@ export class Place {
      * @since 5.0.0
      */
     countryCode: string | null;
-
     /**
      * The country or region of the place.
      *
@@ -6466,7 +6450,7 @@ export class PlaceDetail {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/placedetail/colorschemes)
      *
      * @since 5.78.1
-     * @deprecated Please use mapkit.ColorScheme instead.
+     * @deprecated Please use {@linkcode mapkit.ColorScheme|mapkit.ColorScheme} instead.
      */
     static get ColorSchemes(): typeof ColorScheme;
 }
@@ -6605,7 +6589,6 @@ export class PlaceSelectionAccessory {
      * @since 5.78.1
      */
     static Styles: typeof PlaceSelectionAccessoryStyle;
-
     /**
      * Creates a new place selection accessory.
      *
@@ -6653,7 +6636,7 @@ export interface PlaceSelectionAccessoryOptions {
  *
  * @since 5.78.1
  */
-declare const PlaceSelectionAccessoryStyle: Readonly<{
+export const PlaceSelectionAccessoryStyle: Readonly<{
     /**
      * A style that MapKit automatically chooses based on the size of the map view.
      *
@@ -6696,7 +6679,8 @@ declare const PlaceSelectionAccessoryStyle: Readonly<{
     readonly OpenInMaps: "openInMaps";
 }>;
 
-type PlaceSelectionAccessoryStyle = (typeof PlaceSelectionAccessoryStyle)[keyof typeof PlaceSelectionAccessoryStyle];
+export type PlaceSelectionAccessoryStyle =
+    (typeof PlaceSelectionAccessoryStyle)[keyof typeof PlaceSelectionAccessoryStyle];
 
 /**
  * Point-of-interest categories.
@@ -7292,7 +7276,8 @@ export const PointOfInterestCategory: Readonly<{
     readonly Zoo: "Zoo";
 }>;
 
-export type PointOfInterestCategory = (typeof PointOfInterestCategory)[keyof typeof PointOfInterestCategory];
+export type PointOfInterestCategory =
+    (typeof PointOfInterestCategory)[keyof typeof PointOfInterestCategory];
 
 /**
  * A filter for determining the points of interest to include or exclude on a map or in a local search.
@@ -7331,7 +7316,7 @@ export class PointOfInterestFilter {
      *
      * @since 5.33.1
      */
-    static excludingAllCategories: () => PointOfInterestFilter;
+    static excludingAllCategories: PointOfInterestFilter;
     /**
      * A filter that includes all point-of-interest categories.
      *
@@ -7339,7 +7324,7 @@ export class PointOfInterestFilter {
      *
      * @since 5.33.1
      */
-    static includingAllCategories: () => PointOfInterestFilter;
+    static includingAllCategories: PointOfInterestFilter;
     /**
      * Creates a point-of-interest filter that includes categories from a list that you provide.
      *
@@ -7469,7 +7454,8 @@ export class PointsOfInterestSearch extends Service {
  *
  * @since 5.45.0
  */
-export interface PointsOfInterestSearchConstructorOptions extends ServiceConstructorOptions {
+export interface PointsOfInterestSearchConstructorOptions
+    extends ServiceConstructorOptions {
     /**
      * Sets the center point of the request represented as latitude and longitude.
      *
@@ -7511,29 +7497,29 @@ export interface PointsOfInterestSearchConstructorOptions extends ServiceConstru
  *
  * @since 5.45.0
  */
-type PointsOfInterestSearchDelegate =
+export type PointsOfInterestSearchDelegate =
     | {
-        /**
-         * Tells the delegate that the search failed due to an error.
-         *
-         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdiderror)
-         *
-         * @param error The error from a failed fetch for points of interest.
-         */
-        searchDidError: (error: Error) => void;
-        /**
-         * Tells the delegate that the search completed.
-         *
-         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdidcomplete)
-         *
-         * @param result The points of interest fetch results.
-         */
-        searchDidComplete: (result: PointsOfInterestSearchResponse) => void;
-    }
+          /**
+           * Tells the delegate that the search failed due to an error.
+           *
+           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdiderror)
+           *
+           * @param error The error from a failed fetch for points of interest.
+           */
+          searchDidError: (error: Error) => void;
+          /**
+           * Tells the delegate that the search completed.
+           *
+           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdidcomplete)
+           *
+           * @param result The points of interest fetch results.
+           */
+          searchDidComplete: (result: PointsOfInterestSearchResponse) => void;
+      }
     | ((
-        error: Error | null,
-        result: PointsOfInterestSearchResponse | null,
-    ) => void);
+          error: Error | null,
+          result: PointsOfInterestSearchResponse | null,
+      ) => void);
 
 /**
  * Options that you may provide when you create a points of interest search.
@@ -7583,7 +7569,6 @@ export interface PointsOfInterestSearchOptions {
      * @since 5.45.0
      */
     language?: string;
-
     /**
      * An optional AbortSignal to cancel the request.
      *
@@ -7682,7 +7667,7 @@ export class PolylineOverlay extends Overlay {
  *
  * @since 5.78.1
  */
-declare const RegionPriority: Readonly<{
+export const RegionPriority: Readonly<{
     /**
      * A value indicating that the results can originate from outside the specified region.
      *
@@ -7701,7 +7686,8 @@ declare const RegionPriority: Readonly<{
     readonly Required: "required";
 }>;
 
-type RegionPriority = (typeof RegionPriority)[keyof typeof RegionPriority];
+export type RegionPriority =
+    (typeof RegionPriority)[keyof typeof RegionPriority];
 
 /**
  * Error thrown when a request fails.
@@ -7728,7 +7714,7 @@ export class RequestError extends Error {
  *
  * @since 5.0.0
  */
-declare class Route {
+export class Route {
     /**
      * The name assigned to the route.
      *
@@ -7777,7 +7763,6 @@ declare class Route {
      * @since 5.0.0
      */
     steps: RouteStep[];
-
     /**
      * An instance of a polyline overlay that represents the path of a route.
      *
@@ -7795,7 +7780,7 @@ declare class Route {
  *
  * @since 5.0.0
  */
-declare class RouteStep {
+export class RouteStep {
     /**
      * The written instructions for following the path that the step represents.
      *
@@ -7804,7 +7789,6 @@ declare class RouteStep {
      * @since 5.0.0
      */
     instructions: string;
-
     /**
      * The step distance, in meters.
      *
@@ -7931,7 +7915,7 @@ export class Search extends Service {
     get pointOfInterestFilter(): PointOfInterestFilter | null;
     set pointOfInterestFilter(value: PointOfInterestFilter | null);
     /**
-     * A string that constrains search results to be within the provided countries.
+     * A string that constrains search results to be within the provided countries or regions.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/search/limittocountries)
      *
@@ -8013,7 +7997,7 @@ export class Search extends Service {
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/search/regionpriority-data.var)
      *
      * @since 5.78.1
-     * @deprecated Please use mapkit.RegionPriority instead.
+     * @deprecated Please use {@linkcode mapkit.RegionPriority|mapkit.RegionPriority} instead.
      */
     static get RegionPriority(): typeof RegionPriority;
 }
@@ -8094,7 +8078,6 @@ export class SearchAutocompleteResult {
      * @since 5.0.0
      */
     alternateIds: string[] | null;
-
     /**
      * The coordinate of the result when it corresponds to a single place.
      *
@@ -8103,7 +8086,6 @@ export class SearchAutocompleteResult {
      * @since 5.0.0
      */
     coordinate: Coordinate | null;
-
     /**
      * The name of the place.
      *
@@ -8112,7 +8094,6 @@ export class SearchAutocompleteResult {
      * @since 5.0.0
      */
     name: string | null;
-
     /**
      * The name of state or province of the place.
      *
@@ -8276,7 +8257,7 @@ export interface SearchConstructorOptions extends ServiceConstructorOptions {
      */
     addressFilter?: AddressFilter;
     /**
-     * A string that constrains search results to within the provided countries.
+     * A string that constrains search results to within the provided countries or regions.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchconstructoroptions/limittocountries)
      *
@@ -8300,45 +8281,47 @@ export interface SearchConstructorOptions extends ServiceConstructorOptions {
  *
  * @since 5.0.0
  */
-type SearchDelegate<
+export type SearchDelegate<
     T extends SearchResponse | SearchAutocompleteResponse =
         | SearchResponse
         | SearchAutocompleteResponse,
 > =
     | {
-        /**
-         * Tells the delegate when the search fails due to an error.
-         *
-         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdiderror)
-         *
-         * @param error The error from a failed search.
-         */
-        searchDidError: (error: Error) => void;
-        /**
-         * Tells the delegate when the search completes.
-         *
-         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdidcomplete)
-         *
-         * @param result The search results.
-         */
-        searchDidComplete: (result: SearchResponse) => void;
-        /**
-         * Tells the delegate when the autocomplete request fails due to an error.
-         *
-         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletediderror)
-         *
-         * @param error The error from a failed autocomplete request.
-         */
-        autocompleteDidError: (error: Error) => void;
-        /**
-         * Tells the delegate when the autocomplete request completes.
-         *
-         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletedidcomplete)
-         *
-         * @param result The results from the search autocomplete request.
-         */
-        autocompleteDidComplete: (result: SearchAutocompleteResponse) => void;
-    }
+          /**
+           * Tells the delegate when the search fails due to an error.
+           *
+           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdiderror)
+           *
+           * @param error The error from a failed search.
+           */
+          searchDidError?: (error: Error) => void;
+          /**
+           * Tells the delegate when the search completes.
+           *
+           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdidcomplete)
+           *
+           * @param result The search results.
+           */
+          searchDidComplete?: (result: SearchResponse) => void;
+          /**
+           * Tells the delegate when the autocomplete request fails due to an error.
+           *
+           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletediderror)
+           *
+           * @param error The error from a failed autocomplete request.
+           */
+          autocompleteDidError?: (error: Error) => void;
+          /**
+           * Tells the delegate when the autocomplete request completes.
+           *
+           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletedidcomplete)
+           *
+           * @param result The results from the search autocomplete request.
+           */
+          autocompleteDidComplete?: (
+              result: SearchAutocompleteResponse,
+          ) => void;
+      }
     | ((error: Error | null, result: T | null) => void);
 
 /**
@@ -8414,7 +8397,7 @@ export interface SearchOptions {
      */
     addressFilter?: AddressFilter;
     /**
-     * A string that constrains search results to within the provided countries.
+     * A string that constrains search results to within the provided countries or regions.
      *
      * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchoptions/limittocountries)
      *
@@ -8868,6 +8851,7 @@ export class TileOverlay extends EventTarget {
      * @deprecated Use {@link imageForTile} instead.
      *
      * @since 5.0.0
+     *
      */
     get urlTemplate(): TileOverlayUrlTemplate | TileOverlayImageCallback;
     set urlTemplate(
@@ -8994,7 +8978,7 @@ export class TileOverlayErrorEvent extends Event {
  *
  * @since 6.0.0
  */
-type TileOverlayImageCallback = (
+export type TileOverlayImageCallback = (
     x: number,
     y: number,
     z: number,
@@ -9009,15 +8993,15 @@ type TileOverlayImageCallback = (
  *
  * @since 5.0.0
  */
-type TileOverlayUrlTemplate =
+export type TileOverlayUrlTemplate =
     | string
     | ((
-        x: number,
-        y: number,
-        z: number,
-        scale: number,
-        data: any,
-    ) => string | null);
+          x: number,
+          y: number,
+          z: number,
+          scale: number,
+          data: any,
+      ) => string | null);
 
 /**
  * The modes of transportation.
@@ -9026,7 +9010,7 @@ type TileOverlayUrlTemplate =
  *
  * @since 5.0.0
  */
-declare const TransportType: Readonly<{
+export const TransportType: Readonly<{
     /**
      * A constant identifying the mode of transportation as driving.
      *
@@ -9053,7 +9037,7 @@ declare const TransportType: Readonly<{
     readonly Cycling: "CYCLING";
 }>;
 
-type TransportType = (typeof TransportType)[keyof typeof TransportType];
+export type TransportType = (typeof TransportType)[keyof typeof TransportType];
 
 /**
  * An annotation that represents someone's location.
