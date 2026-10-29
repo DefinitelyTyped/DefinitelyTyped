@@ -110,6 +110,10 @@ function test_excel() {
 
 function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: Excel.Range) {
     // $ExpectType void
+    series.setBubbleSizes(range);
+    // $ExpectType void
+    series.setBubbleSizes("=Sheet1!$C$2:$C$4");
+    // $ExpectType void
     series.setValues(range);
     // $ExpectType void
     series.setValues("=Sheet1!$B$2:$B$4");
@@ -120,6 +124,10 @@ function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: E
     series.setXAxisValues("");
     series.setXAxisValues("=");
 
+    // @ts-expect-error
+    series.setBubbleSizes(42);
+    // @ts-expect-error
+    series.setBubbleSizes([1, 2]);
     // @ts-expect-error
     series.setValues(42);
     // @ts-expect-error
