@@ -937,7 +937,7 @@ export type TokenEndpointGrantContext<Params extends object = UnknownObject> = K
 
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 // BEGIN GENERATED OIDC-PROVIDER CONTRACTS
-// oidc-provider types artifact "9.13.1"; schema 3; sha256 204be9334c416a047dc12c1aa1fb78d8ceb586b69f666477d6fec77a7f2300f3
+// oidc-provider types artifact "9.13.3"; schema 3; sha256 38a5b5882246cf5913381089f7dddbf4fe6e22eec6e09eb6e7faaf4fa0a26731
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,
@@ -2595,6 +2595,9 @@ export interface Configuration {
      *
      * The adapter constructor will be instantiated for each model type when first accessed.
      *
+     * To prevent concurrent replay, the `ReplayDetection` adapter's `upsert` SHOULD use an atomic insert-if-absent
+     * operation and reject when an unexpired entry already exists.
+     *
      * @see [The expected interface](https://github.com/panva/node-oidc-provider/blob/main/example/my_adapter.js)
      *
      * @see [Example MongoDB adapter implementation](https://github.com/panva/node-oidc-provider/discussions/1308)
@@ -2879,17 +2882,21 @@ export interface Configuration {
                 | {
                     enabled?: boolean | undefined;
                     /**
-                     * Specifies a helper function that shall be invoked to perform additional validation of the
-                     * `claims` parameter. This function enables enforcement of deployment-specific policies, security
-                     * constraints, or extended claim validation logic according to authorization server requirements.
+                     * Specifies a helper function that validates individual claim requests in the parsed `claims`
+                     * parameter. The default implementation requires each member of `userinfo` and `id_token` to be
+                     * null or a JSON object, as defined by OIDC Core. A custom implementation may accept extension
+                     * syntax or enforce deployment-specific policies. JSON parsing and validation of the top-level
+                     * object and its `userinfo` and `id_token` containers are always performed before this function is
+                     * invoked.
                      *
                      * The function may throw errors to reject non-compliant claims requests or return successfully to
-                     * indicate acceptance of the claims parameter content.
+                     * indicate acceptance of the claims parameter content. Accepting extension syntax does not add
+                     * support for its consent, claim selection, or response processing requirements.
                      */
                     assertClaimsParameter?:
                         | ((
                             ctx: KoaContextWithOIDC,
-                            claims: ClaimsParameter,
+                            claims: Partial<Record<"userinfo" | "id_token", UnknownObject | undefined>>,
                             client: Client,
                         ) => CanBePromise<void>)
                         | undefined;
