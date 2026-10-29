@@ -1243,6 +1243,8 @@ const any: any = null;
     result = validator.isOctal("076543210");
 
     result = validator.isPassportNumber("sample", "US");
+    // @ts-expect-error
+    result = validator.isPassportNumber("sample");
 
     result = validator.isPort("sample");
 
