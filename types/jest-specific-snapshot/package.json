@@ -9,7 +9,7 @@
         "@types/jest": "*"
     },
     "devDependencies": {
-        "@types/enzyme-to-json": "*",
+        "@types/enzyme-to-json": "<3",
         "@types/jest-specific-snapshot": "workspace:."
     },
     "owners": [
