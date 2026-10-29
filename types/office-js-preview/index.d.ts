@@ -36149,7 +36149,7 @@ declare namespace Excel {
          */
         labelingDisabled = "LabelingDisabled",
         /**
-         * The label update failed because the user's identity could not be found to validate for applying a label.
+         * The label update failed because the user's identity couldn't be found during label application.
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
          * @beta
@@ -36256,7 +36256,7 @@ declare namespace Excel {
          */
         readonly getLabelingCapability: Excel.LabelingCapability | "NoLicense" | "LabelingDisabled" | "LabelingPolicyNotFound" | "LabelingEnabled" | "AttributeBasedAccessControlEnabled";
         /**
-         * Gets the attribute-based access control (ABAC) attribute catalog metadata for ABAC-enabled labels. Callers must first verify the host's labeling capabilities include `attributeBasedAccessControlEnabled`; otherwise this method fails with an error.
+         * Gets the attribute-based access control (ABAC) attribute catalog metadata for ABAC-enabled labels. Verify the host's labeling capabilities include `attributeBasedAccessControlEnabled`; otherwise this method fails with an error.
          *
          * @remarks
          * [Api set: ExcelApi BETA (PREVIEW ONLY)]
@@ -146659,7 +146659,7 @@ declare namespace Word {
          */
         labelingDisabled = "LabelingDisabled",
         /**
-         * The label update failed because the user's identity could not be found to validate for applying a label.
+         * The label update failed because the user's identity couldn't be found during label application.
          * @remarks
          * [Api set: WordApi BETA (PREVIEW ONLY)]
          * @beta
@@ -195491,7 +195491,7 @@ declare namespace PowerPoint {
          */
         labelingDisabled = "LabelingDisabled",
         /**
-         * The label update failed because the user's identity could not be found to validate for applying a label.
+         * The label update failed because the user's identity couldn't be found during label application.
          * @remarks
          * [Api set: PowerPointApi BETA (PREVIEW ONLY)]
          * @beta
