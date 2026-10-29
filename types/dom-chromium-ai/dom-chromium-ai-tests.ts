@@ -14,6 +14,10 @@ async function topLevel() {
     // samplingMode is valid on its own
     await LanguageModel.create({ samplingMode: "most-creative" });
     await LanguageModel.create({ samplingMode: "balanced" });
+    await LanguageModel.create({ samplingMode: "slightly-predictable" });
+    await LanguageModel.create({ samplingMode: "slightly-creative" });
+    // @ts-expect-error - not a valid sampling mode.
+    await LanguageModel.create({ samplingMode: "very-creative" });
 
     await LanguageModel.create({
         samplingMode: "balanced",
