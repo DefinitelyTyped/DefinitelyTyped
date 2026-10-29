@@ -173,8 +173,7 @@ export const AddressCategory: Readonly<{
     readonly PostalCode: "PostalCode";
 }>;
 
-export type AddressCategory =
-    (typeof AddressCategory)[keyof typeof AddressCategory];
+export type AddressCategory = (typeof AddressCategory)[keyof typeof AddressCategory];
 
 /**
  * An object that filters which address options to include or exclude in search results.
@@ -661,8 +660,7 @@ export const AnnotationCollisionMode: Readonly<{
     readonly None: "none";
 }>;
 
-export type AnnotationCollisionMode =
-    (typeof AnnotationCollisionMode)[keyof typeof AnnotationCollisionMode];
+export type AnnotationCollisionMode = (typeof AnnotationCollisionMode)[keyof typeof AnnotationCollisionMode];
 
 /**
  * An object that contains options for creating annotation features.
@@ -916,8 +914,7 @@ export const AnnotationDisplayPriority: Readonly<{
     readonly Required: 1000;
 }>;
 
-export type AnnotationDisplayPriority =
-    (typeof AnnotationDisplayPriority)[keyof typeof AnnotationDisplayPriority];
+export type AnnotationDisplayPriority = (typeof AnnotationDisplayPriority)[keyof typeof AnnotationDisplayPriority];
 
 /**
  * An event that occurs when someone drags an annotation.
@@ -1335,8 +1332,7 @@ export const ConfigurationChangeStatus: Readonly<{
     readonly Refreshed: "Refreshed";
 }>;
 
-export type ConfigurationChangeStatus =
-    (typeof ConfigurationChangeStatus)[keyof typeof ConfigurationChangeStatus];
+export type ConfigurationChangeStatus = (typeof ConfigurationChangeStatus)[keyof typeof ConfigurationChangeStatus];
 
 /**
  * A value that represents the status of a configuration or request error.
@@ -1404,8 +1400,7 @@ export const ConfigurationErrorStatus: Readonly<{
     readonly Unknown: "Unknown";
 }>;
 
-export type ConfigurationErrorStatus =
-    (typeof ConfigurationErrorStatus)[keyof typeof ConfigurationErrorStatus];
+export type ConfigurationErrorStatus = (typeof ConfigurationErrorStatus)[keyof typeof ConfigurationErrorStatus];
 
 /**
  * An object representing the latitude and longitude for a point on the Earth's surface.
@@ -1610,7 +1605,6 @@ export class CoordinateRegion implements CoordinateRegionData {
      * @returns A {@link MapRect} that corresponds to the calling {@link CoordinateRegion}.
      *
      * @since 5.0.0
-     *
      */
     toMapRect(): MapRect;
     /**
@@ -1993,8 +1987,7 @@ export const DistanceUnitSystem: Readonly<{
 /**
  * @since 5.13.0
  */
-export type DistanceUnitSystem =
-    (typeof DistanceUnitSystem)[keyof typeof DistanceUnitSystem];
+export type DistanceUnitSystem = (typeof DistanceUnitSystem)[keyof typeof DistanceUnitSystem];
 
 /**
  * The options you may provide for requesting estimated arrival times.
@@ -2164,8 +2157,7 @@ export const FeatureVisibility: Readonly<{
     readonly Visible: "visible";
 }>;
 
-export type FeatureVisibility =
-    (typeof FeatureVisibility)[keyof typeof FeatureVisibility];
+export type FeatureVisibility = (typeof FeatureVisibility)[keyof typeof FeatureVisibility];
 
 /**
  * A geocoder that converts human-readable addresses to geographic coordinates, and vice versa.
@@ -2614,7 +2606,6 @@ export class ImageAnnotation extends Annotation {
      * @deprecated Use {@link ImageAnnotation.image} instead.
      *
      * @since 5.0.0
-     *
      */
     get url():
         | ImageDelegate
@@ -2637,8 +2628,7 @@ export class ImageAnnotation extends Annotation {
  *
  * @since 5.0.0
  */
-export interface ImageAnnotationConstructorOptions
-    extends AnnotationConstructorOptions {
+export interface ImageAnnotationConstructorOptions extends AnnotationConstructorOptions {
     /**
      * The image for the annotation.
      *
@@ -2659,7 +2649,6 @@ export interface ImageAnnotationConstructorOptions
      * @deprecated Use {@link ImageAnnotationConstructorOptions.image} instead.
      *
      * @since 5.0.0
-     *
      */
     url?: ImageDelegate | ImageHashObject | ImageSource | Promise<ImageSource>;
 }
@@ -2695,7 +2684,6 @@ export interface ImageDelegate {
      * @deprecated Use {@link ImageDelegate.getImage} instead, which supports both URLs and {@link ImageSource} objects.
      *
      * @since 5.74.0
-     *
      */
     getImageUrl?(ratio: number, callback: (url: string | null) => void): void;
 }
@@ -2908,8 +2896,7 @@ export const LookAroundBadgePosition: Readonly<{
     readonly BottomTrailing: "bottomTrailing";
 }>;
 
-export type LookAroundBadgePosition =
-    (typeof LookAroundBadgePosition)[keyof typeof LookAroundBadgePosition];
+export type LookAroundBadgePosition = (typeof LookAroundBadgePosition)[keyof typeof LookAroundBadgePosition];
 
 /**
  * A custom event object that contains information about the error when starting a Look Around view.
@@ -2965,8 +2952,7 @@ export const LookAroundErrorType: Readonly<{
     readonly UnknownError: "unknown-error";
 }>;
 
-export type LookAroundErrorType =
-    (typeof LookAroundErrorType)[keyof typeof LookAroundErrorType];
+export type LookAroundErrorType = (typeof LookAroundErrorType)[keyof typeof LookAroundErrorType];
 
 /**
  * Options for initializing a LookAround view.
@@ -3108,8 +3094,7 @@ export const LookAroundReadyState: Readonly<{
     readonly Destroyed: "destroyed";
 }>;
 
-export type LookAroundReadyState =
-    (typeof LookAroundReadyState)[keyof typeof LookAroundReadyState];
+export type LookAroundReadyState = (typeof LookAroundReadyState)[keyof typeof LookAroundReadyState];
 
 /**
  * Object that represents the current location of the view.
@@ -3856,14 +3841,14 @@ declare class Map extends EventTarget {
      */
     get annotationForMapFeature():
         | ((
-              mapFeatureAnnotation: MapFeatureAnnotation,
-          ) => Annotation | undefined)
+            mapFeatureAnnotation: MapFeatureAnnotation,
+        ) => Annotation | undefined)
         | undefined;
     set annotationForMapFeature(
         value:
             | ((
-                  mapFeatureAnnotation: MapFeatureAnnotation,
-              ) => Annotation | undefined)
+                mapFeatureAnnotation: MapFeatureAnnotation,
+            ) => Annotation | undefined)
             | undefined,
     );
 }
@@ -4252,7 +4237,6 @@ export class MapFeatureAnnotation extends PlaceAnnotation {
      * @deprecated Use {@linkcode PlaceLookup.getPlace|PlaceLookup.getPlace(annotation)} instead.
      *
      * @since 5.74.1
-     *
      */
     fetchPlace(
         callback: (error: Error | null, result: Place | null) => void,
@@ -4382,8 +4366,7 @@ export const MapFeatureType: Readonly<{
     readonly PhysicalFeature: "PhysicalFeature";
 }>;
 
-export type MapFeatureType =
-    (typeof MapFeatureType)[keyof typeof MapFeatureType];
+export type MapFeatureType = (typeof MapFeatureType)[keyof typeof MapFeatureType];
 
 /**
  * The JavaScript API for embedding Apple Maps on your website.
@@ -4471,11 +4454,11 @@ export class MapKit extends EventTarget {
         callback?: GeoJSONDelegate | GeoJSONImporterCallback,
     ):
         | ItemCollection<
-              GeoJSONTypes.GeoJSON<
-                  GeoJSONTypes.Geometry,
-                  GeoJSONTypes.GeoJsonProperties
-              >
-          >
+            GeoJSONTypes.GeoJSON<
+                GeoJSONTypes.Geometry,
+                GeoJSONTypes.GeoJsonProperties
+            >
+        >
         | undefined;
     /**
      * The getter to use to access the feature visibility enumeration.
@@ -5030,8 +5013,7 @@ export const MapLoadPriority: Readonly<{
 /**
  * @since 5.0.0
  */
-export type MapLoadPriority =
-    (typeof MapLoadPriority)[keyof typeof MapLoadPriority];
+export type MapLoadPriority = (typeof MapLoadPriority)[keyof typeof MapLoadPriority];
 
 /**
  * An event object that the map view dispatches when someone selects or deselects an overlay.
@@ -5719,8 +5701,7 @@ export class MarkerAnnotation extends Annotation {
  *
  * @since 5.0.0
  */
-export interface MarkerAnnotationConstructorOptions
-    extends AnnotationConstructorOptions {
+export interface MarkerAnnotationConstructorOptions extends AnnotationConstructorOptions {
     /**
      * The background color of the balloon.
      *
@@ -7276,8 +7257,7 @@ export const PointOfInterestCategory: Readonly<{
     readonly Zoo: "Zoo";
 }>;
 
-export type PointOfInterestCategory =
-    (typeof PointOfInterestCategory)[keyof typeof PointOfInterestCategory];
+export type PointOfInterestCategory = (typeof PointOfInterestCategory)[keyof typeof PointOfInterestCategory];
 
 /**
  * A filter for determining the points of interest to include or exclude on a map or in a local search.
@@ -7454,8 +7434,7 @@ export class PointsOfInterestSearch extends Service {
  *
  * @since 5.45.0
  */
-export interface PointsOfInterestSearchConstructorOptions
-    extends ServiceConstructorOptions {
+export interface PointsOfInterestSearchConstructorOptions extends ServiceConstructorOptions {
     /**
      * Sets the center point of the request represented as latitude and longitude.
      *
@@ -7499,27 +7478,27 @@ export interface PointsOfInterestSearchConstructorOptions
  */
 export type PointsOfInterestSearchDelegate =
     | {
-          /**
-           * Tells the delegate that the search failed due to an error.
-           *
-           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdiderror)
-           *
-           * @param error The error from a failed fetch for points of interest.
-           */
-          searchDidError: (error: Error) => void;
-          /**
-           * Tells the delegate that the search completed.
-           *
-           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdidcomplete)
-           *
-           * @param result The points of interest fetch results.
-           */
-          searchDidComplete: (result: PointsOfInterestSearchResponse) => void;
-      }
+        /**
+         * Tells the delegate that the search failed due to an error.
+         *
+         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdiderror)
+         *
+         * @param error The error from a failed fetch for points of interest.
+         */
+        searchDidError: (error: Error) => void;
+        /**
+         * Tells the delegate that the search completed.
+         *
+         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/pointsofinterestsearchdelegate/searchdidcomplete)
+         *
+         * @param result The points of interest fetch results.
+         */
+        searchDidComplete: (result: PointsOfInterestSearchResponse) => void;
+    }
     | ((
-          error: Error | null,
-          result: PointsOfInterestSearchResponse | null,
-      ) => void);
+        error: Error | null,
+        result: PointsOfInterestSearchResponse | null,
+    ) => void);
 
 /**
  * Options that you may provide when you create a points of interest search.
@@ -7686,8 +7665,7 @@ export const RegionPriority: Readonly<{
     readonly Required: "required";
 }>;
 
-export type RegionPriority =
-    (typeof RegionPriority)[keyof typeof RegionPriority];
+export type RegionPriority = (typeof RegionPriority)[keyof typeof RegionPriority];
 
 /**
  * Error thrown when a request fails.
@@ -8287,41 +8265,41 @@ export type SearchDelegate<
         | SearchAutocompleteResponse,
 > =
     | {
-          /**
-           * Tells the delegate when the search fails due to an error.
-           *
-           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdiderror)
-           *
-           * @param error The error from a failed search.
-           */
-          searchDidError?: (error: Error) => void;
-          /**
-           * Tells the delegate when the search completes.
-           *
-           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdidcomplete)
-           *
-           * @param result The search results.
-           */
-          searchDidComplete?: (result: SearchResponse) => void;
-          /**
-           * Tells the delegate when the autocomplete request fails due to an error.
-           *
-           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletediderror)
-           *
-           * @param error The error from a failed autocomplete request.
-           */
-          autocompleteDidError?: (error: Error) => void;
-          /**
-           * Tells the delegate when the autocomplete request completes.
-           *
-           * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletedidcomplete)
-           *
-           * @param result The results from the search autocomplete request.
-           */
-          autocompleteDidComplete?: (
-              result: SearchAutocompleteResponse,
-          ) => void;
-      }
+        /**
+         * Tells the delegate when the search fails due to an error.
+         *
+         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdiderror)
+         *
+         * @param error The error from a failed search.
+         */
+        searchDidError?: (error: Error) => void;
+        /**
+         * Tells the delegate when the search completes.
+         *
+         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/searchdidcomplete)
+         *
+         * @param result The search results.
+         */
+        searchDidComplete?: (result: SearchResponse) => void;
+        /**
+         * Tells the delegate when the autocomplete request fails due to an error.
+         *
+         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletediderror)
+         *
+         * @param error The error from a failed autocomplete request.
+         */
+        autocompleteDidError?: (error: Error) => void;
+        /**
+         * Tells the delegate when the autocomplete request completes.
+         *
+         * [Apple Developer Documentation](https://developer.apple.com/documentation/mapkitjs/searchdelegate/autocompletedidcomplete)
+         *
+         * @param result The results from the search autocomplete request.
+         */
+        autocompleteDidComplete?: (
+            result: SearchAutocompleteResponse,
+        ) => void;
+    }
     | ((error: Error | null, result: T | null) => void);
 
 /**
@@ -8851,7 +8829,6 @@ export class TileOverlay extends EventTarget {
      * @deprecated Use {@link imageForTile} instead.
      *
      * @since 5.0.0
-     *
      */
     get urlTemplate(): TileOverlayUrlTemplate | TileOverlayImageCallback;
     set urlTemplate(
@@ -8996,12 +8973,12 @@ export type TileOverlayImageCallback = (
 export type TileOverlayUrlTemplate =
     | string
     | ((
-          x: number,
-          y: number,
-          z: number,
-          scale: number,
-          data: any,
-      ) => string | null);
+        x: number,
+        y: number,
+        z: number,
+        scale: number,
+        data: any,
+    ) => string | null);
 
 /**
  * The modes of transportation.
