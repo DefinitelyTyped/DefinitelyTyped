@@ -1,7 +1,7 @@
 import { Camera, Node, PassNode, Scene } from "three/webgpu";
 
 declare class PixelationPassNode extends PassNode {
-    pixelSize: Node<"float">;
+    pixelSize: number;
     normalEdgeStrength: Node<"float">;
     depthEdgeStrength: Node<"float">;
 
@@ -10,18 +10,18 @@ declare class PixelationPassNode extends PassNode {
     constructor(
         scene: Scene,
         camera: Camera,
-        pixelSize: Node,
-        normalEdgeStrength: Node,
-        depthEdgeStrength: Node,
+        pixelSize?: number,
+        normalEdgeStrength?: Node<"float"> | number,
+        depthEdgeStrength?: Node<"float"> | number,
     );
 }
 
 export const pixelationPass: (
     scene: Scene,
     camera: Camera,
-    pixelSize: Node | number,
-    normalEdgeStrength: Node | number,
-    depthEdgeStrength: Node | number,
+    pixelSize?: number,
+    normalEdgeStrength?: Node<"float"> | number,
+    depthEdgeStrength?: Node<"float"> | number,
 ) => PixelationPassNode;
 
 export default PixelationPassNode;

@@ -1,6 +1,5 @@
 import { EulerOrder } from "../../math/Euler.js";
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
 interface RotateNodeInterface<TNodeType> {
     positionNode: Node<TNodeType>;
@@ -14,7 +13,7 @@ declare const RotateNode: {
     new(positionNode: Node<"vec3">, rotationNode: Node<"vec3">, order?: EulerOrder): RotateNode<"vec3">;
 };
 
-type RotateNode<TNodeType> = RotateNodeInterface<TNodeType> & TempNode<TNodeType>;
+type RotateNode<TNodeType> = RotateNodeInterface<TNodeType> & Node<TNodeType>;
 
 export default RotateNode;
 

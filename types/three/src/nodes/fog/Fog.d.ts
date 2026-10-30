@@ -2,7 +2,7 @@ import Node from "../core/Node.js";
 
 export const rangeFogFactor: (near: Node | number, far: Node | number) => Node<"float">;
 
-export const densityFogFactor: (density: Node) => Node<"float">;
+export const densityFogFactor: (density: Node | number) => Node<"float">;
 
 export const exponentialHeightFogFactor: (density: Node, height: Node) => Node;
 

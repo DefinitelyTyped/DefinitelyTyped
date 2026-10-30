@@ -357,7 +357,7 @@ export class BufferAttribute<TEventMap extends BufferAttributeEventMap = BufferA
     toJSON(): BufferAttributeJSON;
 
     /**
-     * Disposes of the buffer attribute. Available only in {@link WebGPURenderer}.
+     * Frees the GPU-related resources allocated by this instance. Available only in {@link WebGPURenderer}.
      */
     dispose(): void;
 }

@@ -1,6 +1,7 @@
 import { ToneMapping } from "../../../../../src/constants.js";
 import { Data3DTexture } from "../../../../../src/textures/Data3DTexture.js";
 import { Extension } from "../../Extension.js";
+import { LUTParams } from "./LUTMath.js";
 
 export interface ColorGradingJSON {
     version: number;
@@ -30,5 +31,5 @@ export class ColorGrading extends Extension {
     serialize(): ColorGradingJSON;
     deserialize(data: ColorGradingJSON): void;
 
-    load(data: ColorGradingJSON | string): void;
+    load(data: Partial<ColorGradingJSON> | { params: LUTParams } | LUTParams | string): void;
 }

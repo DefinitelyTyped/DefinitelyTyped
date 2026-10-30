@@ -1,4 +1,5 @@
 import Node from "../core/Node.js";
+import UniformGroupNode from "../core/UniformGroupNode.js";
 
 interface ReferenceNodeInterface<T> extends Node {
     property: string;
@@ -11,6 +12,9 @@ interface ReferenceNodeInterface<T> extends Node {
     properties: string[];
     reference: T | null;
     node: Node | null;
+    group: UniformGroupNode | null;
+
+    setGroup(group: UniformGroupNode): this;
 
     setNodeType(uniformType: string): void;
 }

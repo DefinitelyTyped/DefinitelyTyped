@@ -61,6 +61,31 @@ export class SkyscraperGenerator {
 }
 
 /**
+ * The features of the material, cheaper materials leave some out.
+ */
+export interface SkyscraperMaterialOptions {
+    /**
+     * Whether the windows show raymarched rooms, `'average'` shows the average colour and the light of each room
+     * without the raymarch, for distant towers. `false` shows dark glass.
+     *
+     * @default true
+     */
+    interiors?: boolean | "average" | undefined;
+    /**
+     * Whether the surfaces are weathered by noise ( tone, soot, grime, dust ).
+     *
+     * @default true
+     */
+    weathering?: boolean | undefined;
+    /**
+     * Whether the brickwork and the AC louvers have a bump relief.
+     *
+     * @default true
+     */
+    relief?: boolean | undefined;
+}
+
+/**
  * The facade material: a single MeshStandardNodeMaterial that reads the baked
  * per-vertex `partId` and reproduces every zone — procedural terracotta brickwork
  * on the walls and piers, smooth dressed stone on the window frames and ornament,
@@ -70,7 +95,10 @@ export class SkyscraperGenerator {
  * masonry colour as a TSL node: pass a `uniform( Color )` for a single tower, or a
  * per-fragment palette pick for a city, so the same material dresses both.
  */
-export function createSkyscraperMaterial(buildingBase?: Node<"color"> | Color): MeshStandardNodeMaterial;
+export function createSkyscraperMaterial(
+    buildingBase?: Node<"color"> | Color,
+    options?: SkyscraperMaterialOptions,
+): MeshStandardNodeMaterial;
 
 /**
  * The NYC masonry palette every tower is dressed from ( hex colours ): limestone-dominant

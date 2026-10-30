@@ -1,6 +1,6 @@
-import { Node, TempNode, TextureNode } from "three/webgpu";
+import { Node, TextureNode } from "three/webgpu";
 
-declare class SharpenNode extends TempNode<"vec4"> {
+declare class SharpenNode extends Node<"vec4"> {
     readonly isSharpenNode: boolean;
 
     textureNode: TextureNode;

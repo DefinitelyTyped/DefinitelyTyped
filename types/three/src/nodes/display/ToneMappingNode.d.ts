@@ -1,9 +1,8 @@
 import { ToneMapping } from "../../constants.js";
 import RendererReferenceNode from "../accessors/RendererReferenceNode.js";
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
-declare class ToneMappingNode extends TempNode<"vec3"> {
+declare class ToneMappingNode extends Node<"vec3"> {
     exposureNode: Node;
     colorNode: Node | null;
 

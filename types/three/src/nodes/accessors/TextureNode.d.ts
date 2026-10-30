@@ -18,6 +18,9 @@ interface TextureNodeInterface {
 
     referenceNode: Node | null;
 
+    get mergeable(): boolean;
+    set mergeable(value: boolean);
+
     getDefaultUV(): Node;
 
     setSampler(value: boolean): this;

@@ -1,3 +1,4 @@
+import { Camera } from "../../cameras/Camera.js";
 import { BufferGeometry } from "../../core/BufferGeometry.js";
 import { Object3D } from "../../core/Object3D.js";
 import { Material } from "../../materials/Material.js";
@@ -9,6 +10,11 @@ export default abstract class NodeBuilder {
     object: Object3D;
     material: Material;
     geometry: BufferGeometry;
+
+    /**
+     * The camera the 3D object is rendered with.
+     */
+    camera: Camera | null;
 
     /**
      * The compute node, if building for compute.

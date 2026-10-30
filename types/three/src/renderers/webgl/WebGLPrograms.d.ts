@@ -66,6 +66,9 @@ export interface WebGLProgramParameters {
     clearcoatNormalMap: boolean;
     clearcoatRoughnessMap: boolean;
 
+    diffuseRoughness: boolean;
+    diffuseRoughnessMap: boolean;
+
     dispersion: boolean;
     retroreflection: boolean;
 
@@ -113,6 +116,7 @@ export interface WebGLProgramParameters {
     clearcoatMapUv: string | false;
     clearcoatNormalMapUv: string | false;
     clearcoatRoughnessMapUv: string | false;
+    diffuseRoughnessMapUv: string | false;
 
     iridescenceMapUv: string | false;
     iridescenceThicknessMapUv: string | false;

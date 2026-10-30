@@ -1,6 +1,7 @@
 import { ColorGrading } from "./extensions/color-grading/ColorGrading.js";
 import { TSLGraphEditor } from "./extensions/tsl-graph/TSLGraphEditor.js";
 import { RendererInspector, RendererInspectorEventMap } from "./RendererInspector.js";
+import { getItem, setItem } from "./Storage.js";
 import { ParametersGroup } from "./tabs/Parameters.js";
 import { Tab } from "./ui/Tab.js";
 
@@ -51,4 +52,4 @@ declare class Inspector extends RendererInspector<InspectorEventMap> {
     setActiveExtension(name: "Color Grading" | "TSL Graph", value: boolean): this;
 }
 
-export { Inspector };
+export { getItem, Inspector, setItem };

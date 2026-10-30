@@ -1,11 +1,10 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
 export type PackFloatNodeEncoding = "snorm" | "unorm" | "float16";
 
 export type PackFloatNodeLayout = "2x16" | "4x8";
 
-declare class PackFloatNode extends TempNode {
+declare class PackFloatNode extends Node {
     vectorNode: Node;
     encoding: PackFloatNodeEncoding;
     layout: PackFloatNodeLayout;

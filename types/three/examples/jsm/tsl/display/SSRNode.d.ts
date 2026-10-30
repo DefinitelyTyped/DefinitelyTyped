@@ -1,4 +1,4 @@
-import { Camera, Node, RenderTarget, TempNode, Texture, TextureNode, UniformNode } from "three/webgpu";
+import { Camera, Node, RenderTarget, Texture, TextureNode, UniformNode } from "three/webgpu";
 
 export interface SSRNodeOptions {
     /**
@@ -9,6 +9,14 @@ export interface SSRNodeOptions {
      * - Per-pixel metalness. Drives GGX reflection sampling and, with `reflectNonMetals=false`, the non-metal early-out.
      */
     metalnessNode?: Node<"float"> | undefined;
+    /**
+     * - Stochastic mode only: material normal-incidence reflectance (F0), typically an MRT `specularColorBlended` attachment (it already includes IOR, specular intensity and metalness; raw `material.specularColor` reflects too brightly). Defaults to the metalness/base-color approximation.
+     */
+    specularNode?: Node<"vec3"> | undefined;
+    /**
+     * - Stochastic mode only: material grazing reflectance, typically an MRT `specularF90` attachment. Defaults to one.
+     */
+    specularF90Node?: Node<"float"> | undefined;
     /**
      * - Per-pixel roughness. Drives GGX sampling and the blur mip selection.
      */
@@ -44,10 +52,10 @@ export interface SSRNodeOptions {
  *
  * Reference: {@link https://lettier.github.io/3d-game-shaders-for-beginners/screen-space-reflection.html}
  *
- * @augments TempNode
+ * @augments Node
  * @three_import import { ssr } from 'three/addons/tsl/display/SSRNode.js';
  */
-declare class SSRNode extends TempNode<"vec4"> {
+declare class SSRNode extends Node<"vec4"> {
     /**
      * Constructs a new SSR node.
      *
@@ -110,6 +118,24 @@ declare class SSRNode extends TempNode<"vec4"> {
      */
     metalnessNode: Node<"float"> | null;
     /**
+     * Stochastic mode only: per-pixel normal-incidence reflectance (F0), typically an MRT
+     * `specularColorBlended` attachment, which already includes IOR, specular intensity and
+     * metalness (raw `material.specularColor` reflects too brightly). When `null`, F0 is
+     * derived from metalness and the diffuse color.
+     *
+     * @type {?Node<vec3>}
+     * @default null
+     */
+    specularNode: Node<"vec3"> | null;
+    /**
+     * Stochastic mode only: per-pixel grazing reflectance (F90), typically an MRT
+     * `specularF90` attachment. When `null`, the shader uses `1`.
+     *
+     * @type {?Node<float>}
+     * @default null
+     */
+    specularF90Node: Node<"float"> | null;
+    /**
      * Per-pixel roughness, used to drive the GGX reflection sampling and the blur mip
      * selection. When `null`, the shader treats surfaces as fully smooth.
      *
@@ -132,13 +158,13 @@ declare class SSRNode extends TempNode<"vec4"> {
      *
      * @type {UniformNode<float>}
      */
-    maxDistance: UniformNode<"float", number>;
+    maxDistance: UniformNode<"float">;
     /**
      * Controls the cutoff between what counts as a possible reflection hit and what does not.
      *
      * @type {UniformNode<float>}
      */
-    thickness: UniformNode<"float", number>;
+    thickness: UniformNode<"float">;
     /**
      * A multiplier for the overall reflection intensity. `1` leaves the
      * reflections unchanged, lower values dim them and higher values boost them.
@@ -146,7 +172,7 @@ declare class SSRNode extends TempNode<"vec4"> {
      * @type {UniformNode<float>}
      * @default 1
      */
-    intensity: UniformNode<"float", number>;
+    intensity: UniformNode<"float">;
     /**
      * Screen-edge fade width, in UV units. As a screen-space hit approaches a screen
      * border, the reflection is faded over this distance — either toward the environment
@@ -156,14 +182,14 @@ declare class SSRNode extends TempNode<"vec4"> {
      * @type {UniformNode<float>}
      * @default 0.2
      */
-    screenEdgeFade: UniformNode<"float", number>;
+    screenEdgeFade: UniformNode<"float">;
     /**
      * Absolute env luminance cap. HDR env samples above this are scaled down (hue preserved).
      *
      * @type {UniformNode<float>}
      * @default 10
      */
-    maxLuminance: UniformNode<"float", number>;
+    maxLuminance: UniformNode<"float">;
     /**
      * This parameter controls how detailed the raymarching process works.
      * The value ranges is `[0,1]` where `1` means best quality (the maximum number
@@ -175,16 +201,16 @@ declare class SSRNode extends TempNode<"vec4"> {
      *
      * @type {UniformNode<float>}
      */
-    quality: UniformNode<"float", number>;
+    quality: UniformNode<"float">;
     /**
      * Mirror bias for the stochastic GGX sampling. Concentrates the reflected rays toward
-     * the lobe's narrow (near-mirror) core, trading a small amount of bias for less noise.
+     * the lobe's narrow (near-mirror) core, trading sampling bias for less noise.
      * `0` samples the full VNDF lobe; values toward `1` tighten the cone. Range `[0,1]`.
      *
      * @type {UniformNode<float>}
-     * @default 0.5
+     * @default 0
      */
-    mirrorBias: UniformNode<"float", number>;
+    mirrorBias: UniformNode<"float">;
     /**
      * HDR environment map for screen-space misses.
      *
@@ -216,7 +242,7 @@ declare class SSRNode extends TempNode<"vec4"> {
      * @type {UniformNode<float>}
      * @default Math.PI
      */
-    environmentIntensity: UniformNode<"float", number>;
+    environmentIntensity: UniformNode<"float">;
     /**
      * Non-linear step distribution exponent (compile-time constant). See the backing
      * field for details. Assigning a new value recompiles the SSR material.
@@ -301,7 +327,7 @@ declare class SSRNode extends TempNode<"vec4"> {
      *
      * @type {?UniformNode<float>}
      */
-    get envMapIntensity(): UniformNode<"float", number> | null;
+    get envMapIntensity(): UniformNode<"float"> | null;
     getRenderTarget(): RenderTarget;
 }
 

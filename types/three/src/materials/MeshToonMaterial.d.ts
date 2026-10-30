@@ -167,7 +167,7 @@ export interface MeshToonMaterialProperties extends MaterialProperties {
      * displacement, and white is maximum displacement). Without a displacement
      * map set, this value is not applied.
      *
-     * @default 0
+     * @default 1
      */
     displacementScale: number;
     /**

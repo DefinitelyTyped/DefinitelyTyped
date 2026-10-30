@@ -147,6 +147,14 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      */
     parents: boolean;
     /**
+     * Whether this node can be assigned. It is generated as an expression,
+     * unless it is assigned, in which case it is declared as a variable where it was created.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    assignable: boolean;
+    /**
      * This flag can be used for type testing.
      *
      * @type {boolean}
@@ -168,6 +176,36 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      * @default null
      */
     stackTrace: string | null;
+    /**
+     * Whether this node allows caching its result in a temporary variable.
+     * Caching is enabled by default. Override this method to disable it.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @return {boolean} Whether temporary caching is allowed.
+     */
+    isCacheable(builder: NodeBuilder): boolean;
+    /**
+     * Makes this node assignable and adds it to the current stack,
+     * so it can be declared where it was created if it is assigned later.
+     * Only use it with nodes that are not shared, see {@link Node#assignable}.
+     *
+     * @return {Node} A reference to this node.
+     */
+    toAssignable(): this;
+    /**
+     * Checks if this node is assignable without a forced declaration.
+     *
+     * @param {NodeBuilder} builder - The node builder.
+     * @returns {boolean} Whether this node is assignable without a forced declaration.
+     */
+    isAssignable(builder: NodeBuilder): boolean;
+    /**
+     * Checks if this node is the target of an assignment.
+     *
+     * @param {NodeBuilder} builder - The node builder.
+     * @returns {boolean} Whether this node is assigned.
+     */
+    isAssign(builder: NodeBuilder): boolean;
     /**
      * Set this property to `true` when the node should be regenerated.
      *
@@ -256,12 +294,11 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      */
     isGlobal(builder: NodeBuilder): boolean;
     /**
-     * Generator function that can be used to iterate over the child nodes.
+     * Returns the child nodes of this node.
      *
-     * @generator
-     * @yields {Node} A child node.
+     * @return {Array<Node>} The child nodes.
      */
-    getChildren(): Generator<Node<unknown>, void, unknown>;
+    getChildren(): Array<Node>;
     /**
      * Calling this method dispatches the `dispose` event. This event can be used
      * to register event listeners for clean up tasks.
@@ -418,7 +455,6 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      * @return {?boolean} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
      */
     updateAfter(frame: NodeFrame): boolean | undefined;
-    before(node: Node): this;
     /**
      * This method performs the build of a node. The behavior and return value depend on the current build stage:
      * - **setup**: Prepares the node and its children for the build process. This process can also create new nodes. Returns the node itself or a variant.

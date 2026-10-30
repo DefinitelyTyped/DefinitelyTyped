@@ -292,7 +292,7 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
 
     /**
      * Whether the 3D object is supposed to be static or not. If set to `true`, it means
-     * the 3D object is not going to be changed after the initial renderer. This includes
+     * the 3D object is not going to be changed after the first render. This includes
      * geometry and material settings. A static 3D object can be processed by the renderer
      * slightly faster since certain state checks can be bypassed.
      *
@@ -641,13 +641,12 @@ export class Object3D<TEventMap extends Object3DEventMap = Object3DEventMap> ext
     raycast(raycaster: Raycaster, intersects: Intersection[]): void;
 
     /**
-     * Abstract method to test whether this 3D object intersects the given frustum.
-     * @remarks Renderable 3D objects such as {@link THREE.Mesh | Mesh}, {@link THREE.Line | Line} or {@link THREE.Points | Points} implement this method in order to use frustum culling.
+     * Returns `true` if this 3D object intersects the given frustum.
+     * @remarks Renderable 3D objects such as {@link THREE.Mesh | Mesh}, {@link THREE.Line | Line} or {@link THREE.Points | Points} override this method in order to use frustum culling. The default implementation always returns `true`.
      * @param frustum The frustum to test.
      * @returns Whether this 3D object intersects the given frustum or not.
-     * @defaultValue `() => {}`
      */
-    intersectsFrustum(frustum: Frustum | FrustumArray): boolean | undefined;
+    intersectsFrustum(frustum: Frustum | FrustumArray): boolean;
 
     /**
      * Executes the callback on this object and all descendants.

@@ -7,13 +7,17 @@ export function generateTangents(
     texcoord: Float32Array,
 ): Float32Array;
 
-export let wasm: unknown;
-
-export let isReady: boolean;
+/**
+ * Retained for compatibility with the asynchronous WASM implementation.
+ */
+export const isReady: true;
 
 /**
- * Initializes the WASM module when awaited for the first time.
+ * Backwards compatibility. Initialization is no longer required.
  */
-export const ready: PromiseLike<void>;
+export const ready: Promise<void>;
 
+/**
+ * Retained for API compatibility. There are no persistent resources to release.
+ */
 export function dispose(): void;

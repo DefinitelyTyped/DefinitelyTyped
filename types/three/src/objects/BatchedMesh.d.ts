@@ -54,6 +54,10 @@ export interface BatchedMeshGeometryRange {
  *
  * scene.add( batchedMesh );
  *
+ * The first geometry added defines the layout of the batch. All subsequent geometries must
+ * match its index usage and provide its attributes with the same itemSize and normalized
+ * values. Additional attributes are ignored.
+ *
  * @also Example: {@link https://threejs.org/examples/#webgl_mesh_batch WebGL / mesh / batch}
  */
 declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
@@ -114,12 +118,13 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     /**
      * Computes the bounding box, updating {@link .boundingBox} attribute.
      * Bounding boxes aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * Must be recomputed when instances change.
      */
     computeBoundingBox(): void;
 
     /**
      * Computes the bounding sphere, updating {@link .boundingSphere} attribute.
-     * Bounding spheres aren't computed by default. They need to be explicitly computed, otherwise they are `null`.
+     * The engine computes the bounding sphere once when it is needed. Must be recomputed when instances change.
      */
     computeBoundingSphere(): void;
 
@@ -164,7 +169,7 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
 
     /**
      * Get the range representing the subset of triangles related to the attached geometry, indicating the starting
-     * offset and count, or `null` if invalid.
+     * offset and count, or throws an error if invalid.
      *
      * Return an object of the form: { start: Integer, count: Integer }
      * @param geometryId The id of the geometry to get the range of.
@@ -173,7 +178,7 @@ declare class BatchedMesh extends Mesh<BufferGeometry, Material> {
     getGeometryRangeAt(
         geometryId: number,
         target?: BatchedMeshGeometryRange,
-    ): BatchedMeshGeometryRange | null;
+    ): BatchedMeshGeometryRange;
 
     /**
      * Get the geometryIndex of the defined instance.

@@ -20,6 +20,8 @@ import {
  * along the axis, averaging across it), radiance is stored opacity-premultiplied and indirect bounces
  * are cached in the volume via cone tracing. Only direct lights are injected.
  * Voxelization uses conservative rasterization along the dominant triangle axis in a compute shader.
+ * The interiors of closed meshes are filled, so cones starting inside an object (e.g. near contact
+ * points) are blocked.
  *
  * Direct light is injected per voxel instead of splatting photons from a light-view map as in the
  * paper: the shadow maps rendered by the renderer are the light-view maps, and every occupied voxel
@@ -35,6 +37,8 @@ import {
  * - {@link https://research.nvidia.com/publication/2011-09_interactive-indirect-illumination-using-voxel-cone-tracing}:
  *   Crassin et al., Interactive Indirect Illumination Using Voxel Cone Tracing, Pacific Graphics 2011.
  * - {@link https://developer.nvidia.com/content/basics-gpu-voxelization}: Basics of GPU voxelization.
+ * - {@link https://doi.org/10.1145/1882261.1866201}: Schwarz and Seidel, Fast Parallel Surface and Solid
+ *   Voxelization on GPUs, ACM Transactions on Graphics 2010.
  *
  * Note: This class can only be used with `WebGPURenderer` and a WebGPU backend.
  *
@@ -128,14 +132,14 @@ export class VXGIVolume {
      * @type {UniformNode<float>}
      * @default 0
      */
-    maxDistance: UniformNode<"float", number>;
+    maxDistance: UniformNode<"float">;
     /**
      * Step size relative to the texel size of the sampled mip level.
      *
      * @type {UniformNode<float>}
      * @default 0.5
      */
-    stepScale: UniformNode<"float", number>;
+    stepScale: UniformNode<"float">;
     /**
      * Aperture in degrees of the visibility cones traced towards lights that do not provide a
      * shadow map. Wider cones are cheaper but soften the injected shadows.
@@ -143,38 +147,38 @@ export class VXGIVolume {
      * @type {UniformNode<float>}
      * @default 10
      */
-    shadowConeAngle: UniformNode<"float", number>;
+    shadowConeAngle: UniformNode<"float">;
     /**
      * Aperture of the cones used for the cached bounces in degrees.
      *
      * @type {UniformNode<float>}
      * @default 60
      */
-    bounceConeAngle: UniformNode<"float", number>;
+    bounceConeAngle: UniformNode<"float">;
     /**
      * The minimum corner of the volume.
      *
      * @type {UniformNode<vec3>}
      */
-    boundsMinNode: UniformNode<"vec3", Vector3>;
+    boundsMinNode: UniformNode<"vec3">;
     /**
      * The size of the volume.
      *
      * @type {UniformNode<vec3>}
      */
-    volumeSizeNode: UniformNode<"vec3", Vector3>;
+    volumeSizeNode: UniformNode<"vec3">;
     /**
      * The size of a voxel.
      *
      * @type {UniformNode<float>}
      */
-    voxelSizeNode: UniformNode<"float", number>;
+    voxelSizeNode: UniformNode<"float">;
     /**
      * The highest valid mip level of the voxel textures.
      *
      * @type {UniformNode<float>}
      */
-    maxLevelNode: UniformNode<"float", number>;
+    maxLevelNode: UniformNode<"float">;
     /**
      * The per-axis opacity of the scene (`xyz`) and the occupancy (`w`) as a mip chain.
      *
@@ -223,7 +227,7 @@ export class VXGIVolume {
      *
      * @type {UniformNode<float>}
      */
-    directionalWidthNode: UniformNode<"float", number>;
+    directionalWidthNode: UniformNode<"float">;
     /**
      * The effective maximum cone length as a node.
      *

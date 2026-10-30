@@ -1,7 +1,6 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
-declare class CubeMapNode extends TempNode {
+declare class CubeMapNode extends Node {
     envNode: Node;
 
     constructor(envNode: Node);
