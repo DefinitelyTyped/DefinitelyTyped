@@ -3877,6 +3877,10 @@
             "libraryName": "jest-validate",
             "asOfVersion": "25.1.0"
         },
+        "jest-when": {
+            "libraryName": "jest-when",
+            "asOfVersion": "4.0.0"
+        },
         "jimp": {
             "libraryName": "jimp",
             "asOfVersion": "0.2.28"
