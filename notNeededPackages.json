@@ -7039,6 +7039,10 @@
             "libraryName": "react-tabs",
             "asOfVersion": "5.0.0"
         },
+        "react-tag-autocomplete": {
+            "libraryName": "react-tag-autocomplete",
+            "asOfVersion": "7.0.0"
+        },
         "react-tether": {
             "libraryName": "react-tether",
             "asOfVersion": "1.0.0"
