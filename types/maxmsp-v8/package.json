@@ -1,0 +1,19 @@
+{
+    "private": true,
+    "name": "@types/maxmsp-v8",
+    "version": "9.0.9999",
+    "nonNpm": true,
+    "nonNpmDescription": "Max/MSP v8 and v8ui JavaScript objects",
+    "projects": [
+        "https://docs.cycling74.com/apiref/js/"
+    ],
+    "devDependencies": {
+        "@types/maxmsp-v8": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "TomW",
+            "githubUsername": "twhiston"
+        }
+    ]
+}

@@ -1,7 +1,28 @@
 import * as ESTree from "estree";
 
+interface MDXParagraph extends ESTree.BaseNode {
+    type: "MDXParagraph";
+    children: ESTree.Node[];
+}
+
+interface MDXTable extends ESTree.BaseNode {
+    type: "MDXTable";
+    children: ESTree.Node[];
+}
+
+declare module "estree" {
+    interface ProgramBodyMap {
+        MDXParagraph: MDXParagraph;
+        MDXTable: MDXTable;
+    }
+}
+
 declare var node: ESTree.Node;
 declare var program: ESTree.Program;
+declare var programBodyMap: ESTree.ProgramBodyMap;
+declare var programBody: ESTree.ProgramBody;
+declare var mdxParagraph: MDXParagraph;
+declare var mdxTable: MDXTable;
 declare var functionAst: ESTree.Function;
 declare var statement: ESTree.Statement;
 declare var emptyStatement: ESTree.EmptyStatement;
@@ -112,7 +133,19 @@ declare var never: never;
 
 // Program
 string = program.type;
-toplevelStatement = program.body[0];
+programBody = programBodyMap.Directive;
+programBody = programBodyMap.Statement;
+programBody = programBodyMap.ModuleDeclaration;
+programBody = program.body[0];
+programBody = mdxParagraph;
+programBody = mdxTable;
+
+if (
+    program.body[0].type !== "MDXParagraph"
+    && program.body[0].type !== "MDXTable"
+) {
+    toplevelStatement = program.body[0];
+}
 
 // Location
 number = program.loc!.start.line;

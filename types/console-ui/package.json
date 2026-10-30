@@ -6,7 +6,7 @@
         "https://github.com/ember-cli/console-ui#readme"
     ],
     "dependencies": {
-        "@types/inquirer": "*"
+        "@types/inquirer": "<10"
     },
     "devDependencies": {
         "@types/console-ui": "workspace:."

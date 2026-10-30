@@ -29,7 +29,7 @@ declare global {
 
     /**
      * The CrossOriginStorageManager interface.
-     * [SecureContext]
+     * [Exposed=(Window,DedicatedWorker,SharedWorker), SecureContext]
      */
     interface CrossOriginStorageManager {
         getFileHandle(
@@ -51,6 +51,9 @@ declare global {
     }
 
     interface WorkerNavigator {
+        /**
+         * Available in dedicated and shared workers. Not exposed in service workers.
+         */
         readonly crossOriginStorage: CrossOriginStorageManager;
     }
 }

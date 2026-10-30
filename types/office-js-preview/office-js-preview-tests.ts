@@ -110,6 +110,10 @@ function test_excel() {
 
 function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: Excel.Range) {
     // $ExpectType void
+    series.setBubbleSizes(range);
+    // $ExpectType void
+    series.setBubbleSizes("=Sheet1!$C$2:$C$4");
+    // $ExpectType void
     series.setValues(range);
     // $ExpectType void
     series.setValues("=Sheet1!$B$2:$B$4");
@@ -120,6 +124,10 @@ function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: E
     series.setXAxisValues("");
     series.setXAxisValues("=");
 
+    // @ts-expect-error
+    series.setBubbleSizes(42);
+    // @ts-expect-error
+    series.setBubbleSizes([1, 2]);
     // @ts-expect-error
     series.setValues(42);
     // @ts-expect-error
@@ -417,6 +425,36 @@ function test_word_recent_apis(
     };
     const updateResult: OfficeExtension.ClientResult<Word.SensitivityLabelUpdateResult> =
         sensitivityLabel.tryToUpdate("label-id", updateOptions);
+    const updateStatus: Word.SensitivityLabelUpdateResult["status"] = updateResult.value.status;
+    const successStatus: Word.SensitivityLabelUpdateStatus = Word.SensitivityLabelUpdateStatus.success;
+    const successStatusValue: "Success" = Word.SensitivityLabelUpdateStatus.success;
+    const updateResults: Record<Word.SensitivityLabelUpdateStatus, Word.SensitivityLabelUpdateResult> = {
+        [Word.SensitivityLabelUpdateStatus.success]: { status: "Success" },
+        [Word.SensitivityLabelUpdateStatus.unspecifiedFailure]: { status: "UnspecifiedFailure" },
+        [Word.SensitivityLabelUpdateStatus.labelNotFound]: { status: "LabelNotFound" },
+        [Word.SensitivityLabelUpdateStatus.documentReadOnly]: { status: "DocumentReadOnly" },
+        [Word.SensitivityLabelUpdateStatus.insufficientPermission]: { status: "InsufficientPermission" },
+        [Word.SensitivityLabelUpdateStatus.unsupportedDoubleKeyEncryption]: { status: "UnsupportedDoubleKeyEncryption" },
+        [Word.SensitivityLabelUpdateStatus.labelingDisabled]: { status: "LabelingDisabled" },
+        [Word.SensitivityLabelUpdateStatus.userNotFound]: { status: "UserNotFound" },
+        [Word.SensitivityLabelUpdateStatus.unsupportedUdp]: { status: "UnsupportedUdp" },
+        [Word.SensitivityLabelUpdateStatus.parentLabelNotSupported]: { status: "ParentLabelNotSupported" },
+        [Word.SensitivityLabelUpdateStatus.crossTenant]: { status: "CrossTenant" },
+        [Word.SensitivityLabelUpdateStatus.abacAttributesNotAllowed]: { status: "AbacAttributesNotAllowed" },
+        [Word.SensitivityLabelUpdateStatus.abacAttributesRequired]: { status: "AbacAttributesRequired" },
+        [Word.SensitivityLabelUpdateStatus.unsupportedAbac]: { status: "UnsupportedAbac" },
+        [Word.SensitivityLabelUpdateStatus.labelDisabled]: { status: "LabelDisabled" },
+        [Word.SensitivityLabelUpdateStatus.removingLabelNotSupported]: { status: "RemovingLabelNotSupported" },
+    };
+    const enumUpdateResult: Word.SensitivityLabelUpdateResult = {
+        status: Word.SensitivityLabelUpdateStatus.success,
+    };
+    // @ts-expect-error
+    const missingUpdateStatus: Word.SensitivityLabelUpdateResult = {};
+    // @ts-expect-error
+    const invalidUpdateStatus: Word.SensitivityLabelUpdateResult = { status: "Unknown" };
+    // @ts-expect-error
+    Word.SensitivityLabelUpdateResult.success;
     const capabilities: Word.LabelingCapability[] = sensitivityLabelsCatalog.getLabelingCapabilities;
     const capability: Word.LabelingCapability = Word.LabelingCapability.attributeBasedAccessControlEnabled;
     const capabilityValue: "AttributeBasedAccessControlEnabled" =
@@ -433,6 +471,37 @@ function test_word_recent_apis(
     const annotationAddedEventTypeValue: "AnnotationAdded" = Word.EventType.annotationAdded;
     const annotationChangedEventType: Word.EventType = Word.EventType.annotationChanged;
     const annotationDeletedEventType: Word.EventType = Word.EventType.annotationDeleted;
+}
+
+function test_word_line_format_removed_properties(lineFormat: Word.LineFormat) {
+    // @ts-expect-error
+    lineFormat.backgroundColor;
+    // @ts-expect-error
+    lineFormat.beginArrowheadLength;
+    // @ts-expect-error
+    lineFormat.beginArrowheadStyle;
+    // @ts-expect-error
+    lineFormat.beginArrowheadWidth;
+    // @ts-expect-error
+    lineFormat.endArrowheadLength;
+    // @ts-expect-error
+    lineFormat.endArrowheadStyle;
+    // @ts-expect-error
+    lineFormat.endArrowheadWidth;
+    // @ts-expect-error
+    lineFormat.pattern;
+
+    // @ts-expect-error
+    lineFormat.set({ beginArrowheadStyle: "Triangle" });
+    // @ts-expect-error
+    lineFormat.load({ endArrowheadWidth: true });
+    const data = lineFormat.toJSON();
+    // @ts-expect-error
+    data.pattern;
+    const update: Word.Interfaces.LineFormatUpdateData = {
+        // @ts-expect-error
+        backgroundColor: {},
+    };
 }
 
 function test_word() {

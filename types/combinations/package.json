@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/combinations": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Rafa Mel",
-            "githubUsername": "rafamel"
-        }
-    ]
+    "owners": []
 }
