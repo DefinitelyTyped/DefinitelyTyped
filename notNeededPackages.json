@@ -2165,6 +2165,10 @@
             "libraryName": "env-paths",
             "asOfVersion": "2.1.0"
         },
+        "enzyme-to-json": {
+            "libraryName": "enzyme-to-json",
+            "asOfVersion": "3.0.0"
+        },
         "epub": {
             "libraryName": "epub",
             "asOfVersion": "0.2.0"
