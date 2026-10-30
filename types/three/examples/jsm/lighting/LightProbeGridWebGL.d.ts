@@ -1,4 +1,4 @@
-import { Box3, Data3DTexture, Object3D, Scene, Vector3, WebGLRenderer } from "three";
+import { Box3, Data3DTexture, Light, Scene, Vector3, WebGLRenderer } from "three";
 
 export interface LightProbeGridWebGLBakeOptions {
     /**
@@ -61,18 +61,20 @@ export interface LightProbeGridWebGLBakeOptions {
  *
  * @three_import import { LightProbeGridWebGL } from 'three/addons/lighting/LightProbeGridWebGL.js';
  */
-export class LightProbeGridWebGL extends Object3D {
+export class LightProbeGridWebGL extends Light {
     /**
      * Constructs a new irradiance probe grid.
      *
-     * The volume is centered at the object's position.
+     * The volume is centered at the object's position. It is split into one cell
+     * per probe, with each probe at the center of its cell, so the probes sit half
+     * a cell inside the volume.
      *
      * @param {number} [width=1] - Full width of the volume along X.
      * @param {number} [height=1] - Full height of the volume along Y.
      * @param {number} [depth=1] - Full depth of the volume along Z.
-     * @param {number} [widthProbes] - Number of probes along X. Defaults to `Math.max( 2, Math.round( width ) + 1 )`.
-     * @param {number} [heightProbes] - Number of probes along Y. Defaults to `Math.max( 2, Math.round( height ) + 1 )`.
-     * @param {number} [depthProbes] - Number of probes along Z. Defaults to `Math.max( 2, Math.round( depth ) + 1 )`.
+     * @param {number} [widthProbes] - Number of probes along X. Defaults to `Math.max( 1, Math.round( width ) )`.
+     * @param {number} [heightProbes] - Number of probes along Y. Defaults to `Math.max( 1, Math.round( height ) )`.
+     * @param {number} [depthProbes] - Number of probes along Z. Defaults to `Math.max( 1, Math.round( depth ) )`.
      */
     constructor(
         width?: number,
@@ -115,12 +117,21 @@ export class LightProbeGridWebGL extends Object3D {
      */
     resolution: Vector3;
     /**
-     * The world-space bounding box for the grid. Updated automatically
+     * The world-space bounding box for the grid. This is the volume the grid
+     * lights, with the probes half a cell inside it. Updated automatically
      * by {@link LightProbeGridWebGL#bake}.
      *
      * @type {Box3}
      */
     boundingBox: Box3;
+    /**
+     * Where grids overlap, the grid with the highest priority lights the
+     * fragment. On ties, the most recently created grid wins.
+     *
+     * @type {number}
+     * @default 0
+     */
+    priority: number;
     /**
      * The single RGBA atlas 3D texture storing all seven packed SH sub-volumes.
      *

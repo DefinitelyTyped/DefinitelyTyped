@@ -15,16 +15,6 @@ import AnalyticLightNode from "../../../nodes/lighting/AnalyticLightNode.js";
  */
 declare class NodeLibrary {
     /**
-     * A weak map that maps lights to light nodes.
-     *
-     * @type {WeakMap<Light.constructor,AnalyticLightNode.constructor>}
-     */
-    lightNodes: WeakMap<{
-        new(): Light;
-    }, {
-        new(light: Light): AnalyticLightNode<Light>;
-    }>;
-    /**
      * A map that maps materials to node materials.
      *
      * @type {Map<string,NodeMaterial.constructor>}
@@ -83,10 +73,11 @@ declare class NodeLibrary {
     /**
      * Returns a light node class definition for a light class definition.
      *
-     * @param {Light.constructor} light - The light class definition.
+     * @deprecated since r187. Use `Light.registerNode()` to assign light node classes instead.
+     * @param {Light.constructor} lightClass - The light class definition.
      * @return {?AnalyticLightNode.constructor} The light node class definition. Returns `null` if no light node is found.
      */
-    getLightNodeClass(light: {
+    getLightNodeClass(lightClass: {
         new(): Light;
     }):
         | ({
@@ -96,6 +87,7 @@ declare class NodeLibrary {
     /**
      * Adds a light node class definition for a given light class definition.
      *
+     * @deprecated since r187. Use `Light.registerNode()` instead.
      * @param {AnalyticLightNode.constructor} lightNodeClass - The light node class definition.
      * @param {Light.constructor} lightClass - The light class definition.
      */
@@ -112,18 +104,6 @@ declare class NodeLibrary {
      * @param {Map<number|string,Node.constructor>} library - The type library.
      */
     addType<TNodeClass, TType>(nodeClass: TNodeClass, type: TType, library: Map<TType, TNodeClass>): void;
-    /**
-     * Adds a node class definition for the given class definition to the provided type library.
-     *
-     * @param {Node.constructor} nodeClass - The node class definition.
-     * @param {Node.constructor} baseClass - The class definition.
-     * @param {WeakMap<Node.constructor, Node.constructor>} library - The type library.
-     */
-    addClass<TNodeClass, TBaseClass extends object>(
-        nodeClass: TNodeClass,
-        baseClass: TBaseClass,
-        library: WeakMap<TBaseClass, TNodeClass>,
-    ): void;
 }
 
 export default NodeLibrary;

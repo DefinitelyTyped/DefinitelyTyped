@@ -1,3 +1,4 @@
+import { TypedArray } from "../core/BufferAttribute.js";
 import { Quaternion } from "./Quaternion.js";
 
 /**
@@ -98,6 +99,12 @@ export function ceilPowerOfTwo(value: number): number;
 export function floorPowerOfTwo(value: number): number;
 
 export function setQuaternionFromProperEuler(q: Quaternion, a: number, b: number, c: number, order: string): void;
+
+/**
+ * Returns the factor used by {@link normalize} and {@link denormalize} for the given typed array,
+ * or `undefined` if the values are not scaled (float arrays) or the array type is not supported.
+ */
+export function getNormalizationScale(array: TypedArray): number | undefined;
 
 export function denormalize(
     value: number,

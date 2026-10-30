@@ -6,7 +6,6 @@ export const GTAOShader: {
         PERSPECTIVE_CAMERA: number;
         SAMPLES: number;
         NORMAL_VECTOR_TYPE: number;
-        DEPTH_SWIZZLING: string;
         SCREEN_SPACE_RADIUS: number;
         SCREEN_SPACE_RADIUS_SCALE: number;
         SCENE_CLIP_BOX: number;

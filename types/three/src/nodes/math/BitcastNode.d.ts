@@ -1,7 +1,6 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
-declare class BitcastNode extends TempNode {
+declare class BitcastNode extends Node {
     valueNode: Node;
     conversionType: string;
     inputType: string | null;

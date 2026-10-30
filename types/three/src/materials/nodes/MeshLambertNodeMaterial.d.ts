@@ -1,3 +1,4 @@
+import Node from "../../nodes/core/Node.js";
 import NodeBuilder from "../../nodes/core/NodeBuilder.js";
 import PhongLightingModel from "../../nodes/functions/PhongLightingModel.js";
 import BasicEnvironmentNode from "../../nodes/lighting/BasicEnvironmentNode.js";
@@ -5,8 +6,18 @@ import { MapColorPropertiesToColorRepresentations } from "../Material.js";
 import { MeshLambertMaterialParameters, MeshLambertMaterialProperties } from "../MeshLambertMaterial.js";
 import NodeMaterial, { NodeMaterialNodeProperties } from "./NodeMaterial.js";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface MeshLambertNodeMaterialNodeProperties extends NodeMaterialNodeProperties {
+    /**
+     * The emissive color of lambert materials is by default inferred from the `emissive`,
+     * `emissiveIntensity` and `emissiveMap` properties. This node property allows to
+     * overwrite the default and define the emissive color with a node instead.
+     *
+     * If you don't want to overwrite the emissive color but modify the existing
+     * value instead, use {@link materialEmissive}.
+     *
+     * @default null
+     */
+    emissiveNode: Node | null;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

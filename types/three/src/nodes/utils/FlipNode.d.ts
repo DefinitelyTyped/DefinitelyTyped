@@ -1,7 +1,6 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
-declare class FlipNode extends TempNode {
+declare class FlipNode extends Node {
     sourceNode: Node;
     components: string;
 

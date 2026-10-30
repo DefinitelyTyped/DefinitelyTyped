@@ -1,6 +1,6 @@
-import { Node, TempNode, TextureNode } from "three/webgpu";
+import { Node, TextureNode } from "three/webgpu";
 
-declare class SMAANode extends TempNode {
+declare class SMAANode extends Node {
     textureNode: TextureNode;
 
     constructor(textureNode: TextureNode);

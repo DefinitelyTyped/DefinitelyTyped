@@ -13,7 +13,7 @@ export interface InspectorBaseEventMap {
 }
 
 /**
- * InspectorBase is the base class for all inspectors.
+ * InspectorBase is the base class for all inspectors. Can only be used with {@link WebGPURenderer}.
  */
 declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorBaseEventMap>
     extends EventDispatcher<TEventMap>
@@ -47,14 +47,14 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
     /**
      * Sets the renderer for this inspector.
      *
-     * @param {WebGLRenderer} renderer - The renderer to associate with this inspector.
+     * @param {Renderer} renderer - The renderer to associate with this inspector.
      * @return {InspectorBase} This inspector instance.
      */
     setRenderer(renderer: Renderer): InspectorBase;
     /**
      * Returns the renderer associated with this inspector.
      *
-     * @return {WebGLRenderer} The associated renderer.
+     * @return {Renderer} The associated renderer.
      */
     getRenderer(): Renderer;
     /**
@@ -98,7 +98,7 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
      * @param {string} uid - A unique identifier for the render context.
      * @param {Scene} scene - The scene being rendered.
      * @param {Camera} camera - The camera being used for rendering.
-     * @param {?WebGLRenderTarget} renderTarget - The render target, if any.
+     * @param {?RenderTarget} renderTarget - The render target, if any.
      */
     beginRender(uid: string, scene: Scene, camera: Camera, renderTarget: RenderTarget): void;
     /**

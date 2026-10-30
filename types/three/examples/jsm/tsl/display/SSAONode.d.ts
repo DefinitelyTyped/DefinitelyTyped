@@ -1,4 +1,4 @@
-import { Camera, Node, TempNode, TextureNode, UniformNode, Vector2 } from "three/webgpu";
+import { Camera, Node, TextureNode, UniformNode, Vector2 } from "three/webgpu";
 
 /**
  * Post processing node for a fast, screen-space ambient occlusion (SSAO).
@@ -19,10 +19,10 @@ import { Camera, Node, TempNode, TextureNode, UniformNode, Vector2 } from "three
  * renderPipeline.outputNode = scenePassColor.mul( aoPass.r );
  * ```
  *
- * @augments TempNode
+ * @augments Node
  * @three_import import { ssao } from 'three/addons/tsl/display/SSAONode.js';
  */
-declare class SSAONode extends TempNode<"float"> {
+declare class SSAONode extends Node<"float"> {
     /**
      * Constructs a new SSAO node.
      *
@@ -56,26 +56,26 @@ declare class SSAONode extends TempNode<"float"> {
      *
      * @type {UniformNode<float>}
      */
-    radius: UniformNode<"float", number>;
+    radius: UniformNode<"float">;
     /**
      * The strength of the occlusion.
      *
      * @type {UniformNode<float>}
      */
-    intensity: UniformNode<"float", number>;
+    intensity: UniformNode<"float">;
     /**
      * An angle bias that suppresses self-occlusion on near-flat surfaces.
      *
      * @type {UniformNode<float>}
      */
-    bias: UniformNode<"float", number>;
+    bias: UniformNode<"float">;
     /**
      * How many samples are used to estimate the occlusion. A higher value
      * results in a smoother result at a higher runtime cost.
      *
      * @type {UniformNode<float>}
      */
-    samples: UniformNode<"float", number>;
+    samples: UniformNode<"float">;
     /**
      * Whether the depth-aware blur that denoises the raw AO is applied or not.
      *
@@ -89,7 +89,7 @@ declare class SSAONode extends TempNode<"float"> {
      *
      * @type {UniformNode<float>}
      */
-    blurSharpness: UniformNode<"float", number>;
+    blurSharpness: UniformNode<"float">;
     /**
      * The resolution of the effect. Set from the drawing buffer size and `resolutionScale`.
      *

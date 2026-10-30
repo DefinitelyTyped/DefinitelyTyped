@@ -1,8 +1,7 @@
 import { NormalMapTypes, NormalPacking } from "../../constants.js";
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
-declare class NormalMapNode extends TempNode {
+declare class NormalMapNode extends Node<"vec3"> {
     node: Node;
     scaleNode: Node | null;
 

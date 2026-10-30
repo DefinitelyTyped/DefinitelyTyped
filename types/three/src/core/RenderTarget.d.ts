@@ -149,5 +149,11 @@ export class RenderTarget<
     setSize(width: number, height: number, depth?: number): void;
     clone(): this;
     copy(source: RenderTarget): this;
+    /**
+     * Frees the GPU-related resources allocated by this instance. Call this method whenever this instance is no longer
+     * used in your app.
+     *
+     * This also frees the resources of the render target's textures. There is no need to dispose them separately.
+     */
     dispose(): void;
 }

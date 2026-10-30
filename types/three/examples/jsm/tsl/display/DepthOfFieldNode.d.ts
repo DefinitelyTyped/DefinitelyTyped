@@ -1,6 +1,6 @@
-import { Node, TempNode, TextureNode } from "three/webgpu";
+import { Node, TextureNode } from "three/webgpu";
 
-declare class DepthOfFieldNode extends TempNode {
+declare class DepthOfFieldNode extends Node {
     textureNode: TextureNode;
     viewZNode: Node;
 

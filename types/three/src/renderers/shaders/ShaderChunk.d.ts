@@ -23,7 +23,6 @@ export const ShaderChunk: {
     color_pars_vertex: string;
     color_vertex: string;
     common: string;
-    cube_uv_reflection_fragment: string;
     defaultnormal_vertex: string;
     displacementmap_pars_vertex: string;
     displacementmap_vertex: string;

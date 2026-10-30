@@ -11,7 +11,6 @@ import TextureNode from "../accessors/TextureNode.js";
 import ContextNode from "../core/ContextNode.js";
 import MRTNode from "../core/MRTNode.js";
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
 declare class PassTextureNode extends TextureNode {
     passNode: PassNode;
@@ -39,7 +38,7 @@ export interface PassNodeOptions extends RenderTargetOptions {
     autoClearStencil?: boolean | undefined; // true
 }
 
-declare class PassNode extends TempNode<"vec4"> {
+declare class PassNode extends Node<"vec4"> {
     scope: PassNodeScope;
     scene: Object3D;
     camera: Camera;

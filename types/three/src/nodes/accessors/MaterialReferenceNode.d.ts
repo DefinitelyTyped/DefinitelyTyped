@@ -10,6 +10,6 @@ export default class MaterialReferenceNode extends ReferenceNode<unknown, Materi
 
 export const materialReference: (
     name: string,
-    nodeOrType: NodeOrType,
+    nodeOrType?: NodeOrType,
     material?: Material | null,
 ) => MaterialReferenceNode;

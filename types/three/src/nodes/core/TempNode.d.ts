@@ -7,10 +7,16 @@ interface TempNodeInterface {
     hasDependencies(builder: NodeBuilder): boolean;
 }
 
+/**
+ * @deprecated Extend Node instead.
+ */
 declare const TempNode: {
     new<TNodeType = unknown>(type?: TNodeType | null): TempNode<TNodeType>;
 };
 
+/**
+ * @deprecated Extend Node instead.
+ */
 type TempNode<TNodeType> = Node<TNodeType> & TempNodeInterface;
 
 export default TempNode;

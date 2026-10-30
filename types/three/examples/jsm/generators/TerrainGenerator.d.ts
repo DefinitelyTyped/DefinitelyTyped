@@ -35,8 +35,8 @@ export class TerrainGenerator {
 
     parameters: TerrainGeneratorParameters;
 
-    minHeight: UniformNode<"float", number>;
-    maxHeight: UniformNode<"float", number>;
+    minHeight: UniformNode<"float">;
+    maxHeight: UniformNode<"float">;
 
     material: MeshStandardNodeMaterial;
     geometry: BufferGeometry | null;

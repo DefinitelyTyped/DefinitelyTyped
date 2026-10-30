@@ -6,7 +6,6 @@ export const PoissonDenoiseShader: {
         SAMPLES: number;
         SAMPLE_VECTORS: string;
         NORMAL_VECTOR_TYPE: number;
-        DEPTH_VALUE_SOURCE: number;
     };
     uniforms: {
         tDiffuse: IUniform;
