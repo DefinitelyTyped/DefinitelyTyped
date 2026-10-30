@@ -4493,6 +4493,10 @@
             "libraryName": "magika",
             "asOfVersion": "0.2.8"
         },
+        "mailgen": {
+            "libraryName": "mailgen",
+            "asOfVersion": "2.0.15"
+        },
         "make-dir": {
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"
