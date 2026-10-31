@@ -627,6 +627,11 @@ export type PredefinedTableLayout = "noBorders" | "headerLineOnly" | "lightHoriz
 export type TableLayout = string | PredefinedTableLayout | CustomTableLayout;
 
 /**
+ * Horizontal alignment of a table.
+ */
+export type TableAlignment = "left" | "center" | "right";
+
+/**
  * Style definition.
  *
  * Most properties are passed down to an element's children.
@@ -1286,6 +1291,13 @@ export interface ContentTable extends ContentBase, ForbidOtherElementProperties<
      * Defaults to a layout with black borders.
      */
     layout?: TableLayout | undefined;
+
+    /**
+     * Horizontal alignment of the table.
+     *
+     * Defaults to `left`.
+     */
+    tableAlignment?: TableAlignment | undefined;
 }
 
 /**
