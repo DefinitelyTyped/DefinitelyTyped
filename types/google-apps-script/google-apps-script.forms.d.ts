@@ -147,10 +147,8 @@ declare namespace GoogleAppsScript {
          *       .build();
          *     checkBoxItem.setValidation(checkBoxValidation);
          */
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface CheckboxValidation {
-            requireSelectAtLeast(number: Integer): CheckboxValidation;
-            requireSelectAtMost(number: Integer): CheckboxValidation;
-            requireSelectExactly(number: Integer): CheckboxValidation;
         }
         /**
          * A DataValidationBuilder for a CheckboxValidation.
@@ -356,6 +354,10 @@ declare namespace GoogleAppsScript {
             addMultipleChoiceItem(): MultipleChoiceItem;
             addPageBreakItem(): PageBreakItem;
             addParagraphTextItem(): ParagraphTextItem;
+            addPublishedReader(emailAddress: string): Form;
+            addPublishedReader(user: Base.User): Form;
+            addPublishedReaders(emailAddresses: string[]): Form;
+            addRatingItem(): RatingItem;
             addScaleItem(): ScaleItem;
             addSectionHeaderItem(): SectionHeaderItem;
             addTextItem(): TextItem;
@@ -379,6 +381,7 @@ declare namespace GoogleAppsScript {
             getItemById(id: Integer): Item;
             getItems(): Item[];
             getItems(itemType: ItemType): Item[];
+            getPublishedReaders(): Base.User[];
             getPublishedUrl(): string;
             getResponse(responseId: string): FormResponse;
             getResponses(): FormResponse[];
@@ -390,6 +393,7 @@ declare namespace GoogleAppsScript {
             hasProgressBar(): boolean;
             hasRespondAgainLink(): boolean;
             isAcceptingResponses(): boolean;
+            isPublished(): boolean;
             isPublishingSummary(): boolean;
             isQuiz(): boolean;
             moveItem(from: Integer, to: Integer): Item;
@@ -397,7 +401,9 @@ declare namespace GoogleAppsScript {
             removeDestination(): Form;
             removeEditor(emailAddress: string): Form;
             removeEditor(user: Base.User): Form;
-            requiresLogin(): boolean;
+            removePublishedReader(emailAddress: string): Form;
+            removePublishedReader(user: Base.User): Form;
+            /** @deprecated DO NOT USE */ requiresLogin(): boolean;
             setAcceptingResponses(enabled: boolean): Form;
             setAllowResponseEdits(enabled: boolean): Form;
             setCollectEmail(collect: boolean): Form;
@@ -408,13 +414,15 @@ declare namespace GoogleAppsScript {
             setIsQuiz(enabled: boolean): Form;
             setLimitOneResponsePerUser(enabled: boolean): Form;
             setProgressBar(enabled: boolean): Form;
+            setPublished(enabled: boolean): Form;
             setPublishingSummary(enabled: boolean): Form;
-            setRequireLogin(requireLogin: boolean): Form;
+            /** @deprecated DO NOT USE */ setRequireLogin(requireLogin: boolean): Form;
             setShowLinkToRespondAgain(enabled: boolean): Form;
             setShuffleQuestions(shuffle: boolean): Form;
             setTitle(title: string): Form;
             shortenFormUrl(url: string): string;
             submitGrades(responses: FormResponse[]): Form;
+            supportsAdvancedResponderPermissions(): boolean;
         }
         /**
          * Allows a script to open an existing Form or create a new one.
@@ -431,7 +439,9 @@ declare namespace GoogleAppsScript {
             FeedbackType: typeof FeedbackType;
             ItemType: typeof ItemType;
             PageNavigationType: typeof PageNavigationType;
+            RatingIconType: typeof RatingIconType;
             create(title: string): Form;
+            create(title: string, isPublished: boolean): Form;
             createCheckboxGridValidation(): CheckboxGridValidationBuilder;
             createCheckboxValidation(): CheckboxValidationBuilder;
             createFeedback(): QuizFeedbackBuilder;
@@ -609,6 +619,7 @@ declare namespace GoogleAppsScript {
             asMultipleChoiceItem(): MultipleChoiceItem;
             asPageBreakItem(): PageBreakItem;
             asParagraphTextItem(): ParagraphTextItem;
+            asRatingItem(): RatingItem;
             asScaleItem(): ScaleItem;
             asSectionHeaderItem(): SectionHeaderItem;
             asTextItem(): TextItem;
@@ -674,12 +685,14 @@ declare namespace GoogleAppsScript {
             MULTIPLE_CHOICE,
             PAGE_BREAK,
             PARAGRAPH_TEXT,
+            RATING,
             SCALE,
             SECTION_HEADER,
             TEXT,
             TIME,
             VIDEO,
             FILE_UPLOAD,
+            UNSUPPORTED,
         }
         /**
          * A question item that allows the respondent to select one choice from a drop-down list. Items can
@@ -923,6 +936,53 @@ declare namespace GoogleAppsScript {
             build(): QuizFeedback;
             copy(): QuizFeedbackBuilder;
             setText(text: string): QuizFeedbackBuilder;
+        }
+        /**
+         * An enum representing the supported types of rating icons.
+         */
+        enum RatingIconType {
+            STAR,
+            HEART,
+            THUMB_UP,
+        }
+        /**
+         * A question item that allows the respondent to give a rating. Items can be accessed or created
+         * from a Form. When used in a quiz, these items are graded.
+         *
+         *     // Open a form by ID
+         *     const form = FormApp.openById('1234567890abcdefghijklmnopqrstuvwxyz');
+         *
+         *     // Get an existing rating item and access its properties.
+         *     const existingRatingItem = form.getItems(FormApp.ItemType.RATING)[0].asRatingItem();
+         *     const ratingScaleLevel = existingRatingItem.getRatingScaleLevel();
+         *     const ratingIcon = existingRatingItem.getRatingIcon();
+         *
+         *     // Create a new rating item.
+         *     const ratingItem = form.addRatingItem();
+         *
+         *     // Update the rating item's properties via chaining.
+         *     ratingItem.setRatingScaleLevel(7).setRatingIcon(FormApp.RatingIconType.HEART);
+         */
+        interface RatingItem {
+            createResponse(response: Integer): ItemResponse;
+            duplicate(): RatingItem;
+            getGeneralFeedback(): QuizFeedback | null;
+            getHelpText(): string;
+            getId(): Integer;
+            getIndex(): Integer;
+            getPoints(): Integer;
+            getRatingIcon(): RatingIconType;
+            getRatingScaleLevel(): Integer;
+            getTitle(): string;
+            getType(): ItemType;
+            isRequired(): boolean;
+            setGeneralFeedback(feedback: QuizFeedback): RatingItem;
+            setHelpText(text: string): RatingItem;
+            setPoints(points: Integer): RatingItem;
+            setRatingIcon(ratingIcon: RatingIconType): RatingItem;
+            setRatingScaleLevel(ratingScaleLevel: Integer): RatingItem;
+            setRequired(enabled: boolean): RatingItem;
+            setTitle(title: string): RatingItem;
         }
         /**
          * A question item that allows the respondent to choose one option from a numbered sequence of radio

@@ -25,6 +25,496 @@ declare namespace GoogleAppsScript {
         }
 
         /**
+         * A class that represents the status for a request to either invoke or submit a dialog.
+         *
+         *     const actionStatus = CardService.newActionStatus()
+         *                              .setStatusCode(CardService.Status.OK)
+         *                              .setUserFacingMessage('Success');
+         */
+        interface ActionStatus {
+            setStatusCode(statusCode: Status): ActionStatus;
+            setUserFacingMessage(message: string): ActionStatus;
+        }
+        /**
+         * A builder for CardWithId objects. This class is a unique identifier for a card in a
+         * message when sending multiple cards.
+         *
+         *     const cardSection = CardService.newCardSection();
+         *     cardSection.addWidget(
+         *         CardService.newTextParagraph().setText('This is a text paragraph widget.'),
+         *     );
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .addSection(cardSection)
+         *                      .build();
+         *
+         *     const cardWithId =
+         *         CardService.newCardWithId().setCardId('card_id').setCard(card);
+         */
+        interface CardWithId {
+            setCard(card: Card): CardWithId;
+            setCardId(id: string): CardWithId;
+        }
+        /**
+         * Carousel, also known as slider, rotates and displays a list of widgets in a slideshow
+         * format, with buttons navigating to the previous or next widget.
+         *
+         *     const carousel =
+         *         CardService.newCarousel()
+         *             .addCarouselCard(CardService.newCarouselCard().addWidget(
+         *                 CardService.newTextParagraph().setText('The first text paragraph in carousel')))
+         *             .addCarouselCard(CardService.newCarouselCard().addWidget(
+         *                 CardService.newTextParagraph().setText('The second text paragraph in carousel')))
+         *             .addCarouselCard(CardService.newCarouselCard().addWidget(
+         *                 CardService.newTextParagraph().setText('The third text paragraph in carousel')))
+         */
+        interface Carousel {
+            addCarouselCard(card: CarouselCard): Carousel;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * A card that can be displayed as a carousel item.
+         *
+         *     const carouselCard = CardService.newCarouselCard()
+         *         .addWidget(
+         *             CardService.newTextParagraph().setText('a text paragraph in the carousel card'))
+         *         .addFooterWidget(
+         *             CardService.newTextParagraph().setText('a text paragraph in the carousel card footer'));
+         */
+        interface CarouselCard {
+            addFooterWidget(widget: Widget): CarouselCard;
+            addWidget(widget: Widget): CarouselCard;
+        }
+        /**
+         * A class that represents the parameters that a Chat app can use to configure how its
+         * response is posted.
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .build();
+         *     const dialog = CardService.newDialog().setBody(card);
+         *
+         *     const dialogAction = CardService.newDialogAction().setDialog(dialog);
+         *
+         *     const chatActionResponse = CardService.newChatActionResponse()
+         *                                    .setResponseType(CardService.Type.DIALOG)
+         *                                    .setDialogAction(dialogAction);
+         */
+        interface ChatActionResponse {
+            setDialogAction(dialogAction: DialogAction): ChatActionResponse;
+            setResponseType(responseType: ResponseType): ChatActionResponse;
+            setUpdatedWidget(updatedWidget: UpdatedWidget): ChatActionResponse;
+            setUrl(url: string): ChatActionResponse;
+        }
+        /**
+         * For a SelectionInput widget that uses a multiselect menu, a data source from Google Chat.
+         * The data source populates selection items for the multiselect menu. For example, a user
+         * can select Google Chat spaces that they're a member of.
+         *
+         *     const chatSpaceDataSource =
+         *         CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true);
+         *
+         *     const chatClientDataSource =
+         *         CardService.newChatClientDataSource().setSpaceDataSource(
+         *             chatSpaceDataSource);
+         */
+        interface ChatClientDataSource {
+            setSpaceDataSource(spaceDataSource: ChatSpaceDataSource): ChatClientDataSource;
+        }
+        /**
+         * The response object for a card message in Google Chat.
+         *
+         *     // Creates a card message in Chat.
+         *     const cardHeader = CardService.newCardHeader()
+         *                            .setTitle('Card Header Title')
+         *                            .setSubtitle('Card Header Subtitle');
+         *
+         *     const card = CardService.newCardBuilder().setHeader(cardHeader).build();
+         *
+         *     const chatResponse =
+         *         CardService.newChatResponseBuilder()
+         *             .setText('Example text')
+         *             .addCardsV2(
+         *                 CardService.newCardWithId().setCardId('card_id').setCard(card))
+         *             .build();
+         *
+         *     console.log(chatResponse.printJson());
+         */
+        interface ChatResponse {
+            printJson(): string;
+        }
+        /**
+         * A builder for ChatResponse objects.
+         *
+         *     const cardSection = CardService.newCardSection();
+         *     cardSection.addWidget(
+         *         CardService.newTextParagraph().setText('This is a text paragraph widget.'),
+         *     );
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setName('Card name')
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .addSection(cardSection)
+         *                      .build();
+         *
+         *     const cardWithId =
+         *         CardService.newCardWithId().setCardId('card_id').setCard(card);
+         *
+         *     const chatResponse = CardService.newChatResponseBuilder()
+         *                              .addCardsV2(cardWithId)
+         *                              .setText('Example text')
+         *                              .build();
+         */
+        interface ChatResponseBuilder {
+            addCardsV2(cardWithId: CardWithId): ChatResponseBuilder;
+            build(): ChatResponse;
+            setActionResponse(actionResponse: ChatActionResponse): ChatResponseBuilder;
+            setText(text: string): ChatResponseBuilder;
+        }
+        /**
+         * A data source that populates Google Chat spaces as selection items for a multiselect
+         * menu. Only populates spaces that the user is a member of.
+         *
+         *     const chatSpaceDataSource =
+         *         CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true);
+         */
+        interface ChatSpaceDataSource {
+            setDefaultToCurrentSpace(defaultToCurrentSpace: boolean): ChatSpaceDataSource;
+        }
+        /**
+         * A Chip with an icon and text label. You can deactivate the chip when needed.
+         *
+         *     const chip = CardService.newChip()
+         *                      .setLabel('Open Link')
+         *                      .setOpenLink(CardService.newOpenLink().setUrl(
+         *                          'https://www.google.com'));
+         */
+        interface Chip {
+            setAltText(altText: string): Chip;
+            setAuthorizationAction(action: AuthorizationAction): Chip;
+            setComposeAction(action: Action, composedEmailType: ComposedEmailType): Chip;
+            setDisabled(disabled: boolean): Chip;
+            setIcon(icon: IconImage): Chip;
+            setLabel(label: string): Chip;
+            setOnClickAction(action: Action): Chip;
+            setOnClickOpenLinkAction(action: Action): Chip;
+            setOpenLink(openLink: OpenLink): Chip;
+        }
+        /**
+         * Holds a set of Chip objects that are displayed in a row, wrapping to the next line to
+         * horizontal scrollable.
+         *
+         *     const chip = CardService.newChip();
+         *     // Finish building the text chip...
+         *
+         *     const chipList = CardService.newChipList()
+         *                          .setLayout(CardService.ChipListLayout.WRAPPED)
+         *                          .addChip(chip);
+         */
+        interface ChipList {
+            addChip(chip: Chip): ChipList;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setLayout(layout: ChipListLayout): ChipList;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * An enum that specifies the layout for ChipList.
+         *
+         * WRAPPED is the default; chips wrap to the next line if there isn't enough horizontal
+         * space. HORIZONTAL_SCROLLABLE chips scroll horizontally if they don't fit in the available
+         * space.
+         */
+        enum ChipListLayout {
+            WRAPPED,
+            HORIZONTAL_SCROLLABLE,
+        }
+        /**
+         * A customizable collapse and expand control.
+         *
+         *     const collapseButton =
+         *         CardService.newTextButton()
+         *             .setTextButtonStyle(CardService.TextButtonStyle.BORDERLESS)
+         *             .setText('Collapse');
+         *
+         *     const expandButton =
+         *         CardService.newImageButton()
+         *             .setImageButtonStyle(CardService.ImageButtonStyle.FILLED);
+         *
+         *     const collapseControl =
+         *         CardService.newCollapseControl()
+         *             .setHorizontalAlign(CardService.HorizontalAlignment.END)
+         *             .setExpandButton(expandButton)
+         *             .setCollapseButton(collapseButton);
+         */
+        interface CollapseControl {
+            setCollapseButton(button: Button): CollapseControl;
+            setExpandButton(button: Button): CollapseControl;
+            setHorizontalAlign(horizontalAlignment: HorizontalAlignment): CollapseControl;
+        }
+        /**
+         * A column.
+         *
+         *     const columnWidget = CardService.newTextParagraph();
+         *     const column =
+         *         CardService.newColumn()
+         *             .setHorizontalSizeStyle(
+         *                 CardService.HorizontalSizeStyle.FILL_AVAILABLE_SPACE)
+         *             .setHorizontalAlignment(CardService.HorizontalAlignment.CENTER)
+         *             .setVerticalAlignment(CardService.VerticalAlignment.CENTER)
+         *             .addWidget(columnWidget);
+         */
+        interface Column {
+            addWidget(widget: Widget): Column;
+            setHorizontalAlignment(horizontalAlignment: HorizontalAlignment): Column;
+            setHorizontalSizeStyle(horizontalSizeStyle: HorizontalSizeStyle): Column;
+            setVerticalAlignment(verticalAlignment: VerticalAlignment): Column;
+        }
+        /**
+         * The Columns widget displays up to 2 columns in a card or dialog. You can add widgets to
+         * each Column; the widgets appear in the order that they are specified. For an example in
+         * Google Chat apps, see Columns.
+         *
+         * The height of each column is determined by the taller column. For example, if the first
+         * column is taller than the second column, both columns have the height of the first
+         * column. Because each column can contain a different number of widgets, you can't define
+         * rows or align widgets between the columns.
+         *
+         * Columns are displayed side-by-side. You can customize the width of each column using the
+         * HorizontalSizeStyle field. If the user's screen width is too narrow, the second column
+         * wraps below the first:
+         *
+         * - On web, the second column wraps if the screen width is less than or equal to 480
+         *   pixels.
+         * - On iOS devices, the second column wraps if the screen width is less than or equal to
+         *   300 pt.
+         * - On Android devices, the second column wraps if the screen width is less than or equal
+         *   to 320 dp.
+         *
+         *   Google Calendar event.
+         *
+         *     // Build a column that is aligned in the center and fills the space:
+         *     const column =
+         *         CardService.newColumn()
+         *             .setHorizontalSizeStyle(
+         *                 CardService.HorizontalSizeStyle.FILL_AVAILABLE_SPACE)
+         *             .setHorizontalAlignment(CardService.HorizontalAlignment.CENTER)
+         *             .setVerticalAlignment(CardService.VerticalAlignment.CENTER);
+         *     const columns = CardService.newColumns().addColumn(column).setWrapStyle(
+         *         CardService.WrapStyle.WRAP);
+         */
+        interface Columns {
+            addColumn(column: Column): Columns;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
+            setWrapStyle(wrapStyle: WrapStyle): Columns;
+        }
+        /**
+         * A data source shared by all Google Workspace applications.
+         */
+        enum CommonDataSource {
+            UNKNOWN,
+            USER,
+            DRIVE,
+        }
+        /**
+         * Defines actions that don't involve evaluations, such as updating widget visibility. For
+         * example, can reveal or hide widgets based on the value of an input as part of CEL
+         * validation.
+         *
+         *     const commonWidgetAction = CardService.newCommonWidgetAction()
+         *     .setUpdateVisibilityAction(CardService.Visibility.VISIBLE);
+         */
+        interface CommonWidgetAction {
+            setUpdateVisibilityAction(updateVisibilityAction: UpdateVisibilityAction): CommonWidgetAction;
+        }
+        /**
+         * A condition used to run an event action as part of CEL expression validation.
+         *
+         *     const condition = CardService.newCondition().setActionRuleId("CEL_TEXTBOX_SUCCESS_RULE_ID")
+         *     .setExpressionDataCondition(CardService.newExpressionDataCondition()
+         *     .setConditionType(CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS));
+         */
+        interface Condition {
+            setActionRuleId(actionRuleId: string): Condition;
+            setExpressionDataCondition(expressionDataCondition: ExpressionDataCondition): Condition;
+        }
+        /**
+         * A configuration object that helps configure the data sources for a widget.
+         *
+         * Sample usage:
+         *
+         *     const dataSourceConfig = CardService.newDataSourceConfig()
+         *          .setPlatformDataSource(CardService.newPlatformDataSource()
+         *          .setWorkflowDataSource(CardService.WorkflowDataSourceType.USER));
+         */
+        interface DataSourceConfig {
+            setMaxCharactersToDisable(maxCharactersToDisable: Integer): DataSourceConfig;
+            setMaxResults(maxResults: Integer): DataSourceConfig;
+            setMinCharactersToTrigger(minCharactersToTrigger: Integer): DataSourceConfig;
+            setPlatformDataSource(platformDataSource: PlatformDataSource): DataSourceConfig;
+            setRemoteDataSource(action: Action): DataSourceConfig;
+        }
+        /**
+         * For details, see Open interactive dialogs in the Google Chat documentation.
+         *
+         * A builder for Dialog objects.
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .build();
+         *
+         *     // Sets the card of the dialog.
+         *     const dialog = CardService.newDialog().setBody(card);
+         */
+        interface Dialog {
+            setBody(card: Card): Dialog;
+        }
+        /**
+         * A builder for DialogAction objects.
+         *
+         *     const card = CardService.newCardBuilder()
+         *                      .setHeader(CardService.newCardHeader().setTitle('Card title'))
+         *                      .build();
+         *     const dialog = CardService.newDialog().setBody(card);
+         *
+         *     const dialogAction = CardService.newDialogAction().setDialog(dialog);
+         */
+        interface DialogAction {
+            setActionStatus(actionStatus: ActionStatus): DialogAction;
+            setDialog(dialog: Dialog): DialogAction;
+        }
+        /**
+         * Holds a set of DriveItemType objects that are displayed in a row.
+         *
+         *     const driveDataSourceSpec =
+         *         CardService.newDriveDataSourceSpec()
+         *          .addItemType(CardService.DriveItemType.DOCUMENTS)
+         *          .addItemType(CardService.DriveItemType.FORMS);
+         */
+        interface DriveDataSourceSpec {
+            addItemType(driveItemType: DriveItemType): DriveDataSourceSpec;
+        }
+        /**
+         * An enum define the file type for a drive item.
+         */
+        enum DriveItemType {
+            DRIVE_ITEM_TYPE_UNSPECIFIED,
+            DOCUMENTS,
+            SPREADSHEETS,
+            PRESENTATIONS,
+            PDFS,
+            FORMS,
+            FOLDERS,
+        }
+        /**
+         * An EventAction to run when a CEL expression validation condition is met.
+         *
+         *     const eventAction = CardService.newEventAction().setActionRuleId("CEL_TEXTBOX_EVALUATION_RULE_ID")
+         *     .setExpressionDataAction(expressionDataAction)
+         *     .addPostEventTrigger(trigger_success)
+         *     .addPostEventTrigger(trigger_failure);
+         */
+        interface EventAction {
+            addPostEventTrigger(trigger: Trigger): EventAction;
+            setActionRuleId(actionRuleId: string): EventAction;
+            setCommonWidgetAction(commonWidgetAction: CommonWidgetAction): EventAction;
+            setExpressionDataAction(expressionDataAction: ExpressionDataAction): EventAction;
+        }
+        /**
+         * The expression data that is used to evaluate an expression.
+         *
+         *     const expressionData = CardService.newExpressionData();
+         */
+        interface ExpressionData {
+            addCondition(condition: Condition): ExpressionData;
+            addEventAction(eventAction: EventAction): ExpressionData;
+            setExpression(expression: string): ExpressionData;
+            setId(id: string): ExpressionData;
+        }
+        /**
+         * Actions for CEL expression validation . Use START_EXPRESSION_EVALUATION for CEL
+         * validation.
+         *
+         *     const expressionDataAction = CardService.newExpressionDataAction()
+         *     .setActionType(CardService.ExpressionDataActionType.START_EXPRESSION_EVALUATION);
+         */
+        interface ExpressionDataAction {
+            setActionType(type: ExpressionDataActionType): ExpressionDataAction;
+        }
+        /**
+         * An enum that represents the type of the expression data action.
+         *
+         *     const expressionDataAction = CardService.newExpressionDataAction()
+         *     .setActionType(CardService.ExpressionDataActionType.START_EXPRESSION_EVALUATION);
+         */
+        enum ExpressionDataActionType {
+            ACTION_TYPE_UNSPECIFIED,
+            START_EXPRESSION_EVALUATION,
+        }
+        /**
+         * Represents a CEL expression validation result.
+         *
+         *     const expressionDataCondition = CardService.newExpressionDataCondition()
+         *     .setConditionType(CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS);
+         */
+        interface ExpressionDataCondition {
+            setConditionType(type: ExpressionDataConditionType): ExpressionDataCondition;
+        }
+        /**
+         * Represents whether the CEL expression evaluated successfully.
+         *
+         *     const expressionDataCondition = CardService.newExpressionDataCondition()
+         *     .setConditionType(CardService.ExpressionDataConditionType.EXPRESSION_EVALUATION_SUCCESS);
+         */
+        enum ExpressionDataConditionType {
+            CONDITION_TYPE_UNSPECIFIED,
+            EXPRESSION_EVALUATION_SUCCESS,
+            EXPRESSION_EVALUATION_FAILURE,
+        }
+        /**
+         * An enum that sets how widgets fill the space of a column.
+         */
+        enum HorizontalSizeStyle {
+            FILL_AVAILABLE_SPACE,
+            FILL_MINIMUM_SPACE,
+        }
+        /**
+         * For a SelectionInput widget that uses a multiselect menu, a data source from a Google
+         * Workspace application. The data source populates selection items for the multiselect
+         * menu.
+         *
+         *     const chatSpaceDataSource =
+         *         CardService.newChatSpaceDataSource().setDefaultToCurrentSpace(true);
+         *
+         *     const chatClientDataSource =
+         *         CardService.newChatClientDataSource().setSpaceDataSource(
+         *             chatSpaceDataSource);
+         *
+         *     const hostAppDataSource =
+         *         CardService.newHostAppDataSource().setChatDataSource(chatClientDataSource);
+         */
+        interface HostAppDataSource {
+            setChatDataSource(chatClientDataSource: ChatClientDataSource): HostAppDataSource;
+            setWorkflowDataSource(workflowDataSource: WorkflowDataSource): HostAppDataSource;
+        }
+        /**
+         * An enum that specifies the style for ImageButton.
+         *
+         * BORDERLESS is the default; it renders a simple image button with no border. FILLED
+         * buttons have a background color you can set with ImageButton.
+         */
+        enum ImageButtonStyle {
+            BORDERLESS,
+            OUTLINED,
+            FILLED,
+            FILLED_TONAL,
+        }
+        /**
          * An enum type that specifies what to do in response to an interaction with a user,
          * such as a user clicking a button in a card message.
          */
@@ -116,6 +606,7 @@ declare namespace GoogleAppsScript {
             setOnClickAction(action: Action): Button;
             setOnClickOpenLinkAction(action: Action): Button;
             setOpenLink(openLink: OpenLink): Button;
+            setOverflowMenu(menu: OverflowMenu): Button;
         }
         /**
          * Holds a set of Button objects that are displayed in a row.
@@ -132,6 +623,9 @@ declare namespace GoogleAppsScript {
          */
         interface ButtonSet {
             addButton(button: Button): ButtonSet;
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * A context card that represents a single view in the
@@ -179,6 +673,7 @@ declare namespace GoogleAppsScript {
          */
         interface CardBuilder {
             addCardAction(cardAction: CardAction): CardBuilder;
+            addExpressionData(expressionData: ExpressionData): CardBuilder;
             addSection(section: CardSection): CardBuilder;
             build(): Card;
             setHeader(cardHeader: CardHeader): CardBuilder;
@@ -218,8 +713,10 @@ declare namespace GoogleAppsScript {
          */
         interface CardSection {
             addWidget(widget: Widget): CardSection;
+            setCollapseControl(collapseControl: CollapseControl): CardSection;
             setCollapsible(collapsible: boolean): CardSection;
             setHeader(header: string): CardSection;
+            setId(id: string): CardSection;
             setNumUncollapsibleWidgets(numUncollapsibleWidgets: Integer): CardSection;
         }
         /**
@@ -268,25 +765,41 @@ declare namespace GoogleAppsScript {
          */
         interface CardService {
             BorderType: typeof BorderType;
+            ChipListLayout: typeof ChipListLayout;
+            CommonDataSource: typeof CommonDataSource;
             ComposedEmailType: typeof ComposedEmailType;
             ContentType: typeof ContentType;
             DisplayStyle: typeof DisplayStyle;
+            DriveItemType: typeof DriveItemType;
+            ExpressionDataActionType: typeof ExpressionDataActionType;
+            ExpressionDataConditionType: typeof ExpressionDataConditionType;
             GridItemLayout: typeof GridItemLayout;
             HorizontalAlignment: typeof HorizontalAlignment;
+            HorizontalSizeStyle: typeof HorizontalSizeStyle;
             Icon: typeof Icon;
+            ImageButtonStyle: typeof ImageButtonStyle;
             ImageCropType: typeof ImageCropType;
             ImageStyle: typeof ImageStyle;
             LoadIndicator: typeof LoadIndicator;
             OnClose: typeof OnClose;
             OpenAs: typeof OpenAs;
+            ResponseType: typeof ResponseType;
             SelectionInputType: typeof SelectionInputType;
+            Status: typeof Status;
             SwitchControlType: typeof SwitchControlType;
             TextButtonStyle: typeof TextButtonStyle;
+            TextInputMode: typeof TextInputMode;
             UpdateDraftBodyType: typeof UpdateDraftBodyType;
             InputType: typeof InputType;
             Interaction: typeof Interaction;
+            VariableButtonSize: typeof VariableButtonSize;
+            VerticalAlignment: typeof VerticalAlignment;
+            Visibility: typeof Visibility;
+            WorkflowDataSourceType: typeof WorkflowDataSourceType;
+            WrapStyle: typeof WrapStyle;
             newAction(): Action;
             newActionResponseBuilder(): ActionResponseBuilder;
+            newActionStatus(): ActionStatus;
             newAttachment(): Attachment;
             newAuthorizationAction(): AuthorizationAction;
             newAuthorizationException(): AuthorizationException;
@@ -300,17 +813,40 @@ declare namespace GoogleAppsScript {
             newCardBuilder(): CardBuilder;
             newCardHeader(): CardHeader;
             newCardSection(): CardSection;
+            newCardWithId(): CardWithId;
+            newCarousel(): Carousel;
+            newCarouselCard(): CarouselCard;
+            newChatActionResponse(): ChatActionResponse;
+            newChatClientDataSource(): ChatClientDataSource;
+            newChatResponseBuilder(): ChatResponseBuilder;
+            newChatSpaceDataSource(): ChatSpaceDataSource;
+            newChip(): Chip;
+            newChipList(): ChipList;
+            newCollapseControl(): CollapseControl;
+            newColumn(): Column;
+            newColumns(): Columns;
+            newCommonWidgetAction(): CommonWidgetAction;
             newComposeActionResponseBuilder(): ComposeActionResponseBuilder;
+            newCondition(): Condition;
+            newDataSourceConfig(): DataSourceConfig;
             newDatePicker(): DatePicker;
             newDateTimePicker(): DateTimePicker;
             newDecoratedText(): DecoratedText;
+            newDialog(): Dialog;
+            newDialogAction(): DialogAction;
             newDivider(): Divider;
+            newDriveDataSourceSpec(): DriveDataSourceSpec;
             newDriveItemsSelectedActionResponseBuilder(): DriveItemsSelectedActionResponseBuilder;
             /**
              * Creates a new EditorFileScopeActionResponseBuilder.
              */
             newEditorFileScopeActionResponseBuilder(): EditorFileScopeActionResponseBuilder;
+            newEventAction(): EventAction;
+            newExpressionData(): ExpressionData;
+            newExpressionDataAction(): ExpressionDataAction;
+            newExpressionDataCondition(): ExpressionDataCondition;
             newFixedFooter(): FixedFooter;
+            newHostAppDataSource(): HostAppDataSource;
             newIconImage(): IconImage;
             /**
              * Creates a new Grid
@@ -336,6 +872,9 @@ declare namespace GoogleAppsScript {
             newNavigation(): Navigation;
             newNotification(): Notification;
             newOpenLink(): OpenLink;
+            newOverflowMenu(): OverflowMenu;
+            newOverflowMenuItem(): OverflowMenuItem;
+            newPlatformDataSource(): PlatformDataSource;
             newSelectionInput(): SelectionInput;
             newSuggestions(): Suggestions;
             newSuggestionsResponseBuilder(): SuggestionsResponseBuilder;
@@ -344,6 +883,7 @@ declare namespace GoogleAppsScript {
             newTextInput(): TextInput;
             newTextParagraph(): TextParagraph;
             newTimePicker(): TimePicker;
+            newTrigger(): Trigger;
             newUniversalActionResponseBuilder(): UniversalActionResponseBuilder;
             newUpdateDraftActionResponseBuilder(): UpdateDraftActionResponseBuilder;
             newUpdateDraftBccRecipientsAction(): UpdateDraftBccRecipientsAction;
@@ -351,7 +891,10 @@ declare namespace GoogleAppsScript {
             newUpdateDraftCcRecipientsAction(): UpdateDraftCcRecipientsAction;
             newUpdateDraftSubjectAction(): UpdateDraftSubjectAction;
             newUpdateDraftToRecipientsAction(): UpdateDraftToRecipientsAction;
+            newUpdateVisibilityAction(): UpdateVisibilityAction;
+            newUpdatedWidget(): UpdatedWidget;
             newValidation(): Validation;
+            newWorkflowDataSource(): WorkflowDataSource;
         }
         /**
          * The response object that may be returned from a callback method for compose action in a Gmail add-on.
@@ -449,13 +992,16 @@ declare namespace GoogleAppsScript {
          *     var image = CardService.newImage().setAltText("A nice image").setImageUrl("https://image.png");
          */
         interface Image {
+            addEventAction(eventAction: EventAction): Widget;
             setAltText(altText: string): Image;
             setAuthorizationAction(action: AuthorizationAction): Image;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): Image;
+            setId(id: string): Widget;
             setImageUrl(url: string): Image;
             setOnClickAction(action: Action): Image;
             setOnClickOpenLinkAction(action: Action): Image;
             setOpenLink(openLink: OpenLink): Image;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * A ImageButton with an image displayed on it.
@@ -472,10 +1018,12 @@ declare namespace GoogleAppsScript {
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): ImageButton;
             setIcon(icon: Icon): ImageButton;
             setIconUrl(url: string): ImageButton;
+            setImageButtonStyle(imageButtonStyle: ImageButtonStyle): ImageButton;
             setMaterialIcon(icon: MaterialIcon): ImageButton;
             setOnClickAction(action: Action): ImageButton;
             setOnClickOpenLinkAction(action: Action): ImageButton;
             setOpenLink(openLink: OpenLink): ImageButton;
+            setOverflowMenu(menu: OverflowMenu): ImageButton;
         }
         /**
          * An enum that defines an image cropping style.
@@ -503,22 +1051,26 @@ declare namespace GoogleAppsScript {
          *         .setContent("Content can be multiple lines")
          *         .setMultiline(true)
          *         .setBottomLabel("Bottom label - single line");
+         * @deprecated DO NOT USE
          */
         interface KeyValue {
+            addEventAction(eventAction: EventAction): Widget;
             setAuthorizationAction(action: AuthorizationAction): KeyValue;
-            setBottomLabel(text: string): KeyValue;
-            setButton(button: Button): KeyValue;
+            /** @deprecated DO NOT USE */ setBottomLabel(text: string): KeyValue;
+            /** @deprecated DO NOT USE */ setButton(button: Button): KeyValue;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): KeyValue;
-            setContent(text: string): KeyValue;
-            setIcon(icon: Icon): KeyValue;
-            setIconAltText(altText: string): KeyValue;
-            setIconUrl(url: string): KeyValue;
-            setMultiline(multiline: boolean): KeyValue;
+            /** @deprecated DO NOT USE */ setContent(text: string): KeyValue;
+            /** @deprecated DO NOT USE */ setIcon(icon: Icon): KeyValue;
+            /** @deprecated DO NOT USE */ setIconAltText(altText: string): KeyValue;
+            /** @deprecated DO NOT USE */ setIconUrl(url: string): KeyValue;
+            setId(id: string): Widget;
+            /** @deprecated DO NOT USE */ setMultiline(multiline: boolean): KeyValue;
             setOnClickAction(action: Action): KeyValue;
             setOnClickOpenLinkAction(action: Action): KeyValue;
             setOpenLink(openLink: OpenLink): KeyValue;
-            setSwitch(switchToSet: Switch): KeyValue;
-            setTopLabel(text: string): KeyValue;
+            /** @deprecated DO NOT USE */ setSwitch(switchToSet: Switch): KeyValue;
+            /** @deprecated DO NOT USE */ setTopLabel(text: string): KeyValue;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -611,7 +1163,7 @@ declare namespace GoogleAppsScript {
         enum OnClose {
             NOTHING,
             RELOAD,
-            RELOAD_ADD_ON,
+            /** @deprecated DO NOT USE */ RELOAD_ADD_ON,
         }
         /**
          * An enum that specifies how to open a URL.
@@ -652,6 +1204,77 @@ declare namespace GoogleAppsScript {
             setOnClose(onClose: OnClose): OpenLink;
             setOpenAs(openAs: OpenAs): OpenLink;
             setUrl(url: string): OpenLink;
+        }
+        /**
+         * Holds a list of OverflowMenuItem objects that are displayed in a pop-up menu.
+         *
+         *     const overflowMenuItem = CardService.newOverflowMenuItem();
+         *     // Finish building the overflow menu item...
+         *
+         *     const overflowMenu =
+         *         CardService.newOverflowMenu().addMenuItem(overflowMenuItem);
+         */
+        interface OverflowMenu {
+            addMenuItem(menuItem: OverflowMenuItem): OverflowMenu;
+        }
+        /**
+         * An OverflowMenuItem with an icon and text label. You can deactivate the menu item when
+         * needed.
+         *
+         *     const overflowMenuItem =
+         *         CardService.newOverflowMenuItem()
+         *             .setStartIcon(
+         *                 CardService.newIconImage().setIconUrl(
+         *                     'https://www.google.com/images/branding/googleg/1x/googleg_standard_color_64dp.png',
+         *                     ),
+         *                 )
+         *             .setText('Open Link')
+         *             .setOpenLink(
+         *                 CardService.newOpenLink().setUrl('https://www.google.com'));
+         */
+        interface OverflowMenuItem {
+            setAuthorizationAction(action: AuthorizationAction): OverflowMenuItem;
+            setComposeAction(action: Action, composedEmailType: ComposedEmailType): OverflowMenuItem;
+            setDisabled(disabled: boolean): OverflowMenuItem;
+            setOnClickAction(action: Action): OverflowMenuItem;
+            setOnClickOpenLinkAction(action: Action): OverflowMenuItem;
+            setOpenLink(openLink: OpenLink): OverflowMenuItem;
+            setStartIcon(icon: IconImage): OverflowMenuItem;
+            setText(text: string): OverflowMenuItem;
+        }
+        /**
+         * For a SelectionInput widget that uses a multiselect menu, a data source from Google
+         * Workspace. Used to populate items in a multiselect menu.
+         *
+         *     const platformDataSource =
+         *         CardService.newPlatformDataSource().setCommonDataSource(
+         *             CardService.CommonDataSource.USER,
+         *         );
+         *
+         *     const multiSelect = CardService.newSelectionInput()
+         *                             .setType(CardService.SelectionInputType.MULTI_SELECT)
+         *                             .setFieldName('contacts')
+         *                             .setTitle('Selected contacts')
+         *                             .setMultiSelectMaxSelectedItems(5)
+         *                             .setMultiSelectMinQueryLength(1)
+         *                             .setPlatformDataSource(platformDataSource);
+         */
+        interface PlatformDataSource {
+            setCommonDataSource(commonDataSource: CommonDataSource): PlatformDataSource;
+            setDriveDataSourceSpec(driveDataSourceSpec: DriveDataSourceSpec): PlatformDataSource;
+            setHostAppDataSource(hostAppDataSource: HostAppDataSource): PlatformDataSource;
+        }
+        /**
+         * An enum that represents the type of Chat app response.
+         */
+        enum ResponseType {
+            TYPE_UNSPECIFIED,
+            NEW_MESSAGE,
+            UPDATE_MESSAGE,
+            UPDATE_USER_MESSAGE_CARDS,
+            REQUEST_CONFIG,
+            DIALOG,
+            UPDATE_WIDGET,
         }
         /**
          * An input field that allows choosing between a set of predefined options.
@@ -722,6 +1345,8 @@ declare namespace GoogleAppsScript {
          *          .setMultiSelectMinQueryLength(1);
          */
         interface SelectionInput {
+            addDataSourceConfig(dataSourceConfig: DataSourceConfig): SelectionInput;
+            addEventAction(eventAction: EventAction): Widget;
             addItem(text: any, value: any, selected: boolean): SelectionInput;
             addMultiSelectItem(
                 text: string,
@@ -732,11 +1357,14 @@ declare namespace GoogleAppsScript {
             ): SelectionInput;
             setExternalDataSource(action: Action): SelectionInput;
             setFieldName(fieldName: string): SelectionInput;
+            setId(id: string): Widget;
             setMultiSelectMaxSelectedItems(maxSelectedItems: Integer): SelectionInput;
             setMultiSelectMinQueryLength(queryLength: Integer): SelectionInput;
             setOnChangeAction(action: Action): SelectionInput;
+            setPlatformDataSource(platformDataSource: PlatformDataSource): SelectionInput;
             setTitle(title: string): SelectionInput;
             setType(type: SelectionInputType): SelectionInput;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * Type of selection input.
@@ -747,6 +1375,29 @@ declare namespace GoogleAppsScript {
             DROPDOWN,
             SWITCH,
             MULTI_SELECT,
+            OVERFLOW_MENU,
+        }
+        /**
+         * An enum that represents the status code.
+         */
+        enum Status {
+            OK,
+            CANCELLED,
+            UNKNOWN,
+            INVALID_ARGUMENT,
+            DEADLINE_EXCEEDED,
+            NOT_FOUND,
+            ALREADY_EXISTS,
+            PERMISSION_DENIED,
+            UNAUTHENTICATED,
+            RESOURCE_EXHAUSTED,
+            FAILED_PRECONDITION,
+            ABORTED,
+            OUT_OF_RANGE,
+            UNIMPLEMENTED,
+            INTERNAL,
+            UNAVAILABLE,
+            DATA_LOSS,
         }
         /**
          * Autocomplete suggestions to supplement a TextInput widget.
@@ -822,9 +1473,13 @@ declare namespace GoogleAppsScript {
             setBackgroundColor(backgroundColor: string): TextButton;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): TextButton;
             setDisabled(disabled: boolean): TextButton;
+            setIcon(icon: Icon): TextButton;
+            setIconUrl(url: string): TextButton;
+            setMaterialIcon(icon: MaterialIcon): TextButton;
             setOnClickAction(action: Action): TextButton;
             setOnClickOpenLinkAction(action: Action): TextButton;
             setOpenLink(openLink: OpenLink): TextButton;
+            setOverflowMenu(menu: OverflowMenu): TextButton;
             setText(text: string): TextButton;
             setTextButtonStyle(textButtonStyle: TextButtonStyle): TextButton;
         }
@@ -854,8 +1509,12 @@ declare namespace GoogleAppsScript {
          *         .setHint("Text input hint");
          */
         interface TextInput {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): TextInput;
             setHint(hint: string): TextInput;
+            setHostAppDataSource(hostAppDataSource: HostAppDataSource): TextInput;
+            setId(id: string): Widget;
+            setInputMode(inputMode: TextInputMode): TextInput;
             setMultiline(multiline: boolean): TextInput;
             setOnChangeAction(action: Action): TextInput;
             setSuggestions(suggestions: Suggestions): TextInput;
@@ -863,6 +1522,14 @@ declare namespace GoogleAppsScript {
             setTitle(title: string): TextInput;
             setValidation(validation: Validation): TextInput;
             setValue(value: string): TextInput;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * An enum that defines the what type of input is allowed for the text input field.
+         */
+        enum TextInputMode {
+            PLAIN_TEXT,
+            RICH_TEXT,
         }
         /**
          * A widget that displays text and supports basic HTML formatting.
@@ -871,7 +1538,31 @@ declare namespace GoogleAppsScript {
          *         .setText("This is a text paragraph widget. Multiple lines are allowed if needed.");
          */
         interface TextParagraph {
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setMaxLines(maxLines: Integer): TextParagraph;
             setText(text: string): TextParagraph;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * A trigger that runs CEL expression validation widget event actions according to the
+         * action rule ID.
+         *
+         *     // Define Triggers for each Condition respectively
+         *     const trigger_success = CardService.newTrigger()
+         *       .setActionRuleId("CEL_TEXTINPUT_SUCCESS_RULE_ID");
+         *
+         *     const trigger_failure = CardService.newTrigger()
+         *       .setActionRuleId("CEL_TEXTINPUT_FAILURE_RULE_ID");
+         *
+         *     const eventAction = CardService.newEventAction()
+         *       .setActionRuleId("CEL_TEXTINPUT_EVALUATION_RULE_ID")
+         *       .setExpressionDataAction(expressionDataAction)
+         *       .addPostEventTrigger(trigger_success)
+         *       .addPostEventTrigger(trigger_failure);
+         */
+        interface Trigger {
+            setActionRuleId(actionRuleId: string): Trigger;
         }
         /**
          * The response object that may be returned from a method that creates universal action.
@@ -909,11 +1600,14 @@ declare namespace GoogleAppsScript {
          *             .setFunctionName("handleTimeChange"));
          */
         interface TimePicker {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): TimePicker;
             setHours(hours: number): TimePicker;
+            setId(id: string): Widget;
             setMinutes(hours: number): TimePicker;
             setOnChangeAction(action: Action): TimePicker;
             setTitle(title: string): TimePicker;
+            setVisibility(visibility: Visibility): Widget;
         }
         /**
          * A builder for the UniversalActionResponse objects.
@@ -1018,6 +1712,38 @@ declare namespace GoogleAppsScript {
         }
 
         /**
+         * Updates the visibility of a card widget to make it display or to hide it.
+         *
+         *     const updateVisibilityAction = CardService.newUpdateVisibilityAction()
+         *     .setVisibility(CardService.Visibility.VISIBLE);
+         */
+        interface UpdateVisibilityAction {
+            setVisibility(visibility: Visibility): UpdateVisibilityAction;
+        }
+        /**
+         * The response of the updated widget. Used to provide autocomplete options for multiselect
+         * menu in SelectionInput.
+         *
+         *     const updatedWidget = CardService.newUpdatedWidget()
+         *                               .addItem(
+         *                                   'item_one_title',
+         *                                   'item_one_value',
+         *                                   false,
+         *                                   'item_one_uri',
+         *                                   'item_one_bottom_text',
+         *                                   )
+         *                               .addItem(
+         *                                   'item_two_title',
+         *                                   'item_two_value',
+         *                                   false,
+         *                                   'item_two_uri',
+         *                                   'item_two_bottom_text',
+         *                               );
+         */
+        interface UpdatedWidget {
+            addItem(text: any, value: any, selected: boolean, startIconUri: any, bottomText: any): UpdatedWidget;
+        }
+        /**
          * An object that defines the validation rule for the widget that it is attached to.
          *
          * const validation = CardService.newValidation()
@@ -1068,23 +1794,30 @@ declare namespace GoogleAppsScript {
          * An input field that allows inputing a date.
          */
         interface DatePicker {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): DatePicker;
+            setId(id: string): Widget;
             setOnChangeAction(action: Action): DatePicker;
             setTitle(title: string): DatePicker;
             setValueInMsSinceEpoch(valueMsEpoch: number): DatePicker;
             setValueInMsSinceEpoch(valueMsEpoch: string): DatePicker;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
          * An input field that allows inputing a date.
          */
         interface DateTimePicker {
+            addEventAction(eventAction: EventAction): Widget;
             setFieldName(fieldName: string): DateTimePicker;
+            setHostAppDataSource(hostAppDataSource: HostAppDataSource): DateTimePicker;
+            setId(id: string): Widget;
             setOnChangeAction(action: Action): DateTimePicker;
             setTimeZoneOffsetInMins(timeZoneOffsetMins: Integer): DateTimePicker;
             setTitle(title: string): DateTimePicker;
             setValueInMsSinceEpoch(valueMsEpoch: number): DateTimePicker;
             setValueInMsSinceEpoch(valueMsEpoch: string): DateTimePicker;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -1094,14 +1827,16 @@ declare namespace GoogleAppsScript {
          * This class is intended to replace KeyValue.
          */
         interface DecoratedText {
+            addEventAction(eventAction: EventAction): Widget;
             setAuthorizationAction(action: AuthorizationAction): DecoratedText;
             setBottomLabel(text: string): DecoratedText;
             setButton(button: Button): DecoratedText;
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): DecoratedText;
             setEndIcon(endIcon: IconImage): DecoratedText;
-            setIcon(icon: Icon): DecoratedText;
-            setIconAltText(altText: string): DecoratedText;
-            setIconUrl(url: string): DecoratedText;
+            /** @deprecated DO NOT USE */ setIcon(icon: Icon): DecoratedText;
+            /** @deprecated DO NOT USE */ setIconAltText(altText: string): DecoratedText;
+            /** @deprecated DO NOT USE */ setIconUrl(url: string): DecoratedText;
+            setId(id: string): Widget;
             setOnClickAction(action: Action): DecoratedText;
             setOnClickOpenLinkAction(action: Action): DecoratedText;
             setOpenLink(openLink: OpenLink): DecoratedText;
@@ -1109,6 +1844,7 @@ declare namespace GoogleAppsScript {
             setSwitchControl(switchToSet: Switch): DecoratedText;
             setText(text: string): DecoratedText;
             setTopLabel(text: string): DecoratedText;
+            setVisibility(visibility: Visibility): Widget;
             setWrapText(wrapText: boolean): DecoratedText;
         }
 
@@ -1117,6 +1853,9 @@ declare namespace GoogleAppsScript {
          */
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Divider {
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -1255,6 +1994,7 @@ declare namespace GoogleAppsScript {
          * An organized grid to display a collection of grid items.
          */
         interface Grid {
+            addEventAction(eventAction: EventAction): Widget;
             /**
              * Adds a new grid item to the grid.
              */
@@ -1271,6 +2011,7 @@ declare namespace GoogleAppsScript {
              * Sets an action that composes a draft email when the object is clicked.
              */
             setComposeAction(action: Action, composedEmailType: ComposedEmailType): Grid;
+            setId(id: string): Widget;
             /**
              * The number of columns to display in the grid.
              */
@@ -1291,6 +2032,7 @@ declare namespace GoogleAppsScript {
              * Sets the title text of the grid.
              */
             setTitle(title: string): Grid;
+            setVisibility(visibility: Visibility): Widget;
         }
 
         /**
@@ -1336,12 +2078,80 @@ declare namespace GoogleAppsScript {
          */
         enum UpdateDraftBodyType {
             IN_PLACE_INSERT,
+            INSERT_AT_START,
+            INSERT_AT_END,
+        }
+        /**
+         * An enum that represents the size of the variable picker button.
+         */
+        enum VariableButtonSize {
+            UNSPECIFIED,
+            COMPACT,
+            FULL_SIZE,
+        }
+        /**
+         * An enum that sets the vertical alignment of widgets in a column.
+         */
+        enum VerticalAlignment {
+            CENTER,
+            TOP,
+            BOTTOM,
+        }
+        /**
+         * An enum that represents the visibility state of the widgets.
+         *
+         * Visibility.VISIBLE means that the widget is being displayed and is visible.
+         *
+         * Visibility.HIDDEN means that the widget is not displayed and is invisible.
+         *
+         * To call an enum, call its parent class, name, and property. For example,
+         * CardService.Visibility.VISIBLE.
+         */
+        enum Visibility {
+            VISIBLE,
+            HIDDEN,
+            VISIBILITY_UNSPECIFIED,
         }
         /**
          * Base class for all widgets that can be added to a Card.
          */
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface Widget {
+            addEventAction(eventAction: EventAction): Widget;
+            setId(id: string): Widget;
+            setVisibility(visibility: Visibility): Widget;
+        }
+        /**
+         * For a SelectionInput,DateTimePicker\` or TextInput widget, a data source used in Google
+         * Workspace Studio. The data source populates available options for a widget.
+         *
+         *     const workflowDataSource = CardService.newWorkflowDataSource().setIncludeVariables(true)
+         *     .setType(CardService.WorkflowDataSourceType.USER);
+         */
+        interface WorkflowDataSource {
+            setIncludeVariables(includeVariables: boolean): WorkflowDataSource;
+            setType(type: WorkflowDataSourceType): WorkflowDataSource;
+            setVariableButtonLabel(variableButtonLabel: string): WorkflowDataSource;
+            setVariableButtonSize(variableButtonSize: VariableButtonSize): WorkflowDataSource;
+        }
+        /**
+         * An enum that represents the type of the workflow data source.
+         *
+         *     const workflowDataSource = CardService.newWorkflowDataSource().setIncludeVariables(true)
+         *     .setType(CardService.WorkflowDataSourceType.USER);
+         */
+        enum WorkflowDataSourceType {
+            UNKNOWN,
+            USER,
+            SPACE,
+            USER_WITH_FREE_FORM,
+        }
+        /**
+         * An enum that sets the wrapping style for content within a column.
+         */
+        enum WrapStyle {
+            NOWRAP,
+            WRAP,
         }
     }
 }
