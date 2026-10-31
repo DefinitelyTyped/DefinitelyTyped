@@ -34,6 +34,10 @@ const htmlOnlyPolicy = tt.createPolicy("htmlOnly", {
 htmlOnlyPolicy.name;
 // $ExpectType TrustedHTML
 const html = htmlOnlyPolicy.createHTML("");
+// $ExpectType string
+html.toString();
+// $ExpectType string
+html.toJSON();
 // @ts-expect-error
 htmlOnlyPolicy.createScript("");
 
@@ -43,6 +47,23 @@ tt.isHTML(html);
 tt.isScript(html);
 // $ExpectType boolean
 tt.isScriptURL(html);
+
+// $ExpectType string | null
+tt.getAttributeType("script", "src", null, null);
+// $ExpectType string | null
+tt.getPropertyType("script", "src", null);
+
+const nullReturnPolicy = tt.createPolicy("nullReturn", {
+    createHTML: (s: string) => null,
+    createScript: (s: string) => null,
+    createScriptURL: (s: string) => null,
+});
+// $ExpectType TrustedHTML
+nullReturnPolicy.createHTML("");
+// $ExpectType TrustedScript
+nullReturnPolicy.createScript("");
+// $ExpectType TrustedScriptURL
+nullReturnPolicy.createScriptURL("");
 
 const policyWithArgs = tt.createPolicy("withArgs", {
     createHTML: (val: string, option1: number, option2: boolean) => val,
