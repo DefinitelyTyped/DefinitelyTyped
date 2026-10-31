@@ -28,9 +28,9 @@ export class SupportError extends GOVUKFrontendError {
     /**
      * Checks if GOV.UK Frontend is supported on this page
      *
-     * @param {HTMLElement | null} [$scope] - HTML element `<body>` checked for browser support
+     * @param {Element | Document | null | string} [scopeOrMessage] - HTML element `<body>` checked for browser support or support error message
      */
-    constructor($scope?: HTMLElement | null);
+    constructor(scopeOrMessage?: Element | Document | null | string);
 }
 
 /**

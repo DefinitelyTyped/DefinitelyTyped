@@ -6,10 +6,7 @@ import { ConfigurableComponent } from "../../common/configuration.js";
  * Takes focus on initialisation for accessible announcement, unless disabled in
  * configuration.
  */
-export class ErrorSummary extends ConfigurableComponent<
-    ErrorSummaryConfig,
-    HTMLElement
-> {
+export class ErrorSummary extends ConfigurableComponent<ErrorSummaryConfig, HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

@@ -28,13 +28,10 @@ export function getBreakpoint(name: string): {
  * @param {function(this: FocusElement): void} [options.onBeforeFocus] - Callback before focus
  * @param {function(this: FocusElement): void} [options.onBlur] - Callback on blur
  */
-export function setFocus<FocusElement extends HTMLElement>(
-    $element: FocusElement,
-    options?: {
-        onBeforeFocus?: ((this: FocusElement) => void) | undefined;
-        onBlur?: ((this: FocusElement) => void) | undefined;
-    },
-): void;
+export function setFocus<FocusElement extends HTMLElement>($element: FocusElement, options?: {
+    onBeforeFocus?: ((this: FocusElement) => void) | undefined;
+    onBlur?: ((this: FocusElement) => void) | undefined;
+}): void;
 
 /**
  * Checks if component is already initialised
@@ -65,9 +62,9 @@ export function isSupported($scope?: HTMLElement | null): boolean;
  * @param {unknown | ObjectType} option - Option to check
  * @returns {option is ObjectType} Whether the option is an object
  */
-export function isObject<
-    ObjectType extends Partial<Record<keyof ObjectType, unknown>>,
->(option: unknown | ObjectType): option is ObjectType;
+export function isObject<ObjectType extends Partial<Record<keyof ObjectType, unknown>>>(
+    option: unknown | ObjectType,
+): option is ObjectType;
 
 /**
  * Check for valid scope
@@ -77,9 +74,7 @@ export function isObject<
  * @param {unknown | ScopeType} $scope - Scope of the document to search within
  * @returns {$scope is ScopeType} Whether the scope can be queried
  */
-export function isScope<ScopeType extends Element | Document>(
-    $scope: unknown | ScopeType,
-): $scope is ScopeType;
+export function isScope<ScopeType extends Element | Document>($scope: unknown | ScopeType): $scope is ScopeType;
 
 /**
  * Format error message
@@ -89,10 +84,7 @@ export function isScope<ScopeType extends Element | Document>(
  * @param {string} message - Error message
  * @returns {string} - Formatted error message
  */
-export function formatErrorMessage(
-    Component: ComponentWithModuleName,
-    message: string,
-): string;
+export function formatErrorMessage(Component: ComponentWithModuleName, message: string): string;
 
 export interface ComponentWithModuleName {
     /**
