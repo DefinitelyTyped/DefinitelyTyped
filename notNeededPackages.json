@@ -3545,6 +3545,10 @@
             "libraryName": "into-stream",
             "asOfVersion": "5.0.0"
         },
+        "intro.js": {
+            "libraryName": "intro.js",
+            "asOfVersion": "7.1.0"
+        },
         "inversify": {
             "libraryName": "inversify",
             "asOfVersion": "2.0.33"
