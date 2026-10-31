@@ -3765,6 +3765,10 @@
             "libraryName": "is-stream",
             "asOfVersion": "2.0.0"
         },
+        "is-string": {
+            "libraryName": "is-string",
+            "asOfVersion": "1.1.0"
+        },
         "is-svg": {
             "libraryName": "is-svg",
             "asOfVersion": "4.0.1"
