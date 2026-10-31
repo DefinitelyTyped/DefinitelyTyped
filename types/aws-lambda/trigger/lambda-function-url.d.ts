@@ -1,4 +1,4 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 import {
     APIGatewayEventRequestContextIAMAuthorizer,
     APIGatewayEventRequestContextV2WithAuthorizer,
@@ -26,20 +26,29 @@ export type LambdaFunctionURLResult<T = never> = APIGatewayProxyResultV2<T>;
 export type LambdaFunctionURLCallback = APIGatewayProxyCallbackV2;
 
 /**
+ * {@link LambdaFunctionURLAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with Lambda Function URL format which is currently the same as HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/lambda/latest/dg/urls-invocation.html#urls-payloads
  */
 export type LambdaFunctionURLHandler<T = never> = Handler<LambdaFunctionURLEvent, LambdaFunctionURLResult<T>>;
+export type LambdaFunctionURLAsyncHandler<T = never> = AsyncHandler<LambdaFunctionURLEvent, LambdaFunctionURLResult<T>>;
 
 export type LambdaFunctionURLEventWithIAMAuthorizer = APIGatewayProxyEventV2WithRequestContext<
     APIGatewayEventRequestContextV2WithAuthorizer<APIGatewayEventRequestContextIAMAuthorizer>
 >;
 
 /**
+ * {@link LambdaFunctionURLAsyncHandlerWithIAMAuthorizer} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with Lambda Function URL format which is currently the same as HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/lambda/latest/dg/urls-invocation.html#urls-payloads
  */
 export type LambdaFunctionURLHandlerWithIAMAuthorizer<T = never> = Handler<
+    LambdaFunctionURLEventWithIAMAuthorizer,
+    LambdaFunctionURLResult<T>
+>;
+export type LambdaFunctionURLAsyncHandlerWithIAMAuthorizer<T = never> = AsyncHandler<
     LambdaFunctionURLEventWithIAMAuthorizer,
     LambdaFunctionURLResult<T>
 >;

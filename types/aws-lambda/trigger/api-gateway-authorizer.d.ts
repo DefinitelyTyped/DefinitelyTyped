@@ -3,10 +3,15 @@ import {
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from "../common/api-gateway";
-import { Callback, Handler } from "../handler";
+import { AsyncHandler, Callback, Handler } from "../handler";
 import { APIGatewayEventRequestContextV2 } from "./api-gateway-proxy";
 
+/**
+ * {@link APIGatewayAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayAuthorizerHandler = Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayAuthorizerAsyncHandler = AsyncHandler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerResult>;
 export type APIGatewayAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
     Handler<APIGatewayAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
@@ -14,11 +19,27 @@ export type APIGatewayAuthorizerCallback = Callback<APIGatewayAuthorizerResult>;
 export type APIGatewayAuthorizerWithContextCallback<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
     Callback<APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
+/**
+ * {@link APIGatewayTokenAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayTokenAuthorizerHandler = Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayTokenAuthorizerAsyncHandler = AsyncHandler<
+    APIGatewayTokenAuthorizerEvent,
+    APIGatewayAuthorizerResult
+>;
 export type APIGatewayTokenAuthorizerWithContextHandler<TAuthorizerContext extends APIGatewayAuthorizerResultContext> =
     Handler<APIGatewayTokenAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
 
+/**
+ * {@link APIGatewayRequestAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayRequestAuthorizerHandler = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type APIGatewayRequestAuthorizerAsyncHandler = AsyncHandler<
+    APIGatewayRequestAuthorizerEvent,
+    APIGatewayAuthorizerResult
+>;
 export type APIGatewayRequestAuthorizerWithContextHandler<
     TAuthorizerContext extends APIGatewayAuthorizerResultContext,
 > = Handler<APIGatewayRequestAuthorizerEvent, APIGatewayAuthorizerWithContextResult<TAuthorizerContext>>;
@@ -125,7 +146,15 @@ export interface APIGatewayIAMAuthorizerWithContextResult<
     usageIdentifierKey?: string | null | undefined;
 }
 
+/**
+ * {@link APIGatewayRequestIAMAuthorizerAsyncHandlerV2} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayRequestIAMAuthorizerHandlerV2 = Handler<
+    APIGatewayRequestAuthorizerEventV2,
+    APIGatewayIAMAuthorizerResult
+>;
+export type APIGatewayRequestIAMAuthorizerAsyncHandlerV2 = AsyncHandler<
     APIGatewayRequestAuthorizerEventV2,
     APIGatewayIAMAuthorizerResult
 >;
@@ -148,12 +177,28 @@ export interface APIGatewaySimpleAuthorizerWithContextResult<TAuthorizerContext>
     context: TAuthorizerContext;
 }
 
+/**
+ * {@link APIGatewayRequestSimpleAuthorizerAsyncHandlerV2} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayRequestSimpleAuthorizerHandlerV2 = Handler<
     APIGatewayRequestAuthorizerEventV2,
     APIGatewaySimpleAuthorizerResult
 >;
+export type APIGatewayRequestSimpleAuthorizerAsyncHandlerV2 = AsyncHandler<
+    APIGatewayRequestAuthorizerEventV2,
+    APIGatewaySimpleAuthorizerResult
+>;
 
+/**
+ * {@link APIGatewayRequestSimpleAuthorizerAsyncHandlerV2WithContext} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayRequestSimpleAuthorizerHandlerV2WithContext<TAuthorizerContext> = Handler<
+    APIGatewayRequestAuthorizerEventV2,
+    APIGatewaySimpleAuthorizerWithContextResult<TAuthorizerContext>
+>;
+export type APIGatewayRequestSimpleAuthorizerAsyncHandlerV2WithContext<TAuthorizerContext> = AsyncHandler<
     APIGatewayRequestAuthorizerEventV2,
     APIGatewaySimpleAuthorizerWithContextResult<TAuthorizerContext>
 >;
@@ -161,7 +206,12 @@ export type APIGatewayRequestSimpleAuthorizerHandlerV2WithContext<TAuthorizerCon
 // Legacy event / names
 
 /** @deprecated Use APIGatewayAuthorizerHandler or a subtype */
+/**
+ * {@link CustomAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type CustomAuthorizerHandler = Handler<CustomAuthorizerEvent, APIGatewayAuthorizerResult>;
+export type CustomAuthorizerAsyncHandler = AsyncHandler<CustomAuthorizerEvent, APIGatewayAuthorizerResult>;
 
 // This one is actually fine.
 export type CustomAuthorizerCallback = APIGatewayAuthorizerCallback;

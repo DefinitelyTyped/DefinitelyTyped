@@ -11,7 +11,7 @@ import type { Writable } from "node:stream";
  * introducing the async handler behavior in the 8.10 runtime.
  *
  * @example <caption>Defining a custom handler type</caption>
- * import { Handler } from 'aws-lambda'
+ * import { AsyncHandler } from 'aws-lambda'
  *
  * interface NameEvent {
  *     fullName: string
@@ -21,7 +21,7 @@ import type { Writable } from "node:stream";
  *     middleNames: string
  *     lastName: string
  * }
- * type PersonHandler = Handler<NameEvent, NameResult>
+ * type PersonHandler = AsyncHandler<NameEvent, NameResult>
  *
  * export const handler: PersonHandler = async (event) => {
  *   const names = event.fullName.split(' ')
@@ -31,23 +31,50 @@ import type { Writable } from "node:stream";
  * }
  *
  * @example <caption>Logs the contents of the event object and returns the location of the logs</caption>
- * import { Handler } from 'aws-lambda'
+ * import { AsyncHandler } from 'aws-lambda'
  *
- * export const handler: Handler = async (event, context) => {
+ * export const handler: AsyncHandler = async (event, context) => {
  *   console.log("EVENT: \n" + JSON.stringify(event, null, 2))
  *   return context.logStreamName
  * }
  *
  * @example <caption>AWS SDK with Async Function and Promises</caption>
- * import { Handler } from 'aws-lambda'
+ * import { AsyncHandler } from 'aws-lambda'
  * import AWS from 'aws-sdk'
  *
  * const s3 = new AWS.S3()
  *
- * export const handler: Handler = async (event) => {
+ * export const handler: AsyncHandler = async (event) => {
  *   const response = await s3.listBuckets().promise()
  *   return response?.Buckets.map((bucket) => bucket.Name)
  * }
+ * @param event
+ *      Parsed JSON data in the lambda request payload. For an AWS service triggered
+ *      lambda this should be in the format of a type ending in Event, for example the
+ *      S3Handler receives an event of type S3Event.
+ * @param context
+ *      Runtime contextual information of the current invocation, for example the caller
+ *      identity, available memory and time remaining, legacy completion callbacks, and
+ *      a mutable property controlling when the lambda execution completes.
+ * @return
+ *      A promise that resolves with the lambda result payload value, or rejects with the
+ *      execution error. Note that if you implement your handler as an async function,
+ *      you will automatically return a promise that will resolve with a returned value,
+ *      or reject with a thrown value.
+ */
+export type AsyncHandler<TEvent = any, TResult = any> = (
+    event: TEvent,
+    context: Context,
+) => Promise<TResult> | TResult;
+
+/**
+ * The callback-based handler interface, used by the Node.js 22 runtime and earlier.
+ *
+ * A function is treated as callback-based by the runtime purely because it
+ * *declares* three parameters, so a handler written with an unused `callback`
+ * parameter is a callback handler even when it returns a promise.
+ *
+ * {@link AsyncHandler} Is the new version of this
  *
  * @example <caption>HTTP Request with Callback</caption>
  * import { Handler } from 'aws-lambda'
@@ -63,6 +90,7 @@ import type { Writable } from "node:stream";
  *  })
  * }
  *
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * @param event
  *      Parsed JSON data in the lambda request payload. For an AWS service triggered
  *      lambda this should be in the format of a type ending in Event, for example the
@@ -73,21 +101,14 @@ import type { Writable } from "node:stream";
  *      a mutable property controlling when the lambda execution completes.
  * @param callback
  *      NodeJS-style completion callback that the AWS Lambda runtime will provide that can
- *      be used to provide the lambda result payload value, or any execution error. Can
- *      instead return a promise that resolves with the result payload value or rejects
- *      with the execution error.
- * @return
- *      A promise that resolves with the lambda result payload value, or rejects with the
- *      execution error. Note that if you implement your handler as an async function,
- *      you will automatically return a promise that will resolve with a returned value,
- *      or reject with a thrown value.
+ *      be used to provide the lambda result payload value, or any execution error.
  */
 export type Handler<TEvent = any, TResult = any> = (
     event: TEvent,
     context: Context,
     callback: Callback<TResult>,
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-) => void | Promise<TResult>;
+) => void | Promise<TResult> | TResult;
 
 /**
  * {@link Handler} context parameter.
