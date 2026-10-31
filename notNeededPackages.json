@@ -2853,6 +2853,10 @@
             "libraryName": "generic-pool",
             "asOfVersion": "3.8.1"
         },
+        "geoflatbush": {
+            "libraryName": "geoflatbush",
+            "asOfVersion": "2.1.0"
+        },
         "geokdbush": {
             "libraryName": "geokdbush",
             "asOfVersion": "2.1.0"
