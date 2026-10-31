@@ -11,14 +11,11 @@ export class I18n {
      * @param {object} [config] - Configuration options for the function.
      * @param {string | null} [config.locale] - An overriding locale for the PluralRules functionality.
      */
-    constructor(
-        translations?: {
-            [key: string]: string | TranslationPluralForms;
-        },
-        config?: {
-            locale?: string | null | undefined;
-        },
-    );
+    constructor(translations?: {
+        [key: string]: string | TranslationPluralForms;
+    }, config?: {
+        locale?: string | null | undefined;
+    });
     translations: {
         [key: string]: string | TranslationPluralForms;
     };
@@ -35,12 +32,9 @@ export class I18n {
      * @throws {Error} Lookup key required
      * @throws {Error} Options required for `${}` placeholders
      */
-    t(
-        lookupKey: string,
-        options?: {
-            [key: string]: unknown;
-        },
-    ): string;
+    t(lookupKey: string, options?: {
+        [key: string]: unknown;
+    }): string;
 
     /**
      * Takes a translation string with placeholders, and replaces the placeholders
@@ -51,12 +45,9 @@ export class I18n {
      * @param {{ [key: string]: unknown }} options - Any options passed with the translation string, e.g: for string interpolation.
      * @returns {string} The translation string to output, with $\{\} placeholders replaced
      */
-    replacePlaceholders(
-        translationString: string,
-        options: {
-            [key: string]: unknown;
-        },
-    ): string;
+    replacePlaceholders(translationString: string, options: {
+        [key: string]: unknown;
+    }): string;
 
     /**
      * Check to see if the browser supports Intl.PluralRules

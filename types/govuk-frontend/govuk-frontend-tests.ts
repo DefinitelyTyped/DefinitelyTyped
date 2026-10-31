@@ -179,6 +179,7 @@ createAll(CharacterCount, CharacterCount.defaults, {
         context.component?.moduleName;
         context.component instanceof CharacterCount;
         context.config?.i18n;
+        context.config?.countType;
         context.config?.maxlength;
         context.config?.maxwords;
         context.config?.threshold;
