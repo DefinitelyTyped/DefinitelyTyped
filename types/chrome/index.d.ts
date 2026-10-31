@@ -9617,6 +9617,7 @@ declare namespace chrome {
             | "privacy"
             | "processes"
             | "proxy"
+            | "publicSuffix"
             | "readingList"
             | "scripting"
             | "search"
