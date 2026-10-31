@@ -6,7 +6,7 @@ declare namespace BlockList {
         /**
          * A 'render prop' function that can be used to customize the block's appender.
          */
-        renderAppender?(): JSX.Element;
+        renderAppender?: ComponentType | false | undefined;
         rootClientId?: string | undefined;
     }
 }

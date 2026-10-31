@@ -14,7 +14,7 @@ declare namespace InnerBlocks {
         /**
          * A 'render prop' function that can be used to customize the block's appender.
          */
-        renderAppender?: ComponentType | undefined;
+        renderAppender?: ComponentType | false | undefined;
         /**
          * The template is defined as a list of block items. Such blocks can have predefined
          * attributes, placeholder, content, etc. Block templates allow specifying a default initial
