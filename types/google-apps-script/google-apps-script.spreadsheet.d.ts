@@ -19,25 +19,41 @@ declare namespace GoogleAppsScript {
          */
         interface Banding {
             copyTo(range: Range): Banding;
-            getFirstColumnColor(): string | null;
-            getFirstRowColor(): string | null;
-            getFooterColumnColor(): string | null;
-            getFooterRowColor(): string | null;
-            getHeaderColumnColor(): string | null;
-            getHeaderRowColor(): string | null;
+            /** @deprecated DO NOT USE */ getFirstColumnColor(): string | null;
+            getFirstColumnColorObject(): Color | null;
+            /** @deprecated DO NOT USE */ getFirstRowColor(): string | null;
+            getFirstRowColorObject(): Color | null;
+            /** @deprecated DO NOT USE */ getFooterColumnColor(): string | null;
+            getFooterColumnColorObject(): Color | null;
+            /** @deprecated DO NOT USE */ getFooterRowColor(): string | null;
+            getFooterRowColorObject(): Color | null;
+            /** @deprecated DO NOT USE */ getHeaderColumnColor(): string | null;
+            getHeaderColumnColorObject(): Color | null;
+            /** @deprecated DO NOT USE */ getHeaderRowColor(): string | null;
+            getHeaderRowColorObject(): Color | null;
             getRange(): Range;
-            getSecondColumnColor(): string | null;
-            getSecondRowColor(): string | null;
+            /** @deprecated DO NOT USE */ getSecondColumnColor(): string | null;
+            getSecondColumnColorObject(): Color | null;
+            /** @deprecated DO NOT USE */ getSecondRowColor(): string | null;
+            getSecondRowColorObject(): Color | null;
             remove(): void;
             setFirstColumnColor(color: string | null): Banding;
+            setFirstColumnColorObject(color: Color | null): Banding;
             setFirstRowColor(color: string | null): Banding;
+            setFirstRowColorObject(color: Color | null): Banding;
             setFooterColumnColor(color: string | null): Banding;
+            setFooterColumnColorObject(color: Color | null): Banding;
             setFooterRowColor(color: string | null): Banding;
+            setFooterRowColorObject(color: Color | null): Banding;
             setHeaderColumnColor(color: string | null): Banding;
+            setHeaderColumnColorObject(color: Color | null): Banding;
             setHeaderRowColor(color: string | null): Banding;
+            setHeaderRowColorObject(color: Color | null): Banding;
             setRange(range: Range): Banding;
             setSecondColumnColor(color: string | null): Banding;
+            setSecondColumnColorObject(color: Color | null): Banding;
             setSecondRowColor(color: string | null): Banding;
+            setSecondRowColorObject(color: Color | null): Banding;
         }
         /**
          * An enumeration of banding themes. Each theme consists of several complementary colors that are
@@ -63,9 +79,12 @@ declare namespace GoogleAppsScript {
          */
         interface BigQueryDataSourceSpec {
             copy(): DataSourceSpecBuilder;
+            getDatasetId(): string;
             getParameters(): DataSourceParameter[];
             getProjectId(): string;
             getRawQuery(): string;
+            getTableId(): string;
+            getTableProjectId(): string;
             getType(): DataSourceType;
         }
         /**
@@ -74,15 +93,21 @@ declare namespace GoogleAppsScript {
         interface BigQueryDataSourceSpecBuilder {
             build(): DataSourceSpec;
             copy(): DataSourceSpecBuilder;
+            getDatasetId(): string;
             getParameters(): DataSourceParameter[];
             getProjectId(): string;
             getRawQuery(): string;
+            getTableId(): string;
+            getTableProjectId(): string;
             getType(): DataSourceType;
             removeAllParameters(): BigQueryDataSourceSpecBuilder;
             removeParameter(parameterName: string): BigQueryDataSourceSpecBuilder;
+            setDatasetId(datasetId: string): BigQueryDataSourceSpecBuilder;
             setParameterFromCell(parameterName: string, sourceCell: string): BigQueryDataSourceSpecBuilder;
             setProjectId(projectId: string): BigQueryDataSourceSpecBuilder;
             setRawQuery(rawQuery: string): BigQueryDataSourceSpecBuilder;
+            setTableId(tableId: string): BigQueryDataSourceSpecBuilder;
+            setTableProjectId(projectId: string): BigQueryDataSourceSpecBuilder;
         }
         /**
          * Access boolean conditions in ConditionalFormatRules. Each
@@ -92,11 +117,13 @@ declare namespace GoogleAppsScript {
          * criteria evaluates to true, the condition's formatting settings are applied to the cell.
          */
         interface BooleanCondition {
-            getBackground(): string | null;
+            /** @deprecated DO NOT USE */ getBackground(): string | null;
+            getBackgroundObject(): Color | null;
             getBold(): boolean | null;
             getCriteriaType(): BooleanCriteria;
             getCriteriaValues(): any[];
-            getFontColor(): string | null;
+            /** @deprecated DO NOT USE */ getFontColor(): string | null;
+            getFontColorObject(): Color | null;
             getItalic(): boolean | null;
             getStrikethrough(): boolean | null;
             getUnderline(): boolean | null;
@@ -111,6 +138,7 @@ declare namespace GoogleAppsScript {
             DATE_AFTER,
             DATE_BEFORE,
             DATE_EQUAL_TO,
+            DATE_NOT_EQUAL_TO,
             DATE_AFTER_RELATIVE,
             DATE_BEFORE_RELATIVE,
             DATE_EQUAL_TO_RELATIVE,
@@ -125,6 +153,7 @@ declare namespace GoogleAppsScript {
             TEXT_CONTAINS,
             TEXT_DOES_NOT_CONTAIN,
             TEXT_EQUAL_TO,
+            TEXT_NOT_EQUAL_TO,
             TEXT_STARTS_WITH,
             TEXT_ENDS_WITH,
             CUSTOM_FORMULA,
@@ -150,7 +179,7 @@ declare namespace GoogleAppsScript {
             getAltTextDescription(): string;
             getAltTextTitle(): string;
             getContentUrl(): string;
-            getUrl(): string | null;
+            /** @deprecated DO NOT USE */ getUrl(): string | null;
             toBuilder(): CellImageBuilder;
         }
         /**
@@ -162,7 +191,7 @@ declare namespace GoogleAppsScript {
             getAltTextDescription(): string;
             getAltTextTitle(): string;
             getContentUrl(): string;
-            getUrl(): string | null;
+            /** @deprecated DO NOT USE */ getUrl(): string | null;
             setAltTextDescription(description: string): CellImageBuilder;
             setAltTextTitle(title: string): CellImageBuilder;
             setSourceUrl(url: string): CellImageBuilder;
@@ -221,11 +250,24 @@ declare namespace GoogleAppsScript {
             getGradientCondition(): GradientCondition | null;
             getRanges(): Range[];
             setBackground(color: string | null): ConditionalFormatRuleBuilder;
+            setBackgroundObject(color: Color | null): ConditionalFormatRuleBuilder;
             setBold(bold: boolean | null): ConditionalFormatRuleBuilder;
             setFontColor(color: string | null): ConditionalFormatRuleBuilder;
+            setFontColorObject(color: Color | null): ConditionalFormatRuleBuilder;
             setGradientMaxpoint(color: string): ConditionalFormatRuleBuilder;
+            setGradientMaxpointObject(color: Color): ConditionalFormatRuleBuilder;
+            setGradientMaxpointObjectWithValue(
+                color: Color,
+                type: InterpolationType,
+                value: string,
+            ): ConditionalFormatRuleBuilder;
             setGradientMaxpointWithValue(
                 color: string,
+                type: InterpolationType,
+                value: string,
+            ): ConditionalFormatRuleBuilder;
+            setGradientMidpointObjectWithValue(
+                color: Color,
                 type: InterpolationType,
                 value: string,
             ): ConditionalFormatRuleBuilder;
@@ -235,6 +277,12 @@ declare namespace GoogleAppsScript {
                 value: string,
             ): ConditionalFormatRuleBuilder;
             setGradientMinpoint(color: string): ConditionalFormatRuleBuilder;
+            setGradientMinpointObject(color: Color): ConditionalFormatRuleBuilder;
+            setGradientMinpointObjectWithValue(
+                color: Color,
+                type: InterpolationType,
+                value: string,
+            ): ConditionalFormatRuleBuilder;
             setGradientMinpointWithValue(
                 color: string,
                 type: InterpolationType,
@@ -301,6 +349,7 @@ declare namespace GoogleAppsScript {
             NONE,
             TIME_OUT,
             TOO_MANY_ROWS,
+            TOO_MANY_COLUMNS,
             TOO_MANY_CELLS,
             ENGINE,
             PARAMETER_INVALID,
@@ -309,6 +358,8 @@ declare namespace GoogleAppsScript {
             INTERRUPTED,
             OTHER,
             TOO_MANY_CHARS_PER_CELL,
+            DATA_NOT_FOUND,
+            PERMISSION_DENIED,
         }
         /**
          * An enumeration of data execution states.
@@ -327,6 +378,7 @@ declare namespace GoogleAppsScript {
             getErrorCode(): DataExecutionErrorCode;
             getErrorMessage(): string;
             getExecutionState(): DataExecutionState;
+            getLastExecutionTime(): Base.Date | null;
             getLastRefreshedTime(): Base.Date | null;
             isTruncated(): boolean;
         }
@@ -335,8 +387,32 @@ declare namespace GoogleAppsScript {
          * DataSourceTable.
          */
         interface DataSource {
+            cancelAllLinkedDataSourceObjectRefreshes(): void;
+            createCalculatedColumn(name: string, formula: string): DataSourceColumn;
+            createDataSourcePivotTableOnNewSheet(): DataSourcePivotTable;
+            createDataSourceTableOnNewSheet(): DataSourceTable;
+            getCalculatedColumnByName(columnName: string): DataSourceColumn | null;
+            getCalculatedColumns(): DataSourceColumn[];
+            getColumns(): DataSourceColumn[];
+            getDataSourceSheets(): DataSourceSheet[];
             getSpec(): DataSourceSpec;
+            refreshAllLinkedDataSourceObjects(): void;
             updateSpec(spec: DataSourceSpec): DataSource;
+            updateSpec(spec: DataSourceSpec, refreshAllLinkedObjects: boolean): DataSource;
+            waitForAllDataExecutionsCompletion(timeoutInSeconds: Integer): void;
+        }
+        /**
+         * Access and modify an existing data source chart.
+         *
+         * Only use this class with data that's connected to a BigQuery database.
+         */
+        interface DataSourceChart {
+            cancelDataRefresh(): DataSourceChart;
+            forceRefreshData(): DataSourceChart;
+            getDataSource(): DataSource;
+            getStatus(): DataExecutionStatus;
+            refreshData(): DataSourceChart;
+            waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
         }
         /**
          * Access and modify a data source column.
@@ -357,6 +433,7 @@ declare namespace GoogleAppsScript {
          * Access and modify existing data source formulas.
          */
         interface DataSourceFormula {
+            cancelDataRefresh(): DataSourceFormula;
             forceRefreshData(): DataSourceFormula;
             getAnchorCell(): Range;
             getDataSource(): DataSource;
@@ -390,13 +467,50 @@ declare namespace GoogleAppsScript {
             addColumnGroup(columnName: string): PivotGroup;
             addFilter(columnName: string, filterCriteria: FilterCriteria): PivotFilter;
             addPivotValue(columnName: string, summarizeFunction: PivotTableSummarizeFunction): PivotValue;
+            addPivotValue(columnName: string): PivotValue;
             addRowGroup(columnName: string): PivotGroup;
             asPivotTable(): PivotTable;
+            cancelDataRefresh(): DataSourcePivotTable;
             forceRefreshData(): DataSourcePivotTable;
             getDataSource(): DataSource;
             getStatus(): DataExecutionStatus;
             refreshData(): DataSourcePivotTable;
             waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
+        }
+        /**
+         * Access and modify an existing refresh schedule. To get all refresh schedules, see
+         * Spreadsheet.getDataSourceRefreshSchedules().
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceRefreshSchedule {
+            getFrequency(): DataSourceRefreshScheduleFrequency;
+            getScope(): DataSourceRefreshScope;
+            getTimeIntervalOfNextRun(): any;
+            isEnabled(): boolean;
+        }
+        /**
+         * Access a refresh schedule's frequency, which specifies how often and when to refresh.
+         *
+         * Only use this class with data that's connected to a database.
+         *
+         * To see the next time this refresh schedule is scheduled to run, use
+         * DataSourceRefreshSchedule.getTimeIntervalOfNextRun().
+         *
+         * To update, use DataSourceRefreshSchedule.setFrequency(newFrequency).
+         */
+        interface DataSourceRefreshScheduleFrequency {
+            getDaysOfTheMonth(): Integer[];
+            getDaysOfTheWeek(): Base.Weekday[];
+            getFrequencyType(): FrequencyType;
+            getStartHour(): Integer;
+        }
+        /**
+         * An enumeration of scopes for refreshes.
+         */
+        enum DataSourceRefreshScope {
+            DATA_SOURCE_REFRESH_SCOPE_UNSUPPORTED,
+            ALL_DATA_SOURCES,
         }
         /**
          * Access and modify existing data source sheet. To create a new data source sheet, use Spreadsheet.insertDataSourceSheet(spec).
@@ -408,6 +522,7 @@ declare namespace GoogleAppsScript {
             asSheet(): Sheet;
             autoResizeColumn(columnName: string): DataSourceSheet;
             autoResizeColumns(columnNames: string[]): DataSourceSheet;
+            cancelDataRefresh(): DataSourceSheet;
             forceRefreshData(): DataSourceSheet;
             getColumnWidth(columnName: string): number;
             getDataSource(): DataSource;
@@ -421,6 +536,7 @@ declare namespace GoogleAppsScript {
             setColumnWidth(columnName: string, width: number): DataSourceSheet;
             setColumnWidths(columnNames: string[], width: number): DataSourceSheet;
             setSortSpec(columnName: string, ascending: boolean): DataSourceSheet;
+            setSortSpec(columnName: string, sortOrder: SortOrder): DataSourceSheet;
             waitForCompletion(timeoutInSeconds: number): DataExecutionStatus;
         }
         /**
@@ -452,6 +568,7 @@ declare namespace GoogleAppsScript {
          */
         interface DataSourceSpec {
             asBigQuery(): BigQueryDataSourceSpec;
+            asLooker(): LookerDataSourceSpec;
             copy(): DataSourceSpecBuilder;
             getParameters(): DataSourceParameter[];
             getType(): DataSourceType;
@@ -471,6 +588,7 @@ declare namespace GoogleAppsScript {
          */
         interface DataSourceSpecBuilder {
             asBigQuery(): BigQueryDataSourceSpecBuilder;
+            asLooker(): LookerDataSourceSpecBuilder;
             build(): DataSourceSpec;
             copy(): DataSourceSpecBuilder;
             getParameters(): DataSourceParameter[];
@@ -524,12 +642,49 @@ declare namespace GoogleAppsScript {
          *     Logger.log("Data execution state: %s.", dataSourceTable.getStatus().getExecutionState());
          */
         interface DataSourceTable {
+            addColumns(columnNames: string[]): DataSourceTable;
+            addFilter(columnName: string, filterCriteria: FilterCriteria): DataSourceTable;
+            addSortSpec(columnName: string, ascending: boolean): DataSourceTable;
+            addSortSpec(columnName: string, sortOrder: SortOrder): DataSourceTable;
+            cancelDataRefresh(): DataSourceTable;
             forceRefreshData(): DataSourceTable;
+            getColumns(): DataSourceTableColumn[];
             getDataSource(): DataSource;
+            getFilters(): DataSourceTableFilter[];
             getRange(): Range;
+            getRowLimit(): Integer | null;
+            getSortSpecs(): SortSpec[];
             getStatus(): DataExecutionStatus;
+            isSyncingAllColumns(): boolean;
             refreshData(): DataSourceTable;
+            removeAllColumns(): DataSourceTable;
+            removeAllSortSpecs(): DataSourceTable;
+            setRowLimit(rowLimit: Integer): DataSourceTable;
+            syncAllColumns(): DataSourceTable;
             waitForCompletion(timeoutInSeconds: Integer): DataExecutionStatus;
+        }
+        /**
+         * Access and modify an existing column in a DataSourceTable. To add columns to a data
+         * source table, use DataSourceTable.addColumns(columnNames).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceTableColumn {
+            getDataSourceColumn(): DataSourceColumn;
+            remove(): void;
+        }
+        /**
+         * Access and modify an existing data source table filter. To create a new data source table
+         * filter, use DataSourceTable.addFilter(columnName, filterCriteria).
+         *
+         * Only use this class with data that's connected to a database.
+         */
+        interface DataSourceTableFilter {
+            getDataSourceColumn(): DataSourceColumn;
+            getDataSourceTable(): DataSourceTable;
+            getFilterCriteria(): FilterCriteria;
+            remove(): void;
+            setFilterCriteria(filterCriteria: FilterCriteria): DataSourceTableFilter;
         }
         /**
          * An enumeration of data source types.
@@ -537,6 +692,7 @@ declare namespace GoogleAppsScript {
         enum DataSourceType {
             DATA_SOURCE_TYPE_UNSUPPORTED,
             BIGQUERY,
+            LOOKER,
         }
         /**
          * Access data validation rules. To create a new rule, use SpreadsheetApp.newDataValidation() and DataValidationBuilder. You can use
@@ -664,6 +820,42 @@ declare namespace GoogleAppsScript {
             VALUE_IN_RANGE,
             CUSTOM_FORMULA,
             CHECKBOX,
+            DATE_AFTER_RELATIVE,
+            DATE_BEFORE_RELATIVE,
+            DATE_EQUAL_TO_RELATIVE,
+        }
+        /**
+         * Access an existing date-time grouping rule.
+         *
+         * To set a rule on PivotGroup, use
+         * PivotGroup.setDateTimeGroupingRule(dateTimeGroupingRuleType).
+         */
+        interface DateTimeGroupingRule {
+            getRuleType(): DateTimeGroupingRuleType;
+        }
+        /**
+         * The types of date-time grouping rule.
+         *
+         * The examples below assume the spreadsheet locale is "en-US", grouping bucket may be
+         * translated based on the spreadsheet locale.
+         */
+        enum DateTimeGroupingRuleType {
+            UNSUPPORTED,
+            SECOND,
+            MINUTE,
+            HOUR,
+            HOUR_MINUTE,
+            HOUR_MINUTE_AMPM,
+            DAY_OF_WEEK,
+            DAY_OF_YEAR,
+            DAY_OF_MONTH,
+            DAY_MONTH,
+            MONTH,
+            QUARTER,
+            YEAR,
+            YEAR_MONTH,
+            YEAR_QUARTER,
+            YEAR_MONTH_DAY,
         }
         /**
          * Access and modify developer metadata. To create new developer metadata use Range.addDeveloperMetadata(key), Sheet.addDeveloperMetadata(key), or Spreadsheet.addDeveloperMetadata(key).
@@ -887,6 +1079,7 @@ declare namespace GoogleAppsScript {
          *     }
          */
         interface EmbeddedChart {
+            asDataSourceChart(): DataSourceChart | null;
             getAs(contentType: string): Base.Blob;
             getBlob(): Base.Blob;
             getChartId(): Integer | null;
@@ -1299,6 +1492,8 @@ declare namespace GoogleAppsScript {
             getCriteriaType(): BooleanCriteria;
             getCriteriaValues(): any[];
             getHiddenValues(): string[];
+            getVisibleBackgroundColor(): Color | null;
+            getVisibleForegroundColor(): Color | null;
             getVisibleValues(): string[];
         }
         /**
@@ -1310,8 +1505,12 @@ declare namespace GoogleAppsScript {
             getCriteriaType(): BooleanCriteria;
             getCriteriaValues(): any[];
             getHiddenValues(): string[];
+            getVisibleBackgroundColor(): Color | null;
+            getVisibleForegroundColor(): Color | null;
             getVisibleValues(): string[];
             setHiddenValues(values: string[]): FilterCriteriaBuilder;
+            setVisibleBackgroundColor(visibleBackgroundColor: Color): FilterCriteriaBuilder;
+            setVisibleForegroundColor(visibleForegroundColor: Color): FilterCriteriaBuilder;
             setVisibleValues(values: string[]): FilterCriteriaBuilder;
             whenCellEmpty(): FilterCriteriaBuilder;
             whenCellNotEmpty(): FilterCriteriaBuilder;
@@ -1321,21 +1520,38 @@ declare namespace GoogleAppsScript {
             whenDateBefore(date: RelativeDate): FilterCriteriaBuilder;
             whenDateEqualTo(date: Base.Date): FilterCriteriaBuilder;
             whenDateEqualTo(date: RelativeDate): FilterCriteriaBuilder;
+            whenDateEqualToAny(dates: Base.Date[]): FilterCriteriaBuilder;
+            whenDateNotEqualTo(date: Base.Date): FilterCriteriaBuilder;
+            whenDateNotEqualToAny(dates: Base.Date[]): FilterCriteriaBuilder;
             whenFormulaSatisfied(formula: string): FilterCriteriaBuilder;
             whenNumberBetween(start: number, end: number): FilterCriteriaBuilder;
             whenNumberEqualTo(number: number): FilterCriteriaBuilder;
+            whenNumberEqualToAny(numbers: number[]): FilterCriteriaBuilder;
             whenNumberGreaterThan(number: number): FilterCriteriaBuilder;
             whenNumberGreaterThanOrEqualTo(number: number): FilterCriteriaBuilder;
             whenNumberLessThan(number: number): FilterCriteriaBuilder;
             whenNumberLessThanOrEqualTo(number: number): FilterCriteriaBuilder;
             whenNumberNotBetween(start: number, end: number): FilterCriteriaBuilder;
             whenNumberNotEqualTo(number: number): FilterCriteriaBuilder;
+            whenNumberNotEqualToAny(numbers: number[]): FilterCriteriaBuilder;
             whenTextContains(text: string): FilterCriteriaBuilder;
             whenTextDoesNotContain(text: string): FilterCriteriaBuilder;
             whenTextEndsWith(text: string): FilterCriteriaBuilder;
             whenTextEqualTo(text: string): FilterCriteriaBuilder;
+            whenTextEqualToAny(texts: string[]): FilterCriteriaBuilder;
+            whenTextNotEqualTo(text: string): FilterCriteriaBuilder;
+            whenTextNotEqualToAny(texts: string[]): FilterCriteriaBuilder;
             whenTextStartsWith(text: string): FilterCriteriaBuilder;
             withCriteria(criteria: BooleanCriteria, args: any[]): FilterCriteriaBuilder;
+        }
+        /**
+         * An enumeration of frequency types.
+         */
+        enum FrequencyType {
+            FREQUENCY_TYPE_UNSUPPORTED,
+            DAILY,
+            WEEKLY,
+            MONTHLY,
         }
         /**
          * Access gradient (color) conditions in ConditionalFormatRuleApis.
@@ -1360,13 +1576,16 @@ declare namespace GoogleAppsScript {
          *     }
          */
         interface GradientCondition {
-            getMaxColor(): string;
+            /** @deprecated DO NOT USE */ getMaxColor(): string;
+            getMaxColorObject(): Color | null;
             getMaxType(): InterpolationType | null;
             getMaxValue(): string;
-            getMidColor(): string;
+            /** @deprecated DO NOT USE */ getMidColor(): string;
+            getMidColorObject(): Color | null;
             getMidType(): InterpolationType | null;
             getMidValue(): string;
-            getMinColor(): string;
+            /** @deprecated DO NOT USE */ getMinColor(): string;
+            getMinColorObject(): Color | null;
             getMinType(): InterpolationType | null;
             getMinValue(): string;
         }
@@ -1411,6 +1630,52 @@ declare namespace GoogleAppsScript {
             MAX,
         }
         /**
+         * A DataSourceSpec which is used to access specifically the existing Looker data source
+         * specifications. To create a new data source specification, use
+         * SpreadsheetApp.newDataSourceSpec().
+         *
+         * This example shows how you can get the Looker data source spec from a sheet which has
+         * just one Looker connection.
+         *
+         *     // TODO(developer): Replace the URL with your own.
+         *     const ss = SpreadsheetApp.openByUrl(
+         *         'https://docs.google.com/spreadsheets/d/abc123456/edit',
+         *     );
+         *
+         *     const lookerDataSourceSpec = ss.getDataSources()[0].getSpec().asLooker();
+         */
+        interface LookerDataSourceSpec {
+            copy(): DataSourceSpecBuilder;
+            getExploreName(): string;
+            getInstanceUrl(): string;
+            getModelName(): string;
+            getParameters(): DataSourceParameter[];
+            getType(): DataSourceType;
+        }
+        /**
+         * The builder for LookerDataSourceSpecBuilder.
+         *
+         * This example shows how to create a new Looker Data Source Spec builder.
+         *
+         *     const lookerDataSourceSpecBuilder =
+         *         SpreadsheetApp.newDataSourceSpec().asLooker();
+         */
+        interface LookerDataSourceSpecBuilder {
+            build(): DataSourceSpec;
+            copy(): DataSourceSpecBuilder;
+            getExploreName(): string;
+            getInstanceUrl(): string;
+            getModelName(): string;
+            getParameters(): DataSourceParameter[];
+            getType(): DataSourceType;
+            removeAllParameters(): LookerDataSourceSpecBuilder;
+            removeParameter(parameterName: string): LookerDataSourceSpecBuilder;
+            setExploreName(exploreName: string): LookerDataSourceSpecBuilder;
+            setInstanceUrl(instanceUrl: string): LookerDataSourceSpecBuilder;
+            setModelName(modelName: string): LookerDataSourceSpecBuilder;
+            setParameterFromCell(parameterName: string, sourceCell: string): LookerDataSourceSpecBuilder;
+        }
+        /**
          * Create, access and modify named ranges in a spreadsheet. Named ranges are ranges that have
          * associated string aliases. They can be viewed and edited via the Sheets UI under the Data >
          * Named ranges... menu.
@@ -1437,7 +1702,7 @@ declare namespace GoogleAppsScript {
             getInherentWidth(): Integer;
             getScript(): string;
             getSheet(): Sheet;
-            getUrl(): string | null;
+            /** @deprecated DO NOT USE */ getUrl(): string | null;
             getWidth(): Integer;
             remove(): void;
             replace(blob: Base.BlobSource): OverGridImage;
@@ -1456,6 +1721,7 @@ declare namespace GoogleAppsScript {
          *     Protection class instead. Although this class is deprecated, it remains available
          *     for compatibility with the older version of Sheets.
          * Access and modify protected sheets in the older version of Google Sheets.
+         * @deprecated DO NOT USE
          */
         interface PageProtection {
             /** @deprecated DO NOT USE */ addUser(email: string): void;
@@ -1471,6 +1737,7 @@ declare namespace GoogleAppsScript {
             getFilterCriteria(): FilterCriteria;
             getPivotTable(): PivotTable;
             getSourceDataColumn(): Integer;
+            getSourceDataSourceColumn(): DataSourceColumn | null;
             remove(): void;
             setFilterCriteria(filterCriteria: FilterCriteria): PivotFilter;
         }
@@ -1482,17 +1749,22 @@ declare namespace GoogleAppsScript {
             areLabelsRepeated(): boolean;
             clearGroupingRule(): PivotGroup;
             clearSort(): PivotGroup;
+            getDateTimeGroupingRule(): DateTimeGroupingRule | null;
             getDimension(): Dimension;
+            getGroupLimit(): PivotGroupLimit | null;
             getIndex(): Integer;
             getPivotTable(): PivotTable;
             getSourceDataColumn(): Integer;
+            getSourceDataSourceColumn(): DataSourceColumn | null;
             hideRepeatedLabels(): PivotGroup;
             isSortAscending(): boolean;
             moveToIndex(index: Integer): PivotGroup;
             remove(): void;
             removeManualGroupingRule(groupName: string): PivotGroup;
             resetDisplayName(): PivotGroup;
+            setDateTimeGroupingRule(dateTimeGroupingRuleType: DateTimeGroupingRuleType): PivotGroup;
             setDisplayName(name: string): PivotGroup;
+            setGroupLimit(countLimit: Integer): PivotGroup;
             setHistogramGroupingRule(minValue: Integer, maxValue: Integer, intervalSize: Integer): PivotGroup;
             showRepeatedLabels(): PivotGroup;
             showTotals(showTotals: boolean): PivotGroup;
@@ -1500,6 +1772,15 @@ declare namespace GoogleAppsScript {
             sortBy(value: PivotValue, oppositeGroupValues: any[]): PivotGroup;
             sortDescending(): PivotGroup;
             totalsAreShown(): boolean;
+        }
+        /**
+         * Access and modify pivot table group limit.
+         */
+        interface PivotGroupLimit {
+            getCountLimit(): Integer;
+            getPivotGroup(): PivotGroup;
+            remove(): void;
+            setCountLimit(countLimit: Integer): PivotGroupLimit;
         }
         /**
          * Access and modify pivot tables.
@@ -1510,11 +1791,13 @@ declare namespace GoogleAppsScript {
             addFilter(sourceDataColumn: Integer, filterCriteria: FilterCriteria): PivotFilter;
             addPivotValue(sourceDataColumn: Integer, summarizeFunction: PivotTableSummarizeFunction): PivotValue;
             addRowGroup(sourceDataColumn: Integer): PivotGroup;
+            asDataSourcePivotTable(): DataSourcePivotTable | null;
             getAnchorCell(): Range;
             getColumnGroups(): PivotGroup[];
             getFilters(): PivotFilter[];
             getPivotValues(): PivotValue[];
             getRowGroups(): PivotGroup[];
+            getSourceDataRange(): Range;
             getValuesDisplayOrientation(): Dimension;
             remove(): void;
             setValuesDisplayOrientation(dimension: Dimension): PivotTable;
@@ -1545,7 +1828,10 @@ declare namespace GoogleAppsScript {
             getDisplayType(): PivotValueDisplayType;
             getFormula(): string | null;
             getPivotTable(): PivotTable;
+            getSourceDataColumn(): Integer;
+            getSourceDataSourceColumn(): DataSourceColumn | null;
             getSummarizedBy(): PivotTableSummarizeFunction;
+            remove(): void;
             setDisplayName(name: string): PivotValue;
             setFormula(formula: string): PivotValue;
             showAs(displayType: PivotValueDisplayType): PivotValue;
@@ -1607,6 +1893,7 @@ declare namespace GoogleAppsScript {
             addEditor(emailAddress: string): Protection;
             addEditor(user: Base.User): Protection;
             addEditors(emailAddresses: string[]): Protection;
+            addTargetAudience(audienceId: string): Protection;
             canDomainEdit(): boolean;
             canEdit(): boolean;
             getDescription(): string;
@@ -1614,6 +1901,7 @@ declare namespace GoogleAppsScript {
             getProtectionType(): ProtectionType;
             getRange(): Range;
             getRangeName(): string | null;
+            getTargetAudiences(): any[];
             getUnprotectedRanges(): Range[];
             isWarningOnly(): boolean;
             remove(): void;
@@ -1621,6 +1909,7 @@ declare namespace GoogleAppsScript {
             removeEditor(user: Base.User): Protection;
             removeEditors(emailAddresses: string[]): Protection;
             removeEditors(users: Base.User[]): Protection;
+            removeTargetAudience(audienceId: string): Protection;
             setDescription(description: string): Protection;
             setDomainEdit(editable: boolean): Protection;
             setNamedRange(namedRange: NamedRange): Protection;
@@ -1805,6 +2094,8 @@ declare namespace GoogleAppsScript {
             insertCheckboxes(checkedValue: any, uncheckedValue: any): Range;
             isBlank(): boolean;
             isChecked(): boolean | null;
+            isDataValid(): boolean;
+            isDataValidForAll(): boolean[][];
             isEndColumnBounded(): boolean;
             isEndRowBounded(): boolean;
             isPartOfMerge(): boolean;
@@ -2093,6 +2384,8 @@ declare namespace GoogleAppsScript {
             getConditionalFormatRules(): ConditionalFormatRule[];
             getCurrentCell(): Range | null;
             getDataRange(): Range;
+            getDataSourceFormulas(): DataSourceFormula[];
+            getDataSourcePivotTables(): DataSourcePivotTable[];
             getDataSourceTables(): DataSourceTable[];
             getDeveloperMetadata(): DeveloperMetadata[];
             getDrawings(): Drawing[];
@@ -2125,7 +2418,8 @@ declare namespace GoogleAppsScript {
             getSheetName(): string;
             getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): any[][];
             getSlicers(): Slicer[];
-            getTabColor(): string | null;
+            /** @deprecated DO NOT USE */ getTabColor(): string | null;
+            getTabColorObject(): Color | null;
             getType(): SheetType;
             hasHiddenGridlines(): boolean;
             hideColumn(column: Range): void;
@@ -2195,6 +2489,7 @@ declare namespace GoogleAppsScript {
             setRowHeights(startRow: Integer, numRows: Integer, height: Integer): Sheet;
             setRowHeightsForced(startRow: Integer, numRows: Integer, height: Integer): Sheet;
             setTabColor(color: string | null): Sheet;
+            setTabColorObject(color: Color | null): Sheet;
             showColumns(columnIndex: Integer): void;
             showColumns(columnIndex: Integer, numColumns: Integer): void;
             showRows(rowIndex: Integer): void;
@@ -2214,6 +2509,7 @@ declare namespace GoogleAppsScript {
         enum SheetType {
             GRID,
             OBJECT,
+            DATASOURCE,
         }
         /**
          * Represents a slicer, which is used
@@ -2221,7 +2517,8 @@ declare namespace GoogleAppsScript {
          * methods to access and modify existing slicers. To create a new slicer, use Sheet.insertSlicer(range, anchorRowPos, anchorColPos).
          */
         interface Slicer {
-            getBackgroundColor(): string | null;
+            /** @deprecated DO NOT USE */ getBackgroundColor(): string | null;
+            getBackgroundColorObject(): Color | null;
             getColumnPosition(): Integer | null;
             getContainerInfo(): ContainerInfo;
             getFilterCriteria(): FilterCriteria | null;
@@ -2233,6 +2530,7 @@ declare namespace GoogleAppsScript {
             remove(): void;
             setApplyToPivotTables(applyToPivotTables: boolean): Slicer;
             setBackgroundColor(color: string | null): Slicer;
+            setBackgroundColorObject(color: Color | null): Slicer;
             setColumnFilterCriteria(columnPosition: Integer, filterCriteria: FilterCriteria | null): Slicer;
             setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): Slicer;
             setRange(rangeApi: Range): Slicer;
@@ -2278,7 +2576,12 @@ declare namespace GoogleAppsScript {
             getColumnWidth(columnPosition: Integer): Integer;
             getCurrentCell(): Range | null;
             getDataRange(): Range;
+            getDataSourceFormulas(): DataSourceFormula[];
+            getDataSourcePivotTables(): DataSourcePivotTable[];
+            getDataSourceRefreshSchedules(): DataSourceRefreshSchedule[];
+            getDataSourceSheets(): DataSourceSheet[];
             getDataSourceTables(): DataSourceTable[];
+            getDataSources(): DataSource[];
             getDeveloperMetadata(): DeveloperMetadata[];
             getEditors(): Base.User[];
             getFormUrl(): string | null;
@@ -2319,6 +2622,7 @@ declare namespace GoogleAppsScript {
             insertColumnBefore(beforePosition: Integer): Sheet;
             insertColumnsAfter(afterPosition: Integer, howMany: Integer): Sheet;
             insertColumnsBefore(beforePosition: Integer, howMany: Integer): Sheet;
+            insertDataSourceSheet(spec: DataSourceSpec): DataSourceSheet;
             insertImage(blobSource: Base.BlobSource, column: Integer, row: Integer): OverGridImage;
             insertImage(
                 blobSource: Base.BlobSource,
@@ -2348,6 +2652,7 @@ declare namespace GoogleAppsScript {
             isRowHiddenByUser(rowPosition: Integer): boolean;
             moveActiveSheet(pos: Integer): void;
             moveChartToObjectSheet(chart: EmbeddedChart): Sheet;
+            refreshAllDataSources(): void;
             removeEditor(emailAddress: string): Spreadsheet;
             removeEditor(user: Base.User): Spreadsheet;
             removeMenu(name: string): void;
@@ -2393,6 +2698,7 @@ declare namespace GoogleAppsScript {
                 anonymousWriteAllowed: boolean,
             ): void;
             /** @deprecated DO NOT USE */ setSheetProtection(permissions: PageProtection): void;
+            waitForAllDataExecutionsCompletion(timeoutInSeconds: Integer): void;
         }
         /**
          * Access and create Google Sheets files. This class is the parent class for the Spreadsheet service.
@@ -2407,12 +2713,15 @@ declare namespace GoogleAppsScript {
             DataExecutionErrorCode: typeof DataExecutionErrorCode;
             DataExecutionState: typeof DataExecutionState;
             DataSourceParameterType: typeof DataSourceParameterType;
+            DataSourceRefreshScope: typeof DataSourceRefreshScope;
             DataSourceType: typeof DataSourceType;
             DataValidationCriteria: typeof DataValidationCriteria;
+            DateTimeGroupingRuleType: typeof DateTimeGroupingRuleType;
             DeveloperMetadataLocationType: typeof DeveloperMetadataLocationType;
             DeveloperMetadataVisibility: typeof DeveloperMetadataVisibility;
             Dimension: typeof Dimension;
             Direction: typeof Direction;
+            FrequencyType: typeof FrequencyType;
             GroupControlTogglePosition: typeof GroupControlTogglePosition;
             InterpolationType: typeof InterpolationType;
             PivotTableSummarizeFunction: typeof PivotTableSummarizeFunction;
@@ -2421,6 +2730,7 @@ declare namespace GoogleAppsScript {
             RecalculationInterval: typeof RecalculationInterval;
             RelativeDate: typeof RelativeDate;
             SheetType: typeof SheetType;
+            SortOrder: typeof SortOrder;
             TextDirection: typeof TextDirection;
             TextToColumnsDelimiter: typeof TextToColumnsDelimiter;
             ThemeColorType: typeof ThemeColorType;
@@ -2430,6 +2740,7 @@ declare namespace GoogleAppsScript {
             create(name: string, rows: Integer, columns: Integer): Spreadsheet;
             enableAllDataSourcesExecution(): void;
             enableBigQueryExecution(): void;
+            enableLookerExecution(): void;
             flush(): void;
             getActive(): Spreadsheet;
             getActiveRange(): Range;
@@ -2533,7 +2844,7 @@ declare namespace GoogleAppsScript {
             copy(): TextStyleBuilder;
             getFontFamily(): string | null;
             getFontSize(): Integer | null;
-            getForegroundColor(): string | null;
+            /** @deprecated DO NOT USE */ getForegroundColor(): string | null;
             getForegroundColorObject(): Color | null;
             isBold(): boolean | null;
             isItalic(): boolean | null;
