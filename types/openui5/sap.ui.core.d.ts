@@ -279,7 +279,7 @@ declare namespace sap {
     "sap/ui/thirdparty/qunit-2": undefined;
   }
 }
-// For Library Version: 1.153.0
+// For Library Version: 1.154.0
 
 declare module "sap/base/assert" {
   /**
@@ -2615,6 +2615,204 @@ declare module "sap/base/security/URLListValidator" {
 
 declare module "sap/base/security/URLWhitelist" {
   /**
+   * Registry to manage allowed URLs and validate against them.
+   *
+   * @since 1.58
+   * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator} instead. SAP strives
+   * to replace insensitive terms with inclusive language. Since APIs cannot be renamed or immediately removed
+   * for compatibility reasons, this API has been deprecated.
+   */
+  interface URLWhitelist {
+    /**
+     * Adds an entry.
+     *
+     * Note: Adding the first entry to the list of allowed entries will disallow all URLs but the ones matching
+     * the newly added entry.
+     *
+     * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator.add} instead.
+     */
+    add(
+      /**
+       * The protocol of the URL
+       */
+      protocol: string,
+      /**
+       * The host of the URL
+       */
+      host: string,
+      /**
+       * The port of the URL
+       */
+      port: string,
+      /**
+       * the path of the URL
+       */
+      path: string
+    ): void;
+    /**
+     * Clears the entries in the list.
+     *
+     * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator.clear} instead.
+     */
+    clear(): void;
+    /**
+     * Deletes an entry from the list.
+     *
+     * Note: Deleting the last entry from the list of allowed entries will allow all URLs.
+     *
+     * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator.clear} and {@link module:sap/base/security/URLListValidator.add }
+     * instead.
+     */
+    delete(
+      /**
+       * The entry to be deleted
+       */
+      oEntry: Entry
+    ): void;
+    /**
+     * Gets the list of allowed entries.
+     *
+     * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator.entries} instead.
+     *
+     * @returns The allowed entries
+     */
+    entries(): Entry[];
+    /**
+     * Validates a URL. Check if it's not a script or other security issue.
+     *
+     * Split URL into components and check for allowed characters according to RFC 3986:
+     *
+     *
+     * ```javascript
+     *
+     * authority     = [ userinfo "@" ] host [ ":" port ]
+     * userinfo      = *( unreserved / pct-encoded / sub-delims / ":" )
+     * host          = IP-literal / IPv4address / reg-name
+     *
+     * IP-literal    = "[" ( IPv6address / IPvFuture  ) "]"
+     * IPvFuture     = "v" 1*HEXDIG "." 1*( unreserved / sub-delims / ":" )
+     * IPv6address   =                            6( h16 ":" ) ls32
+     *               /                       "::" 5( h16 ":" ) ls32
+     *               / [               h16 ] "::" 4( h16 ":" ) ls32
+     *               / [ *1( h16 ":" ) h16 ] "::" 3( h16 ":" ) ls32
+     *               / [ *2( h16 ":" ) h16 ] "::" 2( h16 ":" ) ls32
+     *               / [ *3( h16 ":" ) h16 ] "::"    h16 ":"   ls32
+     *               / [ *4( h16 ":" ) h16 ] "::"              ls32
+     *               / [ *5( h16 ":" ) h16 ] "::"              h16
+     *               / [ *6( h16 ":" ) h16 ] "::"
+     * ls32          = ( h16 ":" h16 ) / IPv4address
+     *               ; least-significant 32 bits of address
+     * h16           = 1*4HEXDIG
+     *               ; 16 bits of address represented in hexadecimal
+     *
+     * IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
+     * dec-octet     = DIGIT                 ; 0-9
+     *               / %x31-39 DIGIT         ; 10-99
+     *               / "1" 2DIGIT            ; 100-199
+     *               / "2" %x30-34 DIGIT     ; 200-249
+     *               / "25" %x30-35          ; 250-255
+     *
+     * reg-name      = *( unreserved / pct-encoded / sub-delims )
+     *
+     * pct-encoded   = "%" HEXDIG HEXDIG
+     * reserved      = gen-delims / sub-delims
+     * gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "@"
+     * sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
+     *               / "*" / "+" / "," / ";" / "="
+     * unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+     * pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
+     *
+     * path          = path-abempty    ; begins with "/" or is empty
+     *               / path-absolute   ; begins with "/" but not "//"
+     *               / path-noscheme   ; begins with a non-colon segment
+     *               / path-rootless   ; begins with a segment
+     *               / path-empty      ; zero characters
+     *
+     * path-abempty  = *( "/" segment )
+     * path-absolute = "/" [ segment-nz *( "/" segment ) ]
+     * path-noscheme = segment-nz-nc *( "/" segment )
+     * path-rootless = segment-nz *( "/" segment )
+     * path-empty    = 0
+     * segment       = *pchar
+     * segment-nz    = 1*pchar
+     * segment-nz-nc = 1*( unreserved / pct-encoded / sub-delims / "@" )
+     *               ; non-zero-length segment without any colon ":"
+     *
+     * query         = *( pchar / "/" / "?" )
+     *
+     * fragment      = *( pchar / "/" / "?" )
+     * ```
+     *
+     *
+     * For the hostname component, we are checking for valid DNS hostnames according to RFC 952 / RFC 1123:
+     *
+     *
+     * ```javascript
+     *
+     * hname         = name *("." name)
+     * name          = let-or-digit ( *( let-or-digit-or-hyphen ) let-or-digit )
+     * ```
+     *
+     *
+     * When the URI uses the protocol 'mailto:', the address part is additionally checked against the most commonly
+     * used parts of RFC 6068:
+     *
+     *
+     * ```javascript
+     *
+     * mailtoURI     = "mailto:" [ to ] [ hfields ]
+     * to            = addr-spec *("," addr-spec )
+     * hfields       = "?" hfield *( "&" hfield )
+     * hfield        = hfname "=" hfvalue
+     * hfname        = *qchar
+     * hfvalue       = *qchar
+     * addr-spec     = local-part "@" domain
+     * local-part    = dot-atom-text              // not accepted: quoted-string
+     * domain        = dot-atom-text              // not accepted: "[" *dtext-no-obs "]"
+     * dtext-no-obs  = %d33-90 / ; Printable US-ASCII
+     *                 %d94-126  ; characters not including
+     *                           ; "[", "]", or "\"
+     * qchar         = unreserved / pct-encoded / some-delims
+     * some-delims   = "!" / "$" / "'" / "(" / ")" / "*"
+     *               / "+" / "," / ";" / ":" / "@"
+     *
+     * Note:
+     * A number of characters that can appear in <addr-spec> MUST be
+     * percent-encoded.  These are the characters that cannot appear in
+     * a URI according to [STD66] as well as "%" (because it is used for
+     * percent-encoding) and all the characters in gen-delims except "@"
+     * and ":" (i.e., "/", "?", "#", "[", and "]").  Of the characters
+     * in sub-delims, at least the following also have to be percent-
+     * encoded: "&", ";", and "=".  Care has to be taken both when
+     * encoding as well as when decoding to make sure these operations
+     * are applied only once.
+     *
+     * ```
+     *
+     *
+     * When an allowlist has been configured using {@link #add} and {@link #delete}, any URL that passes the
+     * syntactic checks above, additionally will be tested against the content of the allowlist.
+     *
+     * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator.validate} instead
+     *
+     * @returns true if valid, false if not valid
+     */
+    validate(
+      /**
+       * URL to be validated
+       */
+      sUrl: string
+    ): boolean;
+  }
+  const URLWhitelist: URLWhitelist;
+  /**
+   * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator} instead. SAP strives
+   * to replace insensitive terms with inclusive language. Since APIs cannot be renamed or immediately removed
+   * for compatibility reasons, this API has been deprecated.
+   */
+  export default URLWhitelist;
+
+  /**
    * Entry object of the URLWhitelist.
    *
    * @deprecated As of version 1.85. use {@link module:sap/base/security/URLListValidator.Entry} instead.
@@ -3651,89 +3849,6 @@ declare module "sap/base/util/Version" {
      */
     toString(): string;
   }
-}
-
-declare module "sap/ui/util/XMLHelper" {
-  import { URI } from "sap/ui/core/library";
-
-  /**
-   * Error information as provided by the `DOMParser`.
-   *
-   * Note that the set of properties with meaningful content differs between browsers.
-   */
-  export type XMLParseErrorInfo = {
-    errorCode?: int;
-
-    url?: URI;
-
-    reason?: string;
-
-    srcText?: string;
-
-    line?: int;
-
-    linepos?: int;
-
-    filepos?: int;
-
-    type?: "error" | "warning";
-  };
-
-  /**
-   * Provides functionality for parsing XML formatted strings and serializing XML documents.
-   *
-   * @since 1.58
-   */
-  interface XMLHelper {
-    /**
-     * Extracts parse error information from the specified document (if any).
-     *
-     * If an error was found, the returned object contains a browser-specific subset of the properties described
-     * in {@link module:sap/base/util/XMLHelper.XMLParseErrorInfo XMLParseErrorInfo}. Otherwise, it just contains
-     * an `errorCode` property with value 0.
-     *
-     *
-     * @returns A browser-specific error info object if errors were found, or an object with an errorCode
-     * of 0 only
-     */
-    getParseError(
-      /**
-       * The parsed XML document
-       */
-      oDocument: XMLDocument
-    ): XMLParseErrorInfo;
-    /**
-     * Parses the specified XML string into an XML document, using the native parsing functionality of the browser.
-     * If an error occurs during parsing, a {@link module:sap/base/util/XMLHelper.XMLParseErrorInfo parse error info object }
-     * is attached as the `parseError` property of the returned document.
-     *
-     *
-     * @returns the parsed XML document with a `parseError` property as described in {@link #getParseError}.
-     * An error occurred if the `errorCode` property of the `parseError` is not 0.
-     */
-    parse(
-      /**
-       * An XML string
-       */
-      sXMLText: string
-    ): XMLDocument;
-    /**
-     * Serializes the specified DOM tree into a string representation.
-     * See:
-     * 	{@link https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer/serializeToString}
-     *
-     *
-     * @returns the serialized XML string
-     */
-    serialize(
-      /**
-       * the XML document object to be serialized as string
-       */
-      oXMLDocument: Node | Attr
-    ): string;
-  }
-  const XMLHelper: XMLHelper;
-  export default XMLHelper;
 }
 
 declare module "sap/ui/core/AnimationMode" {
@@ -10540,6 +10655,13 @@ declare module "sap/ui/test/starter/config" {
   import { URI } from "sap/ui/core/library";
 
   /**
+   * Namespace containing test starter configuration types.
+   */
+  interface config {}
+  const config: config;
+  export default config;
+
+  /**
    * Code coverage options.
    *
    * The qunit-coverage/qunit-coverage-istanbul module is always loaded after QUnit has been loaded to enable
@@ -11474,6 +11596,89 @@ declare module "sap/ui/util/Storage" {
      */
     session = "session",
   }
+}
+
+declare module "sap/ui/util/XMLHelper" {
+  import { URI } from "sap/ui/core/library";
+
+  /**
+   * Provides functionality for parsing XML formatted strings and serializing XML documents.
+   *
+   * @since 1.58
+   */
+  interface XMLHelper {
+    /**
+     * Extracts parse error information from the specified document (if any).
+     *
+     * If an error was found, the returned object contains a browser-specific subset of the properties described
+     * in {@link module:sap/base/util/XMLHelper.XMLParseErrorInfo XMLParseErrorInfo}. Otherwise, it just contains
+     * an `errorCode` property with value 0.
+     *
+     *
+     * @returns A browser-specific error info object if errors were found, or an object with an errorCode
+     * of 0 only
+     */
+    getParseError(
+      /**
+       * The parsed XML document
+       */
+      oDocument: XMLDocument
+    ): XMLParseErrorInfo;
+    /**
+     * Parses the specified XML string into an XML document, using the native parsing functionality of the browser.
+     * If an error occurs during parsing, a {@link module:sap/ui/util/XMLHelper.XMLParseErrorInfo parse error info object }
+     * is attached as the `parseError` property of the returned document.
+     *
+     *
+     * @returns the parsed XML document with a `parseError` property as described in {@link #getParseError}.
+     * An error occurred if the `errorCode` property of the `parseError` is not 0.
+     */
+    parse(
+      /**
+       * An XML string
+       */
+      sXMLText: string
+    ): XMLDocument;
+    /**
+     * Serializes the specified DOM tree into a string representation.
+     * See:
+     * 	{@link https://developer.mozilla.org/en-US/docs/Web/API/XMLSerializer/serializeToString}
+     *
+     *
+     * @returns the serialized XML string
+     */
+    serialize(
+      /**
+       * the XML document object to be serialized as string
+       */
+      oXMLDocument: Node | Attr
+    ): string;
+  }
+  const XMLHelper: XMLHelper;
+  export default XMLHelper;
+
+  /**
+   * Error information as provided by the `DOMParser`.
+   *
+   * Note that the set of properties with meaningful content differs between browsers.
+   */
+  export type XMLParseErrorInfo = {
+    errorCode?: int;
+
+    url?: URI;
+
+    reason?: string;
+
+    srcText?: string;
+
+    line?: int;
+
+    linepos?: int;
+
+    filepos?: int;
+
+    type?: "error" | "warning";
+  };
 }
 
 declare module "sap/ui/VersionInfo" {
@@ -17550,27 +17755,31 @@ declare module "sap/ui/core/library" {
   /**
    * Implementing this interface allows a control to be accessible via access keys.
    *
+   * @deprecated As of version 1.154. The concept has been abandoned.
    * @experimental As of version 1.104.
    */
   export interface IAccessKeySupport {
     __implements__sap_ui_core_IAccessKeySupport: boolean;
 
     /**
-     * Returns a refence to DOM element to be focused during Access key navigation. If not implemented getFocusDomRef()
+     * Returns a reference to DOM element to be focused during Access key navigation. If not implemented getFocusDomRef()
      * method is used.
      *
+     * @deprecated As of version 1.154. The concept has been abandoned.
      * @experimental As of version 1.104.
      */
     getAccessKeysFocusTarget?(): void;
     /**
      * If implemented called when access keys feature is enabled and highlighting is over
      *
+     * @deprecated As of version 1.154. The concept has been abandoned.
      * @experimental As of version 1.104.
      */
     onAccKeysHighlightEnd?(): void;
     /**
      * If implemented called when access keys feature is enabled and highlighting is ongoing
      *
+     * @deprecated As of version 1.154. The concept has been abandoned.
      * @experimental As of version 1.104.
      */
     onAccKeysHighlightStart?(): void;
@@ -32253,6 +32462,403 @@ declare module "sap/ui/core/HTML" {
     HTML$AfterRenderingEventParameters,
     HTML
   >;
+}
+
+declare module "sap/ui/core/html/HTMLElement" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import HTMLElementMetadata from "sap/ui/core/html/HTMLElementMetadata";
+
+  import { MetadataOptions as MetadataOptions1 } from "sap/ui/core/Element";
+
+  import {
+    PropertyBindingInfo,
+    AggregationBindingInfo,
+    MetadataOptions as MetadataOptions2,
+  } from "sap/ui/base/ManagedObject";
+
+  /**
+   * Base Class for HTMLElements. HTMLElements are native HTML elements which can be integrated into the UI5
+   * programming model by using this wrapper control. This wrapper control takes care to propagate the properties,
+   * the aggregations and the events. It also ensures to render the control and put the aggregated controls
+   * in the dedicated slots of the HTMLElement.
+   *
+   * @since 1.154.0
+   */
+  export default class HTMLElement extends Control {
+    /**
+     * Constructs and initializes a HTMLElement Wrapper with the given `sId` and settings.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Object with initial settings for the new control
+       */
+      mSettings?: $HTMLElementSettings
+    );
+    /**
+     * Constructs and initializes a HTMLElement Wrapper with the given `sId` and settings.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Optional ID for the new control; generated automatically if no non-empty ID is given Note: this can be
+       * omitted, no matter whether `mSettings` will be given or not!
+       */
+      sId?: string,
+      /**
+       * Object with initial settings for the new control
+       */
+      mSettings?: $HTMLElementSettings
+    );
+
+    /**
+     * Defines a new subclass of HTMLElement with the name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * **Note:** This class should not be extended manually. SAPUI5 provides a full set of predefined HTMLElements
+     * that can be used directly! For custom Web Components, use a dedicated class that extends {@link sap.ui.core.webc.WebComponent }
+     * instead.
+     *
+     * `oClassInfo` can contain the same information that {@link sap.ui.base.ManagedObject.extend} already accepts,
+     * plus the `dnd` property in the metadata object literal to configure drag-and-drop behavior (see {@link sap.ui.core.html.HTMLElement.MetadataOptions MetadataOptions }
+     * for details). Objects describing aggregations can also have a `dnd` property when used for a class extending
+     * `HTMLElement` (see {@link sap.ui.base.ManagedObject.MetadataOptions.AggregationDnD AggregationDnD}).
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class to be created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, HTMLElement>,
+      /**
+       * Constructor function for the metadata object. If not given, it defaults to `sap.ui.core.ElementMetadata`.
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.ui.core.html.HTMLElement.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): HTMLElementMetadata;
+    /**
+     * Adds some child to the aggregation {@link #getChildren children}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addChild(
+      /**
+       * The child to add; if empty, nothing is inserted
+       */
+      oChild: Control
+    ): this;
+    /**
+     * Destroys all the children in the aggregation {@link #getChildren children}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    destroyChildren(): this;
+    /**
+     * Gets content of aggregation {@link #getChildren children}.
+     *
+     * Generic aggregation for child controls of HTMLElements. Every native HTMLElement can theoretically have
+     * children.
+     */
+    getChildren(): Control[];
+    /**
+     * Gets current value of property {@link #getText text}.
+     *
+     * The text content of the HTMLElement. Natively rendered as the "textContent". Note: For void HTML elements
+     * (e.g. `<br>`, `<input>`), this property has no effect as these elements cannot have text
+     * content.
+     *
+     *
+     * @returns Value of property `text`
+     */
+    getText(): string;
+    /**
+     * Checks for the provided `sap.ui.core.Control` in the aggregation {@link #getChildren children}. and returns
+     * its index if found or -1 otherwise.
+     *
+     *
+     * @returns The index of the provided control in the aggregation if found, or -1 otherwise
+     */
+    indexOfChild(
+      /**
+       * The child whose index is looked for
+       */
+      oChild: Control
+    ): int;
+    /**
+     * Inserts a child into the aggregation {@link #getChildren children}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    insertChild(
+      /**
+       * The child to insert; if empty, nothing is inserted
+       */
+      oChild: Control,
+      /**
+       * The `0`-based index the child should be inserted at; for a negative value of `iIndex`, the child is inserted
+       * at position 0; for a value greater than the current size of the aggregation, the child is inserted at
+       * the last position
+       */
+      iIndex: int
+    ): this;
+    /**
+     * Removes all the controls from the aggregation {@link #getChildren children}.
+     *
+     * Additionally, it unregisters them from the hosting UIArea.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllChildren(): Control[];
+    /**
+     * Removes a child from the aggregation {@link #getChildren children}.
+     *
+     *
+     * @returns The removed child or `null`
+     */
+    removeChild(
+      /**
+       * The child to remove or its index or id
+       */
+      vChild: int | string | Control
+    ): Control | null;
+    /**
+     * Sets a new value for property {@link #getText text}.
+     *
+     * The text content of the HTMLElement. Natively rendered as the "textContent". Note: For void HTML elements
+     * (e.g. `<br>`, `<input>`), this property has no effect as these elements cannot have text
+     * content.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setText(
+      /**
+       * New value for property `text`
+       */
+      sText: string
+    ): this;
+  }
+  /**
+   * The structure of the "metadata" object which is passed when inheriting from sap.ui.core.Element using
+   * its static "extend" method. See {@link sap.ui.core.Element.extend} for details on its usage.
+   */
+  export type MetadataOptions = MetadataOptions1 & {
+    /**
+     * Tag name of the HTMLElement to be used in the renderer to render the HTML.
+     */
+    tag: string;
+    /**
+     * An object literal whose properties each define a new managed property in the HTMLElement subclass. See
+     * {@link sap.ui.base.ManagedObject.MetadataOptions.Property Property} for more details.
+     */
+    properties?: Record<string, string | MetadataOptions.Property>;
+    /**
+     * An object literal whose properties each define a new aggregation in the ManagedObject subclass. See {@link sap.ui.base.ManagedObject.MetadataOptions.Aggregation Aggregation }
+     * for more details.
+     */
+    aggregations?: Record<string, string | MetadataOptions.Aggregation>;
+    /**
+     * An object literal whose properties each define a new association in the ManagedObject subclass. See {@link sap.ui.base.ManagedObject.MetadataOptions.Association Association }
+     * for more details.
+     */
+    associations?: Record<string, string | MetadataOptions.Association>;
+    /**
+     * Proxied public getters of the HTMLElement which are directly accessible on the wrapper Control.
+     */
+    getters?: string[];
+    /**
+     * Proxied public methods of the HTMLElement which are directly accessible on the wrapper Control.
+     */
+    methods?: string[];
+  };
+
+  /**
+   * Describes the settings that can be provided to the HTMLElement constructor.
+   */
+  export interface $HTMLElementSettings extends $ControlSettings {
+    /**
+     * The text content of the HTMLElement. Natively rendered as the "textContent". Note: For void HTML elements
+     * (e.g. `<br>`, `<input>`), this property has no effect as these elements cannot have text
+     * content.
+     */
+    text?: string | PropertyBindingInfo;
+
+    /**
+     * Generic aggregation for child controls of HTMLElements. Every native HTMLElement can theoretically have
+     * children.
+     */
+    children?: Control[] | Control | AggregationBindingInfo | `{${string}}`;
+  }
+
+  export namespace MetadataOptions {
+    namespace Association {
+      /**
+       * An object literal describing the mapping of an association as property of a class derived from `sap.ui.core.html.HTMLElement`.
+       */
+      type Mapping = {
+        /**
+         * Defines the mapping of the association which defaults to "property". Associations are forwarded to the
+         * corresponding mutator of the HTMLElement.
+         */
+        type?: "property";
+        /**
+         * Defines the target of the mapping of the association to which property it will be mapped to.
+         */
+        to?: string;
+        /**
+         * Defines the name of the formatter function on the HTMLElement instance to format the value before its
+         * being mapped.
+         */
+        formatter?: string;
+      };
+    }
+
+    namespace Property {
+      /**
+       * An object literal describing the mapping of a property of a class derived from `sap.ui.core.html.HTMLElement`.
+       */
+      type Mapping = {
+        /**
+         * Defines the mapping of the property to be either "property", "style", "textContent", "slot", or "none".
+         * The default mapping of a property is "property" which either renders the value of the property into an
+         * attribute of the custom tag or forwards object properties to the mutator in the onAfterRendering phase.
+         */
+        type?: "property" | "style" | "textContent" | "slot" | "none";
+        /**
+         * Defines the target of the mapping of the property (e.g. the name of the attribute/property).
+         */
+        to?: string;
+        /**
+         * Defines the name of the formatter function on the HTMLElement instance to format the value before its
+         * being mapped.
+         */
+        formatter?: string;
+      };
+    }
+
+    /**
+     * An object literal describing a property of a class derived from `sap.ui.core.html.HTMLElement`. See {@link sap.ui.core.html.HTMLElement.MetadataOptions MetadataOptions }
+     * for details on its usage.
+     */
+    type Aggregation = MetadataOptions2.Aggregation & {
+      /**
+       * Flag that marks the property as deprecated (defaults to false). May lead to an additional warning log
+       * message at runtime when the property is still used. For the documentation, also add a `@deprecated` tag
+       * in the JSDoc, describing since when it is deprecated and what any alternatives are.
+       */
+      slot?: string;
+    };
+
+    /**
+     * An object literal describing an association of a class derived from `sap.ui.core.html.HTMLElement`. See
+     * {@link sap.ui.core.html.HTMLElement.MetadataOptions MetadataOptions} for details on its usage.
+     */
+    type Association = MetadataOptions2.Association & {
+      /**
+       * Defines the mapping of the association which defaults to "property". Associations are forwarded to the
+       * corresponding mutator of the HTMLElement.
+       */
+      mapping?: "property" | Association.Mapping;
+    };
+
+    /**
+     * An object literal describing a property of a class derived from `sap.ui.core.html.HTMLElement`. See {@link sap.ui.core.html.HTMLElement.MetadataOptions MetadataOptions }
+     * for details on its usage.
+     */
+    type Property = MetadataOptions2.Property & {
+      /**
+       * Defines the mapping of the property to be either "property", "style", "textContent", "slot", or "none".
+       * The default mapping of a property is "property" which either renders the value of the property into an
+       * attribute of the custom tag or forwards object properties to the mutator in the onAfterRendering phase.
+       */
+      mapping?:
+        | "property"
+        | "style"
+        | "textContent"
+        | "slot"
+        | "none"
+        | Property.Mapping;
+    };
+  }
+}
+
+declare module "sap/ui/core/html/HTMLElementMetadata" {
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  /**
+   * @since 1.154.0
+   */
+  export default class HTMLElementMetadata extends ElementMetadata {
+    /**
+     * Creates a new metadata object for a HTMLElement subclass.
+     */
+    constructor(
+      /**
+       * fully qualified name of the class that is described by this metadata object
+       */
+      sClassName: string,
+      /**
+       * static info to construct the metadata from
+       */
+      oClassInfo: object
+    );
+
+    /**
+     * Returns the list of public getters proxied by the Component Wrapper to the component itself.
+     *
+     *
+     * @returns Array of getter names.
+     */
+    getGetters(): string[];
+    /**
+     * Returns the list of public methods proxied by the Component Wrapper to the component itself.
+     *
+     *
+     * @returns Array of method names.
+     */
+    getMethods(): string[];
+    /**
+     * Retrieves the renderer for the described HTMLElement subclasses or web component class. **Note:** HTMLElement
+     * subclasses or Web Component wrappers must not define custom renderers. Returns the default HTMLElementRenderer.
+     *
+     *
+     * @returns The default renderer instance.
+     */
+    getRenderer(): object;
+    /**
+     * Returns the tag used to render the Component Wrapper.
+     *
+     *
+     * @returns The HTML tag name.
+     */
+    getTag(): string;
+  }
 }
 
 declare module "sap/ui/core/hyphenation/Hyphenation" {
@@ -52918,7 +53524,10 @@ declare module "sap/ui/core/VariantLayoutData" {
 }
 
 declare module "sap/ui/core/webc/WebComponent" {
-  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+  import {
+    default as HTMLElement,
+    $HTMLElementSettings,
+  } from "sap/ui/core/html/HTMLElement";
 
   import WebComponentMetadata from "sap/ui/core/webc/WebComponentMetadata";
 
@@ -52932,9 +53541,11 @@ declare module "sap/ui/core/webc/WebComponent" {
    * properties, the aggregations and the events. It also ensures to render the control and put the aggregated
    * controls in the dedicated slots of the Web Component.
    *
+   * **Note:** This class is abstract and must not be instantiated directly.
+   *
    * @since 1.138.0
    */
-  export default class WebComponent extends Control {
+  export default abstract class WebComponent extends HTMLElement {
     /**
      * Constructs and initializes a Web Component Wrapper with the given `sId` and settings.
      *
@@ -53031,18 +53642,6 @@ declare module "sap/ui/core/webc/WebComponent" {
      * @returns Metadata object describing this class
      */
     static getMetadata(): WebComponentMetadata;
-    /**
-     * Sets the Web Components busy state
-     *
-     *
-     * @returns `this` to allow method chaining
-     */
-    setBusy(
-      /**
-       * The new busy state to be set
-       */
-      bBusy: boolean
-    ): this;
   }
   /**
    * The structure of the "metadata" object which is passed when inheriting from sap.ui.core.Element using
@@ -53088,12 +53687,10 @@ declare module "sap/ui/core/webc/WebComponent" {
 
   export type MetadataOptionsEventMapping = MetadataOptions.Event.Mapping;
 
-  export type MetadataOptionsPropertyMapping = MetadataOptions.Property.Mapping;
-
   /**
    * Describes the settings that can be provided to the WebComponent constructor.
    */
-  export interface $WebComponentSettings extends $ControlSettings {}
+  export interface $WebComponentSettings extends $HTMLElementSettings {}
 
   export namespace MetadataOptions {
     namespace Association {
@@ -53205,18 +53802,18 @@ declare module "sap/ui/core/webc/WebComponent" {
         | "textContent"
         | "slot"
         | "none"
-        | MetadataOptionsPropertyMapping;
+        | /* was: sap.ui.core.webc.WebComponent.MetadataOptionsPropertyMapping */ any;
     };
   }
 }
 
 declare module "sap/ui/core/webc/WebComponentMetadata" {
-  import ElementMetadata from "sap/ui/core/ElementMetadata";
+  import HTMLElementMetadata from "sap/ui/core/html/HTMLElementMetadata";
 
   /**
    * @since 1.138.0
    */
-  export default class WebComponentMetadata extends ElementMetadata {
+  export default class WebComponentMetadata extends HTMLElementMetadata {
     /**
      * Creates a new metadata object for a WebComponent Wrapper subclass.
      */
@@ -53232,22 +53829,14 @@ declare module "sap/ui/core/webc/WebComponentMetadata" {
     );
 
     /**
-     * Returns the list of public getters, proxied by the Component Wrapper to the component itself
+     * Returns the renderer for the described web component class.
+     *
+     * **Note:** This always returns the default renderer. Web Component wrappers must not define custom renderers.
+     *
+     *
+     * @returns The default renderer instance.
      */
-    getGetters(): any[];
-    /**
-     * Returns the list of public methods, proxied by the Component Wrapper to the component itself
-     */
-    getMethods(): any[];
-    /**
-     * Retrieves the renderer for the described web component class. Note: this is always the default renderer
-     * and Web Component wrappers should not define their own renderers.
-     */
-    getRenderer(): void;
-    /**
-     * Returns the tag, used to render the Component Wrapper
-     */
-    getTag(): string;
+    getRenderer(): object;
   }
 }
 
@@ -73824,7 +74413,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      * Such a deletion is not a pending change.
      *
      * When using data aggregation without `groupLevels`, single entities can be deleted (since 1.151.0, see
-     * {@link #isAggregated}). The group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}.
+     * {@link #isAggregated}). The group ID must not have {@link sap.ui.model.odata.v4.SubmitMode.API}. Since
+     * 1.154.0, `groupLevels` are supported.
      * See:
      * 	#hasPendingChanges
      * 	#resetChanges
@@ -74225,7 +74815,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * When using data aggregation without `groupLevels` and without `"grandTotal like 1.84"` (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}),
      * single entities (see {@link #isAggregated}) can be refreshed and the grand total is updated accordingly
-     * (@experimental as of version 1.145.0).
+     * (@experimental as of version 1.145.0). Since 1.154.0, `groupLevels` are supported.
      *
      * @since 1.53.0
      */
@@ -74402,7 +74992,7 @@ declare module "sap/ui/model/odata/v4/Context" {
      *
      * When using data aggregation but no recursive hierarchy, and without `groupLevels` or `"grandTotal like
      * 1.84"` (see {@link sap.ui.model.odata.v4.ODataListBinding#setAggregation}), this context can also represent
-     * a single entity (see {@link #isAggregated}, since 1.151.0).
+     * a single entity (see {@link #isAggregated}, since 1.151.0). Since 1.154.0, `groupLevels` are supported.
      * See:
      * 	sap.ui.model.odata.v4.ODataContextBinding#getBoundContext
      * 	sap.ui.model.odata.v4.ODataContextBinding#invoke
@@ -74418,8 +75008,8 @@ declare module "sap/ui/model/odata/v4/Context" {
      *  The promise is rejected if
      * 	 the call attempts to refresh an entire list binding (via header context or an absolute path) while
      * the deletion of a row context (see {@link #delete}) is pending with a different group ID,  this is
-     * the row context of a list binding with data aggregation which has `groupLevels` or `"grandTotal like
-     * 1.84"`, or  this context does not represent a single entity
+     * the row context of a list binding with data aggregation which has `"grandTotal like 1.84"`, or  this
+     * context does not represent a single entity
      */
     requestSideEffects(
       /**
@@ -75593,8 +76183,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
      * is set to `undefined`.  The created context always knows its {@link sap.ui.model.odata.v4.Context#getPath path},
      * which can be used for {@link #getKeepAliveContext}.
      *
-     * When using data aggregation without `groupLevels` and without `"grandTotal like 1.84"` (see {@link #setAggregation}),
-     * single entities can be created (since 1.151.0, see {@link sap.ui.model.odata.v4.Context#isAggregated}).
+     * When using data aggregation without `"grandTotal like 1.84"` (see {@link #setAggregation}), single entities
+     * can be created (since 1.151.0, see {@link sap.ui.model.odata.v4.Context#isAggregated}). Single entities
+     * can also be created with visual grouping (@experimental as of version 1.154.0).
      *
      * @since 1.43.0
      *
@@ -76301,13 +76892,13 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          *  shared requests (since 1.108.0).   `subtotals`: An optional boolean that tells whether
          * subtotals for this aggregatable property are needed  `with`: An optional string that provides the
          * name of the method (for example "sum") used for aggregation of this aggregatable property; see "3.1.2
-         * Keyword with".  `name`: An optional string that provides the original aggregatable property name
-         * in case a different alias is chosen as the name of the dynamic property used for aggregation of this
-         * aggregatable property; see "3.1.1 Keyword as"  `unit`: An optional string that provides the name
-         * of the custom aggregate for a currency or unit of measure corresponding to this aggregatable property
-         * (since 1.86.0). The custom aggregate must return the single value of that unit in case there is only
-         * one, or `null` otherwise ("multi-unit situation"). (SQL suggestion: `CASE WHEN MIN(Unit) = MAX(Unit)
-         * THEN MIN(Unit) END`)
+         * Keyword with"; cannot be combined with `expandTo`  `name`: An optional string that provides the original
+         * aggregatable property name in case a different alias is chosen as the name of the dynamic property used
+         * for aggregation of this aggregatable property; see "3.1.1 Keyword as"; cannot be combined with `expandTo`
+         *  `unit`: An optional string that provides the name of the custom aggregate for a currency or unit
+         * of measure corresponding to this aggregatable property (since 1.86.0). The custom aggregate must return
+         * the single value of that unit in case there is only one, or `null` otherwise ("multi-unit situation").
+         * (SQL suggestion: `CASE WHEN MIN(Unit) = MAX(Unit) THEN MIN(Unit) END`)
          */
         aggregate?: object;
         /**
@@ -76323,7 +76914,9 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * By default, only root nodes are available; they are not yet expanded. Since 1.120.0, `expandTo >= Number.MAX_SAFE_INTEGER`
          * can be used to expand all levels (`1E16` is recommended inside XML views for simplicity). Since 1.139.0,
          * {@link #getAggregation} returns `expandTo : Number.MAX_SAFE_INTEGER` instead of values greater than this.
-         * These differences do not count as changes.
+         * These differences do not count as changes. This parameter is also supported for visual grouping (@experimental
+         * as of version 1.154.0) and requires the "com.sap.vocabularies.Analytics.v1.MultiLevelExpand"
+         * "$apply" transformation.
          */
         expandTo?: number;
         /**
@@ -76378,7 +76971,7 @@ declare module "sap/ui/model/odata/v4/ODataListBinding" {
          * aggregated properties while grand totals are needed. Beware that methods like "average" or "countdistinct"
          * are not compatible with this approach, and it cannot be combined with group levels. Since 1.129.0, this
          * property is not needed anymore and filtering by aggregated properties is supported even while grand totals
-         * or subtotals are needed.
+         * or subtotals are needed. Must not be combined with `expandTo`.
          */
         "grandTotal like 1.84"?: boolean;
       }
@@ -77938,6 +78531,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * typically with string values. $count can also be given as a `boolean` value, $expand can recursively
          * be given as a map, $levels can also be given as a `number` value, and $select can also be given as an
          * array (but without navigation paths). An empty map can also be given as `null` or `true`. See also {@link https://ui5.sap.com/#/topic/1ab4f62de6ab467096a2a98b363a1373 Parameters}.
+         * Since 1.154.0, this option can be combined with pure data aggregation defined via `$$aggregation` and
+         * is then used for requests without `$apply` and for requests with an (implicit or explicit) "identity"
+         * transformation, but silently ignored for others.
          */
         $expand?: string | object;
         /**
@@ -77957,7 +78553,9 @@ declare module "sap/ui/model/odata/v4/ODataModel" {
          * A comma separated list or an array of items which determine the value for the "5.1.4 System Query Option
          * $select". Since 1.75.0, when using the "autoExpandSelect" model parameter (see {@link #constructor}),
          * paths with navigation properties can be included and will contribute to the "5.1.3 System Query Option
-         * $expand".
+         * $expand". Since 1.154.0, this option can be combined with pure data aggregation defined via `$$aggregation`
+         * and is then used for requests without `$apply` and for requests with an (implicit or explicit) "identity"
+         * transformation, but silently ignored for others.
          */
         $select?: string | string[];
         /**
@@ -91320,6 +91918,12 @@ declare namespace sap {
     "sap/ui/core/History": undefined;
 
     "sap/ui/core/HTML": undefined;
+
+    "sap/ui/core/html/HTMLElement": undefined;
+
+    "sap/ui/core/html/HTMLElementMetadata": undefined;
+
+    "sap/ui/core/html/TextContent": undefined;
 
     "sap/ui/core/hyphenation/Hyphenation": undefined;
 
