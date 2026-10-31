@@ -261,15 +261,15 @@ export declare class ConnectionPool extends events.EventEmitter {
     ): config & { options: IOptions; pool: Partial<PoolOpts<Connection>> };
     public constructor(configOrConnectionString: config | string, callback?: (err?: any) => void);
     public query(command: string): Promise<IResult<any>>;
-    public query(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public query(strings: readonly string[], ...interpolations: any[]): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
-    public query<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+    public query<Entity>(strings: readonly string[], ...interpolations: any[]): Promise<IResult<Entity>>;
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
-    public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public batch(strings: readonly string[], ...interpolations: any[]): Promise<IResult<any>>;
     public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;
-    public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+    public batch<Entity>(strings: readonly string[], ...interpolations: any[]): Promise<IResult<Entity>>;
     public connect(): Promise<ConnectionPool>;
     public connect(callback: (err: any) => void): void;
     public close(): Promise<void>;
@@ -369,15 +369,15 @@ export declare class Request extends events.EventEmitter {
     public output(name: string, type: (() => ISqlType) | ISqlType, value?: any): Request;
     public pipe(stream: NodeJS.WritableStream): NodeJS.WritableStream;
     public query(command: string): Promise<IResult<any>>;
-    public query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public query(command: readonly string[], ...interpolations: any[]): Promise<IResult<any>>;
     public query<Entity>(command: string): Promise<IResult<Entity>>;
-    public query<Entity>(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+    public query<Entity>(command: readonly string[], ...interpolations: any[]): Promise<IResult<Entity>>;
     public query<Entity>(command: string, callback: (err?: Error, recordset?: IResult<Entity>) => void): void;
     public batch(batch: string): Promise<IResult<any>>;
-    public batch(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+    public batch(strings: readonly string[], ...interpolations: any[]): Promise<IResult<any>>;
     public batch(batch: string, callback: (err?: Error, recordset?: IResult<any>) => void): void;
     public batch<Entity>(batch: string): Promise<IResult<Entity>>;
-    public batch<Entity>(strings: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<Entity>>;
+    public batch<Entity>(strings: readonly string[], ...interpolations: any[]): Promise<IResult<Entity>>;
     public batch<Entity>(batch: string, callback: (err?: any, recordset?: IResult<Entity>) => void): void;
     public bulk(table: Table): Promise<IBulkResult>;
     public bulk(table: Table, options: IBulkOptions): Promise<IBulkResult>;
@@ -456,10 +456,10 @@ export declare function connect(config: config | string): Promise<ConnectionPool
 export declare function connect(config: config | string, callback?: (err?: Error) => void): void;
 
 export declare function query(command: string): Promise<IResult<any>>;
-export declare function query(command: TemplateStringsArray, ...interpolations: any[]): Promise<IResult<any>>;
+export declare function query(command: readonly string[], ...interpolations: any[]): Promise<IResult<any>>;
 export declare function query<Entity>(command: string): Promise<IResult<Entity>>;
 export declare function query<Entity>(
-    command: TemplateStringsArray,
+    command: readonly string[],
     ...interpolations: any[]
 ): Promise<IResult<Entity>>;
 export declare function query<Entity>(
