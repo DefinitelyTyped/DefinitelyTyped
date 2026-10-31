@@ -3797,12 +3797,12 @@ declare module "node:crypto" {
             generateKey(
                 algorithm: RsaHashedKeyGenParams | EcKeyGenParams,
                 extractable: boolean,
-                keyUsages: KeyUsage[],
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKeyPair>;
             generateKey(
                 algorithm: AesKeyGenParams | HmacKeyGenParams | Pbkdf2Params | KmacKeyGenParams,
                 extractable: boolean,
-                keyUsages: KeyUsage[],
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             generateKey(
                 algorithm: AlgorithmIdentifier,
@@ -3821,7 +3821,7 @@ declare module "node:crypto" {
                     | AesKeyAlgorithm
                     | KmacImportParams,
                 extractable: boolean,
-                keyUsages: KeyUsage[],
+                keyUsages: readonly KeyUsage[],
             ): Promise<CryptoKey>;
             importKey(
                 format: Exclude<KeyFormat, "jwk">,
