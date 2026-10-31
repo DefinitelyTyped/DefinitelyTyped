@@ -289,6 +289,9 @@ export class ClientBase extends events.EventEmitter {
 
     getTransactionStatus(): TransactionStatus;
 
+    isIdle(): boolean;
+    waitForIdle(): Promise<void>;
+
     on<E extends "connect" | "drain" | "error" | "notice" | "notification" | "end">(
         event: E,
         listener: E extends "connect" | "drain" | "end" ? () => void
@@ -305,7 +308,7 @@ export class Client extends ClientBase {
     host: string;
     password?: string | undefined;
     ssl: boolean;
-    readonly pipeline: boolean;
+    pipeline: boolean;
     readonly connection: Connection;
 
     constructor(config?: string | ClientConfig);
