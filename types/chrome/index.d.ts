@@ -968,6 +968,7 @@ declare namespace chrome {
             tabId?: number | null | undefined;
         }
 
+        /** @since Chrome 88 */
         interface TabDetails {
             /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned. */
             tabId?: number | null | undefined;
@@ -7836,10 +7837,10 @@ declare namespace chrome {
          *
          * Can return its result via Promise since Chrome 116.
          */
-        function create(notificationId: string, options: NotificationCreateOptions): Promise<string>;
+        function create(notificationId: string | undefined, options: NotificationCreateOptions): Promise<string>;
         function create(options: NotificationCreateOptions): Promise<string>;
         function create(
-            notificationId: string,
+            notificationId: string | undefined,
             options: NotificationCreateOptions,
             callback: (notificationId: string) => void,
         ): void;
@@ -8555,7 +8556,7 @@ declare namespace chrome {
              */
             recentlyUsedRank?: number;
             /** The source of the printer (user or policy configured). */
-            source: PrinterSource;
+            source: `${PrinterSource}`;
             /** The printer URI. This can be used by extensions to choose the printer for the user. */
             uri: string;
         }
@@ -9248,8 +9249,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        function query(options: QueryInfo): Promise<void>;
-        function query(options: QueryInfo, callback: () => void): void;
+        function query(queryInfo: QueryInfo): Promise<void>;
+        function query(queryInfo: QueryInfo, callback: () => void): void;
     }
 
     ////////////////////
@@ -9617,6 +9618,7 @@ declare namespace chrome {
             | "privacy"
             | "processes"
             | "proxy"
+            | "publicSuffix"
             | "readingList"
             | "scripting"
             | "search"
@@ -10053,7 +10055,7 @@ declare namespace chrome {
         /**
          * Fetches information about active contexts associated with this extension
          * @param filter A filter to find matching contexts. A context matches if it matches all specified fields in the filter. Any unspecified field in the filter matches all contexts.
-         * @since Chrome 116 MV3.
+         * @since Chrome 116, MV3
          */
         function getContexts(filter: ContextFilter): Promise<ExtensionContext[]>;
         function getContexts(filter: ContextFilter, callback: (contexts: ExtensionContext[]) => void): void;
@@ -10669,7 +10671,10 @@ declare namespace chrome {
             setAccessLevel(accessOptions: { accessLevel: `${AccessLevel}` }): Promise<void>;
             setAccessLevel(accessOptions: { accessLevel: `${AccessLevel}` }, callback: () => void): void;
 
-            /** Fired when one or more items change. */
+            /**
+             * Fired when one or more items change.
+             * @since Chrome 73
+             */
             onChanged: events.Event<(changes: { [key: string]: StorageChange }) => void>;
 
             /**
@@ -10926,7 +10931,7 @@ declare namespace chrome {
     export namespace system.display {
         /**
          * Layout position, i.e. edge of parent that the display is attached to.
-         * @since 53
+         * @since Chrome 53
          */
         enum LayoutPosition {
             TOP = "top",
