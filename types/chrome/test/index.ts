@@ -451,7 +451,15 @@ function testNotifications() {
         type: "basic",
     };
 
+    chrome.notifications.create(notificationCreateOptions); // $ExpectType Promise<string>
+    chrome.notifications.create(undefined, notificationCreateOptions); // $ExpectType Promise<string>
     chrome.notifications.create(notificationId, notificationCreateOptions); // $ExpectType Promise<string>
+    chrome.notifications.create(notificationCreateOptions, (notificationId) => { // $ExpectType void
+        notificationId; // $ExpectType string
+    });
+    chrome.notifications.create(undefined, notificationCreateOptions, (notificationId) => { // $ExpectType void
+        notificationId; // $ExpectType string
+    });
     chrome.notifications.create(notificationId, notificationCreateOptions, (notificationId) => { // $ExpectType void
         notificationId; // $ExpectType string
     });

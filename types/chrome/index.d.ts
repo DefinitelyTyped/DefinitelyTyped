@@ -7836,10 +7836,10 @@ declare namespace chrome {
          *
          * Can return its result via Promise since Chrome 116.
          */
-        function create(notificationId: string, options: NotificationCreateOptions): Promise<string>;
+        function create(notificationId: string | undefined, options: NotificationCreateOptions): Promise<string>;
         function create(options: NotificationCreateOptions): Promise<string>;
         function create(
-            notificationId: string,
+            notificationId: string | undefined,
             options: NotificationCreateOptions,
             callback: (notificationId: string) => void,
         ): void;
