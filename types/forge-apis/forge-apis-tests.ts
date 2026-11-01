@@ -11,9 +11,13 @@ import {
     ItemsApi,
     ObjectsApi,
     ProjectsApi,
+    setDebug,
     UserProfileApi,
     VersionsApi,
 } from "forge-apis";
+
+// $ExpectType void
+setDebug(true);
 
 const authToken: AuthToken = {
     access_token: "",

@@ -2,7 +2,6 @@ import {
     Camera,
     Color,
     Matrix4,
-    MeshBasicMaterial,
     MeshDepthMaterial,
     Object3D,
     Scene,
@@ -12,7 +11,7 @@ import {
     WebGLRenderTarget,
 } from "three";
 
-import { FullScreenQuad, Pass } from "./Pass.js";
+import { Pass } from "./Pass.js";
 
 export class OutlinePass extends Pass {
     constructor(resolution: Vector2, scene: Scene, camera: Camera, selectedObjects?: Object3D[]);
@@ -30,7 +29,6 @@ export class OutlinePass extends Pass {
     resolution: Vector2;
     patternTexture: Texture;
 
-    maskBufferMaterial: MeshBasicMaterial;
     renderTargetMaskBuffer: WebGLRenderTarget;
     depthMaterial: MeshDepthMaterial;
     prepareMaskMaterial: ShaderMaterial;
@@ -46,19 +44,8 @@ export class OutlinePass extends Pass {
     overlayMaterial: ShaderMaterial;
     copyUniforms: object;
     materialCopy: ShaderMaterial;
-    oldClearColor: Color;
     oldClearAlpha: number;
-    fsQuad: FullScreenQuad;
     tempPulseColor1: Color;
     tempPulseColor2: Color;
     textureMatrix: Matrix4;
-
-    updateSelectionCache(): void;
-    changeVisibilityOfSelectedObjects(bVisible: boolean): void;
-    changeVisibilityOfNonSelectedObjects(bVisible: boolean): void;
-    updateTextureMatrix(): void;
-    getPrepareMaskMaterial(): ShaderMaterial;
-    getEdgeDetectionMaterial(): ShaderMaterial;
-    getSeparableBlurMaterial(): ShaderMaterial;
-    getOverlayMaterial(): ShaderMaterial;
 }

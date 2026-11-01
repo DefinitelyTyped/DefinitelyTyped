@@ -12,6 +12,7 @@ import { Vector2 } from "../math/Vector2.js";
 import { Vector3 } from "../math/Vector3.js";
 import { Vector4 } from "../math/Vector4.js";
 import { Scene } from "../scenes/Scene.js";
+import { DepthTexture } from "../textures/DepthTexture.js";
 import { OffscreenCanvas, Texture } from "../textures/Texture.js";
 import { WebGLCapabilities, WebGLCapabilitiesParameters } from "./webgl/WebGLCapabilities.js";
 import { WebGLExtensions } from "./webgl/WebGLExtensions.js";
@@ -91,6 +92,17 @@ export interface WebGLDebug {
     checkShaderErrors: boolean;
 
     /**
+     * Diagnostics configuration for the shader generation. Only relevant for TSL.
+     */
+    diagnostics: {
+        /**
+         * Whether declaration names that collide with reserved keywords of the shading language should be renamed or
+         * not.
+         */
+        keywords: boolean;
+    };
+
+    /**
      * A callback function that can be used for custom error reporting. The callback receives the WebGL context, an
      * instance of WebGLProgram as well two instances of WebGLShader representing the vertex and fragment shader.
      * Assigning a custom function disables the default error reporting.
@@ -107,7 +119,9 @@ export interface WebGLDebug {
 }
 
 export interface Effect {
+    needsDepthTexture?: boolean;
     setSize(width: number, height: number): void;
+    setDepthTexture?(depthTexture: DepthTexture): void;
     render(
         renderer: WebGLRenderer,
         writeBuffer: WebGLRenderTarget,

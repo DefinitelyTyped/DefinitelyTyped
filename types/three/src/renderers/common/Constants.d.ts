@@ -7,6 +7,3 @@ export declare const AttributeType: {
 export type AttributeType = (typeof AttributeType)[keyof typeof AttributeType];
 
 export const GPU_CHUNK_BYTES: 16;
-
-export const BlendColorFactor: 211;
-export const OneMinusBlendColorFactor: 212;

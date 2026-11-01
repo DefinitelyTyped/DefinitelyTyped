@@ -101,6 +101,7 @@ braintree.client.create(
                             return googlePayInstance.parseResponse(paymentData);
                         })
                         .then((result: braintree.GooglePaymentTokenizePayload) => {
+                            const lastTwo: string = result.details.lastTwo;
                             console.log("nonce", result.nonce);
                         })
                         .catch(err => {
@@ -160,6 +161,7 @@ braintree.client.create(
                     ".valid": {
                         color: "green",
                     },
+                    ".invalid": "braintree-invalid-class",
                 },
                 fields: {
                     number: {
@@ -172,6 +174,8 @@ braintree.client.create(
                     cvv: {
                         container: "#cvv",
                         type: "password",
+                        iframeTitle: "CVV iframe title",
+                        internalLabel: "CVV internal label",
                     },
                     cardholderName: {
                         container: "#cardholder-name",
@@ -200,6 +204,9 @@ braintree.client.create(
                         select: true,
                     },
                 },
+                preventAutofill: false,
+                binVerificationLength: 6,
+                sessionId: "my-session-id",
             },
             (hostedFieldsErr?: braintree.BraintreeError, hostedFieldsInstance?: braintree.HostedFields) => {
                 if (hostedFieldsErr) {
@@ -209,6 +216,8 @@ braintree.client.create(
                     );
                     return;
                 }
+
+                hostedFieldsInstance.getChallenges().then((challenges) => console.log(challenges.join(", ")));
 
                 const form = new HTMLFormElement();
 
@@ -279,6 +288,7 @@ braintree.client.create(
                         billingAddress: {
                             postalCode: "12345",
                         },
+                        authenticationInsight: { merchantAccountId: "mid" },
                     },
                     (tokenizeErr: braintree.BraintreeError, payload: braintree.HostedFieldsTokenizePayload) => {
                         if (tokenizeErr) {
@@ -304,6 +314,11 @@ braintree.client.create(
                     // some time later...
                     hostedFieldsInstance.removeClass("number", "custom-class");
                 });
+
+                (async () => {
+                    await hostedFieldsInstance.addClass("number", "custom-class");
+                    await hostedFieldsInstance.removeClass("number", "custom-class");
+                })();
 
                 hostedFieldsInstance.setPlaceholder(
                     "number",
@@ -583,6 +598,22 @@ braintree.client.create(
             };
         });
 
+        // Check that apple pay createPaymentRequest fields are optional
+        braintree.applePay.create(
+            { authorization: clientToken, useDeferredClient: true },
+            (createErr, applePayInstance) => {
+                const request = {
+                    total: { label: "Your Label", amount: "10.00" },
+                };
+
+                (async () => {
+                    const paymentRequest = await applePayInstance.createPaymentRequest(request);
+                    console.log(paymentRequest);
+                    // { total: { }, countryCode: 'US', currencyCode: 'USD', merchantCapabilities: [ ], supportedNetworks: [ ] }
+                })();
+            },
+        );
+
         braintree.paypal.create(
             {
                 client: clientInstance,
@@ -689,6 +720,14 @@ braintree.client.create(
                     } finally {
                         button.removeAttribute("disabled");
                     }
+                });
+
+                // $ExpectType Promise<void>
+                paypalInstance.teardown();
+
+                // $ExpectType void
+                paypalInstance.teardown(() => {
+                    // teardown with callback
                 });
             },
         );
@@ -958,9 +997,13 @@ braintree.client.create(
                 });
         });
 
+        // $ExpectType void
         clientInstance.teardown(err => {
-            // implementation
+            // teardown with callback
         });
+
+        // $ExpectType Promise<void>
+        clientInstance.teardown();
 
         // Local Payment
         braintree.localPayment.create(
@@ -1018,6 +1061,17 @@ braintree.client.create(
         });
 
         braintree.dataCollector
+            .create({
+                authorization: clientToken,
+                useDeferredClient: true,
+            })
+            .then(dataCollectorInstance => dataCollectorInstance.getDeviceData())
+            .then(deviceData => {
+                // Implementation
+                console.log(deviceData);
+            });
+
+        braintree.dataCollector
             .create({ client: clientInstance })
             .then(dataCollectorInstance => dataCollectorInstance.getDeviceData())
             .then(deviceData => {
@@ -1057,6 +1111,17 @@ braintree.client.create(
             {
                 client: clientInstance,
                 version: "2-bootstrap3-modal",
+                cardinalSDKConfig: {
+                    logging: {
+                        level: "off",
+                    },
+                    timeout: 5000,
+                    maxRequestRetries: 2,
+                    payment: {
+                        displayLoading: true,
+                        displayExitButton: true,
+                    },
+                },
             },
             (createError, threeDSecure) => {
                 threeDSecure.verifyCard(
@@ -1064,6 +1129,22 @@ braintree.client.create(
                         nonce: existingNonce,
                         amount: "123.45", // $ExpectType string
                         bin: "1234",
+                        accountType: "debit",
+                        cardAddChallengeRequested: false,
+                        challengeRequested: false,
+                        dataOnlyRequested: false,
+                        requestVisaDAF: false,
+                        merchantName: "My merchant",
+                        requestedExemptionType: "low_value",
+                        applySmartAuthentication: false,
+                        customFields: {
+                            foo: 1,
+                            bar: "a string",
+                        },
+                        onLookupComplete: (data, next) => {
+                            console.log(data);
+                            next();
+                        },
                         collectDeviceData: true,
                         addFrame: (err, iframe) => {
                             // Set up your UI and add the iframe.
@@ -1128,6 +1209,15 @@ braintree.client.create(
                         verifyPayload.threeDSecureInfo.status; // The 3D Secure status.
                     },
                 );
+
+                (async () => {
+                    const verifyPayload = await threeDSecure.cancelVerifyCard();
+
+                    verifyPayload.nonce; // The nonce returned from the 3ds lookup call
+                    verifyPayload.liabilityShifted; // boolean
+                    verifyPayload.liabilityShiftPossible;
+                    verifyPayload.threeDSecureInfo.status; // boolean
+                })();
 
                 threeDSecure.on("lookup-complete", (data, next) => {
                     console.log("data from lookup", data);

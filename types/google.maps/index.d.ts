@@ -1,12 +1,13 @@
 // To report an issue with these types, please open a support ticket at:
 // https://issuetracker.google.com/savedsearches/558438
 
-// Google Maps JS API Version: 3.65
-// tslint:disable:enforce-name-casing
-// tslint:disable:no-any
-// tslint:disable:interface-over-type-literal
+// Google Maps JS API Version: 3.66
 // tslint:disable:array-type
+// tslint:disable:enforce-name-casing
+// tslint:disable:interface-over-type-literal
+// tslint:disable:no-any
 // tslint:disable:no-empty-interface
+// tslint:disable:no-quoted-property-signatures
 // tslint:disable:no-unnecessary-class
 // tslint:disable:strict-export-declare-modifiers
 // g3-prettier-ignore-file
@@ -2109,6 +2110,7 @@ declare namespace google.maps {
   }
   /**
    * Contains details of the author of a KML document or feature.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlAuthor {
     /**
@@ -2126,6 +2128,7 @@ declare namespace google.maps {
   }
   /**
    * Data for a single KML feature in JSON format, returned when a KML feature is clicked. The data contained in this object mirrors that associated with the feature in the KML or GeoRSS markup in which it is declared.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlFeatureData {
     /**
@@ -2155,7 +2158,7 @@ declare namespace google.maps {
   }
   /**
    * Access by calling `const {KmlLayer} = await google.maps.importLibrary("maps");`. See https://developers.google.com/maps/documentation/javascript/libraries.
-   * @deprecated As of version 3.65, google.maps.KmlLayer is deprecated. For alternative methods of displaying KML data on the map, see <a href="https://developers.devsite.corp.google.com/maps/deprecations#kml_layer_deprecated_as_of_april_30_2026">https://developers.devsite.corp.google.com/maps/deprecations#kml_layer_deprecated_as_of_april_30_2026</a>
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export class KmlLayer extends google.maps.MVCObject {
     /**
@@ -2204,6 +2207,7 @@ declare namespace google.maps {
   }
   /**
    * Metadata for a single KML layer, in JSON format.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlLayerMetadata {
     /**
@@ -2229,6 +2233,7 @@ declare namespace google.maps {
   }
   /**
    * This object defines the properties that can be set on a <code>KmlLayer</code> object.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlLayerOptions {
     /**
@@ -2267,6 +2272,7 @@ declare namespace google.maps {
    * The status returned by <code>KmlLayer</code> on the completion of loading a document. Specify these by value, or by using the constant&#39;s name. For example, <code>'OK'</code> or <code>google.maps.KmlLayerStatus.OK</code>.
    *
    * Access by calling `const {KmlLayerStatus} = await google.maps.importLibrary("maps");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export enum KmlLayerStatus {
     /**
@@ -2309,6 +2315,7 @@ declare namespace google.maps {
   export type KmlLayerStatusString = `${google.maps.KmlLayerStatus}`;
   /**
    * The properties of a click event on a KML/KMZ or GeoRSS document.
+   * @deprecated The KmlLayer functionality in the Maps JavaScript API is no longer available in the Maps JavaScript API as of version 3.66. For more info, see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a>.
    */
   export interface KmlMouseEvent {
     /**
@@ -2817,6 +2824,8 @@ declare namespace google.maps {
     zoom: number | null;
     addEventListener<K extends keyof MapElementEventMap>(type: K, listener: (this: MapElement, ev: MapElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MapElementEventMap>(type: K, listener: (this: MapElement, ev: MapElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface MapElementEventMap extends HTMLElementEventMap {
     "gmp-zoomchange": google.maps.ZoomChangeEvent;
@@ -3119,7 +3128,11 @@ declare namespace google.maps {
 
     GestureHandling: typeof google.maps.maps3d.GestureHandling;
 
+    Label3DElement: typeof google.maps.maps3d.Label3DElement;
+
     LocationClickEvent: typeof google.maps.maps3d.LocationClickEvent;
+
+    LocationPointerEvent: typeof google.maps.maps3d.LocationPointerEvent;
 
     Map3DElement: typeof google.maps.maps3d.Map3DElement;
 
@@ -3148,6 +3161,8 @@ declare namespace google.maps {
     Polyline3DInteractiveElement: typeof google.maps.maps3d.Polyline3DInteractiveElement;
 
     PopoverElement: typeof google.maps.maps3d.PopoverElement;
+
+    QualityMode: typeof google.maps.maps3d.QualityMode;
 
     SteadyChangeEvent: typeof google.maps.maps3d.SteadyChangeEvent;
   }
@@ -3810,7 +3825,7 @@ declare namespace google.maps {
   /**
    * Access by calling `const {MVCArray} = await google.maps.importLibrary("core");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
-  export class MVCArray< T = any > extends google.maps.MVCObject {
+  export class MVCArray<T = any> extends google.maps.MVCObject {
     /**
      * A mutable MVC Array.
      * @param array
@@ -4089,9 +4104,23 @@ declare namespace google.maps {
 
     AccessibilityOptions: typeof google.maps.places.AccessibilityOptions;
 
+    ActionButtonPosition: typeof google.maps.places.ActionButtonPosition;
+
+    ActionLinkType: typeof google.maps.places.ActionLinkType;
+
     AddressComponent: typeof google.maps.places.AddressComponent;
 
     AddressDescriptor: typeof google.maps.places.AddressDescriptor;
+
+    AdvancedPlaceDetailsCompactElement: typeof google.maps.places.AdvancedPlaceDetailsCompactElement;
+
+    AdvancedPlaceDetailsElement: typeof google.maps.places.AdvancedPlaceDetailsElement;
+
+    AdvancedPlaceItemElement: typeof google.maps.places.AdvancedPlaceItemElement;
+
+    AdvancedPlaceListElement: typeof google.maps.places.AdvancedPlaceListElement;
+
+    AdvancedPlaceSearchElement: typeof google.maps.places.AdvancedPlaceSearchElement;
 
     Area: typeof google.maps.places.Area;
 
@@ -4165,6 +4194,8 @@ declare namespace google.maps {
 
     PlaceAccessibleEntranceIconElement: typeof google.maps.places.PlaceAccessibleEntranceIconElement;
 
+    PlaceActionEvent: typeof google.maps.places.PlaceActionEvent;
+
     PlaceAddressElement: typeof google.maps.places.PlaceAddressElement;
 
     PlaceAllContentElement: typeof google.maps.places.PlaceAllContentElement;
@@ -4172,6 +4203,8 @@ declare namespace google.maps {
     PlaceAttributionElement: typeof google.maps.places.PlaceAttributionElement;
 
     PlaceAutocompleteElement: typeof google.maps.places.PlaceAutocompleteElement;
+
+    PlaceButtonElement: typeof google.maps.places.PlaceButtonElement;
 
     PlaceContentConfigElement: typeof google.maps.places.PlaceContentConfigElement;
 
@@ -4193,7 +4226,13 @@ declare namespace google.maps {
 
     PlaceFeatureListElement: typeof google.maps.places.PlaceFeatureListElement;
 
+    PlaceItemElement: typeof google.maps.places.PlaceItemElement;
+
+    PlaceLinkElement: typeof google.maps.places.PlaceLinkElement;
+
     PlaceMediaElement: typeof google.maps.places.PlaceMediaElement;
+
+    PlaceNameElement: typeof google.maps.places.PlaceNameElement;
 
     PlaceNearbySearchRequestElement: typeof google.maps.places.PlaceNearbySearchRequestElement;
 
@@ -4202,6 +4241,14 @@ declare namespace google.maps {
     PlaceOpenNowStatusElement: typeof google.maps.places.PlaceOpenNowStatusElement;
 
     PlacePhoneNumberElement: typeof google.maps.places.PlacePhoneNumberElement;
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     */
+    PlacePinElement: typeof google.maps.places.PlacePinElement;
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     */
+    PlacePinIcon: typeof google.maps.places.PlacePinIcon;
 
     PlacePlusCodeElement: typeof google.maps.places.PlacePlusCodeElement;
 
@@ -4931,6 +4978,11 @@ declare namespace google.maps {
   export class Settings {
     /**
      * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * A collection of unique content tokens generated by other services. The returned value is a copy of the internal value that is stored in the <code>Settings</code> instance. Operations on <code>.contentTokens</code> will therefore only modify the copy and not the internal value.<br/><br/>To update the internal value, use <code>addContentTokens()</code> on the singleton instance (ex: <code>Settings.getInstance().addContentTokens([token])</code>).
+     */
+    get contentTokens(): Iterable<string>;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
      * A collection of unique experience IDs to which to attribute Maps JS API calls. The returned value is a copy of the internal value that is stored in the <code>Settings</code> class singleton instance. Operations on <code>google.maps.Settings.getInstance().experienceIds</code> will therefore only modify the copy and not the internal value.<br/><br/>To update the internal value, set the property equal to the new value on the singleton instance (ex: <code>google.maps.Settings.getInstance().experienceIds = [experienceId];</code>).
      */
     get experienceIds(): Iterable<string>;
@@ -4942,6 +4994,11 @@ declare namespace google.maps {
      * Returns the singleton instance of <code>google.maps.Settings</code>.
      */
     static getInstance(): google.maps.Settings;
+    /**
+     * Available only in the v=beta channel: https://goo.gle/3oAthT3.
+     * Registers content tokens.
+     */
+    addContentTokens(contentTokens: Iterable<string> | null | undefined): void;
   }
   /**
    * Access by calling `const {Size} = await google.maps.importLibrary("core");`. See https://developers.google.com/maps/documentation/javascript/libraries.
@@ -5515,8 +5572,8 @@ declare namespace google.maps {
   export class StyledMapType extends google.maps.MVCObject implements google.maps.MapType {
     /**
      * Creates a styled <code>MapType</code> with the specified options. The <code>StyledMapType</code> takes an array of <code>MapTypeStyle</code>s, where each <code>MapTypeStyle</code> is applied to the map consecutively. A later <code>MapTypeStyle</code> that applies the same <code>MapTypeStyler</code>s to the same selectors as an earlier <code>MapTypeStyle</code> will override the earlier <code>MapTypeStyle</code>. <br><br>Note that the <code>StyledMapType</code> is not supported when a map ID is set. When using both together, you will receive a console warning.
-     * @param styles
-     * @param options
+     * @param styles The styles to apply.
+     * @param options The styled map type options.
      */
     constructor(styles: (google.maps.MapTypeStyle | null)[] | null, options?: google.maps.StyledMapTypeOptions | null);
 
@@ -6382,6 +6439,10 @@ declare namespace google.maps.addressValidation {
      */
     address: google.maps.places.PostalAddressLiteral;
     /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+    /**
      * If using a PlaceAutocompleteElement, include it here to link the AddressValidation API calls with the autocomplete session token.
      */
     placeAutocompleteElement?: google.maps.places.PlaceAutocompleteElement;
@@ -6781,6 +6842,8 @@ declare namespace google.maps.airQuality {
     requestedLanguage: string | null;
     addEventListener<K extends keyof AirQualityMeterElementEventMap>(type: K, listener: (this: AirQualityMeterElement, ev: AirQualityMeterElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AirQualityMeterElementEventMap>(type: K, listener: (this: AirQualityMeterElement, ev: AirQualityMeterElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface AirQualityMeterElementEventMap extends HTMLElementEventMap {
     "gmp-error": Event;
@@ -7399,9 +7462,9 @@ declare namespace google.maps.geometry.encoding {
 
 declare namespace google.maps.geometry.poly {
   /**
-   * Computes whether the given point lies inside the specified polygon.
+   * Computes whether the given point lies inside the specified polygon or circle. Passing a <code>Circle</code> requires <code>center</code> to be set and <code>radius</code> to be set to a non-negative value.
    */
-  export function containsLocation(point: google.maps.LatLng | google.maps.LatLngLiteral, polygon: google.maps.Polygon): boolean;
+  export function containsLocation(point: google.maps.LatLng | google.maps.LatLngLiteral, polygon: google.maps.Polygon | google.maps.Circle | google.maps.CircleLiteral): boolean;
   /**
    * Computes whether the given point lies on or near to a polyline, or the edge of a polygon, within a specified tolerance. Returns <code>true</code> when the difference between the latitude and longitude of the supplied point, and the closest point on the edge, is less than the tolerance. The tolerance defaults to 10<sup>-9</sup> degrees.
    */
@@ -9202,7 +9265,7 @@ declare namespace google.maps.maps3d {
     /**
      * The center of the circle.
      */
-    set center(value: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null | undefined);
+    set center(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
     /**
      * The radius of the circle in meters.
      */
@@ -9213,6 +9276,8 @@ declare namespace google.maps.maps3d {
     set radius(value: number | null | undefined);
     addEventListener<K extends keyof CirclePathElementEventMap>(type: K, listener: (this: CirclePathElement, ev: CirclePathElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof CirclePathElementEventMap>(type: K, listener: (this: CirclePathElement, ev: CirclePathElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface CirclePathElementEventMap extends HTMLElementEventMap {
   }
@@ -9224,7 +9289,7 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.CirclePathElement.center}.
      */
-    center?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null;
+    center?: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
     /**
      * See {@link google.maps.maps3d.CirclePathElement.radius}.
      */
@@ -9247,7 +9312,7 @@ declare namespace google.maps.maps3d {
     /**
      * The ordered sequence of coordinates that designates a closed loop. These paths define Exclusion Holes within the polygon&#39;s main path, which is the Flattening Zone. Areas within an innerPath are exempt from flattening.
      */
-    set innerPaths(value: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral>> | null | undefined);
+    set innerPaths(value: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral>> | null | undefined);
     /**
      * The ordered sequence of coordinates that designates a closed loop. This loop defines the Flattening Zone.
      */
@@ -9255,9 +9320,11 @@ declare namespace google.maps.maps3d {
     /**
      * The ordered sequence of coordinates that designates a closed loop. This loop defines the Flattening Zone.
      */
-    set path(value: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null | undefined);
+    set path(value: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null | undefined);
     addEventListener<K extends keyof FlattenerElementEventMap>(type: K, listener: (this: FlattenerElement, ev: FlattenerElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof FlattenerElementEventMap>(type: K, listener: (this: FlattenerElement, ev: FlattenerElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface FlattenerElementEventMap extends HTMLElementEventMap {
   }
@@ -9268,11 +9335,11 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.FlattenerElement.innerPaths}.
      */
-    innerPaths?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral>> | null;
+    innerPaths?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral>> | null;
     /**
      * See {@link google.maps.maps3d.FlattenerElement.path}.
      */
-    path?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null;
+    path?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null;
   }
   /**
    * Customization options for the FlyCameraAround Animation.
@@ -9330,10 +9397,68 @@ declare namespace google.maps.maps3d {
   }
   export type GestureHandlingString = `${google.maps.maps3d.GestureHandling}`;
   /**
+   * Represents a text label associated with a 3D marker on a map, allowing independent configuration of properties such as collision behavior.
+   * Access by calling `const {Label3DElement} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class Label3DElement extends HTMLElement implements google.maps.maps3d.Label3DElementOptions {
+    /**
+     * Creates an <code>Label3DElement</code> with the options specified.
+     * @param options
+     */
+    constructor(options?: google.maps.maps3d.Label3DElementOptions);
+    /**
+     * An enumeration specifying how the label of a Marker3DElement should behave when it collides with another element.
+     * @defaultValue {@link google.maps.CollisionBehavior.REQUIRED}
+     */
+    get collisionBehavior(): google.maps.CollisionBehaviorString | null;
+    /**
+     * An enumeration specifying how the label of a Marker3DElement should behave when it collides with another element.
+     * @defaultValue {@link google.maps.CollisionBehavior.REQUIRED}
+     */
+    set collisionBehavior(value: google.maps.CollisionBehaviorString | null | undefined);
+    /**
+     * The Marker3DElement that this label is for.
+     */
+    get for(): string | HTMLElement | null;
+    /**
+     * The Marker3DElement that this label is for.
+     */
+    set for(value: string | HTMLElement | null | undefined);
+    addEventListener<K extends keyof Label3DElementEventMap>(type: K, listener: (this: Label3DElement, ev: Label3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Label3DElementEventMap>(type: K, listener: (this: Label3DElement, ev: Label3DElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface Label3DElementEventMap extends HTMLElementEventMap {
+  }
+  /**
+   * Label3DElementOptions object used to define the properties that can be set on a Label3DElement.
+   */
+  export interface Label3DElementOptions {
+    /**
+     * An enumeration specifying how the label of a Marker3DElement should behave when it collides with another element.
+     */
+    collisionBehavior?: google.maps.CollisionBehaviorString | null;
+    /**
+     * The Marker3DElement that this label is for.
+     */
+    for?: string | HTMLElement | null;
+  }
+  /**
    * This event is created from clicking a Map3DElement.
    * Access by calling `const {LocationClickEvent} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
   export class LocationClickEvent extends Event {
+    /**
+     * The latitude/longitude/altitude that was below the cursor when the event occurred. Please note, that at coarser levels, less accurate data will be returned. Also, sea floor elevation may be returned for the altitude value when clicking at the water surface from higher camera positions. This event bubbles up through the DOM tree.
+     */
+    position: google.maps.LatLngAltitude | null;
+  }
+  /**
+   * This event is created when a pointer interaction occurs on an interactive Map3DElement.
+   * Access by calling `const {LocationPointerEvent} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class LocationPointerEvent extends Event {
     /**
      * The latitude/longitude/altitude that was below the cursor when the event occurred. Please note, that at coarser levels, less accurate data will be returned. Also, sea floor elevation may be returned for the altitude value when clicking at the water surface from higher camera positions. This event bubbles up through the DOM tree.
      */
@@ -9378,13 +9503,23 @@ declare namespace google.maps.maps3d {
      */
     set cameraPosition(value: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null | undefined);
     /**
-     * The center of the map given as a LatLngAltitude, where altitude is in meters above the mean sea level. Note that this is not necessarily where the camera is located, as the <code>range</code> field affects the camera&#39;s distance from the map center. If not set, defaults to <code>{lat: 0, lng: 0, altitude: 63170000}</code>. 63170000 meters is a maximum allowed altitude (Earth radius multiplied by 10).
+     * The center of the map given as a LatLngAltitude, where altitude is in meters above the mean sea level. Note that this is not necessarily where the camera is located, as the <code>range</code> field affects the camera&#39;s distance from the map center. If not set, defaults to <code>{lat: 0, lng: 0, altitude: 63710000}</code>. 63710000 meters is a maximum allowed altitude (Earth radius multiplied by 10).
      */
     get center(): google.maps.LatLngAltitude | null;
     /**
-     * The center of the map given as a LatLngAltitude, where altitude is in meters above the mean sea level. Note that this is not necessarily where the camera is located, as the <code>range</code> field affects the camera&#39;s distance from the map center. If not set, defaults to <code>{lat: 0, lng: 0, altitude: 63170000}</code>. 63170000 meters is a maximum allowed altitude (Earth radius multiplied by 10).
+     * The center of the map given as a LatLngAltitude, where altitude is in meters above the mean sea level. Note that this is not necessarily where the camera is located, as the <code>range</code> field affects the camera&#39;s distance from the map center. If not set, defaults to <code>{lat: 0, lng: 0, altitude: 63710000}</code>. 63710000 meters is a maximum allowed altitude (Earth radius multiplied by 10).
      */
     set center(value: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null | undefined);
+    /**
+     * Specifies the color scheme for the map. If not set, defaults to {@link google.maps.ColorScheme.FOLLOW_SYSTEM}.
+     * @defaultValue {@link google.maps.ColorScheme.FOLLOW_SYSTEM}
+     */
+    get colorScheme(): google.maps.ColorSchemeString | null;
+    /**
+     * Specifies the color scheme for the map. If not set, defaults to {@link google.maps.ColorScheme.FOLLOW_SYSTEM}.
+     * @defaultValue {@link google.maps.ColorScheme.FOLLOW_SYSTEM}
+     */
+    set colorScheme(value: google.maps.ColorSchemeString | null | undefined);
     /**
      * When <code>true</code>, all default UI buttons are hidden.
      * @defaultValue <code>false</code>
@@ -9454,11 +9589,11 @@ declare namespace google.maps.maps3d {
      */
     set mapId(value: string | null | undefined);
     /**
-     * The maximum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63170000</code> meters (Earth radius multiplied by 10).
+     * The maximum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63710000</code> meters (Earth radius multiplied by 10).
      */
     get maxAltitude(): number | null;
     /**
-     * The maximum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63170000</code> meters (Earth radius multiplied by 10).
+     * The maximum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63710000</code> meters (Earth radius multiplied by 10).
      */
     set maxAltitude(value: number | null | undefined);
     /**
@@ -9470,6 +9605,14 @@ declare namespace google.maps.maps3d {
      */
     set maxHeading(value: number | null | undefined);
     /**
+     * The maximum amount of memory, in megabytes, the map may use for rendering. Lower values reduce memory usage at the cost of visual detail; higher values allow more detail to be kept in memory. Valid values range from 64 to 2048. If not set, a limit is chosen automatically based on the device and the size of the map. Must be set before the map is initialized; changes made afterwards are ignored.
+     */
+    get maxMemoryMegabytes(): number | null;
+    /**
+     * The maximum amount of memory, in megabytes, the map may use for rendering. Lower values reduce memory usage at the cost of visual detail; higher values allow more detail to be kept in memory. Valid values range from 64 to 2048. If not set, a limit is chosen automatically based on the device and the size of the map. Must be set before the map is initialized; changes made afterwards are ignored.
+     */
+    set maxMemoryMegabytes(value: number | null | undefined);
+    /**
      * The maximum angle of incidence of the map. A valid value is between <code>0</code> and <code>90</code> degrees.
      */
     get maxTilt(): number | null;
@@ -9478,11 +9621,11 @@ declare namespace google.maps.maps3d {
      */
     set maxTilt(value: number | null | undefined);
     /**
-     * The minimum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63170000</code> meters (Earth radius multiplied by 10).
+     * The minimum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63710000</code> meters (Earth radius multiplied by 10).
      */
     get minAltitude(): number | null;
     /**
-     * The minimum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63170000</code> meters (Earth radius multiplied by 10).
+     * The minimum altitude above the ground which will be displayed on the map. A valid value is between <code>0</code> and <code>63710000</code> meters (Earth radius multiplied by 10).
      */
     set minAltitude(value: number | null | undefined);
     /**
@@ -9502,13 +9645,25 @@ declare namespace google.maps.maps3d {
      */
     set minTilt(value: number | null | undefined);
     /**
-     * Specifies a mode the map should be rendered in. If not set, the map won&#39;t be rendered.
+     * Specifies a mode the map should be rendered in. If not set, defaults to {@link google.maps.maps3d.MapMode.ROADMAP}.
+     * @defaultValue {@link google.maps.maps3d.MapMode.ROADMAP}
      */
     get mode(): google.maps.maps3d.MapModeString | null;
     /**
-     * Specifies a mode the map should be rendered in. If not set, the map won&#39;t be rendered.
+     * Specifies a mode the map should be rendered in. If not set, defaults to {@link google.maps.maps3d.MapMode.ROADMAP}.
+     * @defaultValue {@link google.maps.maps3d.MapMode.ROADMAP}
      */
     set mode(value: google.maps.maps3d.MapModeString | null | undefined);
+    /**
+     * Specifies the rendering quality of the map. Set to {@link google.maps.maps3d.QualityMode.PERFORMANCE} to render with reduced visual detail, which lowers memory usage.
+     * @defaultValue {@link google.maps.maps3d.QualityMode.FIDELITY}
+     */
+    get qualityMode(): google.maps.maps3d.QualityModeString | null;
+    /**
+     * Specifies the rendering quality of the map. Set to {@link google.maps.maps3d.QualityMode.PERFORMANCE} to render with reduced visual detail, which lowers memory usage.
+     * @defaultValue {@link google.maps.maps3d.QualityMode.FIDELITY}
+     */
+    set qualityMode(value: google.maps.maps3d.QualityModeString | null | undefined);
     /**
      * The distance from camera to the center of the map, in meters.
      */
@@ -9561,6 +9716,8 @@ declare namespace google.maps.maps3d {
     stopCameraAnimation(): void;
     addEventListener<K extends keyof Map3DElementEventMap>(type: K, listener: (this: Map3DElement, ev: Map3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Map3DElementEventMap>(type: K, listener: (this: Map3DElement, ev: Map3DElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Map3DElementEventMap extends HTMLElementEventMap {
     "gmp-animationend": Event;
@@ -9597,6 +9754,10 @@ declare namespace google.maps.maps3d {
      * See {@link google.maps.maps3d.Map3DElement.center}.
      */
     center?: google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral | null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.colorScheme}.
+     */
+    colorScheme?: google.maps.ColorSchemeString | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.defaultUIHidden}.
      */
@@ -9638,6 +9799,10 @@ declare namespace google.maps.maps3d {
      */
     maxHeading?: number | null;
     /**
+     * See {@link google.maps.maps3d.Map3DElement.maxMemoryMegabytes}.
+     */
+    maxMemoryMegabytes?: number | null;
+    /**
      * See {@link google.maps.maps3d.Map3DElement.maxTilt}.
      */
     maxTilt?: number | null;
@@ -9657,6 +9822,10 @@ declare namespace google.maps.maps3d {
      * See {@link google.maps.maps3d.Map3DElement.mode}.
      */
     mode?: google.maps.maps3d.MapModeString | null;
+    /**
+     * See {@link google.maps.maps3d.Map3DElement.qualityMode}.
+     */
+    qualityMode?: google.maps.maps3d.QualityModeString | null;
     /**
      * See {@link google.maps.maps3d.Map3DElement.range}.
      */
@@ -9690,7 +9859,6 @@ declare namespace google.maps.maps3d {
      */
     HYBRID = 'HYBRID',
     /**
-     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
      * This map mode displays a normal street map.
      */
     ROADMAP = 'ROADMAP',
@@ -9785,7 +9953,7 @@ declare namespace google.maps.maps3d {
     /**
      * The location of the tip of the marker. Altitude is ignored in certain modes and thus optional.
      */
-    set position(value: google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
+    set position(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
     /**
      * Specifies whether this marker should preserve its size or not regardless of distance from camera. By default, the marker is scaled based on distance from camera/tilt.
      * @defaultValue <code>false</code>
@@ -9806,6 +9974,8 @@ declare namespace google.maps.maps3d {
     set zIndex(value: number | null | undefined);
     addEventListener<K extends keyof Marker3DElementEventMap>(type: K, listener: (this: Marker3DElement, ev: Marker3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Marker3DElementEventMap>(type: K, listener: (this: Marker3DElement, ev: Marker3DElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Marker3DElementEventMap extends HTMLElementEventMap {
   }
@@ -9845,7 +10015,7 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.Marker3DElement.position}.
      */
-    position?: google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
+    position?: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
     /**
      * See {@link google.maps.maps3d.Marker3DElement.sizePreserved}.
      */
@@ -9879,9 +10049,14 @@ declare namespace google.maps.maps3d {
     title: string;
     addEventListener<K extends keyof Marker3DInteractiveElementEventMap>(type: K, listener: (this: Marker3DInteractiveElement, ev: Marker3DInteractiveElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Marker3DInteractiveElementEventMap>(type: K, listener: (this: Marker3DInteractiveElement, ev: Marker3DInteractiveElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Marker3DInteractiveElementEventMap extends google.maps.maps3d.Marker3DElementEventMap {
     "gmp-click": google.maps.maps3d.LocationClickEvent;
+    "gmp-pointermove": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerout": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerover": google.maps.maps3d.LocationPointerEvent;
   }
   /**
    * Marker3DInteractiveElementOptions object used to define the properties that can be set on a Marker3DInteractiveElement.
@@ -9967,13 +10142,15 @@ declare namespace google.maps.maps3d {
     /**
      * The location of the tip of the marker. Altitude is ignored in certain modes and thus optional.
      */
-    set position(value: google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
+    set position(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
     /**
      * Rollover text. If provided, an accessibility text (e.g. for use with screen readers) will be added to the <code>MarkerElement</code> with the provided value.
      */
     title: string;
     addEventListener<K extends keyof MarkerElementEventMap>(type: K, listener: (this: MarkerElement, ev: MarkerElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MarkerElementEventMap>(type: K, listener: (this: MarkerElement, ev: MarkerElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface MarkerElementEventMap extends HTMLElementEventMap {
   }
@@ -10009,7 +10186,7 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.MarkerElement.position}.
      */
-    position?: google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
+    position?: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
     /**
      * See {@link google.maps.maps3d.MarkerElement.title}.
      */
@@ -10035,6 +10212,8 @@ declare namespace google.maps.maps3d {
     set gmpPopoverTargetElement(value: google.maps.maps3d.PopoverElement | null | undefined);
     addEventListener<K extends keyof MarkerInteractiveElementEventMap>(type: K, listener: (this: MarkerInteractiveElement, ev: MarkerInteractiveElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof MarkerInteractiveElementEventMap>(type: K, listener: (this: MarkerInteractiveElement, ev: MarkerInteractiveElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface MarkerInteractiveElementEventMap extends google.maps.maps3d.MarkerElementEventMap {
     "gmp-click": google.maps.maps3d.LocationClickEvent;
@@ -10083,7 +10262,7 @@ declare namespace google.maps.maps3d {
     /**
      * Sets the <code>Model3DElement</code>&#39;s position. Altitude is ignored in certain modes and thus optional.
      */
-    set position(value: google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
+    set position(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
     /**
      * Scales the model along the x, y, and z axes in the model&#39;s coordinate space.
      * @defaultValue <code>1</code>
@@ -10104,6 +10283,8 @@ declare namespace google.maps.maps3d {
     set src(value: string | URL | null | undefined);
     addEventListener<K extends keyof Model3DElementEventMap>(type: K, listener: (this: Model3DElement, ev: Model3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Model3DElementEventMap>(type: K, listener: (this: Model3DElement, ev: Model3DElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Model3DElementEventMap extends HTMLElementEventMap {
   }
@@ -10122,7 +10303,7 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.Model3DElement.position}.
      */
-    position?: google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
+    position?: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null;
     /**
      * See {@link google.maps.maps3d.Model3DElement.scale}.
      */
@@ -10144,9 +10325,14 @@ declare namespace google.maps.maps3d {
     constructor(options?: google.maps.maps3d.Model3DElementOptions);
     addEventListener<K extends keyof Model3DInteractiveElementEventMap>(type: K, listener: (this: Model3DInteractiveElement, ev: Model3DInteractiveElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Model3DInteractiveElementEventMap>(type: K, listener: (this: Model3DInteractiveElement, ev: Model3DInteractiveElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Model3DInteractiveElementEventMap extends google.maps.maps3d.Model3DElementEventMap {
     "gmp-click": google.maps.maps3d.LocationClickEvent;
+    "gmp-pointermove": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerout": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerover": google.maps.maps3d.LocationPointerEvent;
   }
   /**
    * Model3DInteractiveElementOptions object used to define the properties that can be set on a Model3DInteractiveElement.
@@ -10244,7 +10430,7 @@ declare namespace google.maps.maps3d {
     /**
      * The ordered sequence of coordinates that designates a closed loop. Unlike polylines, a polygon may consist of one or more paths, which create multiple cut-outs inside the polygon.
      */
-    set innerPaths(value: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral>> | null | undefined);
+    set innerPaths(value: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral>> | null | undefined);
     /**
      * The ordered sequence of coordinates that designates a closed loop. Altitude is ignored in certain modes and thus optional.
      */
@@ -10252,7 +10438,7 @@ declare namespace google.maps.maps3d {
     /**
      * The ordered sequence of coordinates that designates a closed loop. Altitude is ignored in certain modes and thus optional.
      */
-    set path(value: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null | undefined);
+    set path(value: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null | undefined);
     /**
      * The stroke color. All CSS3 colors are supported.
      */
@@ -10281,14 +10467,16 @@ declare namespace google.maps.maps3d {
      * The ordered sequence of coordinates that designates a closed loop. Altitude is ignored in certain modes and thus optional.
      * @deprecated Use <code>path</code> instead. This property will be removed in a future release.
      */
-    outerCoordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null;
+    outerCoordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null;
     /**
      * The ordered sequence of coordinates that designates a closed loop. Unlike polylines, a polygon may consist of one or more paths, which create multiple cut-outs inside the polygon.
      * @deprecated Use <code>innerPaths</code> instead. This property will be removed in a future release.
      */
-    innerCoordinates?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral>> | null;
+    innerCoordinates?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral>> | null;
     addEventListener<K extends keyof Polygon3DElementEventMap>(type: K, listener: (this: Polygon3DElement, ev: Polygon3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Polygon3DElementEventMap>(type: K, listener: (this: Polygon3DElement, ev: Polygon3DElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Polygon3DElementEventMap extends HTMLElementEventMap {
   }
@@ -10324,19 +10512,19 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.innerCoordinates}.
      */
-    innerCoordinates?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral> | Iterable<google.maps.LatLngLiteral>> | null;
+    innerCoordinates?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral> | Iterable<google.maps.LatLng | google.maps.LatLngLiteral>> | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.innerPaths}.
      */
-    innerPaths?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral> | Iterable<google.maps.LatLngLiteral>> | null;
+    innerPaths?: Iterable<Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral> | Iterable<google.maps.LatLng | google.maps.LatLngLiteral>> | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.outerCoordinates}.
      */
-    outerCoordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null;
+    outerCoordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.path}.
      */
-    path?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null;
+    path?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null;
     /**
      * See {@link google.maps.maps3d.Polygon3DElement.strokeColor}.
      */
@@ -10362,9 +10550,14 @@ declare namespace google.maps.maps3d {
     constructor(options?: google.maps.maps3d.Polygon3DElementOptions);
     addEventListener<K extends keyof Polygon3DInteractiveElementEventMap>(type: K, listener: (this: Polygon3DInteractiveElement, ev: Polygon3DInteractiveElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Polygon3DInteractiveElementEventMap>(type: K, listener: (this: Polygon3DInteractiveElement, ev: Polygon3DInteractiveElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Polygon3DInteractiveElementEventMap extends google.maps.maps3d.Polygon3DElementEventMap {
     "gmp-click": google.maps.maps3d.LocationClickEvent;
+    "gmp-pointermove": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerout": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerover": google.maps.maps3d.LocationPointerEvent;
   }
   /**
    * Polygon3DInteractiveElementOptions object used to define the properties that can be set on a Polygon3DInteractiveElement.
@@ -10456,7 +10649,7 @@ declare namespace google.maps.maps3d {
     /**
      * The ordered sequence of coordinates of the Polyline. Altitude is ignored in certain modes and thus optional.
      */
-    set path(value: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null | undefined);
+    set path(value: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null | undefined);
     /**
      * The stroke color. All CSS3 colors are supported.
      */
@@ -10485,9 +10678,11 @@ declare namespace google.maps.maps3d {
      * The ordered sequence of coordinates of the Polyline. Altitude is ignored in certain modes and thus optional.
      * @deprecated Use <code>path</code> instead. This property will be removed in a future release.
      */
-    coordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null;
+    coordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null;
     addEventListener<K extends keyof Polyline3DElementEventMap>(type: K, listener: (this: Polyline3DElement, ev: Polyline3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Polyline3DElementEventMap>(type: K, listener: (this: Polyline3DElement, ev: Polyline3DElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Polyline3DElementEventMap extends HTMLElementEventMap {
   }
@@ -10507,7 +10702,7 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.coordinates}.
      */
-    coordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null;
+    coordinates?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.drawsOccludedSegments}.
      */
@@ -10531,7 +10726,7 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.path}.
      */
-    path?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLngLiteral> | null;
+    path?: Iterable<google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.LatLng | google.maps.LatLngLiteral> | null;
     /**
      * See {@link google.maps.maps3d.Polyline3DElement.strokeColor}.
      */
@@ -10557,9 +10752,14 @@ declare namespace google.maps.maps3d {
     constructor(options?: google.maps.maps3d.Polyline3DElementOptions);
     addEventListener<K extends keyof Polyline3DInteractiveElementEventMap>(type: K, listener: (this: Polyline3DInteractiveElement, ev: Polyline3DInteractiveElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Polyline3DInteractiveElementEventMap>(type: K, listener: (this: Polyline3DInteractiveElement, ev: Polyline3DInteractiveElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Polyline3DInteractiveElementEventMap extends google.maps.maps3d.Polyline3DElementEventMap {
     "gmp-click": google.maps.maps3d.LocationClickEvent;
+    "gmp-pointermove": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerout": google.maps.maps3d.LocationPointerEvent;
+    "gmp-pointerover": google.maps.maps3d.LocationPointerEvent;
   }
   /**
    * Polyline3DInteractiveElementOptions object used to define the properties that can be set on a Polyline3DInteractiveElement.
@@ -10623,9 +10823,11 @@ declare namespace google.maps.maps3d {
     /**
      * The position at which to display this popover. If the popover is anchored to an interactive marker, the marker&#39;s position will be used instead.
      */
-    set positionAnchor(value: google.maps.LatLngLiteral | google.maps.LatLngAltitudeLiteral | google.maps.maps3d.Marker3DInteractiveElement | google.maps.maps3d.MarkerInteractiveElement | string | null | undefined);
+    set positionAnchor(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | google.maps.maps3d.Marker3DInteractiveElement | google.maps.maps3d.MarkerInteractiveElement | string | null | undefined);
     addEventListener<K extends keyof PopoverElementEventMap>(type: K, listener: (this: PopoverElement, ev: PopoverElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PopoverElementEventMap>(type: K, listener: (this: PopoverElement, ev: PopoverElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PopoverElementEventMap extends HTMLElementEventMap {
   }
@@ -10652,8 +10854,24 @@ declare namespace google.maps.maps3d {
     /**
      * See {@link google.maps.maps3d.PopoverElement.positionAnchor}.
      */
-    positionAnchor?: google.maps.LatLngLiteral | google.maps.LatLngAltitudeLiteral | string | google.maps.maps3d.Marker3DInteractiveElement | google.maps.maps3d.MarkerInteractiveElement | null;
+    positionAnchor?: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | string | google.maps.maps3d.Marker3DInteractiveElement | google.maps.maps3d.MarkerInteractiveElement | null;
   }
+  /**
+   * Specifies the rendering quality of the 3D map.
+   *
+   * Access by calling `const {QualityMode} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum QualityMode {
+    /**
+     * Renders the map with standard visual detail.
+     */
+    FIDELITY = 'FIDELITY',
+    /**
+     * Renders the map with reduced visual detail to lower memory usage. Useful on memory-constrained devices or when the map shares the page with other memory-intensive content.
+     */
+    PERFORMANCE = 'PERFORMANCE',
+  }
+  export type QualityModeString = `${google.maps.maps3d.QualityMode}`;
   /**
    * This event is created from monitoring a steady state of <code>Map3DElement</code>. This event bubbles up through the DOM tree.
    * Access by calling `const {SteadyChangeEvent} = await google.maps.importLibrary("maps3d");`. See https://developers.google.com/maps/documentation/javascript/libraries.
@@ -10733,13 +10951,19 @@ declare namespace google.maps.marker {
     content?: Node | null;
     /**
      * Adds the given listener function to the given event name in the Maps Eventing system.
+     * @deprecated Use the standard DOM <code>addEventListener()</code> method instead.
      */
     addListener(eventName: string, handler: Function): google.maps.MapsEventListener;
     addEventListener<K extends keyof AdvancedMarkerElementEventMap>(type: K, listener: (this: AdvancedMarkerElement, ev: AdvancedMarkerElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AdvancedMarkerElementEventMap>(type: K, listener: (this: AdvancedMarkerElement, ev: AdvancedMarkerElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface AdvancedMarkerElementEventMap extends HTMLElementEventMap {
     "gmp-click": google.maps.marker.AdvancedMarkerClickEvent;
+    "gmp-drag": Event;
+    "gmp-dragend": Event;
+    "gmp-dragstart": Event;
   }
   /**
    * Options for constructing an {@link google.maps.marker.AdvancedMarkerElement}.
@@ -10896,6 +11120,50 @@ declare namespace google.maps.places {
     get hasWheelchairAccessibleSeating(): boolean | null;
   }
   /**
+   * The slotted position of the control in the place details widget.
+   *
+   * Access by calling `const {ActionButtonPosition} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum ActionButtonPosition {
+    /**
+     * The control is rendered in the corner of the widget. Corner controls render only an icon.
+     */
+    ACTION_CORNER = 'ACTION_CORNER',
+    /**
+     * The control is rendered in the main content area of the widget. Labels and icons are rendered.
+     */
+    ACTION_MAIN = 'ACTION_MAIN',
+  }
+  export type ActionButtonPositionString = `${google.maps.places.ActionButtonPosition}`;
+  /**
+   * The action taken by a {@link google.maps.places.PlaceLinkElement} when clicked. Determines the icon, label and href destination.
+   *
+   * Access by calling `const {ActionLinkType} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum ActionLinkType {
+    /**
+     * Triggers a tel: link to call the place. Behavior is operating system dependent.
+     */
+    CALL = 'CALL',
+    /**
+     * Use this action type for custom links. When using this action type, the <code>href</code> attribute must be set on the {@link google.maps.places.PlaceLinkElement}.
+     */
+    CUSTOM = 'CUSTOM',
+    /**
+     * Opens directions to the place in the location specified by {@link google.maps.places.PlaceLinkElement.target}.
+     */
+    OPEN_DIRECTIONS = 'OPEN_DIRECTIONS',
+    /**
+     * Opens the map in the location specified by {@link google.maps.places.PlaceLinkElement.target}.
+     */
+    OPEN_MAP = 'OPEN_MAP',
+    /**
+     * Opens the place&#39;s website in the location specified by {@link google.maps.places.PlaceLinkElement.target}.
+     */
+    OPEN_WEBSITE = 'OPEN_WEBSITE',
+  }
+  export type ActionLinkTypeString = `${google.maps.places.ActionLinkType}`;
+  /**
    * Address component for the Place&#39;s location.
    * Access by calling `const {AddressComponent} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -10934,6 +11202,297 @@ declare namespace google.maps.places {
      * Converts to a plain object.
      */
     toJSON(key?: string): unknown;
+  }
+  /**
+   * Displays details for a place in a compact layout. Append a {@link google.maps.places.PlaceDetailsPlaceRequestElement} or {@link google.maps.places.PlaceDetailsLocationRequestElement} to specify the place to be rendered. Append a {@link google.maps.places.PlaceStandardContentElement}, {@link google.maps.places.PlaceAllContentElement} or specify specific content children to configure the content to render. <br><br> To use this element, enable the <a href="https://console.cloud.google.com/marketplace/product/google/placewidgets.googleapis.com" >Places UI Kit API</a> for your project in the Google Cloud console.
+   * Access by calling `const {AdvancedPlaceDetailsCompactElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AdvancedPlaceDetailsCompactElement extends google.maps.places.PlaceDetailsCompactElement implements google.maps.places.AdvancedPlaceDetailsCompactElementOptions {
+    /**
+     * 
+     * @param options
+     */
+    constructor(options?: google.maps.places.AdvancedPlaceDetailsCompactElementOptions);
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    get internalUsageAttributionIds(): string[] | null;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    set internalUsageAttributionIds(value: Iterable<string> | null | undefined);
+    /**
+     * Read only. Place object containing the ID, location, and viewport of the currently rendered place.
+     */
+    get place(): google.maps.places.Place | undefined;
+    addEventListener<K extends keyof AdvancedPlaceDetailsCompactElementEventMap>(type: K, listener: (this: AdvancedPlaceDetailsCompactElement, ev: AdvancedPlaceDetailsCompactElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AdvancedPlaceDetailsCompactElementEventMap>(type: K, listener: (this: AdvancedPlaceDetailsCompactElement, ev: AdvancedPlaceDetailsCompactElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface AdvancedPlaceDetailsCompactElementEventMap extends google.maps.places.PlaceDetailsCompactElementEventMap {
+  }
+  /**
+   * Options for <code>AdvancedPlaceDetailsCompactElement</code>.
+   */
+  export interface AdvancedPlaceDetailsCompactElementOptions extends google.maps.places.PlaceDetailsCompactElementOptions {
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+  }
+  /**
+   * Displays details for a place in a full layout. Append either a {@link google.maps.places.PlaceDetailsPlaceRequestElement} or {@link google.maps.places.PlaceDetailsLocationRequestElement} to specify the place to be rendered. Append a {@link google.maps.places.PlaceStandardContentElement}, {@link google.maps.places.PlaceAllContentElement} or place details elements directly to configure the content to render. <br><br> Example: <pre><code> &lt;gmp-advanced-place-details&gt;<br> &nbsp;&nbsp;&lt;gmp-place-details-place-request<br> &nbsp;&nbsp;&nbsp;&nbsp;place="<var>PLACE_ID</var>"<br> &nbsp;&nbsp;&gt;&lt;/gmp-place-details-place-request&gt;<br> &nbsp;&nbsp;&lt;gmp-place-standard-content&gt;<br> &nbsp;&nbsp;&lt;/gmp-place-standard-content&gt;<br> &lt;/gmp-advanced-place-details&gt; </code></pre> <br> To use this element, enable the <a href="https://console.cloud.google.com/marketplace/product/google/placewidgets.googleapis.com" >Places UI Kit API</a> for your project in the Google Cloud console.
+   * Access by calling `const {AdvancedPlaceDetailsElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AdvancedPlaceDetailsElement extends google.maps.places.PlaceDetailsElement implements google.maps.places.AdvancedPlaceDetailsElementOptions {
+    /**
+     * 
+     * @param options
+     */
+    constructor(options?: google.maps.places.AdvancedPlaceDetailsElementOptions);
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    get internalUsageAttributionIds(): string[] | null;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    set internalUsageAttributionIds(value: Iterable<string> | null | undefined);
+    /**
+     * Read only. Place object containing the ID, location, and viewport of the currently rendered place.
+     */
+    get place(): google.maps.places.Place | undefined;
+    addEventListener<K extends keyof AdvancedPlaceDetailsElementEventMap>(type: K, listener: (this: AdvancedPlaceDetailsElement, ev: AdvancedPlaceDetailsElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AdvancedPlaceDetailsElementEventMap>(type: K, listener: (this: AdvancedPlaceDetailsElement, ev: AdvancedPlaceDetailsElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface AdvancedPlaceDetailsElementEventMap extends google.maps.places.PlaceDetailsElementEventMap {
+  }
+  /**
+   * Options for <code>AdvancedPlaceDetailsElement</code>.
+   */
+  export interface AdvancedPlaceDetailsElementOptions extends google.maps.places.PlaceDetailsElementOptions {
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+  }
+  /**
+   * Public web component wrapper (<code>&lt;gmp-advanced-place-item&gt;</code>) for advanced place list items. The <code>&lt;gmp-advanced-place-item&gt;</code> custom element renders an individual rich place result card inside an advanced search or collection container, such as <code>&lt;gmp-advanced-place-search&gt;</code> or <code>&lt;gmp-advanced-place-list&gt;</code>. Each <code>&lt;gmp-advanced-place-item&gt;</code> presents rich place details, media collages, editorial summaries, and interactive action buttons composed of child visual components from the Places UI Kit.
+   * Access by calling `const {AdvancedPlaceItemElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AdvancedPlaceItemElement extends google.maps.places.PlaceItemElement implements google.maps.places.AdvancedPlaceItemElementOptions {
+    addEventListener<K extends keyof AdvancedPlaceItemElementEventMap>(type: K, listener: (this: AdvancedPlaceItemElement, ev: AdvancedPlaceItemElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AdvancedPlaceItemElementEventMap>(type: K, listener: (this: AdvancedPlaceItemElement, ev: AdvancedPlaceItemElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface AdvancedPlaceItemElementEventMap extends google.maps.places.PlaceItemElementEventMap {
+  }
+  /**
+   * Options for <code>AdvancedPlaceItemElement</code>.
+   */
+  export interface AdvancedPlaceItemElementOptions extends google.maps.places.PlaceItemElementOptions {
+  }
+  /**
+   * Displays the results of a place search in a list. Append one or more {@link google.maps.places.PlaceDetailsPlaceRequestElement} or set the <code>places</code> property to specify the places to display. Append a {@link google.maps.places.PlaceStandardContentElement} or {@link google.maps.places.PlaceAllContentElement} to specify which content to render. <br><br> Example: <pre><code> &lt;gmp-advanced-place-list&gt;<br> &nbsp;&nbsp;&lt;gmp-place-details-place-request<br> &nbsp;&nbsp;&nbsp;&nbsp;place="<var>PLACE_ID</var>"<br> &nbsp;&nbsp;&lt;/gmp-place-details-place-request&gt;<br> &nbsp;&nbsp;&lt;template slot="details-item"&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-media lightbox-preferred&gt;&lt;/gmp-place-media&gt;<br> &nbsp;&nbsp;&lt;/template&gt;<br> &lt;/gmp-advanced-place-list&gt; </code></pre> <br> To use the Advanced Place List Element, enable the <a href="https://console.cloud.google.com/marketplace/product/google/placewidgets.googleapis.com" >Places UI Kit API</a> for your project in the Google Cloud console.
+   * Access by calling `const {AdvancedPlaceListElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AdvancedPlaceListElement extends HTMLElement implements google.maps.places.AdvancedPlaceListElementOptions {
+    /**
+     * 
+     * @param options
+     */
+    constructor(options?: google.maps.places.AdvancedPlaceListElementOptions);
+    /**
+     * The position of the attribution logo and legal disclosure button.
+     * @defaultValue <code>PlaceSearchAttributionPosition.TOP</code>
+     */
+    get attributionPosition(): google.maps.places.PlaceSearchAttributionPositionString;
+    /**
+     * The position of the attribution logo and legal disclosure button.
+     * @defaultValue <code>PlaceSearchAttributionPosition.TOP</code>
+     */
+    set attributionPosition(value: google.maps.places.PlaceSearchAttributionPositionString | null | undefined);
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    get internalUsageAttributionIds(): string[] | null;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    set internalUsageAttributionIds(value: Iterable<string> | null | undefined);
+    /**
+     * The orientation variant (vertical or horizontal) of the element.
+     * @defaultValue <code>PlaceSearchOrientation.VERTICAL</code>
+     */
+    get orientation(): google.maps.places.PlaceSearchOrientationString;
+    /**
+     * The orientation variant (vertical or horizontal) of the element.
+     * @defaultValue <code>PlaceSearchOrientation.VERTICAL</code>
+     */
+    set orientation(value: google.maps.places.PlaceSearchOrientationString | null | undefined);
+    /**
+     * List of Place objects containing the IDs which should be displayed in this element. Note that all Places set in the places property might not be displayed if they could not be rendered(e.g. invalid ID, network request error, etc.). The places property can be read to retrieve the currently displayed places.
+     */
+    get places(): google.maps.places.Place[];
+    /**
+     * List of Place objects containing the IDs which should be displayed in this element. Note that all Places set in the places property might not be displayed if they could not be rendered(e.g. invalid ID, network request error, etc.). The places property can be read to retrieve the currently displayed places.
+     */
+    set places(value: Iterable<google.maps.places.Place | string> | null | undefined);
+    /**
+     * Whether or not the list items are selectable. If true, the list items will be buttons that dispatch the <code>gmp-select</code> event when clicked. Accessible keyboard navigation and selection is also supported.
+     * @defaultValue <code>false</code>
+     */
+    get selectable(): boolean;
+    /**
+     * Whether or not the list items are selectable. If true, the list items will be buttons that dispatch the <code>gmp-select</code> event when clicked. Accessible keyboard navigation and selection is also supported.
+     * @defaultValue <code>false</code>
+     */
+    set selectable(value: boolean | null | undefined);
+    /**
+     * If true, truncates certain lines of content to fit on one line instead of wrapping.
+     * @defaultValue <code>false</code>
+     */
+    get truncationPreferred(): boolean;
+    /**
+     * If true, truncates certain lines of content to fit on one line instead of wrapping.
+     * @defaultValue <code>false</code>
+     */
+    set truncationPreferred(value: boolean | null | undefined);
+    addEventListener<K extends keyof AdvancedPlaceListElementEventMap>(type: K, listener: (this: AdvancedPlaceListElement, ev: AdvancedPlaceListElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AdvancedPlaceListElementEventMap>(type: K, listener: (this: AdvancedPlaceListElement, ev: AdvancedPlaceListElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface AdvancedPlaceListElementEventMap extends HTMLElementEventMap {
+    "gmp-error": Event;
+    "gmp-load": Event;
+    "gmp-select": google.maps.places.PlaceSelectEvent;
+  }
+  /**
+   * Options for <code>AdvancedPlaceListElement</code>.
+   */
+  export interface AdvancedPlaceListElementOptions {
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.attributionPosition}.
+     */
+    attributionPosition?: google.maps.places.PlaceSearchAttributionPositionString | null;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.orientation}.
+     */
+    orientation?: google.maps.places.PlaceSearchOrientationString | null;
+    /**
+     * See {@link google.maps.places.AdvancedPlaceListElement.places}.
+     */
+    places?: Iterable<google.maps.places.Place | string> | null;
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.selectable}
+     */
+    selectable?: boolean | null;
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.truncationPreferred}.
+     */
+    truncationPreferred?: boolean | null;
+  }
+  /**
+   * Displays the results of an advanced place search in a list. Append a {@link google.maps.places.PlaceTextSearchRequestElement} or {@link google.maps.places.PlaceNearbySearchRequestElement} to specify the request to render results for. Append a {@link google.maps.places.PlaceStandardContentElement}, {@link google.maps.places.PlaceAllContentElement}, or a <code>&lt;template slot=&quot;details-item&quot;&gt;</code> to specify which content to render. <br><br> Example: <pre><code> &lt;gmp-advanced-place-search&gt;<br> &nbsp;&nbsp;&lt;gmp-place-text-search-request<br> &nbsp;&nbsp;&nbsp;&nbsp;text-query="<var>QUERY</var>"<br> &nbsp;&nbsp;&gt;&lt;/gmp-place-text-search-request&gt;<br> &nbsp;&nbsp;&lt;template slot="details-item"&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-media lightbox-preferred&gt;&lt;/gmp-place-media&gt;<br> &nbsp;&nbsp;&lt;/template&gt;<br> &lt;/gmp-advanced-place-search&gt; </code></pre> <br> To use the Advanced Place Search Element, enable the <a href="https://console.cloud.google.com/marketplace/product/google/placewidgets.googleapis.com" >Places UI Kit API</a> for your project in the Google Cloud console.
+   * Access by calling `const {AdvancedPlaceSearchElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class AdvancedPlaceSearchElement extends google.maps.places.PlaceSearchElement implements google.maps.places.AdvancedPlaceSearchElementOptions {
+    /**
+     * 
+     * @param options
+     */
+    constructor(options?: google.maps.places.AdvancedPlaceSearchElementOptions);
+    /**
+     * The position of the attribution logo and legal disclosure button.
+     * @defaultValue <code>PlaceSearchAttributionPosition.TOP</code>
+     */
+    get attributionPosition(): google.maps.places.PlaceSearchAttributionPositionString;
+    /**
+     * The position of the attribution logo and legal disclosure button.
+     * @defaultValue <code>PlaceSearchAttributionPosition.TOP</code>
+     */
+    set attributionPosition(value: google.maps.places.PlaceSearchAttributionPositionString | null | undefined);
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    get internalUsageAttributionIds(): string[] | null;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    set internalUsageAttributionIds(value: Iterable<string> | null | undefined);
+    /**
+     * The orientation variant (vertical or horizontal) of the element.
+     * @defaultValue <code>PlaceSearchOrientation.VERTICAL</code>
+     */
+    get orientation(): google.maps.places.PlaceSearchOrientationString;
+    /**
+     * The orientation variant (vertical or horizontal) of the element.
+     * @defaultValue <code>PlaceSearchOrientation.VERTICAL</code>
+     */
+    set orientation(value: google.maps.places.PlaceSearchOrientationString | null | undefined);
+    /**
+     * Whether or not the list items are selectable. If true, the list items will be buttons that dispatch the <code>gmp-select</code> event when clicked. Accessible keyboard navigation and selection is also supported.
+     * @defaultValue <code>false</code>
+     */
+    get selectable(): boolean;
+    /**
+     * Whether or not the list items are selectable. If true, the list items will be buttons that dispatch the <code>gmp-select</code> event when clicked. Accessible keyboard navigation and selection is also supported.
+     * @defaultValue <code>false</code>
+     */
+    set selectable(value: boolean | null | undefined);
+    /**
+     * If true, truncates certain lines of content to fit on one line instead of wrapping.
+     * @defaultValue <code>false</code>
+     */
+    get truncationPreferred(): boolean;
+    /**
+     * If true, truncates certain lines of content to fit on one line instead of wrapping.
+     * @defaultValue <code>false</code>
+     */
+    set truncationPreferred(value: boolean | null | undefined);
+    addEventListener<K extends keyof AdvancedPlaceSearchElementEventMap>(type: K, listener: (this: AdvancedPlaceSearchElement, ev: AdvancedPlaceSearchElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof AdvancedPlaceSearchElementEventMap>(type: K, listener: (this: AdvancedPlaceSearchElement, ev: AdvancedPlaceSearchElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface AdvancedPlaceSearchElementEventMap extends google.maps.places.PlaceSearchElementEventMap {
+    "gmp-error": Event;
+    "gmp-load": Event;
+    "gmp-select": google.maps.places.PlaceSelectEvent;
+  }
+  /**
+   * Options for <code>AdvancedPlaceSearchElement</code>.
+   */
+  export interface AdvancedPlaceSearchElementOptions extends google.maps.places.PlaceSearchElementOptions {
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.attributionPosition}.
+     */
+    attributionPosition?: google.maps.places.PlaceSearchAttributionPositionString | null;
+    /**
+     * Identifiers used to attribute calls to specific packages or OSS libraries.
+     */
+    internalUsageAttributionIds?: Iterable<string> | null;
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.orientation}.
+     */
+    orientation?: google.maps.places.PlaceSearchOrientationString | null;
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.selectable}
+     */
+    selectable?: boolean | null;
+    /**
+     * See {@link google.maps.places.PlaceSearchElement.truncationPreferred}.
+     */
+    truncationPreferred?: boolean | null;
   }
   /**
    * Area information and the area&#39;s relationship with the target location.
@@ -11404,6 +11963,8 @@ declare namespace google.maps.places {
     set unitSystem(value: google.maps.UnitSystem | null | undefined);
     addEventListener<K extends keyof BasicPlaceAutocompleteElementEventMap>(type: K, listener: (this: BasicPlaceAutocompleteElement, ev: BasicPlaceAutocompleteElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof BasicPlaceAutocompleteElementEventMap>(type: K, listener: (this: BasicPlaceAutocompleteElement, ev: BasicPlaceAutocompleteElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface BasicPlaceAutocompleteElementEventMap extends HTMLElementEventMap {
     "gmp-error": Event;
@@ -12590,6 +13151,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceAccessibleEntranceIconElementOptions);
     addEventListener<K extends keyof PlaceAccessibleEntranceIconElementEventMap>(type: K, listener: (this: PlaceAccessibleEntranceIconElement, ev: PlaceAccessibleEntranceIconElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceAccessibleEntranceIconElementEventMap>(type: K, listener: (this: PlaceAccessibleEntranceIconElement, ev: PlaceAccessibleEntranceIconElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceAccessibleEntranceIconElementEventMap extends HTMLElementEventMap {
   }
@@ -12597,6 +13160,16 @@ declare namespace google.maps.places {
    * Options for <code>PlaceAccessibleEntranceIconElement</code>.
    */
   export interface PlaceAccessibleEntranceIconElementOptions {
+  }
+  /**
+   * The event fired when the action button is clicked.
+   * Access by calling `const {PlaceActionEvent} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceActionEvent extends Event {
+    /**
+     * The place that was clicked.
+     */
+    get place(): google.maps.places.Place;
   }
   /**
    * Configures a {@link google.maps.places.PlaceDetailsCompactElement}, {@link google.maps.places.PlaceDetailsElement}, or {@link google.maps.places.PlaceSearchElement} to show a place&#39;s address. Append this element as a child of a {@link google.maps.places.PlaceContentConfigElement} to use it. For example: <pre><code> &lt;gmp-place-content-config&gt;<br> &nbsp;&nbsp;&lt;gmp-place-address&gt;&lt;/gmp-place-address&gt;<br> &lt;/gmp-place-content-config&gt;<br> </code></pre>
@@ -12610,6 +13183,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceAddressElementOptions);
     addEventListener<K extends keyof PlaceAddressElementEventMap>(type: K, listener: (this: PlaceAddressElement, ev: PlaceAddressElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceAddressElementEventMap>(type: K, listener: (this: PlaceAddressElement, ev: PlaceAddressElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceAddressElementEventMap extends HTMLElementEventMap {
   }
@@ -12630,6 +13205,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceAllContentElementOptions);
     addEventListener<K extends keyof PlaceAllContentElementEventMap>(type: K, listener: (this: PlaceAllContentElement, ev: PlaceAllContentElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceAllContentElementEventMap>(type: K, listener: (this: PlaceAllContentElement, ev: PlaceAllContentElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceAllContentElementEventMap extends HTMLElementEventMap {
   }
@@ -12684,6 +13261,8 @@ declare namespace google.maps.places {
     set lightSchemeColor(value: google.maps.places.AttributionColorString | null | undefined);
     addEventListener<K extends keyof PlaceAttributionElementEventMap>(type: K, listener: (this: PlaceAttributionElement, ev: PlaceAttributionElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceAttributionElementEventMap>(type: K, listener: (this: PlaceAttributionElement, ev: PlaceAttributionElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceAttributionElementEventMap extends HTMLElementEventMap {
   }
@@ -12824,6 +13403,8 @@ declare namespace google.maps.places {
     set value(value: string | null);
     addEventListener<K extends keyof PlaceAutocompleteElementEventMap>(type: K, listener: (this: PlaceAutocompleteElement, ev: PlaceAutocompleteElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceAutocompleteElementEventMap>(type: K, listener: (this: PlaceAutocompleteElement, ev: PlaceAutocompleteElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceAutocompleteElementEventMap extends HTMLElementEventMap {
     "gmp-error": Event;
@@ -12879,8 +13460,45 @@ declare namespace google.maps.places {
     value?: string | null;
   }
   /**
+   * Displays a button slotted into either the <code>action-main</code> slot or the <code>action-corner</code> slot. <code>PlaceButtonElement</code> has no default behavior. Attach an event listener to the element to define its behavior. By default the button will be shown in the <code>action-main</code> slot.
+   * Access by calling `const {PlaceButtonElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceButtonElement extends HTMLElement implements google.maps.places.PlaceButtonElementOptions {
+    /**
+     * The ARIA label for the internal control. Icon-only controls should always have an aria-label to describe their purpose and behavior. Controls rendered in the corner do not show a label so an aria-label is recommended to be used instead of the label for corner controls.
+     * @defaultValue <code>undefined</code>
+     */
+    actionAriaLabel?: string;
+    /**
+     * The label to display in the control. For links with predefined action types, this attribute is ignored. Links and buttons rendered in the action-corner slot do not display a label. It&#39;s recommended to use the <code>action-aria-label</code> attribute instead for corner controls.
+     * @defaultValue <code>undefined</code>
+     */
+    label?: string;
+    addEventListener<K extends keyof PlaceButtonElementEventMap>(type: K, listener: (this: PlaceButtonElement, ev: PlaceButtonElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceButtonElementEventMap>(type: K, listener: (this: PlaceButtonElement, ev: PlaceButtonElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlaceButtonElementEventMap extends HTMLElementEventMap {
+    "gmp-click": google.maps.places.PlaceActionEvent;
+  }
+  /**
+   * Options for <code>PlaceButtonElement</code>.
+   */
+  export interface PlaceButtonElementOptions {
+    /**
+     * The ARIA label for the internal control. Icon-only controls should always have an aria-label to describe their purpose and behavior. Controls rendered in the corner do not show a label so an aria-label is recommended to be used instead of the label for corner controls.
+     */
+    actionAriaLabel?: string;
+    /**
+     * The label to display in the control. For links with predefined action types, this attribute is ignored. Links and buttons rendered in the action-corner slot do not display a label. It&#39;s recommended to use the <code>action-aria-label</code> attribute instead for corner controls.
+     */
+    label?: string;
+  }
+  /**
    * Configures a {@link google.maps.places.PlaceDetailsCompactElement}, {@link google.maps.places.PlaceDetailsElement} or {@link google.maps.places.PlaceSearchElement} to show a custom set of content. Append this element as a child to use it. <br> <br> For {@link google.maps.places.PlaceDetailsCompactElement}, {@link google.maps.places.PlaceDetailsElement} or {@link google.maps.places.PlaceSearchElement}, append any of the following elements to the {@link google.maps.places.PlaceContentConfigElement} to show the corresponding content: <br> {@link google.maps.places.PlaceAddressElement}, {@link google.maps.places.PlaceAccessibleEntranceIconElement}, {@link google.maps.places.PlaceAttributionElement} {@link google.maps.places.PlaceMediaElement}, {@link google.maps.places.PlaceOpenNowStatusElement}, {@link google.maps.places.PlacePriceElement}, {@link google.maps.places.PlaceRatingElement}, {@link google.maps.places.PlaceTypeElement}. <br> <br> Specific to {@link google.maps.places.PlaceDetailsElement}, you may also append any of the following elements: <br> {@link google.maps.places.PlaceFeatureListElement} {@link google.maps.places.PlaceOpeningHoursElement}, {@link google.maps.places.PlacePhoneNumberElement}, {@link google.maps.places.PlacePlusCodeElement}, {@link google.maps.places.PlaceReviewSummaryElement}, {@link google.maps.places.PlaceReviewsElement}, {@link google.maps.places.PlaceSummaryElement}, {@link google.maps.places.PlaceTypeSpecificHighlightsElement}, {@link google.maps.places.PlaceWebsiteElement}. <br> <br> The order of the children does not matter; the element renders content in a standard order which is not customizable. Example: <pre><code> &lt;gmp-place-details&gt;<br> &nbsp;&nbsp;&lt;gmp-place-content-config&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-media lightbox-preferred&gt;&lt;/gmp-place-media&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-address&gt;&lt;/gmp-place-address&gt;<br> &nbsp;&nbsp;&lt;/gmp-place-content-config&gt;<br> &lt;/gmp-place-details&gt; </code></pre>
    * Access by calling `const {PlaceContentConfigElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   * @deprecated Append content elements or preset elements ({@link google.maps.places.PlaceAllContentElement}, {@link google.maps.places.PlaceStandardContentElement}) directly to {@link google.maps.places.PlaceDetailsElement} or {@link google.maps.places.PlaceDetailsCompactElement}, or inside a <code>&lt;template slot=&quot;details-item&quot;&gt;</code> child element in {@link google.maps.places.PlaceSearchElement}. At this time, PlaceContentConfigElement is not scheduled to be discontinued. At least 12 months notice will be given before support is discontinued. Please see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a> for additional details.
    */
   export class PlaceContentConfigElement extends HTMLElement implements google.maps.places.PlaceContentConfigElementOptions {
     /**
@@ -12890,11 +13508,14 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceContentConfigElementOptions);
     addEventListener<K extends keyof PlaceContentConfigElementEventMap>(type: K, listener: (this: PlaceContentConfigElement, ev: PlaceContentConfigElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceContentConfigElementEventMap>(type: K, listener: (this: PlaceContentConfigElement, ev: PlaceContentConfigElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceContentConfigElementEventMap extends HTMLElementEventMap {
   }
   /**
    * Options for <code>PlaceContentConfigElement</code>.
+   * @deprecated Append content elements or preset elements ({@link google.maps.places.PlaceAllContentElement}, {@link google.maps.places.PlaceStandardContentElement}) directly to {@link google.maps.places.PlaceDetailsElement} or {@link google.maps.places.PlaceDetailsCompactElement}, or inside a <code>&lt;template slot=&quot;details-item&quot;&gt;</code> child element in {@link google.maps.places.PlaceSearchElement}. At this time, PlaceContentConfigElement is not scheduled to be discontinued. At least 12 months notice will be given before support is discontinued. Please see <a href="https://developers.google.com/maps/deprecations">https://developers.google.com/maps/deprecations</a> for additional details.
    */
   export interface PlaceContentConfigElementOptions {
   }
@@ -12919,6 +13540,8 @@ declare namespace google.maps.places {
     set contextToken(value: string | null | undefined);
     addEventListener<K extends keyof PlaceContextualElementEventMap>(type: K, listener: (this: PlaceContextualElement, ev: PlaceContextualElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceContextualElementEventMap>(type: K, listener: (this: PlaceContextualElement, ev: PlaceContextualElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceContextualElementEventMap extends HTMLElementEventMap {
   }
@@ -12961,6 +13584,8 @@ declare namespace google.maps.places {
     set mapHidden(value: boolean | null | undefined);
     addEventListener<K extends keyof PlaceContextualListConfigElementEventMap>(type: K, listener: (this: PlaceContextualListConfigElement, ev: PlaceContextualListConfigElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceContextualListConfigElementEventMap>(type: K, listener: (this: PlaceContextualListConfigElement, ev: PlaceContextualListConfigElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceContextualListConfigElementEventMap extends HTMLElementEventMap {
   }
@@ -13036,6 +13661,8 @@ declare namespace google.maps.places {
     set truncationPreferred(value: boolean | null | undefined);
     addEventListener<K extends keyof PlaceDetailsCompactElementEventMap>(type: K, listener: (this: PlaceDetailsCompactElement, ev: PlaceDetailsCompactElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceDetailsCompactElementEventMap>(type: K, listener: (this: PlaceDetailsCompactElement, ev: PlaceDetailsCompactElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceDetailsCompactElementEventMap extends HTMLElementEventMap {
     "gmp-error": Event;
@@ -13082,6 +13709,8 @@ declare namespace google.maps.places {
     get place(): google.maps.places.Place | undefined;
     addEventListener<K extends keyof PlaceDetailsElementEventMap>(type: K, listener: (this: PlaceDetailsElement, ev: PlaceDetailsElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceDetailsElementEventMap>(type: K, listener: (this: PlaceDetailsElement, ev: PlaceDetailsElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceDetailsElementEventMap extends HTMLElementEventMap {
     "gmp-error": Event;
@@ -13118,6 +13747,8 @@ declare namespace google.maps.places {
     set location(value: google.maps.LatLng | google.maps.LatLngLiteral | google.maps.LatLngAltitude | google.maps.LatLngAltitudeLiteral | null | undefined);
     addEventListener<K extends keyof PlaceDetailsLocationRequestElementEventMap>(type: K, listener: (this: PlaceDetailsLocationRequestElement, ev: PlaceDetailsLocationRequestElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceDetailsLocationRequestElementEventMap>(type: K, listener: (this: PlaceDetailsLocationRequestElement, ev: PlaceDetailsLocationRequestElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceDetailsLocationRequestElementEventMap extends HTMLElementEventMap {
   }
@@ -13168,6 +13799,8 @@ declare namespace google.maps.places {
     set place(value: google.maps.places.Place | string | null | undefined);
     addEventListener<K extends keyof PlaceDetailsPlaceRequestElementEventMap>(type: K, listener: (this: PlaceDetailsPlaceRequestElement, ev: PlaceDetailsPlaceRequestElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceDetailsPlaceRequestElementEventMap>(type: K, listener: (this: PlaceDetailsPlaceRequestElement, ev: PlaceDetailsPlaceRequestElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceDetailsPlaceRequestElementEventMap extends HTMLElementEventMap {
   }
@@ -13212,6 +13845,8 @@ declare namespace google.maps.places {
   export class PlaceFeatureListElement extends HTMLElement implements google.maps.places.PlaceFeatureListElementOptions {
     addEventListener<K extends keyof PlaceFeatureListElementEventMap>(type: K, listener: (this: PlaceFeatureListElement, ev: PlaceFeatureListElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceFeatureListElementEventMap>(type: K, listener: (this: PlaceFeatureListElement, ev: PlaceFeatureListElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceFeatureListElementEventMap extends HTMLElementEventMap {
   }
@@ -13232,6 +13867,95 @@ declare namespace google.maps.places {
      * The preferred viewport when displaying this Place on a map. This property will be <code>null</code> if the preferred viewport for the Place is not known. Only available with {@link google.maps.places.PlacesService.getDetails}.
      */
     viewport?: google.maps.LatLngBounds;
+  }
+  /**
+   * Public web component wrapper (<code>&lt;gmp-place-item&gt;</code>) for place list items. The <code>&lt;gmp-place-item&gt;</code> custom element renders an individual place result card inside <code>&lt;gmp-place-search&gt;</code>. Each <code>&lt;gmp-place-item&gt;</code> displays place information composed of child visual components from the Places UI Kit.
+   * Access by calling `const {PlaceItemElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceItemElement extends HTMLElement implements google.maps.places.PlaceItemElementOptions {
+    addEventListener<K extends keyof PlaceItemElementEventMap>(type: K, listener: (this: PlaceItemElement, ev: PlaceItemElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceItemElementEventMap>(type: K, listener: (this: PlaceItemElement, ev: PlaceItemElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlaceItemElementEventMap extends HTMLElementEventMap {
+  }
+  /**
+   * Options for <code>PlaceItemElement</code>.
+   */
+  export interface PlaceItemElementOptions {
+  }
+  /**
+   * Displays a link slotted into either the <code>action-main</code> slot or the <code>action-corner</code> slot. By default the link will be shown in the <code>action-main</code> slot. Use the <code>action</code> attribute to specify the behavior of the link. Several action types are available to use listed in {@link google.maps.places.ActionLinkType}. For a custom link, specify the <code>custom</code> action type and set the <code>href</code> and <code>label</code> attributes.
+   * Access by calling `const {PlaceLinkElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceLinkElement extends HTMLElement implements google.maps.places.PlaceLinkElementOptions {
+    /**
+     * The type of action to perform when the link is clicked. Determines the default label, icon and destination href of the link. Use the <code>custom</code> type and specify the <code>href</code> attribute to set a destination manually.
+     */
+    action?: google.maps.places.ActionLinkTypeString;
+    /**
+     * The ARIA label for the internal control. Icon-only controls should always have an aria-label to describe their purpose and behavior. Controls rendered in the corner do not show a label so an aria-label is recommended to be used instead of the label for corner controls.
+     * @defaultValue <code>undefined</code>
+     */
+    actionAriaLabel?: string;
+    /**
+     * Whether the default icon is hidden for all link types except custom.
+     * @defaultValue <code>false</code>
+     */
+    get defaultIconHidden(): boolean;
+    /**
+     * Whether the default icon is hidden for all link types except custom.
+     * @defaultValue <code>false</code>
+     */
+    set defaultIconHidden(value: boolean | null | undefined);
+    /**
+     * The URL to open when the link is clicked. This is only used when the <code>action</code> attribute is set to <code>custom</code>.
+     * @defaultValue <code>undefined</code>
+     */
+    href?: string;
+    /**
+     * The label to display in the control. For links with predefined action types, this attribute is ignored. Links and buttons rendered in the action-corner slot do not display a label. It&#39;s recommended to use the <code>action-aria-label</code> attribute instead for corner controls.
+     * @defaultValue <code>undefined</code>
+     */
+    label?: string;
+    /**
+     * Determines where the link opens. See <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#target</a>.
+     * @defaultValue <code>undefined</code>
+     */
+    target?: string;
+    addEventListener<K extends keyof PlaceLinkElementEventMap>(type: K, listener: (this: PlaceLinkElement, ev: PlaceLinkElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceLinkElementEventMap>(type: K, listener: (this: PlaceLinkElement, ev: PlaceLinkElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlaceLinkElementEventMap extends HTMLElementEventMap {
+    "gmp-click": google.maps.places.PlaceActionEvent;
+  }
+  /**
+   * Options for <code>PlaceLinkElement</code>.
+   */
+  export interface PlaceLinkElementOptions {
+    /**
+     * See {@link google.maps.places.PlaceLinkElement.action}.
+     */
+    action?: google.maps.places.ActionLinkTypeString;
+    /**
+     * The ARIA label for the internal control. Icon-only controls should always have an aria-label to describe their purpose and behavior. Controls rendered in the corner do not show a label so an aria-label is recommended to be used instead of the label for corner controls.
+     */
+    actionAriaLabel?: string;
+    /**
+     * See {@link google.maps.places.PlaceLinkElement.href}.
+     */
+    href?: string;
+    /**
+     * The label to display in the control. For links with predefined action types, this attribute is ignored. Links and buttons rendered in the action-corner slot do not display a label. It&#39;s recommended to use the <code>action-aria-label</code> attribute instead for corner controls.
+     */
+    label?: string;
+    /**
+     * See {@link google.maps.places.PlaceLinkElement.target}.
+     */
+    target?: string;
   }
   /**
    * Configures a {@link google.maps.places.PlaceDetailsCompactElement}, {@link google.maps.places.PlaceDetailsElement}, or {@link google.maps.places.PlaceSearchElement} to show a place&#39;s media, such as photos. Append this element as a child of a {@link google.maps.places.PlaceContentConfigElement} to use it. For example: <pre><code> &lt;gmp-place-content-config&gt;<br> &nbsp;&nbsp;&lt;gmp-place-media lightbox-preferred&gt;&lt;/gmp-place-media&gt;<br> &lt;/gmp-place-content-config&gt;<br> </code></pre>
@@ -13265,6 +13989,8 @@ declare namespace google.maps.places {
     set preferredSize(value: google.maps.places.MediaSizeString | null | undefined);
     addEventListener<K extends keyof PlaceMediaElementEventMap>(type: K, listener: (this: PlaceMediaElement, ev: PlaceMediaElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceMediaElementEventMap>(type: K, listener: (this: PlaceMediaElement, ev: PlaceMediaElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceMediaElementEventMap extends HTMLElementEventMap {
   }
@@ -13280,6 +14006,23 @@ declare namespace google.maps.places {
      * See {@link google.maps.places.PlaceMediaElement.preferredSize}.
      */
     preferredSize?: google.maps.places.MediaSizeString | null;
+  }
+  /**
+   * Displays the name of a place within a place details element.
+   * Access by calling `const {PlaceNameElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlaceNameElement extends HTMLElement implements google.maps.places.PlaceNameElementOptions {
+    addEventListener<K extends keyof PlaceNameElementEventMap>(type: K, listener: (this: PlaceNameElement, ev: PlaceNameElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceNameElementEventMap>(type: K, listener: (this: PlaceNameElement, ev: PlaceNameElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlaceNameElementEventMap extends HTMLElementEventMap {
+  }
+  /**
+   * Options for <code>PlaceNameElement</code>.
+   */
+  export interface PlaceNameElementOptions {
   }
   /**
    * Configures a {@link google.maps.places.PlaceSearchElement} to load results based on a nearby search request. The <code>locationRestriction</code> property is required for the search element to load. Any other configured properties will be ignored if <code>locationRestriction</code> is not set. Append this element as a child of a {@link google.maps.places.PlaceSearchElement} to load results. For example: <pre><code> &lt;gmp-place-search&gt;<br> &nbsp;&nbsp;&lt;gmp-place-nearby-search-request<br> &nbsp;&nbsp;&nbsp;&nbsp;location-restriction="<var>RADIUS</var>@<var>LAT</var>,<var>LNG</var>"<br> &nbsp;&nbsp;&gt;&lt;/gmp-place-nearby-search-request&gt;<br> &nbsp;&nbsp;&lt;gmp-place-content-config&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-media lightbox-preferred&gt;&lt;/gmp-place-media&gt;<br> &nbsp;&nbsp;&lt;/gmp-place-content-config&gt;<br> &lt;/gmp-place-search&gt; </code></pre>
@@ -13371,6 +14114,8 @@ declare namespace google.maps.places {
     set rankPreference(value: google.maps.places.SearchNearbyRankPreferenceString | null | undefined);
     addEventListener<K extends keyof PlaceNearbySearchRequestElementEventMap>(type: K, listener: (this: PlaceNearbySearchRequestElement, ev: PlaceNearbySearchRequestElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceNearbySearchRequestElementEventMap>(type: K, listener: (this: PlaceNearbySearchRequestElement, ev: PlaceNearbySearchRequestElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceNearbySearchRequestElementEventMap extends HTMLElementEventMap {
   }
@@ -13440,6 +14185,8 @@ declare namespace google.maps.places {
   export class PlaceOpeningHoursElement extends HTMLElement implements google.maps.places.PlaceOpeningHoursElementOptions {
     addEventListener<K extends keyof PlaceOpeningHoursElementEventMap>(type: K, listener: (this: PlaceOpeningHoursElement, ev: PlaceOpeningHoursElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceOpeningHoursElementEventMap>(type: K, listener: (this: PlaceOpeningHoursElement, ev: PlaceOpeningHoursElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceOpeningHoursElementEventMap extends HTMLElementEventMap {
   }
@@ -13498,6 +14245,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceOpenNowStatusElementOptions);
     addEventListener<K extends keyof PlaceOpenNowStatusElementEventMap>(type: K, listener: (this: PlaceOpenNowStatusElement, ev: PlaceOpenNowStatusElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceOpenNowStatusElementEventMap>(type: K, listener: (this: PlaceOpenNowStatusElement, ev: PlaceOpenNowStatusElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceOpenNowStatusElementEventMap extends HTMLElementEventMap {
   }
@@ -13534,6 +14283,8 @@ declare namespace google.maps.places {
   export class PlacePhoneNumberElement extends HTMLElement implements google.maps.places.PlacePhoneNumberElementOptions {
     addEventListener<K extends keyof PlacePhoneNumberElementEventMap>(type: K, listener: (this: PlacePhoneNumberElement, ev: PlacePhoneNumberElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlacePhoneNumberElementEventMap>(type: K, listener: (this: PlacePhoneNumberElement, ev: PlacePhoneNumberElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlacePhoneNumberElementEventMap extends HTMLElementEventMap {
   }
@@ -13564,6 +14315,89 @@ declare namespace google.maps.places {
     getUrl(opts?: google.maps.places.PhotoOptions): string;
   }
   /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Displays a map pin for a place, using the place&#39;s category icon or photo. Append a {@link google.maps.places.PlaceDetailsPlaceRequestElement} or {@link google.maps.places.PlaceDetailsLocationRequestElement} to specify the place. Use the pin as the content of an {@link google.maps.marker.AdvancedMarkerElement}. Not supported in 3D maps. <br><br> Example: <pre><code> &lt;gmp-advanced-marker&gt;<br> &nbsp;&nbsp;&lt;gmp-place-pin&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-details-place-request<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;place="<var>PLACE_ID</var>"<br> &nbsp;&nbsp;&nbsp;&nbsp;&gt;&lt;/gmp-place-details-place-request&gt;<br> &nbsp;&nbsp;&nbsp;&nbsp;&lt;gmp-place-rating&gt;&lt;/gmp-place-rating&gt;<br> &nbsp;&nbsp;&lt;/gmp-place-pin&gt;<br> &lt;/gmp-advanced-marker&gt; </code></pre> <br> To use this element, enable the <a href="https://console.cloud.google.com/marketplace/product/google/placewidgets.googleapis.com" >Places UI Kit API</a> for your project in the Google Cloud console.
+   * Access by calling `const {PlacePinElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlacePinElement extends HTMLElement implements google.maps.places.PlacePinElementOptions {
+    /**
+     * 
+     * @param options
+     */
+    constructor(options?: google.maps.places.PlacePinElementOptions);
+    /**
+     * The icon shown inside the pin. See {@link google.maps.places.PlacePinIcon}.
+     * @defaultValue <code>PlacePinIcon.TYPE</code>
+     */
+    get icon(): google.maps.places.PlacePinIconString;
+    /**
+     * The icon shown inside the pin. See {@link google.maps.places.PlacePinIcon}.
+     * @defaultValue <code>PlacePinIcon.TYPE</code>
+     */
+    set icon(value: google.maps.places.PlacePinIconString | null | undefined);
+    /**
+     * Read only. True if the pin is showing the place&#39;s photo. Always false if <code>icon</code> isn&#39;t <code>PHOTO</code>. If <code>icon</code> is <code>PHOTO</code> but the place has no photo, or the photo failed to load, this is false and the pin shows the place type icon instead. Set before <code>gmp-load</code> fires.
+     */
+    get photoRendered(): boolean;
+    /**
+     * Read only. Place object containing the ID, location, and viewport of the currently rendered place. <code>undefined</code> if the place hasn&#39;t loaded yet or failed to load.
+     */
+    get place(): google.maps.places.Place | undefined;
+    /**
+     * Size multiplier for the pin.
+     * @defaultValue <code>1</code>
+     */
+    get scale(): number;
+    /**
+     * Size multiplier for the pin.
+     * @defaultValue <code>1</code>
+     */
+    set scale(value: number | null | undefined);
+    addEventListener<K extends keyof PlacePinElementEventMap>(type: K, listener: (this: PlacePinElement, ev: PlacePinElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlacePinElementEventMap>(type: K, listener: (this: PlacePinElement, ev: PlacePinElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlacePinElementEventMap extends HTMLElementEventMap {
+    "gmp-error": Event;
+    "gmp-load": Event;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Options for constructing a {@link google.maps.places.PlacePinElement}.
+   */
+  export interface PlacePinElementOptions {
+    /**
+     * See {@link google.maps.places.PlacePinElement.icon}.
+     */
+    icon?: google.maps.places.PlacePinIconString | null;
+    /**
+     * See {@link google.maps.places.PlacePinElement.scale}.
+     */
+    scale?: number | null;
+  }
+  /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Icon options for {@link google.maps.places.PlacePinElement}. <code>TYPE</code> is the default. If the data needed for the selected icon is missing, the pin falls back to <code>TYPE</code>. If the data needed for <code>TYPE</code> is missing, a generic icon is shown instead.
+   *
+   * Access by calling `const {PlacePinIcon} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export enum PlacePinIcon {
+    /**
+     * Shows no icon, only the slotted content.
+     */
+    NONE = 'NONE',
+    /**
+     * Shows the place&#39;s photo in a circle. Falls back to <code>TYPE</code> if the place has no photo.
+     */
+    PHOTO = 'PHOTO',
+    /**
+     * Shows the place&#39;s category icon.
+     */
+    TYPE = 'TYPE',
+  }
+  export type PlacePinIconString = `${google.maps.places.PlacePinIcon}`;
+  /**
    * Defines Open Location Codes or &quot;<a href="https://plus.codes/">plus codes</a>&quot; for a Place. Plus codes can be used as a replacement for street addresses in places where they do not exist (where buildings are not numbered or streets are not named).
    */
   export interface PlacePlusCode {
@@ -13583,6 +14417,8 @@ declare namespace google.maps.places {
   export class PlacePlusCodeElement extends HTMLElement implements google.maps.places.PlacePlusCodeElementOptions {
     addEventListener<K extends keyof PlacePlusCodeElementEventMap>(type: K, listener: (this: PlacePlusCodeElement, ev: PlacePlusCodeElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlacePlusCodeElementEventMap>(type: K, listener: (this: PlacePlusCodeElement, ev: PlacePlusCodeElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlacePlusCodeElementEventMap extends HTMLElementEventMap {
   }
@@ -13652,6 +14488,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlacePriceElementOptions);
     addEventListener<K extends keyof PlacePriceElementEventMap>(type: K, listener: (this: PlacePriceElement, ev: PlacePriceElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlacePriceElementEventMap>(type: K, listener: (this: PlacePriceElement, ev: PlacePriceElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlacePriceElementEventMap extends HTMLElementEventMap {
   }
@@ -13672,6 +14510,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceRatingElementOptions);
     addEventListener<K extends keyof PlaceRatingElementEventMap>(type: K, listener: (this: PlaceRatingElement, ev: PlaceRatingElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceRatingElementEventMap>(type: K, listener: (this: PlaceRatingElement, ev: PlaceRatingElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceRatingElementEventMap extends HTMLElementEventMap {
   }
@@ -13848,6 +14688,8 @@ declare namespace google.maps.places {
   export class PlaceReviewsElement extends HTMLElement implements google.maps.places.PlaceReviewsElementOptions {
     addEventListener<K extends keyof PlaceReviewsElementEventMap>(type: K, listener: (this: PlaceReviewsElement, ev: PlaceReviewsElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceReviewsElementEventMap>(type: K, listener: (this: PlaceReviewsElement, ev: PlaceReviewsElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceReviewsElementEventMap extends HTMLElementEventMap {
   }
@@ -13863,6 +14705,8 @@ declare namespace google.maps.places {
   export class PlaceReviewSummaryElement extends HTMLElement implements google.maps.places.PlaceReviewSummaryElementOptions {
     addEventListener<K extends keyof PlaceReviewSummaryElementEventMap>(type: K, listener: (this: PlaceReviewSummaryElement, ev: PlaceReviewSummaryElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceReviewSummaryElementEventMap>(type: K, listener: (this: PlaceReviewSummaryElement, ev: PlaceReviewSummaryElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceReviewSummaryElementEventMap extends HTMLElementEventMap {
   }
@@ -13951,6 +14795,8 @@ declare namespace google.maps.places {
     set truncationPreferred(value: boolean | null | undefined);
     addEventListener<K extends keyof PlaceSearchElementEventMap>(type: K, listener: (this: PlaceSearchElement, ev: PlaceSearchElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceSearchElementEventMap>(type: K, listener: (this: PlaceSearchElement, ev: PlaceSearchElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceSearchElementEventMap extends HTMLElementEventMap {
     "gmp-error": Event;
@@ -14152,6 +14998,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceStandardContentElementOptions);
     addEventListener<K extends keyof PlaceStandardContentElementEventMap>(type: K, listener: (this: PlaceStandardContentElement, ev: PlaceStandardContentElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceStandardContentElementEventMap>(type: K, listener: (this: PlaceStandardContentElement, ev: PlaceStandardContentElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceStandardContentElementEventMap extends HTMLElementEventMap {
   }
@@ -14167,6 +15015,8 @@ declare namespace google.maps.places {
   export class PlaceSummaryElement extends HTMLElement implements google.maps.places.PlaceSummaryElementOptions {
     addEventListener<K extends keyof PlaceSummaryElementEventMap>(type: K, listener: (this: PlaceSummaryElement, ev: PlaceSummaryElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceSummaryElementEventMap>(type: K, listener: (this: PlaceSummaryElement, ev: PlaceSummaryElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceSummaryElementEventMap extends HTMLElementEventMap {
   }
@@ -14315,6 +15165,8 @@ declare namespace google.maps.places {
     set useStrictTypeFiltering(value: boolean | null | undefined);
     addEventListener<K extends keyof PlaceTextSearchRequestElementEventMap>(type: K, listener: (this: PlaceTextSearchRequestElement, ev: PlaceTextSearchRequestElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceTextSearchRequestElementEventMap>(type: K, listener: (this: PlaceTextSearchRequestElement, ev: PlaceTextSearchRequestElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceTextSearchRequestElementEventMap extends HTMLElementEventMap {
   }
@@ -14387,6 +15239,8 @@ declare namespace google.maps.places {
     constructor(options?: google.maps.places.PlaceTypeElementOptions);
     addEventListener<K extends keyof PlaceTypeElementEventMap>(type: K, listener: (this: PlaceTypeElement, ev: PlaceTypeElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceTypeElementEventMap>(type: K, listener: (this: PlaceTypeElement, ev: PlaceTypeElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceTypeElementEventMap extends HTMLElementEventMap {
   }
@@ -14402,6 +15256,8 @@ declare namespace google.maps.places {
   export class PlaceTypeSpecificHighlightsElement extends HTMLElement implements google.maps.places.PlaceTypeSpecificHighlightsElementOptions {
     addEventListener<K extends keyof PlaceTypeSpecificHighlightsElementEventMap>(type: K, listener: (this: PlaceTypeSpecificHighlightsElement, ev: PlaceTypeSpecificHighlightsElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceTypeSpecificHighlightsElementEventMap>(type: K, listener: (this: PlaceTypeSpecificHighlightsElement, ev: PlaceTypeSpecificHighlightsElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceTypeSpecificHighlightsElementEventMap extends HTMLElementEventMap {
   }
@@ -14417,6 +15273,8 @@ declare namespace google.maps.places {
   export class PlaceWebsiteElement extends HTMLElement implements google.maps.places.PlaceWebsiteElementOptions {
     addEventListener<K extends keyof PlaceWebsiteElementEventMap>(type: K, listener: (this: PlaceWebsiteElement, ev: PlaceWebsiteElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlaceWebsiteElementEventMap>(type: K, listener: (this: PlaceWebsiteElement, ev: PlaceWebsiteElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface PlaceWebsiteElementEventMap extends HTMLElementEventMap {
   }
@@ -15570,6 +16428,20 @@ declare namespace google.maps.routes {
     units?: google.maps.UnitSystem;
   }
   /**
+   * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+   * Options for creating waypoint markers.
+   */
+  export interface CreateWaypointMarkersOptions<T = google.maps.maps3d.MarkerElement | google.maps.maps3d.Marker3DElement | google.maps.maps3d.MarkerInteractiveElement | google.maps.maps3d.Marker3DInteractiveElement> {
+    /**
+     * A custom function to mutate the created elements. The default forEach function appends pins with A-Z glyphs to each marker. For different behavior, override this function.
+     */
+    forEach?: ((arg0: T) => void) | null;
+    /**
+     * The constructor of the element to create. Supported types include: <ul> <li>{@link google.maps.maps3d.Marker3DElement}</li> <li>{@link google.maps.maps3d.Marker3DInteractiveElement}</li> <li>{@link google.maps.maps3d.MarkerElement}</li> <li>{@link google.maps.maps3d.MarkerInteractiveElement}</li> </ul>
+     */
+    markerClass?: (new () => T) | null;
+  }
+  /**
    * Encapsulates a geographic point and an optional heading.
    * Access by calling `const {DirectionalLocation} = await google.maps.importLibrary("routes");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -15892,13 +16764,18 @@ declare namespace google.maps.routes {
     createPolylines(options?: google.maps.routes.RoutePolylineOptions): google.maps.Polyline[];
     /**
      * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
-     * Creates a popover for the route based on the data available for the route, configured in a way suitable for annotating a route on a map. Currently uses {@link google.maps.routes.Route.localizedValues} and {@link google.maps.routes.Route.path}, if available.
+     * Creates a popover for the route based on the data available for the route, configured in a way suitable for annotating a route on a map. Currently uses {@link google.maps.routes.Route.localizedValues}, {@link google.maps.routes.Route.path}, and {@link google.maps.routes.Route.legs}, if available.
      */
     createPopover(): Promise<google.maps.maps3d.PopoverElement>;
     /**
      * Creates markers for the route labeled &#39;A&#39;, &#39;B&#39;, &#39;C&#39;, etc. for each waypoint. Markers have default styling applied. Options can be passed in to alter the marker style based on the marker index or properties of the corresponding {@link google.maps.routes.RouteLeg}. The {@link google.maps.routes.WaypointMarkerDetails.leg} parameter will be undefined if the route has no legs. <br><br> The <code>&quot;legs&quot;</code> field must be requested in {@link google.maps.routes.ComputeRoutesRequest.fields} in order for intermediate waypoints to be included.
      */
     createWaypointAdvancedMarkers(options?: google.maps.marker.AdvancedMarkerElementOptions | ((arg0: google.maps.marker.AdvancedMarkerElementOptions, arg1: google.maps.routes.WaypointMarkerDetails) => google.maps.marker.AdvancedMarkerElementOptions)): Promise<google.maps.marker.AdvancedMarkerElement[]>;
+    /**
+     * Available only in the v=alpha channel: https://goo.gle/js-alpha-channel.
+     * Creates markers for the route&#39;s origin and destination. Markers have default styling applied unless a customOverride function is specified. Intermediate waypoints are not currently supported. <br><br> Created markers have their {@link google.maps.CollisionBehavior} set to {@link google.maps.CollisionBehavior.REQUIRED_AND_HIDES_OPTIONAL} by default. Created markers have a localized <code>title</code> (&quot;Origin&quot; or &quot;Destination&quot;) by default, which can be overridden in <code>forEach</code>. For <code>Marker3DElement</code> and <code>Marker3DInteractiveElement</code> markers, <code>sizePreserved</code> is set to <code>true</code> by default, which can also be overridden in <code>forEach</code>.
+     */
+    createWaypointMarkers<T extends google.maps.maps3d.MarkerElement | google.maps.maps3d.Marker3DElement | google.maps.maps3d.MarkerInteractiveElement | google.maps.maps3d.Marker3DInteractiveElement>(options?: google.maps.routes.CreateWaypointMarkersOptions<T>): Promise<T[]>;
     /**
      * Converts to a plain object.
      */
@@ -15978,6 +16855,16 @@ declare namespace google.maps.routes {
      */
     set routingPreference(value: google.maps.routes.RoutingPreferenceString | null | undefined);
     /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     * @defaultValue <code>false</code>
+     */
+    get trafficPolylinesDisabled(): boolean;
+    /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     * @defaultValue <code>false</code>
+     */
+    set trafficPolylinesDisabled(value: boolean | null | undefined);
+    /**
      * If provided, the polyline is based on the specified travel mode.
      */
     get travelMode(): google.maps.TravelModeString | null;
@@ -15987,6 +16874,8 @@ declare namespace google.maps.routes {
     set travelMode(value: google.maps.TravelModeString | null | undefined);
     addEventListener<K extends keyof Route3DElementEventMap>(type: K, listener: (this: Route3DElement, ev: Route3DElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof Route3DElementEventMap>(type: K, listener: (this: Route3DElement, ev: Route3DElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
   }
   export interface Route3DElementEventMap extends HTMLElementEventMap {
     "gmp-error": Event;
@@ -16020,6 +16909,10 @@ declare namespace google.maps.routes {
      * See {@link google.maps.routes.Route3DElement.routingPreference}.
      */
     routingPreference?: google.maps.routes.RoutingPreferenceString | null;
+    /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     */
+    trafficPolylinesDisabled?: boolean | null;
     /**
      * See {@link google.maps.routes.Route3DElement.travelMode}.
      */
@@ -16459,13 +17352,13 @@ declare namespace google.maps.routes {
    */
   export interface RoutePolyline3DOptions {
     /**
-     * The color scheme to use for the 3D polyline. When specified as <code>FOLLOW_SYSTEM</code> while the map <code>colorScheme</code> is also <code>FOLLOW_SYSTEM</code>, the polylines will be drawn in the same dark/light mode as the map. When not specified, {@link google.maps.routes.Route.create3DPolylines} attempts to use the <code>colorScheme</code> of the map or falls back to the system default.
-     */
-    colorScheme?: google.maps.ColorSchemeString;
-    /**
      * Options for customizing the style of a 3D polyline.
      */
     polylineOptions?: google.maps.maps3d.Polyline3DElementOptions | ((arg0: google.maps.maps3d.Polyline3DElementOptions, arg1: google.maps.routes.RoutePolylineDetails) => google.maps.maps3d.Polyline3DElementOptions);
+    /**
+     * Whether to disable traffic-aware polylines. Traffic aware polylines are only available when routingPreference is set to TRAFFIC_AWARE or TRAFFIC_AWARE_OPTIMAL.
+     */
+    trafficPolylinesDisabled?: boolean;
   }
   /**
    * Details about a section of a route corresponding to a polyline that can be used to customize the polyline style.
@@ -16885,12 +17778,16 @@ declare namespace google.maps.visualization {
 }
 declare namespace google.maps {
   export interface CSSProperties {
+    "--gmp-background"?: string;
+    "--gmp-border-radius"?: string;
     "--gmp-button-border-color"?: string;
     "--gmp-button-border-radius"?: string;
     "--gmp-button-border-width"?: string;
     "--gmp-card-border-radius"?: string;
     "--gmp-collage-border-radius-outer"?: string;
     "--gmp-dialog-border-radius"?: string;
+    "--gmp-glyph-background"?: string;
+    "--gmp-glyph-color"?: string;
     "--gmp-mat-color-disabled-surface"?: string;
     "--gmp-mat-color-info"?: string;
     "--gmp-mat-color-negative"?: string;
@@ -16932,10 +17829,16 @@ declare namespace google.maps {
 declare namespace google.maps {
   export interface HTMLElementEventMapTagNameMap {
     "gmp-advanced-marker": google.maps.marker.AdvancedMarkerElementEventMap;
+    "gmp-advanced-place-details": google.maps.places.AdvancedPlaceDetailsElementEventMap;
+    "gmp-advanced-place-details-compact": google.maps.places.AdvancedPlaceDetailsCompactElementEventMap;
+    "gmp-advanced-place-item": google.maps.places.AdvancedPlaceItemElementEventMap;
+    "gmp-advanced-place-list": google.maps.places.AdvancedPlaceListElementEventMap;
+    "gmp-advanced-place-search": google.maps.places.AdvancedPlaceSearchElementEventMap;
     "gmp-air-quality-meter": google.maps.airQuality.AirQualityMeterElementEventMap;
     "gmp-basic-place-autocomplete": google.maps.places.BasicPlaceAutocompleteElementEventMap;
     "gmp-circle-path": google.maps.maps3d.CirclePathElementEventMap;
     "gmp-flattener": google.maps.maps3d.FlattenerElementEventMap;
+    "gmp-label-3d": google.maps.maps3d.Label3DElementEventMap;
     "gmp-map": google.maps.MapElementEventMap;
     "gmp-map-3d": google.maps.maps3d.Map3DElementEventMap;
     "gmp-marker": google.maps.maps3d.MarkerElementEventMap;
@@ -16949,6 +17852,7 @@ declare namespace google.maps {
     "gmp-place-all-content": google.maps.places.PlaceAllContentElementEventMap;
     "gmp-place-attribution": google.maps.places.PlaceAttributionElementEventMap;
     "gmp-place-autocomplete": google.maps.places.PlaceAutocompleteElementEventMap;
+    "gmp-place-button": google.maps.places.PlaceButtonElementEventMap;
     "gmp-place-content-config": google.maps.places.PlaceContentConfigElementEventMap;
     "gmp-place-contextual": google.maps.places.PlaceContextualElementEventMap;
     "gmp-place-contextual-list-config": google.maps.places.PlaceContextualListConfigElementEventMap;
@@ -16957,11 +17861,15 @@ declare namespace google.maps {
     "gmp-place-details-location-request": google.maps.places.PlaceDetailsLocationRequestElementEventMap;
     "gmp-place-details-place-request": google.maps.places.PlaceDetailsPlaceRequestElementEventMap;
     "gmp-place-feature-list": google.maps.places.PlaceFeatureListElementEventMap;
+    "gmp-place-item": google.maps.places.PlaceItemElementEventMap;
+    "gmp-place-link": google.maps.places.PlaceLinkElementEventMap;
     "gmp-place-media": google.maps.places.PlaceMediaElementEventMap;
+    "gmp-place-name": google.maps.places.PlaceNameElementEventMap;
     "gmp-place-nearby-search-request": google.maps.places.PlaceNearbySearchRequestElementEventMap;
     "gmp-place-open-now-status": google.maps.places.PlaceOpenNowStatusElementEventMap;
     "gmp-place-opening-hours": google.maps.places.PlaceOpeningHoursElementEventMap;
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElementEventMap;
+    "gmp-place-pin": google.maps.places.PlacePinElementEventMap;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElementEventMap;
     "gmp-place-price": google.maps.places.PlacePriceElementEventMap;
     "gmp-place-rating": google.maps.places.PlaceRatingElementEventMap;
@@ -16985,10 +17893,16 @@ declare namespace google.maps {
 declare namespace google.maps {
   export interface HTMLElementOptionsTagNameMap {
     "gmp-advanced-marker": google.maps.marker.AdvancedMarkerElementOptions;
+    "gmp-advanced-place-details": google.maps.places.AdvancedPlaceDetailsElementOptions;
+    "gmp-advanced-place-details-compact": google.maps.places.AdvancedPlaceDetailsCompactElementOptions;
+    "gmp-advanced-place-item": google.maps.places.AdvancedPlaceItemElementOptions;
+    "gmp-advanced-place-list": google.maps.places.AdvancedPlaceListElementOptions;
+    "gmp-advanced-place-search": google.maps.places.AdvancedPlaceSearchElementOptions;
     "gmp-air-quality-meter": google.maps.airQuality.AirQualityMeterElementOptions;
     "gmp-basic-place-autocomplete": google.maps.places.BasicPlaceAutocompleteElementOptions;
     "gmp-circle-path": google.maps.maps3d.CirclePathElementOptions;
     "gmp-flattener": google.maps.maps3d.FlattenerElementOptions;
+    "gmp-label-3d": google.maps.maps3d.Label3DElementOptions;
     "gmp-map": google.maps.MapElementOptions;
     "gmp-map-3d": google.maps.maps3d.Map3DElementOptions;
     "gmp-marker": google.maps.maps3d.MarkerElementOptions;
@@ -17002,6 +17916,7 @@ declare namespace google.maps {
     "gmp-place-all-content": google.maps.places.PlaceAllContentElementOptions;
     "gmp-place-attribution": google.maps.places.PlaceAttributionElementOptions;
     "gmp-place-autocomplete": google.maps.places.PlaceAutocompleteElementOptions;
+    "gmp-place-button": google.maps.places.PlaceButtonElementOptions;
     "gmp-place-content-config": google.maps.places.PlaceContentConfigElementOptions;
     "gmp-place-contextual": google.maps.places.PlaceContextualElementOptions;
     "gmp-place-contextual-list-config": google.maps.places.PlaceContextualListConfigElementOptions;
@@ -17010,11 +17925,15 @@ declare namespace google.maps {
     "gmp-place-details-location-request": google.maps.places.PlaceDetailsLocationRequestElementOptions;
     "gmp-place-details-place-request": google.maps.places.PlaceDetailsPlaceRequestElementOptions;
     "gmp-place-feature-list": google.maps.places.PlaceFeatureListElementOptions;
+    "gmp-place-item": google.maps.places.PlaceItemElementOptions;
+    "gmp-place-link": google.maps.places.PlaceLinkElementOptions;
     "gmp-place-media": google.maps.places.PlaceMediaElementOptions;
+    "gmp-place-name": google.maps.places.PlaceNameElementOptions;
     "gmp-place-nearby-search-request": google.maps.places.PlaceNearbySearchRequestElementOptions;
     "gmp-place-open-now-status": google.maps.places.PlaceOpenNowStatusElementOptions;
     "gmp-place-opening-hours": google.maps.places.PlaceOpeningHoursElementOptions;
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElementOptions;
+    "gmp-place-pin": google.maps.places.PlacePinElementOptions;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElementOptions;
     "gmp-place-price": google.maps.places.PlacePriceElementOptions;
     "gmp-place-rating": google.maps.places.PlaceRatingElementOptions;
@@ -17038,10 +17957,16 @@ declare namespace google.maps {
 declare namespace google.maps {
   export interface HTMLElementTagNameMap {
     "gmp-advanced-marker": google.maps.marker.AdvancedMarkerElement;
+    "gmp-advanced-place-details": google.maps.places.AdvancedPlaceDetailsElement;
+    "gmp-advanced-place-details-compact": google.maps.places.AdvancedPlaceDetailsCompactElement;
+    "gmp-advanced-place-item": google.maps.places.AdvancedPlaceItemElement;
+    "gmp-advanced-place-list": google.maps.places.AdvancedPlaceListElement;
+    "gmp-advanced-place-search": google.maps.places.AdvancedPlaceSearchElement;
     "gmp-air-quality-meter": google.maps.airQuality.AirQualityMeterElement;
     "gmp-basic-place-autocomplete": google.maps.places.BasicPlaceAutocompleteElement;
     "gmp-circle-path": google.maps.maps3d.CirclePathElement;
     "gmp-flattener": google.maps.maps3d.FlattenerElement;
+    "gmp-label-3d": google.maps.maps3d.Label3DElement;
     "gmp-map": google.maps.MapElement;
     "gmp-map-3d": google.maps.maps3d.Map3DElement;
     "gmp-marker": google.maps.maps3d.MarkerElement;
@@ -17055,6 +17980,7 @@ declare namespace google.maps {
     "gmp-place-all-content": google.maps.places.PlaceAllContentElement;
     "gmp-place-attribution": google.maps.places.PlaceAttributionElement;
     "gmp-place-autocomplete": google.maps.places.PlaceAutocompleteElement;
+    "gmp-place-button": google.maps.places.PlaceButtonElement;
     "gmp-place-content-config": google.maps.places.PlaceContentConfigElement;
     "gmp-place-contextual": google.maps.places.PlaceContextualElement;
     "gmp-place-contextual-list-config": google.maps.places.PlaceContextualListConfigElement;
@@ -17063,11 +17989,15 @@ declare namespace google.maps {
     "gmp-place-details-location-request": google.maps.places.PlaceDetailsLocationRequestElement;
     "gmp-place-details-place-request": google.maps.places.PlaceDetailsPlaceRequestElement;
     "gmp-place-feature-list": google.maps.places.PlaceFeatureListElement;
+    "gmp-place-item": google.maps.places.PlaceItemElement;
+    "gmp-place-link": google.maps.places.PlaceLinkElement;
     "gmp-place-media": google.maps.places.PlaceMediaElement;
+    "gmp-place-name": google.maps.places.PlaceNameElement;
     "gmp-place-nearby-search-request": google.maps.places.PlaceNearbySearchRequestElement;
     "gmp-place-open-now-status": google.maps.places.PlaceOpenNowStatusElement;
     "gmp-place-opening-hours": google.maps.places.PlaceOpeningHoursElement;
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElement;
+    "gmp-place-pin": google.maps.places.PlacePinElement;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElement;
     "gmp-place-price": google.maps.places.PlacePriceElement;
     "gmp-place-rating": google.maps.places.PlaceRatingElement;

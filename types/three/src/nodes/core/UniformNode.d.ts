@@ -71,6 +71,14 @@ declare class UniformNodeClass<TValue> extends InputNode<unknown, TValue> {
      * @return {string} The uniform hash.
      */
     getUniformHash(builder: NodeBuilder): string;
+    /**
+     * Uniform nodes with the same hash share a single uniform. This method returns the node
+     * the shared uniform refers to which is the first node registered for the hash.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @return {UniformNode} The node the shared uniform refers to.
+     */
+    getSharedNode(builder: NodeBuilder): UniformNode<unknown, TValue>;
     onUpdate(
         callback: (this: this, frame: NodeFrame, self: this) => TValue | undefined,
         updateType: NodeUpdateType,
@@ -91,10 +99,16 @@ declare const UniformNode: {
      * @param {any} value - The value of this node. Usually a JS primitive or three.js object (vector, matrix, color, texture).
      * @param {?string} nodeType - The node type. If no explicit type is defined, the node tries to derive the type from its value.
      */
-    new<TNodeType, TValue>(value: TValue, nodeType?: string | null): UniformNode<TNodeType, TValue>;
+    new<
+        TNodeType,
+        TValue = TNodeType extends keyof UniformValue ? UniformValue[TNodeType] : unknown,
+    >(value: TValue, nodeType?: string | null): UniformNode<TNodeType, TValue>;
 };
 
-type UniformNode<TNodeType, TValue> = UniformNodeClass<TValue> & InputNode<TNodeType, TValue>;
+type UniformNode<
+    TNodeType,
+    TValue = TNodeType extends keyof UniformValue ? UniformValue[TNodeType] : unknown,
+> = UniformNodeClass<TValue> & InputNode<TNodeType, TValue>;
 
 export default UniformNode;
 
@@ -119,24 +133,24 @@ interface UniformValue {
 }
 
 interface Uniform {
-    <const TNodeType extends keyof UniformValue>(type: TNodeType): UniformNode<TNodeType, UniformValue[TNodeType]>;
-    (value: number, type?: "float"): UniformNode<"float", number>;
-    (value: number, type: "int"): UniformNode<"int", number>;
-    (value: number, type: "uint"): UniformNode<"uint", number>;
-    (value: boolean, type?: "bool"): UniformNode<"bool", boolean>;
-    (value: Vector2, type?: "vec2"): UniformNode<"vec2", Vector2>;
-    (value: Vector2, type: "ivec2"): UniformNode<"ivec2", Vector2>;
-    (value: Vector2, type: "uvec2"): UniformNode<"uvec2", Vector2>;
-    (value: Vector3, type?: "vec3"): UniformNode<"vec3", Vector3>;
-    (value: Vector3, type: "ivec3"): UniformNode<"ivec3", Vector3>;
-    (value: Vector3, type: "uvec3"): UniformNode<"uvec3", Vector3>;
-    (value: Vector4, type?: "vec4"): UniformNode<"vec4", Vector4>;
-    (value: Vector4, type: "ivec4"): UniformNode<"ivec4", Vector4>;
-    (value: Vector4, type: "uvec4"): UniformNode<"uvec4", Vector4>;
-    (value: Matrix2, type?: "mat2"): UniformNode<"mat2", Matrix2>;
-    (value: Matrix3, type?: "mat3"): UniformNode<"mat3", Matrix3>;
-    (value: Matrix4, type?: "mat4"): UniformNode<"mat4", Matrix4>;
-    (value: Color, type?: "color"): UniformNode<"color", Color>;
+    <const TNodeType extends keyof UniformValue>(type: TNodeType): UniformNode<TNodeType>;
+    (value: number, type?: "float"): UniformNode<"float">;
+    (value: number, type: "int"): UniformNode<"int">;
+    (value: number, type: "uint"): UniformNode<"uint">;
+    (value: boolean, type?: "bool"): UniformNode<"bool">;
+    (value: Vector2, type?: "vec2"): UniformNode<"vec2">;
+    (value: Vector2, type: "ivec2"): UniformNode<"ivec2">;
+    (value: Vector2, type: "uvec2"): UniformNode<"uvec2">;
+    (value: Vector3, type?: "vec3"): UniformNode<"vec3">;
+    (value: Vector3, type: "ivec3"): UniformNode<"ivec3">;
+    (value: Vector3, type: "uvec3"): UniformNode<"uvec3">;
+    (value: Vector4, type?: "vec4"): UniformNode<"vec4">;
+    (value: Vector4, type: "ivec4"): UniformNode<"ivec4">;
+    (value: Vector4, type: "uvec4"): UniformNode<"uvec4">;
+    (value: Matrix2, type?: "mat2"): UniformNode<"mat2">;
+    (value: Matrix3, type?: "mat3"): UniformNode<"mat3">;
+    (value: Matrix4, type?: "mat4"): UniformNode<"mat4">;
+    (value: Color, type?: "color"): UniformNode<"color">;
     <TNodeType, TValue>(value: InputNode<TNodeType, TValue>): UniformNode<TNodeType, TValue>;
     <TNodeType, TValue>(value: VarNode<TNodeType, ConstNode<TNodeType, TValue>>): UniformNode<TNodeType, TValue>;
 }

@@ -1190,6 +1190,11 @@ import { promisify } from "node:util";
 }
 
 {
+    let privateKey!: crypto.KeyObject;
+    crypto.createPublicKey(privateKey);
+}
+
+{
     crypto.createSecretKey(Buffer.from("asdf"));
     crypto.createSecretKey(new Uint8Array(128));
     crypto.createSecretKey("ascii", "ascii");

@@ -269,7 +269,7 @@ mParticle.Rokt.onShoppableAdsReady(() => {
     // shoppable ads ready
 });
 
-mParticle.generateHash("test-string");
+const generatedHash: number = mParticle.generateHash("test-string");
 
 mParticle.ready(() => {
     console.log("hi");

@@ -9,12 +9,11 @@ import { Texture } from "../../textures/Texture.js";
 import Renderer from "./Renderer.js";
 
 export interface InspectorBaseEventMap {
+    dispose: {};
 }
 
 /**
- * InspectorBase is the base class for all inspectors.
- *
- * @class InspectorBase
+ * InspectorBase is the base class for all inspectors. Can only be used with {@link WebGPURenderer}.
  */
 declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorBaseEventMap>
     extends EventDispatcher<TEventMap>
@@ -26,6 +25,20 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
      */
     currentFrame: unknown;
     /**
+     * Indicates whether the inspector is running.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    isRunning: boolean;
+    /**
+     * Indicates whether the inspector is enabled.
+     *
+     * @type {boolean}
+     * @default true
+     */
+    enabled: boolean;
+    /**
      * Returns the node frame for the current renderer.
      *
      * @return {Object} The node frame.
@@ -34,20 +47,16 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
     /**
      * Sets the renderer for this inspector.
      *
-     * @param {WebGLRenderer} renderer - The renderer to associate with this inspector.
+     * @param {Renderer} renderer - The renderer to associate with this inspector.
      * @return {InspectorBase} This inspector instance.
      */
     setRenderer(renderer: Renderer): InspectorBase;
     /**
      * Returns the renderer associated with this inspector.
      *
-     * @return {WebGLRenderer} The associated renderer.
+     * @return {Renderer} The associated renderer.
      */
     getRenderer(): Renderer;
-    /**
-     * Initializes the inspector.
-     */
-    init(): void;
     /**
      * Called when a frame begins.
      */
@@ -89,7 +98,7 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
      * @param {string} uid - A unique identifier for the render context.
      * @param {Scene} scene - The scene being rendered.
      * @param {Camera} camera - The camera being used for rendering.
-     * @param {?WebGLRenderTarget} renderTarget - The render target, if any.
+     * @param {?RenderTarget} renderTarget - The render target, if any.
      */
     beginRender(uid: string, scene: Scene, camera: Camera, renderTarget: RenderTarget): void;
     /**
@@ -111,6 +120,10 @@ declare class InspectorBase<TEventMap extends InspectorBaseEventMap = InspectorB
      * @param {Texture} framebufferTexture - The texture associated with the framebuffer.
      */
     copyFramebufferToTexture(framebufferTexture: Texture): void;
+    /**
+     * Frees all internal resources of the inspector.
+     */
+    dispose(): void;
 }
 
 export default InspectorBase;

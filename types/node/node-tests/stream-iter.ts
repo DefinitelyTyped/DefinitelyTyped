@@ -75,7 +75,7 @@ void async function() {
         },
     });
 
-    await pipeTo(from("hello world"), fromWritable(writable, { backpressure: "block" }));
+    await pipeTo(from("hello world"), fromWritable(writable, { backpressure: "unbounded" }));
 };
 
 {

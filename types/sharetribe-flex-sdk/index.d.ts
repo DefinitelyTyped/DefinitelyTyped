@@ -212,6 +212,15 @@ export interface UserRelationships {
 }
 
 /**
+ * Current user relationships. Private file attachments are readable only by the user themselves.
+ */
+export interface CurrentUserRelationships extends UserRelationships {
+    privateFileAttachments?: {
+        data: ResourceReference[];
+    };
+}
+
+/**
  * User resource
  */
 export interface User {
@@ -237,9 +246,10 @@ export interface CurrentUserAttributes extends UserAttributes {
 /**
  * Current user resource
  */
-export interface CurrentUser extends Omit<User, "attributes" | "type"> {
+export interface CurrentUser extends Omit<User, "attributes" | "type" | "relationships"> {
     type: "currentUser";
     attributes: CurrentUserAttributes;
+    relationships?: CurrentUserRelationships;
 }
 
 /**
@@ -312,10 +322,20 @@ export interface Listing {
 }
 
 /**
+ * Own listing relationships. Protected file attachments are readable only by the listing author.
+ */
+export interface OwnListingRelationships extends ListingRelationships {
+    protectedFileAttachments?: {
+        data: ResourceReference[];
+    };
+}
+
+/**
  * Own listing resource (has additional private fields)
  */
-export interface OwnListing extends Omit<Listing, "type"> {
+export interface OwnListing extends Omit<Listing, "type" | "relationships"> {
     type: "ownListing";
+    relationships?: OwnListingRelationships;
 }
 
 /**
@@ -368,6 +388,9 @@ export interface TransactionRelationships {
     messages?: {
         data: ResourceReference[];
     };
+    protectedFileAttachments?: {
+        data: ResourceReference[];
+    };
 }
 
 /**
@@ -407,6 +430,7 @@ export interface Booking {
 export interface MessageAttributes {
     content: string;
     createdAt: string;
+    deleted?: boolean;
 }
 
 /**
@@ -415,6 +439,9 @@ export interface MessageAttributes {
 export interface MessageRelationships {
     sender: {
         data: ResourceReference;
+    };
+    publicFileAttachments?: {
+        data: ResourceReference[];
     };
 }
 
@@ -545,6 +572,133 @@ export interface StripeCustomer {
 }
 
 /**
+ * Lifecycle state of a file resource
+ */
+export type FileState = "pendingUpload" | "pendingVerification" | "available" | "verificationFailed";
+
+/**
+ * Attributes of a file owned by the current user
+ */
+export interface OwnFileAttributes {
+    name: string;
+    size: number;
+    state: FileState;
+    createdAt: string;
+    stateUpdatedAt: string;
+}
+
+/**
+ * A file owned by the current user
+ */
+export interface OwnFile {
+    id: UUID;
+    type: "ownFile";
+    attributes: OwnFileAttributes;
+}
+
+/**
+ * Attributes of a file accessible to the current user (e.g. attached to a transaction)
+ */
+export interface FileAttributes {
+    name: string;
+    size: number;
+    state: FileState;
+    deleted: boolean;
+}
+
+/**
+ * A file accessible to the current user (e.g. attached to a transaction)
+ */
+export interface File {
+    id: UUID;
+    type: "file";
+    attributes: FileAttributes;
+}
+
+/**
+ * A presigned upload target returned by `sdk.fileUploads.create()`
+ */
+export interface FileUpload {
+    id: UUID;
+    type: "fileUpload";
+    attributes: {
+        fileId: UUID;
+        url: string;
+        method: string;
+        headers: Record<string, string>;
+        expiresAt: string;
+    };
+}
+
+/**
+ * A short-lived download URL for a file owned by the current user
+ */
+export interface OwnFileDownload {
+    id: UUID;
+    type: "ownFileDownload";
+    attributes: {
+        fileId: UUID;
+        url: string;
+        expiresAt: string;
+    };
+}
+
+/**
+ * A short-lived download URL for a file accessible to the current user
+ */
+export interface FileDownload {
+    id: UUID;
+    type: "fileDownload";
+    attributes: {
+        fileId: UUID;
+        url: string;
+        expiresAt: string;
+    };
+}
+
+/**
+ * Visibility of a file attachment. `protected` and `private` files are readable only by the
+ * resource owner and marketplace operators; `protected` ones can additionally be revealed to
+ * transaction parties by a transaction process action.
+ */
+export type FileAttachmentScope = "public" | "protected" | "private";
+
+/**
+ * A link between a file and the resource it is attached to. File attachments are read through
+ * relationships on the attaching resource rather than queried directly.
+ */
+export interface FileAttachment {
+    id: UUID;
+    type: "fileAttachment";
+    attributes: {
+        scope: FileAttachmentScope;
+        deleted: boolean;
+    };
+    relationships: {
+        file: {
+            data: ResourceReference;
+        };
+    };
+}
+
+/**
+ * A file to attach, as accepted by the `publicFileAttachments`, `protectedFileAttachments` and
+ * `privateFileAttachments` body parameters
+ */
+export interface FileAttachmentParam {
+    fileId: UUID | string;
+}
+
+/**
+ * File metadata extracted by `file.metadata()`, suitable for `sdk.ownFiles.create()`
+ */
+export interface FileMetadata {
+    name: string;
+    mimeType: string;
+    size: number;
+}
+
+/**
  * Common query parameters for GET requests
  */
 export interface BaseQueryParams {
@@ -642,6 +796,7 @@ export interface MarketplaceSdk {
                 protectedData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
                 profileImageId?: UUID;
+                privateFileAttachments?: FileAttachmentParam[];
             },
             queryParams?: { expand?: boolean },
             opts?: PerRequestOptions,
@@ -663,10 +818,11 @@ export interface MarketplaceSdk {
             opts?: PerRequestOptions,
         ) => Promise<MutationResponse<CurrentUser>>;
         /**
-         * Delete current user
+         * Delete current user. `deleteFromStripe` additionally deletes the associated Stripe
+         * Account and Stripe Customer, which requires the account to have a zero balance.
          */
         delete: (
-            params?: Record<string, never>,
+            params?: { currentPassword?: string; deleteFromStripe?: boolean },
             queryParams?: { expand?: boolean },
             opts?: PerRequestOptions,
         ) => Promise<MutationResponse<CurrentUser>>;
@@ -802,6 +958,7 @@ export interface MarketplaceSdk {
                 availabilityPlan?: unknown;
                 publicData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
+                protectedFileAttachments?: FileAttachmentParam[];
             },
             queryParams?: { expand?: boolean },
             opts?: PerRequestOptions,
@@ -818,6 +975,7 @@ export interface MarketplaceSdk {
                 availabilityPlan?: unknown;
                 publicData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
+                protectedFileAttachments?: FileAttachmentParam[];
             },
             queryParams?: { expand?: boolean },
             opts?: PerRequestOptions,
@@ -851,6 +1009,7 @@ export interface MarketplaceSdk {
                 availabilityPlan?: unknown;
                 publicData?: Record<string, unknown>;
                 privateData?: Record<string, unknown>;
+                protectedFileAttachments?: FileAttachmentParam[];
             },
             queryParams?: { expand?: boolean },
             opts?: PerRequestOptions,
@@ -1010,16 +1169,22 @@ export interface MarketplaceSdk {
 
     messages: {
         /**
-         * Query messages in a transaction
+         * Query messages. Either `transactionId` or `ids` must be provided.
          */
         query: (
-            params: { transactionId: UUID } & PaginationParams & BaseQueryParams,
+            params:
+                & (
+                    | { transactionId: UUID; ids?: Array<UUID | string> }
+                    | { transactionId?: UUID; ids: Array<UUID | string> }
+                )
+                & PaginationParams
+                & BaseQueryParams,
         ) => Promise<QueryResponse<Message>>;
         /**
          * Send a message in a transaction
          */
         send: (
-            params: { transactionId: UUID; content: string },
+            params: { transactionId: UUID; content: string; publicFileAttachments?: FileAttachmentParam[] },
             queryParams?: { expand?: boolean },
             opts?: PerRequestOptions,
         ) => Promise<MutationResponse<Message>>;
@@ -1182,6 +1347,65 @@ export interface MarketplaceSdk {
         queryAssets: (params?: PaginationParams) => Promise<QueryResponse>;
     };
 
+    ownFiles: {
+        /**
+         * Register a file with the Marketplace API (first step of the upload flow)
+         */
+        create: (
+            params: { name: string; mimeType: string; size: number },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<OwnFile>>;
+        /**
+         * Show a file owned by the current user
+         */
+        show: (params: { id: UUID | string } & BaseQueryParams) => Promise<ShowResponse<OwnFile>>;
+    };
+
+    files: {
+        /**
+         * Show a file accessible to the current user, identified by the ID of the file attachment
+         * that links it to the attaching resource
+         */
+        show: (
+            params: { fileAttachmentId: UUID | string } & BaseQueryParams,
+        ) => Promise<ShowResponse<File>>;
+    };
+
+    fileUploads: {
+        /**
+         * Request a presigned upload URL for a registered file
+         */
+        create: (
+            params: { fileId: UUID | string },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileUpload>>;
+    };
+
+    ownFileDownloads: {
+        /**
+         * Request a short-lived download URL for a file owned by the current user
+         */
+        create: (
+            params: { fileId: UUID | string },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<OwnFileDownload>>;
+    };
+
+    fileDownloads: {
+        /**
+         * Request a short-lived download URL for a file attached to a resource the current user
+         * has access to
+         */
+        create: (
+            params: { fileAttachmentId: UUID | string },
+            queryParams?: { expand?: boolean },
+            opts?: PerRequestOptions,
+        ) => Promise<MutationResponse<FileDownload>>;
+    };
+
     /**
      * Authentication methods
      */
@@ -1222,3 +1446,44 @@ export interface SdkConfig {
  * @returns Configured SDK instance
  */
 export function createInstance(config: SdkConfig): MarketplaceSdk;
+
+/**
+ * Query string utilities
+ */
+export namespace util {
+    /**
+     * Serialize an object into a Sharetribe query string fragment, e.g. `{ a: "foo", b: 150 }` => `"a:foo;b:150"`.
+     * Used for parameters such as `meta_*` query filters.
+     */
+    function objectQueryString(obj: Record<string, unknown>): string;
+    /**
+     * Serialize query parameters into a URL query string, handling Sharetribe types such as `UUID` and `LatLng`.
+     * Parameters may be passed as a string, an object, or an array combining the two.
+     */
+    function queryString(
+        params: string | Record<string, unknown> | Array<string | Record<string, unknown>>,
+    ): string;
+}
+
+/**
+ * Helpers for the file upload flow
+ */
+export namespace file {
+    /**
+     * Extract the metadata needed for `sdk.ownFiles.create()` from a browser `File` object.
+     * @param file - A browser `File` object, e.g. from an `<input type="file">` element
+     */
+    function metadata(file: unknown): FileMetadata;
+    /**
+     * Upload a file directly to cloud storage using a presigned URL obtained from
+     * `sdk.fileUploads.create()`. This bypasses the SDK interceptor pipeline.
+     * @returns A promise that resolves when the upload is complete
+     */
+    function upload(params: {
+        url: string;
+        file: unknown;
+        method?: string;
+        headers?: Record<string, string>;
+        onUploadProgress?: (progressEvent: unknown) => void;
+    }): Promise<unknown>;
+}

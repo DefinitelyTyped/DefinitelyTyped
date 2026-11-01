@@ -7,7 +7,7 @@
         "http://socketcluster.io"
     ],
     "dependencies": {
-        "@types/component-emitter": "*",
+        "@types/component-emitter": "<2",
         "@types/sc-auth": "*",
         "@types/sc-channel": "^1",
         "@types/sc-errors": "*",

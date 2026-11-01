@@ -14,7 +14,7 @@ declare class NodeMaterialObserver {
      */
     constructor(builder: NodeBuilder);
     /**
-     * Whether the material uses node objects or not.
+     * Whether the builder's context uses node objects or not.
      *
      * @type {boolean}
      */
@@ -46,11 +46,10 @@ declare class NodeMaterialObserver {
      */
     needsVelocity(renderer: Renderer): boolean;
     /**
-     * Returns `true` if the node builder's material uses
-     * node properties.
+     * Returns `true` if the node builder's context (e.g. material) uses node properties.
      *
      * @param {NodeBuilder} builder - The current node builder.
-     * @return {boolean} Whether the node builder's material uses node properties or not.
+     * @return {boolean} Whether the node builder's context uses node properties or not.
      */
     containsNode(builder: NodeBuilder): boolean;
 }

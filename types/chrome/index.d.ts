@@ -1,4 +1,3 @@
-/// <reference types="filesystem" />
 /// <reference path="./har-format/index.d.ts" />
 /// <reference path="./chrome-cast/index.d.ts" />
 
@@ -11,7 +10,19 @@ type SetPartial<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 ////////////////////
 interface Window {
     chrome: typeof chrome;
+
+    /**
+     * Cross-browser alias of {@link chrome}.
+     * @since Chrome 148 (Chrome 152 for extensions declaring a `devtools_page` in manifest)
+     */
+    browser: typeof chrome;
 }
+
+/**
+ * Cross-browser alias of {@link chrome}.
+ * @since Chrome 148 (Chrome 152 for extensions declaring a `devtools_page` in manifest)
+ */
+declare var browser: typeof chrome;
 
 declare namespace chrome {
     ////////////////////
@@ -168,34 +179,45 @@ declare namespace chrome {
         interface TitleDetails {
             /** The string the action should display when moused over. */
             title: string;
-            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | undefined;
         }
 
         interface PopupDetails {
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | undefined;
-            /** The html file to show in a popup. If set to the empty string (`''`), no popup is shown. */
+            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown. */
             popup: string;
         }
 
-        interface TabIconDetails {
-            /** Either a relative image path or a dictionary {size -> relative image path} pointing to icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
-            path?: string | { [index: number]: string } | undefined;
-            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
-            tabId?: number | undefined;
-            /** Either an ImageData object or a dictionary {size -> ImageData} representing icon to be set. If the icon is specified as a dictionary, the actual image to be used is chosen depending on screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then image with size `scale` \* n will be selected, where n is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
-            imageData?: ImageData | { [index: number]: ImageData } | undefined;
-        }
+        type TabIconDetails =
+            & {
+                /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
+                tabId?: number | null | undefined;
+            }
+            & (
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData: ImageData | { [index: number]: ImageData };
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path?: string | { [index: string]: string } | undefined;
+                }
+                | {
+                    /** Either an ImageData object or a dictionary {size -> ImageData} representing an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.imageData = foo' is equivalent to 'details.imageData = {'16': foo}' */
+                    imageData?: ImageData | { [index: number]: ImageData } | undefined;
+                    /** Either a relative image path or a dictionary {size -> relative image path} pointing to an icon to be set. If the icon is specified as a dictionary, the image used is chosen depending on the screen's pixel density. If the number of image pixels that fit into one screen space unit equals `scale`, then an image with size `scale` \* n is selected, where _n_ is the size of the icon in the UI. At least one image must be specified. Note that 'details.path = foo' is equivalent to 'details.path = {'16': foo}' */
+                    path: string | { [index: string]: string };
+                }
+            );
 
         /** @since Chrome 99 */
         interface OpenPopupOptions {
-            /** The id of the window to open the action popup in. Defaults to the currently-active window if unspecified.  */
+            /** The id of the window to open the action popup in. Defaults to the currently-active window if unspecified. */
             windowId?: number | undefined;
         }
 
         interface TabDetails {
-            /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned.  */
+            /** The ID of the tab to query state for. If no tab is specified, the non-tab-specific state is returned. */
             tabId?: number | undefined;
         }
 
@@ -218,7 +240,7 @@ declare namespace chrome {
          * Disables the action for a tab.
          * @param tabId The ID of the tab for which you want to modify the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function disable(tabId?: number): Promise<void>;
         function disable(callback: () => void): void;
@@ -228,7 +250,7 @@ declare namespace chrome {
          * Enables the action for a tab. By default, actions are enabled.
          * @param tabId The ID of the tab for which you want to modify the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function enable(tabId?: number): Promise<void>;
         function enable(callback: () => void): void;
@@ -237,7 +259,7 @@ declare namespace chrome {
         /**
          * Gets the background color of the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getBadgeBackgroundColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
         function getBadgeBackgroundColor(
@@ -248,7 +270,7 @@ declare namespace chrome {
         /**
          * Gets the badge text of the action. If no tab is specified, the non-tab-specific badge text is returned. If {@link declarativeNetRequest.ExtensionActionOptions.displayActionCountAsBadgeText displayActionCountAsBadgeText} is enabled, a placeholder text will be returned unless the {@link runtime.ManifestPermission declarativeNetRequestFeedback} permission is present or tab-specific badge text was provided.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getBadgeText(details: TabDetails): Promise<string>;
         function getBadgeText(details: TabDetails, callback: (result: string) => void): void;
@@ -256,7 +278,7 @@ declare namespace chrome {
         /**
          * Gets the text color of the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 110
          */
         function getBadgeTextColor(details: TabDetails): Promise<extensionTypes.ColorArray>;
@@ -268,7 +290,7 @@ declare namespace chrome {
         /**
          * Gets the html document set as the popup for this action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getPopup(details: TabDetails): Promise<string>;
         function getPopup(details: TabDetails, callback: (result: string) => void): void;
@@ -276,7 +298,7 @@ declare namespace chrome {
         /**
          * Gets the title of the action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getTitle(details: TabDetails): Promise<string>;
         function getTitle(details: TabDetails, callback: (result: string) => void): void;
@@ -284,7 +306,7 @@ declare namespace chrome {
         /**
          * Returns the user-specified settings relating to an extension's action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 91
          */
         function getUserSettings(): Promise<UserSettings>;
@@ -292,8 +314,9 @@ declare namespace chrome {
 
         /**
          * Indicates whether the extension action is enabled for a tab (or globally if no `tabId` is provided). Actions enabled using only {@link declarativeContent} always return false.
+         * @param tabId The ID of the tab for which you want to check the enabled status.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 110
          */
         function isEnabled(tabId?: number): Promise<boolean>;
@@ -305,7 +328,7 @@ declare namespace chrome {
          *
          * @param options Specifies options for opening the popup.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 127
          */
         function openPopup(options?: OpenPopupOptions): Promise<void>;
@@ -315,7 +338,7 @@ declare namespace chrome {
         /**
          * Sets the background color for the badge.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setBadgeBackgroundColor(details: BadgeColorDetails): Promise<void>;
         function setBadgeBackgroundColor(details: BadgeColorDetails, callback: () => void): void;
@@ -323,7 +346,7 @@ declare namespace chrome {
         /**
          * Sets the badge text for the action. The badge is displayed on top of the icon.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setBadgeText(details: BadgeTextDetails): Promise<void>;
         function setBadgeText(details: BadgeTextDetails, callback: () => void): void;
@@ -331,7 +354,7 @@ declare namespace chrome {
         /**
          * Sets the text color for the badge.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 110
          */
         function setBadgeTextColor(details: BadgeColorDetails): Promise<void>;
@@ -340,7 +363,7 @@ declare namespace chrome {
         /**
          * Sets the icon for the action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the path or the imageData property must be specified.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function setIcon(details: TabIconDetails): Promise<void>;
         function setIcon(details: TabIconDetails, callback: () => void): void;
@@ -348,8 +371,7 @@ declare namespace chrome {
         /**
          * Sets the HTML document to be opened as a popup when the user clicks on the action's icon.
          *
-         * Can return its result via Promise.
-         * @since Chrome 96
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setPopup(details: PopupDetails): Promise<void>;
         function setPopup(details: PopupDetails, callback: () => void): void;
@@ -357,7 +379,7 @@ declare namespace chrome {
         /**
          * Sets the title of the action. This shows up in the tooltip.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function setTitle(details: TitleDetails): Promise<void>;
         function setTitle(details: TitleDetails, callback: () => void): void;
@@ -384,6 +406,11 @@ declare namespace chrome {
         type AlarmCreateInfo =
             & {
                 /**
+                 * Name of this alarm.
+                 * @since Chrome 152
+                 */
+                name?: string | undefined;
+                /**
                  * Whether the alarm should persist across sessions (browser restarts). In Chrome, this defaults to true to match historical behavior, but you should set this explicitly to maximize compatibility across browsers.
                  * @since Chrome 150
                  */
@@ -391,24 +418,24 @@ declare namespace chrome {
             }
             & (
                 | {
-                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire. */
                     delayInMinutes: number;
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes?: number | undefined;
                     /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
-                    when?: never | undefined;
+                    when?: undefined;
                 }
                 | {
-                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire. */
                     delayInMinutes?: number | undefined;
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes: number;
                     /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
-                    when?: number | undefined;
+                    when?: undefined;
                 }
                 | {
-                    /** Length of time in minutes after which the {@link onAlarm} event should fire.  */
-                    delayInMinutes?: never | undefined;
+                    /** Length of time in minutes after which the {@link onAlarm} event should fire. */
+                    delayInMinutes?: undefined;
                     /** If set, the onAlarm event should fire every `periodInMinutes` minutes after the initial event specified by `when` or `delayInMinutes`. If not set, the alarm will only fire once. */
                     periodInMinutes?: number | undefined;
                     /** Time at which the alarm should fire, in milliseconds past the epoch (e.g. `Date.now() + n`). */
@@ -442,9 +469,18 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 111.
          */
         function create(alarmInfo: AlarmCreateInfo): Promise<void>;
-        function create(name: string | undefined, alarmInfo: AlarmCreateInfo): Promise<void>;
+        function create(name: undefined, alarmInfo: AlarmCreateInfo): Promise<void>;
+        function create<T extends AlarmCreateInfo>(
+            name: string,
+            alarmInfo: T & (T extends { name: string } ? never : unknown),
+        ): Promise<void>;
         function create(alarmInfo: AlarmCreateInfo, callback: () => void): void;
-        function create(name: string | undefined, alarmInfo: AlarmCreateInfo, callback: () => void): void;
+        function create(name: undefined, alarmInfo: AlarmCreateInfo, callback: () => void): void;
+        function create<T extends AlarmCreateInfo>(
+            name: string,
+            alarmInfo: T & (T extends { name: string } ? never : unknown),
+            callback: () => void,
+        ): void;
 
         /**
          * Gets an array of all the alarms.
@@ -459,11 +495,12 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
-        function clearAll(): Promise<boolean>;
-        function clearAll(callback: (wasCleared: boolean) => void): void;
+        function clearAll(): Promise<boolean | undefined>;
+        function clearAll(callback: (wasCleared?: boolean) => void): void;
 
         /**
          * Clears the alarm with the given name.
+         * @param name Optional name to identify this alarm. Defaults to the empty string.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
@@ -500,7 +537,7 @@ declare namespace chrome {
             /** Device name */
             deviceName: string;
             /** Type of the device */
-            deviceType: DeviceType;
+            deviceType: `${DeviceType}`;
             /** The user-friendly name (e.g. "USB Microphone"). */
             displayName: string;
             /** The unique identifier of the audio device. */
@@ -512,14 +549,14 @@ declare namespace chrome {
             /** The stable/persisted device id string when available. */
             stableDeviceId?: string;
             /** Stream type associated with this device. */
-            streamType: StreamType;
+            streamType: `${StreamType}`;
         }
 
         interface DeviceFilter {
             /** If set, only audio devices whose active state matches this value will satisfy the filter. */
             isActive?: boolean;
             /** If set, only audio devices whose stream type is included in this list will satisfy the filter. */
-            streamTypes?: StreamType[];
+            streamTypes?: `${StreamType}`[];
         }
 
         interface DeviceIdLists {
@@ -575,7 +612,7 @@ declare namespace chrome {
             /** Whether or not the stream is now muted. */
             isMuted: boolean;
             /** The type of the stream for which the mute value changed. The updated mute value applies to all devices with this stream type. */
-            streamType: StreamType;
+            streamType: `${StreamType}`;
         }
 
         /** Type of stream an audio device provides. */
@@ -586,14 +623,17 @@ declare namespace chrome {
 
         /**
          * Gets a list of audio devices filtered based on filter.
+         * @param filter Device properties by which to filter the list of returned audio devices. If the filter is not set or set to `{}`, returned device list will contain all available audio devices.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function getDevices(filter?: DeviceFilter): Promise<AudioDeviceInfo[]>;
-        function getDevices(filter: DeviceFilter, callback: (devices: AudioDeviceInfo[]) => void): void;
         function getDevices(callback: (devices: AudioDeviceInfo[]) => void): void;
+        function getDevices(filter: DeviceFilter | undefined, callback: (devices: AudioDeviceInfo[]) => void): void;
 
         /**
          * Gets the system-wide mute state for the specified stream type.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function getMute(streamType: `${StreamType}`): Promise<boolean>;
@@ -601,6 +641,7 @@ declare namespace chrome {
 
         /**
          * Sets lists of active input and/or output devices.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function setActiveDevices(ids: DeviceIdLists): Promise<void>;
@@ -608,6 +649,7 @@ declare namespace chrome {
 
         /**
          * Sets mute state for a stream type. The mute state will apply to all audio devices with the specified audio stream type.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function setMute(streamType: `${StreamType}`, isMuted: boolean): Promise<void>;
@@ -615,6 +657,7 @@ declare namespace chrome {
 
         /**
          * Sets the properties for the input or output device.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
         function setProperties(id: string, properties: DeviceProperties): Promise<void>;
@@ -623,18 +666,18 @@ declare namespace chrome {
         /**
          * Fired when audio devices change, either new devices being added, or existing devices being removed.
          */
-        const onDeviceListChanged: chrome.events.Event<(devices: AudioDeviceInfo[]) => void>;
+        const onDeviceListChanged: events.Event<(devices: AudioDeviceInfo[]) => void>;
 
         /**
          * Fired when sound level changes for an active audio device.
          */
-        const onLevelChanged: chrome.events.Event<(event: LevelChangedEvent) => void>;
+        const onLevelChanged: events.Event<(event: LevelChangedEvent) => void>;
 
         /**
          * Fired when the mute state of the audio input or output changes.
          * Note that mute state is system-wide and the new value applies to every audio device with specified stream type.
          */
-        const onMuteChanged: chrome.events.Event<(event: MuteChangedEvent) => void>;
+        const onMuteChanged: events.Event<(event: MuteChangedEvent) => void>;
     }
 
     ////////////////////
@@ -685,7 +728,7 @@ declare namespace chrome {
             title: string;
             /** Indicates the reason why this node is unmodifiable. The `managed` value indicates that this node was configured by the system administrator or by the custodian of a supervised user. Omitted if the node can be modified by the user and the extension (default). */
             unmodifiable?: `${BookmarkTreeNodeUnmodifiable}`;
-            /* The URL navigated to when a user clicks the bookmark. Omitted for folders. */
+            /** The URL navigated to when a user clicks the bookmark. Omitted for folders. */
             url?: string;
         }
 
@@ -710,7 +753,6 @@ declare namespace chrome {
          * Indicates the type of folder.
          * @since Chrome 134
          */
-
         enum FolderType {
             /** The folder whose contents is displayed at the top of the browser window. */
             BOOKMARKS_BAR = "bookmarks-bar",
@@ -737,7 +779,7 @@ declare namespace chrome {
         /**
          * Creates a bookmark or folder under the specified parentId. If url is NULL or missing, it will be a folder.
          *
-         * Can return its result via Promise since Chrome 90.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function create(bookmark: CreateDetails): Promise<BookmarkTreeNode>;
         function create(bookmark: CreateDetails, callback: (result: BookmarkTreeNode) => void): void;
@@ -746,7 +788,7 @@ declare namespace chrome {
          * Retrieves the specified BookmarkTreeNode(s).
          * @param idOrIdList A single string-valued id, or an array of string-valued ids
          *
-         * Can return its result via Promise since Chrome 90.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function get(idOrIdList: string | [string, ...string[]]): Promise<BookmarkTreeNode[]>;
         function get(
@@ -757,7 +799,7 @@ declare namespace chrome {
         /**
          * Retrieves the children of the specified BookmarkTreeNode id.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getChildren(id: string): Promise<BookmarkTreeNode[]>;
         function getChildren(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -766,7 +808,7 @@ declare namespace chrome {
          * Retrieves the recently added bookmarks.
          * @param numberOfItems The maximum number of items to return.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getRecent(numberOfItems: number): Promise<BookmarkTreeNode[]>;
         function getRecent(numberOfItems: number, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -775,7 +817,7 @@ declare namespace chrome {
          * Retrieves part of the Bookmarks hierarchy, starting at the specified node.
          * @param id The ID of the root of the subtree to retrieve.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getSubTree(id: string): Promise<BookmarkTreeNode[]>;
         function getSubTree(id: string, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -783,7 +825,7 @@ declare namespace chrome {
         /**
          * Retrieves the entire Bookmarks hierarchy.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function getTree(): Promise<BookmarkTreeNode[]>;
         function getTree(callback: (results: BookmarkTreeNode[]) => void): void;
@@ -796,7 +838,7 @@ declare namespace chrome {
         /**
          * Moves the specified BookmarkTreeNode to the provided location.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function move(id: string, destination: MoveDestination): Promise<BookmarkTreeNode>;
         function move(
@@ -808,7 +850,7 @@ declare namespace chrome {
         /**
          * Removes a bookmark or an empty bookmark folder.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function remove(id: string): Promise<void>;
         function remove(id: string, callback: () => void): void;
@@ -816,13 +858,13 @@ declare namespace chrome {
         /**
          * Recursively removes a bookmark folder.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function removeTree(id: string): Promise<void>;
         function removeTree(id: string, callback: () => void): void;
 
         interface SearchQuery {
-            /** A string of words and quoted phrases that are matched against bookmark URLs and titles.*/
+            /** A string of words and quoted phrases that are matched against bookmark URLs and titles. */
             query?: string;
             /** The URL of the bookmark; matches verbatim. Note that folders have no URL. */
             url?: string;
@@ -834,7 +876,7 @@ declare namespace chrome {
          * Searches for BookmarkTreeNodes matching the given query. Queries specified with an object produce BookmarkTreeNodes matching all specified properties.
          * @param query Either a string of words and quoted phrases that are matched against bookmark URLs and titles, or an object. If an object, the properties `query`, `url`, and `title` may be specified and bookmarks matching all specified properties will be produced.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function search(query: string | SearchQuery): Promise<BookmarkTreeNode[]>;
         function search(query: string | SearchQuery, callback: (results: BookmarkTreeNode[]) => void): void;
@@ -847,12 +889,12 @@ declare namespace chrome {
         /**
          * Updates the properties of a bookmark or folder. Specify only the properties that you want to change; unspecified properties will be left unchanged. **Note:** Currently, only 'title' and 'url' are supported.
          *
-         * Can return its result via Promise since Chrome Chrome 90
+         * Can return its result via Promise in Manifest V3 or later since Chrome 90.
          */
         function update(id: string, changes: UpdateChanges): Promise<BookmarkTreeNode>;
         function update(id: string, changes: UpdateChanges, callback: (result: BookmarkTreeNode) => void): void;
 
-        /** Fired when a bookmark or folder changes. **Note:** Currently, only title and url changes trigger this.*/
+        /** Fired when a bookmark or folder changes. **Note:** Currently, only title and url changes trigger this. */
         const onChanged: events.Event<(id: string, changeInfo: { title: string; url?: string }) => void>;
 
         /** Fired when the children of a folder have changed their order due to the order being sorted in the UI. This is not called as a result of a move(). */
@@ -864,7 +906,7 @@ declare namespace chrome {
         /** Fired when a bookmark import session is begun. Expensive observers should ignore onCreated updates until onImportEnded is fired. Observers should still handle other notifications immediately. */
         const onImportBegan: events.Event<() => void>;
 
-        /** Fired when a bookmark import session is ended.  */
+        /** Fired when a bookmark import session is ended. */
         const onImportEnded: events.Event<() => void>;
 
         /** Fired when a bookmark or folder is moved to a different parent folder. */
@@ -922,7 +964,7 @@ declare namespace chrome {
         interface TitleDetails {
             /** The string the browser action should display when moused over. */
             title: string;
-            /** Optional. Limits the change to when a particular tab is selected. Automatically resets when the tab is closed.  */
+            /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | null | undefined;
         }
 
@@ -954,7 +996,7 @@ declare namespace chrome {
         interface PopupDetails {
             /** Limits the change to when a particular tab is selected. Automatically resets when the tab is closed. */
             tabId?: number | null | undefined;
-            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown.*/
+            /** The relative path to the HTML file to show in a popup. If set to the empty string (`''`), no popup is shown. */
             popup: string;
         }
 
@@ -1060,7 +1102,10 @@ declare namespace chrome {
 
         /** A set of data types. Missing data types are interpreted as `false`. */
         interface DataTypeSet {
-            /** Websites' WebSQL data. */
+            /**
+             * Websites' WebSQL data.
+             * @deprecated since Chrome 139. Support for WebSQL has been removed. This data type will be ignored.
+             */
             webSQL?: boolean | undefined;
             /** Websites' IndexedDB data. */
             indexedDB?: boolean | undefined;
@@ -1080,9 +1125,15 @@ declare namespace chrome {
             downloads?: boolean | undefined;
             /** The browser's cache. */
             cache?: boolean | undefined;
-            /** Cache storage. */
+            /**
+             * Cache storage.
+             * @since Chrome 72
+             */
             cacheStorage?: boolean | undefined;
-            /** Websites' appcaches. */
+            /**
+             * Websites' appcaches.
+             * @deprecated since Chrome 98. Support for appcache has been removed. This data type will be ignored.
+             */
             appcache?: boolean | undefined;
             /** Websites' file systems. */
             fileSystems?: boolean | undefined;
@@ -1121,7 +1172,7 @@ declare namespace chrome {
          * Clears plugins' data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
-         * @deprecated since Chrome 88. Support for Flash has been removed. This function has no effect
+         * @deprecated since Chrome 88. Support for Flash has been removed. This function has no effect.
          */
         function removePluginData(options: RemovalOptions): Promise<void>;
         function removePluginData(options: RemovalOptions, callback: () => void): void;
@@ -1181,6 +1232,7 @@ declare namespace chrome {
          * Clears websites' WebSQL data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @deprecated since Chrome 139. Support for WebSQL has been removed. This function has no effect.
          */
         function removeWebSQL(options: RemovalOptions): Promise<void>;
         function removeWebSQL(options: RemovalOptions, callback: () => void): void;
@@ -1189,6 +1241,7 @@ declare namespace chrome {
          * Clears websites' appcache data.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
+         * @deprecated since Chrome 98. Support for appcache has been removed. This function has no effect.
          */
         function removeAppcache(options: RemovalOptions): Promise<void>;
         function removeAppcache(options: RemovalOptions, callback: () => void): void;
@@ -1249,12 +1302,15 @@ declare namespace chrome {
     /**
      * Use this API to expose certificates to the platform which can use these certificates for TLS authentications.
      *
-     * Manifest: "certificateProvider"
+     * Permissions: "certificateProvider"
      * @platform ChromeOS only
      * @since Chrome 46
      */
     export namespace certificateProvider {
-        /** Types of supported cryptographic signature algorithms. */
+        /**
+         * Types of supported cryptographic signature algorithms.
+         * @since Chrome 86
+         */
         enum Algorithm {
             /**
              * Specifies the RSASSA PKCS#1 v1.5 signature algorithm with the MD5-SHA-1 hashing. The extension must not prepend a DigestInfo prefix but only add PKCS#1 padding.
@@ -1310,7 +1366,7 @@ declare namespace chrome {
             GENERAL_ERROR = "GENERAL_ERROR",
         }
 
-        /** @deprecated Replaced by {@link Algorithm}.*/
+        /** @deprecated Replaced by {@link Algorithm}. */
         enum Hash {
             /** Specifies the MD5 and SHA1 hashing algorithms. */
             MD5_SHA1 = "MD5_SHA1",
@@ -1388,7 +1444,7 @@ declare namespace chrome {
             error?: `${Error}` | undefined;
         }
 
-        /**  @since Chrome 86 */
+        /** @since Chrome 86 */
         interface SignatureRequest {
             /** Signature algorithm to be used. */
             algorithm: `${Algorithm}`;
@@ -1403,7 +1459,7 @@ declare namespace chrome {
         interface SignRequest {
             /** The DER encoding of a X.509 certificate. The extension must sign `digest` using the associated private key. */
             certificate: ArrayBuffer;
-            /**  The digest that must be signed. */
+            /** The digest that must be signed. */
             digest: ArrayBuffer;
             /** Refers to the hash algorithm that was used to create `digest`. */
             hash: `${Hash}`;
@@ -1427,7 +1483,7 @@ declare namespace chrome {
          *
          * The extension must eventually call this function for every {@link onSignatureRequested} event; the API implementation will stop waiting for this call after some time and respond with a timeout error when this function is called.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @since Chrome 86
          */
         function reportSignature(details: ReportSignatureDetails): Promise<void>;
@@ -1436,7 +1492,7 @@ declare namespace chrome {
         /**
          * Requests the PIN from the user. Only one ongoing request at a time is allowed. The requests issued while another flow is ongoing are rejected. It's the extension's responsibility to try again later if another flow is in progress.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param details Contains the details about the requested dialog.
          * @since Chrome 57
          */
@@ -1451,7 +1507,7 @@ declare namespace chrome {
          *
          * The extension should call this function after initialization and on every change in the set of currently available certificates. The extension should also call this function in response to {@link onCertificatesUpdateRequested} every time this event is received.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param details The certificates to set. Invalid certificates will be ignored.
          * @since Chrome 86
          */
@@ -1461,7 +1517,7 @@ declare namespace chrome {
         /**
          * Stops the pin request started by the {@link requestPin} function.
          *
-         * Can return its result via Promise since Chrome 96.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          * @param details Contains the details about the reason for stopping the request flow.
          * @since Chrome 57
          */
@@ -1570,7 +1626,7 @@ declare namespace chrome {
             resourceIdentifier?: ResourceIdentifier;
             /** Where to set the setting (default: regular). */
             scope?: `${Scope}`;
-            /** The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns.*/
+            /** The pattern for the secondary URL. Defaults to matching all URLs. For details on the format of a pattern, see Content Setting Patterns. */
             secondaryPattern?: string;
             /** The setting applied by this rule. See the description of the individual ContentSetting objects for the possible values. */
             setting: T;
@@ -1580,7 +1636,7 @@ declare namespace chrome {
             /**
              * Clear all content setting rules set by this extension.
              *
-             * Can return its result via Promise since Chrome 96.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
             clear(details: ContentSettingClearParams): Promise<void>;
             clear(details: ContentSettingClearParams, callback: () => void): void;
@@ -1588,19 +1644,19 @@ declare namespace chrome {
             /**
              * Gets the current content setting for a given pair of URLs.
              *
-             * Can return its result via Promise since Chrome 96.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
             get(details: ContentSettingGetParams): Promise<ContentSettingGetResult<T>>;
             get(details: ContentSettingGetParams, callback: (details: ContentSettingGetResult<T>) => void): void;
 
-            /** Can return its result via Promise since Chrome 96. */
+            /** Can return its result via Promise in Manifest V3 or later since Chrome 96. */
             getResourceIdentifiers(): Promise<ResourceIdentifier[] | undefined>;
             getResourceIdentifiers(callback: (resourceIdentifiers?: ResourceIdentifier[]) => void): void;
 
             /**
              * Applies a new content setting rule.
              *
-             * Can return its result via Promise since Chrome 96.
+             * Can return its result via Promise in Manifest V3 or later since Chrome 96.
              */
             set(details: ContentSettingSetParams<T>): Promise<void>;
             set(details: ContentSettingSetParams<T>, callback: () => void): void;
@@ -1679,9 +1735,9 @@ declare namespace chrome {
             BLOCK = "block",
         }
 
-        /** The only content type using resource identifiers is contentSettings.plugins. For more information, see Resource Identifiers. */
+        /** The only content type using resource identifiers is {@link contentSettings.plugins}. For more information, see Resource Identifiers. */
         interface ResourceIdentifier {
-            /** A human readable description of the resource.  */
+            /** A human readable description of the resource. */
             description?: string;
             /** The resource identifier for the given content type. */
             id: string;
@@ -1904,10 +1960,16 @@ declare namespace chrome {
             VIDEO = "video",
             AUDIO = "audio",
             LAUNCHER = "launcher",
+            /** MV2 only */
             BROWSER_ACTION = "browser_action",
+            /** MV2 only */
             PAGE_ACTION = "page_action",
+            /** Applies to the context menu of the extension's action (its toolbar icon). */
             ACTION = "action",
-            /** @since Chrome 149 */
+            /**
+             * Applies to the context menu of a tab in the tab strip.
+             * @since Chrome 150
+             */
             TAB = "tab",
         }
 
@@ -1915,37 +1977,48 @@ declare namespace chrome {
          * Properties of the new context menu item.
          * @since Chrome 123
          */
-        interface CreateProperties {
-            /** The initial state of a checkbox or radio button: `true` for selected, `false` for unselected. Only one radio button can be selected at a time in a given group. */
-            checked?: boolean;
-            /** List of contexts this menu item will appear in. Defaults to `['page']`. */
-            contexts?: [`${ContextType}`, ...`${ContextType}`[]];
-            /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns.  */
-            documentUrlPatterns?: string[];
-            /**  Whether this context menu item is enabled or disabled. Defaults to `true`. */
-            enabled?: boolean;
-            /** The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension. */
-            id?: string;
-            /**  The ID of a parent menu item; this makes the item a child of a previously added item. */
-            parentId?: number | string;
-            /**  Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
-            targetUrlPatterns?: string[];
-            /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
-            title?: string;
-            /** The type of menu item. Defaults to `normal`. */
-            type?: `${ItemType}`;
-            /** Whether the item is visible in the menu. */
-            visible?: boolean;
-            /**
-             * A function that is called back when the menu item is clicked. This is not available inside of a service worker; instead, you should register a listener for {@link contextMenus.onClicked}.
-             * @param info Information about the item clicked and the context where the click happened.
-             * @param tab The details of the tab where the click took place. This parameter is not present for platform apps.
-             */
-            onclick?: (
-                info: OnClickData,
-                tab: tabs.Tab,
-            ) => void;
-        }
+        type CreateProperties =
+            & ({
+                /** The initial state of a checkbox or radio button: `true` for selected, `false` for unselected. Only one radio button can be selected at a time in a given group. */
+                checked?: boolean;
+                /** List of contexts this menu item will appear in. Defaults to `['page']`. */
+                contexts?: [`${ContextType}`, ...`${ContextType}`[]];
+                /** Restricts the item to apply only to documents or frames whose URL matches one of the given patterns. For details on pattern formats, see Match Patterns. */
+                documentUrlPatterns?: string[];
+                /** Whether this context menu item is enabled or disabled. Defaults to `true`. */
+                enabled?: boolean;
+                /** The unique ID to assign to this item. Mandatory for event pages. Cannot be the same as another ID for this extension. */
+                id?: string;
+                /** The ID of a parent menu item; this makes the item a child of a previously added item. */
+                parentId?: number | string;
+                /** Similar to `documentUrlPatterns`, filters based on the `src` attribute of `img`, `audio`, and `video` tags and the `href` attribute of `a` tags. */
+                targetUrlPatterns?: string[];
+                /** Whether the item is visible in the menu. */
+                visible?: boolean;
+                /**
+                 * A function that is called back when the menu item is clicked. This is not available inside of a service worker; instead, you should register a listener for {@link contextMenus.onClicked}.
+                 * @param info Information about the item clicked and the context where the click happened.
+                 * @param tab The details of the tab where the click took place. This parameter is not present for platform apps.
+                 */
+                onclick?: (
+                    info: OnClickData,
+                    tab: tabs.Tab,
+                ) => void;
+            })
+            & (
+                | {
+                    /** The type of menu item. Defaults to `normal`. */
+                    type: `${ItemType.SEPARATOR}`;
+                    /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
+                    title?: string;
+                }
+                | {
+                    /** The type of menu item. Defaults to `normal`. */
+                    type?: `${Exclude<ItemType, ItemType.SEPARATOR>}`;
+                    /** The text to display in the item; this is _required_ unless `type` is `separator`. When the context is `selection`, use `%s` within the string to show the selected text. For example, if this parameter's value is "Translate '%s' to Pig Latin" and the user selects the word "cool", the context menu item for the selection is "Translate 'cool' to Pig Latin". */
+                    title: string;
+                }
+            );
 
         /**
          * The type of menu item.
@@ -1962,7 +2035,7 @@ declare namespace chrome {
         interface OnClickData {
             /** A flag indicating the state of a checkbox or radio item after it is clicked. */
             checked?: boolean;
-            /**  A flag indicating whether the element is editable (text input, textarea, etc.). */
+            /** A flag indicating whether the element is editable (text input, textarea, etc.). */
             editable: boolean;
             /**
              * The ID of the frame of the element where the context menu was clicked, if it was in a frame.
@@ -1979,7 +2052,7 @@ declare namespace chrome {
             menuItemId: number | string;
             /** The URL of the page where the menu item was clicked. This property is not set if the click occurred in a context where there is no current page, such as in a launcher context menu. */
             pageUrl?: string;
-            /** The parent ID, if any, for the item clicked.*/
+            /** The parent ID, if any, for the item clicked. */
             parentMenuItemId?: number | string;
             /** The text for the context selection, if any. */
             selectionText?: string | undefined;
@@ -1993,7 +2066,7 @@ declare namespace chrome {
         const ACTION_MENU_TOP_LEVEL_LIMIT: 6;
 
         /**
-         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link chrome.runtime.lastError}.
+         * Creates a new context menu item. If an error occurs during creation, it may not be detected until the creation callback fires; details will be in {@link runtime.lastError}.
          * @return The ID of the newly created item.
          */
         function create(createProperties: CreateProperties, callback?: () => void): number | string;
@@ -2002,7 +2075,7 @@ declare namespace chrome {
          * Removes a context menu item.
          * @param menuItemId The ID of the context menu item to remove.
          *
-         * Can return its result via Promise since Chrome 123.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 123.
          */
         function remove(menuItemId: string | number): Promise<void>;
         function remove(menuItemId: string | number, callback: () => void): void;
@@ -2010,7 +2083,7 @@ declare namespace chrome {
         /**
          * Removes all context menu items added by this extension.
          *
-         * Can return its result via Promise since Chrome 123.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 123.
          */
         function removeAll(): Promise<void>;
         function removeAll(callback: () => void): void;
@@ -2020,7 +2093,7 @@ declare namespace chrome {
          * @param id The ID of the item to update.
          * @param updateProperties The properties to update. Accepts the same values as the {@link contextMenus.create} function.
          *
-         * Can return its result via Promise since Chrome 123.
+         * Can return its result via Promise in Manifest V3 or later since Chrome 123.
          */
         function update(id: string | number, updateProperties: Omit<CreateProperties, "id">): Promise<void>;
         function update(
@@ -2044,7 +2117,10 @@ declare namespace chrome {
      * Manifest: "host_permissions"
      */
     export namespace cookies {
-        /** A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute. **/
+        /**
+         * A cookie's 'SameSite' state (https://tools.ietf.org/html/draft-west-first-party-cookies). 'no_restriction' corresponds to a cookie set with 'SameSite=None', 'lax' to 'SameSite=Lax', and 'strict' to 'SameSite=Strict'. 'unspecified' corresponds to a cookie set without the SameSite attribute.
+         * @since Chrome 51
+         */
         enum SameSiteStatus {
             NO_RESTRICTION = "no_restriction",
             LAX = "lax",
@@ -2197,7 +2273,7 @@ declare namespace chrome {
             documentId?: string | undefined;
             /** The unique identifier for the frame within the tab. */
             frameId?: number | undefined;
-            /* The unique identifier for the tab containing the frame. */
+            /** The unique identifier for the tab containing the frame. */
             tabId?: number | undefined;
         }
 
@@ -2235,7 +2311,7 @@ declare namespace chrome {
 
         /**
          * Retrieves all cookies from a single cookie store that match the given information. The cookies returned will be sorted, with those with the longest path first. If multiple cookies have the same path length, those with the earliest creation time will be first. This method only retrieves cookies for domains that the extension has host permissions to
-         * @param details Information to identify the cookie to remove.
+         * @param details Information to filter the cookies being retrieved.
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
@@ -2248,8 +2324,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
-        function set(details: SetDetails): Promise<Cookie | null>;
-        function set(details: SetDetails, callback: (cookie: Cookie | null) => void): void;
+        function set(details: SetDetails): Promise<Cookie | undefined>;
+        function set(details: SetDetails, callback: (cookie?: Cookie) => void): void;
 
         /**
          * Deletes a cookie by name.
@@ -2257,15 +2333,15 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later.
          */
         function remove(details: CookieDetails): Promise<CookieDetails>;
-        function remove(details: CookieDetails, callback?: (details: CookieDetails) => void): void;
+        function remove(details: CookieDetails, callback: (details: CookieDetails) => void): void;
 
         /**
          * Retrieves information about a single cookie. If more than one cookie of the same name exists for the given URL, the one with the longest path will be returned. For cookies with the same path length, the cookie with the earliest creation time will be returned.
          *
          * Can return its result via Promise in Manifest V3 or later.
          */
-        function get(details: CookieDetails): Promise<Cookie | null>;
-        function get(details: CookieDetails, callback: (cookie: Cookie | null) => void): void;
+        function get(details: CookieDetails): Promise<Cookie | null | undefined>;
+        function get(details: CookieDetails, callback: (cookie?: Cookie | null) => void): void;
 
         /** Fired when a cookie is set or removed. As a special case, note that updating a cookie's properties is implemented as a two step process: the cookie to be updated is first removed entirely, generating a notification with "cause" of "overwrite" . Afterwards, a new cookie is written with the updated values, generating a second notification with "cause" "explicit". */
         const onChanged: events.Event<(changeInfo: CookieChangeInfo) => void>;
@@ -2295,7 +2371,7 @@ declare namespace chrome {
          * @since Chrome 125
          */
         interface DebuggerSession {
-            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used.*/
+            /** The id of the extension which you intend to debug. Attaching to an extension background page is only possible when the `--silent-debugger-extension-api` command-line switch is used. */
             extensionId?: string;
             /** The opaque id of the Chrome DevTools Protocol session. Identifies a child session within the root session identified by tabId, extensionId or targetId. */
             sessionId?: string;
@@ -2330,7 +2406,7 @@ declare namespace chrome {
             title: string;
             /** Target URL. */
             url: string;
-            /** Target favicon URL.  */
+            /** Target favicon URL. */
             faviconUrl?: string;
         }
 
@@ -2372,16 +2448,22 @@ declare namespace chrome {
          *
          * Can return its result via Promise since Chrome 96.
          */
-        function sendCommand(
+        function sendCommand<
+            T extends object = { [key: string]: any },
+            U extends object = { [key: string]: unknown },
+        >(
             target: DebuggerSession,
             method: string,
-            commandParams?: { [key: string]: unknown },
-        ): Promise<object | undefined>;
-        function sendCommand(
+            commandParams?: T,
+        ): Promise<U | undefined>;
+        function sendCommand<
+            T extends object = { [key: string]: any },
+            U extends object = { [key: string]: unknown },
+        >(
             target: DebuggerSession,
             method: string,
-            commandParams?: { [key: string]: unknown },
-            callback?: (result?: object) => void,
+            commandParams: T | undefined,
+            callback: (result?: U) => void,
         ): void;
 
         /**
@@ -2393,9 +2475,11 @@ declare namespace chrome {
         function getTargets(callback: (result: TargetInfo[]) => void): void;
 
         /** Fired when browser terminates debugging session for the tab. This happens when either the tab is being closed or Chrome DevTools is being invoked for the attached tab. */
-        const onDetach: chrome.events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
+        const onDetach: events.Event<(source: Debuggee, reason: `${DetachReason}`) => void>;
         /** Fired whenever debugging target issues instrumentation event. */
-        const onEvent: chrome.events.Event<(source: DebuggerSession, method: string, params?: object) => void>;
+        const onEvent: events.Event<
+            (source: DebuggerSession, method: string, params?: { [key: string]: unknown }) => void
+        >;
     }
 
     export { _debugger as debugger };
@@ -2449,7 +2533,7 @@ declare namespace chrome {
          * A declarative event action that sets the extension's toolbar {@link action} to an enabled state while the corresponding conditions are met. This action can be used without host permissions. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
          *
          * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
-         * @since MV3
+         * @since Chrome 97
          */
         class ShowAction {}
 
@@ -2457,8 +2541,7 @@ declare namespace chrome {
          * A declarative event action that sets the extension's {@link pageAction} to an enabled state while the corresponding conditions are met. This action can be used without host permissions, but the extension must have a page action. If the extension has the `activeTab` permission, clicking the page action grants access to the active tab.
          *
          * On pages where the conditions are not met the extension's toolbar action will be grey-scale, and clicking it will open the context menu, instead of triggering the action.
-         *
-         * MV2 only
+         * @deprecated since Chrome 97. Please use {@link declarativeContent.ShowAction}.
          */
         class ShowPageAction {}
 
@@ -2493,7 +2576,7 @@ declare namespace chrome {
      *
      * Permissions: "declarativeWebRequest"
      *
-     * MV2 only
+     * Beta and MV2 only
      * @deprecated Check out the {@link declarativeNetRequest} API instead
      */
     export namespace declarativeWebRequest {
@@ -2548,9 +2631,9 @@ declare namespace chrome {
             /** Matches if the MIME media type of a response (from the HTTP Content-Type header) is not contained in the list. */
             excludeContentType?: string[] | undefined;
             /** Matches if none of the request headers is matched by any of the HeaderFilters. */
-            excludeResponseHeaders?: HeaderFilter[] | undefined;
+            excludeRequestHeaders?: HeaderFilter[] | undefined;
             /** Matches if none of the response headers is matched by any of the HeaderFilters. */
-            excludeResponseHeader?: HeaderFilter[] | undefined;
+            excludeResponseHeaders?: HeaderFilter[] | undefined;
             /**
              * Matches if the conditions of the UrlFilter are fulfilled for the 'first party' URL of the request. The 'first party' URL of a request, when present, can be different from the request's target URL, and describes what is considered 'first party' for the sake of third-party checks for cookies.
              * @deprecated since Chrome 82
@@ -2617,7 +2700,7 @@ declare namespace chrome {
         /** Edits one or more cookies of response. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         interface EditResponseCookie {
             /** Filter for cookies that will be modified. All empty entries are ignored. */
-            filter: ResponseCookie;
+            filter: FilterResponseCookie;
             /** Attributes that shall be overridden in cookies that matched the filter. Attributes that are set to an empty string are removed. */
             modification: ResponseCookie;
         }
@@ -2661,7 +2744,7 @@ declare namespace chrome {
             /** Existence of the Secure cookie attribute. */
             secure?: string | undefined;
             /** Filters session cookies. Session cookies have no lifetime specified in any of 'max-age' or 'expires' attributes. */
-            session?: boolean | undefined;
+            sessionCookie?: boolean | undefined;
             /** Value of a cookie, may be padded in double-quotes. */
             value?: string | undefined;
         }
@@ -2696,6 +2779,7 @@ declare namespace chrome {
 
         /** Adds a cookie to the request or overrides a cookie, in case another cookie of the same name exists already. Note that it is preferred to use the Cookies API because this is computationally less expensive. */
         interface AddRequestCookie {
+            /** Cookie to be added to the request. No field may be undefined. */
             cookie: RequestCookie;
         }
 
@@ -2742,6 +2826,7 @@ declare namespace chrome {
             url: string;
         }
 
+        /** Triggers the {@link declarativeWebRequest.onMessage} event. */
         interface SendMessageToExtension {
             /** The value that will be passed in the message attribute of the dictionary that is passed to the event handler. */
             message: string;
@@ -2812,11 +2897,28 @@ declare namespace chrome {
      * Manifest: "devtools_page"
      */
     export namespace devtools.inspectedWindow {
+        interface SetContentResult {
+            code: string;
+            description: string;
+            details: string[];
+            isError?: boolean;
+        }
+
         /** A resource within the inspected page, such as a document, a script, or an image. */
         interface Resource {
             /** The URL of the resource. */
             url: string;
-            /** Gets the content of the resource. */
+            /**
+             * Gets the content of the resource.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+             */
+            getContent(): Promise<{
+                /** Content of the resource (potentially encoded). */
+                content: string;
+                /** Empty if the content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
+                encoding: string;
+            }>;
             getContent(
                 callback: (
                     /** Content of the resource (potentially encoded). */
@@ -2829,14 +2931,17 @@ declare namespace chrome {
              * Sets the content of the resource.
              * @param content New content of the resource. Only resources with the text type are currently supported.
              * @param commit True if the user has finished editing the resource, and the new content of the resource should be persisted; false if this is a minor change sent in progress of the user editing the resource.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
              */
             setContent(
                 content: string,
                 commit: boolean,
-                callback?: (
-                    /** Set to undefined if the resource content was set successfully; describes error otherwise. */
-                    error?: object,
-                ) => void,
+            ): Promise<undefined>;
+            setContent(
+                content: string,
+                commit: boolean,
+                callback: (result: SetContentResult) => void,
             ): void;
         }
 
@@ -2849,20 +2954,59 @@ declare namespace chrome {
             injectedScript?: string | undefined;
         }
 
-        interface EvaluationExceptionInfo {
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            isError: boolean;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            code: string;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated. */
-            description: string;
-            /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
-            details: any[];
-            /** Set if the evaluated code produces an unhandled exception. */
-            isException: boolean;
-            /** Set if the evaluated code produces an unhandled exception. */
-            value: string;
-        }
+        type EvaluationExceptionInfo =
+            | {
+                /**
+                 * Set if the error occurred on the DevTools side before the expression is evaluated.
+                 *
+                 * If `isError` is set to true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * See the docs on `isException` for more details on parsing this object.
+                 */
+                isError: true;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                code: string;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                description: string;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
+                details: any[];
+                /**
+                 * Set if the evaluated code produces an unhandled exception.
+                 *
+                 * If `isException` is non-null but not true, and `isError` is true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * If `isException` is set to true, a JavaScript error has occurred, and `value` is set to the string value of the thrown object.
+                 */
+                isException?: undefined;
+                /** Set if the evaluated code produces an unhandled exception. */
+                value?: undefined;
+            }
+            | {
+                /**
+                 * Set if the error occurred on the DevTools side before the expression is evaluated.
+                 *
+                 * If `isError` is set to true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * See the docs on `isException` for more details on parsing this object.
+                 */
+                isError?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                code?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated. */
+                description?: undefined;
+                /** Set if the error occurred on the DevTools side before the expression is evaluated, contains the array of the values that may be substituted into the description string to provide more information about the cause of the error. */
+                details?: undefined;
+                /**
+                 * Set if the evaluated code produces an unhandled exception.
+                 *
+                 * If `isException` is non-null but not true, and `isError` is true, a DevTools-side error has occurred, and `code` is set to an error code.
+                 *
+                 * If `isException` is set to true, a JavaScript error has occurred, and `value` is set to the string value of the thrown object.
+                 */
+                isException: true;
+                /** Set if the evaluated code produces an unhandled exception. */
+                value: string;
+            };
 
         /** The ID of the tab being inspected. This ID may be used with {@link chrome.tabs} API. */
         const tabId: number;
@@ -2876,18 +3020,37 @@ declare namespace chrome {
          * @param expression An expression to evaluate.
          * @param options The options parameter can contain one or more options.
          * @param callback A function called when evaluation completes.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
          */
         function eval<T = { [key: string]: unknown }>(
             expression: string,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            options?: EvalOptions,
+        ): Promise<T>;
+        function eval<T = { [key: string]: unknown }>(
+            expression: string,
+            callback: (
+                ...args:
+                    | [result: T, exceptionInfo: undefined]
+                    | [result: undefined, exceptionInfo: EvaluationExceptionInfo]
+            ) => void,
         ): void;
         function eval<T = { [key: string]: unknown }>(
             expression: string,
             options: EvalOptions | undefined,
-            callback?: (result: T, exceptionInfo: EvaluationExceptionInfo) => void,
+            callback: (
+                ...args:
+                    | [result: T, exceptionInfo: undefined]
+                    | [result: undefined, exceptionInfo: EvaluationExceptionInfo]
+            ) => void,
         ): void;
 
-        /** Retrieves the list of resources from the inspected page. */
+        /**
+         * Retrieves the list of resources from the inspected page.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+         */
+        function getResources(): Promise<Resource[]>;
         function getResources(callback: (resources: Resource[]) => void): void;
 
         /** Fired when a new resource is added to the inspected page. */
@@ -2920,7 +3083,17 @@ declare namespace chrome {
     export namespace devtools.network {
         /** Represents a network request for a document resource (script, image and so on). See HAR Specification for reference. */
         interface Request extends HARFormatEntry {
-            /** Returns content of the response body. */
+            /**
+             * Returns content of the response body.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+             */
+            getContent(): Promise<{
+                /** Content of the response body (potentially encoded). */
+                content: string;
+                /** Empty if content is not encoded, encoding name otherwise. Currently, only base64 is supported. */
+                encoding: string;
+            }>;
             getContent(
                 callback: (
                     /** Content of the response body (potentially encoded). */
@@ -2931,7 +3104,12 @@ declare namespace chrome {
             ): void;
         }
 
-        /** Returns HAR log that contains all known network requests. */
+        /**
+         * Returns HAR log that contains all known network requests.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 151.
+         */
+        function getHAR(): Promise<HARFormatLog>;
         function getHAR(
             callback: (
                 /** A HAR log. See HAR specification for details. */
@@ -3009,10 +3187,13 @@ declare namespace chrome {
             /**
              * Creates a pane within panel's sidebar.
              * @param title Text that is displayed in sidebar caption.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
+            createSidebarPane(title: string): Promise<ExtensionSidebarPane>;
             createSidebarPane(
                 title: string,
-                callback?: (
+                callback: (
                     /** An ExtensionSidebarPane object for created sidebar pane. */
                     result: ExtensionSidebarPane,
                 ) => void,
@@ -3026,10 +3207,13 @@ declare namespace chrome {
             /**
              * Creates a pane within panel's sidebar.
              * @param title Text that is displayed in sidebar caption.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
+            createSidebarPane(title: string): Promise<ExtensionSidebarPane>;
             createSidebarPane(
                 title: string,
-                callback?: (
+                callback: (
                     /** An ExtensionSidebarPane object for created sidebar pane. */
                     result: ExtensionSidebarPane,
                 ) => void,
@@ -3049,19 +3233,23 @@ declare namespace chrome {
              * Sets an expression that is evaluated within the inspected page. The result is displayed in the sidebar pane.
              * @param expression An expression to be evaluated in context of the inspected page. JavaScript objects and DOM nodes are displayed in an expandable tree similar to the console/watch.
              * @param rootTitle An optional title for the root of the expression tree.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
-            setExpression(expression: string, callback?: () => void): void;
-            setExpression(expression: string, rootTitle: string | undefined, callback?: () => void): void;
+            setExpression(expression: string, rootTitle?: string): Promise<void>;
+            setExpression(expression: string, rootTitle: string | undefined, callback: () => void): void;
             /**
              * Sets a JSON-compliant object to be displayed in the sidebar pane.
              * @param jsonObject An object to be displayed in context of the inspected page. Evaluated in the context of the caller (API client).
              * @param rootTitle An optional title for the root of the expression tree.
+             *
+             * Can return its result via Promise in Manifest V3 or later since Chrome 152.
              */
-            setObject(jsonObject: { [key: string]: unknown }, callback?: () => void): void;
+            setObject(jsonObject: { [key: string]: unknown }, rootTitle?: string): Promise<void>;
             setObject(
                 jsonObject: { [key: string]: unknown },
                 rootTitle: string | undefined,
-                callback?: () => void,
+                callback: () => void,
             ): void;
             /**
              * Sets an HTML page to be displayed in the sidebar pane.
@@ -3091,12 +3279,15 @@ declare namespace chrome {
          * @param title Title that is displayed next to the extension icon in the Developer Tools toolbar.
          * @param iconPath Path of the panel's icon relative to the extension directory.
          * @param pagePath Path of the panel's HTML page relative to the extension directory.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 152.
          */
+        function create(title: string, iconPath: string, pagePath: string): Promise<ExtensionPanel>;
         function create(
             title: string,
             iconPath: string,
             pagePath: string,
-            callback?: (
+            callback: (
                 /** An ExtensionPanel object representing the created panel. */
                 panel: ExtensionPanel,
             ) => void,
@@ -3123,13 +3314,16 @@ declare namespace chrome {
          * @param url The URL of the resource to open.
          * @param lineNumber Specifies the line number to scroll to when the resource is loaded.
          * @param columnNumber Specifies the column number to scroll to when the resource is loaded.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 152.
          */
-        function openResource(url: string, lineNumber: number, callback?: () => void): void;
+        function openResource(url: string, lineNumber: number, columnNumber?: number): Promise<void>;
+        function openResource(url: string, lineNumber: number, callback: () => void): void;
         function openResource(
             url: string,
             lineNumber: number,
             columnNumber: number | undefined,
-            callback?: () => void,
+            callback: () => void,
         ): void;
 
         /**
@@ -3317,7 +3511,7 @@ declare namespace chrome {
         enum OperationResult {
             /** An unknown or generic failure occurred. */
             UNKNOWN = "UNKNOWN",
-            /**The operation succeeded. */
+            /** The operation succeeded. */
             SUCCESS = "SUCCESS",
             /** The operation is not supported. */
             UNSUPPORTED = "UNSUPPORTED",
@@ -3331,9 +3525,9 @@ declare namespace chrome {
             WRONG_TYPE = "WRONG_TYPE",
             /** No more data is available. */
             EOF = "EOF",
-            /** The document feeder is jammed */
+            /** The document feeder is jammed. */
             ADF_JAMMED = "ADF_JAMMED",
-            /** The document feeder is empty */
+            /** The document feeder is empty. */
             ADF_EMPTY = "ADF_EMPTY",
             /** The flatbed cover is open. */
             COVER_OPEN = "COVER_OPEN",
@@ -3385,7 +3579,7 @@ declare namespace chrome {
         enum OptionType {
             /** The option's data type is `unknown`. The value property will be unset. */
             UNKNOWN = "UNKNOWN",
-            /** The `value` property will be one of `true` false. */
+            /** The `value` property will be one of `true` or `false`. */
             BOOL = "BOOL",
             /** A signed 32-bit integer. The `value` property will be long or long[], depending on whether the option takes more than one value. */
             INT = "INT",
@@ -3500,7 +3694,7 @@ declare namespace chrome {
 
         /** @since Chrome 125 */
         interface SetOptionResult {
-            /**  Indicates the name of the option that was set. */
+            /** Indicates the name of the option that was set. */
             name: string;
             /** Indicates the result of setting the option. */
             result: `${OperationResult}`;
@@ -3532,7 +3726,7 @@ declare namespace chrome {
         interface StartScanResponse<T> {
             /** If `result` is `SUCCESS`, provides a handle that can be used to read scan data or cancel the job. */
             job?: string;
-            /**  The result of starting a scan. If the value of this is `SUCCESS`, the `job` property will be populated. */
+            /** The result of starting a scan. If the value of this is `SUCCESS`, the `job` property will be populated. */
             result: `${OperationResult}`;
             /** Provides the same scanner handle that was passed to {@link startScan}. */
             scannerHandle: T;
@@ -3593,7 +3787,7 @@ declare namespace chrome {
         /**
          * Reads the next chunk of available image data from an active job handle, and returns a Promise that resolves with a {@link ReadScanDataResponse} object. If a callback is used, the object is passed to it instead.
          *
-         * **Note:**It is valid for a response result to be `SUCCESS` with a zero-length `data` member. This means the scanner is still working but does not yet have additional data ready. The caller should wait a short time and try again.
+         * **Note:** It is valid for a response result to be `SUCCESS` with a zero-length `data` member. This means the scanner is still working but does not yet have additional data ready. The caller should wait a short time and try again.
          *
          * When the scan job completes, the response will have the result value of `EOF`. This response may contain a final non-zero `data` member.
          * @param job Active job handle previously returned from {@link startScan}.
@@ -3653,9 +3847,9 @@ declare namespace chrome {
      */
     export namespace dom {
         /**
-         * @since Chrome 88
          * Requests chrome to return the open/closed shadow roots else return null.
          * @param element reference of HTMLElement.
+         * @since Chrome 88
          */
         function openOrClosedShadowRoot(element: HTMLElement): ShadowRoot | null;
     }
@@ -3886,16 +4080,32 @@ declare namespace chrome {
         }
 
         interface GetFileIconOptions {
-            /** The size of the returned icon. The icon will be square with dimensions size * size pixels. The default and largest size for the icon is 32x32 pixels. The only supported sizes are 16 and 32. It is an error to specify any other size. */
+            /** The size of the returned icon in density-independent pixels (DIPs). Must be either 16 or 32 (defaults to 32). On high-DPI displays, the returned image scales with the device scale factor (e.g., 64x64 px for size 32 on a 2x display). Calls from background service workers default to 1x scale. */
             size?: 16 | 32 | undefined;
         }
 
+        type DownloadSortableKey = keyof Pick<
+            DownloadItem,
+            | "url"
+            | "bytesReceived"
+            | "danger"
+            | "finalUrl"
+            | "totalBytes"
+            | "filename"
+            | "paused"
+            | "state"
+            | "mime"
+            | "startTime"
+            | "endTime"
+            | "exists"
+        >;
+
         interface DownloadQuery {
             /** Set elements of this array to {@link DownloadItem} properties in order to sort search results. For example, setting `orderBy=['startTime']` sorts the {@link DownloadItem} by their start time in ascending order. To specify descending order, prefix with a hyphen: '-startTime'. */
-            orderBy?: string[] | undefined;
+            orderBy?: Array<DownloadSortableKey | `-${DownloadSortableKey}`> | undefined;
             /** Limits results to {@link DownloadItem} whose `url` matches the given regular expression. */
             urlRegex?: string | undefined;
-            /** Limits results to {@link DownloadItem} that ended before the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that ended before the given ms in ISO 8601 format. */
             endedBefore?: string | undefined;
             /** Limits results to {@link DownloadItem} whose `totalBytes` is greater than the given integer. */
             totalBytesGreater?: number | undefined;
@@ -3911,12 +4121,12 @@ declare namespace chrome {
              * The absolute URL that this download is being made from, after all redirects.
              * @since Chrome 54
              */
-            finalUrl?: string;
+            finalUrl?: string | undefined;
             /**
              * Limits results to {@link DownloadItem} whose `finalUrl` matches the given regular expression.
              * @since Chrome 54
              */
-            finalUrlRegex?: string;
+            finalUrlRegex?: string | undefined;
             /** This array of search terms limits results to {@link DownloadItem} whose `filename` or `url` or `finalUrl` contain all of the search terms that do not begin with a dash '-' and none of the search terms that do begin with a dash. */
             query?: string[] | undefined;
             /** Limits results to {@link DownloadItem} whose `totalBytes` is less than the given integer. */
@@ -3925,13 +4135,13 @@ declare namespace chrome {
             id?: number | undefined;
             /** Number of bytes received so far from the host, without considering file compression. */
             bytesReceived?: number | undefined;
-            /** Limits results to {@link DownloadItem} that ended after the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that ended after the given ms in ISO 8601 format. */
             endedAfter?: string | undefined;
             /** Absolute local path. */
             filename?: string | undefined;
             /** Indicates whether the download is progressing, interrupted, or complete. */
             state?: `${State}` | undefined;
-            /** Limits results to {@link DownloadItem} that started after the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that started after the given ms in ISO 8601 format. */
             startedAfter?: string | undefined;
             /** The file's MIME type. */
             mime?: string | undefined;
@@ -3941,7 +4151,7 @@ declare namespace chrome {
             startTime?: string | undefined;
             /** The absolute URL that this download initiated from, before any redirects. */
             url?: string | undefined;
-            /** Limits results to {@link DownloadItem} that started before the time in ISO 8601 format. */
+            /** Limits results to {@link DownloadItem} that started before the given ms in ISO 8601 format. */
             startedBefore?: string | undefined;
             /** The maximum number of matching {@link DownloadItem} returned. Defaults to 1000. Set to 0 in order to return all matching {@link DownloadItem}. See {@link search} for how to page through results. */
             limit?: number | undefined;
@@ -3984,7 +4194,7 @@ declare namespace chrome {
         function pause(downloadId: number, callback: () => void): void;
 
         /**
-         * Retrieve an icon for the specified download. For new downloads, file icons are available after the {@link onCreated} event has been received. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, {@link runtime.lastError} will contain an error message.
+         * Retrieve an icon for the specified download. For new downloads, file icons are available after the download's target filename has been determined (for example, when {@link onChanged} fires with a `filename` change). Attempting to retrieve the icon before the filename is determined will result in an error through {@link runtime.lastError}. The image returned by this function while a download is in progress may be different from the image returned after the download is complete. Icon retrieval is done by querying the underlying operating system or toolkit depending on the platform. The icon that is returned will therefore depend on a number of factors including state of the download, platform, registered file types and visual theme. If a file icon cannot be determined, {@link runtime.lastError} will contain an error message.
          * @param downloadId The identifier for the download.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
@@ -3993,7 +4203,7 @@ declare namespace chrome {
         function getFileIcon(downloadId: number, callback: (iconURL?: string) => void): void;
         function getFileIcon(
             downloadId: number,
-            options: GetFileIconOptions,
+            options: GetFileIconOptions | undefined,
             callback: (iconURL?: string) => void,
         ): void;
 
@@ -4079,9 +4289,10 @@ declare namespace chrome {
 
         /**
          * Change the download UI of every window associated with the current browser profile. As long as at least one extension has set {@link UiOptions.enabled} to false, the download UI will be hidden. Setting {@link UiOptions.enabled} to true while at least one other extension has disabled it will return an error through {@link runtime.lastError}. Requires the `"downloads.ui"` permission in addition to the `"downloads"` permission.
-         * @since Chrome 105
+         * @param options Encapsulate a change to the download UI.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 105.
+         * @since Chrome 105
          */
         function setUiOptions(options: UiOptions): Promise<void>;
         function setUiOptions(options: UiOptions, callback: () => void): void;
@@ -4130,7 +4341,7 @@ declare namespace chrome {
             /**
              * Implements the WebCrypto's SubtleCrypto interface. The cryptographic operations, including key generation, are software-backed. Protection of the keys, and thus implementation of the non-extractable property, is done in software, so the keys are less protected than hardware-backed keys.
              *
-             * Only non-extractable keys can be generated. The only supported key type is RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048. up to 2048. Each key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely.
+             * Only non-extractable keys can be generated. The only supported key type is RSASSA-PKCS1-V1_5 with `modulusLength` up to 2048. Each key can be used for signing data at most once, unless the extension is allowlisted through the KeyPermissions policy, in which case the key can be used indefinitely.
              *
              * Keys generated on a specific `Token` cannot be used with any other Tokens, nor can they be used with `window.crypto.subtle`. Equally, `Key` objects created with `window.crypto.subtle` cannot be used with this interface.
              * @since Chrome 97
@@ -4277,6 +4488,8 @@ declare namespace chrome {
          * @param challenge A challenge as emitted by the Verified Access Web API.
          * @param registerKey If set, the current Enterprise User Key is registered with the `user` token and relinquishes the Enterprise User Key role. The key can then be associated with a certificate and used like any other signing key. This key is 2048-bit RSA. Subsequent calls to this function will then generate a new Enterprise User Key.
          * @param callback Called back with the challenge response.
+         *
+         * Can return its result via Promise since Chrome 131.
          * @since Chrome 50
          */
         function challengeUserKey(challenge: ArrayBuffer, registerKey: boolean): Promise<ArrayBuffer>;
@@ -4404,9 +4617,9 @@ declare namespace chrome {
         interface NetworkDetails {
             /** The device's MAC address. */
             macAddress: string;
-            /** Optional. The device's local IPv4 address (undefined if not configured). */
+            /** The device's local IPv4 address (undefined if not configured). */
             ipv4?: string | undefined;
-            /** Optional. The device's local IPv6 address (undefined if not configured). */
+            /** The device's local IPv6 address (undefined if not configured). */
             ipv6?: string | undefined;
         }
 
@@ -4471,7 +4684,7 @@ declare namespace chrome {
             /** Matches if the URL (without fragment identifier) ends with a specified string. Port numbers are stripped from the URL if they match the default port number. */
             urlSuffix?: string | undefined;
             /** Matches if the port of the URL is contained in any of the specified port lists. For example `[80, 443, [1000, 1200]]` matches all requests on port 80, 443 and in the range 1000-1200. */
-            ports?: Array<number | number[]> | undefined;
+            ports?: Array<number | [number, number]> | undefined;
             /** Matches if the URL without query segment and fragment identifier matches a specified regular expression. Port numbers are stripped from the URL if they match the default port number. The regular expressions use the RE2 syntax. */
             originAndPathMatches?: string | undefined;
         }
@@ -4579,6 +4792,8 @@ declare namespace chrome {
 
         /**
          * Set for the lifetime of a callback if an asynchronous extension api has resulted in an error. If no error has occurred lastError will be `undefined`.
+         *
+         * MV2 only
          * @deprecated since Chrome 58. Please use {@link runtime.lastError}
          */
         const lastError: runtime.LastError | undefined;
@@ -4588,6 +4803,8 @@ declare namespace chrome {
 
         /**
          * Converts a relative path within an extension install directory to a fully-qualified URL.
+         *
+         * MV2 only
          * @param path A path to a resource within an extension expressed relative to its install directory.
          * @deprecated since Chrome 58. Please use {@link runtime.getURL}
          */
@@ -4678,6 +4895,25 @@ declare namespace chrome {
         type CSSOrigin = "author" | "user";
 
         /**
+         * Details of the CSS to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         */
+        interface DeleteInjectionDetails {
+            /** If allFrames is `true`, implies that the CSS should be removed from all frames of current page. By default, it's `false` and is only removed from the top frame. If `true` and `frameId` is set, then the code is removed from the selected frame and all of its child frames. */
+            allFrames?: boolean;
+            /**  CSS code to remove. */
+            code?: string;
+            /** The origin of the CSS to remove. Defaults to `"author"`. */
+            cssOrigin?: CSSOrigin;
+            /** CSS file to remove. */
+            file?: string;
+            /** The frame from where the CSS should be removed. Defaults to 0 (the top-level frame). */
+            frameId?: number;
+            /** If matchAboutBlank is true, then the code is also removed from about:blank and about:srcdoc frames if your extension has access to its parent document. By default it is `false`. */
+            matchAboutBlank?: boolean;
+        }
+
+        /**
          * The document lifecycle of the frame.
          * @since Chrome 106
          */
@@ -4759,7 +4995,7 @@ declare namespace chrome {
             /** The ID of the tab that raised this event. Tab IDs are unique within a browser session. */
             tab_id?: number;
             /** Array of Entry instances representing files that are targets of this action (selected in ChromeOS file browser). */
-            entries: any[];
+            entries: FileSystemFileEntry[];
         }
 
         /** Fired when file system action is executed from ChromeOS file browser. */
@@ -4773,6 +5009,8 @@ declare namespace chrome {
      * Use the `chrome.fileSystemProvider` API to create file systems, that can be accessible from the file manager on Chrome OS.
      *
      * Permissions: "fileSystemProvider"
+     *
+     * Manifest: "fileSystemProvider"
      * @platform ChromeOS only
      */
     export namespace fileSystemProvider {
@@ -5079,7 +5317,7 @@ declare namespace chrome {
             filePath: string;
             /** Whether the file was opened for reading or writing. */
             mode: `${OpenFileMode}`;
-            /** A request ID to be be used by consecutive read/write and close requests. */
+            /** A request ID to be used by consecutive read/write and close requests. */
             openRequestId: number;
         }
 
@@ -5100,7 +5338,7 @@ declare namespace chrome {
             requestId: number;
         }
 
-        /** Error codes used by providing extensions in response to requests as well as in case of errors when calling methods of the API. For success, `"OK"` must be used.*/
+        /** Error codes used by providing extensions in response to requests as well as in case of errors when calling methods of the API. For success, `"OK"` must be used. */
         enum ProviderError {
             OK = "OK",
             FAILED = "FAILED",
@@ -5268,7 +5506,7 @@ declare namespace chrome {
          *
          * Note that if a parent directory is removed, then all descendant entries are also removed, and if they are watched, then the API must be notified about the fact. Also, if a directory is renamed, then all descendant entries are in fact removed, as there is no entry under their original paths anymore.
          *
-         * In case of an error, {@link runtime.lastError} will be set will a corresponding error code.
+         * In case of an error, {@link runtime.lastError} will be set with a corresponding error code.
          *
          * Can return its result via Promise since Chrome 96.
          * @since Chrome 45
@@ -5307,7 +5545,7 @@ declare namespace chrome {
             ) => void
         >;
 
-        /** Raised when opening a file previously opened with `openRequestId` is requested to be closed.*/
+        /** Raised when opening a file previously opened with `openRequestId` is requested to be closed. */
         const onCloseFileRequested: events.Event<
             (
                 options: CloseFileRequestedOptions,
@@ -5371,7 +5609,7 @@ declare namespace chrome {
         >;
 
         /**
-         * Raised when executing an action for a set of files or directories is\\ requested. After the action is completed, `successCallback` must be called. On error, `errorCallback` must be called.
+         * Raised when executing an action for a set of files or directories is requested. After the action is completed, `successCallback` must be called. On error, `errorCallback` must be called.
          * @since Chrome 48
          */
         const onExecuteActionRequested: events.Event<
@@ -5752,7 +5990,7 @@ declare namespace chrome {
             genericFamily: `${GenericFamily}`;
             /** The level of control this extension has over the setting. */
             levelOfControl: `${LevelOfControl}`;
-            /** Optional. The script code for which the font setting has changed.  */
+            /** The script code for which the font setting has changed. */
             script?: `${ScriptCode}`;
             /** The font ID. See the description in {@link getFont}. */
             fontId: string;
@@ -5800,10 +6038,10 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function getDefaultFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
-        function getDefaultFontSize(callback: (options: FontSizeResult) => void): void;
+        function getDefaultFontSize(callback: (details: FontSizeResult) => void): void;
         function getDefaultFontSize(
             details: { [key: string]: unknown } | undefined,
-            callback: (options: FontSizeResult) => void,
+            callback: (details: FontSizeResult) => void,
         ): void;
 
         /**
@@ -5813,10 +6051,10 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
         function getMinimumFontSize(details?: { [key: string]: unknown }): Promise<FontSizeResult>;
-        function getMinimumFontSize(callback: (options: FontSizeResult) => void): void;
+        function getMinimumFontSize(callback: (details: FontSizeResult) => void): void;
         function getMinimumFontSize(
             details: { [key: string]: unknown } | undefined,
-            callback: (options: FontSizeResult) => void,
+            callback: (details: FontSizeResult) => void,
         ): void;
 
         /**
@@ -5941,7 +6179,7 @@ declare namespace chrome {
             /** Time-to-live of the message in seconds. If it is not possible to send the message within that time, an onSendError event will be raised. A time-to-live of 0 indicates that the message should be sent immediately or fail if it's not possible. The default value of time-to-live is 86,400 seconds (1 day) and the maximum value is 2,419,200 seconds (28 days). */
             timeToLive?: number | undefined;
             /** Message data to send to the server. Case-insensitive `goog.` and `google`, as well as case-sensitive `collapse_key` are disallowed as key prefixes. Sum of all key/value pairs should not exceed {@link gcm.MAX_MESSAGE_SIZE}. */
-            data: { [key: string]: unknown };
+            data: { [key: string]: string };
         }
 
         /** The maximum size (in bytes) of all key/value pairs in a message. */
@@ -5957,7 +6195,7 @@ declare namespace chrome {
         function register(senderIds: string[], callback: (registrationId: string) => void): void;
 
         /**
-         * Unregister the application from FCM.
+         * Unregisters the application from FCM.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
          */
@@ -5979,7 +6217,7 @@ declare namespace chrome {
                 /** The collapse key of a message. See the Non-collapsible and collapsible messages for details. */
                 collapseKey?: string;
                 /** The message data. */
-                data: { [key: string]: unknown };
+                data: { [key: string]: string };
                 /** The sender who issued the message. */
                 from?: string;
             }) => void
@@ -5992,7 +6230,7 @@ declare namespace chrome {
         const onSendError: events.Event<
             (error: {
                 /** Additional details related to the error, when available. */
-                details: { [key: string]: unknown };
+                details: { [key: string]: string };
                 /** The error message describing the problem. */
                 errorMessage: string;
                 /** The ID of the message with this error, if error is related to a specific message. */
@@ -6015,7 +6253,7 @@ declare namespace chrome {
             /** The transition type for this visit from its referrer. */
             transition: `${TransitionType}`;
             /**
-             * True if the visit originated on this device. False if it was synced from a different device
+             * True if the visit originated on this device. False if it was synced from a different device.
              * @since Chrome 115
              */
             isLocal: boolean;
@@ -6211,7 +6449,8 @@ declare namespace chrome {
         /** Gets the browser UI language of the browser. This is different from {@link i18n.getAcceptLanguages} which returns the preferred user languages. */
         function getUILanguage(): string;
 
-        /** Detects the language of the provided text using CLD.
+        /**
+         * Detects the language of the provided text using CLD.
          * @param text User input string to be translated.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99.
@@ -6341,14 +6580,17 @@ declare namespace chrome {
          *
          * The Identity API caches access tokens in memory, so it's ok to call getAuthToken non-interactively any time a token is required. The token cache automatically handles expiration.
          *
-         * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with with no context. In particular, do not use getAuthToken interactively when your app is first launched.
+         * For a good user experience it is important interactive token requests are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests, or Chrome sign in screens if they are not signed in, with no context. In particular, do not use getAuthToken interactively when your app is first launched.
          * @param details Token options.
          *
          * Can return its result via Promise since Chrome 105.
          */
         function getAuthToken(details?: TokenDetails): Promise<GetAuthTokenResult>;
-        function getAuthToken(details: TokenDetails, callback: (result: GetAuthTokenResult) => void): void;
-        function getAuthToken(callback: (result: GetAuthTokenResult) => void): void;
+        function getAuthToken(
+            details: TokenDetails | undefined,
+            callback: (token?: string, grantedScopes?: string[]) => void,
+        ): void;
+        function getAuthToken(callback: (token?: string, grantedScopes?: string[]) => void): void;
 
         /**
          * Retrieves email address and obfuscated gaia id of the user signed into a profile.
@@ -6362,7 +6604,7 @@ declare namespace chrome {
          */
         function getProfileUserInfo(details?: ProfileDetails): Promise<ProfileUserInfo>;
         function getProfileUserInfo(
-            details: ProfileDetails,
+            details: ProfileDetails | undefined,
             callback: (userInfo: ProfileUserInfo) => void,
         ): void;
         function getProfileUserInfo(callback: (userInfo: ProfileUserInfo) => void): void;
@@ -6386,7 +6628,7 @@ declare namespace chrome {
          * For a good user experience it is important interactive auth flows are initiated by UI in your app explaining what the authorization is for. Failing to do this will cause your users to get authorization requests with no context. In particular, do not launch an interactive auth flow when your app is first launched.
          * @param details WebAuth flow options.
          *
-         * Can return its result via Promise since Chrome 106
+         * Can return its result via Promise since Chrome 106.
          */
         function launchWebAuthFlow(details: WebAuthFlowDetails): Promise<string | undefined>;
         function launchWebAuthFlow(details: WebAuthFlowDetails, callback: (responseUrl?: string) => void): void;
@@ -6400,7 +6642,7 @@ declare namespace chrome {
         function getRedirectURL(path?: string): string;
 
         /** Fired when signin state changes for an account on the user's profile. */
-        const onSignInChanged: chrome.events.Event<(account: AccountInfo, signedIn: boolean) => void>;
+        const onSignInChanged: events.Event<(account: AccountInfo, signedIn: boolean) => void>;
     }
 
     ////////////////////
@@ -6682,7 +6924,10 @@ declare namespace chrome {
             COMPOSITION = "composition",
         }
 
-        /** Type of assistive window. */
+        /**
+         * Type of assistive window.
+         * @since Chrome 85
+         */
         enum AssistiveWindowType {
             UNDO = "undo",
         }
@@ -6856,6 +7101,7 @@ declare namespace chrome {
          * Shows/Hides an assistive window with the given properties.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 111.
+         * @since Chrome 85
          */
         function setAssistiveWindowProperties(
             parameters: AssistiveWindowPropertiesParameters,
@@ -6869,6 +7115,7 @@ declare namespace chrome {
          * Highlights/Unhighlights a button in an assistive window.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 111.
+         * @since Chrome 86
          */
         function setAssistiveWindowButtonHighlighted(
             parameters: AssistiveWindowButtonHighlightedParameters,
@@ -6961,13 +7208,13 @@ declare namespace chrome {
         /** This event is sent when an IME is deactivated. It signals that the IME will no longer be receiving onKeyPress events. */
         const onDeactivated: events.Event<(engineID: string) => void>;
 
-        /** This event is sent when the properties of the current InputContext change, such as the the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
+        /** This event is sent when the properties of the current InputContext change, such as the type. It is sent to all extensions that are listening to this event, and enabled by the user. */
         const onInputContextUpdate: events.Event<(context: InputContext) => void>;
 
         /** This event is sent when an IME is activated. It signals that the IME will be receiving onKeyPress events. */
         const onActivate: events.Event<(engineID: string, screen: `${ScreenType}`) => void>;
 
-        // /** This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
+        /** This event is sent when focus enters a text box. It is sent to all extensions that are listening to this event, and enabled by the user. */
         const onFocus: events.Event<(context: InputContext) => void>;
 
         /** Called when the user selects a menu item */
@@ -7053,6 +7300,7 @@ declare namespace chrome {
             authorizedEntity: string;
             /**
              * Allows including a small number of string key/value pairs that will be associated with the token and may be used in processing the request.
+             * @since Chrome 46
              * @deprecated since Chrome 89. `options` are deprecated and will be ignored.
              */
             options?: { [key: string]: string };
@@ -7071,6 +7319,7 @@ declare namespace chrome {
         function getToken(getTokenParams: GetTokenParams): Promise<string>;
         function getToken(getTokenParams: GetTokenParams, callback: (token: string) => void): void;
 
+        /** Fired when all the granted tokens need to be refreshed. */
         const onTokenRefresh: events.Event<() => void>;
     }
 
@@ -7125,7 +7374,7 @@ declare namespace chrome {
         function getSessionState(): Promise<`${SessionState}`>;
         function getSessionState(callback: (sessionState: `${SessionState}`) => void): void;
 
-        /** Dispatched when the session state changes. `sessionState` is the new session state.*/
+        /** Dispatched when the session state changes. `sessionState` is the new session state. */
         const onSessionStateChanged: events.Event<(sessionState: `${SessionState}`) => void>;
     }
 
@@ -7207,7 +7456,7 @@ declare namespace chrome {
         }
 
         /**
-         * How the extension was installed
+         * How the extension was installed.
          * @since Chrome 44
          */
         enum ExtensionInstallType {
@@ -7230,7 +7479,7 @@ declare namespace chrome {
         enum ExtensionType {
             EXTENSION = "extension",
             HOSTED_APP = "hosted_app",
-            PACKAGE_APP = "package_app",
+            PACKAGED_APP = "packaged_app",
             LEGACY_PACKAGED_APP = "legacy_packaged_app",
             THEME = "theme",
             LOGIN_SCREEN_EXTENSION = "login_screen_extension",
@@ -7397,6 +7646,72 @@ declare namespace chrome {
     }
 
     ////////////////////
+    // MimeHandler
+    ////////////////////
+    /**
+     * Use the `chrome.mimeHandler` API to handle MIME type streams in third-party extensions.
+     *
+     * Manifest: "mime_types_handler"
+     * @since Chrome 151, MV3
+     */
+    export namespace mimeHandler {
+        interface MimeHandlerOptions {
+            /** Whether this handler is active for the given MIME type. */
+            enabled: boolean;
+        }
+
+        interface StreamInfo {
+            /** True if loaded in an embedded context (iframe/embed/object). */
+            embedded: boolean;
+            /** The MIME type of the intercepted content. */
+            mimeType: string;
+            /** The original URL the user navigated to. */
+            originalUrl: string;
+            /** HTTP response headers as key-value pairs. */
+            responseHeaders: { [key: string]: unknown };
+            /** The URL to fetch the stream data from. */
+            streamUrl: string;
+            /** The tab ID containing the document. */
+            tabId: number;
+        }
+
+        /**
+         * Aborts current stream handling and hands the content off to the user agent's native handler. After this call the extension frame will be torn down; callers should not expect further execution.
+         *
+         * Can return its result via Promise.
+         */
+        function abortAndFallbackToNativeHandler(): Promise<void>;
+        function abortAndFallbackToNativeHandler(callback: () => void): void;
+
+        /**
+         * Reads the persisted options for a MIME type. Returns defaults (enabled=true) if none have been stored.
+         * @param mimeType The MIME type whose options to read.
+         *
+         * Can return its result via Promise.
+         */
+        function getMimeHandlerOptions(mimeType: string): Promise<MimeHandlerOptions>;
+        function getMimeHandlerOptions(mimeType: string, callback: (options: MimeHandlerOptions) => void): void;
+
+        /**
+         * Retrieves stream information for the current MIME handler context. Must be called from within a MIME handler extension page.
+         *
+         * Can return its result via Promise.
+         */
+        function getStreamInfo(): Promise<StreamInfo>;
+        function getStreamInfo(callback: (info: StreamInfo) => void): void;
+
+        /**
+         * Sets the configuration options for a specified MIME type.
+         * @param mimeType The MIME type to configure.
+         * @param options The new options to use.
+         *
+         * Can return its result via Promise.
+         */
+        function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions): Promise<void>;
+        function setMimeHandlerOptions(mimeType: string, options: MimeHandlerOptions, callback: () => void): void;
+    }
+
+    ////////////////////
     // Notifications
     ////////////////////
     /**
@@ -7475,7 +7790,8 @@ declare namespace chrome {
              * **Note:** This value is required for the {@link notifications.create}() method.
              */
             title?: string;
-            /** Which type of notification to display.
+            /**
+             * Which type of notification to display.
              *
              * **Note:** This value is required for the {@link notifications.create}() method.
              */
@@ -7506,7 +7822,7 @@ declare namespace chrome {
          * Clears the specified notification.
          * @param notificationId The id of the notification to be cleared. This is returned by {@link notifications.create} method.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function clear(notificationId: string): Promise<boolean>;
         function clear(notificationId: string, callback: (wasCleared: boolean) => void): void;
@@ -7518,7 +7834,7 @@ declare namespace chrome {
          * The `notificationId` parameter is required before Chrome 42.
          * @param options Contents of the notification.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function create(notificationId: string, options: NotificationCreateOptions): Promise<string>;
         function create(options: NotificationCreateOptions): Promise<string>;
@@ -7532,7 +7848,7 @@ declare namespace chrome {
         /**
          * Retrieves all the notifications of this app or extension.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function getAll(): Promise<{ [key: string]: true }>;
         function getAll(callback: (notifications: { [key: string]: true }) => void): void;
@@ -7540,7 +7856,7 @@ declare namespace chrome {
         /**
          * Retrieves whether the user has enabled notifications from this app or extension.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function getPermissionLevel(): Promise<`${PermissionLevel}`>;
         function getPermissionLevel(callback: (level: `${PermissionLevel}`) => void): void;
@@ -7550,7 +7866,7 @@ declare namespace chrome {
          * @param notificationId The id of the notification to be updated. This is returned by {@link notifications.create} method.
          * @param options Contents of the notification to update to.
          *
-         * Can return its result via Promise since Chrome 116
+         * Can return its result via Promise since Chrome 116.
          */
         function update(notificationId: string, options: NotificationOptions): Promise<boolean>;
         function update(
@@ -7754,6 +8070,7 @@ declare namespace chrome {
             title: string;
         }
 
+        /** @since Chrome 88 */
         interface TabDetails {
             /** The ID of the tab to query state for. */
             tabId: number;
@@ -7874,8 +8191,10 @@ declare namespace chrome {
         }
 
         /**
-         * Adds a host access request. Request will only be signaled to the user if extension can be granted access to the host in the request. Request will be reset on cross-origin navigation. When accepted, grants persistent access to the site’s top origin
-         * @since Chrome 133
+         * Adds a host access request. Request will only be signaled to the user if extension can be granted access to the host in the request. Request will be reset on cross-origin navigation. When accepted, grants persistent access to the site’s top origin.
+         *
+         * Can return its result via Promise.
+         * @since Chrome 133, MV3
          */
         function addHostAccessRequest(request: AddHostAccessRequest): Promise<void>;
         function addHostAccessRequest(request: AddHostAccessRequest, callback: () => void): void;
@@ -7923,7 +8242,9 @@ declare namespace chrome {
 
         /**
          * Removes a host access request, if existent.
-         * @since Chrome 133
+         *
+         * Can return its result via Promise.
+         * @since Chrome 133, MV3
          */
         function removeHostAccessRequest(request: RemoveHostAccessRequest): Promise<void>;
         function removeHostAccessRequest(request: RemoveHostAccessRequest, callback: () => void): void;
@@ -7939,7 +8260,7 @@ declare namespace chrome {
     // Platform Keys
     ////////////////////
     /**
-     * Use the `chrome.platformKeys` API to access client certificates managed by the platform. If the user or policy grants the permission, an extension can use such a certficate in its custom authentication protocol. E.g. this allows usage of platform managed certificates in third party VPNs (see chrome.vpnProvider).
+     * Use the `chrome.platformKeys` API to access client certificates managed by the platform. If the user or policy grants the permission, an extension can use such a certificate in its custom authentication protocol. E.g. this allows usage of platform managed certificates in third party VPNs (see {@link chrome.vpnProvider}).
      *
      * Permissions: "platformKeys"
      * @platform ChromeOS only
@@ -8006,7 +8327,7 @@ declare namespace chrome {
         /**
          * Passes the key pair of `certificate` for usage with {@link platformKeys.subtleCrypto} to `callback`.
          * @param certificate The certificate of a {@link Match} returned by {@link selectClientCertificates}.
-         * @param parameters Determines signature/hash algorithm parameters additionally to the parameters fixed by the key itself. The same parameters are accepted as by WebCrypto's importKey function, e.g. `RsaHashedImportParams` for a RSASSA-PKCS1-v1_5 key and `EcKeyImportParams` for EC key. Additionally for RSASSA-PKCS1-v1_5 keys, hashing algorithm name parameter can be specified with one of the following values: "none", "SHA-1", "SHA-256", "SHA-384", or "SHA-512", e.g. `{"hash": { "name": "none" } }`. The sign function will then apply PKCS#1 v1.5 padding but not hash the given data.
+         * @param parameters Determines signature/hash algorithm parameters additionally to the parameters fixed by the key itself. The same parameters are accepted as by WebCrypto's [importKey](https://www.w3.org/TR/WebCryptoAPI/#SubtleCrypto-method-importKey) function, e.g. `RsaHashedImportParams` for a RSASSA-PKCS1-v1_5 key and `EcKeyImportParams` for EC key. Additionally for RSASSA-PKCS1-v1_5 keys, hashing algorithm name parameter can be specified with one of the following values: "none", "SHA-1", "SHA-256", "SHA-384", or "SHA-512", e.g. `{"hash": { "name": "none" } }`. The sign function will then apply PKCS#1 v1.5 padding but not hash the given data.
          *
          * Currently, this method only supports the "RSASSA-PKCS1-v1\_5" and "ECDSA" algorithms.
          */
@@ -8056,7 +8377,7 @@ declare namespace chrome {
      */
     export namespace power {
         enum Level {
-            /** Prevents the display from being turned off or dimmed, or the system from sleeping in response to user inactivity */
+            /** Prevents the display from being turned off or dimmed, or the system from sleeping in response to user inactivity. */
             DISPLAY = "display",
             /** Prevents the system from sleeping in response to user inactivity. */
             SYSTEM = "system",
@@ -8070,6 +8391,7 @@ declare namespace chrome {
 
         /**
          * Reports a user activity in order to awake the screen from a dimmed or turned off state or from a screensaver. Exits the screensaver if it is currently active.
+         *
          * Can return its result via Promise in Manifest V3 or later.
          * @platform ChromeOS only
          * @since Chrome 113
@@ -8101,17 +8423,12 @@ declare namespace chrome {
         enum PrintError {
             /** Specifies that the operation was completed successfully. */
             OK = "OK",
-            /** Specifies that a general failure occured. */
+            /** Specifies that a general failure occurred. */
             FAILED = "FAILED",
             /** Specifies that the print ticket is invalid. For example, the ticket is inconsistent with some capabilities, or the extension is not able to handle all settings from the ticket. */
             INVALID_TICKET = "INVALID_TICKET",
             /** Specifies that the document is invalid. For example, data may be corrupted or the format is incompatible with the extension. */
             INVALID_DATA = "INVALID_DATA",
-        }
-
-        interface PrinterCapabilities {
-            /** Device capabilities in CDD format. */
-            capabilities: { [key: string]: unknown };
         }
 
         interface PrintJob {
@@ -8174,7 +8491,13 @@ declare namespace chrome {
 
         /** Event fired when print manager requests printer capabilities. */
         const onGetCapabilityRequested: events.Event<
-            (printerId: string, resultCallback: (capabilities: PrinterCapabilities) => void) => void
+            (
+                printerId: string,
+                resultCallback: (
+                    /** Device capabilities in CDD format. */
+                    capabilities: { [key: string]: unknown },
+                ) => void,
+            ) => void
         >;
 
         /** Event fired when print manager requests printing. */
@@ -8188,17 +8511,16 @@ declare namespace chrome {
     ////////////////////
     /**
      * Use the `chrome.printing` API to send print jobs to printers installed on Chromebook.
-
-    * Permissions: "printing"
-    * @platform ChromeOS only
-    * @since Chrome 81
-    */
+     * Permissions: "printing"
+     * @platform ChromeOS only
+     * @since Chrome 81
+     */
     export namespace printing {
         interface GetPrinterInfoResponse {
             /** Printer capabilities in [CDD format](https://developers.google.com/cloud-print/docs/cdd#cdd-example). The property may be missing. */
             capabilities?: { [key: string]: unknown };
             /** The status of the printer. */
-            status: PrinterStatus;
+            status: `${PrinterStatus}`;
         }
 
         /** Status of the print job. */
@@ -8285,7 +8607,7 @@ declare namespace chrome {
             /** The id of created print job. This is a unique identifier among all print jobs on the device. If status is not OK, jobId will be null. */
             jobId: string | null;
             /** The status of the request. */
-            status: SubmitJobStatus;
+            status: `${SubmitJobStatus}`;
         }
 
         /** The status of submitJob request. */
@@ -8311,6 +8633,8 @@ declare namespace chrome {
 
         /**
          * Returns the status of the print job. This call will fail with a runtime error if the print job with the given `jobId` doesn't exist. `jobId`: The id of the print job to return the status of. This should be the same id received in a {@link SubmitJobResponse}.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 135
          */
         function getJobStatus(jobId: string): Promise<`${JobStatus}`>;
@@ -8388,7 +8712,7 @@ declare namespace chrome {
             /** Displayed name of the printer. */
             name: string;
             /** The source of the printer. */
-            source: PrinterSource;
+            source: `${PrinterSource}`;
             /** The full path for the printer. Contains protocol, hostname, port, and queue. */
             uri: string;
         }
@@ -8416,15 +8740,15 @@ declare namespace chrome {
              * The status of the printer.
              * @since Chrome 85
              */
-            printer_status: chrome.printing.PrinterStatus;
+            printer_status: `${printing.PrinterStatus}`;
             /** The settings of the print job. */
             settings: PrintSettings;
             /** Source showing who initiated the print job. */
-            source: PrintJobSource;
+            source: `${PrintJobSource}`;
             /** ID of source. Null if source is PRINT_PREVIEW or ANDROID_APP. */
             sourceId: string | null;
             /** The final status of the job. */
-            status: PrintJobStatus;
+            status: `${PrintJobStatus}`;
             /** The title of the document which was printed. */
             title: string;
         }
@@ -8453,11 +8777,11 @@ declare namespace chrome {
 
         interface PrintSettings {
             /** The requested color mode. */
-            color: ColorMode;
+            color: `${ColorMode}`;
             /** The requested number of copies. */
             copies: number;
             /** The requested duplex mode. */
-            duplex: DuplexMode;
+            duplex: `${DuplexMode}`;
             /** The requested media size. */
             mediaSize: MediaSize;
         }
@@ -8483,6 +8807,18 @@ declare namespace chrome {
      * Permissions: "privacy"
      */
     export namespace privacy {
+        /**
+         * Categories of Autofill data.
+         * @since Chrome 151
+         */
+        enum AutofillBlockedType {
+            ALL = "all",
+            CONTACT_INFO = "contact_info",
+            PAYMENTS = "payments",
+            IDENTITY_DOCS = "identity_docs",
+            TRAVEL = "travel",
+        }
+
         /**
          * The IP handling policy of WebRTC.
          * @since Chrome 48
@@ -8519,7 +8855,7 @@ declare namespace chrome {
             /**
              * If enabled, Chrome offers to automatically fill in forms.
              * This preference's value is a boolean, defaulting to `true`.
-             * @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. This remains for backward compatibility in this release and will be removed in the future */
+             * @deprecated since Chrome 70. Please use privacy.services.autofillAddressEnabled and privacy.services.autofillCreditCardEnabled. This remains for backward compatibility in this release and will be removed in the future. */
             autofillEnabled: chrome.types.ChromeSetting<boolean>;
 
             /**
@@ -8562,8 +8898,8 @@ declare namespace chrome {
         /** Settings that influence Chrome's handling of network connections in general. */
         const network: {
             /**
-             * If enabled, Chrome attempts to speed up your web browsing experience by pre-resolving DNS entries and preemptively opening TCP and SSL connections to servers.
-             * This preference only affects actions taken by Chrome's internal prediction service. It does not affect webpage-initiated prefectches or preconnects.
+             * If enabled, Chrome attempts to speed up your web browsing experience by pre-resolving DNS entries, preemptively opening TCP and SSL connections to servers, and preloading pages.
+             * Disabling this preference overrides site owners' ability to speculatively load content (such as prefetching or prerendering via the Speculation Rules API). It does not affect webpage-initiated preconnects or DNS prefetches.
              * This preference's value is a boolean, defaulting to `true`.
              */
             networkPredictionEnabled: chrome.types.ChromeSetting<boolean>;
@@ -8571,7 +8907,7 @@ declare namespace chrome {
             /**
              * Allow users to specify the media performance/privacy tradeoffs which impacts how WebRTC traffic will be routed and how much local address information is exposed.
              * This preference's value is of type IPHandlingPolicy, defaulting to `default`.
-             *  @since Chrome 48
+             * @since Chrome 48
              */
             webRTCIPHandlingPolicy: chrome.types.ChromeSetting<`${IPHandlingPolicy}`>;
         };
@@ -8621,14 +8957,10 @@ declare namespace chrome {
             referrersEnabled: chrome.types.ChromeSetting<boolean>;
 
             /**
-             * If disabled, Related Website Sets is deactivated.
-             * The value of this preference is of type boolean, and the default value is `true`.
-             * Extensions may only disable this API by setting the value to `false`. If you try setting this API to `true`, it will throw an error.
-             * @since Chrome 121
+             * If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is `true`. Extensions may not enable this API in Incognito mode, where third-party cookies are blocked and can only be allowed at the site level. If you try setting this API to true in Incognito, it will throw an error.
+             *
+             * Note: Individual sites may still be able to access third-party cookies when this API returns `false`, if they have a valid exemption or they use the Storage Access API instead.
              */
-            relatedWebsiteSetsEnabled: chrome.types.ChromeSetting<boolean>;
-
-            /** If disabled, Chrome blocks third-party sites from setting cookies. The value of this preference is of type boolean, and the default value is `true`. Extensions may not enable this API in Incognito mode, where third-party cookies are blocked and can only be allowed at the site level. If you try setting this API to true in Incognito, it will throw an error. */
             thirdPartyCookiesAllowed: chrome.types.ChromeSetting<boolean>;
 
             /**
@@ -8732,6 +9064,43 @@ declare namespace chrome {
 
         /** Notifies about proxy errors. */
         const onProxyError: events.Event<(details: ErrorDetails) => void>;
+    }
+
+    ////////////////////
+    // PublicSuffix
+    ////////////////////
+    /**
+     * Use the `chrome.publicSuffix` API to query the browser's Public Suffix List (PSL).
+     *
+     * Permissions: "publicSuffix"
+     * @since Chrome 153
+     */
+    export namespace publicSuffix {
+        /** The encoding to use for returned domains. */
+        enum DomainEncoding {
+            DISPLAY = "display",
+            PUNYCODE = "punycode",
+        }
+
+        interface DomainOptions {
+            /** Whether IP addresses may be returned as domains. Defaults to false. Note: When allowed, IP addresses are returned without being looked up in the Public Suffix List. */
+            allowIPAddress?: boolean | undefined;
+            /** Whether known public suffixes may be returned as domains. Defaults to false. */
+            allowPlainSuffix?: boolean | undefined;
+            /** Whether unknown TLDs should be considered as a public suffix. For example, for non-public hostnames like `printer.internal-network`. Defaults to false. */
+            allowUnknownSuffix?: boolean | undefined;
+            /** The encoding to use for the returned domain. Defaults to "punycode", but pass "display" if displaying the domain to the user. Generally, "display" will use Unicode, except in cases where that would be unsafe due to ["Unicode confusables"](https://www.unicode.org/reports/tr39/#Confusable_Detection). */
+            encoding?: `${DomainEncoding}` | undefined;
+        }
+
+        /** Gets the registrable domain for `hostname`, if any. */
+        function getDomain(hostname: string, options?: DomainOptions): string | null;
+
+        /** Gets the known public suffix for `hostname`, if any. */
+        function getKnownSuffix(hostname: string): string | null;
+
+        /** Determines whether `hostname` is itself a known public suffix. */
+        function isKnownSuffix(hostname: string): boolean;
     }
 
     ////////////////////
@@ -8891,7 +9260,7 @@ declare namespace chrome {
      */
     export namespace runtime {
         interface LastError {
-            /** Details about the error which occurred.  */
+            /** Details about the error which occurred. */
             message?: string;
         }
 
@@ -8927,19 +9296,19 @@ declare namespace chrome {
          * @since Chrome 44
          */
         enum PlatformArch {
-            /** Specifies the processer architecture as arm. */
+            /** Specifies the processor architecture as arm. */
             ARM = "arm",
-            /** Specifies the processer architecture as arm64. */
+            /** Specifies the processor architecture as arm64. */
             ARM64 = "arm64",
-            /** Specifies the processer architecture as x86-32. */
+            /** Specifies the processor architecture as x86-32. */
             X86_32 = "x86-32",
-            /** Specifies the processer architecture as x86-64. */
+            /** Specifies the processor architecture as x86-64. */
             X86_64 = "x86-64",
-            /** Specifies the processer architecture as mips. */
+            /** Specifies the processor architecture as mips. */
             MIPS = "mips",
-            /** Specifies the processer architecture as mips64. */
+            /** Specifies the processor architecture as mips64. */
             MIPS64 = "mips64",
-            /** Specifies the processer architecture as riscv64. */
+            /** Specifies the processor architecture as riscv64. */
             RISCV64 = "riscv64",
         }
 
@@ -9028,14 +9397,31 @@ declare namespace chrome {
             includeTlsChannelId?: boolean | undefined;
         }
 
-        interface InstalledDetails {
-            /** The reason that this event is being dispatched. */
-            reason: `${OnInstalledReason}`;
-            /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
-            previousVersion?: string;
-            /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
-            id?: string;
-        }
+        type InstalledDetails =
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: `${OnInstalledReason.UPDATE}`;
+                /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
+                previousVersion: string;
+                /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
+                id?: undefined;
+            }
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: `${OnInstalledReason.SHARED_MODULE_UPDATE}`;
+                /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
+                previousVersion?: undefined;
+                /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
+                id: string;
+            }
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: `${OnInstalledReason.INSTALL}` | `${OnInstalledReason.CHROME_UPDATE}`;
+                /** Indicates the previous version of the extension, which has just been updated. This is present only if 'reason' is 'update'. */
+                previousVersion?: undefined;
+                /** Indicates the ID of the imported shared module extension which updated. This is present only if 'reason' is 'shared_module_update'. */
+                id?: undefined;
+            };
 
         /**
          * A context hosting extension content.
@@ -9046,7 +9432,7 @@ declare namespace chrome {
             contextId: string;
             /** The type of context this corresponds to. */
             contextType: `${ContextType}`;
-            /** A UUID for the document associated with this context, or undefined if this context is hosted not in a document.*/
+            /** A UUID for the document associated with this context, or undefined if this context is hosted not in a document. */
             documentId?: string;
             /** The origin of the document associated with this context, or undefined if the context is not hosted in a document. */
             documentOrigin?: string;
@@ -9120,7 +9506,7 @@ declare namespace chrome {
             postMessage: (message: any) => void;
             /** Immediately disconnect the port. Calling `disconnect()` on an already-disconnected port has no effect. When a port is disconnected, no new events will be dispatched to this port. */
             disconnect: () => void;
-            /** This property will **only** be present on ports passed to {@link runtime.onConnect onConnect} / {@link runtime.onConnectExternal onConnectExternal} / {@link runtime.onConnectExternal onConnectNative} listeners. */
+            /** This property will **only** be present on ports passed to {@link runtime.onConnect onConnect} / {@link runtime.onConnectExternal onConnectExternal} / {@link runtime.onConnectNative onConnectNative} listeners. */
             sender?: MessageSender;
             /** Fired when the port is disconnected from the other end(s). {@link runtime.lastError} may be set if the port was disconnected by an error. If the port is closed via {@link Port.disconnect disconnect}, then this event is _only_ fired on the other end. This event is fired at most once (see also Port lifetime). */
             onDisconnect: events.Event<(port: Port) => void>;
@@ -9165,9 +9551,11 @@ declare namespace chrome {
         }
 
         interface ManifestAction {
-            default_icon?: ManifestIcons | undefined;
+            default_icon?: ManifestIcons | string | undefined;
             default_title?: string | undefined;
             default_popup?: string | undefined;
+            /** @default 'enabled' */
+            default_state?: "enabled" | "disabled";
         }
 
         /** Source: https://developer.chrome.com/docs/extensions/reference/permissions-list */
@@ -9261,7 +9649,6 @@ declare namespace chrome {
             ManifestPermission,
             | "debugger"
             | "declarativeNetRequest"
-            | "devtools"
             | "experimental"
             | "fontSettings"
             | "geolocation"
@@ -9273,22 +9660,37 @@ declare namespace chrome {
             | "webAuthenticationProxy"
         >;
 
+        /** A search engine. */
         interface SearchProvider {
+            /** Name of the search engine displayed to user. This is required if you don't set `prepopulated_id`. */
             name?: string | undefined;
+            /** An omnibox keyword for the search engine. This is required if you don't set `prepopulated_id`. */
             keyword?: string | undefined;
+            /** An icon URL for the search engine. This is required if you don't set `prepopulated_id`. */
             favicon_url?: string | undefined;
+            /** The search URL the search engine uses. */
             search_url: string;
+            /** The encoding used for search terms. This is required if you don't set `prepopulated_id`. */
             encoding?: string | undefined;
+            /** The URL the search engine uses for suggestions. If this isn't used, the engine doesn't support suggestions. */
             suggest_url?: string | undefined;
             instant_url?: string | undefined;
+            /** The URL the search engine uses for image search. If this isn't used, the engine doesn't support image search. */
             image_url?: string | undefined;
+            /** The post parameters for `search_url`. */
             search_url_post_params?: string | undefined;
+            /** The post parameters for `suggest_url`. */
             suggest_url_post_params?: string | undefined;
+            /** The post parameters for `instant_url`. */
             instant_url_post_params?: string | undefined;
+            /** The post parameters for `image_url`. */
             image_url_post_params?: string | undefined;
+            /** A list of URL patterns that can be used in addition to `search_url`. */
             alternate_urls?: string[] | undefined;
+            /** An ID for Chrome's built-in search engine. */
             prepopulated_id?: number | undefined;
-            is_default?: boolean | undefined;
+            /** Specifies whether the search provider should be default. */
+            is_default: boolean;
         }
 
         interface ManifestBase {
@@ -9311,10 +9713,12 @@ declare namespace chrome {
             // Optional
             /** @deprecated As of February 2024, the `author` key is no longer supported by Chrome or the Chrome Web Store. If present, it's silently ignored. */
             author?: { email: string } | undefined;
-            /** Defines overrides for selected Chrome settings.  */
+            /** Defines overrides for selected Chrome settings. */
             chrome_settings_overrides?: {
+                /** The new value for the homepage. */
                 homepage?: string | undefined;
                 search_provider?: SearchProvider | undefined;
+                /** An array of length one containing a URL to be used as the startup page. */
                 startup_pages?: string[] | undefined;
             } | undefined;
             /** Defines overrides for default Chrome pages. */
@@ -9326,13 +9730,16 @@ declare namespace chrome {
             /** Defines keyboard shortcuts within the extension. */
             commands?: {
                 [name: string]: {
-                    suggested_key?: {
-                        default?: string | undefined;
-                        windows?: string | undefined;
-                        mac?: string | undefined;
-                        chromeos?: string | undefined;
-                        linux?: string | undefined;
-                    } | undefined;
+                    suggested_key?:
+                        | {
+                            default?: string | undefined;
+                            windows?: string | undefined;
+                            mac?: string | undefined;
+                            chromeos?: string | undefined;
+                            linux?: string | undefined;
+                        }
+                        | string
+                        | undefined;
                     description?: string | undefined;
                     global?: boolean | undefined;
                 };
@@ -9348,7 +9755,7 @@ declare namespace chrome {
             cross_origin_opener_policy?: { value: string } | undefined;
             current_locale?: string | undefined;
             /** Defines static rules for the declarativeNetRequest API, which allows blocking and modifying of network requests. */
-            declarative_net_request?: { rule_resources?: declarativeNetRequest.Ruleset[] } | undefined;
+            declarative_net_request?: { rule_resources: declarativeNetRequest.Ruleset[] } | undefined;
             /** Defines pages that use the DevTools APIs. */
             devtools_page?: string | undefined;
             event_rules?:
@@ -9383,7 +9790,7 @@ declare namespace chrome {
                 /** Files app uses above information in order to render related UI elements appropriately. For example, if `configurable` is set to true, then a menu item for configuring volumes will be rendered. Similarly, if `multiple_mounts` is set to true, then Files app will allow to add more than one mount points from the UI. If `watchable` is false, then a refresh button will be rendered. Note, that if possible you should add support for watchers, so changes on the file system can be reflected immediately and automatically. */
                 source: "file" | "device" | "network";
             } | undefined;
-            /**  string specifying a URL for the extension's homepage. If this is undefined, the homepage defaults to the extension's Chrome Web Store page. This field is particularly useful if you host the extension on your own site. */
+            /** string specifying a URL for the extension's homepage. If this is undefined, the homepage defaults to the extension's Chrome Web Store page. This field is particularly useful if you host the extension on your own site. */
             homepage_url?: string | undefined;
             /** Allows resources to be imported into the extension. */
             import?:
@@ -9420,20 +9827,15 @@ declare namespace chrome {
             /** Allows the use of an OAuth 2.0 security ID. The value of this key must be an object with "client_id" and "scopes" properties. */
             oauth2?: {
                 client_id: string;
-                scopes?: string[] | undefined;
+                scopes: string[];
             } | undefined;
             offline_enabled?: boolean | undefined;
             /** Allows the extension to register a keyword in Chrome's address bar. */
             omnibox?: { keyword: string } | undefined;
             /** Specifies a path to an options.html file for the extension to use as an options page. */
             options_page?: string | undefined;
-            /** Specifies a path to an HTML file that lets a user change extension options from the Chrome Extensions page. */
-            options_ui?: {
-                /** Path to the options page, relative to the extension's root. */
-                page: string;
-                /** Specify as `false` to declare an embedded options page. If `true`, the extension's options page will be opened in a new tab rather than embedded in `chrome://extensions`. */
-                open_in_tab: boolean;
-            } | undefined;
+            /** URL of the web app that replaces this extension. */
+            replacement_web_app?: string | undefined;
             /** Lists technologies required to use the extension. */
             requirements?: {
                 "3D"?: { features?: string[] | undefined } | undefined;
@@ -9449,6 +9851,12 @@ declare namespace chrome {
             short_name?: string | undefined;
             /** Declares a JSON schema for the managed storage area. */
             storage?: { managed_schema: string } | undefined;
+            /**
+             * An array of trial tokens to enable Origin Trial and Deprecation Trial features in extension contexts. You can browse and register for active trials on the active trials page.
+             *
+             * To participate in multiple trials simultaneously, include each token as a separate array entry.
+             */
+            trial_tokens?: string[] | undefined;
             /** Registers the extension as a text to speech engine. */
             tts_engine?: {
                 voices: Array<{
@@ -9469,8 +9877,8 @@ declare namespace chrome {
             manifest_version: 2;
 
             // Pick one (or none)
-            browser_action?: ManifestAction | undefined;
-            page_action?: ManifestAction | undefined;
+            browser_action?: Omit<ManifestAction, "default_state"> | undefined;
+            page_action?: Omit<ManifestAction, "default_state"> | undefined;
 
             // Optional
             background?:
@@ -9496,6 +9904,15 @@ declare namespace chrome {
                 | undefined;
             /** Defines restrictions on the scripts, styles, and other resources an extension can use. */
             content_security_policy?: string | undefined;
+            /** Specifies a path to an HTML file that lets a user change extension options from the Chrome Extensions page. */
+            options_ui?: {
+                /** Path to the options page, relative to the extension's root. */
+                page: string;
+                /** If `true`, a Chrome user agent stylesheet will be applied to your options page. Defaults to `false`. */
+                chrome_style?: boolean | undefined;
+                /** Specify as `false` to declare an embedded options page. If `true`, the extension's options page will be opened in a new tab rather than embedded in `chrome://extensions`. */
+                open_in_tab?: boolean | undefined;
+            } | undefined;
             /** Declares optional permissions for your extension. */
             optional_permissions?: (ManifestOptionalPermission | string)[] | undefined;
             /** Enables use of particular extension APIs. */
@@ -9559,6 +9976,30 @@ declare namespace chrome {
                 | undefined;
             /** Lists the web pages your extension is allowed to interact with, defined using URL match patterns. User permission for these sites is requested at install time. */
             host_permissions?: string[] | undefined;
+            /** Specifies a path to an HTML file that lets a user change extension options from the Chrome Extensions page. */
+            options_ui?: {
+                /** Specifies the path to the options page, relative to the extension's root. */
+                page: string;
+                /** Indicates whether the extension's options page will be opened in a new tab. If set to `false`, the extension's options page is embedded in `chrome://extensions` rather than opened in a new tab. */
+                open_in_tab?: boolean | undefined;
+            } | undefined;
+            /**
+             * The message serialization format used to communicate with extension pages/content scripts/frames running in this extension. The default value is "json".
+             * @since Chrome 148
+             */
+            message_serialization?: "json" | "structured_clone" | undefined;
+            /**
+             * Maps MIME types to the extension pages that render them. As of Chrome 151, `application/pdf` is the only MIME type available to public handlers. Declaring an unsupported MIME type causes an installation warning.
+             * @since Chrome 151
+             */
+            mime_types_handler?: {
+                "application/pdf": {
+                    /** The HTML file to display when a document of the corresponding MIME type is opened. This file must be located within your extension. */
+                    handler_url: string;
+                    /** Specifies whether to handle documents embedded in `<embed>`, `<object>`, or `<iframe>` elements. Defaults to `false`, meaning the handler only receives top-level navigations. */
+                    can_embed?: boolean;
+                };
+            };
             /** Declares optional permissions for your extension. */
             optional_permissions?: ManifestOptionalPermission[] | undefined;
             /** Declares optional host permissions for your extension. */
@@ -9566,7 +10007,7 @@ declare namespace chrome {
             /** Enables use of particular extension APIs. */
             permissions?: ManifestPermission[] | undefined;
             /** Identifies an HTML file to display in a sidePanel. */
-            side_panel?: { default_path: string } | undefined;
+            side_panel?: sidePanel.SidePanel | undefined;
             /** Defines files within the extension that can be accessed by web pages or other extensions. */
             web_accessible_resources?:
                 | Array<
@@ -9630,8 +10071,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 122.
          */
-        function getPackageDirectoryEntry(): Promise<DirectoryEntry>;
-        function getPackageDirectoryEntry(callback: (directoryEntry: DirectoryEntry) => void): void;
+        function getPackageDirectoryEntry(): Promise<FileSystemDirectoryEntry>;
+        function getPackageDirectoryEntry(callback: (directoryEntry: FileSystemDirectoryEntry) => void): void;
 
         /**
          * Returns information about the current platform.
@@ -9721,7 +10162,7 @@ declare namespace chrome {
          * Send a single message to a native application. This method requires the `"nativeMessaging"` permission
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99.
-         * @param application The name of the native messaging host.
+         * @param application The name of the native messaging host, or target details.
          * @param message The message that will be passed to the native messaging host.
          */
         function sendNativeMessage(application: string, message: object): Promise<any>;
@@ -9745,7 +10186,7 @@ declare namespace chrome {
          *
          * The precise behavior may depend on your manifest's options_ui or options_page key, or what Chrome happens to support at the time. For example, the page may be opened in a new tab, within chrome://extensions, within an App, or it may just focus an open options page. It will never cause the caller page to reload.
          *
-         * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set {@link runtime.lastError lastError} .
+         * If your Extension does not declare an options page, or Chrome failed to create one for some other reason, the callback will set {@link runtime.lastError lastError}.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 99
          */
@@ -9763,6 +10204,12 @@ declare namespace chrome {
          * @since Chrome 76
          */
         const onConnectNative: events.Event<(port: Port) => void>;
+
+        /**
+         * Fired when an extension goes from being in a disabled state to an enabled state.
+         * @since Chrome 155
+         */
+        const onEnabled: events.Event<() => void>;
 
         /** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
         const onSuspend: events.Event<() => void>;
@@ -9800,13 +10247,13 @@ declare namespace chrome {
 
         /**
          * Fired when a connection is made from a user script from this extension.
-         * @since chrome 115 MV3
+         * @since Chrome 115, MV3
          */
         const onUserScriptConnect: events.Event<(port: Port) => void>;
 
         /**
          * Fired when a message is sent from a user script associated with the same extension.
-         * @since chrome 115, MV3
+         * @since Chrome 115, MV3
          */
         const onUserScriptMessage: events.Event<
             (message: any, sender: MessageSender, sendResponse: (response?: any) => void) => void
@@ -9881,7 +10328,7 @@ declare namespace chrome {
                      */
                     documentIds?: never | undefined;
                     /** The IDs of specific frames to inject into. */
-                    frameIds: number[] | undefined;
+                    frameIds?: number[] | undefined;
                 }
                 | {
                     /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
@@ -9922,7 +10369,10 @@ declare namespace chrome {
             & {
                 /** Details specifying the target into which to inject the script. */
                 target: InjectionTarget;
-                /** The JavaScript "world" to run the script in. Defaults to `ISOLATED`. */
+                /**
+                 * The JavaScript "world" to run the script in. Defaults to `ISOLATED`.
+                 * @since Chrome 95
+                 */
                 world?: `${ExecutionWorld}`;
                 /**
                  * Whether the injection should be triggered in the target as soon as possible. Note that this is not a guarantee that injection will occur prior to page load, as the page may have already loaded by the time the script reaches the target.
@@ -9932,27 +10382,37 @@ declare namespace chrome {
             }
             & (
                 | {
-                    /** A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified. */
+                    /**
+                     * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified.
+                     * @since Chrome 92
+                     */
                     func?: never | undefined;
                     /** The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of files or func must be specified. */
                     files: string[];
                 }
                 | ({
-                    /** A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified. */
+                    /**
+                     * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified.
+                     * @since Chrome 92
+                     */
                     func: () => Result;
                     /** The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of files or func must be specified. */
                     files?: never | undefined;
                 } | {
-                    /** The arguments to pass to the provided function. This is only valid if the `func` parameter is specified. These arguments must be JSON-serializable. */
+                    /**
+                     * The arguments to pass to the provided function. This is only valid if the `func` parameter is specified. These arguments must be JSON-serializable.
+                     * @since Chrome 92
+                     */
                     args: Args;
-                    /** A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified. */
+                    /**
+                     * A JavaScript function to inject. This function will be serialized, and then deserialized for injection. This means that any bound parameters and execution context will be lost. Exactly one of `files` or `func` must be specified.
+                     * @since Chrome 92
+                     */
                     func: (...args: Args) => Result;
                     /** The path of the JS or CSS files to inject, relative to the extension's root directory. Exactly one of files or func must be specified. */
                     files?: never | undefined;
                 })
             );
-
-        type Awaited<T> = T extends PromiseLike<infer U> ? U : T;
 
         /** @since Chrome 96 */
         type RegisteredContentScript =
@@ -9974,7 +10434,10 @@ declare namespace chrome {
                 persistAcrossSessions?: boolean | undefined;
                 /** Specifies when JavaScript files are injected into the web page. The preferred and default value is `document_idle`. */
                 runAt?: extensionTypes.RunAt | undefined;
-                /** The JavaScript "world" to run the script in. Defaults to `ISOLATED`. */
+                /**
+                 * he JavaScript "world" to run the script in. Defaults to `ISOLATED`.
+                 * @since Chrome 102
+                 */
                 world?: `${ExecutionWorld}` | undefined;
             }
             & (
@@ -10329,7 +10792,7 @@ declare namespace chrome {
              * A set of feature codes indicating some of the processor's capabilities.
              * The currently supported codes are "mmx", "sse", "sse2", "sse3", "ssse3", "sse4_1", "sse4_2", and "avx".
              */
-            features: string[];
+            features: Array<"mmx" | "sse" | "sse2" | "sse3" | "ssse3" | "sse4_1" | "sse4_2" | "avx">;
             /** Information about each logical processor. */
             processors: ProcessorInfo[];
             /**
@@ -10461,6 +10924,10 @@ declare namespace chrome {
      * Permissions: "system.display"
      */
     export namespace system.display {
+        /**
+         * Layout position, i.e. edge of parent that the display is attached to.
+         * @since 53
+         */
         enum LayoutPosition {
             TOP = "top",
             RIGHT = "right",
@@ -10485,9 +10952,9 @@ declare namespace chrome {
         }
 
         interface Bounds {
-            /**  The x-coordinate of the upper-left corner. */
+            /** The x-coordinate of the upper-left corner. */
             left: number;
-            /**  The y-coordinate of the upper-left corner. */
+            /** The y-coordinate of the upper-left corner. */
             top: number;
             /** The width of the display in pixels. */
             width: number;
@@ -10570,7 +11037,7 @@ declare namespace chrome {
             offset: number;
         }
 
-        /** The pairs of point used to calibrate the display. */
+        /** @since Chrome 57 */
         interface TouchCalibrationPairQuad {
             /** First pair of touch and display point required for touch calibration. */
             pair1: TouchCalibrationPair;
@@ -10599,7 +11066,7 @@ declare namespace chrome {
              * This value should indicate the id of the source display to mirror, which must not be the same as the id passed to setDisplayProperties.
              * If set, no other property may be set.
              * @platform ChromeOS only
-             * @deprecated Deprecated since Chrome 68. Use ´setMirrorMode´
+             * @deprecated since Chrome 68. Use {@link setMirrorMode} instead.
              */
             mirroringSourceId?: string | undefined;
             /**
@@ -10684,7 +11151,7 @@ declare namespace chrome {
             /** The user-friendly name (e.g. 'HP LCD monitor'). */
             name: string;
             /**
-             * @platform ChromeOS and Web UI only
+             * @platform ChromeOS only
              * @since Chrome 67
              */
             edid?: Edid;
@@ -10717,7 +11184,8 @@ declare namespace chrome {
             dpiX: number;
             /** The number of pixels per inch along the y-axis. */
             dpiY: number;
-            /** The display's clockwise rotation in degrees relative to the vertical position.
+            /**
+             * The display's clockwise rotation in degrees relative to the vertical position.
              * Currently exposed only on ChromeOS. Will be set to 0 on other platforms.
              * A value of -1 will be interpreted as auto-rotate when the device is in a physical tablet state.
              * @platform ChromeOS only
@@ -10772,162 +11240,148 @@ declare namespace chrome {
             yearOfManufacture: number;
         }
 
+        /** @since Chrome 65 */
         interface MirrorModeInfo {
             /** The mirror mode that should be set. */
-            mode?: `${MirrorMode}`;
-        }
-
-        interface MirrorModeInfoMixed extends MirrorModeInfo {
-            /** The mirror mode that should be set. */
-            mode: "mixed";
-            /** The id of the mirroring source display. */
+            mode: `${MirrorMode}`;
+            /** The id of the mirroring source display. This is only valid for 'mixed'. */
             mirroringSourceId?: string | undefined;
-            /** The ids of the mirroring destination displays. */
+            /** The ids of the mirroring destination displays. This is only valid for 'mixed'. */
             mirroringDestinationIds?: string[] | undefined;
         }
 
         /**
          * Requests the information for all attached display devices.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param flags Options affecting how the information is returned.
          */
+        function getInfo(flags?: GetInfoFlags): Promise<DisplayUnitInfo[]>;
         function getInfo(callback: (displayInfo: DisplayUnitInfo[]) => void): void;
-        function getInfo(flags: GetInfoFlags, callback: (displayInfo: DisplayUnitInfo[]) => void): void;
-        function getInfo(): Promise<DisplayUnitInfo[]>;
-        function getInfo(flags: GetInfoFlags): Promise<DisplayUnitInfo[]>;
+        function getInfo(flags: GetInfoFlags | undefined, callback: (displayInfo: DisplayUnitInfo[]) => void): void;
 
         /**
          * Requests the layout info for all displays
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @platform ChromeOS and Web UI only
+         * @platform ChromeOS only
          * @since Chrome 53
          */
-        function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
         function getDisplayLayout(): Promise<DisplayLayout[]>;
+        function getDisplayLayout(callback: (layouts: DisplayLayout[]) => void): void;
 
         /**
-         * requires(CrOS Kiosk apps | WebUI) This is only available to Chrome OS Kiosk apps and Web UI.
-         * @description
-         * Updates the properties for the display specified by `id`,
-         * according to the information provided in `info`.
-         * On failure, `runtime.lastError` will be set.
-         * @platform ChromeOS and Web UI only
+         * Updates the properties for the display specified by `id`, according to the information provided in `info`. On failure, {@link runtime.lastError} will be set.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param id The display's unique identifier.
          * @param info The information about display properties that should be changed. A property will be changed only if a new value for it is specified in `info`.
+         * @platform ChromeOS only
          */
-        function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
         function setDisplayProperties(id: string, info: DisplayProperties): Promise<void>;
+        function setDisplayProperties(id: string, info: DisplayProperties, callback: () => void): void;
 
         /**
-         * Set the layout for all displays.
-         * Any display not included will use the default layout.
-         * If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout.
-         * After layout is resolved, an onDisplayChanged event will be triggered.
+         * Set the layout for all displays. display not included will use the default layout. If a layout would overlap or be otherwise invalid it will be adjusted to a valid layout. After layout is resolved, an onDisplayChanged event will be triggered.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @platform ChromeOS and Web UI only
-         * @since Chrome 53
          * @param layouts The layout information, required for all displays except the primary display.
+         * @platform ChromeOS only
+         * @since Chrome 53
          */
-        function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
         function setDisplayLayout(layouts: DisplayLayout[]): Promise<void>;
+        function setDisplayLayout(layouts: DisplayLayout[], callback: () => void): void;
 
         /**
-         * Enables/disables the unified desktop feature.
-         * If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off.
-         * Otherwise, the desktop mode will switch to unified immediately.
-         * @since Chrome 46
-         * @platform ChromeOS and Web UI only
+         * Enables/disables the unified desktop feature. If enabled while mirroring is active, the desktop mode will not change until mirroring is turned off. Otherwise, the desktop mode will switch to unified immediately.
          * @param enabled True if unified desktop should be enabled.
+         * @platform ChromeOS only
+         * @since Chrome 46
          */
         function enableUnifiedDesktop(enabled: boolean): void;
 
         /**
-         * Starts overscan calibration for a display.
-         * This will show an overlay on the screen indicating the current overscan insets.
-         * If overscan calibration for display `id` is in progress this will reset calibration.
-         * @since Chrome 53
+         * Starts overscan calibration for a display. This will show an overlay on the screen indicating the current overscan insets. If overscan calibration for display `id` is in progress this will reset calibration.
          * @param id The display's unique identifier.
+         * @platform ChromeOS only
+         * @since Chrome 53
          */
         function overscanCalibrationStart(id: string): void;
 
         /**
-         * Adjusts the current overscan insets for a display.
-         * Typically this should either move the display along an axis (e.g. left+right have the same value)
-         * or scale it along an axis (e.g. top+bottom have opposite values).
-         * Each Adjust call is cumulative with previous calls since Start.
-         * @since Chrome 53
+         * Adjusts the current overscan insets for a display. Typically this should either move the display along an axis (e.g. left+right have the same value) or scale it along an axis (e.g. top+bottom have opposite values). Each Adjust call is cumulative with previous calls since Start.
          * @param id The display's unique identifier.
          * @param delta The amount to change the overscan insets.
+         * @platform ChromeOS only
+         * @since Chrome 53
          */
         function overscanCalibrationAdjust(id: string, delta: Insets): void;
 
         /**
          * Resets the overscan insets for a display to the last saved value (i.e before Start was called).
-         * @since Chrome 53
          * @param id The display's unique identifier.
+         * @platform ChromeOS only
+         * @since Chrome 53
          */
         function overscanCalibrationReset(id: string): void;
 
         /**
          * Complete overscan adjustments for a display by saving the current values and hiding the overlay.
-         * @since Chrome 53
          * @param id The display's unique identifier.
+         * @platform ChromeOS only
+         * @since Chrome 53
          */
         function overscanCalibrationComplete(id: string): void;
 
         /**
-         * Displays the native touch calibration UX for the display with `id` as display id.
-         * This will show an overlay on the screen with required instructions on how to proceed.
-         * The callback will be invoked in case of successful calibration only.
-         * If the calibration fails, this will throw an error.
+         * Displays the native touch calibration UX for the display with `id` as display id. This will show an overlay on the screen with required instructions on how to proceed. The callback will be invoked in case of successful calibration only. If the calibration fails, this will throw an error.
+         *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
-         * @since Chrome 57
          * @param id The display's unique identifier.
+         * @platform ChromeOS only
+         * @since Chrome 57
          */
-        function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
         function showNativeTouchCalibration(id: string): Promise<boolean>;
+        function showNativeTouchCalibration(id: string, callback: (success: boolean) => void): void;
 
         /**
-         * Starts custom touch calibration for a display.
-         * This should be called when using a custom UX for collecting calibration data.
-         * If another touch calibration is already in progress this will throw an error.
-         * @since Chrome 57
+         * Starts custom touch calibration for a display. This should be called when using a custom UX for collecting calibration data. If another touch calibration is already in progress this will throw an error.
          * @param id The display's unique identifier.
+         * @platform ChromeOS only
+         * @since Chrome 57
          */
         function startCustomTouchCalibration(id: string): void;
 
         /**
-         * Sets the touch calibration pairs for a display.
-         * These `pairs` would be used to calibrate the touch screen for display with `id` called in startCustomTouchCalibration().
-         * Always call `startCustomTouchCalibration` before calling this method.
-         * If another touch calibration is already in progress this will throw an error.
-         * @since Chrome 57
+         * Sets the touch calibration pairs for a display. These `pairs` would be used to calibrate the touch screen for display with `id` called in startCustomTouchCalibration(). Always call `startCustomTouchCalibration` before calling this method. If another touch calibration is already in progress this will throw an error.
          * @param pairs The pairs of point used to calibrate the display.
          * @param bounds Bounds of the display when the touch calibration was performed. `bounds.left` and `bounds.top` values are ignored.
-         * @throws Error
+         * @platform ChromeOS only
+         * @since Chrome 57
          */
         function completeCustomTouchCalibration(pairs: TouchCalibrationPairQuad, bounds: Bounds): void;
 
         /**
          * Resets the touch calibration for the display and brings it back to its default state by clearing any touch calibration data associated with the display.
-         * @since Chrome 57
          * @param id The display's unique identifier.
+         * @platform ChromeOS only
+         * @since Chrome 57
          */
         function clearTouchCalibration(id: string): void;
 
         /**
-         * Sets the display mode to the specified mirror mode.
-         * Each call resets the state from previous calls.
-         * Calling setDisplayProperties() will fail for the mirroring destination displays.
-         * @platform ChromeOS and Web UI only
+         * Sets the display mode to the specified mirror mode. Each call resets the state from previous calls. Calling {@link setDisplayProperties()} will fail for the mirroring destination displays.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          * @param info The information of the mirror mode that should be applied to the display mode.
+         * @platform ChromeOS only
          * @since Chrome 65
          */
-        function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed, callback: () => void): void;
-        function setMirrorMode(info: MirrorModeInfo | MirrorModeInfoMixed): Promise<void>;
+        function setMirrorMode(info: MirrorModeInfo): Promise<void>;
+        function setMirrorMode(info: MirrorModeInfo, callback: () => void): void;
 
         /** Fired when anything changes to the display configuration. */
-        const onDisplayChanged: chrome.events.Event<() => void>;
+        const onDisplayChanged: events.Event<() => void>;
     }
 
     ////////////////////
@@ -10987,7 +11441,7 @@ declare namespace chrome {
 
         /** @since Chrome 71 */
         interface GetMediaStreamOptions {
-            /** Optional tab id of the tab which will later invoke `getUserMedia()` to consume the stream. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches the consumber tab's origin. The tab's origin must be a secure origin, e.g. HTTPS. */
+            /** Optional tab id of the tab which will later invoke `getUserMedia()` to consume the stream. If not specified then the resulting stream can be used only by the calling extension. The stream can only be used by frames in the given tab whose security origin matches the consumer tab's origin. The tab's origin must be a secure origin, e.g. HTTPS. */
             consumerTabId?: number | undefined;
             /** Optional tab id of the tab which will be captured. If not specified then the current active tab will be selected. Only tabs for which the extension has been granted the `activeTab` permission can be used as the target tab. */
             targetTabId?: number | undefined;
@@ -11018,6 +11472,7 @@ declare namespace chrome {
          * Creates a stream ID to capture the target tab. Similar to chrome.tabCapture.capture() method, but returns a media stream ID, instead of a media stream, to the consumer tab.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 116.
+         * @since Chrome 71
          */
         function getMediaStreamId(options?: GetMediaStreamOptions): Promise<string>;
         function getMediaStreamId(callback: (streamId: string) => void): void;
@@ -11046,7 +11501,7 @@ declare namespace chrome {
         interface MutedInfo {
             /** Whether the tab is muted (prevented from playing sound). The tab may be muted even if it has not played or is not currently playing sound. Equivalent to whether the 'muted' audio indicator is showing. */
             muted: boolean;
-            /* The reason the tab was muted or unmuted. Not set if the tab's mute state has never been changed. */
+            /** The reason the tab was muted or unmuted. Not set if the tab's mute state has never been changed. */
             reason?: `${MutedInfoReason}` | undefined;
             /** The ID of the extension that changed the muted state. Not set if an extension was not the reason the muted state last changed. */
             extensionId?: string | undefined;
@@ -11061,7 +11516,7 @@ declare namespace chrome {
             USER = "user",
             /** Tab capture was started, forcing a muted state change. */
             CAPTURE = "capture",
-            /** An extension set the muted state. */
+            /** An extension, identified by the extensionId field, set the muted state. */
             EXTENSION = "extension",
         }
 
@@ -11145,17 +11600,23 @@ declare namespace chrome {
              * The last time the tab became active in its window as the number of milliseconds since epoch.
              * @since Chrome 121
              */
-            lastAccessed?: number | undefined;
+            lastAccessed: number;
         }
 
-        /** The tab's loading status. */
+        /**
+         * The tab's loading status.
+         * @since Chrome 44
+         */
         enum TabStatus {
             UNLOADED = "unloaded",
             LOADING = "loading",
             COMPLETE = "complete",
         }
 
-        /** The type of window. */
+        /**
+         * The type of window.
+         * @since Chrome 44
+         */
         enum WindowType {
             NORMAL = "normal",
             POPUP = "popup",
@@ -11211,7 +11672,7 @@ declare namespace chrome {
          * An ID that represents the absence of a split tab.
          * @since Chrome 140
          */
-        const SPLIT_VIEW_ID_NONE: -1;
+        const SPLIT_VIEW_ID_NONE = -1;
 
         /**
          * An ID that represents the absence of a browser tab.
@@ -11243,6 +11704,15 @@ declare namespace chrome {
              * @deprecated since Chrome 33. Please use {@link CreateProperties.active active}.
              */
             selected?: boolean | undefined;
+            /**
+             * The ID of an existing tab to create a split view with. If specified, the split-with tab must meet the following conditions:
+             * *   It must not be an already split tab.
+             * *   It must be in the same window as the newly created tab.
+             * *   If `windowId` is specified, it must be the same as the split-with tab's window ID.
+             * *   If `index` is specified, it must be an index adjacent to the split-with tab and will affect the relative positioning of the newly created tab.
+             * @since Chrome 155
+             */
+            splitWithTabId?: number | undefined;
         }
 
         interface MoveProperties {
@@ -11261,7 +11731,7 @@ declare namespace chrome {
             url?: string | undefined;
             /** Adds or removes the tab from the current selection. */
             highlighted?: boolean | undefined;
-            /** Whether the tab should be active. Does not affect whether the window is focused (see {@link windows.update}).*/
+            /** Whether the tab should be active. Does not affect whether the window is focused (see {@link windows.update}). */
             active?: boolean | undefined;
             /**
              * Whether the tab should be selected.
@@ -11294,7 +11764,7 @@ declare namespace chrome {
              * Open a port to a specific document identified by `documentId` instead of all frames in the tab.
              * @since Chrome 106
              */
-            documentId?: string;
+            documentId?: string | undefined;
         }
 
         interface MessageSendOptions {
@@ -11304,7 +11774,7 @@ declare namespace chrome {
              * Send a message to a specific document identified by `documentId` instead of all frames in the tab.
              * @since Chrome 106
              */
-            documentId?: string;
+            documentId?: string | undefined;
         }
 
         interface GroupOptions {
@@ -11316,7 +11786,7 @@ declare namespace chrome {
             /** The ID of the group to add the tabs to. If not specified, a new group will be created. */
             groupId?: number | undefined;
             /** The tab ID or list of tab IDs to add to the specified group. */
-            tabIds?: number | [number, ...number[]] | undefined;
+            tabIds: number | [number, ...number[]];
         }
 
         interface HighlightInfo {
@@ -11401,7 +11871,10 @@ declare namespace chrome {
         }
 
         interface OnUpdatedInfo {
-            /** The tab's new audible state. */
+            /**
+             * The tab's new audible state.
+             * @since Chrome 45
+             */
             audible?: boolean;
             /**
              * The tab's new auto-discardable state.
@@ -11503,7 +11976,7 @@ declare namespace chrome {
          * MV2 only
          * @param tabId The ID of the tab in which to run the script; defaults to the active tab of the current window.
          * @param details Details of the script to run. Either the code or the file property must be set, but both may not be set at the same time
-         * @deprecated since Chrome 99. Replaced by {@link scripting.executeScript} in Manifest V3.
+         * @deprecated since Chrome 91. Replaced by {@link scripting.executeScript} in Manifest V3.
          */
         function executeScript(details: extensionTypes.InjectDetails): Promise<any[] | undefined>;
         function executeScript(
@@ -11567,6 +12040,22 @@ declare namespace chrome {
         function create(createProperties: CreateProperties, callback: (tab: Tab) => void): void;
 
         /**
+         * Splits two existing tabs into a Split View.
+         * @param tabIds An array of exactly two tab IDs to pair into a Split View. All tabs must meet the following conditions: They must be adjacent. They must not already be in a split view. They must have matching `windowId`, `pinned`, and `groupId` states.
+         * @since Chrome 155
+         */
+        function createSplit(tabIds: [number, number]): Promise<number>;
+        function createSplit(tabIds: [number, number], callback: (splitViewId: number) => void): void;
+
+        /**
+         * Separates the tabs in a Split View into independent tabs.
+         * @param splitViewId The ID of the Split View to separate.
+         * @since Chrome 155
+         */
+        function unsplit(splitViewId: number): Promise<void>;
+        function unsplit(splitViewId: number, callback: () => void): void;
+
+        /**
          * Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === "normal") windows.
          * @param tabId The tab ID to move.
          * @param tabIds List of tab IDs to move.
@@ -11606,23 +12095,22 @@ declare namespace chrome {
         function remove(tabIds: number[], callback: () => void): void;
 
         /**
-         * Captures the visible area of the currently active tab in the specified window. In order to call this method, the extension must have either the [<all\_urls>](https://developer.chrome.com/extensions/develop/concepts/declare-permissions) permission or the [activeTab](https://developer.chrome.com/docs/extensions/develop/concepts/activeTab) permission. In addition to sites that extensions can normally access, this method allows extensions to capture sensitive sites that are otherwise restricted, including chrome:-scheme pages, other extensions' pages, and data: URLs. These sensitive sites can only be captured with the activeTab permission. File URLs may be captured only if the extension has been granted file access.
+         * Captures the visible area of the currently active tab in the specified window. In order to call this method, the extension must have either the [<all\_urls>](https://developer.chrome.com/docs/extensions/develop/concepts/declare-permissions) permission or the [activeTab](https://developer.chrome.com/docs/extensions/develop/concepts/activeTab) permission. In addition to sites that extensions can normally access, this method allows extensions to capture sensitive sites that are otherwise restricted, including chrome:-scheme pages, other extensions' pages, and data: URLs. These sensitive sites can only be captured with the activeTab permission. File URLs may be captured only if the extension has been granted file access.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          * @param windowId The target window. Defaults to the current window.
          */
-        function captureVisibleTab(): Promise<string>;
-        function captureVisibleTab(windowId: number): Promise<string>;
+        function captureVisibleTab(windowId?: number): Promise<string>;
         function captureVisibleTab(options: extensionTypes.ImageDetails): Promise<string>;
-        function captureVisibleTab(windowId: number, options: extensionTypes.ImageDetails): Promise<string>;
+        function captureVisibleTab(windowId: number | undefined, options: extensionTypes.ImageDetails): Promise<string>;
         function captureVisibleTab(callback: (dataUrl: string) => void): void;
-        function captureVisibleTab(windowId: number, callback: (dataUrl: string) => void): void;
+        function captureVisibleTab(windowId: number | undefined, callback: (dataUrl: string) => void): void;
         function captureVisibleTab(
             options: extensionTypes.ImageDetails,
             callback: (dataUrl: string) => void,
         ): void;
         function captureVisibleTab(
-            windowId: number,
+            windowId: number | undefined,
             options: extensionTypes.ImageDetails,
             callback: (dataUrl: string) => void,
         ): void;
@@ -11633,10 +12121,9 @@ declare namespace chrome {
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          * @param tabId The ID of the tab to reload; defaults to the selected tab of the current window.
          */
-        function reload(): Promise<void>;
-        function reload(tabId: number): Promise<void>;
+        function reload(tabId?: number): Promise<void>;
         function reload(reloadProperties: ReloadProperties): Promise<void>;
-        function reload(tabId: number, reloadProperties: ReloadProperties): Promise<void>;
+        function reload(tabId: number | undefined, reloadProperties: ReloadProperties): Promise<void>;
         function reload(callback: () => void): void;
         function reload(tabId: number | undefined, callback: () => void): void;
         function reload(reloadProperties: ReloadProperties | undefined, callback: () => void): void;
@@ -11703,20 +12190,43 @@ declare namespace chrome {
         function connect(tabId: number, connectInfo?: ConnectInfo): runtime.Port;
 
         /**
-         * Injects CSS into a page. Styles inserted with this method can be removed with {@link scripting.removeCSS}`. For details, see the programmatic injection section of the content scripts doc.
+         * Injects CSS into a page. Styles inserted with this method can be removed with {@link scripting.removeCSS}. For details, see the programmatic injection section of the content scripts doc.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
          *
          * MV2 only
          * @param tabId The ID of the tab in which to insert the CSS; defaults to the active tab of the current window.
          * @param details Details of the CSS text to insert. Either the code or the file property must be set, but both may not be set at the same time.
-         * @deprecated since Chrome 99. Replaced by {@link scripting.insertCSS} in Manifest V3.
+         * @deprecated since Chrome 91. Replaced by {@link scripting.insertCSS} in Manifest V3.
          */
         function insertCSS(details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
         function insertCSS(details: extensionTypes.InjectDetails, callback: () => void): void;
-        function insertCSS(tabId: number | undefined, details: extensionTypes.InjectDetails): Promise<void>;
-        function insertCSS(tabId: number, details: extensionTypes.InjectDetails, callback: () => void): void;
+        function insertCSS(
+            tabId: number | undefined,
+            details: extensionTypes.InjectDetails,
+            callback: () => void,
+        ): void;
+
+        /**
+         * Removes from a page CSS that was previously injected by a call to {@link tabs.insertCSS}.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 88.
+         *
+         * MV2 only
+         * @param tabId The ID of the tab from which to remove the CSS; defaults to the active tab of the current window.
+         * @param details Details of the CSS text to remove. Either the code or the file property must be set, but both may not be set at the same time.
+         * @since Chrome 87
+         * @deprecated since Chrome 91. Replaced by {@link scripting.removeCSS} in Manifest V3.
+         */
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(tabId: number | undefined, details: extensionTypes.DeleteInjectionDetails): Promise<void>;
+        function removeCSS(details: extensionTypes.DeleteInjectionDetails, callback: () => void): void;
+        function removeCSS(
+            tabId: number | undefined,
+            details: extensionTypes.DeleteInjectionDetails,
+            callback: () => void,
+        ): void;
 
         /**
          * Highlights the given tabs and focuses on the first of group. Will appear to do nothing if the specified tab is currently active.
@@ -11795,7 +12305,7 @@ declare namespace chrome {
          * Discards a tab from memory. Discarded tabs are still visible on the tab strip and are reloaded when activated.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 88.
-         * @param tabId The ID of the tab to be discarded. If specified, the tab is discarded unless it is active or already discarded. If omitted, the browser discards the least important tab. This can fail if no discardable tabs exist..
+         * @param tabId The ID of the tab to be discarded. If specified, the tab is discarded unless it is active or already discarded. If omitted, the browser discards the least important tab. This can fail if no discardable tabs exist.
          * @since Chrome 54
          */
         function discard(tabId?: number): Promise<Tab | undefined>;
@@ -11969,7 +12479,7 @@ declare namespace chrome {
         interface MoveProperties {
             /** The position to move the group to. Use `-1` to place the group at the end of the window. */
             index: number;
-            /** The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with {@link windows.windowTypeEnum windows.windowType} type `"normal"`. */
+            /** The window to move the group to. Defaults to the window the group is currently in. Note that groups can only be moved to and from windows with {@link windows.WindowType} type `"normal"`. */
             windowId?: number;
         }
 
@@ -12120,7 +12630,7 @@ declare namespace chrome {
          */
         interface TtsOptions {
             /** The TTS event types that you are interested in listening to. If missing, all event types may be sent. */
-            desiredEventTypes?: string[];
+            desiredEventTypes?: `${EventType}`[];
             /** If true, enqueues this utterance if TTS is already in progress. If false (the default), interrupts any current speech and flushes the speech queue before speaking this new utterance. */
             enqueue?: boolean;
             /** The extension ID of the speech engine to use, if known. */
@@ -12137,7 +12647,7 @@ declare namespace chrome {
             /** Speaking rate relative to the default rate for this voice. 1.0 is the default rate, normally around 180 to 220 words per minute. 2.0 is twice as fast, and 0.5 is half as fast. Values below 0.1 or above 10.0 are strictly disallowed, but many voices will constrain the minimum and maximum rates further—for example a particular voice may not actually speak faster than 3 times normal even if you specify a value larger than 3.0. */
             rate?: number;
             /** The TTS event types the voice must support. */
-            requiredEventTypes?: string[];
+            requiredEventTypes?: `${EventType}`[];
             /** The name of the voice to use for synthesis. If empty, uses any available voice. */
             voiceName?: string;
             /** Speaking volume between 0 and 1 inclusive, with 0 being lowest and 1 being highest, with a default of 1.0. */
@@ -12170,7 +12680,10 @@ declare namespace chrome {
             voiceName?: string;
         }
 
-        /** @deprecated since Chrome 70. Gender is deprecated and is ignored.*/
+        /**
+         * @since Chrome 54
+         * @deprecated since Chrome 70. Gender is deprecated and is ignored.
+         */
         enum VoiceGender {
             FEMALE = "female",
             MALE = "male",
@@ -12179,7 +12692,7 @@ declare namespace chrome {
         /**
          * Gets an array of all available voices.
          *
-         * Can return its result via Promise since Chrome Chrome 101
+         * Can return its result via Promise in Manifest V3 or later since Chrome 101.
          */
         function getVoices(): Promise<TtsVoice[]>;
         function getVoices(callback: (voices: TtsVoice[]) => void): void;
@@ -12187,7 +12700,7 @@ declare namespace chrome {
         /**
          * Checks whether the engine is currently speaking. On Mac OS X, the result is true whenever the system speech engine is speaking, even if the speech wasn't initiated by Chrome.
          *
-         * Can return its result via Promise since Chrome Chrome 101
+         * Can return its result via Promise in Manifest V3 or later since Chrome 101.
          */
         function isSpeaking(): Promise<boolean>;
         function isSpeaking(callback: (speaking: boolean) => void): void;
@@ -12201,13 +12714,13 @@ declare namespace chrome {
         /**
          * Speaks text using a text-to-speech engine.
          * @param utterance The text to speak, either plain text or a complete, well-formed SSML document. Speech engines that do not support SSML will strip away the tags and speak the text. The maximum length of the text is 32,768 characters.
-         * @param options Optional. The speech options.
-
-         * Can return its result via Promise since Chrome Chrome 101
+         * @param options The speech options.
+         *
+         * Can return its result via Promise in Manifest V3 or later since Chrome 101.
          */
         function speak(utterance: string, options?: TtsOptions): Promise<void>;
         function speak(utterance: string, callback: () => void): void;
-        function speak(utterance: string, options: TtsOptions, callback: () => void): void;
+        function speak(utterance: string, options: TtsOptions | undefined, callback: () => void): void;
 
         /** Stops any current speech and flushes the queue of any pending utterances. In addition, if speech was paused, it will now be un-paused for the next call to speak. */
         function stop(): void;
@@ -12216,7 +12729,7 @@ declare namespace chrome {
          * Called when the list of {@link TtsVoice} that would be returned by getVoices has changed.
          * @since Chrome 124
          */
-        const onVoicesChanged: chrome.events.Event<() => void>;
+        const onVoicesChanged: events.Event<() => void>;
     }
 
     ////////////////////
@@ -12328,7 +12841,7 @@ declare namespace chrome {
 
         /**
          * @since Chrome 54
-         * @deprecated Gender is deprecated and will be ignored.
+         * @deprecated since Chrome 70. Gender is deprecated and will be ignored.
          */
         enum VoiceGender {
             MALE = "male",
@@ -12337,12 +12850,14 @@ declare namespace chrome {
 
         /**
          * Called by an engine when a language install is attempted, and when a language is uninstalled. Also called in response to a status request from a client. When a voice is installed or uninstalled, the engine should also call ttsEngine.updateVoices to register the voice.
+         * @param status The install status of the language.
          * @since Chrome 132
          */
         function updateLanguage(status: LanguageStatus): void;
 
         /**
          * Called by an engine to update its list of voices. This list overrides any voices declared in this extension's manifest.
+         * @param voices Array of {@link tts.TtsVoice} objects representing the available voices for speech synthesis.
          * @since Chrome 66
          */
         function updateVoices(voices: tts.TtsVoice[]): void;
@@ -12374,13 +12889,13 @@ declare namespace chrome {
          * Called when the user makes a call to tts.speak() and one of the voices from this extension's manifest is the first to match the options object. Differs from ttsEngine.onSpeak in that Chrome provides audio playback services and handles dispatching tts events.
          * @since Chrome 92
          */
-
         const onSpeakWithAudioStream: chrome.events.Event<
             (
                 utterance: string,
                 options: SpeakOptions,
                 audioStreamOptions: AudioStreamOptions,
                 sendTtsAudio: (audioBufferParams: AudioBuffer) => void,
+                /** @since Chrome 94 */
                 sendError: (errorMessage?: string) => void,
             ) => void
         >;
@@ -12637,7 +13152,7 @@ declare namespace chrome {
         /** Triggered when a configuration created by the extension is removed by the platform. */
         const onConfigRemoved: events.Event<(id: string) => void>;
 
-        // /** Triggered when a configuration is created by the platform for the extension. */
+        /** Triggered when a configuration is created by the platform for the extension. */
         const onConfigCreated: events.Event<
             (id: string, name: string, data: { [key: string]: unknown }) => void
         >;
@@ -12681,7 +13196,7 @@ declare namespace chrome {
         }
 
         /**
-         * Sets wallpaper to the image at url or wallpaperData with the specified layout
+         * Sets wallpaper to the image at url or wallpaperData with the specified layout.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
@@ -12723,7 +13238,7 @@ declare namespace chrome {
         interface GetRequest {
             /** The `PublicKeyCredentialRequestOptions` passed to `navigator.credentials.get()`, serialized as a JSON string. The serialization format is compatible with [`PublicKeyCredential.parseRequestOptionsFromJSON()`](https://w3c.github.io/webauthn/#sctn-parseRequestOptionsFromJSON). */
             requestDetailsJson: string;
-            /**  An opaque identifier for the request. */
+            /** An opaque identifier for the request. */
             requestId: number;
         }
 
@@ -12755,7 +13270,7 @@ declare namespace chrome {
          *
          * The attached extension must call `detach()` once the remote desktop session has ended in order to resume regular WebAuthn request processing. Extensions automatically become detached if they are unloaded.
          *
-         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to to the (possibly suspended) extension.
+         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to the (possibly suspended) extension.
          */
         function attach(): Promise<string | undefined>;
         function attach(callback: (error?: string | undefined) => void): void;
@@ -12777,7 +13292,7 @@ declare namespace chrome {
          *
          * This method is typically called when the extension detects that a remote desktop session was terminated. Once this method returns, the extension ceases to be the active Web Authentication API request proxy.
          *
-         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to to the (possibly suspended) extension.
+         * Refer to the `onRemoteSessionStateChange` event for signaling a change of remote session attachment from a native application to the (possibly suspended) extension.
          */
         function detach(): Promise<string | undefined>;
         function detach(callback: (error?: string | undefined) => void): void;
@@ -12874,7 +13389,7 @@ declare namespace chrome {
             );
 
         interface GetFrameResultDetails {
-            /** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that an URL is associated with a given frameId does not imply that the corresponding frame still exists. */
+            /** The URL currently associated with this frame, if the frame identified by the frameId existed at one point in the given tab. The fact that a URL is associated with a given frameId does not imply that the corresponding frame still exists. */
             url: string;
             /** A UUID of the document loaded. */
             documentId: string;
@@ -12979,12 +13494,12 @@ declare namespace chrome {
             documentId: string;
             /** Cause of the navigation. */
             transitionType: `${TransitionType}`;
-            /** A list of transition qualifiers.*/
+            /** A list of transition qualifiers. */
             transitionQualifiers: `${TransitionQualifier}`[];
         }
 
         interface WebNavigationEventFilter {
-            /** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
+            /** Conditions that the URL being navigated to must satisfy. */
             url: chrome.events.UrlFilter[];
         }
 
@@ -13030,7 +13545,7 @@ declare namespace chrome {
         /** Fired when a document, including the resources it refers to, is completely loaded and initialized. */
         const onCompleted: WebNavigationEvent<(details: WebNavigationFramedCallbackDetails) => void>;
 
-        // /** Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL. */
+        /** Fired when the frame's history was updated to a new URL. All future events for that frame will use the updated URL. */
         const onHistoryStateUpdated: WebNavigationEvent<
             (details: WebNavigationTransitionCallbackDetails) => void
         >;
@@ -13040,7 +13555,7 @@ declare namespace chrome {
             (details: WebNavigationSourceCallbackDetails) => void
         >;
 
-        /** Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab*/
+        /** Fired when the contents of the tab is replaced by a different (usually previously pre-rendered) tab */
         const onTabReplaced: events.Event<(details: WebNavigationReplacementCallbackDetails) => void>;
 
         /** Fired when a navigation is about to occur. */
@@ -13062,7 +13577,7 @@ declare namespace chrome {
     /**
      * Use the `chrome.webRequest` API to observe and analyze traffic and to intercept, block, or modify requests in-flight.
      *
-     * Permissions: "webRequest"
+     * Permissions: "webRequest", "webRequestBlocking", "webRequestAuthProvider"
      *
      * Manifest: "host_permissions"
      */
@@ -13085,7 +13600,7 @@ declare namespace chrome {
             /** Value of the HTTP header if it can be represented by UTF-8. */
             value?: string | undefined;
             /** Value of the HTTP header if it cannot be represented by UTF-8, stored as individual byte values (0..255). */
-            binaryValue?: ArrayBuffer | undefined;
+            binaryValue?: number[] | undefined;
         }
 
         /** Returns value for event handlers that have the 'blocking' extraInfoSpec applied. Allows the event handler to modify network requests. */
@@ -13333,7 +13848,7 @@ declare namespace chrome {
              * @since Chrome 43
              */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
             statusLine: string;
         }
 
@@ -13348,7 +13863,7 @@ declare namespace chrome {
             responseHeaders?: HttpHeader[];
             /** Standard HTTP status code returned by the server. */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
             statusLine: string;
         }
 
@@ -13359,7 +13874,7 @@ declare namespace chrome {
             requestBody?: {
                 /** Errors when obtaining request body data. */
                 error?: string;
-                /** If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': \['value1', 'value2'\]}. */
+                /** If the request method is POST and the body is a sequence of key-value pairs encoded in UTF8, encoded as either multipart/form-data, or application/x-www-form-urlencoded, this dictionary is present and for each key contains the list of all values for that key. If the data is of another media type, or if it is malformed, the dictionary is not present. An example value of this dictionary is {'key': ['value1', 'value2']}. */
                 formData?: { [key: string]: FormDataItem[] };
                 /** If the request method is PUT or POST, and the body is not already parsed in formData, then the unparsed request body elements are contained in this array. */
                 raw?: UploadData[];
@@ -13380,7 +13895,7 @@ declare namespace chrome {
             responseHeaders?: HttpHeader[];
             /** Standard HTTP status code returned by the server. */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers. */
             statusLine: string;
         }
 
@@ -13401,9 +13916,12 @@ declare namespace chrome {
              * @since Chrome 144
              */
             securityInfo?: SecurityInfo;
-            /** Standard HTTP status code returned by the server. */
+            /**
+             * Standard HTTP status code returned by the server.
+             * @since Chrome 43
+             */
             statusCode: number;
-            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line) or an empty string if there are no headers.*/
+            /** HTTP status line of the response or the 'HTTP/0.9 200 OK' string for HTTP/0.9 responses (i.e., responses that lack a status line). */
             statusLine: string;
         }
 
@@ -13432,11 +13950,12 @@ declare namespace chrome {
         function handlerBehaviorChanged(): Promise<void>;
         function handlerBehaviorChanged(callback: () => void): void;
 
+        /** @since Chrome 70 */
         const onActionIgnored: events.Event<
             (details: {
-                // The proposed action which was ignored.
+                /** The proposed action which was ignored. */
                 action: `${IgnoredActionType}`;
-                // The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request.
+                /** The ID of the request. Request IDs are unique within a browser session. As a result, they could be used to relate different events of the same request. */
                 requestId: string;
             }) => void
         >;
@@ -13481,7 +14000,6 @@ declare namespace chrome {
             ) => BlockingResponse | undefined,
             `${OnAuthRequiredOptions}`[]
         >;
-        // const onAuthRequired: WebAuthenticationChallengeEvent;
 
         /** Fired when the first byte of the response body is received. For HTTP requests, this means that the status line and response headers are available. */
         const onResponseStarted: WebRequestEvent<
@@ -13528,7 +14046,7 @@ declare namespace chrome {
             tabs?: chrome.tabs.Tab[] | undefined;
             /** The offset of the window from the top edge of the screen in pixels. In some circumstances a window may not be assigned a `top` property; for example, when querying closed windows from the {@link sessions} API. */
             top?: number | undefined;
-            /** The height of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `height` property, for example when querying closed windows from the {@link sessions} API. */
+            /** The height of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `height` property; for example, when querying closed windows from the {@link sessions} API. */
             height?: number | undefined;
             /** The width of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `width` property; for example, when querying closed windows from the {@link sessions} API. */
             width?: number | undefined;
@@ -13608,7 +14126,7 @@ declare namespace chrome {
 
         /**
          * Specifies what type of browser window to create.
-         * 'panel' is deprecated and is available only to existing whitelisted extensions on Chrome OS.
+         * 'panel' is deprecated and is available only to existing allowlisted extensions on Chrome OS.
          * @since Chrome 44
          */
         enum CreateType {
@@ -13657,7 +14175,7 @@ declare namespace chrome {
         /** The windowId value that represents the current window. */
         const WINDOW_ID_CURRENT: -2;
 
-        /** The windowId value that represents the absence of a Chrome browser window */
+        /** The windowId value that represents the absence of a Chrome browser window. */
         const WINDOW_ID_NONE: -1;
 
         /**
@@ -13785,7 +14303,10 @@ declare namespace chrome {
          */
         const MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: 50;
 
-        /** The maximum number of combined dynamic and session scoped rules an extension can add. */
+        /**
+         * The maximum number of combined dynamic and session scoped rules an extension can add.
+         * @deprecated There is no longer a combined limit. See {@link MAX_NUMBER_OF_DYNAMIC_RULES} and {@link MAX_NUMBER_OF_SESSION_RULES}.
+         */
         const MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 5000;
 
         /**
@@ -13890,7 +14411,7 @@ declare namespace chrome {
         enum DomainType {
             /** The network request is first party to the frame in which it originated. */
             FIRST_PARTY = "firstParty",
-            /* The network request is third party to the frame in which it originated. */
+            /** The network request is third party to the frame in which it originated. */
             THIRD_PARTY = "thirdParty",
         }
 
@@ -14079,7 +14600,7 @@ declare namespace chrome {
              * - Use punycode encoding for internationalized domains.
              * - Sub-domains of the listed domains are also matched.
              * - For requests with no associated top-level frame (e.g. ServiceWorker initiated requests, the request initiator's domain is considered instead.
-             * @since Chrome 141
+             * @since Chrome 145
              */
             topDomains?: string[] | undefined;
 
@@ -14092,7 +14613,7 @@ declare namespace chrome {
              * - Use punycode encoding for internationalized domains.
              * - Sub-domains of the listed domains are also excluded.
              * - For requests with no associated top-level frame (e.g. ServiceWorker initiated requests, the request initiator's domain is considered instead.
-             * @since Chrome 141
+             * @since Chrome 145
              */
             excludedTopDomains?: string[] | undefined;
 
@@ -14114,6 +14635,7 @@ declare namespace chrome {
              * List of HTTP request methods which the rule can match. An empty list is not allowed.
              *
              * Note: Specifying a `requestMethods` rule condition will also exclude non-HTTP(s) requests, whereas specifying `excludedRequestMethods` will not.
+             * @since Chrome 91
              */
             requestMethods?: `${RequestMethod}`[] | undefined;
 
@@ -14280,7 +14802,7 @@ declare namespace chrome {
             /** Add, remove or replace query key-value pairs. */
             queryTransform?: QueryTransform | undefined;
             /** The new scheme for the request. Allowed values are "http", "https", "ftp" and "chrome-extension". */
-            scheme?: string | undefined;
+            scheme?: "http" | "https" | "ftp" | "chrome-extension" | undefined;
             /** The new username for the request. */
             username?: string | undefined;
         }
@@ -14317,7 +14839,10 @@ declare namespace chrome {
              * This preference is persisted across sessions.
              */
             displayActionCountAsBadgeText?: boolean | undefined;
-            /** Details of how the tab's action count should be adjusted. */
+            /**
+             * Details of how the tab's action count should be adjusted.
+             * @since Chrome 89
+             */
             tabUpdate?: TabActionCountUpdate | undefined;
         }
 
@@ -14532,7 +15057,7 @@ declare namespace chrome {
          * *   This update happens as a single atomic operation: either all specified rules are added and removed, or an error is returned.
          * *   These rules are persisted across browser sessions and across extension updates.
          * *   Static rules specified as part of the extension package can not be removed using this function.
-         * *   {@link MAX_NUMBER_OF_DYNAMIC_RULES} is the maximum number of dynamic rules an extension can add. The number of [unsafe rules](https://developer.chrome.com/docs/extensions/reference/declarativeNetRequest/#safe_rules) must not exceed {@link MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES}.
+         * *   {@link MAX_NUMBER_OF_DYNAMIC_RULES} is the maximum number of dynamic rules an extension can add. The number of [unsafe rules](https://developer.chrome.com/docs/extensions/reference/api/declarativeNetRequest#safe_rules) must not exceed {@link MAX_NUMBER_OF_UNSAFE_DYNAMIC_RULES}.
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 91.
          */
@@ -14568,7 +15093,7 @@ declare namespace chrome {
          * @since Chrome 111
          */
         function updateStaticRules(options: UpdateStaticRulesOptions): Promise<void>;
-        function updateStaticRules(options: UpdateStaticRulesOptions, callback?: () => void): void;
+        function updateStaticRules(options: UpdateStaticRulesOptions, callback: () => void): void;
 
         /** Fired when a rule is matched with a request. Only available for unpacked extensions with the `declarativeNetRequestFeedback` permission as this is intended to be used for debugging purposes only. */
         const onRuleMatchedDebug: events.Event<(info: MatchedRuleInfoDebug) => void>;
@@ -14587,13 +15112,13 @@ declare namespace chrome {
         /** @since Chrome 141 */
         type CloseOptions =
             | {
-                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided.  */
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. If only the global side panel is open, the promise returned by the call to `close()` will reject with an error. This behavior was changed in Chrome 145, with prior versions falling back to closing the global panel. At least one of this or `windowId` must be provided. */
                 tabId: number;
                 /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
                 windowId?: number | undefined;
             }
             | {
-                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. At least one of this or `windowId` must be provided.  */
+                /** The tab in which to close the side panel. If a tab-specific side panel is open in the specified tab, it will be closed for that tab. If only the global side panel is open, the promise returned by the call to `close()` will reject with an error. This behavior was changed in Chrome 145, with prior versions falling back to closing the global panel. At least one of this or `windowId` must be provided. */
                 tabId?: number | undefined;
                 /** The window in which to close the side panel. If a global side panel is open in the specified window, it will be closed for all tabs in that window where no tab-specific panel is active. At least one of this or `tabId` must be provided. */
                 windowId: number;
@@ -14613,7 +15138,7 @@ declare namespace chrome {
                 /**
                  * The tab in which to open the side panel.
                  * If the corresponding tab has a tab-specific side panel, the panel will only be open for that tab.
-                 * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab- specific panel.
+                 * If there is not a tab-specific panel, the global panel will be open in the specified tab and any other tabs without a currently-open tab-specific panel.
                  * This will override any currently-active side panel (global or tab-specific) in the corresponding tab.
                  * At least one of this and `windowId` must be provided. */
                 tabId?: number | undefined;
@@ -14691,6 +15216,8 @@ declare namespace chrome {
         /**
          * Closes the extension's side panel. This is a no-op if the panel is already closed.
          * @param options Specifies the context in which to close the side panel.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 141
          */
         function close(options: CloseOptions): Promise<void>;
@@ -14698,6 +15225,8 @@ declare namespace chrome {
 
         /**
          * Returns the side panel's current layout.
+         *
+         * Can return its result via Promise in Manifest V3 or later.
          * @since Chrome 140
          */
         function getLayout(): Promise<PanelLayout>;
@@ -14706,7 +15235,7 @@ declare namespace chrome {
         /**
          * Returns the active panel configuration.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param options Specifies the context to return the configuration for.
          */
         function getOptions(options: GetPanelOptions): Promise<PanelOptions>;
@@ -14715,7 +15244,7 @@ declare namespace chrome {
         /**
          * Returns the extension's current side panel behavior.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          */
         function getPanelBehavior(): Promise<PanelBehavior>;
         function getPanelBehavior(callback: (behavior: PanelBehavior) => void): void;
@@ -14723,7 +15252,7 @@ declare namespace chrome {
         /**
          * Opens the side panel for the extension. This may only be called in response to a user action.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param options Specifies the context in which to open the side panel.
          * @since Chrome 116
          */
@@ -14733,7 +15262,7 @@ declare namespace chrome {
         /**
          * Configures the side panel.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param options The configuration options to apply to the panel.
          */
         function setOptions(options: PanelOptions): Promise<void>;
@@ -14742,7 +15271,7 @@ declare namespace chrome {
         /**
          * Configures the extension's side panel behavior. This is an upsert operation.
          *
-         * Can return its result via Promise.
+         * Can return its result via Promise in Manifest V3 or later.
          * @param behavior The new behavior to be set.
          */
         function setPanelBehavior(behavior: PanelBehavior): Promise<void>;
@@ -14805,7 +15334,7 @@ declare namespace chrome {
         interface WorldProperties {
             /** Specifies the world csp. The default is the `ISOLATED` world csp. */
             csp?: string | undefined;
-            /** Specifies whether messaging APIs are exposed. The default is `false`.*/
+            /** Specifies whether messaging APIs are exposed. The default is `false`. */
             messaging?: boolean | undefined;
             /**
              * Specifies the ID of the specific user script world to update. If not provided, updates the properties of the default user script world. Values with leading underscores (`_`) are reserved.
@@ -14819,7 +15348,7 @@ declare namespace chrome {
             ids?: string[] | undefined;
         }
 
-        // /** @since Chrome 135 */
+        /** @since Chrome 135 */
         type InjectionTarget =
             & {
                 /** The ID of the tab into which to inject. */
@@ -14827,25 +15356,25 @@ declare namespace chrome {
             }
             & (
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: boolean | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: never;
                     /** The IDs of specific frames to inject into. */
                     frameIds?: never;
                 }
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: false | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: never;
                     /** The IDs of specific frames to inject into. */
-                    frameIds: number[] | undefined;
+                    frameIds?: number[] | undefined;
                 }
                 | {
-                    /** Whether the script should inject into all frames within the tab. Defaults to false. */
+                    /** Whether the script should inject into all frames within the tab. Defaults to false. This must not be true if `frameIds` or `documentIds` is specified. */
                     allFrames?: false | undefined;
-                    /** The IDs of specific documentIds to inject into. */
+                    /** The IDs of specific documentIds to inject into. This must not be set if `frameIds` is set. */
                     documentIds?: string[] | undefined;
                     /** The IDs of specific frames to inject into. */
                     frameIds?: never;
@@ -14857,13 +15386,13 @@ declare namespace chrome {
             allFrames?: boolean | undefined;
             /** Specifies wildcard patterns for pages this user script will NOT be injected into. */
             excludeGlobs?: string[] | undefined;
-            /**Excludes pages that this user script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings. */
+            /** Excludes pages that this user script would otherwise be injected into. See Match Patterns for more details on the syntax of these strings. */
             excludeMatches?: string[] | undefined;
             /** The ID of the user script specified in the API call. This property must not start with a '_' as it's reserved as a prefix for generated script IDs. */
             id: string;
             /** Specifies wildcard patterns for pages this user script will be injected into. */
             includeGlobs?: string[] | undefined;
-            /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for {@link register}, and when specified it must be a non-empty array.*/
+            /** The list of ScriptSource objects defining sources of scripts to be injected into matching pages. This property must be specified for {@link register}, and when specified it must be a non-empty array. */
             js?: ScriptSource[] | undefined;
             /** Specifies which pages this user script will be injected into. See Match Patterns for more details on the syntax of these strings. This property must be specified for {@link register}. */
             matches?: string[] | undefined;
@@ -14951,14 +15480,17 @@ declare namespace chrome {
          * Registers one or more user scripts for this extension.
          *
          * Can return its result via Promise.
-         * @param scripts - Contains a list of user scripts to be registered.
+         * @param scripts Contains a list of user scripts to be registered.
          */
         function register(scripts: RegisteredUserScript[]): Promise<void>;
         function register(scripts: RegisteredUserScript[], callback: () => void): void;
 
         /**
          * Resets the configuration for a user script world. Any scripts that inject into the world with the specified ID will use the default world configuration.
+         *
+         * Can return its result via Promise.
          * @param worldId The ID of the user script world to reset. If omitted, resets the default world's configuration.
+         * @since Chrome 133
          */
         function resetWorldConfiguration(worldId?: string): Promise<void>;
         function resetWorldConfiguration(callback: () => void): void;

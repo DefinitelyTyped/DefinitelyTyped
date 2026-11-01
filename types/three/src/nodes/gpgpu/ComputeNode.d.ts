@@ -13,7 +13,7 @@ export default class ComputeNode extends Node {
 
     onInitFunction: ((args: { renderer: Renderer }) => void) | null;
 
-    countNode: UniformNode<"uint", number> | null;
+    countNode: UniformNode<"uint"> | null;
 
     constructor(computeNode: Node, workgroupSize: number[]);
 

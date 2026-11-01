@@ -6,6 +6,8 @@ export interface TorusGeometryJSON {
     radialSegments: number;
     tubularSegments: number;
     arc: number;
+    thetaStart: number;
+    thetaLength: number;
 }
 
 /**

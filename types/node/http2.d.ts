@@ -59,7 +59,7 @@ declare module "node:http2" {
         "ready": [];
         "streamClosed": [code: number];
         "timeout": [];
-        "trailers": [trailers: IncomingHttpHeaders, flags: number];
+        "trailers": [headers: IncomingHttpHeaders, flags: number, rawHeaders: string[]];
         "wantTrailers": [];
     }
     interface Http2Stream extends stream.Duplex {
@@ -245,7 +245,7 @@ declare module "node:http2" {
     interface ClientHttp2StreamEventMap extends Http2StreamEventMap {
         "continue": [];
         "headers": [headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number, rawHeaders: string[]];
-        "push": [headers: IncomingHttpHeaders, flags: number];
+        "push": [headers: IncomingHttpHeaders, flags: number, rawHeaders: string[]];
         "response": [headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number, rawHeaders: string[]];
     }
     interface ClientHttp2Stream extends Http2Stream {
@@ -433,7 +433,7 @@ declare module "node:http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
@@ -548,7 +548,7 @@ declare module "node:http2" {
          *
          * When the `options.waitForTrailers` option is set, the `'wantTrailers'` event
          * will be emitted immediately after queuing the last chunk of payload data to be
-         * sent. The `http2stream.sendTrailers()` method can then be used to sent trailing
+         * sent. The `http2stream.sendTrailers()` method can then be used to send trailing
          * header fields to the peer.
          *
          * When `options.waitForTrailers` is set, the `Http2Stream` will not automatically
@@ -685,10 +685,11 @@ declare module "node:http2" {
          * Returns a `Proxy` object that acts as a `net.Socket` (or `tls.TLSSocket`) but
          * limits available methods to ones safe to use with HTTP/2.
          *
-         * `destroy`, `emit`, `end`, `pause`, `read`, `resume`, and `write` will throw
+         * `emit`, `end`, `pause`, `read`, `resume`, and `write` will throw
          * an error with code `ERR_HTTP2_NO_SOCKET_MANIPULATION`. See `Http2Session and Sockets` for more information.
          *
-         * `setTimeout` method will be called on this `Http2Session`.
+         * `destroy`, `setTimeout`, `ref`, and `unref` methods will be called on this
+         * `Http2Session`.
          *
          * All other interactions will be routed directly to the socket.
          * @since v8.4.0
@@ -840,9 +841,12 @@ declare module "node:http2" {
          * HTTP/2 request to the connected server.
          *
          * When a `ClientHttp2Session` is first created, the socket may not yet be
-         * connected. if `clienthttp2session.request()` is called during this time, the
+         * connected. If `clienthttp2session.request()` is called during this time, the
          * actual request will be deferred until the socket is ready to go.
-         * If the `session` is closed before the actual request be executed, an `ERR_HTTP2_GOAWAY_SESSION` is thrown.
+         *
+         * If the session becomes unavailable before the request can be created, the
+         * returned stream will emit `ERR_HTTP2_GOAWAY_SESSION` or
+         * `ERR_HTTP2_INVALID_SESSION` asynchronously.
          *
          * This method is only available if `http2session.type` is equal to `http2.constants.NGHTTP2_SESSION_CLIENT`.
          *
@@ -1166,6 +1170,11 @@ declare module "node:http2" {
          * @default 128
          */
         maxHeaderListPairs?: number | undefined;
+        /**
+         * Sets the maximum number of uniq origin the sever
+         * can send via ORIGIN frames. **Default:** `128`.
+         */
+        maxOriginSetSize?: number | undefined;
         /**
          * Sets the maximum number of outstanding, unacknowledged pings.
          * @default 10
@@ -1644,8 +1653,8 @@ declare module "node:http2" {
          *
          * Then `request.url` will be:
          *
-         * ```js
-         * '/status?name=ryan'
+         * ```json
+         * "/status?name=ryan"
          * ```
          *
          * To parse the url into its parts, `new URL()` can be used:

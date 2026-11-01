@@ -2,6 +2,8 @@ import { Node } from "../../nodes/Nodes.js";
 import Renderer from "./Renderer.js";
 
 declare class RenderPipeline {
+    readonly isRenderPipeline: true;
+
     renderer: Renderer;
     outputNode: Node;
 

@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.153.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -3765,8 +3765,7 @@ declare module "sap/ui/layout/cssgrid/GridResponsiveLayout" {
   /**
    * Describes the settings that can be provided to the GridResponsiveLayout constructor.
    */
-  export interface $GridResponsiveLayoutSettings
-    extends $GridLayoutBaseSettings {
+  export interface $GridResponsiveLayoutSettings extends $GridLayoutBaseSettings {
     /**
      * If set to `true`, the current range (large, medium or small) is defined by the size of the container
      * surrounding the `CSSGrid` instead of the device screen size (media Query).
@@ -4343,8 +4342,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnItemLayoutData" {
   /**
    * Describes the settings that can be provided to the ResponsiveColumnItemLayoutData constructor.
    */
-  export interface $ResponsiveColumnItemLayoutDataSettings
-    extends $LayoutDataSettings {
+  export interface $ResponsiveColumnItemLayoutDataSettings extends $LayoutDataSettings {
     /**
      * Specifies the number of columns, which the item should take.
      */
@@ -4539,8 +4537,7 @@ declare module "sap/ui/layout/cssgrid/ResponsiveColumnLayout" {
   /**
    * Describes the settings that can be provided to the ResponsiveColumnLayout constructor.
    */
-  export interface $ResponsiveColumnLayoutSettings
-    extends $GridLayoutBaseSettings {
+  export interface $ResponsiveColumnLayoutSettings extends $GridLayoutBaseSettings {
     /**
      * Fired when the currently active layout changes
      */
@@ -6721,15 +6718,21 @@ declare module "sap/ui/layout/form/Form" {
     /**
      * Gets content of aggregation {@link #getTitle title}.
      *
-     * Title of the `Form`. Can either be a `Title` element or a string. If a `Title` element it used, the style
-     * of the title can be set.
+     * Title of the `Form`. Can either be a {@link sap.ui.core.Title Title} element or a string. If a `Title`
+     * element it used, the style of the title can be set.
      *
      * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
-     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * In this case, provide the title using a {@link sap.ui.core.Title Title} element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setIcon icon} for {@link sap.ui.core.Title Title}. If an
+     * icon is needed, use a {@link #setToolbar Toolbar} to show both title and icon.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setEmphasized emphasized} for {@link sap.ui.core.Title Title}.
+     * This is not supported in current themes and might lead to accessibillity issues.
      */
     getTitle(): Title | string;
     /**
@@ -6949,15 +6952,21 @@ declare module "sap/ui/layout/form/Form" {
       | `{${string}}`;
 
     /**
-     * Title of the `Form`. Can either be a `Title` element or a string. If a `Title` element it used, the style
-     * of the title can be set.
+     * Title of the `Form`. Can either be a {@link sap.ui.core.Title Title} element or a string. If a `Title`
+     * element it used, the style of the title can be set.
      *
      * **Note:** If a {@link #getToolbar Toolbar} is used, the `Title` is ignored.
      *
      * **Note:** If the title is provided as a string, the title is rendered with a theme-dependent default
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
-     * In this case, provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
+     * In this case, provide the title using a {@link sap.ui.core.Title Title} element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setIcon icon} for {@link sap.ui.core.Title Title}. If an
+     * icon is needed, use a {@link #setToolbar Toolbar} to show both title and icon.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setEmphasized emphasized} for {@link sap.ui.core.Title Title}.
+     * This is not supported in current themes and might lead to accessibillity issues.
      */
     title?: string | Title | PropertyBindingInfo;
 
@@ -7192,6 +7201,12 @@ declare module "sap/ui/layout/form/FormContainer" {
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
      * In this case provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setIcon icon} for {@link sap.ui.core.Title Title}. If an
+     * icon is needed, use a {@link #setToolbar Toolbar} to show both title and icon.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setEmphasized emphasized} for {@link sap.ui.core.Title Title}.
+     * This is not supported in current themes and might lead to accessibillity issues.
      */
     getTitle(): Title | string;
     /**
@@ -7426,6 +7441,12 @@ declare module "sap/ui/layout/form/FormContainer" {
      * level. As the `Form` control cannot know the structure of the page, this might not fit the page structure.
      * In this case provide the title using a `Title` element and set its {@link sap.ui.core.Title#setLevel level }
      * to the needed value.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setIcon icon} for {@link sap.ui.core.Title Title}. If an
+     * icon is needed, use a {@link #setToolbar Toolbar} to show both title and icon.
+     *
+     * **Note:** Do not use {@link sap.ui.core.Title#setEmphasized emphasized} for {@link sap.ui.core.Title Title}.
+     * This is not supported in current themes and might lead to accessibillity issues.
      */
     title?: string | Title | PropertyBindingInfo;
 
@@ -13849,8 +13870,7 @@ declare module "sap/ui/layout/ResponsiveFlowLayoutData" {
   /**
    * Describes the settings that can be provided to the ResponsiveFlowLayoutData constructor.
    */
-  export interface $ResponsiveFlowLayoutDataSettings
-    extends $LayoutDataSettings {
+  export interface $ResponsiveFlowLayoutDataSettings extends $LayoutDataSettings {
     /**
      * Defines the minimal size in px of a ResponsiveFlowLayout element. The element will be shrunk down to
      * this value.
@@ -15307,6 +15327,8 @@ declare namespace sap {
     "sap/ui/layout/form/FormElement": undefined;
 
     "sap/ui/layout/form/FormLayout": undefined;
+
+    "sap/ui/layout/form/FormTitleUtil": undefined;
 
     "sap/ui/layout/form/GridContainerData": undefined;
 

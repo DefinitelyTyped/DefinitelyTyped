@@ -51,7 +51,8 @@ class Test extends React.Component {
                 autoplay
                 disableBackgroundClose={true}
                 disableLocalStorage={true}
-                disableSlideSwiping={true}
+                disableSlideshowLoop={true}
+                disableZoom={true}
                 exitFullscreenOnClose={false}
                 maxScale={true}
                 slideDistance={0.5}

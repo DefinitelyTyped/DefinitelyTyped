@@ -2,6 +2,7 @@ import { Usage } from "../../constants.js";
 import { BufferAttribute, TypedArray } from "../../core/BufferAttribute.js";
 import { InterleavedBuffer } from "../../core/InterleavedBuffer.js";
 import { InterleavedBufferAttribute } from "../../core/InterleavedBufferAttribute.js";
+import { Object3D } from "../../core/Object3D.js";
 import InputNode from "../core/InputNode.js";
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
@@ -28,17 +29,19 @@ import NodeBuilder from "../core/NodeBuilder.js";
  * ```
  * @augments InputNode
  */
-declare class BufferAttributeNodeClass extends InputNode<unknown, TypedArray | InterleavedBuffer | BufferAttribute> {
+declare class BufferAttributeNodeClass
+    extends InputNode<unknown, TypedArray | InterleavedBuffer | InterleavedBufferAttribute | BufferAttribute>
+{
     /**
      * Constructs a new buffer attribute node.
      *
-     * @param {BufferAttribute|InterleavedBuffer|TypedArray} value - The attribute data.
+     * @param {BufferAttribute|InterleavedBufferAttribute|InterleavedBuffer|TypedArray} value - The attribute data.
      * @param {?string} [bufferType=null] - The buffer type (e.g. `'vec3'`).
      * @param {number} [bufferStride=0] - The buffer stride.
      * @param {number} [bufferOffset=0] - The buffer offset.
      */
     constructor(
-        value: BufferAttribute | InterleavedBuffer | TypedArray,
+        value: BufferAttribute | InterleavedBufferAttribute | InterleavedBuffer | TypedArray,
         bufferType?: string | null,
         bufferStride?: number,
         bufferOffset?: number,
@@ -146,19 +149,27 @@ declare class BufferAttributeNodeClass extends InputNode<unknown, TypedArray | I
      * @return {BufferAttributeNode} A reference to this node.
      */
     setInstanced(value: boolean): this;
+    /**
+     * Returns the buffer attribute to bind when rendering the given object. Nodes that
+     * bind attributes of the rendered object, like {@link ReferenceAttributeNode}, overwrite it.
+     *
+     * @param {Object3D} object - The rendered object.
+     * @return {?(BufferAttribute|InterleavedBufferAttribute)} The buffer attribute.
+     */
+    getObjectAttribute(object: Object3D): (BufferAttribute | InterleavedBufferAttribute) | null;
 }
 
 declare const BufferAttributeNode: {
     /**
      * Constructs a new buffer attribute node.
      *
-     * @param {BufferAttribute|InterleavedBuffer|TypedArray} value - The attribute data.
+     * @param {BufferAttribute|InterleavedBufferAttribute|InterleavedBuffer|TypedArray} value - The attribute data.
      * @param {?string} [bufferType=null] - The buffer type (e.g. `'vec3'`).
      * @param {number} [bufferStride=0] - The buffer stride.
      * @param {number} [bufferOffset=0] - The buffer offset.
      */
     new<TNodeType>(
-        value: TypedArray | InterleavedBuffer | BufferAttribute,
+        value: TypedArray | InterleavedBuffer | InterleavedBufferAttribute | BufferAttribute,
         bufferType?: string | null,
         bufferStride?: number,
         bufferOffset?: number,
@@ -166,7 +177,7 @@ declare const BufferAttributeNode: {
 };
 
 type BufferAttributeNode<TNodeType> =
-    & InputNode<TNodeType, TypedArray | InterleavedBuffer | BufferAttribute>
+    & InputNode<TNodeType, TypedArray | InterleavedBuffer | InterleavedBufferAttribute | BufferAttribute>
     & BufferAttributeNodeClass;
 
 export default BufferAttributeNode;
@@ -182,7 +193,7 @@ export default BufferAttributeNode;
  * @returns {BufferAttributeNode|Node}
  */
 export declare const bufferAttribute: <TNodeType>(
-    array: BufferAttribute | InterleavedBuffer | TypedArray,
+    array: BufferAttribute | InterleavedBufferAttribute | InterleavedBuffer | TypedArray,
     type?: TNodeType | null,
     stride?: number,
     offset?: number,
@@ -200,7 +211,7 @@ export declare const bufferAttribute: <TNodeType>(
  * @returns {BufferAttributeNode|Node}
  */
 export declare const dynamicBufferAttribute: <TNodeType>(
-    array: BufferAttribute | InterleavedBuffer | TypedArray,
+    array: BufferAttribute | InterleavedBufferAttribute | InterleavedBuffer | TypedArray,
     type?: TNodeType | null,
     stride?: number,
     offset?: number,
@@ -217,7 +228,7 @@ export declare const dynamicBufferAttribute: <TNodeType>(
  * @returns {BufferAttributeNode|Node}
  */
 export declare const instancedBufferAttribute: <TNodeType>(
-    array: BufferAttribute | InterleavedBuffer | TypedArray,
+    array: BufferAttribute | InterleavedBufferAttribute | InterleavedBuffer | TypedArray,
     type?: TNodeType | null,
     stride?: number,
     offset?: number,
@@ -234,7 +245,7 @@ export declare const instancedBufferAttribute: <TNodeType>(
  * @returns {BufferAttributeNode|Node}
  */
 export declare const instancedDynamicBufferAttribute: <TNodeType>(
-    array: BufferAttribute | InterleavedBuffer | TypedArray,
+    array: BufferAttribute | InterleavedBufferAttribute | InterleavedBuffer | TypedArray,
     type?: TNodeType | null,
     stride?: number,
     offset?: number,

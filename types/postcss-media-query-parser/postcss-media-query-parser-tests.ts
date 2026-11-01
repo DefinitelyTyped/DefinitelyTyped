@@ -24,9 +24,11 @@ if (result.nodes) {
     }
 }
 
+// $ExpectType boolean
 result.walk("", child => {
     child.parent.type;
 });
+// $ExpectType boolean
 result.walk(child => {
     child.parent.type;
 });

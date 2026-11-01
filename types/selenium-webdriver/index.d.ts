@@ -1172,6 +1172,43 @@ export interface IWebElement {
     getAttribute(attributeName: string): Promise<string | null>;
 
     /**
+     * Get the value of the given attribute of the element.
+     *
+     * This method, unlike {@link getAttribute}, returns the value of the attribute with the
+     * given name but not the property with the same name.
+     *
+     * See the [W3C WebDriver specification](https://w3c.github.io/webdriver/#get-element-attribute)
+     * for more details.
+     *
+     * @param {string} attributeName The name of the attribute to query.
+     * @return {!Promise<?string>} A promise that will be resolved with the
+     *     attribute's value, or null if the attribute is not set.
+     */
+    getDomAttribute(attributeName: string): Promise<string | null>;
+
+    /**
+     * Get the given property of the referenced web element.
+     * @param {string} propertyName The name of the property to query.
+     * @return {!Promise<string>} A promise that will be resolved with the
+     *     element's property value.
+     */
+    getProperty(propertyName: string): Promise<string>;
+
+    /**
+     * Get the computed WAI-ARIA role of the element.
+     * @return {!Promise<string>} A promise that will be resolved with the
+     *     element's computed role.
+     */
+    getAriaRole(): Promise<string>;
+
+    /**
+     * Get the computed WAI-ARIA label of the element.
+     * @return {!Promise<string>} A promise that will be resolved with the
+     *     element's computed label.
+     */
+    getAccessibleName(): Promise<string>;
+
+    /**
      * Get the visible (i.e. not hidden by CSS) innerText of this element,
      * including sub-elements, without any leading or trailing whitespace.
      * @return {!Promise} A promise that will be resolved with the
@@ -1565,6 +1602,43 @@ export class WebElement implements Serializable<IWebElementId> {
      *     either a string or null.
      */
     getAttribute(attributeName: string): Promise<string | null>;
+
+    /**
+     * Get the value of the given attribute of the element.
+     *
+     * This method, unlike {@link getAttribute}, returns the value of the attribute with the
+     * given name but not the property with the same name.
+     *
+     * See the [W3C WebDriver specification](https://w3c.github.io/webdriver/#get-element-attribute)
+     * for more details.
+     *
+     * @param {string} attributeName The name of the attribute to query.
+     * @return {!Promise<?string>} A promise that will be resolved with the
+     *     attribute's value, or null if the attribute is not set.
+     */
+    getDomAttribute(attributeName: string): Promise<string | null>;
+
+    /**
+     * Get the given property of the referenced web element.
+     * @param {string} propertyName The name of the property to query.
+     * @return {!Promise<string>} A promise that will be resolved with the
+     *     element's property value.
+     */
+    getProperty(propertyName: string): Promise<string>;
+
+    /**
+     * Get the computed WAI-ARIA role of the element.
+     * @return {!Promise<string>} A promise that will be resolved with the
+     *     element's computed role.
+     */
+    getAriaRole(): Promise<string>;
+
+    /**
+     * Get the computed WAI-ARIA label of the element.
+     * @return {!Promise<string>} A promise that will be resolved with the
+     *     element's computed label.
+     */
+    getAccessibleName(): Promise<string>;
 
     /**
      * Get the visible (i.e. not hidden by CSS) innerText of this element,

@@ -1,6 +1,6 @@
 import { Vector3 } from "../math/Vector3.js";
+import { WebGLCubeRenderTarget } from "../renderers/WebGLCubeRenderTarget.js";
 import { WebGLRenderer } from "../renderers/WebGLRenderer.js";
-import { WebGLRenderTarget } from "../renderers/WebGLRenderTarget.js";
 import { Scene } from "../scenes/Scene.js";
 import { CubeTexture } from "../textures/CubeTexture.js";
 import { Texture } from "../textures/Texture.js";
@@ -57,20 +57,20 @@ export class PMREMGenerator {
         near?: number,
         far?: number,
         options?: PMREMGeneratorOptions,
-    ): WebGLRenderTarget;
+    ): WebGLCubeRenderTarget;
 
     /**
      * Generates a PMREM from an equirectangular texture, which can be either LDR or HDR. The ideal input image size is
      * 1k (1024 x 512), as this matches best with the 256 x 256 cubemap output. The smallest supported equirectangular
      * image size is 64 x 32.
      */
-    fromEquirectangular(equirectangular: Texture, renderTarget?: WebGLRenderTarget | null): WebGLRenderTarget;
+    fromEquirectangular(equirectangular: Texture, renderTarget?: WebGLCubeRenderTarget | null): WebGLCubeRenderTarget;
 
     /**
      * Generates a PMREM from an cubemap texture, which can be either LDR or HDR. The ideal input cube size is
      * 256 x 256, as this matches best with the 256 x 256 cubemap output. The smallest supported cube size is 16 x 16.
      */
-    fromCubemap(cubemap: CubeTexture, renderTarget?: WebGLRenderTarget | null): WebGLRenderTarget;
+    fromCubemap(cubemap: CubeTexture, renderTarget?: WebGLCubeRenderTarget | null): WebGLCubeRenderTarget;
 
     /**
      * Pre-compiles the cubemap shader

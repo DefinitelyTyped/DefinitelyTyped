@@ -1,8 +1,8 @@
 import {
     createHistogram,
+    ELDHistogram,
     EntryType,
     eventLoopUtilization,
-    IntervalHistogram,
     monitorEventLoopDelay,
     performance as NodePerf,
     PerformanceEntry,
@@ -46,7 +46,7 @@ obs.observe({
     buffered: true,
 });
 
-const monitor: IntervalHistogram = monitorEventLoopDelay({
+const monitor: ELDHistogram = monitorEventLoopDelay({
     resolution: 42,
 });
 

@@ -23,7 +23,8 @@ interface JBAudio {
     resume(): void;
     stop(): void;
     seek(seconds: number): void;
-    status: number; // 0: paused, 1: waiting, 2: playing
+    /** 0: paused, 1: waiting, 2: playing */
+    status: 0 | 1 | 2;
     duration: number;
     offset: number;
 }

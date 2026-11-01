@@ -14,7 +14,7 @@ const preResponse: Hapi.ServerExtRequestHandler = function(request, reply) {
 
     const error = response;
     const ctx = {
-        message: (error.output!.statusCode === 404 ? "page not found" : "something went wrong"),
+        message: error.output!.statusCode === 404 ? "page not found" : "something went wrong",
     };
 };
 

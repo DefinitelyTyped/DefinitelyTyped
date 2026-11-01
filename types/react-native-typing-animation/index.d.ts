@@ -1,11 +1,11 @@
-import { StyleSheetProperties } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 
 import { JSX } from "react";
 
 export interface TypingAnimationProps {
-    style?: StyleSheetProperties;
+    style?: StyleProp<ViewStyle>;
     dotColor?: string;
-    dotStyles?: StyleSheetProperties;
+    dotStyles?: StyleProp<ViewStyle>;
     dotRadius?: number;
     dotMargin?: number;
     dotAmplitude?: number;

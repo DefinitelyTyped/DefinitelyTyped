@@ -64,6 +64,8 @@ declare namespace FsLightbox {
         // preferences
         disableBackgroundClose?: boolean | undefined;
         disableSlideSwiping?: boolean | undefined;
+        disableSlideshowLoop?: boolean | undefined;
+        disableZoom?: boolean | undefined;
         loadOnlyCurrentSource?: boolean | undefined;
         showThumbsOnMount?: boolean | undefined; // pro feature
         showThumbsWithCaptions?: boolean | undefined; // pro feature

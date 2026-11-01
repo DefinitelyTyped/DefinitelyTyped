@@ -126,6 +126,29 @@ declare module "node:sqlite" {
          * @default true
          */
         defensive?: boolean | undefined;
+        /**
+         * Configuration for various SQLite limits. These limits
+         * can be used to prevent excessive resource consumption when handling
+         * potentially malicious input. See [Run-Time Limits](https://www.sqlite.org/c3ref/c_limit_attached.html) and [Limit Constants](https://www.sqlite.org/c3ref/limit.html)
+         * in the SQLite documentation for details. Default values are determined by
+         * SQLite's compile-time defaults and may vary depending on how SQLite was
+         * built. The following properties are supported:
+         * @since v24.15.0
+         */
+        limits?: NodeJS.PartialOptions<DatabaseLimits> | undefined;
+    }
+    interface DatabaseLimits {
+        length: number;
+        sqlLength: number;
+        column: number;
+        exprDepth: number;
+        compoundSelect: number;
+        vdbeOp: number;
+        functionArg: number;
+        attach: number;
+        likePatternLength: number;
+        variableNumber: number;
+        triggerDepth: number;
     }
     interface CreateSessionOptions {
         /**
@@ -143,8 +166,12 @@ declare module "node:sqlite" {
     }
     interface ApplyChangesetOptions {
         /**
-         * Skip changes that, when targeted table name is supplied to this function, return a truthy value.
-         * By default, all changes are attempted.
+         * for each table affected by at least
+         * one change in the changeset, the `filter` callback is invoked with the
+         * table name as the first argument. If the return value is falsy, then no
+         * attempt is made to apply any changes to the table.
+         * Otherwise, if the return value is truthy or no `filter` callback is provided,
+         * all changes related to the table are attempted.
          * @since v22.12.0
          */
         filter?: ((tableName: string) => boolean) | undefined;
@@ -173,6 +200,13 @@ declare module "node:sqlite" {
          * @since v22.12.0
          */
         onConflict?: ((conflictType: number) => number) | undefined;
+    }
+    interface DeserializeOptions {
+        /**
+         * Name of the database to deserialize into.
+         * @default 'main'
+         */
+        dbName?: string | undefined;
     }
     interface FunctionOptions {
         /**
@@ -227,6 +261,28 @@ declare module "node:sqlite" {
          * new state.
          */
         inverse?: ((accumulator: T, ...args: SQLOutputValue[]) => T) | undefined;
+    }
+    interface PrepareOptions {
+        /**
+         * If `true`, integer fields are read as `BigInt`s.
+         * @since v24.14.0
+         */
+        readBigInts?: boolean | undefined;
+        /**
+         * If `true`, results are returned as arrays.
+         * @since v24.14.0
+         */
+        returnArrays?: boolean | undefined;
+        /**
+         * If `true`, allows binding named parameters without the prefix character.
+         * @since v24.14.0
+         */
+        allowBareNamedParameters?: boolean | undefined;
+        /**
+         * If `true`, unknown named parameters are ignored.
+         * @since v24.14.0
+         */
+        allowUnknownNamedParameters?: boolean | undefined;
     }
     /**
      * This class represents a single [connection](https://www.sqlite.org/c3ref/sqlite3.html) to a SQLite database. All APIs
@@ -285,10 +341,23 @@ declare module "node:sqlite" {
          * Loads a shared library into the database connection. This method is a wrapper
          * around [`sqlite3_load_extension()`](https://www.sqlite.org/c3ref/load_extension.html). It is required to enable the
          * `allowExtension` option when constructing the `DatabaseSync` instance.
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         * const database = new DatabaseSync(':memory:', { allowExtension: true });
+         *
+         * // Load using the entry point derived from the filename.
+         * database.loadExtension('./decimal.dylib');
+         *
+         * // Override the entry point when the derived name does not match.
+         * database.loadExtension('./base64.dylib', 'sqlite3_base64_init');
          * @since v22.13.0
          * @param path The path to the shared library to load.
+         * @param entryPoint The name of the extension's entry-point function. When
+         * omitted, SQLite derives the entry point from the shared library's filename;
+         * pass this argument explicitly when the derived name does not match.
          */
-        loadExtension(path: string): void;
+        loadExtension(path: string, entryPoint?: string): void;
         /**
          * Enables or disables the `loadExtension` SQL function, and the `loadExtension()`
          * method. When `allowExtension` is `false` when constructing, you cannot enable
@@ -330,18 +399,17 @@ declare module "node:sqlite" {
          * @since v22.13.0
          * @param name The name of the SQLite function to create.
          * @param options Optional configuration settings for the function.
-         * @param func The JavaScript function to call when the SQLite
-         * function is invoked. The return value of this function should be a valid
-         * SQLite data type: see
-         * [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite).
-         * The result defaults to `NULL` if the return value is `undefined`.
+         * @param fn The JavaScript function to call when the SQLite function is
+         * invoked. The return value of this function should be a valid SQLite data type:
+         * see [Type conversion between JavaScript and SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html#type-conversion-between-javascript-and-sqlite). The result defaults to
+         * `NULL` if the return value is `undefined`.
          */
         function(
             name: string,
             options: FunctionOptions,
-            func: (...args: SQLOutputValue[]) => SQLInputValue,
+            fn: (...args: SQLOutputValue[]) => SQLInputValue,
         ): void;
-        function(name: string, func: (...args: SQLOutputValue[]) => SQLInputValue): void;
+        function(name: string, fn: (...args: SQLOutputValue[]) => SQLInputValue): void;
         /**
          * Sets an authorizer callback that SQLite will invoke whenever it attempts to
          * access data or modify the database schema through prepared statements.
@@ -412,19 +480,93 @@ declare module "node:sqlite" {
          */
         readonly isTransaction: boolean;
         /**
+         * An object for getting and setting SQLite database limits at runtime.
+         * Each property corresponds to an SQLite limit and can be read or written.
+         *
+         * ```js
+         * const db = new DatabaseSync(':memory:');
+         *
+         * // Read current limit
+         * console.log(db.limits.length);
+         *
+         * // Set a new limit
+         * db.limits.sqlLength = 100000;
+         *
+         * // Reset a limit to its compile-time maximum
+         * db.limits.sqlLength = Infinity;
+         * ```
+         *
+         * Available properties: `length`, `sqlLength`, `column`, `exprDepth`,
+         * `compoundSelect`, `vdbeOp`, `functionArg`, `attach`, `likePatternLength`,
+         * `variableNumber`, `triggerDepth`.
+         *
+         * Setting a property to `Infinity` resets the limit to its compile-time maximum value.
+         * @since v24.15.0
+         */
+        readonly limits: DatabaseLimits;
+        /**
          * Opens the database specified in the `path` argument of the `DatabaseSync`constructor. This method should only be used when the database is not opened via
          * the constructor. An exception is thrown if the database is already open.
          * @since v22.5.0
          */
         open(): void;
         /**
+         * Serializes the database into a binary representation, returned as a
+         * `Uint8Array`. This is useful for saving, cloning, or transferring an in-memory
+         * database. This method is a wrapper around [`sqlite3_serialize()`](https://sqlite.org/c3ref/serialize.html).
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const db = new DatabaseSync(':memory:');
+         * db.exec('CREATE TABLE t(key INTEGER PRIMARY KEY, value TEXT)');
+         * db.exec("INSERT INTO t VALUES (1, 'hello')");
+         * const buffer = db.serialize();
+         * console.log(buffer.length); // Prints the byte length of the database
+         * ```
+         * @since v24.16.0
+         * @param dbName Name of the database to serialize. This can be `'main'`
+         * (the default primary database) or any other database that has been added with
+         * [`ATTACH DATABASE`](https://www.sqlite.org/lang_attach.html). **Default:** `'main'`.
+         * @returns A binary representation of the database.
+         */
+        serialize(dbName?: string): NodeJS.NonSharedUint8Array;
+        /**
+         * Loads a serialized database into this connection, replacing the current
+         * database. The deserialized database is writable. Existing prepared statements
+         * are finalized before deserialization is attempted, even if the operation
+         * subsequently fails. This method is a wrapper around
+         * [`sqlite3_deserialize()`](https://sqlite.org/c3ref/deserialize.html).
+         *
+         * ```js
+         * import { DatabaseSync } from 'node:sqlite';
+         *
+         * const original = new DatabaseSync(':memory:');
+         * original.exec('CREATE TABLE t(key INTEGER PRIMARY KEY, value TEXT)');
+         * original.exec("INSERT INTO t VALUES (1, 'hello')");
+         * const buffer = original.serialize();
+         * original.close();
+         *
+         * const clone = new DatabaseSync(':memory:');
+         * clone.deserialize(buffer);
+         * console.log(clone.prepare('SELECT value FROM t').get());
+         * // Prints: { value: 'hello' }
+         * ```
+         * @since v24.16.0
+         * @param buffer A binary representation of a database, such as the
+         * output of `database.serialize()`.
+         * @param options Optional configuration for the deserialization.
+         */
+        deserialize(buffer: Uint8Array, options?: DeserializeOptions): void;
+        /**
          * Compiles a SQL statement into a [prepared statement](https://www.sqlite.org/c3ref/stmt.html). This method is a wrapper
          * around [`sqlite3_prepare_v2()`](https://www.sqlite.org/c3ref/prepare.html).
          * @since v22.5.0
          * @param sql A SQL string to compile to a prepared statement.
+         * @param options Optional configuration for the prepared statement.
          * @return The prepared statement.
          */
-        prepare(sql: string): StatementSync;
+        prepare(sql: string, options?: PrepareOptions): StatementSync;
         /**
          * Creates a new {@link SQLTagStore}, which is a Least Recently Used (LRU) cache
          * for storing prepared statements. This allows for the efficient reuse of

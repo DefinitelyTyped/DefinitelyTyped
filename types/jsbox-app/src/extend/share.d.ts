@@ -23,12 +23,12 @@ declare namespace ShareTypes {
 }
 
 interface JBShare {
+    /** Mixed-type array does not work in fact, so there is no corresponding type support.*/
     sheet(options: ShareTypes.ShareSheetOptions | NSData[] | UIImage[] | string[] | NSData | UIImage | string): void;
-    // Although the sheet method can accept a mixed-type array, it has no practical effect.
-    // So there is no corresponding type support.
     wechat(content: NSData | UIImage | string): void;
     qq(content: NSData | UIImage | string): void;
-    universal(content: NSData | UIImage): void; // do not support string
+    /** Note: do not support string */
+    universal(content: NSData | UIImage): void;
 }
 
 declare const $share: JBShare;

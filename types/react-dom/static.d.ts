@@ -72,6 +72,16 @@ export interface BootstrapScriptDescriptor {
     crossOrigin?: string | undefined;
 }
 
+/**
+ * A nonce string, or an object with separate nonces for scripts and styles.
+ */
+export type NonceOption =
+    | string
+    | {
+        script?: string | undefined;
+        style?: string | undefined;
+    };
+
 export interface PrerenderOptions {
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
@@ -81,12 +91,17 @@ export interface PrerenderOptions {
      * Must be a positive integer if specified.
      * @default 2000
      */
-    headersLengthHint?: number | undefined;
+    maxHeadersLength?: number | undefined;
     identifierPrefix?: string;
     importMap?: ReactImportMap | undefined;
     namespaceURI?: string;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
-    onHeaders?: (headers: Headers) => void | undefined;
+    onHeaders?: ((headers: Headers) => void) | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
 }
@@ -125,8 +140,13 @@ export function prerenderToNodeStream(
 ): Promise<PrerenderToNodeStreamResult>;
 
 export interface ResumeOptions {
-    nonce?: string;
+    nonce?: NonceOption | undefined;
     signal?: AbortSignal;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown) => string | undefined | void;
 }
 

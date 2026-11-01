@@ -73,6 +73,8 @@ export namespace MTLLoader {
         side: Side;
         wrap: Wrapping;
         crossOrigin: string;
+        priority: "high" | "low" | "auto";
+        cache: "default" | "no-store" | "reload" | "no-cache" | "force-cache";
 
         setCrossOrigin(value: string): this;
         setManager(value: LoadingManager): void;

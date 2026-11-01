@@ -33,8 +33,17 @@ import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOption
 const postTest = (payload: object): string => {
     const url = "http://httpbin.org/post";
     const params: URLFetchRequestOptions = {
+        contentType: "application/x-www-form-urlencoded",
+        headers: {
+            "Accept": "application/json",
+        },
         method: "post",
         payload: payload,
+        validateHttpsCertificates: false,
+        followRedirects: false,
+        muteHttpExceptions: true,
+        escaping: false,
+        timeoutSeconds: 10,
     };
     return UrlFetchApp.fetch(url, params).getContentText();
 };
@@ -1035,20 +1044,6 @@ const handleScopeAction = () => {
     return serialized;
 };
 
-// Analytics Test
-const requestAnalyticsData = (): string => {
-    if (!Analytics) throw new Error();
-    const gaData = Analytics.Data.Ga.get("An Id", "2022-01-18", "2022-01-18", "Some metrics", {
-        dimensions: "Some dimensions",
-    });
-
-    const totalsForAllResults = gaData.totalsForAllResults;
-    if (!totalsForAllResults) throw new Error();
-    const totalSessions = totalsForAllResults["ga:sessions"];
-
-    return totalSessions;
-};
-
 // Example of adding an attachment to a calendar event.
 const onItemSelected = () => {
     // $ExpectType Attachment
@@ -1097,37 +1092,6 @@ const formAppParagraphTextValidation = FormApp.createParagraphTextValidation()
     .build();
 
 const mimeTypes: string[] = [MimeType.GOOGLE_APPS_SCRIPT];
-
-// analytics reporting test
-const analyticsReporting = () => {
-    if (!AnalyticsReporting) return;
-    const gaData = AnalyticsReporting.Reports.batchGet({
-        reportRequests: [
-            {
-                viewId: "",
-                dateRanges: [
-                    {
-                        startDate: "2023-03-08",
-                        endDate: "2023-03-08",
-                    },
-                ],
-                metrics: [
-                    {
-                        expression: "some metrics",
-                        alias: "some metrics",
-                        formattingType: "some metrics",
-                    },
-                ],
-                dimensions: [
-                    {
-                        name: "some dimensions",
-                    },
-                ],
-                samplingLevel: "LARGE",
-            },
-        ],
-    });
-};
 
 // Spreadsheet Drawing test
 const sheetDrawing = () => {

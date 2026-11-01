@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.153.0
 
 declare module "sap/ui/table/library" {
   import TreeAutoExpandMode1 from "sap/ui/model/TreeAutoExpandMode";
@@ -161,6 +161,27 @@ declare module "sap/ui/table/library" {
      * The element id of the Vertical Scroll Bar of the sap.ui.table.Table.
      */
     VerticalScrollBar = "vsb",
+  }
+  /**
+   * Whether the scroll handle is shown during vertical scrolling.
+   *
+   * This enum is part of the 'sap/ui/table/library' module export and must be accessed by the property 'ShowScrollHandle'.
+   *
+   * @since 1.153
+   */
+  export enum ShowScrollHandle {
+    /**
+     * The default behavior. The scroll handle is shown only on touch scrolling.
+     */
+    Default = "Default",
+    /**
+     * The scroll handle is not shown.
+     */
+    Off = "Off",
+    /**
+     * The scroll handle is shown when the user scrolls the table vertically.
+     */
+    On = "On",
   }
   /**
    * Sort order of a column
@@ -1461,8 +1482,7 @@ declare module "sap/ui/table/AnalyticalTable" {
   /**
    * Parameters of the AnalyticalTable#group event.
    */
-  export interface AnalyticalTable$GroupEventParameters
-    extends Table$GroupEventParameters {}
+  export interface AnalyticalTable$GroupEventParameters extends Table$GroupEventParameters {}
 
   /**
    * Event object of the AnalyticalTable#group event.
@@ -3501,8 +3521,7 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
   /**
    * Describes the settings that can be provided to the MultiSelectionPlugin constructor.
    */
-  export interface $MultiSelectionPluginSettings
-    extends $SelectionPluginSettings {
+  export interface $MultiSelectionPluginSettings extends $SelectionPluginSettings {
     /**
      * Number of indices which can be selected in a range. Accepts positive integer values. If set to 0, the
      * limit is disabled, and the Select All checkbox appears instead of the Deselect All button.
@@ -3551,12 +3570,11 @@ declare module "sap/ui/table/plugins/MultiSelectionPlugin" {
   /**
    * Parameters of the MultiSelectionPlugin#selectionChange event.
    */
-  export interface MultiSelectionPlugin$SelectionChangeEventParameters
-    extends SelectionPlugin$SelectionChangeEventParameters {
+  export interface MultiSelectionPlugin$SelectionChangeEventParameters extends SelectionPlugin$SelectionChangeEventParameters {
     /**
      * Array of indices whose selection has been changed (either selected or deselected)
      */
-    indices?: int[];
+    rowIndices?: int[];
 
     /**
      * Indicates whether the selection limit has been reached
@@ -4029,8 +4047,7 @@ declare module "sap/ui/table/plugins/ODataV4MultiSelection" {
   /**
    * Describes the settings that can be provided to the ODataV4MultiSelection constructor.
    */
-  export interface $ODataV4MultiSelectionSettings
-    extends $SelectionPluginSettings {
+  export interface $ODataV4MultiSelectionSettings extends $SelectionPluginSettings {
     /**
      * Enables notifications that are displayed once a selection has been limited.
      */
@@ -4145,8 +4162,7 @@ declare module "sap/ui/table/plugins/ODataV4SingleSelection" {
   /**
    * Describes the settings that can be provided to the ODataV4SingleSelection constructor.
    */
-  export interface $ODataV4SingleSelectionSettings
-    extends $SelectionPluginSettings {}
+  export interface $ODataV4SingleSelectionSettings extends $SelectionPluginSettings {}
 }
 
 declare module "sap/ui/table/plugins/SelectionPlugin" {
@@ -6281,6 +6297,7 @@ declare module "sap/ui/table/Table" {
     NavigationMode,
     SelectionBehavior,
     SelectionMode,
+    ShowScrollHandle,
     VisibleRowCountMode,
   } from "sap/ui/table/library";
 
@@ -8702,6 +8719,18 @@ declare module "sap/ui/table/Table" {
      */
     getShowOverlay(): boolean;
     /**
+     * Gets current value of property {@link #getShowScrollHandle showScrollHandle}.
+     *
+     * Defines whether the scroll handle is shown during vertical scrolling.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.153
+     *
+     * @returns Value of property `showScrollHandle`
+     */
+    getShowScrollHandle(): ShowScrollHandle;
+    /**
      * Gets the sorted columns in the order in which sorting was performed through the {@link sap.ui.table.Table#sort }
      * method and menus. Does not reflect sorting at binding level or the columns sort visualization set with
      * {@link sap.ui.table.Column#setSortOrder}.
@@ -9723,6 +9752,25 @@ declare module "sap/ui/table/Table" {
       bShowOverlay?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getShowScrollHandle showScrollHandle}.
+     *
+     * Defines whether the scroll handle is shown during vertical scrolling.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.153
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowScrollHandle(
+      /**
+       * New value for property `showScrollHandle`
+       */
+      sShowScrollHandle?: ShowScrollHandle | keyof typeof ShowScrollHandle
+    ): this;
+    /**
      * Sets the threshold value, which will be added to all data requests in case the Table is bound against
      * an OData service.
      *
@@ -10032,6 +10080,16 @@ declare module "sap/ui/table/Table" {
      * @since 1.128
      */
     scrollThreshold?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines whether the scroll handle is shown during vertical scrolling.
+     *
+     * @since 1.153
+     */
+    showScrollHandle?:
+      | (ShowScrollHandle | keyof typeof ShowScrollHandle)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Flag to enable or disable column reordering
@@ -11201,8 +11259,7 @@ declare module "sap/ui/table/TablePersoController" {
    * @deprecated As of version 1.115. Please use the {@link sap.m.p13n.Engine Engine} for personalization
    * instead.
    */
-  export interface $TablePersoControllerSettings
-    extends $ManagedObjectSettings {
+  export interface $TablePersoControllerSettings extends $ManagedObjectSettings {
     /**
      * Auto save state
      */

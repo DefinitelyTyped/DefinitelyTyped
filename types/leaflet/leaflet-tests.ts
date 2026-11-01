@@ -706,7 +706,7 @@ class MyDivIcon extends L.DivIcon {
 }
 
 const divIconHtmlAsString = L.divIcon({ html: "" });
-const divIconHtmlAsElement = L.divIcon({ html: htmlElement });
+const divIconHtmlAsElement = L.divIcon({ html: svgElement });
 const divIconHtmlAsFalse = L.divIcon({ html: false });
 let defaultIcon = new L.Icon.Default();
 defaultIcon = new L.Icon.Default({ imagePath: "apath" });

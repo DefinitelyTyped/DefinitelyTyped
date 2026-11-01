@@ -3,8 +3,8 @@
 
 type _Omit<T, K extends keyof any | undefined> = Pick<T, Exclude<keyof T, K>>;
 type FunctionPropertyNames<T> = {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-    [K in keyof T]: T[K] extends Function ? K : never;
+    // tslint:disable-next-line:ban-types
+    [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
 }[keyof T];
 type Dictionary<T> = Partial<_Omit<T, FunctionPropertyNames<Ti.Proxy>>>;
 interface ProxyEventMap {}
@@ -87,7 +87,7 @@ interface AnimatedOptions {
     animated?: boolean;
 }
 /**
- * A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TablewView](Titanium.UI.TableView) and [ListView](Titanium.UI.ListView) content offset transitions.
+ * A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TableView](Titanium.UI.TableView) and [ListView](Titanium.UI.ListView) content offset transitions.
  */
 interface AnimatedWithDurationOptions extends AnimatedOptions {
     /**
@@ -245,7 +245,7 @@ interface CPU {
     times?: CPUTimes;
 }
 /**
- * Simple object holding the data for a logical cpu execution times.
+ * Simple object holding the data for a logical CPU execution times.
  */
 interface CPUTimes {
     /**
@@ -309,6 +309,11 @@ interface CameraMediaItemType extends SuccessResponse {
     mediaType?: string;
 
     /**
+     * The path of the image when returning data from the gallery.
+     */
+    path?: string;
+
+    /**
      * Simple object defining the preview image size. This will be undefined when custom camera overlay is not used. Values are assumed to be in pixels.
      */
     previewRect?: Size;
@@ -336,6 +341,20 @@ interface CameraMediaMultipleItemsType extends SuccessResponse {
      * The list of selected videos.
      */
     videos?: CameraMediaItemType[];
+}
+/**
+ * Parameters of the open callback
+ */
+interface CameraOpen {
+    /**
+     * Height of the preview camera image
+     */
+    height?: number;
+
+    /**
+     * Width of the preview camera image
+     */
+    width?: number;
 }
 /**
  * Simple object for specifying options to [showCamera](Titanium.Media.showCamera).
@@ -394,6 +413,11 @@ interface CameraOptionsType {
     mediaTypes?: string[];
 
     /**
+     * Function to call when the camera is shown
+     */
+    open?: (param0: CameraOpen) => void;
+
+    /**
      * View to added as an overlay to the camera UI (on top).
      */
     overlay?: Titanium.UI.View;
@@ -402,6 +426,11 @@ interface CameraOptionsType {
      * View to position the camera or photo gallery popover on top of.
      */
     popoverView?: Titanium.UI.View;
+
+    /**
+     * Function to call during recording. Returns size and duration.
+     */
+    recording?: (param0: CameraRecordingCallback) => void;
 
     /**
      * Specifies if the media should be saved to the photo gallery upon successful capture.
@@ -417,6 +446,18 @@ interface CameraOptionsType {
      * Function to call when the camera is closed after a successful capture/selection.
      */
     success?: (param0: CameraMediaItemType) => void;
+
+    /**
+     * Maximum height of the saved image. Depending on your phone and your value this might not be
+     * exactly the value you specify. Check `Ti.Media.cameraOutputSizes` first.
+     */
+    targetImageHeight?: number;
+
+    /**
+     * Maximum width of the saved image. Depending on your phone and your value this might not be
+     * exactly the value you specify. Check `Ti.Media.cameraOutputSizes` first.
+     */
+    targetImageWidth?: number;
 
     /**
      * Transformation matrix to apply to the camera or photogallery view.
@@ -437,6 +478,25 @@ interface CameraOptionsType {
      * Opens the camera with the specified camera direction.
      */
     whichCamera?: number;
+
+    /**
+     * Specifies if pinch to zoom is enabled or not.
+     */
+    zoomEnabled?: boolean;
+}
+/**
+ * Infos about the current video recording
+ */
+interface CameraRecordingCallback {
+    /**
+     * Length in milliseconds
+     */
+    duration?: number;
+
+    /**
+     * Size of the video in bytes
+     */
+    size?: number;
 }
 /**
  * Dictionary describing the items for <Titanium.UI.Clipboard.setItems>.
@@ -528,6 +588,30 @@ interface CreateStreamArgs {
     source?: Titanium.Blob | Titanium.Buffer;
 }
 /**
+ * Dictionary object of parameters for the <Titanium.UI.cutoutSize>.
+ */
+interface CutoutSize {
+    /**
+     * The height of the cutout
+     */
+    height?: number;
+
+    /**
+     * The left position of the cutout.
+     */
+    left?: number;
+
+    /**
+     * The top position of the cutout.
+     */
+    top?: number;
+
+    /**
+     * The width of the cutout
+     */
+    width?: number;
+}
+/**
  * The parameter passed to the <Titanium.UI.WebView.createPDF> or <Titanium.UI.WebView.createWebArchive>callback.
  */
 interface DataCreationResult {
@@ -545,6 +629,15 @@ interface DataCreationResult {
      * Indicates if the data creation successful or not.
      */
     success?: boolean;
+}
+/**
+ * Success callback in <Titanium.UI.WebView.createPDF>.
+ */
+interface DataCreationResultAndroid {
+    /**
+     * The created data.
+     */
+    data?: Titanium.Blob;
 }
 /**
  * Generic type for elements of returned `Array` from <Intl.DateTimeFormat.formatToParts>
@@ -792,6 +885,20 @@ interface FailureResponse extends ErrorResponse {
     success?: boolean;
 }
 /**
+ * An object representing a FairPlay Streaming configuration.
+ */
+interface FairPlayConfiguration {
+    /**
+     * The FairPlay Streaming public certificate to authenticate the content key request.
+     */
+    certificate?: Titanium.Blob;
+
+    /**
+     * The FairPlay Streaming license URL to handle the server-side authentication flow.
+     */
+    licenseURL?: string;
+}
+/**
  * An abstract datatype for specifying a text font.
  */
 interface Font {
@@ -1008,7 +1115,7 @@ interface GetUserNotificationSettings {
     carPlaySetting?: number;
 
     /**
-     * Set of categories of user notification actions required by the applicaiton to use.
+     * Set of categories of user notification actions required by the application to use.
      */
     categories?: Titanium.App.iOS.UserNotificationCategory[];
 
@@ -1024,7 +1131,7 @@ interface GetUserNotificationSettings {
     lockScreenSetting?: number;
 
     /**
-     * The current notication-center settings.
+     * The current notification-center settings.
      */
     notificationCenterSetting?: number;
 
@@ -1043,6 +1150,25 @@ interface GetUserNotificationSettings {
      * Notification types to use.
      */
     types?: number[];
+}
+/**
+ * Object of options for configuring the glass effect on a <Titanium.UI.iOS.BlurView>.
+ */
+interface GlassEffectConfiguration {
+    /**
+     * Whether the glass effect responds to user interaction.
+     */
+    interactive?: boolean;
+
+    /**
+     * The style of the glass effect.
+     */
+    style: number;
+
+    /**
+     * The tint color to apply to the glass effect.
+     */
+    tintColor?: string;
 }
 /**
  * A simple object defining a color gradient.
@@ -1223,7 +1349,7 @@ interface LaunchOptionsType {
     source?: string;
 
     /**
-     * The url that was triggered by the application or service.
+     * The URL that was triggered by the application or service.
      */
     url?: string;
 }
@@ -1460,29 +1586,6 @@ interface Matrix3DCreationDict {
     scale?: number;
 }
 /**
- * Simple object passed to <Titanium.UI.create2DMatrix> to initialize a matrix.
- */
-interface MatrixCreationDict {
-    /**
-     * Point to rotate around, specified as a dictionary object with `x` and `y`
-     * properties, where { x: 0.5, y: 0.5 } represents the center of whatever is being
-     * rotated.
-     */
-    anchorPoint?: Point;
-
-    /**
-     * Rotation angle, in degrees. See the [rotate](Titanium.UI.2DMatrix.rotate) method
-     * for a discussion of rotation.
-     */
-    rotate?: number;
-
-    /**
-     * Scale the matrix by the specified scaling factor. The same scaling factor is used
-     * for both horizontal and vertical scaling.
-     */
-    scale?: number;
-}
-/**
  * Argument passed to the callback when a request finishes successfully or erroneously.
  */
 interface MediaAuthorizationResponse extends ErrorResponse {
@@ -1652,7 +1755,7 @@ interface MessageReply {
     error?: string;
 
     /**
-     * Reply message from watchapp.
+     * Reply message from watch app.
      */
     message?: any;
 
@@ -1748,6 +1851,20 @@ interface MusicLibraryResponseType {
      * values for all media types represented in `items`.
      */
     types?: number;
+}
+/**
+ * The parameter passed to the `error` callback of <PreviewImageOptions>.
+ */
+interface NotificationChannels {
+    /**
+     * ID of the channel
+     */
+    id?: string;
+
+    /**
+     * Name of the channel
+     */
+    name?: string;
 }
 /**
  * Dictionary object of parameters used to create a notification using
@@ -1864,7 +1981,7 @@ interface NumberFormattedPart {
  */
 interface OnLinkURLResponse {
     /**
-     * The url of the link that should be navigated to.
+     * The URL of the link that should be navigated to.
      */
     url?: string;
 }
@@ -2040,6 +2157,11 @@ interface PhotoGalleryOptionsType {
     error?: (param0: FailureResponse) => void;
 
     /**
+     * Specifies the number of images a user can select at maximum.
+     */
+    maxImages?: boolean;
+
+    /**
      * Array of media type constants to allow.
      * Live photos is only supported on the iOS platform, starting with iOS 9.1. If you want
      * to allow live photos with <Titanium.Media.MEDIA_TYPE_LIVEPHOTO>, you also need to specify
@@ -2047,6 +2169,11 @@ interface PhotoGalleryOptionsType {
      * photos, they still can be selected, but will be represented as a normal static photo.
      */
     mediaTypes?: string[];
+
+    /**
+     * Do not include the blob in the result
+     */
+    pathOnly?: boolean;
 
     /**
      * View to position the photo gallery popover on top of.
@@ -2302,6 +2429,20 @@ interface ReadyStatePayload {
     readyState?: number;
 }
 /**
+ * Offset of the refresh control view.
+ */
+interface RefreshControlOffset {
+    /**
+     * The offset from the top of this view at which the progress spinner should come to rest after a successful swipe gesture.
+     */
+    end?: number;
+
+    /**
+     * The offset from the top of this view at which the progress spinner should appear.
+     */
+    start?: number;
+}
+/**
  * Argument passed to the callback when a request finishes successfully or erroneously.
  */
 interface RequestCameraAccessResult extends ErrorResponse {
@@ -2361,7 +2502,7 @@ interface RouteDescription {
     outputs?: string[];
 }
 /**
- * Represents the custom edit action for a ListItem.
+ * Represents the custom edit action for a ListItem or TableViewRow.
  */
 interface RowActionType {
     /**
@@ -2374,6 +2515,16 @@ interface RowActionType {
      * if previously defined. Available in Titanium 6.0.0 and later.
      */
     identifier?: string;
+
+    /**
+     * The image/icon of the row action.
+     */
+    image?: string;
+
+    /**
+     * The state to show this edit action. Either "trailing" (default) or "leading".
+     */
+    state?: string;
 
     /**
      * The style of the row action.
@@ -2856,7 +3007,7 @@ declare namespace Titanium {
         const ACTION_BATTERY_LOW: string;
 
         /**
-         * Inidicates the battery is now okay after being low.
+         * Indicates the battery is now okay after being low.
          */
         const ACTION_BATTERY_OKAY: string;
 
@@ -3973,7 +4124,7 @@ declare namespace Titanium {
         const TILE_STATE_INACTIVE: number;
 
         /**
-         * QuickSettings tile is unavailble.
+         * QuickSettings tile is unavailable.
          */
         const TILE_STATE_UNAVAILABLE: number;
 
@@ -3988,12 +4139,12 @@ declare namespace Titanium {
         const VISIBILITY_PRIVATE: number;
 
         /**
-         * Shows the notification's full content on the lockscreen. This is the system default if visibility is left unspecified.
+         * Shows the notification's full content on the lock screen. This is the system default if visibility is left unspecified.
          */
         const VISIBILITY_PUBLIC: number;
 
         /**
-         * Shows the most minimal information of the notification on the lockscreen.
+         * Shows the most minimal information of the notification on the lock screen.
          */
         const VISIBILITY_SECRET: number;
 
@@ -4683,7 +4834,7 @@ declare namespace Titanium {
             accessibilityHint: string;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: string;
 
@@ -4977,7 +5128,7 @@ declare namespace Titanium {
             tickerText: string;
 
             /**
-             * Allows user to conceal private information of the notification on the lockscreen.
+             * Allows user to conceal private information of the notification on the lock screen.
              */
             visibility: number;
 
@@ -5081,7 +5232,7 @@ declare namespace Titanium {
             lightColor: number;
 
             /**
-             * Whether or not notifications posted to this channel are shown on the lockscreen in full or redacted form.
+             * Whether or not notifications posted to this channel are shown on the lock screen in full or redacted form.
              */
             lockscreenVisibility: number;
 
@@ -5194,6 +5345,11 @@ declare namespace Titanium {
              * The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.
              */
             static lifecycleContainer: Titanium.UI.Window | Titanium.UI.TabGroup;
+
+            /**
+             * Returns an object with the ID and name of the notification channels
+             */
+            static notificationChannels: Dictionary<NotificationChannels>;
 
             /**
              * Adds the specified callback as an event listener for the named event.
@@ -5353,7 +5509,7 @@ declare namespace Titanium {
         interface QuickSettingsService_tileremoved_Event extends QuickSettingsServiceBaseEvent {
         }
         /**
-         * An item from the signle choice menu has been selected.
+         * An item from the single choice menu has been selected.
          */
         interface QuickSettingsService_tiledialogoptionselected_Event extends QuickSettingsServiceBaseEvent {
             /**
@@ -5520,7 +5676,7 @@ declare namespace Titanium {
             showDialog(options: showParams): void;
 
             /**
-             * Colapses the quick settings menu and starts an activity for the passed Intent.
+             * Collapses the quick settings menu and starts an activity for the passed Intent.
              */
             startActivityAndCollapse(intent: Titanium.Android.Intent): void;
 
@@ -6145,12 +6301,12 @@ declare namespace Titanium {
             const USER_NOTIFICATION_TYPE_SOUND: number;
 
             /**
-             * Uniform type identifier for Mac OS icon images.
+             * Uniform type identifier for macOS icon images.
              */
             const UTTYPE_APPLE_ICNS: string;
 
             /**
-             * Uniform type identifier for protected MPEG-4 audio (iTunes music store format).
+             * Uniform type identifier for Apple-protected MPEG-4 audio.
              */
             const UTTYPE_APPLE_PROTECTED_MPEG4_AUDIO: string;
 
@@ -6500,15 +6656,15 @@ declare namespace Titanium {
                  * Adds an array of Titanium.App.iOS.SearchableItem objects to the default search index.
                  */
                 addToDefaultSearchableIndex(
-                    Array: readonly Titanium.App.iOS.SearchableItem[],
+                    Array: ReadonlyArray<Titanium.App.iOS.SearchableItem>,
                     callback: (param0: any) => void,
                 ): void;
 
                 /**
                  * Removes search items based on an array of domain identifiers.
                  */
-                deleteAllSearchableItemByDomainIdenifiers(
-                    Array: readonly string[],
+                deleteAllSearchableItemByDomainIdentifiers(
+                    Array: ReadonlyArray<string>,
                     callback: (param0: any) => void,
                 ): void;
 
@@ -6520,7 +6676,7 @@ declare namespace Titanium {
                 /**
                  * Removes search items based on an array of identifiers.
                  */
-                deleteSearchableItemsByIdentifiers(Array: readonly string[], callback: (param0: any) => void): void;
+                deleteSearchableItemsByIdentifiers(Array: ReadonlyArray<string>, callback: (param0: any) => void): void;
 
                 /**
                  * Fires a synthesized event to any registered listeners.
@@ -7076,7 +7232,7 @@ declare namespace Titanium {
             }
             /**
              * Fired if the activity context needs to be saved before being continued on another device.
-             * To fire the event, set the UserActiviy object's `needsSave ` property to `true`.
+             * To fire the event, set the UserActivity object's `needsSave ` property to `true`.
              * The receiver should update the activity with current activity state.
              * After the event is fired, iOS will reset the `needsSave` property to false.
              */
@@ -7178,7 +7334,7 @@ declare namespace Titanium {
                 keywords: string[];
 
                 /**
-                 * Set to true everytime you have updated the user activity and need the changes to be saved before handing it off to another device.
+                 * Set to true every time you have updated the user activity and need the changes to be saved before handing it off to another device.
                  */
                 needsSave: boolean;
 
@@ -7245,7 +7401,7 @@ declare namespace Titanium {
                 /**
                  * Deletes user activities created by your app that have the specified persistent identifiers.
                  */
-                deleteSavedUserActivitiesForPersistentIdentifiers(persistentIdentifiers: readonly string[]): void;
+                deleteSavedUserActivitiesForPersistentIdentifiers(persistentIdentifiers: ReadonlyArray<string>): void;
 
                 /**
                  * Fires a synthesized event to any registered listeners.
@@ -7306,6 +7462,8 @@ declare namespace Titanium {
              * The UserDefaults module is used for storing application-related data in property/value pairs
              * that persist beyond application sessions and device power cycles. UserDefaults allows the suiteName
              * of the UserDefaults to be specified at creation time.
+             * **Important**: Using this API requires the `NSPrivacyAccessedAPICategoryUserDefaults` property set in the
+             * privacy manifest that was introduced in iOS 17. You can learn more about it [here](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files/describing_use_of_required_reason_api).
              */
             interface UserDefaults extends Titanium.App.Properties {
                 /**
@@ -7516,7 +7674,7 @@ declare namespace Titanium {
                  * Removes the specified delivered notifications from the notification-center.
                  * If no notifications are specified, all delivered notifications will be removed.
                  */
-                static removeDeliveredNotifications(notifications: readonly UserNotificationDictionary[]): void;
+                static removeDeliveredNotifications(notifications: ReadonlyArray<UserNotificationDictionary>): void;
 
                 /**
                  * Removes the specified callback as an event listener for the named event.
@@ -7527,7 +7685,7 @@ declare namespace Titanium {
                  * Removes the specified pending notifications to prevent them from being triggered.
                  * If no notifications are specified, all pending notifications will be removed.
                  */
-                static removePendingNotifications(notifications: readonly UserNotificationDictionary[]): void;
+                static removePendingNotifications(notifications: ReadonlyArray<UserNotificationDictionary>): void;
 
                 /**
                  * Notification types and user notification categories the application is registered to use.
@@ -7612,6 +7770,11 @@ declare namespace Titanium {
              * Applies the properties to the proxy.
              */
             static applyProperties(props: any): void;
+
+            /**
+             * Clears app data and cache. This will close the app.
+             */
+            static clearUserCache(): void;
 
             /**
              * Fires a synthesized event to any registered listeners.
@@ -7719,7 +7882,7 @@ declare namespace Titanium {
             /**
              * Returns the value of a property as an array data type.
              */
-            static getList(property: string, defaultValue?: readonly any[]): any[];
+            static getList(property: string, defaultValue?: ReadonlyArray<any>): any[];
 
             /**
              * Returns the value of a property as an object.
@@ -7786,7 +7949,7 @@ declare namespace Titanium {
              * Sets the value of a property as an array data type. The property will be created if it
              * does not exist.
              */
-            static setList(property: string, value: readonly any[]): void;
+            static setList(property: string, value: ReadonlyArray<any>): void;
 
             /**
              * Sets the value of a property as an object data type. The property will be created if it
@@ -8096,13 +8259,13 @@ declare namespace Titanium {
 
             /**
              * A string containing the localized description of the error.
-             * This property does not exhist if errorCode is 0, which means there is no error.
+             * This property does not exist if errorCode is 0, which means there is no error.
              */
             message: string;
 
             /**
              * The response text for [task](Modules.URLSession.task) and [uploadTask](Modules.URLSession.uploadTask).
-             * This property does not exhist for download task. For download task response,
+             * This property does not exist for download task. For download task response,
              * use [downloadcompleted](Titanium.App.iOS.downloadcompleted) event.
              */
             responseText: string;
@@ -8178,7 +8341,7 @@ declare namespace Titanium {
             activityType: string;
 
             /**
-             * With field will contain the searchable Unique Identifier if the continueactivity is fired from a Core Spotlight searh result.
+             * With field will contain the searchable Unique Identifier if the continueactivity is fired from a Core Spotlight search result.
              */
             searchableItemActivityIdentifier: string;
 
@@ -8602,22 +8765,22 @@ declare namespace Titanium {
         const METHOD_SMS: number;
 
         /**
-         * Indicates a daily recurrence rule for a events reccurance frequency.
+         * Indicates a daily recurrence rule for a events recurrence frequency.
          */
         const RECURRENCEFREQUENCY_DAILY: number;
 
         /**
-         * Indicates a monthly recurrence rule for a events reccurance frequency.
+         * Indicates a monthly recurrence rule for a events recurrence frequency.
          */
         const RECURRENCEFREQUENCY_MONTHLY: number;
 
         /**
-         * Indicates a weekly recurrence rule for a events reccurance frequency.
+         * Indicates a weekly recurrence rule for a events recurrence frequency.
          */
         const RECURRENCEFREQUENCY_WEEKLY: number;
 
         /**
-         * Indicates a yearly recurrence rule for a events reccurance frequency.
+         * Indicates a yearly recurrence rule for a events recurrence frequency.
          */
         const RECURRENCEFREQUENCY_YEARLY: number;
 
@@ -8912,6 +9075,18 @@ declare namespace Titanium {
             createEvent(properties: Dictionary<Titanium.Calendar.Event>): Titanium.Calendar.Event;
 
             /**
+             * Creates multiple events at once in this calendar.
+             */
+            createEvents(
+                propertiesArray: ReadonlyArray<Dictionary<Titanium.Calendar.Event>>,
+            ): Titanium.Calendar.Event[];
+
+            /**
+             * Deletes multiple events with their specified identifier(s).
+             */
+            deleteEvents(ids: number[] | string[]): number;
+
+            /**
              * Fires a synthesized event to any registered listeners.
              */
             fireEvent(name: string, event?: any): void;
@@ -8925,6 +9100,11 @@ declare namespace Titanium {
              * Gets events that occur between two dates.
              */
             getEventsBetweenDates(date1: Date | string, date2: Date | string): Titanium.Calendar.Event[];
+
+            /**
+             * Gets multiple events with their specified identifier(s).
+             */
+            getEventsById(ids: number[] | string[]): Titanium.Calendar.Event[];
 
             /**
              * Gets events that occur on a specified date.
@@ -9087,7 +9267,7 @@ declare namespace Titanium {
             refresh(): boolean;
 
             /**
-             * Removes an event from the event store.
+             * Removes an event from the calendar.
              */
             remove(span: number): boolean;
 
@@ -9307,7 +9487,7 @@ declare namespace Titanium {
             members(): Titanium.Contacts.Person[];
 
             /**
-             * Removes a person from this group. For >= iOS9, it is not
+             * Removes a person from this group. For >= iOS 9, it is not
              * required to call <Titanium.Contacts.save> after calling this method.
              */
             remove(person: Titanium.Contacts.Person): void;
@@ -9383,7 +9563,7 @@ declare namespace Titanium {
             readonly identifier: string;
 
             /**
-             * Image for the person. Single value. Read-only for >= iOS9
+             * Image for the person. Single value. Read-only for >= iOS 9
              */
             image: Titanium.Blob;
 
@@ -9559,7 +9739,7 @@ declare namespace Titanium {
             /**
              * Executes an SQL statement against the database and returns a `ResultSet`.
              */
-            execute(sql: string, vararg?: readonly string[]): Titanium.Database.ResultSet;
+            execute(sql: string, vararg?: ReadonlyArray<string>): Titanium.Database.ResultSet;
 
             /**
              * Executes an SQL statement against the database and returns a `ResultSet`.
@@ -9569,20 +9749,20 @@ declare namespace Titanium {
             /**
              * Executes an SQL statement against the database and returns a `ResultSet`.
              */
-            execute(sql: string, vararg?: readonly any[]): Titanium.Database.ResultSet;
+            execute(sql: string, vararg?: ReadonlyArray<any>): Titanium.Database.ResultSet;
 
             /**
              * Synchronously executes an array of SQL statements against the database and returns an array of `ResultSet`.
              * On failure, this will throw an [Error](BatchQueryError) that reports the failed index and partial results
              */
-            executeAll(queries: readonly string[]): Titanium.Database.ResultSet[];
+            executeAll(queries: ReadonlyArray<string>): Titanium.Database.ResultSet[];
 
             /**
              * Asynchronously executes an array of SQL statements against the database and fires a callback with a possible Error, and an array of `ResultSet`.
              * On failure, this will call the callback with an [Error](PossibleBatchQueryError) that reports the failed `index`, and a second argument with the partial `results`.
              */
             executeAllAsync(
-                queries: readonly string[],
+                queries: ReadonlyArray<string>,
                 callback?: (param0: PossibleBatchQueryError, param1: Titanium.Database.ResultSet[]) => void,
             ): Promise<Titanium.Database.ResultSet[]>;
 
@@ -10062,7 +10242,7 @@ declare namespace Titanium {
 
         /**
          * A [locationServicesAuthorization](Titanium.Geolocation.locationServicesAuthorization) value
-         * indicating that the application is not authorized to use location servies *and*
+         * indicating that the application is not authorized to use location services *and*
          * the user cannot change this application's status.
          */
         const AUTHORIZATION_RESTRICTED: number;
@@ -10296,6 +10476,16 @@ declare namespace Titanium {
      */
     namespace Media {
         /**
+         * Aspect ratio 16:9
+         */
+        const ASPECT_RATIO_16_9: number;
+
+        /**
+         * Aspect ratio 4:3
+         */
+        const ASPECT_RATIO_4_3: number;
+
+        /**
          * Audio file format 3GPP2.
          */
         const AUDIO_FILEFORMAT_3GP2: number;
@@ -10426,7 +10616,7 @@ declare namespace Titanium {
         const AUDIO_SESSION_PORT_BLUETOOTHHFP: string;
 
         /**
-         * Constant for output on a Bluetooth Low Energy device. This is an output port. This is available on iOS7 and later.
+         * Constant for output on a Bluetooth Low Energy device. This is an output port. This is available on iOS 7 and later.
          */
         const AUDIO_SESSION_PORT_BLUETOOTHLE: string;
 
@@ -10446,7 +10636,7 @@ declare namespace Titanium {
         const AUDIO_SESSION_PORT_BUILTINSPEAKER: string;
 
         /**
-         * Constant for Input or output via Car Audio. This can be both an input and output port. This is available on iOS7 and later.
+         * Constant for Input or output via Car Audio. This can be both an input and output port. This is available on iOS 7 and later.
          */
         const AUDIO_SESSION_PORT_CARAUDIO: string;
 
@@ -10521,27 +10711,22 @@ declare namespace Titanium {
         const AUDIO_STATE_WAITING_FOR_DATA: number;
 
         /**
-         * Player is waiting for audio data to fill the queue.
-         */
-        const AUDIO_STATE_WAITING_FOR_QUEUE: number;
-
-        /**
-         * Constant specifying that app is authorized to use camera. This is available on iOS7 and later.
+         * Constant specifying that app is authorized to use camera. This is available on iOS 7 and later.
          */
         const CAMERA_AUTHORIZATION_AUTHORIZED: number;
 
         /**
-         * Constant specifying that app is denied usage of camera. This is available on iOS7 and later.
+         * Constant specifying that app is denied usage of camera. This is available on iOS 7 and later.
          */
         const CAMERA_AUTHORIZATION_DENIED: number;
 
         /**
-         * Constant specifying that app is restricted from using camera. This is available on iOS7 and later.
+         * Constant specifying that app is restricted from using camera. This is available on iOS 7 and later.
          */
         const CAMERA_AUTHORIZATION_RESTRICTED: number;
 
         /**
-         * Constant specifying that app is not yet authorized to use camera. This is available on iOS7 and later.
+         * Constant specifying that app is not yet authorized to use camera. This is available on iOS 7 and later.
          */
         const CAMERA_AUTHORIZATION_UNKNOWN: number;
 
@@ -10756,9 +10941,24 @@ declare namespace Titanium {
         const NO_CAMERA: number;
 
         /**
+         * Constant for camera didn't focus when taking a trying to take a picture.
+         */
+        const NO_FOCUS: number;
+
+        /**
          * Constant for media no video error.
          */
         const NO_VIDEO: number;
+
+        /**
+         * Media type constant for FHD video recording.
+         */
+        const QUALITY_FHD: number;
+
+        /**
+         * Media type constant for HD video recording.
+         */
+        const QUALITY_HD: number;
 
         /**
          * Media type constant for high-quality video recording.
@@ -10776,9 +10976,34 @@ declare namespace Titanium {
         const QUALITY_MEDIUM: number;
 
         /**
+         * Media type constant for SD video recording.
+         */
+        const QUALITY_SD: number;
+
+        /**
+         * Media type constant for UHD video recording.
+         */
+        const QUALITY_UHD: number;
+
+        /**
          * Constant for unknown media error.
          */
         const UNKNOWN_ERROR: number;
+
+        /**
+         * Vertical align center
+         */
+        const VERTICAL_ALIGN_BOTTOM: number;
+
+        /**
+         * Vertical align center
+         */
+        const VERTICAL_ALIGN_CENTER: number;
+
+        /**
+         * Vertical align center
+         */
+        const VERTICAL_ALIGN_TOP: number;
 
         /**
          * Constant for default video controls.
@@ -10926,7 +11151,7 @@ declare namespace Titanium {
         const VIDEO_REPEAT_MODE_NONE: number;
 
         /**
-         * Constant for repeating one video (i.e., the one video will repeat constantly) during playback.
+         * Constant for repeating one video (e.g., the one video will repeat constantly) during playback.
          */
         const VIDEO_REPEAT_MODE_ONE: number;
 
@@ -11041,8 +11266,8 @@ declare namespace Titanium {
              * Android media providers, such as the Gallery.
              */
             static scanMediaFiles(
-                paths: readonly string[],
-                mimeTypes: readonly string[],
+                paths: ReadonlyArray<string>,
+                mimeTypes: ReadonlyArray<string>,
                 callback: (param0: MediaScannerResponse) => void,
             ): void;
 
@@ -11111,7 +11336,7 @@ declare namespace Titanium {
          */
         interface AudioPlayer_error_Event extends AudioPlayerBaseEvent {
             /**
-             * Error code. Different between android and iOS.
+             * Error code. Different between Android and iOS.
              */
             code: number;
 
@@ -11576,8 +11801,7 @@ declare namespace Titanium {
             readonly assetURL: string;
 
             /**
-             * The number of musical beats per minute for the media item, corresponding
-             * to the "BPM" field in the Info tab in the "Get Info" dialog in iTunes.
+             * The number of musical beats per minute for the media item.
              */
             readonly beatsPerMinute: number;
 
@@ -11587,8 +11811,7 @@ declare namespace Titanium {
             readonly bookmarkTime: string;
 
             /**
-             * Textual information about the media item, corresponding to the "Comments"
-             * field in in the Info tab in the Get Info dialog in iTunes.
+             * Textual information about the media item.
              */
             readonly comments: string;
 
@@ -11708,8 +11931,7 @@ declare namespace Titanium {
             readonly title: string;
 
             /**
-             * Corresponds to the "Grouping" field in the Info tab in the "Get Info"
-             * dialog in iTunes.
+             * Grouping information for the media item.
              */
             readonly userGrouping: string;
 
@@ -12403,6 +12625,15 @@ declare namespace Titanium {
         interface VideoPlayer_postlayout_Event extends VideoPlayerBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface VideoPlayer_rotate_Event extends VideoPlayerBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface VideoPlayer_singletap_Event extends VideoPlayerBaseEvent {
@@ -12727,6 +12958,8 @@ declare namespace Titanium {
 
             resize: VideoPlayer_resize_Event;
 
+            rotate: VideoPlayer_rotate_Event;
+
             singletap: VideoPlayer_singletap_Event;
 
             swipe: VideoPlayer_swipe_Event;
@@ -12749,6 +12982,11 @@ declare namespace Titanium {
              * Whether or not the current movie can be played on a remote device.
              */
             allowsAirPlay: boolean;
+
+            /**
+             * Indicates if player is hidden by default and shown when its ready.
+             */
+            autoHide: boolean;
 
             /**
              * Indicates if a movie should automatically start playback.
@@ -12775,6 +13013,11 @@ declare namespace Titanium {
              * The end time of movie playback, in milliseconds.
              */
             endPlaybackTime: number;
+
+            /**
+             * Handle DRM-encrypted video assets using the [Apple FairPlay Streaming API](https://developer.apple.com/streaming/fps/).
+             */
+            fairPlayConfiguration: FairPlayConfiguration;
 
             /**
              * Determines if the movie is presented in the entire screen (obscuring all other application content).
@@ -12861,6 +13104,11 @@ declare namespace Titanium {
             showsControls: boolean;
 
             /**
+             * Playback speed of the video.
+             */
+            speed: number;
+
+            /**
              * URL of the media to play.
              */
             url: string;
@@ -12930,7 +13178,7 @@ declare namespace Titanium {
              * Asynchronously request thumbnail images for one or more points in time in the video.
              */
             requestThumbnailImagesAtTimes(
-                times: readonly number[],
+                times: ReadonlyArray<number>,
                 option: number,
                 callback: (param0: ThumbnailResponse) => void,
             ): void;
@@ -12986,7 +13234,7 @@ declare namespace Titanium {
         const NOTIFICATION_TYPE_BADGE: number;
 
         /**
-         * Constant value for a Newsstand style push notification. Only available on iOS5 and later
+         * Constant value for a Newsstand style push notification. Only available on iOS 5 and later
          */
         const NOTIFICATION_TYPE_NEWSSTAND: number;
 
@@ -13082,6 +13330,11 @@ declare namespace Titanium {
                  * The port to connect to or listen on.
                  */
                 port: number;
+
+                /**
+                 * Creates a secure socket.
+                 */
+                secure: boolean;
 
                 /**
                  * Current state of the socket.
@@ -13403,7 +13656,7 @@ declare namespace Titanium {
             readonly name: string;
 
             /**
-             * The origual url attribute of the cookie.
+             * The original URL attribute of the cookie.
              */
             originalUrl: string;
 
@@ -13566,6 +13819,11 @@ declare namespace Titanium {
              * Response data as a `Blob` object.
              */
             readonly responseData: Titanium.Blob;
+
+            /**
+             * Response as JSON object.
+             */
+            readonly responseDictionary: string;
 
             /**
              * Returns all the response headers returned with the request.
@@ -14504,6 +14762,21 @@ declare namespace Titanium {
         const BLEND_MODE_XOR: number;
 
         /**
+         * Line breaking strategy balances line lengths.
+         */
+        const BREAK_BALANCED: number;
+
+        /**
+         * Line breaking uses high-quality strategy, including hyphenation.
+         */
+        const BREAK_HIGH_QUALITY: number;
+
+        /**
+         * Line breaking uses simple strategy.
+         */
+        const BREAK_SIMPLE: number;
+
+        /**
          * Use with [Button.style](Titanium.UI.Button.style) to show a solid filled button.
          */
         const BUTTON_STYLE_FILLED: number;
@@ -14628,6 +14901,31 @@ declare namespace Titanium {
          * Use when creating a TextField to specify the hintType as static.
          */
         const HINT_TYPE_STATIC: number;
+
+        /**
+         * Standard amount of hyphenation, useful for running text and for screens with limited space for text.
+         */
+        const HYPHEN_FULL: number;
+
+        /**
+         * Same to hyphenationFrequency="full" but using faster algorithm for measuring hyphenation break points.
+         */
+        const HYPHEN_FULL_FAST: number;
+
+        /**
+         * No hyphenation.
+         */
+        const HYPHEN_NONE: number;
+
+        /**
+         * Less frequent hyphenation, useful for informal use cases, such as chat messages.
+         */
+        const HYPHEN_NORMAL: number;
+
+        /**
+         * Same to hyphenationFrequency="normal" but using faster algorithm for measuring hyphenation break points.
+         */
+        const HYPHEN_NORMAL_FAST: number;
 
         /**
          * Use a bezel-style border on the input field.
@@ -14970,6 +15268,16 @@ declare namespace Titanium {
         const TABLE_VIEW_SEPARATOR_STYLE_SINGLE_LINE: number;
 
         /**
+         * Bottom navigation style.
+         */
+        const TABS_STYLE_BOTTOM_NAVIGATION: number;
+
+        /**
+         * Default tab style.
+         */
+        const TABS_STYLE_DEFAULT: number;
+
+        /**
          * Center align text.
          */
         const TEXT_ALIGNMENT_CENTER: number | string;
@@ -15010,7 +15318,7 @@ declare namespace Titanium {
         const TEXT_AUTOCAPITALIZATION_WORDS: number;
 
         /**
-         * Add ellipses before the first character that doesnt fit.
+         * Add ellipses before the first character that doesn't fit.
          */
         const TEXT_ELLIPSIZE_TRUNCATE_CHAR_WRAP: number;
 
@@ -15150,7 +15458,7 @@ declare namespace Titanium {
         const UNKNOWN: number;
 
         /**
-         * Orientation constant for inverted portait orientation.
+         * Orientation constant for inverted portrait orientation.
          */
         const UPSIDE_PORTRAIT: number;
 
@@ -15160,7 +15468,7 @@ declare namespace Titanium {
         const URL_ERROR_AUTHENTICATION: number;
 
         /**
-         * Bad url error code reported via <Titanium.UI.WebView.error>.
+         * Bad URL error code reported via <Titanium.UI.WebView.error>.
          */
         const URL_ERROR_BAD_URL: number;
 
@@ -15205,7 +15513,7 @@ declare namespace Titanium {
         const URL_ERROR_UNKNOWN: number;
 
         /**
-         * Error code reported via <Titanium.UI.WebView.error> when a url contains an unsupported scheme.
+         * Error code reported via <Titanium.UI.WebView.error> when a URL contains an unsupported scheme.
          */
         const URL_ERROR_UNSUPPORTED_SCHEME: number;
 
@@ -15508,6 +15816,46 @@ declare namespace Titanium {
             const PROGRESS_INDICATOR_STATUS_BAR: number;
 
             /**
+             * When entering (scrolling on screen) the view will scroll on any downwards scroll event, regardless of whether the scrolling view is also scrolling. This is commonly referred to as the 'quick return' pattern.
+             */
+            const SCROLL_FLAG_ENTER_ALWAYS: number;
+
+            /**
+             * An additional flag for 'enterAlways' which modifies the returning view to only initially scroll back to it's collapsed height. Once the scrolling view has reached the end of it's scroll range, the remainder of this view will be scrolled into view. The collapsed height is defined by the view's minimum height.
+             */
+            const SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED: number;
+
+            /**
+             * When exiting (scrolling off screen) the view will be scrolled until it is 'collapsed'. The collapsed height is defined by the view's minimum height.
+             */
+            const SCROLL_FLAG_EXIT_UNTIL_COLLAPSED: number;
+
+            /**
+             * Disable scrolling on the view. This flag should not be combined with any of the other scroll flags.
+             */
+            const SCROLL_FLAG_NO_SCROLL: number;
+
+            /**
+             * The view will be scroll in direct relation to scroll events. This flag needs to be set for any of the other flags to take effect. If any sibling views before this one do not have this flag, then this value has no effect.
+             */
+            const SCROLL_FLAG_SCROLL: number;
+
+            /**
+             * Upon a scroll ending, if the view is only partially visible then it will be snapped and scrolled to its closest edge. For example, if the view only has its bottom 25% displayed, it will be scrolled off screen completely. Conversely, if its bottom 75% is visible then it will be scrolled fully into view.
+             */
+            const SCROLL_FLAG_SNAP: number;
+
+            /**
+             * An additional flag to be used with 'snap'. If set, the view will be snapped to its top and bottom margins, as opposed to the edges of the view itself.
+             */
+            const SCROLL_FLAG_SNAP_MARGINS: number;
+
+            /**
+             * The window will not be resized, and it will not be panned to make its focus visible.
+             */
+            const SOFT_INPUT_ADJUST_NOTHING: number;
+
+            /**
              * Pan the current heavyweight window when the input method (ie software keyboard) is shown, to
              * ensure that its contents are not obscured.
              */
@@ -15574,6 +15922,11 @@ declare namespace Titanium {
             const SOFT_KEYBOARD_SHOW_ON_FOCUS: number;
 
             /**
+             * Sets the color of the status bar to light mode. Needs Android API level 23.
+             */
+            const STATUS_BAR_LIGHT: number;
+
+            /**
              * Display a checkbox.
              * @deprecated Use <Titanium.UI.SWITCH_STYLE_CHECKBOX> instead.
              */
@@ -15600,6 +15953,16 @@ declare namespace Titanium {
              * The default TabGroup style that places the Tabs bellow the ActionBar and above the Window content.
              */
             const TABS_STYLE_DEFAULT: number;
+
+            /**
+             * Set the TabGroup tab mode to fixed (default).
+             */
+            let TAB_MODE_FIXED: number;
+
+            /**
+             * Set the TabGroup tab mode to scrollable.
+             */
+            let TAB_MODE_SCROLLABLE: number;
 
             /**
              * Captures layout bounds of target views before and after the scene change and animates those changes during the transition.
@@ -15695,6 +16058,26 @@ declare namespace Titanium {
              * Display a placeholder and only load plugins when user selects it.
              */
             const WEBVIEW_PLUGINS_ON_DEMAND: number;
+
+            /**
+             * Show horizontal and vertical scrollbar in a Ti.UI.WebView.
+             */
+            const WEBVIEW_SCROLLBARS_DEFAULT: number;
+
+            /**
+             * Hide all scrollbars in a Ti.UI.WebView.
+             */
+            const WEBVIEW_SCROLLBARS_HIDE_ALL: number;
+
+            /**
+             * Hide horizontal scrollbar in a Ti.UI.WebView.
+             */
+            const WEBVIEW_SCROLLBARS_HIDE_HORIZONTAL: number;
+
+            /**
+             * Hide vertical scrollbar in a Ti.UI.WebView.
+             */
+            const WEBVIEW_SCROLLBARS_HIDE_VERTICAL: number;
 
             /**
              * Base event for class Titanium.UI.Android.CardView
@@ -15892,6 +16275,15 @@ declare namespace Titanium {
              * Fired when a layout cycle is finished.
              */
             interface CardView_postlayout_Event extends CardViewBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface CardView_rotate_Event extends CardViewBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
             }
             /**
              * Fired when the device detects a single tap against the view.
@@ -16239,6 +16631,8 @@ declare namespace Titanium {
 
                 postlayout: CardView_postlayout_Event;
 
+                rotate: CardView_rotate_Event;
+
                 singletap: CardView_singletap_Event;
 
                 swipe: CardView_swipe_Event;
@@ -16368,6 +16762,985 @@ declare namespace Titanium {
                  * Removes the specified callback as an event listener for the named event.
                  */
                 removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+            }
+            /**
+             * Base event for class Titanium.UI.Android.CollapseToolbar
+             */
+            interface CollapseToolbarBaseEvent extends Ti.Event {
+                /**
+                 * Source object that fired the event.
+                 */
+                source: Titanium.UI.Android.CollapseToolbar;
+            }
+            /**
+             * Fired when the device detects a click against the view.
+             */
+            interface CollapseToolbar_click_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Returns `true` if the click passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a double click against the view.
+             */
+            interface CollapseToolbar_dblclick_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Returns `true` if the double click passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a double tap against the view.
+             */
+            interface CollapseToolbar_doubletap_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Returns `true` if the double tap passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the view element gains focus.
+             */
+            interface CollapseToolbar_focus_Event extends CollapseToolbarBaseEvent {
+            }
+            /**
+             * Fired when a hardware key is pressed in the view.
+             */
+            interface CollapseToolbar_keypressed_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * The code for the physical key that was pressed. For more details, see [KeyEvent](https://developer.android.com/reference/android/view/KeyEvent.html). This API is experimental and subject to change.
+                 */
+                keyCode: number;
+            }
+            /**
+             * Fired when the device detects a long click.
+             */
+            interface CollapseToolbar_longclick_Event extends CollapseToolbarBaseEvent {
+            }
+            /**
+             * Fired when the device detects a long press.
+             */
+            interface CollapseToolbar_longpress_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Returns `true` if the long press passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a pinch gesture.
+             */
+            interface CollapseToolbar_pinch_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * The average distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                currentSpan: number;
+
+                /**
+                 * The average X distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                currentSpanX: number;
+
+                /**
+                 * The average Y distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                currentSpanY: number;
+
+                /**
+                 * The X coordinate of the current gesture's focal point.
+                 */
+                focusX: number;
+
+                /**
+                 * The Y coordinate of the current gesture's focal point.
+                 */
+                focusY: number;
+
+                /**
+                 * Returns `true` if a scale gesture is in progress, `false` otherwise.
+                 */
+                inProgress: boolean;
+
+                /**
+                 * The previous average distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                previousSpan: number;
+
+                /**
+                 * The previous average X distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                previousSpanX: number;
+
+                /**
+                 * The previous average Y distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                previousSpanY: number;
+
+                /**
+                 * The scale factor relative to the points of the two touches in screen coordinates.
+                 */
+                scale: number;
+
+                /**
+                 * The event time of the current event being processed.
+                 */
+                time: number;
+
+                /**
+                 * The time difference in milliseconds between the previous accepted scaling event and the
+                 * current scaling event.
+                 */
+                timeDelta: number;
+
+                /**
+                 * The velocity of the pinch in scale factor per second.
+                 */
+                velocity: number;
+            }
+            /**
+             * Fired when a layout cycle is finished.
+             */
+            interface CollapseToolbar_postlayout_Event extends CollapseToolbarBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface CollapseToolbar_rotate_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
+            }
+            /**
+             * Fired when the device detects a single tap against the view.
+             */
+            interface CollapseToolbar_singletap_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Returns `true` if the single tap passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a swipe gesture against the view.
+             */
+            interface CollapseToolbar_swipe_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Direction of the swipe--either 'left', 'right', 'up', or 'down'.
+                 */
+                direction: string;
+
+                /**
+                 * Returns `true` if the swipe passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event's endpoint from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event's endpoint from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when a touch event is interrupted by the device.
+             */
+            interface CollapseToolbar_touchcancel_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when a touch event is completed.
+             */
+            interface CollapseToolbar_touchend_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Penciland are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired as soon as the device detects movement of a touch.
+             */
+            interface CollapseToolbar_touchmove_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired as soon as the device detects a touch gesture.
+             */
+            interface CollapseToolbar_touchstart_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a two-finger tap against the view.
+             */
+            interface CollapseToolbar_twofingertap_Event extends CollapseToolbarBaseEvent {
+                /**
+                 * Returns `true` if the tap passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            interface CollapseToolbarEventMap extends ProxyEventMap {
+                click: CollapseToolbar_click_Event;
+
+                dblclick: CollapseToolbar_dblclick_Event;
+
+                doubletap: CollapseToolbar_doubletap_Event;
+
+                focus: CollapseToolbar_focus_Event;
+
+                keypressed: CollapseToolbar_keypressed_Event;
+
+                longclick: CollapseToolbar_longclick_Event;
+
+                longpress: CollapseToolbar_longpress_Event;
+
+                pinch: CollapseToolbar_pinch_Event;
+
+                postlayout: CollapseToolbar_postlayout_Event;
+
+                rotate: CollapseToolbar_rotate_Event;
+
+                singletap: CollapseToolbar_singletap_Event;
+
+                swipe: CollapseToolbar_swipe_Event;
+
+                touchcancel: CollapseToolbar_touchcancel_Event;
+
+                touchend: CollapseToolbar_touchend_Event;
+
+                touchmove: CollapseToolbar_touchmove_Event;
+
+                touchstart: CollapseToolbar_touchstart_Event;
+
+                twofingertap: CollapseToolbar_twofingertap_Event;
+            }
+            /**
+             * A collapsing toolbar layout.
+             */
+            class CollapseToolbar extends Titanium.UI.View {
+                /**
+                 * Whether the view should be "hidden" from (i.e., ignored by) the accessibility service.
+                 */
+                accessibilityHidden: never;
+
+                /**
+                 * Briefly describes what performing an action (such as a click) on the view will do.
+                 */
+                accessibilityHint: never;
+
+                /**
+                 * A succinct label identifying the view for the device's accessibility service.
+                 */
+                accessibilityLabel: never;
+
+                /**
+                 * A string describing the value (if any) of the view for the device's accessibility service.
+                 */
+                accessibilityValue: never;
+
+                /**
+                 * Coordinate of the view about which to pivot an animation.
+                 */
+                anchorPoint: never;
+
+                /**
+                 * Background color of the view, as a color name or hex triplet.
+                 */
+                backgroundColor: never;
+
+                /**
+                 * Disabled background color of the view, as a color name or hex triplet.
+                 */
+                backgroundDisabledColor: never;
+
+                /**
+                 * Disabled background image for the view, specified as a local file path or URL.
+                 */
+                backgroundDisabledImage: never;
+
+                /**
+                 * Focused background color of the view, as a color name or hex triplet.
+                 */
+                backgroundFocusedColor: never;
+
+                /**
+                 * Focused background image for the view, specified as a local file path or URL.
+                 */
+                backgroundFocusedImage: never;
+
+                /**
+                 * A background gradient for the view.
+                 */
+                backgroundGradient: never;
+
+                /**
+                 * Background image for the view, specified as a local file path or URL.
+                 */
+                backgroundImage: never;
+
+                /**
+                 * Determines whether to tile a background across a view.
+                 */
+                backgroundRepeat: never;
+
+                /**
+                 * Selected background color of the view, as a color name or hex triplet.
+                 */
+                backgroundSelectedColor: never;
+
+                /**
+                 * Selected background image URL for the view, specified as a local file path or URL.
+                 */
+                backgroundSelectedImage: never;
+
+                /**
+                 * Background color of the extended toolbar when no image is shown.
+                 */
+                barColor: string;
+
+                /**
+                 * Border color of the view, as a color name or hex triplet.
+                 */
+                borderColor: never;
+
+                /**
+                 * Radius for the rounded corners of the view's border.
+                 */
+                borderRadius: never;
+
+                /**
+                 * Border width of the view.
+                 */
+                borderWidth: never;
+
+                /**
+                 * View's bottom position, in platform-specific units.
+                 */
+                bottom: never;
+
+                /**
+                 * Indicates if the proxy will bubble an event to its parent.
+                 */
+                bubbleParent: never;
+
+                /**
+                 * View's center position, in the parent view's coordinates.
+                 */
+                center: never;
+
+                /**
+                 * Array of this view's child views.
+                 */
+                readonly children: never;
+
+                /**
+                 * Color of the title.
+                 */
+                color: string;
+
+                /**
+                 * Background color of the small toolbar when the content is scrolled up.
+                 */
+                contentScrimColor: string;
+
+                /**
+                 * Main view below the toolbar.
+                 */
+                contentView: Titanium.UI.View;
+
+                /**
+                 * Displays an "up" affordance on the "home" area of the action bar.
+                 */
+                displayHomeAsUp: boolean;
+
+                /**
+                 * Base elevation of the view relative to its parent in pixels.
+                 */
+                elevation: never;
+
+                /**
+                 * Discards touch related events if another app's system overlay covers the view.
+                 */
+                filterTouchesWhenObscured: never;
+
+                /**
+                 * Scroll flags. Check [Android documentation](https://developer.android.com/reference/com/google/android/material/appbar/AppBarLayout.LayoutParams#constants_1) for more details.
+                 */
+                flags: number;
+
+                /**
+                 * Whether view should be focusable while navigating with the trackball.
+                 */
+                focusable: never;
+
+                /**
+                 * Sets the behavior when hiding an object to release or keep the free space
+                 */
+                hiddenBehavior: never;
+
+                /**
+                 * Determines whether the layout has wrapping behavior.
+                 */
+                horizontalWrap: never;
+
+                /**
+                 * Background image for the full size toolbar. Has a parallax effect when scrolling upwards.
+                 */
+                image: string;
+
+                /**
+                 * Height of the image. Use `height` for the height of the extended toolbar.
+                 */
+                imageHeight: number;
+
+                /**
+                 * Determines whether to keep the device screen on.
+                 */
+                keepScreenOn: never;
+
+                /**
+                 * Specifies how the view positions its children.
+                 * One of: 'composite', 'vertical', or 'horizontal'.
+                 */
+                layout: never;
+
+                /**
+                 * View's left position, in platform-specific units.
+                 */
+                left: never;
+
+                /**
+                 * The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.
+                 */
+                lifecycleContainer: never;
+
+                /**
+                 * Color of the back arrow.
+                 */
+                navigationIconColor: string;
+
+                /**
+                 * Callback function called when the home icon is clicked.
+                 */
+                onHomeIconItemSelected: (...args: any[]) => void;
+
+                /**
+                 * Opacity of this view, from 0.0 (transparent) to 1.0 (opaque). Defaults to 1.0 (opaque).
+                 */
+                opacity: never;
+
+                /**
+                 * When on, animate call overrides current animation if applicable.
+                 */
+                overrideCurrentAnimation: never;
+
+                /**
+                 * The bounding box of the view relative to its parent, in system units.
+                 */
+                readonly rect: never;
+
+                /**
+                 * View's right position, in platform-specific units.
+                 */
+                right: never;
+
+                /**
+                 * Clockwise 2D rotation of the view in degrees.
+                 */
+                rotation: never;
+
+                /**
+                 * Clockwise rotation of the view in degrees (x-axis).
+                 */
+                rotationX: never;
+
+                /**
+                 * Clockwise rotation of the view in degrees (y-axis).
+                 */
+                rotationY: never;
+
+                /**
+                 * Scaling of the view in x-axis in pixels.
+                 */
+                scaleX: never;
+
+                /**
+                 * Scaling of the view in y-axis in pixels.
+                 */
+                scaleY: never;
+
+                /**
+                 * The size of the view in system units.
+                 */
+                readonly size: never;
+
+                /**
+                 * Determines keyboard behavior when this view is focused. Defaults to <Titanium.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS>.
+                 */
+                softKeyboardOnFocus: never;
+
+                /**
+                 * Title of the toolbar.
+                 */
+                title: string;
+
+                /**
+                 * Determines whether view should receive touch events.
+                 */
+                touchEnabled: never;
+
+                /**
+                 * A material design visual construct that provides an instantaneous visual confirmation of touch point.
+                 */
+                touchFeedback: never;
+
+                /**
+                 * Optional touch feedback ripple color. This has no effect unless `touchFeedback` is true.
+                 */
+                touchFeedbackColor: never;
+
+                /**
+                 * Transformation matrix to apply to the view.
+                 */
+                transform: never;
+
+                /**
+                 * A name to identify this view in activity transition.
+                 */
+                transitionName: never;
+
+                /**
+                 * Horizontal location of the view relative to its left position in pixels.
+                 */
+                translationX: never;
+
+                /**
+                 * Vertical location of the view relative to its top position in pixels.
+                 */
+                translationY: never;
+
+                /**
+                 * Depth of the view relative to its elevation in pixels.
+                 */
+                translationZ: never;
+
+                /**
+                 * Determines the color of the shadow.
+                 */
+                viewShadowColor: never;
+
+                /**
+                 * Determines whether the view is visible.
+                 */
+                visible: never;
+
+                /**
+                 * View's width, in platform-specific units.
+                 */
+                width: never;
+
+                /**
+                 * Z-index stack order position, relative to other sibling views.
+                 */
+                zIndex: never;
+
+                /**
+                 * Adds a child to this view's hierarchy.
+                 */
+                add: never;
+
+                /**
+                 * Adds the specified callback as an event listener for the named event.
+                 */
+                addEventListener<K extends keyof CollapseToolbarEventMap>(
+                    name: K,
+                    callback: (this: Titanium.UI.Android.CollapseToolbar, event: CollapseToolbarEventMap[K]) => void,
+                ): void;
+
+                /**
+                 * Animates this view.
+                 */
+                animate: never;
+
+                /**
+                 * Applies the properties to the proxy.
+                 */
+                applyProperties: never;
+
+                /**
+                 * Translates a point from this view's coordinate system to another view's coordinate system.
+                 */
+                convertPointToView: never;
+
+                /**
+                 * Fires a synthesized event to any registered listeners.
+                 */
+                fireEvent<K extends keyof CollapseToolbarEventMap>(name: K, event?: CollapseToolbarEventMap[K]): void;
+
+                /**
+                 * Returns the matching view of a given view ID.
+                 */
+                getViewById: never;
+
+                /**
+                 * Hides this view.
+                 */
+                hide: never;
+
+                /**
+                 * Inserts a view at the specified position in the [children](Titanium.UI.View.children) array.
+                 */
+                insertAt: never;
+
+                /**
+                 * Removes a child view from this view's hierarchy.
+                 */
+                remove: never;
+
+                /**
+                 * Removes all child views from this view's hierarchy.
+                 */
+                removeAllChildren: never;
+
+                /**
+                 * Removes the specified callback as an event listener for the named event.
+                 */
+                removeEventListener<K extends keyof CollapseToolbarEventMap>(
+                    name: K,
+                    callback: (this: Titanium.UI.Android.CollapseToolbar, event: CollapseToolbarEventMap[K]) => void,
+                ): void;
+
+                /**
+                 * Replaces a view at the specified position in the [children](Titanium.UI.View.children) array.
+                 */
+                replaceAt: never;
+
+                /**
+                 * Makes this view visible.
+                 */
+                show: never;
+
+                /**
+                 * Returns an image of the rendered view, as a Blob.
+                 */
+                toImage: never;
             }
             /**
              * Base event for class Titanium.UI.Android.DrawerLayout
@@ -16565,6 +17938,15 @@ declare namespace Titanium {
              * Fired when a layout cycle is finished.
              */
             interface DrawerLayout_postlayout_Event extends DrawerLayoutBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface DrawerLayout_rotate_Event extends DrawerLayoutBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
             }
             /**
              * Fired when the device detects a single tap against the view.
@@ -16979,6 +18361,8 @@ declare namespace Titanium {
 
                 postlayout: DrawerLayout_postlayout_Event;
 
+                rotate: DrawerLayout_rotate_Event;
+
                 singletap: DrawerLayout_singletap_Event;
 
                 slide: DrawerLayout_slide_Event;
@@ -17164,6 +18548,849 @@ declare namespace Titanium {
                  * Toggle the visibility of the right view.
                  */
                 toggleRight(): void;
+            }
+            /**
+             * Base event for class Titanium.UI.Android.FloatingActionButton
+             */
+            interface FloatingActionButtonBaseEvent extends Ti.Event {
+                /**
+                 * Source object that fired the event.
+                 */
+                source: Titanium.UI.Android.FloatingActionButton;
+            }
+            /**
+             * Fired when the button is clicked
+             */
+            interface FloatingActionButton_click_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Returns `true` if the click passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a double click against the view.
+             */
+            interface FloatingActionButton_dblclick_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Returns `true` if the double click passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a double tap against the view.
+             */
+            interface FloatingActionButton_doubletap_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Returns `true` if the double tap passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the view element gains focus.
+             */
+            interface FloatingActionButton_focus_Event extends FloatingActionButtonBaseEvent {
+            }
+            /**
+             * Fired when a hardware key is pressed in the view.
+             */
+            interface FloatingActionButton_keypressed_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * The code for the physical key that was pressed. For more details, see [KeyEvent](https://developer.android.com/reference/android/view/KeyEvent.html). This API is experimental and subject to change.
+                 */
+                keyCode: number;
+            }
+            /**
+             * Fired when the device detects a long click.
+             */
+            interface FloatingActionButton_longclick_Event extends FloatingActionButtonBaseEvent {
+            }
+            /**
+             * Fired when the device detects a long press.
+             */
+            interface FloatingActionButton_longpress_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Returns `true` if the long press passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a pinch gesture.
+             */
+            interface FloatingActionButton_pinch_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * The average distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                currentSpan: number;
+
+                /**
+                 * The average X distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                currentSpanX: number;
+
+                /**
+                 * The average Y distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                currentSpanY: number;
+
+                /**
+                 * The X coordinate of the current gesture's focal point.
+                 */
+                focusX: number;
+
+                /**
+                 * The Y coordinate of the current gesture's focal point.
+                 */
+                focusY: number;
+
+                /**
+                 * Returns `true` if a scale gesture is in progress, `false` otherwise.
+                 */
+                inProgress: boolean;
+
+                /**
+                 * The previous average distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                previousSpan: number;
+
+                /**
+                 * The previous average X distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                previousSpanX: number;
+
+                /**
+                 * The previous average Y distance between each of the pointers forming the gesture in progress through
+                 * the focal point.
+                 */
+                previousSpanY: number;
+
+                /**
+                 * The scale factor relative to the points of the two touches in screen coordinates.
+                 */
+                scale: number;
+
+                /**
+                 * The event time of the current event being processed.
+                 */
+                time: number;
+
+                /**
+                 * The time difference in milliseconds between the previous accepted scaling event and the
+                 * current scaling event.
+                 */
+                timeDelta: number;
+
+                /**
+                 * The velocity of the pinch in scale factor per second.
+                 */
+                velocity: number;
+            }
+            /**
+             * Fired when a layout cycle is finished.
+             */
+            interface FloatingActionButton_postlayout_Event extends FloatingActionButtonBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface FloatingActionButton_rotate_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
+            }
+            /**
+             * Fired when the device detects a single tap against the view.
+             */
+            interface FloatingActionButton_singletap_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Returns `true` if the single tap passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a swipe gesture against the view.
+             */
+            interface FloatingActionButton_swipe_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Direction of the swipe--either 'left', 'right', 'up', or 'down'.
+                 */
+                direction: string;
+
+                /**
+                 * Returns `true` if the swipe passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event's endpoint from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event's endpoint from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when a touch event is interrupted by the device.
+             */
+            interface FloatingActionButton_touchcancel_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when a touch event is completed.
+             */
+            interface FloatingActionButton_touchend_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Penciland are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired as soon as the device detects movement of a touch.
+             */
+            interface FloatingActionButton_touchmove_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired as soon as the device detects a touch gesture.
+             */
+            interface FloatingActionButton_touchstart_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * A value which indicates the stylus angle on the screen. If the stylus is perpendicular to the screen or no stylus is
+                 * being used, the value will be Pi/2. If the stylus is parallel to the screen, the value will be 0.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and are 9.1 or later.
+                 */
+                altitudeAngle: number;
+
+                /**
+                 * The x value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewX: number;
+
+                /**
+                 * The y value of the unit vector that points in the direction of the azimuth of the stylus.
+                 * Note: This property is only available for iOS devices that support the Apple Pencil and are 9.1 or later.
+                 */
+                azimuthUnitVectorInViewY: number;
+
+                /**
+                 * The current force value of the touch event.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later and on some Android devices.
+                 */
+                force: number;
+
+                /**
+                 * Maximum possible value of the force property.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                maximumPossibleForce: number;
+
+                /**
+                 * Returns `true` if the touch passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * The current size of the touch area. Note: This property is only available on some Android devices.
+                 */
+                size: number;
+
+                /**
+                 * The time (in seconds) when the touch was used in correlation with the system start up.
+                 * Note: This property is only available for iOS devices that support 3D-Touch and run 9.0 or later.
+                 */
+                timestamp: number;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            /**
+             * Fired when the device detects a two-finger tap against the view.
+             */
+            interface FloatingActionButton_twofingertap_Event extends FloatingActionButtonBaseEvent {
+                /**
+                 * Returns `true` if the tap passed through an overlapping window belonging to another app.
+                 * This is a security feature to protect an app from "tapjacking", where a malicious app can use a
+                 * system overlay to intercept touch events in your app or to trick the end-user to tap on UI
+                 * in your app intended for the overlay.
+                 */
+                obscured: boolean;
+
+                /**
+                 * X coordinate of the event from the `source` view's coordinate system.
+                 */
+                x: number;
+
+                /**
+                 * Y coordinate of the event from the `source` view's coordinate system.
+                 */
+                y: number;
+            }
+            interface FloatingActionButtonEventMap extends ProxyEventMap {
+                click: FloatingActionButton_click_Event;
+
+                dblclick: FloatingActionButton_dblclick_Event;
+
+                doubletap: FloatingActionButton_doubletap_Event;
+
+                focus: FloatingActionButton_focus_Event;
+
+                keypressed: FloatingActionButton_keypressed_Event;
+
+                longclick: FloatingActionButton_longclick_Event;
+
+                longpress: FloatingActionButton_longpress_Event;
+
+                pinch: FloatingActionButton_pinch_Event;
+
+                postlayout: FloatingActionButton_postlayout_Event;
+
+                rotate: FloatingActionButton_rotate_Event;
+
+                singletap: FloatingActionButton_singletap_Event;
+
+                swipe: FloatingActionButton_swipe_Event;
+
+                touchcancel: FloatingActionButton_touchcancel_Event;
+
+                touchend: FloatingActionButton_touchend_Event;
+
+                touchmove: FloatingActionButton_touchmove_Event;
+
+                touchstart: FloatingActionButton_touchstart_Event;
+
+                twofingertap: FloatingActionButton_twofingertap_Event;
+            }
+            /**
+             * A floating action button (FAB) is a circular button that triggers the primary action in your app's UI.
+             */
+            class FloatingActionButton extends Titanium.UI.View {
+                /**
+                 * Whether the view should be "hidden" from (i.e., ignored by) the accessibility service.
+                 */
+                accessibilityHidden: never;
+
+                /**
+                 * Briefly describes what performing an action (such as a click) on the view will do.
+                 */
+                accessibilityHint: never;
+
+                /**
+                 * A succinct label identifying the view for the device's accessibility service.
+                 */
+                accessibilityLabel: never;
+
+                /**
+                 * A string describing the value (if any) of the view for the device's accessibility service.
+                 */
+                accessibilityValue: never;
+
+                /**
+                 * Coordinate of the view about which to pivot an animation.
+                 */
+                anchorPoint: never;
+
+                /**
+                 * Disabled background color of the view, as a color name or hex triplet.
+                 */
+                backgroundDisabledColor: never;
+
+                /**
+                 * Disabled background image for the view, specified as a local file path or URL.
+                 */
+                backgroundDisabledImage: never;
+
+                /**
+                 * Focused background color of the view, as a color name or hex triplet.
+                 */
+                backgroundFocusedColor: never;
+
+                /**
+                 * Focused background image for the view, specified as a local file path or URL.
+                 */
+                backgroundFocusedImage: never;
+
+                /**
+                 * A background gradient for the view.
+                 */
+                backgroundGradient: never;
+
+                /**
+                 * Background image for the view, specified as a local file path or URL.
+                 */
+                backgroundImage: never;
+
+                /**
+                 * Determines whether to tile a background across a view.
+                 */
+                backgroundRepeat: never;
+
+                /**
+                 * Selected background color of the view, as a color name or hex triplet.
+                 */
+                backgroundSelectedColor: never;
+
+                /**
+                 * Selected background image URL for the view, specified as a local file path or URL.
+                 */
+                backgroundSelectedImage: never;
+
+                /**
+                 * Border color of the view, as a color name or hex triplet.
+                 */
+                borderColor: never;
+
+                /**
+                 * Radius for the rounded corners of the view's border.
+                 */
+                borderRadius: never;
+
+                /**
+                 * Border width of the view.
+                 */
+                borderWidth: never;
+
+                /**
+                 * View's center position, in the parent view's coordinates.
+                 */
+                center: never;
+
+                /**
+                 * Array of this view's child views.
+                 */
+                readonly children: never;
+
+                /**
+                 * Size of the button
+                 */
+                customSize: number;
+
+                /**
+                 * Whether view should be focusable while navigating with the trackball.
+                 */
+                focusable: never;
+
+                /**
+                 * View height, in platform-specific units.
+                 */
+                height: never;
+
+                /**
+                 * Determines whether the layout has wrapping behavior.
+                 */
+                horizontalWrap: never;
+
+                /**
+                 * Predefined button size
+                 */
+                readonly iconSize: string;
+
+                /**
+                 * Image inside the button (the icon)
+                 */
+                image: string | number | Titanium.Blob;
+
+                /**
+                 * Determines whether to keep the device screen on.
+                 */
+                keepScreenOn: never;
+
+                /**
+                 * Specifies how the view positions its children.
+                 * One of: 'composite', 'vertical', or 'horizontal'.
+                 */
+                layout: never;
+
+                /**
+                 * Size of the image inside the button
+                 */
+                maxImageSize: number;
+
+                /**
+                 * Opacity of this view, from 0.0 (transparent) to 1.0 (opaque). Defaults to 1.0 (opaque).
+                 */
+                opacity: never;
+
+                /**
+                 * When on, animate call overrides current animation if applicable.
+                 */
+                overrideCurrentAnimation: never;
+
+                /**
+                 * The bounding box of the view relative to its parent, in system units.
+                 */
+                readonly rect: never;
+
+                /**
+                 * The size of the view in system units.
+                 */
+                readonly size: never;
+
+                /**
+                 * Determines keyboard behavior when this view is focused. Defaults to <Titanium.UI.Android.SOFT_KEYBOARD_DEFAULT_ON_FOCUS>.
+                 */
+                softKeyboardOnFocus: never;
+
+                /**
+                 * Determines whether view should receive touch events.
+                 */
+                touchEnabled: never;
+
+                /**
+                 * A material design visual construct that provides an instantaneous visual confirmation of touch point.
+                 */
+                touchFeedback: never;
+
+                /**
+                 * Transformation matrix to apply to the view.
+                 */
+                transform: never;
+
+                /**
+                 * Determines the color of the shadow.
+                 */
+                viewShadowColor: never;
+
+                /**
+                 * View's width, in platform-specific units.
+                 */
+                width: never;
+
+                /**
+                 * Z-index stack order position, relative to other sibling views.
+                 */
+                zIndex: never;
+
+                /**
+                 * Adds a child to this view's hierarchy.
+                 */
+                add: never;
+
+                /**
+                 * Adds the specified callback as an event listener for the named event.
+                 */
+                addEventListener<K extends keyof FloatingActionButtonEventMap>(
+                    name: K,
+                    callback: (
+                        this: Titanium.UI.Android.FloatingActionButton,
+                        event: FloatingActionButtonEventMap[K],
+                    ) => void,
+                ): void;
+
+                /**
+                 * Adds the specified callback as an event listener for the named event.
+                 */
+                addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+                /**
+                 * Animates this view.
+                 */
+                animate: never;
+
+                /**
+                 * Translates a point from this view's coordinate system to another view's coordinate system.
+                 */
+                convertPointToView: never;
+
+                /**
+                 * Fires a synthesized event to any registered listeners.
+                 */
+                fireEvent<K extends keyof FloatingActionButtonEventMap>(
+                    name: K,
+                    event?: FloatingActionButtonEventMap[K],
+                ): void;
+
+                /**
+                 * Fires a synthesized event to any registered listeners.
+                 */
+                fireEvent(name: string, event?: any): void;
+
+                /**
+                 * Removes a child view from this view's hierarchy.
+                 */
+                remove: never;
+
+                /**
+                 * Removes all child views from this view's hierarchy.
+                 */
+                removeAllChildren: never;
+
+                /**
+                 * Removes the specified callback as an event listener for the named event.
+                 */
+                removeEventListener<K extends keyof FloatingActionButtonEventMap>(
+                    name: K,
+                    callback: (
+                        this: Titanium.UI.Android.FloatingActionButton,
+                        event: FloatingActionButtonEventMap[K],
+                    ) => void,
+                ): void;
+
+                /**
+                 * Removes the specified callback as an event listener for the named event.
+                 */
+                removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+                /**
+                 * Returns an image of the rendered view, as a Blob.
+                 */
+                toImage: never;
             }
             /**
              * Base event for class Titanium.UI.Android.ProgressIndicator
@@ -17361,6 +19588,15 @@ declare namespace Titanium {
              * Fired when a layout cycle is finished.
              */
             interface ProgressIndicator_postlayout_Event extends ProgressIndicatorBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface ProgressIndicator_rotate_Event extends ProgressIndicatorBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
             }
             /**
              * Fired when the device detects a single tap against the view.
@@ -17715,6 +19951,8 @@ declare namespace Titanium {
 
                 postlayout: ProgressIndicator_postlayout_Event;
 
+                rotate: ProgressIndicator_rotate_Event;
+
                 singletap: ProgressIndicator_singletap_Event;
 
                 swipe: ProgressIndicator_swipe_Event;
@@ -17744,7 +19982,7 @@ declare namespace Titanium {
                 accessibilityHint: never;
 
                 /**
-                 * A succint label identifying the view for the device's accessibility service.
+                 * A succinct label identifying the view for the device's accessibility service.
                  */
                 accessibilityLabel: never;
 
@@ -17804,7 +20042,7 @@ declare namespace Titanium {
                 backgroundSelectedColor: never;
 
                 /**
-                 * Selected background image url for the view, specified as a local file path or URL.
+                 * Selected background image URL for the view, specified as a local file path or URL.
                  */
                 backgroundSelectedImage: never;
 
@@ -18257,6 +20495,15 @@ declare namespace Titanium {
             interface SearchView_postlayout_Event extends SearchViewBaseEvent {
             }
             /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface SearchView_rotate_Event extends SearchViewBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
+            }
+            /**
              * Fired when the device detects a single tap against the view.
              */
             interface SearchView_singletap_Event extends SearchViewBaseEvent {
@@ -18628,6 +20875,8 @@ declare namespace Titanium {
 
                 postlayout: SearchView_postlayout_Event;
 
+                rotate: SearchView_rotate_Event;
+
                 singletap: SearchView_singletap_Event;
 
                 submit: SearchView_submit_Event;
@@ -18917,6 +21166,15 @@ declare namespace Titanium {
              * Fired when a layout cycle is finished.
              */
             interface Snackbar_postlayout_Event extends SnackbarBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface Snackbar_rotate_Event extends SnackbarBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
             }
             /**
              * Fired when the device detects a single tap against the view.
@@ -19264,6 +21522,8 @@ declare namespace Titanium {
 
                 postlayout: Snackbar_postlayout_Event;
 
+                rotate: Snackbar_rotate_Event;
+
                 singletap: Snackbar_singletap_Event;
 
                 swipe: Snackbar_swipe_Event;
@@ -19308,7 +21568,7 @@ declare namespace Titanium {
                 accessibilityHint: never;
 
                 /**
-                 * A succint label identifying the view for the device's accessibility service.
+                 * A succinct label identifying the view for the device's accessibility service.
                  */
                 accessibilityLabel: never;
 
@@ -19373,7 +21633,7 @@ declare namespace Titanium {
                 backgroundSelectedColor: never;
 
                 /**
-                 * Selected background image url for the view, specified as a local file path or URL.
+                 * Selected background image URL for the view, specified as a local file path or URL.
                  */
                 backgroundSelectedImage: never;
 
@@ -19951,6 +22211,16 @@ declare namespace Titanium {
             const FEEDBACK_GENERATOR_TYPE_SELECTION: number;
 
             /**
+             * Use with [BlurView.glassEffect](Titanium.UI.iOS.BlurView.glassEffect) to specify a clear glass effect style.
+             */
+            const GLASS_EFFECT_STYLE_CLEAR: number;
+
+            /**
+             * Use with [BlurView.glassEffect](Titanium.UI.iOS.BlurView.glassEffect) to specify a regular glass effect style.
+             */
+            const GLASS_EFFECT_STYLE_REGULAR: number;
+
+            /**
              * Inject the script after the document finishes loading, but before other subresources finish loading.
              */
             const INJECTION_TIME_DOCUMENT_END: number;
@@ -20149,6 +22419,21 @@ declare namespace Titanium {
             const SCROLL_DECELERATION_RATE_NORMAL: number;
 
             /**
+             * Use with <Titanium.UI.ScrollView.edgeEffect> to apply the system default edge effect style.
+             */
+            const SCROLL_VIEW_EDGE_EFFECT_STYLE_AUTOMATIC: number;
+
+            /**
+             * Use with <Titanium.UI.ScrollView.edgeEffect> to apply a scroll edge effect with a hard cutoff and dividing line.
+             */
+            const SCROLL_VIEW_EDGE_EFFECT_STYLE_HARD: number;
+
+            /**
+             * Use with <Titanium.UI.ScrollView.edgeEffect> to apply a soft-edged scroll edge effect.
+             */
+            const SCROLL_VIEW_EDGE_EFFECT_STYLE_SOFT: number;
+
+            /**
              * Use with <Titanium.UI.SearchBar.style> to change the search bar style.
              */
             const SEARCH_BAR_STYLE_MINIMAL: number;
@@ -20317,6 +22602,26 @@ declare namespace Titanium {
              * String that represents the magnifying glass on the table view index bar
              */
             const TABLEVIEW_INDEX_SEARCH: string;
+
+            /**
+             * Automatically determine when the tab group minimizes.
+             */
+            const TAB_GROUP_MINIMIZE_BEHAVIOR_AUTOMATIC: number;
+
+            /**
+             * Do not minimize the tab group.
+             */
+            const TAB_GROUP_MINIMIZE_BEHAVIOR_NEVER: number;
+
+            /**
+             * Minimize the tab group when scrolling down.
+             */
+            const TAB_GROUP_MINIMIZE_BEHAVIOR_ON_SCROLL_DOWN: number;
+
+            /**
+             * Minimize the tab group when scrolling up.
+             */
+            const TAB_GROUP_MINIMIZE_BEHAVIOR_ON_SCROLL_UP: number;
 
             /**
              * A set of constants for the style that can be used for the `style` property of
@@ -20819,44 +23124,6 @@ declare namespace Titanium {
                  * Use with [Button.systemButton](Titanium.UI.Button.systemButton) to specify a **Trash** button.
                  */
                 const TRASH: number;
-            }
-            /**
-             * A set of constants for the system button styles that can be used for the button `style` property.
-             */
-            namespace SystemButtonStyle {
-                /**
-                 * A simple button style with a border.
-                 * @deprecated Use the <Titanium.UI.BUTTON_STYLE_OPTION_NEUTRAL> instead.
-                 */
-                const BORDERED: number;
-
-                /**
-                 * The style for a **Done** button--for example, a button that completes some task and returns
-                 * to the previous view.
-                 * @deprecated Use the <Titanium.UI.BUTTON_STYLE_OPTION_POSITIVE> instead.
-                 */
-                const DONE: number;
-
-                /**
-                 * Specifies a borderless button, the default style for toolbars, button bars, and tabbed bars.
-                 * @deprecated Use the <Titanium.UI.BUTTON_STYLE_OPTION_NEUTRAL> instead.
-                 */
-                const PLAIN: number;
-
-                /**
-                 * Adds the specified callback as an event listener for the named event.
-                 */
-                function addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
-
-                /**
-                 * Fires a synthesized event to any registered listeners.
-                 */
-                function fireEvent(name: string, event?: any): void;
-
-                /**
-                 * Removes the specified callback as an event listener for the named event.
-                 */
-                function removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
             }
             /**
              * A set of constants for the system icon styles that can be used on a tab group tab.
@@ -21452,6 +23719,15 @@ declare namespace Titanium {
             interface BlurView_postlayout_Event extends BlurViewBaseEvent {
             }
             /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface BlurView_rotate_Event extends BlurViewBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
+            }
+            /**
              * Fired when the device detects a single tap against the view.
              */
             interface BlurView_singletap_Event extends BlurViewBaseEvent {
@@ -21793,6 +24069,8 @@ declare namespace Titanium {
 
                 postlayout: BlurView_postlayout_Event;
 
+                rotate: BlurView_rotate_Event;
+
                 singletap: BlurView_singletap_Event;
 
                 swipe: BlurView_swipe_Event;
@@ -21812,14 +24090,18 @@ declare namespace Titanium {
              * The blur effect is applied to every view the blur view is added to by default. You can also place the
              * blur view above other views and all visible views layered under the blur view are blurred as well.
              * For more information on BlurView, please refer to the official [Apple documentation](https://developer.apple.com/documentation/uikit/uivisualeffectview).
-             * Note: Apple introduced two new constants <Titanium.UI.iOS.BLUR_EFFECT_STYLE_REGULAR> and <Titanium.UI.iOS.BLUR_EFFECT_STYLE_PROMINENT> in
-             * iOS 10. These are internally mapped to <Titanium.UI.iOS.BLUR_EFFECT_STYLE_LIGHT> and <Titanium.UI.iOS.BLUR_EFFECT_STYLE_EXTRA_LIGHT>.
+             * Note: In iOS 26, Apple introduced the `UIGlassEffectView`, an alternative to classic blur views. See the <Titanium.UI.iOS.BlurView.glassEffect> property for more details.
              */
             class BlurView extends Titanium.UI.View {
                 /**
-                 * The effect you provide for the view.
+                 * The blur effect to apply to the effect view.
                  */
                 effect: number;
+
+                /**
+                 * The glass effect configuration to apply to the effect view.
+                 */
+                glassEffect: GlassEffectConfiguration;
 
                 /**
                  * Adds the specified callback as an event listener for the named event.
@@ -21851,6 +24133,100 @@ declare namespace Titanium {
                     name: K,
                     callback: (this: Titanium.UI.iOS.BlurView, event: BlurViewEventMap[K]) => void,
                 ): void;
+
+                /**
+                 * Removes the specified callback as an event listener for the named event.
+                 */
+                removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+            }
+            /**
+             * A configuration object for customizing the appearance and behavior of a button.
+             */
+            class ButtonConfiguration extends Titanium.Proxy {
+                /**
+                 * Specify an attributed string for the button title.
+                 */
+                attributedString: Titanium.UI.AttributedString;
+
+                /**
+                 * The background color of the button.
+                 */
+                backgroundColor: string | Titanium.UI.Color;
+
+                /**
+                 * Background color to use while the button is highlighted (pressed).
+                 */
+                backgroundSelectedColor: string | Titanium.UI.Color;
+
+                /**
+                 * The foreground color of the button's content.
+                 */
+                color: string | Titanium.UI.Color;
+
+                /**
+                 * Font to use for the button title.
+                 */
+                font: Font;
+
+                /**
+                 * The image to display on the button.
+                 */
+                image: string | Titanium.Blob | Titanium.Filesystem.File;
+
+                /**
+                 * The spacing between the image and title.
+                 */
+                imagePadding: number;
+
+                /**
+                 * The placement of the image relative to the title.
+                 */
+                imagePlacement: string;
+
+                /**
+                 * Whether or not a loading indicator should be shown
+                 */
+                loading: boolean;
+
+                /**
+                 * The padding around the button's content.
+                 */
+                padding: Padding;
+
+                /**
+                 * The style of button configuration to create.
+                 */
+                style: string;
+
+                /**
+                 * The subtitle text to display below the title.
+                 */
+                subtitle: string;
+
+                /**
+                 * Text alignment of the configuration title.
+                 */
+                textAlign: string | number;
+
+                /**
+                 * The title text to display on the button.
+                 */
+                title: string;
+
+                /**
+                 * The spacing between the title and subtitle.
+                 */
+                titlePadding: number;
+
+                /**
+                 * Adds the specified callback as an event listener for the named event.
+                 */
+                addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+                /**
+                 * Fires a synthesized event to any registered listeners.
+                 */
+                fireEvent(name: string, event?: any): void;
 
                 /**
                  * Removes the specified callback as an event listener for the named event.
@@ -22190,6 +24566,15 @@ declare namespace Titanium {
              * Fired when a layout cycle is finished.
              */
             interface CoverFlowView_postlayout_Event extends CoverFlowViewBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface CoverFlowView_rotate_Event extends CoverFlowViewBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
             }
             /**
              * Fired when the device detects a single tap against the view.
@@ -22549,6 +24934,8 @@ declare namespace Titanium {
 
                 postlayout: CoverFlowView_postlayout_Event;
 
+                rotate: CoverFlowView_rotate_Event;
+
                 singletap: CoverFlowView_singletap_Event;
 
                 swipe: CoverFlowView_swipe_Event;
@@ -22565,7 +24952,7 @@ declare namespace Titanium {
             }
             /**
              * The cover flow view is a container showing animated three-dimensional images in a style
-             * consistent with the cover flow presentation style used for iPod, iTunes, and file browsing.
+             * consistent with the former cover flow presentation style used for iPod, iTunes, and Finder.
              */
             class CoverFlowView extends Titanium.UI.View {
                 /**
@@ -22692,6 +25079,11 @@ declare namespace Titanium {
                  * Name of the file (without the path).
                  */
                 readonly name: string;
+
+                /**
+                 * Title of the file.
+                 */
+                title: string;
 
                 /**
                  * URL of the document being previewed.
@@ -23134,6 +25526,15 @@ declare namespace Titanium {
             interface LivePhotoView_postlayout_Event extends LivePhotoViewBaseEvent {
             }
             /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface LivePhotoView_rotate_Event extends LivePhotoViewBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
+            }
+            /**
              * Fired when the device detects a single tap against the view.
              */
             interface LivePhotoView_singletap_Event extends LivePhotoViewBaseEvent {
@@ -23493,6 +25894,8 @@ declare namespace Titanium {
 
                 postlayout: LivePhotoView_postlayout_Event;
 
+                rotate: LivePhotoView_rotate_Event;
+
                 singletap: LivePhotoView_singletap_Event;
 
                 start: LivePhotoView_start_Event;
@@ -23757,7 +26160,7 @@ declare namespace Titanium {
                 removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
             }
             /**
-             * A PreviewActionGroup provides options to configure a group of actions used by the iOS9 3D-Touch
+             * A PreviewActionGroup provides options to configure a group of actions used by the iOS 9 3D-Touch
              * feature "Peek and Pop".
              */
             class PreviewActionGroup extends Titanium.Proxy {
@@ -24198,6 +26601,15 @@ declare namespace Titanium {
             interface SplitWindow_postlayout_Event extends SplitWindowBaseEvent {
             }
             /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface SplitWindow_rotate_Event extends SplitWindowBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
+            }
+            /**
              * Fired when the device detects a single tap against the view.
              */
             interface SplitWindow_singletap_Event extends SplitWindowBaseEvent {
@@ -24562,6 +26974,8 @@ declare namespace Titanium {
 
                 postlayout: SplitWindow_postlayout_Event;
 
+                rotate: SplitWindow_rotate_Event;
+
                 singletap: SplitWindow_singletap_Event;
 
                 swipe: SplitWindow_swipe_Event;
@@ -24864,6 +27278,15 @@ declare namespace Titanium {
              * Fired when a layout cycle is finished.
              */
             interface Stepper_postlayout_Event extends StepperBaseEvent {
+            }
+            /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface Stepper_rotate_Event extends StepperBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
             }
             /**
              * Fired when the device detects a single tap against the view.
@@ -25227,6 +27650,8 @@ declare namespace Titanium {
                 pinch: Stepper_pinch_Event;
 
                 postlayout: Stepper_postlayout_Event;
+
+                rotate: Stepper_rotate_Event;
 
                 singletap: Stepper_singletap_Event;
 
@@ -25840,6 +28265,15 @@ declare namespace Titanium {
             interface Popover_postlayout_Event extends PopoverBaseEvent {
             }
             /**
+             * Fired when the device detects a two finger rotation.
+             */
+            interface Popover_rotate_Event extends PopoverBaseEvent {
+                /**
+                 * Rotation in degrees.
+                 */
+                rotate: number;
+            }
+            /**
              * Fired when the device detects a single tap against the view.
              */
             interface Popover_singletap_Event extends PopoverBaseEvent {
@@ -26188,6 +28622,8 @@ declare namespace Titanium {
 
                 postlayout: Popover_postlayout_Event;
 
+                rotate: Popover_rotate_Event;
+
                 singletap: Popover_singletap_Event;
 
                 swipe: Popover_swipe_Event;
@@ -26217,7 +28653,7 @@ declare namespace Titanium {
                 accessibilityHint: never;
 
                 /**
-                 * A succint label identifying the view for the device's accessibility service.
+                 * A succinct label identifying the view for the device's accessibility service.
                  */
                 accessibilityLabel: never;
 
@@ -26265,6 +28701,11 @@ declare namespace Titanium {
                  * Determines whether to tile a background across a view.
                  */
                 backgroundRepeat: never;
+
+                /**
+                 * Selected background color of the view, as a color name or hex triplet.
+                 */
+                backgroundSelectedColor: never;
 
                 /**
                  * Size of the top end cap.
@@ -26683,6 +29124,15 @@ declare namespace Titanium {
         interface ActivityIndicator_postlayout_Event extends ActivityIndicatorBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface ActivityIndicator_rotate_Event extends ActivityIndicatorBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface ActivityIndicator_singletap_Event extends ActivityIndicatorBaseEvent {
@@ -27028,6 +29478,8 @@ declare namespace Titanium {
 
             postlayout: ActivityIndicator_postlayout_Event;
 
+            rotate: ActivityIndicator_rotate_Event;
+
             singletap: ActivityIndicator_singletap_Event;
 
             swipe: ActivityIndicator_swipe_Event;
@@ -27057,7 +29509,7 @@ declare namespace Titanium {
             accessibilityHint: never;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: never;
 
@@ -27127,7 +29579,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -27677,6 +30129,15 @@ declare namespace Titanium {
         interface AlertDialog_postlayout_Event extends AlertDialogBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface AlertDialog_rotate_Event extends AlertDialogBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface AlertDialog_singletap_Event extends AlertDialogBaseEvent {
@@ -28022,6 +30483,8 @@ declare namespace Titanium {
 
             postlayout: AlertDialog_postlayout_Event;
 
+            rotate: AlertDialog_rotate_Event;
+
             singletap: AlertDialog_singletap_Event;
 
             swipe: AlertDialog_swipe_Event;
@@ -28052,7 +30515,7 @@ declare namespace Titanium {
             accessibilityHint: never;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: never;
 
@@ -28127,7 +30590,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -28582,11 +31045,25 @@ declare namespace Titanium {
             static createCardView(parameters?: Dictionary<Titanium.UI.Android.CardView>): Titanium.UI.Android.CardView;
 
             /**
+             * Creates and returns an instance of <Titanium.UI.Android.CollapseToolbar>.
+             */
+            static createCollapseToolbar(
+                parameters?: Dictionary<Titanium.UI.Android.CollapseToolbar>,
+            ): Titanium.UI.Android.CollapseToolbar;
+
+            /**
              * Creates and returns an instance of <Titanium.UI.Android.DrawerLayout>.
              */
             static createDrawerLayout(
                 parameters?: Dictionary<Titanium.UI.Android.DrawerLayout>,
             ): Titanium.UI.Android.DrawerLayout;
+
+            /**
+             * Creates and returns an instance of <Titanium.UI.Android.FloatingActionButton>.
+             */
+            static createFloatingActionButton(
+                parameters?: Dictionary<Titanium.UI.Android.FloatingActionButton>,
+            ): Titanium.UI.Android.FloatingActionButton;
 
             /**
              * Creates and returns an instance of <Titanium.UI.Android.ProgressIndicator>.
@@ -28628,6 +31105,11 @@ declare namespace Titanium {
             static hideSoftKeyboard(): void;
 
             /**
+             * Moves the app to the background
+             */
+            static moveToBackground(): void;
+
+            /**
              * Opens an application preferences dialog, using the native Android system settings interface,
              * defined by the platform-specific `preferences.xml` and `array.xml` files.
              */
@@ -28648,6 +31130,11 @@ declare namespace Titanium {
             source: Titanium.UI.Animation;
         }
         /**
+         * Fired when the animation is canceled.
+         */
+        interface Animation_cancel_Event extends AnimationBaseEvent {
+        }
+        /**
          * Fired when the animation completes.
          */
         interface Animation_complete_Event extends AnimationBaseEvent {
@@ -28658,6 +31145,8 @@ declare namespace Titanium {
         interface Animation_start_Event extends AnimationBaseEvent {
         }
         interface AnimationEventMap extends ProxyEventMap {
+            cancel: Animation_cancel_Event;
+
             complete: Animation_complete_Event;
 
             start: Animation_start_Event;
@@ -28686,6 +31175,11 @@ declare namespace Titanium {
              * Value of the `bottom` property at the end of the animation.
              */
             bottom: number;
+
+            /**
+             * The animation bounce. If set, the animation uses the iOS 17+ spring animation.
+             */
+            bounce: number;
 
             /**
              * Value of the `center` property at the end of the animation.
@@ -28753,6 +31247,16 @@ declare namespace Titanium {
             right: number;
 
             /**
+             * Value of the `rotationX` property at the end of the animation.
+             */
+            rotationX: number;
+
+            /**
+             * Value of the `rotationY` property at the end of the animation.
+             */
+            rotationY: number;
+
+            /**
              * The initial spring velocity.
              */
             springVelocity: number;
@@ -28763,7 +31267,7 @@ declare namespace Titanium {
             top: number;
 
             /**
-             * Animate the view from its current tranform to the specified transform.
+             * Animate the view from its current transform to the specified transform.
              */
             transform: Titanium.UI.Matrix2D | Titanium.UI.Matrix3D;
 
@@ -29059,6 +31563,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface Button_postlayout_Event extends ButtonBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Button_rotate_Event extends ButtonBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -29425,6 +31938,8 @@ declare namespace Titanium {
 
             postlayout: Button_postlayout_Event;
 
+            rotate: Button_rotate_Event;
+
             singletap: Button_singletap_Event;
 
             swipe: Button_swipe_Event;
@@ -29487,6 +32002,11 @@ declare namespace Titanium {
              * Default button text color, as a color name or hex triplet.
              */
             color: string | Titanium.UI.Color;
+
+            /**
+             * Button configuration for modern button styling.
+             */
+            configuration: any;
 
             /**
              * Text color of the button in its disabled state, as a color name or hex triplet.
@@ -29562,6 +32082,11 @@ declare namespace Titanium {
              * Key identifying a string from the locale file to use for the button title.
              */
             titleid: string;
+
+            /**
+             * The default text to display in the control's tooltip.
+             */
+            tooltip: string;
 
             /**
              * Vertical alignment for the text field, specified using one of the
@@ -29808,6 +32333,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface ButtonBar_postlayout_Event extends ButtonBarBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface ButtonBar_rotate_Event extends ButtonBarBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -30154,6 +32688,8 @@ declare namespace Titanium {
             pinch: ButtonBar_pinch_Event;
 
             postlayout: ButtonBar_postlayout_Event;
+
+            rotate: ButtonBar_rotate_Event;
 
             singletap: ButtonBar_singletap_Event;
 
@@ -30703,6 +33239,15 @@ declare namespace Titanium {
         interface DashboardView_postlayout_Event extends DashboardViewBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface DashboardView_rotate_Event extends DashboardViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface DashboardView_singletap_Event extends DashboardViewBaseEvent {
@@ -31118,6 +33663,8 @@ declare namespace Titanium {
 
             postlayout: DashboardView_postlayout_Event;
 
+            rotate: DashboardView_rotate_Event;
+
             singletap: DashboardView_singletap_Event;
 
             swipe: DashboardView_swipe_Event;
@@ -31137,6 +33684,11 @@ declare namespace Titanium {
          * be deleted and reordered by the user using its built-in edit mode.
          */
         class DashboardView extends Titanium.UI.View {
+            /**
+             * Selected background color of the view, as a color name or hex triplet.
+             */
+            backgroundSelectedColor: never;
+
             /**
              * The number of columns of items in the view.
              */
@@ -31424,6 +33976,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface EmailDialog_postlayout_Event extends EmailDialogBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface EmailDialog_rotate_Event extends EmailDialogBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -31805,6 +34366,8 @@ declare namespace Titanium {
 
             postlayout: EmailDialog_postlayout_Event;
 
+            rotate: EmailDialog_rotate_Event;
+
             singletap: EmailDialog_singletap_Event;
 
             swipe: EmailDialog_swipe_Event;
@@ -31854,7 +34417,7 @@ declare namespace Titanium {
             accessibilityHint: never;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: never;
 
@@ -31924,7 +34487,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -32401,6 +34964,15 @@ declare namespace Titanium {
         interface ImageView_postlayout_Event extends ImageViewBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface ImageView_rotate_Event extends ImageViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface ImageView_singletap_Event extends ImageViewBaseEvent {
@@ -32815,6 +35387,8 @@ declare namespace Titanium {
 
             postlayout: ImageView_postlayout_Event;
 
+            rotate: ImageView_rotate_Event;
+
             singletap: ImageView_singletap_Event;
 
             start: ImageView_start_Event;
@@ -32950,6 +35524,16 @@ declare namespace Titanium {
              * Adds the specified callback as an event listener for the named event.
              */
             addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+            /**
+             * Adds a symbol effect to the image view with specified options, animation, and callback.
+             */
+            addSymbolEffect(
+                symbolEffect: string,
+                options: string,
+                animated: boolean,
+                callback: (...args: any[]) => void,
+            ): void;
 
             /**
              * Fires a synthesized event to any registered listeners.
@@ -33210,6 +35794,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface Label_postlayout_Event extends LabelBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Label_rotate_Event extends LabelBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -33578,6 +36171,8 @@ declare namespace Titanium {
 
             postlayout: Label_postlayout_Event;
 
+            rotate: Label_rotate_Event;
+
             singletap: Label_singletap_Event;
 
             swipe: Label_swipe_Event;
@@ -33632,6 +36227,11 @@ declare namespace Titanium {
             backgroundPaddingTop: number;
 
             /**
+             * Break strategy (control over paragraph layout). Check [Android breakStrategy](https://developer.android.com/reference/android/widget/TextView#attr_android:breakStrategy) for more infos.
+             */
+            breakStrategy: number;
+
+            /**
              * Array of this view's child views.
              */
             readonly children: never;
@@ -33657,14 +36257,29 @@ declare namespace Titanium {
             highlightedColor: string | Titanium.UI.Color;
 
             /**
-             * Simple HTML formatting.
+             * Pass a HTML-based string and it will be formatted accordingly.
              */
             html: string;
+
+            /**
+             * Frequency of automatic hyphenation. Check [Android hyphenationFrequency](https://developer.android.com/reference/android/widget/TextView#attr_android:hyphenationFrequency) for more infos.
+             */
+            hyphenationFrequency: number;
 
             /**
              * Includes extra top and bottom padding to make room for accents that go above normal ascent and descent.
              */
             includeFontPadding: boolean;
+
+            /**
+             * Letter spacing of the [text](Titanium.UI.Label.text) as a float value.
+             */
+            letterSpacing: number;
+
+            /**
+             * Returns the amount of lines the content is actually using. Is equal or lower than `maxLines`.
+             */
+            readonly lineCount: number;
 
             /**
              * Line spacing of the [text](Titanium.UI.Label.text), as a dictionary with the properties `add` and `multiply`.
@@ -33712,6 +36327,11 @@ declare namespace Titanium {
             textAlign: string | number;
 
             /**
+             * Property that specifies how to capitalize the text. Can be `lowercase`, `uppercase` or `none` (default)
+             */
+            textTransform: string;
+
+            /**
              * Key identifying a string from the locale file to use for the label text.
              */
             textid: string;
@@ -33721,6 +36341,11 @@ declare namespace Titanium {
              * from <Titanium.UI>.
              */
             verticalAlign: number | string;
+
+            /**
+             * Returns the actual text seen on the screen. If the text is ellipsized it will be different to the normal `text`.
+             */
+            readonly visibleText: string;
 
             /**
              * Enable or disable word wrapping in the label.
@@ -33998,7 +36623,7 @@ declare namespace Titanium {
             /**
              * Appends the data entries to the end of the list section.
              */
-            appendItems(dataItems: readonly ListDataItem[], animation?: ListViewAnimationProperties): void;
+            appendItems(dataItems: ReadonlyArray<ListDataItem>, animation?: ListViewAnimationProperties): void;
 
             /**
              * Removes count entries from the list section at the specified index.
@@ -34020,7 +36645,7 @@ declare namespace Titanium {
              */
             insertItemsAt(
                 itemIndex: number,
-                dataItems: readonly ListDataItem[],
+                dataItems: ReadonlyArray<ListDataItem>,
                 animation?: ListViewAnimationProperties,
             ): void;
 
@@ -34036,14 +36661,14 @@ declare namespace Titanium {
             replaceItemsAt(
                 index: number,
                 count: number,
-                dataItems: readonly ListDataItem[],
+                dataItems: ReadonlyArray<ListDataItem>,
                 animation?: ListViewAnimationProperties,
             ): void;
 
             /**
              * Sets the data entries in the list section.
              */
-            setItems(dataItems: readonly ListDataItem[], animation?: ListViewAnimationProperties): void;
+            setItems(dataItems: ReadonlyArray<ListDataItem>, animation?: ListViewAnimationProperties): void;
 
             /**
              * Updates an item at the specified index.
@@ -34246,6 +36871,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface ListView_postlayout_Event extends ListViewBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface ListView_rotate_Event extends ListViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -34970,9 +37604,31 @@ declare namespace Titanium {
          */
         interface ListView_scrolling_Event extends ListViewBaseEvent {
             /**
-             * Direction of the scroll either 'up', or 'down'.
+             * Direction of the scroll either 'up', 'down' or 'unknown'.
              */
             direction: string;
+
+            /**
+             * The first visible item in the list view when the event fires; this item might not be fully visible. May be -1 on iOS.
+             */
+            firstVisibleItem: any;
+
+            /**
+             * The index of the first visible item in the list view when the event fires; this item might not be fully visible.
+             * Note: The index is `-1` when there are no items in the <Titanium.UI.ListView>.
+             */
+            firstVisibleItemIndex: number;
+
+            /**
+             * The first visible section in the list view when the event fires.
+             */
+            firstVisibleSection: Titanium.UI.ListSection;
+
+            /**
+             * The index of the first visible section in the list view when the event fires.
+             * Note: The index is `-1` when there are no items in the <Titanium.UI.ListView>.
+             */
+            firstVisibleSectionIndex: number;
 
             /**
              * The expected y axis offset when the scrolling action decelerates to a stop.
@@ -34983,6 +37639,11 @@ declare namespace Titanium {
              * The velocity of the scroll in scale factor per second
              */
             velocity: number;
+
+            /**
+             * The number of visible items in the list view when the event fires.
+             */
+            visibleItemCount: number;
         }
         interface ListViewEventMap extends ProxyEventMap {
             cancelprefetch: ListView_cancelprefetch_Event;
@@ -35037,6 +37698,8 @@ declare namespace Titanium {
 
             pullend: ListView_pullend_Event;
 
+            rotate: ListView_rotate_Event;
+
             scrollend: ListView_scrollend_Event;
 
             scrolling: ListView_scrolling_Event;
@@ -35088,7 +37751,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -35106,6 +37769,11 @@ declare namespace Titanium {
              * Array of this view's child views.
              */
             readonly children: never;
+
+            /**
+             * X and Y coordinates to which to reposition the top-left point of the content region.
+             */
+            contentOffset: Point;
 
             /**
              * Determines if the scrolling event should fire every time there is a new visible item.
@@ -35156,6 +37824,11 @@ declare namespace Titanium {
              * List view footer as a view that will be rendered instead of a label.
              */
             footerView: Titanium.UI.View;
+
+            /**
+             * Optimize the `continuousUpdate` scrolling event.
+             */
+            forceUpdates: boolean;
 
             /**
              * When set to false, the ListView will not draw the divider after the header view.
@@ -35660,6 +38333,15 @@ declare namespace Titanium {
         interface MaskedImage_postlayout_Event extends MaskedImageBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface MaskedImage_rotate_Event extends MaskedImageBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface MaskedImage_singletap_Event extends MaskedImageBaseEvent {
@@ -36004,6 +38686,8 @@ declare namespace Titanium {
             pinch: MaskedImage_pinch_Event;
 
             postlayout: MaskedImage_postlayout_Event;
+
+            rotate: MaskedImage_rotate_Event;
 
             singletap: MaskedImage_singletap_Event;
 
@@ -36500,6 +39184,15 @@ declare namespace Titanium {
         interface NavigationWindow_postlayout_Event extends NavigationWindowBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface NavigationWindow_rotate_Event extends NavigationWindowBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface NavigationWindow_singletap_Event extends NavigationWindowBaseEvent {
@@ -36908,6 +39601,8 @@ declare namespace Titanium {
 
             postlayout: NavigationWindow_postlayout_Event;
 
+            rotate: NavigationWindow_rotate_Event;
+
             singletap: NavigationWindow_singletap_Event;
 
             swipe: NavigationWindow_swipe_Event;
@@ -36951,6 +39646,13 @@ declare namespace Titanium {
              * Set this to true to hide the shadow image of the navigation bar.
              */
             hideShadow: never;
+
+            /**
+             * A boolean indicating whether or not child windows of this navigation window
+             * should have the ability to be swipe-to-closed over the full width of it's window or not.
+             * @deprecated This is handled by the operation system in newer versions of iOS.
+             */
+            interactiveDismissModeEnabled: never;
 
             /**
              * View to show in the left nav bar area.
@@ -37067,11 +39769,6 @@ declare namespace Titanium {
             fireEvent(name: string, event?: any): void;
 
             /**
-             * Hides the tab bar. Must be called before opening the window.
-             */
-            hideTabBar: never;
-
-            /**
              * Opens a window within the navigation window.
              */
             openWindow(window: Titanium.UI.Window, options?: AnimatedOptions): void;
@@ -37129,7 +39826,7 @@ declare namespace Titanium {
             message: string;
 
             /**
-             * Vertical placement of the notifcation, *as a fraction of the screen height*.
+             * Vertical placement of the notification, *as a fraction of the screen height*.
              */
             verticalMargin: number;
 
@@ -37346,6 +40043,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface OptionBar_postlayout_Event extends OptionBarBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface OptionBar_rotate_Event extends OptionBarBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -37693,6 +40399,8 @@ declare namespace Titanium {
 
             postlayout: OptionBar_postlayout_Event;
 
+            rotate: OptionBar_rotate_Event;
+
             singletap: OptionBar_singletap_Event;
 
             swipe: OptionBar_swipe_Event;
@@ -37717,6 +40425,11 @@ declare namespace Titanium {
             readonly children: never;
 
             /**
+             * Text color of the unselected button
+             */
+            color: string | Titanium.UI.Color;
+
+            /**
              * Index of the currently selected option.
              */
             index: number;
@@ -37730,6 +40443,21 @@ declare namespace Titanium {
              * Specifies the layout direction such as 'horizontal' or 'vertical'.
              */
             layout: string;
+
+            /**
+             * Background color of the selected button
+             */
+            selectedBackgroundColor: string | Titanium.UI.Color;
+
+            /**
+             * Border color of the selected button
+             */
+            selectedBorderColor: string | Titanium.UI.Color;
+
+            /**
+             * Text color of the selected button
+             */
+            selectedTextColor: string | Titanium.UI.Color;
 
             /**
              * Adds a child to this view's hierarchy.
@@ -37992,6 +40720,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface OptionDialog_postlayout_Event extends OptionDialogBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface OptionDialog_rotate_Event extends OptionDialogBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -38339,6 +41076,8 @@ declare namespace Titanium {
 
             postlayout: OptionDialog_postlayout_Event;
 
+            rotate: OptionDialog_rotate_Event;
+
             singletap: OptionDialog_singletap_Event;
 
             swipe: OptionDialog_swipe_Event;
@@ -38370,7 +41109,7 @@ declare namespace Titanium {
             accessibilityHint: never;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: never;
 
@@ -38445,7 +41184,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -38917,6 +41656,15 @@ declare namespace Titanium {
         interface Picker_postlayout_Event extends PickerBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Picker_rotate_Event extends PickerBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface Picker_singletap_Event extends PickerBaseEvent {
@@ -39308,6 +42056,8 @@ declare namespace Titanium {
 
             postlayout: Picker_postlayout_Event;
 
+            rotate: Picker_rotate_Event;
+
             singletap: Picker_singletap_Event;
 
             swipe: Picker_swipe_Event;
@@ -39382,7 +42132,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -39478,9 +42228,14 @@ declare namespace Titanium {
             minuteInterval: number;
 
             /**
-             * Determines if a multicolumn spinner or single column drop-down picker should be used.
+             * Determines if a multi-column spinner or single column drop-down picker should be used.
              */
             nativeSpinner: boolean;
+
+            /**
+             * Forces the picker to used assigned theme instead of the system theme.
+             */
+            overrideUserInterfaceStyle: number;
 
             /**
              * Determines whether the visual selection indicator is shown.
@@ -39494,6 +42249,11 @@ declare namespace Titanium {
             selectionOpens: boolean;
 
             /**
+             * Horizontal text alignment of the date picker when using <Titanium.UI.PICKER_TYPE_DATE>.
+             */
+            textAlign: string | number;
+
+            /**
              * The view's tintColor
              */
             tintColor: never;
@@ -39504,7 +42264,7 @@ declare namespace Titanium {
             type: number;
 
             /**
-             * Determines if a multicolumn spinner or single column drop-down picker should be used.
+             * Determines if a multi-column spinner or single column drop-down picker should be used.
              */
             useSpinner: boolean;
 
@@ -39814,6 +42574,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface PickerColumn_postlayout_Event extends PickerColumnBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface PickerColumn_rotate_Event extends PickerColumnBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -40161,6 +42930,8 @@ declare namespace Titanium {
 
             postlayout: PickerColumn_postlayout_Event;
 
+            rotate: PickerColumn_rotate_Event;
+
             singletap: PickerColumn_singletap_Event;
 
             swipe: PickerColumn_swipe_Event;
@@ -40190,7 +42961,7 @@ declare namespace Titanium {
             accessibilityHint: never;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: never;
 
@@ -40260,7 +43031,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -40618,22 +43389,9 @@ declare namespace Titanium {
             show: never;
 
             /**
-             * Starts a batch update of this view's layout properties.
-             * @deprecated Use the [Titanium.Proxy.applyProperties](Titanium.Proxy.applyProperties) method to batch-update layout properties.
-             */
-            startLayout: never;
-
-            /**
              * Returns an image of the rendered view, as a Blob.
              */
             toImage: never;
-
-            /**
-             * Performs a batch update of all supplied layout properties and schedules a layout pass after
-             * they have been updated.
-             * @deprecated Use the [Titanium.Proxy.applyProperties](Titanium.Proxy.applyProperties) method to batch-update layout properties.
-             */
-            updateLayout: never;
         }
         /**
          * Base event for class Titanium.UI.PickerRow
@@ -40831,6 +43589,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface PickerRow_postlayout_Event extends PickerRowBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface PickerRow_rotate_Event extends PickerRowBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -41178,6 +43945,8 @@ declare namespace Titanium {
 
             postlayout: PickerRow_postlayout_Event;
 
+            rotate: PickerRow_rotate_Event;
+
             singletap: PickerRow_singletap_Event;
 
             swipe: PickerRow_swipe_Event;
@@ -41448,6 +44217,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface ProgressBar_postlayout_Event extends ProgressBarBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface ProgressBar_rotate_Event extends ProgressBarBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -41795,6 +44573,8 @@ declare namespace Titanium {
 
             postlayout: ProgressBar_postlayout_Event;
 
+            rotate: ProgressBar_rotate_Event;
+
             singletap: ProgressBar_singletap_Event;
 
             swipe: ProgressBar_swipe_Event;
@@ -41964,6 +44744,16 @@ declare namespace Titanium {
          * and Android [SwipeRefreshLayout](https://developer.android.com/reference/android/support/v4/widget/SwipeRefreshLayout.html).
          */
         class RefreshControl extends Titanium.Proxy {
+            /**
+             * The background color for the refresh control, as a color name or hex triplet.
+             */
+            backgroundColor: string | Titanium.UI.Color;
+
+            /**
+             * Offset of the refresh control view.
+             */
+            offset: RefreshControlOffset;
+
             /**
              * The tint color for the refresh control, as a color name or hex triplet.
              */
@@ -42216,6 +45006,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface ScrollView_postlayout_Event extends ScrollViewBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface ScrollView_rotate_Event extends ScrollViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -42616,6 +45415,15 @@ declare namespace Titanium {
          * Fired when the scrollable region starts being dragged.
          */
         interface ScrollView_dragstart_Event extends ScrollViewBaseEvent {
+            /**
+             * X coordinate from the scrollable touch position.
+             */
+            x: number;
+
+            /**
+             * Y coordinate from the scrollable touch position.
+             */
+            y: number;
         }
         /**
          * Fired when the scrollable region stops being dragged.
@@ -42627,6 +45435,16 @@ declare namespace Titanium {
              * Is always `true` on Android.
              */
             decelerate: boolean;
+
+            /**
+             * X coordinate from the scrollable touch position.
+             */
+            x: number;
+
+            /**
+             * Y coordinate from the scrollable touch position.
+             */
+            y: number;
         }
         interface ScrollViewEventMap extends ProxyEventMap {
             click: ScrollView_click_Event;
@@ -42654,6 +45472,8 @@ declare namespace Titanium {
             pinch: ScrollView_pinch_Event;
 
             postlayout: ScrollView_postlayout_Event;
+
+            rotate: ScrollView_rotate_Event;
 
             scale: ScrollView_scale_Event;
 
@@ -42706,6 +45526,11 @@ declare namespace Titanium {
              * Determines whether scroll bounce of the scrollable region is enabled.
              */
             disableBounce: boolean;
+
+            /**
+             * Configures the edge effects displayed when the scroll view hits its bounds.
+             */
+            edgeEffect: any;
 
             /**
              * Determines whether horizontal scroll bounce of the scrollable region is enabled.
@@ -43013,6 +45838,15 @@ declare namespace Titanium {
         interface ScrollableView_postlayout_Event extends ScrollableViewBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface ScrollableView_rotate_Event extends ScrollableViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against this view.
          */
         interface ScrollableView_singletap_Event extends ScrollableViewBaseEvent {
@@ -43293,6 +46127,8 @@ declare namespace Titanium {
 
             postlayout: ScrollableView_postlayout_Event;
 
+            rotate: ScrollableView_rotate_Event;
+
             scroll: ScrollableView_scroll_Event;
 
             scrollend: ScrollableView_scrollend_Event;
@@ -43403,6 +46239,11 @@ declare namespace Titanium {
             preferredIndicatorImage: string | Titanium.Blob;
 
             /**
+             * Direction of the ScrollableView (`horizontal` or `vertical`).
+             */
+            scrollType: string;
+
+            /**
              * Determines whether scrolling is enabled for the view.
              */
             scrollingEnabled: boolean;
@@ -43453,7 +46294,7 @@ declare namespace Titanium {
             /**
              * Inserts views at the specified position in the [views](Titanium.UI.ScrollableView.views) array.
              */
-            insertViewsAt(position: number, views: readonly Titanium.UI.View[]): void;
+            insertViewsAt(position: number, views: ReadonlyArray<Titanium.UI.View>): void;
 
             /**
              * Sets the current page to the next consecutive page in <Titanium.UI.ScrollableView.views>.
@@ -43708,6 +46549,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface SearchBar_postlayout_Event extends SearchBarBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface SearchBar_rotate_Event extends SearchBarBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -44109,6 +46959,8 @@ declare namespace Titanium {
             postlayout: SearchBar_postlayout_Event;
 
             return: SearchBar_return_Event;
+
+            rotate: SearchBar_rotate_Event;
 
             singletap: SearchBar_singletap_Event;
 
@@ -44674,6 +47526,15 @@ declare namespace Titanium {
         interface Slider_postlayout_Event extends SliderBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Slider_rotate_Event extends SliderBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface Slider_singletap_Event extends SliderBaseEvent {
@@ -45074,6 +47935,8 @@ declare namespace Titanium {
             pinch: Slider_pinch_Event;
 
             postlayout: Slider_postlayout_Event;
+
+            rotate: Slider_rotate_Event;
 
             singletap: Slider_singletap_Event;
 
@@ -45483,6 +48346,15 @@ declare namespace Titanium {
         interface Switch_postlayout_Event extends SwitchBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Switch_rotate_Event extends SwitchBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface Switch_singletap_Event extends SwitchBaseEvent {
@@ -45839,6 +48711,8 @@ declare namespace Titanium {
 
             postlayout: Switch_postlayout_Event;
 
+            rotate: Switch_rotate_Event;
+
             singletap: Switch_singletap_Event;
 
             swipe: Switch_swipe_Event;
@@ -45882,6 +48756,8 @@ declare namespace Titanium {
              */
             font: Font;
 
+            onThumbColor: string | Titanium.UI.Color;
+
             /**
              * The color used to tint the appearance of the switch when it is turned on.
              */
@@ -45896,6 +48772,8 @@ declare namespace Titanium {
              * Horizontal text alignment of the switch title.
              */
             textAlign: string | number;
+
+            thumbColor: string | Titanium.UI.Color;
 
             /**
              * The color used to tint the appearance of the thumb.
@@ -46065,6 +48943,11 @@ declare namespace Titanium {
             y: number;
         }
         /**
+         * Fired when the view element gains focus.
+         */
+        interface Tab_focus_Event extends TabBaseEvent {
+        }
+        /**
          * Fired when a hardware key is pressed in the view.
          */
         interface Tab_keypressed_Event extends TabBaseEvent {
@@ -46180,6 +49063,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface Tab_postlayout_Event extends TabBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Tab_rotate_Event extends TabBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -46563,6 +49455,8 @@ declare namespace Titanium {
 
             doubletap: Tab_doubletap_Event;
 
+            focus: Tab_focus_Event;
+
             keypressed: Tab_keypressed_Event;
 
             longclick: Tab_longclick_Event;
@@ -46572,6 +49466,8 @@ declare namespace Titanium {
             pinch: Tab_pinch_Event;
 
             postlayout: Tab_postlayout_Event;
+
+            rotate: Tab_rotate_Event;
 
             selected: Tab_selected_Event;
 
@@ -46606,7 +49502,7 @@ declare namespace Titanium {
             accessibilityHint: never;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: never;
 
@@ -46689,7 +49585,19 @@ declare namespace Titanium {
              * If this item displays a badge, this color will be used for the badge's background.
              * If set to null, the default background color will be used instead.
              */
+            badgeBackgroundColor: string | Titanium.UI.Color;
+
+            /**
+             * If this item displays a badge, this color will be used for the badge's background.
+             * If set to null, the default background color will be used instead.
+             * @deprecated Use [Titanium.UI.Tab.badgeBackgroundColor](Titanium.UI.Tab.badgeBackgroundColor) instead.
+             */
             badgeColor: string | Titanium.UI.Color;
+
+            /**
+             * Set the text color of the badge.
+             */
+            badgeTextColor: string | Titanium.UI.Color;
 
             /**
              * Border color of the view, as a color name or hex triplet.
@@ -46740,6 +49648,11 @@ declare namespace Titanium {
              * Icon URL for this tab.
              */
             icon: string;
+
+            /**
+             * Specifies the font family or specific font to use.
+             */
+            iconFamily: string;
 
             /**
              * The icon inset or outset for each edge.
@@ -47150,6 +50063,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface TabGroup_postlayout_Event extends TabGroupBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface TabGroup_rotate_Event extends TabGroupBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -47583,6 +50505,8 @@ declare namespace Titanium {
 
             postlayout: TabGroup_postlayout_Event;
 
+            rotate: TabGroup_rotate_Event;
+
             singletap: TabGroup_singletap_Event;
 
             swipe: TabGroup_swipe_Event;
@@ -47612,7 +50536,7 @@ declare namespace Titanium {
             accessibilityHint: never;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: never;
 
@@ -47719,7 +50643,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -47754,6 +50678,11 @@ declare namespace Titanium {
             bottom: never;
 
             /**
+             * View shown as a bottom accessory attached to the tab group.
+             */
+            bottomAccessoryView: Titanium.UI.View;
+
+            /**
              * Array of this view's child views.
              */
             readonly children: never;
@@ -47764,15 +50693,37 @@ declare namespace Titanium {
             editButtonTitle: string;
 
             /**
+             * Enables or disables the menu in a BottomNavigation. If disabled you can't change to a different tab.
+             */
+            enabled: number;
+
+            /**
              * Boolean value indicating if the application should exit when closing the tab group, whether via Android
              * back button or the [close](Titanium.UI.TabGroup.close) method.
              */
             exitOnClose: boolean;
 
             /**
+             * Only used for a BottomNavigation setup. If set to `true` it will use an optimized BottomNavigation
+             * setup with fixes for Material 3 layouts and new properties: `indicatorColor` and `iconFamily`.
+             * The new BottomNavigation will only load the active Activity and doesn't support `swipeable`.
+             */
+            experimental: boolean;
+
+            /**
+             * Additional flags to set on the TabGroup.
+             */
+            flags: number;
+
+            /**
              * Whether view should be focusable while navigating with the trackball.
              */
             focusable: never;
+
+            /**
+             * Force tab bar to bottom position.
+             */
+            forceBottomPosition: boolean;
 
             /**
              * View height, in platform-specific units.
@@ -47785,6 +50736,13 @@ declare namespace Titanium {
             horizontalWrap: never;
 
             /**
+             * A boolean indicating whether or not child windows of this tab group
+             * should have the ability to be swipe-to-closed over the full width of it's window or not.
+             * @deprecated This is handled by the operation system in newer versions of iOS.
+             */
+            interactiveDismissModeEnabled: never;
+
+            /**
              * Specifies how the view positions its children.
              * One of: 'composite', 'vertical', or 'horizontal'.
              */
@@ -47794,6 +50752,11 @@ declare namespace Titanium {
              * Window's left position, in platform-specific units.
              */
             left: never;
+
+            /**
+             * Defines the minimize behavior for the tab group, if it is supported.
+             */
+            minimizeBehavior: number;
 
             /**
              * The tintColor to apply to the navigation bar (typically for the **More** tab).
@@ -47826,7 +50789,7 @@ declare namespace Titanium {
             right: never;
 
             /**
-             * Image of the shadow placed between the tab bar and the content area.
+             * Image of the shadow placed between the tab group and the content area.
              */
             shadowImage: string;
 
@@ -47846,6 +50809,11 @@ declare namespace Titanium {
             softKeyboardOnFocus: never;
 
             /**
+             * The color of the status bar (top bar) for this window.
+             */
+            statusBarColor: number;
+
+            /**
              * Property defining which style for the TabGroup to be used.
              */
             style: number;
@@ -47854,6 +50822,16 @@ declare namespace Titanium {
              * Boolean value indicating if tab navigation can be done by swipes, in addition to tab clicks.
              */
             swipeable: boolean;
+
+            /**
+             * Programmatically shows / hides the bottom tab group of the tab group.
+             */
+            tabBarVisible: boolean;
+
+            /**
+             * Property defining which tabMode is used for the TabGroup.
+             */
+            tabMode: number;
 
             /**
              * Tabs managed by the tab group.
@@ -47882,7 +50860,7 @@ declare namespace Titanium {
             tabsTintColor: string | Titanium.UI.Color;
 
             /**
-             * A Boolean value that indicates whether the tab bar is translucent.
+             * A Boolean value that indicates whether the tab group is translucent.
              */
             tabsTranslucent: boolean;
 
@@ -47975,8 +50953,9 @@ declare namespace Titanium {
             /**
              * Disable (or re-enable) tab navigation. If tab navigation is disabled, the tabs are hidden and
              * the last selected tab window is shown.
+             * @deprecated
              */
-            disableTabNavigation(disable: boolean): void;
+            disableTabNavigation(params: disableTabOptions): void;
 
             /**
              * Fires a synthesized event to any registered listeners.
@@ -47999,6 +50978,12 @@ declare namespace Titanium {
              * @deprecated Use the <Titanium.UI.TabGroup.tabs> property instead.
              */
             getTabs: never;
+
+            /**
+             * Hides the tab group with animation.
+             * @deprecated Deprecated in favor of <Titanium.UI.Window.tabBarHidden> property.
+             */
+            hideTabBar: never;
 
             /**
              * Opens the tab group and makes it visible.
@@ -48048,6 +51033,12 @@ declare namespace Titanium {
              * Sets the array of items to show in the window's toolbar.
              */
             setToolbar: never;
+
+            /**
+             * Shows the tab group with animation.
+             * @deprecated Deprecated in favor of <Titanium.UI.Window.tabBarHidden> property.
+             */
+            showTabBar: never;
         }
         /**
          * Base event for class Titanium.UI.TabbedBar
@@ -48232,6 +51223,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface TabbedBar_postlayout_Event extends TabbedBarBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface TabbedBar_rotate_Event extends TabbedBarBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -48579,6 +51579,8 @@ declare namespace Titanium {
 
             postlayout: TabbedBar_postlayout_Event;
 
+            rotate: TabbedBar_rotate_Event;
+
             singletap: TabbedBar_singletap_Event;
 
             swipe: TabbedBar_swipe_Event;
@@ -48598,6 +51600,11 @@ declare namespace Titanium {
          */
         class TabbedBar extends Titanium.UI.View {
             /**
+             * Icon tint color of the selected tab
+             */
+            activeTintColor: string | Titanium.UI.Color;
+
+            /**
              * Array of this view's child views.
              */
             readonly children: never;
@@ -48611,6 +51618,11 @@ declare namespace Titanium {
              * Array of labels for the tabbed bar.
              */
             labels: string[] | BarItemType[];
+
+            /**
+             * Background color of the selected tab indicator.
+             */
+            selectedBackgroundColor: string | Titanium.UI.Color;
 
             /**
              * Color of the selected text
@@ -48939,6 +51951,15 @@ declare namespace Titanium {
         interface TableView_postlayout_Event extends TableViewBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface TableView_rotate_Event extends TableViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface TableView_singletap_Event extends TableViewBaseEvent {
@@ -48977,7 +51998,7 @@ declare namespace Titanium {
          */
         interface TableView_swipe_Event extends TableViewBaseEvent {
             /**
-             * Direction of the swipe, either `left` or `right`.
+             * Direction of the swipe, either `left`, `right` or `unknown`.
              */
             direction: string;
 
@@ -49453,6 +52474,36 @@ declare namespace Titanium {
              */
             decelerate: boolean;
         }
+        /**
+         * Fired when the user interacts with one of the custom edit actions defined by <Titanium.UI.TableViewRow.editActions>.
+         */
+        interface TableView_editaction_Event extends TableViewBaseEvent {
+            /**
+             * The [title](RowActionType.title) as defined in the row action object.
+             */
+            action: string;
+
+            /**
+             * The [identifier](RowActionType. identifier) of the row action. Only included in the event
+             * if previously defined.
+             */
+            identifier: string;
+
+            /**
+             * The index of the row that fired this event.
+             */
+            index: number;
+
+            /**
+             * The row that fired this event.
+             */
+            row: Titanium.UI.TableViewRow | Dictionary<Titanium.UI.TableViewRow>;
+
+            /**
+             * The section that fired this event.
+             */
+            section: Titanium.UI.TableViewSection;
+        }
         interface TableViewEventMap extends ProxyEventMap {
             click: TableView_click_Event;
 
@@ -49465,6 +52516,8 @@ declare namespace Titanium {
             dragend: TableView_dragend_Event;
 
             dragstart: TableView_dragstart_Event;
+
+            editaction: TableView_editaction_Event;
 
             focus: TableView_focus_Event;
 
@@ -49481,6 +52534,8 @@ declare namespace Titanium {
             pinch: TableView_pinch_Event;
 
             postlayout: TableView_postlayout_Event;
+
+            rotate: TableView_rotate_Event;
 
             rowsselected: TableView_rowsselected_Event;
 
@@ -49538,7 +52593,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -49546,6 +52601,11 @@ declare namespace Titanium {
              * Array of this view's child views.
              */
             readonly children: never;
+
+            /**
+             * X and Y coordinates to which to reposition the top-left point of the content region.
+             */
+            contentOffset: Point;
 
             /**
              * Rows of the table view.
@@ -49635,6 +52695,11 @@ declare namespace Titanium {
             index: TableViewIndexEntry[];
 
             /**
+             * The manner in which the keyboard is dismissed when a drag begins in the table view.
+             */
+            keyboardDismissMode: number;
+
+            /**
              * Max number of row class names.
              */
             maxClassname: number;
@@ -49707,7 +52772,7 @@ declare namespace Titanium {
             scrollIndicatorStyle: number;
 
             /**
-             * If `true`, the tableview can be scrolled.
+             * If `true`, the table view can be scrolled.
              */
             scrollable: boolean;
 
@@ -50204,6 +53269,15 @@ declare namespace Titanium {
         interface TableViewRow_postlayout_Event extends TableViewRowBaseEvent {
         }
         /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface TableViewRow_rotate_Event extends TableViewRowBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
+        }
+        /**
          * Fired when the device detects a single tap against the view.
          */
         interface TableViewRow_singletap_Event extends TableViewRowBaseEvent {
@@ -50349,6 +53423,8 @@ declare namespace Titanium {
 
             postlayout: TableViewRow_postlayout_Event;
 
+            rotate: TableViewRow_rotate_Event;
+
             singletap: TableViewRow_singletap_Event;
 
             swipe: TableViewRow_swipe_Event;
@@ -50368,7 +53444,7 @@ declare namespace Titanium {
          */
         class TableViewRow extends Titanium.UI.View {
             /**
-             * A succint label associated with the table row for the device's accessibility service.
+             * A succinct label associated with the table row for the device's accessibility service.
              */
             accessibilityLabel: string;
 
@@ -50398,10 +53474,20 @@ declare namespace Titanium {
             deleteButtonTitle: string;
 
             /**
+             * Specifies custom action items to be shown when when a list item is edited.
+             */
+            editActions: RowActionType[];
+
+            /**
              * Determines the rows' editable behavior, which allows them to be deleted by the user when the
              * table is in `editing` or `moving` mode.
              */
             editable: boolean;
+
+            /**
+             * This row will always be visible when you filter your content.
+             */
+            filterAlwaysInclude: boolean;
 
             /**
              * Font to use for the row title.
@@ -50805,6 +53891,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface TextArea_postlayout_Event extends TextAreaBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface TextArea_rotate_Event extends TextAreaBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -51220,6 +54315,8 @@ declare namespace Titanium {
 
             return: TextArea_return_Event;
 
+            rotate: TextArea_rotate_Event;
+
             selected: TextArea_selected_Event;
 
             singletap: TextArea_singletap_Event;
@@ -51347,6 +54444,17 @@ declare namespace Titanium {
             hintType: number;
 
             /**
+             * Key identifying a string from the locale file to use for the
+             * [hintText](Titanium.UI.TextArea.hintText) property.
+             */
+            hinttextid: string;
+
+            /**
+             * Pass a HTML-based string and it will be formatted accordingly.
+             */
+            html: string;
+
+            /**
              * Determines the appearance of the keyboard displayed when this text area is focused.
              */
             keyboardAppearance: number;
@@ -51413,7 +54521,7 @@ declare namespace Titanium {
             readonly selection: textAreaSelectedParams;
 
             /**
-             * Determinates if the undo and redo buttons on the left side of the keyboard should be displayed or not. Only valid on iOS9 and above. This property can only be set upon creation.
+             * Determines if the undo and redo buttons on the left side of the keyboard should be displayed or not. Only valid on iOS 9 and above. This property can only be set upon creation.
              */
             showUndoRedoActions: boolean;
 
@@ -51714,6 +54822,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface TextField_postlayout_Event extends TextFieldBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface TextField_rotate_Event extends TextFieldBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -52061,6 +55178,15 @@ declare namespace Titanium {
             value: string;
         }
         /**
+         * Fired when the field is empty and you press backspace key again.
+         */
+        interface TextField_empty_Event extends TextFieldBaseEvent {
+            /**
+             * Key code of the key.
+             */
+            keyCode: number;
+        }
+        /**
          * Fired when the return key is pressed on the keyboard.
          */
         interface TextField_return_Event extends TextFieldBaseEvent {
@@ -52080,6 +55206,8 @@ declare namespace Titanium {
 
             doubletap: TextField_doubletap_Event;
 
+            empty: TextField_empty_Event;
+
             focus: TextField_focus_Event;
 
             keypressed: TextField_keypressed_Event;
@@ -52093,6 +55221,8 @@ declare namespace Titanium {
             postlayout: TextField_postlayout_Event;
 
             return: TextField_return_Event;
+
+            rotate: TextField_rotate_Event;
 
             singletap: TextField_singletap_Event;
 
@@ -52322,7 +55452,7 @@ declare namespace Titanium {
             readonly selection: textFieldSelectedParams;
 
             /**
-             * Determinates if the undo and redo buttons on the left side of the keyboard should be displayed or not. Only valid on iOS9 and above.
+             * Determines if the undo and redo buttons on the left side of the keyboard should be displayed or not. Only valid on iOS 9 and above.
              */
             showUndoRedoActions: boolean;
 
@@ -52619,6 +55749,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface Toolbar_postlayout_Event extends ToolbarBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Toolbar_rotate_Event extends ToolbarBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -52966,6 +56105,8 @@ declare namespace Titanium {
 
             postlayout: Toolbar_postlayout_Event;
 
+            rotate: Toolbar_rotate_Event;
+
             singletap: Toolbar_singletap_Event;
 
             swipe: Toolbar_swipe_Event;
@@ -53025,7 +56166,7 @@ declare namespace Titanium {
             backgroundSelectedColor: never;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: never;
 
@@ -53079,6 +56220,11 @@ declare namespace Titanium {
              * Image to be used for a navigation icon.
              */
             navigationIcon: string | Titanium.Blob | Titanium.Filesystem.File;
+
+            /**
+             * Tint color of the navigation icon (e.g. home arrow)
+             */
+            navigationIconColor: string;
 
             /**
              * Image to be used for the overflow menu.
@@ -53139,7 +56285,7 @@ declare namespace Titanium {
             collapseActionViews(): void;
 
             /**
-             * Collapses expandend ActionViews and hides overflow menu
+             * Collapses expanded ActionViews and hides overflow menu
              */
             dismissPopupMenus(): void;
 
@@ -53447,6 +56593,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface View_postlayout_Event extends ViewBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface View_rotate_Event extends ViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -53794,6 +56949,8 @@ declare namespace Titanium {
 
             postlayout: View_postlayout_Event;
 
+            rotate: View_rotate_Event;
+
             singletap: View_singletap_Event;
 
             swipe: View_swipe_Event;
@@ -53813,6 +56970,11 @@ declare namespace Titanium {
          */
         class View extends Titanium.Proxy {
             /**
+             * Boolean value to remove the long press notification for the device's accessibility service.
+             */
+            accessibilityDisableLongPress: boolean;
+
+            /**
              * Whether the view should be "hidden" from (i.e., ignored by) the accessibility service.
              */
             accessibilityHidden: boolean;
@@ -53823,7 +56985,7 @@ declare namespace Titanium {
             accessibilityHint: string;
 
             /**
-             * A succint label identifying the view for the device's accessibility service.
+             * A succinct label identifying the view for the device's accessibility service.
              */
             accessibilityLabel: string;
 
@@ -53893,7 +57055,7 @@ declare namespace Titanium {
             backgroundSelectedColor: string | Titanium.UI.Color;
 
             /**
-             * Selected background image url for the view, specified as a local file path or URL.
+             * Selected background image URL for the view, specified as a local file path or URL.
              */
             backgroundSelectedImage: string;
 
@@ -53976,6 +57138,11 @@ declare namespace Titanium {
              * View's identifier.
              */
             id?: string;
+
+            /**
+             * A value indicating the render mode of the View
+             */
+            keepHardwareMode: boolean;
 
             /**
              * Determines whether to keep the device screen on.
@@ -54063,6 +57230,11 @@ declare namespace Titanium {
              * The view's tintColor
              */
             tintColor: string | Titanium.UI.Color;
+
+            /**
+             * The default text to display in the control's tooltip.
+             */
+            tooltip: string;
 
             /**
              * The view's top position.
@@ -54239,22 +57411,14 @@ declare namespace Titanium {
             show(options?: AnimatedOptions): void;
 
             /**
-             * Starts a batch update of this view's layout properties.
-             * @deprecated Use the [Titanium.Proxy.applyProperties](Titanium.Proxy.applyProperties) method to batch-update layout properties.
+             * Stops a running animation.
              */
-            startLayout: never;
+            stopAnimation(): void;
 
             /**
              * Returns an image of the rendered view, as a Blob.
              */
             toImage(callback?: (param0: Titanium.Blob) => void, honorScaleFactor?: boolean): Titanium.Blob;
-
-            /**
-             * Performs a batch update of all supplied layout properties and schedules a layout pass after
-             * they have been updated.
-             * @deprecated Use the [Titanium.Proxy.applyProperties](Titanium.Proxy.applyProperties) method to batch-update layout properties.
-             */
-            updateLayout: never;
         }
         /**
          * Base event for class Titanium.UI.WebView
@@ -54452,6 +57616,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface WebView_postlayout_Event extends WebViewBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface WebView_rotate_Event extends WebViewBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -54839,7 +58012,7 @@ declare namespace Titanium {
          */
         interface WebView_onLoadResource_Event extends WebViewBaseEvent {
             /**
-             * The url of the resource that will load.
+             * The URL of the resource that will load.
              */
             url: string;
         }
@@ -54975,6 +58148,8 @@ declare namespace Titanium {
 
             redirect: WebView_redirect_Event;
 
+            rotate: WebView_rotate_Event;
+
             singletap: WebView_singletap_Event;
 
             sslerror: WebView_sslerror_Event;
@@ -54996,12 +58171,57 @@ declare namespace Titanium {
          */
         class WebView extends Titanium.UI.View {
             /**
+             * Hardware rendering mode
+             */
+            readonly LAYER_TYPE_HARDWARE: number;
+
+            /**
+             * Default rendering mode
+             */
+            readonly LAYER_TYPE_NONE: number;
+
+            /**
+             * Software rendering mode
+             */
+            readonly LAYER_TYPE_SOFTWARE: number;
+
+            /**
+             * PDF paper size
+             */
+            readonly PDF_PAGE_DIN_A1: number;
+
+            /**
+             * PDF paper size
+             */
+            readonly PDF_PAGE_DIN_A2: number;
+
+            /**
+             * PDF paper size
+             */
+            readonly PDF_PAGE_DIN_A3: number;
+
+            /**
+             * PDF paper size
+             */
+            readonly PDF_PAGE_DIN_A4: number;
+
+            /**
+             * PDF paper size
+             */
+            readonly PDF_PAGE_DIN_A5: number;
+
+            /**
+             * A Boolean value indicating file access within WebView.
+             */
+            allowFileAccess: boolean;
+
+            /**
              * List of allowed URL schemes for the web view.
              */
             allowedURLSchemes: string[];
 
             /**
-             * A Boolean value indicating whether horizontal swipe gestures will trigger back-forward list navigations.
+             * A Boolean value indicating whether horizontal swipe gestures will trigger back-forward list navigation.
              */
             allowsBackForwardNavigationGestures: boolean;
 
@@ -55017,13 +58237,18 @@ declare namespace Titanium {
             assetsDirectory: string;
 
             /**
-             * An array of url strings to blacklist.
+             * Specifies whether or not the web view should automatically adjust its scroll view insets.
+             */
+            autoAdjustScrollViewInsets: boolean;
+
+            /**
+             * An array of URL strings to blacklist.
              * @deprecated Use the <Titanium.UI.WebView.blockedURLs> property instead.
              */
             blacklistedURLs: string[];
 
             /**
-             * An array of url strings to be blocked.
+             * An array of URL strings to be blocked.
              */
             blockedURLs: string[];
 
@@ -55063,7 +58288,7 @@ declare namespace Titanium {
             disableContextMenu: boolean;
 
             /**
-             * Enable adding javascript interfaces internally to webview prior to JELLY_BEAN_MR1 (Android 4.2)
+             * Enable adding JavaScript interfaces internally to webview prior to JELLY_BEAN_MR1 (Android 4.2)
              */
             enableJavascriptInterface: boolean;
 
@@ -55075,10 +58300,15 @@ declare namespace Titanium {
             /**
              * Lets the webview handle platform supported urls
              * @deprecated This property in no more supported in Titanium SDK 8.0.0+. Use property <Titanium.UI.WebView.allowedURLSchemes>
-             * in conjuction with <Titanium.UI.WebView.handleurl>. See the example section
+             * in conjunction with <Titanium.UI.WebView.handleurl>. See the example section
              * "Usage of allowedURLSchemes and handleurl in iOS".
              */
             handlePlatformUrl: boolean;
+
+            /**
+             * A Boolean value indicating whether to hide the keyboard accessory bar.
+             */
+            hideKeyboardAccessoryView: boolean;
 
             /**
              * Hides activity indicator when loading remote URL.
@@ -55101,6 +58331,11 @@ declare namespace Titanium {
             keyboardDisplayRequiresUserAction: boolean;
 
             /**
+             * A value indicating the render mode of the WebView
+             */
+            layerType: number;
+
+            /**
              * Enables using light touches to make a selection and activate mouseovers.
              */
             lightTouchEnabled: boolean;
@@ -55114,6 +58349,11 @@ declare namespace Titanium {
              * If `true`, allows the loading of insecure resources from a secure origin.
              */
             mixedContentMode: boolean;
+
+            /**
+             * If set to `false` it will prevent the WebView from opening new windows/tabs.
+             */
+            multipleWindows: boolean;
 
             /**
              * Callback function called when there is a request for the application to create a new window
@@ -55150,6 +58390,11 @@ declare namespace Titanium {
              * If `true`, scale contents to fit the web view.
              */
             scalesPageToFit: boolean;
+
+            /**
+             * Enable or disable horizontal/vertical scrollbars in a WebView.
+             */
+            scrollbars: number;
 
             /**
              * Controls whether the scroll-to-top gesture is effective.
@@ -55243,7 +58488,15 @@ declare namespace Titanium {
             /**
              * Create a PDF document representation from the web page currently displayed in the WebView.
              */
-            createPDF(callback: (param0: DataCreationResult) => void): void;
+            createPDF(
+                pageWidth: number,
+                pageHeight: number,
+                pageSize: number,
+                showMenu: boolean,
+                firstPageOnly: boolean,
+                success: (param0: DataCreationResultAndroid) => void,
+                callback: (param0: DataCreationResult) => void,
+            ): void;
 
             /**
              * Create WebKit web archive data representing the current web content of the WebView.
@@ -55362,12 +58615,12 @@ declare namespace Titanium {
             /**
              * Add native properties for observing for change.
              */
-            startListeningToProperties(propertyList: readonly string[]): void;
+            startListeningToProperties(propertyList: ReadonlyArray<string>): void;
 
             /**
              * Remove native properties from observing.
              */
-            stopListeningToProperties(propertyList: readonly string[]): void;
+            stopListeningToProperties(propertyList: ReadonlyArray<string>): void;
 
             /**
              * Stops loading a currently loading page.
@@ -55575,6 +58828,15 @@ declare namespace Titanium {
          * Fired when a layout cycle is finished.
          */
         interface Window_postlayout_Event extends WindowBaseEvent {
+        }
+        /**
+         * Fired when the device detects a two finger rotation.
+         */
+        interface Window_rotate_Event extends WindowBaseEvent {
+            /**
+             * Rotation in degrees.
+             */
+            rotate: number;
         }
         /**
          * Fired when the device detects a single tap against the view.
@@ -55985,6 +59247,8 @@ declare namespace Titanium {
 
             postlayout: Window_postlayout_Event;
 
+            rotate: Window_rotate_Event;
+
             singletap: Window_singletap_Event;
 
             swipe: Window_swipe_Event;
@@ -56191,6 +59455,11 @@ declare namespace Titanium {
             modal: boolean;
 
             /**
+             * The color of the navigation bar (bottom bar) for this window.
+             */
+            navBarColor: number;
+
+            /**
              * Hides the navigation bar (`true`) or shows the navigation bar (`false`).
              */
             navBarHidden: boolean;
@@ -56254,9 +59523,14 @@ declare namespace Titanium {
 
             /**
              * Boolean value to enable split action bar.
-             * @deprecated Deprecated in AppCompat theme. The same behaviour can be achived by using Toolbar.
+             * @deprecated Deprecated in AppCompat theme. The same behaviour can be achieved by using Toolbar.
              */
             splitActionBar: boolean;
+
+            /**
+             * The color of the status bar (top bar) for this window.
+             */
+            statusBarColor: number;
 
             /**
              * The status bar style associated with this window.
@@ -56340,6 +59614,11 @@ declare namespace Titanium {
             translucent: boolean;
 
             /**
+             * Additional UI flags to set on the Activity Window.
+             */
+            uiFlags: number;
+
+            /**
              * Additional flags to set on the Activity Window.
              */
             windowFlags: number;
@@ -56351,7 +59630,7 @@ declare namespace Titanium {
 
             /**
              * Determines whether a window's soft input area (ie software keyboard) is visible
-             * as it receives focus and how the window behaves in order to accomodate it while keeping its
+             * as it receives focus and how the window behaves in order to accommodate it while keeping its
              * contents in view.
              */
             windowSoftInputMode: number;
@@ -56396,8 +59675,9 @@ declare namespace Titanium {
 
             /**
              * Hides the tab bar. Must be called before opening the window.
+             * @deprecated Deprecated in favor of <Titanium.UI.Window.tabBarHidden> property.
              */
-            hideTabBar(): void;
+            hideTabBar: never;
 
             /**
              * Makes the bottom toolbar invisible.
@@ -56435,12 +59715,18 @@ declare namespace Titanium {
             /**
              * Sets the array of items to show in the window's toolbar.
              */
-            setToolbar(items: readonly any[], params?: windowToolbarParam): void;
+            setToolbar(items: ReadonlyArray<any>, params?: windowToolbarParam): void;
 
             /**
              * Makes the navigation bar visible.
              */
             showNavBar(options?: AnimatedOptions): void;
+
+            /**
+             * Shows the tab bar. Must be called before opening the window.
+             * @deprecated Deprecated in favor of <Titanium.UI.Window.tabBarHidden> property.
+             */
+            showTabBar: never;
 
             /**
              * Makes the bottom toolbar visible.
@@ -56508,6 +59794,13 @@ declare namespace Titanium {
              * Creates and returns an instance of <Titanium.UI.iOS.BlurView>.
              */
             static createBlurView(parameters?: Dictionary<Titanium.UI.iOS.BlurView>): Titanium.UI.iOS.BlurView;
+
+            /**
+             * Creates a button configuration object for customizing button appearance.
+             */
+            static createButtonConfiguration(
+                parameters: Dictionary<Titanium.UI.iOS.ButtonConfiguration>,
+            ): Titanium.UI.iOS.ButtonConfiguration;
 
             /**
              * Creates and returns an instance of <Titanium.UI.iOS.CollisionBehavior>.
@@ -56851,7 +60144,7 @@ declare namespace Titanium {
         }
         /**
          * An interface extending <Titanium.XML.Node> with a set of attributes and methods for accessing character data in the DOM.
-         * Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-FF21A306) on Android and iOS. For reasons of compatibility with the javascript engine, text is represented by UTF-8 instead of UTF-16 on Android and iOS.
+         * Implements the [DOM Level 2 API](https://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-FF21A306) on Android and iOS. For reasons of compatibility with the JavaScript engine, text is represented by UTF-8 instead of UTF-16 on Android and iOS.
          */
         class CharacterData extends Titanium.XML.Node {
             /**
@@ -57306,12 +60599,12 @@ declare namespace Titanium {
             removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
 
             /**
-             * Removes a node from the map specified by name. When this map contains attributes attached to an element, if the removed attribtue is known to have a default, it is replaced with that value.
+             * Removes a node from the map specified by name. When this map contains attributes attached to an element, if the removed attribute is known to have a default, it is replaced with that value.
              */
             removeNamedItem(name: string): Titanium.XML.Node;
 
             /**
-             * Removes a node from the map specified by local name and namespace URI. When this map contains attributes attached to an element, if the removed attribtue is known to have a default, it is replaced with that value. Returns the node removed from the map, or `null` if there is no corresponding node.
+             * Removes a node from the map specified by local name and namespace URI. When this map contains attributes attached to an element, if the removed attribute is known to have a default, it is replaced with that value. Returns the node removed from the map, or `null` if there is no corresponding node.
              */
             removeNamedItemNS(namespaceURI: string, localName: string): Titanium.XML.Node;
 
@@ -57578,7 +60871,7 @@ declare namespace Titanium {
          */
         class ProcessingInstruction extends Titanium.Proxy {
             /**
-             * Retrieve the content of this processing instruction. This from the first non white space character after the target to the character immediatly preceding the ?>. When setting a processing instruction, a DOMException may be thrown on an invalid instruction.
+             * Retrieve the content of this processing instruction. This from the first non white space character after the target to the character immediately preceding the ?>. When setting a processing instruction, a DOMException may be thrown on an invalid instruction.
              */
             data: string;
 
@@ -57949,7 +61242,7 @@ declare namespace Titanium {
          */
         static registerBroadcastReceiver(
             broadcastReceiver: Titanium.Android.BroadcastReceiver,
-            actions: readonly string[],
+            actions: ReadonlyArray<string>,
         ): void;
 
         /**
@@ -58028,22 +61321,27 @@ declare namespace Titanium {
         state: boolean;
     }
     /**
+     * Fired after the user takes a screenshot, e.g. by pressing both the home and lock screen buttons.
+     */
+    interface App_screenshotcaptured_Event extends AppBaseEvent {
+    }
+    /**
      * Fired when an uncaught JavaScript exception occurs.
      */
     interface App_uncaughtException_Event extends AppBaseEvent {
         /**
-         * The column offset on the line where the error occured.
+         * The column offset on the line where the error occurred.
          */
         column: number;
 
         /**
-         * The java stack trace of the exception. (Deprecated since 9.0.0. Use `nativeStack` instead.)
+         * The Java stack trace of the exception. (Deprecated since 9.0.0. Use `nativeStack` instead.)
          * @deprecated Use `nativeStack` property for cross-platform parity.
          */
         javaStack: string;
 
         /**
-         * The javascript stack trace of the exception. (Deprecated since 9.0.0. Use `stack` instead.)
+         * The JavaScript stack trace of the exception. (Deprecated since 9.0.0. Use `stack` instead.)
          * @deprecated Use `stack` property for cross-platform parity.
          */
         javascriptStack: string;
@@ -58090,7 +61388,7 @@ declare namespace Titanium {
         sourceURL: string;
 
         /**
-         * The javascript stack trace of the exception.
+         * The JavaScript stack trace of the exception.
          */
         stack: string;
 
@@ -58171,6 +61469,8 @@ declare namespace Titanium {
 
         resumed: App_resumed_Event;
 
+        screenshotcaptured: App_screenshotcaptured_Event;
+
         shortcutitemclick: App_shortcutitemclick_Event;
 
         significanttimechange: App_significanttimechange_Event;
@@ -58212,7 +61512,7 @@ declare namespace Titanium {
         static readonly copyright: string;
 
         /**
-         * A reference to the currnet background service running when the application is placed in the background.
+         * A reference to the current background service running when the application is placed in the background.
          */
         static readonly currentService: Titanium.App.iOS.BackgroundService;
 
@@ -58297,7 +61597,7 @@ declare namespace Titanium {
         static readonly sessionId: string;
 
         /**
-         * Indicates whether or not the user interaction shoud be tracked.
+         * Indicates whether or not the user interaction should be tracked.
          */
         static trackUserInteraction: boolean;
 
@@ -58393,6 +61693,11 @@ declare namespace Titanium {
          * that represents it.
          */
         readonly nativePath: string;
+
+        /**
+         * EXIF rotation of the image if available. Can be `undefined` if no orientation was found.
+         */
+        readonly rotation: number;
 
         /**
          * Size of the blob in pixels (for image blobs) or bytes (for all other blobs).
@@ -59020,7 +62325,7 @@ declare namespace Titanium {
         /**
          * Commits all pending changes to the underlying contacts database.
          */
-        static save(contacts: readonly Titanium.Contacts.Person[]): void;
+        static save(contacts: ReadonlyArray<Titanium.Contacts.Person>): void;
 
         /**
          * Displays a picker that allows a person to be selected.
@@ -59218,7 +62523,7 @@ declare namespace Titanium {
         /**
          * Returns a `File` object representing the file identified by the path arguments.
          */
-        static getFile(path: readonly string[]): Titanium.Filesystem.File;
+        static getFile(path: ReadonlyArray<string>): Titanium.Filesystem.File;
 
         /**
          * Returns `true` if the app has storage permissions.
@@ -59654,11 +62959,16 @@ declare namespace Titanium {
          * Removes the specified callback as an event listener for the named event.
          */
         static removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+        /**
+         * Stops the gesture listener.
+         */
+        static stopListener(): void;
     }
     /**
      * IOStream is the interface that all stream types implement.
      */
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    // tslint:disable-next-line:interface-name
     class IOStream extends Titanium.Proxy {
         /**
          * Adds the specified callback as an event listener for the named event.
@@ -59742,17 +63052,17 @@ declare namespace Titanium {
         static bubbleParent: boolean;
 
         /**
-         * Country of the current system locale, as an ISO 2-letter code.
+         * Country of the app's current locale, as an ISO 2-letter code.
          */
         static readonly currentCountry: string;
 
         /**
-         * Language of the current system locale, as an ISO 2-letter code.
+         * Language of the app's current locale, as an ISO 2-letter code.
          */
         static readonly currentLanguage: string;
 
         /**
-         * Current system locale, as a combination of ISO 2-letter language and country codes.
+         * Current app locale, as a combination of ISO 2-letter language and country codes.
          */
         static readonly currentLocale: string;
 
@@ -59917,6 +63227,11 @@ declare namespace Titanium {
         static readonly appMusicPlayer: Titanium.Media.MusicPlayer;
 
         /**
+         * Aspect ratio of the image.
+         */
+        static readonly aspectRatio: number;
+
+        /**
          * Returns `true` if the device is playing audio.
          */
         static readonly audioPlaying: boolean;
@@ -59967,6 +63282,14 @@ declare namespace Titanium {
         static cameraFlashMode: number;
 
         /**
+         * Returns an object of possible `targetImageWidth` and `targetImageHeight` values. The output
+         * contains a `cameraType` (front or back) and object of width/height values. You have to set
+         * `targetImageWidth` and `targetImageHeight` if you want to change the camera image output size.
+         * Note: depending on your phone and camera the values won't be used or can be different.
+         */
+        static readonly cameraOutputSizes: any;
+
+        /**
          * `true` if the device has a recording input device available.
          */
         static readonly canRecord: boolean;
@@ -59987,9 +63310,24 @@ declare namespace Titanium {
         static lifecycleContainer: Titanium.UI.Window | Titanium.UI.TabGroup;
 
         /**
+         * Returns the max zoom level of the camera.
+         */
+        static readonly maxZoomLevel: number;
+
+        /**
+         * Returns the min zoom level of the camera.
+         */
+        static readonly minZoomLevel: number;
+
+        /**
          * Current microphone level peak power in dB or -1 if microphone monitoring is disabled.
          */
         static readonly peakMicrophonePower: number;
+
+        /**
+         * Scaling mode of the preview image.
+         */
+        static readonly scalingMode: number;
 
         /**
          * An instance of <Titanium.Media.MusicPlayer> representing the system-wide music player.
@@ -59997,9 +63335,29 @@ declare namespace Titanium {
         static readonly systemMusicPlayer: Titanium.Media.MusicPlayer;
 
         /**
+         * Enable or disable the camera torch.
+         */
+        static torch: boolean;
+
+        /**
+         * To use the new CameraX classes for "camera with overlay" set `useCameraX` to `true`
+         */
+        static readonly useCameraX: boolean;
+
+        /**
+         * Vertical align of the preview image for aspect fit.
+         */
+        static readonly verticalAlign: number;
+
+        /**
          * Current volume of the playback device.
          */
         static readonly volume: number;
+
+        /**
+         * Sets the zoom level of the camera.
+         */
+        static zoomLevel: number;
 
         /**
          * Adds the specified callback as an event listener for the named event.
@@ -60112,6 +63470,11 @@ declare namespace Titanium {
         static openPhotoGallery(options: PhotoGalleryOptionsType): void;
 
         /**
+         * Pauses video capturing.
+         */
+        static pauseVideoCapture(): void;
+
+        /**
          * Displays the given image.
          */
         static previewImage(options: Dictionary<PreviewImageOptions>): void;
@@ -60159,6 +63522,11 @@ declare namespace Titanium {
         static requestPhotoGalleryPermissions(
             callback?: (param0: RequestPhotoGalleryAccessResult) => void,
         ): Promise<RequestPhotoGalleryAccessResult>;
+
+        /**
+         * Resumes video capturing.
+         */
+        static resumeVideoCapture(): void;
 
         /**
          * Saves media to the device's photo gallery / camera roll.
@@ -60214,7 +63582,7 @@ declare namespace Titanium {
         /**
          * Makes the device vibrate.
          */
-        static vibrate(pattern?: readonly number[]): void;
+        static vibrate(pattern?: ReadonlyArray<number>): void;
     }
     /**
      * Base type for all Titanium modules.
@@ -60637,7 +64005,7 @@ declare namespace Titanium {
         static readonly netmask: string;
 
         /**
-         * Short name of the system's Operating System. Returns `android` for the Android platfrom,
+         * Short name of the system's Operating System. Returns `android` for the Android platform,
          * `iphone` for the iPhone or iPod Touch, `ipad` for the iPad, `windowsphone` for Windows Phone, and `windowsstore` for Windows Store
          * platform.
          */
@@ -60717,7 +64085,7 @@ declare namespace Titanium {
         static canOpenURL(url: string): boolean;
 
         /**
-         * Returns an array of basic cpu information for all logical processors
+         * Returns an array of basic CPU information for all logical processors
          */
         static cpus(): CPU[];
 
@@ -60888,8 +64256,7 @@ declare namespace Titanium {
             sourceStream: Titanium.IOStream,
             buffer?: Titanium.Buffer,
             resultsCallback?: (param0: ReadCallbackArgs) => void,
-            // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-        ): Titanium.Buffer | void;
+        ): Titanium.Buffer | undefined;
 
         /**
          * Removes the specified callback as an event listener for the named event.
@@ -60948,6 +64315,11 @@ declare namespace Titanium {
         static readonly apiName: string;
 
         /**
+         * Returns a list of font families that are provided by the system.
+         */
+        static readonly availableSystemFontFamilies: string[];
+
+        /**
          * Sets the background color of the master view (when there are no windows or other top-level
          * controls displayed).
          */
@@ -60965,6 +64337,11 @@ declare namespace Titanium {
         static bubbleParent: boolean;
 
         /**
+         * Returns the position and shape of the Android notch. Read more about the notch [here](https://developer.android.com/develop/ui/views/layout/display-cutout).
+         */
+        static readonly cutoutSize: CutoutSize;
+
+        /**
          * The Window or TabGroup whose Activity lifecycle should be triggered on the proxy.
          */
         static lifecycleContainer: Titanium.UI.Window | Titanium.UI.TabGroup;
@@ -60979,6 +64356,11 @@ declare namespace Titanium {
          * @deprecated Use [userInterfaceStyle](Titanium.UI.userInterfaceStyle) instead.
          */
         static semanticColorType: string;
+
+        /**
+         * The total height of the status bar including safe area padding.
+         */
+        static readonly statusBarHeight: number;
 
         /**
          * Sets the global tint color of the application. It is inherited by the child views and can be
@@ -61013,18 +64395,6 @@ declare namespace Titanium {
          * Converts one type of unit to another using the metrics of the main display.
          */
         static convertUnits(convertFromValue: string, convertToUnits: number): number;
-
-        /**
-         * Creates and returns an instance of <Titanium.UI.2DMatrix>.
-         * @deprecated Use [Titanium.UI.createMatrix2D](Titanium.UI.createMatrix2D) instead.
-         */
-        static create2DMatrix(parameters?: Matrix2DCreationDict): Titanium.UI.Matrix2D;
-
-        /**
-         * Creates and returns an instance of <Titanium.UI.3DMatrix>.
-         * @deprecated Use [Titanium.UI.createMatrix3D](Titanium.UI.createMatrix3D) instead.
-         */
-        static create3DMatrix(parameters?: Matrix3DCreationDict): Titanium.UI.Matrix3D;
 
         /**
          * Creates and returns an instance of <Titanium.UI.ActivityIndicator>.
@@ -61363,7 +64733,7 @@ declare namespace Titanium {
         source: Titanium.WatchSession;
     }
     /**
-     * App received message from apple watch in foreground. Will be called on startup if the
+     * App received message from Apple Watch in foreground. Will be called on startup if the
      * incoming message caused the receiver to launch.
      */
     interface WatchSession_receivemessage_Event extends WatchSessionBaseEvent {
@@ -61373,7 +64743,7 @@ declare namespace Titanium {
         message: any;
     }
     /**
-     * App received app context from apple watch. Will be called on startup if an applicationContext is available.
+     * App received app context from Apple Watch. Will be called on startup if an applicationContext is available.
      */
     interface WatchSession_receiveapplicationcontext_Event extends WatchSessionBaseEvent {
         /**
@@ -61382,7 +64752,7 @@ declare namespace Titanium {
         applicationContext: any;
     }
     /**
-     * App received user info from apple watch in background. Will be called on startup if the user info finished
+     * App received user info from Apple Watch in background. Will be called on startup if the user info finished
      * transferring when the receiver was not running.
      */
     interface WatchSession_receiveuserinfo_Event extends WatchSessionBaseEvent {
@@ -61392,7 +64762,7 @@ declare namespace Titanium {
         userInfo: any;
     }
     /**
-     * App received file from apple watch in background.
+     * App received file from Apple Watch in background.
      */
     interface WatchSession_receivefile_Event extends WatchSessionBaseEvent {
         /**
@@ -61431,28 +64801,28 @@ declare namespace Titanium {
         activationState: number;
 
         /**
-         * If the apple watch is currently activated. Only available on iOS 9.3
+         * If the Apple Watch is currently activated. Only available on iOS 9.3
          * and later. See <Titanium.WatchSession.isActivated> for more infos.
          */
         isActivated: boolean;
 
         /**
-         * If the complication is enabled in the apple watch.
+         * If the complication is enabled in the Apple Watch.
          */
         isComplicationEnabled: boolean;
 
         /**
-         * If the device is paired with the apple watch.
+         * If the device is paired with the Apple Watch.
          */
         isPaired: boolean;
 
         /**
-         * If apple watch is currently reachable.
+         * If the Apple Watch is currently reachable.
          */
         isReachable: boolean;
 
         /**
-         * If the watch app is installed in the apple watch.
+         * If the watch app is installed in the Apple Watch.
          */
         isWatchAppInstalled: boolean;
     }
@@ -61467,28 +64837,28 @@ declare namespace Titanium {
         activationState: number;
 
         /**
-         * If the apple watch is currently activated. Only available on iOS 9.3
+         * If the Apple Watch is currently activated. Only available on iOS 9.3
          * and later. See <Titanium.WatchSession.isActivated> for more infos.
          */
         isActivated: boolean;
 
         /**
-         * If the complication is enabled in the apple watch.
+         * If the complication is enabled in the Apple Watch.
          */
         isComplicationEnabled: boolean;
 
         /**
-         * If the device is paired with the apple watch.
+         * If the device is paired with the Apple Watch.
          */
         isPaired: boolean;
 
         /**
-         * If apple watch is currently reachable.
+         * If the Apple Watch is currently reachable.
          */
         isReachable: boolean;
 
         /**
-         * If the watch app is installed in the apple watch.
+         * If the watch app is installed in the Apple Watch.
          */
         isWatchAppInstalled: boolean;
     }
@@ -61558,28 +64928,28 @@ declare namespace Titanium {
         activationState: number;
 
         /**
-         * If the apple watch is currently activated. Only available on iOS 9.3
+         * If the Apple Watch is currently activated. Only available on iOS 9.3
          * and later. See <Titanium.WatchSession.isActivated> for more infos.
          */
         isActivated: boolean;
 
         /**
-         * If the complication is enabled in the apple watch.
+         * If the complication is enabled in the Apple Watch.
          */
         isComplicationEnabled: boolean;
 
         /**
-         * If the device is paired with the apple watch.
+         * If the device is paired with the Apple Watch.
          */
         isPaired: boolean;
 
         /**
-         * If apple watch is currently reachable.
+         * If the Apple Watch is currently reachable.
          */
         isReachable: boolean;
 
         /**
-         * If the watch app is installed in the apple watch.
+         * If the watch app is installed in the Apple Watch.
          */
         isWatchAppInstalled: boolean;
     }
@@ -61595,39 +64965,39 @@ declare namespace Titanium {
         activationState: number;
 
         /**
-         * If the apple watch has currently content pending. Only available on iOS 10.0
+         * If the Apple Watch has currently content pending. Only available on iOS 10.0
          * and later. See <Titanium.WatchSession.hasContentPending> for more infos.
          */
         hasContentPending: boolean;
 
         /**
-         * If the apple watch is currently activated. Only available on iOS 9.3
+         * If the Apple Watch is currently activated. Only available on iOS 9.3
          * and later. See <Titanium.WatchSession.isActivated> for more infos.
          */
         isActivated: boolean;
 
         /**
-         * If the complication is enabled in the apple watch.
+         * If the complication is enabled in the Apple Watch.
          */
         isComplicationEnabled: boolean;
 
         /**
-         * If the device is paired with the apple watch.
+         * If the device is paired with the Apple Watch.
          */
         isPaired: boolean;
 
         /**
-         * If apple watch is currently reachable.
+         * If the Apple Watch is currently reachable.
          */
         isReachable: boolean;
 
         /**
-         * If the watch app is installed in the apple watch.
+         * If the watch app is installed in the Apple Watch.
          */
         isWatchAppInstalled: boolean;
 
         /**
-         * If the apple watch has complication userInfo transfers left. Only available on iOS 10.0
+         * If the Apple Watch has complication userInfo transfers left. Only available on iOS 10.0
          * and later. See <Titanium.WatchSession.remainingComplicationUserInfoTransfers> for more infos.
          */
         remainingComplicationUserInfoTransfers: boolean;
@@ -61645,28 +65015,28 @@ declare namespace Titanium {
         activationState: number;
 
         /**
-         * If the apple watch is currently activated. Only available on iOS 9.3
+         * If the Apple Watch is currently activated. Only available on iOS 9.3
          * and later. See <Titanium.WatchSession.isActivated> for more infos.
          */
         isActivated: boolean;
 
         /**
-         * If the complication is enabled in the apple watch.
+         * If the complication is enabled in the Apple Watch.
          */
         isComplicationEnabled: boolean;
 
         /**
-         * If the device is paired with the apple watch.
+         * If the device is paired with the Apple Watch.
          */
         isPaired: boolean;
 
         /**
-         * If apple watch is currently reachable.
+         * If the Apple Watch is currently reachable.
          */
         isReachable: boolean;
 
         /**
-         * If the watch app is installed in the apple watch.
+         * If the watch app is installed in the Apple Watch.
          */
         isWatchAppInstalled: boolean;
     }
@@ -61797,17 +65167,17 @@ declare namespace Titanium {
         static applyProperties(props: any): void;
 
         /**
-         * Cancels all incomplete file transfers to the apple watch.
+         * Cancels all incomplete file transfers to the Apple Watch.
          */
         static cancelAllFileTransfers(): void;
 
         /**
-         * Cancels all incomplete transfers to the apple watch.
+         * Cancels all incomplete transfers to the Apple Watch.
          */
         static cancelAllTransfers(): void;
 
         /**
-         * Cancels all incomplete user info and complication transfers to the apple watch.
+         * Cancels all incomplete user info and complication transfers to the Apple Watch.
          */
         static cancelAllUserInfoTransfers(): void;
 
@@ -61835,7 +65205,7 @@ declare namespace Titanium {
         static removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
 
         /**
-         * Sends a message to the apple watch.
+         * Sends a message to the Apple Watch.
          */
         static sendMessage(message: any, reply?: (param0: MessageReply) => void): void;
 
@@ -61845,17 +65215,17 @@ declare namespace Titanium {
         static transferCurrentComplication(params: any): void;
 
         /**
-         * Transfers a file to the apple watch.
+         * Transfers a file to the Apple Watch.
          */
         static transferFile(params: any): void;
 
         /**
-         * Transfers an user info to the apple watch.
+         * Transfers an user info to the Apple Watch.
          */
         static transferUserInfo(params: any): void;
 
         /**
-         * Sends an app context update to the apple watch.
+         * Sends an app context update to the Apple Watch.
          */
         static updateApplicationContext(params: any): void;
     }
@@ -61908,11 +65278,15 @@ declare namespace Titanium {
          */
         static serializeToString(node: Titanium.XML.Node): string;
     }
+}
+/**
+ * Dictionary object of parameters.
+ */
+interface UserInfoDictionary {
     /**
-     * The top level Yahoo module.  The Yahoo module is used for accessing Yahoo related API services.
-     * @deprecated Use the standalone [Ti.Yahoo](https://github.com/appcelerator-modules/ti.yahoo) module instead.
+     * Show notification if app is in foreground
      */
-    const Yahoo: never;
+    showInForeground?: number;
 }
 /**
  * Provide at least the property `identifier` and `url` property to identify a local
@@ -62018,7 +65392,7 @@ interface UserNotificationDictionary {
     /**
      * Custom data object.
      */
-    userInfo?: any;
+    userInfo?: UserInfoDictionary;
 }
 /**
  * Dictionary object of parameters used to register the application with local notifications using
@@ -62028,7 +65402,7 @@ interface UserNotificationDictionary {
  */
 interface UserNotificationSettings {
     /**
-     * Set of categories of user notification actions required by the applicaiton to use.
+     * Set of categories of user notification actions required by the application to use.
      */
     categories?: Titanium.App.iOS.UserNotificationCategory[];
 
@@ -62061,7 +65435,7 @@ interface UserScriptParams {
  * Pass an object with the following key-value pairs:
  *   * `view` (Titanium.UI.View): View to insert
  *   * `position` (Number): Position in the [children](Titanium.UI.View.children) array of
- *     the view elment to replace.
+ *     the view element to replace.
  */
 interface ViewPositionOptions {
     /**
@@ -62174,31 +65548,6 @@ interface WriteStreamCallbackArgs extends ErrorResponse {
     toStream?: Titanium.IOStream;
 }
 /**
- * Properties passed to a yql callback to report a success or failure.
- */
-interface YQLResponse extends ErrorResponse {
-    /**
-     * Error code. Returns 0 if `success` is `true`.
-     */
-    code?: number;
-
-    /**
-     * The data payload received from the YQL.
-     */
-    data?: any;
-
-    /**
-     * Error message, if any returned.
-     */
-    error?: string;
-
-    /**
-     * Error message, if any returned. Use `error` instead
-     * @deprecated
-     */
-    message?: string;
-}
-/**
  * Dictionary of options for the <Titanium.UI.Window.close> method.
  */
 interface closeWindowParams {
@@ -62242,6 +65591,20 @@ interface daysOfTheWeekDictionary {
      * the range. 0 indicates the week number is irrelevant.
      */
     week?: number;
+}
+/**
+ * Dictionary of options for the <Titanium.UI.TabGroup.disableTabOptions> method.
+ */
+interface disableTabOptions {
+    /**
+     * Determines whether to use an animated effect to hide/show the navigation bar.
+     */
+    animated?: boolean;
+
+    /**
+     * Show or hide the navigation bar.
+     */
+    enabled?: boolean;
 }
 /**
  * Dictionary of options for the <Titanium.UI.OptionDialog.hide> method.

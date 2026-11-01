@@ -118,6 +118,12 @@ async function topLevel() {
         // field.
         const processor = new MediaStreamTrackProcessor({ track: generator });
 
+        // $ExpectType number
+        processor.discardedFrames;
+
+        // $ExpectType number
+        processor.totalFrames;
+
         // $ExpectType ReadableStreamDefaultReader<VideoFrame>
         const reader = processor.readable.getReader();
 

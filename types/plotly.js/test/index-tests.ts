@@ -61,6 +61,8 @@ const config: Partial<Config> = {
     modeBarButtonsToAdd: [
         "togglespikelines",
         "togglehover",
+        "drawrect",
+        "zoom",
         {
             name: "customButton",
             title: "Custom Action",
@@ -1657,4 +1659,12 @@ function rand() {
     };
 
     Plotly.newPlot("myDiv", data, layout);
+})();
+
+(() => {
+    const axis = {} as Plotly.LayoutAxis;
+    const dataPixel: number = axis.d2p(2.5);
+    const logPixel: number = axis.d2p(2.5, true);
+    const datePixel: number = axis.d2p("2024-01-01", undefined, "gregorian");
+    const linearizedPixel: number = axis.l2p(2.5);
 })();

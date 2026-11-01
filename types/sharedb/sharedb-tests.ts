@@ -351,6 +351,13 @@ const op1 = [{ insert: "Hello" }];
 const op2 = [{ retain: 5 }, { insert: " world!" }];
 const op3 = ShareDBClient.types.map["rich-text"].compose(op1, op2);
 
+// An EditOp's `op` belongs to the document's OT type; sharedb core is agnostic
+// to its shape. Most types (json0, ot-text, rich-text) use arrays, but a type
+// may serialize its op to an object instead — so `op` is `any`, not `any[]`.
+const arrayEditOp: ShareDB.EditOp = { op: [{ p: ["numClicks"], na: 1 }] };
+const objectEditOp: ShareDB.EditOp = { op: { ops: [{ retain: 5 }, { insert: " world!" }] } };
+console.log(arrayEditOp.op, objectEditOp.op);
+
 ShareDB.logger.setMethods({
     warn: (...args: any[]) => console.log(...args),
 });

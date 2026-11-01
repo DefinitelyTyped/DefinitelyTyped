@@ -4,6 +4,7 @@ import MarkdownItContainer = require("markdown-it-container");
 
 const md = new MarkdownIt();
 
+md.use(MarkdownItContainer, "spoiler");
 md.use(MarkdownItContainer, "spoiler", {
     validate: (params: string) => params.trim().match(/^spoiler\s+(.*)$/),
     render: (tokens: MarkdownIt.Token[], index: number) => {

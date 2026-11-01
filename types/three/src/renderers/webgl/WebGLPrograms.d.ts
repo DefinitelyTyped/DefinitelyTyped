@@ -66,7 +66,11 @@ export interface WebGLProgramParameters {
     clearcoatNormalMap: boolean;
     clearcoatRoughnessMap: boolean;
 
+    diffuseRoughness: boolean;
+    diffuseRoughnessMap: boolean;
+
     dispersion: boolean;
+    retroreflection: boolean;
 
     iridescence: boolean;
     iridescenceMap: boolean;
@@ -112,6 +116,7 @@ export interface WebGLProgramParameters {
     clearcoatMapUv: string | false;
     clearcoatNormalMapUv: string | false;
     clearcoatRoughnessMapUv: string | false;
+    diffuseRoughnessMapUv: string | false;
 
     iridescenceMapUv: string | false;
     iridescenceThicknessMapUv: string | false;
@@ -160,6 +165,7 @@ export interface WebGLProgramParameters {
     morphTargetsCount: number;
     morphTextureStride: number;
 
+    numSunLights: number;
     numDirLights: number;
     numPointLights: number;
     numSpotLights: number;
@@ -167,6 +173,7 @@ export interface WebGLProgramParameters {
     numRectAreaLights: number;
     numHemiLights: number;
 
+    numSunLightShadows: number;
     numDirLightShadows: number;
     numPointLightShadows: number;
     numSpotLightShadows: number;

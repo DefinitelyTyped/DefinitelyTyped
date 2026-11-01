@@ -1,6 +1,6 @@
-import { Node, TempNode } from "three/webgpu";
+import { Node } from "three/webgpu";
 
-declare class FilmNode extends TempNode {
+declare class FilmNode extends Node {
     inputNode: Node;
     intensityNode: Node | null;
     uvNode: Node | null;

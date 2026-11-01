@@ -32,7 +32,7 @@ export namespace Scripting {
          * This means that any bound parameters and execution context will be lost. Exactly one of <code>files</code> and <code>
          * func</code> must be specified.
          *
-         * @param ...args The arguments
+         * @param args The arguments
          * @returns The return value
          */
         func?(...args: unknown[]): unknown;
@@ -58,6 +58,11 @@ export namespace Scripting {
      * Result of a script injection.
      */
     interface InjectionResult {
+        /**
+         * The document associated with the injection.
+         */
+        documentId: string;
+
         /**
          * The frame ID associated with the injection.
          */
@@ -106,6 +111,13 @@ export namespace Scripting {
          * The ID of the tab into which to inject.
          */
         tabId: number;
+
+        /**
+         * The IDs of specific documents to inject into. This must not be set if <code>frameIds</code> or <code>allFrames</code>
+         * is set.
+         * Optional.
+         */
+        documentIds?: string[];
     }
 
     interface CSSInjection {

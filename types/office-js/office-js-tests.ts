@@ -108,7 +108,69 @@ function test_excel() {
     }).catch(console.log);
 }
 
+function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: Excel.Range) {
+    // $ExpectType void
+    series.setBubbleSizes(range);
+    // $ExpectType void
+    series.setBubbleSizes("=Sheet1!$C$2:$C$4");
+    // $ExpectType void
+    series.setValues(range);
+    // $ExpectType void
+    series.setValues("=Sheet1!$B$2:$B$4");
+    // $ExpectType void
+    series.setXAxisValues(range);
+    // $ExpectType void
+    series.setXAxisValues("=Sheet1!$A$2:$A$4");
+    series.setXAxisValues("");
+    series.setXAxisValues("=");
+
+    // @ts-expect-error
+    series.setBubbleSizes(42);
+    // @ts-expect-error
+    series.setBubbleSizes([1, 2]);
+    // @ts-expect-error
+    series.setValues(42);
+    // @ts-expect-error
+    series.setXAxisValues(["A", "B"]);
+}
+
+function test_excel_recent_apis(functions: Excel.Functions) {
+    const dateValueResult: Excel.FunctionResult<number> = functions.datevalue(1);
+
+    const linkedEntityEventType: Excel.EventType = Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+    const linkedEntityEventTypeValue: "LinkedEntityDataDomainLinkedEntityCellValueLoaded" =
+        Excel.EventType.linkedEntityDataDomainLinkedEntityCellValueLoaded;
+
+    const dirtySupportingFormulaErrorCode: Excel.ErrorCodes = Excel.ErrorCodes.dirtySupportingFormula;
+    const dirtySupportingFormulaErrorCodeValue: "DirtySupportingFormula" = Excel.ErrorCodes.dirtySupportingFormula;
+
+    const blockedError: Excel.BlockedErrorCellValue = {
+        type: "Error",
+        errorSubType: "PythonUnsupportedOnThisPlatform",
+    };
+    const busyError: Excel.BusyErrorCellValue = { type: "Error", errorSubType: "PlaceholderInFormula" };
+    const calcError: Excel.CalcErrorCellValue = { type: "Error", errorSubType: "UnexpectedReturnValue" };
+    const connectError: Excel.ConnectErrorCellValue = {
+        type: "Error",
+        errorSubType: "ExternalCodeServiceRuntimeNotFound",
+    };
+    const refError: Excel.RefErrorCellValue = { type: "Error", errorSubType: "CorruptCellRef" };
+    const valueError: Excel.ValueErrorCellValue = { type: "Error", errorSubType: "TranslateUnsupportedTargetLanguage" };
+}
+
 function test_word() {
+    const annotationAddedEventType: Word.EventType = Word.EventType.annotationAdded;
+    const annotationAddedEventTypeValue: "AnnotationAdded" = Word.EventType.annotationAdded;
+    const annotationChangedEventType: Word.EventType = Word.EventType.annotationChanged;
+    const annotationChangedEventTypeValue: "AnnotationChanged" = Word.EventType.annotationChanged;
+    const annotationDeletedEventType: Word.EventType = Word.EventType.annotationDeleted;
+    const annotationDeletedEventTypeValue: "AnnotationDeleted" = Word.EventType.annotationDeleted;
+
+    const annotationEventArgs: Word.ContentControlAddedEventArgs = {
+        eventType: "AnnotationAdded",
+        ids: [],
+        source: "Local",
+    };
 
     // Search
     Word.run(function (context) {

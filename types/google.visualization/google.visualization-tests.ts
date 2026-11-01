@@ -17,6 +17,14 @@ function test_arrayToDataTable() {
     var dataTable = google.visualization.arrayToDataTable(array);
 }
 
+function test_setChartWrapperDataTable() {
+    const chartWrapper = new google.visualization.ChartWrapper();
+    const dataTable = test_ctorDataTable();
+
+    chartWrapper.setDataTable(dataTable);
+    chartWrapper.setDataTable(null);
+}
+
 function test_ctorDataTable() {
     var dataTable = new google.visualization.DataTable();
     return dataTable;

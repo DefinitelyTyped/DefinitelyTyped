@@ -3174,7 +3174,7 @@ declare class Tabulator {
     getFilters: (includeHeaderFilters?: boolean) => Filter[];
 
     /** You can programmatically set the header filter value of a column by calling the setHeaderFilterValue function, This function takes any of the standard column component look up options as its first parameter, with the value for the header filter as the second option. */
-    setHeaderFilterValue: (column: ColumnLookup, value: string) => void;
+    setHeaderFilterValue: (column: ColumnLookup, value: string | string[]) => void;
 
     /** You can programmatically set the focus on a header filter element by calling the setHeaderFilterFocus function, This function takes any of the standard column component look up options as its first parameter. */
     setHeaderFilterFocus: (column: ColumnLookup) => void;

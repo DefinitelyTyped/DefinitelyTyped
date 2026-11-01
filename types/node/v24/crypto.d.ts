@@ -615,30 +615,24 @@ declare module "crypto" {
          */
         asymmetricKeyDetails?: AsymmetricKeyDetails;
         /**
-         * For symmetric keys, the following encoding options can be used:
-         *
-         * For public keys, the following encoding options can be used:
-         *
-         * For private keys, the following encoding options can be used:
-         *
          * The result type depends on the selected encoding format, when PEM the
          * result is a string, when DER it will be a buffer containing the data
-         * encoded as DER, when [JWK](https://tools.ietf.org/html/rfc7517) it will be an object.
+         * encoded as DER, when [JWK](https://tools.ietf.org/html/rfc7517) it will be an object. Raw formats return a
+         * `Buffer` containing the raw key material.
          *
-         * When [JWK](https://tools.ietf.org/html/rfc7517) encoding format was selected, all other encoding options are
-         * ignored.
-         *
-         * PKCS#1, SEC1, and PKCS#8 type keys can be encrypted by using a combination of
-         * the `cipher` and `format` options. The PKCS#8 `type` can be used with any`format` to encrypt any key algorithm (RSA, EC, or DH) by specifying a`cipher`. PKCS#1 and SEC1 can only be
-         * encrypted by specifying a `cipher`when the PEM `format` is used. For maximum compatibility, use PKCS#8 for
-         * encrypted private keys. Since PKCS#8 defines its own
-         * encryption mechanism, PEM-level encryption is not supported when encrypting
-         * a PKCS#8 key. See [RFC 5208](https://www.rfc-editor.org/rfc/rfc5208.txt) for PKCS#8 encryption and [RFC 1421](https://www.rfc-editor.org/rfc/rfc1421.txt) for
-         * PKCS#1 and SEC1 encryption.
+         * Private keys can be encrypted by specifying a `cipher` and `passphrase`.
+         * The PKCS#8 `type` supports encryption with both PEM and DER `format` for any
+         * key algorithm. PKCS#1 and SEC1 can only be encrypted when the PEM `format` is
+         * used. For maximum compatibility, use PKCS#8 for encrypted private keys. Since
+         * PKCS#8 defines its own encryption mechanism, PEM-level encryption is not
+         * supported when encrypting a PKCS#8 key. See [RFC 5208](https://www.rfc-editor.org/rfc/rfc5208.txt) for PKCS#8 encryption
+         * and [RFC 1421](https://www.rfc-editor.org/rfc/rfc1421.txt) for PKCS#1 and SEC1 encryption.
          * @since v11.6.0
          */
         export(options: KeyExportOptions<"pem">): string | NonSharedBuffer;
-        export(options?: KeyExportOptions<"der">): NonSharedBuffer;
+        export(
+            options?: KeyExportOptions<"der"> | { format: "raw-public" | "raw-private" | "raw-seed" },
+        ): NonSharedBuffer;
         export(options?: JwkKeyExportOptions): JsonWebKey;
         /**
          * Returns `true` or `false` depending on whether the keys have exactly the same
@@ -1203,16 +1197,28 @@ declare module "crypto" {
     }
     interface PrivateKeyInput {
         key: string | Buffer;
-        format?: KeyFormat | undefined;
+        format?: "pem" | "der" | undefined;
         type?: "pkcs1" | "pkcs8" | "sec1" | undefined;
         passphrase?: string | Buffer | undefined;
         encoding?: string | undefined;
     }
+    interface RawPrivateKeyInput {
+        key: Buffer;
+        format: "raw-private" | "raw-seed";
+        asymmetricKeyType: KeyType;
+        namedCurve?: string | undefined;
+    }
     interface PublicKeyInput {
         key: string | Buffer;
-        format?: KeyFormat | undefined;
+        format?: "pem" | "der" | undefined;
         type?: "pkcs1" | "spki" | undefined;
         encoding?: string | undefined;
+    }
+    interface RawPublicKeyInput {
+        key: Buffer;
+        format: "raw-public";
+        asymmetricKeyType: KeyType;
+        namedCurve?: string | undefined;
     }
     /**
      * Asynchronously generates a new random secret key of the given `length`. The `type` will determine which validations will be performed on the `length`.
@@ -1275,7 +1281,14 @@ declare module "crypto" {
      * of the passphrase is limited to 1024 bytes.
      * @since v11.6.0
      */
-    function createPrivateKey(key: PrivateKeyInput | string | Buffer | JsonWebKeyInput): KeyObject;
+    function createPrivateKey(
+        key:
+            | PrivateKeyInput
+            | RawPrivateKeyInput
+            | JsonWebKeyInput
+            | string
+            | NodeJS.ArrayBufferView,
+    ): KeyObject;
     /**
      * Creates and returns a new key object containing a public key. If `key` is a
      * string or `Buffer`, `format` is assumed to be `'pem'`; if `key` is a `KeyObject` with type `'private'`, the public key is derived from the given private key;
@@ -1290,7 +1303,15 @@ declare module "crypto" {
      * and it will be impossible to extract the private key from the returned object.
      * @since v11.6.0
      */
-    function createPublicKey(key: PublicKeyInput | string | Buffer | KeyObject | JsonWebKeyInput): KeyObject;
+    function createPublicKey(
+        key:
+            | PublicKeyInput
+            | RawPublicKeyInput
+            | JsonWebKeyInput
+            | string
+            | NodeJS.ArrayBufferView
+            | KeyObject,
+    ): KeyObject;
     /**
      * Creates and returns a new key object containing a secret key for symmetric
      * encryption or `Hmac`.
@@ -1324,15 +1345,17 @@ declare module "crypto" {
         context?: ArrayBuffer | NodeJS.ArrayBufferView | undefined;
     }
     interface SignPrivateKeyInput extends PrivateKeyInput, SigningOptions {}
+    interface SignRawPrivateKeyInput extends RawPrivateKeyInput, SigningOptions {}
+    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface SignKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface SignJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyPublicKeyInput extends PublicKeyInput, SigningOptions {}
+    interface VerifyRawPublicKeyInput extends RawPublicKeyInput, SigningOptions {}
+    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     interface VerifyKeyObjectInput extends SigningOptions {
         key: KeyObject;
     }
-    interface VerifyJsonWebKeyInput extends JsonWebKeyInput, SigningOptions {}
     type KeyLike = string | Buffer | KeyObject;
     /**
      * The `Sign` class is a utility for generating signatures. It can be used in one
@@ -1423,9 +1446,21 @@ declare module "crypto" {
          * called. Multiple calls to `sign.sign()` will result in an error being thrown.
          * @since v0.1.92
          */
-        sign(privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput): NonSharedBuffer;
         sign(
-            privateKey: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
+            privateKey:
+                | KeyLike
+                | SignKeyObjectInput
+                | SignPrivateKeyInput
+                | SignRawPrivateKeyInput
+                | SignJsonWebKeyInput,
+        ): NonSharedBuffer;
+        sign(
+            privateKey:
+                | KeyLike
+                | SignKeyObjectInput
+                | SignPrivateKeyInput
+                | SignRawPrivateKeyInput
+                | SignJsonWebKeyInput,
             outputFormat: BinaryToTextEncoding,
         ): string;
     }
@@ -1472,9 +1507,9 @@ declare module "crypto" {
         update(data: BinaryLike): Verify;
         update(data: string, inputEncoding: Encoding): Verify;
         /**
-         * Verifies the provided data using the given `object` and `signature`.
+         * Verifies the provided data using the given `key` and `signature`.
          *
-         * If `object` is not a `KeyObject`, this function behaves as if `object` had been passed to {@link createPublicKey}. If it is an
+         * If `key` is not a `KeyObject`, this function behaves as if `key` had been passed to {@link createPublicKey}. If it is an
          * object, the following additional properties can be passed:
          *
          * The `signature` argument is the previously calculated signature for the data, in
@@ -1491,13 +1526,23 @@ declare module "crypto" {
          * @since v0.1.92
          */
         verify(
-            object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
+            key:
+                | KeyLike
+                | VerifyKeyObjectInput
+                | VerifyPublicKeyInput
+                | VerifyRawPublicKeyInput
+                | VerifyJsonWebKeyInput,
             signature: NodeJS.ArrayBufferView,
         ): boolean;
         verify(
-            object: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
+            object:
+                | KeyLike
+                | VerifyKeyObjectInput
+                | VerifyPublicKeyInput
+                | VerifyRawPublicKeyInput
+                | VerifyJsonWebKeyInput,
             signature: string,
-            signature_format?: BinaryToTextEncoding,
+            signatureEncoding?: BinaryToTextEncoding,
         ): boolean;
     }
     /**
@@ -1577,8 +1622,10 @@ declare module "crypto" {
          * If `encoding` is provided a string is returned; otherwise a `Buffer` is returned.
          *
          * This function is a thin wrapper around [`DH_generate_key()`](https://www.openssl.org/docs/man3.0/man3/DH_generate_key.html). In particular,
-         * once a private key has been generated or set, calling this function only updates
-         * the public key but does not generate a new private key.
+         * once a private key has been generated or set, calling this function only
+         * recomputes the public key from the existing private key. Since the public key is
+         * determined by the private key, the result will be the same unless the private key
+         * has been changed via `diffieHellman.setPrivateKey()`.
          * @since v0.5.0
          * @param encoding The `encoding` of the return value.
          */
@@ -2496,7 +2543,7 @@ declare module "crypto" {
         | "slh-dsa-shake-256s"
         | "x25519"
         | "x448";
-    type KeyFormat = "pem" | "der" | "jwk";
+    type KeyFormat = "pem" | "der" | "jwk" | "raw-public" | "raw-private" | "raw-seed";
     interface BasePrivateKeyEncodingOptions<T extends KeyFormat> {
         format: T;
         cipher?: string | undefined;
@@ -3859,11 +3906,11 @@ declare module "crypto" {
      * @since v24.7.0
      */
     function decapsulate(
-        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
+        key: KeyLike | PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput,
         ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
     ): NonSharedBuffer;
     function decapsulate(
-        key: KeyLike | PrivateKeyInput | JsonWebKeyInput,
+        key: KeyLike | PrivateKeyInput | RawPrivateKeyInput | JsonWebKeyInput,
         ciphertext: ArrayBuffer | NodeJS.ArrayBufferView,
         callback: (err: Error, sharedKey: NonSharedBuffer) => void,
     ): void;
@@ -3875,9 +3922,11 @@ declare module "crypto" {
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v13.9.0, v12.17.0
      */
-    function diffieHellman(options: { privateKey: KeyObject; publicKey: KeyObject }): NonSharedBuffer;
     function diffieHellman(
-        options: { privateKey: KeyObject; publicKey: KeyObject },
+        options: { privateKey: KeyLike | PrivateKeyInput; publicKey: KeyLike | PublicKeyInput },
+    ): NonSharedBuffer;
+    function diffieHellman(
+        options: { privateKey: KeyLike | PrivateKeyInput; publicKey: KeyLike | PublicKeyInput },
         callback: (err: Error | null, secret: NonSharedBuffer) => void,
     ): void;
     /**
@@ -3900,10 +3949,10 @@ declare module "crypto" {
      * @since v24.7.0
      */
     function encapsulate(
-        key: KeyLike | PublicKeyInput | JsonWebKeyInput,
+        key: KeyLike | PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput,
     ): { sharedKey: NonSharedBuffer; ciphertext: NonSharedBuffer };
     function encapsulate(
-        key: KeyLike | PublicKeyInput | JsonWebKeyInput,
+        key: KeyLike | PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput,
         callback: (err: Error, result: { sharedKey: NonSharedBuffer; ciphertext: NonSharedBuffer }) => void,
     ): void;
     interface OneShotDigestOptions {
@@ -4127,6 +4176,7 @@ declare module "crypto" {
          */
         disableEntropyCache?: boolean | undefined;
     }
+    interface RandomUUIDV7Options extends RandomUUIDOptions {}
     type UUID = `${string}-${string}-${string}-${string}-${string}`;
     /**
      * Generates a random [RFC 4122](https://www.rfc-editor.org/rfc/rfc4122.txt) version 4 UUID. The UUID is generated using a
@@ -4134,6 +4184,14 @@ declare module "crypto" {
      * @since v15.6.0, v14.17.0
      */
     function randomUUID(options?: RandomUUIDOptions): UUID;
+    /**
+     * Generates a random [RFC 9562](https://www.rfc-editor.org/rfc/rfc9562.txt) version 7 UUID. The UUID contains a millisecond
+     * precision Unix timestamp in the most significant 48 bits, followed by
+     * cryptographically secure random bits for the remaining fields, making it
+     * suitable for use as a database key with time-based sorting.
+     * @since v24.16.0
+     */
+    function randomUUIDv7(options?: RandomUUIDV7Options): UUID;
     interface X509CheckOptions {
         /**
          * @default 'always'
@@ -4639,7 +4697,6 @@ declare module "crypto" {
      * ```
      * @since v24.7.0
      * @param algorithm Variant of Argon2, one of `"argon2d"`, `"argon2i"` or `"argon2id"`.
-     * @experimental
      */
     function argon2(
         algorithm: Argon2Algorithm,
@@ -4679,7 +4736,6 @@ declare module "crypto" {
      * console.log(derivedKey.toString('hex'));  // 'af91dad...9520f15'
      * ```
      * @since v24.7.0
-     * @experimental
      */
     function argon2Sync(algorithm: Argon2Algorithm, parameters: Argon2Parameters): NonSharedBuffer;
     /**
@@ -4758,7 +4814,7 @@ declare module "crypto" {
         interface CShakeParams extends Algorithm {
             customization?: BufferSource;
             functionName?: BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface ContextParams extends Algorithm {
             context?: BufferSource;
@@ -4795,6 +4851,10 @@ declare module "crypto" {
             hash: HashAlgorithmIdentifier;
             length?: number;
         }
+        interface KangarooTwelveParams extends Algorithm {
+            customization?: BufferSource;
+            outputLength: number;
+        }
         interface JsonWebKey {
             alg?: string;
             crv?: string;
@@ -4829,7 +4889,7 @@ declare module "crypto" {
         }
         interface KmacParams extends Algorithm {
             customization?: BufferSource;
-            length: number;
+            outputLength: number;
         }
         interface Pbkdf2Params extends Algorithm {
             hash: HashAlgorithmIdentifier;
@@ -4863,6 +4923,10 @@ declare module "crypto" {
         }
         interface RsaPssParams extends Algorithm {
             saltLength: number;
+        }
+        interface TurboShakeParams extends Algorithm {
+            domainSeparation?: number;
+            outputLength: number;
         }
         /**
          * Importing the `webcrypto` object (`import { webcrypto } from 'node:crypto'`) gives an instance of the `Crypto` class.
@@ -4997,7 +5061,7 @@ declare module "crypto" {
                 ciphertext: BufferSource,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             /**
              * Using the method and parameters specified in `algorithm` and the keying material provided by `key`,
@@ -5095,7 +5159,10 @@ declare module "crypto" {
              * If `algorithm` is provided as an `<Object>`, it must have a `name` property whose value is one of the above.
              * @since v15.0.0
              */
-            digest(algorithm: AlgorithmIdentifier | CShakeParams, data: BufferSource): Promise<ArrayBuffer>;
+            digest(
+                algorithm: AlgorithmIdentifier | CShakeParams | TurboShakeParams | KangarooTwelveParams,
+                data: BufferSource,
+            ): Promise<ArrayBuffer>;
             /**
              * Uses a message recipient's asymmetric public key to encrypt a temporary symmetric key.
              * This encrypted key is the "encapsulated key" represented as `EncapsulatedBits`.
@@ -5130,7 +5197,7 @@ declare module "crypto" {
                 encapsulationKey: CryptoKey,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<EncapsulatedKey>;
             /**
              * Using the method and parameters specified by `algorithm` and the keying material provided by `key`,

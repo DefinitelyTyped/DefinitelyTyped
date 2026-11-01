@@ -30,9 +30,4 @@ export class AxesHelper extends LineSegments {
         yAxisColor: ColorRepresentation,
         zAxisColor: ColorRepresentation,
     ): AxesHelper;
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

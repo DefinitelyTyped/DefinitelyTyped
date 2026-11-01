@@ -5,7 +5,8 @@ declare namespace SafariTypes {
         url: string;
         entersReader?: boolean;
         height?: number;
-        handler?: () => void; // callback to handle dismiss event
+        /** callback to handle dismiss event */
+        handler?: () => void;
     }
 
     interface ReadingItemOptions {
@@ -17,8 +18,10 @@ declare namespace SafariTypes {
 
 interface JBSafari {
     open(options: SafariTypes.OpenOptions): void;
-    items: any; // JSON format
-    inject(script: string): void; // Deprecated
+    /** JSON format */
+    items: Record<string, any>;
+    /** @deprecated */
+    inject(script: string): void;
     addReadingItem(options: SafariTypes.ReadingItemOptions): void;
 }
 

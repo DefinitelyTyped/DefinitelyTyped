@@ -1,0 +1,21 @@
+{
+    "private": true,
+    "name": "@types/sails-mongo",
+    "version": "2.1.9999",
+    "projects": [
+        "https://github.com/balderdashy/sails-mongo#readme"
+    ],
+    "dependencies": {
+        "@types/node": "*",
+        "mongodb": "^6.3.0"
+    },
+    "devDependencies": {
+        "@types/sails-mongo": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Romuald Nave",
+            "githubUsername": "romualdnave"
+        }
+    ]
+}

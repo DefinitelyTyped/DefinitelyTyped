@@ -1,4 +1,4 @@
-// For Library Version: 1.149.0
+// For Library Version: 1.153.0
 
 declare module "sap/ui/unified/library" {
   /**
@@ -1114,6 +1114,21 @@ declare module "sap/ui/unified/Calendar" {
      */
     getShowWeekNumbers(): boolean;
     /**
+     * Gets current value of property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Value of property `showWeekNumbersHeader`
+     */
+    getShowWeekNumbersHeader(): boolean;
+    /**
      * Gets current value of property {@link #getSingleSelection singleSelection}.
      *
      * Determines if a single date or single interval, when `intervalSelection` is set to `true`, can be selected.
@@ -1568,6 +1583,28 @@ declare module "sap/ui/unified/Calendar" {
       bShowWeekNumbers?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowWeekNumbersHeader(
+      /**
+       * New value for property `showWeekNumbersHeader`
+       */
+      bShowWeekNumbersHeader?: boolean
+    ): this;
+    /**
      * Setter for the property `singleSelection`. If set to `true` only a single date or single interval, when
      * `intervalSelection` is set to `true`, can be selected.
      *
@@ -1729,6 +1766,16 @@ declare module "sap/ui/unified/Calendar" {
      * @since 1.48
      */
     showWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * @since 1.151
+     */
+    showWeekNumbersHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Determines whether there is a shortcut navigation to Today. When used in Month, Year or Year-range picker
@@ -3984,6 +4031,21 @@ declare module "sap/ui/unified/calendar/Month" {
      */
     getShowWeekNumbers(): boolean;
     /**
+     * Gets current value of property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Value of property `showWeekNumbersHeader`
+     */
+    getShowWeekNumbersHeader(): boolean;
+    /**
      * Gets current value of property {@link #getSingleSelection singleSelection}.
      *
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
@@ -4403,6 +4465,28 @@ declare module "sap/ui/unified/calendar/Month" {
       bShowWeekNumbers?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getShowWeekNumbersHeader showWeekNumbersHeader}.
+     *
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     * @since 1.151
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setShowWeekNumbersHeader(
+      /**
+       * New value for property `showWeekNumbersHeader`
+       */
+      bShowWeekNumbersHeader?: boolean
+    ): this;
+    /**
      * Sets a new value for property {@link #getSingleSelection singleSelection}.
      *
      * If set, only a single date or interval, if intervalSelection is enabled, can be selected
@@ -4518,6 +4602,16 @@ declare module "sap/ui/unified/calendar/Month" {
      * @since 1.48
      */
     showWeekNumbers?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines whether the header of the week numbers column is displayed. The column header text is translated
+     * according to the active language.
+     *
+     * **Note:** Takes effect only when `showWeekNumbers` is set to `true`.
+     *
+     * @since 1.151
+     */
+    showWeekNumbersHeader?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * If set, the calendar week numbering is used for display. If not set, the calendar week numbering of the
@@ -7713,7 +7807,7 @@ declare module "sap/ui/unified/CalendarAppointment" {
     $DateTypeRangeSettings,
   } from "sap/ui/unified/DateTypeRange";
 
-  import { ID, CSSColor, URI } from "sap/ui/core/library";
+  import { ID, aria, CSSColor, URI } from "sap/ui/core/library";
 
   import Control from "sap/ui/core/Control";
 
@@ -7828,6 +7922,27 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @returns Reference to `this` in order to allow method chaining
      */
     destroyCustomContent(): this;
+    /**
+     * Gets current value of property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * If the value is `None`, the attribute will not be rendered. Otherwise it will be rendered with the selected
+     * value.
+     *
+     * NOTE: Use this property only when an `sap.ui.unified.CalendarAppointment` instance is active and related
+     * to a popover/popup. The value needs to be equal to the main/root role of the popup - e.g. dialog, menu
+     * or list (examples: if you have dialog -> dialog, if you have menu -> menu; if you have list -> list;
+     * if you have dialog containing a list -> dialog). Do not use it, if you open a standard sap.m.Dialog,
+     * MessageBox or other type of modal dialogs.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.150.0
+     *
+     * @returns Value of property `ariaHasPopup`
+     */
+    getAriaHasPopup(): aria.HasPopup;
     /**
      * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
      */
@@ -8011,6 +8126,34 @@ declare module "sap/ui/unified/CalendarAppointment" {
        */
       vCustomContent: int | string | Control
     ): Control | null;
+    /**
+     * Sets a new value for property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * If the value is `None`, the attribute will not be rendered. Otherwise it will be rendered with the selected
+     * value.
+     *
+     * NOTE: Use this property only when an `sap.ui.unified.CalendarAppointment` instance is active and related
+     * to a popover/popup. The value needs to be equal to the main/root role of the popup - e.g. dialog, menu
+     * or list (examples: if you have dialog -> dialog, if you have menu -> menu; if you have list -> list;
+     * if you have dialog containing a list -> dialog). Do not use it, if you open a standard sap.m.Dialog,
+     * MessageBox or other type of modal dialogs.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.150.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAriaHasPopup(
+      /**
+       * New value for property `ariaHasPopup`
+       */
+      sAriaHasPopup?: aria.HasPopup | keyof typeof aria.HasPopup
+    ): this;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -8199,6 +8342,25 @@ declare module "sap/ui/unified/CalendarAppointment" {
      * @since 1.46.0
      */
     color?: CSSColor | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Specifies the value of the `aria-haspopup` attribute
+     *
+     * If the value is `None`, the attribute will not be rendered. Otherwise it will be rendered with the selected
+     * value.
+     *
+     * NOTE: Use this property only when an `sap.ui.unified.CalendarAppointment` instance is active and related
+     * to a popover/popup. The value needs to be equal to the main/root role of the popup - e.g. dialog, menu
+     * or list (examples: if you have dialog -> dialog, if you have menu -> menu; if you have list -> list;
+     * if you have dialog containing a list -> dialog). Do not use it, if you open a standard sap.m.Dialog,
+     * MessageBox or other type of modal dialogs.
+     *
+     * @since 1.150.0
+     */
+    ariaHasPopup?:
+      | (aria.HasPopup | keyof typeof aria.HasPopup)
+      | PropertyBindingInfo
+      | `{${string}}`;
 
     /**
      * Holds the content of the appointment.
@@ -14594,7 +14756,7 @@ declare module "sap/ui/unified/DateTypeRange" {
     $DateRangeSettings,
   } from "sap/ui/unified/DateRange";
 
-  import { CSSColor } from "sap/ui/core/library";
+  import { aria, CSSColor } from "sap/ui/core/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -14671,6 +14833,24 @@ declare module "sap/ui/unified/DateTypeRange" {
      */
     static getMetadata(): ElementMetadata;
     /**
+     * Gets current value of property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Defines the value of the `aria-haspopup` attribute of the day cell.
+     *
+     * **Note:** Use this property only when the cell is related to a popover/popup. The value should be equal
+     * to the main/root role of the popup.
+     *
+     * **Note:** Setting `type` to `sap.ui.unified.CalendarDayType.None` together with this property allows
+     * adding the attribute without any visual marking.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.152.0
+     *
+     * @returns Value of property `ariaHasPopup`
+     */
+    getAriaHasPopup(): aria.HasPopup;
+    /**
      * Gets current value of property {@link #getColor color}.
      *
      * Background color of the `Calendar` `specialDates` aggregation. If set, this color will override the default
@@ -14705,6 +14885,31 @@ declare module "sap/ui/unified/DateTypeRange" {
      * @returns Value of property `type`
      */
     getType(): CalendarDayType;
+    /**
+     * Sets a new value for property {@link #getAriaHasPopup ariaHasPopup}.
+     *
+     * Defines the value of the `aria-haspopup` attribute of the day cell.
+     *
+     * **Note:** Use this property only when the cell is related to a popover/popup. The value should be equal
+     * to the main/root role of the popup.
+     *
+     * **Note:** Setting `type` to `sap.ui.unified.CalendarDayType.None` together with this property allows
+     * adding the attribute without any visual marking.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     * @since 1.152.0
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setAriaHasPopup(
+      /**
+       * New value for property `ariaHasPopup`
+       */
+      sAriaHasPopup?: aria.HasPopup | keyof typeof aria.HasPopup
+    ): this;
     /**
      * Sets a new value for property {@link #getColor color}.
      *
@@ -14792,6 +14997,22 @@ declare module "sap/ui/unified/DateTypeRange" {
      * @since 1.76.0
      */
     color?: CSSColor | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the value of the `aria-haspopup` attribute of the day cell.
+     *
+     * **Note:** Use this property only when the cell is related to a popover/popup. The value should be equal
+     * to the main/root role of the popup.
+     *
+     * **Note:** Setting `type` to `sap.ui.unified.CalendarDayType.None` together with this property allows
+     * adding the attribute without any visual marking.
+     *
+     * @since 1.152.0
+     */
+    ariaHasPopup?:
+      | (aria.HasPopup | keyof typeof aria.HasPopup)
+      | PropertyBindingInfo
+      | `{${string}}`;
   }
 }
 
@@ -20974,8 +21195,7 @@ declare module "sap/ui/unified/RecurringCalendarAppointment" {
    *
    * @experimental As of version 1.149.
    */
-  export interface $RecurringCalendarAppointmentSettings
-    extends $CalendarAppointmentSettings {
+  export interface $RecurringCalendarAppointmentSettings extends $CalendarAppointmentSettings {
     /**
      * The recurrence type (Daily, Weekly, Monthly, Yearly).
      */
@@ -21251,8 +21471,7 @@ declare module "sap/ui/unified/RecurringNonWorkingPeriod" {
    *
    * @experimental As of version 1.127.0.
    */
-  export interface $RecurringNonWorkingPeriodSettings
-    extends $NonWorkingPeriodSettings {
+  export interface $RecurringNonWorkingPeriodSettings extends $NonWorkingPeriodSettings {
     /**
      * The recurrenceType determines the pattern of recurrence for a given calendar item.
      */

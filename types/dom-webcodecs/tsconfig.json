@@ -3,6 +3,7 @@
         "module": "node16",
         "lib": [
             "es6",
+            "es2017.sharedmemory",
             "dom"
         ],
         "noImplicitAny": true,

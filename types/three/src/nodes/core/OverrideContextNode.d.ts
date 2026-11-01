@@ -1,3 +1,4 @@
+import { NodeShaderStage } from "./constants.js";
 import ContextNode from "./ContextNode.js";
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
@@ -24,8 +25,13 @@ declare class OverrideContextNode extends ContextNode<unknown> {
      *
      * @param {Map<Node, Function>} overrideNodes - A map mapping target nodes to their respective override callback functions.
      * @param {Node|null} [flowNode=null] - The node whose context should be modified.
+     * @param {?string} [shaderStage=null] - The shader stage the overrides apply to, all stages by default.
      */
-    constructor(overrideNodes: Map<Node, (nodeBuilder: NodeBuilder) => Node>, flowNode?: Node | null);
+    constructor(
+        overrideNodes: Map<Node, (nodeBuilder: NodeBuilder) => Node>,
+        flowNode?: Node | null,
+        shaderStage?: NodeShaderStage | null,
+    );
     /**
      * This flag can be used for type testing.
      *
@@ -72,6 +78,8 @@ export function overrideNode(
  * @function
  * @param {Map<Node, (Function|Node)>|Array<Array<Node|Function|Node>>} overrides - The overrides mapping target nodes to callback functions or overriding nodes.
  * @param {Node|null} [flowNode=null] - The node whose context should be modified.
+ * @param {?string} [shaderStage=null] - The shader stage the overrides apply to, all stages by default. With fragment overrides,
+ * all varyings of the context are evaluated in the fragment stage, e.g. if the surface is reconstructed per fragment.
  * @return {OverrideContextNode} The created override context node.
  */
 export function overrideNodes(
@@ -79,6 +87,7 @@ export function overrideNodes(
         | Map<Node, ((nodeBuilder: NodeBuilder) => Node) | Node | null>
         | Array<[Node, ((nodeBuilder: NodeBuilder) => Node) | Node | null]>,
     flowNode?: Node | null,
+    shaderStage?: NodeShaderStage | null,
 ): OverrideContextNode;
 
 declare module "./Node.js" {
@@ -87,6 +96,7 @@ declare module "./Node.js" {
             overrides:
                 | Map<Node, ((nodeBuilder: NodeBuilder) => Node) | Node | null>
                 | Array<[Node, ((nodeBuilder: NodeBuilder) => Node) | Node | null]>,
+            shaderStage?: NodeShaderStage | null,
         ) => OverrideContextNode;
     }
 }

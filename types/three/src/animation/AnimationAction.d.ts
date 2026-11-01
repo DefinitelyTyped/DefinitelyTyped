@@ -39,7 +39,7 @@ export class AnimationAction {
      * The value gets clamped or wrapped to `[0,clip.duration]` (according to the
      * loop state).
      *
-     * @default Infinity
+     * @default 0
      */
     time: number;
     /**

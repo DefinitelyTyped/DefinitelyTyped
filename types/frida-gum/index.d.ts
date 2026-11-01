@@ -1879,52 +1879,52 @@ declare class NativePointer {
      */
     toMatchPattern(): string;
 
-    readPointer(): NativePointer;
-    readS8(): number;
-    readU8(): number;
-    readS16(): number;
-    readU16(): number;
-    readS32(): number;
-    readU32(): number;
-    readS64(): Int64;
-    readU64(): UInt64;
-    readShort(): number;
-    readUShort(): number;
-    readInt(): number;
-    readUInt(): number;
-    readLong(): number | Int64;
-    readULong(): number | UInt64;
-    readFloat(): number;
-    readDouble(): number;
-    readByteArray(length: number): ArrayBuffer | null;
-    readCString(size?: number): string | null;
-    readUtf8String(size?: number): string | null;
-    readUtf16String(length?: number): string | null;
-    readAnsiString(size?: number): string | null;
-    readVolatile(length: number): ArrayBuffer | null;
+    readPointer(offset?: number): NativePointer;
+    readS8(offset?: number): number;
+    readU8(offset?: number): number;
+    readS16(offset?: number): number;
+    readU16(offset?: number): number;
+    readS32(offset?: number): number;
+    readU32(offset?: number): number;
+    readS64(offset?: number): Int64;
+    readU64(offset?: number): UInt64;
+    readShort(offset?: number): number;
+    readUShort(offset?: number): number;
+    readInt(offset?: number): number;
+    readUInt(offset?: number): number;
+    readLong(offset?: number): number | Int64;
+    readULong(offset?: number): number | UInt64;
+    readFloat(offset?: number): number;
+    readDouble(offset?: number): number;
+    readByteArray(length: number, offset?: number): ArrayBuffer | null;
+    readCString(size?: number, offset?: number): string | null;
+    readUtf8String(size?: number, offset?: number): string | null;
+    readUtf16String(length?: number, offset?: number): string | null;
+    readAnsiString(size?: number, offset?: number): string | null;
+    readVolatile(length: number, offset?: number): ArrayBuffer | null;
 
-    writePointer(value: NativePointerValue): NativePointer;
-    writeS8(value: number | Int64): NativePointer;
-    writeU8(value: number | UInt64): NativePointer;
-    writeS16(value: number | Int64): NativePointer;
-    writeU16(value: number | UInt64): NativePointer;
-    writeS32(value: number | Int64): NativePointer;
-    writeU32(value: number | UInt64): NativePointer;
-    writeS64(value: number | Int64): NativePointer;
-    writeU64(value: number | UInt64): NativePointer;
-    writeShort(value: number | Int64): NativePointer;
-    writeUShort(value: number | UInt64): NativePointer;
-    writeInt(value: number | Int64): NativePointer;
-    writeUInt(value: number | UInt64): NativePointer;
-    writeLong(value: number | Int64): NativePointer;
-    writeULong(value: number | UInt64): NativePointer;
-    writeFloat(value: number): NativePointer;
-    writeDouble(value: number): NativePointer;
-    writeByteArray(value: ArrayBuffer | number[]): NativePointer;
-    writeUtf8String(value: string): NativePointer;
-    writeUtf16String(value: string): NativePointer;
-    writeAnsiString(value: string): NativePointer;
-    writeVolatile(value: ArrayBuffer | number[]): NativePointer;
+    writePointer(value: NativePointerValue, offset?: number): NativePointer;
+    writeS8(value: number | Int64, offset?: number): NativePointer;
+    writeU8(value: number | UInt64, offset?: number): NativePointer;
+    writeS16(value: number | Int64, offset?: number): NativePointer;
+    writeU16(value: number | UInt64, offset?: number): NativePointer;
+    writeS32(value: number | Int64, offset?: number): NativePointer;
+    writeU32(value: number | UInt64, offset?: number): NativePointer;
+    writeS64(value: number | Int64, offset?: number): NativePointer;
+    writeU64(value: number | UInt64, offset?: number): NativePointer;
+    writeShort(value: number | Int64, offset?: number): NativePointer;
+    writeUShort(value: number | UInt64, offset?: number): NativePointer;
+    writeInt(value: number | Int64, offset?: number): NativePointer;
+    writeUInt(value: number | UInt64, offset?: number): NativePointer;
+    writeLong(value: number | Int64, offset?: number): NativePointer;
+    writeULong(value: number | UInt64, offset?: number): NativePointer;
+    writeFloat(value: number, offset?: number): NativePointer;
+    writeDouble(value: number, offset?: number): NativePointer;
+    writeByteArray(value: ArrayBuffer | number[], offset?: number): NativePointer;
+    writeUtf8String(value: string, offset?: number): NativePointer;
+    writeUtf16String(value: string, offset?: number): NativePointer;
+    writeAnsiString(value: string, offset?: number): NativePointer;
+    writeVolatile(value: ArrayBuffer | number[], offset?: number): NativePointer;
 }
 
 type PointerAuthenticationKey = "ia" | "ib" | "da" | "db";
@@ -2218,6 +2218,15 @@ interface Ia32CpuContext extends PortableCpuContext {
     edi: NativePointer;
 
     eip: NativePointer;
+
+    xmm0: ArrayBuffer;
+    xmm1: ArrayBuffer;
+    xmm2: ArrayBuffer;
+    xmm3: ArrayBuffer;
+    xmm4: ArrayBuffer;
+    xmm5: ArrayBuffer;
+    xmm6: ArrayBuffer;
+    xmm7: ArrayBuffer;
 }
 
 interface X64CpuContext extends PortableCpuContext {
@@ -2240,6 +2249,23 @@ interface X64CpuContext extends PortableCpuContext {
     r15: NativePointer;
 
     rip: NativePointer;
+
+    xmm0: ArrayBuffer;
+    xmm1: ArrayBuffer;
+    xmm2: ArrayBuffer;
+    xmm3: ArrayBuffer;
+    xmm4: ArrayBuffer;
+    xmm5: ArrayBuffer;
+    xmm6: ArrayBuffer;
+    xmm7: ArrayBuffer;
+    xmm8: ArrayBuffer;
+    xmm9: ArrayBuffer;
+    xmm10: ArrayBuffer;
+    xmm11: ArrayBuffer;
+    xmm12: ArrayBuffer;
+    xmm13: ArrayBuffer;
+    xmm14: ArrayBuffer;
+    xmm15: ArrayBuffer;
 }
 
 interface ArmCpuContext extends PortableCpuContext {
@@ -3100,6 +3126,12 @@ declare class Checksum {
     update(data: string | ArrayBuffer | number[]): Checksum;
 
     /**
+     * Creates a copy of the checksum instance. The copy is in the same state as
+     * the original, so a "closed" checksum is copied as "closed".
+     */
+    copy(): Checksum;
+
+    /**
      * Gets the digest as an all-lowercase hexadecimal string. The length of the
      * digest depends on the type of checksum.
      *
@@ -3109,6 +3141,13 @@ declare class Checksum {
     getString(): string;
 
     /**
+     * Gets the digest as an all-lowercase hexadecimal string, without closing
+     * the checksum. Unlike `getString()`, the instance may still be updated
+     * with `update()` afterwards.
+     */
+    peekString(): string;
+
+    /**
      * Gets the digest as a raw binary vector. The size of the digest depends
      * on the type of checksum.
      *
@@ -3116,6 +3155,13 @@ declare class Checksum {
      * with `update()`.
      */
     getDigest(): ArrayBuffer;
+
+    /**
+     * Gets the digest as a raw binary vector, without closing the checksum.
+     * Unlike `getDigest()`, the instance may still be updated with `update()`
+     * afterwards.
+     */
+    peekDigest(): ArrayBuffer;
 }
 
 type ChecksumType =
@@ -5688,6 +5734,11 @@ declare class X86Writer {
     putNop(): void;
 
     /**
+     * Puts an ENDBR instruction.
+     */
+    putEndbr(): void;
+
+    /**
      * Puts an OS/architecture-specific breakpoint instruction.
      */
     putBreakpoint(): void;
@@ -5711,6 +5762,46 @@ declare class X86Writer {
      * Puts a FXRSTOR instruction.
      */
     putFxrstorRegPtr(reg: X86Register): void;
+
+    /**
+     * Puts a VMOVDQU64 ZMM instruction.
+     */
+    putVmovdqu64RegOffsetPtrZmm(dstBase: X86Register, dstOffset: number | Int64 | UInt64, srcZmm: number): void;
+
+    /**
+     * Puts a VMOVDQU64 ZMM instruction.
+     */
+    putVmovdqu64ZmmRegOffsetPtr(dstZmm: number, srcBase: X86Register, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a VEXTRACTI64X4 ZMM instruction.
+     */
+    putVextracti64x4RegOffsetPtrZmm(
+        dstBase: X86Register,
+        dstOffset: number | Int64 | UInt64,
+        srcZmm: number,
+        imm: number,
+    ): void;
+
+    /**
+     * Puts a VINSERTI64X4 ZMM instruction.
+     */
+    putVinserti64x4ZmmRegOffsetPtr(
+        dstZmm: number,
+        srcBase: X86Register,
+        srcOffset: number | Int64 | UInt64,
+        imm: number,
+    ): void;
+
+    /**
+     * Puts a KMOVQ KREG instruction.
+     */
+    putKmovqRegOffsetPtrKreg(dstBase: X86Register, dstOffset: number | Int64 | UInt64, srcKreg: number): void;
+
+    /**
+     * Puts a KMOVQ KREG instruction.
+     */
+    putKmovqKregRegOffsetPtr(dstKreg: number, srcBase: X86Register, srcOffset: number | Int64 | UInt64): void;
 
     /**
      * Puts a uint8.
@@ -7060,6 +7151,19 @@ declare class Arm64Writer {
     putBrRegNoAuth(reg: Arm64Register): void;
 
     /**
+     * Puts code needed for jumping to the address in `reg`, emitting RET
+     * rather than BR so a BTI-guarded target needs no landing pad. Emits
+     * BR on arm64e, which doesn't guard pages this way.
+     */
+    putJmpReg(reg: Arm64Register): void;
+
+    /**
+     * Like `putJmpReg()`, but expecting a raw pointer without any
+     * authentication bits.
+     */
+    putJmpRegNoAuth(reg: Arm64Register): void;
+
+    /**
      * Puts a BLR instruction.
      */
     putBlrReg(reg: Arm64Register): void;
@@ -7280,6 +7384,11 @@ declare class Arm64Writer {
     putMovNzcvReg(reg: Arm64Register): void;
 
     /**
+     * Puts a MOVK instruction.
+     */
+    putMovkRegImm(reg: Arm64Register, imm: number, shift: number): void;
+
+    /**
      * Puts an UXTW instruction.
      */
     putUxtwRegReg(dstReg: Arm64Register, srcReg: Arm64Register): void;
@@ -7345,9 +7454,24 @@ declare class Arm64Writer {
     putXpaciReg(reg: Arm64Register): void;
 
     /**
+     * Puts a PACIA instruction.
+     */
+    putPaciaRegReg(dstReg: Arm64Register, modReg: Arm64Register): void;
+
+    /**
+     * Puts a SVC instruction.
+     */
+    putSvcImm(imm: number): void;
+
+    /**
      * Puts a NOP instruction.
      */
     putNop(): void;
+
+    /**
+     * Puts a BTI instruction.
+     */
+    putBti(): void;
 
     /**
      * Puts a BRK instruction.
@@ -7445,6 +7569,31 @@ declare class Arm64Relocator {
      * property is now `true`.
      */
     readOne(): number;
+
+    /**
+     * Sets the register that exits from the relocated code may use when
+     * it is still untouched by the relocated instructions.
+     */
+    setScratchReg(reg: Arm64Register): void;
+
+    /**
+     * Sets the range of code that register liveness analysis may look
+     * at. Branches leaving it are assumed to clobber X16 and X17.
+     */
+    setCodeRange(range: MemoryRange): void;
+
+    /**
+     * Reads further until a scratch register is available for jumping
+     * back to the input code, or the end of input is reached. Returns
+     * `false` if neither happens.
+     */
+    readUntilResumable(scenario: RelocationScenario): boolean;
+
+    /**
+     * Picks a register that an exit branching to `target` may use, or
+     * `null` if none is known to be free.
+     */
+    pickExitReg(target: NativePointerValue): Arm64Register | null;
 
     /**
      * Peeks at the next `Instruction` to be written or skipped.
@@ -7660,6 +7809,8 @@ type Arm64ConditionCode =
     | "nv";
 
 type Arm64IndexMode = "post-adjust" | "signed-offset" | "pre-adjust";
+
+type RelocationScenario = "offline" | "online";
 
 /**
  * Generates machine code for mips.

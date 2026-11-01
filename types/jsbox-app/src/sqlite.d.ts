@@ -3,7 +3,7 @@
 declare namespace SqliteTypes {
     interface SqliteInstance {
         update(sql: string | UpdateQuery): UpdateResult;
-        query(sql: string | Query, callback: (rs: ResultSet, err: string) => void): void;
+        query(sql: string | Query, callback: (rs: ResultSet, err: NSError) => void): void;
         beginTransaction(): void;
         commit(): void;
         rollback(): void;
@@ -12,7 +12,15 @@ declare namespace SqliteTypes {
 
     interface SqliteQueueInstance {
         operations(callback: (db: SqliteInstance) => void): void;
-        transaction(callback: (db: SqliteInstance) => void): void;
+        /**
+         * Return true from the callback to commit; false (or no return value at runtime)
+         * rolls back the transaction.
+         *
+         * This behavior was verified on a real device. The JSBox documentation is
+         * incorrect: despite naming the returned value `rollback`, returning true
+         * actually commits, while returning false rolls back.
+         */
+        transaction(callback: (db: SqliteInstance) => boolean): void;
         close(): void;
     }
 
@@ -23,7 +31,7 @@ declare namespace SqliteTypes {
 
     interface UpdateResult {
         result: boolean;
-        error: string;
+        error: NSError;
     }
 
     interface Query {

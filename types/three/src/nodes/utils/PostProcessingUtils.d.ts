@@ -1,6 +1,15 @@
 import Node from "../core/Node.js";
 
 /**
+ * Returns `true` if the given depth value belongs to the background, i.e. the cleared
+ * far plane. Takes the renderer's reversed depth buffer into account.
+ *
+ * @param {Node<float>} depth - The depth value.
+ * @return {Node<bool>} Whether the depth value belongs to the background.
+ */
+export const isBackgroundDepth: (depth: Node<"float">) => Node<"bool">;
+
+/**
  * Computes a position in view space based on a fragment's screen position expressed as uv coordinates, the fragments
  * depth value and the camera's inverse projection matrix.
  *
@@ -27,6 +36,14 @@ export const getScreenPosition: (
     viewPosition: Node,
     projectionMatrix: Node,
 ) => Node<"vec2">;
+
+/**
+ * Converts a clip-space position into a screen position expressed as uv coordinates.
+ *
+ * @param {vec4} clipPosition - The position in clip space.
+ * @return {vec2} The screen position expressed as uv coordinates.
+ */
+export const getScreenPositionFromClip: (clipPosition: Node) => Node<"vec2">;
 
 /**
  * Computes a normal vector based on depth data. Can be used as a fallback when no normal render target is available or

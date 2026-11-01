@@ -16,6 +16,7 @@ import semverCompareLoose = require("./functions/compare-loose");
 import semverCompareBuild = require("./functions/compare-build");
 import semverSort = require("./functions/sort");
 import semverRsort = require("./functions/rsort");
+import semverTruncate = require("./functions/truncate");
 
 export {
     semverClean as clean,
@@ -32,6 +33,7 @@ export {
     semverRcompare as rcompare,
     semverRsort as rsort,
     semverSort as sort,
+    semverTruncate as truncate,
     semverValid as valid,
 };
 

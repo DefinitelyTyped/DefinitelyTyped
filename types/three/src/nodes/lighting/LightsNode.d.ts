@@ -38,6 +38,8 @@ declare class LightsNode extends Node {
 
     getLights(): Light[];
 
+    getBuiltinLights(): Light[];
+
     get hasLights(): boolean;
 }
 

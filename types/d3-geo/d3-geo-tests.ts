@@ -364,19 +364,19 @@ multiString = d3Geo.geoGraticule10();
 
 // Pre-Defined Raw Projection Factories =================================
 
-const azimuthalEqualAreaRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEqualAreaRaw();
-const azimuthalEquidistantRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEquidistantRaw();
+const azimuthalEqualAreaRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEqualAreaRaw;
+const azimuthalEquidistantRaw: d3Geo.GeoRawProjection = d3Geo.geoAzimuthalEquidistantRaw;
 const conicConformalRaw: d3Geo.GeoRawProjection = d3Geo.geoConicConformalRaw(0, 0);
 const conicEqualAreaRaw: d3Geo.GeoRawProjection = d3Geo.geoConicEqualAreaRaw(0, 0);
 const conicEquidistantRaw: d3Geo.GeoRawProjection = d3Geo.geoConicEquidistantRaw(0, 0);
-const equirectangularRaw: d3Geo.GeoRawProjection = d3Geo.geoEquirectangularRaw();
-const gnomonicRaw: d3Geo.GeoRawProjection = d3Geo.geoGnomonicRaw();
-const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
-const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
-const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
-const equalEarthRaw: d3Geo.GeoRawProjection = d3Geo.geoEqualEarthRaw();
-const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
-const naturalEarth1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
+const equirectangularRaw: d3Geo.GeoRawProjection = d3Geo.geoEquirectangularRaw;
+const gnomonicRaw: d3Geo.GeoRawProjection = d3Geo.geoGnomonicRaw;
+const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw;
+const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw;
+const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw;
+const equalEarthRaw: d3Geo.GeoRawProjection = d3Geo.geoEqualEarthRaw;
+const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw;
+const naturalEarth1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw;
 
 // Use Raw Projection =====================================================
 
@@ -384,6 +384,10 @@ const rawProjectionPoint: [number, number] = azimuthalEqualAreaRaw(54, 2);
 if (azimuthalEqualAreaRaw.invert) {
     const rawProjectionInvertedPoint: [number, number] = azimuthalEqualAreaRaw.invert(180, 6);
 }
+
+let raw: [number, number] = mercatorRaw(1, 2);
+raw = mercatorRaw.invert!(...raw);
+
 // ----------------------------------------------------------------------
 // Pre-Defined Projections
 // ----------------------------------------------------------------------

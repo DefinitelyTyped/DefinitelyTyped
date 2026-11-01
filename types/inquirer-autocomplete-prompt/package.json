@@ -7,7 +7,7 @@
     ],
     "type": "module",
     "dependencies": {
-        "@types/inquirer": "*"
+        "@types/inquirer": "<10"
     },
     "devDependencies": {
         "@types/inquirer-autocomplete-prompt": "workspace:."

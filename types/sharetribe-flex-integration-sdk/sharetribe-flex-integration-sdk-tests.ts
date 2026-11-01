@@ -1,4 +1,4 @@
-import { createInstance, util } from "sharetribe-flex-integration-sdk";
+import { createInstance, file, FileAttachmentScope, util } from "sharetribe-flex-integration-sdk";
 
 const sdk = createInstance({
     clientId: "client-id",
@@ -108,6 +108,122 @@ sdk.stockAdjustments.create({
     quantity: 5,
 }).then((response) => {
     const adjustmentId: string = response.data.data.id.uuid;
+});
+
+// Mark a user's email as verified (added in integration-sdk 1.12)
+sdk.users.verifyEmail({
+    id: "user-id",
+    email: "test@example.com",
+}).then((response) => {
+    const userId: string = response.data.data.id.uuid;
+});
+
+// Query messages by transaction or by ids (added in integration-sdk 1.13)
+sdk.messages.query({ transactionId: "transaction-id" }).then((response) => {
+    const firstMessage = response.data.data[0];
+    if (firstMessage) {
+        const content: string = firstMessage.attributes.content;
+    }
+});
+sdk.messages.query({ ids: ["message-id"], include: ["sender"] }).then((response) => {
+    const totalPages: number = response.data.meta.totalPages;
+});
+
+// Query files with the supported filters (added in integration-sdk 1.13)
+sdk.files.query({
+    ownerId: "user-id",
+    messageId: "message-id",
+    ids: ["file-id"],
+    createdAtStart: new Date("2024-01-01T00:00:00.000Z"),
+    createdAtEnd: "2024-12-31T23:59:59.000Z",
+    include: ["owner"],
+}).then((response) => {
+    const firstFile = response.data.data[0];
+    if (firstFile) {
+        const state: string = firstFile.attributes.state;
+        const ownerRef: string = firstFile.relationships.owner.data.id.uuid;
+    }
+});
+
+// Query file attachments by message or file ids (added in integration-sdk 1.13)
+sdk.fileAttachments.query({ messageId: "message-id", fileIds: ["file-id"], include: ["file"] }).then((response) => {
+    const firstAttachment = response.data.data[0];
+    if (firstAttachment) {
+        const scope: FileAttachmentScope = firstAttachment.attributes.scope;
+    }
+});
+
+// Attachments on listings and transactions can be filtered by their attaching resource
+// (API changelog 2026-07-13)
+sdk.fileAttachments.query({ listingId: "listing-id" }).then((response) => {
+    const firstAttachment = response.data.data[0];
+    if (firstAttachment && firstAttachment.relationships.listing) {
+        const listingId: string = firstAttachment.relationships.listing.data.id.uuid;
+    }
+});
+sdk.fileAttachments.query({ transactionId: "transaction-id", include: ["file"] }).then((response) => {
+    const totalItems: number | undefined = response.data.meta.totalItems;
+});
+
+// File upload flow: create the file record, get an upload URL, then PUT the bytes
+// (added in integration-sdk 1.14)
+declare const fileLike: unknown;
+const fileMetadata = file.metadata(fileLike);
+sdk.files.create({
+    ownerId: "user-id",
+    name: fileMetadata.name,
+    mimeType: fileMetadata.mimeType,
+    size: fileMetadata.size,
+}).then((response) => {
+    const fileId = response.data.data.id;
+    return sdk.fileUploads.create({ fileId }).then((uploadResponse) => {
+        const upload = uploadResponse.data.data.attributes;
+        return file.upload({
+            url: upload.url,
+            method: upload.method,
+            headers: upload.headers,
+            file: fileLike,
+        });
+    });
+});
+
+// Download URLs are requested per file (added in integration-sdk 1.14)
+sdk.fileDownloads.create({ fileId: "file-id" }, { expand: true }).then((response) => {
+    const url: string = response.data.data.attributes.url;
+});
+
+// Files can be attached to listings and read back as a relationship (API changelog 2026-07-13)
+sdk.listings.update({
+    id: "listing-id",
+    protectedFileAttachments: [{ fileId: "file-id" }],
+}).then((response) => {
+    const listingId: string = response.data.data.id.uuid;
+});
+sdk.listings.show({ id: "listing-id", include: ["protectedFileAttachments.file"] }).then((response) => {
+    const attachments = response.data.data.relationships?.protectedFileAttachments;
+    if (attachments) {
+        const attachmentId: string = attachments.data[0].id.uuid;
+    }
+});
+
+// Users carry private file attachments, set through updateProfile (API changelog 2026-08-10)
+sdk.users.updateProfile({
+    id: "user-id",
+    privateFileAttachments: [{ fileId: "file-id" }],
+}).then((response) => {
+    const userId: string = response.data.data.id.uuid;
+});
+
+// Messages expose their public attachments and a deleted flag (API changelog 2026-03-25, 2026-05-25)
+sdk.messages.query({ transactionId: "transaction-id", include: ["publicFileAttachments.file"] }).then((response) => {
+    const firstMessage = response.data.data[0];
+    if (firstMessage) {
+        const isDeleted: boolean | undefined = firstMessage.attributes.deleted;
+        const attachments = firstMessage.relationships.publicFileAttachments;
+        if (attachments) {
+            const attachmentId: string = attachments.data[0].id.uuid;
+        }
+    }
 });
 
 const rateLimiterConfig = util.prodQueryLimiterConfig;

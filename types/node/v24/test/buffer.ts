@@ -565,6 +565,7 @@ declare class NodeFile implements File {
     arrayBuffer(): Promise<ArrayBuffer>;
     bytes(): Promise<Uint8Array>;
     text(): Promise<string>;
+    textStream(): ReadableStream;
 }
 
 {

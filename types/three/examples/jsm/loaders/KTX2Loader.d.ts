@@ -13,6 +13,8 @@ export interface KTX2LoaderWorkerConfig {
 }
 
 export class KTX2Loader extends Loader<CompressedTexture> {
+    readonly isKTX2Loader: true;
+
     transcoderPath: string;
     transcoderBinary: ArrayBuffer | null;
     transcoderPending: Promise<void> | null;

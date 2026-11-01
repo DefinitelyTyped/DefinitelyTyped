@@ -10,6 +10,15 @@ const ossOptions: OSS.Options = {
 
 const client = new OSS(ossOptions);
 
+client.deleteMulti(["file.png"]).then(result => {
+    // $ExpectType { Key: string; }[] | undefined
+    result.deleted;
+    result.deleted?.forEach(object => {
+        // $ExpectType string
+        object.Key;
+    });
+});
+
 client.putSymlink("newfile.png", "sourcefile.png");
 client.putSymlink("newfile.png", "sourcefile.png", {
     storageClass: "IA",
@@ -91,6 +100,15 @@ const clusterOptions: OSS.ClusterOptions = {
 const clusterClient = new OSS.ClusterClient(clusterOptions);
 
 clusterClient.deleteMulti(["cluster"], { quiet: true });
+
+clusterClient.deleteMulti(["cluster"]).then(result => {
+    // $ExpectType { Key: string; }[] | undefined
+    result.deleted;
+    result.deleted?.forEach(object => {
+        // $ExpectType string
+        object.Key;
+    });
+});
 
 // $ExpectType string
 clusterClient.signatureUrl("ossdemo.txt", {

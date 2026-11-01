@@ -7,7 +7,7 @@ import { SubPathItem } from "../SubPathItem";
  *  - Use [[SubPathInfo]] to create subpaths; the properties are writeable.
  *  - Use the [[SubPathItem]] object to retrieve information about existing subpaths. The properties are read-only.
  */
-export declare class SubPathItems extends Array<SubPathItem> {
+export declare class SubPathItems {
     /**
      * @ignore
      */

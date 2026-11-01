@@ -16,6 +16,11 @@
 /// <reference types="node" />
 
 /**
+ * Optionally enable debugging, which sets `isDebugMode` on the shared `ApiClient` instance.
+ */
+export function setDebug(isDebug: boolean): void;
+
+/**
  * https://forge.autodesk.com/en/docs/oauth/v2/developers_guide/scopes
  */
 export type Scope =

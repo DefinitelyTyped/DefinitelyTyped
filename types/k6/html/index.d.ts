@@ -370,10 +370,10 @@ export interface FormValue {
 export interface Tester {
     /**
      * @param index - Current index.
-     * @param element - Current element.
+     * @param element - Current selection.
      * @returns Whether element passes test.
      */
-    (index: number, element: Element): boolean;
+    (index: number, element: Selection): boolean;
 }
 
 /**

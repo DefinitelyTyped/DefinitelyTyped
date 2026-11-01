@@ -36,6 +36,7 @@ $("#button-clear").on("click", function() {
 });
 $("#button-clearoptions").on("click", function() {
     control.clearOptions();
+    control.clearOptions(true);
 });
 $("#button-addoption").on("click", function() {
     control.addOption({
@@ -50,6 +51,30 @@ $("#button-additem").on("click", function() {
 $("#button-setvalue").on("click", function() {
     control.setValue([2, 3]);
 });
+$("#button-additems").on("click", function() {
+    control.addItems(2);
+    control.addItems([2, 3]);
+    control.addItems([2, 3], true);
+});
+$("#button-removeoption").on("click", function() {
+    control.removeOption(2);
+    control.removeOption(2, true);
+});
+$("#button-refreshitems").on("click", function() {
+    control.refreshItems();
+    control.refreshItems(true);
+});
+$("#button-removeoptiongroup").on("click", function() {
+    control.removeOptionGroup("dodge");
+});
+$("#button-clearoptiongroups").on("click", function() {
+    control.clearOptionGroups();
+});
+
+// The original input element and the resolved settings are exposed on the control.
+var $original: JQuery = control.$input;
+var maxItems: number | undefined = control.settings.maxItems;
+var valueField: string | undefined = control.settings.valueField;
 
 // Cities example
 // --------------------------------------------------------------------------------------------------------------------

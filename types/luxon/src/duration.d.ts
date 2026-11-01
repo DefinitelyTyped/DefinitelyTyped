@@ -86,6 +86,11 @@ export type DurationInput = Duration | number | DurationLikeObject;
  */
 export type DurationLike = Duration | DurationLikeObject | number;
 
+/**
+ * A Duration whose validity is not known statically.
+ *
+ * Checking `isValid` narrows this to `Duration<true>` or `Duration<false>`.
+ */
 export type DurationMaybeValid = CanBeInvalid extends true ? (Duration<Valid> | Duration<Invalid>) : Duration;
 
 export interface DurationFormatOptions {
@@ -214,7 +219,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      *
      * @param o
      */
-    static isDuration(o: unknown): o is DurationMaybeValid;
+    static isDuration(o: unknown): o is Duration;
 
     private constructor(config: unknown);
 
@@ -508,7 +513,7 @@ export class Duration<IsValid extends boolean = DefaultValidity> {
      * Returns whether the Duration is invalid.
      * Diff operations on invalid DateTimes or Intervals return invalid Durations.
      */
-    get isValid(): IfValid<true, false, IsValid>;
+    get isValid(): IsValid;
 
     /**
      * Returns an error code if this Duration became invalid, or null if the Duration is valid

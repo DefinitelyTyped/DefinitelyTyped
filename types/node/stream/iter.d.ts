@@ -45,14 +45,14 @@ declare module "node:stream/iter" {
         [shareSyncProtocol](options: ShareSyncOptions): SyncShare;
     }
     // IDL dictionaries, enums, typedefs
-    type BackpressurePolicy = "strict" | "block" | "drop-oldest" | "drop-newest";
+    type BackpressurePolicy = "strict" | "unbounded" | "drop-oldest" | "drop-newest";
     type ByteReadableStream = AsyncIterable<Uint8Array[]>;
     type SyncByteReadableStream = Iterable<Uint8Array[]>;
     interface WriteOptions {
         signal?: AbortSignal;
     }
     interface PushStreamOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
         signal?: AbortSignal;
     }
@@ -85,21 +85,21 @@ declare module "node:stream/iter" {
         signal?: AbortSignal;
     }
     interface BroadcastOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
         signal?: AbortSignal;
     }
     interface ShareOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
         signal?: AbortSignal;
     }
     interface ShareSyncOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
     }
     interface DuplexDirectionOptions {
-        highWaterMark?: number;
+        budget?: number;
         backpressure?: BackpressurePolicy;
     }
     interface DuplexOptions {
@@ -142,7 +142,7 @@ declare module "node:stream/iter" {
         broadcast: Broadcast;
     }
     interface Writer extends Disposable, AsyncDisposable {
-        readonly desiredSize: number | null;
+        readonly canWrite: boolean | null;
         write(chunk: Uint8Array | string, options?: WriteOptions): Promise<void>;
         writev(chunks: Array<Uint8Array | string>, options?: WriteOptions): Promise<void>;
         writeSync(chunk: Uint8Array | string): boolean;
@@ -155,7 +155,7 @@ declare module "node:stream/iter" {
         write(chunk: Uint8Array | string, options?: WriteOptions): Promise<void>;
     }
     interface SyncWriter extends Disposable {
-        readonly desiredSize: number | null;
+        readonly canWrite: boolean | null;
         writeSync(chunk: Uint8Array | string): number;
         writevSync(chunks: Array<Uint8Array | string>): number;
         endSync(): number;
@@ -166,19 +166,16 @@ declare module "node:stream/iter" {
     }
     interface Broadcast extends Disposable {
         readonly consumerCount: number;
-        readonly bufferSize: number;
         push(...args: any[]): ByteReadableStream;
         cancel(reason?: any): void;
     }
     interface Share extends Disposable {
         readonly consumerCount: number;
-        readonly bufferSize: number;
         pull(...args: any[]): ByteReadableStream;
         cancel(reason?: any): void;
     }
     interface SyncShare extends Disposable {
         readonly consumerCount: number;
-        readonly bufferSize: number;
         pull(...args: any): SyncByteReadableStream;
         cancel(reason?: any): void;
     }
@@ -271,8 +268,8 @@ declare module "node:stream/iter" {
      *
      * If the object implements the `toAsyncStreamable` protocol (as
      * `stream.Readable` does), that protocol is used. Otherwise, the function
-     * duck-types on `read()` and `on()` (EventEmitter) and wraps the stream with
-     * a batched async iterator.
+     * duck-types on `read()`, `on()`, and `off()` (EventEmitter) and wraps the
+     * stream with a batched async iterator.
      *
      * The result is cached per instance -- calling `fromReadable()` twice with the
      * same stream returns the same iterable.
@@ -294,7 +291,7 @@ declare module "node:stream/iter" {
      * @since v26.1.0
      * @experimental
      * @param readable A classic Readable stream or any object
-     * with `read()` and `on()` methods.
+     * with `read()`, `on()` and `off()` methods.
      * @returns A stream/iter async iterable source.
      */
     function fromReadable(readable: NodeJS.ReadableStream): ByteReadableStream;
@@ -311,8 +308,9 @@ declare module "node:stream/iter" {
      * return `false` or `-1`, deferring to the async path. The per-write
      * `options.signal` parameter from the Writer interface is also ignored.
      *
-     * The result is cached per instance -- calling `fromWritable()` twice with the
-     * same stream returns the same Writer.
+     * The result is cached per instance and backpressure policy -- calling
+     * `fromWritable()` twice with the same stream and `backpressure` option returns
+     * the same Writer.
      *
      * For duck-typed streams that do not expose `writableHighWaterMark`,
      * `writableLength`, or similar properties, sensible defaults are used.
@@ -328,7 +326,7 @@ declare module "node:stream/iter" {
      * });
      *
      * await pipeTo(from('hello world'),
-     *              fromWritable(writable, { backpressure: 'block' }));
+     *              fromWritable(writable, { backpressure: 'unbounded' }));
      * ```
      * @since v26.1.0
      * @experimental
@@ -388,7 +386,7 @@ declare module "node:stream/iter" {
      *
      * Each `_write()` / `_writev()` call attempts the Writer's synchronous method
      * first (`writeSync` / `writevSync`), falling back to the async method if the
-     * sync path returns `false` or throws. Similarly, `_final()` tries `endSync()`
+     * sync path returns `false`. Similarly, `_final()` tries `endSync()`
      * before `end()`. When the sync path succeeds, the callback is deferred via
      * `queueMicrotask` to preserve the async resolution contract.
      *

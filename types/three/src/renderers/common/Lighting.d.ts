@@ -4,7 +4,7 @@ import { Scene } from "../../scenes/Scene.js";
 
 /**
  * This renderer module manages the lights nodes which are unique
- * per scene and camera combination.
+ * per scene + camera + lighting combination.
  *
  * The lights node itself is later configured in the render list
  * with the actual lights from the scene.
@@ -50,6 +50,12 @@ declare class Lighting {
      * @param {Scene} scene - The scene.
      */
     finishRender(scene: Scene): void;
+    /**
+     * Frees the resources of the lights nodes created by this lighting manager. Called by
+     * the renderer when it is disposed, or by the app after replacing the lighting system.
+     * The lighting manager must not be used for rendering anymore after this call.
+     */
+    dispose(): void;
 }
 
 export default Lighting;

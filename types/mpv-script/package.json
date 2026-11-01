@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/mpv-script",
-    "version": "0.32.9999",
+    "version": "0.41.9999",
     "nonNpm": true,
     "nonNpmDescription": "mpv-script",
     "projects": [
@@ -14,6 +14,10 @@
         {
             "name": "David T",
             "githubUsername": "mrxdst"
+        },
+        {
+            "name": "sharpchen",
+            "githubUsername": "sharpchen"
         }
     ]
 }

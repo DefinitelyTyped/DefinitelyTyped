@@ -220,6 +220,13 @@ declare module "node:tls" {
          */
         authorized: boolean;
         /**
+         * The negotiated ALPN protocol. This is `null` before the handshake completes.
+         * Once the handshake completes, it settles as either the negotiated protocol
+         * name, or `false` if the peers did not negotiate an ALPN protocol.
+         * @since v6.0.0
+         */
+        alpnProtocol: string | false | null;
+        /**
          * Returns the reason why the peer's certificate was not been verified. This
          * property is set only when `tlsSocket.authorized === false`.
          * @since v0.11.4
@@ -230,16 +237,6 @@ declare module "node:tls" {
          * @since v0.11.4
          */
         encrypted: true;
-        /**
-         * String containing the selected ALPN protocol.
-         * Before a handshake has completed, this value is always null.
-         * When a handshake is completed but not ALPN protocol was selected, tlsSocket.alpnProtocol equals false.
-         */
-        alpnProtocol: string | false | null;
-        /**
-         * String containing the server name requested via SNI (Server Name Indication) TLS extension.
-         */
-        servername: string | false | null;
         /**
          * Returns an object representing the local certificate. The returned object has
          * some properties corresponding to the fields of the certificate.
@@ -270,11 +267,19 @@ declare module "node:tls" {
          */
         getCipher(): CipherNameAndProtocol;
         /**
-         * Returns an object representing the type, name, and size of parameter of
-         * an ephemeral key exchange in `perfect forward secrecy` on a client
-         * connection. It returns an empty object when the key exchange is not
-         * ephemeral. As this is only supported on a client socket; `null` is returned
-         * if called on a server socket. The supported types are `'DH'` and `'ECDH'`. The `name` property is available only when type is `'ECDH'`.
+         * Returns an object describing ephemeral key agreement in [perfect forward
+         * secrecy](https://nodejs.org/docs/latest-v26.x/api/tls.html#perfect-forward-secrecy) on a client connection. It returns an empty object when the key
+         * agreement is not ephemeral. As this is only supported on a client socket;
+         * `null` is returned if called on a server socket. The supported types are `'DH'`,
+         * `'ECDH'`, and `'TLSGroup'`. For `'DH'` and `'ECDH'`, the object describes peer
+         * temporary key parameters. For `'TLSGroup'`, the object identifies the negotiated
+         * TLS Supported Group used for key agreement when a peer temporary key object is
+         * not available.
+         *
+         * The `name` property is available only when type is `'ECDH'` or `'TLSGroup'`. The
+         * `size` property is not available when type is `'TLSGroup'`. For `'TLSGroup'`,
+         * `name` is the negotiated TLS Supported Group name. Standardized TLS group names
+         * and code points are listed in the [IANA TLS Supported Groups registry](https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-8).
          *
          * For example: `{ type: 'ECDH', name: 'prime256v1', size: 256 }`.
          * @since v5.0.0
@@ -394,6 +399,13 @@ declare module "node:tls" {
             },
             callback: (err: Error | null) => void,
         ): undefined | boolean;
+        /**
+         * The SNI (Server Name Indication) host name associated with the socket. This is
+         * `null` before the handshake completes. Once the handshake completes it settles
+         * as either the host name string, or `false` if SNI was not used.
+         * @since v0.11.3
+         */
+        servername: string | false | null;
         /**
          * The `tlsSocket.setKeyCert()` method sets the private key and certificate to use for the socket.
          * This is mainly useful if you wish to select a server certificate from a TLS server's `ALPNCallback`.
@@ -746,6 +758,7 @@ declare module "node:tls" {
         // #endregion
     }
     type SecureVersion = "TLSv1.3" | "TLSv1.2" | "TLSv1.1" | "TLSv1";
+    type CertificateCompressionAlgorithm = "zlib" | "brotli" | "zstd";
     interface SecureContextOptions {
         /**
          * If set, this will be called when a client opens a connection using the ALPN extension.
@@ -783,6 +796,15 @@ declare module "node:tls" {
          */
         cert?: string | Buffer | Array<string | Buffer> | undefined;
         /**
+         * An array of supported certificate
+         * compression algorithm names, in preference order. Supported values are
+         * `'zlib'`, `'brotli'`, and `'zstd'`. When set, enables TLS certificate
+         * compression ([RFC 8879](https://tools.ietf.org/html/rfc8879)) which compresses certificates during the TLS
+         * handshake, reducing handshake size. Only effective with TLSv1.3.
+         * **Default:** `[]` (disabled).
+         */
+        certificateCompression?: readonly CertificateCompressionAlgorithm[] | undefined;
+        /**
          *  Colon-separated list of supported signature algorithms. The list
          *  can contain digest algorithms (SHA256, MD5 etc.), public key
          *  algorithms (RSA-PSS, ECDSA etc.), combination of both (e.g
@@ -812,13 +834,16 @@ declare module "node:tls" {
          */
         dhparam?: string | Buffer | undefined;
         /**
-         * A string describing a named curve or a colon separated list of curve
-         * NIDs or names, for example P-521:P-384:P-256, to use for ECDH key
-         * agreement. Set to auto to select the curve automatically. Use
-         * crypto.getCurves() to obtain a list of available curve names. On
-         * recent releases, openssl ecparam -list_curves will also display the
-         * name and description of each available elliptic curve. Default:
-         * tls.DEFAULT_ECDH_CURVE.
+         * A string describing a named curve, TLS group, or
+         * colon-separated list of named curves or TLS groups to use for key agreement,
+         * for example `P-521:P-384:P-256`, `X25519`, or `X25519MLKEM768`. The
+         * historical name of this option refers to ECDH key agreement in TLSv1.2 and
+         * below. In TLSv1.3, this option configures the TLS Supported Groups and
+         * key share groups offered or accepted by the TLS stack. Set to `auto` to
+         * select the group automatically. Use `crypto.getCurves()` to obtain a
+         * list of available elliptic curve names. For TLS group names, use
+         * `openssl list -tls-groups` or consult the [IANA TLS Supported Groups
+         * registry](https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-8).
          */
         ecdhCurve?: string | undefined;
         /**
@@ -1111,6 +1136,20 @@ declare module "node:tls" {
      */
     function getCiphers(): string[];
     /**
+     * Returns an array with the names of the RFC 8879 certificate compression
+     * algorithms supported by the current OpenSSL build, suitable for use in the
+     * `certificateCompression` option of `tls.createSecureContext()`. Possible
+     * values include `'zlib'`, `'brotli'`, and `'zstd'`.
+     *
+     * The array is empty when certificate compression is unavailable.
+     *
+     * ```js
+     * console.log(tls.getCertificateCompressionAlgorithms()); // ['zlib', 'brotli', 'zstd']
+     * ```
+     * @since v26.4.0
+     */
+    function getCertificateCompressionAlgorithms(): CertificateCompressionAlgorithm[];
+    /**
      * Sets the default CA certificates used by Node.js TLS clients. If the provided
      * certificates are parsed successfully, they will become the default CA
      * certificate list returned by {@link getCACertificates} and used
@@ -1143,9 +1182,9 @@ declare module "node:tls" {
      */
     function setDefaultCACertificates(certs: ReadonlyArray<string | NodeJS.ArrayBufferView>): void;
     /**
-     * The default curve name to use for ECDH key agreement in a tls server.
-     * The default value is `'auto'`. See `{@link createSecureContext()}` for further
-     * information.
+     * The default named curve or TLS group list to use for key agreement in a TLS
+     * server. The default value is `'auto'`. See `tls.createSecureContext()` for
+     * further information.
      * @since v0.11.13
      */
     let DEFAULT_ECDH_CURVE: string;

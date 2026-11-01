@@ -1,10 +1,20 @@
 import * as React from "react";
-import {
-    BackgroundPropType,
-    RippleBackgroundPropType,
-    ThemeAttributeBackgroundPropType,
-    TouchableWithoutFeedbackProps,
-} from "react-native";
+import { TouchableWithoutFeedbackProps } from "react-native";
+
+// These were removed from react-native's bundled types; they mirror the
+// TouchableNativeFeedback background values this library accepts and returns.
+export interface ThemeAttributeBackgroundPropType {
+    type: "ThemeAttrAndroid";
+    attribute: "selectableItemBackground" | "selectableItemBackgroundBorderless";
+}
+
+export interface RippleBackgroundPropType {
+    type: "RippleAndroid";
+    color?: number | null | undefined;
+    borderless?: boolean | undefined;
+}
+
+export type BackgroundPropType = ThemeAttributeBackgroundPropType | RippleBackgroundPropType;
 
 export interface PlatformTouchableProps extends TouchableWithoutFeedbackProps {
     // TouchableOpacity (default iOS)

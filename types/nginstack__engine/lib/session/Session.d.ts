@@ -20,10 +20,10 @@ declare class Session {
     logout(): void;
     setTimeout(
         minutes: number,
-        opt_hours?: number,
-        opt_days?: number,
-        opt_months?: number,
-        opt_years?: number
+        hours?: number,
+        days?: number,
+        months?: number,
+        years?: number
     ): void;
     authorizeToken(authToken: AuthToken): string;
     updateAuthToken(authToken: AuthToken): void;

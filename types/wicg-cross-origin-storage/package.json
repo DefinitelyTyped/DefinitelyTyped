@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/wicg-cross-origin-storage",
-    "version": "2026.7.9999",
+    "version": "2026.10.9999",
     "nonNpm": true,
     "nonNpmDescription": "Cross-Origin Storage",
     "projects": [

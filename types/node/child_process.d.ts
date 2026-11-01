@@ -227,7 +227,6 @@ declare module "node:child_process" {
          * new process in a shell or with the use of the `shell` option of `ChildProcess`:
          *
          * ```js
-         * 'use strict';
          * import { spawn } from 'node:child_process';
          *
          * const subprocess = spawn(
@@ -1137,7 +1136,7 @@ declare module "node:child_process" {
             stderr: string | NonSharedBuffer;
         }>;
     }
-    interface ForkOptions extends ProcessEnvOptions, MessagingOptions, Abortable {
+    interface ForkOptions extends CommonOptions, MessagingOptions, Abortable {
         execPath?: string | undefined;
         execArgv?: string[] | undefined;
         silent?: boolean | undefined;

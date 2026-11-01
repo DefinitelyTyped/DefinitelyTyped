@@ -32,6 +32,25 @@ export interface BootstrapScriptDescriptor {
 }
 
 /**
+ * The header content passed to `onHeaders` by `renderToPipeableStream`.
+ * Other server rendering APIs pass a `Headers` instance instead.
+ * React passes an empty object when there are no resource hints to send.
+ */
+export interface HeadersDescriptor {
+    Link?: string;
+}
+
+/**
+ * A nonce string, or an object with separate nonces for scripts and styles.
+ */
+export type NonceOption =
+    | string
+    | {
+        script?: string | undefined;
+        style?: string | undefined;
+    };
+
+/**
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script/type/importmap Import maps}
  */
 // TODO: Ideally TypeScripts standard library would include this type.
@@ -62,7 +81,7 @@ export interface ReactImportMap {
 export interface RenderToPipeableStreamOptions {
     identifierPrefix?: string;
     namespaceURI?: string;
-    nonce?: string;
+    nonce?: NonceOption | undefined;
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
@@ -71,13 +90,18 @@ export interface RenderToPipeableStreamOptions {
      * Must be a positive integer if specified.
      * @default 2000
      */
-    headersLengthHint?: number | undefined;
+    maxHeadersLength?: number | undefined;
     importMap?: ReactImportMap | undefined;
     progressiveChunkSize?: number;
-    onHeaders?: ((headers: Headers) => void) | undefined;
+    onHeaders?: ((headers: HeadersDescriptor) => void) | undefined;
     onShellReady?: () => void;
     onShellError?: (error: unknown) => void;
     onAllReady?: () => void;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
     formState?: ReactFormState | null;
 }
@@ -125,7 +149,7 @@ export interface RenderToReadableStreamOptions {
     identifierPrefix?: string;
     importMap?: ReactImportMap | undefined;
     namespaceURI?: string;
-    nonce?: string;
+    nonce?: NonceOption | undefined;
     bootstrapScriptContent?: string;
     bootstrapScripts?: Array<string | BootstrapScriptDescriptor>;
     bootstrapModules?: Array<string | BootstrapScriptDescriptor>;
@@ -134,9 +158,14 @@ export interface RenderToReadableStreamOptions {
      * Must be a positive integer if specified.
      * @default 2000
      */
-    headersLengthHint?: number | undefined;
+    maxHeadersLength?: number | undefined;
     progressiveChunkSize?: number;
     signal?: AbortSignal;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
     onError?: (error: unknown, errorInfo: ErrorInfo) => string | void;
     onHeaders?: ((headers: Headers) => void) | undefined;
     formState?: ReactFormState | null;
@@ -158,6 +187,19 @@ export function renderToReadableStream(
 
 export { ResumeOptions };
 
+export interface ResumeToPipeableStreamOptions {
+    nonce?: NonceOption | undefined;
+    onShellReady?: (() => void) | undefined;
+    onShellError?: ((error: unknown) => void) | undefined;
+    onAllReady?: (() => void) | undefined;
+    /**
+     * A callback React calls when it recovers from `browser()` by leaving a
+     * Suspense fallback for the browser to replace.
+     */
+    onBrowserBailout?: ((error: unknown, errorInfo: ErrorInfo) => void) | undefined;
+    onError?: ((error: unknown, errorInfo: ErrorInfo) => string | void) | undefined;
+}
+
 /**
  * @see {@link https://react.dev/reference/react-dom/server/resume `resume`` reference documentation}
  * @version 19.2
@@ -175,7 +217,7 @@ export function resume(
 export function resumeToPipeableStream(
     children: React.ReactNode,
     postponedState: PostponedState,
-    options?: ResumeOptions,
+    options?: ResumeToPipeableStreamOptions,
 ): Promise<PipeableStream>;
 
 export const version: string;

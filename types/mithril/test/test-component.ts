@@ -51,6 +51,21 @@ m(comp2, { title: "", description: "" });
 // Correct use with lifecycle method
 m(comp2, { title: "", description: "", oncreate: v => `${v.attrs.title}\n${v.attrs.description}` });
 
+// Component attribute diagnostics
+interface NumberComponentAttrs {
+    min: number;
+}
+
+const numberComponent: Component<NumberComponentAttrs> = {
+    view() {
+        return null;
+    },
+};
+
+// Type 'string' is not assignable to type 'number'.
+// @ts-expect-error
+m(numberComponent, { min: "x" });
+
 // Properties missing
 // @ts-expect-error
 m(comp2, {});

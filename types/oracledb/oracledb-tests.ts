@@ -1,4 +1,5 @@
 import * as oracledb from "oracledb";
+import "oracledb/plugins/token/endUserSecurityProvider";
 
 import assert from "assert";
 import defaultOracledb from "oracledb";
@@ -476,6 +477,7 @@ const version4Tests = async () => {
         },
     });
 
+    expectType<number | undefined>(sub.regId);
     console.log(sub.regId);
 
     const queue = await connection.getQueue("test", {
@@ -1005,12 +1007,14 @@ export const version7Tests = async (): Promise<void> => {
     new oracledb.EndUserSecurityContext({
         endUserToken: "end-user-token",
     });
-    // @ts-expect-error must specify either endUserToken or endUserName + key
+    // valid: direct application logon
     new oracledb.EndUserSecurityContext({
         databaseAccessToken: "db-access-token",
+        dataRoles: ["APP_ROLE"],
+        attributes: { application: "payroll", regions: ["us", "uk"] },
     });
 
-    // @ts-expect-error key is required when endUserName is set
+    // valid: database local user mode without a key (optional since 7.0.1)
     new oracledb.EndUserSecurityContext({
         databaseAccessToken: "db-access-token",
         endUserName: "APP_USER",
@@ -1071,4 +1075,123 @@ export const version7Tests = async (): Promise<void> => {
     connection.runPipeline(pipeline, true, (...args) => {
         expectType<[oracledb.DBError] | [null, oracledb.PipelineOperationResult[]]>(args);
     });
+};
+
+export const version26SecurityTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
+    const provider = oracledb.getSecurityContextProvider();
+    expectType<oracledb.SecurityContextProvider>(provider);
+    expectType<oracledb.SecurityContextMetadata | null>(provider.getCurrentContext());
+    expectType<number>(provider.runWithContext({ endUserName: "APP_USER" }, (value: number) => value, 42));
+    expectType<Promise<number>>(provider.runWithContext({}, async (value: number) => value, 42));
+    // @ts-expect-error callback arguments must match the callback parameter types
+    provider.runWithContext({}, (value: number) => value, "42");
+    const row = await provider.runWithContext(
+        { endUserToken: "user-token", dataRoles: ["READER"] },
+        () => connection.execute<{ ID: number }>("select id from test_table"),
+    );
+    expectType<oracledb.Result<{ ID: number }>>(row);
+    provider.runWithContext({ endUserName: "APP_USER", key: "request-1" }, () => connection.commit());
+    provider.runWithContext({ dataRoles: ["APP_ROLE"] }, () => connection.commit());
+    // @ts-expect-error end-user token and name cannot be combined
+    provider.runWithContext({ endUserToken: "token", endUserName: "APP_USER" }, () => connection.commit());
+    // @ts-expect-error key cannot be combined with an end-user token
+    provider.runWithContext({ endUserToken: "token", key: "request-1" }, () => connection.commit());
+
+    await oracledb.createPool({
+        endUserSecParams: {
+            spiType: "azure",
+            authFlow: "onBehalfOf",
+            contextResolution: "operation",
+            clientId: "client-id",
+            clientSecret: "secret",
+            authority: "https://login.microsoftonline.com/tenant",
+            scopes: ["database/.default"],
+        },
+    });
+    await oracledb.getConnection({
+        endUserSecParams: { spiType: "oci", authFlow: "app", authType: "resourcePrincipal" },
+    });
+    await oracledb.getConnection({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
+    await oracledb.createPool({ externalAuth: true, tokenAuthConfigOci: { authType: "resourcePrincipal" } });
+    const azureConfig: oracledb.TokenAuthConfigAzure = {
+        authType: "azureServicePrincipal",
+        authority: "https://login.microsoftonline.com/tenant",
+        clientId: "client-id",
+        clientSecret: "secret",
+        scopes: ["database/.default"],
+    };
+    await oracledb.getConnection({ externalAuth: true, tokenAuthConfigAzure: azureConfig });
+    await oracledb.createPool({
+        externalAuth: true,
+        tokenAuthConfigAzure: { ...azureConfig, scopes: "database/.default" },
+    });
+    // @ts-expect-error Azure scopes must be a string or array of strings
+    azureConfig.scopes = [42];
+};
+
+export const version26TransactionPriorityTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
+    expectType<"HIGH">(oracledb.TXN_PRIORITY_HIGH);
+    expectType<"MEDIUM">(oracledb.TXN_PRIORITY_MEDIUM);
+    expectType<"LOW">(oracledb.TXN_PRIORITY_LOW);
+    expectType<"">(oracledb.TXN_PRIORITY_DEFAULT);
+
+    connection.txnPriority = oracledb.TXN_PRIORITY_HIGH;
+    expectType<oracledb.TransactionPriority>(connection.txnPriority);
+    await oracledb.getConnection({ txnPriority: oracledb.TXN_PRIORITY_LOW });
+    await oracledb.createPool({ txnPriority: oracledb.TXN_PRIORITY_MEDIUM });
+    // @ts-expect-error unsupported transaction priority
+    await oracledb.getConnection({ txnPriority: "URGENT" });
+};
+
+export const version26TracingTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
+    connection.databaseOpenTelemetryTracing = true;
+    expectType<boolean | undefined>(connection.databaseOpenTelemetryTracing);
+    connection.ecid = "request-123";
+
+    await connection.execute("select id from test_table", [], {
+        fetchTypeHandler(metadata, rowsetMetaData) {
+            expectType<ReadonlyArray<oracledb.Metadata<any>>>(rowsetMetaData);
+            // @ts-expect-error rowsetMetaData must not be modified
+            rowsetMetaData.push(metadata);
+            return metadata.name === "ID" ? { type: oracledb.STRING } : undefined;
+        },
+    });
+};
+
+export const version26StreamingAndNotificationTests = async (): Promise<void> => {
+    const connection = await oracledb.getConnection({ user: "test" });
+    const result = await connection.execute<{ ID: number }>("select id from test_table", [], { resultSet: true });
+    const resultSet = result.resultSet!;
+    connection.queryStream<{ ID: number }>("select id from test_table", [], { rowsPerDataEvent: 10 });
+    resultSet.toQueryStream({ rowsPerDataEvent: 10 });
+    // @ts-expect-error rowsPerDataEvent must be numeric
+    resultSet.toQueryStream({ rowsPerDataEvent: "10" });
+
+    await connection.subscribe("TEST_QUEUE", {
+        namespace: oracledb.SUBSCR_NAMESPACE_AQ,
+        clientInitiated: true,
+        callback(message) {
+            expectType<oracledb.SubscriptionTable[] | undefined>(message.tables);
+            message.queries?.forEach(query => {
+                expectType<bigint | undefined>(query.id);
+                expectType<number | undefined>(query.operation);
+            });
+            expectType<string | undefined>(message.consumerName);
+            expectType<Buffer | undefined>(message.msgId);
+            expectType<Buffer | undefined>(message.originalMsgId);
+            expectType<string | undefined>(message.senderAgentAddress);
+            expectType<string | undefined>(message.senderAgentName);
+            expectType<number | undefined>(message.senderAgentProtocol);
+            expectType<bigint>(message.regId);
+        },
+    });
+
+    const queue = await connection.getQueue<Buffer>("TEST_QUEUE");
+    const message = await queue.deqOne();
+    if (message) {
+        expectType<Date | undefined>(message.enqTime);
+    }
 };

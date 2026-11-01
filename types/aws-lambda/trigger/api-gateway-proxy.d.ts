@@ -254,11 +254,11 @@ export interface APIGatewayEventRequestContextLambdaAuthorizer<TAuthorizerContex
  * JWT Authorizer Payload
  */
 export interface APIGatewayEventRequestContextJWTAuthorizer {
-    principalId: string;
-    integrationLatency: number;
+    principalId?: string | null;
+    integrationLatency?: number | null;
     jwt: {
         claims: { [name: string]: string | number | boolean | string[] };
-        scopes: string[];
+        scopes: string[] | null;
     };
 }
 

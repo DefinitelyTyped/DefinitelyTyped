@@ -88,6 +88,8 @@ declare module "node:crypto" {
      * behavior. For XOF hash functions such as `'shake256'`, the `outputLength` option
      * can be used to specify the desired output length in bytes.
      *
+     * When the data is small (< 5MB) and readily available, `crypto.hash()` is usually faster.
+     *
      * The `algorithm` is dependent on the available algorithms supported by the
      * version of OpenSSL on the platform. Examples are `'sha256'`, `'sha512'`, etc.
      * On recent releases of OpenSSL, `openssl list -digest-algorithms` will
@@ -1185,7 +1187,7 @@ declare module "node:crypto" {
      * and it will be impossible to extract the private key from the returned object.
      * @since v11.6.0
      */
-    function createPublicKey(key: PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput | BinaryLike): KeyObject;
+    function createPublicKey(key: PublicKeyInput | RawPublicKeyInput | JsonWebKeyInput | KeyLike): KeyObject;
     /**
      * Creates and returns a new key object containing a secret key for symmetric
      * encryption or `Hmac`.
@@ -1304,8 +1306,11 @@ declare module "node:crypto" {
         /**
          * Calculates the signature on all the data passed through using either `sign.update()` or `sign.write()`.
          *
-         * If `privateKey` is not a `KeyObject`, this function behaves as if `privateKey` had been passed to {@link createPrivateKey}. If it is an
-         * object, the following additional properties can be passed:
+         * If `privateKey` is not a `KeyObject`, this function behaves as if
+         * `privateKey` had been passed to `crypto.createPrivateKey()`. When
+         * `privateKey` is a string, `ArrayBuffer`, `Buffer`, `TypedArray`, or
+         * `DataView`, it must contain PEM-encoded key material. If it is an object, the
+         * following additional properties can be passed:
          *
          * If `outputEncoding` is provided a string is returned; otherwise a `Buffer` is returned.
          *
@@ -1375,8 +1380,11 @@ declare module "node:crypto" {
         /**
          * Verifies the provided data using the given `key` and `signature`.
          *
-         * If `key` is not a `KeyObject`, this function behaves as if `key` had been passed to {@link createPublicKey}. If it is an
-         * object, the following additional properties can be passed:
+         * If `key` is not a `KeyObject`, this function behaves as if
+         * `key` had been passed to `crypto.createPublicKey()`. When `key` is a string,
+         * `ArrayBuffer`, `Buffer`, `TypedArray`, or `DataView`, it must contain
+         * PEM-encoded key material. If it is an object, the following additional
+         * properties can be passed:
          *
          * The `signature` argument is the previously calculated signature for the data, in
          * the `signatureEncoding`.
@@ -2690,20 +2698,22 @@ declare module "node:crypto" {
      * ML-DSA.
      *
      * If `key` is not a `KeyObject`, this function behaves as if `key` had been
-     * passed to {@link createPrivateKey}. If it is an object, the following
-     * additional properties can be passed:
+     * passed to `crypto.createPrivateKey()`. When `key` is a string, `ArrayBuffer`,
+     * `Buffer`, `TypedArray`, or `DataView`, it must contain PEM-encoded key
+     * material. If it is an object, the following additional properties can be
+     * passed:
      *
      * If the `callback` function is provided this function uses libuv's threadpool.
      * @since v12.0.0
      */
     function sign(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
     ): NonSharedBuffer;
     function sign(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | SignKeyObjectInput | SignPrivateKeyInput | SignJsonWebKeyInput,
         callback: (error: Error | null, data: NonSharedBuffer) => void,
     ): void;
@@ -2716,8 +2726,10 @@ declare module "node:crypto" {
      * ML-DSA.
      *
      * If `key` is not a `KeyObject`, this function behaves as if `key` had been
-     * passed to {@link createPublicKey}. If it is an object, the following
-     * additional properties can be passed:
+     * passed to `crypto.createPublicKey()`. When `key` is a string, `ArrayBuffer`,
+     * `Buffer`, `TypedArray`, or `DataView`, it must contain PEM-encoded key
+     * material. If it is an object, the following additional properties can be
+     * passed:
      *
      * The `signature` argument is the previously calculated signature for the `data`.
      *
@@ -2729,15 +2741,15 @@ declare module "node:crypto" {
      */
     function verify(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-        signature: ArrayBufferLike | NodeJS.ArrayBufferView,
+        signature: BinaryLike,
     ): boolean;
     function verify(
         algorithm: string | null | undefined,
-        data: ArrayBufferLike | NodeJS.ArrayBufferView,
+        data: BinaryLike,
         key: KeyLike | VerifyKeyObjectInput | VerifyPublicKeyInput | VerifyJsonWebKeyInput,
-        signature: ArrayBufferLike | NodeJS.ArrayBufferView,
+        signature: BinaryLike,
         callback: (error: Error | null, result: boolean) => void,
     ): void;
     /**
@@ -3475,7 +3487,6 @@ declare module "node:crypto" {
      * ```
      * @since v24.7.0
      * @param algorithm Variant of Argon2, one of `"argon2d"`, `"argon2i"` or `"argon2id"`.
-     * @experimental
      */
     function argon2(
         algorithm: Argon2Algorithm,
@@ -3515,7 +3526,6 @@ declare module "node:crypto" {
      * console.log(derivedKey.toString('hex'));  // 'af91dad...9520f15'
      * ```
      * @since v24.7.0
-     * @experimental
      */
     function argon2Sync(algorithm: Argon2Algorithm, parameters: Argon2Parameters): NonSharedBuffer;
     /**
@@ -3623,7 +3633,7 @@ declare module "node:crypto" {
             hash: HashAlgorithmIdentifier;
             length?: number;
         }
-        interface KangarooTwelveParams {
+        interface KangarooTwelveParams extends Algorithm {
             customization?: NodeJS.BufferSource;
             outputLength: number;
         }
@@ -3696,7 +3706,7 @@ declare module "node:crypto" {
         interface RsaPssParams extends Algorithm {
             saltLength: number;
         }
-        interface TurboShakeParams {
+        interface TurboShakeParams extends Algorithm {
             domainSeparation?: number;
             outputLength: number;
         }
@@ -3742,7 +3752,7 @@ declare module "node:crypto" {
                 ciphertext: NodeJS.BufferSource,
                 sharedKeyAlgorithm: AlgorithmIdentifier | HmacImportParams | AesDerivedKeyParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<CryptoKey>;
             decrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,
@@ -3774,7 +3784,7 @@ declare module "node:crypto" {
                 encapsulationKey: CryptoKey,
                 sharedKeyAlgorithm: AlgorithmIdentifier | AesDerivedKeyParams | HmacImportParams | KmacImportParams,
                 extractable: boolean,
-                usages: KeyUsage[],
+                keyUsages: KeyUsage[],
             ): Promise<EncapsulatedKey>;
             encrypt(
                 algorithm: AlgorithmIdentifier | RsaOaepParams | AesCtrParams | AesCbcParams | AeadParams,

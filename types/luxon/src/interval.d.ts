@@ -17,9 +17,14 @@ export interface IntervalObject {
 
 export type DateInput = DateTime | DateObjectUnits | Date;
 
-export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<Valid> | Interval<Invalid>) : Interval;
-
 export type CountOptions = _UseLocaleWeekOption;
+
+/**
+ * An Interval whose validity is not known statically.
+ *
+ * Checking `isValid` narrows this to `Interval<true>` or `Interval<false>`.
+ */
+export type IntervalMaybeValid = CanBeInvalid extends true ? (Interval<Valid> | Interval<Invalid>) : Interval;
 
 /**
  * An Interval object represents a half-open interval of time, where each endpoint is a {@link DateTime}.
@@ -86,7 +91,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
      *
      * @param o
      */
-    static isInterval(o: unknown): o is IntervalMaybeValid;
+    static isInterval(o: unknown): o is Interval;
 
     private constructor(config: unknown);
 
@@ -109,7 +114,7 @@ export class Interval<IsValid extends boolean = DefaultValidity> {
     /**
      * Returns whether this Interval's end is at least its start, meaning that the Interval isn't 'backwards'.
      */
-    get isValid(): IfValid<true, false, IsValid>;
+    get isValid(): IsValid;
 
     /**
      * Returns an error code if this Interval is invalid, or null if the Interval is valid

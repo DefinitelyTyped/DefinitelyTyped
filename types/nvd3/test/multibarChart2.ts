@@ -3,7 +3,7 @@ namespace nvd3_test_multibarChart2 {
     var test_data = [3, 128, .1].map(function(data, i) {
         return {
             key: (i == 1) ? "Non-stackable Stream" + i : "Stream" + i,
-            nonStackable: (i == 1),
+            nonStackable: i == 1,
             values: data,
         };
     });

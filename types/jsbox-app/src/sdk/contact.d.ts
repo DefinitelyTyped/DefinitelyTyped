@@ -90,7 +90,8 @@ interface JBContact {
     pick(options?: Omit<ContactTypes.ContactPickOptions, "handler">): Promise<ContactTypes.ContactItem>;
     pick(options: ContactTypes.ContactMultiPickOptions): void;
     pick(options?: Omit<ContactTypes.ContactMultiPickOptions, "handler">): Promise<ContactTypes.ContactItem[]>;
-    fetch(options: ContactTypes.ContactFetchOptions): void; // This API is actually unusable.
+    /** @deprecated This API is currently unusable. */
+    fetch(options: ContactTypes.ContactFetchOptions): void;
     create(options: ContactTypes.ContactCreateOptions): void;
     create(options: Omit<ContactTypes.ContactCreateOptions, "handler">): Promise<void>;
     save(options: ContactTypes.ContactSaveOptions): void;
@@ -98,10 +99,10 @@ interface JBContact {
     delete(options: ContactTypes.ContactDeleteOptions): void;
     delete(options: Omit<ContactTypes.ContactDeleteOptions, "handler">): Promise<void>;
     fetchGroups(): Promise<ContactTypes.Group[]>;
+    /** Not documented but actually exists. */
     addGroup(options: { name: string; handler: (resp: ContactTypes.Group) => void }): void;
-    // It is not documented, but it exists based on empirical testing.
+    /** The JSBox documentation is incorrect: this call does not return a value. */
     addGroup(options: { name: string }): Promise<void>;
-    // The documentation is incorrect; the asynchronous call actually does not return a value.
     deleteGroup(group: ContactTypes.Group): void;
     updateGroup(group: ContactTypes.Group): void;
     addToGroup(options: { contact: ContactTypes.ContactItem; group: ContactTypes.Group }): void;

@@ -6,7 +6,7 @@
         "https://github.com/SocketCluster/socketcluster-server"
     ],
     "dependencies": {
-        "@types/component-emitter": "*",
+        "@types/component-emitter": "<2",
         "@types/jsonwebtoken": "*",
         "@types/sc-auth": "*",
         "@types/sc-broker-cluster": "^6",

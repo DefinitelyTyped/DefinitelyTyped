@@ -3,8 +3,10 @@
 declare namespace QuicklookTypes {
     type QuickLookOpenOptions =
         & {
-            type?: string; // Please note, we can set type to indicate the file type, it's optional, but it's better to have one.
-            handler?: () => void; // Handle dismiss action, optional
+            /** the file type */
+            type?: string;
+            /** Handle dismiss action */
+            handler?: () => void;
         }
         & (
             | {
@@ -26,7 +28,8 @@ declare namespace QuicklookTypes {
                 html: string;
             }
             | {
-                list: string[] | NSData[]; // either file or url
+                /** they should be same type, either file or url */
+                list: string[] | NSData[];
             }
         );
 }

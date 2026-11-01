@@ -38,6 +38,11 @@ export interface RendererState {
     clearColor: Color;
     clearAlpha: number;
     autoClear: boolean;
+    autoClearColor: boolean;
+    autoClearDepth: boolean;
+    autoClearStencil: boolean;
+    opaque: boolean;
+    transparent: boolean;
     scissorTest: boolean;
 }
 

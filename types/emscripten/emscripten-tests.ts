@@ -172,6 +172,33 @@ function FSTest(): void {
     const analyze = FS.analyzePath("path");
     // $ExpectType boolean
     analyze.exists;
+
+    // Test hashAddNode - adds a node to the cache lookupNode reads before node_ops.lookup
+    const dir = FS.lookupPath("/", { follow: true }).node;
+    const node = new FS.FSNode(dir, "file", parseInt("0100644", 8), 0);
+    FS.hashAddNode(node);
+    // $ExpectType FSNode
+    FS.lookupNode(dir, "file");
+    // $ExpectType number
+    FS.hashName(dir.id, "file");
+    // $ExpectType FSNode | undefined
+    FS.nameTable[FS.hashName(dir.id, "file")];
+    // $ExpectType FSNode | undefined
+    node.name_next;
+
+    // Test hashRemoveNode and destroyNode - takes a node back out of the cache
+    FS.hashRemoveNode(node);
+    FS.destroyNode(node);
+
+    // Test createNode - NODEFS and WORKERFS build their root with a null parent and no rdev
+    // $ExpectType FSNode
+    FS.createNode(dir, "other", parseInt("0100644", 8), 0);
+    // $ExpectType number | undefined
+    FS.createNode(null, "/", parseInt("0040777", 8)).rdev;
+
+    // Test FSNode - the constructor takes the same root case createNode passes it
+    // $ExpectType FSNode
+    new FS.FSNode(null, "/", parseInt("0040777", 8));
 }
 
 /// String conversions

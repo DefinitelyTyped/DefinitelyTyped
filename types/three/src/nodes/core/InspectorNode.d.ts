@@ -6,7 +6,7 @@ declare class InspectorNode extends Node {
 
 export default InspectorNode;
 
-export function inspector<T extends Node>(node: T, name?: string, callback?: (node: T) => Node): T;
+export function inspect<T extends Node>(node: T, name?: string, callback?: (node: T) => Node): T;
 
 declare module "./Node.js" {
     interface NodeElements {

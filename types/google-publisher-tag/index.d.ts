@@ -851,7 +851,7 @@ declare namespace googletag {
          *
          * @see [About publisher provided identifiers](https://support.google.com/admanager/answer/2880055)
          * @param ppid An alphanumeric ID provided by the publisher. Must be between
-         *     32 and 150 characters.
+         *     22 and 150 characters.
          * @return The service object on which the method was called.
          */
         setPublisherProvidedId(ppid: string): PubAdsService;
@@ -1162,6 +1162,42 @@ declare namespace googletag {
          * @return The service object on which the function was called.
          */
         setPrivacySettings(privacySettings: PrivacySettingsConfig): PubAdsService;
+
+        /**
+         * Registers a hook to be executed in parallel with other registered hooks
+         * prior to each ad request on the page within a global timeout.
+         *
+         * @experimental
+         * @example
+         *   // Register a request hook.
+         *   const unregister = googletag.pubads().registerRequestHook(async ({slots}) => {
+         *     const someAsynchronousAction = Promise.resolve();
+         *     await someAsynchronousAction;
+         *     for (const slot of slots) {
+         *       slot.setConfig({targeting: {hookApplied: 'true'}});
+         *     }
+         *   }, 'my-hook');
+         *
+         *   // Unregister the hook.
+         *   unregister();
+         *
+         * @param hook A function that takes an object containing the list of
+         *     requested slots and returns a promise that resolves once all
+         *     asynchronous actions are complete.
+         * @param hookId An ID to label the hook for improved diagnostics.
+         * @return A function to unregister the hook.
+         */
+        registerRequestHook(hook: RequestHook, hookId: string): () => void;
+    }
+
+    /**
+     * Callback function invoked prior to each ad request when registered via
+     * {@link PubAdsService.registerRequestHook}.
+     *
+     * @experimental
+     */
+    interface RequestHook {
+        (input: { slots: Slot[] }): Promise<void>;
     }
 
     /**
@@ -1873,7 +1909,7 @@ declare namespace googletag {
     /**
      * The size string where the ad container takes 100% width of its parent div and
      * then resizes its height to fit the creative content. Similar to how regular
-     * block elements on a page behave. Used for native ads (see
+     * block elements on a page behave. Used for native and banner ads (see
      * [related article](https://support.google.com/admanager/answer/6366845)).
      */
     type FluidSize = "fluid";
@@ -1885,7 +1921,7 @@ declare namespace googletag {
      *
      * - **fluid**: the ad container takes 100% width of its parent div and then
      *   resizes its height to fit the creative content. Similar to how regular block
-     *   elements on a page behave. Used for native ads (see
+     *   elements on a page behave. Used for native and banner ads (see
      *   [related article](https://support.google.com/admanager/answer/6366845)).
      *   Note that both `fluid` and `['fluid']` are acceptable forms to declare a
      *   slot size as fluid.
@@ -2022,6 +2058,22 @@ declare namespace googletag {
          */
         interface AutoRefreshConfig {
             /**
+             * Whether GPT will automatically refresh an actively viewed ad slot when the
+             * page is restored from the back/forward cache. Defaults to `true`.
+             *
+             * @example
+             *   // Set the auto refresh configuration, disabling auto refresh on
+             *   // back/forward cache restore.
+             *   googletag.setConfig({autoRefresh: {backForwardCache: false}});
+             *
+             *   // Clear the auto refresh configuration, restoring to default behavior.
+             *   googletag.setConfig({autoRefresh: null});
+             *
+             * @see [Back/forward cache](https://web.dev/articles/bfcache)
+             */
+            backForwardCache?: boolean;
+
+            /**
              * Whether GPT will automatically refresh an ad slot if Chrome's Heavy Ad
              * Intervention triggers on the slot's ad iframe. Defaults to `true`.
              *
@@ -2036,6 +2088,46 @@ declare namespace googletag {
              * @see [Understand Chrome's Heavy Ad Interventions](https://developer.chrome.com/docs/web-platform/heavy-ads-intervention)
              */
             heavyAds?: boolean;
+        }
+
+        /**
+         * Settings to configure the continue button behavior.
+         *
+         * @see {@link googletag.config.SlotSettingsConfig.continueButton | SlotSettingsConfig.continueButton}
+         */
+        interface ContinueButtonConfig {
+            /**
+             * The font family of the button text.
+             *
+             * Example: `'Arial'`
+             */
+            font?: string | null;
+
+            /**
+             * The text color of the button.
+             *
+             * Example: `'white'`, `'#B73B87'`
+             */
+            fontColor?: string | null;
+
+            /**
+             * The background color of the button.
+             *
+             * Example: `'blue'`, `'#94B1FF'`
+             */
+            backgroundColor?: string | null;
+
+            /**
+             * The ID of the HTML element on which to render/trigger the continue button.
+             */
+            targetId?: string | null;
+
+            /**
+             * The frequency capping interval in minutes.
+             *
+             * Must be an integer greater than or equal to 1.
+             */
+            freqCapIntervalMinutes?: number | null;
         }
 
         /**
@@ -2465,6 +2557,32 @@ declare namespace googletag {
              *   googletag.setConfig({autoRefresh: null});
              */
             autoRefresh?: AutoRefreshConfig | null;
+
+            /**
+             * Setting to control the maximum time GPT will wait for all registered
+             * request hooks to complete before proceeding with an ad request.
+             *
+             * All registered request hooks are executed in parallel. This timeout
+             * defines the upper limit on how long the ad request process will pause
+             * while waiting for those parallel executions to complete.
+             *
+             * Supported values:
+             *  - Positive number in milliseconds: The customized waiting period.
+             *  - `'auto'`: GPT uses a Google-optimized timeout.
+             *  - `null`: Disable timeouts (GPT waits indefinitely for hooks to complete).
+             *
+             * @experimental
+             * @example
+             *   // Set a 1000ms timeout for request hooks.
+             *   googletag.setConfig({requestHookTimeoutMs: 1000});
+             *
+             *   // Use a Google-optimized timeout for request hooks.
+             *   googletag.setConfig({requestHookTimeoutMs: 'auto'});
+             *
+             *   // Clear the timeout.
+             *   googletag.setConfig({requestHookTimeoutMs: null});
+             */
+            requestHookTimeoutMs?: number | "auto" | null;
         }
 
         /**
@@ -2849,6 +2967,36 @@ declare namespace googletag {
              *   slot.setConfig({adsenseAttributes: null});
              */
             adsenseAttributes?: AdSenseAttributesConfig | null;
+
+            /**
+             * Settings to configure the continue button behavior for content pause ads.
+             *
+             * These settings allow customizing the appearance and behavior of the exit and
+             * continue reading interactions associated with content pause formats.
+             *
+             * Any continue button settings which are not specified when calling
+             * `setConfig()` will use a default value set by Google.
+             *
+             * To disable or clear all continue button settings, pass `null`.
+             *
+             * @example
+             *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!
+             *            .addService(googletag.pubads());
+             *   // Configure continue button settings.
+             *   slot.setConfig({
+             *     continueButton: {
+             *       font: 'Arial',
+             *       fontColor: 'white',
+             *       backgroundColor: 'blue',
+             *       targetId: 'target-div-id',
+             *       freqCapIntervalMinutes: 20
+             *     }
+             *   });
+             *
+             *   // Clear continue button settings.
+             *   slot.setConfig({continueButton: null});
+             */
+            continueButton?: ContinueButtonConfig | null;
         }
 
         /**
@@ -2927,6 +3075,7 @@ declare namespace googletag {
             | "navBar"
             | "inactivity"
             | "endOfArticle"
+            | "continueReading"
             | /** @deprecated */ "backward";
 
         /**

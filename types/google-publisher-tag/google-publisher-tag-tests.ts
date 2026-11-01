@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260525
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/3a5fc88b30b26709f89e5dc6f8f1bb725322c2b6
+// Tests for Google Publisher Tag 1.20261019
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b1f8113d0afdc3100eb7255d470e9eaa22f7fac6
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -437,6 +437,21 @@ function test_googletag_pubAdsService_setPrivacySettings() {
     });
 }
 
+// Test for googletag.PubAdsService.registerRequestHook
+function test_googletag_pubAdsService_registerRequestHook() {
+    // Register a request hook.
+    const unregister = googletag.pubads().registerRequestHook(async ({ slots }) => {
+        const someAsynchronousAction = Promise.resolve();
+        await someAsynchronousAction;
+        for (const slot of slots) {
+            slot.setConfig({ targeting: { hookApplied: "true" } });
+        }
+    }, "my-hook");
+
+    // Unregister the hook.
+    unregister();
+}
+
 // Test for googletag.Service.addEventListener
 function test_googletag_service_addEventListener() {
     // 1. Adding an event listener for the PubAdsService.
@@ -803,6 +818,16 @@ function test_googletag_config_adExpansionConfig() {
     });
 }
 
+// Test for googletag.config.AutoRefreshConfig.backForwardCache
+function test_googletag_config_autoRefreshConfig_backForwardCache() {
+    // Set the auto refresh configuration, disabling auto refresh on
+    // back/forward cache restore.
+    googletag.setConfig({ autoRefresh: { backForwardCache: false } });
+
+    // Clear the auto refresh configuration, restoring to default behavior.
+    googletag.setConfig({ autoRefresh: null });
+}
+
 // Test for googletag.config.AutoRefreshConfig.heavyAds
 function test_googletag_config_autoRefreshConfig_heavyAds() {
     // Set the auto refresh configuration, disabling auto refresh on heavy
@@ -972,6 +997,18 @@ function test_googletag_config_pageSettingsConfig_autoRefresh() {
     googletag.setConfig({ autoRefresh: null });
 }
 
+// Test for googletag.config.PageSettingsConfig.requestHookTimeoutMs
+function test_googletag_config_pageSettingsConfig_requestHookTimeoutMs() {
+    // Set a 1000ms timeout for request hooks.
+    googletag.setConfig({ requestHookTimeoutMs: 1000 });
+
+    // Use a Google-optimized timeout for request hooks.
+    googletag.setConfig({ requestHookTimeoutMs: "auto" });
+
+    // Clear the timeout.
+    googletag.setConfig({ requestHookTimeoutMs: null });
+}
+
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments
 function test_googletag_config_privacyTreatmentsConfig_treatments() {
     // Disable personalization across the entire page.
@@ -1107,6 +1144,24 @@ function test_googletag_config_slotSettingsConfig_adsenseAttributes() {
 
     // Clear all AdSense attributes.
     slot.setConfig({ adsenseAttributes: null });
+}
+
+// Test for googletag.config.SlotSettingsConfig.continueButton
+function test_googletag_config_slotSettingsConfig_continueButton() {
+    const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!.addService(googletag.pubads());
+    // Configure continue button settings.
+    slot.setConfig({
+        continueButton: {
+            font: "Arial",
+            fontColor: "white",
+            backgroundColor: "blue",
+            targetId: "target-div-id",
+            freqCapIntervalMinutes: 20,
+        },
+    });
+
+    // Clear continue button settings.
+    slot.setConfig({ continueButton: null });
 }
 
 // Test for googletag.config.InterstitialConfig.triggers

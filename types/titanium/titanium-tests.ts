@@ -8,7 +8,7 @@ function test_window() {
     window.backgroundColor = "blue";
     window.opacity = 0.92;
 
-    const matrix = Ti.UI.create2DMatrix().scale(1.1, 1);
+    const matrix = Ti.UI.createMatrix2D().scale(1.1, 1);
     window.transform = matrix;
 
     let label: Titanium.UI.Label;

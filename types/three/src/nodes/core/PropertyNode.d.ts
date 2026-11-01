@@ -34,6 +34,7 @@ export const varyingProperty: <const TNodeType>(
 
 export const diffuseColor: PropertyNode<"vec4">;
 export const diffuseContribution: PropertyNode<"vec3">;
+export const diffuseRoughness: PropertyNode<"float">;
 export const emissive: PropertyNode<"vec3">;
 export const roughness: PropertyNode<"float">;
 export const metalness: PropertyNode<"float">;
@@ -62,4 +63,5 @@ export const thickness: PropertyNode<"float">;
 export const attenuationDistance: PropertyNode<"float">;
 export const attenuationColor: PropertyNode<"color">;
 export const dispersion: PropertyNode<"float">;
+export const retroreflectivity: PropertyNode<"float">;
 export const ambientOcclusion: PropertyNode<"float">;

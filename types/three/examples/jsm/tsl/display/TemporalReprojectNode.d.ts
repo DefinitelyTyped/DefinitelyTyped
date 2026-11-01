@@ -1,4 +1,4 @@
-import { Camera, Node, TempNode, Texture, TextureNode, UniformNode } from "three/webgpu";
+import { Camera, Node, Texture, TextureNode, UniformNode } from "three/webgpu";
 
 export type TemporalReprojectMode = "diffuse" | "specular";
 
@@ -8,7 +8,7 @@ export interface TemporalReprojectNodeOptions {
     accumulate?: boolean | undefined;
 }
 
-declare class TemporalReprojectNode extends TempNode<"vec4"> {
+declare class TemporalReprojectNode extends Node<"vec4"> {
     readonly isTemporalReprojectNode: boolean;
 
     beautyNode: Node<"vec4">;
@@ -29,10 +29,10 @@ declare class TemporalReprojectNode extends TempNode<"vec4"> {
 
     maxVelocityLength: number;
 
-    maxFrames: UniformNode<"float", number>;
-    hitPointReprojection: UniformNode<"bool", boolean>;
-    clampIntensity: UniformNode<"float", number>;
-    flickerSuppression: UniformNode<"float", number>;
+    maxFrames: UniformNode<"float">;
+    hitPointReprojection: UniformNode<"bool">;
+    clampIntensity: UniformNode<"float">;
+    flickerSuppression: UniformNode<"float">;
 
     constructor(
         beautyNode: Node<"vec4">,

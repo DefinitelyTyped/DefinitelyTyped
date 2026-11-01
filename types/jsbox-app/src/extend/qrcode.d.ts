@@ -2,8 +2,10 @@
 
 declare namespace QrcodeTypes {
     interface ScanOptions {
-        useFrontCamera?: boolean; // default false
-        turnOnFlash?: boolean; // default false
+        /** @default false */
+        useFrontCamera?: boolean;
+        /** @default false */
+        turnOnFlash?: boolean;
         handler: (result: string) => void;
         cancelled?: () => void;
     }

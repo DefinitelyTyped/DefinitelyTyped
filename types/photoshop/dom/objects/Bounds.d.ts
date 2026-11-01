@@ -1,5 +1,5 @@
 /**
- * Defines a rectangle. This is a WIP.
+ * Defines a rectangle with properties: left, right, top, and bottom.
  *
  * @targetfolder objects
  * @optionobject

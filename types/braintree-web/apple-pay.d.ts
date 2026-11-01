@@ -305,10 +305,15 @@ export class ApplePaySession {
     static readonly STATUS_PIN_REQUIRED: number;
 }
 
+export type ApplePayPaymentRequestResult = ApplePayPaymentRequest | Promise<ApplePayPaymentRequest>;
+
+export type ApplePay = ApplePayBase<ApplePayPaymentRequest>;
+export type ApplePayDeferred = ApplePayBase<Promise<ApplePayPaymentRequest>>;
+
 /**
  * @description Accept Apple Pay on the Web. *This component is currently in beta and is subject to change.*
  */
-export interface ApplePay {
+export interface ApplePayBase<T extends ApplePayPaymentRequestResult> {
     /**
      * @description A special merchant ID which represents the merchant association with Braintree. Required when using ApplePaySession.canMakePaymentsWithActiveCard.
      */
@@ -347,7 +352,7 @@ export interface ApplePay {
                     "countryCode" | "currencyCode" | "merchantCapabilities" | "supportedNetworks"
                 >
             >,
-    ): ApplePayPaymentRequest;
+    ): T;
 
     /**
      * Validates the merchant website, as required by ApplePaySession before payment can be authorized.     * - The canonical name for your store.
@@ -430,5 +435,32 @@ export interface ApplePay {
     teardown(): Promise<void>;
 }
 
-export function create(options: { client: Client }): Promise<ApplePay>;
-export function create(options: { client: Client }, callback?: callback<ApplePay>): void;
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    useDeferredClient?: false | undefined;
+}): Promise<ApplePay>;
+
+export function create(options: {
+    client?: Client | undefined;
+    authorization?: string | undefined;
+    useDeferredClient: true;
+}): Promise<ApplePayDeferred>;
+
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        useDeferredClient?: false | undefined;
+    },
+    callback: callback<ApplePay>,
+): void;
+
+export function create(
+    options: {
+        client?: Client | undefined;
+        authorization?: string | undefined;
+        useDeferredClient: true;
+    },
+    callback: callback<ApplePayDeferred>,
+): void;

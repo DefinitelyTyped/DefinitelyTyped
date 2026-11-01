@@ -26,7 +26,8 @@ declare namespace LocationTypes {
         region: Region;
         size?: { width: number; height: number };
         showsPin?: boolean;
-        style?: 0 | 1 | 2; // 0: unspecified, 1: light, 2: dark
+        /** 0: unspecified, 1: light, 2: dark */
+        style?: 0 | 1 | 2;
     }
 
     interface SelectResult {

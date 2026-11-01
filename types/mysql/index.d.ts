@@ -625,7 +625,7 @@ export interface OkPacket {
     protocol41: boolean;
 }
 
-export const enum Types {
+export enum Types {
     DECIMAL = 0x00, // aka DECIMAL (http://dev.mysql.com/doc/refman/5.0/en/precision-math-decimal-changes.html)
     TINY = 0x01, // aka TINYINT, 1 byte
     SHORT = 0x02, // aka SMALLINT, 2 bytes

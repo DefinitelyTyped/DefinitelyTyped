@@ -1,4 +1,4 @@
-import { Channel } from "../Channel";
+import { AlphaChannel, ComponentChannel } from "../Channel";
 import { ApplyImageBlendMode, ApplyImageChannel, ApplyImageLayer } from "../Constants";
 import { Document } from "../Document";
 import { Layer } from "../Layer";
@@ -18,7 +18,8 @@ export declare type ApplyImageLayerType = Layer | ApplyImageLayer.MERGED;
  * @minVersion 24.5
  */
 export declare type ApplyImageChannelType =
-    | Channel
+    | ComponentChannel
+    | AlphaChannel
     | ApplyImageChannel.RGB
     | ApplyImageChannel.CMYK
     | ApplyImageChannel.LAB

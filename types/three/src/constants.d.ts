@@ -27,6 +27,9 @@ export type CullFace = typeof CullFaceNone | typeof CullFaceBack | typeof CullFa
 // Shadowing Type
 export const BasicShadowMap: 0;
 export const PCFShadowMap: 1;
+/**
+ * @deprecated since r186. Use {@link PCFShadowMap} instead.
+ */
 export const PCFSoftShadowMap: 2;
 export const VSMShadowMap: 3;
 export type ShadowMapType = typeof BasicShadowMap | typeof PCFShadowMap | typeof PCFSoftShadowMap | typeof VSMShadowMap;
@@ -174,7 +177,6 @@ export const UVMapping: 300;
  */
 export const CubeReflectionMapping: 301;
 export const CubeRefractionMapping: 302;
-export const CubeUVReflectionMapping: 306;
 
 export const EquirectangularReflectionMapping: 303;
 export const EquirectangularRefractionMapping: 304;
@@ -196,8 +198,7 @@ export type Mapping =
  */
 export type CubeTextureMapping =
     | typeof CubeReflectionMapping
-    | typeof CubeRefractionMapping
-    | typeof CubeUVReflectionMapping;
+    | typeof CubeRefractionMapping;
 
 /**
  * Texture Mapping Modes for any type of Textures
@@ -835,6 +836,16 @@ export const Compatibility: {
     TEXTURE_COMPARE: "depthTextureCompare";
 };
 export type Compatibility = typeof Compatibility.TEXTURE_COMPARE;
+
+export const RenderObjectRefreshType: {
+    NONE: 0;
+    SHARED: 1;
+    FULL: 2;
+};
+export type RenderObjectRefreshType =
+    | typeof RenderObjectRefreshType.NONE
+    | typeof RenderObjectRefreshType.SHARED
+    | typeof RenderObjectRefreshType.FULL;
 
 ///////////////////////////////////////////////////////////////////////////////
 // Texture - Internal Pixel Formats

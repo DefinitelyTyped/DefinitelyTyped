@@ -6,7 +6,8 @@ declare namespace MessageTypes {
         body: string;
         subject?: string;
         attachments?: NSData[];
-        handler?: (result: 0 | 1 | 2) => void; // 0: cancelled 1: succeeded 2: failed
+        /** 0: cancelled 1: succeeded 2: failed */
+        handler?: (result: 0 | 1 | 2) => void;
     }
 
     interface MailOptions {
@@ -17,7 +18,13 @@ declare namespace MessageTypes {
         body: string;
         isHTML?: boolean;
         attachments?: NSData[];
-        handler?: (result: 0 | 1 | 2 | 3) => void; // 0: cancelled 1: succeeded 2: failed
+        /**
+         * 0: cancelled 1: saved 2: succeeded 3: failed
+         *
+         * This behavior was verified on a real device(Version 2.32.0).
+         * The English JSBox documentation is incorrect.
+         */
+        handler?: (result: 0 | 1 | 2 | 3) => void;
     }
 }
 

@@ -444,6 +444,25 @@ function testOnLoadTypes(formContext: Xrm.FormContext) {
     }
 }
 
+function testLoadedTypes(formContext: Xrm.FormContext) {
+    formContext.ui.addLoaded(onLoaded);
+    formContext.ui.removeLoaded(onLoaded);
+
+    function onLoaded(eventContext: Xrm.Events.LoadEventContext) {
+        eventContext.getEventArgs().getDataLoadState() === 2;
+    }
+
+    formContext.ui.addLoaded(asyncOnLoaded);
+    formContext.ui.removeLoaded(asyncOnLoaded);
+
+    async function asyncOnLoaded(eventContext: Xrm.Events.LoadEventContextAsync) {
+        const eventArgs = eventContext.getEventArgs();
+        eventArgs.disableAsyncTimeout();
+
+        eventArgs.getDataLoadState() === XrmEnum.FormDataLoadState.Refresh;
+    }
+}
+
 // Demonstrate Xrm.Utility.lookupObjects parameters
 Xrm.Utility.lookupObjects({
     entityTypes: ["contact"],
@@ -844,3 +863,86 @@ function testItemCollectionGet(formContext: Xrm.FormContext) {
     // $ExpectType Tab
     formContext.ui.tabs.get<Xrm.Controls.Tab>("tabName");
 }
+// Demonstrate Xrm.WebApi.offline.isAvailableOffline
+
+// Test with a typical entity logical name
+// $ExpectType boolean
+const isAccountAvailableOffline = Xrm.WebApi.offline.isAvailableOffline("account");
+
+// Test with a custom entity logical name
+// $ExpectType boolean
+const isCustomEntityAvailableOffline = Xrm.WebApi.offline.isAvailableOffline("new_customentity");
+
+// Should error with missing parameter
+// @ts-expect-error
+Xrm.WebApi.offline.isAvailableOffline();
+
+// Should error with a non-string parameter
+// @ts-expect-error
+Xrm.WebApi.offline.isAvailableOffline(12345);
+
+// Should error with extra parameters
+// @ts-expect-error
+Xrm.WebApi.offline.isAvailableOffline("account", "extra");
+
+// Demonstrate userSettings.getSecurityRolePrivilegesInfo().then(successCallback, errorCallback)
+
+const context = Xrm.Utility.getGlobalContext();
+
+// $ExpectType Promise<{ [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }>
+const privilegePromise = context.userSettings.getSecurityRolePrivilegesInfo();
+
+privilegePromise.then(result => {
+    // $ExpectType { [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }
+    result;
+
+    Object.keys(result).forEach(privilegeId => {
+        const privilege = result[privilegeId];
+
+        // $ExpectType string
+        privilege.id;
+
+        // $ExpectType string
+        privilege.businessUnitId;
+
+        // $ExpectType string
+        privilege.privilegeName;
+
+        // $ExpectType number
+        privilege.depth;
+    });
+});
+
+// Test the successCallback and errorCallback parameter types.
+context.userSettings.getSecurityRolePrivilegesInfo(
+    result => {
+        // $ExpectType { [privilegeId: string]: { id: string; businessUnitId: string; privilegeName: string; depth: number } }
+        result;
+
+        Object.keys(result).forEach(privilegeId => {
+            const privilege = result[privilegeId];
+
+            // $ExpectType string
+            privilege.id;
+
+            // $ExpectType string
+            privilege.businessUnitId;
+
+            // $ExpectType string
+            privilege.privilegeName;
+
+            // $ExpectType number
+            privilege.depth;
+        });
+    },
+    error => {
+        // $ExpectType { errorCode: number; message: string }
+        error;
+
+        // $ExpectType number
+        error.errorCode;
+
+        // $ExpectType string
+        error.message;
+    },
+);

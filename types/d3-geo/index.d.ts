@@ -1003,7 +1003,7 @@ export function geoAzimuthalEqualArea(): GeoProjection;
 /**
  * The raw azimuthal equal-area projection.
  */
-export function geoAzimuthalEqualAreaRaw(): GeoRawProjection;
+export const geoAzimuthalEqualAreaRaw: GeoRawProjection;
 
 /**
  * The azimuthal equidistant projection.
@@ -1012,7 +1012,7 @@ export function geoAzimuthalEquidistant(): GeoProjection;
 /**
  * The raw azimuthal equidistant projection.
  */
-export function geoAzimuthalEquidistantRaw(): GeoRawProjection;
+export const geoAzimuthalEquidistantRaw: GeoRawProjection;
 
 /**
  * The gnomonic projection.
@@ -1022,7 +1022,7 @@ export function geoGnomonic(): GeoProjection;
 /**
  * The raw gnomonic projection.
  */
-export function geoGnomonicRaw(): GeoRawProjection;
+export const geoGnomonicRaw: GeoRawProjection;
 
 /**
  * The orthographic projection.
@@ -1032,7 +1032,7 @@ export function geoOrthographic(): GeoProjection;
 /**
  * The raw orthographic projection.
  */
-export function geoOrthographicRaw(): GeoRawProjection;
+export const geoOrthographicRaw: GeoRawProjection;
 
 /**
  * The stereographic projection.
@@ -1042,7 +1042,7 @@ export function geoStereographic(): GeoProjection;
 /**
  * The raw stereographic projection.
  */
-export function geoStereographicRaw(): GeoRawProjection;
+export const geoStereographicRaw: GeoRawProjection;
 
 /**
  * The Equal Eartch projection, by Bojan Šavrič et al., 2018.
@@ -1052,7 +1052,7 @@ export function geoEqualEarth(): GeoProjection;
 /**
  * The raw Equal Earth projection, by Bojan Šavrič et al., 2018.
  */
-export function geoEqualEarthRaw(): GeoRawProjection;
+export const geoEqualEarthRaw: GeoRawProjection;
 
 // Composite Projections ---------------------------------------------------
 
@@ -1112,7 +1112,7 @@ export function geoEquirectangular(): GeoProjection;
 /**
  * The raw equirectangular (plate carrée) projection.
  */
-export function geoEquirectangularRaw(): GeoRawProjection;
+export const geoEquirectangularRaw: GeoRawProjection;
 
 /**
  * The spherical Mercator projection.
@@ -1122,7 +1122,7 @@ export function geoMercator(): GeoProjection;
 /**
  * The raw spherical Mercator projection.
  */
-export function geoMercatorRaw(): GeoRawProjection;
+export const geoMercatorRaw: GeoRawProjection;
 
 /**
  * The transverse spherical Mercator projection.
@@ -1133,7 +1133,7 @@ export function geoTransverseMercator(): GeoProjection;
 /**
  * The raw transverse spherical Mercator projection.
  */
-export function geoTransverseMercatorRaw(): GeoRawProjection;
+export const geoTransverseMercatorRaw: GeoRawProjection;
 
 /**
  * The Natural Earth projection is a pseudocylindrical projection designed by Tom Patterson. It is neither conformal nor equal-area, but appealing to the eye for small-scale maps of the whole world.
@@ -1143,7 +1143,7 @@ export function geoNaturalEarth1(): GeoProjection;
 /**
  * The raw pseudo-cylindircal Natural Earth projection.
  */
-export function geoNaturalEarth1Raw(): GeoRawProjection;
+export const geoNaturalEarth1Raw: GeoRawProjection;
 
 // ----------------------------------------------------------------------
 // Projection Transforms

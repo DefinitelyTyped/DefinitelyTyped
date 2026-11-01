@@ -12,7 +12,7 @@ export const BasicPointShadowFilter: (params: {
 export const PointShadowFilter: (params: {
     depthTexture: Node;
     bd3D: Node;
-    dp: Node;
+    distance: Node;
     shadow: Node;
 }) => Node;
 

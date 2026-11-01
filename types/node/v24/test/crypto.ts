@@ -1128,7 +1128,7 @@ import { promisify } from "node:util";
         format: "der",
     });
     crypto.createPrivateKey({
-        key: "asd",
+        key: {},
         format: "jwk",
     });
 }
@@ -1561,6 +1561,13 @@ import { promisify } from "node:util";
 }
 
 {
+    crypto.randomUUIDv7({});
+    crypto.randomUUIDv7({ disableEntropyCache: true });
+    crypto.randomUUIDv7({ disableEntropyCache: false });
+    crypto.randomUUIDv7();
+}
+
+{
     const cert = new crypto.X509Certificate("dummy");
     cert.ca; // $ExpectType boolean
     cert.fingerprint; // $ExpectType string
@@ -1891,4 +1898,34 @@ import { promisify } from "node:util";
     const { privateKey } = crypto.generateKeyPairSync("ml-kem-1024");
     const publicKey = crypto.decapsulate(privateKey, Buffer.from("the quick brown fox jumped over the lazy dog"));
     const { sharedKey, ciphertext } = crypto.encapsulate(publicKey);
+}
+
+// Raw key format export/import
+{
+    const { publicKey, privateKey } = crypto.generateKeyPairSync("ed25519");
+
+    // Export with raw formats
+    const rawPublic = publicKey.export({ format: "raw-public" });
+    rawPublic; // $ExpectType NonSharedBuffer
+    const rawPrivate = privateKey.export({ format: "raw-private" });
+    rawPrivate; // $ExpectType NonSharedBuffer
+    const rawSeed = privateKey.export({ format: "raw-seed" });
+    rawSeed; // $ExpectType NonSharedBuffer
+
+    // Import with raw formats
+    const importedPublic = crypto.createPublicKey({
+        key: rawPublic,
+        format: "raw-public",
+        asymmetricKeyType: "ed25519",
+    });
+    const importedPrivate = crypto.createPrivateKey({
+        key: rawPrivate,
+        format: "raw-private",
+        asymmetricKeyType: "ed25519",
+    });
+
+    // @ts-expect-error
+    crypto.createPublicKey({ key: rawPrivate, format: "raw-private" });
+    // @ts-expect-error
+    crypto.createPrivateKey({ key: rawPublic, format: "raw-public" });
 }

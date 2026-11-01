@@ -28,6 +28,17 @@ export interface MeshPhysicalNodeMaterialNodeProperties extends MeshStandardNode
      */
     clearcoatRoughnessNode: Node | null;
     /**
+     * The diffuse roughness of physical materials is by default inferred from the
+     * `diffuseRoughness` and `diffuseRoughnessMap` properties. This node property allows to overwrite the
+     * default and define the diffuse roughness with a node instead.
+     *
+     * If you don't want to overwrite the diffuse roughness but modify the existing
+     * value instead, use {@link materialDiffuseRoughness}.
+     *
+     * @default null
+     */
+    diffuseRoughnessNode: Node | null;
+    /**
      * The clearcoat normal of physical materials is by default inferred from the `clearcoatNormalMap`
      * property. This node property allows to overwrite the default
      * and define the clearcoat normal with a node instead.
@@ -83,8 +94,8 @@ export interface MeshPhysicalNodeMaterialNodeProperties extends MeshStandardNode
      */
     iridescenceIORNode: Node | null;
     /**
-     * The iridescence thickness of physical materials is by default inferred from the `iridescenceThicknessRange`
-     * and `iridescenceThicknessMap` properties. This node property allows to overwrite the default
+     * The iridescence thickness of physical materials is by default inferred from the `iridescenceThicknessMinimum`,
+     * `iridescenceThicknessMaximum` and `iridescenceThicknessMap` properties. This node property allows to overwrite the default
      * and define the iridescence thickness with a node instead.
      *
      * If you don't want to overwrite the iridescence thickness but modify the existing
@@ -182,6 +193,17 @@ export interface MeshPhysicalNodeMaterialNodeProperties extends MeshStandardNode
      */
     dispersionNode: Node | null;
     /**
+     * The retroreflective strength of physical materials is by default inferred from the
+     * `retroreflectivity` property. This node property allows to overwrite the default
+     * and define the retroreflective strength with a node instead.
+     *
+     * If you don't want to overwrite the retroreflective strength but modify the existing
+     * value instead, use {@link materialRetroreflectivity}.
+     *
+     * @default null
+     */
+    retroreflectivityNode: Node | null;
+    /**
      * The anisotropy of physical materials is by default inferred from the
      * `anisotropy` property. This node property allows to overwrite the default
      * and define the anisotropy with a node instead.
@@ -220,6 +242,12 @@ declare class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
      */
     get useClearcoat(): boolean;
     /**
+     * Whether the lighting model should use EON rough diffuse reflection or not.
+     *
+     * @default false
+     */
+    get useDiffuseRoughness(): boolean;
+    /**
      * Whether the lighting model should use iridescence or not.
      *
      * @default true
@@ -249,6 +277,12 @@ declare class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
      * @default true
      */
     get useDispersion(): boolean;
+    /**
+     * Whether the lighting model should use retroreflection or not.
+     *
+     * @default true
+     */
+    get useRetroreflection(): boolean;
     /**
      * Setups the physical specific node variables.
      *

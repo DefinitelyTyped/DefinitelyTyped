@@ -1,26 +1,28 @@
-import { Node, PerspectiveCamera, TempNode, TextureNode, UniformNode } from "three/webgpu";
+import { Node, PerspectiveCamera, TextureNode, UniformNode } from "three/webgpu";
 
-declare class SSGINode extends TempNode<"vec4"> {
+declare class SSGINode extends Node<"vec4"> {
     beautyNode: Node;
     depthNode: Node;
     normalNode: Node;
 
-    sliceCount: UniformNode<"uint", number>;
-    stepCount: UniformNode<"uint", number>;
-    aoIntensity: UniformNode<"float", number>;
-    giIntensity: UniformNode<"float", number>;
-    radius: UniformNode<"float", number>;
-    useScreenSpaceSampling: UniformNode<"bool", boolean>;
-    expFactor: UniformNode<"float", number>;
-    thickness: UniformNode<"float", number>;
-    useLinearThickness: UniformNode<"bool", boolean>;
-    backfaceLighting: UniformNode<"float", number>;
+    resolutionScale: number;
+
+    sliceCount: UniformNode<"uint">;
+    stepCount: UniformNode<"uint">;
+    aoIntensity: UniformNode<"float">;
+    giIntensity: UniformNode<"float">;
+    radius: UniformNode<"float">;
+    useScreenSpaceSampling: UniformNode<"bool">;
+    expFactor: UniformNode<"float">;
+    thickness: UniformNode<"float">;
+    useLinearThickness: UniformNode<"bool">;
+    backfaceLighting: UniformNode<"float">;
     useTemporalFiltering: boolean;
 
     constructor(beautyNode: Node, depthNode: Node, normalNode: Node, camera: PerspectiveCamera);
 
-    getAONode(): TextureNode;
-    getGINode(): TextureNode;
+    getAONode(): TextureNode<"float">;
+    getGINode(): TextureNode<"vec3">;
 }
 
 export default SSGINode;

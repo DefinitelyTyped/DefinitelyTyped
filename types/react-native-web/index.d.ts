@@ -25,7 +25,6 @@ import type {
     FlatList as FlatListRN,
     FlatListProps as FlatListPropsRN,
     GestureResponderEvent,
-    InteractionManager as InteractionManagerRN,
     LayoutAnimation as LayoutAnimationRN,
     MeasureInWindowOnSuccessCallback,
     MeasureLayoutOnSuccessCallback,
@@ -35,8 +34,8 @@ import type {
     SectionListProps as SectionListPropsRN,
     StyleProp,
     StyleSheet as StyleSheetRN,
-    TextStyle,
-    ViewStyle,
+    TextStyle as TextStyleRN,
+    ViewStyle as ViewStyleRN,
     VirtualizedList as VirtualizedListRN,
     VirtualizedListProps as VirtualizedListPropsRN,
 } from "react-native";
@@ -354,7 +353,7 @@ interface WebViewProps extends WebSharedProps {
 export interface WebStyle extends CSSProperties {
     // https://necolas.github.io/react-native-web/docs/styling/#non-standard-properties
     // Exclusive to react-native-web, "pointerEvents" already included on RN
-    animationKeyframes?: string | Record<string, ViewStyle>;
+    animationKeyframes?: string | Record<string, ViewStyleRN>;
     writingDirection?: "auto" | "ltr" | "rtl";
     enableBackground?: string;
 }
@@ -467,7 +466,26 @@ export interface Keyboard {
     removeListener(): void;
 }
 
-export type InteractionManager = typeof InteractionManagerRN;
+// react-native no longer exports InteractionManager types; declared from
+// react-native-web's implementation (exports/InteractionManager/index.js).
+export interface InteractionManager {
+    Events: {
+        interactionStart: string;
+        interactionComplete: string;
+    };
+    runAfterInteractions(task?: (() => void) | null): {
+        then: (...args: any[]) => void;
+        done: (...args: any[]) => void;
+        cancel: () => void;
+    };
+    createInteractionHandle(): number;
+    clearInteractionHandle(handle: number): void;
+    addListener(
+        eventType: "interactionStart" | "interactionComplete",
+        listener: () => void,
+    ): { remove(): void };
+    setDeadline(deadline: number): void;
+}
 
 export type LayoutAnimation = typeof LayoutAnimationRN;
 
@@ -798,6 +816,10 @@ export interface UIManager {
     setLayoutAnimationEnabledExperimental(value: boolean): void;
 }
 
+export const UIManager: UIManager;
+
+export {};
+
 export interface Vibration {
     cancel(): void;
     vibrate(pattern?: VibratePattern): void;
@@ -911,7 +933,7 @@ export interface ImageProps extends ViewProps {
         | "repeat"
         | "stretch";
     source?: number | string | SourceObject | SourceObject[];
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyleRN>;
     tintColor?: string | null;
 }
 export const Image: FunctionComponent<ImageProps & RefAttributes<typeof View>>;
@@ -919,14 +941,14 @@ export const Image: FunctionComponent<ImageProps & RefAttributes<typeof View>>;
 export interface ImageBackgroundProps extends ViewProps {
     animating?: boolean;
     imageRef?: any;
-    imageStyle?: StyleProp<ViewStyle>;
-    style?: StyleProp<ViewStyle>;
+    imageStyle?: StyleProp<ViewStyleRN>;
+    style?: StyleProp<ViewStyleRN>;
 }
 export const ImageBackground: FunctionComponent<ImageBackgroundProps & RefAttributes<typeof View>>;
 
 export interface KeyboardAvoidingViewProps extends ViewProps {
     behavior?: "height" | "padding" | "position";
-    contentContainerStyle?: StyleProp<ViewStyle>;
+    contentContainerStyle?: StyleProp<ViewStyleRN>;
     keyboardVerticalOffset: number;
 }
 export const KeyboardAvoidingView: ComponentClass<KeyboardAvoidingViewProps>;
@@ -1003,10 +1025,10 @@ export interface PressableProps extends ViewPropsWithoutStyle {
     // Called when the press is deactivated to undo visual feedback.
     onPressOut?: (event: any) => void;
     style?:
-        | StyleProp<ViewStyle>
+        | StyleProp<ViewStyleRN>
         | ((state: {
             pressed: boolean;
-        }) => StyleProp<ViewStyle>);
+        }) => StyleProp<ViewStyleRN>);
 }
 export const Pressable: FunctionComponent<PressableProps & RefAttributes<typeof View>>;
 
@@ -1037,7 +1059,7 @@ export const SafeAreaView: FunctionComponent<SafeAreaViewProps>;
 
 export interface ScrollViewProps extends ViewProps {
     centerContent?: boolean;
-    contentContainerStyle?: ViewStyle;
+    contentContainerStyle?: ViewStyleRN;
     horizontal?: boolean;
     keyboardDismissMode?: "none" | "interactive" | "on-drag";
     onContentSizeChange?: (event: any) => void;
@@ -1079,7 +1101,7 @@ export interface TextProps extends ViewPropsWithoutStyle {
         | "text"
         | "paragraph"
         | AriaRole;
-    style?: StyleProp<TextStyle>;
+    style?: StyleProp<TextStyleRN>;
     testID?: string;
     // @deprecated
     accessibilityRole?:
@@ -1148,7 +1170,7 @@ export interface TextInputProps extends ViewPropsWithoutStyle {
     selectionColor?: string | null;
     showSoftInputOnFocus?: boolean;
     spellCheck?: boolean;
-    style?: StyleProp<TextStyle>;
+    style?: StyleProp<TextStyleRN>;
     value?: string;
     // deprecated
     editable?: boolean;
@@ -1186,7 +1208,7 @@ export interface TouchableHighlightProps extends ViewProps {
     activeOpacity?: number;
     onHideUnderlay?: () => void;
     onShowUnderlay?: () => void;
-    style?: ViewStyle;
+    style?: ViewStyleRN;
     testOnly_pressed?: boolean;
     underlayColor?: string | null;
 }
@@ -1196,7 +1218,7 @@ export const TouchableNativeFeedback: ComponentClass;
 
 export interface TouchableOpacityProps extends ViewProps {
     activeOpacity?: number;
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyleRN>;
 }
 export const TouchableOpacity: FunctionComponent<TouchableOpacityProps & RefAttributes<typeof View>>;
 
@@ -1217,7 +1239,7 @@ export interface ViewProps extends AccessibilityPropsWeb, EventProps {
     dir?: "ltr" | "rtl";
     id?: string;
     lang?: string;
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyleRN>;
     tabIndex?: 0 | -1;
     testID?: string;
     // unstable
@@ -1232,7 +1254,7 @@ type ViewPropsWithoutStyle = Omit<ViewProps, "style">;
 
 export const View: FunctionComponent<ActivityIndicatorProps & RefAttributes<HTMLElement>>;
 
-export type VirtualizedListProps<ItemT> = VirtualizedListPropsRN<ItemT>;
+export type VirtualizedListProps<ItemT = unknown> = VirtualizedListPropsRN;
 export const VirtualizedList: typeof VirtualizedListRN;
 
 export const YellowBox: FunctionComponent<object>;
@@ -1266,277 +1288,99 @@ export function useWindowDimensions(): {
 
 export const unstable_createElement: typeof createElement;
 
-export {};
+// Web-specific versions of react-native's prop/style types. These were
+// previously applied to "react-native" via module augmentation, which is no
+// longer possible: react-native 0.87's bundled types declare these names as
+// type aliases, and type aliases cannot be merged with interfaces.
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface AccessibilityProps extends AccessibilityPropsWeb {}
 
-declare module "react-native" {
-    interface AccessibilityProps {
-        "aria-activedescendant"?: idRef;
-        "aria-atomic"?: boolean;
-        "aria-autocomplete"?: "none" | "list" | "inline" | "both";
-        "aria-busy"?: boolean;
-        "aria-checked"?: boolean | "mixed";
-        "aria-colcount"?: number;
-        "aria-colindex"?: number;
-        "aria-colspan"?: number;
-        "aria-controls"?: idRef;
-        "aria-current"?: boolean | "page" | "step" | "location" | "date" | "time";
-        "aria-describedby"?: idRef;
-        "aria-details"?: idRef;
-        "aria-disabled"?: boolean;
-        "aria-errormessage"?: idRef;
-        "aria-expanded"?: boolean;
-        "aria-flowto"?: idRef;
-        "aria-haspopup"?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
-        "aria-hidden"?: boolean;
-        "aria-invalid"?: boolean;
-        "aria-keyshortcuts"?: string;
-        "aria-label"?: string;
-        "aria-labelledby"?: idRef;
-        "aria-level"?: number;
-        "aria-live"?: "assertive" | "off" | "polite";
-        "aria-modal"?: boolean;
-        "aria-multiline"?: boolean;
-        "aria-multiselectable"?: boolean;
-        "aria-orientation"?: "horizontal" | "vertical";
-        "aria-owns"?: idRef;
-        "aria-placeholder"?: string;
-        "aria-posinset"?: number;
-        "aria-pressed"?: boolean | "mixed";
-        "aria-readonly"?: boolean;
-        "aria-required"?: boolean;
-        "aria-roledescription"?: string;
-        "aria-rowcount"?: number;
-        "aria-rowindex"?: number;
-        "aria-rowspan"?: number;
-        "aria-selected"?: boolean;
-        "aria-setsize"?: number;
-        "aria-sort"?: "ascending" | "descending" | "none" | "other";
-        "aria-valuemax"?: number;
-        "aria-valuemin"?: number;
-        "aria-valuenow"?: number;
-        "aria-valuetext"?: string;
+// https://necolas.github.io/react-native-web/docs/pressable/#interactionstate
+export interface PressableStateCallbackType {
+    readonly focused: boolean;
+    readonly hovered: boolean;
+    readonly pressed: boolean;
+}
 
-        // @deprecated
-        accessibilityActiveDescendant?: idRef;
-        accessibilityAtomic?: boolean;
-        accessibilityAutoComplete?: "none" | "list" | "inline" | "both";
-        accessibilityBusy?: boolean;
-        accessibilityChecked?: boolean | "mixed";
-        accessibilityColumnCount?: number;
-        accessibilityColumnIndex?: number;
-        accessibilityColumnSpan?: number;
-        accessibilityControls?: idRefList;
-        accessibilityCurrent?: boolean | "page" | "step" | "location" | "date" | "time";
-        accessibilityDescribedBy?: idRefList;
-        accessibilityDetails?: idRef;
-        accessibilityDisabled?: boolean;
-        accessibilityErrorMessage?: idRef;
-        accessibilityExpanded?: boolean;
-        accessibilityFlowTo?: idRefList;
-        accessibilityHasPopup?: "dialog" | "grid" | "listbox" | "menu" | "tree" | false;
-        accessibilityHidden?: boolean;
-        accessibilityInvalid?: boolean;
-        accessibilityKeyShortcuts?: string[];
-        accessibilityLabel?: string;
-        accessibilityLabelledBy?: idRef;
-        accessibilityLevel?: number;
-        accessibilityLiveRegion?: "assertive" | "none" | "polite";
-        accessibilityModal?: boolean;
-        accessibilityMultiline?: boolean;
-        accessibilityMultiSelectable?: boolean;
-        accessibilityOrientation?: "horizontal" | "vertical";
-        accessibilityOwns?: idRefList;
-        accessibilityPlaceholder?: string;
-        accessibilityPosInSet?: number;
-        accessibilityPressed?: boolean | "mixed";
-        accessibilityReadOnly?: boolean;
-        accessibilityRequired?: boolean;
-        accessibilityRoleDescription?: string;
-        accessibilityRowCount?: number;
-        accessibilityRowIndex?: number;
-        accessibilityRowSpan?: number;
-        accessibilitySelected?: boolean;
-        accessibilitySetSize?: number;
-        accessibilitySort?: "ascending" | "descending" | "none" | "other";
-        accessibilityValueMax?: number;
-        accessibilityValueMin?: number;
-        accessibilityValueNow?: number;
-        accessibilityValueText?: string;
-    }
+export interface ViewStyle extends WebStyle {
+    // In order to overwrite properties from RN, we need to redefine them inside ViewStyle.
+    zIndex?: CSSProperties["zIndex"] | undefined;
+    overflow?: CSSProperties["overflow"] | undefined;
+    display?: CSSProperties["display"] | undefined;
+    position?: CSSProperties["position"] | undefined;
+    top?: CSSProperties["top"] | NonNullable<DimensionValue> | undefined;
+    right?: CSSProperties["right"] | NonNullable<DimensionValue> | undefined;
+    bottom?: CSSProperties["bottom"] | NonNullable<DimensionValue> | undefined;
+    left?: CSSProperties["left"] | NonNullable<DimensionValue> | undefined;
+    height?: CSSProperties["height"] | NonNullable<DimensionValue> | undefined;
+    width?: CSSProperties["width"] | NonNullable<DimensionValue> | undefined;
+    maxHeight?: CSSProperties["maxHeight"] | NonNullable<DimensionValue> | undefined;
+    maxWidth?: CSSProperties["maxWidth"] | NonNullable<DimensionValue> | undefined;
+    minHeight?: CSSProperties["minHeight"] | NonNullable<DimensionValue> | undefined;
+    minWidth?: CSSProperties["minWidth"] | NonNullable<DimensionValue> | undefined;
+    margin?: CSSProperties["margin"] | NonNullable<DimensionValue> | undefined;
+    marginTop?: CSSProperties["marginTop"] | NonNullable<DimensionValue> | undefined;
+    marginRight?: CSSProperties["marginRight"] | NonNullable<DimensionValue> | undefined;
+    marginBottom?: CSSProperties["marginBottom"] | NonNullable<DimensionValue> | undefined;
+    marginLeft?: CSSProperties["marginLeft"] | NonNullable<DimensionValue> | undefined;
+    padding?: CSSProperties["padding"] | NonNullable<DimensionValue> | undefined;
+    paddingTop?: CSSProperties["paddingTop"] | NonNullable<DimensionValue> | undefined;
+    paddingRight?: CSSProperties["paddingRight"] | NonNullable<DimensionValue> | undefined;
+    paddingBottom?: CSSProperties["paddingBottom"] | NonNullable<DimensionValue> | undefined;
+    paddingLeft?: CSSProperties["paddingLeft"] | NonNullable<DimensionValue> | undefined;
+}
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface ViewProps extends WebViewProps {}
+export interface TextStyle extends WebStyle {
+    // In order to overwrite properties from RN, we need to redefine them inside TextStyle.
+    zIndex?: CSSProperties["zIndex"] | undefined;
+    overflow?: CSSProperties["overflow"] | undefined;
+    display?: CSSProperties["display"] | undefined;
+    position?: CSSProperties["position"] | undefined;
+    top?: CSSProperties["top"] | NonNullable<DimensionValue> | undefined;
+    right?: CSSProperties["right"] | NonNullable<DimensionValue> | undefined;
+    bottom?: CSSProperties["bottom"] | NonNullable<DimensionValue> | undefined;
+    left?: CSSProperties["left"] | NonNullable<DimensionValue> | undefined;
+    height?: CSSProperties["height"] | NonNullable<DimensionValue> | undefined;
+    width?: CSSProperties["width"] | NonNullable<DimensionValue> | undefined;
+    maxHeight?: CSSProperties["maxHeight"] | NonNullable<DimensionValue> | undefined;
+    maxWidth?: CSSProperties["maxWidth"] | NonNullable<DimensionValue> | undefined;
+    minHeight?: CSSProperties["minHeight"] | NonNullable<DimensionValue> | undefined;
+    minWidth?: CSSProperties["minWidth"] | NonNullable<DimensionValue> | undefined;
+    margin?: CSSProperties["margin"] | NonNullable<DimensionValue> | undefined;
+    marginTop?: CSSProperties["marginTop"] | NonNullable<DimensionValue> | undefined;
+    marginRight?: CSSProperties["marginRight"] | NonNullable<DimensionValue> | undefined;
+    marginBottom?: CSSProperties["marginBottom"] | NonNullable<DimensionValue> | undefined;
+    marginLeft?: CSSProperties["marginLeft"] | NonNullable<DimensionValue> | undefined;
+    padding?: CSSProperties["padding"] | NonNullable<DimensionValue> | undefined;
+    paddingTop?: CSSProperties["paddingTop"] | NonNullable<DimensionValue> | undefined;
+    paddingRight?: CSSProperties["paddingRight"] | NonNullable<DimensionValue> | undefined;
+    paddingBottom?: CSSProperties["paddingBottom"] | NonNullable<DimensionValue> | undefined;
+    paddingLeft?: CSSProperties["paddingLeft"] | NonNullable<DimensionValue> | undefined;
+}
 
-    /**
-     * Text
-     * Extracted from react-native-web, packages/react-native-web/src/exports/Text/types.js
-     */
-    interface WebTextProps extends WebSharedProps {
-        dir?: "auto" | "ltr" | "rtl";
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface TextProps extends WebTextProps {
-        role?:
-            | "button"
-            | "header"
-            | "heading"
-            | "label"
-            | "link"
-            | "listitem"
-            | "none"
-            | "text"
-            | "paragraph"
-            | AriaRole;
-        // @deprecated
-        accessibilityRole?:
-            | "button"
-            | "header"
-            | "heading"
-            | "label"
-            | "link"
-            | "listitem"
-            | "none"
-            | "text";
-    }
-
-    /**
-     * TextInput
-     * Extracted from react-native-web, packages/react-native-web/src/exports/TextInput/types.js
-     */
-    interface WebTextInputProps extends WebSharedProps {
-        dir?: "auto" | "ltr" | "rtl";
-        disabled?: boolean;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface TextInputProps extends WebTextInputProps {}
-
-    /**
-     * Image
-     * Extracted from react-native-web, packages/react-native-web/src/exports/Image/types.js
-     */
-    interface WebImageProps extends WebSharedProps {
-        dir?: "ltr" | "rtl";
-        draggable?: boolean;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface ImageProps extends WebImageProps {}
-
-    /**
-     * ScrollView
-     * Extracted from react-native-web, packages/react-native-web/src/exports/ScrollView/ScrollViewBase.js
-     */
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface WebScrollViewProps extends WebSharedProps {}
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface ScrollViewProps extends WebScrollViewProps {}
-
-    /**
-     * Pressable
-     */
-    // https://necolas.github.io/react-native-web/docs/pressable/#interactionstate
-    // Extracted from react-native-web, packages/react-native-web/src/exports/Pressable/index.js
-    interface WebPressableStateCallbackType {
-        readonly focused: boolean;
-        readonly hovered: boolean;
-        readonly pressed: boolean;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface PressableStateCallbackType extends WebPressableStateCallbackType {}
-
-    // Extracted from react-native-web, packages/react-native-web/src/exports/Pressable/index.js
-    interface WebPressableProps extends WebSharedProps {
-        /** Duration (in milliseconds) from `onPressStart` is called after pointerdown. */
-        delayPressIn?: number;
-        /** Duration (in milliseconds) from `onPressEnd` is called after pointerup. */
-        delayPressOut?: number;
-        /** Called when a touch is moving, after `onPressIn`. */
-        onPressMove?: (event: GestureResponderEvent) => void;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface PressableProps extends WebPressableProps {}
-
-    interface ViewStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside ViewStyle.
-        zIndex?: CSSProperties["zIndex"] | undefined;
-        overflow?: CSSProperties["overflow"] | undefined;
-        display?: CSSProperties["display"] | undefined;
-        position?: CSSProperties["position"] | undefined;
-        top?: CSSProperties["top"] | DimensionValue | undefined;
-        right?: CSSProperties["right"] | DimensionValue | undefined;
-        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
-        left?: CSSProperties["left"] | DimensionValue | undefined;
-        height?: CSSProperties["height"] | DimensionValue | undefined;
-        width?: CSSProperties["width"] | DimensionValue | undefined;
-        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
-        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
-        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
-        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
-        margin?: CSSProperties["margin"] | DimensionValue | undefined;
-        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
-        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
-        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
-        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
-        padding?: CSSProperties["padding"] | DimensionValue | undefined;
-        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
-        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
-        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
-        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
-    }
-
-    interface TextStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside TextStyle.
-        zIndex?: CSSProperties["zIndex"] | undefined;
-        overflow?: CSSProperties["overflow"] | undefined;
-        display?: CSSProperties["display"] | undefined;
-        position?: CSSProperties["position"] | undefined;
-        top?: CSSProperties["top"] | DimensionValue | undefined;
-        right?: CSSProperties["right"] | DimensionValue | undefined;
-        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
-        left?: CSSProperties["left"] | DimensionValue | undefined;
-        height?: CSSProperties["height"] | DimensionValue | undefined;
-        width?: CSSProperties["width"] | DimensionValue | undefined;
-        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
-        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
-        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
-        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
-        margin?: CSSProperties["margin"] | DimensionValue | undefined;
-        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
-        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
-        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
-        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
-        padding?: CSSProperties["padding"] | DimensionValue | undefined;
-        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
-        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
-        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
-        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
-    }
-
-    interface ImageStyle extends WebStyle {
-        // In order to overwrite properties from RN, we need to redefine them inside ImageStyle.
-        zIndex?: CSSProperties["zIndex"] | undefined;
-        display?: CSSProperties["display"] | undefined;
-        position?: CSSProperties["position"] | undefined;
-        top?: CSSProperties["top"] | DimensionValue | undefined;
-        right?: CSSProperties["right"] | DimensionValue | undefined;
-        bottom?: CSSProperties["bottom"] | DimensionValue | undefined;
-        left?: CSSProperties["left"] | DimensionValue | undefined;
-        height?: CSSProperties["height"] | DimensionValue | undefined;
-        width?: CSSProperties["width"] | DimensionValue | undefined;
-        maxHeight?: CSSProperties["maxHeight"] | DimensionValue | undefined;
-        maxWidth?: CSSProperties["maxWidth"] | DimensionValue | undefined;
-        minHeight?: CSSProperties["minHeight"] | DimensionValue | undefined;
-        minWidth?: CSSProperties["minWidth"] | DimensionValue | undefined;
-        margin?: CSSProperties["margin"] | DimensionValue | undefined;
-        marginTop?: CSSProperties["marginTop"] | DimensionValue | undefined;
-        marginRight?: CSSProperties["marginRight"] | DimensionValue | undefined;
-        marginBottom?: CSSProperties["marginBottom"] | DimensionValue | undefined;
-        marginLeft?: CSSProperties["marginLeft"] | DimensionValue | undefined;
-        padding?: CSSProperties["padding"] | DimensionValue | undefined;
-        paddingTop?: CSSProperties["paddingTop"] | DimensionValue | undefined;
-        paddingRight?: CSSProperties["paddingRight"] | DimensionValue | undefined;
-        paddingBottom?: CSSProperties["paddingBottom"] | DimensionValue | undefined;
-        paddingLeft?: CSSProperties["paddingLeft"] | DimensionValue | undefined;
-    }
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface UIManagerStatic extends UIManager {}
+export interface ImageStyle extends WebStyle {
+    // In order to overwrite properties from RN, we need to redefine them inside ImageStyle.
+    zIndex?: CSSProperties["zIndex"] | undefined;
+    display?: CSSProperties["display"] | undefined;
+    position?: CSSProperties["position"] | undefined;
+    top?: CSSProperties["top"] | NonNullable<DimensionValue> | undefined;
+    right?: CSSProperties["right"] | NonNullable<DimensionValue> | undefined;
+    bottom?: CSSProperties["bottom"] | NonNullable<DimensionValue> | undefined;
+    left?: CSSProperties["left"] | NonNullable<DimensionValue> | undefined;
+    height?: CSSProperties["height"] | NonNullable<DimensionValue> | undefined;
+    width?: CSSProperties["width"] | NonNullable<DimensionValue> | undefined;
+    maxHeight?: CSSProperties["maxHeight"] | NonNullable<DimensionValue> | undefined;
+    maxWidth?: CSSProperties["maxWidth"] | NonNullable<DimensionValue> | undefined;
+    minHeight?: CSSProperties["minHeight"] | NonNullable<DimensionValue> | undefined;
+    minWidth?: CSSProperties["minWidth"] | NonNullable<DimensionValue> | undefined;
+    margin?: CSSProperties["margin"] | NonNullable<DimensionValue> | undefined;
+    marginTop?: CSSProperties["marginTop"] | NonNullable<DimensionValue> | undefined;
+    marginRight?: CSSProperties["marginRight"] | NonNullable<DimensionValue> | undefined;
+    marginBottom?: CSSProperties["marginBottom"] | NonNullable<DimensionValue> | undefined;
+    marginLeft?: CSSProperties["marginLeft"] | NonNullable<DimensionValue> | undefined;
+    padding?: CSSProperties["padding"] | NonNullable<DimensionValue> | undefined;
+    paddingTop?: CSSProperties["paddingTop"] | NonNullable<DimensionValue> | undefined;
+    paddingRight?: CSSProperties["paddingRight"] | NonNullable<DimensionValue> | undefined;
+    paddingBottom?: CSSProperties["paddingBottom"] | NonNullable<DimensionValue> | undefined;
+    paddingLeft?: CSSProperties["paddingLeft"] | NonNullable<DimensionValue> | undefined;
 }

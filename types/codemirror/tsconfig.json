@@ -53,7 +53,7 @@
         "test/addon/lint/lint.ts",
         "test/addon/lint/yaml-lint.ts",
         "test/addon/merge/merge.ts",
-        "test/addon/mode/loadMode.ts",
+        "test/addon/mode/loadmode.ts",
         "test/addon/mode/multiplex.ts",
         "test/addon/mode/overlay.ts",
         "test/addon/mode/simple.ts",

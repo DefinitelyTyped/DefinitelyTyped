@@ -15,6 +15,7 @@
     },
     "files": [
         "index.d.ts",
-        "toastr-tests.ts"
+        "toastr-tests.ts",
+        "toastr-global-module-tests.ts"
     ]
 }

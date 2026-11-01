@@ -110,6 +110,7 @@ declare module "node:process" {
         "node:util/types": typeof import("node:util/types");
         "v8": typeof import("v8");
         "node:v8": typeof import("node:v8");
+        "node:vfs": typeof import("node:vfs");
         "vm": typeof import("vm");
         "node:vm": typeof import("node:vm");
         "wasi": typeof import("wasi");
@@ -549,6 +550,58 @@ declare module "node:process" {
                  * @since v20.0.0
                  */
                 has(scope: string, reference?: string): boolean;
+                /**
+                 * Drops the specified permission from the current process. This operation is
+                 * **irreversible** — once a permission is dropped, it cannot be restored through
+                 * any Node.js API.
+                 *
+                 * If no reference is provided, the entire scope is dropped. For example,
+                 * `process.permission.drop('fs.read')` will revoke ALL file system read
+                 * permissions.
+                 *
+                 * When a reference is provided, only the permission for that specific resource
+                 * is dropped. For example, `process.permission.drop('fs.read', '/etc/myapp')`
+                 * will revoke read access to that directory while keeping other read
+                 * permissions intact.
+                 *
+                 * **Important:** You can only drop the exact resource that was explicitly
+                 * granted. The reference passed to `drop()` must match the original grant:
+                 *
+                 * * If a permission was granted using a wildcard (`*`), such as
+                 *   `--allow-fs-read=*`, individual paths cannot be dropped - only the entire
+                 *   scope can be dropped (by calling `drop()` without a reference).
+                 * * If a directory was granted (e.g. `--allow-fs-read=/my/folder`), you cannot
+                 *   drop access to individual files inside it. You must drop the same directory
+                 *   that was granted. Any remaining grants continue to apply.
+                 *
+                 * The available scopes are the same as [`process.permission.has()`][]:
+                 *
+                 *  `fs` - All File System (drops both read and write)
+                 * * `fs.read` - File System read operations
+                 * * `fs.write` - File System write operations
+                 * * `child` - Child process spawning operations
+                 * * `worker` - Worker thread spawning operation
+                 * * `net` - Network operations
+                 * * `inspector` - Inspector operations
+                 * * `wasi` - WASI operations
+                 * * `addon` - Native addon operations
+                 *
+                 * ```js
+                 * const fs = require('node:fs');
+                 *
+                 * // Read configuration during startup
+                 * const config = fs.readFileSync('/etc/myapp/config.json', 'utf8');
+                 *
+                 * // Drop read access to the config directory after initialization
+                 * process.permission.drop('fs.read', '/etc/myapp');
+                 *
+                 * // This will now throw ERR_ACCESS_DENIED
+                 * fs.readFileSync('/etc/myapp/config.json');
+                 * ```
+                 * @since v26.3.0
+                 * @experimental
+                 */
+                drop(scope: string, reference?: string): void;
             }
             interface ProcessReport {
                 /**
@@ -791,14 +844,14 @@ declare module "node:process" {
                  *
                  * Results in `process.execArgv`:
                  *
-                 * ```js
+                 * ```json
                  * ["--icu-data-dir=./foo", "--require", "./bar.js"]
                  * ```
                  *
                  * And `process.argv`:
                  *
-                 * ```js
-                 * ['/usr/local/bin/node', 'script.js', '--version']
+                 * ```json
+                 * ["/usr/local/bin/node", "script.js", "--version"]
                  * ```
                  *
                  * Refer to `Worker constructor` for the detailed behavior of worker
@@ -810,8 +863,8 @@ declare module "node:process" {
                  * The `process.execPath` property returns the absolute pathname of the executable
                  * that started the Node.js process. Symbolic links, if any, are resolved.
                  *
-                 * ```js
-                 * '/usr/local/bin/node'
+                 * ```json
+                 * "/usr/local/bin/node"
                  * ```
                  * @since v0.1.100
                  */
@@ -994,18 +1047,18 @@ declare module "node:process" {
                  *
                  * An example of this object looks like:
                  *
-                 * ```js
+                 * ```json
                  * {
-                 *   TERM: 'xterm-256color',
-                 *   SHELL: '/usr/local/bin/bash',
-                 *   USER: 'maciej',
-                 *   PATH: '~/.bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin',
-                 *   PWD: '/Users/maciej',
-                 *   EDITOR: 'vim',
-                 *   SHLVL: '1',
-                 *   HOME: '/Users/maciej',
-                 *   LOGNAME: 'maciej',
-                 *   _: '/usr/local/bin/node'
+                 *   "TERM": "xterm-256color",
+                 *   "SHELL": "/usr/local/bin/bash",
+                 *   "USER": "maciej",
+                 *   "PATH": "~/.bin/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin",
+                 *   "PWD": "/Users/maciej",
+                 *   "EDITOR": "vim",
+                 *   "SHLVL": "1",
+                 *   "HOME": "/Users/maciej",
+                 *   "LOGNAME": "maciej",
+                 *   "_": "/usr/local/bin/node"
                  * }
                  * ```
                  *
@@ -1540,29 +1593,28 @@ declare module "node:process" {
                  *
                  * An example of the possible output looks like:
                  *
-                 * ```js
+                 * ```json
                  * {
-                 *   target_defaults:
-                 *    { cflags: [],
-                 *      default_configuration: 'Release',
-                 *      defines: [],
-                 *      include_dirs: [],
-                 *      libraries: [] },
-                 *   variables:
+                 *   "target_defaults":
+                 *    { "cflags": [],
+                 *      "default_configuration": "Release",
+                 *      "defines": [],
+                 *      "include_dirs": [],
+                 *      "libraries": [] },
+                 *   "variables":
                  *    {
-                 *      host_arch: 'x64',
-                 *      napi_build_version: 5,
-                 *      node_install_npm: 'true',
-                 *      node_prefix: '',
-                 *      node_shared_cares: 'false',
-                 *      node_shared_http_parser: 'false',
-                 *      node_shared_libuv: 'false',
-                 *      node_shared_zlib: 'false',
-                 *      node_use_openssl: 'true',
-                 *      node_shared_openssl: 'false',
-                 *      strict_aliasing: 'true',
-                 *      target_arch: 'x64',
-                 *      v8_use_snapshot: 1
+                 *      "host_arch": "x64",
+                 *      "napi_build_version": 5,
+                 *      "node_install_npm": "true",
+                 *      "node_prefix": "",
+                 *      "node_shared_cares": "false",
+                 *      "node_shared_http_parser": "false",
+                 *      "node_shared_libuv": "false",
+                 *      "node_shared_zlib": "false",
+                 *      "node_use_openssl": "true",
+                 *      "node_shared_openssl": "false",
+                 *      "target_arch": "x64",
+                 *      "v8_use_snapshot": 1
                  *    }
                  * }
                  * ```
@@ -1876,13 +1928,13 @@ declare module "node:process" {
                  *
                  * `process.release` contains the following properties:
                  *
-                 * ```js
+                 * ```json
                  * {
-                 *   name: 'node',
-                 *   lts: 'Hydrogen',
-                 *   sourceUrl: 'https://nodejs.org/download/release/v18.12.0/node-v18.12.0.tar.gz',
-                 *   headersUrl: 'https://nodejs.org/download/release/v18.12.0/node-v18.12.0-headers.tar.gz',
-                 *   libUrl: 'https://nodejs.org/download/release/v18.12.0/win-x64/node.lib'
+                 *   "name": "node",
+                 *   "lts": "Hydrogen",
+                 *   "sourceUrl": "https://nodejs.org/download/release/v18.12.0/node-v18.12.0.tar.gz",
+                 *   "headersUrl": "https://nodejs.org/download/release/v18.12.0/node-v18.12.0-headers.tar.gz",
+                 *   "libUrl": "https://nodejs.org/download/release/v18.12.0/win-x64/node.lib"
                  * }
                  * ```
                  *

@@ -6,6 +6,8 @@ import {
     before,
     beforeEach,
     describe,
+    expectFailure,
+    getTestContext,
     it,
     Mock,
     mock,
@@ -49,6 +51,7 @@ run({
     isolation: "process",
     testNamePatterns: ["executed", /^core-/],
     testSkipPatterns: ["excluded", /^lib-/],
+    testTagFilters: ["tag1", "tag2"],
     only: true,
     setup: (reporter) => {
         // $ExpectType TestsStream
@@ -67,7 +70,12 @@ run({
     lineCoverage: 70,
     branchCoverage: 50,
     functionCoverage: 80,
+    randomize: true,
+    randomSeed: 1029384756,
     rerunFailuresFilePath: "/path/to/file.json",
+    env: {
+        MY_TEST_PATH: "/path/to/tests",
+    },
 });
 
 // TestsStream should be a NodeJS.ReadableStream
@@ -167,6 +175,10 @@ test(undefined, undefined, t => {
     t.mock;
     // $ExpectType number
     t.attempt;
+    // $ExpectType readonly string[]
+    t.tags;
+    // $ExpectType number | undefined
+    t.workerId;
 });
 
 // Test the subtest approach.
@@ -218,6 +230,7 @@ describe("options with values", {
     skip: "reason for skip",
     timeout: Infinity,
     todo: "reason for todo",
+    expectFailure: true,
 });
 
 it("options with values", {
@@ -227,6 +240,7 @@ it("options with values", {
     skip: "reason for skip",
     timeout: Infinity,
     todo: "reason for todo",
+    expectFailure: true,
 });
 
 describe("options with booleans", {
@@ -336,6 +350,46 @@ it.only("only shorthand", {
     signal: new AbortController().signal,
     timeout: Infinity,
 });
+
+expectFailure("x", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+expectFailure((t, cb) => {
+    // $ExpectType TestContext
+    t;
+    // $ExpectType (result?: any) => void
+    cb;
+    // $ExpectType void
+    cb({ x: "anything" });
+});
+test.expectFailure("x", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+describe.expectFailure("x", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+it.expectFailure("x", {
+    concurrency: 1,
+    only: true,
+    signal: new AbortController().signal,
+    timeout: Infinity,
+});
+
+// expectFailure predicates
+test({ expectFailure: "message" });
+test({ expectFailure: Error });
+test({ expectFailure: /error/ });
+test({ expectFailure: { code: "ERR_INVALID_ARG_TYPE" } });
+test({ expectFailure: (err) => err instanceof TypeError });
 
 // Test with suite context
 describe(s => {
@@ -466,6 +520,20 @@ suite("foo", (context) => {
     context.name;
     // $ExpectType AbortSignal
     context.signal;
+    // $ExpectType boolean
+    context.passed;
+    // $ExpectType number
+    context.attempt;
+
+    context.diagnostic("diagnostic");
+});
+
+suite("test tags", () => {
+    describe("database", { tags: ["db"] }, () => {
+        it("reads a row"); // tags: ['db']
+        it("writes a row", { tags: ["integration"] }); // tags: ['db', 'integration']
+        it("reconnects after disconnect", { tags: ["flaky"] }); // tags: ['db', 'flaky']
+    });
 });
 
 // Hooks
@@ -801,15 +869,12 @@ test("mocks a module", (t) => {
     // module specifier as a string
     // $ExpectType MockModuleContext
     const mock = t.mock.module("node:readline", {
-        namedExports: {
-            fn() {
+        exports: {
+            default: class Exported {},
+            foo() {
                 return 42;
             },
-        },
-        defaultExport: {
-            foo() {
-                return "bar";
-            },
+            bar: 42,
         },
         cache: true,
     });
@@ -936,6 +1001,14 @@ class TestReporter extends Transform {
                     null,
                     `${name}/${details.duration_ms}/${details.type}/${details.error.cause}/
                     ${nesting}/${testNumber}/${todo}/${skip}/${file}/${column}/${line}`,
+                );
+                break;
+            }
+            case "test:interrupted": {
+                const { tests } = event.data;
+                callback(
+                    null,
+                    tests.map((test) => `${test.name}/${test.nesting}/${test.file}/${test.column}/${test.line}`),
                 );
                 break;
             }
@@ -1070,6 +1143,8 @@ test("planning with streams", (t: TestContext, done) => {
         done();
     });
 });
+
+getTestContext(); // $ExpectType TestContext | SuiteContext | undefined
 
 // Test custom assertion functions.
 {

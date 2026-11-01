@@ -147,6 +147,14 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      */
     parents: boolean;
     /**
+     * Whether this node can be assigned. It is generated as an expression,
+     * unless it is assigned, in which case it is declared as a variable where it was created.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    assignable: boolean;
+    /**
      * This flag can be used for type testing.
      *
      * @type {boolean}
@@ -168,6 +176,36 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      * @default null
      */
     stackTrace: string | null;
+    /**
+     * Whether this node allows caching its result in a temporary variable.
+     * Caching is enabled by default. Override this method to disable it.
+     *
+     * @param {NodeBuilder} builder - The current node builder.
+     * @return {boolean} Whether temporary caching is allowed.
+     */
+    isCacheable(builder: NodeBuilder): boolean;
+    /**
+     * Makes this node assignable and adds it to the current stack,
+     * so it can be declared where it was created if it is assigned later.
+     * Only use it with nodes that are not shared, see {@link Node#assignable}.
+     *
+     * @return {Node} A reference to this node.
+     */
+    toAssignable(): this;
+    /**
+     * Checks if this node is assignable without a forced declaration.
+     *
+     * @param {NodeBuilder} builder - The node builder.
+     * @returns {boolean} Whether this node is assignable without a forced declaration.
+     */
+    isAssignable(builder: NodeBuilder): boolean;
+    /**
+     * Checks if this node is the target of an assignment.
+     *
+     * @param {NodeBuilder} builder - The node builder.
+     * @returns {boolean} Whether this node is assigned.
+     */
+    isAssign(builder: NodeBuilder): boolean;
     /**
      * Set this property to `true` when the node should be regenerated.
      *
@@ -256,12 +294,11 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      */
     isGlobal(builder: NodeBuilder): boolean;
     /**
-     * Generator function that can be used to iterate over the child nodes.
+     * Returns the child nodes of this node.
      *
-     * @generator
-     * @yields {Node} A child node.
+     * @return {Array<Node>} The child nodes.
      */
-    getChildren(): Generator<Node<unknown>, void, unknown>;
+    getChildren(): Array<Node>;
     /**
      * Calling this method dispatches the `dispose` event. This event can be used
      * to register event listeners for clean up tasks.
@@ -305,21 +342,24 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
     /**
      * Returns the update type of {@link Node#update}.
      *
+     * @param {NodeFrame} [frame] - The current node frame.
      * @return {NodeUpdateType} The update type.
      */
-    getUpdateType(): NodeUpdateType;
+    getUpdateType(frame?: NodeFrame): NodeUpdateType;
     /**
      * Returns the update type of {@link Node#updateBefore}.
      *
+     * @param {NodeFrame} [frame] - The current node frame.
      * @return {NodeUpdateType} The update type.
      */
-    getUpdateBeforeType(): NodeUpdateType;
+    getUpdateBeforeType(frame?: NodeFrame): NodeUpdateType;
     /**
      * Returns the update type of {@link Node#updateAfter}.
      *
+     * @param {NodeFrame} [frame] - The current node frame.
      * @return {NodeUpdateType} The update type.
      */
-    getUpdateAfterType(): NodeUpdateType;
+    getUpdateAfterType(frame?: NodeFrame): NodeUpdateType;
     /**
      * Certain types are composed of multiple elements. For example a `vec3`
      * is composed of three `float` values. This method returns the type of
@@ -415,7 +455,6 @@ declare class NodeClass<TEventMap extends NodeClassEventMap = NodeClassEventMap>
      * @return {?boolean} An optional bool that indicates whether the implementation actually performed an update or not (e.g. due to caching).
      */
     updateAfter(frame: NodeFrame): boolean | undefined;
-    before(node: Node): this;
     /**
      * This method performs the build of a node. The behavior and return value depend on the current build stage:
      * - **setup**: Prepares the node and its children for the build process. This process can also create new nodes. Returns the node itself or a variant.
@@ -556,63 +595,60 @@ export interface Mat4Extensions {
 export interface MatExtensions<TMat extends MatType> {
 }
 
+interface NodeExtras {
+    [x: string]: {};
+    "float": NumOrBoolExtensions<"float"> & FloatExtensions & NumExtensions<"float"> & FloatOrVecExtensions<"float">;
+    "int":
+        & NumOrBoolExtensions<"int">
+        & IntExtensions
+        & NumExtensions<"int">
+        & IntegerExtensions<"int">
+        & IntOrVecExtensions<"int">;
+    "uint":
+        & NumOrBoolExtensions<"uint">
+        & UintExtensions
+        & NumExtensions<"uint">
+        & IntegerExtensions<"uint">
+        & IntOrVecExtensions<"uint">;
+    "bool": NumOrBoolExtensions<"bool"> & BoolExtensions & BoolOrVecExtensions<"bool">;
+    "vec2":
+        & NumOrBoolVec2Extensions<"float">
+        & Vec2Extensions
+        & NumVec2Extensions<"float">
+        & FloatVecExtensions<"vec2">
+        & FloatOrVecExtensions<"vec2">;
+    "ivec2": NumOrBoolVec2Extensions<"int"> & NumVec2Extensions<"int"> & IntOrVecExtensions<"ivec2">;
+    "uvec2": NumOrBoolVec2Extensions<"uint"> & NumVec2Extensions<"uint"> & IntOrVecExtensions<"uvec2">;
+    "bvec2": NumOrBoolVec2Extensions<"bool"> & BoolOrVecExtensions<"bvec2">;
+    "vec3":
+        & NumOrBoolVec3Extensions<"float">
+        & Vec3Extensions
+        & NumVec3Extensions<"float">
+        & FloatVecExtensions<"vec3">
+        & FloatOrVecExtensions<"vec3">;
+    "ivec3": NumOrBoolVec3Extensions<"int"> & NumVec3Extensions<"int"> & IntOrVecExtensions<"ivec3">;
+    "uvec3": NumOrBoolVec3Extensions<"uint"> & NumVec3Extensions<"uint"> & IntOrVecExtensions<"uvec3">;
+    "bvec3": NumOrBoolVec3Extensions<"bool"> & BoolOrVecExtensions<"bvec3">;
+    "vec4":
+        & NumOrBoolVec4Extensions<"float">
+        & Vec4Extensions
+        & NumVec4Extensions<"float">
+        & FloatVecExtensions<"vec4">
+        & FloatOrVecExtensions<"vec4">;
+    "ivec4": NumOrBoolVec4Extensions<"int"> & NumVec4Extensions<"int"> & IntOrVecExtensions<"ivec4">;
+    "uvec4": NumOrBoolVec4Extensions<"uint"> & NumVec4Extensions<"uint"> & IntOrVecExtensions<"uvec4">;
+    "bvec4": NumOrBoolVec4Extensions<"bool"> & BoolOrVecExtensions<"bvec4">;
+    "color": ColorExtensions;
+    "mat2": Mat2Extensions & MatExtensions<"mat2">;
+    "mat3": Mat3Extensions & MatExtensions<"mat3">;
+    "mat4": Mat4Extensions & MatExtensions<"mat4">;
+}
+
 type Node<TNodeType = unknown> =
     & NodeClass
     & NodeElements
     & (unknown extends TNodeType ? {} : NodeExtensions<TNodeType>)
-    & (TNodeType extends "float"
-        ? NumOrBoolExtensions<"float"> & FloatExtensions & NumExtensions<"float"> & FloatOrVecExtensions<"float">
-        : TNodeType extends "int" ?
-                & NumOrBoolExtensions<"int">
-                & IntExtensions
-                & NumExtensions<"int">
-                & IntegerExtensions<"int">
-                & IntOrVecExtensions<"int">
-        : TNodeType extends "uint" ?
-                & NumOrBoolExtensions<"uint">
-                & UintExtensions
-                & NumExtensions<"uint">
-                & IntegerExtensions<"uint">
-                & IntOrVecExtensions<"uint">
-        : TNodeType extends "bool" ? NumOrBoolExtensions<"bool"> & BoolExtensions & BoolOrVecExtensions<"bool">
-        : TNodeType extends "vec2" ?
-                & NumOrBoolVec2Extensions<"float">
-                & Vec2Extensions
-                & NumVec2Extensions<"float">
-                & FloatVecExtensions<"vec2">
-                & FloatOrVecExtensions<"vec2">
-        : TNodeType extends "ivec2"
-            ? NumOrBoolVec2Extensions<"int"> & NumVec2Extensions<"int"> & IntOrVecExtensions<"ivec2">
-        : TNodeType extends "uvec2"
-            ? NumOrBoolVec2Extensions<"uint"> & NumVec2Extensions<"uint"> & IntOrVecExtensions<"uvec2">
-        : TNodeType extends "bvec2" ? NumOrBoolVec2Extensions<"bool"> & BoolOrVecExtensions<"bvec2">
-        : TNodeType extends "vec3" ?
-                & NumOrBoolVec3Extensions<"float">
-                & Vec3Extensions
-                & NumVec3Extensions<"float">
-                & FloatVecExtensions<"vec3">
-                & FloatOrVecExtensions<"vec3">
-        : TNodeType extends "ivec3"
-            ? NumOrBoolVec3Extensions<"int"> & NumVec3Extensions<"int"> & IntOrVecExtensions<"ivec3">
-        : TNodeType extends "uvec3"
-            ? NumOrBoolVec3Extensions<"uint"> & NumVec3Extensions<"uint"> & IntOrVecExtensions<"uvec3">
-        : TNodeType extends "bvec3" ? NumOrBoolVec3Extensions<"bool"> & BoolOrVecExtensions<"bvec3">
-        : TNodeType extends "vec4" ?
-                & NumOrBoolVec4Extensions<"float">
-                & Vec4Extensions
-                & NumVec4Extensions<"float">
-                & FloatVecExtensions<"vec4">
-                & FloatOrVecExtensions<"vec4">
-        : TNodeType extends "ivec4"
-            ? NumOrBoolVec4Extensions<"int"> & NumVec4Extensions<"int"> & IntOrVecExtensions<"ivec4">
-        : TNodeType extends "uvec4"
-            ? NumOrBoolVec4Extensions<"uint"> & NumVec4Extensions<"uint"> & IntOrVecExtensions<"uvec4">
-        : TNodeType extends "bvec4" ? NumOrBoolVec4Extensions<"bool"> & BoolOrVecExtensions<"bvec4">
-        : TNodeType extends "color" ? ColorExtensions
-        : TNodeType extends "mat2" ? Mat2Extensions & MatExtensions<"mat2">
-        : TNodeType extends "mat3" ? Mat3Extensions & MatExtensions<"mat3">
-        : TNodeType extends "mat4" ? Mat4Extensions & MatExtensions<"mat4">
-        : {})
+    & NodeExtras[TNodeType & string]
     & {
         __TypeScript_NODE_TYPE__: TNodeType;
     };

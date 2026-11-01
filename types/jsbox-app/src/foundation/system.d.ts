@@ -9,8 +9,10 @@ declare namespace SystemTypes {
 }
 
 interface JBSystem {
-    brightness: number; // 0.0 ~ 1.0
-    volume: number; // 0.0 ~ 1.0
+    /** 0.0 ~ 1.0 */
+    brightness: number;
+    /** 0.0 ~ 1.0 */
+    volume: number;
     call(number: string): void;
     sms(number: string): void;
     mailto(email: string): void;

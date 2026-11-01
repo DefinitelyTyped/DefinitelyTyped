@@ -175,6 +175,7 @@ declare module "node:http" {
         headers?: OutgoingHttpHeaders | readonly string[] | undefined;
         host?: string | null | undefined;
         hostname?: string | null | undefined;
+        httpValidation?: "strict" | "relaxed" | "insecure" | undefined;
         insecureHTTPParser?: boolean | undefined;
         localAddress?: string | undefined;
         localPort?: number | undefined;
@@ -224,7 +225,7 @@ declare module "node:http" {
          * The number of milliseconds of inactivity a server needs to wait for additional incoming data,
          * after it has finished writing the last response, before a socket will be destroyed.
          * @see Server.keepAliveTimeout for more information.
-         * @default 5000
+         * @default 65000
          * @since v18.0.0
          */
         keepAliveTimeout?: number | undefined;
@@ -255,6 +256,21 @@ declare module "node:http" {
          */
         highWaterMark?: number | undefined;
         /**
+         * Controls HTTP header value validation strictness
+         * for incoming requests. Accepted values are:
+         * * `'strict'`: Strictest validation; rejects any non-ASCII or control
+         *   characters in header values.
+         * * `'relaxed'`: Allows a limited set of non-ASCII characters in header
+         *   values, aligning with the
+         *   [Fetch specification](https://fetch.spec.whatwg.org/).
+         * * `'insecure'`: Disables all header value validation (equivalent to
+         *   `insecureHTTPParser: true`).
+         *
+         * Cannot be used together with `insecureHTTPParser`. **Default:** `'strict'`.
+         * @since v26.3.0
+         */
+        httpValidation?: "strict" | "relaxed" | "insecure" | undefined;
+        /**
          * Use an insecure HTTP parser that accepts invalid HTTP headers when `true`.
          * Using the insecure parser should be avoided.
          * See --insecure-http-parser for more information.
@@ -283,7 +299,7 @@ declare module "node:http" {
         requireHostHeader?: boolean | undefined;
         /**
          * If set to `true`, it enables keep-alive functionality on the socket immediately after a new incoming connection is received,
-         * similarly on what is done in `socket.setKeepAlive([enable][, initialDelay])`.
+         * similarly on what is done in `socket.setKeepAlive()`.
          * @default false
          * @since v16.5.0
          */
@@ -922,6 +938,36 @@ declare module "node:http" {
             headers?: OutgoingHttpHeaders | OutgoingHttpHeader[],
         ): this;
         writeHead(statusCode: number, headers?: OutgoingHttpHeaders | OutgoingHttpHeader[]): this;
+        /**
+         * Sends an arbitrary HTTP/1.1 1xx informational response to the client. This
+         * is a generic equivalent of `response.writeContinue()`,
+         * `response.writeProcessing()` and `response.writeEarlyHints()`, and
+         * can be called multiple times before the final response. After the final
+         * response headers have been sent (via `response.writeHead()` or an
+         * implicit header), calling this method throws `ERR_HTTP_HEADERS_SENT`.
+         *
+         * Clients receive these responses via the [`'information'`](https://nodejs.org/docs/latest-v26.x/api/http.html#event-information)
+         * event on `http.ClientRequest`.
+         *
+         * ```js
+         * response.writeInformation(110, { 'X-Progress': '50%' });
+         * ```
+         * @since v26.2.0
+         * @param statusCode An HTTP 1xx informational status code, between `100`
+         * and `199` inclusive, excluding `101` (Switching Protocols) which is only
+         * available through the [`'upgrade'`](https://nodejs.org/docs/latest-v26.x/api/http.html#event-upgrade) event.
+         * @param headers An optional set of headers to send with the
+         * informational response. Accepts the same shapes as
+         * `response.writeHead()`.
+         * @param callback Optional, called once the message has been written
+         * to the socket.
+         */
+        writeInformation(
+            statusCode: number,
+            headers?: OutgoingHttpHeaders | readonly string[],
+            callback?: () => void,
+        ): void;
+        writeInformation(statusCode: number, callback: () => void): void;
         /**
          * Sends a HTTP/1.1 102 Processing message to the client, indicating that
          * the request body should be sent.

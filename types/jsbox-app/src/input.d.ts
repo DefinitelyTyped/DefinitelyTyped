@@ -2,8 +2,9 @@
 
 declare namespace InputTypes {
     interface TextOptions {
-        text?: string; // It is not documented, but it exists based on empirical testing.
-        type?: number; // $kbType
+        /** Not documented but actually exists. */
+        text?: string;
+        type?: (typeof $kbType)[keyof typeof $kbType];
         placeholder?: string;
         handler: (text: string) => void;
     }

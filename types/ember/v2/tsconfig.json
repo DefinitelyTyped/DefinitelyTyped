@@ -38,6 +38,7 @@
         "test/helper.ts",
         "test/computed.ts",
         "test/component.ts",
+        "test/function-prototype-extensions.d.ts",
         "test/function-ext.ts",
         "test/inject.ts",
         "test/utils.ts",

@@ -430,6 +430,11 @@ export interface ExplainedFormat {
     invalidReason?: string | undefined;
 }
 
+/**
+ * A DateTime whose validity is not known statically.
+ *
+ * Checking `isValid` narrows this to `DateTime<true>` or `DateTime<false>`.
+ */
 export type DateTimeMaybeValid = CanBeInvalid extends true ? (DateTime<Valid> | DateTime<Invalid>) : DateTime;
 
 declare const tokenParserBrand: unique symbol;
@@ -903,7 +908,7 @@ export class DateTime<IsValid extends boolean = DefaultValidity> {
      *
      * @param o
      */
-    static isDateTime(o: unknown): o is DateTimeMaybeValid;
+    static isDateTime(o: unknown): o is DateTime;
 
     /**
      * Produce the format string for a set of options

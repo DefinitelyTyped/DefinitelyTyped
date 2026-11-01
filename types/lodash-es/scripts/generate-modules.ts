@@ -114,7 +114,7 @@ import { ${flattenModules.map(val => `${val} as ${val}1`).join(",")}} from 'loda
 function findDprint() {
     let p = __dirname;
     while (true) {
-        const dprintPath = path.join(p, "node_modules", "dprint", "bin.js");
+        const dprintPath = path.join(p, "node_modules", "dprint", "bin.cjs");
         if (fs.existsSync(dprintPath)) {
             return dprintPath;
         }

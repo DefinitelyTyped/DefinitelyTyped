@@ -9,7 +9,7 @@
         "@types/webpack": "^4"
     },
     "devDependencies": {
-        "@types/html-webpack-plugin": "*",
+        "@types/html-webpack-plugin": "<4",
         "@types/speed-measure-webpack-plugin": "workspace:.",
         "@types/uglifyjs-webpack-plugin": "*"
     },

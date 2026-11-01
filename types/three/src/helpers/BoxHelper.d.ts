@@ -45,9 +45,4 @@ export class BoxHelper extends LineSegments<BufferGeometry, LineBasicMaterial> {
      */
     setFromObject(object: Object3D): BoxHelper;
     copy(source: BoxHelper, recursive?: boolean): this;
-    /**
-     * Frees the GPU-related resources allocated by this instance. Call this
-     * method whenever this instance is no longer used in your app.
-     */
-    dispose(): void;
 }

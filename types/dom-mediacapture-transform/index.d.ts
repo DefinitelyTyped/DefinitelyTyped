@@ -42,6 +42,13 @@ interface MediaStreamTrackProcessor<T extends AudioData | VideoFrame> {
     readonly readable: ReadableStream<T>;
     /** Allows sending control signals to the MediaStreamTrack provided to the constructor. */
     readonly writableControl: WritableStream<MediaStreamTrackSignal>;
+    /** The number of frames discarded by this MediaStreamTrackProcessor. */
+    readonly discardedFrames: number;
+    /**
+     * The number of frames received by this MediaStreamTrackProcessor including
+     * discarded frames.
+     */
+    readonly totalFrames: number;
 }
 
 declare var MediaStreamTrackProcessor: {

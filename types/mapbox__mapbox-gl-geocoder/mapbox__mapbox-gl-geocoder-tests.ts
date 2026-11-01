@@ -158,3 +158,9 @@ geocoder.addTo(mapDiv);
 
 // $ExpectType MapboxGeocoder
 geocoder.addTo("#map");
+
+// marker as MarkerOptions
+const geocoderWithMarkerOpts = new MapboxGeocoder({
+    accessToken: "token",
+    marker: { color: "#ff0000" },
+});

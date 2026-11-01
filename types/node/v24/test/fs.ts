@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import {
     access,
+    appendFile as appendFileAsync,
     constants,
     copyFile,
     cp as cpAsync,
@@ -10,6 +11,7 @@ import {
     watch as watchAsync,
     writeFile as writeFileAsync,
 } from "node:fs/promises";
+import { Readable } from "node:stream";
 import { URL } from "node:url";
 import * as util from "node:util";
 import assert = require("node:assert");
@@ -98,6 +100,19 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     fs.readFile("testfile", { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
 
     fs.readFile("testfile", { flag: "r" }, (err, data) => buffer = data);
+
+    fs.readFile("testfile", { buffer: new Uint8Array(16) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBuffer>
+    });
+    fs.readFile("testfile", { buffer: new Uint8Array(new SharedArrayBuffer(16)) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<SharedArrayBuffer>
+    });
+    fs.readFile("testfile", { buffer }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBufferLike>
+    });
+    fs.readFile("testfile", { buffer: (size) => new Uint8Array(size) }, (err, data) => {
+        data; // $ExpectType Buffer || Buffer<ArrayBuffer>
+    });
 }
 
 {
@@ -267,6 +282,7 @@ async function testPromisify() {
         persistent: true,
         encoding: "utf8",
         signal: new AbortSignal(),
+        ignore: (filename) => filename.startsWith("_"),
     }, (event, filename) => {
         console.log(event, filename);
     });
@@ -674,17 +690,110 @@ async function testPromisify() {
 }
 
 (async () => {
-    await writeFileAsync("test", "test");
-    await writeFileAsync("test", Buffer.from("test"));
-    await writeFileAsync("test", ["test", "test2"]);
-    await writeFileAsync(
-        "test",
-        async function*() {
-            yield "yeet";
-        }(),
-    );
-    await writeFileAsync("test", process.stdin);
-    await writeFileAsync("test", "test", { flush: true });
+    const buffer = Buffer.from("");
+    const readable = Readable.from(["a", "b", "c"]);
+
+    await appendFileAsync("test", buffer);
+    await appendFileAsync("test", "x~yz".repeat(100));
+    await appendFileAsync("test", readable);
+    await appendFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid iterables
+    await appendFileAsync("test", [42, 42n, {}, Symbol("42"), true, undefined, null, NaN]);
+    await appendFileAsync("test", Readable.from(["ümlaut", " ", "sechzig"]), "latin1");
+    await appendFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield Buffer.from("a");
+            yield Buffer.from("b");
+            yield Buffer.from("c");
+        },
+    });
+    await appendFileAsync("test", {
+        async *[Symbol.asyncIterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", 42);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", 42n);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", {});
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", Symbol("42"));
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", true);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", undefined);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", null);
+    // @ts-expect-error - Invalid value
+    appendFileAsync("test", NaN);
+
+    appendFileAsync("test", new Uint8Array(buffer.buffer));
+    appendFileAsync("test", new Uint16Array(buffer.buffer));
+    appendFileAsync("test", new Uint32Array(buffer.buffer));
+});
+
+(async () => {
+    const buffer = Buffer.from("");
+    const readable = Readable.from(["a", "b", "c"]);
+
+    await writeFileAsync("test", buffer);
+    await writeFileAsync("test", "x~yz".repeat(100));
+    await writeFileAsync("test", readable);
+    await writeFileAsync("test", readable, { signal: new AbortController().signal });
+    await writeFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid iterables
+    await writeFileAsync("test", [42, 42n, {}, Symbol("42"), true, undefined, null, NaN]);
+    await writeFileAsync("test", Readable.from(["ümlaut", " ", "sechzig"]), "latin1");
+    await writeFileAsync("test", {
+        *[Symbol.iterator]() {
+            yield Buffer.from("a");
+            yield Buffer.from("b");
+            yield Buffer.from("c");
+        },
+    });
+    await writeFileAsync("test", {
+        async *[Symbol.asyncIterator]() {
+            yield "a";
+            yield "b";
+            yield "c";
+        },
+    });
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", 42);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", 42n);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", {});
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", Symbol("42"));
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", true);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", undefined);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", null);
+    // @ts-expect-error - Invalid value
+    writeFileAsync("test", NaN);
+
+    writeFileAsync("test", new Uint8Array(buffer.buffer));
+    writeFileAsync("test", new Uint16Array(buffer.buffer));
+    writeFileAsync("test", new Uint32Array(buffer.buffer));
 });
 
 {
@@ -717,8 +826,8 @@ async function testStat(
     path: string,
     fd: number,
     opts: fs.StatOptions,
-    bigintMaybeFalse: fs.StatOptions & { bigint: false } | undefined,
-    bigIntMaybeTrue: fs.StatOptions & { bigint: true } | undefined,
+    bigintMaybeFalse: { bigint: false } | undefined,
+    bigIntMaybeTrue: { bigint: true } | undefined,
     maybe?: fs.StatOptions,
 ) {
     /* Need to test these variants:
@@ -768,7 +877,7 @@ async function testStat(
     fs.fstat(fd, { bigint: true }, (err, st: fs.BigIntStats) => {});
 
     fs.stat(path, bigIntMaybeTrue, (err, st) => {
-        st; // $ExpectType Stats | BigIntStats
+        st; // $ExpectType Stats | BigIntStats | undefined
     });
     fs.lstat(path, bigIntMaybeTrue, (err, st) => {
         st; // $ExpectType Stats | BigIntStats
@@ -778,7 +887,7 @@ async function testStat(
     });
 
     fs.stat(path, opts, (err, st) => {
-        st; // $ExpectType Stats | BigIntStats
+        st; // $ExpectType Stats | BigIntStats | undefined
     });
 
     fs.lstat(path, opts, (err, st) => {
@@ -845,11 +954,11 @@ async function testStat(
     util.promisify(fs.lstat)(path, { bigint: true }); // $ExpectType Promise<BigIntStats>
     util.promisify(fs.fstat)(fd, { bigint: true }); // $ExpectType Promise<BigIntStats>
 
-    util.promisify(fs.stat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.stat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats | undefined>
     util.promisify(fs.lstat)(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.fstat)(fd, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
 
-    util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
+    util.promisify(fs.stat)(path, opts); // $ExpectType Promise<Stats | BigIntStats | undefined>
     util.promisify(fs.lstat)(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     util.promisify(fs.fstat)(fd, opts); // $ExpectType Promise<Stats | BigIntStats>
 
@@ -877,11 +986,11 @@ async function testStat(
 
     fs.promises.stat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
     fs.promises.lstat(path, bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
-    fh.stat(bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(bigIntMaybeTrue); // $ExpectType Promise<Stats | BigIntStats | undefined>
 
     fs.promises.stat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
     fs.promises.lstat(path, opts); // $ExpectType Promise<Stats | BigIntStats>
-    fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats>
+    fh.stat(opts); // $ExpectType Promise<Stats | BigIntStats | undefined>
 }
 
 const bigStats: fs.BigIntStats = fs.statSync(".", { bigint: true });
@@ -1055,7 +1164,7 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     glob("**/*.js", (err, matches) => {
         matches; // $ExpectType string[]
     });
-    glob("**/*.js", { cwd: new URL("") }, (err, matches) => {
+    glob("**/*.js", { cwd: new URL(""), followSymlinks: true }, (err, matches) => {
         matches; // $ExpectType string[]
     });
     glob("**/*.js", { withFileTypes: true }, (err, matches) => {
@@ -1108,7 +1217,7 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     });
 
     globSync("**/*.js"); // $ExpectType string[]
-    globSync("**/*.js", { cwd: "/" }); // $ExpectType string[]
+    globSync("**/*.js", { cwd: "/", followSymlinks: true }); // $ExpectType string[]
     globSync("**/*.js", { withFileTypes: true }); // $ExpectType Dirent<string>[]
     globSync("**/*.js", { withFileTypes: Math.random() > 0.5 }); // $ExpectType string[] | Dirent<string>[]
 
@@ -1152,6 +1261,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     fd.readFile({ signal: new AbortSignal(), encoding: "utf-8" });
     // @ts-expect-error
     fd.readFile({ encoding: "utf-8", flag: "r" });
+
+    await fd.readFile({ buffer: new Uint8Array(256) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
+    await fd.readFile({ buffer: (size) => new Uint8Array(size) }); // $ExpectType Buffer || Buffer<ArrayBuffer>
 });
 
 {

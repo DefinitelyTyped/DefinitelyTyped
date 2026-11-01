@@ -50,6 +50,9 @@ export interface Options {
     /** Cloud options */
     cloud?: CloudOptions;
 
+    /** handleSummary() function timeout. */
+    handleSummaryTimeout?: string;
+
     /** Static hostname mapping. */
     hosts?: { [name: string]: string };
 
@@ -115,6 +118,14 @@ export interface Options {
 
     /** Throw error on failed HTTP request. */
     throw?: boolean;
+
+    /**
+     * Fetch missing intermediate certificates through Authority Information Access (AIA)
+     * when a server sends an incomplete TLS certificate chain, while keeping certificate
+     * and hostname verification enabled. Requires hostname targets rather than IP addresses.
+     * Disabled by default. Has no effect when `insecureSkipTLSVerify` is true.
+     */
+    tlsAIAFetch?: boolean;
 
     /** TLS client certificates. */
     tlsAuth?: Certificate[];

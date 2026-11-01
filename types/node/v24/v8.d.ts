@@ -71,7 +71,37 @@ declare module "v8" {
     /**
      * Returns an object with the following properties:
      *
-     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the `--zap_code_space` option is enabled or not. This makes V8 overwrite heap
+     * `total_heap_size` The value of total\_heap\_size is the number of bytes V8 has
+     * allocated for the heap. This can grow if used\_heap needs more memory.
+     *
+     * `total_heap_size_executable` The value of total\_heap\_size\_executable is the
+     * portion of the heap that can contain executable code, in bytes. This includes
+     * memory used by JIT-compiled code and any memory that must be kept executable.
+     *
+     * `total_physical_size` The value of total\_physical\_size is the actual physical memory
+     * used by the V8 heap, in bytes. This is the amount of memory that is committed
+     * (or in use) rather than reserved.
+     *
+     * `total_available_size` The value of total\_available\_size is the number of
+     * bytes of memory available to the V8 heap. This value represents how much
+     * more memory V8 can use before it exceeds the heap limit.
+     *
+     * `used_heap_size` The value of used\_heap\_size is number of bytes currently
+     * being used by V8’s JavaScript objects. This is the actual memory in use and
+     * does not include memory that has been allocated but not yet used.
+     *
+     * `heap_size_limit` The value of heap\_size\_limit is the maximum size of the V8
+     * heap, in bytes (either the default limit, determined by system resources, or
+     * the value passed to the `--max_old_space_size` option).
+     *
+     * `malloced_memory` The value of malloced\_memory is the number of bytes allocated
+     * through `malloc` by V8.
+     *
+     * `peak_malloced_memory` The value of peak\_malloced\_memory is the peak number of
+     * bytes allocated through `malloc` by V8 during the lifetime of the process.
+     *
+     * `does_zap_garbage` is a 0/1 boolean, which signifies whether the
+     * `--zap_code_space` option is enabled or not. This makes V8 overwrite heap
      * garbage with a bit pattern. The RSS footprint (resident set size) gets bigger
      * because it continuously touches all heap pages and that makes them less likely
      * to get swapped out by the operating system.
@@ -93,22 +123,22 @@ declare module "v8" {
      * `external_memory` The value of external\_memory is the memory size of array
      * buffers and external strings.
      *
-     * ```js
+     * ```json
      * {
-     *   total_heap_size: 7326976,
-     *   total_heap_size_executable: 4194304,
-     *   total_physical_size: 7326976,
-     *   total_available_size: 1152656,
-     *   used_heap_size: 3476208,
-     *   heap_size_limit: 1535115264,
-     *   malloced_memory: 16384,
-     *   peak_malloced_memory: 1127496,
-     *   does_zap_garbage: 0,
-     *   number_of_native_contexts: 1,
-     *   number_of_detached_contexts: 0,
-     *   total_global_handles_size: 8192,
-     *   used_global_handles_size: 3296,
-     *   external_memory: 318824
+     *   "total_heap_size": 7326976,
+     *   "total_heap_size_executable": 4194304,
+     *   "total_physical_size": 7326976,
+     *   "total_available_size": 1152656,
+     *   "used_heap_size": 3476208,
+     *   "heap_size_limit": 1535115264,
+     *   "malloced_memory": 16384,
+     *   "peak_malloced_memory": 1127496,
+     *   "does_zap_garbage": 0,
+     *   "number_of_native_contexts": 1,
+     *   "number_of_detached_contexts": 0,
+     *   "total_global_handles_size": 8192,
+     *   "used_global_handles_size": 3296,
+     *   "external_memory": 318824
      * }
      * ```
      * @since v1.0.0
@@ -389,12 +419,12 @@ declare module "v8" {
      * V8 [`GetHeapCodeAndMetadataStatistics`](https://v8docs.nodesource.com/node-13.2/d5/dda/classv8_1_1_isolate.html#a6079122af17612ef54ef3348ce170866) API. Returns an object with the
      * following properties:
      *
-     * ```js
+     * ```json
      * {
-     *   code_and_metadata_size: 212208,
-     *   bytecode_and_metadata_size: 161368,
-     *   external_script_source_size: 1410794,
-     *   cpu_profiler_metadata_size: 0,
+     *   "code_and_metadata_size": 212208,
+     *   "bytecode_and_metadata_size": 161368,
+     *   "external_script_source_size": 1410794,
+     *   "cpu_profiler_metadata_size": 0
      * }
      * ```
      * @since v12.8.0
@@ -883,8 +913,6 @@ declare module "v8" {
      * For example, if the `entry.js` contains the following script:
      *
      * ```js
-     * 'use strict';
-     *
      * import fs from 'node:fs';
      * import zlib from 'node:zlib';
      * import path from 'node:path';

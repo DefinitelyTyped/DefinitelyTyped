@@ -33,3 +33,41 @@ window.libpannellum.renderer(view);
 declare const viewer: Pannellum.Viewer;
 viewer.on("scenechange", (id) => console.log("Scene changed to", id));
 viewer.off();
+
+viewer.addScene("myScene", {
+    showFullscreenCtrl: false,
+    autoLoad: false,
+    compass: false,
+    yaw: 0,
+    type: "equirectangular",
+    preview: "",
+    panorama: "",
+    northOffset: 1.3,
+});
+viewer.addScene("myScene", {
+    // test that all properties are optional
+});
+
+// Test tour configurations
+const tourOptions: Pannellum.TourOptions = {
+    default: {
+        firstScene: "s1",
+        sceneFadeDuration: 1000,
+        author: "Me",
+    },
+    scenes: {
+        s1: {
+            showFullscreenCtrl: false,
+            autoLoad: false,
+            compass: false,
+            yaw: 0,
+            type: "equirectangular",
+            preview: "",
+            panorama: "",
+            northOffset: 1.3,
+        },
+        s2: {},
+    },
+};
+
+pannellum.viewer("abc", tourOptions);

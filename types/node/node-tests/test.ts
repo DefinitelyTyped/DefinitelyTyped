@@ -51,6 +51,7 @@ run({
     isolation: "process",
     testNamePatterns: ["executed", /^core-/],
     testSkipPatterns: ["excluded", /^lib-/],
+    testTagFilters: ["tag1", "tag2"],
     only: true,
     setup: (reporter) => {
         // $ExpectType TestsStream
@@ -132,6 +133,10 @@ test(undefined, undefined, t => {
     // $ExpectType void
     t.diagnostic("tap diagnostic");
     // $ExpectType void
+    t.log("message");
+    // $ExpectType void
+    t.log("data", [1, 2, 3]);
+    // $ExpectType void
     t.runOnly(true);
     // $ExpectType void
     t.skip("skip reason");
@@ -178,6 +183,8 @@ test(undefined, undefined, t => {
     t.error;
     // $ExpectType number
     t.attempt;
+    // $ExpectType readonly string[]
+    t.tags;
     // $ExpectType number | undefined
     t.workerId;
 });
@@ -527,6 +534,16 @@ suite("foo", (context) => {
     context.attempt;
 
     context.diagnostic("diagnostic");
+    context.log("message");
+    context.log("data", [1, 2, 3]);
+});
+
+suite("test tags", () => {
+    describe("database", { tags: ["db"] }, () => {
+        it("reads a row"); // tags: ['db']
+        it("writes a row", { tags: ["integration"] }); // tags: ['db', 'integration']
+        it("reconnects after disconnect", { tags: ["flaky"] }); // tags: ['db', 'flaky']
+    });
 });
 
 // Hooks
@@ -1002,6 +1019,14 @@ class TestReporter extends Transform {
                 callback(
                     null,
                     tests.map((test) => `${test.name}/${test.nesting}/${test.file}/${test.column}/${test.line}`),
+                );
+                break;
+            }
+            case "test:log": {
+                const { file, column, line, name, message, data } = event.data;
+                callback(
+                    null,
+                    `${name}/${file}/${column}/${line}/${message}/${data}`,
                 );
                 break;
             }

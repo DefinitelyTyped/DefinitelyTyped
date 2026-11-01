@@ -10,6 +10,8 @@ async function tests() {
     const minimal_opts_test = await mjml2html("<mjml>", { beautify: true });
     const validation_level_test = await mjml2html("<mjml>", { validationLevel: "strict" });
     const filePath_test = await mjml2html("<mjml>", { filePath: "." });
+    const includePath_test = await mjml2html("<mjml>", { includePath: "./templates" });
+    const includePath_array_test = await mjml2html("<mjml>", { includePath: ["./templates", "./partials"] });
 
     const jsonObject = { tagName: "mjml", attributes: { width: "100px" }, content: "test content" };
     const jsonObject_test = await mjml2html(jsonObject);
