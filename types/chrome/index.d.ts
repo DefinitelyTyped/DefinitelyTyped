@@ -8555,7 +8555,7 @@ declare namespace chrome {
              */
             recentlyUsedRank?: number;
             /** The source of the printer (user or policy configured). */
-            source: PrinterSource;
+            source: `${PrinterSource}`;
             /** The printer URI. This can be used by extensions to choose the printer for the user. */
             uri: string;
         }

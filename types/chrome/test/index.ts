@@ -7247,7 +7247,15 @@ function testPrinting() {
     chrome.printing.getPrinterInfo("", response => {}).then(response => {});
 
     chrome.printing.getPrinters(); // $ExpectType Promise<Printer[]>
-    chrome.printing.getPrinters(printers => {}); // $ExpectType void
+    chrome.printing.getPrinters(([printer]) => { // $ExpectType void
+        printer.description; // $ExpectType string
+        printer.id; // $ExpectType string
+        printer.isDefault; // $ExpectType boolean
+        printer.name; // $ExpectType string
+        printer.recentlyUsedRank; // $ExpectType number | undefined
+        printer.source; // $ExpectType "USER" | "POLICY"
+        printer.uri; // $ExpectType string
+    });
     // @ts-expect-error
     chrome.printing.getPrinters(printers => {}).then(printers => {});
 
