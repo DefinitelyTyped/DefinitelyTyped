@@ -7495,6 +7495,10 @@
             "libraryName": "screenfull",
             "asOfVersion": "4.1.0"
         },
+        "scrivito": {
+            "libraryName": "scrivito",
+            "asOfVersion": "1.25.0"
+        },
         "scrypt-js": {
             "libraryName": "scrypt-js",
             "asOfVersion": "3.0.1"
