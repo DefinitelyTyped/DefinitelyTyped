@@ -9249,8 +9249,8 @@ declare namespace chrome {
          *
          * Can return its result via Promise in Manifest V3 or later since Chrome 96.
          */
-        function query(options: QueryInfo): Promise<void>;
-        function query(options: QueryInfo, callback: () => void): void;
+        function query(queryInfo: QueryInfo): Promise<void>;
+        function query(queryInfo: QueryInfo, callback: () => void): void;
     }
 
     ////////////////////
