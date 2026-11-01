@@ -51,6 +51,7 @@ declare namespace htmlToPdfmake {
         /**
          * Collapse the vertical margins between sibling blocks like CSS does:
          * the gap becomes max(bottom, top) instead of bottom + top.
+         * @since 2.5.36 (ignored by earlier versions)
          */
         collapseMargins?: boolean | undefined;
         /**
