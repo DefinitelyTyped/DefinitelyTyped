@@ -1409,7 +1409,7 @@ declare namespace chrome {
         /** @since Chrome 57 */
         interface PinResponseDetails {
             /** The code provided by the user. Empty if user closed the dialog or some other error occurred. */
-            userInput?: string | undefined;
+            userInput?: string;
         }
 
         /** @since Chrome 86 */
@@ -2057,11 +2057,11 @@ declare namespace chrome {
             /** The parent ID, if any, for the item clicked. */
             parentMenuItemId?: number | string;
             /** The text for the context selection, if any. */
-            selectionText?: string | undefined;
+            selectionText?: string;
             /** Will be present for elements with a 'src' URL. */
-            srcUrl?: string | undefined;
+            srcUrl?: string;
             /** A flag indicating the state of a checkbox or radio item before it was clicked. */
-            wasChecked?: boolean | undefined;
+            wasChecked?: boolean;
         }
 
         /** The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored. */
@@ -3907,51 +3907,51 @@ declare namespace chrome {
             /** The id of the {@link DownloadItem} that changed. */
             id: number;
             /** The change in `danger`, if any. */
-            danger?: StringDelta | undefined;
+            danger?: StringDelta;
             /** The change in `url`, if any. */
-            url?: StringDelta | undefined;
+            url?: StringDelta;
             /**
              * The change in `finalUrl`, if any.
              * @since Chrome 54
              */
-            finalUrl?: StringDelta | undefined;
+            finalUrl?: StringDelta;
             /** The change in `totalBytes`, if any. */
-            totalBytes?: DoubleDelta | undefined;
+            totalBytes?: DoubleDelta;
             /** The change in `filename`, if any. */
-            filename?: StringDelta | undefined;
+            filename?: StringDelta;
             /** The change in `paused`, if any. */
-            paused?: BooleanDelta | undefined;
+            paused?: BooleanDelta;
             /** The change in `state`, if any. */
-            state?: StringDelta | undefined;
+            state?: StringDelta;
             /** The change in `mime`, if any. */
-            mime?: StringDelta | undefined;
+            mime?: StringDelta;
             /** The change in `fileSize`, if any. */
-            fileSize?: DoubleDelta | undefined;
+            fileSize?: DoubleDelta;
             /** The change in `startTime`, if any. */
-            startTime?: StringDelta | undefined;
+            startTime?: StringDelta;
             /** The change in `error`, if any. */
-            error?: StringDelta | undefined;
+            error?: StringDelta;
             /** The change in `endTime`, if any. */
-            endTime?: StringDelta | undefined;
+            endTime?: StringDelta;
             /** The change in `canResume`, if any. */
-            canResume?: BooleanDelta | undefined;
+            canResume?: BooleanDelta;
             /** The change in `exists`, if any. */
-            exists?: BooleanDelta | undefined;
+            exists?: BooleanDelta;
         }
 
         interface BooleanDelta {
-            current?: boolean | undefined;
-            previous?: boolean | undefined;
+            current?: boolean;
+            previous?: boolean;
         }
 
         interface DoubleDelta {
-            current?: number | undefined;
-            previous?: number | undefined;
+            current?: number;
+            previous?: number;
         }
 
         interface StringDelta {
-            current?: string | undefined;
-            previous?: string | undefined;
+            current?: string;
+            previous?: string;
         }
 
         enum InterruptReason {
@@ -4060,9 +4060,9 @@ declare namespace chrome {
             /** The time when the download began in ISO 8601 format. May be passed directly to the Date constructor: `chrome.downloads.search({}, function(items){items.forEach(function(item){console.log(new Date(item.startTime))})})` */
             startTime: string;
             /** Why the download was interrupted. Several kinds of HTTP errors may be grouped under one of the errors beginning with `SERVER_`. Errors relating to the network begin with `NETWORK_`, errors relating to the process of writing the file to the file system begin with `FILE_`, and interruptions initiated by the user begin with `USER_`. */
-            error?: `${InterruptReason}` | undefined;
+            error?: `${InterruptReason}`;
             /** The time when the download ended in ISO 8601 format. May be passed directly to the Date constructor: `chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.endTime) console.log(new Date(item.endTime))})})` */
-            endTime?: string | undefined;
+            endTime?: string;
             /** An identifier that is persistent across browser sessions. */
             id: number;
             /** False if this download is recorded in the history, true if it is not recorded. */
@@ -4070,15 +4070,15 @@ declare namespace chrome {
             /** Absolute URL. */
             referrer: string;
             /** Estimated time when the download will complete in ISO 8601 format. May be passed directly to the Date constructor: `chrome.downloads.search({}, function(items){items.forEach(function(item){if (item.estimatedEndTime) console.log(new Date(item.estimatedEndTime))})})` */
-            estimatedEndTime?: string | undefined;
+            estimatedEndTime?: string;
             /** True if the download is in progress and paused, or else if it is interrupted and can be resumed starting from where it was interrupted. */
             canResume: boolean;
             /** Whether the downloaded file still exists. This information may be out of date because Chrome does not automatically watch for file removal. Call {@link search}() in order to trigger the check for file existence. When the existence check completes, if the file has been deleted, then an {@link onChanged} event will fire. Note that {@link search}() does not wait for the existence check to finish before returning, so results from {@link search}() may not accurately reflect the file system. Also, {@link search}() may be called as often as necessary, but will not check for file existence any more frequently than once every 10 seconds. */
             exists: boolean;
             /** The identifier for the extension that initiated this download if this download was initiated by an extension. Does not change once it is set. */
-            byExtensionId?: string | undefined;
+            byExtensionId?: string;
             /** The localized name of the extension that initiated this download if this download was initiated by an extension. May change if the extension changes its name or if the user changes their locale. */
-            byExtensionName?: string | undefined;
+            byExtensionName?: string;
         }
 
         interface GetFileIconOptions {
@@ -4620,9 +4620,9 @@ declare namespace chrome {
             /** The device's MAC address. */
             macAddress: string;
             /** The device's local IPv4 address (undefined if not configured). */
-            ipv4?: string | undefined;
+            ipv4?: string;
             /** The device's local IPv6 address (undefined if not configured). */
-            ipv6?: string | undefined;
+            ipv6?: string;
         }
 
         /**
@@ -13410,7 +13410,7 @@ declare namespace chrome {
              * A UUID of the parent document owning this frame. This is not set if there is no parent.
              * @since Chrome 106
              */
-            parentDocumentId?: string | undefined;
+            parentDocumentId?: string;
             /** The ID of the parent frame, or `-1` if this is the main frame. */
             parentFrameId: number;
         }
@@ -14047,15 +14047,15 @@ declare namespace chrome {
 
         interface Window {
             /** Array of {@link tabs.Tab} objects representing the current tabs in the window. */
-            tabs?: chrome.tabs.Tab[] | undefined;
+            tabs?: chrome.tabs.Tab[];
             /** The offset of the window from the top edge of the screen in pixels. In some circumstances a window may not be assigned a `top` property; for example, when querying closed windows from the {@link sessions} API. */
-            top?: number | undefined;
+            top?: number;
             /** The height of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `height` property; for example, when querying closed windows from the {@link sessions} API. */
-            height?: number | undefined;
+            height?: number;
             /** The width of the window, including the frame, in pixels. In some circumstances a window may not be assigned a `width` property; for example, when querying closed windows from the {@link sessions} API. */
-            width?: number | undefined;
+            width?: number;
             /** The state of this browser window. */
-            state?: `${WindowState}` | undefined;
+            state?: `${WindowState}`;
             /** Whether the window is currently the focused window. */
             focused: boolean;
             /** Whether the window is set to be always on top. */
@@ -14063,13 +14063,13 @@ declare namespace chrome {
             /** Whether the window is incognito. */
             incognito: boolean;
             /** The type of browser window this is. */
-            type?: `${WindowType}` | undefined;
+            type?: `${WindowType}`;
             /** The ID of the window. Window IDs are unique within a browser session. In some circumstances a window may not be assigned an `ID` property; for example, when querying windows using the {@link sessions} API, in which case a session ID may be present. */
-            id?: number | undefined;
+            id?: number;
             /** The offset of the window from the left edge of the screen in pixels. In some circumstances a window may not be assigned a `left` property; for example, when querying closed windows from the {@link sessions} API. */
-            left?: number | undefined;
+            left?: number;
             /** The session ID used to uniquely identify a window, obtained from the {@link sessions} API. */
-            sessionId?: string | undefined;
+            sessionId?: string;
         }
 
         /** @since Chrome 88 */
@@ -14437,28 +14437,28 @@ declare namespace chrome {
              * The unique identifier for the frame's document, if this request is for a frame.
              * @since Chrome 106
              */
-            documentId?: string | undefined;
+            documentId?: string;
             /**
              * The lifecycle of the frame's document, if this request is for a frame.
              * @since Chrome 106
              */
-            documentLifecycle?: extensionTypes.DocumentLifecycle | undefined;
+            documentLifecycle?: extensionTypes.DocumentLifecycle;
             /** The value 0 indicates that the request happens in the main frame; a positive value indicates the ID of a subframe in which the request happens. If the document of a (sub-)frame is loaded (`type` is `main_frame` or `sub_frame`), `frameId` indicates the ID of this frame, not the ID of the outer frame. Frame IDs are unique within a tab. */
             frameId: number;
             /**
              * The type of the frame, if this request is for a frame.
              * @since Chrome 106
              */
-            frameType?: extensionTypes.FrameType | undefined;
+            frameType?: extensionTypes.FrameType;
             /** The origin where the request was initiated. This does not change through redirects. If this is an opaque origin, the string 'null' will be used. */
-            initiator?: string | undefined;
+            initiator?: string;
             /** Standard HTTP method. */
             method: string;
             /**
              * The unique identifier for the frame's parent document, if this request is for a frame and has a parent.
              * @since Chrome 106
              */
-            parentDocumentId?: string | undefined;
+            parentDocumentId?: string;
             /** ID of frame that wraps the frame which sent the request. Set to -1 if no parent frame exists. */
             parentFrameId: number;
             /** The ID of the request. Request IDs are unique within a browser session. */
