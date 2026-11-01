@@ -1,7 +1,5 @@
-import { JSONValue } from ".";
-
 /**
- * Make GET request.
+ * Make a GET request.
  * https://mokapi.io/docs/javascript-api/mokapi-http/get
  * @param url url - Request URL.
  * @param args args - Request arguments.
@@ -12,7 +10,7 @@ import { JSONValue } from ".";
 export function get(url: string, args?: Args): Response;
 
 /**
- * Make POST request.
+ * Make a POST request.
  * https://mokapi.io/docs/javascript-api/mokapi-http/post
  * @param url url - Request URL.
  * @param body body - Request body.
@@ -23,10 +21,10 @@ export function get(url: string, args?: Args): Response;
  *   headers: { 'Content-Type': "application/json" }
  * })
  */
-export function post(url: string, body?: JSONValue, args?: Args): Response;
+export function post(url: string, body?: any, args?: Args): Response;
 
 /**
- * Make PUT request.
+ * Make a PUT request.
  * https://mokapi.io/docs/javascript-api/mokapi-http/put
  * @param url url - Request URL.
  * @param body body - Request body.
@@ -37,10 +35,10 @@ export function post(url: string, body?: JSONValue, args?: Args): Response;
  *   headers: { 'Content-Type': "application/json" }
  * })
  */
-export function put(url: string, body?: JSONValue, args?: Args): Response;
+export function put(url: string, body?: any, args?: Args): Response;
 
 /**
- * Make HEAD request.
+ * Make a HEAD request.
  * https://mokapi.io/docs/javascript-api/mokapi-http/head
  * @param url url - Request URL.
  * @param args args - Request arguments.
@@ -51,7 +49,7 @@ export function put(url: string, body?: JSONValue, args?: Args): Response;
 export function head(url: string, args?: Args): Response;
 
 /**
- * Make PATCH request.
+ * Make a PATCH request.
  * https://mokapi.io/docs/javascript-api/mokapi-http/patch
  * @param url url - Request URL.
  * @param body body - Request body.
@@ -60,10 +58,10 @@ export function head(url: string, args?: Args): Response;
  * @example
  * patch("https://foo.bar/foo")
  */
-export function patch(url: string, body?: JSONValue, args?: Args): Response;
+export function patch(url: string, body?: any, args?: Args): Response;
 
 /**
- * Make PATCH request.
+ * Make a PATCH request.
  * https://mokapi.io/docs/javascript-api/mokapi-http/delete
  * @param url url - Request URL.
  * @param body body - Request body.
@@ -72,10 +70,10 @@ export function patch(url: string, body?: JSONValue, args?: Args): Response;
  * @example
  * del("https://foo.bar/foo")
  */
-export function del(url: string, body?: JSONValue, args?: Args): Response;
+export function del(url: string, body?: any, args?: Args): Response;
 
 /**
- * Make OPTIONS request.
+ * Make an OPTIONS request.
  * https://mokapi.io/docs/javascript-api/mokapi-http/options
  * @param url url - Request URL.
  * @param body body - Request body.
@@ -84,7 +82,7 @@ export function del(url: string, body?: JSONValue, args?: Args): Response;
  * @example
  * options("https://foo.bar/foo")
  */
-export function options(url: string, body?: JSONValue, args?: Args): Response;
+export function options(url: string, body?: any, args?: Args): Response;
 
 /**
  * Sends an HTTP request and returns a Promise resolving to the response.
@@ -157,12 +155,20 @@ export interface FetchOptions {
      * case Mokapi interprets it as milliseconds
      * @default "60s"
      * @example
-     * const res = get(url, { timeout: '5m' })
+     * const res = fetch(url, { timeout: '5m' })
      * @example
      * // Timeout as milliseconds
      * const res = await fetch(url, { timeout: 3000 });
      */
     timeout?: number | string;
+
+    /**
+     * If set to true, TLS certificate verification is skipped. This allows connections
+     * to servers with self-signed or invalid certificates. Default is false.
+     * @example
+     * const res = fetch(url, { insecure: true })
+     */
+    insecure?: boolean;
 }
 
 /**
@@ -185,6 +191,14 @@ export interface Args {
      * const res = get(url, { timeout: '5m' })
      */
     timeout?: number | string;
+
+    /**
+     * If set to true, TLS certificate verification is skipped. This allows connections
+     * to servers with self-signed or invalid certificates. Default is false.
+     * @example
+     * const res = get(url, { insecure: true })
+     */
+    insecure?: boolean;
 }
 
 /**
@@ -208,5 +222,5 @@ export interface Response {
      * const res = get(url)
      * res.json()
      */
-    json(): JSONValue;
+    json(): any;
 }
