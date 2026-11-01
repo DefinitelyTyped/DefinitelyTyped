@@ -3,13 +3,16 @@ import {
     APIGatewayEventDefaultAuthorizerContext,
     APIGatewayEventRequestContextWithAuthorizer,
 } from "../common/api-gateway";
-import { Callback, CognitoIdentity, Handler } from "../handler";
+import { AsyncHandler, Callback, CognitoIdentity, Handler } from "../handler";
 
 /**
+ * {@link APIGatewayProxyAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
 export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayProxyResult>;
+export type APIGatewayProxyAsyncHandler = AsyncHandler<APIGatewayProxyEvent, APIGatewayProxyResult>;
 /**
  * Works with Lambda Proxy Integration for Rest API or HTTP API integration Payload Format version 1.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
@@ -17,12 +20,17 @@ export type APIGatewayProxyHandler = Handler<APIGatewayProxyEvent, APIGatewayPro
 export type APIGatewayProxyCallback = Callback<APIGatewayProxyResult>;
 
 /**
+ * {@link APIGatewayProxyAsyncHandlerV2} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
 export type APIGatewayProxyHandlerV2<T = never> = Handler<APIGatewayProxyEventV2, APIGatewayProxyResultV2<T>>;
+export type APIGatewayProxyAsyncHandlerV2<T = never> = AsyncHandler<APIGatewayProxyEventV2, APIGatewayProxyResultV2<T>>;
 
 /**
+ * {@link APIGatewayProxyWebsocketAsyncHandlerV2} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with HTTP API integration Payload Format version 2.0
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-integration-requests.html
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-mapping-template-reference.html
@@ -31,8 +39,14 @@ export type APIGatewayProxyWebsocketHandlerV2<T = never> = Handler<
     APIGatewayProxyWebsocketEventV2,
     APIGatewayProxyResultV2<T>
 >;
+export type APIGatewayProxyWebsocketAsyncHandlerV2<T = never> = AsyncHandler<
+    APIGatewayProxyWebsocketEventV2,
+    APIGatewayProxyResultV2<T>
+>;
 
 /**
+ * {@link APIGatewayProxyAsyncHandlerV2WithJWTAuthorizer} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with HTTP API integration Payload Format version 2.0 adds JWT Authroizer to RequestContext
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
@@ -40,8 +54,14 @@ export type APIGatewayProxyHandlerV2WithJWTAuthorizer<T = never> = Handler<
     APIGatewayProxyEventV2WithJWTAuthorizer,
     APIGatewayProxyResultV2<T>
 >;
+export type APIGatewayProxyAsyncHandlerV2WithJWTAuthorizer<T = never> = AsyncHandler<
+    APIGatewayProxyEventV2WithJWTAuthorizer,
+    APIGatewayProxyResultV2<T>
+>;
 
 /**
+ * {@link APIGatewayProxyAsyncHandlerV2WithLambdaAuthorizer} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with HTTP API integration Payload Format version 2.0 adds Lambda Authroizer to RequestContext
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
@@ -49,12 +69,22 @@ export type APIGatewayProxyHandlerV2WithLambdaAuthorizer<TAuthorizerContext, T =
     APIGatewayProxyEventV2WithLambdaAuthorizer<TAuthorizerContext>,
     APIGatewayProxyResultV2<T>
 >;
+export type APIGatewayProxyAsyncHandlerV2WithLambdaAuthorizer<TAuthorizerContext, T = never> = AsyncHandler<
+    APIGatewayProxyEventV2WithLambdaAuthorizer<TAuthorizerContext>,
+    APIGatewayProxyResultV2<T>
+>;
 
 /**
+ * {@link APIGatewayProxyAsyncHandlerV2WithIAMAuthorizer} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Works with HTTP API integration Payload Format version 2.0 adds IAM Authroizer to RequestContext
  * @see - https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-develop-integrations-lambda.html
  */
 export type APIGatewayProxyHandlerV2WithIAMAuthorizer<T = never> = Handler<
+    APIGatewayProxyEventV2WithIAMAuthorizer,
+    APIGatewayProxyResultV2<T>
+>;
+export type APIGatewayProxyAsyncHandlerV2WithIAMAuthorizer<T = never> = AsyncHandler<
     APIGatewayProxyEventV2WithIAMAuthorizer,
     APIGatewayProxyResultV2<T>
 >;
@@ -71,12 +101,28 @@ export type APIGatewayProxyCallbackV2 = Callback<APIGatewayProxyResultV2>;
  */
 export type APIGatewayProxyEvent = APIGatewayProxyEventBase<APIGatewayEventDefaultAuthorizerContext>;
 
+/**
+ * {@link APIGatewayProxyWithLambdaAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayProxyWithLambdaAuthorizerHandler<TAuthorizerContext> = Handler<
     APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext>,
     APIGatewayProxyResult
 >;
+export type APIGatewayProxyWithLambdaAuthorizerAsyncHandler<TAuthorizerContext> = AsyncHandler<
+    APIGatewayProxyWithLambdaAuthorizerEvent<TAuthorizerContext>,
+    APIGatewayProxyResult
+>;
 
+/**
+ * {@link APIGatewayProxyWithCognitoAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type APIGatewayProxyWithCognitoAuthorizerHandler = Handler<
+    APIGatewayProxyWithCognitoAuthorizerEvent,
+    APIGatewayProxyResult
+>;
+export type APIGatewayProxyWithCognitoAuthorizerAsyncHandler = AsyncHandler<
     APIGatewayProxyWithCognitoAuthorizerEvent,
     APIGatewayProxyResult
 >;
