@@ -1,14 +1,11 @@
-import { Accordion, type AccordionConfig } from "./components/accordion/accordion.js";
-import { Button, type ButtonConfig } from "./components/button/button.js";
-import { CharacterCount, type CharacterCountConfig } from "./components/character-count/character-count.js";
-import { ErrorSummary, type ErrorSummaryConfig } from "./components/error-summary/error-summary.js";
-import { ExitThisPage, type ExitThisPageConfig } from "./components/exit-this-page/exit-this-page.js";
-import { FileUpload, type FileUploadConfig } from "./components/file-upload/file-upload.js";
-import {
-    NotificationBanner,
-    type NotificationBannerConfig,
-} from "./components/notification-banner/notification-banner.js";
-import { PasswordInput, type PasswordInputConfig } from "./components/password-input/password-input.js";
+import { Accordion } from "./components/accordion/accordion.js";
+import { Button } from "./components/button/button.js";
+import { CharacterCount } from "./components/character-count/character-count.js";
+import { ErrorSummary } from "./components/error-summary/error-summary.js";
+import { ExitThisPage } from "./components/exit-this-page/exit-this-page.js";
+import { FileUpload } from "./components/file-upload/file-upload.js";
+import { NotificationBanner } from "./components/notification-banner/notification-banner.js";
+import { PasswordInput } from "./components/password-input/password-input.js";
 
 export interface CompatibleClass {
     new(...args: any[]): any;
@@ -44,42 +41,42 @@ export interface Config {
     /**
      * - Accordion config
      */
-    accordion?: AccordionConfig | undefined;
+    accordion?: ComponentConfig<typeof Accordion>;
 
     /**
      * - Button config
      */
-    button?: ButtonConfig | undefined;
+    button?: ComponentConfig<typeof Button>;
 
     /**
      * - Character Count config
      */
-    characterCount?: CharacterCountConfig | undefined;
+    characterCount?: ComponentConfig<typeof CharacterCount>;
 
     /**
      * - Error Summary config
      */
-    errorSummary?: ErrorSummaryConfig | undefined;
+    errorSummary?: ComponentConfig<typeof ErrorSummary>;
 
     /**
      * - Exit This Page config
      */
-    exitThisPage?: ExitThisPageConfig | undefined;
+    exitThisPage?: ComponentConfig<typeof ExitThisPage>;
 
     /**
      * - File Upload config
      */
-    fileUpload?: FileUploadConfig | undefined;
+    fileUpload?: ComponentConfig<typeof FileUpload>;
 
     /**
      * - Notification Banner config
      */
-    notificationBanner?: NotificationBannerConfig | undefined;
+    notificationBanner?: ComponentConfig<typeof NotificationBanner>;
 
     /**
      * - Password input config
      */
-    passwordInput?: PasswordInputConfig | undefined;
+    passwordInput?: ComponentConfig<typeof PasswordInput>;
 }
 
 /**
@@ -89,14 +86,11 @@ export type ConfigKey = keyof Omit<Config, "scope" | "onError">;
 
 export type ComponentConfig<ComponentClass extends CompatibleClass> = ConstructorParameters<ComponentClass>[1];
 
-export interface ErrorContext<
-    ComponentClass extends CompatibleClass | undefined = undefined,
-> {
+export interface ErrorContext<ComponentClass extends CompatibleClass | undefined = undefined> {
     /**
      * - Element used for component module initialisation
      */
-    element?: ComponentClass extends CompatibleClass ? Element
-        : undefined;
+    element?: ComponentClass extends CompatibleClass ? Element : undefined;
 
     /**
      * - Class of component
@@ -106,13 +100,10 @@ export interface ErrorContext<
     /**
      * - Config supplied to components
      */
-    config?: ComponentClass extends CompatibleClass ? ComponentConfig<ComponentClass>
-        : Config;
+    config?: ComponentClass extends CompatibleClass ? ComponentConfig<ComponentClass> : Config;
 }
 
-export type OnErrorCallback<
-    ComponentClass extends CompatibleClass | undefined = undefined,
-> = (
+export type OnErrorCallback<ComponentClass extends CompatibleClass | undefined = undefined> = (
     error: unknown,
     context: ErrorContext<ComponentClass>,
 ) => any;
@@ -137,9 +128,7 @@ export interface CreateAllOptions<ComponentClass extends CompatibleClass> {
  *
  * @param {Config | Element | Document | null} [scopeOrConfig] - Scope of the document to search within or config for all components (with optional scope)
  */
-export function initAll(
-    scopeOrConfig?: Config | Element | Document | null,
-): void;
+export function initAll(scopeOrConfig?: Config | Element | Document | null): void;
 
 /**
  * Create all instances of a specific component on the page
@@ -159,10 +148,5 @@ export function initAll(
 export function createAll<ComponentClass extends CompatibleClass>(
     Component: ComponentClass,
     config?: ComponentConfig<ComponentClass>,
-    scopeOrOptions?:
-        | OnErrorCallback<ComponentClass>
-        | Element
-        | Document
-        | null
-        | CreateAllOptions<ComponentClass>,
+    scopeOrOptions?: OnErrorCallback<ComponentClass> | Element | Document | null | CreateAllOptions<ComponentClass>,
 ): Array<InstanceType<ComponentClass>>;
