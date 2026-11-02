@@ -1853,3 +1853,426 @@ declare module "html-rewriter" {
 
     export { HtmlRewritingStream };
 }
+
+/**
+ * The lru-cache module provides an in-memory, least-recently-used (LRU) cache
+ * with optional time-to-live (TTL) expiration, size-based eviction, and request coalescing.
+ */
+declare module "lru-cache" {
+    /**
+     * Maximum memory size, in bytes, that a single cache may be configured
+     * with via `maxSize`.
+     */
+    const MAX_SIZE: number;
+
+    /**
+     * Accepted key types. Keys are converted to strings internally, so
+     * `1` and `'1'` refer to the same entry.
+     */
+    type Key = string | number;
+
+    /**
+     * Computes the size of an entry.
+     * Must return a positive integer that does not exceed the maximum value of a 32-bit signed integer (2,147,483,647).
+     */
+    type SizeCalculator<K extends Key, V> = (value: V, key: K) => number;
+
+    /**
+     * Loads a value for `fetch()`/`forceFetch()`. Called with `this` set
+     * to `undefined`.
+     *
+     * @param key The key passed to `fetch()`.
+     * @param staleValue can contain a fresh existing value when forceRefresh is used.
+     * @param options Resolved options and the caller-provided `context`.
+     */
+    type FetchMethod<K extends Key, V, UserContext = unknown> = (
+        key: K,
+        staleValue: V | undefined,
+        options: FetchMethodOptions<UserContext>,
+    ) => V | undefined | Promise<V | undefined>;
+
+    /** Third argument passed to {@link FetchMethod}. */
+    interface FetchMethodOptions<UserContext = unknown> {
+        /**
+         * Effective options for this fetch. `ttl`, `start`, `size`,
+         * `noUpdateTTL`, `allowStaleOnFetchRejection` and
+         * `noDeleteOnFetchRejection` may be modified by the fetcher to
+         * influence how the result is stored.
+         */
+        options: FetchMethodPassedOptions;
+
+        /** The `context` value passed to `fetch()`, if any. */
+        context?: UserContext;
+    }
+
+    /** Mutable options object exposed to the {@link FetchMethod}. */
+    interface FetchMethodPassedOptions {
+        /** Resolved `allowStale` for this call; changes are ignored. */
+        allowStale: boolean;
+
+        /** Resolved `updateAgeOnGet` for this call; changes are ignored. */
+        updateAgeOnGet: boolean;
+
+        /** Resolved `noDeleteOnStaleGet` for this call; changes are ignored. */
+        noDeleteOnStaleGet: boolean;
+
+        /** Present only when the cache tracks TTL. */
+        ttl?: number;
+
+        /** Epoch milliseconds from which `ttl` is measured. */
+        start?: number;
+
+        /** Keep the existing entry's TTL when storing the result. */
+        noUpdateTTL: boolean;
+
+        /** Present only when the cache is size-constrained. */
+        size?: number;
+
+        /** Resolve `fetch()` with the stale value if this fetch fails. */
+        allowStaleOnFetchRejection: boolean;
+
+        /** Keep the stale entry in the cache if this fetch fails. */
+        noDeleteOnFetchRejection: boolean;
+
+        /** Whether this fetch was forced; changes are ignored. */
+        forceRefresh: boolean;
+    }
+
+    /** Constructor options. */
+    interface Options<K extends Key, V, UserContext = unknown> {
+        /** Maximum number of entries.
+         *  Must be a positive integer that does not exceed the maximum value
+         *  of a 32-bit signed integer (2,147,483,647). */
+        max: number;
+
+        /**
+         * Maximum total size of all entries. Must not exceed
+         * {@link MAX_SIZE}. Requires `size` on `set()` or
+         * `sizeCalculation`.
+         */
+        maxSize?: number;
+
+        /**
+         * Maximum size of a single entry. Defaults to `maxSize`. Must
+         * not exceed `maxSize`.
+         */
+        maxEntrySize?: number;
+
+        /**
+         * Computes entry sizes. Requires `maxSize` or `maxEntrySize`.
+         */
+        sizeCalculation?: SizeCalculator<K, V>;
+
+        /** Loader used by `fetch()` and `forceFetch()`. */
+        fetchMethod?: FetchMethod<K, V, UserContext>;
+
+        /**
+         * Default time-to-live in milliseconds. Enables TTL tracking.
+         * Must not exceed the platform's maximum allowed TTL.
+         */
+        ttl?: number;
+
+        /** Automatically remove entries once their TTL expires. */
+        ttlAutopurge?: boolean;
+
+        /**
+         * Minimum time in milliseconds between autopurge checks. Only
+         * used with `ttlAutopurge`.
+         */
+        ttlResolution?: number;
+
+        /** Return stale values from `get()`, `peek()` and `fetch()`. */
+        allowStale?: boolean;
+
+        /** Do not delete stale entries when they are read by `get()`. */
+        noDeleteOnStaleGet?: boolean;
+
+        /** Renew an entry's TTL when it is read by `get()`. */
+        updateAgeOnGet?: boolean;
+
+        /** Renew an entry's TTL when it is checked by `has()`. */
+        updateAgeOnHas?: boolean;
+
+        /** Keep the existing TTL when an entry is overwritten by `set()`. */
+        noUpdateTTL?: boolean;
+
+        /**
+         * Resolve `fetch()` with the stale value (or `undefined`) when
+         * `fetchMethod` throws or rejects.
+         */
+        allowStaleOnFetchRejection?: boolean;
+
+        /**
+         * Do not delete a stale entry when `fetchMethod` throws or
+         * rejects.
+         */
+        noDeleteOnFetchRejection?: boolean;
+
+        /**
+         * Effective size of a pending fetch with no stale value. Only
+         * relevant for size-constrained caches with a `fetchMethod`.
+         * Defaults to `1`.
+         */
+        backgroundFetchSize?: number;
+    }
+
+    /**
+     * Object populated with details about an operation when passed as
+     * the `status` option.
+     */
+    interface Status {
+        /** Method that populated this status; `forceFetch()` reports `'fetch'`. */
+        op?: 'get' | 'has' | 'set' | 'peek' | 'fetch';
+
+        key?: string;
+
+        /** Methods and their outcomes */
+        get?: 'hit' | 'stale' | 'stale-fetching' | 'fetching' | 'miss';
+        has?: 'hit' | 'stale' | 'miss';
+        peek?: 'hit' | 'stale' | 'miss';
+        set?: 'add' | 'replace' | 'miss';
+        fetch?: 'get' | 'hit' | 'inflight' | 'miss' | 'stale' | 'refresh';
+
+        /** Entry TTL in milliseconds. */
+        ttl?: number;
+
+        /** Epoch milliseconds from which `ttl` is measured. */
+        start?: number;
+
+        /** Current event time in epoch milliseconds. */
+        now?: number;
+
+        /** Remaining TTL in milliseconds. */
+        remaining?: number;
+
+        /** A stale value was returned by `get()` or `fetch()`. */
+        returnedStale?: true;
+
+        /** The entry exceeded `maxEntrySize` and was not stored. */
+        maxEntrySizeExceeded?: true;
+
+        /** `forceRefresh` was requested for this `fetch()` call. */
+        forceRefresh?: true;
+
+        /** `fetchMethod` was called to load a new value. */
+        fetchDispatched?: true;
+
+        /** `fetchMethod` returned or resolved with a value. */
+        fetchResolved?: true;
+
+        /** `fetchMethod` threw or returned a rejected promise. */
+        fetchRejected?: true;
+
+        /** The entry was evicted, deleted or replaced while the fetch was in flight; its result was discarded. */
+        fetchAborted?: true;
+
+        /** The fetched value was stored in the cache. */
+        fetchUpdated?: true;
+
+        /** Any type thrown by `fetchMethod` if the fetch was rejected. */
+        fetchError?: unknown;
+    }
+
+    interface HasOptions {
+        /** Renew the entry's TTL if it is present and not stale. */
+        updateAgeOnHas?: boolean;
+
+        /** Populated with details about this call. */
+        status?: Status;
+    }
+
+    interface GetOptions {
+        /** Return the value even if it is stale. */
+        allowStale?: boolean;
+
+        /** Renew the entry's TTL if it is not stale. */
+        updateAgeOnGet?: boolean;
+
+        /** Keep a stale entry in the cache after reading it. */
+        noDeleteOnStaleGet?: boolean;
+
+        /** Populated with details about this call. */
+        status?: Status;
+    }
+
+    interface PeekOptions {
+        /** Return the value even if it is stale. */
+        allowStale?: boolean;
+
+        /** Populated with details about this call; TTL fields are not set. */
+        status?: Status;
+    }
+
+    interface SetOptions {
+        /** Entry time-to-live in milliseconds. */
+        ttl?: number;
+
+        /** Epoch milliseconds from which `ttl` is measured. */
+        start?: number;
+
+        /** Keep the existing entry's TTL when overwriting it; ignored for new entries. */
+        noUpdateTTL?: boolean;
+
+        /** Entry size; skips `sizeCalculation` when provided. */
+        size?: number;
+
+        /** Populated with details about this call. */
+        status?: Status;
+    }
+
+    interface FetchOptions<UserContext = unknown> {
+        /** Resolve immediately with the stale value while `fetchMethod` refreshes it. */
+        allowStale?: boolean;
+
+        /** Renew the entry's TTL on a fresh cache hit. */
+        updateAgeOnGet?: boolean;
+
+        /** Only used when no `fetchMethod` is configured and `fetch()` falls back to `get()`. */
+        noDeleteOnStaleGet?: boolean;
+
+        /** Entry time-to-live in milliseconds. */
+        ttl?: number;
+
+        /** Keep the existing entry's TTL when overwriting it; ignored for new entries. */
+        noUpdateTTL?: boolean;
+
+        /** Entry size; skips `sizeCalculation` when provided. */
+        size?: number;
+
+        /** On `fetchMethod` failure, resolve with the stale value (or `undefined`) instead of rejecting. */
+        allowStaleOnFetchRejection?: boolean;
+
+        /** On `fetchMethod` failure, keep the stale entry in the cache. */
+        noDeleteOnFetchRejection?: boolean;
+
+        /** Call `fetchMethod` even if a fresh value is cached. */
+        forceRefresh?: boolean;
+
+        /** Passed to `fetchMethod` as `options.context`. */
+        context?: UserContext;
+
+        /** Populated with details about this call. */
+        status?: Status;
+    }
+
+    /** Result of `info()`. */
+    interface EntryDetails<V> {
+        /** The cached value. */
+        value: V;
+
+        /** Remaining TTL in milliseconds, if the entry has a TTL. */
+        ttl?: number;
+
+        /** Current event time in epoch milliseconds, if `ttl` is set. */
+        start?: number;
+
+        /** Entry size, if the cache is size-constrained. */
+        size?: number;
+    }
+
+    /**
+     * Least-recently-used cache scoped to the EdgeWorker instance.
+     *
+     * @typeParam K Key type.
+     * @typeParam V Value type. Storing `undefined` deletes the entry.
+     * @typeParam UserContext Type of the `context` passed to `fetch()`.
+     */
+    class LRUCache<K extends Key = string, V = unknown, UserContext = unknown> {
+        /**
+         * Creates a cache. When `options` is omitted, platform defaults are
+         * used.
+         *
+         * @throws {TypeError} If options are malformed or `max` is missing.
+         * @throws {RangeError} If a size or TTL limit is exceeded.
+         */
+        constructor(options?: Options<K, V, UserContext>);
+
+        readonly allowStale: boolean;
+
+        readonly allowStaleOnFetchRejection: boolean;
+
+        readonly backgroundFetchSize: number;
+
+        readonly fetchMethod: FetchMethod<K, V, UserContext> | undefined;
+
+        readonly max: number;
+
+        /** `0` when not size-constrained. */
+        readonly maxEntrySize: number;
+
+        /** `0` when not set. */
+        readonly maxSize: number;
+
+        readonly noDeleteOnFetchRejection: boolean;
+
+        readonly noDeleteOnStaleGet: boolean;
+
+        readonly noUpdateTTL: boolean;
+
+        /** Number of entries currently in the cache. */
+        readonly size: number;
+
+        readonly sizeCalculation: SizeCalculator<K, V> | undefined;
+
+        /** Total size of all entries; `0` when not size-constrained. */
+        readonly calculatedSize: number;
+
+        /** Default TTL in milliseconds; `0` when not set. */
+        readonly ttl: number;
+
+        readonly updateAgeOnGet: boolean;
+
+        readonly updateAgeOnHas: boolean;
+
+        /** Returns whether a non-stale entry exists for `key`. */
+        has(key: K, options?: HasOptions): boolean;
+
+        /** Returns the value for `key` and marks it as most recently used. */
+        get(key: K, options?: GetOptions): V | undefined;
+
+        /**
+         * Returns the value for `key` without updating recency, TTL, or
+         * removing stale entries.
+         */
+        peek(key: K, options?: PeekOptions): V | undefined;
+
+        /**
+         * Stores `value` under `key`. Passing `undefined` deletes the entry.
+         *
+         * @throws {TypeError} If the cache is size-constrained and neither
+         * `size` nor `sizeCalculation` is available.
+         */
+        set(key: K, value: V | undefined, options?: SetOptions): void;
+
+        /** Removes `key`. Returns `true` if an entry was removed. */
+        delete(key: K): boolean;
+
+        /** Removes and returns the least recently used value. */
+        pop(): V | undefined;
+
+        /** Removes all entries. */
+        clear(): void;
+
+        /** Removes all stale entries. Returns `true` if any were removed. */
+        purgeStale(): boolean;
+
+        /**
+         * Returns the remaining TTL in milliseconds: `0` if `key` is absent,
+         * `Infinity` if the entry has no TTL, negative if it is stale.
+         */
+        getRemainingTTL(key: K): number;
+
+        /** Returns entry details, or `undefined` if `key` is absent. */
+        info(key: K): EntryDetails<V> | undefined;
+
+        /**
+         * Returns the cached value, or loads it with `fetchMethod`.
+         * Concurrent calls for the same key share a single load. Behaves
+         * like `get()` when no `fetchMethod` is configured.
+         */
+        fetch(key: K, options?: FetchOptions<UserContext>): Promise<V | undefined>;
+
+        /** Like `fetch()`, but rejects if the result is `undefined`. */
+        forceFetch(key: K, options?: FetchOptions<UserContext>): Promise<V>;
+    }
+}

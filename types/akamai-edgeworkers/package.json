@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/akamai-edgeworkers",
-    "version": "1.1.9999",
+    "version": "1.2.9999",
     "nonNpm": true,
     "nonNpmDescription": "Akamai EdgeWorkers JavaScript API",
     "projects": [
@@ -30,6 +30,10 @@
         {
             "name": "Luca Perra",
             "githubUsername": "lperra"
+        },
+        {
+            "name": "Pawel Skalczynski",
+            "githubUsername": "pskalczy"
         }
     ]
 }
