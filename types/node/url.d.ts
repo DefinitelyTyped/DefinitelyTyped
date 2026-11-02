@@ -541,6 +541,7 @@ declare module "node:url" {
         entries(): URLSearchParamsIterator<[string, string]>;
         keys(): URLSearchParamsIterator<string>;
         values(): URLSearchParamsIterator<string>;
+        toString(): string;
     }
     var URLSearchParams: {
         prototype: URLSearchParams;
