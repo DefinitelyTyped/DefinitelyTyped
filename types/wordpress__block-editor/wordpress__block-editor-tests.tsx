@@ -128,6 +128,7 @@ const STYLES = [{ css: ".foo { color: red; }" }, { css: ".bar { color: blue; }",
 // block-list
 //
 <be.BlockList className="my-custom-class" />;
+<be.BlockList renderAppender={false} />;
 
 //
 // block-mover
@@ -248,6 +249,7 @@ be.withFontSizes("fontSize")(() => <h1>Hello World</h1>);
 <be.InnerBlocks />;
 <be.InnerBlocks allowedBlocks={false} />;
 <be.InnerBlocks renderAppender={be.InnerBlocks.ButtonBlockAppender} />;
+<be.InnerBlocks renderAppender={false} />;
 <be.InnerBlocks.Content />;
 <be.InnerBlocks.DefaultBlockAppender />;
 <be.InnerBlocks orientation="vertical" />;
