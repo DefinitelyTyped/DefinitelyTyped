@@ -46,6 +46,16 @@ declare global {
         ): Promise<FileSystemFileHandle>;
     }
 
+    /**
+     * The `allow` option from Permissions Policy for workers
+     * (https://github.com/explainers-by-googlers/workers-permissions-policy).
+     * A shared worker can use Cross-Origin Storage only if its creator
+     * delegates the feature: `{ allow: "cross-origin-storage" }`.
+     */
+    interface WorkerOptions {
+        allow?: string | undefined;
+    }
+
     interface Navigator {
         readonly crossOriginStorage: CrossOriginStorageManager;
     }
