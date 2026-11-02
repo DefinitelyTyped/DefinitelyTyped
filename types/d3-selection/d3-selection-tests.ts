@@ -7,6 +7,7 @@
  */
 
 import * as d3Selection from "d3-selection";
+import "trusted-types";
 
 // ---------------------------------------------------------------------------------------
 // Some preparatory work for definition testing below
@@ -575,6 +576,11 @@ body = body
 
 body = body
     .html("<div> 42 </div>");
+
+const set = window.trustedTypes!.createPolicy("my-policy").createHTML("<br />");
+d3Selection.select("body").html(set);
+// $ExpectType string
+const get = d3Selection.select("body").html();
 
 body = body
     .html(function(d, i, g) {
