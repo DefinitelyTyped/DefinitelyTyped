@@ -5277,6 +5277,10 @@
             "libraryName": "node-cache",
             "asOfVersion": "4.2.0"
         },
+        "node-cron": {
+            "libraryName": "node-cron",
+            "asOfVersion": "4.6.0"
+        },
         "node-downloader-helper": {
             "libraryName": "node-downloader-helper",
             "asOfVersion": "1.0.16"
