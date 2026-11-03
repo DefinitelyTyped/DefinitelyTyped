@@ -2577,6 +2577,10 @@
             "libraryName": "ffmpeg-static",
             "asOfVersion": "5.1.0"
         },
+        "fhir": {
+            "libraryName": "fhir",
+            "asOfVersion": "4.12.0"
+        },
         "fhir-kit-client": {
             "libraryName": "fhir-kit-client",
             "asOfVersion": "1.6.7"
