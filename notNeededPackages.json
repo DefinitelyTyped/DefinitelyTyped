@@ -5895,6 +5895,10 @@
             "libraryName": "pino-std-serializers",
             "asOfVersion": "4.0.0"
         },
+        "pinyin": {
+            "libraryName": "pinyin",
+            "asOfVersion": "4.0.0"
+        },
         "pixelmatch": {
             "libraryName": "pixelmatch",
             "asOfVersion": "7.1.0"
