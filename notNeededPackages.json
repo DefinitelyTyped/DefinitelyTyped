@@ -5867,6 +5867,10 @@
             "libraryName": "physijs",
             "asOfVersion": "1.0.0"
         },
+        "pica": {
+            "libraryName": "pica",
+            "asOfVersion": "10.0.3"
+        },
         "pify": {
             "libraryName": "pify",
             "asOfVersion": "6.1.0"
