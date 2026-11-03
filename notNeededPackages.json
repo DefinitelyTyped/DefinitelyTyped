@@ -4109,6 +4109,10 @@
             "libraryName": "karma-viewport",
             "asOfVersion": "1.0.0"
         },
+        "kdbush": {
+            "libraryName": "kdbush",
+            "asOfVersion": "4.1.0"
+        },
         "kdbxweb": {
             "libraryName": "kdbxweb",
             "asOfVersion": "2.0.0"
