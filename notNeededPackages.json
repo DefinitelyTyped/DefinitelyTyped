@@ -7779,6 +7779,10 @@
             "libraryName": "sonic-boom",
             "asOfVersion": "2.1.0"
         },
+        "sort-object-keys": {
+            "libraryName": "sort-object-keys",
+            "asOfVersion": "2.1.0"
+        },
         "sortobject": {
             "libraryName": "sortobject",
             "asOfVersion": "3.0.0"
