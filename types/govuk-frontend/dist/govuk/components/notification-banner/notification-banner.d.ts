@@ -3,10 +3,7 @@ import { ConfigurableComponent } from "../../common/configuration.js";
 /**
  * Notification Banner component
  */
-export class NotificationBanner extends ConfigurableComponent<
-    NotificationBannerConfig,
-    HTMLElement
-> {
+export class NotificationBanner extends ConfigurableComponent<NotificationBannerConfig, HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */

@@ -4,10 +4,7 @@ import { type TranslationPluralForms } from "../../i18n.js";
 /**
  * File upload component
  */
-export class FileUpload extends ConfigurableComponent<
-    FileUploadConfig,
-    HTMLElement
-> {
+export class FileUpload extends ConfigurableComponent<FileUploadConfig, HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
