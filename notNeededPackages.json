@@ -5505,6 +5505,10 @@
             "libraryName": "os-name",
             "asOfVersion": "3.1.0"
         },
+        "osmtogeojson": {
+            "libraryName": "osmtogeojson",
+            "asOfVersion": "3.0.0-beta.5"
+        },
         "otplib": {
             "libraryName": "otplib",
             "asOfVersion": "10.0.0"
