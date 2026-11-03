@@ -5809,6 +5809,10 @@
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
         },
+        "pdf2html": {
+            "libraryName": "pdf2html",
+            "asOfVersion": "4.4.0"
+        },
         "pdfjs-dist": {
             "libraryName": "pdfjs-dist",
             "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
