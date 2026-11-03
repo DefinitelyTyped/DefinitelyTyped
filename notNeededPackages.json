@@ -6091,6 +6091,10 @@
             "libraryName": "proj4",
             "asOfVersion": "2.19.0"
         },
+        "properties-reader": {
+            "libraryName": "properties-reader",
+            "asOfVersion": "3.0.1"
+        },
         "prosemirror-changeset": {
             "libraryName": "prosemirror-changeset",
             "asOfVersion": "2.2.0"
