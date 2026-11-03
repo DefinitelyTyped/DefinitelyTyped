@@ -3945,6 +3945,10 @@
             "libraryName": "js-types",
             "asOfVersion": "2.1.0"
         },
+        "js-yaml": {
+            "libraryName": "js-yaml",
+            "asOfVersion": "5.5.0"
+        },
         "jsnlog": {
             "libraryName": "jsnlog",
             "asOfVersion": "2.17.2"
