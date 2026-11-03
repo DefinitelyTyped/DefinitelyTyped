@@ -292,6 +292,10 @@
             "libraryName": "astring",
             "asOfVersion": "1.7.0"
         },
+        "async-csv": {
+            "libraryName": "async-csv",
+            "asOfVersion": "3.0.0"
+        },
         "async-redis": {
             "libraryName": "async-redis",
             "asOfVersion": "2.0.0"
