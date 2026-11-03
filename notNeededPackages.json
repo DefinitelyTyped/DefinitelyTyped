@@ -2885,6 +2885,10 @@
             "libraryName": "get-emails",
             "asOfVersion": "3.0.0"
         },
+        "get-folder-size": {
+            "libraryName": "get-folder-size",
+            "asOfVersion": "5.0.0"
+        },
         "get-port": {
             "libraryName": "get-port",
             "asOfVersion": "4.2.0"
