@@ -7147,6 +7147,10 @@
             "libraryName": "readdir-enhanced",
             "asOfVersion": "3.0.0"
         },
+        "readline-transform": {
+            "libraryName": "readline-transform",
+            "asOfVersion": "2.0.0"
+        },
         "realm": {
             "libraryName": "realm",
             "asOfVersion": "1.13.0"
