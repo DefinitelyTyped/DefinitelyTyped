@@ -2857,6 +2857,10 @@
             "libraryName": "geoflatbush",
             "asOfVersion": "2.1.0"
         },
+        "geojson-vt": {
+            "libraryName": "geojson-vt",
+            "asOfVersion": "5.0.4"
+        },
         "geokdbush": {
             "libraryName": "geokdbush",
             "asOfVersion": "2.1.0"
