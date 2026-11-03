@@ -2022,16 +2022,16 @@ declare module "lru-cache" {
      */
     interface Status {
         /** Method that populated this status; `forceFetch()` reports `'fetch'`. */
-        op?: 'get' | 'has' | 'set' | 'peek' | 'fetch';
+        op?: "get" | "has" | "set" | "peek" | "fetch";
 
         key?: string;
 
         /** Methods and their outcomes */
-        get?: 'hit' | 'stale' | 'stale-fetching' | 'fetching' | 'miss';
-        has?: 'hit' | 'stale' | 'miss';
-        peek?: 'hit' | 'stale' | 'miss';
-        set?: 'add' | 'replace' | 'miss';
-        fetch?: 'get' | 'hit' | 'inflight' | 'miss' | 'stale' | 'refresh';
+        get?: "hit" | "stale" | "stale-fetching" | "fetching" | "miss";
+        has?: "hit" | "stale" | "miss";
+        peek?: "hit" | "stale" | "miss";
+        set?: "add" | "replace" | "miss";
+        fetch?: "get" | "hit" | "inflight" | "miss" | "stale" | "refresh";
 
         /** Entry TTL in milliseconds. */
         ttl?: number;
