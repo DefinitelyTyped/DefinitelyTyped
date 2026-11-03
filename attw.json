@@ -127,7 +127,6 @@
         "gregorian-calendar",
         "guacamole-common-js",
         "gulp-imagemin",
-        "has-ansi",
         "has-package-exports",
         "hellosign-embedded",
         "hellosign-sdk",
