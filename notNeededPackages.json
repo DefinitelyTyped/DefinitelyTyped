@@ -1621,6 +1621,10 @@
             "libraryName": "d3-3d",
             "asOfVersion": "2.0.2"
         },
+        "d3-cloud": {
+            "libraryName": "d3-cloud",
+            "asOfVersion": "2.0.0"
+        },
         "dailymotion__vast-client": {
             "libraryName": "@dailymotion/vast-client",
             "asOfVersion": "6.4.1"
