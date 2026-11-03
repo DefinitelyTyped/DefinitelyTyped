@@ -2223,7 +2223,7 @@
         },
         "eslint-plugin-prettier": {
             "libraryName": "eslint-plugin-prettier",
-            "asOfVersion": "5.5.7"
+            "asOfVersion": "5.0.0"
         },
         "eslint-scope": {
             "libraryName": "eslint-scope",
