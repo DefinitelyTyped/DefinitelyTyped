@@ -1937,6 +1937,10 @@
             "libraryName": "drivelist",
             "asOfVersion": "12.0.2"
         },
+        "dropzone": {
+            "libraryName": "dropzone",
+            "asOfVersion": "6.3.5"
+        },
         "drupal-attribute": {
             "libraryName": "drupal-attribute",
             "asOfVersion": "1.2.1"
