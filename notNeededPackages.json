@@ -5469,6 +5469,10 @@
             "libraryName": "openapi-factory",
             "asOfVersion": "5.2.31"
         },
+        "openapi-sampler": {
+            "libraryName": "openapi-sampler",
+            "asOfVersion": "1.7.10"
+        },
         "openid-client": {
             "libraryName": "openid-client",
             "asOfVersion": "3.7.0"
