@@ -4169,6 +4169,10 @@
             "libraryName": "knex-postgis",
             "asOfVersion": "0.10.0"
         },
+        "knockout": {
+            "libraryName": "knockout",
+            "asOfVersion": "3.5.3"
+        },
         "knockout-paging": {
             "libraryName": "knockout-paging",
             "asOfVersion": "0.3.1"
