@@ -244,6 +244,10 @@
             "libraryName": "@architect/functions",
             "asOfVersion": "5.3.0"
         },
+        "arconnect": {
+            "libraryName": "arconnect",
+            "asOfVersion": "1.0.4"
+        },
         "argon2": {
             "libraryName": "argon2",
             "asOfVersion": "0.15.0"
