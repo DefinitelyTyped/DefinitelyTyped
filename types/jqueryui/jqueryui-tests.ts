@@ -2072,4 +2072,3 @@ function test_event_types() {
         },
     });
 }
-
