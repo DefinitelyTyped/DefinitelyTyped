@@ -1216,6 +1216,10 @@
             "libraryName": "colors",
             "asOfVersion": "1.2.1"
         },
+        "colorthief": {
+            "libraryName": "colorthief",
+            "asOfVersion": "3.5.0"
+        },
         "cometd": {
             "libraryName": "cometd",
             "asOfVersion": "7.0.5"
