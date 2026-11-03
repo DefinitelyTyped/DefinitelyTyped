@@ -38,7 +38,6 @@
         "cornerstone-core",
         "critters-webpack-plugin",
         "crypto-ld",
-        "css-declaration-sorter",
         "css-tree",
         "css-tree/v2",
         "csso",
