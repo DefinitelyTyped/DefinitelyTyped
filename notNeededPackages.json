@@ -448,6 +448,10 @@
             "libraryName": "base64-js",
             "asOfVersion": "1.5.0"
         },
+        "base64-url": {
+            "libraryName": "base64-url",
+            "asOfVersion": "3.0.1"
+        },
         "base64url": {
             "libraryName": "base64url",
             "asOfVersion": "2.0.0"
