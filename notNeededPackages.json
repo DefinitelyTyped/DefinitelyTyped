@@ -5809,6 +5809,10 @@
             "libraryName": "@paypal/paypal-js",
             "asOfVersion": "2.1.0"
         },
+        "pdf-parse": {
+            "libraryName": "pdf-parse",
+            "asOfVersion": "2.4.5"
+        },
         "pdfjs-dist": {
             "libraryName": "pdfjs-dist",
             "sourceRepoURL": "https://github.com/mozilla/pdfjs-dist",
