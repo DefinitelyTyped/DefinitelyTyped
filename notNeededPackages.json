@@ -3153,6 +3153,10 @@
             "libraryName": "@hapi/cryptiles",
             "asOfVersion": "5.0.0"
         },
+        "hapi__h2o2": {
+            "libraryName": "@hapi/h2o2",
+            "asOfVersion": "10.0.4"
+        },
         "hapi__hapi": {
             "libraryName": "@hapi/hapi",
             "asOfVersion": "21.0.0"
