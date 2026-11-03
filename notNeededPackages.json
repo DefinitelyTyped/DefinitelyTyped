@@ -276,6 +276,10 @@
             "libraryName": "artyom.js",
             "asOfVersion": "1.0.6"
         },
+        "asana": {
+            "libraryName": "asana",
+            "asOfVersion": "3.4.0"
+        },
         "askmethat-rating": {
             "libraryName": "askmethat-rating",
             "asOfVersion": "0.4.0"
