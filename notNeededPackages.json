@@ -6943,6 +6943,10 @@
             "libraryName": "react-native-webrtc",
             "asOfVersion": "1.100.0"
         },
+        "react-native-zeroconf": {
+            "libraryName": "react-native-zeroconf",
+            "asOfVersion": "0.17.7"
+        },
         "react-navigation": {
             "libraryName": "react-navigation",
             "asOfVersion": "3.4.0"
