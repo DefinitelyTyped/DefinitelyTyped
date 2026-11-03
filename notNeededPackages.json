@@ -2221,6 +2221,10 @@
             "libraryName": "eslint-plugin-mocha",
             "asOfVersion": "11.1.0"
         },
+        "eslint-plugin-prettier": {
+            "libraryName": "eslint-plugin-prettier",
+            "asOfVersion": "5.5.7"
+        },
         "eslint-scope": {
             "libraryName": "eslint-scope",
             "asOfVersion": "9.1.0"
