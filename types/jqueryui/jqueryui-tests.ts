@@ -2056,3 +2056,20 @@ function test_easing() {
     test_easing_function("easeOutBounce", easing.easeOutBounce);
     test_easing_function("easeInOutBounce", easing.easeInOutBounce);
 }
+
+function test_event_types() {
+    $("#accordion").accordion({
+        activate: (event: JQuery.TriggeredEvent, ui) => {
+            event.preventDefault();
+            console.log(ui.newHeader);
+        },
+    });
+
+    $("#selectmenu").selectmenu({
+        change: (event: JQuery.TriggeredEvent, ui) => {
+            event.stopPropagation();
+            console.log(ui.item.val());
+        },
+    });
+}
+
