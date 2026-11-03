@@ -2305,6 +2305,10 @@
             "libraryName": "expect",
             "asOfVersion": "24.3.0"
         },
+        "expect-puppeteer": {
+            "libraryName": "expect-puppeteer",
+            "asOfVersion": "11.0.0"
+        },
         "expo": {
             "libraryName": "expo",
             "asOfVersion": "33.0.0"
