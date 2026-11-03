@@ -3081,6 +3081,10 @@
             "libraryName": "gulp-shell",
             "asOfVersion": "0.7.0"
         },
+        "gulp-tar": {
+            "libraryName": "gulp-tar",
+            "asOfVersion": "5.0.0"
+        },
         "gulp-tslint": {
             "libraryName": "gulp-tslint",
             "asOfVersion": "4.2.0"
