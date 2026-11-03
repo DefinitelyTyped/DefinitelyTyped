@@ -3021,6 +3021,10 @@
             "libraryName": "gradient-parser",
             "asOfVersion": "1.2.0"
         },
+        "gradient-string": {
+            "libraryName": "gradient-string",
+            "asOfVersion": "3.0.0"
+        },
         "graphene-pk11": {
             "libraryName": "graphene-pk11",
             "asOfVersion": "2.0.31"
