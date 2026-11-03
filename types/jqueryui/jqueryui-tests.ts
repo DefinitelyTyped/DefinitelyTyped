@@ -2056,3 +2056,57 @@ function test_easing() {
     test_easing_function("easeOutBounce", easing.easeOutBounce);
     test_easing_function("easeInOutBounce", easing.easeInOutBounce);
 }
+
+function test_event_types() {
+    // Contextual inference tests without explicit callback annotations
+    jQuery("#accordion").accordion({
+        activate: (event, ui) => {
+            const target: HTMLElement = event.target;
+            const targetElement: Element = event.target;
+            const currentTarget: HTMLElement = event.currentTarget;
+            const delegateTarget: HTMLElement = event.delegateTarget;
+            const originalEvent: Event | undefined = event.originalEvent;
+            const isDefaultPrevented: boolean = event.isDefaultPrevented();
+            const timeStamp: number | undefined = event.timeStamp;
+            const newPanel: JQuery = ui.newPanel;
+            const oldPanel: JQuery = ui.oldPanel;
+        },
+    });
+    jQuery("#dialog").dialog({
+        open: (event, ui) => {
+            const target: HTMLElement = event.target;
+            const currentTarget: HTMLElement = event.currentTarget;
+            const delegateTarget: HTMLElement = event.delegateTarget;
+            const originalEvent: Event | undefined = event.originalEvent;
+            event.preventDefault();
+            event.stopPropagation();
+        },
+        buttons: [
+            {
+                text: "Ok",
+                click: event => {
+                    const target: HTMLElement = event.target;
+                    const currentTarget: HTMLElement = event.currentTarget;
+                },
+            },
+        ],
+    });
+    jQuery("#slider").slider({
+        slide: (event, ui) => {
+            const target: HTMLElement = event.target;
+            const isPropagationStopped: boolean = event.isPropagationStopped();
+            const type: string = event.type;
+            const value: number | undefined = ui.value;
+        },
+    });
+    jQuery("#selectable").selectable({
+        selected: (event, ui) => {
+            const target: HTMLElement = event.target;
+            const currentTarget: HTMLElement = event.currentTarget;
+            const selected: Element | undefined = ui.selected;
+        },
+    });
+    // Verify caller-supplied event arguments accept JQuery.Event
+    const baseEvent: JQuery.Event = jQuery.Event("click");
+    jQuery("#menu").menu("collapse", baseEvent);
+}
