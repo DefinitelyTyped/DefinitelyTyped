@@ -1733,6 +1733,10 @@
             "libraryName": "deepmerge",
             "asOfVersion": "2.2.0"
         },
+        "defaults": {
+            "libraryName": "defaults",
+            "asOfVersion": "3.0.0"
+        },
         "define-lazy-prop": {
             "libraryName": "define-lazy-prop",
             "asOfVersion": "2.0.0"
