@@ -5811,6 +5811,7 @@ declare namespace chrome {
         enum ScriptCode {
             AFAK = "Afak",
             ARAB = "Arab",
+            ARAN = "Aran",
             ARMI = "Armi",
             ARMN = "Armn",
             AVST = "Avst",
@@ -13233,6 +13234,7 @@ declare namespace chrome {
      * Permissions: "wallpaper"
      * @platform ChromeOS only
      * @since Chrome 43
+     * @deprecated since Chrome 156. This API is restricted to component extensions and is no longer available to other extensions.
      */
     export namespace wallpaper {
         /**
