@@ -372,6 +372,10 @@
             "libraryName": "axios-mock-adapter",
             "asOfVersion": "1.10.0"
         },
+        "azdata": {
+            "libraryName": "azdata",
+            "asOfVersion": "1.0.0"
+        },
         "azure-kusto-data": {
             "libraryName": "azure-kusto-data",
             "asOfVersion": "2.0.1"
