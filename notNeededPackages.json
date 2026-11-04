@@ -2245,6 +2245,10 @@
             "libraryName": "espree",
             "asOfVersion": "11.1.0"
         },
+        "estree-jsx": {
+            "libraryName": "estree-jsx",
+            "asOfVersion": "0.0.1"
+        },
         "eth-sig-util": {
             "libraryName": "eth-sig-util",
             "asOfVersion": "2.5.3"
