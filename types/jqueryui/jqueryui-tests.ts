@@ -2071,4 +2071,12 @@ function test_event_types() {
             console.log(ui.item.val());
         },
     });
+
+    const keydownEvent = $.Event("keydown");
+    $("#menu").menu("next", keydownEvent);
+    $("#menu").menu("previous", keydownEvent);
+    $("#menu").menu("collapse", keydownEvent);
+    $("#menu").menu("collapseAll", keydownEvent, true);
+    $("#menu").menu("focus", keydownEvent, $("#item"));
+    $("#menu").menu("select", keydownEvent);
 }
