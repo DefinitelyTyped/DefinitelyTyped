@@ -1853,6 +1853,10 @@
             "libraryName": "direction",
             "asOfVersion": "2.0.0"
         },
+        "discontinuous-range": {
+            "libraryName": "discontinuous-range",
+            "asOfVersion": "1.0.3"
+        },
         "disqusjs": {
             "libraryName": "disqusjs",
             "asOfVersion": "3.0.0"
