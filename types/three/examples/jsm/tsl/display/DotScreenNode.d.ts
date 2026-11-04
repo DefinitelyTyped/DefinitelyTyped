@@ -1,6 +1,6 @@
-import { Node, TempNode } from "three/webgpu";
+import { Node } from "three/webgpu";
 
-declare class DotScreenNode extends TempNode {
+declare class DotScreenNode extends Node {
     inputNode: Node;
     angle: Node<"float">;
     scale: Node<"float">;

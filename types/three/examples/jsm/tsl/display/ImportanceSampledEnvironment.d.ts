@@ -11,7 +11,7 @@ declare class ImportanceSampledEnvironment {
      * @param {boolean} [importanceSampling=false] - When `true`, builds luminance CDF tables and enables MIS env sampling.
      */
     constructor(importanceSampling?: boolean);
-    intensity: UniformNode<"float", number>;
+    intensity: UniformNode<"float">;
     /**
      * @param {Texture} hdr - Equirectangular HDR environment map.
      */
@@ -27,7 +27,7 @@ declare class ImportanceSampledEnvironment {
      * @return {Node<vec3>}
      */
     sampleReflect(params: {
-        cameraWorldMatrix: UniformNode<"mat4", Matrix4>;
+        cameraWorldMatrix: UniformNode<"mat4">;
         viewReflectDir: Node<"vec3">;
         sampleWeight?: Node<"float">;
     }): Node<"vec3">;
@@ -41,15 +41,17 @@ declare class ImportanceSampledEnvironment {
      * @param {Node<vec3>} params.V - View-space direction to camera.
      * @param {Node<float>} params.alpha - GGX roughness (alpha).
      * @param {Node<vec3>} params.f0
+     * @param {Node<float>} [params.f90=1] - Grazing reflectance.
      * @return {Node<vec3>}
      */
     sampleEnvironmentBRDF(params: {
-        cameraWorldMatrix: UniformNode<"mat4", Matrix4>;
+        cameraWorldMatrix: UniformNode<"mat4">;
         viewReflectDir: Node<"vec3">;
         N: Node<"vec3">;
         V: Node<"vec3">;
         alpha: Node<"float">;
         f0: Node<"vec3">;
+        f90?: Node<"float">;
     }): Node<"vec3">;
     /**
      * Environment reflection for a screen-space miss, estimated with multiple importance
@@ -66,16 +68,18 @@ declare class ImportanceSampledEnvironment {
      * @param {Node<vec3>} params.V - View-space direction to camera.
      * @param {Node<float>} params.alpha - GGX roughness (alpha).
      * @param {Node<vec3>} params.f0
+     * @param {Node<float>} [params.f90=1] - Grazing reflectance.
      * @param {Node<vec4>} params.Xi2 - Second blue-noise sample (zw used for the CDF).
      * @return {Node<vec3>}
      */
     sampleEnvironmentMIS(params: {
-        cameraWorldMatrix: UniformNode<"mat4", Matrix4>;
+        cameraWorldMatrix: UniformNode<"mat4">;
         viewReflectDir: Node<"vec3">;
         N: Node<"vec3">;
         V: Node<"vec3">;
         alpha: Node<"float">;
         f0: Node<"vec3">;
+        f90?: Node<"float">;
         Xi2: Node<"vec4">;
     }): Node<"vec3">;
     dispose(): void;

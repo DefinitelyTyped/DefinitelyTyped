@@ -6,7 +6,7 @@ declare class SSAAPassNode extends PassNode {
     sampleLevel: number;
     unbiased: boolean;
 
-    sampleWeight: UniformNode<"float", number>;
+    sampleWeight: UniformNode<"float">;
 
     sampleRenderTarget: RenderTarget | null;
 

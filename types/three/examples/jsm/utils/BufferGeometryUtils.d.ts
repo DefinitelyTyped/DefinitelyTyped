@@ -3,6 +3,7 @@
 import {
     BufferAttribute,
     BufferGeometry,
+    InterleavedBuffer,
     InterleavedBufferAttribute,
     Line,
     Mesh,
@@ -16,6 +17,22 @@ export function mergeAttributes(attributes: BufferAttribute[]): BufferAttribute;
 export function interleaveAttributes(attributes: BufferAttribute[]): InterleavedBufferAttribute;
 export function estimateBytesUsed(geometry: BufferGeometry): number;
 export function mergeVertices(geometry: BufferGeometry, tolerance?: number): BufferGeometry;
+
+/**
+ * Copies attribute entries in the order specified by the source vertex indices. Preserves raw values, attribute type
+ * and metadata. Reuse the same buffer map across calls to preserve shared interleaved buffers for the same mapping.
+ *
+ * @param attribute The source attribute.
+ * @param sourceIndices The source index for each output vertex.
+ * @param buffers Shared interleaved buffer copies.
+ * @return The remapped attribute.
+ */
+export function remapAttribute<TAttribute extends BufferAttribute | InterleavedBufferAttribute>(
+    attribute: TAttribute,
+    sourceIndices: ArrayLike<number>,
+    buffers?: Map<InterleavedBuffer, InterleavedBuffer>,
+): TAttribute;
+
 export function toTrianglesDrawMode(geometry: BufferGeometry, drawMode: TrianglesDrawModes): BufferGeometry;
 export function computeMorphedAttributes(object: Mesh | Line | Points): object;
 export function computeMikkTSpaceTangents(

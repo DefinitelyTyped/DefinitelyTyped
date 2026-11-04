@@ -11,6 +11,7 @@ export type MaterialNodeScope =
     | typeof MaterialNode.SPECULAR_COLOR
     | typeof MaterialNode.REFLECTIVITY
     | typeof MaterialNode.ROUGHNESS
+    | typeof MaterialNode.DIFFUSE_ROUGHNESS
     | typeof MaterialNode.METALNESS
     | typeof MaterialNode.NORMAL
     | typeof MaterialNode.CLEARCOAT
@@ -57,6 +58,7 @@ declare const MaterialNode: {
     SPECULAR_COLOR: "specularColor";
     REFLECTIVITY: "reflectivity";
     ROUGHNESS: "roughness";
+    DIFFUSE_ROUGHNESS: "diffuseRoughness";
     METALNESS: "metalness";
     NORMAL: "normal";
     CLEARCOAT: "clearcoat";
@@ -104,6 +106,7 @@ export const materialSpecularColor: MaterialNode<"vec3">;
 export const materialSpecularStrength: MaterialNode<"float">;
 export const materialReflectivity: MaterialNode<"float">;
 export const materialRoughness: MaterialNode<"float">;
+export const materialDiffuseRoughness: MaterialNode<"float">;
 export const materialMetalness: MaterialNode<"float">;
 export const materialNormal: MaterialNode<"vec3">;
 export const materialClearcoat: MaterialNode<"float">;

@@ -1806,11 +1806,15 @@ function testTts() {
 
     const ttsOptions: chrome.tts.TtsOptions = {
         lang: "en",
+        requiredEventTypes: ["start"],
+        desiredEventTypes: [chrome.tts.EventType.END],
     };
 
     chrome.tts.speak("Hello, World!"); // $ExpectType Promise<void>
+    chrome.tts.speak("Hello, World!", undefined); // $ExpectType Promise<void>
     chrome.tts.speak("Hello, World!", ttsOptions); // $ExpectType Promise<void>
     chrome.tts.speak("Hello, World!", () => {}); // $ExpectType void
+    chrome.tts.speak("Hello, World!", undefined, () => {}); // $ExpectType void
     chrome.tts.speak("Hello, World!", ttsOptions, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.tts.speak("Hello, World!", () => {}).then(() => {});
@@ -3548,13 +3552,17 @@ async function testSystemDisplay() {
     // @ts-expect-error
     chrome.system.display.getDisplayLayout(() => {}).then(() => {});
 
-    const flags = { singleUnified: true };
+    const flags: chrome.system.display.GetInfoFlags = { singleUnified: true };
     chrome.system.display.getInfo(); // $ExpectType Promise<DisplayUnitInfo[]>
     chrome.system.display.getInfo((displayInfo) => { // $ExpectType void
         displayInfo; // $ExpectType DisplayUnitInfo[]
     });
     chrome.system.display.getInfo(flags); // $ExpectType Promise<DisplayUnitInfo[]>
     chrome.system.display.getInfo(flags, (displayInfo) => { // $ExpectType void
+        displayInfo; // $ExpectType DisplayUnitInfo[]
+    });
+    chrome.system.display.getInfo(undefined); // $ExpectType Promise<DisplayUnitInfo[]>
+    chrome.system.display.getInfo(undefined, (displayInfo) => { // $ExpectType void
         displayInfo; // $ExpectType DisplayUnitInfo[]
     });
     // @ts-expect-error
@@ -3680,8 +3688,10 @@ async function testTabs() {
     };
 
     chrome.tabs.captureVisibleTab(); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(undefined); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowId); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowCaptureOptions); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(undefined, windowCaptureOptions); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab((dataUrl) => { // $ExpectType void
         dataUrl; // $ExpectType string
@@ -3695,6 +3705,12 @@ async function testTabs() {
     chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions, (dataUrl) => { // $ExpectType void
         dataUrl; // $ExpectType string
     });
+    chrome.tabs.captureVisibleTab(undefined, (dataUrl) => { // $ExpectType void
+        dataUrl; // $ExpectType string
+    });
+    chrome.tabs.captureVisibleTab(undefined, windowCaptureOptions, (dataUrl) => { // $ExpectType void
+        dataUrl; // $ExpectType string
+    });
     // @ts-expect-error
     chrome.tabs.captureVisibleTab(windowCaptureOptions, windowId);
     // @ts-expect-error
@@ -3703,6 +3719,7 @@ async function testTabs() {
     const connectInfo: chrome.tabs.ConnectInfo = {
         name: "name",
         frameId,
+        documentId,
     };
 
     chrome.tabs.connect(tabId); // $ExpectType Port
@@ -3824,6 +3841,8 @@ async function testTabs() {
     chrome.tabs.group(groupOptions, (groupId) => { // $ExpectType void
         groupId; // $ExpectType number
     });
+    // @ts-expect-error Missing required property 'tabIds'.
+    chrome.tabs.group({});
     // @ts-expect-error Value did not match any choice.
     chrome.tabs.group({ tabIds: [] });
     // @ts-expect-error
@@ -3890,8 +3909,10 @@ async function testTabs() {
     };
 
     chrome.tabs.reload(); // $ExpectType Promise<void>
+    chrome.tabs.reload(undefined); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId); // $ExpectType Promise<void>
     chrome.tabs.reload(reloadProperties); // $ExpectType Promise<void>
+    chrome.tabs.reload(undefined, reloadProperties); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId, reloadProperties); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId, () => {}); // $ExpectType void
     chrome.tabs.reload(reloadProperties, () => {}); // $ExpectType void
@@ -7492,7 +7513,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.scheme; // $ExpectType string
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
@@ -7520,7 +7541,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7564,7 +7585,7 @@ function testWebRequest() {
             details.parentFrameId; // $ExpectType number
             details.requestHeaders?.[0].name; // $ExpectType string | undefined
             details.requestHeaders?.[0].value; // $ExpectType string | undefined
-            details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+            details.requestHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
             details.requestId; // $ExpectType string
             details.tabId; // $ExpectType number
             details.timeStamp; // $ExpectType number
@@ -7590,7 +7611,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7630,7 +7651,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.securityInfo; // $ExpectType SecurityInfo | undefined
         details.securityInfo!.certificates![0].fingerprint.sha256; // $ExpectType string
         details.securityInfo!.certificates![0].rawDER; // $ExpectType ArrayBuffer | undefined
@@ -7659,7 +7680,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7679,7 +7700,7 @@ function testWebRequest() {
         details.parentFrameId; // $ExpectType number
         details.requestHeaders?.[0].name; // $ExpectType string | undefined
         details.requestHeaders?.[0].value; // $ExpectType string | undefined
-        details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.requestHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.requestId; // $ExpectType string
         details.tabId; // $ExpectType number
         details.timeStamp; // $ExpectType number

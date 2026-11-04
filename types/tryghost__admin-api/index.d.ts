@@ -436,6 +436,9 @@ interface PostOrPageRequest extends Partial<Identification>, Excerpt, CodeInject
     // URLs
     url?: string | undefined;
     canonical_url?: Nullable<string> | undefined;
+
+    // Dates
+    updated_at?: Nullable<string> | undefined;
 }
 
 interface PostOrPageResponse extends Identification, Excerpt, CodeInjection, Metadata, SocialMedia, Dates {

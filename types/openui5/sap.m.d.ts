@@ -1,4 +1,4 @@
-// For Library Version: 1.153.0
+// For Library Version: 1.154.0
 
 declare module "sap/f/library" {
   export interface IShellBar {
@@ -1597,7 +1597,7 @@ declare module "sap/m/library" {
    *
    * This enum is part of the 'sap/m/library' module export and must be accessed by the property 'IconTabFilterInteractionMode'.
    *
-   * @experimental As of version 1.121.
+   * @since 1.121
    */
   export enum IconTabFilterInteractionMode {
     /**
@@ -2396,6 +2396,41 @@ declare module "sap/m/library" {
     SelectAll = "SelectAll",
   }
   /**
+   * Available step modes for {@link sap.m.NumericInput}.
+   *
+   * This enum is part of the 'sap/m/library' module export and must be accessed by the property 'NumericInputStepModeType'.
+   *
+   * @experimental As of version 1.154.
+   */
+  export enum NumericInputStepModeType {
+    /**
+     * Choosing increase/decrease button will add/subtract the `step` value to/from the current value.
+     */
+    AdditionAndSubtraction = "AdditionAndSubtraction",
+    /**
+     * Pressing increase/decrease button will increase/decrease the current `value` to the closest number that
+     * is divisible by the `step`.
+     */
+    Multiple = "Multiple",
+  }
+  /**
+   * Available validation modes for {@link sap.m.NumericInput}.
+   *
+   * This enum is part of the 'sap/m/library' module export and must be accessed by the property 'NumericInputValidationMode'.
+   *
+   * @experimental As of version 1.154.
+   */
+  export enum NumericInputValidationMode {
+    /**
+     * Validation happens on `FocusOut`.
+     */
+    FocusOut = "FocusOut",
+    /**
+     * Validation happens on `LiveChange`.
+     */
+    LiveChange = "LiveChange",
+  }
+  /**
    * Marker interface for controls which are suitable as items for the ObjectHeader.
    */
   export interface ObjectHeaderContainer {
@@ -2472,6 +2507,30 @@ declare module "sap/m/library" {
      * Shows only text
      */
     TextOnly = "TextOnly",
+  }
+  /**
+   * Display modes of the {@link sap.m.ObjectNumber} control.
+   *
+   * This enum is part of the 'sap/m/library' module export and must be accessed by the property 'ObjectNumberDisplayMode'.
+   *
+   * @since 1.154
+   */
+  export enum ObjectNumberDisplayMode {
+    /**
+     * The control acts as a currency value — numbers are formatted via `NumberFormat.getCurrencyInstance`,
+     * the unit is resolved to a currency symbol, and column alignment is managed via CSS.
+     */
+    Currency = "Currency",
+    /**
+     * The control displays a number and unit in the standard way.
+     */
+    Default = "Default",
+    /**
+     * The control acts as a measurement value — numbers are formatted via `NumberFormat.getUnitInstance`, decimals
+     * are aligned to `maxPrecision`, the raw unit string is shown as-is, and column alignment is managed via
+     * CSS. Decimal alignment across rows assumes homogeneous units within a column.
+     */
+    Unit = "Unit",
   }
   /**
    * The object contains configuration information for the {@link sap.m.IOverflowToolbarContent} interface.
@@ -2834,6 +2893,13 @@ declare module "sap/m/library" {
      * as a whole, create a form.
      */
     Form = "Form",
+    /**
+     * No ARIA role is set on the Panel container. Use this when the Panel is purely presentational and should
+     * not be exposed as a landmark region.
+     *
+     * @since 1.154
+     */
+    None = "None",
     /**
      * Represents the ARIA role `Region`. A section of a page, that is important enough to be included in a
      * page summary or table of contents.
@@ -38712,7 +38778,7 @@ declare module "sap/m/IconTabFilter" {
      *
      * Default value is `Auto`.
      *
-     * @experimental As of version 1.121.
+     * @since 1.121
      *
      * @returns Value of property `interactionMode`
      */
@@ -39015,7 +39081,7 @@ declare module "sap/m/IconTabFilter" {
      *
      * Default value is `Auto`.
      *
-     * @experimental As of version 1.121.
+     * @since 1.121
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -39126,7 +39192,7 @@ declare module "sap/m/IconTabFilter" {
     /**
      * Specifies the interaction mode.
      *
-     * @experimental As of version 1.121.
+     * @since 1.121
      */
     interactionMode?:
       | (
@@ -70002,6 +70068,891 @@ declare module "sap/m/NumericContent" {
   >;
 }
 
+declare module "sap/m/NumericInput" {
+  import { default as Control, $ControlSettings } from "sap/ui/core/Control";
+
+  import {
+    IFormContent,
+    ID,
+    CSSSize,
+    TextAlign,
+    ValueState,
+  } from "sap/ui/core/library";
+
+  import ElementMetadata from "sap/ui/core/ElementMetadata";
+
+  import {
+    NumericInputStepModeType,
+    NumericInputValidationMode,
+  } from "sap/m/library";
+
+  import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
+
+  import Event from "sap/ui/base/Event";
+
+  /**
+   * Allows the user to change the input values with predefined increments (steps).
+   *
+   * @experimental As of version 1.154.
+   */
+  export default class NumericInput extends Control implements IFormContent {
+    __implements__sap_ui_core_IFormContent: boolean;
+    /**
+     * Constructor for a new `NumericInput` control.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $NumericInputSettings
+    );
+    /**
+     * Constructor for a new `NumericInput` control.
+     *
+     * Accepts an object literal `mSettings` that defines initial property values, aggregated and associated
+     * objects as well as event handlers. See {@link sap.ui.base.ManagedObject#constructor} for a general description
+     * of the syntax of the settings object.
+     */
+    constructor(
+      /**
+       * ID for the new control, generated automatically if no ID is given
+       */
+      sId?: string,
+      /**
+       * Initial settings for the new control
+       */
+      mSettings?: $NumericInputSettings
+    );
+
+    /**
+     * Creates a new subclass of class sap.m.NumericInput with name `sClassName` and enriches it with the information
+     * contained in `oClassInfo`.
+     *
+     * `oClassInfo` might contain the same kind of information as described in {@link sap.ui.core.Control.extend}.
+     *
+     *
+     * @returns Created class / constructor function
+     */
+    static extend<T extends Record<string, unknown>>(
+      /**
+       * Name of the class being created
+       */
+      sClassName: string,
+      /**
+       * Object literal with information about the class
+       */
+      oClassInfo?: sap.ClassInfo<T, NumericInput>,
+      /**
+       * Constructor function for the metadata object; if not given, it defaults to the metadata implementation
+       * used by this class
+       */
+      FNMetaImpl?: Function
+    ): Function;
+    /**
+     * Returns a metadata object for class sap.m.NumericInput.
+     *
+     *
+     * @returns Metadata object describing this class
+     */
+    static getMetadata(): ElementMetadata;
+    /**
+     * Adds some ariaDescribedBy into the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to add; if empty, nothing is inserted
+       */
+      vAriaDescribedBy: ID | Control
+    ): this;
+    /**
+     * Adds some ariaLabelledBy into the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    addAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to add; if empty, nothing is inserted
+       */
+      vAriaLabelledBy: ID | Control
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.m.NumericInput`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.NumericInput` itself.
+     *
+     * Fired when one of the following happens:
+     *
+     * 	 - The text in the input has changed and the focus leaves the input field or the enter key is pressed.
+     *
+     * 	 - One of the decrement or increment buttons is pressed
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * An application-specific payload object that will be passed to the event handler along with the event
+       * object when firing the event
+       */
+      oData: object,
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NumericInput$ChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.NumericInput` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Attaches event handler `fnFunction` to the {@link #event:change change} event of this `sap.m.NumericInput`.
+     *
+     * When called, the context of the event handler (its `this`) will be bound to `oListener` if specified,
+     * otherwise it will be bound to this `sap.m.NumericInput` itself.
+     *
+     * Fired when one of the following happens:
+     *
+     * 	 - The text in the input has changed and the focus leaves the input field or the enter key is pressed.
+     *
+     * 	 - One of the decrement or increment buttons is pressed
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    attachChange(
+      /**
+       * The function to be called when the event occurs
+       */
+      fnFunction: (p1: NumericInput$ChangeEvent) => void,
+      /**
+       * Context object to call the event handler with. Defaults to this `sap.m.NumericInput` itself
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Detaches event handler `fnFunction` from the {@link #event:change change} event of this `sap.m.NumericInput`.
+     *
+     * The passed function and listener object must match the ones used for event registration.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    detachChange(
+      /**
+       * The function to be called, when the event occurs
+       */
+      fnFunction: (p1: NumericInput$ChangeEvent) => void,
+      /**
+       * Context object on which the given function had to be called
+       */
+      oListener?: object
+    ): this;
+    /**
+     * Fires event {@link #event:change change} to attached listeners.
+     *
+     * @ui5-protected Do not call from applications (only from related classes in the framework)
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    fireChange(
+      /**
+       * Parameters to pass along with the event
+       */
+      mParameters?: NumericInput$ChangeEventParameters
+    ): this;
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaDescribedBy ariaDescribedBy}.
+     */
+    getAriaDescribedBy(): ID[];
+    /**
+     * Returns array of IDs of the elements which are the current targets of the association {@link #getAriaLabelledBy ariaLabelledBy}.
+     */
+    getAriaLabelledBy(): ID[];
+    /**
+     * Gets current value of property {@link #getDescription description}.
+     *
+     * Determines the description text after the input field, for example units of measurement, currencies.
+     *
+     *
+     * @returns Value of property `description`
+     */
+    getDescription(): string;
+    /**
+     * Gets current value of property {@link #getDisplayValuePrecision displayValuePrecision}.
+     *
+     * Determines the number of digits after the decimal point.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `displayValuePrecision`
+     */
+    getDisplayValuePrecision(): int;
+    /**
+     * Gets current value of property {@link #getEditable editable}.
+     *
+     * Defines whether the control can be modified by the user.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `editable`
+     */
+    getEditable(): boolean;
+    /**
+     * Gets current value of property {@link #getEnabled enabled}.
+     *
+     * Indicates whether the user can interact with the control.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Value of property `enabled`
+     */
+    getEnabled(): boolean;
+    /**
+     * Gets current value of property {@link #getFieldWidth fieldWidth}.
+     *
+     * Determines the distribution of space between the input field and the description text.
+     *
+     * Default value is `'50%'`.
+     *
+     *
+     * @returns Value of property `fieldWidth`
+     */
+    getFieldWidth(): CSSSize;
+    /**
+     * Returns the DOM node ID to be used for the `labelFor` attribute of the label.
+     *
+     *
+     * @returns The owner control's ID, or `undefined` if not set
+     */
+    getIdForLabel(): string;
+    /**
+     * Gets current value of property {@link #getLargerStep largerStep}.
+     *
+     * Defines the larger `step` used to increase or decrease the value when the user presses PageUp or PageDown.
+     * The default value is 2 times the value of the `step` property.
+     *
+     * Default value is `2`.
+     *
+     *
+     * @returns Value of property `largerStep`
+     */
+    getLargerStep(): float;
+    /**
+     * Gets current value of property {@link #getMax max}.
+     *
+     * Sets the maximum possible value of the defined range.
+     *
+     *
+     * @returns Value of property `max`
+     */
+    getMax(): float;
+    /**
+     * Gets current value of property {@link #getMin min}.
+     *
+     * Sets the minimum possible value of the defined range.
+     *
+     *
+     * @returns Value of property `min`
+     */
+    getMin(): float;
+    /**
+     * Gets current value of property {@link #getName name}.
+     *
+     * Defines the name of the control for the purposes of form submission.
+     *
+     *
+     * @returns Value of property `name`
+     */
+    getName(): string;
+    /**
+     * Gets current value of property {@link #getPlaceholder placeholder}.
+     *
+     * Defines a short hint intended to aid the user with data entry when the control has no value.
+     *
+     *
+     * @returns Value of property `placeholder`
+     */
+    getPlaceholder(): string;
+    /**
+     * Gets current value of property {@link #getRequired required}.
+     *
+     * Indicates that user input is required.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Value of property `required`
+     */
+    getRequired(): boolean;
+    /**
+     * Gets current value of property {@link #getStep step}.
+     *
+     * Increases or decreases the value of the input.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Value of property `step`
+     */
+    getStep(): float;
+    /**
+     * Gets current value of property {@link #getStepMode stepMode}.
+     *
+     * Defines the calculation mode for the provided `step` and `largerStep`.
+     *
+     * Default value is `AdditionAndSubtraction`.
+     *
+     *
+     * @returns Value of property `stepMode`
+     */
+    getStepMode(): NumericInputStepModeType;
+    /**
+     * Gets current value of property {@link #getTextAlign textAlign}.
+     *
+     * Defines the horizontal alignment of the text that is displayed inside the input field.
+     *
+     * Default value is `End`.
+     *
+     *
+     * @returns Value of property `textAlign`
+     */
+    getTextAlign(): TextAlign;
+    /**
+     * Gets current value of property {@link #getValidationMode validationMode}.
+     *
+     * Defines when the validation of the typed value will happen.
+     *
+     * Default value is `FocusOut`.
+     *
+     *
+     * @returns Value of property `validationMode`
+     */
+    getValidationMode(): NumericInputValidationMode;
+    /**
+     * Gets current value of property {@link #getValue value}.
+     *
+     * Determines the value of the control.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Value of property `value`
+     */
+    getValue(): float;
+    /**
+     * Gets current value of property {@link #getValueState valueState}.
+     *
+     * Defines the value state of the control. Possible values are `None`, `Error`, `Warning`, and `Success`.
+     *
+     * Default value is `None`.
+     *
+     *
+     * @returns Value of property `valueState`
+     */
+    getValueState(): ValueState;
+    /**
+     * Gets current value of property {@link #getValueStateText valueStateText}.
+     *
+     * Defines the text that appears in the value state message pop-up.
+     *
+     *
+     * @returns Value of property `valueStateText`
+     */
+    getValueStateText(): string;
+    /**
+     * Gets current value of property {@link #getWidth width}.
+     *
+     * Defines the width of the control.
+     *
+     *
+     * @returns Value of property `width`
+     */
+    getWidth(): CSSSize;
+    /**
+     * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaDescribedBy(): ID[];
+    /**
+     * Removes all the controls in the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns An array of the removed elements (might be empty)
+     */
+    removeAllAriaLabelledBy(): ID[];
+    /**
+     * Removes an ariaDescribedBy from the association named {@link #getAriaDescribedBy ariaDescribedBy}.
+     *
+     *
+     * @returns The removed ariaDescribedBy or `null`
+     */
+    removeAriaDescribedBy(
+      /**
+       * The ariaDescribedBy to be removed or its index or ID
+       */
+      vAriaDescribedBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Removes an ariaLabelledBy from the association named {@link #getAriaLabelledBy ariaLabelledBy}.
+     *
+     *
+     * @returns The removed ariaLabelledBy or `null`
+     */
+    removeAriaLabelledBy(
+      /**
+       * The ariaLabelledBy to be removed or its index or ID
+       */
+      vAriaLabelledBy: int | ID | Control
+    ): ID | null;
+    /**
+     * Sets a new value for property {@link #getDescription description}.
+     *
+     * Determines the description text after the input field, for example units of measurement, currencies.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDescription(
+      /**
+       * New value for property `description`
+       */
+      sDescription?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getDisplayValuePrecision displayValuePrecision}.
+     *
+     * Determines the number of digits after the decimal point.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDisplayValuePrecision(
+      /**
+       * New value for property `displayValuePrecision`
+       */
+      iDisplayValuePrecision?: int
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEditable editable}.
+     *
+     * Defines whether the control can be modified by the user.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEditable(
+      /**
+       * New value for property `editable`
+       */
+      bEditable?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getEnabled enabled}.
+     *
+     * Indicates whether the user can interact with the control.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setEnabled(
+      /**
+       * New value for property `enabled`
+       */
+      bEnabled?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getFieldWidth fieldWidth}.
+     *
+     * Determines the distribution of space between the input field and the description text.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `'50%'`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setFieldWidth(
+      /**
+       * New value for property `fieldWidth`
+       */
+      sFieldWidth?: CSSSize
+    ): this;
+    /**
+     * Sets a new value for property {@link #getLargerStep largerStep}.
+     *
+     * Defines the larger `step` used to increase or decrease the value when the user presses PageUp or PageDown.
+     * The default value is 2 times the value of the `step` property.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `2`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setLargerStep(
+      /**
+       * New value for property `largerStep`
+       */
+      fLargerStep?: float
+    ): this;
+    /**
+     * Sets a new value for property {@link #getName name}.
+     *
+     * Defines the name of the control for the purposes of form submission.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setName(
+      /**
+       * New value for property `name`
+       */
+      sName?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getPlaceholder placeholder}.
+     *
+     * Defines a short hint intended to aid the user with data entry when the control has no value.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setPlaceholder(
+      /**
+       * New value for property `placeholder`
+       */
+      sPlaceholder?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getRequired required}.
+     *
+     * Indicates that user input is required.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `false`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setRequired(
+      /**
+       * New value for property `required`
+       */
+      bRequired?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getStep step}.
+     *
+     * Increases or decreases the value of the input.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `1`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setStep(
+      /**
+       * New value for property `step`
+       */
+      fStep?: float
+    ): this;
+    /**
+     * Sets a new value for property {@link #getStepMode stepMode}.
+     *
+     * Defines the calculation mode for the provided `step` and `largerStep`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `AdditionAndSubtraction`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setStepMode(
+      /**
+       * New value for property `stepMode`
+       */
+      sStepMode?:
+        | NumericInputStepModeType
+        | keyof typeof NumericInputStepModeType
+    ): this;
+    /**
+     * Sets a new value for property {@link #getTextAlign textAlign}.
+     *
+     * Defines the horizontal alignment of the text that is displayed inside the input field.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `End`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setTextAlign(
+      /**
+       * New value for property `textAlign`
+       */
+      sTextAlign?: TextAlign | keyof typeof TextAlign
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValue value}.
+     *
+     * Determines the value of the control.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `0`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValue(
+      /**
+       * New value for property `value`
+       */
+      fValue?: float
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueState valueState}.
+     *
+     * Defines the value state of the control. Possible values are `None`, `Error`, `Warning`, and `Success`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `None`.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueState(
+      /**
+       * New value for property `valueState`
+       */
+      sValueState?: ValueState | keyof typeof ValueState
+    ): this;
+    /**
+     * Sets a new value for property {@link #getValueStateText valueStateText}.
+     *
+     * Defines the text that appears in the value state message pop-up.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setValueStateText(
+      /**
+       * New value for property `valueStateText`
+       */
+      sValueStateText?: string
+    ): this;
+    /**
+     * Sets a new value for property {@link #getWidth width}.
+     *
+     * Defines the width of the control.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setWidth(
+      /**
+       * New value for property `width`
+       */
+      sWidth: CSSSize
+    ): this;
+  }
+  /**
+   * Describes the settings that can be provided to the NumericInput constructor.
+   *
+   * @experimental As of version 1.154.
+   */
+  export interface $NumericInputSettings extends $ControlSettings {
+    /**
+     * Sets the minimum possible value of the defined range.
+     */
+    min?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Sets the maximum possible value of the defined range.
+     */
+    max?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Increases or decreases the value of the input.
+     */
+    step?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the calculation mode for the provided `step` and `largerStep`.
+     */
+    stepMode?:
+      | (NumericInputStepModeType | keyof typeof NumericInputStepModeType)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the larger `step` used to increase or decrease the value when the user presses PageUp or PageDown.
+     * The default value is 2 times the value of the `step` property.
+     */
+    largerStep?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines the value of the control.
+     */
+    value?: float | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the name of the control for the purposes of form submission.
+     */
+    name?: string | PropertyBindingInfo;
+
+    /**
+     * Defines a short hint intended to aid the user with data entry when the control has no value.
+     */
+    placeholder?: string | PropertyBindingInfo;
+
+    /**
+     * Indicates that user input is required.
+     */
+    required?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the width of the control.
+     */
+    width?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the value state of the control. Possible values are `None`, `Error`, `Warning`, and `Success`.
+     */
+    valueState?:
+      | (ValueState | keyof typeof ValueState)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the text that appears in the value state message pop-up.
+     */
+    valueStateText?: string | PropertyBindingInfo;
+
+    /**
+     * Defines whether the control can be modified by the user.
+     */
+    editable?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Indicates whether the user can interact with the control.
+     */
+    enabled?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines the number of digits after the decimal point.
+     */
+    displayValuePrecision?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Determines the description text after the input field, for example units of measurement, currencies.
+     */
+    description?: string | PropertyBindingInfo;
+
+    /**
+     * Determines the distribution of space between the input field and the description text.
+     */
+    fieldWidth?: CSSSize | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the horizontal alignment of the text that is displayed inside the input field.
+     */
+    textAlign?:
+      | (TextAlign | keyof typeof TextAlign)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines when the validation of the typed value will happen.
+     */
+    validationMode?:
+      | (NumericInputValidationMode | keyof typeof NumericInputValidationMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Association to controls or IDs that label this control (see WAI-ARIA attribute `aria-labelledby`).
+     */
+    ariaLabelledBy?: Array<Control | string>;
+
+    /**
+     * Association to controls or IDs that describe this control (see WAI-ARIA attribute `aria-describedby`).
+     */
+    ariaDescribedBy?: Array<Control | string>;
+
+    /**
+     * Fired when one of the following happens:
+     *
+     * 	 - The text in the input has changed and the focus leaves the input field or the enter key is pressed.
+     *
+     * 	 - One of the decrement or increment buttons is pressed
+     */
+    change?: (oEvent: NumericInput$ChangeEvent) => void;
+  }
+
+  /**
+   * Parameters of the NumericInput#change event.
+   */
+  export interface NumericInput$ChangeEventParameters {
+    /**
+     * The new `value` of the control.
+     */
+    value?: string;
+  }
+
+  /**
+   * Event object of the NumericInput#change event.
+   */
+  export type NumericInput$ChangeEvent = Event<
+    NumericInput$ChangeEventParameters,
+    NumericInput
+  >;
+}
+
 declare module "sap/m/ObjectAttribute" {
   import { default as Control, $ControlSettings } from "sap/ui/core/Control";
 
@@ -74863,7 +75814,11 @@ declare module "sap/m/ObjectNumber" {
 
   import Event from "sap/ui/base/Event";
 
-  import { EmptyIndicatorMode, ReactiveAreaMode } from "sap/m/library";
+  import {
+    ObjectNumberDisplayMode,
+    EmptyIndicatorMode,
+    ReactiveAreaMode,
+  } from "sap/m/library";
 
   import ElementMetadata from "sap/ui/core/ElementMetadata";
 
@@ -75090,6 +76045,18 @@ declare module "sap/m/ObjectNumber" {
      */
     getAriaLabelledBy(): ID[];
     /**
+     * Gets current value of property {@link #getDisplayMode displayMode}.
+     *
+     * Defines the display mode of the `ObjectNumber` control.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.154
+     *
+     * @returns Value of property `displayMode`
+     */
+    getDisplayMode(): ObjectNumberDisplayMode;
+    /**
      * Gets current value of property {@link #getEmphasized emphasized}.
      *
      * Indicates if the object number should appear emphasized.
@@ -75124,6 +76091,21 @@ declare module "sap/m/ObjectNumber" {
      * @returns Value of property `inverted`
      */
     getInverted(): boolean;
+    /**
+     * Gets current value of property {@link #getMaxPrecision maxPrecision}.
+     *
+     * Defines the space that is available for the precision of the various currencies.
+     *
+     * In `Currency` display mode, this property reserves empty space after the decimal point without affecting
+     * the actual formatting — the number of displayed decimal digits is determined by the CLDR settings for
+     * each currency. In `Unit` display mode, the number is formatted to exactly the specified number of digits
+     * after the decimal point.
+     *
+     * @since 1.154
+     *
+     * @returns Value of property `maxPrecision`
+     */
+    getMaxPrecision(): int;
     /**
      * Gets current value of property {@link #getNumber number}.
      *
@@ -75210,6 +76192,24 @@ declare module "sap/m/ObjectNumber" {
      */
     getUnit(): string;
     /**
+     * Gets current value of property {@link #getUseSymbol useSymbol}.
+     *
+     * Displays the currency symbol instead of the ISO currency code.
+     *
+     * **Note:** This property only has an effect when the `displayMode` is set to `Currency`.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.154
+     *
+     * @returns Value of property `useSymbol`
+     */
+    getUseSymbol(): boolean;
+    /**
+     * Initializes the control.
+     */
+    init(): void;
+    /**
      * Removes all the controls in the association named {@link #getAriaDescribedBy ariaDescribedBy}.
      *
      *
@@ -75269,6 +76269,27 @@ declare module "sap/m/ObjectNumber" {
       bActive?: boolean
     ): this;
     /**
+     * Sets a new value for property {@link #getDisplayMode displayMode}.
+     *
+     * Defines the display mode of the `ObjectNumber` control.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `Default`.
+     *
+     * @since 1.154
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setDisplayMode(
+      /**
+       * New value for property `displayMode`
+       */
+      sDisplayMode?:
+        | ObjectNumberDisplayMode
+        | keyof typeof ObjectNumberDisplayMode
+    ): this;
+    /**
      * Sets a new value for property {@link #getEmphasized emphasized}.
      *
      * Indicates if the object number should appear emphasized.
@@ -75323,6 +76344,28 @@ declare module "sap/m/ObjectNumber" {
        * New value for property `inverted`
        */
       bInverted?: boolean
+    ): this;
+    /**
+     * Sets a new value for property {@link #getMaxPrecision maxPrecision}.
+     *
+     * Defines the space that is available for the precision of the various currencies.
+     *
+     * In `Currency` display mode, this property reserves empty space after the decimal point without affecting
+     * the actual formatting — the number of displayed decimal digits is determined by the CLDR settings for
+     * each currency. In `Unit` display mode, the number is formatted to exactly the specified number of digits
+     * after the decimal point.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * @since 1.154
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setMaxPrecision(
+      /**
+       * New value for property `maxPrecision`
+       */
+      iMaxPrecision: int
     ): this;
     /**
      * Sets a new value for property {@link #getNumber number}.
@@ -75458,6 +76501,27 @@ declare module "sap/m/ObjectNumber" {
        */
       sUnit?: string
     ): this;
+    /**
+     * Sets a new value for property {@link #getUseSymbol useSymbol}.
+     *
+     * Displays the currency symbol instead of the ISO currency code.
+     *
+     * **Note:** This property only has an effect when the `displayMode` is set to `Currency`.
+     *
+     * When called with a value of `null` or `undefined`, the default value of the property will be restored.
+     *
+     * Default value is `true`.
+     *
+     * @since 1.154
+     *
+     * @returns Reference to `this` in order to allow method chaining
+     */
+    setUseSymbol(
+      /**
+       * New value for property `useSymbol`
+       */
+      bUseSymbol?: boolean
+    ): this;
   }
   /**
    * Describes the settings that can be provided to the ObjectNumber constructor.
@@ -75547,6 +76611,37 @@ declare module "sap/m/ObjectNumber" {
      * @since 1.86
      */
     inverted?: boolean | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Defines the display mode of the `ObjectNumber` control.
+     *
+     * @since 1.154
+     */
+    displayMode?:
+      | (ObjectNumberDisplayMode | keyof typeof ObjectNumberDisplayMode)
+      | PropertyBindingInfo
+      | `{${string}}`;
+
+    /**
+     * Defines the space that is available for the precision of the various currencies.
+     *
+     * In `Currency` display mode, this property reserves empty space after the decimal point without affecting
+     * the actual formatting — the number of displayed decimal digits is determined by the CLDR settings for
+     * each currency. In `Unit` display mode, the number is formatted to exactly the specified number of digits
+     * after the decimal point.
+     *
+     * @since 1.154
+     */
+    maxPrecision?: int | PropertyBindingInfo | `{${string}}`;
+
+    /**
+     * Displays the currency symbol instead of the ISO currency code.
+     *
+     * **Note:** This property only has an effect when the `displayMode` is set to `Currency`.
+     *
+     * @since 1.154
+     */
+    useSymbol?: boolean | PropertyBindingInfo | `{${string}}`;
 
     /**
      * Specifies if an empty indicator should be displayed when there is no number.
@@ -88954,7 +90049,8 @@ declare module "sap/m/Panel" {
      * Gets current value of property {@link #getAccessibleRole accessibleRole}.
      *
      * This property is used to set the accessible aria role of the Panel. Depending on the usage you can change
-     * the role from the default `Form` to `Region` or `Complementary`.
+     * the role from the default `Form` to `Region`, `Complementary`, or `None` (no role is rendered, when the
+     * Panel is purely presentational).
      *
      * Default value is `Form`.
      *
@@ -89147,7 +90243,8 @@ declare module "sap/m/Panel" {
      * Sets a new value for property {@link #getAccessibleRole accessibleRole}.
      *
      * This property is used to set the accessible aria role of the Panel. Depending on the usage you can change
-     * the role from the default `Form` to `Region` or `Complementary`.
+     * the role from the default `Form` to `Region`, `Complementary`, or `None` (no role is rendered, when the
+     * Panel is purely presentational).
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
@@ -89400,7 +90497,8 @@ declare module "sap/m/Panel" {
 
     /**
      * This property is used to set the accessible aria role of the Panel. Depending on the usage you can change
-     * the role from the default `Form` to `Region` or `Complementary`.
+     * the role from the default `Form` to `Region`, `Complementary`, or `None` (no role is rendered, when the
+     * Panel is purely presentational).
      *
      * @since 1.46
      */
@@ -138366,8 +139464,6 @@ declare module "sap/m/StepInput" {
     /**
      * Returns the DOMNode Id to be used for the "labelFor" attribute of the label.
      *
-     * By default, this is the Id of the control itself.
-     *
      *
      * @returns Id to be used for the `labelFor`
      */
@@ -153259,8 +154355,7 @@ declare module "sap/m/TimePickerClocks" {
   import { PropertyBindingInfo } from "sap/ui/base/ManagedObject";
 
   /**
-   * A picker clocks container control used inside the {@link sap.m.TimePicker}. If you use the control standalone,
-   * please call the {@link #prepareForOpen} method before opening or displaying it.
+   * A picker clocks container control used inside the {@link sap.m.TimePicker} or as a standalone control.
    *
    * @since 1.90
    */
@@ -176036,6 +177131,8 @@ declare namespace sap {
     "sap/m/NotificationListItem": undefined;
 
     "sap/m/NumericContent": undefined;
+
+    "sap/m/NumericInput": undefined;
 
     "sap/m/ObjectAttribute": undefined;
 

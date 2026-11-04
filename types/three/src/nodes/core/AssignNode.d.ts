@@ -1,8 +1,7 @@
 import Node from "./Node.js";
 import NodeBuilder from "./NodeBuilder.js";
-import TempNode from "./TempNode.js";
 
-declare class AssignNode extends TempNode {
+declare class AssignNode extends Node {
     readonly isAssignNode: true;
 
     constructor(targetNode: Node, sourceNode: Node);

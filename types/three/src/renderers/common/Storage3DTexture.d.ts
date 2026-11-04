@@ -23,6 +23,16 @@ declare class Storage3DTexture extends Texture {
     readonly isStorageTexture: true;
 
     /**
+     * Whether the renderer regenerates the mipmaps automatically.
+     *
+     * Overwritten and set to `false` by default since the WebGPU backend
+     * does not support mipmap generation for 3D textures.
+     *
+     * @default false
+     */
+    mipmapsAutoUpdate: boolean;
+
+    /**
      * Indicates whether this texture is a 3D texture.
      */
     is3DTexture: boolean;

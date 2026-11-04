@@ -9,12 +9,15 @@ import { DataTexture, TextureDataType, WebGLRenderer, WebGLRenderTarget } from "
 import { WebGPURenderer } from "three/webgpu";
 
 export const NO_COMPRESSION: 0;
+export const RLE_COMPRESSION: 1;
 export const ZIPS_COMPRESSION: 2;
 export const ZIP_COMPRESSION: 3;
+export const PIZ_COMPRESSION: 4;
 
 export interface EXRExporterParseOptions {
     compression?: number;
     type?: TextureDataType;
+    textureIndex?: number;
 }
 
 export class EXRExporter {

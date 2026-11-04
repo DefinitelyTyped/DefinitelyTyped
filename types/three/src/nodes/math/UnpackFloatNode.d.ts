@@ -1,8 +1,7 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 import { PackFloatNodeEncoding, PackFloatNodeLayout } from "./PackFloatNode.js";
 
-declare class PackFloatNode extends TempNode {
+declare class PackFloatNode extends Node {
     uintNode: Node;
     encoding: PackFloatNodeEncoding;
     layout: PackFloatNodeLayout;

@@ -1,17 +1,13 @@
 import { Camera, Object3D, ShaderMaterial, Texture, WebGLRenderer, WebGLRenderTarget } from "three";
-import { FullScreenQuad, Pass } from "./Pass.js";
+import { Pass } from "./Pass.js";
 
 export class RenderTransitionPass extends Pass {
     material: ShaderMaterial;
-    fsQuad: FullScreenQuad;
 
     sceneA: Object3D;
     cameraA: Camera;
     sceneB: Object3D;
     cameraB: Camera;
-
-    renderTargetA: WebGLRenderTarget;
-    renderTargetB: WebGLRenderTarget;
 
     constructor(sceneA: Object3D, cameraA: Camera, sceneB: Object3D, cameraB: Camera);
 
@@ -28,6 +24,4 @@ export class RenderTransitionPass extends Pass {
     render(renderer: WebGLRenderer, writeBuffer: WebGLRenderTarget): void;
 
     dispose(): void;
-
-    createMaterial(): ShaderMaterial;
 }

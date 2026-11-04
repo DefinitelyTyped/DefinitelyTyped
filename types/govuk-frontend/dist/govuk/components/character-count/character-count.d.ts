@@ -11,10 +11,7 @@ import { type TranslationPluralForms } from "../../i18n.js";
  * You can configure the message to only appear after a certain percentage
  * of the available characters/words has been entered.
  */
-export class CharacterCount extends ConfigurableComponent<
-    CharacterCountConfig,
-    HTMLElement
-> {
+export class CharacterCount extends ConfigurableComponent<CharacterCountConfig, HTMLElement> {
     /**
      * Name for the component used when initialising using data-module attributes.
      */
@@ -48,17 +45,17 @@ export class CharacterCount extends ConfigurableComponent<
             threshold: {
                 type: "number";
             };
+            countType: {
+                type: "string";
+            };
         };
-        anyOf: (
-            | {
-                required: "maxwords"[];
-                errorMessage: string;
-            }
-            | {
-                required: "maxlength"[];
-                errorMessage: string;
-            }
-        )[];
+        anyOf: ({
+            required: "maxwords"[];
+            errorMessage: string;
+        } | {
+            required: "maxlength"[];
+            errorMessage: string;
+        })[];
     }>;
 
     /**
@@ -67,18 +64,18 @@ export class CharacterCount extends ConfigurableComponent<
      */
     constructor($root: Element | null, config?: CharacterCountConfig);
 
+    segmenter: Intl.Segmenter | null;
+
+    $errorMessage: Element | null;
+
     /**
      * Character count config override
      *
-     * To ensure data-attributes take complete precedence, even if they change
-     * the type of count, we need to reset the `maxlength` and `maxwords` from
-     * the JavaScript config.
-     *
      * @internal
-     * @param {CharacterCountConfig} datasetConfig - configuration specified by dataset
-     * @returns {CharacterCountConfig} - configuration to override by dataset
+     * @param {Partial<CharacterCountConfig>} datasetConfig - configuration specified by dataset
+     * @returns {Partial<CharacterCountConfig>} - configuration to override by dataset
      */
-    [configOverride](datasetConfig: CharacterCountConfig): CharacterCountConfig;
+    [configOverride](datasetConfig: Partial<CharacterCountConfig>): Partial<CharacterCountConfig>;
 }
 
 /**
@@ -86,14 +83,14 @@ export class CharacterCount extends ConfigurableComponent<
  */
 export interface CharacterCountConfig {
     /**
-     * - The maximum number of characters.
-     * If maxwords is provided, the maxlength option will be ignored.
+     * - The maximum number of characters (or words
+     * if `countType` is set to `"words"`).
      */
     maxlength?: number | undefined;
 
     /**
-     * - The maximum number of words. If maxwords is
-     * provided, the maxlength option will be ignored.
+     * @deprecated - Use `maxlength` and
+     * `countType: "words"` instead.
      */
     maxwords?: number | undefined;
 
@@ -103,6 +100,12 @@ export interface CharacterCountConfig {
      * count message will be hidden by default.
      */
     threshold?: number | undefined;
+
+    /**
+     * - The count type
+     * (`"characters"`, `"length"` or `"words"`) used to count the text.
+     */
+    countType?: "length" | "characters" | "words" | undefined;
 
     /**
      * - Character count translations
@@ -174,9 +177,9 @@ export interface CharacterCountTranslations {
      * - Message made
      * available to assistive technologies, if none is already present in the
      * HTML, to describe that the component accepts only a limited amount of
-     * content. It is visible on the page when JavaScript is unavailable. The
-     * component will replace the `%{count}` placeholder with the value of the
-     * `maxlength` or `maxwords` parameter.
+     * content. It is visible on the page if `countType` is not supported or
+     * JavaScript is unavailable. The component will replace the `%{count}`
+     * placeholder with the value of the `maxlength` parameter.
      */
     textareaDescription?: TranslationPluralForms | undefined;
 }

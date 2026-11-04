@@ -1,5 +1,4 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
 export type Packed4x8IntegerNodeMethod1 =
     | typeof Packed4x8IntegerNode.PACK4X_I8
@@ -13,7 +12,7 @@ export type Packed4x8IntegerNodeMethod2 =
     | typeof Packed4x8IntegerNode.DOT4_U8_PACKED
     | typeof Packed4x8IntegerNode.DOT4_I8_PACKED;
 
-declare class Packed4x8IntegerNode extends TempNode {
+declare class Packed4x8IntegerNode extends Node {
     method: string;
     aNode: Node;
     bNode: Node | null;

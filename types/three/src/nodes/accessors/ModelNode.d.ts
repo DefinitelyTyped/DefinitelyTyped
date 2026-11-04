@@ -1,5 +1,3 @@
-import { Matrix3 } from "../../math/Matrix3.js";
-import { Matrix4 } from "../../math/Matrix4.js";
 import Node from "../core/Node.js";
 import { UniformNode } from "../Nodes.js";
 import Object3DNode from "./Object3DNode.js";
@@ -33,8 +31,8 @@ export const modelPosition: ModelNode<"vec3">;
 export const modelScale: ModelNode<"vec3">;
 export const modelViewPosition: ModelNode<"vec3">;
 export const modelRadius: ModelNode<"float">;
-export const modelNormalMatrix: UniformNode<"mat3", Matrix3>;
-export const modelWorldMatrixInverse: UniformNode<"mat4", Matrix4>;
+export const modelNormalMatrix: UniformNode<"mat3">;
+export const modelWorldMatrixInverse: UniformNode<"mat4">;
 
 export const modelViewMatrix: Node<"mat4">;
 

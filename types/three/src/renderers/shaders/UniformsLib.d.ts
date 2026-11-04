@@ -181,10 +181,10 @@ export const UniformsLib: {
         };
         ltc_1: IUniform<unknown>;
         ltc_2: IUniform<unknown>;
-        probesSH: IUniform<unknown>;
-        probesMin: IUniform<Vector3>;
-        probesMax: IUniform<Vector3>;
-        probesResolution: IUniform<Vector3>;
+        probesSH: IUniform<unknown[]>;
+        probesMin: IUniform<Vector3[]>;
+        probesMax: IUniform<Vector3[]>;
+        probesResolution: IUniform<Vector3[]>;
     };
     points: {
         diffuse: IUniform<Color>;

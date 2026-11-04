@@ -6,7 +6,7 @@
         "https://github.com/cyrus-and/chrome-remote-interface"
     ],
     "dependencies": {
-        "devtools-protocol": "0.0.1173815"
+        "devtools-protocol": "0.0.1721602"
     },
     "devDependencies": {
         "@types/chrome-remote-interface": "workspace:."

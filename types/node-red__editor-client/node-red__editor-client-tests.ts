@@ -3,7 +3,8 @@ import { TrayResizeOptions } from "@node-red/editor-client/index";
 import { NodeMessage } from "@node-red/registry";
 
 function redTests(RED: editorClient.RED) {
-    interface MyNodeProperties extends editorClient.NodeProperties {
+    interface MyNodeProperties extends editorClient.nodes.NodeProperties {
+        type: "my-type";
         x: string;
         key: string;
     }
@@ -11,17 +12,16 @@ function redTests(RED: editorClient.RED) {
         username: string;
         password: string;
     }
-    interface MyNodeInstanceProperties extends MyNodeProperties {
-        instanceProp: string;
-    }
 
-    function nodeInstanceTests(nodeInstance: editorClient.NodeInstance<MyNodeInstanceProperties>) {
+    function nodeInstanceTests(
+        nodeInstance: editorClient.nodes.NodeInstance<MyNodeProperties, MyNodeCredentials, "category">,
+    ) {
         // $ExpectType string
         nodeInstance.id;
         // $ExpectType number
         nodeInstance.x;
         // $ExpectType string
-        nodeInstance.instanceProp;
+        nodeInstance.z;
         // @ts-expect-error
         nodeInstance.wrongKey;
         // $ExpectType string
@@ -30,7 +30,27 @@ function redTests(RED: editorClient.RED) {
         nodeInstance._("myNode.status", { num: 10 });
     }
 
-    const myNodeDef: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
+    interface MyConfigNodeProperties extends editorClient.nodes.NodeProperties {
+        type: "config";
+        key: string;
+    }
+
+    function configNodeInstanceTests(
+        nodeInstance: editorClient.nodes.NodeInstance<MyConfigNodeProperties, MyNodeCredentials, "config">,
+    ) {
+        // @ts-expect-error
+        nodeInstance.x;
+        // @ts-expect-error
+        nodeInstance.y;
+        // $ExpectType string | undefined
+        nodeInstance.z;
+        // @ts-expect-error
+        nodeInstance.wrongKey;
+        // $ExpectType string
+        nodeInstance._("myNode.label");
+    }
+
+    const myNodeDef: editorClient.nodes.NodeDefinition<MyNodeProperties, MyNodeCredentials> = {
         category: "category",
         defaults: {
             name: { value: "" },
@@ -39,13 +59,17 @@ function redTests(RED: editorClient.RED) {
                 value: "",
                 required: true,
                 type: "my-config-node",
-                validate(val) {
+                validate(val, o) {
                     // $ExpectType string
                     val;
                     // $ExpectType string
                     this.key;
+                    // $ExpectType number
+                    this.x;
+                    // $ExpectType number
+                    this.y;
                     // $ExpectType string
-                    this.instanceProp;
+                    this.z;
                     // @ts-expect-error
                     this.wrongKey;
 
@@ -53,7 +77,7 @@ function redTests(RED: editorClient.RED) {
                 },
             },
             // @ts-expect-error
-            instanceProp: {
+            wronkKey: {
                 value: "",
             },
         },
@@ -71,7 +95,7 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
             },
@@ -79,7 +103,7 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
                 return true;
@@ -88,7 +112,7 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
                 return true;
@@ -102,7 +126,7 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
                 return "label";
@@ -114,7 +138,7 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
                 return "label";
@@ -125,7 +149,7 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
                 return "italic";
@@ -134,7 +158,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
         },
@@ -142,7 +166,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
         },
@@ -150,7 +174,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
         },
@@ -158,7 +182,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
             // $ExpectType number
@@ -170,7 +194,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
         },
@@ -178,7 +202,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
         },
@@ -186,7 +210,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
         },
@@ -194,7 +218,7 @@ function redTests(RED: editorClient.RED) {
             // $ExpectType string
             this.key;
             // $ExpectType string
-            this.instanceProp;
+            this.z;
             // @ts-expect-error
             this.wrongKey;
         },
@@ -208,7 +232,7 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
                 return "label";
@@ -220,14 +244,14 @@ function redTests(RED: editorClient.RED) {
                 // $ExpectType string
                 this.key;
                 // $ExpectType string
-                this.instanceProp;
+                this.z;
                 // @ts-expect-error
                 this.wrongKey;
                 return "label";
             },
     };
 
-    const defWithReserved: editorClient.NodeDef<MyNodeProperties, MyNodeCredentials, MyNodeInstanceProperties> = {
+    const defWithReserved: editorClient.nodes.NodeDefinition<MyNodeProperties, MyNodeCredentials> = {
         category: "category",
         defaults: {
             // @ts-expect-error
@@ -255,11 +279,24 @@ function redTests(RED: editorClient.RED) {
         },
     });
 
+    // $ExpectType void
     RED.actions.invoke("core:generate-node-names", myNodeDef, { generateHistory: false });
+
+    // $ExpectType void
+    RED.multiplayer.init();
+
+    // $ExpectType void
+    RED.tourGuide.run("path-to-tour");
+
+    // $ExpectType string
+    RED.nodes.id();
+
+    // $ExpectType NotificationElement
+    RED.notify("Hello World");
 }
 
 function widgetAutoCompleteTest() {
-    type MyAutoCompleteOptions = editorClient.WidgetAutoCompleteOptions;
+    type MyAutoCompleteOptions = editorClient.widgets.AutoCompleteOptions;
 
     const myAutoCompleteOptions: MyAutoCompleteOptions = {
         minLength: 0,
@@ -283,7 +320,7 @@ function widgetAutoCompleteTest() {
         node: "",
     };
 
-    const myAutoComplete: editorClient.WidgetAutoComplete = $("input").autoComplete({
+    const myAutoComplete: editorClient.widgets.AutoComplete = $("input").autoComplete({
         search: (_value: string) => {
             return [];
         },
@@ -291,7 +328,7 @@ function widgetAutoCompleteTest() {
 }
 
 function widgetCheckboxSetTest() {
-    type MyCheckboxSetOptions = editorClient.WidgetCheckboxSetOptions;
+    type MyCheckboxSetOptions = editorClient.widgets.CheckboxSetOptions;
 
     const myCheckboxSetOptions: MyCheckboxSetOptions = {
         // $ExpectType JQuery<HTMLElement>
@@ -308,7 +345,7 @@ function widgetCheckboxSetTest() {
         node: "",
     };
 
-    const widget: editorClient.WidgetCheckboxSet = $("input").checkboxSet({
+    const widget: editorClient.widgets.CheckboxSet = $("input").checkboxSet({
         parent: $("div"),
     });
 
@@ -363,7 +400,7 @@ function widgetEditableListTests() {
         key: string;
     }
 
-    type MyEditableListOptions = editorClient.WidgetEditableListOptions<MyItemData>;
+    type MyEditableListOptions = editorClient.widgets.EditableListOptions<MyItemData>;
 
     const myListOptions: MyEditableListOptions = {
         addButton: false,
@@ -421,7 +458,7 @@ function widgetEditableListTests() {
 }
 
 function widgetSearchBoxTest() {
-    type MySearchBoxOptions = editorClient.WidgetSearchBoxOptions;
+    type MySearchBoxOptions = editorClient.widgets.SearchBoxOptions;
 
     const mySearchBoxOptions: MySearchBoxOptions = {
         delay: 100,
@@ -446,7 +483,7 @@ function widgetSearchBoxTest() {
         delay: 100,
     };
 
-    type MySearchBox = editorClient.WidgetSearchBox;
+    type MySearchBox = editorClient.widgets.SearchBox;
 
     const mySearchBox: MySearchBox = $("input").searchBox({
         delay: 100,
@@ -474,7 +511,7 @@ function widgetSearchBoxTest() {
 }
 
 function widgetToggleButtonTest() {
-    type MyToggleButtonOptions = editorClient.WidgetToggleButtonOptions;
+    type MyToggleButtonOptions = editorClient.widgets.ToggleButtonOptions;
 
     const myToggleButtonOptions: MyToggleButtonOptions = {
         baseClass: "red-ui-button",
@@ -505,12 +542,12 @@ function widgetToggleButtonTest() {
         enabledLabel: 123,
     };
 
-    const myToggleButton: editorClient.WidgetToogleButton = $("input").toggleButton({});
+    const myToggleButton: editorClient.widgets.ToogleButton = $("input").toggleButton({});
 }
 
 function widgetTreeListDataTest() {
-    type MyTreeListData = editorClient.WidgetTreeListData;
-    type MyTreeListOptions = editorClient.WidgetTreeListOptions;
+    type MyTreeListData = editorClient.widgets.TreeListData;
+    type MyTreeListOptions = editorClient.widgets.TreeListOptions;
 
     const myTreeListData: MyTreeListData = {
         checkbox: true,
@@ -534,9 +571,9 @@ function widgetTreeListDataTest() {
     const mySecondTreeListData: MyTreeListData = {
         label: "Lazy parent",
         children: (done, item) => {
-            // $ExpectType (children: WidgetTreeListData[]) => void
+            // $ExpectType (children: TreeListData[]) => void
             done;
-            // $ExpectType WidgetTreeListData
+            // $ExpectType TreeListData
             item;
 
             done([]);
@@ -586,7 +623,7 @@ function widgetTreeListDataTest() {
 }
 
 function widgetTreeListItemTest() {
-    type MyTreeListItem = editorClient.WidgetTreeListItem;
+    type MyTreeListItem = editorClient.widgets.TreeListItem;
 
     const myTreeListItem: MyTreeListItem = {
         label: "Item",
@@ -604,11 +641,11 @@ function widgetTreeListItemTest() {
                 detachChildElements;
             },
             makeParent: (children) => {
-                // $ExpectType WidgetTreeListItem[] | undefined
+                // $ExpectType TreeListItem[] | undefined
                 children;
             },
             insertChildAt: (newItem, position, select) => {
-                // $ExpectType WidgetTreeListItem
+                // $ExpectType TreeListItem
                 newItem;
                 // $ExpectType number
                 position;
@@ -616,7 +653,7 @@ function widgetTreeListItemTest() {
                 select;
             },
             addChild: (newItem, select) => {
-                // $ExpectType WidgetTreeListItem
+                // $ExpectType TreeListItem
                 newItem;
                 // $ExpectType boolean | undefined
                 select;
@@ -627,7 +664,7 @@ function widgetTreeListItemTest() {
             },
             collapse: () => {},
             sortChildren: (sortFunction) => {
-                // $ExpectType (a: WidgetTreeListItem, b: WidgetTreeListItem) => number
+                // $ExpectType (a: TreeListItem, b: TreeListItem) => number
                 sortFunction;
             },
             replaceElement: (element) => {
@@ -639,9 +676,9 @@ function widgetTreeListItemTest() {
 }
 
 function widgetTreeListActionsTest() {
-    type MyTreeList = editorClient.WidgetTreeList;
-    type MyTreeListData = editorClient.WidgetTreeListData;
-    type MyTreeListItem = editorClient.WidgetTreeListItem;
+    type MyTreeList = editorClient.widgets.TreeList;
+    type MyTreeListData = editorClient.widgets.TreeListData;
+    type MyTreeListItem = editorClient.widgets.TreeListItem;
 
     const myTreeList: MyTreeList = $("div").treeList({ data: [] });
 
@@ -679,7 +716,7 @@ function widgetTreeListActionsTest() {
     myTreeList("empty");
 
     const filterResult = myTreeList("filter", (filterItem) => {
-        // $ExpectType WidgetTreeListItem
+        // $ExpectType TreeListItem
         filterItem;
 
         return filterItem.selected === true;
@@ -690,7 +727,7 @@ function widgetTreeListActionsTest() {
 
     const getResult = myTreeList("get", "item-id");
 
-    // $ExpectType WidgetTreeListItem | null
+    // $ExpectType TreeListItem | null
     getResult;
 
     myTreeList("reveal", "item-id");
@@ -703,7 +740,7 @@ function widgetTreeListActionsTest() {
 
     const selected = myTreeList("selected");
 
-    // $ExpectType WidgetTreeListItem | WidgetTreeListItem[] | undefined
+    // $ExpectType TreeListItem | TreeListItem[] | undefined
     selected;
 
     myTreeList("show", "item-id");
@@ -748,17 +785,17 @@ function widgetTreeListActionsTest() {
 }
 
 function widgetTypedInputTests() {
-    const goodType: editorClient.WidgetTypedInputType = "msg";
+    const goodType: editorClient.widgets.TypedInputType = "msg";
     // @ts-expect-error
-    const wrongType: editorClient.WidgetTypedInputType = "wrongType";
-    const goodTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
+    const wrongType: editorClient.widgets.TypedInputType = "wrongType";
+    const goodTypeDef: editorClient.widgets.TypedInputTypeDefinition = {
         value: "mytype",
         hasValue: false,
         icon: "icon",
         label: "label",
         options: ["opt1", "opt2"],
     };
-    const goodTypeListOptionsDef: editorClient.WidgetTypedInputTypeDefinition = {
+    const goodTypeListOptionsDef: editorClient.widgets.TypedInputTypeDefinition = {
         value: "mytype",
         hasValue: false,
         icon: "icon",
@@ -768,7 +805,7 @@ function widgetTypedInputTests() {
             { value: "val2", label: "label2" },
         ],
     };
-    const wrongTypeDef: editorClient.WidgetTypedInputTypeDefinition = {
+    const wrongTypeDef: editorClient.widgets.TypedInputTypeDefinition = {
         // @ts-expect-error
         wrongKey: "value",
     };
@@ -836,13 +873,15 @@ function widgetTypedInputTests() {
 }
 
 function nodeRedPluginTests(RED: editorClient.RED) {
-    const myPluginDef: editorClient.PluginDef = {
+    const myPluginDef: editorClient.plugins.PluginDefinition = {
+        module: "my-module-name",
         onadd() {
             RED.sidebar.addTab({
                 id: "my-plugin",
                 label: "my-plugin",
                 name: "my-plugin",
                 action: "core:show-my-tab",
+                content: $("div")[0],
             });
             RED.actions.add("my-plugin:show-my-tab", () => RED.sidebar.show("my-plugin"));
         },
@@ -858,34 +897,36 @@ function nodeRedUtilsTests(RED: editorClient.RED) {
         key: "value",
     };
 
-    // $ExpectType (string | number)[]
+    // $ExpectType any[]
     RED.utils.normalisePropertyExpression("a[\"b\"].c");
 
-    // $ExpectType (string | number)[]
+    // $ExpectType any[]
     RED.utils.normalisePropertyExpression("a[msg.foo]", msg);
 }
 
-function nodeRedEditorTests(RED: editorClient.RED) {
+function nodeRedEditorTests(
+    RED: editorClient.RED,
+    group: editorClient.nodes.Group,
+    subflow: editorClient.nodes.Subflow,
+) {
     // $ExpectType void
-    RED.editor.editSubflow({});
+    RED.editor.editSubflow(subflow);
     // $ExpectType void
-    RED.editor.editSubflow({}, {});
+    RED.editor.editSubflow(subflow, {});
 
     // $ExpectType void
-    RED.editor.editGroup({});
+    RED.editor.editGroup(group);
     // $ExpectType void
-    RED.editor.editGroup({}, {});
+    RED.editor.editGroup(group, {});
 
     // $ExpectType void
     RED.editor.editJavaScript({
         title: "string",
-        parent: $("<div/>"),
         onclose: () => {},
         value: "any",
         width: 0,
         stateId: "string",
         mode: "string",
-        focus: true,
         cancel: () => {},
         complete: (value: any, cursor?: any) => {},
         extraLibs: [],
@@ -894,22 +935,18 @@ function nodeRedEditorTests(RED: editorClient.RED) {
     // $ExpectType void
     RED.editor.editExpression({
         title: "string",
-        parent: $("<div/>"),
         onclose: () => {},
         value: "string",
         stateId: "string",
-        focus: true,
         complete: (value: any) => {},
     });
 
     // $ExpectType void
     RED.editor.editJSON({
         title: "string",
-        parent: $("<div/>"),
         onclose: () => {},
         value: "string",
         stateId: "string",
-        focus: true,
         complete: (value: any) => {},
         requireValid: true,
         readOnly: true,
@@ -919,12 +956,10 @@ function nodeRedEditorTests(RED: editorClient.RED) {
     // $ExpectType void
     RED.editor.editMarkdown({
         title: "string",
-        parent: $("<div/>"),
         onclose: () => {},
         value: "string",
         width: "Infinite",
         stateId: "string",
-        focus: true,
         complete: (value: any) => {},
         header: $("<div/>"),
     });
@@ -932,20 +967,17 @@ function nodeRedEditorTests(RED: editorClient.RED) {
     // $ExpectType void
     RED.editor.editText({
         title: "string",
-        parent: $("<div/>"),
         onclose: () => {},
         mode: "string",
         value: "string",
         stateId: "string",
         width: 0,
-        focus: true,
         complete: (value: string, cursor?: any) => {},
     });
 
     // $ExpectType void
     RED.editor.editBuffer({
         title: "string",
-        parent: $("<div/>"),
         onclose: () => {},
         value: "any",
         stateId: "string",

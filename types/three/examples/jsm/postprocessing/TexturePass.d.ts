@@ -1,6 +1,6 @@
 import { IUniform, ShaderMaterial, Texture } from "three";
 
-import { FullScreenQuad, Pass } from "./Pass.js";
+import { Pass } from "./Pass.js";
 
 export class TexturePass extends Pass {
     constructor(map?: Texture, opacity?: number);
@@ -8,5 +8,4 @@ export class TexturePass extends Pass {
     opacity: number;
     uniforms: Record<string, IUniform>;
     material: ShaderMaterial;
-    fsQuad: FullScreenQuad;
 }

@@ -38,8 +38,8 @@ export class ForestGenerator {
 
     parameters: ForestGeneratorParameters;
 
-    from: UniformNode<"float", number>;
-    to: UniformNode<"float", number>;
+    from: UniformNode<"float">;
+    to: UniformNode<"float">;
 
     material: MeshStandardNodeMaterial;
     mesh: InstancedMesh | null;

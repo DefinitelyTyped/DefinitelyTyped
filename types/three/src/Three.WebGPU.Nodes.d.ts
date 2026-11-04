@@ -11,6 +11,7 @@ export { default as QuadMesh } from "./renderers/common/QuadMesh.js";
 export { default as ReadbackBuffer } from "./renderers/common/ReadbackBuffer.js";
 export type { default as Renderer, RendererParameters } from "./renderers/common/Renderer.js";
 export { default as RenderPipeline } from "./renderers/common/RenderPipeline.js";
+export { default as StandardDrawingPipeline } from "./renderers/common/StandardDrawingPipeline.js";
 export { default as WebGLBackend } from "./renderers/webgl-fallback/WebGLBackend.js";
 export { default as WebGPUBackend } from "./renderers/webgpu/WebGPUBackend.js";
 export { default as WebGPURenderer, WebGPURendererParameters } from "./renderers/webgpu/WebGPURenderer.Nodes.js";
@@ -30,5 +31,5 @@ export { default as InspectorBase, type InspectorBaseEventMap } from "./renderer
 export { default as StorageBufferAttribute } from "./renderers/common/StorageBufferAttribute.js";
 export { default as StorageInstancedBufferAttribute } from "./renderers/common/StorageInstancedBufferAttribute.js";
 export { default as StorageTexture } from "./renderers/common/StorageTexture.js";
-import * as TSL from "./nodes/TSL.js";
+import * as TSL from "./Three.TSL.js";
 export { TSL };

@@ -1,4 +1,4 @@
-import { Camera, SampleNode, Scene, TempNode, TextureNode, UniformNode } from "three/webgpu";
+import { Camera, Node, SampleNode, Scene, TextureNode, UniformNode } from "three/webgpu";
 import { VXGIVolume } from "./VXGIVolume.js";
 
 /**
@@ -18,7 +18,7 @@ import { VXGIVolume } from "./VXGIVolume.js";
  *
  * Note: This node can only be used with `WebGPURenderer` and a WebGPU backend.
  *
- * @augments TempNode
+ * @augments Node
  * @three_import import { vxgi } from 'three/addons/lighting/vxgi/VXGINode.js';
  */
 declare class VXGINodeInterface {
@@ -32,15 +32,15 @@ declare class VXGINodeInterface {
      */
     volume: VXGIVolume;
 
-    coneCount: UniformNode<"uint", number>;
-    coneAngle: UniformNode<"float", number>;
-    giIntensity: UniformNode<"float", number>;
-    aoIntensity: UniformNode<"float", number>;
-    aoMinVisibility: UniformNode<"float", number>;
-    aoDistance: UniformNode<"float", number>;
-    normalOffset: UniformNode<"float", number>;
-    debug: UniformNode<"int", number>;
-    debugLevel: UniformNode<"float", number>;
+    coneCount: UniformNode<"uint">;
+    coneAngle: UniformNode<"float">;
+    giIntensity: UniformNode<"float">;
+    aoIntensity: UniformNode<"float">;
+    aoMinVisibility: UniformNode<"float">;
+    aoDistance: UniformNode<"float">;
+    normalOffset: UniformNode<"float">;
+    debug: UniformNode<"int">;
+    debugLevel: UniformNode<"float">;
 
     /**
      * Whether to use temporal filtering or not. Setting this property to `true` requires the
@@ -87,7 +87,7 @@ declare const VXGINode: {
     ): VXGINode;
 };
 
-type VXGINode = VXGINodeInterface & TempNode<"vec4">;
+type VXGINode = VXGINodeInterface & Node<"vec4">;
 
 export default VXGINode;
 

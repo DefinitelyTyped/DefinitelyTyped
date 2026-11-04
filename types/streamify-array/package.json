@@ -11,10 +11,5 @@
     "devDependencies": {
         "@types/streamify-array": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Joachim Van Herwegen",
-            "githubUsername": "joachimvh"
-        }
-    ]
+    "owners": []
 }

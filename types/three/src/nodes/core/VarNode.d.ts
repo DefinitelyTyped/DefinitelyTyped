@@ -8,10 +8,8 @@ interface VarNodeInterface<TNode> {
 
     readOnly: boolean;
 
-    intent: boolean;
-
-    setIntent(value: boolean): this;
-    getIntent(): boolean;
+    setAssignable(value: boolean): this;
+    getAssignable(): boolean;
 }
 
 declare const VarNode: {
@@ -32,14 +30,10 @@ export const Const: <TNodeType, TNode extends Node<TNodeType>>(
     name?: string | null,
 ) => VarNode<TNodeType, TNode>;
 
-export const VarIntent: <TNodeType, TNode extends Node<TNodeType>>(node: TNode) => VarNode<TNodeType, TNode>;
-
 declare module "./Node.js" {
     interface NodeExtensions<TNodeType> {
         toVar: (name?: string | null) => VarNode<TNodeType, this>;
 
         toConst: (name?: string | null) => VarNode<TNodeType, this>;
-
-        toVarIntent: () => VarNode<TNodeType, this>;
     }
 }

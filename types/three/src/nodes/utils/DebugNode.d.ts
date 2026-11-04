@@ -1,8 +1,7 @@
 import Node from "../core/Node.js";
 import NodeBuilder from "../core/NodeBuilder.js";
-import TempNode from "../core/TempNode.js";
 
-declare class DebugNode extends TempNode {
+declare class DebugNode extends Node {
     constructor(node: Node, callback?: ((code: string) => void) | null);
 }
 
