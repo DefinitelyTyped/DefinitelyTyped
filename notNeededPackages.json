@@ -2357,6 +2357,10 @@
             "libraryName": "express-request-id",
             "asOfVersion": "3.0.0"
         },
+        "express-serve-static-core": {
+            "libraryName": "express-serve-static-core",
+            "asOfVersion": "0.1.1"
+        },
         "express-slow-down": {
             "libraryName": "express-slow-down",
             "asOfVersion": "2.0.0"
