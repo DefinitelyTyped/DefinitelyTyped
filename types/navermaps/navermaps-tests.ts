@@ -559,6 +559,189 @@ expectType<naver.maps.PointBounds>(
     naver.maps.PointBounds.bounds(new naver.maps.Point(-1, -1), new naver.maps.Point(0, 0)),
 );
 
+/**
+ * Control options
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-bicycle.example.html
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-6-panorama-zoomcontrol.example.html
+ */
+new naver.maps.Map("map", {
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+        style: naver.maps.MapTypeControlStyle.DROPDOWN,
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+        style: naver.maps.ZoomControlStyle.LARGE,
+    },
+});
+new naver.maps.MapTypeControl({
+    style: naver.maps.MapTypeControlStyle.BUTTON,
+    hideTime: 1000,
+});
+
+/**
+ * Overlay panes
+ * See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Map.html#addOverlayPane
+ */
+map.addOverlayPane("myPane", 150);
+map.addOverlayPane("myElementPane", document.createElement("div"));
+map.removeOverlayPane("myPane");
+
+/**
+ * Pointer and keyboard events
+ * See https://navermaps.github.io/maps.js.ncp/docs/global.html#PointerEvent
+ */
+naver.maps.Event.addListener(map, "click", function(e: naver.maps.PointerEvent) {
+    expectType<naver.maps.DOMEvent>(e.originalEvent);
+    expectType<naver.maps.OverlayView | undefined>(e.overlay);
+});
+naver.maps.Event.addListener(map, "keydown", function(e: naver.maps.KeyboardEvent) {
+    expectType<naver.maps.DOMEvent>(e.keyboardEvent);
+});
+
+/**
+ * DOM listener
+ * See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Event.html#.addDOMListener
+ */
+const domListener = naver.maps.Event.addDOMListener(document.createElement("div"), "click", function() {});
+expectType<naver.maps.DOMEventListener>(domListener);
+naver.maps.Event.removeDOMListener(domListener);
+
+/**
+ * Marker and InfoWindow options
+ * See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Marker.html#~MarkerOptions
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-6-marker-symbol-icon.example.html
+ */
+new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    map: glMap,
+    collisionBehavior: true,
+    collisionBoxSize: new naver.maps.Size(30, 30),
+});
+new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3595704, 127.105399),
+    icon: {
+        path: [new naver.maps.Point(0, 0), new naver.maps.Point(10, 10), new naver.maps.Point(20, 0)],
+        style: "closedPath",
+    },
+});
+new naver.maps.InfoWindow({
+    content: "<div>InfoWindow</div>",
+    autoPanPadding: new naver.maps.Point(40, 40),
+});
+
+/**
+ * Marker and InfoWindow on a Panorama
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-5-panorama-html-infowindow.example.html
+ */
+const panoMarker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(37.3599605, 127.1058814),
+});
+panoMarker.setMap(pano);
+panoMarker.setMap(null);
+new naver.maps.InfoWindow({ content: "<div>Panorama</div>" }).open(pano, panoMarker);
+
+/**
+ * Panorama status
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-3-panorama-event.example.html
+ */
+naver.maps.Event.addListener(pano, "pano_status", function(status: string) {
+    if (status !== naver.maps.PanoramaStatus.OK) {
+        return;
+    }
+});
+
+/**
+ * GroundOverlay
+ * See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.GroundOverlay.html
+ */
+const groundOverlay = new naver.maps.GroundOverlay("https://example.com/a.png", seoul, {
+    crossOrigin: "anonymous",
+});
+groundOverlay.setUrl("https://example.com/b.png");
+
+/**
+ * BicycleLayer
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-bicycle.example.html
+ */
+const bicycleLayer = new naver.maps.BicycleLayer();
+bicycleLayer.setMap(map);
+
+/**
+ * Map types and tiles
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-9-maptypes-canvasmaptype.example.html
+ */
+new naver.maps.CanvasMapType({
+    name: "Alphabet",
+    minZoom: 0,
+    maxZoom: 22,
+    tileSize: new naver.maps.Size(50, 50),
+    tileDuration: 200,
+    getTileData: function(x: number, y: number, z: number) {
+        return new ImageData(50, 50);
+    },
+});
+new naver.maps.ImageMapType({
+    name: "Tiles",
+    minZoom: 0,
+    maxZoom: 22,
+    tileDuration: 200,
+    getTileUrl: function(x, y, z) {
+        return [`https://example.com/${z}/${x}/${y}.png`];
+    },
+});
+declare const tile: naver.maps.Tile;
+tile.setDuration(0);
+
+/**
+ * Data layer
+ * See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Data.html#revertStyle
+ */
+map.data.revertStyle();
+
+/**
+ * Point
+ * See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.Point.html#div
+ */
+expectType<naver.maps.Point>(new naver.maps.Point(10, 10).div(new naver.maps.Point(2, 2)));
+
+/**
+ * DrawingManager events by overlay type
+ * See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.drawing.html#.DrawingEvents
+ */
+drawingManager?.addListener("rectangleAdded", function(overlay) {});
+drawingManager?.addListener("polygonRemoved", function(overlay) {});
+drawingManager?.addListener("ellipseSelected", function(overlay) {});
+
+/**
+ * Add an overlay to the DrawingManager and edit it
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-1-drawing-simple.example.html
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-drawing-options.example.html
+ */
+drawingManager?.addDrawing(rectangle, naver.maps.drawing.DrawingMode.RECTANGLE, "my-id");
+drawingManager?.addDrawing(polygon, naver.maps.drawing.DrawingMode.POLYGON);
+drawingManager?.removeDrawing("my-id");
+rectangle.setEditable?.(true);
+
+/**
+ * Weighted visualization data in literal form
+ * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Visualization.html
+ */
+new naver.maps.visualization.HeatMap({
+    map: map,
+    data: [
+        { weight: 2.0, location: [126.58, 36.9] },
+        { weight: 2.9, location: [127.12, 33.36] },
+    ],
+});
+new naver.maps.visualization.DotMap({
+    map: map,
+    data: [
+        { weight: 2.0, location: new naver.maps.LatLng(36.9, 126.58) },
+        { weight: 2.9, location: { lat: 33.36, lng: 127.12 } },
+    ],
+});
+
 function expectType<T>(value: T) {
     return value;
 }
