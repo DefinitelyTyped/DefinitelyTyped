@@ -2245,6 +2245,10 @@
             "libraryName": "espree",
             "asOfVersion": "11.1.0"
         },
+        "espruino": {
+            "libraryName": "espruino",
+            "asOfVersion": "0.1.67"
+        },
         "eth-sig-util": {
             "libraryName": "eth-sig-util",
             "asOfVersion": "2.5.3"
