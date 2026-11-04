@@ -388,6 +388,10 @@
             "libraryName": "babel-plugin-tester",
             "asOfVersion": "11.0.0"
         },
+        "babel__code-frame": {
+            "libraryName": "@babel/code-frame",
+            "asOfVersion": "8.0.6"
+        },
         "babel__parser": {
             "libraryName": "@babel/parser",
             "asOfVersion": "7.1.0"
