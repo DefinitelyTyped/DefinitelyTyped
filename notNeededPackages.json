@@ -560,6 +560,10 @@
             "libraryName": "bl",
             "asOfVersion": "5.1.0"
         },
+        "blip-sdk": {
+            "libraryName": "blip-sdk",
+            "asOfVersion": "10.1.0"
+        },
         "blob-util": {
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
