@@ -684,6 +684,10 @@
             "libraryName": "cachefactory",
             "asOfVersion": "3.0.0"
         },
+        "cadviewer": {
+            "libraryName": "cadviewer",
+            "asOfVersion": "12.28.10"
+        },
         "cal-heatmap": {
             "libraryName": "cal-heatmap",
             "asOfVersion": "4.0.0"
