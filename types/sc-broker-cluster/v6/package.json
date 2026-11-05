@@ -11,7 +11,7 @@
         "@types/fleximap": "*",
         "@types/sc-broker": "*",
         "@types/sc-channel": "^1",
-        "@types/socketcluster": "*",
+        "@types/socketcluster": "^14",
         "@types/socketcluster-server": "^14"
     },
     "devDependencies": {

@@ -7,7 +7,7 @@
         "http://socketcluster.io"
     ],
     "dependencies": {
-        "@types/ag-channel": "*",
+        "@types/ag-channel": "^5",
         "@types/async-stream-emitter": "^4",
         "@types/consumable-stream": "^2",
         "@types/sc-errors": "*",

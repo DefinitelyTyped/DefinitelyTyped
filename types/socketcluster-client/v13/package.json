@@ -8,9 +8,9 @@
     ],
     "dependencies": {
         "@types/component-emitter": "<2",
-        "@types/sc-auth": "*",
+        "@types/sc-auth": "^5",
         "@types/sc-channel": "^1",
-        "@types/sc-errors": "*",
+        "@types/sc-errors": "^1",
         "@types/socketcluster-server": "^14",
         "@types/ws": "*"
     },

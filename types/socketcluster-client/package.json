@@ -7,14 +7,14 @@
         "http://socketcluster.io"
     ],
     "dependencies": {
-        "@types/ag-channel": "*",
-        "@types/async-stream-emitter": "*",
-        "@types/consumable-stream": "*",
+        "@types/ag-channel": "^5",
+        "@types/async-stream-emitter": "^7",
+        "@types/consumable-stream": "^3",
         "@types/sc-errors": "*",
-        "@types/socketcluster-server": "*",
-        "@types/stream-demux": "*",
-        "@types/writable-consumable-stream": "*",
-        "@types/ws": "*"
+        "@types/socketcluster-server": "^20",
+        "@types/stream-demux": "^10",
+        "@types/writable-consumable-stream": "^4",
+        "@types/ws": "^8"
     },
     "devDependencies": {
         "@types/socketcluster-client": "workspace:."

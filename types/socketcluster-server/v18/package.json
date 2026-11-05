@@ -7,15 +7,15 @@
     ],
     "dependencies": {
         "@types/ag-auth": "*",
-        "@types/ag-request": "*",
+        "@types/ag-request": "^1",
         "@types/ag-simple-broker": "^5",
         "@types/async-stream-emitter": "^6",
-        "@types/consumable-stream": "*",
-        "@types/jsonwebtoken": "*",
+        "@types/consumable-stream": "^3",
+        "@types/jsonwebtoken": "^9",
         "@types/sc-errors": "*",
         "@types/stream-demux": "^9",
-        "@types/writable-consumable-stream": "*",
-        "@types/ws": "*"
+        "@types/writable-consumable-stream": "^4",
+        "@types/ws": "^8"
     },
     "devDependencies": {
         "@types/socketcluster-server": "workspace:."

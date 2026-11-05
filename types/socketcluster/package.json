@@ -7,7 +7,7 @@
         "http://socketcluster.io"
     ],
     "dependencies": {
-        "@types/sc-auth": "*",
+        "@types/sc-auth": "^5",
         "@types/sc-broker-cluster": "^6",
         "@types/socketcluster-server": "^14"
     },

@@ -6,7 +6,7 @@
         "https://github.com/SocketCluster/socketcluster-server"
     ],
     "dependencies": {
-        "@types/ag-auth": "*",
+        "@types/ag-auth": "^1",
         "@types/ag-simple-broker": "^4",
         "@types/async-stream-emitter": "^3",
         "@types/consumable-stream": "^1",

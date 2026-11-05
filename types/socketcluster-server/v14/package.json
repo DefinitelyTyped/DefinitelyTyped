@@ -8,7 +8,7 @@
     "dependencies": {
         "@types/component-emitter": "<2",
         "@types/jsonwebtoken": "*",
-        "@types/sc-auth": "*",
+        "@types/sc-auth": "^5",
         "@types/sc-broker-cluster": "^6",
         "@types/ws": "*"
     },

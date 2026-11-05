@@ -10,11 +10,11 @@
         "@types/ag-simple-broker": "^5",
         "@types/async-stream-emitter": "^4",
         "@types/consumable-stream": "^2",
-        "@types/jsonwebtoken": "*",
+        "@types/jsonwebtoken": "^9",
         "@types/sc-errors": "*",
         "@types/stream-demux": "^8",
-        "@types/writable-consumable-stream": "^3",
-        "@types/ws": "*"
+        "@types/writable-consumable-stream": "^2",
+        "@types/ws": "^8"
     },
     "devDependencies": {
         "@types/socketcluster-server": "workspace:."
