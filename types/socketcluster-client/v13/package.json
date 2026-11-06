@@ -12,7 +12,7 @@
         "@types/sc-channel": "^1",
         "@types/sc-errors": "^1",
         "@types/socketcluster-server": "^14",
-        "@types/ws": "*"
+        "@types/ws": "^5"
     },
     "devDependencies": {
         "@types/socketcluster-client": "workspace:."

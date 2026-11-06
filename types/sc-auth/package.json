@@ -6,7 +6,7 @@
         "https://github.com/SocketCluster/sc-auth"
     ],
     "dependencies": {
-        "@types/jsonwebtoken": "*"
+        "@types/jsonwebtoken": "^8"
     },
     "devDependencies": {
         "@types/node": "*",

@@ -7,10 +7,10 @@
     ],
     "dependencies": {
         "@types/component-emitter": "<2",
-        "@types/jsonwebtoken": "*",
+        "@types/jsonwebtoken": "^8",
         "@types/sc-auth": "^5",
         "@types/sc-broker-cluster": "^6",
-        "@types/ws": "*"
+        "@types/ws": "^5"
     },
     "devDependencies": {
         "@types/express": "*",
