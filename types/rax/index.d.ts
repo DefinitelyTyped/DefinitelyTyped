@@ -2575,7 +2575,7 @@ declare namespace Rax {
     interface TouchList {
         [index: number]: Touch;
         length: number;
-        item(index: number): Touch;
+        item(index: number): Touch | null;
         identifiedTouch(identifier: number): Touch;
     }
 
