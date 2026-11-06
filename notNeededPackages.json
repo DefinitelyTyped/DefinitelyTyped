@@ -5313,6 +5313,10 @@
             "libraryName": "node-resque",
             "asOfVersion": "6.0.1"
         },
+        "node-rsa": {
+            "libraryName": "node-rsa",
+            "asOfVersion": "2.0.0"
+        },
         "node-sql-parser": {
             "libraryName": "node-sql-parser",
             "asOfVersion": "1.1.0"
