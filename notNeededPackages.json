@@ -3385,6 +3385,10 @@
             "libraryName": "human-object-diff",
             "asOfVersion": "3.0.0"
         },
+        "humanize-ms": {
+            "libraryName": "humanize-ms",
+            "asOfVersion": "2.0.0"
+        },
         "humanize-string": {
             "libraryName": "humanize-string",
             "asOfVersion": "2.0.1"
