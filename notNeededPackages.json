@@ -4009,6 +4009,10 @@
             "libraryName": "jsonp-body",
             "asOfVersion": "1.1.0"
         },
+        "jsonpath-plus": {
+            "libraryName": "jsonpath-plus",
+            "asOfVersion": "11.2.2"
+        },
         "jsonpointer": {
             "libraryName": "jsonpointer",
             "asOfVersion": "5.0.0"
