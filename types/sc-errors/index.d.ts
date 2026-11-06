@@ -18,6 +18,13 @@ export class AuthTokenError extends Error {
     constructor(message: string);
 }
 
+/**
+ * For any other auth error; not specifically related to the auth token itself.
+ */
+export class AuthError extends Error {
+    constructor(message: string);
+}
+
 export class SilentMiddlewareBlockedError extends Error {
     type: string;
 
@@ -64,8 +71,10 @@ export class TimeoutError extends Error {
 
 export class BadConnectionError extends Error {
     type: string;
+    code: number;
+    reason: string;
 
-    constructor(message: string, type: string);
+    constructor(message: string, type: string, code?: number, reason?: string);
 }
 
 export class BrokerError extends Error {
@@ -102,6 +111,7 @@ export interface SocketProtocolErrorStatuses {
     4006: string;
     4007: string;
     4008: string;
+    4009: string;
 }
 export const socketProtocolErrorStatuses: SocketProtocolErrorStatuses;
 
@@ -115,7 +125,7 @@ export const socketProtocolIgnoreStatuses: SocketProtocolIgnoreStatuses;
  * Convert an error into a JSON-compatible type which can later be hydrated
  * back to its *original* form.
  */
-export function dehydrateError(error: any, includeStackTrace?: boolean): DehydratedError;
+export function dehydrateError(error: any): DehydratedError;
 
 /**
  * Convert a dehydrated error back to its *original* form.
