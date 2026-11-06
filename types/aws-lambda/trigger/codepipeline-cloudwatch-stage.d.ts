@@ -1,6 +1,11 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
+/**
+ * {@link CodePipelineCloudWatchStageAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type CodePipelineCloudWatchStageHandler = Handler<CodePipelineCloudWatchStageEvent, void>;
+export type CodePipelineCloudWatchStageAsyncHandler = AsyncHandler<CodePipelineCloudWatchStageEvent, void>;
 
 export type CodePipelineStageState = "STARTED" | "SUCCEEDED" | "RESUMED" | "FAILED" | "CANCELED";
 

@@ -219,3 +219,35 @@ const streamifyResponseHandler: AWSLambda.StreamifyHandler = (event, responseStr
 };
 
 awslambda.streamifyResponse(streamifyResponseHandler);
+
+/* AsyncHandler is accepted everywhere a Handler is expected, so the promise-only types can be
+ * adopted incrementally without changing any API that currently asks for a Handler.
+ */
+
+type CustomAsyncHandler = AWSLambda.AsyncHandler<CustomTEvent, CustomTResult>;
+declare const customAsyncHandler: CustomAsyncHandler;
+declare function takesCustomHandler(handler: CustomHandler): void;
+
+// Assignable to the handler it replaces, in variable and in parameter position.
+const asyncHandlerAsHandler: CustomHandler = customAsyncHandler;
+takesCustomHandler(customAsyncHandler);
+
+// Event and context are still inferred when implementing an AsyncHandler.
+const typedPromiseOnlyHandler: CustomAsyncHandler = async (event, context) => {
+    // $ExpectType CustomTEvent
+    event;
+    // $ExpectType Context
+    context;
+    return { resultString: str };
+};
+
+// A synchronous result is allowed, as the runtime accepts one.
+const syncPromiseOnlyHandler: CustomAsyncHandler = (event, context) => ({ resultString: str });
+
+// The reverse does not hold: a Handler may require the callback argument.
+// @ts-expect-error
+const handlerAsAsyncHandler: CustomAsyncHandler = typedCallbackHandler;
+
+// The result type is still checked.
+// @ts-expect-error
+const badPromiseOnlyHandler: CustomAsyncHandler = async (event, context) => ({ resultString: bool });

@@ -1,9 +1,14 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 import { PolicyDocument } from "./api-gateway-authorizer";
 
 export type IoTProtocolType = "http" | "mqtt" | "tls";
 
+/**
+ * {@link IoTCustomAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type IoTCustomAuthorizerHandler = Handler<IoTCustomAuthorizerEvent, IoTCustomAuthorizerResult>;
+export type IoTCustomAuthorizerAsyncHandler = AsyncHandler<IoTCustomAuthorizerEvent, IoTCustomAuthorizerResult>;
 
 export interface IoTProtocolDataTLS {
     serverName: string; // The server name indication (SNI) host_name string.

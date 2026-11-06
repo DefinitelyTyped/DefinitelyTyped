@@ -1,9 +1,30 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export type KinesisStreamHandler = Handler<KinesisStreamEvent, KinesisStreamBatchResponse | void>;
+/**
+ * {@link KinesisStreamAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
+export type KinesisStreamHandler = Handler<
+    KinesisStreamEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    KinesisStreamBatchResponse | void
+>;
+export type KinesisStreamAsyncHandler = AsyncHandler<
+    KinesisStreamEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    KinesisStreamBatchResponse | void
+>;
 
+/**
+ * {@link KinesisStreamTumblingWindowAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type KinesisStreamTumblingWindowHandler = Handler<
+    KinesisStreamTumblingWindowEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    KinesisStreamStateResponse | void
+>;
+export type KinesisStreamTumblingWindowAsyncHandler = AsyncHandler<
     KinesisStreamTumblingWindowEvent,
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     KinesisStreamStateResponse | void
