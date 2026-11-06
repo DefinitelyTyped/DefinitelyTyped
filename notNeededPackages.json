@@ -564,6 +564,10 @@
             "libraryName": "blob-util",
             "asOfVersion": "2.0.0"
         },
+        "boolbase": {
+            "libraryName": "boolbase",
+            "asOfVersion": "2.0.0"
+        },
         "bootstrap-table": {
             "libraryName": "bootstrap-table",
             "asOfVersion": "1.12.0"
