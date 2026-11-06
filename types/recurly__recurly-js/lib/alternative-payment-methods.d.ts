@@ -3,7 +3,7 @@ import { Emitter } from './emitter';
 
 export type AlternativePaymentMethodEvents = 'token' | 'error' | 'valid';
 
-export type AlternativePaymentMethodType = 'boleto' | 'ideal' | 'sofort' | 'paypal' | 'cashapp' | 'bacs';
+export type AlternativePaymentMethodType = 'boleto' | 'ideal' | 'sofort' | 'paypal' | 'cashapp' | 'bacs' | 'paypay';
 
 export type ChannelType = 'iOS' | 'Android' | 'Web';
 
