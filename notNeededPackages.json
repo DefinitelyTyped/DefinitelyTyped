@@ -4111,7 +4111,7 @@
         },
         "katex": {
             "libraryName": "katex",
-            "asOfVersion": "0.19.1"
+            "asOfVersion": "0.16.16"
         },
         "kdbxweb": {
             "libraryName": "kdbxweb",
