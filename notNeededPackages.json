@@ -2981,6 +2981,10 @@
             "libraryName": "glur",
             "asOfVersion": "2.0.0"
         },
+        "google-cloud__kms": {
+            "libraryName": "@google-cloud/kms",
+            "asOfVersion": "6.3.0"
+        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
