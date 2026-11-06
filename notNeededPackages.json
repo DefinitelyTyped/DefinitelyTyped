@@ -394,7 +394,7 @@
         },
         "babel__traverse": {
             "libraryName": "@babel/traverse",
-            "asOfVersion": "8.1.0"
+            "asOfVersion": "8.0.0"
         },
         "babylonjs": {
             "libraryName": "babylonjs",
