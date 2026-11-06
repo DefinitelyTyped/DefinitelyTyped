@@ -3285,6 +3285,10 @@
             "libraryName": "hibp",
             "asOfVersion": "7.3.0"
         },
+        "hidefile": {
+            "libraryName": "hidefile",
+            "asOfVersion": "4.0.0"
+        },
         "highcharts": {
             "libraryName": "highcharts",
             "asOfVersion": "7.0.0"
