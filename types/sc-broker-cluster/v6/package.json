@@ -7,8 +7,8 @@
     ],
     "dependencies": {
         "@types/async": "^2",
-        "@types/expirymanager": "*",
-        "@types/fleximap": "*",
+        "@types/expirymanager": "^0.9",
+        "@types/fleximap": "^0.9",
         "@types/sc-broker": "^5",
         "@types/sc-channel": "^1",
         "@types/socketcluster": "^14",
