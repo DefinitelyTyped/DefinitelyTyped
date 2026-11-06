@@ -89,8 +89,6 @@
         "ember-data__model/v3",
         "ember-data__serializer",
         "ember-data__serializer/v3",
-        "ember-data__store",
-        "ember-data__store/v3",
         "ember-data",
         "ember-data/v2",
         "ember-data/v3",
