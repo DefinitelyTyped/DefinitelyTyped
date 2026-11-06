@@ -5869,7 +5869,7 @@
         },
         "pica": {
             "libraryName": "pica",
-            "asOfVersion": "10.0.3"
+            "asOfVersion": "10.0.0"
         },
         "pify": {
             "libraryName": "pify",
