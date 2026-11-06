@@ -840,6 +840,10 @@
             "libraryName": "chess.js",
             "asOfVersion": "1.4.0"
         },
+        "chmodr": {
+            "libraryName": "chmodr",
+            "asOfVersion": "2.0.2"
+        },
         "chokidar": {
             "libraryName": "chokidar",
             "asOfVersion": "2.1.3"
