@@ -1867,6 +1867,13 @@ import { promisify } from "node:util";
 }
 
 {
+    const keyUsages: readonly crypto.webcrypto.KeyUsage[] = ["encrypt", "decrypt"];
+    crypto.subtle.generateKey({ name: "AES-GCM", length: 256 }, true, keyUsages);
+    crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"] as const);
+    crypto.subtle.importKey("jwk", {}, { name: "AES-GCM" }, true, keyUsages);
+}
+
+{
     let keyObject!: crypto.KeyObject;
     keyObject.toCryptoKey("EdDSA", true, ["sign"]); // $ExpectType CryptoKey
     keyObject.toCryptoKey({ name: "EdDSA" }, true, ["sign"]); // $ExpectType CryptoKey
