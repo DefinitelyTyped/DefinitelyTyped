@@ -1,5 +1,3 @@
-import { JSONValue } from ".";
-
 /**
  * Parses a YAML string, constructing the JavaScript value or object described by the string.
  * https://mokapi.io/docs/javascript-api/mokapi-yaml/parse
@@ -35,4 +33,4 @@ export function parse(text: string): any;
  *   })
  * }
  */
-export function stringify(value: JSONValue): string;
+export function stringify(value: any): string;
