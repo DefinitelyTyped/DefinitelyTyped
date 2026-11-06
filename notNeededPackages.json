@@ -4181,6 +4181,10 @@
             "libraryName": "known",
             "asOfVersion": "3.0.0"
         },
+        "koa-compress": {
+            "libraryName": "koa-compress",
+            "asOfVersion": "5.2.2"
+        },
         "koa-etag": {
             "libraryName": "koa-etag",
             "asOfVersion": "5.0.0"
