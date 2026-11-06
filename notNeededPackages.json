@@ -5785,6 +5785,10 @@
             "libraryName": "passport-client-cert",
             "asOfVersion": "2.1.0"
         },
+        "passport-local-mongoose": {
+            "libraryName": "passport-local-mongoose",
+            "asOfVersion": "9.2.1"
+        },
         "path-case": {
             "libraryName": "path-case",
             "asOfVersion": "1.1.2"
