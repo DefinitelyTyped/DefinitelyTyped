@@ -3,12 +3,14 @@
 import { NextHandleFunction } from "connect";
 import * as http from "http";
 
-// for docs go to https://github.com/expressjs/body-parser/tree/1.19.0#body-parser
+// for docs go to https://github.com/expressjs/body-parser/tree/v2.2.0#readme
 
 declare namespace bodyParser {
     interface BodyParser {
         /**
-         * @deprecated  use individual json/urlencoded middlewares
+         * @deprecated Use the individual `json`/`raw`/`text`/`urlencoded` middlewares.
+         * In body-parser 1.x this combined middleware is deprecated; in 2.x calling it throws
+         * "The bodyParser() generic has been split into individual middleware to use instead."
          */
         (options?: OptionsJson & OptionsText & OptionsUrlencoded): NextHandleFunction;
         /**
@@ -64,6 +66,12 @@ declare namespace bodyParser {
          * when `false` will accept anything JSON.parse accepts. Defaults to `true`.
          */
         strict?: boolean | undefined;
+        /**
+         * Specify the default character set for the json content if the charset
+         * is not specified in the Content-Type header of the request.
+         * Defaults to `utf-8`. Ignored by body-parser 1.x.
+         */
+        defaultCharset?: string | undefined;
     }
 
     interface OptionsText extends Options {
@@ -78,7 +86,8 @@ declare namespace bodyParser {
     interface OptionsUrlencoded extends Options {
         /**
          * The extended option allows to choose between parsing the URL-encoded data
-         * with the querystring library (when `false`) or the qs library (when `true`).
+         * with a simple parser (when `false`) or the qs library (when `true`).
+         * Defaults to `false` in body-parser 2.x (`true` in 1.x).
          */
         extended?: boolean | undefined;
         /**
@@ -87,6 +96,29 @@ declare namespace bodyParser {
          * a 413 will be returned to the client. Defaults to 1000.
          */
         parameterLimit?: number | undefined;
+        /**
+         * The maximum depth of nested objects the qs library will parse when `extended` is `true`.
+         * Inputs nested deeper than this are rejected with a 400 error. Defaults to `32`.
+         * Supported since body-parser 1.20.3.
+         */
+        depth?: number | undefined;
+        /**
+         * The default charset to parse as, if not specified in the Content-Type header.
+         * Must be either `utf-8` or `iso-8859-1`. Defaults to `utf-8`.
+         * Since body-parser 2.0.
+         */
+        defaultCharset?: string | undefined;
+        /**
+         * Whether to let the value of the `utf8` parameter take precedence as the charset selector.
+         * It requires the form to contain a parameter named `utf8` with a value of `✓`. Defaults to `false`.
+         * Since body-parser 2.0.
+         */
+        charsetSentinel?: boolean | undefined;
+        /**
+         * Whether to decode numeric entities such as `&#9786;` when parsing an iso-8859-1 form.
+         * Defaults to `false`. Since body-parser 2.0.
+         */
+        interpretNumericEntities?: boolean | undefined;
     }
 }
 
