@@ -7495,6 +7495,10 @@
             "libraryName": "screenfull",
             "asOfVersion": "4.1.0"
         },
+        "screeps-profiler": {
+            "libraryName": "screeps-profiler",
+            "asOfVersion": "3.1.0"
+        },
         "scrypt-js": {
             "libraryName": "scrypt-js",
             "asOfVersion": "3.0.1"
