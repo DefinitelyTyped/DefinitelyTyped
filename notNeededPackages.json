@@ -3305,6 +3305,10 @@
             "libraryName": "hls.js",
             "asOfVersion": "1.0.0"
         },
+        "hmscore__react-native-hms-push": {
+            "libraryName": "@hmscore/react-native-hms-push",
+            "asOfVersion": "6.13.0-302"
+        },
         "homeworks": {
             "libraryName": "homeworks",
             "asOfVersion": "1.0.19"
