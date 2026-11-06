@@ -3317,6 +3317,10 @@
             "libraryName": "html-minifier-next",
             "asOfVersion": "4.1.0"
         },
+        "html-parse-stringify": {
+            "libraryName": "html-parse-stringify",
+            "asOfVersion": "4.0.1"
+        },
         "html-tag-names": {
             "libraryName": "html-tag-names",
             "asOfVersion": "2.0.0"
