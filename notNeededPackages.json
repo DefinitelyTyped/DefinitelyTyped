@@ -250,7 +250,7 @@
         },
         "argparse": {
             "libraryName": "argparse",
-            "asOfVersion": "3.0.4"
+            "asOfVersion": "3.0.0"
         },
         "array-equal": {
             "libraryName": "array-equal",
