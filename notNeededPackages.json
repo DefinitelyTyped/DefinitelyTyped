@@ -3213,6 +3213,10 @@
             "libraryName": "hard-rejection",
             "asOfVersion": "2.0.0"
         },
+        "has-ansi": {
+            "libraryName": "has-ansi",
+            "asOfVersion": "6.0.2"
+        },
         "has-bigints": {
             "libraryName": "has-bigints",
             "asOfVersion": "1.1.0"
