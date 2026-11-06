@@ -11,7 +11,7 @@
         "@types/async-stream-emitter": "^3",
         "@types/consumable-stream": "^1",
         "@types/jsonwebtoken": "*",
-        "@types/sc-errors": "*",
+        "@types/sc-errors": "^2",
         "@types/stream-demux": "^7",
         "@types/writable-consumable-stream": "^1",
         "@types/ws": "*"

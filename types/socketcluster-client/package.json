@@ -10,7 +10,7 @@
         "@types/ag-channel": "^5",
         "@types/async-stream-emitter": "^7",
         "@types/consumable-stream": "^3",
-        "@types/sc-errors": "*",
+        "@types/sc-errors": "^3",
         "@types/socketcluster-server": "^20",
         "@types/stream-demux": "^10",
         "@types/writable-consumable-stream": "^4",
