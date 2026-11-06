@@ -4953,6 +4953,10 @@
             "libraryName": "microgears",
             "asOfVersion": "4.0.5"
         },
+        "microsoft-graph": {
+            "libraryName": "microsoft-graph",
+            "asOfVersion": "3.13.40"
+        },
         "mime": {
             "libraryName": "mime",
             "asOfVersion": "4.0.0"
