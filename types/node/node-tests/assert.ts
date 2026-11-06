@@ -138,6 +138,25 @@ assert.partialDeepStrictEqual({ a: 1, b: 2, c: 3 }, { a: 1, b: 2 });
     assert(true, (actual, expected) => `failed`);
 }
 
+// Test message union type
+{
+    let message: undefined | string | Error | assert.AssertMessageFunction;
+    assert(true, message);
+    assert.strict(true, message);
+    assert.ok(true, message);
+    assert.equal(1, 1, message);
+    assert.notEqual(1, 1, message);
+    assert.deepEqual(1, 1, message);
+    assert.notDeepEqual(1, 1, message);
+    assert.strictEqual(1, 1, message);
+    assert.notStrictEqual(1, 1, message);
+    assert.deepStrictEqual(1, 1, message);
+    assert.notDeepStrictEqual(1, 1, message);
+    assert.match("s", /s/, message);
+    assert.doesNotMatch("s", /s/, message);
+    assert.partialDeepStrictEqual(1, 1, message);
+}
+
 // Printf-style extras only permitted with string message (v26.0.0+)
 {
     // OK: printf-style with string message

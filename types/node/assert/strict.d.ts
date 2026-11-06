@@ -24,7 +24,7 @@ declare module "node:assert/strict" {
     } from "node:assert";
     function strict(
         value: unknown,
-        message?: Error | AssertMessageFunction,
+        message?: string | Error | AssertMessageFunction,
     ): asserts value;
     function strict(
         value: unknown,
