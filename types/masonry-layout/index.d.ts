@@ -3,6 +3,8 @@
 export = Masonry;
 
 declare class Masonry {
+    static data(element: Element): Masonry | undefined;
+    
     constructor(options?: Masonry.Options);
     constructor(selector: string | Element, options?: Masonry.Options);
 
@@ -30,7 +32,6 @@ declare class Masonry {
     reloadItems?(): void;
     destroy?(): void;
     getItemElements?(): any[];
-    data?(element: Element): Masonry;
     option?(options: Masonry.Options): void;
 }
 

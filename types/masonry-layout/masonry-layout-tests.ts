@@ -35,6 +35,18 @@ function testRecommendedOptions() {
     $(".grid").masonry("remove", $(".grid-item"));
 }
 
+// access via static data method issue 75600
+function testStaticMethodAccess() {
+    $(document).ready(() => {
+        $(".grid").masonry({
+            columnWidth: 200,
+            itemSelector: ".grid-item",
+        });
+    });
+
+    Masonry.data(document.querySelector(".grid"))?.layout();
+}
+
 // extended Options
 function testExtendedOptions() {
     const msnry = new Masonry(".grid", {
