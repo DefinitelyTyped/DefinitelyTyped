@@ -1939,7 +1939,7 @@
         },
         "dropzone": {
             "libraryName": "dropzone",
-            "asOfVersion": "6.3.5"
+            "asOfVersion": "6.3.0"
         },
         "drupal-attribute": {
             "libraryName": "drupal-attribute",
