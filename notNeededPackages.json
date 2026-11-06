@@ -3945,6 +3945,10 @@
             "libraryName": "js-types",
             "asOfVersion": "2.1.0"
         },
+        "jsforce": {
+            "libraryName": "jsforce",
+            "asOfVersion": "3.13.1"
+        },
         "jsnlog": {
             "libraryName": "jsnlog",
             "asOfVersion": "2.17.2"
