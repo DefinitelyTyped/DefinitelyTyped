@@ -2135,7 +2135,7 @@
         },
         "engine.io": {
             "libraryName": "engine.io",
-            "asOfVersion": "6.6.11"
+            "asOfVersion": "6.0.0"
         },
         "engine.io-client": {
             "libraryName": "engine.io-client",
