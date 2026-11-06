@@ -5785,6 +5785,10 @@
             "libraryName": "passport-client-cert",
             "asOfVersion": "2.1.0"
         },
+        "passport-saml-metadata": {
+            "libraryName": "passport-saml-metadata",
+            "asOfVersion": "5.0.0"
+        },
         "path-case": {
             "libraryName": "path-case",
             "asOfVersion": "1.1.2"
