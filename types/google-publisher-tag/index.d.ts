@@ -2567,8 +2567,8 @@ declare namespace googletag {
              * while waiting for those parallel executions to complete.
              *
              * Supported values:
+             *  - `'auto'` (default): GPT uses an optimized default timeout.
              *  - Positive number in milliseconds: The customized waiting period.
-             *  - `'auto'`: GPT uses a Google-optimized timeout.
              *  - `null`: Disable timeouts (GPT waits indefinitely for hooks to complete).
              *
              * @experimental
@@ -2576,7 +2576,7 @@ declare namespace googletag {
              *   // Set a 1000ms timeout for request hooks.
              *   googletag.setConfig({requestHookTimeoutMs: 1000});
              *
-             *   // Use a Google-optimized timeout for request hooks.
+             *   // Use an optimized default timeout for request hooks.
              *   googletag.setConfig({requestHookTimeoutMs: 'auto'});
              *
              *   // Clear the timeout.

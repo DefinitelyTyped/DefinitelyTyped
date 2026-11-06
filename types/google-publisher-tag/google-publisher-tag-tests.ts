@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20261019
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b1f8113d0afdc3100eb7255d470e9eaa22f7fac6
+// Tests for Google Publisher Tag 1.20261102
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/ffb082925ba8c946d1eb91efb92bcaca835cb7a0
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -1002,7 +1002,7 @@ function test_googletag_config_pageSettingsConfig_requestHookTimeoutMs() {
     // Set a 1000ms timeout for request hooks.
     googletag.setConfig({ requestHookTimeoutMs: 1000 });
 
-    // Use a Google-optimized timeout for request hooks.
+    // Use an optimized default timeout for request hooks.
     googletag.setConfig({ requestHookTimeoutMs: "auto" });
 
     // Clear the timeout.
