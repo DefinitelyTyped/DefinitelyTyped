@@ -1,40 +1,40 @@
 const htmlAttributesTest = (
     <html>
         <head>
-            <link crossorigin="test" href="#" hreflang="en" charset="utf-8" />
+            <link crossOrigin="anonymous" href="#" hrefLang="en" charSet="utf-8" />
 
-            <meta charset="utf-8" http-equiv="test" />
+            <meta charSet="utf-8" http-equiv="test" />
 
-            <script charset="utf-8" crossorigin="test" nomodule />
-            <script async="" defer="" nomodule="" />
+            <script charSet="utf-8" cross-origin="test" noModule />
+            <script async defer noModule />
 
-            <style scoped="" />
+            <style scoped />
         </head>
 
         <div
-            aria-colcount="2"
-            aria-colindex="2"
-            aria-colspan="2"
-            aria-level="2"
-            aria-posinset="2"
-            aria-rowcount="2"
-            aria-rowindex="2"
-            aria-rowspan="2"
-            aria-setsize="2"
-            aria-valuemax="2"
-            aria-valuemin="2"
-            aria-valuenow="2"
+            aria-colcount={2}
+            aria-colindex={2}
+            aria-colspan={2}
+            aria-level={2}
+            aria-posinset={2}
+            aria-rowcount={2}
+            aria-rowindex={2}
+            aria-rowspan={2}
+            aria-setsize={2}
+            aria-valuemax={2}
+            aria-valuemin={2}
+            aria-valuenow={2}
         />
 
-        <a hreflang="test" referrerpolicy="test" />
+        <a hrefLang="test" referrerPolicy="no-referrer" />
 
         <map name="infographic">
-            <area href="" hreflang="en" />
+            <area href="" hrefLang="en" />
         </map>
 
-        <details open="" />
+        <details open />
 
-        <del datetime="test" />
+        <del dateTime="test" />
 
         <dialog />
         <dialog
@@ -50,132 +50,138 @@ const htmlAttributesTest = (
             open
         />
 
-        <fieldset disabled="" />
+        <fieldset disabled />
 
-        <form accept-charset="utf-8" autocomplete="false" enctype="utf-8" novalidate>
+        <form acceptCharset="utf-8" autoComplete="false" encType="utf-8" noValidate>
             <button
-                autofocus
+                autoFocus
                 disabled
-                formaction="test"
-                formenctype="test"
-                formmethod="test"
-                formnovalidate
-                formtarget="test"
+                formAction="test"
+                formEncType="test"
+                formMethod="test"
+                formNoValidate
+                formTarget="test"
             />
-            <button autofocus="" disabled="" formnovalidate="" />
+            <button autoFocus disabled formNoValidate />
 
             <input
-                autocomplete="false"
-                autofocus
-                crossorigin="test"
-                formaction="test"
-                formenctype="test"
-                formmethod="test"
-                formnovalidate
-                formtarget=""
+                autoComplete="false"
+                autoFocus
+                formAction="test"
+                formEncType="test"
+                formMethod="test"
+                formNoValidate
+                formTarget=""
                 id="input"
                 type="text"
-                inputmode="tel"
+                inputMode="tel"
                 max="42"
-                maxlength="42"
+                maxLength={42}
                 min="1"
-                minlength="1"
-                readonly
+                minLength={1}
+                readOnly
                 required
-                size="2"
+                size={2}
                 step="2"
             />
-            <input autofocus="" checked="" disabled="" formnovalidate="" multiple="" readonly="" required="" />
+            <input autoFocus checked disabled formNoValidate multiple readOnly required />
 
-            <label for="input"></label>
+            <label htmlFor="input"></label>
 
-            <select autocomplete="false" autofocus size="2">
-                <optgroup disabled="" />
-                <option disabled="" selected="" />
+            <select autoComplete="false" autoFocus size={2}>
+                <optgroup disabled />
+                <option disabled selected />
             </select>
-            <select autocomplete="false" autofocus="" disabled="" multiple="" required="" />
+            <select autoComplete="false" autoFocus disabled multiple required />
 
-            <textarea autocomplete="false" autofocus cols="4" maxlength="42" minlength="1" readonly rows="42" />
-            <textarea autofocus="" disabled="" readonly="" required="" />
+            <textarea autoComplete="false" autoFocus cols={4} maxLength={42} minLength={1} readOnly rows={42} />
+            <textarea autoFocus disabled readOnly required />
         </form>
-        <form novalidate="" />
+        <form noValidate />
 
         <iframe
-            allowfullscreen
-            allowtransparency
-            frameborder="0"
-            marginheight="2"
-            marginwidth="2"
-            referrerpolicy="test"
+            allowFullScreen
+            allowTransparency
+            frameBorder="0"
+            marginHeight={2}
+            marginWidth={2}
+            referrerPolicy="no-referrer"
             seamless
-            srcdoc="test"
+            srcDoc="test"
         />
-        <iframe allowfullscreen="" allowtransparency="" seamless="" />
+        <iframe allowFullScreen allowTransparency seamless />
 
         <picture>
             <source media="test" srcSet="test" width={50} height={50} />
             <img src="test" width={100} height={100} />
         </picture>
 
-        <img crossorigin="anonymous" referrerpolicy="origin" srcset="test" usemap="test" tabindex="-1" />
+        <img crossOrigin="anonymous" referrerPolicy="origin" srcSet="test" useMap="test" tabIndex={-1} />
 
-        <ins datetime="test" />
+        <ins dateTime="test" />
 
-        <keygen autofocus name="name" challenge="challenge string" keytype="type" keyparams="pqg-params" />
-        <keygen autofocus="" disabled="" />
+        <keygen autoFocus name="name" challenge="challenge string" keyType="type" keyParams="pqg-params" />
+        <keygen autoFocus disabled />
 
-        <video autoplay controlslist="test" crossorigin="test" mediagroup="test" playsinline disablepictureinpicture>
-            <track default="" srclang="en" />
+        <video
+            autoPlay
+            controlsList="test"
+            crossOrigin="anonymous"
+            mediaGroup="test"
+            playsInline
+            disablePictureInPicture
+        >
+            <track default srcLang="en" />
         </video>
-        <video autoplay="" controls="" disablepictureinpicture="" loop="" muted="" playsinline="" />
+        <video autoPlay controls disablePictureInPicture loop muted playsInline />
 
-        <meter high="42" low="1" min="200" max="500" optimum="123" />
+        <meter high={42} low={1} min="200" max="500" optimum={123} />
 
-        <object classid="test" usemap="test" />
+        <object classID="test" useMap="test" />
 
-        <ol reversed="" start="2" />
+        <ol reversed start={2} />
 
-        <output for="test" />
+        <output htmlFor="test" />
 
         <progress max="42" />
 
-        <table cellpadding="2" cellspacing="2">
-            <colgroup span="2">
-                <col span="2" />
+        <table cellPadding="2" cellSpacing="2">
+            <colgroup span={2}>
+                <col span={2} />
             </colgroup>
             <tbody>
                 <tr>
-                    <th colspan="2" rowspan="2" />
-                    <td colspan="2" rowspan="2" />
+                    <th colSpan={2} rowSpan={2} />
+                    <td colSpan={2} rowSpan={2} />
                 </tr>
             </tbody>
         </table>
 
-        <time datetime="test" />
+        <time dateTime="test" />
 
         <menu>
-            <menuitem radiogroup="group1" />
+            <menuitem radioGroup="group1" />
         </menu>
 
         <div
-            accesskey="test"
-            autocapitalize="test"
-            autocorrect="test"
-            autosave="test"
-            class="test"
-            contenteditable
-            contextmenu="test"
-            hidden=""
+            accessKey="test"
+            autoCapitalize="test"
+            autoCorrect="test"
+            autoSave="test"
+            className="test"
+            contentEditable
+            contextMenu="test"
+            hidden
             http-equiv="test"
-            itemid="test"
-            itemprop="test"
-            itemref="test"
-            itemscope
-            itemtype="test"
-            spellcheck
-            tabindex="0"
+            itemID="test"
+            itemProp="test"
+            itemRef="test"
+            itemScope
+            itemType="test"
+            spellCheck
+            tabIndex={0}
         />
-        <div itemscope="itemscope" />
+        <div itemScope />
     </html>
 );
 
