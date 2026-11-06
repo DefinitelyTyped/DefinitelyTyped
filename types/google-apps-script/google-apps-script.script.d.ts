@@ -53,6 +53,7 @@ declare namespace GoogleAppsScript {
         interface AuthorizationInfo {
             getAuthorizationStatus(): AuthorizationStatus;
             getAuthorizationUrl(): string;
+            getAuthorizedScopes(): string[] | null;
         }
         /**
          * An enumeration denoting the authorization status of a script.
@@ -134,6 +135,7 @@ declare namespace GoogleAppsScript {
             WeekDay: typeof Base.Weekday;
             deleteTrigger(trigger: Trigger): void;
             getAuthorizationInfo(authMode: AuthMode): AuthorizationInfo;
+            getAuthorizationInfo(authMode: AuthMode, oAuthScopes: string[]): AuthorizationInfo;
             getIdentityToken(): string;
             getInstallationSource(): InstallationSource;
             getOAuthToken(): string;
