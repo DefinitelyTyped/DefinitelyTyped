@@ -4,35 +4,35 @@ export as namespace system;
  * System events dispatched by {@link framework.CastReceiverContext}.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.EventType
  */
-export enum EventType {
-    ALLOW_GROUP_CHANGE = "allowgroupchange",
+export const EventType: {
+    readonly ALLOW_GROUP_CHANGE: "allowgroupchange";
     /**
      * Fired when there is a system error.
      */
-    ERROR = "error",
+    readonly ERROR: "error";
     /**
      * Fired when system starts to create feedback report.
      */
-    FEEDBACK_STARTED = "feedbackstarted",
-    GROUP_CAPABILITIES = "groupcapabilities",
-    MAX_VIDEO_RESOLUTION_CHANGED = "maxvideoresolutionchanged",
-    PROXIMITY_CHANGED = "proximitychanged",
+    readonly FEEDBACK_STARTED: "feedbackstarted";
+    readonly GROUP_CAPABILITIES: "groupcapabilities";
+    readonly MAX_VIDEO_RESOLUTION_CHANGED: "maxvideoresolutionchanged";
+    readonly PROXIMITY_CHANGED: "proximitychanged";
     /**
      * Fired when the system is ready.
      */
-    READY = "ready",
+    readonly READY: "ready";
     /**
      * Fired when a new sender has connected.
      */
-    SENDER_CONNECTED = "senderconnected",
+    readonly SENDER_CONNECTED: "senderconnected";
     /**
      * Fired when a sender has disconnected.
      */
-    SENDER_DISCONNECTED = "senderdisconnected",
+    readonly SENDER_DISCONNECTED: "senderdisconnected";
     /**
      * Fired when the application is terminated
      */
-    SHUTDOWN = "shutdown",
+    readonly SHUTDOWN: "shutdown";
     /**
      * Fired when the standby state of the TV has changed.
      * This event is related to the visibility chnaged event, as if the TV is in standby
@@ -41,11 +41,11 @@ export enum EventType {
      * but it is not reliably detected in all TVs,
      * standby can be used in those cases as most TVs implement it.
      */
-    STANDBY_CHANGED = "standbychanged",
+    readonly STANDBY_CHANGED: "standbychanged";
     /**
      * Fired when the system volume has changed.
      */
-    SYSTEM_VOLUME_CHANGED = "systemvolumechanged",
+    readonly SYSTEM_VOLUME_CHANGED: "systemvolumechanged";
     /**
      * Fired when the visibility of the application has changed
      * (for example after a HDMI Input change or when the TV is turned
@@ -54,163 +54,293 @@ export enum EventType {
      * by your document, we provided it as {@link framework.CastReceiverContext}
      * API for convenience and to avoid a dependency on a webkit-prefixed event.
      */
-    VISIBILITY_CHANGED = "visibilitychanged",
-}
+    readonly VISIBILITY_CHANGED: "visibilitychanged";
+};
+/**
+ * System events dispatched by {@link framework.CastReceiverContext}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.EventType
+ */
+export type EventType = (typeof EventType)[keyof typeof EventType];
 
 /**
  * Represents the current system state.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.SystemState
  */
-export enum SystemState {
+export const SystemState: {
     /**
      * The application has not been requested to start yet.
      */
-    NOT_STARTED = "notstarted",
+    readonly NOT_STARTED: "notstarted";
     /**
      * Application is ready to send and receive messages and it is in foreground.
      */
-    READY = "ready",
+    readonly READY: "ready";
     /**
      * Application is starting.
      */
-    STARTING = "starting",
+    readonly STARTING: "starting";
     /**
      * Application is starting but it is in background.
      */
-    STARTING_IN_BACKGROUND = "startinginbackground",
+    readonly STARTING_IN_BACKGROUND: "startinginbackground";
     /**
      * Application is stopping.
      */
-    STOPPING = "stopping",
+    readonly STOPPING: "stopping";
     /**
      * Application is stopping but it is in background.
      */
-    STOPPING_IN_BACKGROUND = "stoppinginbackground",
-}
+    readonly STOPPING_IN_BACKGROUND: "stoppinginbackground";
+};
+/**
+ * Represents the current system state.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.SystemState
+ */
+export type SystemState = (typeof SystemState)[keyof typeof SystemState];
 
 /**
  * Types of custom messages.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.MessageType
  */
-export enum MessageType {
+export const MessageType: {
     /**
      * Messages are free-form strings. The application is responsible for encoding/decoding the information transmitted.
      */
-    STRING = "string",
+    readonly STRING: "string";
     /**
      * Messages are JSON-encoded. The underlying transport will use a JSON encoded string.
      */
-    JSON = "json",
-}
+    readonly JSON: "json";
+};
+/**
+ * Types of custom messages.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.MessageType
+ */
+export type MessageType = (typeof MessageType)[keyof typeof MessageType];
 
 /**
  * Represents the current standby state reported by the platform. It may be UNKNOWN
  * if the cast platform was unable to determine the state yet.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.StandbyState
  */
-export enum StandbyState {
-    NOT_STANDBY = "notstandby",
-    STANDBY = "standby",
-    UNKNOWN = "unknown",
-}
+export const StandbyState: {
+    readonly NOT_STANDBY: "notstandby";
+    readonly STANDBY: "standby";
+    readonly UNKNOWN: "unknown";
+};
+/**
+ * Represents the current standby state reported by the platform. It may be UNKNOWN
+ * if the cast platform was unable to determine the state yet.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.StandbyState
+ */
+export type StandbyState = (typeof StandbyState)[keyof typeof StandbyState];
 
 /**
  * Represents the disconnect reason.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DisconnectReason
  */
-export enum DisconnectReason {
+export const DisconnectReason: {
     /**
      * There was a protocol error.
      */
-    ERROR = "error",
+    readonly ERROR: "error";
     /**
      * Connection close was actively requested by the sender application (usually
      * triggered by the user).
      */
-    REQUESTED_BY_SENDER = "requested_by_sender",
+    readonly REQUESTED_BY_SENDER: "requested_by_sender";
     /**
      * It is unknown if the sender requested to disconnect gracefully calling close
      * (most likely it didn't, but the close message could have been lost). This
      * normally happens when there is a network timeout or if the sender application
      *  crashes or if the sender OS closes the socket.
      */
-    UNKNOWN = "unknown",
-}
+    readonly UNKNOWN: "unknown";
+    /**
+     * The receiver application stopped itself.
+     */
+    readonly APPLICATION_STOP: "application_stop";
+    /**
+     * The platform closed the application while senders were still connected.
+     */
+    readonly ABRUPT_SHUTDOWN: "abrupt_shutdown";
+    /**
+     * The application closed when no senders were connected.
+     */
+    readonly NO_SENDERS: "no_senders";
+    /**
+     * The underlying SSL socket was closed by the sender without a graceful
+     * virtual connection close.
+     */
+    readonly TRANSPORT_CLOSED: "transport_closed";
+    /**
+     * The underlying SSL socket was aborted by the peer.
+     */
+    readonly TRANSPORT_ABORTED: "transport_aborted";
+    /**
+     * The underlying SSL socket was closed because of heartbeat failure.
+     */
+    readonly TRANSPORT_TOO_LONG_INACTIVE: "transport_too_long_inactive";
+    /**
+     * The connection was gracefully closed by the Cast receiver.
+     */
+    readonly CLOSED_BY_SELF: "closed_by_self";
+};
+/**
+ * Represents the disconnect reason.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DisconnectReason
+ */
+export type DisconnectReason = (typeof DisconnectReason)[keyof typeof DisconnectReason];
 
 /**
  * Represent where the receiver was launched from.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.LaunchedFrom
  */
-export enum LaunchedFrom {
+export const LaunchedFrom: {
     /**
      * App was launched by Cast V2 request.
      */
-    CAST = "CAST",
+    readonly CAST: "CAST";
     /**
      * App was launched by assistant request (e.g. voice command).
      */
-    CLOUD = "CLOUD",
+    readonly CLOUD: "CLOUD";
     /**
      * App was launched by DIAL request.
      */
-    DIAL = "DIAL",
+    readonly DIAL: "DIAL";
     /**
      * The launch owner could not be determined.
      */
-    UNKNOWN = "UNKNOWN",
-}
+    readonly UNKNOWN: "UNKNOWN";
+};
+/**
+ * Represent where the receiver was launched from.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.LaunchedFrom
+ */
+export type LaunchedFrom = (typeof LaunchedFrom)[keyof typeof LaunchedFrom];
 
 /**
  * Device capabilities.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceCapabilities
  */
-export enum DeviceCapabilities {
-    APP_FOREGROUND = "app_foreground",
+export const DeviceCapabilities: {
+    readonly APP_FOREGROUND: "app_foreground";
     /**
      * Audio Assistant support. For example, Google Home and Google Home Mini.
      */
-    AUDIO_ASSISTANT = "audio_assistant",
+    readonly AUDIO_ASSISTANT: "audio_assistant";
     /**
      * Bluetooth support.
      */
-    BLUETOOTH_SUPPORTED = "bluetooth_supported",
+    readonly BLUETOOTH_SUPPORTED: "bluetooth_supported";
+    /**
+     * Whether this device is running on an audio-only platform. Some APIs may
+     * not be fully supported on such platforms.
+     */
+    readonly CAST_LITE_ONLY: "cast_lite_only";
     /**
      * Display output support. For example, Chromecast and Cast TVs have display
      * support, Chromecast Audio and Google Home have not.
      */
-    DISPLAY_SUPPORTED = "display_supported",
+    readonly DISPLAY_SUPPORTED: "display_supported";
+    /**
+     * Whether this device supports an input mechanism, such as an unlocking DPAD.
+     */
+    readonly DPAD_INPUT_SUPPORTED: "dpad_input_supported";
     /**
      * Hi-res audio (up to 24-bit / 96KHz) support.
      */
-    HI_RES_AUDIO_SUPPORTED = "hi_res_audio_supported",
+    readonly HI_RES_AUDIO_SUPPORTED: "hi_res_audio_supported";
     /**
      * Flag to know if CBCS scheme (SAMPLE-AES) is supported.
      */
-    IS_CBCS_SUPPORTED = "is_cbcs_supported",
+    readonly IS_CBCS_SUPPORTED: "is_cbcs_supported";
     /**
      * Flag to know if the cast device is registered in cast developer console
      */
-    IS_DEVICE_REGISTERED = "is_device_registered",
-    IS_DOLBY_ATMOS_SUPPORTED = "is_dolby_atmos_supported",
+    readonly IS_DEVICE_REGISTERED: "is_device_registered";
+    readonly IS_DOLBY_ATMOS_SUPPORTED: "is_dolby_atmos_supported";
     /**
      * Dolby Vision support of the current setup (that is, Chromecast and the TV it is connected to).
      */
-    IS_DV_SUPPORTED = "is_dv_supported",
+    readonly IS_DV_SUPPORTED: "is_dv_supported";
     /**
      * If the device is a virtual device and represents a group target rather than standalone.
      */
-    IS_GROUP = "is_group",
+    readonly IS_GROUP: "is_group";
     /**
      * HDR video support of the current setup (that is, Chromecast and the TV it is connected to).
      */
-    IS_HDR_SUPPORTED = "is_hdr_supported",
-    REMOTE_CONTROL_OVERLAY_SUPPORTED = "remote_control_overlay_supported",
-    SLEEP_TIMER_OVERLAY_SUPPORTED = "sleep_timer_overlay_supported",
+    readonly IS_HDR_SUPPORTED: "is_hdr_supported";
+    readonly REMOTE_CONTROL_OVERLAY_SUPPORTED: "remote_control_overlay_supported";
+    readonly SLEEP_TIMER_OVERLAY_SUPPORTED: "sleep_timer_overlay_supported";
     /**
      * Touch input support, that is, the devices have a touchable display. For
      * example, Google Nest Hub and Google Nest Hub Max.
      */
-    TOUCH_INPUT_SUPPORTED = "touch_input_supported",
+    readonly TOUCH_INPUT_SUPPORTED: "touch_input_supported";
+};
+/**
+ * Device capabilities.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceCapabilities
+ */
+export type DeviceCapabilities = (typeof DeviceCapabilities)[keyof typeof DeviceCapabilities];
+
+/**
+ * Describes the object returned by {@link framework.CastReceiverContext#getDeviceCapabilities}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceCapabilitiesObj
+ */
+export interface DeviceCapabilitiesObj {
+    audio_assistant?: boolean | undefined;
+    bluetooth_supported?: boolean | undefined;
+    display_supported?: boolean | undefined;
+    hi_res_audio_supported?: boolean | undefined;
+    is_dv_supported?: boolean | undefined;
+    is_hdr_supported?: boolean | undefined;
+    cast_lite_only?: boolean | undefined;
+    dpad_input_supported?: boolean | undefined;
+    touch_input_supported?: boolean | undefined;
+    is_group?: boolean | undefined;
+    remote_control_overlay_supported?: boolean | undefined;
+    sleep_timer_overlay_supported?: boolean | undefined;
+    app_foreground?: boolean | undefined;
+    is_device_registered?: boolean | undefined;
+    is_cbcs_supported?: boolean | undefined;
+    is_dolby_atmos_supported?: boolean | undefined;
+}
+
+/**
+ * Constants for the valid keys in {@link DeviceInformationObj}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceInformation
+ */
+export const DeviceInformation: {
+    readonly MODEL_NAME: "model-name";
+    readonly BRAND_NAME: "brand-name";
+    readonly OS_NAME: "os-name";
+    readonly OS_VERSION: "os-version";
+    readonly ENVIRONMENT: "environment";
+    readonly DEVICE_ID: "device-id";
+    readonly METADATA_FROM_FIRMWARE: "metadata-from-firmware";
+};
+/**
+ * Constants for the valid keys in {@link DeviceInformationObj}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceInformation
+ */
+export type DeviceInformation = (typeof DeviceInformation)[keyof typeof DeviceInformation];
+
+/**
+ * Describes the object returned by {@link framework.CastReceiverContext#getDeviceInformation}.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.DeviceInformationObj
+ */
+export interface DeviceInformationObj {
+    "model-name": string;
+    "brand-name": string;
+    "os-name": string;
+    "os-version": string;
+    environment: string;
+    "device-id": string;
+    "metadata-from-firmware": boolean;
 }
 
 /**
@@ -218,18 +348,24 @@ export enum DeviceCapabilities {
  * It may be UNKNOWN if the cast platform was unable to determine the state yet.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
  */
-export enum VisibilityState {
-    NOT_VISIBLE = "notvisible",
-    UNKNOWN = "unknown",
-    VISIBLE = "visible",
-}
+export const VisibilityState: {
+    readonly NOT_VISIBLE: "notvisible";
+    readonly UNKNOWN: "unknown";
+    readonly VISIBLE: "visible";
+};
+/**
+ * Represents the current visibility state reported by the platform.
+ * It may be UNKNOWN if the cast platform was unable to determine the state yet.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system#.VisibilityState
+ */
+export type VisibilityState = (typeof VisibilityState)[keyof typeof VisibilityState];
 
 /**
  * Event dispatched by {@link framework.CastReceiverContext} when the visibility
  * of the application changes (HDMI input change; TV is turned off).
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.system.VisibilityChangedEvent
  */
-export class VisibilityChangedEvent {
+export class VisibilityChangedEvent extends Event {
     constructor(isVisible: boolean);
 
     /**

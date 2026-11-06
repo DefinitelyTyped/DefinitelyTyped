@@ -880,7 +880,11 @@ function testRuntime() {
 
     chrome.runtime.getPackageDirectoryEntry(); // $ExpectType Promise<FileSystemDirectoryEntry>
     chrome.runtime.getPackageDirectoryEntry((directoryEntry) => { // $ExpectType void
-        directoryEntry; // $ExpectType FileSystemDirectoryEntry
+        directoryEntry.filesystem; // $ExpectType FileSystem
+        directoryEntry.fullPath; // $ExpectType string
+        directoryEntry.isDirectory; // $ExpectType boolean
+        directoryEntry.isFile; // $ExpectType boolean
+        directoryEntry.name; // $ExpectType string
     });
     // @ts-expect-error
     chrome.runtime.getPackageDirectoryEntry(() => {}).then(() => {});
@@ -1458,17 +1462,64 @@ function testDebugger() {
         sessionId: "123",
     };
 
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}); // $ExpectType Promise<object | undefined>
-    chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, (result) => { // $ExpectType void
-        result; // $ExpectType object | undefined
+    interface EvaluateRequest {
+        expression: string;
+        objectGroup?: string;
+        includeCommandLineAPI?: boolean;
+        silent?: boolean;
+        contextId?: number;
+        returnByValue?: boolean;
+        userGesture?: boolean;
+        awaitPromise?: boolean;
+    }
+
+    interface EvaluateResponse {
+        result: {
+            type: "object" | "function" | "undefined" | "string" | "number" | "boolean" | "symbol" | "bigint";
+            value?: any;
+        };
+        exceptionDetails?: {
+            exceptionId: number;
+            text: string;
+            lineNumber: number;
+            columnNumber: number;
+        };
+    }
+
+    const sendCommandRuntimeEvaluateParams: EvaluateRequest = {
+        expression: "document.title",
+        returnByValue: true,
+    };
+
+    chrome.debugger.sendCommand(debuggerSession, "Runtime.evaluate", sendCommandRuntimeEvaluateParams); // $ExpectType Promise<{ [key: string]: unknown } | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Runtime.evaluate", sendCommandRuntimeEvaluateParams, (result) => { // $ExpectType void
+        result; // $ExpectType { [key: string]: unknown } | undefined
     });
+    chrome.debugger.sendCommand(debuggerSession, "Page.enable"); // $ExpectType Promise<{ [key: string]: unknown } | undefined>
+    chrome.debugger.sendCommand(debuggerSession, "Page.enable", undefined, (result) => { // $ExpectType void
+        result; // $ExpectType { [key: string]: unknown } | undefined
+    });
+
+    chrome.debugger.sendCommand<EvaluateRequest, EvaluateResponse>( // $ExpectType Promise<EvaluateResponse | undefined>
+        debuggerSession,
+        "Runtime.evaluate",
+        sendCommandRuntimeEvaluateParams,
+    );
+    chrome.debugger.sendCommand<EvaluateRequest, EvaluateResponse>( // $ExpectType void
+        debuggerSession,
+        "Runtime.evaluate",
+        sendCommandRuntimeEvaluateParams,
+        (result) => {
+            result; // $ExpectType EvaluateResponse | undefined
+        },
+    );
     // @ts-expect-error
     chrome.debugger.sendCommand(debuggerSession, "Debugger.Cmd", {}, () => {}).then(() => {});
 
     checkChromeEvent(chrome.debugger.onEvent, (source, methodName, params) => {
         source; // $ExpectType DebuggerSession
         methodName; // $ExpectType string
-        params; // $ExpectType object | undefined
+        params; // $ExpectType { [key: string]: unknown } | undefined
     });
 
     checkChromeEvent(chrome.debugger.onDetach, (source, reason) => {
@@ -1755,11 +1806,15 @@ function testTts() {
 
     const ttsOptions: chrome.tts.TtsOptions = {
         lang: "en",
+        requiredEventTypes: ["start"],
+        desiredEventTypes: [chrome.tts.EventType.END],
     };
 
     chrome.tts.speak("Hello, World!"); // $ExpectType Promise<void>
+    chrome.tts.speak("Hello, World!", undefined); // $ExpectType Promise<void>
     chrome.tts.speak("Hello, World!", ttsOptions); // $ExpectType Promise<void>
     chrome.tts.speak("Hello, World!", () => {}); // $ExpectType void
+    chrome.tts.speak("Hello, World!", undefined, () => {}); // $ExpectType void
     chrome.tts.speak("Hello, World!", ttsOptions, () => {}); // $ExpectType void
     // @ts-expect-error
     chrome.tts.speak("Hello, World!", () => {}).then(() => {});
@@ -2830,9 +2885,9 @@ async function testAlarms() {
     // @ts-expect-error
     chrome.alarms.getAll(() => {}).then(() => {});
 
-    chrome.alarms.clearAll(); // $ExpectType Promise<boolean>
+    chrome.alarms.clearAll(); // $ExpectType Promise<boolean | undefined>
     chrome.alarms.clearAll((wasCleared) => { // $ExpectType void
-        wasCleared; // $ExpectType boolean
+        wasCleared; // $ExpectType boolean | undefined
     });
     // @ts-expect-error
     chrome.alarms.clearAll(() => {}).then(() => {});
@@ -2977,9 +3032,9 @@ async function testCookies() {
         storeId: "storeId1",
     };
 
-    chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.get(cookieDetails); // $ExpectType Promise<Cookie | null | undefined>
     chrome.cookies.get(cookieDetails, (cookie) => { // $ExpectType void
-        cookie; // $ExpectType Cookie | null
+        cookie; // $ExpectType Cookie | null | undefined
     });
     // @ts-expect-error
     chrome.cookies.get(cookieDetails, () => {}).then(() => {});
@@ -3046,9 +3101,9 @@ async function testCookies() {
         value: "value1",
     };
 
-    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | null>
+    chrome.cookies.set(cookieDetailsSet); // $ExpectType Promise<Cookie | undefined>
     chrome.cookies.set(cookieDetailsSet, (cookie) => { // $ExpectType void
-        cookie; // $ExpectType Cookie | null
+        cookie; // $ExpectType Cookie | undefined
     });
     // @ts-expect-error
     chrome.cookies.set(cookieDetailsSet, () => {}).then(() => {});
@@ -3399,7 +3454,7 @@ async function testSystemCpu() {
     chrome.system.cpu.getInfo(); // $ExpectType Promise<CpuInfo>
     chrome.system.cpu.getInfo((info) => { // $ExpectType void
         info.archName; // $ExpectType string
-        info.features; // $ExpectType string[]
+        info.features; // $ExpectType ("mmx" | "sse" | "sse2" | "sse3" | "ssse3" | "sse4_1" | "sse4_2" | "avx")[]
         info.modelName; // $ExpectType string
         info.numOfProcessors; // $ExpectType number
         info.processors; // $ExpectType ProcessorInfo[]
@@ -3497,13 +3552,17 @@ async function testSystemDisplay() {
     // @ts-expect-error
     chrome.system.display.getDisplayLayout(() => {}).then(() => {});
 
-    const flags = { singleUnified: true };
+    const flags: chrome.system.display.GetInfoFlags = { singleUnified: true };
     chrome.system.display.getInfo(); // $ExpectType Promise<DisplayUnitInfo[]>
     chrome.system.display.getInfo((displayInfo) => { // $ExpectType void
         displayInfo; // $ExpectType DisplayUnitInfo[]
     });
     chrome.system.display.getInfo(flags); // $ExpectType Promise<DisplayUnitInfo[]>
     chrome.system.display.getInfo(flags, (displayInfo) => { // $ExpectType void
+        displayInfo; // $ExpectType DisplayUnitInfo[]
+    });
+    chrome.system.display.getInfo(undefined); // $ExpectType Promise<DisplayUnitInfo[]>
+    chrome.system.display.getInfo(undefined, (displayInfo) => { // $ExpectType void
         displayInfo; // $ExpectType DisplayUnitInfo[]
     });
     // @ts-expect-error
@@ -3629,8 +3688,10 @@ async function testTabs() {
     };
 
     chrome.tabs.captureVisibleTab(); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(undefined); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowId); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowCaptureOptions); // $ExpectType Promise<string>
+    chrome.tabs.captureVisibleTab(undefined, windowCaptureOptions); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions); // $ExpectType Promise<string>
     chrome.tabs.captureVisibleTab((dataUrl) => { // $ExpectType void
         dataUrl; // $ExpectType string
@@ -3644,6 +3705,12 @@ async function testTabs() {
     chrome.tabs.captureVisibleTab(windowId, windowCaptureOptions, (dataUrl) => { // $ExpectType void
         dataUrl; // $ExpectType string
     });
+    chrome.tabs.captureVisibleTab(undefined, (dataUrl) => { // $ExpectType void
+        dataUrl; // $ExpectType string
+    });
+    chrome.tabs.captureVisibleTab(undefined, windowCaptureOptions, (dataUrl) => { // $ExpectType void
+        dataUrl; // $ExpectType string
+    });
     // @ts-expect-error
     chrome.tabs.captureVisibleTab(windowCaptureOptions, windowId);
     // @ts-expect-error
@@ -3652,6 +3719,7 @@ async function testTabs() {
     const connectInfo: chrome.tabs.ConnectInfo = {
         name: "name",
         frameId,
+        documentId,
     };
 
     chrome.tabs.connect(tabId); // $ExpectType Port
@@ -3773,6 +3841,8 @@ async function testTabs() {
     chrome.tabs.group(groupOptions, (groupId) => { // $ExpectType void
         groupId; // $ExpectType number
     });
+    // @ts-expect-error Missing required property 'tabIds'.
+    chrome.tabs.group({});
     // @ts-expect-error Value did not match any choice.
     chrome.tabs.group({ tabIds: [] });
     // @ts-expect-error
@@ -3839,8 +3909,10 @@ async function testTabs() {
     };
 
     chrome.tabs.reload(); // $ExpectType Promise<void>
+    chrome.tabs.reload(undefined); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId); // $ExpectType Promise<void>
     chrome.tabs.reload(reloadProperties); // $ExpectType Promise<void>
+    chrome.tabs.reload(undefined, reloadProperties); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId, reloadProperties); // $ExpectType Promise<void>
     chrome.tabs.reload(tabId, () => {}); // $ExpectType void
     chrome.tabs.reload(reloadProperties, () => {}); // $ExpectType void
@@ -4581,7 +4653,12 @@ async function testDeclarativeNetRequest() {
     const rule: chrome.declarativeNetRequest.Rule = {
         id: 1,
         priority: 1,
-        action: { type: "allow", requestHeaders: [], responseHeaders: [] },
+        action: {
+            type: "allow",
+            requestHeaders: [],
+            responseHeaders: [],
+            redirect: { transform: { scheme: "chrome-extension" } },
+        },
         condition: {
             domainType: "firstParty",
             excludedResourceTypes: [chrome.declarativeNetRequest.ResourceType.IMAGE, "object"],
@@ -6053,14 +6130,14 @@ function testGcm() {
 
     checkChromeEvent(chrome.gcm.onMessage, (message) => {
         message.collapseKey; // $ExpectType string | undefined
-        message.data; // $ExpectType { [key: string]: unknown; }
+        message.data; // $ExpectType { [key: string]: string; }
         message.from; // $ExpectType string | undefined
     });
 
     checkChromeEvent(chrome.gcm.onMessagesDeleted, () => void 0);
 
     checkChromeEvent(chrome.gcm.onSendError, (error) => {
-        error.details; // $ExpectType { [key: string]: unknown; }
+        error.details; // $ExpectType { [key: string]: string; }
         error.errorMessage; // $ExpectType string
         error.messageId; // $ExpectType string | undefined
     });
@@ -6187,6 +6264,10 @@ function testIdentity() {
     chrome.identity.getAuthToken(() => {}).then(() => {});
 
     chrome.identity.getProfileUserInfo(); // $ExpectType Promise<ProfileUserInfo>
+    chrome.identity.getProfileUserInfo(undefined, userInfo => { // $ExpectType void
+        userInfo.email; // $ExpectType string
+        userInfo.id; // $ExpectType string
+    });
     chrome.identity.getProfileUserInfo(userInfo => { // $ExpectType void
         userInfo.email; // $ExpectType string
         userInfo.id; // $ExpectType string
@@ -6313,7 +6394,7 @@ function testFileBrowserHandler() {
     checkChromeEvent(chrome.fileBrowserHandler.onExecute, (id, details) => {
         id; // $ExpectType string
         details; // $ExpectType FileHandlerExecuteEventDetails
-        details.entries; // $ExpectType any[]
+        details.entries; // $ExpectType FileSystemFileEntry[]
         details.tab_id; // $ExpectType number | undefined
     });
 }
@@ -7432,7 +7513,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.scheme; // $ExpectType string
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
@@ -7460,7 +7541,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7504,7 +7585,7 @@ function testWebRequest() {
             details.parentFrameId; // $ExpectType number
             details.requestHeaders?.[0].name; // $ExpectType string | undefined
             details.requestHeaders?.[0].value; // $ExpectType string | undefined
-            details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+            details.requestHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
             details.requestId; // $ExpectType string
             details.tabId; // $ExpectType number
             details.timeStamp; // $ExpectType number
@@ -7530,7 +7611,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7570,7 +7651,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.securityInfo; // $ExpectType SecurityInfo | undefined
         details.securityInfo!.certificates![0].fingerprint.sha256; // $ExpectType string
         details.securityInfo!.certificates![0].rawDER; // $ExpectType ArrayBuffer | undefined
@@ -7599,7 +7680,7 @@ function testWebRequest() {
         details.requestId; // $ExpectType string
         details.responseHeaders?.[0].name; // $ExpectType string | undefined
         details.responseHeaders?.[0].value; // $ExpectType string | undefined
-        details.responseHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.responseHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.statusCode; // $ExpectType number
         details.statusLine; // $ExpectType string
         details.tabId; // $ExpectType number
@@ -7619,7 +7700,7 @@ function testWebRequest() {
         details.parentFrameId; // $ExpectType number
         details.requestHeaders?.[0].name; // $ExpectType string | undefined
         details.requestHeaders?.[0].value; // $ExpectType string | undefined
-        details.requestHeaders?.[0].binaryValue; // $ExpectType ArrayBuffer | undefined
+        details.requestHeaders?.[0].binaryValue; // $ExpectType number[] | undefined
         details.requestId; // $ExpectType string
         details.tabId; // $ExpectType number
         details.timeStamp; // $ExpectType number

@@ -1,5 +1,6 @@
 import { JSONMeta, Object3D, Object3DJSON } from "../core/Object3D.js";
 import { Color, ColorRepresentation } from "../math/Color.js";
+import AnalyticLightNode from "../nodes/lighting/AnalyticLightNode.js";
 
 export interface LightJSON extends Object3DJSON {
     color: number;
@@ -11,6 +12,16 @@ export interface LightJSON extends Object3DJSON {
  * properties and methods described here.
  */
 export abstract class Light extends Object3D {
+    /**
+     * Registers the node class that `WebGPURenderer` uses to shade lights of this type.
+     *
+     * @param {AnalyticLightNode.constructor} lightNodeClass - The light node class.
+     */
+    static registerNode<TLight extends Light>(this: {
+        new(...args: any[]): TLight;
+    }, lightNodeClass: {
+        new(light: TLight): AnalyticLightNode<TLight>;
+    }): void;
     /**
      * Constructs a new light.
      *

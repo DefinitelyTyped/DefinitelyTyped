@@ -1,11 +1,11 @@
-import { Node, TempNode, TextureNode, Vector2 } from "three/webgpu";
+import { Node, TextureNode, Vector2 } from "three/webgpu";
 
 export interface GaussianBlurNodeOptions {
     premultipliedAlpha?: boolean | undefined;
     resolutionScale?: number | undefined;
 }
 
-declare class GaussianBlurNode extends TempNode<"vec4"> {
+declare class GaussianBlurNode extends Node<"vec4"> {
     textureNode: TextureNode;
     directionNode: Node | null;
     sigma: number;

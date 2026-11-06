@@ -192,6 +192,7 @@ declare namespace braintree {
         errors: ValidationErrorsCollection;
         message: string;
         params: Record<string, any>;
+        verification?: CreditCardVerification | undefined;
         address: T extends Address ? Address : never;
         creditCard: T extends CreditCard ? CreditCard : never;
         customer: T extends Customer ? Customer : never;

@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/svg-captcha",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/steambap/svg-captcha#readme"
+    ],
+    "devDependencies": {
+        "@types/svg-captcha": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "16608921567",
+            "githubUsername": "loongzen"
+        }
+    ]
+}

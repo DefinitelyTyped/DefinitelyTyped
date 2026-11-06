@@ -1,9 +1,10 @@
-import { Light, ShadowBaseNode } from "three/webgpu";
+import { Light, ShadowBaseNode, TextureDataType } from "three/webgpu";
 
 export interface TileShadeNodeConfig {
     tilesX?: number | undefined;
     tilesY?: number | undefined;
     resolution?: { width: number; height: number };
+    depthType?: TextureDataType | undefined;
     debug?: boolean | undefined;
 }
 

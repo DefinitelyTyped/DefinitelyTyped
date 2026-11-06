@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/pasoonate",
+    "version": "1.4.9999",
+    "projects": [
+        "https://github.com/pasoonate/pasoonate-js"
+    ],
+    "devDependencies": {
+        "@types/pasoonate": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "akaGooddevil",
+            "githubUsername": "akaGooddevil"
+        }
+    ]
+}

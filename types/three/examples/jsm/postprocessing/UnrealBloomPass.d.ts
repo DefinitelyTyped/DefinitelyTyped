@@ -1,6 +1,6 @@
-import { Color, MeshBasicMaterial, ShaderMaterial, Vector2, Vector3, WebGLRenderTarget } from "three";
+import { Color, ShaderMaterial, Vector2, Vector3, WebGLRenderTarget } from "three";
 
-import { FullScreenQuad, Pass } from "./Pass.js";
+import { Pass } from "./Pass.js";
 
 export class UnrealBloomPass extends Pass {
     strength: number;

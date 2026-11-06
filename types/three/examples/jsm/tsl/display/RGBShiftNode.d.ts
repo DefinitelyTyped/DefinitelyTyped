@@ -1,6 +1,6 @@
-import { Node, TempNode, TextureNode } from "three/webgpu";
+import { Node, TextureNode } from "three/webgpu";
 
-export default class RGBShiftNode extends TempNode {
+export default class RGBShiftNode extends Node {
     textureNode: TextureNode;
     amount: Node<"float">;
     angle: Node<"float">;

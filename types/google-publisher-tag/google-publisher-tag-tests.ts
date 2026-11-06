@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20260921
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/dd8c4273f415959c61a8eab7761b16f85fbabf32
+// Tests for Google Publisher Tag 1.20261102
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/ffb082925ba8c946d1eb91efb92bcaca835cb7a0
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -435,6 +435,21 @@ function test_googletag_pubAdsService_setPrivacySettings() {
     googletag.pubads().setPrivacySettings({
         childDirectedTreatment: null,
     });
+}
+
+// Test for googletag.PubAdsService.registerRequestHook
+function test_googletag_pubAdsService_registerRequestHook() {
+    // Register a request hook.
+    const unregister = googletag.pubads().registerRequestHook(async ({ slots }) => {
+        const someAsynchronousAction = Promise.resolve();
+        await someAsynchronousAction;
+        for (const slot of slots) {
+            slot.setConfig({ targeting: { hookApplied: "true" } });
+        }
+    }, "my-hook");
+
+    // Unregister the hook.
+    unregister();
 }
 
 // Test for googletag.Service.addEventListener
@@ -980,6 +995,18 @@ function test_googletag_config_pageSettingsConfig_autoRefresh() {
 
     // Clear the auto refresh configuration.
     googletag.setConfig({ autoRefresh: null });
+}
+
+// Test for googletag.config.PageSettingsConfig.requestHookTimeoutMs
+function test_googletag_config_pageSettingsConfig_requestHookTimeoutMs() {
+    // Set a 1000ms timeout for request hooks.
+    googletag.setConfig({ requestHookTimeoutMs: 1000 });
+
+    // Use an optimized default timeout for request hooks.
+    googletag.setConfig({ requestHookTimeoutMs: "auto" });
+
+    // Clear the timeout.
+    googletag.setConfig({ requestHookTimeoutMs: null });
 }
 
 // Test for googletag.config.PrivacyTreatmentsConfig.treatments

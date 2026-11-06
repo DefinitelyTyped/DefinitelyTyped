@@ -214,6 +214,7 @@ declare namespace payu {
         } | undefined;
         clickToPay?: {
             dpaName?: string | undefined;
+            recognitionToken?: string | undefined;
             mastercard?: {
                 dpaId?: string | undefined;
             } | undefined;

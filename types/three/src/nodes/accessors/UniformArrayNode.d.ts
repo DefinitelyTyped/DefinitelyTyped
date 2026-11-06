@@ -1,4 +1,5 @@
 import Node from "../core/Node.js";
+import NodeBuilder from "../core/NodeBuilder.js";
 import ArrayElementNode from "../utils/ArrayElementNode.js";
 import BufferNode from "./BufferNode.js";
 
@@ -7,11 +8,10 @@ type UniformArrayElementNode<TNodeType> = ArrayElementNode<TNodeType>;
 interface UniformArrayNodeInterface<TNodeType> {
     array: unknown[];
     elementType: string | null;
-    paddedType: string;
 
     readonly isArrayBufferNode: true;
 
-    getPaddedType(): string;
+    getPaddedType(builder: NodeBuilder): string;
 
     updateBuffer(): void;
 

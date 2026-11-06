@@ -44,6 +44,10 @@ map.panTo({ lat: 43.3, lng: 3.3 });
 map.panToBounds(new woosmap.map.LatLngBounds({ lat: 43.3, lng: 3.3 }, { lat: 48.3, lng: 2.3 }), { left: 100 });
 // $ExpectType void
 map.setZoom(12);
+// $ExpectType void
+map.moveCamera({ center: { lat: 48.86, lng: 2.34 }, zoom: 12, tilt: 30, heading: 45 });
+// $ExpectType void
+map.moveCamera({ zoom: 10 });
 // $ExceptType void
 map.remove();
 
@@ -61,6 +65,40 @@ woosmap.map.MapTypeId.HYBRID;
 map.getMapTypeId();
 // $ExpectType void
 map.setMapTypeId(woosmap.map.MapTypeId.HYBRID);
+
+// $ExpectType MapCapabilities
+const caps = map.getMapCapabilities();
+// $ExpectType boolean
+caps.isAdvancedMarkersAvailable;
+
+/**
+ * ControlPosition
+ */
+// $ExpectType ControlPosition.TOP_LEFT
+woosmap.map.ControlPosition.TOP_LEFT;
+// $ExpectType ControlPosition.BLOCK_END_INLINE_END
+woosmap.map.ControlPosition.BLOCK_END_INLINE_END;
+// Numeric enum: a member is assignable to number.
+const controlPos: number = woosmap.map.ControlPosition.RIGHT_CENTER;
+
+// Custom controls: map.controls is indexed by ControlPosition, each an MVCArray.
+// $ExpectType MVCArray<HTMLElement>
+map.controls[woosmap.map.ControlPosition.TOP_LEFT];
+map.controls[woosmap.map.ControlPosition.TOP_LEFT].push(document.createElement("div"));
+
+/**
+ * CollisionBehavior
+ */
+// $ExpectType CollisionBehavior.REQUIRED
+woosmap.map.CollisionBehavior.REQUIRED;
+// $ExpectType CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY
+woosmap.map.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY;
+
+/**
+ * importLibrary
+ */
+// $ExpectType Promise<object>
+woosmap.map.importLibrary("marker");
 
 /**
  * Marker
@@ -145,6 +183,20 @@ const labelMarkerOptions = expectType({
     map,
 }) as woosmap.map.MarkerOptions;
 const markerLabel = new woosmap.map.Marker(labelMarkerOptions);
+
+/**
+ * Marker with a vector Symbol icon
+ */
+const symbolIcon = expectType({
+    path: "M16 0C9.919 0 5 5.008 5 11.2 5 19.6 16 32 16 32s11-12.4 11-20.8C27 5.008 22.081 0 16 0z",
+    fillColor: "#3c3c3c",
+    fillOpacity: 1,
+    strokeWeight: 0,
+    scale: 1,
+    anchor: new woosmap.map.Point(16, 32),
+    labelOrigin: new woosmap.map.Point(16, 12),
+}) as woosmap.map.MarkerSymbol;
+const symbolMarker = new woosmap.map.Marker({ position: { lat: 43.3, lng: 3.883 }, icon: symbolIcon, map });
 
 /**
  * Map Event Handler
@@ -282,7 +334,7 @@ const feature = expectType({
     geometry: new woosmap.map.Data.Point(new woosmap.map.LatLng(43.34, -24.76)),
     id: "ID_1234",
     properties: { some_properties: "some_value" },
-}) as woosmap.map.FeatureData;
+}) as woosmap.map.Data.FeatureOptions;
 
 map.data.add(feature);
 map.data.loadGeoJson("https://demo.woosmap.com/misc/data/europe.geojson.json");
@@ -300,7 +352,7 @@ map.data.setStyle(feature => {
 });
 
 map.data.addListener("click", (event: any) => {
-    const feature: woosmap.map.data.Feature | null = map.data.getFeatureById("ID_1234");
+    const feature: woosmap.map.Data.Feature | null = map.data.getFeatureById("ID_1234");
     feature?.setProperty("highlighted", false);
     event.feature?.setProperty("highlighted", true);
 });
@@ -434,7 +486,7 @@ listener.remove(); // $ExpectType void
 /**
  * woosmap.map.geometry
  */
-const isContained = woosmap.map.geometry.containsLocation({ lat: 43.3, lng: 3.3 }, polygon); // $ExpectType boolean
+const isContained = woosmap.map.geometry.poly.containsLocation({ lat: 43.3, lng: 3.3 }, polygon); // $ExpectType boolean
 
 /**
  * Drawing tool
@@ -706,6 +758,123 @@ datasetsService.intersects(
     { geometry: { type: "Point", coordinates: [0, 0] }, where: "population:>10", buffer: 1000 },
     { page: 10 },
 );
+
+/**
+ * <wmp-map> / <gmp-map> custom element
+ */
+const wmpMap = new woosmap.map.MapElement();
+// $ExpectType Map
+wmpMap.innerMap;
+// $ExpectType LatLng
+wmpMap.center;
+// $ExpectType number
+wmpMap.zoom;
+// $ExpectType number
+wmpMap.tilt;
+// $ExpectType number
+wmpMap.heading;
+// $ExpectType string
+wmpMap.mapId;
+// $ExpectType string
+wmpMap.mapTypeId;
+wmpMap.center = new woosmap.map.LatLng(48.86, 2.34);
+wmpMap.zoom = 12;
+// `no-shadow` opts out of the default shadow root; it is a plain HTML attribute
+wmpMap.setAttribute("no-shadow", "");
+// `<gmp-map>` is a migration alias for the same element; its backing class is
+// internal, so the public type surface is MapElement only.
+
+/**
+ * AdvancedMarkerElement + PinElement (marker library)
+ */
+const advancedMarker = new woosmap.map.marker.AdvancedMarkerElement({
+    position: { lat: 48.86, lng: 2.34 },
+    title: "HQ",
+    zIndex: 5,
+    gmpDraggable: true,
+    gmpClickable: true,
+    collisionBehavior: woosmap.map.CollisionBehavior.REQUIRED,
+    anchorLeft: "-50%",
+    anchorTop: "-100%",
+});
+// It is a custom element (extends HTMLElement).
+const isElement: HTMLElement = advancedMarker;
+// $ExpectType Map | null
+advancedMarker.map;
+// $ExpectType LatLng | null | undefined
+advancedMarker.position;
+// $ExpectType HTMLElement | null | undefined
+advancedMarker.content;
+// $ExpectType boolean
+advancedMarker.gmpDraggable;
+// $ExpectType boolean
+advancedMarker.gmpClickable;
+// $ExpectType "OPTIONAL_AND_HIDES_LOWER_PRIORITY" | "REQUIRED" | "REQUIRED_AND_HIDES_OPTIONAL" | null | undefined
+advancedMarker.collisionBehavior;
+// $ExpectType string
+advancedMarker.title;
+// $ExpectType string | null | undefined
+advancedMarker.anchorLeft;
+// $ExpectType string | null | undefined
+advancedMarker.anchorTop;
+// $ExpectType MapEventListener
+advancedMarker.addListener("wmp-click", () => {});
+advancedMarker.setPosition(new woosmap.map.LatLng(48.86, 2.34));
+advancedMarker.setPosition("48.86,2.34");
+advancedMarker.map = map;
+advancedMarker.setMap(null);
+
+// A marker with altitude (metres above ground); displaces vertically on tilt.
+new woosmap.map.marker.AdvancedMarkerElement({ position: { lat: 47.65, lng: -122.3, altitude: 20 } });
+
+// LatLngAltitude (core): property-based lat/lng/altitude, like google.maps.
+const alt = new woosmap.map.LatLngAltitude({ lat: 47.65, lng: -122.3, altitude: 20 });
+// $ExpectType number
+alt.lat;
+// $ExpectType number
+alt.altitude;
+// $ExpectType boolean
+alt.equals({ lat: 47.65, lng: -122.3, altitude: 20 });
+// $ExpectType LatLngAltitudeLiteral
+alt.toJSON();
+new woosmap.map.LatLngAltitude(new woosmap.map.LatLng(47.65, -122.3), true);
+
+// DOM-composition style, like Google: append content + the marker into the map.
+const customMarkerContent = document.createElement("div");
+const advancedMarkerCustom = new woosmap.map.marker.AdvancedMarkerElement({ position: { lat: 1, lng: 1 } });
+advancedMarkerCustom.append(customMarkerContent);
+advancedMarkerCustom.content = customMarkerContent;
+wmpMap.append(advancedMarkerCustom);
+
+const pin = new woosmap.map.marker.PinElement({
+    background: "#0a58ca",
+    borderColor: "#003366",
+    glyphColor: "#ffffff",
+    glyphText: "A",
+    scale: 1.2,
+});
+// A PinElement is itself an HTMLElement — append it directly.
+const isPinElement: HTMLElement = pin;
+// $ExpectType HTMLElement — deprecated accessors return the pin itself.
+pin.getElement();
+// $ExpectType HTMLElement
+pin.element;
+// Reactive accessors re-render the pin in place.
+pin.background = "#ff0000";
+pin.borderColor = "#990000";
+pin.glyphColor = "#ffffff";
+pin.glyphText = "★";
+pin.glyphSrc = "https://example.com/g.png";
+pin.glyph = "B";
+pin.scale = 2;
+// $ExpectType string
+pin.background;
+// $ExpectType number
+pin.scale;
+// Google-compat: pass the PinElement as content, or append it to the marker.
+new woosmap.map.marker.AdvancedMarkerElement({ content: pin });
+const markerWithPin = new woosmap.map.marker.AdvancedMarkerElement({ position: { lat: 1, lng: 1 } });
+markerWithPin.append(pin);
 
 /**
  * helper functions for testing purpose

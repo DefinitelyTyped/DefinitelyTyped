@@ -7,7 +7,7 @@ export class BlobUpload {
         };
     });
 
-    create(callback: (error: Error, blob: Blob) => void): void;
+    create(callback: (error: string | null, blob: Blob) => void): void;
 
     xhr: XMLHttpRequest;
 }

@@ -627,6 +627,17 @@ async function test() {
             }],
         });
     });
+    // $ExpectType void
+    page.on("metric", msg => {
+        // $ExpectType void
+        msg.tag({
+            name: "test",
+            matches: [{
+                url: /^https:\/\/test\.k6\.io\/search$/,
+                method: "QUERY",
+            }],
+        });
+    });
 
     // $ExpectType void
     page.on("request", request => {

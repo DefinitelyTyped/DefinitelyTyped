@@ -15,13 +15,17 @@ declare module "../index" {
         T extends object | null | undefined ? Object<T> :
         Primitive<T>;
     type ExpChain<T> =
+        [T] extends [never] ? never :
+        [Exclude<T, null | undefined>] extends [never] ? PrimitiveChain<T> :
+        DistributedExpChain<T, 0 extends 1 & T ? never : Extract<T, null | undefined>>;
+    type DistributedExpChain<T, TNullish> =
         T extends { __trapAny: any } ? CollectionChain<any> & FunctionChain<any> & ObjectChain<any> & PrimitiveChain<any> & StringChain :
         T extends null | undefined ? never :
-        T extends string ? StringChain<T> :
-        T extends (...args: any) => any ? FunctionChain<T> :
-        T extends List<infer U> | null | undefined ? CollectionChain<U> :
-        T extends object | null | undefined ? ObjectChain<T> :
-        PrimitiveChain<T>;
+        T extends string ? ([TNullish] extends [never] ? StringChain<T> : StringNullableChain) :
+        T extends (...args: any) => any ? ([TNullish] extends [never] ? FunctionChain<T> : ObjectChain<T | TNullish>) :
+        T extends List<infer U> ? CollectionChain<U> :
+        T extends object ? ObjectChain<T | TNullish> :
+        PrimitiveChain<T | TNullish>;
     interface LoDashStatic {
         /**
         * Creates a lodash object which wraps value to enable implicit method chain sequences.

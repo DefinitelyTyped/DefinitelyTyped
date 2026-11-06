@@ -1,6 +1,6 @@
-import { Node, TempNode, TextureNode } from "three/webgpu";
+import { Node, TextureNode } from "three/webgpu";
 
-declare class BilateralBlurNode extends TempNode<"vec4"> {
+declare class BilateralBlurNode extends Node<"vec4"> {
     textureNode: TextureNode;
     directionNode: Node<"vec2"> | Node<"float"> | null;
     sigma: number;

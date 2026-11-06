@@ -3,6 +3,7 @@ import { CoordinateSystem } from "../constants.js";
 import { Object3D } from "../core/Object3D.js";
 import { Sprite } from "../objects/Sprite.js";
 import { Box3 } from "./Box3.js";
+import { Frustum } from "./Frustum.js";
 import { Sphere } from "./Sphere.js";
 import { Vector3 } from "./Vector3.js";
 
@@ -25,6 +26,13 @@ export class FrustumArray {
      * @return {FrustumArray} A reference to this frustum array.
      */
     setFromArrayCamera(cameraArray: ArrayCamera): FrustumArray;
+    /**
+     * Returns the cached frustum for the sub-camera at the given index.
+     *
+     * @param {number} index - The sub-camera index.
+     * @return {Frustum|undefined} The cached frustum.
+     */
+    getFrustum(index: number): Frustum | undefined;
     /**
      * Returns `true` if the 3D object's bounding sphere is intersecting any cached frustum.
      *

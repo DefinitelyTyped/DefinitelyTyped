@@ -27,8 +27,10 @@ export type Action<
     SubAction extends string | undefined = undefined,
     Namespace extends string | undefined = undefined,
     SubActions extends SubAction[] = SubAction[],
-> = SubAction extends string
-    ? PlainAction<OwnAction, Namespace> & SubActionProps<SubAction, SubActions, Namespace, OwnAction>
+> = SubAction extends string ?
+        & PlainAction<OwnAction, Namespace>
+        & // The array must not be narrowed to one distributed SubAction.
+        SubActionProps<string, SubActions & string[], Namespace, OwnAction>
     : PlainAction<OwnAction, Namespace>;
 
 export function defineAction<OwnAction extends string>(actionType: OwnAction): Action<OwnAction>;

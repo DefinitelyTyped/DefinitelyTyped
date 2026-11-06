@@ -1,11 +1,8 @@
 import Node from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 import { ProxiedObject } from "../tsl/TSLCore.js";
 import FunctionNode, { FunctionNodeArguments } from "./FunctionNode.js";
 
-export default class FunctionCallNode<P extends Array<Node | number> | { [name: string]: Node | number }>
-    extends TempNode
-{
+export default class FunctionCallNode<P extends Array<Node | number> | { [name: string]: Node | number }> extends Node {
     functionNode: FunctionNode<P>;
     parameters: { [name: string]: Node };
 

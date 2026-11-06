@@ -32,6 +32,18 @@ export class Loader<TData = unknown, TUrl = string> {
      */
     requestHeader: { [header: string]: string };
 
+    /**
+     * The request priority hint. Image loaders use `HTMLImageElement.fetchPriority`.
+     * @default 'auto'
+     */
+    priority: "high" | "low" | "auto";
+
+    /**
+     * The HTTP cache mode passed to `fetch()`. This does not affect {@link Cache} or loaders using `HTMLImageElement`.
+     * @default 'default'
+     */
+    cache: "default" | "no-store" | "reload" | "no-cache" | "force-cache";
+
     load(
         url: TUrl,
         onLoad: (data: TData) => void,
@@ -45,6 +57,8 @@ export class Loader<TData = unknown, TUrl = string> {
     setPath(path: string): this;
     setResourcePath(resourcePath: string): this;
     setRequestHeader(requestHeader: { [header: string]: string }): this;
+    setPriority(value: "high" | "low" | "auto"): this;
+    setCache(value: "default" | "no-store" | "reload" | "no-cache" | "force-cache"): this;
     abort(): this;
 
     static DEFAULT_MATERIAL_NAME: string;

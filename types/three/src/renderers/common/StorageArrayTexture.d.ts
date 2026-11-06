@@ -17,6 +17,15 @@ declare class Storage3DTexture extends Texture {
     readonly isStorageTexture: true;
 
     /**
+     * Whether the renderer regenerates the mipmaps automatically.
+     *
+     * Overwritten and set to `false` by default.
+     *
+     * @default false
+     */
+    mipmapsAutoUpdate: boolean;
+
+    /**
      * Constructs a new storage texture.
      *
      * @param {number} [width=1] - The storage texture's width.

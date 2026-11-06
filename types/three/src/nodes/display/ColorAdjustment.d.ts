@@ -1,10 +1,13 @@
 import Node from "../core/Node.js";
 
-export const grayscale: (color: Node) => Node<"vec3">;
+export const workingLuminanceCoefficients: Node<"vec3">;
+
+export const grayscale: (color: Node, luminanceCoefficients?: Node) => Node<"float">;
 
 export const saturation: (
     color: Node,
     adjustment?: Node | number,
+    luminanceCoefficients?: Node,
 ) => Node<"vec3">;
 
 export const vibrance: (

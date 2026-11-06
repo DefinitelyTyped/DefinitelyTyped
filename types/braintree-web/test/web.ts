@@ -101,6 +101,7 @@ braintree.client.create(
                             return googlePayInstance.parseResponse(paymentData);
                         })
                         .then((result: braintree.GooglePaymentTokenizePayload) => {
+                            const lastTwo: string = result.details.lastTwo;
                             console.log("nonce", result.nonce);
                         })
                         .catch(err => {

@@ -1,5 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-const-enum": "off"
-    }
-}

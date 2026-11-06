@@ -1,4 +1,3 @@
-type BluetoothServiceUUID = number | string;
 type BluetoothCharacteristicUUID = number | string;
 type BluetoothDescriptorUUID = number | string;
 

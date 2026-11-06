@@ -2,6 +2,14 @@
     "private": true,
     "name": "@types/web-bluetooth",
     "version": "0.0.9999",
+    "types": "index",
+    "typesVersions": {
+        "<=7.0": {
+            "*": [
+                "ts7.0/*"
+            ]
+        }
+    },
     "projects": [
         "https://webbluetoothcg.github.io/web-bluetooth/"
     ],

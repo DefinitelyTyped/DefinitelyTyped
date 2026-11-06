@@ -1,4 +1,22 @@
-import chroma, { Color, Scale } from "chroma-js";
+import chroma, {
+    average,
+    bezier,
+    blend,
+    brewer,
+    Color,
+    contrast,
+    contrastAPCA,
+    cubehelix,
+    deltaE,
+    distance,
+    interpolate,
+    limits,
+    mix,
+    random,
+    Scale,
+    scale,
+    valid,
+} from "chroma-js";
 
 function test_chroma() {
     chroma("hotpink");
@@ -239,6 +257,39 @@ function test_scale() {
 
     chroma.scale("RdYlBu");
     chroma.scale("RdYlBu").padding(0.15);
+}
+
+function test_named_exports() {
+    // $ExpectType number
+    contrastAPCA("hotpink", "pink");
+    // $ExpectType number
+    contrast("pink", "purple");
+    // $ExpectType Color
+    mix("red", "blue", 0.5, "lab");
+    // $ExpectType Color
+    interpolate("red", "blue");
+    // $ExpectType Color
+    average(["4CBBFC", "yellow"], "lch");
+    // $ExpectType Color
+    blend("4CBBFC", "EEEE22", "multiply");
+    // $ExpectType Color
+    random();
+    // $ExpectType boolean
+    valid("bread");
+    // $ExpectType number
+    deltaE("#ededee", "#ededee");
+    // $ExpectType number
+    distance("#fff", "#ff0", "rgb");
+    // $ExpectType Scale<Color>
+    scale(["black", "white"]);
+    // $ExpectType Scale<Color>
+    bezier(["yellow", "red", "black"]).scale();
+    // $ExpectType Cubehelix
+    cubehelix();
+    // $ExpectType string[]
+    brewer.OrRd;
+    // $ExpectType number[]
+    limits([1, 2, 3, 4], "e", 2);
 }
 
 function test_types() {

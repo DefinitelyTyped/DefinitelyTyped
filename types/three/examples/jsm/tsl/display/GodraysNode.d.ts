@@ -1,12 +1,12 @@
-import { Camera, DirectionalLight, PointLight, TempNode, TextureNode, UniformNode } from "three/webgpu";
+import { Camera, DirectionalLight, Node, PointLight, TextureNode, UniformNode } from "three/webgpu";
 
-declare class GodraysNode extends TempNode<"vec4"> {
+declare class GodraysNode extends Node<"vec4"> {
     depthNode: TextureNode;
 
-    raymarchSteps: UniformNode<"uint", number>;
-    density: UniformNode<"float", number>;
-    maxDensity: UniformNode<"float", number>;
-    distanceAttenuation: UniformNode<"float", number>;
+    raymarchSteps: UniformNode<"uint">;
+    density: UniformNode<"float">;
+    maxDensity: UniformNode<"float">;
+    distanceAttenuation: UniformNode<"float">;
     resolutionScale: number;
 
     constructor(depthNode: TextureNode, camera: Camera, light: DirectionalLight | PointLight);

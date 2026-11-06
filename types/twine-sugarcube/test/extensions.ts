@@ -104,6 +104,8 @@ $(s).wikiPassage(s);
 $.wiki(s);
 $.wikiPassage(s);
 
+// Web Serial's constructor wins global name resolution in TypeScript 7.1.
+// @ts-expect-error >=7.1
 Serial.createReviver("new Character($ReviveData$)", {});
 
 export {};

@@ -1,6 +1,6 @@
-import TempNode from "../core/TempNode.js";
+import Node from "../core/Node.js";
 
-declare class SetNode extends TempNode {
+declare class SetNode extends Node {
     sourceNode: Node;
     components: string[];
     targetNode: Node;

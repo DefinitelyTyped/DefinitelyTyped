@@ -1,4 +1,4 @@
-import { Camera, Node, Object3D, Scene, TempNode, TextureNode } from "three/webgpu";
+import { Camera, Node, Object3D, Scene, TextureNode } from "three/webgpu";
 
 export interface OutlineNodeParams {
     selectedObjects?: Object3D[] | undefined;
@@ -7,7 +7,7 @@ export interface OutlineNodeParams {
     downSampleRatio?: number | undefined;
 }
 
-declare class OutlineNode extends TempNode<"vec4"> {
+declare class OutlineNode extends Node<"vec4"> {
     scene: Scene;
     camera: Camera;
     selectedObjects: Object3D[];

@@ -29,6 +29,7 @@ import InspectorBase from "./InspectorBase.js";
 import Lighting from "./Lighting.js";
 import NodeLibrary from "./nodes/NodeLibrary.js";
 import ReadbackBuffer from "./ReadbackBuffer.js";
+import StandardDrawingPipeline from "./StandardDrawingPipeline.js";
 import XRManager from "./XRManager.js";
 
 declare module "../../scenes/Scene.js" {
@@ -79,7 +80,7 @@ declare class Renderer {
      * Renderer options.
      *
      * @typedef {Object} Renderer~Options
-     * @property {boolean} [logarithmicDepthBuffer=false] - Whether logarithmic depth buffer is enabled or not.
+     * @property {boolean} [logarithmicDepthBuffer=false] - Whether logarithmic depth buffer is enabled or not. Ignored when a reversed depth buffer is in use.
      * @property {boolean} [reversedDepthBuffer=false] - Whether reversed depth buffer is enabled or not.
      * @property {boolean} [alpha=true] - Whether the default framebuffer (which represents the final contents of the canvas) should be transparent or opaque.
      * @property {boolean} [depth=true] - Whether the default framebuffer should have a depth buffer or not.
@@ -154,7 +155,8 @@ declare class Renderer {
      */
     alpha: boolean;
     /**
-     * Whether logarithmic depth buffer is enabled or not.
+     * Whether logarithmic depth buffer is enabled or not. It is disabled
+     * on initialization when a reversed depth buffer is in use.
      *
      * @type {boolean}
      * @default false
@@ -247,6 +249,15 @@ declare class Renderer {
      * @type {Lighting}
      */
     lighting: Lighting;
+    /**
+     * Decides which objects of a scene are rendered and how they are submitted
+     * to the render list. Assigning a drawing pipeline binds it to this renderer.
+     * The default is a {@link StandardDrawingPipeline}. This property is experimental.
+     *
+     * @type {StandardDrawingPipeline}
+     */
+    set drawingPipeline(pipeline: StandardDrawingPipeline);
+    get drawingPipeline(): StandardDrawingPipeline;
     /**
      * A callback function that defines what should happen when a device/context lost occurs.
      *
@@ -391,6 +402,7 @@ declare class Renderer {
      * Compiles all materials in the given scene. This can be useful to avoid a
      * phenomenon which is called "shader compilation stutter", which occurs when
      * rendering an object with a new shader for the first time.
+     * The active drawing pipeline also prepares its geometry resources and compute pipelines.
      *
      * If you want to add a 3D object to an existing scene, use the third optional
      * parameter for applying the target scene. Note that the (target) scene's lighting
@@ -554,10 +566,10 @@ declare class Renderer {
      * from the GPU to the CPU in context of compute shaders.
      *
      * @async
-     * @param {BufferAttribute} attribute - The storage buffer attribute to read frm.
-     * @param {ReadbackBuffer|ArrayBuffer} target - The storage buffer attribute.
-     * @param {number} offset - The storage buffer attribute.
-     * @param {number} count - The offset from which to start reading the
+     * @param {BufferAttribute} attribute - The storage buffer attribute to read from.
+     * @param {?(ReadbackBuffer|ArrayBuffer)} [target=null] - The readback buffer or array buffer that receives the data. If `null`, a new array buffer is returned.
+     * @param {number} [offset=0] - The byte offset to start reading from. Must be a multiple of 4.
+     * @param {number} [count=-1] - The number of bytes to read. Must be a multiple of 4, or `-1` to read to the end of the buffer.
      * @return {Promise<ArrayBuffer|ReadbackBuffer>} A promise that resolves with the buffer data when the data are ready.
      */
     getArrayBufferAsync(

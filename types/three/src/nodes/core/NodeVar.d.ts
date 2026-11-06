@@ -12,8 +12,9 @@ declare class NodeVar {
      * @param {string} type - The type of the variable.
      * @param {boolean} [readOnly=false] - The read-only flag.
      * @param {?number} [count=null] - The size.
+     * @param {boolean} [local=false] - Whether the variable is declared locally in the flow.
      */
-    constructor(name: string, type: string, readOnly?: boolean, count?: number | null);
+    constructor(name: string, type: string, readOnly?: boolean, count?: number | null, local?: boolean);
     /**
      * This flag can be used for type testing.
      *
@@ -40,6 +41,13 @@ declare class NodeVar {
      * @type {boolean}
      */
     readOnly: boolean;
+    /**
+     * Whether the variable is declared locally in the flow.
+     *
+     * @type {boolean}
+     * @default false
+     */
+    local: boolean;
     /**
      * The size.
      *

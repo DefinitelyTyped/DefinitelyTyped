@@ -31,7 +31,7 @@ export default ScreenNode;
 
 // Screen
 
-export const screenDPR: UniformNode<"float", number>;
+export const screenDPR: UniformNode<"float">;
 export const screenUV: ScreenNode<"vec2">;
 export const screenSize: ScreenNode<"vec2">;
 export const screenCoordinate: ScreenNode<"vec2">;

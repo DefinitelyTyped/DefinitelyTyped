@@ -1,5 +1,4 @@
 import Node from "./Node.js";
-import TempNode from "./TempNode.js";
 
 export interface ArrayNodeInterface<TNodeType> {
     count: number;
@@ -15,7 +14,7 @@ declare const ArrayNode: {
     ): ArrayNode<TNodeType>;
 };
 
-type ArrayNode<TNodeType> = TempNode<TNodeType> & ArrayNodeInterface<TNodeType>;
+type ArrayNode<TNodeType> = Node<TNodeType> & ArrayNodeInterface<TNodeType>;
 
 export default ArrayNode;
 

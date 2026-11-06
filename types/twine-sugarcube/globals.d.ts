@@ -43,7 +43,8 @@ declare global {
      * Serial API
      * @since 2.37.0
      */
-    const Serial: SerialAPI;
+    // Defer to the DOM constructor when Web Serial is present.
+    var Serial: typeof globalThis extends { SerialPort: unknown; Serial: infer T } ? T : SerialAPI;
 
     /**
      * @since 2.28.0

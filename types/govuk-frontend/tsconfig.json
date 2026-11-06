@@ -22,6 +22,8 @@
         "dist/govuk/common/closest-attribute-value.d.ts",
         "dist/govuk/common/configuration.d.mts",
         "dist/govuk/common/configuration.d.ts",
+        "dist/govuk/common/create-element.d.mts",
+        "dist/govuk/common/create-element.d.ts",
         "dist/govuk/common/govuk-frontend-version.d.mts",
         "dist/govuk/common/govuk-frontend-version.d.ts",
         "dist/govuk/common/index.d.mts",

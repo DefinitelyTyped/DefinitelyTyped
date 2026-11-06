@@ -7,7 +7,7 @@
     ],
     "dependencies": {
         "@types/falcor": "*",
-        "@types/falcor-json-graph": "*",
+        "@types/falcor-json-graph": "^1.1",
         "@types/rx": "*"
     },
     "devDependencies": {

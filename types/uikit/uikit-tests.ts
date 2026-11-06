@@ -47,6 +47,7 @@ function testAccordion() {
 function testAlert() {
     UIkit.alert(element).$destroy();
     UIkit.alert(element, true).$destroy();
+    UIkit.alert(element, false).$destroy();
     UIkit.alert(element, "Hello").$destroy();
 
     const component = UIkit.alert(element, {
@@ -137,7 +138,7 @@ function testFilter() {
     component.$destroy();
 }
 
-function testForm() {
+function testFormCustom() {
     UIkit.formCustom(element).$destroy();
     UIkit.formCustom(element, "input");
 
@@ -199,7 +200,7 @@ async function testIcon() {
     component.$destroy();
 }
 
-function testImage() {
+function testImg() {
     UIkit.img(element).$destroy();
     UIkit.img(element, "image.jpg");
 

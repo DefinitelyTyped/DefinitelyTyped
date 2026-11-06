@@ -1,6 +1,6 @@
-import { Camera, TempNode, TextureNode } from "three/webgpu";
+import { Camera, Node, TextureNode } from "three/webgpu";
 
-declare class TAAUNode extends TempNode<"vec4"> {
+declare class TAAUNode extends Node<"vec4"> {
     readonly isTAAUNode: boolean;
 
     beautyNode: TextureNode;

@@ -107,7 +107,7 @@ export abstract class Interpolant<TSettings = {}> {
      *
      * @param {number} i1 - An index into the sample value buffer.
      * @param {number} t0 - The previous interpolation factor.
-     * @param {number} t - The current interpolation factor.
+     * @param {number} t1 - The next interpolation factor.
      */
-    intervalChanged_(i1: number, t0: number, t: number): void;
+    intervalChanged_(i1: number, t0: number, t1: number): void;
 }

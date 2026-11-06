@@ -7,6 +7,8 @@ import { WebGLRenderTarget } from "./WebGLRenderTarget.js";
 export class WebGLCubeRenderTarget extends WebGLRenderTarget {
     constructor(size?: number, options?: RenderTargetOptions);
 
+    readonly isWebGLCubeRenderTarget: true;
+
     textures: CubeTexture[];
 
     get texture(): CubeTexture;

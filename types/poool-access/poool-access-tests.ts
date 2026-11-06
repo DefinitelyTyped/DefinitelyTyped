@@ -90,6 +90,20 @@ access.config(
 );
 
 // $ExpectType AccessFactory
+access.config(
+    {
+        render: "next",
+    },
+);
+
+// $ExpectType AccessFactory
+access.config(
+    {
+        sophi_enabled: true,
+    },
+);
+
+// $ExpectType AccessFactory
 access.config("key", "value", true);
 
 // $ExpectType AccessFactory

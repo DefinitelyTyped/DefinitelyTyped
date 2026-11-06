@@ -309,3 +309,6 @@ d.updateOptions({
         event;
     },
 });
+
+// $ExpectType number
+Dygraph.Granularity.MINUTELY;

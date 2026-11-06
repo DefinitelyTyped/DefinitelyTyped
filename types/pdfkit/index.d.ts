@@ -652,7 +652,8 @@ declare namespace PDFKit.Mixins {
         lineCap(c: string): this;
         lineJoin(j: string): this;
         miterLimit(m: any): this;
-        dash(length: number, option: any): this;
+        dash(length: number, option?: { space?: number; phase?: number }): this;
+        dash(pattern: number[], option?: { phase?: number }): this;
         undash(): this;
         moveTo(x: number, y: number): this;
         lineTo(x: number, y: number): this;

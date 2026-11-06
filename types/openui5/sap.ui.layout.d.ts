@@ -1,4 +1,4 @@
-// For Library Version: 1.153.0
+// For Library Version: 1.154.0
 
 declare module "sap/ui/layout/library" {
   import Control from "sap/ui/core/Control";
@@ -10068,11 +10068,13 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * The maximum amount of groups (`{@link sap.ui.layout.form.FormContainer FormContainers}`) per row that
      * is used before a new row is started.
      *
-     * **Note:** If `{@link sap.ui.layout.form.SimpleFormLayout.ResponsiveGridLayout}` is used as `layout`,
-     * this property is not used. Please use the properties `ColumnsL` and `ColumnsM` in this case.
+     * **Note:** If `{@link sap.ui.layout.form.SimpleFormLayout.ResponsiveGridLayout}` or `{@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout}`
+     * is used as `layout`, this property is not used. Please use the properties `ColumnsL` and `ColumnsM` in
+     * this case.
      *
      * Default value is `2`.
      *
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Value of property `maxContainerCols`
      */
@@ -10668,13 +10670,15 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * The maximum amount of groups (`{@link sap.ui.layout.form.FormContainer FormContainers}`) per row that
      * is used before a new row is started.
      *
-     * **Note:** If `{@link sap.ui.layout.form.SimpleFormLayout.ResponsiveGridLayout}` is used as `layout`,
-     * this property is not used. Please use the properties `ColumnsL` and `ColumnsM` in this case.
+     * **Note:** If `{@link sap.ui.layout.form.SimpleFormLayout.ResponsiveGridLayout}` or `{@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout}`
+     * is used as `layout`, this property is not used. Please use the properties `ColumnsL` and `ColumnsM` in
+     * this case.
      *
      * When called with a value of `null` or `undefined`, the default value of the property will be restored.
      *
      * Default value is `2`.
      *
+     * @deprecated As of version 1.93. use another `Layout`
      *
      * @returns Reference to `this` in order to allow method chaining
      */
@@ -10787,8 +10791,11 @@ declare module "sap/ui/layout/form/SimpleForm" {
      * The maximum amount of groups (`{@link sap.ui.layout.form.FormContainer FormContainers}`) per row that
      * is used before a new row is started.
      *
-     * **Note:** If `{@link sap.ui.layout.form.SimpleFormLayout.ResponsiveGridLayout}` is used as `layout`,
-     * this property is not used. Please use the properties `ColumnsL` and `ColumnsM` in this case.
+     * **Note:** If `{@link sap.ui.layout.form.SimpleFormLayout.ResponsiveGridLayout}` or `{@link sap.ui.layout.form.SimpleFormLayout.ColumnLayout}`
+     * is used as `layout`, this property is not used. Please use the properties `ColumnsL` and `ColumnsM` in
+     * this case.
+     *
+     * @deprecated As of version 1.93. use another `Layout`
      */
     maxContainerCols?: int | PropertyBindingInfo | `{${string}}`;
 

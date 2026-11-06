@@ -8,10 +8,5 @@
     "devDependencies": {
         "@types/google-fonts": "workspace:."
     },
-    "owners": [
-        {
-            "name": "Rafa Mel",
-            "githubUsername": "rafamel"
-        }
-    ]
+    "owners": []
 }

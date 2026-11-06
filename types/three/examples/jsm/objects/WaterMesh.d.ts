@@ -27,12 +27,12 @@ declare class WaterMesh extends Mesh<BufferGeometry, NodeMaterial> {
     resolutionScale: number;
 
     waterNormals: TextureNode;
-    alpha: UniformNode<"float", number>;
-    size: UniformNode<"float", number>;
-    sunColor: UniformNode<"color", Color>;
-    sunDirection: UniformNode<"vec3", Vector3>;
-    waterColor: UniformNode<"color", Color>;
-    distortionScale: UniformNode<"float", number>;
+    alpha: UniformNode<"float">;
+    size: UniformNode<"float">;
+    sunColor: UniformNode<"color">;
+    sunDirection: UniformNode<"vec3">;
+    waterColor: UniformNode<"color">;
+    distortionScale: UniformNode<"float">;
 
     constructor(geometry: BufferGeometry, options: WaterMeshOptions);
 }

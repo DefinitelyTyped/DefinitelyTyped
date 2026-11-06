@@ -146,14 +146,14 @@ function testSandbox() {
 }
 
 function testClock() {
-    let clock = sinon.clock.create(1000) as fakeTimers.BrowserClock;
-    clock = sinon.clock.create(new Date()) as fakeTimers.BrowserClock;
+    let clock = sinon.clock.create(1000);
+    clock = sinon.clock.create(new Date());
 
-    let now = 0;
+    let now: fakeTimers.TimerId = 0;
     now = clock.now;
 
     const fn = () => {};
-    const fnWithArgs = (a: number, b: string) => {};
+    const fnWithArgs = (a: unknown, b: unknown) => {};
 
     clock.setTimeout(fn, 0);
     clock.setInterval(fn, 0);
@@ -163,7 +163,7 @@ function testClock() {
     now = clock.setTimeout(fnWithArgs, 0, 1234, "abc");
     now = clock.setInterval(fnWithArgs, 0, 1234, "abc");
 
-    clock.setImmediate(fnWithArgs, 1234, "abc"); // $ExpectType number
+    clock.setImmediate(fnWithArgs, 1234, "abc"); // $ExpectType NodeImmediate
 
     let timer = clock.setTimeout(fn, 0);
     clock.clearTimeout(timer);
@@ -175,7 +175,7 @@ function testClock() {
     const animTimer = clock.requestAnimationFrame(fn);
     clock.cancelAnimationFrame(animTimer);
 
-    const nodeClock = sinon.clock.create(1) as fakeTimers.NodeClock & fakeTimers.InstalledClock;
+    const nodeClock = sinon.clock.create(1);
     nodeClock.nextTick(fn);
 
     clock.tick(1);

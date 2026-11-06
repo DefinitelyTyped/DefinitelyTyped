@@ -16,6 +16,7 @@ interface ValueSelectWithParameters<T = Record<string, unknown>, K extends keyof
     extends ValueSelect<T, K>
 {
     name: (name: string) => this;
+    info: (text: string) => this;
     listen: () => this;
 }
 
@@ -24,6 +25,7 @@ interface ValueNumberWithParameters<
     K extends KeyToValueOfType<T, number> = KeyToValueOfType<T, number>,
 > extends ValueNumber<T, K> {
     name: (name: string) => this;
+    info: (text: string) => this;
     listen: () => this;
 }
 
@@ -32,6 +34,7 @@ interface ValueSliderWithParameters<
     K extends KeyToValueOfType<T, number> = KeyToValueOfType<T, number>,
 > extends ValueSlider<T, K> {
     name: (name: string) => this;
+    info: (text: string) => this;
     listen: () => this;
 }
 
@@ -40,6 +43,7 @@ interface ValueCheckboxWithParameters<
     K extends KeyToValueOfType<T, boolean> = KeyToValueOfType<T, boolean>,
 > extends ValueCheckbox<T, K> {
     name: (name: string) => this;
+    info: (text: string) => this;
     listen: () => this;
 }
 
@@ -48,6 +52,7 @@ interface ValueStringWithParameters<
     K extends KeyToValueOfType<T, string> = KeyToValueOfType<T, string>,
 > extends ValueString<T, K> {
     name: (name: string) => this;
+    info: (text: string) => this;
     listen: () => this;
 }
 
@@ -56,6 +61,7 @@ interface ValueButtonWithParameters<
     K extends KeyToValueOfType<T, (this: T) => void> = KeyToValueOfType<T, (this: T) => void>,
 > extends ValueButton<T, K> {
     name: (name: string) => this;
+    info: (text: string) => this;
 }
 
 interface ValueColorWithParameters<
@@ -63,6 +69,7 @@ interface ValueColorWithParameters<
     K extends keyof T = keyof T,
 > extends ValueColor<T, K> {
     name: (name: string) => this;
+    info: (text: string) => this;
     listen: () => this;
 }
 

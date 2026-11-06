@@ -1,9 +1,5 @@
 import Ember from "ember";
 
-declare global {
-    interface Function extends Ember.FunctionPrototypeExtensions {}
-}
-
 Ember.Object.extend({
     foo: "",
 

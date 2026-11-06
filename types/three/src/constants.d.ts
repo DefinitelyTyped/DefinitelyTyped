@@ -177,7 +177,6 @@ export const UVMapping: 300;
  */
 export const CubeReflectionMapping: 301;
 export const CubeRefractionMapping: 302;
-export const CubeUVReflectionMapping: 306;
 
 export const EquirectangularReflectionMapping: 303;
 export const EquirectangularRefractionMapping: 304;
@@ -199,8 +198,7 @@ export type Mapping =
  */
 export type CubeTextureMapping =
     | typeof CubeReflectionMapping
-    | typeof CubeRefractionMapping
-    | typeof CubeUVReflectionMapping;
+    | typeof CubeRefractionMapping;
 
 /**
  * Texture Mapping Modes for any type of Textures

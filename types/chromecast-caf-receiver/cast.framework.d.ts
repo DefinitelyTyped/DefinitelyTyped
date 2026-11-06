@@ -1,6 +1,7 @@
 import * as breaks from "./cast.framework.breaks";
 import * as events from "./cast.framework.events";
 import * as messages from "./cast.framework.messages";
+import * as stats from "./cast.framework.stats";
 import * as system from "./cast.framework.system";
 import * as ui from "./cast.framework.ui";
 
@@ -9,29 +10,36 @@ export import events = events;
 export import ui = ui;
 export import system = system;
 export import messages = messages;
+export import stats = stats;
 
 export as namespace framework;
-export enum LoggerLevel {
-    DEBUG = 0,
-    VERBOSE = 500,
-    INFO = 800,
-    WARNING = 900,
-    ERROR = 1000,
-    NONE = 1500,
-}
+export const LoggerLevel: {
+    readonly DEBUG: 0;
+    readonly VERBOSE: 500;
+    readonly INFO: 800;
+    readonly WARNING: 900;
+    readonly ERROR: 1000;
+    readonly NONE: 1500;
+};
+export type LoggerLevel = (typeof LoggerLevel)[keyof typeof LoggerLevel];
 
 /**
  * Content protection type.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ContentProtection
  */
-export enum ContentProtection {
-    NONE = "none",
-    CLEARKEY = "clearkey",
-    PLAYREADY = "playready",
-    WIDEVINE = "widevine",
-    AES_128 = "aes_128",
-    AES_128_CKP = "aes_128_ckp",
-}
+export const ContentProtection: {
+    readonly NONE: "none";
+    readonly CLEARKEY: "clearkey";
+    readonly PLAYREADY: "playready";
+    readonly WIDEVINE: "widevine";
+    readonly AES_128: "aes_128";
+    readonly AES_128_CKP: "aes_128_ckp";
+};
+/**
+ * Content protection type.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ContentProtection
+ */
+export type ContentProtection = (typeof ContentProtection)[keyof typeof ContentProtection];
 
 /**
  * Version of CAF receiver SDK.
@@ -210,6 +218,16 @@ export class QueueBase {
     onItemsRemoved(itemIds: number[]): void;
 
     /**
+     * A callback that indicates that the following items have been reordered.
+     * Optional: CAF only calls this if the queue implements it.
+     * @param items The items that were reordered.
+     * @param insertBefore ID of the item that is located immediately after the
+     *     reordered list. If `insertBefore` is not provided, the reordered list
+     *     will be appended to the end of the queue.
+     */
+    onItemsReordered?(items: messages.QueueItem[], insertBefore?: number): void;
+
+    /**
      * Returns previous items before the reference item; often at the beginning of the queue; called by the receiver MediaManager.
      */
     prevItems(itemId?: number): messages.QueueItem[] | Promise<messages.QueueItem[]>;
@@ -228,6 +246,127 @@ export class QueueBase {
 
 // So we can have some auxiliary private types.
 export {};
+
+/**
+ * An XML node, in Shaka Player's shaka.extern.xml.Node format.
+ * Not part of the CAF API; used by {@link DashTimedMetadata.eventNode}.
+ * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.xml.Node
+ */
+interface ShakaXmlNode {
+    /** The name of the element. */
+    tagName: string;
+    /** The attributes of the element. */
+    attributes: { [key: string]: string };
+    /** The child nodes or string body of the element. */
+    children: Array<ShakaXmlNode | string>;
+    /** The parent of the current element. */
+    parent: ShakaXmlNode | null;
+}
+
+/**
+ * Event types whose listeners receive a {@link MediaElementEventHandler}.
+ * Not part of the CAF API; used by the addEventListener overloads.
+ */
+type MediaElementEventType =
+    | typeof events.EventType.ABORT
+    | typeof events.EventType.CAN_PLAY
+    | typeof events.EventType.CAN_PLAY_THROUGH
+    | typeof events.EventType.DURATION_CHANGE
+    | typeof events.EventType.EMPTIED
+    | typeof events.EventType.ENDED
+    | typeof events.EventType.LOADED_DATA
+    | typeof events.EventType.LOADED_METADATA
+    | typeof events.EventType.LOAD_START
+    | typeof events.EventType.PLAY
+    | typeof events.EventType.PLAYING
+    | typeof events.EventType.PROGRESS
+    | typeof events.EventType.RATE_CHANGE
+    | typeof events.EventType.SEEKED
+    | typeof events.EventType.SEEKING
+    | typeof events.EventType.STALLED
+    | typeof events.EventType.TIME_UPDATE
+    | typeof events.EventType.SUSPEND
+    | typeof events.EventType.WAITING;
+
+/**
+ * Event types whose listeners receive a {@link BreaksEventHandler}.
+ * Not part of the CAF API; used by the addEventListener overloads.
+ */
+type BreakEventType =
+    | typeof events.EventType.BREAK_STARTED
+    | typeof events.EventType.BREAK_ENDED
+    | typeof events.EventType.BREAK_CLIP_LOADING
+    | typeof events.EventType.BREAK_CLIP_STARTED
+    | typeof events.EventType.BREAK_CLIP_ENDED;
+
+/**
+ * Event types whose listeners receive a {@link CacheItemEventHandler}.
+ * Not part of the CAF API; used by the addEventListener overloads.
+ */
+type CacheItemEventType =
+    | typeof events.EventType.CACHE_HIT
+    | typeof events.EventType.CACHE_INSERTED;
+
+/**
+ * Event types whose listeners receive a {@link LoadEventHandler}.
+ * Not part of the CAF API; used by the addEventListener overloads.
+ */
+type LoadEventType =
+    | typeof events.EventType.PLAYER_PRELOADING
+    | typeof events.EventType.PLAYER_PRELOADING_CANCELLED
+    | typeof events.EventType.PLAYER_LOAD_COMPLETE
+    | typeof events.EventType.PLAYER_LOADING;
+
+/**
+ * Event types whose listeners receive a {@link RequestEventHandler}.
+ * Not part of the CAF API; used by the addEventListener overloads.
+ */
+type RequestEventType =
+    | typeof events.EventType.REQUEST_SEEK
+    | typeof events.EventType.REQUEST_LOAD
+    | typeof events.EventType.REQUEST_STOP
+    | typeof events.EventType.REQUEST_PAUSE
+    | typeof events.EventType.REQUEST_PRECACHE
+    | typeof events.EventType.REQUEST_PLAY
+    | typeof events.EventType.REQUEST_SKIP_AD
+    | typeof events.EventType.REQUEST_PLAY_AGAIN
+    | typeof events.EventType.REQUEST_PLAYBACK_RATE_CHANGE
+    | typeof events.EventType.REQUEST_VOLUME_CHANGE
+    | typeof events.EventType.REQUEST_EDIT_TRACKS_INFO
+    | typeof events.EventType.REQUEST_EDIT_AUDIO_TRACKS
+    | typeof events.EventType.REQUEST_SET_CREDENTIALS
+    | typeof events.EventType.REQUEST_LOAD_BY_ENTITY
+    | typeof events.EventType.REQUEST_USER_ACTION
+    | typeof events.EventType.REQUEST_DISPLAY_STATUS
+    | typeof events.EventType.REQUEST_CUSTOM_COMMAND
+    | typeof events.EventType.REQUEST_FOCUS_STATE
+    | typeof events.EventType.REQUEST_QUEUE_LOAD
+    | typeof events.EventType.REQUEST_QUEUE_INSERT
+    | typeof events.EventType.REQUEST_QUEUE_UPDATE
+    | typeof events.EventType.REQUEST_QUEUE_REMOVE
+    | typeof events.EventType.REQUEST_QUEUE_REORDER
+    | typeof events.EventType.REQUEST_QUEUE_GET_ITEM_RANGE
+    | typeof events.EventType.REQUEST_QUEUE_GET_ITEMS
+    | typeof events.EventType.REQUEST_QUEUE_GET_ITEM_IDS
+    | typeof events.EventType.REQUEST_GET_STATUS
+    | typeof events.EventType.REQUEST_PRELOAD;
+
+/**
+ * Event types whose listeners receive a {@link LiveStatusEventHandler}.
+ * Not part of the CAF API; used by the addEventListener overloads.
+ */
+type LiveStatusEventType =
+    | typeof events.EventType.LIVE_IS_MOVING_WINDOW_CHANGED
+    | typeof events.EventType.LIVE_ENDED;
+
+/**
+ * Event types whose listeners receive a {@link TimedMetadataEventHandler}.
+ * Not part of the CAF API; used by the addEventListener overloads.
+ */
+type TimedMetadataEventType =
+    | typeof events.EventType.TIMED_METADATA_CHANGED
+    | typeof events.EventType.TIMED_METADATA_ENTER
+    | typeof events.EventType.TIMED_METADATA_EXIT;
 type MessageInterceptor<MessageType> =
     | ((data: MessageType) => MessageType | messages.ErrorData)
     | ((data: MessageType) => Promise<MessageType | messages.ErrorData>)
@@ -279,55 +418,14 @@ export class PlayerManager {
      * See {@link https://dev.w3.org/html5/spec-preview/media-elements.html#mediaevents} for more information.
      */
     addEventListener(
-        eventType:
-            | events.EventType.ABORT
-            | events.EventType.ABORT[]
-            | events.EventType.CAN_PLAY
-            | events.EventType.CAN_PLAY[]
-            | events.EventType.CAN_PLAY_THROUGH
-            | events.EventType.CAN_PLAY_THROUGH[]
-            | events.EventType.DURATION_CHANGE
-            | events.EventType.DURATION_CHANGE[]
-            | events.EventType.EMPTIED
-            | events.EventType.EMPTIED[]
-            | events.EventType.ENDED
-            | events.EventType.ENDED[]
-            | events.EventType.LOADED_DATA
-            | events.EventType.LOADED_DATA[]
-            | events.EventType.LOADED_METADATA
-            | events.EventType.LOADED_METADATA[]
-            | events.EventType.LOAD_START
-            | events.EventType.LOAD_START[]
-            | events.EventType.PLAY
-            | events.EventType.PLAY[]
-            | events.EventType.PLAYING
-            | events.EventType.PLAYING[]
-            | events.EventType.PROGRESS
-            | events.EventType.PROGRESS[]
-            | events.EventType.RATE_CHANGE
-            | events.EventType.RATE_CHANGE[]
-            | events.EventType.SEEKED
-            | events.EventType.SEEKED[]
-            | events.EventType.SEEKING
-            | events.EventType.SEEKING[]
-            | events.EventType.STALLED
-            | events.EventType.STALLED[]
-            | events.EventType.TIME_UPDATE
-            | events.EventType.TIME_UPDATE[]
-            | events.EventType.SUSPEND
-            | events.EventType.SUSPEND[]
-            | events.EventType.WAITING
-            | events.EventType.WAITING[],
+        eventType: MediaElementEventType | MediaElementEventType[],
         eventListener: MediaElementEventHandler,
     ): void;
 
     /**
      * Adds an event listener for the pause player event. Fired when playback is paused. This event is forwarded from the MediaElement.
      */
-    addEventListener(
-        eventType: events.EventType.PAUSE | events.EventType.PAUSE[],
-        eventListener: PauseEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.PAUSE, eventListener: PauseEventHandler): void;
 
     /**
      * Adds an event listener for the bitrate changed player event.
@@ -336,55 +434,29 @@ export class PlayerManager {
      * or when a different bitrate is chosen in response to network conditions).
      */
     addEventListener(
-        eventType: events.EventType.BITRATE_CHANGED | events.EventType.BITRATE_CHANGED[],
+        eventType: typeof events.EventType.BITRATE_CHANGED,
         eventListener: BitrateChangedEventHandler,
     ): void;
 
     /**
      * Adds an event listener for events related to breaks.
      */
-    addEventListener(
-        eventType:
-            | events.EventType.BREAK_STARTED
-            | events.EventType.BREAK_STARTED[]
-            | events.EventType.BREAK_ENDED
-            | events.EventType.BREAK_ENDED[]
-            | events.EventType.BREAK_CLIP_LOADING
-            | events.EventType.BREAK_CLIP_LOADING[]
-            | events.EventType.BREAK_CLIP_STARTED
-            | events.EventType.BREAK_CLIP_STARTED[]
-            | events.EventType.BREAK_CLIP_ENDED
-            | events.EventType.BREAK_CLIP_ENDED[],
-        eventListener: BreaksEventHandler,
-    ): void;
+    addEventListener(eventType: BreakEventType | BreakEventType[], eventListener: BreaksEventHandler): void;
 
     /**
      * Adds an event listener for the buffering player event. Fired when playback has either stopped due to buffering, or started again after buffering has finished.
      */
-    addEventListener(
-        eventType: events.EventType.BUFFERING | events.EventType.BUFFERING[],
-        eventListener: BufferingEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.BUFFERING, eventListener: BufferingEventHandler): void;
 
     /**
      * Adds an event listener for the cache loaded player event. Fired when content pre-cached by fastplay has finished loading.
      */
-    addEventListener(
-        eventType: events.EventType.CACHE_LOADED | events.EventType.CACHE_LOADED[],
-        eventListener: CacheLoadedEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.CACHE_LOADED, eventListener: CacheLoadedEventHandler): void;
 
     /**
      * Adds an event listener for the cache hit and cache inserted player events.
      */
-    addEventListener(
-        eventType:
-            | events.EventType.CACHE_HIT
-            | events.EventType.CACHE_HIT[]
-            | events.EventType.CACHE_INSERTED
-            | events.EventType.CACHE_INSERTED[],
-        eventListener: CacheItemEventHandler,
-    ): void;
+    addEventListener(eventType: CacheItemEventType | CacheItemEventType[], eventListener: CacheItemEventHandler): void;
 
     /**
      * Adds an event listener for the clip ended player event. Fired when any clip ends.
@@ -392,51 +464,39 @@ export class PlayerManager {
      * If you want to see when a break clip ends, you should use @see{@link events.EventType.BREAK_CLIP_ENDED}.
      * If you want to see when the media is completely done playing, you should use @see{@link events.EventType.MEDIA_FINISHED}.
      */
-    addEventListener(
-        eventType: events.EventType.CLIP_ENDED | events.EventType.CLIP_ENDED[],
-        eventListener: ClipEndedEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.CLIP_ENDED, eventListener: ClipEndedEventHandler): void;
 
     /**
      * Adds an event listener for the EMSG player event. Fired when an emsg is found in a segment. This will only be fired for DASH content
      */
-    addEventListener(eventType: events.EventType.EMSG | events.EventType.EMSG[], eventListener: EmsgEventHandler): void;
+    addEventListener(eventType: typeof events.EventType.EMSG, eventListener: EmsgEventHandler): void;
 
     /**
      * Adds an event listener for the pause player event. Fired when an error occurs.
      */
-    addEventListener(
-        eventType: events.EventType.ERROR | events.EventType.ERROR[],
-        eventListener: ErrorEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.ERROR, eventListener: ErrorEventHandler): void;
 
     /**
      * Adds an event listener for the ID3 player event. Fired when an ID3 tag is encountered. This will only be fired for HLS content.
      */
-    addEventListener(eventType: events.EventType.ID3 | events.EventType.ID3[], eventListener: Id3EventHandler): void;
+    addEventListener(eventType: typeof events.EventType.ID3, eventListener: Id3EventHandler): void;
 
     /**
      * Adds an event listener for the media status player event. Fired before an outgoing message is sent containing current media status.
      */
-    addEventListener(
-        eventType: events.EventType.MEDIA_STATUS | events.EventType.MEDIA_STATUS[],
-        eventListener: MediaStatusEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.MEDIA_STATUS, eventListener: MediaStatusEventHandler): void;
 
     /**
      * Adds an event listener for the custom state player event. Fired when an outgoing custom state message is sent.
      */
-    addEventListener(
-        eventType: events.EventType.CUSTOM_STATE | events.EventType.CUSTOM_STATE[],
-        eventListener: CustomStateEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.CUSTOM_STATE, eventListener: CustomStateEventHandler): void;
 
     /**
      * Adds an event listener for the media information changed player event. Fired if the media information is changed during playback.
      * For example when playing a live radio and the track metadata changed.
      */
     addEventListener(
-        eventType: events.EventType.MEDIA_INFORMATION_CHANGED | events.EventType.MEDIA_INFORMATION_CHANGED[],
+        eventType: typeof events.EventType.MEDIA_INFORMATION_CHANGED,
         eventListener: MediaInformationChangedEventHandler,
     ): void;
 
@@ -445,26 +505,12 @@ export class PlayerManager {
      * This includes the following cases: there is nothing left in the stream to play, user has requested a stop, or an error has occurred.
      * When queueing is used, this event will trigger once for each queue item that finishes.
      */
-    addEventListener(
-        eventType: events.EventType.MEDIA_FINISHED | events.EventType.MEDIA_FINISHED[],
-        eventListener: MediaFinishedEventHandler,
-    ): void;
+    addEventListener(eventType: typeof events.EventType.MEDIA_FINISHED, eventListener: MediaFinishedEventHandler): void;
 
     /**
      * Adds an event listener for loading player events.
      */
-    addEventListener(
-        eventType:
-            | events.EventType.PLAYER_PRELOADING
-            | events.EventType.PLAYER_PRELOADING[]
-            | events.EventType.PLAYER_PRELOADING_CANCELLED
-            | events.EventType.PLAYER_PRELOADING_CANCELLED[]
-            | events.EventType.PLAYER_LOAD_COMPLETE
-            | events.EventType.PLAYER_LOAD_COMPLETE[]
-            | events.EventType.PLAYER_LOADING
-            | events.EventType.PLAYER_LOADING[],
-        eventListener: LoadEventHandler,
-    ): void;
+    addEventListener(eventType: LoadEventType | LoadEventType[], eventListener: LoadEventHandler): void;
 
     /**
      * Adds an event listener for the media finished player event. Fired when the media has completely finished playing.
@@ -472,79 +518,20 @@ export class PlayerManager {
      * When queueing is used, this event will trigger once for each queue item that finishes.
      */
     addEventListener(
-        eventType: events.EventType.SEGMENT_DOWNLOADED | events.EventType.SEGMENT_DOWNLOADED[],
+        eventType: typeof events.EventType.SEGMENT_DOWNLOADED,
         eventListener: SegmentDownloadedEventHandler,
     ): void;
 
     /**
      * Adds an event listener for request events made to the receiver.
      */
-    addEventListener(
-        eventType:
-            | events.EventType.REQUEST_SEEK
-            | events.EventType.REQUEST_SEEK[]
-            | events.EventType.REQUEST_LOAD
-            | events.EventType.REQUEST_LOAD[]
-            | events.EventType.REQUEST_STOP
-            | events.EventType.REQUEST_STOP[]
-            | events.EventType.REQUEST_PAUSE
-            | events.EventType.REQUEST_PAUSE[]
-            | events.EventType.REQUEST_PRECACHE
-            | events.EventType.REQUEST_PRECACHE[]
-            | events.EventType.REQUEST_PLAY
-            | events.EventType.REQUEST_PLAY[]
-            | events.EventType.REQUEST_SKIP_AD
-            | events.EventType.REQUEST_SKIP_AD[]
-            | events.EventType.REQUEST_PLAY_AGAIN
-            | events.EventType.REQUEST_PLAY_AGAIN[]
-            | events.EventType.REQUEST_PLAYBACK_RATE_CHANGE
-            | events.EventType.REQUEST_PLAYBACK_RATE_CHANGE[]
-            | events.EventType.REQUEST_VOLUME_CHANGE
-            | events.EventType.REQUEST_VOLUME_CHANGE[]
-            | events.EventType.REQUEST_EDIT_TRACKS_INFO
-            | events.EventType.REQUEST_EDIT_TRACKS_INFO[]
-            | events.EventType.REQUEST_EDIT_AUDIO_TRACKS
-            | events.EventType.REQUEST_EDIT_AUDIO_TRACKS[]
-            | events.EventType.REQUEST_SET_CREDENTIALS
-            | events.EventType.REQUEST_SET_CREDENTIALS[]
-            | events.EventType.REQUEST_LOAD_BY_ENTITY
-            | events.EventType.REQUEST_LOAD_BY_ENTITY[]
-            | events.EventType.REQUEST_USER_ACTION
-            | events.EventType.REQUEST_USER_ACTION[]
-            | events.EventType.REQUEST_DISPLAY_STATUS
-            | events.EventType.REQUEST_DISPLAY_STATUS[]
-            | events.EventType.REQUEST_CUSTOM_COMMAND
-            | events.EventType.REQUEST_CUSTOM_COMMAND[]
-            | events.EventType.REQUEST_FOCUS_STATE
-            | events.EventType.REQUEST_FOCUS_STATE[]
-            | events.EventType.REQUEST_QUEUE_LOAD
-            | events.EventType.REQUEST_QUEUE_LOAD[]
-            | events.EventType.REQUEST_QUEUE_INSERT
-            | events.EventType.REQUEST_QUEUE_INSERT[]
-            | events.EventType.REQUEST_QUEUE_UPDATE
-            | events.EventType.REQUEST_QUEUE_UPDATE[]
-            | events.EventType.REQUEST_QUEUE_REMOVE
-            | events.EventType.REQUEST_QUEUE_REMOVE[]
-            | events.EventType.REQUEST_QUEUE_REORDER
-            | events.EventType.REQUEST_QUEUE_REORDER[]
-            | events.EventType.REQUEST_QUEUE_GET_ITEM_RANGE
-            | events.EventType.REQUEST_QUEUE_GET_ITEM_RANGE[]
-            | events.EventType.REQUEST_QUEUE_GET_ITEMS
-            | events.EventType.REQUEST_QUEUE_GET_ITEMS[]
-            | events.EventType.REQUEST_QUEUE_GET_ITEM_IDS
-            | events.EventType.REQUEST_QUEUE_GET_ITEM_IDS[],
-        eventListener: RequestEventHandler,
-    ): void;
+    addEventListener(eventType: RequestEventType | RequestEventType[], eventListener: RequestEventHandler): void;
 
     /**
      * Adds an event listener for the live player events.
      */
     addEventListener(
-        eventType:
-            | events.EventType.LIVE_IS_MOVING_WINDOW_CHANGED
-            | events.EventType.LIVE_IS_MOVING_WINDOW_CHANGED[]
-            | events.EventType.LIVE_ENDED
-            | events.EventType.LIVE_ENDED[],
+        eventType: LiveStatusEventType | LiveStatusEventType[],
         eventListener: LiveStatusEventHandler,
     ): void;
 
@@ -552,11 +539,35 @@ export class PlayerManager {
      * Adds an event listener for the timed metadata events
      */
     addEventListener(
-        eventType:
-            | events.EventType.TIMED_METADATA_CHANGED
-            | events.EventType.TIMED_METADATA_ENTER
-            | events.EventType.TIMED_METADATA_EXIT,
+        eventType: TimedMetadataEventType | TimedMetadataEventType[],
         eventListener: TimedMetadataEventHandler,
+    ): void;
+
+    /**
+     * Adds an event listener for the time drifted player event. Fired when
+     * there is a mismatch between the current time reported by the player and
+     * the estimated current time based on player state and playback rate.
+     */
+    addEventListener(
+        eventType: typeof events.EventType.TIME_DRIFTED,
+        eventListener: (event: events.TimeDriftedEvent) => void,
+    ): void;
+
+    /**
+     * Adds an event listener for the tracks changed player event.
+     */
+    addEventListener(
+        eventType: typeof events.EventType.TRACKS_CHANGED,
+        eventListener: (event: events.TracksChangedEvent) => void,
+    ): void;
+
+    /**
+     * Adds an event listener for the session data player event. Fired for HLS
+     * EXT-X-SESSION-DATA tags when Shaka Player is used.
+     */
+    addEventListener(
+        eventType: typeof events.EventType.SESSION_DATA,
+        eventListener: (event: events.SessionDataEvent) => void,
     ): void;
 
     /**
@@ -671,6 +682,24 @@ export class PlayerManager {
     getQueueManager(): QueueManager | null;
 
     /**
+     * Gets the elapsed play time of the current media, without subtracting the
+     * ad break time.
+     * @returns The elapsed time, in seconds. This will be `0` if no media is
+     *     playing.
+     */
+    getRawCurrentTimeSec(): number;
+
+    /**
+     * Returns the current media seekable range.
+     *
+     * NOTE: This matches the units of `getRawCurrentTimeSec()`, but not
+     * `seek()`! This does not account for ads or any other media offsets.
+     * Unless you are sure you need the raw values, you should be using
+     * `getLiveSeekableRange()` instead.
+     */
+    getRawSeekableRange(): messages.Range | null;
+
+    /**
      * Gets media start time in absolute time for live.
      */
     getStartAbsoluteTime(): number | null;
@@ -679,7 +708,7 @@ export class PlayerManager {
      * Returns stats about playback. Stats are aggregated over the entire playback
      * session where appropriate.
      */
-    getStats(): Stats;
+    getStats(): stats.Stats;
 
     getTextTracksManager(): TextTracksManager;
 
@@ -930,9 +959,17 @@ export class PlaybackConfig {
 
     /**
      * Handler to process manifest data. The handler is passed the manifest,
-     * and returns the modified manifest.
+     * and returns the modified manifest. The last parameter is the original
+     * Shaka Player request (shaka.extern.Request) which gave rise to this
+     * response, and is undefined if Shaka Player is not being used.
      */
-    manifestHandler?: ((manifest: string) => string | Promise<string>) | undefined;
+    manifestHandler?:
+        | ((
+            manifest: string,
+            responseInfo: NetworkResponseInfo,
+            request?: { [key: string]: any },
+        ) => string | Promise<string>)
+        | undefined;
 
     /**
      * A function to customize request to get a manifest.
@@ -979,7 +1016,26 @@ export class NetworkRequestInfo {
     /**
      * An object containing properties that you would like to send in the header.
      */
-    headers: any;
+    headers: Record<string, string>;
+
+    /**
+     * Defines contextual data about a request, directly based on Shaka Player's
+     * shaka.extern.RequestContext.
+     * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.RequestContext
+     */
+    shakaRequestContext?: { [key: string]: any } | null | undefined;
+
+    /**
+     * Shaka-specific request information directly based on Shaka Player's
+     * shaka.extern.Request.
+     * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.Request
+     */
+    shakaRequestInfo?: { [key: string]: any } | null | undefined;
+
+    /**
+     * The network request timeout, in milliseconds.
+     */
+    timeoutInterval?: number | null | undefined;
 
     /**
      * The URL requested.
@@ -993,27 +1049,52 @@ export class NetworkRequestInfo {
 }
 
 /**
+ * HTTP(s) Response information.
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.NetworkResponseInfo
+ */
+export class NetworkResponseInfo {
+    /**
+     * An object containing properties that were sent in the response headers.
+     */
+    headers: Record<string, string> | null;
+}
+
+/**
  * Represents variants of Shaka Player that could be loaded.
  *
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ShakaVariant
  */
-export enum ShakaVariant {
+export const ShakaVariant: {
     /**
      * The standard, default build.
      */
-    STANDARD = "STANDARD",
+    readonly STANDARD: "STANDARD";
 
     /**
      * A debug build.
      */
-    DEBUG = "DEBUG",
-}
+    readonly DEBUG: "DEBUG";
+};
+/**
+ * Represents variants of Shaka Player that could be loaded.
+ *
+ * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework#.ShakaVariant
+ */
+export type ShakaVariant = (typeof ShakaVariant)[keyof typeof ShakaVariant];
 
 /**
  * Cast receiver context options. All options are optionals.
  * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.CastReceiverOptions
  */
 export class CastReceiverOptions {
+    /**
+     * How far in advance we should preload the contents of an individual ad
+     * break, in seconds. This allows you to avoid preloading an ad break too
+     * far in advance, and thus confuse your ad metrics. If not provided, a
+     * default of 5 seconds is used.
+     */
+    adBreakPreloadTime?: number | undefined;
+
     /**
      * Optional map of custom messages namespaces to initialize and their types.
      * Custom messages namespaces need to be initiated before the application started;
@@ -1172,6 +1253,14 @@ export class CastReceiverContext {
     /**
      * Add listener to cast system events.
      */
+    addEventListener(
+        type: typeof system.EventType.VISIBILITY_CHANGED,
+        handler: (event: system.VisibilityChangedEvent) => void,
+    ): void;
+    addEventListener(
+        type: typeof system.EventType.STANDBY_CHANGED,
+        handler: (event: system.StandbyChangedEvent) => void,
+    ): void;
     addEventListener(type: system.EventType | system.EventType[], handler: SystemEventHandler): void;
 
     /**
@@ -1201,7 +1290,16 @@ export class CastReceiverContext {
      * @returns The device capabilities information (key/value pairs). It will be null if the system is not ready yet.
      *     It may be an empty object if the platform does not expose any device capabilities information.
      */
-    getDeviceCapabilities(): any;
+    getDeviceCapabilities(): system.DeviceCapabilitiesObj | null;
+
+    /**
+     * Provides non-capability-related identifying device information once the system
+     * is ready, otherwise it will be null.
+     *
+     * @returns The device information (key/value pairs). It will be null if the system is not ready yet.
+     *     It may be an empty object if the platform does not expose this information.
+     */
+    getDeviceInformation(): system.DeviceInformationObj | null;
 
     /**
      * Get Player instance that can control and monitor media playback.
@@ -1261,7 +1359,7 @@ export class CastReceiverContext {
      * @param listener
      * @throws Error If system is not ready or the namespace is not supported by this application.
      */
-    removeCustomMessageListener(namespace: string, listener: SystemEventHandler): void;
+    removeCustomMessageListener(namespace: string, listener: CustomMessageHandler): void;
 
     /**
      * Remove listener to cast system events.
@@ -1415,8 +1513,17 @@ export class DashTimedMetadata {
 
     /**
      * The XML element that defines the Event.
+     * @deprecated No longer provided natively by Shaka Player v5+, and computed
+     *     for backward compatibility. Use eventNode instead, which is cheaper.
      */
     eventElement?: Element;
+
+    /**
+     * The XML element that defines the Event, in Shaka Player's
+     * shaka.extern.xml.Node format.
+     * @see https://shaka-player-demo.appspot.com/docs/api/shaka.extern.html#.xml.Node
+     */
+    eventNode?: ShakaXmlNode | undefined;
 
     /**
      * Identifies the message scheme.
@@ -1508,53 +1615,8 @@ export class HlsTimedMetadata {
 }
 
 /**
- * Represents playback statistics. Statistics attribtues are aggregated over the
- * entire receiver session (including multiple items in a queue) where indicated.
- * @see https://developers.google.com/cast/docs/reference/web_receiver/cast.framework.Stats
+ * Represents playback statistics.
+ * @deprecated Use {@link stats.Stats}, where the docs now describe this type.
+ *     This name is kept for compatibility.
  */
-export interface Stats {
-    /**
-     * The total time spent in a buffering state, in seconds. This is aggregated
-     * over all media items in the current receiver session.
-     */
-    bufferingTime?: number | undefined;
-
-    /**
-     * The total number of frames decoded. This is aggregated over all media items
-     * in the current receiver session.
-     */
-    decodedFrames?: number | undefined;
-
-    /**
-     * The total number of frames dropped. This is aggregated over all media items
-     * in the current receiver session.
-     */
-    droppedFrames?: number | undefined;
-
-    /**
-     * The estimated bandwidth. This is currently only supported while using Shaka.
-     */
-    estimatedBandwidth?: number | undefined;
-
-    /**
-     * The height of the current video track. Undefined if no video is playing.
-     */
-    height?: number | undefined;
-
-    /**
-     * The total time spent in a non-buffering state, in seconds. This is aggregated
-     * over all media items in the current receiver session.
-     */
-    playTime?: number | undefined;
-
-    /**
-     * The bandwidth required for the current streams (total, in bit/sec). Undefined
-     * if no streams are currently active.
-     */
-    streamBandwidth?: number | undefined;
-
-    /**
-     * The width of the current video track. Undefined if no video is playing.
-     */
-    width?: number | undefined;
-}
+export type Stats = stats.Stats;

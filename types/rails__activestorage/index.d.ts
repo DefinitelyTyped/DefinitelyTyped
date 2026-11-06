@@ -10,7 +10,7 @@ export class DirectUpload {
 
     constructor(file: File, url: string, delegate?: DirectUploadDelegate, customHeaders?: Record<string, string>);
 
-    create(callback: (error: Error | null, blob?: Blob) => void): void;
+    create(callback: (error: string | null, blob?: Blob) => void): void;
 }
 
 export interface DirectUploadDelegate {

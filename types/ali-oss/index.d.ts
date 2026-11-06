@@ -436,8 +436,8 @@ declare namespace OSS {
     }
 
     interface DeleteMultiResult {
-        /** deleted object names list */
-        deleted?: string[] | undefined;
+        /** deleted objects list */
+        deleted?: Array<{ Key: string }> | undefined;
         res: NormalSuccessResponse;
     }
 

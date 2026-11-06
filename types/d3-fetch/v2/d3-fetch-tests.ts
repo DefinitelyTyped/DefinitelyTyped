@@ -30,7 +30,7 @@ const map = new Map<string, number>();
 const imageProperties = {
     width: 300,
     height: 500,
-    crossOrigin: "anonymous",
+    crossOrigin: "anonymous" as const,
 };
 
 // ----------------------------------------------------------------------------

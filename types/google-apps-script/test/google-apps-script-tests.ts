@@ -33,8 +33,17 @@ import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOption
 const postTest = (payload: object): string => {
     const url = "http://httpbin.org/post";
     const params: URLFetchRequestOptions = {
+        contentType: "application/x-www-form-urlencoded",
+        headers: {
+            "Accept": "application/json",
+        },
         method: "post",
         payload: payload,
+        validateHttpsCertificates: false,
+        followRedirects: false,
+        muteHttpExceptions: true,
+        escaping: false,
+        timeoutSeconds: 10,
     };
     return UrlFetchApp.fetch(url, params).getContentText();
 };

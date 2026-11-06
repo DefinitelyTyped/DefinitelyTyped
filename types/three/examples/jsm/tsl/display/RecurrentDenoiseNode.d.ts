@@ -1,4 +1,4 @@
-import { Camera, Node, RenderTarget, TempNode, TextureNode, UniformNode } from "three/webgpu";
+import { Camera, Node, RenderTarget, TextureNode, UniformNode } from "three/webgpu";
 
 export type DenoiseMode = "diffuse" | "specular";
 
@@ -21,10 +21,10 @@ export interface RecurrentDenoiseNodeOptions {
  * The denoising kernel is selected at construction time via `mode`:
  * `'diffuse'` (SSGI) or `'specular'` (SSR). The kernel uses a fixed 8-sample Vogel disk.
  *
- * @augments TempNode
+ * @augments Node
  * @three_import import { recurrentDenoise } from 'three/addons/tsl/display/RecurrentDenoiseNode.js';
  */
-declare class RecurrentDenoiseNode extends TempNode<"vec4"> {
+declare class RecurrentDenoiseNode extends Node<"vec4"> {
     readonly isRecurrentDenoiseNode: boolean;
     camera: Camera;
 
@@ -50,17 +50,17 @@ declare class RecurrentDenoiseNode extends TempNode<"vec4"> {
     roughnessMetalnessNode: Node<"vec2"> | null;
     diffuseNode: Node<"vec4"> | null;
 
-    lumaPhi: UniformNode<"float", number>;
-    depthPhi: UniformNode<"float", number>;
-    normalPhi: UniformNode<"float", number>;
-    radius: UniformNode<"float", number>;
-    alphaPhi: UniformNode<"float", number>;
-    roughnessPhi: UniformNode<"float", number>;
-    diffusePhi: UniformNode<"float", number>;
-    adapt: UniformNode<"float", number>;
-    smoothDisocclusions: UniformNode<"bool", boolean>;
-    strength: UniformNode<"float", number>;
-    maxFrames: UniformNode<"float", number>;
+    lumaPhi: UniformNode<"float">;
+    depthPhi: UniformNode<"float">;
+    normalPhi: UniformNode<"float">;
+    radius: UniformNode<"float">;
+    alphaPhi: UniformNode<"float">;
+    roughnessPhi: UniformNode<"float">;
+    diffusePhi: UniformNode<"float">;
+    adapt: UniformNode<"float">;
+    smoothDisocclusions: UniformNode<"bool">;
+    strength: UniformNode<"float">;
+    maxFrames: UniformNode<"float">;
 
     /**
      * Which channel of the raw texture drives alpha-based edge stopping.
@@ -72,8 +72,8 @@ declare class RecurrentDenoiseNode extends TempNode<"vec4"> {
      */
     alphaSource: DenoiseAlphaSource;
 
-    flickerSuppression: UniformNode<"float", number>;
-    adaptiveTrust: UniformNode<"float", number>;
+    flickerSuppression: UniformNode<"float">;
+    adaptiveTrust: UniformNode<"float">;
 
     constructor(inputTexture: Node<"vec4">, camera: Camera, options?: RecurrentDenoiseNodeOptions);
 

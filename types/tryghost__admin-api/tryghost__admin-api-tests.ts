@@ -9,6 +9,8 @@ postsBrowsePromise.then((posts) => {
     api.posts.read(posts[0], { include: "authors" }); // $ExpectType Promise<PostOrPageResponse>
 });
 
+api.posts.edit({ id: "post-id", title: "Test post", updated_at: "2026-10-27T00:00:00.000Z" }); // $ExpectType Promise<PostOrPageResponse>
+
 const tagsBrowsePromise = api.tags.browse(); // $ExpectType Promise<Tags>
 
 tagsBrowsePromise.then((tags) => {
