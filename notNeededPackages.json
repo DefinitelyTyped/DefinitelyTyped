@@ -5285,6 +5285,10 @@
             "libraryName": "node-emoji",
             "asOfVersion": "2.1.0"
         },
+        "node-fetch-cache": {
+            "libraryName": "node-fetch-cache",
+            "asOfVersion": "5.1.1"
+        },
         "node-hid": {
             "libraryName": "node-hid",
             "asOfVersion": "3.0.0"
