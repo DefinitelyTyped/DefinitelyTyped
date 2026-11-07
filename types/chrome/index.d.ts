@@ -9480,7 +9480,7 @@ declare namespace chrome {
         type ExtensionLoadDetails =
             | {
                 /** The reason that this event is being dispatched. */
-                reason: `${Extract<OnLoadedReason, OnLoadedReason.UPDATE | OnLoadedReason.ENABLE>}`;
+                reason: `${OnLoadedReason.UPDATE | OnLoadedReason.ENABLE}`;
                 /** Indicates the previous version of the extension. This is present only if 'reason' is 'update' or 'enable'. If 'reason' is 'update', this is the version of the extension before it was updated. If 'reason' is 'enable', this is the current version of the extension. */
                 previousVersion: string;
             }
