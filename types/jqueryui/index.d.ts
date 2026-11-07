@@ -93,6 +93,43 @@ declare namespace JQueryUI {
     interface Button extends Widget, ButtonOptions {
     }
 
+    // Controlgroup //////////////////////////////////////////////////
+
+    interface ControlgroupOptions extends ControlgroupEvents {
+        classes?: ControlgroupClasses | undefined;
+        direction?: "horizontal" | "vertical" | undefined;
+        disabled?: boolean | undefined;
+        items?: ControlgroupItems | undefined;
+        onlyVisible?: boolean | undefined;
+    }
+
+    interface ControlgroupClasses {
+        "ui-controlgroup"?: string | undefined;
+        "ui-controlgroup-item"?: string | undefined;
+    }
+
+    interface ControlgroupItems {
+        button?: string | undefined;
+        controlgroupLabel?: string | undefined;
+        checkboxradio?: string | undefined;
+        selectmenu?: string | undefined;
+        spinner?: string | undefined;
+    }
+
+    interface ControlgroupUIParams {
+    }
+
+    interface ControlgroupEvent {
+        (event: JQuery.TriggeredEvent, ui: ControlgroupUIParams): void;
+    }
+
+    interface ControlgroupEvents {
+        create?: ControlgroupEvent | undefined;
+    }
+
+    interface Controlgroup extends Widget, ControlgroupOptions {
+    }
+
     // Datepicker //////////////////////////////////////////////////
 
     interface DatepickerOptions {
@@ -1097,6 +1134,7 @@ declare namespace JQueryUI {
         autocomplete: Autocomplete;
         button: Button;
         buttonset: Button;
+        controlgroup: Controlgroup;
         datepicker: Datepicker;
         dialog: Dialog;
         keyCode: KeyCode;
@@ -1193,6 +1231,19 @@ interface JQuery {
     buttonset(optionLiteral: string, optionName: string): any;
     buttonset(optionLiteral: string, options: JQueryUI.ButtonOptions): any;
     buttonset(optionLiteral: string, optionName: string, optionValue: any): JQuery;
+
+    controlgroup(): JQuery;
+    controlgroup(methodName: "destroy"): JQuery;
+    controlgroup(methodName: "disable"): JQuery;
+    controlgroup(methodName: "enable"): JQuery;
+    controlgroup(methodName: "instance"): any;
+    controlgroup(methodName: "refresh"): JQuery;
+    controlgroup(methodName: "widget"): JQuery;
+    controlgroup(methodName: string): JQuery;
+    controlgroup(options: JQueryUI.ControlgroupOptions): JQuery;
+    controlgroup(optionLiteral: string, optionName: string): any;
+    controlgroup(optionLiteral: string, options: JQueryUI.ControlgroupOptions): any;
+    controlgroup(optionLiteral: string, optionName: string, optionValue: any): JQuery;
 
     /**
      * Initialize a datepicker
