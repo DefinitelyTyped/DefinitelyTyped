@@ -12,7 +12,8 @@ export type MediaValues = Record<
     | "color"
     | "color-index"
     | "monochrome"
-    | "prefers-color-scheme",
+    | "prefers-color-scheme"
+    | "prefers-reduced-motion",
     unknown
 >;
 
