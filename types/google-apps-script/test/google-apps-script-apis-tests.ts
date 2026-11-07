@@ -930,8 +930,218 @@ function testDocs() {
     const docs = Docs;
     // $ExpectType DocumentsCollection
     const documents = docs.Documents;
+
+    const rgbColor: GoogleAppsScript.Docs.Schema.RgbColor = { red: 0.2, green: 0.4, blue: 0.8 };
+    const optionalColor: GoogleAppsScript.Docs.Schema.OptionalColor = { color: { rgbColor } };
+    const dimension: GoogleAppsScript.Docs.Schema.Dimension = { magnitude: 72, unit: "PT" };
+    const range: GoogleAppsScript.Docs.Schema.Range = { startIndex: 1, endIndex: 5, segmentId: "body" };
+    const location: GoogleAppsScript.Docs.Schema.Location = { index: 1, segmentId: "body" };
+    const endOfSegmentLocation: GoogleAppsScript.Docs.Schema.EndOfSegmentLocation = { segmentId: "body" };
+    const tableCellLocation: GoogleAppsScript.Docs.Schema.TableCellLocation = {
+        tableStartLocation: location,
+        rowIndex: 0,
+        columnIndex: 0,
+    };
+    const textStyle: GoogleAppsScript.Docs.Schema.TextStyle = {
+        backgroundColor: optionalColor,
+        baselineOffset: "SUPERSCRIPT",
+        bold: true,
+        fontSize: dimension,
+        foregroundColor: optionalColor,
+        italic: true,
+        link: { url: "https://example.com", bookmarkId: "bookmark", headingId: "heading" },
+        smallCaps: true,
+        strikethrough: true,
+        underline: true,
+        weightedFontFamily: { fontFamily: "Arial", weight: 400 },
+    };
+    const paragraphStyle: GoogleAppsScript.Docs.Schema.ParagraphStyle = {
+        alignment: "START",
+        avoidWidowAndOrphan: true,
+        borderBottom: { color: optionalColor, dashStyle: "SOLID", padding: dimension, width: dimension },
+        direction: "LEFT_TO_RIGHT",
+        headingId: "heading",
+        indentEnd: dimension,
+        indentFirstLine: dimension,
+        indentStart: dimension,
+        keepLinesTogether: true,
+        keepWithNext: true,
+        lineSpacing: 115,
+        namedStyleType: "HEADING_1",
+        shading: { backgroundColor: optionalColor },
+        spaceAbove: dimension,
+        spaceBelow: dimension,
+        spacingMode: "COLLAPSE_LISTS",
+        tabStops: [{ alignment: "START", offset: dimension }],
+    };
+    const textRun: GoogleAppsScript.Docs.Schema.TextRun = { content: "Hello, Docs!", textStyle };
+    const paragraphElement: GoogleAppsScript.Docs.Schema.ParagraphElement = {
+        startIndex: 1,
+        endIndex: 12,
+        textRun,
+        inlineObjectElement: { inlineObjectId: "object-id" },
+        pageBreak: { suggestedDeletionIds: ["deletion"], textStyle },
+        horizontalRule: { suggestedDeletionIds: ["deletion"], textStyle },
+        autoText: { type: "PAGE_NUMBER", suggestedTextStyleChanges: {}, textStyle },
+        columnBreak: { suggestedDeletionIds: ["deletion"], textStyle },
+        equation: { suggestedDeletionIds: ["deletion"] },
+        footnoteReference: { footnoteId: "footnote", textStyle },
+    };
+    const paragraph: GoogleAppsScript.Docs.Schema.Paragraph = {
+        elements: [paragraphElement],
+        paragraphStyle,
+        bullet: { listId: "list-id", nestingLevel: 0, textStyle },
+        positionedObjectIds: ["positioned-object"],
+    };
+    const tableCell: GoogleAppsScript.Docs.Schema.TableCell = {
+        startIndex: 13,
+        endIndex: 18,
+        content: [{ startIndex: 13, endIndex: 18, paragraph }],
+        tableCellStyle: {
+            backgroundColor: optionalColor,
+            borderBottom: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            borderLeft: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            borderRight: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            borderTop: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            columnSpan: 1,
+            contentAlignment: "MIDDLE",
+            paddingBottom: dimension,
+            paddingLeft: dimension,
+            paddingRight: dimension,
+            paddingTop: dimension,
+            rowSpan: 1,
+        },
+    };
+    const table: GoogleAppsScript.Docs.Schema.Table = {
+        rows: 1,
+        columns: 1,
+        tableStyle: { tableColumnProperties: [{ widthType: "FIXED_WIDTH", width: dimension }] },
+        tableRows: [{
+            startIndex: 13,
+            endIndex: 18,
+            tableCells: [tableCell],
+            tableRowStyle: { minRowHeight: dimension },
+        }],
+    };
+    const sectionStyle: GoogleAppsScript.Docs.Schema.SectionStyle = {
+        contentDirection: "LEFT_TO_RIGHT",
+        columnSeparatorStyle: "NONE",
+        columnProperties: [{ paddingEnd: dimension, width: dimension }],
+    };
+    const sectionBreak: GoogleAppsScript.Docs.Schema.SectionBreak = { sectionStyle };
+    const body: GoogleAppsScript.Docs.Schema.Body = {
+        content: [
+            { startIndex: 0, endIndex: 12, paragraph },
+            { startIndex: 12, endIndex: 18, table },
+            { startIndex: 18, endIndex: 18, sectionBreak },
+            {
+                startIndex: 18,
+                endIndex: 18,
+                tableOfContents: { content: [{ startIndex: 18, endIndex: 18, paragraph }] },
+            },
+        ],
+    };
+    const documentStyle: GoogleAppsScript.Docs.Schema.DocumentStyle = {
+        background: { color: optionalColor },
+        defaultFooterId: "footer",
+        defaultHeaderId: "header",
+        firstPageFooterId: "first-footer",
+        firstPageHeaderId: "first-header",
+        marginBottom: dimension,
+        marginLeft: dimension,
+        marginRight: dimension,
+        marginTop: dimension,
+        pageNumberStart: 1,
+        pageSize: { width: dimension, height: dimension },
+        useEvenPageHeaderFooter: true,
+        useFirstPageHeaderFooter: true,
+    };
+    const namedStyle: GoogleAppsScript.Docs.Schema.NamedStyle = {
+        namedStyleType: "NORMAL_TEXT",
+        paragraphStyle,
+        textStyle,
+    };
+    const namedStyles: GoogleAppsScript.Docs.Schema.NamedStyles = { styles: [namedStyle] };
+    const document: GoogleAppsScript.Docs.Schema.Document = {
+        title: "title",
+        body,
+        documentId: "document-id",
+        documentStyle,
+        revisionId: "revision-id",
+        namedStyles,
+        suggestionsViewMode: "PREVIEW_SUGGESTIONS",
+        footers: {},
+        footnotes: {},
+        headers: {},
+        inlineObjects: {},
+        lists: {},
+        namedRanges: {},
+        positionedObjects: {},
+        suggestedDocumentStyleChanges: {},
+        suggestedNamedStylesChanges: {},
+    };
+
+    const requests: GoogleAppsScript.Docs.Schema.Request[] = [
+        { createNamedRange: { name: "named-range", range } },
+        { createParagraphBullets: { range, bulletPreset: "BULLET_DISC_CIRCLE_SQUARE" } },
+        { deleteContentRange: { range } },
+        { deleteNamedRange: { name: "named-range", namedRangeId: "named-range-id" } },
+        { deleteParagraphBullets: { range } },
+        { deletePositionedObject: { objectId: "positioned-object" } },
+        { deleteTableColumn: { tableCellLocation } },
+        { deleteTableRow: { tableCellLocation } },
+        {
+            insertInlineImage: {
+                uri: "https://example.com/image.png",
+                location,
+                endOfSegmentLocation,
+                objectSize: { width: dimension, height: dimension },
+            },
+        },
+        { insertPageBreak: { location, endOfSegmentLocation } },
+        { insertTable: { rows: 2, columns: 3, location, endOfSegmentLocation } },
+        { insertTableRow: { tableCellLocation, insertBelow: true } },
+        { insertText: { text: "inserted text", location, endOfSegmentLocation } },
+        { replaceAllText: { containsText: { text: "old", matchCase: true }, replaceText: "new" } },
+        { updateParagraphStyle: { range, fields: "alignment,namedStyleType", paragraphStyle } },
+        { updateTextStyle: { range, fields: "bold,foregroundColor", textStyle } },
+    ];
+    const batchRequest: GoogleAppsScript.Docs.Schema.BatchUpdateDocumentRequest = {
+        requests,
+        writeControl: { requiredRevisionId: "revision-id", targetRevisionId: "target-revision-id" },
+    };
+    const batchResponse: GoogleAppsScript.Docs.Schema.BatchUpdateDocumentResponse = {
+        documentId: "document-id",
+        writeControl: { requiredRevisionId: "revision-id", targetRevisionId: "target-revision-id" },
+        replies: [{
+            createNamedRange: { namedRangeId: "named-range-id" },
+            insertInlineImage: { objectId: "inline-object-id" },
+            insertInlineSheetsChart: { objectId: "chart-object-id" },
+            replaceAllText: { occurrencesChanged: 3 },
+        }],
+    };
+
     // $ExpectType Document
-    const create = documents.create({ title: "title" });
+    const create = documents.create(document);
+    // $ExpectType Document
+    const get = documents.get("document-id");
+    // $ExpectType Document
+    const getWithOptions = documents.get("document-id", { includeTabsContent: true });
+    // $ExpectType BatchUpdateDocumentResponse
+    const batchUpdate = documents.batchUpdate(batchRequest, "document-id");
+
+    // $ExpectType Document
+    const newDocument = docs.newDocument();
+    // $ExpectType BatchUpdateDocumentRequest
+    const newBatchUpdateRequest = docs.newBatchUpdateDocumentRequest();
+    // $ExpectType Request
+    const newRequest = docs.newRequest();
+    // $ExpectType Paragraph
+    const newParagraph = docs.newParagraph();
+    // $ExpectType Table
+    const newTable = docs.newTable();
+    // $ExpectType TextStyle
+    const newTextStyle = docs.newTextStyle();
 }
 
 function testDriveActivity() {
