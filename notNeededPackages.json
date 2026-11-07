@@ -1917,6 +1917,10 @@
             "libraryName": "dotenv",
             "asOfVersion": "8.2.0"
         },
+        "dotenv-defaults": {
+            "libraryName": "dotenv-defaults",
+            "asOfVersion": "6.0.0"
+        },
         "dotenv-flow": {
             "libraryName": "dotenv-flow",
             "asOfVersion": "4.1.0"
