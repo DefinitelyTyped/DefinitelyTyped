@@ -4505,6 +4505,10 @@
             "libraryName": "mailgen",
             "asOfVersion": "2.0.15"
         },
+        "mailparser": {
+            "libraryName": "mailparser",
+            "asOfVersion": "3.10.0"
+        },
         "make-dir": {
             "libraryName": "make-dir",
             "asOfVersion": "2.1.0"
