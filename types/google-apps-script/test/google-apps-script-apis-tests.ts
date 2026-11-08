@@ -940,8 +940,135 @@ function testDriveActivity() {
     const driveactivity = DriveActivity;
     // $ExpectType ActivityCollection
     const activity = driveactivity.Activity;
+
+    // $ExpectType ConsolidationStrategy
+    const consolidationStrategy = driveactivity.newConsolidationStrategy();
+    // $ExpectType any
+    const legacy = driveactivity.newLegacy();
+    // $ExpectType any
+    const noConsolidation = driveactivity.newNoConsolidation();
+    // $ExpectType QueryDriveActivityRequest
+    const request = driveactivity.newQueryDriveActivityRequest();
+
+    const itemReference: GoogleAppsScript.DriveActivity.Schema.TargetReference = {
+        driveItem: {
+            driveFile: {},
+            driveFolder: { type: "MY_DRIVE_ROOT" },
+            name: "items/123",
+            title: "Document",
+        },
+        teamDrive: { name: "teamDrives/123", title: "Team Drive" },
+    };
+
+    const activityDetail: GoogleAppsScript.DriveActivity.Schema.ActionDetail = {
+        comment: {
+            assignment: { subtype: "SUGGESTED_CHANGE" },
+            mentionedUsers: [{ knownUser: { isCurrentUser: true, personName: "people/123" } }],
+            post: { subtype: "REPLY" },
+            suggestion: { subtype: "SUGGESTION" },
+        },
+        create: {
+            copy: { originalObject: itemReference },
+            new: {},
+            upload: {},
+        },
+        delete: { type: "PERMANENTLY_DELETED" },
+        dlpChange: { type: "FLAGGED" },
+        edit: {},
+        move: { addedParents: [itemReference], removedParents: [itemReference] },
+        permissionChange: {
+            addedPermissions: [{
+                anyone: {},
+                allowDiscovery: true,
+                role: "READER",
+                user: { knownUser: { personName: "people/456" } },
+            }],
+            removedPermissions: [{
+                domain: { name: "example.com" },
+                group: { email: "group@example.com" },
+                role: "WRITER",
+            }],
+        },
+        reference: { type: "LINK" },
+        rename: { newTitle: "New title", oldTitle: "Old title" },
+        restore: { type: "UNTRASH" },
+        settingsChange: { restrictionChanges: [{ feature: "DOWNLOAD", newRestriction: "BLOCKED" }] },
+    };
+
+    const activityItem: GoogleAppsScript.DriveActivity.Schema.DriveActivity = {
+        actions: [{
+            actor: {
+                administrator: "",
+                anonymous: "",
+                impersonation: { impersonatedUser: { knownUser: { personName: "people/789" } } },
+                system: { type: "SYSTEM" },
+                user: {
+                    deletedUser: {},
+                    knownUser: { isCurrentUser: false, personName: "people/123" },
+                    unknownUser: {},
+                },
+            },
+            detail: activityDetail,
+            target: {
+                driveItem: {
+                    driveFile: {},
+                    driveFolder: { type: "SHARED_DRIVE" },
+                    file: {},
+                    folder: { type: "FOLDER" },
+                    mimeType: "application/vnd.google-apps.document",
+                    name: "items/123",
+                    owner: {
+                        domain: { legacyId: "123456789", name: "example.com" },
+                        teamDrive: { name: "teamDrives/123", title: "Team Drive" },
+                        user: { knownUser: { isCurrentUser: true, personName: "people/123" } },
+                    },
+                    title: "Document",
+                },
+                fileComment: {
+                    legacyCommentId: "comment-1",
+                    legacyDiscussionId: "discussion-1",
+                    linkToDiscussion: "https://example.com/discussion/comment-1",
+                    parent: { name: "items/123", title: "Document" },
+                },
+                teamDrive: { name: "teamDrives/123", root: { name: "items/root", title: "Root" }, title: "Team Drive" },
+            },
+            timeRange: { endTime: "2024-01-02T00:00:00Z", startTime: "2024-01-01T00:00:00Z" },
+            timestamp: "2024-01-01T12:00:00Z",
+        }],
+        actors: [{ user: { knownUser: { isCurrentUser: true, personName: "people/123" } } }],
+        primaryActionDetail: activityDetail,
+        targets: [{ driveItem: { name: "items/123", title: "Document" } }],
+        timeRange: { endTime: "2024-01-02T00:00:00Z", startTime: "2024-01-01T00:00:00Z" },
+        timestamp: "2024-01-01T12:00:00Z",
+    };
+
+    const response: GoogleAppsScript.DriveActivity.Schema.QueryDriveActivityResponse = {
+        activities: [activityItem],
+        nextPageToken: "next-page",
+    };
+
+    const legacyRequest: GoogleAppsScript.DriveActivity.Schema.QueryDriveActivityRequest = {
+        ancestorName: "items/root",
+        consolidationStrategy: { legacy },
+        filter: "time > 1704067200000",
+        itemName: "items/123",
+        pageSize: 100,
+        pageToken: "page-token",
+    };
     // $ExpectType QueryDriveActivityResponse
-    const query = activity.query({ consolidationStrategy: { legacy: {} } });
+    const legacyQuery = activity.query(legacyRequest);
+
+    const noneRequest: GoogleAppsScript.DriveActivity.Schema.QueryDriveActivityRequest = {
+        consolidationStrategy: { none: noConsolidation },
+        filter: "detail.action_detail_case:EDIT",
+        itemName: "items/456",
+        pageSize: 25,
+    };
+    // $ExpectType QueryDriveActivityResponse
+    const noneQuery = activity.query(noneRequest);
+
+    // $ExpectType QueryDriveActivityResponse
+    const emptyRequestQuery = activity.query({ consolidationStrategy: { legacy: {} } });
 }
 
 function testAdminGroupsMigration() {
