@@ -946,3 +946,85 @@ context.userSettings.getSecurityRolePrivilegesInfo(
         error.message;
     },
 );
+ 
+// Xrm.WebApi.online.execute and executeMultiple typed request metadata and response.
+async function testTypedWebApiExecute() {
+    const request: Xrm.ExecuteRequest = {
+        getMetadata() {
+            return {
+                boundParameter: null,
+                operationType: XrmEnum.ExecuteOperationType.Action,
+                operationName: "WinOpportunity",
+                parameterTypes: {
+                    OpportunityClose: {
+                        typeName: "mscrm.opportunityclose",
+                        structuralProperty: XrmEnum.StructuralPropertyType.EntityType,
+                    },
+                    Status: {
+                        typeName: "Edm.Int32",
+                        structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType,
+                    },
+                },
+            };
+        },
+    };
+
+    const typedResponse = await Xrm.WebApi.online.execute<{ UserId: string }>(request);
+    const body = await typedResponse.json();
+    // $ExpectType { UserId: string; }
+    body;
+    body.UserId;
+
+    const untypedResponse = await Xrm.WebApi.online.execute(request);
+    const unknownBody = await untypedResponse.json();
+    // $ExpectType unknown
+    unknownBody;
+    // @ts-expect-error Cannot access JSON fields before narrowing unknown.
+    unknownBody.UserId;
+
+    const crudRequest: Xrm.ExecuteRequest = {
+        getMetadata() {
+            return {
+                boundParameter: null,
+                operationType: XrmEnum.ExecuteOperationType.CRUD,
+                operationName: "Associate",
+                parameterTypes: {},
+            };
+        },
+    };
+
+    const responses = await Xrm.WebApi.online.executeMultiple([request, [crudRequest]]);
+    // $ExpectType unknown
+    await responses[0].json();
+
+    const enumRequest: Xrm.ExecuteRequest = {
+        getMetadata() {
+            return {
+                boundParameter: null,
+                operationType: XrmEnum.ExecuteOperationType.Function,
+                operationName: "InitializeFrom",
+                parameterTypes: {
+                    TargetFieldType: {
+                        typeName: "Microsoft.Dynamics.CRM.TargetFieldType",
+                        structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType,
+                        enumProperties: [{ name: "All", value: 0 }],
+                    },
+                    Customer: {
+                        typeName: "mscrm.crmbaseentity",
+                        structuralProperty: XrmEnum.StructuralPropertyType.EntityType,
+                    },
+                    SomeComplexParameter: {
+                        typeName: "mscrm.PagingInfo",
+                        structuralProperty: XrmEnum.StructuralPropertyType.ComplexType,
+                    },
+                },
+            };
+        },
+    };
+    await Xrm.WebApi.online.execute(enumRequest);
+}
+
+// @ts-expect-error Primitive metadata cannot contain a misspelled EDM type.
+const invalidPrimitive: Xrm.ExecuteRequestPrimitiveParameterType = { typeName: "Edm.Int325", structuralProperty: 1 };
+// @ts-expect-error CRUD metadata cannot specify an entity-bound parameter.
+const invalidCrud: Xrm.ExecuteRequestCrudMetadata = { operationType: 2, operationName: "Create", boundParameter: "entity", parameterTypes: {} };

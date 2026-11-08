@@ -6091,7 +6091,7 @@ declare namespace Xrm {
          *       * 5: EntityType
          *   - typeName: String. The fully qualified name of the parameter type.
          */
-        execute(request: any): Async.PromiseLike<ExecuteResponse>;
+        execute<TResponseBody = unknown>(request: ExecuteRequest): Async.PromiseLike<ExecuteResponse<TResponseBody>>;
 
         /**
          * Execute a collection of action, function, or CRUD operations.
@@ -6105,7 +6105,7 @@ declare namespace Xrm {
          *        * In this case, all the request objects specified in the change set will get executed in a
          *        transaction.
          */
-        executeMultiple(request: any[]): Async.PromiseLike<ExecuteResponse[]>;
+        executeMultiple(request: (ExecuteRequest | ExecuteRequest[])[]): Async.PromiseLike<ExecuteResponse[]>;
     }
 
     /**
@@ -6410,7 +6410,87 @@ declare namespace Xrm {
     /**
      * Interface for the WebAPI Execute request response
      */
-    interface ExecuteResponse extends Response {}
+    /**
+     * Request passed to Xrm.WebApi.online.execute or executeMultiple.
+     * May also contain additional operation-specific properties.
+     */
+    interface ExecuteRequest {
+        getMetadata(): ExecuteRequestMetadata;
+    }
+
+    /** Request metadata for a CRUD operation, action, or function. */
+    type ExecuteRequestMetadata = ExecuteRequestCrudMetadata | ExecuteRequestActionFunctionMetadata;
+
+    interface ExecuteRequestMetadataBase {
+        /** Parameter metadata keyed by parameter name. */
+        parameterTypes: { [parameterName: string]: ExecuteRequestParameterType };
+    }
+
+    interface ExecuteRequestCrudMetadata extends ExecuteRequestMetadataBase {
+        operationType: XrmEnum.ExecuteOperationType.CRUD;
+        operationName: "Create" | "Retrieve" | "RetrieveMultiple" | "Update" | "Delete" | "Associate" | "Disassociate";
+        /** Use undefined per documentation; Microsoft's examples also use null. */
+        boundParameter?: null | undefined;
+    }
+
+    interface ExecuteRequestActionFunctionMetadata extends ExecuteRequestMetadataBase {
+        operationType: XrmEnum.ExecuteOperationType.Action | XrmEnum.ExecuteOperationType.Function;
+        operationName: string;
+        /** Null for an unbound operation, otherwise the bound parameter name. */
+        boundParameter: string | null;
+    }
+
+    /** Metadata describing an individual operation parameter. */
+    type ExecuteRequestParameterType =
+        | ExecuteRequestPrimitiveParameterType
+        | ExecuteRequestEnumParameterType
+        | ExecuteRequestOtherParameterType;
+
+    /** Primitive type names used by Dataverse. */
+    type PrimitiveTypeName =
+        | "Edm.Binary"
+        | "Edm.Boolean"
+        | "Edm.Date"
+        | "Edm.DateTimeOffset"
+        | "Edm.Decimal"
+        | "Edm.Double"
+        | "Edm.Guid"
+        | "Edm.Int16"
+        | "Edm.Int32"
+        | "Edm.Int64"
+        | "Edm.String";
+
+    interface ExecuteRequestPrimitiveParameterType {
+        typeName: PrimitiveTypeName;
+        structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType;
+    }
+
+    interface ExecuteRequestEnumProperty {
+        name: string;
+        /** Documentation says string; official examples also use numeric values. */
+        value: string | number;
+    }
+
+    interface ExecuteRequestEnumParameterType {
+        typeName: string;
+        structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType;
+        enumProperties?: ExecuteRequestEnumProperty[];
+    }
+
+    /** Entity, complex, collection, or unknown parameter metadata. */
+    interface ExecuteRequestOtherParameterType {
+        typeName: string;
+        structuralProperty:
+            | XrmEnum.StructuralPropertyType.Unknown
+            | XrmEnum.StructuralPropertyType.ComplexType
+            | XrmEnum.StructuralPropertyType.Collection
+            | XrmEnum.StructuralPropertyType.EntityType;
+    }
+
+    /** Execute response with an optionally typed JSON payload. */
+    interface ExecuteResponse<TResponseBody = unknown> extends Response {
+        json(): Promise<TResponseBody>;
+    }
 }
 
 declare namespace XrmEnum {
@@ -6824,5 +6904,22 @@ declare namespace XrmEnum {
     const enum OpenSearchResultMode {
         Inline = "Inline",
         Popup = "Popup",
+    }
+
+    /** Xrm.WebApi.online.execute operation category. */
+    const enum ExecuteOperationType {
+        Action = 0,
+        Function = 1,
+        CRUD = 2,
+    }
+
+    /** Dataverse request parameter structural type. */
+    const enum StructuralPropertyType {
+        Unknown = 0,
+        PrimitiveType = 1,
+        ComplexType = 2,
+        EnumerationType = 3,
+        Collection = 4,
+        EntityType = 5,
     }
 }
