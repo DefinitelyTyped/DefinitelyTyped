@@ -3042,6 +3042,11 @@ declare module "node:fs" {
     }
     interface ReadFileOptionsWithStringEncoding extends ReadFileOptions {
         encoding: BufferEncoding;
+        /**
+         * A buffer to read into, or a function called with the file size that returns the buffer.
+         * @since v26.4.0, v24.19.0
+         */
+        buffer?: NodeJS.ArrayBufferView | ((size: number) => NodeJS.ArrayBufferView) | undefined;
     }
     interface ReadFileOptionsWithBufferEncoding extends ReadFileOptions {
         encoding?: null | undefined;
@@ -4543,6 +4548,12 @@ declare module "node:fs" {
      * @since v19.8.0
      */
     function openAsBlob(path: PathLike, options?: OpenAsBlobOptions): Promise<Blob>;
+    /**
+     * For detailed information, see the documentation of the Promise-returning
+     * version of this API: {@link openAsBlob}.
+     * @since v26.10.0
+     */
+    function openAsBlobSync(path: PathLike, options?: OpenAsBlobOptions): Blob;
 
     interface OpenDirOptions {
         /**
@@ -4602,9 +4613,13 @@ declare module "node:fs" {
         bigint: true;
     }
     interface StatOptions {
-        // TODO: add signal option once we sort its behavior out upstream
         bigint?: boolean | undefined;
         throwIfNoEntry?: boolean | undefined;
+        /**
+         * An `AbortSignal` to cancel the operation. Ignored by synchronous functions.
+         * @since v26.8.0
+         */
+        signal?: AbortSignal | undefined;
     }
     /** @deprecated This orphaned interface will be removed in a future version. Use `StatOptions` instead. */
     interface StatSyncOptions extends StatOptions {}
@@ -4718,6 +4733,13 @@ declare module "node:fs" {
          * @default false
          */
         followSymlinks?: boolean | undefined;
+        /**
+         * Maximum number of directory levels to traverse.
+         * The `cwd` directory has a depth of `0`.
+         * @default Infinity
+         * @since v26.9.0
+         */
+        maxDepth?: number | undefined;
         /**
          * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
          * @default false
