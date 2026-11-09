@@ -40,7 +40,7 @@ declare module "node:fs/promises" {
         WriteStream,
         WriteVResult,
     } from "node:fs";
-    import { ByteReadableStream, Transform, Writer } from "node:stream/iter";
+    import { ByteReadableStream, SyncByteReadableStream, SyncTransform, Transform, Writer } from "node:stream/iter";
     import { ReadableStream } from "node:stream/web";
     interface FileChangeInfo<T extends string | Buffer> {
         eventType: WatchEventType;
@@ -89,7 +89,7 @@ declare module "node:fs/promises" {
     interface ReadableWebStreamOptions {
         autoClose?: boolean | undefined;
     }
-    interface PullOptions extends Abortable {
+    interface PullSyncOptions {
         /**
          * Close the file handle when the stream ends.
          * @default false
@@ -113,6 +113,7 @@ declare module "node:fs/promises" {
          */
         chunkSize?: number | undefined;
     }
+    interface PullOptions extends PullSyncOptions, Abortable {}
     interface WriterOptions {
         /**
          * Close the file handle when the writer ends or fails.
@@ -291,11 +292,43 @@ declare module "node:fs/promises" {
          * const fh3 = await open('input.txt', 'r');
          * const compressed = fh3.pull(compressGzip(), { autoClose: true });
          * ```
-         * @since v25.9.0
+         * @since v25.9.0, v24.20.0
          * @experimental
          */
         pull(...transforms: Transform[]): ByteReadableStream;
         pull(...args: [...transforms: Transform[], options: PullOptions]): ByteReadableStream;
+        /**
+         * Synchronous counterpart of `filehandle.pull()`. Returns a sync iterable
+         * that reads the file using synchronous I/O on the main thread. Reads are
+         * performed in `chunkSize`-byte chunks (default 128 KB).
+         *
+         * The file handle is locked from the first read of the iterable until iteration
+         * ends, as with `filehandle.pull()`. Unlike the async `pull()`, this method does not support `AbortSignal` since all
+         * operations are synchronous.
+         *
+         * This function is only available when the `--experimental-stream-iter` flag is
+         * enabled.
+         *
+         * ```js
+         * import { open } from 'node:fs/promises';
+         * import { textSync, pipeToSync } from 'node:stream/iter';
+         * import { compressGzipSync, decompressGzipSync } from 'node:zlib/iter';
+         *
+         * const fh = await open('input.txt', 'r');
+         *
+         * // Read as text (sync)
+         * console.log(textSync(fh.pullSync({ autoClose: true })));
+         *
+         * // Sync compress pipeline: file -> gzip -> file
+         * const src = await open('input.txt', 'r');
+         * const dst = await open('output.gz', 'w');
+         * pipeToSync(src.pullSync(compressGzipSync(), { autoClose: true }), dst.writer({ autoClose: true }));
+         * ```
+         * @since v25.9.0, v24.20.0
+         * @experimental
+         */
+        pullSync(...transforms: SyncTransform[]): SyncByteReadableStream;
+        pullSync(...args: [...transforms: SyncTransform[], options: PullSyncOptions]): SyncByteReadableStream;
         /**
          * Request that all data for the open file descriptor is flushed to the storage
          * device. The specific implementation is operating system and device specific.
