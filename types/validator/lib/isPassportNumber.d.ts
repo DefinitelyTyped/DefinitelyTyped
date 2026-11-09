@@ -1,8 +1,70 @@
-export const locales: string[];
+export type PassportNumberLocale =
+    | "AM"
+    | "AR"
+    | "AT"
+    | "AU"
+    | "AZ"
+    | "BE"
+    | "BG"
+    | "BR"
+    | "BY"
+    | "CA"
+    | "CH"
+    | "CN"
+    | "CY"
+    | "CZ"
+    | "DE"
+    | "DK"
+    | "DZ"
+    | "EE"
+    | "ES"
+    | "FI"
+    | "FR"
+    | "GB"
+    | "GR"
+    | "HR"
+    | "HU"
+    | "ID"
+    | "IE"
+    | "IN"
+    | "IR"
+    | "IS"
+    | "IT"
+    | "JM"
+    | "JP"
+    | "KR"
+    | "KZ"
+    | "LI"
+    | "LT"
+    | "LU"
+    | "LV"
+    | "LY"
+    | "MT"
+    | "MX"
+    | "MY"
+    | "MZ"
+    | "NL"
+    | "NZ"
+    | "PH"
+    | "PK"
+    | "PL"
+    | "PT"
+    | "RO"
+    | "RU"
+    | "SE"
+    | "SK"
+    | "SL"
+    | "TH"
+    | "TR"
+    | "UA"
+    | "US"
+    | "ZA";
+
+export const locales: PassportNumberLocale[];
 
 /**
  * Check if the string is a valid passport number relative to a specific country code.
  *
  * @param countryCode - Country code
  */
-export default function isPassportNumber(str: string, countryCode: string): boolean;
+export default function isPassportNumber(str: string, countryCode: PassportNumberLocale): boolean;
