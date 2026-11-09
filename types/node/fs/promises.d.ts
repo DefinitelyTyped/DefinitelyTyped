@@ -1382,7 +1382,7 @@ declare module "node:fs/promises" {
     function opendir(path: PathLike, options?: OpenDirOptions): Promise<Dir>;
     interface WatchOptions extends _WatchOptions {
         maxQueue?: number | undefined;
-        overflow?: "ignore" | "throw" | undefined;
+        overflow?: "ignore" | "error" | undefined;
     }
     interface WatchOptionsWithBufferEncoding extends WatchOptions {
         encoding: "buffer";
