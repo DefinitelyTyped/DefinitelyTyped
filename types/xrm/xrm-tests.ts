@@ -946,7 +946,7 @@ context.userSettings.getSecurityRolePrivilegesInfo(
         error.message;
     },
 );
- 
+
 // Xrm.WebApi.online.execute and executeMultiple typed request metadata and response.
 async function testTypedWebApiExecute() {
     const request: Xrm.ExecuteRequest = {
@@ -1027,4 +1027,9 @@ async function testTypedWebApiExecute() {
 // @ts-expect-error Primitive metadata cannot contain a misspelled EDM type.
 const invalidPrimitive: Xrm.ExecuteRequestPrimitiveParameterType = { typeName: "Edm.Int325", structuralProperty: 1 };
 // @ts-expect-error CRUD metadata cannot specify an entity-bound parameter.
-const invalidCrud: Xrm.ExecuteRequestCrudMetadata = { operationType: 2, operationName: "Create", boundParameter: "entity", parameterTypes: {} };
+const invalidCrud: Xrm.ExecuteRequestCrudMetadata = {
+    operationType: 2,
+    operationName: "Create",
+    boundParameter: "entity",
+    parameterTypes: {},
+};
