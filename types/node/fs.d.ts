@@ -3233,6 +3233,11 @@ declare module "node:fs" {
     }
     interface ReadFileSyncOptionsWithStringEncoding extends ReadFileSyncOptions {
         encoding: BufferEncoding;
+        /**
+         * A buffer to read into, or a function called with the file size that returns the buffer.
+         * @since v26.4.0, v24.19.0
+         */
+        buffer?: NodeJS.ArrayBufferView | ((size: number) => NodeJS.ArrayBufferView) | undefined;
     }
     interface ReadFileSyncOptionsWithBufferEncoding extends ReadFileSyncOptions {
         encoding?: null | undefined;
