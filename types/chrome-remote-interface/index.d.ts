@@ -264,6 +264,7 @@ declare namespace CDP {
          * Supports additional targets discovery and allows to attach to them.
          */
         Target: ProtocolProxyApi.TargetApi;
+        Tracing: ProtocolProxyApi.TracingApi;
     }
     interface DeprecatedDomains {
         /** @deprecated This domain is deprecated - use Runtime or Log instead. */
@@ -273,6 +274,10 @@ declare namespace CDP {
     }
     interface ExperimentalDomains {
         Accessibility: ProtocolProxyApi.AccessibilityApi;
+        /**
+         * A domain for ad-related metrics and data.
+         */
+        Ads: ProtocolProxyApi.AdsApi;
         Animation: ProtocolProxyApi.AnimationApi;
         /**
          * Audits domain allows investigation of page violations and possible improvements.
@@ -286,12 +291,21 @@ declare namespace CDP {
          * Defines events for background web platform features.
          */
         BackgroundService: ProtocolProxyApi.BackgroundServiceApi;
+        /**
+         * This domain allows configuring virtual Bluetooth devices to test
+         * the web-bluetooth API.
+         */
+        BluetoothEmulation: ProtocolProxyApi.BluetoothEmulationApi;
         CacheStorage: ProtocolProxyApi.CacheStorageApi;
         /**
          * A domain for interacting with Cast, Presentation API, and Remote Playback API
          * functionalities.
          */
         Cast: ProtocolProxyApi.CastApi;
+        /**
+         * This domain exposes the current state of the CrashReportContext API.
+         */
+        CrashReportContext: ProtocolProxyApi.CrashReportContextApi;
         /**
          * This domain exposes CSS read/write operations. All CSS objects (stylesheets, rules, and
          * styles) have an associated `id` used in subsequent operations on the related object. Each
@@ -302,9 +316,12 @@ declare namespace CDP {
          * contents using the `getStyleSheet[Text]()` methods.
          */
         CSS: ProtocolProxyApi.CSSApi;
-        Database: ProtocolProxyApi.DatabaseApi;
         DeviceAccess: ProtocolProxyApi.DeviceAccessApi;
         DeviceOrientation: ProtocolProxyApi.DeviceOrientationApi;
+        /**
+         * This domain allows interacting with the Digital Credentials API for automation.
+         */
+        DigitalCredentials: ProtocolProxyApi.DigitalCredentialsApi;
         /**
          * This domain facilitates obtaining document snapshots with DOM, layout, and style
          * information.
@@ -321,9 +338,18 @@ declare namespace CDP {
          */
         EventBreakpoints: ProtocolProxyApi.EventBreakpointsApi;
         /**
+         * Defines commands and events for browser extensions.
+         */
+        Extensions: ProtocolProxyApi.ExtensionsApi;
+        /**
          * This domain allows interacting with the FedCM dialog.
          */
         FedCm: ProtocolProxyApi.FedCmApi;
+        FileSystem: ProtocolProxyApi.FileSystemApi;
+        /**
+         * This domain provides commands to trigger the "Find in page" feature.
+         */
+        FindInPage: ProtocolProxyApi.FindInPageApi;
         /**
          * This domain provides experimental commands only supported in headless mode.
          */
@@ -347,7 +373,12 @@ declare namespace CDP {
          */
         PerformanceTimeline: ProtocolProxyApi.PerformanceTimelineApi;
         Preload: ProtocolProxyApi.PreloadApi;
+        /**
+         * This domain allows interacting with the browser to control PWAs.
+         */
+        PWA: ProtocolProxyApi.PWAApi;
         ServiceWorker: ProtocolProxyApi.ServiceWorkerApi;
+        SmartCardEmulation: ProtocolProxyApi.SmartCardEmulationApi;
         Storage: ProtocolProxyApi.StorageApi;
         /**
          * The SystemInfo domain defines methods and events for querying low-level system information.
@@ -357,7 +388,6 @@ declare namespace CDP {
          * The Tethering domain defines methods and events for browser port binding.
          */
         Tethering: ProtocolProxyApi.TetheringApi;
-        Tracing: ProtocolProxyApi.TracingApi;
         /**
          * This domain allows inspection of Web Audio API.
          * https://webaudio.github.io/web-audio-api/
@@ -367,6 +397,7 @@ declare namespace CDP {
          * This domain allows configuring virtual authenticators to test the WebAuthn API.
          */
         WebAuthn: ProtocolProxyApi.WebAuthnApi;
+        WebMCP: ProtocolProxyApi.WebMCPApi;
     }
     type AllDomains = StableDomains & DeprecatedDomains & ExperimentalDomains;
     type Client =

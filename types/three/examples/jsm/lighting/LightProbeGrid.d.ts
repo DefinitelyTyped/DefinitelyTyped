@@ -18,10 +18,6 @@ export interface LightProbeGridBakeOptions {
      */
     bounces?: number | undefined;
     /**
-     * Directions integrated when projecting each cubemap to SH.
-     */
-    sampleCount?: number | undefined;
-    /**
      * Index of the first probe to bake.
      */
     start?: number | undefined;
@@ -57,14 +53,16 @@ export class LightProbeGrid extends Light {
     /**
      * Constructs a new irradiance probe grid.
      *
-     * The volume is centered at the object's position.
+     * The volume is centered at the object's position. It is split into one cell
+     * per probe, with each probe at the center of its cell, so the probes sit half
+     * a cell inside the volume.
      *
      * @param {number} [width=1] - Full width of the volume along X.
      * @param {number} [height=1] - Full height of the volume along Y.
      * @param {number} [depth=1] - Full depth of the volume along Z.
-     * @param {number} [widthProbes] - Number of probes along X. Defaults to `Math.max( 2, Math.round( width ) + 1 )`.
-     * @param {number} [heightProbes] - Number of probes along Y. Defaults to `Math.max( 2, Math.round( height ) + 1 )`.
-     * @param {number} [depthProbes] - Number of probes along Z. Defaults to `Math.max( 2, Math.round( depth ) + 1 )`.
+     * @param {number} [widthProbes] - Number of probes along X. Defaults to `Math.max( 1, Math.round( width ) )`.
+     * @param {number} [heightProbes] - Number of probes along Y. Defaults to `Math.max( 1, Math.round( height ) )`.
+     * @param {number} [depthProbes] - Number of probes along Z. Defaults to `Math.max( 1, Math.round( depth ) )`.
      */
     constructor(
         width?: number,
@@ -107,28 +105,26 @@ export class LightProbeGrid extends Light {
      */
     resolution: Vector3;
     /**
-     * The world-space bounding box for the grid. Updated automatically
+     * The world-space bounding box for the grid. This is the volume the grid
+     * lights, with the probes half a cell inside it. Updated automatically
      * by {@link LightProbeGrid#bake}.
      *
      * @type {Box3}
      */
     boundingBox: Box3;
     /**
-     * Distance in world units over which the grid contribution fades out
-     * past the volume boundary. `0` applies the contribution everywhere
-     * (clamped), which matches a single-volume setup. Use a small positive
-     * value to blend multiple overlapping grids.
+     * Where grids overlap, the grid with the highest priority lights the
+     * fragment. On ties, the most recently created grid wins.
      *
      * @type {number}
      * @default 0
      */
-    falloff: number;
+    priority: number;
     /**
      * The single RGBA atlas 3D texture storing all seven packed SH
      * sub-volumes stacked along Z.
      *
      * @type {?Data3DTexture}
-     * @default null
      */
     texture: Data3DTexture | null;
     /**
@@ -164,11 +160,10 @@ export class LightProbeGrid extends Light {
      * @param {WebGPURenderer} renderer - The renderer.
      * @param {Scene} scene - The scene to render.
      * @param {Object} [options] - Bake options.
-     * @param {number} [options.cubemapSize=8] - Resolution of each cubemap face.
+     * @param {number} [options.cubemapSize=8] - Resolution of each cubemap face. Must be a multiple of 4.
      * @param {number} [options.near=0.1] - Near plane for the cube camera.
      * @param {number} [options.far=100] - Far plane for the cube camera.
      * @param {number} [options.bounces=0] - Additional bounce passes. Only available when baking the whole grid.
-     * @param {number} [options.sampleCount=512] - Directions integrated when projecting each cubemap to SH.
      * @param {number} [options.start=0] - Index of the first probe to bake.
      * @param {number} [options.count] - Number of probes to bake. Defaults to the remaining probes.
      * @param {number} [options.pass=0] - Starting pass. Zero captures direct light; later passes sample the previous pass. Ranged calls require `bounces: 0`.

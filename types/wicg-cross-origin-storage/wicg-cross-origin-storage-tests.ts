@@ -29,6 +29,10 @@ async function testWorkerNavigator(workerNavigator: WorkerNavigator) {
     const handle: FileSystemFileHandle = await workerNavigator.crossOriginStorage.getFileHandle(hash);
 }
 
+function testSharedWorkerAllow() {
+    const worker = new SharedWorker("worker.js", { name: "cos", allow: "cross-origin-storage" });
+}
+
 async function testDeprecatedNames() {
     const legacyHash: CrossOriginStorageRequestFileHandleHash = hash;
     const legacyOptions: CrossOriginStorageRequestFileHandleOptions = { create: true };

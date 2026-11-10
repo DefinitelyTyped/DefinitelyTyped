@@ -16,6 +16,7 @@ export interface LightShadowJSON {
     radius?: number;
     blurSamples?: number;
     mapSize?: Vector2Tuple;
+    mapType?: TextureDataType;
 
     camera: Omit<Object3DJSONObject, "matrix">;
 }

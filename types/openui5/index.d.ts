@@ -14,6 +14,7 @@
 /// <reference types="qunit" />
 
 /// <reference path="./sap.f.d.ts"/>
+/// <reference path="./sap.html.d.ts"/>
 /// <reference path="./sap.m.d.ts"/>
 /// <reference path="./sap.tnt.d.ts"/>
 /// <reference path="./sap.ui.codeeditor.d.ts"/>

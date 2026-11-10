@@ -10,4 +10,5 @@ export class WebGLGeometries {
     get(object: Object3D, geometry: BufferGeometry): BufferGeometry;
     update(geometry: BufferGeometry): void;
     getWireframeAttribute(geometry: BufferGeometry): BufferAttribute;
+    dispose(): void;
 }

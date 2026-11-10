@@ -6,7 +6,6 @@ import { Vector2 } from "../../math/Vector2.js";
 import { Vector3 } from "../../math/Vector3.js";
 import { Vector4 } from "../../math/Vector4.js";
 import Node, { IntegerType, NumType } from "../core/Node.js";
-import TempNode from "../core/TempNode.js";
 
 export type OperatorNodeOp =
     | "%"
@@ -29,7 +28,7 @@ export type OperatorNodeOp =
     | "*"
     | "/";
 
-export default class OperatorNode extends TempNode {
+export default class OperatorNode extends Node {
     aNode: Node;
     bNode: Node;
     op: OperatorNodeOp;

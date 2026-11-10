@@ -1,6 +1,6 @@
-import { Camera, Node, TempNode, TextureNode } from "three/webgpu";
+import { Camera, Node, TextureNode } from "three/webgpu";
 
-declare class TRAANode extends TempNode<"vec4"> {
+declare class TRAANode extends Node<"vec4"> {
     readonly isTRAANode: true;
 
     beautyNode: TextureNode;

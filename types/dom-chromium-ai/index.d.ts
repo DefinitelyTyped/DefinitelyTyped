@@ -119,7 +119,9 @@ interface LanguageModelParams {
 type LanguageModelSamplingMode =
     | "most-predictable"
     | "predictable"
+    | "slightly-predictable"
     | "balanced"
+    | "slightly-creative"
     | "creative"
     | "most-creative";
 

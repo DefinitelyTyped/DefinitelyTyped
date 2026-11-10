@@ -543,8 +543,8 @@ const excludesStore: boolean | undefined = poiFilter.excludesCategory(
     mapkit.PointOfInterestCategory.Store,
 );
 
-const allCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.includingAllCategories();
-const noCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.excludingAllCategories();
+const allCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.includingAllCategories;
+const noCategoriesFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.excludingAllCategories;
 const specificIncludeFilter: PointOfInterestFilter = mapkit.PointOfInterestFilter.including([
     mapkit.PointOfInterestCategory.Hospital,
     mapkit.PointOfInterestCategory.School,

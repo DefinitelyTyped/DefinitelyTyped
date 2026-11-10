@@ -1,6 +1,6 @@
-import { Node, TempNode, TextureNode } from "three/webgpu";
+import { Node, TextureNode } from "three/webgpu";
 
-declare class FXAANode extends TempNode {
+declare class FXAANode extends Node {
     textureNode: TextureNode;
 
     constructor(textureNode: TextureNode);

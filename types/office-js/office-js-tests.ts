@@ -110,6 +110,10 @@ function test_excel() {
 
 function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: Excel.Range) {
     // $ExpectType void
+    series.setBubbleSizes(range);
+    // $ExpectType void
+    series.setBubbleSizes("=Sheet1!$C$2:$C$4");
+    // $ExpectType void
     series.setValues(range);
     // $ExpectType void
     series.setValues("=Sheet1!$B$2:$B$4");
@@ -120,6 +124,10 @@ function test_excel_chart_series_source_data(series: Excel.ChartSeries, range: E
     series.setXAxisValues("");
     series.setXAxisValues("=");
 
+    // @ts-expect-error
+    series.setBubbleSizes(42);
+    // @ts-expect-error
+    series.setBubbleSizes([1, 2]);
     // @ts-expect-error
     series.setValues(42);
     // @ts-expect-error
@@ -148,6 +156,83 @@ function test_excel_recent_apis(functions: Excel.Functions) {
     };
     const refError: Excel.RefErrorCellValue = { type: "Error", errorSubType: "CorruptCellRef" };
     const valueError: Excel.ValueErrorCellValue = { type: "Error", errorSubType: "TranslateUnsupportedTargetLanguage" };
+}
+
+function test_word_line_format(line: Word.LineFormat) {
+    // @ts-expect-error
+    line.backgroundColor;
+    // @ts-expect-error
+    line.beginArrowheadLength = "Short";
+    // @ts-expect-error
+    line.beginArrowheadStyle = "Triangle";
+    // @ts-expect-error
+    line.beginArrowheadWidth = "Narrow";
+    // @ts-expect-error
+    line.endArrowheadLength = "Long";
+    // @ts-expect-error
+    line.endArrowheadStyle = "Oval";
+    // @ts-expect-error
+    line.endArrowheadWidth = "Wide";
+    // @ts-expect-error
+    line.pattern = "Cross";
+
+    const update: Word.Interfaces.LineFormatUpdateData = { weight: 1 };
+    // @ts-expect-error
+    update.backgroundColor = {};
+    // @ts-expect-error
+    update.beginArrowheadLength = "Short";
+    // @ts-expect-error
+    update.beginArrowheadStyle = "Triangle";
+    // @ts-expect-error
+    update.beginArrowheadWidth = "Narrow";
+    // @ts-expect-error
+    update.endArrowheadLength = "Long";
+    // @ts-expect-error
+    update.endArrowheadStyle = "Oval";
+    // @ts-expect-error
+    update.endArrowheadWidth = "Wide";
+    // @ts-expect-error
+    update.pattern = "Cross";
+    line.set(update);
+
+    // $ExpectType LineFormatData
+    const data = line.toJSON();
+    // @ts-expect-error
+    data.backgroundColor;
+    // @ts-expect-error
+    data.beginArrowheadLength;
+    // @ts-expect-error
+    data.beginArrowheadStyle;
+    // @ts-expect-error
+    data.beginArrowheadWidth;
+    // @ts-expect-error
+    data.endArrowheadLength;
+    // @ts-expect-error
+    data.endArrowheadStyle;
+    // @ts-expect-error
+    data.endArrowheadWidth;
+    // @ts-expect-error
+    data.pattern;
+
+    const options: Word.Interfaces.LineFormatLoadOptions = { weight: true };
+    // @ts-expect-error
+    options.backgroundColor = {};
+    // @ts-expect-error
+    options.beginArrowheadLength = true;
+    // @ts-expect-error
+    options.beginArrowheadStyle = true;
+    // @ts-expect-error
+    options.beginArrowheadWidth = true;
+    // @ts-expect-error
+    options.endArrowheadLength = true;
+    // @ts-expect-error
+    options.endArrowheadStyle = true;
+    // @ts-expect-error
+    options.endArrowheadWidth = true;
+    // @ts-expect-error
+    options.pattern = true;
+    // $ExpectType LineFormat
+    line.load(options);
 }
 
 function test_word() {

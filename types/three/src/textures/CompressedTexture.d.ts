@@ -25,7 +25,7 @@ export class CompressedTexture<TImageData = CompressedTextureImageData> extends 
     /**
      * This creates a new {@link THREE.CompressedTexture | CompressedTexture} object.
      * @param mipmaps The mipmaps array should contain objects with data, width and height. The mipmaps should be of the
-     * correct format and type.
+     * correct format and type. Default `[]`.
      * @param width The width of the biggest mipmap.
      * @param height The height of the biggest mipmap.
      * @param format The format used in the mipmaps. See {@link THREE.CompressedPixelFormat}.
@@ -39,7 +39,7 @@ export class CompressedTexture<TImageData = CompressedTextureImageData> extends 
      * @param colorSpace See {@link Texture.colorSpace .colorSpace}. Default {@link NoColorSpace}
      */
     constructor(
-        mipmaps: CompressedTextureMipmap[],
+        mipmaps: CompressedTextureMipmap[] | undefined,
         width: number,
         height: number,
         format?: CompressedPixelFormat,

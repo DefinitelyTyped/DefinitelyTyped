@@ -140,6 +140,10 @@ function assertType<T>(value: T): T {
                 // $ExpectType TargetCreatedEvent
                 params;
             });
+            client.on("Tracing.dataCollected", (params) => {
+                // $ExpectType DataCollectedEvent
+                params;
+            });
         }
 
         // Deprecated domain events
@@ -190,10 +194,6 @@ function assertType<T>(value: T): T {
                 // $ExpectType StyleSheetAddedEvent
                 params;
             });
-            client.on("Database.addDatabase", (params) => {
-                // $ExpectType AddDatabaseEvent
-                params;
-            });
             client.on("DeviceAccess.deviceRequestPrompted", (params) => {
                 // $ExpectType DeviceRequestPromptedEvent
                 params;
@@ -236,8 +236,8 @@ function assertType<T>(value: T): T {
                 // $ExpectType TimelineEventAddedEvent
                 params;
             });
-            client.on("Preload.prerenderAttemptCompleted", (params) => {
-                // $ExpectType PrerenderAttemptCompletedEvent
+            client.on("Preload.prerenderStatusUpdated", (params) => {
+                // $ExpectType PrerenderStatusUpdatedEvent
                 params;
             });
             client.on("ServiceWorker.workerVersionUpdated", (params) => {
@@ -250,10 +250,6 @@ function assertType<T>(value: T): T {
             });
             client.on("Tethering.accepted", (params) => {
                 // $ExpectType AcceptedEvent
-                params;
-            });
-            client.on("Tracing.dataCollected", (params) => {
-                // $ExpectType DataCollectedEvent
                 params;
             });
             client.on("WebAudio.contextCreated", (params) => {
@@ -270,11 +266,15 @@ function assertType<T>(value: T): T {
         await Network.enable();
         await Network.enable({});
         await Network.enable({}, "sessionId"); // Should be Network.enable('sessionId')
+        // A command whose params have a required property must not allow omitting them
         // @ts-expect-error
-        await Network.setAcceptedEncodings();
-        await Network.setAcceptedEncodings({ encodings: [] });
+        await Network.setCacheDisabled();
+        await Network.setCacheDisabled({ cacheDisabled: true });
         await Page.enable();
         await Page.navigate({ url: "https://github.com" });
+        const { isDownload } = await Page.navigate({ url: "https://github.com" });
+        // $ExpectType boolean | undefined
+        isDownload;
         await client.Runtime.runIfWaitingForDebugger("sessionId");
         await client.Fetch.enable({ patterns: [] }, "sessionId");
         let loadEvent = await Page.loadEventFired();

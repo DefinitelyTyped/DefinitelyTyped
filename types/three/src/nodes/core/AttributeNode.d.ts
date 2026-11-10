@@ -5,6 +5,8 @@ interface AttributeNodeInterface {
     setAttributeName(attributeName: string): this;
 
     getAttributeName(builder: NodeBuilder): string;
+
+    getContextAttribute(builder: NodeBuilder): Node | null;
 }
 
 declare const AttributeNode: {

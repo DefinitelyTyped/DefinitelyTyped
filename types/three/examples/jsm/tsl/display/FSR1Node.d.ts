@@ -1,6 +1,6 @@
-import { Node, TempNode, TextureNode } from "three/webgpu";
+import { Node, TextureNode } from "three/webgpu";
 
-declare class FSR1Node extends TempNode<"vec4"> {
+declare class FSR1Node extends Node<"vec4"> {
     textureNode: TextureNode;
     sharpness: Node<"float">;
     denoise: Node<"bool">;

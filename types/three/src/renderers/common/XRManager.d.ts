@@ -145,6 +145,9 @@ declare class XRManager<TEventMap extends XRManagerEventMap = XRManagerEventMap>
     /**
      * Returns the XR camera.
      *
+     * The camera's transformation and projection matrix are derived from the first
+     * sub camera (e.g. the left eye in a stereo setup).
+     *
      * @return {ArrayCamera} The XR camera.
      */
     getCamera(): ArrayCamera;

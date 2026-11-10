@@ -1,4 +1,4 @@
-import { Loader, LoadingManager, MeshPhysicalNodeMaterial } from "three/webgpu";
+import { Loader, LoadingManager, MeshPhysicalNodeMaterial, Node } from "three/webgpu";
 import { MaterialXInterfaceValidator } from "./materialx/MaterialXInterfaceValidation.js";
 import { MaterialXLogEntry } from "./materialx/MaterialXLog.js";
 
@@ -17,6 +17,12 @@ export interface MaterialXLoadOptions {
      * Called with the root node of the parsed document so additional problems can be added to the log.
      */
     interfaceValidator?: MaterialXInterfaceValidator;
+    /**
+     * Builds the TSL node of a MaterialX node before the built-in node library. Called with the node and the requested
+     * output (`null` for the default output); returns the node, or `null` to leave it to the loader. For channel outputs
+     * such as `outx`, the loader takes the channel of the returned node.
+     */
+    nodeResolver?: (node: any, output: string | null) => Node | null;
     /**
      * Whether to throw when the translation produced errors.
      *

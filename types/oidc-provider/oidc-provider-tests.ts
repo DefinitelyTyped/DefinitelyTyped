@@ -21,6 +21,31 @@ new Provider("https://op.example.com", {
 });
 
 new Provider("https://op.example.com", {
+    features: {
+        claimsParameter: {
+            enabled: true,
+            assertClaimsParameter(ctx, claims, client) {
+                ctx.oidc.issuer.substring(0);
+                client.clientId.substring(0);
+
+                const verifiedClaims = claims.userinfo?.verified_claims;
+                // $ExpectType unknown
+                verifiedClaims;
+                // $ExpectType unknown
+                claims.id_token?.verified_claims;
+
+                // @ts-expect-error Claim request members have not been validated by the default hook.
+                verifiedClaims.essential;
+
+                if (Array.isArray(verifiedClaims)) {
+                    verifiedClaims.length.toFixed();
+                }
+            },
+        },
+    },
+});
+
+new Provider("https://op.example.com", {
     clientAuthMethods: ["attest_jwt_client_auth", "attest_jwt_client_auth_dpop"],
     clients: [{
         client_id: "attested-dpop-client",

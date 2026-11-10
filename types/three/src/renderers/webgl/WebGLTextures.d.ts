@@ -28,4 +28,5 @@ export class WebGLTextures {
     setupRenderTarget(renderTarget: RenderTarget): void;
     updateRenderTargetMipmap(renderTarget: RenderTarget): void;
     updateMultisampleRenderTarget(renderTarget: RenderTarget): void;
+    dispose(): void;
 }

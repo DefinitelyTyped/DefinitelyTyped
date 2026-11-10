@@ -390,11 +390,15 @@ export interface MaterialJSON {
     clearcoatNormalMap?: string;
     clearcoatNormalScale?: Vector2Tuple;
 
+    diffuseRoughness?: number;
+    diffuseRoughnessMap?: string;
+
     dispersion?: number;
 
     iridescence?: number;
     iridescenceIOR?: number;
-    iridescenceThicknessRange?: number;
+    iridescenceThicknessMinimum?: number;
+    iridescenceThicknessMaximum?: number;
     iridescenceMap?: string;
     iridescenceThicknessMap?: string;
 
@@ -546,6 +550,10 @@ export class Material<TEventMap extends MaterialEventMap = MaterialEventMap> ext
      * @default true
      */
     readonly isMaterial: boolean;
+    /**
+     * The ID of the material.
+     */
+    readonly id: number;
     /**
      * The UUID of the material.
      */
