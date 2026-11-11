@@ -1026,10 +1026,10 @@ async function testTypedWebApiExecute() {
 
 // @ts-expect-error Primitive metadata cannot contain a misspelled EDM type.
 const invalidPrimitive: Xrm.ExecuteRequestPrimitiveParameterType = { typeName: "Edm.Int325", structuralProperty: 1 };
-// @ts-expect-error CRUD metadata cannot specify an entity-bound parameter.
 const invalidCrud: Xrm.ExecuteRequestCrudMetadata = {
     operationType: 2,
     operationName: "Create",
+    // @ts-expect-error CRUD metadata cannot specify an entity-bound parameter.
     boundParameter: "entity",
     parameterTypes: {},
 };
