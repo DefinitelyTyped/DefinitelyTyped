@@ -684,7 +684,7 @@ export interface SellProviderInfo extends BuySellProviderMetadata {
 export interface SellListResponse {
     country: string;
     subdivision?: string;
-    suggestedFiatCurrency?: string | undefined; // optional field, fiat currency based on user's IP
+    suggestedFiatCurrency?: string | undefined;
     providers: SellProviderInfo[];
 }
 
