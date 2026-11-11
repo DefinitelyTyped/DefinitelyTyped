@@ -37,7 +37,6 @@
         "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
         "dprint": "^0.56.1",
-        "eslint-plugin-jsdoc": "^44.2.7 || ^65.4.2",
         "husky": "^9.1.7",
         "lint-staged": "^15.2.0",
         "remark-cli": "^12.0.0",
