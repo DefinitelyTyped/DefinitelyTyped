@@ -52,22 +52,25 @@ const testAsync = async () => {
         algo: "sha1",
         encoding: "binary",
         folders: {
-            exclude: () => ["1"],
-            include: () => ["2"],
+            exclude: (path) => path.endsWith("node_modules"),
+            include: (path) => path.startsWith("src"),
             matchBasename: false,
             matchPath: false,
             ignoreRootName: true,
             ignoreBasename: true,
         },
         files: {
-            exclude: () => ["1"],
-            include: () => ["2"],
+            exclude: (path) => path.endsWith("node_modules"),
+            include: (path) => path.startsWith("src"),
             matchBasename: false,
             matchPath: false,
             ignoreRootName: true,
             ignoreBasename: true,
         },
     };
+    // @ts-expect-error
+    await hashElement("./whatever", { folders: { exclude: () => ["1"] } });
+
     // $ExpectType HashElementNode
     await hashElement("./whatever", stringOptions);
     // $ExpectType HashElementNode

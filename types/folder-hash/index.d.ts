@@ -1,4 +1,8 @@
-export type PathGlobFunction = () => string[];
+/**
+ * Called with each element's basename (`matchBasename`) or path (`matchPath`); returns whether
+ * the rule applies to it.
+ */
+export type PathGlobFunction = (path: string) => boolean;
 
 export interface FolderAndFileOptions {
     exclude?: string[] | PathGlobFunction | undefined;
