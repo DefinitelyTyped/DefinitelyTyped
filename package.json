@@ -29,12 +29,9 @@
     },
     "devDependencies": {
         "@definitelytyped/definitions-parser": "latest",
-        "@definitelytyped/dts-critic": "latest",
         "@definitelytyped/dtslint": "latest",
         "@definitelytyped/dtslint-runner": "latest",
         "@definitelytyped/eslint-plugin": "latest",
-        "@definitelytyped/header-parser": "latest",
-        "@definitelytyped/typescript-versions": "latest",
         "@definitelytyped/utils": "latest",
         "dprint": "^0.56.1",
         "husky": "^9.1.7",
