@@ -1,8 +1,6 @@
-import Logger from "bunyan";
-import * as http from "http";
+/// <reference types="node" />
+import * as http from "node:http";
 import * as restify from "restify";
-import * as stream from "stream";
-import * as url from "url";
 
 let server: restify.Server;
 
@@ -44,12 +42,13 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.trailer("key", "val");
     req.trailer("key") === "val";
 
+    req.accepts("test"); // $ExpectType string | undefined
+    req.accepts(["test"]); // $ExpectType string | undefined
+    req.acceptsEncoding("test"); // $ExpectType string | undefined
+    req.acceptsEncoding(["test"]); // $ExpectType string | undefined
+    req.is("test"); // $ExpectType number | boolean
+
     let b: boolean;
-    b = req.accepts("test");
-    b = req.accepts(["test"]);
-    b = req.acceptsEncoding("test");
-    b = req.acceptsEncoding(["test"]);
-    b = req.is("test");
     b = req.isChunked();
     b = req.isKeepAlive();
     b = req.isSecure();
@@ -76,23 +75,22 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.getQuery() === "test";
     req.query === "test";
     req.time() === 1463518410080;
-    req.getUrl() === url.parse("https://test.test.test/test");
+    req.getUrl(); // $ExpectType URL
+    req.id("custom-request-id"); // $ExpectType string
     req.getVersion() === "test";
     req.version() === "test";
-    // @ExpectedType restify.Route[]
-    server.router.getRoutes();
-    // @ExpectedType restify.Route
-    req.getRoute();
+    server.router.getRoutes(); // $ExpectType { [routeName: string]: Route; }
+    req.getRoute(); // $ExpectType Route
     req.params;
     res.header("test");
     res.header("test", {});
     res.header("test", new Date());
 
-    res.cache();
+    res.cache(); // $ExpectType Response
     res.cache("testst", { maxAge: 60 });
     res.cache({ maxAge: 60 });
 
-    res.status(344);
+    res.status(344); // $ExpectType number
 
     res.send({ hello: "world" });
     res.send(201, { hello: "world" });
@@ -106,12 +104,18 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     res.json(201, { hello: "world" });
     res.json({ hello: "world" });
 
-    res.code === 50;
-    res.contentLength === 50;
     res.charSet("test");
-    res.contentType === "test";
-    res.headers;
-    res.id === "test";
+
+    res.contentType; // $ExpectType string | undefined
+
+    // @ts-expect-error -- only exists on the upgrade stub
+    res.code;
+
+    // @ts-expect-error
+    res.contentLength;
+
+    // @ts-expect-error
+    res.id;
 
     res.send("hello " + req.params.name);
     res.writeHead(200);
@@ -121,32 +125,36 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     next();
 }
 
-server.post("/hello", send);
+server.post("/hello", send); // $ExpectType string
 server.put("/hello", send);
 server.del("/hello", send);
 server.get("/hello", send);
 server.head("/hello", send);
 server.opts("/hello", send);
 
-server.post(/(.*)/, send);
-server.put(/(.*)/, send);
-server.del(/(.*)/, send);
+// @ts-expect-error -- RegExp paths are rejected by the router at runtime
 server.get(/(.*)/, send);
-server.head(/(.*)/, send);
-server.opts(/(.*)/, send);
+
+server.get({ name: "named", path: "/named/:id", owner: "me" }, send);
+server.rm("named"); // $ExpectType boolean
 
 server.name = "";
-server.versions = [""];
 server.acceptable = ["test"];
-server.url = "";
 server.server = new http.Server();
 
-server.address().port;
-server.address().family;
-server.address().address;
+server.url; // $ExpectType string
+// @ts-expect-error -- computed getter
+server.url = "";
+// @ts-expect-error -- route versioning removed
+server.versions;
 
-server.listen("somePath", send);
-server.close();
+const addr = server.address(); // $ExpectType string | AddressInfo | null
+if (addr && typeof addr === "object") {
+    addr.port;
+}
+
+server.listen("somePath", () => {}); // $ExpectType NodeServer
+server.close(); // $ExpectType NodeServer
 
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.authorizationParser());
@@ -158,13 +166,13 @@ server.use(restify.plugins.bodyParser());
 server.use(restify.plugins.multipartBodyParser());
 server.use(
     restify.plugins.serveStaticFiles("somePath", {
-        etag: "1",
         maxAge: 10,
-        setHeaders: (res: restify.Response, path: string, stat: object) => {
+        setHeaders: (res, path, stat) => {
             res.setHeader("header-set-x", "some-header");
         },
     }),
 );
+restify.plugins.bodyParser(); // $ExpectType RequestHandler[]
 server.use(restify.plugins.throttle({
     burst: 100,
     rate: 50,
@@ -189,7 +197,7 @@ server.post("/test-files", (req, res, next) => {
     const files = req.files;
     if (files) {
         const testFile = files["test"];
-        if (testFile) {
+        if (testFile && !Array.isArray(testFile)) {
             console.log(testFile.path);
             console.log(testFile.name);
             console.log(testFile.size);
@@ -198,14 +206,16 @@ server.post("/test-files", (req, res, next) => {
     next();
 });
 
-const logger = Logger.createLogger({ name: "test" });
+const logger = restify.logger({ name: "test" });
+logger; // $ExpectType Logger
 
 server.on("after", restify.plugins.auditLogger({ event: "after", log: logger }));
 
-server.on("after", (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
-    route.method === "GET";
-    route.name === "routeName";
-    route.path; // string | $ExpectType RegExp
+server.on("after", (req, res, route, err) => {
+    route; // $ExpectType Route | undefined
+    if (route) {
+        route.path; // $ExpectType string
+    }
     restify.plugins.auditLogger({ event: "after", log: logger })(req, res, route, err);
 });
 
@@ -213,23 +223,82 @@ server.on("after", (req: restify.Request, res: restify.Response, route: restify.
     this.header("Server", "helloworld");
 };
 
-const loggerStream: Logger.Stream = {};
+// @ts-expect-error -- bunyan helpers were removed in favour of pino
+restify.bunyan;
 
-const requestCaptureOptions: restify.bunyan.RequestCaptureOptions = {};
-requestCaptureOptions.stream = loggerStream;
-requestCaptureOptions.streams = Object.freeze([loggerStream, loggerStream]);
-requestCaptureOptions.level = Logger.DEBUG;
-requestCaptureOptions.level = "info";
-requestCaptureOptions.maxRecords = 50;
-requestCaptureOptions.maxRequestIds = 500;
-requestCaptureOptions.dumpDefault = true;
+server.router.render("a-route-name", {}, {}); // $ExpectType string | null
 
-const requestCaptureStream = new restify.bunyan.RequestCaptureStream(requestCaptureOptions);
-requestCaptureStream.write(loggerStream);
-requestCaptureStream.toString();
-const asStream: stream.Stream = requestCaptureStream;
+// server.first()
+server.first((req, res) => {
+    req; // $ExpectType IncomingMessage
+    res; // $ExpectType ServerResponse<IncomingMessage>
+    return true;
+});
+server.first(
+    () => false,
+    () => undefined,
+    () => null,
+    () => {},
+);
+server.first(); // $ExpectType Server
+// @ts-expect-error -- any other return value throws at runtime
+server.first(() => "nope");
+// @ts-expect-error -- first() handlers are synchronous
+server.first(async () => true);
+// @ts-expect-error -- first() handlers get no `next`
+server.first((req: http.IncomingMessage, res: http.ServerResponse, next: restify.Next) => true);
 
-const logger2: Logger = restify.bunyan.createLogger("horse");
+// async handlers
+server.get("/async", async (req, res) => {
+    req; // $ExpectType Request
+    res; // $ExpectType Response
+    res.send(await Promise.resolve({ hello: "world" }));
+});
+server.post("/async-value", async (req, res) => 42); // $ExpectType string
+server.use(async (req, res) => {});
+server.pre(async (req, res) => {});
+const asyncHandler: restify.AsyncHandler = async (req, res) => {
+    res.send(204);
+};
+server.put("/async-typed", asyncHandler);
+server.get("/mixed", [asyncHandler, send], async (req, res) => {});
 
-server.router.render("a-route-name", {});
-server.router.render("a-route-name", {}, {});
+// plugins.metrics()
+const metricsListener = restify.plugins.metrics({ server }, (err, metrics, req, res, route) => {
+    metrics.statusCode; // $ExpectType number | undefined
+    metrics.method; // $ExpectType string
+    metrics.totalLatency; // $ExpectType number | null
+    metrics.latency; // $ExpectType number | null
+    metrics.preLatency; // $ExpectType number | null
+    metrics.useLatency; // $ExpectType number | null
+    metrics.routeLatency; // $ExpectType number | null
+    metrics.path; // $ExpectType string
+    metrics.connectionState; // $ExpectType "close" | undefined
+    metrics.unfinishedRequests; // $ExpectType number
+    metrics.inflightRequests; // $ExpectType number
+    // @ts-expect-error -- typo in the restify docs, not the real property
+    metrics.unifinishedRequests;
+    req; // $ExpectType Request
+    res; // $ExpectType Response
+    route; // $ExpectType Route | undefined
+});
+metricsListener; // $ExpectType AfterEventListener
+server.on("after", metricsListener);
+// @ts-expect-error -- `server` is required
+restify.plugins.metrics({}, () => {});
+
+// helpers.compose()
+const composed = restify.helpers.compose([send, asyncHandler, [restify.plugins.queryParser()]]);
+composed; // $ExpectType (req: Request, res: Response, callback: (err?: any) => void) => void
+restify.helpers.compose(send, { onceNext: true, strictNext: true });
+server.get("/composed", (req, res, next) => {
+    composed(req, res, err => {
+        if (err) {
+            next(err);
+            return;
+        }
+        next();
+    });
+});
+// @ts-expect-error -- unknown chain option
+restify.helpers.compose(send, { bogus: true });

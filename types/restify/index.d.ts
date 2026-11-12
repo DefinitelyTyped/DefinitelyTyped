@@ -1,1620 +1,1472 @@
-/// <reference types="node" />
-import http = require("http");
-import https = require("https");
-import Logger = require("bunyan");
-import url = require("url");
-import spdy = require("spdy");
-import stream = require("stream");
-import zlib = require("zlib");
-import { File } from "formidable";
+import fs = require('node:fs');
+import http = require('node:http');
+import https = require('node:https');
+import http2 = require('node:http2');
+import net = require('node:net');
+import stream = require('node:stream');
+import zlib = require('node:zlib');
 
-export interface ServerOptions {
-    ca?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
+// ---------------------------------------------------------------------------
+// Logger
+// ---------------------------------------------------------------------------
 
-    certificate?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
+/** A log method. Accepts pino's and bunyan's calling conventions. */
+export type LogFn = (...args: any[]) => void;
 
-    cert?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
+/**
+ * Structural logger type. restify creates a pino logger by default; any
+ * logger with these members (pino, bunyan, ...) can be passed in.
+ */
+export interface Logger {
+    level: string;
+    trace: LogFn;
+    debug: LogFn;
+    info: LogFn;
+    warn: LogFn;
+    error: LogFn;
+    fatal: LogFn;
+    /** Creates a child logger with additional bound fields. */
+    child(bindings: { [key: string]: any }, options?: { [key: string]: any }): Logger;
+    /**
+     * Probed by `auditLogger` for a custom `err` serializer (a bunyan-ism;
+     * typed `any` because pino exposes an unrelated member under this name).
+     */
+    serializers?: any;
+}
 
-    key?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
-
-    passphrase?: string | undefined;
-
-    requestCert?: boolean | undefined;
-
-    ciphers?: string | undefined;
-
-    formatters?: Formatters | undefined;
-
-    log?: Logger | undefined;
-
+/** Options for the re-exported pino factory (`restify.logger`). */
+export interface LoggerOptions {
     name?: string | undefined;
-
-    spdy?: spdy.ServerOptions | undefined;
-
-    version?: string | undefined;
-
-    versions?: string[] | undefined;
-
-    handleUpgrades?: boolean | undefined;
-
-    httpsServerOptions?: https.ServerOptions | undefined;
-
-    handleUncaughtExceptions?: boolean | undefined;
-
-    router?: Router | undefined;
-
-    socketio?: boolean | undefined;
-
-    noWriteContinue?: boolean | undefined;
-
-    rejectUnauthorized?: boolean | undefined;
-
-    secureOptions?: number | undefined;
-
-    http2?: any;
-
-    dtrace?: boolean | undefined;
-
-    onceNext?: boolean | undefined;
-
-    strictNext?: boolean | undefined;
-
-    ignoreTrailingSlash?: boolean | undefined;
-
-    maxParamLength?: number | undefined;
-
-    strictFormatters?: boolean | undefined;
+    level?: string | undefined;
+    serializers?: { [key: string]: (value: any) => any } | undefined;
+    /** Any other pino option. */
+    [option: string]: any;
 }
 
-export interface AddressInterface {
-    port: number;
-
-    family: string;
-
-    address: string;
+/** A writable destination for `restify.logger`. */
+export interface DestinationStream {
+    write(msg: string): void;
 }
 
-export interface Server extends http.Server {
-    /**
-     * Returns the server address. Wraps node's address().
-     */
-    address(): AddressInterface;
-
-    /**
-     * Gets the server up and listening. Wraps node's listen().
-     *
-     * You can call like:
-     *  server.listen(80)
-     *  server.listen(80, '127.0.0.1')
-     *  server.listen('/tmp/server.sock')
-     *
-     * @throws   {TypeError}
-     * @param     callback optionally get notified when listening.
-     */
-    listen(...args: any[]): any;
-
-    /**
-     * Shuts down this server, and invokes callback (optionally) when done.
-     * Wraps node's close().
-     * @param     callback optional callback to invoke when done.
-     */
-    close(callback?: () => any): any;
-
-    /**
-     * Returns the number of currently inflight requests.
-     */
-    inflightRequests(): number;
-
-    /**
-     * Mounts a chain on the given path against this HTTP verb
-     *
-     * @param   opts if string, the URL to handle.
-     *                                 if options, the URL to handle, at minimum.
-     * @returns                the newly created route.
-     */
-    del(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
-
-    /**
-     * Mounts a chain on the given path against this HTTP verb
-     *
-     * @param   opts if string, the URL to handle.
-     *                                 if options, the URL to handle, at minimum.
-     * @returns                the newly created route.
-     */
-    get(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
-
-    /**
-     * Mounts a chain on the given path against this HTTP verb
-     *
-     * @param   opts if string, the URL to handle.
-     *                                 if options, the URL to handle, at minimum.
-     * @returns                the newly created route.
-     */
-    head(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
-
-    /**
-     * Mounts a chain on the given path against this HTTP verb
-     *
-     * @param   opts if string, the URL to handle.
-     *                                 if options, the URL to handle, at minimum.
-     * @returns                the newly created route.
-     */
-    opts(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
-
-    /**
-     * Mounts a chain on the given path against this HTTP verb
-     *
-     * @param   opts if string, the URL to handle.
-     *                                 if options, the URL to handle, at minimum.
-     * @returns                the newly created route.
-     */
-    post(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
-
-    /**
-     * Mounts a chain on the given path against this HTTP verb
-     *
-     * @param   opts if string, the URL to handle.
-     *                                 if options, the URL to handle, at minimum.
-     * @returns                the newly created route.
-     */
-    put(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
-
-    /**
-     * Mounts a chain on the given path against this HTTP verb
-     *
-     * @param   opts if string, the URL to handle.
-     *                                 if options, the URL to handle, at minimum.
-     * @returns                the newly created route.
-     */
-    patch(opts: string | RegExp | RouteOptions, ...handlers: RequestHandlerType[]): Route | boolean;
-
-    /**
-     * Minimal port of the functionality offered by Express.js Route Param
-     * Pre-conditions
-     * @link http://expressjs.com/guide.html#route-param%20pre-conditions
-     *
-     * This basically piggy-backs on the `server.use` method. It attaches a
-     * new middleware function that only fires if the specified parameter exists
-     * in req.params
-     *
-     * Exposes an API:
-     *   server.param("user", function (req, res, next) {
-     *     // load the user's information here, always making sure to call next()
-     *   });
-     *
-     * @param      name The name of the URL param to respond to
-     * @param    fn   The middleware function to execute
-     * @returns         returns self
-     */
-    param(name: string, fn: RequestHandler): Server;
-
-    /**
-     * Removes a route from the server.
-     * You pass in the route 'blob' you got from a mount call.
-     * @throws   {TypeError} on bad input.
-     * @param       route the route name.
-     * @returns          true if route was removed, false if not.
-     */
-    rm(route: string): boolean;
-
-    /**
-     * Installs a list of handlers to run _before_ the "normal" handlers of all
-     * routes.
-     *
-     * You can pass in any combination of functions or array of functions.
-     * @returns returns self
-     */
-    use(...handlers: RequestHandlerType[]): Server;
-
-    /**
-     * Gives you hooks to run _before_ any routes are located.  This gives you
-     * a chance to intercept the request and change headers, etc., that routing
-     * depends on.  Note that req.params will _not_ be set yet.
-     * @returns returns self
-     */
-    pre(...pre: RequestHandlerType[]): Server;
-
-    /**
-     * toString() the server for easy reading/output.
-     */
-    toString(): string;
-
-    /**
-     * Return debug information about the server.
-     */
-    getDebugInfo(): any;
-
-    /** Name of the server. */
-    name: string;
-
-    /** Default version(s) to use in all routes. */
-    versions: string[];
-
-    /** bunyan instance. */
-    log: Logger;
-
-    /** List of content-types this server can respond with. */
-    acceptable: string[];
-
-    /** Once listen() is called, this will be filled in with where the server is running. */
-    url: string;
-
-    /** Node server instance */
-    server: http.Server | https.Server | spdy.Server;
-
-    /** Router instance */
-    router: Router;
-
-    /** Handle uncaught exceptions */
-    handleUncaughtExceptions: boolean;
-
-    /** enable DTrace support */
-    dtrace: boolean;
-
-    /** Custom response formatters */
-    formatters: Formatters;
-
-    /** Prevents calling next multiple times */
-    onceNext: boolean;
-
-    /** Throws error when next() is called more than once, enabled onceNext option */
-    strictNext: boolean;
-
-    /** Pre handlers */
-    preChain: Chain;
-
-    useChain: Chain;
-
-    spdy?: boolean | undefined;
-
-    http2?: boolean | undefined;
-
-    ca: ServerOptions["ca"];
-
-    certificate: ServerOptions["certificate"];
-
-    key: ServerOptions["key"];
-
-    passphrase: ServerOptions["passphrase"] | null;
-
-    secure?: boolean | undefined;
-}
-
-export interface ChainOptions {
-    onceNext?: boolean | undefined;
-
-    strictNext?: boolean | undefined;
-}
-
-export interface Chain {
-    /** Get handlers of a chain instance */
-    getHandlers(): RequestHandler[];
-
-    /** Utilize the given middleware `handler` */
-    add(handler: RequestHandler): void;
-
-    /** Returns the number of handlers */
-    count(): number;
-
-    /** Handle server requests, punting them down the middleware stack. */
-    run(req: Request, res: Response, done: () => any): void;
-
-    /** Prevents calling next multiple times */
-    onceNext: boolean;
-
-    /** Throws error when next() is called more than once, enables onceNext option */
-    strictNext: boolean;
-}
-
-export interface RouterRegistryRadix {
-    /**
-     * Adds a route.
-     */
-    add(route: Route): boolean;
-
-    /**
-     * Removes a route.
-     */
-    remove(name: string): Route | undefined;
-
-    /**
-     * Registry for route.
-     */
-    lookup(method: string, pathname: string): Chain | undefined;
-
-    /**
-     * Get registry.
-     */
-    get(): Route[];
-
-    /**
-     * toString() serialization.
-     */
-    toString(): string;
-}
-
-export interface RouterOptions {
-    log?: Logger | undefined;
-
-    onceNext?: boolean | undefined;
-
-    strictNext?: boolean | undefined;
-
-    ignoreTrailingSlash?: boolean | undefined;
-
-    registry?: RouterRegistryRadix | undefined;
-}
-
-export class Router {
-    constructor(options: RouterOptions);
-
-    /**
-     * Lookup for route
-     */
-    lookup(req: Request, res: Response): Chain | undefined;
-
-    /**
-     * Lookup by name
-     */
-    lookupByName(name: string, req: Request, res: Response): Chain | undefined;
-
-    /**
-     * adds a route.
-     * @param    options an options object
-     * @returns  returns the route name if creation is successful.
-     */
-    mount(options: MountOptions, ...handlers: RequestHandlerType[]): string;
-
-    /**
-     * unmounts a route.
-     * @param    name the route name
-     * @returns       the name of the deleted route.
-     */
-    unmount(name: string): string;
-
-    /**
-     * Return mounted routes.
-     */
-    getRoutes(): Route[];
-
-    /**
-     * Default route, when no route found
-     */
-    defaultRoute(req: Request, res: Response, next: Next): void;
-
-    /**
-     * takes an object of route params and query params, and 'renders' a URL.
-     * @param    routeName the route name
-     * @param    params    an object of route params
-     * @param    query     an object of query params
-     */
-    render(routeName: string, params: object, query?: object): string;
-
-    /**
-     * toString() serialization.
-     */
-    toString(): string;
-
-    /**
-     * Return information about the routes registered in the router.
-     * @returns The routes in the router.
-     */
-    getDebugInfo(): any;
-
-    name: string;
-
-    log?: Logger | undefined;
-
-    onceNext: boolean;
-
-    strictNext: boolean;
-}
-
-export interface RequestAuthorization {
-    scheme: string;
-    credentials: string;
-    basic?: {
-        username: string;
-        password: string;
-    } | undefined;
+// ---------------------------------------------------------------------------
+// Handlers
+// ---------------------------------------------------------------------------
+
+/**
+ * `next()` callback passed to callback-style handlers.
+ *
+ * - `next()` continues the chain.
+ * - `next(false)` stops the chain without error.
+ * - `next(err)` stops the chain; `err` is emitted as `<Name>` / `restifyError`
+ *   events and sent to the client. Any truthy non-Error value is sent as an
+ *   `InternalError(String(value))`.
+ *
+ * Typed as `unknown` so `catch (e) { next(e); }` works under
+ * `useUnknownInCatchVariables`.
+ *
+ * NOTE: `next('routeName')` (named-route redirect) no longer re-routes; a
+ * string is treated like any other non-Error value and produces a 500.
+ */
+export interface Next {
+    (err?: unknown): void;
 }
 
 export interface Request extends http.IncomingMessage {
+    // --- set up by the server -------------------------------------------
+    /** Request logger (a child logger once `requestLogger` runs). */
+    log: Logger;
     /**
-     * Builds an absolute URI for the request.
+     * Route params, plus query/body values when a parser's `mapParams` is on.
+     * May be replaced by an array by `jsonBodyParser({ mapParams: true })`.
      */
+    params: any;
+    /** The matched route (undefined before routing / on 404). */
+    route: Route;
+    /** Per-handler timings. */
+    timers: HandlerTimer[];
+    serverName: string;
+    dtrace: boolean;
+
+    // --- set up by plugins ----------------------------------------------
+    /**
+     * Without `queryParser`/`jsonp`, this is the prototype method
+     * `query(): string` (alias of `getQuery`). With either plugin it is
+     * replaced by the parsed object.
+     */
+    query: any;
+    /** Parsed body (bodyParser); raw string/Buffer after bodyReader alone. */
+    body?: any;
+    /** Unparsed body, saved by the body parsers. */
+    rawBody?: any;
+    /** multipartBodyParser. Arrays when the `multiples` option is set. */
+    files?: { [name: string]: File | File[] | undefined } | undefined;
+    /** authorizationParser. `'anonymous'` by default; `null` for usernameless Basic auth. */
+    username?: string | null | undefined;
+    /** authorizationParser. */
+    authorization?: RequestAuthorization | undefined;
+    /** oauth2TokenParser. */
+    oauth2?: { accessToken: string | null } | undefined;
+    /** requestExpiry. */
+    isExpired?: (() => boolean) | undefined;
+    /** pre.context(): store a request-scoped value. */
+    set?: ((key: string, value: any) => void) | undefined;
+    /** pre.context(): read a request-scoped value. */
+    get?: ((key: string) => any) | undefined;
+    /** pre.context(): all request-scoped values. */
+    getAll?: (() => { [key: string]: any }) | undefined;
+
+    // --- methods ----------------------------------------------------------
+    /** Builds an absolute URI relative to the current request URL. */
     absoluteUri(path: string): string;
-
     /**
-     * checks if the accept header is present and has the value requested.
-     * e.g., req.accepts('html');
-     * @param    types an array of accept type headers
+     * Negotiates against the `Accept` header (missing header means `* / *`).
+     * Short names such as `'json'` are resolved via mime.
+     * NOTE: documented as returning Boolean; returns the preferred matching
+     * media type, or `undefined` when none match.
      */
-    accepts(types: string | string[]): boolean;
-
+    accepts(types: string | string[]): string | undefined;
     /**
-     * checks if the request accepts the encoding types.
-     * @param    types an array of accept type headers
+     * Negotiates against the `Accept-Encoding` header.
+     * NOTE: documented as returning Boolean; returns the preferred matching
+     * encoding, or `undefined` when none match.
      */
-    acceptsEncoding(types: string | string[]): boolean;
-
-    /**
-     * gets the content-length header off the request.
-     */
-    getContentLength(): number;
-
-    /**
-     * pass through to getContentLength.
-     */
-    contentLength(): number;
-
-    /**
-     * gets the content-type header.
-     */
+    acceptsEncoding(types: string | string[]): string | undefined;
+    /** The `Content-Length` header (0 for upgrade requests). */
+    getContentLength(): number | undefined;
+    /** Alias of `getContentLength`. */
+    contentLength(): number | undefined;
+    /** Lower-cased media type of `Content-Type`; `application/octet-stream` if absent. */
     getContentType(): string;
-
-    /**
-     * pass through to getContentType.
-     */
+    /** Alias of `getContentType`. */
     contentType(): string;
-
-    /**
-     * retrieves the complete URI requested by the client.
-     */
+    /** When request processing started. */
+    date(): Date;
+    /** Path plus query string (not the absolute URL). */
     getHref(): string;
-
-    /**
-     * pass through to getHref.
-     */
+    /** Alias of `getHref`. */
     href(): string;
-
-    /**
-     * retrieves the request uuid. was created when the request was setup.
-     */
+    /** The request id, generating a UUID on first use. */
     getId(): string;
-
     /**
-     * pass through to getId.
+     * Returns the request id, or sets it when `reqId` is given.
+     * Throws if an id was already set or generated.
      */
-    id(): string;
-
-    /**
-     * retrieves the cleaned up url path.
-     * e.g., /foo?a=1  =>  /foo
-     */
+    id(reqId?: string): string;
+    /** URL pathname, with dot segments normalized. */
     getPath(): string;
-
-    /**
-     * pass through to getPath.
-     */
+    /** Alias of `getPath`. */
     path(): string;
-
-    /**
-     * returns the raw query string
-     */
+    /** Raw query string without the leading `?` (empty string if none). */
     getQuery(): string;
-
-    // /**
-    //  * pass through to getQuery.
-    //  * @public
-    //  * @function query
-    //  * @returns {String}
-    //  */
-    // query(): string;
-
-    /**
-     * returns ms since epoch when request was setup.
-     */
+    /** When request processing started, in ms since epoch. */
     time(): number;
-
-    /**
-     * returns a parsed URL object.
-     */
-    getUrl(): url.Url;
-
-    /**
-     * returns the accept-version header.
-     */
+    /** The request URL as a WHATWG `URL` (cached). Throws on absolute request URLs. */
+    getUrl(): URL;
+    /** `Accept-Version` / `X-Api-Version` header, or `'*'`. */
     getVersion(): string;
-
-    /**
-     * pass through to getVersion.
-     */
+    /** Alias of `getVersion`. */
     version(): string;
-
-    /**
-     * returns the version of the route that matched.
-     */
+    /** Version matched by `conditionalHandler`, else `version()`. */
     matchedVersion(): string;
-
     /**
-     * Get the case-insensitive request header key,
-     * and optionally provide a default value (express-compliant).
-     * Returns any header off the request. also, 'correct' any
-     * correctly spelled 'referrer' header to the actual spelling used.
-     * @param key - the key of the header
-     * @param defaultValue - default value if header isn't found on the req
+     * Case-insensitive header lookup with optional default. `referrer` is
+     * mapped to `referer`.
      */
-    header(key: string, defaultValue?: string): string;
-
+    header(key: string, defaultValue?: string): string | string[] | undefined;
+    /** Case-insensitive trailer lookup with optional default. */
+    trailer(name: string, value?: string): string | undefined;
     /**
-     * returns any trailer header off the request. also, 'correct' any
-     * correctly spelled 'referrer' header to the actual spelling used.
-     * @param    name  the name of the header
-     * @param    defaultValue default value if header isn't found on the req
+     * Checks the `Content-Type` against a type (short names and `*` wildcards allowed).
+     * NOTE: wildcard matches return `0 | 1` rather than a boolean.
      */
-    trailer(name: string, defaultValue?: string): string;
-
-    /**
-     * Check if the incoming request contains the Content-Type header field, and
-     * if it contains the given mime type.
-     * @param    type  a content-type header value
-     */
-    is(type: string): boolean;
-
-    /**
-     * Check if the incoming request is chunked.
-     */
+    is(type: string): boolean | number;
+    /** `Transfer-Encoding: chunked`. */
     isChunked(): boolean;
-
-    /**
-     * Check if the incoming request is kept alive.
-     */
+    /** Whether the connection is kept alive. */
     isKeepAlive(): boolean;
-
-    /**
-     * Check if the incoming request is encrypted.
-     */
+    /** Whether the socket is encrypted. */
     isSecure(): boolean;
-
-    /**
-     * Check if the incoming request has been upgraded.
-     */
+    /** Whether this request came through `handleUpgrades`. */
     isUpgradeRequest(): boolean;
-
-    /**
-     * Check if the incoming request is an upload verb.
-     */
+    /** PATCH, POST or PUT. */
     isUpload(): boolean;
-
-    /**
-     * toString serialization
-     */
     toString(): string;
-
-    /**
-     * retrieves the user-agent header.
-     */
-    userAgent(): string;
-
-    /**
-     * Start the timer for a request handler function. You must explicitly invoke
-     * endHandlerTimer() after invoking this function. Otherwise timing information
-     * will be inaccurate.
-     * @param       handlerName The name of the handler.
-     */
+    /** The `User-Agent` header. */
+    userAgent(): string | undefined;
+    /** Starts a named timer (call `endHandlerTimer` with the same name). */
     startHandlerTimer(handlerName: string): void;
-
-    /**
-     * Stop the timer for a request handler function.
-     * @param       handlerName The name of the handler.
-     */
+    /** Ends a named timer and records it in `req.timers`. */
     endHandlerTimer(handlerName: string): void;
-
-    /**
-     * returns the connection state of the request. current valid values are
-     * 'close' and 'aborted'.
-     */
-    connectionState(): string;
-
-    /**
-     * returns the route object to which the current request was matched to.
-     * Route info object structure:
-     * {
-     *  path: '/ping/:name',
-     *  method: 'GET',
-     *  versions: [],
-     *  name: 'getpingname'
-     * }
-     */
+    /** `'close'` once the client aborted, otherwise `undefined`. */
+    connectionState(): 'close' | undefined;
+    /** The matched route. */
     getRoute(): Route;
 
-    /** bunyan logger you can piggyback on. */
-    log: Logger;
-
-    /** available when queryParser plugin is used. */
-    query?: any;
-
-    /** available when bodyParser plugin is used. */
-    body?: any;
-
-    /** available when bodyParser plugin is used. */
-    rawBody?: any;
-
-    /** available when queryParser or bodyParser plugin is used with mapParams enabled. */
-    params?: any;
-
-    /** available when multipartBodyParser plugin is used. */
-    files?: { [name: string]: File | undefined } | undefined;
-
-    /** available when authorizationParser plugin is used */
-    username?: string | undefined;
-
-    /** available when authorizationParser plugin is used */
-    authorization?: RequestAuthorization | undefined;
+    on(event: 'restifyDone', listener: (route: Route | undefined, err: any) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
-export interface CacheOptions {
-    maxAge: number;
-}
-
-export interface Response extends http.ServerResponse {
-    /**
-     * sets the cache-control header. `type` defaults to _public_,
-     * and options currently only takes maxAge.
-     * @param    type    value of the header
-     * @param    [options] an options object
-     * @returns          the value set to the header
-     */
-    cache(type: string, options?: CacheOptions): string;
-
-    /**
-     * sets the cache-control header. `type` defaults to _public_,
-     * and options currently only takes maxAge.
-     * @param    [options] an options object
-     * @returns          the value set to the header
-     */
-    cache(options?: CacheOptions): string;
-
-    /**
-     * turns off all cache related headers.
-     * @returns  self, the response object
-     */
-    noCache(): Response;
-
-    /**
-     * Appends the provided character set to the response's Content-Type.
-     * e.g., res.charSet('utf-8');
-     * @param    type char-set value
-     * @returns  self, the response object
-     */
-    charSet(type: string): Response;
-
-    /**
-     * retrieves a header off the response.
-     * @param    name the header name
-     */
-    get(name: string): string;
-
-    /**
-     * retrieves all headers off the response.
-     */
-    getHeaders(): any;
-
-    /**
-     * pass through to getHeaders.
-     */
-    headers(): any;
-
-    /**
-     * sets headers on the response.
-     * @param    key  the name of the header
-     * @param    value the value of the header
-     */
-    header(key: string, value?: any): any;
-
-    /**
-     * short hand method for:
-     *     res.contentType = 'json';
-     *     res.send({hello: 'world'});
-     * @param    code    http status code
-     * @param    body    value to json.stringify
-     * @param    [headers] headers to set on the response
-     */
-    json(code: number, body: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * short hand method for:
-     *     res.contentType = 'json';
-     *     res.send({hello: 'world'});
-     * @param    body    value to json.stringify
-     * @param    [headers] headers to set on the response
-     */
-    json(body: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * sets the link heaader.
-     * @param    key   the link key
-     * @param    value the link value
-     * @returns      the header value set to res
-     */
-    link(key: string, value: string): string;
-
-    /**
-     * sends the response object. pass through to internal __send that uses a
-     * formatter based on the content-type header.
-     * @param    [code] http status code
-     * @param    [body] the content to send
-     * @param    [headers]  any add'l headers to set
-     * @returns  the response object
-     */
-    send(code?: number, body?: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * sends the response object. pass through to internal __send that uses a
-     * formatter based on the content-type header.
-     * @param    [body] the content to send
-     * @param    [headers]  any add'l headers to set
-     * @returns  the response object
-     */
-    send(body?: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * sends the response object. pass through to internal __send that skips
-     * formatters entirely and sends the content as is.
-     * @param    [code] http status code
-     * @param    [body] the content to send
-     * @param    [headers]  any add'l headers to set
-     * @returns  the response object
-     */
-    sendRaw(code?: number, body?: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * sends the response object. pass through to internal __send that skips
-     * formatters entirely and sends the content as is.
-     * @param    [body] the content to send
-     * @param    [headers]  any add'l headers to set
-     * @returns  the response object
-     */
-    sendRaw(body?: any, headers?: { [header: string]: string }): any;
-
-    /**
-     * sets a header on the response.
-     * @param    name name of the header
-     * @param    val  value of the header
-     * @returns       self, the response object
-     */
-    set(name: string, val: string): Response;
-
-    /**
-     * sets a header on the response.
-     * @param    val  object of headers
-     * @returns       self, the response object
-     */
-    set(headers?: { [header: string]: string }): Response;
-
-    /**
-     * sets the http status code on the response.
-     * @param    code http status code
-     * @returns      the status code passed in
-     */
-    status(code: number): number;
-
-    /**
-     * toString() serialization.
-     */
-    toString(): string;
-
-    /**
-     * redirect is sugar method for redirecting.
-     * res.redirect(301, 'www.foo.com', next);
-     * `next` is mandatory, to complete the response and trigger audit logger.
-     * @param    code the status code
-     * @param    url to redirect to
-     * @param    next - mandatory, to complete the response and trigger audit logger
-     * @fires    redirect
-     */
-    redirect(code: number, url: string, next: Next): void;
-
-    /**
-     * redirect is sugar method for redirecting.
-     * res.redirect({...}, next);
-     * `next` is mandatory, to complete the response and trigger audit logger.
-     * @param    url to redirect to or options object to configure a redirect or
-     * @param    next - mandatory, to complete the response and trigger audit logger
-     * @fires    redirect
-     */
-    redirect(opts: string | RedirectOptions, next: Next): void;
-
-    /** HTTP status code. */
-    code: number;
-
-    /** short hand for the header content-length. */
-    contentLength: number;
-
-    /** short hand for the header content-type. */
-    contentType: string;
-
-    /** A unique request id (x-request-id). */
-    id: string;
-}
-
-export interface RedirectOptions {
-    /**
-     * whether to redirect to http or https
-     */
-    secure?: boolean | undefined;
-
-    /**
-     * redirect location's hostname
-     */
-    hostname?: string | undefined;
-
-    /**
-     * redirect location's pathname
-     */
-    pathname?: string | undefined;
-
-    /**
-     * redirect location's port number
-     */
-    port?: string | undefined;
-
-    /**
-     * redirect location's query string parameters
-     */
-    query?: string | object | undefined;
-
-    /**
-     * if true, `options.query`
-     * stomps over any existing query
-     * parameters on current URL.
-     * by default, will merge the two.
-     */
-    overrideQuery?: boolean | undefined;
-
-    /**
-     * if true, sets 301. defaults to 302.
-     */
-    permanent?: boolean | undefined;
-}
-
-export interface Next {
-    (err?: any): void;
-}
-
-export interface RouteSpec {
-    method: string;
-    name?: string | undefined;
-    path: string | RegExp;
-    versions?: string[] | undefined;
-}
-
-export interface Route {
-    name: string;
-    method: string;
-    path: string | RegExp;
-    spec: RouteSpec;
-    chain: Chain;
-}
-
-export interface RouteOptions {
-    name?: string | undefined;
-
-    path?: string | RegExp | undefined;
-
-    url?: string | RegExp | undefined;
-
-    urlParamPattern?: RegExp | undefined;
-
-    contentType?: string | string[] | undefined;
-
-    version?: string | undefined;
-
-    versions?: string[] | undefined;
-}
-
-export interface MountOptions {
-    name: string;
-
-    method: string;
-
-    path?: string | RegExp | undefined;
-
-    url?: string | RegExp | undefined;
-
-    urlParamPattern?: RegExp | undefined;
-
-    contentType?: string | string[] | undefined;
-
-    version?: string | undefined;
-
-    versions?: string[] | undefined;
-}
-
-export type FindRouteCallback = (err: Error, route?: Route, params?: any) => void;
-
-export type RequestHandler = (req: Request, res: Response, next: Next) => any;
-export type RequestHandlerType = RequestHandler | RequestHandler[];
-
-export interface ServerUpgradeResponse {
-    /**
-     * Set the status code of the response.
-     * @param code - the http status code
-     */
-    status(code: number): number;
-
-    /**
-     * Sends the response.
-     * @param code - the http status code
-     * @param body - the response to send out
-     */
-    send(code: number, body: any): any;
-
-    /**
-     * Sends the response.
-     * @param body - the response to send out
-     */
-    send(body: any): boolean;
-
-    /**
-     * Ends the response
-     */
-    end(): boolean;
-
-    /**
-     * Write to the response.
-     */
-    write(): boolean;
-
-    /**
-     * Write to the head of the response.
-     * @param statusCode - the http status code
-     * @param reason -  a message
-     */
-    writeHead(statusCode: number, reason?: string): void;
-
-    /**
-     * Attempt to upgrade.
-     */
-    claimUpgrade(): any;
-}
-
-export namespace bunyan {
-    interface RequestCaptureOptions {
-        /** The stream to which to write when dumping captured records. */
-        stream?: Logger.Stream | undefined;
-
-        /** The streams to which to write when dumping captured records. */
-        streams?: readonly Logger.Stream[] | undefined;
-
-        /**
-         * The level at which to trigger dumping captured records. Defaults to
-         * bunyan.WARN.
-         */
-        level?: Logger.LogLevel | undefined;
-
-        /** Number of records to capture. Default 100. */
-        maxRecords?: number | undefined;
-
-        /**
-         * Number of simultaneous request id capturing buckets to maintain.
-         * Default 1000.
-         */
-        maxRequestIds?: number | undefined;
-
-        /**
-         * If true, then dump captured records on the *default* request id when
-         * dumping. I.e. dump records logged without "req_id" field. Default
-         * false.
-         */
-        dumpDefault?: boolean | undefined;
-    }
-
-    /**
-     * A Bunyan stream to capture records in a ring buffer and only pass through
-     * on a higher-level record. E.g. buffer up all records but only dump when
-     * getting a WARN or above.
-     */
-    class RequestCaptureStream extends stream.Stream {
-        constructor(opts: RequestCaptureOptions);
-
-        /** write to the stream */
-        write(record: any): void;
-    }
-
-    const serializers: Logger.Serializers & {
-        err: Logger.Serializer;
-        req: Logger.Serializer;
-        res: Logger.Serializer;
-        client_req: Logger.Serializer;
-        client_res: Logger.Serializer;
-    };
-
-    /** create a bunyan logger */
-    function createLogger(name: string): Logger;
-}
-
-export function createServer(options?: ServerOptions): Server;
-
-export type Formatter = (req: Request, res: Response, body: any) => string | Buffer | null;
-
+/**
+ * Callback-style handler. Must declare exactly three parameters and must not
+ * be an `async` function (enforced at runtime by `Chain#add`).
+ */
+export type CallbackHandler = (req: Request, res: Response, next: Next) => void;
+
+/**
+ * Promise-style handler. Must be a native `async` function declaring at most
+ * two parameters (enforced at runtime by `Chain#add`). Rejecting with a
+ * non-Error is wrapped in an `AsyncError`. A resolved value is discarded
+ * (and logged at warn level).
+ *
+ * NOTE: TypeScript cannot distinguish a plain `(req, res) => Promise` arrow
+ * from an `async` function; only real `async` functions are accepted.
+ */
+export type AsyncHandler = (req: Request, res: Response) => Promise<unknown>;
+
+/**
+ * Error-handling handler. Undocumented, but `Chain` invokes 4-arity handlers
+ * when a preceding handler in the *same* chain called `next(err)`.
+ */
+export type ErrorHandler = (
+    err: any,
+    req: Request,
+    res: Response,
+    next: Next
+) => void;
+
+/**
+ * Any handler accepted by `pre()`, `use()` and the route methods. Written as a
+ * single signature (rather than `CallbackHandler | AsyncHandler`) so that
+ * `req`/`res`/`next` are contextually typed in inline handlers. An
+ * `AsyncHandler` is assignable to it.
+ *
+ * `ErrorHandler`s are accepted at runtime too; pass them with a cast.
+ */
+export type RequestHandler = (
+    req: Request,
+    res: Response,
+    next: Next
+) => void | Promise<unknown>;
+
+/** Handlers may be passed individually or as (arbitrarily nested) arrays. */
+export type RequestHandlerType = RequestHandler | RequestHandlerType[];
+
+/**
+ * `server.first()` handler. Runs synchronously before restify touches the
+ * request. Return `false` to stop all further processing. Any return value
+ * other than `true | false | undefined | null` throws.
+ */
+export type FirstHandler = (
+    req: http.IncomingMessage,
+    res: http.ServerResponse
+) => boolean | undefined | null | void;
+
+/**
+ * Listener for the server's `after` event; also the shape returned by
+ * `plugins.auditLogger()` and `plugins.metrics()`.
+ */
+export type AfterEventListener = (
+    req: Request,
+    res: Response,
+    route: Route | undefined,
+    err: any
+) => void;
+
+/**
+ * Response formatter: `(req, res, body) => formatted`. The returned value is
+ * written to the socket, so it must be a string, Buffer, `null` or
+ * `undefined`.
+ */
+export type Formatter = (
+    req: Request,
+    res: Response,
+    body: any
+) => string | Buffer | null | undefined;
+
+/**
+ * Formatters keyed by content type. Keys may carry a q-value
+ * (`'application/foo; q=0.9'`) to control negotiation priority.
+ */
 export interface Formatters {
     [contentType: string]: Formatter;
 }
 
-export const formatters: Formatters;
+// ---------------------------------------------------------------------------
+// Routes
+// ---------------------------------------------------------------------------
+
+/**
+ * Route options accepted by `server.get()` & friends (or pass a path string).
+ *
+ * NOTE: the docs list `String|Regexp|Object`. A RegExp is accepted by the
+ * method factory but rejected by the route registry (`assert.string(path)`),
+ * so only strings are usable.
+ */
+export interface RouteOptions {
+    /** Route name. Auto-generated from method + path when omitted. */
+    name?: string | undefined;
+    /** Any path accepted by find-my-way. */
+    path?: string | undefined;
+    /** Alias of `path`, used when `path` is not set. */
+    url?: string | undefined;
+    /**
+     * @deprecated Route versioning was removed from the router; this key is
+     * kept on `route.spec` but ignored. Use `plugins.conditionalHandler`.
+     */
+    version?: string | undefined;
+    /**
+     * @deprecated Route versioning was removed from the router; this key is
+     * kept on `route.spec` but ignored. Use `plugins.conditionalHandler`.
+     */
+    versions?: string[] | undefined;
+    /**
+     * Any other properties are copied onto `route.spec` unchanged, so they
+     * can carry per-route metadata for your own handlers
+     * (`req.route.spec.<key>`). restify itself ignores them.
+     *
+     * Typed `unknown` rather than `any` so a RegExp is still rejected as a
+     * route spec (any object type is assignable to `{ [k: string]: any }`).
+     */
+    [key: string]: unknown;
+}
+
+/** Options accepted by `Router#mount`. */
+export interface MountOptions extends RouteOptions {
+    method: string;
+    path: string;
+}
+
+/** The (shallow-copied) options a route was mounted with (`route.spec`). */
+export interface RouteSpec extends RouteOptions {
+    method: string;
+    path: string;
+}
+
+/** Route object stored in the router registry (`req.route`). */
+export interface Route {
+    name: string;
+    method: string;
+    path: string;
+    spec: RouteSpec;
+    chain: Chain;
+}
+
+// ---------------------------------------------------------------------------
+// Chain
+// ---------------------------------------------------------------------------
+
+export interface ChainOptions {
+    /** Prevents calling next multiple times. */
+    onceNext?: boolean | undefined;
+    /** Throws when next() is called more than once. Implies `onceNext`. */
+    strictNext?: boolean | undefined;
+}
+
+/**
+ * Middleware chain. Not exported from the package root (only reachable via
+ * `server.preChain`, `server.useChain`, `route.chain`).
+ */
+export interface Chain {
+    /** Prevents calling next multiple times. */
+    onceNext: boolean;
+    /** Throws when next() is called more than once. */
+    strictNext: boolean;
+    /** Get handlers of a chain instance. */
+    getHandlers(): RequestHandler[];
+    /** Append a handler. Asserts the async/arity rules described on `RequestHandler`. */
+    add(handler: RequestHandler): void;
+    /** Returns the number of handlers. */
+    count(): number;
+    /** Run the chain, invoking `done` when it finishes or the request closes. */
+    run(
+        req: Request,
+        res: Response,
+        done: (err: any, req: Request, res: Response) => void
+    ): void;
+}
+
+// ---------------------------------------------------------------------------
+// Router
+// ---------------------------------------------------------------------------
+
+/** The default route registry, backed by find-my-way. */
+export interface RouterRegistryRadix {
+    /** Adds a route. */
+    add(route: Route): Route;
+    /** Removes a route by name. */
+    remove(name: string): Route | undefined;
+    /** Finds the route matching a method and pathname. */
+    lookup(
+        method: string,
+        pathname: string
+    ):
+        | {
+            route: Route;
+            params: { [key: string]: string };
+            handler: (req: Request, res: Response, next: Next) => void;
+        }
+        | undefined;
+    /** All routes, keyed by route name. */
+    get(): { [routeName: string]: Route };
+    /** find-my-way's pretty-printed route tree. */
+    toString(): string;
+}
+
+/**
+ * Options forwarded to find-my-way. Accepted by both `RouterOptions` and
+ * `ServerOptions` (the default router receives the full server options).
+ */
+export interface FindMyWayOptions {
+    /** Ignore a trailing slash on paths. */
+    ignoreTrailingSlash?: boolean | undefined;
+    /** Collapse duplicate slashes before matching. */
+    ignoreDuplicateSlashes?: boolean | undefined;
+    /**
+     * Strip `;matrix=params` from a path segment before matching (the
+     * find-my-way v7 behavior). Defaults to `false`.
+     */
+    useSemicolonDelimiter?: boolean | undefined;
+    /** Defaults to `true`. */
+    caseSensitive?: boolean | undefined;
+    /** Maximum length of a path parameter. Defaults to 100. */
+    maxParamLength?: number | undefined;
+    /** Allow potentially catastrophic regular expressions in routes. */
+    allowUnsafeRegex?: boolean | undefined;
+}
+
+export interface RouterOptions extends FindMyWayOptions {
+    /** NOTE: documented as a Bunyan logger; it is a pino logger. */
+    log: Logger;
+    onceNext?: boolean | undefined;
+    strictNext?: boolean | undefined;
+    /** Custom route registry. Defaults to a `RouterRegistryRadix`. */
+    registry?: RouterRegistryRadix | undefined;
+}
+
+export interface RouteDebugInfo {
+    name: string;
+    /** Lower-cased HTTP method. */
+    method: string;
+    path: string;
+    handlers: RequestHandler[];
+}
+
+/**
+ * Maps HTTP verbs and paths to handler chains.
+ *
+ * NOTE: `Router` is not exported from the package root, even though
+ * `createServer({ router })` accepts one. Construct it via
+ * `require('restify/lib/router')`.
+ */
+export interface Router extends NodeJS.EventEmitter {
+    name: string;
+    log: Logger;
+    onceNext: boolean;
+    strictNext: boolean;
+
+    /** Finds the handler for a request, decorating `req.params`/`req.route`. */
+    lookup(
+        req: Request,
+        res: Response
+    ): ((req: Request, res: Response, next: Next) => void) | undefined;
+    /** Finds a route's chain runner by name, decorating `req.route`. */
+    lookupByName(
+        name: string,
+        req: Request,
+        res: Response
+    ): Chain['run'] | undefined;
+    /**
+     * Renders a URL for a named route. Returns `null` when the route does not
+     * exist; throws when a path parameter is missing.
+     */
+    render(
+        routeName: string,
+        params: { [key: string]: any },
+        query?: { [key: string]: any }
+    ): string | null;
+    /** Adds a route. NOTE: documented as returning the route name; returns the Route. */
+    mount(opts: MountOptions, handlers: RequestHandler[]): Route;
+    /** Removes a route by name. */
+    unmount(name: string): Route | undefined;
+    toString(): string;
+    /** Route information, keyed by route name. */
+    getDebugInfo(): { [routeName: string]: RouteDebugInfo };
+    /** Mounted routes, keyed by route name. */
+    getRoutes(): { [routeName: string]: Route };
+    /** Responds 404/405 (or 200 for `OPTIONS *`) when no route matched. */
+    defaultRoute(req: Request, res: Response, next: Next): void;
+
+    on(event: 'mount', listener: (method: string, path: string) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+}
+
+// ---------------------------------------------------------------------------
+// Server
+// ---------------------------------------------------------------------------
+
+/**
+ * Custom uncaught-exception wrapper (alternative to domains).
+ * Must eventually call `next(req, res)`; should call `onError(err)` on error.
+ */
+export type UncaughtExceptionWrapper = (
+    req: Request,
+    res: Response,
+    onError: (err: any) => void,
+    next: (req: Request, res: Response) => void
+) => void;
+
+export interface ServerOptions extends FindMyWayOptions {
+    /** Defaults to `'restify'`. An empty string suppresses the `Server` header. */
+    name?: string | undefined;
+    /** Defaults to `pino({ name })`. */
+    log?: Logger | undefined;
+    /** Defaults to `new Router(options)` (see {@link Router}). */
+    router?: Router | undefined;
+    /** Enable DTrace probes (requires the optional `dtrace-provider`). */
+    dtrace?: boolean | undefined;
+
+    // TLS (ignored when `http2` is given; `httpsServerOptions` is used only
+    // when neither `certificate`/`cert` + `key` nor `http2` is given)
+    /** PEM certificate. Creates an HTTPS server together with `key`. */
+    certificate?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
+    /** Undocumented alias of `certificate`. */
+    cert?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
+    /** PEM private key. */
+    key?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
+    /** Undocumented; passed to `https.createServer`. */
+    ca?: string | Buffer | ReadonlyArray<string | Buffer> | undefined;
+    /** Undocumented; passed to `https.createServer`. */
+    passphrase?: string | undefined;
+    /** Undocumented; passed to `https.createServer`. */
+    rejectUnauthorized?: boolean | undefined;
+    /** Undocumented; passed to `https.createServer`. */
+    requestCert?: boolean | undefined;
+    /** Undocumented; passed to `https.createServer`. */
+    ciphers?: string | undefined;
+    /** Undocumented; passed to `https.createServer`. */
+    secureOptions?: number | undefined;
+    /** Full `https.createServer` options. */
+    httpsServerOptions?: https.ServerOptions | undefined;
+    /** Options for `http2.createSecureServer`; enables HTTP/2. */
+    http2?: http2.SecureServerOptions | undefined;
+
+    /** Custom response formatters, merged over the built-in ones. */
+    formatters?: Formatters | undefined;
+    /**
+     * Catch errors thrown in handlers (via domains, or a custom wrapper).
+     * NOTE: `createServer` documents only `Boolean`; a function is also
+     * accepted (see {@link UncaughtExceptionWrapper}).
+     *
+     * Passing `true` uses the deprecated `domain` module (restify marks this
+     * deprecated in lib/deprecationWarnings.js; the warning itself never
+     * fires because the flag is replaced before the check). Prefer a
+     * function. Not tagged `@deprecated` because that would also flag the
+     * function form.
+     */
+    handleUncaughtExceptions?: boolean | UncaughtExceptionWrapper | undefined;
+    /** Route `Connection: Upgrade` requests through the handler chain. */
+    handleUpgrades?: boolean | undefined;
+    /** Prevents calling next multiple times. */
+    onceNext?: boolean | undefined;
+    /** Throws when next() is called more than once. Implies `onceNext`. */
+    strictNext?: boolean | undefined;
+    /** Don't call `res.writeContinue()` on `checkContinue`. */
+    noWriteContinue?: boolean | undefined;
+    /** Defaults to `true`. */
+    strictFormatters?: boolean | undefined;
+    /** Undocumented: skip handling for `/socket.io*` URLs. */
+    socketio?: boolean | undefined;
+
+    /**
+     * @deprecated Documented as "filled in once listen() is called", but
+     * ignored: `server.url` is a computed getter.
+     */
+    url?: string | undefined;
+}
+
+export interface ServerDebugInfo {
+    routes: RouteDebugInfo[];
+    server: {
+        formatters: Formatters;
+        address: string | undefined | null;
+        port: number | undefined | null;
+        inflightRequests: number;
+        pre: string[];
+        use: string[];
+        after: string[];
+    };
+}
+
+/** The node server wrapped by a restify `Server`. */
+export type NodeServer = http.Server | https.Server | http2.Http2SecureServer;
+
+/**
+ * Mounts a chain on the given path for one HTTP verb.
+ * NOTE: documented as returning a Route; returns the route *name*.
+ */
+export type ServerMethod = (
+    opts: string | RouteOptions,
+    ...handlers: RequestHandlerType[]
+) => string;
+
+/** Listener for error events (`restifyError`, `NotFound`, `InternalServer`, ...). */
+export type ErrorEventListener = (
+    req: Request,
+    res: Response,
+    err: any,
+    callback: () => void
+) => void;
+
+/** Object emitted with the server's `audit` event. */
+export interface AuditRecord {
+    remoteAddress: string | undefined;
+    remotePort: number | undefined;
+    /** Keyed by `requestIdFieldName` (default `req_id`). */
+    [requestIdField: string]: any;
+    req: Request;
+    res: Response;
+    err: any;
+    latency: number | null;
+    /** NOTE: always `undefined` (reads non-existent `req.secure`). */
+    secure: undefined;
+    _audit: true;
+    event: 'pre' | 'routed' | 'after';
+    context?: any;
+}
+
+export interface Server extends NodeJS.EventEmitter {
+    /** Name of the server. */
+    name: string;
+    /** Server logger. */
+    log: Logger;
+    /** Router instance. */
+    router: Router;
+    /** The wrapped node server. */
+    server: NodeServer;
+    /** Computed: `http(s)://<address>:<port>` (or `http://<socketPath>`). */
+    readonly url: string;
+    /** Proxied to the underlying node server. */
+    maxHeadersCount: number;
+    /** Content types with formatters, sorted by q-value. */
+    acceptable: string[];
+    /** Formatters keyed by bare content type. */
+    formatters: Formatters;
+    /** `true` for HTTPS servers created from `certificate` + `key`. */
+    secure: boolean;
+    http2?: boolean | undefined;
+    ca?: ServerOptions['ca'];
+    certificate?: ServerOptions['certificate'];
+    key?: ServerOptions['key'];
+    passphrase?: string | null | undefined;
+    /** DTrace support enabled. */
+    dtrace: boolean;
+    socketio: boolean;
+    /** Prevents calling next multiple times. */
+    onceNext: boolean;
+    /** Throws when next() is called more than once. */
+    strictNext: boolean;
+    strictFormatters: boolean;
+    /** The active wrapper, or `false` when disabled. */
+    handleUncaughtExceptions: false | UncaughtExceptionWrapper;
+    /** `first()` handlers. */
+    firstChain: FirstHandler[];
+    /** `pre()` handlers. */
+    preChain: Chain;
+    /** `use()` handlers. */
+    useChain: Chain;
+
+    /**
+     * Starts listening. Wraps node's `server.listen()`.
+     * NOTE: documented as `(port, host: Number, cb) => undefined`; this is a
+     * straight pass-through and returns node's result.
+     */
+    listen(
+        port?: number,
+        hostname?: string,
+        backlog?: number,
+        listeningListener?: () => void
+    ): NodeServer;
+    listen(
+        port?: number,
+        hostname?: string,
+        listeningListener?: () => void
+    ): NodeServer;
+    listen(port?: number, listeningListener?: () => void): NodeServer;
+    listen(path: string, listeningListener?: () => void): NodeServer;
+    listen(options: net.ListenOptions, listeningListener?: () => void): NodeServer;
+    listen(handle: any, listeningListener?: () => void): NodeServer;
+
+    /**
+     * Stops the server. Wraps node's `server.close()`.
+     * NOTE: documented as returning `undefined`; returns the node server.
+     * The callback receives no error argument (it fires on `'close'`).
+     */
+    close(callback?: () => void): NodeServer;
+
+    /** Mounts a chain on the given path for GET. Returns the route name. */
+    get: ServerMethod;
+    /** Mounts a chain on the given path for HEAD. Returns the route name. */
+    head: ServerMethod;
+    /** Mounts a chain on the given path for POST. Returns the route name. */
+    post: ServerMethod;
+    /** Mounts a chain on the given path for PUT. Returns the route name. */
+    put: ServerMethod;
+    /** Mounts a chain on the given path for PATCH. Returns the route name. */
+    patch: ServerMethod;
+    /** Mounts a chain on the given path for DELETE. Returns the route name. */
+    del: ServerMethod;
+    /** Mounts a chain on the given path for OPTIONS. Returns the route name. */
+    opts: ServerMethod;
+
+    /**
+     * Handlers that run before routing, for every request (including ones
+     * that will 404). `req.params` is not populated yet.
+     */
+    pre(...handlers: RequestHandlerType[]): this;
+    /**
+     * Synchronous handlers that run before restify sets up the request.
+     * See {@link FirstHandler}.
+     */
+    first(...handlers: FirstHandler[]): this;
+    /** Handlers that run after routing, for every matched route. */
+    use(...handlers: RequestHandlerType[]): this;
+    /**
+     * Runs `fn` (via `use()`) for requests whose `req.params` has `name`.
+     * `fn` additionally receives the param value and name.
+     */
+    param(
+        name: string,
+        fn: (
+            req: Request,
+            res: Response,
+            next: Next,
+            value: any,
+            name: string
+        ) => void
+    ): this;
+    /** Removes a route by *name* (as returned by `server.get()` etc.). */
+    rm(routeName: string): boolean;
+
+    /** Wraps node's `server.address()`. */
+    address(): net.AddressInfo | string | null;
+    /** Number of requests currently being handled. */
+    inflightRequests(): number;
+    /**
+     * Debug information about routes and handler chains.
+     * NOTE: documented as `debugInfo()`. Result is cached on first call and
+     * does not reflect routes/handlers added afterwards.
+     */
+    getDebugInfo(): ServerDebugInfo;
+    toString(): string;
+
+    // --- events -----------------------------------------------------------
+    on(event: 'after', listener: AfterEventListener): this;
+    on(event: 'pre' | 'request', listener: (req: Request, res: Response) => void): this;
+    on(
+        event: 'routed',
+        listener: (req: Request, res: Response, route: Route) => void
+    ): this;
+    on(
+        event: 'uncaughtException',
+        listener: (
+            req: Request,
+            res: Response,
+            route: Route | undefined,
+            err: any,
+            callback: () => void
+        ) => void
+    ): this;
+    on(event: 'restifyError', listener: ErrorEventListener): this;
+    on(event: 'audit', listener: (record: AuditRecord) => void): this;
+    on(event: 'redirect', listener: (location: string) => void): this;
+    on(event: 'mount', listener: (method: string, path: string) => void): this;
+    on(
+        event: 'checkContinue',
+        listener: (req: http.IncomingMessage, res: http.ServerResponse) => void
+    ): this;
+    on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
+    on(event: 'close' | 'listening', listener: () => void): this;
+    on(event: 'connection' | 'secureConnection', listener: (socket: net.Socket) => void): this;
+    on(event: 'error', listener: (err: Error) => void): this;
+    on(
+        event: 'upgrade',
+        listener: (req: http.IncomingMessage, socket: stream.Duplex, head: Buffer) => void
+    ): this;
+    /**
+     * Error events are named after the error with the trailing `Error`
+     * removed (`InternalServerError` -> `InternalServer`), except
+     * `ResourceNotFoundError` -> `NotFound` and
+     * `InvalidVersionError` -> `VersionNotAllowed`.
+     */
+    on(event: string, listener: ErrorEventListener): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+}
+
+// ---------------------------------------------------------------------------
+// Request
+// ---------------------------------------------------------------------------
+
+export interface HandlerTimer {
+    name: string;
+    time: [number, number];
+}
+
+/** `req.authorization`, set by `plugins.authorizationParser()`. */
+export interface RequestAuthorization {
+    /** Absent when there is no `Authorization` header. */
+    scheme?: string | undefined;
+    /** Undecoded credentials. */
+    credentials?: string | undefined;
+    /** Basic auth. Missing parts are `null`. */
+    basic?: { username: string | null; password: string | null } | undefined;
+    /** Parsed HTTP Signature (`http-signature`'s `parseRequest` result). */
+    signature?: any;
+}
+
+/** Uploaded file, as produced by formidable v1 (`req.files`). */
+export interface File {
+    size: number;
+    /** Temporary path on disk. */
+    path: string;
+    /** Original file name. */
+    name: string | null;
+    /** MIME type reported by the client. */
+    type: string | null;
+    /** Set when the `hash` option is used. */
+    hash?: string | null | undefined;
+    lastModifiedDate?: Date | null | undefined;
+    toJSON(): { [key: string]: any };
+}
+
+// ---------------------------------------------------------------------------
+// Response
+// ---------------------------------------------------------------------------
+
+export type HeaderValue = number | string | string[];
+
+export interface CacheOptions {
+    /** max-age, in seconds. */
+    maxAge?: number | undefined;
+}
+
+export interface RedirectOptions {
+    /** Redirect to https. Defaults to the current request's scheme. */
+    secure?: boolean | undefined;
+    /** Redirect location's hostname (makes the Location absolute). */
+    hostname?: string | undefined;
+    /** Redirect location's pathname. */
+    pathname?: string | undefined;
+    /** Redirect location's port. */
+    port?: string | number | undefined;
+    /** NOTE: documented as String; must be an object of key -> value(s). */
+    query?: { [key: string]: any } | undefined;
+    /** Replace (rather than merge with) the current query string. */
+    overrideQuery?: boolean | undefined;
+    /** Use 301 instead of 302. */
+    permanent?: boolean | undefined;
+}
+
+export interface Response extends http.ServerResponse {
+    log: Logger;
+    req: Request;
+    serverName: string;
+    acceptable: string[];
+    formatters: Formatters;
+    /** Content type used by `send()` ahead of the Content-Type header. */
+    contentType?: string | undefined;
+    /** Used by `conditionalRequest` and `fullResponse`. */
+    etag?: string | undefined;
+    /** Used by `conditionalRequest`. */
+    mtime?: string | Date | undefined;
+    /** Set on 405 responses. */
+    methods?: string[] | undefined;
+    /**
+     * @deprecated Leftover from route versioning. Nothing in restify sets
+     * it, but `fullResponse` still copies it into `Api-Version` if you do.
+     */
+    version?: string | undefined;
+    /**
+     * @deprecated Restify 1.0 compatibility: if set, `fullResponse` calls it
+     * with the formatted body just before headers are written.
+     */
+    defaultResponseFormatters?: ((data: string | Buffer | null | undefined) => void) | undefined;
+    /** The error the request finished with, if any. */
+    err?: any;
+    /** gzipResponse: restores the original write/end/writeHead. */
+    handledGzip?: (() => void) | undefined;
+    /**
+     * Present only when `res` is actually a {@link ServerUpgradeResponse}
+     * (`handleUpgrades: true` and an upgrade request). Use it as a type guard.
+     */
+    claimUpgrade?: (() => { socket: net.Socket; head: Buffer }) | undefined;
+
+    /**
+     * Sets `Cache-Control` (`type` defaults to `'public'`).
+     * NOTE: documented as returning String; returns the response.
+     */
+    cache(type?: string, options?: CacheOptions): this;
+    cache(options?: CacheOptions): this;
+    /** Sets headers that disable caching. */
+    noCache(): this;
+    /** Appends `; charset=<type>` to the Content-Type on `send()`. */
+    charSet(type: string): this;
+    /** Retrieves a response header. */
+    get(name: string): HeaderValue | undefined;
+    /** Retrieves a response header. */
+    header(key: string): HeaderValue | undefined;
+    /**
+     * Sets a header, appending to an existing value (except Content-Type).
+     * Dates are formatted as HTTP dates. Returns the value set.
+     */
+    header(key: string, value: any, ...formatArgs: any[]): HeaderValue;
+    /** Sets `Content-Type: application/json` and calls `send()`. */
+    json(code: number, body?: any, headers?: http.OutgoingHttpHeaders): this;
+    json(body?: any, headers?: http.OutgoingHttpHeaders): this;
+    /** Appends a `Link: <key>; rel="value"` header. */
+    link(key: string, value: string): HeaderValue;
+    /**
+     * Formats and sends the response. Errors without a code use their
+     * `statusCode` (or 500).
+     */
+    send(code: number, body?: any, headers?: http.OutgoingHttpHeaders): this;
+    send(body?: any, headers?: http.OutgoingHttpHeaders): this;
+    /** Sends a string/Buffer without formatting. */
+    sendRaw(code: number, body: string | Buffer, headers?: http.OutgoingHttpHeaders): this;
+    sendRaw(body: string | Buffer, headers?: http.OutgoingHttpHeaders): this;
+    /** Sets one header, or several from an object, via `header()`. */
+    set(name: string, val: any): this;
+    set(headers: { [name: string]: any }): this;
+    /** Sets the status code and returns it. */
+    status(code: number): number;
+    /**
+     * Sends a redirect and calls `next(false)`. `next` is mandatory.
+     * Emits `redirect`.
+     */
+    redirect(code: number, url: string, next: Next): void;
+    redirect(url: string, next: Next): void;
+    redirect(options: RedirectOptions, next: Next): void;
+    toString(): string;
+
+    on(event: 'header', listener: () => void): this;
+    on(event: 'redirect', listener: (location: string) => void): this;
+    /**
+     * @deprecated Restify 1.0 compatibility: emitted by `fullResponse` with
+     * the formatted and original bodies just before headers are written.
+     */
+    on(event: 'beforeSend', listener: (data: string | Buffer | null | undefined, body: any) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+}
+
+/**
+ * The object handlers receive as `res` for upgrade requests when the server
+ * was created with `handleUpgrades: true`. It is *not* an
+ * `http.ServerResponse`: most header methods are no-op stubs, and
+ * `writeContinue()`/`format()` throw.
+ */
+export interface ServerUpgradeResponse extends NodeJS.EventEmitter {
+    statusCode: number;
+    statusReason?: string | undefined;
+    sendDate: boolean;
+    log: Logger;
+
+    /** Sets the status code and returns it. */
+    status(code: number): number;
+    /** Writes a non-upgrade response head and closes the socket. */
+    send(code: number, body?: any): boolean;
+    send(body?: any): boolean;
+    /** Writes a non-upgrade response head and closes the socket. */
+    end(): boolean;
+    /** Writes a non-upgrade response head. */
+    write(): boolean;
+    /** Writes the response head. Throws if already written. */
+    writeHead(statusCode: number, reason?: string): void;
+    /**
+     * Takes over the connection. Throws if already claimed or if a response
+     * head was written.
+     */
+    claimUpgrade(): { socket: net.Socket; head: Buffer };
+
+    // No-op stubs
+    setHeader(name: string, value: any): null;
+    getHeader(name: string): null;
+    getHeaders(): object;
+    removeHeader(name: string): null;
+    addTrailer(headers: any): null;
+    cache(...args: any[]): 'public';
+    set(...args: any[]): null;
+    get(name: string): null;
+    headers(): object;
+    header(...args: any[]): null;
+    json(...args: any[]): null;
+    link(...args: any[]): null;
+    /** Throws. */
+    writeContinue(): never;
+    /** Throws. */
+    format(...args: any[]): never;
+}
+
+// ---------------------------------------------------------------------------
+// Plugins
+// ---------------------------------------------------------------------------
 
 export namespace plugins {
+    // --- server.pre() plugins ----------------------------------------------
     namespace pre {
-        /**
-         * Provide req.set(key, val) and req.get(key) methods for setting and retrieving context to a specific request.
-         */
+        /** Adds `req.set(key, val)`, `req.get(key)` and `req.getAll()`. */
         function context(): RequestHandler;
-
+        /** Collapses repeated slashes in `req.url` (query string included). */
         function dedupeSlashes(): RequestHandler;
-
-        /**
-         * This pre handler fixes issues with node hanging when an asyncHandler is used prior to bodyParser.
-         */
+        /** Buffers request data until the stream is resumed. */
         function pause(): RequestHandler;
-
         /**
-         * Cleans up duplicate or trailing / on the URL
-         */
-        function sanitizePath(): RequestHandler;
-
-        /**
-         * Automatically reuse incoming request header as the request id.
+         * Uses the first present header as the request id. `request-id` and
+         * `x-request-id` are always checked after `options.headers`.
          */
         function reqIdHeaders(options: { headers: string[] }): RequestHandler;
-
+        /** Removes duplicate and trailing slashes from `req.url`. */
+        function sanitizePath(): RequestHandler;
+        /** Rejects query strings that aren't strict `key=value` pairs (400). */
+        function strictQueryParams(options?: {
+            message?: string | undefined;
+        }): RequestHandler;
         /**
-         * Checks req.urls query params with strict key/val format and rejects non-strict requests with status code 400.
-         */
-        function strictQueryParams(options?: { message: string }): RequestHandler;
-
-        /**
-         * Regexp to capture curl user-agents
+         * For matching user agents (default `/^curl.+/`), sets
+         * `Connection: close` and drops Content-Length on HEAD.
          */
         function userAgentConnection(options?: {
-            userAgentRegExp: any;
+            userAgentRegExp?: RegExp | undefined;
         }): RequestHandler;
     }
 
-    // *************** This module includes the following header parser plugins:
+    // --- header parsers ----------------------------------------------------
+
+    /** Responds 406 when the request's `Accept` matches none of `accepts`. */
+    function acceptParser(accepts: string | string[]): RequestHandler;
 
     /**
-     * Check the client's Accept header can be handled by this server.
+     * Parses `Authorization` (Basic and HTTP Signature) into
+     * `req.authorization` and `req.username`.
+     * `options` is passed to `http-signature`'s `parseRequest`.
      */
-    function acceptParser(accepts: string[]): RequestHandler;
+    function authorizationParser(options?: any): RequestHandler;
+
+    /**
+     * Rejects requests whose `Date` header is older than `clockSkew` seconds
+     * (default 300; `0` also means 300).
+     * NOTE: invalid dates are let through rather than rejected.
+     */
+    function dateParser(clockSkew?: number): RequestHandler;
+
+    /**
+     * Parses a Bearer token from `Authorization` (or `access_token` in a
+     * urlencoded body) into `req.oauth2`. `options` is accepted but unused.
+     */
+    function oauth2TokenParser(options?: any): RequestHandler;
+
+    // --- body parsers ------------------------------------------------------
+
+    interface BodyReaderOptions {
+        /** Defaults to 2 MiB. `0` disables the limit. Not applied to multipart. */
+        maxBodySize?: number | undefined;
+    }
+
+    interface MapParamsOptions {
+        /**
+         * Copy parsed values onto `req.params`.
+         * NOTE: defaults to off for JSON/urlencoded but *on* for multipart
+         * (multipart only skips when `mapParams === false`).
+         */
+        mapParams?: boolean | undefined;
+        /** Let parsed values overwrite existing `req.params` entries. */
+        overrideParams?: boolean | undefined;
+    }
+
+    /** Options passed through to `qs.parse`. */
+    interface QsOptions {
+        allowDots?: boolean | undefined;
+        allowEmptyArrays?: boolean | undefined;
+        allowPrototypes?: boolean | undefined;
+        allowSparse?: boolean | undefined;
+        /** Defaults to 20. */
+        arrayLimit?: number | undefined;
+        charset?: 'utf-8' | 'iso-8859-1' | undefined;
+        charsetSentinel?: boolean | undefined;
+        comma?: boolean | undefined;
+        decodeDotInKeys?: boolean | undefined;
+        decoder?: ((str: string, defaultDecoder: any, charset: string, type: 'key' | 'value') => any) | undefined;
+        delimiter?: string | RegExp | undefined;
+        /** Defaults to 5. */
+        depth?: number | false | undefined;
+        duplicates?: 'combine' | 'first' | 'last' | undefined;
+        ignoreQueryPrefix?: boolean | undefined;
+        interpretNumericEntities?: boolean | undefined;
+        /** Defaults to 1000. */
+        parameterLimit?: number | undefined;
+        parseArrays?: boolean | undefined;
+        plainObjects?: boolean | undefined;
+        strictDepth?: boolean | undefined;
+        strictNullHandling?: boolean | undefined;
+        /** Surface limit violations as `InvalidContentError` instead of dropping. */
+        throwOnLimitExceeded?: boolean | undefined;
+    }
+
+    interface JsonBodyParserOptions extends BodyReaderOptions, MapParamsOptions {
+        /** Passed to `JSON.parse`. */
+        reviver?: ((this: any, key: string, value: any) => any) | undefined;
+        /** Undocumented: skip the built-in body reader (body already read). */
+        bodyReader?: boolean | undefined;
+    }
+
+    interface UrlEncodedBodyParserOptions
+        extends BodyReaderOptions,
+            MapParamsOptions,
+            QsOptions {
+        /** Undocumented: skip the built-in body reader (body already read). */
+        bodyReader?: boolean | undefined;
+    }
+
+    interface MultipartBodyParser extends MapParamsOptions {
+        /** Read uploaded files into `req.params` (requires `mapParams`). */
+        mapFiles?: boolean | undefined;
+        /** Support the HTML5 `multiple` attribute. */
+        multiples?: boolean | undefined;
+        /** Keep original file extensions on temp files. */
+        keepExtensions?: boolean | undefined;
+        /** Temp directory for uploads. */
+        uploadDir?: string | undefined;
+        /** Memory limit for all non-file fields, in bytes. */
+        maxFieldsSize?: number | undefined;
+        /** Undocumented; passed to formidable. */
+        maxFileSize?: number | undefined;
+        /** Checksum algorithm for uploaded files. */
+        hash?: 'sha1' | 'md5' | undefined;
+        /** Handles non-file parts instead of the default handler. */
+        multipartHandler?: ((part: stream.Readable, req: Request) => void) | undefined;
+        /** Handles file parts instead of the default handler. */
+        multipartFileHandler?: ((part: stream.Readable, req: Request) => void) | undefined;
+    }
+
+    interface BodyParserOptions
+        extends JsonBodyParserOptions,
+            UrlEncodedBodyParserOptions,
+            MultipartBodyParser {
+        /** Respond 415 for unsupported content types. */
+        rejectUnknown?: boolean | undefined;
+        /** Also parse bodies on GET requests. */
+        requestBodyOnGet?: boolean | undefined;
+    }
+
+    /**
+     * Reads and parses the body by content type (JSON, urlencoded, multipart,
+     * and the undocumented CSV/TSV) into `req.body`.
+     * NOTE: documented as returning a Function; returns `[readBody, parseBody]`.
+     * Mutates `options` (sets `options.bodyReader = true`).
+     */
+    function bodyParser(options?: BodyParserOptions): RequestHandler[];
+    /** Reads the raw body into `req.body` (skips multipart and octet-stream). */
+    function bodyReader(options?: BodyReaderOptions): RequestHandler;
+    /** Reads and parses JSON bodies. Returns `[readBody, parseJson]`. */
+    function jsonBodyParser(options?: JsonBodyParserOptions): RequestHandler[];
+    /** Reads and parses urlencoded bodies. Returns `[readBody, parseBody]`. */
+    function urlEncodedBodyParser(options?: UrlEncodedBodyParserOptions): RequestHandler[];
+    /** Parses multipart bodies into `req.body` and `req.files`. */
+    function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
+
+    interface QueryParserOptions extends QsOptions {
+        /** Copy parsed values onto `req.params`. NOTE: JSDoc lists both `=true` and `=false`; runtime default is off. */
+        mapParams?: boolean | undefined;
+        /** Let parsed values overwrite existing `req.params` entries. */
+        overrideParams?: boolean | undefined;
+    }
+    /** Parses the query string into `req.query` (`{}` when empty). */
+    function queryParser(options?: QueryParserOptions): RequestHandler;
+
+    /**
+     * Sets `application/javascript` when `callback`/`jsonp` query params are
+     * present. NOTE: always re-parses `req.query` with default qs options,
+     * replacing queryParser's result.
+     */
+    function jsonp(): RequestHandler;
+
+    // --- conditional handling ----------------------------------------------
+
+    interface HandlerCandidate {
+        handler: RequestHandler | RequestHandler[];
+        /**
+         * Semver version(s) matched against `Accept-Version`.
+         * NOTE: documented as optional, but if any candidate sets `version`,
+         * every candidate must (otherwise `semver` throws at request time).
+         */
+        version?: string | string[] | undefined;
+        /**
+         * Matched against the request's `Accept` header.
+         * NOTE: same all-or-none constraint as `version`.
+         */
+        contentType?: string | string[] | undefined;
+    }
+    /** Runs the best candidate for the request's version / Accept header. */
+    function conditionalHandler(
+        candidates: HandlerCandidate | HandlerCandidate[]
+    ): RequestHandler;
+
+    /**
+     * Handles If-Match / If-None-Match / If-Modified-Since /
+     * If-Unmodified-Since against `res.etag`/ETag and `res.mtime`/Last-Modified.
+     */
+    function conditionalRequest(): RequestHandler[];
+
+    // --- throttling --------------------------------------------------------
+
+    interface CpuUsageThrottleOptions {
+        /** CPU usage (0..max) at which shedding starts. Defaults to 0.75. */
+        limit?: number | undefined;
+        /** CPU usage at which all requests are shed. Defaults to 1. */
+        max?: number | undefined;
+        /** Sampling interval in ms. Defaults to 250. */
+        interval?: number | undefined;
+        /** EWMA half-life in ms. Defaults to 250. */
+        halfLife?: number | undefined;
+    }
+    interface CpuUsageThrottleHandler {
+        (req: Request, res: Response, next: Next): void;
+        /** Undocumented: stops the sampling timer. */
+        close(): void;
+        /** Reconfigures the plugin at runtime. */
+        update(opts: CpuUsageThrottleOptions): void;
+        /** Undocumented: introspection snapshot. */
+        readonly state: {
+            limit: number;
+            max: number;
+            interval: number;
+            halfLife: number;
+            cpuUsage: number | undefined;
+            reject: number;
+            lag: number;
+        };
+    }
+    /** Probabilistically sheds load (503) based on process CPU usage. */
+    function cpuUsageThrottle(opts: CpuUsageThrottleOptions): CpuUsageThrottleHandler;
+
+    interface InflightRequestThrottleOptions {
+        /** Maximum inflight requests before rejecting. */
+        limit: number;
+        /** The server whose `inflightRequests()` is checked. */
+        server: Server;
+        /** Error to respond with. Defaults to a 503 `ServiceUnavailableError`. */
+        err?: Error | undefined;
+    }
+    /** Rejects requests once the server's inflight count exceeds `limit`. */
+    function inflightRequestThrottle(opts: InflightRequestThrottleOptions): RequestHandler;
+
+    type RequestExpiryOptions =
+        | {
+            /** Header holding the absolute expiry time (ms since epoch). */
+            absoluteHeader: string;
+        }
+        | {
+            /** Header holding the request start time (ms since epoch). */
+            startHeader: string;
+            /** Header holding the timeout (ms) added to the start time. */
+            timeoutHeader: string;
+        };
+    /** Responds 504 to requests whose expiry headers say they already timed out. */
+    function requestExpiry(options: RequestExpiryOptions): RequestHandler;
+
+    interface ThrottleOptions {
+        /** Bucket capacity. */
+        burst: number;
+        /** Refill rate, requests per second. */
+        rate: number;
+        /** Throttle by socket address. Exactly one of `ip`/`xff`/`username`. */
+        ip?: boolean | undefined;
+        /** Throttle by the raw `X-Forwarded-For` header. */
+        xff?: boolean | undefined;
+        /** Throttle by `req.username`. */
+        username?: boolean | undefined;
+        /** Set `X-RateLimit-*` headers. */
+        setHeaders?: boolean | undefined;
+        /** Per-key limits; `0` burst/rate means unlimited. */
+        overrides?: { [key: string]: { burst: number; rate: number } } | undefined;
+        /** Custom key -> bucket store. Defaults to an in-memory LRU. */
+        tokensTable?: { put(key: string, value: any): void; get(key: string): any } | undefined;
+        /** LRU size for the default store. Defaults to 10000. */
+        maxKeys?: number | undefined;
+    }
+    /** Token-bucket rate limiting (429). */
+    function throttle(options: ThrottleOptions): RequestHandler;
+
+    // --- response plugins --------------------------------------------------
+
+    /** Sets Connection, Content-MD5, Date, Etag, Server, Request-Id and Response-Time headers. */
+    function fullResponse(): RequestHandler;
+
+    /** Gzips the response when the client accepts gzip. */
+    function gzipResponse(options?: zlib.ZlibOptions): RequestHandler;
+
+    interface RequestLogger {
+        /** Lower-case header names copied onto the child logger. */
+        headers?: string[] | undefined;
+        /** Extra bindings for the child logger. */
+        properties?: { [key: string]: any } | undefined;
+        /** Serializers for the child logger. */
+        serializers?: { [key: string]: (value: any) => any } | undefined;
+        /** Fallback parent logger when `req.log` is unset. */
+        log?: Logger | undefined;
+        /** Defaults to `'req_id'`. */
+        requestIdFieldName?: string | undefined;
+    }
+    /** Replaces `req.log` with a child logger bound to the request id. */
+    function requestLogger(options?: RequestLogger): RequestHandler;
+
+    interface ServeStatic {
+        /** Root directory (resolved against the cwd). */
+        directory: string;
+        /** Always serve this file. */
+        file?: string | undefined;
+        /** File served for directory requests. */
+        default?: string | undefined;
+        /** Append the request path to `directory`. Defaults to `true`. */
+        appendRequestPath?: boolean | undefined;
+        /** Cache-Control max-age in seconds. Defaults to 3600. */
+        maxAge?: number | undefined;
+        /** Only serve files whose path matches. */
+        match?: RegExp | undefined;
+        /** Appended to the Content-Type. */
+        charSet?: string | undefined;
+        /** Serve `<file>.gz` when it exists and the client accepts gzip. */
+        gzip?: boolean | undefined;
+        /** Computes the ETag header value. */
+        etag?: ((stats: fs.Stats, opts: ServeStatic) => string) | undefined;
+    }
+    /** Serves files from a directory (mount on a GET route). */
+    function serveStatic(options: ServeStatic): RequestHandler;
+
+    interface ServeStaticFiles {
+        acceptRanges?: boolean | undefined;
+        cacheControl?: boolean | undefined;
+        dotfiles?: 'allow' | 'deny' | 'ignore' | undefined;
+        etag?: boolean | undefined;
+        extensions?: string[] | string | false | undefined;
+        immutable?: boolean | undefined;
+        /** Defaults to `'index.html'`. */
+        index?: string[] | string | false | undefined;
+        lastModified?: boolean | undefined;
+        /** Milliseconds (or an `ms` string). */
+        maxAge?: number | string | undefined;
+        /** Called synchronously before headers are sent. */
+        setHeaders?: ((res: http.ServerResponse, path: string, stat: fs.Stats) => void) | undefined;
+    }
+    /** Serves files via `send` (mount on a GET route ending in `/*`). */
+    function serveStaticFiles(directory: string, options?: ServeStaticFiles): RequestHandler;
+
+    // --- after-event plugins -----------------------------------------------
 
     type AuditLoggerContext = (
         req: Request,
         res: Response,
-        route: any,
-        error: any,
+        route: Route | undefined,
+        error: any
     ) => any;
 
     interface AuditLoggerOptions {
         /**
-         * Bunyan logger
+         * NOTE: only used when `req.log` is unset; normally the record is
+         * logged through a child of `req.log`.
          */
         log: Logger;
-
-        /**
-         * The event from the server which initiates the
-         * log, one of 'pre', 'routed', or 'after'
-         */
-        event: "pre" | "routed" | "after";
-
-        /**
-         * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
-         */
-        server?: Server | undefined;
-
-        /**
-         * The optional context function of signature
-         * f(req, res, route, err).  Invoked each time an audit log is generated. This
-         * function can return an object that customizes the format of anything off the
-         * req, res, route, and err objects. The output of this function will be
-         * available on the `context` key in the audit object.
-         */
+        /** Server event the logger is attached to. */
+        event: 'pre' | 'routed' | 'after';
+        /** Return value is added to the record as `context`. */
         context?: AuditLoggerContext | undefined;
-
-        /**
-         * Ringbuffer which is written to if passed in
-         */
-        logBuffer?: any;
-
-        /**
-         * When true, prints audit logs. default true.
-         */
+        /** Emit `audit` on this server for each record. */
+        server?: Server | undefined;
+        /** Log the record. Defaults to `true`. */
         printLog?: boolean | undefined;
-
+        /** Override the err/req/res serializers. */
+        serializers?: { [key: string]: (value: any) => any } | undefined;
+        /** Defaults to `'req_id'`. */
+        requestIdFieldName?: string | undefined;
+        /** Undocumented: include request and response bodies. */
         body?: boolean | undefined;
+        /**
+         * @deprecated Shown in the JSDoc example (a ring buffer, `logBuffer`
+         * in @types/restify), but ignored.
+         */
+        logMetrics?: unknown;
     }
-
-    /**
-     * An audit logger for recording all handled requests
-     */
-    function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
-
-    /**
-     * Authorization header
-     */
-    function authorizationParser(options?: any): RequestHandler;
-
-    interface HandlerCandidate {
-        handler: RequestHandler | RequestHandler[];
-        version?: string | string[] | undefined;
-        contentType?: string | string[] | undefined;
-    }
-
-    /**
-     * Runs first handler that matches to the condition
-     */
-    function conditionalHandler(
-        candidates: HandlerCandidate | HandlerCandidate[],
-    ): RequestHandler;
-
-    /**
-     * Conditional headers (If-*)
-     */
-    function conditionalRequest(): RequestHandler[];
-
-    interface CpuUsageThrottleOptions {
-        limit?: number | undefined;
-        max?: number | undefined;
-        interval?: number | undefined;
-        halfLife?: number | undefined;
-    }
-
-    /**
-     * Cpu Throttle middleware
-     */
-    function cpuUsageThrottle(opts?: CpuUsageThrottleOptions): RequestHandler;
-
-    /**
-     * Handles disappeared CORS headers
-     */
-    function fullResponse(): RequestHandler;
-
-    // ************ This module includes the following data parsing plugins:
-
-    interface BodyParserOptions {
-        /**
-         * The maximum size in bytes allowed in the HTTP body. Useful for limiting clients from hogging server memory.
-         */
-        maxBodySize?: number | undefined;
-
-        /**
-         * If req.params should be filled with parsed parameters from HTTP body.
-         */
-        mapParams?: boolean | undefined;
-
-        /**
-         * If req.params should be filled with the contents of files sent through a multipart request.
-         * Formidable is used internally for parsing, and a file is denoted as a multipart part with the filename option set in its Content-Disposition.
-         * This will only be performed if mapParams is true.
-         */
-        mapFiles?: boolean | undefined;
-
-        /**
-         * If an entry in req.params should be overwritten by the value in the body if the names are the same.
-         * For instance, if you have the route /:someval, and someone posts an x-www-form-urlencoded Content-Type with the body someval=happy to /sad,
-         * the value will be happy if overrideParams is true, sad otherwise.
-         */
-        overrideParams?: boolean | undefined;
-
-        /**
-         * A callback to handle any multipart part which is not a file.
-         * If this is omitted, the default handler is invoked which may or may not map the parts into req.params, depending on the mapParams-option.
-         */
-        multipartHandler?(): void;
-
-        /**
-         * A callback to handle any multipart file.
-         * It will be a file if the part have a Content-Disposition with the filename parameter set.
-         * This typically happens when a browser sends a form and there is a parameter similar to <input type="file" />.
-         * If this is not provided, the default behaviour is to map the contents into req.params.
-         */
-        multipartFileHandler?(): void;
-
-        /**
-         * If you want the uploaded files to include the extensions of the original files (multipart uploads only). Does nothing if multipartFileHandler is defined.
-         */
-        keepExtensions?: boolean | undefined;
-
-        /**
-         * Where uploaded files are intermediately stored during transfer before the contents is mapped into req.params. Does nothing if multipartFileHandler is defined.
-         */
-        uploadDir?: string | undefined;
-
-        /**
-         * If you want to support html5 multiple attribute in upload fields.
-         */
-        multiples?: boolean | undefined;
-
-        /**
-         * If you want checksums calculated for incoming files, set this to either sha1 or md5.
-         */
-        hash?: string | undefined;
-
-        /**
-         * Set to true if you want to end the request with a UnsupportedMediaTypeError when none of the supported content types was given.
-         */
-        rejectUnknown?: boolean | undefined;
-
-        requestBodyOnGet?: boolean | undefined;
-
-        reviver?: any;
-
-        maxFieldsSize?: number | undefined;
-
-        maxFileSize?: number | undefined;
-    }
-
-    /**
-     * Parses POST bodies to req.body. automatically uses one of the following parsers based on content type.
-     */
-    function bodyParser(options?: BodyParserOptions): RequestHandler[];
-
-    /**
-     * Reads the body of the request.
-     */
-    function bodyReader(options?: { maxBodySize?: number | undefined }): RequestHandler;
-
-    interface UrlEncodedBodyParserOptions {
-        mapParams?: boolean | undefined;
-        overrideParams?: boolean | undefined;
-        bodyReader?: boolean | undefined;
-    }
-
-    /**
-     * Parse the HTTP request body IFF the contentType is application/x-www-form-urlencoded.
-     *
-     * If req.params already contains a given key, that key is skipped and an
-     * error is logged.
-     */
-    function urlEncodedBodyParser(
-        options?: UrlEncodedBodyParserOptions,
-    ): RequestHandler[];
-
-    interface JsonBodyParserOptions {
-        mapParams?: boolean | undefined;
-        overrideParams?: boolean | undefined;
-        reviver?(key: any, value: any): any;
-        bodyReader?: boolean | undefined;
-    }
-
-    /**
-     * Parses JSON POST bodies
-     */
-    function jsonBodyParser(options?: JsonBodyParserOptions): RequestHandler[];
-
-    /**
-     * Parses JSONP callback
-     */
-    function jsonp(): RequestHandler;
-
-    interface MultipartBodyParser {
-        overrideParams?: boolean | undefined;
-        multiples?: boolean | undefined;
-        keepExtensions?: boolean | undefined;
-        uploadDir?: string | undefined;
-        maxFieldsSize?: number | undefined;
-        hash?: string | undefined;
-        multipartFileHandler?: any;
-        multipartHandler?: any;
-        mapParams?: boolean | undefined;
-        mapFiles?: boolean | undefined;
-        maxFileSize?: number | undefined;
-    }
-
-    /**
-     * Parses JSONP callback
-     */
-    function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
-
-    interface QueryParserOptions {
-        /**
-         * Default `false`. Copies parsed query parameters into `req.params`.
-         */
-        mapParams?: boolean | undefined;
-
-        /**
-         * Default `false`. Only applies when if mapParams true. When true, will stomp on req.params field when existing value is found.
-         */
-        overrideParams?: boolean | undefined;
-
-        /**
-         *  Default false. Transform `?foo.bar=baz` to a nested object: `{foo: {bar: 'baz'}}`.
-         */
-        allowDots?: boolean | undefined;
-
-        /**
-         * Default 20. Only transform `?a[$index]=b` to an array if `$index` is less than `arrayLimit`.
-         */
-        arrayLimit?: number | undefined;
-
-        /**
-         * Default 5. The depth limit for parsing nested objects, e.g. `?a[b][c][d][e][f][g][h][i]=j`.
-         */
-        depth?: number | undefined;
-
-        /**
-         * Default 1000. Maximum number of query params parsed. Additional params are silently dropped.
-         */
-        parameterLimit?: number | undefined;
-
-        /**
-         * Default true. Whether to parse `?a[]=b&a[1]=c` to an array, e.g. `{a: ['b', 'c']}`.
-         */
-        parseArrays?: boolean | undefined;
-
-        /**
-         * Default false. Whether `req.query` is a "plain" object -- does not inherit from `Object`.
-         * This can be used to allow query params whose names collide with Object methods, e.g. `?hasOwnProperty=blah`.
-         */
-        plainObjects?: boolean | undefined;
-
-        /**
-         * Default false. If true, `?a&b=` results in `{a: null, b: ''}`. Otherwise, `{a: '', b: ''}`.
-         */
-        strictNullHandling?: boolean | undefined;
-    }
-
-    /**
-     * Parses URL query parameters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
-     */
-    function queryParser(options?: QueryParserOptions): RequestHandler;
-
-    interface RequestLogger {
-        properties?: any;
-        serializers?: any;
-        headers?: any;
-        log?: any;
-    }
-
-    /**
-     * Adds timers for each handler in your request chain
-     *
-     * `options.properties` properties to pass to bunyan's `log.child()` method
-     */
-    function requestLogger(options?: RequestLogger): RequestHandler;
-
-    // ******************** The module includes the following response plugins:
-
-    /**
-     * expires requests based on current time + delta
-     * @param delta - age in seconds
-     */
-    function dateParser(delta?: number): RequestHandler;
-
-    /**
-     * gzips the response if client send `accept-encoding: gzip`
-     * @param options options to pass to gzlib
-     */
-    function gzipResponse(options?: zlib.ZlibOptions): RequestHandler;
-
-    interface InflightRequestThrottleOptions {
-        limit: number;
-        server: Server;
-        err: any;
-    }
-
-    function inflightRequestThrottle(
-        opts: InflightRequestThrottleOptions,
-    ): RequestHandler;
-
-    interface ServeStatic {
-        appendRequestPath?: boolean | undefined;
-        directory?: string | undefined;
-        maxAge?: number | undefined;
-        match?: any;
-        charSet?: string | undefined;
-        file?: string | undefined;
-        etag?: string | undefined;
-        default?: any;
-        gzip?: boolean | undefined;
-    }
-
-    /**
-     * Used to serve static files
-     */
-    function serveStatic(options?: ServeStatic): RequestHandler;
-
-    interface ServeStaticFiles {
-        maxAge?: number | undefined;
-        etag?: string | undefined;
-        setHeaders?: ((res: Response, path: string, stat: any) => any) | undefined;
-    }
-
-    /**
-     * Used to serve static files from a given directory
-     */
-    function serveStaticFiles(
-        dir: string,
-        options?: ServeStaticFiles,
-    ): RequestHandler;
-
-    interface ThrottleOptions {
-        burst?: number | undefined;
-        rate?: number | undefined;
-        setHeaders?: boolean | undefined;
-        ip?: boolean | undefined;
-        username?: boolean | undefined;
-        xff?: boolean | undefined;
-        tokensTable?: any;
-        maxKeys?: number | undefined;
-        overrides?: any; // any
-    }
-
-    /**
-     *  throttles responses
-     */
-    function throttle(options?: ThrottleOptions): RequestHandler;
-
-    type MetricsCallback = (
-        /**
-         *  An error if the request had an error
-         */
-        err: Error,
-        /**
-         *  Object that contains the various metrics that are returned
-         */
-        metrics: MetricsCallbackOptions,
-        /**
-         * The request obj
-         */
-        req: Request,
-        /**
-         * The response obj
-         */
-        res: Response,
-        /**
-         * The route obj that serviced the request
-         */
-        route: Route,
-    ) => void;
-
-    type TMetricsCallback = "close" | "aborted" | undefined;
+    /** Builds an audit record per request; attach to `pre`/`routed`/`after`. */
+    function auditLogger(options: AuditLoggerOptions): AfterEventListener;
 
     interface MetricsCallbackOptions {
-        /**
-         * Status code of the response. Can be undefined in the case of an `uncaughtException`.
-         * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
-         */
-        statusCode: number;
-
-        /**
-         * HTTP request verb
-         */
+        /** Undefined after an uncaught exception. */
+        statusCode: number | undefined;
         method: string;
-
-        /**
-         * latency includes both request is flushed and all handlers finished
-         */
-        totalLatency: number;
-
-        /**
-         * Request latency
-         */
-        latency: number;
-
-        /**
-         * pre handlers latency
-         */
+        /** Until both flushed and all handlers finished. */
+        totalLatency: number | null;
+        /** Until the response was flushed. */
+        latency: number | null;
         preLatency: number | null;
-
-        /**
-         * use handlers latency
-         */
         useLatency: number | null;
-
-        /**
-         * req.path() value
-         */
+        routeLatency: number | null;
+        /** `req.path()`. */
         path: string;
-
-        /**
-         * Number of inflight requests pending in restify
-         */
-        inflightRequests: number;
-
-        /**
-         * Same as `inflightRequests`
-         */
+        /** `'close'` when the client went away (`err` is a RequestCloseError). */
+        connectionState: 'close' | undefined;
+        /** NOTE: documented as `unifinishedRequests`. */
         unfinishedRequests: number;
-
-        /**
-         * If this value is set, err will be a corresponding `RequestCloseError` or `RequestAbortedError`.
-         *
-         * If connectionState is either 'close' or 'aborted', then the statusCode is not applicable since the connection was severed before a response was written.
-         */
-        connectionState: TMetricsCallback;
+        inflightRequests: number;
     }
-
-    /**
-     * Listens to the server's after event and emits information about that request (5.x compatible only).
-     *
-     * ```
-     * server.on('after', plugins.metrics({ server }, (err, metrics, req, res, route) =>
-     * {
-     *    // metrics is an object containing information about the request
-     * }));
-     * ```
-     */
-    function metrics(
-        opts: { server: Server },
-        callback: MetricsCallback,
-    ): (...args: any[]) => void;
-
-    /**
-     * Parse the client's request for an OAUTH2 access tokensTable
-     *
-     * Subsequent handlers will see `req.oauth2`, which looks like:
-     * ```
-     * {
-     *    oauth2: {accessToken: 'mF_9.B5f-4.1JqM&p=q'}
-     * }
-     * ```
-     */
-    function oauth2TokenParser(): RequestHandler;
-
-    interface RequestExpiryOptions {
-        /**
-         * Header name of the absolute time for request expiration
-         */
-        absoluteHeader?: string | undefined;
-
-        /**
-         * Header name for the start time of the request
-         */
-        startHeader?: string | undefined;
-
-        /**
-         * The header name for the time in milliseconds that should ellapse before the request is considered expired.
-         */
-        timeoutHeader?: string | undefined;
-    }
-
-    /**
-     * A request expiry will use headers to tell if the incoming request has expired or not.
-     *
-     * There are two options for this plugin:
-     *   1. Absolute Time
-     *     * Time in Milliseconds since the Epoch when this request should be considered expired
-     *   2. Timeout
-     *     * The request start time is supplied
-     *     * A timeout, in milliseconds, is given
-     *     * The timeout is added to the request start time to arrive at the absolute time
-     *       in which the request is considered expires
-     */
-    function requestExpiry(options?: RequestExpiryOptions): RequestHandler;
+    type MetricsCallback = (
+        err: any,
+        metrics: MetricsCallbackOptions,
+        req: Request,
+        res: Response,
+        route: Route | undefined
+    ) => void;
+    /** Reports per-request metrics; attach to the `after` event. */
+    function metrics(opts: { server: Server }, callback: MetricsCallback): AfterEventListener;
 }
 
-export namespace pre {
-    /**
-     * Provide req.set(key, val) and req.get(key) methods for setting and retrieving context to a specific request.
-     */
-    function context(): RequestHandler;
+/** Alias of `plugins.pre`. */
+export import pre = plugins.pre;
 
-    function dedupeSlashes(): RequestHandler;
+// ---------------------------------------------------------------------------
+// Formatters
+// ---------------------------------------------------------------------------
 
-    /**
-     * This pre handler fixes issues with node hanging when an asyncHandler is used prior to bodyParser.
-     */
-    function pause(): RequestHandler;
+/**
+ * Built-in formatters, keyed by `<content-type>; q=<value>`. Note the keys are
+ * not bare content types.
+ */
+export const formatters: {
+    'application/javascript; q=0.1': Formatter;
+    'application/json; q=0.4': Formatter;
+    'text/plain; q=0.3': Formatter;
+    'application/octet-stream; q=0.2': Formatter;
+};
 
-    /**
-     * Cleans up duplicate or trailing / on the URL
-     */
-    function sanitizePath(): RequestHandler;
+// ---------------------------------------------------------------------------
+// Helpers & top-level exports
+// ---------------------------------------------------------------------------
 
+export const helpers: {
     /**
-     * Automatically reuse incoming request header as the request id.
+     * Composes handlers into a single `(req, res, callback)` function.
+     * Nested arrays are flattened.
      */
-    function reqIdHeaders(options: { headers: string[] }): RequestHandler;
+    compose(
+        handlers: RequestHandlerType,
+        options?: ChainOptions
+    ): (req: Request, res: Response, callback: (err?: any) => void) => void;
+};
 
-    /**
-     * Checks req.urls query params with strict key/val format and rejects non-strict requests with status code 400.
-     */
-    function strictQueryParams(options?: { message: string }): RequestHandler;
+/** The `pino` factory, re-exported. */
+export function logger(options?: LoggerOptions | DestinationStream): Logger;
+export function logger(options: LoggerOptions, stream: DestinationStream): Logger;
 
-    /**
-     * Regexp to capture curl user-agents
-     */
-    function userAgentConnection(options?: { userAgentRegExp: any }): RequestHandler;
-}
+/**
+ * Creates a restify server.
+ *
+ * Throws if `process.env.HOST` is set to something that is not a bare host.
+ */
+export function createServer(options?: ServerOptions): Server;
