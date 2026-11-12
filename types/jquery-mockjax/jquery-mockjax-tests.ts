@@ -1,5 +1,7 @@
 /// <reference types="qunit" />
 
+// These tests are not actually run. They are merely typechecked to make sure that valid code that should work
+// doesn't error out.
 class Tests {
     private _noErrorCallbackExpected: (jqXHR: JQueryXHR, textStatus: string, errorThrown: string) => any;
     private _defaultMockjaxSettings: MockJaxSettings;
@@ -21,7 +23,7 @@ class Tests {
         });
 
         QUnit.testDone(() => {
-            $.mockjax.clear();
+            $.mockjax.clearAll();
             $.mockjaxSettings = self._defaultMockjaxSettings;
         });
 
@@ -30,6 +32,7 @@ class Tests {
         t("Return XMLHttpRequest object from $.ajax", (assert) => {
             $.mockjax({
                 url: "/xmlhttprequest",
+                method: "GET",
                 responseText: "Hello Word",
             });
 
@@ -263,6 +266,84 @@ class Tests {
                 complete: (xhr) => {
                     assert.ok(false, "Expected a failure");
                     done();
+                },
+            });
+        });
+
+        t("Allows clearing of all mocks", (assert) => {
+            let done = assert.async();
+
+            $.mockjaxSettings.throwUnmocked = true;
+            let settings: MockJaxSettings = {
+                url: "/endpoint",
+                responseText: "Hello world",
+            };
+
+            $.mockjax(settings);
+            $.mockjax.clearAll();
+
+            $.ajax({
+                url: "/endpoint",
+                error: (error) => {
+                    assert.ok(error, "Expected the call to fail because it was not mocked");
+                    done();
+                },
+                complete: (xhr) => {
+                    assert.ok(false, "Expected a failure");
+                },
+            });
+        });
+
+        t("Allows clearing of a specific mock URL", (assert) => {
+            let done = assert.async();
+
+            $.mockjaxSettings.throwUnmocked = true;
+
+            $.mockjax({
+                url: "/endpoint",
+                responseText: "Hello world",
+            });
+            $.mockjax({
+                url: "/other-endpoint",
+                responseText: "Hello moon",
+            });
+            const count = $.mockjax.clearByUrl("/other-endpoint");
+            assert.equal(count, 1, "Cleared the correct amount of mocks");
+            $.ajax({
+                url: "/other-endpoint",
+                error: (error) => {
+                    assert.ok(error, "Expected the call to fail because it was not mocked");
+                    done();
+                },
+                complete: (xhr) => {
+                    assert.ok(false, "Expected a failure");
+                },
+            });
+        });
+
+        t("Allows clearing of a specific mock ID", (assert) => {
+            let done = assert.async();
+
+            $.mockjaxSettings.throwUnmocked = true;
+
+            $.mockjax({
+                url: "/endpoint",
+                responseText: "Hello world",
+            });
+            const mockId = $.mockjax({
+                url: "/other-endpoint",
+                responseText: "Hello moon",
+            });
+            const count = $.mockjax.clearById(mockId);
+            assert.equal(count, 1, "Cleared the correct amount of mocks");
+            $.ajax({
+                url: "/other-endpoint",
+                error: (error) => {
+                    assert.ok(error, "Expected the call to fail because it was not mocked");
+                    done();
+                },
+                complete: (xhr) => {
+                    assert.ok(false, "Expected a failure");
                 },
             });
         });
