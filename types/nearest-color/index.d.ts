@@ -177,7 +177,7 @@ declare namespace _ {
 
     /**
      * Default colors. Comprises the colors of the rainbow (good ol' ROY G. BIV).
-     * This list will be used for calls to {@nearestColor} that don't specify a list
+     * This list will be used for calls to {@link nearestColor} that don't specify a list
      * of available colors to match.
      */
     const DEFAULT_COLORS: readonly ColorSpec[];

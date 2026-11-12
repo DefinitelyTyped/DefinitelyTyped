@@ -9,7 +9,7 @@ export function getDecimalsForCurrency(currency: string): number;
  * For example, for a BTC account, this function will convert
  * 12345678 to 0.12345678.
  * Likewise, for a USD account, 12345 is converted to 123.45.
- * This function is the inverse of {@self::toSmallestSubUnit}
+ * This function is the inverse of {@link toSmallestSubunit}
  */
 export function fromSmallestSubunit(amount: number, currency: string): number;
 
@@ -18,7 +18,7 @@ export function fromSmallestSubunit(amount: number, currency: string): number;
  * For example, for a BTC account, this function will convert
  * 0.12345678 to 12345678.
  * Likewise, for a USD account, 123.45 is converted to 12345.
- * This function is the inverse of {@self::fromSmallestSubUnit}
+ * This function is the inverse of {@link fromSmallestSubunit}
  */
 export function toSmallestSubunit(amount: number, currency: string): number;
 
