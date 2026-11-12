@@ -29,10 +29,12 @@ const options: SvgToPdf.Options = {
         link; // $ExpectType string
         return link;
     },
-    // https://github.com/alafr/SVG-to-PDFKit/blob/b091ebd4e7b7d2310eb1003511cd5de480f7e0e1/source.js#L2703
-    colorCallback: (color) => {
-        color; // $ExpectType Color
-        return [[255, 255, 255], 1];
+    // https://github.com/alafr/SVG-to-PDFKit/blob/b091ebd4e7b7d2310eb1003511cd5de480f7e0e1/source.js#L501
+    // https://github.com/alafr/SVG-to-PDFKit/blob/b091ebd4e7b7d2310eb1003511cd5de480f7e0e1/source.js#L2706
+    colorCallback: (color, raw) => {
+        color; // $ExpectType Color | undefined
+        raw; // $ExpectType string | undefined
+        return color ?? [[255, 255, 255], 1];
     },
     // https://github.com/alafr/SVG-to-PDFKit/blob/b091ebd4e7b7d2310eb1003511cd5de480f7e0e1/source.js#L2635
     warningCallback: str => {
