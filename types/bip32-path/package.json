@@ -1,0 +1,17 @@
+{
+    "private": true,
+    "name": "@types/bip32-path",
+    "version": "0.4.9999",
+    "projects": [
+        "https://github.com/axic/bip32-path"
+    ],
+    "devDependencies": {
+        "@types/bip32-path": "workspace:."
+    },
+    "owners": [
+        {
+            "name": "Amine E.",
+            "githubUsername": "aelmanaa"
+        }
+    ]
+}
