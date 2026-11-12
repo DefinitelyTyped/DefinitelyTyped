@@ -276,6 +276,23 @@ declare namespace googletag {
 
     /**
      * Sets general configuration options for the page.
+     *
+     * Only properties specified in the `config` object are modified. Unrecognized
+     * properties or invalid values are ignored, and a diagnostic warning is
+     * logged to the browser console and the
+     * [Google Publisher Console](https://developers.google.com/publisher-tag/guides/publisher-console-messages#warning).
+     *
+     * @example
+     *   // Enable Single Request Architecture (SRA) and set page-level targeting.
+     *   googletag.setConfig({
+     *     singleRequest: true,
+     *     targeting: {
+     *       interests: ['sports', 'music']
+     *     }
+     *   });
+     *
+     * @see [Config API migration](https://developers.google.com/publisher-tag/guides/config-migration)
+     * @param config The configuration object.
      */
     function setConfig(config: config.PageSettingsConfig): void;
 
@@ -1197,7 +1214,17 @@ declare namespace googletag {
      * @experimental
      */
     interface RequestHook {
-        (input: { slots: Slot[] }): Promise<void>;
+        (input: RequestHookInput): Promise<void>;
+    }
+
+    /**
+     * Input passed to a {@link RequestHook} callback.
+     *
+     * @experimental
+     */
+    interface RequestHookInput {
+        /** The slots included in the ad request. */
+        slots: Slot[];
     }
 
     /**
@@ -1871,6 +1898,23 @@ declare namespace googletag {
         /**
          * Sets general configuration options for this slot.
          *
+         * Only properties specified in the `slotConfig` object are modified.
+         * Unrecognized properties or invalid values are ignored, and a diagnostic
+         * warning is logged to the browser console and the
+         * [Google Publisher Console](https://developers.google.com/publisher-tag/guides/publisher-console-messages#warning).
+         *
+         * @example
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!;
+         *
+         *   // Collapse the slot if no ad is returned and set slot-level targeting.
+         *   slot.setConfig({
+         *     collapseDiv: 'ON_NO_FILL',
+         *     targeting: {
+         *       interests: ['sports', 'music']
+         *     }
+         *   });
+         *
+         * @see [Config API migration](https://developers.google.com/publisher-tag/guides/config-migration)
          * @param slotConfig The configuration object.
          * @return The slot object on which the method was called.
          */
@@ -2300,6 +2344,35 @@ declare namespace googletag {
             location?: string | null;
 
             /**
+             * Setting to control the IP address associated with ad requests.
+             *
+             * By default, Google Ad Manager retrieves the IP address of the user's
+             * browser directly from each ad request. When you expect that address to
+             * differ from the user's unmasked IP address, such as when browser privacy
+             * proxies or IP protection settings mask client IP addresses on third-party
+             * ad requests, use this setting to provide the user's encrypted IP address
+             * instead.
+             *
+             * Capture the user's unmasked IPv4 or IPv6 address on your server, encrypt the address
+             * with Google's public encryption key, and pass the encrypted payload to GPT
+             * as an unpadded base64url-encoded string.
+             *
+             * To include the encrypted IP address in the initial ad request, call
+             * {@link googletag.setConfig | `googletag.setConfig()`} before you call
+             * {@link googletag.enableServices | `googletag.enableServices()`},
+             * {@link googletag.display | `googletag.display()`}, or
+             * {@link PubAdsService.refresh | `PubAdsService.refresh()`}.
+             *
+             * @example
+             *   // Set the encrypted IP address payload.
+             *   googletag.setConfig({ipAddress: 'ENCRYPTED_IP_PAYLOAD'});
+             *
+             *   // Clear the IP address setting.
+             *   googletag.setConfig({ipAddress: null});
+             */
+            ipAddress?: string | null;
+
+            /**
              * Settings to control video ads.
              *
              * @example
@@ -2567,8 +2640,8 @@ declare namespace googletag {
              * while waiting for those parallel executions to complete.
              *
              * Supported values:
+             *  - `'auto'` (default): GPT uses an optimized default timeout.
              *  - Positive number in milliseconds: The customized waiting period.
-             *  - `'auto'`: GPT uses a Google-optimized timeout.
              *  - `null`: Disable timeouts (GPT waits indefinitely for hooks to complete).
              *
              * @experimental
@@ -2576,7 +2649,7 @@ declare namespace googletag {
              *   // Set a 1000ms timeout for request hooks.
              *   googletag.setConfig({requestHookTimeoutMs: 1000});
              *
-             *   // Use a Google-optimized timeout for request hooks.
+             *   // Use an optimized default timeout for request hooks.
              *   googletag.setConfig({requestHookTimeoutMs: 'auto'});
              *
              *   // Clear the timeout.
@@ -2695,7 +2768,7 @@ declare namespace googletag {
              * `true` (cannot be forced to `false`). Note that the
              * sandbox attribute disables plugins (e.g. Flash).
              */
-            sandbox?: boolean | null;
+            sandbox?: true | null;
 
             /**
              * Whether SafeFrame should use randomized subdomains for
