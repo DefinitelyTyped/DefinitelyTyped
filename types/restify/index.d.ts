@@ -246,6 +246,7 @@ export type RequestHandler = (
     req: Request,
     res: Response,
     next: Next,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => void | Promise<unknown>;
 
 /** Handlers may be passed individually or as (arbitrarily nested) arrays. */
@@ -259,6 +260,7 @@ export type RequestHandlerType = RequestHandler | RequestHandlerType[];
 export type FirstHandler = (
     req: http.IncomingMessage,
     res: http.ServerResponse,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 ) => boolean | undefined | null | void;
 
 /**
