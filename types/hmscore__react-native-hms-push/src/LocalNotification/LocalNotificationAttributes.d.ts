@@ -35,4 +35,5 @@ export interface LocalNotificationAttributes {
     priority: "priority";
     importance: "importance";
     visibility: "visibility";
+    data: "data";
 }

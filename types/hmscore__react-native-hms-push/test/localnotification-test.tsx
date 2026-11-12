@@ -40,8 +40,11 @@ const defaultNotification = {
     [HmsLocalNotification.Attr.autoCancel]: false, // for Custom Actions, it should be false
     [HmsLocalNotification.Attr.actions]: "[\"Yes\", \"No\"]",
     [HmsLocalNotification.Attr.invokeApp]: false,
+    [HmsLocalNotification.Attr.data]: { data: "data" },
     // [HmsLocalNotification.Attr.channelId]: 'huawei-hms-rn-push-channel-id', // Please read the documentation before using this param
 };
+
+HmsLocalNotification.Attr.data; // $ExpectType "data"
 
 interface State {
     title: string;
@@ -357,6 +360,24 @@ export default class App extends React.Component<{}, State> {
                         }}
                     >
                         <Text>cancelNotificationsWithTag(tag)</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            HmsLocalNotification.cancelNotificationsWithIdTag([{ id: "1", tag: "hms_tag" }])
+                                .then(result => {
+                                    result.result; // $ExpectType boolean
+                                    console.log("cancelNotificationsWithIdTag", result);
+                                })
+                                .catch(err => {
+                                    console.log(
+                                        "[cancelNotificationsWithIdTag] Error/Exception: " + JSON.stringify(err),
+                                    );
+                                });
+                            // @ts-expect-error: tag is required
+                            HmsLocalNotification.cancelNotificationsWithIdTag([{ id: "1" }]);
+                        }}
+                    >
+                        <Text>cancelNotificationsWithIdTag(id, tag)</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {

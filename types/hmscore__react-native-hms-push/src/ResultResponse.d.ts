@@ -2,7 +2,7 @@ import { HmsPushResultCodeEnum } from "./HmsPushResultCode";
 
 export interface ResultResponse<T> {
     result: T;
-    result_code: HmsPushResultCodeEnum;
+    resultCode: HmsPushResultCodeEnum;
 }
 
 export interface ErrorResponse {

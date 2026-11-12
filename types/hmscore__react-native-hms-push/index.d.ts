@@ -1,8 +1,13 @@
-import { HmsPushEventType } from "./src/HmsPushEvent";
+import { HmsPushEventType, PushMessageSentResult } from "./src/HmsPushEvent";
 import { ProfileType, ProfileTypeEnum } from "./src/HmsPushProfileTypes";
 import { HmsPushResultCodeInterface } from "./src/HmsPushResultCode";
 import { Importance, LocalNotificationAttributes, Priority, RepeatType, Visibility } from "./src/LocalNotification";
-import { BackgroundRemoteMessage, RemoteDataMessageObject, RemoteDataMessageWithExtras } from "./src/RemoteDataMessage";
+import {
+    BackgroundRemoteMessage,
+    NotificationOpenedData,
+    RemoteDataMessageObject,
+    RemoteDataMessageWithExtras,
+} from "./src/RemoteDataMessage";
 import { RemoteMessageBuilderInterface } from "./src/RemoteMessageBuilder";
 import { ResultResponse } from "./src/ResultResponse";
 import RNRemoteMessage from "./src/RNRemoteMessage";
@@ -27,6 +32,9 @@ declare namespace HmsLocalNotification {
     ): Promise<ResultResponse<LocalNotificationAttributes>>;
 
     function cancelNotificationsWithId(notificationIds: string[]): Promise<ResultResponse<boolean>>;
+    function cancelNotificationsWithIdTag(
+        notifications: Array<{ id: string; tag: string }>,
+    ): Promise<ResultResponse<boolean>>;
     function cancelAllNotifications(): Promise<ResultResponse<boolean>>;
     function cancelScheduledNotifications(): Promise<ResultResponse<boolean>>;
     function getNotifications(): Promise<ResultResponse<LocalNotificationOptions[]>>;
@@ -48,7 +56,9 @@ declare namespace HmsPushMessaging {
     function unsubscribe(topic: string): Promise<ResultResponse<boolean>>;
     function isAutoInitEnabled(): Promise<ResultResponse<boolean>>;
     function setAutoInitEnabled(value: boolean): Promise<ResultResponse<boolean>>;
-    function getInitialNotification(): Promise<ResultResponse<RemoteDataMessageWithExtras>>;
+    function getInitialNotification(): Promise<ResultResponse<NotificationOpenedData>>;
+    function enableLogger(): Promise<ResultResponse<boolean>>;
+    function disableLogger(): Promise<ResultResponse<boolean>>;
 }
 
 declare namespace HmsPushInstanceId {
@@ -65,14 +75,14 @@ declare namespace HmsPushInstanceId {
 declare namespace HmsPushProfile {
     const Type: Readonly<ProfileType>;
 
-    function isSupportProfile(): Promise<ResultResponse<string>>;
-    function addProfile(type: ProfileTypeEnum, profileId: string): Promise<ResultResponse<string>>;
+    function isSupportProfile(): Promise<ResultResponse<boolean>>;
+    function addProfile(type: ProfileTypeEnum, profileId: string): Promise<ResultResponse<boolean>>;
 
     function addProfileWithSubjectId(
         subjectId: string,
         type: ProfileTypeEnum,
         profileId: string,
-    ): Promise<ResultResponse<string>>;
+    ): Promise<ResultResponse<boolean>>;
 
     function deleteProfile(profileId: string): Promise<ResultResponse<boolean>>;
     function deleteProfileWithSubjectId(subjectId: string, profileId: string): Promise<ResultResponse<boolean>>;
@@ -101,6 +111,8 @@ export {
 export {
     HmsPushEventType,
     HmsPushResultCodeInterface,
+    NotificationOpenedData,
+    PushMessageSentResult,
     RemoteDataMessageObject,
     RemoteDataMessageWithExtras,
     RemoteMessageBuilderInterface,
