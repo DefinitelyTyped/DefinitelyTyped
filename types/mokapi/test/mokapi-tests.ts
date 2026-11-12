@@ -12,12 +12,16 @@ import {
     LdapEventHandler,
     LdapSearchRequest,
     LdapSearchResponse,
+    MqttEventHandler,
+    MqttEventMessage,
     on,
     patch,
     shared,
     sleep,
     SmtpEventHandler,
     SmtpEventMessage,
+    WebsocketEvent,
+    WebsocketEventHandler,
 } from "mokapi";
 
 const handler = () => {};
@@ -209,6 +213,54 @@ kafka = (record: KafkaEventMessage) => {
     record.headers = { foo: "bar" };
 };
 on("kafka", () => {}, { track: (record) => record.key === "foo" });
+
+let mqtt: MqttEventHandler = () => {};
+mqtt = (r: MqttEventMessage) => {};
+// @ts-expect-error
+mqtt = (r: MqttEventMessage): boolean => {
+    return false;
+};
+mqtt = (msg: MqttEventMessage) => {
+    // @ts-expect-error
+    msg.topic = "str";
+    msg.retain = true;
+    // @ts-expect-error
+    msg.retain = "str";
+    // @ts-expect-error
+    msg.value = 123;
+    msg.value = "str";
+};
+on("mqtt", () => {}, { track: (msg) => msg.retain });
+
+let ws: WebsocketEventHandler = () => {};
+ws = (r: WebsocketEvent) => {};
+// @ts-expect-error
+ws = (r: WebsocketEvent): boolean => {
+    return false;
+};
+ws = (evt: WebsocketEvent) => {
+    if (evt.type !== "message") {
+        return;
+    }
+    // @ts-expect-error
+    evt.channel.name = "str";
+    const ch: string = evt.channel.name;
+    evt.reply({ foo: "bar" });
+    evt.broadcast("hello");
+    for (const client of evt.channel.clients) {
+        client.send(123);
+    }
+    // @ts-expect-error
+    evt.client.headers = {};
+    evt.client.headers.foo;
+    // @ts-expect-error
+    evt.client.query = {};
+    evt.client.query.foo;
+    // @ts-expect-error
+    evt.client.remoteAddr = "";
+    const str: string = evt.client.remoteAddr;
+};
+on("websocket", () => {}, { track: (msg) => msg.api === "" });
 
 let ldap: LdapEventHandler = () => {};
 // @ts-expect-error
