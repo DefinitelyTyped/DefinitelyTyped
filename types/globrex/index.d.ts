@@ -1,6 +1,6 @@
 /**
  * Transform globs into regular expressions.
- * {@link: https://github.com/terkelg/globrex#api}
+ * {@link https://github.com/terkelg/globrex#api}
  * @param glob - Glob string to transform.
  * @param options - transform options
  */
