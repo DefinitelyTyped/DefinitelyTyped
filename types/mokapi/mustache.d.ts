@@ -1,5 +1,3 @@
-import { JSONValue } from ".";
-
 /**
  * Renders the given mustache template with the given data.
  * https://mokapi.io/docs/javascript-api/mokapi-mustache/render
@@ -22,7 +20,7 @@ import { JSONValue } from ".";
  */
 export function render(template: string, data: Scope): string;
 
-export type Scope = null | Scope[] | ScopeObject | JSONValue;
+export type Scope = null | Scope[] | ScopeObject | any;
 
 /**
  * Object representable with JSON.
