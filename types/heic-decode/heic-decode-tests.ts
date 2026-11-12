@@ -13,12 +13,17 @@ decode({ buffer: new Uint8Array(10) }).then((image) => {
     data;
 });
 
-// $ExpectType Promise<Decodable[]>
+// $ExpectType Promise<DecodableImages>
 all({ buffer: new Uint8Array(10) });
 
 all({ buffer: new Uint8Array(10) }).then((images) => {
+    // $ExpectType number
+    images[0].width;
+    // $ExpectType number
+    images[0].height;
     images[0].decode().then((image) => {
         const data: Uint8ClampedArray = image.data;
         data;
     });
+    images.dispose();
 });
