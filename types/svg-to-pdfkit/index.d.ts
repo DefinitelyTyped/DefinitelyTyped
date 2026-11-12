@@ -48,8 +48,12 @@ declare namespace SVGtoPDF {
             file: string,
         ) => SVGElement | string | (SVGElement | string)[];
 
-        /** function called to get color, making mapping to CMYK possible */
-        colorCallback?: (color: Color) => Color;
+        /**
+         * function called to get color, making mapping to CMYK possible.
+         * `color` is undefined when svg-to-pdfkit can't parse `raw`, the color as the SVG writes it.
+         * The default black, white and transparent are mapped once up front, without `raw`.
+         */
+        colorCallback?: (color: Color | undefined, raw?: string) => Color | undefined;
 
         /** function called when there is a warning */
         warningCallback?: (warning: string) => void;
