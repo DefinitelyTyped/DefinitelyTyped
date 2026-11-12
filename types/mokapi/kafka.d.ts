@@ -1,43 +1,39 @@
-import { JSONValue } from ".";
-
 /**
- * Sends a single message to a Kafka topic.
+ * Sends one or more messages to a Kafka topic.
  * https://mokapi.io/docs/javascript-api/mokapi-kafka/produce
- * @param args - ProduceArgs object contains Kafka produce arguments.
- * @returns The produce result.
+ * @param args - Produce arguments. If omitted, a random message is written to a random topic.
+ * @returns Information about the written messages.
  * @example
+ * import { produce } from 'mokapi/kafka'
+ *
  * export default function() {
  *   const res = produce({
  *     topic: 'foo',
  *     messages: [
- *       {
- *         key: 'foo-1',
- *         data: { foo: 'bar' }
- *       }
+ *       { key: 'foo-1', data: { foo: 'bar' } }
  *     ]
- *   });
- *   console.log(`new kafka message written with offset: ${res.offset}`)
+ *   })
+ *   console.log(`new kafka message written with offset: ${res.messages[0].offset}`)
  * }
  */
 export function produce(args?: ProduceArgs): ProduceResult;
 
 /**
- * Sends a single message to a Kafka topic asynchronously.
+ * Sends one or more messages to a Kafka topic asynchronously.
  * https://mokapi.io/docs/javascript-api/mokapi-kafka/produce
- * @param args - ProduceArgs object contains Kafka produce arguments.
- * @returns The produce result.
+ * @param args - Produce arguments. If omitted, a random message is written to a random topic.
+ * @returns A promise resolving to information about the written messages.
  * @example
- * export default function() {
- *   const res = produce({
+ * import { produceAsync } from 'mokapi/kafka'
+ *
+ * export default async function() {
+ *   const res = await produceAsync({
  *     topic: 'foo',
  *     messages: [
- *       {
- *         key: 'foo-1',
- *         data: { foo: 'bar' }
- *       }
+ *       { key: 'foo-1', data: { foo: 'bar' } }
  *     ]
- *   });
- *   console.log(`new kafka message written with offset: ${res.offset}`)
+ *   })
+ *   console.log(`new kafka message written with offset: ${res.messages[0].offset}`)
  * }
  */
 export function produceAsync(args?: ProduceArgs): Promise<ProduceResult>;
@@ -47,200 +43,241 @@ export function produceAsync(args?: ProduceArgs): Promise<ProduceResult>;
  * https://mokapi.io/docs/javascript-api/mokapi-kafka/produceargs
  * @example
  * export default function() {
- *   const res = produce({
+ *   produce({
  *     topic: 'foo',
  *     messages: [
- *       {
- *         key: 'foo-1',
- *         data: { foo: 'bar-1' }
- *       },
- *       {
- *         key: 'foo-2',
- *         data: { foo: 'bar-2' }
- *       }
+ *       { key: 'foo-1', data: { foo: 'bar-1' } },
+ *       { key: 'foo-2', data: { foo: 'bar-2' } }
  *     ]
- *   });
+ *   })
  * }
  */
 export interface ProduceArgs {
-    /** Kafka cluster name. Used when topic name is not unique. */
+    /**
+     * Kafka cluster name. Only required if the topic name exists in more than one cluster.
+     */
     cluster?: string;
 
-    /** Kafka topic name. If not specified, message will be written to a random topic. */
+    /**
+     * Kafka topic name. If not specified, the message is written to a random topic.
+     *
+     * The name can also be a concrete instance of a parameterized channel address,
+     * e.g. `shipments.eu.updates` for the address `shipments.{region}.updates`.
+     * If that topic does not exist yet, set {@link allowAutoTopicCreation} to create it.
+     */
     topic?: string;
 
-    /** Kafka partition index. If not specified, the message will be written to any partition */
+    /**
+     * Kafka partition index. If not specified, the partition is chosen based on the key.
+     * Shorthand for a single message; prefer {@link messages}.
+     */
     partition?: number;
 
-    /** Kafka message key. If not specified, a random key will be generated based on the topic configuration. */
-    key?: JSONValue;
-
-    /** Kafka message value. If not specified, a random value will be generated based on the topic configuration. */
-    value?: JSONValue;
-
-    /** Kafka message headers. */
-    headers?: { [name: string]: JSONValue };
+    /**
+     * Kafka message key. If not specified, a random key is generated based on the topic configuration.
+     * Shorthand for a single message; prefer {@link messages}.
+     */
+    key?: any;
 
     /**
-     * An array of Kafka messages
+     * Kafka message value. If not specified, a random value is generated based on the topic configuration.
+     * Shorthand for a single message; prefer {@link messages}.
+     */
+    value?: any;
+
+    /**
+     * Kafka message headers.
+     * Shorthand for a single message; prefer {@link messages}.
+     */
+    headers?: { [name: string]: any };
+
+    /**
+     * Messages to write. Each message can define its own partition, key, value and headers.
      * @see Message
      * @example
      * export default function() {
-     *   const res = produce({
+     *   produce({
      *     topic: 'foo',
      *     messages: [
-     *       {
-     *         key: 'foo-1',
-     *         data: { foo: 'bar-1' }
-     *       },
-     *       {
-     *         key: 'foo-2',
-     *         data: { foo: 'bar-2' }
-     *       }
+     *       { key: 'foo-1', data: { foo: 'bar-1' } },
+     *       { key: 'foo-2', data: { foo: 'bar-2' } }
      *     ]
-     *   });
+     *   })
      * }
      */
     messages?: Message[];
 
     /**
-     * The retry option is used if script is executed before Kafka topic is set up.
+     * Creates the topic if it does not exist yet.
+     *
+     * The topic is only created if its name matches a channel address defined in the
+     * AsyncAPI specification, including parameterized addresses such as
+     * `shipments.{region}.updates`, and the channel is available on the target server.
+     * Parameter values must satisfy the parameter's `enum`, if defined.
+     * @default false
+     * @example
+     * export default function() {
+     *   produce({
+     *     topic: 'shipments.eu.updates',
+     *     allowAutoTopicCreation: true,
+     *     messages: [
+     *       { key: 'c9bf9e57-1685-4c89-bafb-ff5af830be8a', data: { status: 'IN_TRANSIT' } }
+     *     ]
+     *   })
+     * }
+     */
+    allowAutoTopicCreation?: boolean;
+
+    /**
+     * Retries producing if the script runs before the Kafka topic is set up.
+     * @see ProduceRetry
      */
     retry?: ProduceRetry;
 }
 
 /**
- * Represents a Kafka message
+ * Represents a Kafka message to write.
  */
 export interface Message {
-    /** Kafka partition index. If not specified, the message will be written to any partition */
+    /** Kafka partition index. If not specified, the partition is chosen based on the key. */
     partition?: number;
 
-    /** Kafka message key. If not specified, a random key will be generated based on the topic configuration. */
-    key?: JSONValue;
+    /** Kafka message key. If not specified, a random key is generated based on the topic configuration. */
+    key?: any;
 
-    /** Kafka message value. If data and value are not specified, a random value will be generated based on the topic configuration. */
-    data?: JSONValue;
+    /**
+     * Kafka message value, validated against the message schema of the topic.
+     * If neither `data` nor `value` is specified, a random value is generated based on the topic configuration.
+     */
+    data?: any;
 
-    /** Kafka message value not validating against schema. If data and value are not specified, a random value will be generated based on the topic configuration. */
+    /**
+     * Raw Kafka message value, written without schema validation.
+     * Use it to simulate invalid messages. If neither `data` nor `value` is specified,
+     * a random value is generated based on the topic configuration.
+     */
     value?: string | number | boolean | null;
 
     /** Kafka message headers. */
-    headers?: { [name: string]: JSONValue };
+    headers?: { [name: string]: any };
 }
 
 /**
- * Contains information of the written Kafka message.
+ * Contains information about the written Kafka messages.
  * https://mokapi.io/docs/javascript-api/mokapi-kafka/produceresult
  * @example
  * export default function() {
  *   const res = produce({ topic: 'foo' })
- *   console.log(`new kafka message written with offset: ${res.offset}`)
+ *   for (const msg of res.messages) {
+ *     console.log(`written to partition ${msg.partition} with offset ${msg.offset}`)
+ *   }
  * }
  */
 export interface ProduceResult {
-    /** Name of the Kafka cluster where the message was written. */
+    /** Name of the Kafka cluster where the messages were written. */
     readonly cluster: string;
 
-    /** Kafka topic name where the message was written. */
+    /** Name of the Kafka topic where the messages were written. */
     readonly topic: string;
 
-    // ** List of produced Kafka messages */
-    messages: MessageResult[];
+    /** The written messages, in the same order as in {@link ProduceArgs.messages}. */
+    readonly messages: readonly MessageResult[];
 
-    /** Kafka partition where the message was written. */
+    /**
+     * Partition of the first written message.
+     * @deprecated Use `messages[i].partition` instead.
+     */
     readonly partition: number;
 
-    /** The offset of the written message. */
+    /**
+     * Offset of the first written message.
+     * @deprecated Use `messages[i].offset` instead.
+     */
     readonly offset: number;
 
-    /** The key of the written message, */
+    /**
+     * Key of the first written message.
+     * @deprecated Use `messages[i].key` instead.
+     */
     readonly key: string;
 
-    /** The value of the written message. */
+    /**
+     * Value of the first written message.
+     * @deprecated Use `messages[i].value` instead.
+     */
     readonly value: string;
 
-    /** The headers of the written message */
+    /**
+     * Headers of the first written message.
+     * @deprecated Use `messages[i].headers` instead.
+     */
     readonly headers: { [name: string]: string };
 }
 
 /**
- * Contains information of the written Kafka message.
+ * Represents a single written Kafka message.
  * https://mokapi.io/docs/javascript-api/mokapi-kafka/kafkamessageresult
  */
 export interface MessageResult {
-    /**
-     * Kafka partition index in which the message was written.
-     */
+    /** Zero-based index of the partition where the message was written. */
     readonly partition: number;
 
-    /**
-     * Kafka offset of the written message.
-     */
+    /** Offset assigned to the message within its partition. */
     readonly offset: number;
 
-    /**
-     * Kafka written message key.
-     */
+    /** Key of the written message. */
     readonly key: string;
 
-    /**
-     * Kafka written message value.
-     */
+    /** Value of the written message. */
     readonly value: string;
 
-    /**
-     * Kafka written message headers.
-     */
+    /** Headers of the written message. */
     readonly headers: { [name: string]: string };
 }
 
 /**
- * The retry option can be used to customize the configuration of the retry mechanism.
+ * A duration, either as a number of milliseconds or as a string with unit suffix,
+ * such as `"300ms"`, `"1.5s"` or `"2m30s"`.
+ * Valid units are `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`.
+ */
+export type Duration = string | number;
+
+/**
+ * Configures the retry mechanism used when the topic is not available yet.
+ * The wait time grows exponentially: `initialRetryTime * factor^(n-1)`,
+ * capped at {@link maxRetryTime}.
+ * @example
+ * export default function() {
+ *   produce({
+ *     topic: 'foo',
+ *     messages: [{ value: 'value-1' }],
+ *     retry: { initialRetryTime: '500ms', retries: 10 }
+ *   })
+ * }
  */
 export interface ProduceRetry {
     /**
-     * Maximum wait time for a retry
-     * MaxRetryTime number express the wait time in milliseconds.
-     * MaxRetryTime string is a possibly signed sequence of
-     * decimal numbers, each with optional fraction and a unit suffix,
-     * such as "300ms", "-1.5h" or "2h45m".
-     * Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
-     * @default 30000ms
-     * @example
-     * export default function() {
-     *   produce({ topic: 'foo', messages: [{ value: 'value-1' }], retry: { maxRetryTime: '30s' } })
-     * }
+     * Maximum wait time for a single retry.
+     * @default '30s'
      */
-    maxRetryTime: string | number;
+    maxRetryTime?: Duration;
 
     /**
-     * Initial value used to calculate the wait time
-     * InitialRetryTime number express the wait time in milliseconds.
-     * InitialRetryTime string is a possibly signed sequence of
-     * decimal numbers, each with optional fraction and a unit suffix,
-     * such as "300ms", "-1.5h" or "2h45m".
-     * Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
-     * @default 200ms
-     * @example
-     * export default function() {
-     *   produce({ topic: 'foo', messages: [{ value: 'value-1' }], retry: { initialRetryTime: '2s' } })
-     * }
+     * Wait time before the first retry.
+     * @default '200ms'
      */
-    initialRetryTime: string | number;
+    initialRetryTime?: Duration;
 
     /**
-     * Factor for increasing the wait time for next retry.
-     * 1st retry: 200ms
-     * 2nd retry: 4 * 200ms = 800ms
-     * 3th retry: 4 * 800ms = 3200ms
+     * Factor by which the wait time increases with each retry.
+     * With the defaults: 1st retry 200ms, 2nd 800ms, 3rd 3200ms.
      * @default 4
      */
-    factor: number;
+    factor?: number;
 
     /**
-     * Max number of retries
+     * Maximum number of retries.
      * @default 5
      */
-    retries: number;
+    retries?: number;
 }
