@@ -22,6 +22,7 @@ interface MockJaxSettings {
     url?: string | RegExp | undefined;
     urlParams?: string[] | undefined;
     data?: any;
+    method?: string;
     type?: string | undefined;
     headers?: MockJaxSettingsHeaders | undefined;
     logging?: boolean | number | undefined;
@@ -49,10 +50,13 @@ interface MockJaxSettings {
 }
 
 interface MockJaxStatic {
-    (options: MockJaxSettings): number;
-    (options: MockJaxSettings[]): number[];
-    handler(id?: number): any;
-    clear(id?: number): void;
+    (options: MockJaxSettings): string;
+    (options: MockJaxSettings[]): string[];
+    handler(uuid?: string): any;
+    clear(mechanism?: string | RegExp): void;
+    clearAll(): void;
+    clearById(uuid: string): number;
+    clearByUrl(url: string | RegExp): number;
     mockedAjaxCalls(): any[];
     unfiredHandlers(): any[];
     unmockedAjaxCalls(): any[];
