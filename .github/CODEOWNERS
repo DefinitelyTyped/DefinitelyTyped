@@ -549,6 +549,7 @@
 /types/bind-ponyfill/                                   @skysteve
 /types/bindings/                                        @unindented @ExE-Boss
 /types/bintrees/                                        @CjS77
+/types/bip32-path/                                      @aelmanaa
 /types/bip38/                                           @micksatana
 /types/bip38grs/                                        @gruve-p
 /types/bit-array/                                       @mudkipme
@@ -4819,7 +4820,7 @@
 /types/mojang-minecraft-ui/                             @JakeShirley @mammerla
 /types/mojang-net/                                      @JakeShirley @mammerla
 /types/moji/                                            @yasupeke
-/types/mokapi/                                          @marle3003
+/types/mokapi/                                          @marle3003 @go-mokapi
 /types/moment-business/                                 @wonbyte
 /types/moment-business-time/                            @swist @peterblazejewicz
 /types/moment-duration-format/                          @SwintDC @TwoStone @leonard-thieu @bendykowski
@@ -6516,11 +6517,11 @@
 /types/react-tagcloud/                                  @wassname
 /types/react-tagsinput/                                 @mykter @chardos @Prakhargoel8c
 /types/react-tap-event-plugin/                          @mxl
-/types/react-test-renderer/                             @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @maddhruv @eps1lon
+/types/react-test-renderer/                             @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @eps1lon
 /types/react-test-renderer/v15/                         @arvitaly @lochbrunner @lochbrunner @johnnyreilly
-/types/react-test-renderer/v16/                         @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @maddhruv
-/types/react-test-renderer/v17/                         @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @maddhruv
-/types/react-test-renderer/v18/                         @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @maddhruv @eps1lon
+/types/react-test-renderer/v16/                         @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia
+/types/react-test-renderer/v17/                         @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia
+/types/react-test-renderer/v18/                         @arvitaly @lochbrunner @johnnyreilly @jgoz @Jessidhia @eps1lon
 /types/react-text-mask/                                 @guilhermehubner @cavarzan @needpower
 /types/react-text-truncate/                             @adriantoine
 /types/react-textfit/                                   @yongtheskill
@@ -7491,7 +7492,7 @@
 /types/styled-components/v3/                            @Igorbek @Igmat
 /types/styled-components-react-native/                  @Methuselah96
 /types/styled-react-modal/                              @gperl27
-/types/styled-system/                                   @phobon @zephraph @damassi @alloy @maoueh @jschuler @adam187 @chrislopresto @peduarte @Dhalton @elliotbonneville @jackcaldwell @eliseumds @craga89 @HipsterBrown @maddhruv @cherewaty
+/types/styled-system/                                   @phobon @zephraph @damassi @alloy @maoueh @jschuler @adam187 @chrislopresto @peduarte @Dhalton @elliotbonneville @jackcaldwell @eliseumds @craga89 @HipsterBrown @cherewaty
 /types/styled-system__core/                             @bragle
 /types/styled-system__css/                              @sebald @sztobar @RyanTheAllmighty
 /types/styled-system__props/                            @kadoshms
