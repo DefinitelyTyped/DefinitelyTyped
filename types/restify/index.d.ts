@@ -1,10 +1,10 @@
-import fs = require('node:fs');
-import http = require('node:http');
-import https = require('node:https');
-import http2 = require('node:http2');
-import net = require('node:net');
-import stream = require('node:stream');
-import zlib = require('node:zlib');
+import fs = require("node:fs");
+import http = require("node:http");
+import https = require("node:https");
+import http2 = require("node:http2");
+import net = require("node:net");
+import stream = require("node:stream");
+import zlib = require("node:zlib");
 
 // ---------------------------------------------------------------------------
 // Logger
@@ -198,11 +198,11 @@ export interface Request extends http.IncomingMessage {
     /** Ends a named timer and records it in `req.timers`. */
     endHandlerTimer(handlerName: string): void;
     /** `'close'` once the client aborted, otherwise `undefined`. */
-    connectionState(): 'close' | undefined;
+    connectionState(): "close" | undefined;
     /** The matched route. */
     getRoute(): Route;
 
-    on(event: 'restifyDone', listener: (route: Route | undefined, err: any) => void): this;
+    on(event: "restifyDone", listener: (route: Route | undefined, err: any) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -231,7 +231,7 @@ export type ErrorHandler = (
     err: any,
     req: Request,
     res: Response,
-    next: Next
+    next: Next,
 ) => void;
 
 /**
@@ -245,7 +245,7 @@ export type ErrorHandler = (
 export type RequestHandler = (
     req: Request,
     res: Response,
-    next: Next
+    next: Next,
 ) => void | Promise<unknown>;
 
 /** Handlers may be passed individually or as (arbitrarily nested) arrays. */
@@ -258,7 +258,7 @@ export type RequestHandlerType = RequestHandler | RequestHandlerType[];
  */
 export type FirstHandler = (
     req: http.IncomingMessage,
-    res: http.ServerResponse
+    res: http.ServerResponse,
 ) => boolean | undefined | null | void;
 
 /**
@@ -269,7 +269,7 @@ export type AfterEventListener = (
     req: Request,
     res: Response,
     route: Route | undefined,
-    err: any
+    err: any,
 ) => void;
 
 /**
@@ -280,7 +280,7 @@ export type AfterEventListener = (
 export type Formatter = (
     req: Request,
     res: Response,
-    body: any
+    body: any,
 ) => string | Buffer | null | undefined;
 
 /**
@@ -381,7 +381,7 @@ export interface Chain {
     run(
         req: Request,
         res: Response,
-        done: (err: any, req: Request, res: Response) => void
+        done: (err: any, req: Request, res: Response) => void,
     ): void;
 }
 
@@ -398,7 +398,7 @@ export interface RouterRegistryRadix {
     /** Finds the route matching a method and pathname. */
     lookup(
         method: string,
-        pathname: string
+        pathname: string,
     ):
         | {
             route: Route;
@@ -467,14 +467,14 @@ export interface Router extends NodeJS.EventEmitter {
     /** Finds the handler for a request, decorating `req.params`/`req.route`. */
     lookup(
         req: Request,
-        res: Response
+        res: Response,
     ): ((req: Request, res: Response, next: Next) => void) | undefined;
     /** Finds a route's chain runner by name, decorating `req.route`. */
     lookupByName(
         name: string,
         req: Request,
-        res: Response
-    ): Chain['run'] | undefined;
+        res: Response,
+    ): Chain["run"] | undefined;
     /**
      * Renders a URL for a named route. Returns `null` when the route does not
      * exist; throws when a path parameter is missing.
@@ -482,7 +482,7 @@ export interface Router extends NodeJS.EventEmitter {
     render(
         routeName: string,
         params: { [key: string]: any },
-        query?: { [key: string]: any }
+        query?: { [key: string]: any },
     ): string | null;
     /** Adds a route. NOTE: documented as returning the route name; returns the Route. */
     mount(opts: MountOptions, handlers: RequestHandler[]): Route;
@@ -496,7 +496,7 @@ export interface Router extends NodeJS.EventEmitter {
     /** Responds 404/405 (or 200 for `OPTIONS *`) when no route matched. */
     defaultRoute(req: Request, res: Response, next: Next): void;
 
-    on(event: 'mount', listener: (method: string, path: string) => void): this;
+    on(event: "mount", listener: (method: string, path: string) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -512,7 +512,7 @@ export type UncaughtExceptionWrapper = (
     req: Request,
     res: Response,
     onError: (err: any) => void,
-    next: (req: Request, res: Response) => void
+    next: (req: Request, res: Response) => void,
 ) => void;
 
 export interface ServerOptions extends FindMyWayOptions {
@@ -614,7 +614,7 @@ export type ErrorEventListener = (
     req: Request,
     res: Response,
     err: any,
-    callback: () => void
+    callback: () => void,
 ) => void;
 
 /** Object emitted with the server's `audit` event. */
@@ -630,7 +630,7 @@ export interface AuditRecord {
     /** NOTE: always `undefined` (reads non-existent `req.secure`). */
     secure: undefined;
     _audit: true;
-    event: 'pre' | 'routed' | 'after';
+    event: "pre" | "routed" | "after";
     context?: any;
 }
 
@@ -654,9 +654,9 @@ export interface Server extends NodeJS.EventEmitter {
     /** `true` for HTTPS servers created from `certificate` + `key`. */
     secure: boolean;
     http2?: boolean | undefined;
-    ca?: ServerOptions['ca'];
-    certificate?: ServerOptions['certificate'];
-    key?: ServerOptions['key'];
+    ca?: ServerOptions["ca"];
+    certificate?: ServerOptions["certificate"];
+    key?: ServerOptions["key"];
     passphrase?: string | null | undefined;
     /** DTrace support enabled. */
     dtrace: boolean;
@@ -684,12 +684,12 @@ export interface Server extends NodeJS.EventEmitter {
         port?: number,
         hostname?: string,
         backlog?: number,
-        listeningListener?: () => void
+        listeningListener?: () => void,
     ): NodeServer;
     listen(
         port?: number,
         hostname?: string,
-        listeningListener?: () => void
+        listeningListener?: () => void,
     ): NodeServer;
     listen(port?: number, listeningListener?: () => void): NodeServer;
     listen(path: string, listeningListener?: () => void): NodeServer;
@@ -741,8 +741,8 @@ export interface Server extends NodeJS.EventEmitter {
             res: Response,
             next: Next,
             value: any,
-            name: string
-        ) => void
+            name: string,
+        ) => void,
     ): this;
     /** Removes a route by *name* (as returned by `server.get()` etc.). */
     rm(routeName: string): boolean;
@@ -760,37 +760,37 @@ export interface Server extends NodeJS.EventEmitter {
     toString(): string;
 
     // --- events -----------------------------------------------------------
-    on(event: 'after', listener: AfterEventListener): this;
-    on(event: 'pre' | 'request', listener: (req: Request, res: Response) => void): this;
+    on(event: "after", listener: AfterEventListener): this;
+    on(event: "pre" | "request", listener: (req: Request, res: Response) => void): this;
     on(
-        event: 'routed',
-        listener: (req: Request, res: Response, route: Route) => void
+        event: "routed",
+        listener: (req: Request, res: Response, route: Route) => void,
     ): this;
     on(
-        event: 'uncaughtException',
+        event: "uncaughtException",
         listener: (
             req: Request,
             res: Response,
             route: Route | undefined,
             err: any,
-            callback: () => void
-        ) => void
+            callback: () => void,
+        ) => void,
     ): this;
-    on(event: 'restifyError', listener: ErrorEventListener): this;
-    on(event: 'audit', listener: (record: AuditRecord) => void): this;
-    on(event: 'redirect', listener: (location: string) => void): this;
-    on(event: 'mount', listener: (method: string, path: string) => void): this;
+    on(event: "restifyError", listener: ErrorEventListener): this;
+    on(event: "audit", listener: (record: AuditRecord) => void): this;
+    on(event: "redirect", listener: (location: string) => void): this;
+    on(event: "mount", listener: (method: string, path: string) => void): this;
     on(
-        event: 'checkContinue',
-        listener: (req: http.IncomingMessage, res: http.ServerResponse) => void
+        event: "checkContinue",
+        listener: (req: http.IncomingMessage, res: http.ServerResponse) => void,
     ): this;
-    on(event: 'clientError', listener: (err: Error, socket: stream.Duplex) => void): this;
-    on(event: 'close' | 'listening', listener: () => void): this;
-    on(event: 'connection' | 'secureConnection', listener: (socket: net.Socket) => void): this;
-    on(event: 'error', listener: (err: Error) => void): this;
+    on(event: "clientError", listener: (err: Error, socket: stream.Duplex) => void): this;
+    on(event: "close" | "listening", listener: () => void): this;
+    on(event: "connection" | "secureConnection", listener: (socket: net.Socket) => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
     on(
-        event: 'upgrade',
-        listener: (req: http.IncomingMessage, socket: stream.Duplex, head: Buffer) => void
+        event: "upgrade",
+        listener: (req: http.IncomingMessage, socket: stream.Duplex, head: Buffer) => void,
     ): this;
     /**
      * Error events are named after the error with the trailing `Error`
@@ -947,13 +947,13 @@ export interface Response extends http.ServerResponse {
     redirect(options: RedirectOptions, next: Next): void;
     toString(): string;
 
-    on(event: 'header', listener: () => void): this;
-    on(event: 'redirect', listener: (location: string) => void): this;
+    on(event: "header", listener: () => void): this;
+    on(event: "redirect", listener: (location: string) => void): this;
     /**
      * @deprecated Restify 1.0 compatibility: emitted by `fullResponse` with
      * the formatted and original bodies just before headers are written.
      */
-    on(event: 'beforeSend', listener: (data: string | Buffer | null | undefined, body: any) => void): this;
+    on(event: "beforeSend", listener: (data: string | Buffer | null | undefined, body: any) => void): this;
     on(event: string | symbol, listener: (...args: any[]) => void): this;
 }
 
@@ -992,7 +992,7 @@ export interface ServerUpgradeResponse extends NodeJS.EventEmitter {
     getHeaders(): object;
     removeHeader(name: string): null;
     addTrailer(headers: any): null;
-    cache(...args: any[]): 'public';
+    cache(...args: any[]): "public";
     set(...args: any[]): null;
     get(name: string): null;
     headers(): object;
@@ -1089,15 +1089,15 @@ export namespace plugins {
         allowSparse?: boolean | undefined;
         /** Defaults to 20. */
         arrayLimit?: number | undefined;
-        charset?: 'utf-8' | 'iso-8859-1' | undefined;
+        charset?: "utf-8" | "iso-8859-1" | undefined;
         charsetSentinel?: boolean | undefined;
         comma?: boolean | undefined;
         decodeDotInKeys?: boolean | undefined;
-        decoder?: ((str: string, defaultDecoder: any, charset: string, type: 'key' | 'value') => any) | undefined;
+        decoder?: ((str: string, defaultDecoder: any, charset: string, type: "key" | "value") => any) | undefined;
         delimiter?: string | RegExp | undefined;
         /** Defaults to 5. */
         depth?: number | false | undefined;
-        duplicates?: 'combine' | 'first' | 'last' | undefined;
+        duplicates?: "combine" | "first" | "last" | undefined;
         ignoreQueryPrefix?: boolean | undefined;
         interpretNumericEntities?: boolean | undefined;
         /** Defaults to 1000. */
@@ -1117,10 +1117,7 @@ export namespace plugins {
         bodyReader?: boolean | undefined;
     }
 
-    interface UrlEncodedBodyParserOptions
-        extends BodyReaderOptions,
-            MapParamsOptions,
-            QsOptions {
+    interface UrlEncodedBodyParserOptions extends BodyReaderOptions, MapParamsOptions, QsOptions {
         /** Undocumented: skip the built-in body reader (body already read). */
         bodyReader?: boolean | undefined;
     }
@@ -1139,17 +1136,14 @@ export namespace plugins {
         /** Undocumented; passed to formidable. */
         maxFileSize?: number | undefined;
         /** Checksum algorithm for uploaded files. */
-        hash?: 'sha1' | 'md5' | undefined;
+        hash?: "sha1" | "md5" | undefined;
         /** Handles non-file parts instead of the default handler. */
         multipartHandler?: ((part: stream.Readable, req: Request) => void) | undefined;
         /** Handles file parts instead of the default handler. */
         multipartFileHandler?: ((part: stream.Readable, req: Request) => void) | undefined;
     }
 
-    interface BodyParserOptions
-        extends JsonBodyParserOptions,
-            UrlEncodedBodyParserOptions,
-            MultipartBodyParser {
+    interface BodyParserOptions extends JsonBodyParserOptions, UrlEncodedBodyParserOptions, MultipartBodyParser {
         /** Respond 415 for unsupported content types. */
         rejectUnknown?: boolean | undefined;
         /** Also parse bodies on GET requests. */
@@ -1206,7 +1200,7 @@ export namespace plugins {
     }
     /** Runs the best candidate for the request's version / Accept header. */
     function conditionalHandler(
-        candidates: HandlerCandidate | HandlerCandidate[]
+        candidates: HandlerCandidate | HandlerCandidate[],
     ): RequestHandler;
 
     /**
@@ -1344,7 +1338,7 @@ export namespace plugins {
     interface ServeStaticFiles {
         acceptRanges?: boolean | undefined;
         cacheControl?: boolean | undefined;
-        dotfiles?: 'allow' | 'deny' | 'ignore' | undefined;
+        dotfiles?: "allow" | "deny" | "ignore" | undefined;
         etag?: boolean | undefined;
         extensions?: string[] | string | false | undefined;
         immutable?: boolean | undefined;
@@ -1365,7 +1359,7 @@ export namespace plugins {
         req: Request,
         res: Response,
         route: Route | undefined,
-        error: any
+        error: any,
     ) => any;
 
     interface AuditLoggerOptions {
@@ -1375,7 +1369,7 @@ export namespace plugins {
          */
         log: Logger;
         /** Server event the logger is attached to. */
-        event: 'pre' | 'routed' | 'after';
+        event: "pre" | "routed" | "after";
         /** Return value is added to the record as `context`. */
         context?: AuditLoggerContext | undefined;
         /** Emit `audit` on this server for each record. */
@@ -1411,7 +1405,7 @@ export namespace plugins {
         /** `req.path()`. */
         path: string;
         /** `'close'` when the client went away (`err` is a RequestCloseError). */
-        connectionState: 'close' | undefined;
+        connectionState: "close" | undefined;
         /** NOTE: documented as `unifinishedRequests`. */
         unfinishedRequests: number;
         inflightRequests: number;
@@ -1421,7 +1415,7 @@ export namespace plugins {
         metrics: MetricsCallbackOptions,
         req: Request,
         res: Response,
-        route: Route | undefined
+        route: Route | undefined,
     ) => void;
     /** Reports per-request metrics; attach to the `after` event. */
     function metrics(opts: { server: Server }, callback: MetricsCallback): AfterEventListener;
@@ -1439,10 +1433,10 @@ export import pre = plugins.pre;
  * not bare content types.
  */
 export const formatters: {
-    'application/javascript; q=0.1': Formatter;
-    'application/json; q=0.4': Formatter;
-    'text/plain; q=0.3': Formatter;
-    'application/octet-stream; q=0.2': Formatter;
+    "application/javascript; q=0.1": Formatter;
+    "application/json; q=0.4": Formatter;
+    "text/plain; q=0.3": Formatter;
+    "application/octet-stream; q=0.2": Formatter;
 };
 
 // ---------------------------------------------------------------------------
@@ -1456,7 +1450,7 @@ export const helpers: {
      */
     compose(
         handlers: RequestHandlerType,
-        options?: ChainOptions
+        options?: ChainOptions,
     ): (req: Request, res: Response, callback: (err?: any) => void) => void;
 };
 

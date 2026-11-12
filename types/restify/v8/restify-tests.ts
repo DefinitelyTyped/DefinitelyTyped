@@ -1,5 +1,3 @@
-
-
 import Logger from "bunyan";
 import * as http from "http";
 import * as restify from "restify";
