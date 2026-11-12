@@ -58,7 +58,7 @@ hash.setPartialHash([1]); // $ExpectType void
 hash.setPartialHash(new Uint8Array(1)); // $ExpectType void
 
 if (wasm) {
-    wasm.memory; // $ExpectType Memory
+    wasm.memory; // $ExpectType Memory || Memory<ArrayBuffer> || Memory<ArrayBufferLike>
     wasm.blake2b_init(1, 1); // $ExpectType void
     wasm.blake2b_update(1, 1, 1); // $ExpectType void
     wasm.blake2b_final(1); // $ExpectType void
