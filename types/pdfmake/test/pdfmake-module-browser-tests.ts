@@ -53,11 +53,16 @@ const fonts: TFontDictionary = {
         normal: "roboto-regular.ttf",
     },
 };
-const vfs2: { [file: string]: string } = {
-    "roboto-regular.ttf": "AAEAAAASAQAABAAgR0RFRrRCsIIAAjGsAAA....base64 of font binary",
-};
 
-pdfMake.addVirtualFileSystem(vfs2);
+pdfMake.addVirtualFileSystem({
+    "roboto-1.ttf": "AAEAAAASAQAABAAgR0RFRrRCsIIAAjGsAAA....base64 of font binary",
+    "roboto-2.ttf": { data: "AAEAAAASAQAABAAgR0RFRrRCsIIAAjGsAAA....base64 of font binary" },
+    "roboto-3.ttf": { data: new Uint8Array([0, 1, 0, 0]) },
+    "readme.txt": { data: "Plain text", encoding: "utf8" },
+});
+// @ts-expect-error -- unsupported encoding
+pdfMake.addVirtualFileSystem({ "readme.txt": { data: "Plain text", encoding: "utf-42" } });
+
 pdfMake.addFonts(fonts);
 pdfMake.addTableLayouts(layouts);
 
