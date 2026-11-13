@@ -82,7 +82,6 @@
         "email-prompt",
         "ember__ordered-set",
         "ember__ordered-set/v3",
-        "ember-changeset-validations",
         "ember-data__adapter",
         "ember-data__adapter/v3",
         "ember-data__model",
