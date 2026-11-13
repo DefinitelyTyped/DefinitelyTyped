@@ -4025,6 +4025,10 @@
             "libraryName": "jsplumb",
             "asOfVersion": "2.5.7"
         },
+        "jspreadsheet-ce": {
+            "libraryName": "jspreadsheet-ce",
+            "asOfVersion": "5.0.4"
+        },
         "jsrender": {
             "libraryName": "jsrender",
             "asOfVersion": "1.0.5"
