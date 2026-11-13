@@ -1,2 +1,3 @@
-import validator from "../../";
-export default validator.isPassportNumber;
+import isPassportNumber, { locales, PassportNumberLocale } from "../../lib/isPassportNumber";
+export default isPassportNumber;
+export { locales, PassportNumberLocale };
