@@ -1236,6 +1236,10 @@
             "libraryName": "@commitlint/load",
             "asOfVersion": "9.0.0"
         },
+        "common-ancestor-path": {
+            "libraryName": "common-ancestor-path",
+            "asOfVersion": "2.0.0"
+        },
         "commons-validator-js": {
             "libraryName": "commons-validator-js",
             "asOfVersion": "1.0.1266"
