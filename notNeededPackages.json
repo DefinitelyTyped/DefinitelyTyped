@@ -4109,6 +4109,10 @@
             "libraryName": "karma-viewport",
             "asOfVersion": "1.0.0"
         },
+        "katex": {
+            "libraryName": "katex",
+            "asOfVersion": "0.16.16"
+        },
         "kdbxweb": {
             "libraryName": "kdbxweb",
             "asOfVersion": "2.0.0"
