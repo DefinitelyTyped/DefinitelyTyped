@@ -74,10 +74,8 @@ export default class App extends Component<{}, State> {
         });
 
         this.onTokenErrorListener = HmsPushEvent.onTokenError(result => {
-            console.log("onTokenError", result);
-            if (result.result_code === HmsPushResultCode.ERROR_CLIENT_API_INVALID) {
-                console.log("Invalid Client");
-            }
+            result.exception; // $ExpectType string
+            console.log("onTokenError", result.exception);
         });
 
         this.onMultiSenderTokenReceivedListener = HmsPushEvent.onMultiSenderTokenReceived(result => {
@@ -85,6 +83,8 @@ export default class App extends Component<{}, State> {
         });
 
         this.onMultiSenderTokenErrorListener = HmsPushEvent.onMultiSenderTokenError(result => {
+            result.exception; // $ExpectType string
+            result.dataJSON; // $ExpectType string
             console.log("onMultiSenderTokenError", result);
         });
 
@@ -97,6 +97,9 @@ export default class App extends Component<{}, State> {
         });
 
         this.onMessageSentDeliveredListener = HmsPushEvent.onPushMessageSentDelivered(result => {
+            result.result; // $ExpectType string
+            result.msgId; // $ExpectType string
+            result.resultInfo; // $ExpectType string
             console.log("onMessageSentDelivered", result);
         });
 
@@ -111,6 +114,8 @@ export default class App extends Component<{}, State> {
         });
 
         this.onNotificationOpenedAppListener = HmsPushEvent.onNotificationOpenedApp(result => {
+            result.uriPage; // $ExpectType string | undefined
+            result.remoteMessage?.messageId; // $ExpectType string | null | undefined
             console.log("onNotificationOpenedApp", result);
         });
     }
@@ -137,7 +142,12 @@ export default class App extends Component<{}, State> {
     turnOnPush() {
         HmsPushMessaging.turnOnPush()
             .then(result => {
-                console.log("turnOnPush", result);
+                result.resultCode; // $ExpectType HmsPushResultCodeEnum
+                // @ts-expect-error: the native module resolves `resultCode`, not `result_code`
+                result.result_code;
+                if (result.resultCode === HmsPushResultCode.SUCCESS) {
+                    console.log("turnOnPush", result.result);
+                }
             })
             .catch(err => {
                 console.log("[turnOnPush] Error/Exception: " + JSON.stringify(err));
@@ -305,16 +315,42 @@ export default class App extends Component<{}, State> {
     getInitialNotification() {
         HmsPushMessaging.getInitialNotification()
             .then(result => {
-                console.log("getInitialNotification", result);
+                result.result.uriPage; // $ExpectType string | undefined
+                if (result.result.remoteMessage) {
+                    console.log("getInitialNotification", result.result.remoteMessage.messageId);
+                }
             })
             .catch(err => {
                 console.log("[getInitialNotification] Error/Exception: " + JSON.stringify(err));
             });
     }
 
+    enableLogger() {
+        HmsPushMessaging.enableLogger()
+            .then(result => {
+                result.result; // $ExpectType boolean
+                console.log("enableLogger", result);
+            })
+            .catch(err => {
+                console.log("[enableLogger] Error/Exception: " + JSON.stringify(err));
+            });
+    }
+
+    disableLogger() {
+        HmsPushMessaging.disableLogger()
+            .then(result => {
+                result.result; // $ExpectType boolean
+                console.log("disableLogger", result);
+            })
+            .catch(err => {
+                console.log("[disableLogger] Error/Exception: " + JSON.stringify(err));
+            });
+    }
+
     isSupportProfile() {
         HmsPushProfile.isSupportProfile()
             .then(result => {
+                result.result; // $ExpectType boolean
                 console.log("isSupportProfile", result);
             })
             .catch(err => {
@@ -325,6 +361,7 @@ export default class App extends Component<{}, State> {
     addProfile() {
         HmsPushProfile.addProfile(HmsPushProfile.Type.HUAWEI_PROFILE, "profileId")
             .then(result => {
+                result.result; // $ExpectType boolean
                 console.log("addProfile", result);
             })
             .catch(err => {
@@ -335,6 +372,7 @@ export default class App extends Component<{}, State> {
     addProfileWithSubjectId() {
         HmsPushProfile.addProfileWithSubjectId("<subject_Id>", HmsPushProfile.Type.HUAWEI_PROFILE, "<profileId>")
             .then(result => {
+                result.result; // $ExpectType boolean
                 console.log("addProfileWithSubjectId", result);
             })
             .catch(err => {
