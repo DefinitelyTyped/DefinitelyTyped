@@ -4197,6 +4197,10 @@
             "libraryName": "koa-jwt",
             "asOfVersion": "3.3.0"
         },
+        "koa-override": {
+            "libraryName": "koa-override",
+            "asOfVersion": "4.0.0"
+        },
         "koa-proxies": {
             "libraryName": "koa-proxies",
             "asOfVersion": "0.11.0"
