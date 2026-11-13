@@ -4025,6 +4025,10 @@
             "libraryName": "jsplumb",
             "asOfVersion": "2.5.7"
         },
+        "jsprintmanager": {
+            "libraryName": "jsprintmanager",
+            "asOfVersion": "9.0.2"
+        },
         "jsrender": {
             "libraryName": "jsrender",
             "asOfVersion": "1.0.5"
