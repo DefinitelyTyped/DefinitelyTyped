@@ -332,6 +332,10 @@
             "libraryName": "aurelia-knockout",
             "asOfVersion": "2.1.0"
         },
+        "auth0-lock": {
+            "libraryName": "auth0-lock",
+            "asOfVersion": "15.0.2"
+        },
         "auto-bind": {
             "libraryName": "auto-bind",
             "asOfVersion": "2.1.0"
