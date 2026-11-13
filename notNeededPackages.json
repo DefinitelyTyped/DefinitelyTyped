@@ -2105,6 +2105,10 @@
             "libraryName": "email-validator",
             "asOfVersion": "1.0.6"
         },
+        "ember-data__store": {
+            "libraryName": "@ember-data/store",
+            "asOfVersion": "5.9.1"
+        },
         "ember-qunit": {
             "libraryName": "ember-qunit",
             "asOfVersion": "6.1.1"
