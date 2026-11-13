@@ -580,6 +580,10 @@
             "libraryName": "boxen",
             "asOfVersion": "3.0.1"
         },
+        "brace-expansion": {
+            "libraryName": "brace-expansion",
+            "asOfVersion": "5.0.12"
+        },
         "braft-editor": {
             "libraryName": "braft-editor",
             "asOfVersion": "2.2.0"
