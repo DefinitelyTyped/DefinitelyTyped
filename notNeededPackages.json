@@ -7495,6 +7495,10 @@
             "libraryName": "screenfull",
             "asOfVersion": "4.1.0"
         },
+        "screenshot-desktop": {
+            "libraryName": "screenshot-desktop",
+            "asOfVersion": "1.15.8"
+        },
         "scrypt-js": {
             "libraryName": "scrypt-js",
             "asOfVersion": "3.0.1"
