@@ -388,12 +388,12 @@ export class Boards<BoardsIDs extends BoardIdsListType, BoardsConfig extends Boa
     each(cb: (board: Board) => void): this;
 
     /**
-     * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@Link Board}.
+     * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@link Board}.
      */
     byId(id: BoardsIDs[number]): Board | null;
 
     /**
-     * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@Link Board}
+     * Search for a board using its ID, given the typing you can't be wrong so it always returns a {@link Board}
      */
     byId(id: BoardsConfig[number]["id"]): Board;
 }
