@@ -5297,6 +5297,10 @@
             "libraryName": "node-mailjet",
             "asOfVersion": "4.0.0"
         },
+        "node-os-utils": {
+            "libraryName": "node-os-utils",
+            "asOfVersion": "3.1.0"
+        },
         "node-osc": {
             "libraryName": "node-osc",
             "asOfVersion": "11.2.0"
