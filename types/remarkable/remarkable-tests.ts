@@ -159,6 +159,29 @@ export class RemarkableTest {
         md.renderer;
         md.renderer.rules;
     }
+
+    rendererRules() {
+        const md = new Remarkable();
+
+        // Rule remains usable without a type argument.
+        const defaultRule: Remarkable.Rule = tokens => {
+            tokens[0].level;
+            return "";
+        };
+
+        // Rules can be specialized for a specific token type.
+        const imageRule: Remarkable.Rule<Remarkable.ImageToken> = tokens => {
+            tokens[0].src;
+            return "";
+        };
+
+        md.renderer.rules.custom = defaultRule;
+        md.renderer.rules.custom_image = imageRule;
+        md.renderer.rules.image = imageRule;
+
+        // @ts-expect-error An image-only rule is not a general TagToken rule.
+        const generalRule: Remarkable.Rule = imageRule;
+    }
 }
 
 /**
