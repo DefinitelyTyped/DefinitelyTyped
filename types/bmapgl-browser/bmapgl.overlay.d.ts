@@ -43,7 +43,23 @@ declare namespace BMapGL {
         static getZIndex(lat: number, coordTyppe?: string): number;
         [x: string]: any;
     }
-    type SymbolShapeType = number;
+    /** @see https://mapopen-pub-jsapi.bj.bcebos.com/jsapi/reference/jsapi_webgl_1_0.html#a3b25 */
+    enum SymbolShapeType {
+        BMap_Symbol_SHAPE_CIRCLE,
+        BMap_Symbol_SHAPE_RECTANGLE,
+        BMap_Symbol_SHAPE_RHOMBUS,
+        BMap_Symbol_SHAPE_STAR,
+        BMap_Symbol_SHAPE_BACKWARD_CLOSED_ARROW,
+        BMap_Symbol_SHAPE_FORWARD_CLOSED_ARROW,
+        BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW,
+        BMap_Symbol_SHAPE_FORWARD_OPEN_ARROW,
+        BMap_Symbol_SHAPE_POINT,
+        BMap_Symbol_SHAPE_PLANE,
+        BMap_Symbol_SHAPE_CAMERA,
+        BMap_Symbol_SHAPE_WARNING,
+        BMap_Symbol_SHAPE_SMILE,
+        BMap_Symbol_SHAPE_CLOCK,
+    }
     interface PolylineOptions {
         strokeColor?: string | undefined;
         strokeWeight?: number | undefined;
@@ -356,7 +372,21 @@ declare namespace BMapGL {
     class Hotspot {
         constructor(position: Point, opts?: HotspotOptions);
     }
-    interface Symbol extends Overlay {
+    /** @see https://mapopen-pub-jsapi.bj.bcebos.com/jsapi/reference/jsapi_webgl_1_0.html#a3b22 */
+    interface Symbol {
+        isReDraw: boolean;
+        data?: ImageData;
+        overlay?: Overlay;
+        add(): void;
+        render(map: Map): boolean;
+        remove(): void;
+        update(): void;
+    }
+    class Symbol {
+        constructor(size: Size, anchor: Size);
+    }
+    /** @see https://mapopen-pub-jsapi.bj.bcebos.com/jsapi/reference/jsapi_webgl_1_0.html#a3b23 */
+    interface SVGSymbol extends Symbol {
         setPath(path: string | SymbolShapeType): void;
         setAnchor(anchor: Size): void;
         setRotation(rotation: number): void;
@@ -367,7 +397,7 @@ declare namespace BMapGL {
         setFillOpacity(opacity: number): void;
         setFillColor(color: string): void;
     }
-    class Symbol {
+    class SVGSymbol {
         constructor(path: string | SymbolShapeType, opts?: SymbolOptions);
     }
     interface Polyline extends Overlay {
@@ -441,21 +471,6 @@ declare namespace BMapGL {
         mapPane?: HTMLElement | undefined;
     }
 }
-
-declare const BMap_Symbol_SHAPE_CIRCLE: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_RECTANGLE: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_RHOMBUS: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_STAR: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_BACKWARD_CLOSED_ARROW: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_FORWARD_CLOSED_ARROW: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_FORWARD_OPEN_ARROW: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_POINT: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_PLANE: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_CAMERA: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_WARNING: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_SMILE: BMapGL.SymbolShapeType;
-declare const BMap_Symbol_SHAPE_CLOCK: BMapGL.SymbolShapeType;
 
 declare const BMAP_ANIMATION_DROP: BMapGL.Animation;
 declare const BMAP_ANIMATION_BOUNCE: BMapGL.Animation;
