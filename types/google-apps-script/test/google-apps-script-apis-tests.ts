@@ -930,8 +930,500 @@ function testDocs() {
     const docs = Docs;
     // $ExpectType DocumentsCollection
     const documents = docs.Documents;
+
+    const rgbColor: GoogleAppsScript.Docs.Schema.RgbColor = { red: 0.2, green: 0.4, blue: 0.8 };
+    const optionalColor: GoogleAppsScript.Docs.Schema.OptionalColor = { color: { rgbColor } };
+    const dimension: GoogleAppsScript.Docs.Schema.Dimension = { magnitude: 72, unit: "PT" };
+    const range: GoogleAppsScript.Docs.Schema.Range = {
+        startIndex: 1,
+        endIndex: 5,
+        segmentId: "body",
+        tabId: "tab-id",
+    };
+    const location: GoogleAppsScript.Docs.Schema.Location = { index: 1, segmentId: "body", tabId: "tab-id" };
+    const endOfSegmentLocation: GoogleAppsScript.Docs.Schema.EndOfSegmentLocation = {
+        segmentId: "body",
+        tabId: "tab-id",
+    };
+    const tabsCriteria: GoogleAppsScript.Docs.Schema.TabsCriteria = { tabIds: ["tab-id"] };
+    const tabProperties: GoogleAppsScript.Docs.Schema.TabProperties = {
+        iconEmoji: "📄",
+        index: 0,
+        nestingLevel: 0,
+        parentTabId: "parent-tab-id",
+        tabId: "tab-id",
+        title: "Main",
+    };
+    const tableCellLocation: GoogleAppsScript.Docs.Schema.TableCellLocation = {
+        tableStartLocation: location,
+        rowIndex: 0,
+        columnIndex: 0,
+    };
+    const textStyle: GoogleAppsScript.Docs.Schema.TextStyle = {
+        backgroundColor: optionalColor,
+        baselineOffset: "SUPERSCRIPT",
+        bold: true,
+        fontSize: dimension,
+        foregroundColor: optionalColor,
+        italic: true,
+        link: {
+            url: "https://example.com",
+            bookmarkId: "bookmark",
+            headingId: "heading",
+            bookmark: { id: "bookmark", tabId: "tab-id" },
+            heading: { id: "heading", tabId: "tab-id" },
+            tabId: "tab-id",
+        },
+        smallCaps: true,
+        strikethrough: true,
+        underline: true,
+        weightedFontFamily: { fontFamily: "Arial", weight: 400 },
+    };
+    const paragraphStyle: GoogleAppsScript.Docs.Schema.ParagraphStyle = {
+        alignment: "START",
+        avoidWidowAndOrphan: true,
+        borderBottom: { color: optionalColor, dashStyle: "SOLID", padding: dimension, width: dimension },
+        direction: "LEFT_TO_RIGHT",
+        headingId: "heading",
+        indentEnd: dimension,
+        indentFirstLine: dimension,
+        indentStart: dimension,
+        keepLinesTogether: true,
+        keepWithNext: true,
+        lineSpacing: 115,
+        namedStyleType: "HEADING_1",
+        pageBreakBefore: true,
+        shading: { backgroundColor: optionalColor },
+        spaceAbove: dimension,
+        spaceBelow: dimension,
+        spacingMode: "COLLAPSE_LISTS",
+        tabStops: [{ alignment: "START", offset: dimension }],
+    };
+    const textRun: GoogleAppsScript.Docs.Schema.TextRun = { content: "Hello, Docs!", textStyle };
+    const paragraphElement: GoogleAppsScript.Docs.Schema.ParagraphElement = {
+        startIndex: 1,
+        endIndex: 12,
+        textRun,
+        inlineObjectElement: { inlineObjectId: "object-id" },
+        pageBreak: { suggestedDeletionIds: ["deletion"], textStyle },
+        horizontalRule: { suggestedDeletionIds: ["deletion"], textStyle },
+        autoText: { type: "PAGE_NUMBER", suggestedTextStyleChanges: {}, textStyle },
+        columnBreak: { suggestedDeletionIds: ["deletion"], textStyle },
+        equation: { suggestedDeletionIds: ["deletion"] },
+        footnoteReference: { footnoteId: "footnote", textStyle },
+        dateElement: {
+            dateId: "date-id",
+            dateElementProperties: {
+                dateFormat: "DATE_FORMAT_ISO8601",
+                displayText: "2026-11-07",
+                locale: "en",
+                timeFormat: "TIME_FORMAT_DISABLED",
+                timestamp: "1762473600",
+                timeZoneId: "UTC",
+            },
+        },
+        dropdown: {
+            dropdownId: "dropdown-id",
+            dropdownProperties: {
+                displayValue: "Open",
+                dropdownDefinitionId: "definition-id",
+                selectedOptionId: "option-id",
+            },
+        },
+        person: { personId: "person-id", personProperties: { email: "person@example.com", name: "Person" } },
+        richLink: {
+            richLinkId: "rich-link-id",
+            richLinkProperties: { mimeType: "text/plain", title: "Example", uri: "https://example.com" },
+        },
+    };
+    const paragraph: GoogleAppsScript.Docs.Schema.Paragraph = {
+        elements: [paragraphElement],
+        paragraphStyle,
+        bullet: { listId: "list-id", nestingLevel: 0, textStyle },
+        positionedObjectIds: ["positioned-object"],
+    };
+    const tableCell: GoogleAppsScript.Docs.Schema.TableCell = {
+        startIndex: 13,
+        endIndex: 18,
+        content: [{ startIndex: 13, endIndex: 18, paragraph }],
+        tableCellStyle: {
+            backgroundColor: optionalColor,
+            borderBottom: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            borderLeft: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            borderRight: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            borderTop: { color: optionalColor, dashStyle: "SOLID", width: dimension },
+            columnSpan: 1,
+            contentAlignment: "MIDDLE",
+            paddingBottom: dimension,
+            paddingLeft: dimension,
+            paddingRight: dimension,
+            paddingTop: dimension,
+            rowSpan: 1,
+        },
+    };
+    const table: GoogleAppsScript.Docs.Schema.Table = {
+        rows: 1,
+        columns: 1,
+        tableStyle: { tableColumnProperties: [{ widthType: "FIXED_WIDTH", width: dimension }] },
+        tableRows: [{
+            startIndex: 13,
+            endIndex: 18,
+            tableCells: [tableCell],
+            tableRowStyle: { minRowHeight: dimension, preventOverflow: true, tableHeader: true },
+        }],
+    };
+    const sectionStyle: GoogleAppsScript.Docs.Schema.SectionStyle = {
+        contentDirection: "LEFT_TO_RIGHT",
+        columnSeparatorStyle: "NONE",
+        columnProperties: [{ paddingEnd: dimension, width: dimension }],
+        sectionType: "CONTINUOUS",
+        defaultFooterId: "footer",
+        defaultHeaderId: "header",
+        evenPageFooterId: "even-footer",
+        evenPageHeaderId: "even-header",
+        firstPageFooterId: "first-footer",
+        firstPageHeaderId: "first-header",
+        flipPageOrientation: true,
+        marginBottom: dimension,
+        marginFooter: dimension,
+        marginHeader: dimension,
+        marginLeft: dimension,
+        marginRight: dimension,
+        marginTop: dimension,
+        pageNumberStart: 1,
+        useFirstPageHeaderFooter: true,
+    };
+    const sectionBreak: GoogleAppsScript.Docs.Schema.SectionBreak = { sectionStyle };
+    const body: GoogleAppsScript.Docs.Schema.Body = {
+        content: [
+            { startIndex: 0, endIndex: 12, paragraph },
+            { startIndex: 12, endIndex: 18, table },
+            { startIndex: 18, endIndex: 18, sectionBreak },
+            {
+                startIndex: 18,
+                endIndex: 18,
+                tableOfContents: { content: [{ startIndex: 18, endIndex: 18, paragraph }] },
+            },
+        ],
+    };
+    const documentStyle: GoogleAppsScript.Docs.Schema.DocumentStyle = {
+        background: { color: optionalColor },
+        defaultFooterId: "footer",
+        defaultHeaderId: "header",
+        firstPageFooterId: "first-footer",
+        firstPageHeaderId: "first-header",
+        marginBottom: dimension,
+        marginLeft: dimension,
+        marginRight: dimension,
+        marginTop: dimension,
+        pageNumberStart: 1,
+        pageSize: { width: dimension, height: dimension },
+        useEvenPageHeaderFooter: true,
+        useFirstPageHeaderFooter: true,
+        documentFormat: { documentMode: "PAGES" },
+        flipPageOrientation: true,
+        marginFooter: dimension,
+        marginHeader: dimension,
+        useCustomHeaderFooterMargins: true,
+    };
+    const namedStyle: GoogleAppsScript.Docs.Schema.NamedStyle = {
+        namedStyleType: "NORMAL_TEXT",
+        paragraphStyle,
+        textStyle,
+    };
+    const namedStyles: GoogleAppsScript.Docs.Schema.NamedStyles = { styles: [namedStyle] };
+    const documentTab: GoogleAppsScript.Docs.Schema.DocumentTab = {
+        body,
+        documentStyle,
+        namedStyles,
+    };
+    const tab: GoogleAppsScript.Docs.Schema.Tab = { tabProperties, documentTab, childTabs: [] };
+    const suggestionThread: GoogleAppsScript.Docs.Schema.SuggestionThread = {
+        suggestionId: "suggestion-id",
+        status: "OPEN",
+        summaryText: "Suggested change",
+        summaryHtml: "<b>Suggested change</b>",
+        headPost: {
+            postId: "post-id",
+            author: { displayName: "Person", user: "person@example.com", me: false, anonymous: false },
+            content: "Change this text",
+            contentHtml: "<b>Change this text</b>",
+            createTime: "2026-11-07T00:00:00Z",
+            updateTime: "2026-11-07T00:00:00Z",
+            deleted: false,
+            commentAction: "RESOLVE",
+            suggestionAction: "ACCEPT",
+        },
+        replies: [],
+    };
+    const document: GoogleAppsScript.Docs.Schema.Document = {
+        title: "title",
+        body,
+        documentId: "document-id",
+        documentStyle,
+        revisionId: "revision-id",
+        namedStyles,
+        suggestionsViewMode: "PREVIEW_SUGGESTIONS_ACCEPTED",
+        footers: {},
+        footnotes: {},
+        headers: {},
+        inlineObjects: {},
+        lists: {},
+        namedRanges: {},
+        positionedObjects: {},
+        comments: [{
+            commentId: "comment-id",
+            status: "OPEN",
+            anchorId: "anchor-id",
+            plainTextQuote: "Quoted text",
+            headPost: {
+                postId: "post-id",
+                content: "Comment",
+                author: { displayName: "Person", user: "person@example.com" },
+            },
+            replies: [],
+        }],
+        commentsViewMode: "COMMENTS_VIEW_MODE_INCLUDED",
+        suggestions: [suggestionThread],
+        tabs: [tab],
+        suggestedDocumentStyleChanges: {},
+        suggestedNamedStylesChanges: {},
+    };
+
+    const tableRange: GoogleAppsScript.Docs.Schema.TableRange = { tableCellLocation, rowSpan: 1, columnSpan: 2 };
+    const dropdownDefinition: GoogleAppsScript.Docs.Schema.DropdownDefinition = {
+        dropdownDefinitionId: "definition-id",
+        dropdownDefinitionProperties: {
+            title: "Status",
+            options: [{ optionId: "option-id", displayValue: "Open", textStyle }],
+        },
+    };
+    const requests: GoogleAppsScript.Docs.Schema.Request[] = [
+        { acceptSuggestion: { suggestionId: "suggestion-id" } },
+        { rejectSuggestion: { suggestionId: "suggestion-id" } },
+        { deleteSuggestion: { suggestionId: "suggestion-id" } },
+        { addCommentReply: { commentId: "comment-id", suggestionId: "suggestion-id", post: { content: "Reply" } } },
+        {
+            updateCommentPost: {
+                commentId: "comment-id",
+                postId: "post-id",
+                suggestionId: "suggestion-id",
+                content: "Updated",
+            },
+        },
+        { deleteCommentReply: { commentId: "comment-id", postId: "post-id", suggestionId: "suggestion-id" } },
+        { deleteComment: { commentId: "comment-id" } },
+        { insertComment: { content: "Review this", assigneeEmailAddress: "person@example.com", range } },
+        { addDocumentTab: { tabProperties } },
+        { deleteTab: { tabId: "tab-id" } },
+        { updateDocumentTabProperties: { fields: "title,index", tabProperties } },
+        { createDropdownDefinition: { dropdownDefinition, tabId: "tab-id" } },
+        { deleteDropdownDefinition: { dropdownDefinitionId: "definition-id", tabId: "tab-id" } },
+        {
+            updateDropdownDefinitionProperties: {
+                dropdownDefinitionId: "definition-id",
+                dropdownDefinitionProperties: dropdownDefinition.dropdownDefinitionProperties,
+                fields: "title,options",
+                selectedOptionIdReplacements: { old: "option-id" },
+                tabId: "tab-id",
+            },
+        },
+        {
+            insertDropdown: {
+                dropdownDefinitionId: "definition-id",
+                selectedOptionId: "option-id",
+                location,
+                endOfSegmentLocation,
+            },
+        },
+        {
+            updateDropdownProperties: {
+                dropdownId: "dropdown-id",
+                dropdownProperties: {
+                    displayValue: "Open",
+                    dropdownDefinitionId: "definition-id",
+                    selectedOptionId: "option-id",
+                },
+                fields: "selectedOptionId",
+                tabId: "tab-id",
+            },
+        },
+        { createFooter: { sectionBreakLocation: location, type: "DEFAULT" } },
+        { createHeader: { sectionBreakLocation: location, type: "DEFAULT" } },
+        { createFootnote: { location, endOfSegmentLocation } },
+        { deleteFooter: { footerId: "footer-id", tabId: "tab-id" } },
+        { deleteHeader: { headerId: "header-id", tabId: "tab-id" } },
+        {
+            insertDate: {
+                location,
+                endOfSegmentLocation,
+                dateElementProperties: {
+                    dateFormat: "DATE_FORMAT_ISO8601",
+                    displayText: "2026-11-07",
+                    locale: "en",
+                    timeFormat: "TIME_FORMAT_DISABLED",
+                    timestamp: "1762473600",
+                    timeZoneId: "UTC",
+                },
+            },
+        },
+        {
+            insertPerson: {
+                location,
+                endOfSegmentLocation,
+                personProperties: { email: "person@example.com", name: "Person" },
+            },
+        },
+        {
+            insertRichLink: {
+                location,
+                endOfSegmentLocation,
+                richLinkProperties: { mimeType: "text/plain", title: "Example", uri: "https://example.com" },
+            },
+        },
+        { insertSectionBreak: { location, endOfSegmentLocation, sectionType: "NEXT_PAGE" } },
+        { insertTableColumn: { tableCellLocation, insertRight: true } },
+        { mergeTableCells: { tableRange } },
+        { unmergeTableCells: { tableRange } },
+        { pinTableHeaderRows: { tableStartLocation: location, pinnedHeaderRowsCount: 1 } },
+        {
+            replaceImage: {
+                imageObjectId: "image-id",
+                imageReplaceMethod: "CENTER_CROP",
+                uri: "https://example.com/image.png",
+                tabId: "tab-id",
+            },
+        },
+        {
+            replaceNamedRangeContent: {
+                namedRangeId: "named-range-id",
+                namedRangeName: "named-range",
+                tabsCriteria,
+                text: "replacement",
+            },
+        },
+        { updateDocumentStyle: { documentStyle, fields: "marginTop,documentFormat", tabId: "tab-id" } },
+        { updateNamedStyle: { fields: "paragraphStyle,textStyle", namedStyle, tabId: "tab-id" } },
+        { updateSectionStyle: { fields: "sectionType,marginTop", range, sectionStyle } },
+        {
+            updateTableCellStyle: {
+                fields: "backgroundColor",
+                tableCellStyle: tableCell.tableCellStyle,
+                tableRange,
+                tableStartLocation: location,
+            },
+        },
+        {
+            updateTableColumnProperties: {
+                columnIndices: [0, 1],
+                fields: "width,widthType",
+                tableColumnProperties: { width: dimension, widthType: "FIXED_WIDTH" },
+                tableStartLocation: location,
+            },
+        },
+        {
+            updateTableRowStyle: {
+                rowIndices: [0],
+                fields: "minRowHeight,tableHeader,preventOverflow",
+                tableRowStyle: { minRowHeight: dimension, preventOverflow: true, tableHeader: true },
+                tableStartLocation: location,
+            },
+        },
+        { createNamedRange: { name: "named-range", range } },
+        { createParagraphBullets: { range, bulletPreset: "BULLET_DISC_CIRCLE_SQUARE" } },
+        { deleteContentRange: { range } },
+        { deleteNamedRange: { name: "named-range", namedRangeId: "named-range-id", tabsCriteria } },
+        { deleteParagraphBullets: { range } },
+        { deletePositionedObject: { objectId: "positioned-object", tabId: "tab-id" } },
+        { deleteTableColumn: { tableCellLocation } },
+        { deleteTableRow: { tableCellLocation } },
+        {
+            insertInlineImage: {
+                uri: "https://example.com/image.png",
+                location,
+                endOfSegmentLocation,
+                objectSize: { width: dimension, height: dimension },
+            },
+        },
+        { insertPageBreak: { location, endOfSegmentLocation } },
+        { insertTable: { rows: 2, columns: 3, location, endOfSegmentLocation } },
+        { insertTableRow: { tableCellLocation, insertBelow: true } },
+        { insertText: { text: "inserted text", location, endOfSegmentLocation } },
+        {
+            replaceAllText: {
+                containsText: { text: "old", matchCase: true, searchByRegex: true },
+                replaceText: "new",
+                tabsCriteria,
+            },
+        },
+        { updateParagraphStyle: { range, fields: "alignment,namedStyleType", paragraphStyle } },
+        { updateTextStyle: { range, fields: "bold,foregroundColor", textStyle } },
+    ];
+    const batchRequest: GoogleAppsScript.Docs.Schema.BatchUpdateDocumentRequest = {
+        requests,
+        writeControl: { requiredRevisionId: "revision-id", targetRevisionId: "target-revision-id" },
+    };
+    const batchResponse: GoogleAppsScript.Docs.Schema.BatchUpdateDocumentResponse = {
+        documentId: "document-id",
+        commentUpdateState: "ALL_SAVED",
+        suggestionResponses: [{
+            acceptedSuggestionIds: ["suggestion-id"],
+            createdSuggestionIds: ["new-suggestion-id"],
+            deletedSuggestionIds: ["deleted-suggestion-id"],
+            rejectedSuggestionIds: ["rejected-suggestion-id"],
+            updatedSummarySuggestionIds: ["updated-suggestion-id"],
+        }],
+        writeControl: { requiredRevisionId: "revision-id", targetRevisionId: "target-revision-id" },
+        replies: [{
+            createNamedRange: { namedRangeId: "named-range-id" },
+            insertInlineImage: { objectId: "inline-object-id" },
+            insertInlineSheetsChart: { objectId: "chart-object-id" },
+            replaceAllText: { occurrencesChanged: 3 },
+            addCommentReply: { post: { postId: "post-id", content: "Reply" } },
+            addDocumentTab: { tabProperties },
+            createDropdownDefinition: { dropdownDefinition },
+            createFooter: { footerId: "footer-id" },
+            createFootnote: { footnoteId: "footnote-id" },
+            createHeader: { headerId: "header-id" },
+            insertComment: { commentThread: { commentId: "comment-id", status: "OPEN", plainTextQuote: "text" } },
+            insertDropdown: {
+                dropdown: {
+                    dropdownId: "dropdown-id",
+                    dropdownProperties: {
+                        dropdownDefinitionId: "definition-id",
+                        selectedOptionId: "option-id",
+                        displayValue: "Open",
+                    },
+                },
+            },
+        }],
+    };
+
     // $ExpectType Document
-    const create = documents.create({ title: "title" });
+    const create = documents.create(document);
+    // $ExpectType Document
+    const get = documents.get("document-id");
+    // $ExpectType Document
+    const getWithOptions = documents.get("document-id", {
+        commentsViewMode: "COMMENTS_VIEW_MODE_INCLUDED",
+        includeTabsContent: true,
+        suggestionsViewMode: "PREVIEW_SUGGESTIONS_ACCEPTED",
+    });
+    // $ExpectType BatchUpdateDocumentResponse
+    const batchUpdate = documents.batchUpdate(batchRequest, "document-id");
+
+    // $ExpectType Document
+    const newDocument = docs.newDocument();
+    // $ExpectType BatchUpdateDocumentRequest
+    const newBatchUpdateRequest = docs.newBatchUpdateDocumentRequest();
+    // $ExpectType Request
+    const newRequest = docs.newRequest();
+    // $ExpectType Paragraph
+    const newParagraph = docs.newParagraph();
+    // $ExpectType Table
+    const newTable = docs.newTable();
+    // $ExpectType TextStyle
+    const newTextStyle = docs.newTextStyle();
 }
 
 function testDriveActivity() {

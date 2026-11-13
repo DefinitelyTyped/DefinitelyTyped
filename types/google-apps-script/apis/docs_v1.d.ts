@@ -2,44 +2,57 @@ declare namespace GoogleAppsScript {
     namespace Docs {
         namespace Collection {
             interface DocumentsCollection {
-                // Applies one or more updates to the document.
-                // Each request is validated before
-                // being applied. If any request is not valid, then the entire request will
-                // fail and nothing will be applied.
-                // Some requests have replies to
-                // give you some information about how they are applied. Other requests do
-                // not need to return information; these each return an empty reply.
-                // The order of replies matches that of the requests.
-                // For example, suppose you call batchUpdate with four updates, and only the
-                // third one returns information. The response would have two empty replies,
-                // the reply to the third request, and another empty reply, in that order.
-                // Because other users may be editing the document, the document
-                // might not exactly reflect your changes: your changes may
-                // be altered with respect to collaborator changes. If there are no
-                // collaborators, the document should reflect your changes. In any case,
-                // the updates in your request are guaranteed to be applied together
-                // atomically.
                 batchUpdate(
-                    resource: Schema.BatchUpdateDocumentRequest,
+                    $resource: Docs.Schema.BatchUpdateDocumentRequest,
                     documentId: string,
                 ): Docs.Schema.BatchUpdateDocumentResponse;
-                // Creates a blank document using the title given in the request. Other fields
-                // in the request, including any provided content, are ignored.
-                // Returns the created document.
-                create(resource: Schema.Document): Docs.Schema.Document;
-                // Gets the latest version of the specified document.
-                get(documentId: string): Docs.Schema.Document;
-                // Gets the latest version of the specified document.
-                get(documentId: string, optionalArgs: object): Docs.Schema.Document;
+                create(
+                    $resource: Docs.Schema.Document,
+                ): Docs.Schema.Document;
+                get(
+                    documentId: string,
+                    args?: {
+                        commentsViewMode?:
+                            | "COMMENTS_VIEW_MODE_UNSPECIFIED"
+                            | "COMMENTS_VIEW_MODE_DEFAULT_FOR_CURRENT_ACCESS"
+                            | "COMMENTS_VIEW_MODE_OMITTED"
+                            | "COMMENTS_VIEW_MODE_INCLUDED"
+                            | undefined;
+                        includeTabsContent?: boolean | undefined;
+                        suggestionsViewMode?:
+                            | "DEFAULT_FOR_CURRENT_ACCESS"
+                            | "SUGGESTIONS_INLINE"
+                            | "PREVIEW_SUGGESTIONS_ACCEPTED"
+                            | "PREVIEW_WITHOUT_SUGGESTIONS"
+                            | undefined;
+                    },
+                ): Docs.Schema.Document;
             }
         }
         namespace Schema {
+            interface AcceptSuggestionRequest {
+                suggestionId?: string | undefined;
+            }
+            interface AddCommentReplyRequest {
+                commentId?: string | undefined;
+                post?: Docs.Schema.Post | undefined;
+                suggestionId?: string | undefined;
+            }
+            interface AddCommentReplyResponse {
+                post?: Docs.Schema.Post | undefined;
+            }
+            interface AddDocumentTabRequest {
+                tabProperties?: Docs.Schema.TabProperties | undefined;
+            }
+            interface AddDocumentTabResponse {
+                tabProperties?: Docs.Schema.TabProperties | undefined;
+            }
             interface AutoText {
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTextStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
-                type?: string | undefined;
+                type?: "TYPE_UNSPECIFIED" | "PAGE_NUMBER" | "PAGE_COUNT" | undefined;
             }
             interface Background {
                 color?: Docs.Schema.OptionalColor | undefined;
@@ -52,12 +65,23 @@ declare namespace GoogleAppsScript {
                 writeControl?: Docs.Schema.WriteControl | undefined;
             }
             interface BatchUpdateDocumentResponse {
+                commentUpdateState?:
+                    | "COMMENT_UPDATE_STATE_UNSPECIFIED"
+                    | "NO_UPDATES_REQUESTED"
+                    | "ALL_SAVED"
+                    | "ALL_FAILED_UNKNOWN_REASON"
+                    | undefined;
                 documentId?: string | undefined;
                 replies?: Docs.Schema.Response[] | undefined;
+                suggestionResponses?: Docs.Schema.SuggestionResponse[] | undefined;
                 writeControl?: Docs.Schema.WriteControl | undefined;
             }
             interface Body {
                 content?: Docs.Schema.StructuralElement[] | undefined;
+            }
+            interface BookmarkLink {
+                id?: string | undefined;
+                tabId?: string | undefined;
             }
             interface Bullet {
                 listId?: string | undefined;
@@ -73,10 +97,50 @@ declare namespace GoogleAppsScript {
                 rgbColor?: Docs.Schema.RgbColor | undefined;
             }
             interface ColumnBreak {
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTextStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
+            }
+            interface CommentAnchor {
+                anchorId?: string | undefined;
+                ranges?: Docs.Schema.Range[] | undefined;
+            }
+            interface CommentThread {
+                anchorId?: string | undefined;
+                commentId?: string | undefined;
+                headPost?: Docs.Schema.Post | undefined;
+                plainTextQuote?: string | undefined;
+                replies?: Docs.Schema.Post[] | undefined;
+                status?: "STATUS_UNSPECIFIED" | "OPEN" | "RESOLVED" | undefined;
+            }
+            interface CreateDropdownDefinitionRequest {
+                dropdownDefinition?: Docs.Schema.DropdownDefinition | undefined;
+                tabId?: string | undefined;
+            }
+            interface CreateDropdownDefinitionResponse {
+                dropdownDefinition?: Docs.Schema.DropdownDefinition | undefined;
+            }
+            interface CreateFooterRequest {
+                sectionBreakLocation?: Docs.Schema.Location | undefined;
+                type?: "HEADER_FOOTER_TYPE_UNSPECIFIED" | "DEFAULT" | undefined;
+            }
+            interface CreateFooterResponse {
+                footerId?: string | undefined;
+            }
+            interface CreateFootnoteRequest {
+                endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+                location?: Docs.Schema.Location | undefined;
+            }
+            interface CreateFootnoteResponse {
+                footnoteId?: string | undefined;
+            }
+            interface CreateHeaderRequest {
+                sectionBreakLocation?: Docs.Schema.Location | undefined;
+                type?: "HEADER_FOOTER_TYPE_UNSPECIFIED" | "DEFAULT" | undefined;
+            }
+            interface CreateHeaderResponse {
+                headerId?: string | undefined;
             }
             interface CreateNamedRangeRequest {
                 name?: string | undefined;
@@ -86,7 +150,24 @@ declare namespace GoogleAppsScript {
                 namedRangeId?: string | undefined;
             }
             interface CreateParagraphBulletsRequest {
-                bulletPreset?: string | undefined;
+                bulletPreset?:
+                    | "BULLET_GLYPH_PRESET_UNSPECIFIED"
+                    | "BULLET_DISC_CIRCLE_SQUARE"
+                    | "BULLET_DIAMONDX_ARROW3D_SQUARE"
+                    | "BULLET_CHECKBOX"
+                    | "BULLET_ARROW_DIAMOND_DISC"
+                    | "BULLET_STAR_CIRCLE_SQUARE"
+                    | "BULLET_ARROW3D_CIRCLE_SQUARE"
+                    | "BULLET_LEFTTRIANGLE_DIAMOND_DISC"
+                    | "BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE"
+                    | "BULLET_DIAMOND_CIRCLE_SQUARE"
+                    | "NUMBERED_DECIMAL_ALPHA_ROMAN"
+                    | "NUMBERED_DECIMAL_ALPHA_ROMAN_PARENS"
+                    | "NUMBERED_DECIMAL_NESTED"
+                    | "NUMBERED_UPPERALPHA_ALPHA_ROMAN"
+                    | "NUMBERED_UPPERROMAN_UPPERALPHA_DECIMAL"
+                    | "NUMBERED_ZERODECIMAL_ALPHA_ROMAN"
+                    | undefined;
                 range?: Docs.Schema.Range | undefined;
             }
             interface CropProperties {
@@ -103,18 +184,81 @@ declare namespace GoogleAppsScript {
                 offsetRightSuggested?: boolean | undefined;
                 offsetTopSuggested?: boolean | undefined;
             }
+            interface DateElement {
+                dateElementProperties?: Docs.Schema.DateElementProperties | undefined;
+                dateId?: string | undefined;
+                suggestedDateElementPropertiesChanges?:
+                    | Record<string, Docs.Schema.SuggestedDateElementProperties>
+                    | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
+                textStyle?: Docs.Schema.TextStyle | undefined;
+            }
+            interface DateElementProperties {
+                dateFormat?:
+                    | "DATE_FORMAT_UNSPECIFIED"
+                    | "DATE_FORMAT_CUSTOM"
+                    | "DATE_FORMAT_MONTH_DAY_ABBREVIATED"
+                    | "DATE_FORMAT_MONTH_DAY_FULL"
+                    | "DATE_FORMAT_MONTH_DAY_YEAR_ABBREVIATED"
+                    | "DATE_FORMAT_ISO8601"
+                    | undefined;
+                displayText?: string | undefined;
+                locale?: string | undefined;
+                timeFormat?:
+                    | "TIME_FORMAT_UNSPECIFIED"
+                    | "TIME_FORMAT_DISABLED"
+                    | "TIME_FORMAT_HOUR_MINUTE"
+                    | "TIME_FORMAT_HOUR_MINUTE_TIMEZONE"
+                    | undefined;
+                timestamp?: string | undefined;
+                timeZoneId?: string | undefined;
+            }
+            interface DateElementPropertiesSuggestionState {
+                dateFormatSuggested?: boolean | undefined;
+                localeSuggested?: boolean | undefined;
+                timeFormatSuggested?: boolean | undefined;
+                timestampSuggested?: boolean | undefined;
+                timeZoneIdSuggested?: boolean | undefined;
+            }
+            interface DeleteCommentReplyRequest {
+                commentId?: string | undefined;
+                postId?: string | undefined;
+                suggestionId?: string | undefined;
+            }
+            interface DeleteCommentRequest {
+                commentId?: string | undefined;
+            }
             interface DeleteContentRangeRequest {
                 range?: Docs.Schema.Range | undefined;
+            }
+            interface DeleteDropdownDefinitionRequest {
+                dropdownDefinitionId?: string | undefined;
+                tabId?: string | undefined;
+            }
+            interface DeleteFooterRequest {
+                footerId?: string | undefined;
+                tabId?: string | undefined;
+            }
+            interface DeleteHeaderRequest {
+                headerId?: string | undefined;
+                tabId?: string | undefined;
             }
             interface DeleteNamedRangeRequest {
                 name?: string | undefined;
                 namedRangeId?: string | undefined;
+                tabsCriteria?: Docs.Schema.TabsCriteria | undefined;
             }
             interface DeleteParagraphBulletsRequest {
                 range?: Docs.Schema.Range | undefined;
             }
             interface DeletePositionedObjectRequest {
                 objectId?: string | undefined;
+                tabId?: string | undefined;
+            }
+            interface DeleteSuggestionRequest {
+                suggestionId?: string | undefined;
             }
             interface DeleteTableColumnRequest {
                 tableCellLocation?: Docs.Schema.TableCellLocation | undefined;
@@ -122,42 +266,69 @@ declare namespace GoogleAppsScript {
             interface DeleteTableRowRequest {
                 tableCellLocation?: Docs.Schema.TableCellLocation | undefined;
             }
+            interface DeleteTabRequest {
+                tabId?: string | undefined;
+            }
             interface Dimension {
                 magnitude?: number | undefined;
-                unit?: string | undefined;
+                unit?: "UNIT_UNSPECIFIED" | "PT" | undefined;
             }
             interface Document {
                 body?: Docs.Schema.Body | undefined;
+                comments?: Docs.Schema.CommentThread[] | undefined;
+                commentsViewMode?:
+                    | "COMMENTS_VIEW_MODE_UNSPECIFIED"
+                    | "COMMENTS_VIEW_MODE_DEFAULT_FOR_CURRENT_ACCESS"
+                    | "COMMENTS_VIEW_MODE_OMITTED"
+                    | "COMMENTS_VIEW_MODE_INCLUDED"
+                    | undefined;
                 documentId?: string | undefined;
                 documentStyle?: Docs.Schema.DocumentStyle | undefined;
-                footers?: object | undefined;
-                footnotes?: object | undefined;
-                headers?: object | undefined;
-                inlineObjects?: object | undefined;
-                lists?: object | undefined;
-                namedRanges?: object | undefined;
+                footers?: Record<string, Docs.Schema.Footer> | undefined;
+                footnotes?: Record<string, Docs.Schema.Footnote> | undefined;
+                headers?: Record<string, Docs.Schema.Header> | undefined;
+                inlineObjects?: Record<string, Docs.Schema.InlineObject> | undefined;
+                lists?: Record<string, Docs.Schema.List> | undefined;
+                namedRanges?: Record<string, Docs.Schema.NamedRanges> | undefined;
                 namedStyles?: Docs.Schema.NamedStyles | undefined;
-                positionedObjects?: object | undefined;
+                positionedObjects?: Record<string, Docs.Schema.PositionedObject> | undefined;
                 revisionId?: string | undefined;
-                suggestedDocumentStyleChanges?: object | undefined;
-                suggestedNamedStylesChanges?: object | undefined;
-                suggestionsViewMode?: string | undefined;
+                suggestedDocumentStyleChanges?:
+                    | Record<string, Docs.Schema.SuggestedDocumentStyle>
+                    | undefined;
+                suggestedNamedStylesChanges?: Record<string, Docs.Schema.SuggestedNamedStyles> | undefined;
+                suggestions?: Docs.Schema.SuggestionThread[] | undefined;
+                suggestionsViewMode?:
+                    | "DEFAULT_FOR_CURRENT_ACCESS"
+                    | "SUGGESTIONS_INLINE"
+                    | "PREVIEW_SUGGESTIONS_ACCEPTED"
+                    | "PREVIEW_WITHOUT_SUGGESTIONS"
+                    | undefined;
+                tabs?: Docs.Schema.Tab[] | undefined;
                 title?: string | undefined;
+            }
+            interface DocumentFormat {
+                documentMode?: "DOCUMENT_MODE_UNSPECIFIED" | "PAGES" | "PAGELESS" | undefined;
             }
             interface DocumentStyle {
                 background?: Docs.Schema.Background | undefined;
                 defaultFooterId?: string | undefined;
                 defaultHeaderId?: string | undefined;
+                documentFormat?: Docs.Schema.DocumentFormat | undefined;
                 evenPageFooterId?: string | undefined;
                 evenPageHeaderId?: string | undefined;
                 firstPageFooterId?: string | undefined;
                 firstPageHeaderId?: string | undefined;
+                flipPageOrientation?: boolean | undefined;
                 marginBottom?: Docs.Schema.Dimension | undefined;
+                marginFooter?: Docs.Schema.Dimension | undefined;
+                marginHeader?: Docs.Schema.Dimension | undefined;
                 marginLeft?: Docs.Schema.Dimension | undefined;
                 marginRight?: Docs.Schema.Dimension | undefined;
                 marginTop?: Docs.Schema.Dimension | undefined;
                 pageNumberStart?: number | undefined;
                 pageSize?: Docs.Schema.Size | undefined;
+                useCustomHeaderFooterMargins?: boolean | undefined;
                 useEvenPageHeaderFooter?: boolean | undefined;
                 useFirstPageHeaderFooter?: boolean | undefined;
             }
@@ -169,18 +340,87 @@ declare namespace GoogleAppsScript {
                 evenPageHeaderIdSuggested?: boolean | undefined;
                 firstPageFooterIdSuggested?: boolean | undefined;
                 firstPageHeaderIdSuggested?: boolean | undefined;
+                flipPageOrientationSuggested?: boolean | undefined;
                 marginBottomSuggested?: boolean | undefined;
+                marginFooterSuggested?: boolean | undefined;
+                marginHeaderSuggested?: boolean | undefined;
                 marginLeftSuggested?: boolean | undefined;
                 marginRightSuggested?: boolean | undefined;
                 marginTopSuggested?: boolean | undefined;
                 pageNumberStartSuggested?: boolean | undefined;
                 pageSizeSuggestionState?: Docs.Schema.SizeSuggestionState | undefined;
+                useCustomHeaderFooterMarginsSuggested?: boolean | undefined;
                 useEvenPageHeaderFooterSuggested?: boolean | undefined;
                 useFirstPageHeaderFooterSuggested?: boolean | undefined;
             }
+            interface DocumentTab {
+                body?: Docs.Schema.Body | undefined;
+                commentAnchors?: Record<string, Docs.Schema.CommentAnchor> | undefined;
+                documentStyle?: Docs.Schema.DocumentStyle | undefined;
+                dropdownDefinitions?: Record<string, Docs.Schema.DropdownDefinition> | undefined;
+                footers?: Record<string, Docs.Schema.Footer> | undefined;
+                footnotes?: Record<string, Docs.Schema.Footnote> | undefined;
+                headers?: Record<string, Docs.Schema.Header> | undefined;
+                inlineObjects?: Record<string, Docs.Schema.InlineObject> | undefined;
+                lists?: Record<string, Docs.Schema.List> | undefined;
+                namedRanges?: Record<string, Docs.Schema.NamedRanges> | undefined;
+                namedStyles?: Docs.Schema.NamedStyles | undefined;
+                positionedObjects?: Record<string, Docs.Schema.PositionedObject> | undefined;
+                suggestedDocumentStyleChanges?:
+                    | Record<string, Docs.Schema.SuggestedDocumentStyle>
+                    | undefined;
+                suggestedNamedStylesChanges?: Record<string, Docs.Schema.SuggestedNamedStyles> | undefined;
+            }
+            interface Dropdown {
+                dropdownId?: string | undefined;
+                dropdownProperties?: Docs.Schema.DropdownProperties | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedDropdownPropertiesChanges?:
+                    | Record<string, Docs.Schema.SuggestedDropdownProperties>
+                    | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
+                textStyle?: Docs.Schema.TextStyle | undefined;
+            }
+            interface DropdownDefinition {
+                dropdownDefinitionId?: string | undefined;
+                dropdownDefinitionProperties?: Docs.Schema.DropdownDefinitionProperties | undefined;
+                suggestedDeletionId?: string | undefined;
+                suggestedDropdownDefinitionPropertiesChanges?:
+                    | Record<string, Docs.Schema.SuggestedDropdownDefinitionProperties>
+                    | undefined;
+                suggestedInsertionId?: string | undefined;
+            }
+            interface DropdownDefinitionProperties {
+                options?: Docs.Schema.DropdownOption[] | undefined;
+                title?: string | undefined;
+            }
+            interface DropdownDefinitionPropertiesSuggestionState {
+                optionsSuggested?: boolean | undefined;
+                titleSuggested?: boolean | undefined;
+            }
+            interface DropdownOption {
+                displayValue?: string | undefined;
+                optionId?: string | undefined;
+                textStyle?: Docs.Schema.TextStyle | undefined;
+            }
+            interface DropdownProperties {
+                displayValue?: string | undefined;
+                dropdownDefinitionId?: string | undefined;
+                selectedOptionId?: string | undefined;
+            }
+            interface DropdownPropertiesSuggestionState {
+                selectedOptionIdSuggested?: boolean | undefined;
+            }
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
+            interface EmbeddedDrawingProperties {
+            }
+            // eslint-disable-next-line @typescript-eslint/no-empty-interface
+            interface EmbeddedDrawingPropertiesSuggestionState {
+            }
             interface EmbeddedObject {
                 description?: string | undefined;
-                embeddedDrawingProperties?: any;
+                embeddedDrawingProperties?: Docs.Schema.EmbeddedDrawingProperties | undefined;
                 embeddedObjectBorder?: Docs.Schema.EmbeddedObjectBorder | undefined;
                 imageProperties?: Docs.Schema.ImageProperties | undefined;
                 linkedContentReference?: Docs.Schema.LinkedContentReference | undefined;
@@ -193,8 +433,8 @@ declare namespace GoogleAppsScript {
             }
             interface EmbeddedObjectBorder {
                 color?: Docs.Schema.OptionalColor | undefined;
-                dashStyle?: string | undefined;
-                propertyState?: string | undefined;
+                dashStyle?: "DASH_STYLE_UNSPECIFIED" | "SOLID" | "DOT" | "DASH" | undefined;
+                propertyState?: "RENDERED" | "NOT_RENDERED" | undefined;
                 width?: Docs.Schema.Dimension | undefined;
             }
             interface EmbeddedObjectBorderSuggestionState {
@@ -205,10 +445,16 @@ declare namespace GoogleAppsScript {
             }
             interface EmbeddedObjectSuggestionState {
                 descriptionSuggested?: boolean | undefined;
-                embeddedDrawingPropertiesSuggestionState?: any;
-                embeddedObjectBorderSuggestionState?: Docs.Schema.EmbeddedObjectBorderSuggestionState | undefined;
+                embeddedDrawingPropertiesSuggestionState?:
+                    | Docs.Schema.EmbeddedDrawingPropertiesSuggestionState
+                    | undefined;
+                embeddedObjectBorderSuggestionState?:
+                    | Docs.Schema.EmbeddedObjectBorderSuggestionState
+                    | undefined;
                 imagePropertiesSuggestionState?: Docs.Schema.ImagePropertiesSuggestionState | undefined;
-                linkedContentReferenceSuggestionState?: Docs.Schema.LinkedContentReferenceSuggestionState | undefined;
+                linkedContentReferenceSuggestionState?:
+                    | Docs.Schema.LinkedContentReferenceSuggestionState
+                    | undefined;
                 marginBottomSuggested?: boolean | undefined;
                 marginLeftSuggested?: boolean | undefined;
                 marginRightSuggested?: boolean | undefined;
@@ -218,10 +464,11 @@ declare namespace GoogleAppsScript {
             }
             interface EndOfSegmentLocation {
                 segmentId?: string | undefined;
+                tabId?: string | undefined;
             }
             interface Equation {
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
             }
             interface Footer {
                 content?: Docs.Schema.StructuralElement[] | undefined;
@@ -234,19 +481,23 @@ declare namespace GoogleAppsScript {
             interface FootnoteReference {
                 footnoteId?: string | undefined;
                 footnoteNumber?: string | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTextStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
             }
             interface Header {
                 content?: Docs.Schema.StructuralElement[] | undefined;
                 headerId?: string | undefined;
             }
+            interface HeadingLink {
+                id?: string | undefined;
+                tabId?: string | undefined;
+            }
             interface HorizontalRule {
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTextStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
             }
             interface ImageProperties {
@@ -270,15 +521,17 @@ declare namespace GoogleAppsScript {
             interface InlineObject {
                 inlineObjectProperties?: Docs.Schema.InlineObjectProperties | undefined;
                 objectId?: string | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInlineObjectPropertiesChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInlineObjectPropertiesChanges?:
+                    | Record<string, Docs.Schema.SuggestedInlineObjectProperties>
+                    | undefined;
                 suggestedInsertionId?: string | undefined;
             }
             interface InlineObjectElement {
                 inlineObjectId?: string | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTextStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
             }
             interface InlineObjectProperties {
@@ -286,6 +539,28 @@ declare namespace GoogleAppsScript {
             }
             interface InlineObjectPropertiesSuggestionState {
                 embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState | undefined;
+            }
+            interface InsertCommentRequest {
+                assigneeEmailAddress?: string | undefined;
+                content?: string | undefined;
+                range?: Docs.Schema.Range | undefined;
+            }
+            interface InsertCommentResponse {
+                commentThread?: Docs.Schema.CommentThread | undefined;
+            }
+            interface InsertDateRequest {
+                dateElementProperties?: Docs.Schema.DateElementProperties | undefined;
+                endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+                location?: Docs.Schema.Location | undefined;
+            }
+            interface InsertDropdownRequest {
+                dropdownDefinitionId?: string | undefined;
+                endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+                location?: Docs.Schema.Location | undefined;
+                selectedOptionId?: string | undefined;
+            }
+            interface InsertDropdownResponse {
+                dropdown?: Docs.Schema.Dropdown | undefined;
             }
             interface InsertInlineImageRequest {
                 endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
@@ -303,6 +578,25 @@ declare namespace GoogleAppsScript {
                 endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
                 location?: Docs.Schema.Location | undefined;
             }
+            interface InsertPersonRequest {
+                endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+                location?: Docs.Schema.Location | undefined;
+                personProperties?: Docs.Schema.PersonProperties | undefined;
+            }
+            interface InsertRichLinkRequest {
+                endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+                location?: Docs.Schema.Location | undefined;
+                richLinkProperties?: Docs.Schema.RichLinkProperties | undefined;
+            }
+            interface InsertSectionBreakRequest {
+                endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
+                location?: Docs.Schema.Location | undefined;
+                sectionType?: "SECTION_TYPE_UNSPECIFIED" | "CONTINUOUS" | "NEXT_PAGE" | undefined;
+            }
+            interface InsertTableColumnRequest {
+                insertRight?: boolean | undefined;
+                tableCellLocation?: Docs.Schema.TableCellLocation | undefined;
+            }
             interface InsertTableRequest {
                 columns?: number | undefined;
                 endOfSegmentLocation?: Docs.Schema.EndOfSegmentLocation | undefined;
@@ -319,21 +613,28 @@ declare namespace GoogleAppsScript {
                 text?: string | undefined;
             }
             interface Link {
+                bookmark?: Docs.Schema.BookmarkLink | undefined;
                 bookmarkId?: string | undefined;
+                heading?: Docs.Schema.HeadingLink | undefined;
                 headingId?: string | undefined;
+                tabId?: string | undefined;
                 url?: string | undefined;
             }
             interface LinkedContentReference {
                 sheetsChartReference?: Docs.Schema.SheetsChartReference | undefined;
             }
             interface LinkedContentReferenceSuggestionState {
-                sheetsChartReferenceSuggestionState?: Docs.Schema.SheetsChartReferenceSuggestionState | undefined;
+                sheetsChartReferenceSuggestionState?:
+                    | Docs.Schema.SheetsChartReferenceSuggestionState
+                    | undefined;
             }
             interface List {
                 listProperties?: Docs.Schema.ListProperties | undefined;
-                suggestedDeletionIds?: string[] | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
                 suggestedInsertionId?: string | undefined;
-                suggestedListPropertiesChanges?: object | undefined;
+                suggestedListPropertiesChanges?:
+                    | Record<string, Docs.Schema.SuggestedListProperties>
+                    | undefined;
             }
             interface ListProperties {
                 nestingLevels?: Docs.Schema.NestingLevel[] | undefined;
@@ -344,6 +645,10 @@ declare namespace GoogleAppsScript {
             interface Location {
                 index?: number | undefined;
                 segmentId?: string | undefined;
+                tabId?: string | undefined;
+            }
+            interface MergeTableCellsRequest {
+                tableRange?: Docs.Schema.TableRange | undefined;
             }
             interface NamedRange {
                 name?: string | undefined;
@@ -355,14 +660,20 @@ declare namespace GoogleAppsScript {
                 namedRanges?: Docs.Schema.NamedRange[] | undefined;
             }
             interface NamedStyle {
-                namedStyleType?: string | undefined;
+                namedStyleType?:
+                    | "NAMED_STYLE_TYPE_UNSPECIFIED"
+                    | "NORMAL_TEXT"
+                    | "TITLE"
+                    | "SUBTITLE"
+                    | "HEADING_1"
+                    | "HEADING_2"
+                    | "HEADING_3"
+                    | "HEADING_4"
+                    | "HEADING_5"
+                    | "HEADING_6"
+                    | undefined;
                 paragraphStyle?: Docs.Schema.ParagraphStyle | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
-            }
-            interface NamedStyleSuggestionState {
-                namedStyleType?: string | undefined;
-                paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState | undefined;
-                textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
             }
             interface NamedStyles {
                 styles?: Docs.Schema.NamedStyle[] | undefined;
@@ -370,11 +681,36 @@ declare namespace GoogleAppsScript {
             interface NamedStylesSuggestionState {
                 stylesSuggestionStates?: Docs.Schema.NamedStyleSuggestionState[] | undefined;
             }
+            interface NamedStyleSuggestionState {
+                namedStyleType?:
+                    | "NAMED_STYLE_TYPE_UNSPECIFIED"
+                    | "NORMAL_TEXT"
+                    | "TITLE"
+                    | "SUBTITLE"
+                    | "HEADING_1"
+                    | "HEADING_2"
+                    | "HEADING_3"
+                    | "HEADING_4"
+                    | "HEADING_5"
+                    | "HEADING_6"
+                    | undefined;
+                paragraphStyleSuggestionState?: Docs.Schema.ParagraphStyleSuggestionState | undefined;
+                textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
+            }
             interface NestingLevel {
-                bulletAlignment?: string | undefined;
+                bulletAlignment?: "BULLET_ALIGNMENT_UNSPECIFIED" | "START" | "CENTER" | "END" | undefined;
                 glyphFormat?: string | undefined;
                 glyphSymbol?: string | undefined;
-                glyphType?: string | undefined;
+                glyphType?:
+                    | "GLYPH_TYPE_UNSPECIFIED"
+                    | "NONE"
+                    | "DECIMAL"
+                    | "ZERO_DECIMAL"
+                    | "UPPER_ALPHA"
+                    | "ALPHA"
+                    | "UPPER_ROMAN"
+                    | "ROMAN"
+                    | undefined;
                 indentFirstLine?: Docs.Schema.Dimension | undefined;
                 indentStart?: Docs.Schema.Dimension | undefined;
                 startNumber?: number | undefined;
@@ -391,53 +727,59 @@ declare namespace GoogleAppsScript {
                 textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
             }
             interface ObjectReferences {
-                objectIds?: string[] | undefined;
+                objectIds?: Array<string> | undefined;
             }
             interface OptionalColor {
                 color?: Docs.Schema.Color | undefined;
             }
             interface PageBreak {
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTextStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
             }
             interface Paragraph {
                 bullet?: Docs.Schema.Bullet | undefined;
                 elements?: Docs.Schema.ParagraphElement[] | undefined;
                 paragraphStyle?: Docs.Schema.ParagraphStyle | undefined;
-                positionedObjectIds?: string[] | undefined;
-                suggestedBulletChanges?: object | undefined;
-                suggestedParagraphStyleChanges?: object | undefined;
-                suggestedPositionedObjectIds?: object | undefined;
+                positionedObjectIds?: Array<string> | undefined;
+                suggestedBulletChanges?: Record<string, Docs.Schema.SuggestedBullet> | undefined;
+                suggestedParagraphStyleChanges?:
+                    | Record<string, Docs.Schema.SuggestedParagraphStyle>
+                    | undefined;
+                suggestedPositionedObjectIds?: Record<string, Docs.Schema.ObjectReferences> | undefined;
             }
             interface ParagraphBorder {
                 color?: Docs.Schema.OptionalColor | undefined;
-                dashStyle?: string | undefined;
+                dashStyle?: "DASH_STYLE_UNSPECIFIED" | "SOLID" | "DOT" | "DASH" | undefined;
                 padding?: Docs.Schema.Dimension | undefined;
                 width?: Docs.Schema.Dimension | undefined;
             }
             interface ParagraphElement {
                 autoText?: Docs.Schema.AutoText | undefined;
                 columnBreak?: Docs.Schema.ColumnBreak | undefined;
+                dateElement?: Docs.Schema.DateElement | undefined;
+                dropdown?: Docs.Schema.Dropdown | undefined;
                 endIndex?: number | undefined;
                 equation?: Docs.Schema.Equation | undefined;
                 footnoteReference?: Docs.Schema.FootnoteReference | undefined;
                 horizontalRule?: Docs.Schema.HorizontalRule | undefined;
                 inlineObjectElement?: Docs.Schema.InlineObjectElement | undefined;
                 pageBreak?: Docs.Schema.PageBreak | undefined;
+                person?: Docs.Schema.Person | undefined;
+                richLink?: Docs.Schema.RichLink | undefined;
                 startIndex?: number | undefined;
                 textRun?: Docs.Schema.TextRun | undefined;
             }
             interface ParagraphStyle {
-                alignment?: string | undefined;
+                alignment?: "ALIGNMENT_UNSPECIFIED" | "START" | "CENTER" | "END" | "JUSTIFIED" | undefined;
                 avoidWidowAndOrphan?: boolean | undefined;
                 borderBetween?: Docs.Schema.ParagraphBorder | undefined;
                 borderBottom?: Docs.Schema.ParagraphBorder | undefined;
                 borderLeft?: Docs.Schema.ParagraphBorder | undefined;
                 borderRight?: Docs.Schema.ParagraphBorder | undefined;
                 borderTop?: Docs.Schema.ParagraphBorder | undefined;
-                direction?: string | undefined;
+                direction?: "CONTENT_DIRECTION_UNSPECIFIED" | "LEFT_TO_RIGHT" | "RIGHT_TO_LEFT" | undefined;
                 headingId?: string | undefined;
                 indentEnd?: Docs.Schema.Dimension | undefined;
                 indentFirstLine?: Docs.Schema.Dimension | undefined;
@@ -445,11 +787,23 @@ declare namespace GoogleAppsScript {
                 keepLinesTogether?: boolean | undefined;
                 keepWithNext?: boolean | undefined;
                 lineSpacing?: number | undefined;
-                namedStyleType?: string | undefined;
+                namedStyleType?:
+                    | "NAMED_STYLE_TYPE_UNSPECIFIED"
+                    | "NORMAL_TEXT"
+                    | "TITLE"
+                    | "SUBTITLE"
+                    | "HEADING_1"
+                    | "HEADING_2"
+                    | "HEADING_3"
+                    | "HEADING_4"
+                    | "HEADING_5"
+                    | "HEADING_6"
+                    | undefined;
+                pageBreakBefore?: boolean | undefined;
                 shading?: Docs.Schema.Shading | undefined;
                 spaceAbove?: Docs.Schema.Dimension | undefined;
                 spaceBelow?: Docs.Schema.Dimension | undefined;
-                spacingMode?: string | undefined;
+                spacingMode?: "SPACING_MODE_UNSPECIFIED" | "NEVER_COLLAPSE" | "COLLAPSE_LISTS" | undefined;
                 tabStops?: Docs.Schema.TabStop[] | undefined;
             }
             interface ParagraphStyleSuggestionState {
@@ -469,20 +823,47 @@ declare namespace GoogleAppsScript {
                 keepWithNextSuggested?: boolean | undefined;
                 lineSpacingSuggested?: boolean | undefined;
                 namedStyleTypeSuggested?: boolean | undefined;
+                pageBreakBeforeSuggested?: boolean | undefined;
                 shadingSuggestionState?: Docs.Schema.ShadingSuggestionState | undefined;
                 spaceAboveSuggested?: boolean | undefined;
                 spaceBelowSuggested?: boolean | undefined;
                 spacingModeSuggested?: boolean | undefined;
             }
+            interface Person {
+                personId?: string | undefined;
+                personProperties?: Docs.Schema.PersonProperties | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
+                textStyle?: Docs.Schema.TextStyle | undefined;
+            }
+            interface PersonProperties {
+                email?: string | undefined;
+                name?: string | undefined;
+            }
+            interface PinTableHeaderRowsRequest {
+                pinnedHeaderRowsCount?: number | undefined;
+                tableStartLocation?: Docs.Schema.Location | undefined;
+            }
             interface PositionedObject {
                 objectId?: string | undefined;
                 positionedObjectProperties?: Docs.Schema.PositionedObjectProperties | undefined;
-                suggestedDeletionIds?: string[] | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
                 suggestedInsertionId?: string | undefined;
-                suggestedPositionedObjectPropertiesChanges?: object | undefined;
+                suggestedPositionedObjectPropertiesChanges?:
+                    | Record<string, Docs.Schema.SuggestedPositionedObjectProperties>
+                    | undefined;
             }
             interface PositionedObjectPositioning {
-                layout?: string | undefined;
+                layout?:
+                    | "POSITIONED_OBJECT_LAYOUT_UNSPECIFIED"
+                    | "WRAP_TEXT"
+                    | "BREAK_LEFT"
+                    | "BREAK_RIGHT"
+                    | "BREAK_LEFT_RIGHT"
+                    | "IN_FRONT_OF_TEXT"
+                    | "BEHIND_TEXT"
+                    | undefined;
                 leftOffset?: Docs.Schema.Dimension | undefined;
                 topOffset?: Docs.Schema.Dimension | undefined;
             }
@@ -497,40 +878,137 @@ declare namespace GoogleAppsScript {
             }
             interface PositionedObjectPropertiesSuggestionState {
                 embeddedObjectSuggestionState?: Docs.Schema.EmbeddedObjectSuggestionState | undefined;
-                positioningSuggestionState?: Docs.Schema.PositionedObjectPositioningSuggestionState | undefined;
+                positioningSuggestionState?:
+                    | Docs.Schema.PositionedObjectPositioningSuggestionState
+                    | undefined;
+            }
+            interface Post {
+                assigneeEmail?: string | undefined;
+                author?: Docs.Schema.PostAuthor | undefined;
+                commentAction?:
+                    | "COMMENT_ACTION_TYPE_UNSPECIFIED"
+                    | "NO_COMMENT_ACTION_CHANGE"
+                    | "RESOLVE"
+                    | "REOPEN"
+                    | undefined;
+                content?: string | undefined;
+                contentHtml?: string | undefined;
+                createTime?: string | undefined;
+                deleted?: boolean | undefined;
+                fromCopiedDocument?: boolean | undefined;
+                fromDocumentComparison?: boolean | undefined;
+                fromImportedDocument?: boolean | undefined;
+                postId?: string | undefined;
+                suggestionAction?:
+                    | "SUGGESTION_ACTION_TYPE_UNSPECIFIED"
+                    | "NO_SUGGESTION_ACTION_CHANGE"
+                    | "ACCEPT"
+                    | "REJECT"
+                    | undefined;
+                updateTime?: string | undefined;
+            }
+            interface PostAuthor {
+                anonymous?: boolean | undefined;
+                displayName?: string | undefined;
+                me?: boolean | undefined;
+                user?: string | undefined;
             }
             interface Range {
                 endIndex?: number | undefined;
                 segmentId?: string | undefined;
                 startIndex?: number | undefined;
+                tabId?: string | undefined;
+            }
+            interface RejectSuggestionRequest {
+                suggestionId?: string | undefined;
             }
             interface ReplaceAllTextRequest {
                 containsText?: Docs.Schema.SubstringMatchCriteria | undefined;
                 replaceText?: string | undefined;
+                tabsCriteria?: Docs.Schema.TabsCriteria | undefined;
             }
             interface ReplaceAllTextResponse {
                 occurrencesChanged?: number | undefined;
             }
+            interface ReplaceImageRequest {
+                imageObjectId?: string | undefined;
+                imageReplaceMethod?: "IMAGE_REPLACE_METHOD_UNSPECIFIED" | "CENTER_CROP" | undefined;
+                tabId?: string | undefined;
+                uri?: string | undefined;
+            }
+            interface ReplaceNamedRangeContentRequest {
+                namedRangeId?: string | undefined;
+                namedRangeName?: string | undefined;
+                tabsCriteria?: Docs.Schema.TabsCriteria | undefined;
+                text?: string | undefined;
+            }
             interface Request {
+                acceptSuggestion?: Docs.Schema.AcceptSuggestionRequest | undefined;
+                addCommentReply?: Docs.Schema.AddCommentReplyRequest | undefined;
+                addDocumentTab?: Docs.Schema.AddDocumentTabRequest | undefined;
+                createDropdownDefinition?: Docs.Schema.CreateDropdownDefinitionRequest | undefined;
+                createFooter?: Docs.Schema.CreateFooterRequest | undefined;
+                createFootnote?: Docs.Schema.CreateFootnoteRequest | undefined;
+                createHeader?: Docs.Schema.CreateHeaderRequest | undefined;
                 createNamedRange?: Docs.Schema.CreateNamedRangeRequest | undefined;
                 createParagraphBullets?: Docs.Schema.CreateParagraphBulletsRequest | undefined;
+                deleteComment?: Docs.Schema.DeleteCommentRequest | undefined;
+                deleteCommentReply?: Docs.Schema.DeleteCommentReplyRequest | undefined;
                 deleteContentRange?: Docs.Schema.DeleteContentRangeRequest | undefined;
+                deleteDropdownDefinition?: Docs.Schema.DeleteDropdownDefinitionRequest | undefined;
+                deleteFooter?: Docs.Schema.DeleteFooterRequest | undefined;
+                deleteHeader?: Docs.Schema.DeleteHeaderRequest | undefined;
                 deleteNamedRange?: Docs.Schema.DeleteNamedRangeRequest | undefined;
                 deleteParagraphBullets?: Docs.Schema.DeleteParagraphBulletsRequest | undefined;
                 deletePositionedObject?: Docs.Schema.DeletePositionedObjectRequest | undefined;
+                deleteSuggestion?: Docs.Schema.DeleteSuggestionRequest | undefined;
+                deleteTab?: Docs.Schema.DeleteTabRequest | undefined;
                 deleteTableColumn?: Docs.Schema.DeleteTableColumnRequest | undefined;
                 deleteTableRow?: Docs.Schema.DeleteTableRowRequest | undefined;
+                insertComment?: Docs.Schema.InsertCommentRequest | undefined;
+                insertDate?: Docs.Schema.InsertDateRequest | undefined;
+                insertDropdown?: Docs.Schema.InsertDropdownRequest | undefined;
                 insertInlineImage?: Docs.Schema.InsertInlineImageRequest | undefined;
                 insertPageBreak?: Docs.Schema.InsertPageBreakRequest | undefined;
+                insertPerson?: Docs.Schema.InsertPersonRequest | undefined;
+                insertRichLink?: Docs.Schema.InsertRichLinkRequest | undefined;
+                insertSectionBreak?: Docs.Schema.InsertSectionBreakRequest | undefined;
                 insertTable?: Docs.Schema.InsertTableRequest | undefined;
+                insertTableColumn?: Docs.Schema.InsertTableColumnRequest | undefined;
                 insertTableRow?: Docs.Schema.InsertTableRowRequest | undefined;
                 insertText?: Docs.Schema.InsertTextRequest | undefined;
+                mergeTableCells?: Docs.Schema.MergeTableCellsRequest | undefined;
+                pinTableHeaderRows?: Docs.Schema.PinTableHeaderRowsRequest | undefined;
+                rejectSuggestion?: Docs.Schema.RejectSuggestionRequest | undefined;
                 replaceAllText?: Docs.Schema.ReplaceAllTextRequest | undefined;
+                replaceImage?: Docs.Schema.ReplaceImageRequest | undefined;
+                replaceNamedRangeContent?: Docs.Schema.ReplaceNamedRangeContentRequest | undefined;
+                unmergeTableCells?: Docs.Schema.UnmergeTableCellsRequest | undefined;
+                updateCommentPost?: Docs.Schema.UpdateCommentPostRequest | undefined;
+                updateDocumentStyle?: Docs.Schema.UpdateDocumentStyleRequest | undefined;
+                updateDocumentTabProperties?: Docs.Schema.UpdateDocumentTabPropertiesRequest | undefined;
+                updateDropdownDefinitionProperties?:
+                    | Docs.Schema.UpdateDropdownDefinitionPropertiesRequest
+                    | undefined;
+                updateDropdownProperties?: Docs.Schema.UpdateDropdownPropertiesRequest | undefined;
+                updateNamedStyle?: Docs.Schema.UpdateNamedStyleRequest | undefined;
                 updateParagraphStyle?: Docs.Schema.UpdateParagraphStyleRequest | undefined;
+                updateSectionStyle?: Docs.Schema.UpdateSectionStyleRequest | undefined;
+                updateTableCellStyle?: Docs.Schema.UpdateTableCellStyleRequest | undefined;
+                updateTableColumnProperties?: Docs.Schema.UpdateTableColumnPropertiesRequest | undefined;
+                updateTableRowStyle?: Docs.Schema.UpdateTableRowStyleRequest | undefined;
                 updateTextStyle?: Docs.Schema.UpdateTextStyleRequest | undefined;
             }
             interface Response {
+                addCommentReply?: Docs.Schema.AddCommentReplyResponse | undefined;
+                addDocumentTab?: Docs.Schema.AddDocumentTabResponse | undefined;
+                createDropdownDefinition?: Docs.Schema.CreateDropdownDefinitionResponse | undefined;
+                createFooter?: Docs.Schema.CreateFooterResponse | undefined;
+                createFootnote?: Docs.Schema.CreateFootnoteResponse | undefined;
+                createHeader?: Docs.Schema.CreateHeaderResponse | undefined;
                 createNamedRange?: Docs.Schema.CreateNamedRangeResponse | undefined;
+                insertComment?: Docs.Schema.InsertCommentResponse | undefined;
+                insertDropdown?: Docs.Schema.InsertDropdownResponse | undefined;
                 insertInlineImage?: Docs.Schema.InsertInlineImageResponse | undefined;
                 insertInlineSheetsChart?: Docs.Schema.InsertInlineSheetsChartResponse | undefined;
                 replaceAllText?: Docs.Schema.ReplaceAllTextResponse | undefined;
@@ -540,10 +1018,23 @@ declare namespace GoogleAppsScript {
                 green?: number | undefined;
                 red?: number | undefined;
             }
+            interface RichLink {
+                richLinkId?: string | undefined;
+                richLinkProperties?: Docs.Schema.RichLinkProperties | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
+                textStyle?: Docs.Schema.TextStyle | undefined;
+            }
+            interface RichLinkProperties {
+                mimeType?: string | undefined;
+                title?: string | undefined;
+                uri?: string | undefined;
+            }
             interface SectionBreak {
                 sectionStyle?: Docs.Schema.SectionStyle | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
             }
             interface SectionColumnProperties {
                 paddingEnd?: Docs.Schema.Dimension | undefined;
@@ -551,8 +1042,28 @@ declare namespace GoogleAppsScript {
             }
             interface SectionStyle {
                 columnProperties?: Docs.Schema.SectionColumnProperties[] | undefined;
-                columnSeparatorStyle?: string | undefined;
-                contentDirection?: string | undefined;
+                columnSeparatorStyle?:
+                    | "COLUMN_SEPARATOR_STYLE_UNSPECIFIED"
+                    | "NONE"
+                    | "BETWEEN_EACH_COLUMN"
+                    | undefined;
+                contentDirection?: "CONTENT_DIRECTION_UNSPECIFIED" | "LEFT_TO_RIGHT" | "RIGHT_TO_LEFT" | undefined;
+                defaultFooterId?: string | undefined;
+                defaultHeaderId?: string | undefined;
+                evenPageFooterId?: string | undefined;
+                evenPageHeaderId?: string | undefined;
+                firstPageFooterId?: string | undefined;
+                firstPageHeaderId?: string | undefined;
+                flipPageOrientation?: boolean | undefined;
+                marginBottom?: Docs.Schema.Dimension | undefined;
+                marginFooter?: Docs.Schema.Dimension | undefined;
+                marginHeader?: Docs.Schema.Dimension | undefined;
+                marginLeft?: Docs.Schema.Dimension | undefined;
+                marginRight?: Docs.Schema.Dimension | undefined;
+                marginTop?: Docs.Schema.Dimension | undefined;
+                pageNumberStart?: number | undefined;
+                sectionType?: "SECTION_TYPE_UNSPECIFIED" | "CONTINUOUS" | "NEXT_PAGE" | undefined;
+                useFirstPageHeaderFooter?: boolean | undefined;
             }
             interface Shading {
                 backgroundColor?: Docs.Schema.OptionalColor | undefined;
@@ -586,19 +1097,40 @@ declare namespace GoogleAppsScript {
             }
             interface SubstringMatchCriteria {
                 matchCase?: boolean | undefined;
+                searchByRegex?: boolean | undefined;
                 text?: string | undefined;
             }
             interface SuggestedBullet {
                 bullet?: Docs.Schema.Bullet | undefined;
                 bulletSuggestionState?: Docs.Schema.BulletSuggestionState | undefined;
             }
+            interface SuggestedDateElementProperties {
+                dateElementProperties?: Docs.Schema.DateElementProperties | undefined;
+                dateElementPropertiesSuggestionState?:
+                    | Docs.Schema.DateElementPropertiesSuggestionState
+                    | undefined;
+            }
             interface SuggestedDocumentStyle {
                 documentStyle?: Docs.Schema.DocumentStyle | undefined;
                 documentStyleSuggestionState?: Docs.Schema.DocumentStyleSuggestionState | undefined;
             }
+            interface SuggestedDropdownDefinitionProperties {
+                dropdownDefinitionProperties?: Docs.Schema.DropdownDefinitionProperties | undefined;
+                dropdownDefinitionPropertiesSuggestionState?:
+                    | Docs.Schema.DropdownDefinitionPropertiesSuggestionState
+                    | undefined;
+            }
+            interface SuggestedDropdownProperties {
+                dropdownProperties?: Docs.Schema.DropdownProperties | undefined;
+                dropdownPropertiesSuggestionState?:
+                    | Docs.Schema.DropdownPropertiesSuggestionState
+                    | undefined;
+            }
             interface SuggestedInlineObjectProperties {
                 inlineObjectProperties?: Docs.Schema.InlineObjectProperties | undefined;
-                inlineObjectPropertiesSuggestionState?: Docs.Schema.InlineObjectPropertiesSuggestionState | undefined;
+                inlineObjectPropertiesSuggestionState?:
+                    | Docs.Schema.InlineObjectPropertiesSuggestionState
+                    | undefined;
             }
             interface SuggestedListProperties {
                 listProperties?: Docs.Schema.ListProperties | undefined;
@@ -630,15 +1162,31 @@ declare namespace GoogleAppsScript {
                 textStyle?: Docs.Schema.TextStyle | undefined;
                 textStyleSuggestionState?: Docs.Schema.TextStyleSuggestionState | undefined;
             }
-            interface TabStop {
-                alignment?: string | undefined;
-                offset?: Docs.Schema.Dimension | undefined;
+            interface SuggestionResponse {
+                acceptedSuggestionIds?: Array<string> | undefined;
+                createdSuggestionIds?: Array<string> | undefined;
+                deletedSuggestionIds?: Array<string> | undefined;
+                rejectedSuggestionIds?: Array<string> | undefined;
+                updatedSummarySuggestionIds?: Array<string> | undefined;
+            }
+            interface SuggestionThread {
+                headPost?: Docs.Schema.Post | undefined;
+                replies?: Docs.Schema.Post[] | undefined;
+                status?: "STATUS_UNSPECIFIED" | "OPEN" | "ACCEPTED" | "REJECTED" | undefined;
+                suggestionId?: string | undefined;
+                summaryHtml?: string | undefined;
+                summaryText?: string | undefined;
+            }
+            interface Tab {
+                childTabs?: Docs.Schema.Tab[] | undefined;
+                documentTab?: Docs.Schema.DocumentTab | undefined;
+                tabProperties?: Docs.Schema.TabProperties | undefined;
             }
             interface Table {
                 columns?: number | undefined;
                 rows?: number | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
                 tableRows?: Docs.Schema.TableRow[] | undefined;
                 tableStyle?: Docs.Schema.TableStyle | undefined;
             }
@@ -646,14 +1194,16 @@ declare namespace GoogleAppsScript {
                 content?: Docs.Schema.StructuralElement[] | undefined;
                 endIndex?: number | undefined;
                 startIndex?: number | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTableCellStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTableCellStyleChanges?:
+                    | Record<string, Docs.Schema.SuggestedTableCellStyle>
+                    | undefined;
                 tableCellStyle?: Docs.Schema.TableCellStyle | undefined;
             }
             interface TableCellBorder {
                 color?: Docs.Schema.OptionalColor | undefined;
-                dashStyle?: string | undefined;
+                dashStyle?: "DASH_STYLE_UNSPECIFIED" | "SOLID" | "DOT" | "DASH" | undefined;
                 width?: Docs.Schema.Dimension | undefined;
             }
             interface TableCellLocation {
@@ -668,7 +1218,13 @@ declare namespace GoogleAppsScript {
                 borderRight?: Docs.Schema.TableCellBorder | undefined;
                 borderTop?: Docs.Schema.TableCellBorder | undefined;
                 columnSpan?: number | undefined;
-                contentAlignment?: string | undefined;
+                contentAlignment?:
+                    | "CONTENT_ALIGNMENT_UNSPECIFIED"
+                    | "CONTENT_ALIGNMENT_UNSUPPORTED"
+                    | "TOP"
+                    | "MIDDLE"
+                    | "BOTTOM"
+                    | undefined;
                 paddingBottom?: Docs.Schema.Dimension | undefined;
                 paddingLeft?: Docs.Schema.Dimension | undefined;
                 paddingRight?: Docs.Schema.Dimension | undefined;
@@ -691,24 +1247,33 @@ declare namespace GoogleAppsScript {
             }
             interface TableColumnProperties {
                 width?: Docs.Schema.Dimension | undefined;
-                widthType?: string | undefined;
+                widthType?: "WIDTH_TYPE_UNSPECIFIED" | "EVENLY_DISTRIBUTED" | "FIXED_WIDTH" | undefined;
             }
             interface TableOfContents {
                 content?: Docs.Schema.StructuralElement[] | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+            }
+            interface TableRange {
+                columnSpan?: number | undefined;
+                rowSpan?: number | undefined;
+                tableCellLocation?: Docs.Schema.TableCellLocation | undefined;
             }
             interface TableRow {
                 endIndex?: number | undefined;
                 startIndex?: number | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTableRowStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTableRowStyleChanges?:
+                    | Record<string, Docs.Schema.SuggestedTableRowStyle>
+                    | undefined;
                 tableCells?: Docs.Schema.TableCell[] | undefined;
                 tableRowStyle?: Docs.Schema.TableRowStyle | undefined;
             }
             interface TableRowStyle {
                 minRowHeight?: Docs.Schema.Dimension | undefined;
+                preventOverflow?: boolean | undefined;
+                tableHeader?: boolean | undefined;
             }
             interface TableRowStyleSuggestionState {
                 minRowHeightSuggested?: boolean | undefined;
@@ -716,16 +1281,31 @@ declare namespace GoogleAppsScript {
             interface TableStyle {
                 tableColumnProperties?: Docs.Schema.TableColumnProperties[] | undefined;
             }
+            interface TabProperties {
+                iconEmoji?: string | undefined;
+                index?: number | undefined;
+                nestingLevel?: number | undefined;
+                parentTabId?: string | undefined;
+                tabId?: string | undefined;
+                title?: string | undefined;
+            }
+            interface TabsCriteria {
+                tabIds?: Array<string> | undefined;
+            }
+            interface TabStop {
+                alignment?: "TAB_STOP_ALIGNMENT_UNSPECIFIED" | "START" | "CENTER" | "END" | undefined;
+                offset?: Docs.Schema.Dimension | undefined;
+            }
             interface TextRun {
                 content?: string | undefined;
-                suggestedDeletionIds?: string[] | undefined;
-                suggestedInsertionIds?: string[] | undefined;
-                suggestedTextStyleChanges?: object | undefined;
+                suggestedDeletionIds?: Array<string> | undefined;
+                suggestedInsertionIds?: Array<string> | undefined;
+                suggestedTextStyleChanges?: Record<string, Docs.Schema.SuggestedTextStyle> | undefined;
                 textStyle?: Docs.Schema.TextStyle | undefined;
             }
             interface TextStyle {
                 backgroundColor?: Docs.Schema.OptionalColor | undefined;
-                baselineOffset?: string | undefined;
+                baselineOffset?: "BASELINE_OFFSET_UNSPECIFIED" | "NONE" | "SUPERSCRIPT" | "SUBSCRIPT" | undefined;
                 bold?: boolean | undefined;
                 fontSize?: Docs.Schema.Dimension | undefined;
                 foregroundColor?: Docs.Schema.OptionalColor | undefined;
@@ -749,10 +1329,69 @@ declare namespace GoogleAppsScript {
                 underlineSuggested?: boolean | undefined;
                 weightedFontFamilySuggested?: boolean | undefined;
             }
+            interface UnmergeTableCellsRequest {
+                tableRange?: Docs.Schema.TableRange | undefined;
+            }
+            interface UpdateCommentPostRequest {
+                commentId?: string | undefined;
+                content?: string | undefined;
+                postId?: string | undefined;
+                suggestionId?: string | undefined;
+            }
+            interface UpdateDocumentStyleRequest {
+                documentStyle?: Docs.Schema.DocumentStyle | undefined;
+                fields?: string | undefined;
+                tabId?: string | undefined;
+            }
+            interface UpdateDocumentTabPropertiesRequest {
+                fields?: string | undefined;
+                tabProperties?: Docs.Schema.TabProperties | undefined;
+            }
+            interface UpdateDropdownDefinitionPropertiesRequest {
+                dropdownDefinitionId?: string | undefined;
+                dropdownDefinitionProperties?: Docs.Schema.DropdownDefinitionProperties | undefined;
+                fields?: string | undefined;
+                selectedOptionIdReplacements?: Record<string, string> | undefined;
+                tabId?: string | undefined;
+            }
+            interface UpdateDropdownPropertiesRequest {
+                dropdownId?: string | undefined;
+                dropdownProperties?: Docs.Schema.DropdownProperties | undefined;
+                fields?: string | undefined;
+                tabId?: string | undefined;
+            }
+            interface UpdateNamedStyleRequest {
+                fields?: string | undefined;
+                namedStyle?: Docs.Schema.NamedStyle | undefined;
+                tabId?: string | undefined;
+            }
             interface UpdateParagraphStyleRequest {
                 fields?: string | undefined;
                 paragraphStyle?: Docs.Schema.ParagraphStyle | undefined;
                 range?: Docs.Schema.Range | undefined;
+            }
+            interface UpdateSectionStyleRequest {
+                fields?: string | undefined;
+                range?: Docs.Schema.Range | undefined;
+                sectionStyle?: Docs.Schema.SectionStyle | undefined;
+            }
+            interface UpdateTableCellStyleRequest {
+                fields?: string | undefined;
+                tableCellStyle?: Docs.Schema.TableCellStyle | undefined;
+                tableRange?: Docs.Schema.TableRange | undefined;
+                tableStartLocation?: Docs.Schema.Location | undefined;
+            }
+            interface UpdateTableColumnPropertiesRequest {
+                columnIndices?: Array<number> | undefined;
+                fields?: string | undefined;
+                tableColumnProperties?: Docs.Schema.TableColumnProperties | undefined;
+                tableStartLocation?: Docs.Schema.Location | undefined;
+            }
+            interface UpdateTableRowStyleRequest {
+                fields?: string | undefined;
+                rowIndices?: Array<number> | undefined;
+                tableRowStyle?: Docs.Schema.TableRowStyle | undefined;
+                tableStartLocation?: Docs.Schema.Location | undefined;
             }
             interface UpdateTextStyleRequest {
                 fields?: string | undefined;
@@ -766,6 +1405,7 @@ declare namespace GoogleAppsScript {
             interface WriteControl {
                 requiredRevisionId?: string | undefined;
                 targetRevisionId?: string | undefined;
+                writeMode?: "WRITE_MODE_UNSPECIFIED" | "EDIT" | "SUGGEST" | undefined;
             }
         }
     }
