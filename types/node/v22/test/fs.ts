@@ -25,6 +25,10 @@ import { CopyOptions, CopySyncOptions, cp, cpSync, glob, globSync } from "fs";
     fs.write(1234, Buffer.from("test"), { offset: 10, length: 10, position: 10 }, () => {});
     fs.write(1234, Buffer.from("test"), { position: null }, () => {});
 
+    fs.writeSync(1234, Buffer.from("test")); // $ExpectType number
+    fs.writeSync(1234, Buffer.from("test"), { offset: 1, length: 2, position: 3 }); // $ExpectType number
+    fs.writeSync(1234, new Uint8Array(4), { position: null }); // $ExpectType number
+
     fs.writeFile("Harry Potter", "\"You be wizzing, Harry,\" jived Dumbledore.", {
         encoding: "ascii",
         signal: new AbortSignal(),
@@ -1022,6 +1026,9 @@ const anyStatFs: fs.StatsFs | fs.BigIntStatsFs = fs.statfsSync(".", { bigint: Ma
     watchAsync("y33t", { encoding: "buffer", signal: new AbortSignal() });
     // $ExpectType AsyncIterator<FileChangeInfo<string>, any, any>
     watchAsync("test", { persistent: true, recursive: true, encoding: "utf-8", maxQueue: 2048, overflow: "ignore" });
+    watchAsync("test", { overflow: "error" });
+    // @ts-expect-error
+    watchAsync("test", { overflow: "throw" });
 }
 
 {
