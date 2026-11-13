@@ -5321,6 +5321,10 @@
             "libraryName": "node-ssh",
             "asOfVersion": "11.0.0"
         },
+        "node-telegram-bot-api": {
+            "libraryName": "node-telegram-bot-api",
+            "asOfVersion": "2.2.0"
+        },
         "node-vault": {
             "libraryName": "node-vault",
             "asOfVersion": "0.9.13"
