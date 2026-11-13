@@ -69,6 +69,70 @@ const getAttestationSignaturePublicKey: oidc.AttestationSignaturePublicKey = asy
         { namedCurve: "P-256" },
     ).publicKey;
 const issueCredential: oidc.OpenID4VCIIssueCredential = async () => ({ credentials: ["credential"] });
+const disabledCredentialEncryptionConfiguration = {
+    credentialRequestEncryption: false,
+    credentialResponseEncryption: false,
+} as const satisfies oidc.OpenID4VCIConfigurationBase;
+const optionalCredentialEncryptionConfiguration = {
+    credentialRequestEncryption: true,
+    credentialResponseEncryption: true,
+} as const satisfies oidc.OpenID4VCIConfigurationBase;
+const invalidMissingRequiredCredentialEncryptionConfiguration: oidc.OpenID4VCIConfigurationBase = {
+    // @ts-expect-error An options object must specify whether encryption is required.
+    credentialRequestEncryption: {},
+};
+const credentialEncryptionConfiguration = {
+    credentialRequestEncryption: {
+        required: false,
+    },
+    credentialResponseEncryption: {
+        required: true,
+    },
+} as const satisfies oidc.OpenID4VCIConfigurationBase;
+new Provider("https://op.example.com", {
+    enabledJWA: {
+        credentialEncryptionAlgValues: ["ECDH-ES", "RSA-OAEP-256"],
+        credentialEncryptionEncValues: ["A128GCM", "A256GCM"],
+        idTokenEncryptionAlgValues: ["dir", "A128KW"],
+    },
+    features: {
+        encryption: { enabled: true },
+        openid4vci: {
+            ...credentialEncryptionConfiguration,
+            enabled: true,
+            nonceSecret: Buffer.alloc(32),
+            credentialConfigurationsSupported: { credential: { format: "example" } },
+            issueCredential,
+        },
+    },
+});
+
+const invalidNestedCredentialEncryptionAlgorithm: oidc.OpenID4VCICredentialEncryption = {
+    // @ts-expect-error Key management algorithms are configured through enabledJWA.
+    algValuesSupported: ["ECDH-ES"],
+    required: false,
+};
+const invalidNestedCredentialEncryptionContentAlgorithm: oidc.OpenID4VCICredentialEncryption = {
+    // @ts-expect-error Content encryption algorithms are configured through enabledJWA.
+    encValuesSupported: ["A128GCM"],
+    required: false,
+};
+const invalidCredentialEncryptionKey: oidc.OpenID4VCICredentialEncryption = {
+    // @ts-expect-error Issuer encryption public keys are derived from the provider keystore.
+    jwks: { keys: [] },
+    required: false,
+};
+const invalidCredentialEncryptionCompression: oidc.OpenID4VCICredentialEncryption = {
+    required: false,
+    // @ts-expect-error Credential encryption compression is not supported.
+    zipValuesSupported: ["DEF"],
+};
+const invalidCredentialEncryptionMetadata: oidc.OpenID4VCIMetadata = {
+    // @ts-expect-error Credential request encryption is configured outside metadata.
+    credential_request_encryption: { encryption_required: false },
+    // @ts-expect-error Credential response encryption is configured outside metadata.
+    credential_response_encryption: { alg_values_supported: ["ECDH-ES"], encryption_required: false },
+};
 const authorizationDetailsForGrantSource: oidc.AuthorizationDetailsForGrantSource = async () => undefined;
 const authorizationDetailsForAccessToken: oidc.AuthorizationDetailsForAccessToken = async () => undefined;
 const authorizationDetailsForIntrospection: oidc.AuthorizationDetailsForIntrospection = async () => undefined;
@@ -1397,6 +1461,7 @@ provider.on("pre_authorized_code.saved", code => {
 });
 new oidc.errors.InvalidAuthorizationDetails();
 new oidc.errors.InvalidCredentialRequest();
+new oidc.errors.InvalidEncryptionParameters();
 new oidc.errors.InvalidNonce();
 new oidc.errors.InvalidProof();
 new oidc.errors.UnknownCredentialConfiguration();
@@ -1508,7 +1573,7 @@ const immutableConfiguration = {
         keys: [
             {
                 kty: "RSA",
-                key_ops: ["sign"],
+                use: "sig",
                 x5c: ["certificate"],
             },
         ],

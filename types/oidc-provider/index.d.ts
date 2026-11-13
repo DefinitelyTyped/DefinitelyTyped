@@ -1,3 +1,4 @@
+// oidc-provider types artifact "9.14.0"; schema 4; sha256 65e2772c2deac338ce4a083f149cf8729f500d764cc194b8dd3b82baa2e5c7ea
 import * as crypto from "node:crypto";
 import * as dns from "node:dns";
 import * as http from "node:http";
@@ -145,7 +146,6 @@ export type ResponseType =
     | "none";
 export type CIBADeliveryMode = "poll" | "ping";
 export type SubjectTypes = "public" | "pairwise";
-// BEGIN GENERATED OIDC-PROVIDER CLIENT AUTH METHODS
 export type ClientAuthMethod =
     | "client_secret_basic"
     | "client_secret_post"
@@ -156,7 +156,6 @@ export type ClientAuthMethod =
     | "attest_jwt_client_auth"
     | "attest_jwt_client_auth_dpop"
     | "none";
-// END GENERATED OIDC-PROVIDER CLIENT AUTH METHODS
 
 export interface ClaimsParameterMember {
     essential?: boolean | undefined;
@@ -831,7 +830,6 @@ export type {
     Session,
 };
 
-// BEGIN GENERATED OIDC-PROVIDER OIDC CONTEXT
 declare class OIDCContext {
     constructor(ctx: Koa.Context);
     readonly route: string;
@@ -909,7 +907,6 @@ declare class OIDCContext {
 
     clientJwtAuthExpectedAudience(): Set<string>;
 }
-// END GENERATED OIDC-PROVIDER OIDC CONTEXT
 
 export type KoaContextWithOIDC = Koa.ParameterizedContext<
     Koa.DefaultState,
@@ -936,8 +933,6 @@ export type TokenEndpointGrantContext<Params extends object = UnknownObject> = K
 };
 
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-// BEGIN GENERATED OIDC-PROVIDER CONTRACTS
-// oidc-provider types artifact "9.13.3"; schema 3; sha256 38a5b5882246cf5913381089f7dddbf4fe6e22eec6e09eb6e7faaf4fa0a26731
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,
@@ -1000,7 +995,13 @@ export interface OpenID4VCICredentialConfiguration {
     [key: string]: unknown;
 }
 
+export interface OpenID4VCICredentialEncryption {
+    required: boolean;
+}
+
 export interface OpenID4VCIMetadata extends UnknownObject {
+    credential_request_encryption?: never;
+    credential_response_encryption?: never;
     batch_credential_issuance?:
         | {
             batch_size: number;
@@ -2038,6 +2039,24 @@ export interface OpenID4VCIConfigurationBase {
      */
     preAuthorizedCodeGrant?: boolean | undefined;
     /**
+     * Configures
+     * [Credential Request encryption](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html#section-12.2.4)
+     * . Requires `features.encryption.enabled`. Set to `true` to support optional encryption, `{ required: true }` to
+     * require encryption, or `false` to disable it. Algorithms are configured through
+     * `enabledJWA.credentialEncryptionAlgValues` and `enabledJWA.credentialEncryptionEncValues`. Public keys are
+     * derived from the provider's `jwks` entries with an explicit enabled `alg`.
+     */
+    credentialRequestEncryption?: boolean | OpenID4VCICredentialEncryption | undefined;
+    /**
+     * Configures
+     * [Credential Response encryption](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html#section-12.2.4)
+     * . Requires `features.encryption.enabled` and `credentialRequestEncryption`. Set to `true` to support optional
+     * encryption, `{ required: true }` to require encryption, or `false` to disable it. Algorithms are configured
+     * through `enabledJWA.credentialEncryptionAlgValues` and `enabledJWA.credentialEncryptionEncValues`. Requests
+     * asking for response encryption must themselves be encrypted.
+     */
+    credentialResponseEncryption?: boolean | OpenID4VCICredentialEncryption | undefined;
+    /**
      * Free-form object with additional top-level members to be merged into the Credential Issuer Metadata response.
      */
     metadata?: OpenID4VCIMetadata | undefined;
@@ -2597,6 +2616,10 @@ export interface Configuration {
      *
      * To prevent concurrent replay, the `ReplayDetection` adapter's `upsert` SHOULD use an atomic insert-if-absent
      * operation and reject when an unexpired entry already exists.
+     *
+     * To prevent concurrent reuse, `consume` SHOULD atomically mark the entry as consumed only if it is not already
+     * consumed, and reject otherwise. Returning `false` is not sufficient because the provider awaits the operation but
+     * ignores its return value.
      *
      * @see [The expected interface](https://github.com/panva/node-oidc-provider/blob/main/example/my_adapter.js)
      *
@@ -3828,7 +3851,7 @@ export interface Configuration {
      * Specifies the JSON Web Key Set that shall be used by the authorization server for cryptographic signing and
      * decryption operations. The key set MUST be provided in
      * [JWK Set format](https://www.rfc-editor.org/info/rfc7517/#section-5) as defined in RFC 7517. All keys within the
-     * set MUST be private keys.
+     * set MUST be private keys. The `key_ops` member is not supported and must be omitted.
      *
      * Supported key types include:
      *
@@ -4241,6 +4264,16 @@ export interface Configuration {
              */
             attestSigningAlgValues?: readonly AsymmetricSigningAlgorithm[] | undefined;
             /**
+             * JWE "alg" Algorithm values the authorization server supports for OpenID4VCI Credential Request and
+             * Credential Response encryption
+             */
+            credentialEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
+            /**
+             * JWE "enc" Content Encryption Algorithm values the authorization server supports for OpenID4VCI Credential
+             * Request and Credential Response encryption
+             */
+            credentialEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
+            /**
              * JWE "alg" Algorithm values the authorization server supports for ID Token encryption
              */
             idTokenEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
@@ -4306,7 +4339,6 @@ export class ExternalSigningKey {
     get alg(): string | undefined;
     get crv(): string | undefined;
     get e(): string | undefined;
-    get key_ops(): string[] | undefined;
     get kid(): string | undefined;
     get kty(): string;
     get n(): string | undefined;
@@ -4338,7 +4370,6 @@ interface ProviderAdditionalEventMap {
     "pre_authorized_code.destroyed": (code: PreAuthorizedCode) => void;
     "pre_authorized_code.saved": (code: PreAuthorizedCode) => void;
 }
-// END GENERATED OIDC-PROVIDER CONTRACTS
 /* eslint-enable @typescript-eslint/no-invalid-void-type */
 
 export interface HttpOptions {
@@ -4423,7 +4454,6 @@ export default class Provider extends Koa {
 
     static get ctx(): KoaContextWithOIDC | undefined;
 
-    // BEGIN GENERATED OIDC-PROVIDER MEMBERS
     urlFor(name: string, options?: UnknownObject): string;
     pathFor(name: string, options?: UnknownObject & { mountPath?: string | undefined }): string;
     cookieName(type: string): string;
@@ -5156,7 +5186,6 @@ export default class Provider extends Koa {
         listener: ProviderAdditionalEventMap[Event],
     ): this;
     // tslint:enable:unified-signatures
-    // END GENERATED OIDC-PROVIDER MEMBERS
 
     readonly Grant: typeof Grant;
     readonly Client: typeof Client;
@@ -5182,7 +5211,6 @@ export default class Provider extends Koa {
     readonly Interaction: typeof Interaction;
 }
 
-// BEGIN GENERATED OIDC-PROVIDER RELATED CONTRACTS
 declare class Checks extends Array<interactionPolicy.Check> {
     get(reason: string): interactionPolicy.Check | undefined;
     remove(reason: string): void;
@@ -5267,6 +5295,9 @@ export namespace errors {
         constructor(description?: string, options?: string | OIDCProviderErrorOptions);
     }
     class InvalidCredentialRequest extends OIDCProviderError {
+        constructor(description?: string, options?: string | OIDCProviderErrorOptions);
+    }
+    class InvalidEncryptionParameters extends OIDCProviderError {
         constructor(description?: string, options?: string | OIDCProviderErrorOptions);
     }
     class InvalidNonce extends OIDCProviderError {
@@ -5410,6 +5441,5 @@ export namespace errors {
         constructor(description?: string, options?: string | OIDCProviderErrorOptions);
     }
 }
-// END GENERATED OIDC-PROVIDER RELATED CONTRACTS
 
 export { Provider };
