@@ -460,9 +460,7 @@ declare namespace chrome {
         /**
          * Creates an alarm. Near the time(s) specified by `alarmInfo`, the {@link onAlarm} event is fired. If there is another alarm with the same name (or no name if none is specified), it will be cancelled and replaced by this alarm.
          *
-         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every 30 seconds but may delay them an arbitrary amount more. That is, setting `delayInMinutes` or `periodInMinutes` to less than `0.5` will not be honored and will cause a warning. `when` can be set to less than 30 seconds after "now" without warning but won't actually cause the alarm to fire for at least 30 seconds.
-         *
-         * To help you debug your app or extension, when you've loaded it unpacked, there's no limit to how often the alarm can fire.
+         * In order to reduce the load on the user's machine, Chrome limits alarms to at most once every second but may delay them an arbitrary amount more. That is, setting `delayInMinutes` or `periodInMinutes` to less than 1 second will not be honored and will cause a warning. `when` can be set to less than 1 second after "now" without warning but won't actually cause the alarm to fire for at least 1 second.
          * @param name Optional name to identify this alarm. Defaults to the empty string.
          * @param alarmInfo Describes when the alarm should fire. The initial time must be specified by either `when` or `delayInMinutes` (but not both). If `periodInMinutes` is set, the alarm will repeat every `periodInMinutes` minutes after the initial event. If neither `when` or `delayInMinutes` is set for a repeating alarm, `periodInMinutes` is used as the default for `delayInMinutes`.
          *
@@ -7656,8 +7654,13 @@ declare namespace chrome {
      */
     export namespace mimeHandler {
         interface MimeHandlerOptions {
-            /** Whether this handler is active for the given MIME type. */
-            enabled: boolean;
+            /**
+             * Whether this handler may be used for embedded loads (iframe, embed, object). Defaults to the manifest entry's `can_embed` value. Has no effect while `enabled` is false.
+             * @since Chrome 157
+             */
+            canEmbed?: boolean | undefined;
+            /** Whether this handler is enabled. Defaults to the manifest entry's `enabled` value. */
+            enabled?: boolean | undefined;
         }
 
         interface StreamInfo {
@@ -7684,13 +7687,16 @@ declare namespace chrome {
         function abortAndFallbackToNativeHandler(callback: () => void): void;
 
         /**
-         * Reads the persisted options for a MIME type. Returns defaults (enabled=true) if none have been stored.
-         * @param mimeType The MIME type whose options to read.
+         * Reads the options for a MIME type. Each member is the value the extension set, or the manifest entry's value if the extension has not set it.
+         * @param mimeType The MIME type whose options to read. It must be a MIME type the extension handles through mime_types_handler.
          *
          * Can return its result via Promise.
          */
-        function getMimeHandlerOptions(mimeType: string): Promise<MimeHandlerOptions>;
-        function getMimeHandlerOptions(mimeType: string, callback: (options: MimeHandlerOptions) => void): void;
+        function getMimeHandlerOptions(mimeType: string): Promise<Required<MimeHandlerOptions>>;
+        function getMimeHandlerOptions(
+            mimeType: string,
+            callback: (options: Required<MimeHandlerOptions>) => void,
+        ): void;
 
         /**
          * Retrieves stream information for the current MIME handler context. Must be called from within a MIME handler extension page.
@@ -7701,9 +7707,9 @@ declare namespace chrome {
         function getStreamInfo(callback: (info: StreamInfo) => void): void;
 
         /**
-         * Sets the configuration options for a specified MIME type.
-         * @param mimeType The MIME type to configure.
-         * @param options The new options to use.
+         * Sets the configuration options for a specified MIME type. If the extension runs in split incognito mode, options set from incognito apply only to incognito and last until the incognito session ends. Options not set from incognito follow the values set outside incognito.
+         * @param mimeType The MIME type to configure. It must be a MIME type the extension handles through mime_types_handler.
+         * @param options The options to change.
          *
          * Can return its result via Promise.
          */
@@ -9362,6 +9368,25 @@ declare namespace chrome {
         }
 
         /**
+         * The reason that this event is being dispatched.
+         * @since Chrome 157
+         */
+        enum OnLoadedReason {
+            /** The extension was newly installed. */
+            INSTALL = "install",
+            /** The extension was reloaded after an update. */
+            UPDATE = "update",
+            /** The browser was updated to a new version. */
+            BROWSER_UPDATE = "browser_update",
+            /** The extension was re-enabled from a disabled state. */
+            ENABLE = "enable",
+            /** The extension is being loaded during browser startup. */
+            STARTUP = "startup",
+            /** The extension was reloaded (e.g. via {@link runtime.reload} or the user manually reloaded the extension). */
+            RELOAD = "reload",
+        }
+
+        /**
          * The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the application is updated to a newer version. 'os_update' is used when the restart is needed because the browser/OS is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in the enterprise policy.
          * @since Chrome 44
          */
@@ -9447,6 +9472,24 @@ declare namespace chrome {
             /** The ID of the window for this context, or `-1` if this context is not hosted in a window. */
             windowId: number;
         }
+
+        /**
+         * Details about the extension load event.
+         * @since Chrome 157
+         */
+        type ExtensionLoadDetails =
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: `${OnLoadedReason.UPDATE | OnLoadedReason.ENABLE}`;
+                /** Indicates the previous version of the extension. This is present only if 'reason' is 'update' or 'enable'. If 'reason' is 'update', this is the version of the extension before it was updated. If 'reason' is 'enable', this is the current version of the extension. */
+                previousVersion: string;
+            }
+            | {
+                /** The reason that this event is being dispatched. */
+                reason: `${Exclude<OnLoadedReason, OnLoadedReason.UPDATE | OnLoadedReason.ENABLE>}`;
+                /** Indicates the previous version of the extension. This is present only if 'reason' is 'update' or 'enable'. If 'reason' is 'update', this is the version of the extension before it was updated. If 'reason' is 'enable', this is the current version of the extension. */
+                previousVersion?: undefined;
+            };
 
         interface MessageOptions {
             /** Whether the TLS channel ID will be passed into onMessageExternal for processes that are listening for the connection event. */
@@ -9997,7 +10040,12 @@ declare namespace chrome {
                     /** The HTML file to display when a document of the corresponding MIME type is opened. This file must be located within your extension. */
                     handler_url: string;
                     /** Specifies whether to handle documents embedded in `<embed>`, `<object>`, or `<iframe>` elements. Defaults to `false`, meaning the handler only receives top-level navigations. */
-                    can_embed?: boolean;
+                    can_embed?: boolean | undefined;
+                    /**
+                     * Whether the handler starts out handling this MIME type. Defaults to `true` when absent. {@link mimeHandler.setMimeHandlerOptions} overrides this value.
+                     * @since Chrome 157
+                     */
+                    enabled?: boolean | undefined;
                 };
             };
             /** Declares optional permissions for your extension. */
@@ -10210,6 +10258,12 @@ declare namespace chrome {
          * @since Chrome 155
          */
         const onEnabled: events.Event<() => void>;
+
+        /**
+         * Fired when the extension is added to the set of active extensions. This can occur in multiple scenarios: when an extension is first installed, updated to a new version, re-enabled after being disabled, reloaded, loaded during browser startup, or loaded when the browser is updated to a new version.
+         * @since Chrome 157
+         */
+        const onExtensionLoaded: events.Event<(details: ExtensionLoadDetails) => void>;
 
         /** Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. */
         const onSuspend: events.Event<() => void>;
@@ -11077,7 +11131,7 @@ declare namespace chrome {
             isPrimary?: boolean | undefined;
             /**
              * If set, sets the display's overscan insets to the provided values.
-             * Note that overscan values may not be negative or larger than a half of the screen's size.
+             * Note that each overscan inset may not be negative or larger than a quarter of the screen's size.
              * Overscan cannot be changed on the internal monitor.
              */
             overscan?: Insets | undefined;

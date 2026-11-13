@@ -805,6 +805,13 @@ function testRuntime() {
     chrome.runtime.OnInstalledReason.SHARED_MODULE_UPDATE === "shared_module_update";
     chrome.runtime.OnInstalledReason.UPDATE === "update";
 
+    chrome.runtime.OnLoadedReason.BROWSER_UPDATE === "browser_update";
+    chrome.runtime.OnLoadedReason.ENABLE === "enable";
+    chrome.runtime.OnLoadedReason.INSTALL === "install";
+    chrome.runtime.OnLoadedReason.RELOAD === "reload";
+    chrome.runtime.OnLoadedReason.STARTUP === "startup";
+    chrome.runtime.OnLoadedReason.UPDATE === "update";
+
     chrome.runtime.OnRestartRequiredReason.APP_UPDATE === "app_update";
     chrome.runtime.OnRestartRequiredReason.OS_UPDATE === "os_update";
     chrome.runtime.OnRestartRequiredReason.PERIODIC === "periodic";
@@ -1003,6 +1010,22 @@ function testRuntime() {
     });
 
     checkChromeEvent(chrome.runtime.onEnabled, () => void 0);
+
+    checkChromeEvent(chrome.runtime.onExtensionLoaded, (details) => {
+        details.previousVersion; // $ExpectType string | undefined
+        details.reason; // $ExpectType "install" | "update" | "browser_update" | "enable" | "startup" | "reload"
+
+        if (details.reason === "update" || details.reason === "enable") {
+            details.previousVersion; // $ExpectType string
+        }
+
+        if (
+            details.reason === "install" || details.reason === "browser_update" || details.reason === "startup"
+            || details.reason === "reload"
+        ) {
+            details.previousVersion; // $ExpectType undefined
+        }
+    });
 
     checkChromeEvent(chrome.runtime.onInstalled, (details) => {
         details.id; // $ExpectType string | undefined
@@ -1224,6 +1247,12 @@ function testGetManifest() {
         };
 
         manifest.message_serialization; // $ExpectType "json" | "structured_clone" | undefined
+
+        if (manifest.mime_types_handler) {
+            manifest.mime_types_handler["application/pdf"].handler_url; // $ExpectType string
+            manifest.mime_types_handler["application/pdf"].can_embed; // $ExpectType boolean | undefined
+            manifest.mime_types_handler["application/pdf"].enabled; // $ExpectType boolean | undefined
+        }
 
         manifest.host_permissions; // $ExpectType string[] | undefined
         manifest.optional_permissions; // $ExpectType ManifestOptionalPermission[] | undefined
@@ -3274,16 +3303,17 @@ async function testManagement() {
 
 // https://developer.chrome.com/docs/extensions/reference/api/mimeHandler
 async function testMineHandler() {
-    const mimeType = "image/jpeg";
+    const mimeType = "application/pdf";
 
     chrome.mimeHandler.abortAndFallbackToNativeHandler(); // $ExpectType Promise<void>
     chrome.mimeHandler.abortAndFallbackToNativeHandler(() => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.mimeHandler.abortAndFallbackToNativeHandler(() => {}).then(() => {});
 
-    chrome.mimeHandler.getMimeHandlerOptions(mimeType); // $ExpectType Promise<MimeHandlerOptions>
+    chrome.mimeHandler.getMimeHandlerOptions(mimeType); // $ExpectType Promise<Required<MimeHandlerOptions>>
     chrome.mimeHandler.getMimeHandlerOptions(mimeType, (options) => { // $ExpectType void
-        options; // $ExpectType MimeHandlerOptions
+        options; // $ExpectType Required<MimeHandlerOptions>
+        options.canEmbed; // $ExpectType boolean
         options.enabled; // $ExpectType boolean
     });
     // @ts-expect-error
@@ -3302,8 +3332,12 @@ async function testMineHandler() {
     // @ts-expect-error
     chrome.mimeHandler.getStreamInfo(() => {}).then(() => {});
 
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, {}); // $ExpectType Promise<void>
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, {}, () => void 0); // $ExpectType void
     chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }); // $ExpectType Promise<void>
     chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }, () => void 0); // $ExpectType void
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { canEmbed: true, enabled: false }); // $ExpectType Promise<void>
+    chrome.mimeHandler.setMimeHandlerOptions(mimeType, { canEmbed: true, enabled: false }, () => void 0); // $ExpectType void
     // @ts-expect-error
     chrome.mimeHandler.setMimeHandlerOptions(mimeType, { enabled: true }, () => {}).then(() => {});
 }
