@@ -744,6 +744,10 @@
             "libraryName": "@carbon/pictograms-react",
             "asOfVersion": "11.89.0"
         },
+        "carbon__themes": {
+            "libraryName": "@carbon/themes",
+            "asOfVersion": "11.84.0"
+        },
         "card-validator": {
             "libraryName": "card-validator",
             "asOfVersion": "7.0.1"
