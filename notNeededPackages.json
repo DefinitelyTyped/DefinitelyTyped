@@ -604,6 +604,10 @@
             "libraryName": "browser-image-compression",
             "asOfVersion": "1.0.7"
         },
+        "browser-or-node": {
+            "libraryName": "browser-or-node",
+            "asOfVersion": "3.0.0"
+        },
         "browserslist": {
             "libraryName": "browserslist",
             "asOfVersion": "4.15.0"
