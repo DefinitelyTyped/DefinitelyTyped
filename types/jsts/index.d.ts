@@ -2123,7 +2123,7 @@ declare namespace jsts {
              * @throws IllegalArgumentException
              *           if either input is a non-empty GeometryCollection
              */
-            union(other: Geometry): Geometry;
+            union(other?: Geometry): Geometry;
 
             /**
              * Computes a <code>Geometry</code> representing the points making up this
