@@ -5225,6 +5225,10 @@
             "libraryName": "net-keepalive",
             "asOfVersion": "1.0.0"
         },
+        "netmask": {
+            "libraryName": "netmask",
+            "asOfVersion": "2.1.1"
+        },
         "neverbounce": {
             "libraryName": "neverbounce",
             "asOfVersion": "5.0.1"
