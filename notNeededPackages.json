@@ -5713,6 +5713,10 @@
             "libraryName": "param-case",
             "asOfVersion": "1.1.2"
         },
+        "parcel__watcher": {
+            "libraryName": "@parcel/watcher",
+            "asOfVersion": "2.6.0"
+        },
         "parent-package-json": {
             "libraryName": "parent-package-json",
             "asOfVersion": "3.0.0"
