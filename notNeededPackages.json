@@ -3437,6 +3437,10 @@
             "libraryName": "igdb-api-node",
             "asOfVersion": "6.0.0"
         },
+        "image-blob-reduce": {
+            "libraryName": "image-blob-reduce",
+            "asOfVersion": "5.0.1"
+        },
         "image-size": {
             "libraryName": "image-size",
             "asOfVersion": "0.8.0"
