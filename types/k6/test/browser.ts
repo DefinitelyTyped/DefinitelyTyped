@@ -634,6 +634,16 @@ async function test() {
             name: "test",
             matches: [{
                 url: /^https:\/\/test\.k6\.io\/search$/,
+                method: "POST",
+            }],
+        });
+    });
+    page.on("metric", msg => {
+        msg.tag({
+            name: "test",
+            matches: [{
+                url: /^https:\/\/test\.k6\.io\/search$/,
+                // @ts-expect-error The v2.4.0 browser metric method validator rejects QUERY
                 method: "QUERY",
             }],
         });
