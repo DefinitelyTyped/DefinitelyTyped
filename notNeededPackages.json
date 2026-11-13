@@ -5781,6 +5781,10 @@
             "libraryName": "pascal-case",
             "asOfVersion": "1.1.2"
         },
+        "passport-auth-token": {
+            "libraryName": "passport-auth-token",
+            "asOfVersion": "2.0.4"
+        },
         "passport-client-cert": {
             "libraryName": "passport-client-cert",
             "asOfVersion": "2.1.0"
