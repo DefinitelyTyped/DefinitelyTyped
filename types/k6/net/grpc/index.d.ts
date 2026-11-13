@@ -13,7 +13,20 @@ export interface Response {
 
     trailers: object;
 
-    error: object;
+    error: ResponseStatus | null;
+}
+
+/** Structured status returned for a failed unary gRPC invocation. */
+export interface ResponseStatus {
+    code: number;
+    message: string;
+    details: ResponseStatusDetail[];
+}
+
+/** A protobuf Any detail, including fields from custom message types. */
+export interface ResponseStatusDetail {
+    "@type": string;
+    [field: string]: unknown;
 }
 
 export interface ConnectParams {
