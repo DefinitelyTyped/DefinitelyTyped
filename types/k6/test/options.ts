@@ -5,6 +5,22 @@ const options: Options = {
     duration: "10s",
 };
 
+const httpDebugRedactEnabled: Options = { httpDebugRedact: true };
+const httpDebugRedactDisabled: Options = { httpDebugRedact: false };
+const invalidHttpDebugRedact: Options = {
+    // @ts-expect-error HTTP debug redaction is a boolean option
+    httpDebugRedact: "true",
+};
+
+const chacha20CipherSuites: Options = {
+    tlsCipherSuites: [
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+        "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+        "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+    ],
+};
+
 const moreOptions: Options = {
     vus: 10,
     duration: "10s",
