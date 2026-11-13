@@ -120,7 +120,6 @@
         "frecency",
         "fs-extra",
         "geodesy",
-        "get-folder-size",
         "github-label-sync",
         "glidejs__glide",
         "google-cloud__datastore",
