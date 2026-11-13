@@ -1,5 +1,5 @@
 // Tests for Google Publisher Tag 1.20261109
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/0f97a1c207aae3f7332164c6cc56264e98e1c2b8
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/7d51cc3510fbf5e9c87e94b9c3b8fdd640dbe41e
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -347,19 +347,6 @@ function test_googletag_pubAdsService_getAttributeKeys() {
 // Test for googletag.PubAdsService.display
 function test_googletag_pubAdsService_display() {
     googletag.pubads().display("/1234567/sports", [728, 90], "div-1");
-}
-
-// Test for googletag.PubAdsService.updateCorrelator
-function test_googletag_pubAdsService_updateCorrelator() {
-    // Assume that the correlator is currently 12345. All ad requests made
-    // by this page will currently use that value.
-
-    // Replace the current correlator with a new correlator.
-    googletag.pubads().updateCorrelator();
-
-    // The correlator will now be a new randomly selected value, different
-    // from 12345. All subsequent ad requests made by this page will use
-    // the new value.
 }
 
 // Test for googletag.PubAdsService.setForceSafeFrame
