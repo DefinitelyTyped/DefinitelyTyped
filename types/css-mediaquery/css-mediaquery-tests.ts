@@ -19,6 +19,7 @@ match("", { monochrome: true });
 match("", { orientation: "vertical" });
 match("", { resolution: "1440p" });
 match("", { scan: false });
+match("(prefers-reduced-motion: reduce)", { "prefers-reduced-motion": "reduce" });
 
 const [{ expressions }] = parse("screen and (min-width: 48em)");
 // $ExpectType Expression[]
