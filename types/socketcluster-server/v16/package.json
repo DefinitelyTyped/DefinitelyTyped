@@ -6,15 +6,15 @@
         "https://github.com/SocketCluster/socketcluster-server"
     ],
     "dependencies": {
-        "@types/ag-auth": "*",
-        "@types/ag-simple-broker": "*",
+        "@types/ag-auth": "^1",
+        "@types/ag-simple-broker": "^5",
         "@types/async-stream-emitter": "^4",
         "@types/consumable-stream": "^2",
-        "@types/jsonwebtoken": "*",
-        "@types/sc-errors": "*",
+        "@types/jsonwebtoken": "^8",
+        "@types/sc-errors": "^2",
         "@types/stream-demux": "^8",
-        "@types/writable-consumable-stream": "^3",
-        "@types/ws": "*"
+        "@types/writable-consumable-stream": "^2",
+        "@types/ws": "^7"
     },
     "devDependencies": {
         "@types/socketcluster-server": "workspace:."

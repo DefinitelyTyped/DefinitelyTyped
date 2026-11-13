@@ -6,6 +6,7 @@ new scErrors.AuthTokenExpiredError("error", new Date());
 new scErrors.AuthTokenInvalidError("error");
 new scErrors.AuthTokenNotBeforeError("error", new Date());
 new scErrors.AuthTokenError("error");
+new scErrors.AuthError("error");
 new scErrors.SilentMiddlewareBlockedError("error", "authenticate");
 new scErrors.InvalidActionError("error");
 new scErrors.InvalidArgumentsError("error");
@@ -17,6 +18,14 @@ new scErrors.HTTPServerError("error");
 new scErrors.ResourceLimitError("error");
 new scErrors.TimeoutError("error");
 new scErrors.BadConnectionError("error", "connectAbort");
+new scErrors.BadConnectionError("error", "disconnect", 4000, "Server ping timed out");
+
+const badConnectionError = new scErrors.BadConnectionError("error", "disconnect", 4000);
+// $ExpectType number
+badConnectionError.code;
+// $ExpectType string
+badConnectionError.reason;
+
 new scErrors.BrokerError("error");
 new scErrors.ProcessExitError("error");
 new scErrors.UnknownError("error");
@@ -30,17 +39,20 @@ scErrors.socketProtocolErrorStatuses[1001];
 scErrors.socketProtocolErrorStatuses[4000];
 
 // $ExpectType string
+scErrors.socketProtocolErrorStatuses[4009];
+
+// $ExpectType string
 scErrors.socketProtocolIgnoreStatuses[1000];
 
 // Dehydrate and hydrate an error
 
 const err = new Error();
 
-let dehydratedError = scErrors.dehydrateError(err);
+const dehydratedError = scErrors.dehydrateError(err);
 scErrors.hydrateError(dehydratedError);
 
-dehydratedError = scErrors.dehydrateError(err, true);
-scErrors.hydrateError(dehydratedError);
+// @ts-expect-error
+scErrors.dehydrateError(err, true);
 
 // decycle
 
