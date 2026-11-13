@@ -1,7 +1,8 @@
 {
     "private": true,
     "name": "@types/novnc__novnc",
-    "version": "1.6.9999",
+    "version": "1.7.9999",
+    "type": "module",
     "projects": [
         "https://github.com/novnc/noVNC"
     ],
