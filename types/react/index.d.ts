@@ -3160,6 +3160,17 @@ declare namespace React {
         name?: string | undefined;
         type?: "submit" | "reset" | "button" | undefined;
         value?: string | readonly string[] | number | undefined;
+        command?:
+            | "toggle-popover"
+            | "show-popover"
+            | "hide-popover"
+            | "show-modal"
+            | "close"
+            | "request-close"
+            | (string & {})
+            | undefined;
+        commandFor?: string | undefined;
+        commandfor?: string | undefined;
     }
 
     interface CanvasHTMLAttributes<T> extends HTMLAttributes<T> {
