@@ -83,9 +83,16 @@ export interface ProgramBodyMap {
 
 export type ProgramBody = ProgramBodyMap[keyof ProgramBodyMap];
 
+export interface SourceTypeMap {
+    Script: "script";
+    Module: "module";
+}
+
+export type SourceType = SourceTypeMap[keyof SourceTypeMap];
+
 export interface Program extends BaseNode {
     type: "Program";
-    sourceType: "script" | "module";
+    sourceType: SourceType;
     body: ProgramBody[];
     comments?: Comment[] | undefined;
 }
