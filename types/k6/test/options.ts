@@ -5,6 +5,13 @@ const options: Options = {
     duration: "10s",
 };
 
+const httpDebugRedactEnabled: Options = { httpDebugRedact: true };
+const httpDebugRedactDisabled: Options = { httpDebugRedact: false };
+const invalidHttpDebugRedact: Options = {
+    // @ts-expect-error HTTP debug redaction is a boolean option
+    httpDebugRedact: "true",
+};
+
 const moreOptions: Options = {
     vus: 10,
     duration: "10s",
