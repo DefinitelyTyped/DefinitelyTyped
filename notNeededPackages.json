@@ -8411,6 +8411,10 @@
             "libraryName": "typescript-services",
             "asOfVersion": "2.0.0"
         },
+        "ua-parser-js": {
+            "libraryName": "ua-parser-js",
+            "asOfVersion": "2.0.10"
+        },
         "ua-string": {
             "libraryName": "ua-string",
             "asOfVersion": "3.0.0"
