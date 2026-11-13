@@ -8575,6 +8575,10 @@
             "libraryName": "velocity-animate",
             "asOfVersion": "2.0.1"
         },
+        "verovio": {
+            "libraryName": "verovio",
+            "asOfVersion": "6.4.0"
+        },
         "vexdb": {
             "libraryName": "vexdb",
             "asOfVersion": "1.7.1"
