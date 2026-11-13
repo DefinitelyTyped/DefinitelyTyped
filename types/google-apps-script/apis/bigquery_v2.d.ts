@@ -939,6 +939,7 @@ declare namespace GoogleAppsScript {
                 maxBatchingRows?: string | undefined;
                 runtimeConnection?: string | undefined;
                 runtimeVersion?: string | undefined;
+                volumeMounts?: BigQuery.Schema.ExternalVolumeMount[] | undefined;
             }
             interface ExternalServiceCost {
                 billingMethod?: string | undefined;
@@ -947,6 +948,10 @@ declare namespace GoogleAppsScript {
                 externalService?: string | undefined;
                 reservedSlotCount?: string | undefined;
                 slotMs?: string | undefined;
+            }
+            interface ExternalVolumeMount {
+                mountPath?: string | undefined;
+                sourcePath?: string | undefined;
             }
             interface FeatureValue {
                 categoricalValue?: BigQuery.Schema.CategoricalValue | undefined;
@@ -1193,7 +1198,9 @@ declare namespace GoogleAppsScript {
                 destinationUris?: Array<string> | undefined;
                 fieldDelimiter?: string | undefined;
                 modelExtractOptions?: BigQuery.Schema.ModelExtractOptions | undefined;
+                nativeGeographyExportEnabled?: boolean | undefined;
                 printHeader?: boolean | undefined;
+                secureContext?: BigQuery.Schema.SecureContext | undefined;
                 sourceModel?: BigQuery.Schema.ModelReference | undefined;
                 sourceTable?: BigQuery.Schema.TableReference | undefined;
                 useAvroLogicalTypes?: boolean | undefined;
@@ -1271,6 +1278,7 @@ declare namespace GoogleAppsScript {
                 rangePartitioning?: BigQuery.Schema.RangePartitioning | undefined;
                 schemaUpdateOptions?: Array<string> | undefined;
                 scriptOptions?: BigQuery.Schema.ScriptOptions | undefined;
+                secureContext?: BigQuery.Schema.SecureContext | undefined;
                 systemVariables?: BigQuery.Schema.SystemVariables | undefined;
                 tableDefinitions?: Record<string, BigQuery.Schema.ExternalDataConfiguration> | undefined;
                 timePartitioning?: BigQuery.Schema.TimePartitioning | undefined;
@@ -1382,6 +1390,7 @@ declare namespace GoogleAppsScript {
                 performanceInsights?: BigQuery.Schema.PerformanceInsights | undefined;
                 queryInfo?: BigQuery.Schema.QueryInfo | undefined;
                 queryPlan?: BigQuery.Schema.ExplainQueryStage[] | undefined;
+                referencedLogicalViews?: BigQuery.Schema.TableReference[] | undefined;
                 referencedPropertyGraphs?: BigQuery.Schema.PropertyGraphReference[] | undefined;
                 referencedRoutines?: BigQuery.Schema.RoutineReference[] | undefined;
                 referencedTables?: BigQuery.Schema.TableReference[] | undefined;
@@ -1755,6 +1764,7 @@ declare namespace GoogleAppsScript {
                 queryResultsFormat?: "QUERY_RESULTS_FORMAT_UNSPECIFIED" | "STRUCT_ENCODING" | "ARROW" | undefined;
                 requestId?: string | undefined;
                 reservation?: string | undefined;
+                secureContext?: BigQuery.Schema.SecureContext | undefined;
                 timeoutMs?: number | undefined;
                 useLegacySql?: boolean | undefined;
                 useQueryCache?: boolean | undefined;
@@ -1933,6 +1943,9 @@ declare namespace GoogleAppsScript {
                     | "FULLY_USED"
                     | undefined;
             }
+            interface SecureContext {
+                secureParameterEntries?: Record<string, any> | undefined;
+            }
             interface SerDeInfo {
                 name?: string | undefined;
                 parameters?: Record<string, string> | undefined;
@@ -2014,6 +2027,7 @@ declare namespace GoogleAppsScript {
                     | "ARRAY"
                     | "STRUCT"
                     | "RANGE"
+                    | "UUID"
                     | undefined;
             }
             interface StandardSqlField {

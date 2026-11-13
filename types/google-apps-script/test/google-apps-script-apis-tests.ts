@@ -282,6 +282,28 @@ function testBigQuery() {
         name: "field",
         type: "STRING",
     };
+    const standardSqlDataType: GoogleAppsScript.BigQuery.Schema.StandardSqlDataType = {
+        typeKind: "UUID",
+    };
+    const secureContext: GoogleAppsScript.BigQuery.Schema.SecureContext = {
+        secureParameterEntries: { secret: { value: "secret-value" } },
+    };
+    const externalVolumeMount: GoogleAppsScript.BigQuery.Schema.ExternalVolumeMount = {
+        mountPath: "/mnt/data",
+        sourcePath: "gs://bucket/data",
+    };
+    const routine: GoogleAppsScript.BigQuery.Schema.Routine = {
+        externalRuntimeOptions: {
+            containerCpu: 1,
+            containerMemory: "512Mi",
+            containerRequestConcurrency: "2",
+            maxBatchingRows: "10",
+            runtimeConnection: "projects/project/locations/us/connections/connection",
+            runtimeVersion: "python-3.11",
+            volumeMounts: [externalVolumeMount],
+        },
+        returnType: standardSqlDataType,
+    };
     const queryParameter: GoogleAppsScript.BigQuery.Schema.QueryParameter = {
         name: "parameter",
         parameterType: {
@@ -318,6 +340,7 @@ function testBigQuery() {
         queryResultsFormat: "STRUCT_ENCODING",
         requestId: "request-id",
         reservation: "projects/project/locations/US/reservations/reservation",
+        secureContext,
         timeoutMs: 1000,
         useLegacySql: false,
         useQueryCache: true,
@@ -368,6 +391,7 @@ function testBigQuery() {
         queryParameters: [queryParameter],
         rangePartitioning: { field: "id", range: { end: "10", interval: "1", start: "0" } },
         schemaUpdateOptions: ["ALLOW_FIELD_ADDITION"],
+        secureContext,
         tableDefinitions: { table: { sourceUris: ["gs://bucket/file.csv"] } },
         timePartitioning: { expirationMs: "1000", field: "created", requirePartitionFilter: true, type: "DAY" },
         useLegacySql: false,
@@ -391,7 +415,9 @@ function testBigQuery() {
             destinationUri: "gs://bucket/file.csv",
             destinationUris: ["gs://bucket/file-*.csv"],
             fieldDelimiter: ",",
+            nativeGeographyExportEnabled: true,
             printHeader: true,
+            secureContext,
             sourceTable: tableReference,
         },
         jobTimeoutMs: "1000",
@@ -458,6 +484,7 @@ function testBigQuery() {
                 writeRatioAvg: 0.5,
                 writeRatioMax: 1,
             }],
+            referencedLogicalViews: [tableReference],
             referencedTables: [tableReference],
             reservationUsage: [{ name: "reservation", slotMs: "1" }],
             schema: { fields: [fieldSchema] },
