@@ -2405,6 +2405,10 @@
             "libraryName": "extract-zip",
             "asOfVersion": "2.0.0"
         },
+        "fabric": {
+            "libraryName": "fabric",
+            "asOfVersion": "7.4.0"
+        },
         "faker": {
             "libraryName": "faker",
             "asOfVersion": "6.6.6"
