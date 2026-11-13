@@ -580,6 +580,10 @@
             "libraryName": "boxen",
             "asOfVersion": "3.0.1"
         },
+        "bpmn-moddle": {
+            "libraryName": "bpmn-moddle",
+            "asOfVersion": "10.3.1"
+        },
         "braft-editor": {
             "libraryName": "braft-editor",
             "asOfVersion": "2.2.0"
