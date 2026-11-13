@@ -1701,6 +1701,10 @@
             "libraryName": "dd-trace",
             "asOfVersion": "0.9.0"
         },
+        "debounce": {
+            "libraryName": "debounce",
+            "asOfVersion": "3.0.0"
+        },
         "debounce-fn": {
             "libraryName": "debounce-fn",
             "asOfVersion": "3.0.0"
