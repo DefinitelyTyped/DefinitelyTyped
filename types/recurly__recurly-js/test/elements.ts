@@ -3,6 +3,7 @@ export default function elements () {
   const cardElement = elements.CardElement({
     inputType: 'mobileSelect',
     displayIcon: true,
+    coBadgeSelector: true,
     style: {
       fontSize: '1em',
       placeholder: {
@@ -23,6 +24,7 @@ export default function elements () {
     format: true,
     inputType: 'text',
     tabIndex: '1',
+    coBadgeSelector: true,
     style: {
       invalid: {},
       padding: '10px',
