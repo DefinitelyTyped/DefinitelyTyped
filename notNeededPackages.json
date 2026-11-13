@@ -3949,6 +3949,10 @@
             "libraryName": "jsnlog",
             "asOfVersion": "2.17.2"
         },
+        "json-api-serializer": {
+            "libraryName": "json-api-serializer",
+            "asOfVersion": "2.7.0"
+        },
         "json-rules-engine": {
             "libraryName": "json-rules-engine",
             "asOfVersion": "4.1.0"
