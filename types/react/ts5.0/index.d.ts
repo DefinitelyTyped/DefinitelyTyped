@@ -1615,7 +1615,9 @@ declare namespace React {
      * ```
      */
     function lazy<T extends ComponentType<any>>(
-        load: () => Promise<{ default: T }>,
+        load: () => {
+            then(onfulfilled: (value: { default: T }) => unknown, onrejected: (reason: unknown) => unknown): unknown;
+        },
     ): LazyExoticComponent<T>;
 
     //

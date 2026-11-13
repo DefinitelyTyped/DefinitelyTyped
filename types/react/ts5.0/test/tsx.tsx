@@ -382,6 +382,56 @@ const LazyRefForwarding = React.lazy(async () => ({ default: Memoized4 }));
     <LazyRefForwarding ref={memoized4Ref} />
 </React.Suspense>;
 
+function LazyTarget(props: { required: string }) {
+    return <div />;
+}
+declare const lazyTargetPromiseLike: PromiseLike<{ default: typeof LazyTarget }>;
+declare const lazyTargetThenable: {
+    then(onfulfilled: (value: { default: typeof LazyTarget }) => void, onrejected: (reason: unknown) => void): void;
+};
+const LazyFromPromise = React.lazy(() => Promise.resolve({ default: LazyTarget }));
+const LazyFromPromiseLike = React.lazy(() => lazyTargetPromiseLike);
+const LazyFromThenable = React.lazy(() => lazyTargetThenable);
+const LazyFromSyncThenable = React.lazy<typeof LazyTarget>(() => ({
+    then(resolve) {
+        resolve({ default: LazyTarget });
+    },
+}));
+const LazyFromRejectingThenable = React.lazy<typeof LazyTarget>(() => ({
+    then(resolve, reject) {
+        reject(new Error("oh no"));
+    },
+}));
+
+<React.Suspense>
+    <LazyFromPromise required="" />
+    <LazyFromPromiseLike required="" />
+    <LazyFromThenable required="" />
+    <LazyFromSyncThenable required="" />
+    <LazyFromRejectingThenable required="" />
+    {/* @ts-expect-error */}
+    <LazyFromPromise />
+    {/* @ts-expect-error */}
+    <LazyFromPromiseLike />
+    {/* @ts-expect-error */}
+    <LazyFromThenable />
+    {/* @ts-expect-error */}
+    <LazyFromSyncThenable />
+</React.Suspense>;
+
+// @ts-expect-error
+React.lazy(() => ({ default: LazyTarget }));
+// @ts-expect-error
+React.lazy(() => Promise.resolve({ LazyTarget }));
+// @ts-expect-error
+React.lazy(() => Promise.resolve({ default: 42 }));
+React.lazy(() => ({
+    then(resolve) {
+        // @ts-expect-error
+        resolve({ default: 42 });
+    },
+}));
+
 <React.Suspense fallback={null} />;
 <React.Suspense />;
 
