@@ -163,6 +163,20 @@ export interface NormalizationTypeDiscriminator {
     readonly abstractKey: string;
 }
 
+type ResolverData =
+  | { readonly resolverModule?: ResolverModule }
+  | { readonly resolverReference?: ResolverReference }
+  | { readonly resolverInfo?: ResolverInfo };
+
+export type NormalizationResolverField = ResolverData & {
+    readonly kind: "RelayResolver";
+    readonly name: string;
+    readonly args?: readonly NormalizationArgument[] | null | undefined;
+    readonly fragment?: NormalizationInlineFragment | null | undefined;
+    readonly storageKey?: string | null | undefined;
+    readonly isOutputType: boolean;
+};
+
 export type NormalizationSelection =
     | NormalizationCondition
     | NormalizationClientComponent
@@ -176,7 +190,8 @@ export type NormalizationSelection =
     | NormalizationModuleImport
     | NormalizationStream
     | NormalizationActorChange
-    | NormalizationTypeDiscriminator;
+    | NormalizationTypeDiscriminator
+    | NormalizationResolverField;
 
 export interface NormalizationSplitOperation {
     readonly argumentDefinitions?: readonly NormalizationLocalArgumentDefinition[];
