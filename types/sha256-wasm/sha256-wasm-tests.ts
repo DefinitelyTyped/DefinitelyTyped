@@ -14,7 +14,7 @@ Sha256.HMAC; // $ExpectType typeof HMAC
 
 Sha256.WASM; // $ExpectType false | Wasm
 if (Sha256.WASM) {
-    Sha256.WASM.memory; // $ExpectType Memory
+    Sha256.WASM.memory; // $ExpectType Memory || Memory<ArrayBuffer> || Memory<ArrayBufferLike>
     Sha256.WASM.sha256(1, 1, 1, 1); // $ExpectType void
 }
 
