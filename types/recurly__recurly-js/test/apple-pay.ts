@@ -21,6 +21,16 @@ export default function applePay () {
     pricing: window.recurly.Pricing.Checkout()
   });
 
+  window.recurly.ApplePay({
+    country: 'US',
+    currency: 'USD',
+    form: document.forms[0],
+    billingContactSelectionOrder: [
+      window.recurly.ApplePay.FormBillingContact,
+      window.recurly.ApplePay.WalletBillingContact,
+    ],
+  });
+
   const total: ApplePayLineItem = {
     label: 'My Subscription',
     paymentTiming: 'recurring',
