@@ -4045,6 +4045,10 @@
             "libraryName": "jszip",
             "asOfVersion": "3.4.0"
         },
+        "junit-report-builder": {
+            "libraryName": "junit-report-builder",
+            "asOfVersion": "5.1.2"
+        },
         "junk": {
             "libraryName": "junk",
             "asOfVersion": "3.0.0"
