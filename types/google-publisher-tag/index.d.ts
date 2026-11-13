@@ -982,23 +982,18 @@ declare namespace googletag {
          * requests coming from one page view, and unique across page views. Only
          * applies to async mode.
          *
-         * **Note:** this has no effect on GPT's [long-lived
+         * **Note**: Calling this method has no effect on the GPT [long-lived
          * pageview](https://support.google.com/admanager/answer/183281), which
-         * automatically reflects the ads actually on the page and has no expiration
-         * time.
+         * automatically reflects the ads on the page and has no expiration time.
          *
-         * @example
-         *   // Assume that the correlator is currently 12345. All ad requests made
-         *   // by this page will currently use that value.
-         *
-         *   // Replace the current correlator with a new correlator.
-         *   googletag.pubads().updateCorrelator();
-         *
-         *   // The correlator will now be a new randomly selected value, different
-         *   // from 12345. All subsequent ad requests made by this page will use
-         *   // the new value.
-         *
-         * @return The service object on which the function was called.
+         * @see [Ad best practices: Use Single Request Architecture correctly](https://developers.google.com/publisher-tag/guides/ad-best-practices#use_single_request_architecture_correctly)
+         * @return The service object on which the method was called.
+         * @deprecated Use
+         *     {@link googletag.config.PageSettingsConfig.singleRequest | Single Request Architecture (SRA)}
+         *     and [long-lived pageviews](https://support.google.com/admanager/answer/183281)
+         *     to enforce roadblocks and competitive exclusions instead. GPT updates
+         *     correlators automatically on ad refreshes and client-side
+         *     navigations.
          */
         updateCorrelator(): PubAdsService;
 
