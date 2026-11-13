@@ -4,6 +4,12 @@
 // Shared Type Definitions and Interfaces
 // --------------------------------------------------------------------------
 
+declare global {
+    // same approach as react: https://github.com/DefinitelyTyped/DefinitelyTyped/blob/aec10f3e/types/react/global.d.ts#L162
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface TrustedHTML {}
+}
+
 /**
  * BaseType serves as an alias for the 'minimal' data type which can be selected
  * without 'd3-selection' trying to use properties internally which would otherwise not
@@ -586,7 +592,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      * The function’s return value is then used to set each element’s inner HTML.
      * A null value will clear the content.
      */
-    html(value: null | string | ValueFn<GElement, Datum, string | null>): this;
+    html(value: null | string | TrustedHTML | ValueFn<GElement, Datum, string | null>): this;
 
     /**
      * Appends a new element of this type (tag name) as the last child of each selected element,
