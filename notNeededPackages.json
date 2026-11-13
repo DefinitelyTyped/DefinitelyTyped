@@ -4209,6 +4209,10 @@
             "libraryName": "koa-requestid",
             "asOfVersion": "2.0.2"
         },
+        "koa-session": {
+            "libraryName": "koa-session",
+            "asOfVersion": "7.0.2"
+        },
         "koa-useragent": {
             "libraryName": "koa-useragent",
             "asOfVersion": "2.1.1"
