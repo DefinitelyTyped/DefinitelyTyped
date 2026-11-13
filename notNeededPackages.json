@@ -1200,6 +1200,10 @@
             "libraryName": "codegen.macro",
             "asOfVersion": "4.1.0"
         },
+        "color": {
+            "libraryName": "color",
+            "asOfVersion": "5.0.3"
+        },
         "color-convert": {
             "libraryName": "color-convert",
             "asOfVersion": "3.0.1"
