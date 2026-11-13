@@ -1,12 +1,28 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
+/**
+ * {@link AppSyncResolverAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type AppSyncResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
+    AppSyncResolverEvent<TArguments, TSource>,
+    TResult
+>;
+export type AppSyncResolverAsyncHandler<TArguments, TResult, TSource = Record<string, any> | null> = AsyncHandler<
     AppSyncResolverEvent<TArguments, TSource>,
     TResult
 >;
 
 // https:docs.aws.amazon.com/appsync/latest/devguide/tutorial-lambda-resolvers.html#advanced-use-case-batching
+/**
+ * {@link AppSyncBatchResolverAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<string, any> | null> = Handler<
+    Array<AppSyncResolverEvent<TArguments, TSource>>,
+    TResult[]
+>;
+export type AppSyncBatchResolverAsyncHandler<TArguments, TResult, TSource = Record<string, any> | null> = AsyncHandler<
     Array<AppSyncResolverEvent<TArguments, TSource>>,
     TResult[]
 >;
@@ -17,11 +33,17 @@ export type AppSyncBatchResolverHandler<TArguments, TResult, TSource = Record<st
 export type AppSyncAuthorizerHander<TResolverContext = undefined> = AppSyncAuthorizerHandler<TResolverContext>;
 
 /**
+ * {@link AppSyncAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * See https://docs.aws.amazon.com/appsync/latest/devguide/security-authz.html#aws-lambda-authorization
  *
  * @param TResolverContext type of the resolverContext object that you can return from the handler
  */
 export type AppSyncAuthorizerHandler<TResolverContext = undefined> = Handler<
+    AppSyncAuthorizerEvent,
+    AppSyncAuthorizerResult<TResolverContext>
+>;
+export type AppSyncAuthorizerAsyncHandler<TResolverContext = undefined> = AsyncHandler<
     AppSyncAuthorizerEvent,
     AppSyncAuthorizerResult<TResolverContext>
 >;

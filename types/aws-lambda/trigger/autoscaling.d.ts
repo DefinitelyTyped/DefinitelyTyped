@@ -1,6 +1,11 @@
-import { Callback, Handler } from "../handler";
+import { AsyncHandler, Callback, Handler } from "../handler";
 
+/**
+ * {@link AutoScalingScaleInAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type AutoScalingScaleInHandler = Handler<AutoScalingScaleInEvent, AutoScalingScaleInResult>;
+export type AutoScalingScaleInAsyncHandler = AsyncHandler<AutoScalingScaleInEvent, AutoScalingScaleInResult>;
 export type AutoScalingScaleInCallback = Callback<AutoScalingScaleInResult>;
 
 export type AutoScalingInstanceMarketOption = "spot" | "on-demand";

@@ -1,7 +1,19 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
-// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-export type SQSHandler = Handler<SQSEvent, SQSBatchResponse | void>;
+/**
+ * {@link SQSAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
+export type SQSHandler = Handler<
+    SQSEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    SQSBatchResponse | void
+>;
+export type SQSAsyncHandler = AsyncHandler<
+    SQSEvent,
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    SQSBatchResponse | void
+>;
 
 // SQS
 // https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-function.html#supported-event-source-sqs

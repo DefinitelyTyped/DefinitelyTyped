@@ -1,6 +1,8 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
 /**
+ * {@link TransferFamilyAuthorizerAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
  * Use this only if you want to use callbacks. AWS [recommends against](https://docs.aws.amazon.com/lambda/latest/dg/nodejs-handler.html) using those,
  * so you might want to use async/await instead, like this:
  *
@@ -11,6 +13,10 @@ import { Handler } from "../handler";
  * ```
  */
 export type TransferFamilyAuthorizerHandler = Handler<TransferFamilyAuthorizerEvent, TransferFamilyAuthorizerResult>;
+export type TransferFamilyAuthorizerAsyncHandler = AsyncHandler<
+    TransferFamilyAuthorizerEvent,
+    TransferFamilyAuthorizerResult
+>;
 
 /**
  * Transfer Family Authorizer Event. This is the event that will be passed to the Lambda function.
