@@ -110,6 +110,11 @@ interface Attribute {
     type: number;
 
     /**
+     * Enable or disable the `ATTRIBUTE_LINK` underline.
+     */
+    underline?: boolean;
+
+    /**
      * Attribute value.
      */
     value: any;
@@ -324,7 +329,7 @@ interface CameraMediaItemType extends SuccessResponse {
     success?: boolean;
 }
 /**
- * A media object from photo gallery when <Titanium.Media.allowMultiple> is `true`.
+ * A media object from photo gallery when <PhotoGalleryOptionsType.allowMultiple> is `true`.
  */
 interface CameraMediaMultipleItemsType extends SuccessResponse {
     /**
@@ -399,6 +404,11 @@ interface CameraOptionsType {
      * Function to call upon receiving an error.
      */
     error?: (param0: FailureResponse) => void;
+
+    /**
+     * Name of the folder under the gallery's `Pictures` directory to save captured photos to.
+     */
+    galleryFolder?: string;
 
     /**
      * Show the camera in a popover.
@@ -497,6 +507,20 @@ interface CameraRecordingCallback {
      * Size of the video in bytes
      */
     size?: number;
+}
+/**
+ * Dictionary of options for the <Titanium.App.Android.changeIcon> method.
+ */
+interface ChangeIconOptions {
+    /**
+     * `android:name` (without leading dot) of the `<activity-alias>` of the current icon. The method disables this alias.
+     */
+    from: string;
+
+    /**
+     * `android:name` (without leading dot) of the `<activity-alias>` of the new icon. The method enables this alias.
+     */
+    to: string;
 }
 /**
  * Dictionary describing the items for <Titanium.UI.Clipboard.setItems>.
@@ -2016,6 +2040,25 @@ interface OpenURLOptions {
     UIApplicationOpenURLOptionsSourceApplicationKey?: string;
 }
 /**
+ * Dictionary of options for the <Titanium.UI.OptionDialog.show> method.
+ */
+interface OptionDialogShowParams {
+    /**
+     * Determines whether to animate the dialog as it is shown.
+     */
+    animated?: boolean;
+
+    /**
+     * Positions the arrow of the option dialog relative to the attached view's dimensions.
+     */
+    rect?: Dimension;
+
+    /**
+     * View to which to attach the dialog.
+     */
+    view?: Titanium.UI.View;
+}
+/**
  * Simple object passed to the <Titanium.Android.Activity> callbacks for
  * onPrepareOptionsMenu and onCreateOptionsMenu.
  * Additional properties may be set on the Object.
@@ -2390,6 +2433,30 @@ interface PushNotificationSuccessArg extends SuccessResponse {
     type?: string;
 }
 /**
+ * Dictionary of options for the <Titanium.Android.QuickSettingsService.showDialog> method.
+ */
+interface QuickSettingsServiceShowParams {
+    /**
+     * Array of String instances.
+     */
+    buttonNames?: string[];
+
+    /**
+     * String to be used as a message for the dialog.
+     */
+    message?: string;
+
+    /**
+     * Array of String instances.
+     */
+    options?: string[];
+
+    /**
+     * String to be used as title for the dialog.
+     */
+    title?: string;
+}
+/**
  * Argument passed to the read callback when an asynchronous [read](Titanium.Stream.read) operation
  * finishes.
  */
@@ -2463,9 +2530,54 @@ interface RequestPermissionAccessResult extends ErrorResponse {
 interface RequestPhotoGalleryAccessResult extends ErrorResponse {
 }
 /**
+ * Dictionary of options for <Titanium.App.iOS.requestScene>.
+ */
+interface RequestSceneOptions {
+    /**
+     * The name of the `UISceneConfiguration` to use. Must match a
+     * configuration name in the app's `UIApplicationSceneManifest`.
+     * If omitted, the system uses the default configuration.
+     */
+    configurationName?: string;
+}
+/**
+ * Resolution value of the Promise returned by <Titanium.App.iOS.requestScene>
+ * when the newly-requested scene has connected.
+ */
+interface RequestSceneResult {
+    /**
+     * The scene proxy for the newly-connected scene.
+     */
+    scene?: Titanium.App.iOS.SceneProxy;
+}
+/**
  * Argument passed to the callback when a request finishes successfully or erroneously.
  */
 interface RequestStorageAccessResult extends ErrorResponse {
+}
+/**
+ * A region of a window that is reserved by the system.
+ */
+interface ReservedRegion {
+    /**
+     * Whether the region currently applies. The `division` region is only active while the device is partially folded.
+     */
+    active?: boolean;
+
+    /**
+     * The kind of the region. `division` is the fold of the device and `occlusion` is the inner camera.
+     */
+    kind?: string;
+
+    /**
+     * The margins that are included in the `rect` around the reserved area, for interactive content.
+     */
+    margins?: Padding;
+
+    /**
+     * The rectangle of the region in the coordinate space of the window, including the margins.
+     */
+    rect?: Dimension;
 }
 /**
  * Simple object returned in the callback from the
@@ -2544,6 +2656,15 @@ interface ScreenshotResult {
      * The screenshot image.
      */
     media?: Titanium.Blob;
+}
+/**
+ * Dictionary object of parameters for the padding applied to a <Titanium.UI.ScrollableView>.
+ */
+interface ScrollablePadding extends Padding {
+    /**
+     * Horizontal offset in pixels that moves the first view while it is the current page.
+     */
+    leftAdjust?: number;
 }
 /**
  * The search bar token for the <Titanium.UI.SearchBar.insertTokenAtIndex> method.
@@ -5673,7 +5794,7 @@ declare namespace Titanium {
             /**
              * Opens an Alert dialog.
              */
-            showDialog(options: showParams): void;
+            showDialog(options: QuickSettingsServiceShowParams): void;
 
             /**
              * Collapses the quick settings menu and starts an activity for the passed Intent.
@@ -6143,6 +6264,26 @@ declare namespace Titanium {
             const EVENT_ACCESSIBILITY_SCREEN_CHANGED: string;
 
             /**
+             * The hinge is closed.
+             */
+            const HINGE_STATUS_CLOSED: number;
+
+            /**
+             * The hinge is fully open.
+             */
+            const HINGE_STATUS_FULLY_OPEN: number;
+
+            /**
+             * The hinge is partially open.
+             */
+            const HINGE_STATUS_PARTIALLY_OPEN: number;
+
+            /**
+             * The status of the hinge is unknown.
+             */
+            const HINGE_STATUS_UNKNOWN: number;
+
+            /**
              * A dark interface style.
              * @deprecated Use <Titanium.UI.USER_INTERFACE_STYLE_DARK> instead, which is supported cross-platform.
              */
@@ -6528,6 +6669,165 @@ declare namespace Titanium {
                  * Fires a synthesized event to any registered listeners.
                  */
                 fireEvent(name: string, event?: any): void;
+
+                /**
+                 * Removes the specified callback as an event listener for the named event.
+                 */
+                removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+            }
+            /**
+             * Base event for class Titanium.App.iOS.SceneProxy
+             */
+            interface SceneProxyBaseEvent extends Ti.Event {
+                /**
+                 * Source object that fired the event.
+                 */
+                source: Titanium.App.iOS.SceneProxy;
+            }
+            /**
+             * Fired when this scene becomes active and can receive user input.
+             */
+            interface SceneProxy_focus_Event extends SceneProxyBaseEvent {
+                /**
+                 * The scene proxy that became active.
+                 */
+                scene: Titanium.App.iOS.SceneProxy;
+
+                /**
+                 * The unique identifier of the scene.
+                 */
+                sceneId: string;
+            }
+            /**
+             * Fired when this scene is about to resign the active state.
+             */
+            interface SceneProxy_blur_Event extends SceneProxyBaseEvent {
+                /**
+                 * The scene proxy that is resigning active.
+                 */
+                scene: Titanium.App.iOS.SceneProxy;
+
+                /**
+                 * The unique identifier of the scene.
+                 */
+                sceneId: string;
+            }
+            /**
+             * Fired when this scene has entered the background.
+             */
+            interface SceneProxy_paused_Event extends SceneProxyBaseEvent {
+                /**
+                 * The scene proxy that entered the background.
+                 */
+                scene: Titanium.App.iOS.SceneProxy;
+
+                /**
+                 * The unique identifier of the scene.
+                 */
+                sceneId: string;
+            }
+            /**
+             * Fired when this scene is about to enter the foreground.
+             */
+            interface SceneProxy_resumed_Event extends SceneProxyBaseEvent {
+                /**
+                 * The scene proxy that is entering the foreground.
+                 */
+                scene: Titanium.App.iOS.SceneProxy;
+
+                /**
+                 * The unique identifier of the scene.
+                 */
+                sceneId: string;
+            }
+            interface SceneProxyEventMap extends ProxyEventMap {
+                blur: SceneProxy_blur_Event;
+
+                focus: SceneProxy_focus_Event;
+
+                paused: SceneProxy_paused_Event;
+
+                resumed: SceneProxy_resumed_Event;
+            }
+            /**
+             * Proxy object representing a UIWindowScene in a multi-scene iOS application.
+             */
+            class SceneProxy extends Titanium.Proxy {
+                /**
+                 * The unique identifier of the scene (alias for sceneId).
+                 */
+                readonly id: string;
+
+                /**
+                 * Whether the scene is currently active and receiving input.
+                 */
+                readonly isActive: boolean;
+
+                /**
+                 * Whether the scene is in the foreground (visible but may not be active).
+                 */
+                readonly isForeground: boolean;
+
+                /**
+                 * Whether this scene's window is the one the user is currently interacting with.
+                 */
+                readonly isKey: boolean;
+
+                /**
+                 * Whether this scene is the primary (first) scene.
+                 */
+                readonly isPrimary: boolean;
+
+                /**
+                 * The unique identifier of the scene.
+                 */
+                readonly sceneId: string;
+
+                /**
+                 * The configuration name of the scene.
+                 */
+                readonly sceneName: string;
+
+                /**
+                 * The trait collection for this scene.
+                 */
+                readonly traitCollection: any;
+
+                /**
+                 * The root window proxy for this scene.
+                 */
+                readonly window: Titanium.UI.Window;
+
+                /**
+                 * Adds the specified callback as an event listener for the named event.
+                 */
+                addEventListener<K extends keyof SceneProxyEventMap>(
+                    name: K,
+                    callback: (this: Titanium.App.iOS.SceneProxy, event: SceneProxyEventMap[K]) => void,
+                ): void;
+
+                /**
+                 * Adds the specified callback as an event listener for the named event.
+                 */
+                addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+                /**
+                 * Fires a synthesized event to any registered listeners.
+                 */
+                fireEvent<K extends keyof SceneProxyEventMap>(name: K, event?: SceneProxyEventMap[K]): void;
+
+                /**
+                 * Fires a synthesized event to any registered listeners.
+                 */
+                fireEvent(name: string, event?: any): void;
+
+                /**
+                 * Removes the specified callback as an event listener for the named event.
+                 */
+                removeEventListener<K extends keyof SceneProxyEventMap>(
+                    name: K,
+                    callback: (this: Titanium.App.iOS.SceneProxy, event: SceneProxyEventMap[K]) => void,
+                ): void;
 
                 /**
                  * Removes the specified callback as an event listener for the named event.
@@ -7772,6 +8072,11 @@ declare namespace Titanium {
             static applyProperties(props: any): void;
 
             /**
+             * Changes the Android app icon at runtime.
+             */
+            static changeIcon(options: ChangeIconOptions): void;
+
+            /**
              * Clears app data and cache. This will close the app.
              */
             static clearUserCache(): void;
@@ -8400,9 +8705,47 @@ declare namespace Titanium {
         interface iOS_traitcollectionchange_Event extends iOSBaseEvent {
         }
         /**
+         * Fired when the hinge of a foldable device (iPhone Duo) changes its status or angle.
+         */
+        interface iOS_hingechange_Event extends iOSBaseEvent {
+            /**
+             * The current angle of the hinge in degrees. `0` if the device is closed and `180` if the device is
+             * laid out flat. `0` if the status is <Titanium.App.iOS.HINGE_STATUS_UNKNOWN>.
+             */
+            angle: number;
+
+            /**
+             * The status of the hinge.
+             */
+            status: number;
+        }
+        /**
          * Fired after the user takes a screenshot, e.g. by pressing both the home and lock screen buttons.
          */
         interface iOS_screenshotcaptured_Event extends iOSBaseEvent {
+        }
+        /**
+         * Fired when a new scene is being connected to the app.
+         */
+        interface iOS_scenewillconnect_Event extends iOSBaseEvent {
+            /**
+             * The scene proxy object for the new scene.
+             */
+            scene: Titanium.App.iOS.SceneProxy;
+
+            /**
+             * The unique identifier of the scene.
+             */
+            sceneId: string;
+        }
+        /**
+         * Fired when a scene is dismissed by the user or system.
+         */
+        interface iOS_scenediddismiss_Event extends iOSBaseEvent {
+            /**
+             * The unique identifier of the dismissed scene.
+             */
+            sceneId: string;
         }
         interface iOSEventMap extends ProxyEventMap {
             backgroundfetch: iOS_backgroundfetch_Event;
@@ -8417,11 +8760,17 @@ declare namespace Titanium {
 
             handleurl: iOS_handleurl_Event;
 
+            hingechange: iOS_hingechange_Event;
+
             localnotificationaction: iOS_localnotificationaction_Event;
 
             notification: iOS_notification_Event;
 
             remotenotificationaction: iOS_remotenotificationaction_Event;
+
+            scenediddismiss: iOS_scenediddismiss_Event;
+
+            scenewillconnect: iOS_scenewillconnect_Event;
 
             screenshotcaptured: iOS_screenshotcaptured_Event;
 
@@ -8462,10 +8811,25 @@ declare namespace Titanium {
             static bubbleParent: boolean;
 
             /**
+             * The scene proxy for the current scene context.
+             */
+            static readonly currentScene: Titanium.App.iOS.SceneProxy;
+
+            /**
              * Notification types and user notification categories the application is registered to use.
              * @deprecated Use [Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings](Titanium.App.iOS.UserNotificationCenter.requestUserNotificationSettings) instead.
              */
             static readonly currentUserNotificationSettings: UserNotificationSettings;
+
+            /**
+             * The scene proxy for the scene the user is currently interacting with.
+             */
+            static readonly focusedScene: Titanium.App.iOS.SceneProxy;
+
+            /**
+             * An array of all active scene proxies.
+             */
+            static readonly scenes: Titanium.App.iOS.SceneProxy[];
 
             /**
              * Provides an Array of the NSUserActivityTypes keys defined within your Titanium project.
@@ -8507,6 +8871,11 @@ declare namespace Titanium {
              * @deprecated Use [Titanium.App.iOS.UserNotificationCenter.removePendingNotifications](Titanium.App.iOS.UserNotificationCenter.removePendingNotifications) instead.
              */
             static cancelLocalNotification(id: number | string): void;
+
+            /**
+             * Creates and returns an instance of <Titanium.App.iOS.SceneProxy>.
+             */
+            static createSceneProxy(parameters?: Dictionary<Titanium.App.iOS.SceneProxy>): Titanium.App.iOS.SceneProxy;
 
             /**
              * Creates and returns an instance of Titanium.App.iOS.UserDefaults.
@@ -8566,6 +8935,11 @@ declare namespace Titanium {
              * Removes the specified callback as an event listener for the named event.
              */
             static removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+            /**
+             * Request the system to open a new scene (window).
+             */
+            static requestScene(options?: Dictionary<RequestSceneOptions>): Promise<RequestSceneResult>;
 
             /**
              * Schedule a local notification.
@@ -9675,6 +10049,17 @@ declare namespace Titanium {
      */
     namespace Database {
         /**
+         * Open flag for <Titanium.Database.open> requesting that the database file be created
+         * if it does not already exist.
+         */
+        const CREATE_IF_NECESSARY: number;
+
+        /**
+         * Open flag for <Titanium.Database.open> enabling SQLite write-ahead logging (WAL).
+         */
+        const ENABLE_WRITE_AHEAD_LOGGING: number;
+
+        /**
          * Constant for requesting a column's value returned in double form.
          */
         const FIELD_TYPE_DOUBLE: number;
@@ -9693,6 +10078,22 @@ declare namespace Titanium {
          * Constant for requesting a column's value returned in string form.
          */
         const FIELD_TYPE_STRING: number;
+
+        /**
+         * Open flag for <Titanium.Database.open> requesting that the database not be
+         * rebuilt with the device's current locale collators.
+         */
+        const NO_LOCALIZED_COLLATORS: number;
+
+        /**
+         * Open flag for <Titanium.Database.open> requesting read-only access.
+         */
+        const OPEN_READONLY: number;
+
+        /**
+         * Open flag for <Titanium.Database.open> requesting read/write access.
+         */
+        const OPEN_READWRITE: number;
 
         /**
          * The `Database` instance returned by <Titanium.Database.open> or <Titanium.Database.install>.
@@ -10709,6 +11110,11 @@ declare namespace Titanium {
          * Player is waiting for audio data from the network.
          */
         const AUDIO_STATE_WAITING_FOR_DATA: number;
+
+        /**
+         * Player is waiting for the audio queue to fill before starting.
+         */
+        const AUDIO_STATE_WAITING_FOR_QUEUE: number;
 
         /**
          * Constant specifying that app is authorized to use camera. This is available on iOS 7 and later.
@@ -12803,6 +13209,15 @@ declare namespace Titanium {
             y: number;
         }
         /**
+         * Fired when the video is loading/buffering.
+         */
+        interface VideoPlayer_buffer_Event extends VideoPlayerBaseEvent {
+            /**
+             * Percentage of the video that is buffered/loaded.
+             */
+            percentage: number;
+        }
+        /**
          * Fired when movie playback ends or a user exits playback.
          */
         interface VideoPlayer_complete_Event extends VideoPlayerBaseEvent {
@@ -12920,6 +13335,8 @@ declare namespace Titanium {
         interface VideoPlayer_resize_Event extends VideoPlayerBaseEvent {
         }
         interface VideoPlayerEventMap extends ProxyEventMap {
+            buffer: VideoPlayer_buffer_Event;
+
             click: VideoPlayer_click_Event;
 
             complete: VideoPlayer_complete_Event;
@@ -17675,6 +18092,11 @@ declare namespace Titanium {
                 ): void;
 
                 /**
+                 * Adds the specified callback as an event listener for the named event.
+                 */
+                addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
+
+                /**
                  * Animates this view.
                  */
                 animate: never;
@@ -17693,6 +18115,11 @@ declare namespace Titanium {
                  * Fires a synthesized event to any registered listeners.
                  */
                 fireEvent<K extends keyof CollapseToolbarEventMap>(name: K, event?: CollapseToolbarEventMap[K]): void;
+
+                /**
+                 * Fires a synthesized event to any registered listeners.
+                 */
+                fireEvent(name: string, event?: any): void;
 
                 /**
                  * Returns the matching view of a given view ID.
@@ -17726,6 +18153,11 @@ declare namespace Titanium {
                     name: K,
                     callback: (this: Titanium.UI.Android.CollapseToolbar, event: CollapseToolbarEventMap[K]) => void,
                 ): void;
+
+                /**
+                 * Removes the specified callback as an event listener for the named event.
+                 */
+                removeEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
 
                 /**
                  * Replaces a view at the specified position in the [children](Titanium.UI.View.children) array.
@@ -21961,6 +22393,36 @@ declare namespace Titanium {
             const AUDIOVISUAL_MEDIA_TYPE_VIDEO: number;
 
             /**
+             * The system decides if the item is shown in a horizontal or vertical bar.
+             */
+            const BAR_BUTTON_AXIS_BEHAVIOR_AUTOMATIC: number;
+
+            /**
+             * The item is only shown in horizontal bars.
+             */
+            const BAR_BUTTON_AXIS_BEHAVIOR_HORIZONTAL_ONLY: number;
+
+            /**
+             * The item prefers to be shown in a vertical bar.
+             */
+            const BAR_BUTTON_AXIS_BEHAVIOR_VERTICAL_PREFERRED: number;
+
+            /**
+             * The item stays visible as long as possible when the bar runs out of space.
+             */
+            const BAR_BUTTON_VISIBILITY_PRIORITY_HIGH: number;
+
+            /**
+             * The item is moved into the overflow menu first when the bar runs out of space.
+             */
+            const BAR_BUTTON_VISIBILITY_PRIORITY_LOW: number;
+
+            /**
+             * The default priority of a bar item.
+             */
+            const BAR_BUTTON_VISIBILITY_PRIORITY_STANDARD: number;
+
+            /**
              * Use with [BlurView.effect](Titanium.UI.iOS.BlurView.effect) to specify a blur effect.
              */
             const BLUR_EFFECT_STYLE_DARK: number;
@@ -22599,6 +23061,46 @@ declare namespace Titanium {
             const SHORTCUT_ICON_TYPE_UPDATE: number;
 
             /**
+             * Let the system choose the display mode of a split window that fits the available width.
+             */
+            const SPLIT_WINDOW_DISPLAY_MODE_AUTOMATIC: number;
+
+            /**
+             * Show the master view of a split window next to the detail view.
+             */
+            const SPLIT_WINDOW_DISPLAY_MODE_ONE_BESIDE_SECONDARY: number;
+
+            /**
+             * Show the master view of a split window as an overlay on top of the detail view.
+             */
+            const SPLIT_WINDOW_DISPLAY_MODE_ONE_OVER_SECONDARY: number;
+
+            /**
+             * Show only the detail view of a split window and hide the master view.
+             */
+            const SPLIT_WINDOW_DISPLAY_MODE_SECONDARY_ONLY: number;
+
+            /**
+             * Let the system choose how the master view and the detail view of a split window share the width.
+             */
+            const SPLIT_WINDOW_SPLIT_BEHAVIOR_AUTOMATIC: number;
+
+            /**
+             * Show the master view of a split window next to the detail view, which keeps its width and moves aside.
+             */
+            const SPLIT_WINDOW_SPLIT_BEHAVIOR_DISPLACE: number;
+
+            /**
+             * Show the master view of a split window on top of the detail view, which keeps its full width.
+             */
+            const SPLIT_WINDOW_SPLIT_BEHAVIOR_OVERLAY: number;
+
+            /**
+             * Show the master view and the detail view of a split window side by side without overlap.
+             */
+            const SPLIT_WINDOW_SPLIT_BEHAVIOR_TILE: number;
+
+            /**
              * String that represents the magnifying glass on the table view index bar
              */
             const TABLEVIEW_INDEX_SEARCH: string;
@@ -22622,6 +23124,31 @@ declare namespace Titanium {
              * Minimize the tab group when scrolling up.
              */
             const TAB_GROUP_MINIMIZE_BEHAVIOR_ON_SCROLL_UP: number;
+
+            /**
+             * The system decides if a vertical bar is used.
+             */
+            const VERTICAL_BAR_BEHAVIOR_AUTOMATIC: number;
+
+            /**
+             * The vertical bar is disabled.
+             */
+            const VERTICAL_BAR_BEHAVIOR_DISABLED: number;
+
+            /**
+             * The system decides if the bar items or the tab bar compress first.
+             */
+            const VERTICAL_BAR_COMPRESSION_BEHAVIOR_AUTOMATIC: number;
+
+            /**
+             * The bar items compress before the tab bar does.
+             */
+            const VERTICAL_BAR_COMPRESSION_BEHAVIOR_PREFERS_BAR_ITEMS: number;
+
+            /**
+             * The tab bar compresses before the bar items do.
+             */
+            const VERTICAL_BAR_COMPRESSION_BEHAVIOR_PREFERS_TAB_BAR: number;
 
             /**
              * A set of constants for the style that can be used for the `style` property of
@@ -26951,6 +27478,34 @@ declare namespace Titanium {
              */
             interface SplitWindow_open_Event extends SplitWindowBaseEvent {
             }
+            /**
+             * Fired when the reserved regions of the window change, e.g. when the device is folded.
+             */
+            interface SplitWindow_reservedregionschange_Event extends SplitWindowBaseEvent {
+                /**
+                 * The current reserved regions of the window, as returned by [reservedRegions](Titanium.UI.Window.reservedRegions).
+                 */
+                regions: ReservedRegion[];
+            }
+            /**
+             * Fired before the split window changes its display mode, for example when the master view is shown or hidden.
+             */
+            interface SplitWindow_displaymodechange_Event extends SplitWindowBaseEvent {
+                /**
+                 * The new display mode.
+                 */
+                displayMode: number;
+            }
+            /**
+             * Fired when the split window collapses to a single column, for example when the width becomes compact.
+             */
+            interface SplitWindow_collapse_Event extends SplitWindowBaseEvent {
+            }
+            /**
+             * Fired when the split window expands from a single column to two columns.
+             */
+            interface SplitWindow_expand_Event extends SplitWindowBaseEvent {
+            }
             interface SplitWindowEventMap extends ProxyEventMap {
                 blur: SplitWindow_blur_Event;
 
@@ -26958,9 +27513,15 @@ declare namespace Titanium {
 
                 close: SplitWindow_close_Event;
 
+                collapse: SplitWindow_collapse_Event;
+
                 dblclick: SplitWindow_dblclick_Event;
 
+                displaymodechange: SplitWindow_displaymodechange_Event;
+
                 doubletap: SplitWindow_doubletap_Event;
+
+                expand: SplitWindow_expand_Event;
 
                 focus: SplitWindow_focus_Event;
 
@@ -26973,6 +27534,8 @@ declare namespace Titanium {
                 pinch: SplitWindow_pinch_Event;
 
                 postlayout: SplitWindow_postlayout_Event;
+
+                reservedregionschange: SplitWindow_reservedregionschange_Event;
 
                 rotate: SplitWindow_rotate_Event;
 
@@ -27001,12 +27564,21 @@ declare namespace Titanium {
                 detailView: Titanium.UI.Window;
 
                 /**
+                 * The arrangement of the master view and the detail view.
+                 */
+                displayMode: number;
+
+                /**
                  * Determines the width of the `masterView` in landscape mode.
+                 * @deprecated The layout is owned by the system and this property has no effect. Use
+                 * <Titanium.UI.iOS.SplitWindow.primaryColumnWidthFraction>.
                  */
                 landscapeSplit: number;
 
                 /**
                  * Determines whether to show the master view is overlayed in portrait orientation.
+                 * @deprecated The layout is owned by the system and this property has no effect. Use
+                 * <Titanium.UI.iOS.SplitWindow.splitBehavior> with <Titanium.UI.iOS.SPLIT_WINDOW_SPLIT_BEHAVIOR_OVERLAY>.
                  */
                 masterIsOverlayed: boolean;
 
@@ -27017,18 +27589,50 @@ declare namespace Titanium {
 
                 /**
                  * Determines whether to show the master view or hide.
+                 * @deprecated The layout is owned by the system and this property has no effect. Use
+                 * <Titanium.UI.iOS.SplitWindow.showMasterView> and <Titanium.UI.iOS.SplitWindow.hideMasterView>.
                  */
                 masterViewVisible: boolean;
 
                 /**
+                 * The maximum width of the master view in points.
+                 */
+                maximumPrimaryColumnWidth: number;
+
+                /**
+                 * The minimum width of the master view in points.
+                 */
+                minimumPrimaryColumnWidth: number;
+
+                /**
                  * Determines the width of the `masterView` in portrait mode.
+                 * @deprecated The layout is owned by the system and this property has no effect. Use
+                 * <Titanium.UI.iOS.SplitWindow.primaryColumnWidthFraction>.
                  */
                 portraitSplit: number;
 
                 /**
+                 * Determines whether a swipe from the leading edge shows the hidden master view.
+                 */
+                presentsWithGesture: boolean;
+
+                /**
+                 * The width of the master view as a fraction of the width of the split window.
+                 */
+                primaryColumnWidthFraction: number;
+
+                /**
                  * Determines whether to show the master view in portrait orientation.
+                 * @deprecated The layout is owned by the system and this property has no effect. Use
+                 * <Titanium.UI.iOS.SplitWindow.displayMode> with <Titanium.UI.iOS.SPLIT_WINDOW_DISPLAY_MODE_ONE_BESIDE_SECONDARY>
+                 * to always show the master view.
                  */
                 showMasterInPortrait: boolean;
+
+                /**
+                 * How the master view and the detail view share the width when both are visible.
+                 */
+                splitBehavior: number;
 
                 /**
                  * Boolean value indicating if the user should be able to close a window using a swipe gesture.
@@ -27065,6 +27669,11 @@ declare namespace Titanium {
                 fireEvent(name: string, event?: any): void;
 
                 /**
+                 * Hides the master view if the current display mode shows it.
+                 */
+                hideMasterView(): void;
+
+                /**
                  * Removes the specified callback as an event listener for the named event.
                  */
                 removeEventListener<K extends keyof SplitWindowEventMap>(
@@ -27079,11 +27688,13 @@ declare namespace Titanium {
 
                 /**
                  * Sets the value of the [masterIsOverlayed](Titanium.UI.iOS.SplitWindow.masterIsOverlayed) property.
+                 * @deprecated The layout is owned by the system. Use <Titanium.UI.iOS.SplitWindow.splitBehavior> instead.
                  */
                 setMasterIsOverlayed(masterIsOverlayed: boolean, options?: AnimatedOptions): void;
 
                 /**
                  * Sets the value of the [showMasterInPortrait](Titanium.UI.iOS.SplitWindow.showMasterInPortrait) property.
+                 * @deprecated The layout is owned by the system. Use <Titanium.UI.iOS.SplitWindow.displayMode> instead.
                  */
                 setShowMasterInPortrait(showMasterInPortrait: boolean, options?: AnimatedOptions): void;
 
@@ -27091,6 +27702,11 @@ declare namespace Titanium {
                  * Sets the array of items to show in the window's toolbar.
                  */
                 setToolbar: never;
+
+                /**
+                 * Shows the master view if the current display mode hides it.
+                 */
+                showMasterView(): void;
             }
             /**
              * Base event for class Titanium.UI.iOS.Stepper
@@ -30923,6 +31539,11 @@ declare namespace Titanium {
             width: never;
 
             /**
+             * The window to present the alert in, for scene-aware display.
+             */
+            window: Titanium.UI.Window;
+
+            /**
              * Z-index stack order position, relative to other sibling views.
              */
             zIndex: never;
@@ -31090,7 +31711,7 @@ declare namespace Titanium {
             static fireEvent(name: string, event?: any): void;
 
             /**
-             * Returns a <Ti.Color> instance for a color defined by the system or user resources (colors.xml)
+             * Returns a <Titanium.UI.Color> instance for a color defined by the system or user resources (colors.xml)
              */
             static getColorResource(resourceIdOrColorName: number | string): Titanium.UI.Color;
 
@@ -31245,6 +31866,11 @@ declare namespace Titanium {
              * Value of the `right` property at the end of the animation.
              */
             right: number;
+
+            /**
+             * Clockwise 2D rotation of the view in degrees at the end of the animation.
+             */
+            rotation: number;
 
             /**
              * Value of the `rotationX` property at the end of the animation.
@@ -31966,6 +32592,11 @@ declare namespace Titanium {
             attributedString: Titanium.UI.AttributedString;
 
             /**
+             * Whether the button prefers to be shown in a horizontal or a vertical bar.
+             */
+            axisBehavior: number;
+
+            /**
              * Background image for the button in its disabled state, specified as a local file path
              * or URL.
              */
@@ -32093,6 +32724,11 @@ declare namespace Titanium {
              * vertical alignment constants from <Titanium.UI>.
              */
             verticalAlign: number | string;
+
+            /**
+             * Defines which buttons are moved into the overflow menu first when a bar runs out of space.
+             */
+            visibilityPriority: number;
 
             /**
              * Adds a child to this view's hierarchy.
@@ -36292,6 +36928,11 @@ declare namespace Titanium {
             lines: number;
 
             /**
+             * Color of the link inside a label, as a color name or hex triplet.
+             */
+            linkColor: string | Titanium.UI.Color;
+
+            /**
              * Makes the label at most this many lines tall.
              */
             maxLines: number;
@@ -36300,6 +36941,11 @@ declare namespace Titanium {
              * Minimum font size when the font is sized based on the contents.
              */
             minimumFontSize: number;
+
+            /**
+             * Padding between the label's edges and its text.
+             */
+            padding: Padding;
 
             /**
              * Shadow color of the [text](Titanium.UI.Label.text), as a color name or hex triplet.
@@ -37260,6 +37906,35 @@ declare namespace Titanium {
             sectionIndex: number;
         }
         /**
+         * Fired when a list row is pressed and held by the user.
+         */
+        interface ListView_itemlongpress_Event extends ListViewBaseEvent {
+            /**
+             * The bind ID of the control that was pressed, if one exists.
+             */
+            bindId: string;
+
+            /**
+             * The item ID bound to the list item that generated the event.
+             */
+            itemId: string;
+
+            /**
+             * Item index.
+             */
+            itemIndex: number;
+
+            /**
+             * List section if the item is contained in a list section.
+             */
+            section: Titanium.UI.ListSection;
+
+            /**
+             * Section index.
+             */
+            sectionIndex: number;
+        }
+        /**
          * Fired when user stops two-pan gesture interaction for selecting multiple items.
          * It is used with <Titanium.UI.ListView.allowsMultipleSelectionInteraction>.
          */
@@ -37670,6 +38345,8 @@ declare namespace Titanium {
 
             itemclick: ListView_itemclick_Event;
 
+            itemlongpress: ListView_itemlongpress_Event;
+
             itemsselected: ListView_itemsselected_Event;
 
             keypressed: ListView_keypressed_Event;
@@ -37986,6 +38663,11 @@ declare namespace Titanium {
              * Determines whether this list view displays a vertical scroll indicator.
              */
             showVerticalScrollIndicator: boolean;
+
+            /**
+             * Determines whether items snap into place when scrolling stops.
+             */
+            snapping: boolean;
 
             /**
              * Style of the list view.
@@ -39564,6 +40246,15 @@ declare namespace Titanium {
          */
         interface NavigationWindow_open_Event extends NavigationWindowBaseEvent {
         }
+        /**
+         * Fired when the reserved regions of the window change, e.g. when the device is folded.
+         */
+        interface NavigationWindow_reservedregionschange_Event extends NavigationWindowBaseEvent {
+            /**
+             * The current reserved regions of the window, as returned by [reservedRegions](Titanium.UI.Window.reservedRegions).
+             */
+            regions: ReservedRegion[];
+        }
         interface NavigationWindowEventMap extends ProxyEventMap {
             androidback: NavigationWindow_androidback_Event;
 
@@ -39600,6 +40291,8 @@ declare namespace Titanium {
             pinch: NavigationWindow_pinch_Event;
 
             postlayout: NavigationWindow_postlayout_Event;
+
+            reservedregionschange: NavigationWindow_reservedregionschange_Event;
 
             rotate: NavigationWindow_rotate_Event;
 
@@ -41459,7 +42152,7 @@ declare namespace Titanium {
             /**
              * Shows this dialog.
              */
-            show(params?: showParams): void;
+            show(params?: OptionDialogShowParams): void;
 
             /**
              * Returns an image of the rendered view, as a Blob.
@@ -45647,12 +46340,12 @@ declare namespace Titanium {
             /**
              * Moves the end of the scrollable region into the viewable area.
              */
-            scrollToBottom(): void;
+            scrollToBottom(options?: AnimatedOptions): void;
 
             /**
              * Moves the top of the scrollable region into the viewable area.
              */
-            scrollToTop(): void;
+            scrollToTop(options?: AnimatedOptions): void;
 
             /**
              * Sets the value of the [contentOffset](Titanium.UI.ScrollView.contentOffset) property.
@@ -46201,7 +46894,7 @@ declare namespace Titanium {
             /**
              * The padding applied to the scrollable view.
              */
-            padding: Padding;
+            padding: ScrollablePadding;
 
             /**
              * Color of the paging control, as a color name or hex triplet.
@@ -50468,6 +51161,15 @@ declare namespace Titanium {
          */
         interface TabGroup_open_Event extends TabGroupBaseEvent {
         }
+        /**
+         * Fired when the reserved regions of the window change, e.g. when the device is folded.
+         */
+        interface TabGroup_reservedregionschange_Event extends TabGroupBaseEvent {
+            /**
+             * The current reserved regions of the window, as returned by [reservedRegions](Titanium.UI.Window.reservedRegions).
+             */
+            regions: ReservedRegion[];
+        }
         interface TabGroupEventMap extends ProxyEventMap {
             androidback: TabGroup_androidback_Event;
 
@@ -50504,6 +51206,8 @@ declare namespace Titanium {
             pinch: TabGroup_pinch_Event;
 
             postlayout: TabGroup_postlayout_Event;
+
+            reservedregionschange: TabGroup_reservedregionschange_Event;
 
             rotate: TabGroup_rotate_Event;
 
@@ -50749,6 +51453,11 @@ declare namespace Titanium {
             layout: never;
 
             /**
+             * Lazily opens each tab's root window only when that tab becomes active/selected.
+             */
+            lazyLoadingEnabled: boolean;
+
+            /**
              * Window's left position, in platform-specific units.
              */
             left: never;
@@ -50757,6 +51466,11 @@ declare namespace Titanium {
              * Defines the minimize behavior for the tab group, if it is supported.
              */
             minimizeBehavior: number;
+
+            /**
+             * Hides the action bar (`true`) or shows the action bar (`false`).
+             */
+            navBarHidden: boolean;
 
             /**
              * The tintColor to apply to the navigation bar (typically for the **More** tab).
@@ -52797,6 +53511,11 @@ declare namespace Titanium {
             searchHidden: boolean;
 
             /**
+             * The string to use as the search parameter.
+             */
+            searchText: string;
+
+            /**
              * Number of sections in this table view.
              */
             readonly sectionCount: number;
@@ -52841,6 +53560,11 @@ declare namespace Titanium {
              * Determines whether this table view displays a vertical scroll indicator.
              */
             showVerticalScrollIndicator: boolean;
+
+            /**
+             * Determines whether rows snap into place when scrolling stops.
+             */
+            snapping: boolean;
 
             /**
              * Style of the table view, specified using one of the constants from
@@ -56201,6 +56925,11 @@ declare namespace Titanium {
             extendBackground: boolean;
 
             /**
+             * If `true`, each toolbar item is rendered in its own separate visual container.
+             */
+            hideSharedBackground: boolean;
+
+            /**
              * An array of buttons (or other widgets) contained in the toolbar.
              */
             items: Titanium.UI.View[];
@@ -57068,6 +57797,11 @@ declare namespace Titanium {
              * Border color of the view, as a color name or hex triplet.
              */
             borderColor: string | Titanium.UI.Color;
+
+            /**
+             * Dash pattern of the view's border, as alternating dash and gap lengths.
+             */
+            borderDashPattern: number[];
 
             /**
              * Radius for the rounded corners of the view's border.
@@ -58540,6 +59274,11 @@ declare namespace Titanium {
             goForward(): void;
 
             /**
+             * Injects the Titanium event bindings from bindings.js code into an external webpage.
+             */
+            injectEventBindings(): void;
+
+            /**
              * Pauses native webview plugins.
              */
             pause(): void;
@@ -59210,6 +59949,15 @@ declare namespace Titanium {
          */
         interface Window_open_Event extends WindowBaseEvent {
         }
+        /**
+         * Fired when the reserved regions of the window change, e.g. when the device is folded.
+         */
+        interface Window_reservedregionschange_Event extends WindowBaseEvent {
+            /**
+             * The current reserved regions of the window, as returned by [reservedRegions](Titanium.UI.Window.reservedRegions).
+             */
+            regions: ReservedRegion[];
+        }
         interface WindowEventMap extends ProxyEventMap {
             androidback: Window_androidback_Event;
 
@@ -59246,6 +59994,8 @@ declare namespace Titanium {
             pinch: Window_pinch_Event;
 
             postlayout: Window_postlayout_Event;
+
+            reservedregionschange: Window_reservedregionschange_Event;
 
             rotate: Window_rotate_Event;
 
@@ -59497,6 +60247,11 @@ declare namespace Titanium {
             orientationModes: number[];
 
             /**
+             * The regions of the window that are reserved by the system, e.g. by the fold or the inner camera of the iPhone Duo.
+             */
+            readonly reservedRegions: ReservedRegion[];
+
+            /**
              * Window's right position, in platform-specific units.
              */
             right: number | string;
@@ -59515,6 +60270,11 @@ declare namespace Titanium {
              * The padding needed to safely display content without it being overlapped by the screen insets and notches.
              */
             readonly safeAreaPadding: Padding;
+
+            /**
+             * The scene proxy associated with this window.
+             */
+            readonly scene: Titanium.App.iOS.SceneProxy;
 
             /**
              * Shadow image for the navigation bar, specified as a URL to a local image..
@@ -59617,6 +60377,16 @@ declare namespace Titanium {
              * Additional UI flags to set on the Activity Window.
              */
             uiFlags: number;
+
+            /**
+             * Whether the system may lay out the bars of this window vertically.
+             */
+            verticalBarBehavior: number;
+
+            /**
+             * Defines whether the bar items or the tab bar compress first when the vertical bar runs out of space.
+             */
+            verticalBarCompressionBehavior: number;
 
             /**
              * Additional flags to set on the Activity Window.
@@ -61132,6 +61902,11 @@ declare namespace Titanium {
         static readonly rootActivity: Titanium.Android.Activity;
 
         /**
+         * Android SDK version number (e.g. returns 35 for Android 15).
+         */
+        static readonly sdkVersion: number;
+
+        /**
          * Adds the specified callback as an event listener for the named event.
          */
         static addEventListener(name: string, callback: (param0: Titanium.Event) => void): void;
@@ -62375,7 +63150,7 @@ declare namespace Titanium {
         /**
          * Opens an SQLite database.
          */
-        static open(dbName: string): Titanium.Database.DB;
+        static open(dbName: string, flags?: number): Titanium.Database.DB;
 
         /**
          * Removes the specified callback as an event listener for the named event.
@@ -62789,7 +63564,7 @@ declare namespace Titanium {
         static getCurrentHeading(callback?: (param0: HeadingResponse) => void): Promise<HeadingResponse>;
 
         /**
-         * Retrieves the last known location from the device.
+         * Retrieves the current location from the device.
          */
         static getCurrentPosition(callback?: (param0: LocationResults) => void): Promise<LocationResults>;
 
@@ -64256,7 +65031,7 @@ declare namespace Titanium {
             sourceStream: Titanium.IOStream,
             buffer?: Titanium.Buffer,
             resultsCallback?: (param0: ReadCallbackArgs) => void,
-        ): Titanium.Buffer | undefined;
+        ): Titanium.Buffer;
 
         /**
          * Removes the specified callback as an event listener for the named event.
@@ -65593,7 +66368,7 @@ interface daysOfTheWeekDictionary {
     week?: number;
 }
 /**
- * Dictionary of options for the <Titanium.UI.TabGroup.disableTabOptions> method.
+ * Dictionary of options for the <Titanium.UI.TabGroup.disableTabNavigation> method.
  */
 interface disableTabOptions {
     /**
@@ -65806,45 +66581,6 @@ interface showContactsParams {
      * at least contain the selected property and fullName.
      */
     selectedProperty?: (param0: any) => void;
-}
-/**
- * Dictionary of options for the <Titanium.UI.OptionDialog.show> method.
- */
-interface showParams {
-    /**
-     * Determines whether to animate the dialog as it is shown.
-     */
-    animated?: boolean;
-
-    /**
-     * Array of String instances.
-     */
-    buttonNames?: string[];
-
-    /**
-     * String to be used as a message for the dialog.
-     */
-    message?: string;
-
-    /**
-     * Array of String instances.
-     */
-    options?: string[];
-
-    /**
-     * Positions the arrow of the option dialog relative to the attached view's dimensions.
-     */
-    rect?: Dimension;
-
-    /**
-     * String to be used as title for the dialog.
-     */
-    title?: string;
-
-    /**
-     * View to which to attach the dialog.
-     */
-    view?: Titanium.UI.View;
 }
 /**
  * Dictionary object of parameters for the <Titanium.UI.TextArea.selected> event and <Titanium.UI.TextArea.selection> property that describes
