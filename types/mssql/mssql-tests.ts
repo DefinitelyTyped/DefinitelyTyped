@@ -260,6 +260,12 @@ function test_promise_returns() {
     request.query`SELECT ${1}`.then((recordset) => {});
     request.query<Entity>`SELECT ${1}`.then((recordset) => {});
     request.execute("procedure_name").then((recordset) => {});
+
+    const strings = ["SELECT * FROM table WHERE id = ", ""];
+    connection.query(strings, 1).then(res => {});
+    connection.batch(strings, 1).then(res => {});
+    request.query(strings, 1).then(res => {});
+    request.batch(strings, 1).then(res => {});
 }
 
 function test_request_constructor() {
