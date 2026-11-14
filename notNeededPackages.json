@@ -5413,6 +5413,10 @@
             "libraryName": "obj-str",
             "asOfVersion": "1.1.0"
         },
+        "object-refs": {
+            "libraryName": "object-refs",
+            "asOfVersion": "0.4.0"
+        },
         "odata": {
             "libraryName": "odata",
             "asOfVersion": "1.0.3"
