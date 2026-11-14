@@ -6069,7 +6069,11 @@ declare namespace Xrm {
          * Execute a single action, function, or CRUD operation.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/online/execute External Link: Xrm.WebApi.online.execute (Client API reference)}
          * @param request Object that will be passed to the Web API endpoint to execute an action, function, or CRUD request.
-         * @remarks The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute.<BR>
+         * @remarks Preserve literal metadata (for example, with `as const`) to check request parameters.
+         * For a typed response, specify both types: `execute<ResponseBody, typeof request>(request)`.
+         * Use `satisfies ExecuteRequestMetadata` rather than a metadata type annotation to preserve
+         * parameter names and literal types. Widening metadata erases information needed for validation.
+         * The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute.<BR>
          * **The getMetadata method has the following parameters**:
          *   - boundParameter: (Optional) String. The name of the bound parameter for the action or function to execute.
          *       * Specify undefined if you are executing a CRUD request.
@@ -6091,7 +6095,12 @@ declare namespace Xrm {
          *       * 5: EntityType
          *   - typeName: String. The fully qualified name of the parameter type.
          */
-        execute<TResponseBody = unknown>(request: ExecuteRequest): Async.PromiseLike<ExecuteResponse<TResponseBody>>;
+        execute<TRequest extends { getMetadata(): ExecuteRequestMetadata }>(
+            request: TRequest & ExecuteRequest<ReturnType<TRequest["getMetadata"]>>,
+        ): Async.PromiseLike<ExecuteResponse>;
+        execute<TResponseBody, TRequest extends { getMetadata(): ExecuteRequestMetadata }>(
+            request: TRequest & ExecuteRequest<ReturnType<TRequest["getMetadata"]>>,
+        ): Async.PromiseLike<ExecuteResponse<TResponseBody>>;
 
         /**
          * Execute a collection of action, function, or CRUD operations.
@@ -6105,7 +6114,14 @@ declare namespace Xrm {
          *        * In this case, all the request objects specified in the change set will get executed in a
          *        transaction.
          */
-        executeMultiple(request: (ExecuteRequest | ExecuteRequest[])[]): Async.PromiseLike<ExecuteResponse[]>;
+        executeMultiple<
+            const TRequests extends readonly (
+                | { getMetadata(): ExecuteRequestMetadata }
+                | readonly { getMetadata(): ExecuteRequestMetadata }[]
+            )[],
+        >(
+            request: TRequests & ExecuteRequests<TRequests>,
+        ): Async.PromiseLike<ExecuteResponse[]>;
     }
 
     /**
@@ -6408,15 +6424,50 @@ declare namespace Xrm {
     }
 
     /**
-     * Interface for the WebAPI Execute request response
-     */
-    /**
      * Request passed to Xrm.WebApi.online.execute or executeMultiple.
      * May also contain additional operation-specific properties.
      */
-    interface ExecuteRequest {
-        getMetadata(): ExecuteRequestMetadata;
-    }
+    type ExecuteRequest<TMetadata extends ExecuteRequestMetadata = ExecuteRequestMetadata> = TMetadata extends
+        ExecuteRequestMetadata ?
+            & {
+                getMetadata(): TMetadata & { boundParameter?: keyof TMetadata["parameterTypes"] | null };
+            }
+            & (string extends keyof TMetadata["parameterTypes"] ? { [parameterName: string]: unknown } : {
+                [K in keyof TMetadata["parameterTypes"]]: ExecuteRequestParameterValue<TMetadata["parameterTypes"][K]>;
+            })
+        : never;
+
+    /** Validate individual requests and requests inside change sets. */
+    type ExecuteRequests<TRequests extends readonly unknown[]> = {
+        [K in keyof TRequests]: ExecuteRequestOrChangeSet<TRequests[K]>;
+    };
+
+    type ExecuteRequestOrChangeSet<TRequest> = TRequest extends { getMetadata(): ExecuteRequestMetadata }
+        ? TRequest & ExecuteRequest<ReturnType<TRequest["getMetadata"]>>
+        : TRequest extends readonly unknown[] ? ExecuteRequests<TRequest>
+        : never;
+
+    /** JavaScript representation of an EDM primitive value. */
+    type ExecuteRequestPrimitiveValue<TName extends string> = TName extends "Edm.Boolean" ? boolean
+        : TName extends "Edm.Decimal" | "Edm.Double" | "Edm.Int16" | "Edm.Int32" | "Edm.Int64" ? number
+        : TName extends PrimitiveTypeName ? string
+        : unknown;
+
+    /** Values for entity and complex parameters remain open because metadata supplies no field schema. */
+    type ExecuteRequestParameterValue<TParameter extends ExecuteRequestParameterType> = TParameter extends
+        ExecuteRequestPrimitiveParameterType ? ExecuteRequestPrimitiveValue<TParameter["typeName"]>
+        : TParameter extends ExecuteRequestEnumParameterType
+            ? TParameter extends { enumProperties: readonly (infer TEnum extends ExecuteRequestEnumProperty)[] }
+                ? TEnum["value"]
+            : string | number
+        : TParameter extends { structuralProperty: XrmEnum.StructuralPropertyType.Collection; typeName: infer TName }
+            ? TName extends `Collection(${infer TElement})` ? Array<ExecuteRequestPrimitiveValue<TElement>> : unknown[]
+        : TParameter extends {
+            structuralProperty:
+                | XrmEnum.StructuralPropertyType.EntityType
+                | XrmEnum.StructuralPropertyType.ComplexType;
+        } ? object
+        : unknown;
 
     /** Request metadata for a CRUD operation, action, or function. */
     type ExecuteRequestMetadata = ExecuteRequestCrudMetadata | ExecuteRequestActionFunctionMetadata;
@@ -6474,7 +6525,7 @@ declare namespace Xrm {
     interface ExecuteRequestEnumParameterType {
         typeName: string;
         structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType;
-        enumProperties?: ExecuteRequestEnumProperty[];
+        enumProperties?: readonly ExecuteRequestEnumProperty[];
     }
 
     /** Entity, complex, collection, or unknown parameter metadata. */
