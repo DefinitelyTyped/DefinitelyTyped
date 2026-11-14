@@ -253,6 +253,7 @@ declare namespace GoogleAppsScript {
             getSmsReminders(): Integer[];
             getTag(key: string): string;
             getTitle(): string;
+            getTransparency(): EventTransparency;
             getVisibility(): Visibility;
             guestsCanInviteOthers(): boolean;
             guestsCanModify(): boolean;
@@ -273,6 +274,7 @@ declare namespace GoogleAppsScript {
             setRecurrence(recurrence: EventRecurrence, startTime: Base.Date, endTime: Base.Date): CalendarEventSeries;
             setTag(key: string, value: string): CalendarEventSeries;
             setTitle(title: string): CalendarEventSeries;
+            setTransparency(transparency: EventTransparency): CalendarEventSeries;
             setVisibility(visibility: Visibility): CalendarEventSeries;
         }
         /**

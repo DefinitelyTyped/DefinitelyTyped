@@ -145,6 +145,7 @@ declare namespace GoogleAppsScript {
          */
         interface ChartOptions {
             get(option: string): any;
+            getOrDefault(option: string): any;
         }
         /**
          * Chart types supported by the Charts service.
