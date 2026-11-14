@@ -304,7 +304,7 @@ export class Agent {
     ): Promise<Credential>;
 
     /**
-     * Create a {@Credential} as an offer to the given holder.
+     * Create a {@link Credential} as an offer to the given holder.
      * {RequestRecipient} to The agent being issued a credential.
      * {CredentialDefinitionID|SchemaIDObj} source The schema or cred def the credential is based on.
      * {object} attributes The `<string>: <string>` pairs for all the fields in the credentials. The
