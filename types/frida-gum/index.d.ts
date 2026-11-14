@@ -4004,6 +4004,7 @@ interface StalkerX86Iterator extends X86Writer {
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
     putChainingReturn(): void;
+    getUserDataReg(): X86Register;
 }
 
 interface StalkerArmIterator extends ArmWriter {
@@ -4012,6 +4013,7 @@ interface StalkerArmIterator extends ArmWriter {
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
     putChainingReturn(): void;
+    getUserDataReg(): ArmRegister;
 }
 
 interface StalkerThumbIterator extends ThumbWriter {
@@ -4020,6 +4022,7 @@ interface StalkerThumbIterator extends ThumbWriter {
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
     putChainingReturn(): void;
+    getUserDataReg(): ArmRegister;
 }
 
 interface StalkerArm64Iterator extends Arm64Writer {
@@ -4028,6 +4031,7 @@ interface StalkerArm64Iterator extends Arm64Writer {
     keep(): void;
     putCallout(callout: StalkerCallout, data?: NativePointerValue): void;
     putChainingReturn(): void;
+    getUserDataReg(): Arm64Register;
 }
 
 type StalkerCallout = StalkerScriptCallout | StalkerNativeCallout;
@@ -5891,6 +5895,13 @@ declare class X86Relocator {
     readOne(): number;
 
     /**
+     * Sets the memory location used to spill the scratch register when
+     * relocating RIP-relative memory operands, instead of pushing it onto
+     * the stack. PUSH instructions still push it.
+     */
+    setScratchSpillSlot(slot: NativePointerValue): void;
+
+    /**
      * Peeks at the next `Instruction` to be written or skipped.
      */
     peekNextWriteInsn(): Instruction | null;
@@ -7459,6 +7470,11 @@ declare class Arm64Writer {
     putPaciaRegReg(dstReg: Arm64Register, modReg: Arm64Register): void;
 
     /**
+     * Puts a PACIZA instruction.
+     */
+    putPacizaReg(reg: Arm64Register): void;
+
+    /**
      * Puts a SVC instruction.
      */
     putSvcImm(imm: number): void;
@@ -7569,6 +7585,12 @@ declare class Arm64Relocator {
      * property is now `true`.
      */
     readOne(): number;
+
+    /**
+     * Determines whether either of the IP registers, X16 and X17, is live
+     * at `pc`.
+     */
+    isIpRegLiveAt(pc: NativePointerValue): boolean;
 
     /**
      * Sets the register that exits from the relocated code may use when
@@ -7960,6 +7982,11 @@ declare class MipsWriter {
      * Puts a LW instruction.
      */
     putLwRegRegOffset(dstReg: MipsRegister, srcReg: MipsRegister, srcOffset: number | Int64 | UInt64): void;
+
+    /**
+     * Puts a LW32 instruction.
+     */
+    putLw32RegRegOffset(dstReg: MipsRegister, srcReg: MipsRegister, srcOffset: number | Int64 | UInt64): void;
 
     /**
      * Puts a SW instruction.

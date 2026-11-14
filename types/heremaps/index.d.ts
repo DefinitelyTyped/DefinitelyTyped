@@ -1777,7 +1777,7 @@ declare namespace H {
             getCenter(): H.geo.Point;
 
             /**
-             * To set the length of the radius of the circle in meters. The value is clamped to the of {@code[0 ... 20015089.27787877]} (half WGS84 mean circumference)
+             * To set the length of the radius of the circle in meters. The value is clamped to the of {@code [0 ... 20015089.27787877]} (half WGS84 mean circumference)
              * @param radius {number}
              */
             setRadius(radius: number): void;

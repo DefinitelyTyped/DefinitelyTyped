@@ -366,6 +366,7 @@ const buyListResponse: BuyListResponse = {
 const sellListResponse: SellListResponse = {
     country: "US",
     subdivision: "WA",
+    suggestedFiatCurrency: "USD",
     providers: [sellProviderInfo],
 };
 

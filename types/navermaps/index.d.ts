@@ -1,4 +1,4 @@
-// NAVER Maps JavaScript API Version: 3.9
+// NAVER Maps JavaScript API Version: 3.10
 
 /// <reference types="geojson" />
 
@@ -415,6 +415,18 @@ declare namespace naver.maps {
          * 마커의 쌓임 순서입니다.
          */
         zIndex?: number;
+        /**
+         * Whether to enable collision handling with other markers. This option is applied only in the GL submodule.
+         *
+         * 마커와 주기 충돌처리 허용 여부입니다. GL 서브 모듈에서만 사용 가능합니다.
+         */
+        collisionBehavior?: boolean;
+        /**
+         * The collision area of the marker. This option is applied only in the GL submodule.
+         *
+         * 마커의 충돌처리 영역입니다. GL 서브 모듈에서만 사용 가능합니다.
+         */
+        collisionBoxSize?: Size;
     }
 
     /**
@@ -485,6 +497,12 @@ declare namespace naver.maps {
          */
         disableAutoPan?: boolean;
         /**
+         * The padding applied when auto panning, in screen pixels. Defaults to {x: 20, y: 20}.
+         *
+         * 자동 이동(패닝) 사용 시 적용되는 여백(패딩)입니다. 단위는 화면 픽셀이며, 기본값은 {x: 20, y: 20}입니다.
+         */
+        autoPanPadding?: Point;
+        /**
          * Whether to use the default speech bubble tail.
          *
          * 기본 말풍선 꼬리의 사용 여부입니다.
@@ -527,6 +545,12 @@ declare namespace naver.maps {
         getTileUrl?: (x: number, y: number, z: number) => string[];
         tileSet?: string | string[];
         overlayType?: string; // https://navermaps.github.io/maps.js.ncp/docs/tutorial-StyleMap-2-Custom-OverlayType.html
+        /**
+         * The duration of the tile fade-in effect, in milliseconds.
+         *
+         * 타일의 fadeIn 효과 지속 시간 (밀리초 단위)
+         */
+        tileDuration?: number;
     }
 
     /**
@@ -543,6 +567,12 @@ declare namespace naver.maps {
         clickable?: boolean;
         map?: Map | null;
         opacity?: number;
+        /**
+         * The crossOrigin attribute of the image. Needed to access the pixel data of the image.
+         *
+         * 이미지에 crossOrigin 속성을 추가할지 여부입니다. 이미지의 픽셀 데이터에 액세스하려면 이 속성이 필요합니다.
+         */
+        crossOrigin?: string;
     }
 
     /**
@@ -578,8 +608,22 @@ declare namespace naver.maps {
         coord: Coord;
         point: Point;
         offset: Point;
+        originalEvent: DOMEvent;
         pointerEvent: DOMEvent;
+        /**
+         * The overlay where the event occurred.
+         *
+         * 이벤트가 발생한 오버레이 객체입니다.
+         */
+        overlay?: OverlayView;
         feature: Feature;
+    }
+
+    /**
+     * KeyboardEvent
+     */
+    interface KeyboardEvent {
+        keyboardEvent: DOMEvent;
     }
 
     /**
@@ -613,7 +657,7 @@ declare namespace naver.maps {
      * ControlOptions
      */
     interface ControlOptions {
-        position: Position;
+        position?: Position;
     }
     type LogoControlOptions = ControlOptions;
     type MapDataControlOptions = ControlOptions;
@@ -624,8 +668,14 @@ declare namespace naver.maps {
         legendDisabled?: boolean;
     }
     interface MapTypeControlOptions extends ControlOptions {
-        mapTypeIds: MapTypeId[] | null;
-        style: MapTypeControlStyle;
+        mapTypeIds?: MapTypeId[] | null;
+        style?: MapTypeControlStyle;
+        /**
+         * The delay before the button style control hides on mouse out. Defaults to 2000ms.
+         *
+         * 버튼 스타일 컨트롤 마우스 아웃 시 숨김 delay 값. 기본값은 2000ms 입니다.
+         */
+        hideTime?: number;
     }
 
     /**
@@ -656,14 +706,20 @@ declare namespace naver.maps {
         name: string;
         maxZoom: number;
         minZoom: number;
-        projection: Projection;
+        projection?: Projection;
         tileSize?: Size | SizeLiteral;
+        /**
+         * The duration of the tile fade-in effect, in milliseconds.
+         *
+         * 타일의 fadeIn 효과 지속 시간 (밀리초 단위)
+         */
+        tileDuration?: number;
         repeatX?: boolean;
         vendor?: string;
         provider?: MapDataProvider[];
         uid?: string;
         darktheme?: boolean;
-        getTileData?: () => any;
+        getTileData?: (x: number, y: number, z: number) => any;
     }
 
     /**
@@ -718,6 +774,12 @@ declare namespace naver.maps {
         overlayMap: boolean;
         zIndex: number;
     }
+    // Deprecated!!
+    // See https://navermaps.github.io/maps.js.ncp/docs/naver.maps.BicycleLayer.html
+    interface BicycleLayerOptions {
+        overlayMap?: boolean;
+        zIndex?: number;
+    }
     interface TrafficLayerOptions {
         interval?: number;
         overlayMap?: boolean;
@@ -749,7 +811,7 @@ declare namespace naver.maps {
      */
     interface SymbolIcon {
         path: SymbolPath | Point[] | PointLiteral[];
-        style?: SymbolStyle;
+        style?: SymbolStyle | `${SymbolStyle}`;
         radius?: number;
         fillColor?: string;
         fillOpacity?: number;
@@ -1147,7 +1209,7 @@ declare namespace naver.maps {
         add(point: Coord | PointLiteral): Point;
         ceil(): Point;
         clone(): Point;
-        div(point: Coord | PointLiteral): void;
+        div(point: Coord | PointLiteral): Point;
         div(x: number, y: number): Point;
         equals(point: Coord | PointLiteral): boolean;
         floor(): Point;
@@ -1258,6 +1320,7 @@ declare namespace naver.maps {
         mapSystemProjection: MapSystemProjection;
 
         constructor(mapDiv: string | HTMLElement, mapOptions?: MapOptions);
+        addOverlayPane(name: string, elementOrZIndex: HTMLElement | number): void;
         addPane(name: string, elementOrIndex: HTMLElement | number): void;
         autoResize(): void;
         destroy(): void;
@@ -1283,6 +1346,7 @@ declare namespace naver.maps {
         panTo(coord: Coord | CoordLiteral, transitionOptions?: TransitionOptions): void;
         panToBounds(bounds: Bounds | BoundsLiteral, transitionOptions?: TransitionOptions, margin?: Margin): void;
         refresh(noEffect?: boolean): void;
+        removeOverlayPane(name: string): void;
         removePane(name: string): void;
         setCenter(center: Coord | CoordLiteral): void;
         setCenterPoint(point: Point | PointLiteral): void;
@@ -1322,6 +1386,7 @@ declare namespace naver.maps {
         setOpacity(opacity: number): void;
         setSize(size: Size): void;
         setTileIndex(tileIndex: TileIndex): void;
+        setDuration(duration: number): void;
         setZIndex(zIndex: number): void;
         show(): void;
     }
@@ -1539,6 +1604,13 @@ declare namespace naver.maps {
     }
 
     /**
+     * BicycleLayer
+     */
+    class BicycleLayer extends LabelLayer {
+        constructor(option?: BicycleLayerOptions);
+    }
+
+    /**
      * TrafficLayer
      */
     class TrafficLayer extends LabelLayer {
@@ -1566,7 +1638,7 @@ declare namespace naver.maps {
         overrideStyle(feature: Feature, style: StyleOptions): void;
         removeFeature(feature: Feature): void;
         removeGeoJson(geojson: GeoJSON): void;
-        revertStyle(feature: Feature): void;
+        revertStyle(feature?: Feature): void;
         setMap(map: Map | null): void;
         setStyle(style: StyleOptions | StylingFunction): void;
         toGeoJson(): GeoJSON;
@@ -1654,6 +1726,9 @@ declare namespace naver.maps {
      */
     class Ellipse extends AbstractShapeOverlay {
         constructor(options?: EllipseOptions);
+        // Only available when the drawing submodule is loaded.
+        // See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Drawing.html
+        setEditable?(editable: boolean, controlPointOptions?: drawing.ControlPointOptions): void;
         getAreaSize(): number;
         getBounds(): Bounds;
         getDrawingRect(): Bounds;
@@ -1673,6 +1748,7 @@ declare namespace naver.maps {
         getOpacity(): number;
         getUrl(): string;
         setOpacity(opacity: number): void;
+        setUrl(url: string): void;
     }
 
     /**
@@ -1686,7 +1762,7 @@ declare namespace naver.maps {
         getOptions(key?: string): any; // if key is undefined, return InfoWindowOptions
         getPosition(): Coord;
         getZIndex(): number;
-        open(map: Map, anchor?: Coord | CoordLiteral | Marker): void;
+        open(map: Map | Panorama, anchor?: Coord | CoordLiteral | Marker): void;
         setContent(content: string | HTMLElement): void;
         setOptions(options: InfoWindowOptions): void;
         setPosition(position: Coord | CoordLiteral): void;
@@ -1712,6 +1788,7 @@ declare namespace naver.maps {
         getVisible(): boolean;
         getZIndex(): number;
         setAnimation(animation: Animation | null): void;
+        setMap(map: Map | Panorama | null): void;
         setClickable(clickable: boolean): void;
         setCursor(cursor: string): void;
         setDraggable(draggable: boolean): void;
@@ -1730,6 +1807,9 @@ declare namespace naver.maps {
      */
     class Polygon extends AbstractShapeOverlay {
         constructor(options?: PolygonOptions);
+        // Only available when the drawing submodule is loaded.
+        // See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Drawing.html
+        setEditable?(editable: boolean, controlPointOptions?: drawing.ControlPointOptions): void;
         getAreaSize(): number;
         getBounds(): Bounds;
         getDrawingRect(): Bounds;
@@ -1750,6 +1830,9 @@ declare namespace naver.maps {
      */
     class Polyline extends AbstractShapeOverlay {
         constructor(options?: PolylineOptions);
+        // Only available when the drawing submodule is loaded.
+        // See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Drawing.html
+        setEditable?(editable: boolean, controlPointOptions?: drawing.ControlPointOptions): void;
         getBounds(): Bounds;
         getDistance(): number;
         getDrawingRect(): Bounds;
@@ -1766,6 +1849,9 @@ declare namespace naver.maps {
      */
     class Rectangle extends AbstractShapeOverlay {
         constructor(options?: RectangleOptions);
+        // Only available when the drawing submodule is loaded.
+        // See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Drawing.html
+        setEditable?(editable: boolean, controlPointOptions?: drawing.ControlPointOptions): void;
         getAreaSize(): number;
         getBounds(): Bounds;
         getDrawingRect(): Bounds;
@@ -1780,7 +1866,11 @@ declare namespace naver.maps {
     //  static objects
     // --------------------------------------------------------------------------
     namespace Event {
-        function addDOMListener(element: HTMLElement, eventName: string, listener: (event: any) => any): void;
+        function addDOMListener(
+            element: HTMLElement,
+            eventName: string,
+            listener: (event: any) => any,
+        ): DOMEventListener;
         function addListener(target: any, eventName: string, listener: (event: any) => any): MapEventListener;
         function clearInstanceListeners(target: any): void;
         function clearListeners(target: any, fromEventName: string): void;
@@ -1929,6 +2019,15 @@ declare namespace naver.maps {
         fromOffsetToCoord(offset: Point): LatLng;
     }
 
+    /**
+     * The status passed to the pano_status event.
+     * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-3-panorama-event.example.html
+     */
+    enum PanoramaStatus {
+        OK = "OK",
+        ERROR = "ERROR",
+    }
+
     class Panorama extends KVO {
         constructor(panoramaDiv: string | HTMLElement, panoramaOptions: PanoramaOptions);
         getElement(): HTMLElement;
@@ -2029,12 +2128,20 @@ declare namespace naver.maps {
 
         class DrawingManager extends KVO {
             constructor(options?: DrawingOptions);
-            addDrawing(overlay: DrawingOverlay, drawingMode: DrawingMode, id?: string): void;
-            addListener(eventName: DrawingEvents, listener: (overlay: DrawingOverlay) => void): MapEventListener;
+            addDrawing(
+                overlay: DrawingOverlay | Rectangle | Ellipse | Polyline | Polygon | Marker,
+                drawingMode: DrawingMode,
+                id?: string,
+            ): void;
+            addListener(
+                eventName: DrawingEvents | `${string}${"Added" | "Removed" | "Selected"}`,
+                listener: (overlay: DrawingOverlay) => void,
+            ): MapEventListener;
             destroy(): void;
             getDrawing(id: string): DrawingOverlay;
             getDrawings(): { [key: string]: DrawingOverlay };
             getMap(): Map | null;
+            removeDrawing(overlayOrId: DrawingOverlay | string): void;
             setMap(map: Map | null): void;
             toGeoJson(): GeoJSON;
             getOptions<K extends keyof DrawingOptions>(key: K): DrawingOptions[K];
@@ -2064,7 +2171,7 @@ declare namespace naver.maps {
 
         interface DotMapOptions {
             map?: Map;
-            data: LatLng[] | PointArrayLiteral[] | WeightedLocation[];
+            data: LatLng[] | PointArrayLiteral[] | WeightedLocation[] | WeightedLocationLiteral[];
             opacity?: number;
             radius?: number;
             strokeWeight?: number;
@@ -2076,7 +2183,7 @@ declare namespace naver.maps {
 
         interface HeatMapOptions {
             map?: Map;
-            data: LatLng[] | PointArrayLiteral[] | WeightedLocation[];
+            data: LatLng[] | PointArrayLiteral[] | WeightedLocation[] | WeightedLocationLiteral[];
             opacity?: number;
             radius?: number;
             colorMap?: SpectrumStyle;
@@ -2107,6 +2214,15 @@ declare namespace naver.maps {
             setMap(map: Map | null): void;
             setOptions(key: string, value: any): void;
             setOptions(options: HeatMapOptions): void;
+        }
+
+        /**
+         * Weighted data in literal form. The visualization submodule converts it to WeightedLocation.
+         * See https://navermaps.github.io/maps.js.ncp/docs/tutorial-Visualization.html
+         */
+        interface WeightedLocationLiteral {
+            weight: number;
+            location: LatLng | PointArrayLiteral | LatLngObjectLiteral;
         }
 
         class WeightedLocation {

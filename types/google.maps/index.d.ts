@@ -4252,6 +4252,8 @@ declare namespace google.maps {
 
     PlacePlusCodeElement: typeof google.maps.places.PlacePlusCodeElement;
 
+    PlacePopularTimesElement: typeof google.maps.places.PlacePopularTimesElement;
+
     PlacePrediction: typeof google.maps.places.PlacePrediction;
 
     PlacePredictionSelectEvent: typeof google.maps.places.PlacePredictionSelectEvent;
@@ -14428,6 +14430,27 @@ declare namespace google.maps.places {
   export interface PlacePlusCodeElementOptions {
   }
   /**
+   * Configures a {@link google.maps.places.PlaceDetailsElement} or {@link google.maps.places.AdvancedPlaceDetailsElement} to show a place&#39;s popular times: a chart of how busy the place usually is throughout the day, along with live busyness information when available. Nothing is shown for places without popular times data. Append this element as a child of the place details element to use it. For example: <pre><code> &lt;gmp-place-details&gt;<br> &nbsp;&nbsp;&lt;gmp-place-details-place-request<br> &nbsp;&nbsp;&nbsp;&nbsp;place="<var>PLACE_ID</var>"<br> &nbsp;&nbsp;&gt;&lt;/gmp-place-details-place-request&gt;<br> &nbsp;&nbsp;&lt;gmp-place-popular-times&gt;&lt;/gmp-place-popular-times&gt;<br> &lt;/gmp-place-details&gt; </code></pre>
+   * Access by calling `const {PlacePopularTimesElement} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
+   */
+  export class PlacePopularTimesElement extends HTMLElement implements google.maps.places.PlacePopularTimesElementOptions {
+    /**
+     * Read only. True if the element is showing popular times for the place. False if the place has no popular times data, or if the element isn&#39;t a child of a supported place details element. Set before the parent element&#39;s <code>gmp-load</code> event fires.
+     */
+    get rendered(): boolean;
+    addEventListener<K extends keyof PlacePopularTimesElementEventMap>(type: K, listener: (this: PlacePopularTimesElement, ev: PlacePopularTimesElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof PlacePopularTimesElementEventMap>(type: K, listener: (this: PlacePopularTimesElement, ev: PlacePopularTimesElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+  }
+  export interface PlacePopularTimesElementEventMap extends HTMLElementEventMap {
+  }
+  /**
+   * Options for <code>PlacePopularTimesElement</code>.
+   */
+  export interface PlacePopularTimesElementOptions {
+  }
+  /**
    * Prediction results for a Place Autocomplete prediction.
    * Access by calling `const {PlacePrediction} = await google.maps.importLibrary("places");`. See https://developers.google.com/maps/documentation/javascript/libraries.
    */
@@ -17822,6 +17845,9 @@ declare namespace google.maps {
     "--gmp-popover-min-width"?: string;
     "--gmp-popover-pixel-offset-x"?: string;
     "--gmp-popover-pixel-offset-y"?: string;
+    "--gmp-popular-times-bar-color"?: string;
+    "--gmp-popular-times-bar-current-hour-color"?: string;
+    "--gmp-popular-times-bar-current-hour-live-color"?: string;
     "--gmp-star-rating-color"?: string;
     "--gmp-thumbnail-border-radius"?: string;
   }
@@ -17871,6 +17897,7 @@ declare namespace google.maps {
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElementEventMap;
     "gmp-place-pin": google.maps.places.PlacePinElementEventMap;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElementEventMap;
+    "gmp-place-popular-times": google.maps.places.PlacePopularTimesElementEventMap;
     "gmp-place-price": google.maps.places.PlacePriceElementEventMap;
     "gmp-place-rating": google.maps.places.PlaceRatingElementEventMap;
     "gmp-place-review-summary": google.maps.places.PlaceReviewSummaryElementEventMap;
@@ -17935,6 +17962,7 @@ declare namespace google.maps {
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElementOptions;
     "gmp-place-pin": google.maps.places.PlacePinElementOptions;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElementOptions;
+    "gmp-place-popular-times": google.maps.places.PlacePopularTimesElementOptions;
     "gmp-place-price": google.maps.places.PlacePriceElementOptions;
     "gmp-place-rating": google.maps.places.PlaceRatingElementOptions;
     "gmp-place-review-summary": google.maps.places.PlaceReviewSummaryElementOptions;
@@ -17999,6 +18027,7 @@ declare namespace google.maps {
     "gmp-place-phone-number": google.maps.places.PlacePhoneNumberElement;
     "gmp-place-pin": google.maps.places.PlacePinElement;
     "gmp-place-plus-code": google.maps.places.PlacePlusCodeElement;
+    "gmp-place-popular-times": google.maps.places.PlacePopularTimesElement;
     "gmp-place-price": google.maps.places.PlacePriceElement;
     "gmp-place-rating": google.maps.places.PlaceRatingElement;
     "gmp-place-review-summary": google.maps.places.PlaceReviewSummaryElement;

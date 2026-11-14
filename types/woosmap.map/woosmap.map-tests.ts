@@ -97,8 +97,22 @@ woosmap.map.CollisionBehavior.OPTIONAL_AND_HIDES_LOWER_PRIORITY;
 /**
  * importLibrary
  */
-// $ExpectType Promise<object>
+// $ExpectType Promise<MapsLibrary>
+woosmap.map.importLibrary("maps");
+// $ExpectType Promise<CoreLibrary>
+woosmap.map.importLibrary("core");
+woosmap.map.importLibrary("core").then(({ SymbolPath }) => {
+    // $ExpectType typeof SymbolPath
+    SymbolPath;
+});
+// $ExpectType Promise<MarkerLibrary>
 woosmap.map.importLibrary("marker");
+// $ExpectType Promise<DrawingLibrary>
+woosmap.map.importLibrary("drawing");
+// $ExpectType Promise<GeometryLibrary>
+woosmap.map.importLibrary("geometry");
+// $ExpectType Promise<MapsLibrary | CoreLibrary | MarkerLibrary | DrawingLibrary | GeometryLibrary>
+woosmap.map.importLibrary(String("marker"));
 
 /**
  * Marker
@@ -233,6 +247,7 @@ clickListener.remove();
  */
 const style = expectType({
     breakPoint: 14,
+    aboveLabels: true,
     default: {
         color: "#008a2f",
         size: 8,
@@ -267,6 +282,8 @@ const style = expectType({
 }) as woosmap.map.Style;
 const rules = expectType(style.rules[0]) as woosmap.map.TypedStyleRule;
 const defaultStyle = expectType(style.default) as woosmap.map.StyleRule;
+// $ExpectType boolean | undefined
+const aboveLabels = style.aboveLabels;
 
 const storesOverlay = new woosmap.map.StoresOverlay(style);
 storesOverlay.setQuery("type:\"click_and_collect\"");

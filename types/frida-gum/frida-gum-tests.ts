@@ -460,6 +460,9 @@ Stalker.follow(Process.getCurrentThreadId(), {
         }
 
         const startAddress = instruction.address;
+        // $ExpectType X86Register
+        iterator.getUserDataReg();
+
         do {
             if (startAddress == ptr(0)) {
                 iterator.putChainingReturn();
@@ -568,9 +571,13 @@ x86Writer.putKmovqKregRegOffsetPtr(0, "rax", 0);
 x86Writer.putEndbr();
 x86Writer.flush();
 
+const x86Relocator = new X86Relocator(ptr("0x1234"), x86Writer);
+x86Relocator.setScratchSpillSlot(Memory.alloc(8));
+
 const arm64Writer = new Arm64Writer(Memory.alloc(Process.pageSize));
 arm64Writer.putMovkRegImm("x0", 0x1234, 16);
 arm64Writer.putPaciaRegReg("x0", "x1");
+arm64Writer.putPacizaReg("x0");
 // $ExpectType void
 arm64Writer.putSvcImm(0x80);
 arm64Writer.flush();
@@ -580,6 +587,12 @@ const arm64Relocator = new Arm64Relocator(ptr("0x1234"), arm64Writer);
 arm64Relocator.readUntilResumable("online");
 // $ExpectType Arm64Register | null
 arm64Relocator.pickExitReg(ptr("0x1234"));
+// $ExpectType boolean
+arm64Relocator.isIpRegLiveAt(ptr("0x1234"));
+
+const mipsWriter = new MipsWriter(Memory.alloc(Process.pageSize));
+mipsWriter.putLw32RegRegOffset("v0", "a0", 0);
+mipsWriter.flush();
 
 const record = Memory.alloc(16);
 // $ExpectType number

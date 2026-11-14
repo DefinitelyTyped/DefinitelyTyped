@@ -143,6 +143,21 @@ declare namespace woosmap.map {
      * Add drawing capabilities to Woosmap Map. You can call methods of a Drawing instance and add custom modes as you would
      * with a MapboxDraw instance. This Drawing library is not loaded by default when you load the Map JS API but must be
      * explicitly specified through use of a `libraries` parameter in SDK URL.
+     *
+     * @example Add the Drawing Lib
+     *
+     * ```html
+     * <script async
+     *     src="https://sdk.woosmap.com/map/map.js?key=YOUR_API_KEY&libraries=drawing&callback=initMap">
+     * </script>
+     * ```
+     *
+     * @example Create a Draw control and add it to the map
+     *
+     * ```js
+     * var draw = new woosmap.map.Drawing(drawOptions);
+     * draw.addControl(map);
+     * ```
      */
     class Drawing extends MapboxDraw {
         constructor(options?: MapboxDraw.MapboxDrawOptions);
@@ -481,6 +496,35 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    /**
+     * Displays the stores of the project as layers of the map, rendered from tiles.
+     *
+     * Built for whole store catalogues. To place a few points yourself with full
+     * control over stacking, use [woosmap.map.Marker](#woosmap.map.Marker) instead.
+     *
+     * Rendering by zoom:
+     *
+     * -  Below `style.breakPoint`: each store is a dot, a circle in the rule's `color`.
+     * -  From `style.breakPoint` upward: each store is a marker, the rule's `icon`.
+     * Markers always show, even when they overlap each other.
+     *
+     * Relative to the basemap labels:
+     *
+     * -  Place, state and country labels draw over dots and markers, and are never
+     * hidden by them.
+     * -  Road, POI and water labels draw below the stores. A marker hides those it
+     * overlaps; dots never hide labels.
+     * -  With `style.aboveLabels`, dots and markers draw above every label of the
+     * Woosmap styles instead. Markers hide the labels they overlap; dots draw
+     * over them without hiding them.
+     *
+     * Stacking between store types:
+     *
+     * -  The order of `style.rules` is the stacking order: a later rule draws above
+     * an earlier one (see [woosmap.map.Style](#woosmap.map.Style)).
+     * -  Nothing reorders stores against the basemap.
+     * -  The selected store draws on top of every other layer.
+     */
     class StoresOverlay extends woosmap.map.OverlayView {
         /**
          * Constructs a StoreOverlay
@@ -511,6 +555,19 @@ declare namespace woosmap.map {
      * This class allows you to create custom overlay objects on the map.
      * To use this class, set your overlay's class to extend from `OverlayView`.
      * You'll need to implement three methods: `onAdd()`, `draw()`, and `onRemove()`.
+     *
+     * @example Example
+     * ```javascript
+     * class MyOverlay extends woosmap.map.OverlayView {
+     *  constructor({ map }) {
+     *       super();
+     *       this.setMap(map);
+     *  }
+     *  onAdd(){}
+     *  draw(){}
+     *  onRemove(){}
+     * }
+     * ```
      */
     class OverlayView {
         /**
@@ -932,6 +989,19 @@ declare namespace woosmap.map {
     /**
      * ImageMapType defines tiled image layer that can be added to the map.
      * It supports both `xyz` and `tms` tile schemes.
+     *
+     * @example Adds a tileLayer with .5 opacity.
+     *
+     * ```javascript
+     * const tiledLayer = new woosmap.map.ImageMapType({
+     *  url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+     *  scheme: "xyz",
+     *  maxZoom: 22,
+     *  minZoom: 0,
+     *  opacity: 0.5,
+     * });
+     * map.overlayMapTypes.insertAt(0, tiledLayer);
+     * ```
      */
     class ImageMapType implements woosmap.map.MapType {
         maxZoom: number;
@@ -1843,6 +1913,71 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
+     * Exports of the `core` library, as resolved by `importLibrary("core")`.
+     */
+    interface CoreLibrary {
+        ControlPosition: typeof woosmap.map.ControlPosition;
+        LatLng: typeof woosmap.map.LatLng;
+        LatLngAltitude: typeof woosmap.map.LatLngAltitude;
+        LatLngBounds: typeof woosmap.map.LatLngBounds;
+        MVCArray: typeof woosmap.map.MVCArray;
+        MVCObject: typeof woosmap.map.MVCObject;
+        Point: typeof woosmap.map.Point;
+        Size: typeof woosmap.map.Size;
+        SymbolPath: typeof woosmap.map.SymbolPath;
+        UnitSystem: typeof woosmap.map.UnitSystem;
+        event: typeof woosmap.map.event;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Exports of the `maps` library, as resolved by `importLibrary("maps")`.
+     */
+    interface MapsLibrary {
+        Circle: typeof woosmap.map.Circle;
+        Data: typeof woosmap.map.Data;
+        ImageMapType: typeof woosmap.map.ImageMapType;
+        InfoWindow: typeof woosmap.map.InfoWindow;
+        Map: typeof woosmap.map.Map;
+        MapElement: typeof woosmap.map.MapElement;
+        MapTypeId: typeof woosmap.map.MapTypeId;
+        OverlayView: typeof woosmap.map.OverlayView;
+        Polygon: typeof woosmap.map.Polygon;
+        Polyline: typeof woosmap.map.Polyline;
+        Rectangle: typeof woosmap.map.Rectangle;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Exports of the `marker` library, as resolved by `importLibrary("marker")`.
+     */
+    interface MarkerLibrary {
+        AdvancedMarkerElement: typeof woosmap.map.marker.AdvancedMarkerElement;
+        CollisionBehavior: typeof woosmap.map.CollisionBehavior;
+        Marker: typeof woosmap.map.Marker;
+        PinElement: typeof woosmap.map.marker.PinElement;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Exports of the `geometry` library, as resolved by `importLibrary("geometry")`.
+     */
+    interface GeometryLibrary {
+        encoding: typeof woosmap.map.geometry.encoding;
+        poly: typeof woosmap.map.geometry.poly;
+        spherical: typeof woosmap.map.geometry.spherical;
+    }
+}
+declare namespace woosmap.map {
+    /**
+     * Exports of the `drawing` library, as resolved by `importLibrary("drawing")`.
+     */
+    interface DrawingLibrary {
+        Drawing: typeof woosmap.map.Drawing;
+    }
+}
+declare namespace woosmap.map {
+    /**
      * Options for an instant (non-animated) camera move via `moveCamera`. Any
      * combination of the fields may be given; omitted fields are left unchanged.
      */
@@ -2360,9 +2495,35 @@ declare namespace woosmap.map {
     }
 }
 declare namespace woosmap.map {
+    /**
+     * Styles the stores of a [woosmap.map.StoresOverlay](#woosmap.map.StoresOverlay).
+     */
     interface Style {
+        /**
+         * Draws dots and markers above every label of the Woosmap styles.
+         * Markers hide the labels they overlap; dots draw over them without hiding
+         * them. Defaults to `false`: stores draw below the place, state and
+         * country labels.
+         */
+        aboveLabels?: boolean;
+        /**
+         * Zoom level where stores switch from dots to icons.
+         */
         breakPoint: number;
+        /**
+         * Rule for the stores no rule matches. They draw below every rule.
+         */
         default: woosmap.map.StyleRule;
+        /**
+         * One rule per store type. The order of the rules is the stacking order:
+         * where stores overlap, a later rule draws above an earlier one. To bring
+         * a store type to the front, move its rule towards the end of the array.
+         * Rules have no `zIndex` here: that is a setting of the store SDK's
+         * server-rendered tiles, and it has no effect on this overlay.
+         *
+         * A store matching several rules is drawn by each of them, so the icon of
+         * the last matching rule shows on top.
+         */
         rules: woosmap.map.TypedStyleRule[];
     }
 }
@@ -4601,6 +4762,18 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
+     * Built-in symbol paths, usable as the `path` of a symbol icon.
+     */
+    enum SymbolPath {
+        BACKWARD_CLOSED_ARROW = "BACKWARD_CLOSED_ARROW",
+        BACKWARD_OPEN_ARROW = "BACKWARD_OPEN_ARROW",
+        CIRCLE = "CIRCLE",
+        FORWARD_CLOSED_ARROW = "FORWARD_CLOSED_ARROW",
+        FORWARD_OPEN_ARROW = "FORWARD_OPEN_ARROW",
+    }
+}
+declare namespace woosmap.map {
+    /**
      * The valid travel modes that can be specified in a
      * `DistanceRouteRequest`, `DistanceMatrixRequest` or `DistanceIsochroneRequest`.
      * Specify these by value, or by using the
@@ -4673,12 +4846,97 @@ declare namespace woosmap.map {
 }
 declare namespace woosmap.map {
     /**
-     * Asynchronously loads a library and resolves with its exports. A library shipped
-     * as a separate bundle (`marker`, `drawing`) is fetched on first request; the
-     * core libraries (`core`, `maps`, `geometry`) are already available and resolve
-     * immediately.
+     * Loads a library of the Map JS API and resolves with its exports. This is the
+     * recommended way to load the API and to access its classes.
+     *
+     * Take classes from the resolved value rather than from the global
+     * `woosmap.map` namespace: globals of on-demand libraries are only populated
+     * once their bundle has loaded.
+     *
+     * Libraries: `core`, `maps`, `geometry` (shipped in `map.js`, resolve
+     * immediately) and `marker`, `drawing` (separate bundles, fetched on first
+     * request). Any other name rejects.
+     *
+     * `importLibrary` is available before `map.js` loads only when the page includes
+     * the bootstrap loader below. Add it once, before the first call; it injects
+     * `map.js` with the requested libraries on the first `importLibrary` call. Do
+     * not also add a `<script src="https://sdk.woosmap.com/map/map.js">` tag.
+     *
+     * @example Bootstrap loader, added once in the page `<head>`
+     *
+     * ```html
+     * <script>
+     * ((g) => {
+     *   let p;
+     *   const w = window, d = document;
+     *   const L = "importLibrary", CB = "__ib__";
+     *   const E = "The Woosmap Maps JavaScript API";
+     *   const woosmap = w.woosmap || (w.woosmap = {});
+     *   const maps = woosmap.map || (woosmap.map = {});
+     *   const libs = new Set(), params = new URLSearchParams();
+     *   const load = () => p || (p = new Promise((res, rej) => {
+     *     const s = d.createElement("script");
+     *     params.set("libraries", [...libs].join(","));
+     *     for (const k in g) params.set(k, g[k]);
+     *     params.set("callback", "woosmap.map." + CB);
+     *     s.src = "https://sdk.woosmap.com/map/map.js?" + params;
+     *     maps[CB] = res;
+     *     s.onerror = () => rej(Error(E + " could not load."));
+     *     s.nonce = d.querySelector("script[nonce]")?.nonce || "";
+     *     d.head.append(s);
+     *   }));
+     *   if (maps[L]) { console.warn(E + " only loads once. Ignoring:", g); }
+     *   else {
+     *     maps[L] = (name, ...args) =>
+     *       libs.add(name) && load().then(() => maps[L](name, ...args));
+     *   }
+     * })({ key: "YOUR_API_KEY" });
+     * </script>
+     * ```
+     *
+     * @example Load each library you need and destructure its exports
+     *
+     * ```js
+     * const { Map } = await woosmap.map.importLibrary("maps");
+     * const { AdvancedMarkerElement } = await woosmap.map.importLibrary("marker");
+     *
+     * const map = new Map(document.getElementById("map"), {
+     *   center: { lat: 48.8566, lng: 2.3522 },
+     *   zoom: 12,
+     * });
+     * new AdvancedMarkerElement({ map, position: map.getCenter() });
+     * ```
      */
-    function importLibrary(name: string): Promise<object>;
+    function importLibrary(libraryName: "maps"): Promise<woosmap.map.MapsLibrary>;
+    /**
+     * Loads the `core` library.
+     */
+    function importLibrary(libraryName: "core"): Promise<woosmap.map.CoreLibrary>;
+    /**
+     * Loads the `marker` library (fetched on first request).
+     */
+    function importLibrary(libraryName: "marker"): Promise<woosmap.map.MarkerLibrary>;
+    /**
+     * Loads the `drawing` library (fetched on first request).
+     */
+    function importLibrary(libraryName: "drawing"): Promise<woosmap.map.DrawingLibrary>;
+    /**
+     * Loads the `geometry` library.
+     */
+    function importLibrary(libraryName: "geometry"): Promise<woosmap.map.GeometryLibrary>;
+    /**
+     * Loads a library by a name only known at runtime and resolves with one of the
+     * library interfaces. Prefer a literal name for a precise result type.
+     */
+    function importLibrary(
+        libraryName: string,
+    ): Promise<
+        | woosmap.map.CoreLibrary
+        | woosmap.map.MapsLibrary
+        | woosmap.map.MarkerLibrary
+        | woosmap.map.GeometryLibrary
+        | woosmap.map.DrawingLibrary
+    >;
 }
 declare namespace woosmap.map.event {
     /**
@@ -4855,18 +5113,50 @@ declare namespace woosmap.map.query {
     ): woosmap.map.query.Field | woosmap.map.query.Field[];
     /**
      * Helper function to instantiate a Query with AND connector
+     *
+     * @example Example
+     * ```javascript
+     * var q = woosmap.map.query;
+     * var query = q.and([q.F('type', 'myType'), q.F('type', 'myOtherType')])
+     * ```
+     * `query.toString()` should return `'(type:"myType" AND type:"myOtherType")'`
+     *
+     * @example Example using arguments and value as an Array
+     * ```javascript
+     * let query = q.and(q.F('type', ['myType', 'myOtherType']))
+     * ```
      */
     function and(
         ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
     ): woosmap.map.query.Query;
     /**
      * Helper function to instantiate a Query with OR connector
+     *
+     * @example Example
+     * ```javascript
+     * let q = woosmap.map.query;
+     * let query = q.or([q.F('type', 'myType'), q.F('type', 'myOtherType')])
+     * ```
+     * `query.toString()` should return `'(type:"myType" OR type:"myOtherType")'`
+     *
+     * @example Example using arguments and value as an Array
+     * ```javascript
+     * let query = q.or(q.F('type', ['myType', 'myOtherType']))
+     * ```
+     * Should return the same as previous example.
      */
     function or(
         ...children: Array<woosmap.map.query.Query | woosmap.map.query.Field | string>
     ): woosmap.map.query.Query;
     /**
      * Helper function to instantiate a negated Query
+     *
+     * @example Example
+     * ```javascript
+     * var q = woosmap.map.query;
+     * var query = q.not(q.F('type', 'myType'))
+     * ```
+     * `query.toString()` should return `'NOT type:"myType"'`
      */
     function not(child: woosmap.map.query.Query | woosmap.map.query.Field | string): woosmap.map.query.Query;
 }

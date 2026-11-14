@@ -1,5 +1,5 @@
-// Tests for Google Publisher Tag 1.20261019
-// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/b1f8113d0afdc3100eb7255d470e9eaa22f7fac6
+// Tests for Google Publisher Tag 1.20261109
+// Synced from: https://github.com/googleads/google-publisher-tag-types/commit/7d51cc3510fbf5e9c87e94b9c3b8fdd640dbe41e
 
 // Test for googletag.cmd
 function test_googletag_cmd() {
@@ -78,6 +78,17 @@ function test_googletag_openConsole() {
 // Test for googletag.setAdIframeTitle
 function test_googletag_setAdIframeTitle() {
     googletag.setAdIframeTitle("title");
+}
+
+// Test for googletag.setConfig
+function test_googletag_setConfig() {
+    // Enable Single Request Architecture (SRA) and set page-level targeting.
+    googletag.setConfig({
+        singleRequest: true,
+        targeting: {
+            interests: ["sports", "music"],
+        },
+    });
 }
 
 // Test for googletag.getConfig
@@ -336,19 +347,6 @@ function test_googletag_pubAdsService_getAttributeKeys() {
 // Test for googletag.PubAdsService.display
 function test_googletag_pubAdsService_display() {
     googletag.pubads().display("/1234567/sports", [728, 90], "div-1");
-}
-
-// Test for googletag.PubAdsService.updateCorrelator
-function test_googletag_pubAdsService_updateCorrelator() {
-    // Assume that the correlator is currently 12345. All ad requests made
-    // by this page will currently use that value.
-
-    // Replace the current correlator with a new correlator.
-    googletag.pubads().updateCorrelator();
-
-    // The correlator will now be a new randomly selected value, different
-    // from 12345. All subsequent ad requests made by this page will use
-    // the new value.
 }
 
 // Test for googletag.PubAdsService.setForceSafeFrame
@@ -799,6 +797,19 @@ function test_googletag_slot_updateTargetingFromMap() {
     });
 }
 
+// Test for googletag.Slot.setConfig
+function test_googletag_slot_setConfig() {
+    const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!;
+
+    // Collapse the slot if no ad is returned and set slot-level targeting.
+    slot.setConfig({
+        collapseDiv: "ON_NO_FILL",
+        targeting: {
+            interests: ["sports", "music"],
+        },
+    });
+}
+
 // Test for googletag.Slot.getConfig
 function test_googletag_slot_getConfig() {
     const slot = googletag.defineSlot("/1234567/sports", [160, 600], "div")!;
@@ -857,6 +868,15 @@ function test_googletag_config_pageSettingsConfig_location() {
 
     // Clear the location setting.
     googletag.setConfig({ location: null });
+}
+
+// Test for googletag.config.PageSettingsConfig.ipAddress
+function test_googletag_config_pageSettingsConfig_ipAddress() {
+    // Set the encrypted IP address payload.
+    googletag.setConfig({ ipAddress: "ENCRYPTED_IP_PAYLOAD" });
+
+    // Clear the IP address setting.
+    googletag.setConfig({ ipAddress: null });
 }
 
 // Test for googletag.config.PageSettingsConfig.videoAds
@@ -1002,7 +1022,7 @@ function test_googletag_config_pageSettingsConfig_requestHookTimeoutMs() {
     // Set a 1000ms timeout for request hooks.
     googletag.setConfig({ requestHookTimeoutMs: 1000 });
 
-    // Use a Google-optimized timeout for request hooks.
+    // Use an optimized default timeout for request hooks.
     googletag.setConfig({ requestHookTimeoutMs: "auto" });
 
     // Clear the timeout.
