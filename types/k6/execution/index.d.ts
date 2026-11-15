@@ -69,7 +69,7 @@ export const test: {
      * exec.test.abort();
      * exec.test.abort('this is the reason');
      */
-    abort(input?: string): void;
+    abort(input?: string): never;
 
     /**
      * Marks the test as failed with the exit code 110, without interrupting execution.
