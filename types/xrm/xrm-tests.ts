@@ -947,256 +947,296 @@ context.userSettings.getSecurityRolePrivilegesInfo(
     },
 );
 
-// Xrm.WebApi.online.execute and executeMultiple typed request metadata and response.
-async function testTypedWebApiExecute() {
-    const request = {
-        OpportunityClose: {
-            subject: "Won",
-            "opportunityid@odata.bind": "/opportunities(00000000-0000-0000-0000-000000000001)",
-        },
-        Status: 3,
-        getMetadata() {
-            return {
-                boundParameter: null,
-                operationType: XrmEnum.ExecuteOperationType.Action,
-                operationName: "WinOpportunity",
-                parameterTypes: {
-                    OpportunityClose: {
-                        typeName: "mscrm.opportunityclose",
-                        structuralProperty: XrmEnum.StructuralPropertyType.EntityType,
-                    },
-                    Status: {
-                        typeName: "Edm.Int32",
-                        structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType,
-                    },
-                },
-            } as const;
-        },
-    };
-
-    const typedResponse = await Xrm.WebApi.online.execute<{ UserId: string }, typeof request>(request);
-    const body = await typedResponse.json();
-    // $ExpectType { UserId: string; }
-    body;
-    body.UserId;
-
-    const untypedResponse = await Xrm.WebApi.online.execute(request);
-    const unknownBody = await untypedResponse.json();
-    // $ExpectType unknown
-    unknownBody;
-    // @ts-expect-error Cannot access JSON fields before narrowing unknown.
-    unknownBody.UserId;
-
-    const crudRequest: Xrm.ExecuteRequest = {
-        getMetadata() {
-            return {
-                boundParameter: null,
-                operationType: XrmEnum.ExecuteOperationType.CRUD,
-                operationName: "Associate",
-                parameterTypes: {},
-            } as const;
-        },
-    };
-
-    const responses = await Xrm.WebApi.online.executeMultiple([request, [crudRequest]]);
-    // $ExpectType unknown
-    await responses[0].json();
-
-    const enumRequest = {
-        TargetFieldType: 0 as const,
-        Customer: { id: "00000000-0000-0000-0000-000000000001" },
-        SomeComplexParameter: { PageNumber: 1 },
-        getMetadata() {
-            return {
-                boundParameter: null,
-                operationType: XrmEnum.ExecuteOperationType.Function,
-                operationName: "InitializeFrom",
-                parameterTypes: {
-                    TargetFieldType: {
-                        typeName: "Microsoft.Dynamics.CRM.TargetFieldType",
-                        structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType,
-                        enumProperties: [{ name: "All", value: 0 }],
-                    },
-                    Customer: {
-                        typeName: "mscrm.crmbaseentity",
-                        structuralProperty: XrmEnum.StructuralPropertyType.EntityType,
-                    },
-                    SomeComplexParameter: {
-                        typeName: "mscrm.PagingInfo",
-                        structuralProperty: XrmEnum.StructuralPropertyType.ComplexType,
-                    },
-                },
-            } as const;
-        },
-    };
-    await Xrm.WebApi.online.execute(enumRequest);
+// Execute validation is opt-in. Legacy calls retain any, including dynamically constructed requests.
+async function testLegacyExecute(dynamicRequest: any, dynamicBatch: any[]) {
+    // $ExpectType any
+    const response = await Xrm.WebApi.online.execute(dynamicRequest);
+    response.customResponseMember;
+    // $ExpectType any
+    const body = await response.json();
+    body.customBodyMember;
+    // $ExpectType any[]
+    const responses = await Xrm.WebApi.online.executeMultiple(dynamicBatch);
+    responses[0].customResponseMember;
+    // Metadata does not trigger implicit validation or change the legacy response type.
+    // $ExpectType any
+    await Xrm.WebApi.online.execute({ Count: "dynamic", getMetadata: () => calculateMetadata });
 }
 
-// @ts-expect-error Primitive metadata cannot contain a misspelled EDM type.
-const invalidPrimitive: Xrm.ExecuteRequestPrimitiveParameterType = { typeName: "Edm.Int325", structuralProperty: 1 };
-const invalidCrud: Xrm.ExecuteRequestCrudMetadata = {
-    operationType: 2,
-    operationName: "Create",
-    // @ts-expect-error CRUD metadata cannot specify an entity-bound parameter.
-    boundParameter: "entity",
-    parameterTypes: {},
-};
-
-// Class declarations preserve parameter metadata without an index signature.
-class CalculateRequest {
-    constructor(public Count: number, public Label: string, public Enabled: boolean) {}
-
-    getMetadata() {
-        return {
-            boundParameter: null,
-            operationType: XrmEnum.ExecuteOperationType.Function,
-            operationName: "Calculate",
-            parameterTypes: {
-                Count: { typeName: "Edm.Int32", structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType },
-                Label: { typeName: "Edm.String", structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType },
-                Enabled: { typeName: "Edm.Boolean", structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType },
-            },
-        } as const;
-    }
-}
-
-const calculateRequest = new CalculateRequest(3, "Total", true);
-Xrm.WebApi.online.execute(calculateRequest);
-Xrm.WebApi.online.executeMultiple([calculateRequest, [calculateRequest]]);
-const calculateMetadata = calculateRequest.getMetadata();
-const annotatedCalculateRequest: Xrm.ExecuteRequest<typeof calculateMetadata> = calculateRequest;
-Xrm.WebApi.online.execute<{ Total: number }, typeof annotatedCalculateRequest>(annotatedCalculateRequest);
-
-// @ts-expect-error Metadata requires Count, Label, and Enabled.
-Xrm.WebApi.online.execute({ getMetadata: () => calculateMetadata });
-// @ts-expect-error Count must be a number according to the metadata.
-Xrm.WebApi.online.execute({ ...calculateRequest, Count: "3", getMetadata: () => calculateMetadata });
-// @ts-expect-error Label must be a string according to the metadata.
-Xrm.WebApi.online.execute({ Count: 3, Label: false, Enabled: true, getMetadata: () => calculateMetadata });
-// @ts-expect-error Enabled must be a boolean according to the metadata.
-Xrm.WebApi.online.execute({ Count: 3, Label: "Total", Enabled: 1, getMetadata: () => calculateMetadata });
-// @ts-expect-error Explicit metadata also checks assignments.
-const missingCalculateParameters: Xrm.ExecuteRequest<typeof calculateMetadata> = {
-    getMetadata: () => calculateMetadata,
-};
-
-class MissingCalculateRequest {
-    getMetadata() {
-        return calculateMetadata;
-    }
-}
-class IncorrectCalculateRequest extends CalculateRequest {
-    // This class's metadata describes an additional required parameter.
-    getMetadata() {
-        return {
-            ...super.getMetadata(),
-            parameterTypes: {
-                ...super.getMetadata().parameterTypes,
-                Extra: { typeName: "Edm.Boolean", structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType },
-            },
-        } as const;
-    }
-    Extra = "incorrect";
-}
-// @ts-expect-error Class instance is missing the parameters declared by its metadata.
-Xrm.WebApi.online.execute(new MissingCalculateRequest());
-// @ts-expect-error Extra must be boolean.
-Xrm.WebApi.online.execute(new IncorrectCalculateRequest(3, "Total", true));
-// @ts-expect-error Missing parameters in an ordinary batch request.
-Xrm.WebApi.online.executeMultiple([calculateRequest, new MissingCalculateRequest()]);
-// @ts-expect-error Incorrect parameter in a change set.
-Xrm.WebApi.online.executeMultiple([calculateRequest, [new IncorrectCalculateRequest(3, "Total", true)]]);
-
-const collectionMetadata = {
-    boundParameter: null,
-    operationType: XrmEnum.ExecuteOperationType.Action,
-    operationName: "Process",
-    parameterTypes: {
-        Values: { typeName: "Collection(Edm.Int32)", structuralProperty: XrmEnum.StructuralPropertyType.Collection },
-        Entity: { typeName: "mscrm.account", structuralProperty: XrmEnum.StructuralPropertyType.EntityType },
-    },
-} as const;
-Xrm.WebApi.online.execute({ Values: [1, 2], Entity: { name: "Example" }, getMetadata: () => collectionMetadata });
-// @ts-expect-error Collection element types are checked against their EDM name.
-Xrm.WebApi.online.execute({ Values: ["1"], Entity: {}, getMetadata: () => collectionMetadata });
-// @ts-expect-error Entity parameters require an object.
-Xrm.WebApi.online.execute({ Values: [1], Entity: "account", getMetadata: () => collectionMetadata });
-
-const enumMetadata = {
+const calculateMetadata = {
     boundParameter: null,
     operationType: XrmEnum.ExecuteOperationType.Function,
-    operationName: "Choose",
+    operationName: "new_Calculate",
     parameterTypes: {
-        Choice: {
-            typeName: "mscrm.Choice",
-            structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType,
-            enumProperties: [{ name: "First", value: 1 }, { name: "Second", value: 2 }],
-        },
+        Count: { typeName: "Edm.Int32", structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType },
+        Label: { typeName: "Edm.String", structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType },
+        Enabled: { typeName: "Edm.Boolean", structuralProperty: XrmEnum.StructuralPropertyType.PrimitiveType },
     },
-} as const;
-Xrm.WebApi.online.execute({ Choice: 1, getMetadata: () => enumMetadata });
-// @ts-expect-error Enum value must be one of the values declared by the metadata.
-Xrm.WebApi.online.execute({ Choice: 3, getMetadata: () => enumMetadata });
-// @ts-expect-error Enum value cannot be an object.
-Xrm.WebApi.online.execute({ Choice: {}, getMetadata: () => enumMetadata });
-
-// Both explicit generic arguments must retain request validation.
-const incorrectCountRequest = { Count: "3", Label: "Total", Enabled: true, getMetadata: () => calculateMetadata };
-// @ts-expect-error Explicit response typing must not bypass metadata checking.
-Xrm.WebApi.online.execute<{ Total: number }, typeof incorrectCountRequest>(incorrectCountRequest);
-// @ts-expect-error TypeScript cannot infer a second type argument after an explicit response type.
-Xrm.WebApi.online.execute<{ Total: number }>(incorrectCountRequest);
-// @ts-expect-error Undefined is not a number.
-Xrm.WebApi.online.execute({ Count: undefined, Label: "Total", Enabled: true, getMetadata: () => calculateMetadata });
-// @ts-expect-error Null is not a number.
-Xrm.WebApi.online.execute({ Count: null, Label: "Total", Enabled: true, getMetadata: () => calculateMetadata });
-declare const optionalCountRequest: {
+} as const satisfies Xrm.ExecuteRequestMetadata;
+interface CalculateResponse {
+    Total: number;
+}
+const calculateRequest: Xrm.ExecuteRequest<typeof calculateMetadata, CalculateResponse> = {
+    Count: 3,
+    Label: "Total",
+    Enabled: true,
+    getMetadata: () => calculateMetadata,
+};
+// @ts-expect-error Count is required by the metadata.
+const missingCount: Xrm.ExecuteRequest<typeof calculateMetadata> = {
+    Label: "Total",
+    Enabled: true,
+    getMetadata: () => calculateMetadata,
+};
+const incorrectCount: Xrm.ExecuteRequest<typeof calculateMetadata> = {
+    ...calculateRequest,
+    // @ts-expect-error Metadata declares a numeric Count.
+    Count: "3",
+};
+const incorrectLabel: Xrm.ExecuteRequest<typeof calculateMetadata> = {
+    ...calculateRequest,
+    // @ts-expect-error Metadata declares a string Label.
+    Label: 3,
+};
+const incorrectEnabled: Xrm.ExecuteRequest<typeof calculateMetadata> = {
+    ...calculateRequest,
+    // @ts-expect-error Metadata declares a boolean Enabled.
+    Enabled: "true",
+};
+declare const optionalCount: {
     Count?: number;
     Label: string;
     Enabled: boolean;
     getMetadata(): typeof calculateMetadata;
 };
-// @ts-expect-error A metadata parameter must be present, even if its property type is otherwise correct.
-Xrm.WebApi.online.execute(optionalCountRequest);
-
-const boundMetadata = { ...collectionMetadata, boundParameter: "Entity" } as const;
-const boundRequest = { Values: [1, 2], Entity: { name: "Example" }, getMetadata: () => boundMetadata };
-Xrm.WebApi.online.execute(boundRequest);
-const misspelledBoundRequest = {
-    ...boundRequest,
-    getMetadata: () => ({ ...boundMetadata, boundParameter: "Enttiy" } as const),
+// @ts-expect-error An optional property does not guarantee the required parameter.
+const missingOptionalCount: Xrm.ExecuteRequest<typeof calculateMetadata> = optionalCount;
+// Metadata does not describe nullability; nullable operation arguments must remain accepted.
+const nullableRequest: Xrm.ExecuteRequest<typeof calculateMetadata> = {
+    Count: null,
+    Label: null,
+    Enabled: null,
+    getMetadata: () => calculateMetadata,
 };
-// @ts-expect-error Bound parameter must name an entry in parameterTypes.
-Xrm.WebApi.online.execute(misspelledBoundRequest);
-const missingBoundMetadataRequest = {
-    Count: 3,
+
+// Metadata-first classes allow extra helper state and report errors at the declaration.
+class CalculateRequest implements Xrm.CheckedExecuteRequest<CalculateRequest> {
+    declare readonly __responseType?: CalculateResponse;
+    cache = new Map<string, number>();
+    constructor(public Count: number, public Label: string, public Enabled: boolean) {}
+    getMetadata() {
+        return calculateMetadata;
+    }
+}
+class IncorrectCalculateRequest implements Xrm.CheckedExecuteRequest<IncorrectCalculateRequest> {
+    // @ts-expect-error The property conflicts with the returned metadata, without calling execute.
+    Count = "wrong";
+    Label = "Total";
+    Enabled = true;
+    getMetadata() {
+        return calculateMetadata;
+    }
+}
+// @ts-expect-error Required parameters are missing from the class.
+class MissingCalculateRequest implements Xrm.CheckedExecuteRequest<MissingCalculateRequest> {
+    getMetadata() {
+        return calculateMetadata;
+    }
+}
+
+// Completeness checks also require metadata for public data properties.
+class CompleteCalculateRequest implements Xrm.CompleteExecuteRequest<CompleteCalculateRequest> {
+    declare readonly __responseType?: CalculateResponse;
+    private cache = new Map<string, number>();
+    protected helperState = true;
+    onComplete?(): void;
+    constructor(public Count: number, public Label: string, public Enabled: boolean) {}
+    clearCache() {
+        this.cache.clear();
+    }
+    getMetadata() {
+        return calculateMetadata;
+    }
+}
+class IncompleteCalculateRequest implements Xrm.CompleteExecuteRequest<IncompleteCalculateRequest> {
+    Count = 3;
+    Label = "Total";
+    Enabled = true;
+    Extra = "needs metadata";
+    // @ts-expect-error Completeness requires an Extra entry in parameterTypes.
+    getMetadata() {
+        return calculateMetadata;
+    }
+}
+class OptionalParameterRequest implements Xrm.CompleteExecuteRequest<OptionalParameterRequest> {
+    Count = 3;
+    Label = "Total";
+    Enabled = true;
+    Extra?: string;
+    // @ts-expect-error Optional public fields also need metadata in completeness mode.
+    getMetadata() {
+        return calculateMetadata;
+    }
+}
+
+async function testExecuteResponseInference() {
+    const response = await Xrm.WebApi.online.execute(calculateRequest);
+    // $ExpectType CalculateResponse
+    const body = await response.json();
+    // $ExpectType number
+    body.Total;
+    // @ts-expect-error Associated response fields retain their types.
+    const invalidTotal: string = body.Total;
+    // @ts-expect-error Unknown response field.
+    body.Unknown;
+    const instance = new CalculateRequest(3, "Total", true);
+    // $ExpectType CalculateResponse
+    const classBody = await (await Xrm.WebApi.online.execute(instance)).json();
+    // $ExpectType CalculateResponse
+    const completeBody = await (await Xrm.WebApi.online.execute(new CompleteCalculateRequest(3, "Total", true))).json();
+    const responses = await Xrm.WebApi.online.executeMultiple([calculateRequest, [instance]]);
+    // $ExpectType CalculateResponse
+    await responses[0].json();
+    const mutableBatch = [calculateRequest, [instance]];
+    // $ExpectType CalculateResponse
+    await (await Xrm.WebApi.online.executeMultiple(mutableBatch))[0].json();
+    // $ExpectType { Total: number; }
+    const extracted: Xrm.ExecuteResponseBody<CalculateRequest> = { Total: 3 };
+    extracted.Total;
+}
+
+const boundMetadata = {
+    boundParameter: "Entity",
+    operationType: XrmEnum.ExecuteOperationType.Action,
+    operationName: "Process",
+    parameterTypes: {
+        Values: { typeName: "Collection(Edm.Int32)", structuralProperty: 4 },
+        Entity: { typeName: "mscrm.account", structuralProperty: 5 },
+        Options: { typeName: "mscrm.PagingInfo", structuralProperty: 2 },
+    },
+} as const satisfies Xrm.ExecuteRequestMetadata;
+const boundRequest: Xrm.ExecuteRequest<typeof boundMetadata> = {
+    Values: [1, 2],
+    Entity: { name: "Example" },
+    Options: { PageNumber: 1 },
+    getMetadata: () => boundMetadata,
+};
+const wrongCollection: Xrm.ExecuteRequest<typeof boundMetadata> = {
+    ...boundRequest,
+    // @ts-expect-error Primitive collection elements are checked.
+    Values: ["1"],
+};
+const wrongEntity: Xrm.ExecuteRequest<typeof boundMetadata> = {
+    ...boundRequest,
+    // @ts-expect-error Entity values must be objects.
+    Entity: "account",
+};
+const wrongComplex: Xrm.ExecuteRequest<typeof boundMetadata> = {
+    ...boundRequest,
+    // @ts-expect-error Complex values must be objects.
+    Options: 1,
+};
+const misspelledBoundMetadata = { ...boundMetadata, boundParameter: "Enttiy" } as const;
+const misspelledBoundRequest: Xrm.ExecuteRequest<typeof misspelledBoundMetadata> = {
+    ...boundRequest,
+    // @ts-expect-error The bound parameter must name an entry in parameterTypes.
+    getMetadata: () => misspelledBoundMetadata,
+};
+
+// Enum metadata is not assumed to enumerate every legal value or flags combination.
+const enumMetadata = {
+    boundParameter: null,
+    operationType: 1,
+    operationName: "Choose",
+    parameterTypes: {
+        Choice: {
+            typeName: "mscrm.Choice",
+            structuralProperty: 3,
+            enumProperties: [{ name: "First", value: 1 }, { name: "Second", value: 2 }],
+        },
+    },
+} as const satisfies Xrm.ExecuteRequestMetadata;
+const flagsRequest: Xrm.ExecuteRequest<typeof enumMetadata> = { Choice: 3, getMetadata: () => enumMetadata };
+const stringEnumRequest: Xrm.ExecuteRequest<typeof enumMetadata> = { Choice: "First", getMetadata: () => enumMetadata };
+const wrongEnum: Xrm.ExecuteRequest<typeof enumMetadata> = {
+    ...flagsRequest,
+    // @ts-expect-error Enum representation must be a string or number (or null).
+    Choice: {},
+};
+
+// CRUD and primitive metadata retain their discriminants.
+const wrongPrimitiveMetadata: Xrm.ExecuteRequestPrimitiveParameterType = {
+    // @ts-expect-error Invalid primitive type name.
+    typeName: "Edm.Int325",
+    structuralProperty: 1,
+};
+const wrongCrudMetadata: Xrm.ExecuteRequestCrudMetadata = {
+    operationType: 2,
+    operationName: "Create",
+    parameterTypes: {},
+    // @ts-expect-error CRUD operations cannot name a bound parameter.
+    boundParameter: "Entity",
+};
+
+class UntypedCalculateRequest implements Xrm.CheckedExecuteRequest<UntypedCalculateRequest> {
+    Count = 1;
+    Label = "Total";
+    Enabled = true;
+    getMetadata() {
+        return calculateMetadata;
+    }
+}
+interface OtherExecuteBody {
+    Name: string;
+}
+const otherRequest: Xrm.ExecuteRequest<typeof calculateMetadata, OtherExecuteBody> = {
+    ...calculateRequest,
+    getMetadata: () => calculateMetadata,
+    __responseType: undefined,
+};
+const unknownResponseRequest: Xrm.ExecuteRequest<typeof calculateMetadata, unknown> = {
+    ...calculateRequest,
+    __responseType: undefined,
+};
+const satisfiesRequest = {
+    Count: 1,
     Label: "Total",
     Enabled: true,
-    Extra: {},
-    getMetadata: () => ({ ...calculateMetadata, boundParameter: "Extra" } as const),
-};
-// @ts-expect-error Providing a bound property does not replace its required metadata entry.
-Xrm.WebApi.online.execute(missingBoundMetadataRequest);
+    getMetadata: () => calculateMetadata,
+} satisfies Xrm.ExecuteRequest<typeof calculateMetadata, CalculateResponse>;
+async function testOptInBoundaries() {
+    // implements and satisfies do not add a phantom property to an inferred type.
+    // $ExpectType any
+    await Xrm.WebApi.online.execute(new UntypedCalculateRequest());
+    // $ExpectType any
+    await Xrm.WebApi.online.execute(satisfiesRequest);
+    // $ExpectType unknown
+    const unknownBody = await (await Xrm.WebApi.online.execute(unknownResponseRequest)).json();
+    // @ts-expect-error Explicit unknown response bodies require narrowing.
+    unknownBody.Total;
+    const heterogeneousBatch = [calculateRequest, [otherRequest]];
+    // $ExpectType CalculateResponse | OtherExecuteBody
+    const unionBody = await (await Xrm.WebApi.online.executeMultiple(heterogeneousBatch))[0].json();
+    // @ts-expect-error Narrow the union before accessing a member-specific field.
+    unionBody.Total;
+    // $ExpectType any[]
+    await Xrm.WebApi.online.executeMultiple([calculateRequest, [{}]]);
+    // $ExpectType any[]
+    await Xrm.WebApi.online.executeMultiple([]);
+    // $ExpectType any[]
+    await Xrm.WebApi.online.executeMultiple([[]]);
+    // $ExpectType CalculateResponse
+    await (await Xrm.WebApi.online.executeMultiple([calculateRequest, [calculateRequest]] as const))[0].json();
+    // $ExpectType any
+    await Xrm.WebApi.online.execute(null);
+    // $ExpectType any
+    await Xrm.WebApi.online.execute({});
+}
 
-// Mutable, heterogeneous arrays must preserve checks on every union member.
-const heterogeneousBatch = [calculateRequest, boundRequest, [calculateRequest, boundRequest]];
-Xrm.WebApi.online.executeMultiple(heterogeneousBatch);
-const invalidBatch = [calculateRequest, incorrectCountRequest];
-// @ts-expect-error A valid union member must not hide an invalid one.
-Xrm.WebApi.online.executeMultiple(invalidBatch);
-const invalidChangeSetBatch = [boundRequest, [calculateRequest, incorrectCountRequest]];
-// @ts-expect-error Validate invalid members of change set array variables as well.
-Xrm.WebApi.online.executeMultiple(invalidChangeSetBatch);
-Xrm.WebApi.online.executeMultiple([]);
-Xrm.WebApi.online.executeMultiple([[]]);
-Xrm.WebApi.online.executeMultiple([calculateRequest, [boundRequest]] as const);
-// @ts-expect-error Change sets cannot themselves contain change sets.
-Xrm.WebApi.online.executeMultiple([[[calculateRequest]]]);
-
-// All supported EDM primitive mappings.
+// Cover every supported EDM primitive representation without an exhaustive runtime schema.
 const primitiveMetadata = {
     boundParameter: null,
-    operationType: XrmEnum.ExecuteOperationType.Action,
+    operationType: 0,
     operationName: "Primitives",
     parameterTypes: {
         Binary: { typeName: "Edm.Binary", structuralProperty: 1 },
@@ -1212,11 +1252,11 @@ const primitiveMetadata = {
         String: { typeName: "Edm.String", structuralProperty: 1 },
     },
 } as const satisfies Xrm.ExecuteRequestMetadata;
-const primitiveRequest = {
+const primitiveRequest: Xrm.ExecuteRequest<typeof primitiveMetadata> = {
     Binary: "AQID",
     Boolean: true,
-    Date: "2026-11-14",
-    DateTimeOffset: "2026-11-14T00:00:00Z",
+    Date: "2026-11-15",
+    DateTimeOffset: new Date(),
     Decimal: 1.5,
     Double: 1.5,
     Guid: "00000000-0000-0000-0000-000000000001",
@@ -1226,148 +1266,52 @@ const primitiveRequest = {
     String: "value",
     getMetadata: () => primitiveMetadata,
 };
-Xrm.WebApi.online.execute(primitiveRequest);
-// @ts-expect-error GUIDs are represented by strings.
-Xrm.WebApi.online.execute({ ...primitiveRequest, Guid: 123 });
-// @ts-expect-error Date values are represented by strings.
-Xrm.WebApi.online.execute({ ...primitiveRequest, Date: new Date() });
-// @ts-expect-error Base64 binary values are represented by strings.
-Xrm.WebApi.online.execute({ ...primitiveRequest, Binary: [1, 2, 3] });
-// @ts-expect-error Decimal values are numbers.
-Xrm.WebApi.online.execute({ ...primitiveRequest, Decimal: "1.5" });
-// @ts-expect-error Int64 values are numbers.
-Xrm.WebApi.online.execute({ ...primitiveRequest, Int64: "3" });
-
-Xrm.WebApi.online.execute({ Choice: 2, getMetadata: () => enumMetadata });
-// @ts-expect-error Numeric enum metadata does not permit string values.
-Xrm.WebApi.online.execute({ Choice: "1", getMetadata: () => enumMetadata });
-const stringEnumMetadata = {
-    ...enumMetadata,
-    parameterTypes: {
-        Choice: {
-            typeName: "mscrm.Choice",
-            structuralProperty: XrmEnum.StructuralPropertyType.EnumerationType,
-            enumProperties: [{ name: "First", value: "first" }, { name: "Second", value: "second" }],
-        },
-    },
-} as const;
-Xrm.WebApi.online.execute({ Choice: "first", getMetadata: () => stringEnumMetadata });
-Xrm.WebApi.online.execute({ Choice: "second", getMetadata: () => stringEnumMetadata });
-// @ts-expect-error String enum values must match the metadata's values, not its member names.
-Xrm.WebApi.online.execute({ Choice: "First", getMetadata: () => stringEnumMetadata });
-// @ts-expect-error String enum metadata does not permit numeric values.
-Xrm.WebApi.online.execute({ Choice: 1, getMetadata: () => stringEnumMetadata });
-const unspecifiedEnumMetadata = {
-    ...enumMetadata,
-    parameterTypes: { Choice: { typeName: "mscrm.Choice", structuralProperty: 3 } },
-} as const;
-Xrm.WebApi.online.execute({ Choice: 1, getMetadata: () => unspecifiedEnumMetadata });
-Xrm.WebApi.online.execute({ Choice: "first", getMetadata: () => unspecifiedEnumMetadata });
-// @ts-expect-error Enum values must still be strings or numbers when their members are unspecified.
-Xrm.WebApi.online.execute({ Choice: true, getMetadata: () => unspecifiedEnumMetadata });
-const emptyEnumMetadata = {
-    ...enumMetadata,
-    parameterTypes: { Choice: { typeName: "mscrm.Choice", structuralProperty: 3, enumProperties: [] } },
-} as const;
-// @ts-expect-error No member values are declared in an explicitly empty enum.
-Xrm.WebApi.online.execute({ Choice: 1, getMetadata: () => emptyEnumMetadata });
-const enumBatch = [{ Choice: 1, getMetadata: () => enumMetadata }, {
-    Choice: "first",
-    getMetadata: () => stringEnumMetadata,
-}];
-// Values widen to number/string in a mutable array, so annotate requests to preserve membership.
-const numericEnumRequest: Xrm.ExecuteRequest<typeof enumMetadata> = { Choice: 1, getMetadata: () => enumMetadata };
-const stringEnumRequest: Xrm.ExecuteRequest<typeof stringEnumMetadata> = {
-    Choice: "first",
-    getMetadata: () => stringEnumMetadata,
+const incorrectGuid: Xrm.ExecuteRequest<typeof primitiveMetadata> = {
+    ...primitiveRequest,
+    // @ts-expect-error GUID parameters use strings.
+    Guid: 1,
 };
-Xrm.WebApi.online.executeMultiple([numericEnumRequest, [stringEnumRequest]]);
-// @ts-expect-error Widened enum values cannot be proven to belong to a literal enum.
-Xrm.WebApi.online.executeMultiple(enumBatch);
-// @ts-expect-error Enum membership is checked in change sets.
-Xrm.WebApi.online.executeMultiple([numericEnumRequest, [{ Choice: "third", getMetadata: () => stringEnumMetadata }]]);
-
+const incorrectBinary: Xrm.ExecuteRequest<typeof primitiveMetadata> = {
+    ...primitiveRequest,
+    // @ts-expect-error Binary parameters use base64 strings.
+    Binary: [1, 2],
+};
+const incorrectDate: Xrm.ExecuteRequest<typeof primitiveMetadata> = {
+    ...primitiveRequest,
+    // @ts-expect-error Date parameters are strings or Date objects.
+    Date: 1,
+};
+const incorrectDecimal: Xrm.ExecuteRequest<typeof primitiveMetadata> = {
+    ...primitiveRequest,
+    // @ts-expect-error Decimal parameters use numbers.
+    Decimal: true,
+};
 const stringCollectionMetadata = {
-    ...collectionMetadata,
+    ...boundMetadata,
     parameterTypes: { Values: { typeName: "Collection(Edm.String)", structuralProperty: 4 } },
+    boundParameter: null,
 } as const;
-Xrm.WebApi.online.execute({ Values: ["a", "b"], getMetadata: () => stringCollectionMetadata });
-Xrm.WebApi.online.execute({ Values: [], getMetadata: () => stringCollectionMetadata });
-// @ts-expect-error A collection must be an array.
-Xrm.WebApi.online.execute({ Values: "a", getMetadata: () => stringCollectionMetadata });
-// @ts-expect-error A single incorrect element invalidates the collection.
-Xrm.WebApi.online.execute({ Values: ["a", 1], getMetadata: () => stringCollectionMetadata });
-// @ts-expect-error Collections cannot be null.
-Xrm.WebApi.online.execute({ Values: null, getMetadata: () => stringCollectionMetadata });
-const complexMetadata = {
-    ...collectionMetadata,
-    parameterTypes: { Options: { typeName: "mscrm.PagingInfo", structuralProperty: 2 } },
-} as const;
-Xrm.WebApi.online.execute({ Options: { PageNumber: 1 }, getMetadata: () => complexMetadata });
-// @ts-expect-error Complex parameters require objects.
-Xrm.WebApi.online.execute({ Options: "page 1", getMetadata: () => complexMetadata });
-// @ts-expect-error Complex parameters cannot be null.
-Xrm.WebApi.online.execute({ Options: null, getMetadata: () => complexMetadata });
-// @ts-expect-error Entity parameters cannot be null.
-Xrm.WebApi.online.execute({ Values: [1], Entity: null, getMetadata: () => collectionMetadata });
+const stringCollectionRequest: Xrm.ExecuteRequest<typeof stringCollectionMetadata> = {
+    Values: ["a", "b"],
+    getMetadata: () => stringCollectionMetadata,
+};
+const nonArrayCollection: Xrm.ExecuteRequest<typeof stringCollectionMetadata> = {
+    ...stringCollectionRequest,
+    // @ts-expect-error Collections require arrays.
+    Values: "a",
+};
+const mixedCollection: Xrm.ExecuteRequest<typeof stringCollectionMetadata> = {
+    ...stringCollectionRequest,
+    // @ts-expect-error Every primitive collection element must have the declared type.
+    Values: ["a", 1],
+};
 const unknownMetadata = {
-    ...collectionMetadata,
+    ...stringCollectionMetadata,
     parameterTypes: { Value: { typeName: "Custom", structuralProperty: 0 } },
 } as const;
-Xrm.WebApi.online.execute({ Value: "custom value", getMetadata: () => unknownMetadata });
-Xrm.WebApi.online.execute({ Value: {}, getMetadata: () => unknownMetadata });
-// @ts-expect-error Unknown parameter types still require a property.
-Xrm.WebApi.online.execute({ getMetadata: () => unknownMetadata });
-// @ts-expect-error Requests require getMetadata.
-Xrm.WebApi.online.execute({ Count: 3 });
-const invalidStructuralRequest = {
-    getMetadata: () => ({
-        ...unknownMetadata,
-        parameterTypes: { Value: { typeName: "Custom", structuralProperty: 6 } },
-    } as const),
+const unknownParameter: Xrm.ExecuteRequest<typeof unknownMetadata> = {
+    Value: { Arbitrary: true },
+    getMetadata: () => unknownMetadata,
 };
-// @ts-expect-error Unsupported structural property.
-Xrm.WebApi.online.execute(invalidStructuralRequest);
-// @ts-expect-error Operation types must be a supported category.
-Xrm.WebApi.online.execute({ getMetadata: () => ({ ...calculateMetadata, operationType: 3 }) });
-const invalidCrudNameRequest = {
-    getMetadata:
-        () => ({ boundParameter: null, operationType: 2, operationName: "Invalid", parameterTypes: {} } as const),
-};
-// @ts-expect-error CRUD operation names must be supported CRUD operations.
-Xrm.WebApi.online.execute(invalidCrudNameRequest);
-
-class ChooseRequest implements Xrm.ExecuteRequest<typeof enumMetadata> {
-    constructor(public Choice: 1 | 2) {}
-    getMetadata() {
-        return enumMetadata;
-    }
-}
-class IncorrectChooseRequest {
-    Choice = 3;
-    getMetadata() {
-        return enumMetadata;
-    }
-}
-Xrm.WebApi.online.execute(new ChooseRequest(1));
-Xrm.WebApi.online.executeMultiple([new ChooseRequest(2), [new ChooseRequest(1)]]);
-// @ts-expect-error A class's enum value must belong to the members declared by its metadata.
-Xrm.WebApi.online.execute(new IncorrectChooseRequest());
-
-// Metadata loaded dynamically cannot supply a compile-time union of enum member values.
-declare const dynamicEnumMembers: Xrm.ExecuteRequestEnumProperty[];
-const dynamicEnumMetadata = {
-    ...enumMetadata,
-    parameterTypes: {
-        Choice: { typeName: "mscrm.Choice", structuralProperty: 3, enumProperties: dynamicEnumMembers },
-    },
-} as const;
-Xrm.WebApi.online.execute({ Choice: 3, getMetadata: () => dynamicEnumMetadata });
-// @ts-expect-error Dynamic enum members still restrict the JavaScript representation.
-Xrm.WebApi.online.execute({ Choice: false, getMetadata: () => dynamicEnumMetadata });
-
-declare const unionRequest: typeof calculateRequest | typeof boundRequest;
-Xrm.WebApi.online.execute(unionRequest);
-declare const invalidUnionRequest: typeof calculateRequest | typeof incorrectCountRequest;
-// @ts-expect-error Validate every member of a union passed to execute.
-Xrm.WebApi.online.execute(invalidUnionRequest);
+// @ts-expect-error Unknown value schemas still require the parameter's presence.
+const missingUnknownParameter: Xrm.ExecuteRequest<typeof unknownMetadata> = { getMetadata: () => unknownMetadata };

@@ -6069,10 +6069,10 @@ declare namespace Xrm {
          * Execute a single action, function, or CRUD operation.
          * @see {@link https://learn.microsoft.com/en-us/power-apps/developer/model-driven-apps/clientapi/reference/xrm-webapi/online/execute External Link: Xrm.WebApi.online.execute (Client API reference)}
          * @param request Object that will be passed to the Web API endpoint to execute an action, function, or CRUD request.
-         * @remarks Preserve literal metadata (for example, with `as const`) to check request parameters.
-         * For a typed response, specify both types: `execute<ResponseBody, typeof request>(request)`.
-         * Use `satisfies ExecuteRequestMetadata` rather than a metadata type annotation to preserve
-         * parameter names and literal types. Widening metadata erases information needed for validation.
+         * @remarks Existing requests and responses remain permissive. Opt into parameter validation with
+         * ExecuteRequest, CheckedExecuteRequest, or CompleteExecuteRequest. Preserve literal metadata with
+         * `as const`. A typed request's optional, type-only __responseType member determines its JSON body.
+         * See the package README for object and class examples.
          * The object exposes a getMetadata method that lets you define the metadata for the action, function or CRUD request you want to execute.<BR>
          * **The getMetadata method has the following parameters**:
          *   - boundParameter: (Optional) String. The name of the bound parameter for the action or function to execute.
@@ -6095,12 +6095,7 @@ declare namespace Xrm {
          *       * 5: EntityType
          *   - typeName: String. The fully qualified name of the parameter type.
          */
-        execute<TRequest extends { getMetadata(): ExecuteRequestMetadata }>(
-            request: TRequest & ExecuteRequest<ReturnType<TRequest["getMetadata"]>>,
-        ): Async.PromiseLike<ExecuteResponse>;
-        execute<TResponseBody, TRequest extends { getMetadata(): ExecuteRequestMetadata }>(
-            request: TRequest & ExecuteRequest<ReturnType<TRequest["getMetadata"]>>,
-        ): Async.PromiseLike<ExecuteResponse<TResponseBody>>;
+        execute<TRequest>(request: TRequest): Async.PromiseLike<ExecuteResponseFor<TRequest>>;
 
         /**
          * Execute a collection of action, function, or CRUD operations.
@@ -6114,14 +6109,9 @@ declare namespace Xrm {
          *        * In this case, all the request objects specified in the change set will get executed in a
          *        transaction.
          */
-        executeMultiple<
-            const TRequests extends readonly (
-                | { getMetadata(): ExecuteRequestMetadata }
-                | readonly { getMetadata(): ExecuteRequestMetadata }[]
-            )[],
-        >(
-            request: TRequests & ExecuteRequests<TRequests>,
-        ): Async.PromiseLike<ExecuteResponse[]>;
+        executeMultiple<const TRequests extends readonly unknown[]>(
+            request: TRequests,
+        ): Async.PromiseLike<Array<ExecuteBatchResponse<TRequests[number]>>>;
     }
 
     /**
@@ -6427,39 +6417,74 @@ declare namespace Xrm {
      * Request passed to Xrm.WebApi.online.execute or executeMultiple.
      * May also contain additional operation-specific properties.
      */
-    type ExecuteRequest<TMetadata extends ExecuteRequestMetadata = ExecuteRequestMetadata> = TMetadata extends
-        ExecuteRequestMetadata ?
+    type ExecuteRequest<
+        TMetadata extends ExecuteRequestMetadata = ExecuteRequestMetadata,
+        TResponseBody = any,
+    > = TMetadata extends ExecuteRequestMetadata ?
             & {
                 getMetadata(): TMetadata & { boundParameter?: keyof TMetadata["parameterTypes"] | null };
+                /** Type-only association; no runtime property is required. */
+                readonly __responseType?: TResponseBody;
             }
             & (string extends keyof TMetadata["parameterTypes"] ? { [parameterName: string]: unknown } : {
                 [K in keyof TMetadata["parameterTypes"]]: ExecuteRequestParameterValue<TMetadata["parameterTypes"][K]>;
             })
         : never;
 
-    /** Validate individual requests and requests inside change sets. */
-    type ExecuteRequests<TRequests extends readonly unknown[]> = {
-        [K in keyof TRequests]: ExecuteRequestOrChangeSet<TRequests[K]>;
-    };
+    /** Validate a class against its own literal metadata without repeating a parameter schema. */
+    type CheckedExecuteRequest<TRequest extends { getMetadata(): ExecuteRequestMetadata }> = ExecuteRequest<
+        ReturnType<TRequest["getMetadata"]>
+    >;
 
-    type ExecuteRequestOrChangeSet<TRequest> = TRequest extends { getMetadata(): ExecuteRequestMetadata }
-        ? TRequest & ExecuteRequest<ReturnType<TRequest["getMetadata"]>>
-        : TRequest extends readonly unknown[] ? ExecuteRequests<TRequest>
-        : never;
+    /** Public data properties treated as parameters by CompleteExecuteRequest. */
+    type ExecuteRequestParameterKeys<TRequest> = {
+        [K in keyof TRequest]-?: K extends "__responseType" ? never
+            : NonNullable<TRequest[K]> extends (...args: any[]) => any ? never
+            : K;
+    }[keyof TRequest];
+
+    /** Additionally require metadata for every public data property (excluding __responseType). */
+    type CompleteExecuteRequest<TRequest extends { getMetadata(): ExecuteRequestMetadata }> =
+        & CheckedExecuteRequest<TRequest>
+        & {
+            getMetadata(): {
+                parameterTypes: {
+                    [K in ExecuteRequestParameterKeys<TRequest>]-?: ExecuteRequestParameterType;
+                };
+            };
+        };
+
+    /** Extract an explicitly associated JSON body, defaulting to any for untyped requests. */
+    type ExecuteResponseBody<TRequest> = TRequest extends { readonly __responseType?: infer TBody } ? TBody : any;
+
+    /** Preserve the legacy any response unless a request declares a response association. */
+    // Prevent distribution over never so empty batches retain their legacy response type.
+    // eslint-disable-next-line @definitelytyped/no-single-element-tuple-type
+    type ExecuteResponseFor<TRequest> = [TRequest] extends [never] ? any : 0 extends (1 & TRequest) ? any
+    : TRequest extends unknown
+        ? "__responseType" extends keyof TRequest ? ExecuteResponse<ExecuteResponseBody<TRequest>> : any
+    : never;
+
+    /** Individual response type for a request or a request inside a change set. */
+    type ExecuteBatchResponse<TRequest> = ExecuteResponseFor<
+        TRequest extends readonly unknown[] ? TRequest[number] : TRequest
+    >;
 
     /** JavaScript representation of an EDM primitive value. */
     type ExecuteRequestPrimitiveValue<TName extends string> = TName extends "Edm.Boolean" ? boolean
         : TName extends "Edm.Decimal" | "Edm.Double" | "Edm.Int16" | "Edm.Int32" | "Edm.Int64" ? number
+        : TName extends "Edm.Date" | "Edm.DateTimeOffset" ? string | Date
         : TName extends PrimitiveTypeName ? string
         : unknown;
 
     /** Values for entity and complex parameters remain open because metadata supplies no field schema. */
-    type ExecuteRequestParameterValue<TParameter extends ExecuteRequestParameterType> = TParameter extends
+    type ExecuteRequestParameterValue<TParameter extends ExecuteRequestParameterType> =
+        | ExecuteRequestNonNullableParameterValue<TParameter>
+        | null;
+
+    type ExecuteRequestNonNullableParameterValue<TParameter extends ExecuteRequestParameterType> = TParameter extends
         ExecuteRequestPrimitiveParameterType ? ExecuteRequestPrimitiveValue<TParameter["typeName"]>
-        : TParameter extends ExecuteRequestEnumParameterType
-            ? TParameter extends { enumProperties: readonly (infer TEnum extends ExecuteRequestEnumProperty)[] }
-                ? TEnum["value"]
-            : string | number
+        : TParameter extends ExecuteRequestEnumParameterType ? string | number
         : TParameter extends { structuralProperty: XrmEnum.StructuralPropertyType.Collection; typeName: infer TName }
             ? TName extends `Collection(${infer TElement})` ? Array<ExecuteRequestPrimitiveValue<TElement>> : unknown[]
         : TParameter extends {
@@ -6539,7 +6564,7 @@ declare namespace Xrm {
     }
 
     /** Execute response with an optionally typed JSON payload. */
-    interface ExecuteResponse<TResponseBody = unknown> extends Response {
+    interface ExecuteResponse<TResponseBody = any> extends Response {
         json(): Promise<TResponseBody>;
     }
 }
