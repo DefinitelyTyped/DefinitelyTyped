@@ -89,6 +89,12 @@ export type CommonElementStyle = {
 
 export type CardElementOptions = {
   /**
+   * If true, displays cobadged network options next to the primary network,
+   * allowing the customer to select which network to process over.
+   */
+  coBadgeSelector?: boolean;
+
+  /**
    * If false, the card brand icon will be hidden
    */
   displayIcon?: boolean;
@@ -155,6 +161,12 @@ export type CardElementOptions = {
 };
 
 export type IndividualElementOptions = {
+  /**
+   * If true, displays cobadged network options next to the primary network,
+   * allowing the customer to select which network to process over.
+   */
+  coBadgeSelector?: boolean;
+
   /**
    * Enables contextual input formatting, injecting spaces to match the card brand, and forcing numeric input on expiry
    * and cvv.
