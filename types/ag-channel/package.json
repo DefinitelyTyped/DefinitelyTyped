@@ -6,9 +6,9 @@
         "https://github.com/SocketCluster/ag-channel"
     ],
     "dependencies": {
-        "@types/consumable-stream": "*",
-        "@types/stream-demux": "*",
-        "@types/writable-consumable-stream": "*"
+        "@types/consumable-stream": "^2",
+        "@types/stream-demux": "^8",
+        "@types/writable-consumable-stream": "^3"
     },
     "devDependencies": {
         "@types/ag-channel": "workspace:.",

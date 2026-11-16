@@ -6,8 +6,8 @@
         "https://github.com/SocketCluster/stream-demux"
     ],
     "dependencies": {
-        "@types/consumable-stream": "*",
-        "@types/writable-consumable-stream": "*"
+        "@types/consumable-stream": "^3",
+        "@types/writable-consumable-stream": "^4"
     },
     "devDependencies": {
         "@types/stream-demux": "workspace:."
