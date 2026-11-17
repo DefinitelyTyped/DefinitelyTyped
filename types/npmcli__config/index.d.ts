@@ -93,6 +93,23 @@ declare class Config<Definitions extends Config.DefinitionsObject = Config.Defin
     load(): Promise<void>;
 
     /**
+     * Load the `npmrc` file bundled with the npm installation.
+     */
+    loadBuiltinConfig(): Promise<void>;
+    /**
+     * Load the `npmrc` file in the current project folder.
+     */
+    loadProjectConfig(): Promise<void>;
+    /**
+     * Load the `npmrc` file in the user's home directory.
+     */
+    loadUserConfig(): Promise<void>;
+    /**
+     * Load the `npmrc` file in the global configuration folder.
+     */
+    loadGlobalConfig(): Promise<void>;
+
+    /**
      * Find the effective place in the configuration levels a given key is set.
      * Returns one of: `cli`, `env`, `project`, `user`, `global`, `builtin`, or
      * `default`.
@@ -169,9 +186,23 @@ declare class Config<Definitions extends Config.DefinitionsObject = Config.Defin
     isDefault(key: keyof Definitions): boolean;
     /**
      * Save the config file specified by the `where` param.  Must be one of
-     * `project`, `user`, `global`, `builtin`.
+     * `project`, `user`, `global`.
      */
     save(where: Config.ConfFileType): Promise<void>;
+
+    /**
+     * Clear all credentials for the given registry URI from the given config
+     * file level.  Defaults to the `user` config.
+     */
+    clearCredentialsByURI(uri: string, level?: Config.ConfFileType): void;
+    /**
+     * Set credentials for the given registry URI in the user config file.
+     */
+    setCredentialsByURI(uri: string, creds: Config.Credentials): void;
+    /**
+     * Get the credentials configured for the given registry URI.
+     */
+    getCredentialsByURI(uri: string): Config.Credentials;
 }
 
 declare class Umask {
@@ -228,6 +259,13 @@ declare namespace Config {
         /** Must be provided for `.flat` to work */
         flatten?: (data: ConfigData["data"], flattened: Record<string, any>) => void;
         npmPath: string;
+        /**
+         * Registry-scoped config keys which may be nerf-darted, such as
+         * `_authToken` or `username`.  Used when validating unknown configs.
+         */
+        nerfDarts?: string[];
+        /** Set to `false` to disable config warnings. */
+        warn?: boolean;
 
         cwd?: string;
         env?: NodeJS.ProcessEnv;
@@ -248,6 +286,16 @@ declare namespace Config {
         readonly valid: boolean;
         /** Any errors encountered that prevented the loading of this config data. */
         loadError: Error | null;
+    }
+
+    interface Credentials {
+        email?: string;
+        token?: string;
+        username?: string;
+        password?: string;
+        auth?: string;
+        certfile?: string;
+        keyfile?: string;
     }
 
     type Problem =
