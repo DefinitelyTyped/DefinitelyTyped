@@ -61,6 +61,16 @@ export type PreTokenGenerationRefreshTokensV2TriggerEvent = BasePreTokenGenerati
 >;
 
 /**
+ * Sent when an app client exchanges a user's token through OAuth 2.0 token exchange (RFC 8693).
+ * `request.scopes` holds the scopes that the exchange requested.
+ *
+ * @see https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-token-exchange.html
+ */
+export type PreTokenGenerationTokenExchangeV2TriggerEvent = BasePreTokenGenerationV2TriggerEvent<
+    "TokenGeneration_TokenExchange"
+>;
+
+/**
  * @see https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-pre-token-generation.html
  */
 export type PreTokenGenerationV2TriggerEvent =
@@ -68,6 +78,7 @@ export type PreTokenGenerationV2TriggerEvent =
     | PreTokenGenerationAuthenticationV2TriggerEvent
     | PreTokenGenerationNewPasswordChallengeV2TriggerEvent
     | PreTokenGenerationAuthenticateDeviceV2TriggerEvent
-    | PreTokenGenerationRefreshTokensV2TriggerEvent;
+    | PreTokenGenerationRefreshTokensV2TriggerEvent
+    | PreTokenGenerationTokenExchangeV2TriggerEvent;
 
 export type PreTokenGenerationV2TriggerHandler = Handler<PreTokenGenerationV2TriggerEvent>;
