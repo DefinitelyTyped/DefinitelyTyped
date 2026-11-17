@@ -1,10 +1,13 @@
 {
     "private": true,
     "name": "@types/hosted-git-info",
-    "version": "3.0.9999",
+    "version": "10.1.9999",
     "projects": [
         "https://github.com/npm/hosted-git-info"
     ],
+    "dependencies": {
+        "@types/node": "*"
+    },
     "devDependencies": {
         "@types/hosted-git-info": "workspace:."
     },
