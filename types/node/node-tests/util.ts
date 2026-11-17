@@ -2,7 +2,7 @@ import * as util from "node:util";
 import assert = require("node:assert");
 import { EventEmitter } from "node:events";
 import { access, readFile } from "node:fs";
-import { Readable, Stream, Writable } from "node:stream";
+import { Readable, Writable } from "node:stream";
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
@@ -116,13 +116,6 @@ console.log(
 );
 console.log(
     util.styleText("cyan", "text", { stream: new Readable() }),
-);
-console.log(
-    util.styleText("gray", "text", { stream: new Stream() }),
-);
-class ValidCustomStream extends Stream {}
-console.log(
-    util.styleText("dim", "text", { stream: new ValidCustomStream() }),
 );
 class InvalidCustomStream extends EventEmitter {}
 console.log(

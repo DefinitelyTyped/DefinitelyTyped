@@ -9,7 +9,6 @@
  * @see [source](https://github.com/nodejs/node/blob/v22.x/lib/util.js)
  */
 declare module "util" {
-    import { Stream } from "node:stream";
     import * as types from "node:util/types";
     export interface InspectOptions {
         /**
@@ -1482,7 +1481,7 @@ declare module "util" {
          * A stream that will be validated if it can be colored.
          * @default process.stdout
          */
-        stream?: Stream | NodeJS.ReadableStream | NodeJS.WritableStream | undefined;
+        stream?: NodeJS.ReadableStream | NodeJS.WritableStream | undefined;
     }
     /**
      * This function returns a formatted text considering the `format` passed
