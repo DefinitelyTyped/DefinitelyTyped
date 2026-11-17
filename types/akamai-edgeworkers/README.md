@@ -51,6 +51,7 @@ TypeScript Bindings are available for [built-in modules], including:
 - `streams` - Compatibility with the WHATWG Streams standard
 - `text-encode-transform` - Compatibility with the WHATWG Encoding standard
 - `url-search-params` - Parsing query parameters
+- `lru-cache` - Native LRU cache implementation
 
 Once you've added the triple-slash reference to `akamai-edgeworkers`
 you can import them normally:
