@@ -3,8 +3,17 @@
 type SqlValue = number | string | Uint8Array | null;
 type ParamsObject = Record<string, SqlValue>;
 type ParamsCallback = (obj: ParamsObject) => void;
-type SqlJsConfig = Partial<EmscriptenModule>;
 type BindParams = SqlValue[] | ParamsObject | null;
+
+interface SqlJsConfig extends Partial<EmscriptenModule> {
+    /**
+     * If `true`, uses the old, non-standard sql.js Math functions; if `false`, uses the standard
+     * SQLite math functions.
+     *
+     * Defaults to `true`.
+     */
+    useOldExtensionFunctions: boolean;
+}
 
 type UpdateHookOperation = "insert" | "update" | "delete";
 type UpdateHookCallback = (
