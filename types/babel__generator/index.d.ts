@@ -71,6 +71,8 @@ export interface GeneratorOptions {
      */
     sourceFileName?: string | undefined;
 
+    inputSourceMap?: object | string | undefined;
+
     /**
      * Set to true to run jsesc with "json": true to print "\u00A9" vs. "©";
      */

@@ -45,3 +45,8 @@ const result2 = generate2(
 );
 result2.code;
 result2.map;
+
+generate(ast, { sourceMaps: true, inputSourceMap: result.map! });
+generate(ast, { sourceMaps: true, inputSourceMap: JSON.stringify(result.map) });
+// @ts-expect-error
+generate(ast, { inputSourceMap: 1 });
