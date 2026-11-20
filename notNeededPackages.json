@@ -2873,6 +2873,10 @@
             "libraryName": "geometric",
             "asOfVersion": "3.0.9"
         },
+        "gestalt": {
+            "libraryName": "gestalt",
+            "asOfVersion": "177.0.12"
+        },
         "gestalt-datepicker": {
             "libraryName": "gestalt-datepicker",
             "asOfVersion": "111.0.0"
