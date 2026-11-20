@@ -392,6 +392,10 @@
             "libraryName": "@babel/parser",
             "asOfVersion": "7.1.0"
         },
+        "babel__preset-env": {
+            "libraryName": "@babel/preset-env",
+            "asOfVersion": "8.0.7"
+        },
         "babylonjs": {
             "libraryName": "babylonjs",
             "asOfVersion": "2.4.1"
