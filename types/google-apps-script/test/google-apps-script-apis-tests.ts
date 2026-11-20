@@ -1046,10 +1046,10 @@ function testYouTubeAnalytics() {
         domain: "youtube.analytics",
         externalErrorMessage: "Invalid video ID",
         location: "id",
-        locationType: "parameter",
+        locationType: "PARAMETER",
     };
     const errors: GoogleAppsScript.YouTubeAnalytics.Schema.Errors = {
-        code: "400",
+        code: "BAD_REQUEST",
         error: [errorProto],
         requestId: "request-id",
     };
@@ -1114,11 +1114,11 @@ function testYouTubeAnalytics() {
     // $ExpectType ListGroupItemsResponse
     const listGroupItems = groupItems.list();
     // $ExpectType ListGroupItemsResponse
-    const listGroupItemsWithOptions = groupItems.list({ groupId: "group-id" });
+    const listGroupItemsWithOptions = groupItems.list({ groupId: "group-id", onBehalfOfContentOwner: "owner-id" });
     // $ExpectType EmptyResponse
     const removeGroupItem = groupItems.remove();
     // $ExpectType EmptyResponse
-    const removeGroupItemWithOptions = groupItems.remove({ id: "group-item-id" });
+    const removeGroupItemWithOptions = groupItems.remove({ id: "group-item-id", onBehalfOfContentOwner: "owner-id" });
 
     // $ExpectType Group
     const insertGroup = groups.insert(group);
@@ -1127,11 +1127,16 @@ function testYouTubeAnalytics() {
     // $ExpectType ListGroupsResponse
     const listGroups = groups.list();
     // $ExpectType ListGroupsResponse
-    const listGroupsWithOptions = groups.list({ mine: true, pageToken: "page-token" });
+    const listGroupsWithOptions = groups.list({
+        id: "group-id",
+        mine: true,
+        onBehalfOfContentOwner: "owner-id",
+        pageToken: "page-token",
+    });
     // $ExpectType EmptyResponse
     const removeGroup = groups.remove();
     // $ExpectType EmptyResponse
-    const removeGroupWithOptions = groups.remove({ groupId: "group-id" });
+    const removeGroupWithOptions = groups.remove({ id: "group-id", onBehalfOfContentOwner: "owner-id" });
     // $ExpectType Group
     const updateGroup = groups.update(group);
     // $ExpectType Group
@@ -1141,11 +1146,17 @@ function testYouTubeAnalytics() {
     const query = reports.query();
     // $ExpectType QueryResponse
     const queryWithOptions = reports.query({
+        currency: "USD",
         dimensions: "day,video",
         endDate: "2024-01-31",
+        filters: "video==video-id",
         ids: "channel==MINE",
+        includeHistoricalChannelData: true,
+        maxResults: 100,
         metrics: "views,estimatedMinutesWatched",
+        sort: "-views",
         startDate: "2024-01-01",
+        startIndex: 1,
     });
 }
 
