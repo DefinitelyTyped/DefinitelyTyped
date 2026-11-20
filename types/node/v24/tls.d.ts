@@ -618,7 +618,19 @@ declare module "tls" {
         psk: NodeJS.ArrayBufferView;
         identity: string;
     }
-    interface ConnectionOptions extends SecureContextOptions, CommonConnectionOptions {
+    interface ConnectionOptions extends
+        SecureContextOptions,
+        CommonConnectionOptions,
+        Pick<
+            net.TcpSocketConnectOpts,
+            | "localAddress"
+            | "localPort"
+            | "autoSelectFamily"
+            | "autoSelectFamilyAttemptTimeout"
+            | "family"
+            | "hints"
+        >
+    {
         host?: string | undefined;
         port?: number | undefined;
         path?: string | undefined; // Creates unix socket connection to path. If this option is specified, `host` and `port` are ignored.
