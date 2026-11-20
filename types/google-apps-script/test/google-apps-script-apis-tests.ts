@@ -1018,10 +1018,135 @@ function testYouTubeAnalytics() {
     if (!YouTubeAnalytics) return;
     // $ExpectType YouTubeAnalytics
     const youTubeAnalytics = YouTubeAnalytics;
+    // $ExpectType GroupItemsCollection
+    const groupItems = youTubeAnalytics.GroupItems;
+    // $ExpectType GroupsCollection
+    const groups = youTubeAnalytics.Groups;
     // $ExpectType ReportsCollection
     const reports = youTubeAnalytics.Reports;
+    // $ExpectType ErrorProto
+    const newErrorProto = youTubeAnalytics.newErrorProto();
+    // $ExpectType Errors
+    const newErrors = youTubeAnalytics.newErrors();
+    // $ExpectType Group
+    const newGroup = youTubeAnalytics.newGroup();
+    // $ExpectType GroupContentDetails
+    const newGroupContentDetails = youTubeAnalytics.newGroupContentDetails();
+    // $ExpectType GroupItem
+    const newGroupItem = youTubeAnalytics.newGroupItem();
+    // $ExpectType GroupItemResource
+    const newGroupItemResource = youTubeAnalytics.newGroupItemResource();
+    // $ExpectType GroupSnippet
+    const newGroupSnippet = youTubeAnalytics.newGroupSnippet();
+
+    const errorProto: GoogleAppsScript.YouTubeAnalytics.Schema.ErrorProto = {
+        argument: ["videoId"],
+        code: "INVALID_PARAMETER",
+        debugInfo: "debug details",
+        domain: "youtube.analytics",
+        externalErrorMessage: "Invalid video ID",
+        location: "id",
+        locationType: "parameter",
+    };
+    const errors: GoogleAppsScript.YouTubeAnalytics.Schema.Errors = {
+        code: "400",
+        error: [errorProto],
+        requestId: "request-id",
+    };
+    const groupContentDetails: GoogleAppsScript.YouTubeAnalytics.Schema.GroupContentDetails = {
+        itemCount: "2",
+        itemType: "youtube#video",
+    };
+    const groupSnippet: GoogleAppsScript.YouTubeAnalytics.Schema.GroupSnippet = {
+        publishedAt: "2024-01-01T00:00:00Z",
+        title: "My group",
+    };
+    const groupItemResource: GoogleAppsScript.YouTubeAnalytics.Schema.GroupItemResource = {
+        id: "video-id",
+        kind: "youtube#video",
+    };
+    const groupItem: GoogleAppsScript.YouTubeAnalytics.Schema.GroupItem = {
+        errors,
+        etag: "item-etag",
+        groupId: "group-id",
+        id: "group-item-id",
+        kind: "youtube#groupItem",
+        resource: groupItemResource,
+    };
+    const group: GoogleAppsScript.YouTubeAnalytics.Schema.Group = {
+        contentDetails: groupContentDetails,
+        errors,
+        etag: "group-etag",
+        id: "group-id",
+        kind: "youtube#group",
+        snippet: groupSnippet,
+    };
+    const emptyResponse: GoogleAppsScript.YouTubeAnalytics.Schema.EmptyResponse = { errors };
+    const listGroupItemsResponse: GoogleAppsScript.YouTubeAnalytics.Schema.ListGroupItemsResponse = {
+        errors,
+        etag: "items-etag",
+        items: [groupItem],
+        kind: "youtube#groupItemListResponse",
+    };
+    const listGroupsResponse: GoogleAppsScript.YouTubeAnalytics.Schema.ListGroupsResponse = {
+        errors,
+        etag: "groups-etag",
+        items: [group],
+        kind: "youtube#groupListResponse",
+        nextPageToken: "next-page-token",
+    };
+    const columnHeader: GoogleAppsScript.YouTubeAnalytics.Schema.ResultTableColumnHeader = {
+        columnType: "DIMENSION",
+        dataType: "STRING",
+        name: "video",
+    };
+    const queryResponse: GoogleAppsScript.YouTubeAnalytics.Schema.QueryResponse = {
+        columnHeaders: [columnHeader],
+        errors,
+        kind: "youtubeAnalytics#resultTable",
+        rows: [["video-id"]],
+    };
+
+    // $ExpectType GroupItem
+    const insertGroupItem = groupItems.insert(groupItem);
+    // $ExpectType GroupItem
+    const insertGroupItemWithOptions = groupItems.insert(groupItem, { onBehalfOfContentOwner: "owner-id" });
+    // $ExpectType ListGroupItemsResponse
+    const listGroupItems = groupItems.list();
+    // $ExpectType ListGroupItemsResponse
+    const listGroupItemsWithOptions = groupItems.list({ groupId: "group-id" });
+    // $ExpectType EmptyResponse
+    const removeGroupItem = groupItems.remove();
+    // $ExpectType EmptyResponse
+    const removeGroupItemWithOptions = groupItems.remove({ id: "group-item-id" });
+
+    // $ExpectType Group
+    const insertGroup = groups.insert(group);
+    // $ExpectType Group
+    const insertGroupWithOptions = groups.insert(group, { onBehalfOfContentOwner: "owner-id" });
+    // $ExpectType ListGroupsResponse
+    const listGroups = groups.list();
+    // $ExpectType ListGroupsResponse
+    const listGroupsWithOptions = groups.list({ mine: true, pageToken: "page-token" });
+    // $ExpectType EmptyResponse
+    const removeGroup = groups.remove();
+    // $ExpectType EmptyResponse
+    const removeGroupWithOptions = groups.remove({ groupId: "group-id" });
+    // $ExpectType Group
+    const updateGroup = groups.update(group);
+    // $ExpectType Group
+    const updateGroupWithOptions = groups.update(group, { onBehalfOfContentOwner: "owner-id" });
+
     // $ExpectType QueryResponse
     const query = reports.query();
+    // $ExpectType QueryResponse
+    const queryWithOptions = reports.query({
+        dimensions: "day,video",
+        endDate: "2024-01-31",
+        ids: "channel==MINE",
+        metrics: "views,estimatedMinutesWatched",
+        startDate: "2024-01-01",
+    });
 }
 
 function testYoutubePartner() {
