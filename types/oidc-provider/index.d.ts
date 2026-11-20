@@ -1,4 +1,4 @@
-// oidc-provider types artifact "9.14.0"; schema 4; sha256 65e2772c2deac338ce4a083f149cf8729f500d764cc194b8dd3b82baa2e5c7ea
+// oidc-provider types artifact "9.15.1"; schema 4; sha256 e35fd92e18f1b310aa649036a718f5d737487a5476ace301d30d1287b53a15a0
 import * as crypto from "node:crypto";
 import * as dns from "node:dns";
 import * as http from "node:http";
@@ -378,13 +378,13 @@ declare class PushedAuthorizationRequest extends BaseModel {
         request: string;
         attestationJkt?: string | undefined;
         dpopJkt?: string | undefined;
-        trusted?: string[] | undefined;
+        trusted?: boolean | undefined;
     });
     readonly kind: "PushedAuthorizationRequest";
     request: string;
     attestationJkt?: string | undefined;
     dpopJkt?: string | undefined;
-    trusted?: string[] | undefined;
+    trusted?: boolean | undefined;
     consumed: unknown;
 
     consume(): Promise<void>;
@@ -1014,12 +1014,14 @@ export type OpenID4VCIProofs =
     | {
         jwt: readonly string[];
         key_attestation?: KeyAttestation | undefined;
+        key_attestations?: readonly (KeyAttestation | undefined)[] | undefined;
         attestation?: never;
     }
     | {
         attestation: KeyAttestation;
         jwt?: never;
         key_attestation?: never;
+        key_attestations?: never;
     };
 
 export interface OpenID4VCICredentialContext {
@@ -1184,7 +1186,7 @@ export interface AdapterPayload extends AllClientMetadata {
         | undefined;
     sessionUid?: string | undefined;
     sid?: string | undefined;
-    trusted?: string[] | undefined;
+    trusted?: boolean | string[] | undefined;
     attestationJkt?: string | undefined;
     dpopJkt?: string | undefined;
     iss?: string | undefined;
@@ -2104,10 +2106,12 @@ export interface OpenID4VCIConfigurationBase {
      * The returned object MUST contain a non-empty `credentials` array. The provider emits that array and the optional
      * string `notification_id`; a missing or empty credentials array is a contract error.
      *
-     * When `proofs` is present it contains a single key whose name is the proof type:
+     * When `proofs` is present, its contents depend on the proof type.
      *
-     * - `jwt` The value is the original array of compact JWS strings. When the JWT proof(s) contain a `key_attestation`
-     *   JOSE header parameter, the pre-parsed key attestation data is available as `proofs.key_attestation` with:
+     * - `jwt` The value is the original array of compact JWS strings. If any JWT carries a `key_attestation` header,
+     *   `proofs.key_attestations[i]` holds the verified attestation for `proofs.jwt[i]`, or `undefined` if that JWT
+     *   omitted the header. When exactly one distinct attestation is present, `proofs.key_attestation` also holds that
+     *   attestation. Each verified attestation contains the following fields.
      *   - `jwt` {string} The Key Attestation JWT compact serialization.
      *   - `attestedKeys` {Object[]} The `attested_keys` claim (array of JWK objects).
      *   - `payload` {Object} The full Key Attestation JWT payload, including optional claims such as `key_storage`,
@@ -2168,10 +2172,12 @@ export interface OpenID4VCIEnabledConfiguration extends OpenID4VCIConfigurationB
      * The returned object MUST contain a non-empty `credentials` array. The provider emits that array and the optional
      * string `notification_id`; a missing or empty credentials array is a contract error.
      *
-     * When `proofs` is present it contains a single key whose name is the proof type:
+     * When `proofs` is present, its contents depend on the proof type.
      *
-     * - `jwt` The value is the original array of compact JWS strings. When the JWT proof(s) contain a `key_attestation`
-     *   JOSE header parameter, the pre-parsed key attestation data is available as `proofs.key_attestation` with:
+     * - `jwt` The value is the original array of compact JWS strings. If any JWT carries a `key_attestation` header,
+     *   `proofs.key_attestations[i]` holds the verified attestation for `proofs.jwt[i]`, or `undefined` if that JWT
+     *   omitted the header. When exactly one distinct attestation is present, `proofs.key_attestation` also holds that
+     *   attestation. Each verified attestation contains the following fields.
      *   - `jwt` {string} The Key Attestation JWT compact serialization.
      *   - `attestedKeys` {Object[]} The `attested_keys` claim (array of JWK objects).
      *   - `payload` {Object} The full Key Attestation JWT payload, including optional claims such as `key_storage`,
@@ -2927,7 +2933,7 @@ export interface Configuration {
                 | undefined;
 
             /**
-             * [draft-ietf-oauth-client-id-metadata-document-02](https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-02.html)
+             * [draft-ietf-oauth-client-id-metadata-document-03](https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-03.html)
              * - OAuth Client ID Metadata Document (CIMD)
              *
              * This is an experimental feature.
@@ -2936,6 +2942,16 @@ export interface Configuration {
              * URLs used as `client_id` values. When enabled, if a `client_id` is an HTTPS URL conforming to the
              * specification's requirements, the authorization server shall fetch the Client ID Metadata Document from
              * that URL and use it as the client's registration data, without requiring prior client registration.
+             *
+             * The `token_endpoint_auth_methods_supported` client metadata property is processed even when
+             * `features.rpMetadataChoices` is disabled. When `private_key_jwt` is advertised and supported by the
+             * server, it is selected regardless of the client's array order or singular authentication method
+             * preference. When neither authentication property is provided, the client's authentication method is
+             * `none`.
+             *
+             * When displaying a client's `logo_uri`, applications must prefetch and validate the image and serve it
+             * from a trusted server. Applications should display the hostname of the Client Identifier URL to help
+             * users identify the client and apply their own trust policies to client-provided metadata.
              */
             clientIdMetadataDocument?:
                 | {
@@ -2945,7 +2961,8 @@ export interface Configuration {
                      * Specifies a helper function that shall be invoked before fetching a Client ID Metadata Document
                      * from a Client Identifier URL. This function enables enforcement of domain allowlisting, rate
                      * limiting, or other security policies. Return `true` to allow the fetch, or `false` to reject the
-                     * `client_id`.
+                     * `client_id`. Reject identifiers of trusted authorization servers and resource servers to avoid
+                     * identity confusion. The provider's own issuer identifier is rejected automatically.
                      */
                     allowFetch?:
                         | ((
@@ -4125,9 +4142,12 @@ export interface Configuration {
      *   based on request context and authorization server policy
      *
      * The default configuration value implements a sensible refresh token rotation policy that:
-     * - only allows refresh tokens to be rotated (have their TTL prolonged by issuing a new one) for one year
-     * - otherwise always rotates public client tokens that are not sender-constrained
+     * - always rotates public client tokens that are not sender-constrained
+     * - otherwise stops rotating once the original token chain is one year old
      * - otherwise only rotates tokens if they're being used close to their expiration (>= 70% TTL passed)
+     *
+     * The default `ttl.RefreshToken` preserves the previous token's expiration for public web clients and, after one
+     * year, for every rotated token.
      *
      * The RefreshToken and Client are available as `ctx.oidc.entities.RefreshToken` and `ctx.oidc.entities.Client`.
      * `true` consumes the presented token and issues a rotated refresh token; `false` continues without rotation. A
@@ -4163,15 +4183,19 @@ export interface Configuration {
      *
      * When disabled, all authorization requests MUST explicitly include the `redirect_uri` parameter regardless of the
      * number of registered redirect URIs.
+     *
+     * At the token endpoint, `redirect_uri` may be omitted after successful S256 PKCE verification, regardless of this
+     * setting. For codes issued without PKCE, this setting controls whether the sole registered redirect URI is
+     * inferred. Any supplied URI must match the one used in the authorization request.
      */
     allowOmittingSingleRegisteredRedirectUri?: boolean | undefined;
 
     /**
      * Query Parameter Access Tokens
      *
-     * Controls whether access tokens may be transmitted via URI query parameters. Several OAuth 2.0 and OpenID Connect
-     * profiles require that access tokens be transmitted exclusively via the Authorization header. When set to false,
-     * the authorization server shall reject requests attempting to transmit access tokens via query parameters.
+     * Controls whether access tokens may be transmitted via URI query parameters. When set to false, access tokens in
+     * URI query parameters are ignored. Clients must supply a token using the Authorization header or form-encoded
+     * request body instead.
      */
     acceptQueryParamAccessTokens?: boolean | undefined;
 

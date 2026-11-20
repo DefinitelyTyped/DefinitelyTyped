@@ -1379,6 +1379,7 @@ new Provider("https://op.example.com", {
                 if (details.proofs && "jwt" in details.proofs) {
                     details.proofs.jwt?.[0].substring(0);
                     details.proofs.key_attestation?.attestedKeys[0].kty;
+                    details.proofs.key_attestations?.[0]?.attestedKeys[0].kty;
                 }
                 return {
                     credentials: [{ credential: "serialized credential" }],
@@ -1428,6 +1429,13 @@ const deviceCode = new provider.DeviceCode({
     rar: [{ type: "payment", actions: ["initiate"] }],
 });
 deviceCode.rar?.[0].type.substring(0);
+
+const pushedRequest = new provider.PushedAuthorizationRequest({ request: "request-object", trusted: true });
+// $ExpectType boolean | undefined
+pushedRequest.trusted;
+provider.PushedAuthorizationRequest.adapter.upsert("par", { trusted: false });
+provider.Interaction.adapter.upsert("interaction", { trusted: ["scope"] });
+provider.Interaction.find("interaction").then((interaction) => interaction?.trusted?.includes("scope"));
 
 const clientCredentials = new provider.ClientCredentials({
     client: null as unknown as oidc.Client,
