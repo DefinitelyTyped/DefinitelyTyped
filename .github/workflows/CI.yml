@@ -109,21 +109,6 @@ jobs:
       - run: pnpm run test-all --selection all --shardCount ${{ matrix.shardCount }} --shardId ${{ matrix.shardId }}
         if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
 
-      - name: Get suggestions dir
-        id: suggestions-dir
-        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
-        if: ${{ github.event_name == 'pull_request' }}
-
-      - name: Upload suggestions
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: suggestions_${{ matrix.shardId }}_${{ matrix.shardCount }}
-          if-no-files-found: ignore
-          include-hidden-files: true
-          path: ${{ steps.suggestions-dir.outputs.path }}
-          retention-days: 1
-        if: ${{ github.event_name == 'pull_request' }}
-
   dangerbot:
     runs-on: ubuntu-slim
     if: github.repository == 'DefinitelyTyped/DefinitelyTyped' && github.event_name == 'pull_request'
@@ -134,15 +119,6 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ./.github/actions/setup-for-scripts
-
-      - name: Get suggestions dir
-        id: suggestions-dir
-        run: echo "path=$(node ./scripts/get-suggestions-dir.js)" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        with:
-          path: ${{ steps.suggestions-dir.outputs.path }}
-          merge-multiple: true
 
       - name: 'Run Danger'
         env:

@@ -1,7 +1,13 @@
-export type PathGlobFunction = () => string[];
+/**
+ * Receives an element's basename or path, as `matchBasename` and `matchPath` select; returns
+ * whether the rule matches it.
+ */
+export type PathGlobFunction = (path: string) => boolean;
 
 export interface FolderAndFileOptions {
+    /** Glob patterns, or a function that returns true if the passed file is excluded. */
     exclude?: string[] | PathGlobFunction | undefined;
+    /** Glob patterns, or a function that returns true if the passed file is included. */
     include?: string[] | PathGlobFunction | undefined;
     matchBasename?: boolean | undefined;
     matchPath?: boolean | undefined;

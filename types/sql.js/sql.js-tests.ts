@@ -15,6 +15,8 @@ const DB_PATH = "data.db";
 
 type Database = SqlJsDatabase;
 
+initSqlJs({ useOldExtensionFunctions: false });
+
 initSqlJs().then(SqlJs => {
     function createFile(path: string): void {
         const fd = fs.openSync(path, "a");

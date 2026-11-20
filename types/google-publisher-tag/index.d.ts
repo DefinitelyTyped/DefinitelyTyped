@@ -276,6 +276,23 @@ declare namespace googletag {
 
     /**
      * Sets general configuration options for the page.
+     *
+     * Only properties specified in the `config` object are modified. Unrecognized
+     * properties or invalid values are ignored, and a diagnostic warning is
+     * logged to the browser console and the
+     * [Google Publisher Console](https://developers.google.com/publisher-tag/guides/publisher-console-messages#warning).
+     *
+     * @example
+     *   // Enable Single Request Architecture (SRA) and set page-level targeting.
+     *   googletag.setConfig({
+     *     singleRequest: true,
+     *     targeting: {
+     *       interests: ['sports', 'music']
+     *     }
+     *   });
+     *
+     * @see [Config API migration](https://developers.google.com/publisher-tag/guides/config-migration)
+     * @param config The configuration object.
      */
     function setConfig(config: config.PageSettingsConfig): void;
 
@@ -965,23 +982,18 @@ declare namespace googletag {
          * requests coming from one page view, and unique across page views. Only
          * applies to async mode.
          *
-         * **Note:** this has no effect on GPT's [long-lived
+         * **Note**: Calling this method has no effect on the GPT [long-lived
          * pageview](https://support.google.com/admanager/answer/183281), which
-         * automatically reflects the ads actually on the page and has no expiration
-         * time.
+         * automatically reflects the ads on the page and has no expiration time.
          *
-         * @example
-         *   // Assume that the correlator is currently 12345. All ad requests made
-         *   // by this page will currently use that value.
-         *
-         *   // Replace the current correlator with a new correlator.
-         *   googletag.pubads().updateCorrelator();
-         *
-         *   // The correlator will now be a new randomly selected value, different
-         *   // from 12345. All subsequent ad requests made by this page will use
-         *   // the new value.
-         *
-         * @return The service object on which the function was called.
+         * @see [Ad best practices: Use Single Request Architecture correctly](https://developers.google.com/publisher-tag/guides/ad-best-practices#use_single_request_architecture_correctly)
+         * @return The service object on which the method was called.
+         * @deprecated Use
+         *     {@link googletag.config.PageSettingsConfig.singleRequest | Single Request Architecture (SRA)}
+         *     and [long-lived pageviews](https://support.google.com/admanager/answer/183281)
+         *     to enforce roadblocks and competitive exclusions instead. GPT updates
+         *     correlators automatically on ad refreshes and client-side
+         *     navigations.
          */
         updateCorrelator(): PubAdsService;
 
@@ -1197,7 +1209,17 @@ declare namespace googletag {
      * @experimental
      */
     interface RequestHook {
-        (input: { slots: Slot[] }): Promise<void>;
+        (input: RequestHookInput): Promise<void>;
+    }
+
+    /**
+     * Input passed to a {@link RequestHook} callback.
+     *
+     * @experimental
+     */
+    interface RequestHookInput {
+        /** The slots included in the ad request. */
+        slots: Slot[];
     }
 
     /**
@@ -1871,6 +1893,23 @@ declare namespace googletag {
         /**
          * Sets general configuration options for this slot.
          *
+         * Only properties specified in the `slotConfig` object are modified.
+         * Unrecognized properties or invalid values are ignored, and a diagnostic
+         * warning is logged to the browser console and the
+         * [Google Publisher Console](https://developers.google.com/publisher-tag/guides/publisher-console-messages#warning).
+         *
+         * @example
+         *   const slot = googletag.defineSlot('/1234567/sports', [160, 600], 'div')!;
+         *
+         *   // Collapse the slot if no ad is returned and set slot-level targeting.
+         *   slot.setConfig({
+         *     collapseDiv: 'ON_NO_FILL',
+         *     targeting: {
+         *       interests: ['sports', 'music']
+         *     }
+         *   });
+         *
+         * @see [Config API migration](https://developers.google.com/publisher-tag/guides/config-migration)
          * @param slotConfig The configuration object.
          * @return The slot object on which the method was called.
          */
@@ -2300,6 +2339,35 @@ declare namespace googletag {
             location?: string | null;
 
             /**
+             * Setting to control the IP address associated with ad requests.
+             *
+             * By default, Google Ad Manager retrieves the IP address of the user's
+             * browser directly from each ad request. When you expect that address to
+             * differ from the user's unmasked IP address, such as when browser privacy
+             * proxies or IP protection settings mask client IP addresses on third-party
+             * ad requests, use this setting to provide the user's encrypted IP address
+             * instead.
+             *
+             * Capture the user's unmasked IPv4 or IPv6 address on your server, encrypt the address
+             * with Google's public encryption key, and pass the encrypted payload to GPT
+             * as an unpadded base64url-encoded string.
+             *
+             * To include the encrypted IP address in the initial ad request, call
+             * {@link googletag.setConfig | `googletag.setConfig()`} before you call
+             * {@link googletag.enableServices | `googletag.enableServices()`},
+             * {@link googletag.display | `googletag.display()`}, or
+             * {@link PubAdsService.refresh | `PubAdsService.refresh()`}.
+             *
+             * @example
+             *   // Set the encrypted IP address payload.
+             *   googletag.setConfig({ipAddress: 'ENCRYPTED_IP_PAYLOAD'});
+             *
+             *   // Clear the IP address setting.
+             *   googletag.setConfig({ipAddress: null});
+             */
+            ipAddress?: string | null;
+
+            /**
              * Settings to control video ads.
              *
              * @example
@@ -2695,7 +2763,7 @@ declare namespace googletag {
              * `true` (cannot be forced to `false`). Note that the
              * sandbox attribute disables plugins (e.g. Flash).
              */
-            sandbox?: boolean | null;
+            sandbox?: true | null;
 
             /**
              * Whether SafeFrame should use randomized subdomains for

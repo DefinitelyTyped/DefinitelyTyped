@@ -1,12 +1,12 @@
 {
     "private": true,
     "name": "@types/ag-auth",
-    "version": "1.0.9999",
+    "version": "2.1.9999",
     "projects": [
         "https://github.com/SocketCluster/ag-auth"
     ],
     "dependencies": {
-        "@types/jsonwebtoken": "*"
+        "@types/jsonwebtoken": "^9"
     },
     "devDependencies": {
         "@types/ag-auth": "workspace:.",

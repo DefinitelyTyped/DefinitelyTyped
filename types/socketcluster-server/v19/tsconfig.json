@@ -3,7 +3,7 @@
         "module": "node16",
         "lib": [
             "es6",
-            "dom"
+            "esnext.asynciterable"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,6 +15,6 @@
     },
     "files": [
         "index.d.ts",
-        "intro.js-tests.ts"
+        "socketcluster-server-tests.ts"
     ]
 }
