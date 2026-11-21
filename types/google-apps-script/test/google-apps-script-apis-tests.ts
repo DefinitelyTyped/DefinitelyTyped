@@ -970,8 +970,61 @@ function testAdminLicenseManager() {
     const adminLicenseManager = AdminLicenseManager;
     // $ExpectType LicenseAssignmentsCollection
     const licenseAssignments = adminLicenseManager.LicenseAssignments;
+    // $ExpectType LicenseAssignment
+    const newLicenseAssignment = adminLicenseManager.newLicenseAssignment();
+    // $ExpectType LicenseAssignmentInsert
+    const newLicenseAssignmentInsert = adminLicenseManager.newLicenseAssignmentInsert();
+
+    const assignment: GoogleAppsScript.AdminLicenseManager.Schema.LicenseAssignment = {
+        etags: "etag",
+        kind: "licensing#licenseAssignment",
+        productId: "Google-Apps",
+        productName: "Google Workspace",
+        selfLink: "https://example.com/licenseAssignments/Google-Apps/sku/user",
+        skuId: "Google-Apps-For-Business",
+        skuName: "Business",
+        userId: "user@example.com",
+    };
+    const insertResource: GoogleAppsScript.AdminLicenseManager.Schema.LicenseAssignmentInsert = {
+        userId: "user@example.com",
+    };
+    const assignmentList: GoogleAppsScript.AdminLicenseManager.Schema.LicenseAssignmentList = {
+        etag: "etag",
+        items: [assignment],
+        kind: "licensing#licenseAssignments",
+        nextPageToken: "next-page-token",
+    };
+
+    // $ExpectType LicenseAssignment
+    const get = licenseAssignments.get("Google-Apps", "Google-Apps-For-Business", "user@example.com");
+    // $ExpectType LicenseAssignment
+    const insert = licenseAssignments.insert(insertResource, "Google-Apps", "Google-Apps-For-Business");
     // $ExpectType LicenseAssignmentList
     const list = licenseAssignments.listForProduct("productId", "customerId");
+    // $ExpectType LicenseAssignmentList
+    const listWithPagination = licenseAssignments.listForProduct("Google-Apps", "my_customer", {
+        maxResults: 100,
+        pageToken: "page-token",
+    });
+    // $ExpectType LicenseAssignmentList
+    const listForProductAndSku = licenseAssignments.listForProductAndSku(
+        "Google-Apps",
+        "Google-Apps-For-Business",
+        "my_customer",
+    );
+    // $ExpectType LicenseAssignmentList
+    const listForProductAndSkuWithPagination = licenseAssignments.listForProductAndSku(
+        "Google-Apps",
+        "Google-Apps-For-Business",
+        "my_customer",
+        { maxResults: 50, pageToken: "next-page-token" },
+    );
+    // $ExpectType LicenseAssignment
+    const patch = licenseAssignments.patch(assignment, "Google-Apps", "Google-Apps-For-Business", "user@example.com");
+    // $ExpectType Empty
+    const remove = licenseAssignments.remove("Google-Apps", "Google-Apps-For-Business", "user@example.com");
+    // $ExpectType LicenseAssignment
+    const update = licenseAssignments.update(assignment, "Google-Apps", "Google-Apps-For-Business", "user@example.com");
 }
 
 function testPeopleApi() {
