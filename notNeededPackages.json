@@ -112,6 +112,10 @@
             "libraryName": "ajv-keywords",
             "asOfVersion": "3.5.0"
         },
+        "alcides": {
+            "libraryName": "alcides",
+            "asOfVersion": "1.6.0"
+        },
         "alex": {
             "libraryName": "alex",
             "asOfVersion": "10.0.0"
