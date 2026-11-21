@@ -528,6 +528,10 @@
             "libraryName": "binary-parser",
             "asOfVersion": "1.8.0"
         },
+        "binary-split": {
+            "libraryName": "binary-split",
+            "asOfVersion": "2.0.0"
+        },
         "binaryextensions": {
             "libraryName": "binaryextensions",
             "asOfVersion": "4.0.0"
