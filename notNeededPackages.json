@@ -392,6 +392,10 @@
             "libraryName": "@babel/parser",
             "asOfVersion": "7.1.0"
         },
+        "babel__template": {
+            "libraryName": "@babel/template",
+            "asOfVersion": "8.0.0"
+        },
         "babylonjs": {
             "libraryName": "babylonjs",
             "asOfVersion": "2.4.1"
