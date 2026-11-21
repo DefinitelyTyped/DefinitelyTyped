@@ -1,4 +1,4 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 import { EventBridgeEvent } from "./eventbridge";
 
 export interface S3ObjectAccessTierChangedNotificationEventDetail {
@@ -282,9 +282,20 @@ export type S3NotificationEvent =
     | S3ObjectTagsAddedNotificationEvent
     | S3ObjectTagsDeletedNotificationEvent;
 
+/**
+ * {@link S3NotificationEventBridgeAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type S3NotificationEventBridgeHandler<EventType extends S3NotificationEvent = S3NotificationEvent> = Handler<
     EventBridgeEvent<EventType["detail-type"], EventType["detail"]> & {
         source: "aws.s3";
     },
     void
 >;
+export type S3NotificationEventBridgeAsyncHandler<EventType extends S3NotificationEvent = S3NotificationEvent> =
+    AsyncHandler<
+        EventBridgeEvent<EventType["detail-type"], EventType["detail"]> & {
+            source: "aws.s3";
+        },
+        void
+    >;

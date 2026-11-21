@@ -1,6 +1,11 @@
-import { Handler } from "../handler";
+import { AsyncHandler, Handler } from "../handler";
 
+/**
+ * {@link CodePipelineAsyncHandler} Is the new version of this
+ * @deprecated No longer available as of Node.js 24 Runtime {@link https://aws.amazon.com/blogs/compute/node-js-24-runtime-now-available-in-aws-lambda/}
+ */
 export type CodePipelineHandler = Handler<CodePipelineEvent, void>;
+export type CodePipelineAsyncHandler = AsyncHandler<CodePipelineEvent, void>;
 
 /**
  * CodePipeline events
