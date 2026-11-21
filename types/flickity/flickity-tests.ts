@@ -97,6 +97,41 @@ flikty2.reloadCells();
 // event handlers
 function exhaustiveHandlersTest(eventName: Flickity.FlickityEvents) {
     switch (eventName) {
+        case "cellChange": {
+            const handler = (index: number): void => {};
+            flikty2.on("cellChange", handler);
+            flikty2.off("cellChange", handler);
+            flikty2.once("cellChange", handler);
+            break;
+        }
+        case "activate": {
+            const handler = (): void => {};
+            flikty2.on("activate", handler);
+            flikty2.off("activate", handler);
+            flikty2.once("activate", handler);
+            break;
+        }
+        case "deactivate": {
+            const handler = (): void => {};
+            flikty2.on("deactivate", handler);
+            flikty2.off("deactivate", handler);
+            flikty2.once("deactivate", handler);
+            break;
+        }
+        case "uiChange": {
+            const handler = (): void => {};
+            flikty2.on("uiChange", handler);
+            flikty2.off("uiChange", handler);
+            flikty2.once("uiChange", handler);
+            break;
+        }
+        case "resize": {
+            const handler = (): void => {};
+            flikty2.on("resize", handler);
+            flikty2.off("resize", handler);
+            flikty2.once("resize", handler);
+            break;
+        }
         case "ready": {
             function handleReady(): void {}
             flikty2.on("ready", handleReady);
@@ -243,7 +278,7 @@ jsData = Flickity.data("#gallery");
 let selectedIndex: number = flikty2.selectedIndex;
 
 let selectedElement: Element = flikty2.selectedElement;
-let cells: Element[] = flikty2.cells;
+let cells: Flickity.Cell[] = flikty2.cells;
 let slider: HTMLElement = flikty2.slider;
 
 // arrow shape tests
@@ -332,3 +367,47 @@ let fliktyOpts2: Flickity.Options = {
     autoPlay: true,
     pauseAutoPlayOnHover: true,
 };
+
+// Cell and slide layout APIs (Flickity v3)
+const cell = flikty2.getParentCell(element);
+if (cell) {
+    const cellElement: HTMLElement = cell.element;
+    const cellWidth: number = cell.size.outerWidth;
+    flikty2.cellSizeChange(cellElement);
+    flikty2.positionSliderAtSelected();
+}
+const directCell: Flickity.Cell | undefined = flikty2.getCell(element);
+const queriedCell: Flickity.Cell | undefined = flikty2.queryCell(element);
+const matchingCells: Flickity.Cell[] = flikty2.getCells([element]);
+const lastCell: Flickity.Cell | undefined = flikty2.getLastCell();
+const lastSlide: Flickity.Slide | undefined = flikty2.getLastSlide();
+const adjacentElements: HTMLElement[] = flikty2.getAdjacentCellElements(1);
+const slides: Flickity.Slide[] = flikty2.slides;
+const selectedElements: HTMLElement[] = flikty2.selectedElements;
+flikty2.cellChange(0);
+flikty2.cellChange();
+
+// Additional Flickity v3 options, events, and selected-cell APIs
+const v3Options: Flickity.Options = {
+    draggable: ">1",
+    wrapAround: "fill",
+    namespaceJQueryEvents: false,
+    on: {
+        cellChange: (index) => {
+            const changedIndex: number = index;
+        },
+        activate: () => {},
+        deactivate: () => {},
+        uiChange: () => {},
+        resize: () => {},
+    },
+};
+flikty2.selectCell(element);
+const selectedSlide: Flickity.Slide = flikty2.selectedSlide;
+const selectedCells: Flickity.Cell[] = flikty2.selectedCells;
+const selectedCell: Flickity.Cell = flikty2.selectedCell;
+const viewport: HTMLElement = flikty2.viewport;
+const carouselElement: HTMLElement = flikty2.element;
+if (directCell) {
+    const slideIndex: number = flikty2.getCellSlideIndex(directCell);
+}
