@@ -2373,6 +2373,10 @@
             "libraryName": "express-urlrewrite",
             "asOfVersion": "1.3.0"
         },
+        "express-useragent": {
+            "libraryName": "express-useragent",
+            "asOfVersion": "2.2.3"
+        },
         "express-validator": {
             "libraryName": "express-validator",
             "asOfVersion": "3.0.0"
