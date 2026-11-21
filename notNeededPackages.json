@@ -2133,6 +2133,10 @@
             "libraryName": "encoding-japanese",
             "asOfVersion": "2.4.0"
         },
+        "engine.io": {
+            "libraryName": "engine.io",
+            "asOfVersion": "6.0.0"
+        },
         "engine.io-client": {
             "libraryName": "engine.io-client",
             "asOfVersion": "6.0.0"
