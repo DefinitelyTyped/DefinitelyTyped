@@ -1296,6 +1296,10 @@
             "libraryName": "connect-mongo",
             "asOfVersion": "3.1.1"
         },
+        "connect-redis": {
+            "libraryName": "connect-redis",
+            "asOfVersion": "10.0.0"
+        },
         "consola": {
             "libraryName": "consola",
             "asOfVersion": "2.2.5"
