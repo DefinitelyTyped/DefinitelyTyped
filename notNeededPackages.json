@@ -2213,6 +2213,10 @@
             "libraryName": "escape-string-regexp",
             "asOfVersion": "2.0.0"
         },
+        "eslint-config-prettier": {
+            "libraryName": "eslint-config-prettier",
+            "asOfVersion": "10.1.8"
+        },
         "eslint-plugin-mobx": {
             "libraryName": "eslint-plugin-mobx",
             "asOfVersion": "0.1.0"
