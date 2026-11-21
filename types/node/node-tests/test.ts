@@ -1064,7 +1064,7 @@ class TestReporter extends Transform {
                 callback(
                     null,
                     `${file ?? "<multiple>"}/${success}/${duration_ms}/
-                    ${counts.topLevel}/${counts.tests}/${counts.passed}`,
+                    ${counts.topLevel}/${counts.tests}/${counts.passed}/${counts.failed}`,
                 );
                 break;
             }
