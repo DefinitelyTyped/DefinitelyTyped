@@ -2113,6 +2113,10 @@
             "libraryName": "ember-resolver",
             "asOfVersion": "9.0.0"
         },
+        "ember__string": {
+            "libraryName": "@ember/string",
+            "asOfVersion": "4.0.1"
+        },
         "ember__test-helpers": {
             "libraryName": "@ember/test-helpers",
             "asOfVersion": "2.9.1"
