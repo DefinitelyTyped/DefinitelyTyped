@@ -1861,6 +1861,10 @@
             "libraryName": "diva.js",
             "asOfVersion": "7.5.2"
         },
+        "dns2": {
+            "libraryName": "dns2",
+            "asOfVersion": "3.1.1"
+        },
         "docker-file-parser": {
             "libraryName": "docker-file-parser",
             "asOfVersion": "1.0.3"
