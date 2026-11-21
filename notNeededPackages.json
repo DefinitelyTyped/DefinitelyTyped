@@ -3341,6 +3341,10 @@
             "libraryName": "html2canvas",
             "asOfVersion": "1.0.0"
         },
+        "html2pdf.js": {
+            "libraryName": "html2pdf.js",
+            "asOfVersion": "0.14.0"
+        },
         "htmlparser2": {
             "libraryName": "htmlparser2",
             "asOfVersion": "4.1.0"
