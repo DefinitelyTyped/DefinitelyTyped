@@ -2093,6 +2093,10 @@
             "libraryName": "element-ready",
             "asOfVersion": "3.1.0"
         },
+        "ellipsize": {
+            "libraryName": "ellipsize",
+            "asOfVersion": "0.6.0"
+        },
         "email-addresses": {
             "libraryName": "email-addresses",
             "asOfVersion": "3.0.0"
