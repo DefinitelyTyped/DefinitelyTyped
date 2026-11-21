@@ -392,6 +392,10 @@
             "libraryName": "@babel/parser",
             "asOfVersion": "7.1.0"
         },
+        "babel__register": {
+            "libraryName": "@babel/register",
+            "asOfVersion": "8.0.6"
+        },
         "babylonjs": {
             "libraryName": "babylonjs",
             "asOfVersion": "2.4.1"
