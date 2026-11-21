@@ -1116,6 +1116,45 @@ function test_button() {
     $(".selector").buttonset("widget");
 }
 
+function test_controlgroup() {
+    $("#controlgroup").controlgroup();
+    $("#controlgroup").controlgroup({
+        classes: {
+            "ui-controlgroup": "highlight",
+            "ui-controlgroup-item": "highlight-item",
+        },
+        direction: "vertical",
+        disabled: false,
+        items: {
+            button: "button, a, input",
+            controlgroupLabel: ".ui-controlgroup-label",
+            checkboxradio: "input[type='checkbox'], input[type='radio']",
+            selectmenu: "select",
+            spinner: ".ui-spinner-input",
+        },
+        onlyVisible: false,
+        create: (event) => {
+            event.preventDefault();
+        },
+    });
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").controlgroup("destroy");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").controlgroup("disable");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").controlgroup("enable");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").controlgroup("refresh");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").controlgroup("widget");
+    // $ExpectType any
+    $(".selector").controlgroup("option", "direction");
+    // $ExpectType JQuery<HTMLElement>
+    $(".selector").controlgroup("option", "direction", "horizontal");
+    // $ExpectType any
+    $(".selector").controlgroup("option", { disabled: true });
+}
+
 function test_datepicker() {
     $.datepicker.formatDate("yy-mm-dd", new Date(2007, 1 - 1, 26));
     $.datepicker.formatDate("DD, MM d, yy", new Date(2007, 7 - 1, 14), {
