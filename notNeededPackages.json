@@ -3393,6 +3393,10 @@
             "libraryName": "humanize-url",
             "asOfVersion": "2.1.0"
         },
+        "hyper-function-component": {
+            "libraryName": "hyper-function-component",
+            "asOfVersion": "2.3.6"
+        },
         "i18n-js": {
             "libraryName": "i18n-js",
             "asOfVersion": "4.0.1"
