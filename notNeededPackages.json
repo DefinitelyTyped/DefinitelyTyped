@@ -3345,6 +3345,10 @@
             "libraryName": "htmlparser2",
             "asOfVersion": "4.1.0"
         },
+        "http-cache-semantics": {
+            "libraryName": "http-cache-semantics",
+            "asOfVersion": "4.3.0"
+        },
         "http-codes": {
             "libraryName": "http-codes",
             "asOfVersion": "2.0.0"
