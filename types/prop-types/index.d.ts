@@ -1,19 +1,27 @@
+// @ts-ignore -- use react if available
+import * as React from "react";
+
 // eslint-disable-next-line @definitelytyped/export-just-namespace
 export = PropTypes;
 
+type UseReactIfAvailable<ReactType, ReactLikeType> = any extends React.ReactNode ? ReactLikeType : ReactType;
+
 declare namespace PropTypes {
-    type ReactComponentLike =
+    type ReactComponentLike = UseReactIfAvailable<
+        React.JSX.ElementType,
         | string
         | ((props: any) => any)
-        | (new(props: any, context: any) => any);
+        | (new(props: any, context: any) => any)
+    >;
 
-    interface ReactElementLike {
-        type: ReactComponentLike;
-        props: unknown;
-        key: string | null;
-    }
-
-    interface ReactNodeArray extends Iterable<ReactNodeLike> {}
+    type ReactElementLike = UseReactIfAvailable<
+        React.JSX.Element,
+        {
+            type: ReactComponentLike;
+            props: unknown;
+            key: string | null;
+        }
+    >;
 
     /**
      * @internal Use `Awaited<ReactNodeLike>` instead
@@ -24,22 +32,22 @@ declare namespace PropTypes {
         | ReactElementLike
         | string
         | number
-        | bigint
-        | ReactNodeArray
+        | Iterable<ReactNodeLike>
         | boolean
         | null
         | undefined;
 
-    type ReactNodeLike =
+    type ReactNodeLike = UseReactIfAvailable<
+        React.ReactNode,
         | ReactElementLike
-        | ReactNodeArray
         | string
         | number
-        | bigint
+        | Iterable<ReactNodeLike>
         | boolean
         | null
         | undefined
-        | Promise<AwaitedReactNodeLike>;
+        | Promise<AwaitedReactNodeLike>
+    >;
 
     const nominalTypeHack: unique symbol;
 
@@ -89,6 +97,7 @@ declare namespace PropTypes {
 
     const any: Requireable<any>;
     const array: Requireable<any[]>;
+    const bigint: Requireable<bigint>;
     const bool: Requireable<boolean>;
     const func: Requireable<(...args: any[]) => any>;
     const number: Requireable<number>;
@@ -98,6 +107,7 @@ declare namespace PropTypes {
     const element: Requireable<ReactElementLike>;
     const symbol: Requireable<symbol>;
     const elementType: Requireable<ReactComponentLike>;
+
     function instanceOf<T>(expectedClass: new(...args: any[]) => T): Requireable<T>;
     function oneOf<T>(types: readonly T[]): Requireable<T>;
     function oneOfType<T extends Validator<any>>(types: T[]): Requireable<NonNullable<InferType<T>>>;
