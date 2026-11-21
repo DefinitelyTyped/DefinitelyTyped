@@ -51,13 +51,26 @@ interface BaseStrategyOptions {
     ignoreExpiration?: boolean | undefined;
 
     /**
-     * @deprecated
-     * for backwards compatibility, still allowing you to pass
-     * audience / issuer / algorithms / ignoreExpiration
-     * on the options.
+     * Any other option for jsonwebtoken's `verify` (e.g. `maxAge`, `clockTolerance`).
+     *
+     * `issuer`, `audience`, `algorithms` and `ignoreExpiration` are not accepted here:
+     * passport-jwt overwrites them with the top-level options of the same name, even when
+     * those are `undefined`, so setting them only here silently disables the check.
+     * Set them at the top level instead.
+     * @see https://github.com/mikenicholson/passport-jwt/issues/265
      */
-    jsonWebTokenOptions?: VerifyOptions | undefined;
+    jsonWebTokenOptions?: JsonWebTokenOptions | undefined;
 }
+
+/**
+ * Options forwarded to jsonwebtoken's `verify`, without the ones passport-jwt overwrites.
+ */
+export type JsonWebTokenOptions = Omit<VerifyOptions, "issuer" | "audience" | "algorithms" | "ignoreExpiration"> & {
+    issuer?: never;
+    audience?: never;
+    algorithms?: never;
+    ignoreExpiration?: never;
+};
 interface WithSecretOrKeyProvider extends BaseStrategyOptions {
     secretOrKeyProvider: SecretOrKeyProvider;
 }

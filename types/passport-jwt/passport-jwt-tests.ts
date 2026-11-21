@@ -4,7 +4,13 @@
 import { Request as ExpressRequest } from "express";
 import { FastifyReply } from "fastify";
 import * as passport from "passport";
-import { ExtractJwt, JwtFromRequestFunction, Strategy as JwtStrategy, StrategyOptions } from "passport-jwt";
+import {
+    ExtractJwt,
+    JwtFromRequestFunction,
+    Strategy as JwtStrategy,
+    StrategyOptions,
+    VerifyCallback,
+} from "passport-jwt";
 
 // valid case without request in callback
 let opts: StrategyOptions = {
@@ -128,3 +134,56 @@ let invalid: StrategyOptions = {
 let invalid: StrategyOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 };
+
+// jsonWebTokenOptions
+const verifyJwt: VerifyCallback = (payload, done) => done(null, payload);
+// jsonWebTokenOptions: other jsonwebtoken options are accepted
+new JwtStrategy(
+    {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: "secret",
+        issuer: "accounts.example.com",
+        audience: "example.org",
+        algorithms: ["HS256"],
+        jsonWebTokenOptions: { maxAge: "1h", clockTolerance: 10 },
+    },
+    verifyJwt,
+);
+
+// jsonWebTokenOptions: options that passport-jwt overwrites are rejected (issue #265)
+new JwtStrategy(
+    {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: "secret",
+        // @ts-expect-error issuer belongs at the top level
+        jsonWebTokenOptions: { issuer: "accounts.example.com" },
+    },
+    verifyJwt,
+);
+new JwtStrategy(
+    {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: "secret",
+        // @ts-expect-error audience belongs at the top level
+        jsonWebTokenOptions: { audience: "example.org" },
+    },
+    verifyJwt,
+);
+new JwtStrategy(
+    {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: "secret",
+        // @ts-expect-error algorithms belongs at the top level
+        jsonWebTokenOptions: { algorithms: ["HS256"] },
+    },
+    verifyJwt,
+);
+new JwtStrategy(
+    {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: "secret",
+        // @ts-expect-error ignoreExpiration belongs at the top level
+        jsonWebTokenOptions: { ignoreExpiration: true },
+    },
+    verifyJwt,
+);
