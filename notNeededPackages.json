@@ -596,6 +596,10 @@
             "libraryName": "broccoli-plugin",
             "asOfVersion": "3.0.0"
         },
+        "brotli": {
+            "libraryName": "brotli",
+            "asOfVersion": "2.1.0"
+        },
         "browser-bunyan": {
             "libraryName": "browser-bunyan",
             "asOfVersion": "1.8.0"
