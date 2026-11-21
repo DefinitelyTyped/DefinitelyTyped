@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es6"],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "paths": {
+            "drachtio-srf": ["./index.d.ts"]
+        },
+        "types": []
+    },
+    "files": [
+        "index.d.ts",
+        "drachtio-srf-tests.ts"
+    ]
+}
