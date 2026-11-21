@@ -105,6 +105,8 @@ test("options with values", {
     skip: "reason for skip",
     timeout: Infinity,
     todo: "reason for todo",
+    fn: () => {},
+    name: "options with values",
 });
 
 test("options with booleans", {
