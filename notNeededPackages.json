@@ -4097,6 +4097,10 @@
             "libraryName": "jwt-decode",
             "asOfVersion": "3.1.0"
         },
+        "jwt-simple": {
+            "libraryName": "jwt-simple",
+            "asOfVersion": "0.6.1"
+        },
         "kafka-node": {
             "libraryName": "kafka-node",
             "asOfVersion": "3.0.0"
