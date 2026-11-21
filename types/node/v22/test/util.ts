@@ -1,6 +1,8 @@
 import * as util from "node:util";
 import assert = require("node:assert");
+import { EventEmitter } from "node:events";
 import { access, readFile } from "node:fs";
+import { Readable, Writable } from "node:stream";
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
@@ -88,6 +90,17 @@ console.log(
 );
 console.log(
     util.styleText("yellow", "text", { stream: process.stdout }),
+);
+console.log(
+    util.styleText("magenta", "text", { stream: new Writable() }),
+);
+console.log(
+    util.styleText("cyan", "text", { stream: new Readable() }),
+);
+class InvalidCustomStream extends EventEmitter {}
+console.log(
+    // @ts-expect-error
+    util.styleText("dim", "text", { stream: new InvalidCustomStream() }),
 );
 
 // util.callbackify
