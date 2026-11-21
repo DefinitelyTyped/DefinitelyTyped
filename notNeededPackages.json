@@ -3313,6 +3313,10 @@
             "libraryName": "html-entities",
             "asOfVersion": "1.3.2"
         },
+        "html-minifier": {
+            "libraryName": "html-minifier",
+            "asOfVersion": "5.0.1"
+        },
         "html-minifier-next": {
             "libraryName": "html-minifier-next",
             "asOfVersion": "4.1.0"
