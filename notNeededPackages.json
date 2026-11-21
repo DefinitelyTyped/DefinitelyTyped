@@ -500,6 +500,10 @@
             "libraryName": "beeper",
             "asOfVersion": "2.0.0"
         },
+        "belter": {
+            "libraryName": "belter",
+            "asOfVersion": "3.0.1"
+        },
         "bem-cn": {
             "libraryName": "bem-cn",
             "asOfVersion": "3.0.0"
