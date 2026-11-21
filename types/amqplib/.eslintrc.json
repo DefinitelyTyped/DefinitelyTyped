@@ -1,6 +1,0 @@
-{
-    "rules": {
-        "@definitelytyped/no-any-union": "off",
-        "@typescript-eslint/no-empty-interface": "off"
-    }
-}

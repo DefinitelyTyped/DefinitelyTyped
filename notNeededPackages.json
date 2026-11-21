@@ -144,6 +144,10 @@
             "libraryName": "amqp-connection-manager",
             "asOfVersion": "3.4.0"
         },
+        "amqplib": {
+            "libraryName": "amqplib",
+            "asOfVersion": "2.2.1"
+        },
         "angular-dynamic-locale": {
             "libraryName": "angular-dynamic-locale",
             "asOfVersion": "0.1.35"
