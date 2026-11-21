@@ -605,6 +605,7 @@ map = map
     .setMaxBounds()
     .setMaxBounds(latLngBounds)
     .setMaxBounds(latLngBoundsLiteral)
+    .setMaxBounds(null) // reset/clear max bounds
     .setMinZoom(5)
     .setMaxZoom(10)
     .panInsideBounds(latLngBounds)
