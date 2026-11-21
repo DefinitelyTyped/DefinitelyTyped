@@ -3404,6 +3404,14 @@ declare namespace React {
         step?: number | string | undefined;
         type?: HTMLInputTypeAttribute | undefined;
         value?: string | readonly string[] | number | undefined;
+        /**
+         * Non-standard, supported by Chrome and Safari: lets the user pick a
+         * directory instead of a file. The idiomatic JSX value is an empty
+         * string; a boolean is accepted for parity with `HTMLInputElement`.
+         *
+         * @see https://developer.mozilla.org/docs/Web/API/HTMLInputElement/webkitdirectory
+         */
+        webkitdirectory?: boolean | string | undefined;
         width?: number | string | undefined;
 
         // No other element dispatching change events can be nested in a <input>
