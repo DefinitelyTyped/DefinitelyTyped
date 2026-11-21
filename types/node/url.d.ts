@@ -500,6 +500,7 @@ declare module "node:url" {
         readonly searchParams: URLSearchParams;
         username: string;
         toJSON(): string;
+        toString(): string;
     }
     var URL: {
         prototype: URL;
@@ -541,6 +542,7 @@ declare module "node:url" {
         entries(): URLSearchParamsIterator<[string, string]>;
         keys(): URLSearchParamsIterator<string>;
         values(): URLSearchParamsIterator<string>;
+        toString(): string;
     }
     var URLSearchParams: {
         prototype: URLSearchParams;
