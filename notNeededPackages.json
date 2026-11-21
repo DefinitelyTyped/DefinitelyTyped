@@ -2601,6 +2601,10 @@
             "libraryName": "file-url",
             "asOfVersion": "3.0.0"
         },
+        "filename-reserved-regex": {
+            "libraryName": "filename-reserved-regex",
+            "asOfVersion": "4.1.0"
+        },
         "filenamify": {
             "libraryName": "filenamify",
             "asOfVersion": "3.0.0"
