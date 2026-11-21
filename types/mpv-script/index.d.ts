@@ -22,11 +22,12 @@ declare namespace mp {
         | "on_load"
         | "on_load_fail"
         | "on_preloaded"
+        | "on_loaded"
         | "on_unload"
         | "on_before_start_file"
         | "on_after_end_file";
 
-    type CommandName = __CommandInfoUnion["name"];
+    type CommandName = __CommandInfoUnion["_name"];
 
     /**
      * @see https://mpv.io/manual/stable/#input-command-prefixes
@@ -141,10 +142,9 @@ declare namespace mp {
      * @see https://mpv.io/manual/stable/#list-of-input-commands
      * run `mpv --input-cmdlist` to get full list of input commands
      */
-    // TODO: change `name` to `_name`
     type __CommandInfoUnion =
         | {
-            name: "seek";
+            _name: "seek";
             args: {
                 /**
                  * certain unit(depending on `flags` property) of number to seek
@@ -169,13 +169,13 @@ declare namespace mp {
             };
         }
         | {
-            name: "revert-seek";
+            _name: "revert-seek";
             args: {
                 flags?: "mark" | "mark-permanent";
             };
         }
         | {
-            name: "sub-seek";
+            _name: "sub-seek";
             args: {
                 /**
                  * For example `1` skips to the next subtitle, `-1` skips to the previous subtitles, and `0` seeks to the beginning of the current subtitle.
@@ -185,7 +185,7 @@ declare namespace mp {
             };
         }
         | {
-            name: "frame-step";
+            _name: "frame-step";
             args: {
                 /**
                  *  If `frames` is omitted, the value is assumed to be 1.
@@ -194,60 +194,55 @@ declare namespace mp {
                 flags?: "play" | "seek" | "mute";
             };
         }
-        | { name: "frame-back-step" }
+        | { _name: "frame-back-step" }
         | {
-            name: "stop";
+            _name: "stop";
             args: {
                 flags?: "keep-playlist";
             };
         }
         | {
-            name: "set";
+            _name: "set";
             args: {
-                // <name> conflicts with default base opt `name`, `_name` will be added it future version of mpv to replace `name`
-                // TODO: uncomment when `_name` is released
-                // name: SetPropertyName
+                name: WriteablePropertyName;
                 value: unknown;
             };
         }
         | {
-            name: "del";
-            // TODO: uncomment when `_name` is released
-            // name: string
+            _name: "del";
+            args: {
+                name: string;
+            };
         }
         | {
-            name: "add";
+            _name: "add";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: SetPropertyName
+                name: WriteablePropertyName;
                 value?: number;
             };
         }
         | {
-            name: "multiply";
+            _name: "multiply";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: SetPropertyName
+                name: WriteablePropertyName;
                 value: number;
             };
         }
         | {
-            name: "cycle-values";
+            _name: "cycle-values";
             vararg: true;
         }
         | {
-            name: "cycle";
+            _name: "cycle";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: SetPropertyName
+                name: WriteablePropertyName;
                 value?: "up" | "down";
             };
         }
         | {
-            name: "change-list";
+            _name: "change-list";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: string // TODO: not sure about the names of list options
+                name: string; // TODO: not sure about the names of list options
                 /**
                  * different type of list option may support different set of operations
                  *
@@ -270,28 +265,29 @@ declare namespace mp {
             };
         }
         | {
-            name: "playlist-next";
+            _name: "playlist-next";
             args: {
                 flags?: "weak" | "force";
             };
         }
         | {
-            name: "playlist-prev";
+            _name: "playlist-prev";
             args: {
                 flags?: "weak" | "force";
             };
         }
-        | { name: "playlist-next-playlist" }
-        | { name: "playlist-prev-playlist" }
+        | { _name: "playlist-next-playlist" }
+        | { _name: "playlist-prev-playlist" }
         | {
-            name: "playlist-play-index";
+            _name: "playlist-play-index";
             /** @see https://mpv.io/manual/stable/#command-interface-playlist-play-index */
             args: {
                 index: number | "current" | "none";
+                "preserve-options"?: boolean;
             };
         }
         | {
-            name: "loadfile";
+            _name: "loadfile";
             args: {
                 /**
                  * file url to load
@@ -300,11 +296,13 @@ declare namespace mp {
                 flags?:
                     | "replace"
                     | "append"
-                    | "append-play"
+                    | "append-play" // deprecated since 0.42.0
                     | "insert-next"
-                    | "insert-next-play"
+                    | "insert-next-play" // deprecated since 0.42.0
                     | "insert-at"
-                    | "insert-at-play";
+                    | "insert-at-play" // deprecated since 0.42.0
+                    | "play"
+                    | string & {};
                 /**
                  * insertion index, used only by the `insert-at` and `insert-at-play` actions.
                  */
@@ -320,20 +318,25 @@ declare namespace mp {
             };
         }
         | {
-            name: "loadlist";
+            _name: "loadlist";
             args: {
                 /**
                  * playlist url to load
                  */
                 url: string;
+                /**
+                 * Multiple flags can be combined, e.g.: `append+play`.
+                 */
                 flags?:
                     | "replace"
                     | "append"
-                    | "append-play"
+                    | "append-play" // deprecated since 0.42.0
                     | "insert-next"
-                    | "insert-next-play"
+                    | "insert-next-play" // deprecated since 0.42.0
                     | "insert-at"
-                    | "insert-at-play";
+                    | "insert-at-play" // deprecated since 0.42.0
+                    | "play"
+                    | string & {};
 
                 /**
                  *  An insertion index, used only by the `insert-at` and `insert-at-play` actions.
@@ -345,14 +348,14 @@ declare namespace mp {
             };
         }
         | {
-            name: "playlist-remove";
+            _name: "playlist-remove";
             args: {
                 index: number;
             };
         }
-        | { name: "playlist-clear" }
+        | { _name: "playlist-clear" }
         | {
-            name: "playlist-move";
+            _name: "playlist-move";
             args: {
                 /**
                  * index move playlist from
@@ -364,10 +367,10 @@ declare namespace mp {
                 index2: number;
             };
         }
-        | { name: "playlist-shuffle" }
-        | { name: "playlist-unshuffle" }
+        | { _name: "playlist-shuffle" }
+        | { _name: "playlist-unshuffle" }
         | {
-            name: "sub-add";
+            _name: "sub-add";
             args: {
                 // url of subtitle
                 url: string;
@@ -382,26 +385,26 @@ declare namespace mp {
             };
         }
         | {
-            name: "sub-remove";
+            _name: "sub-remove";
             args: {
                 id?: number;
             };
         }
         | {
-            name: "sub-reload";
+            _name: "sub-reload";
             args: {
                 id?: number;
             };
         }
         | {
-            name: "sub-step";
+            _name: "sub-step";
             args: {
                 skip: number;
                 flags?: "primary" | "secondary";
             };
         }
         | {
-            name: "audio-add";
+            _name: "audio-add";
             args: {
                 /**
                  * url of audio
@@ -416,19 +419,19 @@ declare namespace mp {
             };
         }
         | {
-            name: "audio-remove";
+            _name: "audio-remove";
             args: {
                 id?: number;
             };
         }
         | {
-            name: "audio-reload";
+            _name: "audio-reload";
             args: {
                 id?: number;
             };
         }
         | {
-            name: "video-add";
+            _name: "video-add";
             args: {
                 /**
                  * url of video
@@ -447,38 +450,38 @@ declare namespace mp {
             };
         }
         | {
-            name: "video-remove";
+            _name: "video-remove";
             args: {
                 id?: number;
             };
         }
         | {
-            name: "video-reload";
+            _name: "video-reload";
             args: {
                 id?: number;
             };
         }
         | {
-            name: "rescan-external-files";
+            _name: "rescan-external-files";
             args: {
                 mode?: "reselect" | "keep-selection";
             };
         }
         | {
-            name: "print-text";
+            _name: "print-text";
             args: {
                 text: string;
             };
         }
         | {
-            name: "expand-text";
+            _name: "expand-text";
             args: {
                 text: string;
             };
             return: string;
         }
         | {
-            name: "expand-path";
+            _name: "expand-path";
             args: {
                 text:
                     | "~/"
@@ -495,42 +498,41 @@ declare namespace mp {
             return: string;
         }
         | {
-            name: "normalize-path";
+            _name: "normalize-path";
             args: {
                 filename: string;
             };
             return: string;
         }
         | {
-            name: "escape-ass";
+            _name: "escape-ass";
             args: {
                 text: string;
             };
             return: string;
         }
         | {
-            name: "apply-profile";
+            _name: "apply-profile";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: string
+                name: string;
                 mode?: "apply" | "restore";
             };
         }
         | {
-            name: "load-config-file";
+            _name: "load-config-file";
             args: {
                 filename: string;
             };
         }
-        | { name: "write-watch-later-config" }
+        | { _name: "write-watch-later-config" }
         | {
-            name: "delete-watch-later-config";
+            _name: "delete-watch-later-config";
             args: {
                 filename?: string;
             };
         }
         | {
-            name: "show-text";
+            _name: "show-text";
             args: {
                 text: string;
                 /**
@@ -544,11 +546,11 @@ declare namespace mp {
                 level?: 0 | 1 | 2 | 3;
             };
         }
-        | { name: "show-progress" }
-        | { name: "script-message"; vararg: true }
-        | { name: "script-message-to"; vararg: true }
+        | { _name: "show-progress" }
+        | { _name: "script-message"; vararg: true }
+        | { _name: "script-message-to"; vararg: true }
         | {
-            name: "overlay-add";
+            _name: "overlay-add";
             args: {
                 /**
                  * an integer between 0 and 63 identifying the overlay element
@@ -589,16 +591,33 @@ declare namespace mp {
                 stride: number;
                 dw?: number;
                 dh?: number;
+
+                /**
+                 * @since mpv 0.42.0
+                 */
+                video_colorspace?: boolean;
+                /**
+                 * @since mpv 0.42.0
+                 */
+                max_luma?: number;
+                /**
+                 * @since mpv 0.42.0
+                 */
+                primaries?: Extract<__OptionInfoUnion, { name: "target-prim" }>["type"];
+                /**
+                 * @since mpv 0.42.0
+                 */
+                transfer?: Extract<__OptionInfoUnion, { name: "target-trc" }>["type"];
             };
         }
         | {
-            name: "overlay-remove";
+            _name: "overlay-remove";
             args: {
                 id: number;
             };
         }
         | {
-            name: "osd-overlay";
+            _name: "osd-overlay";
             args: {
                 /**
                  * Arbitrary integer that identifies the overlay.
@@ -645,7 +664,7 @@ declare namespace mp {
             };
         }
         | {
-            name: "mouse";
+            _name: "mouse";
             args: {
                 x: number;
                 y: number;
@@ -660,40 +679,40 @@ declare namespace mp {
             };
         }
         | {
-            name: "keypress";
+            _name: "keypress";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: string
+                name: string;
                 scale?: number;
             };
         }
         | {
-            name: "keydown";
-            // TODO: uncomment when `_name` is released
-            // name: string
-        }
-        | {
-            name: "keyup";
-            // TODO: uncomment when `_name` is released
-            // name?: string
-        }
-        | {
-            name: "keybind";
+            _name: "keydown";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: string
+                name: string;
+            };
+        }
+        | {
+            _name: "keyup";
+            args: {
+                name?: string;
+            };
+        }
+        | {
+            _name: "keybind";
+            args: {
+                name: string;
                 cmd: string;
                 comment?: string;
             };
         }
         | {
-            name: "load-input-conf";
+            _name: "load-input-conf";
             args: {
                 filename: string;
             };
         }
         | {
-            name: "quit";
+            _name: "quit";
             args: {
                 /**
                  * Exit the player. If an argument is given, it's used as process exit code.
@@ -702,7 +721,7 @@ declare namespace mp {
             };
         }
         | {
-            name: "quit-watch-later";
+            _name: "quit-watch-later";
             args: {
                 /**
                  * Exit player, and store current playback position.
@@ -715,21 +734,20 @@ declare namespace mp {
             };
         }
         | {
-            name: "script-binding";
+            _name: "script-binding";
             args: {
-                // TODO: uncomment when `_name` is released
-                // name: string
+                name: string;
                 arg: string;
             };
         }
         | {
-            name: "load-script";
+            _name: "load-script";
             args: {
                 filename: string;
             };
         }
         | {
-            name: "screenshot";
+            _name: "screenshot";
             args: {
                 /**
                  * can be combined with `+`, such as `video+each-frame`
@@ -739,7 +757,7 @@ declare namespace mp {
             };
         }
         | {
-            name: "screenshot-to-file";
+            _name: "screenshot-to-file";
             args: {
                 /**
                  * Take a screenshot and save it to a given file.
@@ -755,7 +773,7 @@ declare namespace mp {
             };
         }
         | {
-            name: "screenshot-raw";
+            _name: "screenshot-raw";
             args: {
                 /**
                  * can be combined with `+`, such as `video+each-frame`
@@ -766,7 +784,7 @@ declare namespace mp {
             };
         }
         | {
-            name: "vf";
+            _name: "vf";
             args: {
                 /**
                  * @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e
@@ -777,7 +795,7 @@ declare namespace mp {
             };
         }
         | {
-            name: "af";
+            _name: "af";
             args: {
                 /** @see https://mpv.io/manual/stable/#command-interface-vf-<operation>-<value%3e */
                 operation: "set" | "add" | "toggle";
@@ -785,47 +803,80 @@ declare namespace mp {
             };
         }
         | {
-            name: "vf-command";
+            _name: "vf-command";
             args: {
-                lable: string;
+                label: string;
                 command: string;
                 argument: string;
                 target?: string;
             };
         }
-        // | { name: 'ao-reload' } // experimental
+        // | { _name: 'ao-reload' } // experimental
         | {
-            name: "af-command";
+            _name: "af-command";
             args: {
-                lable: string;
+                label: string;
                 command: string;
                 argument: string;
                 target?: string;
             };
         }
-        | { name: "ignore" }
-        | { name: "drop-buffers" }
+        | { _name: "ignore" }
+        | { _name: "drop-buffers" }
         | {
-            name: "dump-cache";
+            _name: "dump-cache";
             args: {
                 start: number;
                 end: number;
                 filename: string;
             };
         }
-        | { name: "ab-loop" }
+        | { _name: "ab-loop" }
         | {
-            name: "ab-loop-dump-cache";
+            _name: "ab-loop-dump-cache";
             args: {
                 filename: string;
             };
         }
-        | { name: "ab-loop-align-cache" }
-        | { name: "begin-vo-dragging" }
-        | { name: "context-menu" }
-        | { name: "run"; vararg: true }
+        | { _name: "ab-loop-align-cache" }
+        | { _name: "begin-vo-dragging" }
+        | { _name: "context-menu" }
         | {
-            name: "subprocess";
+            _name: "discnav";
+            args: {
+                action:
+                    | "up"
+                    | "down"
+                    | "left"
+                    | "right"
+                    | "select"
+                    | "menu"
+                    | "title-menu"
+                    | "popup"
+                    | "audio-menu"
+                    | "sub-menu"
+                    | "angle-menu"
+                    | "up-menu"
+                    | "prev"
+                    | "red"
+                    | "green"
+                    | "yellow"
+                    | "blue"
+                    | "mouse-move"
+                    | "mouse-click";
+                /**
+                 * Normalized coordinates in the range 0..1 (top-left at 0,0)
+                 */
+                x?: number;
+                /**
+                 * Normalized coordinates in the range 0..1 (top-left at 0,0)
+                 */
+                y?: number;
+            };
+        }
+        | { _name: "run"; vararg: true }
+        | {
+            _name: "subprocess";
             args: {
                 /**
                  * Array of strings with the command as first argument, and subsequent command line arguments following.
@@ -887,10 +938,33 @@ declare namespace mp {
                  */
                 passthrough_stdin?: boolean;
             };
+        }
+        | {
+            _name: "update-clipboard";
+            args: {
+                /**
+                 * Indicate whether to update clipboard or primary selection.
+                 */
+                type: "text" | "text-primary";
+                /**
+                 * Specifies the maximum timeout in ms to wait for the clipboard content to be updated.
+                 * A negative timeout means infinite.
+                 * The default timeout is 10 ms.
+                 */
+                timeout?: number;
+            };
         };
-    // *-section commands are deprecated, so not types for them
-    // run: { } // `run` command requires variable number of arguments, doesn't support named arguments
-    // `subprocess` is a special command that could return variants of result shape so it was handled separately instead
+
+    // for commands with no argument named `name`, both `_name` and `name` are valid as command name field
+    // this helper is to include both `_name` and `name` usage independently
+    // dprint-ignore
+    type __CommandInfoUnionAllVariants = __CommandInfoUnion extends infer U
+      ? U extends { args: { name: any } }
+        ? U
+        : U extends { _name: infer N }
+          ? U | (Omit<U, "_name"> & { name: N })
+          : never
+      : never;
 
     /**
      * @see https://mpv.io/manual/stable/#command-interface-playlist
@@ -1430,8 +1504,15 @@ declare namespace mp {
         "hls-bitrate"?: number;
         /**
          * The program ID of the HLS stream, if available.
+         * @deprecated since mpv 0.42.0
          */
         "program-id"?: number;
+        /**
+         * A list of all program IDs this stream belongs to.
+         * A stream can belong to more than one program (e.g. in MPEG-TS or HLS).
+         * Unavailable if the stream does not belong to any program.
+         */
+        "program-ids"?: number[];
         /**
          * True if the track is currently decoded, false or unavailable otherwise.
          */
@@ -1468,7 +1549,7 @@ declare namespace mp {
          * Note that this can be potentially wrong if a demuxer other than "libavformat" (`--demuxer=lavf`) is used.
          * For mkv files, the index will usually match even if the default (builtin) demuxer is used, but there is no hard guarantee.
          */
-        "ff-index": number;
+        "ff-index"?: number;
         /**
          * If this track is being decoded, the short decoder name,
          */
@@ -1530,6 +1611,10 @@ declare namespace mp {
          * Pixel aspect ratio.
          */
         "demux-par": number;
+        /**
+         * Track duration as indicated by the container.
+         */
+        "demux-duration": number;
         /**
          * Short name for format from ffmpeg.
          * If the track is audio, this will be the name of the sample format. If the track is video, this will be the name of the pixel format.
@@ -1608,13 +1693,13 @@ declare namespace mp {
         /**
          * The name of the command.
          */
-        name: string;
+        name: CommandName;
         /**
          * Whether the command accepts a variable number of arguments.
          */
         vararg: boolean;
         args: {
-            name: CommandName | (string & {});
+            name: string;
             /**
              * The name of the argument type, like "String" or "Integer".
              */
@@ -1623,7 +1708,31 @@ declare namespace mp {
              * Whether the argument is optional.
              */
             optional: boolean;
+            /**
+             * Default of value of the argument
+             */
+            "default-value"?: number | string | boolean;
+            /**
+             * Available when "type" is "Choice"
+             */
+            choices?: string[];
         }[];
+    }
+
+    interface DroppedFiles {
+        /**
+         * The timestamp of the last drag-and-drop event mpv received, in nanoseconds. This uses the same clock as `mpv_get_time_ns()`.
+         */
+        time: number;
+        /**
+         * The action of the `drag-and-drop` event. This is normally "replace".
+         * Depending on the platform, this can also be append in some cases, such as shift key being held while files are dropped.
+         */
+        action: Extract<__OptionInfoUnion, { name: "drag-and-drop" }>["type"];
+        /**
+         * The dropped file names of the `drag-and-drop` event.
+         */
+        files: string[];
     }
 
     // values observed from mp.get_property_native('command-list')
@@ -1914,6 +2023,10 @@ declare namespace mp {
             readonly: true;
         }
         | {
+            name: "env";
+            type: Record<string, string>;
+        }
+        | {
             name: "pid";
             type: number;
             readonly: true;
@@ -2006,12 +2119,6 @@ declare namespace mp {
             readonly: true;
         }
         | {
-            name: "time-start";
-            type: 0;
-            osd_type: "00:00:00";
-            readonly: true;
-        }
-        | {
             name: "time-remaining";
             type: number | undefined;
             osd_type: `${number}:${number}:${number}` | undefined;
@@ -2053,6 +2160,11 @@ declare namespace mp {
             readonly: true;
         }
         | {
+            name: "disc-menu-active";
+            type: boolean | undefined;
+            readonly: true;
+        }
+        | {
             name: "chapters";
             type: number | undefined;
             readonly: true;
@@ -2075,6 +2187,11 @@ declare namespace mp {
         | {
             name: `edition-list/${number}/title`;
             type: string | undefined;
+            readonly: true;
+        }
+        | {
+            name: `edition-list/${number}/metadata`;
+            type: Record<string, unknown>;
             readonly: true;
         }
         | {
@@ -2433,6 +2550,12 @@ declare namespace mp {
             readonly: true;
         }
         | {
+            name: "dropped-files";
+            type: DroppedFiles;
+            readonly: true;
+        }
+        | __PropertyInfoFromType<"dropped-files", DroppedFiles>
+        | {
             name: "sub-ass-extradata";
             type: string | undefined;
             readonly: true;
@@ -2490,6 +2613,16 @@ declare namespace mp {
             name: "secondary-sub-end";
             type: number | undefined;
             osd_type: `${number}:${number}:${number}` | undefined;
+            readonly: true;
+        }
+        | {
+            name: "sub-lines";
+            type: { text: string; start: number; end?: number }[];
+            readonly: true;
+        }
+        | {
+            name: "secondary-sub-lines";
+            type: { text: string; start: number; end?: number }[];
             readonly: true;
         }
         | {
@@ -2706,6 +2839,11 @@ declare namespace mp {
             readonly: true;
         }
         | {
+            name: "libplacebo-version";
+            type: string;
+            readonly: true;
+        }
+        | {
             name: "platform";
             type: "windows" | "linux" | "darwin" | "android" | "freebsd" | (string & {});
             readonly: true;
@@ -2846,6 +2984,16 @@ declare namespace mp {
             readonly: false;
         }
         | {
+            name: "flatten-editions";
+            type: boolean;
+            readonly: false;
+        }
+        | {
+            name: "show-dependent-tracks";
+            type: boolean;
+            readonly: false;
+        }
+        | {
             name: "track-auto-selection";
             type: boolean;
             readonly: false;
@@ -2913,6 +3061,11 @@ declare namespace mp {
         | {
             name: "playlist-start";
             type: "auto" | number;
+            readonly: false;
+        }
+        | {
+            name: "playlist-inherit-options";
+            type: boolean | "current";
             readonly: false;
         }
         | {
@@ -3742,6 +3895,11 @@ declare namespace mp {
             readonly: false;
         }
         | {
+            name: "secondary-sub-scale";
+            type: number;
+            readonly: false;
+        }
+        | {
             name: "sub-scale-signs";
             type: boolean;
             readonly: false;
@@ -3878,7 +4036,7 @@ declare namespace mp {
         }
         | {
             name: "sub-hdr-peak";
-            type: "sdr" | number;
+            type: "sdr" | "auto" | number;
             readonly: false;
         }
         | {
@@ -4347,6 +4505,11 @@ declare namespace mp {
             readonly: false;
         }
         | {
+            name: "disc-menu";
+            type: boolean;
+            readonly: false;
+        }
+        | {
             name: "cdda-device";
             type: string;
             readonly: false;
@@ -4357,8 +4520,38 @@ declare namespace mp {
             readonly: false;
         }
         | {
+            name: "dvda-device";
+            type: string;
+            readonly: false;
+        }
+        | {
+            name: "dvda-page";
+            type: -1 | number & {};
+            readonly: false;
+        }
+        | {
             name: "bluray-device";
             type: string;
+            readonly: false;
+        }
+        | {
+            name: "bluray-region";
+            type: "auto" | "a" | "b" | "c";
+            readonly: false;
+        }
+        | {
+            name: "bluray-uo-restriction";
+            type: "auto" | "disabled" | "relaxed" | "safe" | "compliant";
+            readonly: false;
+        }
+        | {
+            name: "bluray-min-title-length";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "bluray-key-file";
+            type: string | undefined;
             readonly: false;
         }
         | {
@@ -4399,6 +4592,11 @@ declare namespace mp {
         | {
             name: "dvd-speed";
             type: number;
+            readonly: false;
+        }
+        | {
+            name: "dvd-region";
+            type: "auto" | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
             readonly: false;
         }
         | {
@@ -4612,6 +4810,11 @@ declare namespace mp {
             readonly: false;
         }
         | {
+            name: "demuxer-hysteresis-bytes";
+            type: number;
+            readonly: false;
+        }
+        | {
             name: "prefetch-playlist";
             type: boolean;
             readonly: false;
@@ -4683,6 +4886,11 @@ declare namespace mp {
         }
         | {
             name: "input-builtin-dragging";
+            type: boolean;
+            readonly: true;
+        }
+        | {
+            name: "input-builtin-drag-and-drop";
             type: boolean;
             readonly: true;
         }
@@ -5991,6 +6199,11 @@ declare namespace mp {
             readonly: false;
         }
         | {
+            name: "wayland-session";
+            type: string;
+            readonly: false;
+        }
+        | {
             name: "spirv-compiler";
             type: "auto" | "shaderc";
             readonly: false;
@@ -6339,7 +6552,8 @@ declare namespace mp {
                 | "hlg"
                 | "v-log"
                 | "s-log1"
-                | "s-log2";
+                | "s-log2"
+                | "scrgb";
             readonly: false;
         }
         | {
@@ -6372,7 +6586,8 @@ declare namespace mp {
                 | "ebu3213"
                 | "film-c"
                 | "aces-ap0"
-                | "aces-ap1";
+                | "aces-ap1"
+                | `${number},${number},${number},${number},${number},${number},${number},${number}`;
             readonly: false;
         }
         | {
@@ -6410,6 +6625,61 @@ declare namespace mp {
                 | "bt.2446a"
                 | "st2094-40"
                 | "st2094-10";
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-knee-adaptation";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-knee-minimum";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-knee-maximum";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-knee-default";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-knee-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-slope-tuning";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-slope-offset";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-spline-contrast";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-reinhard-contrast";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-linear-knee";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "tone-mapping-exposure";
+            type: number;
             readonly: false;
         }
         | {
@@ -6484,6 +6754,16 @@ declare namespace mp {
         }
         | {
             name: "hdr-contrast-smoothness";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hdr-mastering-clip";
+            type: number;
+            readonly: false;
+        }
+        | {
+            name: "hdr-film-strength";
             type: number;
             readonly: false;
         }
@@ -6998,7 +7278,7 @@ declare namespace mp {
     /**
      * Commands that can only be invoked by mpv command syntax
      */
-    type SyntaxOnlyCommand = Extract<__CommandInfoUnion, { vararg: true }>["name"];
+    type SyntaxOnlyCommand = Extract<__CommandInfoUnion, { vararg: true }>["_name"];
 
     function command(command: string): true | undefined;
 
@@ -7020,18 +7300,58 @@ declare namespace mp {
     //   1. some commands can only be invoked by array-like overload `command_native(array)` such as `run`
     //   1. some commands can only be invoked by `command_native(opts)` overload(namely named arguments) such as `subprocess`
 
+    // expand "args" field
     // dprint-ignore
-    type CommandOptsUnion = __CommandInfoUnion extends infer U
-      ? U extends { name: infer N, args: infer TArgs }
-        ? { name: N } & TArgs
-        : U extends { name: infer N } // if the command has no arguments
-          ? { name: N }
+    type CommandOptsUnion = __CommandInfoUnionAllVariants extends infer U
+      ? U extends { name: infer N }
+        ? U extends { args: infer TArgs }
+          ? { name: N } & TArgs
+          : { name: N }
+        : U extends { _name: infer N }
+          ? U extends { args: infer TArgs }
+            ? { _name: N } & TArgs
+            : { _name: N }
           : never
       : never;
 
+    // The two invocation forms of map-style commands are split into separate
+    // overload constraints on purpose: with a single mixed union, TypeScript
+    // cannot narrow contextual completions (command-name literals for the
+    // `name`/`_name` value, and the chosen command's own arguments).
+    // `_name` form: all commands except syntax-only (vararg) commands,
+    // which cannot receive named arguments at all.
+    type NamedCommandOpts = Exclude<
+        CommandOptsUnion extends infer U ? U extends { _name: string } ? U
+            : never
+            : never,
+        { _name: SyntaxOnlyCommand }
+    >;
+    // Legacy `name` form: only commands without an argument named `name`
+    // (del/keydown/keyup cannot be invoked through it at all, since mpv
+    // would treat `name` as the command name).
+    // Note: prefer the `_name` overloads. TypeScript resolves the contextual
+    // type of an overloaded call from the first matching signature, so only
+    // the `_name` overloads get editor completions scoped to the chosen
+    // command's arguments — every overload taking this type always completes
+    // with all commands' options instead.
+    type LegacyCommandOpts = Exclude<
+        CommandOptsUnion extends infer U ? U extends { name: string } ? "_name" extends keyof U ? never
+                : U
+            : never
+            : never,
+        { name: SyntaxOnlyCommand }
+    >;
+
     // dprint-ignore
-    type GetCommonCommandResult<TOpts extends { name: string }> =
-      Extract<__CommandInfoUnion, { name: TOpts["name"] }> extends {
+    type __GetCommandName<T> = "name" extends keyof T
+      ? T["name"]
+      : "_name" extends keyof T
+        ? T["_name"]
+        : never;
+
+    // dprint-ignore
+    type GetCommonCommandResult<TOpts extends { name: string } | { _name: string }> =
+      Extract<__CommandInfoUnion, { _name: __GetCommandName<TOpts> }> extends {
         return: infer R;
       }
         ? R
@@ -7053,21 +7373,46 @@ declare namespace mp {
            : SubprocessResultBase;
 
     // dprint-ignore
-    type GetCommandResult<TOpts extends { name: string }> =
-       TOpts["name"] extends "subprocess"
+    type GetCommandResult<TOpts extends { name: string } | { _name: string }> =
+       __GetCommandName<TOpts> extends "subprocess"
          ? GetSubprocessResult<TOpts>
          : GetCommonCommandResult<TOpts>;
 
-    // TODO: change `name` to `_name` if `_name` is released officially
     /**
      * Returns `null` on success, `undefined` on error
      */
-    function command_native<TOpts extends CommandOptsUnion>(
+    function command_native<TOpts extends NamedCommandOpts>(
         opts: TOpts & CommandOptsBase,
     ): GetCommandResult<TOpts>;
 
     function command_native<
-        TOpts extends CommandOptsUnion,
+        TOpts extends NamedCommandOpts,
+        TDefault,
+    >(
+        opts: TOpts & CommandOptsBase,
+        def: TDefault,
+    ): Exclude<GetCommandResult<TOpts>, undefined> | TDefault;
+
+    /**
+     * Returns `null` on success, `undefined` on error
+     *
+     * NOTE: due to a TypeScript limitation, this overload's completions
+     * include irrelevant options from other commands; prefer the `_name`
+     * overloads. See `LegacyCommandOpts`.
+     */
+    function command_native<TOpts extends LegacyCommandOpts>(
+        opts: TOpts & CommandOptsBase,
+    ): GetCommandResult<TOpts>;
+
+    /**
+     * Returns `null` on success, `TDefault` on error
+     *
+     * NOTE: due to a TypeScript limitation, this overload's completions
+     * include irrelevant options from other commands; prefer the `_name`
+     * overloads. See `LegacyCommandOpts`.
+     */
+    function command_native<
+        TOpts extends LegacyCommandOpts,
         TDefault,
     >(
         opts: TOpts & CommandOptsBase,
@@ -7121,8 +7466,17 @@ declare namespace mp {
    * If starting the command failed for some reason, `undefined` returned, and `fn` is called indicating failure, using the same error value.
    * `fn` is always called asynchronously, even if the command failed to start.
    */
-    // TODO: change `name` to `_name` if `_name` is released officially
-    function command_native_async<TOpts extends CommandOptsUnion>(
+    function command_native_async<TOpts extends NamedCommandOpts>(
+        opts: TOpts & CommandOptsBase,
+        fn?: (success: boolean, result: GetCommandResult<TOpts>, error: string) => void, // result is null on success, undefined on error
+    ): AsyncCommandId | undefined;
+
+    /**
+     * NOTE: due to a TypeScript limitation, this overload's completions
+     * include irrelevant options from other commands; prefer the `_name`
+     * overload. See `LegacyCommandOpts`.
+     */
+    function command_native_async<TOpts extends LegacyCommandOpts>(
         opts: TOpts & CommandOptsBase,
         fn?: (success: boolean, result: GetCommandResult<TOpts>, error: string) => void, // result is null on success, undefined on error
     ): AsyncCommandId | undefined;
@@ -7858,7 +8212,8 @@ declare namespace mp {
             playlist_entry_id: number;
         };
 
-        "end-file": EventArgs<"end-file"> & {
+        // error field deprecated since 0.42.0
+        "end-file": Omit<EventArgs<"end-file">, "error"> & {
             /**
              * @see https://mpv.io/manual/stable/#command-interface-reason
              */
@@ -8300,29 +8655,84 @@ declare namespace mp {
          * Compiles the JS code content_str as file name fname (without loading anything from the filesystem), and returns it as a function. Very similar to a Function constructor, but shows at stack traces as fname.
          */
         function compile_js(fname: string, content_str: string): (...args: unknown[]) => unknown;
+
+        /**
+         * Measures the display width of a string in terminal cells, accounting for
+         * wide characters, combining marks, and ANSI escape sequences.
+         *
+         * Use this instead of `String.prototype.length` when aligning, padding or
+         * truncating terminal output.
+         *
+         * @param {string} text The string to measure.
+         * @returns {number} The width in terminal cells.
+         * @since mpv 0.42.0
+         */
+        function terminal_display_width(text: string): number;
+    }
+
+    /**
+     * see: player/lua/console.lua
+     */
+    interface ConsoleOpts {
+        monospace_font: string;
+        font_size: number;
+        border_size: number;
+        background_alpha: number; // 0 (opaque) – 255 (transparent)
+        gap: number; // % of font size
+        padding: number;
+        menu_outline_size: number;
+        menu_outline_color: string;
+        corner_radius: number;
+        margin_x: number;
+        margin_y: number;
+        scale_with_window: "yes" | "no" | "auto";
+        focused_color: string;
+        focused_back_color: string;
+        match_color: string;
+        exact_match: boolean;
+        case_sensitive: boolean;
+        history_dedup: boolean;
+        font_hw_ratio: number | "auto";
     }
 
     namespace input {
-        interface GetOpts {
+        interface InputBaseOpts {
             /**
              * The string to be displayed before the input field.
              */
             prompt?: string;
-
-            /**
-             * A callback invoked when the user presses Enter. The first argument is the text in the console.
-             */
-            submit?: (inputText: string) => void;
-
             /**
              * Whether to keep the console open on submit. Defaults to false.
              */
             keep_open?: boolean;
-
             /**
-             * A callback invoked when the console is shown. This can be used to present a list of options with `input.set_log()`.
+             * A callback invoked when the console is shown. This can be used to override keybindings set by the console with mp.add_forced_key_binding().
              */
             opened?: () => void;
+            /**
+             * A callback invoked when the console is hidden, either because `input.terminate()` was invoked from the other callbacks, or because the user closed it with a key binding.
+             * The first argument is the text in the console, and the second argument is the cursor position.
+             */
+            closed?: (text: string, cursorPosition: number) => void;
+            /**
+             * A string to pre-fill the input field with.
+             */
+            default_text?: string;
+            /**
+             * The initial cursor position, starting from 1.
+             */
+            cursor_position?: number;
+
+            console_opt_overrides?: Partial<ConsoleOpts>;
+        }
+
+        type CompletionResponder = (completions: string[], cursorPos: number, append?: string) => void;
+
+        interface GetOpts extends InputBaseOpts {
+            /**
+             * A callback invoked when the user presses Enter. The first argument is the text in the console.
+             */
+            submit?: (inputText: string) => void;
 
             /**
              * A callback invoked when the text changes. The first argument is the text in the console.
@@ -8331,31 +8741,15 @@ declare namespace mp {
 
             /**
              * A callback invoked when the user edits the text or moves the cursor.
-             * The first argument is the text before the cursor.
-             * The callback should return a table of the string candidate completion values and the 1-based cursor position from which the completion starts.
-             * console will show the completions that fuzzily match the text between this position and the cursor and allow selecting them.
-             * The third and optional return value is a string that will be appended to the input line without displaying it in the completions.
+             * The first argument is the text before the cursor, and the second argument is a response function which can be called to present completion values to the user.
+             * The first argument to the response function is a table of the string candidate completion values, and the second argument is the 1-based cursor position from which the completion starts.
+             * console will show the completions that fuzzily match the text between this position and the cursor, which the user can select with TAB. The completions will only be shown to the user if the text before the cursor has not since changed. The response function should be called with an empty table if there are no completion values to display.
+             * The third and optional argument to the response function is a string that will be appended to the input line without displaying it in the completions.
              */
-            complete?: (textBeforeCursor: string) => void;
+            complete?: (textBeforeCursor: string, respond: CompletionResponder) => void;
 
             /** Whether to automatically select the first completion on submit if one wasn't already manually selected. Defaults to false. */
             autoselect_completion?: boolean;
-
-            /**
-             * A callback invoked when the console is hidden, either because `input.terminate()` was invoked from the other callbacks, or because the user closed it with a key binding.
-             * The first argument is the text in the console, and the second argument is the cursor position.
-             */
-            closed?: (inputText: string, cursorPosition: number) => void;
-
-            /**
-             * A string to pre-fill the input field with.
-             */
-            default_text?: string;
-
-            /**
-             * The initial cursor position, starting from 1.
-             */
-            cursor_position?: number;
 
             /**
              * If specified, the path to save and load the history of the entered lines.
@@ -8387,6 +8781,7 @@ declare namespace mp {
         function log(message: string, style?: string, terminalStyle?: string): void;
 
         /**
+         * @deprecated since 0.42.0
          * Helper to add a line to the log buffer with the same color as the one used for commands that error. Useful when the user submits invalid input.
          */
         function log_error(message: string): void;
@@ -8399,11 +8794,7 @@ declare namespace mp {
          */
         function set_log(log: Log[]): void;
 
-        interface SelectOpts {
-            /**
-             * The string to be displayed before the input field.
-             */
-            prompt?: string;
+        interface SelectOpts extends InputBaseOpts {
             /**
              * The list of the entries to choose from.
              */
@@ -8416,10 +8807,6 @@ declare namespace mp {
              * The callback invoked when the user presses Enter. The first argument is the **1-based index** of the selected item.
              */
             submit?: (idx: number) => void;
-            /**
-             * Whether to keep the console open on submit. Defaults to false.
-             */
-            keep_open?: boolean;
         }
 
         /**
