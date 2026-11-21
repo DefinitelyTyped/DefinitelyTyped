@@ -5,6 +5,7 @@ import * as _isIBAN from "./lib/isIBAN";
 import * as _isISO31661Alpha2 from "./lib/isISO31661Alpha2";
 import * as _isISO4217 from "./lib/isISO4217";
 import * as _isISO6391 from "./lib/isISO6391";
+import * as _isPassportNumber from "./lib/isPassportNumber";
 import * as _isTaxID from "./lib/isTaxID";
 import * as _isURL from "./lib/isURL";
 
@@ -1199,12 +1200,9 @@ declare namespace validator {
      */
     export function isOctal(str: string): boolean;
 
-    /**
-     * Check if the string is a valid passport number relative to a specific country code.
-     *
-     * @param [countryCode] - Country code
-     */
-    export function isPassportNumber(str: string, countryCode?: string): boolean;
+    export const isPassportNumber: typeof _isPassportNumber.default;
+    export const passportNumberLocales: typeof _isPassportNumber.locales;
+    export type PassportNumberLocale = _isPassportNumber.PassportNumberLocale;
 
     /**
      * Check if the string is a valid port number.
