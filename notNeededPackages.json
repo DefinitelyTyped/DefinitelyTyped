@@ -1328,6 +1328,10 @@
             "libraryName": "contract-proxy-kit",
             "asOfVersion": "2.0.0"
         },
+        "conventional-changelog": {
+            "libraryName": "conventional-changelog",
+            "asOfVersion": "8.1.3"
+        },
         "conventional-changelog-preset-loader": {
             "libraryName": "conventional-changelog-preset-loader",
             "asOfVersion": "5.0.0"
