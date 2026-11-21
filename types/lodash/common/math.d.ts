@@ -354,6 +354,9 @@ declare module "../index" {
          * _.sum([4, 2, 8, 6]);
          * // => 20
          */
+        sum(collection: List<number> | null | undefined): number;
+        sum(collection: readonly [bigint, ...bigint[]]): bigint;
+        sum(collection: List<bigint> | null | undefined): bigint | 0;
         sum(collection: List<any> | null | undefined): number;
     }
     interface LoDashImplicitWrapper<TValue> {
@@ -366,6 +369,22 @@ declare module "../index" {
         /**
          * @see _.sum
          */
+        sum(): PrimitiveChain<number>;
+    }
+    interface Collection<T> {
+        /**
+         * @see _.sum
+         */
+        sum(this: Collection<number>): number;
+        sum(this: Collection<bigint>): bigint | 0;
+        sum(): number;
+    }
+    interface CollectionChain<T> {
+        /**
+         * @see _.sum
+         */
+        sum(this: CollectionChain<number>): PrimitiveChain<number>;
+        sum(this: CollectionChain<bigint>): PrimitiveChain<bigint | 0>;
         sum(): PrimitiveChain<number>;
     }
 
