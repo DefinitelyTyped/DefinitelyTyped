@@ -2981,6 +2981,10 @@
             "libraryName": "glur",
             "asOfVersion": "2.0.0"
         },
+        "google-cloud__datastore": {
+            "libraryName": "@google-cloud/datastore",
+            "asOfVersion": "11.3.1"
+        },
         "google-cloud__pubsub": {
             "libraryName": "@google-cloud/pubsub",
             "asOfVersion": "0.26.0"
