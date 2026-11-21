@@ -27,6 +27,19 @@ void async function() {
     const result: string = await text(gz.pull(decompressGzip(), { autoClose: true }));
 };
 
+// Read a file synchronously
+void async function() {
+    const fh: FileHandle = await open("input.txt", "r");
+    const result: string = textSync(fh.pullSync({ autoClose: true }));
+    const compressed: Iterable<Uint8Array[]> = fh.pullSync(compressGzipSync(), {
+        start: 100,
+        limit: 1024,
+        chunkSize: 512,
+    });
+    // @ts-expect-error
+    fh.pullSync({ signal: new AbortController().signal });
+};
+
 void async function() {
     const fh: FileHandle = await open("file");
     using syncDispose = fh.writer();

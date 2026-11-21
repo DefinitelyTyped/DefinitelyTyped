@@ -2886,6 +2886,13 @@ declare module "node:fs" {
         position?: number | null,
     ): number;
     /**
+     * For detailed information, see the documentation of the asynchronous version of
+     * this API: {@link write}.
+     * @since v18.3.0, v16.17.0
+     * @return The number of bytes written.
+     */
+    function writeSync(fd: number, buffer: NodeJS.ArrayBufferView, options?: WriteOptions): number;
+    /**
      * Synchronously writes `string` to the file referenced by the supplied file descriptor, returning the number of bytes written.
      * @param fd A file descriptor.
      * @param string A string to write.
