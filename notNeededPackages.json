@@ -1809,6 +1809,10 @@
             "libraryName": "device-uuid",
             "asOfVersion": "3.0.6"
         },
+        "devicefarmer__stf-syrup": {
+            "libraryName": "@devicefarmer/stf-syrup",
+            "asOfVersion": "2.0.0"
+        },
         "devtools-detect": {
             "libraryName": "devtools-detect",
             "asOfVersion": "3.0.0"
