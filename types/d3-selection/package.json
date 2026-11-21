@@ -7,7 +7,8 @@
         "https://d3js.org/d3-selection"
     ],
     "devDependencies": {
-        "@types/d3-selection": "workspace:."
+        "@types/d3-selection": "workspace:.",
+        "@types/trusted-types": "*"
     },
     "owners": [
         {
