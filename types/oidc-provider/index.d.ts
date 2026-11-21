@@ -1,3 +1,4 @@
+// oidc-provider types artifact "9.15.1"; schema 4; sha256 e35fd92e18f1b310aa649036a718f5d737487a5476ace301d30d1287b53a15a0
 import * as crypto from "node:crypto";
 import * as dns from "node:dns";
 import * as http from "node:http";
@@ -145,7 +146,6 @@ export type ResponseType =
     | "none";
 export type CIBADeliveryMode = "poll" | "ping";
 export type SubjectTypes = "public" | "pairwise";
-// BEGIN GENERATED OIDC-PROVIDER CLIENT AUTH METHODS
 export type ClientAuthMethod =
     | "client_secret_basic"
     | "client_secret_post"
@@ -156,7 +156,6 @@ export type ClientAuthMethod =
     | "attest_jwt_client_auth"
     | "attest_jwt_client_auth_dpop"
     | "none";
-// END GENERATED OIDC-PROVIDER CLIENT AUTH METHODS
 
 export interface ClaimsParameterMember {
     essential?: boolean | undefined;
@@ -379,13 +378,13 @@ declare class PushedAuthorizationRequest extends BaseModel {
         request: string;
         attestationJkt?: string | undefined;
         dpopJkt?: string | undefined;
-        trusted?: string[] | undefined;
+        trusted?: boolean | undefined;
     });
     readonly kind: "PushedAuthorizationRequest";
     request: string;
     attestationJkt?: string | undefined;
     dpopJkt?: string | undefined;
-    trusted?: string[] | undefined;
+    trusted?: boolean | undefined;
     consumed: unknown;
 
     consume(): Promise<void>;
@@ -831,7 +830,6 @@ export type {
     Session,
 };
 
-// BEGIN GENERATED OIDC-PROVIDER OIDC CONTEXT
 declare class OIDCContext {
     constructor(ctx: Koa.Context);
     readonly route: string;
@@ -909,7 +907,6 @@ declare class OIDCContext {
 
     clientJwtAuthExpectedAudience(): Set<string>;
 }
-// END GENERATED OIDC-PROVIDER OIDC CONTEXT
 
 export type KoaContextWithOIDC = Koa.ParameterizedContext<
     Koa.DefaultState,
@@ -936,8 +933,6 @@ export type TokenEndpointGrantContext<Params extends object = UnknownObject> = K
 };
 
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
-// BEGIN GENERATED OIDC-PROVIDER CONTRACTS
-// oidc-provider types artifact "9.13.3"; schema 3; sha256 38a5b5882246cf5913381089f7dddbf4fe6e22eec6e09eb6e7faaf4fa0a26731
 export type FindAccount = (
     ctx: KoaContextWithOIDC,
     sub: string,
@@ -1000,7 +995,13 @@ export interface OpenID4VCICredentialConfiguration {
     [key: string]: unknown;
 }
 
+export interface OpenID4VCICredentialEncryption {
+    required: boolean;
+}
+
 export interface OpenID4VCIMetadata extends UnknownObject {
+    credential_request_encryption?: never;
+    credential_response_encryption?: never;
     batch_credential_issuance?:
         | {
             batch_size: number;
@@ -1013,12 +1014,14 @@ export type OpenID4VCIProofs =
     | {
         jwt: readonly string[];
         key_attestation?: KeyAttestation | undefined;
+        key_attestations?: readonly (KeyAttestation | undefined)[] | undefined;
         attestation?: never;
     }
     | {
         attestation: KeyAttestation;
         jwt?: never;
         key_attestation?: never;
+        key_attestations?: never;
     };
 
 export interface OpenID4VCICredentialContext {
@@ -1183,7 +1186,7 @@ export interface AdapterPayload extends AllClientMetadata {
         | undefined;
     sessionUid?: string | undefined;
     sid?: string | undefined;
-    trusted?: string[] | undefined;
+    trusted?: boolean | string[] | undefined;
     attestationJkt?: string | undefined;
     dpopJkt?: string | undefined;
     iss?: string | undefined;
@@ -2038,6 +2041,24 @@ export interface OpenID4VCIConfigurationBase {
      */
     preAuthorizedCodeGrant?: boolean | undefined;
     /**
+     * Configures
+     * [Credential Request encryption](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html#section-12.2.4)
+     * . Requires `features.encryption.enabled`. Set to `true` to support optional encryption, `{ required: true }` to
+     * require encryption, or `false` to disable it. Algorithms are configured through
+     * `enabledJWA.credentialEncryptionAlgValues` and `enabledJWA.credentialEncryptionEncValues`. Public keys are
+     * derived from the provider's `jwks` entries with an explicit enabled `alg`.
+     */
+    credentialRequestEncryption?: boolean | OpenID4VCICredentialEncryption | undefined;
+    /**
+     * Configures
+     * [Credential Response encryption](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0-final.html#section-12.2.4)
+     * . Requires `features.encryption.enabled` and `credentialRequestEncryption`. Set to `true` to support optional
+     * encryption, `{ required: true }` to require encryption, or `false` to disable it. Algorithms are configured
+     * through `enabledJWA.credentialEncryptionAlgValues` and `enabledJWA.credentialEncryptionEncValues`. Requests
+     * asking for response encryption must themselves be encrypted.
+     */
+    credentialResponseEncryption?: boolean | OpenID4VCICredentialEncryption | undefined;
+    /**
      * Free-form object with additional top-level members to be merged into the Credential Issuer Metadata response.
      */
     metadata?: OpenID4VCIMetadata | undefined;
@@ -2085,10 +2106,12 @@ export interface OpenID4VCIConfigurationBase {
      * The returned object MUST contain a non-empty `credentials` array. The provider emits that array and the optional
      * string `notification_id`; a missing or empty credentials array is a contract error.
      *
-     * When `proofs` is present it contains a single key whose name is the proof type:
+     * When `proofs` is present, its contents depend on the proof type.
      *
-     * - `jwt` The value is the original array of compact JWS strings. When the JWT proof(s) contain a `key_attestation`
-     *   JOSE header parameter, the pre-parsed key attestation data is available as `proofs.key_attestation` with:
+     * - `jwt` The value is the original array of compact JWS strings. If any JWT carries a `key_attestation` header,
+     *   `proofs.key_attestations[i]` holds the verified attestation for `proofs.jwt[i]`, or `undefined` if that JWT
+     *   omitted the header. When exactly one distinct attestation is present, `proofs.key_attestation` also holds that
+     *   attestation. Each verified attestation contains the following fields.
      *   - `jwt` {string} The Key Attestation JWT compact serialization.
      *   - `attestedKeys` {Object[]} The `attested_keys` claim (array of JWK objects).
      *   - `payload` {Object} The full Key Attestation JWT payload, including optional claims such as `key_storage`,
@@ -2149,10 +2172,12 @@ export interface OpenID4VCIEnabledConfiguration extends OpenID4VCIConfigurationB
      * The returned object MUST contain a non-empty `credentials` array. The provider emits that array and the optional
      * string `notification_id`; a missing or empty credentials array is a contract error.
      *
-     * When `proofs` is present it contains a single key whose name is the proof type:
+     * When `proofs` is present, its contents depend on the proof type.
      *
-     * - `jwt` The value is the original array of compact JWS strings. When the JWT proof(s) contain a `key_attestation`
-     *   JOSE header parameter, the pre-parsed key attestation data is available as `proofs.key_attestation` with:
+     * - `jwt` The value is the original array of compact JWS strings. If any JWT carries a `key_attestation` header,
+     *   `proofs.key_attestations[i]` holds the verified attestation for `proofs.jwt[i]`, or `undefined` if that JWT
+     *   omitted the header. When exactly one distinct attestation is present, `proofs.key_attestation` also holds that
+     *   attestation. Each verified attestation contains the following fields.
      *   - `jwt` {string} The Key Attestation JWT compact serialization.
      *   - `attestedKeys` {Object[]} The `attested_keys` claim (array of JWK objects).
      *   - `payload` {Object} The full Key Attestation JWT payload, including optional claims such as `key_storage`,
@@ -2598,6 +2623,10 @@ export interface Configuration {
      * To prevent concurrent replay, the `ReplayDetection` adapter's `upsert` SHOULD use an atomic insert-if-absent
      * operation and reject when an unexpired entry already exists.
      *
+     * To prevent concurrent reuse, `consume` SHOULD atomically mark the entry as consumed only if it is not already
+     * consumed, and reject otherwise. Returning `false` is not sufficient because the provider awaits the operation but
+     * ignores its return value.
+     *
      * @see [The expected interface](https://github.com/panva/node-oidc-provider/blob/main/example/my_adapter.js)
      *
      * @see [Example MongoDB adapter implementation](https://github.com/panva/node-oidc-provider/discussions/1308)
@@ -2904,7 +2933,7 @@ export interface Configuration {
                 | undefined;
 
             /**
-             * [draft-ietf-oauth-client-id-metadata-document-02](https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-02.html)
+             * [draft-ietf-oauth-client-id-metadata-document-03](https://www.ietf.org/archive/id/draft-ietf-oauth-client-id-metadata-document-03.html)
              * - OAuth Client ID Metadata Document (CIMD)
              *
              * This is an experimental feature.
@@ -2913,6 +2942,16 @@ export interface Configuration {
              * URLs used as `client_id` values. When enabled, if a `client_id` is an HTTPS URL conforming to the
              * specification's requirements, the authorization server shall fetch the Client ID Metadata Document from
              * that URL and use it as the client's registration data, without requiring prior client registration.
+             *
+             * The `token_endpoint_auth_methods_supported` client metadata property is processed even when
+             * `features.rpMetadataChoices` is disabled. When `private_key_jwt` is advertised and supported by the
+             * server, it is selected regardless of the client's array order or singular authentication method
+             * preference. When neither authentication property is provided, the client's authentication method is
+             * `none`.
+             *
+             * When displaying a client's `logo_uri`, applications must prefetch and validate the image and serve it
+             * from a trusted server. Applications should display the hostname of the Client Identifier URL to help
+             * users identify the client and apply their own trust policies to client-provided metadata.
              */
             clientIdMetadataDocument?:
                 | {
@@ -2922,7 +2961,8 @@ export interface Configuration {
                      * Specifies a helper function that shall be invoked before fetching a Client ID Metadata Document
                      * from a Client Identifier URL. This function enables enforcement of domain allowlisting, rate
                      * limiting, or other security policies. Return `true` to allow the fetch, or `false` to reject the
-                     * `client_id`.
+                     * `client_id`. Reject identifiers of trusted authorization servers and resource servers to avoid
+                     * identity confusion. The provider's own issuer identifier is rejected automatically.
                      */
                     allowFetch?:
                         | ((
@@ -3828,7 +3868,7 @@ export interface Configuration {
      * Specifies the JSON Web Key Set that shall be used by the authorization server for cryptographic signing and
      * decryption operations. The key set MUST be provided in
      * [JWK Set format](https://www.rfc-editor.org/info/rfc7517/#section-5) as defined in RFC 7517. All keys within the
-     * set MUST be private keys.
+     * set MUST be private keys. The `key_ops` member is not supported and must be omitted.
      *
      * Supported key types include:
      *
@@ -4102,9 +4142,12 @@ export interface Configuration {
      *   based on request context and authorization server policy
      *
      * The default configuration value implements a sensible refresh token rotation policy that:
-     * - only allows refresh tokens to be rotated (have their TTL prolonged by issuing a new one) for one year
-     * - otherwise always rotates public client tokens that are not sender-constrained
+     * - always rotates public client tokens that are not sender-constrained
+     * - otherwise stops rotating once the original token chain is one year old
      * - otherwise only rotates tokens if they're being used close to their expiration (>= 70% TTL passed)
+     *
+     * The default `ttl.RefreshToken` preserves the previous token's expiration for public web clients and, after one
+     * year, for every rotated token.
      *
      * The RefreshToken and Client are available as `ctx.oidc.entities.RefreshToken` and `ctx.oidc.entities.Client`.
      * `true` consumes the presented token and issues a rotated refresh token; `false` continues without rotation. A
@@ -4140,15 +4183,19 @@ export interface Configuration {
      *
      * When disabled, all authorization requests MUST explicitly include the `redirect_uri` parameter regardless of the
      * number of registered redirect URIs.
+     *
+     * At the token endpoint, `redirect_uri` may be omitted after successful S256 PKCE verification, regardless of this
+     * setting. For codes issued without PKCE, this setting controls whether the sole registered redirect URI is
+     * inferred. Any supplied URI must match the one used in the authorization request.
      */
     allowOmittingSingleRegisteredRedirectUri?: boolean | undefined;
 
     /**
      * Query Parameter Access Tokens
      *
-     * Controls whether access tokens may be transmitted via URI query parameters. Several OAuth 2.0 and OpenID Connect
-     * profiles require that access tokens be transmitted exclusively via the Authorization header. When set to false,
-     * the authorization server shall reject requests attempting to transmit access tokens via query parameters.
+     * Controls whether access tokens may be transmitted via URI query parameters. When set to false, access tokens in
+     * URI query parameters are ignored. Clients must supply a token using the Authorization header or form-encoded
+     * request body instead.
      */
     acceptQueryParamAccessTokens?: boolean | undefined;
 
@@ -4241,6 +4288,16 @@ export interface Configuration {
              */
             attestSigningAlgValues?: readonly AsymmetricSigningAlgorithm[] | undefined;
             /**
+             * JWE "alg" Algorithm values the authorization server supports for OpenID4VCI Credential Request and
+             * Credential Response encryption
+             */
+            credentialEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
+            /**
+             * JWE "enc" Content Encryption Algorithm values the authorization server supports for OpenID4VCI Credential
+             * Request and Credential Response encryption
+             */
+            credentialEncryptionEncValues?: readonly EncryptionEncValues[] | undefined;
+            /**
              * JWE "alg" Algorithm values the authorization server supports for ID Token encryption
              */
             idTokenEncryptionAlgValues?: readonly EncryptionAlgValues[] | undefined;
@@ -4306,7 +4363,6 @@ export class ExternalSigningKey {
     get alg(): string | undefined;
     get crv(): string | undefined;
     get e(): string | undefined;
-    get key_ops(): string[] | undefined;
     get kid(): string | undefined;
     get kty(): string;
     get n(): string | undefined;
@@ -4338,7 +4394,6 @@ interface ProviderAdditionalEventMap {
     "pre_authorized_code.destroyed": (code: PreAuthorizedCode) => void;
     "pre_authorized_code.saved": (code: PreAuthorizedCode) => void;
 }
-// END GENERATED OIDC-PROVIDER CONTRACTS
 /* eslint-enable @typescript-eslint/no-invalid-void-type */
 
 export interface HttpOptions {
@@ -4423,7 +4478,6 @@ export default class Provider extends Koa {
 
     static get ctx(): KoaContextWithOIDC | undefined;
 
-    // BEGIN GENERATED OIDC-PROVIDER MEMBERS
     urlFor(name: string, options?: UnknownObject): string;
     pathFor(name: string, options?: UnknownObject & { mountPath?: string | undefined }): string;
     cookieName(type: string): string;
@@ -5156,7 +5210,6 @@ export default class Provider extends Koa {
         listener: ProviderAdditionalEventMap[Event],
     ): this;
     // tslint:enable:unified-signatures
-    // END GENERATED OIDC-PROVIDER MEMBERS
 
     readonly Grant: typeof Grant;
     readonly Client: typeof Client;
@@ -5182,7 +5235,6 @@ export default class Provider extends Koa {
     readonly Interaction: typeof Interaction;
 }
 
-// BEGIN GENERATED OIDC-PROVIDER RELATED CONTRACTS
 declare class Checks extends Array<interactionPolicy.Check> {
     get(reason: string): interactionPolicy.Check | undefined;
     remove(reason: string): void;
@@ -5267,6 +5319,9 @@ export namespace errors {
         constructor(description?: string, options?: string | OIDCProviderErrorOptions);
     }
     class InvalidCredentialRequest extends OIDCProviderError {
+        constructor(description?: string, options?: string | OIDCProviderErrorOptions);
+    }
+    class InvalidEncryptionParameters extends OIDCProviderError {
         constructor(description?: string, options?: string | OIDCProviderErrorOptions);
     }
     class InvalidNonce extends OIDCProviderError {
@@ -5410,6 +5465,5 @@ export namespace errors {
         constructor(description?: string, options?: string | OIDCProviderErrorOptions);
     }
 }
-// END GENERATED OIDC-PROVIDER RELATED CONTRACTS
 
 export { Provider };
