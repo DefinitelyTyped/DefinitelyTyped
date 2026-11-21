@@ -2961,6 +2961,10 @@
             "libraryName": "gl-matrix",
             "asOfVersion": "3.2.0"
         },
+        "gl-react-native": {
+            "libraryName": "gl-react-native",
+            "asOfVersion": "6.0.0"
+        },
         "glob": {
             "libraryName": "glob",
             "asOfVersion": "9.0.0"
