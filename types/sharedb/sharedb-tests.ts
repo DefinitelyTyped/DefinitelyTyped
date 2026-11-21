@@ -123,8 +123,8 @@ backend.projections["notes_minimal"].fields = {};
 backend.projections["notes_minimal"].fields["title"] = true;
 
 // Exercise middleware (backend.use)
-type SubmitRelatedActions = "afterWrite" | "apply" | "commit" | "submit";
-const submitRelatedActions: SubmitRelatedActions[] = ["afterWrite", "apply", "commit", "submit"];
+type SubmitRelatedActions = "afterWrite" | "apply" | "commit" | "retry" | "submit";
+const submitRelatedActions: SubmitRelatedActions[] = ["afterWrite", "apply", "commit", "retry", "submit"];
 for (const action of submitRelatedActions) {
     backend.use(action, (request, callback) => {
         const agent = request.agent as Agent<{
@@ -268,6 +268,13 @@ backend.use("apply", (context, callback) => {
 });
 
 backend.use("commit", (context, callback) => {
+    // @ts-expect-error :: don't allow $fixup outside of 'apply'
+    context.$fixup([{ insert: "foo" }]);
+    callback();
+});
+
+backend.use("retry", (context, callback) => {
+    console.log(context.retries, context.maxRetries);
     // @ts-expect-error :: don't allow $fixup outside of 'apply'
     context.$fixup([{ insert: "foo" }]);
     callback();
