@@ -2965,6 +2965,10 @@
             "libraryName": "glob",
             "asOfVersion": "9.0.0"
         },
+        "global-agent": {
+            "libraryName": "global-agent",
+            "asOfVersion": "4.1.6"
+        },
         "global-dirs": {
             "libraryName": "global-dirs",
             "asOfVersion": "1.0.0"
