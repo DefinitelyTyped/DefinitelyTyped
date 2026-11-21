@@ -248,6 +248,10 @@
             "libraryName": "argon2",
             "asOfVersion": "0.15.0"
         },
+        "argparse": {
+            "libraryName": "argparse",
+            "asOfVersion": "3.0.0"
+        },
         "array-equal": {
             "libraryName": "array-equal",
             "asOfVersion": "2.0.0"
