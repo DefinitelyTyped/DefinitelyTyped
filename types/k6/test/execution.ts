@@ -35,10 +35,15 @@ execution.vu.metrics.metadata["mytag3"] = true;
 // @ts-expect-error
 execution.vu.metrics.metadata["mytag4"] = [1, 2, 3];
 
-execution.test.abort(); // $ExpectType void
-execution.test.abort("this is the reason"); // $ExpectType void
+execution.test.abort(); // $ExpectType never
+execution.test.abort("this is the reason"); // $ExpectType never
 // @ts-expect-error
 execution.test.abort(2);
+
+function abortNarrowing(value: string | undefined): string {
+    if (!value) execution.test.abort("missing value");
+    return value;
+}
 
 execution.test.fail(); // $ExpectType void
 execution.test.fail("this is the reason"); // $ExpectType void
