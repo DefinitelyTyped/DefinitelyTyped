@@ -59,6 +59,12 @@ export interface Options {
     /** Log all HTTP requests and responses. */
     httpDebug?: string;
 
+    /**
+     * Mask credential headers in HTTP debug output and gRPC metadata.
+     * Disabled by default. Does not redact bodies or URL query parameters.
+     */
+    httpDebugRedact?: boolean;
+
     /** Disable TLS verification. Insecure. */
     insecureSkipTLSVerify?: boolean;
 
