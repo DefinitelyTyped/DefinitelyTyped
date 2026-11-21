@@ -435,9 +435,20 @@ declare namespace OSS {
         timeout?: number | undefined;
     }
 
+    interface DeleteMultiResultObject {
+        /** object name */
+        Key: string;
+        /** object version id */
+        VersionId?: string | undefined;
+        /** whether a delete marker was created or deleted, e.g. "true" */
+        DeleteMarker?: string | undefined;
+        /** delete marker version id */
+        DeleteMarkerVersionId?: string | undefined;
+    }
+
     interface DeleteMultiResult {
-        /** deleted objects list */
-        deleted?: Array<{ Key: string }> | undefined;
+        /** deleted object or delete marker info list */
+        deleted?: DeleteMultiResultObject[] | undefined;
         res: NormalSuccessResponse;
     }
 
