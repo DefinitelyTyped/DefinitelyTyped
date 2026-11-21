@@ -27,7 +27,7 @@ hash.pointer; // $ExpectType number
 hash.pos; // $ExpectType number
 hash.wasm; // $ExpectType false | Wasm
 if (hash.wasm) {
-    hash.wasm.memory; // $ExpectType Memory
+    hash.wasm.memory; // $ExpectType Memory || Memory<ArrayBuffer> || Memory<ArrayBufferLike>
     hash.wasm.sha512(1, 1, 1, 1); // $ExpectType void
 }
 
