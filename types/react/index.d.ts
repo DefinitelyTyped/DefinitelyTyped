@@ -11,7 +11,6 @@ type NativeClipboardEvent = ClipboardEvent;
 type NativeCompositionEvent = CompositionEvent;
 type NativeDragEvent = DragEvent;
 type NativeFocusEvent = FocusEvent;
-type NativeInputEvent = InputEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 type NativeMouseEvent = MouseEvent;
 type NativeTouchEvent = TouchEvent;
@@ -2193,7 +2192,8 @@ declare namespace React {
         target: EventTarget & CurrentTarget;
     }
 
-    interface InputEvent<T = Element> extends SyntheticEvent<T, NativeInputEvent> {
+    // React polyfills beforeinput with other native events, including KeyboardEvent.
+    interface InputEvent<T = Element> extends SyntheticEvent<T> {
         data: string;
     }
 
@@ -2392,8 +2392,8 @@ declare namespace React {
         onChangeCapture?: ChangeEventHandler<T> | undefined;
         onBeforeInput?: InputEventHandler<T> | undefined;
         onBeforeInputCapture?: InputEventHandler<T> | undefined;
-        onInput?: InputEventHandler<T> | undefined;
-        onInputCapture?: InputEventHandler<T> | undefined;
+        onInput?: ReactEventHandler<T> | undefined;
+        onInputCapture?: ReactEventHandler<T> | undefined;
         onReset?: ReactEventHandler<T> | undefined;
         onResetCapture?: ReactEventHandler<T> | undefined;
         onSubmit?: SubmitEventHandler<T> | undefined;
@@ -2555,7 +2555,9 @@ declare namespace React {
 
         // Toggle Events
         onToggle?: ToggleEventHandler<T> | undefined;
+        onToggleCapture?: ToggleEventHandler<T> | undefined;
         onBeforeToggle?: ToggleEventHandler<T> | undefined;
+        onBeforeToggleCapture?: ToggleEventHandler<T> | undefined;
 
         // Transition Events
         onTransitionCancel?: TransitionEventHandler<T> | undefined;
@@ -3193,7 +3195,9 @@ declare namespace React {
     interface DialogHTMLAttributes<T> extends HTMLAttributes<T> {
         closedby?: "any" | "closerequest" | "none" | undefined;
         onCancel?: ReactEventHandler<T> | undefined;
+        onCancelCapture?: ReactEventHandler<T> | undefined;
         onClose?: ReactEventHandler<T> | undefined;
+        onCloseCapture?: ReactEventHandler<T> | undefined;
         open?: boolean | undefined;
     }
 
