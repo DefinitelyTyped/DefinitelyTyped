@@ -3289,6 +3289,10 @@
             "libraryName": "highcharts",
             "asOfVersion": "7.0.0"
         },
+        "highlight-words-core": {
+            "libraryName": "highlight-words-core",
+            "asOfVersion": "2.0.0"
+        },
         "highlight.js": {
             "libraryName": "highlight.js",
             "asOfVersion": "10.1.0"
