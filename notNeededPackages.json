@@ -3085,6 +3085,10 @@
             "libraryName": "gulp-tslint",
             "asOfVersion": "4.2.0"
         },
+        "gulp-ttf2woff2": {
+            "libraryName": "gulp-ttf2woff2",
+            "asOfVersion": "5.0.0"
+        },
         "gulp-typedoc": {
             "libraryName": "gulp-typedoc",
             "asOfVersion": "2.2.0"
