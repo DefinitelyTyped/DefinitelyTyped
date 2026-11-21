@@ -1925,6 +1925,10 @@
             "libraryName": "dotenv-load",
             "asOfVersion": "3.0.0"
         },
+        "dotenv-webpack": {
+            "libraryName": "dotenv-webpack",
+            "asOfVersion": "9.0.0"
+        },
         "double-metaphone": {
             "libraryName": "double-metaphone",
             "asOfVersion": "2.0.0"
