@@ -13,7 +13,7 @@ declare namespace GoogleAppsScript {
             MIN,
             SUM,
             AUTO,
-            NO_AGGREGATION,
+            /** @deprecated DO NOT USE */ NO_AGGREGATION,
         }
         /**
          * An enum that defines the authentication types that can be set for a connector.
@@ -22,6 +22,8 @@ declare namespace GoogleAppsScript {
             NONE,
             OAUTH2,
             USER_PASS,
+            PATH_USER_PASS,
+            PATH_KEY,
             KEY,
             USER_TOKEN,
         }
@@ -197,6 +199,7 @@ declare namespace GoogleAppsScript {
             YEAR_WEEK,
             YEAR_MONTH_DAY,
             YEAR_MONTH_DAY_HOUR,
+            YEAR_MONTH_DAY_MINUTE,
             YEAR_MONTH_DAY_SECOND,
             QUARTER,
             MONTH,
@@ -267,6 +270,7 @@ declare namespace GoogleAppsScript {
             CURRENCY_MVR,
             CURRENCY_MXN,
             CURRENCY_MYR,
+            CURRENCY_NGN,
             CURRENCY_NOK,
             CURRENCY_NZD,
             CURRENCY_PAB,

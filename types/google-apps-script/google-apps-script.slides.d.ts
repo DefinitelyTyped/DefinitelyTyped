@@ -93,6 +93,29 @@ declare namespace GoogleAppsScript {
             SLIDE_NUMBER,
         }
         /**
+         * Describes the autofit settings of a shape. If a change is made that might affect text fitting
+         * within its bounding text box:
+         *
+         * - Autofit is deactivated and set to AutofitType.NONE.
+         * - The font scale is reset to the default value and applied to the font size.
+         * - The line spacing reduction is reset to the default value and applied to the line spacing.
+         */
+        interface Autofit {
+            disableAutofit(): Autofit;
+            getAutofitType(): AutofitType;
+            getFontScale(): number;
+            getLineSpacingReduction(): number;
+        }
+        /**
+         * The autofit types.
+         */
+        enum AutofitType {
+            UNSUPPORTED,
+            NONE,
+            TEXT_AUTOFIT,
+            SHAPE_AUTOFIT,
+        }
+        /**
          * Describes the border around an element.
          */
         interface Border {
@@ -258,6 +281,9 @@ declare namespace GoogleAppsScript {
             getPageElementType(): PageElementType;
             getParentGroup(): Group;
             getParentPage(): Page;
+            getParentPlaceholder(): PageElement | null;
+            getPlaceholderIndex(): Integer | null;
+            getPlaceholderType(): PlaceholderType;
             getRotation(): number;
             getSourceUrl(): string;
             getTitle(): string;
@@ -868,6 +894,7 @@ declare namespace GoogleAppsScript {
             asLine(): Line;
             asShape(): Shape;
             asSheetsChart(): SheetsChart;
+            asSpeakerSpotlight(): SpeakerSpotlight;
             asTable(): Table;
             asVideo(): Video;
             asWordArt(): WordArt;
@@ -925,6 +952,7 @@ declare namespace GoogleAppsScript {
             LINE,
             WORD_ART,
             SHEETS_CHART,
+            SPEAKER_SPOTLIGHT,
         }
         /**
          * A collection of one or more Page instances.
@@ -1135,6 +1163,7 @@ declare namespace GoogleAppsScript {
             bringForward(): Shape;
             bringToFront(): Shape;
             duplicate(): PageElement;
+            getAutofit(): Autofit | null;
             getBorder(): Border;
             getConnectionSites(): ConnectionSite[];
             getContentAlignment(): ContentAlignment;
@@ -1525,6 +1554,7 @@ declare namespace GoogleAppsScript {
             AlignmentPosition: typeof AlignmentPosition;
             ArrowStyle: typeof ArrowStyle;
             AutoTextType: typeof AutoTextType;
+            AutofitType: typeof AutofitType;
             CellMergeState: typeof CellMergeState;
             ColorType: typeof Base.ColorType;
             ContentAlignment: typeof ContentAlignment;
@@ -1575,6 +1605,55 @@ declare namespace GoogleAppsScript {
             UNSUPPORTED,
             NEVER_COLLAPSE,
             COLLAPSE_LISTS,
+        }
+        /**
+         * A PageElement representing a speaker spotlight.
+         *
+         *     const slide = SlidesApp.getActivePresentation().getSlides()[0];
+         *     const speakerSpotlight = slide.getPageElements()[0];
+         *     console.log(
+         *         `Page element is of type: ${
+         *             speakerSpotlight.getPageElementType().toString()}`,
+         *     );
+         */
+        interface SpeakerSpotlight {
+            alignOnPage(alignmentPosition: AlignmentPosition): SpeakerSpotlight;
+            bringForward(): SpeakerSpotlight;
+            bringToFront(): SpeakerSpotlight;
+            duplicate(): PageElement;
+            getBorder(): Border;
+            getConnectionSites(): ConnectionSite[];
+            getDescription(): string;
+            getHeight(): number | null;
+            getInherentHeight(): number | null;
+            getInherentWidth(): number | null;
+            getLeft(): number;
+            getMaskShapeType(): ShapeType | null;
+            getObjectId(): string;
+            getPageElementType(): PageElementType;
+            getParentGroup(): Group | null;
+            getParentPage(): Page;
+            getRotation(): number;
+            getTitle(): string;
+            getTop(): number;
+            getTransform(): AffineTransform;
+            getWidth(): number | null;
+            preconcatenateTransform(transform: AffineTransform): SpeakerSpotlight;
+            remove(): void;
+            scaleHeight(ratio: number): SpeakerSpotlight;
+            scaleWidth(ratio: number): SpeakerSpotlight;
+            select(): void;
+            select(replace: boolean): void;
+            sendBackward(): SpeakerSpotlight;
+            sendToBack(): SpeakerSpotlight;
+            setDescription(description: string): SpeakerSpotlight;
+            setHeight(height: number): SpeakerSpotlight;
+            setLeft(left: number): SpeakerSpotlight;
+            setRotation(angle: number): SpeakerSpotlight;
+            setTitle(title: string): SpeakerSpotlight;
+            setTop(top: number): SpeakerSpotlight;
+            setTransform(transform: AffineTransform): SpeakerSpotlight;
+            setWidth(width: number): SpeakerSpotlight;
         }
         /**
          * A PageElement representing a table.
