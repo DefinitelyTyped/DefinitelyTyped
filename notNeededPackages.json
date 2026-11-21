@@ -2921,6 +2921,10 @@
             "libraryName": "getopts",
             "asOfVersion": "2.1.0"
         },
+        "ghost-storage-base": {
+            "libraryName": "ghost-storage-base",
+            "asOfVersion": "3.0.2"
+        },
         "git-parse": {
             "libraryName": "git-parse",
             "asOfVersion": "2.1.1"
