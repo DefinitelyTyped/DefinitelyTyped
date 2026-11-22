@@ -978,10 +978,258 @@ function testPeopleApi() {
     if (!People) return;
     // $ExpectType People
     const people = People;
+
+    // $ExpectType Address
+    const address = people.newAddress();
+    // $ExpectType BatchCreateContactsRequest
+    const batchCreateRequest = people.newBatchCreateContactsRequest();
+    // $ExpectType BatchDeleteContactsRequest
+    const batchDeleteRequest = people.newBatchDeleteContactsRequest();
+    // $ExpectType BatchUpdateContactsRequest
+    const batchUpdateRequest = people.newBatchUpdateContactsRequest();
+    // $ExpectType ContactGroup
+    const contactGroup = people.newContactGroup();
+    // $ExpectType CreateContactGroupRequest
+    const createContactGroupRequest = people.newCreateContactGroupRequest();
+    // $ExpectType ModifyContactGroupMembersRequest
+    const modifyMembersRequest = people.newModifyContactGroupMembersRequest();
+    // $ExpectType Person
+    const person = people.newPerson();
+    // $ExpectType UpdateContactGroupRequest
+    const updateContactGroupRequest = people.newUpdateContactGroupRequest();
+    // $ExpectType UpdateContactPhotoRequest
+    const updatePhotoRequest = people.newUpdateContactPhotoRequest();
+
+    const fieldMetadata: GoogleAppsScript.People.Schema.FieldMetadata = {
+        primary: true,
+        source: { etag: "etag", id: "source-id", type: "CONTACT", updateTime: "2024-01-01T00:00:00Z" },
+        verified: true,
+    };
+    const personFixture: GoogleAppsScript.People.Schema.Person = {
+        addresses: [{
+            city: "Hong Kong",
+            country: "Hong Kong",
+            countryCode: "HK",
+            formattedValue: "Hong Kong",
+            metadata: fieldMetadata,
+            postalCode: "00000",
+            region: "HK",
+            streetAddress: "1 Example Street",
+            type: "home",
+        }],
+        ageRanges: [{ ageRange: "18-30", metadata: fieldMetadata }],
+        biographies: [{ contentType: "text/plain", metadata: fieldMetadata, value: "Developer" }],
+        birthdays: [{ date: { day: 1, month: 1, year: 1990 }, metadata: fieldMetadata, text: "January 1" }],
+        emailAddresses: [{
+            displayName: "Example User",
+            metadata: fieldMetadata,
+            type: "work",
+            value: "user@example.com",
+        }],
+        etag: "person-etag",
+        names: [{
+            displayName: "Example User",
+            familyName: "User",
+            givenName: "Example",
+            metadata: fieldMetadata,
+            middleName: "Test",
+        }],
+        phoneNumbers: [{
+            canonicalForm: "+85200000000",
+            formattedType: "Mobile",
+            metadata: fieldMetadata,
+            type: "mobile",
+            value: "+852 0000 0000",
+        }],
+        photos: [{ default: false, metadata: fieldMetadata, url: "https://example.com/photo.jpg" }],
+        resourceName: "people/123",
+        skills: [{ metadata: fieldMetadata, value: "TypeScript" }],
+    };
+    const contactGroupFixture: GoogleAppsScript.People.Schema.ContactGroup = {
+        etag: "group-etag",
+        formattedName: "Friends",
+        groupType: "USER_CONTACT_GROUP",
+        memberCount: 1,
+        memberResourceNames: ["people/123"],
+        metadata: { deleted: false, updateTime: "2024-01-01T00:00:00Z" },
+        name: "Friends",
+        resourceName: "contactGroups/friends",
+    };
+
+    // $ExpectType ContactGroupsCollection
+    const contactGroups = people.ContactGroups;
+    // $ExpectType MembersCollection
+    const contactGroupMembers = contactGroups.Members;
+    // $ExpectType ModifyContactGroupMembersResponse
+    const modifyMembers = contactGroupMembers.modify({
+        resourceNamesToAdd: ["people/123"],
+        resourceNamesToRemove: ["people/456"],
+    }, "contactGroups/friends");
+    // $ExpectType BatchGetContactGroupsResponse
+    const batchGetContactGroups = contactGroups.batchGet();
+    // $ExpectType BatchGetContactGroupsResponse
+    const batchGetContactGroupsWithArgs = contactGroups.batchGet({
+        resourceNames: ["contactGroups/friends"],
+        maxMembers: 100,
+    });
+    // $ExpectType ContactGroup
+    const createContactGroup = contactGroups.create({ contactGroup: contactGroupFixture });
+    // $ExpectType ContactGroup
+    const getContactGroup = contactGroups.get("contactGroups/friends");
+    // $ExpectType ContactGroup
+    const getContactGroupWithArgs = contactGroups.get("contactGroups/friends", { maxMembers: 100 });
+    // $ExpectType ListContactGroupsResponse
+    const listContactGroups = contactGroups.list();
+    // $ExpectType ListContactGroupsResponse
+    const listContactGroupsWithArgs = contactGroups.list({
+        pageSize: 100,
+        pageToken: "page-token",
+        syncToken: "sync-token",
+    });
+    // $ExpectType void
+    const removeContactGroup = contactGroups.remove("contactGroups/friends");
+    // $ExpectType void
+    const removeContactGroupWithArgs = contactGroups.remove("contactGroups/friends", { deleteContacts: false });
+    // $ExpectType ContactGroup
+    const updateContactGroup = contactGroups.update({
+        contactGroup: contactGroupFixture,
+    }, "contactGroups/friends");
+
+    // $ExpectType OtherContactsCollection
+    const otherContacts = people.OtherContacts;
+    // $ExpectType Person
+    const copyOtherContact = otherContacts.copyOtherContactToMyContactsGroup({
+        copyMask: "names,emailAddresses",
+        readMask: "names,emailAddresses",
+        sources: ["CONTACT"],
+    }, "otherContacts/123");
+    // $ExpectType ListOtherContactsResponse
+    const listOtherContacts = otherContacts.list();
+    // $ExpectType ListOtherContactsResponse
+    const listOtherContactsWithArgs = otherContacts.list({
+        pageSize: 100,
+        pageToken: "page-token",
+        readMask: "names,emailAddresses",
+        sources: ["CONTACT"],
+    });
+    // $ExpectType SearchDirectoryPeopleResponse
+    const searchOtherContacts = otherContacts.search();
+    // $ExpectType SearchDirectoryPeopleResponse
+    const searchOtherContactsWithArgs = otherContacts.search({
+        pageSize: 100,
+        pageToken: "page-token",
+        query: "Example",
+        readMask: "names,emailAddresses",
+    });
+
     // $ExpectType PeopleCollection
     const peopleCollection = people.People;
+    // $ExpectType ConnectionsCollection
+    const connections = peopleCollection.Connections;
     // $ExpectType ListConnectionsResponse
-    const list = peopleCollection.Connections.list("people/me");
+    const listConnections = connections.list("people/me");
+    // $ExpectType ListConnectionsResponse
+    const listConnectionsWithArgs = connections.list("people/me", {
+        pageSize: 100,
+        pageToken: "page-token",
+        personFields: "names,emailAddresses",
+        requestMask: "personNames,emailAddresses",
+        sortOrder: "FIRST_NAME_ASCENDING",
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
+        syncToken: "sync-token",
+    });
+
+    // $ExpectType BatchCreateContactsResponse
+    const batchCreateContacts = peopleCollection.batchCreateContacts({
+        contacts: [{ contactPerson: personFixture }],
+        readMask: "names,emailAddresses",
+        sources: ["CONTACT"],
+    });
+    // $ExpectType Empty
+    const batchDeleteContacts = peopleCollection.batchDeleteContacts({
+        resourceNames: ["people/123", "people/456"],
+    });
+    // $ExpectType BatchUpdateContactsResponse
+    const batchUpdateContacts = peopleCollection.batchUpdateContacts({
+        contacts: { "people/123": personFixture },
+        readMask: "names,emailAddresses",
+        sources: ["CONTACT"],
+        updateMask: "names,emailAddresses",
+    });
+    // $ExpectType Person
+    const createContact = peopleCollection.createContact(personFixture);
+    // $ExpectType Person
+    const createContactWithArgs = peopleCollection.createContact(personFixture, {
+        personFields: "names,emailAddresses",
+        sources: ["CONTACT"],
+    });
+    // $ExpectType void
+    const deleteContact = peopleCollection.deleteContact("people/123");
+    // $ExpectType DeleteContactPhotoResponse
+    const deleteContactPhoto = peopleCollection.deleteContactPhoto("people/123");
+    // $ExpectType DeleteContactPhotoResponse
+    const deleteContactPhotoWithArgs = peopleCollection.deleteContactPhoto("people/123", {
+        personFields: "names,emailAddresses",
+        sources: ["CONTACT"],
+    });
+    // $ExpectType Person
+    const getPerson = peopleCollection.get("people/123");
+    // $ExpectType Person
+    const getPersonWithArgs = peopleCollection.get("people/123", {
+        personFields: "names,emailAddresses",
+        requestMask: "personNames,emailAddresses",
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
+    });
+    // $ExpectType GetPeopleResponse
+    const getBatchPeople = peopleCollection.getBatchGet();
+    // $ExpectType GetPeopleResponse
+    const getBatchPeopleWithArgs = peopleCollection.getBatchGet({
+        resourceNames: ["people/123", "people/456"],
+        personFields: "names,emailAddresses",
+        sources: ["READ_SOURCE_TYPE_CONTACT"],
+    });
+    // $ExpectType ListDirectoryPeopleResponse
+    const listDirectoryPeople = peopleCollection.listDirectoryPeople();
+    // $ExpectType ListDirectoryPeopleResponse
+    const listDirectoryPeopleWithArgs = peopleCollection.listDirectoryPeople({
+        pageSize: 100,
+        pageToken: "page-token",
+        readMask: "names,emailAddresses",
+        sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
+    });
+    // $ExpectType SearchResponse
+    const searchContacts = peopleCollection.searchContacts();
+    // $ExpectType SearchResponse
+    const searchContactsWithArgs = peopleCollection.searchContacts({
+        pageSize: 100,
+        query: "Example",
+        readMask: "names,emailAddresses",
+    });
+    // $ExpectType SearchDirectoryPeopleResponse
+    const searchDirectoryPeople = peopleCollection.searchDirectoryPeople();
+    // $ExpectType SearchDirectoryPeopleResponse
+    const searchDirectoryPeopleWithArgs = peopleCollection.searchDirectoryPeople({
+        mergeSources: ["DIRECTORY_MERGE_SOURCE_TYPE_CONTACT"],
+        pageSize: 100,
+        pageToken: "page-token",
+        query: "Example",
+        readMask: "names,emailAddresses",
+        sources: ["DIRECTORY_SOURCE_TYPE_DOMAIN_PROFILE"],
+    });
+    // $ExpectType Person
+    const updateContact = peopleCollection.updateContact(personFixture, "people/123");
+    // $ExpectType Person
+    const updateContactWithArgs = peopleCollection.updateContact(personFixture, "people/123", {
+        personFields: "names,emailAddresses",
+        sources: ["CONTACT"],
+        updatePersonFields: "names,emailAddresses",
+    });
+    // $ExpectType UpdateContactPhotoResponse
+    const updateContactPhoto = peopleCollection.updateContactPhoto({
+        personFields: "names,emailAddresses",
+        photoBytes: "base64-photo",
+        sources: ["CONTACT"],
+    }, "people/123");
 }
 
 function testAdminReports() {
