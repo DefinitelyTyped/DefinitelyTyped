@@ -104,6 +104,7 @@ declare namespace GoogleAppsScript {
                 insert(
                     $resource: BigQuery.Schema.Job,
                     projectId: string,
+                    $mediaUpload?: Blob,
                 ): BigQuery.Schema.Job;
                 list(
                     projectId: string,

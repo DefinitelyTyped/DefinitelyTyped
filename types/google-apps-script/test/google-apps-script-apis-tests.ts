@@ -719,120 +719,79 @@ function testBigQuery() {
         totalItems: 1,
     };
 
-    console.log(
-        dataset,
-        datasetList,
-        getQueryResults,
-        serviceAccount,
-        jobCancel,
-        jobList,
-        projectList,
-        response,
-        tableDataList,
-        insertAllResponse,
-        tableList,
-        table,
-    );
-
-    const factories = [
-        bigquery.newBigQueryModelTraining(),
-        bigquery.newBigtableColumn(),
-        bigquery.newBigtableColumnFamily(),
-        bigquery.newBigtableOptions(),
-        bigquery.newBqmlIterationResult(),
-        bigquery.newBqmlTrainingRun(),
-        bigquery.newBqmlTrainingRunTrainingOptions(),
-        bigquery.newClustering(),
-        bigquery.newCsvOptions(),
-        bigquery.newDataset(),
-        bigquery.newDatasetAccess(),
-        bigquery.newDatasetReference(),
-        bigquery.newDestinationTableProperties(),
-        bigquery.newEncryptionConfiguration(),
-        bigquery.newErrorProto(),
-        bigquery.newExplainQueryStage(),
-        bigquery.newExplainQueryStep(),
-        bigquery.newExternalDataConfiguration(),
-        bigquery.newGoogleSheetsOptions(),
-        bigquery.newJob(),
-        bigquery.newJobConfiguration(),
-        bigquery.newJobConfigurationExtract(),
-        bigquery.newJobConfigurationLoad(),
-        bigquery.newJobConfigurationQuery(),
-        bigquery.newJobConfigurationTableCopy(),
-        bigquery.newJobReference(),
-        bigquery.newJobStatistics(),
-        bigquery.newJobStatistics2(),
-        bigquery.newJobStatistics2ReservationUsage(),
-        bigquery.newJobStatistics3(),
-        bigquery.newJobStatistics4(),
-        bigquery.newJobStatisticsReservationUsage(),
-        bigquery.newJobStatus(),
-        bigquery.newMaterializedViewDefinition(),
-        bigquery.newModelDefinition(),
-        bigquery.newModelDefinitionModelOptions(),
-        bigquery.newQueryParameter(),
-        bigquery.newQueryParameterType(),
-        bigquery.newQueryParameterTypeStructTypes(),
-        bigquery.newQueryParameterValue(),
-        bigquery.newQueryRequest(),
-        bigquery.newQueryTimelineSample(),
-        bigquery.newRangePartitioning(),
-        bigquery.newRangePartitioningRange(),
-        bigquery.newRoutineReference(),
-        bigquery.newStreamingbuffer(),
-        bigquery.newTable(),
-        bigquery.newTableDataInsertAllRequest(),
-        bigquery.newTableDataInsertAllRequestRows(),
-        bigquery.newTableFieldSchema(),
-        bigquery.newTableFieldSchemaCategories(),
-        bigquery.newTableReference(),
-        bigquery.newTableSchema(),
-        bigquery.newTimePartitioning(),
-        bigquery.newUserDefinedFunctionResource(),
-        bigquery.newViewDefinition(),
-    ];
-    console.log(factories);
+    const mediaUpload = new Blob();
 
     const datasets = bigquery.Datasets;
+    // $ExpectType Dataset
     datasets.get("project-id", "dataset-id");
+    // $ExpectType Dataset
     datasets.get("project-id", "dataset-id", {});
+    // $ExpectType Dataset
     datasets.get("project-id", "dataset-id", { accessPolicyVersion: 3, datasetView: "FULL" });
+    // $ExpectType Dataset
     datasets.insert(dataset, "project-id");
+    // $ExpectType Dataset
     datasets.insert(dataset, "project-id", {});
+    // $ExpectType Dataset
     datasets.insert(dataset, "project-id", { accessPolicyVersion: 3 });
+    // $ExpectType DatasetList
     datasets.list("project-id");
+    // $ExpectType DatasetList
     datasets.list("project-id", {});
+    // $ExpectType DatasetList
     datasets.list("project-id", { all: true, filter: "labels.env:test", maxResults: 10, pageToken: "token" });
+    // $ExpectType Dataset
     datasets.patch(dataset, "project-id", "dataset-id");
+    // $ExpectType Dataset
     datasets.patch(dataset, "project-id", "dataset-id", {});
+    // $ExpectType Dataset
     datasets.patch(dataset, "project-id", "dataset-id", {
         accessPolicyVersion: 3,
         updateMode: "UPDATE_MODE_UNSPECIFIED",
     });
+    // $ExpectType void
     datasets.remove("project-id", "dataset-id");
+    // $ExpectType void
     datasets.remove("project-id", "dataset-id", {});
+    // $ExpectType void
     datasets.remove("project-id", "dataset-id", { deleteContents: true });
+    // $ExpectType Dataset
     datasets.undelete({}, "project-id", "dataset-id");
+    // $ExpectType Dataset
     datasets.undelete({ deletionTime: "deletionTime" }, "project-id", "dataset-id");
+    // $ExpectType Dataset
     datasets.update(dataset, "project-id", "dataset-id");
+    // $ExpectType Dataset
     datasets.update(dataset, "project-id", "dataset-id", {});
+    // $ExpectType Dataset
     datasets.update(dataset, "project-id", "dataset-id", {
         accessPolicyVersion: 3,
         updateMode: "UPDATE_MODE_UNSPECIFIED",
     });
 
+    // $ExpectType JobCancelResponse
     jobs.cancel("project-id", "job-id");
+    // $ExpectType JobCancelResponse
     jobs.cancel("project-id", "job-id", {});
+    // $ExpectType JobCancelResponse
     jobs.cancel("project-id", "job-id", { location: "US" });
+    // $ExpectType void
     jobs.remove("project-id", "job-id");
+    // $ExpectType void
     jobs.remove("project-id", "job-id", {});
+    // $ExpectType void
     jobs.remove("project-id", "job-id", { location: "US" });
+    // $ExpectType Job
     jobs.get("project-id", "job-id");
+    // $ExpectType Job
     jobs.get("project-id", "job-id", {});
+    // $ExpectType Job
     jobs.get("project-id", "job-id", { location: "US" });
+    // $ExpectType GetQueryResultsResponse
     jobs.getQueryResults("project-id", "job-id");
+    // $ExpectType GetQueryResultsResponse
     jobs.getQueryResults("project-id", "job-id", {});
+    // $ExpectType GetQueryResultsResponse
     jobs.getQueryResults("project-id", "job-id", {
         location: "US",
         maxResults: 10,
@@ -842,10 +801,15 @@ function testBigQuery() {
         "formatOptions.timestampOutputFormat": "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED",
         "formatOptions.useInt64Timestamp": true,
     });
+    // $ExpectType Job
     jobs.insert({}, "project-id");
-    jobs.insert(job, "project-id");
+    // $ExpectType Job
+    jobs.insert(job, "project-id", mediaUpload);
+    // $ExpectType JobList
     jobs.list("project-id");
+    // $ExpectType JobList
     jobs.list("project-id", {});
+    // $ExpectType JobList
     jobs.list("project-id", {
         allUsers: true,
         maxCreationTime: "2",
@@ -856,15 +820,21 @@ function testBigQuery() {
         projection: "minimal",
         stateFilter: "running",
     });
+    // $ExpectType QueryResponse
     jobs.query(queryRequest, "project-id");
 
     const projects = bigquery.Projects;
+    // $ExpectType GetServiceAccountResponse
     projects.getServiceAccount("project-id");
+    // $ExpectType ProjectList
     projects.list();
+    // $ExpectType ProjectList
     projects.list({});
+    // $ExpectType ProjectList
     projects.list({ maxResults: 10, pageToken: "token" });
 
     const tabledata = bigquery.Tabledata;
+    // $ExpectType TableDataInsertAllResponse
     tabledata.insertAll({}, "project-id", "dataset-id", "table-id");
     const insertAll: GoogleAppsScript.BigQuery.Schema.TableDataInsertAllRequest = {
         ignoreUnknownValues: true,
@@ -873,9 +843,13 @@ function testBigQuery() {
         skipInvalidRows: true,
         templateSuffix: "_suffix",
     };
+    // $ExpectType TableDataInsertAllResponse
     tabledata.insertAll(insertAll, "project-id", "dataset-id", "table-id");
+    // $ExpectType TableDataList
     tabledata.list("project-id", "dataset-id", "table-id");
+    // $ExpectType TableDataList
     tabledata.list("project-id", "dataset-id", "table-id", {});
+    // $ExpectType TableDataList
     tabledata.list("project-id", "dataset-id", "table-id", {
         "formatOptions.timestampOutputFormat": "TIMESTAMP_OUTPUT_FORMAT_UNSPECIFIED",
         "formatOptions.useInt64Timestamp": true,
@@ -886,20 +860,35 @@ function testBigQuery() {
     });
 
     const tables = bigquery.Tables;
+    // $ExpectType Table
     tables.get("project-id", "dataset-id", "table-id");
+    // $ExpectType Table
     tables.get("project-id", "dataset-id", "table-id", {});
+    // $ExpectType Table
     tables.get("project-id", "dataset-id", "table-id", { selectedFields: "schema", view: "FULL" });
+    // $ExpectType Policy
     tables.getIamPolicy({}, "projects/project/datasets/dataset/tables/table");
+    // $ExpectType Table
     tables.insert(table, "project-id", "dataset-id");
+    // $ExpectType TableList
     tables.list("project-id", "dataset-id");
+    // $ExpectType TableList
     tables.list("project-id", "dataset-id", {});
+    // $ExpectType TableList
     tables.list("project-id", "dataset-id", { maxResults: 10, pageToken: "token" });
+    // $ExpectType Table
     tables.patch(table, "project-id", "dataset-id", "table-id");
+    // $ExpectType Table
     tables.patch(table, "project-id", "dataset-id", "table-id", {});
+    // $ExpectType Table
     tables.patch(table, "project-id", "dataset-id", "table-id", { autodetect_schema: true });
+    // $ExpectType void
     tables.remove("project-id", "dataset-id", "table-id");
+    // $ExpectType Policy
     tables.setIamPolicy({}, "projects/project/datasets/dataset/tables/table");
+    // $ExpectType Policy
     tables.setIamPolicy({ policy: {}, updateMask: "" }, "projects/project/datasets/dataset/tables/table");
+    // $ExpectType Policy
     tables.setIamPolicy({
         policy: {
             auditConfigs: [{
@@ -924,10 +913,15 @@ function testBigQuery() {
             version: -1,
         },
     }, "projects/project/datasets/dataset/tables/table");
+    // $ExpectType TestIamPermissionsResponse
     tables.testIamPermissions({}, "projects/project/datasets/dataset/tables/table");
+    // $ExpectType TestIamPermissionsResponse
     tables.testIamPermissions({ permissions: ["permissions"] }, "projects/project/datasets/dataset/tables/table");
+    // $ExpectType Table
     tables.update(table, "project-id", "dataset-id", "table-id");
+    // $ExpectType Table
     tables.update(table, "project-id", "dataset-id", "table-id", {});
+    // $ExpectType Table
     tables.update(table, "project-id", "dataset-id", "table-id", { autodetect_schema: false });
 }
 
