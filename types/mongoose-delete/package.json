@@ -8,7 +8,7 @@
     "minimumTypeScriptVersion": "4.9",
     "dependencies": {
         "@types/node": "*",
-        "mongoose": "^5.11 || ^6 || ^7 || ^8"
+        "mongoose": "^5.11 || ^6 || ^7 || ^8 || ^9"
     },
     "devDependencies": {
         "@types/mongoose-delete": "workspace:."

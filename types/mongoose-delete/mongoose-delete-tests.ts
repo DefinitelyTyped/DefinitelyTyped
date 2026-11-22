@@ -53,7 +53,7 @@ const idUser = new mongoose.Types.ObjectId("53da93b16b4a6670076b16bf");
 
 const Pet = mongoose.model<PetDocument, MongooseDelete.SoftDeleteModel<PetDocument>>("Pet", PetSchema);
 
-const Pet2 = mongoose.model("Pet", PetSchema) as MongooseDelete.SoftDeleteModel<PetDocument>;
+const Pet2 = mongoose.model("Pet", PetSchema) as MongooseDelete.SoftDeleteModel<PetDocument, {}, {}, { id: string }>;
 
 const Pet3 = mongoose.model<PetDocument, PetModel>("Pet", PetSchema);
 
