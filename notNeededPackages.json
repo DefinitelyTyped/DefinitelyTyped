@@ -724,6 +724,10 @@
             "libraryName": "canvaskit-wasm",
             "asOfVersion": "0.18.1"
         },
+        "carbon__colors": {
+            "libraryName": "@carbon/colors",
+            "asOfVersion": "11.61.0"
+        },
         "carbon__feature-flags": {
             "libraryName": "@carbon/feature-flags",
             "asOfVersion": "1.1.0"
