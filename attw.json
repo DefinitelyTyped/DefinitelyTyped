@@ -85,8 +85,6 @@
         "ember-changeset-validations",
         "ember-data__adapter",
         "ember-data__adapter/v3",
-        "ember-data__model",
-        "ember-data__model/v3",
         "ember-data__serializer",
         "ember-data__serializer/v3",
         "ember-data__store",
