@@ -2221,6 +2221,10 @@
             "libraryName": "eslint-plugin-mocha",
             "asOfVersion": "11.1.0"
         },
+        "eslint-plugin-tailwindcss": {
+            "libraryName": "eslint-plugin-tailwindcss",
+            "asOfVersion": "4.4.0"
+        },
         "eslint-scope": {
             "libraryName": "eslint-scope",
             "asOfVersion": "9.1.0"
