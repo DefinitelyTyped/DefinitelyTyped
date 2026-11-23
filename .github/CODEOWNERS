@@ -80,6 +80,7 @@
 /types/africastalking/                                  @James-Kaguru
 /types/after-all-results/                               @BendingBender
 /types/ag-auth/                                         @DanielRose
+/types/ag-auth/v1/                                      @DanielRose
 /types/ag-channel/                                      @DanielRose @Methuselah96
 /types/ag-channel/v4/                                   @DanielRose
 /types/ag-request/                                      @Methuselah96
@@ -96,7 +97,7 @@
 /types/ajv-async/                                       @dmitriismitnov
 /types/ajv-bsontype/                                    @adjerbetian
 /types/ajv-pack/                                        @qm3ster @ChristianMurphy
-/types/akamai-edgeworkers/                              @cdaley-akamai @wabain @yanakad @miliworking @lperra
+/types/akamai-edgeworkers/                              @cdaley-akamai @wabain @yanakad @miliworking @lperra @pskalczy
 /types/akumina-core/                                    @akumina @jasonarden @MarshHawk
 /types/akumina-core/v4/                                 @akumina @jasonarden @MarshHawk
 /types/alcides/                                         @asaidimu
@@ -6945,6 +6946,8 @@
 /types/sc-channel/                                      @DanielRose
 /types/sc-channel/v1/                                   @DanielRose
 /types/sc-errors/                                       @DanielRose
+/types/sc-errors/v1/                                    @DanielRose
+/types/sc-errors/v2/                                    @DanielRose
 /types/sc-framework-health-check/                       @DanielRose
 /types/sc-hot-reboot/                                   @DanielRose
 /types/scaleway-functions/                              @MrMicky-FR
@@ -7263,12 +7266,14 @@
 /types/socketcluster-client/v16/                        @DanielRose @Methuselah96
 /types/socketcluster-client/v17/                        @DanielRose @Methuselah96
 /types/socketcluster-client/v18/                        @DanielRose @Methuselah96
+/types/socketcluster-client/v19/                        @DanielRose @Methuselah96
 /types/socketcluster-server/                            @DanielRose @Methuselah96
 /types/socketcluster-server/v14/                        @DanielRose
 /types/socketcluster-server/v15/                        @DanielRose
 /types/socketcluster-server/v16/                        @DanielRose @Methuselah96
 /types/socketcluster-server/v17/                        @DanielRose @Methuselah96
 /types/socketcluster-server/v18/                        @DanielRose @Methuselah96
+/types/socketcluster-server/v19/                        @DanielRose @Methuselah96
 /types/socketio-jwt-auth/                               @codeanimal
 /types/socketio-wildcard/                               @BendingBender
 /types/socketty/                                        @Nax
