@@ -388,6 +388,10 @@
             "libraryName": "babel-plugin-tester",
             "asOfVersion": "11.0.0"
         },
+        "babel__helper-plugin-utils": {
+            "libraryName": "@babel/helper-plugin-utils",
+            "asOfVersion": "8.0.1"
+        },
         "babel__parser": {
             "libraryName": "@babel/parser",
             "asOfVersion": "7.1.0"
