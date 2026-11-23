@@ -1,6 +1,5 @@
 import { NativeEventSubscription } from "react-native";
-import { RemoteDataMessageObject, RemoteDataMessageWithExtras } from "./RemoteDataMessage";
-import { ResultResponse } from "./ResultResponse";
+import { NotificationOpenedData, RemoteDataMessageObject } from "./RemoteDataMessage";
 
 export interface HmsPushEvents {
     REMOTE_DATA_MESSAGE_RECEIVED: "REMOTE_DATA_MESSAGE_RECEIVED";
@@ -21,15 +20,23 @@ export interface HmsPushEventListeners {
     onMultiSenderTokenReceived: (
         result: (result: { dataJSON: string; token: string }) => void,
     ) => NativeEventSubscription;
-    onTokenError: (result: (result: ResultResponse<string>) => void) => NativeEventSubscription;
-    onMultiSenderTokenError: (result: (result: ResultResponse<string>) => void) => NativeEventSubscription;
-    onPushMessageSent: (result: (result: { msgId: string }) => void) => NativeEventSubscription;
-    onPushMessageSentError: (
-        result: (result: { resultInfo: string; msgId: string; result: string }) => void,
+    onTokenError: (result: (result: { exception: string }) => void) => NativeEventSubscription;
+    onMultiSenderTokenError: (
+        result: (result: { exception: string; dataJSON: string }) => void,
     ) => NativeEventSubscription;
-    onPushMessageSentDelivered: (result: (result: ResultResponse<boolean>) => void) => NativeEventSubscription;
+    onPushMessageSent: (result: (result: { msgId: string }) => void) => NativeEventSubscription;
+    onPushMessageSentError: (result: (result: PushMessageSentResult) => void) => NativeEventSubscription;
+    onPushMessageSentDelivered: (result: (result: PushMessageSentResult) => void) => NativeEventSubscription;
     onLocalNotificationAction: (result: (result: { dataJSON: string }) => void) => NativeEventSubscription;
-    onNotificationOpenedApp: (result: (result: RemoteDataMessageWithExtras) => void) => NativeEventSubscription;
+    onNotificationOpenedApp: (result: (result: NotificationOpenedData) => void) => NativeEventSubscription;
+}
+
+/** Payload of `onPushMessageSentError` and `onPushMessageSentDelivered`. */
+export interface PushMessageSentResult {
+    /** Native error code, as a string. */
+    result: string;
+    msgId: string;
+    resultInfo: string;
 }
 
 export type HmsPushEventType = HmsPushEvents & HmsPushEventListeners;
