@@ -53,6 +53,7 @@
         "test/timers.ts",
         "test/ws.ts",
         "test/crypto.ts",
+        "test/webcrypto.ts",
         "test/http.ts",
         "test/websockets.ts",
         "test/secrets.ts",

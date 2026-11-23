@@ -1186,7 +1186,7 @@ export interface MetricMessage {
              * it's not set it will group all metrics regardless of the method
              * tag.
              */
-            method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD" | "TRACE" | "CONNECT" | "QUERY";
+            method?: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "OPTIONS" | "HEAD" | "TRACE" | "CONNECT";
         }>;
     }): void;
 }
