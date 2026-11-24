@@ -12,7 +12,7 @@ interface SqlJsConfig extends Partial<EmscriptenModule> {
      *
      * Defaults to `true`.
      */
-    useOldExtensionFunctions: boolean;
+    useOldExtensionFunctions?: boolean;
 }
 
 type UpdateHookOperation = "insert" | "update" | "delete";
