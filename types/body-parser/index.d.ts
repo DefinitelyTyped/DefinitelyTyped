@@ -46,7 +46,7 @@ declare namespace bodyParser {
         /**
          * The type option is used to determine what media type the middleware will parse
          */
-        type?: string | string[] | ((req: http.IncomingMessage) => any) | undefined;
+        type?: string | string[] | RegExp | ((req: http.IncomingMessage) => any) | undefined;
         /**
          * The verify option, if supplied, is called as verify(req, res, buf, encoding),
          * where buf is a Buffer of the raw request body and encoding is the encoding of the request.
@@ -55,6 +55,12 @@ declare namespace bodyParser {
     }
 
     interface OptionsJson extends Options {
+        /**
+         * Specify the default character set for the json content if the charset
+         * is not specified in the Content-Type header of the request.
+         * Defaults to `utf-8`.
+         */
+        defaultCharset?: string | undefined;
         /**
          * The reviver option is passed directly to JSON.parse as the second argument.
          */
@@ -76,6 +82,17 @@ declare namespace bodyParser {
     }
 
     interface OptionsUrlencoded extends Options {
+        /**
+         * Specify the default character set for the urlencoded content if the charset
+         * is not specified in the Content-Type header of the request.
+         * Defaults to `utf-8`.
+         */
+        defaultCharset?: string | undefined;
+        /**
+         * The depth option controls the maximum depth of parsed objects when `extended: true`.
+         * If a request contains an object deeper than this value, a 400 will be returned to the client. Defaults to 32.
+         */
+        depth?: number | undefined;
         /**
          * The extended option allows to choose between parsing the URL-encoded data
          * with the querystring library (when `false`) or the qs library (when `true`).

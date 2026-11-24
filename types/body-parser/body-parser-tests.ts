@@ -39,8 +39,10 @@ app.post("/login", urlencodedParser, (req, res) => {
 app.use(urlencodedParser);
 
 app.use(json({ type: "application/*+json" }));
+app.use(json({ defaultCharset: "utf-8", type: /^application\/json/ }));
 app.use(raw({ type: "application/vnd.custom-type" }));
 app.use(text({ type: "text/html" }));
+app.use(urlencoded({ extended: true, depth: 32, defaultCharset: "iso-8859-1" }));
 
 app.all("/", (req, res, next) => {
     console.log(req.body);

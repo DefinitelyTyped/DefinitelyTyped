@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "@types/body-parser",
-    "version": "1.19.9999",
+    "version": "1.20.9999",
     "projects": [
         "https://github.com/expressjs/body-parser"
     ],
@@ -45,6 +45,10 @@
         {
             "name": "Sebastian Beltran",
             "githubUsername": "bjohansebas"
+        },
+        {
+            "name": "dersders0120-rgb",
+            "githubUsername": "dersders0120-rgb"
         }
     ]
 }
