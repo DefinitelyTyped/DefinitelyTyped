@@ -172,3 +172,94 @@ const updateEnvelopeDocGenFormFields = async (envelopeId: string) => {
     const results = await envelopesApi.updateEnvelopeDocGenFormFields(params.accountId, envelopeId, formFields);
     return results;
 };
+
+const getEnvelopeFields = async (envelopeId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    const envelope = await envelopesApi.getEnvelope(params.accountId, envelopeId);
+    // $ExpectType NotaryRecipient[] | undefined
+    envelope.recipients?.notaries;
+    // $ExpectType LockInformation | undefined
+    envelope.lockInformation;
+    // $ExpectType EnvelopeCustomMetadata | undefined
+    envelope.envelopeCustomMetadata;
+    // @ts-expect-error
+    envelope.statusDateTime;
+};
+
+const getEnvelopeWorkflowDefinition = async (envelopeId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    // $ExpectType Promise<Workflow>
+    envelopesApi.getEnvelopeWorkflowDefinition(params.accountId, envelopeId);
+};
+
+const createRecipientProofFileResourceToken = async (envelopeId: string, recipientId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    // $ExpectType Promise<IdEvidenceResourceToken>
+    envelopesApi.createRecipientProofFileResourceToken(params.accountId, envelopeId, recipientId);
+};
+
+const updateEnvelopeDocument = async (envelopeId: string, documentId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+    const documentFileBytes = new Blob(["%PDF-1.7"]);
+
+    // $ExpectType Promise<EnvelopeDocument>
+    envelopesApi.updateDocument(documentFileBytes, params.accountId, envelopeId, documentId);
+};
+
+const getAttachment = async (envelopeId: string, attachmentId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    // $ExpectType Promise<string>
+    envelopesApi.getAttachment(params.accountId, envelopeId, attachmentId);
+};
+
+const listStatusChanges = async () => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const envelopesApi = new docusign.EnvelopesApi(client);
+
+    // $ExpectType Promise<EnvelopesInformation>
+    envelopesApi.listStatusChanges(params.accountId, { searchMode: "all" });
+};
+
+const listGroupUsers = async (groupId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const groupsApi = new docusign.GroupsApi(client);
+
+    // $ExpectType Promise<GroupUsersResponse>
+    groupsApi.listGroupUsers(params.accountId, groupId);
+};
+
+const createRecommendationsIntent = async (envelopeId: string) => {
+    const params = await getDsRequestParams();
+    const client = await getClient(params.token);
+    const insightsApi = new docusign.InsightsApi(client);
+
+    // $ExpectType Promise<RecommendationsListResponse>
+    insightsApi.createRecommendationsIntent(params.accountId, "type", envelopeId);
+};
+
+const listRecipientNamesByEmailRemoved = () => {
+    const accountsApi = new docusign.AccountsApi();
+    // @ts-expect-error
+    accountsApi.listRecipientNamesByEmail;
+};
+
+const commentsApiRemoved = () => {
+    // @ts-expect-error
+    docusign.CommentsApi;
+};
