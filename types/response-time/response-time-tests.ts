@@ -35,4 +35,5 @@ import http = require("http");
     app.use(responseTime((req: express.Request, res: express.Response, time: number) => {
         let num: number = time;
     }));
+    app.use(responseTime<express.Request, express.Response>({ digits: 2, header: "X-Time", suffix: false }));
 }
