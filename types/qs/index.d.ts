@@ -15,7 +15,7 @@ declare namespace QueryString {
         encoder?:
             | ((str: any, defaultEncoder: defaultEncoder, charset: string, type: "key" | "value") => string)
             | undefined;
-        filter?: Array<string | number> | ((prefix: string, value: any) => any) | undefined;
+        filter?: readonly (string | number)[] | Array<string | number> | ((prefix: string, value: any) => any) | undefined;
         arrayFormat?: "indices" | "brackets" | "repeat" | "comma" | undefined;
         indices?: boolean | undefined;
         sort?: ((a: string, b: string) => number) | undefined;
@@ -73,6 +73,16 @@ declare namespace QueryString {
     interface ParsedQs {
         [key: string]: undefined | string | ParsedQs | (string | ParsedQs)[];
     }
+
+    const formats: {
+        formatters: {
+            RFC1738(value: unknown): string;
+            RFC3986(value: unknown): string;
+        };
+        RFC1738: "RFC1738";
+        RFC3986: "RFC3986";
+        default: "RFC3986";
+    };
 
     function stringify(obj: any, options?: IStringifyOptions<BooleanOptional>): string;
     function parse(str: string, options?: IParseOptions<BooleanOptional> & { decoder?: never | undefined }): ParsedQs;

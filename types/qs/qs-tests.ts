@@ -467,3 +467,15 @@ interface MyQuery extends qs.ParsedQs {
     a: string;
     b?: string | undefined;
 }
+
+// formats tests
+const rfc1738Format: "RFC1738" = qs.formats.RFC1738;
+const rfc3986Format: "RFC3986" = qs.formats.RFC3986;
+const defaultFormat: "RFC3986" = qs.formats.default;
+const formattedVal: string = qs.formats.formatters.RFC1738("a%20b");
+qs.stringify({ a: "b c" }, { format: qs.formats.RFC1738 });
+
+// as const readonly filter array
+const readonlyFilter = ["a", "b"] as const;
+qs.stringify({ a: "1", b: "2", c: "3" }, { filter: readonlyFilter });
+
